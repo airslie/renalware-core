@@ -8,7 +8,7 @@ RSpec.describe "Problems Requests" do
   describe "GET show" do
     context "viewing a current problem" do
       it "responds with the problem" do
-        get patient_problem_path(patient_id: patient.id, id: problem.id)
+        get patient_problem_path(patient_id: patient, id: problem.id)
 
         expect(response).to have_http_status(:success)
       end
@@ -16,7 +16,7 @@ RSpec.describe "Problems Requests" do
 
     context "viewing an archived problem" do
       it "responds with the problem" do
-        get patient_problem_path(patient_id: patient.id, id: archived_problem.id)
+        get patient_problem_path(patient_id: patient, id: archived_problem.id)
 
         expect(response).to have_http_status(:success)
       end

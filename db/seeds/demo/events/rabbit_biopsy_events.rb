@@ -13,7 +13,7 @@ module Renalware
                result2: Events::Biopsy::Document.result2.values.last,
                notes: "Lorem ipusm")
         Events::Biopsy.new(
-          patient_id: @rabbit.to_param,
+          patient_id: @rabbit.id,
           event_type_id: @biopsy_event_type.id,
           notes: Faker::Lorem.sentence,
           date_time: on,

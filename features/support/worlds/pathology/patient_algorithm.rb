@@ -22,13 +22,13 @@ module World
           params =
             if within_rage == "yes"
               {
-                start_date: Date.current - 1.days,
-                end_date: Date.current + 1.days
+                start_date: Date.current - 1.day,
+                end_date: Date.current + 1.day
               }
             else
               {
                 start_date: Date.current - 2.days,
-                end_date: Date.current - 1.days
+                end_date: Date.current - 1.day
               }
             end
 
@@ -71,7 +71,7 @@ module World
         def record_patient_rule(patient, clinician, params)
           login_as clinician
 
-          visit new_patient_pathology_patient_rule_path(patient_id: patient.id)
+          visit new_patient_pathology_patient_rule_path(patient_id: patient)
 
           within "#new_pathology_requests_patient_rule" do
             select params[:lab], from: "Lab"
@@ -90,7 +90,7 @@ module World
           login_as clinician
 
           visit patient_pathology_required_observations_path(
-            patient_id: patient.id
+            patient_id: patient
           )
 
           html_table_to_array("patient_pathology")

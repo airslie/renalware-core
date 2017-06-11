@@ -43,7 +43,7 @@ module Renalware
         render :edit, locals: locals(session)
       rescue Pundit::NotAuthorizedError
         flash[:warning] = t(".session_is_immutable")
-        redirect_to patient_hd_session_path(session, patient_id: patient.id)
+        redirect_to patient_hd_session_path(session, patient_id: patient)
       end
 
       def update

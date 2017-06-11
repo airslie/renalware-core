@@ -21,7 +21,7 @@
             = link_to "Demographics", patient_path(patient), title: "Demographics"
             = pipe_separator
             = link_to "Edit death details",
-                      edit_patient_death_path(patient.id),
+                      edit_patient_death_path(patient),
                       title: "Edit death details"
           td= patient.to_s(format: :default)
           td= patient.nhs_number

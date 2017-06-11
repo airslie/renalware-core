@@ -69,7 +69,7 @@
             td= I18n.l appointment.starts_on
             td= appointment.start_time
             td= link_to appointment.patient.full_name,
-                        patient_clinical_summary_path(patient_id: appointment.patient.id)
+                        patient_clinical_summary_path(patient_id: appointment.patient)
             td= appointment.patient.sex.code
             td= appointment.patient.age
             td= appointment.patient.current_modality

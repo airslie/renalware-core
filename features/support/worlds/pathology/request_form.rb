@@ -252,7 +252,7 @@ module World
 
           login_as clinician
 
-          visit patient_pathology_required_observations_path(patient_id: patients.first.id)
+          visit patient_pathology_required_observations_path(patient_id: patients.first)
 
           click_on "Generate Forms"
 

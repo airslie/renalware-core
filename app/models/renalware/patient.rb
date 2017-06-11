@@ -9,6 +9,17 @@ module Renalware
     include Accountable
     include Document::Base
     extend Enumerize
+    extend FriendlyId
+
+    # Out use of has_secure_token here ensures patient.secure_id is populated with a 24 char
+    # base58 token which is used in urls anywhere a patient is referenced, in order to obfuscate
+    # their database id. Note however that we also lean on a PG function
+    # (generate_patient_secure_id()) which will generate a new base58 patient secure_id if a
+    # patient record is created _outside_ of rails (for example during data migration).
+    # The PG function is only invoked at the SQL level to provide a default if none exists when a
+    #  patient created.
+    has_secure_token :secure_id
+    friendly_id :secure_id, use: [:finders]
 
     enumerize :marital_status, in: %i(married single divorced widowed)
 
@@ -34,15 +45,11 @@ module Renalware
     has_many :exit_site_infections, class_name: "PD::ExitSiteInfection"
     has_many :peritonitis_episodes, class_name: "PD::PeritonitisEpisode"
     has_many :pd_regimes, class_name: "PD::Regime"
-
     has_many :problems, class_name: "Problems::Problem"
-
     has_many :prescriptions, class_name: "Medications::Prescription"
     has_many :drugs, through: :prescriptions
     has_many :medication_routes, through: :prescriptions, class_name: "Medications::MedicationRoute"
-
     has_many :modalities, class_name: "Modalities::Modality"
-
     has_many :modality_descriptions,
              class_name: "Modalities::Description",
              through: :modalities,
@@ -121,7 +128,7 @@ module Renalware
     end
 
     def current_modality_death?
-      return false unless current_modality.present?
+      return false if current_modality.blank?
 
       current_modality.description.is_a?(Deaths::ModalityDescription)
     end

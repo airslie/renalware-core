@@ -5,7 +5,7 @@ RSpec.describe "Patient's Protocol PDF", type: :request do
 
   describe "GET show" do
     it "responds with an inlined PDF by default" do
-      get patient_hd_protocol_path(patient_id: patient.id)
+      get patient_hd_protocol_path(patient_id: patient)
 
       expect(response).to have_http_status(:success)
       expect(response).to be_success
@@ -14,7 +14,7 @@ RSpec.describe "Patient's Protocol PDF", type: :request do
     end
 
     it "can responds with a PDF download" do
-      get patient_hd_protocol_path(patient_id: patient.id, disposition: :attachment)
+      get patient_hd_protocol_path(patient_id: patient, disposition: :attachment)
 
       expect(response).to be_success
       expect(response["Content-Type"]).to eq("application/pdf")

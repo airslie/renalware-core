@@ -13,7 +13,7 @@ module Renalware
                type: "mrsa",
                notes: "Lorem ipusm")
         Events::Swab.new(
-          patient_id: @rabbit.to_param,
+          patient_id: @rabbit.id,
           event_type_id: @swab_event_type.id,
           notes: Faker::Lorem.sentence,
           date_time: on,
