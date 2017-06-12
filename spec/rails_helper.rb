@@ -1,5 +1,26 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= "test"
+
+require "simplecov"
+
+SimpleCov.command_name "RSpec"
+
+SimpleCov.start "rails" do
+
+  # save to CircleCI's artifacts directory if we're on CircleCI
+  if ENV["CIRCLE_ARTIFACTS"]
+    dir = File.join(ENV["CIRCLE_ARTIFACTS"], "coverage")
+    coverage_dir(dir)
+  end
+
+  use_merging true
+  merge_timeout 1200 # 20 minutes
+  # any custom configs like groups and filters can be here at a central place
+  add_filter "/spec/models/concerns"
+  add_filter "/features"
+  add_filter "/spec/support"
+end
+
 require File.expand_path("../dummy/config/environment", __FILE__)
 require "spec_helper"
 require "rspec/rails"
