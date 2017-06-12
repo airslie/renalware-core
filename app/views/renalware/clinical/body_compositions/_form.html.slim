@@ -1,38 +1,35 @@
 .form-content
-    = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Body Composition", name: "body_composition" } do
-      = f.input :assessed_on,
-                autofocus: true,
-                as: :date_picker,
-                wrapper: :horizontal_datepicker
-      = f.association :assessor,
-                as: :user_picker,
-                collection: Renalware::User.ordered
-      = f.input :overhydration,
-                wrapper: :horizontal_small
-      = f.input :volume_of_distribution,
-                wrapper: :horizontal_small
-      = f.input :total_body_water,
-                wrapper: :horizontal_small
-      = f.input :extracellular_water,
-                wrapper: :horizontal_small
-      = f.input :intracellular_water,
-                wrapper: :horizontal_small
-      = f.input :lean_tissue_index,
-                wrapper: :horizontal_small
-      = f.input :fat_tissue_index,
-                wrapper: :horizontal_small
-      = f.input :lean_tissue_mass,
-                wrapper: :horizontal_small
-      = f.input :fat_tissue_mass,
-                wrapper: :horizontal_small
-      = f.input :adipose_tissue_mass,
-                wrapper: :horizontal_small
-      = f.input :body_cell_mass,
-                wrapper: :horizontal_small
-      = f.input :quality_of_reading,
-                wrapper: :horizontal_small
-      = f.text_area :notes, { rows: 5 }
+  = f.input :assessed_on,
+            as: :date_picker,
+            wrapper: :horizontal_datepicker
+  = f.association :assessor,
+            as: :user_picker,
+            collection: Renalware::User.ordered
+  = f.input :overhydration,
+            wrapper: :horizontal_small
+  = f.input :volume_of_distribution,
+            wrapper: :horizontal_small
+  = f.input :total_body_water,
+            wrapper: :horizontal_small
+  = f.input :extracellular_water,
+            wrapper: :horizontal_small
+  = f.input :intracellular_water,
+            wrapper: :horizontal_small
+  = f.input :lean_tissue_index,
+            wrapper: :horizontal_small
+  = f.input :fat_tissue_index,
+            wrapper: :horizontal_small
+  = f.input :lean_tissue_mass,
+            wrapper: :horizontal_small
+  = f.input :fat_tissue_mass,
+            wrapper: :horizontal_small
+  = f.input :adipose_tissue_mass,
+            wrapper: :horizontal_small
+  = f.input :body_cell_mass,
+            wrapper: :horizontal_small
+  = f.input :quality_of_reading,
+            wrapper: :horizontal_small
+  = f.text_area :notes, { rows: 5 }
 
 
 .row

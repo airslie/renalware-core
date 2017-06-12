@@ -26,7 +26,10 @@ article.swabs
     tbody
       - body_compositions.each do |body_composition|
         tr
-          td= link_to("Edit", edit_patient_clinical_body_composition_path(patient, body_composition)) if policy(body_composition).edit?
+          td
+            = link_to "View", patient_clinical_body_composition_path(patient, body_composition)
+            = pipe_separator
+            = link_to "Edit", edit_patient_clinical_body_composition_path(patient, body_composition)
           td= body_composition.assessed_on
           td= body_composition.assessor
           td= body_composition.overhydration
