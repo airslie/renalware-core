@@ -915,9 +915,9 @@ ActiveRecord::Schema.define(version: 20170608192234) do
   create_table "patients", force: :cascade do |t|
     t.string   "nhs_number"
     t.string   "local_patient_id"
-    t.string   "family_name",                                                        null: false
-    t.string   "given_name",                                                         null: false
-    t.date     "born_on",                                                            null: false
+    t.string   "family_name",                                                                  null: false
+    t.string   "given_name",                                                                   null: false
+    t.date     "born_on",                                                                      null: false
     t.boolean  "paediatric_patient_indicator"
     t.string   "sex"
     t.integer  "ethnicity_id"
@@ -931,12 +931,12 @@ ActiveRecord::Schema.define(version: 20170608192234) do
     t.text     "death_notes"
     t.boolean  "cc_on_all_letters",            default: true
     t.date     "cc_decision_on"
-    t.datetime "created_at",                                                         null: false
-    t.datetime "updated_at",                                                         null: false
+    t.datetime "created_at",                                                                   null: false
+    t.datetime "updated_at",                                                                   null: false
     t.integer  "practice_id"
     t.integer  "primary_care_physician_id"
-    t.integer  "created_by_id",                                                      null: false
-    t.integer  "updated_by_id",                                                      null: false
+    t.integer  "created_by_id",                                                                null: false
+    t.integer  "updated_by_id",                                                                null: false
     t.string   "title"
     t.string   "suffix"
     t.string   "marital_status"
@@ -946,21 +946,22 @@ ActiveRecord::Schema.define(version: 20170608192234) do
     t.jsonb    "document"
     t.integer  "religion_id"
     t.integer  "language_id"
-    t.boolean  "diabetic",                     default: false,                       null: false
-    t.string   "allergy_status",               default: "unrecorded",                null: false
+    t.boolean  "diabetic",                     default: false,                                 null: false
+    t.string   "allergy_status",               default: "unrecorded",                          null: false
     t.datetime "allergy_status_updated_at"
     t.string   "local_patient_id_2"
     t.string   "local_patient_id_3"
     t.string   "local_patient_id_4"
     t.string   "local_patient_id_5"
     t.string   "external_patient_id"
-    t.boolean  "send_to_renalreg",             default: false,                       null: false
-    t.boolean  "send_to_rpv",                  default: false,                       null: false
+    t.boolean  "send_to_renalreg",             default: false,                                 null: false
+    t.boolean  "send_to_rpv",                  default: false,                                 null: false
     t.date     "renalreg_decision_on"
     t.date     "rpv_decision_on"
     t.string   "renalreg_recorded_by"
     t.string   "rpv_recorded_by"
-    t.uuid     "uuid",                         default: -> { "uuid_generate_v4()" }, null: false
+    t.uuid     "uuid",                         default: -> { "uuid_generate_v4()" },           null: false
+    t.string   "secure_id",                    default: -> { "generate_patient_secure_id()" }, null: false
     t.index ["created_by_id"], name: "index_patients_on_created_by_id", using: :btree
     t.index ["document"], name: "index_patients_on_document", using: :gin
     t.index ["ethnicity_id"], name: "index_patients_on_ethnicity_id", using: :btree
@@ -976,6 +977,7 @@ ActiveRecord::Schema.define(version: 20170608192234) do
     t.index ["primary_care_physician_id"], name: "index_patients_on_primary_care_physician_id", using: :btree
     t.index ["religion_id"], name: "index_patients_on_religion_id", using: :btree
     t.index ["second_edta_code_id"], name: "index_patients_on_second_edta_code_id", using: :btree
+    t.index ["secure_id"], name: "index_patients_on_secure_id", unique: true, using: :btree
     t.index ["updated_by_id"], name: "index_patients_on_updated_by_id", using: :btree
     t.index ["uuid"], name: "index_patients_on_uuid", using: :btree
   end
