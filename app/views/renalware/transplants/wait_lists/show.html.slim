@@ -12,31 +12,33 @@
 
   dl.sub-nav
     - filters.each do |key, label|
-      = sub_nav_item label, path_params.merge(filter: key)
-
+      - options = path_params.merge(filter: key).to_h.symbolize_keys
+      - path = Renalware::Engine.routes.url_for(options.merge!(only_path: true))
+      = link_to label, path
+      = sub_nav_item(label, path)
 
   table.report
     thead
       tr
         th.noprint
-        th= sort_link(q, :patient_family_name, "Patient")
+        th= sort_link([:renalware, q], :patient_family_name, "Patient")
         th Hosp No
-        th= sort_link(q, :patient_born_on, "Age")
-        th= sort_link(q, :patient_sex, "Sex")
+        th= sort_link([:renalware, q], :patient_born_on, "Age")
+        th= sort_link([:renalware, q], :patient_sex, "Sex")
         th Modal
-        th= sort_link(q, :uk_transplant_centre_code, "Site")
+        th= sort_link([:renalware, q], :uk_transplant_centre_code, "Site")
         th Status
         th UKT Status
         / Note patient_profile_esrf_on sorting not yet working because patient is not a
         / Renal::Patient so patient#profile does not exist. We may need to add a ransacker
         / in WaitListQuery
-        th.col-width-date= sort_link(q, :patient_profile_esrf_on, "ESRF Date")
-        th.col-width-date= sort_link(q, :entered_on, "Entry Date")
+        th.col-width-date= sort_link([:renalware, q], :patient_profile_esrf_on, "ESRF Date")
+        th.col-width-date= sort_link([:renalware, q], :entered_on, "Entry Date")
         th DOL
         th Bld Grp
-        th.col-width-date= sort_link(q, :crf_highest_value, "CRF high")
+        th.col-width-date= sort_link([:renalware, q], :crf_highest_value, "CRF high")
         th.col-width-date CRF high date
-        th= sort_link(q, :crf_latest_value, "CRF latest")
+        th= sort_link([:renalware, q], :crf_latest_value, "CRF latest")
         th.col-width-date CRF latest date
         th Sens (CRF>60)
         th Prev Ops

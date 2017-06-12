@@ -5,9 +5,9 @@ html lang="en"
 
     title= content_for?(:title) ? yield(:title) : "Renalware v#{Renalware::VERSION}"
 
-    = stylesheet_link_tag "application", media: :all
-    = stylesheet_link_tag "print/pathology_request_forms", media: :all
-    = javascript_include_tag "vendor/modernizr"
+    = stylesheet_link_tag "renalware/application", media: :all
+    = stylesheet_link_tag "renalware/print/pathology_request_forms", media: :all
+    = javascript_include_tag "renalware/vendor/modernizr"
 
     = csrf_meta_tag
 
@@ -56,4 +56,4 @@ html lang="en"
     = render partial: "renalware/pathology/requests/requests/request_form/#{request_html_form_params.template}",
              locals: { requests: requests, format: :html }
 
-    = javascript_include_tag "application"
+    = javascript_include_tag "renalware/application"

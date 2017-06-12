@@ -23,7 +23,7 @@ class GitCommitSha
   end
 
   def sha_from_file(filename)
-    file = Rails.root.join(filename)
+    file = Renalware::Engine.root.join(filename)
     File.exist?(file) && File.open(file, &:gets)
   end
 end

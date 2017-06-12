@@ -4,6 +4,10 @@ require "git_commit_sha"
 module Renalware
   module ApplicationHelper
 
+    def patient_search
+      PatientSearch.call(params)
+    end
+
     # For use in layouts
     def page_title(separator = Renalware.config.page_title_spearator)
       [
@@ -116,7 +120,8 @@ module Renalware
     end
 
     def inline_image(file_path)
-      InlineImage.new("/app/assets/images/#{file_path}")
+      # InlineImage.new("/app/assets/images/#{file_path}")
+      InlineImage.new(asset_path(file_path))
     end
 
     def modality_description_for(modality)

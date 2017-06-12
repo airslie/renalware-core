@@ -58,4 +58,4 @@ module World
   end
 end
 
-Dir[Rails.root.join("features/support/worlds/patients/*.rb")].each { |f| require f }
+Dir[Renalware::Engine.root.join("features/support/worlds/patients/*.rb")].each { |f| require f }

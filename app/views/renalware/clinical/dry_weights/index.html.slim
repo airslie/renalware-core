@@ -2,8 +2,8 @@
   .document.hd-sessions
     table.auto-layout
       thead
-        th.col-width-date= sort_link(search, :assessed_on, "Date")
-        th.col-width-small= sort_link(search, :weight, "Weight (kg)")
+        th.col-width-date= sort_link([:renalware, search], :assessed_on, "Date")
+        th.col-width-small= sort_link([:renalware, search], :weight, "Weight (kg)")
         th Assessor
 
       tbody

@@ -1,6 +1,14 @@
 require "simplecov"
 SimpleCov.command_name "Cucumber-" + (ENV["TEST_DEPTH"] || "domain")
 
+ENV["RAILS_ENV"] ||= "test"
+require File.expand_path("../../../spec/dummy/config/environment.rb", __FILE__)
+
+# Tell cucumber-rails where rails lives
+ENV["RAILS_ROOT"] ||= File.dirname(__FILE__) + "../../../spec/dummy"
+
+include Renalware::Engine.routes.url_helpers
+
 SimpleCov.start "rails" do
 
   # save to CircleCI's artifacts directory if we're on CircleCI
@@ -23,11 +31,10 @@ end
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-# Tell cucumber-rails where rails lives
-ENV["RAILS_ROOT"] = Dir.pwd
-
 require "cucumber/rails"
 require "capybara-screenshot/cucumber" if RUBY_PLATFORM =~ /darwin/
+require "rspec/rails"
+require "factory_girl_rails"
 require "chosen-rails/rspec"
 
 WebMock.disable!

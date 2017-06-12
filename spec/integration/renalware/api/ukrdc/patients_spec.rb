@@ -17,7 +17,7 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
 
       expect(response).to be_success
       document = Nokogiri::XML(response.body)
-      xsd_path = File.join(Rails.root, "vendor", "xsd", "ukrdc/UKRDC.xsd")
+      xsd_path = File.join(Renalware::Engine.root, "vendor", "xsd", "ukrdc/UKRDC.xsd")
       validate(document, xsd_path, "PatientRecord").each do |error|
         pending error.message
         fail

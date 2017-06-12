@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Managing PD PET Adequacy Results", type: :request do
+
   let(:patient) { Renalware::PD.cast_patient(create(:patient)) }
   let(:user) { create(:user) }
 

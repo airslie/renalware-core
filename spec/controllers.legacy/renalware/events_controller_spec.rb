@@ -2,6 +2,7 @@ require "rails_helper"
 
 module Renalware::Events
   RSpec.describe EventsController, type: :controller do
+    routes { Renalware::Engine.routes }
 
     before do
       @patient = create(:patient)

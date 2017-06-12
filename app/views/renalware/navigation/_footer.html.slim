@@ -1,2 +1,3 @@
-footer
-  | Renalware® v#{semantic_app_version} © #{Date.current.year} Airslie Ltd &nbsp;&nbsp;
+- if defined?(semantic_app_version)
+  footer
+    | Renalware® v#{semantic_app_version} © #{Date.current.year} Airslie Ltd &nbsp;&nbsp;

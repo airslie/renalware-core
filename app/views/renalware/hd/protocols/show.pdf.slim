@@ -1,7 +1,7 @@
 - clinical_patient = Renalware::Clinical.cast_patient(protocol.patient)
 
 - content_for(:head) do
-  = wicked_pdf_stylesheet_link_tag "protocol_pdf"
+  = wicked_pdf_stylesheet_link_tag "renalware/protocol_pdf"
 
 - protocol.with_format("html") do
   .protocol

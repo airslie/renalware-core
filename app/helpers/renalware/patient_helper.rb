@@ -17,7 +17,7 @@ module Renalware
     end
 
     def formatted_nhs_number(patient)
-      PatientPresenter.new(patient).nhs_number
+      ::Renalware::PatientPresenter.new(patient).nhs_number
     end
   end
 end

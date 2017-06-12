@@ -1,3 +1,4 @@
+require_dependency "renalware/patients"
 require_dependency "renalware/clinics"
 
 module Renalware

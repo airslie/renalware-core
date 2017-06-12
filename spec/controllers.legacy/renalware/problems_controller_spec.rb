@@ -2,6 +2,7 @@ require "rails_helper"
 
 module Renalware::Problems
   RSpec.describe ProblemsController, type: :controller do
+    routes { Renalware::Engine.routes }
     let(:patient) { create(:patient) }
     let(:problem) { create(:problem, patient: patient) }
 

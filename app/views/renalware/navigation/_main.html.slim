@@ -6,6 +6,6 @@ nav.top-bar(data-topbar role="navigation")
         span
 
   - if user_signed_in?
-    = render "renalware/navigation/menu", patient_search: patient_search
+    = render "renalware/navigation/menu", the_patient_search: patient_search
   - else
     = render "renalware/navigation/branding"

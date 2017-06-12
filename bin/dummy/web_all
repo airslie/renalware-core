@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+#
+# Runs rails server and any other background processes for example delayed_job
+# defined in the Procfile
+
+environ = ENV.fetch("RAILS_ENV", "development")
+procfile = (environ == "development") ? "spec/dummy/Procfile.dev" : "spec/dummy/Procfile"
+puts "Starting foreman with #{procfile}"
+exec("foreman start -f #{procfile}")
