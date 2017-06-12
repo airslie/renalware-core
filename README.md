@@ -126,3 +126,8 @@ Deploy using capistrano:
 ```
 cap vagrant deploy
 ```
+
+### Engine migrations notes
+
+- use `config.active_record.schema_format = :sql` in your `application.rb` because the engine
+used postgres views and functions which are note properly supported in a `schema.rb`

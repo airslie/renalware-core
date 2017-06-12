@@ -14,7 +14,7 @@ dependencies:
 database:
   override:
     - cp spec/dummy/config/database.circle.yml spec/dummy/database.yml
-    - bundle exec rake app:db:create app:db:schema:load
+    - bundle exec rake app:db:create app:db:structure:load
 
 test:
   override:
