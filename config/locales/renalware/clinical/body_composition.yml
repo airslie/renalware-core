@@ -15,6 +15,7 @@ en:
         adipose_tissue_mass: Adipose Tissue Mass (ATM)
         body_cell_mass: Body Cell Mass (BCM)
         quality_of_reading: Quality of Reading (Q)
+        notes: Notes
     errors:
       models:
         renalware/clinical/body_composition:
@@ -70,6 +71,8 @@ en:
   renalware:
     clinical:
       body_compositions:
+        show:
+          title: Body Composition Measurements
         list:
           title: Body Composition Measurements
           add_dry_weight: Add a Body Composition Measurements
