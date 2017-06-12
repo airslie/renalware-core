@@ -187,7 +187,7 @@ Rails.application.routes.draw do
         resource :allergy_status, only: [:update]
         resource :profile, only: [:show, :edit, :update]
         resources :dry_weights, only: [:new, :create, :index]
-        resources :body_compositions, only: [:new, :create, :edit, :index]
+        resources :body_compositions, only: [:new, :create, :show, :edit, :update]
       end
 
       resources :bookmarks, only: :create, controller: "patients/bookmarks"

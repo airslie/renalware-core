@@ -18,8 +18,9 @@ module Renalware
       end
 
       def show
-        body_composition = BodyComposition.for_patient(patient).find(params[:id])
+        body_composition = find_body_composition
         @body_composition = BodyCompositionPresenter.new(body_composition)
+        render locals: { patient: patient, body_composition: body_composition }
       end
 
       def new
@@ -42,6 +43,23 @@ module Renalware
         else
           flash[:error] = t(".failed", model_name: "dry weight")
           render_new(body_composition)
+        end
+      end
+
+      def edit
+        body_composition = find_body_composition
+        @body_composition = body_composition
+        render locals: { patient: patient, body_composition: body_composition }
+      end
+
+      def update
+        body_composition = find_body_composition
+        authorize body_composition
+        if body_composition.update(body_composition_params)
+          redirect_to patient_clinical_profile_path(patient),
+            notice: success_msg_for("body_composition")
+        else
+          render :edit, locals: { patient: patient, body_composition: body_composition }
         end
       end
 
@@ -74,6 +92,11 @@ module Renalware
           .permit(attributes)
           .merge(by: current_user)
       end
+
+      def find_body_composition
+        Clinical::BodyComposition.for_patient(patient).find(params[:id])
+      end
+
 
       def attributes
         [
