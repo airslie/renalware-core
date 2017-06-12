@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :body_composition, class: "Renalware::Clinical::BodyComposition"do
+  factory :body_composition, class: "Renalware::Clinical::BodyComposition" do
     patient
 
     assessed_on 1.week.ago
@@ -17,7 +17,7 @@ FactoryGirl.define do
     quality_of_reading "65.123"
 
     association :assessor, factory: :user
-    association :created_by,  factory: :user
-    association :updated_by,  factory: :user
+    association :created_by, factory: :user
+    association :updated_by, factory: :user
   end
 end

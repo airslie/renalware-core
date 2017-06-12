@@ -97,7 +97,6 @@ module Renalware
         Clinical::BodyComposition.for_patient(patient).find(params[:id])
       end
 
-
       def attributes
         [
           :assessed_on, :overhydration, :volume_of_distribution, :total_body_water,
