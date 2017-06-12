@@ -1,6 +1,2 @@
-#!/usr/bin/env ruby
-
-environ = ENV.fetch("RAILS_ENV", "development")
-procfile = (environ == "development") ? "Procfile.dev" : "Procfile"
-puts "Starting foreman with #{procfile}"
-exec("foreman start -f #{procfile}")
+#!/bin/sh
+bin/dummy/web

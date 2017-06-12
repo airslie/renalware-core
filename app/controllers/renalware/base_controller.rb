@@ -1,3 +1,5 @@
+require_dependency "application_controller"
+
 module Renalware
   class BaseController < ApplicationController
     include Concerns::DeviseControllerMethods
@@ -19,20 +21,13 @@ module Renalware
     alias_attribute :current_patient, :patient
 
     def patient
-      @patient ||= Renalware::Patient.find(params[:patient_id])
+      @patient ||= Renalware::Patient.find_by!(secure_id: params[:patient_id])
     end
 
     protected
 
-    # Override ApplicationController, where this default `helper_method` is defined.
     def patient_search
-      @patient_search ||= begin
-        Renalware::Patient
-          .includes(current_modality: [:description])
-          .search(params[:q]).tap do |search|
-          search.sorts = %w(family_name given_name)
-        end
-      end
+      PatientSearch.call(params)
     end
 
     def success_msg_for(model_name)

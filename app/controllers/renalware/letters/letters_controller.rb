@@ -92,7 +92,7 @@ module Renalware
       private
 
       def load_and_authorize_patient
-        patient = Patient.includes(:prescriptions).find(params[:patient_id])
+        patient = Patient.includes(:prescriptions).find_by(secure_id: params[:patient_id])
         authorize patient
         patient
       end
@@ -137,7 +137,7 @@ module Renalware
       end
 
       def find_event
-        return unless event_type.present?
+        return if event_type.blank?
         event_class.for_patient(@patient).find(event_id)
       end
 

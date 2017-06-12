@@ -20,9 +20,9 @@ RSpec.describe "Managing patients", type: :request do
         post patients_path, params: { patient: attributes.merge(document: document) }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Patient.exists?(attributes)).to be_truthy
+        created_patient = Renalware::Patient.find_by(attributes.slice!(:secure_id))
+        expect(created_patient).to be_present
 
-        created_patient = Renalware::Patient.find_by(attributes)
         expect(created_patient.document).to match_document(document)
         expect(created_patient.created_by).to eq(@current_user)
         expect(created_patient.updated_by).to eq(@current_user)
@@ -82,6 +82,7 @@ RSpec.describe "Managing patients", type: :request do
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def build_document
     {
       interpreter_notes: Faker::Lorem.sentence,
@@ -103,6 +104,7 @@ RSpec.describe "Managing patients", type: :request do
       }
     }
   end
+  # rubocop:enable Metrics/MethodLength
 
   def address_attributes
     attributes_for(:address)

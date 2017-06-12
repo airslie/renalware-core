@@ -1,3 +1,4 @@
+require_dependency "renalware/patients"
 require_dependency "renalware/clinics"
 
 module Renalware
@@ -10,7 +11,7 @@ module Renalware
       include PatientScope
       extend Enumerize
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :clinic
       has_many :clinic_letters
 
@@ -33,11 +34,13 @@ module Renalware
       end
 
       def bp
-        "#{systolic_bp}/#{diastolic_bp}" if systolic_bp.present? && diastolic_bp.present?
+        return unless systolic_bp.present? && diastolic_bp.present?
+        "#{systolic_bp}/#{diastolic_bp}"
       end
 
       def standing_bp
-        "#{standing_systolic_bp}/#{standing_diastolic_bp}" if standing_systolic_bp.present? && standing_diastolic_bp.present?
+        return unless standing_systolic_bp.present? && standing_diastolic_bp.present?
+        "#{standing_systolic_bp}/#{standing_diastolic_bp}"
       end
 
       def bp=(val)
@@ -47,7 +50,6 @@ module Renalware
       def standing_bp=(val)
         self.standing_systolic_bp, self.standing_diastolic_bp = val.split("/")
       end
-
     end
   end
 end

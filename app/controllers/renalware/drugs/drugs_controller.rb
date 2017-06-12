@@ -6,7 +6,6 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       before_action :prepare_drugs_search, only: :index
-      before_action :prepare_paging, only: :index
 
       def selected_drugs
         selected_drugs = Drug.for(params[:medication_switch])
@@ -38,7 +37,7 @@ module Renalware
         @drugs = @drugs_search.result(distinct: true)
         authorize @drugs
 
-        @drugs = @drugs.page(@page).per(@per_page) if request.format.html?
+        @drugs = @drugs.page(page).per(per_page) if request.format.html?
 
         respond_to do |format|
           format.html

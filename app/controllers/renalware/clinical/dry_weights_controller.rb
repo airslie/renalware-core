@@ -4,11 +4,12 @@ require_dependency "renalware/clinical"
 module Renalware
   module Clinical
     class DryWeightsController < Clinical::BaseController
+      include Renalware::Concerns::Pageable
       before_action :load_patient
 
       def index
         query = PatientDryWeightsQuery.new(patient: patient, search_params: params[:q])
-        dry_weights = query.call.page(params[:page]).per(15)
+        dry_weights = query.call.page(page).per(per_page)
 
         render locals: {
           search: query.search,

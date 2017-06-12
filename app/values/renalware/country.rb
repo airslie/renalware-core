@@ -7,7 +7,7 @@ module Renalware
     end
 
     def self.data
-      CSV.read(Rails.root.join("config", "countries.csv"), headers: true)
+      CSV.read(Engine.root.join("config", "countries.csv"), headers: true)
     end
 
     def self.code_for(country_name)

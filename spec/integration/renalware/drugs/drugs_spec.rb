@@ -66,7 +66,7 @@ RSpec.describe "Configuring Drugs", type: :request do
       create(:drug, name: "::target drug name::")
       create(:drug, name: "::another drug name::")
 
-      get drugs_drugs_path, params: { q: { name_cont: "target" } }
+      get drugs_drugs_path, params: { q: { name_or_drug_types_name_start: "::target" } }
 
       expect(response).to have_http_status(:success)
       expect(response.body).to match("::target drug name::")

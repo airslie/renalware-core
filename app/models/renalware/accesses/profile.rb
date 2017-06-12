@@ -6,7 +6,7 @@ module Renalware
       include Accountable
       extend Enumerize
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :type, class_name: "Type"
       belongs_to :site, class_name: "Site"
       belongs_to :plan, class_name: "Plan"
@@ -40,6 +40,10 @@ module Renalware
       validates :planned_on, timeliness: { type: :date, allow_blank: true }
 
       enumerize :side, in: %i(left right)
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end

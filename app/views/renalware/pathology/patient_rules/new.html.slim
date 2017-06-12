@@ -5,7 +5,7 @@
   .row
     .large-8.columns
       = simple_form_for patient_rule,
-                        url: patient_pathology_patient_rules_path(patient_id: @patient.id),
+                        url: patient_pathology_patient_rules_path(patient_id: @patient),
                         html: { autocomplete: "off" },
                         wrapper: "horizontal_form" do |f|
         = render "form",

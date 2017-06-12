@@ -2,7 +2,7 @@
 - title += " #{event.event_type.name}" if event.disable_selection_of_event_type
 
 = within_patient_layout(title: title,
-                        breadcrumbs: breadcrumb_for("Events", patient_events_path)) do
+                        breadcrumbs: breadcrumb_for("Events", patient_events_path(patient))) do
 
   = simple_form_for event,
       url: patient_events_path(patient, event),

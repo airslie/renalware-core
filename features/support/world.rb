@@ -1,5 +1,5 @@
 # rubocop:disable Style/GlobalVars
-Dir[Rails.root.join("features/support/worlds/*.rb")].each { |f| require f }
+Dir[Renalware::Engine.root.join("features/support/worlds/*.rb")].each { |f| require f }
 
 $world_methods = []
 

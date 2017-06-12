@@ -5,7 +5,7 @@ module Renalware
     class RegimeTermination < ApplicationRecord
       include Accountable
 
-      belongs_to :regime
+      belongs_to :regime, touch: true
 
       validates :terminated_on,
         timeliness: {

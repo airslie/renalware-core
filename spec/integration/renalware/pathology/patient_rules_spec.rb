@@ -10,14 +10,14 @@ RSpec.describe "patient_rules Requests", type: :request do
 
   describe "GET new" do
     it "responds with a form" do
-      get new_patient_pathology_patient_rule_path(patient_id: patient.id)
+      get new_patient_pathology_patient_rule_path(patient_id: patient)
 
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "POST create" do
-    let(:url) { patient_pathology_patient_rules_path(patient_id: patient.id) }
+    let(:url) { patient_pathology_patient_rules_path(patient_id: patient) }
     let(:patient_rule_attributes) do
       attributes_for(:pathology_requests_patient_rule).merge(
         patient_id: patient.id,
@@ -54,14 +54,14 @@ RSpec.describe "patient_rules Requests", type: :request do
 
   describe "GET edit" do
     it "responds with a form" do
-      get edit_patient_pathology_patient_rule_path(patient_id: patient.id, id: patient_rule.id)
+      get edit_patient_pathology_patient_rule_path(patient_id: patient, id: patient_rule.id)
 
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "PATCH update" do
-    let(:url) { patient_pathology_patient_rule_path(patient_id: patient.id, id: patient_rule.id) }
+    let(:url) { patient_pathology_patient_rule_path(patient_id: patient, id: patient_rule.id) }
 
     context "given valid attributes" do
       it "updates the patient rule" do
@@ -90,7 +90,7 @@ RSpec.describe "patient_rules Requests", type: :request do
     end
 
     it "deletes the patient rule" do
-      delete patient_pathology_patient_rule_path(patient_id: patient.id, id: patient_rule.id)
+      delete patient_pathology_patient_rule_path(patient_id: patient, id: patient_rule.id)
 
       expect(response).to have_http_status(:redirect)
       expect(patient_rule_exists).to be_falsey

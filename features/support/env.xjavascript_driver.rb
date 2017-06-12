@@ -21,8 +21,10 @@ end
 
 Capybara.javascript_driver = :poltergeist_large_window
 
-Capybara::Screenshot.register_driver(:poltergeist_large_window) do |driver, path|
-  # noop
+if RUBY_PLATFORM =~ /darwin/
+  Capybara::Screenshot.register_driver(:poltergeist_large_window) do |_driver, _path|
+    # noop
+  end
 end
 
 # Capybara.javascript_driver = :poltergeist_debug

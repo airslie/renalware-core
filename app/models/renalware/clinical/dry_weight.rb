@@ -7,7 +7,7 @@ module Renalware
       include PatientScope
       include Accountable
 
-      belongs_to :patient, class_name: "Renalware::Clinical::Patient"
+      belongs_to :patient, class_name: "Renalware::Clinical::Patient", touch: true
       belongs_to :assessor, class_name: "User", foreign_key: "assessor_id"
 
       has_paper_trail class_name: "Renalware::Clinical::Version"
@@ -19,6 +19,10 @@ module Renalware
       validates :weight, presence: true, "renalware/patients/weight" => true
       validates :assessed_on, presence: true
       validates :assessed_on, timeliness: { type: :date, allow_blank: false }
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end

@@ -3,6 +3,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ObservationRequestsController < Pathology::BaseController
+      include Renalware::Concerns::Pageable
       before_action :load_patient
 
       def index
@@ -21,7 +22,7 @@ module Renalware
 
       def find_observation_requests
         @patient.observation_requests
-          .page(params[:page])
+          .page(page)
           .includes(:description)
           .ordered
       end

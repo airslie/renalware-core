@@ -2,6 +2,8 @@ require "rails_helper"
 
 module Renalware
   RSpec.describe Medications::PrescriptionTermination, type: :model do
+    it { is_expected.to belong_to(:prescription).touch(true) }
+
     describe "validations" do
       describe "terminated_on" do
         let(:prescription) { build(:prescription, prescribed_on: "2011-01-01") }

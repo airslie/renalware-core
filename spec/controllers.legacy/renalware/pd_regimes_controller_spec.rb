@@ -2,6 +2,7 @@ require "rails_helper"
 
 module Renalware
   RSpec.describe PD::RegimesController, type: :controller do
+    routes { Engine.routes }
 
     before do
       @patient = create(:patient)

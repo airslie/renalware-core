@@ -5,11 +5,12 @@ module Renalware
     describe Donation do
       it { is_expected.to validate_presence_of(:state) }
       it { is_expected.to validate_presence_of(:relationship_with_recipient) }
-
       it { is_expected.to validate_timeliness_of(:volunteered_on) }
       it { is_expected.to validate_timeliness_of(:first_seen_on) }
       it { is_expected.to validate_timeliness_of(:workup_completed_on) }
       it { is_expected.to validate_timeliness_of(:donated_on) }
+
+      it { is_expected.to belong_to(:patient).touch(true) }
 
       describe "#valid?" do
         let(:attributes) { {} }

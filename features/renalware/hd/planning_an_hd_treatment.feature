@@ -6,6 +6,7 @@ Feature: Planning an HD treatment
   Background:
     Given Clyde is a clinician
     And Patty is a patient
+    And Patty has the HD modality
 
   @web
   Scenario: A clinician recorded the HD preferences of a patient

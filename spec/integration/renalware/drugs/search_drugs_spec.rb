@@ -11,7 +11,7 @@ RSpec.describe "Searching drugs", type: :feature, js: true do
   context "given a drug matching the search term" do
     it "returns drug names that partially match" do
       visit patient_prescriptions_path(
-        patient, treatable_type: patient.class, treatable_id: patient.id
+        patient, treatable_type: patient.class, treatable_id: patient
       )
 
       click_on "Add Prescription"

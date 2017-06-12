@@ -1,15 +1,18 @@
-Rails.application.routes.draw do
+Renalware::Engine.routes.draw do
 
-  match "/404", to: "renalware/errors#not_found", via: :all
-  match "/500", to: "renalware/errors#internal_server_error", via: :all
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
   match "/generate_test_internal_server_error",
-        to: "renalware/errors#generate_test_internal_server_error",
+        to: "errors#generate_test_internal_server_error",
         via: :get
 
-  devise_for :users, class_name: "Renalware::User", controllers: {
-    registrations: "renalware/devise/registrations",
-    sessions: "renalware/devise/sessions"
-  }
+  devise_for :users,
+             class_name: "Renalware::User",
+             controllers: {
+               registrations: "renalware/devise/registrations",
+               sessions: "renalware/devise/sessions"
+             },
+             module: :devise
 
   super_admin_constraint = lambda do |request|
     current_user = request.env["warden"].user
@@ -24,7 +27,7 @@ Rails.application.routes.draw do
   get "/rails/mailers" => "rails/mailers#index"
   get "/rails/mailers/*path" => "rails/mailers#preview"
 
-  scope module: "renalware" do
+  # scope module: "renalware" do
 
     root to: "dashboard/dashboards#show"
 
@@ -333,15 +336,14 @@ Rails.application.routes.draw do
       end
     end
 
-    # Some safety-net routes in case we happen to fall through the above routed without a match.
-    # For example, redirect to the HD dashboard if they hit just /hd/
-    # In theory we should only ever hit these routes if the user manually edits/enters the URL.
-    get "/patients/:id/hd", to: redirect("/patients/%{id}/hd/dashboard")
-    get "/patients/:id/pd", to: redirect("/patients/%{id}/pd/dashboard")
-    get "/patients/:id/transplants", to: redirect("/patients/%{id}")
-    get "/patients/:id/transplants/donor",
-        to: redirect("/patients/%{id}/transplants/donor/dashboard")
-    get "/patients/:id/transplants/recipient",
-        to: redirect("/patients/%{id}/transplants/recipient/dashboard")
-  end
+  # Some safety-net routes in case we happen to fall through the above routed without a match.
+  # For example, redirect to the HD dashboard if they hit just /hd/
+  # In theory we should only ever hit these routes if the user manually edits/enters the URL.
+  get "/patients/:id/hd", to: redirect("/patients/%{id}/hd/dashboard")
+  get "/patients/:id/pd", to: redirect("/patients/%{id}/pd/dashboard")
+  get "/patients/:id/transplants", to: redirect("/patients/%{id}")
+  get "/patients/:id/transplants/donor",
+    to: redirect("/patients/%{id}/transplants/donor/dashboard")
+  get "/patients/:id/transplants/recipient",
+      to: redirect("/patients/%{id}/transplants/recipient/dashboard")
 end

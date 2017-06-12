@@ -5,7 +5,7 @@ module Renalware
     class ExitSiteInfection < ApplicationRecord
       include PatientScope
 
-      belongs_to :patient, class_name: "Renalware::Patient"
+      belongs_to :patient, class_name: "Renalware::Patient", touch: true
 
       has_many :prescriptions, as: :treatable, class_name: "Renalware::Medications::Prescription"
       has_many :medication_routes, through: :prescriptions

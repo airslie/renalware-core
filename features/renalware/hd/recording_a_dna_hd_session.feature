@@ -5,6 +5,7 @@ Feature: Recording an HD DNA session
   Background:
     Given Nathalie is a nurse
     And Patty is a patient
+    And Patty has the HD modality
 
   @web
   Scenario: A nurse recorded a DNA session

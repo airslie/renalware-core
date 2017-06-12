@@ -9,6 +9,7 @@ FactoryGirl.define do
 
   factory :patient, class: "Renalware::Patient" do
     nhs_number
+    secure_id { SecureRandom.base58(24) }
     local_patient_id
     family_name "Jones"
     given_name "Jack"

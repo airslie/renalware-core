@@ -1,82 +1,74 @@
-fieldset.simple
-  legend.noprint
-    span.title= t(".title")
-    span.actions.action-links
-      - unless profile.new_record?
-        = link_to "View", patient_hd_profile_path(@patient)
-        = " | "
-        = link_to "Edit", edit_patient_hd_profile_path(@patient)
-        = " | "
+article
+  header
+    h2.noprint= t(".title")
+    ul
+      li= link_to "View", patient_hd_profile_path(patient), class: "button"
+      li= link_to "Edit", edit_patient_hd_profile_path(patient), class: "button"
+      li
         label#toggle-full-hd-profile(for="toggle-full-hd-profile-input") Toggle full profile
 
-  - if profile.new_record?
-    .call-to-action
-      = link_to edit_patient_hd_profile_path(@patient) do
-        i.fa.fa-plus-circle
-        | Enter profile
-  - else
-      input#toggle-full-hd-profile-input(type="checkbox")
+  input#toggle-full-hd-profile-input(type="checkbox")
 
-      dl.dl-horizontal.large
-        dt= t(".last_update")
-        dd= profile.last_update
-        dt= t(".schedule")
-        dd= profile.current_schedule
-        dt= t(".hospital_unit")
-        dd= profile.hospital_unit
-        dt= t(".prescribed_time")
-        dd= profile.formatted_prescribed_time
-        dt= t(".hd_type")
-        dd= profile.hd_type
-        dt= t(".named_nurse")
-        dd= profile.named_nurse
-        dt= t(".dialyser")
-        dd= profile.dialyser
-        dt= t(".dialysate")
-        dd= profile.dialysate
-        dt= t(".cannulation_type")
-        dd= profile.cannulation_type
-        dt= t(".anticoagulant.type")
-        dd= profile.anticoagulant_type.try!(:text)
+  dl.dl-horizontal.large
+    dt= t(".last_update")
+    dd= profile.last_update
+    dt= t(".schedule")
+    dd= profile.current_schedule
+    dt= t(".hospital_unit")
+    dd= profile.hospital_unit
+    dt= t(".prescribed_time")
+    dd= profile.formatted_prescribed_time
+    dt= t(".hd_type")
+    dd= profile.hd_type
+    dt= t(".named_nurse")
+    dd= profile.named_nurse
+    dt= t(".dialyser")
+    dd= profile.dialyser
+    dt= t(".dialysate")
+    dd= profile.dialysate
+    dt= t(".cannulation_type")
+    dd= profile.cannulation_type
+    dt= t(".anticoagulant.type")
+    dd= profile.anticoagulant_type.try!(:text)
 
-      dl.dl-horizontal.large.full-hd-profile
-        dt.inset=t(".anticoagulant.loading_dose")
-        dd.inset= profile.anticoagulant_loading_dose
-        dt.inset= t(".anticoagulant.hourly_dose")
-        dd.inset= profile.anticoagulant_hourly_dose
-        dt.inset= t(".anticoagulant.stop_time")
-        dd.inset= profile.anticoagulant_stop_time
+  dl.dl-horizontal.large.full-hd-profile
+    dt.inset=t(".anticoagulant.loading_dose")
+    dd.inset= profile.anticoagulant_loading_dose
+    dt.inset= t(".anticoagulant.hourly_dose")
+    dd.inset= profile.anticoagulant_hourly_dose
+    dt.inset= t(".anticoagulant.stop_time")
+    dd.inset= profile.anticoagulant_stop_time
 
-        dt= t(".needle_size")
-        dd= profile.needle_size
-        dt= t(".single_needle")
-        dd= profile.single_needle.try!(:text)
-        dt= t(".blood_flow")
-        dd= profile.blood_flow
-        dt= t(".temperature")
-        dd= profile.temperature
-        dt= t(".bicarbonate")
-        dd= profile.bicarbonate
-        dt= t(".has_sodium_profiling")
-        dd= profile.has_sodium_profiling.try!(:text)
-        dt.inset= t(".sodium_first_half")
-        dd.inset= profile.sodium_first_half
-        dt.inset= t(".sodium_second_half")
-        dd.inset= profile.sodium_second_half
+    dt= t(".needle_size")
+    dd= profile.needle_size
+    dt= t(".single_needle")
+    dd= profile.single_needle.try!(:text)
+    dt= t(".blood_flow")
+    dd= profile.blood_flow
+    dt= t(".temperature")
+    dd= profile.temperature
+    dt= t(".bicarbonate")
+    dd= profile.bicarbonate
+    dt= t(".has_sodium_profiling")
+    dd= profile.has_sodium_profiling.try!(:text)
+    dt.inset= t(".sodium_first_half")
+    dd.inset= profile.sodium_first_half
+    dt.inset= t(".sodium_second_half")
+    dd.inset= profile.sodium_second_half
 
-        dt= t(".drugs.on_esa")
-        dd= profile.drugs_on_esa.try!(:text)
-        dt= t(".drugs.on_iron")
-        dd= profile.drugs_on_iron.try!(:text)
-        dt= t(".drugs.on_warfarin")
-        dd= profile.drugs_on_warfarin.try!(:text)
+    dt= t(".drugs.on_esa")
+    dd= profile.drugs_on_esa.try!(:text)
+    dt= t(".drugs.on_iron")
+    dd= profile.drugs_on_iron.try!(:text)
+    dt= t(".drugs.on_warfarin")
+    dd= profile.drugs_on_warfarin.try!(:text)
 
-        dt= t(".transport.has_transport")
-        dd= profile.transport.has_transport.try!(:text)
-        dt.inset= t(".transport.type")
-        dd.inset= profile.transport.type.try!(:text)
-        dt.inset= t(".transport.decided_on")
-        dd.inset= I18n.l(profile.transport.decided_on)
+    dt= t(".transport.has_transport")
+    dd= profile.transport.has_transport.try!(:text)
+    dt.inset= t(".transport.type")
+    dd.inset= profile.transport.type.try!(:text)
+    dt.inset= t(".transport.decided_on")
+    dd.inset= profile.transport.present? && I18n.l(profile.transport&.decided_on)
 
-        dt= t(".care_level.summary")
-        dd= profile.care_level
+    dt= t(".care_level.summary")
+    dd= profile.care_level

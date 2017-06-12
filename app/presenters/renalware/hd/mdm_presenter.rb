@@ -2,6 +2,13 @@ module Renalware
   module HD
     class MDMPresenter < Renalware::MDMPresenter
 
+      NullObject = Naught.build do |config|
+        config.black_hole
+        config.define_explicit_conversions
+        config.singleton
+        config.predicates_return false
+      end
+
       def sessions
         @sessions ||= begin
           sessions = Sessions::LatestPatientSessionsQuery
@@ -14,14 +21,22 @@ module Renalware
       def hd_profile
         @hd_profile ||= begin
           profile = HD::Profile.for_patient(patient).first
-          HD::ProfilePresenter.new(profile || NullObject.instance)
+          if profile.present?
+            HD::ProfilePresenter.new(profile)
+          else
+            NullObject.instance
+          end
         end
       end
 
       def access
         @access ||= begin
           access_profile = Renalware::Accesses.cast_patient(patient).current_profile
-          Accesses::ProfilePresenter.new(access_profile || NullObject.instance)
+          if access_profile.present?
+            Accesses::ProfilePresenter.new(access_profile)
+          else
+            NullObject.instance
+          end
         end
       end
 

@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Managing PD PET Adequacy Results", type: :request do
+
   let(:patient) { Renalware::PD.cast_patient(create(:patient)) }
   let(:user) { create(:user) }
 
@@ -24,7 +25,7 @@ RSpec.describe "Managing PD PET Adequacy Results", type: :request do
   describe "GET edit" do
     it "responds with a form" do
       pet_adequacy_result = create(:pet_adequacy_result, patient: patient, by: user)
-      get edit_patient_pd_pet_adequacy_result_path(patient_id: patient.id,
+      get edit_patient_pd_pet_adequacy_result_path(patient_id: patient,
                                                    id: pet_adequacy_result)
 
       expect(response).to have_http_status(:success)
@@ -35,7 +36,7 @@ RSpec.describe "Managing PD PET Adequacy Results", type: :request do
     it "responds with success" do
       pet_adequacy_result = create(:pet_adequacy_result, patient: patient, by: user)
       params = {
-        patient_id: patient.id,
+        patient_id: patient,
         id: pet_adequacy_result.id,
         pet_adequacy: { daily_urine: 0.1 }
       }
@@ -48,7 +49,7 @@ RSpec.describe "Managing PD PET Adequacy Results", type: :request do
     it "responds with success" do
       pet_adequacy_result = create(:pet_adequacy_result, patient: patient, by: user)
       params = {
-        patient_id: patient.id,
+        patient_id: patient,
         id: pet_adequacy_result.id
       }
 

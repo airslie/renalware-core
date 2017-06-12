@@ -9,6 +9,7 @@ module Renalware
       it { is_expected.to validate_presence_of(:author) }
       it { is_expected.to validate_presence_of(:main_recipient) }
       it { is_expected.to validate_presence_of(:description) }
+      it { is_expected.to belong_to(:patient).touch(true) }
     end
   end
 end

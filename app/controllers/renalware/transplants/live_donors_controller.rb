@@ -3,9 +3,11 @@ require_dependency "renalware/transplants"
 module Renalware
   module Transplants
     class LiveDonorsController < BaseController
+      include Renalware::Concerns::Pageable
+
       def index
         query = LiveDonorsQuery.new(params[:q])
-        live_donors = query.call.page(params[:page]).per(50)
+        live_donors = query.call.page(page).per(per_page || 50)
 
         authorize live_donors
         render locals: {

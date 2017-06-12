@@ -3,5 +3,6 @@ module Renalware
     include Concerns::DeviseControllerMethods
 
     layout "renalware/layouts/application"
+
   end
 end

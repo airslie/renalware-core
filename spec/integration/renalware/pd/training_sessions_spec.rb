@@ -6,6 +6,7 @@ module Renalware
     scenario "Add a PD Training Session" do
       patient = create(:pd_patient)
       create(:pd_training_site, name: "Home")
+      create(:pd_training_type, name: "APD Baxter")
       login_as_clinician
 
       visit patient_pd_dashboard_path(patient)
@@ -17,7 +18,7 @@ module Renalware
       # New
       started_on = I18n.l(Time.zone.today)
       select "Home", from: "Training site"
-      within(".training_session_document_training_type") { choose("APD Baxter") }
+      select "APD Baxter", from: "Training type"
       fill_in input_called(:trainer), with: "Flo Nightengale RN"
       fill_in input_called(:started_on), with: started_on
 

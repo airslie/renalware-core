@@ -44,6 +44,24 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: generate_patient_secure_id(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION generate_patient_secure_id() RETURNS character varying
+    LANGUAGE plpgsql
+    AS $$ DECLARE new_secure_id varchar; BEGIN LOOP new_secure_id := generate_secure_id(24); EXIT WHEN NOT EXISTS(select 1 from patients where 'secure_id' = new_secure_id); RAISE NOTICE 'The generated secure_id % was already in use - now generating another', new_secure_id; END LOOP; RETURN new_secure_id; END $$;
+
+
+--
+-- Name: generate_secure_id(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION generate_secure_id(length integer DEFAULT 24) RETURNS text
+    LANGUAGE sql
+    AS $$ SELECT string_agg (substr('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', ceil (random() * 62)::integer, 1), '') FROM generate_series(1, length) ; $$;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -2028,7 +2046,8 @@ CREATE TABLE patients (
     rpv_decision_on date,
     renalreg_recorded_by character varying,
     rpv_recorded_by character varying,
-    uuid uuid DEFAULT uuid_generate_v4() NOT NULL
+    uuid uuid DEFAULT uuid_generate_v4() NOT NULL,
+    secure_id character varying DEFAULT generate_patient_secure_id() NOT NULL
 );
 
 
@@ -7282,6 +7301,13 @@ CREATE INDEX index_patients_on_second_edta_code_id ON patients USING btree (seco
 
 
 --
+-- Name: index_patients_on_secure_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patients_on_secure_id ON patients USING btree (secure_id);
+
+
+--
 -- Name: index_patients_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9741,6 +9767,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170606160731'),
 ('20170606182242'),
 ('20170608192234'),
-('20170609144233');
+('20170609144233'),
+('20170608135553'),
+('20170608135953'),
+('20170608192234');
 
 

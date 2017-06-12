@@ -42,7 +42,7 @@ module Renalware
       end
 
       def rtf_content_converted_from(html_temp_file)
-        rtf_template = File.join(Rails.root, "lib", "pandoc", "templates", "default.rtf")
+        rtf_template = File.join(Engine.root, "lib", "pandoc", "templates", "default.rtf")
         options = { template: rtf_template }
         PandocRuby.html([html_temp_file.path], options, :standalone).to_rtf
       end

@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware
   module Transplants
     describe DonorStage do
-      it { is_expected.to belong_to(:patient) }
+      it { is_expected.to belong_to(:patient).touch(true) }
       it { is_expected.to validate_presence_of(:patient) }
       it { is_expected.to belong_to(:stage_position) }
       it { is_expected.to belong_to(:stage_status) }

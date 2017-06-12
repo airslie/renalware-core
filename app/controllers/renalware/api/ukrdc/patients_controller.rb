@@ -8,7 +8,7 @@ module Renalware
           respond_to do |format|
             format.xml do
               render locals: {
-                patient: Renalware::Patient.find(params[:id])
+                patient: Renalware::Patient.find_by!(secure_id: params[:id])
               }
             end
           end

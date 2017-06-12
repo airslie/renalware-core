@@ -1,17 +1,12 @@
 = content_for(:actions) do
-  button.button.dropdown(href="#"
-                         data-dropdown="access-options"
-                         aria-controls="access-options"
-                         aria-expanded="false")
-    | Add
-  ul.f-dropdown#access-options(data-dropdown-content aria-hidden="true")
-    li= link_to("Access Profile", new_patient_accesses_profile_path(@patient))
-    li= link_to("Access Procedure", new_patient_accesses_procedure_path(@patient))
-    li= link_to("Access Assessment", new_patient_accesses_assessment_path(@patient))
+  = render "page_actions", patient: @patient
 
 = within_patient_layout do
   .document
     = render "renalware/accesses/profiles/current_profile"
     = render "renalware/accesses/profiles/list" if @profiles.any?
     = render "renalware/accesses/procedures/list" if @procedures.any?
-    = render "renalware/accesses/assessments/list" if @assessments.any?
+    - if @assessments.any?
+      = render "renalware/accesses/assessments/list",
+               patient: @patient,
+               assessments: @assessments

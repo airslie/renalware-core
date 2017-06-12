@@ -5,11 +5,9 @@ module Renalware
     class ListsController < Letters::BaseController
       include Renalware::Concerns::Pageable
 
-      before_action :prepare_paging, only: :show
-
       def show
         query = LetterQuery.new(q: params[:q])
-        collection = call_query(query).page(@page).per(@per_page)
+        collection = call_query(query).page(page).per(per_page)
         @letters = present_letters(collection)
         authorize @letters
 

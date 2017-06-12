@@ -1,5 +1,5 @@
 require "devise"
-require "./spec/support/login_macros"
+require_relative "./login_macros"
 
 RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller

@@ -79,7 +79,7 @@ module World
 
         def visit_patient(patient_given_name)
           patient = find_patient_by_given_name(patient_given_name)
-          visit patient_path(id: patient.id)
+          visit patient_path(id: patient)
         end
       end
     end

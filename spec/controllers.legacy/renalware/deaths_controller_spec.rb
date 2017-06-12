@@ -2,6 +2,7 @@ require "rails_helper"
 
 module Renalware
   RSpec.describe DeathsController, type: :controller do
+    routes { Engine.routes }
 
     subject { create(:patient) }
 
@@ -21,7 +22,7 @@ module Renalware
 
     describe "GET edit" do
       it "responds with success" do
-        get :edit, params: { patient_id: subject.id }
+        get :edit, params: { patient_id: subject.to_param }
         expect(response).to have_http_status(:success)
       end
     end
@@ -31,9 +32,9 @@ module Renalware
         it "updates death details" do
           put :update,
             params: {
-              patient_id: subject.id,
+              patient_id: subject.to_param,
               patient: {
-                died_on: Date.parse(Time.now.to_s),
+                died_on: Date.parse(Time.zone.now.to_s),
                 first_edta_code_id: @edta_code.id
               }
             }
@@ -43,7 +44,7 @@ module Renalware
 
       context "with invalid attributes" do
         it "fails to update death details" do
-          put :update, params: { patient_id: subject.id, patient: { died_on: nil } }
+          put :update, params: { patient_id: subject.to_param, patient: { died_on: nil } }
           expect(response).to render_template(:edit)
         end
       end

@@ -1,7 +1,8 @@
-= within_patient_layout(title: "HD Preferences") do
+= within_patient_layout(title: "HD Preferences / Edit",
+                        breadcrumbs: hd_summary_breadcrumb(patient)) do
   .document
-    = simple_form_for @preference_set,
-        url: patient_hd_preference_set_path(@patient),
+    = simple_form_for preference_set,
+        url: patient_hd_preference_set_path(patient),
         html: { autocomplete: "off" },
         method: :patch,
         wrapper: "horizontal_form" do |f|

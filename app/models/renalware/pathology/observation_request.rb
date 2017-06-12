@@ -5,7 +5,7 @@ module Renalware
     class ObservationRequest < ApplicationRecord
       has_many :observations, foreign_key: :request_id
       belongs_to :description, class_name: "RequestDescription"
-      belongs_to :patient, class_name: "Patient"
+      belongs_to :patient, class_name: "Patient", touch: true
 
       accepts_nested_attributes_for :observations
 

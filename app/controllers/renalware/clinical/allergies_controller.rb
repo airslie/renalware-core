@@ -9,7 +9,9 @@ module Renalware
           authorize allergy
         end
         if result.success?
-          redirect_to :back, notice: t(".success", model_name: "allergy")
+          redirect_back fallback_location: patient_clinical_profile_path(patient),
+                        notice: success_msg_for("allergy")
+
         else
           # we use client-side validation so will not get here
           raise NotImplementedError
@@ -20,7 +22,8 @@ module Renalware
         allergy = patient.allergies.find(params[:id])
         authorize allergy
         DeleteAllergy.new(allergy, current_user).call
-        redirect_to :back, notice: t(".success_with_name", name: allergy.description)
+        redirect_back fallback_location: patient_clinical_profile_path(patient),
+                      notice: t(".success_with_name", name: allergy.description)
       end
 
       private

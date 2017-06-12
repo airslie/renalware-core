@@ -6,18 +6,19 @@ module Renalware
       before_action :load_patient
 
       def edit
-        @preference_set = PreferenceSet.for_patient(patient).first_or_initialize
+        preference_set = PreferenceSet.for_patient(patient).first_or_initialize
+        render locals: { patient: patient, preference_set: preference_set }
       end
 
       def update
-        @preference_set = PreferenceSet.for_patient(patient).first_or_initialize
+        preference_set = PreferenceSet.for_patient(patient).first_or_initialize
 
-        if @preference_set.update_attributes(preference_set_params)
+        if preference_set.update_attributes(preference_set_params)
           redirect_to patient_hd_dashboard_path(patient),
             notice: t(".success", model_name: "HD preferences")
         else
           flash[:error] = t(".failed", model_name: "HD preferences")
-          render :edit
+          render :edit, locals: { patient: patient, preference_set: preference_set }
         end
       end
 

@@ -5,7 +5,7 @@ module Renalware
     class PrescriptionTermination < ApplicationRecord
       include Accountable
 
-      belongs_to :prescription
+      belongs_to :prescription, touch: true
 
       validates :terminated_on,
                 timeliness: {

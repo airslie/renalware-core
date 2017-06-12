@@ -1,9 +1,9 @@
 = within_patient_layout(title: "New Access Assessment",
-                        breadcrumbs: access_summary_breadrumb(@patient))
+                        breadcrumbs: access_summary_breadrumb(patient))
 
   .document
-    = simple_form_for @assessment,
-        url: patient_accesses_assessments_path(@patient),
+    = simple_form_for assessment,
+        url: patient_accesses_assessments_path(patient),
         html: { autocomplete: "off" },
         wrapper: "horizontal_form" do |f|
-      = render "form", f: f
+      = render "form", f: f, patient: patient

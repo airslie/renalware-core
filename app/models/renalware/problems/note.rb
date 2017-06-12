@@ -5,7 +5,7 @@ module Renalware
     class Note < ApplicationRecord
       include Accountable
 
-      belongs_to :problem
+      belongs_to :problem, touch: true
 
       scope :ordered, ->() { order(created_at: :asc) }
 

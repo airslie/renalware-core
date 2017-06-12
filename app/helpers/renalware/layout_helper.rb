@@ -47,12 +47,6 @@ module Renalware
       Array(breadcrumbs).map(&:anchor).append(title).join(" / ").html_safe
     end
 
-    def breadcrumbs_and_title1(local_assigns)
-      breadcrumbs = local_assigns[:breadcrumbs]
-      title = local_assigns[:title]
-      Array(breadcrumbs).map(&:anchor).append(title).join(" / ").html_safe
-    end
-
     # In order for pdf rendering to easily re-use html partials (despite a mime type of :pdf),
     # pass partial rendering code as a block to `with_format`.
     #

@@ -4,6 +4,7 @@ require "core_extensions/dumb_delegator"
 require "core_extensions/active_record/sort"
 require "core_extensions/date"
 require "core_extensions/active_support/duration"
+require "core_extensions/scenic"
 
 I18n.extend CoreExtensions::I18n::HandleBlankValue
 I18n::Backend::Simple.send(:include, I18n::Backend::Cascade)

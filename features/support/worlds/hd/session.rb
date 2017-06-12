@@ -20,7 +20,6 @@ module World
         {
           patient: patient,
           hospital_unit: Renalware::Hospitals::Unit.hd_sites.first,
-          modality_description: patient.current_modality,
           start_time: Time.zone.now,
           document: {
           }
@@ -217,8 +216,10 @@ module World
         expect(hd_patient(patient).hd_sessions.count).to eq(0)
         login_as user
         visit patient_hd_dashboard_path(patient)
-        within_fieldset t_sessions(:title) do
-          click_on t_sessions(:add_session)
+
+        within ".page-actions" do
+          click_on "Add"
+          click_on "HD Session"
         end
 
         fill_in "Session Start Time", with: "13:00"
@@ -233,8 +234,8 @@ module World
       def update_hd_session(patient:, user:)
         login_as user
         visit patient_hd_dashboard_path(patient)
-        within_fieldset "Latest HD Sessions" do
-          label = t_sessions(".edit", scope: "renalware.hd.sessions.open")
+        within "article.hd-sessions" do
+          label = t_sessions("open", scope: "renalware.hd.sessions_types.edit")
           click_on label
         end
 

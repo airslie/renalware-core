@@ -1,7 +1,7 @@
-- if patient_search.present?
+- if the_patient_search.present?
   ul.left
     li.has-form
-      = search_form_for patient_search,
+      = search_form_for the_patient_search,
                         url: patients_path,
                         class: "patient-search-form" do |f|
         .row.collapse

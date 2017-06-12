@@ -92,7 +92,7 @@ module World
           clinic = Renalware::Clinics::Clinic.find_by(name: clinic_name)
 
           visit patient_pathology_required_observations_path(
-            patient_id: patient.id,
+            patient_id: patient,
             request: { clinic_id: clinic.id }
           )
 
