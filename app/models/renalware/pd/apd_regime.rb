@@ -1,5 +1,5 @@
 require_dependency "renalware/pd"
-require "./lib/numeric_inclusion_validator"
+require_dependency "numeric_inclusion_validator"
 
 module Renalware
   module PD
