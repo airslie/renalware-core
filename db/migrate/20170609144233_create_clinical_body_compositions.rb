@@ -17,6 +17,7 @@ class CreateClinicalBodyCompositions < ActiveRecord::Migration[5.0]
       t.decimal :adipose_tissue_mass, null: false, precision: 4, scale: 1
       t.decimal :body_cell_mass, null: false, precision: 4, scale: 1
       t.decimal :quality_of_reading, null: false, precision: 6, scale: 3
+      t.text :notes
 
       t.belongs_to :created_by, index: true, null: false
       t.belongs_to :updated_by, index: true, null: false
