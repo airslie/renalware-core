@@ -7,7 +7,9 @@ require "renalware"
 module Dummy
   class Application < Rails::Application
     config.active_record.time_zone_aware_types = [:datetime]
-    config.exceptions_app = Renalware::Engine.routes
+    unless Rails.env.development?
+      config.exceptions_app = Renalware::Engine.routes
+    end
     config.action_mailer.preview_path = Rails.root.join("app", "mailers", "previews")
     config.active_job.queue_adapter = :delayed_job
     config.time_zone = "London"

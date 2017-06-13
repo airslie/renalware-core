@@ -26,11 +26,9 @@ function initClockpickersIn(container) {
 
   $(container + ' ' + elem).clockpicker(pickerOptions);
 
-  $(container + ' ' + elem + '-wrapper .prefix i').on('click', function() {
-    // FIXME: does not work, although the picker is found.
-    $(this).closest(elem + '-wrapper')
-      .find(elem)
-      .clockpicker("show");
+  // Clicking on the clock icon should display the clocpicker
+  $(container + ' ' + elem + '-wrapper .input-group-addon').on('click', function() {
+    $(this).closest(elem + '-wrapper').find(elem).clockpicker("show");
   });
 }
 

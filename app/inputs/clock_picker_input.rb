@@ -9,8 +9,8 @@ class ClockPickerInput < SimpleForm::Inputs::StringInput
   end
 
   def prefix_column(_wrapper_options = {})
-    template.content_tag(:div, class: "small-3 columns") do
-      template.concat icon_clock
+    template.content_tag(:div, class: "small-3 input-group-addon columns") do
+      template.concat(icon_clock)
     end
   end
 
