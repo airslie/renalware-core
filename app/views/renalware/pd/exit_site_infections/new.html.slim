@@ -3,10 +3,9 @@
 
   = render "renalware/shared/errors", model: @exit_site_infection
 
-  = field_set_tag "Infection" do
-    = simple_form_for [@patient, @exit_site_infection] do |f|
-      = render "renalware/pd/exit_site_infections/fields", f: f
+  = simple_form_for [@patient, @exit_site_infection] do |f|
+    = render "renalware/pd/exit_site_infections/fields", f: f
 
-      = submit_tag "Save", class: "button"
-      span= " or "
-      = link_to "cancel", patient_pd_dashboard_path(@patient)
+    = submit_tag "Save", class: "button"
+    span= " or "
+    = link_to "cancel", patient_pd_dashboard_path(@patient)
