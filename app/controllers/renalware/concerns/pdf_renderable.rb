@@ -6,6 +6,7 @@ module Renalware
       extend ActiveSupport::Concern
 
       included do
+
         def default_pdf_options
           {
             page_size: "A4",
@@ -32,8 +33,8 @@ module Renalware
 
         private
 
-        # By default if no variables supplied, insert the patient drop to allow patient data
-        # to be accessed in the template with eg {{ patient.name }}
+        # By default if no variables supplied, we insert the patient drop to allow basic patient
+        # data to be accessed in the template with eg {{ patient.name }}
         # Note the has key must be a string and not a symbol.
         def default_liquid_variables
           { "patient" => Patients::PatientDrop.new(patient) }
