@@ -72,7 +72,6 @@ Gem::Specification.new do |s|
   s.add_dependency "wicked_pdf", "~> 1.1.0"
   s.add_dependency "wisper"
   s.add_dependency "wkhtmltopdf-binary", "~> 0.12.3"
-  s.add_dependency "rails-assets-clockpicker", "~> 0.0.7"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
   s.add_dependency "rails-assets-select2", "~> 4.0.2"
 

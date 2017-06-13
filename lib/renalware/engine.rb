@@ -45,7 +45,6 @@ require "validates_timeliness"
 require "virtus"
 require "wicked_pdf"
 require "wisper"
-require "rails-assets-clockpicker"
 require "rails-assets-foundation-datepicker"
 require "rails-assets-select2"
 if ENV["RAILS_ENV"] == "development"
@@ -118,7 +117,9 @@ module Renalware
     initializer :general do |app|
       app.config.time_zone = "London"
       app.config.active_record.time_zone_aware_types = [:datetime]
-      app.config.exceptions_app = Engine.routes
+      unless Rails.env.development?
+        app.config.exceptions_app = Engine.routes
+      end
       app.config.action_mailer.preview_path = Rails.root.join("app", "mailers", "previews")
       app.config.active_job.queue_adapter = :delayed_job
     end
