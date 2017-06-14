@@ -16,57 +16,6 @@ en:
         body_cell_mass: Body Cell Mass (BCM)
         quality_of_reading: Quality of Reading (Q)
         notes: Notes
-    errors:
-      models:
-        renalware/clinical/body_composition:
-          attributes:
-            overhydration:
-              out_of_range: Must be between -20 and 20
-              invalid_number: Please enter a number with up to 1 decimal place
-
-            volume_of_distribution:
-              out_of_range: Must be between 5 and 150
-              invalid_number: Please enter a number with up to 1 decimal place
-
-            total_body_water:
-              out_of_range: Must be between 0 and 150
-              invalid_number: Please enter a number with up to 1 decimal place
-
-            extracellular_water:
-              out_of_range: Must be between 0 and 150
-              invalid_number: Please enter a number with up to 1 decimal place
-
-            intracellular_water:
-              out_of_range: Must be between 0 and and 150
-              invalid_number: Please enter a number with up to 1 decimal place
-
-            lean_tissue_index:
-              out_of_range: Must be between 0 and and 150
-              invalid_number: Please enter a number with up to 1 decimal place
-
-            fat_tissue_index:
-              out_of_range: Must be between 0 and and 150
-              invalid_number: Please enter a number with up to 1 decimal place
-
-            lean_tissue_mass:
-              out_of_range: Must be between 0 and and 150
-              invalid_number: Please enter a number with up to 1 decimal place
-
-            fat_tissue_mass:
-              out_of_range: Must be between 0 and and 150
-              invalid_number: Please enter a number with up to 1 decimal place
-
-            adipose_tissue_mass:
-              out_of_range: Must be between 0 and 100
-              invalid_number: Please enter a number with up to 1 decimal place
-
-            body_cell_mass:
-              out_of_range: Must be between 0 and 150
-              invalid_number: Please enter a number with up to 1 decimal place
-
-            quality_of_reading:
-              out_of_range: Must be between 50 and 100
-              invalid_number: Please enter a number with up to 3 decimal places
 
   renalware:
     clinical:
