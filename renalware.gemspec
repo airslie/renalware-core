@@ -45,6 +45,7 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-rails"
   s.add_dependency "jquery-ui-rails"
   s.add_dependency "kaminari"
+  s.add_dependency "liquid"
   s.add_dependency "naught", "~> 1.1.0"
   s.add_dependency "nested_form"
   s.add_dependency "nokogiri", ">= 1.7.1"

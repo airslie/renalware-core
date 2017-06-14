@@ -18,6 +18,9 @@ AllCops:
 Lint/UnusedMethodArgument:
   Enabled: false
 
+Style/SpecialGlobalVars:
+  Enabled: false
+
 ###################### Metrics ####################################
 
 Metrics/BlockLength:
