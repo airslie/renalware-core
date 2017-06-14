@@ -1,0 +1,25 @@
+= content_for(:actions) do
+  = link_to t("edit_record.link_title"),
+            edit_patient_clinical_body_composition_path(patient, body_composition),
+            class: "button"
+
+= within_patient_layout(breadcrumbs: clinical_profile_breadcrumb(patient)) do
+
+  article.body_composition
+    head
+    = definition_list_for(body_composition, size: :xlarge) do |list|
+      = list.definition(:assessed_on) { |value| l(value) }
+      = list.definition(:assessor)
+      = list.definition(:overhydration)
+      = list.definition(:volume_of_distribution)
+      = list.definition(:total_body_water)
+      = list.definition(:extracellular_water)
+      = list.definition(:intracellular_water)
+      = list.definition(:lean_tissue_index)
+      = list.definition(:fat_tissue_index)
+      = list.definition(:lean_tissue_mass)
+      = list.definition(:fat_tissue_mass)
+      = list.definition(:adipose_tissue_mass)
+      = list.definition(:body_cell_mass)
+      = list.definition(:quality_of_reading)
+      = list.definition(:notes)

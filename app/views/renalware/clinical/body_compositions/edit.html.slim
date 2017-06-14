@@ -1,0 +1,8 @@
+= within_patient_layout(title: "Body Composition Measurement") do
+
+  .document
+    = simple_form_for @body_composition,
+        url: patient_clinical_body_composition_path(@patient, @body_composition),
+        html: { autocomplete: "off" },
+        wrapper: "horizontal_form" do |f|
+      = render "form", f: f
