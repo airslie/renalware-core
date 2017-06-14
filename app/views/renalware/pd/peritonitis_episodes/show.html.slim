@@ -1,14 +1,18 @@
+= content_for(:actions) do
+  = link_to(patient_pd_peritonitis_episode_path(patient, peritonitis_episode, format: :pdf),
+            class: "button") do
+    i.fa.fa-print
+    | &nbsp;Print
+
 - title = "Peritonitis Episode - Diagnosed: #{l(peritonitis_episode.diagnosis_date)}"
 
 = within_patient_layout(title: title,
                         breadcrumbs: pd_summary_breadcrumb(patient),
                         **local_assigns) do
 
-  = article_tag "Episode" do
-
-    = render "details",
-             patient: patient,
-             peritonitis_episode: peritonitis_episode
+  = render "details",
+           patient: patient,
+           peritonitis_episode: peritonitis_episode
 
   = article_tag "Organisms/Sensitivity" do
 
