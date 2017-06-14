@@ -3,7 +3,7 @@ FactoryGirl.define do
     patient
 
     assessed_on 1.week.ago
-    overhydration "34.1"
+    overhydration "19.1"
     volume_of_distribution "52.1"
     total_body_water "23.1"
     extracellular_water "63.1"

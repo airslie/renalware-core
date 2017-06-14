@@ -9,7 +9,7 @@ RSpec.describe "Patient's Body Compositions", type: :request do
     end
 
     it "responds with a list" do
-      get patient_clinical_profile_path(patient_id: patient.id)
+      get patient_clinical_profile_path(patient_id: patient.to_param)
 
       expect(response).to have_http_status(:success)
     end
