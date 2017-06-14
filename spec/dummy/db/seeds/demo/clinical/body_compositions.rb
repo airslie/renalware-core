@@ -11,6 +11,7 @@ module Renalware
                notes: "Lorem ipusm")
         Clinical::BodyComposition.new(
           patient_id: @rabbit.id,
+          modality_description_id: 3,
           notes: Faker::Lorem.sentence,
           assessed_on: on,
           created_by_id: @user_id,
