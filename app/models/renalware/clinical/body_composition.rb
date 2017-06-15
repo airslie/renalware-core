@@ -13,8 +13,6 @@ module Renalware
 
       has_paper_trail class_name: "Renalware::Clinical::Version"
 
-      before_create :assign_modality
-
       scope :ordered, -> { order(assessed_on: :desc, created_at: :desc) }
 
       validates :patient, presence: true
@@ -33,11 +31,6 @@ module Renalware
       validates :quality_of_reading, presence: true, numeric_inclusion: { in: 50..100 }
       validates :assessed_on, presence: true, timeliness: { type: :date, allow_blank: false }
 
-      private
-
-      def assign_modality
-        self.modality_description = patient.modality_description
-      end
     end
   end
 end

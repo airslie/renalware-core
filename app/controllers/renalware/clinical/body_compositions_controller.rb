@@ -34,14 +34,18 @@ module Renalware
       end
 
       def create
-        body_composition = BodyComposition.new(patient: patient)
+        body_composition = BodyComposition.new(
+          patient: patient,
+          modality_description: patient.modality_description
+        )
         body_composition.attributes = body_composition_params
 
         if body_composition.save
-          redirect_to return_url, notice: t(".success", model_name: "dry weight")
-          session.delete(:return_to)
+          redirect_to patient_clinical_profile_path(@patient),
+          notice: t(".success", model_name: "body composition")
+
         else
-          flash[:error] = t(".failed", model_name: "dry weight")
+          flash[:error] = t(".failed", model_name: "body composition")
           render_new(body_composition)
         end
       end
