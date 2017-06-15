@@ -5,20 +5,6 @@ kings_main_dialysis_unit:
   renal_registry_code: RJZ
   unit_type: hospital
   is_hd_site: true
-# king's_dulwich_satellite:
-#   hospital_centre: kings_college_hospital
-#   name: King's Dulwich Satellite
-#   unit_code: DSU
-#   renal_registry_code: 9RJZ
-#   unit_type: satellite
-#   is_hd_site: true
-# dartford:
-#   hospital_centre: kings_college_hospital
-#   name: Dartford
-#   unit_code: Dart
-#   renal_registry_code: RN7
-#   unit_type: hospital
-#   is_hd_site: true
 home_hd:
   hospital_centre: kings_college_hospital
   name: Home HD

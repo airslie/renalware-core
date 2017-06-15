@@ -5,9 +5,7 @@
 .row
   .large-6.columns
     = simple_form_for @primary_care_physician, html: { autocomplete: "off" } do |f|
-      = f.input :given_name
-      = f.input :family_name
-      = f.input :email
+      = f.input :name, placeholder: "e.g. SMITH J"
       = f.input :telephone
       = f.input :code
       = f.input :practitioner_type, collection: ["GP", "Other"]

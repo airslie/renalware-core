@@ -2,30 +2,20 @@ li.has-dropdown
   = link_to "Admin", "#"
   ul.dropdown
     - if current_user_is_super_admin?
-      li
-        = link_to "Event Types", events_types_path
-      li
-        = link_to "Drugs", drugs_drugs_path
-      li
-        = link_to "Modalities", modalities_descriptions_path
-      li
-        = link_to "PD Bags", pd_bag_types_path
-      li
-        = link_to "Primary Care Physicians", patients_primary_care_physicians_path
+      li= link_to "Event Types", events_types_path
+      li= link_to "Drugs", drugs_drugs_path
+      li= link_to "Modalities", modalities_descriptions_path
+      li= link_to "PD Bags", pd_bag_types_path
+      li= link_to "Primary Care Physicians", patients_primary_care_physicians_path
 
     - if current_user_is_admin?
-      li
-        = link_to "Users", admin_users_path
-      li
-        = link_to "Hospital Units", hospitals_units_path
-      li
-        = link_to "HD Cannulation Types", hd_cannulation_types_path
-      li
-        = link_to "HD Dialysers", hd_dialysers_path
-      li
-        = link_to "Request Form Print History", pathology_requests_requests_path
-      li
-        = link_to "Pathology Requesting Configuration", pathology_requests_rules_path
+      li= link_to "Users", admin_users_path
+      li= link_to "Hospital Units", hospitals_units_path
+      li= link_to "HD Cannulation Types", hd_cannulation_types_path
+      li= link_to "HD Dialysers", hd_dialysers_path
+      li= link_to "Request Form Print History", pathology_requests_requests_path
+      li= link_to "Pathology Requesting Configuration", pathology_requests_rules_path
+      li= link_to "File Imports", admin_feeds_files_path
 
     - unless Rails.env.production?
       li

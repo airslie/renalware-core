@@ -38,7 +38,7 @@ module Renalware
 
       context "with invalid attributes" do
         it "responds with form" do
-          attributes = { given_name: "" }
+          attributes = { name: "" }
 
           post patients_primary_care_physicians_path,
                params: { patients_primary_care_physician: attributes }
@@ -67,7 +67,7 @@ module Renalware
     describe "PATCH update" do
       context "with valid attributes" do
         it "updates a record" do
-          attributes = { given_name: "My GP" }
+          attributes = { name: "My GP" }
           patch patients_primary_care_physician_path(primary_care_physician),
                 params: { patients_primary_care_physician: attributes }
 
@@ -82,7 +82,7 @@ module Renalware
 
       context "with invalid attributes" do
         it "responds with a form" do
-          attributes = { given_name: "" }
+          attributes = { name: "" }
           patch patients_primary_care_physician_path(primary_care_physician),
                 params: { patients_primary_care_physician: attributes }
 

@@ -16,11 +16,15 @@
 FROM ruby:2.5.0
 MAINTAINER Tim Crowe <tim@airslie.com>
 # Version 0.0.3 Updated Ruby 2.4.1 => 2.4.2 and Postgres 9.6 => 10.1
-# Version 0.0.5 Updated Ruby 2.4.2 => 2.5.0
+# Version 0.0.5 Updated Ruby 2.4.2 => 2.5.0, Add unrar and unzip
+
+RUN echo "deb http://archive.ubuntu.com/ubuntu precise universe multiverse" >> /etc/apt/sources.list
 
 # Install apt based dependencies required to run Rails as
 # well as RubyGems. As the Ruby image itself is based on a
 # Debian image, we use apt-get to install those.
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 40976EAF437D05B5
+RUN apt-key update
 RUN apt-get update
 RUN apt-get install -y \
   build-essential \
@@ -28,6 +32,9 @@ RUN apt-get install -y \
   software-properties-common \
   nodejs \
   pandoc \
+  rar \
+  unrar \
+  unzip \
   --fix-missing \
   --no-install-recommends
 
@@ -45,7 +52,8 @@ RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" 
 RUN apt-get update
 RUN apt-get install -y postgresql-client-10 postgresql-server-dev-10
 
-RUN wget -O /tmp/phantomjs.tar.bz2 https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
+# Note this can fail with 20 redirections exceeded.
+RUN wget --max-redirect=30 -O /tmp/phantomjs.tar.bz2 https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
 RUN tar -xjf /tmp/phantomjs.tar.bz2 -C /tmp
 RUN mv /tmp/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs
 

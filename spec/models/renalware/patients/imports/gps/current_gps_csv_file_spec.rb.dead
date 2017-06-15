@@ -1,0 +1,91 @@
+require "rails_helper"
+
+module Renalware
+  module Patients
+    module Imports
+      module Gps
+        describe CurrentGpsCSVFile do
+          GP_CODE = "123456679".freeze
+          GP_NAME = "JONES Mike".freeze
+
+          def active_gp_row
+            gp_csv_row(gp_code: GP_CODE, status_code: "A")
+          end
+
+          def retired_gp_row
+            gp_csv_row(gp_code: GP_CODE, status_code: "B")
+          end
+
+          def gp_csv_row(gp_code:, status_code:)
+            '"' + gp_code + '","' + GP_NAME + '","Y11","QAL","EXCROFT, LONDON ROAD",'\
+            '"ENGLEFIELD GREEN","EGHAM","SURREY","","TW20 9BS","19740401",'\
+            '"","' + status_code + '","P","H81699",'\
+            '"99740401","99910401","","","","","0","","","","",""'
+          end
+
+          def malformed_row
+            '"some","thing","is","wrong"'
+          end
+
+          def mock_csv_open(pathname:, contents:)
+            expect(File).to receive(:open)
+                        .with(pathname, universal_newline: false, headers: false) do
+              StringIO.new(contents)
+            end
+          end
+
+          def dummy_pathname
+            Pathname.new(__FILE__)
+          end
+
+          describe "#call" do
+
+            it "raises an error if the CSV file is not in the expected format" do
+              mock_csv_open(pathname: dummy_pathname, contents: malformed_row)
+              expect{
+                CurrentGpsCSVFile.new(dummy_pathname).import
+              }.to raise_error(Exceptions::UnexpectedCSVFormatError)
+            end
+
+            it "can import a single gp" do
+              mock_csv_open(pathname: dummy_pathname, contents: active_gp_row)
+
+              expect{
+                CurrentGpsCSVFile.new(dummy_pathname).import
+              }.to change{ PrimaryCarePhysician.count }.by(1)
+               .and change{ Address.count }.by(1)
+
+              gp = PrimaryCarePhysician.first
+              expect(gp.code).to eq(GP_CODE)
+              expect(gp.name).to eq(GP_NAME)
+
+              address = gp.address
+              expect(address.street_1).to eq("EXCROFT, LONDON ROAD")
+              expect(address.street_2).to eq("ENGLEFIELD GREEN")
+              expect(address.city).to eq("EGHAM")
+              expect(address.county).to eq("SURREY")
+              expect(address.postcode).to eq("TW20 9BS")
+            end
+
+            it "does not import a gp if it is not active" do
+              mock_csv_open(pathname: dummy_pathname, contents: retired_gp_row)
+              expect{
+                CurrentGpsCSVFile.new(dummy_pathname).import
+              }.to_not change{ PrimaryCarePhysician.count }
+            end
+
+            it "soft deletes an existing gp if its status has changed away from 'active'" do
+              FactoryBot.create(:primary_care_physician, code: GP_CODE)
+              mock_csv_open(pathname: dummy_pathname, contents: retired_gp_row)
+
+              expect{
+                CurrentGpsCSVFile.new(dummy_pathname).import
+              }.to change{ PrimaryCarePhysician.count }.from(1).to(0)
+               .and change{ PrimaryCarePhysician.deleted.count }.from(0).to(1)
+            end
+          end
+        end
+      end
+    end
+  end
+end

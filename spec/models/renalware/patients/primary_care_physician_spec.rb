@@ -4,14 +4,15 @@ require_dependency "models/renalware/concerns/personable"
 module Renalware::Patients
   describe PrimaryCarePhysician, type: :model do
     subject(:primary_care_physician) { create(:primary_care_physician) }
+    it { is_expected.to have_many(:practice_memberships) }
+    it { is_expected.to have_many(:practices).through(:practice_memberships) }
 
-    it_behaves_like "Personable"
+    it_behaves_like "a Paranoid model"
 
     describe "validation" do
       it { is_expected.to validate_uniqueness_of :code }
+      it { is_expected.to validate_presence_of :name }
       it { is_expected.to validate_presence_of :practitioner_type }
-      it { is_expected.to allow_value("email@addresse.foo").for(:email) }
-      it { is_expected.not_to allow_value("foo").for(:email) }
     end
 
     describe "#current_address" do
@@ -37,7 +38,7 @@ module Renalware::Patients
 
         it "adds the Primary Care Physician's name to the address" do
           expect(primary_care_physician.current_address.name).to(
-            eq("Dr " + primary_care_physician.full_name)
+            eq("Dr " + primary_care_physician.name)
           )
         end
       end
