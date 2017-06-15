@@ -9,6 +9,7 @@ article.body_compositions
       tr
         th.col-width-tiny
         th.col-width-date= t(".assessed_on")
+        th.col-width-small= t(".modality_description")
         th.col-width-tiny= t(".assessor")
         th.col-width-tiny= t(".overhydration")
         th.col-width-tiny= t(".volume_of_distribution")
@@ -31,6 +32,7 @@ article.body_compositions
             = pipe_separator
             = link_to "Edit", edit_patient_clinical_body_composition_path(patient, body_composition)
           td= body_composition.assessed_on
+          td= body_composition.modality_description&.name
           td= body_composition.assessor
           td= body_composition.overhydration
           td= body_composition.volume_of_distribution

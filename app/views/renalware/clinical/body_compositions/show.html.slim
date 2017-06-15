@@ -10,6 +10,7 @@
     = definition_list_for(body_composition, size: :xlarge) do |list|
       = list.definition(:assessed_on) { |value| l(value) }
       = list.definition(:assessor)
+      = list.definition(:modality_description)
       = list.definition(:overhydration)
       = list.definition(:volume_of_distribution)
       = list.definition(:total_body_water)

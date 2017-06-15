@@ -26,6 +26,7 @@ en:
           title: Body Composition Measurements
           add_dry_weight: Add a Body Composition Measurements
           add: Add
+          modality_description: Modality
           assessed_on: Date
           overhydration: OH
           volume_of_distribution: V
