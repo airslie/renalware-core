@@ -1,5 +1,5 @@
 module Renalware
-  log "Adding Body Composition Measurement for Roger RABBIT" do
+  log "Adding Body Composition Measurements for Roger RABBIT" do
 
     class CreateBodyComposition
       def initialize
@@ -11,17 +11,17 @@ module Renalware
                notes: "Lorem ipusm")
         Clinical::BodyComposition.new(
           patient_id: @rabbit.id,
-          modality_description_id: 3,
+          modality_description: Modalities::Description.find(3),
           notes: Faker::Lorem.sentence,
           assessed_on: on,
           created_by_id: @user_id,
           updated_by_id: @user_id,
           assessor_id: @user_id,
           overhydration: rand(-20..20).round(1),
-          volume_of_distribution: rand(50.0..70.0).round(1),
+          volume_of_distribution: rand(50.0..90.0).round(1),
           total_body_water: rand(50.0..70.0).round(1),
-          extracellular_water: rand(50.0..70.0).round(1),
-          intracellular_water: rand(50.0..70.0).round(1),
+          extracellular_water: rand(30.0..50.0).round(1),
+          intracellular_water: rand(20.0..40.0).round(1),
           lean_tissue_index: rand(50.0..70.0).round(1),
           fat_tissue_index: rand(50.0..70.0).round(1),
           lean_tissue_mass: rand(50.0..70.0).round(1),
