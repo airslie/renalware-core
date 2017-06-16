@@ -3743,6 +3743,38 @@ ALTER SEQUENCE snippets_snippets_id_seq OWNED BY snippets_snippets.id;
 
 
 --
+-- Name: system_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE system_templates (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    title character varying,
+    description character varying NOT NULL,
+    body text NOT NULL
+);
+
+
+--
+-- Name: system_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE system_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE system_templates_id_seq OWNED BY system_templates.id;
+
+
+--
 -- Name: transplant_donations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5051,6 +5083,13 @@ ALTER TABLE ONLY snippets_snippets ALTER COLUMN id SET DEFAULT nextval('snippets
 
 
 --
+-- Name: system_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY system_templates ALTER COLUMN id SET DEFAULT nextval('system_templates_id_seq'::regclass);
+
+
+--
 -- Name: transplant_donations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5958,6 +5997,14 @@ ALTER TABLE ONLY schema_migrations
 
 ALTER TABLE ONLY snippets_snippets
     ADD CONSTRAINT snippets_snippets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_templates system_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY system_templates
+    ADD CONSTRAINT system_templates_pkey PRIMARY KEY (id);
 
 
 --
@@ -7593,6 +7640,13 @@ CREATE INDEX index_snippets_snippets_on_author_id ON snippets_snippets USING btr
 --
 
 CREATE INDEX index_snippets_snippets_on_title ON snippets_snippets USING btree (title);
+
+
+--
+-- Name: index_system_templates_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_system_templates_on_name ON system_templates USING btree (name);
 
 
 --
@@ -9746,6 +9800,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170608135553'),
 ('20170608135953'),
 ('20170608192234'),
-('20170609144233');
+('20170609144233'),
+('20170614140457');
 
 
