@@ -1,0 +1,312 @@
+<!--
+name: esi_printable_form
+title: ESI Printable Form
+description: Renders at /patients/x/pd/exit_site_infections/1.pdf as a PDF form a nurse can print
+-->
+<style>
+  body {
+    font-family: helvetica, arial, sans-serif;
+    font-size: 0.8em;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid #333;
+    margin: 1rem 0;
+  }
+
+  .yes-no ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  .yes-no ul li {
+    display: inline-block;
+    list-style: none;
+    margin-right: 0.5rem;
+  }
+
+  .yes-no ul li::before {
+    content: "\25EF";
+    display: inline-block;
+    width: 1.3em;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+    text-decoration: underline;
+  }
+
+  table {
+    width: 100%;
+    text-align: left;
+    border-spacing: 0.3rem 0.3rem;
+    border-collapse: separate;
+    margin: 0 -0.3rem;
+  }
+
+  table .box {
+    border: solid 1px #333;
+    padding: 3px 6px;
+    height: 1rem;
+  }
+
+  table .col-small {
+    width: 3%;
+  }
+
+  table th {
+    font-weight: normal;
+  }
+
+  table.summary tr td:first-child {
+    width: 24%;
+  }
+
+  table.summary tr td:nth-child(2) {
+    width: 26%;
+  }
+
+  table.summary tr td:nth-child(3) {
+    width: 2%;
+  }
+
+  table.summary tr td:nth-child(4) {
+    width: 20%;
+  }
+
+  table.summary tr td:nth-child(5) {
+    width: 26%;
+  }
+
+  table.treatment th {
+    width: 10%;
+  }
+
+  table.treatment th:first-child {
+    width: 45%;
+  }
+
+  table.comments td {
+    height: 7rem;
+  }
+
+  table.clinical-presentation td:last-child,
+  table.clinical-presentation th:last-child {
+    width: 25%;
+  }
+
+  table.clinical-presentation td:nth-child(4),
+  table.clinical-presentation th:nth-child(4) {
+    width: 15%;
+  }
+</style>
+
+<div class="exit-site-infection">
+
+    <h1>Exit Site Infection Summary</h1>
+    <table class="summary">
+        <tr>
+            <th>Patient's Name</th>
+            <td class="box" colspan="4">{{ patient.name }}</td>
+        </tr>
+        <tr>
+            <th>Hospital no.</th>
+            <td class="box">{{ patient.hospital_identifier }}</td>
+            <td></td>
+            <th>Date of Birth</th>
+            <td class="box">{{ patient.born_on }}</td>
+        </tr>
+        <tr>
+            <th>Home Tel No</th>
+            <td class="box">{{ patient.telephone1 }}</td>
+            <td></td>
+            <th>Work tel no.</th>
+            <td class="box">{{ patient.telephone2 }}</td>
+        </tr>
+        <tr>
+            <th>Renal diagnosis</th>
+            <td class="box" colspan="4">{{ renal_patient.profile_prd_description }}</td>
+        </tr>
+        <tr>
+            <th>Modality</th>
+            <td class="box">{{ patient.current_modality }}</td>
+            <td></td>
+            <th>Diabetic</th>
+            <td class="box wide">{{ patient.diabetic }} </td>
+        </tr>
+    </table>
+    <hr />
+
+    <table class="summary">
+        <tr>
+            <th>Date of presentation</th>
+            <td class="box"></td>
+            <td></td>
+            <th>Date of Rx end</th>
+            <td class="box"></td>
+        </tr>
+        <tr>
+            <th>Date recorded</th>
+            <td class="box"></td>
+            <td></td>
+            <th>Nurse</th>
+            <td class="box"></td>
+        </tr>
+    </table>
+
+    <h2>Previous Exit Site History</h2>
+    <table class="history">
+      <thead>
+        <tr>
+            <th>Date</th>
+            <th>Organisms</th>
+            <th>Outcome</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for esi in pd_patient.exit_site_infections %}
+          <tr>
+              <td class="box">{{ esi.date }}</td>
+              <td class="box">{{ esi.organisms }}</td>
+              <td class="box">{{ esi.outcome }}</td>
+          </tr>
+        {% endfor %}
+        <tr>
+            <td class="box"></td>
+            <td class="box"></td>
+            <td class="box"></td>
+        </tr>
+      <tbody>
+    </table>
+
+    <h2>Clinical Presentation</h2>
+    <table class="clinical-presentation">
+        <tr>
+            <th>Pain</th>
+            <td class="yes-no">
+                <ul>
+                    <li>Y</li>
+                    <li>N</li>
+                </ul>
+            </td>
+            <th>Swelling</th>
+            <td class="yes-no">
+                <ul>
+                    <li>Y</li>
+                    <li>N</li>
+                </ul>
+            </td>
+            <th>Culture results</th>
+            <td class="box"></td>
+        </tr>
+        <tr>
+            <th>Redness</th>
+            <td class="yes-no">
+                <ul>
+                    <li>Y</li>
+                    <li>N</li>
+                </ul>
+            </td>
+            <th>Pus</th>
+            <td class="yes-no">
+                <ul>
+                    <li>Y</li>
+                    <li>N</li>
+                </ul>
+            </td>
+            <th></th>
+            <td class="box"></td>
+        </tr>
+        <tr>
+            <th>Tunnel</th>
+            <td class="yes-no">
+                <ul>
+                    <li>Y</li>
+                    <li>N</li>
+                </ul>
+            </td>
+            <th>Swabbed</th>
+            <td class="yes-no">
+                <ul>
+                    <li>Y</li>
+                    <li>N</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+
+    <h2>Treatment</h2>
+    <table class="treatment">
+        <thead>
+            <tr>
+                <th>Antibiotic, dose, route</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Nurse</th>
+                <th>Doctor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="box"></td>
+                <td class="box"></td>
+                <td class="box"></td>
+                <td class="box"></td>
+                <td class="box"></td>
+            </tr>
+            <tr>
+                <td class="box"></td>
+                <td class="box"></td>
+                <td class="box"></td>
+                <td class="box"></td>
+                <td class="box"></td>
+            </tr>
+            <tr>
+                <td class="box"></td>
+                <td class="box"></td>
+                <td class="box"></td>
+                <td class="box"></td>
+                <td class="box"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Outcome</h2>
+    <table>
+        <tr>
+            <th>Cleared</th>
+            <td class="yes-no">
+                <ul>
+                    <li>Y</li>
+                    <li>N</li>
+                </ul>
+            </td>
+            <th>Recurrent inf</th>
+            <td class="yes-no">
+                <ul>
+                    <li>Y</li>
+                    <li>N</li>
+                </ul>
+            </td>
+            <th>Tk removed</th>
+            <td class="yes-no">
+                <ul>
+                    <li>Y</li>
+                    <li>N</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+
+    <h2>Comments</h2>
+    <table class="comments">
+        <tr>
+            <td class="box"></td>
+        </tr>
+    </table>
+</div>

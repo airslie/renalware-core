@@ -1,11 +1,11 @@
 = within_patient_layout(title: "Exit Site Infection") do
-  = render "renalware/shared/errors", model: @exit_site_infection
+  = render "renalware/shared/errors", model: exit_site_infection
 
-  = simple_form_for [@patient, @exit_site_infection],
+  = simple_form_for [patient, exit_site_infection],
                     html: { autocomplete: "off" } do |es|
 
     = render partial: "renalware/pd/exit_site_infections/form", locals: { es: es }
 
     = submit_tag "Save", class: "button"
     span= " or "
-    = link_to "cancel", patient_pd_exit_site_infection_path(@patient, @exit_site_infection.id)
+    = link_to "cancel", patient_pd_exit_site_infection_path(patient, exit_site_infection)
