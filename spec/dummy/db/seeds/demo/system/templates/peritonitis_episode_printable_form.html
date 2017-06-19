@@ -1,0 +1,109 @@
+<!--
+    Note this database-stored template is hospital-editable and self-contained ie does not bring
+    in any partials or external CSS.
+
+    name: esi_printable_form
+    title: Peritonitis Episode Printable Form
+    description: Renders at /patients/1/pd/peritonitis_episodes/1.pdf as a PDF form
+                 a nurse can print"
+-->
+<style>
+    .peritonitis-episode {
+        /* Add all styling for this form here */
+    }
+</style>
+<div class="peritonitis-episode">
+    <div>
+        <h1>Peritonitis Episode Summary</h1>
+        <h2>TODO: this form is unfinished and can be edited in db/seeds/templates </h2>
+        <table class="summary">
+            <tr>
+                <th>Hospital no.</th>
+                <td class="box">{{ patient.hospital_identifier }}</td>
+            </tr>
+            <tr>
+                <th></th>
+                <td class="box" colspan="4">{{ patient.family_name }}</td>
+            </tr>
+            <tr>
+                <th></th>
+                <td class="box" colspan="4">{{ patient.given_name }}</td>
+            </tr>
+            <tr>
+                <th>Date of Birth</th>
+                <td class="box">{{ patient.born_on }}</td>
+            </tr>
+            <tr>
+                <th>Home Tel No</th>
+                <td class="box"></td>
+            </tr>
+            <tr>
+                <th>Work tel no.</th>
+                <td class="box"></td>
+            </tr>
+            <tr>
+                <th>Renal diagnosis</th>
+                <td class="box" colspan="4">Diabetic nephropathy in type II diabetes--no histology [2337]</td>
+            </tr>
+            <tr>
+                <th>Modality</th>
+                <td class="box">Transplant</td>
+            </tr>
+            <tr>
+                <th>Diabetic</th>
+                <td class="box wide"></td>
+            </tr>
+        </table>
+        <hr />
+        <ul class="checklist">
+            <li>3C</li>
+            <li>AKPD</li>
+            <li>BLISS</li>
+            <li>Dolomite</li>
+            <li>EMBRACE</li>
+            <li>GSK-747 (not on dialysis)</li>
+            <li>GSK-633 (dialysis)</li>
+            <li>OutSMART</li>
+            <li>PD_consent</li>
+            <li>PD_iPOD</li>
+            <li>Pivotal</li>
+        </ul>
+        <table class="summary">
+            <tr>
+                <th>Date of presentation</th>
+                <td class="box"></td>
+                <td></td>
+                <th>Date of Rx end</th>
+                <td class="box"></td>
+            </tr>
+            <tr>
+                <th>Date recorded</th>
+                <td class="box"></td>
+                <td></td>
+                <th>Nurse</th>
+                <td class="box"></td>
+            </tr>
+        </table>
+        <h2>Previous Peritonitis History</h2>
+        <table class="history">
+            <tr>
+                <th>Last Ab</th>
+                <th>Organism 1</th>
+                <th>Organism 3</th>
+                <th>Outcome</th>
+            </tr>
+            <tr>
+                <td class="box"></td>
+                <td class="box"></td>
+                <td class="box"></td>
+                <td class="box"></td>
+            </tr>
+            <tr>
+                <td class="box"></td>
+                <td class="box"></td>
+                <td class="box"></td>
+                <td class="box"></td>
+            </tr>
+        </table>
+    </div>
+</div>

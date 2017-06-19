@@ -4,15 +4,13 @@ module Renalware
   module PD
     class PeritonitisEpisodesController < BaseController
       include PresenterHelper
+      include Renalware::Concerns::PdfRenderable
 
       def show
-        prescriptions = current_episode.prescriptions.ordered
-        render locals: {
-          patient: patient,
-          peritonitis_episode: present(current_episode, PeritonitisEpisodePresenter),
-          prescriptions: present(prescriptions, Medications::PrescriptionPresenter),
-          treatable: present(current_episode, Medications::TreatablePresenter)
-        }
+        respond_to do |format|
+          format.html { render_show }
+          format.pdf  { render_show_as_pdf }
+        end
       end
 
       def new
@@ -65,6 +63,36 @@ module Renalware
       end
 
       private
+
+      def render_show
+        render :show, locals: locals_for_show
+      end
+
+      def render_show_as_pdf
+        variables = {
+          "patient" => Patients::PatientDrop.new(patient),
+          "renal_patient" => Renal::PatientDrop.new(patient),
+          "pd_patient" => PD::PatientDrop.new(patient)
+        }
+        render_liquid_template_to_pdf(template_name: "peritonitis_episode_printable_form",
+                                      filename: pdf_filename,
+                                      variables: variables)
+      end
+
+      def pdf_filename
+        "#{patient.family_name}-#{patient.hospital_identifier.id}" \
+        "-PERI-EPISODE-#{current_episode.id}".upcase
+      end
+
+      def locals_for_show
+        prescriptions = current_episode.prescriptions.ordered
+        {
+          patient: patient,
+          peritonitis_episode: present(current_episode, PeritonitisEpisodePresenter),
+          prescriptions: present(prescriptions, Medications::PrescriptionPresenter),
+          treatable: present(current_episode, Medications::TreatablePresenter)
+        }
+      end
 
       def redirect_after_successful_save(episode)
         url = patient_pd_peritonitis_episode_path(patient, episode)

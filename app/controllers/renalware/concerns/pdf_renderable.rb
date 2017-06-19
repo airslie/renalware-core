@@ -20,6 +20,7 @@ module Renalware
           }
         end
 
+
         # Render a Liquid template loaded from the database.
         # The template may have variable place holders w.g. {{ patient.name }} and these
         # are resolved by passing instance of Liquid Drops (presenters) in the variables hash.
