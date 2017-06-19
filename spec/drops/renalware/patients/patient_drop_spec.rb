@@ -20,11 +20,8 @@ module Renalware::Patients
     end
 
     it "delegates to #diabetic" do
-      # document = double
-      # expect(double).to receive(:diagnosis).and_return(true)
-      # expect(patient).to receive(:document).and_return(OpenStruct.new(diabetes: double))
       patient.document.diabetes.diagnosis = true
-      expect(subject.diabetic).to eq(patient.diabetic?)
+      expect(subject.diabetic).to eq("Yes") # May become eg "Type 1" in the future.
     end
   end
 end
