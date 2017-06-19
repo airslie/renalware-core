@@ -1,17 +1,56 @@
 require "rails_helper"
 
-RSpec.describe "Patient's Body Compositions", type: :request do
-  let(:patient) { create(:clinical_patient) }
+module Renalware
+  module Clinical
+    RSpec.describe "Patient's Body Compositions", type: :request do
+      let(:patient) { create(:clinical_patient) }
 
-  describe "GET index" do
-    before do
-      create(:body_composition, patient: Renalware::Clinical.cast_patient(patient))
-    end
+      describe "GET new" do
+        it "responds successfully" do
+          get new_patient_clinical_body_composition_path(patient_id: patient)
+          expect(response).to have_http_status(:success)
+        end
+      end
 
-    it "responds with a list" do
-      get patient_clinical_profile_path(patient_id: patient.to_param)
+      describe "POST create" do
+        it "responds successfully" do
+          url = patient_clinical_body_compositions_path(patient_id: patient)
+          params = {}
+          params[:clinical_body_composition] = attributes_for(:body_composition)
+          params[:clinical_body_composition][:assessor_id] = Renalware::User.first.id
 
-      expect(response).to have_http_status(:success)
+          expect{
+            post(url, params: params)
+          }.to change(BodyComposition.all, :count).by(1)
+
+          follow_redirect!
+          expect(response).to have_http_status(:success)
+        end
+      end
+
+      describe "GET edit" do
+        it "responds successfully" do
+          body_comp = create(:body_composition, patient: patient)
+          get edit_patient_clinical_body_composition_path(patient_id: patient, id: body_comp)
+          expect(response).to have_http_status(:success)
+        end
+      end
+
+      describe "PATCH update" do
+        it "responds successfully" do
+          body_comp = create(:body_composition, patient: patient)
+          url = patient_clinical_body_composition_path(patient_id: patient, id: body_comp)
+          params = {
+            clinical_body_composition: body_comp.attributes.merge!(notes: "Lorem")
+          }
+
+          patch(url, params: params)
+
+          expect(response).to have_http_status(:redirect)
+          follow_redirect!
+          expect(response).to have_http_status(:success)
+        end
+      end
     end
   end
 end

@@ -24,7 +24,6 @@ module Renalware
       end
 
       def new
-        save_path_to_return_to
         body_composition = BodyComposition.new(
           patient: patient,
           assessor: current_user,
@@ -34,16 +33,10 @@ module Renalware
       end
 
       def create
-        body_composition = BodyComposition.new(
-          patient: patient,
-          modality_description: patient.modality_description
-        )
-        body_composition.attributes = body_composition_params
-
+        body_composition = build_body_composition
         if body_composition.save
           redirect_to patient_clinical_profile_path(@patient),
           notice: t(".success", model_name: "body composition")
-
         else
           flash[:error] = t(".failed", model_name: "body composition")
           render_new(body_composition)
@@ -69,25 +62,20 @@ module Renalware
 
       protected
 
-      def save_path_to_return_to
-        return unless request.format == :html
-        session[:return_to] ||= request.referer
-      end
-
-      def return_url
-        @return_url ||= begin
-          path = session[:return_to]
-          path = nil if path == new_patient_clinical_body_composition_path(patient)
-          path || patient_clinical_profile_path(patient)
-        end
-      end
-      helper_method :return_url
-
       def render_new(body_composition)
         render :new, locals: {
           body_composition: body_composition,
           patient: patient
         }
+      end
+
+      def build_body_composition
+        BodyComposition.new(
+          body_composition_params.to_h.merge!(
+            patient: patient,
+            modality_description: patient.modality_description
+          )
+        )
       end
 
       def body_composition_params
