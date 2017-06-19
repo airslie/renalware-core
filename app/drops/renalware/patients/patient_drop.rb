@@ -5,7 +5,11 @@ require_dependency "renalware/patients"
 module Renalware
   module Patients
     class PatientDrop < Liquid::Drop
-      delegate :given_name, :family_name, :telephone1, :telephone2, to: :patient
+      delegate :given_name,
+               :family_name,
+               :telephone1,
+               :telephone2,
+               to: :patient
 
       def initialize(patient)
         @patient = patient
@@ -28,7 +32,7 @@ module Renalware
       end
 
       def diabetic
-        patient.document.diabetes&.diagnosis ? "Yes" : "No"
+        patient.diabetic? ? "Yes" : "No"
       end
 
       private

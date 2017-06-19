@@ -2033,7 +2033,6 @@ CREATE TABLE patients (
     document jsonb,
     religion_id integer,
     language_id integer,
-    diabetic boolean DEFAULT false NOT NULL,
     allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
     allergy_status_updated_at timestamp without time zone,
     local_patient_id_2 character varying,
@@ -9801,6 +9800,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170608135953'),
 ('20170608192234'),
 ('20170609144233'),
-('20170614140457');
+('20170614140457'),
+('20170619100927');
 
 

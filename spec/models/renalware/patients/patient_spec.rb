@@ -31,6 +31,14 @@ module Renalware
 
     subject { create(:patient, nhs_number: "1234567890") }
 
+    describe "diabetic?" do
+      it "delegates to document.diabetes.diagnosis" do
+        expect(subject.diabetic?).to be_falsey
+        expect(subject.document.diabetes).to receive(:diagnosis).and_return(true)
+        expect(subject.diabetic?).to be_truthy
+      end
+    end
+
     describe "#valid?" do
       context "given the current modality is death" do
         before { allow(subject).to receive(:current_modality_death?).and_return(true) }

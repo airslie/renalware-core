@@ -50,7 +50,7 @@ end
 
 Given(/^Patty is a diabetic (yes|no)$/) do |diabetic|
   if diabetic == "yes"
-    @patty.diabetic = true
+    @patty.document.diabetes.diagnosis = true
     @patty.save!
   end
 end
