@@ -85,7 +85,18 @@ module Renalware
       app.config.assets.precompile += %w(renalware/iframeResizer.contentWindow.js)
       app.config.assets.precompile += %w(renalware/pdf.css renalware/watermark.css)
       app.config.assets.precompile += %w(renalware/protocol_pdf.css)
-      app.config.assets.precompile += %w(renalware/NHS-Black.jpg)
+      app.config.assets.precompile += %w(
+        renalware/NHS-Black.jpg
+        renalware/favicon/manifest.json
+        renalware/favicon/apple-touch-icon.png
+        renalware/favicon/favicon-32x32.png
+        renalware/favicon/favicon-16x16.png
+        renalware/favicon/favicon.ico
+        renalware/favicon/android-chrome-192x192.png
+        renalware/favicon/android-chrome-512x512.png
+        renalware/favicon/mstile-150x150.png
+        renalware/favicon/safari-pinned-tab.svg
+      )
       app.config.assets.paths <<
         Rails.root.join(config.root, "vendor", "assets", "javascripts", "renalware")
     end
