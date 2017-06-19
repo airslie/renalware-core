@@ -297,11 +297,12 @@ ALTER SEQUENCE access_sites_id_seq OWNED BY access_sites.id;
 
 CREATE TABLE access_types (
     id integer NOT NULL,
-    code character varying NOT NULL,
     name character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    abbreviation character varying
+    abbreviation character varying,
+    rr02_code character varying,
+    rr41_code character varying
 );
 
 
@@ -9802,6 +9803,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170608192234'),
 ('20170609144233'),
 ('20170614140457'),
+('20170615184503'),
 ('20170619100927'),
 ('20170621205538');
 

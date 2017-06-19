@@ -34,7 +34,8 @@ ruby:
         fieldset
           legend Access
           = fcm.input :access_type, as: :select, value_method: :name,
-              collection: Renalware::Accesses::Type.ordered, wrapper: :horizontal_small
+              collection: Renalware::Accesses::Type.having_abbreviation.ordered,
+              wrapper: :horizontal_small
           = fcm.input :access_side, wrapper: :horizontal_tiny
           = fcm.input :access_site, as: :select, value_method: :name,
               collection: Renalware::Accesses::Site.ordered, wrapper: :horizontal_small

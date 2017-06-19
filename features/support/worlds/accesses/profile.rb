@@ -76,7 +76,7 @@ module World
         end
 
         fill_in "Formed On", with: I18n.l(Time.zone.today)
-        select "Vein loop", from: "Access Type"
+        select "Tunnelled subcl", from: "Access Type"
         select site.to_s, from: "Access Site"
         select "Right", from: "Access Side"
 

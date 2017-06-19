@@ -3,13 +3,14 @@ require_dependency "renalware/accesses"
 module Renalware
   module Accesses
     class Type < ApplicationRecord
-      validates :code, presence: true
       validates :name, presence: true
 
       scope :ordered, -> { order(:name) }
+      scope :having_abbreviation, -> { where.not(abbreviation: nil) }
 
       def to_s
-        name
+        abbrev = abbreviation && " (#{abbreviation})"
+        "#{name}#{abbrev}"
       end
     end
   end

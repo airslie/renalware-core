@@ -14,7 +14,9 @@ ruby:
 
       = f.input :performed_on, as: :date_picker
       = f.association :type,
-          collection: Renalware::Accesses::Type.ordered, input_html: { class: "small-input" }
+          collection: Renalware::Accesses::Type.ordered,
+          label_method: :to_s,
+          input_html: { class: "small-input" }
       = f.association :site,
           collection: Renalware::Accesses::Site.ordered, input_html: { class: "small-input" }
       = f.input :side, input_html: { class: "small-input" }
