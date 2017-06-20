@@ -91,6 +91,10 @@ module Renalware
       BasePolicy
     end
 
+    def diabetic?
+      document&.diabetes&.diagnosis == true
+    end
+
     # Overrides Personable mixin
     def to_s(format = :default)
       title_suffix = " (#{title})" if has_title?
