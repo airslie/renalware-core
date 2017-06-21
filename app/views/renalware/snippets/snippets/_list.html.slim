@@ -20,7 +20,7 @@
       =link_to snippets_path(author: :anyone), remote: remote do
         i.fa.fa-users
         | Everyone's
-  /.columns.small-5.medium-6.large-5
+
   = render "search_form", search: search, author: author, remote: remote
   = render "table", snippets: snippets, author: author, search: search, remote: remote
   = paginate snippets
