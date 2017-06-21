@@ -6,11 +6,19 @@ module Renalware
       include PresenterHelper
 
       def index
-        patients = PatientsWithUnmetPreferencesQuery.new.call.page(params[:page])
+        query = PatientsWithUnmetPreferencesQuery.new(query_params)
+        patients = query.call.page(params[:page])
         authorize(patients)
         render locals: {
+          query: query.search,
           patients: present(patients, UnmetPreferencesPresenter)
         }
+      end
+
+      private
+
+      def query_params
+        params.fetch(:q, {})
       end
     end
   end

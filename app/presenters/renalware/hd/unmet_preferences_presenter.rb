@@ -8,7 +8,7 @@ module Renalware
   module HD
     class UnmetPreferencesPresenter
       include ActionView::Helpers
-      COMMON_ATTRIBUTES = %i(schedule other_schedule).freeze
+      COMMON_ATTRIBUTES = %i(schedule other_schedule hospital_unit).freeze
       delegate(*COMMON_ATTRIBUTES, to: :hd_preference_set, prefix: :preferred, allow_nil: true)
       delegate(*COMMON_ATTRIBUTES, to: :hd_profile, prefix: :current, allow_nil: true)
       delegate(:notes, to: :hd_preference_set)
@@ -37,20 +37,7 @@ module Renalware
         false
       end
 
-      def current_hospital_unit
-        formatted_hospital_unit(hd_profile.hospital_unit)
-      end
-
-      def preferred_hospital_unit
-        formatted_hospital_unit(hd_preference_set.hospital_unit)
-      end
-
       private
-
-      def formatted_hospital_unit(unit)
-        return if unit.blank?
-        sanitize(unit.to_s) + tag(:br) + sanitize(unit.hospital_centre.to_s)
-      end
 
       attr_reader :patient
     end

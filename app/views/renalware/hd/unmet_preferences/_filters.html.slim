@@ -1,0 +1,31 @@
+.row.filters
+  .filters__form
+    = simple_form_for query,
+        as: :q,
+        url: hd_unmet_preferences_path,
+        method: :get do |f|
+
+        .small-12.medium-3.large-3.columns
+          = f.label :hd_profile_hospital_unit_id_eq, "Patients dialysing at"
+          = f.grouped_collection_select :hd_profile_hospital_unit_id_eq,
+                                        Renalware::Hospitals::Centre.with_hd_sites.ordered,
+                                        :hd_sites, :to_s, :id, :to_s,
+                                        include_blank: "Any unit"
+
+        .small-12.medium-3.large-3.columns
+          = f.label :hd_preference_set_hospital_unit_id_eq, "but preferring unit"
+          = f.grouped_collection_select :hd_preference_set_hospital_unit_id_eq,
+                                        Renalware::Hospitals::Centre.with_hd_sites.ordered,
+                                        :hd_sites, :to_s, :id, :to_s,
+                                        include_blank: "Any unit"
+
+        .small-12.medium-3.large-3.columns
+          = f.input :hd_preference_set_schedule_eq,
+                    collection: Renalware::HD::Profile.schedule.options,
+                    include_blank: "Any schedule",
+                    label: "or preferring schedule"
+
+        .medium-3.large-3.columns.actions.end
+          = f.submit "Filter", class: "button"
+          span= " or "
+          = link_to t("helpers.reset"), hd_unmet_preferences_path
