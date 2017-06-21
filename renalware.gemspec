@@ -54,6 +54,7 @@ Gem::Specification.new do |s|
   s.add_dependency "pg"
   s.add_dependency "puma"
   s.add_dependency "pundit", "~> 1.1.0"
+  s.add_dependency "rack-attack"
   s.add_dependency "ransack"
   s.add_dependency "record_tag_helper", "~> 1.0"
   s.add_dependency "pandoc-ruby"
