@@ -4,6 +4,7 @@ module Renalware
   module HD
     class Patient < ActiveType::Record[Renalware::Patient]
       has_one :hd_profile, class_name: "Profile"
+      has_one :hd_preference_set, class_name: "PreferenceSet"
       has_many :hd_sessions, class_name: "Session"
       scope :with_profile, -> { includes(:hd_profile) }
 

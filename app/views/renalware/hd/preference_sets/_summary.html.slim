@@ -4,6 +4,7 @@ article
     ul
       li= link_to "Edit", edit_patient_hd_preference_set_path(patient), class: "button"
 
-  dl.dl-horizontal
-    dt= t(".hospital_centre")
-    dd= preference_set.hospital_centre
+  = definition_list_for(preference_set) do |list|
+    = list.definition(:schedule) { |value|  value&.text }
+    = list.definition(:hospital_centre)
+    = list.definition(:hospital_unit)

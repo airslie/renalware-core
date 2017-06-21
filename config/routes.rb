@@ -101,6 +101,7 @@ Renalware::Engine.routes.draw do
       resources :dialysers, except: :show
       resource :ongoing_sessions, only: :show
       resources :mdm_patients, only: :index
+      resources :unmet_preferences, only: :index
     end
 
     namespace :hospitals do

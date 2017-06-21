@@ -8,6 +8,7 @@ en:
         tx_wait_list: Tx Wait List
         live_donors: Live Donors
         ongoing_hd_sessions: Ongoing HD Sessions
+        hd_patients_with_unmet_preferences: HD Patients with un-met preferences
         letters: Letters
         esa_prescriptions: ESA Patients
       mdms:
