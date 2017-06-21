@@ -17,12 +17,12 @@ table.hd-unmet-preferences
     - patients.each do |patient|
       tr
         td= link_to(patient, patient_hd_dashboard_path(patient))
-        td.current= patient.current(:hospital_unit)
-        td.current= patient.current(:schedule)&.text
-        td.current= patient.current(:other_schedule)
+        td.current= patient.current_hospital_unit
+        td.current= patient.current_schedule&.text
+        td.current= patient.current_other_schedule
         td.preferred= patient.preferred(:hospital_unit)
-        td.preferred= patient.preferred(:schedule)&.text
-        td.preferred= patient.preferred(:other_schedule)
+        td.preferred= patient.preferred(:schedule) { |value| value&.text }
+        td.preferred= patient.preferred_other_schedule
         td.col-with-large-with-ellipsis= patient.notes
 
 = paginate patients

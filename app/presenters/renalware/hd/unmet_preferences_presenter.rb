@@ -18,16 +18,14 @@ module Renalware
         @patient = patient
       end
 
-      # Returns the HD::Profile setting if it differs from that in the HD::PreferenceSet
-      def current(attribute)
-        return if preference_satisfied?(attribute)
-        public_send(:"current_#{attribute}")
-      end
-
       # Returns the HD::PreferenceSet setting if it differs from that in the HD::Profile
+      # If the preference is unmet, wrap in a <b> tag. Yield the value so the template
+      # has a chance to format it before it is wrapped.
       def preferred(attribute)
-        return if preference_satisfied?(attribute)
-        public_send(:"preferred_#{attribute}")
+        value = public_send(:"preferred_#{attribute}")
+        value = yield(value) if block_given?
+        return value if preference_satisfied?(attribute)
+        content_tag(:b, value)
       end
 
       def preference_satisfied?(attribute)
