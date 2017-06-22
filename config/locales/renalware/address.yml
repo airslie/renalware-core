@@ -6,7 +6,8 @@ en:
         organisation_name: Organisation
         street_1: Line 1
         street_2: Line 2
-        city: City
+        street_3: Line 3
+        town: Town
         county: County
         postcode: Postal Code
         country: Country

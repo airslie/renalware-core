@@ -70,7 +70,7 @@ module World
 
         fill_in t_address(:name), with: attr[:address_attributes][:name]
         fill_in t_address(:street_1), with: attr[:address_attributes][:street_1]
-        fill_in t_address(:city), with: attr[:address_attributes][:city]
+        fill_in t_address(:town), with: attr[:address_attributes][:town]
 
         click_on "Create"
       end

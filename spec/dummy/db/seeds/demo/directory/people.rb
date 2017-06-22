@@ -18,7 +18,7 @@ module Renalware
           name: "#{title} #{given_name} #{family_name}",
           organisation_name: organisation_name,
           street_1: Faker::Address.street_address,
-          city: Faker::Address.city,
+          town: Faker::Address.city,
           county: Faker::Address.state,
           postcode: Faker::Address.postcode,
           country: "United Kingdom"

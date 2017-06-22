@@ -35,7 +35,8 @@ module Renalware
         organisation_name,
         street_1,
         street_2,
-        city,
+        street_3,
+        town,
         county,
         postcode,
         country

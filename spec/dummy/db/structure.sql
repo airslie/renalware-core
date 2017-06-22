@@ -370,7 +370,7 @@ CREATE TABLE addresses (
     street_1 character varying,
     street_2 character varying,
     county character varying,
-    city character varying,
+    town character varying,
     postcode character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -378,7 +378,8 @@ CREATE TABLE addresses (
     name character varying,
     organisation_name character varying,
     telephone character varying,
-    email character varying
+    email character varying,
+    street_3 character varying
 );
 
 
@@ -6343,7 +6344,7 @@ CREATE INDEX index_access_profiles_on_updated_by_id ON access_profiles USING btr
 -- Name: index_addresses_on_addressable_type_and_addressable_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_addresses_on_addressable_type_and_addressable_id ON addresses USING btree (addressable_type, addressable_id);
+CREATE UNIQUE INDEX index_addresses_on_addressable_type_and_addressable_id ON addresses USING btree (addressable_type, addressable_id);
 
 
 --
@@ -9801,6 +9802,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170608192234'),
 ('20170609144233'),
 ('20170614140457'),
-('20170619100927');
+('20170619100927'),
+('20170621205538');
 
 

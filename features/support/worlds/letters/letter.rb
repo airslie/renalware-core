@@ -159,10 +159,10 @@ module World
         main_recipient = Renalware::Letters::LetterPresenterFactory.new(letter).main_recipient
         if recipient.is_a? Renalware::Patient
           expect(main_recipient.person_role).to eq("patient")
-          expect(main_recipient.address.city).to eq(recipient.current_address.city)
+          expect(main_recipient.address.town).to eq(recipient.current_address.town)
         elsif recipient.is_a? Renalware::Patients::PrimaryCarePhysician
           expect(main_recipient.person_role).to eq("primary_care_physician")
-          expect(main_recipient.address.city).to eq(recipient.current_address.city)
+          expect(main_recipient.address.town).to eq(recipient.current_address.town)
         elsif recipient.is_a? Renalware::Letters::Contact
           expect(main_recipient.person_role).to eq("contact")
           expect(main_recipient.addressee).to eq(recipient)
@@ -193,16 +193,16 @@ module World
 
         ccs_map = ccs.map do |cc|
           if cc.is_a? Renalware::Patient
-            ["patient", cc.current_address.city]
+            ["patient", cc.current_address.town]
           elsif cc.is_a? Renalware::Patients::PrimaryCarePhysician
-            ["primary_care_physician", cc.current_address.city]
+            ["primary_care_physician", cc.current_address.town]
           else
-            ["contact", cc.address.city]
+            ["contact", cc.address.town]
           end
         end
 
         cc_recipients_map = letter.cc_recipients.map do |cc|
-          [cc.person_role, cc.address.city]
+          [cc.person_role, cc.address.town]
         end
 
         expect(ccs_map).to match_array(cc_recipients_map)

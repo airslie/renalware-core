@@ -18,7 +18,8 @@ module Renalware
         organisation_name,
         street_1,
         street_2,
-        [city, county, postcode].reject(&:blank?).join(", "),
+        street_3,
+        [town, county, postcode].reject(&:blank?).join(", "),
         country
       ]
     end

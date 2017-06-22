@@ -89,8 +89,8 @@ module Renalware
     # rubocop:enable Metrics/MethodLength
 
     def address_params
-      [:id, :name, :organisation_name, :street_1, :street_2, :county, :country,
-        :city, :postcode, :telephone, :email]
+      [:id, :name, :organisation_name, :street_1, :street_2, :street_3, :county, :country,
+        :town, :postcode, :telephone, :email]
     end
 
     def document_attributes

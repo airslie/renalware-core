@@ -49,7 +49,7 @@ module Renalware
     address.name = "M. Roger Rabbit"
     address.name = "M. Roger Rabbit"
     address.street_1 = "123 South Street"
-    address.city = "Toontown"
+    address.town = "Toontown"
     address.postcode = "TT1 1HD"
     address.country = "United Kingdom"
 
