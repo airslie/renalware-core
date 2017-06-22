@@ -2048,7 +2048,7 @@ CREATE TABLE patients (
     rpv_decision_on date,
     renalreg_recorded_by character varying,
     rpv_recorded_by character varying,
-    uuid uuid DEFAULT uuid_generate_v4() NOT NULL,
+    ukrdc_external_id uuid DEFAULT uuid_generate_v4() NOT NULL,
     secure_id character varying DEFAULT generate_patient_secure_id() NOT NULL
 );
 
@@ -7357,17 +7357,17 @@ CREATE UNIQUE INDEX index_patients_on_secure_id ON patients USING btree (secure_
 
 
 --
+-- Name: index_patients_on_ukrdc_external_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_ukrdc_external_id ON patients USING btree (ukrdc_external_id);
+
+
+--
 -- Name: index_patients_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_patients_on_updated_by_id ON patients USING btree (updated_by_id);
-
-
---
--- Name: index_patients_on_uuid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_patients_on_uuid ON patients USING btree (uuid);
 
 
 --
@@ -9805,6 +9805,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170614140457'),
 ('20170615184503'),
 ('20170619100927'),
-('20170621205538');
+('20170621205538'),
+('20170622145529');
 
 

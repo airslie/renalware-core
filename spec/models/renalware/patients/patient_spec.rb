@@ -4,6 +4,7 @@ require_dependency "models/renalware/concerns/personable"
 module Renalware
   describe Patient, type: :model do
     it { is_expected.to be_versioned }
+    it { is_expected.to have_db_index(:ukrdc_external_id) }
 
     it_behaves_like "Personable"
 

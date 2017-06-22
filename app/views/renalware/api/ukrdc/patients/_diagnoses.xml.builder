@@ -3,5 +3,5 @@
 xml = builder
 
 xml.Diagnoses do
-  # ...
+  xml.comment! "TODO"
 end

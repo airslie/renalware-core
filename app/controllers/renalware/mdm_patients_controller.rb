@@ -16,8 +16,7 @@ module Renalware
     end
 
     def build_presenter(**args)
-      params = args.fetch(:params)
-      query  = args.fetch(:query)
+      query = args.fetch(:query)
 
       MDMPatientsPresenter.new(
         patients: query.call.page(page),

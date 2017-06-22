@@ -1,7 +1,7 @@
 xml = builder
 
 xml.SendingFacility(
-  channelName: "TODO",
+  channelName: "RenalwareV2",
   channelId: "TODO",
   time: Time.zone.now.to_datetime) do
 end

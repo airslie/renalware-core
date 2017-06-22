@@ -62,7 +62,7 @@ module Renalware
           nhs_number = :exact_term OR
           family_name ILIKE :fuzzy_term
         SQL
-        sql += " OR uuid = :exact_term" if query_is_a_uuid?(query)
+        sql += " OR ukrdc_external_id = :exact_term" if query_is_a_uuid?(query)
         sql
       end
       # rubocop:enable Metrics/MethodLength
