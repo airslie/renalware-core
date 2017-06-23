@@ -10,6 +10,7 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
 
   describe "GET #show" do
     it "renders the correct UK RDC XML" do
+      pending
       ethnicity = create(:ethnicity)
       patient = create(:patient, ethnicity: ethnicity)
 
