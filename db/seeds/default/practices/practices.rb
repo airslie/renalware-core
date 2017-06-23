@@ -13,7 +13,7 @@ module Renalware
             postcode: row["postcode"],
             street_1: row["street_1"],
             street_2: row["street_2"],
-            city: row["city"]
+            town: row["town"]
           )
         end
         practice.save!

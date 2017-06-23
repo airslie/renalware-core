@@ -3,8 +3,8 @@ xml = builder
 xml.Address(use: "H") do
   xml.FromTime address.created_at.to_date
   xml.ToTime
-  xml.Street [address.street_1, address.street_2].compact.join(", ")
-  xml.Town address.city
+  xml.Street [address.street_1, address.street_2, address.street_3].compact.join(", ")
+  xml.Town address.town
   xml.County address.county
   xml.Postcode address.postcode
   xml.Country do

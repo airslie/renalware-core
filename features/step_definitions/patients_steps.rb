@@ -10,7 +10,7 @@ Given(/^Patty is a patient$/) do
     current_address_attributes: {
       name: "Patty ThePatient",
       street_1: "1 Main St",
-      city: "London"
+      town: "London"
     },
     by: Renalware::SystemUser.find
   )
@@ -34,7 +34,7 @@ Given(/^Don is a patient$/) do
   )
   @don.create_current_address(
     street_1: "2 Main St",
-    city: "London"
+    town: "London"
   )
 end
 

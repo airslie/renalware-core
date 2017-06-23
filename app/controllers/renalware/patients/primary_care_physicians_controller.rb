@@ -88,7 +88,7 @@ module Renalware
           :given_name, :family_name, :email, :practitioner_type, :code, :telephone,
           practice_ids: [],
           address_attributes: [
-            :id, :name, :organisation_name, :street_1, :street_2, :city, :county,
+            :id, :name, :organisation_name, :street_1, :street_2, :street_3, :town, :county,
             :postcode, :country, :telephone, :email
           ]
         )

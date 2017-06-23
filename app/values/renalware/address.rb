@@ -8,7 +8,7 @@ module Renalware
 
     def self.reject_if_blank
       Proc.new do |attrs|
-        %w(name organisation_name street_1 street_2 city county postcode)
+        %w(name organisation_name street_1 street_2 street_3 town county postcode)
           .all? { |a| attrs[a].blank? }
       end
     end
@@ -22,7 +22,8 @@ module Renalware
       self.organisation_name = source.organisation_name
       self.street_1 = source.street_1
       self.street_2 = source.street_2
-      self.city = source.city
+      self.street_3 = source.street_3
+      self.town = source.town
       self.county = source.county
       self.postcode = source.postcode
       self.country = source.country
@@ -30,7 +31,7 @@ module Renalware
     end
 
     def to_s
-      [name, organisation_name, street_1, street_2, city, county, postcode, country]
+      [name, organisation_name, street_1, street_2, street_3, town, county, postcode, country]
         .reject(&:blank?).join(", ")
     end
   end
