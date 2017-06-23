@@ -131,3 +131,10 @@ cap vagrant deploy
 
 - use `config.active_record.schema_format = :sql` in your `application.rb` because the engine
 used postgres views and functions which are note properly supported in a `schema.rb`
+
+### Throttling login attempts
+
+[rack-attack](https://github.com/kickstarter/rack-attack) is configured to throttle login attempts.
+Only 10 attempts per username as permitted in any one minute in an attempt to thwaght login attacks.
+
+

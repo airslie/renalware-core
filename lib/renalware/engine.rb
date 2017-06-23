@@ -35,6 +35,7 @@ require "pundit"
 require "ransack"
 require "record_tag_helper"
 require "pandoc-ruby"
+require "rack/attack"
 require "ruby-hl7"
 require "sass-rails"
 require "scenic"
@@ -77,6 +78,15 @@ module Renalware
       app.config.i18n.load_path += Dir[config.root.join("config", "locales", "**", "*.{rb,yml}")]
       app.config.i18n.default_locale = "en-GB"
       app.config.i18n.fallbacks = [:en]
+    end
+
+    config.middleware.use Rack::Attack
+    initializer :rack_attack do
+      # Throttle login attempts for a given username parameter to 10 reqs/minute
+      Rack::Attack.throttle("login attempts per username", limit: 10, period: 60.seconds) do |req|
+        # Return the username as a discriminator on POST login requests
+        req.params["user"]["username"] if req.path == "/users/sign_in" && req.post?
+      end
     end
 
     initializer :assets do |app|

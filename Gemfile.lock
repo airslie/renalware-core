@@ -44,6 +44,7 @@ PATH
       pg
       puma
       pundit (~> 1.1.0)
+      rack-attack
       rails (~> 5.0.3)
       rails-assets-foundation-datepicker (= 1.5.0)
       rails-assets-select2 (~> 4.0.2)
@@ -347,6 +348,8 @@ GEM
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.3)
+    rack-attack (5.0.1)
+      rack
     rack-mini-profiler (0.10.5)
       rack (>= 1.2.0)
     rack-protection (2.0.0)
@@ -385,7 +388,7 @@ GEM
     rainbow (2.2.2)
       rake
     rake (12.0.0)
-    ransack (1.8.2)
+    ransack (1.8.3)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
       activesupport (>= 3.0)
