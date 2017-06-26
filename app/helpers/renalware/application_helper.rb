@@ -5,7 +5,7 @@ module Renalware
   module ApplicationHelper
 
     def patient_search
-      PatientSearch.call(params)
+      ::Renalware::PatientSearch.call(params)
     end
 
     # For use in layouts

@@ -3,7 +3,7 @@
                                       hd_profile_breadcrumb(patient)]) do
   .document
     = simple_form_for profile,
-        url: patient_hd_profile_path(patient),
+        url: patient_hd_current_profile_path(patient),
         html: { autocomplete: "off" },
         method: :patch,
         wrapper: "horizontal_form" do |f|

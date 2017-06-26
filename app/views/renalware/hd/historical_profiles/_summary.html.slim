@@ -1,0 +1,12 @@
+article
+  header
+    h2.noprint= "HD Profile History (#{historical_profiles.length} of #{historical_profile_count})"
+    ul
+      li= link_to "View All", patient_hd_historical_profiles_path(patient), class: "button"
+
+  = render "renalware/hd/historical_profiles/table",
+           patient: patient,
+           historical_profiles: historical_profiles,
+           historical_profile_count: historical_profile_count,
+           compact: true
+

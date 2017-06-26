@@ -24,6 +24,8 @@ module Renalware
 
       delegate :hospital_centre, to: :hospital_unit, allow_nil: true
 
+      scope :ordered, -> { order(deactivated_at: :desc) }
+
       def self.policy_class
         BasePolicy
       end

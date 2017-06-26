@@ -2,7 +2,7 @@ require_dependency "renalware/hd/base_controller"
 
 module Renalware
   module HD
-    class ProfilesController < BaseController
+    class CurrentProfileController < BaseController
       before_action :load_patient
       before_action :load_profile
 

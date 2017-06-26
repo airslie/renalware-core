@@ -5,7 +5,7 @@ module Renalware
     end
 
     def hd_profile_breadcrumb(patient)
-      breadcrumb_for("HD Profile", patient_hd_profile_path(patient))
+      breadcrumb_for("HD Profile", patient_hd_current_profile_path(patient))
     end
 
     def hd_session_breadcrumb(session)

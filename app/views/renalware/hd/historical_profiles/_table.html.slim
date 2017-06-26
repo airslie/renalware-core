@@ -1,0 +1,33 @@
+- compact = local_assigns[:compact] == true
+
+table
+    thead
+      tr
+        th.col-width-tiny
+        - if compact
+          th.col-width-date Started
+          th.col-width-date Stopped
+        - else
+          th.col-width-date-time Started
+          th.col-width-date-time.at-least Stopped
+        th.col-width-tiny Type
+        th.col-width-tiny Time
+        - unless compact
+          th.col-width-medium Schedule
+          th Site
+
+    - historical_profiles.each do |profile|
+      tbody
+        tr
+          td= link_to("View", patient_hd_historical_profile_path(patient, profile))
+          - if compact
+            td= l(profile.created_at&.to_date)
+            td= l(profile.deactivated_at&.to_date)
+          - else
+            td= l(profile.created_at)
+            td= l(profile.deactivated_at)
+          td= profile.hd_type
+          td= profile.formatted_prescribed_time
+          - unless compact
+            td= profile.current_schedule
+            td= profile.hospital_unit

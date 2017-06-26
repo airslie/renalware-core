@@ -1,0 +1,7 @@
+= within_patient_layout(title: "Historical Profiles",
+                        breadcrumbs: hd_summary_breadcrumb(patient)) do
+
+  = render "renalware/hd/historical_profiles/table",
+           patient: patient,
+           historical_profiles: profiles,
+           historical_profile_count: 0
