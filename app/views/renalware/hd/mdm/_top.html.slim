@@ -1,5 +1,5 @@
 .columns.small-12.medium-6.large-3
-  = render "renalware/hd/profiles/summary", profile: mdm.hd_profile, patient: mdm.patient
+  = render "renalware/hd/current_profile/summary", profile: mdm.hd_profile, patient: mdm.patient
 .columns.small-12.medium-6.large-3
   - if mdm.access.present?
     = render "renalware/hd/accesses/summary", access: mdm.access, patient: mdm.patient

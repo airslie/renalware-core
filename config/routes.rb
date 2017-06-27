@@ -230,7 +230,13 @@ Renalware::Engine.routes.draw do
                  constraints: { format: /(pdf)/ },
                  defaults: { format: :pdf }
         resource :preference_set, only: [:edit, :update]
-        resource :profile, only: [:show, :edit, :update]
+        resource :current_profile,
+                 only: [:show, :edit, :update],
+                 path: "/profiles/current",
+                 controller: "current_profile"
+        resources :historical_profiles,
+                  only: [:index, :show],
+                  path: "/profiles/historical"
         resources :sessions
       end
 

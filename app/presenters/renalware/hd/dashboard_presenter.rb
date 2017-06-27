@@ -22,6 +22,20 @@ module Renalware
         end
       end
 
+      def historical_profiles
+        @historical_profiles ||= begin
+          Profile
+            .deleted
+            .ordered
+            .limit(3)
+            .for_patient(patient).map{ |prof| ProfilePresenter.new(prof) }
+        end
+      end
+
+      def historical_profile_count
+        @historical_profile_count ||= Profile.deleted.for_patient(patient).count
+      end
+
       def access
         @access ||= begin
           access_profile = Renalware::Accesses.cast_patient(patient).current_profile

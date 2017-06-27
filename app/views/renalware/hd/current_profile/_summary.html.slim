@@ -2,8 +2,8 @@ article
   header
     h2.noprint= t(".title")
     ul
-      li= link_to "View", patient_hd_profile_path(patient), class: "button"
-      li= link_to "Edit", edit_patient_hd_profile_path(patient), class: "button"
+      li= link_to "View", patient_hd_current_profile_path(patient), class: "button"
+      li= link_to "Edit", edit_patient_hd_current_profile_path(patient), class: "button"
       li
         label#toggle-full-hd-profile(for="toggle-full-hd-profile-input") Toggle full profile
 

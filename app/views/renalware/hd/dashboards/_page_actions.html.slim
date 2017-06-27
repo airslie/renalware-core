@@ -15,7 +15,7 @@ ul.f-dropdown#pd-options(data-dropdown-content aria-hidden="true")
 
   = dropdown_btn_item enabled: dashboard.can_add_hd_profile?,
                       title: t(".add_hd_profile"),
-                      path: edit_patient_hd_profile_path(patient)
+                      path: edit_patient_hd_current_profile_path(patient)
 
   = dropdown_btn_item enabled: dashboard.can_add_access_profile?,
                       title: t(".add_access_profile"),

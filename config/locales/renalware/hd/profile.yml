@@ -11,6 +11,8 @@ en:
         prescribed_on: Prescription Date
         hospital_unit: Hospital Unit
         hospital_centre: Hospital Centre
+        created_at: Started
+        deactivated_at: Stopped
   activemodel:
     attributes:
       renalware/hd/profile_document/dialysis:
@@ -84,7 +86,7 @@ en:
 
   renalware:
     hd:
-      profiles:
+      current_profile:
         summary:
           title: "HD Profile"
           schedule: "Schedule:"

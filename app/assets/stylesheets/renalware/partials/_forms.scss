@@ -115,6 +115,13 @@ article {
     border-color: lighten($link-colour, 20%);
   }
 
+  h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
   header {
     float: left;
     margin: 0 0 0.5rem;

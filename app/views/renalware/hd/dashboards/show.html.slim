@@ -6,9 +6,14 @@
   .row
     - unless dashboard.profile.new_record?
       .medium-6.large-4.xlarge-3.columns
-        = render "renalware/hd/profiles/summary",
+        = render "renalware/hd/current_profile/summary",
                  patient: dashboard.patient,
                  profile: dashboard.profile
+        - if dashboard.historical_profile_count > 0
+          = render "renalware/hd/historical_profiles/summary",
+                   patient: dashboard.patient,
+                   historical_profiles: dashboard.historical_profiles,
+                   historical_profile_count: dashboard.historical_profile_count
 
     - if dashboard.access.present?
       .medium-6.large-4.xlarge-3.columns
