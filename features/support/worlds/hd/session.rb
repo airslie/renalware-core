@@ -32,8 +32,8 @@ module World
           {"hdf": {"subs_goal": "", "subs_rate": "", "subs_volume": "", "subs_fluid_pct": ""},
           "info": {"hd_type": "hd", "machine_no": "222", "access_confirmed": "true",
             "access_side": "right", "access_site":
-            "Brachio-basilic & transposition", "access_type": "Arteriovenous graft (AVG)",
-            "access_type_abbreviation": "AVG",
+            "Brachio-basilic & transposition", "access_type": "Tunnelled subclav",
+            "access_type_abbreviation": "TLN LS",
             "single_needle": "no", "lines_reversed": "no", "fistula_plus_line": "no",
             "dialysis_fluid_used": "a10", "is_access_first_use": "no"},
              "dialysis": {"flow_rate": 200, "blood_flow": 150,
@@ -263,7 +263,7 @@ module World
         within_fieldset "Session Info" do
           choose "HD"
           within_fieldset "Access" do
-            select "Vein loop", from: "Access Type Used"
+            select "Tunnelled subclav", from: "Access Type Used"
             select "Left", from: "Access Side Used"
             select "Other", from: "Access Site Used"
             check "Confirm this access was used"

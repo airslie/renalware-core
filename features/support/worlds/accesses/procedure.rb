@@ -86,7 +86,7 @@ module World
 
         fill_in "Performed On", with: I18n.l(Time.zone.today)
         fill_in "Performed By", with: user.to_s
-        select(access_type, from: "Access Type") if access_type.present?
+        select(access_type.to_s, from: "Access Type") if access_type.present?
         select site.to_s, from: "Access Site"
         select "Right", from: "Access Side"
         select "Laparoscopic", from: "PD Catheter Insertion Technique"

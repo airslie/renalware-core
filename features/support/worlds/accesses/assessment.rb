@@ -91,7 +91,7 @@ module World
         end
 
         fill_in "Performed", with: I18n.l(Time.zone.today)
-        select(access_type, from: "Access Type") if access_type.present?
+        select(access_type.to_s, from: "Access Type") if access_type.present?
         select site.to_s, from: "Access Site"
         select "Right", from: "Access Side"
 

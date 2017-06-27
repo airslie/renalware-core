@@ -14,6 +14,7 @@ ruby:
     = f.association :type,
                     collection: Renalware::Accesses::Type.ordered,
                     wrapper: :horizontal_small,
+                    label_method: :to_s,
                     autofocus: true
     = f.association :site,
         collection: Renalware::Accesses::Site.ordered,
