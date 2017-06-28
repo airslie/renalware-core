@@ -55,7 +55,7 @@ module Renalware
       def attributes
         [
           :formed_on, :started_on, :terminated_on, :planned_on,
-          :site_id, :side, :plan_id, :type_id,
+          :side, :plan_id, :type_id,
           :decided_by_id, :notes
         ]
       end

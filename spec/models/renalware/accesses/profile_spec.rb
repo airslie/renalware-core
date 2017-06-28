@@ -4,7 +4,7 @@ module Renalware
   module Accesses
     describe Profile do
       it { is_expected.to validate_presence_of(:type) }
-      it { is_expected.to validate_presence_of(:site) }
+      it { is_expected.to_not validate_presence_of(:site) }
       it { is_expected.to validate_presence_of(:side) }
       it { is_expected.to validate_presence_of(:formed_on) }
 

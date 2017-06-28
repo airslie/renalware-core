@@ -16,9 +16,6 @@ ruby:
                     wrapper: :horizontal_small,
                     label_method: :to_s,
                     autofocus: true
-    = f.association :site,
-        collection: Renalware::Accesses::Site.ordered,
-        wrapper: :horizontal_small
     = f.input :side, wrapper: :horizontal_small
     = f.input :formed_on, as: :date_picker, wrapper: :horizontal_datepicker
     = f.input :started_on, as: :date_picker, wrapper: :horizontal_datepicker

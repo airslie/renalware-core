@@ -29,7 +29,6 @@ module Renalware
       }
 
       validates :type, presence: true
-      validates :site, presence: true
       validates :side, presence: true
       validates :formed_on, presence: true
       validates :planned_on, presence: true, if: :plan
