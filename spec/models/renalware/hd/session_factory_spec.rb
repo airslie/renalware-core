@@ -40,7 +40,6 @@ module Renalware
               session = subject.build
 
               expect(session.document.info.access_type).to eq(profile.type.name)
-              expect(session.document.info.access_site).to eq(profile.site.name)
               expect(session.document.info.access_side).to eq(profile.side)
             end
           end

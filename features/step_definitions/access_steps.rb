@@ -16,7 +16,7 @@ When(/^Clyde records an access profile for Patty$/) do
 end
 
 When(/^Clyde submits an erroneous access profile$/) do
-  create_access_profile(patient: @patty, user: @clyde, site: nil)
+  create_access_profile(patient: @patty, user: @clyde, side: nil)
 end
 
 When(/^Clyde records an access procedure for Patty$/) do

@@ -17,7 +17,6 @@ module Renalware
         attribute :access_type
         attribute :access_type_abbreviation
         attribute :access_side, Document::Enum, enums: %i(left right)
-        attribute :access_site
         attribute :is_access_first_use, Document::Enum, enums: %i(yes no), default: :no
         attribute :fistula_plus_line, Document::Enum, enums: %i(yes no), default: :no
         attribute :single_needle, Document::Enum, enums: %i(yes no), default: :no

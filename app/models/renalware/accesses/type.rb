@@ -8,7 +8,7 @@ module Renalware
 
       scope :ordered, -> { order(:name) }
       scope :having_abbreviation, -> { where.not(abbreviation: nil) }
-      scope :for_use_in_profile_dropdown, -> { where.not(rr02_code: nil).ordered }
+      scope :relevant_to_access_profiles, -> { where.not(rr02_code: nil).ordered }
 
       def long_name
         abbrev = abbreviation && " (#{abbreviation})"

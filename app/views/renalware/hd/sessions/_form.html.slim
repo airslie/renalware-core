@@ -34,11 +34,9 @@ ruby:
         fieldset
           legend Access
           = fcm.input :access_type, as: :select, value_method: :name,
-              collection: Renalware::Accesses::Type.for_use_in_profile_dropdown,
+              collection: Renalware::Accesses::Type.relevant_to_access_profiles,
               wrapper: :horizontal_small
           = fcm.input :access_side, wrapper: :horizontal_tiny
-          = fcm.input :access_site, as: :select, value_method: :name,
-              collection: Renalware::Accesses::Site.ordered, wrapper: :horizontal_small
           = fcm.input :access_confirmed, as: :boolean, wrapper: :horizontal_medium
         = fcm.input :is_access_first_use, as: :inline_radio_buttons
         = fcm.input :fistula_plus_line, as: :inline_radio_buttons

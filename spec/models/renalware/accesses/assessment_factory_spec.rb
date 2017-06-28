@@ -24,7 +24,6 @@ module Renalware
             assessment = subject.build
 
             expect(assessment.type).to eq(profile.type)
-            expect(assessment.site).to eq(profile.site)
             expect(assessment.side).to eq(profile.side)
           end
         end
