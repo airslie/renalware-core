@@ -12,7 +12,7 @@ ruby:
       locals: { legend: "Access Profile", name: "profile" } do
 
     = f.association :type,
-                    collection: Renalware::Accesses::Type.ordered,
+                    collection: Renalware::Accesses::Type.for_use_in_profile_dropdown,
                     wrapper: :horizontal_small,
                     label_method: :to_s,
                     autofocus: true
