@@ -1,4 +1,5 @@
 require "rails_helper"
+require "renalware/clinical"
 
 RSpec.describe "Allergy management", type: :request do
   let(:patient) { Renalware::Clinical.cast_patient(create(:patient)) }

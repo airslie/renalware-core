@@ -22,9 +22,10 @@ module Renalware
       end
 
       def supersede!(attrs = {})
+        attrs = attrs.to_h unless attrs.is_a?(Hash)
         transaction do
-          successor = self.dup
-          self.destroy!
+          successor = dup
+          destroy!
           successor.assign_attributes(attrs) if attrs.any?
           successor.save!
           successor

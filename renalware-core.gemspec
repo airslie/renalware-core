@@ -16,9 +16,8 @@ Gem::Specification.new do |s|
                   "data with external systems."
   s.license     = "MIT"
   s.files = Dir["{app,config,db,lib}/**/*", "Rakefile", "README.md"]
-  s.add_dependency "rails", "~> 5.0.3"
-  s.add_dependency "active_type", "~> 0.6.1"
-  s.add_dependency "activemodel-associations"
+  s.add_dependency "rails", "~> 5.1.2"
+  s.add_dependency "active_type", "~> 0.7.1"
   s.add_dependency "activerecord-import"
   s.add_dependency "autoprefixer-rails"
   s.add_dependency "chosen-rails"

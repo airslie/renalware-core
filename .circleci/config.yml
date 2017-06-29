@@ -1,0 +1,84 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/renalwarev2
+    docker:
+      # We use a custom docker image uploaded to DockerHub - see the Dockerfile in this folder.
+      - image: woodpigeon/renalware-circleci-primary:0.0.1
+        environment:
+          - RAILS_ENV: test
+          - RACK_ENV: test
+      - image: circleci/postgres:9.6.2-alpine
+
+    # SimpleCov will save coverage data to the CIRCLE_ARTIFACTS folder
+    environment:
+      CIRCLE_ARTIFACTS: "/tmp/test-artifacts"
+
+    parallelism: 1
+    steps:
+
+      - checkout
+      - run: git submodule sync ; git submodule update --init
+
+      - run: mkdir -p /tmp/test-artifacts
+      - run: mkdir -p /tmp/test-results
+
+      # Restore bundle cache
+      - type: cache-restore
+        key: renalwarev2-{{ checksum "Gemfile.lock" }}
+
+      # Bundle install dependencies
+      - run: bundle install --path vendor/bundle --jobs=3 --retry=3
+
+      # Store bundle cache
+      - type: cache-save
+        key: renalwarev2-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
+
+      # Database set-up
+      - run: cp ./spec/dummy/config/database.circle.yml ./spec/dummy/config/database.yml
+      - run: RAILS_ENV=test bundle exec rake app:db:create
+      - run: RAILS_ENV=test bundle exec rake app:db:structure:load
+
+      # Check gems for security vulnerabilities in gems
+      - run: bundle exec bundle-audit update && bundle exec bundle-audit check
+
+      # RSpec
+      - type: shell
+        command: |
+          bundle exec rspec --profile 10 \
+                            --format RspecJunitFormatter \
+                            --out /tmp/test-results/rspec.xml \
+                            --format progress \
+                            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+
+      # Cucumber domain features
+      - type: shell
+        command: |
+          bundle exec cucumber --format progress \
+                               --format junit \
+                               --out /tmp/test-results/cucumber-domain.xml
+
+      # Cucumber web features
+      - type: shell
+        command: |
+          TEST_DEPTH=web bundle exec cucumber \
+                               -p rake_web \
+                               --format progress \
+                               --format junit \
+                               --out /tmp/test-results/cucumber-web.xml
+
+      # Save artifacts ie coverage data
+      - store_artifacts:
+          path: /tmp/test-artifacts
+          destination: build
+
+      # Upload test results (junit xml)
+      - store_test_results:
+          path: /tmp/test-results
+
+      # Test seeding
+      - run: pushd ./spec/dummy ; bundle exec rails db:environment:set RAILS_ENV=test ; popd
+      - run: bundle exec rake app:db:migrate:reset app:db:seed RAILS_ENV=test
