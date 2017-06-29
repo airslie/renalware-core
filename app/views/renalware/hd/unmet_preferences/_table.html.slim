@@ -2,6 +2,7 @@ table.hd-unmet-preferences
   thead
     tr.primary
       th.col-width-medium(rowspan=2) Patient
+      th.col-width-date (rowspan=2) Date entered
       th(colspan=3) Current
       th(colspan=3) Preferred
       th(rowspan=2) Notes
@@ -17,6 +18,7 @@ table.hd-unmet-preferences
     - patients.each do |patient|
       tr
         td= link_to(patient, patient_hd_dashboard_path(patient))
+        td= l(patient.entered_on)
         td.current= patient.current_hospital_unit
         td.current= patient.current_schedule&.text
         td.current= patient.current_other_schedule
