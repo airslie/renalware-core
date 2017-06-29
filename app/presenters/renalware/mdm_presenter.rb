@@ -70,11 +70,14 @@ module Renalware
       end
     end
 
+    # Note we sort prescriptions by prescribed_on desc here manually because the
+    # prescriptions query is currently too complex to add another sql sort into (defaults)
+    # to sorting by drug name
     def esa_prescriptions
       @esa_prescriptions ||= begin
         execute_prescriptions_query(
           patient.prescriptions.having_drug_of_type("esa")
-        )
+        ).sort{ |presc1, presc2| presc2.prescribed_on <=> presc1.prescribed_on }
       end
     end
 
