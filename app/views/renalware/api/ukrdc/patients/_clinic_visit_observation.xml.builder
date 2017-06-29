@@ -1,7 +1,8 @@
-i18n_key ||= method
+xml = builder
 
+i18n_key ||= method
 xml.Observation do
-  xml.ObservationTime visit.date
+  xml.ObservationTime visit.datetime
 
   xml.ObservationCode do
     xml.CodingStandard "2.16.840.1.113883.4.642.2.115"

@@ -50,6 +50,18 @@ module Renalware
       def standing_bp=(val)
         self.standing_systolic_bp, self.standing_diastolic_bp = val.split("/")
       end
+
+      def datetime
+        return if date.blank?
+        return date.to_datetime if time.blank?
+        datetime_from_date_and_time
+      end
+
+      private
+
+      def datetime_from_date_and_time
+        DateTime.new(date.year, date.month, date.day, time.hour, time.min, 0, time.zone)
+      end
     end
   end
 end

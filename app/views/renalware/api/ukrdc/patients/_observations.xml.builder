@@ -10,15 +10,18 @@ xml.Observations(start: Time.zone.today.iso8601, stop: Time.zone.today.iso8601) 
     render "clinic_visit_observation",
            visit: visit,
            method: :systolic_bp,
-           i18n_key: "blood_pressure.systolic"
+           i18n_key: "blood_pressure.systolic",
+           builder: builder
 
     render "clinic_visit_observation",
            visit: visit,
            method: :diastolic_bp,
-           i18n_key: "blood_pressure.diastolic"
+           i18n_key: "blood_pressure.diastolic",
+           builder: builder
 
     render "clinic_visit_observation",
            visit: visit,
-           method: :weight
+           method: :weight,
+           builder: builder
   end
 end

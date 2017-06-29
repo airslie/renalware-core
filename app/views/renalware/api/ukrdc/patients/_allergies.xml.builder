@@ -7,7 +7,12 @@ xml = builder
 xml.Allergies do
   patient.allergies.each do |allergy|
     xml.Allergy do
-      xml.Clinician allergy.updated_by&.to_s
+      xml.Allergy do
+        xml.comment! "We don't have snomed code for allergies..?"
+      end
+      xml.Clinician do
+        xml.Description allergy.updated_by&.to_s
+      end
       xml.FreeTextAllergy allergy.description
     end
   end
