@@ -11,7 +11,7 @@ module Renalware
       COMMON_ATTRIBUTES = %i(schedule other_schedule hospital_unit).freeze
       delegate(*COMMON_ATTRIBUTES, to: :hd_preference_set, prefix: :preferred, allow_nil: true)
       delegate(*COMMON_ATTRIBUTES, to: :hd_profile, prefix: :current, allow_nil: true)
-      delegate(:notes, to: :hd_preference_set)
+      delegate(:notes, :entered_on, to: :hd_preference_set)
       delegate(:to_s, :to_param, :hd_profile, :hd_preference_set, to: :patient)
 
       def initialize(patient)

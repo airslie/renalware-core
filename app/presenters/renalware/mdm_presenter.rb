@@ -50,8 +50,14 @@ module Renalware
       @historical_prescriptions ||= execute_prescriptions_query(patient.prescriptions)
     end
 
+    # Note we sort prescriptions by prescribed_on desc here manually because the
+    # prescriptions query is currently too complex to add another sql sort into (defaults)
+    # to sorting by drug name
     def current_prescriptions
-      @current_prescriptions ||= execute_prescriptions_query(patient.prescriptions.current)
+      @current_prescriptions ||= begin
+        execute_prescriptions_query(patient.prescriptions.current)
+          .sort{ |presc1, presc2| presc2.prescribed_on <=> presc1.prescribed_on }
+      end
     end
 
     def current_immunosuppressant_prescriptions
