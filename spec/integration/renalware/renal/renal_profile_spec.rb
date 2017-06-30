@@ -31,7 +31,7 @@ RSpec.describe "Renal Profile (ESRF/Comorbidities)", type: :feature, js: true do
       expect(page.current_path).to eq(edit_patient_renal_profile_path(patient))
 
       updated_esrf_date = "25-Mar-2016"
-      fill_in "ESRF on", with: updated_esrf_date
+      fill_in "ESRF Date", with: updated_esrf_date
       within page.first(".form-actions") do
         click_on "Save"
       end
