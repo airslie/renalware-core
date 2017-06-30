@@ -6,6 +6,6 @@ class StringPresenter
   end
 
   def to_s
-    simple_format @value
+    @value
   end
 end

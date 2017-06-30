@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Renal Profile (ESRF/Comorbidities", type: :feature do
+RSpec.describe "Renal Profile (ESRF/Comorbidities)", type: :feature, js: true do
 
   describe "GET #show" do
     it "updating the renal profile" do
@@ -40,6 +40,20 @@ RSpec.describe "Renal Profile (ESRF/Comorbidities", type: :feature do
       expect(page.status_code).to eq(200)
       expect(page.current_path).to eq(patient_renal_profile_path(patient))
       expect(page).to have_content(updated_esrf_date)
+    end
+
+    it "pulling in the patient's current address" do
+      patient = Renalware::Renal.cast_patient(create(:patient))
+
+      login_as_clinician
+
+      visit edit_patient_renal_profile_path(patient)
+
+      within "#address_at_diagnosis" do
+        fill_in "Line 1", with: "Somewhere"
+        click_on "Use current address"
+        expect(find_field("Line 1").value).to eq("123 Legoland")
+      end
     end
   end
 end

@@ -1,3 +1,5 @@
+- content_for(:body_class) { "renal-profile-edit" }
+
 .profile-info-form
 
   = render layout: "renalware/shared/fieldset",
@@ -68,9 +70,23 @@
           = flc.input :access_notes, as: :text, wrapper: :horizontal_large
 
     - f.object.build_address_at_diagnosis if f.object.address_at_diagnosis.blank?
-    = f.simple_fields_for :address_at_diagnosis_attributes, f.object.address_at_diagnosis do |a|
-      fieldset id="address_at_diagnosis"
-        legend Address at Diagnosis
-        = a.input :id, as: :hidden
-        = render "renalware/addresses/form", a: a
+    - label = "Address at ESRF Date"
+
+    / If the user wants to overwrite or copy in the patient's current address, we use js to
+    / clone the hidden current address form and replace the visible address form with it.
+    #visible-address-form
+      = f.simple_fields_for :address_at_diagnosis_attributes, f.object.address_at_diagnosis do |a|
+        article#address_at_diagnosis
+          header
+            h2= label
+            = link_to "Use current address",
+                       "",
+                       id: "use-current-address-for-address-at-diagnosis",
+                       class: "button left"
+          = a.input :id, as: :hidden
+          .form-content= render("renalware/addresses/form", a: a)
+
+    #hidden-current-address-form(style="display:none")
+      = f.simple_fields_for :address_at_diagnosis_attributes, patient.current_address do |a|
+        .form-content= render("renalware/addresses/form", a: a)
 
