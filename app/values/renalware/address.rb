@@ -1,16 +1,15 @@
 module Renalware
   class Address < ApplicationRecord
-    validates_presence_of :street_1
     validates :email, email: true, allow_blank: true
     validates_with AddressValidator
 
     belongs_to :addressable, polymorphic: true
 
     def self.reject_if_blank
-      Proc.new do |attrs|
+      lambda { |attrs|
         %w(name organisation_name street_1 street_2 street_3 town county postcode)
           .all? { |a| attrs[a].blank? }
-      end
+      }
     end
 
     def uk?
@@ -33,6 +32,10 @@ module Renalware
     def to_s
       [name, organisation_name, street_1, street_2, street_3, town, county, postcode, country]
         .reject(&:blank?).join(", ")
+    end
+
+    def street
+      [street_1, street_2, street_3].compact.join(", ")
     end
   end
 end

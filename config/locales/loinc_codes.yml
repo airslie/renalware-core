@@ -1,0 +1,16 @@
+en:
+  loinc:
+    blood_pressure:
+      systolic:
+        code: 76538-8
+        description: Blood pressure device Cuff pressure.systolic
+        units: "mmHg"
+      diastolic:
+        code: 76539-6
+        description: Blood pressure device Cuff pressure.systolic
+        units: "mmHg"
+    weight:
+      code: 3141-9
+      description: Body weight Measured
+      units: "Kg"
+

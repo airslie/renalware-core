@@ -11,13 +11,13 @@ module ApplicationHelper
   end
 
   def respond_to?(method, include_private_methods = false)
-    main_app_url_helper?(method) or super
+    main_app_url_helper?(method) || super
   end
 
   private
 
   def main_app_url_helper?(method)
-    (method.to_s.end_with?("_path") or method.to_s.end_with?("_url")) and
+    (method.to_s.end_with?("_path") || method.to_s.end_with?("_url")) &&
       main_app.respond_to?(method)
   end
 

@@ -23,7 +23,7 @@ RSpec.describe "Viewing clinical profile", type: :request do
       headers = { "HTTP_REFERER" => "/" }
       params = {
         clinical_profile: {
-          history: { smoking: "former", alcohol: "rarely" },
+          history: { smoking: "ex", alcohol: "rarely" },
           diabetes: { diagnosis: "true", diagnosed_on: "12-12-2017" }
         }
       }
@@ -35,7 +35,7 @@ RSpec.describe "Viewing clinical profile", type: :request do
 
       history = patient.reload.document.history
       expect(history.alcohol).to eq("rarely")
-      expect(history.smoking).to eq("former")
+      expect(history.smoking).to eq("ex")
     end
   end
 end

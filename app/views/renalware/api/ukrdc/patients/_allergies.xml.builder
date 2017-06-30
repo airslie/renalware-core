@@ -1,10 +1,19 @@
 #
 # https://github.com/renalreg/ukrdc/blob/6d95e364dd8de857839fe6cdbd4e7fc3fb4c1d42/Schema/Allergies/Allergy.xsd
-# This is snomed-defined so I don't think we'll be able to send allergies.
+# This should be snomed-defined but we are just sending free text as that is all we have.
 #
 xml = builder
 
 xml.Allergies do
-  # TODO: Iterate through allergies
-  # xml.Allergy ..
+  patient.allergies.each do |allergy|
+    xml.Allergy do
+      xml.Allergy do
+        xml.comment! "We don't have snomed code for allergies..?"
+      end
+      xml.Clinician do
+        xml.Description allergy.updated_by&.to_s
+      end
+      xml.FreeTextAllergy allergy.description
+    end
+  end
 end

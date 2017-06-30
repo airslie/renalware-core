@@ -8,10 +8,17 @@ module Renalware
           respond_to do |format|
             format.xml do
               render locals: {
-                patient: Renalware::Patient.find_by!(secure_id: params[:id])
+                patient: patient_presenter
               }
             end
           end
+        end
+
+        private
+
+        def patient_presenter
+          patient = Renalware::Patient.find_by!(secure_id: params[:id])
+          Renalware::UKRDC::PatientPresenter.new(patient)
         end
       end
     end

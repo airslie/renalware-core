@@ -33,7 +33,7 @@ module Renalware
         document.diabetes = profile_params[:diabetes].symbolize_keys
         document.history = profile_params[:history].symbolize_keys
         patient.by = current_user
-        patient.save
+        patient.save!
       end
 
       def profile_params

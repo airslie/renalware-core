@@ -17,6 +17,12 @@ en:
         rpv_recorded_by: RPV decision recorded by
         language: Main Language
 
+    attributes:
+      renalware/patient_document/history:
+        alcohol:
+        smoking:
+
+
   enumerize:
     renalware/patient:
       allergy_status:
@@ -24,3 +30,8 @@ en:
         known_allergies: Known Allergies
         no_known_allergies: No Known Allergies
         unavailable: Allergies Unavailable
+    renalware/patient_document/history:
+      smoking:
+        'yes': Current
+        'no': Never
+        ex: Former

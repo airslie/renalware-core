@@ -38,7 +38,7 @@ module Renalware
 
     class History < Document::Embedded
       attribute :alcohol, Document::Enum, enums: %i(never rarely social heavy)
-      attribute :smoking, Document::Enum, enums: %i(never former current)
+      attribute :smoking, Document::Enum, enums: %i(no ex yes) # RRSMOKING %i(never former current)
     end
     attribute :history, History
   end
