@@ -21,7 +21,8 @@ module Renalware
       belongs_to :signed_off_by, class_name: "User", foreign_key: "signed_off_by_id"
       has_many :prescription_administrations,
                class_name: "PrescriptionAdministration",
-               foreign_key: "hd_session_id"
+               foreign_key: "hd_session_id",
+               dependent: :destroy
       accepts_nested_attributes_for :prescription_administrations
 
       has_paper_trail class_name: "Renalware::HD::Version"
