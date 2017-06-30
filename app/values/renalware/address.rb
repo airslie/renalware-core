@@ -1,5 +1,13 @@
 module Renalware
   class Address < ApplicationRecord
+    UK_COUNTRIES = [
+      "united kingdom",
+      "england",
+      "scotland",
+      "wales",
+      "northern ireland"
+    ].freeze
+
     validates :email, email: true, allow_blank: true
     validates_with AddressValidator
 
@@ -13,7 +21,8 @@ module Renalware
     end
 
     def uk?
-      "United Kingdom" == country
+      return if country.blank?
+      UK_COUNTRIES.include?(country.downcase)
     end
 
     def copy_from(source)
