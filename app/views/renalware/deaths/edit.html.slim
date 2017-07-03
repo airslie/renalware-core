@@ -17,13 +17,13 @@
                 = f.input :died_on, as: :date_picker, label: "Date of Death"
 
                 = f.association :first_edta_code,
-                    label: "EDTA Cause of Death (1)",
+                    label: "Cause of Death (1)",
                     label_method: :death_cause,
                     value_method: :id,
                     include_blank: "Select 1st cause of death"
 
                 = f.association :second_edta_code,
-                    label: "EDTA Cause of Death (2)",
+                    label: "Cause of Death (2)",
                     label_method: :death_cause,
                     value_method: :id,
                     include_blank: "Select 2nd cause of death"
