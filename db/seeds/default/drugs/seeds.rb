@@ -52,5 +52,9 @@ module Renalware
         drug.drug_types << drug_type unless drug.drug_types.include?(drug_type)
       end
     end
+
+    log "Adding Blood Transfusion drug" do
+      Drugs::Drug.find_or_create_by!(name: "Blood Transfusion")
+    end
   end
 end
