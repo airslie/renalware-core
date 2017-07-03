@@ -1,40 +1,76 @@
-
+// Patient summary contains renal mini profile and allergy summary
 .patient-summary {
   background-color: $mini-profile-backgound-colour;
   font-size: 0.9rem;
   margin: 0;
   padding: 0;
   position: relative;
+  display: table;
+  width: 100%;
 
-  ul {
-    font-size: inherit;
-  }
-
-  div {
-    padding: 0.2em 0.2em 0.2em 1.2em;
+  > div {
+    padding: 0.4em 0.2em 0.5em 0.6em;
     margin: 0;
-    //flex-grow: 2;
-    float: left;
-    width: 50%;
-    white-space: nowrap;
+    display: table-cell; // ensures both divs are equal height
 
-    .title {
-      color: #777;
-      margin-right: 0.6rem;
+    @media #{$small-only} {
+      display: block; // at small widths make allergies and renal profile full width
+    }
+
+    a {
+      text-decoration: underline;
+      color: $dark-grey;
+
+      &:hover {
+        color: $black;
+      }
     }
   }
-  .allergies {
-    background-color: $mini-profile-allergies-backgound-colour;
-    span {
-      margin-right: 3px;
-    }
-    .allergy_status, .allergy_descriptions {
-      font-weight: bold;
+
+  dl {
+    margin: 0;
+    padding: 0;
+    width: auto;
+    float: none;
+    font-size: inherit;
+    white-space: normal;
+
+    dt, dd {
+      display: inline;
+      margin-right: 0.4rem;
+      white-space: initial;
     }
   }
 
   .renal-profile {
     background-color: $mini-profile-renal-backgound-colour;
+    width: 60%;
+
+    @media #{$small-only} {
+      width: 100%;
+    }
+  }
+
+  .allergies {
+    background-color: $mini-profile-allergies-backgound-colour;
+    width: 40%;
+
+    @media #{$small-only} {
+      width: 100%;
+    }
+
+    .allergy_status {
+      margin-left: 3px;
+      margin-right: 0;
+    }
+
+    span {
+      margin-right: 3px;
+    }
+
+    .allergy_status, .allergy_descriptions {
+      font-weight: bold;
+    }
   }
 }
 
