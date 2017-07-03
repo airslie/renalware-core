@@ -52,7 +52,7 @@ RSpec.describe "HD MDM Patients", type: :feature do
       click_on I18n.t("helpers.submit.filter")
 
       expect(page).to have_content(patient1.family_name)
-      expect(page).to_not have_content(patient2.family_name)
+      expect(page).to have_no_content(patient2.family_name)
 
       # Reset filters to see all
       click_on I18n.t("helpers.reset")
@@ -63,8 +63,8 @@ RSpec.describe "HD MDM Patients", type: :feature do
       select "Mon, Wed, Fri PM", from: "Schedule"
       click_on I18n.t("helpers.submit.filter")
 
-      expect(page).to_not have_content(patient1.family_name)
       expect(page).to have_content(patient2.family_name)
+      expect(page).to have_no_content(patient1.family_name)
     end
   end
 end

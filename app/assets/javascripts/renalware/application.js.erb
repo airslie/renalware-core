@@ -42,3 +42,9 @@
 //= require rails.validations.simple_form
 //= require renalware/print.min
 //= require_tree .
+//
+
+// Disabled jQuery animations during tests to speed things up a little
+<% if Rails.env.test? %>
+  $.fx.off = true;
+<% end %>

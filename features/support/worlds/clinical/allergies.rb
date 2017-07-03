@@ -91,7 +91,7 @@ module World
 
         def mark_patient_as_having_no_allergies(patient:, user:)
           within ".clinical-allergies" do
-            expect(page).to_not have_css(".allergy-status-form .disabled")
+            expect(page).to have_no_css(".allergy-status-form .disabled")
             check(t_allergy_status(".no_known_allergies"))
             click_on t_allergy_status(".save")
           end
