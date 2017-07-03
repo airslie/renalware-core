@@ -42,6 +42,7 @@ Gem::Specification.new do |s|
   s.add_dependency "hashdiff"
   s.add_dependency "httparty"
   s.add_dependency "jbuilder"
+  s.add_dependency "jquery-datatables-rails", "~> 3.4.0"
   s.add_dependency "jquery-rails"
   s.add_dependency "jquery-ui-rails"
   s.add_dependency "kaminari"

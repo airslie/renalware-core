@@ -1,0 +1,9 @@
+en:
+  activerecord:
+    attributes:
+      renalware/reporting/audit:
+        display_configuration: DataTables configuration
+        refresh_schedule: Refresh schedule (cron format)
+        name: Name
+        description: Description
+        materialized_view_name: Name of materialized view (the data source)

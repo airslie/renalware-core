@@ -62,6 +62,15 @@ CREATE FUNCTION generate_secure_id(length integer DEFAULT 24) RETURNS text
     AS $$ SELECT string_agg (substr('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', ceil (random() * 62)::integer, 1), '') FROM generate_series(1, length) ; $$;
 
 
+--
+-- Name: refresh_all_matierialized_views(text, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION refresh_all_matierialized_views(_schema text DEFAULT '*'::text, _concurrently boolean DEFAULT false) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$ DECLARE r RECORD; BEGIN RAISE NOTICE 'Refreshing materialized view(s) in % %', CASE WHEN _schema = '*' THEN 'all schemas' ELSE 'schema "'|| _schema || '"' END, CASE WHEN _concurrently THEN 'concurrently' ELSE '' END; IF pg_is_in_recovery() THEN RETURN 0; ELSE FOR r IN SELECT schemaname, matviewname FROM pg_matviews WHERE schemaname = _schema OR _schema = '*' LOOP RAISE NOTICE 'Refreshing materialized view "%"."%"', r.schemaname, r.matviewname; EXECUTE 'REFRESH MATERIALIZED VIEW ' || CASE WHEN _concurrently THEN 'CONCURRENTLY ' ELSE '' END || '"' || r.schemaname || '"."' || r.matviewname || '"'; END LOOP; END IF; RETURN 1; END $$;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -3692,6 +3701,97 @@ ALTER SEQUENCE renal_profiles_id_seq OWNED BY renal_profiles.id;
 
 
 --
+-- Name: reporting_audits; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE reporting_audits (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    materialized_view_name character varying NOT NULL,
+    refreshed_at timestamp without time zone,
+    refresh_schedule character varying DEFAULT '1 0 * * *'::character varying NOT NULL,
+    display_configuration text DEFAULT '{}'::text NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    description text
+);
+
+
+--
+-- Name: reporting_audits_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE reporting_audits_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: reporting_audits_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE reporting_audits_id_seq OWNED BY reporting_audits.id;
+
+
+--
+-- Name: reporting_hd_blood_pressures_audit; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW reporting_hd_blood_pressures_audit AS
+ WITH blood_pressures AS (
+         SELECT hd_sessions.id AS session_id,
+            patients.id AS patient_id,
+            hd_sessions.hospital_unit_id,
+            (((hd_sessions.document -> 'observations_before'::text) -> 'blood_pressure'::text) ->> 'systolic'::text) AS systolic_pre,
+            (((hd_sessions.document -> 'observations_before'::text) -> 'blood_pressure'::text) ->> 'diastolic'::text) AS diastolic_pre,
+            (((hd_sessions.document -> 'observations_after'::text) -> 'blood_pressure'::text) ->> 'systolic'::text) AS systolic_post,
+            (((hd_sessions.document -> 'observations_after'::text) -> 'blood_pressure'::text) ->> 'diastolic'::text) AS diastolic_post
+           FROM (hd_sessions
+             JOIN patients ON ((patients.id = hd_sessions.patient_id)))
+          WHERE (hd_sessions.signed_off_at IS NOT NULL)
+        ), some_other_derived_table_variable AS (
+         SELECT 1
+           FROM blood_pressures blood_pressures_1
+        )
+ SELECT hu.name AS hospital_unit_name,
+    round(avg((blood_pressures.systolic_pre)::integer)) AS systolic_pre_avg,
+    round(avg((blood_pressures.diastolic_pre)::integer)) AS diastolic_pre_avg,
+    round(avg((blood_pressures.systolic_post)::integer)) AS systolic_post_avg,
+    round(avg((blood_pressures.diastolic_post)::integer)) AS distolic_post_avg
+   FROM (blood_pressures
+     JOIN hospital_units hu ON ((hu.id = blood_pressures.hospital_unit_id)))
+  GROUP BY hu.name
+  WITH NO DATA;
+
+
+--
+-- Name: reporting_hd_overall_audit; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
+ SELECT units.name,
+    sum(stats.session_count) AS session_count,
+    round(avg(stats.pre_mean_systolic_blood_pressure)) AS mean_pre_systolic_blood_pressure,
+    round(avg(stats.pre_mean_diastolic_blood_pressure)) AS mean_pre_diastolic_blood_pressure,
+    round(avg(stats.post_mean_systolic_blood_pressure)) AS mean_post_systolic_blood_pressure,
+    round(avg(stats.post_mean_diastolic_blood_pressure)) AS mean_post_diastolic_blood_pressure,
+    round(avg(stats.lowest_systolic_blood_pressure)) AS mean_lowest_systolic_blood_pressure,
+    round(avg(stats.highest_systolic_blood_pressure)) AS mean_highest_systolic_blood_pressure,
+    round(avg(stats.mean_fluid_removal), 2) AS mean_fluid_removal,
+    round(avg(stats.mean_weight_loss), 2) AS mean_weight_loss,
+    round(avg(stats.mean_machine_ktv), 2) AS mean_machine_ktv,
+    round(avg(stats.mean_blood_flow), 2) AS mean_blood_flow,
+    round(avg(stats.mean_litres_processed), 2) AS mean_litres_processed
+   FROM (hd_patient_statistics stats
+     JOIN hospital_units units ON ((units.id = stats.hospital_unit_id)))
+  GROUP BY units.name
+  WITH NO DATA;
+
+
+--
 -- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5111,6 +5211,13 @@ ALTER TABLE ONLY renal_profiles ALTER COLUMN id SET DEFAULT nextval('renal_profi
 
 
 --
+-- Name: reporting_audits id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY reporting_audits ALTER COLUMN id SET DEFAULT nextval('reporting_audits_id_seq'::regclass);
+
+
+--
 -- Name: roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5255,6 +5362,31 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: reporting_main_authors_audit; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW reporting_main_authors_audit AS
+ SELECT date_part('year'::text, users.created_at) AS year,
+    to_char(users.created_at, 'Month'::text) AS month,
+    users.id AS user_id,
+    (((users.family_name)::text || ', '::text) || (users.given_name)::text) AS name,
+    count(letters.*) AS total_letters
+   FROM (users
+     JOIN letter_letters letters ON ((letters.author_id = users.id)))
+  GROUP BY (date_part('year'::text, users.created_at)), (to_char(users.created_at, 'Month'::text)), users.id
+  ORDER BY (date_part('year'::text, users.created_at)) DESC, (to_char(users.created_at, 'Month'::text)) DESC, (count(letters.*)) DESC
+  WITH NO DATA;
 
 
 --
@@ -6026,6 +6158,14 @@ ALTER TABLE ONLY renal_profiles
 
 
 --
+-- Name: reporting_audits reporting_audits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY reporting_audits
+    ADD CONSTRAINT reporting_audits_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6183,14 +6323,6 @@ ALTER TABLE ONLY transplant_registrations
 
 ALTER TABLE ONLY transplant_versions
     ADD CONSTRAINT transplant_versions_pkey PRIMARY KEY (id);
-
-
---
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
 --
@@ -7707,6 +7839,13 @@ CREATE INDEX index_renal_profiles_on_prd_description_id ON renal_profiles USING 
 
 
 --
+-- Name: index_reporting_hd_blood_pressures_audit_on_hospital_unit_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_reporting_hd_blood_pressures_audit_on_hospital_unit_name ON reporting_hd_blood_pressures_audit USING btree (hospital_unit_name);
+
+
+--
 -- Name: index_roles_users_on_user_id_and_role_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8005,6 +8144,13 @@ CREATE UNIQUE INDEX index_users_on_username ON users USING btree (username);
 --
 
 CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (item_type, item_id);
+
+
+--
+-- Name: main_authors_audit_year_month_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX main_authors_audit_year_month_user_id ON reporting_main_authors_audit USING btree (year, month, user_id);
 
 
 --
@@ -9916,6 +10062,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170621205538'),
 ('20170622145529'),
 ('20170628115247'),
+('20170703144902'),
+('20170703153949'),
+('20170705090219'),
+('20170705135512'),
+('20170705150913'),
+('20170705160726'),
 ('20170707110155');
 
 

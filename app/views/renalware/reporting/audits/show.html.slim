@@ -1,0 +1,20 @@
+- content_for(:body_class) { "audits" }
+
+- content_for(:javascript) do
+  javascript:
+      var display_configuration = #{audit.display_configuration.html_safe};
+      // Update the config telling dataTables where to get the
+      display_configuration["ajax"] = "#{reporting_audit_path(audit, format: :json).html_safe}";
+
+= within_admin_layout(title: audit.name, breadcrumbs: audits_breadcrumb) do
+
+  - if audit.description.present?
+    .panel.radius.compact= audit.description
+
+  /
+  / jQuery dataTables will build this table; for the columns it will use  column definitions in
+  / audit.display_configuration, and for the rows, json data returned from an ajax call to
+  / audits_controller#show where format: :json - ie it will do a select on the materialized_view
+  / specified by the audit row and return this as json
+  /
+  table#audit.display.natural-width

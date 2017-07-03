@@ -11,6 +11,7 @@ en:
         hd_patients_with_unmet_preferences: HD Patients with un-met preferences
         letters: Letters
         esa_prescriptions: ESA Patients
+        audits: Audits
       mdms:
         menu_title: MDMs
         hd: HD

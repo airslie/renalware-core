@@ -1,0 +1,26 @@
+- content_for(:body_class) { "audits" }
+
+= within_admin_layout(title: "Edit", breadcrumbs: audits_breadcrumb) do
+
+  = simple_form_for audit,
+                    url: reporting_audit_path(audit),
+                    html: { autocomplete: "off" },
+                    wrapper: "horizontal_form" do |f|
+    = f.input :name, wrapper: :horizontal_medium
+    = f.input :description,
+              as: :text,
+              wrapper: :horizontal_medium,
+              input_html: { rows: 2 }
+    = f.input :materialized_view_name,
+              collection: Renalware::Reporting::Audit.available_audit_materialized_views,
+              wrapper: :horizontal_medium
+    = f.input :display_configuration,
+              as: :text,
+              wrapper: :horizontal_large,
+              input_html: { rows: 20, class: "monospace" }
+    = f.input :refresh_schedule, wrapper: :horizontal_small
+    = f.submit class: :button
+    = blank_separator
+    | or
+    = blank_separator
+    = link_to "cancel", reporting_audits_path
