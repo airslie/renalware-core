@@ -303,7 +303,7 @@ module World
         page.all("input[name='signoff']").first.click
 
         expect(page.current_path).to eq(patient_hd_dashboard_path(patient))
-        expect(page).to_not have_content "failed"
+        expect(page).to have_no_content "failed"
         hd_patient = Renalware::HD.cast_patient(patient)
         sessions = hd_patient.reload.hd_sessions
         expect(sessions.length).to eq(1)

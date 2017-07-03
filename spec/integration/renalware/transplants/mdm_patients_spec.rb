@@ -22,8 +22,8 @@ RSpec.describe "Transplants MDM Patients", type: :feature do
       visit transplants_mdm_patients_path
       click_on I18n.t("renalware.transplants.mdm_patients.filters.filter.recent")
 
-      expect(page).to_not have_content(patient1.local_patient_id)
       expect(page).to have_content(patient2.local_patient_id)
+      expect(page).to have_no_content(patient1.local_patient_id)
     end
 
     it "`on worryboard` filter displays transplant patients on the worryboard" do
@@ -36,8 +36,8 @@ RSpec.describe "Transplants MDM Patients", type: :feature do
       visit transplants_mdm_patients_path
       click_on I18n.t("renalware.transplants.mdm_patients.filters.filter.on_worryboard")
 
-      expect(page).to_not have_content(patient1.local_patient_id)
       expect(page).to have_content(patient2.local_patient_id)
+      expect(page).to have_no_content(patient1.local_patient_id)
     end
 
     def create_donor_patient(user)
