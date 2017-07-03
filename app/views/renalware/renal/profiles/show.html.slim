@@ -27,6 +27,6 @@
         - profile.build_address_at_diagnosis if profile.address_at_diagnosis.blank?
         - attrs = %i(name street_1 street_2 street_3 town county postcode country)
         = render "renalware/shared/attributes_group",
-                 legend: "Address at Diagnosis",
+                 legend: "Address at ESRF Date",
                  models: { profile.address_at_diagnosis => attrs },
                  width: "xlarge"

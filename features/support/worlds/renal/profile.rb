@@ -23,12 +23,11 @@ module World
       end
 
       def update_renal_profile(user, patient)
-        fill_in "ESRF on", with: fake_date.to_s
+        fill_in "ESRF Date", with: fake_date.to_s
         fill_autocomplete "form.simple_form",
                           "prd_description_auto_complete",
                           with: "Cystinuria",
                           select: "Cystinuria"
-
 
         within_fieldset "Low Clearance" do
           fill_in low_clearance_t("first_seen_on"), with: fake_date
@@ -53,6 +52,8 @@ module World
         within page.first(".form-actions") do
           click_on "Save"
         end
+
+        expect(page.current_path).to eq(patient_renal_profile_path(patient))
       end
 
       def expect_renal_profile_to_be_updated(user, patient)

@@ -1,5 +1,5 @@
 en:
-  activemodel:
+  activerecord:
     attributes:
       renalware/renal/profile:
         prd_description: Primary Renal Diagnosis (PRD)
@@ -8,6 +8,8 @@ en:
         weight_at_esrf: Weight at ESRF
         modality_at_esrf: Modality at ESRF
         comorbidities_updated_on: Comorbidities Updated
+  activemodel:
+    attributes:
       renalware/renal/profile_document/comorbidities:
         diabetes: Diabetes
         ischaemic_heart_dis: Ischaemic Heart Disease
