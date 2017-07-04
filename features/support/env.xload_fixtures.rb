@@ -4,7 +4,7 @@ models = [
   Renalware::Accesses::Plan,
   Renalware::Accesses::CatheterInsertionTechnique,
   Renalware::Clinics::Clinic,
-  Renalware::Deaths::EDTACode,
+  Renalware::Deaths::Cause,
   Renalware::Drugs::Drug,
   Renalware::Drugs::Type,
   Renalware::Events::Type,
