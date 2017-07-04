@@ -40,10 +40,10 @@
               dd= l(patient.died_on)
 
               dt 1st Death cause:
-              dd= patient.first_edta_code.death_cause
+              dd= patient.first_cause.description
 
               dt 2nd Death cause:
-              dd= default_for_associated(patient.second_edta_code, :death_cause, "N/A")
+              dd= default_for_associated(patient.second_cause, :description, "N/A")
 
       .columns.medium-12.large-6
         = render "renalware/clinical/allergies/list",
