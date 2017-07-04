@@ -36,8 +36,8 @@ module Renalware
     has_many :bookmarks, class_name: "Patients::Bookmark"
     has_one :worry, class_name: "Patients::Worry"
 
-    belongs_to :first_edta_code, class_name: "Deaths::EDTACode", foreign_key: :first_edta_code_id
-    belongs_to :second_edta_code, class_name: "Deaths::EDTACode", foreign_key: :second_edta_code_id
+    belongs_to :first_cause, class_name: "Deaths::Cause", foreign_key: :first_cause_id
+    belongs_to :second_cause, class_name: "Deaths::Cause", foreign_key: :second_cause_id
 
     belongs_to :primary_care_physician, class_name: "Patients::PrimaryCarePhysician"
     belongs_to :practice, class_name: "Patients::Practice"
@@ -82,7 +82,7 @@ module Renalware
     with_options if: :current_modality_death?, on: :update do |death|
       death.validates :died_on, presence: true
       death.validates :died_on, timeliness: { type: :date }
-      death.validates :first_edta_code_id, presence: true
+      death.validates :first_cause_id, presence: true
     end
 
     scope :dead, -> { where.not(died_on: nil) }
