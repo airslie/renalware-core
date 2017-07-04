@@ -43,6 +43,6 @@ When(/^I complete the cause of death form$/) do
 
     fill_in "Notes", with: "Heart stopped"
 
-    click_on "Save Cause of Death"
+    click_on "Save"
   end
 end
