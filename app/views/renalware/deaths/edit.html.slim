@@ -31,6 +31,8 @@
                 = f.input :death_notes, label: "Notes",
                     as: :text, input_html: { rows: 5 }
 
-        = submit_tag "Save Cause of Death", class: "button tiny right save"
-
-        = link_to "Cancel", new_patient_modality_path(@patient), class: "button tiny left cancel"
+        .row
+          .large-12.columns
+            = f.button :submit
+            span= " or "
+            = link_to "cancel", new_patient_modality_path(@patient)
