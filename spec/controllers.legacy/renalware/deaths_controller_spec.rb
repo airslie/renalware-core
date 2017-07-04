@@ -7,7 +7,7 @@ module Renalware
     subject { create(:patient) }
 
     before do
-      @edta_code = FactoryGirl.create(:edta_code)
+      @cause = FactoryGirl.create(:cause)
       @modality_description = FactoryGirl.create(:death_modality_description)
       @patient_modality = FactoryGirl.create(:modality,
         patient_id: subject.id, description: @modality_description)
@@ -35,7 +35,7 @@ module Renalware
               patient_id: subject.to_param,
               patient: {
                 died_on: Date.parse(Time.zone.now.to_s),
-                first_edta_code_id: @edta_code.id
+                first_cause_id: @cause.id
               }
             }
           expect(response).to redirect_to(patient_clinical_profile_path(subject))
