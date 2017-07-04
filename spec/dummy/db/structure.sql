@@ -719,13 +719,13 @@ ALTER SEQUENCE clinical_versions_id_seq OWNED BY clinical_versions.id;
 
 
 --
--- Name: death_edta_codes; Type: TABLE; Schema: public; Owner: -
+-- Name: death_causes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE death_edta_codes (
+CREATE TABLE death_causes (
     id integer NOT NULL,
     code integer,
-    death_cause character varying,
+    description character varying,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -733,10 +733,10 @@ CREATE TABLE death_edta_codes (
 
 
 --
--- Name: death_edta_codes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: death_causes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE death_edta_codes_id_seq
+CREATE SEQUENCE death_causes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -745,10 +745,10 @@ CREATE SEQUENCE death_edta_codes_id_seq
 
 
 --
--- Name: death_edta_codes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: death_causes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE death_edta_codes_id_seq OWNED BY death_edta_codes.id;
+ALTER SEQUENCE death_causes_id_seq OWNED BY death_causes.id;
 
 
 --
@@ -2015,8 +2015,8 @@ CREATE TABLE patients (
     hospital_centre_code character varying,
     primary_esrf_centre character varying,
     died_on date,
-    first_edta_code_id integer,
-    second_edta_code_id integer,
+    first_cause_id integer,
+    second_cause_id integer,
     death_notes text,
     cc_on_all_letters boolean DEFAULT true,
     cc_decision_on date,
@@ -4531,10 +4531,10 @@ ALTER TABLE ONLY clinical_versions ALTER COLUMN id SET DEFAULT nextval('clinical
 
 
 --
--- Name: death_edta_codes id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: death_causes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY death_edta_codes ALTER COLUMN id SET DEFAULT nextval('death_edta_codes_id_seq'::regclass);
+ALTER TABLE ONLY death_causes ALTER COLUMN id SET DEFAULT nextval('death_causes_id_seq'::regclass);
 
 
 --
@@ -5361,11 +5361,11 @@ ALTER TABLE ONLY clinical_versions
 
 
 --
--- Name: death_edta_codes death_edta_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: death_causes death_causes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY death_edta_codes
-    ADD CONSTRAINT death_edta_codes_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY death_causes
+    ADD CONSTRAINT death_causes_pkey PRIMARY KEY (id);
 
 
 --
@@ -7273,10 +7273,10 @@ CREATE INDEX index_patients_on_external_patient_id ON patients USING btree (exte
 
 
 --
--- Name: index_patients_on_first_edta_code_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_patients_on_first_cause_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_patients_on_first_edta_code_id ON patients USING btree (first_edta_code_id);
+CREATE INDEX index_patients_on_first_cause_id ON patients USING btree (first_cause_id);
 
 
 --
@@ -7343,10 +7343,10 @@ CREATE INDEX index_patients_on_religion_id ON patients USING btree (religion_id)
 
 
 --
--- Name: index_patients_on_second_edta_code_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_patients_on_second_cause_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_patients_on_second_edta_code_id ON patients USING btree (second_edta_code_id);
+CREATE INDEX index_patients_on_second_cause_id ON patients USING btree (second_cause_id);
 
 
 --
@@ -8574,27 +8574,11 @@ ALTER TABLE ONLY letter_letters
 
 
 --
--- Name: patients fk_rails_6231b53275; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY patients
-    ADD CONSTRAINT fk_rails_6231b53275 FOREIGN KEY (second_edta_code_id) REFERENCES death_edta_codes(id);
-
-
---
 -- Name: transplant_recipient_followups fk_rails_6893ba0593; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_recipient_followups
     ADD CONSTRAINT fk_rails_6893ba0593 FOREIGN KEY (transplant_failure_cause_description_id) REFERENCES transplant_failure_cause_descriptions(id);
-
-
---
--- Name: patients fk_rails_6951f9dee7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY patients
-    ADD CONSTRAINT fk_rails_6951f9dee7 FOREIGN KEY (first_edta_code_id) REFERENCES death_edta_codes(id);
 
 
 --
@@ -8627,6 +8611,14 @@ ALTER TABLE ONLY hd_sessions
 
 ALTER TABLE ONLY events
     ADD CONSTRAINT fk_rails_75f14fef31 FOREIGN KEY (event_type_id) REFERENCES event_types(id);
+
+
+--
+-- Name: patients fk_rails_76ea7f2448; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_76ea7f2448 FOREIGN KEY (second_cause_id) REFERENCES death_causes(id);
 
 
 --
@@ -9115,6 +9107,14 @@ ALTER TABLE ONLY pd_pet_adequacy_results
 
 ALTER TABLE ONLY pd_regime_bags
     ADD CONSTRAINT fk_rails_de0d26811a FOREIGN KEY (bag_type_id) REFERENCES pd_bag_types(id);
+
+
+--
+-- Name: patients fk_rails_de32a1820e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_de32a1820e FOREIGN KEY (first_cause_id) REFERENCES death_causes(id);
 
 
 --
