@@ -7,14 +7,18 @@ module Renalware
     kent_doc = User.find_by!(username: "kentdoc")
     modal_weeks = (30..50).to_a
     units = (1..6).to_a
-    schedules = ["mon_wed_fri_am","mon_wed_fri_pm","tue_thu_sat_am","tue_thu_sat_pm"]
+    schedules = ["mon_wed_fri_am","mon_wed_fri_pm",
+      "tue_thu_sat_am","tue_thu_sat_pm"]
+    times = [180, 210, 240, 270]
+    rates = [300, 400, 500]
+    flows = [300, 400, 500]
 
     Patient.transaction do
       patients = Patient.all
       i = 0
       patients.each do |patient|
         i += 1
-        if i % 20 == 0
+        if i % 10 == 0
           patient = HD.cast_patient(patient)
           #Assign HD modality
           hd_started_on = modal_weeks.sample.weeks.ago
@@ -42,7 +46,7 @@ module Renalware
             by: kch_doc,
             hospital_unit: Hospitals::Unit.hd_sites.sample,
             schedule: schedules.sample,
-            prescribed_time: 180,
+            prescribed_time: times.sample,
             prescribed_on: hd_started_on,
             prescriber: kch_doc,
             named_nurse: kch_nurse,
@@ -54,8 +58,8 @@ module Renalware
                 needle_size: "44",
                 single_needle: :yes,
                 dialysate: :a7,
-                flow_rate: 300,
-                blood_flow: 400,
+                flow_rate: rates.sample,
+                blood_flow: flows.sample,
                 dialyser: "FX CorDiax 120",
                 potassium: 2,
                 calcium: 1.5,
