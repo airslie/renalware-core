@@ -26,9 +26,9 @@ en:
   enumerize:
     renalware/patient:
       allergy_status:
-        unrecorded: Allergies Unrecorded
-        known_allergies: Known Allergies
-        no_known_allergies: No Known Allergies
+        unrecorded: Unrecorded
+        known_allergies: ""
+        no_known_allergies: No Known
         unavailable: Allergies Unavailable
     renalware/patient_document/history:
       smoking:

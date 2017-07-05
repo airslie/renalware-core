@@ -1,7 +1,12 @@
 - patient = Renalware::Renal.cast_patient(patient)
+- profile = patient.profile
 
 .renal-profile
-  = link_to "ESRF", edit_patient_renal_profile_path(patient)
-  | &nbsp;
-  = patient.profile
-  | &nbsp;
+  .mini-renal-profile
+    dl
+      -if profile&.esrf_on.present?
+        dt= link_to "ESRF:", edit_patient_renal_profile_path(patient)
+        dd= profile&.esrf_on
+
+      dt= link_to "PRD:", edit_patient_renal_profile_path(patient)
+      dd= profile&.prd_description.present? ? profile : "Unrecorded"
