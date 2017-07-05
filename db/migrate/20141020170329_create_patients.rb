@@ -14,16 +14,16 @@ class CreatePatients < ActiveRecord::Migration[4.2]
       t.string :hospital_centre_code
       t.string :primary_esrf_centre
       t.date :died_on
-      t.integer :first_edta_code_id
-      t.integer :second_edta_code_id
+      t.integer :first_cause_id
+      t.integer :second_cause_id
       t.text :death_notes
       t.boolean :cc_on_all_letters, default: true
       t.date :cc_decision_on
       t.timestamps null: false
     end
 
-    add_foreign_key :patients, :death_edta_codes, column: :first_edta_code_id
-    add_foreign_key :patients, :death_edta_codes, column: :second_edta_code_id
+    add_foreign_key :patients, :death_causes, column: :first_cause_id
+    add_foreign_key :patients, :death_causes, column: :second_cause_id
     add_foreign_key :patients, :patient_ethnicities, column: :ethnicity_id
   end
 end

@@ -10,8 +10,8 @@ class AddMissingIndexes < ActiveRecord::Migration[4.2]
     add_index :patients, :ethnicity_id
     add_index :patients, :religion_id
     add_index :patients, :language_id
-    add_index :patients, :first_edta_code_id
-    add_index :patients, :second_edta_code_id
+    add_index :patients, :first_cause_id
+    add_index :patients, :second_cause_id
     add_index :patients, :practice_id
     add_index :modality_modalities, [:patient_id, :description_id]
     add_index :modality_modalities, :patient_id

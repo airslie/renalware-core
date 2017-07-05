@@ -18,7 +18,7 @@ FactoryGirl.define do
     sex "M"
     ethnicity
     died_on nil
-    first_edta_code_id nil
+    first_cause_id nil
     association :created_by, factory: :user
     association :updated_by, factory: :user
 
