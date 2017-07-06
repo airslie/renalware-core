@@ -1,10 +1,10 @@
-- content_for(:body_class) { "audits" }
+- content_for(:body_class) { "audits_show" }
 
 - content_for(:javascript) do
   javascript:
-      var display_configuration = #{audit.display_configuration.html_safe};
-      // Update the config telling dataTables where to get the
-      display_configuration["ajax"] = "#{reporting_audit_path(audit, format: :json).html_safe}";
+    window.display_configuration = #{audit.display_configuration.html_safe};
+    // Update the config telling dataTables where to get the json data
+    window.display_configuration["ajax"] = "#{reporting_audit_path(audit, format: :json).html_safe}";
 
 = within_admin_layout(title: audit.name, breadcrumbs: audits_breadcrumb) do
 

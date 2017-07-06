@@ -1,6 +1,7 @@
 require "rails_helper"
 
 feature "Viewing audits", type: :feature, js: true do
+  include AjaxHelpers
 
   scenario "viewing a list of audits" do
     audit = create(:audit, name: "XX")
@@ -12,14 +13,47 @@ feature "Viewing audits", type: :feature, js: true do
   end
 
   scenario "viewing an audit" do
-    audit = create(:audit, name: "XX", description: "A short description")
+    view_name = create_an_example_materialized_view
+    audit = create_an_audit_configured_to_use_view_called(view_name)
+
     login_as_clinician
-    allow(Renalware::Reporting::GenerateAuditJson).to receive(:call).and_return("{ data: [] }")
 
     visit reporting_audit_path(audit)
 
     expect(page).to have_content(audit.name)
     expect(page).to have_content(audit.description)
-    # TODO: set up some data and audit with config and test that data tables renders
+
+    wait_for_datatables_to_fetch_json_and_build_table
+
+    expect(page).to have_content("Col 1")
+    expect(page).to have_content("aaa")
+    expect(page).to have_content("Col 2")
+    expect(page).to have_content("bbb")
+  end
+
+  # Create a temp materialized view and refresh its data
+  def create_an_example_materialized_view
+    view_name = "reporting_#{Time.zone.now.to_i}"
+    ActiveRecord::Base.connection.execute(
+      "CREATE MATERIALIZED VIEW #{view_name} AS "\
+      "SELECT 'aaa'::text as col1, 'bbb'::text as col2 WITH DATA;"
+    )
+    view_name
+  end
+
+  def create_an_audit_configured_to_use_view_called(view_name)
+    create(:audit,
+            name: "Test",
+            description: "A short description",
+            materialized_view_name: view_name,
+            display_configuration: '{
+              "columnDefs": [
+                { "title": "Col 1", "targets": 0, width: "100" },
+                { "title": "Col 2", "targets": 1, width: "100" }
+                ]}')
+  end
+
+  def wait_for_datatables_to_fetch_json_and_build_table
+    wait_for_ajax
   end
 end

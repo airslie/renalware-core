@@ -1,4 +1,6 @@
-// display_configuration must be defined in audits#show before hand
 $(document).ready(function() {
-  $("body.audits table#audit").DataTable(display_configuration);
+  // display_configuration must be defined in audits#show before hand
+  if (typeof display_configuration !== 'undefined') {
+    $("body.audits_show table#audit").DataTable(display_configuration);
+  }
 });
