@@ -3709,7 +3709,7 @@ CREATE TABLE reporting_audits (
     name character varying NOT NULL,
     materialized_view_name character varying NOT NULL,
     refreshed_at timestamp without time zone,
-    refresh_schedule character varying DEFAULT '1 0 * * *'::character varying NOT NULL,
+    refresh_schedule character varying DEFAULT '1 0 * * 1-6'::character varying NOT NULL,
     display_configuration text DEFAULT '{}'::text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -3734,6 +3734,53 @@ CREATE SEQUENCE reporting_audits_id_seq
 --
 
 ALTER SEQUENCE reporting_audits_id_seq OWNED BY reporting_audits.id;
+
+
+--
+-- Name: reporting_data_sources; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW reporting_data_sources AS
+ SELECT p.proname AS name,
+    regexp_replace(pg_get_function_identity_arguments(p.oid), 'boolean|text|integer|date|timestamp|uuid|[ ]'::text, ''::text, 'gi'::text) AS regexp_replace
+   FROM ( SELECT p_1.oid,
+            p_1.proname,
+            p_1.pronamespace,
+            p_1.proowner,
+            p_1.prolang,
+            p_1.procost,
+            p_1.prorows,
+            p_1.provariadic,
+            p_1.protransform,
+            p_1.proisagg,
+            p_1.proiswindow,
+            p_1.prosecdef,
+            p_1.proleakproof,
+            p_1.proisstrict,
+            p_1.proretset,
+            p_1.provolatile,
+            p_1.proparallel,
+            p_1.pronargs,
+            p_1.pronargdefaults,
+            p_1.prorettype,
+            p_1.proargtypes,
+            p_1.proallargtypes,
+            p_1.proargmodes,
+            p_1.proargnames,
+            p_1.proargdefaults,
+            p_1.protrftypes,
+            p_1.prosrc,
+            p_1.probin,
+            p_1.proconfig,
+            p_1.proacl
+           FROM pg_proc p_1
+          WHERE (NOT p_1.proisagg)) p
+  WHERE (p.proname ~ '^reporting_'::text)
+UNION
+ SELECT ((pg_class.oid)::regclass)::text AS name,
+    NULL::text AS regexp_replace
+   FROM pg_class
+  WHERE ((pg_class.relkind = 'm'::"char") AND (pg_class.relname ~ '^reporting_'::text));
 
 
 --
@@ -10068,6 +10115,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170705135512'),
 ('20170705150913'),
 ('20170705160726'),
+('20170706120643'),
 ('20170707110155');
 
 

@@ -4,12 +4,14 @@ feature "Viewing audits", type: :feature, js: true do
   include AjaxHelpers
 
   scenario "viewing a list of audits" do
-    audit = create(:audit, name: "XX")
+    audit = create(:audit, name: "XX", refresh_schedule: "1 0 * * 1-6")
     login_as_clinician
 
     visit reporting_audits_path
 
     expect(page).to have_content(audit.name)
+    expect(page).to have_content("At 0:01 AM, Monday through Saturday")
+
   end
 
   scenario "viewing an audit" do

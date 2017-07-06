@@ -3,10 +3,11 @@ require_dependency "renalware/reporting"
 module Renalware
   module Reporting
     class AuditsController < BaseController
+      include PresenterHelper
 
       def index
         authorize Audit, :index?
-        render locals: { audits: Audit.all }
+        render locals: { audits: present(Audit.all, AuditPresenter) }
       end
 
       def show
