@@ -12,7 +12,7 @@
               wrapper: :horizontal_medium,
               input_html: { rows: 2 }
     = f.input :materialized_view_name,
-              collection: Renalware::Reporting::Audit.available_audit_materialized_views,
+              collection: available_data_sources,
               wrapper: :horizontal_medium
     = f.input :display_configuration,
               as: :text,

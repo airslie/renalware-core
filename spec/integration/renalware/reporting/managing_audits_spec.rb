@@ -5,6 +5,7 @@ feature "Managing audits", type: :feature do
     audit = create(:audit, name: "XX")
     login_as_clinician
     visit reporting_audits_path
+    stub_the_list_of_data_sources
 
     within "table.audits" do
       click_on "Edit"
@@ -14,6 +15,7 @@ feature "Managing audits", type: :feature do
     display_config = "{test: 1}"
     fill_in t_audit(:name), with: "Changed name"
     fill_in t_audit(:description), with: "Desc"
+    select "reporting_test_view2", from: t_audit(:materialized_view_name)
     fill_in t_audit(:display_configuration), with: display_config
     fill_in t_audit(:refresh_schedule), with: "5 0 * * *"
     click_on "Save"
@@ -30,5 +32,11 @@ feature "Managing audits", type: :feature do
 
   def t_audit(key, scope: "activerecord.attributes.renalware/reporting/audit")
     I18n.t(key.to_s, scope: scope)
+  end
+
+  def stub_the_list_of_data_sources
+    expect(Renalware::Reporting::Audit)
+      .to receive(:available_audit_materialized_views)
+      .and_return(%w(reporting_test_view1 reporting_test_view2))
   end
 end

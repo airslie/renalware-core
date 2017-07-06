@@ -39,7 +39,10 @@ module Renalware
       end
 
       def render_edit
-        render :edit, locals: { audit: audit }
+        render :edit, locals: {
+          audit: audit,
+          available_data_sources: Renalware::Reporting::Audit.available_audit_materialized_views
+        }
       end
 
       # Convert a PGResult into a hash DataTables can understand
