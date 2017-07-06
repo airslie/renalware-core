@@ -5,6 +5,7 @@
         thead
           tr
             - if current_scope
+              th
               th.col-width-small
             th.col-width-medium
               = sort_link_if(treatable.sortable?, search, :drug_name, "Drug name")
@@ -26,6 +27,8 @@
           - prescriptions.each do |prescription|
             tr class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
               - if current_scope
+                td
+                  input.discardable-checkbox-used-when-reviewing-drugs-with-patient(type="checkbox")
                 td= render partial: "renalware/medications/prescriptions/options",
                   locals: { patient: patient, prescription: prescription }
               td= prescription.drug.name
