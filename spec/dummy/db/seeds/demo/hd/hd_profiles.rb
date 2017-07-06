@@ -3,10 +3,8 @@ module Renalware
 
     kch_doc = User.find_by!(username: "kchdoc")
     kch_nurse = User.find_by!(username: "kchnurse")
-    barts_doc = User.find_by!(username: "bartsdoc")
     kent_doc = User.find_by!(username: "kentdoc")
     modal_weeks = (30..50).to_a
-    units = (1..6).to_a
     schedules = ["mon_wed_fri_am","mon_wed_fri_pm",
       "tue_thu_sat_am","tue_thu_sat_pm"]
     times = [180, 210, 240, 270]

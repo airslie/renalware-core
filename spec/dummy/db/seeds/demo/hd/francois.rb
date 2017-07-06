@@ -2,9 +2,7 @@ module Renalware
 
   patient = HD.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
   kch_doc = User.find_by!(username: "kchdoc")
-  kch_nurse = User.find_by!(username: "kchnurse")
   barts_doc = User.find_by!(username: "bartsdoc")
-  barts_nurse = User.find_by!(username: "bartsnurse")
   kent_doc = User.find_by!(username: "kentdoc")
   kent_nurse = User.find_by!(username: "kentnurse")
 
