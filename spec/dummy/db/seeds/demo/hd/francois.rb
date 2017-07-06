@@ -1,11 +1,17 @@
 module Renalware
 
   patient = HD.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
+  kch_doc = User.find_by!(username: "kchdoc")
+  barts_doc = User.find_by!(username: "bartsdoc")
+  kent_doc = User.find_by!(username: "kentdoc")
+  kent_nurse = User.find_by!(username: "kentnurse")
 
   log "Assign HD modality to Francois RABBIT" do
     description = HD::ModalityDescription.first!
     patient.set_modality(description: description,
-     started_on: 1.week.ago, created_by_id: Renalware::User.first.id)
+      started_on: 1.week.ago,
+      by: kent_doc
+    )
   end
 
   log "Assign some HD preferences to Francois RABBIT" do
@@ -13,8 +19,9 @@ module Renalware
     preference_set = HD::PreferenceSet.find_or_initialize_by(patient: patient)
     preference_set.attributes = {
       schedule: "mon_wed_fri_am",
+      hospital_unit: Hospitals::Unit.hd_sites.sample,
       entered_on: 1.week.ago.to_date,
-      by: User.first
+      by: barts_doc
     }
     preference_set.save!
   end
@@ -28,9 +35,9 @@ module Renalware
       schedule: "mon_wed_fri_am",
       prescribed_time: 180,
       prescribed_on: 1.week.ago.to_date,
-      prescriber: User.first,
-      named_nurse: User.last,
-      transport_decider: User.first,
+      prescriber: kch_doc,
+      named_nurse: kent_nurse,
+      transport_decider: barts_doc,
       document: {
         dialysis: {
           hd_type: :hd,
@@ -79,10 +86,10 @@ module Renalware
   log "Create dry weight to Francois RABBIT" do
     dry_weight = Clinical::DryWeight.find_or_create_by(
       patient: Renalware::Clinical.cast_patient(patient),
-      weight: 140.5,
+      weight: 98.6,
       assessed_on: Time.zone.now,
-      assessor_id: Renalware::User.first.id,
-      created_by_id: Renalware::User.first.id
+      assessor_id: Renalware::User.third.id,
+      created_by_id: Renalware::User.third.id
     )
   end
 
