@@ -139,12 +139,47 @@ ALTER SEQUENCE access_catheter_insertion_techniques_id_seq OWNED BY access_cathe
 
 
 --
+-- Name: access_plan_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE access_plan_types (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: access_plan_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE access_plan_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: access_plan_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE access_plan_types_id_seq OWNED BY access_plan_types.id;
+
+
+--
 -- Name: access_plans; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE access_plans (
     id integer NOT NULL,
-    name character varying NOT NULL,
+    type_id integer NOT NULL,
+    notes text,
+    updated_by_id integer NOT NULL,
+    created_by_id integer NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -4425,6 +4460,13 @@ ALTER TABLE ONLY access_catheter_insertion_techniques ALTER COLUMN id SET DEFAUL
 
 
 --
+-- Name: access_plan_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_plan_types ALTER COLUMN id SET DEFAULT nextval('access_plan_types_id_seq'::regclass);
+
+
+--
 -- Name: access_plans id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5229,6 +5271,14 @@ ALTER TABLE ONLY access_assessments
 
 ALTER TABLE ONLY access_catheter_insertion_techniques
     ADD CONSTRAINT access_catheter_insertion_techniques_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: access_plan_types access_plan_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_plan_types
+    ADD CONSTRAINT access_plan_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -6254,6 +6304,34 @@ CREATE INDEX index_access_assessments_on_type_id ON access_assessments USING btr
 --
 
 CREATE INDEX index_access_assessments_on_updated_by_id ON access_assessments USING btree (updated_by_id);
+
+
+--
+-- Name: index_access_plans_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_plans_on_created_by_id ON access_plans USING btree (created_by_id);
+
+
+--
+-- Name: index_access_plans_on_deleted_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_plans_on_deleted_at ON access_plans USING btree (deleted_at);
+
+
+--
+-- Name: index_access_plans_on_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_plans_on_type_id ON access_plans USING btree (type_id);
+
+
+--
+-- Name: index_access_plans_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_plans_on_updated_by_id ON access_plans USING btree (updated_by_id);
 
 
 --
@@ -8978,7 +9056,7 @@ ALTER TABLE ONLY modality_modalities
 --
 
 ALTER TABLE ONLY access_profiles
-    ADD CONSTRAINT fk_rails_c367d368e6 FOREIGN KEY (plan_id) REFERENCES access_plans(id);
+    ADD CONSTRAINT fk_rails_c367d368e6 FOREIGN KEY (plan_id) REFERENCES access_plan_types(id);
 
 
 --
@@ -9059,6 +9137,22 @@ ALTER TABLE ONLY letter_signatures
 
 ALTER TABLE ONLY hd_profiles
     ADD CONSTRAINT fk_rails_d92d27629e FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: access_plans fk_rails_d944a58ba2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_plans
+    ADD CONSTRAINT fk_rails_d944a58ba2 FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
+-- Name: access_plans fk_rails_db0b9b356b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_plans
+    ADD CONSTRAINT fk_rails_db0b9b356b FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -9791,6 +9885,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170619100927'),
 ('20170621205538'),
 ('20170622145529'),
-('20170628115247');
+('20170628115247'),
+('20170707110155');
 
 

@@ -1,7 +1,7 @@
 models = [
   Renalware::Accesses::Site,
   Renalware::Accesses::Type,
-  Renalware::Accesses::Plan,
+  Renalware::Accesses::PlanTypes,
   Renalware::Accesses::CatheterInsertionTechnique,
   Renalware::Clinics::Clinic,
   Renalware::Deaths::Cause,

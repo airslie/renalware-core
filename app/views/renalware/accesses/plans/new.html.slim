@@ -1,0 +1,8 @@
+= simple_form_for plan,
+                  url: patient_accesses_plans_path(patient),
+                  html: { autocomplete: "off" },
+                  wrapper: "horizontal_form" do |f|
+
+    = f.association :type_id,
+        collection: Renalware::Accesses::PlanType.ordered,
+        wrapper: :horizontal_medium

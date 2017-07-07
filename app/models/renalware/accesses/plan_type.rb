@@ -2,7 +2,7 @@ require_dependency "renalware/accesses"
 
 module Renalware
   module Accesses
-    class Plan < ApplicationRecord
+    class PlanType < ApplicationRecord
       acts_as_paranoid
 
       validates :name, presence: true

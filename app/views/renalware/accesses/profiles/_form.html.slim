@@ -21,18 +21,6 @@ ruby:
     = f.input :started_on, as: :date_picker, wrapper: :horizontal_datepicker
     = f.input :terminated_on, as: :date_picker, wrapper: :horizontal_datepicker
 
-  = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Access Plan", name: "plan" } do
-    = f.association :plan,
-        collection: Renalware::Accesses::Plan.ordered,
-        wrapper: :horizontal_medium
-    = f.input :planned_on,
-              as: :date_picker,
-              wrapper: :horizontal_datepicker
-    = f.association :decided_by,
-                    as: :user_picker,
-                    collection: Renalware::User.ordered,
-                    wrapper: :horizontal_medium
 
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Admin", name: "notes" } do

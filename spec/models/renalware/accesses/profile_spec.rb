@@ -15,7 +15,7 @@ module Renalware
       it { is_expected.to belong_to(:patient).touch(true) }
 
       context "when plan is provided" do
-        let(:plan) { create(:access_plan) }
+        let(:plan) { create(:access_plan_type) }
         let(:profile) { Profile.new(plan: plan) }
 
         it "validates presence of planned_on" do

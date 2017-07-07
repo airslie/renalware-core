@@ -46,7 +46,7 @@ module Renalware
       terminated_on: 1.month.ago,
       type: Accesses::Type.relevant_to_access_profiles.sample,
       side: procedure1.side,
-      plan: Accesses::Plan.all.sample,
+      plan: Accesses::PlanType.all.sample,
       decided_by: users.sample,
       notes: dummy_text,
       by: users.sample
@@ -59,7 +59,7 @@ module Renalware
       started_on: (procedure2.performed_on - 2.months),
       type: Accesses::Type.relevant_to_access_profiles.sample,
       side: procedure2.side,
-      plan: Accesses::Plan.all.sample,
+      plan: Accesses::PlanType.all.sample,
       decided_by: users.sample,
       notes: dummy_text,
       by: users.sample
@@ -71,7 +71,7 @@ module Renalware
       planned_on: 2.weeks.ago,
       type: Accesses::Type.relevant_to_access_profiles.sample,
       side: Accesses::Profile.side.values.sample,
-      plan: Accesses::Plan.where(name: "Fistula/graft maturing").first,
+      plan: Accesses::PlanType.where(name: "Fistula/graft maturing").first,
       decided_by: users.sample,
       notes: dummy_text,
       by: users.sample
