@@ -12,11 +12,14 @@ module Renalware
 
       def show
         authorize audit
-
-        respond_to do |format|
-          format.json { render(json: audit_json) && return }
-          format.html { render(locals: { audit: audit }) }
-        end
+        columns, values = GenerateAuditJson.call(audit.materialized_view_name)
+        render(
+          locals: {
+            audit: audit,
+            columns: columns,
+            values: values
+          }
+        )
       end
 
       def edit
@@ -44,11 +47,6 @@ module Renalware
           audit: audit,
           available_data_sources: Renalware::Reporting::Audit.available_audit_materialized_views
         }
-      end
-
-      # Convert a PGResult into a hash DataTables can understand
-      def audit_json
-        GenerateAuditJson.call(audit.materialized_view_name)
       end
 
       def audit_params

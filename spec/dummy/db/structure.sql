@@ -3820,13 +3820,11 @@ CREATE MATERIALIZED VIEW reporting_hd_blood_pressures_audit AS
 
 CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
  SELECT units.name,
-    sum(stats.session_count) AS session_count,
+    count(stats.id) AS patient_count,
     round(avg(stats.pre_mean_systolic_blood_pressure)) AS mean_pre_systolic_blood_pressure,
     round(avg(stats.pre_mean_diastolic_blood_pressure)) AS mean_pre_diastolic_blood_pressure,
     round(avg(stats.post_mean_systolic_blood_pressure)) AS mean_post_systolic_blood_pressure,
     round(avg(stats.post_mean_diastolic_blood_pressure)) AS mean_post_diastolic_blood_pressure,
-    round(avg(stats.lowest_systolic_blood_pressure)) AS mean_lowest_systolic_blood_pressure,
-    round(avg(stats.highest_systolic_blood_pressure)) AS mean_highest_systolic_blood_pressure,
     round(avg(stats.mean_fluid_removal), 2) AS mean_fluid_removal,
     round(avg(stats.mean_weight_loss), 2) AS mean_weight_loss,
     round(avg(stats.mean_machine_ktv), 2) AS mean_machine_ktv,

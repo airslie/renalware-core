@@ -7,13 +7,11 @@ etc) and move that logic (mainly summing and averaging) in the the view
 */
 SELECT
 units.name,
-SUM(stats.session_count) as session_count,
+count(stats.id) as patient_count,
 ROUND(AVG(stats.pre_mean_systolic_blood_pressure)) as mean_pre_systolic_blood_pressure,
 ROUND(AVG(stats.pre_mean_diastolic_blood_pressure)) as mean_pre_diastolic_blood_pressure,
 ROUND(AVG(stats.post_mean_systolic_blood_pressure)) as mean_post_systolic_blood_pressure,
 ROUND(AVG(stats.post_mean_diastolic_blood_pressure)) as mean_post_diastolic_blood_pressure,
-ROUND(AVG(stats.lowest_systolic_blood_pressure)) as mean_lowest_systolic_blood_pressure,
-ROUND(AVG(stats.highest_systolic_blood_pressure)) as mean_highest_systolic_blood_pressure,
 ROUND(AVG(stats.mean_fluid_removal),2) as mean_fluid_removal,
 ROUND(AVG(stats.mean_weight_loss),2) as mean_weight_loss,
 ROUND(AVG(stats.mean_machine_ktv),2) as mean_machine_ktv,
