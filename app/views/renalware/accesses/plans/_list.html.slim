@@ -1,0 +1,25 @@
+article.access-plans
+  header
+    h2 Plan History
+    = link_to "Add Plan",
+              new_patient_accesses_plan_path(@patient),
+              class: "button"
+
+  table.align-top
+    thead
+      th.col-width-tiny
+      th.col-width-date Created
+      th.col-width-date Terminated
+      th.col-width-mediumish Plan
+      th Notes
+      th Decided by
+
+    tbody
+      - plans.each do |plan|
+        tr
+          td= link_to("View", [patient, plan])
+          td= l(plan.created_at&.to_date)
+          td= l(plan.terminated_at&.to_date)
+          td= plan.plan_type.to_s
+          td.col-width-large-with-ellipsis= plan.notes
+          td= plan.decided_by

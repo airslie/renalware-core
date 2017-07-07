@@ -4,6 +4,7 @@ module Renalware
   module Accesses
     class Patient < ActiveType::Record[Renalware::Patient]
       has_many :profiles
+      has_many :plans
       has_many :procedures
       has_many :assessments
 

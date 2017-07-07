@@ -25,6 +25,6 @@ table.hd-unmet-preferences
         td.preferred= patient.preferred(:hospital_unit)
         td.preferred= patient.preferred(:schedule) { |value| value&.text }
         td.preferred= patient.preferred_other_schedule
-        td.col-with-large-with-ellipsis= patient.notes
+        td.col-width-large-with-ellipsis= patient.notes
 
 = paginate patients

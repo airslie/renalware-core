@@ -1,0 +1,85 @@
+require "rails_helper"
+
+feature "Creating an Access Plan", type: :feature do
+  include DateHelpers
+
+  scenario "A clinician adds the first access plan to a patient using menus" do
+    user = login_as_clinician
+    patient = create(:accesses_patient, created_by: user, updated_by: user)
+    plan_type = create(:access_plan_type, name: "Continue dialysis line")
+    notes = "Lorem ipsum delor"
+
+    visit patient_accesses_dashboard_path(patient)
+
+    expect(page).to have_no_content("Plan History")
+
+    within ".page-actions" do
+      click_on "Add"
+      click_on "Access Plan"
+    end
+
+    within "#new_accesses_plan" do
+      select plan_type.name, from: "Plan"
+      select user.to_s, from: "Decided by"
+      fill_in "Notes", with: notes
+      click_on "Save"
+    end
+
+    expect(page.current_path).to eq(patient_accesses_dashboard_path(patient))
+
+    expect(page).to have_content("Plan History")
+
+    within ".access-plans" do
+      expect(page).to have_content(plan_type.name)
+      expect(page).to have_content(notes)
+      expect(page).to have_content(todays_date)
+    end
+  end
+
+  scenario "A clinician adds an plan to a patient, implicitly terminating the previous one" do
+    user = login_as_clinician
+
+    patient = create(:accesses_patient, by: user)
+    plan_type1 = create(:access_plan_type, name: "Continue dialysis line")
+    plan_type2 = create(:access_plan_type, name: "Continue with fistula/graft -- line in situ")
+    create(:access_plan,
+           patient: patient,
+           plan_type: plan_type1,
+           by: user,
+           decided_by: user)
+    notes = "Lorem ipsum delor.."
+
+    visit new_patient_accesses_plan_path(patient)
+
+    within "#new_accesses_plan" do
+      select plan_type2.name, from: "Plan"
+      fill_in "Notes", with: notes
+      select user.to_s, from: "Decided by"
+      click_on "Save"
+    end
+
+    expect(page.current_path).to eq(patient_accesses_dashboard_path(patient))
+
+    within ".access-plans" do
+      expect(page).to have_content(plan_type1.name)
+      expect(page).to have_content(plan_type2.name)
+      expect(page).to have_content(notes)
+      expect(page).to have_content(todays_date)
+    end
+  end
+
+  scenario "A clinician attempts to add a plan to a patient with invalid data" do
+    login_as_clinician
+    patient = create(:accesses_patient)
+    visit new_patient_accesses_plan_path(patient)
+
+    expect(page).to have_no_css(".error")
+
+    within "#new_accesses_plan" do
+      click_on "Save"
+    end
+
+    expect(page.status_code).to eq(200)
+    expect(page).to have_css(".error")
+  end
+end

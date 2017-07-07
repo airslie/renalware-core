@@ -41,13 +41,10 @@ module Renalware
 
     patient.profiles.create!(
       formed_on: procedure1.performed_on,
-      planned_on: (procedure1.performed_on + 5.days),
       started_on: (procedure1.performed_on - 2.months),
       terminated_on: 1.month.ago,
       type: Accesses::Type.relevant_to_access_profiles.sample,
       side: procedure1.side,
-      plan: Accesses::PlanType.all.sample,
-      decided_by: users.sample,
       notes: dummy_text,
       by: users.sample
     )
@@ -55,12 +52,9 @@ module Renalware
     patient.profiles.create!(
       patient: patient,
       formed_on: procedure2.performed_on,
-      planned_on: (procedure2.performed_on + 5.days),
       started_on: (procedure2.performed_on - 2.months),
       type: Accesses::Type.relevant_to_access_profiles.sample,
       side: procedure2.side,
-      plan: Accesses::PlanType.all.sample,
-      decided_by: users.sample,
       notes: dummy_text,
       by: users.sample
     )
@@ -68,11 +62,8 @@ module Renalware
     patient.profiles.create!(
       patient: patient,
       formed_on: 1.week.ago,
-      planned_on: 2.weeks.ago,
       type: Accesses::Type.relevant_to_access_profiles.sample,
       side: Accesses::Profile.side.values.sample,
-      plan: Accesses::PlanType.where(name: "Fistula/graft maturing").first,
-      decided_by: users.sample,
       notes: dummy_text,
       by: users.sample
     )

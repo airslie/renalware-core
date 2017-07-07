@@ -176,11 +176,13 @@ ALTER SEQUENCE access_plan_types_id_seq OWNED BY access_plan_types.id;
 
 CREATE TABLE access_plans (
     id integer NOT NULL,
-    type_id integer NOT NULL,
+    plan_type_id integer NOT NULL,
     notes text,
+    patient_id integer NOT NULL,
+    decided_by_id integer,
     updated_by_id integer NOT NULL,
     created_by_id integer NOT NULL,
-    deleted_at timestamp without time zone,
+    terminated_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -259,11 +261,9 @@ CREATE TABLE access_profiles (
     id integer NOT NULL,
     patient_id integer,
     formed_on date NOT NULL,
-    planned_on date,
     started_on date,
     terminated_on date,
     type_id integer NOT NULL,
-    plan_id integer,
     side character varying NOT NULL,
     notes text,
     created_by_id integer NOT NULL,
@@ -6202,6 +6202,13 @@ ALTER TABLE ONLY versions
 
 
 --
+-- Name: access_plan_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX access_plan_uniqueness ON access_plans USING btree (patient_id, (COALESCE(terminated_at, '1970-01-01 00:00:00'::timestamp without time zone)));
+
+
+--
 -- Name: access_procedure_pd_catheter_tech_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6314,17 +6321,31 @@ CREATE INDEX index_access_plans_on_created_by_id ON access_plans USING btree (cr
 
 
 --
--- Name: index_access_plans_on_deleted_at; Type: INDEX; Schema: public; Owner: -
+-- Name: index_access_plans_on_decided_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_access_plans_on_deleted_at ON access_plans USING btree (deleted_at);
+CREATE INDEX index_access_plans_on_decided_by_id ON access_plans USING btree (decided_by_id);
 
 
 --
--- Name: index_access_plans_on_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_access_plans_on_patient_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_access_plans_on_type_id ON access_plans USING btree (type_id);
+CREATE INDEX index_access_plans_on_patient_id ON access_plans USING btree (patient_id);
+
+
+--
+-- Name: index_access_plans_on_plan_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_plans_on_plan_type_id ON access_plans USING btree (plan_type_id);
+
+
+--
+-- Name: index_access_plans_on_terminated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_plans_on_terminated_at ON access_plans USING btree (terminated_at);
 
 
 --
@@ -6388,13 +6409,6 @@ CREATE INDEX index_access_profiles_on_decided_by_id ON access_profiles USING btr
 --
 
 CREATE INDEX index_access_profiles_on_patient_id ON access_profiles USING btree (patient_id);
-
-
---
--- Name: index_access_profiles_on_plan_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_access_profiles_on_plan_id ON access_profiles USING btree (plan_id);
 
 
 --
@@ -8396,6 +8410,14 @@ ALTER TABLE ONLY clinical_dry_weights
 
 
 --
+-- Name: access_plans fk_rails_32c8b62063; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_plans
+    ADD CONSTRAINT fk_rails_32c8b62063 FOREIGN KEY (plan_type_id) REFERENCES access_plan_types(id);
+
+
+--
 -- Name: transplant_registration_statuses fk_rails_32f4ff205a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9020,6 +9042,14 @@ ALTER TABLE ONLY clinic_visits
 
 
 --
+-- Name: access_plans fk_rails_b898a29af1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_plans
+    ADD CONSTRAINT fk_rails_b898a29af1 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: problem_problems fk_rails_bbae3e065d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9049,14 +9079,6 @@ ALTER TABLE ONLY patient_bookmarks
 
 ALTER TABLE ONLY modality_modalities
     ADD CONSTRAINT fk_rails_c31cea56ac FOREIGN KEY (reason_id) REFERENCES modality_reasons(id);
-
-
---
--- Name: access_profiles fk_rails_c367d368e6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY access_profiles
-    ADD CONSTRAINT fk_rails_c367d368e6 FOREIGN KEY (plan_id) REFERENCES access_plan_types(id);
 
 
 --
@@ -9129,6 +9151,14 @@ ALTER TABLE ONLY transplant_donor_stages
 
 ALTER TABLE ONLY letter_signatures
     ADD CONSTRAINT fk_rails_d4aaa80dee FOREIGN KEY (letter_id) REFERENCES letter_letters(id);
+
+
+--
+-- Name: access_plans fk_rails_d61e7c4674; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_plans
+    ADD CONSTRAINT fk_rails_d61e7c4674 FOREIGN KEY (decided_by_id) REFERENCES users(id);
 
 
 --

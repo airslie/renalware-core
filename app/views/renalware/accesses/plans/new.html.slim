@@ -1,8 +1,22 @@
-= simple_form_for plan,
-                  url: patient_accesses_plans_path(patient),
-                  html: { autocomplete: "off" },
-                  wrapper: "horizontal_form" do |f|
+= within_patient_layout(title: "New Access Plan",
+                        breadcrumbs: access_summary_breadrumb(patient)) do
 
-    = f.association :type_id,
-        collection: Renalware::Accesses::PlanType.ordered,
-        wrapper: :horizontal_medium
+  = simple_form_for [patient, plan],
+                    html: { autocomplete: "off" },
+                    wrapper: "horizontal_form" do |f|
+
+      = f.association :plan_type,
+                      collection: Renalware::Accesses::PlanType.ordered,
+                      wrapper: :horizontal_medium
+      = f.input :notes,
+                as: :text,
+                wrapper: :horizontal_large
+      = f.association :decided_by,
+                      as: :user_picker,
+                      collection: Renalware::User.ordered,
+                      wrapper: :horizontal_medium
+
+      = f.submit "Save", class: "button"
+      span= " or "
+      = link_to "cancel", patient_accesses_dashboard_path(patient)
+
