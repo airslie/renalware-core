@@ -7,21 +7,16 @@ module Renalware
   # if the user #has_permission? to manage the record.
   #
   class BasePolicy < ApplicationPolicy
+
     def initialize(user, record, permission_configuration = nil)
       super(user, record)
-
       @permission_configuration = permission_configuration || default_permission_configuration
     end
 
     def index?
-      case
-      when user.has_role?(:super_admin)
-        true
-      when restricted?
-        has_permission_for_restricted?
-      else
-        has_any_role?
-      end
+      return true if user_is_devops? || user_is_super_admin?
+      return has_permission_for_restricted? if restricted?
+      has_any_role?
     end
 
     def show?
@@ -29,14 +24,9 @@ module Renalware
     end
 
     def create?
-      case
-      when user.has_role?(:super_admin)
-        true
-      when restricted?
-        has_permission_for_restricted?
-      else
-        has_write_privileges?
-      end
+      return true if user_is_devops? || user_is_super_admin?
+      return has_permission_for_restricted? if restricted?
+      has_write_privileges?
     end
 
     def update?
@@ -55,6 +45,15 @@ module Renalware
       update?
     end
 
+    protected
+
+    # For each role define e.g. user_is_admin?
+    Role::ROLES.each do |role|
+      define_method :"user_is_#{role}?" do
+        user.has_role?(role)
+      end
+    end
+
     private
 
     attr_reader :permission_configuration
@@ -68,7 +67,7 @@ module Renalware
     end
 
     def has_write_privileges?
-      user.has_role?(:super_admin) || user.has_role?(:admin) || user.has_role?(:clinician)
+      user_is_super_admin? || user_is_admin? || user_is_clinician?
     end
 
     def has_any_role?
