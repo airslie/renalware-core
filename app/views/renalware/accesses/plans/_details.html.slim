@@ -1,0 +1,5 @@
+= definition_list_for(plan, size: :large) do |list|
+  = list.definition(:created_at){ |value| l(value) }
+  = list.definition(:decided_by)
+  = list.definition(:plan_type)
+  = list.definition(:notes)

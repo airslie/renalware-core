@@ -3,11 +3,14 @@
 
 = within_patient_layout do
   .document
-    = render "renalware/accesses/profiles/current_profile"
+    - if @current_profile.present?
+      = render "renalware/accesses/profiles/current_profile"
     - if @profiles.any?
       = render "renalware/accesses/profiles/list"
-    - if @plans.any?
-      = render("renalware/accesses/plans/list", plans: @plans, patient: @patient)
+    = render "renalware/accesses/plans/summary",
+             patient: @patient,
+             plans: @plans,
+             current_plan: @current_plan
     -if @procedures.any?
       = render "renalware/accesses/procedures/list"
     - if @assessments.any?

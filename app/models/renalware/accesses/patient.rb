@@ -11,6 +11,10 @@ module Renalware
       def current_profile
         profiles.current.first
       end
+
+      def current_plan
+        plans.current.first
+      end
     end
   end
 end

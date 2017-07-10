@@ -27,9 +27,7 @@ feature "Creating an Access Plan", type: :feature do
 
     expect(page.current_path).to eq(patient_accesses_dashboard_path(patient))
 
-    expect(page).to have_content("Plan History")
-
-    within ".access-plans" do
+    within ".access-plans .current-access-plan" do
       expect(page).to have_content(plan_type.name)
       expect(page).to have_content(notes)
       expect(page).to have_content(todays_date)
@@ -60,11 +58,14 @@ feature "Creating an Access Plan", type: :feature do
 
     expect(page.current_path).to eq(patient_accesses_dashboard_path(patient))
 
-    within ".access-plans" do
-      expect(page).to have_content(plan_type1.name)
+    within ".access-plans .current-access-plan" do
       expect(page).to have_content(plan_type2.name)
       expect(page).to have_content(notes)
       expect(page).to have_content(todays_date)
+    end
+
+    within ".access-plans .historical-access-plans" do
+      expect(page).to have_content(plan_type1.name)
     end
   end
 
