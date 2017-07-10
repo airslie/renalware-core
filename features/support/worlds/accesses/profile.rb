@@ -22,7 +22,6 @@ module World
         patient = accesses_patient(patient)
         patient.profiles.create!(
           valid_access_profile_attributes.merge(
-            site: Renalware::Accesses::Site.first,
             by: user
           )
         )
@@ -30,11 +29,11 @@ module World
 
       # @section commands
       #
-      def create_access_profile(patient:, user:, site: Renalware::Accesses::Site.first)
+      def create_access_profile(patient:, user:, side: :left)
         patient = accesses_patient(patient)
         patient.profiles.create(
           valid_access_profile_attributes.merge(
-            site: site,
+            side: side,
             by: user
           )
         )
@@ -63,11 +62,10 @@ module World
       end
     end
 
-
     module Web
       include Domain
 
-      def create_access_profile(user:, patient:, site: Renalware::Accesses::Site.first)
+      def create_access_profile(user:, patient:, side: "Right")
         login_as user
         visit patient_accesses_dashboard_path(patient)
         within ".page-actions" do
@@ -77,8 +75,7 @@ module World
 
         fill_in "Formed On", with: I18n.l(Time.zone.today)
         select "Tunnelled subcl", from: "Access Type"
-        select site.to_s, from: "Access Site"
-        select "Right", from: "Access Side"
+        select(side, from: "Access Side") if side.present?
 
         within ".top" do
           click_on "Create"

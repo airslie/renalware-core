@@ -12,13 +12,10 @@ ruby:
       locals: { legend: "Access Profile", name: "profile" } do
 
     = f.association :type,
-                    collection: Renalware::Accesses::Type.ordered,
+                    collection: Renalware::Accesses::Type.relevant_to_access_profiles,
                     wrapper: :horizontal_small,
                     label_method: :to_s,
                     autofocus: true
-    = f.association :site,
-        collection: Renalware::Accesses::Site.ordered,
-        wrapper: :horizontal_small
     = f.input :side, wrapper: :horizontal_small
     = f.input :formed_on, as: :date_picker, wrapper: :horizontal_datepicker
     = f.input :started_on, as: :date_picker, wrapper: :horizontal_datepicker

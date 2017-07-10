@@ -55,7 +55,6 @@ module Renalware
         accesses_patient = Renalware::Accesses.cast_patient(patient)
         if (profile = accesses_patient.current_profile)
           session.document.info.access_type = profile.type.name
-          session.document.info.access_site = profile.site.name
           session.document.info.access_side = profile.side
         end
       end

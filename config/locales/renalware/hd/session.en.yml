@@ -19,7 +19,6 @@ en:
         access_confirmed: Confirm this access was used
         access_type: Access Type Used
         access_side: Access Side Used
-        access_site: Access Site Used
         is_access_first_use: Is access first use?
         fistula_plus_line: "1 + 1?"
         single_needle: "Single Needle?"

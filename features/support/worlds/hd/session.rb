@@ -31,8 +31,7 @@ module World
         json = <<-END
           {"hdf": {"subs_goal": "", "subs_rate": "", "subs_volume": "", "subs_fluid_pct": ""},
           "info": {"hd_type": "hd", "machine_no": "222", "access_confirmed": "true",
-            "access_side": "right", "access_site":
-            "Brachio-basilic & transposition", "access_type": "Tunnelled subclav",
+            "access_side": "right", "access_type": "Tunnelled subclav",
             "access_type_abbreviation": "TLN LS",
             "single_needle": "no", "lines_reversed": "no", "fistula_plus_line": "no",
             "dialysis_fluid_used": "a10", "is_access_first_use": "no"},

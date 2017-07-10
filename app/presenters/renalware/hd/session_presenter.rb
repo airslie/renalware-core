@@ -9,7 +9,6 @@ module Renalware
                to: :document, allow_nil: true
       delegate :access_type,
                :access_type_abbreviation,
-               :access_site,
                :access_side,
                :machine_no,
                to: :info, allow_nil: true

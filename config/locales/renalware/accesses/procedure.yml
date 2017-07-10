@@ -6,7 +6,7 @@ en:
         first_used_on: First Use Date
         failed_on: Failure Date
         performed_by: Performed By
-        type: Access Type
+        type: Access Procedure
         side: Access Side
         site: Access Site
         pd_catheter_insertion_technique: PD Catheter Insertion Technique

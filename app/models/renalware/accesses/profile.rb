@@ -8,7 +8,6 @@ module Renalware
 
       belongs_to :patient, touch: true
       belongs_to :type, class_name: "Type"
-      belongs_to :site, class_name: "Site"
       belongs_to :plan, class_name: "Plan"
       belongs_to :decided_by, class_name: "User", foreign_key: "decided_by_id"
 
@@ -29,7 +28,6 @@ module Renalware
       }
 
       validates :type, presence: true
-      validates :site, presence: true
       validates :side, presence: true
       validates :formed_on, presence: true
       validates :planned_on, presence: true, if: :plan

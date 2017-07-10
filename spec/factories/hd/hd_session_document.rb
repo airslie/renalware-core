@@ -23,7 +23,6 @@ FactoryGirl.define do
     hd_type "hd"
     machine_no 222
     access_side "right"
-    access_site "Brachio-basilic & transposition"
     access_type "Arteriovenous graft (AVG)"
     access_type_abbreviation "AVG"
     access_confirmed true

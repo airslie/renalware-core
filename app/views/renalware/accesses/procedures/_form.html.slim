@@ -15,7 +15,7 @@ ruby:
     = f.input :performed_by, wrapper: :horizontal_medium
     = f.association :type,
         collection: Renalware::Accesses::Type.ordered,
-        label_method: :to_s,
+        label_method: :long_name,
         wrapper: :horizontal_medium
     = f.association :site,
         collection: Renalware::Accesses::Site.ordered,

@@ -228,7 +228,6 @@ CREATE TABLE access_profiles (
     started_on date,
     terminated_on date,
     type_id integer NOT NULL,
-    site_id integer NOT NULL,
     plan_id integer,
     side character varying NOT NULL,
     notes text,
@@ -6321,13 +6320,6 @@ CREATE INDEX index_access_profiles_on_plan_id ON access_profiles USING btree (pl
 
 
 --
--- Name: index_access_profiles_on_site_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_access_profiles_on_site_id ON access_profiles USING btree (site_id);
-
-
---
 -- Name: index_access_profiles_on_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8222,14 +8214,6 @@ ALTER TABLE ONLY medication_prescriptions
 
 
 --
--- Name: access_profiles fk_rails_18650a2566; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY access_profiles
-    ADD CONSTRAINT fk_rails_18650a2566 FOREIGN KEY (site_id) REFERENCES access_sites(id);
-
-
---
 -- Name: medication_prescription_terminations fk_rails_1f3fb8ef97; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9806,6 +9790,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170615184503'),
 ('20170619100927'),
 ('20170621205538'),
-('20170622145529');
+('20170622145529'),
+('20170628115247');
 
 

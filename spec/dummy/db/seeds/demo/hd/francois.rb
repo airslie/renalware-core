@@ -107,7 +107,6 @@ module Renalware
           machine_no: rand(100..222),
           access_confirmed: true,
           access_side: "right",
-          access_site: "Brachio-basilic & transposition",
           access_type: "Arteriovenous graft (AVG)",
           access_type_abbreviation: "AVG",
           single_needle: "no",
