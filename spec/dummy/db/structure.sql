@@ -3837,6 +3837,75 @@ CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
 
 
 --
+-- Name: users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip inet,
+    last_sign_in_ip inet,
+    username character varying NOT NULL,
+    given_name character varying NOT NULL,
+    family_name character varying NOT NULL,
+    signature character varying,
+    last_activity_at timestamp without time zone,
+    expired_at timestamp without time zone,
+    professional_position character varying,
+    approved boolean DEFAULT false,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    telephone character varying
+);
+
+
+--
+-- Name: reporting_main_authors_audit; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW reporting_main_authors_audit AS
+ WITH archived_clinic_letters AS (
+         SELECT date_part('year'::text, archive.created_at) AS year,
+            to_char(archive.created_at, 'Month'::text) AS month,
+            letters.author_id,
+            date_part('day'::text, (archive.created_at - (visits.date)::timestamp without time zone)) AS days_to_archive
+           FROM ((letter_letters letters
+             JOIN letter_archives archive ON ((letters.id = archive.letter_id)))
+             JOIN clinic_visits visits ON ((visits.id = letters.event_id)))
+        ), archived_clinic_letters_stats AS (
+         SELECT archived_clinic_letters.year,
+            archived_clinic_letters.month,
+            archived_clinic_letters.author_id,
+            count(*) AS total_letters,
+            round(avg(archived_clinic_letters.days_to_archive)) AS avg_days_to_archive,
+            (( SELECT count(*) AS count
+                   FROM archived_clinic_letters acl
+                  WHERE ((acl.days_to_archive <= (7)::double precision) AND (acl.author_id = archived_clinic_letters.author_id))))::numeric AS archived_within_7_days
+           FROM archived_clinic_letters
+          GROUP BY archived_clinic_letters.year, archived_clinic_letters.month, archived_clinic_letters.author_id
+        )
+ SELECT stats.year,
+    stats.month,
+    (((users.family_name)::text || ', '::text) || (users.given_name)::text) AS name,
+    stats.total_letters,
+    round(((stats.archived_within_7_days / (stats.total_letters)::numeric) * (100)::numeric)) AS percent_archived_within_7_days,
+    stats.avg_days_to_archive,
+    users.id AS user_id
+   FROM (archived_clinic_letters_stats stats
+     JOIN users ON ((stats.author_id = users.id)))
+  GROUP BY stats.year, stats.month, (((users.family_name)::text || ', '::text) || (users.given_name)::text), users.id, stats.total_letters, stats.avg_days_to_archive, stats.archived_within_7_days
+  ORDER BY stats.year DESC, stats.month, (((users.family_name)::text || ', '::text) || (users.given_name)::text)
+  WITH NO DATA;
+
+
+--
 -- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4504,36 +4573,6 @@ CREATE SEQUENCE transplant_versions_id_seq
 --
 
 ALTER SEQUENCE transplant_versions_id_seq OWNED BY transplant_versions.id;
-
-
---
--- Name: users; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE users (
-    id integer NOT NULL,
-    email character varying DEFAULT ''::character varying NOT NULL,
-    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying,
-    reset_password_sent_at timestamp without time zone,
-    remember_created_at timestamp without time zone,
-    sign_in_count integer DEFAULT 0 NOT NULL,
-    current_sign_in_at timestamp without time zone,
-    last_sign_in_at timestamp without time zone,
-    current_sign_in_ip inet,
-    last_sign_in_ip inet,
-    username character varying NOT NULL,
-    given_name character varying NOT NULL,
-    family_name character varying NOT NULL,
-    signature character varying,
-    last_activity_at timestamp without time zone,
-    expired_at timestamp without time zone,
-    professional_position character varying,
-    approved boolean DEFAULT false,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    telephone character varying
-);
 
 
 --
@@ -5407,31 +5446,6 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
-
-
---
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: reporting_main_authors_audit; Type: MATERIALIZED VIEW; Schema: public; Owner: -
---
-
-CREATE MATERIALIZED VIEW reporting_main_authors_audit AS
- SELECT date_part('year'::text, users.created_at) AS year,
-    to_char(users.created_at, 'Month'::text) AS month,
-    users.id AS user_id,
-    (((users.family_name)::text || ', '::text) || (users.given_name)::text) AS name,
-    count(letters.*) AS total_letters
-   FROM (users
-     JOIN letter_letters letters ON ((letters.author_id = users.id)))
-  GROUP BY (date_part('year'::text, users.created_at)), (to_char(users.created_at, 'Month'::text)), users.id
-  ORDER BY (date_part('year'::text, users.created_at)) DESC, (to_char(users.created_at, 'Month'::text)) DESC, (count(letters.*)) DESC
-  WITH NO DATA;
 
 
 --
@@ -6368,6 +6382,14 @@ ALTER TABLE ONLY transplant_registrations
 
 ALTER TABLE ONLY transplant_versions
     ADD CONSTRAINT transplant_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
 --
