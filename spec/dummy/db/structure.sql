@@ -3821,15 +3821,11 @@ CREATE MATERIALIZED VIEW reporting_hd_blood_pressures_audit AS
 CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
  SELECT units.name,
     count(stats.id) AS patient_count,
-    round(avg(stats.pre_mean_systolic_blood_pressure)) AS mean_pre_systolic_blood_pressure,
-    round(avg(stats.pre_mean_diastolic_blood_pressure)) AS mean_pre_diastolic_blood_pressure,
-    round(avg(stats.post_mean_systolic_blood_pressure)) AS mean_post_systolic_blood_pressure,
-    round(avg(stats.post_mean_diastolic_blood_pressure)) AS mean_post_diastolic_blood_pressure,
-    round(avg(stats.mean_fluid_removal), 2) AS mean_fluid_removal,
-    round(avg(stats.mean_weight_loss), 2) AS mean_weight_loss,
-    round(avg(stats.mean_machine_ktv), 2) AS mean_machine_ktv,
-    round(avg(stats.mean_blood_flow), 2) AS mean_blood_flow,
-    round(avg(stats.mean_litres_processed), 2) AS mean_litres_processed
+    0 AS percentage_hb_gt_100,
+    0 AS percentage_urr_gt_65,
+    0 AS percentage_phosphate_lt_1_8,
+    0 AS percentage_access_fistula_or_graft,
+    0 AS avg_missed_hd_time
    FROM (hd_patient_statistics stats
      JOIN hospital_units units ON ((units.id = stats.hospital_unit_id)))
   GROUP BY units.name
@@ -3879,6 +3875,7 @@ CREATE MATERIALIZED VIEW reporting_main_authors_audit AS
            FROM ((letter_letters letters
              JOIN letter_archives archive ON ((letters.id = archive.letter_id)))
              JOIN clinic_visits visits ON ((visits.id = letters.event_id)))
+          WHERE (archive.created_at > (('now'::text)::date - '3 mons'::interval))
         ), archived_clinic_letters_stats AS (
          SELECT archived_clinic_letters.year,
             archived_clinic_letters.month,
@@ -3891,17 +3888,15 @@ CREATE MATERIALIZED VIEW reporting_main_authors_audit AS
            FROM archived_clinic_letters
           GROUP BY archived_clinic_letters.year, archived_clinic_letters.month, archived_clinic_letters.author_id
         )
- SELECT stats.year,
-    stats.month,
-    (((users.family_name)::text || ', '::text) || (users.given_name)::text) AS name,
+ SELECT (((users.family_name)::text || ', '::text) || (users.given_name)::text) AS name,
     stats.total_letters,
     round(((stats.archived_within_7_days / (stats.total_letters)::numeric) * (100)::numeric)) AS percent_archived_within_7_days,
     stats.avg_days_to_archive,
     users.id AS user_id
    FROM (archived_clinic_letters_stats stats
      JOIN users ON ((stats.author_id = users.id)))
-  GROUP BY stats.year, stats.month, (((users.family_name)::text || ', '::text) || (users.given_name)::text), users.id, stats.total_letters, stats.avg_days_to_archive, stats.archived_within_7_days
-  ORDER BY stats.year DESC, stats.month, (((users.family_name)::text || ', '::text) || (users.given_name)::text)
+  GROUP BY (((users.family_name)::text || ', '::text) || (users.given_name)::text), users.id, stats.total_letters, stats.avg_days_to_archive, stats.archived_within_7_days
+  ORDER BY stats.total_letters
   WITH NO DATA;
 
 
@@ -8214,13 +8209,6 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 
 
 --
--- Name: main_authors_audit_year_month_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX main_authors_audit_year_month_user_id ON reporting_main_authors_audit USING btree (year, month, user_id);
-
-
---
 -- Name: patient_bookmarks_uniqueness; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -10136,6 +10124,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170705150913'),
 ('20170705160726'),
 ('20170706120643'),
-('20170707110155');
+('20170707110155'),
+('20170711140607'),
+('20170711140926');
 
 
