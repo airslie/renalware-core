@@ -11,6 +11,10 @@ en:
               none: There are no letters pending your review.
           bookmarks:
             none: There are no patients bookmarked.
+          messages:
+            none: You have no messages.
+          electronic_ccs:
+            none: You have no electronic CCs.
       bookmarks:
         none: There are no patients bookmarked.
         table:
@@ -22,3 +26,4 @@ en:
           notes: Notes
           modality: Modality
           bookmarked_on: Bookmarked
+
