@@ -1,0 +1,15 @@
+en:
+  activerecord:
+    attributes:
+      renalware/accesses/plan:
+        plan_type: Plan type
+        notes: Notes
+        decided_by: Decided by
+    errors:
+      models:
+        renalware/accesses/plan:
+          attributes:
+            plan_type:
+              blank: Please select a plan type
+            decided_by:
+              blank: Please select a user

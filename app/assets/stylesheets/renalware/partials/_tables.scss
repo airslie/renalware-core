@@ -39,6 +39,13 @@ table {
     }
   }
 
+  &.align-top {
+    td,
+    th {
+      vertical-align: top;
+    }
+  }
+
   tr th,
   tr td {
     border-bottom: 1px dotted $disabled-colour;
@@ -52,7 +59,7 @@ table {
   }
 
   tr td {
-    &.col-with-medium-with-ellipsis {
+    &.col-width-medium-with-ellipsis {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -60,7 +67,7 @@ table {
       max-width: 7rem;
     }
 
-    &.col-with-large-with-ellipsis {
+    &.col-width-large-with-ellipsis {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

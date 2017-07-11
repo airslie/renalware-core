@@ -12,7 +12,7 @@ article.donor-statuses
       th.col-width-date Terminated on
       th.col-width-large Position
       th.col-width-medium Status
-      th.col-with-large Notes
+      th.col-width-large Notes
 
     tbody
       - donor_stages.each do |stage|
@@ -22,5 +22,5 @@ article.donor-statuses
           td= l(stage.terminated_on&.to_date)
           td= stage.stage_position.name
           td= stage.stage_status.name
-          td.col-with-large-with-ellipsis.css-toggle-container= stage.notes
+          td.col-width-large-with-ellipsis.css-toggle-container= stage.notes
 

@@ -9,7 +9,7 @@ tr(class=letter.state.dasherize)
     = link_to "Print&nbsp;(PDF)".html_safe,
               patient_letters_letter_print_path(letter),
               target: "print"
-  td.col-with-medium-with-ellipsis= letter.type
+  td.col-width-medium-with-ellipsis= letter.type
   td.state
     span= letter.state_description
   td.full-name
@@ -19,8 +19,8 @@ tr(class=letter.state.dasherize)
   td= l letter.issued_on
   td= letter.author
   td= letter.typist
-  td.col-with-medium-with-ellipsis= letter.main_recipient.address
-  td.col-with-medium-with-ellipsis= letter.description
+  td.col-width-medium-with-ellipsis= letter.main_recipient.address
+  td.col-width-medium-with-ellipsis= letter.description
 = content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
   td
   td(colspan=10)

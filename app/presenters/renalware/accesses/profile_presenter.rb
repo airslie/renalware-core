@@ -13,18 +13,22 @@ module Renalware
         ::I18n.l(super)
       end
 
-      def planned_on
-        ::I18n.l(super)
-      end
-
       def side
         super.try(:text)
       end
 
-      def plan_decision
-        if plan.present?
-          "#{plan}<br/>(#{planned_on} by #{decided_by})".html_safe
-        end
+      def plan_type
+        current_plan.plan_type.to_s
+      end
+
+      def plan_date
+        current_plan.created_at
+      end
+
+      private
+
+      def current_plan
+        @current_plan ||= patient.current_plan || NullObject.instance
       end
     end
   end

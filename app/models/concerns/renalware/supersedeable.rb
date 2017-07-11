@@ -1,4 +1,4 @@
-# Uses acts_as_paranod to implement amenas of deactivating and old and activating a
+# Uses acts_as_paranod to implement a meanss of deactivating and old and activating a
 # new object such that there can only be one active object
 # Enforcing only one active object requires an appropriate unique index to be created
 # See https://github.com/rubysherpas/paranoia#unique-indexes
@@ -31,6 +31,7 @@ module Renalware
         end
       end
 
+      # Unused?
       def paranoia_restore_attributes
         {
           deactivated_at: nil,
@@ -38,6 +39,7 @@ module Renalware
         }
       end
 
+      # Unused
       def paranoia_destroy_attributes
         {
           deactivated_at: current_time_from_proper_timezone,

@@ -3,7 +3,7 @@ tr
   td.nowrap= l event.created_at.to_date
   - unless local_assigns.fetch(:exclude_type_column, false)
     td= event.event_type
-  td.col-with-medium-with-ellipsis
+  td.col-width-medium-with-ellipsis
     = render partial: "renalware/events/events/cell/#{event.to_partial_path}",
                locals: { event: event }
   td.created_at= l(event.date_time)

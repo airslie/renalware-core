@@ -5,10 +5,7 @@ en:
         formed_on: Formed On
         started_on: Start Date
         terminated_on: End Date
-        planned_on: Plan Date
-        decided_by: Decided By
         type: Access Type
         side: Access Side
         site: Access Site
-        plan: Plan
         notes: Notes

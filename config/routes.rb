@@ -202,6 +202,7 @@ Renalware::Engine.routes.draw do
       resources :assessments, except: [:index, :destroy]
       resources :procedures, except: [:index, :destroy]
       resources :profiles, except: [:index, :destroy]
+      resources :plans, except: [:index, :destroy]
     end
 
     # Clinics
