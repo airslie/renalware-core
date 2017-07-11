@@ -26,7 +26,7 @@ module Renalware
 
       def build_allergy(params)
         params[:by] = user
-        params[:recorded_at] = Time.zone.now
+        params[:recorded_at] ||= Time.zone.now
         patient.allergies.build(params)
       end
 
