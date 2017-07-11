@@ -26,7 +26,7 @@ module Renalware
       parts << Array(local_assigns[:breadcrumbs]).map(&:title)
       parts << local_assigns[:title]
       title = parts.flatten.compact.join(separator)
-      content_for(:page_title){ title }
+      content_for(:page_title){ title&.html_safe }
       title
     end
 

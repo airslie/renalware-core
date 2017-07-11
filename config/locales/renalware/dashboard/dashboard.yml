@@ -3,7 +3,7 @@ en:
     dashboard:
       dashboards:
         title: "%{name}'s Dashboard"
-        layout:
+        content:
           letters:
             drafts:
               none: There are no "draft" letters you are typing.

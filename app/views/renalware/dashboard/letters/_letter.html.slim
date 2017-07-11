@@ -1,4 +1,4 @@
-tr
+tr(class=letter.state.dasherize)
   td
     = link_to "Toggle", "#quick-preview-#{letter.id}", data: { behaviour: "toggler" }
     = pipe_separator
@@ -10,7 +10,8 @@ tr
   td= letter.author
   td= link_to letter.patient, patient_path(letter.patient)
   td= letter.description
-  td= letter.state
+  td.state
+    span= letter.state_description
 = content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
   td
   td(colspan=7)
