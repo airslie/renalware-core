@@ -22,13 +22,12 @@
   .row
     .large-6.columns
       = article_tag "White Cell Count" do
-        ul
+        ul.table-data-list
           li Total: #{default_for_blank_units(peritonitis_episode.white_cell_total, "x 10\u2079", "N/A")}
           li Neutro: #{default_for_blank_units(peritonitis_episode.white_cell_neutro, "%", "N/A")}
           li Lympho: #{default_for_blank_units(peritonitis_episode.white_cell_lympho, "%", "N/A")}
           li Degen: #{default_for_blank_units(peritonitis_episode.white_cell_degen, "%", "N/A")}
           li Other: #{default_for_blank_units(peritonitis_episode.white_cell_other, "%", "N/A")}
-
 
     .large-6.columns
       = article_tag "Causes/Symptoms" do
