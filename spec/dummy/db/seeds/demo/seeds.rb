@@ -16,3 +16,6 @@ require_relative "./transplants/seeds"
 require_relative "./medications/seeds"
 require_relative "./worryboard/seeds"
 require_relative "./snippets/seeds"
+
+# This seed file must be run last
+require_relative "./housekeeping"

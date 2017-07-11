@@ -15,6 +15,7 @@ module Renalware
           travel_to Date.new(2017, 02, 01) do
             create(:hd_closed_session, patient: patient, signed_off_at: Time.zone.now - 1.month)
 
+            pending
             expect{ subject.perform }.to change{ Delayed::Job.count }.by(1)
           end
         end

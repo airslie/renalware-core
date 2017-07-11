@@ -33,6 +33,11 @@ Renalware::Engine.routes.draw do
 
   resources :mock_errors, only: [:index]
 
+  namespace :reporting do
+    resources :audits, except: [:destroy]
+    resources :audit_refreshments, only: [:create]
+  end
+
   namespace :admin do
     resources :users
   end

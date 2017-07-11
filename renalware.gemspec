@@ -26,12 +26,13 @@ Gem::Specification.new do |s|
   s.add_dependency "client_side_validations-simple_form"
   s.add_dependency "clipboard-rails"
   s.add_dependency "cocoon"
+  s.add_dependency "cronex"
   s.add_dependency "delayed_job_active_record"
   s.add_dependency "delayed_job_web"
   s.add_dependency "devise"
   s.add_dependency "friendly_id"
   # Once latest devise_security_extension changes are released uncomment this line.
-  # (check version has not mumped to 11 though). In the meantime, becuase we cannot use git
+  # (check version has not mumped to 11 though). In the meantime, because we cannot use git
   # references in the gemspec, we add this gem in the host app.
   # s.add_dependency "devise_security_extension", "~> 0.10.0"
   s.add_dependency "dumb_delegator"
@@ -42,6 +43,7 @@ Gem::Specification.new do |s|
   s.add_dependency "hashdiff"
   s.add_dependency "httparty"
   s.add_dependency "jbuilder"
+  s.add_dependency "jquery-datatables-rails", "~> 3.4.0"
   s.add_dependency "jquery-rails"
   s.add_dependency "jquery-ui-rails"
   s.add_dependency "kaminari"

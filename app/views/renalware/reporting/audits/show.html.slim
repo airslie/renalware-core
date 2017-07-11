@@ -1,0 +1,41 @@
+- content_for(:body_class) { "audits-show" }
+
+- content_for(:javascript) do
+  javascript:
+    var dataSet = #{raw(values)};
+    var databaseColumns = eval(#{raw(columns)});
+    var userConfiguredColumns = eval(#{raw(audit.display_configuration)})['columnDefs'];
+
+    // You would now have to merge two hashes - one from config into one from db
+    // becuase we want to
+    // change the name, wht width, hide
+
+    // if we just use ruby, we can
+    // build col headers and table
+    // need some config to add names, widths, hide
+    // hide can be driven by sql view
+    // width and name are display logic and need config outside of view.
+    // could display a table of cols and you tick Hide and enter label to change name and width
+    // | name | apped name | hide | width |
+    // | x_y_x| My X Y Z   | no   | 100   |
+
+    $("body").ready(function() {
+      $("body.audits-show table#audit").DataTable(
+        {
+          data: dataSet,
+          columns: userConfiguredColumns
+        }
+      );
+    });
+
+= within_admin_layout(title: audit.name, breadcrumbs: audits_breadcrumb) do
+
+  - if audit.description.present?
+    .panel.radius.compact= audit.description
+
+  /
+  / jQuery dataTables will build this table; for the columns it will use  column definitions in
+  / audit.display_configuration. Row data comes from a select on the materialized_view
+  / specified by the audit row, inserted as a js var into the page above.
+  /
+  table#audit.display.natural-width

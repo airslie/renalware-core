@@ -70,7 +70,8 @@ module Renalware
 
     letter = Letters::Letter::PendingReview.create!(
       patient: patient,
-      issued_on: 10.days.ago,
+      issued_on: 1.days.ago,
+      event: clinics_patient.clinic_visits.first,
       description: Renalware::Letters::Description.last.text,
       main_recipient_attributes: {
         person_role: "patient"

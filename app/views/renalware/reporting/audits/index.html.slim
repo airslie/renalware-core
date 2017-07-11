@@ -1,0 +1,29 @@
+= within_admin_layout(title: "Audits") do
+
+  table.audits
+    thead
+      tr
+        th.col-width-small
+        th.col-width-medium Name
+        th Materialized view name
+        th Schedule
+        th.col-width-date-time Updated on
+        th.col-width-date-time Data last refreshed
+        th.col-width-small
+    tbody
+      - audits.each do |audit|
+        tr
+          td
+            = link_to("View", reporting_audit_path(audit))
+            = pipe_separator
+            = link_to("Edit", edit_reporting_audit_path(audit))
+          td= audit.name
+          td= audit.materialized_view_name
+          td= audit.refresh_schedule
+          td= l(audit.updated_at)
+          td= l(audit.refreshed_at)
+          td= link_to("Refresh Data",
+                      reporting_audit_refreshments_path(audit_id: audit.id),
+                      remote: true,
+                      method: :post,
+                      class: "button compact warning")
