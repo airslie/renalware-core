@@ -13,7 +13,6 @@ module Renalware
     procedure1 = patient.procedures.create!(
       performed_on: 6.months.ago,
       type: Accesses::Type.all.sample,
-      site: Accesses::Site.all.sample,
       side: Accesses::Profile.side.values.sample,
       performed_by: users.sample,
       notes: dummy_text,
@@ -24,7 +23,6 @@ module Renalware
     procedure2 = patient.procedures.create!(
       performed_on: 3.months.ago,
       type: Accesses::Type.all.sample,
-      site: Accesses::Site.all.sample,
       side: Accesses::Profile.side.values.sample,
       performed_by: users.sample,
       notes: dummy_text,
@@ -77,7 +75,7 @@ module Renalware
       performed_on: procedure1.performed_on + 1.month,
       procedure_on: procedure1.performed_on,
       type: procedure1.type,
-      site: procedure1.site,
+      site: Accesses::Site.all.sample,
       side: procedure1.side,
       comments: dummy_text,
       by: users.sample,
@@ -104,7 +102,7 @@ module Renalware
       performed_on: procedure2.performed_on + 1.month,
       procedure_on: procedure2.performed_on,
       type: procedure2.type,
-      site: procedure2.site,
+      site: Accesses::Site.all.sample,
       side: procedure2.side,
       comments: dummy_text,
       by: users.sample,

@@ -59,7 +59,7 @@ module Renalware
       def attributes
         [
           :performed_on, :first_used_on, :failed_on,
-          :site_id, :side, :type_id,
+          :side, :type_id,
           :catheter_make, :catheter_lot_no,
           :performed_by, :notes, :outcome,
           :pd_catheter_insertion_technique_id

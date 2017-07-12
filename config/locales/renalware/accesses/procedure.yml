@@ -8,7 +8,6 @@ en:
         performed_by: Performed By
         type: Access Procedure
         side: Access Side
-        site: Access Site
         pd_catheter_insertion_technique: PD Catheter Insertion Technique
         notes: Notes
         outcome: Outcome

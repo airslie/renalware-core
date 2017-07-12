@@ -224,7 +224,6 @@ CREATE TABLE access_procedures (
     id integer NOT NULL,
     patient_id integer,
     type_id integer NOT NULL,
-    site_id integer,
     side character varying,
     performed_on date NOT NULL,
     first_procedure boolean,
@@ -6564,13 +6563,6 @@ CREATE INDEX index_access_procedures_on_patient_id ON access_procedures USING bt
 
 
 --
--- Name: index_access_procedures_on_site_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_access_procedures_on_site_id ON access_procedures USING btree (site_id);
-
-
---
 -- Name: index_access_procedures_on_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9515,14 +9507,6 @@ ALTER TABLE ONLY hd_profiles
 
 
 --
--- Name: access_procedures fk_rails_ed137a641b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY access_procedures
-    ADD CONSTRAINT fk_rails_ed137a641b FOREIGN KEY (site_id) REFERENCES access_sites(id);
-
-
---
 -- Name: problem_problems fk_rails_edf3902cb0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10126,6 +10110,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170706120643'),
 ('20170707110155'),
 ('20170711140607'),
-('20170711140926');
+('20170711140926'),
+('20170712090217');
 
 

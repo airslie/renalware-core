@@ -17,9 +17,6 @@ ruby:
         collection: Renalware::Accesses::Type.ordered,
         label_method: :long_name,
         wrapper: :horizontal_medium
-    = f.association :site,
-        collection: Renalware::Accesses::Site.ordered,
-        wrapper: :horizontal_small
     = f.input :side, wrapper: :horizontal_small
     = f.association :pd_catheter_insertion_technique,
                     collection: Renalware::Accesses::CatheterInsertionTechnique.ordered,
