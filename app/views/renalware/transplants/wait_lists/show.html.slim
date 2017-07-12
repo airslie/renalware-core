@@ -14,7 +14,6 @@
     - filters.each do |key, label|
       - options = path_params.merge(filter: key).to_h.symbolize_keys
       - path = Renalware::Engine.routes.url_for(options.merge!(only_path: true))
-      = link_to label, path
       = sub_nav_item(label, path)
 
   table.report

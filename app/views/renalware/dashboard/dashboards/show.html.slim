@@ -1,23 +1,2 @@
-- page_heading(dashboard.title)
-
-= render layout: "layout", locals: { user: dashboard.user, title: dashboard.title } do
-  h2 Draft Letters
-  - if dashboard.draft_letters.any?
-    #draft-letters
-      = render "renalware/dashboard/letters/table", letters: dashboard.draft_letters
-  - else
-    p.empty-section= t(".letters.drafts.none")
-
-  h2 Letters Pending Review
-  - if dashboard.letters_pending_review.any?
-    #letters-pending-review
-      = render "renalware/dashboard/letters/table", letters: dashboard.letters_pending_review
-  - else
-    p.empty-section= t(".letters.pending_review.none")
-
-  h2 Bookmarked Patients
-  - if dashboard.bookmarks.any?
-    #bookmarks
-      = render "renalware/dashboard/bookmarks/table", bookmarks: dashboard.bookmarks
-  - else
-    p.empty-section= t(".bookmarks.none")
+= within_admin_layout(title: dashboard.title) do
+  = render "content", dashboard: dashboard

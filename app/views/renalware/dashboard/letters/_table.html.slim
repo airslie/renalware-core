@@ -1,12 +1,12 @@
 table.auto-layout.letters
   thead
     tr
-      th
-      th Date
-      th Author
-      th Patient
+      th.col-width-medium
+      th.col-width-date Date
+      th.col-width-medium Author
+      th.col-width-large Patient
       th Description
-      th State
+      th.col-width-medium State
 
   tbody
     = render partial: "renalware/dashboard/letters/letter", collection: letters
