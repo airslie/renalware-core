@@ -1,0 +1,20 @@
+/ We try and keep cross-module dependencies in the View layer.
+- access_patient = Renalware::Accesses::PatientPresenter.new(patient)
+- pathology_patient = Renalware::Pathology::PatientPresenter.new(patient)
+
+tr
+  td= link_to t(".view"), view_proc.call(patient)
+  td.full-name= patient
+  td.nowrap= patient.nhs_number
+  td.nowrap= patient.hospital_identifier
+  td= patient.sex.code
+  td= patient.age
+  td= patient.modality_description&.name
+  td= access_patient.access_profile_type
+  td= l(access_patient.access_profile_started_on)
+  td= access_patient.access_plan_plan_type
+  td= l(access_patient.access_plan_created_at.to_date)
+  td= patient.has_transport&.text
+  td= patient.transport_type&.text
+  td= pathology_patient.hgb_result
+  td= l(pathology_patient.hgb_observed_at&.to_date)

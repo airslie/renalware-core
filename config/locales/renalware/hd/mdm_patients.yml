@@ -2,5 +2,28 @@ en:
   renalware:
     hd:
       mdm_patients:
+        patient:
+          view: "View"
         index:
           page_title: HD MDM patients
+          name: Name
+          nhs_no: NHS No.
+          hosp_no: Hosp No.
+          sex: Sex
+          age: Age
+          dob: Date of Birth
+          modality: Modality
+          access: Access
+          access_started_on: Access date
+          access_plan: Access Plan
+          access_plan_date: Plan Date
+          has_transport: Transport?
+          transport_type: Transport
+          esrf: ESRF
+          hgb: HGB
+          hgb_date: HGB Date
+          ure: URE
+          ure_date: URE Date
+          cre: CRE
+          cre_date: CRE Date
+          mdrd: MDRD

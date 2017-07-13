@@ -22,7 +22,8 @@ module Renalware
         patients: query.call.page(page),
         page_title: args.fetch(:page_title),
         view_proc: args.fetch(:view_proc),
-        q: query.search
+        q: query.search,
+        patient_presenter_class: args[:patient_presenter_class]
       )
     end
   end
