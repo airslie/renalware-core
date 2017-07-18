@@ -9,18 +9,12 @@ module Renalware
 
       def show
         letter = find_letter(params[:letter_id])
-        @letter = present_letter(letter)
-        @content = @letter.content
+        letter = present_letter(letter)
 
         respond_to do |format|
-          format.html
-          format.pdf {
-            disposition = params.fetch("disposition", "attachment")
-            render_pdf(@letter, disposition)
-          }
-          format.rtf {
-            render_rtf(@letter)
-          }
+          format.html { render locals: { letter: letter } }
+          format.pdf  { render_pdf(letter) }
+          format.rtf  { render_rtf(letter) }
         end
       end
 
@@ -38,23 +32,19 @@ module Renalware
         LetterPresenterFactory.new(letter)
       end
 
-      def render_pdf(letter, disposition)
-        render pdf_options.merge(pdf: letter.pdf_filename, disposition: disposition)
-      end
-
-      def pdf_options
-        {
-          page_size: "A4",
-          layout: "renalware/layouts/letter",
-          footer: {
-            font_size: 8,
-            right: "page [page] of [topage]"
-          }
-        }
+      def render_pdf(letter)
+        send_data(PdfRenderer.call(letter),
+                  filename: letter.pdf_filename,
+                  type: "application/pdf",
+                  disposition: disposition)
       end
 
       def render_rtf(letter)
         RTFRenderer.new(letter, self).render
+      end
+
+      def disposition
+        params.fetch("disposition", "attachment")
       end
     end
   end

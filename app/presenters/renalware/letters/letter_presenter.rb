@@ -4,6 +4,7 @@ require "collection_presenter"
 module Renalware
   module Letters
     class LetterPresenter < DumbDelegator
+
       def type
         letter_event.to_link.call(patient)
       end
@@ -43,12 +44,24 @@ module Renalware
         letter_event.part_classes[part_name].new(patient, letter_event)
       end
 
+      def to_html
+        content
+      end
+
       def content
         if archived?
           archive.content
         else
           @content ||= HTMLRenderer.new.call(self)
         end
+      end
+
+      def hospital_unit_code
+        letterhead.site_code
+      end
+
+      def title
+        "TBC"
       end
 
       def pdf_filename
