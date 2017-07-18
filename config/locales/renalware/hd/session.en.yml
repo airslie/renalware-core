@@ -202,7 +202,9 @@ en:
           post_with_changed: Post (chg)
         form_actions:
           signoff: Save and Sign-Off
+          signoff_disable_with: Saving and Signing-Off...
           save: Save
+          save_disable_with: Saving...
           delete_confirmation: Are you sure you want to delete this session?
         new:
           open:

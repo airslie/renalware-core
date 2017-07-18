@@ -3,7 +3,7 @@ en:
   :false: "No"
 
   disable_with:
-    save: Saving
+    save: Saving...
 
   new_record:
     link_title: Add
