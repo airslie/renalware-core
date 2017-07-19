@@ -1,9 +1,10 @@
-= f.button :submit, value: t(".save"), data: { disable_with: t("disable_with.save") }
+= f.button :submit, value: t(".save"), data: { disable_with: t(".save_disable_with") }
 | &nbsp;
 = f.button :submit,
+          as: :ssdsdsd,
            name: "signoff",
            value: t(".signoff"),
-           data: { disable_with: t("disable_with.save") }
+           data: { disable_with: t(".signoff_disable_with") }
 - if policy(session).destroy?
   | &nbsp;
   = link_to("Delete", patient_hd_session_path(patient, session),

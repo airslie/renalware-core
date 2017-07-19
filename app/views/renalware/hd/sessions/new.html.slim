@@ -7,7 +7,7 @@
     = simple_form_for session,
         as: :hd_session,
         url: patient_hd_sessions_path(@patient),
-        html: { autocomplete: "off" },
+        html: { autocomplete: "off", class: "form-with-multiple-submit-buttons" },
         wrapper: "horizontal_form" do |f|
 
       = render "renalware/hd/sessions/#{session.state}/form",

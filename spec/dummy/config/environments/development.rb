@@ -17,7 +17,7 @@ Rails.application.configure do
   config.consider_all_requests_local = true
   config.action_dispatch.show_exceptions = false
   config.action_dispatch.show_detailed_exceptions = true
-  config.action_view.raise_on_missing_translations = false
+  config.action_view.raise_on_missing_translations = true
 
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join("tmp", "caching-dev.txt").exist?
