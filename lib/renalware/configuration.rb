@@ -22,6 +22,7 @@ module Renalware
     config_accessor(:salutation_prefix) { "Dear" }
     config_accessor(:page_title_spearator) { " : " }
     config_accessor(:patient_hospital_identifiers) { {} }
+    config_accessor(:session_timeout_polling_frequency) { 15.seconds }
   end
 
   def self.config

@@ -14,6 +14,10 @@ Renalware::Engine.routes.draw do
              },
              module: :devise
 
+  # An ajax-polled route which will cause the users browser to redirect to the login page
+  #  when their session expires
+  get "/session_timed_out" => "session_timeout#has_user_timed_out", as: "session_timed_out"
+
   super_admin_constraint = lambda do |request|
     current_user = request.env["warden"].user
     current_user && current_user.respond_to?(:has_role?) && current_user.has_role?(:super_admin)
@@ -26,8 +30,6 @@ Renalware::Engine.routes.draw do
   # enable mail previews in all environments
   get "/rails/mailers" => "rails/mailers#index"
   get "/rails/mailers/*path" => "rails/mailers#preview"
-
-  # scope module: "renalware" do
 
   root to: "dashboard/dashboards#show"
 
