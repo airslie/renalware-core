@@ -10,6 +10,17 @@ module Renalware
         @smoking_history ||= document.history&.smoking&.upcase
       end
 
+      def letters
+        CollectionPresenter.new(
+          letters_patient.letters.approved,
+          Renalware::Letters::LetterPresenterFactory
+        )
+      end
+
+      def hospital_unit_code
+        letter_head.site_code
+      end
+
       private
 
       def clinical_patient
@@ -18,6 +29,10 @@ module Renalware
 
       def clinics_patient
         @clinic_patient ||= Renalware::Clinics.cast_patient(__getobj__)
+      end
+
+      def letters_patient
+        @letters_patient ||= Renalware::Letters.cast_patient(__getobj__)
       end
     end
   end

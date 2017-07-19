@@ -48,13 +48,7 @@ module Renalware
       end
 
       def html_with_images_stripped
-        @html ||= begin
-          controller.render_to_string(
-            template: "/renalware/letters/formatted_letters/show.html",
-            layout: "renalware/layouts/letter.html",
-            locals: { letter: letter }
-          ).gsub!(REGEX_TO_STRIP_IMAGES, "")
-        end
+        letter.to_html.gsub(REGEX_TO_STRIP_IMAGES, "")
       end
     end
   end
