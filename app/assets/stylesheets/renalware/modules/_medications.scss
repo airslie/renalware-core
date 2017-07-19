@@ -1,4 +1,8 @@
 
+input[type="checkbox"].discardable-checkbox-used-when-reviewing-drugs-with-patient {
+  margin: 0 0 2px 0;
+}
+
 a, li, tbody tr {
   &[class^="drug-"] {
     background: $drug-type-default-colour;
