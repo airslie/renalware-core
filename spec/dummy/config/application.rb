@@ -6,6 +6,7 @@ require "renalware"
 
 module Dummy
   class Application < Rails::Application
+    config.cache_store = :file_store, Rails.root.join("tmp", "cache") # capistrano symmlinked
     config.active_record.time_zone_aware_types = [:datetime]
     unless Rails.env.development?
       config.exceptions_app = Renalware::Engine.routes

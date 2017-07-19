@@ -13,7 +13,7 @@ module Renalware
       def letters
         CollectionPresenter.new(
           letters_patient.letters.approved,
-          Renalware::Letters::LetterPresenter
+          Renalware::Letters::LetterPresenterFactory
         )
       end
 

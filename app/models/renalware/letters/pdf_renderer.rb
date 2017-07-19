@@ -15,7 +15,9 @@ module Renalware
       }.freeze
 
       def self.call(letter)
-        letter = LetterPresenterFactory.new(letter)
+        unless letter.respond_to?(:to_html)
+          letter = LetterPresenterFactory.new(letter)
+        end
         PdfLetterCache.fetch(letter) do
           WickedPdf.new.pdf_from_string(letter.to_html, OPTIONS)
         end
