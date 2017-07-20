@@ -17,8 +17,10 @@ en:
           access_started_on: Access date
           access_plan: Access Plan
           access_plan_date: Plan Date
+          registration_status: Tx Status
           has_transport: Transport?
           transport_type: Transport
+          dialysing_at: Dialysing at
           esrf: ESRF
           hgb: HGB
           hgb_date: HGB Date
