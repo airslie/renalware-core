@@ -17,8 +17,6 @@ ruby:
           collection: Renalware::Accesses::Type.ordered,
           label_method: :to_s,
           input_html: { class: "small-input" }
-      = f.association :site,
-          collection: Renalware::Accesses::Site.ordered, input_html: { class: "small-input" }
       = f.input :side, input_html: { class: "small-input" }
 
       = fd.simple_fields_for :results, fd.object.results do |fcm|
@@ -30,7 +28,6 @@ ruby:
         = fcm.input :ven_stenosis_notes, as: :text, input_html: { rows: 5 }
         = fcm.input :has_residual_stenosis, as: :inline_radio_buttons
         = fcm.input :outcome, input_html: { class: "small-input" }
-
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Management Plans", name: "plans" } do

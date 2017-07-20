@@ -28,7 +28,6 @@ module World
         patient = accesses_patient(patient)
         patient.assessments.create!(
           valid_access_assessment_attributes.merge(
-            site: Renalware::Accesses::Site.first,
             type: access_type,
             by: user
           )
@@ -39,13 +38,11 @@ module World
       #
       def create_access_assessment(patient:,
                                    user:,
-                                   site: Renalware::Accesses::Site.first,
                                    access_type: Renalware::Accesses::Type.first)
 
         patient = accesses_patient(patient)
         patient.assessments.create(
           valid_access_assessment_attributes.merge(
-            site: site,
             type: access_type,
             by: user
           )
@@ -81,7 +78,6 @@ module World
 
       def create_access_assessment(user:,
                                   patient:,
-                                  site: Renalware::Accesses::Site.first,
                                   access_type: Renalware::Accesses::Type.first)
         login_as user
         visit patient_accesses_dashboard_path(patient)
@@ -92,7 +88,6 @@ module World
 
         fill_in "Performed", with: I18n.l(Time.zone.today)
         select(access_type.to_s, from: "Access Type") if access_type.present?
-        select site.to_s, from: "Access Site"
         select "Right", from: "Access Side"
 
         within ".top" do

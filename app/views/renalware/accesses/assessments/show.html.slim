@@ -13,7 +13,7 @@
         - attributes_list = assessment.document.results.class.attributes_list
         = render "renalware/shared/attributes_group",
             legend: "Results & Observations", destination: "results",
-            models: { assessment => [:performed_on, :type, :site, :side],
+            models: { assessment => [:performed_on, :type, :side],
                       assessment.document.results => attributes_list }
 
         - attributes_list = assessment.document.admin.class.attributes_list
