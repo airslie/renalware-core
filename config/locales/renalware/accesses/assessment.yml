@@ -7,7 +7,6 @@ en:
         failed_on: Failure Date
         type: Access Type
         side: Access Side
-        site: Access Site
         comments: Comments
 
   activemodel:

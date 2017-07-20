@@ -83,7 +83,6 @@ CREATE TABLE access_assessments (
     id integer NOT NULL,
     patient_id integer,
     type_id integer NOT NULL,
-    site_id integer NOT NULL,
     side character varying NOT NULL,
     performed_on date NOT NULL,
     procedure_on date,
@@ -224,7 +223,6 @@ CREATE TABLE access_procedures (
     id integer NOT NULL,
     patient_id integer,
     type_id integer NOT NULL,
-    site_id integer,
     side character varying,
     performed_on date NOT NULL,
     first_procedure boolean,
@@ -6487,13 +6485,6 @@ CREATE INDEX index_access_assessments_on_patient_id ON access_assessments USING 
 
 
 --
--- Name: index_access_assessments_on_site_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_access_assessments_on_site_id ON access_assessments USING btree (site_id);
-
-
---
 -- Name: index_access_assessments_on_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6561,13 +6552,6 @@ CREATE INDEX index_access_procedures_on_created_by_id ON access_procedures USING
 --
 
 CREATE INDEX index_access_procedures_on_patient_id ON access_procedures USING btree (patient_id);
-
-
---
--- Name: index_access_procedures_on_site_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_access_procedures_on_site_id ON access_procedures USING btree (site_id);
 
 
 --
@@ -9499,27 +9483,11 @@ ALTER TABLE ONLY pd_peritonitis_episodes
 
 
 --
--- Name: access_assessments fk_rails_e97e417b7d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY access_assessments
-    ADD CONSTRAINT fk_rails_e97e417b7d FOREIGN KEY (site_id) REFERENCES access_sites(id);
-
-
---
 -- Name: hd_profiles fk_rails_eb5294f3df; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_profiles
     ADD CONSTRAINT fk_rails_eb5294f3df FOREIGN KEY (prescriber_id) REFERENCES users(id);
-
-
---
--- Name: access_procedures fk_rails_ed137a641b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY access_procedures
-    ADD CONSTRAINT fk_rails_ed137a641b FOREIGN KEY (site_id) REFERENCES access_sites(id);
 
 
 --
@@ -10126,6 +10094,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170706120643'),
 ('20170707110155'),
 ('20170711140607'),
-('20170711140926');
+('20170711140926'),
+('20170712090217'),
+('20170720080033');
 
 

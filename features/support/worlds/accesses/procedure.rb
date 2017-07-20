@@ -23,7 +23,6 @@ module World
         patient = accesses_patient(patient)
         patient.procedures.create!(
           valid_access_procedure_attributes.merge(
-            site: Renalware::Accesses::Site.first,
             type: Renalware::Accesses::Type.first,
             by: user
           )
@@ -34,12 +33,10 @@ module World
       #
       def create_access_procedure(patient:,
                                   user:,
-                                  site: Renalware::Accesses::Site.first,
                                   access_type: Renalware::Accesses::Type.first)
         patient = accesses_patient(patient)
         patient.procedures.create(
           valid_access_procedure_attributes.merge(
-            site: site,
             type: access_type,
             by: user
           )
@@ -75,7 +72,6 @@ module World
 
       def create_access_procedure(user:,
                                   patient:,
-                                  site: Renalware::Accesses::Site.first,
                                   access_type: Renalware::Accesses::Type.first)
         login_as user
         visit patient_accesses_dashboard_path(patient)
@@ -87,7 +83,6 @@ module World
         fill_in "Performed On", with: I18n.l(Time.zone.today)
         fill_in "Performed By", with: user.to_s
         select(access_type.to_s, from: "Access Procedure") if access_type.present?
-        select site.to_s, from: "Access Site"
         select "Right", from: "Access Side"
         select "Laparoscopic", from: "PD Catheter Insertion Technique"
 
