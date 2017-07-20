@@ -1,19 +1,11 @@
 .dashboard-content
   section.letters
-    h2 Draft Letters
-    - if dashboard.draft_letters.any?
-      #draft-letters
-        = render "renalware/dashboard/letters/table", letters: dashboard.draft_letters
+    h2 Letters in Progress
+    - if dashboard.letters_in_progress.any?
+      #letters-in-progress
+        = render "renalware/dashboard/letters/table", letters: dashboard.letters_in_progress
     - else
-      p.empty-section= t(".letters.drafts.none")
-
-  section.letters
-    h2 Letters Pending Review
-    - if dashboard.letters_pending_review.any?
-      #letters-pending-review
-        = render "renalware/dashboard/letters/table", letters: dashboard.letters_pending_review
-    - else
-      p.empty-section= t(".letters.pending_review.none")
+      p.empty-section= t(".letters.in_progress.none").html_safe
 
   section.bookmarks
     h2 Bookmarked Patients

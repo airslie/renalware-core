@@ -24,12 +24,8 @@ module Renalware
                          .includes(patient: [current_modality: :description])
       end
 
-      def draft_letters
-        @draft ||= present_letters(@typists.letters.draft.reverse)
-      end
-
-      def letters_pending_review
-        @pending_review ||= present_letters(@author.letters.pending_review.reverse)
+      def letters_in_progress
+        @letters_in_progress ||= present_letters(@author.letters.in_progress.reverse)
       end
 
       private
