@@ -16,6 +16,10 @@ module Renalware
         @has_ever_been_on_hd ||=
           modality_descriptions.exists?(type: "Renalware::HD::ModalityDescription")
       end
+
+      def __getobj__
+        self
+      end
     end
   end
 end

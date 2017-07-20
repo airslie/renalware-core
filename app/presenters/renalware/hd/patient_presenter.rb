@@ -13,8 +13,7 @@ module Renalware
       alias_method :dialysing_at_unit, :hospital_unit_unit_code
 
       def initialize(patient)
-        patient = patient.__getobj__ if patient.respond_to?(:__getobj__)
-        super(HD.cast_patient(patient))
+        super(HD.cast_patient(patient.__getobj__))
       end
 
       private

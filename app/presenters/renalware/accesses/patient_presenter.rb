@@ -9,8 +9,7 @@ module Renalware
       delegate :type, :started_on, to: :access_profile, prefix: true
 
       def initialize(patient)
-        patient = patient.__getobj__ if patient.respond_to?(:__getobj__)
-        super(Accesses.cast_patient(patient))
+        super(Accesses.cast_patient(patient.__getobj__))
       end
 
       private

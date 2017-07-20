@@ -8,8 +8,7 @@ module Renalware
                to: :current_key_observation_set
 
       def initialize(patient)
-        patient = patient.__getobj__ if patient.respond_to?(:__getobj__)
-        super(Pathology.cast_patient(patient))
+        super(Pathology.cast_patient(patient.__getobj__))
       end
     end
   end
