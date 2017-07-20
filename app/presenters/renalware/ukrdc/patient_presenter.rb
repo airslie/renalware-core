@@ -5,6 +5,7 @@ module Renalware
     class PatientPresenter < SimpleDelegator
       delegate :allergies, to: :clinical_patient
       delegate :clinic_visits, to: :clinics_patient
+      delegate :observation_requests, to: :pathology_patient
 
       def smoking_history
         @smoking_history ||= document.history&.smoking&.upcase
@@ -33,6 +34,10 @@ module Renalware
 
       def letters_patient
         @letters_patient ||= Renalware::Letters.cast_patient(__getobj__)
+      end
+
+      def pathology_patient
+        @pathology_patient ||= Renalware::Pathology.cast_patient(__getobj__)
       end
     end
   end
