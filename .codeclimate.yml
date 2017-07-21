@@ -1,4 +1,8 @@
 ---
+prepare:
+  fetch:
+  - url: "https://raw.githubusercontent.com/airslie/airslie-styleguide/master/rubocop.yml"
+    path: "default.yml"
 engines:
   flog:
     enabled: true
