@@ -1,214 +1,147 @@
+inherit_gem:
+  airslie-style:
+    - default.yml
 
 AllCops:
-  TargetRubyVersion: 2.3
+  UseCache: true
+  TargetRubyVersion: 2.4
   Exclude:
+    - "*.gemspec"
     - "vendor/**/*"
     - "bin/**/*"
     - "lib/tasks/**/*"
     - "db/**/*"
-    - "config/initializers/devise.rb"
     - "spec/dummy/bin/**/*"
     - "spec/dummy/lib/tasks/**/*"
     - "spec/dummy/db/**/*"
-  UseCache: false
-  DisabledByDefault: false
+    - "tmp/**/*"
+    - "spec/dummy/tmp/**/*"
+    - "vendor/bundle/**/*"
+    - "config/initializers/devise.rb"
 
-# Linting #
-
-Lint/UnusedMethodArgument:
+# We'll slowly introduce RSpec Cops as and when to clean up progressively
+RSpec/AnyInstance:
   Enabled: false
 
-Style/SpecialGlobalVars:
+RSpec/AroundBlock:
   Enabled: false
 
-###################### Metrics ####################################
-
-Metrics/BlockLength:
+RSpec/BeEql:
   Enabled: false
 
-Metrics/AbcSize:
-  Enabled: true
-  Exclude:
-    - "features/**/*"
-  Max: 15
-
-Metrics/LineLength:
-  Max: 100
-  AllowHeredoc: true
-  AllowURI: true
-  URISchemes:
-    - http
-    - https
-  Exclude:
-    - "features/renalware/**/*"
-    - "features/step_definitions/**/*"
-  Enabled: true
-
-Metrics/MethodLength:
-  Enabled: true
-  Max: 10
-  Exclude:
-    - "features/**/*"
-
-Metrics/ModuleLength:
-  Enabled: true
-  Max: 100
-  Exclude:
-    - "features/**/*"
-
-# ##################### Rails ##################################
-
-Rails/HasAndBelongsToMany:
+RSpec/BeforeAfterAll:
   Enabled: false
 
-Rails/Validation:
+RSpec/DescribeClass:
   Enabled: false
 
-# ################## Style #################################
-
-Style/AccessorMethodName:
-  Enabled: true
-
-Style/Alias:
-  Enabled: true
-
-Style/AlignArray:
+RSpec/DescribedClass:
   Enabled: false
 
-Style/AlignHash:
+RSpec/DescribeMethod:
   Enabled: false
 
-Style/AlignParameters:
+RSpec/DescribeSymbol:
   Enabled: false
 
-Style/BarePercentLiterals:
+RSpec/IteratedExpectation:
   Enabled: false
 
-Style/BlockDelimiters:
+RSpec/EmptyExampleGroup:
   Enabled: false
 
-Style/BracesAroundHashParameters:
+RSpec/EmptyLineAfterFinalLet:
   Enabled: false
 
-Style/ClosingParenthesisIndentation:
+RSpec/EmptyLineAfterSubject:
   Enabled: false
 
-Style/Documentation:
+RSpec/ExampleLength:
   Enabled: false
 
-Style/EmptyLines:
-  Enabled: true
-  Exclude:
-    - "features/**/*"
-    - "config/**/*"
-
-Style/EmptyLinesAroundBlockBody:
+RSpec/ExampleWording:
   Enabled: false
 
-Style/EmptyLinesAroundClassBody:
+RSpec/ExpectActual:
   Enabled: false
 
-Style/EmptyLinesAroundModuleBody:
+RSpec/ExpectOutput:
   Enabled: false
 
-Style/FirstParameterIndentation:
+RSpec/FilePath:
   Enabled: false
 
-Style/FormatString:
+RSpec/Focus:
   Enabled: false
 
-Style/IfUnlessModifier:
+RSpec/HookArgument:
   Enabled: false
 
-Style/LambdaCall:
-  Exclude:
-    - Guardfile
+RSpec/ImplicitExpect:
   Enabled: false
 
-Style/NumericLiterals:
+RSpec/InstanceSpy:
   Enabled: false
 
-Style/PredicateName:
+RSpec/InstanceVariable:
   Enabled: false
 
-Style/RegexpLiteral:
-  Exclude:
-    - features/**/*
-  Enabled: true
-
-Style/SignalException:
+RSpec/ItBehavesLike:
   Enabled: false
 
-Style/SingleLineBlockParams:
+RSpec/LeadingSubject:
   Enabled: false
 
-Style/SpaceBeforeBlockBraces:
+RSpec/LetSetup:
   Enabled: false
 
-Style/StringLiterals:
-  Enabled: true
-  EnforcedStyle: double_quotes
-  SupportedStyles:
-  - single_quotes
-  - double_quotes
-
-Style/WhenThen:
+RSpec/MessageChain:
   Enabled: false
 
-Style/MultilineMethodCallIndentation:
+RSpec/MessageExpectation:
   Enabled: false
 
-Style/MultilineMethodCallBraceLayout:
+RSpec/MessageSpies:
   Enabled: false
 
-Style/VariableNumber:
+RSpec/MultipleDescribes:
   Enabled: false
 
-Style/Alias:
+RSpec/MultipleExpectations:
   Enabled: false
 
-Style/NumericLiteralPrefix:
+RSpec/NamedSubject:
   Enabled: false
 
-Style/ClassAndModuleChildren:
+RSpec/NestedGroups:
   Enabled: false
 
-Style/MultilineHashBraceLayout:
+RSpec/NotToNot:
   Enabled: false
 
-Style/AsciiComments:
+RSpec/OverwritingSetup:
   Enabled: false
 
-Style/NumericPredicate:
+RSpec/RepeatedDescription:
   Enabled: false
 
-Style/MultilineArrayBraceLayout:
+RSpec/RepeatedExample:
   Enabled: false
 
-Style/FrozenStringLiteralComment:
+RSpec/SharedContext:
   Enabled: false
 
-Style/TernaryParentheses:
+RSpec/SingleArgumentMessageChain:
   Enabled: false
 
-Style/DotPosition:
-  Enabled: true
-  EnforcedStyle: leading
-
-Style/GuardClause:
+RSpec/ScatteredLet:
   Enabled: false
 
-Style/SymbolArray:
+RSpec/ScatteredSetup:
   Enabled: false
 
-Style/PercentLiteralDelimiters:
-  PreferredDelimiters:
-    default: ()
-    '%r': '{}'
-    '%w': '()'
-    '%W': '()'
-    '%i': '()'
-    '%I': '()'
+RSpec/SubjectStub:
+ Enabled: false
 
-Lint/AmbiguousBlockAssociation:
-  Enabled: false
+RSpec/VerifiedDoubles:
+ Enabled: false
