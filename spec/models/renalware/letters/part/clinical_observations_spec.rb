@@ -2,6 +2,8 @@ require "rails_helper"
 
 module Renalware::Letters
   describe Part::ClinicalObservations do
+    subject(:part) { Part::ClinicalObservations.new(patient, clinic_visit_event) }
+
     let(:clinic_visit_event) {
       double(:clinic_visit,
         height: 180.0, weight: 90.0, bp: "110/70",
@@ -9,7 +11,6 @@ module Renalware::Letters
       )
     }
     let(:patient) { double(:patient) }
-    subject(:part) { Part::ClinicalObservations.new(patient, clinic_visit_event) }
 
     it "delegates the height to the event" do
       expect(part.height).to eq(180.0)

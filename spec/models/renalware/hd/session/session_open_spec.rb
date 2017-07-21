@@ -9,18 +9,19 @@ module Renalware
       it { is_expected.to validate_presence_of(:hospital_unit) }
       it { is_expected.to validate_presence_of(:start_time) }
 
-      it { is_expected.to_not validate_presence_of(:signed_off_by) }
-      it { is_expected.to_not validate_presence_of(:end_time) }
+      it { is_expected.not_to validate_presence_of(:signed_off_by) }
+      it { is_expected.not_to validate_presence_of(:end_time) }
 
       it { is_expected.to validate_timeliness_of(:performed_on) }
       it { is_expected.to validate_timeliness_of(:start_time) }
       it { is_expected.to validate_timeliness_of(:end_time) }
 
-      let(:nurse) { create(:user) }
-      let(:patient) { create(:hd_patient) }
       subject(:session) do
         build(:hd_open_session, patient: patient, signed_on_by: nurse, by: nurse)
       end
+
+      let(:nurse) { create(:user) }
+      let(:patient) { create(:hd_patient) }
 
       it "is not immutable" do
         expect(described_class.new.immutable?).to be(false)
@@ -46,7 +47,7 @@ module Renalware
           it "is not valid" do
             session.start_time = Time.zone.parse("2016-04-28 12:00")
             session.end_time = Time.zone.parse("2016-04-28 11:00")
-            expect(session).to_not be_valid
+            expect(session).not_to be_valid
           end
         end
       end

@@ -3,12 +3,13 @@ require "rails_helper"
 module Renalware::Events
   describe Type, type: :model do
     describe "validation" do
-      it { should validate_presence_of :name }
+      it { is_expected.to validate_presence_of :name }
       it { is_expected.to respond_to(:event_class_name) }
 
       describe "uniqueness" do
         subject { Type.new(name: "X") }
-        it { should validate_uniqueness_of :name }
+
+        it { is_expected.to validate_uniqueness_of :name }
       end
 
       describe "#event_class_name" do

@@ -3,6 +3,14 @@ require "rails_helper"
 describe Renalware::Pathology::Requests::GlobalRule do
   it { is_expected.to validate_presence_of(:rule_set) }
 
+  subject(:global_rule) do
+    build(
+      :pathology_requests_global_rule,
+      type: nil,
+      rule_set: global_rule_set
+    )
+  end
+
   let(:clinic) { build(:clinic) }
   let(:observation_description) { build(:pathology_observation_description) }
   let(:request_description) do
@@ -19,14 +27,6 @@ describe Renalware::Pathology::Requests::GlobalRule do
       clinic: clinic,
       frequency_type: "Once",
       request_description: request_description
-    )
-  end
-
-  subject(:global_rule) do
-    build(
-      :pathology_requests_global_rule,
-      type: nil,
-      rule_set: global_rule_set
     )
   end
 

@@ -3,11 +3,11 @@ require "rails_helper"
 module Renalware
 
   describe UserPolicy, type: :policy do
+    subject { described_class }
+
     let(:admin) { create(:user, :admin) }
     let(:clinician) { create(:user, :clinician) }
     let(:other_clinician) { create(:user, :clinician) }
-
-    subject { described_class }
 
     permissions :update? do
       it "permits an admin user to update other users" do
@@ -15,11 +15,11 @@ module Renalware
       end
 
       it "does not permit the user to update themselves" do
-        expect(subject).to_not permit(admin, admin)
+        expect(subject).not_to permit(admin, admin)
       end
 
       it "does not permit a non-admin to update another user" do
-        expect(subject).to_not permit(clinician, other_clinician)
+        expect(subject).not_to permit(clinician, other_clinician)
       end
     end
   end

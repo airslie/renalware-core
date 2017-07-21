@@ -39,7 +39,7 @@ describe Renalware::Pathology::RequestForPatientRequestDescriptionQuery do
   end
 
   let(:query) do
-    Renalware::Pathology::RequestForPatientRequestDescriptionQuery.new(patient, request_description)
+    described_class.new(patient, request_description)
   end
 
   describe "#call" do

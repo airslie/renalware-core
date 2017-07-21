@@ -40,7 +40,7 @@ module Renalware
 
             context "when draining every 3 cycles" do
 
-              it "it sums the full volume of 1,4,7 and the tidal_percentage of 2,3,5,6,8,9" do
+              it "sums the full volume of 1,4,7 and the tidal_percentage of 2,3,5,6,8,9" do
                 regime.tidal_full_drain_every_three_cycles = true
 
                 overnight_volume = TidalRegimeCalculations.new(regime).calculated_overnight_volume

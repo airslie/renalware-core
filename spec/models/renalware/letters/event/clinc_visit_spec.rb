@@ -4,6 +4,7 @@ module Renalware::Letters
   describe Event::ClinicVisit do
     context "for a clinical letter" do
       subject { described_class.new(nil, clinical: true) }
+
       describe "#part_classes" do
         it "contains the default clinical part classes and clinical" do
           expect(subject.part_classes).to eq(

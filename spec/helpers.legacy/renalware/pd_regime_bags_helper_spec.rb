@@ -34,14 +34,14 @@ module Renalware
     describe "highlight_days_invalid" do
 
       context "invalid" do
-        it 'should apply class "show-form"' do
+        it 'applies class "show-form"' do
           @invalid_pd_regime_bag.save
           expect(highlight_days_invalid(@invalid_pd_regime_bag)).to eq("validate-days-of-week")
         end
       end
 
       context "valid" do
-        it 'should not apply class "show-form"' do
+        it 'does not apply class "show-form"' do
           @valid_pd_regime_bag.save
           expect(highlight_days_invalid(@invalid_pd_regime_bag)).to eq(nil)
         end

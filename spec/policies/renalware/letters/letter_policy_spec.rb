@@ -19,7 +19,7 @@ module Renalware::Letters
       end
 
       it "denies access if user read_only" do
-        expect(subject).to_not permit(FactoryGirl.create(:user, :read_only))
+        expect(subject).not_to permit(FactoryGirl.create(:user, :read_only))
       end
     end
   end

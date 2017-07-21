@@ -4,8 +4,8 @@ module Renalware
   RSpec.describe PD::PeritonitisEpisode, type: :model do
     include DrugsSpecHelper
 
-    it { should validate_presence_of :patient }
-    it { should validate_presence_of :diagnosis_date }
+    it { is_expected.to validate_presence_of :patient }
+    it { is_expected.to validate_presence_of :diagnosis_date }
     it { is_expected.to have_many(:episode_types) }
     it { is_expected.to belong_to(:patient).touch(true) }
 

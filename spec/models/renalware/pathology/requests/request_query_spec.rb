@@ -2,9 +2,11 @@ require "rails_helper"
 
 describe Renalware::Pathology::Requests::RequestQuery do
   let(:params) { {} }
-  let(:request_query) { Renalware::Pathology::Requests::RequestQuery.new(params) }
+  let(:request_query) { described_class.new(params) }
 
   describe "#call" do
+    subject(:request_query) { described_class.new(params) }
+
     let!(:clinic) { create(:clinic) }
     let!(:patient) { create(:pathology_patient) }
     let!(:consultant) { create(:pathology_consultant) }
@@ -26,8 +28,6 @@ describe Renalware::Pathology::Requests::RequestQuery do
         created_at: Time.current - 2.days
       )
     end
-
-    subject(:request_query) { Renalware::Pathology::Requests::RequestQuery.new(params) }
 
     context "with no filter given in the params" do
       it "shows all requests sorted by the default sort value" do

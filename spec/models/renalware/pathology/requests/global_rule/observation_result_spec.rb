@@ -1,14 +1,12 @@
 require "rails_helper"
 
 describe Renalware::Pathology::Requests::GlobalRule::ObservationResult do
-  let(:klass) { Renalware::Pathology::Requests::GlobalRule::ObservationResult }
+  let(:klass) { described_class }
 
   describe "#observation_description_present" do
     include_context "a global_rule_set"
 
     context "with a valid observation_description" do
-      let(:observation_description) { create(:pathology_observation_description) }
-
       subject(:global_rule) do
         klass.new(
           rule_set: global_rule_set,
@@ -17,6 +15,8 @@ describe Renalware::Pathology::Requests::GlobalRule::ObservationResult do
           param_comparison_value: 100
         )
       end
+
+      let(:observation_description) { create(:pathology_observation_description) }
 
       it { expect(global_rule).to be_valid }
     end

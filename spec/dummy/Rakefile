@@ -6,7 +6,7 @@ puts "Loading spec/dummy rake tasks"
 # If we are running on Heroku this Rakefile is loaded _before_ the engine's rakefile so
 # APP_RAKEFILE is undefined, and we must point it at this file as this constant is used in railties
 unless defined?(APP_RAKEFILE)
-  APP_RAKEFILE = __FILE__
+  APP_RAKEFILE = __FILE__.freeze
 end
 
 require_relative "config/application"

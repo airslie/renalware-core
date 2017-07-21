@@ -2,9 +2,9 @@ require "rails_helper"
 
 module Renalware::Patients
   RSpec.describe PatientDrop, type: :model do
-    let(:patient) { build(:patient) }
-
     subject { PatientDrop.new(patient) }
+
+    let(:patient) { build(:patient) }
 
     it "delegates to #hospital_identifier" do
       expect(subject.hospital_identifier).to eq(patient.hospital_identifier.to_s)

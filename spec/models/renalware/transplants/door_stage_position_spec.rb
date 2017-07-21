@@ -10,6 +10,7 @@ module Renalware
 
       describe "validation" do
         subject { DonorStagePosition.new(name: "name") }
+
         it { is_expected.to validate_uniqueness_of :name }
       end
     end

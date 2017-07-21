@@ -14,10 +14,11 @@ module Renalware
       it { is_expected.to respond_to(:terminated_on) }
       it { is_expected.to validate_presence_of(:stage_status) }
       it { is_expected.to validate_presence_of(:started_on) }
-      it { is_expected.to_not validate_presence_of(:terminated_on) }
+      it { is_expected.not_to validate_presence_of(:terminated_on) }
 
       describe "class methods" do
         subject { DonorStage }
+
         it { is_expected.to respond_to(:for_patient) }
       end
 

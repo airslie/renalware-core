@@ -9,6 +9,7 @@ module Renalware
 
       describe "Document" do
         subject { Assessment::Document.new }
+
         it { is_expected.to respond_to(:had_home_visit) }
         # no need to test presence of other attributes
       end

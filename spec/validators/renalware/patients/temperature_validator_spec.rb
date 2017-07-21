@@ -28,7 +28,7 @@ module Renalware
                         out_of_range: #{out_of_range_message}
                         invalid_number: #{invalid_number_message}
           YAML
-          I18n.backend.store_translations(:en, YAML.load(yaml))
+          I18n.backend.store_translations(:en, YAML.safe_load(yaml))
         end
 
         it "accepts whole numeric values" do
@@ -76,7 +76,7 @@ module Renalware
         end
 
         def expect_model_to_be_invalid_with_messages(model, *expected_messages)
-          expect(model).to_not be_valid
+          expect(model).not_to be_valid
           expect(model.errors.count).to eq(expected_messages.count)
           messages = model.errors.messages[:temperature]
           expect(messages & expected_messages).to eq(messages)

@@ -2,10 +2,10 @@ require "rails_helper"
 
 module Renalware::PD
   RSpec.describe ExitSiteInfectionDrop, type: :model do
+    subject { ExitSiteInfectionDrop.new(esi) }
+
     let(:patient) { build(:patient) }
     let(:esi) { build(:exit_site_infection, patient: patient) }
-
-    subject { ExitSiteInfectionDrop.new(esi) }
 
     it "delegates to #date" do
       expect(subject.date).to eq(I18n.l(esi.diagnosis_date))

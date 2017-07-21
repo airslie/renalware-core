@@ -54,7 +54,7 @@ module Renalware
           it "returns failure with the unsaved regime" do
             expect(subject).to be_failure
             expect(subject.object).to be_kind_of(Regime)
-            expect(subject.object).to_not be_persisted
+            expect(subject.object).not_to be_persisted
           end
         end
       end

@@ -21,7 +21,7 @@ RSpec.describe "Managing bookmarks", type: :request do
         bookmark = Renalware::Patients::Bookmark.find_by(
           params[:patients_bookmark].merge!(patient_id: patient.id)
         )
-        expect(bookmark).to_not be_nil
+        expect(bookmark).not_to be_nil
         follow_redirect!
         expect(response).to have_http_status(:success)
       end

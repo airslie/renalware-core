@@ -5,7 +5,7 @@ describe Renalware::Pathology::Requests::SampleDescription do
   let(:sample_number_bottles) { 2 }
 
   let(:sample_description) do
-    Renalware::Pathology::Requests::SampleDescription.new(sample_type, sample_number_bottles).to_s
+    described_class.new(sample_type, sample_number_bottles).to_s
   end
 
   context "both sample_type and sample_number_bottles are present" do

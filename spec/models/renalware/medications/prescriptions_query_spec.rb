@@ -6,11 +6,11 @@ module Renalware::Medications
     let(:patient) { create(:patient) }
 
     context "given no filter" do
+      subject(:query) { PrescriptionsQuery.new(relation: patient.prescriptions) }
+
       let!(:current_prescription) do
         create(:prescription, notes: ":current:", patient: patient, treatable: patient)
       end
-
-      subject(:query) { PrescriptionsQuery.new(relation: patient.prescriptions) }
 
       it "returns prescriptions for a treatable target" do
         prescriptions = query.call
@@ -20,6 +20,13 @@ module Renalware::Medications
     end
 
     context "given a filter for a drug type" do
+      subject(:query) do
+        PrescriptionsQuery.new(
+          relation: patient.prescriptions,
+          search_params: { drug_drug_types_id_eq: target_drug_type.id }
+        )
+      end
+
       let(:target_drug_type) { create(:drug_type) }
       let(:target_drug) { create(:drug, drug_types: [target_drug_type]) }
       let!(:target_prescription) do
@@ -35,13 +42,6 @@ module Renalware::Medications
         create(
           :prescription, notes: ":other:",
           patient: patient, treatable: patient, drug: other_drug
-        )
-      end
-
-      subject(:query) do
-        PrescriptionsQuery.new(
-          relation: patient.prescriptions,
-          search_params: { drug_drug_types_id_eq: target_drug_type.id }
         )
       end
 

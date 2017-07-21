@@ -8,15 +8,15 @@ describe Renalware::Clinics::ClinicVisit, type: :model do
   it { is_expected.to validate_presence_of :clinic }
   it { is_expected.to validate_timeliness_of(:date) }
   it { is_expected.to validate_timeliness_of(:time) }
-  it { is_expected.to_not validate_presence_of :time }
-  it { is_expected.to_not validate_presence_of :pulse }
-  it { is_expected.to_not validate_presence_of :temperature }
-  it { is_expected.to_not validate_presence_of(:admin_notes) }
+  it { is_expected.not_to validate_presence_of :time }
+  it { is_expected.not_to validate_presence_of :pulse }
+  it { is_expected.not_to validate_presence_of :temperature }
+  it { is_expected.not_to validate_presence_of(:admin_notes) }
 
   describe "bmi" do
-    let(:patient) { Renalware::Clinics.cast_patient(create(:patient)) }
-
     subject { create(:clinic_visit, height: 1.7, weight: 82.5, patient: patient) }
+
+    let(:patient) { Renalware::Clinics.cast_patient(create(:patient)) }
 
     it "is calculated from height and weight" do
       expect(subject.bmi).to eq(28.55)
@@ -24,7 +24,7 @@ describe Renalware::Clinics::ClinicVisit, type: :model do
   end
 
   describe "bp" do
-    it "should format systolic and diastolic pressures" do
+    it "formats systolic and diastolic pressures" do
       subject.diastolic_bp = 85
       subject.systolic_bp = 112
       expect(subject.bp).to eq("112/85")

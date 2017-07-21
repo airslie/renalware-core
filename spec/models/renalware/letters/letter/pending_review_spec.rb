@@ -4,12 +4,12 @@ module Renalware::Letters
   describe Letter::PendingReview do
     include LettersSpecHelper
 
+    subject(:letter) { raw_letter.becomes(Letter::PendingReview) }
+
     let(:user) { build(:user) }
     let(:primary_care_physician) { build(:letter_primary_care_physician) }
     let(:patient) { build(:letter_patient, primary_care_physician: primary_care_physician) }
     let(:raw_letter) { build_letter(to: :patient, patient: patient) }
-
-    subject(:letter) { raw_letter.becomes(Letter::PendingReview) }
 
     describe "#sign" do
       it "creates a signature" do

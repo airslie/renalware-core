@@ -12,13 +12,15 @@ module Renalware
       describe "month and year presence validation" do
         context "when rolling is nil" do
           subject { described_class.new(rolling: nil) }
+
           it { is_expected.to validate_presence_of(:year) }
           it { is_expected.to validate_presence_of(:month) }
         end
         context "when rolling is true" do
           subject { described_class.new(rolling: true) }
-          it { is_expected.to_not validate_presence_of(:year) }
-          it { is_expected.to_not validate_presence_of(:month) }
+
+          it { is_expected.not_to validate_presence_of(:year) }
+          it { is_expected.not_to validate_presence_of(:month) }
         end
       end
     end

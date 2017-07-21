@@ -13,7 +13,7 @@ module Renalware
         let(:profile) { Profile.new(schedule: :other) }
 
         it "validates presence of other_schedule" do
-          expect(profile).to_not be_valid
+          expect(profile).not_to be_valid
           expect(profile.errors.keys).to include(:other_schedule)
         end
       end

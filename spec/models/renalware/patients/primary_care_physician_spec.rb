@@ -8,10 +8,10 @@ module Renalware::Patients
     it_behaves_like "Personable"
 
     describe "validation" do
-      it { should validate_uniqueness_of :code }
-      it { should validate_presence_of :practitioner_type }
-      it { should allow_value("email@addresse.foo").for(:email) }
-      it { should_not allow_value("foo").for(:email) }
+      it { is_expected.to validate_uniqueness_of :code }
+      it { is_expected.to validate_presence_of :practitioner_type }
+      it { is_expected.to allow_value("email@addresse.foo").for(:email) }
+      it { is_expected.not_to allow_value("foo").for(:email) }
     end
 
     describe "#current_address" do
@@ -22,8 +22,9 @@ module Renalware::Patients
       end
 
       context "when Primary Care Physician does not have an alternate address" do
-        let(:practice) { create(:practice) }
         subject(:primary_care_physician) { create(:primary_care_physician, practices: [practice]) }
+
+        let(:practice) { create(:practice) }
 
         before do
           primary_care_physician.address.delete

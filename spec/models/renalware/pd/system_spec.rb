@@ -3,8 +3,8 @@ require "rails_helper"
 module Renalware
   module PD
     RSpec.describe System, type: :model do
-      it { should validate_presence_of :name }
-      it { should validate_presence_of :pd_type }
+      it { is_expected.to validate_presence_of :name }
+      it { is_expected.to validate_presence_of :pd_type }
 
       describe "#for_apd" do
         it "only returns apd systems" do

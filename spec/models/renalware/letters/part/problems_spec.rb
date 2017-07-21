@@ -2,8 +2,9 @@ require "rails_helper"
 
 module Renalware::Letters
   describe Part::Problems do
-    let(:patient) { spy(:patient) }
     subject(:part) { Part::Problems.new(patient) }
+
+    let(:patient) { spy(:patient) }
 
     it "delegates to the patient's current problems" do
       part.to_a

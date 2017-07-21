@@ -11,15 +11,15 @@ module Renalware
           subject.amount = 2
           subject.unit = :years
 
-          expect(subject).to_not be_valid
+          expect(subject).not_to be_valid
         end
       end
     end
 
     describe ".new_from" do
-      let(:parts) { { years: 10, months: 1, days: 2 } }
-
       subject { Age }
+
+      let(:parts) { { years: 10, months: 1, days: 2 } }
 
       context "params are blank" do
         let(:parts) { { years: nil, months: nil, days: nil } }

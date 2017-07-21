@@ -2,8 +2,10 @@ require "rails_helper"
 
 describe Renalware::HD::ProtocolPresenter do
   describe "methods" do
+    subject(:presenter) { described_class.new(nil, nil) }
+
     let(:patient) { nil }
-    subject(:presenter) { Renalware::HD::ProtocolPresenter.new(nil, nil) }
+
     it { is_expected.to respond_to(:preference_set) }
     it { is_expected.to respond_to(:access) }
     it { is_expected.to respond_to(:sessions) }
@@ -16,7 +18,7 @@ describe Renalware::HD::ProtocolPresenter do
       patient = create(:hd_patient)
       create(:prescription, patient: patient, administer_on_hd: true)
       create(:prescription, patient: patient, administer_on_hd: false)
-      presenter = Renalware::HD::ProtocolPresenter.new(patient, nil)
+      presenter = described_class.new(patient, nil)
 
       presenter.prescriptions
       expect(presenter.prescriptions.length).to eq(1)

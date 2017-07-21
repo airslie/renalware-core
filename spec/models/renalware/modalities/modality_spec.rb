@@ -2,9 +2,9 @@ require "rails_helper"
 
 module Renalware
   describe Modalities::Modality, type: :model do
-    it { should validate_presence_of :patient }
-    it { should validate_presence_of :started_on }
-    it { should validate_presence_of :description }
+    it { is_expected.to validate_presence_of :patient }
+    it { is_expected.to validate_presence_of :started_on }
+    it { is_expected.to validate_presence_of :description }
 
     it { is_expected.to belong_to(:patient).touch(true) }
 
@@ -76,6 +76,7 @@ module Renalware
 
     describe "#transfer!" do
       subject { create(:modality) }
+
       let(:started_on) { Date.parse("2015-04-21") }
 
       before do

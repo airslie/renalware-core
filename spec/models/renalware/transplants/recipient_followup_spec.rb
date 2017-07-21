@@ -10,12 +10,13 @@ module Renalware
       it { is_expected.to validate_timeliness_of(:transplant_failed_on) }
 
       describe "#valid?" do
-        let(:attributes) { {} }
         subject do
           RecipientFollowup.new(
             attributes_for(:transplant_recipient_followup).merge(attributes)
           )
         end
+
+        let(:attributes) { {} }
 
         it { is_expected.to be_valid }
 
