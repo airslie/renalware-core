@@ -5,6 +5,7 @@ module Renalware
     module APD
       describe NonTidalRegimeCalculations do
         subject { NonTidalRegimeCalculations.new(regime) }
+
         let(:regime) do
           reg = build(:apd_regime, no_cycles_per_apd: 7, fill_volume: 1500)
           reg.bags << build(:pd_regime_bag, role: :ordinary)
@@ -28,7 +29,7 @@ module Renalware
 
             expect(overnight_volume).to eq(regime_overnight_volume)
             expect(overnight_volume).to be_a(Integer)
-            expect(regime).to_not be_tidal
+            expect(regime).not_to be_tidal
           end
         end
       end

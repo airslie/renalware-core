@@ -13,12 +13,13 @@ module Renalware
       it { is_expected.to belong_to(:patient).touch(true) }
 
       describe "#valid?" do
-        let(:attributes) { {} }
         subject {
           Donation.new(
             attributes_for(:transplant_donation).merge(attributes)
           )
         }
+
+        let(:attributes) { {} }
 
         it { is_expected.to be_valid }
 
@@ -30,7 +31,7 @@ module Renalware
             }
           end
 
-          it { is_expected.to_not be_valid }
+          it { is_expected.not_to be_valid }
         end
 
         context "when assigning itself as a recipient" do
@@ -41,7 +42,7 @@ module Renalware
             }
           end
 
-          it { is_expected.to_not be_valid }
+          it { is_expected.not_to be_valid }
         end
       end
     end

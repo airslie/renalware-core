@@ -3,8 +3,9 @@ require "rails_helper"
 module Renalware
   module HD
     describe SessionPresenter do
-      let(:session) { double("Session", document: Renalware::HD::SessionDocument.new) }
       subject(:presenter) { SessionPresenter.new(session) }
+
+      let(:session) { double("Session", document: Renalware::HD::SessionDocument.new) }
 
       it { is_expected.to respond_to(:hospital_unit_unit_code) }
 

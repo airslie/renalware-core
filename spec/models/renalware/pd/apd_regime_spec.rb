@@ -33,7 +33,7 @@ module Renalware
               allow(subject).to receive(:has_additional_manual_exchange_bag?).and_return(false)
               subject.additional_manual_exchange_volume = nil
 
-              is_expected.to_not validate_presence_of :additional_manual_exchange_volume
+              is_expected.not_to validate_presence_of :additional_manual_exchange_volume
             end
           end
         end
@@ -52,7 +52,7 @@ module Renalware
               allow(subject).to receive(:has_last_fill_bag?).and_return(false)
               subject.last_fill_volume = nil
 
-              is_expected.to_not validate_presence_of :last_fill_volume
+              is_expected.not_to validate_presence_of :last_fill_volume
             end
           end
         end
@@ -64,7 +64,7 @@ module Renalware
           end
           it "doesn't validate #tidal_percentage when the regime is not tidal" do
             subject.tidal_indicator = false
-            is_expected.to_not validate_presence_of :tidal_percentage
+            is_expected.not_to validate_presence_of :tidal_percentage
           end
         end
 
@@ -146,7 +146,7 @@ module Renalware
           regime.bags << build(:pd_regime_bag, role: :ordinary)
           regime.bags << build(:pd_regime_bag, role: :last_fill)
 
-          expect(regime).to_not have_additional_manual_exchange_bag
+          expect(regime).not_to have_additional_manual_exchange_bag
         end
       end
 
@@ -163,7 +163,7 @@ module Renalware
           regime = build(:apd_regime)
           regime.bags << build(:pd_regime_bag, role: :ordinary)
 
-          expect(regime).to_not have_last_fill_bag
+          expect(regime).not_to have_last_fill_bag
         end
       end
 

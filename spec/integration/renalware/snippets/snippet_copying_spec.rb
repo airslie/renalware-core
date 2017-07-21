@@ -5,7 +5,7 @@ RSpec.describe "Copying a snippet", type: :request do
 
   def find_and_validate_cloned_snippet_for(author, title:)
     cloned_snippet = author.snippets.find_by(title: title)
-    expect(cloned_snippet).to_not be_nil
+    expect(cloned_snippet).not_to be_nil
     expect(cloned_snippet.times_used).to eq(0)
     expect(cloned_snippet.last_used_on).to be_nil
   end

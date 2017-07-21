@@ -5,6 +5,7 @@ module Renalware
     module Sessions
       describe AuditablePatientSessionsInPeriodQuery do
         subject(:query) { described_class.new(patient: patient, period: period) }
+
         let(:patient) { create(:hd_patient) }
         let(:another_patient) { create(:hd_patient) }
         let(:period) { MonthPeriod.new(month: month, year: year) }
@@ -42,8 +43,8 @@ module Renalware
           sessions = query.call
 
           expect(sessions.count).to eq(4)
-          expect(sessions).to_not include(november_session)
-          expect(sessions).to_not include(january_session)
+          expect(sessions).not_to include(november_session)
+          expect(sessions).not_to include(january_session)
         end
       end
     end

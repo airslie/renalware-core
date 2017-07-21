@@ -96,7 +96,7 @@ module Renalware
       end
 
       # 'Hidden' super_admin role appears as a disabled checkbox
-      expect(find("input[type='checkbox'][disabled='disabled']")).to_not be_nil
+      expect(find("input[type='checkbox'][disabled='disabled']")).not_to be_nil
     end
 
     scenario "An admin cannot remove the super_admin role" do
@@ -117,7 +117,7 @@ module Renalware
       expect(current_path).to eq(admin_users_path)
       superadmin.reload
       expect(superadmin.role_names).to include("super_admin")
-      expect(superadmin.roles).to_not include(@clinician_role)
+      expect(superadmin.roles).not_to include(@clinician_role)
     end
   end
 end

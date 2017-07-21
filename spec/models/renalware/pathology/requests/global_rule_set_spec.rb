@@ -1,6 +1,16 @@
 require "rails_helper"
 
 describe Renalware::Pathology::Requests::GlobalRuleSet do
+  subject(:global_rule_set) do
+    build(
+      :pathology_requests_global_rule_set,
+      clinic: clinic,
+      frequency_type: "Once",
+      request_description: request_description,
+      rules: rules
+    )
+  end
+
   let(:clinic) { build(:clinic) }
   let(:observation_description) { build(:pathology_observation_description) }
   let(:request_description) do
@@ -11,16 +21,6 @@ describe Renalware::Pathology::Requests::GlobalRuleSet do
     )
   end
   let(:rules) { [] }
-
-  subject(:global_rule_set) do
-    build(
-      :pathology_requests_global_rule_set,
-      clinic: clinic,
-      frequency_type: "Once",
-      request_description: request_description,
-      rules: rules
-    )
-  end
 
   describe "#valid?" do
     context "no request_description is given" do

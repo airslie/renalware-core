@@ -1,6 +1,13 @@
 require "rails_helper"
 
 describe Renalware::Pathology::ObservationForPatientRequestDescriptionQuery do
+  subject(:query) do
+    described_class.new(
+      patient,
+      request_description
+    )
+  end
+
   let!(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
   let!(:description) { create(:pathology_observation_description) }
   let!(:request_description) do
@@ -10,14 +17,9 @@ describe Renalware::Pathology::ObservationForPatientRequestDescriptionQuery do
     )
   end
 
-  subject(:query) do
-    Renalware::Pathology::ObservationForPatientRequestDescriptionQuery.new(
-      patient,
-      request_description
-    )
-  end
-
   describe "#call" do
+    subject(:query_result) { query.call }
+
     let!(:most_recent_observation) do
       create_observation(patient: patient, description: description, observed_at: 1.week.ago)
     end
@@ -25,8 +27,6 @@ describe Renalware::Pathology::ObservationForPatientRequestDescriptionQuery do
       create_observation(patient: patient, description: description, observed_at: 2.weeks.ago)
     end
     let!(:unrelated_observation) { create(:pathology_observation) }
-
-    subject(:query_result) { query.call }
 
     it "returns the most recent observation for the specified request description" do
       expect(query_result).to eq(most_recent_observation)

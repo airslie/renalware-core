@@ -3,9 +3,9 @@ require "rails_helper"
 module Renalware::Patients
   RSpec.describe IdempotentCreatePatient do
     describe "#call" do
-      let(:user) { create(:user) }
-
       subject(:command) { IdempotentCreatePatient.new(user) }
+
+      let(:user) { create(:user) }
 
       context "given a patient does not have the same hospital number" do
         let(:params) { { patient: attributes_for(:patient) } }

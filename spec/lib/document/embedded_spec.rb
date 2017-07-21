@@ -38,6 +38,7 @@ module Document
                     three: three
             EOF
           end
+
           before do
             with_translations(:"en-GB", translations) do
               @klass.attribute :codes, Enum

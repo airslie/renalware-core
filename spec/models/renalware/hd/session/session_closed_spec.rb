@@ -56,7 +56,7 @@ module Renalware
         it "does not validate presence of hdf if hd_type is HD" do
           document.info.hd_type = :hd
           document.valid?
-          expect(document.hdf.errors).to_not include(:subs_fluid_pct)
+          expect(document.hdf.errors).not_to include(:subs_fluid_pct)
         end
       end
 
@@ -73,12 +73,12 @@ module Renalware
         context "validation" do
           it { is_expected.to validate_presence_of(:pulse) }
 
-          it { is_expected.to_not validate_presence_of(:bm_stix) }
+          it { is_expected.not_to validate_presence_of(:bm_stix) }
           it { is_expected.to validate_presence_of(:weight_measured) }
           it { is_expected.to validate_presence_of(:temperature_measured) }
 
           it "validates presence of blood_pressure" do
-            expect(observations).to_not be_valid
+            expect(observations).not_to be_valid
             expect(observations.blood_pressure.errors).to include(:systolic, :diastolic)
           end
 
@@ -90,7 +90,7 @@ module Renalware
 
             it "does not validate weight when weight_measured is false" do
               observations.weight_measured = :no
-              expect(observations).to_not validate_presence_of(:weight)
+              expect(observations).not_to validate_presence_of(:weight)
             end
           end
 
@@ -102,7 +102,7 @@ module Renalware
 
             it "does not validate temperature when weight_measured is false" do
               observations.temperature_measured = :no
-              expect(observations).to_not validate_presence_of(:temperature)
+              expect(observations).not_to validate_presence_of(:temperature)
             end
           end
         end

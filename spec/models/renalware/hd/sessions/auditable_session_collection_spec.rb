@@ -5,6 +5,8 @@ module Renalware
   module HD
     module Sessions
       describe AuditableSessionCollection do
+        subject(:audit) { AuditableSessionCollection.new(@sessions) }
+
         let(:patient) { create(:hd_patient) }
 
         def stub_sessions(observations:, systolic_range:, diastolic_range:)
@@ -24,7 +26,6 @@ module Renalware
           end
         end
 
-        subject(:audit) { AuditableSessionCollection.new(@sessions) }
         it { is_expected.to be_a(Renalware::HD::Sessions::AuditableSessionCollection) }
 
         # Most of the mean calculations use this strategy class
@@ -92,6 +93,7 @@ module Renalware
           let(:highest_systolic_bp) { BloodPressure.new(systolic: 200, diastolic: 100) }
           let(:lowest_systolic_bp)  { BloodPressure.new(systolic: 100, diastolic: 100) }
           let(:unmatched_bp)        { BloodPressure.new(systolic: 150, diastolic: 100) }
+
           before do
             @sessions = [
               Session::Closed.new.tap do |session|

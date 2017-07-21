@@ -5,6 +5,7 @@ module Renalware
     module Sessions
       describe AuditablePatientsInPeriodQuery do
         subject(:query) { described_class.new(period: period) }
+
         let(:patient1) { create(:hd_patient) }
         let(:patient2) { create(:hd_patient) }
         let(:patient3) { create(:hd_patient) }

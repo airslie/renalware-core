@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Renalware::HD::SessionAccessPresenter do
-  subject(:presenter) { Renalware::HD::SessionAccessPresenter }
+  subject(:presenter) { described_class }
 
   def mock_session(access_type: "ABC",
                    access_type_abbreviation: "A",

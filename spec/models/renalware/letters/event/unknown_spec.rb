@@ -4,6 +4,7 @@ module Renalware::Letters
   describe Event::Unknown do
     context "for a clinical letter" do
       subject { described_class.new(nil, clinical: true) }
+
       describe "#part_classes" do
         it "contains the default clinical part classes" do
           expect(subject.part_classes).to eq(
@@ -28,6 +29,7 @@ module Renalware::Letters
 
     context "for a non-clinical letter" do
       subject { described_class.new(nil) }
+
       describe "#part_classes" do
         it "is an empty hash" do
           expect(subject.part_classes).to eq({})

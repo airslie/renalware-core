@@ -1,14 +1,12 @@
 require "rails_helper"
 
 describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrug do
-  let(:klass) { Renalware::Pathology::Requests::GlobalRule::PrescriptionDrug }
+  let(:klass) { described_class }
 
   describe "#drug_present" do
     include_context "a global_rule_set"
 
     context "with a valid drug" do
-      let!(:drug) { create(:drug) }
-
       subject(:global_rule) do
         klass.new(
           rule_set: global_rule_set,
@@ -17,6 +15,8 @@ describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrug do
           param_comparison_value: nil
         )
       end
+
+      let!(:drug) { create(:drug) }
 
       it { expect(global_rule).to be_valid }
     end

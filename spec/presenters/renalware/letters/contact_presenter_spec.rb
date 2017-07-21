@@ -3,8 +3,9 @@ require "rails_helper"
 module Renalware
   module Letters
     describe ContactPresenter do
-      let(:contact) { build(:letter_contact) }
       subject(:presenter) { ContactPresenter.new(contact) }
+
+      let(:contact) { build(:letter_contact) }
 
       describe "#description_name" do
         context "given a specified description" do

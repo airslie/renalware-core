@@ -78,7 +78,7 @@ module Renalware
 
                 volume = NonTidalRegimeCalculations.new(regime).calculated_daily_volume
 
-                expect(regime).to_not have_last_fill_bag
+                expect(regime).not_to have_last_fill_bag
                 expect(volume).to eq(regime_overnight_volume)
               end
             end
@@ -114,7 +114,7 @@ module Renalware
 
                 volume = NonTidalRegimeCalculations.new(regime).calculated_daily_volume
 
-                expect(regime).to_not have_additional_manual_exchange_bag
+                expect(regime).not_to have_additional_manual_exchange_bag
                 expect(volume).to eq(regime_overnight_volume)
               end
             end

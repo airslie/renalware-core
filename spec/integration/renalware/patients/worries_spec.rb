@@ -11,7 +11,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
         follow_redirect!
         expect(response).to have_http_status(:success)
 
-        expect(Renalware::Patients::Worry.find_by(patient_id: patient.id)).to_not be_nil
+        expect(Renalware::Patients::Worry.find_by(patient_id: patient.id)).not_to be_nil
       end
     end
 
@@ -24,7 +24,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
         follow_redirect!
         expect(response).to have_http_status(:success)
 
-        expect(Renalware::Patients::Worry.find_by(patient_id: patient.id)).to_not be_nil
+        expect(Renalware::Patients::Worry.find_by(patient_id: patient.id)).not_to be_nil
       end
     end
 

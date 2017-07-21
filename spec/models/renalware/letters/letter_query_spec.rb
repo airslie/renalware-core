@@ -5,10 +5,10 @@ module Renalware
     describe LetterQuery, type: :model do
       include LettersSpecHelper
 
+      subject { LetterQuery.new }
+
       let(:primary_care_physician) { create(:letter_primary_care_physician) }
       let(:patient) { create(:letter_patient, primary_care_physician: primary_care_physician) }
-
-      subject { LetterQuery.new }
 
       describe "#call" do
         before do

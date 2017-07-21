@@ -3,10 +3,10 @@ require "rails_helper"
 module Renalware
   module Accesses
     RSpec.describe AssessmentFactory, type: :model do
+      subject { AssessmentFactory.new(patient: patient) }
+
       let(:user) { create(:user, :admin) }
       let(:patient) { Accesses.cast_patient(create(:patient)) }
-
-      subject { AssessmentFactory.new(patient: patient) }
 
       describe "#build" do
         it "applies default to the assessment" do

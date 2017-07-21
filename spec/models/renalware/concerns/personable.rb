@@ -20,6 +20,7 @@ shared_examples_for "Personable" do
 
   describe "to_s" do
     let(:instance) { subject.new(given_name: "Aneurin", family_name: "Bevan") }
+
     it "accepts the :full_name format" do
       expect(instance.full_name).to eq("Aneurin Bevan")
     end

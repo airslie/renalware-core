@@ -4,15 +4,15 @@ module Renalware
   module Medications
     RSpec.describe Prescription, type: :model do
       describe "validations" do
-        it { should validate_presence_of :patient }
-        it { should validate_presence_of :treatable }
-        it { should validate_presence_of(:drug) }
-        it { should validate_presence_of(:dose_amount) }
-        it { should validate_presence_of(:dose_unit) }
-        it { should validate_presence_of(:medication_route) }
-        it { should validate_presence_of(:frequency) }
-        it { should validate_presence_of(:prescribed_on) }
-        it { should validate_presence_of(:provider) }
+        it { is_expected.to validate_presence_of :patient }
+        it { is_expected.to validate_presence_of :treatable }
+        it { is_expected.to validate_presence_of(:drug) }
+        it { is_expected.to validate_presence_of(:dose_amount) }
+        it { is_expected.to validate_presence_of(:dose_unit) }
+        it { is_expected.to validate_presence_of(:medication_route) }
+        it { is_expected.to validate_presence_of(:frequency) }
+        it { is_expected.to validate_presence_of(:prescribed_on) }
+        it { is_expected.to validate_presence_of(:provider) }
 
         it { is_expected.to belong_to(:patient).touch(true) }
 
@@ -120,6 +120,7 @@ module Renalware
 
           context "given the termination date is before today" do
             let(:prescription) { build_prescription(terminated_on: "2010-01-01") }
+
             it { expect(prescription.current?(date_today)).to be_falsey }
           end
         end
@@ -127,16 +128,19 @@ module Renalware
         describe "#terminated_or_marked_for_termination?" do
           context "given the termination date is in the future" do
             let(:prescription) { build_prescription(terminated_on: Date.current + 1.minute) }
+
             it { expect(prescription.terminated_or_marked_for_termination?).to be_truthy }
           end
 
           context "given the termination date is in the past" do
             let(:prescription) { build_prescription(terminated_on: Date.current - 1.minute) }
+
             it { expect(prescription.terminated_or_marked_for_termination?).to be_truthy }
           end
 
           context "given the termination date is not specified" do
             let(:prescription) { build(:prescription) }
+
             it { expect(prescription.terminated_or_marked_for_termination?).to be_falsey }
           end
         end

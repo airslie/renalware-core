@@ -2,10 +2,11 @@ require "rails_helper"
 
 module Renalware::Letters
   describe Part::Prescriptions do
+    subject(:part) { Part::Prescriptions.new(patient) }
+
     let(:user) { create(:user) }
     let(:patient) { create(:patient) }
     let(:default_drug) { create(:drug, name: "::drug name::") }
-    subject(:part) { Part::Prescriptions.new(patient) }
 
     def terminated_prescription(terminated_on:, drug: default_drug)
       create(:prescription,

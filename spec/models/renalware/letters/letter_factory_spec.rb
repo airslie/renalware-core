@@ -3,9 +3,9 @@ require "rails_helper"
 module Renalware
   module Letters
     RSpec.describe LetterFactory, type: :model do
-      let(:patient) { create(:letter_patient) }
-
       subject { LetterFactory.new(patient) }
+
+      let(:patient) { create(:letter_patient) }
 
       describe "#build" do
         it "sets the patient as the main recipient if no Primary Care Physician present" do
@@ -47,7 +47,7 @@ module Renalware
 
               addressees = letter.cc_recipients.map(&:addressee)
               expect(addressees).to include(default_cc_contact)
-              expect(addressees).to_not include(non_default_cc_contact)
+              expect(addressees).not_to include(non_default_cc_contact)
             end
           end
         end

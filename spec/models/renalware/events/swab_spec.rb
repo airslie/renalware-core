@@ -5,6 +5,7 @@ module Renalware::Events
 
     describe "#document" do
       subject { Swab.new.document }
+
       it { is_expected.to validate_presence_of(:type) }
     end
   end

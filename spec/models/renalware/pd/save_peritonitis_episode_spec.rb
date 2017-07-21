@@ -3,10 +3,11 @@ require "rails_helper"
 module Renalware
   module PD
     describe SavePeritonitisEpisode do
+      subject { described_class.new(patient: patient, episode: episode) }
+
       let(:patient) { create(:pd_patient) }
       let(:new_episode) { PeritonitisEpisode.new(patient_id: patient.id) }
       let(:existing_episode) { create(:peritonitis_episode, patient: patient) }
-      subject { described_class.new(patient: patient, episode: episode) }
       let(:date) { Time.zone.today }
       let(:episode_type_descriptions) do
         [

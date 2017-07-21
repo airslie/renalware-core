@@ -6,8 +6,8 @@ module Renalware
 
     it_behaves_like "Personable"
 
-    it { should validate_presence_of(:professional_position).on(:update) }
-    it { should validate_presence_of(:signature).on(:update) }
+    it { is_expected.to validate_presence_of(:professional_position).on(:update) }
+    it { is_expected.to validate_presence_of(:signature).on(:update) }
 
     describe "class" do
       it "includes Deviseable to authenticate using Devise" do

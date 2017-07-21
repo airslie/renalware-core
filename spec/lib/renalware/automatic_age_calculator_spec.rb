@@ -2,12 +2,12 @@ require "rails_helper"
 
 module Renalware
   describe AutomaticAgeCalculator, type: :model do
-    let(:existing_age) { nil }
-    let(:age_on_date) { Time.zone.today }
-
     subject do
       AutomaticAgeCalculator.new(existing_age, born_on: born_on, age_on_date: age_on_date)
     end
+
+    let(:existing_age) { nil }
+    let(:age_on_date) { Time.zone.today }
 
     describe "#compute" do
       context "born_on is provided" do

@@ -17,15 +17,16 @@ module Renalware
                     nhs_number: "1234567890",
                     by: create(:user))
       end
-      it { should validate_uniqueness_of(:nhs_number).case_insensitive }
+
+      it { is_expected.to validate_uniqueness_of(:nhs_number).case_insensitive }
     end
-    it { should validate_length_of(:nhs_number).is_at_least(10) }
-    it { should validate_length_of(:nhs_number).is_at_most(10) }
+    it { is_expected.to validate_length_of(:nhs_number).is_at_least(10) }
+    it { is_expected.to validate_length_of(:nhs_number).is_at_most(10) }
 
-    it { should validate_presence_of :family_name }
-    it { should validate_presence_of :given_name }
+    it { is_expected.to validate_presence_of :family_name }
+    it { is_expected.to validate_presence_of :given_name }
 
-    it { should validate_presence_of :born_on }
+    it { is_expected.to validate_presence_of :born_on }
 
     it { is_expected.to validate_timeliness_of(:born_on) }
     it { is_expected.to validate_timeliness_of(:died_on) }
@@ -68,7 +69,7 @@ module Renalware
       context "given #died_on is specified" do
         subject!{ create(:patient) }
 
-        it "should still retain patient details" do
+        it "stills retain patient details" do
           expect { subject.update(died_on: "2015-02-25", by: user) }
             .to change(Patient, :count).by(0)
         end

@@ -2,13 +2,13 @@ require "rails_helper"
 
 module Renalware::Pathology
   RSpec.describe ViewCurrentObservationResults do
-    let(:patient) { build(:patient) }
-    let(:presenter) { spy(:presenter) }
-    let(:observation_descriptions) { [build(:pathology_observation_description)] }
-
     subject(:service) do
       ViewCurrentObservationResults.new(patient, presenter, descriptions: observation_descriptions)
     end
+
+    let(:patient) { build(:patient) }
+    let(:presenter) { spy(:presenter) }
+    let(:observation_descriptions) { [build(:pathology_observation_description)] }
 
     describe "#call" do
       context "given a patient has no observation requests" do

@@ -5,11 +5,11 @@ module Renalware
   module PD
     RSpec.describe Regime, type: :model do
       context "validations" do
-        it { should validate_presence_of :patient }
-        it { should validate_presence_of :start_date }
+        it { is_expected.to validate_presence_of :patient }
+        it { is_expected.to validate_presence_of :start_date }
         it { is_expected.to validate_timeliness_of(:start_date) }
         it { is_expected.to validate_timeliness_of(:end_date) }
-        it { should validate_presence_of :treatment }
+        it { is_expected.to validate_presence_of :treatment }
         it { is_expected.to belong_to(:system) }
         it { is_expected.to belong_to(:patient).touch(true) }
         it { is_expected.to have_one(:termination) }

@@ -4,12 +4,12 @@ module Renalware
   RSpec.describe PD::BagType, type: :model do
     it { is_expected.to respond_to(:glucose_strength) }
 
-    it { should validate_presence_of :manufacturer }
-    it { should validate_presence_of :description }
-    it { should validate_presence_of :glucose_strength }
+    it { is_expected.to validate_presence_of :manufacturer }
+    it { is_expected.to validate_presence_of :description }
+    it { is_expected.to validate_presence_of :glucose_strength }
 
     it do
-      should validate_numericality_of(:glucose_content)
+      is_expected.to validate_numericality_of(:glucose_content)
               .is_greater_than_or_equal_to(0)
               .is_less_than_or_equal_to(50)
               .allow_nil

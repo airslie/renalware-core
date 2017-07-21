@@ -62,7 +62,7 @@ module Renalware
         it "returns status with errors if not valid" do
           status = registration.add_status!({})
 
-          expect(status).to_not be_valid
+          expect(status).not_to be_valid
         end
       end
 

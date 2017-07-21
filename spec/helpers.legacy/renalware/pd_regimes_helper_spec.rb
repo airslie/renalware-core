@@ -68,7 +68,7 @@ module Renalware
       end
 
       context "has a glucose volume" do
-        it "should return a glucose volume" do
+        it "returns a glucose volume" do
           expect(default_daily_glucose_average(@capd_regime.glucose_volume_low_strength))
             .to eq(1071)
           expect(default_daily_glucose_average(@capd_regime.glucose_volume_medium_strength))
@@ -77,7 +77,7 @@ module Renalware
       end
 
       context "has no glucose volume" do
-        it 'should display "0"' do
+        it 'displays "0"' do
           expect(default_daily_glucose_average(@capd_regime.glucose_volume_high_strength)).to eq(0)
         end
       end

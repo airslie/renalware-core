@@ -2,10 +2,11 @@ require "rails_helper"
 
 module Renalware::HD
   RSpec.describe UpdateRollingPatientStatistics do
+    subject(:command) { described_class.new(patient: patient) }
+
     let(:patient) { create(:hd_patient) }
     let(:user) { create(:user) }
     let(:hospital_unit) { create(:hospital_unit) }
-    subject(:command) { described_class.new(patient: patient) }
 
     it "creates a new rolling PatientStatistics row if one did not exist" do
       expect(PatientStatistics.count).to eq(0)
@@ -23,7 +24,7 @@ module Renalware::HD
       expect(patient_statistics.session_count).to eq(3) # excludes open
 
       Sessions::AuditableSessionCollection::AUDITABLE_ATTRIBUTES.each do |attr|
-        expect(patient_statistics[attr]).to_not be_nil
+        expect(patient_statistics[attr]).not_to be_nil
       end
     end
 

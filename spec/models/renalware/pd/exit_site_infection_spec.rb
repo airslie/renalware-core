@@ -4,9 +4,9 @@ module Renalware
   RSpec.describe PD::ExitSiteInfection, type: :model do
     include DrugsSpecHelper
 
-    it { should validate_presence_of :patient }
+    it { is_expected.to validate_presence_of :patient }
     it { is_expected.to belong_to(:patient).touch(true) }
-    it { should validate_presence_of :diagnosis_date }
+    it { is_expected.to validate_presence_of :diagnosis_date }
 
     describe "exit site infection" do
       before do

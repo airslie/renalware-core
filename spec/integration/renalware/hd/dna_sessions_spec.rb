@@ -35,7 +35,7 @@ RSpec.describe "Managing an HD DNA Session", type: :request do
 
         # expect(response).to redirect_to(show_path)
         expect(flash[:warning]).to be_present
-        expect(flash[:warning]).to_not match(/translation/)
+        expect(flash[:warning]).not_to match(/translation/)
       end
     end
   end

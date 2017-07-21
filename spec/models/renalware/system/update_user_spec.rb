@@ -6,9 +6,9 @@ module Renalware::System
       let(:super_admin) { find_or_create_role(:super_admin) }
 
       context "given an unapproved user" do
-        let(:user) { create(:user, :clinician) }
-
         subject { UpdateUser.new(user) }
+
+        let(:user) { create(:user, :clinician) }
 
         it "approves the user" do
           expect(user).to receive(:approved=).with(true)
@@ -35,8 +35,9 @@ module Renalware::System
       end
 
       context "given an approved user" do
-        let(:user) { create(:user, :approved) }
         subject { UpdateUser.new(user) }
+
+        let(:user) { create(:user, :approved) }
 
         it "skips approval" do
           expect(subject).not_to receive(:approve)
@@ -54,8 +55,9 @@ module Renalware::System
       end
 
       context "given an expired user" do
-        let(:user) { build(:user, :expired) }
         subject { UpdateUser.new(user) }
+
+        let(:user) { build(:user, :expired) }
 
         it "unexpires the user" do
           expect(user).to receive(:expired_at=).with(nil)
@@ -69,8 +71,9 @@ module Renalware::System
       end
 
       context "given an unexpired user" do
-        let(:user) { build(:user, :approved) }
         subject { UpdateUser.new(user) }
+
+        let(:user) { build(:user, :approved) }
 
         it "skips unexpiry" do
           expect(subject).not_to receive(:unexpire)

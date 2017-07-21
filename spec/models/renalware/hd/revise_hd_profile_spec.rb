@@ -44,7 +44,7 @@ module Renalware::HD
           it "creates a new active profile assigned to the patient" do
             expect(Profile.for_patient(patient).count).to eq(1)
             active_profile = Profile.for_patient(patient).first
-            expect(active_profile.id).to_not eq(original_profile.id)
+            expect(active_profile.id).not_to eq(original_profile.id)
             expect(active_profile.active).to eq(true)
             expect(active_profile.deactivated_at).to be_nil
             expect(active_profile.patient_id).to eq(patient.id)
@@ -63,7 +63,7 @@ module Renalware::HD
             expect(Profile.with_deactivated.count).to eq(2)
             original_profile.reload
             expect(original_profile.active).to eq(nil)
-            expect(original_profile.deactivated_at).to_not be_nil
+            expect(original_profile.deactivated_at).not_to be_nil
             expect(original_profile.patient_id).to eq(patient.id)
           end
 

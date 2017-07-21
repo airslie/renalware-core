@@ -4,6 +4,7 @@ module Renalware
   module HD
     describe GenerateMonthlyStatisticsForPatient do
       subject(:command) { described_class.new(patient: patient, period: period) }
+
       let(:patient) { create(:hd_patient) }
       let(:period) { MonthPeriod.new(month: 12, year: 2016) }
       let(:hospital_unit) { create(:hospital_unit) }

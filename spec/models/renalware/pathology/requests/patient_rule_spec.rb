@@ -10,8 +10,6 @@ describe Renalware::Pathology::Requests::PatientRule do
       .in_array(Renalware::Pathology::Requests::Frequency.all_names)
   end
 
-  let(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
-
   subject(:patient_rule) do
     create(
       :pathology_requests_patient_rule,
@@ -21,6 +19,8 @@ describe Renalware::Pathology::Requests::PatientRule do
       frequency_type: "Always"
     )
   end
+
+  let(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
 
   describe "#required?" do
     context "given the specified date is not within the patient_rule's start/end date range" do

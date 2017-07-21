@@ -5,6 +5,7 @@ module Renalware
     describe MDMPatientsQuery do
       include PatientsSpecHelper
       subject(:query) { described_class }
+
       let(:user) { create(:user) }
       let(:hd_modality_description) { create(:hd_modality_description) }
       let(:pd_modality_description) { create(:modality_description, name: "PD") }

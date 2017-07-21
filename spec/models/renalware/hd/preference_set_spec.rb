@@ -11,7 +11,7 @@ module Renalware
         let(:preference_set) { PreferenceSet.new(schedule: :other) }
 
         it "validates presence of other_schedule" do
-          expect(preference_set).to_not be_valid
+          expect(preference_set).not_to be_valid
           expect(preference_set.errors.keys).to include(:other_schedule)
         end
       end

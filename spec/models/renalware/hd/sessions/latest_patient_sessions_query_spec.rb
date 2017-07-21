@@ -5,6 +5,7 @@ module Renalware
     module Sessions
       describe LatestPatientSessionsQuery, type: :model do
         subject(:query) { described_class }
+
         let(:patient) { create(:hd_patient) }
         let(:user) { create(:user) }
         let(:hospital_unit) { create(:hospital_unit) }
