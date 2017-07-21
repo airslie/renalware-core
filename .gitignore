@@ -45,3 +45,4 @@ rerun.txt
 /spec/dummy/public/assets
 /spec/dummy/.byebug_history
 /pkg
+.rubocop-https*

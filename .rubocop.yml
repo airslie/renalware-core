@@ -1,10 +1,18 @@
-inherit_gem:
-  airslie-style:
-    - default.yml
+# Note that the local default.yml is overwritten on CodeClimate with the contents of
+# the remote rubocop.yml pulled from GitHub in a codeclimate prepare step.
+inherit_from:
+  - default.yml
+
+# Note that inheriting from a gem does not work as CodeClimate cannot cope with this
+# inherit_gem:
+#   airslie-style:
+#     - default.yml
 
 AllCops:
   UseCache: true
   TargetRubyVersion: 2.4
+  # Just defining the Exclude or Include keys here overwrites the settings in default.yml
+  # so we have to redefine the entire set
   Exclude:
     - "*.gemspec"
     - "vendor/**/*"
@@ -18,130 +26,3 @@ AllCops:
     - "spec/dummy/tmp/**/*"
     - "vendor/bundle/**/*"
     - "config/initializers/devise.rb"
-
-# We'll slowly introduce RSpec Cops as and when to clean up progressively
-RSpec/AnyInstance:
-  Enabled: false
-
-RSpec/AroundBlock:
-  Enabled: false
-
-RSpec/BeEql:
-  Enabled: false
-
-RSpec/BeforeAfterAll:
-  Enabled: false
-
-RSpec/DescribeClass:
-  Enabled: false
-
-RSpec/DescribedClass:
-  Enabled: false
-
-RSpec/DescribeMethod:
-  Enabled: false
-
-RSpec/DescribeSymbol:
-  Enabled: false
-
-RSpec/IteratedExpectation:
-  Enabled: false
-
-RSpec/EmptyExampleGroup:
-  Enabled: false
-
-RSpec/EmptyLineAfterFinalLet:
-  Enabled: false
-
-RSpec/EmptyLineAfterSubject:
-  Enabled: false
-
-RSpec/ExampleLength:
-  Enabled: false
-
-RSpec/ExampleWording:
-  Enabled: false
-
-RSpec/ExpectActual:
-  Enabled: false
-
-RSpec/ExpectOutput:
-  Enabled: false
-
-RSpec/FilePath:
-  Enabled: false
-
-RSpec/Focus:
-  Enabled: false
-
-RSpec/HookArgument:
-  Enabled: false
-
-RSpec/ImplicitExpect:
-  Enabled: false
-
-RSpec/InstanceSpy:
-  Enabled: false
-
-RSpec/InstanceVariable:
-  Enabled: false
-
-RSpec/ItBehavesLike:
-  Enabled: false
-
-RSpec/LeadingSubject:
-  Enabled: false
-
-RSpec/LetSetup:
-  Enabled: false
-
-RSpec/MessageChain:
-  Enabled: false
-
-RSpec/MessageExpectation:
-  Enabled: false
-
-RSpec/MessageSpies:
-  Enabled: false
-
-RSpec/MultipleDescribes:
-  Enabled: false
-
-RSpec/MultipleExpectations:
-  Enabled: false
-
-RSpec/NamedSubject:
-  Enabled: false
-
-RSpec/NestedGroups:
-  Enabled: false
-
-RSpec/NotToNot:
-  Enabled: false
-
-RSpec/OverwritingSetup:
-  Enabled: false
-
-RSpec/RepeatedDescription:
-  Enabled: false
-
-RSpec/RepeatedExample:
-  Enabled: false
-
-RSpec/SharedContext:
-  Enabled: false
-
-RSpec/SingleArgumentMessageChain:
-  Enabled: false
-
-RSpec/ScatteredLet:
-  Enabled: false
-
-RSpec/ScatteredSetup:
-  Enabled: false
-
-RSpec/SubjectStub:
- Enabled: false
-
-RSpec/VerifiedDoubles:
- Enabled: false

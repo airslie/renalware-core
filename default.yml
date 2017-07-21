@@ -1,0 +1,6 @@
+inherit_from:
+  - https://raw.githubusercontent.com/airslie/airslie-styleguide/master/rubocop.yml
+
+# Don't add anything to this file other than the inherit_from above
+# as this file is overwritten on CodeClimate with the contents of the above
+# remote url which is downloaded in a CodeClimate prepare step.

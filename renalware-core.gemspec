@@ -78,7 +78,6 @@ Gem::Specification.new do |s|
   s.add_dependency "wkhtmltopdf-binary", "~> 0.12.3"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
   s.add_dependency "rails-assets-select2", "~> 4.0.2"
-  s.add_development_dependency "airslie-style", "~> 0.1.3"
   s.add_development_dependency "bullet"
   s.add_development_dependency "guard-cucumber"
   s.add_development_dependency "guard-rspec"
@@ -97,7 +96,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "poltergeist"
   s.add_development_dependency "rspec-html-matchers"
   s.add_development_dependency "rspec-rails"
-  #s.add_development_dependency "rubocop", "~> 0.48.1"
+  s.add_development_dependency "rubocop", "~> 0.49.0"
   s.add_development_dependency "shoulda-matchers"
   s.add_development_dependency "spring"
   s.add_development_dependency "spring-commands-cucumber"
