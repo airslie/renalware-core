@@ -5,14 +5,14 @@ module World
         letter_patient = Renalware::Letters.cast_patient(patient)
         dashboard = Renalware::Dashboard::DashboardPresenter.new(user)
 
-        expect(dashboard.draft_letters.first).to eq(letter_patient.letters.draft.first)
+        expect(dashboard.letters_in_progress.first).to eq(letter_patient.letters.draft.first)
       end
 
       def expect_pending_letter_accessible_from_dashboard(user:, patient:)
         letter_patient = Renalware::Letters.cast_patient(patient)
         dashboard = Renalware::Dashboard::DashboardPresenter.new(user)
 
-        expect(dashboard.letters_pending_review.first).to(
+        expect(dashboard.letters_in_progress.first).to(
           eq(letter_patient.letters.pending_review.first)
         )
       end
@@ -31,7 +31,7 @@ module World
 
         visit dashboard_path
 
-        within("#draft-letters") do
+        within("#letters-in-progress") do
           expect(page).to have_content(patient.to_s)
         end
       end
@@ -41,7 +41,7 @@ module World
 
         visit dashboard_path
 
-        within("#letters-pending-review") do
+        within("#letters-in-progress") do
           expect(page).to have_content(patient.to_s)
         end
       end
