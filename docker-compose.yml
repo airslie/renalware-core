@@ -1,0 +1,15 @@
+version: '3'
+services:
+  db:
+    image: postgres:9.6
+    volumes:
+       - ./data/postgresql:/var/lib/postgresql/data
+  web:
+    build: .
+    command: bin/rails server -p 3000 -b '0.0.0.0' # this is redundant as it the container's default command
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db

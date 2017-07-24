@@ -1,0 +1,7 @@
+.git*
+log/*
+tmp/*
+Dockerfile
+.bundle/*
+.vagrant/*
+vendor/bundle/*
