@@ -1,0 +1,17 @@
+// Create a timer that will poll to see if the user's session is still valid.
+// If it isn't, the server returns a 401 unauthorised causing a redirect the login page.
+// Note that we could in the future display a message letting them know their session
+// will expired in X seconds. The controller action we hit here could be expanded to
+// to render some js that would insert than into the page.
+// Note we don't want to poll if we are sat on the login page anyway. For one thing on Heroku it
+// would prevent a dyno sleeping, but its also a waste of resources.
+$(document).ready(function() {
+  var login_path ="<%= Renalware::Engine.routes.url_helpers.new_user_session_path %>";
+  var frequency_ms = <%= Renalware.config.session_timeout_polling_frequency.to_i * 1000 %>;
+
+  setInterval(function(){
+    if(window.location.pathname != login_path) {
+      $.getScript("<%= Renalware::Engine.routes.url_helpers.session_timed_out_path %>");
+    }
+  }, frequency_ms);
+});
