@@ -14,7 +14,6 @@
 # The next time a build is triggered on CircleCI the new image will be pulled and cached.
 
 # Version 0.0.2 Updated Ruby 2.4.1 => 2.4.2
-
 FROM ruby:2.4.2
 MAINTAINER Tim Crowe <tim@woodpigeon.com>
 
@@ -39,6 +38,6 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-k
 RUN apt-get update
 RUN apt-get install -y postgresql-client-9.6
 
-RUN wget -O /tmp/phantomjs.tar.bz2 https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
+RUN wget -O /tmp/phantomjs.tar.bz2 http://airslie-public.s3.amazonaws.com/phantomjs-2.1.1-linux-x86_64.tar.bz2
 RUN tar -xjf /tmp/phantomjs.tar.bz2 -C /tmp
 RUN mv /tmp/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs
