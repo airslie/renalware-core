@@ -8,15 +8,15 @@ module Renalware
       it { is_expected.to respond_to(:queue_name) }
 
       describe "#perform" do
-        it "delegates to a service object passing in last month" do
+        it "enqueues a job per patient (that spawned job will actually generate the stats)" do
 
           patient = create(:hd_patient)
 
           travel_to Date.new(2017, 02, 01) do
             create(:hd_closed_session, patient: patient, signed_off_at: Time.zone.now - 1.month)
+            expect(GenerateMonthlyStatisticsForPatientJob).to receive(:perform_later).exactly(:once)
 
-            pending
-            expect{ subject.perform }.to change{ Delayed::Job.count }.by(1)
+            subject.perform
           end
         end
       end

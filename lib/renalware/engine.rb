@@ -1,6 +1,5 @@
 require "rubygems"
 require "active_type"
-require "activemodel/associations"
 require "activerecord-import"
 require "autoprefixer-rails"
 require "chosen-rails"

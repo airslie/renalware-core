@@ -1,6 +1,6 @@
 test:
   adapter: postgresql
   encoding: unicode
-  database: circle_ruby_test
-  username: ubuntu
+  database: circleci_renalware_test
+  username: postgres
   host: localhost

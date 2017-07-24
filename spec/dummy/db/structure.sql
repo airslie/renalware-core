@@ -1,10 +1,3 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 9.6.2
--- Dumped by pg_dump version 9.6.2
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -1796,7 +1789,7 @@ CREATE TABLE medication_prescriptions (
     id integer NOT NULL,
     patient_id integer NOT NULL,
     drug_id integer NOT NULL,
-    treatable_type character varying,
+    treatable_type character varying NOT NULL,
     treatable_id integer NOT NULL,
     dose_amount character varying NOT NULL,
     dose_unit character varying NOT NULL,
