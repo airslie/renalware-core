@@ -19,7 +19,7 @@ load "rails/tasks/statistics.rake"
 
 require "bundler/gem_tasks"
 
-Bundler::GemHelper.install_tasks
+# Bundler::GemHelper.install_tasks
 
 # assets:* tasks for For Heroku only
 # When deploying the engine to Heroku, we are actually deployment the spec/dummy app.
