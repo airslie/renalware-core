@@ -1974,7 +1974,8 @@ ALTER SEQUENCE modality_reasons_id_seq OWNED BY modality_reasons.id;
 CREATE TABLE pathology_observation_descriptions (
     id integer NOT NULL,
     code character varying NOT NULL,
-    name character varying
+    name character varying,
+    measurement_unit_id integer NOT NULL
 );
 
 
@@ -2165,6 +2166,36 @@ CREATE SEQUENCE pathology_labs_id_seq
 --
 
 ALTER SEQUENCE pathology_labs_id_seq OWNED BY pathology_labs.id;
+
+
+--
+-- Name: pathology_measurement_units; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_measurement_units (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description character varying
+);
+
+
+--
+-- Name: pathology_measurement_units_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_measurement_units_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_measurement_units_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_measurement_units_id_seq OWNED BY pathology_measurement_units.id;
 
 
 --
@@ -4980,6 +5011,13 @@ ALTER TABLE ONLY pathology_labs ALTER COLUMN id SET DEFAULT nextval('pathology_l
 
 
 --
+-- Name: pathology_measurement_units id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_measurement_units ALTER COLUMN id SET DEFAULT nextval('pathology_measurement_units_id_seq'::regclass);
+
+
+--
 -- Name: pathology_observation_descriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5856,6 +5894,14 @@ ALTER TABLE ONLY modality_reasons
 
 ALTER TABLE ONLY pathology_labs
     ADD CONSTRAINT pathology_labs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_measurement_units pathology_measurement_units_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_measurement_units
+    ADD CONSTRAINT pathology_measurement_units_pkey PRIMARY KEY (id);
 
 
 --
@@ -7336,6 +7382,13 @@ CREATE INDEX index_modality_modalities_on_updated_by_id ON modality_modalities U
 --
 
 CREATE INDEX index_modality_reasons_on_id_and_type ON modality_reasons USING btree (id, type);
+
+
+--
+-- Name: index_pathology_measurement_units_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pathology_measurement_units_on_name ON pathology_measurement_units USING btree (name);
 
 
 --
@@ -9188,6 +9241,14 @@ ALTER TABLE ONLY clinical_body_compositions
 
 
 --
+-- Name: pathology_observation_descriptions fk_rails_b4b10c7e86; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_descriptions
+    ADD CONSTRAINT fk_rails_b4b10c7e86 FOREIGN KEY (measurement_unit_id) REFERENCES pathology_measurement_units(id);
+
+
+--
 -- Name: transplant_donor_operations fk_rails_b6ee03185c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10089,6 +10150,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170711140607'),
 ('20170711140926'),
 ('20170712090217'),
-('20170720080033');
+('20170720080033'),
+('20170725120242');
 
 

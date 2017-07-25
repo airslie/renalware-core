@@ -20,6 +20,7 @@ models = [
   Renalware::Patients::Religion,
   Renalware::Patients::Language,
   Renalware::Patients::Ethnicity,
+  Renalware::Pathology::MeasurementUnit,
   Renalware::Pathology::ObservationDescription,
   Renalware::Pathology::Lab,
   Renalware::Pathology::RequestDescription,
