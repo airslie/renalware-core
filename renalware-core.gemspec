@@ -9,12 +9,14 @@ Gem::Specification.new do |s|
   s.version     = Renalware::VERSION
   s.authors     = ["Airslie"]
   s.email       = ["dev@airslie.com"]
-  s.homepage    = "https://github.com/airslie/renalware"
+  s.homepage    = "https://github.com/airslie/renalware-core"
   s.summary     = "Renalware core functionality as a mountable engine."
   s.description = "Renalware uses demographic, clinical, pathology, and nephrology datasets to "\
                   "improve patient care, undertake clinical and administrative audits and share "\
                   "data with external systems."
   s.license     = "MIT"
+
+  # Note that no spec or feature files are included, so no dummy data is shipped with the gem
   s.files = Dir["{app,config,db,lib}/**/*", "Rakefile", "README.md"]
   s.add_dependency "rails", "~> 5.1.2"
   s.add_dependency "active_type", "~> 0.7.1"

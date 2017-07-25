@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.0.pre.beta2)
+    renalware-core (2.0.0.pre.beta3)
       active_type (~> 0.7.1)
       activerecord-import
       autoprefixer-rails
@@ -600,4 +600,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.15.2
+   1.15.3
