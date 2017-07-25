@@ -3,6 +3,7 @@
 [![Code Climate](https://codeclimate.com/repos/58beee3ed41d600266000147/badges/50451f89d7aad6c2d200/gpa.svg)](https://codeclimate.com/repos/58beee3ed41d600266000147/feed)
 [![Test Coverage](https://codeclimate.com/repos/58beee3ed41d600266000147/badges/50451f89d7aad6c2d200/coverage.svg)](https://codeclimate.com/repos/58beee3ed41d600266000147/coverage)
 [![Dependency Status](https://gemnasium.com/badges/github.com/airslie/renalware-core.svg)](https://gemnasium.com/github.com/airslie/renalware-core)
+[![Gem Version](https://badge.fury.io/rb/renalware-core.svg)](https://badge.fury.io/rb/renalware-core)
 
 Renalware uses demographic, clinical, pathology, and nephrology datasets to improve patient care,
 undertake clinical and administrative audits and share data with external systems.
