@@ -30,8 +30,6 @@ feature "Session timeout", type: :feature, js: true do
 
     100.times do
       sleep 0.2
-      # wait_for_ajax
-      p page.current_path == new_user_session_path
       break if page.current_path == new_user_session_path
     end
 
