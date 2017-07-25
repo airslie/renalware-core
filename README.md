@@ -2,91 +2,127 @@
 
 [![Code Climate](https://codeclimate.com/repos/58beee3ed41d600266000147/badges/50451f89d7aad6c2d200/gpa.svg)](https://codeclimate.com/repos/58beee3ed41d600266000147/feed)
 [![Test Coverage](https://codeclimate.com/repos/58beee3ed41d600266000147/badges/50451f89d7aad6c2d200/coverage.svg)](https://codeclimate.com/repos/58beee3ed41d600266000147/coverage)
+[![Dependency Status](https://gemnasium.com/badges/github.com/airslie/renalware-core.svg)](https://gemnasium.com/github.com/airslie/renalware-core)
 
 Renalware uses demographic, clinical, pathology, and nephrology datasets to improve patient care,
 undertake clinical and administrative audits and share data with external systems.
 
-## Setup
+## Technical Overview
 
-As a Rails developer we assume you have the following setup on your machine:
+renalware-core is a Ruby On Rails [engine](http://guides.rubyonrails.org/engines.html) intended to encapsulate the majority of Renalware's
+features in a re-usable [gem](http://guides.rubygems.org/what-is-a-gem/). When a renal unit deploys Renalware, it will create its own _host_
+Rails application, and configure it to include the Renalware engine. The host application may be
+extremely thin, adding no custom features other than site-specific configuration, or it may include
+Ruby, HTML and JavaScript to override or augment renalware-core's features.
+
+While the engine is indented to be deployed inside a host application in production, it can be run
+stand-alone in a local development environment (or indeed deployed  in a limited way to somewhere like Heroku) by employing
+the _dummy_ host application that ships inside the engine. This dummy app (in `./spec/dummy`)
+allows a developer to quickly mount the engine, and is used also used Rails integration tests (which is why
+it is in the `./spec` folder)
+
+There are other optional renalware gems which can also be included in the host application,
+for example `renalware-ukrdc` which enables sending data to the UKRDC.
+
+### Stack
+
+- Ruby 2.4.1
+- Ruby on Rails 5
+- Postgres 9.6+
+
+## Get up and running locally
+
+> An alternative Docker approach will be available shortly
+
+As a Rails developer we assume you are using OS X or Linux (natively or inside a [VM](https://www.virtualbox.org/wiki/Downloads) on Windows),
+and have the following installed:
 
 * Git
-* Postgres (9.5)
-* a ruby version manager (e.g. RVM)
-* a js runtime (i.e. nodejs) required by the [uglifier gem](https://github.com/lautis/uglifier#installation)
+* Postgres 9.6
+* a ruby version manager (e.g. [rbenv](https://github.com/rbenv/rbenv) or [RVM](https://rvm.io/))
+* NodeJS required by the [uglifier gem](https://github.com/lautis/uglifier#installation)
 
-1. Setup a Postgres user with a password, for development purposes this can be your system login.
+### Postgres setup
 
-  ```
-  sudo su - postgres
-  psql template1
-  ```
+Set up Postgres user with a password - for development purposes this can be your system login.
 
-  At the psql prompt run the following (replacing <username> and <password> accordingly):
+```bash
+sudo su - postgres
+psql template1
+```
 
-  ```sql
-  CREATE USER <username> WITH PASSWORD '<password>';
-  ALTER USER <username> SUPERUSER;
-  ```
+At the psql prompt run the following (replacing `<username>` and `<password>` accordingly):
 
-2. Ensure you have the correct Ruby version installed (verify the version in the Gemfile) and setup your Ruby
-environment with your prefered Ruby version and Gemset management tool (i.e. RVM).
+```sql
+CREATE USER <username> WITH PASSWORD '<password>';
+ALTER USER <username> SUPERUSER;
+```
 
-3. Ensure bundler installed
+### Configure Ruby
 
-4. Setup the application
+Check the `ruby` declaration at the top of the Gemfile to see which version of Ruby to install
+using your preferred Ruby version manager.
+If using rbenv for example:
+```bash
+rbenv install 2.4.1
+cd renalware-core
+rbenv local 2.4.1
+```
 
-  ```
-  bin/setup
-  ```
+### Install app dependencies and seed the database with demo data
 
-  Important: Read the instructions outputted at the end of the setup process.
+```bash
+gem install bundler --conservative
+bundle exec rake db:setup
+```
 
-## Running the Server
+### Run the server
+
+```
+$ bin/web
+```
+
+> Note `bin/web` starts a sever in the spec/dummy directory. Just executing `rails server` will not work.
+
+Visit [http://localhost:3000](http://localhost:3000)
+
+Login in one of the demo users (in order of role permissiveness):
+- superkch
+- kchdoc
+- kchnurse
+- kchguest
+
+They all share the password `renalware`
+
+> Alternatively you can use foreman to start to the web server and the background workers all together
+(see the Procfile) and tail the development log to see the output:
 
     bundle exec foreman start
+    tail -f spec/dummy/log/developments.log
 
-To see the output from the Rails server, open up another terminal window and run:
+## Running tests
 
-    tail -f log/developments.log
+Install PhantomJS if you don't have it already (check with `phantomjs -v`):
 
-Foreman uses a Procfile to start all the components that we need for the app (server, workers, ...).
+    wget -O /tmp/phantomjs.tar.bz2 http://airslie-public.s3.amazonaws.com/phantomjs-2.1.1-linux-x86_64.tar.bz2
+    tar -xjf /tmp/phantomjs.tar.bz2 -C /tmp
+    mv /tmp/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs
 
-Visit [http://localhost:3000](http://localhost:3000).
+### RSpec unit and integration tests
 
-## Run the tests
+    bundle exec rspec
 
-Ensure you have phantomjs installed in order to run the feature & integration specs.
+### Cucumber acceptance tests
 
-1. Setup a test database
+Run domain tests which bypass the UI:
 
-  ```
-  RAILS_ENV=test bin/rake db:create
-  bin/rake db:test:load
-  ```
+    bundle exec cucumber
 
-2. Run the test suite
+Run web tests exercising the UI:
 
-  ```
-  bin/rake
-  ```
+    bundle exec cucumber TEST_DEPTH=web --profile rake_web
 
-Test coverage reports can be found in `coverage/`
-
-### Configuration
-
-RSpec is configured to silence backtrace from third-party gems. This can be
-configured in `.rspec` with `--backtrace` which will display the full backtrace.
-
-### Acceptance Tests
-
-To run the acceptance tests without the UI:
-
-    bin/cucumber
-
-To run the acceptance tests with the UI:
-
-    TEST_DEPTH=web bin/cucumber --tags @web
+> Test coverage reports can be found in `coverage/`
 
 ## Code Quality
 
@@ -95,7 +131,46 @@ CodeClimate locally read the setup instructions:
 
     https://github.com/codeclimate/codeclimate
 
-## Debugging
+### Deploying
+
+#### To a server
+
+> Please note the deployment scripts are under development
+
+Please see the [renalware-provisioning](https://github.com/airslie/renalware-provisioning) repo.
+
+#### To a Vagrant VM
+
+Follow [these instructions](https://github.com/airslie/renalware-provisioning#vagrant)
+and deploy using capistrano:
+
+```
+cap vagrant deploy
+```
+
+#### Heroku
+
+Just push `app.json` in the project root defines the deployment steps for Heroku so you should be able
+to just create
+
+## General notes
+
+#### Engine migrations
+
+`config.active_record.schema_format = :sql` in `application.rb` is used the engine
+uses postgres views and functions which are not properly supported in a `schema.rb`
+
+#### Throttling login attempts
+
+[rack-attack](https://github.com/kickstarter/rack-attack) is configured to throttle login attempts.
+Only 10 attempts per username as permitted in any one minute in an attempt to thwaght login attacks.
+
+#### Test Configuration
+
+RSpec is configured to silence backtrace from third-party gems. This can be
+configured in `.rspec` with `--backtrace` which will display the full backtrace.
+
+#### Debugging
 
 The [awesome_print](https://github.com/awesome-print/awesome_print) gem is available
 for improved inspection formatting, for example:
@@ -106,35 +181,3 @@ To make awesome_print the default formatter in irb, add the following to `~/.irb
 
     require "awesome_print"
     AwesomePrint.irb!
-
-## Deploying
-
-### Vagrant
-
-To build a vagrant vm, first clone the
-[renalware-provisioning](https://github.com/airslie/renalware-provisioning) repo in a sibling folder
-alongside this project's folder.
-
-Provision the server using ansible:
-
-```
-$ vagrant up --provision
-```
-
-Deploy using capistrano:
-
-```
-cap vagrant deploy
-```
-
-### Engine migrations notes
-
-- use `config.active_record.schema_format = :sql` in your `application.rb` because the engine
-used postgres views and functions which are note properly supported in a `schema.rb`
-
-### Throttling login attempts
-
-[rack-attack](https://github.com/kickstarter/rack-attack) is configured to throttle login attempts.
-Only 10 attempts per username as permitted in any one minute in an attempt to thwaght login attacks.
-
-

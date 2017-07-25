@@ -21,17 +21,6 @@ require "bundler/gem_tasks"
 
 Bundler::GemHelper.install_tasks
 
-# require 'rake/testtask'
-
-# Rake::TestTask.new(:test) do |t|
-#   t.libs << 'lib'
-#   t.libs << 'test'
-#   t.pattern = 'test/**/*_test.rb'
-#   t.verbose = false
-# end
-
-# task default: :test
-
 # assets:* tasks for For Heroku only
 # When deploying the engine to Heroku, we are actually deployment the spec/dummy app.
 # Heroku however loads this Rakefile first hunting for an assets:precompile task to indicate
