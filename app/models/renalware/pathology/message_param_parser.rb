@@ -6,6 +6,8 @@ module Renalware
     # that can be persisted by ObservationRequest.
     #
     class MessageParamParser
+
+      # message_payload is an HL7Message (a decorator around an ::HL7::Message)
       def parse(message_payload)
         request = message_payload.observation_request
 

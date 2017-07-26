@@ -2,8 +2,8 @@ require_dependency "renalware/feeds"
 
 module Renalware
   module Feeds
-    # Responsible for co-ordinating the processing sequences of a raw
-    # HL7 message.
+    #
+    # Responsible for coordinating the processing sequences of a raw HL7 message.
     #
     class MessageProcessor
       include Wisper::Publisher
