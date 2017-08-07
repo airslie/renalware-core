@@ -1,3 +1,4 @@
+@legacy @web
 Feature: Set the patient's modality
 
   Background:

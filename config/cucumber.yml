@@ -1,9 +1,12 @@
 <%
+# Note that @legacy tags are applied to features which are really web. We take them out by default
+# and add them back into the rake_web profile.
+# See https://github.com/cucumber/cucumber/wiki/Tags
 env_format = "#{ENV['CUCUMBER_FORMAT']}"
 base_opts = (env_format == "" ? "" : "--format #{env_format}") + " -r features"
-std_opts = "#{base_opts} --tags ~@wip --tags ~@pending --strict"
+std_opts = "#{base_opts} --tags ~@wip --tags ~@legacy --tags ~@pending --strict"
 wip_opts = "#{base_opts} --tags @wip:100 --wip"
-web_opts = "#{base_opts} --tags ~@wip --tags @web --tags ~@pending --strict"
+web_opts = "#{base_opts} --tags @web,@legacy --tags ~@wip --tags ~@pending --strict"
 %>
 default: <%= std_opts %>
 wip: <%= wip_opts %>
