@@ -1,12 +1,12 @@
 referring_physician:
-  system_code: referring_physician
+  system_code: $LABEL
   name: Referring Physician
   position: 10
 sibling:
-  system_code: sibling
+  system_code: $LABEL
   name: Sibling
   position: 20
 other:
-  system_code: other
+  system_code: $LABEL
   name: Other
   position: 30
