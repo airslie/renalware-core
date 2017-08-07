@@ -42,7 +42,7 @@ class Fixtures
       ActiveRecord::FixtureSet.reset_cache
       ActiveRecord::FixtureSet.create_fixtures(fixtures_folder, fixtures, table_model_map)
     end
-    p "Reloading fixtures took #{elapsed_ms}"
+    puts "  Reloading fixtures took #{elapsed_ms.round(2)}ms"
   end
 
   def table_model_map
