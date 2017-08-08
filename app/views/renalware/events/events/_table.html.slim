@@ -6,8 +6,8 @@ table
       th.col-width-tiny
       th.col-width-date=t(".created_at")
       - unless local_assigns.fetch(:exclude_type_column, false)
-        th.col-width-medium= t(".type")
-      th.col-width-medium= t(".description")
+        th.col-width-large= t(".type")
+      th= t(".description")
       th.created_at.col-width-date-time= t(".date_time")
       th.created_by.col-width-medium= t(".created_by")
   tbody

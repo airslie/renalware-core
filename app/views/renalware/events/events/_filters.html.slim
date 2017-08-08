@@ -1,0 +1,21 @@
+.search-form.filters
+  = simple_form_for query,
+      as: :q,
+      url: patient_events_path(events.patient),
+      method: :get do |f|
+    .row
+      .medium-5.large-4.columns
+        = f.input :event_type_id_eq,
+                  collection: events.event_types_for_filtering,
+                  label: "Type",
+                  input_html: { class: "searchable_select" }
+      .medium-3.large-3.columns
+        = f.input :created_by_id_eq,
+                  as: :user_picker,
+                  collection: events.users_for_filtering,
+                  label: "Created by"
+      .medium-3.large-3.columns.actions.end
+        = f.submit "Filter", class: "button"
+        span= " or "
+        = link_to t("helpers.reset"), patient_events_path(events.patient)
+

@@ -30,10 +30,14 @@ module Renalware
       end
 
       def index
+        events_query = EventQuery.new(patient: patient, query: query_params)
+        events = events_query.call
         authorize events
+        events = EventsPresenter.new(patient, events)
+
         render locals: {
-          patient: patient,
-          events: events
+          events: events,
+          query: events_query.search
         }
       end
 
@@ -160,6 +164,12 @@ module Renalware
             }
           ]
         end
+      end
+
+      def query_params
+        params
+          .fetch(:q, {})
+          .merge(page: page, per_page: per_page || 20)
       end
     end
   end
