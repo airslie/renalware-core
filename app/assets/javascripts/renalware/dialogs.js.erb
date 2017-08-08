@@ -15,7 +15,7 @@ $(document).foundation({
 $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
   var modal = $(this);
   modal.find('[autofocus]').focus();
-  $('form[data-validate]').enableClientSideValidations();
+  $('form[data-client-side-validations]').enableClientSideValidations();
   // If a modal is launched again, ensure the submit button is re-enabled.
   $.rails.enableFormElement($('input[data-disable-with]'));
 });
