@@ -18,40 +18,73 @@ ruby:
           collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
           label_method: :to_s,
           autofocus: true,
-          hint: profile.hospital_unit_hint
-      = f.input :schedule, wrapper: :horizontal_small, hint: profile.schedule_hint
-      = f.input :other_schedule, wrapper: :horizontal_small
-      = f.association :named_nurse, as: :user_picker, collection: Renalware::User.ordered
+          hint: profile.hospital_unit_hint,
+          wrapper: :horizontal_medium
+      = f.input :schedule,
+                wrapper: :horizontal_small,
+                hint: profile.schedule_hint
+      = f.input :other_schedule,
+                wrapper: :horizontal_small
+      = f.association :named_nurse,
+                      as: :user_picker,
+                      collection: Renalware::User.ordered,
+                      wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Prescription", name: "prescription" } do
-      = f.input :prescribed_time, collection: profile.prescribed_times, wrapper: :horizontal_tiny
-      = f.input :prescribed_on, as: :date_picker
-      = f.association :prescriber, as: :user_picker, collection: Renalware::User.ordered
+             locals: { legend: "Prescription", name: "prescription" } do
+
+      = f.input :prescribed_time,
+                collection: profile.prescribed_times,
+                wrapper: :horizontal_tiny
+      = f.input :prescribed_on,
+                as: :date_picker,
+                wrapper: :horizontal_datepicker
+      = f.association :prescriber,
+                      as: :user_picker,
+                      collection: Renalware::User.ordered,
+                      wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Dialysis", name: "dialysis" } do
+             locals: { legend: "Dialysis", name: "dialysis" } do
+
       = fd.simple_fields_for :dialysis, profile.document.dialysis do |fcm|
-        = fcm.input :hd_type, as: :inline_radio_buttons
-        = fcm.input :cannulation_type, wrapper: :horizontal_small,
-            collection: fcm.object.class.cannulation_types, value_method: :name
+
+        = fcm.input :hd_type,
+                    as: :inline_radio_buttons,
+                    wrapper: :horizontal_medium
+        = fcm.input :cannulation_type,
+                    wrapper: :horizontal_small,
+                    collection: fcm.object.class.cannulation_types,
+                    value_method: :name
         = fcm.input :needle_size,
                     collection: fcm.object.class.needle_sizes,
                     wrapper: :horizontal_tiny
-        = fcm.input :single_needle, as: :inline_radio_buttons
-        = fcm.input :dialysate, wrapper: :horizontal_small
-        = fcm.input :flow_rate, collection: fcm.object.class.flow_rates, wrapper: :horizontal_tiny
-        = fcm.input :blood_flow, wrapper: :horizontal_small
-        = fcm.input :dialyser, as: :grouped_select, wrapper: :horizontal_tiny,
-            collection: fcm.object.class.dialysers.group_by(&:group), group_method: :last,
-            label_method: :name, value_method: :name
+        = fcm.input :single_needle,
+                    as: :inline_radio_buttons,
+                    wrapper: :horizontal_medium
+        = fcm.input :dialysate,
+                    wrapper: :horizontal_small
+        = fcm.input :flow_rate,
+                    collection: fcm.object.class.flow_rates,
+                    wrapper: :horizontal_tiny
+        = fcm.input :blood_flow,
+                    wrapper: :horizontal_small
+        = fcm.input :dialyser,
+                    as: :grouped_select,
+                    wrapper: :horizontal_tiny,
+                    collection: fcm.object.class.dialysers.group_by(&:group),
+                    group_method: :last,
+                    label_method: :name,
+                    value_method: :name
         = fcm.input :temperature,
                     collection: fcm.object.class.temperature_levels,
                     wrapper: :horizontal_tiny
         = fcm.input :bicarbonate,
                     collection: fcm.object.class.bicarbonate_levels,
                     wrapper: :horizontal_tiny
-        = fcm.input :has_sodium_profiling, as: :inline_radio_buttons
+        = fcm.input :has_sodium_profiling,
+                    as: :inline_radio_buttons,
+                    wrapper: :horizontal_medium
         = fcm.input :sodium_first_half,
                     collection: fcm.object.class.sodium_levels,
                     wrapper: :horizontal_tiny
@@ -70,24 +103,27 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Drugs", name: "drugs" } do
       = fd.simple_fields_for :drugs, profile.document.drugs do |fcm|
-        = fcm.input :on_esa, as: :inline_radio_buttons
-        = fcm.input :on_iron, as: :inline_radio_buttons
-        = fcm.input :on_warfarin, as: :inline_radio_buttons
+        = fcm.input :on_esa, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        = fcm.input :on_iron, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        = fcm.input :on_warfarin, as: :inline_radio_buttons, wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Transport", name: "transport" } do
       = fd.simple_fields_for :transport, profile.document.transport do |fcm|
-        = fcm.input :has_transport, as: :inline_radio_buttons
+        = fcm.input :has_transport, as: :inline_radio_buttons, wrapper: :horizontal_medium
         = fcm.input :type, wrapper: :horizontal_small
-        = fcm.input :decided_on, as: :date_picker
-      = f.association :transport_decider, as: :user_picker, collection: Renalware::User.ordered
+        = fcm.input :decided_on, as: :date_picker, wrapper: :horizontal_datepicker
+      = f.association :transport_decider,
+                      as: :user_picker,
+                      collection: Renalware::User.ordered,
+                      wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Care Level", name: "care_level" } do
       = fd.simple_fields_for :care_level, profile.document.care_level do |fcm|
         table
-          = fcm.input :level
-          = fcm.input :assessed_on, as: :date_picker
+          = fcm.input :level, wrapper: :horizontal_medium
+          = fcm.input :assessed_on, as: :date_picker, wrapper: :horizontal_datepicker
 
 .row
   .large-12.columns
