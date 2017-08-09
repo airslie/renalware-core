@@ -1,9 +1,3 @@
-#
-# New steps
-#
-Given(/^Patty has no PD regimes$/) do
-  @patty.pd_regimes.destroy_all
-end
 
 When(/^Clyde adds a CAPD regime$/) do
   @capd_regime = record_capd_regime_for(@patty)
@@ -55,7 +49,7 @@ end
 
 Given(/^I choose to record a new APD regime$/) do
   click_on "Add"
-  click_on "APD Regime""
+  click_on "APD Regime"
 end
 
 Given(/^a patient has existing CAPD regimes$/) do
@@ -437,16 +431,10 @@ Then(/^I should see the chosen CAPD regime details$/) do
   expect(page).to have_content("On additional HD?")
   expect(page).to have_content("No")
 
-  # saved bag for this regime:
-  # bag 1
-  expect(page).to have_content(
-    "Bag type: Extraneal (Icodextrin 7.5%) (Purple), Volume: 1000ml, No. per week: 6, Days: Sun, Mon, Wed, Thu, Fri, Sat"
-  )
-
   # average daily glucose calculated from bags
-  expect(page).to have_content("1.36% 0 ml")
-  expect(page).to have_content("2.27% 0 ml")
-  expect(page).to have_content("3.86% 0 ml")
+  expect(page).to have_content("Low strength 0 ml")
+  expect(page).to have_content("Med. strength 0 ml")
+  expect(page).to have_content("High strength 0 ml")
 end
 
 Then(/^I should see the chosen APD regime details$/) do

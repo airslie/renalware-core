@@ -1,19 +1,19 @@
 antibiotic:
   name: Antibiotic
-  code: antibiotic
+  code: $LABEL
 
 esa:
   name: ESA
-  code: esa
+  code: $LABEL
 
 immunosuppressant:
   name: Immunosuppressant
-  code: immunosuppressant
+  code: $LABEL
 
 peritonitis:
   name: Peritonitis
-  code: peritonitis
+  code: $LABEL
 
 controlled:
   name: Controlled
-  code: controlled
+  code: $LABEL

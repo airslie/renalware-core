@@ -1,239 +1,239 @@
 AL:
   code: "AL"
   name: "Serum Aluminium"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 ALB:
   code: "ALB"
   name: "Albumin"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 ALP:
   code: "ALP"
   name: "Alk Phosph (ALP)"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 ALT:
   code: "ALT"
   name: "ALT"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 AST:
   code: "AST"
   name: "AST"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 B12:
   code: "B12"
   name: "Vitamin B12"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 BGLU:
   code: "BGLU"
   name: "Blood Glucose"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 BIC:
   code: "BIC"
   name: "Bicarbonate"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 BIL:
   code: "BIL"
   name: "Total Bilirubin"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 CCA:
   code: "CCA"
   name: "Corrected Calc"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 CHOL:
   code: "CHOL"
   name: "Cholesterol"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 CK:
   code: "CK"
   name: "CK"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 CRCL:
   code: "CRCL"
   name: "Creatinine Clearance"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 CRE:
   code: "CRE"
   name: "Creatinine"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 CRP:
   code: "CRP"
   name: "C-Reactive Protein"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 EGFR:
   code: "EGFR"
   name: "eGFR / 1.73 m2"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 ESR:
   code: "ESR"
   name: "ESR"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 FER:
   code: "FER"
   name: "Ferritin"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 FOL:
   code: "FOL"
   name: "Folate"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 GGT:
   code: "GGT"
   name: "Gamma GT"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 GLO:
   code: "GLO"
   name: "Globulin"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 HB:
   code: "HB"
   name: "HGB"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 HBA:
   code: "HBA"
   name: "HbA1c (DCCT)"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 HBAI:
   code: "HBAI"
   name: "HbA1c (IFCC)"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 HDL:
   code: "HDL"
   name: "HDL Chol"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 HGB:
   code: "HGB"
   name: "HGB"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 HIV:
   code: "HIV"
   name: "HIV"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 HYPO:
   code: "HYPO"
   name: "% HYPO"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 LDL:
   code: "LDL"
   name: "LDL Chol"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 LYM:
   code: "LYM"
   name: "Lymphocytes"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 MCH:
   code: "MCH"
   name: "MCH"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 MCV:
   code: "MCV"
   name: "MCV"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 NA:
   code: "NA"
   name: "Sodium"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 NEUT:
   code: "NEUT"
   name: "Neutrophils"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 PHOS:
   code: "PHOS"
   name: "Phosphate"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 PLT:
   code: "PLT"
   name: "PLT"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 POT:
   code: "POT"
   name: "Potassium"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 PTHI:
   code: "PTHI"
   name: "PTH"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 RBC:
   code: "RBC"
   name: "RBC"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 RETA:
   code: "RETA"
   name: "Abs Retic Count"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 TP:
   code: "TP"
   name: "Total Protein"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 TRIG:
   code: "TRIG"
   name: "Triglycerides"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 TSH:
   code: "TSH"
   name: "TSH"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 URAT:
   code: "URAT"
   name: "Urate"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 URE:
   code: "URE"
   name: "Urea"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 UREP:
   code: "UREP"
   name: "Urea (post dial)"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 URR:
   code: "URR"
   name: "URR"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
 
 WBC:
   code: "WBC"
   name: "WBC"
-  measurement_unit_id: 1
+  measurement_unit: grammes_per_litre
