@@ -3,7 +3,7 @@ begin
   require "database_cleaner/cucumber"
 
   if ENV["TEST_DEPTH"] == "web"
-    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.strategy = :deletion
     # , {
     #   except: %w[
     #     access_plan_types

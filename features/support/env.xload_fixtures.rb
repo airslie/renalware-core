@@ -59,7 +59,7 @@ class Fixtures
     end
   end
 
-  def use_transation?
+  def web_depth?
     ENV["TEST_DEPTH"] == "web"
   end
 end
@@ -70,7 +70,7 @@ fixtures = Fixtures.new
 # (see features/support/database_cleaner.rb) so must reload fixtures before each scenario. If
 # running domain features then we will be using DatabaseCleaner.strategy = :transaction so just
 # load the fixtures up front (much faster of course).
-if fixtures.use_transation?
+if fixtures.web_depth?
   Before do
     fixtures.reload
   end
@@ -79,7 +79,7 @@ else
 
   # A hack to handle legacy cucumber features that are not split into Domain and Web worlds.
   Before("@legacy") do
-    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.strategy = :deletion
     fixtures.reload
     DatabaseCleaner.strategy = :transaction
   end
