@@ -1,0 +1,15 @@
+.row.search-form.filters
+  = simple_form_for query,
+      as: :q,
+      url: worryboard_path,
+      method: :get do |f|
+
+    .small-6.medium-2.large-2.columns
+      = f.input :patient_current_modality_description_id_eq,
+                collection: modalities,
+                label: "Modality"
+
+    .medium-2.large-3.columns.actions.end
+      = f.submit "Filter", class: "button"
+      span= " or "
+      = link_to t("helpers.reset"), worryboard_path

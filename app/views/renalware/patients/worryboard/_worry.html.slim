@@ -1,13 +1,14 @@
 - patient = worry.patient
 tr
-  td
-    = link_to "View", patient_clinical_summary_path(patient), title: "Clinical Summary"
-  td.full-name= patient.to_s(format: :default)
+  td.full-name
+    = link_to(patient.to_s(format: :default),
+              patient_clinical_summary_path(patient),
+              title: "Clinical Summary")
   td= patient.nhs_number
   td= patient.hospital_identifier
   td= patient.sex.code
   td= patient.born_on
-  td= patient.age
+  td.show-for-large-up= patient.age
   td= l(worry.created_at.to_date)
   td= worry.created_by.to_s
   td= worry.notes
