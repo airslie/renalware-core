@@ -2877,7 +2877,8 @@ CREATE TABLE patient_worries (
     updated_by_id integer NOT NULL,
     created_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    notes text
 );
 
 
@@ -10151,6 +10152,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170711140926'),
 ('20170712090217'),
 ('20170720080033'),
-('20170725120242');
+('20170725120242'),
+('20170809080925');
 
 

@@ -6,31 +6,56 @@ RSpec.describe "Managing the patient worryboard", type: :request do
   describe "POST create" do
     context "the patient has no worry (!)" do
       it "creates a new patient worry (aka adding them to the Worryboard)" do
-        post(patient_worry_path(patient))
+        params = {
+          patients_worry: {
+            notes: "Abc"
+          }
+        }
+        post(patient_worry_path(patient), params: params)
+        expect(response).to have_http_status(:redirect)
+        follow_redirect!
+        expect(response).to have_http_status(:success)
+
+        worry = Renalware::Patients::Worry.find_by(patient_id: patient.id)
+        expect(worry.notes).to eq("Abc")
+      end
+    end
+
+    context "the patient already has a worry (i.e. is on the worryboard)" do
+
+      # Not expected to be possible in the UI but testing anyway
+      it "behaves idempotently, does not fail, behaves as if the worry was just added" do
+        Renalware::Patients::Worry.new(patient: patient, by: @current_user, notes: "Abc").save!
+        params = { patients_worry: { notes: nil } }
+        post(patient_worry_path(patient), params: params)
         expect(response).to have_http_status(:redirect)
         follow_redirect!
         expect(response).to have_http_status(:success)
 
         expect(Renalware::Patients::Worry.find_by(patient_id: patient.id)).not_to be_nil
       end
-    end
 
-    context "the patient already has a worry (i.e. is on the worryboard)" do
-      it "behaves idempotently, does not fail, behaves as if the patient was just added" do
-        Renalware::Patients::Worry.new(patient: patient, by: @current_user).save!
-
-        post(patient_worry_path(patient))
+      # Not expected to be possible in the UI but testing anyway
+      it "does not overwrite existing worry notes if no notes added this time" do
+        Renalware::Patients::Worry.new(patient: patient, by: @current_user, notes: "Abc").save!
+        params = {
+          patients_worry: {
+            notes: ""
+          }
+        }
+        post(patient_worry_path(patient), params: params)
         expect(response).to have_http_status(:redirect)
         follow_redirect!
         expect(response).to have_http_status(:success)
 
-        expect(Renalware::Patients::Worry.find_by(patient_id: patient.id)).not_to be_nil
+        worry = Renalware::Patients::Worry.find_by(patient_id: patient.id)
+        expect(worry.notes).to eq("Abc")
       end
     end
 
     describe "DELETE destroy" do
 
-      it "soft deletes the bookmark" do
+      it "soft deletes the worry" do
         worry = Renalware::Patients::Worry.new(patient: patient, by: @current_user)
         worry.save!
 
@@ -40,7 +65,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
         expect(Renalware::Patients::Worry.exists?(id: worry.id)).to be_falsey
       end
 
-      it "does not baulk if the bookmark does not exist" do
+      it "does not baulk if the worry does not exist" do
         delete patient_worry_path(patient, id: 999)
         expect(response).to have_http_status(:redirect)
       end
