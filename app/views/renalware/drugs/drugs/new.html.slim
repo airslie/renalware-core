@@ -1,1 +1,3 @@
-= render "form"
+= within_admin_layout(title: t("new_record.link_title"),
+                      breadcrumbs: breadcrumb_for("Drugs", drugs_drugs_path)) do
+  = render "form"
