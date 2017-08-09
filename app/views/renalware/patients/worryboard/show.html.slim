@@ -1,5 +1,2 @@
-.row
-  h1 Worryboard
-
-.row
+= within_admin_layout(title: "Worryboard") do
   = render "table", worries: worries

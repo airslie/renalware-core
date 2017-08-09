@@ -1,21 +1,12 @@
-.row
-  = render "header"
+= content_for(:actions) do
+  = link_to t("new_record.link_title"),
+            new_drugs_drug_path,
+            class: "button"
 
-.row
-  .search-form
-    fieldset
-      legend Filters
-      = search_form_for @drugs_search do |f|
-        .row
-          .small-9.large-8.columns
-            = f.label "Name or type"
-            = f.search_field :name_or_drug_types_name_start
-          .small-3.large-4.columns.actions
-            = f.submit t("helpers.submit.filter"), class: "button"
-            span= " or "
-            = link_to t("helpers.reset"), drugs_drugs_path
+= within_admin_layout(title: "Drugs") do
 
-.row
+  = render "filters", drugs_search: @drugs_search
+
   table.drugs
     thead
       tr

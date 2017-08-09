@@ -3,6 +3,8 @@ require "rails_helper"
 module Renalware
   module Patients
     describe Worry do
+      it { is_expected.to respond_to(:notes) }
+
       describe "validation" do
         it "validates uniqueness of patient" do
           patient = create(:patient)

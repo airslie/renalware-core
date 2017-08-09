@@ -1,4 +1,20 @@
-=link_to(t(".title"),
-         patient_worry_path(patient, patient.worry),
-         method: :post,
-         data: { confirm: t(".confirm") })
+
+/ Link to launch the modal dialog
+= link_to(t(".title"), "#", data: { "reveal-id" => "add-patient-worry-modal" })
+
+/ The modal dialog
+#add-patient-worry-modal.reveal-modal.medium(data-reveal)
+  =simple_form_for Renalware::Patients::Worry.new,
+                   html: { autocomplete: "off" },
+                   url: patient_worry_path(patient) do |f|
+    h2= t(".title")
+    =f.input :notes,
+             as: :text,
+             input_html: { autofocus: :autofocus },
+             label: "Optional notes"
+    =f.submit t(".save"), class: :button
+    span= " or "
+    =link_to t(".cancel"),
+             "#",
+             "aria-label" => "Close",
+             class: "reveal-modal-close"

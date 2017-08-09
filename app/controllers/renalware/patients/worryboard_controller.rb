@@ -7,7 +7,7 @@ module Renalware
 
       def show
         authorize Worry, :index?
-        render locals: { worries: Worry.all.page(page).per(per_page) }
+        render locals: { worries: Worry.all.order(created_at: :asc).page(page).per(per_page) }
       end
     end
   end

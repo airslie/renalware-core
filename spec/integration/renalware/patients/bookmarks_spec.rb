@@ -10,18 +10,18 @@ RSpec.describe "Managing bookmarks", type: :request do
         params = {
           patients_bookmark: {
             urgent: true,
-                notes: "A note",
-                user_id: @current_user.id
+            notes: "Abc"
           }
         }
 
         post(patient_bookmarks_path(patient), params: params, headers: headers)
         expect(response).to have_http_status(:redirect)
 
-        bookmark = Renalware::Patients::Bookmark.find_by(
-          params[:patients_bookmark].merge!(patient_id: patient.id)
-        )
+        bookmark = Renalware::Patients::Bookmark.find_by(patient_id: patient.id)
+
         expect(bookmark).not_to be_nil
+        expect(bookmark.urgent).to be_truthy
+        expect(bookmark.notes).to eq("Abc")
         follow_redirect!
         expect(response).to have_http_status(:success)
       end
