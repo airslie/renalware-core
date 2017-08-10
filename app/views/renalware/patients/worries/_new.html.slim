@@ -1,6 +1,9 @@
 
 / Link to launch the modal dialog
-= link_to(t(".title"), "#", data: { "reveal-id" => "add-patient-worry-modal" })
+= link_to("#",
+          data: { "reveal-id" => "add-patient-worry-modal" }) do
+  i.fa.fa-link-annotation.fa-flag-o
+  = t(".title")
 
 / The modal dialog
 #add-patient-worry-modal.reveal-modal.medium(data-reveal)

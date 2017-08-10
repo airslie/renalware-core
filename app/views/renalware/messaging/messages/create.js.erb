@@ -1,0 +1,4 @@
+// We render this view when the message has been successfully sent.
+// TODO: the flash here is not really working
+<%= refresh(".flash-message", partial: "renalware/shared/flash_messages", locals: local_assigns) %>
+$("#send-message-modal").foundation('reveal', 'close');

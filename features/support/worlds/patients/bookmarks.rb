@@ -55,7 +55,7 @@ module World
           login_as user
           visit_patient(patient_name)
 
-          find("a", text: "Bookmark this patient").trigger("click")
+          find("a", text: "Bookmark").trigger("click")
 
           # Modal shown here
           within("#add-patient-bookmark-modal") do
@@ -70,7 +70,7 @@ module World
           login_as user
           visit_patient(patient_name)
 
-          find("a", text: "Remove from bookmarks").trigger("click")
+          find("a", text: "Remove bookmark").trigger("click")
 
           expect(page).to have_css("div.success")
         end

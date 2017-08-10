@@ -1,0 +1,9 @@
+en:
+  renalware:
+    messaging:
+      messages:
+        form:
+          title: Send a message
+          cancel: Cancel
+          recipient_ids: Recipients
+

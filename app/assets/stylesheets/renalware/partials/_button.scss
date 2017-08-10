@@ -1,3 +1,8 @@
+
+.fa-link-annotation {
+  width: 1.4rem;
+}
+
 .page-actions {
   .button {
     margin-right: 0.8rem;
@@ -9,6 +14,10 @@
   border-radius: 2px !important;
   font-size: 1rem;
   padding: 0.6rem 1.2rem;
+
+  &:hover {
+    background-color: $nhs-blue;
+  }
 
   i.fa {
     margin-right: .5rem;

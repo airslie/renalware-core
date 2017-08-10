@@ -1,5 +1,3 @@
-li.divider
-
 li.heading= t(".heading")
 
 = patient_menu_item title: t(".pd"),
@@ -11,3 +9,5 @@ li.heading= t(".heading")
                     path: patient_hd_dashboard_path(patient),
                     active_when_controller_matches: %r{renalware/hd},
                     enabled: display_hd_menu?(patient)
+
+hr

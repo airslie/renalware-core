@@ -16,6 +16,7 @@ $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
   var modal = $(this);
   modal.find('[autofocus]').focus();
   $('form[data-client-side-validations]').enableClientSideValidations();
+  $('.searchable_select', modal).select2();
   // If a modal is launched again, ensure the submit button is re-enabled.
   $.rails.enableFormElement($('input[data-disable-with]'));
 });
@@ -24,3 +25,4 @@ $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
 $(document).on('ajaxError', function(event, xhr, status, error) {
   $.rails.enableFormElement($('input[data-disable-with]'));
 });
+

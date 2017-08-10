@@ -17,7 +17,7 @@
                     html: { autocomplete: "off" }) do |f|
     = f.input :username, input_html: { autofocus: true }, required: false
     = f.input :password, input_html: { autocomplete: "off" }
-    = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+    = f.input(:remember_me, as: :boolean, boolean_style: :inline) if devise_mapping.rememberable?
 
     .actions
       = f.submit "Log in", class: "button save"

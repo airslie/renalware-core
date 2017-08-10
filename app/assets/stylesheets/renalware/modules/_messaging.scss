@@ -1,0 +1,7 @@
+.internal_messages {
+  .urgent .state span {
+    @include badge;
+    background-color: $letter-state-pending-review;
+  }
+}
+

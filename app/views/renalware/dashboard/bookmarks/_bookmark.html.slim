@@ -1,6 +1,5 @@
 tr class=("urgent" if bookmark.urgent?)
-  td= link_to "View", patient_clinical_summary_path(bookmark.patient)
-  td= bookmark.patient
+  td= link_to bookmark.patient.to_s(:long), patient_clinical_summary_path(bookmark.patient)
   td= bookmark.patient.hospital_identifier
   td= I18n.l bookmark.patient.born_on
   td= bookmark.patient.age
@@ -8,6 +7,6 @@ tr class=("urgent" if bookmark.urgent?)
   td= bookmark.patient.current_modality
   td= bookmark.notes
   td= I18n.l bookmark.created_at
-  td= render "renalware/patients/bookmarks/delete",
-             bookmark: bookmark,
-             link_text: "Remove"
+  td.nowrap= render "renalware/patients/bookmarks/delete",
+                    bookmark: bookmark,
+                    link_text: "Remove"

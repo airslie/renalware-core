@@ -1,0 +1,15 @@
+table.auto-layout.align-top#unread-internal-messages
+  thead
+    tr
+      th.col-width-tinyish= t(".age")
+      th.col-width-tiny
+      th.col-width-medium= t(".from")
+      th.col-width-date-time= t(".sent_at")
+      th.col-width-large= t(".patient_name")
+      th.col-width-reference-no= t(".hosp_no")
+      th= t(".subject")
+      td.col-width-small
+
+  tbody
+    = render partial: "renalware/dashboard/internal_messages/receipt",
+             collection: receipts

@@ -10,7 +10,7 @@ tr(class=letter.state.dasherize)
     span= letter.state_description
   td= l letter.issued_on
   td= letter.author
-  td= link_to letter.patient, patient_path(letter.patient)
+  td= link_to letter.patient, patient_clinical_summary_path(letter.patient)
   td= letter.description
 = content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
   td

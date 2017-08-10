@@ -1,5 +1,14 @@
 span.select2 {
-  margin: 0 0 0.75rem 0;
+  margin: 0;
+  // margin: 0 0 0.75rem 0;
+}
+
+.grouped_select {
+  margin-bottom: 0.7rem;
+
+  label {
+    margin-bottom: 0;
+  }
 }
 
 .error {
