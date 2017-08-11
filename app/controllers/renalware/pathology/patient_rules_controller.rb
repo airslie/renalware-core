@@ -18,7 +18,7 @@ module Renalware
           redirect_to patient_pathology_required_observations_path(@patient),
             notice: t(".success", model_name: "Patient Rule")
         else
-          flash[:error] = t(".failed", model_name: "Patient Rule")
+          flash.now[:error] = t(".failed", model_name: "Patient Rule")
           render_new(patient_rule)
         end
       end
@@ -36,7 +36,7 @@ module Renalware
           redirect_to patient_pathology_required_observations_path(@patient),
             notice: t(".success", model_name: "patient rule")
         else
-          flash[:error] = t(".failed", model_name: "patient rule")
+          flash.now[:error] = t(".failed", model_name: "patient rule")
           render_edit(patient_rule)
         end
       end

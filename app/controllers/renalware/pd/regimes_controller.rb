@@ -23,7 +23,7 @@ module Renalware
         if result.success?
           redirect_to patient_pd_dashboard_path(patient), notice: success_msg_for("PD regime")
         else
-          flash[:error] = failed_msg_for("PD Regime")
+          flash.now[:error] = failed_msg_for("PD Regime")
           render :new, locals: {
             regime: result.object,
             patient: patient
@@ -45,7 +45,7 @@ module Renalware
           redirect_to patient_pd_dashboard_path(patient),
             notice: t(".success", model_name: "PD regime")
         else
-          flash[:error] = t(".failed", model_name: "PD regime")
+          flash.now[:error] = t(".failed", model_name: "PD regime")
           render :edit, locals: {
             regime: result.object,
             patient: patient

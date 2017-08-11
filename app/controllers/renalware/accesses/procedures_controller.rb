@@ -21,7 +21,7 @@ module Renalware
           redirect_to patient_accesses_dashboard_path(patient),
             notice: t(".success", model_name: "Access procedure")
         else
-          flash[:error] = t(".failed", model_name: "Access procedure")
+          flash.now[:error] = t(".failed", model_name: "Access procedure")
           render :new, locals: { patient: patient, procedure: procedure }
         end
       end
@@ -38,7 +38,7 @@ module Renalware
           redirect_to patient_accesses_dashboard_path(patient),
                       notice: success_msg_for("access procedure")
         else
-          flash[:error] = failed_msg_for("access procedure")
+          flash.now[:error] = failed_msg_for("access procedure")
           render :edit, locals: { patient: patient, procedure: procedure }
         end
       end

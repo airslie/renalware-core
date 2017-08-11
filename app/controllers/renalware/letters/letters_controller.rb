@@ -56,7 +56,7 @@ module Renalware
       end
 
       def draft_letter_failed(letter)
-        flash[:error] = t(".failed", model_name: "Letter")
+        flash.now[:error] = t(".failed", model_name: "Letter")
         render_form(letter, :new)
       end
 
@@ -79,7 +79,7 @@ module Renalware
       end
 
       def revise_letter_failed(letter)
-        flash[:error] = t(".failed", model_name: "Letter")
+        flash.now[:error] = t(".failed", model_name: "Letter")
         render_form(letter, :edit)
       end
 

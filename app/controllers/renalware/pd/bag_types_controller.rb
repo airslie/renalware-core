@@ -18,7 +18,7 @@ module Renalware
           redirect_to pd_bag_types_path,
             notice: t(".success", model_name: "bag type")
         else
-          flash[:error] = t(".failed", model_name: "bag type")
+          flash.now[:error] = t(".failed", model_name: "bag type")
           render :new, locals: { bag_type: bag_type }
         end
       end
@@ -39,7 +39,7 @@ module Renalware
           redirect_to pd_bag_types_path,
             notice: t(".success", model_name: "bag type")
         else
-          flash[:error] = t(".failed", model_name: "bag type")
+          flash.now[:error] = t(".failed", model_name: "bag type")
           render :edit, locals: { bag_type: bag_type }
         end
       end

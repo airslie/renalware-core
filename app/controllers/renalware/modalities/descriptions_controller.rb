@@ -19,7 +19,7 @@ module Renalware
           redirect_to modalities_descriptions_path,
             notice: t(".success", model_name: "modality description")
         else
-          flash[:error] = t(".failed", model_name: "modality description")
+          flash.now[:error] = t(".failed", model_name: "modality description")
           render :new
         end
       end
@@ -34,7 +34,7 @@ module Renalware
           redirect_to modalities_descriptions_path,
             notice: t(".success", model_name: "modality description")
         else
-          flash[:error] = t(".failed", model_name: "modality description")
+          flash.now[:error] = t(".failed", model_name: "modality description")
           render :edit
         end
       end

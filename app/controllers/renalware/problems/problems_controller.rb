@@ -38,7 +38,7 @@ module Renalware
         if update_problem(problem)
           redirect_to patient_problem_path(patient, problem), notice: success_msg_for("problem")
         else
-          flash[:error] = failed_msg_for("problem")
+          flash.now[:error] = failed_msg_for("problem")
           render :edit, locals: {
             patient: patient,
             problem: problem
@@ -59,7 +59,7 @@ module Renalware
         if problem.save
           redirect_to patient_problems_url(patient), notice: success_msg_for("problem")
         else
-          flash[:error] = failed_msg_for("problem")
+          flash.now[:error] = failed_msg_for("problem")
           render :new, locals: { patient: patient, problem: problem }
         end
       end

@@ -19,7 +19,7 @@ module Renalware
         redirect_to admin_users_path,
           notice: t(".success", model_name: "user")
       else
-        flash[:error] = t(".failed", model_name: "user")
+        flash.now[:error] = t(".failed", model_name: "user")
         render :edit
       end
     end

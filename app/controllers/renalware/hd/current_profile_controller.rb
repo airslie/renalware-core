@@ -19,7 +19,7 @@ module Renalware
           redirect_to patient_hd_dashboard_path(patient),
             notice: t(".success", model_name: "HD profile")
         else
-          flash[:error] = t(".failed", model_name: "HD profile")
+          flash.now[:error] = t(".failed", model_name: "HD profile")
           render :edit, locals: locals
         end
       end

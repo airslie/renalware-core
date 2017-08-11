@@ -54,7 +54,7 @@ module Renalware
       end
 
       def save_failure(episode)
-        flash[:error] = t(".failed", model_name: "peritonitis episode")
+        flash.now[:error] = t(".failed", model_name: "peritonitis episode")
         action = action_name.to_sym == :create ? :new : :edit
         render action, locals: {
           peritonitis_episode: episode,

@@ -16,7 +16,7 @@ module Renalware
         redirect_to patient_clinical_profile_path(@patient),
           notice: t(".success", model_name: "patient")
       else
-        flash[:error] = t(".failed", model_name: "patient")
+        flash.now[:error] = t(".failed", model_name: "patient")
         render :edit
       end
     end

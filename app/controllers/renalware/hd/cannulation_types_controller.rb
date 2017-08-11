@@ -18,7 +18,7 @@ module Renalware
           redirect_to hd_cannulation_types_path,
             notice: t(".success", model_name: "cannulation type")
         else
-          flash[:error] = t(".failed", model_name: "cannulation type")
+          flash.now[:error] = t(".failed", model_name: "cannulation type")
           render :new
         end
       end
@@ -33,7 +33,7 @@ module Renalware
           redirect_to hd_cannulation_types_path,
             notice: t(".success", model_name: "cannulation type")
         else
-          flash[:error] = t(".failed", model_name: "cannulation type")
+          flash.now[:error] = t(".failed", model_name: "cannulation type")
           render :edit
         end
       end

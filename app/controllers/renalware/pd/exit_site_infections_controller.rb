@@ -28,7 +28,7 @@ module Renalware
           redirect_to patient_pd_exit_site_infection_path(patient, esi),
             notice: t(".success", model_name: "exit site infection")
         else
-          flash[:error] = t(".failed", model_name: "exit site infection")
+          flash.now[:error] = t(".failed", model_name: "exit site infection")
           render_new(esi)
         end
       end
@@ -44,7 +44,7 @@ module Renalware
           redirect_to patient_pd_exit_site_infection_path(patient, exit_site_infection),
             notice: t(".success", model_name: "exit site infection")
         else
-          flash[:error] = t(".failed", model_name: "exit site infection")
+          flash.now[:error] = t(".failed", model_name: "exit site infection")
           render_edit
         end
       end

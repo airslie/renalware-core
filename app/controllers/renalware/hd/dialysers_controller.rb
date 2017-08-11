@@ -16,7 +16,7 @@ module Renalware
         if dialyser.save
           redirect_to hd_dialysers_path, notice: success_msg_for("dialyser")
         else
-          flash[:error] = failed_msg_for("dialyser")
+          flash.now[:error] = failed_msg_for("dialyser")
           render :new, locals: { dialyser: dialyser }
         end
       end
@@ -37,7 +37,7 @@ module Renalware
         if dialyser.update(dialyser_params)
           redirect_to hd_dialysers_path, notice: success_msg_for("dialyser")
         else
-          flash[:error] = failed_msg_for("dialyser")
+          flash.now[:error] = failed_msg_for("dialyser")
           render :edit, locals: { dialyser: dialyser }
         end
       end

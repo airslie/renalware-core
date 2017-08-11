@@ -33,7 +33,7 @@ module Renalware
           notice = success_msg_for("clinic visit")
           redirect_to patient_clinic_visits_path(patient), notice: notice
         else
-          flash[:error] = failed_msg_for("clinic visit")
+          flash.now[:error] = failed_msg_for("clinic visit")
           render :new, locals: {
             patient: patient,
             clinic_visit: visit,
@@ -47,7 +47,7 @@ module Renalware
           redirect_to patient_clinic_visits_path(@patient),
             notice: t(".success", model_name: "clinic visit")
         else
-          flash[:error] = t(".failed", model_name: "clinic visit")
+          flash.now[:error] = t(".failed", model_name: "clinic visit")
           render :edit
         end
       end

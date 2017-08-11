@@ -18,7 +18,7 @@ module Renalware
           redirect_to hospitals_units_path,
             notice: t(".success", model_name: "hospital unit")
         else
-          flash[:error] = t(".failed", model_name: "hospital unit")
+          flash.now[:error] = t(".failed", model_name: "hospital unit")
           render :new
         end
       end
@@ -33,7 +33,7 @@ module Renalware
           redirect_to hospitals_units_path,
             notice: t(".success", model_name: "hospital unit")
         else
-          flash[:error] = t(".failed", model_name: "hospital unit")
+          flash.now[:error] = t(".failed", model_name: "hospital unit")
           render :edit
         end
       end

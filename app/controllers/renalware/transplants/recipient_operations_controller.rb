@@ -27,7 +27,7 @@ module Renalware
           redirect_to patient_transplants_recipient_dashboard_path(patient),
             notice: t(".success", model_name: "recipient operation")
         else
-          flash[:error] = t(".failed", model_name: "recipient operation")
+          flash.now[:error] = t(".failed", model_name: "recipient operation")
           render :new,
                  locals: {
                    patient: patient,
@@ -50,7 +50,7 @@ module Renalware
           redirect_to patient_transplants_recipient_dashboard_path(patient),
             notice: t(".success", model_name: "recipient operation")
         else
-          flash[:error] = t(".failed", model_name: "recipient operation")
+          flash.now[:error] = t(".failed", model_name: "recipient operation")
           render :edit, locals: { patient: patient, recipient_operation: operation }
         end
       end

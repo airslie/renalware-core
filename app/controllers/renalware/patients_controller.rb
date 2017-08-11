@@ -33,7 +33,7 @@ module Renalware
         # Reload in order to let pg generate the secure id
         redirect_to_patient_demographics(patient.reload)
       else
-        flash[:error] = failed_msg_for("patient")
+        flash.now[:error] = failed_msg_for("patient")
         render :new, locals: { patient: patient }
       end
     end
@@ -48,7 +48,7 @@ module Renalware
       if patient.update(patient_params)
         redirect_to_patient_demographics(patient)
       else
-        flash[:error] = t(".failed", model_name: "patient")
+        flash.now[:error] = t(".failed", model_name: "patient")
         render :edit, locals: { patient: patient }
       end
     end

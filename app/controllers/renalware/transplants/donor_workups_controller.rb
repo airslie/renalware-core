@@ -23,7 +23,7 @@ module Renalware
           redirect_to patient_transplants_donor_workup_path(patient),
             notice: t(".success", model_name: "donor work up")
         else
-          flash[:error] = t(".failed", model_name: "donor work up")
+          flash.now[:error] = t(".failed", model_name: "donor work up")
           render :edit, locals: { patient: patient, workup: workup }
         end
       end

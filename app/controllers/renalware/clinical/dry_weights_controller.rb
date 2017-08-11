@@ -41,7 +41,7 @@ module Renalware
           redirect_to return_url, notice: t(".success", model_name: "dry weight")
           session.delete(:return_to)
         else
-          flash[:error] = t(".failed", model_name: "dry weight")
+          flash.now[:error] = t(".failed", model_name: "dry weight")
           render_new(dry_weight)
         end
       end
