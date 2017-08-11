@@ -1,3 +1,7 @@
+input::placeholder {
+  color: $form-hint-colour
+}
+
 .panel.compact {
   padding: 0.5rem 1rem;
 }
