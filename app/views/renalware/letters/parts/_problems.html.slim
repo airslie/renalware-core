@@ -1,10 +1,13 @@
 .list.problems
   h3 Problems
 
-  ul
-    - problems.ordered.each do |problem|
-      li.problem= problem.description
-      - if problem.notes.present?
-        ol
-          - problem.notes.each do |note|
-            li= note.description
+  - if problems.any?
+    ul
+      - problems.ordered.each do |problem|
+        li.problem= problem.description
+        - if problem.notes.present?
+          ol
+            - problem.notes.each do |note|
+              li= note.description
+  - else
+    p No problems listed
