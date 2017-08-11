@@ -15,7 +15,7 @@ module Renalware
         if event_type.save
           redirect_to events_types_path, notice: success_msg_for("event type")
         else
-          flash[:error] = failed_msg_for("event type")
+          flash.now[:error] = failed_msg_for("event type")
           render :new, locals: { event_type: event_type }
         end
       end
@@ -36,7 +36,7 @@ module Renalware
         if event_type.update(event_params)
           redirect_to events_types_path, notice: success_msg_for("event type")
         else
-          flash[:error] = failed_msg_for("event type")
+          flash.now[:error] = failed_msg_for("event type")
           render :edit, locals: { event_type: event_type }
         end
       end

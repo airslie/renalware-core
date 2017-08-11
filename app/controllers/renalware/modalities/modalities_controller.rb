@@ -23,7 +23,7 @@ module Renalware
           patient.set_modality(modality_params)
           handle_valid_modality
         else
-          flash[:error] = t(".failed", model_name: "modality")
+          flash.now[:error] = t(".failed", model_name: "modality")
           render :new, locals: { patient: patient, modality: modality }
         end
       end

@@ -36,7 +36,7 @@ module Renalware
             notice: t(".success", model_name: "primary_care_physician")
         else
           @alternative_address = alternative_address
-          flash[:error] = t(".failed", model_name: "primary_care_physician")
+          flash.now[:error] = t(".failed", model_name: "primary_care_physician")
           render :new
         end
       end
@@ -68,7 +68,7 @@ module Renalware
       end
 
       def update_primary_care_physician_failed(primary_care_physician)
-        flash[:error] = t(".failed", model_name: "primary_care_physician")
+        flash.now[:error] = t(".failed", model_name: "primary_care_physician")
         render_form(primary_care_physician, :edit)
       end
 

@@ -28,7 +28,7 @@ module Renalware
           redirect_to drugs_drugs_path,
             notice: t(".success", model_name: "drug")
         else
-          flash[:error] = t(".failed", model_name: "drug")
+          flash.now[:error] = t(".failed", model_name: "drug")
           render :new
         end
       end
@@ -58,7 +58,7 @@ module Renalware
           redirect_to drugs_drugs_path,
             notice: t(".success", model_name: "drug")
         else
-          flash[:error] = t(".failed", model_name: "drug")
+          flash.now[:error] = t(".failed", model_name: "drug")
           render :edit
         end
       end

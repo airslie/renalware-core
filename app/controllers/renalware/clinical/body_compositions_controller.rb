@@ -38,7 +38,7 @@ module Renalware
           redirect_to patient_clinical_profile_path(@patient),
           notice: t(".success", model_name: "body composition")
         else
-          flash[:error] = t(".failed", model_name: "body composition")
+          flash.now[:error] = t(".failed", model_name: "body composition")
           render_new(body_composition)
         end
       end

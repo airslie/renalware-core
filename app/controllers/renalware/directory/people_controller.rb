@@ -38,7 +38,7 @@ module Renalware
         if @person.save
           redirect_to directory_people_path, notice: t(".success", model_name: "Directory person")
         else
-          flash[:error] = t(".failed", model_name: "Directory person")
+          flash.now[:error] = t(".failed", model_name: "Directory person")
           render :new
         end
       end
@@ -54,7 +54,7 @@ module Renalware
         if @person.update(person_params)
           redirect_to directory_people_path, notice: t(".success", model_name: "Directory person")
         else
-          flash[:error] = t(".failed", model_name: "Directory person")
+          flash.now[:error] = t(".failed", model_name: "Directory person")
           render :edit
         end
       end

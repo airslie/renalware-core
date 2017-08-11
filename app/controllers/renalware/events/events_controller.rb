@@ -20,7 +20,7 @@ module Renalware
         if event.save
           redirect_to return_url, notice: t(".success", model_name: "event")
         else
-          flash[:error] = t(".failed", model_name: "event")
+          flash.now[:error] = t(".failed", model_name: "event")
           render :new, locals: {
             patient: patient,
             event: event,
@@ -54,7 +54,7 @@ module Renalware
         if event.update(event_params)
           redirect_to return_url, notice: t(".success", model_name: "event")
         else
-          flash[:error] = failed_msg_for("event type")
+          flash.now[:error] = failed_msg_for("event type")
           render :edit, locals: {
             patient: patient,
             event: event,

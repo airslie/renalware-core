@@ -18,7 +18,7 @@ module Renalware
         if result.save
           redirect_to patient_pd_dashboard_path(patient), notice: success_msg_for("PET Adequacy")
         else
-          flash[:error] = failed_msg_for("PET Adequacy")
+          flash.now[:error] = failed_msg_for("PET Adequacy")
           render :new, locals: { pet_adequacy_result: result, patient: patient }
         end
       end
@@ -32,7 +32,7 @@ module Renalware
         if pet_adequacy_result.save
           redirect_to patient_pd_dashboard_path(patient), notice: success_msg_for("PET Adequacy")
         else
-          flash[:error] = failed_msg_for("PET Adequacy")
+          flash.now[:error] = failed_msg_for("PET Adequacy")
           render :edit, locals: { pet_adequacy_result: pet_adequacy_result, patient: patient }
         end
       end
