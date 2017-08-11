@@ -1,17 +1,23 @@
 table#patients
   thead
     tr
-      th.col-width-tiny
-      th.col-width-medium Name
+      th.at-least.col-width-medium
+        = sort_link(query,
+                   :patient_family_name,
+                   [:patient_family_name, 'patient_given_name asc'],
+                   "Name")
       th.col-width-nhs-no NHS No.
       th.col-width-reference-no Hosp No.
       th.col-width-tiny Sex
       th.col-width-date Date of Birth
-      th.col-width-tiny Age
-      th.col-width-small Date Added
-      th.col-width-small Added By
-      th.col-width-small Worryboard Notes
-      th.col-width-small Modality
+      th.col-width-tiny.show-for-large-up Age
+      th.col-width-small= sort_link(query, :created_at, "Date Added")
+      th.col-width-medium Added By
+      th Notes
+      th.col-width-small
+        = sort_link(query,
+                   :patient_current_modality_description_name,
+                   "Modality")
 
   tbody
     = render partial: "worry", collection: worries

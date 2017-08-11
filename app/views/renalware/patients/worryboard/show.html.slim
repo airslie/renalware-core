@@ -1,2 +1,3 @@
 = within_admin_layout(title: "Worryboard") do
-  = render "table", worries: worries
+  = render "filters", query: query, modalities: modalities
+  = render "table", query: query, worries: worries
