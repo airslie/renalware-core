@@ -14,7 +14,7 @@ jobs:
     # environment:
     #  CIRCLE_ARTIFACTS: "/tmp/test-artifacts"
 
-    parallelism: 1
+    parallelism: 2
     steps:
 
       - checkout
