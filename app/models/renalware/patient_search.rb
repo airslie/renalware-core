@@ -4,7 +4,7 @@ module Renalware
       Renalware::Patient
         .includes(current_modality: [:description])
         .search(params[:q]).tap do |search|
-          search.sorts = %w(family_name given_name)
+        search.sorts = %w(family_name given_name)
       end
     end
   end

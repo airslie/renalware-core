@@ -39,7 +39,7 @@ module Renalware
         end
 
         def create
-          requests.each { |request| request.print_form }
+          requests.each(&:print_form)
 
           render pdf: "create",
             layout: false,

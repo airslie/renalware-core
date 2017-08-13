@@ -18,7 +18,7 @@ module Renalware
       private
 
       def process_main_recipient_attributes(params)
-        return params unless params.has_key?(:main_recipient_attributes)
+        return params unless params.key?(:main_recipient_attributes)
 
         params.merge(
           main_recipient_attributes: main_recipient_attributes(params)
@@ -26,7 +26,7 @@ module Renalware
       end
 
       def process_cc_recipients_attributes(params)
-        return params unless params.has_key?(:cc_recipients_attributes)
+        return params unless params.key?(:cc_recipients_attributes)
 
         params.merge(
           cc_recipients_attributes: cc_recipients_attributes(params)

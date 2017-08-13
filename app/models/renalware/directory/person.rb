@@ -18,7 +18,7 @@ module Renalware
       end
 
       def self.build(attributes = {})
-        person = self.new(attributes)
+        person = new(attributes)
         person.build_address
         person
       end
