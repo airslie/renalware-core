@@ -6,17 +6,6 @@ module Renalware
     class BodyCompositionsController < Clinical::BaseController
       before_action :load_patient
 
-      def index
-        query = PatientBodyCompositionsQuery.new(patient: patient, search_params: params[:q])
-        body_compositions = query.call.page(params[:page]).per(15)
-
-        render locals: {
-          search: query.search,
-          body_compositions: CollectionPresenter.new(body_compositions, BodyCompositionPresenter),
-          patient: patient
-        }
-      end
-
       def show
         body_composition = find_body_composition
         @body_composition = BodyCompositionPresenter.new(body_composition)
