@@ -8,7 +8,6 @@ module Renalware
 
       def show
         body_composition = find_body_composition
-        @body_composition = BodyCompositionPresenter.new(body_composition)
         render locals: { patient: patient, body_composition: body_composition }
       end
 
@@ -34,7 +33,6 @@ module Renalware
 
       def edit
         body_composition = find_body_composition
-        @body_composition = body_composition
         render locals: { patient: patient, body_composition: body_composition }
       end
 
