@@ -77,9 +77,9 @@ module Renalware
       # if we are creating the person for the contact at the same time.
       #
       def try_merge_person_creator(params)
-        return params unless params[:person_attributes].present?
+        return params if params[:person_attributes].blank?
 
-        params[:person_attributes].merge!(by: current_user)
+        params[:person_attributes][:by] = current_user
         params
       end
     end

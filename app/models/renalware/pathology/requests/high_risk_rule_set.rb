@@ -10,7 +10,7 @@ module Renalware
       class HighRiskRuleSet
 
         def self.rules
-          GlobalRule.where(rule_set_type: self.name)
+          GlobalRule.where(rule_set_type: name)
         end
 
         def self.primary_key

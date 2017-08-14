@@ -25,7 +25,7 @@ module Renalware
 
       config_accessor(:delivery_intervals) { [1.week, 2.weeks, 3.weeks, 4.weeks] }
 
-      config_accessor(:training_durations) { (1..15).map{ |day| day.days } }
+      config_accessor(:training_durations) { (1..15).map(&:days) }
 
     end
 

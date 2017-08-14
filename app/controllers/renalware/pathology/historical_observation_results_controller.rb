@@ -6,7 +6,7 @@ module Renalware
       before_action :load_patient
 
       def index
-        table_view = HistoricalObservationResults::HTMLTableView.new(self.view_context)
+        table_view = HistoricalObservationResults::HTMLTableView.new(view_context)
         presenter = HistoricalObservationResults::Presenter.new
         service = ViewObservationResults.new(@patient.observations, presenter)
         service.call(params)

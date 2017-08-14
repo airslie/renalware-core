@@ -6,7 +6,7 @@ module Renalware
       include Wisper::Publisher
 
       def self.build
-        self.new
+        new
       end
 
       def call(patient, params = {})
