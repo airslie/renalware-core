@@ -24,7 +24,7 @@ module Renalware::Events
                  params: {
                    patient_id: @patient,
                    events_event: {
-                     events_type_id: @event_type,
+                     event_type_id: @event_type.id,
                      date_time: Time.zone.now,
                      description: "Needs blood test",
                      notes: "Arrange appointment in a weeks time."

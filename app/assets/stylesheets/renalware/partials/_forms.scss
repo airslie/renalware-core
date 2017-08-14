@@ -75,6 +75,10 @@ form {
     }
   }
 
+  .error.medium-input {
+    max-width: 500px;
+  }
+
   @media screen and (min-width: 40.063em) {
     .small-input {
       max-width: 250px !important;
