@@ -1,5 +1,10 @@
 require "set"
 
+# !!
+# Note this code is not currently working in a multi-threaded environment e.g. Puma
+# We are migrating to using Renalware.config.broadcast_subscription_map and the Broadcasting
+# concern.
+#
 # Responsible for subscribing listeners to specific classes. This registry
 # avoids the issues of global subscriptions which would need to be disabled
 # if you wish to use an instance of the class without listeners and avoids

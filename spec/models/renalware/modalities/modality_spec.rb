@@ -73,34 +73,5 @@ module Renalware
         end
       end
     end
-
-    describe "#transfer!" do
-      subject { create(:modality) }
-
-      let(:started_on) { Date.parse("2015-04-21") }
-
-      before do
-        modality_description = FactoryGirl.create(:modality_description, :capd_standard)
-        @actual = subject.transfer!(description: modality_description,
-                                    notes: "Some notes",
-                                    started_on: started_on,
-                                    by: create(:user))
-      end
-
-      it "updates the end date" do
-        expect(subject.ended_on).to eq(started_on)
-      end
-
-      it "terminates the modality" do
-        expect(subject).to be_terminated
-      end
-
-      it "creates a valid modality" do
-        expect(@actual).to be_valid
-        expect(@actual.notes).to eq("Some notes")
-        expect(@actual.started_on).to eq(started_on)
-      end
-    end
-
   end
 end

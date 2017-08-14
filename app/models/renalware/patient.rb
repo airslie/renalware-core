@@ -123,13 +123,18 @@ module Renalware
 
     # @section services
 
-    def set_modality(attrs)
-      if current_modality.present?
-        current_modality.transfer!(attrs)
-      else
-        modalities.create(attrs)
-      end
-    end
+    # def set_modality(attrs, by: nil)
+    #   by ||= attrs[:by]
+    #   # if current_modality.present?
+    #   #   current_modality.transfer!(attrs)
+    #   # else
+    #   #   modalities.create(attrs)
+    #   # end
+    #   new_modality = modalities.new(attrs)
+    #   Modalities::ChangePatientModality
+    #     .new(patient: self, by: by)
+    #     .call(old_modality: current_modality, new_modality:new_modality)
+    # end
 
     def current_modality_death?
       return false if current_modality.blank?
