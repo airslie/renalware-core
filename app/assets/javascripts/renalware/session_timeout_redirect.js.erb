@@ -9,9 +9,14 @@ $(document).ready(function() {
   var login_path ="<%= Renalware::Engine.routes.url_helpers.new_user_session_path %>";
   var frequency_ms = <%= Renalware.config.session_timeout_polling_frequency.to_i * 1000 %>;
 
-  setInterval(function(){
+  var session_timeout_check = function(){
     if(window.location.pathname != login_path) {
-      $.getScript("<%= Renalware::Engine.routes.url_helpers.session_timed_out_path %>");
+      $.getScript("<%= Renalware::Engine.routes.url_helpers.session_timed_out_path %>")
+       .fail(function(jqxhr, settings, exception) {
+         console.log("Failed to query for session timeout");
+       });
     }
-  }, frequency_ms);
+ };
+
+  setInterval(session_timeout_check, frequency_ms);
 });
