@@ -4,7 +4,7 @@ module Renalware
     # e.g. Engine.routes.url_for({controller: .., action: .., only_path: true})
     def sub_nav_item(label, path)
       current_page = current_page?(path)
-      content_tag(:dd, class: (current_page ? "active" : "")) do
+      content_tag(:dd, class: ("active" if current_page)) do
         link_to label, path
       end
     end
