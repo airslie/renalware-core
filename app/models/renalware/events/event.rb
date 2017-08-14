@@ -16,7 +16,9 @@ module Renalware
       belongs_to :patient, touch: true
       belongs_to :event_type, class_name: "Type"
 
-      validates :patient, :date_time, presence: true
+      validates :patient, presence: true
+      validates :date_time, presence: true
+      validates :event_type_id, presence: true
       validates :date_time, timeliness: { type: :datetime }
 
       scope :ordered, -> { order(date_time: :desc, updated_at: :desc) }

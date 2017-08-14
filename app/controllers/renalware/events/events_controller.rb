@@ -17,6 +17,7 @@ module Renalware
 
       def create
         event = new_event_for_patient(event_params)
+
         if event.save
           redirect_to return_url, notice: t(".success", model_name: "event")
         else
@@ -147,6 +148,10 @@ module Renalware
       def new_event_for_patient(params = {})
         event = event_class.new
         event.attributes = params
+        # Need to set disable_selection_of_event_type explicitly rather than relying on the value
+        # in the params which is a string eg "false" which actually evaluates to true!
+        # i.e. (!!"false" == true)
+        event.disable_selection_of_event_type = disable_selection_of_event_type?
         event.patient = patient
         authorize event
         event
