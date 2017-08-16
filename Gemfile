@@ -13,10 +13,10 @@ group :test do
   gem "codeclimate-test-reporter", require: false
   gem "cucumber-rails", "~> 1.5.0", require: false
   gem "rails-controller-testing"
-  gem "simplecov", "~> 0.13.0", require: false
+  gem "rspec_junit_formatter"
+  gem "simplecov", require: false
   gem "webmock"
   gem "wisper-rspec", require: false
-  gem "rspec_junit_formatter"
 end
 
 group :staging do
@@ -24,5 +24,5 @@ group :staging do
 end
 
 group :development, :test, :staging do
-  gem "faker", "~> 1.7.3"
+  gem "faker"
 end
