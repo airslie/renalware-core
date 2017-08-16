@@ -10,6 +10,11 @@ Rails.application.configure do
     config.enabled = false
   end
 
+  # Prevent constant session time-out polling in development as it muddies the debugging water.
+  Renalware.configure do |config|
+    config.session_timeout_polling_frequency = 1.year
+  end
+
   # Do not eager load code on boot.
   config.eager_load = false
 

@@ -7,7 +7,7 @@
 // would prevent a dyno sleeping, but its also a waste of resources.
 $(document).ready(function() {
   var login_path ="<%= Renalware::Engine.routes.url_helpers.new_user_session_path %>";
-  var frequency_ms = <%= Renalware.config.session_timeout_polling_frequency.to_i * 1000 %>;
+  var frequency_s = <%= Renalware.config.session_timeout_polling_frequency.to_i %>;
 
   var session_timeout_check = function(){
     if(window.location.pathname != login_path) {
@@ -18,5 +18,5 @@ $(document).ready(function() {
     }
  };
 
-  setInterval(session_timeout_check, frequency_ms);
+  setInterval(session_timeout_check, frequency_s * 1000);
 });
