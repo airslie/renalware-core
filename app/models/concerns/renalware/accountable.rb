@@ -27,6 +27,11 @@ module Renalware
       scope :with_updated_by, -> { includes(:updated_by) }
     end
 
+    def save_by(user)
+      self.by = user
+      save!
+    end
+
     private
 
     def assign_creator

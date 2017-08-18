@@ -12,5 +12,5 @@ Renalware.configure do |config|
   }
 end
 
-Renalware::Patients.configure
-Renalware::Pathology.configure
+# Renalware::Patients.configure
+# Renalware::Pathology.configure

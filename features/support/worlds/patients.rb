@@ -20,7 +20,7 @@ module World
       end
 
       def update_patient_address(patient:, current_address_attributes:)
-        current_address_attributes.merge!(id: patient.current_address.id)
+        current_address_attributes[:id] = patient.current_address.id
 
         patient.update!(
           current_address_attributes: current_address_attributes,
@@ -46,9 +46,12 @@ module World
       end
 
       def seed_modality_for(patient:, modality_description:, user:)
-        patient.set_modality(description: modality_description,
-                             started_on: 1.week.ago,
-                             created_by_id: user.id)
+        Renalware::Modalities::ChangePatientModality
+          .new(patient: patient, user: user)
+          .call(
+            description: modality_description,
+            started_on: 1.week.ago
+          )
       end
     end
 

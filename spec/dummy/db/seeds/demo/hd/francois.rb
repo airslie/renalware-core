@@ -7,11 +7,12 @@ module Renalware
   kent_nurse = User.find_by!(username: "kentnurse")
 
   log "Assign HD modality to Francois RABBIT" do
-    description = HD::ModalityDescription.first!
-    patient.set_modality(description: description,
-      started_on: 1.week.ago,
-      by: kent_doc
-    )
+    Modalities::ChangePatientModality
+      .new(patient: patient, user: kent_doc)
+      .call(
+        description: HD::ModalityDescription.first!,
+        started_on: 1.week.ago
+      )
   end
 
   log "Assign some HD preferences to Francois RABBIT" do

@@ -21,11 +21,12 @@ module Renalware
           #Assign HD modality
           hd_started_on = modal_weeks.sample.weeks.ago
 
-          description = HD::ModalityDescription.first!
-          patient.set_modality(description: description,
-          started_on: hd_started_on,
-          by: kch_doc
-          )
+          Modalities::ChangePatientModality
+            .new(patient: patient, user: kent_doc)
+            .call(
+              description: HD::ModalityDescription.first!,
+              started_on: hd_started_on
+            )
 
           #Assign some HD preferences
           preference_set = HD::PreferenceSet.find_or_initialize_by(patient: patient)

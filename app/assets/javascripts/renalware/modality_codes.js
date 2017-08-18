@@ -4,6 +4,7 @@ $(document).ready(function(){
 
     if(selectedModal === "Death") {
       $('.hide-death').hide();
+      alert("Please note that after saving the Death modality, all current prescriptions will be terminated!")
     } else {
       $('.hide-death').show();
     }

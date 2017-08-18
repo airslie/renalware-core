@@ -14,6 +14,10 @@ module Renalware
       def to_s
         name
       end
+
+      def to_sym
+        nil
+      end
     end
   end
 end

@@ -11,25 +11,19 @@ module Renalware
       belongs_to :reason, class_name: "Reason"
 
       scope :ordered, -> { order(ended_on: :desc, updated_at: :desc) }
-
       scope :started_on_reversed, -> { order(started_on: :desc, updated_at: :desc) }
       scope :last_started_on, -> { started_on_reversed.where(ended_on: nil) }
 
       validates :patient, presence: true
       validates :started_on, presence: true
       validates :description, presence: true
-
       validates :started_on, timeliness: { type: :date }
-
       validate :validate_modality_starts_later_than_previous, on: :create, if: :patient
 
-      def transfer!(attrs)
-        transaction do
-          successor = patient.modalities.new(attrs)
-          successor.save!
-          terminate!(successor) if successor.valid?
-          successor
-        end
+      def terminate_by(user, on:)
+        self.ended_on = on
+        self.state = "terminated"
+        save_by(user)
       end
 
       def to_s
