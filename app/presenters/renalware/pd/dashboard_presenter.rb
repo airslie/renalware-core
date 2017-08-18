@@ -1,3 +1,6 @@
+require_dependency "renalware/pd"
+require_dependency "renalware/events"
+
 module Renalware
   module PD
     class DashboardPresenter
@@ -46,7 +49,7 @@ module Renalware
 
       def latest_pd_line_change_events
         @latest_pd_line_change_events ||= begin
-          Events::Event
+          Renalware::Events::Event
             .for_patient(patient)
             .where(event_type_id: Events::Type.find_by!(slug: :pd_line_changes).id)
             .order(date_time: :desc)
