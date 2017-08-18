@@ -43,6 +43,16 @@ module Renalware
       def training_sessions
         @training_sessions ||= TrainingSession.for_patient(patient).ordered
       end
+
+      def latest_pd_line_change_events
+        @latest_pd_line_change_events ||= begin
+          Events::Event
+            .for_patient(patient)
+            .where(event_type_id: Events::Type.find_by!(slug: :pd_line_changes).id)
+            .order(date_time: :desc)
+            .limit(3)
+        end
+      end
     end
   end
 end
