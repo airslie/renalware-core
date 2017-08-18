@@ -20,6 +20,7 @@ module Renalware
         attribute :ischaemic_neuropathic_ulcers, YearDatedConfirmation
         attribute :non_coronary_intervention, YearDatedConfirmation
         attribute :dementia, YearDatedConfirmation
+        attribute :smoking, SmokingStatus
       end
       attribute :comorbidities, Comorbidities
 

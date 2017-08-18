@@ -5,7 +5,8 @@ Renalware.Renal = (function () {
   var setAllComobidityOptionsToNo = function() {
     $(document).on( "click", "a.set_all_comorbidities_to_no", function(e) {
       e.preventDefault();
-      $(".comorbidities input[type=radio][value=no]").prop("checked", true);
+      $(".comorbidities input[type=radio]").filter("[value=no],[value=non_smoker]")
+        .prop("checked", true);
     });
   };
 
