@@ -7,7 +7,8 @@ Renalware.configure do |config|
     "Renalware::Modalities::ChangePatientModality" =>
       [
         "Renalware::Medications::PatientListener",
-        "Renalware::Letters::PatientListener"
+        "Renalware::Letters::PatientListener",
+        "Renalware::HD::PatientListener"
       ]
   }
 end
