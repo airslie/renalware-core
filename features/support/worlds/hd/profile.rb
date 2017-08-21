@@ -12,6 +12,7 @@ module World
       def valid_profile_attributes
         {
           schedule: :mon_wed_fri_am,
+          hospital_unit: Renalware::Hospitals::Unit.first!,
           document: {
             transport: {
               type: :car

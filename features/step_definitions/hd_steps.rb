@@ -1,3 +1,4 @@
+
 Given(/^Patty has the HD modality$/) do
   modality_description = Renalware::Modalities::Description.find_by(
     type: "Renalware::HD::ModalityDescription"
@@ -45,6 +46,12 @@ end
 
 Then(/^the session is removed$/) do
   expect_hd_session_to_not_exist(@session)
+end
+
+Then(/^the patient's HD profile site and schedule should be cleared$/) do
+  profile = Renalware::HD.cast_patient(@patty).hd_profile
+  expect(profile.schedule).to be_nil
+  expect(profile.hospital_unit).to be_nil
 end
 
 Given(/^Patty has a recorded dry weight entry$/) do
