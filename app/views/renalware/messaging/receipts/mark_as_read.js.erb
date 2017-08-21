@@ -2,5 +2,5 @@
 Remove the message that has now been marked as read from the table.
 We need to remove the real row and the (initially hidden) preview row also.
 %>
-$("#<%= message.html_identifier %>, #<%= message.html_preview_identifier %>")
+$("#<%= receipt.message.html_identifier %>, #<%= receipt.message.html_preview_identifier %>")
   .fadeOut(300, function(){ $(this).remove();});

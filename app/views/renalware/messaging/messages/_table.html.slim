@@ -7,6 +7,6 @@ table.messages.messages-sent
       th= t(".subject")
       th= t(".recipients")
   tbody
-    = render partial: "renalware/messaging/sent_messages/message", collection: messages
+    = render partial: "message", collection: messages
 = paginate messages
 = render "renalware/messaging/messages/modal_dialog_placeholder"

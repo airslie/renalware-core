@@ -1,43 +1,43 @@
-- internal_message = receipt.message
+- message = receipt.message
 
-tr(class="#{ "urgent" if internal_message.urgent?}" id=internal_message.html_identifier)
-  td= internal_message.age_in_days
+tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
+  td= message.age_in_days
   td.state
-    - if internal_message.urgent?
+    - if message.urgent?
       span Urgent
-  td= internal_message.author
-  td= l(internal_message.sent_at)
-  td= link_to(internal_message.patient, patient_clinical_summary_path(internal_message.patient))
-  td= internal_message.patient.hospital_identifier
-  td.col-width-large-with-ellipsis= internal_message.subject
+  td= message.author
+  td= l(message.sent_at)
+  td= link_to(message.patient, patient_clinical_summary_path(message.patient))
+  td= message.patient.hospital_identifier
+  td.col-width-large-with-ellipsis= message.subject
   td
     = link_to "View",
-              "##{internal_message.html_preview_identifier}",
+              "##{message.html_preview_identifier}",
               data: { behaviour: "toggler" },
               class: :right
-= content_tag(:tr, id: "#{internal_message.html_preview_identifier}", style: "display: none")
+= content_tag(:tr, id: "#{message.html_preview_identifier}", style: "display: none")
   td(colspan=7)
     dl.dl-horizontal
       dt
         b Subject
       dd
-        b= internal_message.subject
+        b= message.subject
       dt
         b Body
-      dd= internal_message.body
+      dd= message.body
   td.nowrap
     ul.actions
       li= link_to "Keep as unread",
-                  "#message-preview-#{internal_message.id}",
+                  "#message-preview-#{message.id}",
                   data: { behaviour: "toggler" },
                   class: "button secondary"
 
       li= render partial: "renalware/messaging/messages/send_reply_link",
-                 locals: { patient: internal_message.patient,
+                 locals: { patient: message.patient,
                            link_text: "Reply",
-                           replying_to_message_id: internal_message.id }
+                           replying_to_message_id: message.id }
 
-      li= link_to(mark_as_read_messaging_message_receipt_path(internal_message, receipt),
+      li= link_to(mark_as_read_messaging_message_receipt_path(message, receipt),
                   class: :button,
                   method: :patch,
                   remote: true) do

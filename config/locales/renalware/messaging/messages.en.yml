@@ -6,17 +6,6 @@ en:
           title: Send a message
           cancel: Cancel
           recipient_ids: Recipients
-      receipts:
-        table:
-          from: From
-          sent_at: Sent at
-          patient_name: Patient
-          subject: Subject
-          body: Body
-          urgent: Urgent
-          age: Days old
-          hosp_no: Hosp No.
-      sent_messages:
         table:
           from: From
           sent_at: Sent at
@@ -27,3 +16,14 @@ en:
           age: Days old
           hosp_no: Hosp No.
           recipients: Recipients
+      receipts:
+        table:
+          from: From
+          sent_at: Sent at
+          patient_name: Patient
+          subject: Subject
+          body: Body
+          urgent: Urgent
+          age: Days old
+          hosp_no: Hosp No.
+

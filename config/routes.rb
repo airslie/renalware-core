@@ -47,8 +47,9 @@ Renalware::Engine.routes.draw do
       end
     end
     scope :messages do
-      resources :received_messages, only: :index, path: "received"
-      resources :sent_messages, only: [:index], path: "sent"
+      get "inbox", to: "receipts#unread", as: :inbox
+      get "read", to: "receipts#read", as: :read_receipts
+      get "sent", to: "messages#sent", as: :sent_messages
     end
   end
 
