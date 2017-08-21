@@ -46,6 +46,13 @@ table {
     }
   }
 
+  &.align-centre {
+    td,
+    th {
+      vertical-align: middle;
+    }
+  }
+
   tr th,
   tr td {
     border-bottom: 1px dotted $disabled-colour;
