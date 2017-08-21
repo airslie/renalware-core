@@ -1,0 +1,12 @@
+table.messages.messages-sent
+  thead
+    tr
+      th.col-width-date-time= t(".sent_at")
+      th.col-width-large= t(".patient_name")
+      th.col-width-reference-no= t(".hosp_no")
+      th= t(".subject")
+      th= t(".recipients")
+  tbody
+    = render partial: "renalware/messaging/sent_messages/message", collection: messages
+= paginate messages
+= render "renalware/messaging/messages/modal_dialog_placeholder"

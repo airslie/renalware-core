@@ -11,7 +11,6 @@ table.auto-layout.align-top#unread-internal-messages
       td.col-width-small
 
   tbody
-    = render partial: "renalware/dashboard/internal_messages/receipt",
-             collection: receipts
+    = render partial: "renalware/messaging/receipts/receipt", collection: receipts
 
 = render "renalware/messaging/messages/modal_dialog_placeholder"

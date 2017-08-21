@@ -1,0 +1,9 @@
+tr
+  td=l(message.sent_at)
+  td= message.patient
+  td= message.patient.hospital_identifier
+  td= message.subject
+  td= message.recipients.map(&:to_s).join(",")
+  td
+  td
+  td

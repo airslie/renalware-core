@@ -26,18 +26,21 @@ tr(class="#{ "urgent" if internal_message.urgent?}" id=internal_message.html_ide
         b Body
       dd= internal_message.body
   td.nowrap
-    ul
+    ul.actions
       li= link_to "Keep as unread",
                   "#message-preview-#{internal_message.id}",
                   data: { behaviour: "toggler" },
                   class: "button secondary"
 
-      li= render partial: "renalware/messaging/messages/send_message_link",
-                 locals: { patient: internal_message.patient, link_text: "Reply", replying_to_message_id: internal_message.id }
+      li= render partial: "renalware/messaging/messages/send_reply_link",
+                 locals: { patient: internal_message.patient,
+                           link_text: "Reply",
+                           replying_to_message_id: internal_message.id }
 
       li= link_to(mark_as_read_messaging_message_receipt_path(internal_message, receipt),
-                  class: "button",
+                  class: :button,
                   method: :patch,
                   remote: true) do
         i.fa.fa-check
         | Mark as read
+

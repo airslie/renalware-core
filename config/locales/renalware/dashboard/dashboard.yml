@@ -24,14 +24,3 @@ en:
           notes: Notes
           modality: Modality
           bookmarked_on: Bookmarked
-      internal_messages:
-        table:
-          from: From
-          sent_at: Sent at
-          patient_name: Patient
-          subject: Subject
-          body: Body
-          urgent: Urgent
-          age: Days old
-          hosp_no: Hosp No.
-

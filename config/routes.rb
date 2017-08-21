@@ -41,10 +41,14 @@ Renalware::Engine.routes.draw do
   end
 
   namespace :messaging do
-    resources :messages do
+    resources :messages, only: [:new, :create] do
       resources :receipts, only: [] do
         patch :mark_as_read, on: :member
       end
+    end
+    scope :messages do
+      resources :received_messages, only: :index, path: "received"
+      resources :sent_messages, only: [:index], path: "sent"
     end
   end
 

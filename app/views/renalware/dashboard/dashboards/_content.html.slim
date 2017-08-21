@@ -19,7 +19,7 @@
     h2 Messages
     - if dashboard.unread_messages_receipts.any?
       .internal_messages
-        = render "renalware/dashboard/internal_messages/table",
+        = render "renalware/messaging/receipts/table",
                  receipts: dashboard.unread_messages_receipts
     - else
       p.empty-section= t(".messages.none")
