@@ -6,7 +6,8 @@ module Renalware
 
       def new
         authorize Message, :new?
-        render_new(build_message_form)
+        form = MessageFormBuilder.new(patient: patient, params: params).call
+        render_new(form)
       end
 
       def create
@@ -14,8 +15,9 @@ module Renalware
         form = MessageForm.new(message_params)
 
         if form.valid?
-          SendMessage.call(author: author, patient: patient, form: form)
+          message = SendMessage.call(author: author, patient: patient, form: form)
           flash.now[:notice] = "Message was successfully sent"
+          render_create(message)
         else
           render_new(form)
         end
@@ -23,27 +25,9 @@ module Renalware
 
       private
 
-      def build_message_form
-        Renalware::Messaging::MessageForm.new(
-          subject: build_subject
-        )
-      end
-
-      def build_subject
-        replying? ? "Re: #{replying_to_message.subject}" : patient.to_s
-      end
-
-       def build_recipient_ids
-        replying? ? message : patient.to_s
-      end
-
-      def replying_to_message
-        return unless params.key?(:replying_to_message_id)
-        @replying_to_message ||= Message.find(id: params[:replying_to_message_id])
-      end
-
-      def replying?
-        replying_to_message.present?
+      def message_we_are_replying_to(message)
+        return if message.replying_to_message_id.blank?
+        InternalMessagePresenter.new(message.replying_to_message)
       end
 
       def render_new(form)
@@ -54,6 +38,13 @@ module Renalware
                   patient: patient
                 },
                 layout: false
+      end
+
+      def render_create(message)
+        render locals: {
+          message: InternalMessagePresenter.new(message),
+          original_message: message_we_are_replying_to(message)
+        }
       end
 
       def author
@@ -67,7 +58,7 @@ module Renalware
       def message_params
         params
           .require(:messaging_message_form)
-          .permit(:subject, :body, :urgent, recipient_ids: [])
+          .permit(:subject, :body, :urgent, :replying_to_message_id, recipient_ids: [])
       end
     end
   end

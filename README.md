@@ -159,12 +159,12 @@ to just create
 #### Engine migrations
 
 `config.active_record.schema_format = :sql` in `application.rb` is used the engine
-uses postgres views and functions which are not properly supported in a `schema.rb`
+uses Postgres views and functions which are not properly supported in a `schema.rb`
 
 #### Throttling login attempts
 
 [rack-attack](https://github.com/kickstarter/rack-attack) is configured to throttle login attempts.
-Only 10 attempts per username as permitted in any one minute in an attempt to thwaght login attacks.
+Only 10 attempts per username as permitted in any one minute in an attempt to thwart login attacks.
 
 #### Test Configuration
 

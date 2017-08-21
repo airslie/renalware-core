@@ -1874,7 +1874,8 @@ CREATE TABLE messaging_messages (
     patient_id bigint NOT NULL,
     author_id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    replying_to_message_id integer
 );
 
 
@@ -9606,6 +9607,14 @@ ALTER TABLE ONLY pathology_observations
 
 
 --
+-- Name: messaging_messages fk_rails_dc393c1672; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY messaging_messages
+    ADD CONSTRAINT fk_rails_dc393c1672 FOREIGN KEY (replying_to_message_id) REFERENCES messaging_messages(id);
+
+
+--
 -- Name: pd_pet_adequacy_results fk_rails_dd74a1d162; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10328,5 +10337,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170809080925'),
 ('20170824113401');
 ('20170810092953'),
-('20170810093532');
+('20170810093532'),
+('20170821100353');
 

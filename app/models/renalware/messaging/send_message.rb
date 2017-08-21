@@ -14,6 +14,7 @@ module Renalware
                                          author: author,
                                          **form.attributes)
           message.save!
+          message
         end
       end
     end

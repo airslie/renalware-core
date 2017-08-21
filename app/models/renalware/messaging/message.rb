@@ -11,6 +11,7 @@ module Renalware
 
       belongs_to :patient
       belongs_to :author
+      belongs_to :replying_to_message, class_name: name
       has_many :receipts
       has_many :recipients, through: :receipts
     end
