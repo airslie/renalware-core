@@ -106,19 +106,17 @@ dd.patient-name {
           margin-right:1rem;
           margin-bottom: 0.2rem;
           margin-top: 0.1rem;
-          padding: 0.1rem 0.5rem;
-          min-width: 13rem;
-          background-color: $white;
-          color: $muted-dark-grey;
-          border: 1px solid transparent;
-          box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.13), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-          width: 100%;
+          padding: 0.2rem 0.5rem;
+          background-color: $light-grey;
+          color: $dark-grey;
           border-radius: 3px;
           transition: all 0.3s ease 0s;
+          border-radius: 2px;
 
           &:hover {
             background-color: $nhs-blue;
-            color: white;
+            color: $off-white;
+            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.13), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
           }
         }
       }

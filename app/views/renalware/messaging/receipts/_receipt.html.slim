@@ -1,10 +1,11 @@
 - message = receipt.message
 
 tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
-  td= message.age_in_days
-  td.state
-    - if message.urgent?
-      span Urgent
+  td
+    = pluralize(message.age_in_days, "day")
+  / td.state.show-for-large-up
+  /   - if message.urgent?
+  /     span Urgent
   td= message.author
   td= l(message.sent_at)
   td= link_to(message.patient, patient_clinical_summary_path(message.patient))
@@ -15,17 +16,15 @@ tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
               "##{message.html_preview_identifier}",
               data: { behaviour: "toggler" },
               class: :right
-= content_tag(:tr, id: "#{message.html_preview_identifier}", style: "display: none")
-  td(colspan=7)
-    dl.dl-horizontal
-      dt
-        b Subject
-      dd
-        b= message.subject
-      dt
-        b Body
-      dd= message.body
-  td.nowrap
+= content_tag(:tr,
+              id: "#{message.html_preview_identifier}",
+              style: "display: none",
+              class: "#{ "urgent" if message.urgent?}")
+  td(colspan=5)
+    .message-preview
+      .subject= message.subject
+      .body= message.body
+  td.nowrap(colspan=2)
     ul.actions
       li= link_to "Keep as unread",
                   "#message-preview-#{message.id}",

@@ -1,8 +1,8 @@
-table.auto-layout.align-top.messages.has-togglable-content#unread-internal-messages
+table.auto-layout.align-top.messages.has-togglable-rows#unread-internal-messages
   thead
     tr
       th.col-width-tinyish= t(".age")
-      th.col-width-tiny
+      /th.col-width-tiny.show-for-large-up
       th.col-width-medium= t(".from")
       th.col-width-date-time= t(".sent_at")
       th.col-width-large= t(".patient_name")

@@ -1,7 +1,4 @@
 tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
-  td.state
-    - if message.urgent?
-      span Urgent
   td=l(message.sent_at)
   td= link_to(message.patient, patient_clinical_summary_path(message.patient))
   td= message.patient.hospital_identifier
