@@ -12,11 +12,11 @@ RSpec.describe "Creating an event", type: :feature, js: true do
 
   context "adding a simple event" do
     it "works" do
-      # event_type = create(:events_type, name: "Access--Clinic")
       create(:events_type, name: "Access--Clinic")
       visit new_patient_event_path(patient)
 
       select "Access--Clinic", from: "Event type"
+      wait_for_ajax
       expect(page).to have_content("Description")
       fill_in "Description", with: "Test"
 
@@ -25,7 +25,6 @@ RSpec.describe "Creating an event", type: :feature, js: true do
       events = Renalware::Events::Event.for_patient(patient)
       expect(events.length).to eq(1)
       event = events.first
-      # expect(event.event_type_id).to eq(event_type.id)
       expect(event.description).to eq("Test")
     end
   end

@@ -47,7 +47,7 @@
                limit: 5
 
   - if dashboard.latest_pd_line_change_events.any?
-    = render "renalware/events/events/list",
+    = render "renalware/events/events/simple/list",
              events: dashboard.latest_pd_line_change_events,
              patient: patient,
              title: "Latest Line Change Event"

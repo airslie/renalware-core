@@ -1,0 +1,5 @@
+article.events
+  header
+    h2= defined?(title) ? title : "Events"
+
+  = render "renalware/events/events/simple/table", events: events
