@@ -1,3 +1,4 @@
+
 table {
   // This will have to be removed at some point to comply with NHS table guidelines
   width: 100%;
@@ -20,6 +21,36 @@ table {
 
   &.natural-width {
     width: auto;
+  }
+
+  // On tables where every other row is can be toggled open, we need the following:
+  // 0 Visible white bg
+  // 1 Hidden white bg
+  // 2 -- Visible grey bg --
+  // 3 Hidden white bg
+  // 4 Visible white
+  // 5 Hidden white bg
+  // 6 -- Visible grey bg --
+  // 7 Hidden white bg
+  // So this == tr:nth-child(4n+3) (offset of 3 then every 4 rows)
+  &.has_togglable_rows {
+    tbody tr {
+      &:nth-child(4n+3) {
+        background: $table-even-row-colour;
+      }
+
+      // The (initially hidden) toggle content row
+      &:nth-child(even) {
+        background-color: $table-toggled-content-colour;
+      }
+
+      &.content-toggled {
+        background-color: $table-toggled-content-colour;
+        td {
+          border-bottom: none;
+        }
+      }
+    }
   }
 
   .quick-preview {

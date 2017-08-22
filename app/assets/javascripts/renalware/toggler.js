@@ -8,8 +8,13 @@ function initTogglers() {
   if (togglers.length > 0) {
     $(togglers).on("click", function(event) {
       event.preventDefault();
+      // Get e.g. the tr to toggle
       var toggled = $(event.target).attr("href");
       $(toggled).toggle();
+      // If we are toggling open tr B by clicking a link within tr A above it,
+      // add a class to the tr A sibling above it so it can also be styled
+      // to match the expanded TR B below it, to create a clear connection between the two.
+      $(toggled).prev().toggleClass("content-toggled");
       triggerMasonryLayoutRefresh();
     })
   }
