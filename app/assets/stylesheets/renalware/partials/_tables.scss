@@ -114,7 +114,8 @@ table {
     }
   }
 
-  tr th {
+  tr th,
+  tr td {
     &.col-width-date {
       min-width: 7.1em;
       width: 7.8em;
