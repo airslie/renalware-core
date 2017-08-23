@@ -10,7 +10,7 @@ class AddUnitsToPathologyObservationDescriptions < ActiveRecord::Migration[5.1]
     add_column :pathology_observation_descriptions,
                :measurement_unit_id,
                :integer,
-               null: false
+               null: true
 
     add_foreign_key :pathology_observation_descriptions,
                     :pathology_measurement_units,
