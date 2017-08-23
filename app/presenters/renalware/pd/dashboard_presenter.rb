@@ -48,15 +48,7 @@ module Renalware
       end
 
       def latest_pd_line_change_events
-        @latest_pd_line_change_events ||= begin
-          line_change_event_type = Renalware::Events::Type.find_by(slug: :pd_line_changes)
-          return [] if line_change_event_type.nil?
-          Renalware::Events::Event
-            .for_patient(patient)
-            .where(event_type_id: line_change_event_type.id)
-            .order(date_time: :desc)
-            .limit(1)
-        end
+        @latest_pd_line_change_events ||= Events::LineChangeEventQuery.new(patient).call(limit: 1)
       end
     end
   end
