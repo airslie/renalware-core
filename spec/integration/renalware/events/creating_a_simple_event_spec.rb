@@ -17,6 +17,7 @@ RSpec.describe "Creating an event", type: :feature, js: true do
       visit new_patient_event_path(patient)
 
       select "Access--Clinic", from: "Event type"
+      wait_for_ajax
       expect(page).to have_content("Description")
       fill_in "Description", with: "Test"
 
