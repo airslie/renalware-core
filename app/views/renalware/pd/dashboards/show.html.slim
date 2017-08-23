@@ -41,5 +41,14 @@
               training_sessions: dashboard.training_sessions,
               patient: patient
   .row
-    .medium-6.large-4.xlarge-3.columns
-      = render "renalware/clinical/dry_weights/list", patient: patient, limit: 5
+    .medium-6.large-6.columns
+      = render "renalware/clinical/dry_weights/list",
+               patient: patient,
+               limit: 5
+
+    - if dashboard.latest_pd_line_change_events.any?
+      .medium-6.large-6.columns.end
+        = render "renalware/events/events/simple/list",
+                 events: dashboard.latest_pd_line_change_events,
+                 patient: patient,
+                 title: "Latest Line Change Event"

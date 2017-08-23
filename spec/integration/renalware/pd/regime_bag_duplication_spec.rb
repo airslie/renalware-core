@@ -5,7 +5,6 @@ module Renalware
     include PatientsSpecHelper
 
     scenario "duplicate an existing bag" do
-
       patient = create(:patient)
       set_modality(patient: patient,
                    modality_description: create(:pd_modality_description),
