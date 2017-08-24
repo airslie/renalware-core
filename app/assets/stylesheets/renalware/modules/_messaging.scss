@@ -1,3 +1,10 @@
+.read-messages {
+  .mark-as-read,
+  .keep-as-unread {
+    display: none;
+  }
+}
+
 .messages {
   .urgent {
     background-color: $table-urgent-colour !important;

@@ -6,6 +6,7 @@ table.messages.messages-sent.has_togglable_content
       th.col-width-reference-no= t(".hosp_no")
       th= t(".subject")
       th= t(".recipients")
+      td
   tbody
     = render partial: "message", collection: messages
 = paginate messages

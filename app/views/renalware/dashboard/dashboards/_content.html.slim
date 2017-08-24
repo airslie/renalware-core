@@ -19,7 +19,7 @@
     h2 Messages
     - if dashboard.unread_messages_receipts.any?
       = render "renalware/messaging/shared/key"
-      .internal_messages
+      .unread-messages
         = render "renalware/messaging/receipts/table",
                  receipts: dashboard.unread_messages_receipts
     - else

@@ -23,7 +23,7 @@ module Renalware
         authorize receipt
         receipt.update(read_at: Time.zone.now)
         render locals: {
-          message: Messaging::ReceiptPresenter(receipt)
+          receipt: Messaging::ReceiptPresenter.new(receipt)
         }
       end
 

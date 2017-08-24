@@ -1,4 +1,5 @@
 = within_admin_layout(title: "Messages") do
   = render "renalware/messaging/shared/messages_type_tabs"
-  = render "renalware/messaging/receipts/table", receipts: receipts
+  .read-messages
+    = render "renalware/messaging/receipts/table", receipts: receipts
   = paginate receipts
