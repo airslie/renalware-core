@@ -12,4 +12,4 @@ Renalware.Messaging = (function() {
   };
 })();
 
-$(document).one('opened.fndtn.reveal', '#send-message-modal', Renalware.Messaging.init);
+$(document).on('opened.fndtn.reveal', '#send-message-modal', Renalware.Messaging.init);

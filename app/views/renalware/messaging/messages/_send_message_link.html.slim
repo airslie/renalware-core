@@ -4,6 +4,8 @@
 - url = new_messaging_message_path(patient_id: patient, format: :html)
 
 / Link to launch the modal dialog
-=link_to(url, data: { "reveal-id" => "send-message-modal", "reveal-ajax" => "true" }) do
+=link_to(url,
+         id: "send-patient-message",
+         data: { "reveal-id" => "send-message-modal", "reveal-ajax" => "true" }) do
   i.fa.fa-link-annotation.fa-envelope
   = link_text
