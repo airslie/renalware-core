@@ -1,3 +1,5 @@
+Spring.application_root = "./spec/dummy"
+
 %w(
   .ruby-version
   .rbenv-vars
