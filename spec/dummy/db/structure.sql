@@ -1404,7 +1404,8 @@ CREATE TABLE hospital_units (
     unit_type character varying NOT NULL,
     is_hd_site boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    number_of_hd_stations integer
 );
 
 
@@ -1861,6 +1862,74 @@ ALTER SEQUENCE medication_routes_id_seq OWNED BY medication_routes.id;
 
 
 --
+-- Name: messaging_messages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE messaging_messages (
+    id bigint NOT NULL,
+    body text NOT NULL,
+    subject character varying NOT NULL,
+    urgent boolean DEFAULT false NOT NULL,
+    sent_at timestamp without time zone NOT NULL,
+    patient_id bigint NOT NULL,
+    author_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    replying_to_message_id integer
+);
+
+
+--
+-- Name: messaging_messages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE messaging_messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: messaging_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE messaging_messages_id_seq OWNED BY messaging_messages.id;
+
+
+--
+-- Name: messaging_receipts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE messaging_receipts (
+    id bigint NOT NULL,
+    message_id bigint NOT NULL,
+    recipient_id bigint NOT NULL,
+    read_at timestamp without time zone
+);
+
+
+--
+-- Name: messaging_receipts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE messaging_receipts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: messaging_receipts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE messaging_receipts_id_seq OWNED BY messaging_receipts.id;
+
+
+--
 -- Name: modality_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1975,7 +2044,7 @@ CREATE TABLE pathology_observation_descriptions (
     id integer NOT NULL,
     code character varying NOT NULL,
     name character varying,
-    measurement_unit_id integer NOT NULL
+    measurement_unit_id integer
 );
 
 
@@ -4984,6 +5053,20 @@ ALTER TABLE ONLY medication_routes ALTER COLUMN id SET DEFAULT nextval('medicati
 
 
 --
+-- Name: messaging_messages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY messaging_messages ALTER COLUMN id SET DEFAULT nextval('messaging_messages_id_seq'::regclass);
+
+
+--
+-- Name: messaging_receipts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY messaging_receipts ALTER COLUMN id SET DEFAULT nextval('messaging_receipts_id_seq'::regclass);
+
+
+--
 -- Name: modality_descriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5863,6 +5946,22 @@ ALTER TABLE ONLY medication_prescriptions
 
 ALTER TABLE ONLY medication_routes
     ADD CONSTRAINT medication_routes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: messaging_messages messaging_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY messaging_messages
+    ADD CONSTRAINT messaging_messages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: messaging_receipts messaging_receipts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY messaging_receipts
+    ADD CONSTRAINT messaging_receipts_pkey PRIMARY KEY (id);
 
 
 --
@@ -7330,6 +7429,48 @@ CREATE INDEX index_medication_prescriptions_on_updated_by_id ON medication_presc
 
 
 --
+-- Name: index_messaging_messages_on_author_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_messaging_messages_on_author_id ON messaging_messages USING btree (author_id);
+
+
+--
+-- Name: index_messaging_messages_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_messaging_messages_on_patient_id ON messaging_messages USING btree (patient_id);
+
+
+--
+-- Name: index_messaging_messages_on_subject; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_messaging_messages_on_subject ON messaging_messages USING btree (subject);
+
+
+--
+-- Name: index_messaging_receipts_on_message_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_messaging_receipts_on_message_id ON messaging_receipts USING btree (message_id);
+
+
+--
+-- Name: index_messaging_receipts_on_read_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_messaging_receipts_on_read_at ON messaging_receipts USING btree (read_at);
+
+
+--
+-- Name: index_messaging_receipts_on_recipient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_messaging_receipts_on_recipient_id ON messaging_receipts USING btree (recipient_id);
+
+
+--
 -- Name: index_modality_descriptions_on_id_and_type; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8674,6 +8815,14 @@ ALTER TABLE ONLY letter_contacts
 
 
 --
+-- Name: messaging_messages fk_rails_3567fcbb87; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY messaging_messages
+    ADD CONSTRAINT fk_rails_3567fcbb87 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: transplant_registration_statuses fk_rails_36cb307ab5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8802,6 +8951,14 @@ ALTER TABLE ONLY access_assessments
 
 
 --
+-- Name: messaging_receipts fk_rails_50de46762d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY messaging_receipts
+    ADD CONSTRAINT fk_rails_50de46762d FOREIGN KEY (message_id) REFERENCES messaging_messages(id);
+
+
+--
 -- Name: patient_practices_primary_care_physicians fk_rails_55ecff6804; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8887,6 +9044,14 @@ ALTER TABLE ONLY pathology_requests_requests
 
 ALTER TABLE ONLY letter_letters
     ADD CONSTRAINT fk_rails_6191e75b3b FOREIGN KEY (author_id) REFERENCES users(id);
+
+
+--
+-- Name: messaging_messages fk_rails_65f878b7cf; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY messaging_messages
+    ADD CONSTRAINT fk_rails_65f878b7cf FOREIGN KEY (author_id) REFERENCES users(id);
 
 
 --
@@ -9442,11 +9607,27 @@ ALTER TABLE ONLY pathology_observations
 
 
 --
+-- Name: messaging_messages fk_rails_dc393c1672; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY messaging_messages
+    ADD CONSTRAINT fk_rails_dc393c1672 FOREIGN KEY (replying_to_message_id) REFERENCES messaging_messages(id);
+
+
+--
 -- Name: pd_pet_adequacy_results fk_rails_dd74a1d162; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_pet_adequacy_results
     ADD CONSTRAINT fk_rails_dd74a1d162 FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
+-- Name: messaging_receipts fk_rails_dd8a10c86f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY messaging_receipts
+    ADD CONSTRAINT fk_rails_dd8a10c86f FOREIGN KEY (recipient_id) REFERENCES users(id);
 
 
 --
@@ -10153,6 +10334,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170712090217'),
 ('20170720080033'),
 ('20170725120242'),
-('20170809080925');
+('20170809080925'),
+('20170810092953'),
+('20170810093532'),
+('20170821100353'),
+('20170824113401');
 
 

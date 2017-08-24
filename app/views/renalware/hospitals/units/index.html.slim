@@ -1,7 +1,8 @@
-.row
-  = render "header"
+= content_for(:actions) do
+  = link_to t("new_record.link_title"), new_hospitals_unit_path, class: "button"
 
-.row
+= within_admin_layout(title: "Hospital Units") do
+
   table.auto-layout
     thead
       tr
@@ -12,6 +13,7 @@
         th.col-width-small Type
         th.col-width-small NRD Code
         th.col-width-small HD Site?
+        th.col-width-small Stations
     tbody
       - @hospital_units.each do |t|
         tr
@@ -28,3 +30,4 @@
           td= t.unit_type.text
           td= t.renal_registry_code
           td= yes_no t.is_hd_site
+          td= t.number_of_hd_stations

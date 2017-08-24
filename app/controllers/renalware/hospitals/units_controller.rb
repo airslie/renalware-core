@@ -48,7 +48,8 @@ module Renalware
 
       def hospital_unit_params
         params.require(:hospitals_unit).permit(
-          :name, :unit_code, :renal_registry_code, :unit_type, :is_hd_site, :hospital_centre_id
+          :name, :unit_code, :renal_registry_code, :unit_type, :hospital_centre_id,
+          :is_hd_site, :number_of_hd_stations
         )
       end
 
