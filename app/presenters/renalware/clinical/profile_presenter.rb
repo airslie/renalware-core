@@ -40,7 +40,12 @@ module Renalware
       end
 
       def body_compositions
-        @body_compositions ||= BodyComposition.for_patient(patient).ordered
+        @body_compositions ||= begin
+          BodyComposition
+            .for_patient(patient)
+            .includes([:modality_description, :assessor])
+            .ordered
+        end
       end
     end
   end
