@@ -12,7 +12,10 @@ module Renalware
       end
 
       def index
-        modalities = patient.modalities.ordered
+        modalities = patient
+                       .modalities
+                       .includes([:description, :created_by])
+                       .ordered
         render locals: { patient: patient, modalities: modalities }
       end
 

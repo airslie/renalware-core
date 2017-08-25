@@ -17,6 +17,7 @@ module Renalware
       def search
         @search ||= begin
           relation
+            .includes(:hd_profile)
             .extending(ModalityScopes)
             .extending(Scopes)
             .with_current_key_pathology

@@ -1,3 +1,6 @@
+#
+# E.g. medications/esa_prescriptions
+#
 module Renalware
   module Medications
     module DrugTypes
