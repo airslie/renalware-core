@@ -27,7 +27,7 @@ module Renalware
       end
 
       def search
-        @search ||= Letter.extend(QueryableLetter).search(@q)
+        @search ||= Letter.extend(QueryableLetter).includes(:event).search(@q)
       end
     end
   end
