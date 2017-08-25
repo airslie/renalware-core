@@ -4,6 +4,14 @@ Renalware.configure do |config|
 end
 
 Rails.application.configure do
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+  end
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -13,11 +21,6 @@ Rails.application.configure do
 
   Rollbar.configure do |config|
     config.enabled = false
-  end
-
-  # Prevent constant session time-out polling in development as it muddies the debugging water.
-  Renalware.configure do |config|
-    config.session_timeout_polling_frequency = 1.year
   end
 
   # Do not eager load code on boot.

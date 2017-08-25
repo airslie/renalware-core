@@ -5,6 +5,7 @@
 // to render some js that would insert than into the page.
 // Note we don't want to poll if we are sat on the login page anyway. For one thing on Heroku it
 // would prevent a dyno sleeping, but its also a waste of resources.
+//
 $(document).ready(function() {
   var login_path ="<%= Renalware::Engine.routes.url_helpers.new_user_session_path %>";
   var frequency_s = <%= Renalware.config.session_timeout_polling_frequency.to_i %>;
