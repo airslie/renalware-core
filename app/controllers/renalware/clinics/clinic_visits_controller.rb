@@ -8,7 +8,7 @@ module Renalware
       def index
         render locals: {
           patient: patient,
-          clinic_visits: patient.clinic_visits.ordered
+          clinic_visits: patient.clinic_visits.includes([:clinic, :created_by]).ordered
         }
       end
 
