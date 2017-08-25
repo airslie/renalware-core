@@ -15,6 +15,8 @@ module Renalware
       def search
         HD::Patient
           .extend(Scopes)
+          .includes(hd_profile: :hospital_unit)
+          .includes(hd_preference_set: :hospital_unit)
           .eager_load(:hd_profile)
           .eager_load(:hd_preference_set)
           .having_an_unmet_preference
