@@ -23,6 +23,7 @@ module Renalware
       def search
         @search ||= begin
           relation
+            .includes(:current_key_observation_set)
             .extending(ModalityScopes)
             .extending(NamedFilterScopes)
             .with_current_modality_matching(MODALITY_NAMES)
