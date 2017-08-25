@@ -11,6 +11,7 @@ module Renalware
 
       def index
         primary_care_physicians = PrimaryCarePhysician.order(:family_name)
+                                                      .eager_load(practices: :address)
                                                       .page(page)
                                                       .per(per_page)
         authorize primary_care_physicians
