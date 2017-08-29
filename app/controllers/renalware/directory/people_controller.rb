@@ -8,10 +8,9 @@ module Renalware
 
       def index
         query = PersonQuery.new(q: params[:q])
-        @people = call_query(query).page(page)
-        authorize @people
-
-        @q = query.search
+        people = call_query(query).page(page)
+        authorize people
+        render locals: { q: query.search, people: people }
       end
 
       def search
@@ -22,44 +21,55 @@ module Renalware
       end
 
       def show
-        @person = Person.find(params[:id])
-        authorize @person
+        person = Person.find(params[:id])
+        authorize person
+        render locals: { person: person }
       end
 
       def new
-        @person = Person.build
-        authorize @person
+        person = Person.build
+        authorize person
+        render_new(person)
       end
 
       def create
-        @person = Person.new(person_params)
-        authorize @person
+        person = Person.new(person_params)
+        authorize person
 
-        if @person.save
+        if person.save
           redirect_to directory_people_path, notice: t(".success", model_name: "Directory person")
         else
           flash.now[:error] = t(".failed", model_name: "Directory person")
-          render :new
+          render_new(person)
         end
       end
 
       def edit
-        @person = Person.find(params[:id])
-        authorize @person
+        person = Person.find(params[:id])
+        authorize person
+        render_edit(person)
       end
 
       def update
-        @person = Person.find(params[:id])
-        authorize @person
-        if @person.update(person_params)
+        person = Person.find(params[:id])
+        authorize person
+        if person.update(person_params)
           redirect_to directory_people_path, notice: t(".success", model_name: "Directory person")
         else
           flash.now[:error] = t(".failed", model_name: "Directory person")
-          render :edit
+          render_edit(person)
         end
       end
 
       private
+
+      def render_edit(person)
+        render :edit, locals: { person: person }
+      end
+
+      def render_new(person)
+        render :new, locals: { person: person }
+      end
 
       def call_query(query)
         query

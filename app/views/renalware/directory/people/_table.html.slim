@@ -1,0 +1,10 @@
+table.auto-layout.people
+  thead
+    tr
+      th.col-width-small
+      th.col-width-tiny Title
+      th.col-width-medium Family Name
+      th.col-width-medium Given Name
+      th Address
+  tbody
+    = render partial: "person", collection: people

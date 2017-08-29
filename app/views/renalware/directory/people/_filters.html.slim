@@ -1,0 +1,9 @@
+.search-form.filters
+  = simple_form_for q, as: :q, url: directory_people_path, method: :get do |f|
+    .row
+      .small-8.medium-6.large-4.columns
+        = f.input :name_cont, label: "Name contains"
+      .small-4.end.columns.actions
+        = f.submit t("helpers.submit.filter"), class: "button"
+        span= " or "
+        = link_to t("helpers.reset"), directory_people_path
