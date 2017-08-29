@@ -1,1 +1,3 @@
-= render "form"
+= within_admin_layout(title: "Edit",
+                      breadcrumbs: breadcrumb_for("Hospital Units", hospitals_units_path)) do
+  = render "form"

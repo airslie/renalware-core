@@ -15,7 +15,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
   describe "POST create" do
     context "given valid attributes" do
       it "creates a new record" do
-        attributes = attributes_for(:hospital_unit)
+        attributes = attributes_for(:hd_hospital_unit)
                       .merge(hospital_centre_id: hospital_centre.id)
         post hospitals_units_path, params: { hospitals_unit: attributes }
 
@@ -49,7 +49,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
   describe "PATCH update" do
     context "given valid attributes" do
       it "updates a record" do
-        attributes = { name: "My Edited Event" }
+        attributes = { name: "My Edited Event", number_of_hd_stations: 15 }
         patch hospitals_unit_path(hospital_unit), params: { hospitals_unit: attributes }
 
         expect(response).to have_http_status(:redirect)

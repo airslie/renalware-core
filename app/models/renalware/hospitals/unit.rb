@@ -12,6 +12,7 @@ module Renalware
       validates :name, presence: true
       validates :renal_registry_code, presence: true
       validates :unit_type, presence: true
+      validates :number_of_hd_stations, numericality: { allow_blank: true, only_integer: true }
 
       enumerize :unit_type, in: %i(hospital satellite home)
 

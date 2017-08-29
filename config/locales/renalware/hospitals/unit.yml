@@ -10,3 +10,4 @@ en:
         renal_registry_code: NRD Code
         unit_type: Unit Type
         is_hd_site: Can provide HD treatments?
+        number_of_hd_stations: Maximum number of stations

@@ -1,17 +1,18 @@
-.row
-  = render "header"
-  = render "renalware/shared/errors", model: @hospital_unit
+= render "renalware/shared/errors", model: @hospital_unit
 
-.row
-  .large-6.columns
-    = simple_form_for @hospital_unit, html: { autocomplete: "off" } do |f|
-      = f.association :hospital_centre, collection: Renalware::Hospitals::Centre.ordered
-      = f.input :unit_code
-      = f.input :name
-      = f.input :renal_registry_code
-      = f.input :unit_type
-      = f.input :is_hd_site
+= simple_form_for @hospital_unit,
+                  wrapper: :horizontal_form,
+                  html: { autocomplete: "off" } do |f|
+  = f.association :hospital_centre,
+                  collection: Renalware::Hospitals::Centre.ordered,
+                  wrapper: :horizontal_medium
+  = f.input :unit_code, wrapper: :horizontal_small
+  = f.input :name, wrapper: :horizontal_medium
+  = f.input :renal_registry_code, wrapper: :horizontal_small
+  = f.input :unit_type, wrapper: :horizontal_small
+  = f.input :is_hd_site, wrapper: :horizontal_small
+  = f.input :number_of_hd_stations, wrapper: :horizontal_small
 
-      = f.button :submit
-      span= " or "
-      = link_to "cancel", hospitals_units_path
+  = f.button :submit
+  span= " or "
+  = link_to "cancel", hospitals_units_path
