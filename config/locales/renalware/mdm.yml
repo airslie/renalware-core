@@ -3,7 +3,7 @@ en:
     mdm_patients:
       patient:
         view: "View"
-      index:
+      table:
         name: Name
         nhs_no: NHS No.
         hosp_no: Hosp No.

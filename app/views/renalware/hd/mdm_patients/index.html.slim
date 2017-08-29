@@ -1,35 +1,5 @@
-.row.collapse
-  h1.page-heading.columns= presenter.page_title
+= within_admin_layout(title: presenter.page_title)
 
-.row
-  .columns
-    = render_if_exists "filters", presenter: presenter
-.row
-  table#patients.mdm-patients.columns
-    thead
-      tr
-        th.col-width-tiny
-        th.col-width-large= sort_link([:renalware, presenter.q], :family_name, t(".name"))
-        th.col-width-nhs-no= t(".nhs_no")
-        th.col-width-reference-no= t(".hosp_no")
-        th.col-width-tiny= t(".sex")
-        th.col-width-tiny= t(".age")
-        th.col-width-small= t(".access")
-        th.col-width-small= t(".access_started_on")
-        th.col-width-small= t(".access_plan")
-        th.col-width-date= t(".access_plan_date")
-        th.col-width-date= t(".dialysing_at")
-        th.col-width-date= t(".registration_status")
-        th.col-width-tiny= t(".has_transport")
-        th.col-width-tiny= t(".transport_type")
-        th.col-width-tiny= t(".hgb")
-        th.col-width-date= t(".hgb_date")
-
-    tbody
-      - presenter.patients.each do |patient|
-        = render "patient",
-                 patient: patient,
-                 view_proc: presenter.view_proc,
-                 q: presenter.q
-
+  = render_if_exists "filters", presenter: presenter
+  = render "table", presenter: presenter
   = paginate presenter.patients
