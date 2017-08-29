@@ -5,7 +5,7 @@ module Renalware
     class Description < ApplicationRecord
       acts_as_paranoid
 
-      validates :name, presence: true
+      validates :name, presence: true, uniqueness: true
 
       def self.policy_class
         BasePolicy
