@@ -57,7 +57,7 @@ module Renalware
       def make_new_modality_the_current_one(new_modality)
         Modality.transaction do
           current_modality.terminate_by(user, on: new_modality.started_on)
-          new_modality.save_by(user)
+          new_modality.save_by!(user)
         end
       end
 

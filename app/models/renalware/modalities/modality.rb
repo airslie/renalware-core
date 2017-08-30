@@ -23,7 +23,7 @@ module Renalware
       def terminate_by(user, on:)
         self.ended_on = on
         self.state = "terminated"
-        save_by(user)
+        save_by!(user)
       end
 
       def to_s

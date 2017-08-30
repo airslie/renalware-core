@@ -1,0 +1,6 @@
+tr.sortable(id="hd-station-#{station.id}")
+  td= link_to "Edit", edit_hd_unit_station_path(station.hospital_unit_id, station)
+  td= station.name
+  td= station.location&.text
+  td.handle
+    i.fa.fa-reorder

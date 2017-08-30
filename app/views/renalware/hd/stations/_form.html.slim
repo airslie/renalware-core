@@ -1,0 +1,11 @@
+= render "renalware/shared/errors", model: station
+= simple_form_for station,
+                  url: url,
+                  wrapper: :horizontal_form do |f|
+
+  = f.input :name, wrapper: :horizontal_medium
+  = f.input :location, wrapper: :horizontal_medium
+
+  = f.submit "Save", class: "button"
+  span= " or "
+  = link_to "cancel", hd_unit_stations_path(station.hospital_unit_id)
