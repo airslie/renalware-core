@@ -5,6 +5,6 @@ FactoryGirl.define do
   end
 
   factory :transplant_modality_description, class: "Renalware::HD::ModalityDescription" do
-    name "Transplant"
+    initialize_with { Renalware::HD::ModalityDescription.find_or_create_by(name: "Transplant") }
   end
 end
