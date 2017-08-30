@@ -1105,6 +1105,36 @@ ALTER SEQUENCE hd_dialysers_id_seq OWNED BY hd_dialysers.id;
 
 
 --
+-- Name: hd_diurnal_period_codes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE hd_diurnal_period_codes (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    description text
+);
+
+
+--
+-- Name: hd_diurnal_period_codes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_diurnal_period_codes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_diurnal_period_codes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_diurnal_period_codes_id_seq OWNED BY hd_diurnal_period_codes.id;
+
+
+--
 -- Name: hd_patient_statistics; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4950,6 +4980,13 @@ ALTER TABLE ONLY hd_dialysers ALTER COLUMN id SET DEFAULT nextval('hd_dialysers_
 
 
 --
+-- Name: hd_diurnal_period_codes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diurnal_period_codes ALTER COLUMN id SET DEFAULT nextval('hd_diurnal_period_codes_id_seq'::regclass);
+
+
+--
 -- Name: hd_patient_statistics id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5830,6 +5867,14 @@ ALTER TABLE ONLY hd_cannulation_types
 
 ALTER TABLE ONLY hd_dialysers
     ADD CONSTRAINT hd_dialysers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_diurnal_period_codes hd_diurnal_period_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diurnal_period_codes
+    ADD CONSTRAINT hd_diurnal_period_codes_pkey PRIMARY KEY (id);
 
 
 --
@@ -7016,6 +7061,13 @@ CREATE INDEX index_events_on_type ON events USING btree (type);
 --
 
 CREATE INDEX index_events_on_updated_by_id ON events USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_diurnal_period_codes_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_diurnal_period_codes_on_code ON hd_diurnal_period_codes USING btree (code);
 
 
 --
@@ -10450,6 +10502,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170810093532'),
 ('20170821100353'),
 ('20170824113401'),
-('20170830085137');
+('20170830085137'),
+('20170830171726');
 
 
