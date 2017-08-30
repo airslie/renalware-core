@@ -40,6 +40,19 @@ Renalware::Engine.routes.draw do
     resources :audit_refreshments, only: [:create]
   end
 
+  namespace :messaging do
+    resources :messages, only: [:new, :create] do
+      resources :receipts, only: [] do
+        patch :mark_as_read, on: :member
+      end
+    end
+    scope :messages do
+      get "inbox", to: "receipts#unread", as: :inbox
+      get "read", to: "receipts#read", as: :read_receipts
+      get "sent", to: "messages#sent", as: :sent_messages
+    end
+  end
+
   namespace :admin do
     resources :users
   end

@@ -1,0 +1,4 @@
+= within_admin_layout(title: "Messages") do
+  = render "renalware/messaging/shared/messages_type_tabs"
+  .sent-messages
+    = render "table", messages:  messages

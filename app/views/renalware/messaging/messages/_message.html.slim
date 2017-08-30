@@ -1,0 +1,19 @@
+tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
+  td=l(message.sent_at)
+  td= link_to(message.patient, patient_clinical_summary_path(message.patient))
+  td= message.patient.hospital_identifier
+  td= message.subject
+  td= message.recipients.map(&:to_s).join(",")
+  td
+    = link_to "View",
+              "##{message.html_preview_identifier}",
+              data: { behaviour: "toggler" },
+              class: :right
+= content_tag(:tr,
+              id: "#{message.html_preview_identifier}",
+              style: "display: none",
+              class: "#{ "urgent" if message.urgent?}")
+  td(colspan=6)
+    .message-preview
+      .subject= message.subject
+      .body= message.body

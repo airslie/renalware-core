@@ -1,0 +1,29 @@
+en:
+  renalware:
+    messaging:
+      messages:
+        form:
+          title: Send a message
+          cancel: Cancel
+          recipient_ids: Recipients
+        table:
+          from: From
+          sent_at: Sent at
+          patient_name: Patient
+          subject: Subject
+          body: Body
+          urgent: Urgent
+          age: Age
+          hosp_no: Hosp No.
+          recipients: Recipients
+      receipts:
+        table:
+          from: From
+          sent_at: Sent at
+          patient_name: Patient
+          subject: Subject
+          body: Body
+          urgent: Urgent
+          age: Age
+          hosp_no: Hosp No.
+

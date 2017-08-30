@@ -1,0 +1,22 @@
+li.heading.actions-heading= t(".heading")
+
+- bookmark = find_user_bookmark_for_patient(patient)
+
+- if bookmark.present?
+  li.link.action= render partial: "renalware/patients/bookmarks/delete",
+                  locals: { bookmark: bookmark, link_text: t(".delete_bookmark") }
+- else
+  li.link.action= render partial: "renalware/patients/bookmarks/new",
+                  locals: { patient: patient, link_text: t(".create_bookmark") }
+
+- if patient.worry.present?
+  li.link.action= render partial: "renalware/patients/worries/delete",
+                  locals: { patient: patient }
+- else
+  li.link.action= render partial: "renalware/patients/worries/new",
+                  locals: { patient: patient }
+
+li.link.action= render partial: "renalware/messaging/messages/send_message_link",
+                locals: { patient: patient, link_text: t(".send_message") }
+
+= render "renalware/messaging/messages/modal_dialog_placeholder"

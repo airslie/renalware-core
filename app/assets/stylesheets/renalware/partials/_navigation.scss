@@ -64,7 +64,7 @@ dd.patient-name {
 
 .patient-side-nav {
   background-color: $patient-menu-background-colour;
-  padding: 0.5rem 0;
+  padding: 0.6rem 0;
   padding-bottom: 8rem;
   position: absolute;
   width: $patient-side-nav-width;
@@ -72,6 +72,10 @@ dd.patient-name {
   top: 0;
   bottom: 0;
   left: 0;
+
+  hr {
+    margin: 0.3rem 0 0.5rem;
+  }
 
   ul.side-nav {
     margin: 0;
@@ -90,6 +94,35 @@ dd.patient-name {
 
       span {
         padding: 0.2rem 0.5rem;
+      }
+
+      &.action {
+        padding-right: 0.5rem;
+        padding-right: .5rem;
+
+        a {
+          text-decoration: none;
+          text-align: left;
+          margin-right:1rem;
+          margin-bottom: 0.2rem;
+          margin-top: 0.1rem;
+          padding: 0.2rem 0.5rem;
+          background-color: $light-grey;
+          color: $dark-grey;
+          border-radius: 3px;
+          transition: all 0.3s ease 0s;
+          border-radius: 2px;
+
+          &:hover {
+            background-color: $nhs-blue;
+            color: $off-white;
+            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.13), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+          }
+        }
+      }
+
+      &.actions-heading {
+        margin-bottom: 0.3rem;
       }
     }
   }
@@ -126,6 +159,8 @@ dd.patient-name {
 
 .patient-side-nav li.heading {
   color: $dark-grey;
+  font-weight: normal;
+  font-size: .9rem;
 }
 
 .mdm-top-bar {

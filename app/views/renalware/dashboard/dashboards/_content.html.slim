@@ -17,7 +17,13 @@
 
   section.messages
     h2 Messages
-    p.empty-section= t(".messages.none")
+    - if dashboard.unread_messages_receipts.any?
+      = render "renalware/messaging/shared/key"
+      .unread-messages
+        = render "renalware/messaging/receipts/table",
+                 receipts: dashboard.unread_messages_receipts
+    - else
+      p.empty-section= t(".messages.none")
 
   section.electonic_ccs
     h2 Electronic CCs

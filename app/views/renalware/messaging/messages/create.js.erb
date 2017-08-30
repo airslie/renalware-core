@@ -1,0 +1,13 @@
+<%# We render this view when the message has been successfully sent.
+// TODO: the flash here is not really working
+%>
+<%= refresh(".flash-message", partial: "renalware/shared/flash_messages", locals: local_assigns) %>
+$("#send-message-modal").foundation('reveal', 'close');
+<%#
+Remove the message that has now been marked as read from the table.
+We need to remove the real row and the (initially hidden) preview row also.
+%>
+<% if original_message.present? %>
+  $("#<%= original_message.html_identifier %>, #<%= original_message.html_preview_identifier %>")
+    .fadeOut(300, function(){ $(this).remove();});
+<% end %>

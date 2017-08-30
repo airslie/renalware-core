@@ -1,0 +1,45 @@
+- message = receipt.message
+
+tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
+  td
+    = pluralize(message.age_in_days, "day")
+  / td.state.show-for-large-up
+  /   - if message.urgent?
+  /     span Urgent
+  td= message.author
+  td= l(message.sent_at)
+  td= link_to(message.patient, patient_clinical_summary_path(message.patient))
+  td= message.patient.hospital_identifier
+  td.col-width-large-with-ellipsis= message.subject
+  td
+    = link_to "View",
+              "##{message.html_preview_identifier}",
+              data: { behaviour: "toggler" },
+              class: :right
+= content_tag(:tr,
+              id: "#{message.html_preview_identifier}",
+              style: "display: none",
+              class: "#{ "urgent" if message.urgent?}")
+  td(colspan=5)
+    .message-preview
+      .subject= message.subject
+      .body= message.body
+  td.nowrap(colspan=2)
+    ul.actions
+      li= link_to "Keep as unread",
+                  "#message-preview-#{message.id}",
+                  data: { behaviour: "toggler" },
+                  class: "button secondary keep-as-unread"
+
+      li= render partial: "renalware/messaging/messages/send_reply_link",
+                 locals: { patient: message.patient,
+                           link_text: "Reply",
+                           replying_to_message_id: message.id }
+
+      li= link_to(mark_as_read_messaging_message_receipt_path(message, receipt),
+                  class: "button mark-as-read",
+                  method: :patch,
+                  remote: true) do
+        i.fa.fa-check
+        | Mark as read
+

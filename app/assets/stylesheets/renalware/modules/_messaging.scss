@@ -1,0 +1,55 @@
+.read-messages {
+  .mark-as-read,
+  .keep-as-unread {
+    display: none;
+  }
+}
+
+.messages {
+  .urgent {
+    background-color: $table-urgent-colour !important;
+  }
+
+  .urgent .state span {
+    @include badge;
+    background-color: $letter-state-pending-review;
+  }
+
+  ul.actions {
+    list-style: none;
+    text-align: right;
+
+    .button {
+      padding: 0.4rem .6rem;
+      margin: 0.3rem 0 0.2rem 0;
+    }
+  }
+
+  .message-preview {
+    padding: 0.4rem 1rem;
+
+    .subject {
+      font-weight: bold;
+      margin: 0 0 0.5rem;
+    }
+
+    .body {
+
+    }
+  }
+
+  h2 {
+    float: left;
+  }
+
+  .messages-key {
+    float: right;
+    margin: 0.3rem 0 .5rem;
+
+    span {
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.3rem;
+    }
+  }
+}
+

@@ -1,5 +1,4 @@
 - transplant_patient = Renalware::Transplants.cast_patient(patient)
-li.divider
 
 li.heading= t(".heading")
 
@@ -11,3 +10,5 @@ li.heading= t(".heading")
 = patient_menu_item title: t(".recipient_summary"),
                     path: patient_transplants_recipient_dashboard_path(patient),
                     active_when_controller_matches: %r{renalware/transplants/recipient}
+
+hr

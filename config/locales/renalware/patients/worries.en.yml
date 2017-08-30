@@ -3,7 +3,7 @@ en:
     patients:
       worries:
         delete:
-          title: Remove from worryboard
+          title: Remove worry
           confirm: Remove this patient from the worryboard?
         new:
           title: Add to Worryboard

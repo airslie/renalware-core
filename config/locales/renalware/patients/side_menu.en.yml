@@ -2,6 +2,11 @@ en:
   renalware:
     patients:
       side_menu:
+        actions:
+          heading: Actions
+          create_bookmark: Bookmark
+          delete_bookmark: Remove bookmark
+          send_message: Send message
         general:
           heading: General
           clinic_visits: Clinic Visits (%{count})
@@ -25,7 +30,4 @@ en:
           heading: Transplants
           donor_summary: Donor Summary
           recipient_summary: Recipient Summary
-        options:
-          heading: Options
-          create_bookmark: Bookmark this patient
-          delete_bookmark: Remove from bookmarks
+

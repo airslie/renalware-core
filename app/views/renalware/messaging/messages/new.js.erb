@@ -1,0 +1,7 @@
+// We render this view if there was a validation error submitting the foundation reveal modal.
+// Replace the original content so that error messages are displayed.
+var modal = $("#send-message-modal")
+$(modal).html("<%= j(render 'form', form: form, patient: patient, recipient_options: recipient_options) %>");
+// TODO: The re-initializing of select2 in a modal should be a global handler
+$('.searchable_select', modal).select2();
+Renalware.Messaging.init();

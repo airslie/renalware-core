@@ -33,7 +33,7 @@ table {
   // 6 -- Visible grey bg --
   // 7 Hidden white bg
   // So this == tr:nth-child(4n+3) (offset of 3 then every 4 rows)
-  &.has_togglable_rows {
+  &.has-togglable-rows {
     tbody tr {
       &:nth-child(4n+3) {
         background: $table-even-row-colour;
