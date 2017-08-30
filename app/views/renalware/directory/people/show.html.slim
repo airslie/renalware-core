@@ -1,40 +1,27 @@
-.row
-  = render "header"
+= content_for(:actions) do
+  = link_to t("edit_record.link_title"),
+            edit_directory_person_path(person),
+            class: "button"
 
-.row
-  .document-view
-    = field_set_tag "Person" do
-      dl
-        dt Title
-        dd= @person.title
+= within_admin_layout(title: "Person",
+                      breadcrumbs: breadcrumb_for("Directory", directory_people_path))
 
-        dt Given Name
-        dd= @person.given_name
+  .grid
+    = article_tag "Person" do
+      = definition_list_for(person, size: :large) do |list|
+        = list.definition(:title)
+        = list.definition(:given_name)
+        = list.definition(:family_name)
 
-        dt Family Name
-        dd= @person.family_name
+    = article_tag "Address" do
+      = render "renalware/addresses/address", address: person.address
 
-    = field_set_tag "Address" do
-      = render "renalware/addresses/address", address: @person.address
+    = article_tag "Contact Info" do
+      = render "renalware/addresses/contact_info", address: person.address
 
-    = field_set_tag "Contact Info" do
-      = render "renalware/addresses/contact_info", address: @person.address
-
-    = field_set_tag "Admin" do
-      dl
-        dt Created By
-        dd= @person.created_by
-
-        dt Created On
-        dd= l @person.created_at
-
-        dt Updated By
-        dd= @person.updated_by
-
-        dt Updated On
-        dd= l @person.updated_at
-
-.row
-  = link_to "Edit", edit_directory_person_path(@person), class: "button"
-  = " or "
-  = link_to "Cancel", directory_people_path
+    = article_tag "Admin" do
+      = definition_list_for(person, size: :large) do |list|
+        = list.definition(:created_by)
+        = list.definition(:created_at){ |date| l(date) }
+        = list.definition(:updated_by)
+        = list.definition(:updated_at){ |date| l(date) }

@@ -1,31 +1,9 @@
-.row
-  = render "header"
+= content_for(:actions) do
+  = link_to "Add Person", new_directory_person_path, class: "button"
 
-.row
-  .search-form
-    fieldset
-      legend Filters
-      = simple_form_for @q, as: :q, url: directory_people_path, method: :get do |f|
-        .row
-          .large-8.columns
-            = f.input :name_cont, label: "Name contains"
-          .large-4.columns.actions
-            = f.submit t("helpers.submit.filter"), class: "button"
-            span= " or "
-            = link_to t("helpers.reset"), directory_people_path
+= within_admin_layout(title: "Directory")
+  = render "filters", q: q
 
-.row
-  = page_entries_info @people
-
-  table.auto-layout.people
-    thead
-      tr
-        th.col-width-small
-        th Title
-        th Family Name
-        th Given Name
-        th Address
-    tbody
-      = render partial: "person", collection: @people
-
-  = paginate @people
+  = page_entries_info people
+  = render "table", people: people
+  = paginate people

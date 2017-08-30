@@ -1,1 +1,6 @@
- = render "form"
+= within_admin_layout(title: "New",
+                      breadcrumbs: breadcrumb_for("Modalities", modalities_descriptions_path))
+
+  = render "form",
+           modality_description: modality_description,
+           url: modalities_descriptions_path

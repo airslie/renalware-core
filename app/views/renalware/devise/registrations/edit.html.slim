@@ -1,5 +1,5 @@
-= render layout: "renalware/dashboard/dashboards/layout",
-         locals: { user: resource, title: "Update Profile" } do
+= within_admin_layout(title: "Update Profile")
+
   .document
     h4 #{resource}'s Profile
 

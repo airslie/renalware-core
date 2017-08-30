@@ -1,17 +1,15 @@
-.form-content2
-  .large-8.columns
-    = simple_form_for @person,
-                      html: { autocomplete: "off" },
-                      wrapper: "horizontal_form" do |f|
-      = field_set_tag "Person" do
-        = f.input :title
-        = f.input :given_name
-        = f.input :family_name
+= simple_form_for person,
+                  html: { autocomplete: "off" },
+                  wrapper: "horizontal_form" do |f|
+  = field_set_tag "Person" do
+    = f.input :title, wrapper: :horizontal_tiny
+    = f.input :given_name, wrapper: :horizontal_medium
+    = f.input :family_name, wrapper: :horizontal_medium
 
-      = field_set_tag "Postal Address" do
-        = render "address_form", f: f
+  = field_set_tag "Postal Address" do
+    = render "address_form", f: f
 
-      = f.button :submit
-      span= " or "
-      = link_to "cancel", directory_people_path
+  = f.button :submit
+  span= " or "
+  = link_to "cancel", directory_people_path
 

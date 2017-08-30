@@ -1,14 +1,17 @@
-.row
-  = render "header"
+= content_for(:actions) do
+  = link_to t("new_record.link_title"),
+            new_modalities_description_path,
+            class: "button"
 
-.row
+= within_admin_layout(title: "Modalities") do
+
   table.modality-codes
     thead
       tr
         th.col-width-small
         th Name
     tbody
-      - @modalilty_descriptions.each do |m|
+      - modalilty_descriptions.each do |m|
         tr
           td
             = link_to "Edit", edit_modalities_description_path(m.id)

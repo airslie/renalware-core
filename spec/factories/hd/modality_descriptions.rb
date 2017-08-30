@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :hd_modality_description, class: "Renalware::HD::ModalityDescription" do
-    name "HD"
+    initialize_with { Renalware::HD::ModalityDescription.find_or_create_by(name: "HD") }
   end
 end

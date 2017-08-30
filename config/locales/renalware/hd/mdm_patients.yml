@@ -4,7 +4,7 @@ en:
       mdm_patients:
         patient:
           view: "View"
-        index:
+        table:
           page_title: HD MDM patients
           name: Name
           nhs_no: NHS No.
