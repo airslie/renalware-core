@@ -136,6 +136,10 @@ Renalware::Engine.routes.draw do
       resources :stations do
         post :sort, on: :collection
       end
+      resources :diaries, only: [:edit, :update]
+    end
+    resources :diaries, only: [] do
+      resources :slots, controller: :diary_slots
     end
   end
 

@@ -22,6 +22,20 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
 --
+-- Name: tablefunc; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS tablefunc WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION tablefunc; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION tablefunc IS 'functions that manipulate whole tables, including crosstab';
+
+
+--
 -- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -1190,6 +1204,86 @@ CREATE SEQUENCE hd_dialysers_id_seq
 --
 
 ALTER SEQUENCE hd_dialysers_id_seq OWNED BY hd_dialysers.id;
+
+
+--
+-- Name: hd_diaries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE hd_diaries (
+    id bigint NOT NULL,
+    type character varying NOT NULL,
+    hospital_unit_id bigint NOT NULL,
+    master_diary_id integer,
+    week_number integer,
+    year integer,
+    master boolean DEFAULT false NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    CONSTRAINT week_number_in_valid_range CHECK (((week_number >= 1) AND (week_number <= 53))),
+    CONSTRAINT year_in_valid_range CHECK (((year >= 2017) AND (year <= 2050)))
+);
+
+
+--
+-- Name: hd_diaries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_diaries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_diaries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_diaries_id_seq OWNED BY hd_diaries.id;
+
+
+--
+-- Name: hd_diary_slots; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE hd_diary_slots (
+    id bigint NOT NULL,
+    diary_id integer NOT NULL,
+    station_id integer NOT NULL,
+    day_of_week integer NOT NULL,
+    diurnal_period_code_id integer NOT NULL,
+    patient_id bigint NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    CONSTRAINT day_of_week_in_valid_range CHECK (((day_of_week >= 1) AND (day_of_week <= 7)))
+);
+
+
+--
+-- Name: hd_diary_slots_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_diary_slots_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_diary_slots_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_diary_slots_id_seq OWNED BY hd_diary_slots.id;
 
 
 --
@@ -5395,6 +5489,20 @@ ALTER TABLE ONLY hd_dialysers ALTER COLUMN id SET DEFAULT nextval('hd_dialysers_
 
 
 --
+-- Name: hd_diaries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diaries ALTER COLUMN id SET DEFAULT nextval('hd_diaries_id_seq'::regclass);
+
+
+--
+-- Name: hd_diary_slots id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diary_slots ALTER COLUMN id SET DEFAULT nextval('hd_diary_slots_id_seq'::regclass);
+
+
+--
 -- Name: hd_diurnal_period_codes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6356,6 +6464,22 @@ ALTER TABLE ONLY hd_dialysates
 
 ALTER TABLE ONLY hd_dialysers
     ADD CONSTRAINT hd_dialysers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_diaries hd_diaries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diaries
+    ADD CONSTRAINT hd_diaries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_diary_slots hd_diary_slots_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diary_slots
+    ADD CONSTRAINT hd_diary_slots_pkey PRIMARY KEY (id);
 
 
 --
@@ -7661,6 +7785,125 @@ CREATE INDEX index_events_on_updated_by_id ON events USING btree (updated_by_id)
 --
 
 CREATE INDEX index_hd_dialysates_on_deleted_at ON hd_dialysates USING btree (deleted_at);
+
+
+--
+-- Name: index_hd_diaries_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diaries_on_created_by_id ON hd_diaries USING btree (created_by_id);
+
+
+--
+-- Name: index_hd_diaries_on_deleted_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diaries_on_deleted_at ON hd_diaries USING btree (deleted_at);
+
+
+--
+-- Name: index_hd_diaries_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diaries_on_hospital_unit_id ON hd_diaries USING btree (hospital_unit_id);
+
+
+--
+-- Name: index_hd_diaries_on_hospital_unit_id_and_week_number_and_year; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_diaries_on_hospital_unit_id_and_week_number_and_year ON hd_diaries USING btree (hospital_unit_id, week_number, year) WHERE (master = false);
+
+
+--
+-- Name: index_hd_diaries_on_master_diary_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diaries_on_master_diary_id ON hd_diaries USING btree (master_diary_id);
+
+
+--
+-- Name: index_hd_diaries_on_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diaries_on_type ON hd_diaries USING btree (type);
+
+
+--
+-- Name: index_hd_diaries_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diaries_on_updated_by_id ON hd_diaries USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_diaries_on_week_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diaries_on_week_number ON hd_diaries USING btree (week_number);
+
+
+--
+-- Name: index_hd_diaries_on_year; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diaries_on_year ON hd_diaries USING btree (year);
+
+
+--
+-- Name: index_hd_diary_slots_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diary_slots_on_created_by_id ON hd_diary_slots USING btree (created_by_id);
+
+
+--
+-- Name: index_hd_diary_slots_on_day_of_week; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diary_slots_on_day_of_week ON hd_diary_slots USING btree (day_of_week);
+
+
+--
+-- Name: index_hd_diary_slots_on_deleted_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diary_slots_on_deleted_at ON hd_diary_slots USING btree (deleted_at);
+
+
+--
+-- Name: index_hd_diary_slots_on_diary_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diary_slots_on_diary_id ON hd_diary_slots USING btree (diary_id);
+
+
+--
+-- Name: index_hd_diary_slots_on_diurnal_period_code_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diary_slots_on_diurnal_period_code_id ON hd_diary_slots USING btree (diurnal_period_code_id);
+
+
+--
+-- Name: index_hd_diary_slots_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diary_slots_on_patient_id ON hd_diary_slots USING btree (patient_id);
+
+
+--
+-- Name: index_hd_diary_slots_on_station_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diary_slots_on_station_id ON hd_diary_slots USING btree (station_id);
+
+
+--
+-- Name: index_hd_diary_slots_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diary_slots_on_updated_by_id ON hd_diary_slots USING btree (updated_by_id);
 
 
 --
@@ -9309,6 +9552,13 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 
 
 --
+-- Name: master_index_hd_diaries_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX master_index_hd_diaries_on_hospital_unit_id ON hd_diaries USING btree (hospital_unit_id) WHERE (master = true);
+
+
+--
 -- Name: patient_bookmarks_uniqueness; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9551,6 +9801,14 @@ ALTER TABLE ONLY pathology_requests_patient_rules_requests
 
 
 --
+-- Name: hd_diaries fk_rails_07d7a349f6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diaries
+    ADD CONSTRAINT fk_rails_07d7a349f6 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: hd_profiles fk_rails_0aab25a07c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9636,6 +9894,14 @@ ALTER TABLE ONLY medication_prescription_terminations
 
 ALTER TABLE ONLY pd_pet_adequacy_results
     ADD CONSTRAINT fk_rails_1f91303c21 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
+-- Name: hd_diary_slots fk_rails_206582e5c0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diary_slots
+    ADD CONSTRAINT fk_rails_206582e5c0 FOREIGN KEY (station_id) REFERENCES hd_stations(id);
 
 
 --
@@ -9772,6 +10038,14 @@ ALTER TABLE ONLY letter_contacts
 
 ALTER TABLE ONLY messaging_messages
     ADD CONSTRAINT fk_rails_3567fcbb87 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: hd_diary_slots fk_rails_36ae60c09d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diary_slots
+    ADD CONSTRAINT fk_rails_36ae60c09d FOREIGN KEY (diurnal_period_code_id) REFERENCES hd_diurnal_period_codes(id);
 
 
 --
@@ -9964,6 +10238,14 @@ ALTER TABLE ONLY renal_profiles
 
 ALTER TABLE ONLY transplant_recipient_workups
     ADD CONSTRAINT fk_rails_571a3cadda FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: hd_diary_slots fk_rails_5910319259; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diary_slots
+    ADD CONSTRAINT fk_rails_5910319259 FOREIGN KEY (diary_id) REFERENCES hd_diaries(id);
 
 
 --
@@ -10199,6 +10481,14 @@ ALTER TABLE ONLY pathology_request_descriptions_requests_requests
 
 
 --
+-- Name: hd_diary_slots fk_rails_8fd55142bd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diary_slots
+    ADD CONSTRAINT fk_rails_8fd55142bd FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: clinic_appointments fk_rails_909dcaaf3d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10311,6 +10601,14 @@ ALTER TABLE ONLY letter_contacts
 
 
 --
+-- Name: hd_diaries fk_rails_a30d12c65b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diaries
+    ADD CONSTRAINT fk_rails_a30d12c65b FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
 -- Name: hd_sessions fk_rails_a3afae15cb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10372,6 +10670,14 @@ ALTER TABLE ONLY pathology_requests_drugs_drug_categories
 
 ALTER TABLE ONLY pathology_requests_requests
     ADD CONSTRAINT fk_rails_a8d58d31e6 FOREIGN KEY (clinic_id) REFERENCES clinic_clinics(id);
+
+
+--
+-- Name: hd_diaries fk_rails_aab1b8f3e1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diaries
+    ADD CONSTRAINT fk_rails_aab1b8f3e1 FOREIGN KEY (master_diary_id) REFERENCES hd_diaries(id);
 
 
 --
@@ -10767,6 +11073,14 @@ ALTER TABLE ONLY roles_users
 
 
 --
+-- Name: hd_diary_slots fk_rails_e2ba4fdc06; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diary_slots
+    ADD CONSTRAINT fk_rails_e2ba4fdc06 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: hd_sessions fk_rails_e32b0e0494; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10836,6 +11150,14 @@ ALTER TABLE ONLY letter_electronic_receipts
 
 ALTER TABLE ONLY clinic_clinics
     ADD CONSTRAINT fk_rails_f0adc9d29e FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: hd_diary_slots fk_rails_f0b0195037; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diary_slots
+    ADD CONSTRAINT fk_rails_f0b0195037 FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --
@@ -10964,6 +11286,14 @@ ALTER TABLE ONLY clinical_dry_weights
 
 ALTER TABLE ONLY medication_prescription_terminations
     ADD CONSTRAINT fk_rails_fe1184d31a FOREIGN KEY (prescription_id) REFERENCES medication_prescriptions(id);
+
+
+--
+-- Name: hd_diaries fk_rails_ffb6b0d291; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_diaries
+    ADD CONSTRAINT fk_rails_ffb6b0d291 FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --
@@ -11453,6 +11783,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170824113401'),
 ('20170830085137'),
 ('20170830171726'),
+('20170831082043'),
+('20170831084331'),
+('20170831142819'),
 ('20170908155011'),
 ('20170908160250'),
 ('20170911133224'),

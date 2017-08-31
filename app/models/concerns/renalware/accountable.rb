@@ -42,6 +42,11 @@ module Renalware
       update(attrs)
     end
 
+    def first_or_create_by!(user)
+      self.by = user
+      first_or_create_by!
+    end
+
     private
 
     def assign_creator

@@ -1,0 +1,34 @@
+
+= within_admin_layout(title: "") do
+  .diary
+    header
+      h1 HD Diary
+      h2= Renalware::Hospitals::Unit.find(diary.hospital_unit_id).name
+      h2= "#{l(diary.weekly_diary.week.start, format: :long)}"\
+          " to #{l(diary.weekly_diary.week.finish, format: :long)}"
+
+    section.diary__grid
+
+      - diary.each_diurnal_period do |diurnal_period|
+
+          table.diary__period*{'data-period-code'=> diurnal_period.code}
+            thead
+              tr
+                th(colspan=8)
+                  h3= diurnal_period.code.upcase
+              tr
+                th.col-width-medium Station
+                - diary.day_names.each do |day|
+                  th.col-width-small= day.capitalize
+
+            tbody
+
+              - diary.each_station(diurnal_period) do |station|
+                tr*{'data-station-id'=> station.id}
+                  th= station.name
+
+                  - diary.each_day(diurnal_period, station) do |slot, day_of_week|
+                    = render "renalware/hd/diary_slots/slot", slot: slot
+
+  / Modal dialog container
+  #add-patient-to-diary-modal.reveal-modal.medium(data-reveal)

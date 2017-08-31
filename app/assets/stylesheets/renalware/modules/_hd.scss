@@ -1,3 +1,124 @@
+.which-diary {
+  color: $aluminum;
+  margin: 0 0 0.5rem;
+  padding: 0;
+
+  .master {
+  }
+
+  .weekly {
+  }
+}
+
+.diary {
+
+  .diary__period {
+    margin-bottom: 1.5rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 1rem;
+
+    h1, h2 {
+      font-size: 1.6rem;
+      font-weight: normal;
+      display: inline;
+      margin-right: 1rem;
+
+      &:last-child {
+        color: $dark-grey;
+      }
+    }
+
+  }
+
+  h2 {
+    color: $mid-grey;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    color: $dark-grey;
+  }
+
+  tr {
+    &:nth-of-type(even) {
+      background: $white;
+    }
+  }
+
+  thead {
+    border: 0;
+
+    tr,
+    tr:nth-of-type(even) {
+      background-color: $smoke;
+
+      th {
+        text-align: center;
+        border-color: $smoke;
+
+        h3 {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  // .diary__grid {
+  //   float: left;
+  // }
+
+  // .diary__bucket {
+  //   float: right;
+  //   min-width: 5rem;
+  // }
+
+  tr:hover {
+    th {
+      background-color: $light-grey;
+    }
+  }
+
+  td {
+    padding: 0;
+    border: 2px solid #fff;
+    text-align: center;
+    background-color: $white;
+
+    &:empty {
+      background-color: $light-grey;
+    }
+
+    &[data-weekly] {
+      background-color: $nhs-orange;
+    }
+
+    &[data-master] {
+      background-color: $nhs-green;
+    }
+  }
+
+  .diary__button {
+    height: 100%;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0.5rem;
+    background-color: transparent;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    // min-width: 1rem;
+    // max-width: 10rem;
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 0.9rem;
+  }
+}
+
 // Start CSS-only toggle of full HD Profile
 label#toggle-full-hd-profile {
   color: $link-colour;
