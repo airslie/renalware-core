@@ -1,0 +1,9 @@
+table.hd-stations
+  thrad
+    tr
+      th.col-width-tiny
+      th.col-width-large Name
+      th Location
+      th.col-width-tiny Reorder
+  tbody.sortables data-rel=sort_hd_unit_stations_path(unit_id: unit_id)
+    = render stations

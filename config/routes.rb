@@ -122,6 +122,11 @@ Renalware::Engine.routes.draw do
     resource :ongoing_sessions, only: :show
     resources :mdm_patients, only: :index
     resources :unmet_preferences, only: :index
+    resources :units, :only => [] do
+      resources :stations do
+        post :sort, on: :collection
+      end
+    end
   end
 
   namespace :hospitals do

@@ -1,7 +1,7 @@
 require_dependency "renalware"
 
 module Renalware
-  # Reponsible for assigning a system user to the record when it is created
+  # Responsible for assigning a system user to the record when it is created
   # and updated.
   #
   # @example
@@ -27,9 +27,19 @@ module Renalware
       scope :with_updated_by, -> { includes(:updated_by) }
     end
 
-    def save_by(user)
+    def save_by!(user)
       self.by = user
       save!
+    end
+
+    def save_by(user)
+      self.by = user
+      save
+    end
+
+    def update_by(user, attrs)
+      self.by = user
+      update(attrs)
     end
 
     private

@@ -1,7 +1,7 @@
 module Renalware
   log "Adding Hospitals" do
 
-    file_path = File.join(File.dirname(__FILE__), "hospital_centres.csv")
+    file_path = File.join(File.dirname(__FILE__), "hospitals.csv")
 
     Hospitals::Centre.transaction do
       CSV.foreach(file_path, headers: true) do |row|

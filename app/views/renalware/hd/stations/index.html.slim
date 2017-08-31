@@ -1,0 +1,14 @@
+/ We allow cross-module references in the UI but not in the controller hence:
+- unit = Renalware::Hospitals::Unit.find(unit_id)
+- breadcrumbs = [breadcrumb_for("Hospital Units", hospitals_units_path),
+                 breadcrumb_for(unit.unit_code, edit_hospitals_unit_path(unit))]
+
+
+= content_for(:actions) do
+  = link_to t("new_record.link_title"),
+            new_hd_unit_station_path(unit_id: unit.id),
+            class: "button"
+
+= within_admin_layout(title: "HD Stations", breadcrumbs: breadcrumbs) do
+
+  = render "table", stations: stations, unit_id: unit.id

@@ -14,6 +14,7 @@
         th.col-width-small NRD Code
         th.col-width-small HD Site?
         th.col-width-small Stations
+        th
     tbody
       - @hospital_units.each do |t|
         tr
@@ -31,3 +32,4 @@
           td= t.renal_registry_code
           td= yes_no t.is_hd_site
           td= t.number_of_hd_stations
+          td

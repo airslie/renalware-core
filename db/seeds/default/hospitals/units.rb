@@ -1,7 +1,7 @@
 module Renalware
   log "Adding Dialysis Units" do
 
-    file_path = File.join(File.dirname(__FILE__), "dialysis_units.csv")
+    file_path = File.join(File.dirname(__FILE__), "units.csv")
 
     CSV.foreach(file_path, headers: true) do |row|
       hospital = Hospitals::Centre.find_by code: row["hospital_centre_code"]

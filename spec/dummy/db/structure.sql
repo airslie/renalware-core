@@ -1322,6 +1322,43 @@ ALTER SEQUENCE hd_sessions_id_seq OWNED BY hd_sessions.id;
 
 
 --
+-- Name: hd_stations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE hd_stations (
+    id bigint NOT NULL,
+    hospital_unit_id bigint NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
+    name character varying,
+    location character varying,
+    updated_by_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_stations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_stations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_stations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_stations_id_seq OWNED BY hd_stations.id;
+
+
+--
 -- Name: hd_versions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4948,6 +4985,13 @@ ALTER TABLE ONLY hd_sessions ALTER COLUMN id SET DEFAULT nextval('hd_sessions_id
 
 
 --
+-- Name: hd_stations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_stations ALTER COLUMN id SET DEFAULT nextval('hd_stations_id_seq'::regclass);
+
+
+--
 -- Name: hd_versions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5826,6 +5870,14 @@ ALTER TABLE ONLY hd_profiles
 
 ALTER TABLE ONLY hd_sessions
     ADD CONSTRAINT hd_sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_stations hd_stations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_stations
+    ADD CONSTRAINT hd_stations_pkey PRIMARY KEY (id);
 
 
 --
@@ -7209,6 +7261,41 @@ CREATE INDEX index_hd_sessions_on_signed_on_by_id ON hd_sessions USING btree (si
 --
 
 CREATE INDEX index_hd_sessions_on_updated_by_id ON hd_sessions USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_stations_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_stations_on_created_by_id ON hd_stations USING btree (created_by_id);
+
+
+--
+-- Name: index_hd_stations_on_deleted_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_stations_on_deleted_at ON hd_stations USING btree (deleted_at);
+
+
+--
+-- Name: index_hd_stations_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_stations_on_hospital_unit_id ON hd_stations USING btree (hospital_unit_id);
+
+
+--
+-- Name: index_hd_stations_on_position; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_stations_on_position ON hd_stations USING btree ("position");
+
+
+--
+-- Name: index_hd_stations_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_stations_on_updated_by_id ON hd_stations USING btree (updated_by_id);
 
 
 --
@@ -9383,6 +9470,14 @@ ALTER TABLE ONLY pd_peritonitis_episodes
 
 
 --
+-- Name: hd_stations fk_rails_af478cfba0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_stations
+    ADD CONSTRAINT fk_rails_af478cfba0 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: pathology_requests_patient_rules fk_rails_b13e09c8a3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9663,6 +9758,14 @@ ALTER TABLE ONLY clinic_appointments
 
 
 --
+-- Name: hd_stations fk_rails_e1203401d3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_stations
+    ADD CONSTRAINT fk_rails_e1203401d3 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
 -- Name: events fk_rails_e1899a68af; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9756,6 +9859,14 @@ ALTER TABLE ONLY hd_preference_sets
 
 ALTER TABLE ONLY pd_peritonitis_episodes
     ADD CONSTRAINT fk_rails_f228a98e1b FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: hd_stations fk_rails_f4cc4cd5c4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_stations
+    ADD CONSTRAINT fk_rails_f4cc4cd5c4 FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --
@@ -10338,6 +10449,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170810092953'),
 ('20170810093532'),
 ('20170821100353'),
-('20170824113401');
+('20170824113401'),
+('20170830085137');
 
 

@@ -13,7 +13,7 @@ module Renalware
         return if hd_profile.nil?
         hd_profile.hospital_unit = nil
         hd_profile.schedule = nil
-        hd_profile.save_by(by)
+        hd_profile.save_by!(by)
       end
     end
   end
