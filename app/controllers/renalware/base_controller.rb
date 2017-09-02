@@ -27,7 +27,7 @@ module Renalware
     protected
 
     def patient_search
-      PatientSearch.call(params)
+      Patients::PatientSearch.call(params)
     end
 
     def success_msg_for(model_name)
