@@ -200,7 +200,7 @@ Renalware::Engine.routes.draw do
   #
   # Please add all non patient-scoped routes above
   #
-  resources :patients, except: [:destroy] do
+  resources :patients, except: [:destroy], controller: "patients/patients" do
     collection do
       get :search
     end
