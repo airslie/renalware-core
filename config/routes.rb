@@ -1,9 +1,9 @@
 Renalware::Engine.routes.draw do
 
-  match "/404", to: "errors#not_found", via: :all
-  match "/500", to: "errors#internal_server_error", via: :all
+  match "/404", to: "system/errors#not_found", via: :all
+  match "/500", to: "system/errors#internal_server_error", via: :all
   match "/generate_test_internal_server_error",
-        to: "errors#generate_test_internal_server_error",
+        to: "system/errors#generate_test_internal_server_error",
         via: :get
 
   devise_for :users,
