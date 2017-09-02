@@ -205,7 +205,7 @@ Renalware::Engine.routes.draw do
       get :search
     end
 
-    resource :clinical_summary, only: :show
+    resource :clinical_summary, only: :show, controller: "patients/clinical_summaries"
     resource :death, only: [:edit, :update]
     resource :primary_care_physician,
              controller: "patients/primary_care_physician",
