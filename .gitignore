@@ -47,3 +47,4 @@ rerun.txt
 /spec/dummy/.byebug_history
 /pkg
 .rubocop-https*
+/doc

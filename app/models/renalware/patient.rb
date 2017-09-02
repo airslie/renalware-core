@@ -29,7 +29,7 @@ module Renalware
 
     has_one :current_key_observation_set, class_name: "Pathology::CurrentKeyObservationSet"
     has_one :current_address, as: :addressable, class_name: "Address"
-    has_one :summary, class_name: "PatientSummary"
+    has_one :summary, class_name: "Patients::Summary"
     belongs_to :ethnicity, class_name: "Patients::Ethnicity"
     belongs_to :religion, class_name: "Patients::Religion"
     belongs_to :language, class_name: "Patients::Language"
