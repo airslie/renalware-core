@@ -33,7 +33,7 @@ Renalware::Engine.routes.draw do
 
   root to: "dashboard/dashboards#show"
 
-  resources :mock_errors, only: [:index]
+  resources :mock_errors, only: [:index], controller: "system/mock_errors"
 
   namespace :reporting do
     resources :audits, except: [:destroy]
