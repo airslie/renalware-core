@@ -9,14 +9,17 @@ module Renalware
     # to the current instance.
     #
     # Example usage
-    # class SomeServiceObject
-    #   include Broadcasting
     #
-    #   def call..
+    #   class SomeServiceObject
+    #     include Broadcasting
+    #
+    #     def call
+    #       ..
+    #     end
     #   end
-    # end
     #
-    # SomeServiceObject.new(..).broadcasting_to_configured_subscribers.call(..)
+    #   SomeServiceObject.new(..).broadcasting_to_configured_subscribers.call(..)
+    #
     # See https://github.com/krisleech/wisper
     #
     def broadcasting_to_configured_subscribers
