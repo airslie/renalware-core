@@ -12,6 +12,6 @@ table#patients
       th.col-width-small Modality
 
   tbody
-    = render patients
+    = render partial: "patient", collection: patients
 
 = paginate patients

@@ -4,11 +4,11 @@ li.heading= t(".heading")
 
 = patient_menu_item title: t(".clinical_summary"),
                     path: patient_clinical_summary_path(patient),
-                    active_when_controller_matches: %r{renalware/clinical_summaries}
+                    active_when_controller_matches: %r{renalware/patients/clinical_summaries}
 
 = patient_menu_item title: t(".demographics"),
                     path: patient_path(patient),
-                    active_when_controller_matches: %r{renalware/patients}
+                    active_when_controller_matches: %r{renalware/patients/patients}
 
 = patient_menu_item title: t(".contacts", count: summary.contacts_count),
                     path: patient_letters_contacts_path(patient),

@@ -1,9 +1,9 @@
 Renalware::Engine.routes.draw do
 
-  match "/404", to: "errors#not_found", via: :all
-  match "/500", to: "errors#internal_server_error", via: :all
+  match "/404", to: "system/errors#not_found", via: :all
+  match "/500", to: "system/errors#internal_server_error", via: :all
   match "/generate_test_internal_server_error",
-        to: "errors#generate_test_internal_server_error",
+        to: "system/errors#generate_test_internal_server_error",
         via: :get
 
   devise_for :users,
@@ -33,7 +33,7 @@ Renalware::Engine.routes.draw do
 
   root to: "dashboard/dashboards#show"
 
-  resources :mock_errors, only: [:index]
+  resources :mock_errors, only: [:index], controller: "system/mock_errors"
 
   namespace :reporting do
     resources :audits, except: [:destroy]
@@ -200,12 +200,12 @@ Renalware::Engine.routes.draw do
   #
   # Please add all non patient-scoped routes above
   #
-  resources :patients, except: [:destroy] do
+  resources :patients, except: [:destroy], controller: "patients/patients" do
     collection do
       get :search
     end
 
-    resource :clinical_summary, only: :show
+    resource :clinical_summary, only: :show, controller: "patients/clinical_summaries"
     resource :death, only: [:edit, :update]
     resource :primary_care_physician,
              controller: "patients/primary_care_physician",

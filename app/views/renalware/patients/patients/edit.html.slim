@@ -5,7 +5,7 @@
                       wrapper: "horizontal_form",
                       html: { autocomplete: "off" } do |f|
 
-      = render "renalware/patients/form", f: f, patient: patient
+      = render "form", f: f, patient: patient
 
       .columns.large-12
         = submit_tag "Update", class: "button"

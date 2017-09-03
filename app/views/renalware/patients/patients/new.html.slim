@@ -7,7 +7,7 @@
                       html: { autocomplete: "off" },
                       wrapper: "horizontal_form" do |f|
 
-      = render "renalware/patients/form", f: f, patient: patient
+      = render "form", f: f, patient: patient
 
       = submit_tag "Save", class: "button"
       span= " or "
