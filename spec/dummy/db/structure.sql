@@ -2684,6 +2684,42 @@ ALTER SEQUENCE pathology_requests_requests_id_seq OWNED BY pathology_requests_re
 
 
 --
+-- Name: patient_alerts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_alerts (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    notes text,
+    urgent boolean DEFAULT false NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: patient_alerts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_alerts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_alerts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_alerts_id_seq OWNED BY patient_alerts.id;
+
+
+--
 -- Name: patient_bookmarks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5267,6 +5303,13 @@ ALTER TABLE ONLY pathology_requests_requests ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: patient_alerts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_alerts ALTER COLUMN id SET DEFAULT nextval('patient_alerts_id_seq'::regclass);
+
+
+--
 -- Name: patient_bookmarks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6195,6 +6238,14 @@ ALTER TABLE ONLY pathology_requests_patient_rules_requests
 
 ALTER TABLE ONLY pathology_requests_requests
     ADD CONSTRAINT pathology_requests_requests_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_alerts patient_alerts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_alerts
+    ADD CONSTRAINT patient_alerts_pkey PRIMARY KEY (id);
 
 
 --
@@ -7782,6 +7833,27 @@ CREATE INDEX index_pathology_requests_requests_on_patient_id ON pathology_reques
 --
 
 CREATE INDEX index_pathology_requests_requests_on_updated_by_id ON pathology_requests_requests USING btree (updated_by_id);
+
+
+--
+-- Name: index_patient_alerts_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patient_alerts_on_created_by_id ON patient_alerts USING btree (created_by_id);
+
+
+--
+-- Name: index_patient_alerts_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patient_alerts_on_patient_id ON patient_alerts USING btree (patient_id);
+
+
+--
+-- Name: index_patient_alerts_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patient_alerts_on_updated_by_id ON patient_alerts USING btree (updated_by_id);
 
 
 --
@@ -9418,6 +9490,14 @@ ALTER TABLE ONLY access_procedures
 
 
 --
+-- Name: patient_alerts fk_rails_9efea309bb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_alerts
+    ADD CONSTRAINT fk_rails_9efea309bb FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: pathology_request_descriptions fk_rails_a0b9cd97fe; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9618,6 +9698,14 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
+-- Name: patient_alerts fk_rails_bf45802f3f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_alerts
+    ADD CONSTRAINT fk_rails_bf45802f3f FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: patient_bookmarks fk_rails_c12b863727; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9631,6 +9719,14 @@ ALTER TABLE ONLY patient_bookmarks
 
 ALTER TABLE ONLY modality_modalities
     ADD CONSTRAINT fk_rails_c31cea56ac FOREIGN KEY (reason_id) REFERENCES modality_reasons(id);
+
+
+--
+-- Name: patient_alerts fk_rails_c37cc03264; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_alerts
+    ADD CONSTRAINT fk_rails_c37cc03264 FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -10501,6 +10597,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170810092953'),
 ('20170810093532'),
 ('20170821100353'),
+('20170823084127'),
 ('20170824113401'),
 ('20170830085137'),
 ('20170830171726');

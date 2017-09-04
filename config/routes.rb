@@ -220,6 +220,7 @@ Renalware::Engine.routes.draw do
     end
 
     resources :bookmarks, only: :create, controller: "patients/bookmarks"
+    resources :alerts, only: [:new, :create, :destroy], controller: "patients/alerts"
     resource :worry, only: [:create, :destroy], controller: "patients/worry"
 
     namespace :accesses do

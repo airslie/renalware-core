@@ -1,0 +1,8 @@
+/ This partial is pulled in when the whole page renders, and creates the link and
+/ associated modal dialog wiring sending a message.
+- url = new_patient_alert_path(patient_id: patient, format: :html)
+
+/ Link to launch the modal dialog
+=link_to(url, data: { "reveal-id" => "create-alert-modal", "reveal-ajax" => "true" }) do
+  i.fa.fa-link-annotation.fa-exclamation-circle
+  = link_text

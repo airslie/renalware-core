@@ -1,0 +1,12 @@
+tr.alerts--alert(class=("urgent" if alert.urgent ) id="alert-#{alert.id}")
+  td.icon
+  td.notes
+    span(title=alert.notes)= alert.notes
+  td.author= alert.created_by.username
+  td.col-width-date= l(alert.created_at.to_date)
+  td.actions
+    = link_to(patient_alert_path(alert.patient, alert),
+              remote: true,
+              method: :delete,
+              data: { confirm: "Are you sure you want to remove this alert?" }) do
+      i.fa.fa-trash-o

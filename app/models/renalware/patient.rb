@@ -34,6 +34,7 @@ module Renalware
     belongs_to :religion, class_name: "Patients::Religion"
     belongs_to :language, class_name: "Patients::Language"
     has_many :bookmarks, class_name: "Patients::Bookmark"
+    has_many :alerts, class_name: "Patients::Alert"
     has_one :worry, class_name: "Patients::Worry"
 
     belongs_to :first_cause, class_name: "Deaths::Cause", foreign_key: :first_cause_id

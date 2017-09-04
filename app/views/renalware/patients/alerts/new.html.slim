@@ -1,0 +1,5 @@
+/ Invoked by Foundation Reveal from a Create Alert link in the patient LH nav
+/ which is marked up as using data-reveal-ajax=true and link to this action
+/ and a format of html (would otherwise default to js)
+/ We render the modal content html here and foundation will display the modal itself.
+= render "form", patient: patient, alert: alert
