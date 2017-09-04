@@ -14,7 +14,7 @@ module Renalware
     Renalware::Engine.load_seed
 
     # Load seeds specific to this hospital/site (in this case the Dummy app)
-    require_relative "./seeds/demo/seeds.rb"
+    require_relative "./seeds/seeds.rb"
   end
 
   # log "Database seeding completed in #{ms / 1000}s"
