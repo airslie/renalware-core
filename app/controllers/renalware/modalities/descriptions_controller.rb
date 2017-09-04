@@ -24,9 +24,9 @@ module Renalware
       end
 
       def index
-        modalilty_descriptions = Description.all
-        authorize modalilty_descriptions
-        render locals: { modalilty_descriptions: modalilty_descriptions }
+        modality_descriptions = Description.all
+        authorize modality_descriptions
+        render locals: { modality_descriptions: modality_descriptions }
       end
 
       def edit

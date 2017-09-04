@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :modality_description, class: "Renalware::Modalities::Description" do
     name "CAPD (disconnect)"
 
-    initialize_with { Renalware::HD::ModalityDescription.find_or_create_by(name: name) }
+    initialize_with { Renalware::Modalities::Description.find_or_create_by(name: name) }
 
     trait :capd_standard do
       name "CAPD (standard)"
