@@ -5,9 +5,12 @@
 //
 $(document).ready(function() {
   $(".print-pdf").on("click", function(e) {
-    // No IE/Edge supports smil - for these we revert to the default behaviour of showing
-    // the PDF in a new tab and the user must print manually.
-    if (Modernizr.smil) {
+
+    // detect IE8 and above, and edge
+    if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+      // Revert to the default behaviour of showing the PDF in a new tab and the user
+      // must print manually.
+    } else {
       var url = $(this).data("target");
       if (url) {
         e.preventDefault();
