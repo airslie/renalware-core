@@ -64,7 +64,7 @@ Gem::Specification.new do |s|
   s.add_dependency "ruby-hl7", "~> 1.2.0"
   s.add_dependency "sass-rails"
   s.add_dependency "scenic"
-  s.add_dependency "sdoc", "~> 0.4.0"
+  s.add_dependency "yard"
   s.add_dependency "simple_form"
   s.add_dependency "sinatra"
   s.add_dependency "slim-rails"
