@@ -12,6 +12,39 @@ This project adheres to Semantic Versioning.
 
 ### Fixed
 
+## v2.0.0-beta4
+
+09-09-2017
+
+### Added
+
+Significant additions:
+- Patient Alerts
+- Private Messaging
+- Terminate a patients medications on death
+- Automatic logout on session timeout
+- Combine Draft and Pending Review letters in the user dashboard
+- Event filtering
+- Add EPO drugs to HD MDM
+- UKRDC XML additions
+- Audits
+- Patient ESI print-out
+- Patient Peritonitis print-out
+- PD Line Change events
+- Display PD Line changes on the PD Dashboard
+- PD Training Sessions
+- Add Standing BP to clinic visit
+- List HD preference mismatches
+
+### Changed
+
+- Remove Site from Access Profile and Plan
+- Styling improvements
+
+### Fixed
+
+- Various bugfixes
+
 ## v2.0.0-beta2
 
 ### Added
