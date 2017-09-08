@@ -4,7 +4,7 @@ module Renalware
   module PD
     module APD
       describe CalculateVolumes do
-        let(:patient) { create(:pd_patient) }
+        let(:patient) { build_stubbed(:pd_patient) }
 
         describe "#call" do
 

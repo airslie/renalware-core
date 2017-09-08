@@ -14,7 +14,7 @@ describe Renalware::Clinics::ClinicVisit, type: :model do
   it { is_expected.not_to validate_presence_of(:admin_notes) }
 
   describe "bmi" do
-    subject { create(:clinic_visit, height: 1.7, weight: 82.5, patient: patient) }
+    subject { build_stubbed(:clinic_visit, height: 1.7, weight: 82.5, patient: patient) }
 
     let(:patient) { Renalware::Clinics.cast_patient(create(:patient)) }
 
