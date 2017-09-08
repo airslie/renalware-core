@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   # Note that no spec or feature files are included, so no dummy data is shipped with the gem
   s.files = Dir["{app,config,db,lib}/**/*", "Rakefile", "README.md"]
-  s.add_dependency "rails", "~> 5.1.3"
+  s.add_dependency "rails", "~> 5.1.4"
   s.add_dependency "active_type", "~> 0.7.1"
   s.add_dependency "activerecord-import"
   s.add_dependency "autoprefixer-rails"
