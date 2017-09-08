@@ -11,8 +11,8 @@ jobs:
       - image: circleci/postgres:9.6.2-alpine
 
     # SimpleCov will save coverage data to the CIRCLE_ARTIFACTS folder
-    environment:
-      CIRCLE_ARTIFACTS: "/tmp/test-artifacts"
+    # environment:
+    #  CIRCLE_ARTIFACTS: "/tmp/test-artifacts"
 
     parallelism: 1
     steps:
@@ -21,7 +21,7 @@ jobs:
       - run: git submodule sync ; git submodule update --init
 
       - run: mkdir -p /tmp/test-artifacts
-      - run: mkdir -p /tmp/test-results
+      - run: mkdir -p /coverage
 
       # Restore bundle cache
       - type: cache-restore
@@ -36,6 +36,10 @@ jobs:
         paths:
           - vendor/bundle
 
+      # https://codegists.com/code/circleci-2.0-configuration/
+      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      - run: chmod +x ./cc-test-reporter
+
       # Database set-up
       - run: cp ./spec/dummy/config/database.circle.yml ./spec/dummy/config/database.yml
       - run: RAILS_ENV=test bundle exec rake app:db:create
@@ -43,6 +47,11 @@ jobs:
 
       # Check gems for security vulnerabilities in gems
       - run: bundle exec bundle-audit update && bundle exec bundle-audit check
+
+      - run:
+          name: Notify Code Climate of a pending report
+          command: |
+            ./cc-test-reporter before-build
 
       # RSpec
       - type: shell
@@ -78,6 +87,11 @@ jobs:
       # Upload test results (junit xml)
       - store_test_results:
           path: /tmp/test-results
+
+      - run:
+          name: Report code coverage to Code Climate
+          command: |
+            ./cc-test-reporter after-build -t simplecov --exit-code $? || true
 
       # Test seeding
       - run: pushd ./spec/dummy ; bundle exec rails db:environment:set RAILS_ENV=test ; popd
