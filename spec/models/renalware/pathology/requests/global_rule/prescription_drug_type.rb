@@ -16,7 +16,7 @@ describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugType do
         )
       end
 
-      let!(:drug_type) { create(:drug_type) }
+      let!(:drug_type) { build_stubbed(:drug_type) }
 
       it { expect(global_rule).to be_valid }
     end
