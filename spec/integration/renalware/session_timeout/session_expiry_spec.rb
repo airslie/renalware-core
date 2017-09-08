@@ -6,30 +6,27 @@ feature "Session timeout", type: :feature, js: true do
 
   around(:each) do |example|
     original_session_timeout = Devise.timeout_in
-    original_polling_frequency = Renalware.config.session_timeout_polling_frequency
-
     Devise.timeout_in = 0.5.seconds
-    Renalware.configure do |config|
-      config.session_timeout_polling_frequency = 1.second
-    end
 
     example.run
 
     Devise.timeout_in = original_session_timeout
-    Renalware.configure do |config|
-      config.session_timeout_polling_frequency = original_polling_frequency
-    end
   end
 
   scenario "A user is redirected by JS to the login page when their session expires" do
     login_as_clinician
+
     visit root_path
 
     # Expect to be on the user's dashboard
     expect(page.current_path).to eq(root_path)
 
     100.times do
-      sleep 0.2
+      sleep 0.3
+      # Because we don't want to wait for the default session timeout polling freq
+      # to pass (could be 20 seconds), manually invoke the global sessionTimeoutCheck
+      # JavaScript function to force a check (and redirect if the session has expired)
+      page.execute_script(%Q(window.sessionTimeoutCheck();))
       break if page.current_path == new_user_session_path
     end
 
