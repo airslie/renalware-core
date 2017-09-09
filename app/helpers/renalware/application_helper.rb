@@ -1,5 +1,6 @@
 require "inline_image"
 require "git_commit_sha"
+require "breadcrumb"
 
 module Renalware
   module ApplicationHelper
@@ -17,7 +18,7 @@ module Renalware
     end
 
     def breadcrumb_for(title, url)
-      Renalware::Breadcrumb.new(title: title, anchor: link_to(title, url))
+      Breadcrumb.new(title: title, anchor: link_to(title, url))
     end
 
     def flash_messages

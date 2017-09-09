@@ -33,8 +33,8 @@ module Renalware
     # Example usage for the edit patient (demographics) page
     # breadcrumbs_and_title(
     #   breadcrumbs: [
-    #     Renalware::Breadcrumb.new(title: "Demographics",
-    #                               anchor: link_to("Demographics", patient_path)
+    #     Breadcrumb.new(title: "Demographics",
+    #                    anchor: link_to("Demographics", patient_path)
     #   ],
     #   title: "Edit"
     # )
