@@ -4,7 +4,8 @@
             wrapper: :horizontal_datepicker
   = f.association :assessor,
             as: :user_picker,
-            collection: Renalware::User.ordered
+            collection: Renalware::User.ordered,
+            wrapper: :horizontal_medium
   = f.input :overhydration,
             wrapper: :horizontal_small
   = f.input :volume_of_distribution,
@@ -29,7 +30,10 @@
             wrapper: :horizontal_small
   = f.input :quality_of_reading,
             wrapper: :horizontal_small
-  = f.input :notes, as: :text, input_html: { rows: 5 }
+  = f.input :notes,
+            as: :text,
+            wrapper: :horizontal_large,
+            input_html: { rows: 5 }
 
 
 .row

@@ -1,7 +1,10 @@
 - title = "#{l(profile.created_at.to_date)} to #{l(profile.deactivated_at.to_date)}"
 
-= within_patient_layout(title: title,
-                        breadcrumbs: [ hd_summary_breadcrumb(patient),
-                          breadcrumb_for("Historical Profiles", patient_hd_historical_profiles_path(patient)) ]) do
+= within_patient_layout(\
+    title: title,
+    breadcrumbs: [\
+      hd_summary_breadcrumb(patient),
+      breadcrumb_for("Historical Profiles", patient_hd_historical_profiles_path(patient))\
+  ]) do
 
   = render "renalware/hd/current_profile/show", patient: patient, profile: profile
