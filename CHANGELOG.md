@@ -5,14 +5,19 @@ this [changelog](http://keepachangelog.com/en/0.3.0/).
 This project adheres to Semantic Versioning.
 
 ## Unreleased
-
 ### Added
-
 ### Changed
-
 ### Fixed
 
-## v2.0.0-beta4
+## v2.0.0-beta6
+10-09-2017
+
+### Added
+### Changed
+### Fixed
+- Added the vendor path to the gemspec to fix missing assets when consuming the gem
+
+## v2.0.0-beta5
 
 09-09-2017
 
