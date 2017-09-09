@@ -9,13 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
-## v2.0.0-beta6
+## v2.0.0-beta7
 10-09-2017
 
 ### Added
 ### Changed
 ### Fixed
-- Added the vendor path to the gemspec to fix missing assets when consuming the gem
+- Added the vendor/assets path to the gemspec to fix missing assets when consuming the gem
+- Added the spec/support and spec/factories paths to the gemspec to make testing easier in the host
 
 ## v2.0.0-beta5
 
