@@ -103,6 +103,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "foreman"
   s.add_development_dependency "launchy"
   s.add_development_dependency "poltergeist"
+  s.add_development_dependency "pry-rails"
   s.add_development_dependency "rspec-html-matchers"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "rubocop", "~> 0.49.0"
