@@ -32,8 +32,7 @@ module World
         expect(page).to have_content(patient.family_name)
       end
 
-      def expect_mdm_to_include_patient_sessions(patient:, table:)
-      end
+      def expect_mdm_to_include_patient_sessions(patient:, table:); end
     end
   end
 end

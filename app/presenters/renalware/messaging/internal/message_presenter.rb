@@ -15,8 +15,6 @@ module Renalware
         def html_preview_identifier
           "message-preview-#{id}"
         end
-
-
       end
     end
   end

@@ -18,7 +18,6 @@ When(/^Clyde adds a CAPD regime$/) do
   @capd_regime = record_capd_regime_for(patient: @patty, user: @clyde)
 end
 
-
 When(/^Clyde creates the following APD Regime for Patty$/) do |table|
   @regime = build_apd_regime_for(patient: @patty, user: @clyde, data: table.rows)
 end
@@ -34,7 +33,6 @@ end
 Then(/^the CAPD becomes the current one$/) do
   regime_for_patient_is_current(patient: @patty, regime: @capd_regime)
 end
-
 
 Then(/^the calculated regime volumes are$/) do |table|
   expect_calculated_regime_volumes_to_be(data: table.rows, regime: @regime)
@@ -59,7 +57,6 @@ end
 # Then(/^Clyde cannot edit the old regime$/) do
 #   regime_is_immutable(@regime1)
 # end
-
 
 # Given(/^a patient has PD$/) do
 #   description = Renalware::PD::ModalityDescription.first!
@@ -252,7 +249,6 @@ end
 # Given(/^I record a new CAPD regime for Patty$/) do
 #   @regime = record_capd_regime_for(@patient)
 # end
-
 
 # When(/^I complete the form for a APD regime$/) do
 

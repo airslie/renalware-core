@@ -58,7 +58,6 @@ module World
       end
     end
 
-
     module Web
       include Domain
 

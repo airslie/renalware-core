@@ -308,8 +308,7 @@ module World
         expect(sessions.length).to eq(1)
         new_session = sessions.first
 
-        # TODO:
-        # We have not populated the prescription_administrations yet in this test, so
+        # TODO: We have not populated the prescription_administrations yet in this test, so
         # we _should_ have had a validation error because neither Yes nor Nor were selected
         # in the HD Drugs section for the drug that is administrable on HD.
         # However no validation error.

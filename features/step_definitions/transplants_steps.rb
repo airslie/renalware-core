@@ -223,7 +223,6 @@ When(/^Clyde views the list of registrations having a status mismatch$/) do
   view_wait_list_registrations(filter: :status_mismatch, user: @clyde)
 end
 
-
 # THEN
 
 Then(/^Patty's recipient workup exists$/) do
