@@ -1,5 +1,9 @@
 require_dependency "renalware/messaging"
 
+#
+# Abstract Message base class.
+# Use Internal::Message etc. subclasses (stored via STI).
+#
 module Renalware
   module Messaging
     class Message < ApplicationRecord
@@ -11,9 +15,6 @@ module Renalware
 
       belongs_to :patient
       belongs_to :author
-      belongs_to :replying_to_message, class_name: name
-      has_many :receipts
-      has_many :recipients, through: :receipts
     end
   end
 end
