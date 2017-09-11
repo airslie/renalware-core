@@ -32,8 +32,7 @@ module World
           # end
         end
 
-        def expect_patient_primary_care_physician_to_be(primary_care_physician, patient:)
-        end
+        def expect_patient_primary_care_physician_to_be(primary_care_physician, patient:); end
       end
     end
   end

@@ -138,7 +138,6 @@ SimpleForm.setup do |config|
     end
   end
 
-
   config.wrappers :horizontal_form, tag: "div", class: "row",
     hint_class: :field_with_hint, error_class: :error do |b|
     b.use :html5

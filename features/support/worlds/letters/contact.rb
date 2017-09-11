@@ -38,7 +38,6 @@ module World
         contact.save!
       end
 
-
       # @section expectations
       #
       def expect_available_contact(patient:, person:, description_name: "Sibling")
