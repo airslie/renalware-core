@@ -1942,7 +1942,8 @@ CREATE TABLE messaging_messages (
     author_id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    replying_to_message_id integer
+    replying_to_message_id integer,
+    type character varying NOT NULL
 );
 
 
@@ -7640,6 +7641,13 @@ CREATE INDEX index_messaging_messages_on_subject ON messaging_messages USING btr
 
 
 --
+-- Name: index_messaging_messages_on_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_messaging_messages_on_type ON messaging_messages USING btree (type);
+
+
+--
 -- Name: index_messaging_receipts_on_message_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -10600,6 +10608,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170823084127'),
 ('20170824113401'),
 ('20170830085137'),
-('20170830171726');
+('20170830171726'),
+('20170911133224');
 
 

@@ -33,8 +33,8 @@ module Renalware
 
       def unread_messages_receipts
         @unread_messages_receipts ||= begin
-          receipts = Messaging.cast_recipient(user).receipts.unread
-          CollectionPresenter.new(receipts, Messaging::ReceiptPresenter)
+          receipts = Messaging::Internal.cast_recipient(user).receipts.unread
+          CollectionPresenter.new(receipts, Messaging::Internal::ReceiptPresenter)
         end
       end
 
