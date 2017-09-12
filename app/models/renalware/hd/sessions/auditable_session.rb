@@ -44,6 +44,14 @@ module Renalware
           (dialysis_minutes_shortfall.to_f / prescribed_time.to_f) * 100.0
         end
 
+        def has_shortfall_gt_5_pct
+          if dialysis_minutes_shortfall_percentage > 5.0
+            1
+          else
+            0
+          end
+        end
+
         def weight_loss
           document.observations_before.weight.to_f - document.observations_after.weight.to_f
         end

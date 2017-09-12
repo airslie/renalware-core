@@ -86,6 +86,10 @@ module Renalware
           MeanValueStrategy.new(sessions: closed_sessions, selector: selector).call.round(2)
         end
 
+        def has_shortfall_gt_5_pct
+          sessions.sum(&:has_shortfall_gt_5_pct)
+        end
+
         def mean_ufr
           selector = ->(session) { session.ufr }
           MeanValueStrategy.new(sessions: closed_sessions, selector: selector).call
