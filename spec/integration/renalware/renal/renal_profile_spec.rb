@@ -1,4 +1,5 @@
 require "rails_helper"
+require_dependency "renalware/renal"
 
 RSpec.describe "Renal Profile (ESRF/Comorbidities)", type: :feature, js: true do
 
