@@ -10,7 +10,9 @@ module Renalware
       end
 
       def build
+        @electronic_cc_recipient_ids = params.delete(:electronic_cc_recipient_ids)
         @letter = build_letter
+        build_electronic_ccs
         include_primary_care_physician_as_default_main_recipient
         assign_default_ccs
         build_salutation
@@ -25,7 +27,7 @@ module Renalware
 
       private
 
-      attr_reader :patient, :letter, :params
+      attr_reader :patient, :letter, :params, :electronic_cc_recipient_ids
 
       def build_letter
         # We should not have to set the STI type manually here but in some circumstances
@@ -46,6 +48,24 @@ module Renalware
 
       def contacts_with_default_cc_option
         patient.contacts.default_ccs
+      end
+
+      # Deal with wiring up new electronic CCs in the new, unsaved letter.
+      # NB: The way electronic CCs are handled on building a new Letter and on updating an existing
+      # one is different: when updating an existing letter (see code elsewhere) we lean on rails
+      # doing some magic for us; as long as we have an array of electronic_cc_recipients in the
+      # params, it will add/remove an associated electronic_receipt object for us (assigning the
+      # letter_id to them in the process), because we used
+      #   has_many :electronic_cc_recipients, through: :electronic_receipts
+      # However, here, as we have no letter.id (letter is unsaved), Rails cannot yet create the
+      # implied electronic_receipt object for each electronic_cc_recipient for us - we must do it
+      # ourselves using electronic_receipts.build so rails will update the letter id in each when
+      # the parent letter is saved.
+      def build_electronic_ccs
+        return if electronic_cc_recipient_ids.blank?
+        electronic_cc_recipient_ids.reject(&:blank?).map do |user_id|
+          letter.electronic_receipts.build(recipient_id: user_id)
+        end
       end
 
       def build_salutation

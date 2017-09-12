@@ -131,8 +131,12 @@ module Renalware
         contacts = find_contacts
         contact = build_contact
         render action, locals: {
-          patient: @patient, letter: letter, contact: contact,
-            contacts: contacts, contact_descriptions: find_contact_descriptions
+          patient: @patient,
+          letter: letter,
+          contact: contact,
+          contacts: contacts,
+          contact_descriptions: find_contact_descriptions,
+          electronic_recipient_options: electronic_recipient_options
         }
       end
 
@@ -151,6 +155,10 @@ module Renalware
 
       def build_contact
         Contact.new.tap(&:build_person)
+      end
+
+      def electronic_recipient_options
+        ElectronicRecipientOptions.new(patient, current_user)
       end
 
       def event_class
@@ -178,7 +186,8 @@ module Renalware
           :letterhead_id, :author_id, :description, :issued_on, :enclosures,
           :salutation, :body, :notes,
           main_recipient_attributes: main_recipient_attributes,
-          cc_recipients_attributes: cc_recipients_attributes
+          cc_recipients_attributes: cc_recipients_attributes,
+          electronic_cc_recipient_ids: []
         ]
       end
 
@@ -193,6 +202,12 @@ module Renalware
           :id, :person_role, :addressee_id, :_keep
         ]
       end
+
+      # def electronic_receipts_attributes
+      #   [
+      #     :recipient_id
+      #   ]
+      # end
 
       def address_attributes
         [

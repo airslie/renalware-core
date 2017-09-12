@@ -9,7 +9,6 @@ require_dependency "renalware/messaging"
 #
 # The author is excluded from all lists so they cannot send to themselves
 #
-#Renalware::Messaging::Internal::Message
 module Renalware
   module Messaging
     module Internal
@@ -55,7 +54,7 @@ module Renalware
           ids_to_exclude = ids_of_users_having_received_a_message_about_patient +
                            ids_of_users_having_received_messages_from_author
           Group.new(
-            name: "KCH",
+            name: "All other users",
             users: Recipient.where.not(id: ids_to_exclude)
           )
         end

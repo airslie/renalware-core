@@ -54,6 +54,9 @@ Renalware::Engine.routes.draw do
         get "sent", to: "messages#sent", as: :sent_messages
       end
     end
+    namespace :electronic_ccs, as: :ecc do
+      resources :messages, only: [:new, :create]
+    end
   end
 
   namespace :admin do

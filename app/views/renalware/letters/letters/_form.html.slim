@@ -1,5 +1,5 @@
 ruby:
-  back_path = patient_letters_letters_path(@patient)
+  back_path = patient_letters_letters_path(patient)
   event = f.object.event
 
 .row.top
@@ -35,8 +35,13 @@ ruby:
           user_to_promote_to_top: current_user \
         )
 
-  = render "main_recipient", f: f, contacts: contacts, patient: @patient
-  = render "additional_ccs", f: f, contacts: contacts, patient: @patient
+  = render "main_recipient", f: f, contacts: contacts, patient: patient
+  = render "additional_ccs", f: f, contacts: contacts, patient: patient
+  = render "electronic_ccs",
+           f: f,
+           contacts: contacts,
+           patient: patient,
+           electronic_recipient_options: electronic_recipient_options
 
   article
     header
