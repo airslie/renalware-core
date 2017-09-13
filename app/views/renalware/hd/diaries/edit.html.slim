@@ -32,8 +32,9 @@
                 tr*{'data-station-id'=> station.id}
                   th= station.name
 
-                  - diary.each_day(diurnal_period, station) do |slot, day_of_week|
-                    = render "renalware/hd/diary_slots/slot", slot: slot
+                  - diary.each_day(diurnal_period, station) do |slot, _day_of_week|
+                    - cache slot do
+                      = render "renalware/hd/diary_slots/slot", slot: slot
 
   / Modal dialog container
   #add-patient-to-diary-modal.reveal-modal.medium(data-reveal)

@@ -22,7 +22,7 @@ module Renalware
 
       private
 
-      # Find the diary for the cureent unit/week/year, or, if for example if a user wants to fill
+      # Find the diary for the current unit/week/year, or, if for example if a user wants to fill
       # next week's diary and it does not yet exist, create it
       # NB we _always_ return a diary from this method - whether it is found or built just-in-time,
       def find_or_create_diary
@@ -39,7 +39,9 @@ module Renalware
       # Add in DiaryPeriods for each currently defined diurnal period eg am pm eve
       def build_diary(attrs)
         master_diary = FindOrCreateMasterDiary.for_unit(unit_id, by)
-        WeeklyDiary.create!(**attrs, by: by, master_diary: master_diary)
+        diary = WeeklyDiary.create!(**attrs, by: by, master_diary: master_diary)
+        # Reload the diary using the supplied relation (might be egager_loads etc)
+        relation.find(diary.id)
       end
     end
   end

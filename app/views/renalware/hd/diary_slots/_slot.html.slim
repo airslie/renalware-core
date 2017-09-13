@@ -6,7 +6,7 @@ td*{'data-slot-id' => slot.id.present? && slot.id,
 
   - if slot.patient.present?
     = link_to slot.patient.to_s,
-              hd_diary_slot_path(slot.diary, slot),
+              hd_diary_slot_path(diary_id: slot.diary_id, id: slot.id),
               class: "button diary__button diary__target",
               title: slot.patient,
               data: { "reveal-id" => "add-patient-to-diary-modal",

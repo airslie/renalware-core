@@ -35,16 +35,17 @@ module Renalware
         end
       end
 
-      def each_station(diurnal_period_code)
+      def each_station(_diurnal_period_code)
         stations.each{ |station| yield(station) if block_given? }
       end
 
       def each_day(diurnal_period, station)
-        Time::DAYS_INTO_WEEK.each do |day_name, day_of_week|
+        Time::DAYS_INTO_WEEK.each do |_day_name, day_of_week|
           day_of_week += 1
-          slot = weekly_diary.slot_for(diurnal_period.id, station.id, day_of_week) ||
-                 master_diary.slot_for(diurnal_period.id, station.id, day_of_week) ||
-                 null_diary.slot_for(weekly_diary.id, diurnal_period.id, station.id, day_of_week)
+          diurnal_period_id, station_id = diurnal_period.id, station.id
+          slot = weekly_diary.slot_for(diurnal_period_id, station_id, day_of_week) ||
+                 master_diary.slot_for(diurnal_period_id, station_id, day_of_week) ||
+                 null_diary.slot_for(weekly_diary.id, diurnal_period_id, station_id, day_of_week)
           yield(slot) if block_given?
         end
       end
@@ -54,7 +55,9 @@ module Renalware
       end
 
       def stations
-        @stations ||= Station.for_unit(hospital_unit_id).map{ |station| StationPresenter.new(station) }
+        @stations ||= Station.for_unit(hospital_unit_id).map do |station|
+          StationPresenter.new(station)
+        end
       end
     end
   end

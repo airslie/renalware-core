@@ -1,3 +1,4 @@
+# disables :reek:NestedIterators
 require "renalware/hd"
 
 module Renalware
@@ -12,7 +13,7 @@ module Renalware
       end
 
       class SlotParams
-        include Virtus.model(:nullify_blank => true)
+        include Virtus.model(nullify_blank: true)
         attribute :slot_id, Integer
         attribute :master, Boolean
         attribute :period_id, Integer
@@ -51,10 +52,9 @@ module Renalware
         end
       end
 
-
       def save(by:)
-        params[:periods].each do |period_id, period|
-          period[:stations].each do |station_id, station|
+        params[:periods].each do |_period_id, period|
+          period[:stations].each do |_station_id, station|
             station[:slots].each do |slot|
               s = SlotParams.new(slot)
               p s.status
@@ -75,31 +75,31 @@ module Renalware
 
       private
 
-      def create_slot_in_master_diary(slot_params, by)
-        p "create_slot_in_master_diary"
-        raise ArgumentError if slot_params.slot_id.present?
-        DiarySlot.create!(
-          period_id: slot_params[:master_period_id],
-          **slot_params.slice(:patient_id, :station_id, :day_of_week)
-        )
-      end
+      # def create_slot_in_master_diary(slot_params, by)
+      #   Rails.logger.info "create_slot_in_master_diary"
+      #   raise ArgumentError if slot_params.slot_id.present?
+      #   DiarySlot.create!(
+      #     period_id: slot_params[:master_period_id],
+      #     **slot_params.slice(:patient_id, :station_id, :day_of_week)
+      #   )
+      # end
 
-       def create_slot_in_weekly_diary(slot_params, by)
-        p "create_slot_in_weekly_diary"
-        raise ArgumentError if slot_params.slot_id.present?
-        DiarySlot.create!(
-          period_id: slot_params[:weekly_period_id],
-          by: by,
-          **slot_params.attributes.slice(:patient_id, :station_id, :day_of_week)
-        )
-      end
+      # def create_slot_in_weekly_diary(slot_params, by)
+      #   Rails.logger.info "create_slot_in_weekly_diary"
+      #   raise ArgumentError if slot_params.slot_id.present?
+      #   DiarySlot.create!(
+      #     period_id: slot_params[:weekly_period_id],
+      #     by: by,
+      #     **slot_params.attributes.slice(:patient_id, :station_id, :day_of_week)
+      #   )
+      # end
 
       def destroy_slot(slot_params, by)
         find_slot(slot_params).destroy!
       end
 
       def change_patient_assigned_to_slot(slot_params, by)
-         find_slot(slot_params).update!(patient_id: slot_params.patient_id, by: by)
+        find_slot(slot_params).update!(patient_id: slot_params.patient_id, by: by)
       end
 
       def find_slot(slot_params)

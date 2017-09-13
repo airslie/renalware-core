@@ -69,7 +69,7 @@ module Renalware
       end
 
       def build_null_slot
-        NullSlot.new(0,0,0,0)
+        NullSlot.new(0, 0, 0, 0)
       end
 
       def slot
