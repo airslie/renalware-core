@@ -10,6 +10,16 @@
   }
 }
 
+.diary__navigation {
+  a:first-child {
+    float: left;
+  }
+
+  a:last-child {
+    float: right;
+  }
+}
+
 .diary {
 
   .diary__period {
@@ -30,7 +40,6 @@
         color: $dark-grey;
       }
     }
-
   }
 
   h2 {
