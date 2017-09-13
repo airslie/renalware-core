@@ -218,11 +218,17 @@ scss:
       }
       margin-bottom: 20px;
     }
-
   }
 
   .footer {
     .ccs {
+      .electronic {
+        list-style-type: none;
+        list-style-position: outside;
+        margin: 0;
+        padding: 0;
+      }
+
       h3 {
         font-size: 1em;
         margin-bottom: 20px;
@@ -291,6 +297,11 @@ scss:
   .footer
     .ccs
       h3 cc:
+
+      ul.electronic
+        - letter.electronic_cc_recipients.each do |user|
+          li= user.full_name
+
 
       .private
         p Private and confidential
