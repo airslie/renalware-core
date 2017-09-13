@@ -12,7 +12,10 @@ module Renalware
       validates :letter, presence: true
       validates :recipient_id, presence: true
 
-      scope :unread, -> { where(read_at: nil) }
+      # Merge scope here to make sure we only get approved letters
+      scope :unread, -> { where(read_at: nil).joins(:letter).merge(Letter::Approved.all) }
+      scope :for_recipient, ->(user_id) { where(recipient_id: user_id) }
+      scope :ordered, -> { order(created_at: :desc) }
 
       def read?
         read_at.present?

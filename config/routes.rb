@@ -151,6 +151,11 @@ Renalware::Engine.routes.draw do
       end
     end
     resource :list, only: :show
+    resources :letters, only: [] do
+      resources :electronic_receipts, only: [] do
+        patch :mark_as_read, on: :member
+      end
+    end
   end
   get "authors/:author_id/letters", to: "letters/letters#author", as: "author_letters"
 

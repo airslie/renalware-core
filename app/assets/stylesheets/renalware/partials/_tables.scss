@@ -93,6 +93,10 @@ table {
 
     &:last-child {
       border-right: 0;
+
+      &.actions {
+        text-align: right;
+      }
     }
   }
 
@@ -112,6 +116,8 @@ table {
       min-width: 15rem;
       max-width: 20rem;
     }
+
+
   }
 
   tr th,

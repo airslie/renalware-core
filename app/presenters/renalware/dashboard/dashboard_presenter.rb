@@ -40,9 +40,8 @@ module Renalware
 
       def unread_electronic_ccs
         @unread_electronic_ccs ||= begin
-          Letters::ElectronicReceipt
-            .where(recipient_id: user.id, read_at: nil)
-            .order(created_at: :desc)
+          receipts = Letters::ElectronicReceipt.unread.for_recipient(user.id).ordered
+          CollectionPresenter.new(receipts, Letters::ElectronicReceiptPresenter)
         end
       end
 

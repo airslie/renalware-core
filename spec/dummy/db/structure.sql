@@ -3931,16 +3931,6 @@ ALTER SEQUENCE renal_profiles_id_seq OWNED BY renal_profiles.id;
 
 
 --
--- Name: reporting_1505145514; Type: MATERIALIZED VIEW; Schema: public; Owner: -
---
-
-CREATE MATERIALIZED VIEW reporting_1505145514 AS
- SELECT 'aaa'::text AS col1,
-    'bbb'::text AS col2
-  WITH NO DATA;
-
-
---
 -- Name: reporting_audits; Type: TABLE; Schema: public; Owner: -
 --
 

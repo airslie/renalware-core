@@ -14,7 +14,7 @@ module Renalware
           render_receipts(receipts.unread)
         end
 
-        # GET
+        # GET all read messages
         def read
           render_receipts(receipts)
         end
