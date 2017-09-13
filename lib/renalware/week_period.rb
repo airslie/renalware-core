@@ -1,18 +1,18 @@
 module Renalware
   class WeekPeriod
-    attr_reader :week_number, :year, :first_day_of_week
+    attr_reader :year, :week_number, :first_day_of_week
 
     def self.from_date(date)
       date = date.to_date
-      new(date.cweek, date.year)
+      new(week_number: date.cweek, year: date.year)
     end
 
-    def initialize(week_number, year)
-      @week_number = week_number
-      @year = year
+    def initialize(week_number:, year:)
+      @week_number = week_number.to_i
+      @year = year.to_i
       validate_week_number
       validate_year
-      @first_day_of_week = Date.commercial(year, week_number)
+      @first_day_of_week = Date.commercial(@year, @week_number)
     end
 
     def next
@@ -33,15 +33,22 @@ module Renalware
     end
 
     def validate_week_number
-      if week_number.blank? || week_number < 1 || week_number > 53
+      if week_number < 1 || week_number > 53
         raise(ArgumentError, "invalid date: week_number must be 1-53")
       end
     end
 
     def validate_year
-      if year.blank? || year <= 2000
+      if year <= 2000
         raise(ArgumentError, "invalid date year must be >= 2000")
       end
+    end
+
+    def to_h
+      {
+        year: year,
+        week_number: week_number
+      }
     end
   end
 end

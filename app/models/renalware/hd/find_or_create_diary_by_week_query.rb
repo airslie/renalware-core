@@ -2,16 +2,16 @@ require_dependency "renalware/hd"
 require "renalware/week_period"
 ##
 # Returns a hospital unit's diary for the requested week (passed to #new as a WeekPeriod
-# value object) or for the current period if no week period passed.
+# value object).
 #
 module Renalware
   module HD
     class FindOrCreateDiaryByWeekQuery
       attr_reader :unit_id, :period, :by, :relation
 
-      def initialize(unit_id:, week_period: nil, by:, relation: WeeklyDiary.all)
+      def initialize(unit_id:, week_period:, by:, relation: WeeklyDiary.all)
         @relation = relation
-        @period = week_period || current_week_period
+        @period = week_period
         @unit_id = unit_id
         @by = by
       end
@@ -32,7 +32,7 @@ module Renalware
           year: period.year,
           master: false
         }
-        relation.where(**attrs).first || build_diary(**attrs)
+        relation.find_by(**attrs) || build_diary(**attrs)
       end
 
       # Create a new Weekly diary for the current week/year/unit
@@ -40,10 +40,6 @@ module Renalware
       def build_diary(attrs)
         master_diary = FindOrCreateMasterDiary.for_unit(unit_id, by)
         WeeklyDiary.create!(**attrs, by: by, master_diary: master_diary)
-      end
-
-      def current_week_period
-        ::Renalware::WeekPeriod.from_date(Time.zone.today)
       end
     end
   end

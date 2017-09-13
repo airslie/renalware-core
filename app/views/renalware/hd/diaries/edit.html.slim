@@ -2,15 +2,15 @@
 = within_admin_layout(title: "") do
 
   .diary__navigation
-    = link_to "Previous week", "#"
-    = link_to "Next week", "#"
+    = link_to "Previous week", hd_unit_edit_diary_path(**week_period.previous.to_h)
+    = link_to "Next week", hd_unit_edit_diary_path(**week_period.next.to_h)
 
   .diary
     header
       h1 HD Diary
       h2= Renalware::Hospitals::Unit.find(diary.hospital_unit_id).name
-      h2= "#{l(diary.weekly_diary.week.start, format: :long)}"\
-          " to #{l(diary.weekly_diary.week.finish, format: :long)}"
+      h2= "#{l(diary.weekly_diary.week.first_day_of_week, format: :long)}"\
+          " to #{l(diary.weekly_diary.week.last_day_of_week, format: :long)}"
 
     section.diary__grid
 

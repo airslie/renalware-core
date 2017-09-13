@@ -136,7 +136,7 @@ Renalware::Engine.routes.draw do
       resources :stations do
         post :sort, on: :collection
       end
-      resources :diaries, only: [:edit, :update]
+      get "diaries/:year/:week_number", to: "diaries#edit", as: :edit_diary
     end
     resources :diaries, only: [] do
       resources :slots, controller: :diary_slots

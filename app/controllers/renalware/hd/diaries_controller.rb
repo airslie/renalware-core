@@ -1,74 +1,48 @@
 require_dependency "renalware/hd/base_controller"
 
+# The route to the edit route for this controller takes /:year/:week_number segments
+# rather than an id. THat is because when we load the diary, and when we navigate back and forth
+# through diaries, we are concerned with the week more then an id. Its easier to navigate to the
+# next week with /2017/52 than by looking up the id of the next diary ahead of time.
 module Renalware
   module HD
     class DiariesController < BaseController
-      # Want to show current diary by default
-      # Could map params[:id] == "current" to look up the current diary.
-      # What if the current diary does not exist?
-      # We should probably create it.
-      # What if previous weeks diaries do not exist?
-      # Create JIT or create_missing_diaries() somewhere (and immediately archive them?)
-      # Pub sub event would take care of the archiving (monitor creation and editing of diaries?)
-
-      # So here
-      # - if 'current' supplied in params[:id], map to a week and year eg week 10, year 2017
-      # and look up the period
       def edit
         authorize weekly_diary, :show?
         render locals: {
           diary_form: DiaryForm.new(weekly_diary),
-          diary: DiaryPresenter.new(current_user, weekly_diary)
+          diary: DiaryPresenter.new(current_user, weekly_diary),
+          week_period: week_period
         }
-      end
-
-      def update
-        authorize diary, :update?
-        DiaryForm.new(diary, diary_params).save(by: current_user)
-        redirect_to edit_hd_unit_diary_path(unit_id)
       end
 
       private
 
-      def load_current_diary?
-        diary_id == "current"
-      end
-
-      def week
-        return nil if load_current_diary?
-        #WeekPeriod.from_date(Date.parse("2019-01-01"))
-      end
-
-      def diary
-        WeeklyDiary.find_by!(id: diary_id, hospital_unit_id: unit_id)
-      end
-
-       def weekly_diary
+      def weekly_diary
         @weekly_diary ||= begin
-          # TODO: this current find current week only
           FindOrCreateDiaryByWeekQuery.new(
-            relation: WeeklyDiary.includes(slots: :patient, master_diary: { slots: :patient }),
+            relation: WeeklyDiary.eager_load(
+                slots: [:patient, :station, :diurnal_period_code],
+                master_diary: { slots: [:patient, :station, :diurnal_period_code] }
+                ),
             unit_id: unit_id,
+            week_period: week_period,
             by: current_user
           ).call
         end
       end
 
-      def diary_id
-        params[:id]
+      # The route segments are /:year/:week_number
+      # We use a WeekPeriod value object to wrap those two things.
+      def week_period
+        WeekPeriod.new(
+          week_number: params[:week_number],
+          year: params[:year]
+        )
       end
 
       def unit_id
         params[:unit_id]
-      end
-
-      def diary_params
-        params.require(:diary)
-          .permit(:id, periods: [ { stations: [ { slots: [
-            :master, :diurnal_period_id, :period_id, :slot_id, :station_id, :patient_id,
-            :weekly_period_id, :master_period_id, :day_of_week,
-            :_changed, :_destroy
-          ]}]}]).to_h
       end
     end
   end
