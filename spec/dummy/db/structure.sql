@@ -1638,7 +1638,9 @@ CREATE TABLE letter_electronic_receipts (
     id bigint NOT NULL,
     letter_id bigint NOT NULL,
     recipient_id bigint NOT NULL,
-    read_at timestamp without time zone
+    read_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -3926,6 +3928,16 @@ CREATE SEQUENCE renal_profiles_id_seq
 --
 
 ALTER SEQUENCE renal_profiles_id_seq OWNED BY renal_profiles.id;
+
+
+--
+-- Name: reporting_1505145514; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW reporting_1505145514 AS
+ SELECT 'aaa'::text AS col1,
+    'bbb'::text AS col2
+  WITH NO DATA;
 
 
 --

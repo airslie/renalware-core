@@ -38,6 +38,14 @@ module Renalware
         end
       end
 
+      def unread_electronic_ccs
+        @unread_electronic_ccs ||= begin
+          Letters::ElectronicReceipt
+            .where(recipient_id: user.id, read_at: nil)
+            .order(created_at: :desc)
+        end
+      end
+
       private
 
       def present_letters(letters)
