@@ -2,7 +2,7 @@
 h2= slot.patient
 
 p.which-diary= slot.description
-p= slot.class
+
 - destroy_btn_title = slot.diary.master ? "Remove" : "Remove and revert to master diary"
 = link_to destroy_btn_title,
           hd_diary_slot_path(slot.diary, slot),

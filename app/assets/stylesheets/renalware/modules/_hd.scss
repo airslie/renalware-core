@@ -82,27 +82,7 @@
     }
   }
 
-  td {
-    padding: 0;
-    border: 2px solid #fff;
-    text-align: center;
-    background-color: $white;
-
-    &:empty {
-      background-color: $light-grey;
-    }
-
-    &[data-weekly] {
-      background-color: $nhs-orange;
-    }
-
-    &[data-master] {
-      background-color: $nhs-green;
-    }
-  }
-
   .diary__button {
-    height: 100%;
     white-space: nowrap;
     margin: 0;
     padding: 0.5rem;
@@ -116,6 +96,46 @@
     display: inline-block;
     white-space: nowrap;
     font-size: 0.9rem;
+
+    &:hover {
+      background-color: red;
+    }
+  }
+
+  td {
+    padding: 0;
+    border: 1px solid $light-grey;
+    text-align: center;
+    background-color: $white;
+
+    &:empty {
+      background-color: $light-grey;
+    }
+
+    &[data-weekly] {
+      background-color: lighten($nhs-orange, 30);
+
+      a {
+        color: $dark-grey;
+      }
+
+      .diary__button:hover {
+        background-color: $nhs-orange;
+      }
+    }
+
+    &[data-master] {
+      .diary__button:hover {
+        background-color: $light-grey;
+      }
+    }
+
+    &[data-master] {
+      background-color: $white;
+      a {
+       color: $dark-grey;
+      }
+    }
   }
 }
 
