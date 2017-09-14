@@ -40,8 +40,7 @@ module Renalware
       end
 
       def each_day(diurnal_period, station)
-        Time::DAYS_INTO_WEEK.each do |_day_name, day_of_week|
-          day_of_week += 1
+        (1..last_day_of_week).each do |day_of_week|
           diurnal_period_id = diurnal_period.id
           station_id = station.id
           slot = weekly_diary.slot_for(diurnal_period_id, station_id, day_of_week) ||
@@ -52,13 +51,20 @@ module Renalware
       end
 
       def day_names
-        Time::DAYS_INTO_WEEK.keys
+        all_day_names = Time::DAYS_INTO_WEEK.keys
+        all_day_names.take(last_day_of_week)
       end
 
       def stations
         @stations ||= Station.for_unit(hospital_unit_id).map do |station|
           StationPresenter.new(station)
         end
+      end
+
+      private
+
+      def last_day_of_week
+        Renalware.config.include_sunday_on_hd_diaries ? 7 : 6
       end
     end
   end
