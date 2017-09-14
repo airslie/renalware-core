@@ -41,9 +41,9 @@ module Renalware
     # Official name for use when displaying e.g. on a letter. For example:
     #   Dr Isaac Newton (Consultant Gravitationalist)
     def professional_signature
-      "#{signature || full_name}".tap do |name|
-        name += " (#{professional_position})" if professional_position?
-      end
+      signed = signature || full_name
+      signed += " (#{professional_position})" if professional_position?
+      signed
     end
 
     private
