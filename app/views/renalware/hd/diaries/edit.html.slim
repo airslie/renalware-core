@@ -1,16 +1,22 @@
+= content_for(:actions) do
+  = render "page_actions", unit: unit
 
-= within_admin_layout(title: "") do
+= within_admin_layout(title: diary,
+                      breadcrumbs: [\
+                        breadcrumb_for(unit.name, hospitals_unit_path(unit)),
+                        breadcrumb_for("HD Diaries", hd_unit_diaries_path(unit))\
+                      ]) do
 
   .diary__navigation
-    = link_to "Previous week", hd_unit_edit_diary_path(**week_period.previous.to_h)
-    = link_to "Next week", hd_unit_edit_diary_path(**week_period.next.to_h)
+    = link_to hd_unit_edit_diary_path(**diary.week.previous.to_h), class: "button secondary" do
+      i.fa.fa-arrow-left
+      | Previous week
+
+    = link_to hd_unit_edit_diary_path(**diary.week.next.to_h), class: "button secondary" do
+      i.fa.fa-arrow-right
+      | Next week
 
   .diary
-    header
-      h1 HD Diary
-      h2= Renalware::Hospitals::Unit.find(diary.hospital_unit_id).name
-      h2= "#{l(diary.weekly_diary.week.first_day_of_week, format: :long)}"\
-          " to #{l(diary.weekly_diary.week.last_day_of_week, format: :long)}"
 
     section.diary__grid
 

@@ -117,7 +117,9 @@ table {
       max-width: 20rem;
     }
 
-
+    &.actions {
+      text-align: right;
+    }
   }
 
   tr th,

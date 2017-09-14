@@ -5,7 +5,7 @@ module Renalware
   module HD
     class DiaryPresenter
       attr_reader :user, :weekly_diary, :master_diary, :null_diary
-      delegate :id, :hospital_unit_id, to: :weekly_diary
+      delegate :id, :hospital_unit_id, :to_s, :week, to: :weekly_diary
 
       # https://github.com/avdi/naught
       NullDiary = Naught.build do |config|
@@ -42,7 +42,8 @@ module Renalware
       def each_day(diurnal_period, station)
         Time::DAYS_INTO_WEEK.each do |_day_name, day_of_week|
           day_of_week += 1
-          diurnal_period_id, station_id = diurnal_period.id, station.id
+          diurnal_period_id = diurnal_period.id
+          station_id = station.id
           slot = weekly_diary.slot_for(diurnal_period_id, station_id, day_of_week) ||
                  master_diary.slot_for(diurnal_period_id, station_id, day_of_week) ||
                  null_diary.slot_for(weekly_diary.id, diurnal_period_id, station_id, day_of_week)

@@ -7,13 +7,21 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module HD
     class DiariesController < BaseController
+      include Renalware::Concerns::Pageable
+
       def edit
         authorize weekly_diary, :show?
         render locals: {
+          unit: unit,
           diary_form: DiaryForm.new(weekly_diary),
-          diary: DiaryPresenter.new(current_user, weekly_diary),
-          week_period: week_period
+          diary: DiaryPresenter.new(current_user, weekly_diary)
         }
+      end
+
+      # Renders a list of diaries for a hospital unit
+      def index
+        authorize WeeklyDiary, :index?
+        render locals: { unit: unit, diaries: weekly_diaries }
       end
 
       private
@@ -43,6 +51,17 @@ module Renalware
 
       def unit_id
         params[:unit_id]
+      end
+
+      def unit
+        Hospitals::Unit.find(unit_id)
+      end
+
+      def weekly_diaries
+        WeeklyDiary
+          .where(hospital_unit_id: unit_id)
+          .ordered
+          .page(page).per(per_page)
       end
     end
   end

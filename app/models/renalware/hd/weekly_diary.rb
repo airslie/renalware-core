@@ -13,6 +13,17 @@ module Renalware
       validates :year, presence: true
       validates :master, inclusion: { in: [false], allow_nil: false }
       validates :master_diary, presence: true
+      delegate :to_s, to: :week
+      scope :ordered, ->{ order(year: :desc, week_number: :desc) }
+
+      def applies_to_current_week?
+        today = Time.zone.today
+        [today.cweek, today.year] == [week.week_number, week.year]
+      end
+
+      def archived?
+        false
+      end
 
       class WeeklySlotDecorator < SimpleDelegator
         def master?

@@ -27,6 +27,10 @@ module Renalware
       [week_number, year]
     end
 
+    def to_s
+      "#{I18n.l(first_day_of_week, format: :long)} to #{I18n.l(last_day_of_week, format: :long)}"
+    end
+
     # The date of last day of the week (a Sunday)
     def last_day_of_week
       @last_day_of_week ||= (first_day_of_week + 1.week - 1.minute).to_date
