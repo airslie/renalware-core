@@ -13,12 +13,22 @@ module Renalware
       validates :recipient_id, presence: true
 
       # Merge scope here to make sure we only get approved letters
+      scope :sent_by, lambda{ |user_id|
+        joins(:letter)
+          .merge(Letter::Approved.all)
+          .where(letter_letters: { author_id: user_id })
+      }
       scope :unread, -> { where(read_at: nil).joins(:letter).merge(Letter::Approved.all) }
+      scope :read, -> { where.not(read_at: nil).joins(:letter).merge(Letter::Approved.all) }
       scope :for_recipient, ->(user_id) { where(recipient_id: user_id) }
       scope :ordered, -> { order(created_at: :desc) }
 
       def read?
         read_at.present?
+      end
+
+      def unread?
+        !read?
       end
     end
   end

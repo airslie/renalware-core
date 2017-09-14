@@ -30,17 +30,18 @@ table.letters.electronic-ccs
             = simple_format letter.body
 
         td.nowrap
-          ul.actions
-            li= link_to "Keep as unread",
-                        "##{receipt.html_preview_identifier}",
-                        data: { behaviour: "toggler" },
-                        class: "button secondary keep-as-unread"
+          - if policy(receipt).mark_as_read?
+            ul.actions
+              li= link_to "Keep as unread",
+                          "##{receipt.html_preview_identifier}",
+                          data: { behaviour: "toggler" },
+                          class: "button secondary keep-as-unread"
 
-            li= link_to(mark_as_read_letters_letter_electronic_receipt_path(letter, receipt),
-                        class: "button mark-as-read",
-                        method: :patch,
-                        remote: true) do
-              i.fa.fa-check
-              | Mark as read
+              li= link_to(mark_as_read_letters_letter_electronic_receipt_path(letter, receipt),
+                          class: "button mark-as-read",
+                          method: :patch,
+                          remote: true) do
+                i.fa.fa-check
+                | Mark as read
 
 

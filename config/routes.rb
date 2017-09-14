@@ -54,9 +54,6 @@ Renalware::Engine.routes.draw do
         get "sent", to: "messages#sent", as: :sent_messages
       end
     end
-    namespace :electronic_ccs, as: :ecc do
-      resources :messages, only: [:new, :create]
-    end
   end
 
   namespace :admin do
@@ -154,6 +151,13 @@ Renalware::Engine.routes.draw do
     resources :letters, only: [] do
       resources :electronic_receipts, only: [] do
         patch :mark_as_read, on: :member
+      end
+    end
+    resources :electronic_receipts, only: [] do
+      collection do
+        get :unread
+        get :read
+        get :sent
       end
     end
   end
