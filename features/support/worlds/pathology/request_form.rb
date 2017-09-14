@@ -249,7 +249,6 @@ module World
           consultant = find_or_create_requested_consultant(params[:consultant])
           telephone = params[:telephone]
 
-
           login_as clinician
 
           visit patient_pathology_required_observations_path(patient_id: patients.first)

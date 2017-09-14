@@ -10,7 +10,6 @@ Given(/^Patty has a recorded access assessment$/) do
   seed_access_assessment_for(@patty, user: Renalware::User.first)
 end
 
-
 When(/^Clyde records an access profile for Patty$/) do
   create_access_profile(patient: @patty, user: @clyde)
 end
@@ -34,7 +33,6 @@ end
 When(/^Clyde submits an erroneous access assessment$/) do
   create_access_assessment(patient: @patty, user: @clyde, access_type: nil)
 end
-
 
 Then(/^Patty has a new access profile$/) do
   expect_access_profile_to_exist(@patty)

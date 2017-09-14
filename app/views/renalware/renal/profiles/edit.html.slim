@@ -1,6 +1,8 @@
-= within_patient_layout(title: "Edit",
-                        breadcrumbs: breadcrumb_for("Renal Profile & Comorbidity Data",
-                                                    patient_renal_profile_path(patient))) do
+= within_patient_layout(\
+    title: "Edit",
+    breadcrumbs: breadcrumb_for("Renal Profile & Comorbidity Data",
+                 patient_renal_profile_path(patient))\
+  ) do
 
   .row
     = render "renalware/shared/errors", model: profile

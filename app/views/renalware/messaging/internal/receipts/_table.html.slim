@@ -1,0 +1,16 @@
+table.auto-layout.align-top.messages.has-togglable-rows
+  thead
+    tr
+      th.col-width-tinyish= t(".age")
+      /th.col-width-tiny.show-for-large-up
+      th.col-width-medium= t(".from")
+      th.col-width-date-time= t(".sent_at")
+      th.col-width-large= t(".patient_name")
+      th.col-width-reference-no= t(".hosp_no")
+      th= t(".subject")
+      td.col-width-small
+
+  tbody
+    = render partial: "renalware/messaging/internal/receipts/receipt", collection: receipts
+
+= render "renalware/messaging/internal/messages/modal_dialog_placeholder"

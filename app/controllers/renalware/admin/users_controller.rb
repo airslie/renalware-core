@@ -32,7 +32,7 @@ module Renalware
     end
 
     def update_params
-      roles = fetch_roles(user_params[:role_ids]).to_a
+      roles = Array(Role.fetch(role_ids))
       user_params.merge(roles: roles)
     end
 
@@ -40,8 +40,8 @@ module Renalware
       params.require(:user).permit(:approved, :unexpire, :telephone, role_ids: [])
     end
 
-    def fetch_roles(role_ids)
-      Role.fetch(role_ids)
+    def role_ids
+      (user_params[:role_ids] || []).reject(&:blank?)
     end
 
     def update_user

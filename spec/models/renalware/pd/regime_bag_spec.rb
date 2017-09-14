@@ -15,7 +15,7 @@ module Renalware
     end
 
     before do
-      @patient = create(:patient)
+      @patient = build_stubbed(:patient)
       @pd_regime_bag_1 = PD::RegimeBag.new
       @pd_regime_bag_2 = build(:pd_regime_bag,
                                sunday: true,

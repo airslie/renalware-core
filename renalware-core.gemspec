@@ -17,8 +17,16 @@ Gem::Specification.new do |s|
   s.license     = "MIT"
 
   # Note that no spec or feature files are included, so no dummy data is shipped with the gem
-  s.files = Dir["{app,config,db,lib}/**/*", "Rakefile", "README.md"]
-  s.add_dependency "rails", "~> 5.1.3"
+  s.files = Dir[
+    "{app,config,db,lib}/**/*",
+    "vendor/assets/**/*",
+    "spec/factories/**/*",
+    "spec/support/**/*",
+    "Rakefile",
+    "README.md",
+    "MIT-LICENSE"
+  ]
+  s.add_dependency "rails", "~> 5.1.4"
   s.add_dependency "active_type", "~> 0.7.1"
   s.add_dependency "activerecord-import"
   s.add_dependency "autoprefixer-rails"
@@ -95,6 +103,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "foreman"
   s.add_development_dependency "launchy"
   s.add_development_dependency "poltergeist"
+  s.add_development_dependency "pry-rails"
   s.add_development_dependency "rspec-html-matchers"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "rubocop", "~> 0.49.0"

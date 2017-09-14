@@ -5,7 +5,7 @@ module Renalware
     RSpec.describe AssessmentFactory, type: :model do
       subject { AssessmentFactory.new(patient: patient) }
 
-      let(:user) { create(:user, :admin) }
+      let(:user) { build_stubbed(:user, :admin) }
       let(:patient) { Accesses.cast_patient(create(:patient)) }
 
       describe "#build" do

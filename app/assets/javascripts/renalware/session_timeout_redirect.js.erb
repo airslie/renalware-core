@@ -7,17 +7,21 @@
 // would prevent a dyno sleeping, but its also a waste of resources.
 //
 $(document).ready(function() {
-  var login_path ="<%= Renalware::Engine.routes.url_helpers.new_user_session_path %>";
-  var frequency_s = <%= Renalware.config.session_timeout_polling_frequency.to_i %>;
 
-  var session_timeout_check = function(){
+  var login_path ="<%= Renalware::Engine.routes.url_helpers.new_user_session_path %>";
+  var defaultPollFreq = <%= Renalware.config.session_timeout_polling_frequency.to_i %>;
+  var frequency_s = defaultPollFreq;
+
+  // This is a global window function so that we can call it directly from capybara tests to
+  // bypass having to wait for the session polling interval to tick over.
+  window.sessionTimeoutCheck = function(){
     if(window.location.pathname != login_path) {
       $.getScript("<%= Renalware::Engine.routes.url_helpers.session_timed_out_path %>")
        .fail(function(jqxhr, settings, exception) {
          console.log("Failed to query for session timeout");
        });
     }
- };
+  };
 
-  setInterval(session_timeout_check, (frequency_s * 1000));
+  setInterval(window.sessionTimeoutCheck, (frequency_s * 1000));
 });

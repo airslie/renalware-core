@@ -31,8 +31,8 @@ module Renalware
 
         class Observations < Renalware::HD::SessionDocument::Observations
           validates_presence_of :pulse, :blood_pressure, :weight_measured, :temperature_measured
-          validates_presence_of :weight, if: "weight_measured.try!(:yes?)"
-          validates_presence_of :temperature, if: "temperature_measured.try!(:yes?)"
+          validates_presence_of :weight, if: ->{ weight_measured&.yes? }
+          validates_presence_of :temperature, if: ->{ temperature_measured&.yes? }
           validates :blood_pressure, "renalware/patients/blood_pressure_presence" => true
         end
         attribute :observations_before, Observations

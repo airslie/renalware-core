@@ -10,9 +10,11 @@ module Renalware::Messaging
     it { is_expected.to have_db_index(:patient_id) }
     it { is_expected.to have_db_index(:author_id) }
     it { is_expected.to have_db_index(:subject) }
-    it { is_expected.to have_many(:receipts) }
-    it { is_expected.to have_many(:recipients).through(:receipts) }
+    it { is_expected.to have_db_index(:type) }
+    # it { is_expected.to have_many(:receipts) }
+    # it { is_expected.to have_many(:recipients).through(:receipts) }
     it { is_expected.to belong_to(:patient) }
-    it { is_expected.to belong_to(:author) }
+    # it { is_expected.to belong_to(:author) }
+    it { is_expected.to respond_to(:type) }
   end
 end

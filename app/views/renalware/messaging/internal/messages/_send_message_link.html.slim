@@ -1,0 +1,11 @@
+/ This partial is pulled in when the whole page renders, and creates the link and
+/ associated modal dialog wiring sending a message.
+- patient = Renalware::Messaging.cast_patient(patient)
+- url = new_messaging_internal_message_path(patient_id: patient, format: :html)
+
+/ Link to launch the modal dialog
+=link_to(url,
+         id: "send-patient-message",
+         data: { "reveal-id" => "send-message-modal", "reveal-ajax" => "true" }) do
+  i.fa.fa-link-annotation.fa-envelope
+  = link_text

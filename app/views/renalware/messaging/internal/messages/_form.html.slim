@@ -1,0 +1,32 @@
+/ This is the send message modal dialog content
+= simple_form_for form,
+                html: { autocomplete: "off"},
+                remote: true,
+                as: :internal_message,
+                url: messaging_internal_messages_path(patient_id: patient) do |f|
+    h2= t(".title")
+    =f.input :replying_to_message_id, as: :hidden
+
+    / NB the inline styling here prevents an initial flash and re-jiggle of dropdown content which
+    / is subsequently hidden by select2 after 100 ms or so.
+    =f.input :recipient_ids,
+             label: t(".recipient_ids"),
+             collection: recipient_options,
+             as: :grouped_select,
+             group_method: :users,
+             group_label_method: :name,
+             label_method: :to_s,
+             value_method: :id,
+             input_html: { class: "searchable_select",
+                           id: "message_recipient_ids",
+                           multiple: "multiple",
+                           style: "visibility: hidden; height: 2.5rem" }
+    =f.input :subject
+    =f.input :urgent, as: :boolean, boolean_style: :inline
+    =f.input :body, as: :text, input_html: { rows: 7 }
+    =f.submit "Send", class: :button
+    span= " or "
+    =link_to t(".cancel"),
+             "#",
+             "aria-label" => "Close",
+             class: "reveal-modal-close"

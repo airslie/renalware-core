@@ -5,12 +5,51 @@ this [changelog](http://keepachangelog.com/en/0.3.0/).
 This project adheres to Semantic Versioning.
 
 ## Unreleased
+### Added
+### Changed
+### Fixed
+
+## v2.0.0-beta7
+10-09-2017
+
+### Added
+### Changed
+### Fixed
+- Added the vendor/assets path to the gemspec to fix missing assets when consuming the gem
+- Added the spec/support and spec/factories paths to the gemspec to make testing easier in the host
+
+## v2.0.0-beta5
+
+09-09-2017
 
 ### Added
 
+Significant additions:
+- Patient Alerts
+- Private Messaging
+- Terminate a patients medications on death
+- Automatic logout on session timeout
+- Combine Draft and Pending Review letters in the user dashboard
+- Event filtering
+- Add EPO drugs to HD MDM
+- UKRDC XML additions
+- Audits
+- Patient ESI print-out
+- Patient Peritonitis print-out
+- PD Line Change events
+- Display PD Line changes on the PD Dashboard
+- PD Training Sessions
+- Add Standing BP to clinic visit
+- List HD preference mismatches
+
 ### Changed
 
+- Remove Site from Access Profile and Plan
+- Styling improvements
+
 ### Fixed
+
+- Various bugfixes
 
 ## v2.0.0-beta2
 

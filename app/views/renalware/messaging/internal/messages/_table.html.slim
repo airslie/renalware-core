@@ -1,0 +1,13 @@
+table.messages.messages-sent.has_togglable_content
+  thead
+    tr
+      th.col-width-date-time= t(".sent_at")
+      th.col-width-large= t(".patient_name")
+      th.col-width-reference-no= t(".hosp_no")
+      th= t(".subject")
+      th= t(".recipients")
+      td
+  tbody
+    = render partial: "message", collection: messages
+= paginate messages
+= render "modal_dialog_placeholder"

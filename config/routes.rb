@@ -1,3 +1,4 @@
+# rubocop:disable Style/FormatStringToken
 Renalware::Engine.routes.draw do
 
   match "/404", to: "system/errors#not_found", via: :all
@@ -41,15 +42,17 @@ Renalware::Engine.routes.draw do
   end
 
   namespace :messaging do
-    resources :messages, only: [:new, :create] do
-      resources :receipts, only: [] do
-        patch :mark_as_read, on: :member
+    namespace :internal do
+      resources :messages, only: [:new, :create] do
+        resources :receipts, only: [] do
+          patch :mark_as_read, on: :member
+        end
       end
-    end
-    scope :messages do
-      get "inbox", to: "receipts#unread", as: :inbox
-      get "read", to: "receipts#read", as: :read_receipts
-      get "sent", to: "messages#sent", as: :sent_messages
+      scope :messages do
+        get "inbox", to: "receipts#unread", as: :inbox
+        get "read", to: "receipts#read", as: :read_receipts
+        get "sent", to: "messages#sent", as: :sent_messages
+      end
     end
   end
 
@@ -122,7 +125,7 @@ Renalware::Engine.routes.draw do
     resource :ongoing_sessions, only: :show
     resources :mdm_patients, only: :index
     resources :unmet_preferences, only: :index
-    resources :units, :only => [] do
+    resources :units, only: [] do
       resources :stations do
         post :sort, on: :collection
       end
