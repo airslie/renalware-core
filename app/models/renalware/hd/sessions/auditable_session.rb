@@ -45,11 +45,7 @@ module Renalware
         end
 
         def has_shortfall_gt_5_pct
-          if dialysis_minutes_shortfall_percentage > 5.0
-            1
-          else
-            0
-          end
+          dialysis_minutes_shortfall_percentage > 5.0 ? 1 : 0
         end
 
         def weight_loss
