@@ -18,6 +18,8 @@ module Renalware
           expect(profile.errors.keys).to include(:other_schedule)
         end
       end
+
+      it { is_expected.to belong_to(:schedule_definition) }
     end
   end
 end

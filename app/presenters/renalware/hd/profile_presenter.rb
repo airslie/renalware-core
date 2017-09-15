@@ -60,9 +60,12 @@ module Renalware
       end
 
       def current_schedule
-        return if schedule.blank?
+        return other_schedule if other_schedule.present?
+        schedule_definition
+      end
 
-        schedule.other? ? other_schedule : schedule.text
+      def schedule_definitions
+        ScheduleDefinition.ordered.map{ |definition| [definition.to_s, definition.id] }
       end
 
       def last_update

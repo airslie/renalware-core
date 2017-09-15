@@ -5,6 +5,7 @@ module Renalware
   barts_doc = User.find_by!(username: "bartsdoc")
   kent_doc = User.find_by!(username: "kentdoc")
   kent_nurse = User.find_by!(username: "kentnurse")
+  schedule_definition = HD::ScheduleDefinition.first
 
   log "Assign HD modality to Francois RABBIT" do
     Modalities::ChangePatientModality
@@ -19,7 +20,7 @@ module Renalware
 
     preference_set = HD::PreferenceSet.find_or_initialize_by(patient: patient)
     preference_set.attributes = {
-      schedule: "mon_wed_fri_am",
+      schedule_definition: schedule_definition,
       hospital_unit: Hospitals::Unit.hd_sites.sample,
       entered_on: 1.week.ago.to_date,
       by: barts_doc
@@ -34,7 +35,7 @@ module Renalware
     profile.attributes = {
       by: User.first,
       hospital_unit: Hospitals::Unit.hd_sites.first,
-      schedule: "mon_wed_fri_am",
+      schedule_definition: schedule_definition,
       prescribed_time: 180,
       prescribed_on: 1.week.ago.to_date,
       prescriber: kch_doc,

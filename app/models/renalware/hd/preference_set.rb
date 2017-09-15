@@ -5,10 +5,10 @@ module Renalware
     class PreferenceSet < ApplicationRecord
       include PatientScope
       include Accountable
-      include HasSchedule
 
       belongs_to :patient, touch: true
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"
+      belongs_to :schedule_definition, foreign_key: "schedule_definition_id"
 
       has_paper_trail class_name: "Renalware::HD::Version"
 
@@ -18,7 +18,7 @@ module Renalware
       delegate :hospital_centre, to: :hospital_unit, allow_nil: true
 
       def preferred_schedule
-        other_schedule_required? ? other_schedule : schedule.try(:text)
+        other_schedule || schedule_definition&.to_s
       end
 
       def self.policy_class

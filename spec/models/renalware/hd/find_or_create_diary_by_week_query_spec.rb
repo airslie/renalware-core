@@ -9,8 +9,14 @@ module Renalware
     let(:week_period){ WeekPeriod.from_date(Time.zone.today) }
 
     it "finds an existing diary for the given week period" do
+      master_diary = create(
+        :hd_master_diary,
+        hospital_unit_id: @unit.id,
+        by: @user
+      )
       created_diary = create(
         :hd_weekly_diary,
+        master_diary: master_diary,
         hospital_unit_id: @unit.id,
         week_number: week_period.week_number,
         year: week_period.year,

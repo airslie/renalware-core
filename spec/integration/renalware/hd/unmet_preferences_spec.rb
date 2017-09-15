@@ -11,15 +11,28 @@ RSpec.describe "Viewing patients whose HD preferences do not match their profile
   end
   let(:user) { Renalware::User.first }
 
+  before(:all) do
+    @mon_wed_fri_am = create(:schedule_definition, :mon_wed_fri_am)
+    @mon_wed_fri_pm = create(:schedule_definition, :mon_wed_fri_pm)
+  end
+
+  def mon_wed_fri(am_pm_eve)
+    period = Renalware::HD::DiurnalPeriodCode.find_or_create_by!(code: am_pm_eve)
+    Renalware::HD::ScheduleDefinition.find_or_create_by!(
+      diurnal_period: period,
+      days: [1, 3, 5]
+    )
+  end
+
   def patient_preferring_another_schedule(name: "Jones")
     create(:hd_patient, family_name: name).tap do |patient|
       create(:hd_profile,
              patient: patient,
-             schedule: :mon_wed_fri_am, # !
+             schedule_definition: @mon_wed_fri_am,
              hospital_unit: current_unit)
       create(:hd_preference_set,
              patient: patient,
-             schedule: :mon_wed_fri_pm, # !
+             schedule_definition: @mon_wed_fri_pm,
              hospital_unit: current_unit,
              by: user)
     end
@@ -29,11 +42,10 @@ RSpec.describe "Viewing patients whose HD preferences do not match their profile
     create(:hd_patient, family_name: name).tap do |patient|
       create(:hd_profile,
              patient: patient,
-             schedule: :mon_wed_fri_am,
+             schedule_definition: @mon_wed_fri_am,
              hospital_unit: current_unit) # !
       create(:hd_preference_set,
              patient: patient,
-             schedule: :mon_wed_fri_am,
              hospital_unit: preferred_unit, # !
              by: user)
     end
@@ -41,11 +53,14 @@ RSpec.describe "Viewing patients whose HD preferences do not match their profile
 
   def patient_whose_preferences_are_met(name: "Metpost")
     create(:hd_patient, family_name: name).tap do |patient|
-      create(:hd_profile, patient: patient, hospital_unit: current_unit, schedule: :mon_wed_fri_am)
+      create(:hd_profile,
+             patient: patient,
+             hospital_unit: current_unit,
+             schedule_definition: @mon_wed_fri_am)
       create(:hd_preference_set,
              patient: patient,
              hospital_unit: current_unit,
-             schedule: :mon_wed_fri_am,
+             schedule_definition: @mon_wed_fri_am,
              by: user)
     end
   end

@@ -2,6 +2,10 @@ require "rails_helper"
 
 feature "Managing HD Stations for a Hospital Unit" do
 
+  before(:all) do
+    create(:hd_station_location, name: "Side room")
+  end
+
   def create_station(name, unit, by)
     create(:hd_station, name: name, hospital_unit_id: unit.id, by: by)
   end
