@@ -27,6 +27,39 @@
   }
 }
 
+.diary__key {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+
+  .diary__key--master-diary {
+    background-color: $white;
+  }
+
+  .diary__key--weekly-diary {
+    background-color: $hd-weekly-diary-colour;
+  }
+
+  .title {
+    display: inline-block;
+    font-size: 1.1rem;
+    color: $dark-grey;
+  }
+
+  ul {
+    list-style: none;
+    display: inline-block;
+
+    li {
+      display: inline;
+      margin: 0 0.1rem;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.9rem;
+      border: solid 1px $mid-grey;
+    }
+  }
+}
+
 .diary {
 
   .diary__period {
@@ -83,20 +116,18 @@
     }
   }
 
-  // .diary__grid {
-  //   float: left;
-  // }
-
-  // .diary__bucket {
-  //   float: right;
-  //   min-width: 5rem;
-  // }
-
-  tr:hover {
+  tbody {
     th {
-      background-color: $light-grey;
+      border-left: 5px solid $white;
+    }
+
+    tr:hover {
+      th {
+        border-left: 5px solid $dark-grey;
+      }
     }
   }
+
 
   .diary__button {
     white-space: nowrap;
@@ -105,17 +136,11 @@
     background-color: transparent;
     overflow: hidden;
     text-overflow: ellipsis;
-    // min-width: 1rem;
-    // max-width: 10rem;
     width: 100%;
     text-align: center;
     display: inline-block;
     white-space: nowrap;
     font-size: 0.9rem;
-
-    &:hover {
-      background-color: red;
-    }
   }
 
   td {
@@ -128,21 +153,30 @@
       background-color: $light-grey;
     }
 
+    &:hover {
+      border-color: $dark-grey;
+    }
+
     &[data-weekly] {
-      background-color: lighten($nhs-orange, 30);
+      background-color: $hd-weekly-diary-colour;
 
       a {
         color: $dark-grey;
       }
 
       .diary__button:hover {
-        background-color: $nhs-orange;
+        background-color: $hd-weekly-diary-hover-colour;
       }
     }
 
     &[data-master] {
+
+      &:hover {
+        background-color: $almost-white;
+      }
+
       .diary__button:hover {
-        background-color: $light-grey;
+        background-color: $almost-white;
       }
     }
 

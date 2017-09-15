@@ -14,7 +14,7 @@ td*{'data-slot-id' => slot.id.present? && slot.id,
   - else
 
     = link_to "Add",
-              new_hd_diary_slot_path(id: nil, diary_id: slot.diary_id,
+              new_hd_diary_slot_path(diary_id: slot.diary_id,
                                      station_id: slot.station_id,
                                      diurnal_period_code_id: slot.diurnal_period_code_id,
                                      day_of_week: slot.day_of_week),

@@ -35,7 +35,7 @@ module Renalware
         end
       end
 
-      def each_station(_diurnal_period_code)
+      def each_station
         stations.each{ |station| yield(station) if block_given? }
       end
 
@@ -56,9 +56,13 @@ module Renalware
       end
 
       def stations
-        @stations ||= Station.for_unit(hospital_unit_id).map do |station|
+        @stations ||= Station.for_unit(hospital_unit_id).ordered.map do |station|
           StationPresenter.new(station)
         end
+      end
+
+      def station_locations
+        StationLocation.all
       end
 
       private

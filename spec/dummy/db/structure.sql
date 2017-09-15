@@ -1537,6 +1537,36 @@ ALTER SEQUENCE hd_sessions_id_seq OWNED BY hd_sessions.id;
 
 
 --
+-- Name: hd_station_locations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE hd_station_locations (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    colour character varying NOT NULL
+);
+
+
+--
+-- Name: hd_station_locations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_station_locations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_station_locations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_station_locations_id_seq OWNED BY hd_station_locations.id;
+
+
+--
 -- Name: hd_stations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1545,12 +1575,12 @@ CREATE TABLE hd_stations (
     hospital_unit_id bigint NOT NULL,
     "position" integer DEFAULT 0 NOT NULL,
     name character varying,
-    location character varying,
     updated_by_id integer NOT NULL,
     created_by_id integer NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    location_id integer
 );
 
 
@@ -5545,6 +5575,13 @@ ALTER TABLE ONLY hd_sessions ALTER COLUMN id SET DEFAULT nextval('hd_sessions_id
 
 
 --
+-- Name: hd_station_locations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_station_locations ALTER COLUMN id SET DEFAULT nextval('hd_station_locations_id_seq'::regclass);
+
+
+--
 -- Name: hd_stations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6528,6 +6565,14 @@ ALTER TABLE ONLY hd_profiles
 
 ALTER TABLE ONLY hd_sessions
     ADD CONSTRAINT hd_sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_station_locations hd_station_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_station_locations
+    ADD CONSTRAINT hd_station_locations_pkey PRIMARY KEY (id);
 
 
 --
@@ -8170,6 +8215,13 @@ CREATE INDEX index_hd_sessions_on_signed_on_by_id ON hd_sessions USING btree (si
 --
 
 CREATE INDEX index_hd_sessions_on_updated_by_id ON hd_sessions USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_station_locations_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_station_locations_on_name ON hd_station_locations USING btree (name);
 
 
 --
@@ -10657,6 +10709,14 @@ ALTER TABLE ONLY transplant_donor_stages
 
 
 --
+-- Name: hd_stations fk_rails_a7fedf6e91; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_stations
+    ADD CONSTRAINT fk_rails_a7fedf6e91 FOREIGN KEY (location_id) REFERENCES hd_station_locations(id);
+
+
+--
 -- Name: pathology_requests_drugs_drug_categories fk_rails_a850498c88; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -11790,6 +11850,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170908160250'),
 ('20170911133224'),
 ('20170912092135'),
+('20170915090544'),
 ('20170920113628'),
 ('20170925161033'),
 ('20170925182738'),

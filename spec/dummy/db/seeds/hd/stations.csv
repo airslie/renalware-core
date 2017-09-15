@@ -1,13 +1,13 @@
 unit_code,name,location,position
 MOUNT,Station1,,0
-MOUNT,,side_room,1
-MOUNT,Starling,side_room,2
+MOUNT,,Side room,1
+MOUNT,Starling,Side room,2
 MOUNT,Raven,,3
 MOUNT,Pigeon,,4
-MOUNT,Egret,side_room,5
+MOUNT,Egret,Side room,5
 PEEL,Station1,,0
-PEEL,Station2,side_room,1
-PEEL,Station3,side_room,2
+PEEL,Station2,Side room,1
+PEEL,Station3,Side room,2
 PEEL,Station4,,3
 PEEL,Station5,,4
-PEEL,Station6,side_room,5
+PEEL,Station6,Side room,5

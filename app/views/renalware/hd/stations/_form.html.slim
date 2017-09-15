@@ -4,7 +4,9 @@
                   wrapper: :horizontal_form do |f|
 
   = f.input :name, wrapper: :horizontal_medium
-  = f.input :location, wrapper: :horizontal_medium
+  = f.input :location_id,
+            collection: Renalware::HD::StationLocation.pluck(:name, :id),
+            wrapper: :horizontal_medium
 
   = f.submit "Save", class: "button"
   span= " or "
