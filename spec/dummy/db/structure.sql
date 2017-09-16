@@ -1747,8 +1747,7 @@ CREATE TABLE hospital_units (
     unit_type character varying NOT NULL,
     is_hd_site boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    number_of_hd_stations integer
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -11988,6 +11987,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170912092135'),
 ('20170915090544'),
 ('20170915115228'),
+('20170916121019'),
 ('20170920113628'),
 ('20170925161033'),
 ('20170925182738'),
