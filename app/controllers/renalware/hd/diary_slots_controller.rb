@@ -31,7 +31,9 @@ module Renalware
 
       def show
         authorize slot
-        render layout: false, locals: { slot: slot }
+        # TODO
+        patients = PatientsDialysingByDayAndPeriodQuery.new(params[:day_of_week], "am").call.all
+        render layout: false, locals: { slot: slot, patients: patients }
       end
 
       def destroy
@@ -60,7 +62,7 @@ module Renalware
       end
 
       def corresponding_master_slot_for(weekly_slot)
-        return build_null_slot unless diary.master_diary_id.present?
+        return build_null_slot if diary.master_diary_id.blank?
         diary.master_diary.slot_for(
           weekly_slot.diurnal_period_code_id,
           weekly_slot.station_id,

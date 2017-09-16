@@ -149,6 +149,18 @@
     text-align: center;
     background-color: $white;
 
+    // Creates a red triangle top left. Some work to do overlaying cell.
+    &.infected-patient {
+      div {
+        width: 0;
+        height: 0;
+        position: absolute;
+        border-style: solid;
+        border-width: 2rem 2rem 0 0;
+        border-color: $nhs-red transparent transparent transparent;
+      }
+    }
+
     &:empty {
       background-color: $light-grey;
     }
