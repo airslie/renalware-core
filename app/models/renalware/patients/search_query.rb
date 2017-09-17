@@ -13,6 +13,8 @@
 module Renalware
   module Patients
     class SearchQuery
+
+      # FIELDS = %i(id family_name given_name nhs_number).freeze
       attr_reader :term
 
       def initialize(term:)
@@ -23,6 +25,7 @@ module Renalware
         search.result
       end
 
+      # .select(FIELDS)
       def search
         @search ||= begin
           Patient
