@@ -2,7 +2,8 @@ td*{'data-slot-id' => slot.id.present? && slot.id,
     'data-cell-id' => slot.cell_id,
     'data-master' => slot.master?,
     'data-weekly' => slot.id.present? && !slot.master?,
-    'data-patient-id' => slot.patient_id.present? && slot.patient_id }
+    'data-patient-id' => slot.patient_id.present? && slot.patient_id,
+    'style' => defined?(animate) && animate && "animation: highlight 1.5s" }
 
   - if slot.patient.present?
     = link_to slot.patient.to_s,

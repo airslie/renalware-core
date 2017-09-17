@@ -1,4 +1,4 @@
 $("td[data-slot-id='<%= slot.id %>']").replaceWith("<%= escape_javascript(
-  render "slot", slot: slot, diary: diary
-) %>");
+  render "slot", slot: slot, diary: diary, animate: true
+) %>")
 $(".reveal-modal").foundation('reveal', 'close');

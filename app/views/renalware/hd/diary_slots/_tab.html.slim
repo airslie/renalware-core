@@ -1,0 +1,27 @@
+= simple_form_for(slot,
+                  url: hd_diary_slot_path(slot.diary, slot),
+                  remote: true,
+                  wrapper: :horizontal_form) do |f|
+
+  -if scheduled_only
+    h1 scheduled_only
+    =f.input :patient_id,
+             collection: patients,
+             label_method: ->(item){ item.to_s(:long) },
+             value_method: :id,
+             input_html: { class: "searchable_select"}
+  - else
+    h1 no
+    = f.input :patient_id,
+              collection: [],
+              input_html: {\
+                id: "patient-ajax-search",
+                data: { "ajax--url" => search_patients_path(format: :json) }\
+              }
+
+  =f.submit "Select", class: :button
+  = blank_separator
+  =link_to "Cancel",
+           "#",
+           "aria-label" => "Close",
+           class: "reveal-modal-close"

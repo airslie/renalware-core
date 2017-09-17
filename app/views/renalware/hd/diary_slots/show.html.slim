@@ -17,47 +17,9 @@ h2 Replace with another patient
     li
       a(href="#tabs-1")Patients scheduled here
     li
-      a(href="#tabs-2")Bla
-    li
-      a(href="#tabs-3")All patients
+      a(href="#tabs-2")All patients
 
   #tabs-1
-    = simple_form_for(slot,
-                  url: hd_diary_slot_path(slot.diary, slot),
-                  remote: true,
-                  wrapper: :horizontal_form) do |f|
-      =f.input :patient_id,
-               collection: patients,
-               label_method: ->(item){ item.to_s(:long) },
-               value_method: :id,
-               input_html: { class: "searchable_select" }
-
-      =f.submit "Save", class: :button
-      = blank_separator
-      =link_to "Cancel",
-               "#",
-               "aria-label" => "Close",
-               class: "reveal-modal-close"
+    = render "tab", slot: slot, patients: patients, scheduled_only: true
   #tabs-2
-    p Morbi tincidunt
-  #tabs-3
-    p Mauris eleifend
-
-/ = simple_form_for(slot,
-/                   url: hd_diary_slot_path(slot.diary, slot),
-/                   remote: true,
-/                   wrapper: :horizontal_form) do |f|
-/   =f.input :patient_id,
-/            collection: patients,
-/            label_method: ->(item){ item.to_s(:long) },
-/            value_method: :id,
-/            input_html: { class: "searchable_select" }
-/   =f.submit "Save", class: :button
-/   = blank_separator
-/   =link_to "Cancel",
-/            "#",
-/            "aria-label" => "Close",
-/            class: "reveal-modal-close"
-/     br
-
-
+    = render "tab", slot: slot, patients: patients, scheduled_only: false
