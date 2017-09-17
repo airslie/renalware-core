@@ -8,8 +8,9 @@
   = f.input :primary_care_physician_id,
             collection: available_primary_care_physicians,
             prompt: "Select a GP",
+            label: "Now choose a GP",
             input_html: { class: "searchable_select", required: :required, tabindex: 2001 }
-
+  br
   = f.submit "Save",
               class: "button",
               data: { disable_with: "Saving.." }
