@@ -19,6 +19,7 @@ module Renalware
         @term = term
       end
 
+      # The key here is the identity_match ransacker - see PatientsRansackHelper
       def call
         search.result
       end
