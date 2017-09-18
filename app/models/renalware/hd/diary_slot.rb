@@ -34,6 +34,11 @@ module Renalware
       validates :diurnal_period_code, presence: true
       validates :day_of_week, presence: true, inclusion: { in: 1..7 }
 
+      # A patient can only be assigned to one station in any period (e.g. am)/day combination
+      # for a diary. I.e. they can't be on two stations on Monday morning.
+      validates :patient_id,
+                uniqueness: { scope: [:diary, :diurnal_period_code, :day_of_week] }
+
       delegate :id, to: :diary, prefix: true
 
       def self.policy_class

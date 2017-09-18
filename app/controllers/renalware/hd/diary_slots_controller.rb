@@ -31,9 +31,7 @@ module Renalware
 
       def show
         authorize slot
-        # TODO
-        patients = PatientsDialysingByDayAndPeriodQuery.new(params[:day_of_week], "am").call.all
-        render layout: false, locals: { slot: slot, patients: patients }
+        render layout: false, locals: locals_for(slot)
       end
 
       def destroy
@@ -56,22 +54,27 @@ module Renalware
 
       private
 
+      def potential_patients_for_current_slot
+        PatientsDialysingByDayAndPeriodQuery.new(params[:day_of_week], "am").call.all
+      end
+
       # Find the corresponding slot in the master if there is one
       def replacement_slot
         corresponding_master_slot_for(slot)
       end
 
       def corresponding_master_slot_for(weekly_slot)
-        return build_null_slot if diary.master_diary_id.blank?
+        return build_null_slot(weekly_slot) if diary.master_diary_id.blank? # if slot is in master
         diary.master_diary.slot_for(
           weekly_slot.diurnal_period_code_id,
           weekly_slot.station_id,
           weekly_slot.day_of_week
-        ) || build_null_slot
+        ) || build_null_slot(weekly_slot)
       end
 
-      def build_null_slot
-        NullSlot.new(0, 0, 0, 0)
+      def build_null_slot(weekly_slot)
+        NullSlot.new(diary.id, weekly_slot.diurnal_period_code_id,
+                     weekly_slot.station_id, weekly_slot.day_of_week)
       end
 
       def slot
@@ -84,13 +87,15 @@ module Renalware
 
       def locals_for(slot)
         {
-          slot: slot
+          slot: slot,
+          patients: potential_patients_for_current_slot
         }
       end
 
       def slot_params
-        params.require(:hd_diary_slot)
-              .permit(:patient_id, :day_of_week, :diurnal_period_code_id, :station_id)
+        params
+          .require(:hd_diary_slot)
+          .permit(:patient_id, :day_of_week, :diurnal_period_code_id, :station_id, :target_diary_id)
       end
     end
   end

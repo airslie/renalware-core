@@ -12,14 +12,16 @@ p.which-diary= slot.description
 
 h2 Replace with another patient
 
-#tabs
-  ul
-    li
-      a(href="#tabs-1")Patients scheduled here
-    li
-      a(href="#tabs-2")All patients
+.ui-tabs-simple
+  #tabs
+    ul
+      li
+        a(href="#tabs-1")Patients scheduled here
+      li
+        a(href="#tabs-2")All patients
 
-  #tabs-1
-    = render "tab", slot: slot, patients: patients, scheduled_only: true
-  #tabs-2
-    = render "tab", slot: slot, patients: patients, scheduled_only: false
+    #tabs-1
+      = render "tab", weekly_diary: slot.diary, slot: slot, patients: patients, scheduled_only: true
+    #tabs-2
+      = render "tab", weekly_diary: slot.diary, slot: slot, patients: patients, scheduled_only: false
+br

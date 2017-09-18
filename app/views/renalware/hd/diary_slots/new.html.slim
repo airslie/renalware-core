@@ -3,30 +3,27 @@
 / - and a format of html (would otherwise default to js)
 / We render the modal content html here and foundation will display the modal itself.
 
-/ = simple_form_for slot,
-/                   html: { autocomplete: "off"},
-/                   remote: true,
-/                   url: "/" do |f|
-/     hd Add Patient
-/     =f.submit "OK", class: :button
-/     span= " or "
-/     =link_to t(".cancel"),
-/              "#",
-/              "aria-label" => "Close",
-/              class: "reveal-modal-close"
-
 h2 Add patient
 
-= simple_form_for(slot, url: hd_diary_slots_path(slot.diary_id), remote: true, method: :post) do |f|
+.ui-tabs-simple
+  #tabs
+    ul
+      li
+        a(href="#tabs-1")Patients scheduled here
+      li
+        a(href="#tabs-2")All patients
 
-  =f.input :station_id, as: :hidden
-  =f.input :diurnal_period_code_id, as: :hidden
-  =f.input :day_of_week, as: :hidden
+    #tabs-1
+      = render "new_tab",
+        slot: slot,
+        patients: patients,
+        weekly_diary: slot.diary,
+        scheduled_only: true
+    #tabs-2
+      = render "new_tab",
+        slot: slot,
+        patients: patients,
+        weekly_diary: slot.diary,
+        scheduled_only: false
+br
 
-  =f.input :patient_id, label: "Patient (for now just the id but would be a list here)"
-  =f.submit "Save", class: :button
-  =link_to "Cancel",
-           "#",
-           "aria-label" => "Close",
-           class: "reveal-modal-close button secondary right"
-  br

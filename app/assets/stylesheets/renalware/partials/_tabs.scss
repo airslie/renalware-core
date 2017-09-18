@@ -1,3 +1,48 @@
+.ui-tabs-simple {
+  .ui-tabs {
+    border: none;
+  }
+
+  .ui-tabs-nav {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .ui-widget-header {
+    padding: 0;
+    background: none;
+    border-width: 0;
+  }
+
+  .ui-tabs-tab.ui-tabs-active,
+  .ui-tabs-tab.ui-state-active {
+    background-color: $white;
+    border-color: $table-border-colour;
+  }
+
+  .ui-tabs-anchor {
+    outline: none;
+  }
+
+  .ui-state-active a,
+  .ui-state-active a:link,
+  .ui-state-active a:visited {
+    color: $dark-grey;
+  }
+}
+
+.ui-tabs-simple  .ui-tabs-nav {
+  padding-left: 0px;
+  background: transparent;
+  border-width: 0px 0px 1px 0px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+}
+
+.ui-tabs-simple  .ui-tabs-panel {
+  border-width: 0px 1px 1px 1px;
+}
+
 .tab-strip {
   list-style-type: none;
   margin: 0 0 2px 0;

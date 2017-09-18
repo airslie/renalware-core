@@ -7489,6 +7489,13 @@ CREATE INDEX idx_mp_patient_id_medication_route_id ON medication_prescriptions U
 
 
 --
+-- Name: idx_unique_diaryslot_patients; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_unique_diaryslot_patients ON hd_diary_slots USING btree (diary_id, diurnal_period_code_id, day_of_week, patient_id);
+
+
+--
 -- Name: index_access_assessments_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11988,6 +11995,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170915090544'),
 ('20170915115228'),
 ('20170916121019'),
+('20170917185426'),
 ('20170920113628'),
 ('20170925161033'),
 ('20170925182738'),

@@ -1,0 +1,52 @@
+- form_id = SecureRandom.hex(16)
+= simple_form_for(slot,
+                  html: { id: form_id },
+                  url: hd_diary_slots_path(weekly_diary.id),
+                  remote: true,
+                  method: :post,
+                  wrapper: :horizontal_form) do |f|
+
+  =f.input :station_id, as: :hidden
+  =f.input :diurnal_period_code_id, as: :hidden
+  =f.input :day_of_week, as: :hidden
+
+  <label for="save_to_master">Apply to:</label>
+  input(name="save_to_master" type="radio" value="false" checked="checked") Weekly Diary
+  input(name="save_to_master" type="radio" value="true") Master Diary
+
+  -if scheduled_only
+    =f.input :patient_id,
+             collection: patients,
+             label_method: ->(item){ item.to_s(:long) },
+             value_method: :id,
+             input_html: { class: "searchable_select"}
+  - else
+    = f.input :patient_id,
+              collection: [],
+              input_html: {\
+                id: "patient-ajax-search",
+                data: { "ajax--url" => search_patients_path(format: :json) }\
+              }
+
+  =f.submit "Select", class: :button
+  = blank_separator
+  =link_to "Cancel",
+           "#",
+           "aria-label" => "Close",
+           class: "reveal-modal-close"
+
+javascript:
+  // Before submitting the form, change the url to point to the correct diary - weekly or master -
+  // according to which option was selected.
+  $(document).ready(function() {
+    $("##{form_id}").submit(function(e){
+      var form = $(this)
+      useMaster = $("input:checked[name=save_to_master]").val();
+      if(useMaster == "true") {
+        url = "#{hd_diary_slots_path(weekly_diary.master_diary_id)}";
+      } else {
+        url = "#{hd_diary_slots_path(weekly_diary.id)}";
+      }
+      $(form).attr("action", url);
+    });
+  });
