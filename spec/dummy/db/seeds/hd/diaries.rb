@@ -18,9 +18,15 @@ module Renalware
 
         HD::DiurnalPeriodCode.all.each do |code|
           HD::Station.for_unit(unit).each do |station|
+            used_patient_ids = []
+
             (1..7).each do |day_of_week|
+              # patient has to be unique for this station/day/period
+              patient = Renalware::Patient.where.not(id: used_patient_ids).first
+              next if patient.nil?
+              used_patient_ids << patient.id
               master.slots.create(
-                patient_id: Patient.first.id,
+                patient_id: patient.id,
                 station: station,
                 day_of_week: day_of_week,
                 diurnal_period_code: code,
@@ -41,8 +47,13 @@ module Renalware
 
         HD::DiurnalPeriodCode.all.each do |code|
           HD::Station.for_unit(unit).each do |station|
+            used_patient_ids = []
+            # patient has to be unique for this station/day/period
+            patient = Renalware::Patient.where.not(id: used_patient_ids).first
+            next if patient.nil?
+            used_patient_ids << patient.id
             weekly.slots.create(
-              patient_id: Patient.first.id,
+              patient_id: patient.id,
               station: station,
               day_of_week: (1..7).to_a.sample,
               diurnal_period_code: code,
