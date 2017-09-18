@@ -53,4 +53,4 @@ ul.f-dropdown#download-options(data-dropdown-content aria-hidden="true")
   = blank_separator
 = blank_separator
 = link_to "back to list",
-          patient_letters_letters_path(letter.patient)
+          params.fetch(:back_url, patient_letters_letters_path(letter.patient))

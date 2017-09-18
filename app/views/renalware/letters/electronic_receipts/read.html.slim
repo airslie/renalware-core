@@ -1,4 +1,5 @@
 = within_admin_layout(title: "Electronic CCs") do
   = render "renalware/letters/shared/electronic_cc_type_tabs"
+  = render search_form
   = render "table", receipts: receipts
   = paginate receipts
