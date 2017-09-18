@@ -15,6 +15,10 @@ module Renalware
         def read?
           index?
         end
+
+        def sent?
+          index?
+        end
       end
     end
   end

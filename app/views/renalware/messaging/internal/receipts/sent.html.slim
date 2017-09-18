@@ -1,6 +1,7 @@
 = within_admin_layout(title: "Messages") do
   = render "renalware/messaging/shared/messages_type_tabs"
   = render search_form
-  .read-messages
-    = render "table", receipts: receipts
+  = render "sent_table", receipts: receipts
   = paginate receipts
+  = render "renalware/messaging/internal/messages/modal_dialog_placeholder"
+

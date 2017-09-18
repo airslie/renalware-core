@@ -8,6 +8,7 @@ module Renalware
         has_many :receipts
         has_many :recipients, through: :receipts
         belongs_to :replying_to_message, class_name: name
+        scope :ordered, ->{ order(sent_at: :desc) }
       end
     end
   end

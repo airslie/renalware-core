@@ -34,13 +34,14 @@ module Renalware
       private
 
       def render_receipts(receipts)
-        search_form = build_search_form_object
-        receipts = filter_receipts(receipts, search_form).ordered.page(page).per(per_page)
+        patient_filter = Patients::SearchFilter.new(search_term, request)
+        receipts = receipts.joins(letter: [:patient])
+        receipts = patient_filter.call(receipts).ordered.page(page).per(per_page)
         authorize receipts
 
         render locals: {
           receipts: present_receipts(receipts),
-          search_form: search_form
+          search_form: patient_filter.search_form
         }
       end
 
@@ -51,10 +52,10 @@ module Renalware
         )
       end
 
-      def filter_receipts(receipts, search_form)
-        matching_patients = Patients::SearchQuery.new(term: search_form.term).call
-        receipts.joins(letter: [:patient]).merge(matching_patients)
-      end
+      # def filter_receipts(receipts, search_form)
+      #   matching_patients = Patients::SearchQuery.new(term: search_form.term).call
+      #   receipts.joins(letter: [:patient]).merge(matching_patients)
+      # end
 
       def search_term
         params.fetch(:patient_search, {}).fetch(:term, nil)
