@@ -12,6 +12,11 @@ RSpec.describe "Manage electronic CCs", type: :feature do
     @patient = create(:letter_patient, primary_care_physician: @primary_care_physician)
   end
 
+  after(:all) do
+    @patient.destroy!
+    @primary_care_physician.destroy!
+  end
+
   scenario "Marks an Electronic CC as `read` for an approved letter", js: true do
     user = login_as_clinician
 
