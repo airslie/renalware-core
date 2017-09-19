@@ -256,6 +256,12 @@ module Renalware
               expect(audit.dialysis_minutes_shortfall_percentage).to eq(6.5)
             end
           end
+
+          describe "#number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct" do
+            it "returns the number of sessions with >5% shortfall" do
+              expect(audit.number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct).to eq(2)
+            end
+          end
         end
 
         describe "#number_of_missed_sessions" do

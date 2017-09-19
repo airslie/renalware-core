@@ -33,6 +33,7 @@ module Renalware
           mean_blood_flow
           mean_litres_processed
           mean_ufr
+          number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct
         ).freeze
 
         def to_h
@@ -86,8 +87,8 @@ module Renalware
           MeanValueStrategy.new(sessions: closed_sessions, selector: selector).call.round(2)
         end
 
-        def has_shortfall_gt_5_pct
-          sessions.sum(&:has_shortfall_gt_5_pct)
+        def number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct
+          sessions.count(&:dialysis_minutes_shortfall_gt_5_pct?)
         end
 
         def mean_ufr
