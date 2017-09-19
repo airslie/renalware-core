@@ -16,22 +16,23 @@ ruby:
       locals: { legend: "Recipient", name: "recipient" } do
     = f.input :relationship_with_recipient, wrapper: :horizontal_medium
     = f.input :relationship_with_recipient_other, wrapper: :horizontal_medium
-    .row
-      .columns.small-12.medium-4.large-3
-        = label_tag "recipient_auto_complete",
-            f.object.class.human_attribute_name(:recipient),
-            class: "right inline"
-      .columns.small-12.medium-8.large-9
-        = text_field_tag "recipient_auto_complete", \
-            f.object.recipient.try(:to_s, :long),
-            data: { \
-              autocomplete_source: search_patients_path, \
-              autocomplete_rel: "[name='transplants_donation[recipient_id]']" \
-            },
-            spellcheck: false,
-            placeholder: "Start entering the last name (min. 2 characters)",
-            class: "medium-input"
-    = f.input :recipient_id, as: :hidden
+    br
+
+    ruby:
+      recipient = f.object.recipient
+      default_value = { id: recipient.id, text: recipient.to_s(:long) } if recipient.present?
+
+    = f.input :recipient_id,
+              collection: [],
+              include_blank: false,
+              wrapper: :horizontal_medium,
+              input_html: {\
+                 class: "select2-ajax-search",
+                 data: { "ajax--url" => search_patients_path(format: :json),
+                         "default-value" => default_value,
+                         "placeholder" => "Start entering the last name (min. 3 characters)" }\
+              }
+
     = f.input :blood_group_compatibility,
               as: :inline_radio_buttons,
               wrapper: :horizontal_medium

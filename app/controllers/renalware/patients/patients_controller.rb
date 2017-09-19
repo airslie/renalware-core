@@ -17,7 +17,8 @@ module Renalware
       def search
         skip_authorization
         query = Patients::SearchQuery.new(term: params[:term])
-        render json: query.call.to_json
+        patients = query.call.page(page).per(per_page)
+        render json: simplify(patients).to_json
       end
 
       def new
@@ -64,6 +65,15 @@ module Renalware
       end
 
       private
+
+      def simplify(patients)
+        patients.map do |patient|
+          {
+            id: patient.id,
+            text: patient.to_s(:long)
+          }
+        end
+      end
 
       def patient_params
         params

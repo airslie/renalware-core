@@ -1,3 +1,4 @@
+
 module World
   module Transplants::Donation
     module Domain
@@ -122,12 +123,18 @@ module World
           click_on "Edit"
         end
 
-        fill_autocomplete "form.simple_form", "recipient_auto_complete",
-          with: "ThePatient", select: "Patty"
+        # Until we work how to test a select2 ajax autocomplete, for now insert the
+        # anticipated <option> into the select.
+        #   select2(recipient.family_name, from: "transplants_donation_recipient_id")
+        page.execute_script(
+          %"$('#transplants_donation_recipient_id').html('<option value=\"#{recipient.id}\">Patty</option>')"
+        )
+        wait_for_ajax
 
         within ".top" do
           click_on "Save"
         end
+        expect(page.current_path).to eq(patient_transplants_donor_dashboard_path(patient))
       end
     end
   end
