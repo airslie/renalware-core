@@ -41,14 +41,15 @@ module Renalware
       def render_new(request)
         render :new, locals: {
           request: request,
-          reasons: RequestReason.ordered.pluck(:description, :id)
+          reasons: RequestReason.ordered.pluck(:description, :id),
+          hospital_units: Hospitals::Unit.ordered.pluck(:name, :id)
         }, layout: false
       end
 
       def request_params
         params
           .require(:admissions_request)
-          .permit(:patient_id, :reason_id, :notes, :hospitals_unit_id)
+          .permit(:patient_id, :reason_id, :notes, :hospital_unit_id)
       end
     end
   end

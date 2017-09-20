@@ -9,6 +9,7 @@ h2= request.patient
 
   = f.input :patient_id, as: :hidden
   = f.input :reason_id, collection: reasons
+  = f.input :hospital_unit_id, collection: hospital_units
   = f.input :notes, as: :text
   = f.submit "Create", class: :button
   span= " or "

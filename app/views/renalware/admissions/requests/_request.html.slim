@@ -1,4 +1,5 @@
 - patient = request.patient
+- unit = Renalware::Hospitals::Unit.find_by(id: request.hospital_unit_id)
 = content_tag_for(:tr, request, class: "sortable") do
   td= l(request.created_at)
   td= request.created_by
@@ -6,6 +7,7 @@
   td= patient.hospital_identifiers
   td= default_patient_link(patient)
   td= request.reason.description
+  td= unit&.name
   td.col-width-large-with-ellipsis= request.notes
   td
     = link_to "Some action", "#"

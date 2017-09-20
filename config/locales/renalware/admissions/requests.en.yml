@@ -9,3 +9,4 @@ en:
     attributes:
       renalware/admissions/request:
         reason_id: Reason for admission
+        hospital_unit_id: Current location
