@@ -1291,6 +1291,8 @@ CREATE TABLE hd_diary_slots (
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    archived boolean DEFAULT false NOT NULL,
+    archived_at timestamp without time zone,
     CONSTRAINT day_of_week_in_valid_range CHECK (((day_of_week >= 1) AND (day_of_week <= 7)))
 );
 
@@ -7983,6 +7985,13 @@ CREATE INDEX index_hd_diaries_on_week_number ON hd_diaries USING btree (week_num
 --
 
 CREATE INDEX index_hd_diaries_on_year ON hd_diaries USING btree (year);
+
+
+--
+-- Name: index_hd_diary_slots_on_archived; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_diary_slots_on_archived ON hd_diary_slots USING btree (archived);
 
 
 --

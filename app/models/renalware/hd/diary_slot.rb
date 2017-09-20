@@ -34,6 +34,10 @@ module Renalware
       validates :diurnal_period_code, presence: true
       validates :day_of_week, presence: true, inclusion: { in: 1..7 }
 
+      scope :weekly, -> { joins(:diary).where(hd_diaries: { master: false }) }
+      scope :archived, ->{ weekly.where(archived: true) }
+      scope :unarchived, ->{ weekly.where(archived: false) }
+
       # A patient can only be assigned to one station in any period (e.g. am)/day combination
       # for a diary. I.e. they can't be on two stations on Monday morning.
       validates :patient_id,
