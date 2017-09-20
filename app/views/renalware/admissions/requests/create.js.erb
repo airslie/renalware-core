@@ -1,0 +1,3 @@
+<%# We render this view when the message has been successfully sent.%>
+<%= refresh(".flash-message", partial: "renalware/shared/flash_messages", locals: local_assigns) %>
+$("#create-admissions-request-modal").foundation('reveal', 'close');

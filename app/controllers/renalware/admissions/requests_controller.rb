@@ -11,7 +11,7 @@ module Renalware
       end
 
       def new
-        request = Request.new
+        request = Request.new(patient: patient)
         authorize request
         render_new(request)
       end
@@ -19,17 +19,22 @@ module Renalware
       def create
         request = Request.new(request_params)
         authorize request
-        if request.save_by(current_user)
-          redirect_to admissions_requests_path, notice: success_msg_for("admission request")
-        else
-          render_new(request)
+        unless request.save_by(current_user)
+          return render_new(request)
         end
       end
 
       private
 
+      def patient
+        Patient.find(params[:patient_id])
+      end
+
       def render_new(request)
-        render :new, locals: { request: request }
+        render :new, locals: {
+          request: request,
+          reasons: RequestReason.ordered.pluck(:description, :id)
+        }, layout: false
       end
 
       def request_params

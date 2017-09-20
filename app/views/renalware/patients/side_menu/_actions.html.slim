@@ -19,9 +19,13 @@ li.heading.actions-heading= t(".heading")
 li.link.action= render partial: "renalware/messaging/internal/messages/send_message_link",
                 locals: { patient: patient, link_text: t(".send_message") }
 
-= render "renalware/messaging/internal/messages/modal_dialog_placeholder"
+li.link.action= render partial: "renalware/admissions/requests/create_request_link",
+                locals: { patient: patient, link_text: t(".request_admission") }
 
 li.link.action
   = render partial: "renalware/patients/alerts/create_alert_link",
            locals: { patient: patient, link_text: t(".create_alert") }
   = render "renalware/patients/alerts/modal_dialog_placeholder"
+
+= render "renalware/admissions/requests/modal_dialog_placeholder"
+= render "renalware/messaging/internal/messages/modal_dialog_placeholder"

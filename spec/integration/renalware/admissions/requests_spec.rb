@@ -26,16 +26,16 @@ RSpec.describe "Admission Request (TCI) management", type: :request do
     end
   end
 
-  describe "GET new" do
+  describe "GET html new" do
     it "renders a form" do
-      get new_admissions_request_path
+      get new_admissions_request_path(patient_id: patient.id)
 
       expect(response).to have_http_status(:ok)
       expect(response).to render_template(:new)
     end
   end
 
-  describe "POST create" do
+  describe "POST js create" do
     context "with valid data" do
       it "creates a new Admissions::Request" do
         params = {
@@ -46,16 +46,15 @@ RSpec.describe "Admission Request (TCI) management", type: :request do
         }
 
         expect{
-          post(admissions_requests_path, params: params)
+          post(admissions_requests_path(format: :js), params: params)
         }.to change(Renalware::Admissions::Request, :count).by(1)
 
-        follow_redirect!
         expect(response).to have_http_status(:success)
       end
     end
 
     context "with invalid data ie reason not selected" do
-      it "creates re-renders the new template with errors" do
+      it "fails to create a request and re-renders the new template with errors" do
         params = {
           admissions_request: {
             patient_id: patient.id

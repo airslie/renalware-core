@@ -8,8 +8,8 @@ module Renalware
 
       belongs_to :patient
       belongs_to :reason, class_name: "RequestReason"
-      validates :patient, presence: true
-      validates :reason, presence: true
+      validates :patient_id, presence: true
+      validates :reason_id, presence: true
     end
   end
 end

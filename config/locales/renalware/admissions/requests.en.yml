@@ -1,0 +1,11 @@
+en:
+  activerecord:
+    errors:
+      models:
+        renalware/admissions/request:
+          reason_id:
+            blank: Please select a reason
+
+    attributes:
+      renalware/admissions/request:
+        reason_id: Reason for admission
