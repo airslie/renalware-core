@@ -438,6 +438,74 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 
 --
+-- Name: admission_request_reasons; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE admission_request_reasons (
+    id bigint NOT NULL,
+    description character varying NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: admission_request_reasons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE admission_request_reasons_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admission_request_reasons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE admission_request_reasons_id_seq OWNED BY admission_request_reasons.id;
+
+
+--
+-- Name: admission_requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE admission_requests (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    reason_id integer NOT NULL,
+    deleted_at timestamp without time zone,
+    updated_by_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: admission_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE admission_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admission_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE admission_requests_id_seq OWNED BY admission_requests.id;
+
+
+--
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4926,6 +4994,20 @@ ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq
 
 
 --
+-- Name: admission_request_reasons id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_request_reasons ALTER COLUMN id SET DEFAULT nextval('admission_request_reasons_id_seq'::regclass);
+
+
+--
+-- Name: admission_requests id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_requests ALTER COLUMN id SET DEFAULT nextval('admission_requests_id_seq'::regclass);
+
+
+--
 -- Name: clinic_appointments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5801,6 +5883,22 @@ ALTER TABLE ONLY access_versions
 
 ALTER TABLE ONLY addresses
     ADD CONSTRAINT addresses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admission_request_reasons admission_request_reasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_request_reasons
+    ADD CONSTRAINT admission_request_reasons_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admission_requests admission_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_requests
+    ADD CONSTRAINT admission_requests_pkey PRIMARY KEY (id);
 
 
 --
@@ -6946,6 +7044,48 @@ CREATE INDEX index_access_profiles_on_updated_by_id ON access_profiles USING btr
 --
 
 CREATE UNIQUE INDEX index_addresses_on_addressable_type_and_addressable_id ON addresses USING btree (addressable_type, addressable_id);
+
+
+--
+-- Name: index_admission_request_reasons_on_deleted_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admission_request_reasons_on_deleted_at ON admission_request_reasons USING btree (deleted_at);
+
+
+--
+-- Name: index_admission_requests_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admission_requests_on_created_by_id ON admission_requests USING btree (created_by_id);
+
+
+--
+-- Name: index_admission_requests_on_deleted_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admission_requests_on_deleted_at ON admission_requests USING btree (deleted_at);
+
+
+--
+-- Name: index_admission_requests_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admission_requests_on_patient_id ON admission_requests USING btree (patient_id);
+
+
+--
+-- Name: index_admission_requests_on_reason_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admission_requests_on_reason_id ON admission_requests USING btree (reason_id);
+
+
+--
+-- Name: index_admission_requests_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admission_requests_on_updated_by_id ON admission_requests USING btree (updated_by_id);
 
 
 --
@@ -9257,6 +9397,14 @@ ALTER TABLE ONLY messaging_receipts
 
 
 --
+-- Name: admission_requests fk_rails_54b568383c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_requests
+    ADD CONSTRAINT fk_rails_54b568383c FOREIGN KEY (reason_id) REFERENCES admission_request_reasons(id);
+
+
+--
 -- Name: patient_practices_primary_care_physicians fk_rails_55ecff6804; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9502,6 +9650,14 @@ ALTER TABLE ONLY pathology_request_descriptions_requests_requests
 
 ALTER TABLE ONLY clinic_appointments
     ADD CONSTRAINT fk_rails_909dcaaf3d FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: admission_requests fk_rails_9161088ec5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_requests
+    ADD CONSTRAINT fk_rails_9161088ec5 FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -9881,6 +10037,14 @@ ALTER TABLE ONLY transplant_donor_stages
 
 
 --
+-- Name: admission_requests fk_rails_d42c308e35; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_requests
+    ADD CONSTRAINT fk_rails_d42c308e35 FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: letter_signatures fk_rails_d4aaa80dee; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9990,6 +10154,14 @@ ALTER TABLE ONLY pd_infection_organisms
 
 ALTER TABLE ONLY clinic_appointments
     ADD CONSTRAINT fk_rails_e03d4a27ce FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: admission_requests fk_rails_e0d84c3803; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_requests
+    ADD CONSTRAINT fk_rails_e0d84c3803 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -10699,6 +10871,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170908155011'),
 ('20170908160250'),
 ('20170911133224'),
-('20170912092135');
+('20170912092135'),
+('20170920113628');
 
 
