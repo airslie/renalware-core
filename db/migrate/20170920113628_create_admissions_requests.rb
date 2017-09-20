@@ -13,7 +13,7 @@ class CreateAdmissionsRequests < ActiveRecord::Migration[5.1]
       t.datetime :deleted_at, index: true
       t.integer :updated_by_id, null: false, index: true
       t.integer :created_by_id, null: false, index: true
-      t.integer :position, null: false, default: 0
+      t.integer :position, null: false, default: 0, index: true
       t.timestamps null: false
     end
 

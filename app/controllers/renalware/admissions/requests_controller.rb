@@ -3,9 +3,10 @@ require "renalware/admissions"
 module Renalware
   module Admissions
     class RequestsController < BaseController
+      include Renalware::Concerns::Pageable
 
       def index
-        requests = Request.all
+        requests = Request.ordered.all.page(page).per(per_page)
         authorize requests
         render locals: { requests: requests }
       end
@@ -22,6 +23,13 @@ module Renalware
         unless request.save_by(current_user)
           return render_new(request)
         end
+      end
+
+      def sort
+        authorize Request, :sort?
+        ids = params["admissions_request"]
+        Request.sort(ids)
+        render json: ids
       end
 
       private

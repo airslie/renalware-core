@@ -1,8 +1,14 @@
 table
   thead
-    th Created
-    th By
+    th.col-width-date-time Created
+    th.col-width-medium By
+    th.col-width-nhs-no NHS Number
+    th Hospital Nos.
     th Patient
+    th Reason
     th.actions
-  tbody
+    th
+  = content_tag(:tbody,
+                class: "sortables",
+                data: { rel: sort_admissions_requests_path }) do
     = render requests

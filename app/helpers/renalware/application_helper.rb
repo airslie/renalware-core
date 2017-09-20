@@ -4,6 +4,11 @@ require "breadcrumb"
 
 module Renalware
   module ApplicationHelper
+    include Renalware::Engine.routes.url_helpers
+
+    def default_patient_link(patient)
+      link_to(patient, patient_clinical_summary_path(patient))
+    end
 
     def patient_search
       ::Renalware::Patients::PatientSearch.call(params)

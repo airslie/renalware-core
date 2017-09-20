@@ -1,6 +1,13 @@
-tr
+- patient = request.patient
+= content_tag_for(:tr, request, class: "sortable") do
   td= l(request.created_at)
   td= request.created_by
-  td= request.patient
+  td= patient.nhs_number
+  td= patient.hospital_identifiers
+  td= default_patient_link(patient)
   td= request.reason.description
   td
+    = link_to "Some action", "#"
+  td.handle
+    i.fa.fa-reorder
+
