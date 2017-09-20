@@ -10,8 +10,6 @@ module Renalware
       belongs_to :reason, class_name: "RequestReason"
       validates :patient, presence: true
       validates :reason, presence: true
-      validates :created_by, presence: true
-      validates :updated_by, presence: true
     end
   end
 end
