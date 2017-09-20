@@ -48,7 +48,7 @@ module Renalware
       def request_params
         params
           .require(:admissions_request)
-          .permit(:patient_id, :reason_id)
+          .permit(:patient_id, :reason_id, :notes, :hospitals_unit_id)
       end
     end
   end

@@ -477,6 +477,8 @@ CREATE TABLE admission_requests (
     id bigint NOT NULL,
     patient_id bigint NOT NULL,
     reason_id integer NOT NULL,
+    hospital_unit_id bigint,
+    notes text,
     deleted_at timestamp without time zone,
     updated_by_id integer NOT NULL,
     created_by_id integer NOT NULL,
@@ -7068,10 +7070,24 @@ CREATE INDEX index_admission_requests_on_deleted_at ON admission_requests USING 
 
 
 --
+-- Name: index_admission_requests_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admission_requests_on_hospital_unit_id ON admission_requests USING btree (hospital_unit_id);
+
+
+--
 -- Name: index_admission_requests_on_patient_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_admission_requests_on_patient_id ON admission_requests USING btree (patient_id);
+
+
+--
+-- Name: index_admission_requests_on_position; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admission_requests_on_position ON admission_requests USING btree ("position");
 
 
 --
@@ -9618,6 +9634,14 @@ ALTER TABLE ONLY hd_profiles
 
 ALTER TABLE ONLY clinical_body_compositions
     ADD CONSTRAINT fk_rails_8acc26446b FOREIGN KEY (modality_description_id) REFERENCES modality_descriptions(id);
+
+
+--
+-- Name: admission_requests fk_rails_8b3ff2812e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_requests
+    ADD CONSTRAINT fk_rails_8b3ff2812e FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
 
 
 --

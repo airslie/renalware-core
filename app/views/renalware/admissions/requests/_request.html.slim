@@ -6,6 +6,7 @@
   td= patient.hospital_identifiers
   td= default_patient_link(patient)
   td= request.reason.description
+  td.col-width-large-with-ellipsis= request.notes
   td
     = link_to "Some action", "#"
   td.handle
