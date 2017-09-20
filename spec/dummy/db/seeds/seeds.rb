@@ -1,6 +1,7 @@
 require_relative "./system/seeds"
 require_relative "./hospitals/seeds"
 require_relative "./patients/seeds"
+require_relative "./admissions/seeds"
 require_relative "./directory/seeds"
 require_relative "./accesses/seeds"
 require_relative "./clinical/seeds"
