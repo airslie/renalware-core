@@ -1163,7 +1163,8 @@ CREATE TABLE hd_patient_statistics (
     dialysis_minutes_shortfall integer,
     dialysis_minutes_shortfall_percentage numeric(10,2),
     mean_ufr numeric(10,2),
-    mean_weight_loss_as_percentage_of_body_weight numeric(10,2)
+    mean_weight_loss_as_percentage_of_body_weight numeric(10,2),
+    number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct integer
 );
 
 
@@ -4021,7 +4022,8 @@ CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
     0 AS percentage_urr_gt_65,
     0 AS percentage_phosphate_lt_1_8,
     0 AS percentage_access_fistula_or_graft,
-    0 AS avg_missed_hd_time
+    0 AS avg_missed_hd_time,
+    round((((100 * sum(stats.number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct)) / count(stats.id)))::numeric, 1) AS pct_shortfall_gt_5_pct
    FROM (hd_patient_statistics stats
      JOIN hospital_units units ON ((units.id = stats.hospital_unit_id)))
   GROUP BY units.name
@@ -10609,6 +10611,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170824113401'),
 ('20170830085137'),
 ('20170830171726'),
+('20170908155011'),
+('20170908160250'),
 ('20170911133224');
 
 

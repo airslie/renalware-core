@@ -1,6 +1,6 @@
 module Renalware
   module HD
-    class UpdateRollingPatientStatistics < ActiveJob::Base
+    class UpdateRollingPatientStatistics < ApplicationJob
 
       def initialize(patient:)
         @patient = patient
@@ -24,7 +24,7 @@ module Renalware
       end
 
       def auditable_sessions
-        @auditable_sessions ||= Sessions:: AuditableSessionCollection.new(recent_sessions)
+        @auditable_sessions ||= Sessions::AuditableSessionCollection.new(recent_sessions)
       end
 
       def rolling_stats_for_this_patient
