@@ -2,7 +2,7 @@
 - unit = Renalware::Hospitals::Unit.find_by(id: request.hospital_unit_id)
 = content_tag_for(:tr, request, class: "sortable") do
   td= l(request.created_at)
-  td= request.created_by
+  /td= request.created_by
   td= patient.nhs_number
   td= patient.hospital_identifiers
   td= default_patient_link(patient)
@@ -16,13 +16,12 @@
               class: "remove",
               data: { confirm: "Are you sure you want to remove this item?" } do
       i.fa.fa-trash.fa-link-annotation
-      = pipe_separator
+      | &nbsp;|&nbsp;&nbsp;
       = link_to "Edit",
                 edit_admissions_request_path(request, format: :html),
                 remote: true,
                 method: :get,
                 data: { "reveal-id" => "create-admissions-request-modal", "reveal-ajax" => "true" }
-
   td.handle
     i.fa.fa-reorder
 

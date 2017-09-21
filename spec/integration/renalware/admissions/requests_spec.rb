@@ -24,7 +24,6 @@ RSpec.describe "Admission Request (TCI) management", type: :request do
 
       expect(response).to have_http_status(:success)
       expect(response.body).to include("XYZ")
-      expect(response.body).to include(@current_user.to_s)
       expect(response.body).to include(I18n.l(time))
       expect(response.body).to include(patient.to_s)
     end

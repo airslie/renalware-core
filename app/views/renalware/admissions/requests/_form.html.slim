@@ -4,14 +4,13 @@ h2= request.patient
 
 = simple_form_for(request,
                   remote: true,
-                  method: :post,
                   wrapper: :horizontal_form) do |f|
 
   = f.input :patient_id, as: :hidden
   = f.input :reason_id, collection: reasons
   = f.input :hospital_unit_id, collection: hospital_units
   = f.input :notes, as: :text
-  = f.submit "Create", class: :button
+  = f.submit class: :button
   span= " or "
   =link_to "Cancel",
            "#",

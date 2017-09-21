@@ -1,9 +1,9 @@
 require "rails_helper"
 
-feature "Remove Admission Request", type: :feature, js: true do
+feature "Update Admission Request", type: :feature, js: true do
   include AjaxHelpers
 
-  scenario "Clicking remove soft delete the request and removes it from the list" do
+  scenario "Edit the request in a modal and updated it" do
     user = login_as_clinician
 
     request = create(:admissions_request, updated_by: user, created_by: user)
@@ -15,7 +15,14 @@ feature "Remove Admission Request", type: :feature, js: true do
     end
 
     wait_for_ajax
-    expect(all(:css, "tbody tr").count).to eq(0)
 
+    fill_in "Notes", with: "more notes"
+    click_on "Save"
+
+    wait_for_ajax
+
+    within "#admissions_request_#{request.id}" do
+      expect(page).to have_content("more notes")
+    end
   end
 end
