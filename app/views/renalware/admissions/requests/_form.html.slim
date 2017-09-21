@@ -5,12 +5,11 @@ h2= "#{controller.action_name.capitalize} Request Admission"
                   remote: true,
                   wrapper: :horizontal_form) do |f|
 
-  .row
+  .row.admissions-request-patient
     .small-3.columns
       label.right.inline Patient
     .small-9.columns
       strong= request.patient.to_s(:long)
-      br
 
   = f.input :patient_id, as: :hidden
   = f.input :reason_id, collection: reasons

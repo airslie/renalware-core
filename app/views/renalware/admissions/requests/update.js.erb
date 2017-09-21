@@ -1,6 +1,6 @@
 <%# We render this view when the request has been successfully updated.%>
 <%= refresh(".flash-message", partial: "renalware/shared/flash_messages", locals: local_assigns) %>
-$("#create-admissions-request-modal").foundation('reveal', 'close');
+$("#admissions-request-modal").foundation('reveal', 'close');
 // Refresh the just-updated admissions request
 <%=
   replace("#admissions_request_#{request.id}",
