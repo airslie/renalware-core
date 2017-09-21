@@ -1,0 +1,5 @@
+en:
+  activemodel:
+    attributes:
+      renalware/patients/search_form:
+        term: Search by patient surname, NHS Number or local hospital number

@@ -10,7 +10,12 @@
         wrapper: "horizontal_form",
         html: { id: "letter-form", autocomplete: "off" } do |f|
 
-      = render "form", f: f, patient: patient, contact: contact, contacts: contacts
+      = render "form",
+               f: f,
+               patient: patient,
+               contact: contact,
+               contacts: contacts,
+               electronic_recipient_options: electronic_recipient_options
 
 = render "add_contact",
           patient: patient,

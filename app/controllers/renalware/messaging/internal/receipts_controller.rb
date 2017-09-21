@@ -14,9 +14,13 @@ module Renalware
           render_receipts(receipts.unread)
         end
 
-        # GET
+        # GET all read messages
         def read
-          render_receipts(receipts)
+          render_receipts(receipts.read)
+        end
+
+        def sent
+          render_receipts(sent_receipts)
         end
 
         # PATCH
@@ -31,9 +35,14 @@ module Renalware
         private
 
         def render_receipts(receipts)
+          patient_filter = Patients::SearchFilter.new(search_term, request)
+          receipts = receipts.joins(message: [:patient])
+          receipts = patient_filter.call(receipts).ordered.page(page).per(per_page)
           authorize receipts
+
           render locals: {
-            receipts: present(receipts, ReceiptPresenter)
+            receipts: present(receipts, ReceiptPresenter),
+            search_form: patient_filter.search_form
           }
         end
 
@@ -50,6 +59,14 @@ module Renalware
 
         def recipient
           Messaging::Internal.cast_recipient(current_user)
+        end
+
+        def search_term
+          params.fetch(:patient_search, {}).fetch(:term, nil)
+        end
+
+        def sent_receipts
+          Receipt.sent_by(current_user.id)
         end
       end
     end

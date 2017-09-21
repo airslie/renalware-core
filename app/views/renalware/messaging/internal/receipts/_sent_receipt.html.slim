@@ -1,9 +1,10 @@
+- message = sent_receipt.message
 tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
   td=l(message.sent_at)
   td= link_to(message.patient, patient_clinical_summary_path(message.patient))
   td= message.patient.hospital_identifier
   td= message.subject
-  td= message.recipients.map(&:to_s).join(",")
+  td= sent_receipt.recipient
   td
     = link_to "View",
               "##{message.html_preview_identifier}",

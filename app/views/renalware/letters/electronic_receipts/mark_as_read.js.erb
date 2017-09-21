@@ -1,0 +1,6 @@
+<%#
+Remove the receipt that has now been marked as read from the table (provided we are viewing a table
+of receipts of course). We need to remove the real row and the (initially hidden) preview row also.
+%>
+$("#<%= receipt.html_identifier %>, #<%= receipt.html_preview_identifier %>")
+  .fadeOut(300, function(){ $(this).remove();});

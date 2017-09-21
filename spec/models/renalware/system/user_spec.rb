@@ -28,6 +28,40 @@ module Renalware
       end
     end
 
+    describe "#professional_signature" do
+      subject(:user) { User.new(given_name: "X", family_name: "Y") }
+      context "when there is no professional_position" do
+        context "when there is no signature" do
+          it "returns the full name only" do
+            expect(user.professional_signature).to eq "X Y"
+          end
+        end
+
+        context "when there is a signature" do
+          it "returns the signature only" do
+            user.signature = "Dr X Y"
+            expect(user.professional_signature).to eq "Dr X Y"
+          end
+        end
+      end
+
+      context "when there is a professional_position" do
+        context "when there is no signature" do
+          it "returns the signature and professional_position" do
+            user.professional_position = "Consultant"
+            expect(user.professional_signature).to eq "X Y (Consultant)"
+          end
+        end
+        context "when there is a signature" do
+          it "returns the signature and professional_position" do
+            user.signature = "Dr X Y"
+            user.professional_position = "Consultant"
+            expect(user.professional_signature).to eq "Dr X Y (Consultant)"
+          end
+        end
+      end
+    end
+
     describe "scopes" do
       describe "unapproved" do
         it "retrieves unapproved users" do

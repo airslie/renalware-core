@@ -36,3 +36,6 @@ en:
         add_contact: Add a different recipient via the contacts Directory
       additional_ccs:
         add_contact_as_cc: Add new person to the list
+      electronic_ccs:
+        title: Electronic CCs
+        add: Add

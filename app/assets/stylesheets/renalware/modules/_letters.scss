@@ -1,4 +1,16 @@
 
+.electronic-ccs {
+  ul.actions {
+    list-style: none;
+    text-align: right;
+
+    .button {
+      padding: 0.4rem .6rem;
+      margin: 0.3rem 0 0.2rem 0;
+    }
+  }
+}
+
 .letter-preview-admin {
   margin-top: -0.3em;
   padding-top: 10px;

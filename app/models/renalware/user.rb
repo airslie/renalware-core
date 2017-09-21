@@ -38,6 +38,14 @@ module Renalware
       @role_names ||= roles.pluck(:name)
     end
 
+    # Official name for use when displaying e.g. on a letter. For example:
+    #   Dr Isaac Newton (Consultant Gravitationalist)
+    def professional_signature
+      signed = signature || full_name
+      signed += " (#{professional_position})" if professional_position?
+      signed
+    end
+
     private
 
     def approval_with_roles

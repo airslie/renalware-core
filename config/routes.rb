@@ -51,7 +51,7 @@ Renalware::Engine.routes.draw do
       scope :messages do
         get "inbox", to: "receipts#unread", as: :inbox
         get "read", to: "receipts#read", as: :read_receipts
-        get "sent", to: "messages#sent", as: :sent_messages
+        get "sent", to: "receipts#sent", as: :sent_messages
       end
     end
   end
@@ -148,6 +148,18 @@ Renalware::Engine.routes.draw do
       end
     end
     resource :list, only: :show
+    resources :letters, only: [] do
+      resources :electronic_receipts, only: [] do
+        patch :mark_as_read, on: :member
+      end
+    end
+    resources :electronic_receipts, only: [] do
+      collection do
+        get :unread
+        get :read
+        get :sent
+      end
+    end
   end
   get "authors/:author_id/letters", to: "letters/letters#author", as: "author_letters"
 

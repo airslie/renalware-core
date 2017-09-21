@@ -38,6 +38,13 @@ module Renalware
         end
       end
 
+      def unread_electronic_ccs
+        @unread_electronic_ccs ||= begin
+          receipts = Letters::ElectronicReceipt.unread.for_recipient(user.id).ordered
+          CollectionPresenter.new(receipts, Letters::ElectronicReceiptPresenter)
+        end
+      end
+
       private
 
       def present_letters(letters)

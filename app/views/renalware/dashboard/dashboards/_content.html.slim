@@ -27,4 +27,8 @@
 
   section.electonic_ccs
     h2 Electronic CCs
-    p.empty-section= t(".electronic_ccs.none")
+    - if dashboard.unread_electronic_ccs.any?
+      = render "renalware/letters/electronic_receipts/table",
+               receipts: dashboard.unread_electronic_ccs
+    - else
+      p.empty-section= t(".electronic_ccs.none")

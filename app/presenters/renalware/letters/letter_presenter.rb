@@ -28,6 +28,11 @@ module Renalware
         end
       end
 
+      def electronic_cc_receipts
+        @electronic_cc_receipts ||=
+          CollectionPresenter.new(super, Letters::ElectonicReceiptPresenter)
+      end
+
       def description
         "(#{letterhead.site_code}) #{super}"
       end

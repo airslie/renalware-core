@@ -1,0 +1,16 @@
+article.electonic_ccs
+  header
+    h2= t(".title")
+
+  =f.input :electronic_cc_recipient_ids,
+           label: "CC electronically to",
+           collection: electronic_recipient_options,
+           as: :grouped_select,
+           group_method: :users,
+           group_label_method: :name,
+           label_method: :to_s,
+           value_method: :id,
+           input_html: {\
+              class: "searchable_select",
+              multiple: "multiple"\
+            }

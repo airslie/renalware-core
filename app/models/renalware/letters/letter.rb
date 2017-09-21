@@ -20,6 +20,10 @@ module Renalware
                dependent: :destroy,
                inverse_of: :letter
       has_many :recipients, dependent: :destroy
+      has_many :electronic_receipts, dependent: :destroy
+      has_many :electronic_cc_recipients,
+               through: :electronic_receipts,
+               source: :recipient
       has_one :signature, dependent: :destroy
       has_one :archive, foreign_key: "letter_id"
 

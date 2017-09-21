@@ -9,7 +9,6 @@ en:
             recipient_ids: Recipients
           table:
             from: From
-            sent_at: Sent at
             patient_name: Patient
             subject: Subject
             body: Body
@@ -18,7 +17,7 @@ en:
             hosp_no: Hosp No.
             recipients: Recipients
         receipts:
-          table:
+          table: &receipts_table
             from: From
             sent_at: Sent at
             patient_name: Patient
@@ -27,4 +26,8 @@ en:
             urgent: Urgent
             age: Age
             hosp_no: Hosp No.
+            recipients: Recipients
+          sent_table:
+            <<: *receipts_table
+
 

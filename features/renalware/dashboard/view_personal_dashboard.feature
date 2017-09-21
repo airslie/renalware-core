@@ -4,6 +4,7 @@ Feature: View a personal dashboard
   - draft letters the user is currently typing
   - letters pending review by the user
   - patients the user has bookmarked
+  - TODO: Add bookmarks and Electronic CCs
 
   Background:
     Given Nathalie is a nurse

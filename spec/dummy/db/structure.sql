@@ -1631,6 +1631,39 @@ ALTER SEQUENCE letter_descriptions_id_seq OWNED BY letter_descriptions.id;
 
 
 --
+-- Name: letter_electronic_receipts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE letter_electronic_receipts (
+    id bigint NOT NULL,
+    letter_id bigint NOT NULL,
+    recipient_id bigint NOT NULL,
+    read_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: letter_electronic_receipts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE letter_electronic_receipts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_electronic_receipts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE letter_electronic_receipts_id_seq OWNED BY letter_electronic_receipts.id;
+
+
+--
 -- Name: letter_letterheads; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5117,6 +5150,13 @@ ALTER TABLE ONLY letter_descriptions ALTER COLUMN id SET DEFAULT nextval('letter
 
 
 --
+-- Name: letter_electronic_receipts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY letter_electronic_receipts ALTER COLUMN id SET DEFAULT nextval('letter_electronic_receipts_id_seq'::regclass);
+
+
+--
 -- Name: letter_letterheads id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6025,6 +6065,14 @@ ALTER TABLE ONLY letter_contacts
 
 ALTER TABLE ONLY letter_descriptions
     ADD CONSTRAINT letter_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: letter_electronic_receipts letter_electronic_receipts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY letter_electronic_receipts
+    ADD CONSTRAINT letter_electronic_receipts_pkey PRIMARY KEY (id);
 
 
 --
@@ -7475,6 +7523,27 @@ CREATE UNIQUE INDEX index_letter_contacts_on_person_id_and_patient_id ON letter_
 
 
 --
+-- Name: index_letter_electronic_receipts_on_letter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_electronic_receipts_on_letter_id ON letter_electronic_receipts USING btree (letter_id);
+
+
+--
+-- Name: index_letter_electronic_receipts_on_read_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_electronic_receipts_on_read_at ON letter_electronic_receipts USING btree (read_at);
+
+
+--
+-- Name: index_letter_electronic_receipts_on_recipient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_electronic_receipts_on_recipient_id ON letter_electronic_receipts USING btree (recipient_id);
+
+
+--
 -- Name: index_letter_letters_on_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8860,6 +8929,14 @@ ALTER TABLE ONLY transplant_donations
 
 
 --
+-- Name: letter_electronic_receipts fk_rails_0c14df6b87; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY letter_electronic_receipts
+    ADD CONSTRAINT fk_rails_0c14df6b87 FOREIGN KEY (letter_id) REFERENCES letter_letters(id);
+
+
+--
 -- Name: clinical_allergies fk_rails_0d8b5ebbad; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9996,6 +10073,14 @@ ALTER TABLE ONLY problem_problems
 
 
 --
+-- Name: letter_electronic_receipts fk_rails_f0ab49c550; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY letter_electronic_receipts
+    ADD CONSTRAINT fk_rails_f0ab49c550 FOREIGN KEY (recipient_id) REFERENCES users(id);
+
+
+--
 -- Name: clinic_clinics fk_rails_f0adc9d29e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10613,6 +10698,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170830171726'),
 ('20170908155011'),
 ('20170908160250'),
-('20170911133224');
+('20170911133224'),
+('20170912092135');
 
 

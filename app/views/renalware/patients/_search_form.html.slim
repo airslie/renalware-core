@@ -1,0 +1,12 @@
+/ A re-usable partial for filtering a page by patient name or nhs/local hospital number.
+/ The search_form must be an instance of Patients::SearchForm.
+= simple_form_for search_form,
+                  as: :patient_search,
+                  url: search_form.url,
+                  method: :get,
+                  html: { autocomplete: "off"} do |f|
+  .row
+    .medium-5.columns
+      = f.input :term, label: false, placeholder: "Search by patient surname, NHS or Hosp. no."
+    .medium-7.columns.actions
+      = f.submit "Search", class: :button
