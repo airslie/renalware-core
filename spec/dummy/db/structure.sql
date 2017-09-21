@@ -7080,7 +7080,14 @@ CREATE INDEX index_admission_requests_on_hospital_unit_id ON admission_requests 
 -- Name: index_admission_requests_on_patient_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_admission_requests_on_patient_id ON admission_requests USING btree (patient_id);
+CREATE INDEX index_admission_requests_on_patient_id ON admission_requests USING btree (patient_id);
+
+
+--
+-- Name: index_admission_requests_on_patient_id_and_deleted_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_admission_requests_on_patient_id_and_deleted_at ON admission_requests USING btree (patient_id, deleted_at);
 
 
 --

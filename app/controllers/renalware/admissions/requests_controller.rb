@@ -23,6 +23,7 @@ module Renalware
         unless request.save_by(current_user)
           return render_new(request)
         end
+        flash.now[:notice] = success_msg_for("admission request")
       end
 
       def edit
@@ -37,6 +38,7 @@ module Renalware
         request.by = current_user
 
         if request.update(request_params)
+          flash.now[:notice] = success_msg_for("admission request")
           render locals: { request: request }
         else
           render_edit(request)
@@ -47,6 +49,7 @@ module Renalware
         request = find_request
         authorize request
         request.destroy!
+        flash.now[:notice] = success_msg_for("admission request")
         render locals: { request_id: request_id }
       end
 
