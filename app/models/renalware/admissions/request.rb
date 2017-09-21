@@ -8,7 +8,7 @@ module Renalware
 
       belongs_to :patient
       belongs_to :reason, class_name: "RequestReason"
-      validates :patient_id, presence: true
+      validates :patient_id, presence: true, uniqueness: true
       validates :reason_id, presence: true
 
       scope :ordered, ->{ order(position: :asc) }

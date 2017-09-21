@@ -5,6 +5,8 @@ en:
         renalware/admissions/request:
           reason_id:
             blank: Please select a reason
+          patient_id:
+            taken: already has an admission request
 
     attributes:
       renalware/admissions/request:
