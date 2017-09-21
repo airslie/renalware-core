@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/renalwarev2
     docker:
       # We use a custom docker image uploaded to DockerHub - see the Dockerfile in this folder.
-      - image: woodpigeon/renalware-circleci-primary:0.0.1
+      - image: airslie/renalware-circleci-primary:0.0.2
         environment:
           - RAILS_ENV: test
           - RACK_ENV: test
