@@ -6,15 +6,19 @@ RSpec.describe "Admission Request (TCI) management", type: :request do
   let(:user) { @current_user }
   let(:time) { Time.zone.now }
 
+  def create_request
+    create(:admissions_request,
+           reason: reason,
+           updated_by: user,
+           created_by: user,
+           patient: patient,
+           created_at: time,
+           updated_at: time)
+  end
+
   describe "GET index" do
     it "lists patients with an admission request" do
-      create(:admissions_request,
-             reason: reason,
-             updated_by: user,
-             created_by: user,
-             patient: patient,
-             created_at: time,
-             updated_at: time)
+      create_request
 
       get admissions_requests_path
 
@@ -68,6 +72,68 @@ RSpec.describe "Admission Request (TCI) management", type: :request do
         expect(response).to have_http_status(:ok)
         expect(response).to render_template(:new)
       end
+    end
+  end
+
+  describe "GET html edit" do
+    it "renders the edit modal" do
+      request = create_request
+
+      get edit_admissions_request_path(request, format: :html)
+
+      expect(response).to have_http_status(:ok)
+      expect(response).to render_template(:edit)
+    end
+  end
+
+  describe "PATCH js update" do
+    context "when valid inputs" do
+      it "renders the edit modal" do
+        request = create_request
+        params = {
+          admissions_request: {
+            reason_id: reason.id,
+            patient_id: patient.id,
+            notes: "Updated notes"
+          }
+        }
+
+        patch admissions_request_path(request, format: :js, params: params)
+
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template(:update)
+        expect(request.reload.notes).to eq("Updated notes")
+
+      end
+    end
+
+    context "when invalid inputs" do
+      it "renders the edit modal" do
+        request = create_request
+        params = {
+          admissions_request: {
+            reason_id: nil
+          }
+        }
+
+        patch admissions_request_path(request, format: :js, params: params)
+
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template(:edit)
+      end
+    end
+  end
+
+  describe "DELETE js destroy" do
+    it "soft delete the request" do
+      request = create_request
+
+      expect{
+        delete admissions_request_path(request, format: :js)
+      }.to change(Renalware::Admissions::Request, :count).by(-1)
+
+      expect(response).to have_http_status(:ok)
+      expect(response).to render_template(:destroy)
     end
   end
 end

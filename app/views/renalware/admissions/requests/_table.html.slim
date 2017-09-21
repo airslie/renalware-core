@@ -8,9 +8,11 @@ table
     th Reason
     th Location
     th Notes
-    th.actions
+    th
     th
   = content_tag(:tbody,
                 class: "sortables",
                 data: { rel: sort_admissions_requests_path }) do
     = render requests
+
+= render "modal_dialog_placeholder"

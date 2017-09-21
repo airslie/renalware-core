@@ -1,5 +1,3 @@
-// We render this view if there was a validation error submitting the foundation reveal modal.
-// Replace the original content so that error messages are displayed.
 var modal = $("#create-admissions-request-modal")
 $(modal).html("<%=
   j(render 'form', request: request, reasons: reasons, hospital_units: hospital_units)

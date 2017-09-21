@@ -25,6 +25,31 @@ module Renalware
         end
       end
 
+      def edit
+        request = find_request
+        authorize request
+        render_edit(request)
+      end
+
+      def update
+        request = find_request
+        authorize request
+        request.by = current_user
+
+        if request.update(request_params)
+          render locals: { request: request }
+        else
+          render_edit(request)
+        end
+      end
+
+      def destroy
+        request = find_request
+        authorize request
+        request.destroy!
+        render locals: { request_id: request_id }
+      end
+
       def sort
         authorize Request, :sort?
         ids = params["admissions_request"]
@@ -44,6 +69,22 @@ module Renalware
           reasons: RequestReason.ordered.pluck(:description, :id),
           hospital_units: Hospitals::Unit.ordered.pluck(:name, :id)
         }, layout: false
+      end
+
+      def render_edit(request)
+        render :edit, locals: {
+          request: request,
+          reasons: RequestReason.ordered.pluck(:description, :id),
+          hospital_units: Hospitals::Unit.ordered.pluck(:name, :id)
+        }, layout: false
+      end
+
+      def find_request
+        Request.find(request_id)
+      end
+
+      def request_id
+        params[:id]
       end
 
       def request_params

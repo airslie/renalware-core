@@ -10,7 +10,19 @@
   td= unit&.name
   td.col-width-large-with-ellipsis= request.notes
   td
-    = link_to "Some action", "#"
+    = link_to admissions_request_path(request),
+              remote: true,
+              method: :delete,
+              class: "remove",
+              data: { confirm: "Are you sure you want to remove this item?" } do
+      i.fa.fa-trash.fa-link-annotation
+      = pipe_separator
+      = link_to "Edit",
+                edit_admissions_request_path(request, format: :html),
+                remote: true,
+                method: :get,
+                data: { "reveal-id" => "create-admissions-request-modal", "reveal-ajax" => "true" }
+
   td.handle
     i.fa.fa-reorder
 
