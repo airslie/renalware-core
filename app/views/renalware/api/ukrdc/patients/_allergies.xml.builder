@@ -5,7 +5,7 @@
 xml = builder
 
 xml.Allergies do
-  patient.allergies.each do |allergy|
+  patient.allergies.includes(:updated_by).each do |allergy|
     xml.Allergy do
       xml.Allergy do
         xml.comment! "We don't have snomed code for allergies..?"
