@@ -5,7 +5,7 @@
   .modal-header
     h1= t("#{i18n_scope}.page_title")
 
-    = render "modal_close_link" if remote
+    = render "renalware/shared/modal_close_link" if remote
 
   - unless remote
     .columns.small-12

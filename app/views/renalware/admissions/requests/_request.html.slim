@@ -1,14 +1,21 @@
 - patient = request.patient
 - unit = Renalware::Hospitals::Unit.find_by(id: request.hospital_unit_id)
-= content_tag_for(:tr, request, class: "sortable") do
-  td= l(request.created_at)
-  /td= request.created_by
+- editing_history = "Created #{l(request.created_at)} by #{request.created_by}\n"\
+                    "Updated #{l(request.updated_at)} by #{request.updated_by}"
+= content_tag_for(:tr,
+                  request,
+                  class: "sortable priority-#{request.priority}") do
+  td(class="sortable-position-for-model-id-#{request.id}")= request.position
+  td.priority
+    span= request.priority.text
+  td= request.reason.description
+  td= default_patient_link(patient)
   td= patient.nhs_number
   td= patient.hospital_identifiers
-  td= default_patient_link(patient)
-  td= request.reason.description
   td= unit&.name
-  td.col-width-large-with-ellipsis= request.notes
+  td.col-width-medium-with-ellipsis(title=request.notes)
+    = request.notes
+  td(title=editing_history)= l(request.created_at)
   td
     = link_to admissions_request_path(request),
               remote: true,

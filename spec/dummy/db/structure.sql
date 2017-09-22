@@ -479,10 +479,11 @@ CREATE TABLE admission_requests (
     reason_id integer NOT NULL,
     hospital_unit_id bigint,
     notes text,
+    priority character varying NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
     deleted_at timestamp without time zone,
     updated_by_id integer NOT NULL,
     created_by_id integer NOT NULL,
-    "position" integer DEFAULT 0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

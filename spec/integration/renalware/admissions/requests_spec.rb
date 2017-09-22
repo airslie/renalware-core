@@ -9,6 +9,7 @@ RSpec.describe "Admission Request (TCI) management", type: :request do
   def create_request
     create(:admissions_request,
            reason: reason,
+           priority: :urgent,
            updated_by: user,
            created_by: user,
            patient: patient,
@@ -26,6 +27,7 @@ RSpec.describe "Admission Request (TCI) management", type: :request do
       expect(response.body).to include("XYZ")
       expect(response.body).to include(I18n.l(time))
       expect(response.body).to include(patient.to_s)
+      expect(response.body).to include("Urgent")
     end
   end
 
@@ -44,7 +46,8 @@ RSpec.describe "Admission Request (TCI) management", type: :request do
         params = {
           admissions_request: {
             reason_id: reason.id,
-            patient_id: patient.id
+            patient_id: patient.id,
+            priority: "urgent"
           }
         }
 

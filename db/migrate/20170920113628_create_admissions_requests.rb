@@ -11,10 +11,12 @@ class CreateAdmissionsRequests < ActiveRecord::Migration[5.1]
       t.integer :reason_id, null: false, index: true
       t.references :hospital_unit, foreign_key: true, index: true
       t.text :notes
+      t.string :priority, null: false
+      t.integer :position, null: false, default: 0, index: true
       t.datetime :deleted_at, index: true
       t.integer :updated_by_id, null: false, index: true
       t.integer :created_by_id, null: false, index: true
-      t.integer :position, null: false, default: 0, index: true
+
       t.timestamps null: false
     end
 

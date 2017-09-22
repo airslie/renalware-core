@@ -23,11 +23,12 @@ feature "Create an Admission Request", type: :feature, js: true do
 
     # 1. Try filling out without a reason and we should get an error displayed in the dialog
     click_on("Create")
-    expect(page).to have_content(t_validation(:reason_id, :blank))
+    expect(page).to have_content("can't be blank")
 
     # 2. Now submit valid data and we should be able to submit
     select reason.description, from: "Reason"
     select unit.name, from: "Current location"
+    select "Medium", from: "Priority"
     fill_in "Notes", with: "Some notes"
     click_on("Create")
 
@@ -38,12 +39,5 @@ feature "Create an Admission Request", type: :feature, js: true do
     expect(request.reason_id).to eq(reason.id)
     expect(request.hospital_unit_id).to eq(unit.id)
     expect(request.notes).to eq("Some notes")
-  end
-
-  def t_validation(attribute, validation)
-    I18n.t(
-      validation,
-      scope: "activerecord.errors.models.renalware/admissions/request.#{attribute}"
-    )
   end
 end
