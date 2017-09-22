@@ -1,0 +1,34 @@
+- patient = request.patient
+- unit = Renalware::Hospitals::Unit.find_by(id: request.hospital_unit_id)
+- editing_history = "Created #{l(request.created_at)} by #{request.created_by}\n"\
+                    "Updated #{l(request.updated_at)} by #{request.updated_by}"
+= content_tag_for(:tr,
+                  request,
+                  class: "sortable priority-#{request.priority}") do
+  td(class="sortable-position-for-model-id-#{request.id}")= request.position
+  td.priority
+    span= request.priority.text
+  td= request.reason.description
+  td= default_patient_link(patient)
+  td= patient.nhs_number
+  td= patient.hospital_identifiers
+  td= unit&.name
+  td.col-width-medium-with-ellipsis(title=request.notes)
+    = request.notes
+  td(title=editing_history)= l(request.created_at)
+  td
+    = link_to admissions_request_path(request),
+              remote: true,
+              method: :delete,
+              class: "remove",
+              data: { confirm: "Are you sure you want to remove this item?" } do
+      i.fa.fa-trash.fa-link-annotation
+      | &nbsp;|&nbsp;&nbsp;
+      = link_to "Edit",
+                edit_admissions_request_path(request, format: :html),
+                remote: true,
+                method: :get,
+                data: { "reveal-id" => "admissions-request-modal", "reveal-ajax" => "true" }
+  td.handle
+    i.fa.fa-reorder
+

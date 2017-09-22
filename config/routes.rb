@@ -41,6 +41,12 @@ Renalware::Engine.routes.draw do
     resources :audit_refreshments, only: [:create]
   end
 
+  namespace :admissions do
+    resources :requests do
+      post :sort, on: :collection
+    end
+  end
+
   namespace :messaging do
     namespace :internal do
       resources :messages, only: [:new, :create] do

@@ -1,0 +1,39 @@
+#admissions-request-modal {
+  .admissions-request-patient {
+    margin-bottom: 1rem;
+  }
+}
+
+.admissions_requests {
+
+   td.priority {
+    span {
+      @include badge;
+    }
+  }
+
+  tr.priority-urgent {
+    td.priority span {
+      background-color: $priority-urgent;
+    }
+  }
+
+
+  tr.priority-high {
+    td.priority span {
+      background-color: $priority-high;
+    }
+  }
+
+  tr.priority-medium {
+    td.priority span {
+      background-color: $priority-medium;
+    }
+  }
+
+  tr.priority-low {
+    td.priority span {
+      background-color: $priority-low;
+    }
+  }
+}

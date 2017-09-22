@@ -1,0 +1,12 @@
+@keyframes highlight {
+  0% {
+    background: $nhs-yellow
+  }
+  100% {
+    background: none;
+  }
+}
+
+.post-action-highlight {
+  animation: highlight 1.5s;
+}

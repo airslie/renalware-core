@@ -8,6 +8,7 @@ en:
           delete_bookmark: Remove bookmark
           send_message: Send message
           create_alert: Create alert
+          request_admission: Request admission
         general:
           heading: General
           clinic_visits: Clinic Visits (%{count})

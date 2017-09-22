@@ -1,0 +1,19 @@
+table.admissions_requests
+  thead
+    th Rank
+    th Priority
+    th Reason
+    th Patient
+    th.col-width-nhs-no NHS Number
+    th Hospital Nos.
+    th Location
+    th Notes
+    th.col-width-date-time Created
+    th.col-width-small
+    th
+  = content_tag(:tbody,
+                class: "sortables",
+                data: { rel: sort_admissions_requests_path }) do
+    = render requests
+
+= render "modal_dialog_placeholder"

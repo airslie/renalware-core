@@ -1,3 +1,47 @@
+.modal {
+  .modal__header {
+    border-bottom: solid 1px $winter-sky;
+    margin-bottom: 10px;
+
+    h1, h2 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.3rem;
+      color: $dark-grey;
+    }
+
+    .reveal-modal-close {
+      position: absolute;
+      top: 0.3rem;
+      right: 0.8rem;
+      font-size: 1.5rem;
+      color: $winter-sky;
+      padding: 0.2rem;
+      font-weight: normal;
+
+      i {
+        padding-right: 5px;
+      }
+    }
+  }
+
+  .modal__body {
+    /* remove excessive l and r padding in modals */
+    .row {
+      margin-left: 0;
+      margin-right: 0;
+      max-width: 100%;
+
+      .columns {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+
+  .modal__footer {
+  }
+}
+
 .modal-show {
   position: relative;
   background: $oil;
