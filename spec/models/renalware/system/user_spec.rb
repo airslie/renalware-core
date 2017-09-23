@@ -6,14 +6,41 @@ module Renalware
 
     it_behaves_like "Personable"
 
-    it { is_expected.to validate_presence_of(:professional_position).on(:update) }
-    it { is_expected.to validate_presence_of(:signature).on(:update) }
+    describe "validation" do
+      describe "#professional_position" do
+        it { is_expected.to validate_presence_of(:professional_position).on(:update) }
+
+        context "when the user is resetting their password via devise passwords#edit" do
+          subject{ described_class.new(reset_password_token: "123") }
+          it { is_expected.to_not validate_presence_of(:professional_position).on(:update) }
+        end
+
+        context "when a super_admin user is updating" do
+          subject{ described_class.new(super_admin_update: true) }
+          it { is_expected.to_not validate_presence_of(:professional_position).on(:update) }
+        end
+      end
+
+      describe "#signature" do
+        it { is_expected.to validate_presence_of(:signature).on(:update) }
+
+        context "when the user is resetting their password via devise passwords#edit" do
+          subject{ described_class.new(reset_password_token: "123") }
+          it { is_expected.to_not validate_presence_of(:signature).on(:update) }
+        end
+
+        context "when a super_admin user is updating" do
+          subject{ described_class.new(super_admin_update: true) }
+          it { is_expected.to_not validate_presence_of(:signature).on(:update) }
+        end
+      end
+    end
 
     describe "class" do
       it "includes Deviseable to authenticate using Devise" do
         expect(User.ancestors).to include(Deviseable)
         arr = %i(expirable database_authenticatable rememberable registerable
-                 validatable trackable timeoutable)
+                 validatable trackable timeoutable recoverable)
         expect(User.devise_modules).to match_array(arr)
       end
     end

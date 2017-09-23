@@ -10,7 +10,7 @@ module Renalware
     included do
       class_eval do
         devise(:expirable, :database_authenticatable, :registerable,
-               :rememberable, :trackable, :validatable, :timeoutable)
+               :rememberable, :trackable, :validatable, :timeoutable, :recoverable)
       end
 
       # Makes the User 'approvable'
