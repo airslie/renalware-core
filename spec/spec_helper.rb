@@ -21,6 +21,36 @@ require "wisper/rspec/matchers"
 
 RSpec.configure do |config|
 
+  # For specs marked as monitor_database_record_creation: true, output each factory invocation
+  # - useful when writing tests to check on excessive factory use.
+  config.before(:each, :monitor_database_record_creation) do |example|
+    ActiveSupport::Notifications.subscribe("factory_girl.run_factory") do |name, start, finish, id, payload|
+      $stderr.puts "FactoryGirl: #{payload[:strategy]}(:#{payload[:name]})"
+    end
+  end
+
+  # Capture the count of each FactoryGirl factory.create() and sort them by number of invocations.
+  # Output this at the end of the suite so we can keep an eye on escalating factory usage.
+  factory_girl_results = {}
+  config.before(:suite) do
+    ActiveSupport::Notifications.subscribe("factory_girl.run_factory") do |name, start, finish, id, payload|
+      factory_name = payload[:name]
+      strategy_name = payload[:strategy]
+      factory_girl_results[factory_name] ||= {}
+      factory_girl_results[factory_name][strategy_name] ||= 0
+      factory_girl_results[factory_name][strategy_name] += 1
+    end
+  end
+
+  config.after(:suite) do
+    results = factory_girl_results
+      .to_a
+      .each_with_object({}){ |(key, val), hash| hash[key] = val[:create] }
+      .sort{ |a, b| (b.flatten.last || 0) <=> (a.flatten.last || 0) }
+    puts "FactoryGirl creates:"
+    p results
+  end
+
   config.include(Wisper::RSpec::BroadcastMatcher)
 
   # rspec-expectations config goes here. You can use an alternate
