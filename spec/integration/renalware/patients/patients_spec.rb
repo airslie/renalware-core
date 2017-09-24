@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Managing patients", type: :request do
-  let(:patient) { create(:patient) }
+  let(:user) { @current_user }
+  let(:patient) { create(:patient, by: user) }
 
   describe "GET new" do
     it "responds with a form" do
@@ -20,7 +21,7 @@ RSpec.describe "Managing patients", type: :request do
         post patients_path, params: { patient: attributes.merge(document: document) }
 
         expect(response).to have_http_status(:redirect)
-        created_patient = Renalware::Patient.find_by(attributes.slice!(:secure_id))
+        created_patient = Renalware::Patient.find_by(nhs_number: attributes[:nhs_number])
         expect(created_patient).to be_present
 
         expect(created_patient.document).to match_document(document)

@@ -6,7 +6,7 @@ feature "Viewing an Access Plan", type: :feature do
   scenario "A clinician views a patient's Access Plan" do
     user = login_as_clinician
     patient = create(:accesses_patient, by: user)
-    plan = create(:access_plan, patient: patient, by: user, decided_by: user)
+    plan = create(:access_plan, patient: patient, by: user)
 
     visit patient_accesses_dashboard_path(patient)
 

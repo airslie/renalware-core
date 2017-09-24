@@ -8,9 +8,9 @@ module Renalware
     background do
       @clinician_role = Role.find_or_create_by(name: "clinician")
 
-      @approved = create(:user, :approved)
-      @unapproved = create(:user)
-      @expired = create(:user, :approved, :expired)
+      @approved = create(:user)
+      @unapproved = create(:user, :unapproved)
+      @expired = create(:user, :expired, :clinician)
 
       login_as_super_admin
 
@@ -101,7 +101,7 @@ module Renalware
     end
 
     scenario "An admin cannot remove the super_admin role" do
-      superadmin = create(:user, :approved, :super_admin)
+      superadmin = create(:user, :super_admin)
       visit admin_users_path
       within("tbody") do
         find("a[href='#{edit_admin_user_path(superadmin)}']").click

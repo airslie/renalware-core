@@ -1,11 +1,10 @@
 FactoryGirl.define do
   factory :hd_profile, class: "Renalware::HD::Profile" do
+    accountable
     patient
     active true
     association :hospital_unit, factory: :hospital_unit
-    association :prescriber, factory: :user
-    association :created_by,  factory: :user
-    association :updated_by,  factory: :user
+    prescriber { accountable_actor }
 
     document {
       {

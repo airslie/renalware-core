@@ -10,12 +10,12 @@ RSpec.describe "Add person to directory and assign as a contact for a patient",
   include AjaxHelpers
 
   before do
-    login_as_clinician
+    @user = login_as_clinician
   end
 
   let!(:contact_description) { create(:letter_contact_description) }
-  let(:patient) { create(:patient) }
-  let(:person) { build(:directory_person, address: build(:address)) }
+  let(:patient) { create(:patient,  by: @user) }
+  let(:person) { build(:directory_person, by: @user, address: build(:address)) }
 
   describe "creating a person and assign as a contact" do
     context "given valid attributes" do

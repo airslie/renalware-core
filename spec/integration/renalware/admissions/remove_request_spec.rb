@@ -5,8 +5,7 @@ feature "Remove Admission Request", type: :feature, js: true do
 
   scenario "Clicking remove soft delete the request and removes it from the list" do
     user = login_as_clinician
-
-    request = create(:admissions_request, updated_by: user, created_by: user)
+    request = create(:admissions_request, by: user)
 
     visit admissions_requests_path
 

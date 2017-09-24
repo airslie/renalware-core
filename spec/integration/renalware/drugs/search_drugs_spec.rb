@@ -1,15 +1,13 @@
 require "rails_helper"
 
 RSpec.describe "Searching drugs", type: :feature, js: true do
-  before do
-    login_as_clinician
-  end
-
-  let(:patient) { create(:patient) }
-  let!(:drug) { create(:drug, name: "::drug name::") }
 
   context "given a drug matching the search term" do
     it "returns drug names that partially match" do
+      user = login_as_clinician
+      patient = create(:patient, by: user)
+      drug = create(:drug, name: "::drug name::")
+
       visit patient_prescriptions_path(
         patient, treatable_type: patient.class, treatable_id: patient
       )

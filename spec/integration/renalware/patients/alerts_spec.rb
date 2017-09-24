@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Managing alerts", type: :request do
-  let(:patient) { create(:patient) }
+  let(:user) { @current_user }
+  let(:patient) { create(:patient, by: user) }
 
   describe "POST create" do
     context "given valid attributes" do
@@ -54,7 +55,7 @@ RSpec.describe "Managing alerts", type: :request do
     let(:alert) do
       create(:patient_alert,
              patient: patient,
-             by: Renalware::Patients.cast_user(@current_user))
+             by: Renalware::Patients.cast_user(user))
     end
 
     it "soft deletes the alert" do

@@ -21,8 +21,7 @@ RSpec.describe "Viewing patients whose HD preferences do not match their profile
              patient: patient,
              schedule: :mon_wed_fri_pm, # !
              hospital_unit: current_unit,
-             created_by_id: user.id,
-             updated_by_id: user.id)
+             by: user)
     end
   end
 
@@ -36,8 +35,7 @@ RSpec.describe "Viewing patients whose HD preferences do not match their profile
              patient: patient,
              schedule: :mon_wed_fri_am,
              hospital_unit: preferred_unit, # !
-             created_by: user,
-             updated_by: user)
+             by: user)
     end
   end
 
@@ -48,8 +46,7 @@ RSpec.describe "Viewing patients whose HD preferences do not match their profile
              patient: patient,
              hospital_unit: current_unit,
              schedule: :mon_wed_fri_am,
-             created_by: user,
-             updated_by: user)
+             by: user)
     end
   end
 

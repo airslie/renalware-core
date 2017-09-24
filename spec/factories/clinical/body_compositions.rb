@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :body_composition, class: "Renalware::Clinical::BodyComposition" do
+    accountable
     patient
-
     assessed_on 1.week.ago
     overhydration "19.1"
     volume_of_distribution "52.1"
@@ -15,9 +15,6 @@ FactoryGirl.define do
     adipose_tissue_mass "15.1"
     body_cell_mass "53.1"
     quality_of_reading "65.123"
-
-    association :assessor, factory: :user
-    association :created_by, factory: :user
-    association :updated_by, factory: :user
+    assessor { accountable_actor }
   end
 end

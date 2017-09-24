@@ -19,7 +19,7 @@ module Renalware
     end
 
     it "is unapproved by default" do
-      expect(build(:user)).not_to be_approved
+      expect(build(:user, :unapproved)).not_to be_approved
     end
 
     describe "read_only?" do
@@ -65,8 +65,8 @@ module Renalware
     describe "scopes" do
       describe "unapproved" do
         it "retrieves unapproved users" do
-          approved = create(:user, :approved)
-          unapproved = create(:user)
+          approved = create(:user)
+          unapproved = create(:user, :unapproved)
 
           actual = User.unapproved
           expect(actual.size).to eq(1)

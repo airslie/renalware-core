@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Managing HD Stations for a Hospital Unit" do
 
   def create_station(name, unit, by)
-    create(:hd_station, name: name, hospital_unit_id: unit.id, updated_by: by, created_by: by)
+    create(:hd_station, name: name, hospital_unit_id: unit.id, by: by)
   end
 
   scenario "Listing existing stations" do

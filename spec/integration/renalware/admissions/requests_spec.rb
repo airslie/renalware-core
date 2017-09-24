@@ -1,22 +1,22 @@
 require "rails_helper"
 
 RSpec.describe "Admission Request (TCI) management", type: :request do
-  let(:patient) { create(:patient) }
   let(:reason) { create(:admissions_request_reason, description: "XYZ") }
   let(:user) { @current_user }
   let(:time) { Time.zone.now }
+  let(:patient) { create(:patient, by: user) }
 
   def create_request
     create(:admissions_request,
            reason: reason,
            priority: :urgent,
-           updated_by: user,
-           created_by: user,
+           by: user,
            patient: patient,
            created_at: time,
            updated_at: time)
   end
 
+  # monitor_database_record_creation: true
   describe "GET index" do
     it "lists patients with an admission request" do
       create_request

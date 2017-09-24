@@ -1,11 +1,10 @@
 FactoryGirl.define do
   factory :access_profile, class: Renalware::Accesses::Profile do
+    accountable
     patient
     type { create(:access_type) }
     side :right
     formed_on { Time.zone.today }
-    association :created_by,  factory: :user
-    association :updated_by,  factory: :user
 
     trait :current do
       started_on { 1.day.ago }

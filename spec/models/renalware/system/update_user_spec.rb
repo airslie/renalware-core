@@ -3,12 +3,12 @@ require "rails_helper"
 module Renalware::System
   describe UpdateUser do
     describe "#call" do
-      let(:super_admin) { find_or_create_role(:super_admin) }
+      let(:super_admin) { create(:role, :super_admin) }
 
       context "given an unapproved user" do
         subject { UpdateUser.new(user) }
 
-        let(:user) { create(:user, :clinician) }
+        let(:user) { create(:user, :clinician, :unapproved) }
 
         it "approves the user" do
           expect(user).to receive(:approved=).with(true)
@@ -37,7 +37,7 @@ module Renalware::System
       context "given an approved user" do
         subject { UpdateUser.new(user) }
 
-        let(:user) { create(:user, :approved) }
+        let(:user) { create(:user) }
 
         it "skips approval" do
           expect(subject).not_to receive(:approve)
@@ -73,7 +73,7 @@ module Renalware::System
       context "given an unexpired user" do
         subject { UpdateUser.new(user) }
 
-        let(:user) { build(:user, :approved) }
+        let(:user) { build(:user) }
 
         it "skips unexpiry" do
           expect(subject).not_to receive(:unexpire)

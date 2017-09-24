@@ -6,13 +6,13 @@ module Renalware
       describe LatestPatientSessionsQuery, type: :model do
         subject(:query) { described_class }
 
-        let(:patient) { create(:hd_patient) }
+        let(:patient) { create(:hd_patient, by: user) }
         let(:user) { create(:user) }
         let(:hospital_unit) { create(:hospital_unit) }
         let(:options) do
           {
             patient: patient,
-            created_by: user,
+            by: user,
             signed_on_by: user,
             hospital_unit: hospital_unit,
             performed_on: 1.weeks.ago

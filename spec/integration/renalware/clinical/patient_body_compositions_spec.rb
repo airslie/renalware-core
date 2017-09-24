@@ -3,7 +3,8 @@ require "rails_helper"
 module Renalware
   module Clinical
     RSpec.describe "Patient's Body Compositions", type: :request do
-      let(:patient) { create(:clinical_patient) }
+      let(:patient) { create(:clinical_patient, by: user) }
+      let(:user) { @current_user }
 
       describe "GET new" do
         it "responds successfully" do
@@ -30,7 +31,7 @@ module Renalware
 
       describe "GET edit" do
         it "responds successfully" do
-          body_comp = create(:body_composition, patient: patient)
+          body_comp = create(:body_composition, patient: patient, by: user)
           get edit_patient_clinical_body_composition_path(patient_id: patient, id: body_comp)
           expect(response).to have_http_status(:success)
         end
@@ -38,7 +39,7 @@ module Renalware
 
       describe "PATCH update" do
         it "responds successfully" do
-          body_comp = create(:body_composition, patient: patient)
+          body_comp = create(:body_composition, patient: patient, by: user)
           url = patient_clinical_body_composition_path(patient_id: patient, id: body_comp)
           params = {
             clinical_body_composition: body_comp.attributes.merge!(notes: "Lorem")

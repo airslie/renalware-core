@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Donor stage management", type: :request do
-  let(:patient) { create(:patient) }
+  let(:user) { @current_user }
+  let(:patient) { create(:patient, by: user) }
 
   describe "POST create" do
     context "given valid attributes" do

@@ -4,7 +4,7 @@ feature "Alert management" do
 
   scenario "A clinician adds an alert to a patient", js: true do
     user = login_as_clinician
-    patient = create(:patient, created_by: user, updated_by: user)
+    patient = create(:patient, by: user)
 
     visit patient_path(patient)
 
@@ -24,11 +24,10 @@ feature "Alert management" do
 
   scenario "A clinician deletes an alert", js: true do
     user = login_as_clinician
-    patient = create(:patient, created_by: user, updated_by: user)
+    patient = create(:patient, by: user)
     create(:patient_alert,
            patient: patient,
-           created_by: user,
-           updated_by: user,
+           by: user,
            notes: "Abc")
 
     visit patient_path(patient)

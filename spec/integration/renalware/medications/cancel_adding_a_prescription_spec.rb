@@ -4,8 +4,8 @@ RSpec.describe "Configuring Modality Descriptions", type: :feature, js: true do
 
   describe "when cancelling out of the new prescription form" do
     it "returns the the original location" do
-      patient = create(:patient)
-      login_as_clinician
+      user = login_as_clinician
+      patient = create(:patient, by: user)
 
       visit patient_prescriptions_path(patient,
                                        treatable_type: patient.class.to_s,

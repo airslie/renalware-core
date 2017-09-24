@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Managing the patient worryboard", type: :request do
-  let(:patient) { create(:patient) }
+  let(:user) { @current_user }
+  let(:patient) { create(:patient, by: user) }
 
   describe "POST create" do
     context "the patient has no worry (!)" do
@@ -25,7 +26,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
 
       # Not expected to be possible in the UI but testing anyway
       it "behaves idempotently, does not fail, behaves as if the worry was just added" do
-        Renalware::Patients::Worry.new(patient: patient, by: @current_user, notes: "Abc").save!
+        Renalware::Patients::Worry.new(patient: patient, by: user, notes: "Abc").save!
         params = { patients_worry: { notes: nil } }
         post(patient_worry_path(patient), params: params)
         expect(response).to have_http_status(:redirect)
@@ -37,7 +38,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
 
       # Not expected to be possible in the UI but testing anyway
       it "does not overwrite existing worry notes if no notes added this time" do
-        Renalware::Patients::Worry.new(patient: patient, by: @current_user, notes: "Abc").save!
+        Renalware::Patients::Worry.new(patient: patient, by: user, notes: "Abc").save!
         params = {
           patients_worry: {
             notes: ""
@@ -56,7 +57,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
     describe "DELETE destroy" do
 
       it "soft deletes the worry" do
-        worry = Renalware::Patients::Worry.new(patient: patient, by: @current_user)
+        worry = Renalware::Patients::Worry.new(patient: patient, by: user)
         worry.save!
 
         delete patient_worry_path(patient, worry)
@@ -73,14 +74,14 @@ RSpec.describe "Managing the patient worryboard", type: :request do
       with_versioning do
         it "stores a papertrail version with the correct whodunnit value" do
           expect(PaperTrail).to be_enabled
-          worry = Renalware::Patients::Worry.new(patient: patient, by: @current_user)
+          worry = Renalware::Patients::Worry.new(patient: patient, by: user)
           worry.save!
 
           delete patient_worry_path(patient, worry)
 
           expect(response).to have_http_status(:redirect)
           version = Renalware::Patients::Version.last
-          expect(version.whodunnit.to_s).to eq(@current_user.id.to_s)
+          expect(version.whodunnit.to_s).to eq(user.id.to_s)
         end
       end
     end

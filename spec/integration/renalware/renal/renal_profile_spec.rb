@@ -5,13 +5,13 @@ RSpec.describe "Renal Profile (ESRF/Comorbidities)", type: :feature, js: true do
 
   describe "GET #show" do
     it "updating the renal profile" do
+      user = login_as_clinician
+
       esrf_date = "24-Mar-2017"
-      patient = Renalware::Renal.cast_patient(create(:patient))
+      patient = Renalware::Renal.cast_patient(create(:patient, by: user))
       profile = patient.build_profile
       profile.esrf_on = esrf_date
       profile.save!
-
-      login_as_clinician
 
       visit patient_path(patient)
       within ".side-nav" do
@@ -44,9 +44,8 @@ RSpec.describe "Renal Profile (ESRF/Comorbidities)", type: :feature, js: true do
     end
 
     it "pulling in the patient's current address" do
-      patient = Renalware::Renal.cast_patient(create(:patient))
-
-      login_as_clinician
+      user = login_as_clinician
+      patient = Renalware::Renal.cast_patient(create(:patient, by: user))
 
       visit edit_patient_renal_profile_path(patient)
 

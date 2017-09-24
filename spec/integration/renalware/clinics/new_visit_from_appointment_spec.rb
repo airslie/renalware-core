@@ -1,11 +1,12 @@
 require "rails_helper"
 
 RSpec.describe "New Visit from existing Appointment", type: :feature do
+
   describe "GET index" do
     context "with no appointment id" do
       it "does not pre-populate the form" do
-        login_as_clinician
-        patient = Renalware::Clinics.cast_patient(create(:patient))
+        user = login_as_clinician
+        patient = Renalware::Clinics.cast_patient(create(:patient, by: user))
 
         visit new_patient_clinic_visit_path(patient)
 
@@ -17,13 +18,14 @@ RSpec.describe "New Visit from existing Appointment", type: :feature do
 
     context "with an appointment id passed" do
       it "pre-populates the form with the details copied from the appointment" do
-        login_as_clinician
-        clinic = create(:clinic)
-        patient = Renalware::Clinics.cast_patient(create(:patient))
+        user = login_as_clinician
+        clinic = create(:clinic, consultant: user)
+        patient = Renalware::Clinics.cast_patient(create(:patient, by: user))
         appointment = create(:appointment,
                              patient: patient,
                              clinic: clinic,
-                             starts_at: Time.zone.now)
+                             starts_at: Time.zone.now,
+                             user: user)
 
         visit new_patient_clinic_visit_path(patient, appointment_id: appointment.id)
 

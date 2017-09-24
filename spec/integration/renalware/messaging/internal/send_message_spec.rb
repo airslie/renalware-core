@@ -4,7 +4,7 @@ feature "Sending a private message" do
 
   scenario "A clinician sends a private message about a patient", js: true do
     user = login_as_clinician
-    patient = create(:messaging_patient, created_by: user, updated_by: user)
+    patient = create(:messaging_patient, by: user)
     create(:internal_recipient, family_name: "X", given_name: "Y")
 
     visit patient_path(patient)

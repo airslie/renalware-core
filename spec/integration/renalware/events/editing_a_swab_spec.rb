@@ -3,17 +3,15 @@ require "test_support/ajax_helpers"
 
 RSpec.describe "Editing a swab", type: :feature, js: true do
   include AjaxHelpers
-  before do
-    login_as_clinician
-    page.driver.add_headers("Referer" => root_path)
-  end
-
-  let(:patient) { create(:patient) }
 
   it "allows a swab to be updated" do
+    page.driver.add_headers("Referer" => root_path)
+    user = login_as_clinician
+    patient = create(:patient, by: user)
+
     swab_site = "The site"
     swab_result = Renalware::Events::Swab::Document.result.values.first.text
-    swab = build(:swab, patient: patient)
+    swab = build(:swab, patient: patient, by: user)
     swab.document.result = nil
     swab.document.location = nil
     swab.save!

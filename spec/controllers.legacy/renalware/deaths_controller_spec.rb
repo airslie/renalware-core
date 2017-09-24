@@ -4,13 +4,15 @@ module Renalware
   RSpec.describe DeathsController, type: :controller do
     routes { Engine.routes }
 
-    subject { create(:patient) }
+    subject { create(:patient, by: @current_user) }
 
     before do
       @cause = FactoryGirl.create(:cause)
       @modality_description = FactoryGirl.create(:death_modality_description)
       @patient_modality = FactoryGirl.create(:modality,
-        patient_id: subject.id, description: @modality_description)
+        patient_id: subject.id,
+        description: @modality_description,
+        by: @current_user)
     end
 
     describe "index" do

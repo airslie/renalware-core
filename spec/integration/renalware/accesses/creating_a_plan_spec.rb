@@ -5,7 +5,7 @@ feature "Creating an Access Plan", type: :feature do
 
   scenario "A clinician adds the first access plan to a patient using menus" do
     user = login_as_clinician
-    patient = create(:accesses_patient, created_by: user, updated_by: user)
+    patient = create(:accesses_patient, by: user)
     plan_type = create(:access_plan_type, name: "Continue dialysis line")
     notes = "Lorem ipsum delor"
 
@@ -43,8 +43,7 @@ feature "Creating an Access Plan", type: :feature do
     create(:access_plan,
            patient: patient,
            plan_type: plan_type1,
-           by: user,
-           decided_by: user)
+           by: user)
     notes = "Lorem ipsum delor.."
 
     visit new_patient_accesses_plan_path(patient)
@@ -70,8 +69,8 @@ feature "Creating an Access Plan", type: :feature do
   end
 
   scenario "A clinician attempts to add a plan to a patient with invalid data" do
-    login_as_clinician
-    patient = create(:accesses_patient)
+    user = login_as_clinician
+    patient = create(:accesses_patient, by: user)
     visit new_patient_accesses_plan_path(patient)
 
     expect(page).to have_no_css(".error")

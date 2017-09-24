@@ -5,8 +5,8 @@ module Renalware
     describe ElectronicRecipientOptions do
       include LettersSpecHelper
 
-      let(:patient) { create(:letter_patient) }
-      let(:another_patient) { create(:letter_patient) }
+      let(:patient) { create(:letter_patient, by: author) }
+      let(:another_patient) { create(:letter_patient, by: author) }
       let(:author) { create(:user, given_name: "author") }
       let(:recipient1) { create(:user, given_name: "recipient1") }
 
@@ -15,9 +15,7 @@ module Renalware
           it "returns that user in the first group only" do
             letter = create_letter(to: :patient,
                                    patient: patient,
-                                   author: author,
-                                   updated_by: author,
-                                   created_by: author)
+                                   by: author)
 
             letter.electronic_cc_recipients << recipient1
             letter.save_by!(author)
@@ -43,9 +41,7 @@ module Renalware
           it "returns that user in the second group only" do
             letter = create_letter(to: :patient,
                                    patient: another_patient,
-                                   author: author,
-                                   updated_by: author,
-                                   created_by: author)
+                                   by: author)
 
             letter.electronic_cc_recipients << recipient1
             letter.save_by!(author)

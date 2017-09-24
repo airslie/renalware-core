@@ -5,7 +5,7 @@ module Renalware::Events
     routes { Renalware::Engine.routes }
 
     before do
-      @patient = create(:patient)
+      @patient = create(:patient, by: @current_user)
       @event_type = create(:events_type)
     end
 

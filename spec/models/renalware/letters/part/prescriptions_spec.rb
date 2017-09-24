@@ -5,7 +5,7 @@ module Renalware::Letters
     subject(:part) { Part::Prescriptions.new(patient) }
 
     let(:user) { create(:user) }
-    let(:patient) { create(:patient) }
+    let(:patient) { create(:patient, by: user) }
     let(:default_drug) { create(:drug, name: "::drug name::") }
 
     def terminated_prescription(terminated_on:, drug: default_drug)

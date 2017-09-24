@@ -4,7 +4,7 @@ module Renalware
   module PD
     RSpec.describe CreateRegime do
       let(:user) { create(:user) }
-      let(:patient) { create(:patient) }
+      let(:patient) { create(:patient, by: user) }
       let(:bag_type) { create(:bag_type) }
       let(:subject) { CreateRegime.new(patient: patient).call(by: user, params: params) }
       let(:pre_existing_regime) do

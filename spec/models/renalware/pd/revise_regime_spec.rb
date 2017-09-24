@@ -4,7 +4,7 @@ module Renalware
   module PD
     RSpec.describe ReviseRegime do
       let(:user) { create(:user) }
-      let(:patient) { create(:patient) }
+      let(:patient) { create(:patient, by: user) }
       let!(:regime) do
         regime = build(:apd_regime,
                        add_hd: false,

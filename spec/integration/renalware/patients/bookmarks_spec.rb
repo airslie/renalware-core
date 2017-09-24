@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Managing bookmarks", type: :request do
-  let(:patient) { create(:patient) }
+  let(:user) { @current_user }
+  let(:patient) { create(:patient, by: user) }
 
   describe "POST create" do
     context "given valid attributes" do
@@ -55,7 +56,7 @@ RSpec.describe "Managing bookmarks", type: :request do
   describe "DELETE destroy" do
     let(:bookmark) do
       create(:patients_bookmark,
-             user: Renalware::Patients.cast_user(@current_user),
+             user: Renalware::Patients.cast_user(user),
              patient: patient)
     end
 

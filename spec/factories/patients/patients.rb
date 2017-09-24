@@ -8,6 +8,7 @@ FactoryGirl.define do
   end
 
   factory :patient, class: "Renalware::Patient" do
+    accountable
     nhs_number
     secure_id { SecureRandom.base58(24) }
     local_patient_id
@@ -16,17 +17,18 @@ FactoryGirl.define do
     born_on "01/01/1988"
     paediatric_patient_indicator "0"
     sex "M"
-    ethnicity
     died_on nil
     first_cause_id nil
-    association :created_by, factory: :user
-    association :updated_by, factory: :user
 
     # ensures addressable_type and addressable_id work is assigned, using
     # FactoryGirl's simple assoc method does not work
     #
     before(:create) do |patient|
       patient.build_current_address(attributes_for(:address))
+    end
+
+    trait :with_ethnicity do
+      ethnicity factory: :ethnicity
     end
   end
 end

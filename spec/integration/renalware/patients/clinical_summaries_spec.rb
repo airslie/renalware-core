@@ -5,18 +5,17 @@ module Renalware
 
     describe "GET show" do
       it "renders correctly" do
-        user = create(:user)
-        patient = create(:patient)
-        create(:problem, patient: patient, created_by: user, updated_by: user)
-        create(:simple_event, patient: patient, created_by: user, updated_by: user)
-        create(:prescription, patient: patient, created_by: user, updated_by: user)
+        user = login_as_clinician
+        patient = create(:patient, by: user)
+        create(:problem, patient: patient, by: user)
+        create(:simple_event, patient: patient, by: user)
+        create(:prescription, patient: patient, by: user)
 
         letter_patient = Letters.cast_patient(patient)
-        letter = build(:approved_letter, patient: letter_patient)
+        letter = build(:approved_letter, patient: letter_patient, by: user)
         letter.build_main_recipient(person_role: :primary_care_physician)
         letter.save!
 
-        login_as_clinician
         visit patient_clinical_summary_path(patient)
 
         expect(page).to have_content "Problems (1)"

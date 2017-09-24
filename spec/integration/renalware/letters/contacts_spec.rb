@@ -7,11 +7,11 @@ RSpec.describe "Assign a contact to a patient", type: :feature, js: true do
   include AjaxHelpers
 
   before do
-    login_as_clinician
+    @user = login_as_clinician
   end
 
-  let(:patient) { create(:patient) }
-  let!(:person) { create(:directory_person, by: create(:user)) }
+  let(:patient) { create(:patient, by: @user) }
+  let!(:person) { create(:directory_person, by: @user) }
   let!(:contact_description) { create(:letter_contact_description) }
 
   describe "creating a contact" do

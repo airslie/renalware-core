@@ -41,10 +41,7 @@ module Renalware
     scenario "Edit a PD Training Session" do
       patient = create(:pd_patient)
       user = login_as_clinician
-      create(:pd_training_session,
-             patient: patient,
-             created_by: user,
-             updated_by: user)
+      create(:pd_training_session, patient: patient, by: user)
 
       visit patient_pd_dashboard_path(patient)
 
@@ -69,10 +66,7 @@ module Renalware
     scenario "View a PD Training Session" do
       patient = create(:pd_patient)
       user = login_as_clinician
-      training_session = create(:pd_training_session,
-                          patient: patient,
-                          created_by: user,
-                          updated_by: user)
+      training_session = create(:pd_training_session, patient: patient, by: user)
 
       visit patient_pd_dashboard_path(patient)
 

@@ -2,8 +2,8 @@ require "rails_helper"
 
 feature "Create an Admission Request", type: :feature, js: true do
   scenario "Creating a new request from the patient LH menu" do
-    login_as_clinician
-    patient = create(:patient)
+    user = login_as_clinician
+    patient = create(:patient, by: user)
     reason = create(:admissions_request_reason, description: "AKI")
     unit = create(:hospital_unit, name: "Unit1")
     expect(Renalware::Admissions::Request.count).to eq(0)

@@ -3,8 +3,8 @@ require "rails_helper"
 module Renalware
   feature "Authentication" do
     background do
-      @user = create(:user, :approved, :clinician)
-      @unapproved_user = create(:user)
+      @user = create(:user, :clinician)
+      @unapproved_user = create(:user, :unapproved)
     end
 
     scenario "A user attempts to authenticate with invalid credentials" do
@@ -58,7 +58,7 @@ module Renalware
     end
 
     scenario "An inactive user attempts to authenticate" do
-      inactive = create(:user, :approved, last_activity_at: 60.days.ago)
+      inactive = create(:user, last_activity_at: 60.days.ago)
 
       visit new_user_session_path
 
@@ -74,7 +74,7 @@ module Renalware
     end
 
     scenario "A fairly inactive user attempts to authenticate" do
-      inactive = create(:user, :approved, :clinician,
+      inactive = create(:user, :clinician,
                         last_activity_at: 59.days.ago)
 
       visit new_user_session_path
