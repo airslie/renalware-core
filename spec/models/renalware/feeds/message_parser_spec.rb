@@ -5,6 +5,8 @@ module Renalware::Feeds
     describe "#parse" do
       context "given a message with multiple observation segments" do
         let(:raw_message) do
+          # Notes:
+          # - In OBX:2, TX = Text data
           <<-RAW.strip_heredoc
             MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
             PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
