@@ -12,12 +12,14 @@ xml.Patient do
     xml.PatientNumber do
       xml.Number patient.nhs_number
       xml.Organization "NHS"
+      xml.NumberType "NI"
     end
     Renalware.config.patient_hospital_identifiers.values.each do |field|
       next if (number = patient.public_send(field)).blank?
       xml.PatientNumber do
         xml.Number number
         xml.Organization "LOCALHOSP"
+        xml.NumberType "MRN"
       end
     end
   end
