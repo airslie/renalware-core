@@ -2933,7 +2933,8 @@ ALTER SEQUENCE patient_ethnicities_id_seq OWNED BY patient_ethnicities.id;
 
 CREATE TABLE patient_languages (
     id integer NOT NULL,
-    name character varying NOT NULL
+    name character varying NOT NULL,
+    code character varying
 );
 
 
@@ -8266,6 +8267,13 @@ CREATE INDEX index_patient_bookmarks_on_patient_id ON patient_bookmarks USING bt
 
 
 --
+-- Name: index_patient_languages_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patient_languages_on_code ON patient_languages USING btree (code);
+
+
+--
 -- Name: index_patient_practices_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11194,5 +11202,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171005081224'),
 ('20171005091202'),
 ('20171009104106');
-
+('20170925161033');
 

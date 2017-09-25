@@ -6,6 +6,8 @@ module Renalware
       delegate :allergies, to: :clinical_patient
       delegate :clinic_visits, to: :clinics_patient
       delegate :observation_requests, to: :pathology_patient
+      alias_attribute :home_telephone, :telephone1
+      alias_attribute :mobile_telephone, :telephone2
 
       def smoking_history
         @smoking_history ||= document.history&.smoking&.upcase
@@ -20,6 +22,10 @@ module Renalware
 
       def hospital_unit_code
         letter_head.site_code
+      end
+
+      def contact_details?
+        email || home_telephone || mobile_telephone
       end
 
       private

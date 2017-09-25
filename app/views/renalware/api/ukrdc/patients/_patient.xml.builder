@@ -57,7 +57,31 @@ xml.Patient do
     end
   end
 
-  xml.PrimaryLanguage patient.language
+  xml.PrimaryLanguage do
+    xml.CodingStandard "ISO 639-1"
+    xml.Code patient.language&.code
+    xml.Description patient.language
+  end
+
+  if patient.contact_details?
+    xml.ContactDetails do
+      if patient.email.present?
+        xml.ContactDetail(use: "NET") do
+          xml.Value patient.email
+        end
+      end
+      if patient.home_telephone.present?
+        xml.ContactDetail(use: "PRN") do
+          xml.Value patient.home_telephone
+        end
+      end
+      if patient.mobile_telephone.present?
+        xml.ContactDetail(use: "PRS") do
+          xml.Value patient.mobile_telephone
+        end
+      end
+    end
+  end
 
   if patient.current_modality_death?
     xml.Death true
