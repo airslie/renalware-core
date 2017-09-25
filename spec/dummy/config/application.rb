@@ -11,6 +11,8 @@ module Dummy
     unless Rails.env.development?
       config.exceptions_app = Renalware::Engine.routes
     end
+
+    config.action_mailer.default_url_options = { host: ENV.fetch("HOST", "localhost") }
     config.action_mailer.preview_path = Rails.root.join("app", "mailers", "previews")
     config.active_job.queue_adapter = :delayed_job
     config.time_zone = "London"
