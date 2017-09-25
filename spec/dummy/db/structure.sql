@@ -2043,7 +2043,8 @@ CREATE TABLE medication_routes (
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    rr_code character varying
 );
 
 
@@ -11196,6 +11197,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170911133224'),
 ('20170912092135'),
 ('20170920113628'),
+<<<<<<< HEAD
 ('20171003093347'),
 ('20171003111228'),
 ('20171003122425'),
@@ -11203,4 +11205,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171005091202'),
 ('20171009104106');
 ('20170925161033');
+=======
+('20170925161033'),
+('20170925182738');
+>>>>>>> Add medications to UKRDC XML
 
