@@ -6,6 +6,7 @@ module World
 
         # rubocop:disable Metrics/CyclomaticComplexity
         def create_global_rule(params)
+          p params["id"]
           param_id =
             case params["type"]
             when "ObservationResult" then

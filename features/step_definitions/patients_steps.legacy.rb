@@ -35,7 +35,7 @@ Given(/^some patients who need renal treatment$/) do
     born_on: "28/02/1930",
     paediatric_patient_indicator: "1",
     sex: "M",
-    ethnicity_id: Renalware::Patients::Ethnicity.third.id,
+    ethnicity_id: Renalware::Patients::Ethnicity.first.id,
     hospital_centre_code: "999"
   )
 end
