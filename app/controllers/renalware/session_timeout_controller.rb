@@ -52,7 +52,7 @@ module Renalware
     def referrer_is_a_devise_url?
       referrer = request.referer
       return if request.blank?
-      regex_defining_devise_paths = /#{new_user_session_path}/
+      regex_defining_devise_paths = %r{(#{new_user_session_path}|users\/password|users\/sign_up)}
       URI.parse(referrer).path =~ regex_defining_devise_paths
     end
   end

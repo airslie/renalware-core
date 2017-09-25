@@ -11,7 +11,8 @@ Renalware::Engine.routes.draw do
              class_name: "Renalware::User",
              controllers: {
                registrations: "renalware/devise/registrations",
-               sessions: "renalware/devise/sessions"
+               sessions: "renalware/devise/sessions",
+               passwords: "renalware/devise/passwords"
              },
              module: :devise
 

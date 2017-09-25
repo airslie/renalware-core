@@ -9,8 +9,12 @@ module Renalware
     validates_presence_of :given_name
     validates_presence_of :family_name
     validate :approval_with_roles, on: :update
-    validates_presence_of :professional_position, on: :update, unless: :super_admin_update
-    validates_presence_of :signature, on: :update, unless: :super_admin_update
+    validates_presence_of :professional_position,
+                          on: :update,
+                          unless: :skip_validation
+    validates_presence_of :signature,
+                          on: :update,
+                          unless: :skip_validation
 
     scope :unapproved, -> { where(approved: [nil, false]) }
     scope :inactive, lambda {
@@ -21,6 +25,10 @@ module Renalware
 
     # Non-persistent attribute to signify an update by an admin (bypassing some validations)
     attr_accessor :super_admin_update
+
+    def skip_validation
+      super_admin_update || reset_password_token
+    end
 
     def self.policy_class
       UserPolicy
