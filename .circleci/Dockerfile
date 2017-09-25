@@ -3,17 +3,19 @@
 # phantomjs and postgres 9.6.x client tools) makes the test suite complete more quickly.
 # See https://circleci.com/docs/2.0/custom-images
 #
-# If you change this Dockerfile, then from the project root, bump the version e.g. 0.0.2
+# If you change this Dockerfile, then from the project root, bump the version e.g. 0.0.3
 # and build and push the image to DockerHub using user `woodpigeon` (password on request):
 #
-# $ docker build -t woodpigeon/renalware-circleci-primary:0.0.x circleci
+# $ docker build -t airslie/renalware-circleci-primary:0.0.x .circleci
 # $ docker login
-# $ docker push woodpigeon/renalware-circleci-primary:0.0.x
+# $ docker push airslie/renalware-circleci-primary:0.0.x
 #
-# and then update the docker image tag (eg 0.0.2) in `.circleci/config`.
+# and then update the docker image tag (eg 0.0.3) in `.circleci/config`.
 # The next time a build is triggered on CircleCI the new image will be pulled and cached.
 
-FROM ruby:2.4.1
+# Version 0.0.2 Updated Ruby 2.4.1 => 2.4.2
+
+FROM ruby:2.4.2
 MAINTAINER Tim Crowe <tim@woodpigeon.com>
 
 # Install apt based dependencies required to run Rails as
