@@ -1,3 +1,4 @@
+# https://dzone.com/articles/using-docker-for-rails-development
 # We use a custom docker image for our tests on CircleCI, defined here,
 # and hosted on DockerHub. Having an image with pre-installed dependencies (like pandoc,
 # phantomjs and postgres 9.6.x client tools) makes the test suite complete more quickly.
@@ -53,15 +54,14 @@ WORKDIR /app
 # will be cached unless changes to one of those two files
 # are made.
 # NB This does not work as .gemspec requries lib/version.rb etc
-COPY Gemfile renalware-core.gemspec Gemfile.lock ./
+COPY Gemfile renalware-core.gemspec Gemfile.lock /app/
 RUN mkdir -p /app/lib/renalware
-COPY /app/lib/renalware/version.rb /app/lib/renalware/version.rb
+COPY ./lib/renalware/version.rb /app/lib/renalware/version.rb
 RUN gem install bundler && bundle install --jobs 20 --retry 5
 
 # Copy the main application.
-COPY . ./
-
-# RUN gem install bundler && bundle install --jobs 20 --retry 5
+# COPY . ./
+# No we'll use a mount
 
 # Expose port 3000 to the Docker host, so we can access it
 # from the outside.

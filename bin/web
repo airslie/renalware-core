@@ -1,2 +1,2 @@
 #!/bin/sh
-bin/dummy/web
+bundle exec ./spec/dummy/bin/rails server
