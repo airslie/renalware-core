@@ -9,11 +9,11 @@ feature "Editing an Access Plan", type: :feature do
            "and the previous one tp be terminated so that it appears in the historical list" do
 
     user = login_as_clinician
-    patient = create(:accesses_patient, created_by: user, updated_by: user)
+    patient = create(:accesses_patient, by: user)
     create(:access_plan,
            patient: patient,
            notes: "Original notes",
-           by: user, decided_by: user)
+           by: user)
 
     visit patient_accesses_dashboard_path(patient)
 
@@ -47,11 +47,11 @@ feature "Editing an Access Plan", type: :feature do
            "to be created" do
 
     user = login_as_clinician
-    patient = create(:accesses_patient, created_by: user, updated_by: user)
+    patient = create(:accesses_patient, by: user)
     create(:access_plan,
            patient: patient,
            notes: "Original notes",
-           by: user, decided_by: user)
+           by: user)
 
     visit patient_accesses_dashboard_path(patient)
 

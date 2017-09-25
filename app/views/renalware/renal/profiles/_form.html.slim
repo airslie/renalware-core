@@ -46,7 +46,6 @@
           = link_to "Set all comorbidities to No", "#", class: "set_all_comorbidities_to_no"
           table.comorbidities.align-centre
             - fcm.object.class.attributes_list.each do |attribute|
-              - p attribute
               = render_input fcm, attribute
 
       = render layout: "renalware/shared/fieldset",

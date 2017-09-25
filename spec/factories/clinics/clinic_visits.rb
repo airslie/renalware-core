@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :clinic_visit, class: "Renalware::Clinics::ClinicVisit" do
+    accountable
     patient
     date Time.zone.today
     time Time.zone.now
@@ -9,8 +10,6 @@ FactoryGirl.define do
     pulse 100
     systolic_bp 112
     diastolic_bp 71
-    clinic
-    association :created_by, factory: :user
-    association :updated_by, factory: :user
+    clinic { create(:clinic, consultant: accountable_actor) }
   end
 end

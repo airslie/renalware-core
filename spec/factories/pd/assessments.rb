@@ -1,8 +1,7 @@
 FactoryGirl.define do
   factory :pd_assessment, class: "Renalware::PD::Assessment" do
+    accountable
     patient
-    association :updated_by, factory: :user
-    association :created_by, factory: :user
     document {
       {
         assessed_on: Time.zone.today,

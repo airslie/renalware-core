@@ -1,9 +1,10 @@
 FactoryGirl.define do
   factory :hd_session, class: "Renalware::HD::Session::Open" do
+    accountable
     association :patient, factory: :hd_patient
     association :hospital_unit, factory: :hospital_unit
-    association :signed_on_by, factory: :user
-    association :created_by, factory: :user
+
+    signed_on_by { accountable_actor }
 
     performed_on 1.week.ago
     notes "Some notes"
@@ -24,7 +25,7 @@ FactoryGirl.define do
       start_time "11:00"
       end_time "16:00"
       signed_off_at { 1.day.ago }
-      association :signed_off_by, factory: :user
+      signed_off_by { accountable_actor }
 
       after(:build) do |session|
         session.document = build(:hd_session_document).marshal_dump

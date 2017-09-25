@@ -1,5 +1,7 @@
 FactoryGirl.define do
   factory :role, class: "Renalware::Role" do
+    initialize_with { Renalware::Role.find_or_create_by(name: name) }
+
     name :super_admin
     hidden false
 
@@ -20,8 +22,4 @@ FactoryGirl.define do
       name :read_only
     end
   end
-end
-
-def find_or_create_role(name = :clinician)
-  Renalware::Role.find_by(name: name) || create(:role, name)
 end

@@ -12,44 +12,45 @@
 
 4:
   code: 4
-  name: Fungal
-
-5:
-  code: 5
-  name: Coagulase negative Staphyloccus
-
-6:
-  code: 6
-  name: Streptococcus + Enterococcus
-
-7:
-  code: 7
   name: Staphylococcus aureus
 
-8:
-  code: 8
-  name: Pseudomonas Aeruginosa
+# 4:
+#   code: 4
+#   name: Fungal
 
-9:
-  code: 9
-  name: Culture negative peritonitis
+# 5:
+#   code: 5
+#   name: Coagulase negative Staphyloccus
 
-10:
-  code: 10
-  name: Other gram positive micro organism
+# 6:
+#   code: 6
+#   name: Streptococcus + Enterococcus
 
-11:
-  code: 11
-  name: Other gram negative micro organism
 
-12:
-  code: 13
-  name: Mycobacteria
+# 8:
+#   code: 8
+#   name: Pseudomonas Aeruginosa
 
-13:
-  code: 88
-  name: Other
+# 9:
+#   code: 9
+#   name: Culture negative peritonitis
 
-14:
-  code: 99
-  name: Unknown
+# 10:
+#   code: 10
+#   name: Other gram positive micro organism
+
+# 11:
+#   code: 11
+#   name: Other gram negative micro organism
+
+# 12:
+#   code: 13
+#   name: Mycobacteria
+
+# 13:
+#   code: 88
+#   name: Other
+
+# 14:
+#   code: 99
+#   name: Unknown

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Managing Users", type: :request do
-  let(:user) { create(:user, :clinician) }
+  let(:user) { create(:user, :unapproved, :clinician) }
 
   describe "GET index" do
     it "responds with a list" do

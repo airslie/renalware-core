@@ -2,9 +2,9 @@ require "rails_helper"
 
 RSpec.describe "Clinic Visits Management", type: :request do
 
+  let(:user) { @current_user }
   let(:clinic) { create(:clinic) }
-  let(:patient) { Renalware::Clinics.cast_patient(create(:patient)) }
-  let!(:clinic_visit) { create(:clinic_visit, patient: patient) }
+  let(:patient) { Renalware::Clinics.cast_patient(create(:patient, by: user)) }
 
   describe "GET index" do
     before do
@@ -45,6 +45,7 @@ RSpec.describe "Clinic Visits Management", type: :request do
 
   describe "GET edit" do
     before do
+      clinic_visit = create(:clinic_visit, patient: patient, by: user)
       get edit_patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param)
     end
     it "responds successfully" do
@@ -54,6 +55,7 @@ RSpec.describe "Clinic Visits Management", type: :request do
 
   describe "PUT update" do
     before do
+      clinic_visit = create(:clinic_visit, patient: patient, by: user)
       put patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param),
         params: {
           clinic_visit: {
@@ -71,12 +73,11 @@ RSpec.describe "Clinic Visits Management", type: :request do
   end
 
   describe "DELETE destroy" do
-    subject do
-      delete patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param)
-    end
-
     it "deletes a clinic_visit" do
-      expect{ subject }.to change(patient.clinic_visits, :count).by(-1)
+      clinic_visit = create(:clinic_visit, patient: patient, by: user)
+      expect{
+        delete patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param)
+      }.to change(patient.clinic_visits, :count).by(-1)
     end
   end
 end

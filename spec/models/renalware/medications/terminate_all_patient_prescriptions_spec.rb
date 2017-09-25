@@ -4,7 +4,7 @@ module Renalware::Medications
   RSpec.describe TerminateAllPatientPrescriptions do
     it "terminates all patient prescriptions" do
       user = create(:user)
-      patient = create(:patient)
+      patient = create(:patient, by: user)
       create(:prescription, patient: patient)
       create(:prescription, patient: patient)
       expect(patient.prescriptions.current.count).to eq(2)

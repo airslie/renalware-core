@@ -5,9 +5,9 @@ RSpec.describe "Global Clinic Visits list", type: :feature do
   describe "GET index" do
 
     it "responds successfully" do
-      login_as_clinician
-      patient = Renalware::Clinics.cast_patient(create(:patient))
-      create(:clinic_visit, patient: patient)
+      user = login_as_clinician
+      patient = Renalware::Clinics.cast_patient(create(:patient, by: user))
+      create(:clinic_visit, patient: patient, by: user)
 
       visit clinic_visits_path
 

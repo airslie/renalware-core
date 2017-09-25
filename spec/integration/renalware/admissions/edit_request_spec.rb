@@ -5,8 +5,7 @@ feature "Update Admission Request", type: :feature, js: true do
 
   scenario "Edit the request in a modal and updated it" do
     user = login_as_clinician
-
-    request = create(:admissions_request, updated_by: user, created_by: user)
+    request = create(:admissions_request, by: user)
 
     visit admissions_requests_path
 

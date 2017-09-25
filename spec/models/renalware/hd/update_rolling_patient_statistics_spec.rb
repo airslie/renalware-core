@@ -4,17 +4,17 @@ module Renalware::HD
   RSpec.describe UpdateRollingPatientStatistics do
     subject(:command) { described_class.new(patient: patient) }
 
-    let(:patient) { create(:hd_patient) }
+    let(:patient) { create(:hd_patient, by: user) }
     let(:user) { create(:user) }
     let(:hospital_unit) { create(:hospital_unit) }
 
     it "creates a new rolling PatientStatistics row if one did not exist" do
       expect(PatientStatistics.count).to eq(0)
 
-      create(:hd_open_session, patient: patient, created_by: user, hospital_unit: hospital_unit)
-      create(:hd_closed_session, patient: patient, created_by: user, hospital_unit: hospital_unit)
-      create(:hd_closed_session, patient: patient, created_by: user, hospital_unit: hospital_unit)
-      create(:hd_dna_session, patient: patient, created_by: user, hospital_unit: hospital_unit)
+      create(:hd_open_session, patient: patient, by: user, hospital_unit: hospital_unit)
+      create(:hd_closed_session, patient: patient, by: user, hospital_unit: hospital_unit)
+      create(:hd_closed_session, patient: patient, by: user, hospital_unit: hospital_unit)
+      create(:hd_dna_session, patient: patient, by: user, hospital_unit: hospital_unit)
 
       subject.call
 

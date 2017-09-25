@@ -3,15 +3,14 @@ require "test_support/ajax_helpers"
 
 RSpec.describe "Creating an event", type: :feature, js: true do
   include AjaxHelpers
-  before do
-    login_as_clinician
-    page.driver.add_headers("Referer" => root_path)
-  end
-
-  let(:patient) { create(:patient) }
 
   context "adding a biopsy event" do
     it "captures extra data" do
+
+      page.driver.add_headers("Referer" => root_path)
+      user = login_as_clinician
+      patient = create(:patient, by: user)
+
       event_type = create(:events_type,
                           name: "Renal biopsy",
                           event_class_name: "Renalware::Events::Biopsy")

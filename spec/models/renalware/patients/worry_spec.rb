@@ -7,8 +7,9 @@ module Renalware
 
       describe "validation" do
         it "validates uniqueness of patient" do
-          patient = create(:patient)
           user = create(:user)
+          patient = create(:patient, by: user)
+
           Worry.create!(patient: patient, by: user)
 
           expect{ Worry.create!(patient: patient, by: user) }
@@ -20,8 +21,8 @@ module Renalware
         with_versioning do
           it "stores a version on creation or deletion" do
             expect(PaperTrail).to be_enabled
-            patient = create(:patient)
             user = create(:user)
+            patient = create(:patient, by: user)
 
             worry = Worry.create!(patient: patient, by: user)
 

@@ -21,10 +21,11 @@ require "wisper/rspec/matchers"
 
 RSpec.configure do |config|
 
+  Notifications = ActiveSupport::Notifications
   # For specs marked as monitor_database_record_creation: true, output each factory invocation
   # - useful when writing tests to check on excessive factory use.
-  config.before(:each, :monitor_database_record_creation) do |example|
-    ActiveSupport::Notifications.subscribe("factory_girl.run_factory") do |name, start, finish, id, payload|
+  config.before(:each, :monitor_database_record_creation) do |_example|
+    Notifications.subscribe("factory_girl.run_factory") do |_name, _start, _finish, _id, payload|
       $stderr.puts "FactoryGirl: #{payload[:strategy]}(:#{payload[:name]})"
     end
   end
@@ -33,12 +34,18 @@ RSpec.configure do |config|
   # Output this at the end of the suite so we can keep an eye on escalating factory usage.
   factory_girl_results = {}
   config.before(:suite) do
-    ActiveSupport::Notifications.subscribe("factory_girl.run_factory") do |name, start, finish, id, payload|
+    Notifications.subscribe("factory_girl.run_factory") do |_name, start, finish, _id, payload|
       factory_name = payload[:name]
       strategy_name = payload[:strategy]
       factory_girl_results[factory_name] ||= {}
       factory_girl_results[factory_name][strategy_name] ||= 0
       factory_girl_results[factory_name][strategy_name] += 1
+
+      execution_time_in_seconds = finish - start
+
+      if execution_time_in_seconds >= 0.5
+        $stderr.puts "Slow factory: #{payload[:name]} using strategy #{payload[:strategy]}"
+      end
     end
   end
 

@@ -2,8 +2,8 @@ require "rails_helper"
 require "renalware/clinical"
 
 RSpec.describe "Allergy management", type: :request do
-  let(:patient) { Renalware::Clinical.cast_patient(create(:patient)) }
-  let(:user) { create(:user) }
+  let(:patient) { Renalware::Clinical.cast_patient(create(:patient, by: user)) }
+  let(:user) { @current_user }
 
   describe "POST create" do
     it "responds successfully" do

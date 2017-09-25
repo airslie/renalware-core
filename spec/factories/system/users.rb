@@ -13,45 +13,60 @@ FactoryGirl.define do
     username
     email
     password "supersecret"
-    approved false
+    approved true
     professional_position "Health Minister"
+    signature { Faker::Name.name }
+
+    # By default a user has no roles.
+    # If you want a use with a role, use a trait, e.g. create(:user, :clinician)
+    transient do
+      role nil
+    end
+
+    after(:create) do |user, obj|
+      unless obj.role.blank?
+        user.roles << create(:role, obj.role)
+      end
+    end
+
+    trait :unapproved do
+      approved false
+    end
 
     trait :author do
       signature { Faker::Name.name }
     end
 
-    trait :approved do
-      approved true
-      after(:create) do |user|
-        user.roles = [find_or_create_role(:clinician)]
-      end
-    end
     trait :expired do
       last_activity_at 60.days.ago
       expired_at Time.zone.now
     end
+
     trait :super_admin do
-      after(:create) do |user|
-        user.roles = [find_or_create_role(:super_admin)]
+      transient do
+        role :super_admin
       end
     end
+
     trait :admin do
-      after(:create) do |user|
-        user.roles = [find_or_create_role(:admin)]
+      transient do
+        role :admin
       end
     end
+
     trait :clinician do
       given_name "Aneurin"
       family_name "Bevan"
       signature "Aneurin Bevan"
 
-      after(:create) do |user|
-        user.roles = [find_or_create_role(:clinician)]
+      transient do
+        role :clinician
       end
     end
+
     trait :read_only do
-      after(:create) do |user|
-        user.roles = [find_or_create_role(:read_only)]
+      transient do
+        role :read_only
       end
     end
   end
