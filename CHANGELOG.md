@@ -9,7 +9,29 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
-## v2.0.0-beta7
+## 2.0.0.pre.beta8
+25-09-2017
+
+### Added
+- Electronic CCs
+- Admission Requests (To Come In list)
+- HD Diurnal Periods
+- HD Unit Stations
+- Forgotten password feature
+- Add Pathology to UKRDC XML
+
+### Changed
+- Updated to Ruby 2.4.2
+- Updated gem dependencies in Nokogiri to fix security warning
+- Add dialysis shortfall > 5% to HD Audit
+- Update Rails to 5.1.4
+- Housekeeping to speed up tests on CI
+
+### Fixed
+- Auto session timeout check redirects to / when you are are password reset or signup pages
+
+
+## 2.0.0.pre.beta7
 10-09-2017
 
 ### Added
@@ -18,7 +40,7 @@ This project adheres to Semantic Versioning.
 - Added the vendor/assets path to the gemspec to fix missing assets when consuming the gem
 - Added the spec/support and spec/factories paths to the gemspec to make testing easier in the host
 
-## v2.0.0-beta5
+## 2.0.0.pre.beta5
 
 09-09-2017
 
@@ -51,7 +73,7 @@ Significant additions:
 
 - Various bugfixes
 
-## v2.0.0-beta2
+## 2.0.0.pre.beta2
 
 ### Added
 
@@ -68,6 +90,6 @@ Significant additions:
 
 - Snippets not inserting into event notes field.
 
-## 2.0.0.beta.1
+## 2.0.0.pre.beta.1
 
 - With this and previous releases, see commits for changes.
