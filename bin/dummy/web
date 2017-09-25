@@ -1,4 +1,4 @@
 #!/bin/sh
-pushd spec/dummy
+cd spec/dummy
 bundle exec rails s
-popd
+cd ..

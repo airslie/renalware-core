@@ -27,7 +27,7 @@ for example `renalware-ukrdc` which enables sending data to the UKRDC.
 
 ### Stack
 
-- Ruby 2.4.1
+- Ruby 2.x
 - Ruby on Rails 5
 - Postgres 9.6+
 
@@ -182,3 +182,12 @@ To make awesome_print the default formatter in irb, add the following to `~/.irb
 
     require "awesome_print"
     AwesomePrint.irb!
+
+
+#### Docker - WIP!
+
+```
+docker build -t renalware .
+docker-compose run web rake db:create
+docker-compose run web rake app:db:create
+```

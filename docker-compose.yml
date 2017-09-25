@@ -1,0 +1,23 @@
+# Use the following command
+#   docker-compose run web bundle exec rake db:setup
+#   docker-compose up
+# to start a development environment with postgres and the renalware dependencies
+# specified in ./Dockerfile
+# This will start a development rails server at http://localhost:3000
+# If you have difficulty picking up the right version of the docker image specified by
+# Dockerfile then clear the image cache using
+#   docker-compose down -v --rmi all
+
+db:
+  image: postgres:9.6
+  # volumes:
+  #    - ./data/postgresql:/var/lib/postgresql/data
+web:
+  build: .
+  command: ./spec/dummy/bin/rails s -p 3000 -b '0.0.0.0' # this is redundant as it the container's default command
+  volumes:
+    - ./:/app
+  ports:
+    - "3000:3000"
+  links:
+    - db

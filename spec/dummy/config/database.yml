@@ -8,6 +8,7 @@ default: &default
 development:
   <<: *default
   database: renalware_development
+  host: <%= ENV["DB_PORT_5432_TCP_ADDR"] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
