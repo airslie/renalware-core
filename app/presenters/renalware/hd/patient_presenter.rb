@@ -16,6 +16,11 @@ module Renalware
         super(HD.cast_patient(patient.__getobj__))
       end
 
+      def finished_hd_sessions
+        # TODO: standardise on a way to get closed sessions - a scope on patient maybe?
+        hd_sessions.eager_load(:hospital_unit).where(type: "Renalware::HD::Session::Closed")
+      end
+
       private
 
       def hd_profile

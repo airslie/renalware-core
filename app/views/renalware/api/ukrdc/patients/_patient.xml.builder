@@ -56,10 +56,12 @@ xml.Patient do
     end
   end
 
-  xml.PrimaryLanguage do
-    xml.CodingStandard "ISO 639-1"
-    xml.Code patient.language&.code
-    xml.Description patient.language
+  if patient.language.present?
+    xml.PrimaryLanguage do
+      xml.CodingStandard "NHS_DATA_DICTIONARY_LANGUAGE_CODE" # ISO 639-1 plus braille an sign
+      xml.Code patient.language&.code
+      xml.Description patient.language
+    end
   end
 
   if patient.contact_details?
@@ -82,7 +84,11 @@ xml.Patient do
     end
   end
 
-  xml.CountryOfBirth patient.country_of_birth&.alpha3
+  xml.comment! "Inclusion of CountryOfBirth causes XSD error so temporarily excluded"
+  # Inclusion strangley causes an XSD error
+  # if patient.country_of_birth.present?
+  #   xml.CountryOfBirth patient.country_of_birth.alpha3
+  # end
 
   if patient.current_modality_death?
     xml.Death true
@@ -92,4 +98,5 @@ xml.Patient do
   xml.UpdatedOn patient.updated_at&.to_datetime
   xml.ActionCode "A" # A = added/updated. If we are posting this XML isn't only going to be 'A'?
   xml.ExternalId patient.ukrdc_external_id
+
 end
