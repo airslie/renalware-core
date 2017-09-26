@@ -8,5 +8,5 @@ module Renalware
           alpha3: row["alpha3"]
         ).tap{ |country| country.position = index }
     end
- end
+  end
 end

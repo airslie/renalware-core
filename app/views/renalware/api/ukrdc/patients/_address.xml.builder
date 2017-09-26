@@ -10,7 +10,7 @@ xml.Address(use: "H") do
   xml.Postcode address.postcode
   xml.Country do
     xml.CodingStandard "ISO3166-1"
-    xml.Code address.country && Renalware::Country.alpha3_for(address.country)
-    xml.Description address.country
+    xml.Code address&.country&.alpha3
+    xml.Description address&.country&.to_s
   end
 end

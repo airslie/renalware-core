@@ -1,14 +1,8 @@
 module Renalware
   class Address < ApplicationRecord
-    UK_COUNTRIES = [
-      "united kingdom",
-      "england",
-      "scotland",
-      "wales",
-      "northern ireland"
-    ].freeze
-
+    belongs_to :country, class_name: "System::Country"
     validates :email, email: true, allow_blank: true
+    delegate :uk?, to: :country, allow_nil: true
     validates_with AddressValidator
 
     belongs_to :addressable, polymorphic: true
@@ -18,11 +12,6 @@ module Renalware
         %w(name organisation_name street_1 street_2 street_3 town county postcode)
           .all? { |a| attrs[a].blank? }
       }
-    end
-
-    def uk?
-      return if country.blank?
-      UK_COUNTRIES.include?(country.downcase)
     end
 
     def copy_from(source)

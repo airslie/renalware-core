@@ -409,12 +409,12 @@ CREATE TABLE addresses (
     postcode character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    country character varying,
     name character varying,
     organisation_name character varying,
     telephone character varying,
     email character varying,
-    street_3 character varying
+    street_3 character varying,
+    country_id integer
 );
 
 
@@ -10450,6 +10450,14 @@ ALTER TABLE ONLY letter_signatures
 
 ALTER TABLE ONLY access_plans
     ADD CONSTRAINT fk_rails_d61e7c4674 FOREIGN KEY (decided_by_id) REFERENCES users(id);
+
+
+--
+-- Name: addresses fk_rails_d873e14e27; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY addresses
+    ADD CONSTRAINT fk_rails_d873e14e27 FOREIGN KEY (country_id) REFERENCES system_countries(id);
 
 
 --

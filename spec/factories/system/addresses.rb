@@ -5,7 +5,7 @@ FactoryGirl.define do
     street_3 "Brownswater"
     town "Windsor"
     county "Berkshire"
-    country "England"
+    country { Renalware::System::Country.find_by(alpha2: "GB") }
     postcode "NW1 6BB"
   end
 end
