@@ -2,6 +2,7 @@ module Renalware
   log "Adding People" do
 
     user = User.first
+    uk = System::Country.find_by(alpha3: "GBR")
 
     26.times do
       given_name = Faker::Name.first_name
@@ -21,7 +22,7 @@ module Renalware
           town: Faker::Address.city,
           county: Faker::Address.state,
           postcode: Faker::Address.postcode,
-          country: "United Kingdom"
+          country: uk
         },
         by: user
       )
