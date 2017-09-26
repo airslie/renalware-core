@@ -4391,6 +4391,38 @@ ALTER SEQUENCE snippets_snippets_id_seq OWNED BY snippets_snippets.id;
 
 
 --
+-- Name: system_countries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE system_countries (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    alpha2 character varying NOT NULL,
+    alpha3 character varying NOT NULL,
+    "position" integer
+);
+
+
+--
+-- Name: system_countries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE system_countries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_countries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE system_countries_id_seq OWNED BY system_countries.id;
+
+
+--
 -- Name: system_templates; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5799,6 +5831,13 @@ ALTER TABLE ONLY snippets_snippets ALTER COLUMN id SET DEFAULT nextval('snippets
 
 
 --
+-- Name: system_countries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY system_countries ALTER COLUMN id SET DEFAULT nextval('system_countries_id_seq'::regclass);
+
+
+--
 -- Name: system_templates id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6825,6 +6864,14 @@ ALTER TABLE ONLY schema_migrations
 
 ALTER TABLE ONLY snippets_snippets
     ADD CONSTRAINT snippets_snippets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_countries system_countries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY system_countries
+    ADD CONSTRAINT system_countries_pkey PRIMARY KEY (id);
 
 
 --
@@ -8797,6 +8844,34 @@ CREATE INDEX index_snippets_snippets_on_author_id ON snippets_snippets USING btr
 --
 
 CREATE INDEX index_snippets_snippets_on_title ON snippets_snippets USING btree (title);
+
+
+--
+-- Name: index_system_countries_on_alpha2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_system_countries_on_alpha2 ON system_countries USING btree (alpha2);
+
+
+--
+-- Name: index_system_countries_on_alpha3; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_system_countries_on_alpha3 ON system_countries USING btree (alpha3);
+
+
+--
+-- Name: index_system_countries_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_system_countries_on_name ON system_countries USING btree (name);
+
+
+--
+-- Name: index_system_countries_on_position; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_system_countries_on_position ON system_countries USING btree ("position");
 
 
 --
@@ -11207,6 +11282,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170925161033');
 =======
 ('20170925161033'),
+<<<<<<< HEAD
 ('20170925182738');
 >>>>>>> Add medications to UKRDC XML
+=======
+('20170925182738'),
+('20170926081426');
+
+>>>>>>> Move countries from flat file to the database
 
