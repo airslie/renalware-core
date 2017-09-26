@@ -26,11 +26,14 @@
         wrapper: :horizontal_small
     = f.association :ethnicity,
         label_method: :name, value_method: :id,
-        include_blank: "Please select ethnicity",
+        include_blank: "Please select",
+        wrapper: :horizontal_small
+    = f.association :country_of_birth,
+        include_blank: "Please select",
         wrapper: :horizontal_small
     = f.association :religion,
         label_method: :name, value_method: :id,
-        include_blank: "Please select religion",
+        include_blank: "Please select",
         wrapper: :horizontal_small
     = f.association :language,
         label_method: :name, value_method: :id,

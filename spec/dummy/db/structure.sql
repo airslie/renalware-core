@@ -2361,7 +2361,11 @@ CREATE TABLE patients (
     rpv_recorded_by character varying,
     ukrdc_external_id uuid DEFAULT uuid_generate_v4() NOT NULL,
     secure_id character varying DEFAULT generate_patient_secure_id() NOT NULL,
+<<<<<<< HEAD
     legacy_patient_id integer
+=======
+    country_of_birth_id integer
+>>>>>>> Add country of birth to patient demographics and ukrdc xml
 );
 
 
@@ -9757,6 +9761,14 @@ ALTER TABLE ONLY messaging_receipts
 
 
 --
+-- Name: patients fk_rails_53c392b502; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_53c392b502 FOREIGN KEY (country_of_birth_id) REFERENCES system_countries(id);
+
+
+--
 -- Name: admission_requests fk_rails_54b568383c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -11295,7 +11307,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 >>>>>>> Add medications to UKRDC XML
 =======
 ('20170925182738'),
-('20170926081426');
+('20170926081426'),
+('20170926132845');
 
 >>>>>>> Move countries from flat file to the database
 

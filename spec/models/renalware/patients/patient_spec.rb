@@ -32,6 +32,7 @@ module Renalware
     it { is_expected.to validate_timeliness_of(:died_on) }
 
     it { is_expected.to have_many(:alerts) }
+    it { is_expected.to belong_to(:country_of_birth) }
 
     subject { create(:patient, nhs_number: "1234567890") }
 

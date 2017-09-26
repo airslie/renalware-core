@@ -85,7 +85,7 @@ module Renalware
 
       def patient_attributes
         [
-          :nhs_number, :family_name, :given_name, :sex,
+          :nhs_number, :family_name, :given_name, :sex, :country_of_birth_id,
           :ethnicity_id, :born_on, :paediatric_patient_indicator, :cc_on_all_letters,
           :title, :suffix, :marital_status, :telephone1, :telephone2, :email, :religion_id,
           :language_id, :cc_decision_on,

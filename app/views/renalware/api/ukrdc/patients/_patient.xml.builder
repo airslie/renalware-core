@@ -2,7 +2,6 @@
 # Things we are not going to include in RW2.0
 # - PersonToContact
 # - Occupation
-# - CountryOfBirth
 #
 xml = builder
 path = "renalware/api/ukrdc/patients" # or "."
@@ -82,6 +81,8 @@ xml.Patient do
       end
     end
   end
+
+  xml.CountryOfBirth patient.country_of_birth&.alpha3
 
   if patient.current_modality_death?
     xml.Death true
