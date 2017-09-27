@@ -1,3 +1,7 @@
+require_dependency "renalware/clinics"
+require_dependency "renalware/success"
+require_dependency "renalware/failure"
+
 module Renalware
   module Clinics
     class CreateClinicVisit
@@ -17,9 +21,9 @@ module Renalware
           visit = patient.clinic_visits.new(params)
           objects = OpenStruct.new(clinic_visit: visit, appointment: appointment)
           if visit.save && update_appointment_with(visit.id)
-            return Success.new(objects)
+            return ::Renalware::Success.new(objects)
           else
-            return Failure.new(objects)
+            return ::Renalware::Failure.new(objects)
           end
         end
       end

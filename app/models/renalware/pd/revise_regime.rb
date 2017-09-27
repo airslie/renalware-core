@@ -1,4 +1,6 @@
 require_dependency "renalware/pd"
+require_dependency "renalware/success"
+require_dependency "renalware/failure"
 
 module Renalware
   module PD
@@ -11,11 +13,11 @@ module Renalware
       def call(by:, params:)
         Regime.transaction do
           regime.assign_attributes(params)
-          return Success.new(regime) unless regime.anything_changed?
-          return Failure.new(regime.with_bag_destruction_marks_removed) unless regime.valid?
+          return ::Renalware::Success.new(regime) unless regime.anything_changed?
+          return ::Renalware::Failure.new(regime.with_bag_destruction_marks_removed) unless regime.valid?
 
           new_regime = revise_regime(by: by)
-          Success.new(new_regime)
+          ::Renalware::Success.new(new_regime)
         end
       end
 

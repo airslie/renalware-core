@@ -1,4 +1,6 @@
 require_dependency "renalware/modalities"
+require_dependency "renalware/success"
+require_dependency "renalware/failure"
 
 module Renalware
   module Modalities
@@ -46,9 +48,9 @@ module Renalware
         if new_modality.valid?
           make_new_modality_the_current_one(new_modality)
           broadcast_modality_change_event_to_any_listeners(new_modality)
-          Success.new(new_modality)
+          ::Renalware::Success.new(new_modality)
         else
-          Failure.new(new_modality)
+          ::Renalware::Failure.new(new_modality)
         end
       end
 

@@ -1,4 +1,6 @@
 require_dependency "renalware/transplants"
+require_dependency "renalware/success"
+require_dependency "renalware/failure"
 
 # Service object responsible for creating a new DonorStage and terminated the previous one
 # if found.
@@ -15,9 +17,9 @@ module Renalware
           terminate_current_stage if current_stage.present?
           stage = build_new_stage
           if stage.save
-            Success.new(stage)
+            ::Renalware::Success.new(stage)
           else
-            Failure.new(stage)
+            ::Renalware::Failure.new(stage)
           end
         end
       end
