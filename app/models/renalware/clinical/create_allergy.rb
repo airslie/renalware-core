@@ -1,4 +1,6 @@
 require_dependency "renalware/clinical"
+require_dependency "renalware/success"
+require_dependency "renalware/failure"
 
 module Renalware
   module Clinical
@@ -14,9 +16,9 @@ module Renalware
         yield allergy if block_given?
         if allergy.valid?
           save_allergy(allergy)
-          Success.new(allergy)
+          ::Renalware::Success.new(allergy)
         else
-          Failure.new(allergy)
+          ::Renalware::Failure.new(allergy)
         end
       end
 
