@@ -7,7 +7,7 @@ module Renalware
     subject { create(:patient, by: @current_user) }
 
     before do
-      @cause = FactoryGirl.create(:cause)
+      @cause = FactoryGirl.create(:cause_of_death)
       @modality_description = FactoryGirl.create(:death_modality_description)
       @patient_modality = FactoryGirl.create(:modality,
         patient_id: subject.id,

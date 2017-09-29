@@ -29,7 +29,7 @@ xml.Patient do
 
   xml.BirthTime patient.born_on.to_datetime
 
-  if patient.current_modality_death? && patient.died_on.present?
+  if patient.dead? && patient.died_on.present?
     xml.DeathTime(patient.died_on.to_datetime)
   end
 
@@ -90,7 +90,7 @@ xml.Patient do
   #   xml.CountryOfBirth patient.country_of_birth.alpha3
   # end
 
-  if patient.current_modality_death?
+  if patient.dead?
     xml.Death true
   end
 

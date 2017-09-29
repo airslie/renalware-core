@@ -9,6 +9,10 @@ module Renalware
       alias_attribute :home_telephone, :telephone1
       alias_attribute :mobile_telephone, :telephone2
 
+      def dead?
+        current_modality_death?
+      end
+
       def smoking_history
         @smoking_history ||= document.history&.smoking&.upcase
       end
