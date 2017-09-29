@@ -6,6 +6,8 @@ module Renalware
       delegate :allergies, to: :clinical_patient
       delegate :clinic_visits, to: :clinics_patient
       delegate :observation_requests, to: :pathology_patient
+      delegate :profile, to: :renal_patient, allow_nil: true
+      delegate :first_seen_on, to: :profile, allow_nil: true
       alias_attribute :home_telephone, :telephone1
       alias_attribute :mobile_telephone, :telephone2
 
@@ -48,6 +50,10 @@ module Renalware
 
       def pathology_patient
         @pathology_patient ||= Renalware::Pathology.cast_patient(__getobj__)
+      end
+
+      def renal_patient
+        @renal_patient ||= Renalware::Renal.cast_patient(__getobj__)
       end
     end
   end

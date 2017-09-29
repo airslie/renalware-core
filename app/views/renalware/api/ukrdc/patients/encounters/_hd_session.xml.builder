@@ -1,4 +1,5 @@
 xml = builder
+
 xml.Treatment do
   xml.EncounterNumber "?can supply uuid if required?"
   xml.comment! "What EncounterType for HD Session?"
@@ -14,15 +15,18 @@ xml.Treatment do
     xml.HDP01 "Times per week - to confirm"
     xml.HDP02 session.duration
     xml.HDP03 session.document.dialysis.flow_rate
-    xml.HDP04 "Sodium in Dialysate - to confirm"
+    xml.comment! "HDP04 Sodium in Dialysate - to follow."
+    xml.HDP04 ""
     xml.QBL05 session.access_type
-    xml.QBL06 "HD Shared Care - to confirm"
-    xml.QBL07 "Patient Participation - to confirm"
+    xml.QBL06 ""
+    xml.comment! "QBL06 HD Shared Care - not implemented yet"
+    xml.QBL07 ""
+    xml.comment! "QBL07 HD Shared Care - not implemented yet"
     xml.comment! "ERF61 value to confirm (Assessed for suitability for Transplant "\
                  "by start of Dialysis Date - see "\
                  "https://github.com/renalreg/ukrdc/blob/master/Schema/Encounters/Treatment.xsd"
     xml.ERF61 "5"
-    xml.PAT35 "Date of referral to renal team (i.e. date letter received) - to confirm"
+    xml.PAT35 patient.first_seen_on
   end
   xml.comment! "TODO: AdmitReason fails xsd validation with "\
              "Element 'AdmitReason': This element is not expected. Expected is one of "\
