@@ -2361,11 +2361,8 @@ CREATE TABLE patients (
     rpv_recorded_by character varying,
     ukrdc_external_id uuid DEFAULT uuid_generate_v4() NOT NULL,
     secure_id character varying DEFAULT generate_patient_secure_id() NOT NULL,
-<<<<<<< HEAD
+    country_of_birth_id integer,
     legacy_patient_id integer
-=======
-    country_of_birth_id integer
->>>>>>> Add country of birth to patient demographics and ukrdc xml
 );
 
 
@@ -4879,7 +4876,9 @@ CREATE TABLE transplant_registration_status_descriptions (
     name character varying,
     "position" integer DEFAULT 0,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    rr_code integer,
+    rr_comment text
 );
 
 
@@ -11292,23 +11291,16 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170911133224'),
 ('20170912092135'),
 ('20170920113628'),
-<<<<<<< HEAD
+('20170925161033'),
+('20170925182738'),
+('20170926081426'),
+('20170926132845'),
+('20171002175804'),
 ('20171003093347'),
 ('20171003111228'),
 ('20171003122425'),
 ('20171005081224'),
 ('20171005091202'),
 ('20171009104106');
-('20170925161033');
-=======
-('20170925161033'),
-<<<<<<< HEAD
-('20170925182738');
->>>>>>> Add medications to UKRDC XML
-=======
-('20170925182738'),
-('20170926081426'),
-('20170926132845');
 
->>>>>>> Move countries from flat file to the database
 

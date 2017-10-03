@@ -26,6 +26,13 @@ module Renalware
         )
       end
 
+      def current_registration_status_rr_code
+        @current_registration_status_rr_code ||= begin
+          status = transplant_patient.current_registration_status
+          status&.description&.rr_code
+        end
+      end
+
       def hospital_unit_code
         letter_head.site_code
       end
@@ -54,6 +61,10 @@ module Renalware
 
       def renal_patient
         @renal_patient ||= Renalware::Renal.cast_patient(__getobj__)
+      end
+
+      def transplant_patient
+        @transplant_patient ||= Transplants::PatientPresenter.new(__getobj__)
       end
     end
   end

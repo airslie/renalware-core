@@ -22,10 +22,8 @@ xml.Treatment do
     xml.comment! "QBL06 HD Shared Care - not implemented yet"
     xml.QBL07 ""
     xml.comment! "QBL07 HD Shared Care - not implemented yet"
-    xml.comment! "ERF61 value to confirm (Assessed for suitability for Transplant "\
-                 "by start of Dialysis Date - see "\
-                 "https://github.com/renalreg/ukrdc/blob/master/Schema/Encounters/Treatment.xsd"
-    xml.ERF61 "5"
+    xml.comment! "ERF61 - defaulting to 5 if not present, as element is required"
+    xml.ERF61 patient.current_registration_status_rr_code || "5" # 5= not assessed
     xml.PAT35 patient.first_seen_on
   end
   xml.comment! "TODO: AdmitReason fails xsd validation with "\
