@@ -1,7 +1,7 @@
 module Renalware
-  log "Adding Biopsy and Swab Event Types" do
+  log "Adding Default Event Types e.g. Biopsy, Swabs" do
 
-    file_path = File.join(File.dirname(__FILE__), "event_types_required.csv")
+    file_path = File.join(File.dirname(__FILE__), "event_types.csv")
 
     CSV.foreach(file_path, headers: true) do |row|
       Events::Type.find_or_create_by!(name: row["name"],
