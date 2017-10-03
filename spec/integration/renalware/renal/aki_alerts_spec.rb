@@ -11,13 +11,14 @@ RSpec.describe "AKI alert management", type: :request do
         notes: "abc",
         patient: patient,
         action: create(:aki_alert_action, name: "action1"),
-        by: user
+        by: create(:user, family_name: "Fink")
       )
       get renal_aki_alerts_path
 
       expect(response).to have_http_status(:success)
       expect(response.body).to match(patient.to_s)
       expect(response.body).to match("action1")
+      expect(response.body).to match("Fink")
     end
   end
 

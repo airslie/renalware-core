@@ -8,6 +8,7 @@ module Renalware
       belongs_to :patient, class_name: "Renal::Patient"
       belongs_to :action, class_name: "Renal::AKIAlertAction"
       validates :patient, presence: true
+      alias_attribute :decided_by, :updated_by
     end
   end
 end
