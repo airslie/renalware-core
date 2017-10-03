@@ -106,7 +106,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pry-rails"
   s.add_development_dependency "rspec-html-matchers"
   s.add_development_dependency "rspec-rails"
-  s.add_development_dependency "rubocop", "~> 0.49.0"
+  s.add_development_dependency "rubocop", "~> 0.50.0"
   s.add_development_dependency "shoulda-matchers"
   s.add_development_dependency "spring"
   s.add_development_dependency "spring-commands-cucumber"
