@@ -1,21 +1,20 @@
 = f.simple_fields_for attribute, f.object.public_send(attribute) do |fd|
   .blood-pressure class=('with-errors' if fd.object.errors.any?)
     .row
-      .small-3.columns
+      .small-5.medium-4.large-3.columns
         = fd.label :age, f.object.class.human_attribute_name(attribute), class: "right inline"
-      .small-1.columns
+      .small-2.medium-1.columns
         = fd.input :systolic, as: :integer,
             placeholder: "syst",
             error: false,
             label: false, wrapper: "vertical_form"
-      .small-1.columns
+      .small-2.medium-1.columns.end
         = fd.input :diastolic, as: :integer,
             placeholder: "dias",
             error: false,
             label: false, wrapper: "vertical_form"
-      .small-7.columns
+
     - if fd.object.errors.any?
       .row
-        .small-offset-3.small-9.columns
-          =fd.error(:systolic)
-          =fd.error(:diastolic)
+        .error.small-offset-5.medium-offset-4.large-offset-3.small-3.columns
+          =fd.error(:systolic) || fd.error(:diastolic)

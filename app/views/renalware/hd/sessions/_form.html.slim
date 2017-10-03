@@ -13,57 +13,67 @@ ruby:
         locals: { legend: "Sign-In", name: "signin" } do
       = f.input :performed_on, as: :date_picker, wrapper: :horizontal_datepicker
       = f.association :hospital_unit,
-          as: :grouped_select,
-          group_method: :hd_sites,
-          collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
-          label_method: :to_s
-      = f.input :start_time, as: :clock_picker, wrapper: :horizontal_clockpicker
-      = f.association :signed_on_by, as: :user_picker, collection: Renalware::User.ordered
+                      as: :grouped_select,
+                      group_method: :hd_sites,
+                      collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
+                      label_method: :to_s,
+                      wrapper: :horizontal_medium
+      = f.input :start_time,
+                as: :clock_picker,
+                wrapper: :horizontal_clockpicker
+      = f.association :signed_on_by,
+                      as: :user_picker,
+                      collection: Renalware::User.ordered,
+                      wrapper: :horizontal_medium
+
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Sign-Off", name: "signoff" } do
 
       = f.input :end_time, as: :clock_picker, wrapper: :horizontal_clockpicker
-      = f.association :signed_off_by, as: :user_picker, collection: Renalware::User.ordered
+      = f.association :signed_off_by,
+                      as: :user_picker,
+                      collection: Renalware::User.ordered,
+                      wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Session Info", name: "info" } do
 
       = fd.simple_fields_for :info, fd.object.info do |fcm|
-        = fcm.input :hd_type, as: :inline_radio_buttons
+        = fcm.input :hd_type, as: :inline_radio_buttons, wrapper: :horizontal_medium
         fieldset
           legend Access
           = fcm.input :access_type, as: :select, value_method: :name,
               collection: Renalware::Accesses::Type.relevant_to_access_profiles,
               wrapper: :horizontal_small
-          = fcm.input :access_side, wrapper: :horizontal_tiny
+          = fcm.input :access_side, wrapper: :horizontal_small
           = fcm.input :access_confirmed, as: :boolean, wrapper: :horizontal_medium
-        = fcm.input :is_access_first_use, as: :inline_radio_buttons
-        = fcm.input :fistula_plus_line, as: :inline_radio_buttons
-        = fcm.input :single_needle, as: :inline_radio_buttons
-        = fcm.input :lines_reversed, as: :inline_radio_buttons
+        = fcm.input :is_access_first_use, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        = fcm.input :fistula_plus_line, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        = fcm.input :single_needle, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        = fcm.input :lines_reversed, as: :inline_radio_buttons, wrapper: :horizontal_medium
         = fcm.input :machine_no, wrapper: :horizontal_tiny
         = fcm.input :dialysis_fluid_used, wrapper: :horizontal_tiny
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Pre-Dialysis Observations", name: "before" } do
       = fd.simple_fields_for :observations_before, fd.object.observations_before do |fcm|
-        = fcm.input :weight_measured, as: :inline_radio_buttons
+        = fcm.input :weight_measured, as: :inline_radio_buttons, wrapper: :horizontal_medium
         = fcm.input :weight, wrapper: :horizontal_tiny
         = fcm.input :pulse, wrapper: :horizontal_tiny
         = render_input fcm, :blood_pressure
-        = fcm.input :temperature_measured, as: :inline_radio_buttons
+        = fcm.input :temperature_measured, as: :inline_radio_buttons, wrapper: :horizontal_medium
         = fcm.input :temperature, wrapper: :horizontal_tiny
         = fcm.input :bm_stix, wrapper: :horizontal_tiny
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Post-Dialysis Observations", name: "after" } do
       = fd.simple_fields_for :observations_after, fd.object.observations_after do |fcm|
-        = fcm.input :weight_measured, as: :inline_radio_buttons
+        = fcm.input :weight_measured, as: :inline_radio_buttons, wrapper: :horizontal_medium
         = fcm.input :weight, wrapper: :horizontal_tiny
         = fcm.input :pulse, wrapper: :horizontal_tiny
         = render_input fcm, :blood_pressure
-        = fcm.input :temperature_measured, as: :inline_radio_buttons
+        = fcm.input :temperature_measured, as: :inline_radio_buttons, wrapper: :horizontal_medium
         = fcm.input :temperature, wrapper: :horizontal_tiny
         = fcm.input :bm_stix, wrapper: :horizontal_tiny
 
@@ -83,10 +93,10 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "HDF", name: "hdf" } do
       = fd.simple_fields_for :hdf, fd.object.hdf do |fcm|
-        = fcm.input :subs_fluid_pct, input_html: { class: "small-input" }
-        = fcm.input :subs_rate, input_html: { class: "small-input" }
-        = fcm.input :subs_goal, input_html: { class: "small-input" }
-        = fcm.input :subs_volume, input_html: { class: "small-input" }
+        = fcm.input :subs_fluid_pct, wrapper: :horizontal_tiny
+        = fcm.input :subs_rate, wrapper: :horizontal_tiny
+        = fcm.input :subs_goal, wrapper: :horizontal_tiny
+        = fcm.input :subs_volume, wrapper: :horizontal_tiny
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "HD Drugs", name: "hd_prescriptions" } do
@@ -104,18 +114,18 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Notes/Complications", name: "complications" } do
       = fd.simple_fields_for :complications, fd.object.complications do |fcm|
-        = fcm.input :access_site_status, input_html: { class: "small-input" }
-        = fcm.input :was_dressing_changed, as: :inline_radio_buttons
-        = fcm.input :had_mrsa_swab, as: :inline_radio_buttons
-        = fcm.input :had_mssa_swab, as: :inline_radio_buttons
-        = fcm.input :had_intradialytic_hypotension, as: :inline_radio_buttons
-        = fcm.input :had_saline_administration, as: :inline_radio_buttons
-        = fcm.input :had_cramps, as: :inline_radio_buttons
-        = fcm.input :had_headache, as: :inline_radio_buttons
-        = fcm.input :had_chest_pain, as: :inline_radio_buttons
-        = fcm.input :had_alteplase_urokinase, as: :inline_radio_buttons
-        = fcm.input :had_blood_transfusion, as: :inline_radio_buttons
-        = f.input :notes, as: :text, input_html: { rows: 5 }
+        = fcm.input :access_site_status, wrapper: :horizontal_small
+        = fcm.input :was_dressing_changed, as: :inline_radio_buttons, wrapper: :horizontal_small
+        = fcm.input :had_mrsa_swab, as: :inline_radio_buttons, wrapper: :horizontal_small
+        = fcm.input :had_mssa_swab, as: :inline_radio_buttons, wrapper: :horizontal_small
+        = fcm.input :had_intradialytic_hypotension, as: :inline_radio_buttons, wrapper: :horizontal_small
+        = fcm.input :had_saline_administration, as: :inline_radio_buttons, wrapper: :horizontal_small
+        = fcm.input :had_cramps, as: :inline_radio_buttons, wrapper: :horizontal_small
+        = fcm.input :had_headache, as: :inline_radio_buttons, wrapper: :horizontal_small
+        = fcm.input :had_chest_pain, as: :inline_radio_buttons, wrapper: :horizontal_small
+        = fcm.input :had_alteplase_urokinase, as: :inline_radio_buttons, wrapper: :horizontal_small
+        = fcm.input :had_blood_transfusion, as: :inline_radio_buttons, wrapper: :horizontal_small
+        = f.input :notes, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
 
 .row
   .large-12.columns
