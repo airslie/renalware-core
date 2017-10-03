@@ -1,3 +1,8 @@
-= simple_form_for(alert, wrapper: :horizontal_form) do |f|
-  = f.input "notes"
-  = f.submit
+= within_admin_layout(title: "Edit",
+                      breadcrumbs: breadcrumb_for("AKI Alerts", renal_aki_alerts_path)) do
+
+  = simple_form_for(alert, wrapper: :horizontal_form) do |f|
+    = f.association :action, wrapper: :horizontal_small
+    = f.input :hotlist,  wrapper: :horizontal_small, as: :inline_radio_buttons
+    = f.input :notes,  wrapper: :horizontal_large
+    = f.submit class: "button"

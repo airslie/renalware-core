@@ -3,10 +3,12 @@
     thead
       th
       th Patient
-      th
+      th Action
+      th Hotlist
     tbody
       - alerts.each do |alert|
         tr
           td= link_to("Edit", edit_renal_aki_alert_path(alert))
-          td= alert.patient
-          td
+          td= default_patient_link(alert.patient)
+          td= alert.action
+          td= yes_no alert.hotlist?

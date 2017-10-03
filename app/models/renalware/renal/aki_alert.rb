@@ -6,6 +6,7 @@ module Renalware
       include Accountable
       scope :ordered, ->{ order(created_at: :desc) }
       belongs_to :patient, class_name: "Renal::Patient"
+      belongs_to :action, class_name: "Renal::AKIAlertAction"
       validates :patient, presence: true
     end
   end
