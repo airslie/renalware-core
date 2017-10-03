@@ -3932,6 +3932,38 @@ ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
 
 
 --
+-- Name: renal_aki_alerts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE renal_aki_alerts (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    notes text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: renal_aki_alerts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE renal_aki_alerts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: renal_aki_alerts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE renal_aki_alerts_id_seq OWNED BY renal_aki_alerts.id;
+
+
+--
 -- Name: renal_prd_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5641,6 +5673,13 @@ ALTER TABLE ONLY problem_versions ALTER COLUMN id SET DEFAULT nextval('problem_v
 
 
 --
+-- Name: renal_aki_alerts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_aki_alerts ALTER COLUMN id SET DEFAULT nextval('renal_aki_alerts_id_seq'::regclass);
+
+
+--
 -- Name: renal_prd_descriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6630,6 +6669,14 @@ ALTER TABLE ONLY problem_problems
 
 ALTER TABLE ONLY problem_versions
     ADD CONSTRAINT problem_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: renal_aki_alerts renal_aki_alerts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_aki_alerts
+    ADD CONSTRAINT renal_aki_alerts_pkey PRIMARY KEY (id);
 
 
 --
@@ -8506,6 +8553,13 @@ CREATE INDEX index_problem_versions_on_item_type_and_item_id ON problem_versions
 
 
 --
+-- Name: index_renal_aki_alerts_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_aki_alerts_on_patient_id ON renal_aki_alerts USING btree (patient_id);
+
+
+--
 -- Name: index_renal_profiles_on_document; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9650,6 +9704,14 @@ ALTER TABLE ONLY clinical_body_compositions
 
 ALTER TABLE ONLY admission_requests
     ADD CONSTRAINT fk_rails_8b3ff2812e FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
+-- Name: renal_aki_alerts fk_rails_8b50e868dc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_aki_alerts
+    ADD CONSTRAINT fk_rails_8b50e868dc FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -10904,6 +10966,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170908160250'),
 ('20170911133224'),
 ('20170912092135'),
-('20170920113628');
+('20170920113628'),
+('20171003122425');
 
 

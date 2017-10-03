@@ -1,0 +1,12 @@
+= within_admin_layout(title: "AKI Alerts") do
+  table.aki-alerts
+    thead
+      th
+      th Patient
+      th
+    tbody
+      - alerts.each do |alert|
+        tr
+          td= link_to("Edit", edit_renal_aki_alert_path(alert))
+          td= alert.patient
+          td

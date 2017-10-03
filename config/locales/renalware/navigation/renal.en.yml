@@ -12,6 +12,7 @@ en:
         letters: Letters
         esa_prescriptions: ESA Patients
         audits: Audits
+        aki_alerts: AKI Alerts
       mdms:
         menu_title: MDMs
         hd: HD
