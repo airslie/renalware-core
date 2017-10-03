@@ -24,14 +24,17 @@ RSpec.describe "AKI alert management", type: :request do
   describe "PATCH update" do
     context "with valid params" do
       it "update the alert" do
-        alert = create(:aki_alert, notes: "abc", patient: patient)
-        attributes = { notes: "xyz" }
+        action1 = create(:aki_alert_action, name: "action1")
+        action2 = create(:aki_alert_action, name: "action2")
+        alert = create(:aki_alert, notes: "abc", patient: patient, action: action1)
+        attributes = { notes: "xyz", action_id: action2.id }
 
         patch renal_aki_alert_path(alert), params: { renal_aki_alert: attributes }
 
         follow_redirect!
         expect(response).to have_http_status(:success)
         expect(alert.reload.notes).to eq("xyz")
+        expect(alert.action_id).to eq(action2.id)
       end
     end
 
