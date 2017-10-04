@@ -1143,6 +1143,41 @@ ALTER SEQUENCE hd_cannulation_types_id_seq OWNED BY hd_cannulation_types.id;
 
 
 --
+-- Name: hd_dialysates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE hd_dialysates (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description text,
+    sodium_content integer NOT NULL,
+    sodium_content_uom character varying NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_dialysates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_dialysates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_dialysates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_dialysates_id_seq OWNED BY hd_dialysates.id;
+
+
+--
 -- Name: hd_dialysers; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5267,6 +5302,13 @@ ALTER TABLE ONLY hd_cannulation_types ALTER COLUMN id SET DEFAULT nextval('hd_ca
 
 
 --
+-- Name: hd_dialysates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_dialysates ALTER COLUMN id SET DEFAULT nextval('hd_dialysates_id_seq'::regclass);
+
+
+--
 -- Name: hd_dialysers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6219,6 +6261,14 @@ ALTER TABLE ONLY feed_messages
 
 ALTER TABLE ONLY hd_cannulation_types
     ADD CONSTRAINT hd_cannulation_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_dialysates hd_dialysates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_dialysates
+    ADD CONSTRAINT hd_dialysates_pkey PRIMARY KEY (id);
 
 
 --
@@ -7525,6 +7575,13 @@ CREATE INDEX index_events_on_type ON events USING btree (type);
 --
 
 CREATE INDEX index_events_on_updated_by_id ON events USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_dialysates_on_deleted_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_dialysates_on_deleted_at ON hd_dialysates USING btree (deleted_at);
 
 
 --
@@ -11300,6 +11357,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171003093347'),
 ('20171003111228'),
 ('20171003122425'),
+('20171004092235'),
 ('20171005081224'),
 ('20171005091202'),
 ('20171009104106');
