@@ -17,6 +17,7 @@ module Renalware
       belongs_to :dry_weight, class_name: "Renalware::Clinical::DryWeight"
       belongs_to :modality_description, class_name: "Modalities::Description"
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"
+      belongs_to :dialysate
       belongs_to :signed_on_by, class_name: "User", foreign_key: "signed_on_by_id"
       belongs_to :signed_off_by, class_name: "User", foreign_key: "signed_off_by_id"
       has_many :prescription_administrations,

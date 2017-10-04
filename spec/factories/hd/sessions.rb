@@ -3,6 +3,7 @@ FactoryGirl.define do
     accountable
     association :patient, factory: :hd_patient
     association :hospital_unit, factory: :hospital_unit
+    association :dialysate, factory: :hd_dialysate
 
     signed_on_by { accountable_actor }
 

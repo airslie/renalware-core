@@ -1388,7 +1388,8 @@ CREATE TABLE hd_profiles (
     named_nurse_id integer,
     transport_decider_id integer,
     deactivated_at timestamp without time zone,
-    active boolean DEFAULT true
+    active boolean DEFAULT true,
+    dialysate_id bigint
 );
 
 
@@ -1435,7 +1436,8 @@ CREATE TABLE hd_sessions (
     type character varying NOT NULL,
     signed_off_at timestamp without time zone,
     profile_id integer,
-    dry_weight_id integer
+    dry_weight_id integer,
+    dialysate_id bigint
 );
 
 
@@ -7711,6 +7713,13 @@ CREATE INDEX index_hd_profiles_on_created_by_id ON hd_profiles USING btree (crea
 
 
 --
+-- Name: index_hd_profiles_on_dialysate_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_profiles_on_dialysate_id ON hd_profiles USING btree (dialysate_id);
+
+
+--
 -- Name: index_hd_profiles_on_document; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7764,6 +7773,13 @@ CREATE INDEX index_hd_profiles_on_updated_by_id ON hd_profiles USING btree (upda
 --
 
 CREATE INDEX index_hd_sessions_on_created_by_id ON hd_sessions USING btree (created_by_id);
+
+
+--
+-- Name: index_hd_sessions_on_dialysate_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_dialysate_id ON hd_sessions USING btree (dialysate_id);
 
 
 --
@@ -9562,6 +9578,14 @@ ALTER TABLE ONLY pd_assessments
 
 
 --
+-- Name: hd_sessions fk_rails_23d8c477eb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_sessions
+    ADD CONSTRAINT fk_rails_23d8c477eb FOREIGN KEY (dialysate_id) REFERENCES hd_dialysates(id);
+
+
+--
 -- Name: pathology_requests_drugs_drug_categories fk_rails_24de49b694; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9991,6 +10015,14 @@ ALTER TABLE ONLY transplant_recipient_followups
 
 ALTER TABLE ONLY patient_practices_primary_care_physicians
     ADD CONSTRAINT fk_rails_7a89922302 FOREIGN KEY (practice_id) REFERENCES patient_practices(id);
+
+
+--
+-- Name: hd_profiles fk_rails_7d0453a2e8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_profiles
+    ADD CONSTRAINT fk_rails_7d0453a2e8 FOREIGN KEY (dialysate_id) REFERENCES hd_dialysates(id);
 
 
 --
@@ -11358,6 +11390,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171003111228'),
 ('20171003122425'),
 ('20171004092235'),
+('20171004110909'),
 ('20171005081224'),
 ('20171005091202'),
 ('20171009104106');

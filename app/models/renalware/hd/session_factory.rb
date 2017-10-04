@@ -45,12 +45,12 @@ module Renalware
           session.hospital_unit = profile.hospital_unit
           unless dna_session?
             session.document.info.hd_type = profile.document.dialysis.hd_type
-            session.document.info.dialysis_fluid_used = profile.document.dialysis.dialysate
+            session.dialysate_id = profile.dialysate_id
           end
         end
       end
 
-      def set_default_access(session) # rubocop:disable Style/AccessorMethodName
+      def set_default_access(session) # rubocop:disable Naming/AccessorMethodName
         return if dna_session?
         accesses_patient = Renalware::Accesses.cast_patient(patient)
         if (profile = accesses_patient.current_profile)

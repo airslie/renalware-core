@@ -10,7 +10,6 @@ module Renalware
         attribute :cannulation_type
         attribute :needle_size
         attribute :single_needle, Document::Enum, enums: %i(yes no)
-        attribute :dialysate, Document::Enum, enums: %i(a7 a10 a17 a27), default: "a7"
         attribute :flow_rate, Integer
         attribute :blood_flow, Integer
         attribute :dialyser

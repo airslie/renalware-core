@@ -29,7 +29,6 @@ FactoryGirl.define do
     single_needle "no"
     lines_reversed "no"
     fistula_plus_line "no"
-    dialysis_fluid_used "a10"
     is_access_first_use "no"
   end
 

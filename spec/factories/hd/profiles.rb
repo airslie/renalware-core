@@ -4,6 +4,7 @@ FactoryGirl.define do
     patient
     active true
     association :hospital_unit, factory: :hospital_unit
+    association :dialysate, factory: :hd_dialysate
     prescriber { accountable_actor }
 
     document {

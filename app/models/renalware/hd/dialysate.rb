@@ -7,6 +7,10 @@ module Renalware
       validates :name, presence: true, uniqueness: true
       validates :sodium_content, presence: true
       validates :sodium_content_uom, presence: true
+
+      def to_s
+        name
+      end
     end
   end
 end

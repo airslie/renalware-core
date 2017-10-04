@@ -53,7 +53,7 @@ ruby:
         = fcm.input :single_needle, as: :inline_radio_buttons, wrapper: :horizontal_medium
         = fcm.input :lines_reversed, as: :inline_radio_buttons, wrapper: :horizontal_medium
         = fcm.input :machine_no, wrapper: :horizontal_tiny
-        = fcm.input :dialysis_fluid_used, wrapper: :horizontal_tiny
+        = f.association :dialysate, wrapper: :horizontal_small
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Pre-Dialysis Observations", name: "before" } do

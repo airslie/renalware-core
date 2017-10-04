@@ -13,7 +13,8 @@
           legend: "Sign-Off", destination: "signoff",
           models: { session => [:end_time,
                                 :duration,
-                                :signed_off_by] }
+                                :signed_off_by,
+                                :dialysate] }
 
       = render "renalware/shared/documents/attributes_group",
           group: session.document.info,

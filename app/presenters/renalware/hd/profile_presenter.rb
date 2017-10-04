@@ -10,7 +10,6 @@ module Renalware
                to: :document
 
       delegate :dialyser,
-               :dialysate_text,
                :cannulation_type,
                :needle_size,
                :single_needle,
@@ -38,8 +37,6 @@ module Renalware
                :type,
                :decided_on,
                to: :transport, prefix: true, allow_nil: true
-
-      alias_attribute :dialysate, :dialysate_text
 
       def initialize(profile, preference_set: nil)
         super(profile)
