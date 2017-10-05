@@ -1934,6 +1934,66 @@ CREATE TABLE medication_prescription_terminations (
 
 
 --
+-- Name: medication_prescriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE medication_prescriptions (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    drug_id integer NOT NULL,
+    treatable_type character varying NOT NULL,
+    treatable_id integer NOT NULL,
+    dose_amount character varying NOT NULL,
+    dose_unit character varying NOT NULL,
+    medication_route_id integer NOT NULL,
+    route_description character varying,
+    frequency character varying NOT NULL,
+    notes text,
+    prescribed_on date NOT NULL,
+    provider integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    administer_on_hd boolean DEFAULT false NOT NULL,
+    last_delivery_date date
+);
+
+
+--
+-- Name: medication_current_prescriptions; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW medication_current_prescriptions AS
+ SELECT mp.id,
+    mp.patient_id,
+    mp.drug_id,
+    mp.treatable_type,
+    mp.treatable_id,
+    mp.dose_amount,
+    mp.dose_unit,
+    mp.medication_route_id,
+    mp.route_description,
+    mp.frequency,
+    mp.notes,
+    mp.prescribed_on,
+    mp.provider,
+    mp.created_at,
+    mp.updated_at,
+    mp.created_by_id,
+    mp.updated_by_id,
+    mp.administer_on_hd,
+    mp.last_delivery_date,
+    drug_types.code AS drug_type_code,
+    drug_types.name AS drug_type_name
+   FROM ((((medication_prescriptions mp
+     FULL JOIN medication_prescription_terminations mpt ON ((mpt.prescription_id = mp.id)))
+     JOIN drugs ON ((drugs.id = mp.drug_id)))
+     JOIN drug_types_drugs ON ((drug_types_drugs.drug_id = drugs.id)))
+     JOIN drug_types ON (((drug_types_drugs.drug_type_id = drug_types.id) AND ((mpt.terminated_on IS NULL) OR (mpt.terminated_on > now())))));
+
+
+--
 -- Name: medication_prescription_terminations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1985,33 +2045,6 @@ CREATE SEQUENCE medication_prescription_versions_id_seq
 --
 
 ALTER SEQUENCE medication_prescription_versions_id_seq OWNED BY medication_prescription_versions.id;
-
-
---
--- Name: medication_prescriptions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE medication_prescriptions (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    drug_id integer NOT NULL,
-    treatable_type character varying NOT NULL,
-    treatable_id integer NOT NULL,
-    dose_amount character varying NOT NULL,
-    dose_unit character varying NOT NULL,
-    medication_route_id integer NOT NULL,
-    route_description character varying,
-    frequency character varying NOT NULL,
-    notes text,
-    prescribed_on date NOT NULL,
-    provider integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    administer_on_hd boolean DEFAULT false NOT NULL,
-    last_delivery_date date
-);
 
 
 --
@@ -4119,8 +4152,9 @@ CREATE VIEW reporting_anaemia_audit AS
     round((((count(e5.hgb_gt_eq_11))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_11,
     round((((count(e6.hgb_gt_eq_13))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_13,
     round(avg(e3.fer), 2) AS avg_fer,
-    round((((count(e7.fer_gt_eq_150))::numeric / GREATEST((count(e3.fer))::numeric, 1.0)) * 100.0), 2) AS pct_fer_gt_eq_150
-   FROM ((((((( SELECT p.id AS patient_id,
+    round((((count(e7.fer_gt_eq_150))::numeric / GREATEST((count(e3.fer))::numeric, 1.0)) * 100.0), 2) AS pct_fer_gt_eq_150,
+    count(e8.epo) AS no_on_epo
+   FROM (((((((( SELECT p.id AS patient_id,
             md.name AS modality_desc
            FROM ((patients p
              JOIN modality_modalities m ON ((m.patient_id = p.id)))
@@ -4139,6 +4173,9 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
+     LEFT JOIN LATERAL ( SELECT mcp.id AS epo
+           FROM medication_current_prescriptions mcp
+          WHERE (((mcp.drug_type_code)::text = 'immunosuppressant'::text) AND (mcp.patient_id = e1.patient_id))) e8 ON (true))
   WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'LCC'::character varying, 'Nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
@@ -11230,4 +11267,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171005081224'),
 ('20171005091202'),
 ('20171009104106'),
+('20171005130109'),
 ('20171005144505');

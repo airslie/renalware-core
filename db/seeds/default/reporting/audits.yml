@@ -76,5 +76,7 @@
       { "title": "% HGB ≥ 11", "targets": 5, width: "110" },
       { "title": "% HGB ≥ 13", "targets": 6, width: "110" },
       { "title": "Avg FER", "targets": 7, width: "100" },
-      { "title": "% FER ≥ 150", "targets": 8, width: "110" }
+      { "title": "% FER ≥ 150", "targets": 8, width: "110" },
+      { "title": "No on EPO", "targets": 9, width: "100" }
     ]}
+

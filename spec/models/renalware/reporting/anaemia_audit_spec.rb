@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ModuleLength
 require "rails_helper"
 
 # Anaemia Audit
@@ -11,17 +12,24 @@ module Renalware
     let(:uom) { create(:pathology_measurement_unit) }
     let(:user) { create(:user) }
     let(:audit_view_name) { "reporting_anaemia_audit" }
+    let(:request_description) { create(:pathology_request_description, lab: lab) }
+    let(:lab) { create(:pathology_lab) }
 
     def create_observation_description(code)
       create(:pathology_observation_description, code: code, measurement_unit: uom)
     end
 
     def create_observation(patient:, description:, result:)
-      request = create(:pathology_observation_request, patient: patient)
-      create(:pathology_observation,
-       request: request,
-       description: description,
-       result: result
+      request = create(
+        :pathology_observation_request,
+        patient: patient,
+        description: request_description
+      )
+      create(
+        :pathology_observation,
+        request: request,
+        description: description,
+        result: result
      )
     end
 
@@ -57,6 +65,7 @@ module Renalware
               pct_hgb_gt_eq_13
               avg_fer
               pct_fer_gt_eq_150
+              no_on_epo
             )
           )
         end
@@ -75,7 +84,7 @@ module Renalware
             # We will just add path data to 2 HD patients in this example.
             # We just create a PD patient to test that PD patient_count is correct
             # in the view output.
-            hd_patients = (1..4).map{ create_hd_patient }
+            hd_patients = Array.new(4) { create_hd_patient }
             create_pd_patient
 
             # HGB
@@ -104,7 +113,8 @@ module Renalware
                   "50.00",  # pct_hgb_gt_eq_11 = 2 = 50%
                   "25.00",  # pct_hgb_gt_eq_13 = 1 = 25%
                   "165.00", # avg_fer = (140 + 150 + 205) / 3 = 165
-                  "66.67"   # pct_fer_gt_eq_150 = 2 of 3 = 66.66
+                  "66.67",  # pct_fer_gt_eq_150 = 2 of 3 = 66.66
+                  0         # no_on_epo
                 ],
                 [
                   "PD",
@@ -114,7 +124,8 @@ module Renalware
                   "0.00",
                   "0.00",
                   nil,
-                  "0.00"
+                  "0.00",
+                  0
                 ]
               ]
             )

@@ -1,12 +1,13 @@
 select
   modality_desc       modality,
-  count(patient_id)   patient_count,
+  count(e1.patient_id)   patient_count,
   round(avg(hgb),2)    avg_hgb,
   round(count(hgb_gt_eq_10) / greatest(count(hgb), 1.0) * 100.0, 2) pct_hgb_gt_eq_10,
   round(count(hgb_gt_eq_11) / greatest(count(hgb), 1.0) * 100.0, 2) pct_hgb_gt_eq_11,
   round(count(hgb_gt_eq_13) / greatest(count(hgb), 1.0) * 100.0, 2) pct_hgb_gt_eq_13,
   round(avg(fer),2)   avg_fer,
-  round(count(fer_gt_eq_150) / greatest(count(fer), 1.0) * 100.0, 2) pct_fer_gt_eq_150
+  round(count(fer_gt_eq_150) / greatest(count(fer), 1.0) * 100.0, 2) pct_fer_gt_eq_150,
+  count(epo) no_on_epo
   from (
     select
     p.id patient_id,
@@ -21,5 +22,14 @@ select
   left join lateral (select hgb hgb_gt_eq_11 where hgb >= 11) e5 ON true
   left join lateral (select hgb hgb_gt_eq_13 where hgb >= 13) e6 ON true
   left join lateral (select fer fer_gt_eq_150 where fer >= 150) e7 ON true
+  left join lateral (
+    select mcp.id epo from medication_current_prescriptions mcp
+    where mcp.drug_type_code = 'immunosuppressant'
+    and mcp.patient_id = e1.patient_id
+  ) e8 ON true
   where modality_desc in ('HD','PD','Transplant', 'LCC', 'Nephrology')
   group by modality_desc
+
+-- select * from drugs where name ilike 'Mircer%'
+-- select * from drugs where name ilike 'Neo%'
+-- select * from drugs where name ilike 'Ara%'
