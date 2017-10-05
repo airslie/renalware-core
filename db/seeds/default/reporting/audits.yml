@@ -62,4 +62,19 @@
       { "title": "Max PHOS", "targets": 8, width: "100" },
       { "title": "% PHOS < 1.8", "targets": 8, width: "110" }
     ]}
-
+-
+  name: Anaemia
+  description: ESD/EPO audit
+  materialized_view_name: reporting_anaemia_audit
+  refresh_schedule: "1 0 * * *"
+  display_configuration: >
+    { "columnDefs": [
+      { "title": "Modality", "targets": 0, width: "200" },
+      { "title": "Patients", "targets": 1, width: "100" },
+      { "title": "Avg HB", "targets": 2, width: "100" },
+      { "title": "% HB ≥ 10", "targets": 4, width: "110" },
+      { "title": "% HB ≥ 11", "targets": 5, width: "110" },
+      { "title": "% HB ≥ 13", "targets": 6, width: "110" },
+      { "title": "Avg FER", "targets": 7, width: "100" },
+      { "title": "% FER ≥ 150", "targets": 8, width: "110" }
+    ]}
