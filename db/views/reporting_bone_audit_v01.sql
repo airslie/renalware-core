@@ -27,4 +27,6 @@ select
   left join lateral (select pth pth_gt_800 where pth > 800) e6 ON true
   left join lateral (select pth pth_gt_300 where pth > 300) e7 ON true
   left join lateral (select cca cca_2_1_to_2_4 where cca between 2.1 and 2.4) e8 ON true
+  where modality_desc in ('HD','PD','Transplant', 'LCC')
   group by modality_desc
+
