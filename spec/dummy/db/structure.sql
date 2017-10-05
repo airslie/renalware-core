@@ -4114,10 +4114,10 @@ ALTER SEQUENCE renal_profiles_id_seq OWNED BY renal_profiles.id;
 CREATE VIEW reporting_anaemia_audit AS
  SELECT e1.modality_desc AS modality,
     count(e1.patient_id) AS patient_count,
-    round(avg(e2.hb), 2) AS avg_hb,
-    round((((count(e4.hb_gt_eq_10))::numeric / GREATEST((count(e2.hb))::numeric, 1.0)) * 100.0), 2) AS pct_hb_gt_eq_10,
-    round((((count(e5.hb_gt_eq_11))::numeric / GREATEST((count(e2.hb))::numeric, 1.0)) * 100.0), 2) AS pct_hb_gt_eq_11,
-    round((((count(e6.hb_gt_eq_13))::numeric / GREATEST((count(e2.hb))::numeric, 1.0)) * 100.0), 2) AS pct_hb_gt_eq_13,
+    round(avg(e2.hgb), 2) AS avg_hgb,
+    round((((count(e4.hgb_gt_eq_10))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_10,
+    round((((count(e5.hgb_gt_eq_11))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_11,
+    round((((count(e6.hgb_gt_eq_13))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_13,
     round(avg(e3.fer), 2) AS avg_fer,
     round((((count(e7.fer_gt_eq_150))::numeric / GREATEST((count(e3.fer))::numeric, 1.0)) * 100.0), 2) AS pct_fer_gt_eq_150
    FROM ((((((( SELECT p.id AS patient_id,
@@ -4125,18 +4125,18 @@ CREATE VIEW reporting_anaemia_audit AS
            FROM ((patients p
              JOIN modality_modalities m ON ((m.patient_id = p.id)))
              JOIN modality_descriptions md ON ((m.description_id = md.id)))) e1
-     LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS hb
+     LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS hgb
            FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'HB'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
+          WHERE (((pathology_current_observations.description_code)::text = 'HGB'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS fer
            FROM pathology_current_observations
           WHERE (((pathology_current_observations.description_code)::text = 'FER'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e3 ON (true))
-     LEFT JOIN LATERAL ( SELECT e2.hb AS hb_gt_eq_10
-          WHERE (e2.hb >= (10)::numeric)) e4 ON (true))
-     LEFT JOIN LATERAL ( SELECT e2.hb AS hb_gt_eq_11
-          WHERE (e2.hb >= (11)::numeric)) e5 ON (true))
-     LEFT JOIN LATERAL ( SELECT e2.hb AS hb_gt_eq_13
-          WHERE (e2.hb >= (13)::numeric)) e6 ON (true))
+     LEFT JOIN LATERAL ( SELECT e2.hgb AS hgb_gt_eq_10
+          WHERE (e2.hgb >= (10)::numeric)) e4 ON (true))
+     LEFT JOIN LATERAL ( SELECT e2.hgb AS hgb_gt_eq_11
+          WHERE (e2.hgb >= (11)::numeric)) e5 ON (true))
+     LEFT JOIN LATERAL ( SELECT e2.hgb AS hgb_gt_eq_13
+          WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
   WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'LCC'::character varying, 'Nephrology'::character varying])::text[]))

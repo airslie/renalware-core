@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ModuleLength
 require "rails_helper"
 
 # Anaemia Audit
@@ -52,10 +51,10 @@ module Renalware
             %w(
               modality
               patient_count
-              avg_hb
-              pct_hb_gt_eq_10
-              pct_hb_gt_eq_11
-              pct_hb_gt_eq_13
+              avg_hgb
+              pct_hgb_gt_eq_10
+              pct_hgb_gt_eq_11
+              pct_hgb_gt_eq_13
               avg_fer
               pct_fer_gt_eq_150
             )
@@ -76,24 +75,21 @@ module Renalware
             # We will just add path data to 2 HD patients in this example.
             # We just create a PD patient to test that PD patient_count is correct
             # in the view output.
-            hd_patient1 = create_hd_patient
-            hd_patient2 = create_hd_patient
-            hd_patient3 = create_hd_patient
-            hd_patient4 = create_hd_patient
+            hd_patients = (1..4).map{ create_hd_patient }
             create_pd_patient
 
-            # HB
-            hb = create_observation_description("HB")
-            create_observation(patient: hd_patient1, description: hb, result: 9)
-            create_observation(patient: hd_patient2, description: hb, result: 10)
-            create_observation(patient: hd_patient3, description: hb, result: 11)
-            create_observation(patient: hd_patient4, description: hb, result: 14)
+            # HGB
+            hgb = create_observation_description("HGB")
+            create_observation(patient: hd_patients[0], description: hgb, result: 9)
+            create_observation(patient: hd_patients[1], description: hgb, result: 10)
+            create_observation(patient: hd_patients[2], description: hgb, result: 11)
+            create_observation(patient: hd_patients[3], description: hgb, result: 14)
 
             # FER
             fer = create_observation_description("FER")
-            create_observation(patient: hd_patient1, description: fer, result: 140)
-            create_observation(patient: hd_patient2, description: fer, result: 150)
-            create_observation(patient: hd_patient3, description: fer, result: 205)
+            create_observation(patient: hd_patients[0], description: fer, result: 140)
+            create_observation(patient: hd_patients[1], description: fer, result: 150)
+            create_observation(patient: hd_patients[2], description: fer, result: 205)
 
             # TODO: EPO ...
 
@@ -103,10 +99,10 @@ module Renalware
                 [
                   "HD",     # modality
                   4,        # count of hd patients
-                  "11.00",  # avg_hb (9 + 10 + 11 + 14) / 4 = 11
-                  "75.00",  # pct_hb_gt_eq_10 = all bar 1 = 75%
-                  "50.00",  # pct_hb_gt_eq_11 = 2 = 50%
-                  "25.00",  # pct_hb_gt_eq_13 = 1 = 25%
+                  "11.00",  # avg_hgb (9 + 10 + 11 + 14) / 4 = 11
+                  "75.00",  # pct_hgb_gt_eq_10 = all bar 1 = 75%
+                  "50.00",  # pct_hgb_gt_eq_11 = 2 = 50%
+                  "25.00",  # pct_hgb_gt_eq_13 = 1 = 25%
                   "165.00", # avg_fer = (140 + 150 + 205) / 3 = 165
                   "66.67"   # pct_fer_gt_eq_150 = 2 of 3 = 66.66
                 ],

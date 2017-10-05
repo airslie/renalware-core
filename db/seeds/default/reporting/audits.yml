@@ -37,7 +37,7 @@
     { "columnDefs": [
       { "title": "Unit", "targets": 0, width: "300" },
       { "title": "No. patients", "targets": 1, width: "120" },
-      { "title": "% HB > 100", "targets": 2, width: "120" },
+      { "title": "% HGB > 100", "targets": 2, width: "120" },
       { "title": "% URR > 65", "targets": 3, width: "120" },
       { "title": "% Phosphate < 1.8", "targets": 4, width: "200" },
       { "title": "% w/fistula or graft", "targets": 5, width: "200" },
@@ -71,10 +71,10 @@
     { "columnDefs": [
       { "title": "Modality", "targets": 0, width: "200" },
       { "title": "Patients", "targets": 1, width: "100" },
-      { "title": "Avg HB", "targets": 2, width: "100" },
-      { "title": "% HB ≥ 10", "targets": 4, width: "110" },
-      { "title": "% HB ≥ 11", "targets": 5, width: "110" },
-      { "title": "% HB ≥ 13", "targets": 6, width: "110" },
+      { "title": "Avg HGB", "targets": 2, width: "100" },
+      { "title": "% HGB ≥ 10", "targets": 4, width: "110" },
+      { "title": "% HGB ≥ 11", "targets": 5, width: "110" },
+      { "title": "% HGB ≥ 13", "targets": 6, width: "110" },
       { "title": "Avg FER", "targets": 7, width: "100" },
       { "title": "% FER ≥ 150", "targets": 8, width: "110" }
     ]}
