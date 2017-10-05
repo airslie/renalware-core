@@ -52,14 +52,14 @@
   refresh_schedule:
   display_configuration: >
     { "columnDefs": [
-      { "title": "Modality", "targets": 0, width: "300" },
-      { "title": "No. patients", "targets": 1, width: "120" },
-      { "title": "Avg CCA", "targets": 2, width: "120" },
-      { "title": "% CCA 2.1-2.4", "targets": 4, width: "120" },
-      { "title": "% PTH > 300", "targets": 5, width: "120" },
-      { "title": "% PTH > 800", "targets": 6, width: "120" },
-      { "title": "Avg PHOS", "targets": 7, width: "120" },
-      { "title": "Max PHOS", "targets": 8, width: "120" },
-      { "title": "% PHOS < 1.8", "targets": 8, width: "120" }
+      { "title": "Modality", "targets": 0, width: "200" },
+      { "title": "No. patients", "targets": 1, width: "100" },
+      { "title": "Avg CCA", "targets": 2, width: "100" },
+      { "title": "% CCA 2.1-2.4", "targets": 4, width: "110" },
+      { "title": "% PTH > 300", "targets": 5, width: "100" },
+      { "title": "% PTH > 800", "targets": 6, width: "100" },
+      { "title": "Avg PHOS", "targets": 7, width: "100" },
+      { "title": "Max PHOS", "targets": 8, width: "100" },
+      { "title": "% PHOS < 1.8", "targets": 8, width: "110" }
     ]}
 

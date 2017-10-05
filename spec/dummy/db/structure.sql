@@ -4046,12 +4046,12 @@ CREATE VIEW reporting_bone_audit AS
  SELECT e1.modality_desc AS modality,
     count(e1.patient_id) AS patient_count,
     round(avg(e4.cca), 2) AS avg_cca,
-    round((((count(e8.cca_2_1_to_2_4) / GREATEST(count(e8.cca_2_1_to_2_4), (1)::bigint)) * 100))::numeric, 2) AS pct_cca_2_1_to_2_4,
-    round((((count(e7.pth_gt_300) / GREATEST(count(e7.pth_gt_300), (1)::bigint)) * 100))::numeric, 2) AS pct_pth_gt_300,
-    round((((count(e6.pth_gt_800) / GREATEST(count(e6.pth_gt_800), (1)::bigint)) * 100))::numeric, 2) AS pct_pth_gt_800_pct,
+    round((((count(e8.cca_2_1_to_2_4))::numeric / GREATEST((count(e4.cca))::numeric, 1.0)) * 100.0), 2) AS pct_cca_2_1_to_2_4,
+    round((((count(e7.pth_gt_300))::numeric / GREATEST((count(e2.pth))::numeric, 1.0)) * 100.0), 2) AS pct_pth_gt_300,
+    round((((count(e6.pth_gt_800))::numeric / GREATEST((count(e2.pth))::numeric, 1.0)) * 100.0), 2) AS pct_pth_gt_800_pct,
     round(avg(e3.phos), 2) AS avg_phos,
     max(e3.phos) AS max_phos,
-    round((((count(e5.phos_lt_1_8) / GREATEST(count(e5.phos_lt_1_8), (1)::bigint)) * 100))::numeric, 2) AS pct_phos_lt_1_8
+    round((((count(e5.phos_lt_1_8))::numeric / GREATEST((count(e3.phos))::numeric, 1.0)) * 100.0), 2) AS pct_phos_lt_1_8
    FROM (((((((( SELECT p.id AS patient_id,
             md.name AS modality_desc
            FROM ((patients p

@@ -5,12 +5,12 @@ select
   modality_desc       modality,
   count(patient_id)   patient_count,
   round(avg(cca),2)   avg_cca,
-  round(count(cca_2_1_to_2_4) / greatest(count(cca_2_1_to_2_4), 1) * 100, 2) pct_cca_2_1_to_2_4,
-  round(count(pth_gt_300) / greatest(count(pth_gt_300), 1) * 100, 2)         pct_pth_gt_300,
-  round(count(pth_gt_800) / greatest(count(pth_gt_800), 1) * 100, 2)         pct_pth_gt_800_pct,
+  round(count(cca_2_1_to_2_4) / greatest(count(cca), 1.0) * 100.0, 2) pct_cca_2_1_to_2_4,
+  round(count(pth_gt_300) / greatest(count(pth), 1.0) * 100.0, 2)         pct_pth_gt_300,
+  round(count(pth_gt_800) / greatest(count(pth), 1.0) * 100.0, 2)         pct_pth_gt_800_pct,
   round(avg(phos),2)  avg_phos,
   max(phos)           max_phos,
-  round(count(phos_lt_1_8)   / greatest(count(phos_lt_1_8),1) * 100, 2) pct_phos_lt_1_8
+  round(count(phos_lt_1_8)   / greatest(count(phos), 1.0) * 100.0, 2) pct_phos_lt_1_8
 
   from (
     select

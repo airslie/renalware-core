@@ -4,9 +4,8 @@ module Renalware
   module Reporting
     class GenerateAuditJson
       def self.call(view_name)
-        result = ActiveRecord::Base.connection.execute(
-          "select * from #{view_name};"
-        )
+        conn = ActiveRecord::Base.connection
+        result = conn.execute("select * from #{conn.quote_column_name(view_name)};")
 
         # Build a JS DataTables-compatible columnDefs hash
         columns = result.fields.each_with_index.inject([]) do |array, data|
