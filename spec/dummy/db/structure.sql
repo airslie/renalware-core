@@ -4008,13 +4008,14 @@ ALTER SEQUENCE renal_profiles_id_seq OWNED BY renal_profiles.id;
 CREATE TABLE reporting_audits (
     id integer NOT NULL,
     name character varying NOT NULL,
-    materialized_view_name character varying NOT NULL,
+    view_name character varying NOT NULL,
     refreshed_at timestamp without time zone,
-    refresh_schedule character varying DEFAULT '1 0 * * 1-6'::character varying NOT NULL,
+    refresh_schedule character varying DEFAULT '1 0 * * 1-6'::character varying,
     display_configuration text DEFAULT '{}'::text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    description text
+    description text,
+    materialized boolean DEFAULT true NOT NULL
 );
 
 
@@ -4038,50 +4039,42 @@ ALTER SEQUENCE reporting_audits_id_seq OWNED BY reporting_audits.id;
 
 
 --
--- Name: reporting_data_sources; Type: VIEW; Schema: public; Owner: -
+-- Name: reporting_bone_audit; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW reporting_data_sources AS
- SELECT p.proname AS name,
-    regexp_replace(pg_get_function_identity_arguments(p.oid), 'boolean|text|integer|date|timestamp|uuid|[ ]'::text, ''::text, 'gi'::text) AS regexp_replace
-   FROM ( SELECT p_1.oid,
-            p_1.proname,
-            p_1.pronamespace,
-            p_1.proowner,
-            p_1.prolang,
-            p_1.procost,
-            p_1.prorows,
-            p_1.provariadic,
-            p_1.protransform,
-            p_1.proisagg,
-            p_1.proiswindow,
-            p_1.prosecdef,
-            p_1.proleakproof,
-            p_1.proisstrict,
-            p_1.proretset,
-            p_1.provolatile,
-            p_1.proparallel,
-            p_1.pronargs,
-            p_1.pronargdefaults,
-            p_1.prorettype,
-            p_1.proargtypes,
-            p_1.proallargtypes,
-            p_1.proargmodes,
-            p_1.proargnames,
-            p_1.proargdefaults,
-            p_1.protrftypes,
-            p_1.prosrc,
-            p_1.probin,
-            p_1.proconfig,
-            p_1.proacl
-           FROM pg_proc p_1
-          WHERE (NOT p_1.proisagg)) p
-  WHERE (p.proname ~ '^reporting_'::text)
-UNION
- SELECT ((pg_class.oid)::regclass)::text AS name,
-    NULL::text AS regexp_replace
-   FROM pg_class
-  WHERE ((pg_class.relkind = 'm'::"char") AND (pg_class.relname ~ '^reporting_'::text));
+CREATE VIEW reporting_bone_audit AS
+ SELECT e1.modality_desc AS modality,
+    count(e1.patient_id) AS patient_count,
+    round(avg(e4.cca), 2) AS avg_cca,
+    round((((count(e8.cca_2_1_to_2_4) / GREATEST(count(e8.cca_2_1_to_2_4), (1)::bigint)) * 100))::numeric, 2) AS pct_cca_2_1_to_2_4,
+    round((((count(e7.pth_gt_300) / GREATEST(count(e7.pth_gt_300), (1)::bigint)) * 100))::numeric, 2) AS pct_pth_gt_300,
+    round((((count(e6.pth_gt_800) / GREATEST(count(e6.pth_gt_800), (1)::bigint)) * 100))::numeric, 2) AS pct_pth_gt_800_pct,
+    round(avg(e3.phos), 2) AS avg_phos,
+    max(e3.phos) AS max_phos,
+    round((((count(e5.phos_lt_1_8) / GREATEST(count(e5.phos_lt_1_8), (1)::bigint)) * 100))::numeric, 2) AS pct_phos_lt_1_8
+   FROM (((((((( SELECT p.id AS patient_id,
+            md.name AS modality_desc
+           FROM ((patients p
+             JOIN modality_modalities m ON ((m.patient_id = p.id)))
+             JOIN modality_descriptions md ON ((m.description_id = md.id)))) e1
+     LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS pth
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'PTH'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
+     LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS phos
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'PHOS'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e3 ON (true))
+     LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS cca
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'CCA'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e4 ON (true))
+     LEFT JOIN LATERAL ( SELECT e3.phos AS phos_lt_1_8
+          WHERE (e3.phos < 1.8)) e5 ON (true))
+     LEFT JOIN LATERAL ( SELECT e2.pth AS pth_gt_800
+          WHERE (e2.pth > (800)::numeric)) e6 ON (true))
+     LEFT JOIN LATERAL ( SELECT e2.pth AS pth_gt_300
+          WHERE (e2.pth > (300)::numeric)) e7 ON (true))
+     LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
+          WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
+  GROUP BY e1.modality_desc;
 
 
 --
@@ -10885,7 +10878,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170705135512'),
 ('20170705150913'),
 ('20170705160726'),
-('20170706120643'),
 ('20170707110155'),
 ('20170711140607'),
 ('20170711140926'),
@@ -10904,6 +10896,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170908160250'),
 ('20170911133224'),
 ('20170912092135'),
-('20170920113628');
+('20170920113628'),
+('20171005081224'),
+('20171005091202');
 
 

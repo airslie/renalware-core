@@ -15,7 +15,7 @@ feature "Managing audits", type: :feature do
     display_config = "{test: 1}"
     fill_in t_audit(:name), with: "Changed name"
     fill_in t_audit(:description), with: "Desc"
-    select "reporting_test_view2", from: t_audit(:materialized_view_name)
+    select "reporting_test_view2", from: t_audit(:view_name)
     fill_in t_audit(:display_configuration), with: display_config
     fill_in t_audit(:refresh_schedule), with: "5 0 * * *"
     click_on "Save"

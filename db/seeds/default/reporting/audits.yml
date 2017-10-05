@@ -1,7 +1,8 @@
 -
   name: Main Authors
   description: A list of authors with their letter statistics.
-  materialized_view_name: reporting_main_authors_audit
+  view_name: reporting_main_authors_audit
+  materialized: true
   refresh_schedule: "1 0 * * *"
   display_configuration: >
     { "columnDefs": [
@@ -14,7 +15,8 @@
 -
   name: HD Blood Pressures
   description:
-  materialized_view_name: reporting_hd_blood_pressures_audit
+  view_name: reporting_hd_blood_pressures_audit
+  materialized: true
   refresh_schedule: "1 0 * * *"
   display_configuration: >
     {
@@ -28,7 +30,8 @@
 -
   name: HD Overall
   description: An overview of HD activity in the current month across all HD units.
-  materialized_view_name: reporting_hd_overall_audit
+  view_name: reporting_hd_overall_audit
+  materialized: true
   refresh_schedule: "1 0 * * *"
   display_configuration: >
     { "columnDefs": [
@@ -41,3 +44,22 @@
       { "title": "Avg. missed HD time", "targets": 6, width: "200" }
       { "title": "% missing >5% HD time", "targets": 7, width: "200" }
     ]}
+-
+  name: Bone
+  description: Bone audit
+  view_name: reporting_bone_audit
+  materialized: false
+  refresh_schedule:
+  display_configuration: >
+    { "columnDefs": [
+      { "title": "Modality", "targets": 0, width: "300" },
+      { "title": "No. patients", "targets": 1, width: "120" },
+      { "title": "Avg CCA", "targets": 2, width: "120" },
+      { "title": "% CCA 2.1-2.4", "targets": 4, width: "120" },
+      { "title": "% PTH > 300", "targets": 5, width: "120" },
+      { "title": "% PTH > 800", "targets": 6, width: "120" },
+      { "title": "Avg PHOS", "targets": 7, width: "120" },
+      { "title": "Max PHOS", "targets": 8, width: "120" },
+      { "title": "% PHOS < 1.8", "targets": 8, width: "120" }
+    ]}
+

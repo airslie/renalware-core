@@ -12,12 +12,12 @@ module Renalware
 
       def show
         authorize audit
-        columns, values = GenerateAuditJson.call(audit.materialized_view_name)
+        columns, values = GenerateAuditJson.call(audit.view_name)
         render(
           locals: {
             audit: audit,
             columns: columns,
-            values: values
+            values: replace_nils_with_empty_string(values)
           }
         )
       end
@@ -42,6 +42,12 @@ module Renalware
         @audit ||= Audit.find(params[:id])
       end
 
+      # Takes an array (rows) of arrays (cells) and replaces any nil elements
+      # with an empty string so JS data tables does not baulk with 'nil undefined' error.
+      def replace_nils_with_empty_string(values)
+        values.map{ |row| row.map{ |cell| cell || "" } }
+      end
+
       def render_edit
         render :edit, locals: {
           audit: audit,
@@ -54,7 +60,7 @@ module Renalware
               .permit(
                 :name,
                 :description,
-                :materialized_view_name,
+                :view_name,
                 :display_configuration,
                 :refresh_schedule
               )

@@ -7,14 +7,18 @@ module Renalware
 
       # :reek:UtilityFunction
       def perform(audit)
-        refresh_materialized_view_associated_with_audit(audit)
-        update_audit_refreshment_date(audit)
+        if audit.materialized?
+          refresh_materialized_view_associated_with_audit(audit)
+          update_audit_refreshment_date(audit)
+        else
+          Rails.logger.warn("Cannot refresh an view that is not materialized: #{audit.view_name}")
+        end
       end
 
       private
 
       def refresh_materialized_view_associated_with_audit(audit)
-        Scenic.database.refresh_materialized_view(audit.materialized_view_name,
+        Scenic.database.refresh_materialized_view(audit.view_name,
                                                   concurrently: false,
                                                   cascade: false)
       end

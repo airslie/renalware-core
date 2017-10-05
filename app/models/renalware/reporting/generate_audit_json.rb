@@ -3,11 +3,12 @@ require_dependency "renalware/reporting"
 module Renalware
   module Reporting
     class GenerateAuditJson
-      def self.call(materialized_view_name)
+      def self.call(view_name)
         result = ActiveRecord::Base.connection.execute(
-          "select * from #{materialized_view_name};"
+          "select * from #{view_name};"
         )
-        # Build a datatables compatible columnDefs hash
+
+        # Build a JS DataTables-compatible columnDefs hash
         columns = result.fields.each_with_index.inject([]) do |array, data|
           column_name, index = data
           array << { title: column_name, target: index }

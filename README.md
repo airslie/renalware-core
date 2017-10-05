@@ -161,6 +161,15 @@ to just create
 `config.active_record.schema_format = :sql` in `application.rb` is used the engine
 uses Postgres views and functions which are not properly supported in a `schema.rb`
 
+##### Creating scenic views
+
+As we are an engine this is the workaround for now.
+```sh
+  bundle exec spec/dummy/bin/rails generate scenic:view my_view_name
+```
+Then copy the new files from spec/dummy/db/views and spec/dummy/db/migrations
+to ./db/views and ./db/migrations
+
 #### Throttling login attempts
 
 [rack-attack](https://github.com/kickstarter/rack-attack) is configured to throttle login attempts.
