@@ -10,9 +10,10 @@
   =f.input :diurnal_period_code_id, as: :hidden
   =f.input :day_of_week, as: :hidden
 
-  <label for="save_to_master">Apply to:</label>
-  input(name="save_to_master" type="radio" value="false" checked="checked") Weekly Diary
-  input(name="save_to_master" type="radio" value="true") Master Diary
+  .save_to_master
+    label(for="save_to_master")Apply to:
+    input(name="save_to_master" type="radio" value="false" checked="checked") Weekly Diary
+    input(name="save_to_master" type="radio" value="true") Master Diary
 
   -if scheduled_only
     =f.input :patient_id,
