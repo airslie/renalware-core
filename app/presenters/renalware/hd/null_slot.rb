@@ -23,6 +23,16 @@ module Renalware
       def cell_id
         "#{diurnal_period_code_id}-#{station_id}-#{day_of_week}"
       end
+
+      def cache_key
+        [
+          self.class.name,
+          diary_id,
+          diurnal_period_code_id,
+          station_id,
+          day_of_week
+        ].join("-")
+      end
     end
   end
 end

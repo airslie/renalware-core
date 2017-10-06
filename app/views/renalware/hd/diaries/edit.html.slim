@@ -47,8 +47,8 @@
                   th(style=station.css)= station.name
 
                   - diary.each_day(diurnal_period, station) do |slot, _day_of_week|
-                    - cache slot do
-                      = render "renalware/hd/diary_slots/slot", slot: slot
+                    /- cache(slot.cache_key) do
+                    = render "renalware/hd/diary_slots/slot", slot: slot
 
   / Modal dialog container
   #add-patient-to-diary-modal.reveal-modal.medium(data-reveal)
