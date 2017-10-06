@@ -103,8 +103,8 @@ GLO:
   name: "Globulin"
   measurement_unit: grammes_per_litre
 
-HB:
-  code: "HB"
+HGB:
+  code: "HGB"
   name: "HGB"
   measurement_unit: grammes_per_litre
 

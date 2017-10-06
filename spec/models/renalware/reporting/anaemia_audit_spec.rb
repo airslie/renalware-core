@@ -51,7 +51,7 @@ module Renalware
 
     describe "reporting_aneamia_audit view" do
       describe "columns" do
-        it "contains the column names" do
+        it "contains the correct column names" do
           columns, _values = Reporting::GenerateAuditJson.call(audit_view_name)
           columns = JSON.parse(columns).map(&:symbolize_keys)
           titles = columns.map{ |column| column[:title] }
@@ -80,7 +80,7 @@ module Renalware
         end
 
         context "when data" do
-          it "is correctly aggregates CC PTH and PHOS data" do
+          it "is correctly generates values" do
             # We will just add path data to 2 HD patients in this example.
             # We just create a PD patient to test that PD patient_count is correct
             # in the view output.
