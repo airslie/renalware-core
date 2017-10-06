@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "AKI alert management", type: :request do
   let(:user) { @current_user }
   let(:patient) { create(:renal_patient, by: user) }
+  let(:hospital_ward) { create(:hospital_ward) }
 
   describe "GET index" do
     it "renders a list of AKI Alerts" do
@@ -10,6 +11,7 @@ RSpec.describe "AKI alert management", type: :request do
         :aki_alert,
         notes: "abc",
         patient: patient,
+        hospital_ward: hospital_ward,
         action: create(:aki_alert_action, name: "action1"),
         by: create(:user, family_name: "Fink")
       )
@@ -19,6 +21,7 @@ RSpec.describe "AKI alert management", type: :request do
       expect(response.body).to match(patient.to_s)
       expect(response.body).to match("action1")
       expect(response.body).to match("Fink")
+      expect(response.body).to match(hospital_ward.name)
     end
   end
 
@@ -40,12 +43,14 @@ RSpec.describe "AKI alert management", type: :request do
           patient: patient,
           action: action1,
           hotlist: false,
+          hospital_ward: nil,
           by: user
         )
         attributes = {
           notes: "xyz",
           action_id: action2.id,
-          hotlist: true
+          hotlist: true,
+          hospital_ward_id: hospital_ward.id
         }
 
         patch renal_aki_alert_path(alert), params: { renal_aki_alert: attributes }
@@ -57,21 +62,8 @@ RSpec.describe "AKI alert management", type: :request do
         expect(alert.notes).to eq("xyz")
         expect(alert.action_id).to eq(action2.id)
         expect(alert.hotlist?).to be_truthy
+        expect(alert.hospital_ward).to eq(hospital_ward)
       end
     end
-
-    # nothing avail yet on the model to prompt an validation error..
-    #
-    # context "with invalid params" do
-    #   it "re-renders the edit form" do
-    #     alert = create(:aki_alert, notes: "abc", patient: patient)
-    #     attributes = { patient_id: nil, notes: "xyz" }
-    #     patch renal_aki_alert_path(alert), params: { renal_aki_alert: attributes }
-
-    #     follow_redirect!
-    #     expect(response).to have_http_status(:success)
-    #     expect(alert.reload.notes).to eq("abc")
-    #   end
-    # end
   end
 end

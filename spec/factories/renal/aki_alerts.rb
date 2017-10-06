@@ -4,5 +4,6 @@ FactoryGirl.define do
     notes "Some notes"
     hotlist false
     association :action, factory: :aki_alert_action
+    hospital_ward
   end
 end

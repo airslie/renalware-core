@@ -4,6 +4,7 @@
       th
       th Patient
       th Action
+      th Ward
       th Hotlist
       th Decided by
     tbody
@@ -12,5 +13,6 @@
           td= link_to("Edit", edit_renal_aki_alert_path(alert))
           td= default_patient_link(alert.patient)
           td= alert.action
+          td= alert.hospital_ward
           td= yes_no alert.hotlist?
           td= alert.decided_by

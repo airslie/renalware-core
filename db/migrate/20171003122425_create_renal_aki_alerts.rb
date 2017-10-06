@@ -6,6 +6,10 @@ class CreateRenalAKIAlerts < ActiveRecord::Migration[5.1]
                    foreign_key: { to_table: :renal_aki_alert_actions },
                    index: true,
                    null: true
+      t.references :hospital_ward,
+                   foreign_key: { to_table: :hospital_wards },
+                   index: true,
+                   null: true
       t.boolean :hotlist, null: false, default: false, index: true
       t.string :renal_aki_alerts, :action, :string, index: true
       t.text :notes

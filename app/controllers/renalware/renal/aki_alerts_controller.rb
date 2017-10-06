@@ -1,10 +1,13 @@
+require_dependency("renalware/renal")
+
 module Renalware
   module Renal
     class AKIAlertsController < BaseController
       include Renalware::Concerns::Pageable
 
       def index
-        alerts = AKIAlert.ordered.page(page).per(per_page)
+        alerts = AKIAlert.includes(:updated_by, :action, :hospital_ward, :patient)
+                         .ordered.page(page).per(per_page)
         authorize alerts
         render locals: { alerts: alerts }
       end
@@ -34,7 +37,7 @@ module Renalware
       end
 
       def aki_alert_params
-        params.require(:renal_aki_alert).permit(:notes, :action_id, :hotlist)
+        params.require(:renal_aki_alert).permit(:notes, :action_id, :hotlist, :hospital_ward_id)
       end
     end
   end

@@ -1568,6 +1568,39 @@ ALTER SEQUENCE hospital_units_id_seq OWNED BY hospital_units.id;
 
 
 --
+-- Name: hospital_wards; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE hospital_wards (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    hospital_unit_id bigint NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hospital_wards_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hospital_wards_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hospital_wards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hospital_wards_id_seq OWNED BY hospital_wards.id;
+
+
+--
 -- Name: letter_archives; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3971,6 +4004,7 @@ CREATE TABLE renal_aki_alerts (
     id bigint NOT NULL,
     patient_id bigint NOT NULL,
     action_id bigint,
+    hospital_ward_id bigint,
     hotlist boolean DEFAULT false NOT NULL,
     renal_aki_alerts character varying,
     action character varying,
@@ -5278,6 +5312,13 @@ ALTER TABLE ONLY hospital_units ALTER COLUMN id SET DEFAULT nextval('hospital_un
 
 
 --
+-- Name: hospital_wards id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hospital_wards ALTER COLUMN id SET DEFAULT nextval('hospital_wards_id_seq'::regclass);
+
+
+--
 -- Name: letter_archives id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6219,6 +6260,14 @@ ALTER TABLE ONLY hospital_centres
 
 ALTER TABLE ONLY hospital_units
     ADD CONSTRAINT hospital_units_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hospital_wards hospital_wards_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hospital_wards
+    ADD CONSTRAINT hospital_wards_pkey PRIMARY KEY (id);
 
 
 --
@@ -7732,6 +7781,20 @@ CREATE INDEX index_hospital_units_on_hospital_centre_id ON hospital_units USING 
 
 
 --
+-- Name: index_hospital_wards_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hospital_wards_on_hospital_unit_id ON hospital_wards USING btree (hospital_unit_id);
+
+
+--
+-- Name: index_hospital_wards_on_name_and_hospital_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hospital_wards_on_name_and_hospital_unit_id ON hospital_wards USING btree (name, hospital_unit_id) WHERE (deleted_at IS NOT NULL);
+
+
+--
 -- Name: index_letter_archives_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8632,6 +8695,13 @@ CREATE INDEX index_renal_aki_alerts_on_action_id ON renal_aki_alerts USING btree
 --
 
 CREATE INDEX index_renal_aki_alerts_on_created_by_id ON renal_aki_alerts USING btree (created_by_id);
+
+
+--
+-- Name: index_renal_aki_alerts_on_hospital_ward_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_aki_alerts_on_hospital_ward_id ON renal_aki_alerts USING btree (hospital_ward_id);
 
 
 --
@@ -10121,6 +10191,14 @@ ALTER TABLE ONLY pathology_requests_global_rules
 
 
 --
+-- Name: hospital_wards fk_rails_b7949167d5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hospital_wards
+    ADD CONSTRAINT fk_rails_b7949167d5 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
 -- Name: clinic_appointments fk_rails_b7cc8fd5dd; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10566,6 +10644,14 @@ ALTER TABLE ONLY clinical_allergies
 
 ALTER TABLE ONLY pd_training_sessions
     ADD CONSTRAINT fk_rails_fa412bd095 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: renal_aki_alerts fk_rails_fae5bb71b3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_aki_alerts
+    ADD CONSTRAINT fk_rails_fae5bb71b3 FOREIGN KEY (hospital_ward_id) REFERENCES hospital_wards(id);
 
 
 --
@@ -11101,6 +11187,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170911133224'),
 ('20170912092135'),
 ('20170920113628'),
+('20171003093347'),
 ('20171003111228'),
 ('20171003122425');
 

@@ -6,5 +6,6 @@ module Renalware
     it { is_expected.to have_db_index(:hotlist) }
     it { is_expected.to have_db_index(:action) }
     it { is_expected.to belong_to(:action).class_name("AKIAlertAction") }
+    it { is_expected.to belong_to(:hospital_ward) }
   end
 end
