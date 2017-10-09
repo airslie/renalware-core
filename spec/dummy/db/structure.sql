@@ -1235,7 +1235,7 @@ CREATE TABLE hd_patient_statistics (
     dialysis_minutes_shortfall_percentage numeric(10,2),
     mean_ufr numeric(10,2),
     mean_weight_loss_as_percentage_of_body_weight numeric(10,2),
-    has_shortfall_gt_5_pct integer
+    number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct integer
 );
 
 
@@ -4080,53 +4080,6 @@ CREATE VIEW reporting_bone_audit AS
 
 
 --
--- Name: reporting_data_sources; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW reporting_data_sources AS
- SELECT p.proname AS name,
-    regexp_replace(pg_get_function_identity_arguments(p.oid), 'boolean|text|integer|date|timestamp|uuid|[ ]'::text, ''::text, 'gi'::text) AS regexp_replace
-   FROM ( SELECT p_1.oid,
-            p_1.proname,
-            p_1.pronamespace,
-            p_1.proowner,
-            p_1.prolang,
-            p_1.procost,
-            p_1.prorows,
-            p_1.provariadic,
-            p_1.protransform,
-            p_1.proisagg,
-            p_1.proiswindow,
-            p_1.prosecdef,
-            p_1.proleakproof,
-            p_1.proisstrict,
-            p_1.proretset,
-            p_1.provolatile,
-            p_1.proparallel,
-            p_1.pronargs,
-            p_1.pronargdefaults,
-            p_1.prorettype,
-            p_1.proargtypes,
-            p_1.proallargtypes,
-            p_1.proargmodes,
-            p_1.proargnames,
-            p_1.proargdefaults,
-            p_1.protrftypes,
-            p_1.prosrc,
-            p_1.probin,
-            p_1.proconfig,
-            p_1.proacl
-           FROM pg_proc p_1
-          WHERE (NOT p_1.proisagg)) p
-  WHERE (p.proname ~ '^reporting_'::text)
-UNION
- SELECT ((pg_class.oid)::regclass)::text AS name,
-    NULL::text AS regexp_replace
-   FROM pg_class
-  WHERE ((pg_class.relkind = 'm'::"char") AND (pg_class.relname ~ '^reporting_'::text));
-
-
---
 -- Name: reporting_hd_blood_pressures_audit; Type: MATERIALIZED VIEW; Schema: public; Owner: -
 --
 
@@ -4169,7 +4122,7 @@ CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
     0 AS percentage_phosphate_lt_1_8,
     0 AS percentage_access_fistula_or_graft,
     0 AS avg_missed_hd_time,
-    round((((100 * sum(stats.has_shortfall_gt_5_pct)) / count(stats.id)))::numeric, 1) AS pct_shortfall_gt_5_pct
+    round((((100 * sum(stats.number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct)) / count(stats.id)))::numeric, 1) AS pct_shortfall_gt_5_pct
    FROM (hd_patient_statistics stats
      JOIN hospital_units units ON ((units.id = stats.hospital_unit_id)))
   GROUP BY units.name
@@ -10934,7 +10887,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170705135512'),
 ('20170705150913'),
 ('20170705160726'),
-('20170706120643'),
 ('20170707110155'),
 ('20170711140607'),
 ('20170711140926'),
