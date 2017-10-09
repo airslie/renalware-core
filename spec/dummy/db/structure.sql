@@ -2326,7 +2326,8 @@ CREATE TABLE patients (
     renalreg_recorded_by character varying,
     rpv_recorded_by character varying,
     ukrdc_external_id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    secure_id character varying DEFAULT generate_patient_secure_id() NOT NULL
+    secure_id character varying DEFAULT generate_patient_secure_id() NOT NULL,
+    legacy_patient_id integer
 );
 
 
@@ -4074,6 +4075,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'LCC'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -8184,6 +8186,13 @@ CREATE INDEX index_patients_on_language_id ON patients USING btree (language_id)
 
 
 --
+-- Name: index_patients_on_legacy_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patients_on_legacy_patient_id ON patients USING btree (legacy_patient_id);
+
+
+--
 -- Name: index_patients_on_local_patient_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -10898,6 +10907,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170912092135'),
 ('20170920113628'),
 ('20171005081224'),
-('20171005091202');
+('20171005091202'),
+('20171009104106');
 
 
