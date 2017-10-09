@@ -1235,7 +1235,7 @@ CREATE TABLE hd_patient_statistics (
     dialysis_minutes_shortfall_percentage numeric(10,2),
     mean_ufr numeric(10,2),
     mean_weight_loss_as_percentage_of_body_weight numeric(10,2),
-    number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct integer
+    has_shortfall_gt_5_pct integer
 );
 
 
@@ -2326,7 +2326,8 @@ CREATE TABLE patients (
     renalreg_recorded_by character varying,
     rpv_recorded_by character varying,
     ukrdc_external_id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    secure_id character varying DEFAULT generate_patient_secure_id() NOT NULL
+    secure_id character varying DEFAULT generate_patient_secure_id() NOT NULL,
+    legacy_patient_id integer
 );
 
 
@@ -4074,7 +4075,55 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'LCC'::character varying])::text[]))
   GROUP BY e1.modality_desc;
+
+
+--
+-- Name: reporting_data_sources; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW reporting_data_sources AS
+ SELECT p.proname AS name,
+    regexp_replace(pg_get_function_identity_arguments(p.oid), 'boolean|text|integer|date|timestamp|uuid|[ ]'::text, ''::text, 'gi'::text) AS regexp_replace
+   FROM ( SELECT p_1.oid,
+            p_1.proname,
+            p_1.pronamespace,
+            p_1.proowner,
+            p_1.prolang,
+            p_1.procost,
+            p_1.prorows,
+            p_1.provariadic,
+            p_1.protransform,
+            p_1.proisagg,
+            p_1.proiswindow,
+            p_1.prosecdef,
+            p_1.proleakproof,
+            p_1.proisstrict,
+            p_1.proretset,
+            p_1.provolatile,
+            p_1.proparallel,
+            p_1.pronargs,
+            p_1.pronargdefaults,
+            p_1.prorettype,
+            p_1.proargtypes,
+            p_1.proallargtypes,
+            p_1.proargmodes,
+            p_1.proargnames,
+            p_1.proargdefaults,
+            p_1.protrftypes,
+            p_1.prosrc,
+            p_1.probin,
+            p_1.proconfig,
+            p_1.proacl
+           FROM pg_proc p_1
+          WHERE (NOT p_1.proisagg)) p
+  WHERE (p.proname ~ '^reporting_'::text)
+UNION
+ SELECT ((pg_class.oid)::regclass)::text AS name,
+    NULL::text AS regexp_replace
+   FROM pg_class
+  WHERE ((pg_class.relkind = 'm'::"char") AND (pg_class.relname ~ '^reporting_'::text));
 
 
 --
@@ -4120,7 +4169,7 @@ CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
     0 AS percentage_phosphate_lt_1_8,
     0 AS percentage_access_fistula_or_graft,
     0 AS avg_missed_hd_time,
-    round((((100 * sum(stats.number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct)) / count(stats.id)))::numeric, 1) AS pct_shortfall_gt_5_pct
+    round((((100 * sum(stats.has_shortfall_gt_5_pct)) / count(stats.id)))::numeric, 1) AS pct_shortfall_gt_5_pct
    FROM (hd_patient_statistics stats
      JOIN hospital_units units ON ((units.id = stats.hospital_unit_id)))
   GROUP BY units.name
@@ -8184,6 +8233,13 @@ CREATE INDEX index_patients_on_language_id ON patients USING btree (language_id)
 
 
 --
+-- Name: index_patients_on_legacy_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patients_on_legacy_patient_id ON patients USING btree (legacy_patient_id);
+
+
+--
 -- Name: index_patients_on_local_patient_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -10878,6 +10934,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170705135512'),
 ('20170705150913'),
 ('20170705160726'),
+('20170706120643'),
 ('20170707110155'),
 ('20170711140607'),
 ('20170711140926'),
@@ -10898,6 +10955,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170912092135'),
 ('20170920113628'),
 ('20171005081224'),
-('20171005091202');
+('20171005091202'),
+('20171009104106');
 
 
