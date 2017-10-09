@@ -47,7 +47,7 @@ feature "Viewing audits", type: :feature, js: true do
     create(:audit,
             name: "Test",
             description: "A short description",
-            materialized_view_name: view_name,
+            view_name: view_name,
             display_configuration: '{
               "columnDefs": [
                 { "title": "Col 1", "targets": 0, width: "100" },
