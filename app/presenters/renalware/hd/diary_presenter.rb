@@ -36,7 +36,7 @@ module Renalware
       end
 
       def each_station
-        stations.each{ |station| yield(station) if block_given? }
+        stations.each_with_index{ |station, index| yield(station, index + 1) if block_given? }
       end
 
       def each_day(diurnal_period, station)

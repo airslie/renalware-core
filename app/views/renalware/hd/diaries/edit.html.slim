@@ -42,9 +42,10 @@
 
             tbody
 
-              - diary.each_station do |station|
+              - diary.each_station do |station, index|
                 tr*{'data-station-id'=> station.id}
-                  th(style=station.css)= station.name
+                  th(style=station.css)
+                    = "#{index}. #{station.name}"
 
                   - diary.each_day(diurnal_period, station) do |slot, _day_of_week|
                     /- cache(slot.cache_key) do

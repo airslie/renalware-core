@@ -32,7 +32,7 @@ module Renalware
             authorize diary
             options = default_pdf_options.merge!(
               pdf: pdf_filename,
-              locals: { diary: DiaryPresenter.new(current_user, diary) }
+              locals: { unit: unit, diary: DiaryPresenter.new(current_user, diary) }
             )
             render options
           end
