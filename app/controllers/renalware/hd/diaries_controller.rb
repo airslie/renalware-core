@@ -7,6 +7,7 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module HD
     class DiariesController < BaseController
+      include Renalware::Concerns::PdfRenderable
       include Renalware::Concerns::Pageable
 
       def edit
@@ -24,7 +25,25 @@ module Renalware
         render locals: { unit: unit, diaries: weekly_diaries }
       end
 
+      def show
+        diary = WeeklyDiary.find(params[:id])
+        respond_to do |format|
+          format.pdf do
+            authorize diary
+            options = default_pdf_options.merge!(
+              pdf: pdf_filename,
+              locals: { diary: DiaryPresenter.new(current_user, diary) }
+            )
+            render options
+          end
+        end
+      end
+
       private
+
+      def pdf_filename
+        "y"
+      end
 
       def weekly_diary
         @weekly_diary ||= begin

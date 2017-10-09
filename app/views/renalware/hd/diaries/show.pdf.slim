@@ -1,0 +1,25 @@
+.hd-diary-pdf
+  h1= "HD Diary #{diary}"
+  .diary
+    .diary__grid
+      - diary.each_diurnal_period do |diurnal_period|
+        table.diary__period*{'data-period-code'=> diurnal_period.code}
+          thead
+            tr
+              th(colspan=8)
+                h3= diurnal_period.code.upcase
+            tr
+              th.col-width-medium Station
+              - diary.day_names.each do |day|
+                th.col-width-small= day.capitalize
+
+          tbody
+            - diary.each_station do |station|
+              tr*{'data-station-id'=> station.id}
+                th= station.name
+                /(style=station.css)= station.name
+
+                - diary.each_day(diurnal_period, station) do |slot, _day_of_week|
+                  - with_format(:html) do
+                    td
+                      = slot.patient if slot.patient.present?
