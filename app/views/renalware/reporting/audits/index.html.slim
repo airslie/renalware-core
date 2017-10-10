@@ -5,7 +5,8 @@
       tr
         th.col-width-small
         th.col-width-medium Name
-        th Materialized view name
+        th Postgres view name
+        th Materialized
         th Schedule
         th.col-width-date-time Updated on
         th.col-width-date-time Data last refreshed
@@ -18,12 +19,15 @@
             = pipe_separator
             = link_to("Edit", edit_reporting_audit_path(audit))
           td= audit.name
-          td= audit.materialized_view_name
+          td= audit.view_name
+          td= yes_no audit.materialized?
           td= audit.refresh_schedule
           td= l(audit.updated_at)
           td= l(audit.refreshed_at)
-          td= link_to("Refresh Data",
-                      reporting_audit_refreshments_path(audit_id: audit.id),
-                      remote: true,
-                      method: :post,
-                      class: "button compact warning")
+          td
+            -if audit.materialized?
+              = link_to("Refresh Data",
+                        reporting_audit_refreshments_path(audit_id: audit.id),
+                        remote: true,
+                        method: :post,
+                        class: "button compact warning")
