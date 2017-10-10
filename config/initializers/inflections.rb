@@ -12,6 +12,7 @@
 
 # These inflection rules are supported but not enabled by default:
 ActiveSupport::Inflector.inflections(:en) do |inflect|
+  inflect.acronym "AKI"
   inflect.acronym "APD"
   inflect.acronym "API"
   inflect.acronym "CAPD"
@@ -21,6 +22,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "DNA"
   inflect.acronym "EDTA"
   inflect.acronym "ESRF"
+  inflect.acronym "GP"
   inflect.acronym "HD"
   inflect.acronym "HDF"
   inflect.acronym "HL7"
@@ -28,8 +30,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "PD"
   inflect.acronym "PET"
   inflect.acronym "PRD"
-  inflect.acronym "XHR"
-  inflect.acronym "GP"
   inflect.acronym "RTF"
   inflect.acronym "UKRDC"
+  inflect.acronym "XHR"
 end

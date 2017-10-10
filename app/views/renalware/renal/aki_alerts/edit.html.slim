@@ -1,0 +1,17 @@
+= within_admin_layout(title: "Edit",
+                      breadcrumbs: breadcrumb_for("AKI Alerts", renal_aki_alerts_path)) do
+
+  = simple_form_for(alert, wrapper: :horizontal_form) do |f|
+    = f.association :action, wrapper: :horizontal_small
+    = f.association :hospital_ward,
+          as: :grouped_select,
+          group_method: :wards,
+          collection: Renalware::Hospitals::Unit.includes(:wards).ordered,
+          label_method: :to_s,
+          wrapper: :horizontal_medium
+    = f.input :hotlist,  wrapper: :horizontal_small, as: :inline_radio_buttons
+    = f.input :notes,  wrapper: :horizontal_large, input_html: { rows: 5 }
+    = f.submit class: "button"
+    span= " or "
+    = link_to "cancel", renal_aki_alerts_path
+

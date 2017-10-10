@@ -1,0 +1,28 @@
+= within_admin_layout(title: "AKI Alerts") do
+  table.aki-alerts
+    thead
+      th
+      th Patient
+      th.col-width-nhs-no NHS No.
+      th.col-width-reference Hosp. No.
+      th.col-width-tiny Sex
+      th.col-width-tiny Age
+      th.col-width-date Born on
+      th Action
+      th Ward
+      th Hotlist
+      th Decided by
+    tbody
+      - alerts.each do |alert|
+        tr
+          td= link_to("Edit", edit_renal_aki_alert_path(alert))
+          td= default_patient_link(alert.patient)
+          td= alert.patient.nhs_number
+          td= alert.patient.hospital_identifiers
+          td= alert.patient.sex
+          td= alert.patient.age
+          td= alert.patient.born_on
+          td= alert.action
+          td= alert.hospital_ward
+          td= yes_no alert.hotlist?
+          td= alert.decided_by

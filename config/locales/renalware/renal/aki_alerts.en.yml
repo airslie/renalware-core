@@ -1,0 +1,5 @@
+en:
+  activerecord:
+    attributes:
+      renalware/renal/aki_alert:
+        hotlist: On Hotlist

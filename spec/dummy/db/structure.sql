@@ -1568,6 +1568,39 @@ ALTER SEQUENCE hospital_units_id_seq OWNED BY hospital_units.id;
 
 
 --
+-- Name: hospital_wards; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE hospital_wards (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    hospital_unit_id bigint NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hospital_wards_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hospital_wards_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hospital_wards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hospital_wards_id_seq OWNED BY hospital_wards.id;
+
+
+--
 -- Name: letter_archives; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3933,6 +3966,78 @@ ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
 
 
 --
+-- Name: renal_aki_alert_actions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE renal_aki_alert_actions (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: renal_aki_alert_actions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE renal_aki_alert_actions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: renal_aki_alert_actions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE renal_aki_alert_actions_id_seq OWNED BY renal_aki_alert_actions.id;
+
+
+--
+-- Name: renal_aki_alerts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE renal_aki_alerts (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    action_id bigint,
+    hospital_ward_id bigint,
+    hotlist boolean DEFAULT false NOT NULL,
+    renal_aki_alerts character varying,
+    action character varying,
+    string character varying,
+    notes text,
+    updated_by_id bigint,
+    created_by_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: renal_aki_alerts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE renal_aki_alerts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: renal_aki_alerts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE renal_aki_alerts_id_seq OWNED BY renal_aki_alerts.id;
+
+
+--
 -- Name: renal_prd_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5202,6 +5307,13 @@ ALTER TABLE ONLY hospital_units ALTER COLUMN id SET DEFAULT nextval('hospital_un
 
 
 --
+-- Name: hospital_wards id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hospital_wards ALTER COLUMN id SET DEFAULT nextval('hospital_wards_id_seq'::regclass);
+
+
+--
 -- Name: letter_archives id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5633,6 +5745,20 @@ ALTER TABLE ONLY problem_problems ALTER COLUMN id SET DEFAULT nextval('problem_p
 --
 
 ALTER TABLE ONLY problem_versions ALTER COLUMN id SET DEFAULT nextval('problem_versions_id_seq'::regclass);
+
+
+--
+-- Name: renal_aki_alert_actions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_aki_alert_actions ALTER COLUMN id SET DEFAULT nextval('renal_aki_alert_actions_id_seq'::regclass);
+
+
+--
+-- Name: renal_aki_alerts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_aki_alerts ALTER COLUMN id SET DEFAULT nextval('renal_aki_alerts_id_seq'::regclass);
 
 
 --
@@ -6132,6 +6258,14 @@ ALTER TABLE ONLY hospital_units
 
 
 --
+-- Name: hospital_wards hospital_wards_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hospital_wards
+    ADD CONSTRAINT hospital_wards_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: letter_archives letter_archives_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6625,6 +6759,22 @@ ALTER TABLE ONLY problem_problems
 
 ALTER TABLE ONLY problem_versions
     ADD CONSTRAINT problem_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: renal_aki_alert_actions renal_aki_alert_actions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_aki_alert_actions
+    ADD CONSTRAINT renal_aki_alert_actions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: renal_aki_alerts renal_aki_alerts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_aki_alerts
+    ADD CONSTRAINT renal_aki_alerts_pkey PRIMARY KEY (id);
 
 
 --
@@ -7626,6 +7776,20 @@ CREATE INDEX index_hospital_units_on_hospital_centre_id ON hospital_units USING 
 
 
 --
+-- Name: index_hospital_wards_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hospital_wards_on_hospital_unit_id ON hospital_wards USING btree (hospital_unit_id);
+
+
+--
+-- Name: index_hospital_wards_on_name_and_hospital_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hospital_wards_on_name_and_hospital_unit_id ON hospital_wards USING btree (name, hospital_unit_id) WHERE (deleted_at IS NOT NULL);
+
+
+--
 -- Name: index_letter_archives_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8508,6 +8672,76 @@ CREATE INDEX index_problem_versions_on_item_type_and_item_id ON problem_versions
 
 
 --
+-- Name: index_renal_aki_alert_actions_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_aki_alert_actions_on_name ON renal_aki_alert_actions USING btree (name);
+
+
+--
+-- Name: index_renal_aki_alerts_on_action; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_aki_alerts_on_action ON renal_aki_alerts USING btree (action);
+
+
+--
+-- Name: index_renal_aki_alerts_on_action_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_aki_alerts_on_action_id ON renal_aki_alerts USING btree (action_id);
+
+
+--
+-- Name: index_renal_aki_alerts_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_aki_alerts_on_created_by_id ON renal_aki_alerts USING btree (created_by_id);
+
+
+--
+-- Name: index_renal_aki_alerts_on_hospital_ward_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_aki_alerts_on_hospital_ward_id ON renal_aki_alerts USING btree (hospital_ward_id);
+
+
+--
+-- Name: index_renal_aki_alerts_on_hotlist; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_aki_alerts_on_hotlist ON renal_aki_alerts USING btree (hotlist);
+
+
+--
+-- Name: index_renal_aki_alerts_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_aki_alerts_on_patient_id ON renal_aki_alerts USING btree (patient_id);
+
+
+--
+-- Name: index_renal_aki_alerts_on_renal_aki_alerts; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_aki_alerts_on_renal_aki_alerts ON renal_aki_alerts USING btree (renal_aki_alerts);
+
+
+--
+-- Name: index_renal_aki_alerts_on_string; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_aki_alerts_on_string ON renal_aki_alerts USING btree (string);
+
+
+--
+-- Name: index_renal_aki_alerts_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_aki_alerts_on_updated_by_id ON renal_aki_alerts USING btree (updated_by_id);
+
+
+--
 -- Name: index_renal_profiles_on_document; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9095,6 +9329,14 @@ ALTER TABLE ONLY transplant_donations
 
 
 --
+-- Name: renal_aki_alerts fk_rails_0bac5aa8d3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_aki_alerts
+    ADD CONSTRAINT fk_rails_0bac5aa8d3 FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: letter_electronic_receipts fk_rails_0c14df6b87; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9407,6 +9649,14 @@ ALTER TABLE ONLY pathology_requests_global_rule_sets
 
 
 --
+-- Name: renal_aki_alerts fk_rails_4d907ef0f1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_aki_alerts
+    ADD CONSTRAINT fk_rails_4d907ef0f1 FOREIGN KEY (action_id) REFERENCES renal_aki_alert_actions(id);
+
+
+--
 -- Name: access_assessments fk_rails_506a7ce21d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9652,6 +9902,14 @@ ALTER TABLE ONLY clinical_body_compositions
 
 ALTER TABLE ONLY admission_requests
     ADD CONSTRAINT fk_rails_8b3ff2812e FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
+-- Name: renal_aki_alerts fk_rails_8b50e868dc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_aki_alerts
+    ADD CONSTRAINT fk_rails_8b50e868dc FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -9935,6 +10193,14 @@ ALTER TABLE ONLY pathology_requests_global_rules
 
 
 --
+-- Name: hospital_wards fk_rails_b7949167d5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hospital_wards
+    ADD CONSTRAINT fk_rails_b7949167d5 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
 -- Name: clinic_appointments fk_rails_b7cc8fd5dd; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10068,6 +10334,14 @@ ALTER TABLE ONLY access_profiles
 
 ALTER TABLE ONLY transplant_donor_stages
     ADD CONSTRAINT fk_rails_d05e755f4a FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
+-- Name: renal_aki_alerts fk_rails_d15c835018; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_aki_alerts
+    ADD CONSTRAINT fk_rails_d15c835018 FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -10372,6 +10646,14 @@ ALTER TABLE ONLY clinical_allergies
 
 ALTER TABLE ONLY pd_training_sessions
     ADD CONSTRAINT fk_rails_fa412bd095 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: renal_aki_alerts fk_rails_fae5bb71b3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_aki_alerts
+    ADD CONSTRAINT fk_rails_fae5bb71b3 FOREIGN KEY (hospital_ward_id) REFERENCES hospital_wards(id);
 
 
 --
@@ -10906,6 +11188,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170911133224'),
 ('20170912092135'),
 ('20170920113628'),
+('20171003093347'),
+('20171003111228'),
+('20171003122425'),
 ('20171005081224'),
 ('20171005091202'),
 ('20171009104106');

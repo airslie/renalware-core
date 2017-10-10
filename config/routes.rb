@@ -203,6 +203,7 @@ Renalware::Engine.routes.draw do
         get :search
       end
     end
+    resources :aki_alerts, except: [:new, :create, :destroy]
   end
 
   namespace :system do
