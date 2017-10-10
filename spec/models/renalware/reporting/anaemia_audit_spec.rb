@@ -66,6 +66,9 @@ module Renalware
               avg_fer
               pct_fer_gt_eq_150
               no_on_epo
+              count_mircer
+              count_neo
+              count_ara
             )
           )
         end
@@ -100,7 +103,25 @@ module Renalware
             create_observation(patient: hd_patients[1], description: fer, result: 150)
             create_observation(patient: hd_patients[2], description: fer, result: 205)
 
-            # TODO: EPO ...
+            # hd_patients 1 and 2 have an EPO drug so no_on_epo should eq 2
+            immunosuppressant_drug = create(:drug, :immunosuppressant)
+            hd_patients[0, 2].each do |patient|
+              create(:prescription, patient: patient, drug: immunosuppressant_drug)
+            end
+
+            # hd_patients 1 and 2 also have an a drug starting with Mircer
+            mircera_injection = create(:drug, name: "Mircera Injection")
+            hd_patients[0, 2].each do |patient|
+              create(:prescription, patient: patient, drug: mircera_injection)
+            end
+
+            # hd_patient 3 has a drug starting with Neo
+            neomycin = create(:drug, name: "Neomycin Elixir")
+            create(:prescription, patient: hd_patients[2], drug: neomycin)
+
+            # hd_patient 4 has a drug starting with Ara
+            arachis_oil = create(:drug, name: "Arachis Oil")
+            create(:prescription, patient: hd_patients[3], drug: arachis_oil)
 
             _columns, values = Reporting::GenerateAuditJson.call(audit_view_name)
             expect(values).to eq(
@@ -114,7 +135,10 @@ module Renalware
                   "25.00",  # pct_hgb_gt_eq_13 = 1 = 25%
                   "165.00", # avg_fer = (140 + 150 + 205) / 3 = 165
                   "66.67",  # pct_fer_gt_eq_150 = 2 of 3 = 66.66
-                  0         # no_on_epo
+                  2,        # no_on_epo
+                  2,        # count_mircer
+                  1,        # count_neo
+                  1,        # count_ara
                 ],
                 [
                   "PD",
@@ -125,6 +149,9 @@ module Renalware
                   "0.00",
                   nil,
                   "0.00",
+                  0,
+                  0,
+                  0,
                   0
                 ]
               ]

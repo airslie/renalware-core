@@ -1984,13 +1984,14 @@ CREATE VIEW medication_current_prescriptions AS
     mp.updated_by_id,
     mp.administer_on_hd,
     mp.last_delivery_date,
+    drugs.name AS drug_name,
     drug_types.code AS drug_type_code,
     drug_types.name AS drug_type_name
    FROM ((((medication_prescriptions mp
      FULL JOIN medication_prescription_terminations mpt ON ((mpt.prescription_id = mp.id)))
      JOIN drugs ON ((drugs.id = mp.drug_id)))
-     JOIN drug_types_drugs ON ((drug_types_drugs.drug_id = drugs.id)))
-     JOIN drug_types ON (((drug_types_drugs.drug_type_id = drug_types.id) AND ((mpt.terminated_on IS NULL) OR (mpt.terminated_on > now())))));
+     FULL JOIN drug_types_drugs ON ((drug_types_drugs.drug_id = drugs.id)))
+     FULL JOIN drug_types ON (((drug_types_drugs.drug_type_id = drug_types.id) AND ((mpt.terminated_on IS NULL) OR (mpt.terminated_on > now())))));
 
 
 --
@@ -4153,12 +4154,16 @@ CREATE VIEW reporting_anaemia_audit AS
     round((((count(e6.hgb_gt_eq_13))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_13,
     round(avg(e3.fer), 2) AS avg_fer,
     round((((count(e7.fer_gt_eq_150))::numeric / GREATEST((count(e3.fer))::numeric, 1.0)) * 100.0), 2) AS pct_fer_gt_eq_150,
-    count(e8.epo) AS no_on_epo
-   FROM (((((((( SELECT p.id AS patient_id,
+    count(e9.epo_drug) AS no_on_epo,
+    count(e10.mircer_drug) AS count_mircer,
+    count(e11.neo_drug) AS count_neo,
+    count(e12.ara_drug) AS count_ara
+   FROM (((((((((((( SELECT p.id AS patient_id,
             md.name AS modality_desc
            FROM ((patients p
              JOIN modality_modalities m ON ((m.patient_id = p.id)))
-             JOIN modality_descriptions md ON ((m.description_id = md.id)))) e1
+             JOIN modality_descriptions md ON ((m.description_id = md.id)))
+          WHERE ((m.ended_on IS NULL) OR (m.ended_on > now()))) e1
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS hgb
            FROM pathology_current_observations
           WHERE (((pathology_current_observations.description_code)::text = 'HGB'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
@@ -4173,9 +4178,19 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-     LEFT JOIN LATERAL ( SELECT mcp.id AS epo
+     LEFT JOIN LATERAL ( SELECT mcp.id AS prescription_id,
+            mcp.drug_type_code,
+            mcp.drug_name
            FROM medication_current_prescriptions mcp
-          WHERE (((mcp.drug_type_code)::text = 'immunosuppressant'::text) AND (mcp.patient_id = e1.patient_id))) e8 ON (true))
+          WHERE (mcp.patient_id = e1.patient_id)) e8 ON (true))
+     LEFT JOIN LATERAL ( SELECT e8.drug_name AS epo_drug
+          WHERE ((e8.drug_type_code)::text = 'immunosuppressant'::text)) e9 ON (true))
+     LEFT JOIN LATERAL ( SELECT e8.drug_name AS mircer_drug
+          WHERE ((e8.drug_name)::text ~~ 'Mircer%'::text)) e10 ON (true))
+     LEFT JOIN LATERAL ( SELECT e8.drug_name AS neo_drug
+          WHERE ((e8.drug_name)::text ~~ 'Neo%'::text)) e11 ON (true))
+     LEFT JOIN LATERAL ( SELECT e8.drug_name AS ara_drug
+          WHERE ((e8.drug_name)::text ~~ 'Ara%'::text)) e12 ON (true))
   WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'LCC'::character varying, 'Nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
@@ -11266,6 +11281,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171003122425'),
 ('20171005081224'),
 ('20171005091202'),
-('20171009104106'),
 ('20171005130109'),
-('20171005144505');
+('20171005144505'),
+('20171009104106');
+
+

@@ -65,18 +65,22 @@
 -
   name: Anaemia
   description: ESD/EPO audit
-  materialized_view_name: reporting_anaemia_audit
-  refresh_schedule: "1 0 * * *"
+  view_name: reporting_anaemia_audit
+  materialized: false
+  refresh_schedule:
   display_configuration: >
     { "columnDefs": [
-      { "title": "Modality", "targets": 0, width: "200" },
-      { "title": "Patients", "targets": 1, width: "100" },
-      { "title": "Avg HGB", "targets": 2, width: "100" },
-      { "title": "% HGB ≥ 10", "targets": 4, width: "110" },
-      { "title": "% HGB ≥ 11", "targets": 5, width: "110" },
-      { "title": "% HGB ≥ 13", "targets": 6, width: "110" },
-      { "title": "Avg FER", "targets": 7, width: "100" },
-      { "title": "% FER ≥ 150", "targets": 8, width: "110" },
-      { "title": "No on EPO", "targets": 9, width: "100" }
+      { "title": "Modality", "targets": 0, width: "160" },
+      { "title": "Patients", "targets": 1, width: "80" },
+      { "title": "Avg HGB", "targets": 2, width: "90" },
+      { "title": "% HGB ≥ 10", "targets": 4, width: "100" },
+      { "title": "% HGB ≥ 11", "targets": 5, width: "100" },
+      { "title": "% HGB ≥ 13", "targets": 6, width: "100" },
+      { "title": "Avg FER", "targets": 7, width: "80" },
+      { "title": "% FER ≥ 150", "targets": 8, width: "100" },
+      { "title": "No on EPO", "targets": 9, width: "90" },
+      { "title": "Count Mircer*", "targets": 9, width: "100" },
+      { "title": "Count Neo*", "targets": 9, width: "90" },
+      { "title": "Count Ara*", "targets": 9, width: "90" }
     ]}
 
