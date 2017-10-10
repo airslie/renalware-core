@@ -45,6 +45,10 @@ module Renalware
       update?
     end
 
+    def debug?
+      user_is_super_admin?
+    end
+
     protected
 
     # For each role define e.g. user_is_admin?
