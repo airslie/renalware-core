@@ -1,5 +1,6 @@
 code,name
 en,English
+ot,Other
 aa,Afar
 ab,Abkhazian
 ae,Avestan
@@ -188,3 +189,4 @@ q2,American Sign Language
 q3,Australian Sign Language
 q4,British Sign Language
 q5,Makaton - devised for children and adults with a variety of communication and Learning Disabilities
+un,Unknown
