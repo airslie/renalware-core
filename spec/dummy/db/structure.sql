@@ -948,8 +948,8 @@ CREATE TABLE drug_types (
 --
 
 CREATE TABLE drug_types_drugs (
-    drug_id integer,
-    drug_type_id integer
+    drug_id integer NOT NULL,
+    drug_type_id integer NOT NULL
 );
 
 
@@ -6122,6 +6122,14 @@ ALTER TABLE ONLY directory_people
 
 
 --
+-- Name: drug_types_drugs drug_types_drugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY drug_types_drugs
+    ADD CONSTRAINT drug_types_drugs_pkey PRIMARY KEY (drug_id, drug_type_id);
+
+
+--
 -- Name: drug_types drug_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7423,13 +7431,6 @@ CREATE INDEX index_directory_people_on_updated_by_id ON directory_people USING b
 --
 
 CREATE INDEX index_doctors_practices ON patient_practices_primary_care_physicians USING btree (primary_care_physician_id, practice_id);
-
-
---
--- Name: index_drug_types_drugs_on_drug_id_and_drug_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_drug_types_drugs_on_drug_id_and_drug_type_id ON drug_types_drugs USING btree (drug_id, drug_type_id);
 
 
 --
