@@ -27,5 +27,8 @@ li.link.action
            locals: { patient: patient, link_text: t(".create_alert") }
   = render "renalware/patients/alerts/modal_dialog_placeholder"
 
+- if policy(patient).debug?
+  li.link.action
+    = link_to "Debug: UKRDC XML", api_ukrdc_patient_path(patient)
 = render "renalware/admissions/requests/modal_dialog_placeholder"
 = render "renalware/messaging/internal/messages/modal_dialog_placeholder"
