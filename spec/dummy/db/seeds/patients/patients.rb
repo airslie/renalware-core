@@ -8,6 +8,7 @@ module Renalware
       file_path = Rails.root.join(File.dirname(__FILE__), "patients.csv")
       system_user = SystemUser.find
       demo_nhsno = 1234567890
+      countries = System::Country.all
 
       CSV.foreach(file_path, headers: true) do |row|
         local_patient_id = row["local_patient_id"]
@@ -29,7 +30,7 @@ module Renalware
         address.town = Faker::Address.city
         address.county = Faker::Address.state
         address.postcode = Faker::Address.postcode
-        address.country = Faker::Address.country
+        address.country = countries.sample
         pat.by = system_user
         pat.save!
       end

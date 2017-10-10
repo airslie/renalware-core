@@ -409,12 +409,12 @@ CREATE TABLE addresses (
     postcode character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    country character varying,
     name character varying,
     organisation_name character varying,
     telephone character varying,
     email character varying,
-    street_3 character varying
+    street_3 character varying,
+    country_id integer
 );
 
 
@@ -2043,7 +2043,8 @@ CREATE TABLE medication_routes (
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    rr_code character varying
 );
 
 
@@ -2360,6 +2361,7 @@ CREATE TABLE patients (
     rpv_recorded_by character varying,
     ukrdc_external_id uuid DEFAULT uuid_generate_v4() NOT NULL,
     secure_id character varying DEFAULT generate_patient_secure_id() NOT NULL,
+    country_of_birth_id integer,
     legacy_patient_id integer
 );
 
@@ -2933,7 +2935,8 @@ ALTER SEQUENCE patient_ethnicities_id_seq OWNED BY patient_ethnicities.id;
 
 CREATE TABLE patient_languages (
     id integer NOT NULL,
-    name character varying NOT NULL
+    name character varying NOT NULL,
+    code character varying
 );
 
 
@@ -4389,6 +4392,38 @@ ALTER SEQUENCE snippets_snippets_id_seq OWNED BY snippets_snippets.id;
 
 
 --
+-- Name: system_countries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE system_countries (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    alpha2 character varying NOT NULL,
+    alpha3 character varying NOT NULL,
+    "position" integer
+);
+
+
+--
+-- Name: system_countries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE system_countries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_countries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE system_countries_id_seq OWNED BY system_countries.id;
+
+
+--
 -- Name: system_templates; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4841,7 +4876,9 @@ CREATE TABLE transplant_registration_status_descriptions (
     name character varying,
     "position" integer DEFAULT 0,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    rr_code integer,
+    rr_comment text
 );
 
 
@@ -5794,6 +5831,13 @@ ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regcl
 --
 
 ALTER TABLE ONLY snippets_snippets ALTER COLUMN id SET DEFAULT nextval('snippets_snippets_id_seq'::regclass);
+
+
+--
+-- Name: system_countries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY system_countries ALTER COLUMN id SET DEFAULT nextval('system_countries_id_seq'::regclass);
 
 
 --
@@ -6823,6 +6867,14 @@ ALTER TABLE ONLY schema_migrations
 
 ALTER TABLE ONLY snippets_snippets
     ADD CONSTRAINT snippets_snippets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_countries system_countries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY system_countries
+    ADD CONSTRAINT system_countries_pkey PRIMARY KEY (id);
 
 
 --
@@ -8266,6 +8318,13 @@ CREATE INDEX index_patient_bookmarks_on_patient_id ON patient_bookmarks USING bt
 
 
 --
+-- Name: index_patient_languages_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patient_languages_on_code ON patient_languages USING btree (code);
+
+
+--
 -- Name: index_patient_practices_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8788,6 +8847,34 @@ CREATE INDEX index_snippets_snippets_on_author_id ON snippets_snippets USING btr
 --
 
 CREATE INDEX index_snippets_snippets_on_title ON snippets_snippets USING btree (title);
+
+
+--
+-- Name: index_system_countries_on_alpha2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_system_countries_on_alpha2 ON system_countries USING btree (alpha2);
+
+
+--
+-- Name: index_system_countries_on_alpha3; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_system_countries_on_alpha3 ON system_countries USING btree (alpha3);
+
+
+--
+-- Name: index_system_countries_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_system_countries_on_name ON system_countries USING btree (name);
+
+
+--
+-- Name: index_system_countries_on_position; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_system_countries_on_position ON system_countries USING btree ("position");
 
 
 --
@@ -9673,6 +9760,14 @@ ALTER TABLE ONLY messaging_receipts
 
 
 --
+-- Name: patients fk_rails_53c392b502; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_53c392b502 FOREIGN KEY (country_of_birth_id) REFERENCES system_countries(id);
+
+
+--
 -- Name: admission_requests fk_rails_54b568383c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10366,6 +10461,14 @@ ALTER TABLE ONLY letter_signatures
 
 ALTER TABLE ONLY access_plans
     ADD CONSTRAINT fk_rails_d61e7c4674 FOREIGN KEY (decided_by_id) REFERENCES users(id);
+
+
+--
+-- Name: addresses fk_rails_d873e14e27; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY addresses
+    ADD CONSTRAINT fk_rails_d873e14e27 FOREIGN KEY (country_id) REFERENCES system_countries(id);
 
 
 --
@@ -11188,6 +11291,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170911133224'),
 ('20170912092135'),
 ('20170920113628'),
+('20170925161033'),
+('20170925182738'),
+('20170926081426'),
+('20170926132845'),
+('20171002175804'),
 ('20171003093347'),
 ('20171003111228'),
 ('20171003122425'),

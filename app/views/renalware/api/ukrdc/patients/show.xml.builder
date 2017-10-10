@@ -23,6 +23,7 @@ xml.ukrdc(:PatientRecord, namespace_and_schema) do
   render "observations", builder: xml, patient: patient
   render "allergies", builder: xml, patient: patient
   render "diagnoses", builder: xml, patient: patient
+  render "medications", builder: xml, patient: patient
   render "documents", builder: xml, patient: patient
   render "encounters", builder: xml, patient: patient
   render "program_memberships", builder: xml, patient: patient

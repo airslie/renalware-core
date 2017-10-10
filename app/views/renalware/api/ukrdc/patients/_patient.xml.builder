@@ -2,7 +2,6 @@
 # Things we are not going to include in RW2.0
 # - PersonToContact
 # - Occupation
-# - CountryOfBirth
 #
 xml = builder
 path = "renalware/api/ukrdc/patients" # or "."
@@ -30,7 +29,7 @@ xml.Patient do
 
   xml.BirthTime patient.born_on.to_datetime
 
-  if patient.current_modality_death? && patient.died_on.present?
+  if patient.dead? && patient.died_on.present?
     xml.DeathTime(patient.died_on.to_datetime)
   end
 
@@ -57,9 +56,41 @@ xml.Patient do
     end
   end
 
-  xml.PrimaryLanguage patient.language
+  if patient.language.present?
+    xml.PrimaryLanguage do
+      xml.CodingStandard "NHS_DATA_DICTIONARY_LANGUAGE_CODE" # ISO 639-1 plus braille an sign
+      xml.Code patient.language&.code
+      xml.Description patient.language
+    end
+  end
 
-  if patient.current_modality_death?
+  if patient.contact_details?
+    xml.ContactDetails do
+      if patient.email.present?
+        xml.ContactDetail(use: "NET") do
+          xml.Value patient.email
+        end
+      end
+      if patient.home_telephone.present?
+        xml.ContactDetail(use: "PRN") do
+          xml.Value patient.home_telephone
+        end
+      end
+      if patient.mobile_telephone.present?
+        xml.ContactDetail(use: "PRS") do
+          xml.Value patient.mobile_telephone
+        end
+      end
+    end
+  end
+
+  xml.comment! "Inclusion of CountryOfBirth causes XSD error so temporarily excluded"
+  # Inclusion strangley causes an XSD error
+  # if patient.country_of_birth.present?
+  #   xml.CountryOfBirth patient.country_of_birth.alpha3
+  # end
+
+  if patient.dead?
     xml.Death true
   end
 
@@ -67,4 +98,5 @@ xml.Patient do
   xml.UpdatedOn patient.updated_at&.to_datetime
   xml.ActionCode "A" # A = added/updated. If we are posting this XML isn't only going to be 'A'?
   xml.ExternalId patient.ukrdc_external_id
+
 end

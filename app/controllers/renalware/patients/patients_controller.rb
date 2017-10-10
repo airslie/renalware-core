@@ -22,7 +22,7 @@ module Renalware
       end
 
       def new
-        patient = Patient.new
+        patient = Patient.new.tap(&:build_current_address)
         authorize patient
         render locals: { patient: patient }
       end
@@ -83,10 +83,9 @@ module Renalware
           .merge(by: current_user)
       end
 
-      # rubocop:disable Metrics/MethodLength
       def patient_attributes
         [
-          :nhs_number, :family_name, :given_name, :sex,
+          :nhs_number, :family_name, :given_name, :sex, :country_of_birth_id,
           :ethnicity_id, :born_on, :paediatric_patient_indicator, :cc_on_all_letters,
           :title, :suffix, :marital_status, :telephone1, :telephone2, :email, :religion_id,
           :language_id, :cc_decision_on,
@@ -97,10 +96,9 @@ module Renalware
           current_address_attributes: address_params
         ]
       end
-      # rubocop:enable Metrics/MethodLength
 
       def address_params
-        [:id, :name, :organisation_name, :street_1, :street_2, :street_3, :county, :country,
+        [:id, :name, :organisation_name, :street_1, :street_2, :street_3, :county, :country_id,
           :town, :postcode, :telephone, :email]
       end
 

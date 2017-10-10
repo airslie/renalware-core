@@ -15,19 +15,6 @@ module Renalware
     end
     attribute :diabetes, Diabetes
 
-    # TODO: Check if this is used?
-    class Address < Document::Embedded
-      attribute :name, String
-      attribute :organisation_name, String
-      attribute :street_1, String
-      attribute :street_2, String
-      attribute :street_3, String
-      attribute :town, String
-      attribute :county, String
-      attribute :postcode, String
-      attribute :country, String
-    end
-
     class Referral < Document::Embedded
       attribute :referring_physician_name, String
       attribute :referral_date, Date

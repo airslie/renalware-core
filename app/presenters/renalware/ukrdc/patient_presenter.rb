@@ -6,6 +6,14 @@ module Renalware
       delegate :allergies, to: :clinical_patient
       delegate :clinic_visits, to: :clinics_patient
       delegate :observation_requests, to: :pathology_patient
+      delegate :profile, to: :renal_patient, allow_nil: true
+      delegate :first_seen_on, to: :profile, allow_nil: true
+      alias_attribute :home_telephone, :telephone1
+      alias_attribute :mobile_telephone, :telephone2
+
+      def dead?
+        current_modality_death?
+      end
 
       def smoking_history
         @smoking_history ||= document.history&.smoking&.upcase
@@ -18,8 +26,19 @@ module Renalware
         )
       end
 
+      def current_registration_status_rr_code
+        @current_registration_status_rr_code ||= begin
+          status = transplant_patient.current_registration_status
+          status&.description&.rr_code
+        end
+      end
+
       def hospital_unit_code
         letter_head.site_code
+      end
+
+      def contact_details?
+        email || home_telephone || mobile_telephone
       end
 
       private
@@ -38,6 +57,14 @@ module Renalware
 
       def pathology_patient
         @pathology_patient ||= Renalware::Pathology.cast_patient(__getobj__)
+      end
+
+      def renal_patient
+        @renal_patient ||= Renalware::Renal.cast_patient(__getobj__)
+      end
+
+      def transplant_patient
+        @transplant_patient ||= Transplants::PatientPresenter.new(__getobj__)
       end
     end
   end

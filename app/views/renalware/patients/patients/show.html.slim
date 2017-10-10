@@ -23,9 +23,4 @@
         .columns.medium-6.large-4.xlarge-3
           = render "renalware/patients/patients/show/contact_details", patient: patient
         .columns.medium-6.large-4.xlarge-3
-          article
-            header
-              h2 Current Address
-            = render patient.current_address if patient.current_address
-        .columns.medium-6.large-4.xlarge-3
           = render "renalware/patients/patients/show/referral", patient: patient

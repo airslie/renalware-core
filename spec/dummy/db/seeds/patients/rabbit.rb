@@ -51,7 +51,7 @@ module Renalware
     address.street_1 = "123 South Street"
     address.town = "Toontown"
     address.postcode = "TT1 1HD"
-    address.country = "United Kingdom"
+    address.country = System::Country.find_by(alpha3: "GBR")
 
     rabbit.by = system_user
     rabbit.save!

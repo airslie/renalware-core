@@ -42,7 +42,19 @@ module Renalware
 
       delegate :hospital_centre, to: :hospital_unit, allow_nil: true
 
+      def start_datetime
+        datetime_at(start_time)
+      end
+
+      def stop_datetime
+        datetime_at(end_time)
+      end
+
       private
+
+      def datetime_at(time)
+        Time.zone.parse("#{performed_on.strftime('%F')} #{time.strftime('%T')}")
+      end
 
       def assign_modality
         self.modality_description = patient.modality_description

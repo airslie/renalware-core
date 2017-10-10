@@ -1,10 +1,25 @@
 require "rails_helper"
 
 RSpec.describe "API request for a single UKRDC patient XML document", type: :request do
-  let(:user) { create(:user) }
+  let(:user) { @current_user }
+  let(:algeria) { create(:algeria) }
+  let(:uk) { create(:united_kingdom) }
+  let(:english) { create(:language, :english) }
+  let(:white_british) { create(:ethnicity, :white_british) }
+  let(:patient) do
+    create(
+        :patient,
+        ethnicity: white_british,
+        country_of_birth: uk,
+        language: english,
+        by: user
+      )
+  end
 
-  def validate(document, schema_path, root_element)
-    xsddoc = Nokogiri::XML(File.read(schema_path), schema_path)
+  def validate(xml)
+    document = Nokogiri::XML(xml)
+    xsd_path = File.join(Renalware::Engine.root, "vendor", "xsd", "ukrdc/Schema/UKRDC.xsd")
+    xsddoc = Nokogiri::XML(File.read(xsd_path), xsd_path)
     schema = Nokogiri::XML::Schema.from_document(xsddoc)
     schema.validate(document)
   end
@@ -19,23 +34,53 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
 
   describe "GET #show" do
     it "renders the correct UK RDC XML" do
-      ethnicity = create(:ethnicity)
-      patient = create(:patient, ethnicity: ethnicity)
       patient.document.history.smoking = :ex
       patient.practice = create(:practice)
       patient.primary_care_physician = create(:primary_care_physician)
       patient.update!(by: user)
-      create(:clinic_visit, patient: clinic_patient(patient))
+      create(:clinic_visit, patient: clinic_patient(patient), by: user)
       create(:allergy, patient: clinical_patient(patient), by: user)
+
+      hd_patient = Renalware::HD.cast_patient(patient)
+      create(:hd_closed_session, patient: hd_patient, by: user)
+
+      # So medications elements are triggered
+      create(:prescription, patient: patient, by: user)
 
       get api_ukrdc_patient_path(patient)
 
       expect(response).to be_success
-      document = Nokogiri::XML(response.body)
-      xsd_path = File.join(Renalware::Engine.root, "vendor", "xsd", "ukrdc/Schema/UKRDC.xsd")
-      validate(document, xsd_path, "PatientRecord").each do |error|
-        p error.message
+      validate(response.body).each do |error|
+        puts error.message
         fail
+      end
+    end
+
+    context "when the patient has died" do
+      it "includes first and second cause of death elements" do
+        death_modality_description = create(:modality_description, :death)
+        Renalware::Modalities::ChangePatientModality
+          .new(patient: patient, user: user)
+          .call(description_id: death_modality_description.id, started_on: Time.zone.now)
+
+        patient.first_cause = create(:cause_of_death, code: 11, description: "Abc")
+        patient.second_cause = create(:cause_of_death, code: 12, description: "Xyz")
+        patient.died_on = Time.zone.now
+        patient.save_by!(user)
+
+        expect(patient.reload.current_modality_death?).to be_truthy
+
+        get api_ukrdc_patient_path(patient)
+
+        expect(response).to be_success
+
+        matches = response.body.scan(/<CauseOfDeath>/)
+        expect(matches.length).to eq(2)
+
+        validate(response.body).each do |error|
+          puts error.message
+          fail
+        end
       end
     end
   end

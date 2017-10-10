@@ -31,6 +31,7 @@ module Renalware
     has_one :current_address, as: :addressable, class_name: "Address"
     has_one :summary, class_name: "Patients::Summary"
     belongs_to :ethnicity, class_name: "Patients::Ethnicity"
+    belongs_to :country_of_birth, class_name: "System::Country"
     belongs_to :religion, class_name: "Patients::Religion"
     belongs_to :language, class_name: "Patients::Language"
     has_many :bookmarks, class_name: "Patients::Bookmark"

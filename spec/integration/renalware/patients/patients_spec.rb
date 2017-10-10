@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "Managing patients", type: :request do
   let(:user) { @current_user }
   let(:patient) { create(:patient, by: user) }
+  let(:algeria) { create(:algeria) }
 
   describe "GET new" do
     it "responds with a form" do
@@ -15,7 +16,7 @@ RSpec.describe "Managing patients", type: :request do
   describe "POST create" do
     context "given valid attributes" do
       it "creates a new record" do
-        attributes = attributes_for(:patient)
+        attributes = attributes_for(:patient, country_of_birth_id: algeria.id)
         document = build_document
 
         post patients_path, params: { patient: attributes.merge(document: document) }
@@ -24,6 +25,7 @@ RSpec.describe "Managing patients", type: :request do
         created_patient = Renalware::Patient.find_by(nhs_number: attributes[:nhs_number])
         expect(created_patient).to be_present
 
+        expect(created_patient.country_of_birth).to eq(algeria)
         expect(created_patient.document).to match_document(document)
         expect(created_patient.created_by).to eq(@current_user)
         expect(created_patient.updated_by).to eq(@current_user)
