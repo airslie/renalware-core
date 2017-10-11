@@ -9,6 +9,21 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.0.pre.beta9
+11-10-2017
+
+### Added
+
+- HD Sesssions in UKRDC XML
+- AKI Alert UI
+- Add legacy_patient_id to patients table
+- Bone audit
+- Some seed rationalisation
+- Temporary link on patient screen view UKRDC xml
+
+### Changed
+### Fixed
+
 ## 2.0.0.pre.beta8
 25-09-2017
 
