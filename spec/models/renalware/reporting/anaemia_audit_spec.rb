@@ -58,14 +58,14 @@ module Renalware
           expect(titles).to eq(
             %w(
               modality
-              patient_count
+              count_patients
               avg_hgb
               pct_hgb_gt_eq_10
               pct_hgb_gt_eq_11
               pct_hgb_gt_eq_13
               avg_fer
               pct_fer_gt_eq_150
-              no_on_epo
+              count_epo
               count_mircer
               count_neo
               count_ara

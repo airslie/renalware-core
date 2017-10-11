@@ -4147,23 +4147,43 @@ ALTER SEQUENCE renal_profiles_id_seq OWNED BY renal_profiles.id;
 
 CREATE VIEW reporting_anaemia_audit AS
  SELECT e1.modality_desc AS modality,
-    count(e1.patient_id) AS patient_count,
+    count(e1.patient_id) AS count_patients,
     round(avg(e2.hgb), 2) AS avg_hgb,
     round((((count(e4.hgb_gt_eq_10))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_10,
     round((((count(e5.hgb_gt_eq_11))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_11,
     round((((count(e6.hgb_gt_eq_13))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_13,
     round(avg(e3.fer), 2) AS avg_fer,
     round((((count(e7.fer_gt_eq_150))::numeric / GREATEST((count(e3.fer))::numeric, 1.0)) * 100.0), 2) AS pct_fer_gt_eq_150,
-    count(e9.epo_drug) AS no_on_epo,
-    count(e10.mircer_drug) AS count_mircer,
-    count(e11.neo_drug) AS count_neo,
-    count(e12.ara_drug) AS count_ara
-   FROM (((((((((((( SELECT p.id AS patient_id,
+    (COALESCE(sum(immunosuppressants.ct), (0)::numeric))::integer AS count_epo,
+    (COALESCE(sum(mircer.ct), (0)::numeric))::integer AS count_mircer,
+    (COALESCE(sum(neo.ct), (0)::numeric))::integer AS count_neo,
+    (COALESCE(sum(ara.ct), (0)::numeric))::integer AS count_ara
+   FROM ((((((((((( SELECT p.id AS patient_id,
             md.name AS modality_desc
            FROM ((patients p
              JOIN modality_modalities m ON ((m.patient_id = p.id)))
              JOIN modality_descriptions md ON ((m.description_id = md.id)))
           WHERE ((m.ended_on IS NULL) OR (m.ended_on > now()))) e1
+     FULL JOIN ( SELECT mcp.patient_id,
+            count(DISTINCT mcp.drug_id) AS ct
+           FROM medication_current_prescriptions mcp
+          WHERE ((mcp.drug_type_code)::text = 'immunosuppressant'::text)
+          GROUP BY mcp.patient_id) immunosuppressants ON ((e1.patient_id = immunosuppressants.patient_id)))
+     FULL JOIN ( SELECT mcp.patient_id,
+            count(DISTINCT mcp.drug_id) AS ct
+           FROM medication_current_prescriptions mcp
+          WHERE ((mcp.drug_name)::text ~~ 'Mircer%'::text)
+          GROUP BY mcp.patient_id) mircer ON ((e1.patient_id = mircer.patient_id)))
+     FULL JOIN ( SELECT mcp.patient_id,
+            count(DISTINCT mcp.drug_id) AS ct
+           FROM medication_current_prescriptions mcp
+          WHERE ((mcp.drug_name)::text ~~ 'Neo%'::text)
+          GROUP BY mcp.patient_id) neo ON ((e1.patient_id = neo.patient_id)))
+     FULL JOIN ( SELECT mcp.patient_id,
+            count(DISTINCT mcp.drug_id) AS ct
+           FROM medication_current_prescriptions mcp
+          WHERE ((mcp.drug_name)::text ~~ 'Ara%'::text)
+          GROUP BY mcp.patient_id) ara ON ((e1.patient_id = ara.patient_id)))
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS hgb
            FROM pathology_current_observations
           WHERE (((pathology_current_observations.description_code)::text = 'HGB'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
@@ -4178,19 +4198,6 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-     LEFT JOIN LATERAL ( SELECT mcp.id AS prescription_id,
-            mcp.drug_type_code,
-            mcp.drug_name
-           FROM medication_current_prescriptions mcp
-          WHERE (mcp.patient_id = e1.patient_id)) e8 ON (true))
-     LEFT JOIN LATERAL ( SELECT e8.drug_name AS epo_drug
-          WHERE ((e8.drug_type_code)::text = 'immunosuppressant'::text)) e9 ON (true))
-     LEFT JOIN LATERAL ( SELECT e8.drug_name AS mircer_drug
-          WHERE ((e8.drug_name)::text ~~ 'Mircer%'::text)) e10 ON (true))
-     LEFT JOIN LATERAL ( SELECT e8.drug_name AS neo_drug
-          WHERE ((e8.drug_name)::text ~~ 'Neo%'::text)) e11 ON (true))
-     LEFT JOIN LATERAL ( SELECT e8.drug_name AS ara_drug
-          WHERE ((e8.drug_name)::text ~~ 'Ara%'::text)) e12 ON (true))
   WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'LCC'::character varying, 'Nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 

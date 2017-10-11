@@ -38,12 +38,6 @@ module Renalware
 
       private
 
-      # Takes an array (rows) of arrays (cells) and replaces any nil elements
-      # with an empty string so JS data tables does not baulk with 'nil undefined' error.
-      def replace_nils_with_empty_string(values)
-        values.map{ |row| row.map{ |cell| cell || "" } }
-      end
-
       def audit
         @audit ||= Audit.find(params[:id])
       end
