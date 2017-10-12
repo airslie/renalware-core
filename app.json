@@ -4,6 +4,7 @@
   "website": "http://www.airslie.com/renalware.html",
   "success_url": "/",
   "addons": ["heroku-postgresql:hobby-dev", "sendgrid"],
+  "stack": "heroku-16",
   "env": {
     "DEMO": "1",
     "RACK_ENV": "staging",
