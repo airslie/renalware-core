@@ -45,7 +45,7 @@ ORC|RE|B33J9WXEHF^PCS|09B0099478^LA||CM||||200911111841|||MID^KINGS MIDWIVES||||
 OBR|1|B33J9WXEHF^PCS|09B0099478^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
 OBX|1|TX|WBC^WBC^MB||6.09||||||F|||200911112026||BBKA^Kenneth AMENYAH|
 OBX|2|TX|RBC^RBC^MB||4.00||||||F|||200911112026||BBKA^Kenneth AMENYAH|
-OBX|3|TX|HB^Hb^MB||11.8||||||F|||200911112026||BBKA^Kenneth AMENYAH|
+OBX|3|TX|HGB^Hb^MB||11.8||||||F|||200911112026||BBKA^Kenneth AMENYAH|
 """
     When the message is processed
     Then the HL7 message is recorded
@@ -65,4 +65,4 @@ OBX|3|TX|HB^Hb^MB||11.8||||||F|||200911112026||BBKA^Kenneth AMENYAH|
       | description | result | comment | observed_at               |
       | WBC         | 6.09   |         | 2009-11-11 20:26:00 +0000 |
       | RBC         | 4.00   |         | 2009-11-11 20:26:00 +0000 |
-      | HB          | 11.8   |         | 2009-11-11 20:26:00 +0000 |
+      | HGB          | 11.8   |         | 2009-11-11 20:26:00 +0000 |

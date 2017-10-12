@@ -37,7 +37,7 @@
     { "columnDefs": [
       { "title": "Unit", "targets": 0, width: "300" },
       { "title": "No. patients", "targets": 1, width: "120" },
-      { "title": "% HB > 100", "targets": 2, width: "120" },
+      { "title": "% HGB > 100", "targets": 2, width: "120" },
       { "title": "% URR > 65", "targets": 3, width: "120" },
       { "title": "% Phosphate < 1.8", "targets": 4, width: "200" },
       { "title": "% w/fistula or graft", "targets": 5, width: "200" },
@@ -61,5 +61,26 @@
       { "title": "Avg PHOS", "targets": 7, width: "100" },
       { "title": "Max PHOS", "targets": 8, width: "100" },
       { "title": "% PHOS < 1.8", "targets": 8, width: "110" }
+    ]}
+-
+  name: Anaemia
+  description: ESD/EPO audit
+  view_name: reporting_anaemia_audit
+  materialized: false
+  refresh_schedule:
+  display_configuration: >
+    { "columnDefs": [
+      { "title": "Modality", "targets": 0, width: "160" },
+      { "title": "Patients", "targets": 1, width: "80" },
+      { "title": "Avg HGB", "targets": 2, width: "90" },
+      { "title": "% HGB ≥ 10", "targets": 4, width: "100" },
+      { "title": "% HGB ≥ 11", "targets": 5, width: "100" },
+      { "title": "% HGB ≥ 13", "targets": 6, width: "100" },
+      { "title": "Avg FER", "targets": 7, width: "80" },
+      { "title": "% FER ≥ 150", "targets": 8, width: "100" },
+      { "title": "No on EPO", "targets": 9, width: "90" },
+      { "title": "Count Mircer*", "targets": 9, width: "100" },
+      { "title": "Count Neo*", "targets": 9, width: "90" },
+      { "title": "Count Ara*", "targets": 9, width: "90" }
     ]}
 

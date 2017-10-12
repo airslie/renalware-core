@@ -8,7 +8,7 @@ module Renalware
 
       def self.available_audit_materialized_views
         result = connection.execute("SELECT oid::regclass::text FROM pg_class
-                                     WHERE  relkind in( 'm', 'v') and relname like 'reporting_%';")
+                                     WHERE  relkind in ('m', 'v') and relname like 'reporting_%';")
         result.values.flatten
       end
     end
