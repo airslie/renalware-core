@@ -76,6 +76,12 @@ Renalware::Engine.routes.draw do
     end
   end
 
+  namespace :research do
+    resources :studies, except: :show do
+      resources :participants, controller: :study_participants
+    end
+  end
+
   resources :snippets, controller: "snippets/snippets", except: :show do
     resources :snippet_clones,
               controller: "snippets/snippet_clones",

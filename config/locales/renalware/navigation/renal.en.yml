@@ -13,6 +13,7 @@ en:
         esa_prescriptions: ESA Patients
         audits: Audits
         aki_alerts: AKI Alerts
+        studies: Clinical Studies
       mdms:
         menu_title: MDMs
         hd: HD

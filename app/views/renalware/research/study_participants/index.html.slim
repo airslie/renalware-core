@@ -1,0 +1,25 @@
+= content_for(:actions) do
+  = link_to("Add",
+            new_research_study_participant_path,
+            id: "add-study-participants",
+            class: :button,
+            data: { "reveal-id" => "study-participant-modal", "reveal-ajax" => "true" })
+
+= within_admin_layout(\
+  title: "Participants",
+  breadcrumbs: [\
+    breadcrumb_for("Clinical Studies", research_studies_path),
+    breadcrumb_for(study.code, edit_research_study_path(study))\
+  ]) do
+
+  - if study.description.present?
+    p.panel.radius.compact
+      = "Description: #{study.description}"
+      br
+      = "Started on: #{l(study.started_on)}"
+      br
+      = "Leader: #{study.leader}"
+
+  = render "table", study: study, participants: participants
+
+  #study-participant-modal.reveal-modal.small(data-reveal)

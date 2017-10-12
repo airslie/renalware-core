@@ -1,0 +1,46 @@
+ruby:
+  url = if participant.new_record?
+          research_study_participants_path(participant.study)
+        else
+          research_study_participant_path(participant.study, participant)
+        end
+.modal
+  .modal__header
+    h2= participant.persisted? ? "Edit patient" : "Add Patient"
+    = render "renalware/shared/modal_close_link"
+
+  .modal__body
+    = render "renalware/shared/errors", model: participant
+
+    = simple_form_for(participant,
+                      url: url,
+                      remote: true,
+                      html: { autocomplete: "off"},
+                      wrapper: :horizontal_form) do |f|
+      - if participant.persisted?
+        h5= participant.patient.to_s(:long)
+      - else
+        = f.input :participant_id,
+                      collection: [],
+                      input_html: {\
+                        id: "patient-ajax-search",
+                        class: "patient-id-select2",
+                        data: { "ajax--url" => search_patients_path(format: :json),
+                                placeholder: "Type 3 or more characters" }\
+                      }
+
+      =f.input :joined_on, as: :date_picker
+      =f.input :left_on, as: :date_picker
+
+      = f.submit "Add", class: :button
+      span= " or "
+      =link_to "Cancel",
+               "#",
+               "aria-label" => "Close",
+                class: "reveal-modal-close"
+
+  .modal__footer
+
+javascript:
+  $(document).ready(Renalware.Research.init);
+
