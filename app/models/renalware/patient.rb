@@ -11,7 +11,7 @@ module Renalware
     extend Enumerize
     extend FriendlyId
 
-    # Out use of has_secure_token here ensures patient.secure_id is populated with a 24 char
+    # Our use of has_secure_token here ensures patient.secure_id is populated with a 24 char
     # base58 token which is used in urls anywhere a patient is referenced, in order to obfuscate
     # their database id. Note however that we also lean on a PG function
     # (generate_patient_secure_id()) which will generate a new base58 patient secure_id if a
