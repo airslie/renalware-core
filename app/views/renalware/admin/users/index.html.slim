@@ -20,7 +20,7 @@
       th.col-width-tiny Approved
 
     tbody
-      - @users.each do |user|
+      - users.each do |user|
         = content_tag_for(:tr, user) do
           td= link_to "Edit", edit_admin_user_path(user) if policy(user).update?
           td= user.id
@@ -30,3 +30,5 @@
           td= user.telephone
           td= l user.created_at
           td= user.approved?
+
+  = paginate users

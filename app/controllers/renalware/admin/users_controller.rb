@@ -1,11 +1,12 @@
 module Renalware
   class Admin::UsersController < BaseController
+    include Renalware::Concerns::Pageable
 
     def index
-      @search = User.search(params[:q])
-      @users = @search.result(distinct: true)
-
-      authorize @users
+      search = User.search(params[:q])
+      users = search.result(distinct: true).page(page).per(per_page)
+      authorize users
+      render locals: { users: users }
     end
 
     def edit
