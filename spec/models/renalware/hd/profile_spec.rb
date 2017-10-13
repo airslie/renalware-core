@@ -8,6 +8,7 @@ module Renalware
       it { is_expected.to respond_to(:active) }
       it { is_expected.to respond_to(:deactivated_at) }
       it { is_expected.to belong_to(:patient).touch(true) }
+      it { is_expected.to belong_to(:dialysate) }
 
       context "when schedule is other" do
         let(:profile) { Profile.new(schedule: :other) }

@@ -115,7 +115,7 @@ module Renalware
 
       def attributes
         [:performed_on, :start_time, :end_time,
-         :hospital_unit_id, :notes,
+         :hospital_unit_id, :notes, :dialysate_id,
          :signed_on_by_id, :signed_off_by_id, :type,
          prescription_administrations_attributes: [
            :id, :hd_session_id, :prescription_id, :administered, :notes

@@ -7,6 +7,7 @@ module Renalware
   start_times = ["13:00", "13:15", "13:30"]
   end_times = ["15:30", "15:45", "16:00"]
   dates = (1..30).to_a
+  dialysate_id = HD::Dialysate.first.id
 
   # Ongoing/not-yet signed off sessions
   20.times do
@@ -36,7 +37,6 @@ module Renalware
       single_needle: "no",
       lines_reversed: "no",
       fistula_plus_line: "no",
-      dialysis_fluid_used: "a7",
       is_access_first_use: "no"
     },
     dialysis: {
@@ -85,7 +85,8 @@ module Renalware
       signed_on_by: users.sample,
       signed_off_by: users.sample,
       by: users.sample,
-      document: session_document
+      document: session_document,
+      dialysate_id: dialysate_id
     )
   end
 end

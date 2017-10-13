@@ -41,6 +41,7 @@ module Renalware
           profile = nil
           #Assign an HD profile -- NB could be further randomised
           profile = HD::Profile.find_or_initialize_by(patient: patient)
+          profile.dialysate = HD::Dialysate.first
           profile.attributes = {
             by: kch_doc,
             hospital_unit: Hospitals::Unit.hd_sites.sample,
@@ -56,7 +57,6 @@ module Renalware
                 cannulation_type: "Buttonhole",
                 needle_size: "44",
                 single_needle: :yes,
-                dialysate: :a7,
                 flow_rate: rates.sample,
                 blood_flow: flows.sample,
                 dialyser: "FX CorDiax 120",

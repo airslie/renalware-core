@@ -22,7 +22,6 @@ module Renalware
         attribute :single_needle, Document::Enum, enums: %i(yes no), default: :no
         attribute :lines_reversed, Document::Enum, enums: %i(yes no), default: :no
         attribute :machine_no
-        attribute :dialysis_fluid_used, Document::Enum
       end
       attribute :info, Info
 

@@ -11,6 +11,7 @@ en:
         end_time: Session End Time
         hd_type: HD Type
         modality_description: Modality
+        dialysate: Dialysis Solution Used
   activemodel:
     attributes:
       renalware/hd/session/dna/document:
@@ -25,7 +26,6 @@ en:
         lines_reversed: "Lines Reversed?"
         had_blood_transfusion: "Had blood transfusion?"
         machine_no: Machine No
-        dialysis_fluid_used: Dialysis Solution Used
       renalware/hd/session_document/observations:
         weight: Weight (kg)
         weight_measured: Weight taken
@@ -89,12 +89,6 @@ en:
               invalid_number: Please enter a number with up to 1 decimal place, for example 20 or 20.1
 
   enumerize:
-    renalware/hd/session_document/info:
-      dialysis_fluid_used:
-        a7: Fresenius A7
-        a10: Fresenius A10
-        a17: Fresenius A17
-        a27: Fresenius A27
     renalware/hd/session_document/observations:
       weight_measured:
         "yes": "Yes"

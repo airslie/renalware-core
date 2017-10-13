@@ -15,8 +15,7 @@ xml.Treatment do
     xml.HDP01 "Times per week - to confirm"
     xml.HDP02 session.duration
     xml.HDP03 session.document.dialysis.flow_rate
-    xml.comment! "HDP04 Sodium in Dialysate - to follow."
-    xml.HDP04 ""
+    xml.HDP04 session&.dialysate&.sodium_content
     xml.QBL05 session.access_type
     xml.QBL06 ""
     xml.comment! "QBL06 HD Shared Care - not implemented yet"

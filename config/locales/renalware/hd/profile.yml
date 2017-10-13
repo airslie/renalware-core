@@ -13,6 +13,7 @@ en:
         hospital_centre: Hospital Centre
         created_at: Started
         deactivated_at: Stopped
+        dialysate: Dialysis Solution
   activemodel:
     attributes:
       renalware/hd/profile_document/dialysis:
@@ -20,7 +21,6 @@ en:
         cannulation_type: Cannulation Type
         needle_size: Needle Size
         single_needle: Single Needle?
-        dialysate: Dialysis Solution
         flow_rate: Solution Flow Rate
         blood_flow: Blood Flow
         has_sodium_profiling: Has Sodium Profiling?
@@ -57,11 +57,6 @@ en:
         hd: HD
         hdf_pre: HDF-PRE
         hdf_post: HDF-POST
-      dialysate:
-        a7: Fresenius A7
-        a10: Fresenius A10
-        a17: Fresenius A17
-        a27: Fresenius A27
 
     renalware/hd/profile_document/transport:
       type:

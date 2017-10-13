@@ -34,7 +34,7 @@ module World
             "access_side": "right", "access_type": "Tunnelled subclav",
             "access_type_abbreviation": "TLN LS",
             "single_needle": "no", "lines_reversed": "no", "fistula_plus_line": "no",
-            "dialysis_fluid_used": "a10", "is_access_first_use": "no"},
+            "is_access_first_use": "no"},
              "dialysis": {"flow_rate": 200, "blood_flow": 150,
              "machine_ktv": 1.0, "machine_urr": 1, "fluid_removed": 1.0, "venous_pressure": 1,
              "litres_processed": 1.0, "arterial_pressure": 1}, "complications":
@@ -51,6 +51,7 @@ module World
         valid_open_session_attributes(patient).merge(
           {
             end_time: "23:59",
+            dialysate_id: Renalware::HD::Dialysate.first,
             document: JSON.parse(json)
           }
         )
@@ -79,6 +80,7 @@ module World
             by: user,
             signed_off_by: signed_off_by,
             signed_off_at: Time.zone.now,
+            dialysate: FactoryGirl.create(:hd_dialysate),
             end_time: attrs[:start_time] + 1.hour
           )
         )

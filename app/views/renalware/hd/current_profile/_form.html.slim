@@ -62,8 +62,8 @@ ruby:
         = fcm.input :single_needle,
                     as: :inline_radio_buttons,
                     wrapper: :horizontal_medium
-        = fcm.input :dialysate,
-                    wrapper: :horizontal_small
+        = f.association :dialysate,
+                        wrapper: :horizontal_small
         = fcm.input :flow_rate,
                     collection: fcm.object.class.flow_rates,
                     wrapper: :horizontal_tiny

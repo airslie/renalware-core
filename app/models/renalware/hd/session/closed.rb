@@ -2,8 +2,8 @@ require_dependency "renalware/hd"
 require_dependency "renalware/patients/hdf_presence_validator"
 require "document/base"
 
-# This Closed (state) Session adds validation standard HD::Session to enforce the presence of
-# most fields.
+# This Closed (state) Session adds validation to the standard HD::Session in order
+# to enforce the presence of most fields.
 module Renalware
   module HD
     class Session::Closed < Session
@@ -13,6 +13,7 @@ module Renalware
       validates :signed_off_by, presence: true
       validates :end_time, presence: true
       validates :signed_off_at, presence: true
+      validates :dialysate, presence: true
 
       def self.policy_class
         ClosedSessionPolicy

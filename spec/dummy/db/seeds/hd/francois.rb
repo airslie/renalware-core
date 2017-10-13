@@ -30,6 +30,7 @@ module Renalware
   profile = nil
   log "Assign an HD profile to Francois RABBIT" do
     profile = HD::Profile.find_or_initialize_by(patient: patient)
+    profile.dialysate = HD::Dialysate.first
     profile.attributes = {
       by: User.first,
       hospital_unit: Hospitals::Unit.hd_sites.first,
@@ -45,7 +46,6 @@ module Renalware
           cannulation_type: "Buttonhole",
           needle_size: "44",
           single_needle: :yes,
-          dialysate: :a7,
           flow_rate: 300,
           blood_flow: 400,
           dialyser: "FX CorDiax 120",
@@ -100,6 +100,7 @@ module Renalware
     users = User.limit(3).to_a
     start_times = ["13:00", "13:15", "13:30"]
     end_times = ["15:30", "15:45", "16:00"]
+    dialysate_id = HD::Dialysate.first.id
 
     def self.session_document
       {
@@ -113,7 +114,6 @@ module Renalware
           single_needle: "no",
           lines_reversed: "no",
           fistula_plus_line: "no",
-          dialysis_fluid_used: "a10",
           is_access_first_use: "no"
         },
         dialysis: {
@@ -190,6 +190,7 @@ module Renalware
           signed_off_by: users.sample,
           by: users.sample,
           document: session_document,
+          dialysate_id: dialysate_id,
           dry_weight_id: dry_weight.id,
           profile_id: profile.id
         )

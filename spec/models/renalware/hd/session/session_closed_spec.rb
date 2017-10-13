@@ -7,6 +7,7 @@ module Renalware
         it { is_expected.to validate_presence_of(:signed_off_by) }
         it { is_expected.to validate_presence_of(:end_time) }
         it { is_expected.to validate_presence_of(:signed_off_at) }
+        it { is_expected.to validate_presence_of(:dialysate) }
 
         it { is_expected.to belong_to(:profile) }
         it { is_expected.to belong_to(:dry_weight) }

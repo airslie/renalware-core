@@ -103,7 +103,8 @@ They all share the password `renalware`
 
 ## Running tests
 
-Install PhantomJS if you don't have it already (check with `phantomjs -v`):
+Install PhantomJS if you don't have it already (check with `phantomjs -v`).
+Download from [here](http://phantomjs.org/download.html) of follow these instructions
 
     wget -O /tmp/phantomjs.tar.bz2 http://airslie-public.s3.amazonaws.com/phantomjs-2.1.1-linux-x86_64.tar.bz2
     tar -xjf /tmp/phantomjs.tar.bz2 -C /tmp
