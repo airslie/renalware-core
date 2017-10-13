@@ -11,15 +11,19 @@ module Renalware
     extend Enumerize
     extend FriendlyId
 
-    # Our use of has_secure_token here ensures patient.secure_id is populated with a 24 char
-    # base58 token which is used in urls anywhere a patient is referenced, in order to obfuscate
-    # their database id. Note however that we also lean on a PG function
-    # (generate_patient_secure_id()) which will generate a new base58 patient secure_id if a
-    # patient record is created _outside_ of rails (for example during data migration).
-    # The PG function is only invoked at the SQL level to provide a default if none exists when a
-    #  patient created.
-    has_secure_token :secure_id
+    # Before creation generate a UUID to use in urls with friendly_id (i.e. in #to_param)
+    # Note if inserting directly into the database (bypassing Rails) this will still work as there
+    # is a default new uuid value on the secure_id column
+    before_create { self.secure_id ||= SecureRandom.uuid }
     friendly_id :secure_id, use: [:finders]
+
+    # For compactness in urls, remove the dashes, so that
+    #  a12d9a8e-9cc9-4fbe-88dd-2d1c983ea04f
+    # becomes
+    #  a12d9a8e9cc94fbe88dd2d1c983ea04f
+    def secure_id
+      @secure_id_without_dashes ||= super&.gsub("-", "")
+    end
 
     enumerize :marital_status, in: %i(married single divorced widowed)
 
