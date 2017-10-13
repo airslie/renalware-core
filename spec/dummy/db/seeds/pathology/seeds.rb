@@ -1,3 +1,6 @@
+require_relative "./pathology_observation_descriptions"
+require_relative "./pathology_labs"
+require_relative "./pathology_request_descriptions"
 require_relative "./requests_drug_categories"
 require_relative "./requests_drugs_drug_categories"
 require_relative "./request_algorithm_global_rule_sets"
