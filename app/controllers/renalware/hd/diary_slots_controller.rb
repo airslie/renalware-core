@@ -26,19 +26,17 @@ module Renalware
         render locals: locals_for(slot), layout: false
       end
 
-      # rubocop:disable Metrics/AbcSize
       def create
-        slot = current_diary.slots.new(slot_params)
+        diary = Diary.find(params[:diary_id])
+        slot = diary.slots.new(slot_params)
         slot.patient_id = posted_patient_id
         authorize slot
         if slot.save_by(current_user)
-          render locals: { diary: current_diary, slot: current_diary.decorate_slot(slot) }
+          render locals: { diary: diary, slot: diary.decorate_slot(slot) }
         else
-          slot.diary = weekly_diary
-          render :new, locals: locals_for(slot), layout: false
+          render :new, locals: { slot: DiarySlotPresenter.new(slot) }, layout: false
         end
       end
-      # rubocop:enable Metrics/AbcSize
 
       # GET .js refresh a slot in a diary
       # see show.js.erb where we refresh the slot in the diary
@@ -52,7 +50,7 @@ module Renalware
       def show
         authorize DiarySlot, :show?
         slot = weekly_then_master_then_empty_slot
-        render layout: false, locals: { slot: slot }
+        render layout: false, locals: { slot: DiarySlotPresenter.new(slot) }
       end
 
       def edit
@@ -102,16 +100,16 @@ module Renalware
         slot && weekly_diary.decorate_slot(slot)
       end
 
-      def master_slot_or_empty_weekly_slot
-        new_slot = build_slot
-        master_slot = master_diary.slot_for(
-          new_slot.diurnal_period_code_id,
-          new_slot.station_id,
-          new_slot.day_of_week
-        )
-        master_slot || build_null_slot_for(new_slot)
-        build_empty_weekly_slot
-      end
+      # def master_slot_or_empty_weekly_slot
+      #   new_slot = build_slot
+      #   master_slot = master_diary.slot_for(
+      #     new_slot.diurnal_period_code_id,
+      #     new_slot.station_id,
+      #     new_slot.day_of_week
+      #   )
+      #   master_slot || build_null_slot_for(new_slot)
+      #   build_empty_weekly_slot
+      # end
 
       # Used for searching etc
       def build_empty_weekly_slot
@@ -122,30 +120,30 @@ module Renalware
         )
       end
 
-      def corresponding_master_slot_for(weekly_slot)
-        if slot.on_master_diary?
-          # The slot we destroyed was a slot in the master diary so we will render an empty slot
-          build_null_slot_for(weekly_slot)
-        else
-          # The slot we destroyed was a slot in the weekly diary so we try and get the underlying
-          # master slot if there is one. If not, render an empty slot
-          master_slot = master_diary.slot_for(
-            weekly_slot.diurnal_period_code_id,
-            weekly_slot.station_id,
-            weekly_slot.day_of_week
-          )
-          master_slot || build_null_slot_for(weekly_slot)
-        end
-      end
+      # def corresponding_master_slot_for(weekly_slot)
+      #   if slot.on_master_diary?
+      #     # The slot we destroyed was a slot in the master diary so we will render an empty slot
+      #     build_null_slot_for(weekly_slot)
+      #   else
+      #     # The slot we destroyed was a slot in the weekly diary so we try and get the underlying
+      #     # master slot if there is one. If not, render an empty slot
+      #     master_slot = master_diary.slot_for(
+      #       weekly_slot.diurnal_period_code_id,
+      #       weekly_slot.station_id,
+      #       weekly_slot.day_of_week
+      #     )
+      #     master_slot || build_null_slot_for(weekly_slot)
+      #   end
+      # end
 
-      def build_null_slot_for(weekly_slot)
-        NullSlot.new(
-          weekly_diary.id,
-          weekly_slot.diurnal_period_code_id,
-          weekly_slot.station_id,
-          weekly_slot.day_of_week
-        )
-      end
+      # def build_null_slot_for(weekly_slot)
+      #   NullSlot.new(
+      #     weekly_diary.id,
+      #     weekly_slot.diurnal_period_code_id,
+      #     weekly_slot.station_id,
+      #     weekly_slot.day_of_week
+      #   )
+      # end
 
       def slot
         @slot ||= HD::DiarySlot.find(params[:id])
@@ -160,9 +158,9 @@ module Renalware
         weekly_diary.master_diary
       end
 
-      def current_diary
-        @current_diary ||= add_to_master_diary? ? master_diary : weekly_diary
-      end
+      # def current_diary
+      #   @current_diary ||= add_to_master_diary? ? master_diary : weekly_diary
+      # end
 
       def locals_for(slot)
         {

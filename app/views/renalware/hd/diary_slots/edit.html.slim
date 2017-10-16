@@ -9,7 +9,6 @@
     p.which-diary= slot.description
 
     /- unless slot.diary.master?
-    ="#{slot.patient} id in this sot for this week only"
     = link_to "Remove them",
             hd_diary_slot_path(slot.diary, slot),
             method: :delete,

@@ -3,6 +3,7 @@
 
 = simple_form_for(slot,
                   url: hd_diary_slots_path(slot.diary.id),
+                  html: { id: "slot-form", autocomplete: "off" },
                   remote: true,
                   method: :post,
                   wrapper: :horizontal_form) do |f|
@@ -50,9 +51,9 @@
                       data: { "ajax--url" => search_patients_path(format: :json) }\
                     }
 
-  =f.submit "Add for this week only", class: "button save"
+  =f.submit "Add for this week only", class: "button save weekly"
   | &nbsp;
-  =f.submit "Add to this and all future weeks", class: "button secondary", name: "master"
+  =f.submit "Add to this and all future weeks", class: "button secondary master", name: "master"
 
   = blank_separator
   =link_to "Cancel",
@@ -62,6 +63,18 @@
 
 javascript:
   $(document).ready(function() {
+
+    // 1. add handler for button if master set action
+    $('input.master[type=submit]').click(function (e) {
+      var master_slots_url = $(".diary").data("master-diary-slots-path");
+      $("#slot-form").attr('action', master_slots_url);
+    });
+
+    $('input.weekly[type=submit]').click(function (e) {
+      var weekly_slots_url = $(".diary").data("weekly-diary-slots-path");
+      $("#slot-form").attr('action', weekly_slots_url);
+    });
+
     refreshSelect2s("#{slot.change_type}");
 
     function resizeSelect2ToFitModalWidth(container) {
