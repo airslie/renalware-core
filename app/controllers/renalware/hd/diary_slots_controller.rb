@@ -129,11 +129,12 @@ module Renalware
           .require(:hd_diary_slot)
           .permit(
             :master_slot,
-            :patient_id,
             :day_of_week,
             :diurnal_period_code_id,
             :station_id,
-            :target_diary_id
+            :target_diary_id,
+            :change_type,
+            patient_id: []
             )
       end
     end

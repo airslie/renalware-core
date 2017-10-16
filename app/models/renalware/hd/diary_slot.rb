@@ -22,8 +22,8 @@ module Renalware
       #
       public :to_ary
 
-      attr_accessor :patient_idx
-      attr_accessor :yay
+      # Virtual attribute used on a form to determine what action as preformed on the slot
+      attr_accessor :change_type
 
       include Accountable
       belongs_to :diary, class_name: "Renalware::HD::Diary"

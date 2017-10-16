@@ -12,7 +12,7 @@
     = render "renalware/shared/errors", model: slot
 
     - form_id = SecureRandom.hex(16)
-    - hospital_unit = Renalware::Hospitals::Unit.find(slot.diary.hospital_unit_id)
+
     = simple_form_for(slot,
                       html: { id: form_id },
                       url: hd_diary_slots_path(slot.diary.id),
@@ -26,46 +26,41 @@
 
       .row
         .col-small-4
-          = f.input :yay, collection: [:all], label: "Search"
-        .col-small-12
+          = f.input :change_type,
+                    input_html: { id: :change_type },
+                    collection: slot.patient_search_options,
+                    include_blank: false,
+                    label: "Search"
+        .col-small-8
 
-      .ui-tabs-simple
-        #tabs
-          ul
-            li
-              a(href="#tabs-1")
-                b= "#{slot.day_of_week_name} #{slot.diurnal_period_code&.to_s&.upcase} "
-                | patients
-            li
-              a(href="#tabs-2")
-                b= "#{slot.day_of_week_name} "
-                | patients
+          / We will post 3 patient_id values in hd_diary_slot[patient_id][]
+          / The value selected in in change_type above will detemine which one to choose.
+          #patient_select2s
+            #dialysing_on_day_and_period
+              =f.input :patient_id,
+                       collection: slot.patients_preferring_to_dialyse_today_in_this_period,
+                       label_method: ->(item){ item.to_s(:long) },
+                       value_method: :id,
+                       input_html: { class: "searchable_select",
+                                     id: "patient_id1",
+                                     name: "hd_diary_slot[patient_id][]"}
 
-            li
-              a(href="#tabs-3")
-                | All
-                b= " #{hospital_unit&.unit_code} "
-                | HD patients
-
-          #tabs-1
-            =f.input :patient_idx,
-                     collection: slot.patients_preferring_to_dialyse_today_in_this_period,
-                     label_method: ->(item){ item.to_s(:long) },
-                     value_method: :id,
-                     input_html: { class: "searchable_select", id: "patient_id1"}
-          #tabs-2
-            =f.input :patient_id,
-                     collection: slot.patients_preferring_to_dialyse_today,
-                     label_method: ->(item){ item.to_s(:long) },
-                     value_method: :id,
-                     input_html: { class: "searchable_select", id: "patient_id2"}
-          #tabs-3
-            = f.input :patient_id,
-                      collection: [],
-                      input_html: {\
-                        id: "patient-ajax-search",
-                        data: { "ajax--url" => search_patients_path(format: :json) }\
-                      }
+            #dialysing_on_day(style="display:none")
+              =f.input :patient_id,
+                       collection: slot.patients_preferring_to_dialyse_today,
+                       label_method: ->(item){ item.to_s(:long) },
+                       value_method: :id,
+                       input_html: { class: "searchable_select",
+                                     id: "patient_id2",
+                                     name: "hd_diary_slot[patient_id][]"}
+            #dialysing_at_unit(style="display:none")
+              = f.input :patient_id,
+                        collection: [],
+                        input_html: {\
+                          id: "patient-ajax-search",
+                          name: "hd_diary_slot[patient_id][]",
+                          data: { "ajax--url" => search_patients_path(format: :json) }\
+                        }
 
       =f.submit "Add for this week only",
                   class: "button save",
@@ -81,3 +76,14 @@
                "aria-label" => "Close",
                class: "reveal-modal-close"
 
+javascript:
+  $(document).ready(function() {
+    $("#change_type").on("change", function() {
+      change_type = $(this).val(); // e.g. "dialysing_at_unit"
+      // Hide any showing patient select2's then display just the one corresponding to
+      // what was selected in change_type. The value in the change_type option
+      // will exist as an html id, wrapping the patient select2s
+      $("#patient_select2s > div").hide();
+      $("#patient_select2s > #" + change_type).show();
+    })
+  });
