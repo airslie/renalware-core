@@ -119,7 +119,7 @@ module Renalware
 
       def locals_for(slot)
         {
-          slot: slot,
+          slot: DiarySlotPresenter.new(slot),
           patients: potential_patients_for_current_slot
         }
       end

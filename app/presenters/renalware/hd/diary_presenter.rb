@@ -56,8 +56,10 @@ module Renalware
       end
 
       def stations
-        @stations ||= Station.for_unit(hospital_unit_id).ordered.map do |station|
-          StationPresenter.new(station)
+        @stations ||= begin
+          Station.includes(:location).for_unit(hospital_unit_id).ordered.map do |station|
+            StationPresenter.new(station)
+          end
         end
       end
 

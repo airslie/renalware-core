@@ -3,27 +3,81 @@
 / - and a format of html (would otherwise default to js)
 / We render the modal content html here and foundation will display the modal itself.
 
-h2 Add patient
+.modal
+  .modal__header
+    h2 Add patient
+    = render "renalware/shared/modal_close_link"
 
-.ui-tabs-simple
-  #tabs
-    ul
-      li
-        a(href="#tabs-1")Patients scheduled here
-      li
-        a(href="#tabs-2")All patients
+  .modal__body
+    = render "renalware/shared/errors", model: slot
 
-    #tabs-1
-      = render "new_tab",
-        slot: slot,
-        patients: patients,
-        weekly_diary: slot.diary,
-        scheduled_only: true
-    #tabs-2
-      = render "new_tab",
-        slot: slot,
-        patients: patients,
-        weekly_diary: slot.diary,
-        scheduled_only: false
-br
+    - form_id = SecureRandom.hex(16)
+    - hospital_unit = Renalware::Hospitals::Unit.find(slot.diary.hospital_unit_id)
+    = simple_form_for(slot,
+                      html: { id: form_id },
+                      url: hd_diary_slots_path(slot.diary.id),
+                      remote: true,
+                      method: :post,
+                      wrapper: :horizontal_form) do |f|
+
+      =f.input :station_id, as: :hidden
+      =f.input :diurnal_period_code_id, as: :hidden
+      =f.input :day_of_week, as: :hidden
+
+      .row
+        .col-small-4
+          = f.input :yay, collection: [:all], label: "Search"
+        .col-small-12
+
+      .ui-tabs-simple
+        #tabs
+          ul
+            li
+              a(href="#tabs-1")
+                b= "#{slot.day_of_week_name} #{slot.diurnal_period_code&.to_s&.upcase} "
+                | patients
+            li
+              a(href="#tabs-2")
+                b= "#{slot.day_of_week_name} "
+                | patients
+
+            li
+              a(href="#tabs-3")
+                | All
+                b= " #{hospital_unit&.unit_code} "
+                | HD patients
+
+          #tabs-1
+            =f.input :patient_idx,
+                     collection: slot.patients_preferring_to_dialyse_today_in_this_period,
+                     label_method: ->(item){ item.to_s(:long) },
+                     value_method: :id,
+                     input_html: { class: "searchable_select", id: "patient_id1"}
+          #tabs-2
+            =f.input :patient_id,
+                     collection: slot.patients_preferring_to_dialyse_today,
+                     label_method: ->(item){ item.to_s(:long) },
+                     value_method: :id,
+                     input_html: { class: "searchable_select", id: "patient_id2"}
+          #tabs-3
+            = f.input :patient_id,
+                      collection: [],
+                      input_html: {\
+                        id: "patient-ajax-search",
+                        data: { "ajax--url" => search_patients_path(format: :json) }\
+                      }
+
+      =f.submit "Add for this week only",
+                  class: "button save",
+                  name: "add_to_weekly_diary"
+      | &nbsp;
+      =f.submit "Add to this and all future weeks",
+                class: "button secondary",
+                  name: "add_to_master_diary"
+
+      = blank_separator
+      =link_to "Cancel",
+               "#",
+               "aria-label" => "Close",
+               class: "reveal-modal-close"
 

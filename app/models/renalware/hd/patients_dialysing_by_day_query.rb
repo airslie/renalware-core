@@ -1,16 +1,15 @@
 require_dependency "renalware/hd"
 
-# Find for example HD Patients who according to their HD Profile dialyse on Monday PM
+# Find for example HD Patients who according to their HD Profile dialyse on Monday
 # Example usage in that instance:
-#   PatientsDialysingByDayAndPeriodQuery.new(1, "am").call
+#   PatientsDialysingByDayQuery.new(1).call
 module Renalware
   module HD
-    class PatientsDialysingByDayAndPeriodQuery
-      attr_reader :day_of_week, :period_code
+    class PatientsDialysingByDayQuery
+      attr_reader :day_of_week
 
-      def initialize(day_of_week, period_code)
+      def initialize(day_of_week)
         @day_of_week = day_of_week
-        @period_code = period_code
       end
 
       def call
@@ -30,7 +29,6 @@ module Renalware
         @schedule_definition ||= begin
           Renalware::HD::ScheduleDefinition
             .eager_load(:diurnal_period)
-            .merge(Renalware::HD::DiurnalPeriodCode.for(period_code))
             .find_by("days @> ?", "{#{day_of_week}}")
         end
       end

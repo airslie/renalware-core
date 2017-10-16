@@ -22,6 +22,9 @@ module Renalware
       #
       public :to_ary
 
+      attr_accessor :patient_idx
+      attr_accessor :yay
+
       include Accountable
       belongs_to :diary, class_name: "Renalware::HD::Diary"
       belongs_to :patient

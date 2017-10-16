@@ -9,12 +9,11 @@
   =f.input :station_id, as: :hidden
   =f.input :diurnal_period_code_id, as: :hidden
   =f.input :day_of_week, as: :hidden
-
   =f.input :assign_to_master_diary_on_creation, as: :inline_radio_buttons
 
   -if scheduled_only
     =f.input :patient_id,
-             collection: patients,
+             collection: slot.patients_preferring_to_dialyse_today_in_this_period,
              label_method: ->(item){ item.to_s(:long) },
              value_method: :id,
              input_html: { class: "searchable_select"}
