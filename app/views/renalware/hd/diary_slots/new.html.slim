@@ -41,7 +41,7 @@
                        collection: slot.patients_preferring_to_dialyse_today_in_this_period,
                        label_method: ->(item){ item.to_s(:long) },
                        value_method: :id,
-                       input_html: { class: "searchable_select",
+                       input_html: { class: "searchable_select patient-id-select2",
                                      id: "patient_id1",
                                      name: "hd_diary_slot[patient_id][]"}
 
@@ -50,7 +50,7 @@
                        collection: slot.patients_preferring_to_dialyse_today,
                        label_method: ->(item){ item.to_s(:long) },
                        value_method: :id,
-                       input_html: { class: "searchable_select",
+                       input_html: { class: "searchable_select patient-id-select2",
                                      id: "patient_id2",
                                      name: "hd_diary_slot[patient_id][]"}
             #dialysing_at_unit(style="display:none")
@@ -58,6 +58,7 @@
                         collection: [],
                         input_html: {\
                           id: "patient-ajax-search",
+                          class: "patient-id-select2",
                           name: "hd_diary_slot[patient_id][]",
                           data: { "ajax--url" => search_patients_path(format: :json) }\
                         }
@@ -85,5 +86,6 @@ javascript:
       // will exist as an html id, wrapping the patient select2s
       $("#patient_select2s > div").hide();
       $("#patient_select2s > #" + change_type).show();
+      $("#patient_select2s .patient-id-select2").val("").trigger('change');
     })
   });

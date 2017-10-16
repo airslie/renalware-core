@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 require_dependency "renalware/hd/base_controller"
 
 # Note we always come into this controller with params[:diary_id] which must be a weekly
@@ -28,6 +29,7 @@ module Renalware
 
       def create
         slot = current_diary.slots.new(slot_params)
+        slot.patient_id = posted_patient_id
         authorize slot
         slot.save_by!(current_user)
         render locals: { diary: current_diary, slot: current_diary.decorate_slot(slot) }
@@ -122,6 +124,10 @@ module Renalware
           slot: DiarySlotPresenter.new(slot),
           patients: potential_patients_for_current_slot
         }
+      end
+
+      def posted_patient_id
+        Array(slot_params[:patient_id]).reject(&:blank?).uniq.first
       end
 
       def slot_params
