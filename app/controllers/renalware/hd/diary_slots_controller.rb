@@ -15,9 +15,8 @@ module Renalware
       # - (and from that lot we could look up the master and weekly periods)
       # GET html -  renders a form
       def new
-        # Be default this assume we are going t add a slot to the weekly diary
+        # Be default this assume we are going to add a slot to the weekly diary
         slot = DiarySlot.new(
-          assign_to_master_diary_on_creation: false,
           diary: weekly_diary,
           station_id: params[:station_id],
           day_of_week: params[:day_of_week],
@@ -27,14 +26,19 @@ module Renalware
         render locals: locals_for(slot), layout: false
       end
 
+      # rubocop:disable Metrics/AbcSize
       def create
         slot = current_diary.slots.new(slot_params)
         slot.patient_id = posted_patient_id
         authorize slot
-        slot.save_by!(current_user)
-        render locals: { diary: current_diary, slot: current_diary.decorate_slot(slot) }
-        # TODO: handle validation error
+        if slot.save_by(current_user)
+          render locals: { diary: current_diary, slot: current_diary.decorate_slot(slot) }
+        else
+          slot.diary = weekly_diary
+          render :new, locals: locals_for(slot), layout: false
+        end
       end
+      # rubocop:enable Metrics/AbcSize
 
       def show
         authorize slot
@@ -62,10 +66,6 @@ module Renalware
       # rubocop:enable Metrics/AbcSize
 
       private
-
-      def potential_patients_for_current_slot
-        PatientsDialysingByDayAndPeriodQuery.new(params[:day_of_week], "am").call.all
-      end
 
       # Find the corresponding slot in the master if there is one, otherwise an empt slot
       # with an 'Add' button ready to set up a new patient
@@ -104,7 +104,7 @@ module Renalware
 
       # In the url the :diary_id param is always the weekly diary id!
       def weekly_diary
-        @weekly_diary ||= Diary.find(params[:diary_id])
+        @weekly_diary ||= WeeklyDiary.find(params[:diary_id])
       end
 
       def master_diary
@@ -112,22 +112,24 @@ module Renalware
       end
 
       def current_diary
-        @current_diary ||= assign_to_master_diary_on_creation? ? master_diary : weekly_diary
-      end
-
-      def assign_to_master_diary_on_creation?
-        slot_params[:assign_to_master_diary_on_creation] == "true"
+        @current_diary ||= add_to_master_diary? ? master_diary : weekly_diary
       end
 
       def locals_for(slot)
         {
           slot: DiarySlotPresenter.new(slot),
-          patients: potential_patients_for_current_slot
+          weekly_diary: weekly_diary
         }
       end
 
       def posted_patient_id
         Array(slot_params[:patient_id]).reject(&:blank?).uniq.first
+      end
+
+      # Pass master in the query params (not in slot_params) to take an action on the master
+      # diary underlying the weekly one
+      def add_to_master_diary?
+        params.key?(:master)
       end
 
       def slot_params

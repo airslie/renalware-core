@@ -7456,6 +7456,20 @@ CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at
 
 
 --
+-- Name: hd_diary_slots_unique_by_day_period_patient; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX hd_diary_slots_unique_by_day_period_patient ON hd_diary_slots USING btree (diary_id, day_of_week, diurnal_period_code_id, patient_id) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: hd_diary_slots_unique_by_station_day_period; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX hd_diary_slots_unique_by_station_day_period ON hd_diary_slots USING btree (diary_id, station_id, day_of_week, diurnal_period_code_id) WHERE (deleted_at IS NULL);
+
+
+--
 -- Name: hd_versions_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12021,6 +12035,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171005130109'),
 ('20171005144505'),
 ('20171009104106'),
-('20171013145849');
+('20171013145849'),
+('20171016152223');
 
 

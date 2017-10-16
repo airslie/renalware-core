@@ -41,13 +41,13 @@ module Renalware
       scope :archived, ->{ weekly.where(archived: true) }
       scope :unarchived, ->{ weekly.where(archived: false) }
 
-      # Virtual attr fr use in diarlyslot new form
-      attr_accessor :assign_to_master_diary_on_creation
-
       # A patient can only be assigned to one station in any period (e.g. am)/day combination
       # for a diary. I.e. they can't be on two stations on Monday morning.
       validates :patient_id,
                 uniqueness: { scope: [:diary, :diurnal_period_code, :day_of_week] }
+
+      # Scoped to a diary, the combination of day + station + diurnal_period is unique
+      validates :diurnal_period_code_id, uniqueness: { scope: [:diary, :station_id, :day_of_week] }
 
       delegate :id, to: :diary, prefix: true
 

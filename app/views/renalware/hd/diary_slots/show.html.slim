@@ -1,27 +1,27 @@
-/ This is the create alert modal dialog content
-h2= slot.patient
+.modal
+  .modal__header
+    h2= slot.patient
+    = render "renalware/shared/modal_close_link"
 
-p.which-diary= slot.description
+  .modal__body
+    = render "renalware/shared/errors", model: slot
 
-- destroy_btn_title = slot.diary.master ? "Remove" : "Remove and revert to master diary"
-= link_to destroy_btn_title,
-          hd_diary_slot_path(slot.diary, slot),
-          method: :delete,
-          remote: true,
-          class: "button alert"
+    p.which-diary= slot.description
 
-h2 Replace with another patient
+    /- unless slot.diary.master?
+    ="#{slot.patient} id in this sot for this week only"
+    = link_to "Remove them",
+            hd_diary_slot_path(slot.diary, slot),
+            method: :delete,
+            remote: true,
+            class: "button alert"
 
-.ui-tabs-simple
-  #tabs
-    ul
-      li
-        a(href="#tabs-1")Patients scheduled here
-      li
-        a(href="#tabs-2")All patients
+    / - destroy_btn_title = slot.diary.master ? "Remove" : "Remove and revert to master diary"
+    / = link_to destroy_btn_title,
+    /           hd_diary_slot_path(slot.diary, slot),
+    /           method: :delete,
+    /           remote: true,
+    /           class: "button alert"
 
-    #tabs-1
-      = render "tab", weekly_diary: slot.diary, slot: slot, patients: patients, scheduled_only: true
-    #tabs-2
-      = render "tab", weekly_diary: slot.diary, slot: slot, patients: patients, scheduled_only: false
-br
+    h2 Replace with another patient
+    = render "form", slot: slot

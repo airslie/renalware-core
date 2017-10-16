@@ -32,11 +32,5 @@ class CreateHDDiarySlots < ActiveRecord::Migration[5.1]
     add_foreign_key :hd_diary_slots, :users, column: :created_by_id
     add_foreign_key :hd_diary_slots, :users, column: :updated_by_id
     add_foreign_key :hd_diary_slots, :hd_diurnal_period_codes, column: :diurnal_period_code_id
-
-    # TODO:
-    # Add partial index here to ensure
-    # - scoped to a diary, the combination of day + station + diurnal_period is unique
-    # - scoped to a diary, the combination of diurnal_period + patientid is unique
-    # Use a compound index for performance - move all cols into index?
   end
 end
