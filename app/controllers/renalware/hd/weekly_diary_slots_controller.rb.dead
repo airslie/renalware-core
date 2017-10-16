@@ -6,7 +6,7 @@ require_dependency "renalware/hd/base_controller"
 # master diary, but we will only know that by looking at the para,s for e.g. a 'master' flag.
 module Renalware
   module HD
-    class DiarySlotsController < BaseController
+    class DiarySlotsController < DiarySlotsController
 
       # we do know
       # - the unit
@@ -40,30 +40,20 @@ module Renalware
       end
       # rubocop:enable Metrics/AbcSize
 
-      # GET .js refresh a slot in a diary
-      # see show.js.erb where we refresh the slot in the diary
-      # to get here we will have manufactured a url like this
-      #   hd/diaries/2/slots/day/1/period/1/station/1
-      # as those bit are wll we know.
-      # Basically we are saying find for this weekly diary, find the matching
-      # slot for the station/day/period combo and render the weekly slot if there is
-      # one of the master behind it, if there is one of those, otherwise render an Add button.
-      # Simple huh?
       def show
-        authorize DiarySlot, :show?
-        slot = weekly_then_master_then_empty_slot
-        render layout: false, locals: { slot: slot }
-      end
-
-      def edit
         authorize slot
-        render layout: false, locals: { slot: DiarySlotPresenter.new(slot) }
+        render layout: false, locals: locals_for(slot)
       end
 
       def destroy
         authorize slot
+        slot_id = slot.id
         slot.destroy!
-        render locals: { slot: DiarySlotPresenter.new(slot) }
+        render layout: false, locals: {
+          destroyed_slot_id: slot_id,
+          diary: weekly_diary,
+          replacement_slot: master_or_empty_slot
+        }
       end
 
       # rubocop:disable Metrics/AbcSize
@@ -79,53 +69,14 @@ module Renalware
 
       # Find the corresponding slot in the master if there is one, otherwise an empt slot
       # with an 'Add' button ready to set up a new patient
-      def weekly_then_master_then_empty_slot
-        empty_slot = build_empty_weekly_slot
-        find_weekly_slot(empty_slot) || find_master_slot(empty_slot) || empty_slot
-      end
-
-      def find_master_slot(args)
-        slot = master_diary.slots.find_by(
-          diurnal_period_code_id: args.diurnal_period_code_id,
-          station_id: args.station_id,
-          day_of_week: args.day_of_week
-        )
-        slot && master_diary.decorate_slot(slot)
-      end
-
-      def find_weekly_slot(args)
-        slot = weekly_diary.slots.find_by(
-          diurnal_period_code_id: args.diurnal_period_code_id,
-          station_id: args.station_id,
-          day_of_week: args.day_of_week
-        )
-        slot && weekly_diary.decorate_slot(slot)
-      end
-
-      def master_slot_or_empty_weekly_slot
-        new_slot = build_slot
-        master_slot = master_diary.slot_for(
-          new_slot.diurnal_period_code_id,
-          new_slot.station_id,
-          new_slot.day_of_week
-        )
-        master_slot || build_null_slot_for(new_slot)
-        build_empty_weekly_slot
-      end
-
-      # Used for searching etc
-      def build_empty_weekly_slot
-        weekly_diary.slots.new(
-          day_of_week: params[:day_of_week],
-          station_id: params[:station_id],
-          diurnal_period_code_id: params[:diurnal_period_code_id]
-        )
+      def master_or_empty_slot
+        corresponding_master_slot_for(slot)
       end
 
       def corresponding_master_slot_for(weekly_slot)
         if slot.on_master_diary?
           # The slot we destroyed was a slot in the master diary so we will render an empty slot
-          build_null_slot_for(weekly_slot)
+          build_empty_slot_for(weekly_slot)
         else
           # The slot we destroyed was a slot in the weekly diary so we try and get the underlying
           # master slot if there is one. If not, render an empty slot
@@ -134,11 +85,11 @@ module Renalware
             weekly_slot.station_id,
             weekly_slot.day_of_week
           )
-          master_slot || build_null_slot_for(weekly_slot)
+          master_slot || build_empty_slot_for(weekly_slot)
         end
       end
 
-      def build_null_slot_for(weekly_slot)
+      def build_empty_slot_for(weekly_slot)
         NullSlot.new(
           weekly_diary.id,
           weekly_slot.diurnal_period_code_id,

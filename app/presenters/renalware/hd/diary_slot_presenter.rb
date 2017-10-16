@@ -5,6 +5,7 @@ require_dependency "collection_presenter"
 module Renalware
   module HD
     class DiarySlotPresenter < SimpleDelegator
+      delegate :master?, to: :diary, allow_nil: true
 
       # Patients who prefer to dialyse on this day e.g. Mon and in this period e.g. AM.
       # Flag those already assigned so they cannot be chosen.

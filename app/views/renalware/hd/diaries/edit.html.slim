@@ -24,7 +24,7 @@
         - diary.station_locations.each do |location|
           li(style="background-color: #{location.colour}")= location.name
 
-  .diary
+  .diary(data={"weekly-diary-id" => diary.id})
 
     .diary__grid
 

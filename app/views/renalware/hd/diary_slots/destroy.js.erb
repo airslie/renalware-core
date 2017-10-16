@@ -1,5 +1,11 @@
-$("td[data-slot-id='<%= destroyed_slot_id %>']").replaceWith("<%= escape_javascript(
-  render "slot", slot: replacement_slot, diary: diary, animate: true
-) %>");
+<% slot_path = hd_diary_refresh_slot_path(
+  diary_id: "weekly_diary_id",
+  day_of_week: slot.day_of_week,
+  diurnal_period_code_id: slot.diurnal_period_code_id,
+  station_id: slot.station_id,
+  format: :js)
+%>
 
-$(".reveal-modal").foundation('reveal', 'close');
+// Only JS knows the weekly diary id by looking at the html
+var weekly_diary_id = $(".diary").data("weekly-diary-id")
+$.getScript('<%= slot_path %>'.replace('weekly_diary_id', weekly_diary_id));
