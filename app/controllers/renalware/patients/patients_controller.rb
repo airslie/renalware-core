@@ -64,15 +64,6 @@ module Renalware
         @patient ||= Renalware::Patient.find_by!(secure_id: params[:id])
       end
 
-      def simplify(patients)
-        patients.map do |patient|
-          {
-            id: patient.id,
-            text: patient.to_s(:long)
-          }
-        end
-      end
-
       private
 
       def simplify(patients)

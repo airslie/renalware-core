@@ -14,7 +14,6 @@ module Renalware
         authorize weekly_diary, :show?
         render locals: {
           unit: unit,
-          diary_form: DiaryForm.new(weekly_diary),
           diary: DiaryPresenter.new(current_user, weekly_diary)
         }
       end
