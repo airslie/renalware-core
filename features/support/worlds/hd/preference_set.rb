@@ -16,7 +16,7 @@ module World
 
         Renalware::HD::PreferenceSet.create!(
           patient: patient,
-          schedule: :mon_wed_fri_am,
+          schedule_definition: Renalware::HD::ScheduleDefinition.first!,
           by: user
         )
       end
@@ -32,7 +32,7 @@ module World
 
         set = hd_preference_set_for(patient)
         set.update_attributes!(
-          schedule: :mon_wed_fri_pm,
+          schedule_definition: Renalware::HD::ScheduleDefinition.last!,
           updated_at: Time.zone.now,
           by: user
         )

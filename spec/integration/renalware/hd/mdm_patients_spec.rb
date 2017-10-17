@@ -4,12 +4,12 @@ RSpec.describe "HD MDM Patients", type: :feature do
   include PatientsSpecHelper
   let(:user) { create(:user) }
 
-  def create_hd_patient(unit:, family_name:, schedule:, by: user)
+  def create_hd_patient(unit:, family_name:, schedule_definition:, by: user)
     create(:hd_patient, family_name: family_name).tap do |patient|
       patient.hd_profile = create(:hd_profile,
                                    patient: patient,
                                    hospital_unit: unit,
-                                   schedule: schedule)
+                                   schedule_definition: schedule_definition)
       set_modality(patient: patient,
                    modality_description: create(:hd_modality_description),
                    by: by)
@@ -36,9 +36,19 @@ RSpec.describe "HD MDM Patients", type: :feature do
       hospital = create(:hospital_centre)
       unit1 = create(:hd_hospital_unit, name: "Unit1", hospital_centre: hospital)
       unit2 = create(:hd_hospital_unit, name: "Unit2", hospital_centre: hospital)
+      mon_wed_fri_am = create(:schedule_definition, :mon_wed_fri_am)
+      mon_wed_fri_pm = create(:schedule_definition, :mon_wed_fri_pm)
 
-      patient1 = create_hd_patient(unit: unit1, family_name: "XXXX", schedule: "mon_wed_fri_am")
-      patient2 = create_hd_patient(unit: unit2, family_name: "YYYY", schedule: "mon_wed_fri_pm")
+      patient1 = create_hd_patient(
+        unit: unit1,
+        family_name: "XXXX",
+        schedule_definition: mon_wed_fri_am
+      )
+      patient2 = create_hd_patient(
+        unit: unit2,
+        family_name: "YYYY",
+        schedule_definition: mon_wed_fri_pm
+      )
 
       login_as_clinician
       visit hd_mdm_patients_path

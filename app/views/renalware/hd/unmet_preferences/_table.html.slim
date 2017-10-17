@@ -20,10 +20,10 @@ table.hd-unmet-preferences
         td= link_to(patient, patient_hd_dashboard_path(patient))
         td= l(patient.entered_on)
         td.current= patient.current_hospital_unit
-        td.current= patient.current_schedule&.text
+        td.current= patient.current_schedule_definition
         td.current= patient.current_other_schedule
         td.preferred= patient.preferred(:hospital_unit)
-        td.preferred= patient.preferred(:schedule) { |value| value&.text }
+        td.preferred= patient.preferred(:schedule_definition)
         td.preferred= patient.preferred_other_schedule
         td.col-width-large-with-ellipsis= patient.notes
 

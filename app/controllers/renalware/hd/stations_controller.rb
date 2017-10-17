@@ -72,7 +72,7 @@ module Renalware
       end
 
       def station_params
-        params.require(:hd_station).permit(:name, :location)
+        params.require(:hd_station).permit(:name, :location_id)
       end
     end
   end

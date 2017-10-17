@@ -20,10 +20,15 @@ module Renalware
         unit = find_hd_unit_by_code(row["unit_code"])
         station = HD::Station.find_or_initialize_by(
           name: row["name"],
-          location: row["location"],
+          location_id: station_location_id_for(row["location"]),
           hospital_unit_id: unit.id,
           position: row["position"]
         ).save_by!(user)
+      end
+
+      def station_location_id_for(location)
+        return nil if location.blank?
+        HD::StationLocation.find_by!(name: location).id
       end
     end
 

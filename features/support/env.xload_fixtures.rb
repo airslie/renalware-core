@@ -11,6 +11,8 @@ class Fixtures
     Renalware::Events::Type,
     Renalware::HD::CannulationType,
     Renalware::HD::Dialyser,
+    Renalware::HD::DiurnalPeriodCode,
+    Renalware::HD::ScheduleDefinition,
     Renalware::Hospitals::Centre,
     Renalware::Hospitals::Unit,
     Renalware::Letters::Letterhead,

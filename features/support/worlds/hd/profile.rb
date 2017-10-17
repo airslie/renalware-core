@@ -11,7 +11,7 @@ module World
 
       def valid_profile_attributes
         {
-          schedule: :mon_wed_fri_am,
+          schedule_definition: Renalware::HD::ScheduleDefinition.first!,
           hospital_unit: Renalware::Hospitals::Unit.first!,
           document: {
             transport: {

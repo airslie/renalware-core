@@ -20,8 +20,8 @@
                                         include_blank: "Any unit"
 
         .small-12.medium-3.large-3.columns
-          = f.input :hd_preference_set_schedule_eq,
-                    collection: Renalware::HD::Profile.schedule.options,
+          = f.input :hd_preference_set_schedule_definition_id_eq,
+                    collection: Renalware::HD::ScheduleDefinition.ordered,
                     include_blank: "Any schedule",
                     label: "or preferring schedule"
 

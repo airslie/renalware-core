@@ -1,3 +1,206 @@
+
+.hd-unit-diaries {
+  .current-week {
+    background-color: $table-toggled-content-colour;
+  }
+}
+
+.which-diary {
+  color: $aluminum;
+  margin: 0 0 0.5rem;
+  padding: 0;
+
+  .master {
+  }
+
+  .weekly {
+  }
+}
+
+.diary__navigation {
+  a:first-child {
+    float: left;
+  }
+
+  a:last-child {
+    float: right;
+  }
+}
+
+.diary__key {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+
+  .diary__key--master-diary {
+    background-color: $white;
+  }
+
+  .diary__key--weekly-diary {
+    background-color: $hd-weekly-diary-colour;
+  }
+
+  .title {
+    display: inline-block;
+    font-size: 1.1rem;
+    color: $dark-grey;
+  }
+
+  ul {
+    list-style: none;
+    display: inline-block;
+
+    li {
+      display: inline;
+      margin: 0 0.1rem;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.9rem;
+      border: solid 1px $mid-grey;
+    }
+  }
+}
+
+.diary {
+
+  .diary__period {
+    margin-bottom: 1.5rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 1rem;
+
+    h1, h2 {
+      font-size: 1.6rem;
+      font-weight: normal;
+      display: inline;
+      margin-right: 1rem;
+
+      &:last-child {
+        color: $dark-grey;
+      }
+    }
+  }
+
+  h2 {
+    color: $mid-grey;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    color: $dark-grey;
+  }
+
+  tr {
+    &:nth-of-type(even) {
+      background: $white;
+    }
+  }
+
+  thead {
+    border: 0;
+
+    tr,
+    tr:nth-of-type(even) {
+      background-color: $smoke;
+
+      th {
+        text-align: center;
+        border-color: $smoke;
+
+        h3 {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  tbody {
+    th {
+      border-left: 5px solid $white;
+    }
+
+    tr:hover {
+      th {
+        border-left: 5px solid $dark-grey;
+      }
+    }
+  }
+
+
+  .diary__button {
+    white-space: nowrap;
+    margin: 0;
+    padding: 0.5rem;
+    background-color: transparent;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 0.9rem;
+  }
+
+  td {
+    padding: 0;
+    border: 1px solid $light-grey;
+    text-align: center;
+    background-color: $white;
+
+    // Creates a red triangle top left. Some work to do overlaying cell.
+    &.infected-patient {
+      div {
+        width: 0;
+        height: 0;
+        position: absolute;
+        border-style: solid;
+        border-width: 2rem 2rem 0 0;
+        border-color: $nhs-red transparent transparent transparent;
+      }
+    }
+
+    &:empty {
+      background-color: $light-grey;
+    }
+
+    &:hover {
+      border-color: $dark-grey;
+    }
+
+    &[data-weekly] {
+      background-color: $hd-weekly-diary-colour;
+
+      a {
+        color: $dark-grey;
+      }
+
+      .diary__button:hover {
+        background-color: $hd-weekly-diary-hover-colour;
+      }
+    }
+
+    &[data-master] {
+
+      &:hover {
+        background-color: $almost-white;
+      }
+
+      .diary__button:hover {
+        background-color: $almost-white;
+      }
+    }
+
+    &[data-master] {
+      background-color: $white;
+      a {
+       color: $dark-grey;
+      }
+    }
+  }
+}
+
 // Start CSS-only toggle of full HD Profile
 label#toggle-full-hd-profile {
   color: $link-colour;

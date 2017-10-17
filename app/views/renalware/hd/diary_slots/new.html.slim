@@ -1,0 +1,12 @@
+/ Invoked by Foundation Reveal from an Add Patient to Diary link
+/ which is marked up as using data-reveal-ajax=true and links to this action
+/ - and a format of html (would otherwise default to js)
+/ We render the modal content html here and foundation will display the modal itself.
+
+.modal
+  .modal__header
+    h2 Add patient
+    = render "renalware/shared/modal_close_link"
+
+  .modal__body
+    = render "form", slot: slot

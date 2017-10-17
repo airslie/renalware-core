@@ -7,7 +7,6 @@ module Renalware::Hospitals
     it { is_expected.to validate_presence_of(:unit_code) }
     it { is_expected.to validate_presence_of(:renal_registry_code) }
     it { is_expected.to validate_presence_of(:unit_type) }
-    it { is_expected.to respond_to(:number_of_hd_stations) }
     it { is_expected.to have_many(:wards) }
   end
 end

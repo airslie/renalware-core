@@ -25,7 +25,10 @@ module Renalware
       private
 
       def attributes
-        [:schedule, :other_schedule, :hospital_unit_id, :entered_on, :notes]
+        [
+          :schedule_definition_id, :other_schedule,
+          :hospital_unit_id, :entered_on, :notes
+        ]
       end
 
       def preference_set_params

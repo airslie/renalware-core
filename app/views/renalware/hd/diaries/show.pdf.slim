@@ -1,0 +1,32 @@
+- content_for(:head) do
+  = wicked_pdf_stylesheet_link_tag "renalware/hd_diary_pdf"
+
+.hd-diary-pdf
+  h3= unit&.name
+  h2= "HD Diary #{diary}"
+  .diary
+    .diary__grid
+      - diary.each_diurnal_period do |diurnal_period|
+        - day_columns_width_pct = (100 - 20) / diary.day_names.count
+        table.diary__period*{'data-period-code'=> diurnal_period.code}
+          thead
+            tr
+              th(colspan=8)
+                h3= diurnal_period.code.upcase
+            tr
+              th.col-width-medium(style="width: 20%") Station
+              - diary.day_names.each do |day|
+                th.col-width-small(style="width: #{day_columns_width_pct}%")= day.capitalize
+
+          tbody
+            - diary.each_station do |station, index|
+              tr
+                th= "#{index}. #{station.name}"
+
+                - diary.each_day(diurnal_period, station) do |slot, _day_of_week|
+                  - with_format(:html) do
+                    td
+                      - if slot.patient.present?
+                        = slot.patient.family_name
+                        br
+                        = slot.patient.given_name

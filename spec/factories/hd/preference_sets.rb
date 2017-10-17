@@ -3,7 +3,7 @@ FactoryGirl.define do
     accountable
     patient
     association :hospital_unit, factory: :hospital_unit
-    schedule :mon_wed_fri_pm
+    association :schedule_definition, :mon_wed_fri_pm
     other_schedule ""
   end
 end

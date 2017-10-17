@@ -50,7 +50,7 @@ end
 
 Then(/^the patient's HD profile site and schedule should be cleared$/) do
   profile = Renalware::HD.cast_patient(@patty).hd_profile
-  expect(profile.schedule).to be_nil
+  expect(profile.schedule_definition).to be_nil
   expect(profile.hospital_unit).to be_nil
 end
 

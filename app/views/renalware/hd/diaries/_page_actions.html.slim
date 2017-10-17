@@ -1,0 +1,23 @@
+li
+  a.button.dropdown.with-icon(href="#"
+                              data-dropdown="diary-options"
+                              aria-controls="diary-options"
+                              aria-expanded="false")
+    | Go to...
+  br
+  ul.f-dropdown#diary-options(data-dropdown-content aria-hidden="true")
+    - date = Time.zone.today
+    = dropdown_btn_item title: "This week",
+                        path: hd_unit_edit_diary_path(year: date.year, week_number: date.cweek)
+    - date = Time.zone.today + 1.week
+    = dropdown_btn_item title: "Next week",
+                        path: hd_unit_edit_diary_path(year: date.year, week_number: date.cweek)
+    - date = Time.zone.today - 1.week
+    = dropdown_btn_item title: "Last week",
+                        path: hd_unit_edit_diary_path(year: date.year, week_number: date.cweek)
+    hr
+    li= link_to "Edit stations", hd_unit_stations_path(unit)
+
+- if defined?(diary)
+  li= link_to "Print", hd_unit_diary_path(unit, diary.id, format: :pdf), class: "button"
+/ hd_unit_show_diary_path(year: date.year, week_number: date.cweek, format: :pdf),

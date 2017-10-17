@@ -1,0 +1,57 @@
+html,
+body {
+  font-size: 10px;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+.page-break {
+  display:block;
+  clear:both;
+  page-break-after:always;
+}
+
+.noprint {
+  display: none !important;
+  min-width: 0em !important;
+}
+
+.hd-diary-pdf {
+  table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse:collapse;
+    margin-bottom: 5px;
+
+    tr {
+      page-break-inside: avoid;
+    }
+
+    th,
+    td {
+      border: solid 1px #666;
+    }
+
+    tbody {
+      th {
+        // Station heading
+        text-align: left;
+      }
+    }
+
+
+    thead {
+      background-color: #eee;
+      // No border on the diurnal period row eg AM, PM etc
+      tr:first-child {
+        th {
+          border: 0;
+          background-color: #fff;
+        }
+      }
+    }
+  }
+}

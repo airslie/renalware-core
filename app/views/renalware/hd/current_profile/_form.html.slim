@@ -20,7 +20,8 @@ ruby:
           autofocus: true,
           hint: profile.hospital_unit_hint,
           wrapper: :horizontal_medium
-      = f.input :schedule,
+      = f.input :schedule_definition_id,
+                collection: profile.schedule_definitions,
                 wrapper: :horizontal_small,
                 hint: profile.schedule_hint
       = f.input :other_schedule,

@@ -5,8 +5,7 @@ module Renalware
     kch_nurse = User.find_by!(username: "kchnurse")
     kent_doc = User.find_by!(username: "kentdoc")
     modal_weeks = (30..50).to_a
-    schedules = ["mon_wed_fri_am","mon_wed_fri_pm",
-      "tue_thu_sat_am","tue_thu_sat_pm"]
+    schedule_definitions = HD::ScheduleDefinition.all
     times = [180, 210, 240, 270]
     rates = [300, 400, 500]
     flows = [300, 400, 500]
@@ -31,7 +30,7 @@ module Renalware
           #Assign some HD preferences
           preference_set = HD::PreferenceSet.find_or_initialize_by(patient: patient)
           preference_set.attributes = {
-            schedule: schedules.sample,
+            schedule_definition: schedule_definitions.sample,
             hospital_unit: Hospitals::Unit.hd_sites.sample,
             entered_on: hd_started_on,
             by: kent_doc
@@ -45,7 +44,7 @@ module Renalware
           profile.attributes = {
             by: kch_doc,
             hospital_unit: Hospitals::Unit.hd_sites.sample,
-            schedule: schedules.sample,
+            schedule_definition: schedule_definitions.sample,
             prescribed_time: times.sample,
             prescribed_on: hd_started_on,
             prescriber: kch_doc,

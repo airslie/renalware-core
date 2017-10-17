@@ -1,0 +1,12 @@
+table.hd-unit-diaries
+  thead
+    tr
+      th.col-width-small
+      th.col-width-tiny Week
+      th.col-width-tiny Year
+      th.col-width-large Period
+      th.col-width-tiny Archived
+      th.col-width-small Current
+      th Last updated
+  tbody
+    = render  partial: "weekly_diary", collection: diaries

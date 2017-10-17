@@ -32,6 +32,17 @@ footer {
   text-align: right;
 }
 
+.page-heading {
+  .warning-block {
+    background-color: $table-toggled-content-colour;
+    margin: 0.7rem;
+
+    i {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
 .embedded-scroll {
   overflow: auto;
 }

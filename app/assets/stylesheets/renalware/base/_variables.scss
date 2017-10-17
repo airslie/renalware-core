@@ -52,6 +52,7 @@ $light-grey: #DDD;
 $mid-grey: #999;
 $very-light-grey: #f5f5f5;
 $error-background: $off-white;
+$almost-white: rgb(252, 252, 252);
 
 // Drug type colours
 $drug-type-default-colour: none;
@@ -107,6 +108,11 @@ $disabled-colour: #CCC;
 // Menus
 $patient-menu-icon-color: $gainsboro;
 $patient-menu-icon-hover-color: $white;
+
+// HD Diaries
+$hd-weekly-diary-colour: #ffedd4;
+$hd-weekly-diary-hover-colour: lighten($hd-weekly-diary-colour, 25);
+
 
 //
 // Lists

@@ -12,8 +12,8 @@
           label: t(".hospital_unit")
 
     .medium-4.columns
-      = f.input :hd_profile_schedule_eq,
-          collection: Renalware::HD::Profile.schedule.options,
+      = f.input :hd_profile_schedule_definition_id_eq,
+          collection: Renalware::HD::ScheduleDefinition.ordered,
           include_blank: true,
           label:  t(".schedule")
 

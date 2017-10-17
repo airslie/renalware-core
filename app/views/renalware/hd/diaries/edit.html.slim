@@ -1,0 +1,58 @@
+= content_for(:actions) do
+  = render "page_actions", unit: unit, diary: diary
+
+= within_admin_layout(title: diary,
+                      breadcrumbs: [\
+                        breadcrumb_for(unit.name, edit_hospitals_unit_path(unit)),
+                        breadcrumb_for("HD Diaries", hd_unit_diaries_path(unit))\
+                      ]) do
+
+  .diary__navigation
+    = link_to hd_unit_edit_diary_path(**diary.week.previous.to_h), class: "button secondary" do
+      i.fa.fa-arrow-left
+      | Previous week
+
+    = link_to hd_unit_edit_diary_path(**diary.week.next.to_h), class: "button secondary" do
+      i.fa.fa-arrow-right
+      | Next week
+
+  .diary__key
+      h4.title Key:
+      ul
+        li.diary__key--master-diary Master Diary
+        li.diary__key--weekly-diary This week only
+        - diary.station_locations.each do |location|
+          li(style="background-color: #{location.colour}")= location.name
+
+  .diary(data={"weekly-diary-id" => diary.id,
+               "weekly-diary-slots-path" => hd_diary_slots_path(diary_id: diary.id),
+               "master-diary-id" => diary.master_diary.id,
+               "master-diary-slots-path" => hd_diary_slots_path(diary.master_diary)})
+
+    .diary__grid
+
+      - diary.each_diurnal_period do |diurnal_period|
+
+          table.diary__period*{'data-period-code'=> diurnal_period.code}
+            thead
+              tr
+                th(colspan=8)
+                  h3= diurnal_period.code.upcase
+              tr
+                th.col-width-medium Station
+                - diary.day_names.each do |day|
+                  th.col-width-small= day.capitalize
+
+            tbody
+
+              - diary.each_station do |station, index|
+                tr*{'data-station-id'=> station.id}
+                  th(style=station.css)
+                    = "#{index}. #{station.name}"
+
+                  - diary.each_day(diurnal_period, station) do |slot, _day_of_week|
+                    /- cache(slot.cache_key) do
+                    = render "renalware/hd/diary_slots/slot", slot: slot
+
+  / Modal dialog container
+  #add-patient-to-diary-modal.reveal-modal.small(data-reveal)

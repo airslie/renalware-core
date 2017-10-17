@@ -49,7 +49,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
   describe "PATCH update" do
     context "given valid attributes" do
       it "updates a record" do
-        attributes = { name: "My Edited Event", number_of_hd_stations: 15 }
+        attributes = { name: "My Edited Event" }
         patch hospitals_unit_path(hospital_unit), params: { hospitals_unit: attributes }
 
         expect(response).to have_http_status(:redirect)

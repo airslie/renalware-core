@@ -12,7 +12,7 @@ module Renalware
         hd_profile = HD.cast_patient(patient).hd_profile
         return if hd_profile.nil?
         hd_profile.hospital_unit = nil
-        hd_profile.schedule = nil
+        hd_profile.schedule_definition = nil
         hd_profile.save_by!(by)
       end
     end

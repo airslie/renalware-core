@@ -13,23 +13,26 @@
         th.col-width-small Type
         th.col-width-small NRD Code
         th.col-width-small HD Site?
-        th.col-width-small Stations
-        th
+        th.col-width-tiny Stations
+        th.col-width-medium
     tbody
-      - @hospital_units.each do |t|
+      - @hospital_units.each do |unit|
         tr
           td
-            = link_to "Edit", edit_hospitals_unit_path(t.id)
+            = link_to "Edit", edit_hospitals_unit_path(unit.id)
             = pipe_separator
             = link_to "Delete",
-                      hospitals_unit_path(t.id),
+                      hospitals_unit_path(unit.id),
                       RecipientFollowupmethod: :delete,
                       data: { confirm: I18n.t("prompts.confirm_delete") }
-          td= t.unit_code
-          td= t.name
-          td= t.hospital_centre
-          td= t.unit_type.text
-          td= t.renal_registry_code
-          td= yes_no t.is_hd_site
-          td= t.number_of_hd_stations
-          td
+          td= unit.unit_code
+          td= unit.name
+          td= unit.hospital_centre
+          td= unit.unit_type.text
+          td= unit.renal_registry_code
+          td= yes_no unit.is_hd_site
+          td= Renalware::HD::Station.where(hospital_unit_id: unit.id).count
+          td.actions
+            = link_to("HD Stations", hd_unit_stations_path(unit))
+            = pipe_separator
+            = link_to("HD Diaries", hd_unit_diaries_path(unit))

@@ -3,10 +3,11 @@ ruby:
 
 .form-content
   = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Preferences", name: "preferences" } do
-    = f.input :schedule,
-              input_html: { class: "small-input" },
-              autofocus: true
+           locals: { legend: "Preferences", name: "preferences" } do
+
+    = f.input :schedule_definition_id,
+              collection: Renalware::HD::ScheduleDefinition.ordered,
+              wrapper: :horizontal_small
     = f.input :other_schedule,
               input_html: { class: "small-input" }
     = f.association :hospital_unit,

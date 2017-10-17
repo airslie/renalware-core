@@ -1,0 +1,11 @@
+tr[class = "#{'current-week' if weekly_diary.applies_to_current_week?}"]
+  td= link_to "View",
+              hd_unit_edit_diary_path(week_number: weekly_diary.week.week_number,
+                                      year: weekly_diary.week.year)
+  td= weekly_diary.week_number
+  td= weekly_diary.year
+  td= weekly_diary.to_s
+  td= yes_no(weekly_diary.archived?)
+  td= "Yes" if  weekly_diary.applies_to_current_week?
+  td= "#{l(weekly_diary.updated_at)} by #{weekly_diary.updated_by}"
+

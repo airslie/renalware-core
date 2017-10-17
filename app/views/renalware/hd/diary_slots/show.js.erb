@@ -1,0 +1,5 @@
+
+$("td[data-cell-id='<%= slot.cell_id %>']").replaceWith("<%= escape_javascript(
+  render "slot", slot: slot, diary: slot.diary, animate: true
+) %>");
+$(".reveal-modal").foundation('reveal', 'close');
