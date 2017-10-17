@@ -36,6 +36,20 @@ COMMENT ON EXTENSION btree_gist IS 'support for indexing common datatypes in GiS
 
 
 --
+-- Name: citext; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION citext; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION citext IS 'data type for case-insensitive character strings';
+
+
+--
 -- Name: intarray; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -2553,7 +2567,7 @@ CREATE VIEW pathology_current_observations AS
 CREATE TABLE patients (
     id integer NOT NULL,
     nhs_number character varying,
-    local_patient_id character varying,
+    local_patient_id citext,
     family_name character varying NOT NULL,
     given_name character varying NOT NULL,
     born_on date NOT NULL,
@@ -2587,10 +2601,10 @@ CREATE TABLE patients (
     language_id integer,
     allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
     allergy_status_updated_at timestamp without time zone,
-    local_patient_id_2 character varying,
-    local_patient_id_3 character varying,
-    local_patient_id_4 character varying,
-    local_patient_id_5 character varying,
+    local_patient_id_2 citext,
+    local_patient_id_3 citext,
+    local_patient_id_4 citext,
+    local_patient_id_5 citext,
     external_patient_id character varying,
     send_to_renalreg boolean DEFAULT false NOT NULL,
     send_to_rpv boolean DEFAULT false NOT NULL,
@@ -12263,6 +12277,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171012143050'),
 ('20171013145849'),
 ('20171016152223'),
+('20171017132738'),
 ('20171017171625');
 
 
