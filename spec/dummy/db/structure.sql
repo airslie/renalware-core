@@ -4530,7 +4530,7 @@ CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
     0 AS percentage_phosphate_lt_1_8,
     0 AS percentage_access_fistula_or_graft,
     0 AS avg_missed_hd_time,
-    round((((100 * sum(stats.number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct)) / count(stats.id)))::numeric, 1) AS pct_shortfall_gt_5_pct
+    round((((count(stats.number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct) / count(stats.id)) * 100))::numeric, 1) AS pct_shortfall_gt_5_pct
    FROM (hd_patient_statistics stats
      JOIN hospital_units units ON ((units.id = stats.hospital_unit_id)))
   GROUP BY units.name
@@ -12036,6 +12036,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171005144505'),
 ('20171009104106'),
 ('20171013145849'),
-('20171016152223');
+('20171016152223'),
+('20171017171625');
 
 
