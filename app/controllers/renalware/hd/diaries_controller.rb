@@ -40,8 +40,9 @@ module Renalware
 
       private
 
+      # TODO: give a sensible name
       def pdf_filename
-        "y"
+        "hd_unit_diary"
       end
 
       def weekly_diary

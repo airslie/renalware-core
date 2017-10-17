@@ -13,10 +13,10 @@ module Renalware
       end
 
       def call
-        return [] if schedule_definition.nil?
+        return [] if schedule_definition_ids.empty?
         Patient
           .joins(:hd_profile)
-          .where(hd_profiles: { schedule_definition_id: schedule_definition.id })
+          .where(hd_profiles: { schedule_definition_id: schedule_definition_ids })
           .order(:family_name, :given_name)
       end
 
@@ -25,11 +25,9 @@ module Renalware
       # Find the schedule for the day of week/period (eg Mon PM)
       # Note days is array and our where clause here find matches where day_of_week is in that array
       # so if we are looking for Tuesday (day_of_week = 2) we will match e.g. [2,4,6]
-      def schedule_definition
-        @schedule_definition ||= begin
-          Renalware::HD::ScheduleDefinition
-            .eager_load(:diurnal_period)
-            .find_by("days @> ?", "{#{day_of_week}}")
+      def schedule_definition_ids
+        @schedule_definition_ids ||= begin
+          Renalware::HD::ScheduleDefinition.where("days @> ?", "{#{day_of_week}}").pluck(:id)
         end
       end
     end

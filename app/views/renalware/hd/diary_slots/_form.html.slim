@@ -22,7 +22,7 @@
     .col-small-8
 
       / We will post 3 patient_id values in hd_diary_slot[patient_id][]
-      / The value selected in in change_type above will detemine which one to choose.
+      / The value selected in in change_type above will determine which one to choose.
       #patient_select2s
         #dialysing_on_day_and_period
           =f.input :patient_id,
@@ -48,7 +48,8 @@
                       id: "patient-ajax-search",
                       class: "patient-id-select2",
                       name: "hd_diary_slot[patient_id][]",
-                      data: { "ajax--url" => search_patients_path(format: :json) }\
+                      data: { "ajax--url" => search_patients_path(format: :json),
+                              placeholder: "Type 3 or more characters" }\
                     }
 
   =f.submit "Add for this week only", class: "button save weekly"

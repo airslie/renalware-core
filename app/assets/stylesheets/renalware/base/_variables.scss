@@ -110,8 +110,8 @@ $patient-menu-icon-color: $gainsboro;
 $patient-menu-icon-hover-color: $white;
 
 // HD Diaries
-$hd-weekly-diary-colour: lighten($nhs-orange, 30);
-$hd-weekly-diary-hover-colour: lighten($nhs-orange, 25);
+$hd-weekly-diary-colour: #ffedd4;
+$hd-weekly-diary-hover-colour: lighten($hd-weekly-diary-colour, 25);
 
 
 //
