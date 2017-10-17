@@ -41,7 +41,7 @@
       { "title": "% URR > 65", "targets": 3, width: "120" },
       { "title": "% Phosphate < 1.8", "targets": 4, width: "200" },
       { "title": "% w/fistula or graft", "targets": 5, width: "200" },
-      { "title": "Avg. missed HD time", "targets": 6, width: "200" }
+      { "title": "Avg. missed HD time", "targets": 6, width: "200" },
       { "title": "% missing >5% HD time", "targets": 7, width: "200" }
     ]}
 -
