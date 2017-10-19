@@ -26,7 +26,7 @@
         #dialysing_on_day_and_period
           =f.input :patient_id,
                    collection: slot.patients_preferring_to_dialyse_today_in_this_period,
-                   label_method: ->(item){ item.to_s(:long) },
+                   label_method: :text,
                    value_method: :id,
                    input_html: { class: "searchable_select patient-id-select2",
                                  id: "patient_id1",
@@ -35,7 +35,7 @@
         #dialysing_on_day(style="display:none")
           =f.input :patient_id,
                    collection: slot.patients_preferring_to_dialyse_today,
-                   label_method: ->(item){ item.to_s(:long) },
+                   label_method: :text,
                    value_method: :id,
                    input_html: { class: "searchable_select patient-id-select2",
                                  id: "patient_id2",
@@ -43,14 +43,22 @@
         #dialysing_at_unit(style="display:none")
           = f.input :patient_id,
                     collection: [],
-                    input_html: { \
-                      id: "patient-ajax-search",
-                      class: "patient-id-select2",
+                    input_html: {\
+                      class: "patient-id-select2 patient-ajax-search",
                       name: "hd_diary_slot[patient_id][]",
-                      data: { "ajax--url" => search_patients_path(format: :json),
+                      data: { "ajax--url" => hd_patients_dialysing_at_unit_path(unit_id: slot.diary.hospital_unit_id, format: :json),
                               placeholder: "Type 3 or more characters" }\
                     }
 
+        #dialysing_at_hospital(style="display:none")
+          = f.input :patient_id,
+                    collection: [],
+                    input_html: {\
+                      class: "patient-id-select2 patient-ajax-search",
+                      name: "hd_diary_slot[patient_id][]",
+                      data: { "ajax--url" => hd_patients_dialysing_at_hospital_path(format: :json),
+                              placeholder: "Type 3 or more characters" }\
+                    }
   =f.submit "Add for this week only", class: "button save weekly"
   | &nbsp;
   =f.submit "Add to this and all future weeks", class: "button secondary master", name: "master"

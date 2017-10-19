@@ -56,7 +56,7 @@ module World
           click_on "HD Preferences"
         end
 
-        select "Mon, Wed, Fri AM", from: "Schedule"
+        select "Mon Wed Fri AM", from: "Schedule"
 
         click_on "Create"
       end
@@ -68,7 +68,7 @@ module World
         click_on "Edit"
 
         within ".document" do
-          select "Mon, Wed, Fri PM", from: "Schedule"
+          select "Mon Wed Fri PM", from: "Schedule"
 
           click_on "Save"
         end

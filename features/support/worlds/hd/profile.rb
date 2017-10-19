@@ -87,7 +87,7 @@ module World
           click_on "HD Profile"
         end
 
-        select "Mon, Wed, Fri AM", from: "Schedule"
+        select "Mon Wed Fri AM", from: "Schedule"
         select prescriber.to_s, from: "Prescriber" if prescriber
         select "300", from: "Flow Rate"
 
@@ -101,7 +101,7 @@ module World
         visit patient_hd_dashboard_path(patient)
         click_on "Edit"
 
-        select "Mon, Wed, Fri PM", from: "Schedule"
+        select "Mon Wed Fri PM", from: "Schedule"
         select "400", from: "Flow Rate"
 
         within ".top" do

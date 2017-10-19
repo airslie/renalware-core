@@ -11,7 +11,7 @@ module Renalware::HD
         diurnal_period = DiurnalPeriodCode.new(code: "am")
         definition = described_class.new(days: [1, 3, 5], diurnal_period: diurnal_period)
 
-        expect(definition.to_s).to eq("Mon, Wed, Fri AM")
+        expect(definition.to_s).to eq("Mon Wed Fri AM")
       end
     end
   end

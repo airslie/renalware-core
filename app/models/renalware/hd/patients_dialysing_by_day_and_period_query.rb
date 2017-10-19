@@ -6,33 +6,33 @@ require_dependency "renalware/hd"
 module Renalware
   module HD
     class PatientsDialysingByDayAndPeriodQuery
-      attr_reader :day_of_week, :period_code
+      attr_reader :hospital_unit_id, :day_of_week, :period_code
 
-      def initialize(day_of_week, period_code)
+      def initialize(hospital_unit_id, day_of_week, period_code)
+        @hospital_unit_id = hospital_unit_id
         @day_of_week = day_of_week
         @period_code = period_code
       end
 
       def call
-        return [] if schedule_definition.nil?
-        Patient
-          .joins(:hd_profile)
-          .where(hd_profiles: { schedule_definition_id: schedule_definition.id })
-          .order(:family_name, :given_name)
+        PatientsDialysingByScheduleQuery.new(
+          hospital_unit_id,
+          schedule_definition_ids
+        ).call
       end
 
       private
 
-      # Find the schedule for the day of week/period (eg Mon PM)
-      # Note days is array and our where clause here find matches where day_of_week is in that array
-      # so if we are looking for Tuesday (day_of_week = 2) we will match e.g. [2,4,6]
-      def schedule_definition
-        @schedule_definition ||= begin
-          Renalware::HD::ScheduleDefinition
-            .eager_load(:diurnal_period)
-            .merge(Renalware::HD::DiurnalPeriodCode.for(period_code))
-            .find_by("days @> ?", "{#{day_of_week}}")
-        end
+      # Find the first schedule having day_of_week in the pg days[] array (e.g. [2,4,6] if
+      # day_of_week is 2 (Tuesday) AND matching the period_code ie having the correct diurnal
+      # period code e.g. AM.
+      # Note
+      def schedule_definition_ids
+        HD::ScheduleDefinition
+          .eager_load(:diurnal_period)
+          .merge(Renalware::HD::DiurnalPeriodCode.for(period_code))
+          .merge(Renalware::HD::ScheduleDefinition.for_day_of_week(day_of_week))
+          .pluck(:id)
       end
     end
   end

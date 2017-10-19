@@ -10,14 +10,24 @@ module Renalware
       # Patients who prefer to dialyse on this day e.g. Mon and in this period e.g. AM.
       # Flag those already assigned so they cannot be chosen.
       def patients_preferring_to_dialyse_today_in_this_period
-        Renalware::HD::PatientsDialysingByDayAndPeriodQuery
-          .new(day_of_week, diurnal_period_code.code).call.all
+        patients = Renalware::HD::PatientsDialysingByDayAndPeriodQuery
+          .new(
+            diary.hospital_unit_id,
+            day_of_week,
+            diurnal_period_code.code
+          ).call.all
+        simplify(patients)
       end
 
       # Patients who prefer to dialyse on this day e.g. Mon
       # Flag those already assigned so they cannot be chosen.
       def patients_preferring_to_dialyse_today
-        Renalware::HD::PatientsDialysingByDayQuery.new(day_of_week).call.all
+        patients = Renalware::HD::PatientsDialysingByDayQuery
+        .new(
+          diary.hospital_unit_id,
+          day_of_week
+        ).call.all
+        simplify(patients)
       end
 
       # rubocop:disable Metrics/MethodLength
@@ -35,10 +45,25 @@ module Renalware
           OpenStruct.new(
             id: :dialysing_at_unit,
             name: "All #{hospital_unit.unit_code} HD patients"
+          ),
+          OpenStruct.new(
+            id: :dialysing_at_hospital,
+            name: "All HD patients"
           )
         ]
       end
-      # rubocop:enable Metrics/MethodLength
+
+      private
+
+      def simplify(patients)
+        patients.map do |patient|
+          hd_profile = patient.hd_profile
+          text = "#{patient.to_s(:long)} - "\
+                 "#{hd_profile&.schedule_definition} "\
+                 "#{hd_profile&.hospital_unit&.unit_code}".strip.truncate(65)
+          OpenStruct.new(id: patient.id, text: text)
+        end
+      end
     end
   end
 end
