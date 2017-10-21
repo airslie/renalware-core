@@ -15,7 +15,7 @@ module Renalware
     # Note if inserting directly into the database (bypassing Rails) this will still work as there
     # is a default new uuid value on the secure_id column
     before_create { self.secure_id ||= SecureRandom.uuid }
-    before_save :uppercase_local_patient_ids
+    before_save :upcase_local_patient_ids
     friendly_id :secure_id, use: [:finders]
 
     # For compactness in urls, remove the dashes, so that
@@ -128,21 +128,6 @@ module Renalware
       self.primary_care_physician == primary_care_physician
     end
 
-    # @section services
-
-    # def set_modality(attrs, by: nil)
-    #   by ||= attrs[:by]
-    #   # if current_modality.present?
-    #   #   current_modality.transfer!(attrs)
-    #   # else
-    #   #   modalities.create(attrs)
-    #   # end
-    #   new_modality = modalities.new(attrs)
-    #   Modalities::ChangePatientModality
-    #     .new(patient: self, by: by)
-    #     .call(old_modality: current_modality, new_modality:new_modality)
-    # end
-
     def current_modality_death?
       return false if current_modality.blank?
 
@@ -159,12 +144,16 @@ module Renalware
 
     private
 
-    def uppercase_local_patient_ids
+    # TODO: Use a constant for the max number of local patient ids
+    def upcase_local_patient_ids
       self.local_patient_id = local_patient_id.upcase if local_patient_id.present?
-      (2..5).each do |idx|
-        attr_name = :"local_patient_id_#{idx}"
-        send("#{attr_name}=", send(attr_name).upcase) if send(attr_name).present?
-      end
+      (2..5).each{ |index| upcase_local_patient_id(index) }
+    end
+
+    def upcase_local_patient_id(index)
+      attr_name = :"local_patient_id_#{index}"
+      id_value = send(attr_name)
+      send("#{attr_name}=", id_value.upcase) if id_value.present?
     end
 
     def has_title?
