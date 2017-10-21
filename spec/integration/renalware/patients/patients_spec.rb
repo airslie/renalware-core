@@ -16,7 +16,12 @@ RSpec.describe "Managing patients", type: :request do
   describe "POST create" do
     context "given valid attributes" do
       it "creates a new record" do
-        attributes = attributes_for(:patient, country_of_birth_id: algeria.id)
+        attributes = attributes_for(
+          :patient,
+          country_of_birth_id: algeria.id,
+          local_patient_id: "abc123",
+          local_patient_id_2: "xyz123"
+        )
         document = build_document
 
         post patients_path, params: { patient: attributes.merge(document: document) }
@@ -29,6 +34,9 @@ RSpec.describe "Managing patients", type: :request do
         expect(created_patient.document).to match_document(document)
         expect(created_patient.created_by).to eq(@current_user)
         expect(created_patient.updated_by).to eq(@current_user)
+
+        expect(created_patient.local_patient_id).to eq("ABC123")
+        expect(created_patient.local_patient_id_2).to eq("XYZ123")
 
         follow_redirect!
 

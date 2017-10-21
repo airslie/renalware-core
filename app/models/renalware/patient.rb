@@ -15,6 +15,7 @@ module Renalware
     # Note if inserting directly into the database (bypassing Rails) this will still work as there
     # is a default new uuid value on the secure_id column
     before_create { self.secure_id ||= SecureRandom.uuid }
+    before_save :uppercase_local_patient_ids
     friendly_id :secure_id, use: [:finders]
 
     # For compactness in urls, remove the dashes, so that
@@ -157,6 +158,14 @@ module Renalware
     end
 
     private
+
+    def uppercase_local_patient_ids
+      self.local_patient_id = local_patient_id.upcase if local_patient_id.present?
+      (2..5).each do |idx|
+        attr_name = :"local_patient_id_#{idx}"
+        send("#{attr_name}=", send(attr_name).upcase) if send(attr_name).present?
+      end
+    end
 
     def has_title?
       respond_to?(:title) && title.present?
