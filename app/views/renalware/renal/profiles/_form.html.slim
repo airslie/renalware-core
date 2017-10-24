@@ -73,7 +73,8 @@
     - label = "Address at ESRF Date"
 
     / If the user wants to overwrite or copy in the patient's current address, we use js to
-    / clone the hidden current address form and replace the visible address form with it.
+    / clone the hidden current address form fields in edit.slim and replace the visible
+    / address form fields below with them.
     #visible-address-form
       = f.simple_fields_for :address_at_diagnosis_attributes, f.object.address_at_diagnosis do |a|
         article#address_at_diagnosis
@@ -85,7 +86,3 @@
                        class: "button left"
           = a.input :id, as: :hidden
           .form-content= render("renalware/addresses/form", a: a)
-
-    #hidden-current-address-form(style="display:none")
-      = f.simple_fields_for :address_at_diagnosis_attributes, patient.current_address do |a|
-        .form-content= render("renalware/addresses/form", a: a)
