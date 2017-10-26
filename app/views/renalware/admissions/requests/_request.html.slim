@@ -1,6 +1,7 @@
-- patient = request.patient
-- unit = Renalware::Hospitals::Unit.find_by(id: request.hospital_unit_id)
-- editing_history = "Created #{l(request.created_at)} by #{request.created_by}\n"\
+ruby:
+  patient = request.patient
+  unit = Renalware::Hospitals::Unit.find_by(id: request.hospital_unit_id)
+  editing_history = "Created #{l(request.created_at)} by #{request.created_by}\n"\
                     "Updated #{l(request.updated_at)} by #{request.updated_by}"
 = content_tag_for(:tr,
                   request,
@@ -31,4 +32,3 @@
                 data: { "reveal-id" => "admissions-request-modal", "reveal-ajax" => "true" }
   td.handle
     i.fa.fa-reorder
-

@@ -1,5 +1,7 @@
 tr
-  td = link_to "Toggle", "##{toggle_prefix}-quick-preview-#{event.id}", data: { behaviour: "toggler" }
+  td= link_to("Toggle",
+              "##{toggle_prefix}-quick-preview-#{event.id}",
+              data: { behaviour: "toggler" })
   td.nowrap= l event.created_at.to_date
   - unless local_assigns.fetch(:exclude_type_column, false)
     td= event.event_type

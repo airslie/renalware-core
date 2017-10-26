@@ -34,8 +34,10 @@
             |
             = link_to "(Uncheck all)", "#", id: "uncheck_all_appointments_link"
           th.col-width-medium
-          th.col-width-date= sort_link([:renalware, query], :starts_at, "Date", default_order: :asc)
-          th.col-width-time= sort_link([:renalware, query], :start_time, "Time", default_order: :asc)
+          th.col-width-date
+            = sort_link([:renalware, query], :starts_at, "Date", default_order: :asc)
+          th.col-width-time
+            = sort_link([:renalware, query], :start_time, "Time", default_order: :asc)
           th.col-width-medium
             = sort_link([:renalware, query], :patient_family_name, "Patient", default_order: :asc)
           th.col-width-tiny Sex

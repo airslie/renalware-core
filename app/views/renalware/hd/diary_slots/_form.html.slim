@@ -1,4 +1,3 @@
-
 = render "renalware/shared/errors", model: slot
 
 = simple_form_for(slot,
@@ -31,7 +30,7 @@
                    value_method: :id,
                    input_html: { class: "searchable_select patient-id-select2",
                                  id: "patient_id1",
-                                 name: "hd_diary_slot[patient_id][]"}
+                                 name: "hd_diary_slot[patient_id][]" }
 
         #dialysing_on_day(style="display:none")
           =f.input :patient_id,
@@ -40,11 +39,11 @@
                    value_method: :id,
                    input_html: { class: "searchable_select patient-id-select2",
                                  id: "patient_id2",
-                                 name: "hd_diary_slot[patient_id][]"}
+                                 name: "hd_diary_slot[patient_id][]" }
         #dialysing_at_unit(style="display:none")
           = f.input :patient_id,
                     collection: [],
-                    input_html: {\
+                    input_html: { \
                       id: "patient-ajax-search",
                       class: "patient-id-select2",
                       name: "hd_diary_slot[patient_id][]",
