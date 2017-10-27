@@ -271,7 +271,6 @@ scss:
       .site-info-html
         =raw letter.letterhead.site_info
 
-
   .body
     .salutation
       p= letter.salutation
@@ -302,11 +301,9 @@ scss:
         - letter.electronic_cc_recipients.each do |user|
           li= user.professional_signature
 
-
       .private
         p Private and confidential
 
       - letter.cc_recipients.each do |cc|
         .address.nobreak
           p= cc.to_html
-

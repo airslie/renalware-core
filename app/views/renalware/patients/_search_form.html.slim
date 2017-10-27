@@ -4,7 +4,7 @@
                   as: :patient_search,
                   url: search_form.url,
                   method: :get,
-                  html: { autocomplete: "off"} do |f|
+                  html: { autocomplete: "off" } do |f|
   .row
     .medium-5.columns
       = f.input :term, label: false, placeholder: "Search by patient surname, NHS or Hosp. no."

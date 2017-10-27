@@ -55,7 +55,7 @@ ruby:
     -if event&.respond_to?(:notes)
       = link_to "Insert #{event.class.name.demodulize.underscore.humanize.downcase} notes",
                 "/",
-                data: { :notes => event.notes || "", target: ".letter-body-editor" },
+                data: { notes: event.notes || "", target: ".letter-body-editor" },
                 class: "insert-data-notes button alternative right editor-toolbar-button"
 
     = f.trix_editor :body, class: "letter-body-editor"

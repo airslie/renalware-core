@@ -89,4 +89,3 @@
     #hidden-current-address-form(style="display:none")
       = f.simple_fields_for :address_at_diagnosis_attributes, patient.current_address do |a|
         .form-content= render("renalware/addresses/form", a: a)
-

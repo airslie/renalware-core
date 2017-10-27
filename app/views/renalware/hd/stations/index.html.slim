@@ -3,7 +3,6 @@
 - breadcrumbs = [breadcrumb_for("Hospital Units", hospitals_units_path),
                  breadcrumb_for(unit.unit_code, edit_hospitals_unit_path(unit))]
 
-
 = content_for(:actions) do
   = link_to t("new_record.link_title"),
             new_hd_unit_station_path(unit_id: unit.id),

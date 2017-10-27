@@ -29,7 +29,6 @@ ruby:
              locals: { legend: "Virology/Bacteriology/Cytology",
                        name: "infections" } do
 
-
       = fd.simple_fields_for :infections, fd.object.infections do |fcm|
         table.no-stripes.infections
           = render_input fcm, :hiv
