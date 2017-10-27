@@ -16,10 +16,10 @@
     = f.input :event_type_id,
               collection: event_types,
               wrapper: :horizontal_medium,
-              input_html: {  id: "event-type-dropdown",
-                             class: "searchable_select",
-                             required: :required,
-                             tabindex: 2001 }
+              input_html: { id: "event-type-dropdown",
+                            class: "searchable_select",
+                            required: :required,
+                            tabindex: 2001 }
 
   / The contents of this div will get replaced if a user selects an alternative
   / event type in the drop-down above. See events.js.

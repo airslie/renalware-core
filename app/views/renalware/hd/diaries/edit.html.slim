@@ -33,7 +33,7 @@
 
       - diary.each_diurnal_period do |diurnal_period|
 
-          table.diary__period*{'data-period-code'=> diurnal_period.code}
+          table.diary__period*{ "data-period-code" => diurnal_period.code }
             thead
               tr
                 th(colspan=8)
@@ -46,7 +46,7 @@
             tbody
 
               - diary.each_station do |station, index|
-                tr*{'data-station-id'=> station.id}
+                tr*{ "data-station-id" => station.id }
                   th(style=station.css)
                     = "#{index}. #{station.name}"
 

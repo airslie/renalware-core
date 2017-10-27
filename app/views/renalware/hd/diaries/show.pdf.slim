@@ -8,7 +8,7 @@
     .diary__grid
       - diary.each_diurnal_period do |diurnal_period|
         - day_columns_width_pct = (100 - 20) / diary.day_names.count
-        table.diary__period*{'data-period-code'=> diurnal_period.code}
+        table.diary__period*{ "data-period-code" => diurnal_period.code }
           thead
             tr
               th(colspan=8)

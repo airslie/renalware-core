@@ -10,11 +10,11 @@
              collection: patients,
              label_method: ->(item){ item.to_s(:long) },
              value_method: :id,
-             input_html: { class: "searchable_select"}
+             input_html: { class: "searchable_select" }
   - else
     = f.input :patient_id,
               collection: [],
-              input_html: {\
+              input_html: { \
                 id: "patient-ajax-search",
                 data: { "ajax--url" => search_patients_path(format: :json) }\
               }
