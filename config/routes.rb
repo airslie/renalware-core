@@ -127,6 +127,11 @@ Renalware::Engine.routes.draw do
   end
 
   namespace :hd do
+    scope format: true, constraints: { format: :json } do
+      get "patients_dialysing_at_unit" => "patients#dialysing_at_unit"
+      get "patients_dialysing_at_hospital" => "patients#dialysing_at_hospital"
+    end
+
     resources :cannulation_types, except: :show
     resources :dialysers, except: :show
     resource :ongoing_sessions, only: :show

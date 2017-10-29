@@ -15,10 +15,11 @@ module Renalware
     class SearchQuery
 
       # FIELDS = %i(id family_name given_name nhs_number).freeze
-      attr_reader :term
+      attr_reader :term, :scope
 
-      def initialize(term:)
+      def initialize(scope: Patient.all, term:)
         @term = term
+        @scope = scope
       end
 
       def call
@@ -28,7 +29,7 @@ module Renalware
       # .select(FIELDS)
       def search
         @search ||= begin
-          Patient
+          scope
             .search(identity_match: term).tap do |search|
               search.sorts = %w(family_name given_name)
             end

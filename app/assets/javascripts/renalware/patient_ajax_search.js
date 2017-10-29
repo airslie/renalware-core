@@ -8,7 +8,7 @@ var Renalware = typeof Renalware === 'undefined' ? {} : Renalware;
 Renalware.PatientSearch = (function() {
 
   var initPatientSearch = function(){
-    var dropDown = $("#patient-ajax-search");
+    var dropDown = $(".patient-ajax-search");
     console.log(dropDown);
 
     $(dropDown).select2({

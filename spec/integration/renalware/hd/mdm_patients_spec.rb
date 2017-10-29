@@ -70,7 +70,7 @@ RSpec.describe "HD MDM Patients", type: :feature do
       expect(page).to have_content(patient2.family_name)
 
       # Show only those patients scheduled at this time
-      select "Mon, Wed, Fri PM", from: "Schedule"
+      select "Mon Wed Fri PM", from: "Schedule"
       click_on I18n.t("helpers.submit.filter")
 
       expect(page).to have_content(patient2.family_name)
