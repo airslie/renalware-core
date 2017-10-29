@@ -15,8 +15,8 @@ module World
 
       def expect_prescriptions_to_be(table)
         expect(@prescriptions.size).to eq(table.hashes.size)
-        actual_names = @prescriptions.map { |prescription| prescription.patient.to_s }
-        expected_names = table.hashes.map{ |h| h["patient"] }
+        actual_names = @prescriptions.map { |prescription| prescription.patient.to_s }.sort
+        expected_names = table.hashes.map{ |h| h["patient"] }.sort
         expect(actual_names).to eq(expected_names)
       end
 
