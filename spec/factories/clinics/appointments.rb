@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :appointment, class: "Renalware::Clinics::Appointment" do
     patient
     clinic

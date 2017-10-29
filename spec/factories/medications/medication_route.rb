@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :medication_route, class: "Renalware::Medications::MedicationRoute" do
     code "PO"
     name "Per Oral"

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :pathology_observation, class: "Renalware::Pathology::Observation" do
     association :description, factory: :pathology_observation_description
     result "6.0"

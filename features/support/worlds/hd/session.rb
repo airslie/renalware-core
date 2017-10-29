@@ -80,7 +80,7 @@ module World
             by: user,
             signed_off_by: signed_off_by,
             signed_off_at: Time.zone.now,
-            dialysate: FactoryGirl.create(:hd_dialysate),
+            dialysate: FactoryBot.create(:hd_dialysate),
             end_time: attrs[:start_time] + 1.hour
           )
         )

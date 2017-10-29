@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :pet_adequacy_result, class: "Renalware::PD::PETAdequacyResult" do
 

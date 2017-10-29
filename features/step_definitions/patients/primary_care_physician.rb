@@ -6,7 +6,7 @@ Given(/^Phylis is a primary care physician$/) do
     telephone: "0203593082",
     code: "123IUY",
     practitioner_type: "GP",
-    address: FactoryGirl.build(:address)
+    address: FactoryBot.build(:address)
   )
 end
 

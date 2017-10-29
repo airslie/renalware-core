@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :apd_system, class: "Renalware::PD::System" do
     name Faker::Company.name
     pd_type "APD"

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :modality_description, class: "Renalware::Modalities::Description" do
     name "unspecific modality description not set in factory"
 

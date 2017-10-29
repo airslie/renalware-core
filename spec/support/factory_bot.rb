@@ -1,5 +1,5 @@
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 end
 
 # Use this strategy to get Hash output from factories defined using class: OpenStruct.
@@ -17,7 +17,7 @@ end
 #
 class MarshalDumpStrategy
   def initialize
-    @strategy = FactoryGirl.strategy_by_name(:create).new
+    @strategy = FactoryBot.strategy_by_name(:create).new
   end
 
   delegate :association, to: :@strategy
@@ -26,4 +26,4 @@ class MarshalDumpStrategy
     @strategy.result(evaluation).marshal_dump
   end
 end
-FactoryGirl.register_strategy(:marshal_dump, MarshalDumpStrategy)
+FactoryBot.register_strategy(:marshal_dump, MarshalDumpStrategy)

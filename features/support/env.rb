@@ -36,7 +36,7 @@ include Renalware::Engine.routes.url_helpers
 require "cucumber/rails"
 require "capybara-screenshot/cucumber" if RUBY_PLATFORM =~ /darwin/
 require "rspec/rails"
-require "factory_girl_rails"
+require "factory_bot_rails"
 require "chosen-rails/rspec"
 
 WebMock.disable!

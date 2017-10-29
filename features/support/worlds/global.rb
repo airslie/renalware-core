@@ -45,7 +45,7 @@ module World
     end
 
     def primary_care_physician
-      @primary_care_physician ||= FactoryGirl.create(:primary_care_physician)
+      @primary_care_physician ||= FactoryBot.create(:primary_care_physician)
     end
   end
 end

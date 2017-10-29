@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :esi_printable_form_template, class: "Renalware::System::Template" do
     name "esi_printable_form"
     title "ESI Printable Form"

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :donor_stage, class: "Renalware::Transplants::DonorStage" do
     accountable
     patient

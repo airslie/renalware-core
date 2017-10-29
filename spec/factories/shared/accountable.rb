@@ -14,7 +14,7 @@
 # However if you don't call `create` with a `by` or `*_by` arguments, the default `association` we
 # define here in this global trait ensures only one user - accountable_actor is created and assigned
 # to both created_by and updated_by. Previously each had its own `user` association and two users
-# were created each time any model (that included Accountable) was created by FactoryGirl.
+# were created each time any model (that included Accountable) was created by FactoryBot.
 # If you need to use the same user for any other attribute in a factory, you can do for instance
 #
 #     factory :audit do
@@ -24,7 +24,7 @@
 #
 #  Which create one user and assign them to updated_by, createed_by and requested_by.
 #
-FactoryGirl.define do
+FactoryBot.define do
   trait :accountable do
     transient do
       accountable_actor { by || create(:user) }

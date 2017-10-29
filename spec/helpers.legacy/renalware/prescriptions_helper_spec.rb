@@ -3,12 +3,12 @@ require "rails_helper"
 module Renalware
   RSpec.describe PrescriptionsHelper, type: :helper do
     before do
-      @patient = FactoryGirl.create(:patient)
-      @med_route = FactoryGirl.create(:medication_route)
-      @blue_pill = FactoryGirl.create(:drug)
-      @amoxicillin = FactoryGirl.create(:drug, name: "Amoxicillin")
-      @penicillin = FactoryGirl.create(:drug, name: "Penicillin")
-      @invalid_patient_med = FactoryGirl.build(
+      @patient = FactoryBot.create(:patient)
+      @med_route = FactoryBot.create(:medication_route)
+      @blue_pill = FactoryBot.create(:drug)
+      @amoxicillin = FactoryBot.create(:drug, name: "Amoxicillin")
+      @penicillin = FactoryBot.create(:drug, name: "Penicillin")
+      @invalid_patient_med = FactoryBot.build(
                               :prescription,
                               patient: @patient,
                               drug: nil,
@@ -19,7 +19,7 @@ module Renalware
                               prescribed_on: nil,
                               provider: nil)
 
-      @valid_patient_med = FactoryGirl.build(
+      @valid_patient_med = FactoryBot.build(
                             :prescription,
                             patient: @patient,
                             treatable: @patient,

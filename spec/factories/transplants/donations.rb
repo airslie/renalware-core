@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :transplant_donation, class: Renalware::Transplants::Donation do
     patient
 

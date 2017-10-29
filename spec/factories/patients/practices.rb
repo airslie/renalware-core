@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   sequence :practice_code do |n|
     "PR432#{n}"
   end
@@ -8,7 +8,7 @@ FactoryGirl.define do
     code { generate(:practice_code) }
 
     # ensures addressable_type and addressable_id work is assigned, using
-    # FactoryGirl's simple assoc method does not work
+    # FactoryBot's simple assoc method does not work
     #
     before(:create) do |practice|
       practice.build_address(attributes_for(:address))

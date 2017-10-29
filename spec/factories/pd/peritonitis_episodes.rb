@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :peritonitis_episode, class: "Renalware::PD::PeritonitisEpisode" do
     patient
     diagnosis_date "30/01/2015"

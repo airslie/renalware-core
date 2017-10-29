@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :modality, class: "Renalware::Modalities::Modality" do
     accountable
     patient

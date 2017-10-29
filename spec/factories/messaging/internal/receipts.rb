@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :internal_receipt, class: "Renalware::Messaging::Internal::Receipt" do
     association :recipient, factory: :internal_recipient
     read_at nil

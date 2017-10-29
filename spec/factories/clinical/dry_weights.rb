@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :dry_weight, class: "Renalware::Clinical::DryWeight" do
     accountable
     patient

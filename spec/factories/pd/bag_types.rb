@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :bag_type, class: "Renalware::PD::BagType" do
     manufacturer "Star Brand, Lucky Brand"
     description "Green–2.34"

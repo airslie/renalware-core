@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :letter, class: "Renalware::Letters::Letter" do
     accountable
 

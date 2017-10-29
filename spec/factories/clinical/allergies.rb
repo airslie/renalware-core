@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :allergy, class: "Renalware::Clinical::Allergy" do
     patient
     description { Faker::Lorem.sentence }

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :country, class: "Renalware::System::Country" do
     factory :united_kingdom do
       name "United Kingdom"

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   sequence :gp_code do |n|
     "GP123#{n}"
   end
@@ -12,7 +12,7 @@ FactoryGirl.define do
     practitioner_type "GP"
 
     # ensures addressable_type and addressable_id work is assigned, using
-    # FactoryGirl's simple assoc method does not work
+    # FactoryBot's simple assoc method does not work
     #
     before(:create) do |primary_care_physician|
       primary_care_physician.build_address(attributes_for(:address))

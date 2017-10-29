@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :exit_site_infection, class: "Renalware::PD::ExitSiteInfection" do
     patient
     diagnosis_date "01/04/2015"

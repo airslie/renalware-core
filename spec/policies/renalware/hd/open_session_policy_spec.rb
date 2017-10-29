@@ -5,7 +5,7 @@ module Renalware
     describe OpenSessionPolicy, type: :policy do
       subject { described_class }
 
-      let(:user) { FactoryGirl.build(:user, :super_admin) }
+      let(:user) { FactoryBot.build(:user, :super_admin) }
       let(:session) { HD::Session::Closed.new }
 
       [:edit?, :destroy?].each do |permission|

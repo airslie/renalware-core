@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :language, class: "Renalware::Patients::Language" do
     name "English"
     code "en"

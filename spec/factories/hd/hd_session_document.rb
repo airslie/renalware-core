@@ -1,4 +1,4 @@
-# A word about using FactoryGirl to build document (jsonb) objects:
+# A word about using FactoryBot to build document (jsonb) objects:
 #
 # The best solution I can find is to use OpenStructs to build each
 # nested part, compose these in the top level document (e.g. SessionDocument)
@@ -11,9 +11,9 @@
 #     end
 #   end
 #
-# The support/factory_girl.rb for the definition of MarshalDumpStrategy
+# The support/factory_bot.rb for the definition of MarshalDumpStrategy
 #
-FactoryGirl.define do
+FactoryBot.define do
   factory :blood_pressure, class: OpenStruct do
     systolic 100
     diastolic 80

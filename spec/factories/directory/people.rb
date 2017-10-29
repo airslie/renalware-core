@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :directory_person, class: "Renalware::Directory::Person" do
     accountable
     given_name   { Faker::Name.first_name }

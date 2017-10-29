@@ -1,5 +1,5 @@
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :admissions_request, class: "Renalware::Admissions::Request" do
     accountable
     association :reason, factory: :admissions_request_reason

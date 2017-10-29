@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   sequence(:system_code) { |n| "sibling-#{n}" }
   sequence(:name) { |n| "Sibling #{n}" }
   sequence(:position) { |n| n }

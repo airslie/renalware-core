@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :schedule_definition, class: "Renalware::HD::ScheduleDefinition" do
     initialize_with do
       Renalware::HD::ScheduleDefinition.find_or_create_by(

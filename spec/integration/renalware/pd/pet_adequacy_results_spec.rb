@@ -14,7 +14,7 @@ RSpec.describe "Managing PD PET Adequacy Results", type: :request do
   end
   describe "POST create" do
     it "responds with success" do
-      params = { pet_adequacy: FactoryGirl.attributes_for(:pet_adequacy_result) }
+      params = { pet_adequacy: FactoryBot.attributes_for(:pet_adequacy_result) }
       post patient_pd_pet_adequacy_results_path(patient, params)
 
       follow_redirect!
