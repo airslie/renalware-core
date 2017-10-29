@@ -25,6 +25,7 @@ en:
             body: Body
             urgent: Urgent
             age: Age
+            nhs_no: NHS Number
             hosp_no: Hosp No.
             recipients: Recipients
           sent_table:

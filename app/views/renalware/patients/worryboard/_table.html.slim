@@ -1,7 +1,7 @@
 table#patients
   thead
     tr
-      th.at-least.col-width-medium
+      th.at-least.col-width-large
         = sort_link(query,
                    :patient_family_name,
                    [:patient_family_name, 'patient_given_name asc'],
@@ -14,7 +14,7 @@ table#patients
       th.col-width-small= sort_link(query, :created_at, "Date Added")
       th.col-width-medium Added By
       th Notes
-      th.col-width-small
+      th.col-width-medium
         = sort_link(query,
                    :patient_current_modality_description_name,
                    "Modality")

@@ -3,7 +3,7 @@ en:
     hd:
       mdm_patients:
         patient:
-          view: "View"
+          view: "View MDM"
         table:
           page_title: HD MDM patients
           name: Name

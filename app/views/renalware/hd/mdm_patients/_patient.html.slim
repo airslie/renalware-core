@@ -4,8 +4,7 @@
 - transplant_patient = Renalware::Transplants::PatientPresenter.new(patient)
 
 tr
-  td= link_to t(".view"), view_proc.call(patient)
-  td.full-name= patient
+  td.full-name= default_patient_link(patient)
   td.nowrap= patient.nhs_number
   td.nowrap= patient.hospital_identifier
   td= patient.sex.code
@@ -20,3 +19,4 @@ tr
   td= patient.transport_type&.text
   td= pathology_patient.hgb_result
   td= l(pathology_patient.hgb_observed_at&.to_date)
+  td.actions= link_to t(".view"), view_proc.call(patient)

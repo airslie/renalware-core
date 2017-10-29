@@ -1,9 +1,6 @@
-- patient = worry.patient
+- patient = Renalware::PatientPresenter.new(worry.patient)
 tr
-  td.full-name
-    = link_to(patient.to_s(format: :default),
-              patient_clinical_summary_path(patient),
-              title: "Clinical Summary")
+  td.full-name= default_patient_link(patient)
   td= patient.nhs_number
   td= patient.hospital_identifier
   td= patient.sex.code

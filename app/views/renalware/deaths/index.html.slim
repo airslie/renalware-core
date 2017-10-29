@@ -4,7 +4,6 @@
   table#patients-deceased
     thead
       tr
-        th.col-width-large
         th Name
         th.col-width-nhs-no NHS No.
         th.col-width-reference-no Hosp No.
@@ -12,22 +11,21 @@
         th.col-width-date Date of Birth
         th.col-width-date Date of Death
         th.col-width-tiny Age
+        th.col-width-medium
 
     tbody
       - @patients.each do |patient|
         tr
-          td
-            = link_to "Demographics", patient_path(patient), title: "Demographics"
-            = pipe_separator
-            = link_to "Edit death details",
-                      edit_patient_death_path(patient),
-                      title: "Edit death details"
-          td= patient.to_s(format: :default)
+          td= default_patient_link(patient)
           td= patient.nhs_number
           td= patient.hospital_identifier
           td= patient.sex
           td= l patient.born_on
           td= l patient.died_on
           td= patient.age
+          td.actions
+            = link_to "Edit death details",
+                      edit_patient_death_path(patient),
+                      title: "Edit death details"
 
   = paginate @patients

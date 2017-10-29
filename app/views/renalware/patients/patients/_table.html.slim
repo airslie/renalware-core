@@ -1,8 +1,8 @@
 table#patients
   thead
     tr
-      th.col-width-large= attr_name(Renalware::Patient, :name)
-      th.col-width-nhs-no= attr_name(Renalware::Patient, :nhs_number)
+      th.col-width-medium= attr_name(Renalware::Patient, :name)
+      th.col-width-nhs-no NHS Number
       - Renalware.config.patient_hospital_identifiers.keys.each do |key|
         th.col-width-reference-without-prefix="#{key} No"
       th.col-width-tiny= attr_name(Renalware::Patient, :sex)
