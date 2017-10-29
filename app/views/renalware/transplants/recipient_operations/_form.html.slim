@@ -68,7 +68,6 @@ ruby:
         = fcm.input :ukt_cause_of_death, wrapper: :horizontal_medium
         = fcm.input :ukt_cause_of_death_other, wrapper: :horizontal_large
 
-
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Donor Specific Antibodies", name: "donor_specific_antibodies" } do
       = fd.simple_fields_for :donor_specific_antibodies,

@@ -1,6 +1,6 @@
 / This is the create alert modal dialog content
 = simple_form_for alert,
-                  html: { autocomplete: "off"},
+                  html: { autocomplete: "off" },
                   remote: true,
                   url: patient_alerts_path(patient_id: patient) do |f|
     h2= t(".title")
