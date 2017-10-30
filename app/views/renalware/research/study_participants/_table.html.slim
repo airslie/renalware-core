@@ -5,10 +5,10 @@
         th.col-width-date Joined on
         th.col-width-date Left on
         th Patient
-        th.col-width-tiny Age
-        th.col-width-tiny Sex
         th.col-width-nhs-no NHS Number
-        th Hosp no
+        th.col-width-reference-no Hosp no
+        th.col-width-tiny Age
+        th Sex
         th.col-width-small
     tbody
       - participants.each do |participant|
@@ -16,10 +16,10 @@
           td= l(participant.joined_on)
           td= l(participant.left_on)
           td= default_patient_link(participant.patient)
-          td= participant.patient.age
-          td= participant.patient.sex
           td= participant.patient.nhs_number
           td= participant.patient.hospital_identifiers
+          td= participant.patient.age
+          td= participant.patient.sex
           td
             = link_to "Delete",
                       research_study_participant_path(study, participant),

@@ -23,8 +23,7 @@ ruby:
         = f.input :participant_id,
                       collection: [],
                       input_html: {\
-                        id: "patient-ajax-search",
-                        class: "patient-id-select2",
+                        class: "patient-id-select2 patient-ajax-search",
                         data: { "ajax--url" => search_patients_path(format: :json),
                                 placeholder: "Type 3 or more characters" }\
                       }

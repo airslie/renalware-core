@@ -2,7 +2,7 @@ var Renalware = typeof Renalware === 'undefined' ? {} : Renalware;
 
 Renalware.Research = (function() {
   var focusPatientInput = function() {
-    $('#patient-ajax-search').select2('open');
+    $('.patient-ajax-search').select2('open');
     $('select2-patient-ajax-search-container .select2-search__field').focus();
   };
 
