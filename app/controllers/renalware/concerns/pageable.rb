@@ -10,7 +10,7 @@ module Renalware
       end
 
       def per_page
-        params[:per_page]
+        params[:per_page] || 5
       end
     end
   end

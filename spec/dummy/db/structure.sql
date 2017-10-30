@@ -4606,6 +4606,82 @@ CREATE MATERIALIZED VIEW reporting_main_authors_audit AS
 
 
 --
+-- Name: research_studies; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE research_studies (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    description character varying NOT NULL,
+    leader character varying,
+    notes text,
+    started_on date,
+    terminated_on date,
+    deleted_at timestamp without time zone,
+    updated_by_id bigint,
+    created_by_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: research_studies_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE research_studies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: research_studies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE research_studies_id_seq OWNED BY research_studies.id;
+
+
+--
+-- Name: research_study_participants; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE research_study_participants (
+    id bigint NOT NULL,
+    participant_id bigint NOT NULL,
+    study_id bigint NOT NULL,
+    joined_on date NOT NULL,
+    left_on date,
+    deleted_at timestamp without time zone,
+    updated_by_id bigint,
+    created_by_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: research_study_participants_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE research_study_participants_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: research_study_participants_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE research_study_participants_id_seq OWNED BY research_study_participants.id;
+
+
+--
 -- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6155,6 +6231,20 @@ ALTER TABLE ONLY reporting_audits ALTER COLUMN id SET DEFAULT nextval('reporting
 
 
 --
+-- Name: research_studies id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY research_studies ALTER COLUMN id SET DEFAULT nextval('research_studies_id_seq'::regclass);
+
+
+--
+-- Name: research_study_participants id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY research_study_participants ALTER COLUMN id SET DEFAULT nextval('research_study_participants_id_seq'::regclass);
+
+
+--
 -- Name: roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7234,6 +7324,22 @@ ALTER TABLE ONLY renal_profiles
 
 ALTER TABLE ONLY reporting_audits
     ADD CONSTRAINT reporting_audits_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: research_studies research_studies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY research_studies
+    ADD CONSTRAINT research_studies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: research_study_participants research_study_participants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY research_study_participants
+    ADD CONSTRAINT research_study_participants_pkey PRIMARY KEY (id);
 
 
 --
@@ -9416,6 +9522,69 @@ CREATE UNIQUE INDEX index_reporting_hd_blood_pressures_audit_on_hospital_unit_na
 
 
 --
+-- Name: index_research_studies_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_research_studies_on_code ON research_studies USING btree (code) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: index_research_studies_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_research_studies_on_created_by_id ON research_studies USING btree (created_by_id);
+
+
+--
+-- Name: index_research_studies_on_description; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_research_studies_on_description ON research_studies USING btree (description);
+
+
+--
+-- Name: index_research_studies_on_leader; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_research_studies_on_leader ON research_studies USING btree (leader);
+
+
+--
+-- Name: index_research_studies_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_research_studies_on_updated_by_id ON research_studies USING btree (updated_by_id);
+
+
+--
+-- Name: index_research_study_participants_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_research_study_participants_on_created_by_id ON research_study_participants USING btree (created_by_id);
+
+
+--
+-- Name: index_research_study_participants_on_participant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_research_study_participants_on_participant_id ON research_study_participants USING btree (participant_id);
+
+
+--
+-- Name: index_research_study_participants_on_study_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_research_study_participants_on_study_id ON research_study_participants USING btree (study_id);
+
+
+--
+-- Name: index_research_study_participants_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_research_study_participants_on_updated_by_id ON research_study_participants USING btree (updated_by_id);
+
+
+--
 -- Name: index_roles_users_on_user_id_and_role_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9850,6 +10019,13 @@ CREATE INDEX tx_versions_type_id ON transplant_versions USING btree (item_type, 
 
 
 --
+-- Name: unique_study_participants; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_study_participants ON research_study_participants USING btree (participant_id, study_id) WHERE (deleted_at IS NULL);
+
+
+--
 -- Name: access_assessments access_assessments_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10250,6 +10426,14 @@ ALTER TABLE ONLY messaging_messages
 
 
 --
+-- Name: research_studies fk_rails_36273417ff; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY research_studies
+    ADD CONSTRAINT fk_rails_36273417ff FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: hd_diary_slots fk_rails_36ae60c09d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10626,6 +10810,22 @@ ALTER TABLE ONLY letter_archives
 
 
 --
+-- Name: research_study_participants fk_rails_8039d07f46; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY research_study_participants
+    ADD CONSTRAINT fk_rails_8039d07f46 FOREIGN KEY (study_id) REFERENCES research_studies(id);
+
+
+--
+-- Name: research_study_participants fk_rails_87bef0e757; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY research_study_participants
+    ADD CONSTRAINT fk_rails_87bef0e757 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: patient_worries fk_rails_8837145e13; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10767,6 +10967,22 @@ ALTER TABLE ONLY pd_exit_site_infections
 
 ALTER TABLE ONLY patients
     ADD CONSTRAINT fk_rails_9739853ad1 FOREIGN KEY (primary_care_physician_id) REFERENCES patient_primary_care_physicians(id);
+
+
+--
+-- Name: research_study_participants fk_rails_980af0ec33; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY research_study_participants
+    ADD CONSTRAINT fk_rails_980af0ec33 FOREIGN KEY (participant_id) REFERENCES patients(id);
+
+
+--
+-- Name: research_study_participants fk_rails_9c3d41afbe; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY research_study_participants
+    ADD CONSTRAINT fk_rails_9c3d41afbe FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --
@@ -11391,6 +11607,14 @@ ALTER TABLE ONLY hd_diary_slots
 
 ALTER TABLE ONLY hd_preference_sets
     ADD CONSTRAINT fk_rails_f0bcae6feb FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
+-- Name: research_studies fk_rails_f10169e6a9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY research_studies
+    ADD CONSTRAINT fk_rails_f10169e6a9 FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -12035,6 +12259,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171005130109'),
 ('20171005144505'),
 ('20171009104106'),
+('20171012110133'),
+('20171012143050'),
 ('20171013145849'),
 ('20171016152223'),
 ('20171017171625');

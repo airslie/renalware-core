@@ -1,9 +1,5 @@
 tr
-  td
-    = link_to "Clinical Summary", patient_clinical_summary_path(patient), title: "Clinical Summary"
-    = pipe_separator
-    = link_to "Admin", patient_path(patient), title: "Admin"
-  td.full-name= patient.to_s(format: :default)
+  td= default_patient_link(patient)
   td= patient.nhs_number
   - Renalware.config.patient_hospital_identifiers.values.each do |value|
     td= patient.public_send(value)
