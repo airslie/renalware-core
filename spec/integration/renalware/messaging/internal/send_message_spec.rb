@@ -1,6 +1,7 @@
 require "rails_helper"
 
 feature "Sending a private message" do
+  include AjaxHelpers
 
   scenario "A clinician sends a private message about a patient", js: true do
     user = login_as_clinician
@@ -11,7 +12,11 @@ feature "Sending a private message" do
 
     click_on "Send message"
 
+    wait_for_ajax
+
     fill_in "Body", with: "Test"
+
+    # Problem here: select2 not initialised at this point.
     select2 "X, Y", from: "#message_recipient_ids"
     click_on "Send"
 
