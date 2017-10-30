@@ -14,6 +14,7 @@ en:
         audits: Audits
         aki_alerts: AKI Alerts
         studies: Clinical Studies
+        renal_registry_checks: Renal Registry Checks
       mdms:
         menu_title: MDMs
         hd: HD

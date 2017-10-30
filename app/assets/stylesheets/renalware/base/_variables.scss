@@ -74,6 +74,13 @@ $letter-state-pending-review: $nhs-orange;
 $letter-state-approved: $nhs-green;
 $letter-state-completed: $nhs-dark-green;
 
+// Renal reg missing data labels
+$renal-reg-missing-data-default: $dark-grey;
+$renal-reg-missing-data-comorbidities-at-esrf: $nhs-aqua-blue;
+$renal-reg-missing-data-prd: $nhs-orange;
+$renal-reg-missing-data-first-seen-on: $nhs-green;
+$renal-reg-missing-data-ethnicity: $nhs-dark-green;
+
 // Admission Request priority but can be used elsewhere
 $priority-urgent: $nhs-dark-red;
 $priority-high: $nhs-red;
