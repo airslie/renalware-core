@@ -1,22 +1,21 @@
 table#patients.mdm-patients.columns
   thead
     tr
-      th.col-width-large= sort_link([:renalware, presenter.q], :family_name, t(".name"))
+      th.at-least.col-width-medium= sort_link([:renalware, presenter.q], :family_name, t(".name"))
       th.col-width-nhs-no= t(".nhs_no")
       th.col-width-reference-no= t(".hosp_no")
       th.col-width-tiny= t(".sex")
       th.col-width-tiny= t(".age")
-      th.col-width-small= t(".access")
-      th.col-width-small= t(".access_started_on")
+      th.col-width-medium= t(".access")
+      th.col-width-date= t(".access_started_on")
       th.col-width-small= t(".access_plan")
       th.col-width-date= t(".access_plan_date")
       th.col-width-date= t(".dialysing_at")
       th.col-width-date= t(".registration_status")
-      th.col-width-tiny= t(".has_transport")
-      th.col-width-tiny= t(".transport_type")
+      th.at-least.col-width-small= t(".transport_type")
       th.col-width-tiny= t(".hgb")
       th.col-width-date= t(".hgb_date")
-      th.col-width-small
+      th.col-width-tiny
   tbody
     - presenter.patients.each do |patient|
       = render "patient",

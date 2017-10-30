@@ -3,7 +3,7 @@ en:
     hd:
       mdm_patients:
         patient:
-          view: "View MDM"
+          view: "MDM"
         table:
           page_title: HD MDM patients
           name: Name
@@ -18,7 +18,6 @@ en:
           access_plan: Access Plan
           access_plan_date: Plan Date
           registration_status: Tx Status
-          has_transport: Transport?
           transport_type: Transport
           dialysing_at: Dialysing at
           esrf: ESRF

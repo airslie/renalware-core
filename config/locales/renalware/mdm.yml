@@ -2,7 +2,7 @@ en:
   renalware:
     mdm_patients:
       patient:
-        view: "View MDM"
+        view: "MDM"
       table:
         name: Name
         nhs_no: NHS No.

@@ -1,5 +1,5 @@
 tr
-  td.full-name= default_patient_link(patient)
+  td.full-name= link_to patient, view_proc.call(patient)
   td.nowrap= patient.nhs_number
   td.nowrap= patient.hospital_identifier
   td= patient.sex.code

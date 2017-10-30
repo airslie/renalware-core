@@ -11,6 +11,7 @@ module Renalware
 
       delegate :dialyser,
                :cannulation_type,
+               :bicarbonate,
                :needle_size,
                :single_needle,
                :temperature,
@@ -86,16 +87,17 @@ module Renalware
       end
 
       def blood_flow
-        "#{dialysis.blood_flow} ml/min" unless dialysis.blood_flow.blank?
-      end
-
-      def bicarbonate
-        dialysis.bicarbonate
+        "#{dialysis.blood_flow} ml/min" if dialysis.blood_flow.present?
       end
 
       def anticoagulant_stop_time
         return if anticoagulant.stop_time.blank?
         Duration.from_minutes(anticoagulant.stop_time).to_s
+      end
+
+      def transport_summary
+        return if transport.blank?
+        [transport.has_transport&.text, transport.type&.text].compact.join(": ")
       end
     end
   end
