@@ -7,19 +7,19 @@ module Renalware::Letters
 
     permissions :author? do
       it "grants access if user super_admin" do
-        expect(subject).to permit(FactoryGirl.create(:user, :super_admin))
+        expect(subject).to permit(FactoryBot.create(:user, :super_admin))
       end
 
       it "grants access if user admin" do
-        expect(subject).to permit(FactoryGirl.create(:user, :admin))
+        expect(subject).to permit(FactoryBot.create(:user, :admin))
       end
 
       it "denies access if user clinician" do
-        expect(subject).to permit(FactoryGirl.create(:user, :clinician))
+        expect(subject).to permit(FactoryBot.create(:user, :clinician))
       end
 
       it "denies access if user read_only" do
-        expect(subject).not_to permit(FactoryGirl.create(:user, :read_only))
+        expect(subject).not_to permit(FactoryBot.create(:user, :read_only))
       end
     end
   end

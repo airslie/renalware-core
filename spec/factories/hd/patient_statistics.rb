@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :hd_patient_statistics, class: "Renalware::HD::PatientStatistics" do
     patient factory: :hd_patient
     association :hospital_unit, factory: :hospital_unit

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :drug, class: "Renalware::Drugs::Drug" do
     name "Blue Pill"
 

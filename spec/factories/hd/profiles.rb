@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :hd_profile, class: "Renalware::HD::Profile" do
     accountable
     patient

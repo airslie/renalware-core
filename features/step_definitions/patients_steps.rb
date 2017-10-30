@@ -44,7 +44,7 @@ Given(/^Phylis is Patty's primary care physician$/) do
     family_name: "Good",
     practitioner_type: "GP",
     email: "phylis@example.net",
-    address: FactoryGirl.build(:address)
+    address: FactoryBot.build(:address)
   )
 end
 

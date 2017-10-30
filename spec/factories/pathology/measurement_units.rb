@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   sequence(:measurement_unit) { |n| "10(#{n})/L" }
   factory :pathology_measurement_unit,
           class: "Renalware::Pathology::MeasurementUnit" do

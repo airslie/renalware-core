@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :hd_session, class: "Renalware::HD::Session::Open" do
     accountable
     association :patient, factory: :hd_patient

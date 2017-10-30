@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :pathology_observation_description,
       class: "Renalware::Pathology::ObservationDescription" do
     code "WBR"

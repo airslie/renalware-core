@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :audit, class: "Renalware::Reporting::Audit" do
     name "Letters Authors"
     view_name "audit_letter_authors"

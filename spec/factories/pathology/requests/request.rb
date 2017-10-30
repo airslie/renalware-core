@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :pathology_requests_request, class: "Renalware::Pathology::Requests::Request" do
     accountable
     telephone Faker::PhoneNumber.phone_number

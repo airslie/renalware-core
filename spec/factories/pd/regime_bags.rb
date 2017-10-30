@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :pd_regime_bag, class: "Renalware::PD::RegimeBag" do
     bag_type
     volume 200

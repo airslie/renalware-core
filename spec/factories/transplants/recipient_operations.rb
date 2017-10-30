@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :transplant_recipient_operation, class: Renalware::Transplants::RecipientOperation do
     patient { build(:transplant_patient) }
 

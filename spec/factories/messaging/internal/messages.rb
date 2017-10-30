@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :internal_message, class: "Renalware::Messaging::Internal::Message" do
     body "The body"
     subject "The subject"

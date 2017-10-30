@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :access_plan, class: Renalware::Accesses::Plan do
     accountable
     association :patient, factory: :accesses_patient

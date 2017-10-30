@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :death_modality_description, class: "Renalware::Deaths::ModalityDescription" do
     name "Death"
   end

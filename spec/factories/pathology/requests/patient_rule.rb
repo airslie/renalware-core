@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :pathology_requests_patient_rule,
     class: "Renalware::Pathology::Requests::PatientRule" do
     association :lab, factory: :pathology_lab

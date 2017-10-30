@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   sequence :nhs_number do |n|
     n.to_s.rjust(10, "0000000000")
   end
@@ -21,7 +21,7 @@ FactoryGirl.define do
     first_cause_id nil
 
     # ensures addressable_type and addressable_id work is assigned, using
-    # FactoryGirl's simple assoc method does not work
+    # FactoryBot's simple assoc method does not work
     #
     before(:create) do |patient|
       patient.build_current_address(attributes_for(:address))

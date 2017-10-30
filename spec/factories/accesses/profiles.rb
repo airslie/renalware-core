@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :access_profile, class: Renalware::Accesses::Profile do
     accountable
     patient

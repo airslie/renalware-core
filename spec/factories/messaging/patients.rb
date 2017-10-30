@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :messaging_patient,
           class: "Renalware::Messaging::Patient",
           parent: :patient

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :hd_weekly_diary, class: "Renalware::HD::WeeklyDiary" do
     year 2017
     week_number 2

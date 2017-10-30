@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :pathology_requests_global_rule, class: "Renalware::Pathology::Requests::GlobalRule" do
     type "ObservationResult"
     param_comparison_operator "<"

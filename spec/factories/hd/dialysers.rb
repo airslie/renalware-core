@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :hd_dialyser, class: "Renalware::HD::Dialyser" do
     group "FX"
     name "FX80"

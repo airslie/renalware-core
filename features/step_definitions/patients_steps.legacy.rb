@@ -3,7 +3,7 @@ Given(/^I am on the patients list$/) do
 end
 
 Given(/^some patients who need renal treatment$/) do
-  @patient_1 = FactoryGirl.create(:patient,
+  @patient_1 = FactoryBot.create(:patient,
     nhs_number: "1000124501",
     local_patient_id: "Z999991",
     family_name: "RABBIT",
@@ -15,7 +15,7 @@ Given(/^some patients who need renal treatment$/) do
     hospital_centre_code: "888"
   )
 
-  @patient_2 = FactoryGirl.create(:patient,
+  @patient_2 = FactoryBot.create(:patient,
     nhs_number: "1000124502",
     local_patient_id: "Z999992",
     family_name: "DAY",
@@ -27,7 +27,7 @@ Given(/^some patients who need renal treatment$/) do
     hospital_centre_code: "888"
   )
 
-  @patient_3 = FactoryGirl.create(:patient,
+  @patient_3 = FactoryBot.create(:patient,
     nhs_number: "1000124503",
     local_patient_id: "Z999993",
     family_name: "CASPER",

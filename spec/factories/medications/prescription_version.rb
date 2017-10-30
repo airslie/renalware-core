@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :prescription_version, class: "Renalware::Medications::PrescriptionVersion" do
   end
 end

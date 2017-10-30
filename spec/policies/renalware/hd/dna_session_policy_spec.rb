@@ -5,7 +5,7 @@ module Renalware
     describe DNASessionPolicy, type: :policy do
       subject { described_class }
 
-      let(:user) { FactoryGirl.build(:user, :super_admin) }
+      let(:user) { FactoryBot.build(:user, :super_admin) }
       let(:session) { HD::Session::DNA.new }
 
       [:edit?, :destroy?].each do |permission|

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :pd_regime, class: "Renalware::PD::Regime" do
     patient
   end

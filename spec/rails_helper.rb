@@ -24,7 +24,7 @@ end
 require File.expand_path("../dummy/config/environment", __FILE__)
 require "spec_helper"
 require "rspec/rails"
-require "factory_girl_rails"
+require "factory_bot_rails"
 require "rspec-html-matchers"
 require "database_cleaner"
 require "byebug"

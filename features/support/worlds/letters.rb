@@ -5,10 +5,10 @@ module World
     end
 
     def create_contact(patient:, user:)
-      address = FactoryGirl.build(:address)
-      person = FactoryGirl.build(:directory_person, address: address, by: user)
+      address = FactoryBot.build(:address)
+      person = FactoryBot.build(:directory_person, address: address, by: user)
       description = Renalware::Letters::ContactDescription[:sibling]
-      FactoryGirl.create(:letter_contact,
+      FactoryBot.create(:letter_contact,
                          patient: patient,
                          person: person,
                          description: description)

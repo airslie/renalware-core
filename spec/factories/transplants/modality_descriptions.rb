@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :transplant_donor_modality_description,
           class: "Renalware::Transplants::DonorModalityDescription" do
     name "Live Donor"
