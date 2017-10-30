@@ -17,6 +17,7 @@ en:
         none: There are no patients bookmarked.
         table:
           patient_name: Name
+          nhs_number: NHS Number
           hospital_number: Hosp No
           born_on: DOB
           age: Age

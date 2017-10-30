@@ -7,7 +7,11 @@ module Renalware
     include Renalware::Engine.routes.url_helpers
 
     def default_patient_link(patient)
-      link_to(patient, patient_clinical_summary_path(patient))
+      link_to(patient.to_s(:default), patient_clinical_summary_path(patient))
+    end
+
+    def default_patient_link_with_nhs_number(patient)
+      link_to(patient&.to_s(:long), patient_clinical_summary_path(patient))
     end
 
     def patient_search

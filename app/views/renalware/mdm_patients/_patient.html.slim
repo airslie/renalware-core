@@ -1,6 +1,5 @@
 tr
-  td= link_to t(".view"), view_proc.call(patient)
-  td.full-name= patient.to_s(format: :default)
+  td.full-name= link_to patient, view_proc.call(patient)
   td.nowrap= patient.nhs_number
   td.nowrap= patient.hospital_identifier
   td= patient.sex.code
@@ -14,3 +13,4 @@ tr
   td= l(patient.cre_observed_at&.to_date)
   td= patient.mdrd_result
   td= l(patient.esrf_date)
+  td.actions= link_to t(".view"), view_proc.call(patient)

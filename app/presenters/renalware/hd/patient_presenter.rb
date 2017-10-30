@@ -5,10 +5,9 @@ module Renalware
     class PatientPresenter < SimpleDelegator
       # delegate_missing_to :patient # TODO: when rails 5.1, try instead of SimpleDelegator
       delegate :document, to: :hd_profile
-      delegate :hospital_unit, to: :hd_profile, allow_nil: true
+      delegate :hospital_unit, :transport_summary, to: :hd_profile, allow_nil: true
       delegate :unit_code, to: :hospital_unit, allow_nil: true, prefix: true
       delegate :transport, to: :document
-      delegate :has_transport, to: :transport, prefix: false
       delegate :type, to: :transport, prefix: true
       alias_method :dialysing_at_unit, :hospital_unit_unit_code
 
@@ -24,7 +23,7 @@ module Renalware
       private
 
       def hd_profile
-        @hd_profile ||= __getobj__.hd_profile || NullObject.instance
+        @hd_profile ||= HD::ProfilePresenter.new(__getobj__.hd_profile) || NullObject.instance
       end
     end
   end

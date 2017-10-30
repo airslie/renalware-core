@@ -3,18 +3,24 @@ table.letters.electronic-ccs.has-togglable-rows
     tr
       th.col-width-date Date
       th.col-width-medium Author
-      th.col-width-large Patient
+      th.at-least.col-width-medium Patient
+      th.col-width-nhs-no NHS no.
+      th.col-width-reference-no Hosp no.
       th Description
       th.col-width-small
 
   tbody
     - receipts.each do |receipt|
       - letter = Renalware::Letters::LetterPresenter.new(receipt.letter)
+      - patient = letter.patient
+
       tr(id=receipt.html_identifier)
         td= l(letter.issued_on)
         td= letter.author
-        td= link_to letter.patient, patient_clinical_summary_path(letter.patient)
-        td= letter.description
+        td= default_patient_link(patient)
+        td= patient.nhs_number
+        td= patient.hospital_identifiers
+        td.col-width-medium-with-ellipsis= letter.description
         td.actions
           = link_to "Toggle", "##{receipt.html_preview_identifier}", data: { behaviour: "toggler" }
           = pipe_separator
@@ -23,7 +29,7 @@ table.letters.electronic-ccs.has-togglable-rows
 
       = content_tag(:tr, id: receipt.html_preview_identifier, style: "display: none")
         td
-        td(colspan=3)
+        td(colspan=5)
           .quick-preview
             = simple_format letter.body
 

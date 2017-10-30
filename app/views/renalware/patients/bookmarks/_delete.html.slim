@@ -1,5 +1,4 @@
-=link_to(bookmark_path(bookmark),
+=link_to link_text,
+         bookmark_path(bookmark),
          method: :delete,
-         data: { confirm: t(".confirm") }) do
-  i.fa.fa-link-annotation.fa-bookmark
-  = link_text
+         data: { confirm: t(".confirm") }

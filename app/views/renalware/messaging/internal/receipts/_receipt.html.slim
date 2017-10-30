@@ -1,18 +1,17 @@
 - message = receipt.message
+- patient = Renalware::PatientPresenter.new(message.patient)
 
 tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
   td
     = pluralize(message.age_in_days, "day")
-  / td.state.show-for-large-up
-  /   - if message.urgent?
-  /     span Urgent
   td= message.author
   td= l(message.sent_at)
-  td= link_to(message.patient, patient_clinical_summary_path(message.patient))
-  td= message.patient.hospital_identifier
-  td.col-width-large-with-ellipsis= message.subject
+  td= default_patient_link(patient)
+  td= patient.nhs_number
+  td= patient.hospital_identifier
+  td.col-width-medium-with-ellipsis= message.subject
   td
-    = link_to "View",
+    = link_to "Toggle",
               "##{message.html_preview_identifier}",
               data: { behaviour: "toggler" },
               class: :right
@@ -20,7 +19,7 @@ tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
               id: "#{message.html_preview_identifier}",
               style: "display: none",
               class: "#{ "urgent" if message.urgent?}")
-  td(colspan=5)
+  td(colspan=6)
     .message-preview
       .subject= message.subject
       .body= message.body

@@ -5,8 +5,8 @@ module Renalware
     class Patient < ActiveType::Record[Renalware::Patient]
       has_many :messages
 
-      def to_s
-        super(:long)
+      def to_s(format = :long)
+        super(format)
       end
     end
   end

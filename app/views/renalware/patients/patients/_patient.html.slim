@@ -1,5 +1,5 @@
 tr
-  td= default_patient_link(patient)
+  td.full-name= default_patient_link(patient)
   td= patient.nhs_number
   - Renalware.config.patient_hospital_identifiers.values.each do |value|
     td= patient.public_send(value)

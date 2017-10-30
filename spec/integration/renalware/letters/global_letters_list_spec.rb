@@ -16,7 +16,7 @@ RSpec.describe "View global letters list", type: :feature, js: false do
 
       visit letters_list_path
 
-      expect(page).to have_content(patient.to_s(format: :long))
+      expect(page).to have_content(patient.to_s(:long))
     end
   end
 end

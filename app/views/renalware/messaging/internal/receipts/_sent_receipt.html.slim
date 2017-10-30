@@ -1,9 +1,12 @@
 - message = sent_receipt.message
+- patient = Renalware::PatientPresenter.new(message.patient)
+
 tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
   td=l(message.sent_at)
-  td= link_to(message.patient, patient_clinical_summary_path(message.patient))
+  td= default_patient_link(patient)
+  td= patient.nhs_number
   td= message.patient.hospital_identifier
-  td= message.subject
+  td.col-width-medium-with-ellipsis= message.subject
   td= sent_receipt.recipient
   td
     = link_to "View",

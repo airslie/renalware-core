@@ -1,7 +1,6 @@
 table#patients.mdm-patients.columns
   thead
     tr
-      th.col-width-tiny
       th.col-width-large= sort_link([:renalware, presenter.q], :family_name, t(".name"))
       th.col-width-nhs-no= t(".nhs_no")
       th.col-width-reference-no= t(".hosp_no")
@@ -17,6 +16,7 @@ table#patients.mdm-patients.columns
         = sort_link([:renalware, presenter.q], :patient_current_key_observation_set_cre_date, t(".cre_date"))
       th.col-width-tiny= t(".mdrd")
       th.col-width-date= t(".esrf")
+      th.col-width-small
 
   tbody
     - presenter.patients.each do |patient|
