@@ -7,7 +7,7 @@ module Renalware
 
     background do
       @clinician_role = Role.find_or_create_by(name: "clinician")
-
+      User.delete_all
       @approved = create(:user)
       @unapproved = create(:user, :unapproved)
       @expired = create(:user, :expired, :clinician)

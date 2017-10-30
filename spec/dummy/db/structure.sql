@@ -9112,35 +9112,35 @@ CREATE UNIQUE INDEX index_patients_on_legacy_patient_id ON patients USING btree 
 -- Name: index_patients_on_local_patient_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id ON patients USING btree (local_patient_id);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id ON patients USING btree (local_patient_id);
 
 
 --
 -- Name: index_patients_on_local_patient_id_2; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id_2 ON patients USING btree (local_patient_id_2);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id_2 ON patients USING btree (local_patient_id_2);
 
 
 --
 -- Name: index_patients_on_local_patient_id_3; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id_3 ON patients USING btree (local_patient_id_3);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id_3 ON patients USING btree (local_patient_id_3);
 
 
 --
 -- Name: index_patients_on_local_patient_id_4; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id_4 ON patients USING btree (local_patient_id_4);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id_4 ON patients USING btree (local_patient_id_4);
 
 
 --
 -- Name: index_patients_on_local_patient_id_5; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id_5 ON patients USING btree (local_patient_id_5);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id_5 ON patients USING btree (local_patient_id_5);
 
 
 --
@@ -12263,6 +12263,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171012143050'),
 ('20171013145849'),
 ('20171016152223'),
+('20171017132738'),
 ('20171017171625');
 
 

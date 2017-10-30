@@ -47,17 +47,17 @@ module Renalware
       end
 
       def identity_params(query)
-        { fuzzy_term: "#{query}%", exact_term: query }
+        { fuzzy_term: "#{query}%", exact_term: query, ucase_term: query&.upcase }
       end
 
       # rubocop:disable Metrics/MethodLength
       def identity_sql(query)
         sql = <<-SQL.squish
-          local_patient_id = :exact_term OR
-          local_patient_id_2 = :exact_term OR
-          local_patient_id_3 = :exact_term OR
-          local_patient_id_4 = :exact_term OR
-          local_patient_id_5 = :exact_term OR
+          local_patient_id = :ucase_term OR
+          local_patient_id_2 = :ucase_term OR
+          local_patient_id_3 = :ucase_term OR
+          local_patient_id_4 = :ucase_term OR
+          local_patient_id_5 = :ucase_term OR
           external_patient_id = :exact_term OR
           nhs_number = :exact_term OR
           family_name ILIKE :fuzzy_term

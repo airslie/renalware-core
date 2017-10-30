@@ -6,8 +6,9 @@
 
     - Renalware.config.patient_hospital_identifiers.each do |key, field|
       = f.input field,
-                      label: "#{key} No",
-                      wrapper: :horizontal_small
+                as: :string,
+                label: "#{key} No",
+                wrapper: :horizontal_small
 
     = f.input :external_patient_id, wrapper: :horizontal_small
     = f.input :title, wrapper: :horizontal_tiny

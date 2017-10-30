@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :research_study_participant, class: "Renalware::Research::StudyParticipant" do
     association :study, factory: :research_study
     association :patient, factory: :patient
