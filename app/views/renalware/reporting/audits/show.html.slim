@@ -8,7 +8,7 @@
     $("body").ready(function() {
       $("body.audits-show table#audit").DataTable(
         {
-          ajax: "/reporting/audits/4.json",
+          ajax: "#{reporting_audit_path(audit, format: :json)}",
           columns: userConfiguredColumns
         }
       );

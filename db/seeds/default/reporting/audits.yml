@@ -5,13 +5,35 @@
   materialized: true
   refresh_schedule: "1 0 * * *"
   display_configuration: >
-    { "columnDefs": [
-      { "title": "Author", "targets": 3, width: "300" },
-      { "title": "Total", "targets": 4, width: "100" },
-      { "title": "% Archived in 5 working days", "targets": 5, width: "200" },
-      { "title": "Avg. days to archive", "targets": 6, width: "200" },
-      { "title": "User ID", "targets": 7, visible: false }
-    ]}
+    {
+      "columnDefs": [
+        {
+          "title": "Author",
+          "width": "300",
+          "data": "name"
+        },
+        {
+          "title": "Total",
+          "width": "100",
+          "data": "total_letters"
+        },
+        {
+          "title": "% Archived in 5 working days",
+          "width": "200",
+          "data": "percent_archived_within_7_days"
+        },
+        {
+          "title": "Avg. days to archive",
+          "width": "200",
+          "data": "avg_days_to_archive"
+        },
+        {
+          "title": "User ID",
+          "visible": false,
+          "data": "user_id"
+        }
+      ]
+    }
 -
   name: HD Blood Pressures
   description:
@@ -20,13 +42,34 @@
   refresh_schedule: "1 0 * * *"
   display_configuration: >
     {
-    "columnDefs": [
-      { "title": "Unit", "targets": 0, width: "300" },
-      { "title": "Sys pre avg", "targets": 1, width: "100" },
-      { "title": "Dia pre avg", "targets": 2, width: "100" },
-      { "title": "Sys post avg", "targets": 3, width: "100" },
-      { "title": "Dia post avg", "targets": 4, width: "100" }
-    ]}
+      "columnDefs": [
+        {
+          "title": "Unit",
+          "width": "300",
+          "data": "hospital_unit_name"
+        },
+        {
+          "title": "Sys pre avg",
+          "width": "100",
+          "data": "systolic_pre_avg"
+        },
+        {
+          "title": "Dia pre avg",
+          "width": "100",
+          "data": "diastolic_pre_avg"
+        },
+        {
+          "title": "Sys post avg",
+          "width": "100",
+          "data": "systolic_post_avg"
+        },
+        {
+          "title": "Dia post avg",
+          "width": "100",
+          "data": "distolic_post_avg"
+        }
+      ]
+    }
 -
   name: HD Overall
   description: An overview of HD activity in the current month across all HD units.
@@ -34,16 +77,50 @@
   materialized: true
   refresh_schedule: "1 0 * * *"
   display_configuration: >
-    { "columnDefs": [
-      { "title": "Unit", "targets": 0, width: "300" },
-      { "title": "No. patients", "targets": 1, width: "120" },
-      { "title": "% HGB > 100", "targets": 2, width: "120" },
-      { "title": "% URR > 65", "targets": 3, width: "120" },
-      { "title": "% Phosphate < 1.8", "targets": 4, width: "200" },
-      { "title": "% w/fistula or graft", "targets": 5, width: "200" },
-      { "title": "Avg. missed HD time", "targets": 6, width: "200" },
-      { "title": "% missing >5% HD time", "targets": 7, width: "200" }
-    ]}
+    {
+      "columnDefs": [
+        {
+          "title": "Unit",
+          "width": "300",
+          "data": "name"
+        },
+        {
+          "title": "No. patients",
+          "width": "120",
+          "data": "patient_count"
+        },
+        {
+          "title": "% HGB > 100",
+          "width": "120",
+          "data": "percentage_hb_gt_100"
+        },
+        {
+          "title": "% URR > 65",
+          "width": "120",
+          "data": "percentage_urr_gt_65"
+        },
+        {
+          "title": "% Phosphate < 1.8",
+          "width": "200",
+          "data": "percentage_phosphate_lt_1_8"
+        },
+        {
+          "title": "% w/fistula or graft",
+          "width": "200",
+          "data": "percentage_access_fistula_or_graft"
+        },
+        {
+          "title": "Avg. missed HD time",
+          "width": "200",
+          "data": "avg_missed_hd_time"
+        },
+        {
+          "title": "% missing >5% HD time",
+          "width": "200",
+          "data": "pct_shortfall_gt_5_pct"
+        }
+      ]
+    }
 -
   name: Bone
   description: Bone audit
@@ -51,17 +128,55 @@
   materialized: false
   refresh_schedule:
   display_configuration: >
-    { "columnDefs": [
-      { "title": "Modality", "targets": 0, width: "200" },
-      { "title": "No. patients", "targets": 1, width: "100" },
-      { "title": "Avg CCA", "targets": 2, width: "100" },
-      { "title": "% CCA 2.1-2.4", "targets": 4, width: "110" },
-      { "title": "% PTH > 300", "targets": 5, width: "100" },
-      { "title": "% PTH > 800", "targets": 6, width: "100" },
-      { "title": "Avg PHOS", "targets": 7, width: "100" },
-      { "title": "Max PHOS", "targets": 8, width: "100" },
-      { "title": "% PHOS < 1.8", "targets": 8, width: "110" }
-    ]}
+    {
+      "columnDefs": [
+        {
+          "title": "Modality",
+          "width": "200",
+          "data": "modality"
+        },
+        {
+          "title": "No. patients",
+          "width": "100",
+          "data": "patient_count"
+        },
+        {
+          "title": "Avg CCA",
+          "width": "100",
+          "data": "avg_cca"
+        },
+        {
+          "title": "% CCA 2.1-2.4",
+          "width": "110",
+          "data": "pct_cca_2_1_to_2_4"
+        },
+        {
+          "title": "% PTH > 300",
+          "width": "100",
+          "data": "pct_pth_gt_300"
+        },
+        {
+          "title": "% PTH > 800",
+          "width": "100",
+          "data": "pct_pth_gt_800_pct"
+        },
+        {
+          "title": "Avg PHOS",
+          "width": "100",
+          "data": "avg_phos"
+        },
+        {
+          "title": "Max PHOS",
+          "width": "100",
+          "data": "max_phos"
+        },
+        {
+          "title": "% PHOS < 1.8",
+          "width": "110",
+          "data": "pct_phos_lt_1_8"
+        }
+      ]
+    }
 -
   name: Anaemia
   description: ESD/EPO audit
@@ -69,18 +184,67 @@
   materialized: false
   refresh_schedule:
   display_configuration: >
-    { "columnDefs": [
-      { "title": "Modality", "targets": 0, width: "160" },
-      { "title": "Patients", "targets": 1, width: "80" },
-      { "title": "Avg HGB", "targets": 2, width: "90" },
-      { "title": "% HGB ≥ 10", "targets": 4, width: "100" },
-      { "title": "% HGB ≥ 11", "targets": 5, width: "100" },
-      { "title": "% HGB ≥ 13", "targets": 6, width: "100" },
-      { "title": "Avg FER", "targets": 7, width: "80" },
-      { "title": "% FER ≥ 150", "targets": 8, width: "100" },
-      { "title": "No on EPO", "targets": 9, width: "90" },
-      { "title": "Count Mircer*", "targets": 9, width: "100" },
-      { "title": "Count Neo*", "targets": 9, width: "90" },
-      { "title": "Count Ara*", "targets": 9, width: "90" }
-    ]}
-
+    {
+      "columnDefs": [
+        {
+          "title": "Modality",
+          "width": "160",
+          "data": "modality"
+        },
+        {
+          "title": "Patients",
+          "width": "80",
+          "data": "patient_count"
+        },
+        {
+          "title": "Avg HGB",
+          "width": "90",
+          "data": "avg_hgb"
+        },
+        {
+          "title": "% HGB ≥ 10",
+          "width": "100",
+          "data": "pct_hgb_gt_eq_10"
+        },
+        {
+          "title": "% HGB ≥ 11",
+          "width": "100",
+          "data": "pct_hgb_gt_eq_11"
+        },
+        {
+          "title": "% HGB ≥ 13",
+          "width": "100",
+          "data": "pct_hgb_gt_eq_13"
+        },
+        {
+          "title": "Avg FER",
+          "width": "80",
+          "data": "avg_fer"
+        },
+        {
+          "title": "% FER ≥ 150",
+          "width": "100",
+          "data": "pct_fer_gt_eq_150"
+        },
+        {
+          "title": "No on EPO",
+          "width": "90",
+          "data": "count_epo"
+        },
+        {
+          "title": "Count Mircer*",
+          "width": "100",
+          "data": "count_mircer"
+        },
+        {
+          "title": "Count Neo*",
+          "width": "90",
+          "data": "count_neo"
+        },
+        {
+          "title": "Count Ara*",
+          "width": "90",
+          "data": "count_ara"
+        }
+      ]
+    }

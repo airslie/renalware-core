@@ -16,8 +16,12 @@ class CreateFunctionToRenderAuditViewAsJson < ActiveRecord::Migration[5.1]
         BEGIN
         EXECUTE format('
         select row_to_json(t)
-          from (select current_timestamp as runat, (select array_to_json(array_agg(row_to_json(d)))
-          from (select * from reporting_bone_audit) d) as data) t;
+          from (
+            select
+              current_timestamp as runat,
+              (select array_to_json(array_agg(row_to_json(d))
+            )
+          from (select * from %s) d) as data) t;
           ', quote_ident(view_name)) into result;
         return result;
       END

@@ -3,23 +3,17 @@ require_dependency "renalware/reporting"
 module Renalware
   module Reporting
     class FetchAuditJson
-      # def self.call(view_name)
-      #   conn = ActiveRecord::Base.connection
-      #   result = conn.execute("select * from #{conn.quote_column_name(view_name)};")
 
-      #   # Build a JS DataTables-compatible columnDefs hash
-      #   columns = result.fields.each_with_index.inject([]) do |array, data|
-      #     column_name, index = data
-      #     array << { title: column_name, target: index }
-      #   end
-      #   [columns.to_json, result.values]
-      # end
-      #
-      #
-      def self.call(view_name)
-        conn = ActiveRecord::Base.connection
-        result = conn.execute("select audit_view_as_json('#{view_name}');")
-        result.values[0][0]
+      class << self
+        def call(view_name)
+          convert_rows_from_audit_view_into_datatables_compatible_json(view_name)
+        end
+
+        def convert_rows_from_audit_view_into_datatables_compatible_json(view_name)
+          conn = ActiveRecord::Base.connection
+          result = conn.execute("select audit_view_as_json('#{view_name}');")
+          result.values[0][0]
+        end
       end
 
       # A WIP to translate audit column names into human friendly ones.
