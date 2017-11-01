@@ -80,6 +80,15 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 SET search_path = public, pg_catalog;
 
 --
+-- Name: audit_view_as_json(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION audit_view_as_json(view_name text) RETURNS json
+    LANGUAGE plpgsql
+    AS $$ DECLARE result json; BEGIN EXECUTE format(' select row_to_json(t) from (select current_timestamp as runat, (select array_to_json(array_agg(row_to_json(d))) from (select * from reporting_bone_audit) d) as data) t; ', quote_ident(view_name)) into result; return result; END $$;
+
+
+--
 -- Name: refresh_all_matierialized_views(text, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -12264,6 +12273,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171013145849'),
 ('20171016152223'),
 ('20171017132738'),
-('20171017171625');
+('20171017171625'),
+('20171101121130');
 
 

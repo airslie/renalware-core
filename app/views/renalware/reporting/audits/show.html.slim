@@ -2,14 +2,13 @@
 
 - content_for(:javascript) do
   javascript:
-    var dataSet = #{raw(values)};
-    var databaseColumns = eval(#{raw(columns)});
     var userConfiguredColumns = eval(#{raw(audit.display_configuration)})['columnDefs'];
+    console.log(userConfiguredColumns);
 
     $("body").ready(function() {
       $("body.audits-show table#audit").DataTable(
         {
-          data: dataSet,
+          ajax: "/reporting/audits/4.json",
           columns: userConfiguredColumns
         }
       );
