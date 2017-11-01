@@ -11,7 +11,7 @@ module Renalware
 
         def convert_rows_from_audit_view_into_datatables_compatible_json(view_name)
           conn = ActiveRecord::Base.connection
-          result = conn.execute("select audit_view_as_json('#{view_name}');")
+          result = conn.execute("select audit_view_as_json(#{conn.quote(view_name)});")
           result.values[0][0]
         end
       end

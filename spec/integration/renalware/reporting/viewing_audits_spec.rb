@@ -50,8 +50,8 @@ feature "Viewing audits", type: :feature, js: true do
             view_name: view_name,
             display_configuration: '{
               "columnDefs": [
-                { "title": "Col 1", "targets": 0, width: "100" },
-                { "title": "Col 2", "targets": 1, width: "100" }
+                { "title": "Col 1", "width": "100", "data": "col1" },
+                { "title": "Col 2", "width": "100", "data": "col2" }
                 ]}')
   end
 

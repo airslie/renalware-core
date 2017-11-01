@@ -49,41 +49,18 @@ module Renalware
       end
     end
 
-    describe "reporting_aneamia_audit view" do
-      describe "columns" do
-        it "contains the correct column names" do
-          columns, _values = Reporting::GenerateAuditJson.call(audit_view_name)
-          columns = JSON.parse(columns).map(&:symbolize_keys)
-          titles = columns.map{ |column| column[:title] }
-          expect(titles).to eq(
-            %w(
-              modality
-              count_patients
-              avg_hgb
-              pct_hgb_gt_eq_10
-              pct_hgb_gt_eq_11
-              pct_hgb_gt_eq_13
-              avg_fer
-              pct_fer_gt_eq_150
-              count_epo
-              count_mircer
-              count_neo
-              count_ara
-            )
-          )
-        end
-      end
-
-      describe "values" do
-        context "when there is no data" do
-          it "is an empty array" do
-            _columns, values = Reporting::GenerateAuditJson.call(audit_view_name)
-            expect(values).to eq([])
+    describe "json from reporting_aneamia_audit view " do
+      describe ":data" do
+        context "when there are no rows in the audit" do
+          it "is nil" do
+            json = Reporting::FetchAuditJson.call(audit_view_name)
+            result = JSON.parse(json)
+            expect(result["data"]).to be_nil
           end
         end
 
-        context "when data" do
-          it "is correctly generates values" do
+        context "when there are rows in the report" do
+          it "is correctly generates json" do
             # We will just add path data to 2 HD patients in this example.
             # We just create a PD patient to test that PD patient_count is correct
             # in the view output.
@@ -123,37 +100,39 @@ module Renalware
             arachis_oil = create(:drug, name: "Arachis Oil")
             create(:prescription, patient: hd_patients[3], drug: arachis_oil)
 
-            _columns, values = Reporting::GenerateAuditJson.call(audit_view_name)
-            expect(values).to eq(
+            json = Reporting::FetchAuditJson.call(audit_view_name)
+            result = JSON.parse(json).deep_symbolize_keys!
+
+            expect(result[:data]).to eq(
               [
-                [
-                  "HD",     # modality
-                  4,        # count of hd patients
-                  "11.00",  # avg_hgb (9 + 10 + 11 + 14) / 4 = 11
-                  "75.00",  # pct_hgb_gt_eq_10 = all bar 1 = 75%
-                  "50.00",  # pct_hgb_gt_eq_11 = 2 = 50%
-                  "25.00",  # pct_hgb_gt_eq_13 = 1 = 25%
-                  "165.00", # avg_fer = (140 + 150 + 205) / 3 = 165
-                  "66.67",  # pct_fer_gt_eq_150 = 2 of 3 = 66.66
-                  2,        # no_on_epo
-                  2,        # count_mircer
-                  1,        # count_neo
-                  1,        # count_ara
-                ],
-                [
-                  "PD",
-                  1,
-                  nil,
-                  "0.00",
-                  "0.00",
-                  "0.00",
-                  nil,
-                  "0.00",
-                  0,
-                  0,
-                  0,
-                  0
-                ]
+                {
+                  modality: "HD",
+                  patient_count: 4,
+                  avg_hgb: 11.0,            # avg_hgb (9 + 10 + 11 + 14) / 4 = 11
+                  pct_hgb_gt_eq_10: 75.0,   # pct_hgb_gt_eq_10 = all bar 1 = 75%
+                  pct_hgb_gt_eq_11: 50.0,   # pct_hgb_gt_eq_11 = 2 = 50%
+                  pct_hgb_gt_eq_13: 25.0,   # pct_hgb_gt_eq_13 = 1 = 25%
+                  avg_fer: 165.0,           # avg_fer = (140 + 150 + 205) / 3 = 165
+                  pct_fer_gt_eq_150: 66.67, # pct_fer_gt_eq_150 = 2 of 3 = 66.66
+                  count_epo: 2,
+                  count_mircer: 2,
+                  count_neo: 1,
+                  count_ara: 1
+                },
+                {
+                  modality: "PD",
+                  patient_count: 1,
+                  avg_hgb: nil,
+                  pct_hgb_gt_eq_10: 0.0,
+                  pct_hgb_gt_eq_11: 0.0,
+                  pct_hgb_gt_eq_13: 0.0,
+                  avg_fer: nil,
+                  pct_fer_gt_eq_150: 0.0,
+                  count_epo: 0,
+                  count_mircer: 0,
+                  count_neo: 0,
+                  count_ara: 0
+                }
               ]
             )
           end

@@ -3,7 +3,6 @@
 - content_for(:javascript) do
   javascript:
     var userConfiguredColumns = eval(#{raw(audit.display_configuration)})['columnDefs'];
-    console.log(userConfiguredColumns);
 
     $("body").ready(function() {
       $("body.audits-show table#audit").DataTable(
@@ -20,6 +19,6 @@
     .panel.radius.compact= audit.description
 
   / jQuery dataTables will build this table; for the columns it will use column definitions in
-  / audit.display_configuration. Row data comes from a select on the audit view
-  / specified by the audit row, inserted as a js var into the page above.
+  / audit.display_configuration. Json data comes from the the audit view
+  / specified by the audit row; the json data is fetched via a separate ajax call.
   table#audit.display.natural-width
