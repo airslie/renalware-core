@@ -1,0 +1,12 @@
+table
+  thead
+    tr
+      td
+        th Hospital Unit
+        th Patient
+        th
+  tbody
+    - consults.each do |consult|
+      tr
+        td= consult.hospital_unit&.unit_code
+        td= consult.patient&.to_s

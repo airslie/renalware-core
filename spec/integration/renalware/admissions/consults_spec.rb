@@ -3,138 +3,107 @@ require "rails_helper"
 RSpec.describe "Admission Consult management", type: :request do
   let(:user) { @current_user }
   let(:time) { Time.zone.now }
-  let(:patient) { create(:patient, by: user) }
+  let(:hospital_unit) { create(:hospital_unit, unit_code: "HospUnit1") }
 
-  # def create_consult
-  #   create(:admissions_request,
-  #          reason: reason,
-  #          priority: :urgent,
-  #          by: user,
-  #          patient: patient,
-  #          created_at: time,
-  #          updated_at: time)
-  # end
+  def create_consult
+    create(:admissions_consult,
+           by: user,
+           patient: create(:patient, by: user),
+           hospital_unit: hospital_unit)
+  end
 
-  # monitor_database_record_creation: true
   describe "GET index" do
     it "lists consults" do
-      # create_consult
+      consult = create_consult
 
       get admissions_consults_path
 
-      # expect(response).to have_http_status(:success)
-      # expect(response.body).to include("XYZ")
-      # expect(response.body).to include(I18n.l(time))
-      # expect(response.body).to include(patient.to_s)
-      # expect(response.body).to include("Urgent")
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include("Admission Consults")
+      expect(response.body).to include("HospUnit1")
+      expect(response.body).to include(consult.patient.to_s)
     end
   end
 
-  # describe "GET html new" do
-  #   it "renders a form" do
-  #     get new_admissions_request_path(patient_id: patient.id)
+  describe "GET new" do
+    it "renders a modal to allow a patient to be selected" do
 
-  #     expect(response).to have_http_status(:ok)
-  #     expect(response).to render_template(:new)
-  #   end
-  # end
+      get new_admissions_consult_path
 
-  # describe "POST js create" do
-  #   context "with valid data" do
-  #     it "creates a new Admissions::Request" do
-  #       params = {
-  #         admissions_request: {
-  #           reason_id: reason.id,
-  #           patient_id: patient.id,
-  #           priority: "urgent"
-  #         }
-  #       }
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template(:new, format: :html)
+    end
+  end
 
-  #       expect{
-  #         post(admissions_requests_path(format: :js), params: params)
-  #       }.to change(Renalware::Admissions::Request, :count).by(1)
+  describe "POST JS create" do
+    context "with valid inputs" do
+      it "creates the consult" do
+        patient = create(:patient, by: user)
+        params = {
+          patient_id: patient.id,
+          hospital_unit_id: hospital_unit.id
+        }
 
-  #       expect(response).to have_http_status(:success)
-  #     end
-  #   end
+        post admissions_consults_path(format: :js), params: { admissions_consult: params }
 
-  #   context "with invalid data ie reason not selected" do
-  #     it "fails to create a request and re-renders the new template with errors" do
-  #       params = {
-  #         admissions_request: {
-  #           patient_id: patient.id
-  #         }
-  #       }
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template(:create)
 
-  #       expect{
-  #         post(admissions_requests_path, params: params)
-  #       }.to_not change(Renalware::Admissions::Request, :count)
+        consults = Renalware::Admissions::Consult.all
+        expect(consults.length).to eq(1)
+        expect(consults.first.hospital_unit_id).to eq(hospital_unit.id)
+        expect(consults.first.patient_id).to eq(patient.id)
+      end
+    end
 
-  #       expect(response).to have_http_status(:ok)
-  #       expect(response).to render_template(:new)
-  #     end
-  #   end
-  # end
+    context "with invalid inputs" do
+      it "re-renders the modal form with validation errors" do
+        params = { patient_id: nil }
 
-  # describe "GET html edit" do
-  #   it "renders the edit modal" do
-  #     request = create_request
+        post admissions_consults_path(format: :js), params: { admissions_consult: params }
 
-  #     get edit_admissions_request_path(request, format: :html)
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template(:new)
+      end
+    end
+  end
 
-  #     expect(response).to have_http_status(:ok)
-  #     expect(response).to render_template(:edit)
-  #   end
-  # end
+  describe "GET html edit" do
+    it "renders the form" do
+      get edit_admissions_consult_path(create_consult)
 
-  # describe "PATCH js update" do
-  #   context "when valid inputs" do
-  #     it "renders the edit modal" do
-  #       request = create_request
-  #       params = {
-  #         admissions_request: {
-  #           reason_id: reason.id,
-  #           patient_id: patient.id,
-  #           notes: "Updated notes"
-  #         }
-  #       }
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template(:edit)
+    end
+  end
 
-  #       patch admissions_request_path(request, format: :js, params: params)
+  describe "PATCH html update" do
+    context "with valid inputs" do
+      it "updates the consult" do
+        consult = create_consult
+        hospital_unit2 = create(:hospital_unit, unit_code: "HospUnit2")
 
-  #       expect(response).to have_http_status(:ok)
-  #       expect(response).to render_template(:update)
-  #       expect(request.reload.notes).to eq("Updated notes")
+        params = { hospital_unit_id: hospital_unit2.id }
 
-  #     end
-  #   end
+        patch(admissions_consult_path(consult, format: :js),
+              params: { admissions_consult: params })
 
-  #   context "when invalid inputs" do
-  #     it "renders the edit modal" do
-  #       request = create_request
-  #       params = {
-  #         admissions_request: {
-  #           reason_id: nil
-  #         }
-  #       }
+        expect(response).to have_http_status(:success)
+        expect(consult.reload.hospital_unit_id).to eq(hospital_unit2.id)
+      end
+    end
 
-  #       patch admissions_request_path(request, format: :js, params: params)
+    context "with invalid inputs" do
+      it "re-renders the modal form with validation errors" do
+        consult = create_consult
+        params = { hospital_unit_id: nil }
 
-  #       expect(response).to have_http_status(:ok)
-  #       expect(response).to render_template(:edit)
-  #     end
-  #   end
-  # end
+        patch(admissions_consult_path(consult, format: :js),
+              params: { admissions_consult: params })
 
-  # describe "DELETE js destroy" do
-  #   it "soft delete the request" do
-  #     request = create_request
-
-  #     expect{
-  #       delete admissions_request_path(request, format: :js)
-  #     }.to change(Renalware::Admissions::Request, :count).by(-1)
-
-  #     expect(response).to have_http_status(:ok)
-  #     expect(response).to render_template(:destroy)
-  #   end
-  # end
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template(:edit)
+      end
+    end
+  end
 end
