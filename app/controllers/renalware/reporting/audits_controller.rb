@@ -12,14 +12,10 @@ module Renalware
 
       def show
         authorize audit
-        columns, values = GenerateAuditJson.call(audit.view_name)
-        render(
-          locals: {
-            audit: audit,
-            columns: columns,
-            values: replace_nils_with_empty_string(values)
-          }
-        )
+        respond_to do |format|
+          format.html { render locals: { audit: audit } }
+          format.json { render json: FetchAuditJson.call(audit.view_name) }
+        end
       end
 
       def edit

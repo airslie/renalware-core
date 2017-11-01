@@ -80,6 +80,15 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 SET search_path = public, pg_catalog;
 
 --
+-- Name: audit_view_as_json(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION audit_view_as_json(view_name text) RETURNS json
+    LANGUAGE plpgsql
+    AS $$ DECLARE result json; BEGIN EXECUTE format(' select row_to_json(t) from ( select current_timestamp as runat, (select array_to_json(array_agg(row_to_json(d)) ) from (select * from %s) d) as data) t; ', quote_ident(view_name)) into result; return result; END $$;
+
+
+--
 -- Name: refresh_all_matierialized_views(text, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -4355,7 +4364,7 @@ ALTER SEQUENCE renal_profiles_id_seq OWNED BY renal_profiles.id;
 
 CREATE VIEW reporting_anaemia_audit AS
  SELECT e1.modality_desc AS modality,
-    count(e1.patient_id) AS count_patients,
+    count(e1.patient_id) AS patient_count,
     round(avg(e2.hgb), 2) AS avg_hgb,
     round((((count(e4.hgb_gt_eq_10))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_10,
     round((((count(e5.hgb_gt_eq_11))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_11,
@@ -12264,6 +12273,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171013145849'),
 ('20171016152223'),
 ('20171017132738'),
-('20171017171625');
+('20171017171625'),
+('20171101121130');
 
 

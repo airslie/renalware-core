@@ -2,7 +2,7 @@
 --explain analyze
 select
   modality_desc       modality,
-  count(e1.patient_id)   count_patients,
+  count(e1.patient_id)  patient_count,
   round(avg(hgb),2)    avg_hgb,
   round(count(hgb_gt_eq_10) / greatest(count(hgb), 1.0) * 100.0, 2) pct_hgb_gt_eq_10,
   round(count(hgb_gt_eq_11) / greatest(count(hgb), 1.0) * 100.0, 2) pct_hgb_gt_eq_11,

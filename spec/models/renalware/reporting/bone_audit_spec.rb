@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe Reporting::GenerateAuditJson, type: :model do
+  RSpec.describe "Bone Audit", type: :model do
     include PatientsSpecHelper
     let(:uom) { create(:pathology_measurement_unit) }
     let(:user) { create(:user) }
@@ -35,26 +35,17 @@ module Renalware
       end
     end
 
-    describe "reporting_bone_audit view" do
-      describe "columns" do
-        it "contains the column names" do
-          columns, _values = Reporting::GenerateAuditJson.call("reporting_bone_audit")
-          columns = JSON.parse(columns).map(&:symbolize_keys)
-          titles = columns.map{ |column| column[:title] }
-          expect(titles).to eq(%w(modality patient_count avg_cca pct_cca_2_1_to_2_4 pct_pth_gt_300
-                                  pct_pth_gt_800_pct avg_phos max_phos pct_phos_lt_1_8))
-        end
-      end
-
-      describe "values" do
-        context "when there is no data" do
-          it "is an empty array" do
-            _columns, values = Reporting::GenerateAuditJson.call("reporting_bone_audit")
-            expect(values).to eq([])
+    describe "json from reporting_bone_audit view" do
+      describe ":data" do
+        context "when are no rows" do
+          it "is nil" do
+            json = Reporting::FetchAuditJson.call("reporting_bone_audit")
+            expect(JSON.parse(json)["data"]).to be_nil
           end
         end
-        context "when data" do
-          it "is correctly aggregates CC PTH and PHOS data" do
+
+        context "when there are rows in the view" do
+          it "generates the correct json" do
             # We will just add path data to 2 HD patients in this example.
             # We just create a PD patient to test that PD patient_count is correct
             # in the view output.
@@ -77,27 +68,34 @@ module Renalware
             create_observation(patient: hd_patient1, description: phos, result: 2.0)
             create_observation(patient: hd_patient2, description: phos, result: 1.0)
 
-            _columns, values = Reporting::GenerateAuditJson.call("reporting_bone_audit")
-            expect(values).to eq(
+            json = Reporting::FetchAuditJson.call("reporting_bone_audit")
+            result = JSON.parse(json).deep_symbolize_keys!
+            data = result[:data]
+
+            expect(data).to eq(
               [
-                ["HD",      # modality
-                  2,        # count of hd patients
-                  "2.15",   # avg_cca
-                  "50.00",  # pct_cca_2_1_to_2_4
-                  "100.00", # pct_pth_gt_300
-                  "50.00",  # pct_pth_gt_800_pct
-                  "1.50",   # avg_phos
-                  "2.0",    # max_phos
-                  "50.00"], # pct_phos_lt_1_8 = 50%
-                ["PD",
-                  1,
-                  nil,
-                  "0.00",
-                  "0.00",
-                  "0.00",
-                  nil,
-                  nil,
-                  "0.00"]
+                {
+                  modality: "HD",
+                  patient_count: 2,
+                  avg_cca: 2.15,
+                  pct_cca_2_1_to_2_4: 50.0,
+                  pct_pth_gt_300: 100.0,
+                  pct_pth_gt_800_pct: 50.0,
+                  avg_phos: 1.5,
+                  max_phos: 2.0,
+                  pct_phos_lt_1_8: 50.0 # pct_phos_lt_1_8 = 50%
+                },
+                {
+                  modality: "PD",
+                  patient_count: 1,
+                  avg_cca: nil,
+                  pct_cca_2_1_to_2_4: 0.0,
+                  pct_pth_gt_300: 0.0,
+                  pct_pth_gt_800_pct: 0.0,
+                  avg_phos: nil,
+                  max_phos: nil,
+                  pct_phos_lt_1_8: 0.0
+                }
               ]
             )
           end
