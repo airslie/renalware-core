@@ -471,6 +471,41 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 
 --
+-- Name: admission_consults; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE admission_consults (
+    id bigint NOT NULL,
+    hospital_unit_id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    created_by_id bigint NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: admission_consults_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE admission_consults_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admission_consults_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE admission_consults_id_seq OWNED BY admission_consults.id;
+
+
+--
 -- Name: admission_request_reasons; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5519,6 +5554,13 @@ ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq
 
 
 --
+-- Name: admission_consults id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_consults ALTER COLUMN id SET DEFAULT nextval('admission_consults_id_seq'::regclass);
+
+
+--
 -- Name: admission_request_reasons id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6485,6 +6527,14 @@ ALTER TABLE ONLY access_versions
 
 ALTER TABLE ONLY addresses
     ADD CONSTRAINT addresses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admission_consults admission_consults_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_consults
+    ADD CONSTRAINT admission_consults_pkey PRIMARY KEY (id);
 
 
 --
@@ -7771,6 +7821,34 @@ CREATE INDEX index_access_profiles_on_updated_by_id ON access_profiles USING btr
 --
 
 CREATE UNIQUE INDEX index_addresses_on_addressable_type_and_addressable_id ON addresses USING btree (addressable_type, addressable_id);
+
+
+--
+-- Name: index_admission_consults_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admission_consults_on_created_by_id ON admission_consults USING btree (created_by_id);
+
+
+--
+-- Name: index_admission_consults_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admission_consults_on_hospital_unit_id ON admission_consults USING btree (hospital_unit_id);
+
+
+--
+-- Name: index_admission_consults_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admission_consults_on_patient_id ON admission_consults USING btree (patient_id);
+
+
+--
+-- Name: index_admission_consults_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admission_consults_on_updated_by_id ON admission_consults USING btree (updated_by_id);
 
 
 --
@@ -10347,6 +10425,14 @@ ALTER TABLE ONLY medication_prescriptions
 
 
 --
+-- Name: admission_consults fk_rails_2805127005; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_consults
+    ADD CONSTRAINT fk_rails_2805127005 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: medication_prescriptions fk_rails_2ae6a3ad59; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -11019,6 +11105,14 @@ ALTER TABLE ONLY access_procedures
 
 
 --
+-- Name: admission_consults fk_rails_9e878a7b22; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_consults
+    ADD CONSTRAINT fk_rails_9e878a7b22 FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: patient_alerts fk_rails_9efea309bb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -11411,6 +11505,14 @@ ALTER TABLE ONLY access_plans
 
 
 --
+-- Name: admission_consults fk_rails_dac6e41a2e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_consults
+    ADD CONSTRAINT fk_rails_dac6e41a2e FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
 -- Name: access_plans fk_rails_db0b9b356b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -11648,6 +11750,14 @@ ALTER TABLE ONLY hd_stations
 
 ALTER TABLE ONLY hd_prescription_administrations
     ADD CONSTRAINT fk_rails_f51a425d72 FOREIGN KEY (hd_session_id) REFERENCES hd_sessions(id);
+
+
+--
+-- Name: admission_consults fk_rails_f5abb5bad4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_consults
+    ADD CONSTRAINT fk_rails_f5abb5bad4 FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -12274,6 +12384,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171016152223'),
 ('20171017132738'),
 ('20171017171625'),
-('20171101121130');
+('20171101121130'),
+('20171101162244');
 
 
