@@ -1,12 +1,16 @@
-table
-  thead
-    tr
-      td
-        th Hospital Unit
-        th Patient
-        th
-  tbody
-    - consults.each do |consult|
+.admissions-consults-table
+  table
+    thead
       tr
-        td= consult.hospital_unit&.unit_code
-        td= consult.patient&.to_s
+        th.col-width-medium Hospital Unit
+        th.col-width-medium Patient
+        th
+    tbody
+      - consults.each do |consult|
+        tr
+          td= consult.hospital_unit&.unit_code
+          td= consult.patient&.to_s
+          td.actions
+            = link_to "Edit",
+                      edit_admissions_consult_path(consult),
+                      data: { "reveal-id" => "admissions-consult-modal", "reveal-ajax" => "true" }

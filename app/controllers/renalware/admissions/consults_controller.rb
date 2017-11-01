@@ -21,7 +21,7 @@ module Renalware
         consult = Consult.new(consult_params)
         authorize consult
         if consult.save_by(current_user)
-          render locals: { consult: consult }
+          render locals: { consult: consult, consults: Consult.all }
         else
           render_new(consult)
         end

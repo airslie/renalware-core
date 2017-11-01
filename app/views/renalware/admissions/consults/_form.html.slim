@@ -1,2 +1,20 @@
-= simple_form_for consult do
+.modal
+  .modal__header
+    h2= consult.persisted? ? "Edit Consult" : "Add Consult"
+    = render "renalware/shared/modal_close_link"
+
+  .modal__body
+    = render "renalware/shared/errors", model: consult
+    = simple_form_for(consult,
+                      remote: true,
+                      html: { autocomplete: "off"},
+                      wrapper: :horizontal_form) do |f|
+      =f.association :hospital_unit
+      =f.association :patient
+      = f.submit class: :button
+      span= " or "
+      =link_to "Cancel",
+               "#",
+               "aria-label" => "Close",
+                class: "reveal-modal-close"
 

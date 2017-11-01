@@ -1,0 +1,3 @@
+<%= refresh(".flash-message", partial: "renalware/shared/flash_messages", locals: local_assigns) %>
+$(".admissions-consults-table").replaceWith("<%= j(render 'table', consults: consults) %>");
+$("#admissions-consult-modal").foundation('reveal', 'close');
