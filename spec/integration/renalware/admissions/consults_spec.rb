@@ -44,10 +44,11 @@ RSpec.describe "Admission Consult management", type: :request do
           hospital_unit_id: hospital_unit.id
         }
 
-        post admissions_consults_path(format: :js), params: { admissions_consult: params }
+        post admissions_consults_path, params: { admissions_consult: params }
 
+        follow_redirect!
         expect(response).to have_http_status(:success)
-        expect(response).to render_template(:create)
+        expect(response).to render_template(:index)
 
         consults = Renalware::Admissions::Consult.all
         expect(consults.length).to eq(1)
@@ -60,7 +61,7 @@ RSpec.describe "Admission Consult management", type: :request do
       it "re-renders the modal form with validation errors" do
         params = { patient_id: nil }
 
-        post admissions_consults_path(format: :js), params: { admissions_consult: params }
+        post admissions_consults_path, params: { admissions_consult: params }
 
         expect(response).to have_http_status(:success)
         expect(response).to render_template(:new)
@@ -85,10 +86,12 @@ RSpec.describe "Admission Consult management", type: :request do
 
         params = { hospital_unit_id: hospital_unit2.id }
 
-        patch(admissions_consult_path(consult, format: :js),
+        patch(admissions_consult_path(consult),
               params: { admissions_consult: params })
 
+        follow_redirect!
         expect(response).to have_http_status(:success)
+        expect(response).to render_template(:index)
         expect(consult.reload.hospital_unit_id).to eq(hospital_unit2.id)
       end
     end
@@ -98,7 +101,7 @@ RSpec.describe "Admission Consult management", type: :request do
         consult = create_consult
         params = { hospital_unit_id: nil }
 
-        patch(admissions_consult_path(consult, format: :js),
+        patch(admissions_consult_path(consult),
               params: { admissions_consult: params })
 
         expect(response).to have_http_status(:success)

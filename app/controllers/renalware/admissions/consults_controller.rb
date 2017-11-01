@@ -21,7 +21,7 @@ module Renalware
         consult = Consult.new(consult_params)
         authorize consult
         if consult.save_by(current_user)
-          render locals: { consult: consult, consults: Consult.all }
+          redirect_to admissions_consults_path, notice: success_msg_for("consult")
         else
           render_new(consult)
         end
@@ -35,7 +35,7 @@ module Renalware
       def update
         consult = find_and_authorize_consult
         if consult.update_by(current_user, consult_params)
-          render locals: { consult: consult }
+          redirect_to admissions_consults_path, notice: success_msg_for("consult")
         else
           render_edit(consult)
         end

@@ -1,0 +1,13 @@
+en:
+  enumerize:
+    renalware/admissions/consult:
+      transfer_priority:
+        unknown: Unknown (default)
+        necessary: Necessary
+        desirable: Desirable
+        potential: Potential
+        unnecessary: Unnecessary
+      aki_risk:
+        "yes": Yes (an AKI episode will be created)
+        "no": "No"
+        unknown: Unknown

@@ -476,8 +476,15 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 CREATE TABLE admission_consults (
     id bigint NOT NULL,
-    hospital_unit_id bigint NOT NULL,
+    hospital_unit_id bigint,
+    hospital_ward_id bigint,
     patient_id bigint NOT NULL,
+    consult_date date,
+    decision_date date,
+    transfer_date date,
+    transfer_priority character varying,
+    aki_risk character varying,
+    seen_by character varying,
     updated_by_id bigint NOT NULL,
     created_by_id bigint NOT NULL,
     deleted_at timestamp without time zone,
@@ -7838,6 +7845,13 @@ CREATE INDEX index_admission_consults_on_hospital_unit_id ON admission_consults 
 
 
 --
+-- Name: index_admission_consults_on_hospital_ward_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admission_consults_on_hospital_ward_id ON admission_consults USING btree (hospital_ward_id);
+
+
+--
 -- Name: index_admission_consults_on_patient_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -10798,6 +10812,14 @@ ALTER TABLE ONLY letter_letters
 
 ALTER TABLE ONLY messaging_messages
     ADD CONSTRAINT fk_rails_65f878b7cf FOREIGN KEY (author_id) REFERENCES users(id);
+
+
+--
+-- Name: admission_consults fk_rails_66c44c0949; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_consults
+    ADD CONSTRAINT fk_rails_66c44c0949 FOREIGN KEY (hospital_ward_id) REFERENCES hospital_wards(id);
 
 
 --
