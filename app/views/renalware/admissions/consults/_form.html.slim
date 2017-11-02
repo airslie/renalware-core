@@ -1,3 +1,27 @@
+= content_for(:javascript)
+  javascript:
+    $(document).ready(function() {
+      function replaceOptionsInWardDropdown(data) {
+        var $select = $('#admissions_consult_hospital_ward_id');
+        $select.html("<option />");
+        $.each(data, function(index, hash) {
+          $select.append($('<option />', { value: hash["id"], text: hash["name"] }));
+        });
+      };
+
+      $(document).on('change', '#admissions_consult_hospital_unit_id', function(evt) {
+        var wardsUrl = $("option:selected", this).data("wards-url");
+        var jqxhr = $.getJSON(wardsUrl)
+          .done(function(data) {
+            replaceOptionsInWardDropdown(data);
+          })
+          .fail(function(error, a, b) {
+            console.log( "error", a, b);
+          })
+      });
+    });
+
+
 = render "renalware/shared/errors", model: consult
 = simple_form_for(consult,
                   html: { autocomplete: "off"},
@@ -13,7 +37,20 @@
                 data: { "ajax--url" => search_patients_path(format: :json),
                         placeholder: "Search by patient name or hospital/NHS no." }\
               }
-  =f.association :hospital_unit
+
+  ruby:
+    unit_options = Renalware::Hospitals::Unit.select(:id, :unit_code).all.map do |unit|
+      [unit.unit_code, unit.id, {'data-wards-url'=> hospitals_unit_wards_url(unit, format: :json)}]
+    end
+
+  / Here we wrap a traditional rails select in a simple form input so we can use
+  / a options array containing a custom data attribute on each option e.g.
+  / <option data-wards-url="http://local...hospitals/units/1/wards.json" value="1">MOUNT</option>
+  / https://stackoverflow.com/questions/10974304/rails-simple-form-custom-association-select-field
+  / Note we use the data-wards-url for refreshing the wards dropdown when the unit changes. See JS.
+  = f.input(:hospital_unit_id) do
+    = f.select(:hospital_unit_id, unit_options)
+
   =f.association :hospital_ward
   =f.input :consult_on, as: :date_picker
   =f.input :decided_on, as: :date_picker
@@ -25,4 +62,3 @@
   = f.submit class: :button
   span= " or "
   =link_to "Cancel", admissions_consults_path
-

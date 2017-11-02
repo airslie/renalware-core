@@ -1,2 +1,6 @@
-= within_admin_layout(title: "Admission Consults") do
+= within_admin_layout( \
+  title: "New",
+  breadcrumbs: breadcrumb_for("Admission Consults", admissions_consults_path) \
+  ) do
+
   = render "form", consult: consult
