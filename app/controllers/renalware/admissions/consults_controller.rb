@@ -1,4 +1,5 @@
 require "renalware/admissions"
+require "collection_presenter"
 
 module Renalware
   module Admissions
@@ -6,8 +7,7 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       def index
-        consults = Consult.all
-        authorize consults
+        authorize Consult, :index?
         render locals: { consults: consults }
       end
 
@@ -42,6 +42,13 @@ module Renalware
 
       private
 
+      def consults
+        CollectionPresenter.new(
+          Consult.all.order(created_at: :desc).page(page).per(per_page),
+          ConsultPresenter
+        )
+      end
+
       def find_and_authorize_consult
         Consult.find(params[:id]).tap do |consult|
           authorize consult
@@ -60,9 +67,10 @@ module Renalware
         params
           .require(:admissions_consult)
           .permit(
-            :hospital_unit_id,
-            :hospital_ward_id,
-            :patient_id
+            :hospital_unit_id, :hospital_ward_id, :patient_id,
+            :decided_on, :transfer_on, :consult_on, :decided_on,
+            :aki_risk, :transfer_priority, :seen_by,
+            :requires_aki_nurse, :description
           )
       end
     end

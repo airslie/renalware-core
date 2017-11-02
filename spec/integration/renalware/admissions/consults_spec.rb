@@ -5,6 +5,10 @@ RSpec.describe "Admission Consult management", type: :request do
   let(:time) { Time.zone.now }
   let(:hospital_unit) { create(:hospital_unit, unit_code: "HospUnit1") }
 
+  def convert_hash_dates_to_string_using_locale(hash)
+    hash.each { |key, val| hash[key] = I18n.l(val) if val.is_a?(Date) }
+  end
+
   def create_consult
     create(:admissions_consult,
            by: user,
@@ -39,13 +43,21 @@ RSpec.describe "Admission Consult management", type: :request do
     context "with valid inputs" do
       it "creates the consult" do
         patient = create(:patient, by: user)
-        ward = create(:hospital_ward, name: "Ward1", hospital_unit: hospital_unit)
+        create(:hospital_ward, name: "Ward1", hospital_unit: hospital_unit)
+        date = I18n.l(Time.zone.today)
+
         params = {
           patient_id: patient.id,
           hospital_unit_id: hospital_unit.id,
           hospital_ward_id: hospital_unit.wards.first.id,
-          decided_date: "01-01-2017",
-          transfer_date: "01-01-2017"
+          consult_on: date,
+          decided_on: date,
+          transfer_on: date,
+          transfer_priority: Renalware::Admissions::Consult.transfer_priority.values.first,
+          aki_risk: Renalware::Admissions::Consult.aki_risk.values.first,
+          seen_by: "xyz",
+          requires_aki_nurse: true,
+          description: "Lorem ipsum dolor sit amet"
         }
 
         post admissions_consults_path, params: { admissions_consult: params }
@@ -56,9 +68,15 @@ RSpec.describe "Admission Consult management", type: :request do
 
         consults = Renalware::Admissions::Consult.all
         expect(consults.length).to eq(1)
-        expect(consults.first.hospital_unit_id).to eq(hospital_unit.id)
-        expect(consults.first.hospital_ward_id).to eq(ward.id)
-        expect(consults.first.patient_id).to eq(patient.id)
+        consult = consults.first
+
+        # Do a direct diff on supplied params and the saved object's attributes, excluding
+        # attributes that we don't care about.
+        attribs = consult.attributes.symbolize_keys.except(
+          :id, :updated_at, :created_at, :created_by_id, :updated_by_id, :deleted_at
+        )
+        convert_hash_dates_to_string_using_locale(attribs)
+        expect(HashDiff.diff(params, attribs)).to eq([])
       end
     end
 

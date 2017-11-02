@@ -10,6 +10,8 @@ class CreateConsults < ActiveRecord::Migration[5.1]
       t.string :transfer_priority
       t.string :aki_risk
       t.string :seen_by
+      t.boolean :requires_aki_nurse, default: false, null: false
+      t.text :description
       t.references :updated_by, foreign_key: { to_table: :users }, index: true, null: false
       t.references :created_by, foreign_key: { to_table: :users }, index: true, null: false
       t.datetime :deleted_at
