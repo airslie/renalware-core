@@ -5,4 +5,4 @@ xml.SendingFacility(
   channelId: "TODO",
   time: Time.zone.now.to_datetime) do
 end
-xml.SendingExtract "???"
+xml.SendingExtract "UKRDC"

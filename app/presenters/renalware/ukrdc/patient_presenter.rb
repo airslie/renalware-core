@@ -15,6 +15,11 @@ module Renalware
         current_modality_death?
       end
 
+      def current_modality_hd?
+        return false if current_modality.blank?
+        current_modality.description.is_a?(HD::ModalityDescription)
+      end
+
       def smoking_history
         @smoking_history ||= document.history&.smoking&.upcase
       end
@@ -64,7 +69,7 @@ module Renalware
       end
 
       def transplant_patient
-        @transplant_patient ||= Transplants::PatientPresenter.new(__getobj__)
+        @transplant_patient ||= Renalware::Transplants::PatientPresenter.new(__getobj__)
       end
     end
   end

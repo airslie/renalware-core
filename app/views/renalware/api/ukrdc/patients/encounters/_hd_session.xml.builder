@@ -1,7 +1,8 @@
 xml = builder
 
 xml.Treatment do
-  xml.EncounterNumber "?can supply uuid if required?"
+  xml.comment! "EncounterNumber required by XSD. Could use a guid if required?"
+  xml.EncounterNumber "NA"
   xml.comment! "What EncounterType for HD Session?"
   xml.EncounterType "R"
   xml.FromTime session.start_datetime&.to_datetime
