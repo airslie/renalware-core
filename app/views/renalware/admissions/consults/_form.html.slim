@@ -1,38 +1,28 @@
-.modal
-  .modal__header
-    h2= consult.persisted? ? "Edit Consult" : "Add Consult"
-    = render "renalware/shared/modal_close_link"
+= render "renalware/shared/errors", model: consult
+= simple_form_for(consult,
+                  html: { autocomplete: "off"},
+                  wrapper: :horizontal_form) do |f|
 
-  .modal__body
-    = render "renalware/shared/errors", model: consult
-    = simple_form_for(consult,
-                      remote: true,
-                      html: { autocomplete: "off"},
-                      wrapper: :horizontal_form) do |f|
+  - if consult.persisted?
+    h5= consult.patient.to_s(:long)
+  - else
+    = f.input :patient_id,
+              collection: [],
+              input_html: {\
+                class: "patient-id-select2 patient-ajax-search",
+                data: { "ajax--url" => search_patients_path(format: :json),
+                        placeholder: "Search by patient name or hospital/NHS no." }\
+              }
+  =f.association :hospital_unit
+  =f.association :hospital_ward
+  =f.input :consult_on, as: :date_picker
+  =f.input :decided_on, as: :date_picker
+  =f.input :transfer_on, as: :date_picker
+  =f.input :seen_by
+  =f.input :aki_risk, include_blank: "Please select"
+  =f.input :transfer_priority, include_blank: false
 
-      - if consult.persisted?
-        h5= consult.patient.to_s(:long)
-      - else
-        = f.input :patient_id,
-                  collection: [],
-                  input_html: {\
-                    class: "patient-id-select2 patient-ajax-search",
-                    data: { "ajax--url" => search_patients_path(format: :json),
-                            placeholder: "Search by patient name or hospital/NHS no." }\
-                  }
-      =f.association :hospital_unit
-      =f.association :hospital_ward
-      =f.input :consult_date, as: :date_picker
-      =f.input :decision_date, as: :date_picker
-      =f.input :transfer_date, as: :date_picker
-      =f.input :seen_by
-      =f.input :aki_risk, include_blank: "Please select"
-      =f.input :transfer_priority, include_blank: false
-
-      = f.submit class: :button
-      span= " or "
-      =link_to "Cancel",
-               "#",
-               "aria-label" => "Close",
-                class: "reveal-modal-close"
+  = f.submit class: :button
+  span= " or "
+  =link_to "Cancel", admissions_consults_path
 

@@ -1,4 +1,12 @@
 en:
+  activerecord:
+    attributes:
+      renalware/admissions/consult:
+        decided_on: Decision date
+        transfer_on: Transfer date
+        consult_on: Consult date
+        hospital_unit: Unit
+        hospital_ward: Ward
   enumerize:
     renalware/admissions/consult:
       transfer_priority:

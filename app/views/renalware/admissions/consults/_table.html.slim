@@ -2,15 +2,26 @@
   table
     thead
       tr
-        th.col-width-medium Hospital Unit
-        th.col-width-medium Patient
+        th.col-width-small Hospital Unit
+        th.col-width-small Ward
+        th.at-least.col-width-medium Patient
+        th.col-width-nhs-no NHS No.
+        th.col-width-reference-no Hosp Nos.
+        th.col-width-small Modality
+        th.col-width-tiny Sex
+        th.col-width-tiny Age
         th
     tbody
       - consults.each do |consult|
+        - patient = Renalware::PatientPresenter.new(consult.patient)
         tr
           td= consult.hospital_unit&.unit_code
-          td= consult.patient&.to_s
+          td= consult.hospital_ward&.name
+          td= patient&.to_s
+          td= patient.nhs_number
+          td= patient.hospital_identifiers
+          td= patient.current_modality
+          td= patient.sex
+          td= patient.age
           td.actions
-            = link_to "Edit",
-                      edit_admissions_consult_path(consult),
-                      data: { "reveal-id" => "admissions-consult-modal", "reveal-ajax" => "true" }
+            = link_to "Edit", edit_admissions_consult_path(consult)

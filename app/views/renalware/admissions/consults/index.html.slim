@@ -1,9 +1,5 @@
 = content_for(:actions) do
-  = link_to("Add",
-            new_admissions_consult_path,
-            class: :button,
-            data: { "reveal-id" => "admissions-consult-modal", "reveal-ajax" => "true" })
+  = link_to("Add", new_admissions_consult_path, class: :button)
 
 = within_admin_layout(title: "Admission Consults") do
   = render "table", consults: consults
-  #admissions-consult-modal.reveal-modal.medium(data-reveal)

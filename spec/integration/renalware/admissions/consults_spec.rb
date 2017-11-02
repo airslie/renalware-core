@@ -39,9 +39,13 @@ RSpec.describe "Admission Consult management", type: :request do
     context "with valid inputs" do
       it "creates the consult" do
         patient = create(:patient, by: user)
+        ward = create(:hospital_ward, name: "Ward1", hospital_unit: hospital_unit)
         params = {
           patient_id: patient.id,
-          hospital_unit_id: hospital_unit.id
+          hospital_unit_id: hospital_unit.id,
+          hospital_ward_id: hospital_unit.wards.first.id,
+          decided_date: "01-01-2017",
+          transfer_date: "01-01-2017"
         }
 
         post admissions_consults_path, params: { admissions_consult: params }
@@ -53,6 +57,7 @@ RSpec.describe "Admission Consult management", type: :request do
         consults = Renalware::Admissions::Consult.all
         expect(consults.length).to eq(1)
         expect(consults.first.hospital_unit_id).to eq(hospital_unit.id)
+        expect(consults.first.hospital_ward_id).to eq(ward.id)
         expect(consults.first.patient_id).to eq(patient.id)
       end
     end

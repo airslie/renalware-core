@@ -31,7 +31,6 @@ module Renalware
         render_edit(find_and_authorize_consult)
       end
 
-      # Don't update the participant id here (the patient) as that is immutable at this point.
       def update
         consult = find_and_authorize_consult
         if consult.update_by(current_user, consult_params)
@@ -50,17 +49,21 @@ module Renalware
       end
 
       def render_new(consult)
-        render :new, locals: { consult: consult }, layout: false
+        render :new, locals: { consult: consult }
       end
 
       def render_edit(consult)
-        render :edit, locals: { consult: consult }, layout: false
+        render :edit, locals: { consult: consult }
       end
 
       def consult_params
         params
           .require(:admissions_consult)
-          .permit(:hospital_unit_id, :patient_id)
+          .permit(
+            :hospital_unit_id,
+            :hospital_ward_id,
+            :patient_id
+          )
       end
     end
   end
