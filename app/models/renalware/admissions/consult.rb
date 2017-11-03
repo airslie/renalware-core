@@ -11,6 +11,7 @@ module Renalware
       validates :hospital_ward_id, presence: true
       validates :started_on, presence: true
       validates :description, presence: true
+      validates :consult_type, presence: true
 
       belongs_to :patient
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"

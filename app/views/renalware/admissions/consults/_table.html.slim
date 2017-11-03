@@ -10,10 +10,12 @@
         th.col-width-tiny Sex
         th.col-width-tiny Age
         th.col-width-small AKI Nurse?
+        th.show-for-large-up Author
         th.col-width-medium Description
         th.col-width-tiny
     tbody
       - consults.each do |consult|
+        - uid = "consult-#{consult.id}"
         tr
           td= consult.unit_and_ward
           td= consult.patient_name
@@ -23,23 +25,35 @@
           td= consult.patient_sex
           td= consult.patient_age
           td= yes_no(consult.requires_aki_nurse)
+          td.show-for-large-up.consult-author.col-width-medium-with-ellipsis(title=consult.created_by)= consult.created_by
           td.col-width-medium-with-ellipsis(title=consult.description)= consult.description
-          td(style="position:relative")
-            / a div required here for now in order for the button group display correctly
-            div(style="position:relative")
+          td
+            / As we have lots of possible actions, group them in a button group.
+            / A wrapping div is required for now in order for the button group display correctly
+            / (though we could style the td like a div I guess).
+            div
               button.button.dropdown(href="#"
-                                     data-dropdown="access-options"
-                                     aria-controls="access-options"
+                                     data-dropdown=uid
+                                     aria-controls=uid
                                      aria-expanded="false")
-                | Actions..
-              ul.f-dropdown#access-options(style="position:absolute" data-dropdown-content aria-hidden="true")
-                li= link_to "Edit", edit_admissions_consult_path(consult)
-                li= link_to "Mark as Done",
-                            admissions_consult_path(consult, remote: true, method: :delete),
-                            data: { confirm: I18n.t("prompts.confirm_delete") }
-                li= render "renalware/admissions/requests/create_request_link",
-                            patient: consult.patient,
-                            link_text: "Request Admission"
+                | Actions&hellip;
+              ul.f-dropdown(id="#{uid}" data-dropdown-content aria-hidden="true")
+                - if policy(consult).edit?
+                  li= link_to edit_admissions_consult_path(consult) do
+                    i.fa.fa-link-annotation.fa-edit
+                    | Edit
+
+                - if policy(consult).destroy?
+                  li= link_to admissions_consult_path(consult),
+                              method: :delete,
+                              data: { confirm: t(".delete_consult_warning_msg") } do
+                    i.fa.fa-link-annotation.fa-check
+                    | Mark as Done
+
+                - if policy(Renalware::Admissions::Request).create?
+                  li= render "renalware/admissions/requests/create_request_link",
+                             patient: consult.patient,
+                             link_text: "Request Admission"
 
 
 

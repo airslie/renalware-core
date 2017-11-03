@@ -86,8 +86,15 @@ $column-gutter: rem-calc(20);
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // We use these to define default font stacks
-// $font-family-sans-serif: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
-$font-family-sans-serif: -apple-system,
+// Currently using the system font stack as used by wordpress/medium/github/ with the caveat that
+// the system mac font chars are too wide and we'd have to tweak the css a little, so for now have
+// promoted "Helvetica Neue" to the top of the list. Windows will still get "Segoe UI", which works
+// OK for character width.
+// iPads? Need to check.
+// Still a question over whether to use a webfont like Roboto or OpenSans so there is visual
+// consistency across devices.
+$font-family-sans-serif: "Helvetica Neue",
+                         -apple-system,
                          BlinkMacSystemFont,
                          "Segoe UI",
                          Roboto,
@@ -95,8 +102,9 @@ $font-family-sans-serif: -apple-system,
                          Ubuntu,
                          Cantarell,
                          "Open Sans",
-                         "Helvetica Neue",
                          sans-serif;
+
+// $font-family-sans-serif: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 // $font-family-serif: Georgia, Cambria, "Times New Roman", Times, serif;
 // $font-family-monospace: Consolas, "Liberation Mono", Courier, monospace;
 

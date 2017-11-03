@@ -8,6 +8,7 @@ en:
         referred_on: Referal date
         hospital_unit: Unit
         hospital_ward: Ward
+        consult_type: Type
   enumerize:
     renalware/admissions/consult:
       transfer_priority:
@@ -20,3 +21,8 @@ en:
         "yes": Yes (an AKI episode will be created)
         "no": "No"
         unknown: Unknown
+  renalware:
+    admissions:
+      consults:
+        table:
+          delete_consult_warning_msg: "Mark this consult as done and remove it from the list?"

@@ -109,6 +109,14 @@ table {
       max-width: 7rem;
     }
 
+    &.col-width-mediumish-with-ellipsis {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      min-width: 7rem;
+      max-width: 9rem;
+    }
+
     &.col-width-large-with-ellipsis {
       overflow: hidden;
       white-space: nowrap;

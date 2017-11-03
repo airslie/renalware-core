@@ -40,6 +40,11 @@ module Renalware
         end
       end
 
+      def destroy
+        find_and_authorize_consult.destroy!
+        redirect_to admissions_consults_path, notice: success_msg_for("consult")
+      end
+
       private
 
       def consults
