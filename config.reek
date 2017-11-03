@@ -4,6 +4,9 @@ UtilityFunction:
   public_methods_only: true
 TooManyStatements:
   max_statements: 10
+UtilityFunction:
+  exclude:
+    - !ruby/regexp /Helper/
 
 ### Excluding directories
 
