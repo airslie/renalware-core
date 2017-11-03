@@ -51,7 +51,12 @@
       margin: 0;
     }
     .f-dropdown {
-      margin-left: -100px;
+      margin-left: -110px;
+
+      &.open::before,
+      &.open::after {
+        left: 160px;
+      }
     }
     .button-group {
 

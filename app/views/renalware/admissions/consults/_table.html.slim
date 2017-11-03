@@ -32,30 +32,39 @@
             / A wrapping div is required for now in order for the button group display correctly
             / (though we could style the td like a div I guess).
             div
-              button.button.dropdown(href="#"
-                                     data-dropdown=uid
-                                     aria-controls=uid
-                                     aria-expanded="false")
+              button.button.secondary.dropdown(href="#"
+                                               data-dropdown=uid
+                                               aria-controls=uid
+                                               aria-expanded="false")
                 | Actions&hellip;
               ul.f-dropdown(id="#{uid}" data-dropdown-content aria-hidden="true")
-                - if policy(consult).edit?
-                  li= link_to edit_admissions_consult_path(consult) do
-                    i.fa.fa-link-annotation.fa-edit
-                    | Edit
+                = dropdown_btn_icon_link(enabled: policy(consult).edit?,
+                                         icon: "fa-edit",
+                                         path: edit_admissions_consult_path(consult),
+                                         title: "Edit")
 
-                - if policy(consult).destroy?
-                  li= link_to admissions_consult_path(consult),
-                              method: :delete,
-                              data: { confirm: t(".delete_consult_warning_msg") } do
-                    i.fa.fa-link-annotation.fa-check
-                    | Mark as Done
+                - if consult.requires_aki_nurse?
+                  = dropdown_btn_icon_link(enabled: policy(consult).edit?,
+                                           icon: "fa-user",
+                                           path: edit_admissions_consult_path(consult),
+                                           title: "Remove AKI nurse request")
+                - else
+                  = dropdown_btn_icon_link(enabled: policy(consult).edit?,
+                                           icon: "fa-user-o",
+                                           path: edit_admissions_consult_path(consult),
+                                           title: "Request AKI nurse")
+
+                = dropdown_btn_icon_link(enabled: policy(consult).destroy?,
+                                         icon: "fa-trash",
+                                         path: admissions_consult_path(consult),
+                                         title: "Mark as Done",
+                                         method: :delete,
+                                         data: { confirm: t(".delete_consult_warning_msg") })
 
                 - if policy(Renalware::Admissions::Request).create?
                   li= render "renalware/admissions/requests/create_request_link",
                              patient: consult.patient,
                              link_text: "Request Admission"
-
-
 
 = render "renalware/admissions/requests/modal_dialog_placeholder"
 css:
