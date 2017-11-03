@@ -401,7 +401,8 @@ end
 
 #     # pd regime bags
 #     expect(page).to have_content(
-#       "Bag type: Nutrineal PD4 (Blue), Volume: 2500ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri"
+#       "Bag type: Nutrineal PD4 (Blue), Volume: 2500ml, No. per week: 5,"\
+#       " Days: Sun, Mon, Wed, Thu, Fri"
 #     )
 #   end
 # end
@@ -459,7 +460,8 @@ end
 #   # saved bag for this regime:
 #   # bag 1
 #   expect(page).to have_content(
-#     "Bag type: Extraneal (Icodextrin 7.5%) (Purple), Volume: 1000ml, No. per week: 6, Days: Sun, Mon, Wed, Thu, Fri, Sat"
+#     "Bag type: Extraneal (Icodextrin 7.5%) (Purple), Volume: 1000ml, No. per week: 6,"\
+#     " Days: Sun, Mon, Wed, Thu, Fri, Sat"
 #   )
 
 #   # average daily glucose calculated from bags
@@ -493,7 +495,8 @@ end
 #   # saved bag for this regime:
 #   # bag 1
 #   expect(page).to have_content(
-#     "Bag type: Extraneal (Icodextrin 7.5%) (Purple), Volume: 2000ml, No. per week: 5, Days: Sun, Tue, Wed, Thu, Sat"
+#     "Bag type: Extraneal (Icodextrin 7.5%) (Purple), Volume: 2000ml, No. per week: 5, "\
+#     "Days: Sun, Tue, Wed, Thu, Sat"
 #   )
 
 #   # average daily glucose calculated from bags

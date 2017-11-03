@@ -3,6 +3,7 @@ require_dependency "renalware"
 module Renalware
   module Messaging
     module_function
+
     def table_name_prefix
       "messaging_"
     end
@@ -21,6 +22,7 @@ module Renalware
 
     module Internal
       module_function
+
       def cast_patient(patient)
         ActiveType.cast(patient, ::Renalware::Messaging::Internal::Patient)
       end
