@@ -1,6 +1,5 @@
 = content_for(:actions) do
-  = link_to("Add Existing Patient", new_admissions_consult_path, class: :button)
-  = link_to("Create a new patient", new_patient_path)
+  = link_to("Add", new_admissions_consult_path, class: :button)
 
 = within_admin_layout(title: "Admission Consults") do
   .panel.radius.compact

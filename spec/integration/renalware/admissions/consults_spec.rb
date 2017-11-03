@@ -4,6 +4,7 @@ RSpec.describe "Admission Consult management", type: :request do
   let(:user) { @current_user }
   let(:time) { Time.zone.now }
   let(:hospital_unit) { create(:hospital_unit, unit_code: "HospUnit1") }
+  let(:hospital_ward) { create(:hospital_ward, name: "Ward1", hospital_unit: hospital_unit) }
 
   def convert_hash_dates_to_string_using_locale(hash)
     hash.each { |key, val| hash[key] = I18n.l(val) if val.is_a?(Date) }
@@ -13,7 +14,11 @@ RSpec.describe "Admission Consult management", type: :request do
     create(:admissions_consult,
            by: user,
            patient: create(:patient, by: user),
-           hospital_unit: hospital_unit)
+           started_on: Time.zone.today,
+           hospital_unit: hospital_unit,
+           hospital_ward: hospital_ward,
+           consult_type: "TBC",
+           description: "Lorem ipsum dolor")
   end
 
   describe "GET index" do
@@ -50,9 +55,10 @@ RSpec.describe "Admission Consult management", type: :request do
           patient_id: patient.id,
           hospital_unit_id: hospital_unit.id,
           hospital_ward_id: hospital_unit.wards.first.id,
-          consult_on: date,
+          started_on: date,
           decided_on: date,
-          transfer_on: date,
+          transferred_on: date,
+          consult_type: "TBC",
           transfer_priority: Renalware::Admissions::Consult.transfer_priority.values.first,
           aki_risk: Renalware::Admissions::Consult.aki_risk.values.first,
           seen_by: "xyz",
@@ -73,7 +79,7 @@ RSpec.describe "Admission Consult management", type: :request do
         # Do a direct diff on supplied params and the saved object's attributes, excluding
         # attributes that we don't care about.
         attribs = consult.attributes.symbolize_keys.except(
-          :id, :updated_at, :created_at, :created_by_id, :updated_by_id, :deleted_at
+          :id, :updated_at, :created_at, :created_by_id, :updated_by_id, :deleted_at, :ended_on
         )
         convert_hash_dates_to_string_using_locale(attribs)
         expect(HashDiff.diff(params, attribs)).to eq([])

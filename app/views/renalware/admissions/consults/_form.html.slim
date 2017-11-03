@@ -4,23 +4,29 @@
       function replaceOptionsInWardDropdown(data) {
         var $select = $('#admissions_consult_hospital_ward_id');
         $select.html("<option />");
-        $.each(data, function(index, hash) {
-          $select.append($('<option />', { value: hash["id"], text: hash["name"] }));
-        });
+        if (data != undefined) {
+          $.each(data, function(index, hash) {
+            $select.append($('<option />', { value: hash["id"], text: hash["name"] }));
+          });
+        }
       };
 
       $(document).on('change', '#admissions_consult_hospital_unit_id', function(evt) {
         var wardsUrl = $("option:selected", this).data("wards-url");
-        var jqxhr = $.getJSON(wardsUrl)
-          .done(function(data) {
-            replaceOptionsInWardDropdown(data);
-          })
-          .fail(function(error, a, b) {
-            console.log( "error", a, b);
-          })
-      });
+        if (wardsUrl == undefined) {
+          replaceOptionsInWardDropdown(undefined);
+        } else {
+          var jqxhr = $.getJSON(wardsUrl)
+            .done(function(data) {
+              replaceOptionsInWardDropdown(data);
+            })
+            .fail(function(error, a, b) {
+              console.log( "error", a, b);
+            })
+        }
+        return true;
+      })
     });
-
 
 = render "renalware/shared/errors", model: consult
 = simple_form_for(consult,
@@ -39,23 +45,34 @@
                         placeholder: "Search by patient name or hospital/NHS no." }\
               }
 
+  / Because simple form doesn't easily allow to add data attributes to select options
+  / (without us wrapping a rails f.select and thus loosing a bunch of formatting and support for
+  / .error classes etc), we use a custom select_container input which allows us to build a custom
+  / options collection and pass it in.
+  / Credit to https://stackoverflow.com/questions/17554748/how-do-i-add-html-attributes-to-select-
+  / options-with-simple-form-rails#answer-34827962
   ruby:
-    unit_options = Renalware::Hospitals::Unit.select(:id, :unit_code).all.map do |unit|
-      [unit.unit_code, unit.id, {'data-wards-url'=> hospitals_unit_wards_url(unit, format: :json)}]
+    options_html = capture do
+      Renalware::Hospitals::Unit.select(:id, :unit_code).all.map do |unit|
+        concat(content_tag(:option,
+                           value: unit.id,
+                           "data-wards-url" => hospitals_unit_wards_url(unit, format: :json)) { unit.unit_code })
+      end
     end
 
-  / Here we wrap a traditional rails select in a simple form input so we can use
-  / a options array containing a custom data attribute on each option e.g.
-  / <option data-wards-url="http://local...hospitals/units/1/wards.json" value="1">MOUNT</option>
-  / https://stackoverflow.com/questions/10974304/rails-simple-form-custom-association-select-field
-  / Note we use the data-wards-url for refreshing the wards dropdown when the unit changes. See JS.
-  = f.input(:hospital_unit_id) do
-    = f.select(:hospital_unit_id, unit_options)
+  = f.input :hospital_unit_id,
+            as: :select_container,
+            options_html: options_html,
+            include_blank: true,
+            wrapper: :horizontal_medium
 
-  =f.association :hospital_ward, collection: consult.hospital_unit&.wards, wrapper: :horizontal_medium
-  =f.input :consult_on, as: :date_picker, wrapper: :horizontal_datepicker
+  =f.association :hospital_ward,
+                 collection: Renalware::Hospitals::Ward.where(hospital_unit_id: consult.hospital_unit_id),
+                 wrapper: :horizontal_medium
+  =f.input :started_on, as: :date_picker, wrapper: :horizontal_datepicker
   =f.input :decided_on, as: :date_picker, wrapper: :horizontal_datepicker
-  =f.input :transfer_on, as: :date_picker, wrapper: :horizontal_datepicker
+  =f.input :transferred_on, as: :date_picker, wrapper: :horizontal_datepicker
+  =f.input :consult_type, wrapper: :horizontal_medium
   =f.input :seen_by, wrapper: :horizontal_medium
   =f.input :aki_risk, include_blank: "Please select", wrapper: :horizontal_small
   =f.input :transfer_priority, include_blank: false, wrapper: :horizontal_small

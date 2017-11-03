@@ -3,8 +3,9 @@ en:
     attributes:
       renalware/admissions/consult:
         decided_on: Decision date
-        transfer_on: Transfer date
-        consult_on: Consult date
+        transferred_on: Transfer date
+        started_on: Consult date
+        referred_on: Referal date
         hospital_unit: Unit
         hospital_ward: Ward
   enumerize:

@@ -12,7 +12,7 @@ module Renalware
       end
 
       def new
-        consult = Consult.new
+        consult = Consult.new(started_on: Time.zone.today)
         authorize consult
         render_new(consult)
       end
@@ -68,8 +68,8 @@ module Renalware
           .require(:admissions_consult)
           .permit(
             :hospital_unit_id, :hospital_ward_id, :patient_id,
-            :decided_on, :transfer_on, :consult_on, :decided_on,
-            :aki_risk, :transfer_priority, :seen_by,
+            :decided_on, :transferred_on, :started_on, :ended_on, :decided_on,
+            :aki_risk, :transfer_priority, :seen_by, :consult_type,
             :requires_aki_nurse, :description
           )
       end
