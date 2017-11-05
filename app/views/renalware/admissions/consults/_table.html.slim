@@ -38,28 +38,29 @@
                                                aria-expanded="false")
                 | Actions&hellip;
               ul.f-dropdown(id="#{uid}" data-dropdown-content aria-hidden="true")
-                = dropdown_btn_icon_link(enabled: policy(consult).edit?,
-                                         icon: "fa-edit",
-                                         path: edit_admissions_consult_path(consult),
-                                         title: "Edit")
+
+                = dropdown_btn_item(icon: "fa-edit",
+                                    url: edit_admissions_consult_path(consult),
+                                    title: "Edit",
+                                    enabled: policy(consult).edit?)
 
                 - if consult.requires_aki_nurse?
-                  = dropdown_btn_icon_link(enabled: policy(consult).edit?,
-                                           icon: "fa-user",
-                                           path: edit_admissions_consult_path(consult),
-                                           title: "Remove AKI nurse request")
+                  = dropdown_btn_item(icon: "fa-user",
+                                      url: edit_admissions_consult_path(consult),
+                                      title: "Remove AKI nurse request",
+                                      enabled: policy(consult).edit?)
                 - else
-                  = dropdown_btn_icon_link(enabled: policy(consult).edit?,
-                                           icon: "fa-user-o",
-                                           path: edit_admissions_consult_path(consult),
-                                           title: "Request AKI nurse")
+                  = dropdown_btn_item(icon: "fa-user",
+                                      url: edit_admissions_consult_path(consult),
+                                      title: "Request AKI nurse",
+                                      enabled: policy(consult).edit?)
 
-                = dropdown_btn_icon_link(enabled: policy(consult).destroy?,
-                                         icon: "fa-trash",
-                                         path: admissions_consult_path(consult),
-                                         title: "Mark as Done",
-                                         method: :delete,
-                                         data: { confirm: t(".delete_consult_warning_msg") })
+                = dropdown_btn_item(icon: "fa-trash",
+                                    url: admissions_consult_path(consult),
+                                    title: "Mark as Done",
+                                    method: :delete,
+                                    data: { confirm: t(".delete_consult_warning_msg") },
+                                    enabled: policy(consult).destroy?)
 
                 - if policy(Renalware::Admissions::Request).create?
                   li= render "renalware/admissions/requests/create_request_link",
@@ -67,8 +68,3 @@
                              link_text: "Request Admission"
 
 = render "renalware/admissions/requests/modal_dialog_placeholder"
-css:
-  .f-dropdown.open::before,
-  .f-dropdown.open::after {
-      left: 160px;
-  }

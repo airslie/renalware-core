@@ -8,13 +8,13 @@ li
   ul.f-dropdown#diary-options(data-dropdown-content aria-hidden="true")
     - date = Time.zone.today
     = dropdown_btn_item title: "This week",
-                        path: hd_unit_edit_diary_path(year: date.year, week_number: date.cweek)
+                        url: hd_unit_edit_diary_path(year: date.year, week_number: date.cweek)
     - date = Time.zone.today + 1.week
     = dropdown_btn_item title: "Next week",
-                        path: hd_unit_edit_diary_path(year: date.year, week_number: date.cweek)
+                        url: hd_unit_edit_diary_path(year: date.year, week_number: date.cweek)
     - date = Time.zone.today - 1.week
     = dropdown_btn_item title: "Last week",
-                        path: hd_unit_edit_diary_path(year: date.year, week_number: date.cweek)
+                        url: hd_unit_edit_diary_path(year: date.year, week_number: date.cweek)
     hr
     li= link_to "Edit stations", hd_unit_stations_path(unit)
 

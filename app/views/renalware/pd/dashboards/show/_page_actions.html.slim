@@ -13,30 +13,30 @@ ul.f-dropdown#pd-options(data-dropdown-content aria-hidden="true")
   - patient_on_pd = patient.has_ever_been_on_pd?
 
   = dropdown_btn_item title: t(".add_pd_assessment"),
-                      path: new_patient_pd_assessment_path(patient)
+                      url: new_patient_pd_assessment_path(patient)
 
   = dropdown_btn_item title: t(".add_pd_training_session"),
-                      path: new_patient_pd_training_session_path(patient)
+                      url: new_patient_pd_training_session_path(patient)
 
   = dropdown_btn_item enabled: patient_on_pd && policy(Renalware::PD::CAPDRegime).new?,
                       title: t(".add_capd_regime"),
-                      path: new_patient_pd_regime_path(patient, type: "PD::CAPDRegime")
+                      url: new_patient_pd_regime_path(patient, type: "PD::CAPDRegime")
 
   = dropdown_btn_item enabled: patient_on_pd && policy(Renalware::PD::APDRegime).new?,
                       title: t(".add_apd_regime"),
-                      path: new_patient_pd_regime_path(patient, type: "PD::APDRegime")
+                      url: new_patient_pd_regime_path(patient, type: "PD::APDRegime")
 
   = dropdown_btn_item enabled: patient_on_pd && policy(Renalware::PD::PeritonitisEpisode).new?,
                       title: t(".add_peritonitis_episode"),
-                      path: new_patient_pd_peritonitis_episode_path(patient)
+                      url: new_patient_pd_peritonitis_episode_path(patient)
 
   = dropdown_btn_item enabled: patient_on_pd && policy(Renalware::PD::ExitSiteInfection).new?,
                       title: t(".add_exit_site_infection"),
-                      path: new_patient_pd_exit_site_infection_path(patient)
+                      url: new_patient_pd_exit_site_infection_path(patient)
 
   = dropdown_btn_item enabled: patient_on_pd  && policy(Renalware::PD::PETAdequacyResult).new?,
                       title: t(".add_pet_adequacy"),
-                      path: new_patient_pd_pet_adequacy_result_path(patient)
+                      url: new_patient_pd_pet_adequacy_result_path(patient)
 
 - unless patient_on_pd
   = render "modality_missing_warning", message: t(".missing_modality_warning")
