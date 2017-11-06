@@ -62,7 +62,8 @@ module Renalware
             consult_type: "TBC",
             transfer_priority: Renalware::Admissions::Consult.transfer_priority.values.first,
             aki_risk: Renalware::Admissions::Consult.aki_risk.values.first,
-            seen_by: "xyz",
+            seen_by_id: user.id,
+            contact_number: "x123",
             requires_aki_nurse: true,
             description: "Lorem ipsum dolor sit amet"
           }
