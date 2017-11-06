@@ -7,5 +7,6 @@
     = link_to("add them", new_patient_path)
     | &nbsp;first
 
+  = render "filters", query: query
   = render "table", consults: consults
   = paginate consults

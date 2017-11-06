@@ -78,7 +78,12 @@
   =f.input :decided_on, as: :date_picker, wrapper: :horizontal_datepicker
   =f.input :transfer_priority, include_blank: false, wrapper: :horizontal_small
   =f.input :transferred_on, as: :date_picker, wrapper: :horizontal_datepicker
-  =f.input :seen_by, wrapper: :horizontal_medium
+  =f.association :seen_by,
+                  as: :user_picker,
+                  collection: Renalware::User.ordered,
+                  wrapper: :horizontal_medium
+  =f.input :contact_number, wrapper: :horizontal_medium
+
   =f.input :aki_risk, include_blank: "Please select", wrapper: :horizontal_small
   =f.input :requires_aki_nurse, as: :inline_radio_buttons, wrapper: :horizontal_small
   =f.input :description, wrapper: :horizontal_large, input_html: { rows: 5 }

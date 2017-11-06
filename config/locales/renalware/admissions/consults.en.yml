@@ -9,6 +9,7 @@ en:
         hospital_unit: Unit
         hospital_ward: Ward
         consult_type: Type
+        contact_number: Bleep/Ext
   enumerize:
     renalware/admissions/consult:
       transfer_priority:
@@ -18,7 +19,7 @@ en:
         potential: Potential
         unnecessary: Unnecessary
       aki_risk:
-        "yes": Yes (an AKI episode will be created)
+        "yes": "Yes"
         "no": "No"
         unknown: Unknown
   renalware:

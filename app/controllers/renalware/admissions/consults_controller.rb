@@ -7,8 +7,13 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       def index
-        authorize Consult, :index?
-        render locals: { consults: consults }
+        query = ConsultQuery.new(params[:q])
+        consults = query.call.page(page).per(per_page)
+        authorize consults
+        render locals: {
+          consults:  CollectionPresenter.new(consults, ConsultPresenter),
+          query: query.search
+        }
       end
 
       def new
@@ -47,7 +52,7 @@ module Renalware
 
       private
 
-      def consults
+      def present(consults)
         CollectionPresenter.new(
           Consult.all.order(created_at: :desc).page(page).per(per_page),
           ConsultPresenter
@@ -72,9 +77,9 @@ module Renalware
         params
           .require(:admissions_consult)
           .permit(
-            :hospital_unit_id, :hospital_ward_id, :patient_id,
+            :hospital_unit_id, :hospital_ward_id, :patient_id, :q,
             :decided_on, :transferred_on, :started_on, :ended_on, :decided_on,
-            :aki_risk, :transfer_priority, :seen_by, :consult_type,
+            :aki_risk, :transfer_priority, :seen_by_id, :consult_type,
             :requires_aki_nurse, :description
           )
       end

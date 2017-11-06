@@ -9,6 +9,7 @@
         th.col-width-small Modality
         th.col-width-tiny Sex
         th.col-width-tiny Age
+        th.col-width-small AKI Risk
         th.col-width-small AKI Nurse?
         th.show-for-large-up Author
         th.col-width-medium Description
@@ -24,6 +25,7 @@
           td= consult.patient_current_modality
           td= consult.patient_sex
           td= consult.patient_age
+          td= consult.aki_risk&.text
           td= yes_no(consult.requires_aki_nurse)
           td.show-for-large-up.consult-author.col-width-medium-with-ellipsis(title=consult.created_by)= consult.created_by
           td.col-width-medium-with-ellipsis(title=consult.description)= consult.description
@@ -43,17 +45,6 @@
                                     url: edit_admissions_consult_path(consult),
                                     title: "Edit",
                                     enabled: policy(consult).edit?)
-
-                - if consult.requires_aki_nurse?
-                  = dropdown_btn_item(icon: "fa-user",
-                                      url: edit_admissions_consult_path(consult),
-                                      title: "Remove AKI nurse request",
-                                      enabled: policy(consult).edit?)
-                - else
-                  = dropdown_btn_item(icon: "fa-user",
-                                      url: edit_admissions_consult_path(consult),
-                                      title: "Request AKI nurse",
-                                      enabled: policy(consult).edit?)
 
                 = dropdown_btn_item(icon: "fa-trash",
                                     url: admissions_consult_path(consult),

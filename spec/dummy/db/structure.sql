@@ -479,14 +479,15 @@ CREATE TABLE admission_consults (
     hospital_unit_id bigint,
     hospital_ward_id bigint,
     patient_id bigint NOT NULL,
+    seen_by_id bigint,
     started_on date,
     ended_on date,
     decided_on date,
     transferred_on date,
     transfer_priority character varying,
     aki_risk character varying,
-    seen_by character varying,
     consult_type character varying,
+    contact_number character varying,
     requires_aki_nurse boolean DEFAULT false NOT NULL,
     description text,
     updated_by_id bigint NOT NULL,
@@ -4461,7 +4462,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('LCC'::character varying)::text, ('Nephrology'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'LCC'::character varying, 'Nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -4538,7 +4539,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('LCC'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'LCC'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -7863,6 +7864,13 @@ CREATE INDEX index_admission_consults_on_patient_id ON admission_consults USING 
 
 
 --
+-- Name: index_admission_consults_on_seen_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admission_consults_on_seen_by_id ON admission_consults USING btree (seen_by_id);
+
+
+--
 -- Name: index_admission_consults_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -10704,6 +10712,14 @@ ALTER TABLE ONLY messaging_receipts
 
 ALTER TABLE ONLY patients
     ADD CONSTRAINT fk_rails_53c392b502 FOREIGN KEY (country_of_birth_id) REFERENCES system_countries(id);
+
+
+--
+-- Name: admission_consults fk_rails_53e81afb74; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY admission_consults
+    ADD CONSTRAINT fk_rails_53e81afb74 FOREIGN KEY (seen_by_id) REFERENCES users(id);
 
 
 --

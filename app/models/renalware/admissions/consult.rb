@@ -16,6 +16,7 @@ module Renalware
       belongs_to :patient
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"
       belongs_to :hospital_ward, class_name: "Hospitals::Ward"
+      belongs_to :seen_by, class_name: "User"
 
       enumerize :transfer_priority, in: %i(unknown necessary desirable potential unnecessary)
       enumerize :aki_risk, in: %i(yes no unknown)
