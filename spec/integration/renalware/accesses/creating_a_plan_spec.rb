@@ -4,34 +4,49 @@ feature "Creating an Access Plan", type: :feature do
   include DateHelpers
 
   scenario "A clinician adds the first access plan to a patient using menus" do
-    user = login_as_clinician
-    patient = create(:accesses_patient, by: user)
-    plan_type = create(:access_plan_type, name: "Continue dialysis line")
+    user = patient = plan_type = nil
+
+    p "A"
+    p Benchmark.ms{ user = login_as_clinician }
+    p Benchmark.ms{ patient = create(:accesses_patient, by: user) }
+    p Benchmark.ms{ plan_type = create(:access_plan_type, name: "Continue dialysis line") }
     notes = "Lorem ipsum delor"
 
-    visit patient_accesses_dashboard_path(patient)
+    p "B"
+    p Benchmark.ms{ visit patient_accesses_dashboard_path(patient) }
 
-    expect(page).to have_no_content("Plan History")
+    p Benchmark.ms{
+     expect(page).to have_no_content("Plan History")
+    }
 
-    within ".page-actions" do
-      click_on "Add"
-      click_on "Access Plan"
-    end
+    p Benchmark.ms{
+      within ".page-actions" do
+        click_on "Add"
+        click_on "Access Plan"
+      end
+    }
 
-    within "#new_accesses_plan" do
-      select plan_type.name, from: "Plan"
-      select user.to_s, from: "Decided by"
-      fill_in "Notes", with: notes
-      click_on "Save"
-    end
+    p "C"
+    p Benchmark.ms{
+      within "#new_accesses_plan" do
+        select plan_type.name, from: "Plan"
+        select user.to_s, from: "Decided by"
+        fill_in "Notes", with: notes
+        click_on "Save"
+      end
+    }
 
-    expect(page.current_path).to eq(patient_accesses_dashboard_path(patient))
+    p Benchmark.ms{
+      expect(page.current_path).to eq(patient_accesses_dashboard_path(patient))
+    }
 
-    within ".access-plans .current-access-plan" do
-      expect(page).to have_content(plan_type.name)
-      expect(page).to have_content(notes)
-      expect(page).to have_content(todays_date)
-    end
+    p Benchmark.ms{
+      within ".access-plans .current-access-plan" do
+        expect(page).to have_content(plan_type.name)
+        expect(page).to have_content(notes)
+        expect(page).to have_content(todays_date)
+      end
+    }
   end
 
   scenario "A clinician adds an plan to a patient, implicitly terminating the previous one" do
