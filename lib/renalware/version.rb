@@ -1,3 +1,3 @@
 module Renalware
-  VERSION = "2.0.0.pre.beta9".freeze
+  VERSION = "2.0.0.pre.beta10".freeze
 end
