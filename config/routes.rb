@@ -223,6 +223,12 @@ Renalware::Engine.routes.draw do
       end
     end
     resources :aki_alerts, except: [:new, :create, :destroy]
+    resources :registry_preflight_checks, only: [] do
+      collection do
+        get :patients
+        get :deaths
+      end
+    end
   end
 
   namespace :system do

@@ -1,0 +1,30 @@
+.renal-registry-preflight-checks {
+  .missing-data {
+    span {
+      border-radius: 0.2rem;
+      padding: 0.15rem 0.4rem;
+      color: $white;
+      white-space: nowrap;
+      font-size: 0.9rem;
+      font-weight: normal;
+      background-color: $renal-reg-missing-data-default;
+      margin-right: .2rem;
+
+      &.comorbidities_at_esrf {
+        background-color: $renal-reg-missing-data-comorbidities-at-esrf;
+      }
+
+      &.prd {
+        background-color: $renal-reg-missing-data-prd;
+      }
+
+      &.first_seen_on {
+        background-color: $renal-reg-missing-data-first-seen-on;
+      }
+
+      &.ethnicity {
+        background-color: $renal-reg-missing-data-ethnicity;
+      }
+    }
+  }
+}
