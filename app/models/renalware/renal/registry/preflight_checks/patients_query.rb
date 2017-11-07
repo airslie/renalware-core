@@ -17,7 +17,6 @@ module Renalware
             Renalware::Patient
               .preload(current_modality: [:description])
               .all
-              .order(family_name: :asc)
           end
 
           def call
@@ -27,6 +26,7 @@ module Renalware
               .joins("LEFT OUTER JOIN hd_profiles ON hd_profiles.patient_id = patients.id")
               .joins("LEFT OUTER JOIN renal_profiles ON renal_profiles.patient_id = patients.id")
               .where(where_conditions)
+              .order("modality_descriptions.name asc")
           end
 
           def where_conditions
