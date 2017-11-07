@@ -1,0 +1,61 @@
+.admissions-consults-table
+  table
+    thead
+      tr
+        th.col-width-medium Site/Ward
+        th.at-least.col-width-medium Patient
+        th.col-width-nhs-no NHS No.
+        th.col-width-reference-no Hosp Nos.
+        th.col-width-small Modality
+        th.col-width-tiny Sex
+        th.col-width-tiny Age
+        th.col-width-small AKI Risk
+        th.col-width-small AKI Nurse?
+        th.show-for-large-up Author
+        th.col-width-medium Description
+        th.col-width-tiny
+    tbody
+      - consults.each do |consult|
+        - uid = "consult-#{consult.id}"
+        tr
+          td= consult.unit_and_ward
+          td= consult.patient_name
+          td= consult.patient_nhs_number
+          td= consult.patient_hospital_identifiers
+          td= consult.patient_current_modality
+          td= consult.patient_sex
+          td= consult.patient_age
+          td= consult.aki_risk&.text
+          td= yes_no(consult.requires_aki_nurse)
+          td.show-for-large-up.consult-author.col-width-medium-with-ellipsis(title=consult.created_by)= consult.created_by
+          td.col-width-medium-with-ellipsis(title=consult.description)= consult.description
+          td
+            / As we have lots of possible actions, group them in a button group.
+            / A wrapping div is required for now in order for the button group display correctly
+            / (though we could style the td like a div I guess).
+            div
+              button.button.secondary.dropdown(href="#"
+                                               data-dropdown=uid
+                                               aria-controls=uid
+                                               aria-expanded="false")
+                | Actions&hellip;
+              ul.f-dropdown(id="#{uid}" data-dropdown-content aria-hidden="true")
+
+                = dropdown_btn_item(icon: "fa-edit",
+                                    url: edit_admissions_consult_path(consult),
+                                    title: "Edit",
+                                    enabled: policy(consult).edit?)
+
+                = dropdown_btn_item(icon: "fa-trash",
+                                    url: admissions_consult_path(consult),
+                                    title: "Mark as Done",
+                                    method: :delete,
+                                    data: { confirm: t(".delete_consult_warning_msg") },
+                                    enabled: policy(consult).destroy?)
+
+                - if policy(Renalware::Admissions::Request).create?
+                  li= render "renalware/admissions/requests/create_request_link",
+                             patient: consult.patient,
+                             link_text: "Request Admission"
+
+= render "renalware/admissions/requests/modal_dialog_placeholder"

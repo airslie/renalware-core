@@ -9,7 +9,7 @@ module Renalware::Pathology
         observation_description = create(:pathology_observation_description)
         params = build_params(patient, request_description, observation_description)
 
-        expect { subject.call(params) }.to change { patient.reload.updated_at }
+        expect{ subject.call(params) }.to change{ patient.reload.updated_at }
 
         expect(patient.observation_requests.count).to eq(1)
         expect(patient.observations.count).to eq(1)

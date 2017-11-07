@@ -9,15 +9,15 @@ ul.f-dropdown#tx-recip-options(data-dropdown-content aria-hidden="true")
 
   = dropdown_btn_item enabled: policy(recipient_workup).new?,
                       title: t(".add_recipient_workup"),
-                      path: edit_patient_transplants_recipient_workup_path(patient)
+                      url: edit_patient_transplants_recipient_workup_path(patient)
 
   = dropdown_btn_item enabled: policy(registration).new?,
                       title: t(".add_waitlist_registration"),
-                      path: edit_patient_transplants_registration_path(patient)
+                      url: edit_patient_transplants_registration_path(patient)
 
   = dropdown_btn_item enabled: patient.has_ever_been_a_recipient?,
                       title: t(".add_recipient_operation"),
-                      path: new_patient_transplants_recipient_operation_path(patient)
+                      url: new_patient_transplants_recipient_operation_path(patient)
 
 - unless patient.has_ever_been_a_recipient?
   = render "modality_missing_warning", message: t(".missing_modality_warning")

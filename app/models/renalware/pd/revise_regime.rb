@@ -14,7 +14,9 @@ module Renalware
         Regime.transaction do
           regime.assign_attributes(params)
           return ::Renalware::Success.new(regime) unless regime.anything_changed?
-          return ::Renalware::Failure.new(regime.with_bag_destruction_marks_removed) unless regime.valid?
+          unless regime.valid?
+            return ::Renalware::Failure.new(regime.with_bag_destruction_marks_removed)
+          end
 
           new_regime = revise_regime(by: by)
           ::Renalware::Success.new(new_regime)

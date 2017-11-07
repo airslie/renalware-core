@@ -1,0 +1,29 @@
+en:
+  activerecord:
+    attributes:
+      renalware/admissions/consult:
+        decided_on: Decision date
+        transferred_on: Transfer date
+        started_on: Consult date
+        referred_on: Referal date
+        hospital_unit: Unit
+        hospital_ward: Ward
+        consult_type: Type
+        contact_number: Bleep/Ext
+  enumerize:
+    renalware/admissions/consult:
+      transfer_priority:
+        unknown: Unknown (default)
+        necessary: Necessary
+        desirable: Desirable
+        potential: Potential
+        unnecessary: Unnecessary
+      aki_risk:
+        "yes": "Yes"
+        "no": "No"
+        unknown: Unknown
+  renalware:
+    admissions:
+      consults:
+        table:
+          delete_consult_warning_msg: "Mark this consult as done and remove it from the list?"

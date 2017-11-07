@@ -46,6 +46,7 @@ Renalware::Engine.routes.draw do
     resources :requests do
       post :sort, on: :collection
     end
+    resources :consults
   end
 
   namespace :messaging do
@@ -159,7 +160,11 @@ Renalware::Engine.routes.draw do
   end
 
   namespace :hospitals do
-    resources :units, except: :show
+    resources :units, except: :show do
+      scope format: true, constraints: { format: :json } do
+        resources :wards, only: :index
+      end
+    end
   end
 
   namespace :modalities do

@@ -6,7 +6,7 @@ RSpec.describe "Searching drugs", type: :feature, js: true do
     it "returns drug names that partially match" do
       user = login_as_clinician
       patient = create(:patient, by: user)
-      drug = create(:drug, name: "::drug name::")
+      create(:drug, name: "::drug name::")
 
       visit patient_prescriptions_path(
         patient, treatable_type: patient.class, treatable_id: patient
