@@ -9,6 +9,26 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.0.pre.beta10
+07-11-2017
+
+### Added
+- Admission Consults
+- PD Audit
+- Renal Reg return checks
+- Clinical Studes
+- Anaemia Audit
+
+### Changed
+
+- UKRDC XML improvements
+
+### Fixed
+
+- ESRF address not sticking #1708
+- Search by hospital number now case-insensitive
+- Pagination admin/users
+
 ## 2.0.0.pre.beta9
 11-10-2017
 
@@ -20,8 +40,10 @@ This project adheres to Semantic Versioning.
 - Bone audit
 - Some seed rationalisation
 - Temporary link on patient screen view UKRDC xml
+- HD Diary
 
 ### Changed
+
 ### Fixed
 
 ## 2.0.0.pre.beta8
