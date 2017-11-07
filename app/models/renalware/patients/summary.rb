@@ -8,6 +8,7 @@ require_dependency "renalware"
 module Renalware
   module Patients
     class Summary < ApplicationRecord
+      self.primary_key = :id
     end
   end
 end
