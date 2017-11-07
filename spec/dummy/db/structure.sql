@@ -4662,6 +4662,142 @@ CREATE MATERIALIZED VIEW reporting_main_authors_audit AS
 
 
 --
+-- Name: reporting_pd_audit; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW reporting_pd_audit AS
+ WITH pd_patients AS (
+         SELECT patients.id
+           FROM ((patients
+             JOIN modality_modalities current_modality ON ((current_modality.patient_id = patients.id)))
+             JOIN modality_descriptions current_modality_description ON ((current_modality_description.id = current_modality.description_id)))
+          WHERE ((current_modality.ended_on IS NULL) AND (current_modality.started_on <= ('now'::text)::date) AND ((current_modality_description.name)::text = 'PD'::text))
+        ), current_regimes AS (
+         SELECT pd_regimes.id,
+            pd_regimes.patient_id,
+            pd_regimes.start_date,
+            pd_regimes.end_date,
+            pd_regimes.treatment,
+            pd_regimes.type,
+            pd_regimes.glucose_volume_low_strength,
+            pd_regimes.glucose_volume_medium_strength,
+            pd_regimes.glucose_volume_high_strength,
+            pd_regimes.amino_acid_volume,
+            pd_regimes.icodextrin_volume,
+            pd_regimes.add_hd,
+            pd_regimes.last_fill_volume,
+            pd_regimes.tidal_indicator,
+            pd_regimes.tidal_percentage,
+            pd_regimes.no_cycles_per_apd,
+            pd_regimes.overnight_volume,
+            pd_regimes.apd_machine_pac,
+            pd_regimes.created_at,
+            pd_regimes.updated_at,
+            pd_regimes.therapy_time,
+            pd_regimes.fill_volume,
+            pd_regimes.delivery_interval,
+            pd_regimes.system_id,
+            pd_regimes.additional_manual_exchange_volume,
+            pd_regimes.tidal_full_drain_every_three_cycles,
+            pd_regimes.daily_volume,
+            pd_regimes.assistance_type
+           FROM pd_regimes
+          WHERE ((pd_regimes.start_date >= ('now'::text)::date) AND (pd_regimes.end_date IS NULL))
+        ), current_apd_regimes AS (
+         SELECT current_regimes.id,
+            current_regimes.patient_id,
+            current_regimes.start_date,
+            current_regimes.end_date,
+            current_regimes.treatment,
+            current_regimes.type,
+            current_regimes.glucose_volume_low_strength,
+            current_regimes.glucose_volume_medium_strength,
+            current_regimes.glucose_volume_high_strength,
+            current_regimes.amino_acid_volume,
+            current_regimes.icodextrin_volume,
+            current_regimes.add_hd,
+            current_regimes.last_fill_volume,
+            current_regimes.tidal_indicator,
+            current_regimes.tidal_percentage,
+            current_regimes.no_cycles_per_apd,
+            current_regimes.overnight_volume,
+            current_regimes.apd_machine_pac,
+            current_regimes.created_at,
+            current_regimes.updated_at,
+            current_regimes.therapy_time,
+            current_regimes.fill_volume,
+            current_regimes.delivery_interval,
+            current_regimes.system_id,
+            current_regimes.additional_manual_exchange_volume,
+            current_regimes.tidal_full_drain_every_three_cycles,
+            current_regimes.daily_volume,
+            current_regimes.assistance_type
+           FROM current_regimes
+          WHERE ((current_regimes.type)::text ~~ '%::APD%'::text)
+        ), current_capd_regimes AS (
+         SELECT current_regimes.id,
+            current_regimes.patient_id,
+            current_regimes.start_date,
+            current_regimes.end_date,
+            current_regimes.treatment,
+            current_regimes.type,
+            current_regimes.glucose_volume_low_strength,
+            current_regimes.glucose_volume_medium_strength,
+            current_regimes.glucose_volume_high_strength,
+            current_regimes.amino_acid_volume,
+            current_regimes.icodextrin_volume,
+            current_regimes.add_hd,
+            current_regimes.last_fill_volume,
+            current_regimes.tidal_indicator,
+            current_regimes.tidal_percentage,
+            current_regimes.no_cycles_per_apd,
+            current_regimes.overnight_volume,
+            current_regimes.apd_machine_pac,
+            current_regimes.created_at,
+            current_regimes.updated_at,
+            current_regimes.therapy_time,
+            current_regimes.fill_volume,
+            current_regimes.delivery_interval,
+            current_regimes.system_id,
+            current_regimes.additional_manual_exchange_volume,
+            current_regimes.tidal_full_drain_every_three_cycles,
+            current_regimes.daily_volume,
+            current_regimes.assistance_type
+           FROM current_regimes
+          WHERE ((current_regimes.type)::text ~~ '%::CAPD%'::text)
+        )
+ SELECT 'APD'::text AS pd_type,
+    count(current_apd_regimes.patient_id) AS patient_count,
+    0 AS avg_hgb,
+    0 AS pct_hgb_gt_100,
+    0 AS pct_on_epo,
+    0 AS pct_pth_gt_500,
+    0 AS pct_phosphate_gt_1_8,
+    0 AS pct_strong_medium_bag_gt_1l
+   FROM current_apd_regimes
+UNION ALL
+ SELECT 'CAPD'::text AS pd_type,
+    count(current_capd_regimes.patient_id) AS patient_count,
+    0 AS avg_hgb,
+    0 AS pct_hgb_gt_100,
+    0 AS pct_on_epo,
+    0 AS pct_pth_gt_500,
+    0 AS pct_phosphate_gt_1_8,
+    0 AS pct_strong_medium_bag_gt_1l
+   FROM current_capd_regimes
+UNION ALL
+ SELECT 'PD'::text AS pd_type,
+    count(pd_patients.id) AS patient_count,
+    0 AS avg_hgb,
+    0 AS pct_hgb_gt_100,
+    0 AS pct_on_epo,
+    0 AS pct_pth_gt_500,
+    0 AS pct_phosphate_gt_1_8,
+    0 AS pct_strong_medium_bag_gt_1l
+   FROM pd_patients;
+
+
+--
 -- Name: research_studies; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -12427,6 +12563,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171017132738'),
 ('20171017171625'),
 ('20171101121130'),
-('20171101162244');
+('20171101162244'),
+('20171106100216');
 
 

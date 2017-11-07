@@ -248,3 +248,55 @@
         }
       ]
     }
+-
+  name: PD
+  description: PD audit
+  view_name: reporting_pd_audit
+  materialized: false
+  refresh_schedule:
+  display_configuration: >
+    {
+      "columnDefs": [
+        {
+          "title": "PD Type",
+          "width": "160",
+          "data": "pd_type"
+        },
+        {
+          "title": "No. patients",
+          "width": "100",
+          "data": "patient_count"
+        },
+        {
+          "title": "Avg HGB",
+          "width": "100",
+          "data": "avg_hgb"
+        },
+        {
+          "title": "% HGB > 100",
+          "width": "100",
+          "data": "pct_hgb_gt_100"
+        },
+        {
+          "title": "% on EPO",
+          "width": "100",
+          "data": "pct_on_epo"
+        },
+        {
+          "title": "% PTH > 500",
+          "width": "100",
+          "data": "pct_pth_gt_500"
+        },
+        {
+          "title": "% Phosphate > 1.8",
+          "width": "100",
+          "data": "pct_phosphate_gt_1_8"
+        },
+        {
+          "title": "% Strong/medium bags > 1L",
+          "width": "100",
+          "data": "pct_strong_medium_bag_gt_1l"
+        }
+      ]
+    }
+

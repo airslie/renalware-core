@@ -1,7 +1,7 @@
 table#patients.mdm-patients.columns
   thead
     tr
-      th.at-least.col-width-medium= sort_link([:renalware, presenter.q], :family_name, t(".name"))
+      th.col-width-large= sort_link([:renalware, presenter.q], :family_name, t(".name"))
       th.col-width-nhs-no= t(".nhs_no")
       th.col-width-reference-no= t(".hosp_no")
       th.col-width-tiny= t(".sex")
