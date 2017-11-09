@@ -9,6 +9,16 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.0.pre.beta11
+
+### Added
+
+### Changed
+- Remove unique index on patient locals_ids to aid data migration
+- Moved default drugs seeds to the demo seeds as these are site-specific
+
+### Fixed
+
 ## 2.0.0.pre.beta10
 07-11-2017
 
