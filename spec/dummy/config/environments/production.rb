@@ -44,7 +44,7 @@ Rails.application.configure do
   # config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
+  # when problems arise. Normally use :info in a real production app.
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.

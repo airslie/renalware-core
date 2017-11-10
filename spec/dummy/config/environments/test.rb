@@ -9,6 +9,12 @@ Rails.application.configure do
 
   config.log_level = :error
 
+  # To test log formatting and lograge in the Test env uncomment these lines
+  # (by default in test we log to STDOUT)
+  # config.log_level = :info
+  # config.log_tags = [:request_id]
+  # config.log_formatter = ::Logger::Formatter.new
+
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
   # preloads Rails for running tests, you may have to set it to true.
