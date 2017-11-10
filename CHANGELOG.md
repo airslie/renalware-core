@@ -4,9 +4,12 @@ All notable changes to this project will be documented in
 this [changelog](http://keepachangelog.com/en/0.3.0/).
 This project adheres to Semantic Versioning.
 
+
 ## Unreleased
 ### Added
 ### Changed
+- Use lograge for single line logging in production
+
 ### Fixed
 
 ## 2.0.0.pre.beta11

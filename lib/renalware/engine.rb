@@ -80,6 +80,26 @@ module Renalware
       app.config.i18n.fallbacks = [:en]
     end
 
+    # In production use lograge to help us tame a verbose logs/production.log.
+    # Note that the timestamp will be added before the lograge output by whatever Rails
+    # LogFormatter is being used (see the app's production.rb) e.g.
+    #   config.log_formatter = ::Logger::Formatter.new
+    # So bear in mind both log_formatter and lograge are involved in logging.
+    # Note exceptions will still be logged including the stacktrace.
+    initializer :use_lograge_in_production do |app|
+      unless Rails.env.development?
+        require "lograge"
+        app.config.lograge.enabled = true
+
+        # Ignore session expiry JS polling as these calls fill up the log and we don't
+        # need to see them. 100 users with an active session polling every minute will add
+        # up to fair number of log entries.
+        app.config.lograge.ignore_actions = [
+          "Renalware::SessionTimeoutController#has_user_timed_out"
+        ]
+      end
+    end
+
     config.middleware.use Rack::Attack
     initializer :rack_attack do
       # Throttle login attempts for a given username parameter to 10 reqs/minute

@@ -40,6 +40,7 @@ Gem::Specification.new do |s|
   s.add_dependency "delayed_job_web"
   s.add_dependency "devise"
   s.add_dependency "friendly_id"
+  s.add_dependency "lograge"
   # Once latest devise_security_extension changes are released uncomment this line.
   # (check version has not mumped to 11 though). In the meantime, because we cannot use git
   # references in the gemspec, we add this gem in the host app.

@@ -36,6 +36,7 @@ PATH
       jquery-ui-rails
       kaminari
       liquid
+      lograge
       naught (~> 1.1.0)
       nested_form
       nokogiri (>= 1.7.1)
@@ -285,6 +286,11 @@ GEM
     launchy (2.4.3)
       addressable (~> 2.3)
     liquid (4.0.0)
+    lograge (0.7.1)
+      actionpack (>= 4, < 5.2)
+      activesupport (>= 4, < 5.2)
+      railties (>= 4, < 5.2)
+      request_store (~> 1.0)
     loofah (2.1.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
