@@ -4,7 +4,11 @@ table.renal-registry-preflight-checks
       th.col-width-large Patient
       td.col-width-nhs-no NHS No.
       td.col-width-reference-no Hospital Nos.
-      td.col-width-reference-no Modality
+      td.col-width-reference-no
+        = sort_link([:renalware, query],
+                     :modality_descriptions_name,
+                      "Modality",
+                      default_order: :asc)
       td.col-width-small HD Site
       td Missing data
   tbody

@@ -28,16 +28,22 @@ module Renalware
 
       def patients
         authorize [:renalware, :renal, :registry_preflight_check], :patients?
-        patients = Registry::PreflightChecks::PatientsQuery.new.call.page(page).per(per_page)
+        query = Registry::PreflightChecks::PatientsQuery.new(
+          query_params: params.fetch(:q, {})
+        )
+        patients = query.call.page(page).per(per_page)
         patients = CollectionPresenter.new(patients, PatientPresenter)
-        render locals: { patients: patients }
+        render locals: { patients: patients, query: query.search }
       end
 
       def deaths
         authorize [:renalware, :renal, :registry_preflight_check], :deaths?
-        patients = Registry::PreflightChecks::DeathsQuery.new.call.page(page).per(per_page)
+        query = Registry::PreflightChecks::DeathsQuery.new(
+          query_params: params.fetch(:q, {})
+        )
+        patients = query.call.page(page).per(per_page)
         patients = CollectionPresenter.new(patients, DeceasedPatientPresenter)
-        render locals: { patients: patients }
+        render locals: { patients: patients, query: query.search }
       end
     end
   end
