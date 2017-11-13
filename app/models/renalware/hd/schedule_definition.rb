@@ -39,6 +39,10 @@ module Renalware
       # For example if day_of_week is 1 (Monday) find any schedules where the Postgres days[] array
       # contains a 1 - e.g. a Mon Wed Fri AM schedule (where days = [1,3,5])
       scope :for_day_of_week, ->(day_of_week) { where("days @> ?", "{#{day_of_week}}") }
+
+      def days_per_week
+        days&.length
+      end
     end
   end
 end

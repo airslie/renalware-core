@@ -2,22 +2,29 @@ xml = builder
 
 xml.Treatment do
   xml.EncounterNumber session.uuid
-  xml.comment! "What EncounterType for HD Session?"
+  xml.comment! "TODO: EncounterType TBC"
   xml.EncounterType "R"
   xml.FromTime session.start_datetime&.to_datetime
   xml.ToTime session.stop_datetime&.to_datetime
-  xml.HealthCareFacility
+
+  xml.HealthCareFacility do
+    xml.CodingStandard "ODS"
+    xml.Code session.hospital_unit_renal_registry_code
+    xml.Description session.hospital_unit_name
+  end
+
   xml.AdmitReason do
-    #  xml.comment! "I think AdmitReason 1 is Haemodialysis"
+    xml.comment! "AdmitReason 1 == Haemodialysis - TBC - may need to capture/derive"
     xml.CodingStandard "CF_RR7_TREATMENT"
     xml.Code "1"
   end
+
   xml.EnteredAt do
     xml.Code session.hospital_unit.renal_registry_code
   end
 
   xml.Attributes do
-    xml.HDP01 "Times per week - to confirm"
+    xml.HDP01 hd_patient&.hd_profile&.schedule_definition&.days_per_week
     xml.HDP02 session.duration
     xml.HDP03 session.document.dialysis.flow_rate
     xml.HDP04 session&.dialysate&.sodium_content

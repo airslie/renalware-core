@@ -15,11 +15,12 @@ xml.Medications do
         xml.Description prescription.medication_route&.name
       end
       xml.DrugProduct do
-        xml.Id do
-          xml.CodingStandard "DM+D"
-          xml.Code "dm + d code for the drug - coming soon"
-          xml.Description prescription.drug
-        end
+        xml.Generic prescription.drug
+        # xml.Id do
+        #   xml.CodingStandard "DM+D"
+        #   xml.Code "dm + d code for the drug - coming soon"
+        #   xml.Description prescription.drug
+        # end
       end
       xml.Frequency prescription.frequency
       xml.Comments prescription.notes
