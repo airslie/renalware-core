@@ -65,7 +65,7 @@ en:
         hd_via_line: HD via line
         pre_emptive_lrd: pre-emptive LRD
         not_for_dial_patient_choice: Not for dialysis--patient choice
-        not_for_dial_concensus: Not for dialysis--consensus
+        not_for_dial_consensus: Not for dialysis--consensus
         refuse_to_plan_for_dial: Refusing to plan for RTT--In Denial
         home_hd: Home HD
         self_care_hd: Self Care HD
