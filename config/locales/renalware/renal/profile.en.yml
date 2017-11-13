@@ -59,7 +59,9 @@ en:
         capd_la: CAPD LA
         capd_ga: CAPD GA
         capd_ga_avf: CAPD GA + AVF
+        capd_la_avf: CAPD LA + AVF
         capd_la_sedation: CAPD LA with sedation
+        capd_not_yet_assessed: CAPD not yet assessed by CAPD Team
         hd_via_avf: HD via AVF
         hd_via_ptfe_graft: HD via PTFE Graft
         hd_via_line: HD via line
