@@ -8,10 +8,12 @@ module Renalware
           include ModalityScopes
           MODALITY_NAMES = %w(Death).freeze
 
-          attr_reader :relation
+          attr_reader :relation, :query_params
 
-          def initialize(relation = default_relation)
-            @relation = relation
+          def initialize(relation: nil, query_params: {})
+            @relation ||= default_relation
+            @query_params = query_params
+            @query_params[:s] = "modality_descriptions_name ASC" if @query_params[:s].blank?
           end
 
           def default_relation
@@ -22,11 +24,16 @@ module Renalware
           end
 
           def call
-            relation
+            search
+              .result
               .extending(ModalityScopes)
               .with_current_modality_matching(MODALITY_NAMES)
               .joins("LEFT OUTER JOIN renal_profiles ON renal_profiles.patient_id = patients.id")
               .where("patients.first_cause_id is NULL AND renal_profiles.esrf_on IS NOT NULL")
+          end
+
+          def search
+            @search ||= relation.ransack(query_params)
           end
 
           def self.missing_data_for(patient)
