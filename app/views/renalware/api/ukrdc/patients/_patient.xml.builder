@@ -84,8 +84,7 @@ xml.Patient do
     end
   end
 
-  xml.comment! "Inclusion of CountryOfBirth causes XSD error so temporarily excluded"
-  # Inclusion strangley causes an XSD error
+  xml.comment! "Inclusion of CountryOfBirth causes XSD error for some reasons so temporarily excluded"
   # if patient.country_of_birth.present?
   #   xml.CountryOfBirth patient.country_of_birth.alpha3
   # end
@@ -98,5 +97,4 @@ xml.Patient do
   xml.UpdatedOn patient.updated_at&.to_datetime
   xml.ActionCode "A" # A = added/updated. If we are posting this XML isn't only going to be 'A'?
   xml.ExternalId patient.ukrdc_external_id
-
 end

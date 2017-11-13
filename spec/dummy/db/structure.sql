@@ -1632,7 +1632,8 @@ CREATE TABLE hd_sessions (
     signed_off_at timestamp without time zone,
     profile_id integer,
     dry_weight_id integer,
-    dialysate_id bigint
+    dialysate_id bigint,
+    uuid uuid DEFAULT uuid_generate_v4() NOT NULL
 );
 
 
@@ -8714,6 +8715,13 @@ CREATE INDEX index_hd_sessions_on_updated_by_id ON hd_sessions USING btree (upda
 
 
 --
+-- Name: index_hd_sessions_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_uuid ON hd_sessions USING btree (uuid);
+
+
+--
 -- Name: index_hd_station_locations_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12565,6 +12573,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171101121130'),
 ('20171101162244'),
 ('20171106100216'),
-('20171109084751');
+('20171109084751'),
+('20171113120217');
 
 
