@@ -35,6 +35,21 @@ ruby:
           user_to_promote_to_top: current_user \
         )
 
+
+    article
+      header
+        h3 Current Pathology
+
+      - f.object.pathology_snapshot.to_a.in_groups_of(3) do |group|
+        .columns.small-5.end
+          dl.pathology_snapshot.dl-horizontal
+            - group.each do |key, val|
+              - next if val.nil?
+              dt= key
+              dd
+                b="#{val['result']} "
+                = val['date']
+    = f.input :pathology_snapshot, as: :hidden
   = render "main_recipient", f: f, contacts: contacts, patient: patient
   = render "additional_ccs", f: f, contacts: contacts, patient: patient
   = render "electronic_ccs",

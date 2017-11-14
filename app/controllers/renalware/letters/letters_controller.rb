@@ -182,7 +182,7 @@ module Renalware
 
       def attributes
         [
-          :event_type, :event_id, :clinical,
+          :event_type, :event_id, :clinical, :pathology_snapshot,
           :letterhead_id, :author_id, :description, :issued_on, :enclosures,
           :salutation, :body, :notes,
           main_recipient_attributes: main_recipient_attributes,

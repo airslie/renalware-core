@@ -16,6 +16,7 @@ module Renalware
         include_primary_care_physician_as_default_main_recipient
         assign_default_ccs
         build_salutation
+        build_pathology_snapshot
         letter
       end
 
@@ -85,6 +86,26 @@ module Renalware
         @default_ccs.each do |contact|
           letter.cc_recipients.build(person_role: "contact", addressee: contact)
         end
+      end
+
+      def build_pathology_snapshot
+        presenter = Pathology::CurrentObservationResults::Presenter.new
+        descriptions = Letters::RelevantObservationDescription.all
+        query = Pathology::CurrentObservationsForDescriptionsQuery.new(
+          patient: patient,
+          descriptions: descriptions
+        )
+
+        results = query.call
+          .reject{ |result| result.result.blank? }
+          .each_with_object({}) do |r, h|
+            h[r.description.code] = {
+              "result": r.result,
+              "date": I18n.l(r.observed_at.to_date)
+            }
+          end
+
+        letter.pathology_snapshot = results
       end
     end
   end

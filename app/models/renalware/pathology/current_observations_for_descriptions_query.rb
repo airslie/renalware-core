@@ -11,6 +11,7 @@ module Renalware
     # desired result set.
     #
     class CurrentObservationsForDescriptionsQuery
+
       def initialize(patient:, descriptions:)
         @patient = patient
         @descriptions = descriptions
@@ -32,7 +33,7 @@ module Renalware
       def call
         # Note:
         #
-        #   CurrentObservation.where(patient: @patient, description_name: @descriptions.map(&:name))
+        #   CurrentObservation.where(patient: patient, description_name: descriptions.map(&:name))
         #
         # is potentially a replacement for the SQL below, but it does not return
         # null values. We'd need a bit of SQL to join again onto pathology_observation_descriptions
@@ -58,10 +59,14 @@ module Renalware
           .order("pathology_observation_descriptions.id")
           .ordered
           .where(["pathology_observation_requests.patient_id = ? OR " \
-                  "pathology_observation_requests.patient_id IS NULL", @patient.id])
-          .where(pathology_observation_descriptions: { id: @descriptions })
+                  "pathology_observation_requests.patient_id IS NULL", patient.id])
+          .where(pathology_observation_descriptions: { id: descriptions })
       end
       # rubocop:enable Metrics/MethodLength
+
+      private
+
+      attr_reader :patient, :descriptions
     end
   end
 end

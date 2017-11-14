@@ -1,0 +1,25 @@
+require_dependency "renalware/letters"
+# require "hashdiff"
+
+# module Renalware
+#   module Letters
+#     class PathologySnapshot
+#       include Virtus.model
+#       attribute :content, Hash
+
+#       class << self
+#         def load(value)
+#           PathologySnapshot.new(content: value)
+#         end
+
+#         def dump(snapshot)
+#           snapshot
+#         end
+#       end
+
+#       def diff(other_snapshot)
+#         HashDiff.diff(content, other_snapshot)
+#       end
+#     end
+#   end
+# end

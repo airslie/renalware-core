@@ -19,7 +19,7 @@ module Renalware
         presenter = Pathology::CurrentObservationResults::Presenter.new
         descriptions = Letters::RelevantObservationDescription.all
         query = Pathology::CurrentObservationsForDescriptionsQuery.new(
-          patient: @patient,
+          patient: patient,
           descriptions: descriptions
         )
 
