@@ -1,5 +1,9 @@
 require_dependency "renalware/patients"
 
+#
+# This class subscribes to broadcasted `message_processed` messages and crates a patient
+# from the HL7 data if one does not exist.
+#
 module Renalware
   module Patients
     class MessageListener
