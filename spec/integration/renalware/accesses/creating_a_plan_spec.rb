@@ -6,47 +6,36 @@ feature "Creating an Access Plan", type: :feature do
   scenario "A clinician adds the first access plan to a patient using menus" do
     user = patient = plan_type = nil
 
-    p "A"
-    p Benchmark.ms{ user = login_as_clinician }
-    p Benchmark.ms{ patient = create(:accesses_patient, by: user) }
-    p Benchmark.ms{ plan_type = create(:access_plan_type, name: "Continue dialysis line") }
+    user = login_as_clinician
+    patient = create(:accesses_patient, by: user)
+    plan_type = create(:access_plan_type, name: "Continue dialysis line")
     notes = "Lorem ipsum delor"
 
-    p "B"
-    p Benchmark.ms{ visit patient_accesses_dashboard_path(patient) }
+    # on circlci, this call taking ages because it is the first test using capybara
+    # and causes the CSS to compile, taking 20s or so
+    visit patient_accesses_dashboard_path(patient)
 
-    p Benchmark.ms{
-     expect(page).to have_no_content("Plan History")
-    }
+    expect(page).to have_no_content("Plan History")
 
-    p Benchmark.ms{
-      within ".page-actions" do
-        click_on "Add"
-        click_on "Access Plan"
-      end
-    }
+    within ".page-actions" do
+      click_on "Add"
+      click_on "Access Plan"
+    end
 
-    p "C"
-    p Benchmark.ms{
-      within "#new_accesses_plan" do
-        select plan_type.name, from: "Plan"
-        select user.to_s, from: "Decided by"
-        fill_in "Notes", with: notes
-        click_on "Save"
-      end
-    }
+    within "#new_accesses_plan" do
+      select plan_type.name, from: "Plan"
+      select user.to_s, from: "Decided by"
+      fill_in "Notes", with: notes
+      click_on "Save"
+    end
 
-    p Benchmark.ms{
-      expect(page.current_path).to eq(patient_accesses_dashboard_path(patient))
-    }
+    expect(page.current_path).to eq(patient_accesses_dashboard_path(patient))
 
-    p Benchmark.ms{
-      within ".access-plans .current-access-plan" do
-        expect(page).to have_content(plan_type.name)
-        expect(page).to have_content(notes)
-        expect(page).to have_content(todays_date)
-      end
-    }
+    within ".access-plans .current-access-plan" do
+      expect(page).to have_content(plan_type.name)
+      expect(page).to have_content(notes)
+      expect(page).to have_content(todays_date)
+    end
   end
 
   scenario "A clinician adds an plan to a patient, implicitly terminating the previous one" do

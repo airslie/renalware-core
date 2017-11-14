@@ -20,7 +20,7 @@
               = render("renalware/pd/regimes/assistance_type", regime: regime)
             dt On additional HD?:
             dd= yes_no(regime.add_hd)
-            = render"renalware/pd/regimes/glucose", regime: regime
+            = render "renalware/pd/regimes/glucose", regime: regime
 
     - if regime.apd?
       = render "renalware/pd/regimes/apd_regime_show", regime: regime

@@ -18,7 +18,7 @@ tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
 = content_tag(:tr,
               id: "#{message.html_preview_identifier}",
               style: "display: none",
-              class: "#{ "urgent" if message.urgent?}")
+              class: "#{ 'urgent' if message.urgent?}")
   td(colspan=6)
     .message-preview
       .subject= message.subject

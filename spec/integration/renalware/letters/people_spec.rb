@@ -14,7 +14,7 @@ RSpec.describe "Add person to directory and assign as a contact for a patient",
   end
 
   let!(:contact_description) { create(:letter_contact_description) }
-  let(:patient) { create(:patient,  by: @user) }
+  let(:patient) { create(:patient, by: @user) }
   let(:person) { build(:directory_person, by: @user, address: build(:address)) }
 
   describe "creating a person and assign as a contact" do

@@ -32,7 +32,7 @@ require "shoulda/matchers"
 require "pundit/rspec"
 require "paper_trail/frameworks/rspec"
 require "chosen-rails/rspec"
-require "capybara-screenshot/rspec" if RUBY_PLATFORM =~ /darwin/
+require "capybara-screenshot/rspec" if RUBY_PLATFORM.match?(/darwin/)
 require_relative "../lib/test_support/text_editor_helpers"
 
 # Add additional requires below this line. Rails is not loaded until this point!
