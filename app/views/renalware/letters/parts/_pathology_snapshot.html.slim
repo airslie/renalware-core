@@ -1,0 +1,10 @@
+.list.investigations
+  h3 Recent Investigations
+
+  - pathology = letter.pathology_snapshot || {}
+  - if pathology.any?
+    - pathology.each do |key, value|
+      span #{value['date']}: #{key} #{value['result']};
+      | &nbsp;
+  else
+    p None

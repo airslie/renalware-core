@@ -1,6 +1,7 @@
 ruby:
   back_path = patient_letters_letters_path(patient)
-  event = f.object.event
+  letter = f.object
+  event = letter.event
 
 .row.top
   .medium-6.columns
@@ -35,21 +36,25 @@ ruby:
           user_to_promote_to_top: current_user \
         )
 
+    - if letter.clinical?
+      article
+        header
+          h3 Current Pathology
+          = link_to "Update Pathology", "#", class: :button
 
-    article
-      header
-        h3 Current Pathology
+        .row
+          - letter.pathology_snapshot.to_a.in_groups_of(2) do |group|
+            .columns.medium-6.large-4
+              dl.pathology_snapshot.dl-horizontal
+                - group.each do |key, val|
+                  - next if val.nil?
+                  dt= key
+                  dd
+                    span="#{val['result']} "
+                    span= val['date']
 
-      - f.object.pathology_snapshot.to_a.in_groups_of(3) do |group|
-        .columns.small-5.end
-          dl.pathology_snapshot.dl-horizontal
-            - group.each do |key, val|
-              - next if val.nil?
-              dt= key
-              dd
-                b="#{val['result']} "
-                = val['date']
-    = f.input :pathology_snapshot, as: :hidden
+      = f.input :pathology_snapshot, as: :hidden
+
   = render "main_recipient", f: f, contacts: contacts, patient: patient
   = render "additional_ccs", f: f, contacts: contacts, patient: patient
   = render "electronic_ccs",

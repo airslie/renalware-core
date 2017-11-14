@@ -16,7 +16,7 @@ module Renalware
         include_primary_care_physician_as_default_main_recipient
         assign_default_ccs
         build_salutation
-        build_pathology_snapshot
+        build_pathology_snapshot if letter.clinical?
         letter
       end
 
@@ -89,23 +89,23 @@ module Renalware
       end
 
       def build_pathology_snapshot
-        presenter = Pathology::CurrentObservationResults::Presenter.new
         descriptions = Letters::RelevantObservationDescription.all
         query = Pathology::CurrentObservationsForDescriptionsQuery.new(
           patient: patient,
           descriptions: descriptions
         )
+        letter.pathology_snapshot = transform_observations_into_snapshot(query.call)
+      end
 
-        results = query.call
-          .reject{ |result| result.result.blank? }
-          .each_with_object({}) do |r, h|
-            h[r.description.code] = {
-              "result": r.result,
-              "date": I18n.l(r.observed_at.to_date)
+      def transform_observations_into_snapshot(observations)
+        observations
+          .reject{ |obs| obs.result.blank? }
+          .each_with_object({}) do |obs, hash|
+            hash[obs.description.code] = {
+              "result": obs.result,
+              "date": I18n.l(obs.observed_at.to_date)
             }
           end
-
-        letter.pathology_snapshot = results
       end
     end
   end

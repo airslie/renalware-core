@@ -21,6 +21,10 @@ module Renalware
         "Clinic Visit"
       end
 
+      def clinical?
+        true
+      end
+
       def to_link
         lambda { |patient, event = self|
           link_to(

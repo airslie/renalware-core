@@ -1,3 +1,17 @@
+.pathology_snapshot {
+  dt {
+    width: 5rem;
+  }
+  dd {
+    margin-left: 6rem;
+
+    span:first-child {
+      width: 3rem;
+      font-weight: bold;
+      display: inline-block;
+    }
+  }
+}
 
 .electronic-ccs {
   ul.actions {
