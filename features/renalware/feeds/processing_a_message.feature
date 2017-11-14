@@ -28,7 +28,7 @@ Feature: Processing a message
 
   After an HL7 message is processed the following records are created:
   - the raw message for future debugging processes
-  - the patient if they don't already exist
+  - NO (the patient if they don't already exist)
   - the observation request
   - the observation results related to that request
 
@@ -36,10 +36,11 @@ Feature: Processing a message
   application and does not filter other message types.
 
   Scenario: An HL7 pathology message was received
-    Given the following HL7 message:
+    Given Patty is a patient
+    And the following HL7 message:
 """
 MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
-PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
+PID|||123456^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
 PV1||Inpatient|NIBC^^^^^^^^|||||MID^KINGS MIDWIVES||||||||||NHS|HXF888888^^^Visit Number|||||||||
 ORC|RE|B33J9WXEHF^PCS|09B0099478^LA||CM||||200911111841|||MID^KINGS MIDWIVES|||||||
 OBR|1|B33J9WXEHF^PCS|09B0099478^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
@@ -49,13 +50,13 @@ OBX|3|TX|HGB^Hb^MB||11.8||||||F|||200911112026||BBKA^Kenneth AMENYAH|
 """
     When the message is processed
     Then the HL7 message is recorded
-    And the patient is created with the following attributes:
-      | nhs_number       |            |
-      | local_patient_id | Z999990    |
-      | family_name      | RABBIT     |
-      | given_name       | JESSICA    |
-      | sex              | F          |
-      | born_on          | 1988-09-24 |
+    # And the patient is created with the following attributes:
+    #   | nhs_number       |            |
+    #   | local_patient_id | 123456    |
+    #   | family_name      | RABBIT     |
+    #   | given_name       | JESSICA    |
+    #   | sex              | F          |
+    #   | born_on          | 1988-09-24 |
     And an observation request is created with the following attributes:
       | description            | FBC                       |
       | requestor_order_number | B33J9WXEHF                |
