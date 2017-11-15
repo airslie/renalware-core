@@ -34,7 +34,7 @@ include Renalware::Engine.routes.url_helpers
 # files.
 
 require "cucumber/rails"
-require "capybara-screenshot/cucumber" if RUBY_PLATFORM =~ /darwin/
+require "capybara-screenshot/cucumber" if RUBY_PLATFORM.match?(/darwin/)
 require "rspec/rails"
 require "factory_bot_rails"
 require "chosen-rails/rspec"

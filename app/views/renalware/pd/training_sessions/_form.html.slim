@@ -15,7 +15,7 @@
       collection: Renalware::PD::TrainingType.ordered,
       wrapper: :horizontal_medium
 
-  = f.simple_fields_for :document, training_session.document  do |fdoc|
+  = f.simple_fields_for :document, training_session.document do |fdoc|
     = fdoc.input :started_on, as: :date_picker, wrapper: :horizontal_datepicker
     = fdoc.input :trainer, wrapper: :horizontal_medium
     = fdoc.input :training_duration,

@@ -25,7 +25,7 @@ tr(data={ "snippet-id" => snippet.id, invocation_url: snippet_invocations_path(s
     td.col-width-medium.author= snippet.author
   -unless remote
     td.last_used_on
-      = "#{snippet.last_used_on? ? l(snippet.last_used_on) : "Never"} (#{snippet.times_used})"
+      = "#{snippet.last_used_on? ? l(snippet.last_used_on) : 'Never'} (#{snippet.times_used})"
     td.updated_at= l(snippet.updated_at)
     td.actions
 

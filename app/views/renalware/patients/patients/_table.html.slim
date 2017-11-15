@@ -3,7 +3,7 @@ table#patients
     tr
       th.col-width-medium= attr_name(Renalware::Patient, :name)
       th.col-width-nhs-no NHS Number
-      - Renalware.config.patient_hospital_identifiers.keys.each do |key|
+      - Renalware.config.patient_hospital_identifiers.each_key do |key|
         th.col-width-reference-without-prefix="#{key} No"
       th.col-width-tiny= attr_name(Renalware::Patient, :sex)
       th.col-width-date= attr_name(Renalware::Patient, :born_on)

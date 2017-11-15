@@ -26,7 +26,7 @@ RSpec.configure do |config|
   # - useful when writing tests to check on excessive factory use.
   config.before(:each, :monitor_database_record_creation) do |_example|
     Notifications.subscribe("factory_bot.run_factory") do |_name, _start, _finish, _id, payload|
-      $stderr.puts "FactoryBot: #{payload[:strategy]}(:#{payload[:name]})"
+      warn "FactoryBot: #{payload[:strategy]}(:#{payload[:name]})"
     end
   end
 
@@ -44,7 +44,7 @@ RSpec.configure do |config|
       execution_time_in_seconds = finish - start
 
       if execution_time_in_seconds >= 0.5
-        $stderr.puts "Slow factory: #{payload[:name]} using strategy #{payload[:strategy]}"
+        warn "Slow factory: #{payload[:name]} using strategy #{payload[:strategy]}"
       end
     end
   end

@@ -38,7 +38,7 @@
       = render "renalware/shared/attributes_group",
           legend: "Notes/Complications", destination: "complications",
           models: { session.document.complications => attributes_list,
-                    session => [:notes]  }
+                    session => [:notes] }
   .row
     .columns.large-12
       = render "prescription_administrations", session: session

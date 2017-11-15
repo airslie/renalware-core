@@ -4,6 +4,6 @@ class InlineRadioButtonsInput < SimpleForm::Inputs::CollectionRadioButtonsInput
   end
 
   def input_options
-    super.merge(item_wrapper_class: ["radio", ["radio", "inline"]])
+    super.merge(item_wrapper_class: ["radio", %w(radio inline)])
   end
 end

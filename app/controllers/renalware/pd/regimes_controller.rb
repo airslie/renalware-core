@@ -70,7 +70,7 @@ module Renalware
         regime = patient.pd_regimes
                         .order(start_date: :desc, created_at: :desc)
                         .where(type: regime_type).first
-        regime && regime.deep_dup
+        regime&.deep_dup
       end
 
       def pd_regime_params
