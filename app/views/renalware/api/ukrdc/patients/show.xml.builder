@@ -1,7 +1,6 @@
 # See
 # https://www.ukrdc.org/2015/09/15/ukrdc-schema/
 # https://github.com/renalreg/ukrdc
-#
 xml.instruct! :xml, version: "1.0", encoding: "UTF-8"
 
 namespace_and_schema = {
@@ -9,7 +8,7 @@ namespace_and_schema = {
   "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
   "xsi:schemaLocation" => [
     "http://www.rixg.org.uk/",
-    Renalware::Engine.root.join("vendor", "xsd", "ukrdc/UKRDC.xsd")
+    "https://github.com/renalreg/ukrdc/blob/master/Schema/UKRDC.xsd"
   ].join(" ")
 }
 
