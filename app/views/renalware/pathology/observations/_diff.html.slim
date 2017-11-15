@@ -1,0 +1,22 @@
+/ Use by Pathology::ObservationsDiff renderer
+table.table.pathology-observation-diff
+  thead
+    tr
+      th.col-width-tiny(rowspan=2) Code
+      th.col-width-medium(colspan=2) Used
+      th.col-width-medium(colspan=2) Newer
+    tr
+      th.col-width-tiny Result
+      th.col-width-datetime Date
+      th.col-width-tiny Result
+      th.col-width-datetime Date
+
+  tbody
+    - diffs.each do |code, arr|
+      tr
+        th= code
+        td
+          b= arr[0]&.result
+        td= l(arr[0]&.observed_at)
+        td= arr[1]&.result
+        td= l(arr[1]&.observed_at)

@@ -1,10 +1,17 @@
+ruby:
+  query = Renalware::Pathology::CurrentObservationsForDescriptionsQuery.new(
+    patient: patient,
+    descriptions: Renalware::Letters::RelevantObservationDescription.all
+  )
+  range = Time.zone.at(1)..letter.pathology_timestamp
+  observations = query.call.where(observed_at: range).reject{ |obs| obs.id.nil? }
+
 .list.investigations
   h3 Recent Investigations
 
-  - pathology = letter.pathology_snapshot || {}
-  - if pathology.any?
-    - pathology.each do |key, value|
-      span #{value['date']}: #{key} #{value['result']};
+  - if observations.any?
+    - observations.each do |observation|
+      span #{l(observation.observed_at&.to_date)}: #{observation.description.code} #{observation.result};
       | &nbsp;
-  else
+  - else
     p None

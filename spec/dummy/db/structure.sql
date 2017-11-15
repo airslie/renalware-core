@@ -2172,8 +2172,7 @@ CREATE TABLE letter_letters (
     author_id integer NOT NULL,
     clinical boolean,
     enclosures character varying,
-    pathology_snapshot jsonb,
-    pathology_snapshot_updated_at timestamp without time zone
+    pathology_timestamp timestamp without time zone
 );
 
 

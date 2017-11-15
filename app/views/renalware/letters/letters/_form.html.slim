@@ -36,25 +36,7 @@ ruby:
           user_to_promote_to_top: current_user \
         )
 
-    - if letter.clinical?
-      article
-        header
-          h3 Current Pathology
-          = link_to "Update Pathology", "#", class: :button
-
-        .row
-          - letter.pathology_snapshot.to_a.in_groups_of(2) do |group|
-            .columns.medium-6.large-4
-              dl.pathology_snapshot.dl-horizontal
-                - group.each do |key, val|
-                  - next if val.nil?
-                  dt= key
-                  dd
-                    span="#{val['result']} "
-                    span= val['date']
-
-      = f.input :pathology_snapshot, as: :hidden
-
+  = render "pathology", letter: letter, f: f
   = render "main_recipient", f: f, contacts: contacts, patient: patient
   = render "additional_ccs", f: f, contacts: contacts, patient: patient
   = render "electronic_ccs",
@@ -91,3 +73,4 @@ ruby:
     = f.button :submit
     span= " or "
     = link_to "cancel", back_path
+

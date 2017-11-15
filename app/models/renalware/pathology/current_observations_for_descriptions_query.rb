@@ -11,7 +11,6 @@ module Renalware
     # desired result set.
     #
     class CurrentObservationsForDescriptionsQuery
-
       def initialize(patient:, descriptions:)
         @patient = patient
         @descriptions = descriptions
@@ -39,7 +38,6 @@ module Renalware
         # null values. We'd need a bit of SQL to join again onto pathology_observation_descriptions
         # and fill the missing observations with NULLs in order to keep the output of this query
         # the same.
-
         Observation
           .includes(:description)
           .select(<<-SQL)
