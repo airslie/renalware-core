@@ -7,10 +7,9 @@ module Renalware
 
       def show
         query = Sessions::OngoingQuery.new(q: params[:q])
-        @sessions = query.call.page(page).per(per_page || 15)
-        authorize @sessions
-
-        @q = query.search
+        sessions = query.call.page(page).per(per_page || 15)
+        authorize sessions
+        render locals: { query: query.search, sessions: sessions }
       end
     end
   end
