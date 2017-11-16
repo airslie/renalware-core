@@ -3,7 +3,7 @@ module Renalware
     include Deviseable
     include Personable
 
-    has_and_belongs_to_many :roles
+    has_and_belongs_to_many :roles, join_table: :roles_users
 
     validates :username, presence: true, uniqueness: true
     validates_presence_of :given_name
