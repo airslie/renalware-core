@@ -1,11 +1,11 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  # See comments re schema_search_path in db/migrate/20140101010101_create_renalware_schema.rb
+  # See comments re schema_search_path in 20171116103230_move_objects_to_renalware_schema.rb
   schema_search_path: "renalware,public"
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: 5
+  pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>
 
 development:
   <<: *default
@@ -64,14 +64,15 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+# Note another option for passing schema_search_path to the end of
+# url: <%= ENV['DATABASE_URL']&.strip %>?schema_search_path=renalware,public
 
 staging:
+  <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-  pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>
 
 production:
   <<: *default
   username: renalware
   database: renalware_production
-  pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>
 
