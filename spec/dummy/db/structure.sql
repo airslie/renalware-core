@@ -1615,7 +1615,7 @@ CREATE TABLE hd_sessions (
     profile_id integer,
     dry_weight_id integer,
     dialysate_id bigint,
-    uuid uuid DEFAULT uuid_generate_v4() NOT NULL
+    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL
 );
 
 
@@ -2656,10 +2656,10 @@ CREATE TABLE patients (
     rpv_decision_on date,
     renalreg_recorded_by character varying,
     rpv_recorded_by character varying,
-    ukrdc_external_id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    ukrdc_external_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     country_of_birth_id integer,
     legacy_patient_id integer,
-    secure_id uuid DEFAULT uuid_generate_v4() NOT NULL
+    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL
 );
 
 
@@ -12341,10 +12341,9 @@ ALTER TABLE ONLY transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware,public;
+SET search_path TO public,renalware;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20140101010101'),
 ('20141004150240'),
 ('20141010170329'),
 ('20141020170329'),
@@ -12639,6 +12638,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171106100216'),
 ('20171109084751'),
 ('20171113120217'),
+('20171116103230'),
 ('20171118160030');
 
 
