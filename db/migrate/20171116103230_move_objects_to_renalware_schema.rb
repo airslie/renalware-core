@@ -50,6 +50,8 @@ class MoveObjectsToRenalwareSchema < ActiveRecord::Migration[5.1]
     views(in_schema: "public").each{ |view| execute("ALTER VIEW #{view} SET SCHEMA renalware") }
     materialized_views(in_schema: "public").each{ |view| execute("ALTER MATERIALIZED VIEW #{view} SET SCHEMA renalware") }
     FUNCTIONS.each{ |fn| execute "ALTER FUNCTION #{fn} SET SCHEMA renalware" }
+    # This causes an error on Heroku
+    # execute "ALTER EXTENSION \"uuid-ossp\" SET SCHEMA public;"
   end
 
   def down

@@ -2,7 +2,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   # See comments re schema_search_path in db/migrate/20140101010101_create_renalware_schema.rb
-  schema_search_path: "public,renalware"
+  schema_search_path: "renalware,public"
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5

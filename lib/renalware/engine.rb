@@ -161,6 +161,7 @@ module Renalware
     initializer :general do |app|
       app.config.time_zone = "London"
       app.config.active_record.time_zone_aware_types = [:datetime]
+      app.config.active_record.dump_schemas = :all
       unless Rails.env.development?
         app.config.exceptions_app = Engine.routes
       end
