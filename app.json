@@ -3,7 +3,17 @@
   "description": "Renalware uses demographic, clinical, pathology, and nephrology datasets to improve patient care, undertake clinical and administrative audits and share data with external systems.",
   "website": "http://www.airslie.com/renalware.html",
   "success_url": "/",
-  "addons": ["heroku-postgresql:hobby-dev", "sendgrid"],
+  "addons": [
+    {
+      "plan": "heroku-postgresql:hobby-dev",
+      "options": {
+        "version": "10"
+      }
+    },
+    {
+      "plan": "sendgrid"
+    }
+  ],
   "stack": "heroku-16",
   "env": {
     "DEMO": "1",
@@ -14,7 +24,7 @@
     },
     "SETUP_BY": {
             "description": "Who initiated this setup",
-            "value": "Nicholas Henry"
+            "value": "Airslie"
     }
   },
   "buildpacks": [
