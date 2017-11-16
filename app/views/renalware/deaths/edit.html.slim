@@ -1,8 +1,8 @@
 = within_patient_layout(title: "Cause of Death",
-    breadcrumbs: breadcrumb_for("Clinical Profile", patient_clinical_profile_path(@patient))) do
+    breadcrumbs: breadcrumb_for("Clinical Profile", patient_clinical_profile_path(patient))) do
 
-  = simple_form_for @patient,
-      url: patient_death_path(@patient),
+  = simple_form_for patient,
+      url: patient_death_path(patient),
       html: { autocomplete: "off" },
       wrapper: "horizontal_form" do |f|
 
@@ -32,4 +32,4 @@
 
     = f.button :submit
     span= " or "
-    = link_to "cancel", patient_clinical_profile_path(@patient)
+    = link_to "cancel", patient_clinical_profile_path(patient)

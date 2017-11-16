@@ -14,7 +14,7 @@
         th.col-width-medium
 
     tbody
-      - @patients.each do |patient|
+      - patients.each do |patient|
         tr
           td= default_patient_link(patient)
           td= patient.nhs_number
@@ -28,4 +28,4 @@
                       edit_patient_death_path(patient),
                       title: "Edit death details"
 
-  = paginate @patients
+  = paginate patients

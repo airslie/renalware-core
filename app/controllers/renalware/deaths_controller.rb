@@ -3,25 +3,33 @@ module Renalware
     include PresenterHelper
     include Renalware::Concerns::Pageable
 
-    before_action :load_patient, only: [:edit, :update]
-
     def index
       patients = Patient.dead.page(page).per(per_page)
       authorize patients
-      @patients = present(patients, PatientPresenter)
+      render locals: { patients: present(patients, PatientPresenter) }
+    end
+
+    def edit
+      authorize patient
+      render_edit
     end
 
     def update
-      if @patient.update(death_params)
-        redirect_to patient_clinical_profile_path(@patient),
+      authorize patient
+      if patient.update(death_params)
+        redirect_to patient_clinical_profile_path(patient),
           notice: t(".success", model_name: "patient")
       else
         flash.now[:error] = t(".failed", model_name: "patient")
-        render :edit
+        render_edit
       end
     end
 
     private
+
+    def render_edit
+      render :edit, locals: { patient: patient }
+    end
 
     def death_params
       params

@@ -8,7 +8,7 @@
         th.col-width-small
         th Name
     tbody
-      - @cannulation_types.each do |t|
+      - cannulation_types.each do |t|
         tr
           td
             = link_to "Edit", edit_hd_cannulation_type_path(t.id)
