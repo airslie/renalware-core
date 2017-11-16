@@ -17,8 +17,8 @@ table#drug-type-prescriptions
   tbody
     - prescriptions.each do |prescription|
       tr
-        td= link_to(prescription.patient_local_patient_id, patient_path(prescription.patient_id))
-        td= prescription.patient_name
+        td= prescription.patient_local_patient_id
+        td= default_patient_link(prescription.patient)
         td= prescription.patient_age
         td= prescription.patient_sex
         td= prescription.patient_current_modality_name
