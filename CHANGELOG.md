@@ -4,11 +4,14 @@ All notable changes to this project will be documented in
 this [changelog](http://keepachangelog.com/en/0.3.0/).
 This project adheres to Semantic Versioning.
 
-
 ## Unreleased
 ### Added
 ### Changed
 - Use lograge for single line logging in production
+- Support Postgres 10 on CI and Heroku review apps
+- Use a separate log for delayed_job
+- Mirth feed processing no longer creates new patients
+- Reduce the ajax session expiry polling frequency and don't log those requests
 
 ### Fixed
 
