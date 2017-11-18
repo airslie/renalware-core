@@ -3169,7 +3169,8 @@ CREATE TABLE patient_bookmarks (
     updated_at timestamp without time zone NOT NULL,
     notes text,
     urgent boolean DEFAULT false NOT NULL,
-    deleted_at timestamp without time zone
+    deleted_at timestamp without time zone,
+    list character varying
 );
 
 
@@ -4412,7 +4413,7 @@ ALTER SEQUENCE renal_profiles_id_seq OWNED BY renal_profiles.id;
 
 CREATE VIEW reporting_anaemia_audit AS
  SELECT e1.modality_desc AS modality,
-    count(e1.patient_id) AS patient_count,
+    count(e1.patient_id) AS count_patients,
     round(avg(e2.hgb), 2) AS avg_hgb,
     round((((count(e4.hgb_gt_eq_10))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_10,
     round((((count(e5.hgb_gt_eq_11))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_11,
@@ -4463,7 +4464,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'LCC'::character varying, 'Nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('LCC'::character varying)::text, ('Nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -4540,7 +4541,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'LCC'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('LCC'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -12574,6 +12575,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171101162244'),
 ('20171106100216'),
 ('20171109084751'),
-('20171113120217');
+('20171113120217'),
+('20171118160030');
 
 
