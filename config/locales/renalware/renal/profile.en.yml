@@ -59,13 +59,14 @@ en:
         capd_la: CAPD LA
         capd_ga: CAPD GA
         capd_ga_avf: CAPD GA + AVF
+        capd_ga_hernia: CAPD GA + Hernia Repair
         capd_la_sedation: CAPD LA with sedation
         hd_via_avf: HD via AVF
         hd_via_ptfe_graft: HD via PTFE Graft
         hd_via_line: HD via line
         pre_emptive_lrd: pre-emptive LRD
         not_for_dial_patient_choice: Not for dialysis--patient choice
-        not_for_dial_concensus: Not for dialysis--consensus
+        not_for_dial_consensus: Not for dialysis--consensus
         refuse_to_plan_for_dial: Refusing to plan for RTT--In Denial
         home_hd: Home HD
         self_care_hd: Self Care HD
