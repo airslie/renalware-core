@@ -59,6 +59,7 @@ en:
         capd_la: CAPD LA
         capd_ga: CAPD GA
         capd_ga_avf: CAPD GA + AVF
+        capd_ga_hernia: CAPD GA + Hernia Repair
         capd_la_avf: CAPD LA + AVF
         capd_la_sedation: CAPD LA with sedation
         capd_not_yet_assessed: CAPD not yet assessed by CAPD Team
