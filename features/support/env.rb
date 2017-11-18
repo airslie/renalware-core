@@ -22,9 +22,12 @@ include Renalware::Engine.routes.url_helpers
 require "cucumber/rails"
 require "capybara-screenshot/cucumber" if RUBY_PLATFORM =~ /darwin/
 require "rspec/rails"
-require "factory_bot_rails"
 require "chosen-rails/rspec"
 require "webmock"
+
+require "factory_bot"
+require "./spec/support/factory_bot"
+FactoryBot.find_definitions
 
 WebMock.disable!
 # Capybara defaults to CSS3 selectors rather than XPath.

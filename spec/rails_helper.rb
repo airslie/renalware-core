@@ -82,7 +82,6 @@ RSpec.configure do |config|
   config.include TextEditorHelpers, type: :feature
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Chosen::Rspec::FeatureHelpers, type: :feature
-
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
 

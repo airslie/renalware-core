@@ -64,6 +64,6 @@ group :development, :test do
   gem "terminal-notifier-guard", require: false
 end
 
-group :test, :staging do
+group :test, :development, :staging do
   gem "faker"
 end
