@@ -1,5 +1,5 @@
 .search-form.filters
-  = simple_form_for @q,
+  = simple_form_for query,
                     as: :q,
                     url: hd_ongoing_sessions_path,
                     html: { autocomplete: "off" },

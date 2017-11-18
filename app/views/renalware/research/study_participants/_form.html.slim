@@ -15,7 +15,7 @@ ruby:
     = simple_form_for(participant,
                       url: url,
                       remote: true,
-                      html: { autocomplete: "off"},
+                      html: { autocomplete: "off" },
                       wrapper: :horizontal_form) do |f|
       - if participant.persisted?
         h5= participant.patient.to_s(:long)
@@ -42,4 +42,3 @@ ruby:
 
 javascript:
   $(document).ready(Renalware.Research.init);
-

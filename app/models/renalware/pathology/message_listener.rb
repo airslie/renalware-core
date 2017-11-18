@@ -1,5 +1,9 @@
 require_dependency "renalware/pathology"
 
+#
+# When subscribed to HL7 `message_processed` messages, gets notified of incoming HL7 messages
+# and creates the observations contained therein provided the patient exists.
+#
 module Renalware
   module Pathology
     class MessageListener

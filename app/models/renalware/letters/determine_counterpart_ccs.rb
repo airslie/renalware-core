@@ -18,7 +18,7 @@ module Renalware
 
       def cc_primary_care_physican?
         pcp = patient.primary_care_physician
-        pcp && pcp.cc_on_letter?(self)
+        pcp&.cc_on_letter?(self)
       end
 
       def cc_patient?

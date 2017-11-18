@@ -13,9 +13,9 @@
                   collection: [["Yes", true], ["No", false]],
                   label: "AKI Nurse required"
       .columns.medium-2.large-1
-        = f.input :"seen_by_id_eq",
+        = f.input :seen_by_id_eq,
                   include_blank: false,
-                  collection: [["Anyone", nil],["Me", current_user.id]],
+                  collection: [["Anyone", nil], ["Me", current_user.id]],
                   label: "Seen by"
       .columns.medium-2.large-2.actions.end
         = f.submit "Filter", class: "button"

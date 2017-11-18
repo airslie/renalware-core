@@ -30,7 +30,7 @@
 
 = render "renalware/shared/errors", model: consult
 = simple_form_for(consult,
-                  html: { autocomplete: "off"},
+                  html: { autocomplete: "off" },
                   wrapper: :horizontal_form) do |f|
 
   / Note the shenanigans to get the select2 to redisplay the patient after a validation error
