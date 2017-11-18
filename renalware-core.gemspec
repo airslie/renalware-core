@@ -85,7 +85,4 @@ Gem::Specification.new do |s|
   s.add_dependency "wkhtmltopdf-binary", "~> 0.12.3"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
   s.add_dependency "rails-assets-select2", "~> 4.0.2"
-  # Keeping factory_bot_rails here for now until we
-  # find a out why moving it ti the
-  s.add_development_dependency "factory_bot_rails"
 end

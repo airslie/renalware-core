@@ -24,16 +24,18 @@ gem "devise_security_extension",
 group :test do
   gem "capybara"
   gem "capybara-screenshot"
-  gem "codeclimate-test-reporter", require: false
-  gem "cucumber-rails", "~> 1.5.0", require: false
+  gem "codeclimate-test-reporter", require: false # loads simplecov
+  gem "cucumber-rails", "~> 1.5.0", require: false # must be loaded in env.rb
   gem "database_cleaner"
+  gem "factory_bot_rails"
   gem "poltergeist"
   gem "rails-controller-testing"
   gem "rspec-html-matchers"
+  gem "rspec-rails", "~> 3.7.0"
   gem "rspec_junit_formatter"
   gem "shoulda-matchers"
-  gem "simplecov", require: false
-  gem "webmock"
+  gem "simplecov", require: false # only loaded if required
+  gem "webmock", require: false
   gem "wisper-rspec"
 end
 
@@ -42,6 +44,7 @@ group :staging do
 end
 
 group :developement do
+  gem "foreman", require: false
   gem "web-console", require: false
   gem "rubocop-rspec", require: false # for housekeeping
 end
@@ -51,11 +54,9 @@ group :development, :test do
   gem "bullet"
   gem "bundler-audit", require: false
   gem "byebug"
-  gem "foreman", require: false
   gem "guard-cucumber", require: false
   gem "launchy", require: false
   gem "rack-mini-profiler", require: false
-  gem "rspec-rails", "3.6.0", require: false
   gem "rubocop", "~> 0.51.0", require: false
   gem "spring"
   gem "spring-commands-cucumber", require: false
@@ -63,6 +64,6 @@ group :development, :test do
   gem "terminal-notifier-guard", require: false
 end
 
-group :development, :test, :staging do
+group :test, :staging do
   gem "faker"
 end

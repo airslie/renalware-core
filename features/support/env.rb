@@ -1,23 +1,9 @@
 ENV["RAILS_ENV"] ||= "test"
 
-require "simplecov"
-
-SimpleCov.command_name "Cucumber-" + (ENV["TEST_DEPTH"] || "domain")
-
-SimpleCov.start "rails" do
-
-  # # save to CircleCI's artifacts directory if we're on CircleCI
-  # if ENV["CIRCLE_ARTIFACTS"]
-  #   dir = File.join(ENV["CIRCLE_ARTIFACTS"], "coverage")
-  #   coverage_dir(dir)
-  # end
-
-  use_merging true
-  merge_timeout 1200 # 20 minutes
-  # any custom configs like groups and filters can be here at a central place
-  add_filter "/spec/models/concerns"
-  add_filter "/features"
-  add_filter "/spec/support"
+if ENV.key?("CC_TEST_REPORTER_ID") || ENV.key?("SIMPLECOV")
+  require "simplecov"
+  SimpleCov.command_name "Cucumber-" + (ENV["TEST_DEPTH"] || "domain")
+  require "./spec/support/simplecov"
 end
 
 require File.expand_path("../../../spec/dummy/config/environment.rb", __FILE__)
@@ -34,10 +20,11 @@ include Renalware::Engine.routes.url_helpers
 # files.
 
 require "cucumber/rails"
-require "capybara-screenshot/cucumber" if RUBY_PLATFORM.match?(/darwin/)
+require "capybara-screenshot/cucumber" if RUBY_PLATFORM =~ /darwin/
 require "rspec/rails"
 require "factory_bot_rails"
 require "chosen-rails/rspec"
+require "webmock"
 
 WebMock.disable!
 # Capybara defaults to CSS3 selectors rather than XPath.
