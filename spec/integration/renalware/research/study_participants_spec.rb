@@ -51,7 +51,7 @@ RSpec.describe "Managing clinical study participation", type: :request do
       expect(response).to have_http_status(:success)
       expect(Renalware::Research::StudyParticipant.deleted.count).to eq(1)
       within ".study-participants-table" do
-        expect(response.body).to_not include("ZZ")
+        expect(response.body).not_to include("ZZ")
       end
     end
   end

@@ -10,7 +10,7 @@ module Renalware
 
       describe "#read?" do
         it "has an initial value of false" do
-          expect(subject).to_not be_read
+          expect(subject).not_to be_read
         end
         it "returns true if read_at is set" do
           subject.read_at = Time.zone.now

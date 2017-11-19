@@ -51,7 +51,7 @@ module Renalware
 
       click_button "Save"
 
-      expect(page.current_path).to eq(patient_pd_dashboard_path(patient))
+      expect(page).to have_current_path(patient_pd_dashboard_path(patient))
 
       regimes = PD::Regime.all
       expect(regimes.length).to eq(1)

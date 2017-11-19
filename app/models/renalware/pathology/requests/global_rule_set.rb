@@ -36,7 +36,7 @@ module Renalware
         private
 
         def constrain_request_description
-          return unless request_description.present?
+          return if request_description.blank?
 
           validate_presence_of_required_observation_description_for_request_description
           validate_presence_of_bottle_type_for_request_description

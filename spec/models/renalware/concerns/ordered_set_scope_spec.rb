@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware
   describe "Ordered Set scope" do
     before do
-      @klass = Class.new(ActiveRecord::Base) do
+      @klass = Class.new(ApplicationRecord) do
         self.table_name = "quxes"
         include OrderedSetScope
       end

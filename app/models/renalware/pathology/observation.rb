@@ -17,9 +17,7 @@ module Renalware
         observed_at.to_date
       end
 
-      def to_s
-        result.to_s
-      end
+      delegate :to_s, to: :result
     end
   end
 end

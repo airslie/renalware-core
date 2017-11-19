@@ -78,7 +78,7 @@ module World
           click_on "Save"
         end
 
-        expect(page.current_path).to eq(patient_transplants_recipient_workup_path(patient))
+        expect(page).to have_current_path(patient_transplants_recipient_workup_path(patient))
       end
 
       def update_workup(patient:, user:)

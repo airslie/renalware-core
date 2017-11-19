@@ -89,7 +89,7 @@ module World
       end
 
       def expect_dry_weight_to_exist(patient)
-        expect(page.current_path).to eq(patient_hd_dashboard_path(patient))
+        expect(page).to have_current_path(patient_hd_dashboard_path(patient))
         expect(Renalware::Clinical::DryWeight.for_patient(patient)).to be_present
       end
     end

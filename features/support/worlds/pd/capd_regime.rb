@@ -51,7 +51,7 @@ module World
           click_on "Save"
         end
 
-        expect(page.current_path).to eq(dashboard_path)
+        expect(page).to have_current_path(dashboard_path)
 
         # return the regime
         patient.pd_regimes.order(created_at: :desc).first

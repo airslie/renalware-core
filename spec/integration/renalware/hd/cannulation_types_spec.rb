@@ -18,7 +18,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
         post hd_cannulation_types_path, params: { hd_cannulation_type: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::HD::CannulationType.exists?(attributes)).to be_truthy
+        expect(Renalware::HD::CannulationType).to exist(attributes)
 
         follow_redirect!
 
@@ -52,7 +52,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
               params: { hd_cannulation_type: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::HD::CannulationType.exists?(attributes)).to be_truthy
+        expect(Renalware::HD::CannulationType).to exist(attributes)
 
         follow_redirect!
 
@@ -76,7 +76,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
       delete hd_cannulation_type_path(cannulation_type)
       expect(response).to have_http_status(:redirect)
 
-      expect(Renalware::HD::CannulationType.exists?(id: cannulation_type.id)).to be_falsey
+      expect(Renalware::HD::CannulationType).not_to exist(id: cannulation_type.id)
 
       follow_redirect!
       expect(response).to have_http_status(:success)

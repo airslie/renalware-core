@@ -6,7 +6,7 @@ module Renalware
 
     service = Renalware::Clinical::CreateAllergy.new(patient, user)
 
-    service.call(description: "Carrots", recorded_at: Time.now - 6.months)
-    service.call(description: "Penicillin", recorded_at: Time.now - 1.month)
+    service.call(description: "Carrots", recorded_at: Time.zone.now - 6.months)
+    service.call(description: "Penicillin", recorded_at: Time.zone.now - 1.month)
   end
 end

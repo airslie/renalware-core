@@ -15,12 +15,12 @@ module Renalware::HD
     end
 
     describe "the combination of #week_number and #year are unique in the scope of the unit" do
-      let(:user){ create(:user) }
-      let(:unit){ create(:hospital_unit) }
-
       subject do
         described_class.new(hospital_unit_id: unit.id, week_number: 1, year: 2017, by: user)
       end
+
+      let(:user){ create(:user) }
+      let(:unit){ create(:hospital_unit) }
 
       it do
         is_expected.to validate_uniqueness_of(:week_number)

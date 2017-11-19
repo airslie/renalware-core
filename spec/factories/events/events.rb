@@ -3,7 +3,7 @@ FactoryBot.define do
     accountable
     patient
     event_type factory: :events_type
-    date_time Time.zone.now
+    date_time { Time.zone.now }
     description "Needs blood sample taken."
     notes "Would like son to accompany them on clinic visit."
 

@@ -10,26 +10,26 @@ module Renalware
     scenario "A user attempts to authenticate with invalid credentials" do
       visit root_path
 
-      expect(current_path).to eq(new_user_session_path)
+      expect(page).to have_current_path(new_user_session_path)
 
       fill_in "Username", with: @user.username
       fill_in "Password", with: "wuhfweilubfwlf"
       click_on "Log in"
 
-      expect(current_path).to eq(new_user_session_path)
+      expect(page).to have_current_path(new_user_session_path)
       expect(page).to have_css(".alert", text: /Invalid username or password/i)
     end
 
     scenario "An unapproved user authenticates with valid credentials" do
       visit root_path
 
-      expect(current_path).to eq(new_user_session_path)
+      expect(page).to have_current_path(new_user_session_path)
 
       fill_in "Username", with: @unapproved_user.username
       fill_in "Password", with: @unapproved_user.password
       click_on "Log in"
 
-      expect(current_path).to eq(new_user_session_path)
+      expect(page).to have_current_path(new_user_session_path)
       expect(page).to have_css(
         ".alert",
         text: /Your account needs approval before you can access the system/
@@ -39,13 +39,13 @@ module Renalware
     scenario "An approved user authenticates with valid credentials" do
       visit root_path
 
-      expect(current_path).to eq(new_user_session_path)
+      expect(page).to have_current_path(new_user_session_path)
 
       fill_in "Username", with: @user.username
       fill_in "Password", with: @user.password
       click_on "Log in"
 
-      expect(current_path).to eq(root_path)
+      expect(page).to have_current_path(root_path)
     end
 
     scenario "An authenticated user signs out" do
@@ -54,7 +54,7 @@ module Renalware
 
       click_on "Log out"
 
-      expect(current_path).to eq(new_user_session_path)
+      expect(page).to have_current_path(new_user_session_path)
     end
 
     scenario "An inactive user attempts to authenticate" do
@@ -66,7 +66,7 @@ module Renalware
       fill_in "Password", with: inactive.password
       click_on "Log in"
 
-      expect(current_path).to eq(new_user_session_path)
+      expect(page).to have_current_path(new_user_session_path)
       expect(page).to have_css(
         ".alert",
         text: /Your account has expired due to inactivity\. Please contact the site administrator/
@@ -83,7 +83,7 @@ module Renalware
       fill_in "Password", with: inactive.password
       click_on "Log in"
 
-      expect(current_path).to eq(root_path)
+      expect(page).to have_current_path(root_path)
     end
   end
 end

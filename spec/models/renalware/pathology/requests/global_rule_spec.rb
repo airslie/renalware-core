@@ -1,8 +1,6 @@
 require "rails_helper"
 
 describe Renalware::Pathology::Requests::GlobalRule do
-  it { is_expected.to validate_presence_of(:rule_set) }
-
   subject(:global_rule) do
     build(
       :pathology_requests_global_rule,
@@ -29,6 +27,8 @@ describe Renalware::Pathology::Requests::GlobalRule do
       request_description: request_description
     )
   end
+
+  it { is_expected.to validate_presence_of(:rule_set) }
 
   describe "#observation_required_for_patient?" do
     let(:patient) { build(:patient) }

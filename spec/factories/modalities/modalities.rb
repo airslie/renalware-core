@@ -4,7 +4,7 @@ FactoryBot.define do
     patient
     association :description, factory: :modality_description
     association :reason, factory: :modality_reason
-    started_on Date.parse("2015-04-01")
+    started_on { Date.parse("2015-04-01") }
 
     trait :terminated do
       state "terminated"

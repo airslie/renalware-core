@@ -14,19 +14,19 @@ module Renalware
           context "and the patient is the main recipient" do
             let(:letter) { build_letter(to: :patient, patient: patient) }
 
-            it { expect(primary_care_physician.cc_on_letter?(letter)).to be_truthy }
+            it { expect(primary_care_physician).to be_cc_on_letter(letter) }
           end
 
           context "and the Primary Care Physician is the main recipient" do
             let(:letter) { build_letter(to: :primary_care_physician, patient: patient) }
 
-            it { expect(primary_care_physician.cc_on_letter?(letter)).to be_falsy }
+            it { expect(primary_care_physician).not_to be_cc_on_letter(letter) }
           end
 
           context "and someone else is the main recipient" do
             let(:letter) { build_letter(to: :contact, patient: patient) }
 
-            it { expect(primary_care_physician.cc_on_letter?(letter)).to be_truthy }
+            it { expect(primary_care_physician).to be_cc_on_letter(letter) }
           end
         end
 
@@ -37,7 +37,7 @@ module Renalware
           end
           let(:letter) { build_letter(to: :patient, patient: patient) }
 
-          it { expect(primary_care_physician.cc_on_letter?(letter)).to be_falsy }
+          it { expect(primary_care_physician).not_to be_cc_on_letter(letter) }
         end
       end
     end

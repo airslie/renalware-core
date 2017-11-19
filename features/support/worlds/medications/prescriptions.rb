@@ -8,7 +8,7 @@ module World
       def default_medication_drug_selector; end
 
       def parse_date_string(time_string)
-        return nil unless time_string.present?
+        return nil if time_string.blank?
 
         Date.parse(time_string)
       end

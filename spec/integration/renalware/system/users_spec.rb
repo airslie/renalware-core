@@ -34,7 +34,7 @@ RSpec.describe "Managing Users", type: :request do
         patch admin_user_path(user), params: { user: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::User.exists?(id: user.id, approved: !user.approved)).to be_truthy
+        expect(Renalware::User).to exist(id: user.id, approved: !user.approved)
 
         follow_redirect!
 

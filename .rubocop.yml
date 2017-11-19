@@ -3,6 +3,17 @@
 inherit_from:
   - default.yml
 
+#
+# Uncomment this section to check specs
+# require: rubocop-rspec
+#
+# RSpec/NamedSubject:
+#   Enabled: false
+#
+# RSpec/ExampleLength:
+#   Max: 10
+# End rubocop-rspec
+
 # Note that inheriting from a gem does not work as CodeClimate cannot cope with this
 # inherit_gem:
 #   airslie-style:
@@ -26,3 +37,4 @@ AllCops:
     - "spec/dummy/tmp/**/*"
     - "vendor/bundle/**/*"
     - "config/initializers/devise.rb"
+

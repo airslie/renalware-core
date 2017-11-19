@@ -19,7 +19,7 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
         post modalities_descriptions_path, params: { modalities_description: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Modalities::Description.exists?(attributes)).to be_truthy
+        expect(Renalware::Modalities::Description).to exist(attributes)
 
         follow_redirect!
 
@@ -63,7 +63,7 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
               params: { modalities_description: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Modalities::Description.exists?(attributes)).to be_truthy
+        expect(Renalware::Modalities::Description).to exist(attributes)
 
         follow_redirect!
 
@@ -88,7 +88,7 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
       delete modalities_description_path(modality_description)
 
       expect(response).to have_http_status(:redirect)
-      expect(Renalware::Modalities::Description.exists?(id: modality_description.id)).to be_falsey
+      expect(Renalware::Modalities::Description).not_to exist(id: modality_description.id)
 
       follow_redirect!
 

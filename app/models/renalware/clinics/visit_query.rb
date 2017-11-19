@@ -7,7 +7,7 @@ module Renalware
 
       def initialize(q = {})
         @q = q
-        @q[:s] = "date DESC" unless @q[:s].present?
+        @q[:s] = "date DESC" if @q[:s].blank?
       end
 
       def call

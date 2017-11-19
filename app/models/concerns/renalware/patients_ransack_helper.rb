@@ -50,7 +50,6 @@ module Renalware
         { fuzzy_term: "#{query}%", exact_term: query, ucase_term: query&.upcase }
       end
 
-      # rubocop:disable Metrics/MethodLength
       def identity_sql(query)
         sql = <<-SQL.squish
           local_patient_id = :ucase_term OR

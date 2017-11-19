@@ -61,7 +61,7 @@ RSpec.describe "AKI alert management", type: :request do
         alert.reload
         expect(alert.notes).to eq("xyz")
         expect(alert.action_id).to eq(action2.id)
-        expect(alert.hotlist?).to be_truthy
+        expect(alert).to be_hotlist
         expect(alert.hospital_ward).to eq(hospital_ward)
       end
     end

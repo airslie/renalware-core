@@ -53,7 +53,7 @@ module World
           click_on "Save"
         end
 
-        expect(page.current_path).to eq(patient_renal_profile_path(patient))
+        expect(page).to have_current_path(patient_renal_profile_path(patient))
       end
 
       def expect_renal_profile_to_be_updated(user, patient)

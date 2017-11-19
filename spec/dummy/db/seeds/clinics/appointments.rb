@@ -7,7 +7,7 @@ module Renalware
     CSV.foreach(file_path, headers: true) do |row|
       count += 1
       days_ahead = count.even? ? 30 : 40
-      starts_at = Time.now + days_ahead.days
+      starts_at = Time.zone.now + days_ahead.days
       starts_at_array = row["starts_at"].split(":")
 
       Clinics::Appointment.find_or_create_by!(

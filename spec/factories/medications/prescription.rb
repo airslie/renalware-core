@@ -9,7 +9,7 @@ FactoryBot.define do
     frequency "daily"
     notes "with food"
     provider 0
-    prescribed_on 2.weeks.ago
+    prescribed_on { 2.weeks.ago }
 
     before(:create) { |prescription| prescription.treatable ||= prescription.patient }
   end

@@ -3,7 +3,7 @@ FactoryBot.define do
     accountable
     patient
 
-    assessed_on 1.week.ago
+    assessed_on { 1.week.ago }
     weight 156.1
     assessor { accountable_actor }
   end

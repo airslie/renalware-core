@@ -40,13 +40,13 @@ RSpec.describe "Manage electronic CCs", type: :feature do
 
     within ".electronic-ccs" do
       expect(page).to have_content(approved_letter.description)
-      expect(page).to_not have_content(draft_letter.description)
+      expect(page).not_to have_content(draft_letter.description)
       expect(page).to have_css("tbody tr", count: 1)
 
       click_on "Toggle"
       click_on "Mark as read"
 
-      expect(page).to_not have_content(approved_letter.description)
+      expect(page).not_to have_content(approved_letter.description)
     end
   end
 end

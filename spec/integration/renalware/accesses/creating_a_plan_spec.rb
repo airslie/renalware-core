@@ -29,7 +29,7 @@ feature "Creating an Access Plan", type: :feature do
       click_on "Save"
     end
 
-    expect(page.current_path).to eq(patient_accesses_dashboard_path(patient))
+    expect(page).to have_current_path(patient_accesses_dashboard_path(patient))
 
     within ".access-plans .current-access-plan" do
       expect(page).to have_content(plan_type.name)
@@ -59,7 +59,7 @@ feature "Creating an Access Plan", type: :feature do
       click_on "Save"
     end
 
-    expect(page.current_path).to eq(patient_accesses_dashboard_path(patient))
+    expect(page).to have_current_path(patient_accesses_dashboard_path(patient))
 
     within ".access-plans .current-access-plan" do
       expect(page).to have_content(plan_type2.name)

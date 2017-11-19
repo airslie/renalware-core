@@ -17,7 +17,7 @@ module Renalware
         end
 
         def date(string)
-          Time.parse(string).to_date
+          Time.zone.parse(string).to_date
         end
       end
     end

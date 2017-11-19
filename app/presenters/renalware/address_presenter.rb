@@ -3,7 +3,7 @@ require_dependency "renalware"
 module Renalware
   class AddressPresenter < DumbDelegator
     def to_s
-      return "" unless __getobj__.present?
+      return "" if __getobj__.blank?
 
       presentable_attrs
         .map(&:to_s)
@@ -16,7 +16,7 @@ module Renalware
     end
 
     def to_a
-      return [] unless __getobj__.present?
+      return [] if __getobj__.blank?
 
       presentable_attrs
         .map(&:to_s)

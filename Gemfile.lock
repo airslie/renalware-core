@@ -429,6 +429,8 @@ GEM
       rainbow (>= 2.2.2, < 3.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
+    rubocop-rspec (1.20.1)
+      rubocop (>= 0.51.0)
     ruby-hl7 (1.2.1)
       rake (>= 11.0)
       rubyforge (>= 2.0.4)
@@ -558,6 +560,7 @@ DEPENDENCIES
   rspec-rails (= 3.6.0)
   rspec_junit_formatter
   rubocop (~> 0.51.0)
+  rubocop-rspec
   shoulda-matchers
   simplecov
   spring
@@ -573,4 +576,4 @@ RUBY VERSION
    ruby 2.4.2p198
 
 BUNDLED WITH
-   1.15.4
+   1.16.0

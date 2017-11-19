@@ -68,7 +68,7 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
         patient.died_on = Time.zone.now
         patient.save_by!(user)
 
-        expect(patient.reload.current_modality_death?).to be_truthy
+        expect(patient.reload).to be_current_modality_death
 
         get api_ukrdc_patient_path(patient)
 

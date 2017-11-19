@@ -56,9 +56,9 @@ module Renalware::Messaging::Internal
 
         # Everyone else excluding anyone already listed and the current author
         all_other_users = groups[2]
-        expect(all_other_users.users).to_not include(recipient_for_message_re_patient_a)
-        expect(all_other_users.users).to_not include(recipient_for_message_re_patient_b)
-        expect(all_other_users.users).to_not include(author)
+        expect(all_other_users.users).not_to include(recipient_for_message_re_patient_a)
+        expect(all_other_users.users).not_to include(recipient_for_message_re_patient_b)
+        expect(all_other_users.users).not_to include(author)
       end
     end
   end

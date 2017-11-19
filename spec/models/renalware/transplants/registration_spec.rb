@@ -86,7 +86,7 @@ module Renalware
         it "updates the status with given parameters" do
           registration.delete_status!(earliest_status)
 
-          expect(registration.statuses.where(id: earliest_status.id).exists?).to be_falsy
+          expect(registration.statuses.where(id: earliest_status.id)).not_to be_exists
         end
 
         it "recomputes the termination dates" do

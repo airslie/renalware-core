@@ -97,7 +97,7 @@ Then(/^Clyde can revise the exit site infection$/) do
   revise_exit_site_infection_for(
     patient: @patty,
     user: @clyde,
-    diagnosed_on: Date.current - 10.day
+    diagnosed_on: Date.current - 10.days
   )
 
   revise_organism_for(

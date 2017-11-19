@@ -28,7 +28,7 @@ module Document
       end
 
       def document=(attributes)
-        return unless attributes.present?
+        return if attributes.blank?
         filtered_attributes = filter_date_params(attributes)
         @document = document_class.new(filtered_attributes)
         serialize_document

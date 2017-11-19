@@ -8,7 +8,7 @@ module Renalware
         @user_id = Renalware::User.first.id
       end
 
-      def call(on: Time.now - 2.weeks,
+      def call(on: Time.zone.now - 2.weeks,
                result: "pos",
                type: "mrsa",
                notes: "Lorem ipusm")
@@ -27,9 +27,9 @@ module Renalware
       end
     end
 
-    CreateSwab.new.call(on: Time.now - 1.month, type: "mrsa", result: "neg")
-    CreateSwab.new.call(on: Time.now - 1.week, type: "mrsa", result: "pos")
-    CreateSwab.new.call(on: Time.now - 2.months, type: "mssa", result: "pos")
-    CreateSwab.new.call(on: Time.now - 2.days, type: "mssa", result: "neg")
+    CreateSwab.new.call(on: Time.zone.now - 1.month, type: "mrsa", result: "neg")
+    CreateSwab.new.call(on: Time.zone.now - 1.week, type: "mrsa", result: "pos")
+    CreateSwab.new.call(on: Time.zone.now - 2.months, type: "mssa", result: "pos")
+    CreateSwab.new.call(on: Time.zone.now - 2.days, type: "mssa", result: "neg")
   end
 end

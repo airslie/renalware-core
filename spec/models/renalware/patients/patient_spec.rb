@@ -38,9 +38,9 @@ module Renalware
 
     describe "diabetic?" do
       it "delegates to document.diabetes.diagnosis" do
-        expect(subject.diabetic?).to be_falsey
+        expect(subject).not_to be_diabetic
         expect(subject.document.diabetes).to receive(:diagnosis).and_return(true)
-        expect(subject.diabetic?).to be_truthy
+        expect(subject).to be_diabetic
       end
     end
 

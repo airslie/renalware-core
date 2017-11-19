@@ -10,6 +10,7 @@ module Renalware
 
       describe "uniqueness" do
         subject { described_class.new(name: "x", sodium_content: 1, sodium_content_uom: "mmol/L") }
+
         it { is_expected.to validate_uniqueness_of(:name) }
       end
 

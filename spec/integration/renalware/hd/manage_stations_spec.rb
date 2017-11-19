@@ -36,7 +36,7 @@ feature "Managing HD Stations for a Hospital Unit" do
     select "Side room", from: "Location"
     click_on "Save"
 
-    expect(page.current_path).to eq(hd_unit_stations_path(unit))
+    expect(page).to have_current_path(hd_unit_stations_path(unit))
     expect(page).to have_content("Station-X")
     expect(page).to have_content("Side room")
   end
@@ -54,7 +54,7 @@ feature "Managing HD Stations for a Hospital Unit" do
     fill_in "Name", with: "Station-XX"
     click_on "Save"
 
-    expect(page.current_path).to eq(hd_unit_stations_path(unit))
+    expect(page).to have_current_path(hd_unit_stations_path(unit))
     expect(page).to have_content("Station-XX")
   end
 end

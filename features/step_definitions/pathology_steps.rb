@@ -5,7 +5,7 @@ Given(observation_required_regex) do |request_code, description_code|
     Renalware::Pathology::ObservationDescription.find_by(code: description_code)
   request_description = Renalware::Pathology::RequestDescription.find_by(code: request_code)
 
-  unless request_description.required_observation_description_id.present?
+  if request_description.required_observation_description_id.blank?
     request_description.update_attributes!(
       required_observation_description_id: observation_description.id
     )

@@ -203,7 +203,7 @@ module Renalware
     # Generate HD statistics for the last 6 months of HD Sessions, starting with last month - we
     # don't do monthly stats for the current month
     (1..6).each do |month|
-      date = Date.today - month.months
+      date = Time.zone.today - month.months
       period = MonthPeriod.new(month: date.month, year: date.year)
       HD::GenerateMonthlyStatisticsForPatient.new(patient: patient,
                                                   period: period).call

@@ -6,6 +6,7 @@ module Renalware
 
     describe "#validation" do
       subject{ described_class.new(name: "P") }
+
       it { is_expected.to validate_uniqueness_of :name }
     end
   end

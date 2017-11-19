@@ -64,16 +64,16 @@ RSpec.describe "Managing bookmarks", type: :request do
       headers = { "HTTP_REFERER" => "/" }
       delete bookmark_path(bookmark), headers: headers
       expect(response).to have_http_status(:redirect)
-      expect(Renalware::Patients::Bookmark.exists?(id: bookmark.id)).to be_falsey
+      expect(Renalware::Patients::Bookmark).not_to exist(id: bookmark.id)
     end
 
     it "does not baulk if the bookmark has already been deleted" do
       bookmark.destroy!
-      expect(Renalware::Patients::Bookmark.exists?(id: bookmark.id)).to be_falsey
+      expect(Renalware::Patients::Bookmark).not_to exist(id: bookmark.id)
       headers = { "HTTP_REFERER" => "/" }
       delete bookmark_path(bookmark), headers: headers
       expect(response).to have_http_status(:redirect)
-      expect(Renalware::Patients::Bookmark.exists?(id: bookmark.id)).to be_falsey
+      expect(Renalware::Patients::Bookmark).not_to exist(id: bookmark.id)
     end
   end
 end

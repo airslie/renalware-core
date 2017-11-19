@@ -16,7 +16,7 @@ module Renalware
       problem = Problems::Problem.new(
         patient: rabbit,
         description: row["description"],
-        date: Time.now - random_week_number.weeks,
+        date: Time.zone.now - random_week_number.weeks,
         position: count += 1,
         by: User.last
       )

@@ -3,12 +3,13 @@ require "rails_helper"
 module Renalware
   module HD
     describe GenerateMonthlyStatisticsForPatientJob, type: :job do
-      it { is_expected.to respond_to(:queue_name) }
       subject(:job) { described_class.new }
 
       let(:patient) { create(:hd_patient) }
       let(:month) { 12 }
       let(:year) { 2016 }
+
+      it { is_expected.to respond_to(:queue_name) }
 
       describe "#perform" do
         it "delegates to a service object passing in last month" do

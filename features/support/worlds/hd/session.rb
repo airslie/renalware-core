@@ -246,7 +246,7 @@ module World
           click_on "Save"
         end
 
-        expect(page.current_path).to eq(patient_hd_dashboard_path(patient))
+        expect(page).to have_current_path(patient_hd_dashboard_path(patient))
       end
 
       def sign_off_hd_session_for(patient, user:)
@@ -303,7 +303,7 @@ module World
 
         page.all("input[name='signoff']").first.click
 
-        expect(page.current_path).to eq(patient_hd_dashboard_path(patient))
+        expect(page).to have_current_path(patient_hd_dashboard_path(patient))
         expect(page).to have_no_content "failed"
         hd_patient = Renalware::HD.cast_patient(patient)
         sessions = hd_patient.reload.hd_sessions
@@ -332,7 +332,7 @@ module World
       def view_patients_hd_sessions(patient:, user:)
         login_as user
         visit patient_hd_sessions_path(patient)
-        expect(page.current_path).to eq(patient_hd_sessions_path(patient))
+        expect(page).to have_current_path(patient_hd_sessions_path(patient))
       end
 
       def expect_all_patient_hd_sessions_to_be_present(*)

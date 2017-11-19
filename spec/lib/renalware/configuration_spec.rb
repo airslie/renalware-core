@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "Renalware::Configuration" do
+describe Renalware::Configuration do
   subject { Renalware.config }
 
   it "raises an error if a certain config value is not defined" do

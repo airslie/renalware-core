@@ -17,7 +17,7 @@ feature "Create an Admission Request", type: :feature, js: true do
     end
 
     # We have just raised a modal, but are on the same page
-    expect(page.current_path).to eq(clinical_profile_path)
+    expect(page).to have_current_path(clinical_profile_path)
 
     expect(page).to have_content(dialog_title)
 
@@ -32,7 +32,7 @@ feature "Create an Admission Request", type: :feature, js: true do
     fill_in "Notes", with: "Some notes"
     click_on("Create")
 
-    expect(page).to_not have_content(dialog_title)
+    expect(page).not_to have_content(dialog_title)
     requests = Renalware::Admissions::Request.all
     expect(requests.length).to eq(1)
     request = requests.first

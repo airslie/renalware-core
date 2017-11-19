@@ -19,7 +19,7 @@ RSpec.describe "Configuring Drugs", type: :request do
         post drugs_drugs_path, params: { drugs_drug: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Drugs::Drug.exists?(attributes)).to be_truthy
+        expect(Renalware::Drugs::Drug).to exist(attributes)
 
         follow_redirect!
 
@@ -90,7 +90,7 @@ RSpec.describe "Configuring Drugs", type: :request do
         patch drugs_drug_path(drug), params: { drugs_drug: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Drugs::Drug.exists?(attributes)).to be_truthy
+        expect(Renalware::Drugs::Drug).to exist(attributes)
 
         follow_redirect!
 
@@ -114,7 +114,7 @@ RSpec.describe "Configuring Drugs", type: :request do
       delete drugs_drug_path(drug)
 
       expect(response).to have_http_status(:redirect)
-      expect(Renalware::Drugs::Drug.exists?(id: drug.id)).to be_falsey
+      expect(Renalware::Drugs::Drug).not_to exist(id: drug.id)
 
       follow_redirect!
 

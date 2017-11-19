@@ -13,7 +13,7 @@ module Renalware
 
     def to_s
       datestamp = confirmed_on_year.present? ? "(#{confirmed_on_year})" : nil
-      [status.try!(:text), datestamp].compact.join(" ")
+      [status&.text, datestamp].compact.join(" ")
     end
   end
 end

@@ -57,7 +57,7 @@ module World
         patient = letters_patient(patient)
         visit = clinic_visit_for(patient)
 
-        letter_attributes = build_clinic_visit_letter_attributes(patient, visit, Date.today, user)
+        letter_attributes = build_clinic_visit_letter_attributes(patient, visit, Time.zone.today, user)
 
         seed_letter(patient, letter_attributes)
       end

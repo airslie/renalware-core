@@ -1,7 +1,7 @@
 module Renalware
   class AddressValidator < ActiveModel::Validator
     def validate(address)
-      if address.uk? && !address.postcode.present?
+      if address.uk? && address.postcode.blank?
         address.errors[:postcode] << "can't be blank for UK address"
       end
     end

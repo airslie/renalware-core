@@ -18,7 +18,7 @@ RSpec.describe "Managing Dialysers", type: :request do
         post hd_dialysers_path, params: { hd_dialyser: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::HD::Dialyser.exists?(attributes)).to be_truthy
+        expect(Renalware::HD::Dialyser).to exist(attributes)
 
         follow_redirect!
 
@@ -51,7 +51,7 @@ RSpec.describe "Managing Dialysers", type: :request do
         patch hd_dialyser_path(dialyser), params: { hd_dialyser: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::HD::Dialyser.exists?(attributes)).to be_truthy
+        expect(Renalware::HD::Dialyser).to exist(attributes)
 
         follow_redirect!
 
@@ -74,7 +74,7 @@ RSpec.describe "Managing Dialysers", type: :request do
       delete hd_dialyser_path(dialyser)
       expect(response).to have_http_status(:redirect)
 
-      expect(Renalware::HD::Dialyser.exists?(id: dialyser.id)).to be_falsey
+      expect(Renalware::HD::Dialyser).not_to exist(id: dialyser.id)
 
       follow_redirect!
       expect(response).to have_http_status(:success)

@@ -60,7 +60,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
         patch pd_bag_type_path(bag_type), params: { pd_bag_type: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::PD::BagType.exists?(attributes)).to be_truthy
+        expect(Renalware::PD::BagType).to exist(attributes)
 
         follow_redirect!
 
@@ -84,7 +84,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
       delete pd_bag_type_path(bag_type)
 
       expect(response).to have_http_status(:redirect)
-      expect(Renalware::PD::BagType.exists?(id: bag_type.id)).to be_falsey
+      expect(Renalware::PD::BagType).not_to exist(id: bag_type.id)
 
       follow_redirect!
 

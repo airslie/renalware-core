@@ -2,8 +2,8 @@ FactoryBot.define do
   factory :clinic_visit, class: "Renalware::Clinics::ClinicVisit" do
     accountable
     patient
-    date Time.zone.today
-    time Time.zone.now
+    date { Time.zone.today }
+    time { Time.zone.now }
     did_not_attend false
     height 1725
     weight 6985

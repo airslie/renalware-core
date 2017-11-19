@@ -24,7 +24,7 @@ FactoryBot.define do
     end
 
     after(:create) do |user, obj|
-      unless obj.role.blank?
+      if obj.role.present?
         user.roles << create(:role, obj.role)
       end
     end
@@ -38,8 +38,8 @@ FactoryBot.define do
     end
 
     trait :expired do
-      last_activity_at 60.days.ago
-      expired_at Time.zone.now
+      last_activity_at { 60.days.ago }
+      expired_at { Time.zone.now }
     end
 
     trait :super_admin do

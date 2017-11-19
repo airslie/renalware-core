@@ -63,7 +63,7 @@ module Renalware
 
       click_on "Sign up"
 
-      expect(current_path).to eq(new_user_session_path)
+      expect(page).to have_current_path(new_user_session_path)
       # TODO: There should be a message explaining that admin approval is required before login.
     end
   end

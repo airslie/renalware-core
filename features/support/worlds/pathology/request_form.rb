@@ -205,13 +205,13 @@ module World
         end
 
         def find_requested_clinic(clinic_name)
-          return unless clinic_name.present?
+          return if clinic_name.blank?
 
           Renalware::Clinics::Clinic.find_by!(name: clinic_name)
         end
 
         def find_or_create_requested_consultant(consultant_names)
-          return unless consultant_names.present?
+          return if consultant_names.blank?
 
           given_name, family_name = consultant_names.split(" ")
           consultant = Renalware::Pathology::Consultant.find_by(
@@ -227,7 +227,7 @@ module World
         end
 
         def find_requested_patients(patients)
-          return unless patients.present?
+          return if patients.blank?
 
           if patients.first.is_a? String
             patients.split(", ").map do |patient_given_name|

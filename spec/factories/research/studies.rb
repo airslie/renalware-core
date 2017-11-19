@@ -3,7 +3,7 @@ FactoryBot.define do
     code { SecureRandom.hex(8) }
     description { "Description for #{code}" }
     leader { Faker::Name.name }
-    started_on 1.year.ago
+    started_on { 1.year.ago }
     terminated_on nil
     deleted_at nil
     accountable
