@@ -30,7 +30,7 @@ feature "Editing an Access Plan", type: :feature do
       click_on "Save"
     end
 
-    expect(page.current_path).to eq(patient_accesses_dashboard_path(patient))
+    expect(page).to have_current_path(patient_accesses_dashboard_path(patient))
 
     within ".access-plans .current-access-plan" do
       expect(page).to have_content("Changed notes")
@@ -65,7 +65,7 @@ feature "Editing an Access Plan", type: :feature do
       click_on "Save"
     end
 
-    expect(page.current_path).to eq(patient_accesses_dashboard_path(patient))
+    expect(page).to have_current_path(patient_accesses_dashboard_path(patient))
     expect(page).to have_no_css(".historical-access-plans")
   end
 end

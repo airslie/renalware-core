@@ -4,7 +4,7 @@ require "test_support/ajax_helpers"
 feature "Session timeout", type: :feature, js: true do
   include AjaxHelpers
 
-  around(:each) do |example|
+  around do |example|
     original_session_timeout = Devise.timeout_in
     Devise.timeout_in = 0.5.seconds
 
@@ -19,7 +19,7 @@ feature "Session timeout", type: :feature, js: true do
     visit root_path
 
     # Expect to be on the user's dashboard
-    expect(page.current_path).to eq(root_path)
+    expect(page).to have_current_path(root_path)
 
     100.times do
       sleep 0.3
@@ -32,6 +32,6 @@ feature "Session timeout", type: :feature, js: true do
 
     # After a period of inactivity (Devise.timeout_in), expect to have been redirected
     # to the login page
-    expect(page.current_path).to eq(new_user_session_path)
+    expect(page).to have_current_path(new_user_session_path)
   end
 end

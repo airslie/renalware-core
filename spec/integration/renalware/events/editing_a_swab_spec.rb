@@ -32,7 +32,7 @@ RSpec.describe "Editing a swab", type: :feature, js: true do
     click_on "Save"
 
     # Back on Clinical Profile..
-    expect(page.current_path).to eq(patient_clinical_profile_path(patient))
+    expect(page).to have_current_path(patient_clinical_profile_path(patient))
     within("article.swabs") do
       expect(page).to have_selector("tbody tr", count: 1)
       expect(page).to have_content(swab_site)

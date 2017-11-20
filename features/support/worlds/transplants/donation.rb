@@ -134,7 +134,7 @@ module World
         within ".top" do
           click_on "Save"
         end
-        expect(page.current_path).to eq(patient_transplants_donor_dashboard_path(patient))
+        expect(page).to have_current_path(patient_transplants_donor_dashboard_path(patient))
       end
     end
   end

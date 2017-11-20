@@ -11,7 +11,7 @@ feature "Managing audits", type: :feature do
       click_on "Edit"
     end
 
-    expect(page.current_path).to eq(edit_reporting_audit_path(audit))
+    expect(page).to have_current_path(edit_reporting_audit_path(audit))
     display_config = "{test: 1}"
     fill_in t_audit(:name), with: "Changed name"
     fill_in t_audit(:description), with: "Desc"
@@ -20,7 +20,7 @@ feature "Managing audits", type: :feature do
     fill_in t_audit(:refresh_schedule), with: "5 0 * * *"
     click_on "Save"
 
-    expect(page.current_path).to eq(reporting_audits_path)
+    expect(page).to have_current_path(reporting_audits_path)
 
     audit.reload
 

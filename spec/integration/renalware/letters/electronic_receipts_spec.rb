@@ -46,7 +46,7 @@ RSpec.describe "View a user's read/unread electronic ccs", type: :request do
       expect(response).to render_template(:unread)
       expect(response.body).to include("GRAVES")
       expect(response.body).to include(body)
-      expect(response.body).to_not include("This one is not for my eyes")
+      expect(response.body).not_to include("This one is not for my eyes")
     end
   end
 

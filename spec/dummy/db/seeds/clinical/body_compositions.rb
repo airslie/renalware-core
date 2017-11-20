@@ -7,7 +7,7 @@ module Renalware
         @user_id = Renalware::User.last.id
       end
 
-      def call(on: Time.now - 2.weeks,
+      def call(on: Time.zone.now - 2.weeks,
                notes: "Lorem ipusm")
         Clinical::BodyComposition.new(
           patient_id: @rabbit.id,
@@ -33,8 +33,8 @@ module Renalware
       end
     end
 
-    CreateBodyComposition.new.call(on: Time.now - 2.months)
-    CreateBodyComposition.new.call(on: Time.now - 1.month)
-    CreateBodyComposition.new.call(on: Time.now - 1.week)
+    CreateBodyComposition.new.call(on: Time.zone.now - 2.months)
+    CreateBodyComposition.new.call(on: Time.zone.now - 1.month)
+    CreateBodyComposition.new.call(on: Time.zone.now - 1.week)
   end
 end

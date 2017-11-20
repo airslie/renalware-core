@@ -109,19 +109,19 @@ module Renalware
           context "given the termination date is today" do
             let(:prescription) { build_prescription(terminated_on: "2010-01-02") }
 
-            it { expect(prescription.current?(date_today)).to be_truthy }
+            it { expect(prescription).to be_current(date_today) }
           end
 
           context "given the termination date is after today" do
             let(:prescription) { build_prescription(terminated_on: "2010-01-03") }
 
-            it { expect(prescription.current?(date_today)).to be_truthy }
+            it { expect(prescription).to be_current(date_today) }
           end
 
           context "given the termination date is before today" do
             let(:prescription) { build_prescription(terminated_on: "2010-01-01") }
 
-            it { expect(prescription.current?(date_today)).to be_falsey }
+            it { expect(prescription).not_to be_current(date_today) }
           end
         end
 
@@ -129,19 +129,19 @@ module Renalware
           context "given the termination date is in the future" do
             let(:prescription) { build_prescription(terminated_on: Date.current + 1.minute) }
 
-            it { expect(prescription.terminated_or_marked_for_termination?).to be_truthy }
+            it { expect(prescription).to be_terminated_or_marked_for_termination }
           end
 
           context "given the termination date is in the past" do
             let(:prescription) { build_prescription(terminated_on: Date.current - 1.minute) }
 
-            it { expect(prescription.terminated_or_marked_for_termination?).to be_truthy }
+            it { expect(prescription).to be_terminated_or_marked_for_termination }
           end
 
           context "given the termination date is not specified" do
             let(:prescription) { build(:prescription) }
 
-            it { expect(prescription.terminated_or_marked_for_termination?).to be_falsey }
+            it { expect(prescription).not_to be_terminated_or_marked_for_termination }
           end
         end
       end

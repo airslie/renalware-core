@@ -25,10 +25,10 @@ module Renalware
                  patients_primary_care_physician: primary_care_physician_address_attributes
                }
           expect(response).to have_http_status(:redirect)
-          expect(Patients::PrimaryCarePhysician.exists?(primary_care_physician_attributes)).to(
-            be_truthy
+          expect(Patients::PrimaryCarePhysician).to(
+            exist(primary_care_physician_attributes)
           )
-          expect(Address.exists?(address_attributes)).to be_truthy
+          expect(Address).to exist(address_attributes)
 
           follow_redirect!
 
@@ -72,7 +72,7 @@ module Renalware
                 params: { patients_primary_care_physician: attributes }
 
           expect(response).to have_http_status(:redirect)
-          expect(Patients::PrimaryCarePhysician.exists?(attributes)).to be_truthy
+          expect(Patients::PrimaryCarePhysician).to exist(attributes)
 
           follow_redirect!
 
@@ -96,8 +96,8 @@ module Renalware
         delete patients_primary_care_physician_path(primary_care_physician)
 
         expect(response).to have_http_status(:redirect)
-        expect(Patients::PrimaryCarePhysician.exists?(id: primary_care_physician.id)).to(
-          be_falsey
+        expect(Patients::PrimaryCarePhysician).not_to(
+          exist(id: primary_care_physician.id)
         )
 
         follow_redirect!

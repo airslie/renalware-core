@@ -310,7 +310,7 @@ end
 
 #   click_on "Update"
 
-#   expect(page.current_path).to eq(patient_pd_dashboard_path(@patient_1))
+#   expect(page).to have_current_path(patient_pd_dashboard_path(@patient_1))
 # end
 
 # When(/^I choose to edit and update the form for a APD regime$/) do

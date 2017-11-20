@@ -69,7 +69,7 @@ RSpec.describe "Admission Request (TCI) management", type: :request do
 
         expect{
           post(admissions_requests_path, params: params)
-        }.to_not change(Renalware::Admissions::Request, :count)
+        }.not_to change(Renalware::Admissions::Request, :count)
 
         expect(response).to have_http_status(:ok)
         expect(response).to render_template(:new)

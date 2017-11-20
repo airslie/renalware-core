@@ -8,7 +8,7 @@ module Renalware
       end
 
       def call
-        return [] unless search_term.present?
+        return [] if search_term.blank?
 
         term = "%#{search_term}%"
         Practice.select(:id, :name)

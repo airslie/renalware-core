@@ -20,7 +20,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
         post hospitals_units_path, params: { hospitals_unit: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Hospitals::Unit.exists?(attributes)).to be_truthy
+        expect(Renalware::Hospitals::Unit).to exist(attributes)
 
         follow_redirect!
 
@@ -53,7 +53,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
         patch hospitals_unit_path(hospital_unit), params: { hospitals_unit: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Hospitals::Unit.exists?(attributes)).to be_truthy
+        expect(Renalware::Hospitals::Unit).to exist(attributes)
 
         follow_redirect!
 
@@ -76,7 +76,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
       delete hospitals_unit_path(hospital_unit)
       expect(response).to have_http_status(:redirect)
 
-      expect(Renalware::Hospitals::Unit.exists?(id: hospital_unit.id)).to be_falsey
+      expect(Renalware::Hospitals::Unit).not_to exist(id: hospital_unit.id)
 
       follow_redirect!
       expect(response).to have_http_status(:success)

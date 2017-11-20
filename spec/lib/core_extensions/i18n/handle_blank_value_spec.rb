@@ -17,7 +17,7 @@ module CoreExtensions
       end
 
       it "returns something when not blank" do
-        expect(::I18n.localize(Time.now)).not_to be_blank
+        expect(::I18n.localize(Time.zone.now)).not_to be_blank
       end
     end
 

@@ -14,7 +14,7 @@ describe Renalware::Pathology::RequestForPatientRequestDescriptionQuery do
       patient: patient,
       consultant: consultant,
       request_descriptions: [request_description_unrelated],
-      created_at: Time.now
+      created_at: Time.zone.now
     )
   end
   let!(:request_new) do

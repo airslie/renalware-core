@@ -30,7 +30,7 @@ module World
         fill_in "Body", with: body
         click_on "Save"
 
-        expect(page.current_path).to eq(snippets_path)
+        expect(page).to have_current_path(snippets_path)
       end
 
       def expect_user_to_have_snippet(user, title:, body:)

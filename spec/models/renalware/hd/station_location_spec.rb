@@ -8,6 +8,7 @@ module Renalware::HD
 
     describe "#name uniqueness" do
       subject { described_class.new(name: "Antechamber", colour: "red") }
+
       it { is_expected.to validate_uniqueness_of(:name) }
     end
   end

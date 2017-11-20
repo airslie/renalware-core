@@ -44,7 +44,7 @@ module Renalware
     # :breadcrumbs can be anchors or just a page name, and is single does not need to be an array.
     # :title is normally just a string as it represents the current page, and should not be a link.
     def breadcrumbs_and_title(breadcrumbs: [], title:)
-      Array(breadcrumbs).map(&:anchor).append(title).join(" / ").html_safe
+      safe_join(Array(breadcrumbs).map(&:anchor).append(title), " / ")
     end
 
     # In order for pdf rendering to easily re-use html partials (despite a mime type of :pdf),

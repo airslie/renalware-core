@@ -63,7 +63,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
         delete patient_worry_path(patient, worry)
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Patients::Worry.exists?(id: worry.id)).to be_falsey
+        expect(Renalware::Patients::Worry).not_to exist(id: worry.id)
       end
 
       it "does not baulk if the worry does not exist" do

@@ -33,7 +33,7 @@ RSpec.describe "Update wait list registration status", type: :feature do
           click_on "Save"
         end
 
-        expect(page.current_path).to eq(patient_transplants_recipient_dashboard_path(patient))
+        expect(page).to have_current_path(patient_transplants_recipient_dashboard_path(patient))
 
         patient.reload
         registrations = Renalware::Transplants::Registration.for_patient(patient)

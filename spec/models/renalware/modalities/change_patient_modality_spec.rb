@@ -3,11 +3,13 @@ require "rails_helper"
 
 module Renalware
   RSpec.describe Modalities::ChangePatientModality, type: :model do
+    subject { described_class.new(patient: patient, user: user) }
+
     let(:patient)                 { build_stubbed(:patient) }
     let(:user)                    { build_stubbed(:user) }
     let(:death)                   { build_stubbed(:death_modality_description) }
     let(:pd_modality_description) { build_stubbed(:pd_modality_description) }
-    subject { described_class.new(patient: patient, user: user) }
+
     it { is_expected.to respond_to(:call) }
 
     def build_modality(description)
@@ -91,7 +93,7 @@ module Renalware
 
             expect(result).to be_a(Success)
             expect(result.object).to be_a(Modalities::Modality)
-            expect(result.object.started_on).to_not be_nil
+            expect(result.object.started_on).not_to be_nil
             expect(result.object.started_on).to eq(old_modality.ended_on)
           end
 

@@ -7,7 +7,7 @@ FactoryBot.define do
 
     signed_on_by { accountable_actor }
 
-    performed_on 1.week.ago
+    performed_on { 1.week.ago }
     notes "Some notes"
 
     factory :hd_open_session do

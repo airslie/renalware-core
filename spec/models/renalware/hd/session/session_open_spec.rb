@@ -3,6 +3,14 @@ require "rails_helper"
 module Renalware
   module HD
     RSpec.describe Session::Open, type: :model do
+
+      subject(:session) do
+        build(:hd_open_session, patient: patient, signed_on_by: nurse, by: nurse)
+      end
+
+      let(:nurse) { create(:user) }
+      let(:patient) { create(:hd_patient) }
+
       it { is_expected.to validate_presence_of(:patient) }
       it { is_expected.to validate_presence_of(:signed_on_by) }
       it { is_expected.to validate_presence_of(:performed_on) }
@@ -15,13 +23,6 @@ module Renalware
       it { is_expected.to validate_timeliness_of(:performed_on) }
       it { is_expected.to validate_timeliness_of(:start_time) }
       it { is_expected.to validate_timeliness_of(:end_time) }
-
-      subject(:session) do
-        build(:hd_open_session, patient: patient, signed_on_by: nurse, by: nurse)
-      end
-
-      let(:nurse) { create(:user) }
-      let(:patient) { create(:hd_patient) }
 
       it "is not immutable" do
         expect(described_class.new.immutable?).to be(false)

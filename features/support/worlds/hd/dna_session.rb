@@ -64,7 +64,8 @@ module World
         within ".form_actions" do
           click_on t_form(".save")
         end
-        expect(page.current_path).to eq(patient_hd_dashboard_path(patient))
+
+        expect(page).to have_current_path(patient_hd_dashboard_path(patient))
         expect_dna_session_to_exist(patient: patient)
       end
 

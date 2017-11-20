@@ -10,7 +10,7 @@ module Renalware
           def observation_required_for_patient?(patient, date)
             most_recent_operation =
               Transplants::RecipientOperation.for_patient(patient).most_recent
-            return false unless most_recent_operation.present?
+            return false if most_recent_operation.blank?
 
             latest_date_possible = date - param_comparison_value.to_i.weeks
 

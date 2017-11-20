@@ -15,7 +15,7 @@ module Renalware
             by: user,
             signed_on_by: user,
             hospital_unit: hospital_unit,
-            performed_on: 1.weeks.ago
+            performed_on: 1.week.ago
           }
         end
 

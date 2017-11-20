@@ -3,6 +3,8 @@ require "renalware/week_period"
 
 module Renalware::HD
   describe ArchiveYesterdaysSlotsJob do
+    subject(:job) { described_class.new }
+
     let(:user){ create(:user) }
     let(:patient){ create(:hd_patient) }
     let(:unit) { create(:hospital_unit) }
@@ -15,8 +17,6 @@ module Renalware::HD
         by: user
       )
     end
-
-    subject(:job) { described_class.new }
 
     def create_weekly_diary(week_period:)
       create(

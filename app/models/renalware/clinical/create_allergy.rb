@@ -35,7 +35,7 @@ module Renalware
       def save_allergy(allergy)
         Allergy.transaction do
           allergy.save!
-          unless patient.allergy_status.try!(:known_allergies?)
+          unless patient.allergy_status&.known_allergies?
             patient.allergy_status = :known_allergies
             patient.allergy_status_updated_at = Time.zone.now
             patient.by = user

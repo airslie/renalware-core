@@ -18,7 +18,7 @@ RSpec.describe "Configuring Event Types", type: :request do
         post events_types_path, params: { events_type: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Events::Type.exists?(attributes)).to be_truthy
+        expect(Renalware::Events::Type).to exist(attributes)
 
         follow_redirect!
 
@@ -51,7 +51,7 @@ RSpec.describe "Configuring Event Types", type: :request do
         patch events_type_path(event_type), params: { events_type: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Events::Type.exists?(attributes)).to be_truthy
+        expect(Renalware::Events::Type).to exist(attributes)
 
         follow_redirect!
 
@@ -74,7 +74,7 @@ RSpec.describe "Configuring Event Types", type: :request do
       delete events_type_path(event_type)
       expect(response).to have_http_status(:redirect)
 
-      expect(Renalware::Events::Type.exists?(id: event_type.id)).to be_falsey
+      expect(Renalware::Events::Type).not_to exist(id: event_type.id)
 
       follow_redirect!
       expect(response).to have_http_status(:success)

@@ -1,8 +1,6 @@
-# rubocop:disable Rails/SkipsModelValidations
 Given(/^the patient is cc'ed on letters$/) do
   (@patty || @patient_1).update_columns(cc_on_all_letters: true, cc_decision_on: "01-01-2013")
 end
-# rubocop:enable Rails/SkipsModelValidations
 
 Given(/^the patient has prescriptions$/) do
   patient = @patty || @patient_1

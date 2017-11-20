@@ -56,7 +56,7 @@ module World
           click_on t_dashboard(".add_pet_adequacy")
         end
 
-        expect(page.current_path).to eq(new_patient_pd_pet_adequacy_result_path(patient))
+        expect(page).to have_current_path(new_patient_pd_pet_adequacy_result_path(patient))
 
         within(".pet-adequacy-form") do
 

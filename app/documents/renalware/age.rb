@@ -35,7 +35,7 @@ module Renalware
     private
 
     def validate_unit
-      return unless amount.present?
+      return if amount.blank?
 
       if amount < Age.age_in_months_threshold && unit.to_sym != :months
         errors.add(:unit, :invalid_unit)

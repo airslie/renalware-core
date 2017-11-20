@@ -24,13 +24,13 @@ module Renalware
 
             group = options.to_a[0]
             expect(group.users).to include(recipient1)
-            expect(group.users).to_not include(author)
+            expect(group.users).not_to include(author)
 
             group = options.to_a[1]
             expect(group.users).to be_empty
 
             group = options.to_a[2]
-            expect(group.users).to_not include(recipient1)
+            expect(group.users).not_to include(recipient1)
             expect(group.users).to include(author)
           end
         end
@@ -53,10 +53,10 @@ module Renalware
 
             group = options.to_a[1]
             expect(group.users).to include(recipient1)
-            expect(group.users).to_not include(author)
+            expect(group.users).not_to include(author)
 
             group = options.to_a[2]
-            expect(group.users).to_not include(recipient1)
+            expect(group.users).not_to include(recipient1)
             expect(group.users).to include(author)
           end
         end

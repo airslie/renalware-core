@@ -7,8 +7,10 @@ module Renalware::Hospitals
     it { is_expected.to belong_to(:hospital_unit) }
 
     describe "uniqueness" do
-      let(:unit) { create(:hospital_unit) }
       subject { described_class.new(name: "X", hospital_unit_id: unit.id) }
+
+      let(:unit) { create(:hospital_unit) }
+
       it { is_expected.to validate_uniqueness_of(:name).scoped_to(:hospital_unit_id) }
     end
   end

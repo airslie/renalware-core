@@ -6,7 +6,7 @@ module Renalware
       MAX_VALUE = 300
 
       def validate(bp)
-        apply_validations(bp) unless bp.blank?
+        apply_validations(bp) if bp.present?
       end
 
       private

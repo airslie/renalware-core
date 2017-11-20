@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware
   describe Accountable do
     before do
-      @klass = Class.new(ActiveRecord::Base) do
+      @klass = Class.new(ApplicationRecord) do
         self.table_name = "quxes"
         include Accountable
 
@@ -13,13 +13,10 @@ module Renalware
       end
 
       @klass.reset_column_information
+      create_relation
     end
 
     let(:created_by_user) { create(:user) }
-
-    before do
-      create_relation
-    end
 
     describe "#create" do
       context "given the created user is explicity assigned" do

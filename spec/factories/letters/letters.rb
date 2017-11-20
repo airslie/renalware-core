@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :letter, class: "Renalware::Letters::Letter" do
     accountable
 
-    issued_on Time.zone.today
+    issued_on { Time.zone.today }
     description "This is a custom description"
     body "I am pleased to report a marked improvement in her condition."
 

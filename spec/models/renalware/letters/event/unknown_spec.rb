@@ -23,7 +23,7 @@ module Renalware::Letters
       end
 
       it "is clinical" do
-        expect(subject.clinical?).to be_truthy
+        expect(subject).to be_clinical
       end
     end
 
@@ -41,7 +41,7 @@ module Renalware::Letters
       end
 
       it "is not clinical" do
-        expect(subject.clinical?).to be_falsey
+        expect(subject).not_to be_clinical
       end
     end
   end

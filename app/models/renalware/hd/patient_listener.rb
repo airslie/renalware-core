@@ -1,4 +1,3 @@
-# rubocop:disable Rails/SkipsModelValidations
 module Renalware
   module HD
     class PatientListener

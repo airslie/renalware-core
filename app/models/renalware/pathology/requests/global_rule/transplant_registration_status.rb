@@ -9,7 +9,7 @@ module Renalware
 
           def observation_required_for_patient?(patient, _date)
             registration = Transplants::Registration.for_patient(patient).first
-            return false unless registration.present?
+            return false if registration.blank?
 
             registration_status = registration.current_status
             registration_status.description.code == param_comparison_value

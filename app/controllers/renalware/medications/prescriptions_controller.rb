@@ -71,7 +71,6 @@ module Renalware
       end
 
       # rubocop:disable Metrics/LineLength
-      # rubocop:disable Metrics/MethodLength
       def render_prescriptions_list_to_hand_to_patient
         render(
           pdf_options.merge(

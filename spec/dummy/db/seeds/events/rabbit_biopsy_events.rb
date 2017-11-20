@@ -8,7 +8,7 @@ module Renalware
         @user_id = Renalware::User.first.id
       end
 
-      def call(on: Time.now - 2.weeks,
+      def call(on: Time.zone.now - 2.weeks,
                result1: Events::Biopsy::Document.result1.values.first,
                result2: Events::Biopsy::Document.result2.values.last,
                notes: "Lorem ipusm")
@@ -27,7 +27,7 @@ module Renalware
       end
     end
 
-    CreateBiopsy.new.call(on: Time.now - 1.month)
-    CreateBiopsy.new.call(on: Time.now - 1.week)
+    CreateBiopsy.new.call(on: Time.zone.now - 1.month)
+    CreateBiopsy.new.call(on: Time.zone.now - 1.week)
   end
 end

@@ -15,18 +15,18 @@ module Renalware
 
         it "returns only those patients having finished sessions in the specific period" do
           # patient1 has a session outside the period so he won't be returned
-          travel_to Time.parse("2016-11-30 23:59:00") do
-            create(:hd_closed_session, patient: patient1, signed_off_at: Time.now)
+          travel_to Time.zone.parse("2016-11-30 23:59:00") do
+            create(:hd_closed_session, patient: patient1, signed_off_at: Time.zone.now)
           end
 
           # patient2 will be returned as she has an closed session in the period
-          travel_to Time.parse("2016-12-01 01:00:01") do
-            create(:hd_closed_session, patient: patient2, signed_off_at: Time.now)
+          travel_to Time.zone.parse("2016-12-01 01:00:01") do
+            create(:hd_closed_session, patient: patient2, signed_off_at: Time.zone.now)
           end
 
           # patient3 has a session outside the period so won't be returned
-          travel_to Time.parse("2017-01-01 00:00:01") do
-            create(:hd_closed_session, patient: patient3, signed_off_at: Time.now)
+          travel_to Time.zone.parse("2017-01-01 00:00:01") do
+            create(:hd_closed_session, patient: patient3, signed_off_at: Time.zone.now)
           end
 
           patients = query.call

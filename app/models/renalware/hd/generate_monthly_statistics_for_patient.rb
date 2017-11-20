@@ -40,7 +40,7 @@ module Renalware
       end
 
       def most_recently_used_hospital_unit(sessions)
-        sessions.last.try!(:hospital_unit)
+        sessions.last&.hospital_unit
       end
     end
   end

@@ -69,7 +69,7 @@ RSpec.describe "Managing patients", type: :request do
         patch patient_path(patient), params: { patient: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Patient.exists?(attributes)).to be_truthy
+        expect(Renalware::Patient).to exist(attributes)
 
         updated_patient = Renalware::Patient.find_by(attributes)
         expect(updated_patient.updated_by).to eq(@current_user)

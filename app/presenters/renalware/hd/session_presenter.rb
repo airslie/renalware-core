@@ -30,9 +30,7 @@ module Renalware
         self.class.to_s.demodulize.downcase
       end
 
-      def class
-        __getobj__.class
-      end
+      delegate :class, to: :__getobj__
 
       def initialize(session, view_context = nil)
         @view_context = view_context

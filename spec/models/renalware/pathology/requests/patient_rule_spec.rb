@@ -1,15 +1,6 @@
 require "rails_helper"
 
 describe Renalware::Pathology::Requests::PatientRule do
-  it { is_expected.to validate_presence_of(:lab) }
-  it { is_expected.to validate_presence_of(:test_description) }
-  it { is_expected.to validate_presence_of(:frequency_type) }
-  it { is_expected.to validate_presence_of(:patient_id) }
-  it do
-    is_expected.to validate_inclusion_of(:frequency_type)
-      .in_array(Renalware::Pathology::Requests::Frequency.all_names)
-  end
-
   subject(:patient_rule) do
     create(
       :pathology_requests_patient_rule,
@@ -21,6 +12,15 @@ describe Renalware::Pathology::Requests::PatientRule do
   end
 
   let(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
+
+  it { is_expected.to validate_presence_of(:lab) }
+  it { is_expected.to validate_presence_of(:test_description) }
+  it { is_expected.to validate_presence_of(:frequency_type) }
+  it { is_expected.to validate_presence_of(:patient_id) }
+  it do
+    is_expected.to validate_inclusion_of(:frequency_type)
+      .in_array(Renalware::Pathology::Requests::Frequency.all_names)
+  end
 
   describe "#required?" do
     context "given the specified date is not within the patient_rule's start/end date range" do

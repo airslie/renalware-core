@@ -27,7 +27,7 @@ When(/^complete the prescription form by drug search$/) do
 
   fill_in "Drug", with: "amo"
 
-  page.execute_script %Q( $('#drug_search').trigger('keydown'); )
+  page.execute_script " $('#drug_search').trigger('keydown'); "
   within(".drug-results") do
     expect(page).to have_css("li", text: "Amoxicillin")
   end

@@ -10,6 +10,6 @@ feature "View Admission Request", type: :feature do
       click_on "Admission Requests"
     end
 
-    expect(page.current_path).to eq(admissions_requests_path)
+    expect(page).to have_current_path(admissions_requests_path)
   end
 end

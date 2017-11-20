@@ -60,9 +60,7 @@ module Renalware
             patient_with_no_cod = create_patient_passing_preflight_checks
             # Using update_column here (bypassing modal validation) as we can't set :first_cause
             # to nil using an update without getting a validation error
-            # rubocop:disable Rails/SkipsModelValidations
             patient_with_no_cod.update_column(:first_cause_id, nil)
-            # rubocop:enable Rails/SkipsModelValidations
 
             patients = described_class.new.call
 

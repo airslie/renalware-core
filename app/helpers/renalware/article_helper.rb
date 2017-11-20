@@ -9,7 +9,7 @@ module Renalware
     # </article>
     def article_tag(title = nil, options = nil, &block)
       output = tag(:article, options, true)
-      unless title.blank?
+      if title.present?
         output.safe_concat(
           content_tag("header".freeze) do
             content_tag("h1".freeze, title)

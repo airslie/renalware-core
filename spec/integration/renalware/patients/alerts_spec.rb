@@ -67,12 +67,12 @@ RSpec.describe "Managing alerts", type: :request do
       delete patient_alert_path(patient, alert), headers: headers
 
       expect(response).to have_http_status(:success)
-      expect(Renalware::Patients::Alert.exists?(id: alert.id)).to be_falsey
+      expect(Renalware::Patients::Alert).not_to exist(id: alert.id)
     end
 
     it "does not baulk if the alert has already been deleted" do
       alert.destroy!
-      expect(Renalware::Patients::Alert.exists?(id: alert.id)).to be_falsey
+      expect(Renalware::Patients::Alert).not_to exist(id: alert.id)
       headers = {
         "HTTP_REFERER" => "/",
         "ACCEPT" => "application/javascript"
@@ -81,7 +81,7 @@ RSpec.describe "Managing alerts", type: :request do
       delete patient_alert_path(patient, alert), headers: headers
 
       expect(response).to have_http_status(:success)
-      expect(Renalware::Patients::Alert.exists?(id: alert.id)).to be_falsey
+      expect(Renalware::Patients::Alert).not_to exist(id: alert.id)
 
       # Check the alert is still available in the #undeleted scope
       expect(Renalware::Patients::Alert.count).to eq(0)

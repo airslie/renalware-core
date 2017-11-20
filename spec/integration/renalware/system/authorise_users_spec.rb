@@ -21,12 +21,12 @@ module Renalware
       click_on "Unapproved"
 
       click_link "Edit"
-      expect(current_path).to eq(edit_admin_user_path(@unapproved))
+      expect(page).to have_current_path(edit_admin_user_path(@unapproved))
 
       check "Clinician"
       click_on "Approve"
 
-      expect(current_path).to eq(admin_users_path)
+      expect(page).to have_current_path(admin_users_path)
       expect(page).to have_content("You have successfully updated this user.")
       expect(@unapproved.reload).to be_approved
       expect(@unapproved.roles).to match_array([@clinician_role])
@@ -36,11 +36,11 @@ module Renalware
       click_on "Unapproved"
 
       click_link "Edit"
-      expect(current_path).to eq(edit_admin_user_path(@unapproved))
+      expect(page).to have_current_path(edit_admin_user_path(@unapproved))
 
       click_on "Approve"
 
-      expect(current_path).to eq(admin_user_path(@unapproved))
+      expect(page).to have_current_path(admin_user_path(@unapproved))
       expect(@unapproved.reload).not_to be_approved
       expect(page).to have_content("You have failed to update this user.")
       expect(page).to have_content(/approved users must have a role/)
@@ -48,12 +48,12 @@ module Renalware
 
     scenario "An admin removes all roles from a user" do
       first("tbody tr##{dom_id(@approved)}").click_link("Edit")
-      expect(current_path).to eq(edit_admin_user_path(@approved))
+      expect(page).to have_current_path(edit_admin_user_path(@approved))
 
       uncheck "Clinician"
       click_on "Update"
 
-      expect(current_path).to eq(admin_user_path(@approved))
+      expect(page).to have_current_path(admin_user_path(@approved))
       expect(page).to have_content("You have failed to update this user.")
       expect(page).to have_content(/approved users must have a role/)
     end
@@ -62,12 +62,12 @@ module Renalware
       within("tbody") do
         find("a[href='#{edit_admin_user_path(@approved)}']").click
       end
-      expect(current_path).to eq(edit_admin_user_path(@approved))
+      expect(page).to have_current_path(edit_admin_user_path(@approved))
 
       check "Clinician"
       click_on "Update"
 
-      expect(current_path).to eq(admin_users_path)
+      expect(page).to have_current_path(admin_users_path)
       expect(page).to have_content("You have successfully updated this")
       expect(@approved.reload).to be_approved
       expect(@approved.roles).to include(@clinician_role)
@@ -77,12 +77,12 @@ module Renalware
       click_link "Inactive"
 
       first("tbody tr").click_link("Edit")
-      expect(current_path).to eq(edit_admin_user_path(@expired))
+      expect(page).to have_current_path(edit_admin_user_path(@expired))
 
       check "Reactivate account"
       click_on "Update"
 
-      expect(current_path).to eq(admin_users_path)
+      expect(page).to have_current_path(admin_users_path)
       expect(page).to have_content("You have successfully updated this")
       expect(@expired.reload.expired_at).to be_nil
 
@@ -106,7 +106,7 @@ module Renalware
       within("tbody") do
         find("a[href='#{edit_admin_user_path(superadmin)}']").click
       end
-      expect(current_path).to eq(edit_admin_user_path(superadmin))
+      expect(page).to have_current_path(edit_admin_user_path(superadmin))
 
       # may be already unchecked, but just to be sure this person has no roles
       # other than the hidden superadmin role
@@ -115,7 +115,7 @@ module Renalware
 
       # They are as super-admin so submit should succeed and the super-admin
       # role be preserved because that can only be changed on the command line.
-      expect(current_path).to eq(admin_users_path)
+      expect(page).to have_current_path(admin_users_path)
       superadmin.reload
       expect(superadmin.role_names).to include("super_admin")
       expect(superadmin.roles).not_to include(@clinician_role)

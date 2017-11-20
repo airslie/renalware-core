@@ -9,7 +9,7 @@ def create_observation(patient, request_description)
     request = pathology_patient.observation_requests.create!(
       description: request_description,
       requestor_order_number: rand(100000),
-      requested_at: Time.now,
+      requested_at: Time.zone.now,
       requestor_name: "Dr Stanley Fan",
     )
 

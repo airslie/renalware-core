@@ -47,7 +47,7 @@ module Renalware
 
                 # Fills 1,4,7 follow a complete drain, so are the full `fill_volumne`
                 # Fills 2,3,5,6,8,9 are fill_volume * tidal percentage e.g. 0.75
-                expect(regime.tidal_full_drain_every_three_cycles?).to be_truthy
+                expect(regime).to be_tidal_full_drain_every_three_cycles
                 expected_overnight_volume = (3 * 1500) + (6 * (1500 * 0.80))
                 expect(overnight_volume).to eq(expected_overnight_volume)
                 expect(overnight_volume).to be_a(Integer)
@@ -69,9 +69,6 @@ module Renalware
               end
             end
           end
-        end
-
-        describe "#daily_volume" do
         end
       end
     end

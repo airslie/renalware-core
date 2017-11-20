@@ -12,12 +12,14 @@ module Renalware
 
         context "when the user is resetting their password via devise passwords#edit" do
           subject{ described_class.new(reset_password_token: "123") }
-          it { is_expected.to_not validate_presence_of(:professional_position).on(:update) }
+
+          it { is_expected.not_to validate_presence_of(:professional_position).on(:update) }
         end
 
         context "when a super_admin user is updating" do
           subject{ described_class.new(super_admin_update: true) }
-          it { is_expected.to_not validate_presence_of(:professional_position).on(:update) }
+
+          it { is_expected.not_to validate_presence_of(:professional_position).on(:update) }
         end
       end
 
@@ -26,12 +28,14 @@ module Renalware
 
         context "when the user is resetting their password via devise passwords#edit" do
           subject{ described_class.new(reset_password_token: "123") }
-          it { is_expected.to_not validate_presence_of(:signature).on(:update) }
+
+          it { is_expected.not_to validate_presence_of(:signature).on(:update) }
         end
 
         context "when a super_admin user is updating" do
           subject{ described_class.new(super_admin_update: true) }
-          it { is_expected.to_not validate_presence_of(:signature).on(:update) }
+
+          it { is_expected.not_to validate_presence_of(:signature).on(:update) }
         end
       end
     end
@@ -57,6 +61,7 @@ module Renalware
 
     describe "#professional_signature" do
       subject(:user) { User.new(given_name: "X", family_name: "Y") }
+
       context "when there is no professional_position" do
         context "when there is no signature" do
           it "returns the full name only" do

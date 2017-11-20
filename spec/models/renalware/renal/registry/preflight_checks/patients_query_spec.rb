@@ -57,7 +57,7 @@ module Renalware
             expect(patients).to include(pd_patient)
             expect(patients).to include(hd_patient)
             expect(patients).to include(tx_patient)
-            expect(patients).to_not include(death_patient)
+            expect(patients).not_to include(death_patient)
           end
 
           it "returns patients without an ethnicity" do

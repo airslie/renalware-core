@@ -28,7 +28,7 @@ module Renalware
         click_on "Live Donors"
       end
 
-      expect(page.current_path).to eq(transplants_live_donors_path)
+      expect(page).to have_current_path(transplants_live_donors_path)
       expect(page).to have_content(live_donor.family_name.upcase)
       expect(page).to have_no_content(non_live_donor.family_name.upcase)
     end
