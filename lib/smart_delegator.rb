@@ -19,7 +19,6 @@
 #           invokes `mymessage` returning self ->
 #             returns SmartDelegator decorating OriginalObject
 class SmartDelegator
-
   attr_reader :object
 
   def initialize(object)

@@ -3,7 +3,6 @@ require_dependency "renalware/snippets"
 module Renalware
   module Snippets
     class SnippetInvocationsController < BaseController
-
       def create
         snippet = Snippet.find(params[:snippet_id])
         authorize snippet

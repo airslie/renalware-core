@@ -1,7 +1,6 @@
 module Renalware
   module Transplants
     class PatientPresenter < SimpleDelegator
-
       def initialize(patient)
         patient = patient.__getobj__ if patient.respond_to?(:__getobj__)
         super(Transplants.cast_patient(patient))

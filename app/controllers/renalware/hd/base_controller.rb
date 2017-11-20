@@ -3,7 +3,6 @@ require_dependency "renalware/hd"
 module Renalware
   module HD
     class BaseController < Renalware::BaseController
-
       private
 
       def load_patient

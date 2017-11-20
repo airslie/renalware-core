@@ -2,7 +2,6 @@ module Renalware
   module HD
     module Sessions
       class ProtocolSessionsQuery
-
         def initialize(patient:, limit: 3)
           @patient = patient
           @limit = limit

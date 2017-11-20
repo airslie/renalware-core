@@ -2,7 +2,6 @@ module Renalware
   module HD
     module Sessions
       class AuditablePatientSessionsInPeriodQuery
-
         def initialize(patient:, period:)
           @patient = patient
           @period = period

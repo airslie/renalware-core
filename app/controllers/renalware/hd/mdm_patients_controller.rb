@@ -1,7 +1,6 @@
 module Renalware
   module HD
     class MDMPatientsController < Renalware::MDMPatientsController
-
       def render_index(**args)
         presenter = build_presenter(params: params, **args)
         authorize presenter.patients

@@ -3,7 +3,6 @@ require_dependency "renalware/hd"
 module Renalware
   module HD
     class PatientsWithUnmetPreferencesQuery
-
       def initialize(query = {})
         @query = query
       end

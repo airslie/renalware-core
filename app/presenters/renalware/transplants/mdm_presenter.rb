@@ -1,7 +1,6 @@
 module Renalware
   module Transplants
     class MDMPresenter < Renalware::MDMPresenter
-
       def recipient_operations
         RecipientOperation.for_patient(patient).reversed
       end

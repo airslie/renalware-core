@@ -3,7 +3,6 @@ require_dependency "renalware/research"
 module Renalware
   module Research
     class StudiesController < BaseController
-
       def index
         studies = Study.ordered
         authorize studies

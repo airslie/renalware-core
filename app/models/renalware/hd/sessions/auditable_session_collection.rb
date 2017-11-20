@@ -15,7 +15,6 @@ module Renalware
   module HD
     module Sessions
       class AuditableSessionCollection < SimpleDelegator
-
         AUDITABLE_ATTRIBUTES = %i(
           number_of_missed_sessions
           dialysis_minutes_shortfall

@@ -62,7 +62,6 @@ module Renalware
         #  diary year 2017 week 3
         #  select
       end
-
     end
   end
 end

@@ -3,7 +3,6 @@ require_dependency "renalware/snippets"
 module Renalware
   module Snippets
     class SnippetsController < BaseController
-
       def index
         authorize Snippet, :index?
         snippets = snippets_for_author(author)

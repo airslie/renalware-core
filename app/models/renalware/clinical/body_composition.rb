@@ -30,7 +30,6 @@ module Renalware
       validates :body_cell_mass, presence: true, numeric_inclusion: { in: 0..150 }
       validates :quality_of_reading, presence: true, numeric_inclusion: { in: 50..100 }
       validates :assessed_on, presence: true, timeliness: { type: :date, allow_blank: false }
-
     end
   end
 end

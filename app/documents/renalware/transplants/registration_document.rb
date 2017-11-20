@@ -4,7 +4,6 @@ require "document/enum"
 module Renalware
   module Transplants
     class RegistrationDocument < Document::Embedded
-
       class Codes < Document::Embedded
         attribute :uk_transplant_centre_code
         attribute :uk_transplant_patient_recipient_number

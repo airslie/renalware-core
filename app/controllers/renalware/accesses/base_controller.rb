@@ -1,7 +1,6 @@
 module Renalware
   module Accesses
     class BaseController < Renalware::BaseController
-
       protected
 
       def patient

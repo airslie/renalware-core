@@ -5,7 +5,6 @@ require_dependency "renalware/renal"
 module Renalware
   module Renal
     class PatientDrop < Liquid::Drop
-
       def initialize(patient)
         @patient = Renal.cast_patient(patient)
       end

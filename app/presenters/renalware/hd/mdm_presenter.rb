@@ -1,7 +1,6 @@
 module Renalware
   module HD
     class MDMPresenter < Renalware::MDMPresenter
-
       NullObject = Naught.build do |config|
         config.black_hole
         config.define_explicit_conversions

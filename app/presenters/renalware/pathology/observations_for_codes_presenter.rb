@@ -3,7 +3,6 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ObservationsForCodesPresenter
-
       # Example usage
       #   ObservationsForCodesPresenter.new(patient: patient, codes: %w(HBA FER PHT))
       def initialize(patient:, codes:)

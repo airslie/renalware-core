@@ -4,7 +4,6 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class DonorStagesController < BaseController
-
       def new
         stage = DonorStage.new(patient: patient)
         authorize stage

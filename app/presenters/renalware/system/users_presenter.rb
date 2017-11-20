@@ -1,7 +1,6 @@
 module Renalware
   module System
     class UsersPresenter
-
       def list_for_dropdown(user_to_promote_to_top: nil)
         return users if user_to_promote_to_top.blank?
         matching_user = users.detect{ |user| user.id == user_to_promote_to_top.id }

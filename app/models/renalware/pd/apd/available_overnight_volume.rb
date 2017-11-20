@@ -5,7 +5,6 @@ module Renalware
   module PD
     module APD
       class AvailableOvernightVolume
-
         def initialize(regime:)
           @regime = regime
         end

@@ -4,7 +4,6 @@ require_dependency "renalware/renal/base_controller"
 module Renalware
   module Renal
     class ProfilesController < BaseController
-
       before_action :load_patient
 
       def show

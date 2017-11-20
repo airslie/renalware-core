@@ -37,7 +37,6 @@ module Renalware
         return if info.access_side.blank?
         info.access_side[0].upcase
       end
-
     end
   end
 end

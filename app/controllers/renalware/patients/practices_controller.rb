@@ -3,7 +3,6 @@ require_dependency "renalware/patients"
 module Renalware
   module Patients
     class PracticesController < BaseController
-
       # Search for GP Practices matching part of a name
       def search
         authorize Practice, :search?

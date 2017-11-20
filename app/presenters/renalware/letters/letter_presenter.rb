@@ -4,7 +4,6 @@ require "collection_presenter"
 module Renalware
   module Letters
     class LetterPresenter < DumbDelegator
-
       def type
         letter_event.to_link.call(patient)
       end

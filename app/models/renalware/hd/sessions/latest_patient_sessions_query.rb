@@ -2,7 +2,6 @@ module Renalware
   module HD
     module Sessions
       class LatestPatientSessionsQuery
-
         def initialize(patient:)
           @patient = patient
         end

@@ -3,7 +3,6 @@ require "renalware/letters/part"
 module Renalware
   module Letters
     class Part::RecentPathologyResults < Part
-
       delegate :each, :any?, :present?, to: :recent_pathology_results
 
       def to_partial_path

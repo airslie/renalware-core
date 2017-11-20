@@ -1,7 +1,6 @@
 module Renalware
   module HD
     class UpdateRollingPatientStatistics < ApplicationJob
-
       def initialize(patient:)
         @patient = patient
       end

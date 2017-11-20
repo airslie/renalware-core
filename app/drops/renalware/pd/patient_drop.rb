@@ -5,7 +5,6 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class PatientDrop < Liquid::Drop
-
       def initialize(patient)
         @patient = PD.cast_patient(patient)
       end

@@ -80,7 +80,6 @@ module Renalware
       end
 
       attr_accessor :view_context, :current_user
-
     end
   end
 end

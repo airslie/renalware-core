@@ -3,7 +3,6 @@ require_dependency "renalware/modalities"
 module Renalware
   module Modalities
     class DescriptionsController < BaseController
-
       def new
         modality_description = Description.new
         authorize modality_description

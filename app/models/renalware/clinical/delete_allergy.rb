@@ -1,7 +1,6 @@
 module Renalware
   module Clinical
     class DeleteAllergy
-
       def initialize(allergy, user)
         @allergy = allergy
         @user = user

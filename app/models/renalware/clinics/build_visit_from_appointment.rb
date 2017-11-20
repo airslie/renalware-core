@@ -1,7 +1,6 @@
 module Renalware
   module Clinics
     class BuildVisitFromAppointment
-
       def initialize(appointment)
         @appointment = appointment
       end

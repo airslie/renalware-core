@@ -4,7 +4,6 @@ require_dependency "collection_presenter"
 module Renalware
   module Letters
     class ContactsPresenter < CollectionPresenter
-
       # An array of contacts for use in a simple_form drop down.
       # The data-salutation is added (the final hash argument very kindly merges * onto the <option>
       # so we could add other options here too.

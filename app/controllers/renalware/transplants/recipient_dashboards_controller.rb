@@ -3,7 +3,6 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class RecipientDashboardsController < BaseController
-
       def show
         authorize patient
         render locals: locals
