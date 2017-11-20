@@ -101,6 +101,20 @@ They all share the password `renalware`
     bundle exec foreman start
     tail -f spec/dummy/log/developments.log
 
+## Running background jobs
+
+Some work goes on in the background, for example the processing of HL7 messages.
+
+To start background job processing in development:
+
+    bin/delayed_job run
+
+Run `bin/delayed_job` for other options.
+
+delayed_job logs to its own log. To see the output:
+
+    tail -f spec/dummy/log/delayed_job.log
+
 ## Running tests
 
 Install PhantomJS if you don't have it already (check with `phantomjs -v`).
