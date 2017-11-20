@@ -4,11 +4,11 @@ jobs:
     working_directory: ~/renalwarev2
     docker:
       # We use a custom docker image uploaded to DockerHub - see the Dockerfile in this folder.
-      - image: airslie/renalware-circleci-primary:0.0.2
+      - image: airslie/renalware-development:0.0.3
         environment:
           - RAILS_ENV: test
           - RACK_ENV: test
-      - image: circleci/postgres:9.6.2-alpine
+      - image: circleci/postgres:10.1-alpine
 
     # SimpleCov will save coverage data to the CIRCLE_ARTIFACTS folder
     # environment:

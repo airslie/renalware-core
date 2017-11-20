@@ -16,11 +16,12 @@ module World
         # noop web only test
       end
 
+      # Time.zone.now
       def valid_open_session_attributes(patient)
         {
           patient: patient,
           hospital_unit: Renalware::Hospitals::Unit.hd_sites.first,
-          start_time: Time.zone.now,
+          start_time: Time.zone.parse("6pm"),
           document: {
           }
         }
@@ -48,9 +49,10 @@ module World
                   "temperature": 36.0, "blood_pressure": {"systolic": 100, "diastolic": 80}}}
         END
 
+        # "23:59"
         valid_open_session_attributes(patient).merge(
           {
-            end_time: "23:59",
+            end_time: Time.zone.parse("10pm"),
             dialysate_id: Renalware::HD::Dialysate.first,
             document: JSON.parse(json)
           }

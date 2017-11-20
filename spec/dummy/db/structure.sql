@@ -126,6 +126,7 @@ CREATE TABLE access_assessments (
 --
 
 CREATE SEQUENCE access_assessments_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -158,6 +159,7 @@ CREATE TABLE access_catheter_insertion_techniques (
 --
 
 CREATE SEQUENCE access_catheter_insertion_techniques_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -190,6 +192,7 @@ CREATE TABLE access_plan_types (
 --
 
 CREATE SEQUENCE access_plan_types_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -227,6 +230,7 @@ CREATE TABLE access_plans (
 --
 
 CREATE SEQUENCE access_plans_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -272,6 +276,7 @@ CREATE TABLE access_procedures (
 --
 
 CREATE SEQUENCE access_procedures_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -312,6 +317,7 @@ CREATE TABLE access_profiles (
 --
 
 CREATE SEQUENCE access_profiles_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -344,6 +350,7 @@ CREATE TABLE access_sites (
 --
 
 CREATE SEQUENCE access_sites_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -378,6 +385,7 @@ CREATE TABLE access_types (
 --
 
 CREATE SEQUENCE access_types_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -413,6 +421,7 @@ CREATE TABLE access_versions (
 --
 
 CREATE SEQUENCE access_versions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -456,6 +465,7 @@ CREATE TABLE addresses (
 --
 
 CREATE SEQUENCE addresses_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -619,6 +629,7 @@ CREATE TABLE clinic_appointments (
 --
 
 CREATE SEQUENCE clinic_appointments_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -651,6 +662,7 @@ CREATE TABLE clinic_clinics (
 --
 
 CREATE SEQUENCE clinic_clinics_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -686,6 +698,7 @@ CREATE TABLE clinic_versions (
 --
 
 CREATE SEQUENCE clinic_versions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -735,6 +748,7 @@ CREATE TABLE clinic_visits (
 --
 
 CREATE SEQUENCE clinic_visits_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -769,6 +783,7 @@ CREATE TABLE clinical_allergies (
 --
 
 CREATE SEQUENCE clinical_allergies_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -818,6 +833,7 @@ CREATE TABLE clinical_body_compositions (
 --
 
 CREATE SEQUENCE clinical_body_compositions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -854,6 +870,7 @@ CREATE TABLE clinical_dry_weights (
 --
 
 CREATE SEQUENCE clinical_dry_weights_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -889,6 +906,7 @@ CREATE TABLE clinical_versions (
 --
 
 CREATE SEQUENCE clinical_versions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -922,6 +940,7 @@ CREATE TABLE death_causes (
 --
 
 CREATE SEQUENCE death_causes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -961,6 +980,7 @@ CREATE TABLE delayed_jobs (
 --
 
 CREATE SEQUENCE delayed_jobs_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -996,6 +1016,7 @@ CREATE TABLE directory_people (
 --
 
 CREATE SEQUENCE directory_people_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1038,6 +1059,7 @@ CREATE TABLE drug_types_drugs (
 --
 
 CREATE SEQUENCE drug_types_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1070,6 +1092,7 @@ CREATE TABLE drugs (
 --
 
 CREATE SEQUENCE drugs_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1104,6 +1127,7 @@ CREATE TABLE event_types (
 --
 
 CREATE SEQUENCE event_types_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1143,6 +1167,7 @@ CREATE TABLE events (
 --
 
 CREATE SEQUENCE events_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1176,6 +1201,7 @@ CREATE TABLE feed_messages (
 --
 
 CREATE SEQUENCE feed_messages_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1208,6 +1234,7 @@ CREATE TABLE hd_cannulation_types (
 --
 
 CREATE SEQUENCE hd_cannulation_types_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1276,6 +1303,7 @@ CREATE TABLE hd_dialysers (
 --
 
 CREATE SEQUENCE hd_dialysers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1441,6 +1469,7 @@ CREATE TABLE hd_patient_statistics (
 --
 
 CREATE SEQUENCE hd_patient_statistics_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1479,6 +1508,7 @@ CREATE TABLE hd_preference_sets (
 --
 
 CREATE SEQUENCE hd_preference_sets_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1515,6 +1545,7 @@ CREATE TABLE hd_prescription_administrations (
 --
 
 CREATE SEQUENCE hd_prescription_administrations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1560,6 +1591,7 @@ CREATE TABLE hd_profiles (
 --
 
 CREATE SEQUENCE hd_profiles_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1642,6 +1674,7 @@ CREATE TABLE hd_sessions (
 --
 
 CREATE SEQUENCE hd_sessions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1744,6 +1777,7 @@ CREATE TABLE hd_versions (
 --
 
 CREATE SEQUENCE hd_versions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1779,6 +1813,7 @@ CREATE TABLE hospital_centres (
 --
 
 CREATE SEQUENCE hospital_centres_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1815,6 +1850,7 @@ CREATE TABLE hospital_units (
 --
 
 CREATE SEQUENCE hospital_units_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1882,6 +1918,7 @@ CREATE TABLE letter_archives (
 --
 
 CREATE SEQUENCE letter_archives_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1915,6 +1952,7 @@ CREATE TABLE letter_contact_descriptions (
 --
 
 CREATE SEQUENCE letter_contact_descriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1951,6 +1989,7 @@ CREATE TABLE letter_contacts (
 --
 
 CREATE SEQUENCE letter_contacts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1982,6 +2021,7 @@ CREATE TABLE letter_descriptions (
 --
 
 CREATE SEQUENCE letter_descriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2051,6 +2091,7 @@ CREATE TABLE letter_letterheads (
 --
 
 CREATE SEQUENCE letter_letterheads_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2097,6 +2138,7 @@ CREATE TABLE letter_letters (
 --
 
 CREATE SEQUENCE letter_letters_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2132,6 +2174,7 @@ CREATE TABLE letter_recipients (
 --
 
 CREATE SEQUENCE letter_recipients_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2165,6 +2208,7 @@ CREATE TABLE letter_signatures (
 --
 
 CREATE SEQUENCE letter_signatures_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2261,6 +2305,7 @@ CREATE VIEW medication_current_prescriptions AS
 --
 
 CREATE SEQUENCE medication_prescription_terminations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2296,6 +2341,7 @@ CREATE TABLE medication_prescription_versions (
 --
 
 CREATE SEQUENCE medication_prescription_versions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2315,6 +2361,7 @@ ALTER SEQUENCE medication_prescription_versions_id_seq OWNED BY medication_presc
 --
 
 CREATE SEQUENCE medication_prescriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2349,6 +2396,7 @@ CREATE TABLE medication_routes (
 --
 
 CREATE SEQUENCE medication_routes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2451,6 +2499,7 @@ CREATE TABLE modality_descriptions (
 --
 
 CREATE SEQUENCE modality_descriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2491,6 +2540,7 @@ CREATE TABLE modality_modalities (
 --
 
 CREATE SEQUENCE modality_modalities_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2525,6 +2575,7 @@ CREATE TABLE modality_reasons (
 --
 
 CREATE SEQUENCE modality_reasons_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2728,6 +2779,7 @@ CREATE TABLE pathology_labs (
 --
 
 CREATE SEQUENCE pathology_labs_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2777,6 +2829,7 @@ ALTER SEQUENCE pathology_measurement_units_id_seq OWNED BY pathology_measurement
 --
 
 CREATE SEQUENCE pathology_observation_descriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2796,6 +2849,7 @@ ALTER SEQUENCE pathology_observation_descriptions_id_seq OWNED BY pathology_obse
 --
 
 CREATE SEQUENCE pathology_observation_requests_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2815,6 +2869,7 @@ ALTER SEQUENCE pathology_observation_requests_id_seq OWNED BY pathology_observat
 --
 
 CREATE SEQUENCE pathology_observations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2849,6 +2904,7 @@ CREATE TABLE pathology_request_descriptions (
 --
 
 CREATE SEQUENCE pathology_request_descriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2879,6 +2935,7 @@ CREATE TABLE pathology_request_descriptions_requests_requests (
 --
 
 CREATE SEQUENCE pathology_request_descriptions_requests_requests_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2908,6 +2965,7 @@ CREATE TABLE pathology_requests_drug_categories (
 --
 
 CREATE SEQUENCE pathology_requests_drug_categories_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2938,6 +2996,7 @@ CREATE TABLE pathology_requests_drugs_drug_categories (
 --
 
 CREATE SEQUENCE pathology_requests_drugs_drug_categories_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2969,6 +3028,7 @@ CREATE TABLE pathology_requests_global_rule_sets (
 --
 
 CREATE SEQUENCE pathology_requests_global_rule_sets_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3003,6 +3063,7 @@ CREATE TABLE pathology_requests_global_rules (
 --
 
 CREATE SEQUENCE pathology_requests_global_rules_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3039,6 +3100,7 @@ CREATE TABLE pathology_requests_patient_rules (
 --
 
 CREATE SEQUENCE pathology_requests_patient_rules_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3069,6 +3131,7 @@ CREATE TABLE pathology_requests_patient_rules_requests (
 --
 
 CREATE SEQUENCE pathology_requests_patient_rules_requests_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3107,6 +3170,7 @@ CREATE TABLE pathology_requests_requests (
 --
 
 CREATE SEQUENCE pathology_requests_requests_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3179,6 +3243,7 @@ CREATE TABLE patient_bookmarks (
 --
 
 CREATE SEQUENCE patient_bookmarks_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3212,6 +3277,7 @@ CREATE TABLE patient_ethnicities (
 --
 
 CREATE SEQUENCE patient_ethnicities_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3242,6 +3308,7 @@ CREATE TABLE patient_languages (
 --
 
 CREATE SEQUENCE patient_languages_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3275,6 +3342,7 @@ CREATE TABLE patient_practices (
 --
 
 CREATE SEQUENCE patient_practices_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3321,6 +3389,7 @@ CREATE TABLE patient_primary_care_physicians (
 --
 
 CREATE SEQUENCE patient_primary_care_physicians_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3350,6 +3419,7 @@ CREATE TABLE patient_religions (
 --
 
 CREATE SEQUENCE patient_religions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3434,7 +3504,7 @@ CREATE VIEW patient_summaries AS
     ( SELECT count(*) AS count
            FROM (medication_prescriptions p
              FULL JOIN medication_prescription_terminations pt ON ((pt.prescription_id = p.id)))
-          WHERE ((p.patient_id = patients.id) AND ((pt.terminated_on IS NULL) OR (pt.terminated_on > now())))) AS prescriptions_count,
+          WHERE ((p.patient_id = patients.id) AND ((pt.terminated_on IS NULL) OR (pt.terminated_on > CURRENT_TIMESTAMP)))) AS prescriptions_count,
     ( SELECT count(*) AS count
            FROM letter_contacts
           WHERE (letter_contacts.patient_id = patients.id)) AS contacts_count,
@@ -3465,6 +3535,7 @@ CREATE TABLE patient_versions (
 --
 
 CREATE SEQUENCE patient_versions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3499,6 +3570,7 @@ CREATE TABLE patient_worries (
 --
 
 CREATE SEQUENCE patient_worries_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3518,6 +3590,7 @@ ALTER SEQUENCE patient_worries_id_seq OWNED BY patient_worries.id;
 --
 
 CREATE SEQUENCE patients_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3552,6 +3625,7 @@ CREATE TABLE pd_assessments (
 --
 
 CREATE SEQUENCE pd_assessments_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3596,6 +3670,7 @@ CREATE TABLE pd_bag_types (
 --
 
 CREATE SEQUENCE pd_bag_types_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3631,6 +3706,7 @@ CREATE TABLE pd_exit_site_infections (
 --
 
 CREATE SEQUENCE pd_exit_site_infections_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3663,6 +3739,7 @@ CREATE TABLE pd_fluid_descriptions (
 --
 
 CREATE SEQUENCE pd_fluid_descriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3698,6 +3775,7 @@ CREATE TABLE pd_infection_organisms (
 --
 
 CREATE SEQUENCE pd_infection_organisms_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3731,6 +3809,7 @@ CREATE TABLE pd_organism_codes (
 --
 
 CREATE SEQUENCE pd_organism_codes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3764,6 +3843,7 @@ CREATE TABLE pd_peritonitis_episode_type_descriptions (
 --
 
 CREATE SEQUENCE pd_peritonitis_episode_type_descriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3794,6 +3874,7 @@ CREATE TABLE pd_peritonitis_episode_types (
 --
 
 CREATE SEQUENCE pd_peritonitis_episode_types_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3841,6 +3922,7 @@ CREATE TABLE pd_peritonitis_episodes (
 --
 
 CREATE SEQUENCE pd_peritonitis_episodes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3897,6 +3979,7 @@ CREATE TABLE pd_pet_adequacy_results (
 --
 
 CREATE SEQUENCE pd_pet_adequacy_results_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3940,6 +4023,7 @@ CREATE TABLE pd_regime_bags (
 --
 
 CREATE SEQUENCE pd_regime_bags_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3974,6 +4058,7 @@ CREATE TABLE pd_regime_terminations (
 --
 
 CREATE SEQUENCE pd_regime_terminations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4029,6 +4114,7 @@ CREATE TABLE pd_regimes (
 --
 
 CREATE SEQUENCE pd_regimes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4062,6 +4148,7 @@ CREATE TABLE pd_systems (
 --
 
 CREATE SEQUENCE pd_systems_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4098,6 +4185,7 @@ CREATE TABLE pd_training_sessions (
 --
 
 CREATE SEQUENCE pd_training_sessions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4131,6 +4219,7 @@ CREATE TABLE pd_training_sites (
 --
 
 CREATE SEQUENCE pd_training_sites_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4163,6 +4252,7 @@ CREATE TABLE pd_training_types (
 --
 
 CREATE SEQUENCE pd_training_types_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4197,6 +4287,7 @@ CREATE TABLE problem_notes (
 --
 
 CREATE SEQUENCE problem_notes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4216,6 +4307,7 @@ ALTER SEQUENCE problem_notes_id_seq OWNED BY problem_notes.id;
 --
 
 CREATE SEQUENCE problem_problems_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4251,6 +4343,7 @@ CREATE TABLE problem_versions (
 --
 
 CREATE SEQUENCE problem_versions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4355,6 +4448,7 @@ CREATE TABLE renal_prd_descriptions (
 --
 
 CREATE SEQUENCE renal_prd_descriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4393,6 +4487,7 @@ CREATE TABLE renal_profiles (
 --
 
 CREATE SEQUENCE renal_profiles_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4429,7 +4524,7 @@ CREATE VIEW reporting_anaemia_audit AS
            FROM ((patients p
              JOIN modality_modalities m ON ((m.patient_id = p.id)))
              JOIN modality_descriptions md ON ((m.description_id = md.id)))
-          WHERE ((m.ended_on IS NULL) OR (m.ended_on > now()))) e1
+          WHERE ((m.ended_on IS NULL) OR (m.ended_on > CURRENT_TIMESTAMP))) e1
      FULL JOIN ( SELECT mcp.patient_id,
             count(DISTINCT mcp.drug_id) AS ct
            FROM medication_current_prescriptions mcp
@@ -4491,6 +4586,7 @@ CREATE TABLE reporting_audits (
 --
 
 CREATE SEQUENCE reporting_audits_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4638,7 +4734,7 @@ CREATE MATERIALIZED VIEW reporting_main_authors_audit AS
            FROM ((letter_letters letters
              JOIN letter_archives archive ON ((letters.id = archive.letter_id)))
              JOIN clinic_visits visits ON ((visits.id = letters.event_id)))
-          WHERE (archive.created_at > (('now'::text)::date - '3 mons'::interval))
+          WHERE (archive.created_at > (CURRENT_DATE - '3 mons'::interval))
         ), archived_clinic_letters_stats AS (
          SELECT archived_clinic_letters.year,
             archived_clinic_letters.month,
@@ -4673,7 +4769,7 @@ CREATE VIEW reporting_pd_audit AS
            FROM ((patients
              JOIN modality_modalities current_modality ON ((current_modality.patient_id = patients.id)))
              JOIN modality_descriptions current_modality_description ON ((current_modality_description.id = current_modality.description_id)))
-          WHERE ((current_modality.ended_on IS NULL) AND (current_modality.started_on <= ('now'::text)::date) AND ((current_modality_description.name)::text = 'PD'::text))
+          WHERE ((current_modality.ended_on IS NULL) AND (current_modality.started_on <= CURRENT_DATE) AND ((current_modality_description.name)::text = 'PD'::text))
         ), current_regimes AS (
          SELECT pd_regimes.id,
             pd_regimes.patient_id,
@@ -4704,7 +4800,7 @@ CREATE VIEW reporting_pd_audit AS
             pd_regimes.daily_volume,
             pd_regimes.assistance_type
            FROM pd_regimes
-          WHERE ((pd_regimes.start_date >= ('now'::text)::date) AND (pd_regimes.end_date IS NULL))
+          WHERE ((pd_regimes.start_date >= CURRENT_DATE) AND (pd_regimes.end_date IS NULL))
         ), current_apd_regimes AS (
          SELECT current_regimes.id,
             current_regimes.patient_id,
@@ -4893,6 +4989,7 @@ CREATE TABLE roles (
 --
 
 CREATE SEQUENCE roles_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4947,6 +5044,7 @@ CREATE TABLE snippets_snippets (
 --
 
 CREATE SEQUENCE snippets_snippets_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5011,6 +5109,7 @@ CREATE TABLE system_templates (
 --
 
 CREATE SEQUENCE system_templates_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5054,6 +5153,7 @@ CREATE TABLE transplant_donations (
 --
 
 CREATE SEQUENCE transplant_donations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5092,6 +5192,7 @@ CREATE TABLE transplant_donor_followups (
 --
 
 CREATE SEQUENCE transplant_donor_followups_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5132,6 +5233,7 @@ CREATE TABLE transplant_donor_operations (
 --
 
 CREATE SEQUENCE transplant_donor_operations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5164,6 +5266,7 @@ CREATE TABLE transplant_donor_stage_positions (
 --
 
 CREATE SEQUENCE transplant_donor_stage_positions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5196,6 +5299,7 @@ CREATE TABLE transplant_donor_stage_statuses (
 --
 
 CREATE SEQUENCE transplant_donor_stage_statuses_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5234,6 +5338,7 @@ CREATE TABLE transplant_donor_stages (
 --
 
 CREATE SEQUENCE transplant_donor_stages_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5266,6 +5371,7 @@ CREATE TABLE transplant_donor_workups (
 --
 
 CREATE SEQUENCE transplant_donor_workups_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5297,6 +5403,7 @@ CREATE TABLE transplant_failure_cause_description_groups (
 --
 
 CREATE SEQUENCE transplant_failure_cause_description_groups_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5330,6 +5437,7 @@ CREATE TABLE transplant_failure_cause_descriptions (
 --
 
 CREATE SEQUENCE transplant_failure_cause_descriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5369,6 +5477,7 @@ CREATE TABLE transplant_recipient_followups (
 --
 
 CREATE SEQUENCE transplant_recipient_followups_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5388,6 +5497,7 @@ ALTER SEQUENCE transplant_recipient_followups_id_seq OWNED BY transplant_recipie
 --
 
 CREATE SEQUENCE transplant_recipient_operations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5422,6 +5532,7 @@ CREATE TABLE transplant_recipient_workups (
 --
 
 CREATE SEQUENCE transplant_recipient_workups_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5457,6 +5568,7 @@ CREATE TABLE transplant_registration_status_descriptions (
 --
 
 CREATE SEQUENCE transplant_registration_status_descriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5493,6 +5605,7 @@ CREATE TABLE transplant_registration_statuses (
 --
 
 CREATE SEQUENCE transplant_registration_statuses_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5530,6 +5643,7 @@ CREATE TABLE transplant_registrations (
 --
 
 CREATE SEQUENCE transplant_registrations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5565,6 +5679,7 @@ CREATE TABLE transplant_versions (
 --
 
 CREATE SEQUENCE transplant_versions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5584,6 +5699,7 @@ ALTER SEQUENCE transplant_versions_id_seq OWNED BY transplant_versions.id;
 --
 
 CREATE SEQUENCE users_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5619,6 +5735,7 @@ CREATE TABLE versions (
 --
 
 CREATE SEQUENCE versions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7739,7 +7856,7 @@ ALTER TABLE ONLY versions
 -- Name: access_plan_uniqueness; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX access_plan_uniqueness ON access_plans USING btree (patient_id, (COALESCE(terminated_at, '1970-01-01 00:00:00'::timestamp without time zone)));
+CREATE UNIQUE INDEX access_plan_uniqueness ON access_plans USING btree (patient_id, COALESCE(terminated_at, '1970-01-01 00:00:00'::timestamp without time zone));
 
 
 --
@@ -10182,7 +10299,7 @@ CREATE UNIQUE INDEX master_index_hd_diaries_on_hospital_unit_id ON hd_diaries US
 -- Name: patient_bookmarks_uniqueness; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX patient_bookmarks_uniqueness ON patient_bookmarks USING btree (patient_id, user_id, (COALESCE(deleted_at, '1970-01-01 00:00:00'::timestamp without time zone)));
+CREATE UNIQUE INDEX patient_bookmarks_uniqueness ON patient_bookmarks USING btree (patient_id, user_id, COALESCE(deleted_at, '1970-01-01 00:00:00'::timestamp without time zone));
 
 
 --
