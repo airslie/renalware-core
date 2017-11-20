@@ -13,6 +13,7 @@ feature "Session timeout", type: :feature, js: true do
     Devise.timeout_in = original_session_timeout
   end
 
+  # rubocop:disable Lint/HandleExceptions
   scenario "A user is redirected by JS to the login page when their session expires" do
     login_as_clinician
 
@@ -25,8 +26,15 @@ feature "Session timeout", type: :feature, js: true do
       sleep 0.3
       # Because we don't want to wait for the default session timeout polling freq
       # to pass (could be 20 seconds), manually invoke the global sessionTimeoutCheck
-      # JavaScript function to force a check (and redirect if the session has expired)
-      page.execute_script(%Q(window.sessionTimeoutCheck();))
+      # JavaScript function to force a check (and redirect if the session has expired).
+      # However we can expect an exception on the first and possibly second attempts
+      # as the JS has not loaded yet, with
+      #  TypeError: undefined is not a constructor (evaluating 'window.sessionTimeoutCheck()')
+      begin
+        page.execute_script("window.sessionTimeoutCheck()")
+      rescue Capybara::Poltergeist::JavascriptError
+        # noop
+      end
       break if page.current_path == new_user_session_path
     end
 
@@ -34,4 +42,5 @@ feature "Session timeout", type: :feature, js: true do
     # to the login page
     expect(page).to have_current_path(new_user_session_path)
   end
+  # rubocop:enable Lint/HandleExceptions
 end

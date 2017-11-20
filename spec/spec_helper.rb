@@ -17,48 +17,7 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 #
-require "wisper/rspec/matchers"
-
 RSpec.configure do |config|
-
-  Notifications = ActiveSupport::Notifications
-  # For specs marked as monitor_database_record_creation: true, output each factory invocation
-  # - useful when writing tests to check on excessive factory use.
-  config.before(:each, :monitor_database_record_creation) do |_example|
-    Notifications.subscribe("factory_bot.run_factory") do |_name, _start, _finish, _id, payload|
-      warn "FactoryBot: #{payload[:strategy]}(:#{payload[:name]})"
-    end
-  end
-
-  # Capture the count of each FactoryBot factory.create() and sort them by number of invocations.
-  # Output this at the end of the suite so we can keep an eye on escalating factory usage.
-  factory_bot_results = {}
-  config.before(:suite) do
-    Notifications.subscribe("factory_bot.run_factory") do |_name, start, finish, _id, payload|
-      factory_name = payload[:name]
-      strategy_name = payload[:strategy]
-      factory_bot_results[factory_name] ||= {}
-      factory_bot_results[factory_name][strategy_name] ||= 0
-      factory_bot_results[factory_name][strategy_name] += 1
-
-      execution_time_in_seconds = finish - start
-
-      if execution_time_in_seconds >= 0.5
-        warn "Slow factory: #{payload[:name]} using strategy #{payload[:strategy]}"
-      end
-    end
-  end
-
-  config.after(:suite) do
-    results = factory_bot_results
-      .to_a
-      .each_with_object({}){ |(key, val), hash| hash[key] = val[:create] }
-      .sort{ |a, b| (b.flatten.last || 0) <=> (a.flatten.last || 0) }
-    puts "FactoryBot creates:"
-    p results
-  end
-
-  config.include(Wisper::RSpec::BroadcastMatcher)
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

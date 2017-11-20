@@ -1,38 +1,28 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= "test"
 
-require "simplecov"
-
-SimpleCov.command_name "RSpec"
-
-SimpleCov.start "rails" do
-
-  # save to CircleCI's artifacts directory if we're on CircleCI
-  # if ENV["CIRCLE_ARTIFACTS"]
-  #   dir = File.join(ENV["CIRCLE_ARTIFACTS"], "coverage")
-  #   coverage_dir(dir)
-  # end
-
-  use_merging true
-  merge_timeout 1200 # 20 minutes
-  # any custom configs like groups and filters can be here at a central place
-  add_filter "/spec/models/concerns"
-  add_filter "/features"
-  add_filter "/spec/support"
+# We only run simple on CiricleCI or if you set the SIMPLECOV env var
+if ENV.key?("CC_TEST_REPORTER_ID") || ENV.key?("SIMPLECOV")
+  require "simplecov"
+  SimpleCov.command_name "RSpec"
 end
 
 require File.expand_path("../dummy/config/environment", __FILE__)
 require "spec_helper"
 require "rspec/rails"
 require "factory_bot_rails"
+require "wisper/rspec/matchers"
 require "rspec-html-matchers"
 require "database_cleaner"
+require "rails-controller-testing"
 require "byebug"
 require "shoulda/matchers"
 require "pundit/rspec"
 require "paper_trail/frameworks/rspec"
 require "chosen-rails/rspec"
-require "capybara-screenshot/rspec" if RUBY_PLATFORM.match?(/darwin/)
+require "capybara/poltergeist"
+require "capybara-screenshot/rspec" if RUBY_PLATFORM =~ /darwin/
+
 require_relative "../lib/test_support/text_editor_helpers"
 
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -58,7 +48,6 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  config.include Renalware::Engine.routes.url_helpers
 
   config.example_status_persistence_file_path = "#{::Rails.root}/tmp/examples.txt"
 
@@ -85,13 +74,14 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
+  config.include Renalware::Engine.routes.url_helpers
+  config.include Wisper::RSpec::BroadcastMatcher
   config.include CapybaraHelper, type: :feature
   config.include Select2SpecHelper, type: :feature
   config.include SelectDateSpecHelper, type: :feature
   config.include TextEditorHelpers, type: :feature
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Chosen::Rspec::FeatureHelpers, type: :feature
-
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
 
@@ -103,27 +93,3 @@ RSpec.configure do |config|
   #   end
   # See https://github.com/airblade/paper_trail#7b-rspec for more information.
 end
-
-require "capybara/poltergeist"
-
-# When this option is enabled, you can insert page.driver.debug into your tests
-# to pause the test and launch a browser which gives you the WebKit inspector
-# to view your test run with.
-Capybara.register_driver :poltergeist_debug do |app|
-  Capybara::Poltergeist::Driver.new(
-    app,
-    inspector: "open",
-    debug: false
-  )
-end
-
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(
-    app,
-    window_size: [1366, 1768],
-    js_errors: true
-  )
-end
-
-Capybara.javascript_driver = :poltergeist
-# Capybara.javascript_driver = :poltergeist_debug
