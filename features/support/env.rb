@@ -3,7 +3,6 @@ ENV["RAILS_ENV"] ||= "test"
 if ENV.key?("CC_TEST_REPORTER_ID") || ENV.key?("SIMPLECOV")
   require "simplecov"
   SimpleCov.command_name "Cucumber-" + (ENV["TEST_DEPTH"] || "domain")
-  require "./spec/support/simplecov"
 end
 
 require File.expand_path("../../../spec/dummy/config/environment.rb", __FILE__)
