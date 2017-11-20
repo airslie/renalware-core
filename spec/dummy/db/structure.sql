@@ -4413,7 +4413,7 @@ ALTER SEQUENCE renal_profiles_id_seq OWNED BY renal_profiles.id;
 
 CREATE VIEW reporting_anaemia_audit AS
  SELECT e1.modality_desc AS modality,
-    count(e1.patient_id) AS count_patients,
+    count(e1.patient_id) AS patient_count,
     round(avg(e2.hgb), 2) AS avg_hgb,
     round((((count(e4.hgb_gt_eq_10))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_10,
     round((((count(e5.hgb_gt_eq_11))::numeric / GREATEST((count(e2.hgb))::numeric, 1.0)) * 100.0), 2) AS pct_hgb_gt_eq_11,
