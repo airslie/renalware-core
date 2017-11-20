@@ -4,15 +4,15 @@ jobs:
     working_directory: ~/renalwarev2
     docker:
       # We use a custom docker image uploaded to DockerHub - see the Dockerfile in this folder.
+      # Note it is important to disable spring otherwise it affects the simplecov output because
+      # spring loads files ahead of time - for example using spring you might find app/helpers
+      # are not included in the coverage.
       - image: airslie/renalware-development:0.0.3
         environment:
           - RAILS_ENV: test
           - RACK_ENV: test
+          - DISABLE_SPRING: 1
       - image: circleci/postgres:10.1-alpine
-
-    # SimpleCov will save coverage data to the CIRCLE_ARTIFACTS folder
-    # environment:
-    #  CIRCLE_ARTIFACTS: "/tmp/test-artifacts"
 
     parallelism: 1
     steps:
