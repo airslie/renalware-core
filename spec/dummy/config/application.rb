@@ -8,6 +8,12 @@ module Dummy
   class Application < Rails::Application
     config.cache_store = :file_store, Rails.root.join("tmp", "cache") # capistrano symmlinked
     config.active_record.time_zone_aware_types = [:datetime]
+
+    # Important!!
+    # Unless set to :all, pg extensions are not put into structure.sql so certain
+    # functions will not exist.
+    config.active_record.dump_schemas = :all
+
     unless Rails.env.development?
       config.exceptions_app = Renalware::Engine.routes
     end
