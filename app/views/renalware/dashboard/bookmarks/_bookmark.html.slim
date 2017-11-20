@@ -9,6 +9,7 @@ tr class=("urgent" if bookmark.urgent?)
   td= patient.sex
   td= patient.current_modality
   td= bookmark.notes
+  td= bookmark.tags
   td= I18n.l bookmark.created_at
   td.nowrap= render "renalware/patients/bookmarks/delete",
                     bookmark: bookmark,

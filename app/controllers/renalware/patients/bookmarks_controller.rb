@@ -34,7 +34,7 @@ module Renalware
       end
 
       def bookmark_params
-        params.require(:patients_bookmark).permit(:notes, :urgent)
+        params.require(:patients_bookmark).permit(:notes, :urgent, :tags)
       end
     end
   end
