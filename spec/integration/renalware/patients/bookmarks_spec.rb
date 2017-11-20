@@ -28,7 +28,6 @@ RSpec.describe "Managing bookmarks", type: :request do
       end
 
       it "does not create and implies success if the bookmark already exists" do
-
         headers = { "HTTP_REFERER" => "/" }
         params = {
           patients_bookmark: {

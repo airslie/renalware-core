@@ -69,7 +69,6 @@ module Renalware
         end
 
         describe "Mean blood pressure" do
-
           it "calculates pre mean blood pressures" do
             stub_sessions(observations: :observations_before,
                           systolic_range: (101..112),
@@ -281,7 +280,6 @@ module Renalware
         # (pre dialysis weight – post dialysis weight)/dry weight * 100
         describe "#mean_weight_loss_as_percentage_of_body_weight" do
           it do
-
             clinical_patient = Clinical.cast_patient(patient)
             dry_weight1 = create(:dry_weight, patient: clinical_patient, weight: 100.0)
             dry_weight2 = create(:dry_weight, patient: clinical_patient, weight: 200.0)
@@ -316,7 +314,6 @@ module Renalware
         end
 
         describe "#mean_ufr" do
-
           it "returns fluid removed (ml) / HD time in hours / dry weight (kg) "\
              "in units of ml/hr/kg" do
 

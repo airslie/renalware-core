@@ -24,7 +24,6 @@ module Renalware
 
       context "prescriptions" do
         it "can be assigned many prescriptions and organisms/sensitivities" do
-
           @prescription_one = create(:prescription,
             patient: @patient,
             drug: @cephradine,
@@ -75,7 +74,6 @@ module Renalware
           expect(@es).to be_valid
         end
       end
-
     end
   end
 end

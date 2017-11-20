@@ -65,7 +65,6 @@ module Renalware::HD
 
             diary = create_weekly_diary(week_period: week_period)
             create_slot(diary: diary, day_of_week: day_of_week)
-
           end
 
           # now travel to the day after (Wednesday)

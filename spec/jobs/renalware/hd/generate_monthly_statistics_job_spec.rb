@@ -9,7 +9,6 @@ module Renalware
 
       describe "#perform" do
         it "enqueues a job per patient (that spawned job will actually generate the stats)" do
-
           patient = create(:hd_patient)
 
           travel_to Date.new(2017, 02, 01) do

@@ -14,7 +14,6 @@ module Renalware
           descriptions = create_descriptions(%w(HGB MDRD CRE URE))
 
           travel_to(Time.zone.now) do
-
             # current
             create_observations(patient,
                                 descriptions,

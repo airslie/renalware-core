@@ -2,7 +2,6 @@ require "rails_helper"
 
 module Renalware::Patients
   describe PatientHospitalIdentifiers do
-
     # This represents the order of preference of local_patient_ids database columns and also
     # their 'display names' for use e.g. in the patient banner
     def configure_patient_hospital_identifiers

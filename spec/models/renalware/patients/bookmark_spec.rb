@@ -3,7 +3,6 @@ require "rails_helper"
 module Renalware
   module Patients
     describe Bookmark do
-
       describe "validation" do
         subject { Bookmark.new(patient: patient, user: user) }
 

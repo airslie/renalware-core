@@ -2,7 +2,6 @@ require "rails_helper"
 
 module Renalware
   describe ApplicationHelper, type: :helper do
-
     describe ".default_patient_link" do
       it "creates a link going to the patient's clinical summary" do
         patient = build_stubbed(:patient)

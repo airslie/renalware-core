@@ -23,7 +23,6 @@ module Renalware
       end
 
       context "given a model has been specified in the configuration" do
-
         it "returns true" do
           expect(subject.restricted?).to be true
         end

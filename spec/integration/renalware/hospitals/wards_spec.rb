@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Hospital Wards", type: :request do
-
   describe "GET index json" do
     it "returns wards for a hospital unit, useful for example for inserting into a wards select " \
        "when the parent unit dropdown has changed" do

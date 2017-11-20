@@ -67,7 +67,6 @@ When(/^Clyde records the prescription for Patty$/) do
 end
 
 When(/^Clyde records the prescription for Patty with a termination date$/) do
-
   record_prescription_for_patient(
     user: @clyde,
     patient: @patty,

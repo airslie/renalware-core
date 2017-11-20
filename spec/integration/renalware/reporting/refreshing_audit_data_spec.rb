@@ -1,7 +1,6 @@
 require "rails_helper"
 
 feature "Refreshing audit data", type: :feature, js: true do
-
   scenario "Manually requesting to refresh audit data" do
     login_as_clinician
     create(:audit, name: "xx", view_name: "yy")

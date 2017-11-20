@@ -7,7 +7,6 @@ RSpec.describe "Donor stage management", type: :request do
   describe "POST create" do
     context "given valid attributes" do
       it "creates a new donor stage" do
-
         position = create(:donor_stage_position)
         status = create(:donor_stage_status)
 

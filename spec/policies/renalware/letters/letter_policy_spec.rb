@@ -2,7 +2,6 @@ require "rails_helper"
 
 module Renalware::Letters
   describe LetterPolicy, type: :policy do
-
     subject { described_class }
 
     permissions :author? do

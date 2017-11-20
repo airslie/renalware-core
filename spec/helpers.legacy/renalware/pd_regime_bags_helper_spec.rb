@@ -2,7 +2,6 @@ require "rails_helper"
 
 module Renalware
   RSpec.describe PDRegimeBagsHelper, type: :helper do
-
     before do
       @bag_type = create(:bag_type)
       @invalid_pd_regime_bag = build(:pd_regime_bag,
@@ -28,11 +27,9 @@ module Renalware
                               friday: true,
                               saturday: true
                             )
-
     end
 
     describe "highlight_days_invalid" do
-
       context "invalid" do
         it 'applies class "show-form"' do
           @invalid_pd_regime_bag.save
@@ -47,6 +44,5 @@ module Renalware
         end
       end
     end
-
   end
 end

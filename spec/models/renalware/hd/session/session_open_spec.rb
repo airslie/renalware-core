@@ -3,7 +3,6 @@ require "rails_helper"
 module Renalware
   module HD
     RSpec.describe Session::Open, type: :model do
-
       subject(:session) do
         build(:hd_open_session, patient: patient, signed_on_by: nurse, by: nurse)
       end
@@ -43,7 +42,6 @@ module Renalware
       end
 
       describe "#valid?" do
-
         context "when end_time is prior to start_time" do
           it "is not valid" do
             session.start_time = Time.zone.parse("2016-04-28 12:00")

@@ -7,7 +7,6 @@ module Renalware
         let(:patient) { build_stubbed(:pd_patient) }
 
         describe "#call" do
-
           it "uses non tidal calculations when the regime is not tidal" do
             expect_any_instance_of(NonTidalRegimeCalculations)
               .to receive(:calculated_overnight_volume)

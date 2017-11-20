@@ -27,6 +27,5 @@ module Renalware::HD
         expect(patient_statistics[attr]).not_to be_nil
       end
     end
-
   end
 end

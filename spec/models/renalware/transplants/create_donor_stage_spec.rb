@@ -4,7 +4,6 @@ module Renalware
   module Transplants
     describe CreateDonorStage do
       describe "#call" do
-
         # rubocop:disable Metrics/AbcSize
         def validate_stage(stage, position, status, user, options)
           expect(stage).to be_present

@@ -17,7 +17,6 @@ module Renalware
       end
 
       describe "#call" do
-
         context "when there are no validation errors" do
           let(:episode) { new_episode }
 

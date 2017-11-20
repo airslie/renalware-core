@@ -5,7 +5,6 @@ module Renalware
   module System
     describe RenderLiquidTemplate do
       describe "#call" do
-
         class TestPatientDrop < Liquid::Drop
           def name
             "John Smith"

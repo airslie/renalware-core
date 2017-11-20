@@ -2,7 +2,6 @@ require "rails_helper"
 
 module Renalware
   RSpec.describe UsersHelper, type: :helper do
-
     describe "current_user_is_super_admin?" do
       context "with a super admin user" do
         let(:current_user) { create(:user, :super_admin) }

@@ -6,7 +6,6 @@ module Renalware
       it { is_expected.to belong_to(:prescription) }
       it { is_expected.to belong_to(:hd_session).touch(true) }
       it { is_expected.to validate_presence_of(:prescription) }
-
     end
   end
 end

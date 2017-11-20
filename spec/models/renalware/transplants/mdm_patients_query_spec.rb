@@ -7,7 +7,6 @@ module Renalware
       it { is_expected.to respond_to(:search) }
 
       it "" do
-
       end
     end
   end

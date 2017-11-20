@@ -3,7 +3,6 @@ require_dependency "models/renalware/concerns/personable"
 
 module Renalware
   describe Patient, type: :model do
-
     def configure_patient_hospital_identifiers
       Renalware.configure do |config|
         config.patient_hospital_identifiers = {

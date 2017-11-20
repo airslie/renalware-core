@@ -6,7 +6,6 @@ RSpec.describe "PD MDM Patients", type: :feature do
 
   describe "GET index" do
     it "responds successfully" do
-
       patient = create(:pd_patient,
                        family_name: "Rabbit",
                        local_patient_id: "KCH12345")

@@ -6,5 +6,4 @@ FactoryBot.define do
     created_at "2015-03-03 15:30:00"
     updated_at "2015-03-05 15:30:00"
   end
-
 end

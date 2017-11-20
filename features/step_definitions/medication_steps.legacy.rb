@@ -18,7 +18,6 @@ When(/^complete the prescription form by drug type select$/) do
   end
 
   click_on "Save Medication"
-
 end
 
 When(/^complete the prescription form by drug search$/) do

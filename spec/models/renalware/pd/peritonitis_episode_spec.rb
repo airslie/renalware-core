@@ -10,7 +10,6 @@ module Renalware
     it { is_expected.to belong_to(:patient).touch(true) }
 
     describe "peritonitis episode" do
-
       before do
         @patient = create(:patient)
         @pe = build(:peritonitis_episode)
@@ -26,7 +25,6 @@ module Renalware
 
       context "prescriptions" do
         it "can be assigned many prescriptions and organisms/sensitivities" do
-
           @prescription_one = create(:prescription,
             patient: @patient,
             drug: @amoxicillin,
@@ -73,8 +71,6 @@ module Renalware
           expect(@pe).to be_valid
         end
       end
-
     end
-
   end
 end

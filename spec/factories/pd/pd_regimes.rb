@@ -32,5 +32,4 @@ FactoryBot.define do
     overnight_volume 5100
     apd_machine_pac "123-4567-890"
   end
-
 end

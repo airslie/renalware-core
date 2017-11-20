@@ -23,7 +23,6 @@ RSpec.describe "Managing the patient worryboard", type: :request do
     end
 
     context "the patient already has a worry (i.e. is on the worryboard)" do
-
       # Not expected to be possible in the UI but testing anyway
       it "behaves idempotently, does not fail, behaves as if the worry was just added" do
         Renalware::Patients::Worry.new(patient: patient, by: user, notes: "Abc").save!
@@ -55,7 +54,6 @@ RSpec.describe "Managing the patient worryboard", type: :request do
     end
 
     describe "DELETE destroy" do
-
       it "soft deletes the worry" do
         worry = Renalware::Patients::Worry.new(patient: patient, by: user)
         worry.save!

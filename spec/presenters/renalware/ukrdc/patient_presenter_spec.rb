@@ -3,7 +3,6 @@ require "rails_helper"
 module Renalware
   module UKRDC
     describe PatientPresenter do
-
       def smoker(status)
         patient = Patient.new
         patient.document.history.smoking = status

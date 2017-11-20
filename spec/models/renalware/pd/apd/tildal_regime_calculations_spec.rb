@@ -4,9 +4,7 @@ module Renalware
   module PD
     module APD
       describe TidalRegimeCalculations do
-
         describe "#overnight_volume" do
-
           context "when there are 9 cycles (exchanges), a 1500ml fill volume and 80% tidal" do
             let(:regime) do
               build(:apd_regime,
@@ -39,7 +37,6 @@ module Renalware
             end
 
             context "when draining every 3 cycles" do
-
               it "sums the full volume of 1,4,7 and the tidal_percentage of 2,3,5,6,8,9" do
                 regime.tidal_full_drain_every_three_cycles = true
 
@@ -55,7 +52,6 @@ module Renalware
             end
 
             context "when not doing a full drain every 3 cycles" do
-
               it "it uses the full fill volume on cycle 1 and the tidal_percentage "\
                   "volume of the remaining cycles" do
 
