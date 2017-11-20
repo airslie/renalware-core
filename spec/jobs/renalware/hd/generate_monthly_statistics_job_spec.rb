@@ -3,7 +3,6 @@ require "delayed_job_active_record"
 
 module Renalware
   module HD
-
     describe GenerateMonthlyStatisticsJob, type: :job do
       it { is_expected.to respond_to(:queue_name) }
 

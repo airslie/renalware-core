@@ -2,7 +2,6 @@ require "rails_helper"
 
 module Renalware
   module Pathology
-
     RSpec.describe CurrentKeyObservationSet do
       include PathologySpecHelper
 

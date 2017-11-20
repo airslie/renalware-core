@@ -1,7 +1,6 @@
 module World
   module Patients
     module Bookmarks
-
       module Domain
         # @section commands
         #

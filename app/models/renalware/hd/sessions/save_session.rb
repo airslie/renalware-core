@@ -1,7 +1,6 @@
 module Renalware
   module HD
     module Sessions
-
       # A generic service object which saves a (new or existing) HD::Session of any (STI) type.
       class SaveSession
         include Wisper::Publisher

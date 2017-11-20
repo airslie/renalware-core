@@ -1,6 +1,5 @@
 module Renalware
   module AttributeNameHelper
-
     # disables :reek:FeatureEnvy
     def attr_name(model, attr, suffix: nil)
       klass = model.is_a?(Class) ? model : model.class

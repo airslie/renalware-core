@@ -14,7 +14,6 @@ module World
       def regime_is_immutable(regime)
         expect(regime).to_not be_current
       end
-
     end
 
     module Web
@@ -63,7 +62,6 @@ module World
           expect(all(".update-pd-regime").length).to eq(0)
         end
       end
-
     end
     # rubocop:enable Metrics/MethodLength
   end

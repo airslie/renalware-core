@@ -22,7 +22,6 @@ module Renalware
         attr_reader :patient
 
         module Scopes
-
           def for_patient(patient)
             where(patient: patient)
           end

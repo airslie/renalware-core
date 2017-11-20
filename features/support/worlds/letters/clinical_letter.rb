@@ -1,7 +1,6 @@
 module World
   module Letters::ClinicalLetter
     module Domain
-
       def build_clinical_letter_attributes(patient, issued_on, user)
         valid_simple_letter_attributes(patient).merge(
           clinical: true,

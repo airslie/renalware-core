@@ -4,7 +4,6 @@ require "document/attribute_initializer/enum"
 
 module Document
   module AttributeInitializer
-
     def self.determine_initializer(klass, name, type, options)
       initializer_class = build_class(type)
       initializer_class.new(klass, name, type, options)

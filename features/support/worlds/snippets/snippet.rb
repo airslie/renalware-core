@@ -1,7 +1,6 @@
 module World
   module Snippets::Snippet
     module Domain
-
       def create_snippet_for(user, title:, body:)
         seed_snippet(user: user, title: title, body: body)
       end

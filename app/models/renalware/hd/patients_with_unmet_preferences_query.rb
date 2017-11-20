@@ -28,7 +28,6 @@ module Renalware
       attr_reader :query
 
       module Scopes
-
         def having_an_unmet_preference
           sql = <<-SQL.squish
             (hd_preference_sets.hospital_unit_id > 0 AND

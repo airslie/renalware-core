@@ -1,7 +1,6 @@
 module World
   module Medications::Patients
     module Domain
-
       def seed_prescriptions(table)
         table.rows.each do |patient_name, terminated, drug_type_name|
           patient = seed_patient(patient_name)

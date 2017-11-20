@@ -1,7 +1,6 @@
 require "rails_helper"
 
 module Renalware
-
   describe UserPolicy, type: :policy do
     subject { described_class }
 
