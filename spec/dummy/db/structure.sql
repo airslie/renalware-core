@@ -3170,7 +3170,7 @@ CREATE TABLE patient_bookmarks (
     notes text,
     urgent boolean DEFAULT false NOT NULL,
     deleted_at timestamp without time zone,
-    list character varying
+    tags character varying
 );
 
 

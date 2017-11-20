@@ -23,6 +23,6 @@ en:
           age: Age
           sex: Sex
           notes: Notes
-          list: List/tags
+          tags: Tags
           modality: Modality
           bookmarked_on: Bookmarked
