@@ -13,7 +13,7 @@ module Renalware
                           thursday: false,
                           friday: true,
                           saturday: false
-                        )
+                              )
       login_as_clinician
     end
 

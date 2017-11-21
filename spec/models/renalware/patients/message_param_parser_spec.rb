@@ -4,7 +4,8 @@ module Renalware::Patients
   RSpec.describe MessageParamParser do
     describe "#parse" do
       let(:message_payload) {
-        double(:message_payload,
+        double(
+          :message_payload,
           patient_identification: double(
             internal_id: "::internal id::",
             external_id: "::external id::",

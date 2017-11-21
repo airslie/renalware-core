@@ -64,9 +64,9 @@ module World
       def seed_open_session_for(patient, user:, performed_on: Time.zone.today)
         patient = hd_patient(patient)
         attrs = valid_open_session_attributes(patient).merge(
-            signed_on_by: user,
-            by: user
-          )
+          signed_on_by: user,
+          by: user
+        )
         attrs[:performed_on] = performed_on
         Renalware::HD::Session::Open.create(attrs)
       end

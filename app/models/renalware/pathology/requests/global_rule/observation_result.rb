@@ -59,9 +59,9 @@ module Renalware
           def observation
             @observation ||=
               ObservationForPatientObservationDescriptionQuery.new(
-                  @patient,
-                  observation_description
-                ).call
+                @patient,
+                observation_description
+              ).call
           end
 
           def observation_description

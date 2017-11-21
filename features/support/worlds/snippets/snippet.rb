@@ -13,7 +13,7 @@ module World
       def expect_user_to_have_snippet(user, title:, body:)
         expect(
           Renalware::Snippets::Snippet.where(author: user, title: title, body: body).count
-          ).to eq(1)
+        ).to eq(1)
       end
     end
 

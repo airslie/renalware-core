@@ -51,7 +51,7 @@ module Renalware
             relation: WeeklyDiary.eager_load(
                 slots: [:patient, :station, :diurnal_period_code],
                 master_diary: { slots: [:patient, :station, :diurnal_period_code] }
-                ),
+            ),
             unit_id: unit_id,
             week_period: week_period,
             by: current_user

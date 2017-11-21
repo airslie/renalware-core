@@ -31,7 +31,7 @@ RSpec.describe "View a user's read/unread electronic ccs", type: :request do
       letter: approved_letter,
       recipient: to,
       read_at: read ? Time.zone.now : nil
-      )
+    )
   end
 
   describe "GET unread" do

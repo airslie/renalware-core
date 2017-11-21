@@ -10,7 +10,9 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
   context "with a draft letter" do
     describe "GET show" do
       let(:patient) {
-        create(:letter_patient, primary_care_physician: primary_care_physician,
+        create(
+          :letter_patient,
+          primary_care_physician: primary_care_physician,
           family_name: "RABBIT",
           local_patient_id: "KCH57837"
         )

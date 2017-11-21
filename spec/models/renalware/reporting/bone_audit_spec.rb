@@ -12,11 +12,12 @@ module Renalware
 
     def create_observation(patient:, description:, result:)
       request = create(:pathology_observation_request, patient: patient)
-      create(:pathology_observation,
-       request: request,
-       description: description,
-       result: result
-     )
+      create(
+        :pathology_observation,
+        request: request,
+        description: description,
+        result: result
+      )
     end
 
     def create_hd_patient

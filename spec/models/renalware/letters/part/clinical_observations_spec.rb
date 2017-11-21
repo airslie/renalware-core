@@ -5,7 +5,8 @@ module Renalware::Letters
     subject(:part) { Part::ClinicalObservations.new(patient, clinic_visit_event) }
 
     let(:clinic_visit_event) {
-      double(:clinic_visit,
+      double(
+        :clinic_visit,
         height: 180.0, weight: 90.0, bp: "110/70",
         bmi: 40.0, urine_blood: "+", urine_protein: "+"
       )

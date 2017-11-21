@@ -25,7 +25,8 @@ module Renalware
             locals: {
               protocol: ProtocolPresenter.new(patient, view_context)
             }
-        ))
+          )
+        )
       end
 
       # Other options to consider:

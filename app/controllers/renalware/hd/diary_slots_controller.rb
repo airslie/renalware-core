@@ -164,7 +164,7 @@ module Renalware
             :target_diary_id,
             :change_type,
             patient_id: []
-            )
+          )
       end
     end
   end

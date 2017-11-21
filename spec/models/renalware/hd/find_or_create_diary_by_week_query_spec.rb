@@ -23,7 +23,7 @@ module Renalware
       found_diary = described_class.new(by: user,
                                         unit_id: unit.id,
                                         week_period: week_period
-                                        ).call
+                                       ).call
 
       expect(found_diary.id).to eq(created_diary.id)
     end
@@ -32,7 +32,7 @@ module Renalware
       diary = described_class.new(by: user,
                                   unit_id: unit.id,
                                   week_period: week_period
-                                  ).call
+                                 ).call
 
       expect(diary.week_number).to eq(week_period.week_number)
       expect(diary.year).to eq(week_period.year)

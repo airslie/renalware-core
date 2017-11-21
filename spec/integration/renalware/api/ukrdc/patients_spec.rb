@@ -8,12 +8,12 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
   let(:white_british) { create(:ethnicity, :white_british) }
   let(:patient) do
     create(
-        :patient,
-        ethnicity: white_british,
-        country_of_birth: uk,
-        language: english,
-        by: user
-      )
+      :patient,
+      ethnicity: white_british,
+      country_of_birth: uk,
+      language: english,
+      by: user
+    )
   end
 
   def validate(xml)

@@ -30,9 +30,10 @@ end
 
 def create_observation(patient:, description:, observed_at:)
   request = create(:pathology_observation_request, patient: patient)
-  create(:pathology_observation,
-   request: request,
-   description: description,
-   observed_at: observed_at
- )
+  create(
+    :pathology_observation,
+    request: request,
+    description: description,
+    observed_at: observed_at
+  )
 end

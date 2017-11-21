@@ -2,7 +2,8 @@ Given(/^Patty has a request form generated with parameters:$/) do |table|
   params = table.rows_hash
   pathology_patient = Renalware::Pathology.cast_patient(@patty)
 
-  @request_forms = generate_request_forms_for_single_patient(@clyde,
+  @request_forms = generate_request_forms_for_single_patient(
+    @clyde,
     clinic: params[:clinic],
     consultant: params[:consultant],
     telephone: params[:telephone],

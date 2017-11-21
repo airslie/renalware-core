@@ -25,7 +25,8 @@ module Renalware
 
       context "prescriptions" do
         it "can be assigned many prescriptions and organisms/sensitivities" do
-          @prescription_one = create(:prescription,
+          @prescription_one = create(
+            :prescription,
             patient: @patient,
             drug: @amoxicillin,
             treatable: @pe,
@@ -37,7 +38,8 @@ module Renalware
             by: @user
           )
 
-          @prescription_two = create(:prescription,
+          @prescription_two = create(
+            :prescription,
             patient: @patient,
             drug: @penicillin,
             treatable: @pe,
