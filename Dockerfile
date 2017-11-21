@@ -1,9 +1,7 @@
 # https://dzone.com/articles/using-docker-for-rails-development
-# We use a custom docker image for our tests on CircleCI, defined here,
-# and hosted on DockerHub. Having an image with pre-installed dependencies (like pandoc,
-# phantomjs and postgres 9.6.x client tools) makes the test suite complete more quickly.
-# See https://circleci.com/docs/2.0/custom-images
-#
+# Developer docker image hosted on DockerHub.
+# Note there is a separate docker image in ./circleci for use on CircleCI
+
 # If you change this Dockerfile, then from the project root, bump the version e.g. 0.0.3
 # and build and push the image to DockerHub using user `woodpigeon` (password on request):
 #
@@ -11,8 +9,6 @@
 # $ docker login
 # $ docker push airslie/renalware-development:0.0.x
 #
-# and then update the docker image tag (eg 0.0.3) in `.circleci/config`.
-# The next time a build is triggered on CircleCI the new image will be pulled and cached.
 
 # Version 0.0.2 Updated Ruby 2.4.1 => 2.4.2
 # Version 0.0.3 Updated Postgres 9.6 => 10.1
