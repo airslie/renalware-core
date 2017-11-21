@@ -7,6 +7,17 @@ This project adheres to Semantic Versioning.
 ## Unreleased
 ### Added
 ### Changed
+### Fixed
+
+## 2.0.0.pre.beta11
+21-11-2017
+
+### Added
+- Support running delayed_job as a daemon
+- Added `tags` field to Bookmarks
+
+### Changed
+- Moved renalware core database objects into the `renalware` postgres schema
 - Use lograge for single line logging in production
 - Support Postgres 10 on CI and Heroku review apps
 - Use a separate log for delayed_job
@@ -14,6 +25,7 @@ This project adheres to Semantic Versioning.
 - Reduce the ajax session expiry polling frequency and don't log those requests
 
 ### Fixed
+- UKRDC XML changes
 
 ## 2.0.0.pre.beta11
 
