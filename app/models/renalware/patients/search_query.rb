@@ -13,7 +13,6 @@
 module Renalware
   module Patients
     class SearchQuery
-
       # FIELDS = %i(id family_name given_name nhs_number).freeze
       attr_reader :term, :scope
 

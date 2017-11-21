@@ -26,7 +26,7 @@ module Renalware
           link_to(
             event.to_s,
             ::Renalware::Engine.routes.url_helpers.edit_patient_clinic_visit_path(patient, event)
-            )
+          )
         }
       end
     end

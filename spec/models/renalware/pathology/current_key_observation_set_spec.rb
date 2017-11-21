@@ -2,7 +2,6 @@ require "rails_helper"
 
 module Renalware
   module Pathology
-
     RSpec.describe CurrentKeyObservationSet do
       include PathologySpecHelper
 
@@ -14,7 +13,6 @@ module Renalware
           descriptions = create_descriptions(%w(HGB MDRD CRE URE))
 
           travel_to(Time.zone.now) do
-
             # current
             create_observations(patient,
                                 descriptions,

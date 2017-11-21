@@ -3,7 +3,6 @@ require_dependency "renalware/hd"
 module Renalware
   module HD
     class MasterDiary < Diary
-
       # Overwrite the existing master attribute to ensure it defaults to true
       attribute :master, :boolean, default: true
       validates :hospital_unit_id, uniqueness: true

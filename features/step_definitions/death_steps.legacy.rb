@@ -44,7 +44,6 @@ Then(/^I should see the patient on the death list$/) do
 end
 
 When(/^I complete the cause of death form$/) do
-
   within ".edit_patient" do
     fill_in "Date of Death", with: I18n.l(Time.zone.today)
 

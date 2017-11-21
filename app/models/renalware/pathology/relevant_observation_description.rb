@@ -6,7 +6,6 @@ module Renalware
     # are relevant to pathology in the renal care domain
     #
     class RelevantObservationDescription
-
       # Returns an AR Relation containing e.g.:
       # [
       #    #<Renalware::Pathology::ObservationDescription id: 767, code: "HGB", name: "HGB">,

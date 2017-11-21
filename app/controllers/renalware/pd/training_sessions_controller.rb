@@ -3,7 +3,6 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class TrainingSessionsController < BaseController
-
       def show
         training_session = find_training_session
         authorize training_session

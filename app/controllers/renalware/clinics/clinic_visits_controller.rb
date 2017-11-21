@@ -1,7 +1,6 @@
 module Renalware
   module Clinics
     class ClinicVisitsController < BaseController
-
       before_action :load_patient
       before_action :load_clinic_visit, only: [:edit, :update, :destroy]
 

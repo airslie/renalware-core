@@ -1,7 +1,6 @@
 module Renalware
   module Letters
     class BaseController < Renalware::BaseController
-
       private
 
       def load_patient

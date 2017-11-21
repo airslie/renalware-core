@@ -3,7 +3,6 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class BaseController < Renalware::BaseController
-
       protected
 
       def patient

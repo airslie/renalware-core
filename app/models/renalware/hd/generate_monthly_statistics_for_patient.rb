@@ -1,7 +1,6 @@
 module Renalware
   module HD
     class GenerateMonthlyStatisticsForPatient
-
       def initialize(patient:, period:)
         @patient = patient
         @period = period

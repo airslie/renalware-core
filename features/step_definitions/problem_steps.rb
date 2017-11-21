@@ -8,7 +8,8 @@ end
 
 Given(/^Patty has problems:$/) do |table|
   table.hashes.each do |row|
-    create_problem(@patty,
+    create_problem(
+      @patty,
       description: row[:description],
       date: parse_date_string(row[:recorded_on]),
       deleted_at: parse_date_string(row[:terminated_on]),

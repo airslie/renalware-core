@@ -8,7 +8,6 @@ FactoryBot.define do
     notes "Would like son to accompany them on clinic visit."
 
     factory :simple_event, class: "Renalware::Events::Simple" do
-
     end
 
     factory :swab, class: "Renalware::Events::Swab" do

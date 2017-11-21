@@ -8,7 +8,8 @@ module Renalware::Pathology
       let(:request_description) { create(:pathology_request_description) }
 
       let(:message_payload) {
-        double(:message_payload,
+        double(
+          :message_payload,
           patient_identification: double(internal_id: patient.local_patient_id),
           observation_request: double(
             identifier: request_description.code,

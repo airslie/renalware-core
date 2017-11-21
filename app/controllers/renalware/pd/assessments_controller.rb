@@ -3,7 +3,6 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class AssessmentsController < BaseController
-
       def show
         assessment = find_assessment
         authorize assessment

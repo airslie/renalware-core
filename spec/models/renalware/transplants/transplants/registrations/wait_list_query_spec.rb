@@ -45,7 +45,6 @@ module Renalware
               expect(subject.call.count).to eq(2)
             end
           end
-
         end
       end
     end

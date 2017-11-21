@@ -3,7 +3,6 @@ require_dependency "renalware/deaths"
 module Renalware
   module Modalities
     class ModalitiesController < BaseController
-
       before_action :load_patient
 
       def new

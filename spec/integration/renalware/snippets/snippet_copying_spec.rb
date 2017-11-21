@@ -48,7 +48,6 @@ RSpec.describe "Copying a snippet", type: :request do
 
     context "when the current user already clone the snippet (so the title is already taken)" do
       it "generates a unique title and before cloning" do
-
         # Make it look like the user has already cloned the other users snippet TWICE
         create(:snippet, author: user, title: "A Snippet [CLONE]")
         create(:snippet, author: user, title: "A Snippet [CLONE] (1)")

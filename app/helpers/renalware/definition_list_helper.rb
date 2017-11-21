@@ -1,6 +1,5 @@
 module Renalware
   module DefinitionListHelper
-
     class DefinitionList < SimpleDelegator
       include ActionView::Helpers::TagHelper
       include ActionView::Helpers::TextHelper

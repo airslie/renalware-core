@@ -11,7 +11,6 @@ feature "Viewing audits", type: :feature, js: true do
 
     expect(page).to have_content(audit.name)
     expect(page).to have_content("At 0:01 AM, Monday through Saturday")
-
   end
 
   scenario "viewing an audit" do

@@ -4,7 +4,6 @@ require "document/enum"
 module Renalware
   module Transplants
     class RecipientOperationDocument < Document::Embedded
-
       class Recipient < Document::Embedded
         attribute :operation_number, Integer
         attribute :last_dialysis_on, Date

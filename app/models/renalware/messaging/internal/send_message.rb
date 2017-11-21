@@ -4,7 +4,6 @@ module Renalware
   module Messaging
     module Internal
       class SendMessage
-
         def self.call(*args)
           new.call(*args)
         end

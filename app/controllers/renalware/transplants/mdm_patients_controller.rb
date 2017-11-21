@@ -1,7 +1,6 @@
 module Renalware
   module Transplants
     class MDMPatientsController < Renalware::MDMPatientsController
-
       def index
         render_index(query: query,
                      page_title: t(".page_title"),

@@ -2,7 +2,6 @@ require "rails_helper"
 
 module Renalware
   describe Age, type: :model do
-
     describe "#valid?" do
       subject { Age.new }
 

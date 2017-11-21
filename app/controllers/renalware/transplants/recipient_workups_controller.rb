@@ -3,7 +3,6 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class RecipientWorkupsController < BaseController
-
       before_action :load_patient
 
       def show

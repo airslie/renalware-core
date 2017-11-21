@@ -4,7 +4,6 @@ require "document/enum"
 module Renalware
   module Transplants
     class RecipientWorkupDocument < Document::Embedded
-
       CONFIRMATION = %i(yes no).freeze
 
       class Historicals < Document::Embedded

@@ -3,7 +3,6 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module HD
     class CannulationTypesController < BaseController
-
       def new
         cannulation_type = CannulationType.new
         authorize cannulation_type

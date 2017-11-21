@@ -1,7 +1,6 @@
 module Renalware
   module Problems
     class ProblemsController < BaseController
-
       def index
         problems = patient.problems
         authorize problems

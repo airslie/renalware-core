@@ -2,7 +2,6 @@ require "rails_helper"
 
 module Renalware
   RSpec.describe PDRegimesHelper, type: :helper do
-
     describe "default_daily_glucose_average" do
       before do
         @patient = create(:patient)

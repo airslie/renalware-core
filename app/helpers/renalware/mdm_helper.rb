@@ -1,6 +1,5 @@
 module Renalware
   module MDMHelper
-
     def link_to_mdm(patient)
       MDMLink.new(patient).to_html
     end

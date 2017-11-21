@@ -1,7 +1,6 @@
 require "rails_helper"
 
 shared_examples_for "Personable" do
-
   subject { described_class }
 
   describe "validations" do

@@ -100,7 +100,6 @@ module Renalware
         remaining_bags = bags - bags_marked_for_destruction
         errors.add(:regime, "must be assigned at least one bag") if remaining_bags.empty?
       end
-
     end
   end
 end

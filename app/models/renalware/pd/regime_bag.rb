@@ -72,7 +72,6 @@ module Renalware
 
         errors.add(:days, "must be assigned at least one day of the week")
       end
-
     end
   end
 end

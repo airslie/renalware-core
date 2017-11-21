@@ -1,7 +1,6 @@
 module World
   module Snippets::Snippet
     module Domain
-
       def create_snippet_for(user, title:, body:)
         seed_snippet(user: user, title: title, body: body)
       end
@@ -14,7 +13,7 @@ module World
       def expect_user_to_have_snippet(user, title:, body:)
         expect(
           Renalware::Snippets::Snippet.where(author: user, title: title, body: body).count
-          ).to eq(1)
+        ).to eq(1)
       end
     end
 
@@ -33,7 +32,7 @@ module World
         expect(page).to have_current_path(snippets_path)
       end
 
-      def expect_user_to_have_snippet(user, title:, body:)
+      def expect_user_to_have_snippet(_user, title:, body:)
         within "table.snippets" do
           expect(page).to have_content(title)
         end

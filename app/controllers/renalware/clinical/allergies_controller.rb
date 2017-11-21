@@ -3,7 +3,6 @@ require_dependency "renalware/clinical"
 module Renalware
   module Clinical
     class AllergiesController < Clinical::BaseController
-
       def create
         result = CreateAllergy.new(patient, current_user).call(allergy_params) do |allergy|
           authorize allergy

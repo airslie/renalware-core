@@ -4,7 +4,6 @@ require_dependency "renalware/renal/base_controller"
 module Renalware
   module Renal
     class ProfilesController < BaseController
-
       before_action :load_patient
 
       def show
@@ -49,8 +48,10 @@ module Renalware
       end
 
       def address_params
-        [:id, :name, :organisation_name, :street_1, :street_2, :street_3, :county, :country_id,
-          :town, :postcode, :telephone, :email]
+        [
+          :id, :name, :organisation_name, :street_1, :street_2, :street_3, :county, :country_id,
+          :town, :postcode, :telephone, :email
+        ]
       end
 
       def find_profile

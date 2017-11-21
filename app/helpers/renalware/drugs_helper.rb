@@ -1,6 +1,5 @@
 module Renalware
   module DrugsHelper
-
     def drug_select_options
       options_for_select Drugs::Type.all
                                     .reject{ |r| r.name == "Peritonitis" }
@@ -23,6 +22,5 @@ module Renalware
         "Standard"
       end
     end
-
   end
 end

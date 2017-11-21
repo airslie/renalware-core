@@ -105,7 +105,6 @@ RSpec.describe "Admission Request (TCI) management", type: :request do
         expect(response).to have_http_status(:ok)
         expect(response).to render_template(:update)
         expect(request.reload.notes).to eq("Updated notes")
-
       end
     end
 

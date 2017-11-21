@@ -3,7 +3,6 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class DashboardsController < PD::BaseController
-
       def show
         authorize patient
         render :show, locals: {

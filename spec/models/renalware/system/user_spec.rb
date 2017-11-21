@@ -3,7 +3,6 @@ require_dependency "models/renalware/concerns/personable"
 
 module Renalware
   describe User, type: :model do
-
     it_behaves_like "Personable"
 
     describe "validation" do

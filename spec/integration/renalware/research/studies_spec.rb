@@ -36,7 +36,6 @@ RSpec.describe "Clinical Studies management", type: :request do
       expect(response).to render_template(:new)
       expect(response.body).to match("Clinical Studies")
       expect(response.body).to match("New")
-
     end
   end
 

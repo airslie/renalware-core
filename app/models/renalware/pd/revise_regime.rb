@@ -5,7 +5,6 @@ require_dependency "renalware/failure"
 module Renalware
   module PD
     class ReviseRegime
-
       def initialize(regime)
         @regime = regime
       end

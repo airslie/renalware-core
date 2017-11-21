@@ -5,7 +5,6 @@ require_dependency "renalware/patients"
 module Renalware
   module Patients
     class PrimaryCarePhysicianController < BaseController
-
       def edit
         authorize patient
         render_form

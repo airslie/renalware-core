@@ -2,7 +2,6 @@ require "rails_helper"
 
 module Renalware
   describe MDMHelper, type: :helper do
-
     def patient_with_modality(modality_trait: :pd)
       patient = Patient.new(id: 1)
       description = build(:modality_description, modality_trait)

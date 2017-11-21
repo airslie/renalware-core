@@ -1,6 +1,5 @@
 # rubocop:disable Style/FormatStringToken
 Renalware::Engine.routes.draw do
-
   match "/404", to: "system/errors#not_found", via: :all
   match "/500", to: "system/errors#internal_server_error", via: :all
   match "/generate_test_internal_server_error",

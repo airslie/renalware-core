@@ -4,7 +4,6 @@ require "liquid" # See https://github.com/Shopify/liquid
 module Renalware
   module System
     class RenderLiquidTemplate
-
       def self.call(**args)
         new.call(**args)
       end

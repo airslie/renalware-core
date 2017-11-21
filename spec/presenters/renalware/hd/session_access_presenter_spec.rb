@@ -6,15 +6,16 @@ describe Renalware::HD::SessionAccessPresenter do
   def mock_session(access_type: "ABC",
                    access_type_abbreviation: "A",
                    access_side: "right")
-    double("Session",
+    double(
+      "Session",
       document: double(
         info: double(
           access_type: access_type,
           access_type_abbreviation: access_type_abbreviation,
           access_side: access_side
-          )
         )
       )
+    )
   end
 
   describe "#to_s" do

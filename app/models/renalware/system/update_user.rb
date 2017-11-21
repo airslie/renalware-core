@@ -3,7 +3,6 @@ require_dependency "renalware/system"
 module Renalware
   module System
     class UpdateUser
-
       attr_reader :delivery_method, :notifications, :notifier, :user
 
       def initialize(user)

@@ -83,7 +83,8 @@ module Renalware
               recently_stopped_prescriptions: present(recently_stopped_prescriptions, PrescriptionPresenter),
               recently_changed_prescriptions: present(recently_changed_current_prescriptions, PrescriptionPresenter)
             }
-        ))
+          )
+        )
       end
       # rubocop:enable Metrics/LineLength
       # rubocop:enable Metrics/MethodLength

@@ -2,7 +2,6 @@ require "rails_helper"
 
 module Renalware
   feature "pd regime bag's days assigned are by default set all to true" do
-
     background do
       @patient = create(:patient)
       @pd_regime_bag_1 = PD::RegimeBag.new
@@ -14,7 +13,7 @@ module Renalware
                           thursday: false,
                           friday: true,
                           saturday: false
-                        )
+                              )
       login_as_clinician
     end
 

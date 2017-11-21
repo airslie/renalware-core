@@ -8,7 +8,8 @@ module World
       end
 
       def valid_person_attributes
-        FactoryBot.attributes_for(:directory_person,
+        FactoryBot.attributes_for(
+          :directory_person,
           address_attributes: FactoryBot.attributes_for(:address)
         )
       end

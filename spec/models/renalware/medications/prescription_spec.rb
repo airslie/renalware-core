@@ -165,8 +165,14 @@ module Renalware
       end
 
       def build_prescription(terminated_on:)
-        build(:prescription, prescribed_on: "2009-01-01",
-          termination: build(:prescription_termination, terminated_on: terminated_on))
+        build(
+          :prescription,
+          prescribed_on: "2009-01-01",
+          termination: build(
+            :prescription_termination,
+            terminated_on: terminated_on
+          )
+        )
       end
 
       def create_prescription(notes: nil, terminated_on:, administer_on_hd: false)

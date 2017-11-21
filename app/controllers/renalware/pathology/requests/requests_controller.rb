@@ -21,30 +21,36 @@ module Renalware
             Request.find(params[:id])
           )
           authorize request
-          render pdf: "show",
+          render(
+            pdf: "show",
             layout: false,
             locals: { request: request },
             extra: "--no-print-media-type" # NOTE: Foundation CSS does not work well in print mode
+          )
         end
 
         # NOTE: This needs to be POST since params[:patient_ids] may exceed url char limit in GET
         def new
-          render :new,
+          render(
+            :new,
             layout: false,
             locals: local_vars.merge(
               all_clinics: Renalware::Pathology::Clinic.for_algorithm,
               all_consultants: Renalware::Pathology::Consultant.ordered,
               all_templates: Renalware::Pathology::Requests::Request::TEMPLATES
             )
+          )
         end
 
         def create
           requests.each(&:print_form)
 
-          render pdf: "create",
+          render(
+            pdf: "create",
             layout: false,
             locals: local_vars,
             extra: "--no-print-media-type" # NOTE: Foundation CSS does not work well in print mode
+          )
         end
 
         private

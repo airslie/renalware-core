@@ -28,7 +28,6 @@ module Renalware
       end
 
       module Scopes
-
         def with_current_key_pathology
           eager_load(:current_key_observation_set) # .joins(:current_key_observation)
         end

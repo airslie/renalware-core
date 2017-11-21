@@ -11,7 +11,6 @@ module Renalware
   module HD
     module Sessions
       class AuditableSession < SimpleDelegator
-
         def blood_pressure_measurements
           [
             document.observations_before.blood_pressure,

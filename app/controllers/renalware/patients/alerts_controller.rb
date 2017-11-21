@@ -3,7 +3,6 @@ require_dependency "renalware/patients"
 module Renalware
   module Patients
     class AlertsController < BaseController
-
       # GET html
       def new
         alert = Alert.new

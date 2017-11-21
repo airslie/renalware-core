@@ -6,7 +6,6 @@ require_dependency "renalware/reporting"
 module Renalware
   module Reporting
     class AuditRefreshmentsController < BaseController
-
       # TODO: Move to Job
       def create
         authorize audit

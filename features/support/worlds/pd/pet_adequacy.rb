@@ -59,7 +59,6 @@ module World
         expect(page).to have_current_path(new_patient_pd_pet_adequacy_result_path(patient))
 
         within(".pet-adequacy-form") do
-
           choose "Fast"
           fill_in t_model(".pet_date"), with: I18n.l(Time.zone.today)
           fill_in t_model(".adequacy_date"), with: I18n.l(Time.zone.today)

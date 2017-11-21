@@ -1,7 +1,6 @@
 module Renalware
   module HD
     class ReviseHDProfile
-
       def initialize(profile)
         raise(ArgumentError, "Cannot revise a new Profile") unless profile.persisted?
         @profile = profile

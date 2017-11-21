@@ -14,7 +14,7 @@ module Renalware
           content_tag("header".freeze) do
             content_tag("h1".freeze, title)
           end
-          )
+        )
       end
       output.concat(capture(&block)) if block_given?
       output.safe_concat("</article>")

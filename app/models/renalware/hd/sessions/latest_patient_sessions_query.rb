@@ -2,7 +2,6 @@ module Renalware
   module HD
     module Sessions
       class LatestPatientSessionsQuery
-
         def initialize(patient:)
           @patient = patient
         end
@@ -22,7 +21,6 @@ module Renalware
         attr_reader :patient
 
         module Scopes
-
           def for_patient(patient)
             where(patient: patient)
           end

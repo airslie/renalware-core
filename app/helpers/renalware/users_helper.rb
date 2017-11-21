@@ -1,6 +1,5 @@
 module Renalware
   module UsersHelper
-
     def current_user_is_super_admin?
       current_user.has_role?(:super_admin)
     end

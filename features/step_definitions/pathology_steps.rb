@@ -37,8 +37,10 @@ Given(/^a ([\d\w]+) test was observed for Patty(\s|\s(\d+) (days|day) ago)$/) do
   if days.present?
     observed_at = (Time.current - days.days).to_date
 
-    record_observations(patient: @patty, observations_attributes:
-      [{ "code" => code, "observed_at" => observed_at.to_s, "result" => "100" }]
+    record_observations(
+      patient: @patty,
+      observations_attributes:
+        [{ "code" => code, "observed_at" => observed_at.to_s, "result" => "100" }]
     )
   end
 end

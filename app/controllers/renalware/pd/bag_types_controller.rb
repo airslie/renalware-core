@@ -3,7 +3,6 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class BagTypesController < BaseController
-
       def new
         bag_type = BagType.new
         authorize bag_type

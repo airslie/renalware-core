@@ -1,7 +1,6 @@
 module Renalware
   module PD
     class MDMPatientsController < Renalware::MDMPatientsController
-
       def index
         render_index(query: MDMPatientsQuery.new(q: params[:q]),
                      page_title: t(".page_title"),

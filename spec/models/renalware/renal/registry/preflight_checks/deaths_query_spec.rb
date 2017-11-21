@@ -45,7 +45,6 @@ module Renalware
         end
 
         describe "#call" do
-
           it "only returns patients with a modality of death and having an esrf_on date" do
             create_hd_patient
             death_patient = create_death_patient

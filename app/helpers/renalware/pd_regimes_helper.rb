@@ -1,6 +1,5 @@
 module Renalware
   module PDRegimesHelper
-
     def system_options_for(regime)
       PD::System.for_pd_type(regime.pd_type) { |system| [system.name, system.id] }
     end

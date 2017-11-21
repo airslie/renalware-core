@@ -5,7 +5,6 @@ require_dependency "renalware/failure"
 module Renalware
   module Clinics
     class CreateClinicVisit
-
       def self.call(patient, params)
         new(patient, params).call
       end

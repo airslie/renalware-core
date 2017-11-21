@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   # Can search for named routes directly in the main app, omitting
   # the "main_app." prefix
   def method_missing(method, *args, &block)
@@ -20,5 +19,4 @@ module ApplicationHelper
     method.to_s.end_with?("_path", "_url") &&
       main_app.respond_to?(method)
   end
-
 end

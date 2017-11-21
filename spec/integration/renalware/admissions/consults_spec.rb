@@ -37,7 +37,6 @@ module Renalware
 
     describe "GET new" do
       it "renders a modal to allow a patient to be selected" do
-
         get new_admissions_consult_path
 
         expect(response).to have_http_status(:success)

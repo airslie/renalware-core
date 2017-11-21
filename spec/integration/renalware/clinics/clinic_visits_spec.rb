@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Clinic Visits Management", type: :request do
-
   let(:user) { @current_user }
   let(:clinic) { create(:clinic) }
   let(:patient) { Renalware::Clinics.cast_patient(create(:patient, by: user)) }

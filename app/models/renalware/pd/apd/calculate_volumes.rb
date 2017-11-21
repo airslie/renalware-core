@@ -5,7 +5,6 @@ module Renalware
   module PD
     module APD
       class CalculateVolumes
-
         def initialize(regime)
           raise ArgumentError("Not an APD regime") unless regime.apd?
           @regime = decorate(regime)

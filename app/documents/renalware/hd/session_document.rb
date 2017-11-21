@@ -3,7 +3,6 @@ require "document/enum"
 
 module Renalware
   module HD
-
     NullSessionDocument = Naught.build do |config|
       config.black_hole
       config.define_explicit_conversions

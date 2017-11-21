@@ -8,7 +8,6 @@ module Renalware
         let(:patient) { create_patient }
 
         it "returns observations for the specified descriptions" do
-
           descriptions = create_descriptions(%w(target-1 exclude target-2))
           create_observations(patient, descriptions)
           target_descriptions = filter_targeted_descriptions(descriptions)

@@ -70,7 +70,6 @@ module Renalware
             born_on: patient.born_on, age_on_date: performed_on
           ).compute
       end
-
     end
   end
 end

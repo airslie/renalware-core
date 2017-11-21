@@ -3,7 +3,6 @@ require_dependency "renalware/reporting"
 module Renalware
   module Reporting
     class FetchAuditJson
-
       class << self
         def call(view_name)
           convert_rows_from_audit_view_into_datatables_compatible_json(view_name)

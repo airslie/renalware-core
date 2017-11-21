@@ -75,7 +75,7 @@ module Renalware
             "errors.messages.numeric_inclusion",
             from: range.first,
             to: range.last
-            )
+          )
           subject.errors[attribute].include?(expected_message)
 
           # clear errors and do with range.last?

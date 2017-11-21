@@ -32,7 +32,6 @@ module Renalware
           patients = query.call
 
           expect(patients).to eq [patient2]
-
         end
       end
     end

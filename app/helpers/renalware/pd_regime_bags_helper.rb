@@ -1,6 +1,5 @@
 module Renalware
   module PDRegimeBagsHelper
-
     def highlight_days_invalid(bag)
       if bag.errors.include?(:days)
         "validate-days-of-week"
@@ -12,6 +11,5 @@ module Renalware
         "validate-add-min-bag"
       end
     end
-
   end
 end

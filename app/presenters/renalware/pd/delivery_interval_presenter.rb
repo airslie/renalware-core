@@ -3,7 +3,6 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class DeliveryIntervalPresenter
-
       def initialize(duration)
         @interval = duration.present? ? parse_iso8601_duration(duration) : NullObject.instance
       end

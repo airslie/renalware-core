@@ -1,5 +1,4 @@
 module Renalware
-
   def self.table_name_prefix
     # 'renalware_' # TODO: eventually, prefix the tables
     ""

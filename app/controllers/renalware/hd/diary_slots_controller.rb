@@ -4,7 +4,6 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module HD
     class DiarySlotsController < BaseController
-
       # GET html -  renders a form
       # Here we will have been passed in the query string:
       # - the unit id
@@ -165,7 +164,7 @@ module Renalware
             :target_diary_id,
             :change_type,
             patient_id: []
-            )
+          )
       end
     end
   end

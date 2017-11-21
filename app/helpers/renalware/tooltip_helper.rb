@@ -1,6 +1,5 @@
 module Renalware
   module TooltipHelper
-
     def tooltip(label:, content:)
       content_tag(:span,
                   title: content,

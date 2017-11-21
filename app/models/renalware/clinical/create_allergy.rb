@@ -5,7 +5,6 @@ require_dependency "renalware/failure"
 module Renalware
   module Clinical
     class CreateAllergy
-
       def initialize(patient, user)
         @patient = patient
         @user = user

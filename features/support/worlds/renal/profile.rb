@@ -22,7 +22,7 @@ module World
         visit edit_patient_renal_profile_path(patient)
       end
 
-      def update_renal_profile(user, patient)
+      def update_renal_profile(_user, patient)
         fill_in "ESRF Date", with: fake_date.to_s
         fill_autocomplete "form.simple_form",
                           "prd_description_auto_complete",
@@ -56,7 +56,7 @@ module World
         expect(page).to have_current_path(patient_renal_profile_path(patient))
       end
 
-      def expect_renal_profile_to_be_updated(user, patient)
+      def expect_renal_profile_to_be_updated(_user, patient)
         profile = Renalware::Renal.cast_patient(patient).profile.reload
 
         expect(profile.esrf_on).to eq(fake_date)

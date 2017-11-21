@@ -3,7 +3,6 @@ require "rails_helper"
 module Renalware
   module Transplants
     describe RecipientWorkupBuilder, type: :model do
-
       it "assigns the default consenter if the workup is a new record" do
         consenter_name = "John Smith"
 

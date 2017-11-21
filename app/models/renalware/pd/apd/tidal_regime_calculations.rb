@@ -4,7 +4,6 @@ module Renalware
   module PD
     module APD
       class TidalRegimeCalculations < RegimeCalculations
-
         # Each patient will have the same volume for each night they do APD and that is the
         # overnight APD volume. If a patient only does APD on 6 nights per week, the overnight
         # volume does not need to be averaged over 7 nights as the clinicians will want to

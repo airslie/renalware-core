@@ -3,7 +3,6 @@ require_dependency "renalware/clinical"
 module Renalware
   module Clinical
     class AllergyStatusesController < Clinical::BaseController
-
       def update
         authorize patient
         form = AllergyStatusForm.new(allergy_status_params)

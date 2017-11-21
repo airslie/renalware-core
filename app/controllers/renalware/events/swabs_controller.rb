@@ -5,7 +5,6 @@ require_dependency "renalware/events"
 module Renalware
   module Events
     class SwabsController < EventsController
-
       private
 
       # Override this because as we probably originated from the clinical profile we want to

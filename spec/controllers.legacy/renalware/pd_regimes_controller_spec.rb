@@ -81,7 +81,8 @@ module Renalware
                    patient_id: patient,
                    system_id: system.id,
                    delivery_interval: "P4W",
-                   pd_regime: { type: "Renalware::PD::CAPDRegime",
+                   pd_regime: {
+                     type: "Renalware::PD::CAPDRegime",
                      start_date: nil,
                      treatment: nil
                    }
@@ -101,9 +102,11 @@ module Renalware
                   params: {
                     patient_id: patient,
                     actions: { add_bag: "Add Bag" },
-                    pd_regime: { type: "Renalware::PD::CAPDRegime",
+                    pd_regime: {
+                      type: "Renalware::PD::CAPDRegime",
                       start_date: Time.zone.today,
-                      treatment: "CAPD 3 exchanges per day" }
+                      treatment: "CAPD 3 exchanges per day"
+                    }
                   }
           }.to change(PD::Regime, :count).by(0)
           expect(PD::RegimeBag.count).to eq(1)
@@ -117,12 +120,16 @@ module Renalware
           params: {
             patient_id: patient,
             actions: { remove: { "0" => "Remove" } },
-            pd_regime: { type: "Renalware::PD::CAPDRegime",
+            pd_regime: {
+              type: "Renalware::PD::CAPDRegime",
               start_date: Time.zone.today,
               treatment: "CAPD 4 exchanges per day",
               bags_attributes: [
                 {
-                  bag_type_id: "100", volume: "2", per_week: "1", monday: true
+                  bag_type_id: "100",
+                  volume: "2",
+                  per_week: "1",
+                  monday: true
                 }
               ]
             }
@@ -157,7 +164,8 @@ module Renalware
               params: {
                 id: capd_regime.id,
                 patient_id: patient,
-                pd_regime: { type: "Renalware::PD:CAPDRegime",
+                pd_regime: {
+                  type: "Renalware::PD:CAPDRegime",
                   start_date: "15/02/2015",
                   treatment: "CAPD 5 exchanges per day"
                 }
@@ -174,7 +182,8 @@ module Renalware
               params: {
                 id: capd_regime.id,
                 patient_id: patient,
-                pd_regime: { type: "Renalware::PD::CAPDRegime",
+                pd_regime: {
+                  type: "Renalware::PD::CAPDRegime",
                   start_date: nil,
                   treatment: nil
                 }

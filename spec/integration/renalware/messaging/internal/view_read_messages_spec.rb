@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Read internal messages for a user", type: :request do
-
   describe "GET read" do
     it "responds successfully" do
       get messaging_internal_read_receipts_path

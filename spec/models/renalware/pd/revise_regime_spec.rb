@@ -17,7 +17,6 @@ module Renalware
       end
 
       describe "#call" do
-
         context "when there are no changes to the regime" do
           let(:params) { {} }
 
@@ -89,7 +88,6 @@ module Renalware
               expect(regime.end_date).to eq(result.object.start_date)
             end
           end
-
         end
 
         context "when there are changes to a bag but not the parent regime" do
@@ -161,7 +159,6 @@ module Renalware
 
             expect(Regime.count).to eq(regime_count + 1)
             expect(RegimeBag.count).to eq(bag_count + 1)
-
           end
         end
 

@@ -1,6 +1,5 @@
 module Renalware
   class Admin::UserMailerPreview < ActionMailer::Preview
-
     def approval
       user = User.first
       Admin::UserMailer.approval(user)
@@ -10,6 +9,5 @@ module Renalware
       user = User.first
       Admin::UserMailer.unexpiry(user)
     end
-
   end
 end

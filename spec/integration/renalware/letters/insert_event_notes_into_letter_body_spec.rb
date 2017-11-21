@@ -31,7 +31,6 @@ RSpec.describe "Insert letter.event notes (e.g. from a clinic visit) into the le
   describe "clicking the button to insert event notes" do
     context "when the letter has an event with some notes" do
       it "inserts the notes into the letter body" do
-
         # Simulate something similar to a ClinicVisit being associated with the Letter
         # We don't use a 'real' Clinics::Visit as its in a different module.
         my_clinic_visit = MyClinicVisit.new

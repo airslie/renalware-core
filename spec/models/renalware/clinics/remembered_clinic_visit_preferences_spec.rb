@@ -3,7 +3,6 @@ require "rails_helper"
 module Renalware
   module Clinics
     RSpec.describe RememberedClinicVisitPreferences, type: :model do
-
       describe "#persist" do
         it "saves certain model attributes to the session" do
           visit = double("ClinicVisit", date: Time.zone.now)
