@@ -48,8 +48,10 @@ module Renalware
       end
 
       def address_params
-        [:id, :name, :organisation_name, :street_1, :street_2, :street_3, :county, :country_id,
-          :town, :postcode, :telephone, :email]
+        [
+          :id, :name, :organisation_name, :street_1, :street_2, :street_3, :county, :country_id,
+          :town, :postcode, :telephone, :email
+        ]
       end
 
       def find_profile

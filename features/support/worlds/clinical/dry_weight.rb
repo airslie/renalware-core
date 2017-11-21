@@ -66,7 +66,7 @@ module World
         expect(profile).to be_modified
       end
 
-      def expect_dry_weight_to_be_refused(patient)
+      def expect_dry_weight_to_be_refused(_patient)
         expect(Renalware::Clinical::DryWeight.count).to eq(0)
       end
     end

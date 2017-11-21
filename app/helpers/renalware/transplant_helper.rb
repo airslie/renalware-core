@@ -58,8 +58,10 @@ module Renalware
     def recipient_followup_breadcrumbs(patient, followup)
       [
         recipient_summary_breadcrumb(patient),
-         breadcrumb_for(recipient_followup_title(followup),
-            patient_transplants_recipient_operation_followup_path(patient, followup.operation))
+        breadcrumb_for(
+          recipient_followup_title(followup),
+          patient_transplants_recipient_operation_followup_path(patient, followup.operation)
+        )
       ]
     end
 
