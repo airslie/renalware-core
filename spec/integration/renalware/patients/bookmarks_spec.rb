@@ -32,8 +32,8 @@ RSpec.describe "Managing bookmarks", type: :request do
         params = {
           patients_bookmark: {
             urgent: true,
-                notes: "A note",
-                user_id: @current_user.id
+            notes: "A note",
+            user_id: @current_user.id
           }
         }
 

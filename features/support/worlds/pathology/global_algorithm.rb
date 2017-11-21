@@ -69,7 +69,8 @@ module World
           pathology_patient = Renalware::Pathology.cast_patient(patient)
           clinic = Renalware::Clinics::Clinic.find_by(name: clinic_name)
 
-          Renalware::Pathology::Requests::GlobalAlgorithm.new(pathology_patient, clinic)
+          Renalware::Pathology::Requests::GlobalAlgorithm
+            .new(pathology_patient, clinic)
             .determine_required_request_descriptions
         end
 

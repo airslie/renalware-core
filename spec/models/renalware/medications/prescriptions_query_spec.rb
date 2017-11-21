@@ -30,8 +30,11 @@ module Renalware::Medications
       let(:target_drug) { create(:drug, drug_types: [target_drug_type]) }
       let!(:target_prescription) do
         create(
-          :prescription, notes: ":target:",
-          patient: patient, treatable: patient, drug: target_drug
+          :prescription,
+          notes: ":target:",
+          patient: patient,
+          treatable: patient,
+          drug: target_drug
         )
       end
 
@@ -39,8 +42,11 @@ module Renalware::Medications
       let(:other_drug) { create(:drug, drug_types: [other_drug_type]) }
       let!(:other_prescription) do
         create(
-          :prescription, notes: ":other:",
-          patient: patient, treatable: patient, drug: other_drug
+          :prescription,
+          notes: ":other:",
+          patient: patient,
+          treatable: patient,
+          drug: other_drug
         )
       end
 

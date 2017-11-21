@@ -28,7 +28,10 @@ Given(/^Patty has a recorded recipient operation$/) do
 end
 
 Given(/^Patty has a recorded recipient operation performed (\d+) weeks ago$/) do |weeks_ago|
-  @operation = seed_recipient_operation(@patty, performed_on: weeks_ago.weeks.ago)
+  @operation = seed_recipient_operation(
+    @patty,
+    performed_on: weeks_ago.weeks.ago
+  )
 end
 
 Given(/^Don has a donor operation$/) do
@@ -303,8 +306,11 @@ Then(/^the donation has Patty as a recipient$/) do
 end
 
 Then(/^the transplant current status stays "(.*?)" since "(.*?)"$/) do |name, start_date|
-  expect_transplant_registration_current_status_to_be(patient: @patty,
-    name: name, started_on: start_date)
+  expect_transplant_registration_current_status_to_be(
+    patient: @patty,
+    name: name,
+    started_on: start_date
+  )
 end
 
 Then(/^the status history has the following revised termination dates$/) do |table|

@@ -85,7 +85,8 @@ module World
 
       def expect_transplant_registration_status_history_to_include(patient:, hashes:)
         statuses = transplant_registration_for(patient).reload.statuses.map do |s|
-          hash = { status: s.description.name,
+          hash = {
+            status: s.description.name,
             start_date: I18n.l(s.started_on),
             termination_date: (s.terminated_on ? I18n.l(s.terminated_on) : "")
           }
