@@ -1070,8 +1070,30 @@ CREATE TABLE drug_types (
 
 CREATE TABLE drug_types_drugs (
     drug_id integer NOT NULL,
-    drug_type_id integer NOT NULL
+    drug_type_id integer NOT NULL,
+    id bigint NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
+
+
+--
+-- Name: drug_types_drugs_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE drug_types_drugs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: drug_types_drugs_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE drug_types_drugs_id_seq OWNED BY drug_types_drugs.id;
 
 
 --
@@ -5972,6 +5994,13 @@ ALTER TABLE ONLY drug_types ALTER COLUMN id SET DEFAULT nextval('drug_types_id_s
 
 
 --
+-- Name: drug_types_drugs id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY drug_types_drugs ALTER COLUMN id SET DEFAULT nextval('drug_types_drugs_id_seq'::regclass);
+
+
+--
 -- Name: drugs id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -6994,7 +7023,7 @@ ALTER TABLE ONLY directory_people
 --
 
 ALTER TABLE ONLY drug_types_drugs
-    ADD CONSTRAINT drug_types_drugs_pkey PRIMARY KEY (drug_id, drug_type_id);
+    ADD CONSTRAINT drug_types_drugs_pkey PRIMARY KEY (id);
 
 
 --
@@ -8426,6 +8455,13 @@ CREATE INDEX index_directory_people_on_updated_by_id ON directory_people USING b
 --
 
 CREATE INDEX index_doctors_practices ON patient_practices_primary_care_physicians USING btree (primary_care_physician_id, practice_id);
+
+
+--
+-- Name: index_drug_types_drugs_on_drug_id_and_drug_type_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_drug_types_drugs_on_drug_id_and_drug_type_id ON drug_types_drugs USING btree (drug_id, drug_type_id);
 
 
 --
@@ -12767,6 +12803,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171113120217'),
 ('20171116103230'),
 ('20171118160030'),
+('20171123143534'),
 ('20171123154116');
 
 

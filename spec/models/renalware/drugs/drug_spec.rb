@@ -3,6 +3,8 @@ require "rails_helper"
 module Renalware::Drugs
   RSpec.describe Drug, type: :model do
     subject { build(:drug) }
+    it { is_expected.to have_many(:classifications) }
+    it { is_expected.to have_many(:drug_types).through(:classifications) }
 
     describe "destroy" do
       it "soft deletes the drug" do
