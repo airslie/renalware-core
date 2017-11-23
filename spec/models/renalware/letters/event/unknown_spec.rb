@@ -11,7 +11,7 @@ module Renalware::Letters
             {
               problems: Part::Problems,
               prescriptions: Part::Prescriptions,
-              pathology_snapshot: Part::PathologySnapshot,
+              recent_pathology_results: Part::RecentPathologyResults,
               allergies: Part::Allergies
             }
           )

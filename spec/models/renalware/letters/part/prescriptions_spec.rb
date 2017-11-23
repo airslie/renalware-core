@@ -2,7 +2,7 @@ require "rails_helper"
 
 module Renalware::Letters
   describe Part::Prescriptions do
-    subject(:part) { Part::Prescriptions.new(patient) }
+    subject(:part) { Part::Prescriptions.new(patient, Letter.new) }
 
     let(:user) { create(:user) }
     let(:patient) { create(:patient, by: user) }

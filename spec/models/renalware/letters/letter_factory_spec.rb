@@ -30,62 +30,6 @@ module Renalware
           expect(letter.main_recipient.person_role).to eq("primary_care_physician")
         end
 
-        context "when there are no pathology results" do
-          it "the snapshot of current pathology is nil" do
-            letter = subject.build
-
-            expect(letter.pathology_snapshot).to eq({})
-          end
-        end
-
-        context "when there are pathology results" do
-          it "includes a snapshot of current pathology" do
-            observation_request = create(
-              :pathology_observation_request,
-              patient: Pathology.cast_patient(patient)
-            )
-            hgb_description = create(
-              :pathology_observation_description,
-              code: "HGB",
-              name: "HGB"
-            )
-            plt_description = create(
-              :pathology_observation_description,
-              code: "PLT",
-              name: "PLT"
-            )
-            create(
-              :pathology_observation,
-              request: observation_request,
-              description: hgb_description,
-              observed_at: "04-Mar-2016",
-              result: 6.0
-            )
-            create(
-              :pathology_observation,
-              request: observation_request,
-              description: hgb_description,
-              observed_at: "04-Apr-2016", # latest so will be uses
-              result: 6.0
-            )
-            create(
-              :pathology_observation,
-              request: observation_request,
-              description: plt_description,
-              observed_at: "05-Apr-2016", # latest so will be uses
-              result: 1.1
-            )
-
-            letter = subject.build
-
-            expected = {
-              "HGB" => { "result" => "6.0", "date" => "04-Apr-2016" },
-              "PLT" => { "result" => "1.1", "date" => "05-Apr-2016" }
-            }
-            expect(letter.pathology_snapshot).to eq(expected)
-          end
-        end
-
         context "given the patient has contacts flagged as default CC" do
           let(:default_cc_contact) do
             build(

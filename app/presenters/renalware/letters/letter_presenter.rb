@@ -41,11 +41,13 @@ module Renalware
       end
 
       def parts
-        letter_event.part_classes.values.map { |part_class| part_class.new(patient, letter_event) }
+        letter_event.part_classes.values.map do |part_class|
+          part_class.new(patient, self, letter_event)
+        end
       end
 
       def part_for(part_name)
-        letter_event.part_classes[part_name].new(patient, letter_event)
+        letter_event.part_classes[part_name].new(patient, self, letter_event)
       end
 
       def to_html

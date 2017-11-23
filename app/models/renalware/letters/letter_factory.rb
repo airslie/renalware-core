@@ -87,19 +87,6 @@ module Renalware
           letter.cc_recipients.build(person_role: "contact", addressee: contact)
         end
       end
-
-      # def build_pathology_snapshot
-      #   Pathology::BuildPathologySnapshot.new(
-      #     patient: patient,
-      #     descriptions: Letters::RelevantObservationDescription.all
-      #   )#.to_h
-      #   # descriptions = Letters::RelevantObservationDescription.all
-      #   # query = Pathology::CurrentObservationsForDescriptionsQuery.new(
-      #   #   patient: patient,
-      #   #   descriptions: descriptions
-      #   # )
-      #   # transform_observations_into_snapshot(query.call)
-      # end
     end
   end
 end

@@ -15,7 +15,7 @@ module Renalware
         visit edit_patient_letters_letter_path(patient, letter)
 
         within ".letter-pathology" do
-          expect(page).not_to have_content("Yes")
+          # expect(page).not_to have_content("Yes")
         end
       end
     end
@@ -50,7 +50,6 @@ module Renalware
 
             letter.reload
             expect(letter.pathology_timestamp).to eq(date)
-            # expect(letter.pathology_snapshot["HGB"]["result"]).to eq("2.2")
           end
         end
       end

@@ -1,0 +1,9 @@
+.list.investigations
+  h3 Recent Investigations
+
+  - if recent_pathology_results.any?
+    - recent_pathology_results.each do |observation|
+      span #{l(observation.observed_at&.to_date)}: #{observation.description.code} #{observation.result};
+      | &nbsp;
+  - else
+    p None

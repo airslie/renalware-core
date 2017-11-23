@@ -1,5 +1,7 @@
 require "renalware/letters/part"
 
+# When rendered, the template in `to_partial_path` will be used, and our Part object here will be
+# available in the partial as `recent_pathology_results`.
 module Renalware
   module Letters
     class Part::RecentPathologyResults < Part
@@ -16,19 +18,19 @@ module Renalware
       end
 
       def find_recent_pathology_results
-        presenter = Pathology::CurrentObservationResults::Presenter.new
-        descriptions = Letters::RelevantObservationDescription.all
-        query = Pathology::CurrentObservationsForDescriptionsQuery.new(
+        check_letter
+        range = Time.zone.at(1)..letter.pathology_timestamp
+        Renalware::Pathology::CurrentObservationsForDescriptionsQuery.new(
           patient: patient,
-          descriptions: descriptions
-        )
+          descriptions: Renalware::Letters::RelevantObservationDescription.all
+        ).call.where(observed_at: range).reject{ |obs| obs.id.nil? }
+      end
 
-        # Only select display result with a value
-        results = query.call.reject{ |result| result.result.blank? }
-
-        # Removes the header from the results, this will be unnecessary when
-        # a custom Presenter is implemented
-        presenter.present(results)[1..-1]
+      def check_letter
+        if letter.pathology_timestamp.blank?
+          raise ArgumentError,
+                "letter.pathology_timestamp cannot be nil when rendering letter pathology!"
+        end
       end
     end
   end
