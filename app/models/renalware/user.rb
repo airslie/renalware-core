@@ -9,12 +9,14 @@ module Renalware
     validates :given_name, presence: true
     validates :family_name, presence: true
     validate :approval_with_roles, on: :update
-    validates_presence_of :professional_position,
-                          on: :update,
-                          unless: :skip_validation
-    validates_presence_of :signature,
-                          on: :update,
-                          unless: :skip_validation
+    validates :professional_position, presence: {
+      on: :update,
+      unless: :skip_validation
+    }
+    validates :signature, presence: {
+      on: :update,
+      unless: :skip_validation
+    }
 
     scope :unapproved, -> { where(approved: [nil, false]) }
     scope :inactive, lambda {
@@ -38,9 +40,11 @@ module Renalware
       %i(unapproved inactive)
     end
 
+    # rubocop:disable Naming/PredicateName
     def has_role?(name)
       role_names.include?(name.to_s)
     end
+    # rubocop:enable Naming/PredicateName
 
     def role_names
       @role_names ||= roles.pluck(:name)
