@@ -7,7 +7,7 @@ gemspec
 
 # These are visible to dummy app only
 gem "daemons", require: false # to cmds like `bin/delayed_job start`
-                              #
+gem "party_foul", "~> 1.5.5"
 #
 # devise_security_extension
 #
@@ -45,8 +45,8 @@ end
 
 group :developement do
   gem "foreman", require: false
-  gem "web-console", require: false
   gem "rubocop-rspec", require: false # for housekeeping
+  gem "web-console", require: false
 end
 
 group :development, :test do
