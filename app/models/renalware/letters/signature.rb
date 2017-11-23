@@ -6,7 +6,9 @@ module Renalware
       belongs_to :user
       belongs_to :letter
 
-      validates_presence_of :user, :letter, :signed_at
+      validates :user, presence: true
+      validates :letter, presence: true
+      validates :signed_at, presence: true
 
       def to_s
         name = user.full_name

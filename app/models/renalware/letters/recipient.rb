@@ -16,7 +16,7 @@ module Renalware
                                     allow_destroy: true,
                                     reject_if: :patient_or_primary_care_physician?
 
-      validates_presence_of :addressee_id, if: :contact?
+      validates :addressee_id, presence: { if: :contact? }
 
       delegate :primary_care_physician?, :patient?, :contact?, to: :person_role
 

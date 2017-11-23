@@ -8,9 +8,9 @@ module Renalware
 
       accepts_nested_attributes_for :address, allow_destroy: true
 
-      validates_presence_of :name
-      validates_presence_of :address
-      validates_presence_of :code
+      validates :name, presence: true
+      validates :address, presence: true
+      validates :code, presence: true
     end
   end
 end

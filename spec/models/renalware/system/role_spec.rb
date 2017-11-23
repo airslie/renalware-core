@@ -2,6 +2,8 @@ require "rails_helper"
 
 module Renalware
   describe Role, type: :model do
+    it { is_expected.to validate_uniqueness_of(:name) }
+
     describe ".fetch" do
       context "given an empty collection of id's" do
         it "returns none" do

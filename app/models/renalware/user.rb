@@ -6,8 +6,8 @@ module Renalware
     has_and_belongs_to_many :roles, join_table: :roles_users
 
     validates :username, presence: true, uniqueness: true
-    validates_presence_of :given_name
-    validates_presence_of :family_name
+    validates :given_name, presence: true
+    validates :family_name, presence: true
     validate :approval_with_roles, on: :update
     validates_presence_of :professional_position,
                           on: :update,

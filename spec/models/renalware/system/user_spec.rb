@@ -5,6 +5,9 @@ module Renalware
   describe User, type: :model do
     it_behaves_like "Personable"
 
+    it { is_expected.to validate_presence_of(:given_name) }
+    it { is_expected.to validate_presence_of(:family_name) }
+
     describe "validation" do
       describe "#professional_position" do
         it { is_expected.to validate_presence_of(:professional_position).on(:update) }

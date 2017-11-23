@@ -8,7 +8,8 @@ module Renalware
       include Accountable
       include ExplicitStateModel
 
-      validates_presence_of :type # Prevent instances of this of this base from being saved
+      # Prevent instances of this of this base class from being saved
+      validates :type, presence: true
 
       has_states :open, :closed, :dna
 

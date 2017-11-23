@@ -15,8 +15,8 @@ module Renalware
       belongs_to :clinic
       has_many :clinic_letters
 
-      validates_presence_of :date
-      validates_presence_of :clinic
+      validates :date, presence: true
+      validates :clinic, presence: true
 
       validates :date, timeliness: { type: :date }
       validates :time, timeliness: { type: :time, allow_blank: true }

@@ -3,7 +3,7 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class Description < ApplicationRecord
-      validates_presence_of :text
+      validates :text, presence: true
 
       has_many :letters
     end

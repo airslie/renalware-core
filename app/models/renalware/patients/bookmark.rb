@@ -10,7 +10,7 @@ module Renalware
 
       validates :patient, presence: true
       validates :user, presence: true
-      validates_uniqueness_of :user_id, scope: [:patient_id, :deleted_at]
+      validates :user_id, uniqueness: { scope: [:patient_id, :deleted_at] }
 
       scope :ordered, -> { order(urgent: :desc, updated_at: :asc) }
     end
