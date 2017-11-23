@@ -7,7 +7,7 @@ module Renalware
 
       belongs_to :letter
 
-      validates_presence_of :content
+      validates :content, presence: true
     end
   end
 end

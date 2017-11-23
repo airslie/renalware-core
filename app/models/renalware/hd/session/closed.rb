@@ -26,21 +26,28 @@ module Renalware
 
       class SessionDocument < ::Renalware::HD::SessionDocument
         class Info < Renalware::HD::SessionDocument::Info
+          # rubocop:disable Rails/Validation
           validates_presence_of attribute_set.map(&:name)
+          # rubocop:enable Rails/Validation
         end
         attribute :info, Info
 
         class Observations < Renalware::HD::SessionDocument::Observations
-          validates_presence_of :pulse, :blood_pressure, :weight_measured, :temperature_measured
-          validates_presence_of :weight, if: ->{ weight_measured&.yes? }
-          validates_presence_of :temperature, if: ->{ temperature_measured&.yes? }
+          validates :pulse, presence: true
+          validates :blood_pressure, presence: true
+          validates :weight_measured, presence: true
+          validates :temperature_measured, presence: true
+          validates :weight, presence: { if: ->{ weight_measured&.yes? } }
+          validates :temperature, presence: { if: ->{ temperature_measured&.yes? } }
           validates :blood_pressure, "renalware/patients/blood_pressure_presence" => true
         end
         attribute :observations_before, Observations
         attribute :observations_after, Observations
 
         class Dialysis < Renalware::HD::SessionDocument::Dialysis
+          # rubocop:disable Rails/Validation
           validates_presence_of attribute_set.map(&:name)
+          # rubocop:enable Rails/Validation
         end
         attribute :dialysis, Dialysis
 

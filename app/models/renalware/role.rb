@@ -4,7 +4,7 @@ module Renalware
 
     has_and_belongs_to_many :users, join_table: :roles_users
 
-    validates_uniqueness_of :name
+    validates :name, uniqueness: true
 
     def self.fetch(ids)
       return none if Array.wrap(ids).empty?

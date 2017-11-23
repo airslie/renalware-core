@@ -18,8 +18,8 @@ module Renalware
 
       validates_with PrimaryCarePhysicians::AddressValidator
       validates :email, email: true, allow_blank: true
-      validates_uniqueness_of :code
-      validates_presence_of :practitioner_type
+      validates :code, uniqueness: true
+      validates :practitioner_type, presence: true
 
       scope :ordered, -> { order(family_name: :asc) }
 
