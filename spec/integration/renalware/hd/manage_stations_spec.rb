@@ -23,7 +23,7 @@ feature "Managing HD Stations for a Hospital Unit" do
   end
 
   scenario "Adding a station" do
-    login_as_clinician
+    login_as_admin
     unit = create(:hospital_unit, unit_code: "UnitCode")
 
     visit hd_unit_stations_path(unit)
@@ -41,7 +41,7 @@ feature "Managing HD Stations for a Hospital Unit" do
   end
 
   scenario "Editing a station" do
-    user = login_as_clinician
+    user = login_as_admin
     unit = create(:hospital_unit, unit_code: "UnitCode")
     station = create_station("Station-1", unit, user)
 

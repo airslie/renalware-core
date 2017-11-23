@@ -12,3 +12,4 @@ admin:
   - Renalware::OrganismCode
   - Renalware::PRDDescription
   - Renalware::Hospitals::Unit
+  - Renalware::HD::Station
