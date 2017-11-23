@@ -5,9 +5,9 @@ module Renalware
     class Drug < ApplicationRecord
       acts_as_paranoid
 
-      has_and_belongs_to_many :drug_types,
-                              class_name: "Type",
-                              association_foreign_key: :drug_type_id
+      has_many :classifications, dependent: :destroy
+      has_many :drug_types, through: :classifications
+
       scope :ordered, -> { order(:name) }
 
       validates :name, presence: true

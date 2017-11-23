@@ -5,7 +5,8 @@ module Renalware
     class Type < ApplicationRecord
       self.table_name = "drug_types"
 
-      has_and_belongs_to_many :drugs, foreign_key: :drug_type_id
+      has_many :classifications, foreign_key: :drug_type_id, dependent: :destroy
+      has_many :drugs, through: :classifications
 
       include OrderedSetScope
 
