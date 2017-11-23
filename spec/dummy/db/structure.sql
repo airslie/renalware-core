@@ -4523,6 +4523,41 @@ ALTER SEQUENCE renal_profiles_id_seq OWNED BY renal_profiles.id;
 
 
 --
+-- Name: renal_versions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renal_versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: renal_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renal_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: renal_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renal_versions_id_seq OWNED BY renal_versions.id;
+
+
+--
 -- Name: reporting_anaemia_audit; Type: VIEW; Schema: renalware; Owner: -
 --
 
@@ -6553,6 +6588,13 @@ ALTER TABLE ONLY renal_profiles ALTER COLUMN id SET DEFAULT nextval('renal_profi
 
 
 --
+-- Name: renal_versions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renal_versions ALTER COLUMN id SET DEFAULT nextval('renal_versions_id_seq'::regclass);
+
+
+--
 -- Name: reporting_audits id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -7665,6 +7707,14 @@ ALTER TABLE ONLY renal_prd_descriptions
 
 ALTER TABLE ONLY renal_profiles
     ADD CONSTRAINT renal_profiles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: renal_versions renal_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renal_versions
+    ADD CONSTRAINT renal_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -9902,6 +9952,13 @@ CREATE INDEX index_renal_profiles_on_patient_id ON renal_profiles USING btree (p
 --
 
 CREATE INDEX index_renal_profiles_on_prd_description_id ON renal_profiles USING btree (prd_description_id);
+
+
+--
+-- Name: index_renal_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_renal_versions_on_item_type_and_item_id ON renal_versions USING btree (item_type, item_id);
 
 
 --
@@ -12709,6 +12766,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171109084751'),
 ('20171113120217'),
 ('20171116103230'),
-('20171118160030');
+('20171118160030'),
+('20171123154116');
 
 
