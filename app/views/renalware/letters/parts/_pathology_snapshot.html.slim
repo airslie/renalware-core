@@ -1,10 +1,14 @@
 ruby:
+  if letter.pathology_timestamp.blank?
+    raise ArgumentError,
+          "letter.pathology_timestamp cannot be nil when rendering letter pathology!"
+  end
+
+  range = Time.zone.at(1)..letter.pathology_timestamp
   query = Renalware::Pathology::CurrentObservationsForDescriptionsQuery.new(
     patient: patient,
     descriptions: Renalware::Letters::RelevantObservationDescription.all
-  )
-  range = Time.zone.at(1)..letter.pathology_timestamp
-  observations = query.call.where(observed_at: range).reject{ |obs| obs.id.nil? }
+  ).call.where(observed_at: range).reject{ |obs| obs.id.nil? }
 
 .list.investigations
   h3 Recent Investigations
