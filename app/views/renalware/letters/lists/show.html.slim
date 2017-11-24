@@ -1,7 +1,7 @@
 = within_admin_layout(title: "Letters") do
 
   .search-form.filters
-      = simple_form_for @q,
+      = simple_form_for q,
                         as: :q,
                         url: letters_list_path,
                         html: { autocomplete: "off" },
@@ -12,9 +12,9 @@
           .small-6.medium-3.large-2.columns
             = f.input :state_eq, collection: state_options, label: "State"
           .small-6.medium-3.large-2.columns
-            = f.input :author_id_eq, as: :user_picker, collection: @authors, label: "Author"
+            = f.input :author_id_eq, as: :user_picker, collection: authors, label: "Author"
           .small-6.medium-3.large-2.columns
-            = f.input :created_by_id_eq, as: :user_picker, collection: @typists, label: "Typist"
+            = f.input :created_by_id_eq, as: :user_picker, collection: typists, label: "Typist"
           .small-12.medium-2.large-4.columns.actions.end
             = f.submit t("helpers.submit.filter"), class: "button"
             span= " or "
@@ -33,17 +33,16 @@
           tr
             th.noprint
             th Type
-            th= sort_link([:renalware, @q], :type, "State")
-            th.col-width-medium= sort_link([:renalware, @q], :patient_family_name, "Patient")
-            th.col-width-nhs-no= sort_link([:renalware, @q], :patient_nhs_number, "NHS No")
-            th= sort_link([:renalware, @q], :enclosures, "Enc.")
-            th.col-width-date = sort_link([:renalware, @q], :issued_on, "Date", default_order: :desc)
-            th= sort_link([:renalware, @q], :author_family_name, "Author")
-            th= sort_link([:renalware, @q], :created_by_family_name, "Typist")
+            th= sort_link([:renalware, q], :type, "State")
+            th.col-width-medium= sort_link([:renalware, q], :patient_family_name, "Patient")
+            th.col-width-nhs-no= sort_link([:renalware, q], :patient_nhs_number, "NHS No")
+            th= sort_link([:renalware, q], :enclosures, "Enc.")
+            th.col-width-date = sort_link([:renalware, q], :issued_on, "Date", default_order: :desc)
+            th= sort_link([:renalware, q], :author_family_name, "Author")
+            th= sort_link([:renalware, q], :created_by_family_name, "Typist")
             th.col-width-small Recipient
             th Description
         tbody
-          - @letters.each do |letter|
-            = render "letter", letter: letter
+          = render partial: "letter", collection: letters
 
-      = paginate @letters
+      = paginate letters
