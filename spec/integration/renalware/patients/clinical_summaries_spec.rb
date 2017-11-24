@@ -13,6 +13,7 @@ module Renalware
         letter_patient = Letters.cast_patient(patient)
         letter = build(:approved_letter, patient: letter_patient, by: user)
         letter.build_main_recipient(person_role: :primary_care_physician)
+        letter.type ||= letter.class.sti_name # Hack for CI!
         letter.save!
 
         visit patient_clinical_summary_path(patient)

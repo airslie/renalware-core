@@ -14,6 +14,12 @@ module LettersSpecHelper
 
   def create_letter(**args)
     letter = build_letter(args)
+
+    # This type hack is to resolve an issue where STI #type not getting set on the letter
+    # in certain circumstance. Not great but hopefully the mists will clear and we'll work out why
+    # this is and remove this at some point.
+    letter.type ||= letter.class.sti_name
+
     letter.save!
     letter
   end
