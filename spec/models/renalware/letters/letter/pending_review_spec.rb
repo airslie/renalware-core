@@ -43,14 +43,12 @@ module Renalware::Letters
         it "records who archived the letter" do
           user = create(:user)
           archived_letter = letter.generate_archive(by: user)
-          archived_letter.type ||= archived_letter.class.sti_name # HACK FOR CI!
-          archived_letter.save!
+          archived_letter.save
           expect(archived_letter.archived_by).to eq(user)
         end
 
         it "archives the content" do
           content = letter.generate_archive(by: user).archive.content
-          letter.type ||= archived_letter.class.sti_name # HACK FOR CI!
           expect(content).to match(/class="unit-info"/)
           expect(content).to include(patient.full_name)
           expect(content).to include(primary_care_physician.address.street_1)
