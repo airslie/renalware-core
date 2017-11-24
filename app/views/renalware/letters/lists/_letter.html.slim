@@ -12,8 +12,7 @@ tr(class=letter.state.dasherize)
   td.col-width-medium-with-ellipsis= letter.type
   td.state
     span= letter.state_description
-  td.full-name
-    = link_to letter.patient.full_name, patient_clinical_summary_path(letter.patient)
+  td.full-name= default_patient_link(letter.patient)
   td= letter.patient.nhs_number
   td= letter.enclosures&.truncate(6)
   td= l letter.issued_on

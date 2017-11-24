@@ -7,14 +7,21 @@ module Renalware
 
       def show
         query = LetterQuery.new(q: params[:q])
+        letters = find_and_authorize_letters(query)
+
+        render locals: {
+          letters: letters,
+          authors: User.author.ordered,
+          typists: User.ordered,
+          q: query.search
+        }
+      end
+
+      private
+
+      def find_and_authorize_letters(query)
         collection = call_query(query).page(page).per(per_page)
-        @letters = present_letters(collection)
-        authorize @letters
-
-        @q = query.search
-
-        @authors = User.author.ordered
-        @typists = User.ordered
+        present_letters(collection).tap { |letters| authorize letters }
       end
 
       def present_letters(letters)
