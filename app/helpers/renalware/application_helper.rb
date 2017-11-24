@@ -76,46 +76,6 @@ module Renalware
       val.blank? ? msg : "#{val} #{unit}"
     end
 
-    def medication_and_route(med_route)
-      if med_route.blank?
-        "No medication prescribed"
-      else
-        other_route = "Route: Other (Please specify in notes)"
-        safe_join(
-          med_route.map do |m|
-            route = if m.medication_route.name == other_route
-                      m.medication_route.full_name
-                    else
-                      m.medication_route.name
-                    end
-            "<li>
-                #{m.drug.name} - #{route}
-            </li>".html_safe
-          end
-        )
-      end
-    end
-
-    def organisms_and_sensitivities(infection_organisms)
-      if infection_organisms.blank?
-        "Unknown"
-      else
-        safe_join(
-          infection_organisms.map do |io|
-            "<li>#{io.organism_code.name} - #{io.sensitivity}</li>".html_safe
-          end
-        )
-      end
-    end
-
-    def organisms(infection_organisms)
-      if infection_organisms.blank?
-        "Unknown"
-      else
-        safe_join(infection_organisms.map { |io| "<li>#{io.organism_code.name}</li>".html_safe })
-      end
-    end
-
     def pipe_separator
       "&nbsp;|&nbsp;".html_safe
     end
@@ -130,7 +90,6 @@ module Renalware
     end
 
     def inline_image(file_path)
-      # InlineImage.new("/app/assets/images/#{file_path}")
       InlineImage.new(asset_path(file_path))
     end
 
