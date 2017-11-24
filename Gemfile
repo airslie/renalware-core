@@ -6,6 +6,7 @@ source "https://rails-assets.org"
 gemspec
 
 # These are visible to dummy app only
+gem "bootsnap", require: false
 gem "daemons", require: false # to cmds like `bin/delayed_job start`
 gem "party_foul", "~> 1.5.5"
 #
