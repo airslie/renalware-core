@@ -1,3 +1,5 @@
+require "database_cleaner"
+
 class Fixtures
   MODELS = [
     Renalware::Accesses::Site,

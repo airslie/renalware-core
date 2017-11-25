@@ -27,7 +27,7 @@ group :test do
   gem "capybara-screenshot"
   gem "codeclimate-test-reporter", require: false # loads simplecov
   gem "cucumber-rails", "~> 1.5.0", require: false # must be loaded in env.rb
-  gem "database_cleaner"
+  gem "database_cleaner", require: false # for cucumber specs, no longer needed for rspec features
   gem "factory_bot_rails"
   gem "poltergeist"
   gem "rails-controller-testing"
