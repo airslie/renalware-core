@@ -6,7 +6,6 @@ module Renalware
     include ActionView::RecordIdentifier
 
     background do
-      DatabaseCleaner.clean_with :truncation, except: %w(ar_internal_metadata)
       @clinician_role = Role.find_or_create_by(name: "clinician")
       @approved = create(:user)
       @unapproved = create(:user, :unapproved)
