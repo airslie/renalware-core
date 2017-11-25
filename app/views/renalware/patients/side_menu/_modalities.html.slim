@@ -3,11 +3,11 @@ li.heading= t(".heading")
 = patient_menu_item title: t(".pd"),
                     path: patient_pd_dashboard_path(patient),
                     active_when_controller_matches: %r{renalware/pd},
-                    enabled: display_pd_menu?(patient)
+                    enabled: true
 
 = patient_menu_item title: t(".hd"),
                     path: patient_hd_dashboard_path(patient),
                     active_when_controller_matches: %r{renalware/hd},
-                    enabled: display_hd_menu?(patient)
+                    enabled: true
 
 hr
