@@ -10,7 +10,7 @@ RSpec.describe "Viewing patients whose HD preferences do not match their profile
   end
   let(:user) { Renalware::User.first }
 
-  before(:all) do
+  before do
     @mon_wed_fri_am = create(:schedule_definition, :mon_wed_fri_am)
     @mon_wed_fri_pm = create(:schedule_definition, :mon_wed_fri_pm)
   end

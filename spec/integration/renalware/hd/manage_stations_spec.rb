@@ -1,7 +1,7 @@
 require "rails_helper"
 
-feature "Managing HD Stations for a Hospital Unit" do
-  before(:all) do
+feature "Managing HD Stations for a Hospital Unit", type: :feature do
+  before do
     create(:hd_station_location, name: "Side room")
   end
 
