@@ -5,3 +5,7 @@ en:
         mdm_patients:
           index:
             page_title: Low Clearance MDM Patients
+          filters:
+            filter:
+              all: All
+              bla: Bla

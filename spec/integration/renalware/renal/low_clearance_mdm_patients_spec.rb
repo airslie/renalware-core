@@ -18,6 +18,10 @@ RSpec.describe "Low Clearance Patients", type: :feature do
       visit renal_low_clearance_mdm_patients_path
 
       expect(page).to have_content("Low Clearance MDM Patients")
+      within ".filters" do
+        expect(page).to have_content("bla")
+      end
+      expect(page).to have_content("")
       expect(page).to have_content(patient.family_name.upcase)
     end
   end

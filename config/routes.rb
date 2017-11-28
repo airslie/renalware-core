@@ -235,6 +235,9 @@ Renalware::Engine.routes.draw do
     end
     namespace :low_clearance do
       resources :mdm_patients, only: :index
+      constraints(named_filter: /(bla)/) do
+        get "mdm_patients/:named_filter", to: "mdm_patients#index", as: :filtered_mdm_patients
+      end
     end
   end
 
