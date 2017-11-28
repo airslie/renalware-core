@@ -22,7 +22,7 @@ module Renalware
 
             patients = described_class.new(named_filter: nil, q: {}).call
 
-            expect(patients.to_a).to eq [lcc_patient]
+            expect(patients.map(&:id)).to eq [lcc_patient.id]
           end
         end
 
@@ -35,7 +35,7 @@ module Renalware
 
               patients = described_class.new(named_filter: :on_worryboard).call
 
-              expect(patients.to_a).to eq [lcc_patient_with_worry]
+              expect(patients.map(&:id)).to eq [lcc_patient_with_worry.id]
             end
           end
 
@@ -54,7 +54,7 @@ module Renalware
               patients = described_class.new(named_filter: :tx_candidates).call
 
               pending "Need to implement this filter"
-              expect(patients.to_a).to eq [lcc_patient_on_tx_wait_list]
+              expect(patients.map(&:id)).to eq [lcc_patient_on_tx_wait_list.id]
             end
           end
         end
