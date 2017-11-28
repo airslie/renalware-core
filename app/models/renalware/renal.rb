@@ -9,5 +9,8 @@ module Renalware
     def self.cast_patient(patient)
       ActiveType.cast(patient, ::Renalware::Renal::Patient)
     end
+
+    module LowClearance
+    end
   end
 end
