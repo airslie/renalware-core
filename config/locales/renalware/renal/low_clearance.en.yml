@@ -8,4 +8,8 @@ en:
           filters:
             filter:
               all: All
-              bla: Bla
+              urea: Urea > 30
+              hgb1: HGB < 100
+              hgb2: HGB < 130
+              on_worryboard: On Worryboard
+              tx_candidates: Tx Candidates

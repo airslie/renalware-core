@@ -11,6 +11,7 @@ module Renalware
     end
 
     module LowClearance
+      MDM_FILTERS = %w(urea hgb1 hgb2 on_worryboard tx_candidates).freeze
     end
   end
 end
