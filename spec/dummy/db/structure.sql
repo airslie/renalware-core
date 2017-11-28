@@ -8906,10 +8906,24 @@ CREATE INDEX index_hd_sessions_on_patient_id ON hd_sessions USING btree (patient
 
 
 --
+-- Name: index_hd_sessions_on_performed_on; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_performed_on ON hd_sessions USING btree (performed_on);
+
+
+--
 -- Name: index_hd_sessions_on_profile_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_hd_sessions_on_profile_id ON hd_sessions USING btree (profile_id);
+
+
+--
+-- Name: index_hd_sessions_on_signed_off_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_signed_off_at ON hd_sessions USING btree (signed_off_at);
 
 
 --
@@ -8924,6 +8938,13 @@ CREATE INDEX index_hd_sessions_on_signed_off_by_id ON hd_sessions USING btree (s
 --
 
 CREATE INDEX index_hd_sessions_on_signed_on_by_id ON hd_sessions USING btree (signed_on_by_id);
+
+
+--
+-- Name: index_hd_sessions_on_type; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_type ON hd_sessions USING btree (type);
 
 
 --
@@ -9347,6 +9368,13 @@ CREATE UNIQUE INDEX index_pathology_measurement_units_on_name ON pathology_measu
 
 
 --
+-- Name: index_pathology_observation_descriptions_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_observation_descriptions_on_code ON pathology_observation_descriptions USING btree (code);
+
+
+--
 -- Name: index_pathology_observation_requests_on_description_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -9361,10 +9389,24 @@ CREATE INDEX index_pathology_observation_requests_on_patient_id ON pathology_obs
 
 
 --
+-- Name: index_pathology_observation_requests_on_requested_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_observation_requests_on_requested_at ON pathology_observation_requests USING btree (requested_at);
+
+
+--
 -- Name: index_pathology_observations_on_description_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_pathology_observations_on_description_id ON pathology_observations USING btree (description_id);
+
+
+--
+-- Name: index_pathology_observations_on_observed_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_observations_on_observed_at ON pathology_observations USING btree (observed_at);
 
 
 --
@@ -9379,6 +9421,13 @@ CREATE INDEX index_pathology_observations_on_request_id ON pathology_observation
 --
 
 CREATE INDEX index_pathology_request_descriptions_on_lab_id ON pathology_request_descriptions USING btree (lab_id);
+
+
+--
+-- Name: index_pathology_requests_drug_categories_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_requests_drug_categories_on_name ON pathology_requests_drug_categories USING btree (name);
 
 
 --
@@ -9477,6 +9526,13 @@ CREATE INDEX index_patient_alerts_on_patient_id ON patient_alerts USING btree (p
 --
 
 CREATE INDEX index_patient_alerts_on_updated_by_id ON patient_alerts USING btree (updated_by_id);
+
+
+--
+-- Name: index_patient_bookmarks_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_bookmarks_on_deleted_at ON patient_bookmarks USING btree (deleted_at);
 
 
 --
@@ -10068,6 +10124,13 @@ CREATE INDEX index_research_study_participants_on_updated_by_id ON research_stud
 
 
 --
+-- Name: index_roles_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_roles_on_name ON roles USING btree (name);
+
+
+--
 -- Name: index_roles_users_on_user_id_and_role_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -10369,6 +10432,20 @@ CREATE INDEX index_users_on_expired_at ON users USING btree (expired_at);
 
 
 --
+-- Name: index_users_on_family_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_users_on_family_name ON users USING btree (family_name);
+
+
+--
+-- Name: index_users_on_given_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_users_on_given_name ON users USING btree (given_name);
+
+
+--
 -- Name: index_users_on_last_activity_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -10380,6 +10457,13 @@ CREATE INDEX index_users_on_last_activity_at ON users USING btree (last_activity
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+
+
+--
+-- Name: index_users_on_signature; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_users_on_signature ON users USING btree (signature);
 
 
 --
@@ -12804,6 +12888,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171116103230'),
 ('20171118160030'),
 ('20171123143534'),
-('20171123154116');
+('20171123154116'),
+('20171128163543');
 
 
