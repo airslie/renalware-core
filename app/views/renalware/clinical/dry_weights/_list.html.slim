@@ -19,5 +19,4 @@ article.dry-weights.simple.simple-table
       th.col-width-small= t(".weight")
       th= t(".assessor")
     tbody
-      - presenter.dry_weights.each do |dry_weight|
-        = render "renalware/clinical/dry_weights/row", dry_weight: dry_weight
+      = render presenter.dry_weights

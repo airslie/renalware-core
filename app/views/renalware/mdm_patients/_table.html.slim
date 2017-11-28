@@ -19,5 +19,6 @@ table#patients.mdm-patients.columns
       th.col-width-small
 
   tbody
-    - presenter.patients.each do |patient|
-      = render "patient", patient: patient, view_proc: presenter.view_proc, q: presenter.q
+    = render partial: "patient",
+             collection: presenter.patients,
+             locals: { view_proc: presenter.view_proc, q: presenter.q }
