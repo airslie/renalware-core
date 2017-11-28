@@ -7,23 +7,15 @@ RSpec.describe "Manage electronic CCs", type: :feature do
   include AutocompleteHelpers
   include AjaxHelpers
 
-  before(:all) do
-    @primary_care_physician = create(:letter_primary_care_physician)
-    @patient = create(:letter_patient, primary_care_physician: @primary_care_physician)
-  end
-
-  after(:all) do
-    @patient.destroy!
-    @primary_care_physician.destroy!
-  end
-
   scenario "Marks an Electronic CC as `read` for an approved letter", js: true do
     user = login_as_clinician
+    primary_care_physician = create(:letter_primary_care_physician)
+    patient = create(:letter_patient, primary_care_physician: primary_care_physician)
 
     approved_letter = create_letter(
       to: :patient,
       state: :approved,
-      patient: @patient,
+      patient: patient,
       description: "xxx"
     )
     create(:letter_electronic_receipt, letter: approved_letter, recipient: user)
@@ -31,7 +23,7 @@ RSpec.describe "Manage electronic CCs", type: :feature do
     draft_letter = create_letter(
       to: :patient,
       state: :draft,
-      patient: @patient,
+      patient: patient,
       description: "yyy"
     )
     create(:letter_electronic_receipt, letter: draft_letter, recipient: user)

@@ -36,7 +36,7 @@ module Renalware
             @search ||= relation.ransack(query_params)
           end
 
-          def self.missing_data_for(patient)
+          def self.missing_data_for(_patient)
             [
               :cause_of_death
             ]

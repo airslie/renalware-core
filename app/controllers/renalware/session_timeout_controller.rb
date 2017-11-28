@@ -17,6 +17,7 @@ module Renalware
     # We could return the amount of time remaining before the session expires like so
     #   time_left = Devise.timeout_in - (Time.now - user_session["last_request_at"]).round
     # and display this to the user if required.
+    # rubocop :disable Naming/PredicateName
     def has_user_timed_out
       skip_authorization
       if referrer_is_a_devise_url? || !current_users_session_has_timed_out?
@@ -26,6 +27,7 @@ module Renalware
         head :unauthorized
       end
     end
+    # rubocop :enable Naming/PredicateName
 
     # A user could invoke this action to keep their session alive, by for example
     # clicking on a "Keep my session active" button which makes an ajax call to this action.

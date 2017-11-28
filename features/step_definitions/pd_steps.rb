@@ -84,7 +84,8 @@ Given(/^a patient has existing CAPD regimes$/) do
     manufacturer: "Baxter", description: "Nutrineal PD4 (Blue)"
   )
 
-  @capd_regime_1 = FactoryBot.create(:capd_regime,
+  @capd_regime_1 = FactoryBot.create(
+    :capd_regime,
     patient: @patient_1,
     start_date: "05-03-2015",
     end_date: "25-04-2015",
@@ -108,7 +109,8 @@ Given(/^a patient has existing CAPD regimes$/) do
   bag_type = Renalware::PD::BagType.find_by!(
     manufacturer: "Baxter", description: "Extraneal (Icodextrin 7.5%) (Purple)"
   )
-  @capd_regime_2 = FactoryBot.create(:capd_regime,
+  @capd_regime_2 = FactoryBot.create(
+    :capd_regime,
     patient: @patient_1,
     start_date: "02-04-2015",
     end_date: "21-05-2015",
@@ -135,7 +137,8 @@ Given(/^a patient has existing APD regimes$/) do
     manufacturer: "Baxter", description: "Nutrineal PD4 (Blue)"
   )
 
-  @apd_regime_1 = FactoryBot.create(:apd_regime,
+  @apd_regime_1 = FactoryBot.create(
+    :apd_regime,
     patient: @patient_1,
     start_date: "17-06-2015",
     end_date: "21-07-2015",
@@ -167,7 +170,8 @@ Given(/^a patient has existing APD regimes$/) do
     manufacturer: "Baxter", description: "Extraneal (Icodextrin 7.5%) (Purple)"
   )
 
-  @apd_regime_2 = FactoryBot.create(:apd_regime,
+  @apd_regime_2 = FactoryBot.create(
+    :apd_regime,
     patient: @patient_1,
     start_date: "20-03-2015",
     end_date: "28-05-2015",
@@ -194,7 +198,6 @@ Given(/^a patient has existing APD regimes$/) do
       saturday: true
     ]
   )
-
 end
 
 When(/^I complete the form for a CAPD regime$/) do

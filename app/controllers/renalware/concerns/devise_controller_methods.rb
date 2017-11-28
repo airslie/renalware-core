@@ -41,15 +41,15 @@ module Renalware
         devise_parameter_sanitizer.permit(
           :account_update,
           keys: [
-              :given_name,
-              :family_name,
-              :username,
-              :email,
-              :password,
-              :password_confirmation,
-              :current_password,
-              :professional_position,
-              :signature
+            :given_name,
+            :family_name,
+            :username,
+            :email,
+            :password,
+            :password_confirmation,
+            :current_password,
+            :professional_position,
+            :signature
           ]
         )
       end
