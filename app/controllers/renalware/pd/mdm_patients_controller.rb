@@ -1,3 +1,5 @@
+require "renalware/pd"
+
 module Renalware
   module PD
     class MDMPatientsController < Renalware::MDMPatientsController

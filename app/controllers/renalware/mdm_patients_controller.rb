@@ -1,4 +1,4 @@
-require_dependency "renalware/base_controller"
+require_dependency "renalware"
 
 # Note we rely on template inheritance with this MDM Base class i.e. subclasses (e.g.
 # HD::MDMPatientsController) can override templates and partials (e.g. add a _filters partial

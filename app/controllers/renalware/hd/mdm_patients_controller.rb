@@ -1,3 +1,5 @@
+require_dependency "renalware/hd"
+
 module Renalware
   module HD
     class MDMPatientsController < Renalware::MDMPatientsController

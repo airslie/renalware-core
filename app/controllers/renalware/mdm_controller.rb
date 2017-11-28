@@ -1,4 +1,4 @@
-require_dependency "renalware/hd/base_controller"
+require_dependency "renalware"
 
 module Renalware
   class MDMController < BaseController
