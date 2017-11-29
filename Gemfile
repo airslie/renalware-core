@@ -6,8 +6,8 @@ source "https://rails-assets.org"
 gemspec
 
 # These are visible to dummy app only
-gem "bootsnap", require: false
-gem "daemons", require: false # to cmds like `bin/delayed_job start`
+gem "bootsnap", require: false # speeds up rspec and rails server boot time in development
+gem "daemons", require: false # to use cmds like `bin/delayed_job start`
 gem "party_foul", "~> 1.5.5"
 #
 # devise_security_extension

@@ -52,13 +52,6 @@ module Renalware
 
       private
 
-      def present(consults)
-        CollectionPresenter.new(
-          Consult.all.order(created_at: :desc).page(page).per(per_page),
-          ConsultPresenter
-        )
-      end
-
       def find_and_authorize_consult
         Consult.find(params[:id]).tap do |consult|
           authorize consult

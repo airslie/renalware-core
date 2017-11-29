@@ -26,7 +26,7 @@ module Renalware
       attr_reader :session
 
       def info
-        @info ||= session.try!(:document).try!(:info)
+        @info ||= session&.document&.info
       end
 
       def abbreviated_type
