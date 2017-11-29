@@ -8,6 +8,6 @@
                     method: :put do |f|
     .flex-container(class="#{ "disabled" if patient.allergies.count > 0}")
 
-      =f.check_box :no_known_allergies
-      =f.label :no_known_allergies, t(".no_known_allergies")
-      =f.submit t(".save"), class: "button", data: { disable_with: t(".save_disable_with") }
+      = f.check_box :no_known_allergies
+      = f.label :no_known_allergies, t(".no_known_allergies")
+      = f.submit t(".save"), class: "button", data: { disable_with: t(".save_disable_with") }

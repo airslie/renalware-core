@@ -23,15 +23,15 @@
 -if regime.apd?
   .row
     .small-12.columns
-      =rb.input :role,
-                as: :inline_radio_buttons,
-                boolean_style: :inline
+      = rb.input :role,
+                 as: :inline_radio_buttons,
+                 boolean_style: :inline
 
 -if regime.capd?
   .row
     .small-12.columns
-      =rb.input :capd_overnight_bag,
-                as: :inline_radio_buttons
+      = rb.input :capd_overnight_bag,
+                 as: :inline_radio_buttons
 
 .row.bag-days
   .large-12.columns class="#{highlight_days_invalid(rb.object)}"

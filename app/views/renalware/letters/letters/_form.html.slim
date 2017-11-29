@@ -52,7 +52,7 @@ ruby:
     = f.label :body
     = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: ".letter-body-editor")
 
-    -if event&.respond_to?(:notes)
+    - if event&.respond_to?(:notes)
       = link_to "Insert #{event.class.name.demodulize.underscore.humanize.downcase} notes",
                 "/",
                 data: { notes: event.notes || "", target: ".letter-body-editor" },

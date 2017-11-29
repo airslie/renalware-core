@@ -12,7 +12,7 @@ article
         th Weight (kg)
 
     tbody
-      -mdm.clinic_visits_having_measurements.each do |clinic_visit|
+      - mdm.clinic_visits_having_measurements.each do |clinic_visit|
         tr
           td.col-width-date= l(clinic_visit.date)
           td.bmi= clinic_visit.bmi

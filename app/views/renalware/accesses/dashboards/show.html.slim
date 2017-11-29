@@ -11,7 +11,7 @@
              patient: @patient,
              plans: @plans,
              current_plan: @current_plan
-    -if @procedures.any?
+    - if @procedures.any?
       = render "renalware/accesses/procedures/list"
     - if @assessments.any?
       = render "renalware/accesses/assessments/list",

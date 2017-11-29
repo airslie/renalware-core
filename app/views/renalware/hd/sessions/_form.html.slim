@@ -4,7 +4,7 @@ ruby:
 = f.input :type, as: :hidden
 .row.top
   .large-12.columns
-    =render "form_actions", f: f, back_path: back_path, session: session, patient: @patient
+    = render "form_actions", f: f, back_path: back_path, session: session, patient: @patient
 
 .form-content
   = f.simple_fields_for :document, f.object.document do |fd|
@@ -128,4 +128,4 @@ ruby:
 
 .row
   .large-12.columns
-    =render "form_actions", f: f, back_path: back_path, session: session, patient: @patient
+    = render "form_actions", f: f, back_path: back_path, session: session, patient: @patient

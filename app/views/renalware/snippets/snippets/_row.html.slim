@@ -11,7 +11,7 @@ tr(data={ "snippet-id" => snippet.id, invocation_url: snippet_invocations_path(s
     | &nbsp;
     = tooltip_with_block(label: t(".copy_to_clipboard")) do
       = clipboard_button_for("#{row_selector} .body")
-    -if remote
+    - if remote
       | &nbsp;
       = link_to "Insert",
                  "#",
@@ -23,7 +23,7 @@ tr(data={ "snippet-id" => snippet.id, invocation_url: snippet_invocations_path(s
   td.css-toggle-container.body= snippet.body.html_safe
   - unless author == :me
     td.col-width-medium.author= snippet.author
-  -unless remote
+  - unless remote
     td.last_used_on
       = "#{snippet.last_used_on? ? l(snippet.last_used_on) : 'Never'} (#{snippet.times_used})"
     td.updated_at= l(snippet.updated_at)

@@ -8,12 +8,12 @@ table.snippets
       th(style="max-width: 100%")= sort_link([:renalware, search], :body)
       - unless author == :me
         th.col-width-medium.author= sort_link([:renalware, search], :author_family_name, t(".author"))
-      -unless remote
+      - unless remote
         th.col-width-medium.last_used_on= sort_link([:renalware, search], :last_used_on, t(".last_used_on"))
         th.col-width-date-time.updated_at= sort_link([:renalware, search], :updated_at, t(".updated_at"))
         th.col-width-medium
   tbody
-    -snippets.each do |snippet|
+    - snippets.each do |snippet|
       = render "row",
                snippet: snippet,
                author: author,

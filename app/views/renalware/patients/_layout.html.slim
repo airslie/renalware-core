@@ -18,7 +18,7 @@
       - if content_for?(:page_navigation)
         .page-navigation= yield(:page_navigation)
       - else
-        -unless local_assigns[:skip_top_navigation].present?
+        - unless local_assigns[:skip_top_navigation].present?
           - partial = local_assigns[:navigation_partial] || "navigation"
 
           / Be sure to pass on any locals passed to us,

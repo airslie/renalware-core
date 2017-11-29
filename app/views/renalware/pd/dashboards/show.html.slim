@@ -1,5 +1,5 @@
 = content_for(:actions) do
-  =render "renalware/pd/dashboards/show/page_actions", patient: patient
+  = render "renalware/pd/dashboards/show/page_actions", patient: patient
 
 = within_patient_layout do
   - if dashboard.current_regime.present?

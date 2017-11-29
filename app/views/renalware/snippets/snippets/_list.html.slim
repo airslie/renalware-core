@@ -9,15 +9,15 @@
 
   - unless remote
     .columns.small-12
-      =link_to "Create new", new_snippet_path, class: "button create-snippet right"
+      = link_to "Create new", new_snippet_path, class: "button create-snippet right"
 
   ul.tabs
     li(class= "#{'active' if author == :me}")
-      =link_to snippets_path, remote: remote do
+      = link_to snippets_path, remote: remote do
         i.fa.fa-user
         | Mine
     li(class= "#{'active' if author == :anyone}")
-      =link_to snippets_path(author: :anyone), remote: remote do
+      = link_to snippets_path(author: :anyone), remote: remote do
         i.fa.fa-users
         | Everyone's
 
