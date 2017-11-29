@@ -4,6 +4,6 @@ table.auto-layout.hd-sessions
   tbody
     - sessions.each_with_index do |session, index|
       - stripe_class = index % 2 == 0 ? "even" : "odd"
-      =render "renalware/hd/sessions/#{session.state}/row",
+      = render "renalware/hd/sessions/#{session.state}/row",
               session: session,
               stripe_class: stripe_class

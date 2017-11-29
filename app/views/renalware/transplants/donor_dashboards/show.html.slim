@@ -8,10 +8,10 @@
 
   ul.f-dropdown#donor-options(data-dropdown-content aria-hidden="true")
     li
-      -if donations.empty?
+      - if donations.empty?
         = link_to t(".add_donation"),
                   new_patient_transplants_donation_path(patient)
-      -else
+      - else
         = link_to "Donor (identify a new recipient)",
                   new_patient_transplants_donation_path(patient)
 

@@ -28,12 +28,12 @@ ruby:
                                 placeholder: "Search by patient name or hospital/NHS no." }\
                       }
 
-      =f.input :joined_on, as: :date_picker
-      =f.input :left_on, as: :date_picker
+      = f.input :joined_on, as: :date_picker
+      = f.input :left_on, as: :date_picker
 
       = f.submit "Add", class: :button
       span= " or "
-      =link_to "Cancel",
+      = link_to "Cancel",
                "#",
                "aria-label" => "Close",
                 class: "reveal-modal-close"

@@ -3,4 +3,4 @@ fieldset.simple
     span.title= t(".title")
     span.actions.action-links
       = link_to t(".view_all"), patient_hd_sessions_path(mdm.patient)
-  =render "renalware/hd/sessions/table", sessions: mdm.sessions
+  = render "renalware/hd/sessions/table", sessions: mdm.sessions

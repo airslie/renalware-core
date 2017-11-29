@@ -263,13 +263,13 @@ scss:
     .unit-block
       .trust-name
         p
-          =raw letter.letterhead.trust_name
+          = raw letter.letterhead.trust_name
           /span.nhs-logo= inline_image_tag("renalware/NHS-Black.jpg", size: "82x33")
       .trust-caption
         p= letter.letterhead.trust_caption
 
       .site-info-html
-        =raw letter.letterhead.site_info
+        = raw letter.letterhead.site_info
 
   .body
     .salutation

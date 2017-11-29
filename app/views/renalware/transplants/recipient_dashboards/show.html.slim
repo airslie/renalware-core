@@ -6,12 +6,12 @@
 
 = within_patient_layout(title: "Transplant Recipient Summary") do
 
-  -unless recipient_workup.new_record?
+  - unless recipient_workup.new_record?
     = render "renalware/transplants/recipient_workups/summary",
               patient: patient,
               recipient_workup: recipient_workup
 
-  -unless registration.new_record?
+  - unless registration.new_record?
     = render "renalware/transplants/registrations/summary",
              patient: patient,
              registration: registration

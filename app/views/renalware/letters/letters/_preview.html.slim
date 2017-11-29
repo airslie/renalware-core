@@ -2,7 +2,7 @@
   .letter-preview-header
     .row
       .columns.large-6
-        p.unit-info=raw letter.letterhead.unit_info
+        p.unit-info= raw letter.letterhead.unit_info
 
         p.letter-description-block
           = l letter.issued_on
@@ -18,12 +18,12 @@
       .columns.large-6
         .letter-unit-block
           p.trust-name
-            =raw letter.letterhead.trust_name
+            = raw letter.letterhead.trust_name
             span.nhs-logo= image_tag("NHS-Black.jpg", size: "82x33")
           p.trust-caption= letter.letterhead.trust_caption
 
           .site-info-html
-            p=raw letter.letterhead.site_info
+            p= raw letter.letterhead.site_info
 
   .letter-preview-body
     .row

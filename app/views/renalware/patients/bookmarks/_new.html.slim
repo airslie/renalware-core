@@ -5,16 +5,16 @@
 
 / The modal dialog
 #add-patient-bookmark-modal.reveal-modal.medium(data-reveal)
-  =simple_form_for patient.bookmarks.new,
-                   html: { autocomplete: "off" },
-                   url: patient_bookmarks_path(patient_id: patient) do |f|
+  = simple_form_for patient.bookmarks.new,
+                    html: { autocomplete: "off" },
+                    url: patient_bookmarks_path(patient_id: patient) do |f|
     h2= t(".title")
-    =f.input :urgent, as: :boolean, boolean_style: :inline
-    =f.input :tags, label: "Tags"
-    =f.input :notes, as: :text, input_html: { autofocus: :autofocus }
-    =f.submit t(".save"), class: :button
+    = f.input :urgent, as: :boolean, boolean_style: :inline
+    = f.input :tags, label: "Tags"
+    = f.input :notes, as: :text, input_html: { autofocus: :autofocus }
+    = f.submit t(".save"), class: :button
     span= " or "
-    =link_to t(".cancel"),
+    = link_to t(".cancel"),
              "#",
              "aria-label" => "Close",
              class: "reveal-modal-close"

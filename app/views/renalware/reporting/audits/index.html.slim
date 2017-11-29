@@ -25,7 +25,7 @@
           td= l(audit.updated_at)
           td= l(audit.refreshed_at)
           td
-            -if audit.materialized?
+            - if audit.materialized?
               = link_to("Refresh Data",
                         reporting_audit_refreshments_path(audit_id: audit.id),
                         remote: true,

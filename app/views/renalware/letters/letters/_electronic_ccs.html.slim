@@ -2,7 +2,7 @@ article.electonic_ccs
   header
     h2= t(".title")
 
-  =f.input :electronic_cc_recipient_ids,
+  = f.input :electronic_cc_recipient_ids,
            label: "CC electronically to",
            collection: electronic_recipient_options,
            as: :grouped_select,

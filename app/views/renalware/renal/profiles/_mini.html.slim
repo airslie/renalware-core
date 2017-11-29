@@ -5,7 +5,7 @@
 .renal-profile
   .mini-renal-profile
     dl
-      -if profile&.esrf_on.present?
+      - if profile&.esrf_on.present?
         dt= link_to "ESRF:", edit_patient_renal_profile_path(patient)
         dd= profile&.esrf_on
 

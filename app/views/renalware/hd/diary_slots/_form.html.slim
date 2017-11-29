@@ -7,9 +7,9 @@
                   method: :post,
                   wrapper: :horizontal_form) do |f|
 
-  =f.input :station_id, as: :hidden
-  =f.input :diurnal_period_code_id, as: :hidden
-  =f.input :day_of_week, as: :hidden
+  = f.input :station_id, as: :hidden
+  = f.input :diurnal_period_code_id, as: :hidden
+  = f.input :day_of_week, as: :hidden
 
   .row
     .col-small-4
@@ -24,7 +24,7 @@
       / The value selected in in change_type above will determine which one to choose.
       #patient_select2s
         #dialysing_on_day_and_period
-          =f.input :patient_id,
+          = f.input :patient_id,
                    collection: slot.patients_preferring_to_dialyse_today_in_this_period,
                    label_method: :text,
                    value_method: :id,
@@ -33,7 +33,7 @@
                                  name: "hd_diary_slot[patient_id][]" }
 
         #dialysing_on_day(style="display:none")
-          =f.input :patient_id,
+          = f.input :patient_id,
                    collection: slot.patients_preferring_to_dialyse_today,
                    label_method: :text,
                    value_method: :id,
@@ -59,12 +59,12 @@
                       data: { "ajax--url" => hd_patients_dialysing_at_hospital_path(format: :json),
                               placeholder: "Search by patient name or NHS/hosp no." }\
                     }
-  =f.submit "Add for this week only", class: "button save weekly"
+  = f.submit "Add for this week only", class: "button save weekly"
   | &nbsp;
-  =f.submit "Add to this and all future weeks", class: "button secondary master", name: "master"
+  = f.submit "Add to this and all future weeks", class: "button secondary master", name: "master"
 
   = blank_separator
-  =link_to "Cancel",
+  = link_to "Cancel",
            "#",
            "aria-label" => "Close",
            class: "reveal-modal-close"

@@ -5,10 +5,10 @@
                     html: { autocomplete: "off" },
                     validate: true do |f|
     h2= t(".title")
-    =f.input :description, as: :text, autofocus: true
-    =f.submit t(".save"), class: :button, data: { disable_with: t(".save_disable_with") }
+    = f.input :description, as: :text, autofocus: true
+    = f.submit t(".save"), class: :button, data: { disable_with: t(".save_disable_with") }
     span= " or "
-    =link_to t(".cancel"),
+    = link_to t(".cancel"),
              "#",
              "aria-label" => "Close",
              class: "reveal-modal-close"
