@@ -48,15 +48,15 @@ module Renalware
           end
 
           def urea
-            self
+            where("pathology_current_key_observation_sets.ure_result::float >= 30")
           end
 
           def hgb_low
-            self
+            where("pathology_current_key_observation_sets.hgb_result::float < 100")
           end
 
           def hgb_high
-            self
+            where("pathology_current_key_observation_sets.hgb_result::float > 130")
           end
         end
       end

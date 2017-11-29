@@ -10,6 +10,6 @@ en:
               all: All
               urea: Urea > 30
               hgb_low: HGB < 100
-              hgb_high: HGB < 130
+              hgb_high: HGB > 130
               on_worryboard: On Worryboard
               tx_candidates: Tx Candidates
