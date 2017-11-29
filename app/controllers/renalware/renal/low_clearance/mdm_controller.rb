@@ -6,8 +6,8 @@ module Renalware
       class MDMController < Renalware::MDMController
         def show
           authorize patient
-          mdm_presenter = MDMPresenter.new(patient: patient, view_context: view_context)
-          render_show(mdm_presenter: mdm_presenter)
+          presenter = LowClearance::MDMPresenter.new(patient: patient, view_context: view_context)
+          render_show(mdm_presenter: presenter)
         end
       end
     end

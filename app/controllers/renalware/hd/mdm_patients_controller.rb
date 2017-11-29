@@ -10,7 +10,7 @@ module Renalware
       end
 
       def index
-        query = MDMPatientsQuery.new(relation: relation, q: params[:q])
+        query = HD::MDMPatientsQuery.new(relation: relation, q: params[:q])
         render_index(query: query,
                      page_title: t(".page_title"),
                      view_proc: ->(patient) { patient_hd_mdm_path(patient) },
@@ -20,7 +20,7 @@ module Renalware
       private
 
       def relation
-        Patient
+        HD::Patient
           .eager_load(hd_profile: [:hospital_unit])
           .joins(hd_profile: [:hospital_unit])
       end
