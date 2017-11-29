@@ -3,10 +3,12 @@ module Renalware
     class MDMPatientsQuery
       include ModalityScopes
       MODALITY_NAMES = "HD".freeze
+      DEFAULT_SEARCH_PREDICATE = "hgb_date".freeze
       attr_reader :q, :relation
 
       def initialize(relation: HD::Patient.all, q:)
-        @q = q
+        @q = q || {}
+        @q[:s] = DEFAULT_SEARCH_PREDICATE if @q[:s].blank?
         @relation = relation
       end
 
@@ -19,17 +21,10 @@ module Renalware
           relation
             .includes(:hd_profile)
             .extending(ModalityScopes)
-            .extending(Scopes)
+            .extending(PatientPathologyScopes)
             .with_current_key_pathology
             .with_current_modality_matching(MODALITY_NAMES)
             .search(q)
-          # .order("pathology_current_key_observations.hgb_result asc")
-        end
-      end
-
-      module Scopes
-        def with_current_key_pathology
-          eager_load(:current_key_observation_set) # .joins(:current_key_observation)
         end
       end
     end

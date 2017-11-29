@@ -6,11 +6,13 @@ module Renalware
       class MDMPatientsQuery
         include ModalityScopes
         MODALITY_NAMES = ["LCC"].freeze
+        DEFAULT_SEARCH_PREDICATE = "ure_date ASC".freeze
         attr_reader :q, :relation, :named_filter
 
         # modality_names: eg "HD" or "PD"
-        def initialize(relation: Patient.all, named_filter: nil, q: {})
-          @q = q
+        def initialize(relation: Patient.all, named_filter: nil, q: nil)
+          @q = q || {}
+          @q[:s] = DEFAULT_SEARCH_PREDICATE if @q[:s].blank?
           @relation = relation
           @named_filter = named_filter || :none
         end
@@ -22,20 +24,13 @@ module Renalware
         def search
           @search ||= begin
             relation
-              .extending(Scopes)
+              .extending(PatientPathologyScopes)
               .extending(ModalityScopes)
               .extending(NamedFilterScopes)
-              .with_current_modality_matching(MODALITY_NAMES)
               .with_current_key_pathology
+              .with_current_modality_matching(MODALITY_NAMES)
               .public_send(named_filter.to_s)
               .search(q)
-            # .order("pathology_current_key_observations.hgb_result asc")
-          end
-        end
-
-        module Scopes
-          def with_current_key_pathology
-            includes(:current_key_observation_set) # .joins(:current_key_observation)
           end
         end
 
