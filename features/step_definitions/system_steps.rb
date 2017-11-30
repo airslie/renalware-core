@@ -21,6 +21,6 @@ Given(/^(.*?) is a doctor/) do |name|
   instance_variable_set("@" + name.downcase, user)
 end
 
-Given(/^the date today is (\d{2})\-(\d{2})\-(\d{4})$/) do |day, month, year|
-  travel_to Date.new(year, month, day)
+Given("the date today is {date}") do |date|
+  travel_to date
 end

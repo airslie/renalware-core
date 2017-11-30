@@ -26,6 +26,7 @@ group :test do
   gem "capybara"
   gem "capybara-screenshot"
   gem "codeclimate-test-reporter", require: false # loads simplecov
+  gem "cucumber", "~> 3.1.0"
   gem "cucumber-rails", "~> 1.5.0", require: false # must be loaded in env.rb
   gem "database_cleaner", require: false # for cucumber specs, no longer needed for rspec features
   gem "factory_bot_rails"
@@ -55,7 +56,6 @@ group :development, :test do
   gem "bullet"
   gem "bundler-audit", require: false
   gem "byebug"
-  gem "guard-cucumber", require: false
   gem "launchy", require: false
   gem "rack-mini-profiler", require: false
   gem "rubocop", "~> 0.51.0", require: false
