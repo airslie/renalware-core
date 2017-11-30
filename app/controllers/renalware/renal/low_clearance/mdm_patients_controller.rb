@@ -13,7 +13,7 @@ module Renalware
         private
 
         def query
-          @query ||= MDMPatientsQuery.new(q: q, named_filter: named_filter)
+          LowClearance::MDMPatientsQuery.new(query: q, named_filter: named_filter)
         end
 
         def named_filter

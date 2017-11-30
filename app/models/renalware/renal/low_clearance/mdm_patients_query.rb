@@ -7,14 +7,14 @@ module Renalware
         include ModalityScopes
         MODALITY_NAMES = ["LCC"].freeze
         DEFAULT_SEARCH_PREDICATE = "ure_date ASC".freeze
-        attr_reader :q, :relation, :named_filter
+        attr_reader :query, :relation, :named_filter
 
         # modality_names: eg "HD" or "PD"
-        def initialize(relation: Patient.all, named_filter: nil, q: nil)
-          @q = q || {}
-          @q[:s] = DEFAULT_SEARCH_PREDICATE if @q[:s].blank?
-          @relation = relation
+        def initialize(relation: Patient.all, query: nil, named_filter: nil)
+          @query = query || {}
           @named_filter = named_filter || :none
+          @query[:s] = DEFAULT_SEARCH_PREDICATE if @query[:s].blank?
+          @relation = relation
         end
 
         def call
@@ -30,7 +30,7 @@ module Renalware
               .with_current_key_pathology
               .with_current_modality_matching(MODALITY_NAMES)
               .public_send(named_filter.to_s)
-              .search(q)
+              .search(query)
           end
         end
 

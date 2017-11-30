@@ -30,7 +30,7 @@ module Renalware
             lcc_patient = create_lcc_patient
             create(:patient)
 
-            patients = described_class.new(named_filter: nil, q: {}).call
+            patients = described_class.new(named_filter: nil, query: {}).call
 
             expect(patients.map(&:id)).to eq [lcc_patient.id]
           end
