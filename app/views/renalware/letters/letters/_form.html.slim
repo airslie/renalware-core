@@ -1,6 +1,7 @@
 ruby:
   back_path = patient_letters_letters_path(patient)
-  event = f.object.event
+  letter = f.object
+  event = letter.event
 
 .row.top
   .medium-6.columns
@@ -35,6 +36,7 @@ ruby:
           user_to_promote_to_top: current_user \
         )
 
+  = render "pathology", letter: letter, f: f
   = render "main_recipient", f: f, contacts: contacts, patient: patient
   = render "additional_ccs", f: f, contacts: contacts, patient: patient
   = render "electronic_ccs",
@@ -71,3 +73,4 @@ ruby:
     = f.button :submit
     span= " or "
     = link_to "cancel", back_path
+

@@ -4,19 +4,18 @@
 = within_patient_layout(title: "Edit Letter",
     breadcrumbs: [breadcrumb_for("Letters", patient_letters_letters_path(patient))]) do
 
-  .document
-    = simple_form_for letter,
-        url: patient_letters_letter_path(patient, letter),
-        as: :letter,
-        wrapper: "horizontal_form",
-        html: { id: "letter-form", autocomplete: "off" } do |f|
+  = simple_form_for letter,
+      url: patient_letters_letter_path(patient, letter),
+      as: :letter,
+      wrapper: "horizontal_form",
+      html: { id: "letter-form", autocomplete: "off" } do |f|
 
-      = render "form",
-               f: f,
-               patient: patient,
-               contact: contact,
-               contacts: contacts,
-               electronic_recipient_options: electronic_recipient_options
+    = render "form",
+             f: f,
+             patient: patient,
+             contact: contact,
+             contacts: contacts,
+             electronic_recipient_options: electronic_recipient_options
 
 = render "add_contact",
          patient: patient,

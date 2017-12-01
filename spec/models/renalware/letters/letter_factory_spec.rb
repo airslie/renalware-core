@@ -14,6 +14,14 @@ module Renalware
           expect(letter.main_recipient.person_role).to eq("patient")
         end
 
+        it "sets the pathology date to the time of instantiation" do
+          date = Time.zone.parse("2017-11-24 01:04:44")
+          travel_to date do
+            letter = subject.build
+            expect(letter.pathology_timestamp).to eq(date)
+          end
+        end
+
         it "sets the patient's Primary Care Physician as the main recipient if present" do
           patient.primary_care_physician = create(:letter_primary_care_physician)
 

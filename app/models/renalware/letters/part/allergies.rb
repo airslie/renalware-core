@@ -6,7 +6,7 @@ module Renalware
     class Part::Allergies < SimpleDelegator
       attr_reader :allergy_status
 
-      def initialize(patient, _event = Event::Unknown.new)
+      def initialize(patient, _letter, _event = Event::Unknown.new)
         patient = ::Renalware::Clinical.cast_patient(patient.__getobj__)
         @allergy_status = patient.allergy_status
         super(patient.allergies)

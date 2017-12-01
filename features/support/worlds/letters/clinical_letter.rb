@@ -108,7 +108,7 @@ module World
         expect(page.body).to include(clinic_visit.bp)
       end
 
-      def expect_clincal_letter_to_list_problems(patient:)
+      def expect_clinical_letter_to_list_problems(patient:)
         visit patient_letters_letters_path(patient)
         click_on "Preview"
 

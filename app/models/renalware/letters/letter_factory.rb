@@ -16,6 +16,7 @@ module Renalware
         include_primary_care_physician_as_default_main_recipient
         assign_default_ccs
         build_salutation
+        letter.pathology_timestamp = Time.zone.now
         letter
       end
 

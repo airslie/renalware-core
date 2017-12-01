@@ -2,7 +2,7 @@ require "rails_helper"
 
 module Renalware::Letters
   describe Part::ClinicalObservations do
-    subject(:part) { Part::ClinicalObservations.new(patient, clinic_visit_event) }
+    subject(:part) { Part::ClinicalObservations.new(patient, Letter.new, clinic_visit_event) }
 
     let(:clinic_visit_event) {
       double(

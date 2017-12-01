@@ -2171,7 +2171,8 @@ CREATE TABLE letter_letters (
     letterhead_id integer NOT NULL,
     author_id integer NOT NULL,
     clinical boolean,
-    enclosures character varying
+    enclosures character varying,
+    pathology_timestamp timestamp without time zone
 );
 
 
@@ -5087,8 +5088,28 @@ ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
 
 CREATE TABLE roles_users (
     role_id integer,
-    user_id integer
+    user_id integer,
+    id bigint NOT NULL
 );
+
+
+--
+-- Name: roles_users_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE roles_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: roles_users_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE roles_users_id_seq OWNED BY roles_users.id;
 
 
 --
@@ -6652,6 +6673,13 @@ ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regcl
 
 
 --
+-- Name: roles_users id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY roles_users ALTER COLUMN id SET DEFAULT nextval('roles_users_id_seq'::regclass);
+
+
+--
 -- Name: snippets_snippets id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -7776,6 +7804,14 @@ ALTER TABLE ONLY research_study_participants
 
 ALTER TABLE ONLY roles
     ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: roles_users roles_users_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY roles_users
+    ADD CONSTRAINT roles_users_pkey PRIMARY KEY (id);
 
 
 --
@@ -12885,8 +12921,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171106100216'),
 ('20171109084751'),
 ('20171113120217'),
+('20171114120904'),
 ('20171116103230'),
 ('20171118160030'),
+('20171123123712'),
 ('20171123143534'),
 ('20171123154116'),
 ('20171128163543');

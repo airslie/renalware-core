@@ -24,7 +24,7 @@ en:
           draft_clinic_visit_letter: Clinic Visit Letter
           simple_letter: Simple Letter
         new:
-          clincal:
-            page_title: New Clincal Letter
+          clinical:
+            page_title: New Clinical Letter
           simple:
             page_title: New Simple Letter

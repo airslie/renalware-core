@@ -278,7 +278,7 @@ scss:
     .patient-status
       p= render "patient_summary", patient: letter.patient
 
-    = render letter.parts, patient: letter.patient
+    = render letter.parts, patient: letter.patient, letter: letter
 
     .message
       = letter.body&.html_safe

@@ -2,7 +2,7 @@ require "rails_helper"
 
 module Renalware::Letters
   describe Part::Problems do
-    subject(:part) { Part::Problems.new(patient) }
+    subject(:part) { Part::Problems.new(patient, Letter.new) }
 
     let(:patient) { spy(:patient) }
 

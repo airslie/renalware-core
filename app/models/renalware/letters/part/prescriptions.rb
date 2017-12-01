@@ -6,7 +6,7 @@ module Renalware
     class Part::Prescriptions < DumbDelegator
       include ::PresenterHelper
 
-      def initialize(patient, _event = Event::Unknown.new)
+      def initialize(patient, _letter, _event = Event::Unknown.new)
         @patient = patient
         super(prescriptions)
       end
