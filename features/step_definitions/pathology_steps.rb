@@ -21,7 +21,11 @@ Given(request_description_expiration_regex) do |request_code, expiration_days|
   )
 end
 
-Given(/^a ([\d\w]+) test was requested for Patty(\s|\s(\d+) (days|day) ago)$/) do |code, _time_ago, days, _|
+Given(/a ([\d\w]+) test was requested for Patty $/) do |code|
+  # noop
+end
+
+Given(/^a ([\d\w]+) test was requested for Patty (\d+) (days|day) ago$/) do |code, days, _|
   if days.present?
     requested_at = (Time.current - days.days).to_date
 
@@ -33,7 +37,11 @@ Given(/^a ([\d\w]+) test was requested for Patty(\s|\s(\d+) (days|day) ago)$/) d
   end
 end
 
-Given(/^a ([\d\w]+) test was observed for Patty(\s|\s(\d+) (days|day) ago)$/) do |code, _time_ago, days, _|
+Given(/^a ([\d\w]+) test was observed for Patty $/) do |code|
+  # noop
+end
+
+Given(/^a ([\d\w]+) test was observed for Patty (\d+) (days|day) ago$/) do |code, days, _|
   if days.present?
     observed_at = (Time.current - days.days).to_date
 

@@ -10,7 +10,11 @@ Given(/^the current date is between the rule's start\/end dates (yes|no)$/) do |
   update_patient_rule_start_end_dates(@patient_rule, within_rage)
 end
 
-Given(/^a request form containing this patient rule was printed(\s|\s(\d+) (days|day) ago)$/) do |_time_ago, days_ago, _|
+Given("a request form containing this patient rule was printed ") do
+  # noop
+end
+
+Given(/a request form containing this patient rule was printed (\d+) (days|day) ago$/) do |days_ago, _|
   if days_ago.present?
     create_request_with_patient_rules(@patty, days_ago, [@patient_rule])
   end
