@@ -9,7 +9,21 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
-## 2.0.0.pre.beta11
+## 2.0.0.pre.beta13
+01-12-2017
+
+### Added
+- Freeze Pathology in Letter
+- Low Clearance MDM
+- Add Tags to Bookmarks
+
+### Changed
+- Housekeeping - new indexes, remove unused code
+- Migrate to Cucumber 3
+
+### Fixed
+
+## 2.0.0.pre.beta12
 21-11-2017
 
 ### Added
