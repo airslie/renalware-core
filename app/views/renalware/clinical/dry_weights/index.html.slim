@@ -7,7 +7,6 @@
         th Assessor
 
       tbody
-        - dry_weights.each do |dry_weight|
-          = render "row", dry_weight: dry_weight
+        = render dry_weights
 
     = paginate dry_weights

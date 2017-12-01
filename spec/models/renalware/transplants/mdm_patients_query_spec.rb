@@ -5,9 +5,6 @@ module Renalware
     describe MDMPatientsQuery do
       it { is_expected.to respond_to(:call) }
       it { is_expected.to respond_to(:search) }
-
-      it "" do
-      end
     end
   end
 end

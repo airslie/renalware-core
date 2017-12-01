@@ -15,7 +15,6 @@ table.report
       td= sort_link([:renalware, query], :signed_off_by_family_name, "Signed Off By")
 
   tbody
-    - sessions.each do |session|
-      = render "session", session: session
+    = render partial: "session", collection: sessions
 
 = paginate sessions

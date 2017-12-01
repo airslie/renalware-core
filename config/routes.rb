@@ -233,6 +233,12 @@ Renalware::Engine.routes.draw do
         get :deaths
       end
     end
+    namespace :low_clearance do
+      resources :mdm_patients, only: :index
+      constraints(named_filter: /#{Renalware::Renal::LowClearance::MDM_FILTERS.join("|")}/) do
+        get "mdm_patients/:named_filter", to: "mdm_patients#index", as: :filtered_mdm_patients
+      end
+    end
   end
 
   namespace :system do
@@ -343,6 +349,9 @@ Renalware::Engine.routes.draw do
 
     namespace :renal do
       resource :profile, only: [:show, :edit, :update]
+      namespace :low_clearance do
+        resource :mdm, only: :show, controller: "mdm"
+      end
     end
 
     # Modalities

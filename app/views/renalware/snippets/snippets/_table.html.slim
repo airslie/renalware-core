@@ -13,9 +13,9 @@ table.snippets
         th.col-width-date-time.updated_at= sort_link([:renalware, search], :updated_at, t(".updated_at"))
         th.col-width-medium
   tbody
-    - snippets.each do |snippet|
-      = render "row",
-               snippet: snippet,
-               author: author,
-               delete_confirmation_msg: delete_confirmation_msg,
-               remote: remote
+    = render partial: "row",
+             collection: snippets,
+             as: :snippet,
+             locals: { author: author,
+                       delete_confirmation_msg: delete_confirmation_msg,
+                       remote: remote }
