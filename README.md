@@ -29,7 +29,7 @@ for example `renalware-ukrdc` which enables sending data to the UKRDC.
 
 - Ruby 2.x
 - Ruby on Rails 5
-- Postgres 9.6+
+- Postgres 10.1+
 
 ## Get up and running locally
 
