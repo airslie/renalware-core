@@ -1,8 +1,8 @@
-Given(/^the rule set contains these rules:$/) do |table|
+Given("the rule set contains these rules:") do |table|
   @rules = create_global_rules_from_table(table)
 end
 
-Given(/^the global rule sets:$/) do |table|
+Given("the global rule sets:") do |table|
   num_columns = table.raw.first.count
 
   if num_columns > 2
@@ -73,10 +73,10 @@ Then(/^it is determined the observation is (required|not required)$/) do |determ
   end
 end
 
-Then(/^Clyde sees these request descriptions from the global algorithm$/) do |table|
+Then("Clyde sees these request descriptions from the global algorithm") do |table|
   expect_observations_from_global(@required_request_descriptions, table)
 end
 
-Then(/^Clyde sees these observations from the patient algorithm$/) do |table|
+Then("Clyde sees these observations from the patient algorithm") do |table|
   expect_observations_from_patient(@required_patient_observations, table.transpose)
 end

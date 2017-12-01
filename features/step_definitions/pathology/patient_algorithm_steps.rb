@@ -14,13 +14,13 @@ Given("a request form containing this patient rule was printed ") do
   # noop
 end
 
-Given(/a request form containing this patient rule was printed (\d+) (days|day) ago$/) do |days_ago, _|
+Given("a request form containing this patient rule was printed {int} {word} ago") do |days_ago, _|
   if days_ago.present?
     create_request_with_patient_rules(@patty, days_ago, [@patient_rule])
   end
 end
 
-When(/^Clyde records a new patient rule for Patty$/) do
+When("Clyde records a new patient rule for Patty") do
   @patient_rule_attributes = {
     lab: "Biochemistry",
     test_description: "Test for HepBsAb",
@@ -37,11 +37,11 @@ When(/^Clyde records a new patient rule for Patty$/) do
   )
 end
 
-When(/^the patient pathology algorithm is run for Patty$/) do
+When("the patient pathology algorithm is run for Patty") do
   @required_patient_observations = run_patient_algorithm(@patty, @clyde)
 end
 
-When(/^Clyde submits an erroneous patient rule for Patty$/) do
+When("Clyde submits an erroneous patient rule for Patty") do
   @patient_rule_attributes = {
     lab: "Biochemistry",
     test_description: "",
@@ -63,10 +63,10 @@ Then(/^it is determined the patient's observation is (required|not required)$/) 
   end
 end
 
-Then(/^Patty has a new patient rule$/) do
+Then("Patty has a new patient rule") do
   expect_patient_rules_on_patient(@patty, @patient_rule_attributes)
 end
 
-Then(/^the patient rule is not accepted$/) do
+Then("the patient rule is not accepted") do
   expect_patient_rule_to_be_refused(@patty)
 end

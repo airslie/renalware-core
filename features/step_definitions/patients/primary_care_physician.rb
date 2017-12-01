@@ -1,4 +1,4 @@
-Given(/^Phylis is a primary care physician$/) do
+Given("Phylis is a primary care physician") do
   @phylis = Renalware::Patients::PrimaryCarePhysician.create!(
     given_name: "Patty",
     family_name: "Parfit",
@@ -10,10 +10,10 @@ Given(/^Phylis is a primary care physician$/) do
   )
 end
 
-When(/^Clyde assigns Phylis to Patty as a primary care physician$/) do
+When("Clyde assigns Phylis to Patty as a primary care physician") do
   assign_primary_care_physician_to(@patty, primary_care_physician: @phylis, user: @clyde)
 end
 
-Then(/^Phylis is now Patty's primary care physician$/) do
+Then("Phylis is now Patty's primary care physician") do
   expect_patient_primary_care_physician_to_be(@phylis, patient: @patty)
 end

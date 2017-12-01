@@ -1,4 +1,4 @@
-When(/^Clyde records an exit site infection for Patty$/) do
+When("Clyde records an exit site infection for Patty") do
   record_exit_site_infection_for(
     patient: @patty,
     user: @clyde,
@@ -7,7 +7,7 @@ When(/^Clyde records an exit site infection for Patty$/) do
   )
 end
 
-Given(/^Clyde recorded an exit site infection for Patty$/) do
+Given("Clyde recorded an exit site infection for Patty") do
   record_exit_site_infection_for(
     patient: @patty,
     user: @clyde,
@@ -16,21 +16,21 @@ Given(/^Clyde recorded an exit site infection for Patty$/) do
   )
 end
 
-When(/^records the organism for the infection$/) do
+When("records the organism for the infection") do
   record_organism_for(
     infectable: infection_for(@patty),
     organism_name: "Staphylococcus aureus"
   )
 end
 
-Given(/^recorded the organism for the infection$/) do
+Given("recorded the organism for the infection") do
   record_organism_for(
     infectable: infection_for(@patty),
     organism_name: "Staphylococcus aureus"
   )
 end
 
-Given(/^recorded the prescription for the infection$/) do
+Given("recorded the prescription for the infection") do
   record_prescription_for(
     patient: @patty,
     treatable: infection_for(@patty),
@@ -45,7 +45,7 @@ Given(/^recorded the prescription for the infection$/) do
   )
 end
 
-When(/^records the prescription for the infection$/) do
+When("records the prescription for the infection") do
   record_prescription_for(
     patient: @patty,
     treatable: infection_for(@patty),
@@ -60,11 +60,11 @@ When(/^records the prescription for the infection$/) do
   )
 end
 
-Then(/^an exit site infection is recorded for Patty$/) do
+Then("an exit site infection is recorded for Patty") do
   expect_exit_site_infection_to_recorded(patient: @patty)
 end
 
-Given(/^Patty is being treated for an exit site infection$/) do
+Given("Patty is being treated for an exit site infection") do
   record_exit_site_infection_for(
     patient: @patty,
     user: @clyde,
@@ -93,7 +93,7 @@ Given(/^Patty is being treated for an exit site infection$/) do
   )
 end
 
-Then(/^Clyde can revise the exit site infection$/) do
+Then("Clyde can revise the exit site infection") do
   revise_exit_site_infection_for(
     patient: @patty,
     user: @clyde,
@@ -117,14 +117,14 @@ Then(/^Clyde can revise the exit site infection$/) do
   expect_exit_site_infections_revisions_recorded(patient: @patty)
 end
 
-Then(/^Clyde can terminate the organism for the infection$/) do
+Then("Clyde can terminate the organism for the infection") do
   terminate_organism_for(
     infectable: infection_for(@patty),
     user: @clyde
   )
 end
 
-Then(/^Clyde can terminate the prescription for the infection$/) do
+Then("Clyde can terminate the prescription for the infection") do
   terminate_prescription_for(
     patient: @patty,
     user: @clyde
