@@ -6,5 +6,6 @@ module Renalware
     Transplants::RecipientModalityDescription.find_or_create_by!(name: "Transplant")
     PD::ModalityDescription.find_or_create_by!(name: "PD")
     HD::ModalityDescription.find_or_create_by!(name: "HD")
+    Renal::LowClearance::ModalityDescription.find_or_create_by!(name: "Low Clearance")
   end
 end

@@ -17,11 +17,12 @@ module Renalware
 
       def path
         @path ||= begin
-          case modality_description_name&.downcase&.to_sym
+          return if modality_description.type.blank?
+          case modality_description_symbol
           when :pd then patient_pd_mdm_path(patient)
           when :hd then patient_hd_mdm_path(patient)
           when :transplant then patient_transplants_mdm_path(patient)
-          when :lcc then nil # patient_low_clearance_mdm_path(patient)
+          when :low_clearance then patient_renal_low_clearance_mdm_path(patient)
           end
         end
       end
@@ -32,11 +33,8 @@ module Renalware
 
       private
 
-      attr_reader :patient, :modality_description_name
-
-      def modality_description_name
-        modality_description.name
-      end
+      attr_reader :patient
+      delegate :name, to: :modality_description, prefix: true, allow_nil: true
 
       def modality_description
         current_modality = patient.current_modality || NullObject.instance
@@ -45,6 +43,10 @@ module Renalware
 
       def mdm_name
         "#{modality_description_name} MDM"
+      end
+
+      def modality_description_symbol
+        modality_description.becomes(modality_description.type.constantize).to_sym
       end
     end
   end

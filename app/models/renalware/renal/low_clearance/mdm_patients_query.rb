@@ -5,11 +5,9 @@ module Renalware
     module LowClearance
       class MDMPatientsQuery
         include ModalityScopes
-        MODALITY_NAMES = ["LCC"].freeze
         DEFAULT_SEARCH_PREDICATE = "ure_date ASC".freeze
         attr_reader :query, :relation, :named_filter
 
-        # modality_names: eg "HD" or "PD"
         def initialize(relation: Patient.all, query: nil, named_filter: nil)
           @query = query || {}
           @named_filter = named_filter || :none
@@ -28,7 +26,7 @@ module Renalware
               .extending(ModalityScopes)
               .extending(NamedFilterScopes)
               .with_current_key_pathology
-              .with_current_modality_matching(MODALITY_NAMES)
+              .with_current_modality_of_class(LowClearance::ModalityDescription)
               .public_send(named_filter.to_s)
               .search(query)
           end
