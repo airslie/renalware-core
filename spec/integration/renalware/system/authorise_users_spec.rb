@@ -6,10 +6,10 @@ module Renalware
     include ActionView::RecordIdentifier
 
     background do
-      @clinician_role = Role.find_or_create_by(name: "clinician")
+      @clinician_role = Role.find_or_create_by(name: "read_write")
       @approved = create(:user)
       @unapproved = create(:user, :unapproved)
-      @expired = create(:user, :expired, :clinician)
+      @expired = create(:user, :expired, :read_write)
 
       login_as_super_admin
 
@@ -22,7 +22,7 @@ module Renalware
       click_link "Edit"
       expect(page).to have_current_path(edit_admin_user_path(@unapproved))
 
-      check "Clinician"
+      check "Read write"
       click_on "Approve"
 
       expect(page).to have_current_path(admin_users_path)
@@ -49,7 +49,7 @@ module Renalware
       first("tbody tr##{dom_id(@approved)}").click_link("Edit")
       expect(page).to have_current_path(edit_admin_user_path(@approved))
 
-      uncheck "Clinician"
+      uncheck "Read write"
       click_on "Update"
 
       expect(page).to have_current_path(admin_user_path(@approved))
@@ -63,7 +63,7 @@ module Renalware
       end
       expect(page).to have_current_path(edit_admin_user_path(@approved))
 
-      check "Clinician"
+      check "Read write"
       click_on "Update"
 
       expect(page).to have_current_path(admin_users_path)
@@ -109,7 +109,7 @@ module Renalware
 
       # may be already unchecked, but just to be sure this person has no roles
       # other than the hidden superadmin role
-      uncheck "Clinician"
+      uncheck "Read write"
       click_on "Update"
 
       # They are as super-admin so submit should succeed and the super-admin

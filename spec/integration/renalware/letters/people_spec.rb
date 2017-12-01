@@ -10,7 +10,7 @@ RSpec.describe "Add person to directory and assign as a contact for a patient",
   include AjaxHelpers
 
   before do
-    @user = login_as_clinician
+    @user = login_as_read_write
   end
 
   let!(:contact_description) { create(:letter_contact_description) }

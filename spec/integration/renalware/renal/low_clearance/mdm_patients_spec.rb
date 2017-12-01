@@ -17,14 +17,14 @@ RSpec.describe "Low Clearance Patients", type: :feature do
     end
 
     it "responds successfully" do
-      login_as_clinician
+      login_as_read_write
       visit renal_low_clearance_mdm_patients_path
 
       expect(page).to have_content("Low Clearance MDM Patients")
     end
 
     it "clicking on filters works" do
-      login_as_clinician
+      login_as_read_write
       visit renal_low_clearance_mdm_patients_path
       each_filter do |filter_label, filter_path|
         within ".filters" do

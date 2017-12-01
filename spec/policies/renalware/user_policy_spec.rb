@@ -5,8 +5,8 @@ module Renalware
     subject { described_class }
 
     let(:admin) { create(:user, :admin) }
-    let(:clinician) { create(:user, :clinician) }
-    let(:other_clinician) { create(:user, :clinician) }
+    let(:clinician) { create(:user, :read_write) }
+    let(:other_clinician) { create(:user, :read_write) }
 
     permissions :update? do
       it "permits an admin user to update other users" do

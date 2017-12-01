@@ -70,7 +70,7 @@ module Renalware
     end
 
     def has_write_privileges?
-      user_is_super_admin? || user_is_admin? || user_is_clinician?
+      user_is_super_admin? || user_is_admin? || user_is_read_write?
     end
 
     def has_any_role?

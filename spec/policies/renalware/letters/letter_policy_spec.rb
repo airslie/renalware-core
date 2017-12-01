@@ -14,7 +14,7 @@ module Renalware::Letters
       end
 
       it "denies access if user clinician" do
-        expect(subject).to permit(FactoryBot.create(:user, :clinician))
+        expect(subject).to permit(FactoryBot.create(:user, :read_write))
       end
 
       it "denies access if user read_only" do

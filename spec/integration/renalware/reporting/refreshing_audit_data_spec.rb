@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Refreshing audit data", type: :feature, js: true do
   scenario "Manually requesting to refresh audit data" do
-    login_as_clinician
+    login_as_read_write
     create(:audit, name: "xx", view_name: "yy")
     visit reporting_audits_path
     ActiveJob::Base.queue_adapter = :test

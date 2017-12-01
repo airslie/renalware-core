@@ -4,7 +4,7 @@ module Renalware
   describe BasePolicy, type: :policy do
     let(:super_admin) { create(:user, :super_admin) }
     let(:admin) { create(:user, :admin) }
-    let(:clinician) { create(:user, :clinician) }
+    let(:clinician) { create(:user, :read_write) }
 
     it "checks and defines permissions for super admins" do
       policy = BasePolicy.new(super_admin, User.new)

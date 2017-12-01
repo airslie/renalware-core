@@ -18,7 +18,7 @@ FactoryBot.define do
     signature { Faker::Name.name }
 
     # By default a user has no roles.
-    # If you want a use with a role, use a trait, e.g. create(:user, :clinician)
+    # If you want a use with a role, use a trait, e.g. create(:user, :read_write)
     transient do
       role nil
     end
@@ -54,13 +54,13 @@ FactoryBot.define do
       end
     end
 
-    trait :clinician do
+    trait :read_write do
       given_name "Aneurin"
       family_name "Bevan"
       signature "Aneurin Bevan"
 
       transient do
-        role :clinician
+        role :read_write
       end
     end
 

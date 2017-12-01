@@ -29,7 +29,7 @@ module Renalware
                     glucose_content: 3.8,
                     glucose_strength: :high)
 
-      login_as_clinician
+      login_as_read_write
 
       visit patient_pd_dashboard_path(@patient)
     end

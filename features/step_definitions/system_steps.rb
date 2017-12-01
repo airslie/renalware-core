@@ -7,17 +7,17 @@ Given(/^Donna is logged in$/) do
 end
 
 Given(/^(.*?) is a clinician$/) do |name|
-  user = find_or_create_user(given_name: name, role: "clinician")
+  user = find_or_create_user(given_name: name, role: "read_write")
   instance_variable_set("@" + name.downcase, user)
 end
 
 Given(/^(.*?) is a nurse$/) do |name|
-  user = find_or_create_user(given_name: name, role: "clinician")
+  user = find_or_create_user(given_name: name, role: "read_write")
   instance_variable_set("@" + name.downcase, user)
 end
 
 Given(/^(.*?) is a doctor/) do |name|
-  user = find_or_create_user(given_name: name, role: "clinician")
+  user = find_or_create_user(given_name: name, role: "read_write")
   instance_variable_set("@" + name.downcase, user)
 end
 

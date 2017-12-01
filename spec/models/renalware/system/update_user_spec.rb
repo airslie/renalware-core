@@ -8,7 +8,7 @@ module Renalware::System
       context "given an unapproved user" do
         subject { UpdateUser.new(user) }
 
-        let(:user) { create(:user, :clinician, :unapproved) }
+        let(:user) { create(:user, :read_write, :unapproved) }
 
         it "approves the user" do
           expect(user).to receive(:approved=).with(true)

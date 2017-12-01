@@ -7,7 +7,7 @@ module Renalware
       patient = create(:pd_patient)
       create(:pd_training_site, name: "Home")
       create(:pd_training_type, name: "APD Baxter")
-      login_as_clinician
+      login_as_read_write
 
       visit patient_pd_dashboard_path(patient)
 
@@ -40,7 +40,7 @@ module Renalware
     ###
     scenario "Edit a PD Training Session" do
       patient = create(:pd_patient)
-      user = login_as_clinician
+      user = login_as_read_write
       create(:pd_training_session, patient: patient, by: user)
 
       visit patient_pd_dashboard_path(patient)
@@ -65,7 +65,7 @@ module Renalware
     ###
     scenario "View a PD Training Session" do
       patient = create(:pd_patient)
-      user = login_as_clinician
+      user = login_as_read_write
       training_session = create(:pd_training_session, patient: patient, by: user)
 
       visit patient_pd_dashboard_path(patient)

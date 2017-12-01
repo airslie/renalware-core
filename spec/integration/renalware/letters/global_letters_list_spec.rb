@@ -14,7 +14,7 @@ RSpec.describe "View global letters list", type: :feature, js: false do
       patient = create(:letter_patient, primary_care_physician: primary_care_physician)
       create_letter(to: :patient, patient: patient)
 
-      login_as_clinician
+      login_as_read_write
 
       visit letters_list_path
 

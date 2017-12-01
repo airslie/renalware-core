@@ -4,7 +4,7 @@ require_dependency "renalware/renal"
 RSpec.describe "Renal Profile (ESRF/Comorbidities)", type: :feature, js: true do
   describe "GET #show" do
     it "updating the renal profile" do
-      user = login_as_clinician
+      user = login_as_read_write
 
       esrf_date = "24-Mar-2017"
       patient = Renalware::Renal.cast_patient(create(:patient, by: user))
@@ -43,7 +43,7 @@ RSpec.describe "Renal Profile (ESRF/Comorbidities)", type: :feature, js: true do
     end
 
     it "pulling in the patient's current address" do
-      user = login_as_clinician
+      user = login_as_read_write
       patient = Renalware::Renal.cast_patient(create(:patient, by: user))
 
       visit edit_patient_renal_profile_path(patient)

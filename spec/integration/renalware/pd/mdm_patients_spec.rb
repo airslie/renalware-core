@@ -14,7 +14,7 @@ RSpec.describe "PD MDM Patients", type: :feature do
                    modality_description: create(:pd_modality_description),
                    by: user)
 
-      login_as_clinician
+      login_as_read_write
       visit pd_mdm_patients_path
 
       expect(page).to have_content(patient.family_name.upcase)

@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "View Admission Request", type: :feature do
   scenario "Use the top menu to navigate to the list of admission requests" do
-    login_as_clinician
+    login_as_read_write
     visit dashboard_path
 
     within "#top-menu-bar" do

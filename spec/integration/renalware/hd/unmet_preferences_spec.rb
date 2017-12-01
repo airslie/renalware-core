@@ -66,7 +66,7 @@ RSpec.describe "Viewing patients whose HD preferences do not match their profile
 
   describe "GET index" do
     it "responds with a list of patients with unmet preferences" do
-      login_as_clinician
+      login_as_read_write
       patient_met = patient_whose_preferences_are_met
       patient_schedule = patient_preferring_another_schedule
       patient_unit = patient_preferring_another_hospital_unit
@@ -80,7 +80,7 @@ RSpec.describe "Viewing patients whose HD preferences do not match their profile
 
     context "when filtering" do
       it "responds with a list of patients matching filters" do
-        login_as_clinician
+        login_as_read_write
         patient_met = patient_whose_preferences_are_met
         patient_schedule = patient_preferring_another_schedule
         patient_unit = patient_preferring_another_hospital_unit

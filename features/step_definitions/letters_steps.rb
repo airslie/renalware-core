@@ -29,14 +29,14 @@ Given(/^Patty has completed pathology investigations relevant to the clinic lett
 end
 
 Given(/^Patty has a letter pending review$/) do
-  @doctor = find_or_create_user(given_name: "a_doctor", role: "clinician")
+  @doctor = find_or_create_user(given_name: "a_doctor", role: "read_write")
 
   seed_simple_letter_for(@patty, user: @doctor)
   submit_for_review(patient: @patty, user: @doctor)
 end
 
 Given(/^Patty has an approved letter$/) do
-  @doctor = find_or_create_user(given_name: "a_doctor", role: "clinician")
+  @doctor = find_or_create_user(given_name: "a_doctor", role: "read_write")
 
   seed_simple_letter_for(@patty, user: @doctor)
   submit_for_review(patient: @patty, user: @doctor)
@@ -110,7 +110,7 @@ When(/^Nathalie submits the letter for review$/) do
 end
 
 When(/^Clyde filters on his pending review letters typed by Taylor$/) do
-  taylor = find_or_create_user(given_name: "Taylor", role: "clinician")
+  taylor = find_or_create_user(given_name: "Taylor", role: "read_write")
   view_letters(
     q: {
       state_eq: "pending_review",
