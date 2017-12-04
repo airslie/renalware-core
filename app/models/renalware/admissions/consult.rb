@@ -8,7 +8,6 @@ module Renalware
       acts_as_paranoid
       validates :patient_id, presence: true
       validates :consult_site_id, presence: true
-      validates :hospital_ward_id, presence: true
       validates :started_on, presence: true
       validates :description, presence: true
       validates :consult_type, presence: true

@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe Renalware::Admissions::Consult, type: :model do
   it { is_expected.to validate_presence_of :patient_id }
   it { is_expected.to validate_presence_of :consult_site_id }
-  it { is_expected.to validate_presence_of :hospital_ward_id }
   it { is_expected.to validate_presence_of :started_on }
   it { is_expected.to validate_presence_of :description }
   it { is_expected.to validate_presence_of :consult_type }

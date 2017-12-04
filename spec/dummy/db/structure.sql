@@ -700,6 +700,7 @@ CREATE TABLE admission_consults (
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    other_ward character varying,
     consult_site_id bigint NOT NULL
 );
 
