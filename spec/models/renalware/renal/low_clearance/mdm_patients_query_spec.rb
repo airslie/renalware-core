@@ -20,13 +20,13 @@ module Renalware
         def create_lcc_patient
           create(:patient).tap do |patient|
             set_modality(patient: patient,
-                         modality_description: create(:lcc_modality_description),
+                         modality_description: create(:low_clearance_modality_description),
                          by: user)
           end
         end
 
         context "when unfiltered" do
-          it "returns only LCC patients" do
+          it "returns only Low Clearance patients" do
             lcc_patient = create_lcc_patient
             create(:patient)
 

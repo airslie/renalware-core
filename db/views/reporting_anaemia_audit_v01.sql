@@ -37,5 +37,5 @@ select
   left join lateral (select hgb hgb_gt_eq_11 where hgb >= 11) e5 ON true
   left join lateral (select hgb hgb_gt_eq_13 where hgb >= 13) e6 ON true
   left join lateral (select fer fer_gt_eq_150 where fer >= 150) e7 ON true
-  where modality_desc in ('HD','PD','Transplant', 'LCC', 'Nephrology')
+  where modality_desc in ('HD','PD','Transplant', 'Low Clearance', 'Nephrology')
   group by modality_desc

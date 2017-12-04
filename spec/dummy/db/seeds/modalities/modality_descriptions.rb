@@ -1,7 +1,6 @@
 module Renalware
   log "Adding Demo Modality Descriptions" do
     [
-      "LCC",
       "LOST",
       "Nephrology",
       "Potential LD",

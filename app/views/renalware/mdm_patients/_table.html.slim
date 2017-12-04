@@ -7,7 +7,7 @@ table#patients.mdm-patients.columns
       th.col-width-reference-no= t(".hosp_no")
       th.col-width-tiny= t(".sex")
       th.col-width-tiny= t(".age")
-      th.col-width-tiny= t(".modality")
+      th.col-width-small= t(".modality")
       - %i(hgb ure cre).each do |code|
         th.col-width-tiny= sort_link(path, code, t(".#{code}"))
         th.col-width-date= sort_link(path, :"#{code}_date", t(".#{code}_date"))

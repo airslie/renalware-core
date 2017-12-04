@@ -19,8 +19,9 @@ FactoryBot.define do
       type "Renalware::Transplants::RecipientModalityDescription"
     end
 
-    trait :lcc do
-      name "LCC"
+    trait :low_clearance do
+      name "Low Clearance"
+      type "Renalware::Renal::LowClearance::ModalityDescription"
     end
 
     trait :death do
