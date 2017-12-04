@@ -648,12 +648,40 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 
 --
+-- Name: admission_consult_sites; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE admission_consult_sites (
+    id bigint NOT NULL,
+    name character varying
+);
+
+
+--
+-- Name: admission_consult_sites_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE admission_consult_sites_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admission_consult_sites_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE admission_consult_sites_id_seq OWNED BY admission_consult_sites.id;
+
+
+--
 -- Name: admission_consults; Type: TABLE; Schema: renalware; Owner: -
 --
 
 CREATE TABLE admission_consults (
     id bigint NOT NULL,
-    hospital_unit_id bigint,
     hospital_ward_id bigint,
     patient_id bigint NOT NULL,
     seen_by_id bigint,
@@ -671,7 +699,8 @@ CREATE TABLE admission_consults (
     created_by_id bigint NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    consult_site_id bigint NOT NULL
 );
 
 
@@ -6059,6 +6088,13 @@ ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq
 
 
 --
+-- Name: admission_consult_sites id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_consult_sites ALTER COLUMN id SET DEFAULT nextval('admission_consult_sites_id_seq'::regclass);
+
+
+--
 -- Name: admission_consults id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -7087,6 +7123,14 @@ ALTER TABLE ONLY access_versions
 
 ALTER TABLE ONLY addresses
     ADD CONSTRAINT addresses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admission_consult_sites admission_consult_sites_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_consult_sites
+    ADD CONSTRAINT admission_consult_sites_pkey PRIMARY KEY (id);
 
 
 --
@@ -8400,17 +8444,24 @@ CREATE UNIQUE INDEX index_addresses_on_addressable_type_and_addressable_id ON ad
 
 
 --
+-- Name: index_admission_consult_sites_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_consult_sites_on_name ON admission_consult_sites USING btree (name);
+
+
+--
+-- Name: index_admission_consults_on_consult_site_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_consults_on_consult_site_id ON admission_consults USING btree (consult_site_id);
+
+
+--
 -- Name: index_admission_consults_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_admission_consults_on_created_by_id ON admission_consults USING btree (created_by_id);
-
-
---
--- Name: index_admission_consults_on_hospital_unit_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_admission_consults_on_hospital_unit_id ON admission_consults USING btree (hospital_unit_id);
 
 
 --
@@ -12259,14 +12310,6 @@ ALTER TABLE ONLY access_plans
 
 
 --
--- Name: admission_consults fk_rails_dac6e41a2e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY admission_consults
-    ADD CONSTRAINT fk_rails_dac6e41a2e FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
-
-
---
 -- Name: access_plans fk_rails_db0b9b356b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -13158,6 +13201,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171123143534'),
 ('20171123154116'),
 ('20171128163543'),
+('20171204112150'),
 ('20171206121652'),
 ('20171208211206'),
 ('20171211130716'),
