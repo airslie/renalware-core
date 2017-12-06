@@ -1,20 +1,11 @@
-ruby:
-  total_events = patient.summary.events_count
-  displayed_events = events.size
-
-  count_title = if total_events > displayed_events
-                  "#{displayed_events} of #{total_events}"
-                else
-                  displayed_events
-                end
 article
   header
-    h2= link_to "Events (#{count_title})", patient_events_path(patient)
+    h2= link_to "Events (#{current_events_count})", patient_events_path(patient)
 
     ul
-      li= link_to new_patient_event_path(@patient), class: "button" do
+      li= link_to new_patient_event_path(patient), class: "button" do
         | Add
-      li= link_to patient_events_path(@patient), class: "button" do
+      li= link_to patient_events_path(patient), class: "button" do
         | View All
 
   = render "renalware/events/events/table", events: events

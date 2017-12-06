@@ -26,6 +26,8 @@ module Renalware
     config_accessor(:duration_of_last_url_memory_after_session_expiry) { 30.minutes }
     config_accessor(:broadcast_subscription_map) { {} }
     config_accessor(:include_sunday_on_hd_diaries) { false }
+    config_accessor(:clinical_summary_max_events_to_display) { 10 }
+    config_accessor(:clinical_summary_max_letters_to_display) { 10 }
   end
 
   def self.config

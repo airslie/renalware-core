@@ -1,9 +1,9 @@
 article
   header
     h2
-      = link_to "Problems (#{problems.length})", patient_problems_path(@patient)
+      = link_to "Problems (#{problems.length})", patient_problems_path(patient)
 
-    = link_to patient_problems_path(@patient), class: "button" do
+    = link_to patient_problems_path(patient), class: "button" do
       | Add
 
   ul.no-bullet

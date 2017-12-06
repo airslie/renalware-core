@@ -4,8 +4,6 @@ require "collection_presenter"
 module Renalware
   module Renal
     class ClinicalSummaryPresenter
-      MAX_EVENTS_TO_DISPLAY = 10
-
       def initialize(patient)
         @patient = patient
       end
@@ -29,17 +27,44 @@ module Renalware
       end
 
       def current_events
-        @current_events ||= Events::Event.includes([:created_by, :event_type])
-                                         .for_patient(@patient)
-                                         .limit(MAX_EVENTS_TO_DISPLAY)
-                                         .ordered
+        @current_events ||= begin
+          Events::Event.includes([:created_by, :event_type])
+                       .for_patient(@patient)
+                       .limit(Renalware.config.clinical_summary_max_events_to_display)
+                       .ordered
+        end
+      end
+
+      def current_events_count
+        title_friendly_collection_count(
+          actual: current_events.size,
+          total: patient.summary.events_count
+        )
       end
 
       def letters
         present_letters(find_letters)
       end
 
+      def letters_count
+        title_friendly_collection_count(
+          actual: letters.size,
+          total: patient.summary.letters_count
+        )
+      end
+
       private
+
+      attr_reader :patient
+
+      # Retuns e.g. "9" or "10 of 11"
+      def title_friendly_collection_count(actual:, total:)
+        if total > actual
+          "#{actual} of #{total}"
+        else
+          actual
+        end
+      end
 
       def find_letters
         patient = Renalware::Letters.cast_patient(@patient)
@@ -48,7 +73,7 @@ module Renalware
                .with_letterhead
                .with_author
                .with_patient
-               .limit(10)
+               .limit(Renalware.config.clinical_summary_max_letters_to_display)
                .order(issued_on: :desc)
       end
 
