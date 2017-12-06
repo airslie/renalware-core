@@ -15,4 +15,4 @@
 
     .columns.large-12.xlarge-6
       #events
-        = render "events", events: clinical_summary.current_events
+        = render "events", events: clinical_summary.current_events, patient: @patient

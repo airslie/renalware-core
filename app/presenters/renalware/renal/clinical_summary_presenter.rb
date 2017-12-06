@@ -4,6 +4,8 @@ require "collection_presenter"
 module Renalware
   module Renal
     class ClinicalSummaryPresenter
+      MAX_EVENTS_TO_DISPLAY = 10
+
       def initialize(patient)
         @patient = patient
       end
@@ -29,6 +31,7 @@ module Renalware
       def current_events
         @current_events ||= Events::Event.includes([:created_by, :event_type])
                                          .for_patient(@patient)
+                                         .limit(MAX_EVENTS_TO_DISPLAY)
                                          .ordered
       end
 
