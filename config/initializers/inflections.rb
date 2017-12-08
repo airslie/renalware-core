@@ -33,4 +33,6 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "RTF"
   inflect.acronym "UKRDC"
   inflect.acronym "XHR"
+  # inflect.uncountable %w(feedback)
+  inflect.irregular "feedback", "feedback"
 end

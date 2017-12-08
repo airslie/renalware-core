@@ -49,3 +49,4 @@ rerun.txt
 .rubocop-https*
 /data
 /doc
+/.idea

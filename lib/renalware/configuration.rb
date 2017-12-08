@@ -28,6 +28,7 @@ module Renalware
     config_accessor(:include_sunday_on_hd_diaries) { false }
     config_accessor(:clinical_summary_max_events_to_display) { 10 }
     config_accessor(:clinical_summary_max_letters_to_display) { 10 }
+    config_accessor(:display_feedback_banner) { false }
   end
 
   def self.config

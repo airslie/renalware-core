@@ -1,0 +1,7 @@
+= within_admin_layout(title: "Give Feedback") do
+
+  = simple_form_for(feedback, as: :feedback, wrapper: :horizontal_form) do |f|
+
+    = f.input :category, include_blank: false
+    = f.input :comment, as: :text
+    = f.submit "Submit", class: :button

@@ -1,0 +1,16 @@
+.beta_banner {
+  background-color: $nhs-orange;
+  padding: 0.4rem 1rem;
+  color: $white;
+  text-align: center;
+
+  span {
+    font-size: 1.1rem;
+  }
+
+  .button {
+    margin: 0;
+    margin-left: 1rem;
+    padding: 0.3rem 0.8rem;
+  }
+}

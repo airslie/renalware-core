@@ -5215,6 +5215,39 @@ ALTER SEQUENCE system_templates_id_seq OWNED BY system_templates.id;
 
 
 --
+-- Name: system_user_feedback; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE system_user_feedback (
+    id bigint NOT NULL,
+    author_id bigint NOT NULL,
+    category character varying NOT NULL,
+    comment text NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: system_user_feedback_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE system_user_feedback_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_user_feedback_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE system_user_feedback_id_seq OWNED BY system_user_feedback.id;
+
+
+--
 -- Name: transplant_donations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -6702,6 +6735,13 @@ ALTER TABLE ONLY system_templates ALTER COLUMN id SET DEFAULT nextval('system_te
 
 
 --
+-- Name: system_user_feedback id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_user_feedback ALTER COLUMN id SET DEFAULT nextval('system_user_feedback_id_seq'::regclass);
+
+
+--
 -- Name: transplant_donations id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -7837,6 +7877,14 @@ ALTER TABLE ONLY system_countries
 
 ALTER TABLE ONLY system_templates
     ADD CONSTRAINT system_templates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_user_feedback system_user_feedback_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_user_feedback
+    ADD CONSTRAINT system_user_feedback_pkey PRIMARY KEY (id);
 
 
 --
@@ -10224,6 +10272,20 @@ CREATE INDEX index_system_templates_on_name ON system_templates USING btree (nam
 
 
 --
+-- Name: index_system_user_feedback_on_author_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_user_feedback_on_author_id ON system_user_feedback USING btree (author_id);
+
+
+--
+-- Name: index_system_user_feedback_on_category; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_user_feedback_on_category ON system_user_feedback USING btree (category);
+
+
+--
 -- Name: index_transplant_donations_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -11171,6 +11233,14 @@ ALTER TABLE ONLY pd_assessments
 
 ALTER TABLE ONLY pathology_requests_global_rule_sets
     ADD CONSTRAINT fk_rails_40e23de825 FOREIGN KEY (clinic_id) REFERENCES clinic_clinics(id);
+
+
+--
+-- Name: system_user_feedback fk_rails_4cc9cf2dca; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_user_feedback
+    ADD CONSTRAINT fk_rails_4cc9cf2dca FOREIGN KEY (author_id) REFERENCES users(id);
 
 
 --
@@ -12929,6 +12999,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171123143534'),
 ('20171123154116'),
 ('20171128163543'),
-('20171206121652');
+('20171206121652'),
+('20171208211206');
 
 

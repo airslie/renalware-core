@@ -1,5 +1,12 @@
 en:
   renalware:
+    beta_message:
+      title: |
+         Important notice:
+      body: |
+        This is the Renalware 2.0 test system.
+        Not for clinical use. Any data entered will not be retained.
+      feedback_button: Please give feedback
     create:
       success: You have successfully added a new %{model_name}.
       failed: You have failed to add a new %{model_name}.
