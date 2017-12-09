@@ -2,9 +2,9 @@ article
   header
     h2
       = link_to "Current Prescriptions (#{prescriptions.length})",
-                patient_prescriptions_path(@patient)
+                patient_prescriptions_path(patient)
 
-    = link_to patient_prescriptions_path(@patient), class: "button" do
+    = link_to patient_prescriptions_path(patient), class: "button" do
       | Add
 
   ul.no-bullet
