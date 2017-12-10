@@ -1,15 +1,14 @@
 require "rails_helper"
 
-RSpec.describe "User feedback", type: :feature do
+RSpec.describe "Beta banner and capturing user feedback", type: :feature do
   let(:user) { create(:user, :unapproved, :clinician) }
 
-  describe "GET new html" do
+  describe "beta banner" do
     it "displays the beta banner if config setting is true" do
       Renalware.config.display_feedback_banner = true
       visit root_path
       expect(page).to have_content(I18n.t("renalware.beta_message.title"))
       expect(page).to have_content(I18n.t("renalware.beta_message.body"))
-      expect(page).to have_content(I18n.t("renalware.beta_message.feedback_button"))
     end
 
     it "does not show the beta banner if config setting is false" do
@@ -17,9 +16,23 @@ RSpec.describe "User feedback", type: :feature do
       visit root_path
       expect(page).not_to have_content(I18n.t("renalware.beta_message.title"))
       expect(page).not_to have_content(I18n.t("renalware.beta_message.body"))
+    end
+
+    it "does not show the feedback button on the login screen" do
+      Renalware.config.display_feedback_banner = true
+      visit root_path
       expect(page).not_to have_content(I18n.t("renalware.beta_message.feedback_button"))
     end
 
+    it "shows the feedback button once logged in" do
+      Renalware.config.display_feedback_banner = true
+      login_as_clinician
+      visit root_path
+      expect(page).to have_content(I18n.t("renalware.beta_message.feedback_button"))
+    end
+  end
+
+  describe "GET new html" do
     context "when inputs are valid" do
       it "user offers feedback about the application" do
         login_as_clinician

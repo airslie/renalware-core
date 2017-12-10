@@ -2,7 +2,8 @@
   span
     b= t("renalware.beta_message.title")
     = t("renalware.beta_message.body")
-  span
-    = link_to(t("renalware.beta_message.feedback_button"),
-              new_system_user_feedback_path,
-              class: "button secondary")
+  -if current_user.present?
+    span
+      = link_to(t("renalware.beta_message.feedback_button"),
+                new_system_user_feedback_path,
+                class: "button secondary")

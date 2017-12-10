@@ -12,10 +12,4 @@ describe Renalware::Configuration do
       expect(subject.delay_after_which_a_finished_session_becomes_immutable).to eq(6.hours)
     end
   end
-
-  describe "#display_feedback_banner" do
-    it "defaults to false" do
-      expect(subject.display_feedback_banner).to be_falsey
-    end
-  end
 end
