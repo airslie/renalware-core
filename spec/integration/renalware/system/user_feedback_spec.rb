@@ -41,7 +41,7 @@ RSpec.describe "Beta banner and capturing user feedback", type: :feature do
         expect(page.status_code).to eq(200)
         expect(page).to have_content("Feedback")
 
-        select "Bug", from: "Category"
+        choose "Missing feature"
         fill_in "Comment", with: "My commment"
         click_on "Submit"
 
