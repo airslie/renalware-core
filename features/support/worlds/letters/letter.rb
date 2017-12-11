@@ -58,8 +58,8 @@ module World
       def seed_letters(table)
         table.hashes.each do |row|
           patient = find_or_create_patient_by_name(row[:patient])
-          author = find_or_create_user(given_name: row[:author], role: "read_write")
-          typist = find_or_create_user(given_name: row[:typist], role: "read_write")
+          author = find_or_create_user(given_name: row[:author], role: "clinical")
+          typist = find_or_create_user(given_name: row[:typist], role: "clinical")
           letter = seed_simple_letter_for(patient,
                                           user: typist,
                                           author: author,
