@@ -2807,6 +2807,38 @@ CREATE VIEW pathology_current_key_observation_sets AS
 
 
 --
+-- Name: pathology_current_observation_sets; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE pathology_current_observation_sets (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    "values" jsonb DEFAULT '{}'::jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pathology_current_observation_sets_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE pathology_current_observation_sets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_current_observation_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE pathology_current_observation_sets_id_seq OWNED BY pathology_current_observation_sets.id;
+
+
+--
 -- Name: pathology_labs; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -6334,6 +6366,13 @@ ALTER TABLE ONLY modality_reasons ALTER COLUMN id SET DEFAULT nextval('modality_
 
 
 --
+-- Name: pathology_current_observation_sets id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY pathology_current_observation_sets ALTER COLUMN id SET DEFAULT nextval('pathology_current_observation_sets_id_seq'::regclass);
+
+
+--
 -- Name: pathology_labs id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -7419,6 +7458,14 @@ ALTER TABLE ONLY modality_modalities
 
 ALTER TABLE ONLY modality_reasons
     ADD CONSTRAINT modality_reasons_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_current_observation_sets pathology_current_observation_sets_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY pathology_current_observation_sets
+    ADD CONSTRAINT pathology_current_observation_sets_pkey PRIMARY KEY (id);
 
 
 --
@@ -9441,6 +9488,20 @@ CREATE INDEX index_modality_modalities_on_updated_by_id ON modality_modalities U
 --
 
 CREATE INDEX index_modality_reasons_on_id_and_type ON modality_reasons USING btree (id, type);
+
+
+--
+-- Name: index_pathology_current_observation_sets_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_current_observation_sets_on_patient_id ON pathology_current_observation_sets USING btree (patient_id);
+
+
+--
+-- Name: index_pathology_current_observation_sets_on_values; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_current_observation_sets_on_values ON pathology_current_observation_sets USING gin ("values");
 
 
 --
@@ -12162,6 +12223,14 @@ ALTER TABLE ONLY messaging_receipts
 
 
 --
+-- Name: pathology_current_observation_sets fk_rails_dd99e95861; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY pathology_current_observation_sets
+    ADD CONSTRAINT fk_rails_dd99e95861 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: pd_regime_bags fk_rails_de0d26811a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -12999,6 +13068,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171128163543'),
 ('20171206121652'),
 ('20171208211206'),
-('20171211130716');
+('20171211130716'),
+('20171211161400');
 
 

@@ -8,6 +8,7 @@ module Renalware
       has_many :current_observations, class_name: "Pathology::CurrentObservation"
       has_many :rules, class_name: "Requests::PatientRule"
       has_many :requests, class_name: "Requests::Request"
+      has_one :current_observation_set, class_name: "Pathology::CurrentObservationSet"
 
       def last_request_for_patient_rule(patient_rule)
         requests
@@ -32,6 +33,10 @@ module Renalware
 
       def high_risk?
         Requests::HighRiskAlgorithm.new(self).patient_is_high_risk?
+      end
+
+      def fetch_current_observation_set
+        current_observation_set || build_current_observation_set
       end
 
       private
