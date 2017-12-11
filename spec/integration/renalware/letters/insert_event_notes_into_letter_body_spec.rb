@@ -7,7 +7,7 @@ RSpec.describe "Insert letter.event notes (e.g. from a clinic visit) into the le
                js: true do
 
   before do
-    login_as_read_write
+    login_as_clinical
   end
 
   let(:patient) { create(:letter_patient) }

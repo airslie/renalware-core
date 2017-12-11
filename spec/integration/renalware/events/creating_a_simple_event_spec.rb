@@ -7,7 +7,7 @@ RSpec.describe "Creating an event", type: :feature, js: true do
   context "adding a simple event" do
     it "works" do
       page.driver.add_headers("Referer" => root_path)
-      user = login_as_read_write
+      user = login_as_clinical
       patient = create(:patient, by: user)
 
       event_type = create(:events_type, name: "Access--Clinic")

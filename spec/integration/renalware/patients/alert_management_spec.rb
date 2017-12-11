@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Alert management" do
   scenario "A clinician adds an alert to a patient", js: true do
-    user = login_as_read_write
+    user = login_as_clinical
     patient = create(:patient, by: user)
 
     visit patient_path(patient)
@@ -22,7 +22,7 @@ feature "Alert management" do
   end
 
   scenario "A clinician deletes an alert", js: true do
-    user = login_as_read_write
+    user = login_as_clinical
     patient = create(:patient, by: user)
     create(:patient_alert,
            patient: patient,

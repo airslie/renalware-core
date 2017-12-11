@@ -7,7 +7,7 @@ RSpec.describe "Assign a person as a main recipient", type: :feature do
   include AjaxHelpers
 
   before do
-    login_as_read_write
+    login_as_clinical
   end
 
   let(:primary_care_physician) { create(:letter_primary_care_physician) }

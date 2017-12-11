@@ -6,7 +6,7 @@ module Renalware
       let(:registration) { create(:transplant_registration, :with_statuses) }
       let(:earliest_status) { registration.statuses.order("created_at ASC").first }
       let(:latest_status) { registration.statuses.order("created_at DESC").first }
-      let(:clinician) { create(:user, :read_write) }
+      let(:clinician) { create(:user, :clinical) }
       let(:status_description) { create(:transplant_registration_status_description) }
 
       it { is_expected.to accept_nested_attributes_for(:statuses) }

@@ -15,7 +15,7 @@ module Renalware
 
     describe "accessing a non-existent page or resource" do
       it "displays the 404 page" do
-        login_as_read_write
+        login_as_clinical
 
         visit patient_path(id: 9999999)
 
@@ -28,7 +28,7 @@ module Renalware
 
     describe "when the an unhandled internal server error" do
       it "displays the 500 page" do
-        login_as_read_write
+        login_as_clinical
 
         visit generate_test_internal_server_error_path
 

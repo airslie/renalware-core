@@ -6,10 +6,10 @@ module Renalware
     include ActionView::RecordIdentifier
 
     background do
-      @clinician_role = Role.find_or_create_by(name: "read_write")
+      @clinician_role = Role.find_or_create_by(name: "clinical")
       @approved = create(:user)
       @unapproved = create(:user, :unapproved)
-      @expired = create(:user, :expired, :read_write)
+      @expired = create(:user, :expired, :clinical)
 
       login_as_super_admin
 

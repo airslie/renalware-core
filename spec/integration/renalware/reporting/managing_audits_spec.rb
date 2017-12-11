@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Managing audits", type: :feature do
   scenario "Updating an audit" do
     audit = create(:audit, name: "XX")
-    login_as_read_write
+    login_as_clinical
     visit reporting_audits_path
     stub_the_list_of_data_sources
 

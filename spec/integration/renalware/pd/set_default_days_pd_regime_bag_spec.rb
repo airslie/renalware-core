@@ -14,7 +14,7 @@ module Renalware
                           friday: true,
                           saturday: false
                               )
-      login_as_read_write
+      login_as_clinical
     end
 
     scenario "when creating a new pd regime bag, all days of week set by default as true" do

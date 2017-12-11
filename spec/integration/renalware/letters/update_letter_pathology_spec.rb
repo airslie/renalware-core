@@ -11,7 +11,7 @@ module Renalware
         create_initial_pathology_for(patient)
         letter = create_letter(patient)
 
-        login_as_read_write
+        login_as_clinical
         visit edit_patient_letters_letter_path(patient, letter)
 
         within ".letter-pathology" do
@@ -35,7 +35,7 @@ module Renalware
 
           date = Time.zone.parse("2017-11-24 01:04:44")
           travel_to(date) do
-            login_as_read_write
+            login_as_clinical
             visit edit_patient_letters_letter_path(patient, letter)
 
             expect(page).to have_content("Pathology")

@@ -6,7 +6,7 @@ feature "Creating an Access Plan", type: :feature do
   scenario "A clinician adds the first access plan to a patient using menus" do
     user = patient = plan_type = nil
 
-    user = login_as_read_write
+    user = login_as_clinical
     patient = create(:accesses_patient, by: user)
     plan_type = create(:access_plan_type, name: "Continue dialysis line")
     notes = "Lorem ipsum delor"
@@ -39,7 +39,7 @@ feature "Creating an Access Plan", type: :feature do
   end
 
   scenario "A clinician adds an plan to a patient, implicitly terminating the previous one" do
-    user = login_as_read_write
+    user = login_as_clinical
 
     patient = create(:accesses_patient, by: user)
     plan_type1 = create(:access_plan_type, name: "Continue dialysis line")
@@ -73,7 +73,7 @@ feature "Creating an Access Plan", type: :feature do
   end
 
   scenario "A clinician attempts to add a plan to a patient with invalid data" do
-    user = login_as_read_write
+    user = login_as_clinical
     patient = create(:accesses_patient, by: user)
     visit new_patient_accesses_plan_path(patient)
 

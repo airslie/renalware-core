@@ -4,7 +4,7 @@ feature "Update Admission Request", type: :feature, js: true do
   include AjaxHelpers
 
   scenario "Edit the request in a modal and updated it" do
-    user = login_as_read_write
+    user = login_as_clinical
     request = create(:admissions_request, by: user)
 
     visit admissions_requests_path

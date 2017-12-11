@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware
   feature "Updating user profile" do
     background do
-      @clinician = login_as_read_write
+      @clinician = login_as_clinical
       visit edit_user_registration_path(@clinician)
     end
 

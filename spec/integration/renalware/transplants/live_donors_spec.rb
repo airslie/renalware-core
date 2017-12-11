@@ -17,7 +17,7 @@ module Renalware
     end
 
     scenario "Viewing the list of live donors" do
-      login_as_read_write
+      login_as_clinical
       user = User.first # the clinician we just implicitly created
       live_donor = create_live_donor(by: user)
       non_live_donor = create_non_live_donor

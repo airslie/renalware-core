@@ -34,7 +34,7 @@ module Renalware
         end
       end
       context "with a clinician" do
-        let(:current_user) { create(:user, :read_write) }
+        let(:current_user) { create(:user, :clinical) }
 
         it "is false" do
           expect(current_user_is_admin?).to be false

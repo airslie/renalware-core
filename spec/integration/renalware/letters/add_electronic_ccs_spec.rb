@@ -16,7 +16,7 @@ feature "Assign electronic CCs" do
 
     context "given valid attributes" do
       it "responds successfully" do
-        user = login_as_read_write
+        user = login_as_clinical
 
         visit patient_letters_letters_path(patient)
         click_on "Create"

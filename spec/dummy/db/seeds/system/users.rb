@@ -42,7 +42,7 @@ module Renalware
         u.email = "#{username}@#{site_code}.trust.uk"
         u.password = "renalware"
         u.approved = true
-        u.roles = [Renalware::Role.find_by!(name: :read_write)]
+        u.roles = [Renalware::Role.find_by!(name: :clinical)]
         u.signature = "Dr #{site}"
         u.telephone = Faker::PhoneNumber.phone_number
       end
@@ -57,7 +57,7 @@ module Renalware
         u.email = "#{username}@#{site_code}.trust.uk"
         u.password = "renalware"
         u.approved = true
-        u.roles = [Renalware::Role.find_by!(name: :read_write)]
+        u.roles = [Renalware::Role.find_by!(name: :clinical)]
         u.signature = "#{site} Nurse"
       end
 

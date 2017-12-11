@@ -3,8 +3,8 @@ module LoginMacros
     login_user(:admin)
   end
 
-  def login_as_read_write
-    login_user(:read_write)
+  def login_as_clinical
+    login_user(:clinical)
   end
 
   def login_as_read_only

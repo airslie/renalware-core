@@ -10,7 +10,7 @@ feature "Managing HD Stations for a Hospital Unit", type: :feature do
   end
 
   scenario "Listing existing stations" do
-    user = login_as_read_write
+    user = login_as_clinical
     unit = create(:hospital_unit, unit_code: "UnitCode")
     create_station("Station-1", unit, user)
     create_station("Station-2", unit, user)

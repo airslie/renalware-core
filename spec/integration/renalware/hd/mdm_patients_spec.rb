@@ -26,7 +26,7 @@ RSpec.describe "HD MDM Patients", type: :feature do
                    modality_description: create(:hd_modality_description),
                    by: user)
 
-      login_as_read_write
+      login_as_clinical
       visit hd_mdm_patients_path
 
       expect(page).to have_content(patient.family_name.upcase)
@@ -50,7 +50,7 @@ RSpec.describe "HD MDM Patients", type: :feature do
         schedule_definition: mon_wed_fri_pm
       )
 
-      login_as_read_write
+      login_as_clinical
       visit hd_mdm_patients_path
 
       # See all

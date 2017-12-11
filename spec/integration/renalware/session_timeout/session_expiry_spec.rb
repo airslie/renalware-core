@@ -15,7 +15,7 @@ feature "Session timeout", type: :feature, js: true do
 
   # rubocop:disable Lint/HandleExceptions
   scenario "A user is redirected by JS to the login page when their session expires" do
-    login_as_read_write
+    login_as_clinical
 
     visit root_path
 
