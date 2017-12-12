@@ -22,7 +22,7 @@ module Renalware
 
       def salutation
         parts = [Renalware.config.salutation_prefix]
-        parts << (title.present? ? title : given_name)
+        parts << title.presence || given_name
         parts << family_name
         parts.compact.join(" ")
       end

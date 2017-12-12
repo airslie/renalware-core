@@ -2,7 +2,7 @@ module Renalware
   module HD
     class StationPresenter < SimpleDelegator
       def name
-        super.blank? ? "Unnamed Station" : super
+        super.presence || "Unnamed Station"
       end
 
       def css
