@@ -4,7 +4,8 @@ module Renalware
 
     included do
       class_eval do
-        validates_presence_of :given_name, :family_name
+        validates :given_name, presence: true
+        validates :family_name, presence: true
       end
 
       def full_name
@@ -22,7 +23,7 @@ module Renalware
 
       def salutation
         parts = [Renalware.config.salutation_prefix]
-        parts << title.presence || given_name
+        parts << (title.presence || given_name)
         parts << family_name
         parts.compact.join(" ")
       end
