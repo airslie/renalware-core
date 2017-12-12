@@ -243,6 +243,7 @@ Renalware::Engine.routes.draw do
 
   namespace :system do
     resources :email_templates, only: :index
+    resources :user_feedback, only: [:new, :create]
   end
 
   namespace :transplants do

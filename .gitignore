@@ -49,3 +49,5 @@ rerun.txt
 .rubocop-https*
 /data
 /doc
+/.idea
+/Find Results
