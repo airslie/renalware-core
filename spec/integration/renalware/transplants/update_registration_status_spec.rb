@@ -24,7 +24,7 @@ RSpec.describe "Update wait list registration status", type: :feature do
                registration: registration,
                started_on: Time.zone.now)
 
-        login_as_clinician
+        login_as_clinical
         visit new_patient_transplants_registration_status_path(patient)
 
         within ".document form" do

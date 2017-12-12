@@ -4,7 +4,7 @@ module Renalware
   RSpec.describe "Clinical summary", type: :feature do
     describe "GET show" do
       it "renders correctly" do
-        user = login_as_clinician
+        user = login_as_clinical
         patient = create(:patient, by: user)
         create(:problem, patient: patient, by: user)
         create(:simple_event, patient: patient, by: user)

@@ -8,7 +8,7 @@ RSpec.describe "Manage electronic CCs", type: :feature do
   include AjaxHelpers
 
   scenario "Marks an Electronic CC as `read` for an approved letter", js: true do
-    user = login_as_clinician
+    user = login_as_clinical
     primary_care_physician = create(:letter_primary_care_physician)
     patient = create(:letter_patient, primary_care_physician: primary_care_physician)
 

@@ -10,7 +10,7 @@ feature "Managing studies", type: :feature, js: true do
     patient = create(:patient, family_name: "XX")
     study = create_study
 
-    login_as_clinician
+    login_as_clinical
     visit research_study_participants_path(study)
 
     click_on "Add"

@@ -4,7 +4,7 @@ feature "Sending a private message" do
   include AjaxHelpers
 
   scenario "A clinician sends a private message about a patient", js: true do
-    user = login_as_clinician
+    user = login_as_clinical
     patient = create(:messaging_patient, by: user)
     create(:internal_recipient, family_name: "X", given_name: "Y")
 
@@ -24,7 +24,7 @@ feature "Sending a private message" do
   end
 
   # scenario "A clinician replies to a message", js: true do
-  #   user = login_as_clinician
+  #   user = login_as_clinical
   #   patient = create(:messaging_patient, created_by: user, updated_by: user)
   #   recipient = create(:messaging_recipient, family_name: "X", given_name: "Y")
   #   receipt = build(:receipt, recipient: recipient, message: )

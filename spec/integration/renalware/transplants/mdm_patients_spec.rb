@@ -8,7 +8,7 @@ RSpec.describe "Transplants MDM Patients", type: :feature do
     it "`all` filter displays all Transplant patients" do
       patient = create_recip_operation_patient(user)
 
-      login_as_clinician
+      login_as_clinical
       visit transplants_mdm_patients_path
 
       expect(page).to have_content(patient.family_name.upcase)
@@ -17,7 +17,7 @@ RSpec.describe "Transplants MDM Patients", type: :feature do
     it "`recent` filter displays patients with an operation within 3 months" do
       patient1 = create_recip_operation_patient(user, with_recent_operation: false)
       patient2 = create_recip_operation_patient(user, with_recent_operation: true)
-      login_as_clinician
+      login_as_clinical
 
       visit transplants_mdm_patients_path
       click_on I18n.t("renalware.transplants.mdm_patients.filters.filter.recent")
@@ -31,7 +31,7 @@ RSpec.describe "Transplants MDM Patients", type: :feature do
       patient2 = create_recip_operation_patient(user)
       patient2.build_worry(by: user).save!
 
-      login_as_clinician
+      login_as_clinical
 
       visit transplants_mdm_patients_path
       click_on I18n.t("renalware.transplants.mdm_patients.filters.filter.on_worryboard")

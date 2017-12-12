@@ -5,7 +5,7 @@ feature "Viewing audits", type: :feature, js: true do
 
   scenario "viewing a list of audits" do
     audit = create(:audit, name: "XX", refresh_schedule: "1 0 * * 1-6")
-    login_as_clinician
+    login_as_clinical
 
     visit reporting_audits_path
 
@@ -17,7 +17,7 @@ feature "Viewing audits", type: :feature, js: true do
     view_name = create_an_example_materialized_view
     audit = create_an_audit_configured_to_use_view_called(view_name)
 
-    login_as_clinician
+    login_as_clinical
 
     visit reporting_audit_path(audit)
 

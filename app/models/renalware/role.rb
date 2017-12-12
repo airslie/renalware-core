@@ -1,6 +1,6 @@
 module Renalware
   class Role < ApplicationRecord
-    ROLES = %i(devops super_admin admin clinician read_only).freeze
+    ROLES = %i(devops super_admin admin clinical read_only).freeze
 
     has_many :roles_users, dependent: :destroy
     has_many :users, through: :roles_users

@@ -4,7 +4,7 @@ feature "Remove Admission Request", type: :feature, js: true do
   include AjaxHelpers
 
   scenario "Clicking remove soft delete the request and removes it from the list" do
-    user = login_as_clinician
+    user = login_as_clinical
     request = create(:admissions_request, by: user)
 
     visit admissions_requests_path

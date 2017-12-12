@@ -1,6 +1,6 @@
 module RolesSpecHelper
   def define_roles
-    %i(super_admin admin clinician read_only).each do |name|
+    Renalware::Role::ROLES.each do |name|
       Renalware::Role.find_or_create_by!(name: name)
     end
   end

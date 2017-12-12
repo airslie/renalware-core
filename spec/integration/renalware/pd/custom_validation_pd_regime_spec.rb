@@ -10,7 +10,7 @@ module Renalware
                    modality_description: create(:pd_modality_description),
                    by: User.first)
 
-      login_as_clinician
+      login_as_clinical
       visit patient_pd_dashboard_path(patient)
 
       within ".page-actions" do

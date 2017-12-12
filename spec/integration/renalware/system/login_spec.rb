@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware
   feature "Authentication" do
     background do
-      @user = create(:user, :clinician)
+      @user = create(:user, :clinical)
       @unapproved_user = create(:user, :unapproved)
     end
 
@@ -49,7 +49,7 @@ module Renalware
     end
 
     scenario "An authenticated user signs out" do
-      login_as_clinician
+      login_as_clinical
       visit root_path
 
       click_on "Log out"
@@ -74,8 +74,7 @@ module Renalware
     end
 
     scenario "A fairly inactive user attempts to authenticate" do
-      inactive = create(:user, :clinician,
-                        last_activity_at: 59.days.ago)
+      inactive = create(:user, :clinical, last_activity_at: 59.days.ago)
 
       visit new_user_session_path
 

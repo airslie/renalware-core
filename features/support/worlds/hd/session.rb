@@ -90,8 +90,8 @@ module World
 
       def seed_hd_sessions(table)
         table.hashes.each do |row|
-          signed_on_by = find_or_create_user(given_name: row[:signed_on_by], role: "clinician")
-          signed_off_by = find_or_create_user(given_name: row[:signed_off_by], role: "clinician")
+          signed_on_by = find_or_create_user(given_name: row[:signed_on_by], role: "clinical")
+          signed_off_by = find_or_create_user(given_name: row[:signed_off_by], role: "clinical")
           patient = create_patient(full_name: row[:patient])
 
           if signed_off_by

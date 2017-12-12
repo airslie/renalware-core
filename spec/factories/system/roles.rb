@@ -14,8 +14,8 @@ FactoryBot.define do
       name :admin
     end
 
-    trait :clinician do
-      name :clinician
+    trait :clinical do
+      name :clinical
     end
 
     trait :read_only do

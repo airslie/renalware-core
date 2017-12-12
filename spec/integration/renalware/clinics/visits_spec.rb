@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Global Clinic Visits list", type: :feature do
   describe "GET index" do
     it "responds successfully" do
-      user = login_as_clinician
+      user = login_as_clinical
       patient = Renalware::Clinics.cast_patient(create(:patient, by: user))
       create(:clinic_visit, patient: patient, by: user)
 

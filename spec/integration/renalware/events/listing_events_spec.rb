@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Listing patient events", type: :feature do
   scenario "A user views a list of patient events" do
-    user = login_as_clinician
+    user = login_as_clinical
     patient = create(:patient, by: user)
 
     visit patient_events_path(patient)

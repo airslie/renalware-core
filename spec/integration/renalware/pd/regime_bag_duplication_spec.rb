@@ -12,7 +12,7 @@ module Renalware
 
       bag_type = create(:bag_type, description: "Option 1")
 
-      login_as_clinician
+      login_as_clinical
 
       visit patient_pd_dashboard_path(patient)
 

@@ -6,7 +6,7 @@ RSpec.describe "Editing a swab", type: :feature, js: true do
 
   it "allows a swab to be updated" do
     page.driver.add_headers("Referer" => root_path)
-    user = login_as_clinician
+    user = login_as_clinical
     patient = create(:patient, by: user)
 
     swab_site = "The site"
