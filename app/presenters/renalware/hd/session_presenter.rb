@@ -25,17 +25,16 @@ module Renalware
                :renal_registry_code,
                to: :hospital_unit,
                prefix: true, allow_nil: true
-
-      def state
-        self.class.to_s.demodulize.downcase
-      end
-
       delegate :class, to: :__getobj__
 
       def initialize(session, view_context = nil)
         @view_context = view_context
         @session = session
         super(session)
+      end
+
+      def state
+        self.class.to_s.demodulize.downcase
       end
 
       def performed_on
