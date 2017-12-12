@@ -71,8 +71,12 @@ Then(/^an observation request is created with the following attributes:$/) do |t
   expect_observation_request_to_be_created(table.rows_hash)
 end
 
-Then(/^an observations are created with the following attributes:$/) do |table|
+Then(/^observations are created with the following attributes:$/) do |table|
   expect_observations_to_be_created(table.hashes)
+end
+
+Then("current observations are updated to be:") do |table|
+  expect_current_observations_to_be(patient: @patty, rows: table.hashes)
 end
 
 Then(/^the doctor views the following archived pathology result report:$/) do |table|

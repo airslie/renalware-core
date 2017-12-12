@@ -62,8 +62,13 @@ OBX|3|TX|HGB^Hb^MB||11.8||||||F|||200911112026||BBKA^Kenneth AMENYAH|
       | requestor_order_number | B33J9WXEHF                |
       | requestor_name         | KINGS MIDWIVES            |
       | requested_at           | 2009-11-11 18:41:00 +0000 |
-    And an observations are created with the following attributes:
+    And observations are created with the following attributes:
       | description | result | comment | observed_at               |
       | WBC         | 6.09   |         | 2009-11-11 20:26:00 +0000 |
       | RBC         | 4.00   |         | 2009-11-11 20:26:00 +0000 |
-      | HGB          | 11.8   |         | 2009-11-11 20:26:00 +0000 |
+      | HGB         | 11.8   |         | 2009-11-11 20:26:00 +0000 |
+    And current observations are updated to be:
+      | code | result  | observed_at               |
+      | WBC  | 6.09    | 2009-11-11 20:26:00 +0000 |
+      | RBC  | 4.00    | 2009-11-11 20:26:00 +0000 |
+      | HGB  | 11.8    | 2009-11-11 20:26:00 +0000 |

@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/ModuleLength
 require "array_stringifier"
 
 module World
@@ -65,6 +66,20 @@ module World
 
         expect(observation_request.observations.count).to eq(rows.size)
         expect_rows_to_match(observation_request.observations, rows)
+      end
+
+      def expect_current_observations_to_be(patient:, rows:)
+        patient = Renalware::Pathology.cast_patient(patient)
+        observation_set = patient.current_observation_set
+        rows.each do |row|
+          code = row["code"]
+          expect(observation_set.values[code]).to eq(
+            {
+              "result" => row["result"],
+              "observed_at" => row["observed_at"]
+            }
+          )
+        end
       end
 
       def expect_rows_to_match(observations, rows)
