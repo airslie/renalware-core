@@ -35,18 +35,18 @@ module Renalware
           number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct
         ).freeze
 
-        def to_h
-          AUDITABLE_ATTRIBUTES.each_with_object({}) do |sym, hash|
-            hash[sym] = public_send(sym)
-            hash
-          end
-        end
-
         def initialize(sessions)
           @sessions = Array(sessions).map do |session|
             Renalware::HD::Sessions::AuditableSession.new(session)
           end
           super(@sessions)
+        end
+
+        def to_h
+          AUDITABLE_ATTRIBUTES.each_with_object({}) do |sym, hash|
+            hash[sym] = public_send(sym)
+            hash
+          end
         end
 
         def number_of_missed_sessions

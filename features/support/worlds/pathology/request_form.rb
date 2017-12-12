@@ -219,11 +219,7 @@ module World
             family_name: family_name
           )
 
-          if consultant.present?
-            consultant
-          else
-            create_user(given_name: given_name, family_name: family_name)
-          end
+          consultant.presence || create_user(given_name: given_name, family_name: family_name)
         end
 
         def find_requested_patients(patients)

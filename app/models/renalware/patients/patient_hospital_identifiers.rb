@@ -18,15 +18,15 @@ module Renalware
       delegate :to_s, to: :first
       alias_method :to_sym, :name
 
-      def initialize(patient)
-        @patient = patient
-      end
-
       Identifier = Struct.new(:name, :id) do
         def to_s
           return "" unless id
           "#{name}: #{id}"
         end
+      end
+
+      def initialize(patient)
+        @patient = patient
       end
 
       def first

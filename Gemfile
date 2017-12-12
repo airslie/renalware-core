@@ -58,7 +58,7 @@ group :development, :test do
   gem "byebug"
   gem "launchy", require: false
   gem "rack-mini-profiler", require: false
-  gem "rubocop", "~> 0.51.0", require: false
+  gem "rubocop", "~> 0.52.0", require: false
   gem "spring"
   gem "spring-commands-cucumber", require: false
   gem "spring-commands-rspec", require: false

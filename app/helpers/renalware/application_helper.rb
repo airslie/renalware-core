@@ -65,7 +65,7 @@ module Renalware
     end
 
     def default_for_blank(val, msg)
-      val.blank? ? msg : val
+      val.presence || msg
     end
 
     def default_for_blank_date(date, msg)

@@ -22,7 +22,7 @@ module Renalware
         else
           skip_authorization
         end
-        fallback_location = patient.present? ? patient : root_path
+        fallback_location = patient.presence || root_path
         redirect_back(fallback_location: patient_path(fallback_location),
                       notice: success_msg_for("bookmark"))
       end
