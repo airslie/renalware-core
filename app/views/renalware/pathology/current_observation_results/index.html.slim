@@ -3,12 +3,12 @@
   table
     thead
       tr
-        td.col-width-medium Date
+        td.col-width-date Date
         td.col-width-small Result
         td Description
     tbody
       - observation_set.each_observation do |observation|
         tr
-          td= l(observation.observed_at)
+          td= l(observation.observed_at.to_date)
           td= observation.result
           th= observation.description

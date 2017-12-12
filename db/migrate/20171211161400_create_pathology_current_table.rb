@@ -35,9 +35,65 @@ class CreatePathologyCurrentTable < ActiveRecord::Migration[5.1]
       t.references :patient, null: false, foreign_key: true, index: { unique: true }
       t.jsonb :values, index: { using: :gin }, default: {}
 
-      t.timestamps null: false
+      t.datetime :created_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
+      t.datetime :updated_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
     end
   end
 end
+
+# WIP trigger to update update_current_observation_set when an obs is inserted.
+# I gave up on the formattin() the path to search eg {'HGB'}.
+# Should work fine once that prob solved.
+#
+# --drop function update_current_observation_set_from_trigger();
+# SET SEARCH_PATH = renalware,
+#  PUBLIC;
+
+# CREATE
+# OR REPLACE FUNCTION update_current_observation_set_from_trigger() RETURNS TRIGGER AS $body$
+# DECLARE
+#     _patient_id bigint;
+#     _code text;
+# BEGIN
+#   RAISE NOTICE 'TRIGGER called on %',TG_TABLE_NAME ;
+
+#   IF (TG_OP = 'INSERT') THEN
+#     RAISE NOTICE 'Request %', NEW.request_id;
+#     select
+#       request.patient_id into _patient_id
+#       from pathology_observation_requests request
+#       where request.id = NEW.request_id;
+#     select description.code into _code
+#       from pathology_observation_descriptions description
+#       where description.id = NEW.description_id;
+
+#     RAISE NOTICE 'patient_id %', _patient_id;
+#     RAISE NOTICE 'code %', _code;
+
+#     insert into pathology_current_observation_sets (patient_id) values (_patient_id)
+#     ON CONFLICT DO NOTHING;
+
+#     execute format('
+#     update pathology_current_observation_sets
+#       set values= jsonb_set(values, '''', "Mary", true)
+#     where patient_id = %', _code, _patient_id);
+
+#   END IF;
+#   RETURN NULL ;
+# END $body$ LANGUAGE plpgsql VOLATILE COST 100;
+
+# DROP TRIGGER
+# IF EXISTS add_log_current_trigger ON pathology_observations;
+
+# CREATE TRIGGER add_log_current_trigger AFTER INSERT
+# OR UPDATE ON pathology_observations FOR EACH ROW EXECUTE PROCEDURE update_current_observation_set_from_trigger();
+
+# UPDATE pathology_observations
+# SET observed_at = CURRENT_TIMESTAMP
+# WHERE
+#   RESULT = '3';
+
+# SELECT COUNT(*) FROM pathology_observations;
+
 
 

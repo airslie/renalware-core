@@ -33,15 +33,6 @@ module Renalware
       def store(code:, result:, observed_at:)
         values[code.upcase.to_s] = { "result" => result, "observed_at" => observed_at }
       end
-
-      def each_observation
-        return unless block_given?
-        values.sort.each do |code, observation|
-          observed_at = Time.zone.parse(observation["observed_at"])
-          result = observation["result"]
-          yield(code, result, observed_at)
-        end
-      end
     end
   end
 end

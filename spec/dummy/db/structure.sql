@@ -2814,8 +2814,8 @@ CREATE TABLE pathology_current_observation_sets (
     id bigint NOT NULL,
     patient_id bigint NOT NULL,
     "values" jsonb DEFAULT '{}'::jsonb,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 
