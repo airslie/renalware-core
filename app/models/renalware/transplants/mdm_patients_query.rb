@@ -6,6 +6,7 @@ module Renalware
     #  different filter groups
     class MDMPatientsQuery
       include ModalityScopes
+      include PatientPathologyScopes
       MODALITY_NAMES = ["Transplant"].freeze
       attr_reader :q, :relation, :named_filter
 
@@ -23,10 +24,12 @@ module Renalware
       def search
         @search ||= begin
           relation
-            .includes(:current_key_observation_set)
             .extending(ModalityScopes)
+            .extending(PatientPathologyScopes)
             .extending(NamedFilterScopes)
             .with_current_modality_matching(MODALITY_NAMES)
+            .with_current_pathology
+            .left_joins(:current_observation_set)
             .public_send(named_filter.to_s)
             .search(q)
         end

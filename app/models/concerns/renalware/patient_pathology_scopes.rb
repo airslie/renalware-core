@@ -6,8 +6,8 @@ require_dependency "renalware"
 #
 module Renalware
   module PatientPathologyScopes
-    def with_current_key_pathology
-      includes(:current_key_observation_set).joins(:current_key_observation_set)
+    def with_current_pathology
+      includes(:current_observation_set)
     end
 
     # Define some ransackers to make it easier to sort the table (using sort_link)
@@ -23,17 +23,25 @@ module Renalware
     #
     def self.extended(base)
       %i(hgb ure cre).each do |code|
-        base.ransacker(code) { pathology_sort_predicate("#{code}_result") }
-        base.ransacker(:"#{code}_date") { pathology_sort_predicate("#{code}_observed_at") }
+        base.ransacker(code) { pathology_result_sort_predicate(code) }
+        base.ransacker(:"#{code}_date") { pathology_date_sort_predicate(code) }
       end
 
       %i(mdrd).each do |code|
-        base.ransacker(code) { pathology_sort_predicate("#{code}_result") }
+        base.ransacker(code) { pathology_result_sort_predicate(code) }
       end
     end
 
-    def self.pathology_sort_predicate(column)
-      Arel.sql("pathology_current_key_observation_sets.#{column}")
+    def self.pathology_result_sort_predicate(column)
+      Arel.sql(
+        "cast(values -> '#{column.upcase}' ->> 'result' as float)"
+      )
+    end
+
+    def self.pathology_date_sort_predicate(column)
+      Arel.sql(
+        "cast(values -> '#{column.upcase}' ->> 'observed_at' as date)"
+      )
     end
   end
 end

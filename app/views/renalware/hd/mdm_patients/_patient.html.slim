@@ -16,6 +16,6 @@ tr
   td= patient.dialysing_at_unit
   td= transplant_patient.current_registration_status
   td= patient.transport_summary
-  td= pathology_patient.hgb_result
-  td= l(pathology_patient.hgb_observed_at&.to_date)
+  td= patient.current_observation_set&.hgb&.result
+  td= l(patient.current_observation_set&.hgb&.observed_at&.to_date)
   td.actions= link_to t(".view"), view_proc.call(patient)

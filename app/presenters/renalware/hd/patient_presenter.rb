@@ -3,6 +3,7 @@ require "renalware/hd"
 module Renalware
   module HD
     class PatientPresenter < SimpleDelegator
+      attr_reader :current_observation_set
       # delegate_missing_to :patient # TODO: when rails 5.1, try instead of SimpleDelegator
       delegate :document, to: :hd_profile
       delegate :hospital_unit,
@@ -14,6 +15,7 @@ module Renalware
       alias_method :dialysing_at_unit, :hospital_unit_unit_code
 
       def initialize(patient)
+        @current_observation_set = patient.current_observation_set
         super(HD.cast_patient(patient.__getobj__))
       end
 

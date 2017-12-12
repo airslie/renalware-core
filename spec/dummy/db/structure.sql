@@ -2634,6 +2634,38 @@ ALTER SEQUENCE modality_reasons_id_seq OWNED BY modality_reasons.id;
 
 
 --
+-- Name: pathology_current_observation_sets; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE pathology_current_observation_sets (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    "values" jsonb DEFAULT '{}'::jsonb,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: pathology_current_observation_sets_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE pathology_current_observation_sets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_current_observation_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE pathology_current_observation_sets_id_seq OWNED BY pathology_current_observation_sets.id;
+
+
+--
 -- Name: pathology_observation_descriptions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -2696,146 +2728,6 @@ CREATE VIEW pathology_current_observations AS
      LEFT JOIN pathology_observation_requests ON ((pathology_observations.request_id = pathology_observation_requests.id)))
      LEFT JOIN pathology_observation_descriptions ON ((pathology_observations.description_id = pathology_observation_descriptions.id)))
   ORDER BY pathology_observation_requests.patient_id, pathology_observation_descriptions.id, pathology_observations.observed_at DESC;
-
-
---
--- Name: patients; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE patients (
-    id integer NOT NULL,
-    nhs_number character varying,
-    local_patient_id character varying,
-    family_name character varying NOT NULL,
-    given_name character varying NOT NULL,
-    born_on date NOT NULL,
-    paediatric_patient_indicator boolean,
-    sex character varying,
-    ethnicity_id integer,
-    hospital_centre_code character varying,
-    primary_esrf_centre character varying,
-    died_on date,
-    first_cause_id integer,
-    second_cause_id integer,
-    death_notes text,
-    cc_on_all_letters boolean DEFAULT true,
-    cc_decision_on date,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    practice_id integer,
-    primary_care_physician_id integer,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    title character varying,
-    suffix character varying,
-    marital_status character varying,
-    telephone1 character varying,
-    telephone2 character varying,
-    email character varying,
-    document jsonb,
-    religion_id integer,
-    language_id integer,
-    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
-    allergy_status_updated_at timestamp without time zone,
-    local_patient_id_2 character varying,
-    local_patient_id_3 character varying,
-    local_patient_id_4 character varying,
-    local_patient_id_5 character varying,
-    external_patient_id character varying,
-    send_to_renalreg boolean DEFAULT false NOT NULL,
-    send_to_rpv boolean DEFAULT false NOT NULL,
-    renalreg_decision_on date,
-    rpv_decision_on date,
-    renalreg_recorded_by character varying,
-    rpv_recorded_by character varying,
-    ukrdc_external_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    country_of_birth_id integer,
-    legacy_patient_id integer,
-    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL
-);
-
-
---
--- Name: pathology_current_key_observation_sets; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW pathology_current_key_observation_sets AS
- SELECT p.id AS patient_id,
-    ( SELECT pathology_current_observations.result
-           FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'HGB'::text) AND (pathology_current_observations.patient_id = p.id))) AS hgb_result,
-    ( SELECT pathology_current_observations.observed_at
-           FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'HGB'::text) AND (pathology_current_observations.patient_id = p.id))) AS hgb_observed_at,
-    ( SELECT pathology_current_observations.result
-           FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'CRE'::text) AND (pathology_current_observations.patient_id = p.id))) AS cre_result,
-    ( SELECT pathology_current_observations.observed_at
-           FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'CRE'::text) AND (pathology_current_observations.patient_id = p.id))) AS cre_observed_at,
-    ( SELECT pathology_current_observations.result
-           FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'URE'::text) AND (pathology_current_observations.patient_id = p.id))) AS ure_result,
-    ( SELECT pathology_current_observations.observed_at
-           FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'URE'::text) AND (pathology_current_observations.patient_id = p.id))) AS ure_observed_at,
-    ( SELECT pathology_current_observations.result
-           FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'MDRD'::text) AND (pathology_current_observations.patient_id = p.id))) AS mdrd_result,
-    ( SELECT pathology_current_observations.observed_at
-           FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'MDRD'::text) AND (pathology_current_observations.patient_id = p.id))) AS mdrd_observed_at,
-    ( SELECT pathology_current_observations.result
-           FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'HBA'::text) AND (pathology_current_observations.patient_id = p.id))) AS hba_result,
-    ( SELECT pathology_current_observations.observed_at
-           FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'HBA'::text) AND (pathology_current_observations.patient_id = p.id))) AS hba_observed_at,
-    ( SELECT pathology_current_observations.result
-           FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'FER'::text) AND (pathology_current_observations.patient_id = p.id))) AS fer_result,
-    ( SELECT pathology_current_observations.observed_at
-           FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'FER'::text) AND (pathology_current_observations.patient_id = p.id))) AS fer_observed_at,
-    ( SELECT pathology_current_observations.result
-           FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'PTH'::text) AND (pathology_current_observations.patient_id = p.id))) AS pth_result,
-    ( SELECT pathology_current_observations.observed_at
-           FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'PTH'::text) AND (pathology_current_observations.patient_id = p.id))) AS pth_observed_at
-   FROM patients p;
-
-
---
--- Name: pathology_current_observation_sets; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE pathology_current_observation_sets (
-    id bigint NOT NULL,
-    patient_id bigint NOT NULL,
-    "values" jsonb DEFAULT '{}'::jsonb,
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
-);
-
-
---
--- Name: pathology_current_observation_sets_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE pathology_current_observation_sets_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pathology_current_observation_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE pathology_current_observation_sets_id_seq OWNED BY pathology_current_observation_sets.id;
 
 
 --
@@ -3506,6 +3398,63 @@ CREATE SEQUENCE patient_religions_id_seq
 --
 
 ALTER SEQUENCE patient_religions_id_seq OWNED BY patient_religions.id;
+
+
+--
+-- Name: patients; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE patients (
+    id integer NOT NULL,
+    nhs_number character varying,
+    local_patient_id character varying,
+    family_name character varying NOT NULL,
+    given_name character varying NOT NULL,
+    born_on date NOT NULL,
+    paediatric_patient_indicator boolean,
+    sex character varying,
+    ethnicity_id integer,
+    hospital_centre_code character varying,
+    primary_esrf_centre character varying,
+    died_on date,
+    first_cause_id integer,
+    second_cause_id integer,
+    death_notes text,
+    cc_on_all_letters boolean DEFAULT true,
+    cc_decision_on date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    practice_id integer,
+    primary_care_physician_id integer,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    title character varying,
+    suffix character varying,
+    marital_status character varying,
+    telephone1 character varying,
+    telephone2 character varying,
+    email character varying,
+    document jsonb,
+    religion_id integer,
+    language_id integer,
+    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
+    allergy_status_updated_at timestamp without time zone,
+    local_patient_id_2 character varying,
+    local_patient_id_3 character varying,
+    local_patient_id_4 character varying,
+    local_patient_id_5 character varying,
+    external_patient_id character varying,
+    send_to_renalreg boolean DEFAULT false NOT NULL,
+    send_to_rpv boolean DEFAULT false NOT NULL,
+    renalreg_decision_on date,
+    rpv_decision_on date,
+    renalreg_recorded_by character varying,
+    rpv_recorded_by character varying,
+    ukrdc_external_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    country_of_birth_id integer,
+    legacy_patient_id integer,
+    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL
+);
 
 
 --
@@ -4668,7 +4617,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -4746,7 +4695,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 

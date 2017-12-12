@@ -38,6 +38,9 @@ class CreatePathologyCurrentTable < ActiveRecord::Migration[5.1]
       t.datetime :created_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
       t.datetime :updated_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
     end
+
+    drop_view :pathology_current_key_observation_sets, revert_to_version: 2
+    # drop_view :pathology_current_observations, revert_to_version: 1
   end
 end
 
@@ -95,5 +98,8 @@ end
 
 # SELECT COUNT(*) FROM pathology_observations;
 
+# 9. Update or insert an attribute
+# Use the || operator to concatenate the actual data with the new data. It will update or insert the value.
+# UPDATE users SET metadata = metadata || '{"country": "Egypt"}';
 
 

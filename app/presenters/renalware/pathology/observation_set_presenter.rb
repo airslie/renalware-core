@@ -11,17 +11,25 @@ module Renalware
       def each_observation
         return unless block_given?
         values.sort.each do |code, observation_hash|
-          observation = Observation.new(
+          observation = build_observation(
             code: code,
-            description: description_for(code),
-            result: observation_hash["result"],
-            observed_at: Time.zone.parse(observation_hash["observed_at"])
+            observation_hash: observation_hash,
+            with_description: true
           )
           yield observation
         end
       end
 
       private
+
+      def build_observation(code:, observation_hash:, with_description: false)
+        Observation.new(
+          code: code,
+          result: observation_hash["result"],
+          observed_at: Time.zone.parse(observation_hash["observed_at"]),
+          description: with_description ? description_for(code) : nil
+        )
+      end
 
       def description_for(code)
         observation_description_map.fetch(code, "#{code} (no description found!)")
