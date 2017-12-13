@@ -9,7 +9,7 @@ module Renalware
     def self.load(hash)
       if hash.nil?
         {}
-      elsif hash.is_a?(Hash) && hash.empty?
+      elsif hash.is_a?(Hash)
         hash
       else
         JSON.parse(hash)

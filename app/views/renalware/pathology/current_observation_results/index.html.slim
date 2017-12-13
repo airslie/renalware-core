@@ -1,14 +1,15 @@
 = within_patient_layout title: "Current Pathology Results",
                         navigation_partial: "renalware/pathology/navigation" do
-  table
+  table.current-observations
     thead
       tr
         td.col-width-date Date
         td.col-width-small Result
         td Description
     tbody
-      - observation_set.each_observation do |observation|
-        tr
-          td= l(observation.observed_at&.to_date)
-          td= observation.result
-          th= observation.description
+      - if observation_set.present?
+        - observation_set.each_observation do |observation|
+          tr
+            td= l(observation.observed_at&.to_date)
+            td= observation.result
+            th= observation.description
