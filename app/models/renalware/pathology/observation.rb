@@ -3,7 +3,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class Observation < ApplicationRecord
-      belongs_to :request, class_name: "ObservationRequest", touch: true
+      belongs_to :request, class_name: "ObservationRequest", touch: true, inverse_of: :observations
       belongs_to :description, class_name: "ObservationDescription"
 
       validates :description, presence: true

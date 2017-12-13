@@ -3,7 +3,10 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ObservationRequest < ApplicationRecord
-      has_many :observations, foreign_key: :request_id
+      has_many :observations,
+               foreign_key: :request_id,
+               inverse_of: :request,
+               dependent: :destroy
       belongs_to :description, class_name: "RequestDescription"
       belongs_to :patient, class_name: "Patient", touch: true
 
