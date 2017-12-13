@@ -2712,8 +2712,6 @@ CREATE TABLE patients (
     paediatric_patient_indicator boolean,
     sex character varying,
     ethnicity_id integer,
-    gp_practice_code character varying,
-    pct_org_code character varying,
     hospital_centre_code character varying,
     primary_esrf_centre character varying,
     died_on date,
@@ -13000,6 +12998,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171123154116'),
 ('20171128163543'),
 ('20171206121652'),
-('20171208211206');
+('20171208211206'),
+('20171211130716');
 
 

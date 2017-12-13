@@ -26,7 +26,7 @@ RSpec.describe "Beta banner and capturing user feedback", type: :feature do
 
     it "shows the feedback button once logged in" do
       Renalware.config.display_feedback_banner = true
-      login_as_clinician
+      login_as_clinical
       visit root_path
       expect(page).to have_content(I18n.t("renalware.beta_message.feedback_button"))
     end
@@ -35,7 +35,7 @@ RSpec.describe "Beta banner and capturing user feedback", type: :feature do
   describe "GET new html" do
     context "when inputs are valid" do
       it "user offers feedback about the application" do
-        login_as_clinician
+        login_as_clinical
         visit new_system_user_feedback_path
 
         expect(page.status_code).to eq(200)
