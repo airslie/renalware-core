@@ -9,6 +9,19 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.0.pre.rc1
+10-12-2017
+
+### Added
+- Beta banner with option to report bug or give feeback
+
+### Changed
+- New column on observation_descriptions to capture LOINC code
+- Show only 10 letters and events in Clinical Summary with View All option to see the remainder
+
+### Fixed
+- Low Clearance MDM now uses `Low Clearance` not 'LCC' modality
+
 ## 2.0.0.pre.beta13
 01-12-2017
 
