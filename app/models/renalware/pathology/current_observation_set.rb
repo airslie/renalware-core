@@ -7,7 +7,13 @@ module Renalware
     end
 
     def self.load(hash)
-      (hash || {}).with_indifferent_access
+      if hash.nil?
+        {}
+      elsif hash.is_a?(Hash) && hash.empty?
+        hash
+      else
+        JSON.parse(hash)
+      end.with_indifferent_access
     end
   end
 
@@ -52,7 +58,7 @@ module Renalware
       # Note we don't defer to super here as we want methods like
       # :hgb to return nil even if they don't exist in the values hash.
       # rubocop:disable Style/MethodMissing
-      def method_missing(method, *_args, _block)
+      def method_missing(method, *_args, &_block)
         code = method.upcase
         observation_hash = values[code]
         if observation_hash.present?
@@ -68,7 +74,7 @@ module Renalware
       #   patient.current_observation_set.hgb
       # but if its not in values we don;t want to blow up with a method missing.
       def respond_to_missing?(method_name, _include_private = false)
-        return false if %i(to_a position).include?(method_name)
+        return false if %i(to_a position known_attributes).include?(method_name)
         true
       end
     end

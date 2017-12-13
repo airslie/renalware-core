@@ -15,11 +15,11 @@ module Renalware
         it "persists ok" do
           patient = create(:pathology_patient)
           obs_set = patient.fetch_current_observation_set
-          hgb = { "result" => 23.1, "observed_at" => "2016-12-12 12:12:12" }
+          hgb = { "result" => "23.1", "observed_at" => "2016-12-12 12:12:12" }
           obs_set.values["HGB"] = hgb
           obs_set.save!
 
-          obs_set.reload
+          obs_set = patient.reload.fetch_current_observation_set
           expect(obs_set.values["HGB"]).to eq(hgb)
         end
       end
