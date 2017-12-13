@@ -45,9 +45,14 @@ module Renalware
         values[code.upcase.to_s] = { "result" => result, "observed_at" => observed_at }
       end
 
+      # TODO: could define methods at eval-time, or store in a class var the
+      # list of possible codes and use that list in method_missing, then we can defer
+      # to super on no match
+      #
       # Note we don't defer to super here as we want methods like
       # :hgb to return nil even if they don't exist in the values hash.
-      def method_missing(method, *_args, &block)
+      # rubocop:disable Style/MethodMissing
+      def method_missing(method, *_args, _block)
         code = method.upcase
         observation_hash = values[code]
         if observation_hash.present?
@@ -56,13 +61,14 @@ module Renalware
           OpenStruct.new(result: nil, observed_at: nil, code: code)
         end
       end
+      # rubocop:enable Style/MethodMissing
 
       # Always return true so we can support unknown pathology codes - for example
       # we might be asked to provide
       #   patient.current_observation_set.hgb
       # but if its not in values we don;t want to blow up with a method missing.
       def respond_to_missing?(method_name, _include_private = false)
-        return false if method_name == :to_a
+        return false if %i(to_a position).include?(method_name)
         true
       end
     end

@@ -25,6 +25,12 @@ module Renalware
           end
         end
 
+        def refresh_current_obs
+          ActiveRecord::Base.connection.execute(
+            "select refresh_current_observation_sets_for_all_patients()"
+          )
+        end
+
         context "when unfiltered" do
           it "returns only Low Clearance patients" do
             lcc_patient = create_lcc_patient
@@ -60,6 +66,7 @@ module Renalware
                 status: "active",
                 patient: Renalware::Transplants.cast_patient(lcc_patient_on_tx_wait_list)
               )
+              refresh_current_obs
 
               patients = described_class.new(named_filter: :tx_candidates).call
 
@@ -86,6 +93,7 @@ module Renalware
               # target
               patient_w_urea_gt_30 = create_lcc_patient
               create_observation(patient_w_urea_gt_30, ure, 31)
+              refresh_current_obs
 
               patients = described_class.new(named_filter: :urea).call
 
@@ -110,7 +118,8 @@ module Renalware
 
               # Target
               patient_w_hgb_lt_100 = create_lcc_patient
-              create_observation(patient_w_hgb_lt_100, hgb, 99.99)
+              create_observation(patient_w_hgb_lt_100, hgb, 99.9, at: Time.zone.now - 1.month)
+              refresh_current_obs
 
               patients = described_class.new(named_filter: :hgb_low).call
 
@@ -136,6 +145,7 @@ module Renalware
               # target
               patient_w_hgb_gt_130 = create_lcc_patient
               create_observation(patient_w_hgb_gt_130, hgb, 130.1)
+              refresh_current_obs
 
               patients = described_class.new(named_filter: :hgb_high).call
 

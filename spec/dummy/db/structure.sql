@@ -104,6 +104,15 @@ CREATE FUNCTION refresh_all_matierialized_views(_schema text DEFAULT '*'::text, 
     AS $$ DECLARE r RECORD; BEGIN RAISE NOTICE 'Refreshing materialized view(s) in % %', CASE WHEN _schema = '*' THEN 'all schemas' ELSE 'schema "'|| _schema || '"' END, CASE WHEN _concurrently THEN 'concurrently' ELSE '' END; IF pg_is_in_recovery() THEN RETURN 0; ELSE FOR r IN SELECT schemaname, matviewname FROM pg_matviews WHERE schemaname = _schema OR _schema = '*' LOOP RAISE NOTICE 'Refreshing materialized view "%"."%"', r.schemaname, r.matviewname; EXECUTE 'REFRESH MATERIALIZED VIEW ' || CASE WHEN _concurrently THEN 'CONCURRENTLY ' ELSE '' END || '"' || r.schemaname || '"."' || r.matviewname || '"'; END LOOP; END IF; RETURN 1; END $$;
 
 
+--
+-- Name: refresh_current_observation_sets_for_all_patients(); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION refresh_current_observation_sets_for_all_patients() RETURNS text
+    LANGUAGE plpgsql
+    AS $$ BEGIN with current_patient_obs as( select DISTINCT ON (p.id, obxd.id) p.id as patient_id, obxd.code, json_build_object('result',(obx.result),'observed_at',obx.observed_at) as value from patients p inner join pathology_observation_requests obr on obr.patient_id = p.id inner join pathology_observations obx on obx.request_id = obr.id inner join pathology_observation_descriptions obxd on obx.description_id = obxd.id order by p.id, obxd.id, obx.observed_at desc ), current_patient_obs_as_jsonb as ( select patient_id, jsonb_object_agg(code, value) as values, CURRENT_TIMESTAMP, CuRRENT_TIMESTAMP from current_patient_obs group by patient_id order by patient_Id ) insert into pathology_current_observation_sets (patient_id, values, created_at, updated_at) select * from current_patient_obs_as_jsonb ON conflict (patient_id) DO UPDATE SET values = excluded.values, updated_at = excluded.updated_at; return 'ok'; END $$;
+
+
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -13018,6 +13027,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171206121652'),
 ('20171208211206'),
 ('20171211130716'),
-('20171211161400');
+('20171211161400'),
+('20171213111513');
 
 

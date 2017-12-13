@@ -21,11 +21,9 @@ module Renalware
           relation
             .extending(ModalityScopes)
             .extending(PatientPathologyScopes)
-            .extending(Scopes)
             .with_current_pathology
             .with_current_modality_matching(modality_names)
             .search(q)
-          # .order("pathology_current_key_observations.hgb_result asc")
         end
       end
 
