@@ -52,7 +52,7 @@ module Renalware
       private
 
       def participants
-        @participants ||= study.participants.page(page).per(per_page)
+        @participants ||= study.participants.includes(:patient).page(page).per(per_page)
       end
 
       def render_edit(participant)
