@@ -2841,7 +2841,7 @@ CREATE TABLE pathology_observations (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     description_id integer NOT NULL,
-    request_id integer
+    request_id integer NOT NULL
 );
 
 
@@ -13162,6 +13162,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171211130716'),
 ('20171211161400'),
 ('20171213111513'),
-('20171214141335');
+('20171214141335'),
+('20171214190849');
 
 
