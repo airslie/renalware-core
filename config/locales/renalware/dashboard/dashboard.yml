@@ -2,7 +2,7 @@ en:
   renalware:
     dashboard:
       dashboards:
-        title: "%{name}'s Dashboard"
+        title: "Dashboard / "
         content:
           letters:
             in_progress:

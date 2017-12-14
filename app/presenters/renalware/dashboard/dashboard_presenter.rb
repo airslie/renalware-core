@@ -10,10 +10,6 @@ module Renalware
 
       attr_reader :user
 
-      def title
-        I18n.t("renalware.dashboard.dashboards.title", name: @user.username&.capitalize)
-      end
-
       def bookmarks
         @bookmarks ||= begin
           Patients.cast_user(user)
