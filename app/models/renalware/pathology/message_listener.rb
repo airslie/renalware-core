@@ -10,7 +10,7 @@ module Renalware
       def message_processed(message_payload)
         pathology_params = parse_pathology_params(message_payload)
         create_observations(pathology_params)
-        update_current_observations(pathology_params)
+        # Note the the current_observation_set for the patient is updated by a trigger here
       end
 
       private
@@ -21,10 +21,6 @@ module Renalware
 
       def create_observations(params)
         CreateObservations.new.call(params)
-      end
-
-      def update_current_observations(params)
-        UpdateCurrentObservations.new.call(params)
       end
     end
   end

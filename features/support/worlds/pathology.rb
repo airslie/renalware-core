@@ -127,26 +127,12 @@ module World
       end
 
       def expect_pathology_current_observations(user:, patient:, rows:)
+        patient = Renalware::Pathology.cast_patient(patient)
+        curr_obs_set = patient.fetch_current_observation_set
+        rows.reject!{ |row| row[1].blank? } # reject observations with no value
+        codes = rows.map(&:first)[1..-1]
 
-        puts "Need to update curr obs set from the test - atm we can only do this via HL7' " \
-                "i.e. we UpdateCurrentObservations takes an hl7 param and is called from the " \
-                "HL7 listener - but we don't have that in place here. Maybe we need an SQL fn to " \
-                "the curr path for one patient. That SQL fn could be called from a trigger or from"\
-                " the code whenever we need to sync the current_observation_sets table? " \
-                " it could take code, result, date args, or be a proper trigger"
-        # fail
-        # patient = Renalware::Pathology.cast_patient(patient)
-        # curr_obs_set = patient.fetch_current_observation_set
-        # codes = rows.map(&:first)[1..-1]
-        # descriptions = Renalware::Pathology::ObservationDescription.for(codes)
-
-        # presenter = Renalware::Pathology::CurrentObservationResults::Presenter.new
-        # service = Renalware::Pathology::ViewCurrentObservationResults.new(
-        #   patient, presenter, descriptions: descriptions)
-        # service.call
-        # view = ArrayStringifier.new(presenter.view_model).to_a
-
-        # expect(view).to match_array(rows)
+        expect(codes - curr_obs_set.values.keys).to eq([])
       end
 
       private
