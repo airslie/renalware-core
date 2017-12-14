@@ -1,0 +1,19 @@
+.filters
+  .filters__form
+    = search_form_for user_search, url: admin_users_path do |f|
+      .row
+        .small-9.large-4.columns
+          = f.label "Name or username contains"
+          = f.search_field :family_name_or_given_name_or_username_cont
+        .small-3.large-4.columns.actions.end
+          = f.submit t("helpers.submit.filter"), class: "button"
+          span= " or "
+          = link_to t("helpers.reset"), admin_users_path
+
+dl.sub-nav
+  dd(class=("active" if params[:q].nil?))
+    = link_to "All", admin_users_path(q: nil)
+  dd(class=("active" if params.fetch(:q, {})[:unapproved]))
+    = link_to "Unapproved", admin_unapproved_users_path
+  dd(class=("active" if params.fetch(:q, {})[:inactive]))
+    = link_to "Inactive", admin_inactive_users_path
