@@ -20,9 +20,6 @@ module Renalware
       has_paper_trail class_name: "Renalware::Transplants::Version"
       has_document class_name: "Renalware::Transplants::RecipientOperationDocument"
 
-      attr_accessor :cold_ischaemic_time_formatted
-      attr_accessor :warm_ischaemic_time_formatted
-
       validates :performed_on, presence: true
       validates :theatre_case_start_time, presence: true
       validates :donor_kidney_removed_from_ice_at, presence: true
@@ -35,19 +32,17 @@ module Renalware
       validates :donor_kidney_removed_from_ice_at, timeliness: { type: :datetime }
       validates :kidney_perfused_with_blood_at, timeliness: { type: :datetime }
       validates :theatre_case_start_time, timeliness: { type: :time }
-      # validates :cold_ischaemic_time, timeliness: { type: :time }
-      # validates :warm_ischaemic_time, timeliness: { type: :time }
 
       enumerize :operation_type,
                 in: %i(kidney kidney_dual kidney_pancreas pancreas kidney_liver liver)
 
       def theatre_case_start_time
-        TimeOfDay.new(read_attribute(:theatre_case_start_time))
+        TimeOfDay.new(self[:theatre_case_start_time])
       end
 
       def cold_ischaemic_time_formatted
         # For presentation purposes
-        Duration.new(read_attribute(:cold_ischaemic_time)).to_s
+        Duration.new(self[:cold_ischaemic_time]).to_s
       end
 
       def cold_ischaemic_time_formatted=(value)
@@ -56,7 +51,7 @@ module Renalware
 
       def warm_ischaemic_time_formatted
         # For presentation purposes
-        Duration.new(read_attribute(:warm_ischaemic_time)).to_s
+        Duration.new(self[:warm_ischaemic_time]).to_s
       end
 
       def warm_ischaemic_time_formatted=(value)

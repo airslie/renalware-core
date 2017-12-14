@@ -15,11 +15,7 @@ module Renalware
     end
 
     def default_daily_glucose_average(glucose)
-      if glucose.blank?
-        0
-      else
-        glucose
-      end
+      glucose.presence || 0
     end
 
     # The list of treatment options, stored in I18n
