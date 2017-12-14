@@ -1,2 +1,2 @@
-= within_admin_layout(title: dashboard.title) do
+= within_admin_layout(title: composed_dashboard_title(current_user.full_name)) do
   = render "content", dashboard: dashboard

@@ -1,13 +1,14 @@
 .dashboard-content {
   margin-top: 10px;
 
-  section {
-    // TODO: Style sections
-  }
-
   p.empty-section {
     padding-left: 0;
     color: $dashboard-muted-color;
     clear: both;
   }
+}
+
+.dashboard-owner {
+  color: $mid-grey;
+  font-style: normal;
 }
