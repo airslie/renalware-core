@@ -68,19 +68,22 @@ module World
         expect_rows_to_match(observation_request.observations, rows)
       end
 
+      # rubocop:disable Rails/TimeZone
       def expect_current_observations_to_be(patient:, rows:)
         patient = Renalware::Pathology.cast_patient(patient)
         observation_set = patient.current_observation_set
         rows.each do |row|
           code = row["code"]
-          expect(observation_set.values[code]).to eq(
-            {
-              "result" => row["result"],
-              "observed_at" => row["observed_at"]
-            }
-          )
+          obs_set = observation_set.values[code]
+
+          expect(obs_set[:result]).to eq(row["result"])
+          # Some fancy footwork to get dates to compare
+          expected_observed_at = I18n.l(Time.parse(row["observed_at"]))
+          actual_observed_at = I18n.l(Time.parse(obs_set[:observed_at]))
+          expect(actual_observed_at).to eq(expected_observed_at)
         end
       end
+      # rubocop:enable Rails/TimeZone
 
       def expect_rows_to_match(observations, rows)
         rows.each do |attrs|
@@ -166,9 +169,6 @@ module World
       end
 
       def expect_pathology_current_observations(user:, patient:, rows:)
-        ActiveRecord::Base.connection.execute(
-          "select refresh_current_observation_sets_for_all_patients()"
-        )
         login_as user
 
         visit patient_pathology_current_observations_path(patient)
