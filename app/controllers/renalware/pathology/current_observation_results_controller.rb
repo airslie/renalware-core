@@ -6,7 +6,7 @@ module Renalware
       def index
         patient = load_patient
         observation_set = ObservationSetPresenter.new(
-          patient.current_observation_set || NullObject.instance
+          patient.fetch_current_observation_set
         )
         render :index, locals: { observation_set: observation_set }
       end

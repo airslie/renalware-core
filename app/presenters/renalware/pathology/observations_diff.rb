@@ -1,37 +1,120 @@
 require "attr_extras"
 require_dependency "renalware/pathology"
 
-# Uses Rails 5 `render anywhere` feature.
+# Compares two hashes of pathology observations (OBXs).
+# Used for example in a Letter, where a snapshot of pathology is stored on the letter,
+# but when the letter we compare the snapshot to the latest hash in the jsonb column
+# CurrentObserverationSet#values to see if there are newer results that the user might want
+# to bring into the letter.
+#
+# NB: uses Rails 5 `render anywhere` feature.
 module Renalware
   module Pathology
     class ObservationsDiff
-      def initialize(patient:, between_dates:, descriptions:)
-        @patient = patient
-        @descriptions = descriptions
-        @between_dates = Array(between_dates)
-        if between_dates.length != 2
-          raise ArgumentError, "between_dates argument must be an array of 2 dates"
-        end
+      pattr_initialize [:patient!, :observation_set_a!, :observation_set_b!, :descriptions!]
+
+      def changes?
+        @changes
       end
 
       def to_html
         render
       end
 
+      class Observation
+        delegate :any?, :to_h, to: :hash
+
+        def initialize(hash)
+          @hash = hash
+        end
+
+        def result
+          hash.fetch(:result, 0)
+        end
+
+        def observed_at
+          Time.parse(hash.fetch(:observed_at, "1970-01-01"))
+        end
+
+        def supercedes?(other)
+          (observed_at > other.observed_at) ||
+            ((observed_at == other.observed_at) && result > other.result)
+        end
+
+        private
+
+        attr_reader :hash
+      end
+
+      # Given two hashes like this
+      # {
+      #   HGB: { result: 2.1, observed_at: "2017-12-12 00:01:01"},
+      #   CRE: { result: 9, observed_at: "2017-12-12 00:01:01"}
+      # }
+      # {
+      #   HGB: { result: 1.0, observed_at: "2018-12-12 00:01:01"}, # changed
+      #   CRE: { result: 1.1, observed_at: "2017-12-11 00:01:01"}, # no change!
+      #   PTH: { result: 1.1, observed_at: "2017-12-11 00:01:01"}  # new!
+      # }
+      # Return a hash that looks like this
+      # {
+      #   HGB: [
+      #     { result: 2.1, observed_at: "2017-12-12 00:01:01"}, # original
+      #     { result: 1.0, observed_at: "2018-12-12 00:01:01"}, # changed
+      #     -1.1 # digg
+      #   ],
+      #   CRE: [
+      #     { result: 9, observed_at: "2017-12-12 00:01:01"},
+      #     nil, # no new value
+      #     nil # no change
+      #   ],
+      #   PTH: [
+      #     nil, # no original
+      #     { result: 1.1, observed_at: "2017-12-11 00:01:01"}  # new!
+      #     1.1
+      #  ]
+      # }
       def to_h
-        @to_h ||= build_diff_hash
+        return {} if observation_set_a.blank? && observation_set_a.blank?
+        filter_observations
+        codes = (observation_set_a.keys && observation_set_b.keys).sort
+        codes.each_with_object({}) do |code, hash|
+          obs_a = Observation.new(observation_set_a.fetch(code, {}))
+          obs_b = Observation.new(observation_set_b.fetch(code, {}))
+
+          arr = Array.new(3)
+          arr[0] = obs_a if obs_a.any?
+
+          if obs_b.supercedes?(obs_a)
+            arr[1] = obs_b
+            arr[2] = obs_b.result.to_f - obs_a.result.to_f
+          end
+
+          hash[code] = arr
+        end
       end
 
       private
 
-      attr_reader :patient, :between_dates, :descriptions
+      def filter_observations
+        filter_observations_by_descriptions(observation_set_a)
+        filter_observations_by_descriptions(observation_set_b)
+      end
+
+      def filter_observations_by_descriptions(observations)
+        observations.select!{ |code, _obs| description_codes.include?(code.to_sym) }
+      end
+
+      def description_codes
+        @description_codes ||= descriptions.map(&:code).map(&:to_sym)
+      end
 
       def render
         renderer.render(
           partial: "renalware/pathology/observations/diff",
           locals: {
             patient: patient,
-            diffs: to_h
+            diff: self
           }
         )
       end
@@ -39,72 +122,6 @@ module Renalware
       def renderer
         ApplicationController.renderer
       end
-
-      def observations1
-        @observations1 ||= begin
-          observations_in_daterange(Time.zone.at(1)..between_dates.first)
-        end
-      end
-
-      def observations2
-        @observations2 ||= begin
-          obs1_ids = observations1.map(&:id)
-          observations_in_daterange(between_dates.first..between_dates.last)
-            .reject{ |obs| obs1_ids.include?(obs.id) }
-        end
-      end
-
-      def observations_in_daterange(range)
-        Pathology::CurrentObservationsForDescriptionsQuery.new(
-          patient: patient,
-          descriptions: descriptions
-        ).call.where(observed_at: range).reject{ |obs| obs.id.nil? }.to_a
-      end
-
-      class ObsWithDiff
-        include Virtus.model
-        attribute :observed_at
-        attribute :result, Float
-        attribute :result_diff
-
-        def result_diff(more_recent)
-          more_recent && result && (result.to_f - more_recent.result&.to_f)
-        end
-      end
-
-      # Build
-      # [
-      #   { "HGB" => [
-      #       { observed_at:, value: },
-      #       { observed_at:, value:, diff: }
-      #     ]
-      #   }
-      # ]
-      # Note this could be done with a SQL window function
-      # rubocop:disable Metrics/MethodLength
-      # rubocop:disable Metrics/AbcSize
-      def build_diff_hash
-        result = {}
-
-        observations1.each do |older_obs|
-          result[older_obs.description.code] = [
-            ObsWithDiff.new(older_obs.attributes.symbolize_keys),
-            nil
-          ]
-        end
-
-        observations2.each do |newer_obs|
-          arr = result[newer_obs.description.code] || Array(2)
-          older_obs = arr[0]
-          args = newer_obs.attributes.symbolize_keys
-                                     .merge(result_diff: older_obs&.result_diff(newer_obs))
-          arr[1] = ObsWithDiff.new(args)
-        end
-
-        result
-      end
-      # rubocop:enable Metrics/MethodLength Metrics/AbcSize
-      # rubocop:enable Metrics/AbcSize
     end
   end
 end

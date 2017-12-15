@@ -3,9 +3,19 @@ require_dependency "attr_extras"
 
 module Renalware
   module Pathology
-    class ObservationSetPresenter < SimpleDelegator
+    class ObservationSetPresenter < DumbDelegator
       class Observation
         attr_reader_initialize [:code, :description, :result, :observed_at]
+      end
+
+      def method_missing(method_name, **args, &_block)
+        return if __getobj__.nil?
+        vals = __getobj__.values
+        vals.public_send(method_name)
+      end
+
+      def respond_to_missing?(method_name, _include_private = false)
+        (values.present? && values.respond_to?(method_name)) || super
       end
 
       def each_observation

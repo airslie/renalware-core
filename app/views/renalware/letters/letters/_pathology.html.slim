@@ -2,7 +2,8 @@ ruby:
   new_pathology_timestamp = Time.zone.now
   diff = Renalware::Pathology::ObservationsDiff.new(
     patient: letter.patient,
-    between_dates: [letter.pathology_timestamp, new_pathology_timestamp],
+    observation_set_a: letter.pathology_snapshot,
+    observation_set_b: letter.patient.current_observation_set&.values,
     descriptions: Renalware::Letters::RelevantObservationDescription.all
   )
 
@@ -21,6 +22,5 @@ ruby:
                 ], \
                 as: :inline_radio_buttons,
                 label: "Include pathology updates below"
-
 
     = diff.to_html

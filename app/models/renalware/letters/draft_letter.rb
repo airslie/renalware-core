@@ -4,6 +4,7 @@ module Renalware
   module Letters
     class DraftLetter
       include Wisper::Publisher
+      include LetterPathology
 
       def self.build
         new
@@ -11,7 +12,7 @@ module Renalware
 
       def call(patient, params = {})
         letter = LetterFactory.new(patient, params).build
-        # Rails.logger.info "Drafting letter of class #{letter.class} with type #{letter.type}"
+        build_pathology_snapshot(patient, letter)
         letter.save!
         letter.reload
         broadcast(:draft_letter_successful, letter)

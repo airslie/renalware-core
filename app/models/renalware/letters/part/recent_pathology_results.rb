@@ -14,22 +14,8 @@ module Renalware
       private
 
       def recent_pathology_results
-        @recent_pathology_results ||= find_recent_pathology_results
-      end
-
-      def find_recent_pathology_results
-        check_letter
-        range = Time.zone.at(1)..letter.pathology_timestamp
-        Renalware::Pathology::CurrentObservationsForDescriptionsQuery.new(
-          patient: patient,
-          descriptions: Renalware::Letters::RelevantObservationDescription.all
-        ).call.where(observed_at: range).reject{ |obs| obs.id.nil? }
-      end
-
-      def check_letter
-        if letter.pathology_timestamp.blank?
-          raise ArgumentError,
-                "letter.pathology_timestamp cannot be nil when rendering letter pathology!"
+        @recent_pathology_results ||= begin
+          letter.pathology_snapshot
         end
       end
     end

@@ -4,86 +4,74 @@ module Renalware
   module Pathology
     describe ObservationsDiff do
       let(:patient) { create(:patient) }
-      let(:between_dates) { [Time.zone.now, Time.zone.now - 1.month] }
-      let(:path_descriptions) { Pathology::ObservationDescription.for(%w(HGB PLT)) }
 
-      def create_diff(between_dates:, for_descriptions:)
-        described_class.new(
-          patient: patient,
-          between_dates: between_dates,
-          descriptions: for_descriptions
-        )
-      end
-
-      it "raises an error if 2 dates are not supplied" do
-        expect do
-          create_diff(between_dates: [Time.zone.now], for_descriptions: [])
-        end.to raise_error(ArgumentError)
-      end
-
-      describe "#diff" do
-        it "returns a hash" do
-          diff = create_diff(between_dates: between_dates, for_descriptions: path_descriptions)
-          expect(diff.to_h).to be_kind_of(Hash)
+      describe "ctor" do
+        it "works" do
+          described_class.new(
+            patient: patient,
+            observation_set_a: {},
+            observation_set_b: {},
+            descriptions: []
+          )
         end
+      end
 
-        it "returns a diff between two snapshots of patient pathology" do
-          create_initial_pathology_for(patient)
-          diff = create_diff(between_dates: between_dates, for_descriptions: path_descriptions)
-          expect(diff.to_h).to be_kind_of(Hash)
+      describe ".to_h" do
+        it "returns a hash of differences" do
+          hgb_old = { result: 2.1, observed_at: "2017-12-12 00:01:01" }
+          hgb_new = { result: 1.0, observed_at: "2018-12-12 00:01:01" }
+          pth_new = { result: 9, observed_at: "2017-12-12 00:01:01" }
+          cre_old = { result: 1.1, observed_at: "2017-12-12 00:01:01" }
+          cre_new = { result: 1.1, observed_at: "2017-12-11 00:01:01" } # no change!
+          obj = described_class.new(
+            patient: patient,
+            observation_set_a: { HGB: hgb_old, CRE: cre_old },
+            observation_set_b: { HGB: hgb_new, PTH: pth_new, CRE: cre_new },
+            descriptions: %w(HGB CRE PTH).map{ |code| OpenStruct.new(code: code) } # mock obs descs
+          )
+
+          diff_hash = obj.to_h
+
+          # The diff is hash keyed by OBX code each containing a 3 d array of results eg
+          # {
+          #   HGB: [
+          #    set a obs for this OBX, if exists in set a
+          #    set b obs for this OBX, if exists and date is >= set a one, and result is different,
+          #    numeric change in result (b.result - a.result) if a and b present above
+          #   ]
+          # }
+          expect(diff_hash.keys).to eq([:CRE, :HGB, :PTH])
+
+          expect(diff_hash[:HGB][0].result).to eq(hgb_old[:result])
+          expect(diff_hash[:HGB][0].observed_at).to eq(hgb_old[:observed_at])
+          expect(diff_hash[:HGB][1].result).to eq(hgb_new[:result])
+          expect(diff_hash[:HGB][1].observed_at).to eq(hgb_new[:observed_at])
+          expect(diff_hash[:HGB][2]).to eq(-1.1) # 2.1 - 1.0 (new - old)
+
+          expect(diff_hash[:PTH][0]).to be_nil
+          expect(diff_hash[:PTH][1].result).to eq(9)
+          expect(diff_hash[:PTH][1].observed_at).to eq("2017-12-12 00:01:01")
+          expect(diff_hash[:PTH][2]).to eq(9)
+
+          expect(diff_hash[:CRE][0].result).to eq(cre_old[:result])
+          expect(diff_hash[:CRE][0].observed_at).to eq(cre_old[:observed_at])
+          expect(diff_hash[:CRE][1]).to be_nil # no change so no new observation here
+          expect(diff_hash[:CRE][2]).to be_nil # no change so no difference value here
         end
       end
 
       describe "#to_html" do
-        it "if 2 dates are not supplied" do
+        it "renders html" do
           diff = described_class.new(
             patient: patient,
-            between_dates: between_dates,
-            descriptions: path_descriptions
+            observation_set_a: { HGB: { result: 2.1, observed_at: "2017-12-12 00:01:01" } },
+            observation_set_b: { HGB: { result: 1.0, observed_at: "2017-12-13 00:01:01" } },
+            descriptions: %w(HGB).map{ |code| OpenStruct.new(code: code) } # mock obs descs
           )
           html = diff.to_html
           expect(html).not_to be_blank
           expect(html).to match(/<table/)
         end
-      end
-
-      def create_initial_pathology_for(patient)
-        observation_request = create(
-          :pathology_observation_request,
-          patient: Pathology.cast_patient(patient)
-        )
-        hgb_description = create(
-          :pathology_observation_description,
-          code: "HGB",
-          name: "HGB"
-        )
-        create(
-          :pathology_observation,
-          request: observation_request,
-          description: hgb_description,
-          observed_at: "05-Apr-2016",
-          result: 1.1
-        )
-      end
-
-      def create_extra_pathology_for(patient)
-        # There has been a new OBR
-        observation_request = create(
-          :pathology_observation_request,
-          patient: Pathology.cast_patient(patient)
-        )
-        plt_description = create(
-          :pathology_observation_description,
-          code: "PLT",
-          name: "PLT"
-        )
-        create(
-          :pathology_observation,
-          request: observation_request,
-          description: plt_description,
-          observed_at: "06-Apr-2016",
-          result: 2.2
-        )
       end
     end
   end

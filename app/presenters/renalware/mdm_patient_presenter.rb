@@ -4,5 +4,11 @@ module Renalware
     def esrf_date
       Renalware::Renal.cast_patient(__getobj__).profile&.esrf_on
     end
+
+    def current_observation_set
+      @current_observation_set ||= begin
+        Renalware::Pathology::ObservationSetPresenter.new(__getobj__.current_observation_set)
+      end
+    end
   end
 end

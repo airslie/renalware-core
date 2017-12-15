@@ -2307,7 +2307,8 @@ CREATE TABLE letter_letters (
     author_id integer NOT NULL,
     clinical boolean,
     enclosures character varying,
-    pathology_timestamp timestamp without time zone
+    pathology_timestamp timestamp without time zone,
+    pathology_snapshot jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -13163,6 +13164,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171211161400'),
 ('20171213111513'),
 ('20171214141335'),
-('20171214190849');
+('20171214190849'),
+('20171215122454');
 
 
