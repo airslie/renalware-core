@@ -7,9 +7,8 @@
         td.col-width-small Result
         td Description
     tbody
-      - if observation_set.present?
-        - observation_set.each_observation do |observation|
-          tr
-            td= l(observation.observed_at&.to_date)
-            td= observation.result
-            th= observation.description
+      - observation_set.each_observation do |observation|
+        tr
+          td= l(observation.observed_at&.to_date)
+          td= observation.result
+          th= observation.description

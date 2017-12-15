@@ -5,7 +5,9 @@ module Renalware
     class CurrentObservationResultsController < Pathology::BaseController
       def index
         patient = load_patient
-        observation_set = ObservationSetPresenter.new(patient.current_observation_set)
+        observation_set = ObservationSetPresenter.new(
+          patient.current_observation_set || NullObject.instance
+        )
         render :index, locals: { observation_set: observation_set }
       end
     end
