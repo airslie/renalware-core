@@ -1,22 +1,19 @@
 = within_admin_layout(title: "Users") do
 
-  dl.sub-nav
-    dd(class=("active" if params[:q].nil?))
-      = link_to "All", admin_users_path(q: nil)
-    dd(class=("active" if params.fetch(:q, {})[:unapproved]))
-      = link_to "Unapproved", admin_unapproved_users_path
-    dd(class=("active" if params.fetch(:q, {})[:inactive]))
-      = link_to "Inactive", admin_inactive_users_path
+  = render "filters", user_search: user_search
 
   table
     thead
       th.col-width-tiny
       th.col-width-tiny ID
-      th.col-width-medium User
-      th.col-width-small Login
-      th Email
+      th.col-width-medium= sort_link(user_search,
+                                     :family_name,
+                                     [:family_name, :given_name],
+                                     "User")
+      th.col-width-small= sort_link(user_search, :username, "Login")
+      th= sort_link(user_search, :email, "Email")
       th Telephone #
-      th.col-width-date-time Added
+      th.col-width-date-time= sort_link(user_search, :created_at, "Added")
       th.col-width-tiny Approved
 
     tbody
@@ -29,6 +26,6 @@
           td= user.email
           td= user.telephone
           td= l user.created_at
-          td= user.approved?
+          td= yes_no(user.approved?)
 
   = paginate users

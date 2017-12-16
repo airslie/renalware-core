@@ -3,10 +3,14 @@ module Renalware
     include Renalware::Concerns::Pageable
 
     def index
-      search = User.search(params[:q])
+      query = params.fetch(:q, {})
+      query[:s] ||= "family_name"
+      search = User
+        .where.not(username: :systemuser)
+        .search(query)
       users = search.result(distinct: true).page(page).per(per_page)
       authorize users
-      render locals: { users: users }
+      render locals: { users: users, user_search: search }
     end
 
     def edit
