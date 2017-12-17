@@ -20,7 +20,7 @@ module Renalware
 
       def each_observation
         return unless block_given?
-        values.sort.each do |code, observation_hash|
+        __getobj__.values.sort.sort.each do |code, observation_hash|
           observation = build_observation(
             code: code,
             observation_hash: observation_hash,
@@ -36,7 +36,7 @@ module Renalware
         Observation.new(
           code: code,
           result: observation_hash["result"],
-          observed_at: Time.zone.parse(observation_hash["observed_at"]),
+          observed_at: ::Time.zone.parse(observation_hash["observed_at"]),
           description: with_description ? description_for(code) : nil
         )
       end
@@ -47,7 +47,7 @@ module Renalware
 
       def observation_description_map
         @observation_description_map ||= begin
-          Renalware::Pathology::ObservationDescription
+          ::Renalware::Pathology::ObservationDescription
             .pluck(:code, :name)
             .each_with_object({}) { |desc, hash| hash[desc.first] = desc.last }
         end
