@@ -16,10 +16,11 @@ module Renalware
       private
 
       def parse_pathology_params(message_payload)
-        MessageParamParser.new.parse(message_payload)
+        MessageParamParser.new(message_payload).parse
       end
 
       def create_observations(params)
+        return if params.nil?
         CreateObservations.new.call(params)
       end
     end
