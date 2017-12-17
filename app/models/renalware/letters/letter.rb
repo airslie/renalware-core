@@ -26,6 +26,7 @@ module Renalware
                source: :recipient
       has_one :signature, dependent: :destroy
       has_one :archive, foreign_key: "letter_id"
+      serialize :pathology_snapshot, Pathology::ObservationsJsonbSerializer
 
       accepts_nested_attributes_for :main_recipient
       accepts_nested_attributes_for :cc_recipients, reject_if: :all_blank, allow_destroy: true

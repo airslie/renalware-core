@@ -22,6 +22,12 @@ module Renalware
         hd_sessions.eager_load(:hospital_unit).where(type: "Renalware::HD::Session::Closed")
       end
 
+      def current_observation_set
+        @current_observation_set ||= begin
+          Renalware::Pathology::ObservationSetPresenter.new(__getobj__.current_observation_set)
+        end
+      end
+
       private
 
       def hd_profile

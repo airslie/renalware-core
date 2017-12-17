@@ -4,6 +4,7 @@ module Renalware
   module Letters
     class ReviseLetter
       include Wisper::Publisher
+      include LetterPathology
 
       def self.build
         new
@@ -13,6 +14,7 @@ module Renalware
         letter = patient.letters.pending.find(letter_id)
         Letter.transaction do
           letter.revise(params)
+          build_pathology_snapshot(patient, letter) if letter.changes.key?(:pathology_timestamp)
           letter.save!
         end
         broadcast(:revise_letter_successful, letter)

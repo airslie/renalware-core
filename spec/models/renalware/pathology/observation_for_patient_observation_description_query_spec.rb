@@ -1,29 +1,22 @@
 require "rails_helper"
 
 describe Renalware::Pathology::ObservationForPatientObservationDescriptionQuery do
-  subject(:query) do
-    described_class.new(
-      patient,
-      description
-    )
-  end
-
-  let(:patient) { Renalware::Pathology.cast_patient(build(:patient)) }
-  let(:description) { build(:pathology_observation_description) }
-
   describe "#call" do
-    subject(:query_result) { query.call }
-
-    let!(:most_recent_observation) do
-      create_observation(patient: patient, description: description, observed_at: 1.week.ago)
-    end
-    let!(:older_observation) do
-      create_observation(patient: patient, description: description, observed_at: 2.weeks.ago)
-    end
-    let!(:unrelated_observation) { create(:pathology_observation) }
-
     it "returns the most recent observation for the specified observation description" do
-      expect(query_result).to eq(most_recent_observation)
+      patient_a = Renalware::Pathology.cast_patient(build(:patient))
+      patient_b = Renalware::Pathology.cast_patient(build(:patient))
+      description = build(:pathology_observation_description)
+      most_recent_observation = create_observation(
+        patient: patient_a,
+        description: description,
+        observed_at: 1.week.ago
+      )
+      create_observation(patient: patient_a, description: description, observed_at: 2.weeks.ago)
+      create_observation(patient: patient_b, description: description, observed_at: 2.weeks.ago)
+
+      expect(
+        described_class.new(patient_a, description).call
+      ).to eq(most_recent_observation)
     end
   end
 end

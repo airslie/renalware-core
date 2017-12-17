@@ -1,8 +1,10 @@
 module Renalware
   module LayoutHelper
+    # If you don't want the title argument to be used in the browser bar, pass in
+    # page_title: in opts also.
     def within_admin_layout(title: nil, **opts)
       within_layout(layout: "renalware/layouts/non_patient",
-                    title: title,
+                    title: opts.fetch(:page_title, title),
                     **opts) { yield }
     end
 

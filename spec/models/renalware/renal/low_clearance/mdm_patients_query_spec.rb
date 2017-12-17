@@ -110,7 +110,7 @@ module Renalware
 
               # Target
               patient_w_hgb_lt_100 = create_lcc_patient
-              create_observation(patient_w_hgb_lt_100, hgb, 99.99)
+              create_observation(patient_w_hgb_lt_100, hgb, 99.9, at: Time.zone.now - 1.month)
 
               patients = described_class.new(named_filter: :hgb_low).call
 

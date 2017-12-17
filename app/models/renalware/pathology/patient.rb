@@ -34,6 +34,10 @@ module Renalware
         Requests::HighRiskAlgorithm.new(self).patient_is_high_risk?
       end
 
+      def fetch_current_observation_set
+        current_observation_set || build_current_observation_set
+      end
+
       private
 
       def date_for_algorithms

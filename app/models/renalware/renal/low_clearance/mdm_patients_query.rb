@@ -25,7 +25,8 @@ module Renalware
               .extending(PatientPathologyScopes)
               .extending(ModalityScopes)
               .extending(NamedFilterScopes)
-              .with_current_key_pathology
+              .with_current_pathology
+              .left_joins(:current_observation_set)
               .with_current_modality_of_class(LowClearance::ModalityDescription)
               .public_send(named_filter.to_s)
               .search(query)
@@ -46,15 +47,15 @@ module Renalware
           end
 
           def urea
-            where("pathology_current_key_observation_sets.ure_result::float >= 30")
+            where("cast(values->'URE'->>'result' as float) >= 30.0")
           end
 
           def hgb_low
-            where("pathology_current_key_observation_sets.hgb_result::float < 100")
+            where("cast(values->'HGB'->>'result' as float) < 100.0")
           end
 
           def hgb_high
-            where("pathology_current_key_observation_sets.hgb_result::float > 130")
+            where("cast(values->'HGB'->>'result' as float) > 130.0")
           end
         end
       end

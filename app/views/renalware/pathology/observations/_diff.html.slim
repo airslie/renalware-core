@@ -12,11 +12,10 @@ table.table.pathology-observation-diff
       th.col-width-datetime Date
 
   tbody
-    - diffs.each do |code, arr|
+    - diff.to_h.each do |code, arr|
       tr
         th= code
-        td
-          b= arr[0]&.result
-        td= l(arr[0]&.observed_at)
+        th= arr[0]&.result
+        td= l(arr[0]&.observed_at&.to_date)
         td= arr[1]&.result
-        td= l(arr[1]&.observed_at)
+        td= l(arr[1]&.observed_at&.to_date)

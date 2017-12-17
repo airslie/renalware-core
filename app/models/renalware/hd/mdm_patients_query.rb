@@ -2,6 +2,7 @@ module Renalware
   module HD
     class MDMPatientsQuery
       include ModalityScopes
+      include PatientPathologyScopes
       MODALITY_NAMES = "HD".freeze
       DEFAULT_SEARCH_PREDICATE = "hgb_date".freeze
       attr_reader :q, :relation
@@ -22,7 +23,7 @@ module Renalware
             .includes(:hd_profile)
             .extending(ModalityScopes)
             .extending(PatientPathologyScopes)
-            .with_current_key_pathology
+            .with_current_pathology
             .with_current_modality_matching(MODALITY_NAMES)
             .search(q)
         end
