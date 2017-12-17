@@ -6,18 +6,43 @@ module Renalware
     # that can be persisted by ObservationRequest.
     #
     class MessageParamParser
-      # message_payload is an HL7Message (a decorator around an ::HL7::Message)
-      def parse(message_payload)
-        request = message_payload.observation_request
+      attr_reader :message_payload
+      delegate :patient_identification, :observation_request, to: :message_payload
+      delegate :internal_id, to: :patient_identification
+      delegate :observations, to: :observation_request
+      alias_attribute :request, :observation_request
 
-        observations_params = build_observations_params(request.observations)
-        request_params = build_observation_request_params(request, observations_params)
-        build_patient_params(message_payload.patient_identification, request_params)
+      # message_payload is an HL7Message (a decorator around an ::HL7::Message)
+      def initialize(message_payload)
+        @message_payload = message_payload
+      end
+
+      def parse
+        if renalware_patient?
+          build_patient_params
+        else
+          Rails.logger.warn(
+            "Did not process pathology for #{internal_id}: not a renalware patient"
+          )
+          nil
+        end
+      end
+
+      def renalware_patient?
+        Patient.exists?(local_patient_id: internal_id)
       end
 
       private
 
-      def build_observation_request_params(request, observations_params)
+      def observations_params
+        @observations_params ||= build_observations_params
+      end
+
+      def request_params
+        @request_params ||= build_observation_request_params
+      end
+
+      def build_observation_request_params
         request_description = find_request_description(request.identifier)
 
         {
@@ -31,7 +56,7 @@ module Renalware
         }
       end
 
-      def build_observations_params(observations)
+      def build_observations_params
         observations.map do |observation|
           observation_description = find_observation_description(observation.identifier)
 
@@ -44,9 +69,9 @@ module Renalware
         end
       end
 
-      def build_patient_params(patient_identification, params)
-        params.tap do |p|
-          patient = find_patient(patient_identification.internal_id)
+      def build_patient_params
+        request_params.tap do |p|
+          patient = find_patient(internal_id)
           p[:patient_id] = patient.id
         end
       end

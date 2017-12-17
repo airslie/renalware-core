@@ -29,7 +29,10 @@ module Renalware::Pathology
       }
 
       it "transfers attributes from the message payload to the params" do
-        params = subject.parse(message_payload)
+        parser = described_class.new(message_payload)
+
+        expect(parser.renalware_patient?).to be_truthy
+        params = parser.parse
 
         expect(params).to eq(
           {
@@ -48,6 +51,35 @@ module Renalware::Pathology
             }
           }
         )
+      end
+
+      context "when the patient is not found" do
+        it "logs a warning fails silently. This is an acceptable outcome "\
+           "because most pathology messages will be for non-renal patients, and we ignore them" do
+          non_existent_patient = "123123123"
+          message_payload = double(
+            :message_payload,
+            patient_identification: double(internal_id: non_existent_patient),
+            observation_request: double(
+              identifier: request_description.code,
+              ordering_provider_name: "::name::",
+              placer_order_number: "::pcs code::",
+              date_time: "200911111841",
+              observations: [
+                double(
+                  identifier: observation_description.code,
+                  date_time: "200911112026",
+                  value: "::value::",
+                  comment: "::comment::"
+                )
+              ]
+            )
+          )
+
+          parser = described_class.new(message_payload)
+          expect(parser.renalware_patient?).to be_falsey
+          expect(parser.parse).to be_nil
+        end
       end
     end
   end
