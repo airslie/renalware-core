@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.0.pre.rc1)
+    renalware-core (2.0.0.pre.rc2)
       active_type (~> 0.7.1)
       activerecord-import
       attr_extras
@@ -450,7 +450,7 @@ GEM
     sawyer (0.6.0)
       addressable (~> 2.3.5)
       faraday (~> 0.8, < 0.10)
-    scenic (1.4.0)
+    scenic (1.4.1)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
     shoulda-matchers (3.1.2)

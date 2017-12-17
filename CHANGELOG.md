@@ -9,6 +9,19 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.0.pre.rc2
+17-12-2017
+
+### Added
+- Ability to search for and filter users in Admin -> Users
+- Cache latest pathology observations in a new table to speed up displaying current pathology
+
+### Changed
+- Change dashboard to display user fullname not username
+- Update gems
+
+### Fixed
+
 ## 2.0.0.pre.rc1
 10-12-2017
 
