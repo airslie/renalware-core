@@ -6,24 +6,22 @@ module Renalware
     # that can be persisted by ObservationRequest.
     #
     class MessageParamParser
-      attr_reader :message_payload
       delegate :patient_identification, :observation_request, to: :message_payload
       delegate :internal_id, to: :patient_identification
       delegate :observations, to: :observation_request
       alias_attribute :request, :observation_request
 
       # message_payload is an HL7Message (a decorator around an ::HL7::Message)
-      def initialize(message_payload)
+      def initialize(message_payload, logger = Delayed::Worker.logger)
         @message_payload = message_payload
+        @logger = logger
       end
 
       def parse
         if renalware_patient?
           build_patient_params
         else
-          Rails.logger.warn(
-            "Did not process pathology for #{internal_id}: not a renalware patient"
-          )
+          logger.warn("Did not process pathology for #{internal_id}: not a renalware patient")
           nil
         end
       end
@@ -33,6 +31,8 @@ module Renalware
       end
 
       private
+
+      attr_reader :message_payload, :logger
 
       def observations_params
         @observations_params ||= build_observations_params
