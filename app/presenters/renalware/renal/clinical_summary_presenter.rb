@@ -11,7 +11,7 @@ module Renalware
       def current_prescriptions
         @current_prescriptions ||= begin
           prescriptions = @patient.prescriptions
-                                  .includes(drug: [:drug_types])
+                                  .includes(drug: [:drug_types, :classifications])
                                   .includes(:medication_route)
                                   .current
                                   .ordered
