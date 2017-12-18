@@ -9,6 +9,17 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.0.pre.rc3
+18-12-2017
+
+### Added
+- Consults
+
+### Changed
+- Letter pathology layout
+
+### Fixed
+
 ## 2.0.0.pre.rc2
 17-12-2017
 
