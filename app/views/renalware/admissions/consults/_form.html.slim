@@ -1,34 +1,3 @@
-= content_for(:javascript)
-  javascript:
-    $(document).ready(function() {
-      function replaceOptionsInWardDropdown(data) {
-        var $select = $('#admissions_consult_hospital_ward_id');
-        $select.html("<option />");
-        if (data != undefined) {
-          $.each(data, function(index, hash) {
-            $select.append($('<option />', { value: hash["id"], text: hash["name"] }));
-          });
-        }
-      };
-
-      $(document).on('change', '#admissions_consult_hospital_unit_id', function(evt) {
-        var wardsUrl = $("option:selected", this).data("wards-url");
-        if (wardsUrl == undefined) {
-          replaceOptionsInWardDropdown(undefined);
-        } else {
-          var jqxhr = $.getJSON(wardsUrl)
-            .done(function(data) {
-              replaceOptionsInWardDropdown(data);
-            })
-            .fail(function(error, a, b) {
-              console.log( "error", a, b);
-            })
-        }
-        return true;
-      })
-    });
-
-= render "renalware/shared/errors", model: consult
 = simple_form_for(consult,
                   html: { autocomplete: "off" },
                   wrapper: :horizontal_form) do |f|
@@ -51,7 +20,8 @@
   = f.input :consult_site_id,
             collection: Renalware::Admissions::ConsultSite.all,
             include_blank: true,
-            wrapper: :horizontal_medium
+            wrapper: :horizontal_medium,
+            include_blank: "Other site (please enter below)"
 
   = f.association :hospital_ward,
                   as: :grouped_select,
@@ -60,12 +30,8 @@
                   label_method: ->(s){ "#{s.to_s} (#{s.hospital_unit.unit_code})" },
                   wrapper: :horizontal_medium,
                   include_blank: "Other ward (please enter below)"
-                  /input_html: {
-                  /  class: "searchable_select",
-                  /  data: { tags: true,
-                  /          placeholder: "Choose a ward or type another location" }}
 
-  = f.input :other_ward
+  = f.input :other_site_or_ward, wrapper: :horizontal_medium
   = f.input :started_on, as: :date_picker, wrapper: :horizontal_datepicker
   = f.input :consult_type, wrapper: :horizontal_medium
   = f.input :decided_on, as: :date_picker, wrapper: :horizontal_datepicker

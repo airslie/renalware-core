@@ -10,6 +10,15 @@ en:
         hospital_ward: Ward
         consult_type: Type
         contact_number: Bleep/Ext
+        other_site_or_ward: Other site or ward
+    errors:
+      models:
+        renalware/admissions/consult:
+          attributes:
+            other_site_or_ward:
+              blank: Please enter a location, or choose Consult Site or Ward above
+      renalware/admissions/consult:
+        other_site_or_ward:
   enumerize:
     renalware/admissions/consult:
       transfer_priority:

@@ -56,7 +56,7 @@ module Renalware
             patient_id: patient.id,
             consult_site_id: consult_site.id,
             hospital_ward_id: hospital_unit.wards.first.id,
-            other_ward: "X",
+            other_site_or_ward: "X",
             started_on: date,
             decided_on: date,
             transferred_on: date,
@@ -131,10 +131,10 @@ module Renalware
       context "with invalid inputs" do
         it "re-renders the modal form with validation errors" do
           consult = create_consult
-          params = { consult_site_id: nil }
+          # other_site_or_ward must be provided if consult_site_id & hospital_ward_id are nil
+          params = { consult_site_id: nil, hospital_ward_id: nil, other_site_or_ward: nil }
 
-          patch(admissions_consult_path(consult),
-                params: { admissions_consult: params })
+          patch(admissions_consult_path(consult), params: { admissions_consult: params })
 
           expect(response).to have_http_status(:success)
           expect(response).to render_template(:edit)

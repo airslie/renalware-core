@@ -7,10 +7,12 @@ module Renalware
       extend Enumerize
       acts_as_paranoid
       validates :patient_id, presence: true
-      validates :consult_site_id, presence: true
       validates :started_on, presence: true
       validates :description, presence: true
       validates :consult_type, presence: true
+      validates :other_site_or_ward, presence: {
+        if: ->(consult){ consult.consult_site_id.blank? && consult.hospital_ward_id.blank? }
+      }
 
       belongs_to :patient
       belongs_to :consult_site, class_name: "Admissions::ConsultSite"

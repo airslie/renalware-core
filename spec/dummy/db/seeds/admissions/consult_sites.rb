@@ -1,6 +1,6 @@
 module Renalware
   log "Creating Admission::ConsultSites" do
-    %w(SiteA SiteB SiteC).each do |name|
+    ["Site A", "Site B", "Site C"].each do |name|
       Admissions::ConsultSite.find_or_create_by!(name: name)
     end
   end
