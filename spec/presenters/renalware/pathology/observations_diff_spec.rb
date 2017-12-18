@@ -40,7 +40,7 @@ module Renalware
           #    numeric change in result (b.result - a.result) if a and b present above
           #   ]
           # }
-          expect(diff_hash.keys).to eq([:CRE, :HGB, :PTH])
+          expect(diff_hash.keys).to eq([:HGB, :CRE, :PTH])
 
           expect(diff_hash[:HGB][0].result).to eq(hgb_old[:result])
           expect(diff_hash[:HGB][0].observed_at).to eq(hgb_old[:observed_at])

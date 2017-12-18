@@ -33,7 +33,7 @@ module Renalware
         end
 
         def observed_at
-          Time.parse(hash.fetch(:observed_at, "1970-01-01"))
+          Time.zone.parse(hash.fetch(:observed_at, "1970-01-01"))
         end
 
         def supercedes?(other)
@@ -74,11 +74,13 @@ module Renalware
       #     1.1
       #  ]
       # }
+      # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
       def to_h
         return {} if observation_set_a.blank? && observation_set_a.blank?
+
         filter_observations
-        codes = (observation_set_a.keys && observation_set_b.keys).sort
-        codes.each_with_object({}) do |code, hash|
+
+        description_codes.each_with_object({}) do |code, hash|
           obs_a = Observation.new(observation_set_a.fetch(code, {}))
           obs_b = Observation.new(observation_set_b.fetch(code, {}))
 
@@ -93,6 +95,7 @@ module Renalware
           hash[code] = arr
         end
       end
+      # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
       private
 
