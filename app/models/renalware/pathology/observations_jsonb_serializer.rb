@@ -27,11 +27,13 @@ module Renalware
       #   values.hgb_observed_at # => "2017-17-01"
       # So the values has methods corresponding to the entire set of possible
       # OBX codes, and also methods to reach in and get their result and observed_at date
+      # rubocop:disable Style/MethodMissing
       def method_missing(method_name, *_args, &_block)
         code, suffix = method_parts(method_name)
         return super unless AllObservationCodes.include?(code)
         observation_hash_or_hash_element_for(code, suffix)
       end
+      # rubocop:enable Style/MethodMissing
 
       # From eg hgb_result, returns
       # [:HGB, "result"]
@@ -55,13 +57,16 @@ module Renalware
       end
 
       def self.load(hash)
-        new_hash = if hash.nil? then {}
-                   elsif hash.is_a?(Hash) then hash
-                   else JSON.parse(hash)
-                   end
-        new_hash
+        type_check(hash)
           .with_indifferent_access
           .extend(ObservationSetMethods)
+      end
+
+      def self.type_check(hash)
+        if hash.nil? then {}
+        elsif hash.is_a?(Hash) then hash
+        else JSON.parse(hash)
+        end
       end
     end
   end
