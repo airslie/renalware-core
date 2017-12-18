@@ -19,9 +19,9 @@ module Renalware
         MessageParamParser.new(message_payload).parse
       end
 
-      def create_observations(params)
-        return if params.nil?
-        CreateObservations.new.call(params)
+      def create_observations(pathology_params)
+        return if pathology_params.nil? # eg patient does not exist
+        CreateObservations.new.call(pathology_params)
       end
     end
   end
