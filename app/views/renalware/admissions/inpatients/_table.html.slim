@@ -1,0 +1,50 @@
+.admissions-inpatients-table
+  table
+    thead
+      tr
+        th.col-width-medium Site/Ward
+        th.at-least.col-width-medium Patient
+        th.col-width-nhs-no NHS No.
+        th.col-width-reference-no Hosp Nos.
+        th.col-width-small Modality
+        th.col-width-tiny Sex
+        th.col-width-tiny Age
+        th.col-width-small Admitted
+        th.col-width-medium Reason
+        th.show-for-small Discharged
+        th.show-for-small Disch Summ Date
+        th.col-width-tiny
+    tbody
+      - inpatients.each do |inpatient|
+        - uid = "inpatient-#{inpatient.id}"
+        tr
+          td= inpatient.unit_and_ward
+          td= inpatient.patient_name
+          td= inpatient.patient_nhs_number
+          td= inpatient.patient_hospital_identifiers
+          td= inpatient.patient_current_modality
+          td= inpatient.patient_sex
+          td= inpatient.patient_age
+          td= inpatient.admitted_on
+          td= inpatient.reason_for_admission
+          td= inpatient.discharged_on
+          td= inpatient.summarised_on
+          td
+            / As we have lots of possible actions, group them in a button group.
+            / A wrapping div is required for now in order for the button group display correctly
+            / (though we could style the td like a div I guess).
+            / TODO add options for: discharge, add discharge summary (simplified forms)
+            div
+              button.button.secondary.dropdown(href="#"
+                                               data-dropdown=uid
+                                               aria-controls=uid
+                                               aria-expanded="false")
+                | Actions&hellip;
+              ul.f-dropdown(id="#{uid}" data-dropdown-content aria-hidden="true")
+
+                = dropdown_btn_item(icon: "fa-edit",
+                                    url: edit_admissions_inpatient_path(inpatient),
+                                    title: "Edit",
+                                    enabled: policy(inpatient).edit?)
+
+= render "renalware/admissions/requests/modal_dialog_placeholder"
