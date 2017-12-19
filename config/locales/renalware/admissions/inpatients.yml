@@ -1,0 +1,16 @@
+en:
+  activerecord:
+    attributes:
+      renalware/admissions/inpatient:
+        admitted_on: Admitted Date
+        admission_type: Adm Type
+        consultant: Consultant
+        modality: Modality
+        reason_for_admission: Reason for admission
+        notes: Notes
+        transferred_on: Transfer Date
+        transferred_to: Transfer Destin
+        discharged_on: Disch Date
+        discharge_summary: Discharge Summary
+        summarised_on: Disch Summ Date
+        summarised_by_id: Disch Summ Author
