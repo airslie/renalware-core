@@ -725,6 +725,88 @@ ALTER SEQUENCE admission_consults_id_seq OWNED BY admission_consults.id;
 
 
 --
+-- Name: admission_discharge_destinations; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE admission_discharge_destinations (
+    id bigint NOT NULL,
+    destination character varying NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: admission_discharge_destinations_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE admission_discharge_destinations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admission_discharge_destinations_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE admission_discharge_destinations_id_seq OWNED BY admission_discharge_destinations.id;
+
+
+--
+-- Name: admission_inpatients; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE admission_inpatients (
+    id bigint NOT NULL,
+    hospital_unit_id bigint,
+    hospital_ward_id bigint,
+    patient_id bigint NOT NULL,
+    admitted_on date NOT NULL,
+    admission_type character varying NOT NULL,
+    consultant character varying,
+    modality character varying,
+    reason_for_admission text NOT NULL,
+    notes text,
+    transferred_on date,
+    transferred_to character varying,
+    discharged_on date,
+    destination_id integer,
+    other_destination character varying,
+    discharge_summary text,
+    summarised_on date,
+    summarised_by_id bigint,
+    updated_by_id bigint NOT NULL,
+    created_by_id bigint NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: admission_inpatients_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE admission_inpatients_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admission_inpatients_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE admission_inpatients_id_seq OWNED BY admission_inpatients.id;
+
+
+--
 -- Name: admission_request_reasons; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -6107,6 +6189,20 @@ ALTER TABLE ONLY admission_consults ALTER COLUMN id SET DEFAULT nextval('admissi
 
 
 --
+-- Name: admission_discharge_destinations id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_discharge_destinations ALTER COLUMN id SET DEFAULT nextval('admission_discharge_destinations_id_seq'::regclass);
+
+
+--
+-- Name: admission_inpatients id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_inpatients ALTER COLUMN id SET DEFAULT nextval('admission_inpatients_id_seq'::regclass);
+
+
+--
 -- Name: admission_request_reasons id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -7144,6 +7240,22 @@ ALTER TABLE ONLY admission_consult_sites
 
 ALTER TABLE ONLY admission_consults
     ADD CONSTRAINT admission_consults_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admission_discharge_destinations admission_discharge_destinations_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_discharge_destinations
+    ADD CONSTRAINT admission_discharge_destinations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admission_inpatients admission_inpatients_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_inpatients
+    ADD CONSTRAINT admission_inpatients_pkey PRIMARY KEY (id);
 
 
 --
@@ -8495,6 +8607,62 @@ CREATE INDEX index_admission_consults_on_seen_by_id ON admission_consults USING 
 --
 
 CREATE INDEX index_admission_consults_on_updated_by_id ON admission_consults USING btree (updated_by_id);
+
+
+--
+-- Name: index_admission_discharge_destinations_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_discharge_destinations_on_deleted_at ON admission_discharge_destinations USING btree (deleted_at);
+
+
+--
+-- Name: index_admission_inpatients_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_inpatients_on_created_by_id ON admission_inpatients USING btree (created_by_id);
+
+
+--
+-- Name: index_admission_inpatients_on_destination_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_inpatients_on_destination_id ON admission_inpatients USING btree (destination_id);
+
+
+--
+-- Name: index_admission_inpatients_on_hospital_unit_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_inpatients_on_hospital_unit_id ON admission_inpatients USING btree (hospital_unit_id);
+
+
+--
+-- Name: index_admission_inpatients_on_hospital_ward_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_inpatients_on_hospital_ward_id ON admission_inpatients USING btree (hospital_ward_id);
+
+
+--
+-- Name: index_admission_inpatients_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_inpatients_on_patient_id ON admission_inpatients USING btree (patient_id);
+
+
+--
+-- Name: index_admission_inpatients_on_summarised_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_inpatients_on_summarised_by_id ON admission_inpatients USING btree (summarised_by_id);
+
+
+--
+-- Name: index_admission_inpatients_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_inpatients_on_updated_by_id ON admission_inpatients USING btree (updated_by_id);
 
 
 --
@@ -11066,6 +11234,14 @@ ALTER TABLE ONLY hd_schedule_definitions
 
 
 --
+-- Name: admission_inpatients fk_rails_098ff7475a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_inpatients
+    ADD CONSTRAINT fk_rails_098ff7475a FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: hd_profiles fk_rails_0aab25a07c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -11546,6 +11722,14 @@ ALTER TABLE ONLY hd_diary_slots
 
 
 --
+-- Name: admission_inpatients fk_rails_5957b93451; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_inpatients
+    ADD CONSTRAINT fk_rails_5957b93451 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: patients fk_rails_5b44e541da; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -11559,6 +11743,14 @@ ALTER TABLE ONLY patients
 
 ALTER TABLE ONLY pd_training_sessions
     ADD CONSTRAINT fk_rails_5cbe110e5f FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
+-- Name: admission_inpatients fk_rails_5fe76c4a50; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_inpatients
+    ADD CONSTRAINT fk_rails_5fe76c4a50 FOREIGN KEY (destination_id) REFERENCES admission_discharge_destinations(id);
 
 
 --
@@ -11727,6 +11919,14 @@ ALTER TABLE ONLY letter_archives
 
 ALTER TABLE ONLY research_study_participants
     ADD CONSTRAINT fk_rails_8039d07f46 FOREIGN KEY (study_id) REFERENCES research_studies(id);
+
+
+--
+-- Name: admission_inpatients fk_rails_8739bbb0ca; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_inpatients
+    ADD CONSTRAINT fk_rails_8739bbb0ca FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -12074,6 +12274,14 @@ ALTER TABLE ONLY hd_stations
 
 
 --
+-- Name: admission_inpatients fk_rails_afa37cc282; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_inpatients
+    ADD CONSTRAINT fk_rails_afa37cc282 FOREIGN KEY (summarised_by_id) REFERENCES users(id);
+
+
+--
 -- Name: pathology_requests_patient_rules fk_rails_b13e09c8a3; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -12202,6 +12410,14 @@ ALTER TABLE ONLY patient_alerts
 
 
 --
+-- Name: admission_inpatients fk_rails_c5ec0c3e27; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_inpatients
+    ADD CONSTRAINT fk_rails_c5ec0c3e27 FOREIGN KEY (hospital_ward_id) REFERENCES hospital_wards(id);
+
+
+--
 -- Name: hd_prescription_administrations fk_rails_c654406492; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -12287,6 +12503,14 @@ ALTER TABLE ONLY admission_requests
 
 ALTER TABLE ONLY letter_signatures
     ADD CONSTRAINT fk_rails_d4aaa80dee FOREIGN KEY (letter_id) REFERENCES letter_letters(id);
+
+
+--
+-- Name: admission_inpatients fk_rails_d600cad2a5; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_inpatients
+    ADD CONSTRAINT fk_rails_d600cad2a5 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
 
 
 --
@@ -13222,6 +13446,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171213111513'),
 ('20171214141335'),
 ('20171214190849'),
-('20171215122454');
+('20171215122454'),
+('20171219154529');
 
 
