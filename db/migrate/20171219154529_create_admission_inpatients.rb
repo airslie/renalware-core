@@ -14,7 +14,7 @@ class CreateAdmissionInpatients < ActiveRecord::Migration[5.1]
       t.string :transferred_to
       t.date :discharged_on
       t.string :discharge_destination
-      t.string :other_destination
+      t.string :destination_notes
       t.text :discharge_summary
       t.date :summarised_on
       t.references :summarised_by, foreign_key: { to_table: :users }, index: true

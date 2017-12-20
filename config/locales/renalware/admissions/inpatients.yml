@@ -6,12 +6,13 @@ en:
         admission_type: Adm Type
         consultant: Consultant
         modality: Modality
-        reason_for_admission: Reason for admission
+        reason_for_admission: Reason for Admission
         notes: Notes
         transferred_on: Transfer Date
         transferred_to: Transfer Destin
         discharged_on: Disch Date
-        destination_id: Disch Destin
+        discharge_destination: Disch Destin
+        destination_notes: Destination Notes
         discharge_summary: Discharge Summary
         summarised_on: Disch Summ Date
         summarised_by_id: Disch Summ Author
@@ -26,3 +27,4 @@ en:
         other_hosp: Other Hosp
         itu: ITU
         death: Deceased
+        other: Other (Specify in Notes)

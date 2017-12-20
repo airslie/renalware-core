@@ -743,7 +743,7 @@ CREATE TABLE admission_inpatients (
     transferred_to character varying,
     discharged_on date,
     discharge_destination character varying,
-    other_destination character varying,
+    destination_notes character varying,
     discharge_summary text,
     summarised_on date,
     summarised_by_id bigint,
@@ -11173,14 +11173,6 @@ ALTER TABLE ONLY hd_schedule_definitions
 
 
 --
--- Name: admission_inpatients fk_rails_098ff7475a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY admission_inpatients
-    ADD CONSTRAINT fk_rails_098ff7475a FOREIGN KEY (updated_by_id) REFERENCES users(id);
-
-
---
 -- Name: hd_profiles fk_rails_0aab25a07c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -11250,6 +11242,14 @@ ALTER TABLE ONLY pathology_requests_patient_rules
 
 ALTER TABLE ONLY medication_prescriptions
     ADD CONSTRAINT fk_rails_17327d4301 FOREIGN KEY (medication_route_id) REFERENCES medication_routes(id);
+
+
+--
+-- Name: admission_inpatients fk_rails_1b02d07a4c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_inpatients
+    ADD CONSTRAINT fk_rails_1b02d07a4c FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
 
 
 --
@@ -11661,14 +11661,6 @@ ALTER TABLE ONLY hd_diary_slots
 
 
 --
--- Name: admission_inpatients fk_rails_5957b93451; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY admission_inpatients
-    ADD CONSTRAINT fk_rails_5957b93451 FOREIGN KEY (created_by_id) REFERENCES users(id);
-
-
---
 -- Name: patients fk_rails_5b44e541da; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -11690,6 +11682,14 @@ ALTER TABLE ONLY pd_training_sessions
 
 ALTER TABLE ONLY pd_regime_terminations
     ADD CONSTRAINT fk_rails_6021bed852 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
+-- Name: admission_inpatients fk_rails_6030c9cf94; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_inpatients
+    ADD CONSTRAINT fk_rails_6030c9cf94 FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --
@@ -11850,14 +11850,6 @@ ALTER TABLE ONLY letter_archives
 
 ALTER TABLE ONLY research_study_participants
     ADD CONSTRAINT fk_rails_8039d07f46 FOREIGN KEY (study_id) REFERENCES research_studies(id);
-
-
---
--- Name: admission_inpatients fk_rails_8739bbb0ca; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY admission_inpatients
-    ADD CONSTRAINT fk_rails_8739bbb0ca FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -12205,11 +12197,11 @@ ALTER TABLE ONLY hd_stations
 
 
 --
--- Name: admission_inpatients fk_rails_afa37cc282; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+-- Name: admission_inpatients fk_rails_afd9f96762; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
 ALTER TABLE ONLY admission_inpatients
-    ADD CONSTRAINT fk_rails_afa37cc282 FOREIGN KEY (summarised_by_id) REFERENCES users(id);
+    ADD CONSTRAINT fk_rails_afd9f96762 FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -12293,6 +12285,14 @@ ALTER TABLE ONLY access_plans
 
 
 --
+-- Name: admission_inpatients fk_rails_baafb25792; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_inpatients
+    ADD CONSTRAINT fk_rails_baafb25792 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: problem_problems fk_rails_bbae3e065d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -12338,14 +12338,6 @@ ALTER TABLE ONLY modality_modalities
 
 ALTER TABLE ONLY patient_alerts
     ADD CONSTRAINT fk_rails_c37cc03264 FOREIGN KEY (created_by_id) REFERENCES users(id);
-
-
---
--- Name: admission_inpatients fk_rails_c5ec0c3e27; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY admission_inpatients
-    ADD CONSTRAINT fk_rails_c5ec0c3e27 FOREIGN KEY (hospital_ward_id) REFERENCES hospital_wards(id);
 
 
 --
@@ -12437,14 +12429,6 @@ ALTER TABLE ONLY letter_signatures
 
 
 --
--- Name: admission_inpatients fk_rails_d600cad2a5; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY admission_inpatients
-    ADD CONSTRAINT fk_rails_d600cad2a5 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
-
-
---
 -- Name: access_plans fk_rails_d61e7c4674; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -12506,6 +12490,14 @@ ALTER TABLE ONLY pathology_observations
 
 ALTER TABLE ONLY messaging_messages
     ADD CONSTRAINT fk_rails_dc393c1672 FOREIGN KEY (replying_to_message_id) REFERENCES messaging_messages(id);
+
+
+--
+-- Name: admission_inpatients fk_rails_dd079ada48; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_inpatients
+    ADD CONSTRAINT fk_rails_dd079ada48 FOREIGN KEY (summarised_by_id) REFERENCES users(id);
 
 
 --
@@ -12722,6 +12714,14 @@ ALTER TABLE ONLY hd_stations
 
 ALTER TABLE ONLY hd_prescription_administrations
     ADD CONSTRAINT fk_rails_f51a425d72 FOREIGN KEY (hd_session_id) REFERENCES hd_sessions(id);
+
+
+--
+-- Name: admission_inpatients fk_rails_f58e1b63e4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_inpatients
+    ADD CONSTRAINT fk_rails_f58e1b63e4 FOREIGN KEY (hospital_ward_id) REFERENCES hospital_wards(id);
 
 
 --

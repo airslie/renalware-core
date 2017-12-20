@@ -82,7 +82,7 @@
   = f.input :notes, wrapper: :horizontal_large, input_html: { rows: 3 }
   = f.input :discharged_on, as: :date_picker, wrapper: :horizontal_datepicker
   = f.input :discharge_destination, include_blank: "Please select", wrapper: :horizontal_small
-  = f.input :other_destination, wrapper: :horizontal_medium
+  = f.input :destination_notes, wrapper: :horizontal_medium
   = f.association :summarised_by,
                   as: :user_picker,
                   collection: Renalware::User.ordered,

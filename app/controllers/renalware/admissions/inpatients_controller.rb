@@ -73,7 +73,7 @@ module Renalware
             :hospital_unit_id, :hospital_ward_id, :patient_id, :q,
             :admitted_on, :admission_type, :consultant, :modality,
             :reason_for_admission, :notes, :transferred_on, :transferred_to,
-            :discharged_on, :discharge_destination, :other_destination,
+            :discharged_on, :discharge_destination, :destination_notes,
             :discharge_summary, :summarised_on, :summarised_by_id
           )
       end
