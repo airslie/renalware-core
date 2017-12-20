@@ -1,0 +1,8 @@
+// Delegate to the edit partial _edit.html.slim
+// _edit is re-rendered when have a validation error which is why it is a separate partial.
+// Normally we would render _form, but that has more markup that we need just for a edit
+// here on a couple of fields to allow defalt_cc and description to be changed
+= render "edit",
+         patient: patient,
+         contact: contact,
+         contact_descriptions: contact_descriptions

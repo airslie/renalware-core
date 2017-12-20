@@ -1,0 +1,26 @@
+.modal
+  .modal__header
+    h2= "#{controller.action_name.capitalize} Patient Contact"
+    = render "renalware/shared/modal_close_link"
+
+  .modal__body
+    = render "renalware/shared/errors", model: contact
+
+    = simple_form_for(contact,
+                      url: patient_letters_contact_path(patient, contact),
+                      method: :patch,
+                      remote: true,
+                      wrapper: :horizontal_form) do |f|
+
+      = f.input :default_cc, as: :inline_radio_buttons
+      = f.input :description_id, collection: contact_descriptions
+      = f.input :other_description
+
+      = f.submit class: :button
+      span= " or "
+      = link_to "Cancel",
+               "#",
+               "aria-label" => "Close",
+                class: "reveal-modal-close"
+
+    .modal__footer

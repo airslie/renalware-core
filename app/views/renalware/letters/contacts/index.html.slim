@@ -6,8 +6,14 @@
 
 = within_patient_layout do
   #contacts
-    = render "table", contacts: contacts
+    = render "table", contacts: contacts, patient: patient
 
-  / The modal dialog
+  / The add modal dialog
   #add-patient-contact-modal.reveal-modal.medium(data-reveal)
-    = render "new", patient: patient, contact: contact, contact_descriptions: contact_descriptions
+    = render "new",
+             patient: patient,
+             contact: contact,
+             contact_descriptions: contact_descriptions
+
+  / The edit modal dialog
+  #edit-patient-contact-modal.reveal-modal.medium(data-reveal)

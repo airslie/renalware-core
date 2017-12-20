@@ -1,0 +1,10 @@
+<%# We render this view when the request has been successfully updated.%>
+<%= refresh(".flash-message", partial: "renalware/shared/flash_messages", locals: local_assigns) %>
+$("#edit-patient-contact-modal").foundation('reveal', 'close');
+
+// Refresh the just-updated admissions request
+<%=
+  replace("#letters_contact_#{contact.id}",
+            partial: "contact",
+            locals: { patient: patient, contact: contact })
+%>
