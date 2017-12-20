@@ -1,21 +1,28 @@
 / Use by Pathology::ObservationsDiff renderer
-table.table.pathology-observation-diff
-  thead
-    tr
-      th.col-width-tiny(rowspan=2) Code
-      th.col-width-medium(colspan=2) Used
-      th.col-width-medium(colspan=2) Newer
-    tr
-      th.col-width-tiny Result
-      th.col-width-datetime Date
-      th.col-width-tiny Result
-      th.col-width-datetime Date
+.row
+  - diff.to_h.to_a.in_groups_of(11, false) do |group|
+    .columns.medium-6.large-4.end
+      table.table.pathology-observation-diff.columns
+        thead
+          tr
+            th.col-width-tiny(rowspan=2) Code
+            th.col-width-medium(colspan=2) Currently Used
+            th.col-width-medium(colspan=2) Newer
+          tr
+            th.col-width-tiny Result
+            th.col-width-datetime Date
+            th.col-width-tiny Result
+            th.col-width-datetime Date
 
-  tbody
-    - diff.to_h.each do |code, arr|
-      tr
-        th= code
-        th= arr[0]&.result
-        td= l(arr[0]&.observed_at&.to_date)
-        td= arr[1]&.result
-        td= l(arr[1]&.observed_at&.to_date)
+        tbody
+          - group.each do |arr|
+            - if arr.present?
+              - code = arr[0]
+              - curr = arr[1][0]
+              - poss = arr[1][1]
+              tr
+                th= code
+                th= curr&.result
+                td.col-width-date= l(curr&.observed_at&.to_date)
+                td= poss&.result
+                td.col-width-date= l(poss&.observed_at&.to_date)
