@@ -1,8 +1,8 @@
 class CreateAdmissionInpatients < ActiveRecord::Migration[5.1]
   def change
     create_table :admission_inpatients do |t|
-      t.references :hospital_unit, foreign_key: true, index: true
-      t.references :hospital_ward, foreign_key: true, index: true
+      t.references :hospital_unit, foreign_key: true, index: true, null: false
+      t.references :hospital_ward, foreign_key: true, index: true, null: false
       t.references :patient, foreign_key: true, index: true, null: false
       t.date :admitted_on, null: false
       t.string :admission_type, null: false

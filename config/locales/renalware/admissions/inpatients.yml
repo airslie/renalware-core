@@ -3,28 +3,28 @@ en:
     attributes:
       renalware/admissions/inpatient:
         admitted_on: Admitted Date
-        admission_type: Adm Type
+        admission_type: Admission Type
         consultant: Consultant
         modality: Modality
         reason_for_admission: Reason for Admission
         notes: Notes
         transferred_on: Transfer Date
-        transferred_to: Transfer Destin
-        discharged_on: Disch Date
-        discharge_destination: Disch Destin
+        transferred_to: Transfer Destination
+        discharged_on: Discharge Date
+        discharge_destination: Discharge Destination
         destination_notes: Destination Notes
         discharge_summary: Discharge Summary
-        summarised_on: Disch Summ Date
-        summarised_by_id: Disch Summ Author
-        hospital_unit_id: Hosp Site
-        hospital_ward_id: Hosp Ward
+        summarised_on: Discharge Summary Date
+        summarised_by_id: Discharge Summary Author
+        hospital_unit_id: Hospital Site
+        hospital_ward_id: Hospital Ward
 
   enumerize:
     renalware/admissions/inpatient:
       discharge_destination:
         home: Home
         other_ward: Other Ward
-        other_hosp: Other Hosp
+        other_hosp: Other Hospital
         itu: ITU
         death: Deceased
         other: Other (Specify in Notes)

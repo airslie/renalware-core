@@ -730,8 +730,8 @@ ALTER SEQUENCE admission_consults_id_seq OWNED BY admission_consults.id;
 
 CREATE TABLE admission_inpatients (
     id bigint NOT NULL,
-    hospital_unit_id bigint,
-    hospital_ward_id bigint,
+    hospital_unit_id bigint NOT NULL,
+    hospital_ward_id bigint NOT NULL,
     patient_id bigint NOT NULL,
     admitted_on date NOT NULL,
     admission_type character varying NOT NULL,
