@@ -12,6 +12,7 @@
         th.col-width-small Admitted
         th.col-width-medium Reason
         th.show-for-small Discharged
+        th.show-for-small Destination
         th.show-for-small Disch Summ Date
         th.col-width-tiny
     tbody
@@ -28,6 +29,7 @@
           td= inpatient.admitted_on
           td= inpatient.reason_for_admission
           td= inpatient.discharged_on
+          td= inpatient.discharge_destination&.text
           td= inpatient.summarised_on
           td
             / As we have lots of possible actions, group them in a button group.
