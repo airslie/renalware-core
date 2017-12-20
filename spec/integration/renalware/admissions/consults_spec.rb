@@ -4,6 +4,7 @@ module Renalware
   RSpec.describe "Admission Consult management", type: :request do
     let(:user) { @current_user }
     let(:time) { Time.zone.now }
+    let(:consult_site) { create(:admissions_consult_site, name: "Site1") }
     let(:hospital_unit) { create(:hospital_unit, unit_code: "HospUnit1") }
     let(:hospital_ward) { create(:hospital_ward, name: "Ward1", hospital_unit: hospital_unit) }
 
@@ -16,7 +17,7 @@ module Renalware
              by: user,
              patient: create(:patient, by: user),
              started_on: Time.zone.today,
-             hospital_unit: hospital_unit,
+             consult_site: consult_site,
              hospital_ward: hospital_ward,
              consult_type: "TBC",
              description: "Lorem ipsum dolor")
@@ -30,7 +31,7 @@ module Renalware
 
         expect(response).to have_http_status(:success)
         expect(response.body).to include("Admission Consults")
-        expect(response.body).to include("HospUnit1")
+        expect(response.body).to include("Site1")
         expect(response.body).to include(consult.patient.to_s)
       end
     end
@@ -53,8 +54,9 @@ module Renalware
 
           params = {
             patient_id: patient.id,
-            hospital_unit_id: hospital_unit.id,
+            consult_site_id: consult_site.id,
             hospital_ward_id: hospital_unit.wards.first.id,
+            other_site_or_ward: "X",
             started_on: date,
             decided_on: date,
             transferred_on: date,
@@ -112,9 +114,9 @@ module Renalware
       context "with valid inputs" do
         it "updates the consult" do
           consult = create_consult
-          hospital_unit2 = create(:hospital_unit, unit_code: "HospUnit2")
+          consult_site2 = create(:admissions_consult_site, name: "Site2")
 
-          params = { hospital_unit_id: hospital_unit2.id }
+          params = { consult_site_id: consult_site2.id }
 
           patch(admissions_consult_path(consult),
                 params: { admissions_consult: params })
@@ -122,17 +124,17 @@ module Renalware
           follow_redirect!
           expect(response).to have_http_status(:success)
           expect(response).to render_template(:index)
-          expect(consult.reload.hospital_unit_id).to eq(hospital_unit2.id)
+          expect(consult.reload.consult_site_id).to eq(consult_site2.id)
         end
       end
 
       context "with invalid inputs" do
         it "re-renders the modal form with validation errors" do
           consult = create_consult
-          params = { hospital_unit_id: nil }
+          # other_site_or_ward must be provided if consult_site_id & hospital_ward_id are nil
+          params = { consult_site_id: nil, hospital_ward_id: nil, other_site_or_ward: nil }
 
-          patch(admissions_consult_path(consult),
-                params: { admissions_consult: params })
+          patch(admissions_consult_path(consult), params: { admissions_consult: params })
 
           expect(response).to have_http_status(:success)
           expect(response).to render_template(:edit)

@@ -2,7 +2,7 @@
   table
     thead
       tr
-        th.col-width-medium Site/Ward
+        th.col-width-large Location
         th.at-least.col-width-medium Patient
         th.col-width-nhs-no NHS No.
         th.col-width-reference-no Hosp Nos.
@@ -18,7 +18,7 @@
       - consults.each do |consult|
         - uid = "consult-#{consult.id}"
         tr
-          td= consult.unit_and_ward
+          td= consult.location
           td= consult.patient_name
           td= consult.patient_nhs_number
           td= consult.patient_hospital_identifiers
@@ -43,7 +43,7 @@
 
                 = dropdown_btn_item(icon: "fa-edit",
                                     url: edit_admissions_consult_path(consult),
-                                    title: "Edit",
+                                    title: "View/Edit",
                                     enabled: policy(consult).edit?)
 
                 = dropdown_btn_item(icon: "fa-trash",

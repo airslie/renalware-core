@@ -5,8 +5,8 @@
       method: :get do |f|
     .row
       .columns.medium-4.large-3
-        = f.input :hospital_unit_id_eq,
-                  collection: Renalware::Hospitals::Unit.pluck(:name, :id),
+        = f.input :consult_site_id_eq,
+                  collection: Renalware::Admissions::ConsultSite.pluck(:name, :id),
                   label: "Site"
       .columns.medium-3.large-2
         = f.input :requires_aki_nurse_eq,

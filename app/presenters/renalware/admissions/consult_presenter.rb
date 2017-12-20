@@ -16,8 +16,12 @@ module Renalware
         @patient ||= Renalware::PatientPresenter.new(__getobj__.patient)
       end
 
-      def unit_and_ward
-        [hospital_unit&.unit_code, hospital_ward&.name].compact.join("/")
+      def location
+        [
+          consult_site&.name,
+          hospital_ward&.name,
+          other_site_or_ward
+        ].compact.join(", ")
       end
 
       def patient_name
