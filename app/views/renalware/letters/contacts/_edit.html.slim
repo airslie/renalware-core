@@ -15,6 +15,7 @@
       = f.input :default_cc, as: :inline_radio_buttons
       = f.input :description_id, collection: contact_descriptions
       = f.input :other_description
+      = f.input :notes, as: :text
 
       = f.submit class: :button
       span= " or "

@@ -79,7 +79,9 @@ module Renalware
       end
 
       def update_contact_params
-        params.require(:letters_contact).permit(:default_cc, :description_id)
+        params
+          .require(:letters_contact)
+          .permit(:default_cc, :description_id, :other_description, :notes)
       end
 
       def contact_attributes
