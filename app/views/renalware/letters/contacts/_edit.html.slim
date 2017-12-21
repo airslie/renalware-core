@@ -1,6 +1,9 @@
 .modal
   .modal__header
-    h2= "#{controller.action_name.capitalize} Patient Contact"
+    h2
+      = "#{controller.action_name.capitalize} Patient Contact /"
+      | &nbsp;
+    h3.muted= contact
     = render "renalware/shared/modal_close_link"
 
   .modal__body

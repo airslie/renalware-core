@@ -4,6 +4,7 @@
   td= yes_no(contact.default_cc)
   td= contact.address
   td= contact.notes
-  td= link_to("Edit",
-              edit_patient_letters_contact_path(patient, contact),
-              data: { "reveal-id" => "edit-patient-contact-modal", "reveal-ajax" => "true" })
+  td
+    = link_to("Edit",
+                edit_patient_letters_contact_path(patient, contact),
+                data: { "reveal-id" => "edit-patient-contact-modal", "reveal-ajax" => "true" })

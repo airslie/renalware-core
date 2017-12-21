@@ -2,11 +2,11 @@ table.auto-layout.contacts
   thead
     tr
       th.col-width-medium Name
-      th.col-width-medium Description
-      th.col-width-small Default CC
-      th Address
+      th.col-width-small.at-least Description
+      th.col-width-tiny Default CC
+      th.col-width-large Address
       th Notes
-      th
+      th.col-width-tiny.action
 
   tbody
     = render contacts, patient: patient
