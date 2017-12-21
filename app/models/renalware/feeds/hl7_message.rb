@@ -64,6 +64,21 @@ module Renalware
         def value
           observation_value
         end
+
+        # Because some units of measurement, such as 10^12/L for WBC, contain a caret, the caret
+        # will initially have been encoded by Mirth as \S\ (a Mirth escape sequence for ^
+        # or whatever the mirth component separator character is configured to be)
+        # However in the 10^12/L example above, when encoded by Mirth, becomes `10\S\12/L` but
+        # the `\12` within the message is interpreted as a `\n` (form feed) by
+        # delayed_job when it is read into the yaml format string in the HL7 messages.
+        # While it might be possible to write out yaml into delayed_job using a format
+        # that will not un-escape on reading, the approach here is that the Mirth channel must
+        # encode \S\ as \\S\\ in the message before inserting.
+        # Thus the raw data for units might look like `10\\S\\12/L` and this will work
+        # by the fact that the backslashes are escaped and a significant `\12` is not found.
+        def units
+          super&.gsub("\\S\\", "^")
+        end
       end
 
       def observation_request
