@@ -13,8 +13,8 @@ module Renalware::Feeds
             PV1||Inpatient|NIBC^^^^^^^^|||||MID^KINGS MIDWIVES||||||||||NHS|HXF888888^^^Visit Number|||||||||
             ORC|RE|^PCS|09B0099478^LA||CM||||200911111841|||MID^KINGS MIDWIVES|||||||
             OBR|1|123456^PCS|09B0099478^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
-            OBX|1|TX|WBC^WBC^MB||6.09||||||F|||200911112026||BBKA^Kenneth AMENYAH|
-            OBX|2|TX|RBC^RBC^MB||4.00||||||F|||200911112026||BBKA^Kenneth AMENYAH|
+            OBX|1|TX|WBC^WBC^MB||6.09|10\\S\\12/L|||||F|||200911112026||BBKA^Kenneth AMENYAH|
+            OBX|2|TX|RBC^RBC^MB||4.00|10\\S\\9/L|||||F|||200911112026||BBKA^Kenneth AMENYAH|
           RAW
         end
 
@@ -66,6 +66,7 @@ module Renalware::Feeds
             expect(obs.comment).to eq("")
             expect(obs.date_time).to eq("200911112026")
             expect(obs.value).to eq("6.09")
+            expect(obs.units).to eq("10^12/L")
           end
         end
 
