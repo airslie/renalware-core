@@ -15,7 +15,7 @@ class DropdownButtonItem < ActionView::Base
     @url = options.delete(:url)
     @icon = options.delete(:icon)
     @url_options = options
-    @enabled = options.delete(:enabled) || true
+    @enabled = options.delete(:enabled) { true }
   end
 
   def to_html
