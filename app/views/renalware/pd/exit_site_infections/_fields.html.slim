@@ -2,6 +2,9 @@
 = f.input :outcome, as: :text, html_input: { cols: 50, rows: 6 }, wrapper: :horizontal_large
 = f.input :treatment, as: :text, html_input: { cols: 50, rows: 6 }, wrapper: :horizontal_large
 = f.input :notes, as: :text, html_input: { cols: 50, rows: 6 }, wrapper: :horizontal_large
+= f.input :recurrent, as: :inline_radio_buttons, wrapper: :horizontal_small
+= f.input :cleared, as: :inline_radio_buttons, wrapper: :horizontal_small
+= f.input :catheter_removed, as: :inline_radio_buttons, wrapper: :horizontal_small
 = f.input :clinical_presentation,
           as: :check_boxes,
           boolean_style: :inline,

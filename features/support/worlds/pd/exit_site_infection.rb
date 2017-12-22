@@ -12,12 +12,10 @@ module World
       def record_exit_site_infection_for(patient:,
                                          user:,
                                          diagnosed_on:,
-                                         outcome:,
-                                         clinical_presentation:)
+                                         **args)
         patient.exit_site_infections.create(
           diagnosis_date: diagnosed_on,
-          clinical_presentation: clinical_presentation,
-          outcome: outcome
+          **args
         )
       end
 
@@ -67,7 +65,8 @@ module World
                                          user:,
                                          diagnosed_on:,
                                          outcome:,
-                                         clinical_presentation:)
+                                         clinical_presentation:,
+                                         **args)
         login_as user
 
         visit new_patient_pd_exit_site_infection_path(patient)

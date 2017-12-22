@@ -4,7 +4,10 @@ When("Clyde records an exit site infection for Patty") do
     user: @clyde,
     diagnosed_on: "10-10-2016",
     clinical_presentation: %w(pain swelling),
-    outcome: "Recovered well. Scheduled another training review session."
+    outcome: "Recovered well. Scheduled another training review session.",
+    recurrent: false,
+    catheter_removed: false,
+    cleared: false
   )
 end
 
@@ -14,7 +17,10 @@ Given("Clyde recorded an exit site infection for Patty") do
     user: @clyde,
     clinical_presentation: %w(pain swelling),
     diagnosed_on: "10-10-2016",
-    outcome: "Recovered well. Scheduled another training review session."
+    outcome: "Recovered well. Scheduled another training review session.",
+    recurrent: false,
+    catheter_removed: false,
+    cleared: false
   )
 end
 

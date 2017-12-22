@@ -12,9 +12,9 @@
     dd= exit_site_infection.notes
     dt= attr_name(exit_site_infection, :clinical_presentation)
     dd= exit_site_infection.clinical_presentation&.texts&.join(", ")
-    dt= attr_name(exit_site_infection, :cleared)
-    dd= yes_no_if_set(exit_site_infection.cleared)
-
+    - %i(recurrent cleared catheter_removed).each do |option|
+      dt= attr_name(exit_site_infection, option)
+      dd= yes_no_if_set(exit_site_infection.public_send(option))
 
   .right
     = link_to "Edit",

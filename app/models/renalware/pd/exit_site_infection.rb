@@ -7,9 +7,8 @@ module Renalware
       extend Enumerize
 
       belongs_to :patient, class_name: "Renalware::Patient", touch: true
-      # serialize :clinical_presentation, Array
 
-      # clinical_presentation serializes to a pg array
+      # clinical_presentation serializes to a pg array e.g. {pus,swabbed,tunnel_infection}
       enumerize :clinical_presentation,
                 in: [:pain, :redness, :swelling, :pus, :swabbed, :tunnel_infection],
                 multiple: true

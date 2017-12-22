@@ -61,7 +61,7 @@ module Renalware
     end
 
     def yes_no_if_set(bool)
-      return if bool.blank?
+      return if bool.nil?
       yes_no(bool)
     end
 
