@@ -27,7 +27,7 @@ module Renalware
 
       validate :must_select_one_day
 
-      def initialize(attributes = nil, options = {})
+      def initialize(attributes = nil, _options = {})
         super() # !! Rails5 upgrade was super
         Date::DAYNAME_SYMBOLS.each do |day|
           public_send(:"#{day}=", true)

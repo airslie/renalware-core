@@ -60,7 +60,7 @@ module Renalware
         # The result is in ml/hr/kg
         def ufr
           return nil unless measured_dry_weight > 0 && duration > 0
-          return nil unless 0 < (fluid_removed = document.dialysis.fluid_removed)
+          return nil unless (fluid_removed = document.dialysis.fluid_removed) > 0
 
           fluid_removed / duration_as_hours / measured_dry_weight
         end

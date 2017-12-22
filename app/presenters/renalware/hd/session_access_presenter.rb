@@ -9,7 +9,7 @@ module Renalware
         return "" unless info
         [
           info.access_type,
-          info.access_side.try!(:capitalize)
+          info.access_side&.capitalize
         ].compact.join("<br/>")
       end
 
