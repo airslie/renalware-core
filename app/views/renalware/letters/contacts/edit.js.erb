@@ -1,0 +1,9 @@
+// Displayed when we failed to update via a modal
+// We render the edit partial _edit.html.slim
+var modal = $("#edit-patient-contact-modal")
+$(modal).html("<%=
+  j(render 'edit',
+           patient: patient,
+           contact: contact,
+           contact_descriptions: contact_descriptions)
+%>");

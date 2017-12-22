@@ -23,7 +23,30 @@ module Renalware
         end
       end
 
+      def edit
+        contact = patient.contacts.find(params[:id])
+        render_edit(contact)
+      end
+
+      def update
+        contact = patient.contacts.find(params[:id])
+        if contact.update(update_contact_params)
+          flash.now[:notice] = success_msg_for("contact")
+          render locals: { patient: patient, contact: ContactPresenter.new(contact) }
+        else
+          render_edit(contact)
+        end
+      end
+
       private
+
+      def render_edit(contact)
+        render :edit, locals: {
+          patient: patient,
+          contact: contact,
+          contact_descriptions: find_contact_descriptions
+        }, layout: false
+      end
 
       def build_contact
         Contact.new.tap(&:build_person)
@@ -53,6 +76,12 @@ module Renalware
           .require(:letters_contact)
           .permit(contact_attributes)
           .tap { |p| try_merge_person_creator(p) }
+      end
+
+      def update_contact_params
+        params
+          .require(:letters_contact)
+          .permit(:default_cc, :description_id, :other_description, :notes)
       end
 
       def contact_attributes

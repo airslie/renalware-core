@@ -3,10 +3,16 @@
     border-bottom: solid 1px $winter-sky;
     margin-bottom: 10px;
 
-    h1, h2 {
+    h1, h2, h3 {
       margin: 0 0 0.5rem 0;
       font-size: 1.3rem;
       color: $dark-grey;
+      display: inline-block;
+    }
+
+    h3 {
+      font-weight: normal;
+      color: $dashboard-muted-color;
     }
 
     .reveal-modal-close {
