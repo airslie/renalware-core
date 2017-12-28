@@ -7,12 +7,13 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       def index
-        query = InpatientQuery.new(params[:q])
-        inpatients = query.call.page(page).per(per_page)
+        search_form = Inpatients::SearchForm.new(params.key?(:query) ? search_params : {})
+        inpatients = search_form.submit.page(page).per(per_page)
         authorize inpatients
+
         render locals: {
-          inpatients:  CollectionPresenter.new(inpatients, InpatientPresenter),
-          query: query.search
+          inpatients: CollectionPresenter.new(inpatients, InpatientPresenter),
+          form: search_form
         }
       end
 
@@ -64,6 +65,12 @@ module Renalware
 
       def render_edit(inpatient)
         render :edit, locals: { inpatient: inpatient }
+      end
+
+      def search_params
+        params
+          .require(:query) {}
+          .permit(:hospital_unit_id, :hospital_ward_id, :status)
       end
 
       def inpatient_params

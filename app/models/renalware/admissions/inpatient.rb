@@ -20,6 +20,15 @@ module Renalware
 
       enumerize :admission_type, in: %i(unknown routine elective emergency consult transfer)
       enumerize :discharge_destination, in: %i(home other_ward other_hosp itu death other)
+
+      scope :currently_admitted, lambda {
+        where(discharged_on: nil)
+      }
+
+      scope :discharged_but_missing_a_summary, lambda {
+        where("discharge_summary is null or discharge_summary = ?", "")
+          .where.not(discharged_on: nil)
+      }
     end
   end
 end

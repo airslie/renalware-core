@@ -15,4 +15,30 @@ RSpec.describe Renalware::Admissions::Inpatient, type: :model do
   it "is paranoid" do
     expect(described_class).to respond_to(:deleted)
   end
+
+  describe "scope .currently_admitted" do
+    it "returns only currently admitted patients" do
+      create(:admissions_inpatient, discharged_on: "2017-12-12") # previous inpatient
+      current_inpatient = create(:admissions_inpatient, discharged_on: nil)
+
+      expect(described_class.currently_admitted). to eq [current_inpatient]
+    end
+  end
+
+  describe "scope .discharged_but_missing_a_summary" do
+    it "returns only discharged patients who have no discharge summary yet" do
+      create(
+        :admissions_inpatient,
+        discharged_on: "2017-12-12",
+        discharge_summary: "discharge summary"
+      )
+      disch_without_summ = create(
+        :admissions_inpatient,
+        discharged_on: "2017-12-12",
+        discharge_summary: nil
+      )
+
+      expect(described_class.discharged_but_missing_a_summary). to eq [disch_without_summ]
+    end
+  end
 end

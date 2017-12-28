@@ -11,9 +11,9 @@
         th.col-width-tiny Age
         th.col-width-small Admitted
         th.col-width-medium Reason
-        th.show-for-small Discharged
-        th.show-for-small Destination
-        th.show-for-small Disch Summ Date
+        th.col-width-date Discharged
+        th Destination
+        th.col-width-date Disch Summ Date
         th.col-width-tiny
     tbody
       - inpatients.each do |inpatient|
@@ -31,7 +31,7 @@
           td= inpatient.discharged_on
           td= inpatient.discharge_destination&.text
           td= inpatient.summarised_on
-          td
+          td.actions-dropdown
             / As we have lots of possible actions, group them in a button group.
             / A wrapping div is required for now in order for the button group display correctly
             / (though we could style the td like a div I guess).

@@ -7,6 +7,6 @@
     = link_to("add them", new_patient_path)
     | &nbsp;first
 
-  = render "filters", query: query
+  = render "filters", form: form
   = render "table", inpatients: inpatients
   = paginate inpatients

@@ -29,7 +29,7 @@
           td= yes_no(consult.requires_aki_nurse)
           td.show-for-large-up.consult-author.col-width-medium-with-ellipsis(title=consult.created_by)= consult.created_by
           td.col-width-medium-with-ellipsis(title=consult.description)= consult.description
-          td
+          td.actions-dropdown
             / As we have lots of possible actions, group them in a button group.
             / A wrapping div is required for now in order for the button group display correctly
             / (though we could style the td like a div I guess).
