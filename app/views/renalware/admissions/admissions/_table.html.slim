@@ -1,52 +1,57 @@
+- compact = false unless defined?(compact)
 .admissions-table
   table
     thead
       tr
         th.col-width-medium Site/Ward
-        th.at-least.col-width-medium Patient
-        th.col-width-nhs-no NHS No.
-        th.col-width-reference-no Hosp Nos.
-        th.col-width-small Modality
-        th.col-width-tiny Sex
-        th.col-width-tiny Age
+        - unless compact
+          th.at-least.col-width-medium Patient
+          th.col-width-nhs-no NHS No.
+          th.col-width-reference-no Hosp Nos.
+          th.col-width-small Modality
+          th.col-width-tiny Sex
+          th.col-width-tiny Age
         th.col-width-date Admitted
         th.col-width-medium Reason
         th.col-width-tiny LOS
         th.col-width-date Discharged
         th Destination
         th.col-width-date Disch Summ Date
-        th.col-width-tiny
+        - unless compact
+          th.col-width-tiny
     tbody
       - admissions.each do |admission|
         - uid = "admission-#{admission.id}"
         tr
           td= admission.unit_and_ward
-          td= admission.patient_name
-          td= admission.patient_nhs_number
-          td= admission.patient_hospital_identifiers
-          td= admission.patient_current_modality
-          td= admission.patient_sex
-          td= admission.patient_age
+          - unless compact
+            td= default_patient_link(admission.patient)
+            td= admission.patient_nhs_number
+            td= admission.patient_hospital_identifiers
+            td= admission.patient_current_modality
+            td= admission.patient_sex
+            td= admission.patient_age
           td= admission.admitted_on
           td= admission.reason_for_admission
           td= admission.length_of_stay
           td= admission.discharged_on
           td= admission.discharge_destination&.text
           td= admission.summarised_on
-          td.actions-dropdown
-            / As we have lots of possible actions, group them in a button group.
-            / A wrapping div is required for now in order for the button group display correctly
-            / (though we could style the td like a div I guess).
-            / TODO add options for: discharge, add discharge summary (simplified forms)
-            div
-              button.button.secondary.dropdown(href="#"
-                                               data-dropdown=uid
-                                               aria-controls=uid
-                                               aria-expanded="false")
-                | Actions&hellip;
-              ul.f-dropdown(id="#{uid}" data-dropdown-content aria-hidden="true")
+          - unless compact
+            td.actions-dropdown
+              / As we have lots of possible actions, group them in a button group.
+              / A wrapping div is required for now in order for the button group display correctly
+              / (though we could style the td like a div I guess).
+              / TODO add options for: discharge, add discharge summary (simplified forms)
+              div
+                button.button.secondary.dropdown(href="#"
+                                                 data-dropdown=uid
+                                                 aria-controls=uid
+                                                 aria-expanded="false")
+                  | Actions&hellip;
+                ul.f-dropdown(id="#{uid}" data-dropdown-content aria-hidden="true")
 
-                = dropdown_btn_item(icon: "fa-edit",
-                                    url: edit_admissions_admission_path(admission),
-                                    title: "Edit",
-                                    enabled: policy(admission).edit?)
+                  = dropdown_btn_item(icon: "fa-edit",
+                                      url: edit_admissions_admission_path(admission),
+                                      title: "Edit",
+                                      enabled: policy(admission).edit?)
