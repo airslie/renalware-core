@@ -24,7 +24,7 @@ module Renalware
               hospital_ward_id_eq: hospital_ward_id
             }.merge!(status_scope)
 
-            Query.new(options).call
+            Query.call(options)
           end
         end
 

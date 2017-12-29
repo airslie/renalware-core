@@ -7,7 +7,6 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       def index
-        search_form = Inpatients::SearchForm.new(params.key?(:query) ? search_params : {})
         inpatients = search_form.submit.page(page).per(per_page)
         authorize inpatients
 
@@ -52,6 +51,13 @@ module Renalware
       end
 
       private
+
+      def search_form
+        @search_form ||= begin
+          options = params.key?(:query) ? search_params : {}
+          Inpatients::SearchForm.new(options)
+        end
+      end
 
       def find_and_authorize_inpatient
         Inpatient.find(params[:id]).tap do |inpatient|

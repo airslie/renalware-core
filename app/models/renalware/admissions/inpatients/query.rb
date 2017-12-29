@@ -1,13 +1,14 @@
 require_dependency "renalware/admissions"
+require "attr_extras"
 
 module Renalware
   module Admissions
     module Inpatients
       class Query
-        attr_reader :query
+        pattr_initialize :query
 
-        def initialize(query = {})
-          @query = query
+        def self.call(query)
+          new(query).call
         end
 
         def call
