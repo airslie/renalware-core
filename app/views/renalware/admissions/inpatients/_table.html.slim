@@ -11,6 +11,7 @@
         th.col-width-tiny Age
         th.col-width-date Admitted
         th.col-width-medium Reason
+        th.col-width-tiny LOS
         th.col-width-date Discharged
         th Destination
         th.col-width-date Disch Summ Date
@@ -28,6 +29,7 @@
           td= inpatient.patient_age
           td= inpatient.admitted_on
           td= inpatient.reason_for_admission
+          td= inpatient.length_of_stay
           td= inpatient.discharged_on
           td= inpatient.discharge_destination&.text
           td= inpatient.summarised_on
