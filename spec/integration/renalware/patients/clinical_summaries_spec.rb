@@ -9,6 +9,7 @@ module Renalware
         create(:problem, patient: patient, by: user)
         create(:simple_event, patient: patient, by: user)
         create(:prescription, patient: patient, by: user)
+        create(:admissions_inpatient, patient: patient, by: user)
 
         letter_patient = Letters.cast_patient(patient)
         letter = build(:approved_letter, patient: letter_patient, by: user)
@@ -21,6 +22,7 @@ module Renalware
         expect(page).to have_content "Events (1)"
         expect(page).to have_content "Letters (1)"
         expect(page).to have_content "Prescriptions (1)"
+        expect(page).to have_content "Admissions (1)"
       end
     end
   end
