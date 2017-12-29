@@ -653,7 +653,6 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 CREATE TABLE admission_admissions (
     id bigint NOT NULL,
-    hospital_unit_id bigint NOT NULL,
     hospital_ward_id bigint NOT NULL,
     patient_id bigint NOT NULL,
     admitted_on date NOT NULL,
@@ -8542,13 +8541,6 @@ CREATE INDEX index_admission_admissions_on_discharged_on ON admission_admissions
 
 
 --
--- Name: index_admission_admissions_on_hospital_unit_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_admission_admissions_on_hospital_unit_id ON admission_admissions USING btree (hospital_unit_id);
-
-
---
 -- Name: index_admission_admissions_on_hospital_ward_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -12663,14 +12655,6 @@ ALTER TABLE ONLY hd_profiles
 
 ALTER TABLE ONLY problem_problems
     ADD CONSTRAINT fk_rails_edf3902cb0 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
--- Name: admission_admissions fk_rails_ee53399039; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY admission_admissions
-    ADD CONSTRAINT fk_rails_ee53399039 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
 
 
 --

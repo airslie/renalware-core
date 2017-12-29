@@ -83,7 +83,7 @@ module Renalware
         params
           .require(:admissions_admission)
           .permit(
-            :hospital_unit_id, :hospital_ward_id, :patient_id, :q,
+            :hospital_ward_id, :patient_id, :q,
             :admitted_on, :admission_type, :consultant, :modality,
             :reason_for_admission, :notes, :transferred_on, :transferred_to,
             :discharged_on, :discharge_destination, :destination_notes,

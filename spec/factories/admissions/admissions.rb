@@ -5,7 +5,6 @@ FactoryBot.define do
     admitted_on { Time.zone.today }
     admission_type :unknown
     reason_for_admission "Reason"
-    hospital_unit
     hospital_ward
   end
 end

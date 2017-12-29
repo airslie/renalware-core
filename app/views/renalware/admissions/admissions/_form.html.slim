@@ -1,33 +1,3 @@
-= content_for(:javascript)
-  javascript:
-    $(document).ready(function() {
-      function replaceOptionsInWardDropdown(data) {
-        var $select = $('#admissions_admission_hospital_ward_id');
-        $select.html("<option />");
-        if (data != undefined) {
-          $.each(data, function(index, hash) {
-            $select.append($('<option />', { value: hash["id"], text: hash["name"] }));
-          });
-        }
-      };
-
-      $(document).on('change', '#admissions_admission_hospital_unit_id', function(evt) {
-        var wardsUrl = $("option:selected", this).data("wards-url");
-        if (wardsUrl == undefined) {
-          replaceOptionsInWardDropdown(undefined);
-        } else {
-          var jqxhr = $.getJSON(wardsUrl)
-            .done(function(data) {
-              replaceOptionsInWardDropdown(data);
-            })
-            .fail(function(error, a, b) {
-              console.log( "error", a, b);
-            })
-        }
-        return true;
-      })
-    });
-
 = render "renalware/shared/errors", model: admission
 = simple_form_for(admission,
                   html: { autocomplete: "off" },
@@ -48,31 +18,14 @@
                       placeholder: "Search by patient name or hospital/NHS no." }\
             }
 
-  / Because simple form doesn't easily allow to add data attributes to select options
-  / (without us wrapping a rails f.select and thus loosing a bunch of formatting and support for
-  / .error classes etc.), we use a custom select_container input which allows us to build a custom
-  / options collection and pass it in.
-  / Credit to https://stackoverflow.com/questions/17554748/how-do-i-add-html-attributes-to-select-
-  / options-with-simple-form-rails#answer-34827962
-  ruby:
-    options_html = capture do
-      Renalware::Hospitals::Unit.select(:id, :unit_code).all.map do |unit|
-        concat(content_tag(:option,
-                           value: unit.id,
-                           selected: unit.id == admission.hospital_unit_id,
-                           "data-wards-url" => hospitals_unit_wards_url(unit, format: :json)) { unit.unit_code })
-      end
-    end
-
-  = f.input :hospital_unit_id,
-            as: :select_container,
-            options_html: options_html,
-            include_blank: true,
-            wrapper: :horizontal_medium
-
   = f.association :hospital_ward,
-                 collection: Renalware::Hospitals::Ward.where(hospital_unit_id: admission.hospital_unit_id),
-                 wrapper: :horizontal_medium
+                  as: :grouped_select,
+                  group_method: :wards,
+                  collection: Renalware::Hospitals::Unit.joins(:wards).includes(:wards).ordered,
+                  label_method: ->(s) { "#{s.hospital_unit.unit_code} / #{s.name}" },
+                  wrapper: :horizontal_medium,
+                  input_html: { class: "searchable_select" }
+
   = f.input :admitted_on, as: :date_picker, wrapper: :horizontal_datepicker
   = f.input :admission_type, wrapper: :horizontal_medium
   = f.input :consultant, wrapper: :horizontal_medium

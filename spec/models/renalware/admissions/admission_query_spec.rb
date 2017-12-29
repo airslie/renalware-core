@@ -21,11 +21,13 @@ module Renalware
     end
 
     it "filters by hospital unit" do
-      unit = create(:hospital_unit)
-      admission = create(:admissions_admission, hospital_unit: unit)
+      ward = create(:hospital_ward)
+      admission = create(:admissions_admission, hospital_ward: ward)
       create(:admissions_admission) # other admission
 
-      admissions = described_class.call({ hospital_unit_id_eq: unit.id })
+      admissions = described_class.call(
+        { hospital_ward_hospital_unit_id_eq: ward.hospital_unit.id }
+      )
 
       expect(admissions).to eq([admission])
     end

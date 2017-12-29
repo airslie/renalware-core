@@ -17,7 +17,11 @@ module Renalware
       end
 
       def unit_and_ward
-        [hospital_unit&.unit_code, hospital_ward&.name].compact.join("/")
+        ward = hospital_ward || NullObject.instance
+        [
+          ward.hospital_unit.unit_code,
+          ward.name
+        ].compact.join(" / ")
       end
 
       def patient_name

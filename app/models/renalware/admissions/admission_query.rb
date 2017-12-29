@@ -20,8 +20,7 @@ module Renalware
             .extending(Scopes)
             .joins(:patient) # required for PatientsRansackHelper - see Admission
             .includes(
-              :hospital_unit,
-              :hospital_ward,
+              hospital_ward: [:hospital_unit],
               patient: { current_modality: [:description] }
             )
             .order(created_at: :desc)

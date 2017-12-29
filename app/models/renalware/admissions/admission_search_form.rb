@@ -20,7 +20,7 @@ module Renalware
       def submit
         @search ||= begin
           options = {
-            hospital_unit_id_eq: hospital_unit_id,
+            hospital_ward_hospital_unit_id_eq: hospital_unit_id,
             hospital_ward_id_eq: hospital_ward_id,
             identity_match: term
           }.merge!(status_scope)

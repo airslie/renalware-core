@@ -12,7 +12,7 @@ module Renalware
 
       expect(Admissions::AdmissionQuery).to receive(:call).with(
         {
-          hospital_unit_id_eq: 1,
+          hospital_ward_hospital_unit_id_eq: 1,
           hospital_ward_id_eq: 2,
           test_scope_selected_from_dropdown: true,
           identity_match: "123"
