@@ -2,17 +2,17 @@ require "rails_helper"
 
 module Renalware
   module Admissions
-    describe InpatientPresenter do
+    describe AdmissionPresenter do
       describe "#length_of_stay" do
         context "when the patient has not yet been discharged" do
           it "returns the number of days since admission" do
-            inpatient = instance_double(
-              Inpatient,
+            admission = instance_double(
+              Admission,
               admitted_on: 1.week.ago,
               discharged_on: nil
             )
 
-            los = described_class.new(inpatient).length_of_stay
+            los = described_class.new(admission).length_of_stay
 
             expect(los).to eq(7)
           end
@@ -20,13 +20,13 @@ module Renalware
 
         context "when the patient has been discharged" do
           it "returns the day between admission and discharge" do
-            inpatient = instance_double(
-              Inpatient,
+            admission = instance_double(
+              Admission,
               admitted_on: 1.week.ago,
               discharged_on: 1.day.ago
             )
 
-            los = described_class.new(inpatient).length_of_stay
+            los = described_class.new(admission).length_of_stay
 
             expect(los).to eq(6)
           end

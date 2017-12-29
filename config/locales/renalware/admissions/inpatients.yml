@@ -1,7 +1,7 @@
 en:
   activerecord:
     attributes:
-      renalware/admissions/inpatient:
+      renalware/admissions/admission:
         admitted_on: Admitted Date
         admission_type: Admission Type
         consultant: Consultant
@@ -20,14 +20,14 @@ en:
         hospital_ward_id: Hospital Ward
   activemodel:
     attributes:
-      renalware/admissions/inpatients/search_form:
+      renalware/admissions/admissions/search_form:
         term: Hosp/NHS no. or name
         hospital_unit_id: Site
         hospital_ward_id: Ward
         status: Status
 
   enumerize:
-    renalware/admissions/inpatient:
+    renalware/admissions/admission:
       discharge_destination:
         home: Home
         other_ward: Other Ward

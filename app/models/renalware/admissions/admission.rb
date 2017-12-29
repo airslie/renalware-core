@@ -2,13 +2,13 @@ require_dependency "renalware/admissions"
 
 module Renalware
   module Admissions
-    class Inpatient < ApplicationRecord
+    class Admission < ApplicationRecord
       include Accountable
       # PatientsRansackHelper adds the :identity_match scope for querying by patient name,
-      # local hospital id or NHS number. We use this scope from the filters on the inpatients list
+      # local hospital id or NHS number. We use this scope from the filters on the admissions list
       # to enable searching for a patient. *Note* you must join onto the patients table first
       # if calling this scope or using it with ransack, e.g.
-      #   Inpatient.joins(:patient).identity_match("rab rog")
+      #   Admission.joins(:patient).identity_match("rab rog")
 
       include PatientsRansackHelper
       extend Enumerize

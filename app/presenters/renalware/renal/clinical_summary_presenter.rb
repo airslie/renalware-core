@@ -56,8 +56,8 @@ module Renalware
       def admissions
         @admissions ||= begin
           CollectionPresenter.new(
-            Admissions::Inpatient.where(patient: patient).limit(5),
-            Renalware::Admissions::InpatientPresenter
+            Admissions::Admission.where(patient: patient).limit(5),
+            Renalware::Admissions::AdmissionPresenter
           )
         end
       end
@@ -65,7 +65,7 @@ module Renalware
       def admissions_count
         title_friendly_collection_count(
           actual: admissions.size,
-          total: Admissions::Inpatient.where(patient: patient).count
+          total: Admissions::Admission.where(patient: patient).count
         )
       end
 

@@ -2,7 +2,7 @@ require_dependency "renalware/admissions"
 
 module Renalware
   module Admissions
-    class InpatientPresenter < SimpleDelegator
+    class AdmissionPresenter < SimpleDelegator
       delegate :nhs_number,
                :hospital_identifiers,
                :age,

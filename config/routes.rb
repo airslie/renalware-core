@@ -46,7 +46,7 @@ Renalware::Engine.routes.draw do
       post :sort, on: :collection
     end
     resources :consults
-    resources :inpatients
+    resources :admissions
   end
 
   namespace :messaging do

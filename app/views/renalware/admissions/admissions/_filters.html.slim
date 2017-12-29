@@ -1,7 +1,7 @@
 .search-form.filters
   = simple_form_for form,
       as: :query,
-      url: admissions_inpatients_path,
+      url: admissions_admissions_path,
       method: :get do |f|
     .row
       .columns.medium-2.large-3
@@ -20,4 +20,4 @@
       .columns.medium-2.large-2.actions.end
         = f.submit "Filter", class: "button"
         span= " or "
-        = link_to t("helpers.reset"), admissions_inpatients_path
+        = link_to t("helpers.reset"), admissions_admissions_path
