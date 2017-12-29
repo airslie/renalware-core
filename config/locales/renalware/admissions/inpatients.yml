@@ -18,6 +18,13 @@ en:
         summarised_by_id: Discharge Summary Author
         hospital_unit_id: Hospital Site
         hospital_ward_id: Hospital Ward
+  activemodel:
+    attributes:
+      renalware/admissions/inpatients/search_form:
+        term: Hosp/NHS no. or name
+        hospital_unit_id: Site
+        hospital_ward_id: Ward
+        status: Status
 
   enumerize:
     renalware/admissions/inpatient:

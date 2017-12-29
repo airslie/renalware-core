@@ -19,6 +19,7 @@ module Renalware
           @search ||= begin
             Inpatient
               .extending(Scopes)
+              .joins(:patient) # required for PatientsRansackHelper - see Inpatient
               .includes(
                 :hospital_unit,
                 :hospital_ward,
@@ -31,7 +32,7 @@ module Renalware
 
         module Scopes
           def ransackable_scopes(_auth_object = nil)
-            %i(currently_admitted discharged_but_missing_a_summary)
+            %i(currently_admitted discharged_but_missing_a_summary identity_match)
           end
         end
       end

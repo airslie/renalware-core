@@ -76,7 +76,7 @@ module Renalware
       def search_params
         params
           .require(:query) {}
-          .permit(:hospital_unit_id, :hospital_ward_id, :status)
+          .permit(:hospital_unit_id, :hospital_ward_id, :status, :term)
       end
 
       def inpatient_params

@@ -52,16 +52,16 @@ module Renalware
 
       def identity_sql(query)
         sql = <<-SQL.squish
-          local_patient_id = :ucase_term OR
-          local_patient_id_2 = :ucase_term OR
-          local_patient_id_3 = :ucase_term OR
-          local_patient_id_4 = :ucase_term OR
-          local_patient_id_5 = :ucase_term OR
-          external_patient_id = :exact_term OR
-          nhs_number = :exact_term OR
-          family_name ILIKE :fuzzy_term
+          patients.local_patient_id = :ucase_term OR
+          patients.local_patient_id_2 = :ucase_term OR
+          patients.local_patient_id_3 = :ucase_term OR
+          patients.local_patient_id_4 = :ucase_term OR
+          patients.local_patient_id_5 = :ucase_term OR
+          patients.external_patient_id = :exact_term OR
+          patients.nhs_number = :exact_term OR
+          patients.family_name ILIKE :fuzzy_term
         SQL
-        sql += " OR ukrdc_external_id = :exact_term" if query_is_a_uuid?(query)
+        sql += " OR patients.ukrdc_external_id = :exact_term" if query_is_a_uuid?(query)
         sql
       end
       # rubocop:enable Metrics/MethodLength

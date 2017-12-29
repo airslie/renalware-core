@@ -14,6 +14,7 @@ module Renalware
         attribute :hospital_unit_id, Integer
         attribute :hospital_ward_id, Integer
         attribute :status, String
+        attribute :term, String
 
         # Pass our simple form attributes to Ransack - we lean on Ransack to do querying
         # so as to avoid unnecessary code here, though the magic obfuscates things a little...
@@ -21,11 +22,19 @@ module Renalware
           @search ||= begin
             options = {
               hospital_unit_id_eq: hospital_unit_id,
-              hospital_ward_id_eq: hospital_ward_id
+              hospital_ward_id_eq: hospital_ward_id,
+              identity_match: term
             }.merge!(status_scope)
 
             Query.call(options)
           end
+        end
+
+        def status_dropdown_options
+          [
+            ["Currently admitted", :currently_admitted],
+            ["Discharged but missing summary", :discharged_but_missing_a_summary]
+          ]
         end
 
         # If a status was selected in the drop down, map this to a ransack way of saying

@@ -4,20 +4,19 @@
       url: admissions_inpatients_path,
       method: :get do |f|
     .row
+      .columns.medium-2.large-3
+        = f.input :term
+
       .columns.medium-3.large-2
         = f.input :hospital_unit_id,
-                  collection: Renalware::Hospitals::Unit.pluck(:name, :id),
-                  label: "Site"
-      .columns.medium-3.large-2
+                  collection: Renalware::Hospitals::Unit.pluck(:name, :id)
+      .columns.medium-2.large-2
         = f.input :hospital_ward_id,
-                  collection: Renalware::Hospitals::Ward.pluck(:name, :id),
-                  label: "Ward"
-      .columns.medium-4.large-3
+                  collection: Renalware::Hospitals::Ward.pluck(:name, :id)
+      .columns.medium-3.large-3
         = f.input :status,
-                  collection:[["Currently admitted", :currently_admitted],
-                              ["Discharged but missing summary", :discharged_but_missing_a_summary]],
-                  include_blank: "Any",
-                  label: "Status"
+                  collection: form.status_dropdown_options,
+                  include_blank: "Any"
       .columns.medium-2.large-2.actions.end
         = f.submit "Filter", class: "button"
         span= " or "
