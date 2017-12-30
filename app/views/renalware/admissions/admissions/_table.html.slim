@@ -3,22 +3,28 @@
   table
     thead
       tr
-        th.col-width-medium Site/Ward
+        th.col-width-medium(rowspan=2) Site/Ward
         - unless compact
-          th.at-least.col-width-medium Patient
-          th.col-width-nhs-no NHS No.
-          th.col-width-reference-no Hosp Nos.
-          th.col-width-small Modality
-          th.col-width-tiny Sex
-          th.col-width-tiny Age
-        th.col-width-date Admitted
-        th.col-width-medium Reason
-        th.col-width-tiny LOS
-        th.col-width-date Discharged
-        th Destination
-        th.col-width-date Disch Summ Date
+          th.at-least.col-width-medium(rowspan=2) Patient
+          th.col-width-nhs-no(rowspan=2) NHS No.
+          th.col-width-reference-no(rowspan=2) Hosp Nos.
+          th.col-width-smal(rowspan=2) Modality
+          th.col-width-tiny(rowspan=2) Sex
+          th.col-width-tiny(rowspan=2) Age
+        th.col-width-date(rowspan=2) Admitted
+        th.col-width-medium(rowspan=2) Reason
+        th.col-width-tiny(rowspan=2) LOS
+        th.col-width-date(rowspan=2) Discharged
+        th(rowspan=2) Destination
+        th(colspan=2) Discharge Summary
         - unless compact
-          th.col-width-tiny
+          th.col-width-tiny(rowspan=2)
+
+      tr
+        th.col-width-date Date
+        th.col-width-tiny Summary
+
+
     tbody
       - admissions.each do |admission|
         - uid = "admission-#{admission.id}"
@@ -33,12 +39,20 @@
             td= admission.patient_age
           td= admission.admitted_on
           td= admission.reason_for_admission
-          td= admission.length_of_stay
+          td= "#{admission.length_of_stay} d"
           td= admission.discharged_on
           td= admission.discharge_destination&.text
           td= admission.summarised_on
+          td
+            - if admission.discharge_summary.present?
+             = link_to("Toggle",
+                       "#admission-quick-preview-#{admission.id}",
+                       data: { behaviour: "toggler" })
+            - else
+              | -
           - unless compact
             td.actions-dropdown
+
               / As we have lots of possible actions, group them in a button group.
               / A wrapping div is required for now in order for the button group display correctly
               / (though we could style the td like a div I guess).
@@ -55,3 +69,11 @@
                                       url: edit_admissions_admission_path(admission),
                                       title: "Edit",
                                       enabled: policy(admission).edit?)
+
+        = content_tag(:tr, id: "admission-quick-preview-#{admission.id}", style: "display: none")
+          td
+          td(colspan=13)
+            .quick-preview
+              = simple_format admission.discharge_summary
+          - unless compact
+            td

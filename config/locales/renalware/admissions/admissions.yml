@@ -20,7 +20,7 @@ en:
         hospital_ward_id: Hospital Ward
   activemodel:
     attributes:
-      renalware/admissions/admissions/search_form:
+      renalware/admissions/admission_search_form:
         term: Hosp/NHS no. or name
         hospital_unit_id: Site
         hospital_ward_id: Ward
