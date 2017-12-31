@@ -32,7 +32,7 @@ module Renalware::Letters
         expect(archived_letter).to be_archived
       end
 
-      context "given the letter is persisted" do
+      context "when the letter is persisted" do
         # Primary Care Physician has to exist before saving a letter
         let(:primary_care_physician) { create(:letter_primary_care_physician) }
 

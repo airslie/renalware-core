@@ -11,7 +11,7 @@ module Renalware::Medications
     describe "#call" do
       let(:user) { create(:user) }
 
-      context "updating the prescription's dose_amount with a valid value" do
+      context "when updating the prescription's dose_amount with a valid value" do
         let(:revised_dose_amount) { "200" }
 
         subject!(:prescription_revision) do
@@ -36,7 +36,7 @@ module Renalware::Medications
         end
       end
 
-      context "updating the prescription's dose_amount with an invalid value" do
+      context "when updating the prescription's dose_amount with an invalid value" do
         let(:revised_dose_amount) { nil }
 
         subject!(:prescription_revision) do

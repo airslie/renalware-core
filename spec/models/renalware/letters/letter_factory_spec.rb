@@ -30,7 +30,7 @@ module Renalware
           expect(letter.main_recipient.person_role).to eq("primary_care_physician")
         end
 
-        context "given the patient has contacts flagged as default CC" do
+        context "when the patient has contacts flagged as default CC" do
           let(:default_cc_contact) do
             build(
               :letter_contact,

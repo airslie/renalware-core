@@ -11,7 +11,7 @@ RSpec.describe "Viewing historical HD Profiles", type: :request do
   end
 
   describe "GET show" do
-    context "given a (soft) deleted profile" do
+    context "with a (soft) deleted profile" do
       it "renders successfully" do
         patient = create(:hd_patient)
         profile = create(:hd_profile, patient: patient)
@@ -23,7 +23,7 @@ RSpec.describe "Viewing historical HD Profiles", type: :request do
       end
     end
 
-    context "given a current deleted profile" do
+    context "with a current deleted profile" do
       it "raises an exception as the profile is not historical (deleted)" do
         patient = create(:hd_patient)
         profile = create(:hd_profile, patient: patient)

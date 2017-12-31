@@ -14,7 +14,7 @@ feature "Assign electronic CCs" do
       create(:letter_letterhead)
     end
 
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "responds successfully" do
         user = login_as_clinical
 

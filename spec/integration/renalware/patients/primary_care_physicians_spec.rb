@@ -13,7 +13,7 @@ module Renalware
     end
 
     describe "POST create" do
-      context "given valid attributes" do
+      context "with valid attributes" do
         it "creates a new record" do
           address_attributes = attributes_for(:address)
           primary_care_physician_attributes = attributes_for(:primary_care_physician)
@@ -36,7 +36,7 @@ module Renalware
         end
       end
 
-      context "given invalid attributes" do
+      context "with invalid attributes" do
         it "responds with form" do
           attributes = { given_name: "" }
 
@@ -65,7 +65,7 @@ module Renalware
     end
 
     describe "PATCH update" do
-      context "given valid attributes" do
+      context "with valid attributes" do
         it "updates a record" do
           attributes = { given_name: "My GP" }
           patch patients_primary_care_physician_path(primary_care_physician),
@@ -80,7 +80,7 @@ module Renalware
         end
       end
 
-      context "given invalid attributes" do
+      context "with invalid attributes" do
         it "responds with a form" do
           attributes = { given_name: "" }
           patch patients_primary_care_physician_path(primary_care_physician),

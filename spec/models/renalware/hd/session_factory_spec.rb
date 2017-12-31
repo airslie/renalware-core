@@ -6,7 +6,7 @@ module Renalware
       let(:user) { create(:user, :admin) }
       let(:patient) { create(:hd_patient) }
 
-      context "building a new ongoing session" do
+      describe "building a new ongoing session" do
         subject { SessionFactory.new(patient: patient, user: user) }
 
         describe "#build" do
@@ -45,7 +45,7 @@ module Renalware
           end
         end
       end
-      context "building a dna session" do
+      describe "building a dna session" do
         subject { SessionFactory.new(patient: patient, user: user, type: "dna") }
 
         describe "#build" do

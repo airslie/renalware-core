@@ -23,7 +23,7 @@ RSpec.describe "Assign a person as a CC recipient", type: :feature do
       create(:letter_contact, patient: patient, person: create(:directory_person, by: user))
     end
 
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "responds successfully" do
         visit patient_letters_letters_path(patient)
         click_on "Create"

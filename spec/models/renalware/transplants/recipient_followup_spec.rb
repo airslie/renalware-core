@@ -20,14 +20,14 @@ module Renalware
 
         it { is_expected.to be_valid }
 
-        context "given transplant failed" do
+        context "when transplant failed" do
           let(:attributes) { { transplant_failed: true } }
 
           it { is_expected.to validate_presence_of(:transplant_failed_on) }
           it { is_expected.to validate_presence_of(:transplant_failure_cause_description_id) }
         end
 
-        context "given a transplant failure cause" do
+        context "with a transplant failure cause" do
           let(:description) do
             Renalware::Transplants::FailureCauseDescription.create(
               code: "41",

@@ -14,7 +14,7 @@ module Renalware
     let(:model) { FakeModel }
 
     describe "#restricted?" do
-      context "given a model has not been specified in the configuration" do
+      context "when a model has not been specified in the configuration" do
         let(:model) { ::FakeUnspecifiedModel = Class.new }
 
         it "returns false" do
@@ -22,7 +22,7 @@ module Renalware
         end
       end
 
-      context "given a model has been specified in the configuration" do
+      context "when a model has been specified in the configuration" do
         it "returns true" do
           expect(subject.restricted?).to be true
         end
@@ -30,7 +30,7 @@ module Renalware
     end
 
     describe "#has_permission?" do
-      context "given a user has not been assigned the role to manage the model" do
+      context "when a user has not been assigned the role to manage the model" do
         let(:admin) { double(:admin, role_names: [:admin]) }
 
         it "returns false" do
@@ -38,7 +38,7 @@ module Renalware
         end
       end
 
-      context "given a user has been assigned the role to manage the model" do
+      context "when a user has been assigned the role to manage the model" do
         let(:super_admin) { double(:super_admin, role_names: [:super_admin]) }
 
         it "returns false" do

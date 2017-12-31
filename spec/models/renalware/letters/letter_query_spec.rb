@@ -17,7 +17,7 @@ module Renalware
           create_letter_in_state(:approved)
         end
 
-        context "given no filters" do
+        context "when there are no filters" do
           it "returns all letters" do
             expect(subject.call.count).to eq(3)
           end

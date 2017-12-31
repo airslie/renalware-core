@@ -28,7 +28,7 @@ RSpec.describe "Managing Users", type: :request do
   end
 
   describe "PATCH update" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "updates a record" do
         attributes = { approved: !user.approved, role_ids: user.role_ids }
         patch admin_user_path(user), params: { user: attributes }
@@ -42,7 +42,7 @@ RSpec.describe "Managing Users", type: :request do
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "responds with a form" do
         attributes = { approved: true, role_ids: [] }
         patch admin_user_path(user), params: { user: attributes }

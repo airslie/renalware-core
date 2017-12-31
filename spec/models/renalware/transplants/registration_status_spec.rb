@@ -19,19 +19,19 @@ module Renalware
 
         it { is_expected.to be_valid }
 
-        context "given a missing started_on" do
+        context "when started_on missing" do
           let(:attributes) { { started_on: nil } }
 
           it { is_expected.not_to be_valid }
         end
 
-        context "given an invalid started_on" do
+        context "when started_on is invalid" do
           let(:attributes) { { started_on: "99-99-9999" } }
 
           it { is_expected.not_to be_valid }
         end
 
-        context "given a stated_on in the future" do
+        context "when stated_on is in the future" do
           let(:attributes) { { started_on: (Time.zone.today + 1.day) } }
 
           it { is_expected.not_to be_valid }

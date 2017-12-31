@@ -5,7 +5,7 @@ RSpec.describe "Managing alerts", type: :request do
   let(:patient) { create(:patient, by: user) }
 
   describe "POST create" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "creates a new alert" do
         headers = {
           "HTTP_REFERER" => "/",
@@ -29,7 +29,7 @@ RSpec.describe "Managing alerts", type: :request do
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "returns 44 validation error and does not create a new alert" do
         headers = {
           "HTTP_REFERER" => "/",

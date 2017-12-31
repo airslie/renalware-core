@@ -7,7 +7,7 @@ module Renalware::Patients
 
       let(:user) { create(:user) }
 
-      context "given a patient does not have the same hospital number" do
+      context "when a patient does not have the same hospital number" do
         let(:params) { { patient: attributes_for(:patient) } }
 
         it "creates the patient" do
@@ -15,7 +15,7 @@ module Renalware::Patients
         end
       end
 
-      context "give a patient has the same hospital number" do
+      context "when a patient has the same hospital number" do
         let!(:existing_patient) { create(:patient, local_patient_id: "SAME-12345") }
 
         let(:params) do

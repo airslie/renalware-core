@@ -12,7 +12,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
   end
 
   describe "POST create" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "creates a new record" do
         attributes = attributes_for(:hd_cannulation_type)
         post hd_cannulation_types_path, params: { hd_cannulation_type: attributes }
@@ -26,7 +26,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "responds with form" do
         attributes = { name: "" }
         post hd_cannulation_types_path, params: { hd_cannulation_type: attributes }
@@ -45,7 +45,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
   end
 
   describe "PATCH update" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "updates a record" do
         attributes = { name: "Something" }
         patch hd_cannulation_type_path(cannulation_type),
@@ -60,7 +60,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "responds with a form" do
         attributes = { name: "" }
         patch hd_cannulation_type_path(cannulation_type),

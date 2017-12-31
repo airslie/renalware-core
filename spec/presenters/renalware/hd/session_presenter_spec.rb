@@ -24,21 +24,21 @@ module Renalware
       end
 
       describe "#change_in" do
-        context "Float values" do
+        context "with float values" do
           it "returns the difference between before and after measurements rounded to 1 DP" do
             session.document.observations_before.weight = 101.1
             session.document.observations_after.weight = 100.0
             expect(presenter.change_in(:weight)).to eq(-1.1)
           end
         end
-        context "Integer values" do
+        context "with integer values" do
           it "returns the difference between before and after measurements" do
             session.document.observations_before.pulse = 70
             session.document.observations_after.pulse = 80
             expect(presenter.change_in(:pulse)).to eq 10
           end
         end
-        context "Invalid values" do
+        context "with invalid values" do
           it "returns nil if before or after measurement missing" do
             session.document.observations_before.pulse = 70
             session.document.observations_after.pulse = nil

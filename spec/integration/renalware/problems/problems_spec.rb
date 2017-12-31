@@ -6,7 +6,7 @@ RSpec.describe "Problems Requests" do
   let!(:archived_problem) { create(:problem, patient: patient, deleted_at: Date.current) }
 
   describe "GET show" do
-    context "viewing a current problem" do
+    context "when viewing a current problem" do
       it "responds with the problem" do
         get patient_problem_path(patient_id: patient, id: problem.id)
 
@@ -14,7 +14,7 @@ RSpec.describe "Problems Requests" do
       end
     end
 
-    context "viewing an archived problem" do
+    context "when viewing an archived problem" do
       it "responds with the problem" do
         get patient_problem_path(patient_id: patient, id: archived_problem.id)
 

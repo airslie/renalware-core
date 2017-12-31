@@ -14,7 +14,7 @@ RSpec.describe "Managing patients", type: :request do
   end
 
   describe "POST create" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "creates a new record" do
         attributes = attributes_for(
           :patient,
@@ -44,7 +44,7 @@ RSpec.describe "Managing patients", type: :request do
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "responds with form" do
         attributes = { given_name: "" }
         post patients_path, params: { patient: attributes }
@@ -63,7 +63,7 @@ RSpec.describe "Managing patients", type: :request do
   end
 
   describe "PATCH update" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "updates a record" do
         attributes = { given_name: "My Edited Patient" }
         patch patient_path(patient), params: { patient: attributes }
@@ -83,7 +83,7 @@ RSpec.describe "Managing patients", type: :request do
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "responds with a form" do
         attributes = { given_name: "" }
         patch patient_path(patient), params: { patient: attributes }

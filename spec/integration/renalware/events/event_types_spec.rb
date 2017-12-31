@@ -12,7 +12,7 @@ RSpec.describe "Configuring Event Types", type: :request do
   end
 
   describe "POST create" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "creates a new record" do
         attributes = attributes_for(:events_type)
         post events_types_path, params: { events_type: attributes }
@@ -26,7 +26,7 @@ RSpec.describe "Configuring Event Types", type: :request do
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "responds with form" do
         attributes = { name: "" }
         post events_types_path, params: { events_type: attributes }
@@ -45,7 +45,7 @@ RSpec.describe "Configuring Event Types", type: :request do
   end
 
   describe "PATCH update" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "updates a record" do
         attributes = { name: "My Edited Event" }
         patch events_type_path(event_type), params: { events_type: attributes }
@@ -59,7 +59,7 @@ RSpec.describe "Configuring Event Types", type: :request do
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "responds with a form" do
         attributes = { name: "" }
         patch events_type_path(event_type), params: { events_type: attributes }

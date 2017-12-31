@@ -19,20 +19,20 @@ module Renalware
         it { is_expected.to respond_to(:last_delivery_date) }
 
         describe "#valid?" do
-          context "route description" do
-            context "given a route" do
+          describe "route description" do
+            context "with a route" do
               before { subject.medication_route = build(:medication_route) }
 
               it { is_expected.not_to validate_presence_of(:route_description) }
             end
 
-            context "given a `other` route" do
+            context "with an `other` route" do
               before { subject.medication_route = build(:medication_route, :other) }
 
               it { is_expected.to validate_presence_of(:route_description) }
             end
 
-            context "given a route and a route description" do
+            context "with a route and a route description" do
               before do
                 subject.medication_route = build(:medication_route)
                 subject.route_description = "::route description::"
@@ -106,19 +106,19 @@ module Renalware
         let(:date_today) { Date.parse("2010-01-02") }
 
         describe "#current?" do
-          context "given the termination date is today" do
+          context "when the termination date is today" do
             let(:prescription) { build_prescription(terminated_on: "2010-01-02") }
 
             it { expect(prescription).to be_current(date_today) }
           end
 
-          context "given the termination date is after today" do
+          context "when the termination date is after today" do
             let(:prescription) { build_prescription(terminated_on: "2010-01-03") }
 
             it { expect(prescription).to be_current(date_today) }
           end
 
-          context "given the termination date is before today" do
+          context "when the termination date is before today" do
             let(:prescription) { build_prescription(terminated_on: "2010-01-01") }
 
             it { expect(prescription).not_to be_current(date_today) }
@@ -126,19 +126,19 @@ module Renalware
         end
 
         describe "#terminated_or_marked_for_termination?" do
-          context "given the termination date is in the future" do
+          context "when the termination date is in the future" do
             let(:prescription) { build_prescription(terminated_on: Date.current + 1.minute) }
 
             it { expect(prescription).to be_terminated_or_marked_for_termination }
           end
 
-          context "given the termination date is in the past" do
+          context "when the termination date is in the past" do
             let(:prescription) { build_prescription(terminated_on: Date.current - 1.minute) }
 
             it { expect(prescription).to be_terminated_or_marked_for_termination }
           end
 
-          context "given the termination date is not specified" do
+          context "when the termination date is not specified" do
             let(:prescription) { build(:prescription) }
 
             it { expect(prescription).not_to be_terminated_or_marked_for_termination }
@@ -148,7 +148,7 @@ module Renalware
 
       describe "entity services" do
         describe "#terminate" do
-          context "given an active prescription" do
+          context "with an active prescription" do
             subject(:active_prescription) { build(:prescription, prescribed_on: "2009-01-01") }
 
             let(:user) { build(:user) }

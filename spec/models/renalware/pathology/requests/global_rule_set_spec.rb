@@ -23,13 +23,13 @@ describe Renalware::Pathology::Requests::GlobalRuleSet do
   let(:rules) { [] }
 
   describe "#valid?" do
-    context "no request_description is given" do
+    context "without a request_description" do
       let(:request_description) { nil }
 
       it { expect(global_rule_set).to be_invalid }
     end
 
-    context "given a request_description" do
+    context "with a request_description" do
       context "without a required_observation_description" do
         let(:request_description) { build(:pathology_request_description, bottle_type: "serum") }
 

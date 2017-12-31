@@ -71,7 +71,7 @@ module Renalware
           Session::Closed::SessionDocument::Observations.new(blood_pressure: BloodPressure.new)
         }
 
-        context "validation" do
+        describe "validation" do
           it { is_expected.to validate_presence_of(:pulse) }
 
           it { is_expected.not_to validate_presence_of(:bm_stix) }
@@ -83,7 +83,7 @@ module Renalware
             expect(observations.blood_pressure.errors).to include(:systolic, :diastolic)
           end
 
-          context "#weight" do
+          describe "#weight" do
             it "validate weight when weight_measured is true" do
               observations.weight_measured = :yes
               expect(observations).to validate_presence_of(:weight)
@@ -95,7 +95,7 @@ module Renalware
             end
           end
 
-          context "#temperature" do
+          describe "#temperature" do
             it "validate temperature when temperature_measured is true" do
               observations.temperature_measured = :yes
               expect(observations).to validate_presence_of(:temperature)

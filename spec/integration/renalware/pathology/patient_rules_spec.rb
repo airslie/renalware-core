@@ -25,7 +25,7 @@ RSpec.describe "patient_rules Requests", type: :request do
       )
     end
 
-    context "given valid attributes" do
+    context "with valid attributes" do
       let(:patient_rule_exists) do
         Renalware::Pathology::Requests::PatientRule.exists?(patient_rule_attributes)
       end
@@ -42,7 +42,7 @@ RSpec.describe "patient_rules Requests", type: :request do
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "responds with form" do
         post url,
              params: { pathology_requests_patient_rule: patient_rule_attributes.except(:lab_id) }
@@ -63,7 +63,7 @@ RSpec.describe "patient_rules Requests", type: :request do
   describe "PATCH update" do
     let(:url) { patient_pathology_patient_rule_path(patient_id: patient, id: patient_rule.id) }
 
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "updates the patient rule" do
         patch url, params: { pathology_requests_patient_rule: { test_description: "Lorem Ipsum" } }
 
@@ -75,7 +75,7 @@ RSpec.describe "patient_rules Requests", type: :request do
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "responds with form" do
         patch url, params: { pathology_requests_patient_rule: { test_description: nil } }
 

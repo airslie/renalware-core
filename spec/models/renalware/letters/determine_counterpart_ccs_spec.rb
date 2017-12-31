@@ -10,7 +10,7 @@ module Renalware
       let(:patient) { build(:letter_patient) }
 
       describe "#call" do
-        context "given the recipient is the patient" do
+        context "when the recipient is the patient" do
           let(:letter) { build_letter(to: :patient, patient: patient) }
 
           it "determines the primary_care_physician as a CC recipient" do
@@ -20,10 +20,10 @@ module Renalware
           end
         end
 
-        context "given the recipient is the Primary Care Physician" do
+        context "when the recipient is the Primary Care Physician" do
           let(:letter) { build_letter(to: :primary_care_physician, patient: patient) }
 
-          context "given the patient opted to be CCd on all letters" do
+          context "when the patient opted to be CCd on all letters" do
             before do
               allow(letter.patient).to receive(:cc_on_letter?).and_return(true)
             end
@@ -36,7 +36,7 @@ module Renalware
             end
           end
 
-          context "given the patient did not opt to be CCd on all letters" do
+          context "when the patient did not opt to be CCd on all letters" do
             before do
               allow(letter.patient).to receive(:cc_on_letter?).and_return(false)
             end
@@ -49,10 +49,10 @@ module Renalware
           end
         end
 
-        context "given the recipient is someone else" do
+        context "when the recipient is someone else" do
           let(:letter) { build_letter(to: :contact, patient: patient) }
 
-          context "given the patient opted to be CCd on all letters" do
+          context "when the patient opted to be CCd on all letters" do
             before do
               letter.patient.cc_on_all_letters = true
             end

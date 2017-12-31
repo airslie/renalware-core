@@ -4,7 +4,7 @@ require "test_support/ajax_helpers"
 RSpec.describe "Creating an event", type: :feature, js: true do
   include AjaxHelpers
 
-  context "adding a biopsy event" do
+  context "when adding a biopsy event" do
     it "captures extra data" do
       page.driver.add_headers("Referer" => root_path)
       user = login_as_clinical

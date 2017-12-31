@@ -5,7 +5,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
   let(:patient) { create(:patient, by: user) }
 
   describe "POST create" do
-    context "the patient has no worry (!)" do
+    context "when the patient has no worry (!)" do
       it "creates a new patient worry (aka adding them to the Worryboard)" do
         params = {
           patients_worry: {
@@ -22,7 +22,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
       end
     end
 
-    context "the patient already has a worry (i.e. is on the worryboard)" do
+    context "when the patient already has a worry (i.e. is on the worryboard)" do
       # Not expected to be possible in the UI but testing anyway
       it "behaves idempotently, does not fail, behaves as if the worry was just added" do
         Renalware::Patients::Worry.new(patient: patient, by: user, notes: "Abc").save!

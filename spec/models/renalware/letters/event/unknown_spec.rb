@@ -2,7 +2,7 @@ require "rails_helper"
 
 module Renalware::Letters
   describe Event::Unknown do
-    context "for a clinical letter" do
+    context "with a clinical letter" do
       subject { described_class.new(nil, clinical: true) }
 
       describe "#part_classes" do
@@ -27,7 +27,7 @@ module Renalware::Letters
       end
     end
 
-    context "for a non-clinical letter" do
+    context "with a non-clinical letter" do
       subject { described_class.new(nil) }
 
       describe "#part_classes" do

@@ -13,7 +13,7 @@ module Renalware
     describe "validate start date based on previous modalities" do
       let!(:another_patients_modality) { create(:modality, started_on: Date.parse("2015-06-02")) }
 
-      context "given there is no previous modality" do
+      context "when there is no previous modality" do
         subject do
           build(:modality, started_on: Date.parse("2015-05-01"))
         end
@@ -24,10 +24,10 @@ module Renalware
         end
       end
 
-      context "given there is a previous modality" do
+      context "when there is a previous modality" do
         let!(:patients_modality) { create(:modality, started_on: Date.parse("2015-04-01")) }
 
-        context "given start date is later than previous start date" do
+        context "when the start date is later than previous start date" do
           subject do
             build(
               :modality,
@@ -42,7 +42,7 @@ module Renalware
           end
         end
 
-        context "given start date is the same as the previous start date" do
+        context "when the start date is the same as the previous start date" do
           subject do
             build(
               :modality,
@@ -57,7 +57,7 @@ module Renalware
           end
         end
 
-        context "given start date is not later than previous start date" do
+        context "when start date is not later than previous start date" do
           subject do
             build(
               :modality,
