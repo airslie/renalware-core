@@ -6,7 +6,7 @@ describe Renalware::HD::SessionAccessPresenter do
   def mock_session(access_type: "ABC",
                    access_type_abbreviation: "A",
                    access_side: "right")
-    double(
+    instance_double(
       "Session",
       document: double(
         info: double(
@@ -24,7 +24,7 @@ describe Renalware::HD::SessionAccessPresenter do
     end
 
     it "handles a nil session.document" do
-      session = double("Session", document: nil)
+      session = instance_double("Session", document: nil)
       expect(presenter.new(session).to_s).to eq("")
     end
 
@@ -49,7 +49,7 @@ describe Renalware::HD::SessionAccessPresenter do
     end
 
     it "handles a nil session.document" do
-      session = double("Session", document: nil)
+      session = instance_double("Session", document: nil)
       expect(presenter.new(session).to_html).to eq("")
     end
 

@@ -5,11 +5,11 @@ module Renalware
     RSpec.describe RememberedLetterPreferences, type: :model do
       describe "#persist" do
         it "saves certain model attributes to the session" do
-          letter = double("Letter",
-                          letterhead_id: 1,
-                          description: "1",
-                          author_id: 1,
-                          issued_on: Time.zone.today)
+          letter = instance_double("Letter",
+                                   letterhead_id: 1,
+                                   description: "1",
+                                   author_id: 1,
+                                   issued_on: Time.zone.today)
           session = {}
 
           RememberedLetterPreferences.new(session).persist(letter)

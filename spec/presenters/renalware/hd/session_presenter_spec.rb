@@ -5,7 +5,7 @@ module Renalware
     describe SessionPresenter do
       subject(:presenter) { SessionPresenter.new(session) }
 
-      let(:session) { double("Session", document: Renalware::HD::SessionDocument.new) }
+      let(:session) { instance_double("Session", document: Renalware::HD::SessionDocument.new) }
 
       it { is_expected.to respond_to(:hospital_unit_unit_code) }
 
