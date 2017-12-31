@@ -3,57 +3,37 @@ require "rails_helper"
 module Renalware
   describe Age, type: :model do
     describe "#valid?" do
-      subject { Age.new }
-
-      context "born in the last 3 years" do
+      context "when born in the last 3 years" do
         it "returns false if age unit is :months" do
-          subject.amount = 2
-          subject.unit = :years
+          age = Age.new(amount: 2, unit: :years)
 
-          expect(subject).not_to be_valid
+          expect(age).not_to be_valid
         end
       end
     end
 
     describe ".new_from" do
-      subject { Age }
+      subject{ Age.new_from(parts) }
 
-      let(:parts) { { years: 10, months: 1, days: 2 } }
+      context "when params are blank" do
+        let(:parts){ { years: nil, months: nil, days: nil } }
 
-      context "params are blank" do
-        let(:parts) { { years: nil, months: nil, days: nil } }
-
-        it "returns a blank age" do
-          age = subject.new_from(parts)
-          expect(age.amount).to be_nil
-          expect(age.unit).to be_nil
-        end
+        it { is_expected.to have_attributes(amount: nil) }
+        it { is_expected.to have_attributes(unit: nil) }
       end
 
-      context "born more that 3 years ago" do
-        before do
-          allow(Age).to receive(:age_in_months_threshold).and_return(parts[:years] - 1)
-        end
+      context "when born more that 3 years ago" do
+        let(:parts){ { years: 3, months: 1, days: 2 } }
 
-        it "computes the age in years" do
-          age = subject.new_from(parts)
-
-          expect(age.amount).to eq(10)
-          expect(age.unit).to eq(:years)
-        end
+        it { is_expected.to have_attributes(amount: 3) }
+        it { is_expected.to have_attributes(unit: "years") }
       end
 
-      context "born in the last 3 years" do
-        before do
-          allow(Age).to receive(:age_in_months_threshold).and_return(parts[:years] + 1)
-        end
+      context "when less than 3 years ago" do
+        let(:parts){ { years: 2, months: 11, days: 27 } }
 
-        it "computes the age in months if less than 3 years old" do
-          age = subject.new_from(parts)
-
-          expect(age.amount).to eq(10 * 12 + 1)
-          expect(age.unit).to eq(:months)
-        end
+        it { is_expected.to have_attributes(amount: 35) }
+        it { is_expected.to have_attributes(unit: "months") }
       end
     end
   end

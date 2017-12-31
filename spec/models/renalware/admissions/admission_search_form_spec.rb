@@ -10,7 +10,11 @@ module Renalware
         term: "123"
       )
 
-      expect(Admissions::AdmissionQuery).to receive(:call).with(
+      allow(Admissions::AdmissionQuery).to receive(:call)
+
+      form.submit
+
+      expect(Admissions::AdmissionQuery).to have_received(:call).with(
         {
           hospital_ward_hospital_unit_id_eq: 1,
           hospital_ward_id_eq: 2,
@@ -18,8 +22,6 @@ module Renalware
           identity_match: "123"
         }
       )
-
-      form.submit
     end
   end
 end
