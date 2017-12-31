@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware
   module Clinics
     describe ClinicVisitPolicy, type: :policy do
-      subject { described_class }
+      subject(:policy) { described_class }
 
       let(:user) { User.new }
       let(:clinic_visit) { ClinicVisit.new }
@@ -11,7 +11,7 @@ module Renalware
       permissions :destroy? do
         context "with an unsaved clinic visit" do
           it "is not permitted" do
-            expect(subject).not_to permit(user, clinic_visit)
+            expect(policy).not_to permit(user, clinic_visit)
           end
         end
 
@@ -23,12 +23,12 @@ module Renalware
 
           it "is not permitted if creation date not is within the deletion window" do
             allow(clinic_visit).to receive(:created_at).and_return(Time.zone.now - 25.hours)
-            expect(subject).not_to permit(user, clinic_visit)
+            expect(policy).not_to permit(user, clinic_visit)
           end
 
           it "is permitted if creation date is within the deletion window" do
             allow(clinic_visit).to receive(:created_at).and_return(Time.zone.now - 23.hours)
-            expect(subject).to permit(user, clinic_visit)
+            expect(policy).to permit(user, clinic_visit)
           end
         end
       end

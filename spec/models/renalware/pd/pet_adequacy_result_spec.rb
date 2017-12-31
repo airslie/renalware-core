@@ -22,7 +22,7 @@ module Renalware
 
       describe "pet_type" do
         it "is an enumerized enum" do
-          expect(subject.class.pet_type.values).to be_kind_of(Array)
+          expect(described_class.pet_type.values).to be_kind_of(Array)
         end
       end
     end

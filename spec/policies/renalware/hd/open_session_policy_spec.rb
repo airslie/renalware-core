@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware
   module HD
     describe OpenSessionPolicy, type: :policy do
-      subject { described_class }
+      subject(:policy) { described_class }
 
       let(:user) { FactoryBot.build(:user, :super_admin) }
       let(:session) { HD::Session::Closed.new }
@@ -11,11 +11,11 @@ module Renalware
       [:edit?, :destroy?].each do |permission|
         permissions permission do
           it "no permitted if session unsaved" do
-            expect(subject).not_to permit(user, session)
+            expect(policy).not_to permit(user, session)
           end
           it "permitted if session saved" do
             allow(session).to receive(:persisted?).and_return(true)
-            expect(subject).to permit(user, session)
+            expect(policy).to permit(user, session)
           end
         end
       end

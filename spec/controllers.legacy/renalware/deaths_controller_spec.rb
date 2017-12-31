@@ -3,28 +3,30 @@ require "rails_helper"
 module Renalware
   RSpec.describe DeathsController, type: :controller do
     routes { Engine.routes }
-
-    subject { create(:patient, by: @current_user) }
-
-    before do
-      @cause = FactoryBot.create(:cause_of_death)
-      @modality_description = FactoryBot.create(:death_modality_description)
-      @patient_modality = FactoryBot.create(:modality,
-        patient_id: subject.id,
-        description: @modality_description,
-        by: @current_user)
+    let(:user) { @current_user }
+    let(:patient) do
+      create(:patient, by: user).tap do |pat|
+        create(
+          :modality,
+          patient_id: pat.id,
+          description: create(:death_modality_description),
+          by: user
+        )
+      end
     end
 
     describe "index" do
       it "responds with success" do
         get :index
+
         expect(response).to have_http_status(:success)
       end
     end
 
     describe "GET edit" do
       it "responds with success" do
-        get :edit, params: { patient_id: subject.to_param }
+        get :edit, params: { patient_id: patient.to_param }
+
         expect(response).to have_http_status(:success)
       end
     end
@@ -32,21 +34,27 @@ module Renalware
     describe "PUT update" do
       context "with valid attributes" do
         it "updates death details" do
-          put :update,
+          cause = create(:cause_of_death)
+
+          put(
+            :update,
             params: {
-              patient_id: subject.to_param,
+              patient_id: patient.to_param,
               patient: {
                 died_on: Date.parse(Time.zone.now.to_s),
-                first_cause_id: @cause.id
+                first_cause_id: cause.id
               }
             }
-          expect(response).to redirect_to(patient_clinical_profile_path(subject))
+          )
+
+          expect(response).to redirect_to(patient_clinical_profile_path(patient))
         end
       end
 
       context "with invalid attributes" do
         it "fails to update death details" do
-          put :update, params: { patient_id: subject.to_param, patient: { died_on: nil } }
+          put :update, params: { patient_id: patient.to_param, patient: { died_on: nil } }
+
           expect(response).to render_template(:edit)
         end
       end
