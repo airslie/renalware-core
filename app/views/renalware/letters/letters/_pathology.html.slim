@@ -16,7 +16,7 @@ ruby:
       = f.input :pathology_timestamp, as: :hidden
     - else
       = f.input :pathology_timestamp,
-                collection: [ \
+                collection: [\
                   ["Yes", Time.zone.now],
                   ["No", letter.pathology_timestamp], \
                 ], \

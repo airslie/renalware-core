@@ -9,6 +9,7 @@ end
 
 require File.expand_path("../dummy/config/environment", __FILE__)
 require "spec_helper"
+require "fuubar"
 require "rspec/rails"
 require "factory_bot_rails"
 require "wisper/rspec/matchers"
@@ -82,6 +83,8 @@ RSpec.configure do |config|
   config.include Chosen::Rspec::FeatureHelpers, type: :feature
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
+
+  config.fuubar_progress_bar_options = { progress_mark: "≈" }
 
   # By default, all specs will have versioning enabled.
   # Enable it one spec/example_group at a time by adding `versioning: true`.

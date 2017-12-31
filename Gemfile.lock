@@ -250,6 +250,9 @@ GEM
       sass (>= 3.3.0, < 3.5)
     friendly_id (5.2.3)
       activerecord (>= 4.0.0)
+    fuubar (2.2.0)
+      rspec-core (~> 3.0)
+      ruby-progressbar (~> 1.4)
     gherkin (5.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -556,6 +559,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   foreman
+  fuubar
   launchy
   party_foul (~> 1.5.5)
   poltergeist
@@ -582,4 +586,4 @@ RUBY VERSION
    ruby 2.4.2p198
 
 BUNDLED WITH
-   1.16.0
+   1.16.1
