@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware
   module HD
     describe ClosedSessionPolicy, type: :policy do
-      subject { described_class }
+      subject(:policy) { described_class }
 
       let(:user) { User.new }
       let(:session) { HD::Session::Closed.new }
@@ -13,19 +13,19 @@ module Renalware
           it "not permitted if the session is ye saved" do
             allow(session).to receive(:persisted?).and_return(false)
 
-            expect(subject).not_to permit(user, session)
+            expect(policy).not_to permit(user, session)
           end
           it "permitted if the session is not yet immutable" do
             allow(session).to receive(:persisted?).and_return(true)
             allow(session).to receive(:immutable?).and_return(false)
 
-            expect(subject).to permit(user, session)
+            expect(policy).to permit(user, session)
           end
           it "not permitted if the session is immutable" do
             allow(session).to receive(:persisted?).and_return(true)
             allow(session).to receive(:immutable?).and_return(true)
 
-            expect(subject).not_to permit(user, session)
+            expect(policy).not_to permit(user, session)
           end
         end
       end

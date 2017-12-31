@@ -6,79 +6,107 @@ module Renalware::System
       let(:super_admin) { create(:role, :super_admin) }
 
       context "with an unapproved user" do
-        subject { UpdateUser.new(user) }
+        subject(:commmand) { UpdateUser.new(user) }
 
         let(:user) { create(:user, :clinical, :unapproved) }
 
         it "approves the user" do
-          expect(user).to receive(:approved=).with(true)
-          subject.call(approved: "true")
+          allow(user).to receive(:approved=)
+
+          commmand.call(approved: "true")
+
+          expect(user).to have_received(:approved=).with(true)
         end
 
         it "authorises the user" do
-          expect(user).to receive(:roles=).with([super_admin])
-          subject.call(approved: "true", roles: [super_admin])
+          allow(user).to receive(:roles=)
+
+          commmand.call(approved: "true", roles: [super_admin])
+
+          expect(user).to have_received(:roles=).with([super_admin])
         end
 
         it "notifies the user of approval" do
           expect {
-            subject.call(approved: "true", roles: [super_admin])
+            commmand.call(approved: "true", roles: [super_admin])
           }.to change{
             ActionMailer::Base.deliveries.count
           }.by(1)
         end
 
         it "does not approve a user without roles" do
-          actual = subject.call(approved: "true", roles: [])
+          actual = commmand.call(approved: "true", roles: [])
           expect(actual).to be false
         end
       end
 
       context "with an approved user" do
-        subject { UpdateUser.new(user) }
+        subject(:command) { UpdateUser.new(user) }
 
         let(:user) { create(:user) }
 
         it "skips approval" do
-          expect(subject).not_to receive(:approve)
+          allow(command).to receive(:approve)
+
+          command.call(approved: "true")
+
+          expect(command).not_to have_received(:approve)
+        end
+
+        it "does not send an email" do
           expect{
-            subject.call(approved: "true")
+            command.call(approved: "true")
           }.to change{
             ActionMailer::Base.deliveries.count
           }.by(0)
         end
 
         it "authorises the user" do
-          expect(user).to receive(:roles=).with([super_admin])
-          subject.call(approved: "true", roles: [super_admin])
+          allow(user).to receive(:roles=)
+
+          command.call(approved: "true", roles: [super_admin])
+
+          expect(user).to have_received(:roles=).with([super_admin])
         end
       end
 
       context "with an expired user" do
-        subject { UpdateUser.new(user) }
+        subject(:command) { UpdateUser.new(user) }
 
         let(:user) { build(:user, :expired) }
 
         it "unexpires the user" do
-          expect(user).to receive(:expired_at=).with(nil)
-          subject.call(unexpire: "true")
+          allow(user).to receive(:expired_at=)
+
+          command.call(unexpire: "true")
+
+          expect(user).to have_received(:expired_at=).with(nil)
         end
 
         it "notifies the user of account reactivation" do
-          expect{ subject.call(unexpire: "true") }.to change(
-            ActionMailer::Base.deliveries, :count).by(1)
+          expect{
+            command.call(unexpire: "true")
+          }.to change(ActionMailer::Base.deliveries, :count).by(1)
         end
       end
 
       context "with an unexpired user" do
-        subject { UpdateUser.new(user) }
+        subject(:command) { UpdateUser.new(user) }
 
         let(:user) { build(:user) }
 
         it "skips unexpiry" do
-          expect(subject).not_to receive(:unexpire)
-          expect{ subject.call(unexpire: "true") }.to change(
-            ActionMailer::Base.deliveries, :count).by(0)
+          allow(command).to receive(:unexpire)
+
+          command.call(unexpire: "true")
+
+          expect(command).not_to have_received(:unexpire)
+        end
+
+        it "does not send an email" do
+          expect{
+            command.call(unexpire: "true")
+          }.to change(ActionMailer::Base.deliveries, :count).by(0)
         end
       end
     end

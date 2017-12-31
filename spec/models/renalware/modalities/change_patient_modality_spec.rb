@@ -3,7 +3,7 @@ require "rails_helper"
 
 module Renalware
   RSpec.describe Modalities::ChangePatientModality, type: :model do
-    subject { described_class.new(patient: patient, user: user) }
+    subject(:command) { described_class.new(patient: patient, user: user) }
 
     let(:patient)                 { build_stubbed(:patient) }
     let(:user)                    { build_stubbed(:user) }
@@ -57,10 +57,11 @@ module Renalware
         context "when the modality is valid" do
           it "returns a Success result object" do
             modality = build_modality(death)
+            allow(modality).to receive(:save!).and_return(true)
 
-            expect(modality).to receive(:save!).and_return(true)
-            result = subject.call(modality: modality)
+            result = command.call(modality: modality)
 
+            expect(modality).to have_received(:save!)
             expect(result).to be_a(Success)
             expect(result.object).to be_a(Modalities::Modality)
           end
@@ -70,7 +71,7 @@ module Renalware
           it "returns a Failure result object" do
             modality = build_modality(nil)
 
-            result = subject.call(modality: modality)
+            result = command.call(modality: modality)
 
             expect(result).to be_a(Failure)
             expect(result.object).to be_a(Modalities::Modality)
@@ -89,7 +90,7 @@ module Renalware
             expect(old_modality).to receive(:save!).and_return(true)
             expect(modality).to receive(:save!).and_return(true)
 
-            result = subject.call(modality: modality)
+            result = command.call(modality: modality)
 
             expect(result).to be_a(Success)
             expect(result.object).to be_a(Modalities::Modality)
@@ -104,7 +105,7 @@ module Renalware
             expect(patient.current_modality).to eq(old_modality)
 
             listener = double("Listener")
-            subject.subscribe(listener)
+            command.subscribe(listener)
 
             expect(old_modality).to receive(:save!).and_return(true)
             expect(modality).to receive(:save!).and_return(true)
@@ -114,7 +115,7 @@ module Renalware
               actor: user
             )
 
-            result = subject.call(modality: modality)
+            result = command.call(modality: modality)
 
             expect(result).to be_a(Success)
           end
@@ -124,7 +125,7 @@ module Renalware
           it "returns a Failure result object" do
             modality = build_modality(nil)
 
-            result = subject.call(modality: modality)
+            result = command.call(modality: modality)
 
             expect(result).to be_a(Failure)
             expect(result.object).to be_a(Modalities::Modality)
@@ -133,10 +134,10 @@ module Renalware
           it "does not broadcast a patient_modality_changed event" do
             modality = build_modality(nil)
             listener = double("Listener")
-            subject.subscribe(listener)
+            command.subscribe(listener)
             expect(listener).not_to receive(:patient_modality_changed)
 
-            subject.call(modality: modality)
+            command.call(modality: modality)
           end
         end
       end

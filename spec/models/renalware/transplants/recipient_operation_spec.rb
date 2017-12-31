@@ -18,33 +18,35 @@ module Renalware
       it { is_expected.to validate_timeliness_of(:kidney_perfused_with_blood_at) }
       it { is_expected.to validate_timeliness_of(:theatre_case_start_time) }
 
-      subject { build(:transplant_recipient_operation) }
-
       describe "#cold_ischaemic_time_formatted=" do
         it "stores duration in seconds" do
-          subject.cold_ischaemic_time_formatted = "1:01"
-          expect(subject.cold_ischaemic_time).to eq(3600 + 60)
+          operation = described_class.new(cold_ischaemic_time_formatted: "1:01")
+
+          expect(operation.cold_ischaemic_time).to eq(3600 + 60)
         end
       end
 
       describe "#cold_ischaemic_time_formatted" do
         it "returns formatted duration in hh:mm" do
-          subject.cold_ischaemic_time = 3600 + 60
-          expect(subject.cold_ischaemic_time_formatted).to eq("1:01")
+          operation = described_class.new(cold_ischaemic_time: 3600 + 60)
+
+          expect(operation.cold_ischaemic_time_formatted).to eq("1:01")
         end
       end
 
       describe "#warm_ischaemic_time_formatted=" do
         it "stores duration in seconds" do
-          subject.warm_ischaemic_time_formatted = "1:01"
-          expect(subject.warm_ischaemic_time).to eq(3600 + 60)
+          operation = described_class.new(warm_ischaemic_time_formatted: "1:01")
+
+          expect(operation.warm_ischaemic_time).to eq(3600 + 60)
         end
       end
 
       describe "#warm_ischaemic_time_formatted" do
         it "returns formatted duration in hh:mm" do
-          subject.warm_ischaemic_time = 3600 + 60
-          expect(subject.warm_ischaemic_time_formatted).to eq("1:01")
+          operation = described_class.new(warm_ischaemic_time: 3600 + 60)
+
+          expect(operation.warm_ischaemic_time_formatted).to eq("1:01")
         end
       end
     end

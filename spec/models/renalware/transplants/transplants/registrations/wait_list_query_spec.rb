@@ -5,7 +5,7 @@ module Renalware
     module Registrations
       describe WaitListQuery, type: :model do
         describe "#call" do
-          subject { WaitListQuery.new(quick_filter: filter) }
+          subject(:query) { WaitListQuery.new(quick_filter: filter) }
 
           before do
             create(:transplant_registration, :in_status, status: "active")
@@ -18,7 +18,7 @@ module Renalware
             let(:filter) { :active }
 
             it "returns the active registrations" do
-              expect(subject.call.count).to eq(1)
+              expect(query.call.count).to eq(1)
             end
           end
 
@@ -26,7 +26,7 @@ module Renalware
             let(:filter) { :suspended }
 
             it "returns the suspended registrations" do
-              expect(subject.call.count).to eq(1)
+              expect(query.call.count).to eq(1)
             end
           end
 
@@ -34,7 +34,7 @@ module Renalware
             let(:filter) { :active_and_suspended }
 
             it "returns the active and suspended registrations" do
-              expect(subject.call.count).to eq(2)
+              expect(query.call.count).to eq(2)
             end
           end
 
@@ -42,7 +42,7 @@ module Renalware
             let(:filter) { :working_up }
 
             it "returns the working-up registrations" do
-              expect(subject.call.count).to eq(2)
+              expect(query.call.count).to eq(2)
             end
           end
         end

@@ -5,7 +5,7 @@ module Renalware
     RSpec.describe RememberedClinicVisitPreferences, type: :model do
       describe "#persist" do
         it "saves certain model attributes to the session" do
-          visit = double("ClinicVisit", date: Time.zone.now)
+          visit = instance_double("ClinicVisit", date: Time.zone.now)
           session = {}
 
           RememberedClinicVisitPreferences.new(session).persist(visit)

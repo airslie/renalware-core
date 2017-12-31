@@ -10,12 +10,10 @@ module Renalware::Messaging::Internal
     it { is_expected.to belong_to(:recipient) }
 
     describe "#read?" do
-      it "has an initial value of false" do
-        expect(subject).not_to be_read
-      end
+      it { is_expected.not_to be_read }
+
       it "returns true if read_at is set" do
-        subject.read_at = Time.zone.now
-        expect(subject).to be_read
+        expect(described_class.new(read_at: Time.zone.now)).to be_read
       end
     end
   end
