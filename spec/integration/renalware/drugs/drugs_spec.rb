@@ -12,7 +12,7 @@ RSpec.describe "Configuring Drugs", type: :request do
   end
 
   describe "POST create" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "creates a new record" do
         attributes = attributes_for(:drug)
 
@@ -27,7 +27,7 @@ RSpec.describe "Configuring Drugs", type: :request do
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "responds with form" do
         attributes = { name: "" }
 
@@ -83,7 +83,7 @@ RSpec.describe "Configuring Drugs", type: :request do
   end
 
   describe "PATCH update" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "updates a record" do
         attributes = { name: "::drug_name::" }
 
@@ -98,7 +98,7 @@ RSpec.describe "Configuring Drugs", type: :request do
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "responds with a form" do
         attributes = { name: "" }
 

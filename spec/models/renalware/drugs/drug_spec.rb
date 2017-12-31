@@ -16,7 +16,7 @@ module Renalware::Drugs
       end
     end
 
-    context "assign drug types to a drug" do
+    describe "assigning drug types to a drug" do
       it "can be assigned many unique drug types" do
         @antibiotic = create(:drug_type, code: "antibiotic", name: "Antibiotic")
         @esa = create(:drug_type, code: "esa", name: "ESA")

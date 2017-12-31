@@ -45,7 +45,7 @@ module Renalware
           end
         end
 
-        context "updating an existing episode" do
+        context "when updating an existing episode" do
           let(:episode) { existing_episode }
 
           it "updates an existing episode" do

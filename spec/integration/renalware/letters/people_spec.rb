@@ -18,7 +18,7 @@ RSpec.describe "Add person to directory and assign as a contact for a patient",
   let(:person) { build(:directory_person, by: @user, address: build(:address)) }
 
   describe "creating a person and assign as a contact" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "responds successfully" do
         visit patient_letters_contacts_path(patient)
 
@@ -28,7 +28,7 @@ RSpec.describe "Add person to directory and assign as a contact for a patient",
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "responds with errors" do
         visit patient_letters_contacts_path(patient)
 

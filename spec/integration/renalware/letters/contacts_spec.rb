@@ -15,7 +15,7 @@ RSpec.describe "Assign a contact to a patient", type: :feature, js: true do
   let!(:contact_description) { create(:letter_contact_description) }
 
   describe "creating a contact" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "responds successfully" do
         visit patient_letters_contacts_path(patient)
 
@@ -25,7 +25,7 @@ RSpec.describe "Assign a contact to a patient", type: :feature, js: true do
       end
     end
 
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "responds with errors" do
         visit patient_letters_contacts_path(patient)
 

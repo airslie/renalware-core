@@ -12,7 +12,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
   end
 
   describe "POST create" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "creates a new record" do
         attributes = attributes_for(:bag_type)
         post pd_bag_types_path, params: { pd_bag_type: attributes }
@@ -26,7 +26,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "responds with form" do
         attributes = { manufacturer: "" }
         post pd_bag_types_path, params: { pd_bag_type: attributes }
@@ -53,7 +53,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
   end
 
   describe "PATCH update" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "updates a record" do
         attributes = { manufacturer: "My Edited Bag Type" }
 
@@ -68,7 +68,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
       end
     end
 
-    context "given invalid attributes" do
+    context "with invalid attributes" do
       it "responds with a form" do
         attributes = { manufacturer: "" }
 

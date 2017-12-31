@@ -7,28 +7,28 @@ RSpec.describe "Searching letter descriptions", type: :request do
   let(:description) { create(:letter_description) }
 
   describe "GET search" do
-    context "no entries matching" do
+    context "with no entries matching" do
       it "returns empty set" do
         search("this is not found")
         expect(json_response.size).to eq(0)
       end
     end
 
-    context "full description text" do
+    context "with full description text" do
       it "returns matching entries" do
         search(description.text)
         expect(json_response.size).to eq(1)
       end
     end
 
-    context "beginning of the description text" do
+    context "with beginning of the description text" do
       it "returns matching entries" do
         search(description.text.split.first)
         expect(json_response.size).to eq(1)
       end
     end
 
-    context "end of the description text" do
+    context "with end of the description text" do
       it "returns matching entries" do
         search(description.text.split.last)
         expect(json_response.size).to eq(1)

@@ -20,7 +20,7 @@ module Renalware
         end
       end
 
-      context "given the specified values present in the relation" do
+      context "when the specified values are present in the relation" do
         let(:ordered_values) { %w(foo bar) }
 
         it "returns an ordered scope with the attribute and values specified" do
@@ -32,7 +32,7 @@ module Renalware
         end
       end
 
-      context "given the values not present in the relation for the specified attribute" do
+      context "when the values are not present in the relation for the specified attribute" do
         let(:ordered_values) { ["foo", "::does not exists::", "bar"] }
 
         it "returns an ordered scope with the values that exist in the relation" do

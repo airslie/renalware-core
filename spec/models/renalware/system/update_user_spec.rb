@@ -5,7 +5,7 @@ module Renalware::System
     describe "#call" do
       let(:super_admin) { create(:role, :super_admin) }
 
-      context "given an unapproved user" do
+      context "with an unapproved user" do
         subject { UpdateUser.new(user) }
 
         let(:user) { create(:user, :clinical, :unapproved) }
@@ -34,7 +34,7 @@ module Renalware::System
         end
       end
 
-      context "given an approved user" do
+      context "with an approved user" do
         subject { UpdateUser.new(user) }
 
         let(:user) { create(:user) }
@@ -54,7 +54,7 @@ module Renalware::System
         end
       end
 
-      context "given an expired user" do
+      context "with an expired user" do
         subject { UpdateUser.new(user) }
 
         let(:user) { build(:user, :expired) }
@@ -70,7 +70,7 @@ module Renalware::System
         end
       end
 
-      context "given an unexpired user" do
+      context "with an unexpired user" do
         subject { UpdateUser.new(user) }
 
         let(:user) { build(:user) }

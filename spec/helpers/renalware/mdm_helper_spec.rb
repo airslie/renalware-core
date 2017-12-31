@@ -11,7 +11,7 @@ module Renalware
     end
 
     describe "#mdm_path_for resolves the correct MDM path for the patient's current modality" do
-      context "When current modality is" do
+      context "when current modality is" do
         it "PD" do
           patient = patient_with_modality(modality_trait: :pd)
           link = link_to_mdm(patient)

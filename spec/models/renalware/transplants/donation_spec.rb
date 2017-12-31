@@ -23,7 +23,7 @@ module Renalware
 
         it { is_expected.to be_valid }
 
-        context "given relationship is other and relationship is not supplied" do
+        context "when relationship is other and relationship is not supplied" do
           let(:attributes) do
             {
               state: :other_living_non_related,

@@ -5,7 +5,7 @@ RSpec.describe "Managing bookmarks", type: :request do
   let(:patient) { create(:patient, by: user) }
 
   describe "POST create" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "creates a new bookmark" do
         headers = { "HTTP_REFERER" => "/" }
         params = {

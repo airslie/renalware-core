@@ -93,7 +93,7 @@ module Renalware
         end
       end
 
-      context "add bag" do
+      describe "adding a bag" do
         it "adds a bag to the unsaved CAPD Regime" do
           create_capd_regime
           expect(PD::RegimeBag.count).to eq(1)
@@ -113,7 +113,7 @@ module Renalware
         end
       end
 
-      context "remove bag" do
+      describe "removing a bag" do
         it "removes a bag from the unsaved CAPD Regime" do
           create_capd_regime
           post :create,

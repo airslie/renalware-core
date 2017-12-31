@@ -13,7 +13,7 @@ RSpec.describe "Changing a patient's GP (primary care physician)", type: :reques
   end
 
   describe "PATCH update" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "updates a record" do
         attributes = { patient: { primary_care_physician_id: primary_care_physician.id } }
 

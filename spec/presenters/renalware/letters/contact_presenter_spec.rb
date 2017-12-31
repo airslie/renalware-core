@@ -8,7 +8,7 @@ module Renalware
       let(:contact) { build(:letter_contact) }
 
       describe "#description_name" do
-        context "given a specified description" do
+        context "with a specified description" do
           let(:specified_contact_description) { build(:letter_contact_description) }
 
           before do
@@ -20,7 +20,7 @@ module Renalware
           end
         end
 
-        context "given an unspecified description" do
+        context "with an unspecified description" do
           let(:unspecified_contact_description) { build(:letter_contact_description, :unspecified) }
 
           before do

@@ -11,7 +11,7 @@ module Renalware
       let(:recipient) { letter.main_recipient }
 
       describe "#address" do
-        context "given the recipient's role is patient" do
+        context "when the recipient's role is patient" do
           let(:letter) { build_letter(to: :patient, patient: patient) }
 
           it "returns the address of the patient" do
@@ -19,7 +19,7 @@ module Renalware
           end
         end
 
-        context "given the recipient's role is Primary Care Physician" do
+        context "when the recipient's role is Primary Care Physician" do
           let(:letter) { build_letter(to: :primary_care_physician, patient: patient) }
 
           it "returns the address of the Primary Care Physician" do
@@ -27,7 +27,7 @@ module Renalware
           end
         end
 
-        context "given the recipient's role is contact" do
+        context "when the recipient's role is contact" do
           let(:letter) { build_letter(to: :contact, patient: patient) }
 
           it "returns the recipient's address" do

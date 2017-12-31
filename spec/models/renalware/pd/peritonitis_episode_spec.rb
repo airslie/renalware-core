@@ -23,7 +23,7 @@ module Renalware
         load_med_routes
       end
 
-      context "prescriptions" do
+      describe "prescriptions" do
         it "can be assigned many prescriptions and organisms/sensitivities" do
           @prescription_one = create(
             :prescription,

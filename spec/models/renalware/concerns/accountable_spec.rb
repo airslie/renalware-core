@@ -19,7 +19,7 @@ module Renalware
     let(:created_by_user) { create(:user) }
 
     describe "#create" do
-      context "given the created user is explicity assigned" do
+      context "when the created user is explicity assigned" do
         it "assigns the user who created the record" do
           subject = @klass.create!(created_by: created_by_user, dummy: ":: created it ::")
 
@@ -28,7 +28,7 @@ module Renalware
         end
       end
 
-      context "given the user is implicity assigned" do
+      context "when the user is implicity assigned" do
         it "assigns the user who created the record" do
           subject = @klass.create!(by: created_by_user, dummy: ":: created it ::")
 
@@ -43,7 +43,7 @@ module Renalware
 
       subject! { @klass.create!(created_by: created_by_user, dummy: ":: created it ::") }
 
-      context "given the updated user is explicity assigned" do
+      context "when the updated user is explicity assigned" do
         it "assigns the user who updated the record" do
           subject.update(updated_by: updated_by_user, dummy: ":: updated_it ::")
 
@@ -51,7 +51,7 @@ module Renalware
         end
       end
 
-      context "given the updated user is implicity assigned" do
+      context "when the updated user is implicity assigned" do
         it "assigns the user who updated the record" do
           subject = @klass.create!(by: created_by_user, dummy: ":: created it ::")
           subject.update(by: updated_by_user, dummy: ":: updated_it ::")

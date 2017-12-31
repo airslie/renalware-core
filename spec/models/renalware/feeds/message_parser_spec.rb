@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware::Feeds
   RSpec.describe MessageParser do
     describe "#parse" do
-      context "given a message with multiple observation segments" do
+      context "with a message with multiple observation segments" do
         let(:raw_message) do
           # Notes:
           # - In OBX:2, TX = Text data
@@ -77,7 +77,7 @@ module Renalware::Feeds
         end
       end
 
-      context "given a message with a single observation segment" do
+      context "with a message with a single observation segment" do
         let(:raw_message) do
           <<-RAW.strip_heredoc
             MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||

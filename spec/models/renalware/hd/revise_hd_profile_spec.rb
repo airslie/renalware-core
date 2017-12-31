@@ -17,7 +17,7 @@ module Renalware::HD
         }.to raise_error(ArgumentError)
       end
 
-      context "updating the profile other_schedule with a valid value" do
+      context "when updating the profile other_schedule with a valid value" do
         let(:other_schedule) { "Mon Fri Sun" }
 
         subject!(:revised_profile) do
@@ -73,7 +73,7 @@ module Renalware::HD
         end
       end
 
-      context "updating with an invalid value" do
+      context "when updating with an invalid value" do
         let(:revised_prescriber) { nil }
 
         subject!(:revised_profile) do

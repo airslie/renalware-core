@@ -45,14 +45,14 @@ module Renalware
     end
 
     describe "#valid?" do
-      context "given the current modality is death" do
+      context "when the current modality is death" do
         before { allow(subject).to receive(:current_modality_death?).and_return(true) }
 
         it { expect(subject).to validate_presence_of(:died_on) }
         it { expect(subject).to validate_presence_of(:first_cause_id) }
       end
 
-      context "given the current modality is not death" do
+      context "when the current modality is not death" do
         before { allow(subject).to receive(:current_modality_death?).and_return(false) }
 
         it { expect(subject).not_to validate_presence_of(:died_on) }
@@ -69,7 +69,7 @@ module Renalware
     describe "#update" do
       let(:user) { create(:user) }
 
-      context "given #died_on is specified" do
+      context "when #died_on is specified" do
         subject!{ create(:patient) }
 
         it "stills retain patient details" do

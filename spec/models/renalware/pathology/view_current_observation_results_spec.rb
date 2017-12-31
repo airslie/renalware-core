@@ -11,7 +11,7 @@ module Renalware::Pathology
     let(:observation_descriptions) { [build(:pathology_observation_description)] }
 
     describe "#call" do
-      context "given a patient has no observation requests" do
+      context "when patient has no observation requests" do
         it do
           results = service.call
 

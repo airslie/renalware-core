@@ -23,7 +23,7 @@ describe Renalware::Pathology::Requests::PatientRule do
   end
 
   describe "#required?" do
-    context "given the specified date is not within the patient_rule's start/end date range" do
+    context "when the specified date is not within the patient_rule's start/end date range" do
       let(:date) { Date.parse("2016-04-22") }
 
       it "returns false" do
@@ -31,14 +31,14 @@ describe Renalware::Pathology::Requests::PatientRule do
       end
     end
 
-    context "given specified date is within the patient_rule's start/end date range" do
+    context "when the specified date is within the patient_rule's start/end date range" do
       let(:date) { Date.parse("2016-04-20") }
 
       it "returns true" do
         expect(patient_rule).to be_required(date)
       end
 
-      context "given the patient was previously observed" do
+      context "when the patient was previously observed" do
         let!(:request) { create_request(patient: patient, observed_on: "2016-04-19") }
 
         it "returns true" do

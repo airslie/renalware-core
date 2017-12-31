@@ -5,7 +5,7 @@ RSpec.describe "Donor stage management", type: :request do
   let(:patient) { create(:patient, by: user) }
 
   describe "POST create" do
-    context "given valid attributes" do
+    context "with valid attributes" do
       it "creates a new donor stage" do
         position = create(:donor_stage_position)
         status = create(:donor_stage_status)
@@ -26,7 +26,7 @@ RSpec.describe "Donor stage management", type: :request do
       end
     end
 
-    context "given invalid attributes (missing status)" do
+    context "with invalid attributes (missing status)" do
       it "does not submit successfully" do
         position = create(:donor_stage_position)
 

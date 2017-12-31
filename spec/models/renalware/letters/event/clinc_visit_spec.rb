@@ -2,7 +2,7 @@ require "rails_helper"
 
 module Renalware::Letters
   describe Event::ClinicVisit do
-    context "for a clinical letter" do
+    context "with a clinical letter" do
       subject { described_class.new(nil, clinical: true) }
 
       describe "#part_classes" do

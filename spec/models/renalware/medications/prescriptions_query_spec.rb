@@ -4,7 +4,7 @@ module Renalware::Medications
   RSpec.describe PrescriptionsQuery, type: :model do
     let(:patient) { create(:patient) }
 
-    context "given no filter" do
+    context "with no filter" do
       subject(:query) { PrescriptionsQuery.new(relation: patient.prescriptions) }
 
       let!(:current_prescription) do
@@ -18,7 +18,7 @@ module Renalware::Medications
       end
     end
 
-    context "given a filter for a drug type" do
+    context "with a filter for a drug type" do
       subject(:query) do
         PrescriptionsQuery.new(
           relation: patient.prescriptions,

@@ -30,7 +30,7 @@ module Renalware
     end
 
     describe "#call" do
-      context "passing modality attributes rather than a modality object" do
+      context "when passing modality attributes rather than a modality object" do
         it "creates a new modality and makes it the patient;s current modality" do
           # No stubbed models here - want to test straight through
           patient = create(:patient)
