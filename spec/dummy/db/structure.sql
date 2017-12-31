@@ -658,7 +658,7 @@ CREATE TABLE admission_admissions (
     admitted_on date NOT NULL,
     admission_type character varying NOT NULL,
     consultant character varying,
-    modality character varying,
+    modality_at_admission_id bigint,
     reason_for_admission text NOT NULL,
     notes text,
     transferred_on date,
@@ -8548,6 +8548,13 @@ CREATE INDEX index_admission_admissions_on_hospital_ward_id ON admission_admissi
 
 
 --
+-- Name: index_admission_admissions_on_modality_at_admission_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_admissions_on_modality_at_admission_id ON admission_admissions USING btree (modality_at_admission_id);
+
+
+--
 -- Name: index_admission_admissions_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -11775,6 +11782,14 @@ ALTER TABLE ONLY problem_notes
 
 ALTER TABLE ONLY pathology_observations
     ADD CONSTRAINT fk_rails_70ef87ad18 FOREIGN KEY (request_id) REFERENCES pathology_observation_requests(id);
+
+
+--
+-- Name: admission_admissions fk_rails_74bb0c40ab; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_admissions
+    ADD CONSTRAINT fk_rails_74bb0c40ab FOREIGN KEY (modality_at_admission_id) REFERENCES modality_modalities(id);
 
 
 --
