@@ -16,8 +16,6 @@ jobs:
 
     parallelism: 1
     steps:
-      - run: lsb_release -a
-
       - checkout
       - run: git submodule sync ; git submodule update --init
 
