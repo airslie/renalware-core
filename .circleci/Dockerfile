@@ -31,11 +31,19 @@ RUN apt-get install -y \
   --fix-missing \
   --no-install-recommends
 
+RUN apt-get install -y libicu57
+
+RUN wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.0.0_1.0.2g-1ubuntu13.3_amd64.deb
+RUN apt install -y ./libssl1.0.0_1.0.2g-1ubuntu13.3_amd64.deb
+
+RUN wget http://apt.postgresql.org/pub/repos/apt/pool/main/p/postgresql-10/libpq5_10.1-1.pgdg14.04+1_amd64.deb
+RUN apt install -y ./libpq5_10.1-1.pgdg14.04+1_amd64.deb
+
 # Add a repo where we can get pg 10.1 client tools
-#RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-#RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'
-#RUN apt-get update
-# RUN apt-get install -y postgresql-client-10
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'
+RUN apt-get update
+RUN apt-get install -y postgresql-client-10
 
 RUN wget -O /tmp/phantomjs.tar.bz2 https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
 RUN tar -xjf /tmp/phantomjs.tar.bz2 -C /tmp
