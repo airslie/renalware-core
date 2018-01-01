@@ -76,17 +76,6 @@ module Renalware
             expect(data).to eq(
               [
                 {
-                  modality: "HD",
-                  patient_count: 2,
-                  avg_cca: 2.15,
-                  pct_cca_2_1_to_2_4: 50.0,
-                  pct_pth_gt_300: 100.0,
-                  pct_pth_gt_800_pct: 50.0,
-                  avg_phos: 1.5,
-                  max_phos: 2.0,
-                  pct_phos_lt_1_8: 50.0 # pct_phos_lt_1_8 = 50%
-                },
-                {
                   modality: "PD",
                   patient_count: 1,
                   avg_cca: nil,
@@ -96,6 +85,17 @@ module Renalware
                   avg_phos: nil,
                   max_phos: nil,
                   pct_phos_lt_1_8: 0.0
+                },
+                {
+                  modality: "HD",
+                  patient_count: 2,
+                  avg_cca: 2.15,
+                  pct_cca_2_1_to_2_4: 50.0,
+                  pct_pth_gt_300: 100.0,
+                  pct_pth_gt_800_pct: 50.0,
+                  avg_phos: 1.5,
+                  max_phos: 2.0,
+                  pct_phos_lt_1_8: 50.0 # pct_phos_lt_1_8 = 50%
                 }
               ]
             )
