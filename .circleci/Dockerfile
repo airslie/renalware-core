@@ -13,9 +13,10 @@
 # and then update the docker image tag (eg 0.0.2) in `.circleci/config`.
 # The next time a build is triggered on CircleCI the new image will be pulled and cached.
 
-FROM ruby:2.4.2
+FROM ruby:2.5.0
 MAINTAINER Tim Crowe <tim@airslie.com>
 # Version 0.0.3 Updated Ruby 2.4.1 => 2.4.2 and Postgres 9.6 => 10.1
+# Version 0.0.5 Updated Ruby 2.4.2 => 2.5.0
 
 # Install apt based dependencies required to run Rails as
 # well as RubyGems. As the Ruby image itself is based on a
@@ -25,17 +26,16 @@ RUN apt-get install -y \
   build-essential \
   libpq-dev \
   software-properties-common \
-  python-software-properties \
   nodejs \
   pandoc \
   --fix-missing \
   --no-install-recommends
 
 # Add a repo where we can get pg 10.1 client tools
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'
-RUN apt-get update
-RUN apt-get install -y postgresql-client-10
+#RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+#RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'
+#RUN apt-get update
+# RUN apt-get install -y postgresql-client-10
 
 RUN wget -O /tmp/phantomjs.tar.bz2 https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
 RUN tar -xjf /tmp/phantomjs.tar.bz2 -C /tmp

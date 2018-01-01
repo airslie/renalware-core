@@ -7,7 +7,7 @@ jobs:
       # Note it is important to disable spring otherwise it affects the simplecov output because
       # spring loads files ahead of time - for example using spring you might find app/helpers
       # are not included in the coverage.
-      - image: airslie/renalware-circleci-primary:0.0.3
+      - image: airslie/renalware-circleci-primary:0.0.5
         environment:
           - RAILS_ENV: test
           - RACK_ENV: test
