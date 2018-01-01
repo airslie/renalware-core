@@ -4,7 +4,7 @@ RSpec.configure do |config|
 
   config.before(:all) do
     if FactoryBot.factories.count == 0
-      warn "Loading FactoryBot factories"
+      # warn "Loading FactoryBot factories"
       FactoryBot.find_definitions
     end
   end

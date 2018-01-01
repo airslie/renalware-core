@@ -30,6 +30,7 @@ group :test do
   gem "cucumber-rails", "~> 1.5.0", require: false # must be loaded in env.rb
   gem "database_cleaner", require: false # for cucumber specs, no longer needed for rspec features
   gem "factory_bot_rails"
+  gem "fuubar", require: false
   gem "poltergeist"
   gem "rails-controller-testing"
   gem "rspec-html-matchers"
@@ -45,7 +46,7 @@ group :staging do
   gem "wkhtmltopdf-heroku", "~> 2.12.3"
 end
 
-group :developement do
+group :development do
   gem "foreman", require: false
   gem "rubocop-rspec", require: false # for housekeeping
   gem "web-console", require: false
