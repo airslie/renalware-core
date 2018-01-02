@@ -20,7 +20,6 @@ module Renalware
       validates :admitted_on, presence: true
       validates :reason_for_admission, presence: true
       validates :admission_type, presence: true
-      validates :modality_at_admission, presence: true
 
       belongs_to :patient
       belongs_to :hospital_ward, class_name: "Hospitals::Ward"

@@ -56,6 +56,7 @@ module Renalware
     describe "POST JS create" do
       context "with valid inputs" do
         it "creates the admission" do
+          expect(patient.current_modality).to be_present
           params = {
             patient_id: patient.id,
             hospital_ward_id: hospital_ward.id,
@@ -93,16 +94,19 @@ module Renalware
           )
           convert_hash_dates_to_string_using_locale(attribs)
 
-          expect(admission.discharge_destination).to eq("home")
-          expect(admission.consultant).to eq("Mr X")
-          expect(admission.reason_for_admission).to eq("reason")
-          expect(admission.hospital_ward_id).to eq(hospital_ward.id)
-          expect(admission.admitted_on).to eq(Time.zone.parse("12-Dec-2017"))
-          expect(admission.transferred_on).to eq(Time.zone.parse("11-Dec-2017"))
-          expect(admission.discharged_on).to eq(Time.zone.parse("10-Dec-2017"))
-          expect(admission.notes).to eq("Notes")
-          expect(admission.discharge_summary).to eq("summary")
-          expect(admission.summarised_by_id).to eq(user.id)
+          expect(admission).to have_attributes(
+            discharge_destination: "home",
+            consultant: "Mr X",
+            reason_for_admission: "reason",
+            hospital_ward_id: hospital_ward.id,
+            admitted_on: Time.zone.parse("12-Dec-2017"),
+            transferred_on: Time.zone.parse("11-Dec-2017"),
+            discharged_on: Time.zone.parse("10-Dec-2017"),
+            notes: "Notes",
+            discharge_summary: "summary",
+            modality_at_admission: patient.current_modality,
+            summarised_by_id: user.id
+          )
         end
       end
 
