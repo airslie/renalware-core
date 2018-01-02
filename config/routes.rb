@@ -271,6 +271,8 @@ Renalware::Engine.routes.draw do
              controller: "patients/primary_care_physician",
              only: [:edit, :update]
 
+    resources :admissions, only: [:index], controller: "admissions/patient_admissions"
+
     namespace :clinical do
       resources :allergies, only: [:create, :destroy]
       resource :allergy_status, only: [:update]

@@ -24,6 +24,7 @@ en:
           contacts: Contacts (%{count})
           demographics: Demographics
           clinical_summary: Clinical Summary
+          inpatient_admissions: Inpatient Admissions (%{count})
         modalities:
           heading: Modalities
           pd: PD

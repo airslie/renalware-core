@@ -6,7 +6,6 @@ RSpec.describe Renalware::Admissions::Admission, type: :model do
   it { is_expected.to validate_presence_of :admitted_on }
   it { is_expected.to validate_presence_of :reason_for_admission }
   it { is_expected.to validate_presence_of :admission_type }
-  it { is_expected.to validate_presence_of :modality_at_admission }
   it { is_expected.to respond_to(:by=) } # accountable
   it { is_expected.to belong_to(:patient) }
   it { is_expected.to belong_to(:hospital_ward) }
