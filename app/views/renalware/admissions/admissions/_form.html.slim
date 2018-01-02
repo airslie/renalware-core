@@ -3,45 +3,53 @@
                   html: { autocomplete: "off" },
                   wrapper: :horizontal_form) do |f|
 
-  / Note the shenanigans to get the select2 to redisplay the patient after a validation error
-  / or on an edit. Selected: 1 means just select the option at index 1 - option at index 0 is always
-  / the  blank option. Selecting index 1 fails silently if there is nothing there (no patient
-  / selected yet) otherwise it will display the selected patient who will always be
-  / at option index 1.
-  = f.input :patient_id,
-            wrapper: :horizontal_medium,
-            collection: [[admission.patient&.to_s, admission.patient&.id]],
-            selected: 1,
-            input_html: {\
-              class: "patient-id-select2 patient-ajax-search",
-              data: { "ajax--url" => search_patients_path(format: :json),
-                      placeholder: "Search by patient name or hospital/NHS no." }\
-            }
 
-  = f.association :hospital_ward,
-                  as: :grouped_select,
-                  group_method: :wards,
-                  collection: Renalware::Hospitals::Unit.joins(:wards).includes(:wards).ordered,
-                  label_method: ->(s) { "#{s.hospital_unit.unit_code} / #{s.name}" },
-                  wrapper: :horizontal_medium,
-                  input_html: { class: "searchable_select" }
+  article
+    header
+      h2 Admission
+    / Note the shenanigans to get the select2 to redisplay the patient after a validation error
+    / or on an edit. Selected: 1 means just select the option at index 1 - option at index 0 is always
+    / the  blank option. Selecting index 1 fails silently if there is nothing there (no patient
+    / selected yet) otherwise it will display the selected patient who will always be
+    / at option index 1.
+    = f.input :patient_id,
+              wrapper: :horizontal_medium,
+              collection: [[admission.patient&.to_s, admission.patient&.id]],
+              selected: 1,
+              input_html: {\
+                class: "patient-id-select2 patient-ajax-search",
+                data: { "ajax--url" => search_patients_path(format: :json),
+                        placeholder: "Search by patient name or hospital/NHS no." }\
+              }
 
-  = f.input :admitted_on, as: :date_picker, wrapper: :horizontal_datepicker
-  = f.input :admission_type, wrapper: :horizontal_medium
-  = f.input :consultant, wrapper: :horizontal_medium
-  = f.input :reason_for_admission, wrapper: :horizontal_large, input_html: { rows: 1 }
-  = f.input :transferred_on, as: :date_picker, wrapper: :horizontal_datepicker
-  = f.input :transferred_to, wrapper: :horizontal_medium
-  = f.input :notes, wrapper: :horizontal_large, input_html: { rows: 3 }
-  = f.input :discharged_on, as: :date_picker, wrapper: :horizontal_datepicker
-  = f.input :discharge_destination, include_blank: "Please select", wrapper: :horizontal_small
-  = f.input :destination_notes, wrapper: :horizontal_medium
-  = f.association :summarised_by,
-                  as: :user_picker,
-                  collection: Renalware::User.ordered,
-                  wrapper: :horizontal_medium
-  = f.input :summarised_on, as: :date_picker, wrapper: :horizontal_datepicker
-  = f.input :discharge_summary, wrapper: :horizontal_large, input_html: { rows: 20 }
+    = f.association :hospital_ward,
+                    as: :grouped_select,
+                    group_method: :wards,
+                    collection: Renalware::Hospitals::Unit.joins(:wards).includes(:wards).ordered,
+                    label_method: ->(s) { "#{s.hospital_unit.unit_code} / #{s.name}" },
+                    wrapper: :horizontal_medium,
+                    input_html: { class: "searchable_select" }
+
+    = f.input :admitted_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :admission_type, wrapper: :horizontal_medium
+    = f.input :consultant, wrapper: :horizontal_medium
+    = f.input :reason_for_admission, wrapper: :horizontal_large, input_html: { rows: 1 }
+    = f.input :transferred_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :transferred_to, wrapper: :horizontal_medium
+    = f.input :notes, wrapper: :horizontal_large, input_html: { rows: 3 }
+
+  article
+    header
+      h2 Discharge
+    = f.input :discharged_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :discharge_destination, include_blank: "Please select", wrapper: :horizontal_small
+    = f.input :destination_notes, wrapper: :horizontal_medium
+    = f.association :summarised_by,
+                    as: :user_picker,
+                    collection: Renalware::User.ordered,
+                    wrapper: :horizontal_medium
+    = f.input :summarised_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :discharge_summary, wrapper: :horizontal_large, input_html: { rows: 20 }
 
   = f.submit class: :button
   span= " or "

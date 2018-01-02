@@ -11,17 +11,18 @@
           th.col-width-smal(rowspan=2) Modality
           th.col-width-tiny(rowspan=2) Sex
           th.col-width-tiny(rowspan=2) Age
-        th.col-width-date(rowspan=2) Admitted
-        th.col-width-medium(rowspan=2) Reason
-        th.col-width-tiny(rowspan=2) LOS
-        th.col-width-date(rowspan=2) Discharged
-        th(rowspan=2) Destination
-        th(colspan=2) Discharge Summary
+        th.admission.subhead(colspan=3) Admission
+        th.discharge.subhead(colspan=4) Discharge
         - unless compact
           th.col-width-tiny(rowspan=2)
 
       tr
         th.col-width-date Date
+        th.col-width-medium Reason
+        th.col-width-tiny LOS
+        th.col-width-date Date
+        th Destination
+        th.col-width-date Summary date
         th.col-width-tiny Summary
 
 
