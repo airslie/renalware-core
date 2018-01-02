@@ -20,11 +20,12 @@ module Renalware
       validates :admitted_on, presence: true
       validates :reason_for_admission, presence: true
       validates :admission_type, presence: true
+      validates :modality_at_admission, presence: true
 
       belongs_to :patient
       belongs_to :hospital_ward, class_name: "Hospitals::Ward"
       belongs_to :summarised_by, class_name: "User"
-      belongs_to :modality_at_admission
+      belongs_to :modality_at_admission, class_name: "Modalities::Modality"
 
       enumerize :admission_type, in: %i(unknown routine elective emergency consult transfer)
       enumerize :discharge_destination, in: %i(home other_ward other_hosp itu death other)

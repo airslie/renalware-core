@@ -16,10 +16,28 @@ RSpec.describe Renalware::Admissions::Admission, type: :model do
     expect(described_class).to respond_to(:deleted)
   end
 
+  let(:modality_desc) { create(:hd_modality_description) }
+  let(:user) { create(:user) }
+  let(:patient) do
+    create(:patient).tap do |pat|
+      Renalware::Modalities::ChangePatientModality
+        .new(patient: pat, user: user)
+        .call(description: modality_desc, started_on: Time.zone.now)
+    end.reload
+  end
+
   describe "scope .currently_admitted" do
     it "returns only currently admitted patients" do
-      create(:admissions_admission, discharged_on: "2017-12-12") # previous admission
-      current_admission = create(:admissions_admission, discharged_on: nil)
+      create(
+        :admissions_admission,
+        patient: patient,
+        discharged_on: "2017-12-12"
+      ) # prev. admission
+      current_admission = create(
+        :admissions_admission,
+        patient: patient,
+        discharged_on: nil
+      )
 
       expect(described_class.currently_admitted). to eq [current_admission]
     end
@@ -29,16 +47,18 @@ RSpec.describe Renalware::Admissions::Admission, type: :model do
     it "returns only discharged patients who have no discharge summary yet" do
       create(
         :admissions_admission,
+        patient: patient,
         discharged_on: "2017-12-12",
         discharge_summary: "discharge summary"
       )
       disch_without_summ = create(
         :admissions_admission,
+        patient: patient,
         discharged_on: "2017-12-12",
         discharge_summary: nil
       )
 
-      expect(described_class.discharged_but_missing_a_summary). to eq [disch_without_summ]
+      expect(described_class.discharged_but_missing_a_summary).to eq [disch_without_summ]
     end
   end
 end

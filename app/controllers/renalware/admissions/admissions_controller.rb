@@ -23,7 +23,7 @@ module Renalware
       end
 
       def create
-        admission = Admission.new(admission_params)
+        admission = build_admission
         authorize admission
         if admission.save_by(current_user)
           redirect_to admissions_admissions_path, notice: success_msg_for("admission")
@@ -51,6 +51,12 @@ module Renalware
       end
 
       private
+
+      def build_admission
+        patient = Patient.find_by(id: admission_params[:patient_id])
+        args = admission_params.merge(modality_at_admission: patient&.current_modality)
+        Admission.new(args)
+      end
 
       def search_form
         @search_form ||= begin
@@ -87,7 +93,7 @@ module Renalware
             :admitted_on, :admission_type, :consultant, :modality,
             :reason_for_admission, :notes, :transferred_on, :transferred_to,
             :discharged_on, :discharge_destination, :destination_notes,
-            :discharge_summary, :summarised_on, :summarised_by_id
+            :discharge_summary, :summarised_on, :summarised_by_id, :modality_at_admission
           )
       end
     end

@@ -6,5 +6,6 @@ FactoryBot.define do
     admission_type :unknown
     reason_for_admission "Reason"
     hospital_ward
+    modality_at_admission { patient&.current_modality }
   end
 end

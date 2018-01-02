@@ -2,9 +2,17 @@
 require "rails_helper"
 module Renalware
   RSpec.describe "Admission management", type: :request do
-    let(:user) { @current_user }
+    let(:user) { create(:user) }
     let(:time) { Time.zone.now }
     let(:hospital_ward) { create(:hospital_ward, name: "Ward1") }
+    let(:modality_desc) { create(:hd_modality_description) }
+    let(:patient) do
+      create(:patient).tap do |pat|
+        Renalware::Modalities::ChangePatientModality
+          .new(patient: pat, user: user)
+          .call(description: modality_desc, started_on: Time.zone.now)
+      end.reload
+    end
 
     def convert_hash_dates_to_string_using_locale(hash)
       hash.each { |key, val| hash[key] = I18n.l(val) if val.is_a?(Date) }
@@ -13,7 +21,7 @@ module Renalware
     def create_admission
       create(:admissions_admission,
              by: user,
-             patient: create(:patient, by: user),
+             patient: patient,
              admitted_on: Time.zone.today,
              admission_type: :unknown,
              reason_for_admission: "Reason",
@@ -48,8 +56,6 @@ module Renalware
     describe "POST JS create" do
       context "with valid inputs" do
         it "creates the admission" do
-          patient = create(:patient, by: user)
-
           params = {
             patient_id: patient.id,
             hospital_ward_id: hospital_ward.id,
