@@ -3886,7 +3886,11 @@ CREATE TABLE pd_exit_site_infections (
     outcome text,
     notes text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    recurrent boolean,
+    cleared boolean,
+    catheter_removed boolean,
+    clinical_presentation character varying[]
 );
 
 
@@ -4783,7 +4787,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -4861,7 +4865,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -10034,6 +10038,13 @@ CREATE INDEX index_pd_bag_types_on_deleted_at ON pd_bag_types USING btree (delet
 
 
 --
+-- Name: index_pd_exit_site_infections_on_clinical_presentation; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_exit_site_infections_on_clinical_presentation ON pd_exit_site_infections USING gin (clinical_presentation);
+
+
+--
 -- Name: index_pd_exit_site_infections_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -13116,6 +13127,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170515093430'),
 ('20170515105635'),
 ('20170522151032'),
+('20170523125610'),
 ('20170524134229'),
 ('20170526060804'),
 ('20170526061000'),

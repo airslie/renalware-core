@@ -60,6 +60,11 @@ module Renalware
       bool ? "Yes" : "No"
     end
 
+    def yes_no_if_set(bool)
+      return if bool.nil?
+      yes_no(bool)
+    end
+
     def default_for_associated(assoc, method, msg)
       assoc.present? ? assoc.public_send(method) : msg
     end

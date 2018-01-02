@@ -3,7 +3,11 @@ When("Clyde records an exit site infection for Patty") do
     patient: @patty,
     user: @clyde,
     diagnosed_on: "10-10-2016",
-    outcome: "Recovered well. Scheduled another training review session."
+    clinical_presentation: %w(pain swelling),
+    outcome: "Recovered well. Scheduled another training review session.",
+    recurrent: false,
+    catheter_removed: false,
+    cleared: false
   )
 end
 
@@ -11,8 +15,12 @@ Given("Clyde recorded an exit site infection for Patty") do
   record_exit_site_infection_for(
     patient: @patty,
     user: @clyde,
+    clinical_presentation: %w(pain swelling),
     diagnosed_on: "10-10-2016",
-    outcome: "Recovered well. Scheduled another training review session."
+    outcome: "Recovered well. Scheduled another training review session.",
+    recurrent: false,
+    catheter_removed: false,
+    cleared: false
   )
 end
 
@@ -68,6 +76,7 @@ Given("Patty is being treated for an exit site infection") do
   record_exit_site_infection_for(
     patient: @patty,
     user: @clyde,
+    clinical_presentation: %w(pain swelling),
     diagnosed_on: Date.current - 1.day,
     outcome: "Recovered well. Scheduled another training review session."
   )

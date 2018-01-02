@@ -36,15 +36,15 @@ rerun.txt
 /app/views/renalware/hd/sessions/._form.html.slim.swp
 /.ruby-version
 *.swp
-
 /public/assets
 /config.codekit3
 /.vagrant
 /spec/dummy/log
 /spec/dummy/tmp
-/spec/dummy/tmp
 /spec/dummy/public/assets
 /spec/dummy/.byebug_history
+/spec/dummy/tmp/miniprofiler
+/spec/dummy/tmp/capybara
 /pkg
 .rubocop-https*
 /data
