@@ -1,16 +1,20 @@
-.admissions-table {
+.admissions-table table {
+  td, th {
+    vertical-align: top;
+  }
+
   th.subhead {
     color: $black;
-    text-shadow: $table-border-colour 1px 1px;
     text-align: center;
 
     &.admission {
-      background-color: $nhs-yellow;
+      background-color: $light-yellow;
+      text-shadow: lighten($light-yellow, 20) .05rem .05rem;
     }
 
     &.discharge {
-      background-color: $nhs-light-green;
-      color: black;
+      background-color: $light-green;
+      text-shadow: lighten($light-green, 20) .05rem .05rem
     }
   }
 }
