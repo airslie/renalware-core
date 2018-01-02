@@ -7,8 +7,11 @@ module Renalware
 
       def show
         workup = DonorWorkup.for_patient(patient).first_or_initialize
-        redirect_to edit_patient_transplants_donor_workup_path(patient) if workup.new_record?
-        render locals: { patient: patient, workup: workup }
+        if workup.new_record?
+          redirect_to edit_patient_transplants_donor_workup_path(patient)
+        else
+          render locals: { patient: patient, workup: workup }
+        end
       end
 
       def edit
