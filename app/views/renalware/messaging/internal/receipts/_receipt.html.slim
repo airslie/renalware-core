@@ -6,6 +6,7 @@ tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
     = pluralize(message.age_in_days, "day")
   td= message.author
   td= l(message.sent_at)
+  td= l(receipt.read_at)
   td= default_patient_link(patient)
   td= patient.nhs_number
   td= patient.hospital_identifier
@@ -19,7 +20,7 @@ tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
               id: "#{message.html_preview_identifier}",
               style: "display: none",
               class: "#{ 'urgent' if message.urgent?}")
-  td(colspan=6)
+  td(colspan=7)
     .message-preview
       .subject= message.subject
       .body= message.body

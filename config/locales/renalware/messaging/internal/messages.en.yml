@@ -15,11 +15,12 @@ en:
             urgent: Urgent
             age: Age
             hosp_no: Hosp No.
-            recipients: Recipients
+            recipient: Recipient
         receipts:
           table: &receipts_table
             from: From
             sent_at: Sent at
+            read_at: Read at
             patient_name: Patient
             subject: Subject
             body: Body
@@ -27,7 +28,7 @@ en:
             age: Age
             nhs_no: NHS Number
             hosp_no: Hosp No.
-            recipients: Recipients
+            recipient: Recipient
           sent_table:
             <<: *receipts_table
 

@@ -2,6 +2,7 @@ table.letters.electronic-ccs.has-togglable-rows
   thead
     tr
       th.col-width-date Date
+      th.col-width-date-time Read at
       th.col-width-medium Author
       th.at-least.col-width-medium Patient
       th.col-width-nhs-no NHS no.
@@ -16,6 +17,7 @@ table.letters.electronic-ccs.has-togglable-rows
 
       tr(id=receipt.html_identifier)
         td= l(letter.issued_on)
+        td= l(receipt.read_at)
         td= letter.author
         td= default_patient_link(patient)
         td= patient.nhs_number
@@ -29,7 +31,7 @@ table.letters.electronic-ccs.has-togglable-rows
 
       = content_tag(:tr, id: receipt.html_preview_identifier, style: "display: none")
         td
-        td(colspan=5)
+        td(colspan=6)
           .quick-preview
             = simple_format letter.body
 
