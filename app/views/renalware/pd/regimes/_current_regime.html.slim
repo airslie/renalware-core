@@ -2,7 +2,7 @@
 - pd_type = regime.pd_type&.to_s&.upcase
 
 = article_tag "Current #{pd_type} Regime",
-              class: "current-regime",
+              class: "current-regime regime-type-#{pd_type.underscore}",
               data: { "regime-id" => regime.id } do
 
   .row
@@ -20,6 +20,11 @@
         dt On additional HD?:
         dd= yes_no(regime.add_hd)
 
+      - if pd_type == "APD"
+        = render "renalware/pd/regimes/glucose", regime: regime
+
+    - if pd_type == "CAPD"
+      .columns.medium-6.glucose
         = render "renalware/pd/regimes/glucose", regime: regime
 
     - if regime.type == "Renalware::PD::APDRegime"
