@@ -3,11 +3,12 @@
 
 tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
   td= l(message.sent_at)
+  td= sent_receipt.recipient
+  td= l(sent_receipt.read_at)
   td= default_patient_link(patient)
   td= patient.nhs_number
   td= message.patient.hospital_identifier
   td.col-width-medium-with-ellipsis= message.subject
-  td= sent_receipt.recipient
   td
     = link_to "View",
               "##{message.html_preview_identifier}",
@@ -17,7 +18,7 @@ tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
               id: "#{message.html_preview_identifier}",
               style: "display: none",
               class: "#{ 'urgent' if message.urgent?}")
-  td(colspan=6)
+  td(colspan=8)
     .message-preview
       .subject= message.subject
       .body= message.body
