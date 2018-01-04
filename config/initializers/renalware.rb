@@ -4,12 +4,14 @@ require_dependency "renalware"
 
 Renalware.configure do |config|
   config.broadcast_subscription_map = {
-    "Renalware::Modalities::ChangePatientModality" =>
-      [
-        "Renalware::Medications::PatientListener",
-        "Renalware::Letters::PatientListener",
-        "Renalware::HD::PatientListener"
-      ]
+    "Renalware::Modalities::ChangePatientModality" => [
+      "Renalware::Medications::PatientListener",
+      "Renalware::Letters::PatientListener",
+      "Renalware::HD::PatientListener"
+    ],
+    "Renalware::Letters::ApproveLetter" => [
+      "Renalware::Letters::LetterListener"
+    ]
   }
 end
 

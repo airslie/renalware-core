@@ -4,7 +4,7 @@ require "attr_extras"
 module Renalware
   module Letters
     class ApproveLetter
-      include Wisper::Publisher
+      include Broadcasting
       pattr_initialize :letter
 
       class << self

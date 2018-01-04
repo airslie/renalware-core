@@ -54,7 +54,7 @@ module Renalware
           patient_recipient = add_patient_as_cc
 
           message_delivery = instance_double(ActionMailer::MessageDelivery, deliver_later: nil)
-          allow(Letters::Delivery::GPMailer)
+          allow(Letters::Delivery::PrimaryCarePhysicianMailer)
             .to receive(:patient_letter).with(letter, gp_recipient)
             .and_return(message_delivery)
 

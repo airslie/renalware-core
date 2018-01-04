@@ -13,11 +13,11 @@ module Renalware
         delegate :gp, :others, to: :filtered_recipients
 
         def call
-          GPMailer.patient_letter(letter, gp).deliver_later if gp.present?
+          PrimaryCarePhysicianMailer.patient_letter(letter, gp).deliver if gp.present?
           PostLetterToRecipients.call(letter, others) if others.any?
         end
 
-        # Helper class to split out gp and other recipients
+        # Helper class to split out GP and other recipients
         class RecipientFilter
           pattr_initialize [:recipients!]
 

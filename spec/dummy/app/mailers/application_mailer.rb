@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "renalware-admin@renalware.herokuapp.com"
+  default from: Renalware.config.default_from_email
   layout "mailer"
 end
