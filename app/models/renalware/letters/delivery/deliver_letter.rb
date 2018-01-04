@@ -13,7 +13,7 @@ module Renalware
         delegate :gp, :others, to: :filtered_recipients
 
         def call
-          EmailLetterToGP.call(letter, gp) if gp.present?
+          EmailLetterToGPJob.perform_later(letter, gp) if gp.present?
           PostLetterToRecipients.call(letter, others) if others.any?
         end
 

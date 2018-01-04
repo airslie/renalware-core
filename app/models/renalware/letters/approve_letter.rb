@@ -10,6 +10,7 @@ module Renalware
       class << self
         alias_method :build, :new
       end
+
       def call(by:)
         Letter.transaction do
           sign(by: by)

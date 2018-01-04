@@ -3,10 +3,8 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     module Delivery
-      class EmailLetterToGP
-        def self.call(_letter, _gp)
-          # noop
-        end
+      class EmailLetterToGPJob < ApplicationJob
+        def perform(_letter, _gp); end
       end
     end
   end
