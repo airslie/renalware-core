@@ -36,6 +36,10 @@ module Renalware
     config_accessor(:display_feedback_banner) { ENV.key?("DISPLAY_FEEDBACK_BANNER") }
     config_accessor(:default_from_email_address) { ENV["DEFAULT_FROM_EMAIL_ADDRESS"] }
     config_accessor(:phone_number_on_letters) { ENV["PHONE_NUMBER_ON_LETTERS"] }
+    # Unless an ALLOW_EXTERNAL_MAIL key is present in .env or .env.production, mail (other than
+    # password reset emails etc) will be redirected to last user to update the relevant record
+    # eg the use how approved the letter.
+    config_accessor(:allow_external_mail) { ENV.key?("ALLOW_EXTERNAL_MAIL") }
   end
 
   def self.config

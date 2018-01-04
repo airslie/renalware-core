@@ -1,16 +1,13 @@
 require_dependency "renalware/letters"
+require_relative "./errors"
 require "attr_extras"
 
 module Renalware
   module Letters
     module Delivery
-      class LetterRecipientMissingAddresseeError < StandardError; end
-      class AddresseeIsNotAPrimaryCarePhysicianError < StandardError; end
-      class PatientHasNoPracticeError < StandardError; end
-      class PrimaryCarePhysicianDoesNotBelongToPatientsPracticeError < StandardError; end
-      class PracticeHasNoEmailError < StandardError; end
-
       class PrimaryCarePhysicianMailer < ApplicationMailer
+        default from: ->{ Renalware.config.default_from_email_address }
+
         def patient_letter(*args)
           options = PatientLetterOptions.new(*args)
           options.validate
@@ -21,7 +18,6 @@ module Renalware
             # No cache hit so render and return the PDF content which will be stored in the cache
             Letters::PdfRenderer.call(options.letter)
           end
-
           mail(to: options.practice_email, subject: "Test")
         end
 
@@ -29,7 +25,6 @@ module Renalware
           attr_reader_initialize :letter, :gp_recipient
           delegate :patient, to: :letter
           delegate :practice, to: :patient
-          delegate :email, to: :practice, prefix: true
           delegate :addressee, to: :gp_recipient
           alias :primary_care_physician :addressee
 
@@ -44,6 +39,13 @@ module Renalware
             end
           end
           # rubocop:enable Metrics/AbcSize
+
+          # In development or staging etc, if allow_external_mail is false, we intercept mail
+          # and sent it to the user who last updated the relevant record, for instance to the user
+          # that approved a letter
+          def practice_email
+            Renalware.config.allow_external_mail ? practice.email : letter.updated_by.email
+          end
         end
       end
     end

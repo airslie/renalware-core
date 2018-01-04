@@ -15,7 +15,7 @@ module Renalware
             practice: practice
           )
         end
-        let(:user) { create(:user) }
+        let(:user) { create(:user, email: "user@renalware.com") }
         let(:letter) do
           build(:approved_letter, patient: patient, by: user).tap do |letter|
             letter.build_main_recipient(person_role: :primary_care_physician, addressee: gp)
@@ -56,9 +56,23 @@ module Renalware
         end
 
         it "renders the headers" do
+          Renalware.configure do |config|
+            config.default_from_email_address = "test@example.com"
+            config.allow_external_mail = true
+          end
+
           expect(mail.subject).to eq("Test")
           expect(mail.to).to eq([practice.email])
-          expect(mail.from).to eq([Renalware.config.default_from_email_address])
+          expect(mail.from).to eq(["test@example.com"])
+        end
+
+        context "when the interceptor email address is set" do
+          it "sends only to the interceptor" do
+            Renalware.configure do |config|
+              config.allow_external_mail = false
+            end
+            expect(mail.to).to eq(["user@renalware.com"])
+          end
         end
 
         it "renders the body" do
