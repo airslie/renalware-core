@@ -16,6 +16,9 @@ module Renalware
   class Configuration
     include ActiveSupport::Configurable
 
+    # Force dotenv to load the .env file at this stage so we can read in the config defaults
+    Dotenv::Railtie.load
+
     config_accessor(:site_name) { "Renalware" }
     config_accessor(:hospital_name) { "KINGS COLLEGE HOSPITAL" }
     config_accessor(:delay_after_which_a_finished_session_becomes_immutable) { 6.hours }

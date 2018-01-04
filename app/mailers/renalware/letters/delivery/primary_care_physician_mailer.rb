@@ -12,11 +12,14 @@ module Renalware
           options = PatientLetterOptions.new(letter)
           options.validate
 
-          # letter_presenter = LetterPresenterFactory.new(letter)
+          letter_presenter = LetterPresenterFactory.new(letter)
+          attachments["letter.pdf"] = read_from_cache_or_generate_pdf_letter(letter_presenter)
 
-          attachments["letter.pdf"] = read_from_cache_or_generate_pdf_letter(letter)
-
-          mail(to: options.practice_email, subject: "Test")
+          mail(
+            to: options.practice_email,
+            subject: "Test",
+            from: Renalware.config.default_from_email_address
+          )
         end
 
         def read_from_cache_or_generate_pdf_letter(letter)
