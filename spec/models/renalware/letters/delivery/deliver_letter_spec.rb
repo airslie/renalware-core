@@ -41,9 +41,9 @@ module Renalware
     describe "#letter_approved" do
       context "when there are no recipients" do
         it "sends nothing out" do
-          described_class.new(letter: letter).call
-
-          expect(Letters::Delivery::EmailLetterToGPJob).not_to have_been_enqueued
+          expect {
+            described_class.new(letter: letter).call
+          }.not_to have_enqueued_job.on_queue("mailers")
           expect(Letters::Delivery::PostLetterToRecipients).not_to have_received(:call)
         end
       end
@@ -53,11 +53,14 @@ module Renalware
           gp_recipient = make_gp_the_main_recipient
           patient_recipient = add_patient_as_cc
 
+          message_delivery = instance_double(ActionMailer::MessageDelivery, deliver_later: nil)
+          allow(Letters::Delivery::GPMailer)
+            .to receive(:patient_letter).with(letter, gp_recipient)
+            .and_return(message_delivery)
+
           described_class.new(letter: letter).call
 
-          expect(Letters::Delivery::EmailLetterToGPJob)
-            .to have_been_enqueued
-            .with(letter, gp_recipient)
+          expect(message_delivery).to have_received(:deliver_later)
           expect(Letters::Delivery::PostLetterToRecipients)
             .to have_received(:call)
             .with(letter, [patient_recipient])
@@ -67,13 +70,13 @@ module Renalware
       context "when the patient is the main_recipient and the gp is cc'd" do
         it "emails the gp and snailmails the patient" do
           patient_recipient = letter.build_main_recipient(person_role: :patient)
-          gp_recipient = add_gp_as_cc
+          add_gp_as_cc
 
-          described_class.new(letter: letter).call
+          # Using a different way of testing the enqueueing here, to create extra coverage
+          expect {
+            described_class.new(letter: letter).call
+          }.to have_enqueued_job.on_queue("mailers")
 
-          expect(Letters::Delivery::EmailLetterToGPJob)
-            .to have_been_enqueued
-            .with(letter, gp_recipient)
           expect(Letters::Delivery::PostLetterToRecipients)
             .to have_received(:call)
             .with(letter, [patient_recipient])

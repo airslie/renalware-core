@@ -1,7 +1,5 @@
 module Renalware
-  class Admin::UserMailer < ActionMailer::Base
-    default from: "renalware-admin@renalware.herokuapp.com"
-
+  class Admin::UserMailer < ApplicationMailer
     def approval(user)
       @user = user
       mail(to: @user.email, subject: "Renalware account approved")

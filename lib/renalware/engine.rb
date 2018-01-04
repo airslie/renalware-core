@@ -165,6 +165,7 @@ module Renalware
         app.config.exceptions_app = Engine.routes
       end
       app.config.action_mailer.preview_path = Engine.root.join("app", "mailers", "renalware")
+      app.config.action_mailer.deliver_later_queue_name = "mailers"
       app.config.active_job.queue_adapter = :delayed_job
     end
   end
