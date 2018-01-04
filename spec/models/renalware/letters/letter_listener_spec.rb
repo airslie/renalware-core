@@ -1,16 +1,16 @@
 require "rails_helper"
 
 module Renalware
-  describe Letters::Postman do
-    subject(:postman) { described_class.new }
+  describe Letters::LetterListener do
+    subject(:listener) { described_class.new }
     let(:gp) { create(:letter_primary_care_physician) }
     let(:patient) { create(:letter_patient, primary_care_physician: gp, cc_on_all_letters: true) }
     let(:user) { create(:user) }
     let(:letter) { build(:approved_letter, patient: patient, by: user) }
 
     before do
-      allow(Letters::EmailLetterToGP).to receive(:call)
-      allow(Letters::PostLetterToRecipients).to receive(:call)
+      allow(Letters::Delivery::EmailLetterToGP).to receive(:call)
+      allow(Letters::Delivery::PostLetterToRecipients).to receive(:call)
     end
 
     def make_gp_the_main_recipient
@@ -42,11 +42,11 @@ module Renalware
     describe "#letter_approved" do
       context "when there are no recipients" do
         it "sends nothing out" do
-          postman.letter_approved(letter)
+          listener.letter_approved(letter)
 
-          expect(Letters::EmailLetterToGP)
+          expect(Letters::Delivery::EmailLetterToGP)
             .not_to have_received(:call)
-          expect(Letters::PostLetterToRecipients)
+          expect(Letters::Delivery::PostLetterToRecipients)
             .not_to have_received(:call)
         end
       end
@@ -56,12 +56,12 @@ module Renalware
           gp_recipient = make_gp_the_main_recipient
           patient_recipient = add_patient_as_cc
 
-          postman.letter_approved(letter)
+          listener.letter_approved(letter)
 
-          expect(Letters::EmailLetterToGP)
+          expect(Letters::Delivery::EmailLetterToGP)
             .to have_received(:call)
             .with(letter, gp_recipient)
-          expect(Letters::PostLetterToRecipients)
+          expect(Letters::Delivery::PostLetterToRecipients)
             .to have_received(:call)
             .with(letter, [patient_recipient])
         end
@@ -72,12 +72,12 @@ module Renalware
           patient_recipient = letter.build_main_recipient(person_role: :patient)
           gp_recipient = add_gp_as_cc
 
-          postman.letter_approved(letter)
+          listener.letter_approved(letter)
 
-          expect(Letters::EmailLetterToGP)
+          expect(Letters::Delivery::EmailLetterToGP)
             .to have_received(:call)
             .with(letter, gp_recipient)
-          expect(Letters::PostLetterToRecipients)
+          expect(Letters::Delivery::PostLetterToRecipients)
             .to have_received(:call)
             .with(letter, [patient_recipient])
         end
