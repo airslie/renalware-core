@@ -13,7 +13,7 @@ module Renalware
         delegate :gp, :others, to: :filtered_recipients
 
         def call
-          PrimaryCarePhysicianMailer.patient_letter(letter, gp).deliver if gp.present?
+          PrimaryCarePhysicianMailer.patient_letter(letter).deliver if gp.present?
           PostLetterToRecipients.call(letter, others) if others.any?
         end
 

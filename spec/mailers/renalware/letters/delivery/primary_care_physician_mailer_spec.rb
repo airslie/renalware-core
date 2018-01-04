@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware
   module Letters
     RSpec.describe Delivery::PrimaryCarePhysicianMailer, type: :mailer do
-      subject(:mail) { described_class.patient_letter(letter, letter.main_recipient) }
+      subject(:mail) { described_class.patient_letter(letter) }
 
       describe "patient_letter" do
         let(:practice) { create(:practice, email: "#{SecureRandom.hex(10)}@example.com") }
@@ -29,21 +29,20 @@ module Renalware
         end
 
         describe "error checking" do
-          it "raises an error if no recipient object is missing the addressee (ie has not been "\
-             "assigned the primary_care_physician)" do
-            letter.main_recipient.update!(addressee: nil)
+          it "raises an error if the patiet has no primary_care_physician" do
+            patient.update!(primary_care_physician: nil, by: user)
 
             expect{
               mail.subject
-            }.to raise_error(Delivery::LetterRecipientMissingAddresseeError)
+            }.to raise_error(Delivery::PatientHasNoPrimaryCarePhysicianError)
           end
 
-          it "raises an error if the recipient is not a primary_care_physician" do
-            letter.main_recipient.update!(addressee: patient)
+          it "raises an error if the patient has no practice" do
+            patient.update!(practice: nil, by: user)
 
             expect{
               mail.subject
-            }.to raise_error(Delivery::AddresseeIsNotAPrimaryCarePhysicianError)
+            }.to raise_error(Delivery::PatientHasNoPracticeError)
           end
 
           it "raises an error if primary_care_physician does not belong to patient's practice" do

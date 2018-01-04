@@ -8,31 +8,34 @@ module Renalware
       class PrimaryCarePhysicianMailer < ApplicationMailer
         default from: ->{ Renalware.config.default_from_email_address }
 
-        def patient_letter(*args)
-          options = PatientLetterOptions.new(*args)
+        def patient_letter(letter)
+          options = PatientLetterOptions.new(letter)
           options.validate
 
-          letter_presenter = LetterPresenterFactory.new(options.letter)
+          # letter_presenter = LetterPresenterFactory.new(letter)
 
-          attachments["letter.pdf"] = PdfLetterCache.fetch(letter_presenter) do
-            # No cache hit so render and return the PDF content which will be stored in the cache
-            Letters::PdfRenderer.call(options.letter)
-          end
+          attachments["letter.pdf"] = read_from_cache_or_generate_pdf_letter(letter)
+
           mail(to: options.practice_email, subject: "Test")
         end
 
+        def read_from_cache_or_generate_pdf_letter(letter)
+          PdfLetterCache.fetch(letter) { Letters::PdfRenderer.call(letter) }
+        end
+
+        # Note that while there is an addressee attribute on Recipient, it is only used if the
+        # Recipient#person_role == :contact. Otherwise we are able to look up the correct person
+        # using person_role - for example finding the patient's GP if the person_role
+        # is :primary_care_physician
         class PatientLetterOptions
-          attr_reader_initialize :letter, :gp_recipient
+          attr_reader_initialize :letter
           delegate :patient, to: :letter
-          delegate :practice, to: :patient
-          delegate :addressee, to: :gp_recipient
-          alias :primary_care_physician :addressee
+          delegate :practice, :primary_care_physician, to: :patient
 
           # rubocop:disable Metrics/AbcSize
           def validate
-            raise LetterRecipientMissingAddresseeError if addressee.blank?
-            raise AddresseeIsNotAPrimaryCarePhysicianError unless addressee.respond_to?(:practices)
             raise PatientHasNoPracticeError if practice.blank?
+            raise PatientHasNoPrimaryCarePhysicianError if primary_care_physician.blank?
             raise PracticeHasNoEmailError if practice.email.blank?
             unless primary_care_physician.practices.include?(practice)
               raise PrimaryCarePhysicianDoesNotBelongToPatientsPracticeError
