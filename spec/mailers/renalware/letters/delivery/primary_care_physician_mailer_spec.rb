@@ -58,7 +58,7 @@ module Renalware
         it "renders the headers" do
           expect(mail.subject).to eq("Test")
           expect(mail.to).to eq([practice.email])
-          expect(mail.from).to eq([Renalware.config.default_from_email])
+          expect(mail.from).to eq([Renalware.config.default_from_email_address])
         end
 
         it "renders the body" do

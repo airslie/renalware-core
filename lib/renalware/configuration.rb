@@ -29,11 +29,13 @@ module Renalware
     config_accessor(:include_sunday_on_hd_diaries) { false }
     config_accessor(:clinical_summary_max_events_to_display) { 10 }
     config_accessor(:clinical_summary_max_letters_to_display) { 10 }
-    config_accessor(:display_feedback_banner) { false }
     # These settings are used in the construction of the IDENT metadata in letters
     config_accessor(:letter_system_name) { "Renalware" }
     config_accessor(:letter_default_care_group_name) { "RenalCareGroup" }
     config_accessor(:default_from_email) { "dev@airslie.com" }
+    config_accessor(:display_feedback_banner) { ENV.key?("DISPLAY_FEEDBACK_BANNER") }
+    config_accessor(:default_from_email_address) { ENV["DEFAULT_FROM_EMAIL_ADDRESS"] }
+    config_accessor(:phone_number_on_letters) { ENV["PHONE_NUMBER_ON_LETTERS"] }
   end
 
   def self.config

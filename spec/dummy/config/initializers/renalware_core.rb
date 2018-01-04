@@ -10,7 +10,6 @@ Renalware.configure do |config|
     PRUH: :local_patient_id_4,
     GUYS: :local_patient_id_5
   }
-  config.display_feedback_banner = true
 end
 
 # Renalware::Patients.configure
