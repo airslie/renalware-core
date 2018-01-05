@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware
   describe Letters::Delivery::DeliverLetter do
     let(:gp) { create(:letter_primary_care_physician) }
-    let(:practice) { create(:practice) }
+    let(:practice) { create(:practice, email: "practice@example.com") }
     let(:patient) do
       create(
         :letter_patient,
@@ -15,10 +15,11 @@ module Renalware
     let(:user) { create(:user) }
     let(:letter) { build(:approved_letter, patient: patient, by: user) }
 
-    before do
-      ActiveJob::Base.queue_adapter = :test
-      allow(Letters::Delivery::PostLetterToRecipients).to receive(:call)
-    end
+    before { ActiveJob::Base.queue_adapter = :test }
+    # Make sure we allow external email in these tests (though none will actually be sent)!
+    # Otherwise some tests will fail because PracticeEmail.address will reslove the letter
+    # updating user's address or fallback test address used during testing.
+    before { Renalware.configure { |config| config.allow_external_mail = true } }
 
     def make_gp_the_main_recipient
       gp_recipient = letter.build_main_recipient(person_role: :primary_care_physician)
@@ -46,10 +47,10 @@ module Renalware
       patient_recipient
     end
 
-    def stub_primary_care_physician_mailer(letter)
+    def stub_primary_care_physician_mailer(letter:, to:)
       message_delivery = instance_double(ActionMailer::MessageDelivery, deliver_later: nil)
       allow(Letters::Delivery::PracticeMailer)
-        .to receive(:patient_letter).with(letter)
+        .to receive(:patient_letter).with(letter: letter, to: to)
         .and_return(message_delivery)
       message_delivery
     end
@@ -60,39 +61,34 @@ module Renalware
           expect {
             described_class.new(letter: letter).call
           }.not_to have_enqueued_job.on_queue("mailers")
-          expect(Letters::Delivery::PostLetterToRecipients).not_to have_received(:call)
         end
       end
 
       context "when the gp is the main_recipient and the patient is cc'd" do
         it "emails the gp and snail-mails the patient" do
           make_gp_the_main_recipient
-          patient_recipient = add_patient_as_cc
+          add_patient_as_cc
 
-          message_delivery = stub_primary_care_physician_mailer(letter)
+          message_delivery = stub_primary_care_physician_mailer(
+            letter: letter,
+            to: "practice@example.com"
+          )
 
           described_class.new(letter: letter).call
 
           expect(message_delivery).to have_received(:deliver_later)
-          expect(Letters::Delivery::PostLetterToRecipients)
-            .to have_received(:call)
-            .with(letter, [patient_recipient])
         end
       end
 
       context "when the patient is the main_recipient and the gp is cc'd" do
         it "emails the gp and snail-mails the patient" do
-          patient_recipient = letter.build_main_recipient(person_role: :patient)
+          letter.build_main_recipient(person_role: :patient)
           add_gp_as_cc
 
           # Using a different way of testing the enqueueing here, to create extra coverage
           expect {
             described_class.new(letter: letter).call
           }.to have_enqueued_job.on_queue("mailers")
-
-          expect(Letters::Delivery::PostLetterToRecipients)
-            .to have_received(:call)
-            .with(letter, [patient_recipient])
         end
       end
     end

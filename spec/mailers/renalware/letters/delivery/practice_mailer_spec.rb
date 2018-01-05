@@ -3,7 +3,8 @@ require "rails_helper"
 module Renalware
   module Letters
     RSpec.describe Delivery::PracticeMailer, type: :mailer do
-      subject(:mail) { described_class.patient_letter(letter) }
+      subject(:mail) { described_class.patient_letter(letter: letter, to: recipient_email) }
+      let(:recipient_email) { "practice@example.com" }
 
       describe "patient_letter" do
         let(:practice) { create(:practice, email: "#{SecureRandom.hex(10)}@example.com") }
@@ -36,14 +37,6 @@ module Renalware
               mail.subject
             }.to raise_error(Delivery::PatientHasNoPracticeError)
           end
-
-          it "raises an error if practice has no email address" do
-            practice.update!(email: nil)
-
-            expect{
-              mail.subject
-            }.to raise_error(Delivery::PracticeHasNoEmailError)
-          end
         end
 
         it "renders the headers" do
@@ -53,17 +46,8 @@ module Renalware
           end
 
           expect(mail.subject).to eq("Test")
-          expect(mail.to).to eq([practice.email])
+          expect(mail.to).to eq([recipient_email])
           expect(mail.from).to eq(["test@example.com"])
-        end
-
-        context "when the interceptor email address is set" do
-          it "sends only to the interceptor" do
-            Renalware.configure do |config|
-              config.allow_external_mail = false
-            end
-            expect(mail.to).to eq(["user@renalware.com"])
-          end
         end
 
         it "renders the body" do

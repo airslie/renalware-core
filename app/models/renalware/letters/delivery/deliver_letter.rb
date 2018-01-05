@@ -4,41 +4,30 @@ require "attr_extras"
 module Renalware
   module Letters
     module Delivery
-      # Responsible for delivering the letter according to recipient's preferred method
-      # Scenarios
-      # - Main recipient is GP so email the GP and snailmail any CCs
-      # - Main recipient is patient/contact and GP is a CC, so again email GP and snailmail others
+      # Responsible for delivering the letter according to recipient's preferred method:
+      # - Email letter to practice if GP is a recip and the practice has an email addres
+      # - Currently no other action taken, but this class could be extended to for example
+      # - email contacts etc.
       class DeliverLetter
         pattr_initialize [:letter!]
-        delegate :gp, :others, to: :filtered_recipients
 
         def call
-          PracticeMailer.patient_letter(letter).deliver_later if email_to_gp?
-          PostLetterToRecipients.call(letter, others) if others.any?
+          email_letter_to_the_patients_practice if email_letter_to_the_patients_practice?
         end
 
-        # Helper class to split out GP and other recipients
-        class RecipientFilter
-          pattr_initialize [:recipients!]
-
-          def gp
-            @gp ||= recipients.find(&:primary_care_physician?)
-          end
-
-          def others
-            @others ||= recipients.reject(&:primary_care_physician?)
-          end
+        def email_letter_to_the_patients_practice?
+          LetterDeliveryPolicy.new(letter).email_letter_to_practice?
         end
 
-        private
-
-        def email_to_gp?
-          Pundit.policy!(nil, letter).email_to_gp?
-          # policy_for(letter).email_to_gp?
+        def email_letter_to_the_patients_practice
+          PracticeMailer.patient_letter(
+            letter: letter,
+            to: practice_email_address
+          ).deliver_later
         end
 
-        def filtered_recipients
-          @filtered_recipients ||= RecipientFilter.new(recipients: letter.recipients)
+        def practice_email_address
+          PracticeEmail.new(letter).address
         end
       end
     end
