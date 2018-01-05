@@ -43,9 +43,6 @@ module Renalware
     # password reset emails etc) will be redirected to last user to update the relevant record
     # eg the use how approved the letter.
     config_accessor(:allow_external_mail) { ENV.key?("ALLOW_EXTERNAL_MAIL") }
-    config_accessor(:fallback_email_address_for_test_messages) do
-      ENV["FALLBACK_EMAIL_ADDRESS_FOR_TEST_MESSAGES"]
-    end
   end
 
   def self.config
