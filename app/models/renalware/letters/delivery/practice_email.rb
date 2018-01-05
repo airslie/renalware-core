@@ -12,13 +12,14 @@ module Renalware
         pattr_initialize :letter
         delegate :patient, to: :letter
         delegate :practice, to: :patient
+        delegate :config, to: :Renalware
 
         def address
-          if Renalware.config.allow_external_mail
+          if config.allow_external_mail
             practice&.email # nil is acceptable
           else
             user_email = letter.updated_by&.email
-            user_email.presence || Renalware.config.fallback_email_address_for_test_messages
+            user_email.presence || config.fallback_email_address_for_test_messages
           end
         end
       end

@@ -9,7 +9,7 @@ module Renalware
         def patient_letter(letter:, to:)
           validate_letter(letter)
           letter_presenter = LetterPresenterFactory.new(letter)
-          attachments["letter.pdf"] = read_from_cache_or_generate_pdf_letter(letter_presenter)
+          attachments["letter.pdf"] = Letters::PdfRenderer.call(letter_presenter)
 
           mail(
             to: to,
@@ -18,12 +18,10 @@ module Renalware
           )
         end
 
+        private
+
         def validate_letter(letter)
           raise Delivery::PatientHasNoPracticeError if letter.patient&.practice.blank?
-        end
-
-        def read_from_cache_or_generate_pdf_letter(letter)
-          PdfLetterCache.fetch(letter) { Letters::PdfRenderer.call(letter) }
         end
       end
     end

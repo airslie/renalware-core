@@ -55,7 +55,7 @@ module Renalware
       message_delivery
     end
 
-    describe "#letter_approved" do
+    describe "#call" do
       context "when there are no recipients" do
         it "sends nothing out" do
           expect {
@@ -65,9 +65,8 @@ module Renalware
       end
 
       context "when the gp is the main_recipient and the patient is cc'd" do
-        it "emails the gp and snail-mails the patient" do
+        it "emails the gp" do
           make_gp_the_main_recipient
-          add_patient_as_cc
 
           message_delivery = stub_primary_care_physician_mailer(
             letter: letter,
@@ -77,6 +76,16 @@ module Renalware
           described_class.new(letter: letter).call
 
           expect(message_delivery).to have_received(:deliver_later)
+        end
+
+        it "sets the emailed_at datetime on the recipient" do
+          gp_recipient = make_gp_the_main_recipient
+
+          date = Time.zone.parse("2017-11-24 01:04:44")
+          travel_to(date) do
+            described_class.new(letter: letter).call
+            expect(gp_recipient.reload.emailed_at).to eq(date)
+          end
         end
       end
 

@@ -15,8 +15,6 @@ module Renalware
           email.present? && gp_recipient.present?
         end
 
-        private
-
         def gp_is_a_recipient?
           gp_recipient.present?
         end
