@@ -15,13 +15,19 @@ module Renalware
           # which is cleaner than using @vars.
           mail(
             to: to,
-            subject: "Test",
+            subject: build_subject_for(letter),
             from: Renalware.config.default_from_email_address,
             locals: locals_for(letter)
           ) { |format| format.text { render(locals: locals_for(letter)) } }
         end
 
         private
+
+        # "$lettdescr from King's Renal Unit (KCH No $hospno1)";
+        def build_subject_for(letter)
+          renal_unit = Renalware.config.renal_unit_on_letters
+          "#{letter.description} from #{renal_unit} #{letter.patient.hospital_identifier}"
+        end
 
         def locals_for(_letter)
           {

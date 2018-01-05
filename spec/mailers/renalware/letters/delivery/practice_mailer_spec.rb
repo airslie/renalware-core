@@ -17,12 +17,16 @@ module Renalware
           create(
             :letter_patient,
             primary_care_physician: gp,
-            practice: practice
+            practice: practice,
+            local_patient_id: 123123 # KCH
           )
         end
         let(:user) { create(:user, email: "user@renalware.com") }
         let(:letter) do
-          build(:approved_letter, patient: patient, by: user).tap do |letter|
+          build(:approved_letter,
+                patient: patient,
+                description: "LetterDescription",
+                by: user).tap do |letter|
             letter.build_main_recipient(person_role: :primary_care_physician, addressee: gp)
             letter.save!
           end
@@ -39,13 +43,19 @@ module Renalware
           end
         end
 
+        it "renders the subject" do
+          Renalware.configure do |config|
+            config.renal_unit_on_letters = "RenalUnit"
+          end
+          expect(mail.subject).to eq("LetterDescription from RenalUnit KCH: 123123")
+        end
+
         it "renders the headers" do
           Renalware.configure do |config|
             config.allow_external_mail = true
             config.default_from_email_address = "test@example.com"
           end
 
-          expect(mail.subject).to eq("Test")
           expect(mail.to).to eq([recipient_email])
           expect(mail.from).to eq(["test@example.com"])
         end
