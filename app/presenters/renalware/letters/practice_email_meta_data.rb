@@ -22,13 +22,13 @@ module Renalware
         :practice!,
         :hospital_name,
         :letter_system_name,
-        :letter_name,
         :care_group_name
       ]
+      delegate :config, to: :Renalware
       delegate :patient, :author, to: :letter
+      delegate :id, :description, :event, to: :letter, prefix: true
       delegate :hospital_name,
                :letter_system_name,
-               :letter_default_letter_name,
                :letter_default_care_group_name,
                to: :config, prefix: true
 
@@ -49,9 +49,9 @@ module Renalware
           format_date(patient.born_on),
           hospital_name || config_hospital_name,
           letter_system_name || config_letter_system_name,
-          letter_issued_on,
-          letter_name || config_letter_default_letter_name,
-          letter.id,
+          visit_or_letter_date,
+          letter_description,
+          letter_id,
           author,
           letter_issued_on,
           primary_care_physician.code,
@@ -66,11 +66,12 @@ module Renalware
       end
 
       def format_date(date)
-        date.strftime("%d/%m/%Y")
+        date&.strftime("%d/%m/%Y")
       end
 
-      def config
-        Renalware.config
+      def visit_or_letter_date
+        date = letter_event&.send(:date) || letter.issued_on
+        format_date(date)
       end
     end
   end

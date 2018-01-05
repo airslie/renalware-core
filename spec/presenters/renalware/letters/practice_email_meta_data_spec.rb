@@ -35,6 +35,7 @@ module Renalware
         to: primary_care_physician,
         issued_on: "01-Jan-2018",
         author: user,
+        description: "LetterDescription",
         by: user
       )
     }
@@ -45,8 +46,7 @@ module Renalware
         it "renders the IDENT using defaults for missing arguments" do
           allow(letter).to receive(:id).and_return(111)
 
-          # care_group_name, letter_name and letter_system_name are not supplied so
-          # config values will be used
+          # care_group_name and letter_system_name are not supplied so config values will be used
           metadata = described_class.new(
             letter: letter,
             primary_care_physician: primary_care_physician,
@@ -56,9 +56,10 @@ module Renalware
           Renalware.configure do |config|
             config.letter_system_name = "ConfiguredSystem"
             config.letter_default_care_group_name = "ConfiguredCareGroup"
-            config.letter_default_letter_name = "ConfiguredLetterName"
             config.hospital_name = "ConfiguredHospitalName"
           end
+
+          visit_or_letter_date = "01/01/2018" # letter.issued_on
 
           expect(metadata.to_s).to eq(
             "<IDENT>"\
@@ -70,8 +71,8 @@ module Renalware
             "01/02/1967|"\
             "ConfiguredHospitalName|"\
             "ConfiguredSystem|"\
-            "01/01/2018|"\
-            "ConfiguredLetterName|"\
+            "#{visit_or_letter_date}|"\
+            "LetterDescription|"\
             "111|"\
             "Bach, Johann Sebastian|"\
             "01/01/2018|"\
@@ -93,9 +94,10 @@ module Renalware
             practice: practice,
             hospital_name: "MyHospital",
             care_group_name: "MyCareGroup",
-            letter_name: "MyLetterName",
             letter_system_name: "MySystem"
           )
+
+          visit_or_letter_date = "01/01/2018" # letter.issued_on
 
           expect(metadata.to_s).to eq(
             "<IDENT>"\
@@ -107,13 +109,56 @@ module Renalware
             "01/02/1967|"\
             "MyHospital|"\
             "MySystem|"\
-            "01/01/2018|"\
-            "MyLetterName|"\
+            "#{visit_or_letter_date}|"\
+            "LetterDescription|"\
             "111|"\
             "Bach, Johann Sebastian|"\
             "01/01/2018|"\
             "G123|"\
             "MyCareGroup|"\
+            "Johann S. Bach"\
+            "</IDENT>"
+          )
+        end
+      end
+
+      context "the letter has a clinic visit event" do
+        it "outputs the clinic visit date" do
+          allow(letter).to receive(:id).and_return(111)
+
+          visit_date = "01/01/2017"
+          clinic_visit = build_stubbed(:clinic_visit, patient_id: patient.id, date: visit_date)
+          letter.event = Letters::Event::ClinicVisit.new(clinic_visit, clinical: true)
+
+          metadata = described_class.new(
+            letter: letter,
+            primary_care_physician: primary_care_physician,
+            practice: practice
+          )
+
+          Renalware.configure do |config|
+            config.letter_system_name = "ConfiguredSystem"
+            config.letter_default_care_group_name = "ConfiguredCareGroup"
+            config.hospital_name = "ConfiguredHospitalName"
+          end
+
+          expect(metadata.to_s).to eq(
+            "<IDENT>"\
+            "PRAC1|"\
+            "Jones|"\
+            "Tom|"\
+            "Z123|"\
+            "0123456789|"\
+            "01/02/1967|"\
+            "ConfiguredHospitalName|"\
+            "ConfiguredSystem|"\
+            "#{visit_date}|"\
+            "LetterDescription|"\
+            "111|"\
+            "Bach, Johann Sebastian|"\
+            "01/01/2018|"\
+            "G123|"\
+            "ConfiguredCareGroup|"\
             "Johann S. Bach"\
             "</IDENT>"
           )

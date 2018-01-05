@@ -32,7 +32,6 @@ module Renalware
     config_accessor(:display_feedback_banner) { false }
     # These settings are used in the construction of the IDENT metadata in letters
     config_accessor(:letter_system_name) { "Renalware" }
-    config_accessor(:letter_default_letter_name) { "Advice Letter" }
     config_accessor(:letter_default_care_group_name) { "RenalCareGroup" }
   end
 
