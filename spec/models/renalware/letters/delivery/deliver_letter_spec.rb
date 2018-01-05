@@ -3,7 +3,15 @@ require "rails_helper"
 module Renalware
   describe Letters::Delivery::DeliverLetter do
     let(:gp) { create(:letter_primary_care_physician) }
-    let(:patient) { create(:letter_patient, primary_care_physician: gp, cc_on_all_letters: true) }
+    let(:practice) { create(:practice) }
+    let(:patient) do
+      create(
+        :letter_patient,
+        primary_care_physician: gp,
+        practice: practice,
+        cc_on_all_letters: true
+      )
+    end
     let(:user) { create(:user) }
     let(:letter) { build(:approved_letter, patient: patient, by: user) }
 
@@ -38,6 +46,14 @@ module Renalware
       patient_recipient
     end
 
+    def stub_primary_care_physician_mailer(letter)
+      message_delivery = instance_double(ActionMailer::MessageDelivery, deliver_later: nil)
+      allow(Letters::Delivery::PracticeMailer)
+        .to receive(:patient_letter).with(letter)
+        .and_return(message_delivery)
+      message_delivery
+    end
+
     describe "#letter_approved" do
       context "when there are no recipients" do
         it "sends nothing out" do
@@ -48,15 +64,12 @@ module Renalware
         end
       end
 
-      context "when the gp is the main_recipient ad the patient is cc'd" do
-        it "emails the gp and snailmails the patient" do
-          gp_recipient = make_gp_the_main_recipient
+      context "when the gp is the main_recipient and the patient is cc'd" do
+        it "emails the gp and snail-mails the patient" do
+          make_gp_the_main_recipient
           patient_recipient = add_patient_as_cc
 
-          message_delivery = instance_double(ActionMailer::MessageDelivery, deliver_later: nil)
-          allow(Letters::Delivery::PrimaryCarePhysicianMailer)
-            .to receive(:patient_letter).with(letter, gp_recipient)
-            .and_return(message_delivery)
+          message_delivery = stub_primary_care_physician_mailer(letter)
 
           described_class.new(letter: letter).call
 
@@ -68,7 +81,7 @@ module Renalware
       end
 
       context "when the patient is the main_recipient and the gp is cc'd" do
-        it "emails the gp and snailmails the patient" do
+        it "emails the gp and snail-mails the patient" do
           patient_recipient = letter.build_main_recipient(person_role: :patient)
           add_gp_as_cc
 

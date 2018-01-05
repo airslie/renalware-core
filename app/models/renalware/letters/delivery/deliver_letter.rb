@@ -13,7 +13,7 @@ module Renalware
         delegate :gp, :others, to: :filtered_recipients
 
         def call
-          PrimaryCarePhysicianMailer.patient_letter(letter).deliver if gp.present?
+          PracticeMailer.patient_letter(letter).deliver_later if email_to_gp?
           PostLetterToRecipients.call(letter, others) if others.any?
         end
 
@@ -31,6 +31,11 @@ module Renalware
         end
 
         private
+
+        def email_to_gp?
+          Pundit.policy!(nil, letter).email_to_gp?
+          # policy_for(letter).email_to_gp?
+        end
 
         def filtered_recipients
           @filtered_recipients ||= RecipientFilter.new(recipients: letter.recipients)

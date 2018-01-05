@@ -2,7 +2,7 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    RSpec.describe Delivery::PrimaryCarePhysicianMailer, type: :mailer do
+    RSpec.describe Delivery::PracticeMailer, type: :mailer do
       subject(:mail) { described_class.patient_letter(letter) }
 
       describe "patient_letter" do
@@ -29,14 +29,6 @@ module Renalware
         end
 
         describe "error checking" do
-          it "raises an error if the patiet has no primary_care_physician" do
-            patient.update!(primary_care_physician: nil, by: user)
-
-            expect{
-              mail.subject
-            }.to raise_error(Delivery::PatientHasNoPrimaryCarePhysicianError)
-          end
-
           it "raises an error if the patient has no practice" do
             patient.update!(practice: nil, by: user)
 
@@ -45,12 +37,12 @@ module Renalware
             }.to raise_error(Delivery::PatientHasNoPracticeError)
           end
 
-          it "raises an error if primary_care_physician does not belong to patient's practice" do
-            patient.update!(practice: create(:practice), by: user)
+          it "raises an error if practice has no email address" do
+            practice.update!(email: nil)
 
             expect{
               mail.subject
-            }.to raise_error(Delivery::PrimaryCarePhysicianDoesNotBelongToPatientsPracticeError)
+            }.to raise_error(Delivery::PracticeHasNoEmailError)
           end
         end
 
