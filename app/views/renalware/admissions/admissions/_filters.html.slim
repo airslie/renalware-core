@@ -1,0 +1,24 @@
+.search-form.filters
+  = simple_form_for form,
+      as: :query,
+      url: admissions_admissions_path,
+      method: :get do |f|
+
+    .row
+      .columns.medium-2.large-3
+        = f.input :term
+
+      .columns.medium-3.large-2
+        = f.input :hospital_unit_id,
+                  collection: Renalware::Hospitals::Unit.pluck(:name, :id)
+      .columns.medium-2.large-2
+        = f.input :hospital_ward_id,
+                  collection: Renalware::Hospitals::Ward.pluck(:name, :id)
+      .columns.medium-3.large-3
+        = f.input :status,
+                  collection: form.status_dropdown_options,
+                  include_blank: "Any"
+      .columns.medium-2.large-2.actions.end
+        = f.submit "Filter", class: "button"
+        span= " or "
+        = link_to t("helpers.reset"), admissions_admissions_path

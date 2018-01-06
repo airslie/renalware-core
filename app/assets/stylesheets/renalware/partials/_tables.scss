@@ -1,4 +1,24 @@
 
+table td.actions-dropdown {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-right: 0;
+
+  .button.dropdown {
+    padding: .2rem 2.3rem .2rem .4rem;
+    margin: 0;
+  }
+
+  .f-dropdown {
+    margin-left: -110px;
+
+    &.open::before,
+    &.open::after {
+      left: 160px;
+    }
+  }
+}
+
 table {
   // This will have to be removed at some point to comply with NHS table guidelines
   width: 100%;

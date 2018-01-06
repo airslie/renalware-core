@@ -648,6 +648,55 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 
 --
+-- Name: admission_admissions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE admission_admissions (
+    id bigint NOT NULL,
+    hospital_ward_id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    admitted_on date NOT NULL,
+    admission_type character varying NOT NULL,
+    consultant character varying,
+    modality_at_admission_id bigint,
+    reason_for_admission text NOT NULL,
+    notes text,
+    transferred_on date,
+    transferred_to character varying,
+    discharged_on date,
+    discharge_destination character varying,
+    destination_notes character varying,
+    discharge_summary text,
+    summarised_on date,
+    summarised_by_id bigint,
+    updated_by_id bigint NOT NULL,
+    created_by_id bigint NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: admission_admissions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE admission_admissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admission_admissions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE admission_admissions_id_seq OWNED BY admission_admissions.id;
+
+
+--
 -- Name: admission_consult_sites; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -3699,7 +3748,10 @@ CREATE VIEW patient_summaries AS
           WHERE (letter_contacts.patient_id = patients.id)) AS contacts_count,
     ( SELECT count(*) AS count
            FROM transplant_recipient_operations
-          WHERE (transplant_recipient_operations.patient_id = patients.id)) AS recipient_operations_count
+          WHERE (transplant_recipient_operations.patient_id = patients.id)) AS recipient_operations_count,
+    ( SELECT count(*) AS count
+           FROM admission_admissions
+          WHERE (admission_admissions.patient_id = patients.id)) AS admissions_count
    FROM patients;
 
 
@@ -4787,7 +4839,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -4865,7 +4917,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -6093,6 +6145,13 @@ ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq
 
 
 --
+-- Name: admission_admissions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_admissions ALTER COLUMN id SET DEFAULT nextval('admission_admissions_id_seq'::regclass);
+
+
+--
 -- Name: admission_consult_sites id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -7128,6 +7187,14 @@ ALTER TABLE ONLY access_versions
 
 ALTER TABLE ONLY addresses
     ADD CONSTRAINT addresses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admission_admissions admission_admissions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_admissions
+    ADD CONSTRAINT admission_admissions_pkey PRIMARY KEY (id);
 
 
 --
@@ -8446,6 +8513,69 @@ CREATE INDEX index_access_profiles_on_updated_by_id ON access_profiles USING btr
 --
 
 CREATE UNIQUE INDEX index_addresses_on_addressable_type_and_addressable_id ON addresses USING btree (addressable_type, addressable_id);
+
+
+--
+-- Name: index_admission_admissions_on_admitted_on; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_admissions_on_admitted_on ON admission_admissions USING btree (admitted_on);
+
+
+--
+-- Name: index_admission_admissions_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_admissions_on_created_by_id ON admission_admissions USING btree (created_by_id);
+
+
+--
+-- Name: index_admission_admissions_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_admissions_on_deleted_at ON admission_admissions USING btree (deleted_at);
+
+
+--
+-- Name: index_admission_admissions_on_discharged_on; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_admissions_on_discharged_on ON admission_admissions USING btree (discharged_on);
+
+
+--
+-- Name: index_admission_admissions_on_hospital_ward_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_admissions_on_hospital_ward_id ON admission_admissions USING btree (hospital_ward_id);
+
+
+--
+-- Name: index_admission_admissions_on_modality_at_admission_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_admissions_on_modality_at_admission_id ON admission_admissions USING btree (modality_at_admission_id);
+
+
+--
+-- Name: index_admission_admissions_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_admissions_on_patient_id ON admission_admissions USING btree (patient_id);
+
+
+--
+-- Name: index_admission_admissions_on_summarised_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_admissions_on_summarised_by_id ON admission_admissions USING btree (summarised_by_id);
+
+
+--
+-- Name: index_admission_admissions_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_admissions_on_updated_by_id ON admission_admissions USING btree (updated_by_id);
 
 
 --
@@ -11450,6 +11580,14 @@ ALTER TABLE ONLY pathology_requests_global_rule_sets
 
 
 --
+-- Name: admission_admissions fk_rails_4137fdc9b4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_admissions
+    ADD CONSTRAINT fk_rails_4137fdc9b4 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: system_user_feedback fk_rails_4cc9cf2dca; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -11647,6 +11785,14 @@ ALTER TABLE ONLY problem_notes
 
 ALTER TABLE ONLY pathology_observations
     ADD CONSTRAINT fk_rails_70ef87ad18 FOREIGN KEY (request_id) REFERENCES pathology_observation_requests(id);
+
+
+--
+-- Name: admission_admissions fk_rails_74bb0c40ab; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_admissions
+    ADD CONSTRAINT fk_rails_74bb0c40ab FOREIGN KEY (modality_at_admission_id) REFERENCES modality_modalities(id);
 
 
 --
@@ -11890,6 +12036,14 @@ ALTER TABLE ONLY research_study_participants
 
 
 --
+-- Name: admission_admissions fk_rails_9b1787c128; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_admissions
+    ADD CONSTRAINT fk_rails_9b1787c128 FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: research_study_participants fk_rails_9c3d41afbe; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -12106,11 +12260,27 @@ ALTER TABLE ONLY pathology_observation_descriptions
 
 
 --
+-- Name: admission_admissions fk_rails_b4edf9f5f8; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_admissions
+    ADD CONSTRAINT fk_rails_b4edf9f5f8 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: transplant_donor_operations fk_rails_b6ee03185c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donor_operations
     ADD CONSTRAINT fk_rails_b6ee03185c FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: admission_admissions fk_rails_b722288de2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_admissions
+    ADD CONSTRAINT fk_rails_b722288de2 FOREIGN KEY (hospital_ward_id) REFERENCES hospital_wards(id);
 
 
 --
@@ -12682,6 +12852,14 @@ ALTER TABLE ONLY hd_diaries
 
 
 --
+-- Name: admission_admissions fk_rails_ffd7d79d65; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY admission_admissions
+    ADD CONSTRAINT fk_rails_ffd7d79d65 FOREIGN KEY (summarised_by_id) REFERENCES users(id);
+
+
+--
 -- Name: clinical_dry_weights hd_dry_weights_created_by_id_fk; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -13222,6 +13400,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171213111513'),
 ('20171214141335'),
 ('20171214190849'),
-('20171215122454');
+('20171215122454'),
+('20171219154529'),
+('20180102155055');
 
 

@@ -1,0 +1,85 @@
+- compact = false unless defined?(compact)
+.admissions-table
+  table
+    thead
+      tr
+        th.col-width-medium(rowspan=2) Site/Ward
+        - unless compact
+          th.at-least.col-width-medium(rowspan=2) Patient
+          th.col-width-nhs-no(rowspan=2) NHS No.
+          th.col-width-reference-no(rowspan=2) Hosp Nos.
+          th.col-width-smal(rowspan=2) Modality
+          th.col-width-tiny(rowspan=2) Sex
+          th.col-width-tiny(rowspan=2) Age
+        th.admission.subhead(colspan=3) Admission
+        th.discharge.subhead(colspan=4) Discharge
+        - unless compact
+          th.col-width-tiny(rowspan=2)
+
+      tr
+        th.col-width-date Date
+        th.col-width-medium Reason
+        th.col-width-tiny LOS
+
+        th.col-width-date Date
+        th Destination
+        th.col-width-date Summary date
+        th.col-width-tiny Summary
+
+
+    tbody
+      - admissions.each do |admission|
+        - uid = "admission-#{admission.id}"
+        tr
+          td= admission.unit_and_ward
+          - unless compact
+            td= default_patient_link(admission.patient)
+            td= admission.patient_nhs_number
+            td= admission.patient_hospital_identifiers
+            td= admission.patient_current_modality
+            td= admission.patient_sex
+            td= admission.patient_age
+          td= admission.admitted_on
+          td= admission.reason_for_admission
+          td= "#{admission.length_of_stay} d"
+          td= admission.discharged_on
+          td= admission.discharge_destination&.text
+          td= admission.summarised_on
+          td
+            - if admission.discharge_summary.present?
+             = link_to("Toggle",
+                       "#admission-quick-preview-#{admission.id}",
+                       data: { behaviour: "toggler" })
+            - else
+              | -
+
+          - unless compact
+            td
+              - if policy(admission).edit?
+                = link_to "Edit", edit_admissions_admission_path(admission)
+            / td.actions-dropdown
+
+            /   / As we have lots of possible actions, group them in a button group.
+            /   / A wrapping div is required for now in order for the button group display correctly
+            /   / (though we could style the td like a div I guess).
+            /   / TODO add options for: discharge, add discharge summary (simplified forms)
+            /   div
+            /     button.button.secondary.dropdown(href="#"
+            /                                      data-dropdown=uid
+            /                                      aria-controls=uid
+            /                                      aria-expanded="false")
+            /       | Actions&hellip;
+            /     ul.f-dropdown(id="#{uid}" data-dropdown-content aria-hidden="true")
+
+            /       = dropdown_btn_item(icon: "fa-edit",
+            /                           url: edit_admissions_admission_path(admission),
+            /                           title: "Edit",
+            /                           enabled: policy(admission).edit?)
+
+        = content_tag(:tr, id: "admission-quick-preview-#{admission.id}", style: "display: none")
+          td
+          td(colspan=13)
+            .quick-preview
+              = simple_format admission.discharge_summary
+          - unless compact
+            td

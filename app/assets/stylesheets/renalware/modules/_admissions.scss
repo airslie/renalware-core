@@ -1,3 +1,24 @@
+.admissions-table table {
+  td, th {
+    vertical-align: top;
+  }
+
+  th.subhead {
+    color: $black;
+    text-align: center;
+
+    &.admission {
+      background-color: $light-yellow;
+      text-shadow: lighten($light-yellow, 20) .05rem .05rem;
+    }
+
+    &.discharge {
+      background-color: $light-green;
+      text-shadow: lighten($light-green, 20) .05rem .05rem
+    }
+  }
+}
+
 #admissions-request-modal {
   .admissions-request-patient {
     margin-bottom: 1rem;
@@ -38,28 +59,3 @@
   }
 }
 
-.admissions-consults-table {
-  tbody tr td:last-child {
-    padding-top: 0.3rem;
-    padding-bottom: 0.3rem;
-    padding-right: 0;
-  }
-
-  td {
-    .button.dropdown {
-      padding: .2rem 2.3rem .2rem .4rem;
-      margin: 0;
-    }
-    .f-dropdown {
-      margin-left: -110px;
-
-      &.open::before,
-      &.open::after {
-        left: 160px;
-      }
-    }
-    .button-group {
-
-    }
-  }
-}

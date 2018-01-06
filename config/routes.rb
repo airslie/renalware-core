@@ -46,6 +46,7 @@ Renalware::Engine.routes.draw do
       post :sort, on: :collection
     end
     resources :consults
+    resources :admissions
   end
 
   namespace :messaging do
@@ -269,6 +270,8 @@ Renalware::Engine.routes.draw do
     resource :primary_care_physician,
              controller: "patients/primary_care_physician",
              only: [:edit, :update]
+
+    resources :admissions, only: [:index], controller: "admissions/patient_admissions"
 
     namespace :clinical do
       resources :allergies, only: [:create, :destroy]

@@ -1,0 +1,11 @@
+= content_for(:actions) do
+  = link_to t("new_record.link_title"),
+            new_admissions_admission_path,
+            class: "button"
+
+= within_patient_layout(title: "Inpatient Admissions") do
+
+  = render "renalware/admissions/admissions/table",
+           admissions: admissions,
+           compact: true
+

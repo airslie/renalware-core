@@ -53,11 +53,27 @@ module Renalware
         )
       end
 
+      def admissions
+        @admissions ||= begin
+          CollectionPresenter.new(
+            Admissions::Admission.where(patient: patient).limit(5),
+            Renalware::Admissions::AdmissionPresenter
+          )
+        end
+      end
+
+      def admissions_count
+        title_friendly_collection_count(
+          actual: admissions.size,
+          total: Admissions::Admission.where(patient: patient).count
+        )
+      end
+
       private
 
       attr_reader :patient
 
-      # Retuns e.g. "9" or "10 of 11"
+      # Returns e.g. "9" or "10 of 11"
       def title_friendly_collection_count(actual:, total:)
         if total > actual
           "#{actual} of #{total}"
