@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ModuleLength
 require "rails_helper"
 require_dependency "models/renalware/concerns/personable"
 
@@ -19,7 +20,7 @@ module Renalware
         end
 
         context "when a super_admin user is updating" do
-          subject{ described_class.new(super_admin_update: true) }
+          subject{ described_class.new(skip_validation: true) }
 
           it { is_expected.not_to validate_presence_of(:professional_position).on(:update) }
         end
@@ -35,7 +36,7 @@ module Renalware
         end
 
         context "when a super_admin user is updating" do
-          subject{ described_class.new(super_admin_update: true) }
+          subject{ described_class.new(skip_validation: true) }
 
           it { is_expected.not_to validate_presence_of(:signature).on(:update) }
         end
