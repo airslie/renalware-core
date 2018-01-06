@@ -43,7 +43,7 @@ RUN apt install -y ./libpq5_10.1-1.pgdg14.04+1_amd64.deb
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'
 RUN apt-get update
-RUN apt-get install -y postgresql-client-10
+RUN apt-get install -y postgresql-client-10 postgresql-server-dev-10
 
 RUN wget -O /tmp/phantomjs.tar.bz2 https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
 RUN tar -xjf /tmp/phantomjs.tar.bz2 -C /tmp
