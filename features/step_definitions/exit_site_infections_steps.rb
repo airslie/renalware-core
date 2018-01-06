@@ -118,7 +118,7 @@ Then("Clyde can revise the exit site infection") do
   revise_prescription_for(
     prescription: @patty.prescriptions.first,
     patient: @patty,
-    user: @user,
+    user: @clyde,
     drug_selector: exit_site_infection_drug_selector,
     prescription_params: { drug_name: "Cefotaxime Injection" }
   )
