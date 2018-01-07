@@ -3,7 +3,6 @@ require "rails_helper"
 module Renalware
   module Letters
     RSpec.describe Recipient, type: :model do
-
       describe "#addressee_id" do
         describe "validation" do
           it "validates presence if person is a contact" do
