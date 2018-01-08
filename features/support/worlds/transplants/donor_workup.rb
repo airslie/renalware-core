@@ -14,7 +14,6 @@ module World
       def seed_donor_workup_for(patient)
         patient = transplant_patient(patient)
         Renalware::Transplants::DonorWorkup.create!(
-
           patient: patient,
           document: {
             comorbidities: {

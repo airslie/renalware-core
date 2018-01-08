@@ -40,8 +40,8 @@ module World
           table.rows.map do |row|
             params = Hash[table.headers.zip(row)]
             params["rule_set_id"] = @rule_set.id
-            params["operator"] = nil unless params["operator"].present?
-            params["value"] = nil unless params["value"].present?
+            params["operator"] = nil if params["operator"].blank?
+            params["value"] = nil if params["value"].blank?
             create_global_rule(params)
           end
         end
