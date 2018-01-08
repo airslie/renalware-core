@@ -66,6 +66,7 @@ module Renalware
             config.phone_number_on_letters = "789789"
           end
 
+          # Note full IDENT tests in practice_email_meta_data_spec.rb
           expect(mail.body.encoded).to match("<IDENT>")
           expect(mail.body.encoded).to match("789789")
           expect(mail.body.encoded).to match("x@x.com")

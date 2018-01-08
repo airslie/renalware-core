@@ -29,11 +29,21 @@ module Renalware
           "#{letter.description} from #{renal_unit} #{letter.patient.hospital_identifier}"
         end
 
-        def locals_for(_letter)
+        def locals_for(letter)
           {
             help_phone_number: Renalware.config.phone_number_on_letters,
-            help_email_address: Renalware.config.default_from_email_address
+            help_email_address: Renalware.config.default_from_email_address,
+            ident_metadata: ident_meta_data_for_insertion_into_body(letter)
           }
+        end
+
+        def ident_meta_data_for_insertion_into_body(letter)
+          patient = letter.patient
+          PracticeEmailMetaData.new(
+            letter: letter,
+            primary_care_physician: patient.primary_care_physician,
+            practice: patient.practice
+          )
         end
 
         def validate_letter(letter)

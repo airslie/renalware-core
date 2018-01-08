@@ -122,6 +122,44 @@ module Renalware
         end
       end
 
+      context "when the patient has no primary care physician" do
+        it "does not error as this is expected" do
+          allow(letter).to receive(:id).and_return(111)
+
+          metadata = described_class.new(
+            letter: letter,
+            primary_care_physician: nil,
+            practice: practice,
+            hospital_name: "MyHospital",
+            care_group_name: "MyCareGroup",
+            letter_system_name: "MySystem"
+          )
+
+          visit_or_letter_date = "01/01/2018"
+
+          expect(metadata.to_s).to eq(
+            "<IDENT>"\
+            "PRAC1|"\
+            "Jones|"\
+            "Tom|"\
+            "Z123|"\
+            "0123456789|"\
+            "01/02/1967|"\
+            "MyHospital|"\
+            "MySystem|"\
+            "#{visit_or_letter_date}|"\
+            "LetterDescription|"\
+            "111|"\
+            "Bach, Johann Sebastian|"\
+            "01/01/2018|"\
+            "|"\
+            "MyCareGroup|"\
+            "Johann S. Bach"\
+            "</IDENT>"
+          )
+        end
+      end
+
       context "the letter has a clinic visit event" do
         it "outputs the clinic visit date" do
           allow(letter).to receive(:id).and_return(111)

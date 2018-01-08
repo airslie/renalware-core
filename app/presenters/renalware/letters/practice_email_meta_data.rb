@@ -16,6 +16,8 @@ module Renalware
     #   437206|Jones, John|16/11/2017|G000000|RenalCareGroup|John Jones</IDENT>
     #
     class PracticeEmailMetaData
+      NullPrimaryCarePhysician = Naught.build(&:define_explicit_conversions)
+
       pattr_initialize [
         :letter!,
         :primary_care_physician!,
@@ -72,6 +74,11 @@ module Renalware
       def visit_or_letter_date
         date = letter_event&.send(:date) || letter.issued_on
         format_date(date)
+      end
+
+      # We allow a missing primary_care_physician as not all patient's have one.
+      def primary_care_physician
+        @primary_care_physician ||= NullPrimaryCarePhysician.new
       end
     end
   end
