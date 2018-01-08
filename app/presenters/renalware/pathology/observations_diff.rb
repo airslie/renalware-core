@@ -38,7 +38,7 @@ module Renalware
 
         def supercedes?(other)
           (observed_at > other.observed_at) ||
-            ((observed_at == other.observed_at) && result > other.result)
+            ((observed_at == other.observed_at) && result != other.result)
         end
 
         private
