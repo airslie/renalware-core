@@ -58,7 +58,7 @@ module Renalware
     end
 
     scenario "An inactive user attempts to authenticate" do
-      inactive = create(:user, last_activity_at: 60.days.ago)
+      inactive = create(:user, last_activity_at: 90.days.ago)
 
       visit new_user_session_path
 
@@ -74,7 +74,7 @@ module Renalware
     end
 
     scenario "A fairly inactive user attempts to authenticate" do
-      inactive = create(:user, :clinical, last_activity_at: 59.days.ago)
+      inactive = create(:user, :clinical, last_activity_at: 89.days.ago)
 
       visit new_user_session_path
 
