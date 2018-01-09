@@ -164,7 +164,7 @@ module Renalware
       unless Rails.env.development?
         app.config.exceptions_app = Engine.routes
       end
-      app.config.action_mailer.preview_path = Rails.root.join("app", "mailers", "previews")
+      app.config.action_mailer.preview_path = Engine.root.join("app", "mailers", "renalware")
       app.config.active_job.queue_adapter = :delayed_job
     end
   end
