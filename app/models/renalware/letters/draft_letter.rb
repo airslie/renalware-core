@@ -12,7 +12,7 @@ module Renalware
 
       def call(patient, params = {})
         letter = LetterFactory.new(patient, params).build
-        build_pathology_snapshot(patient, letter)
+        letter.pathology_snapshot = build_pathology_snapshot(patient)
         letter.save!
         letter.reload
         broadcast(:draft_letter_successful, letter)
