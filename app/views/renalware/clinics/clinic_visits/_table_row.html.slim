@@ -12,6 +12,7 @@ tr(class="#{'dna' if clinic_visit.did_not_attend?}")
   td.date-time= l(clinic_visit.date)
   td= yes_no(clinic_visit.did_not_attend)
   td.clinic-type= clinic_visit.clinic
+  td.bmi= clinic_visit.height
   td.bmi= clinic_visit.weight
   td.bmi= clinic_visit.bmi
   td.bp= clinic_visit.bp

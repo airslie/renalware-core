@@ -16,6 +16,9 @@ en:
           attributes:
             pulse:
               out_of_range: must be between 20 and 200
+            height:
+              out_of_range: Please enter a number between 0.05 and 2.5m
+              invalid_number: Please enter a number with up to 2 decimal place
 
   enumerize:
     renalware/clinics/clinic_visit:
