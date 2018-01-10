@@ -4,6 +4,8 @@ require "attr_extras"
 module Renalware
   module Letters
     module Delivery
+      # This is a utility class that a host app might want to use to send an approved letter
+      # to the patient's practice.
       class EmailLetterToPractice
         pattr_initialize [:letter!]
         delegate :email_letter_to_practice?, :gp_recipient, to: :policy
@@ -12,10 +14,13 @@ module Renalware
           new(letter: letter).call
         end
 
+        # Returns
+        #   true: we have sent an email to the patient's practice
+        #   false: the patient does not have a practice or the practice has no email address
         def call
-          if email_letter_to_practice?
-            email_letter_to_the_patients_practice_and_flag_as_sent
-          end
+          return false unless email_letter_to_practice?
+          email_letter_to_the_patients_practice_and_flag_as_sent
+          true
         end
 
         private

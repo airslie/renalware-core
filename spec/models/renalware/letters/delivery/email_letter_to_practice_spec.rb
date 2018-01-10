@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware
-  describe Letters::Delivery::DeliverLetter do
+  describe Letters::Delivery::EmailLetterToPractice do
     let(:gp) { create(:letter_primary_care_physician) }
     let(:practice) { create(:practice, email: "practice@example.com") }
     let(:patient) do
@@ -18,7 +18,7 @@ module Renalware
     before { ActiveJob::Base.queue_adapter = :test }
     # Make sure we allow external email in these tests (though none will actually be sent)!
     # Otherwise some tests will fail because PracticeEmail.address will reslove the letter
-    # updating user's address or fallback test address used during testing.
+    # updating user's address or fall-back test address used during testing.
     before { Renalware.configure { |config| config.allow_external_mail = true } }
 
     def make_gp_the_main_recipient
