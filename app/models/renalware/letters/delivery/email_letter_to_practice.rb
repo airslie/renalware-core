@@ -4,13 +4,13 @@ require "attr_extras"
 module Renalware
   module Letters
     module Delivery
-      # Responsible for delivering the letter according to the recipient's preferred method:
-      # - Email letter to practice if GP is a recipient and the practice has an email address;
-      # - Currently no other action taken, but this class could be extended to for example to
-      #   email the letter contacts who wanted it delivered that way etc.
-      class DeliverLetter
+      class EmailLetterToPractice
         pattr_initialize [:letter!]
         delegate :email_letter_to_practice?, :gp_recipient, to: :policy
+
+        def self.call(letter)
+          new(letter: letter).call
+        end
 
         def call
           if email_letter_to_practice?

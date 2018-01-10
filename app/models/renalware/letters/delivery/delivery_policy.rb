@@ -5,7 +5,7 @@ module Renalware
   module Letters
     module Delivery
       # A (non-pundit) policy driving logic around whether to email the letter to the practice
-      class LetterDeliveryPolicy
+      class DeliveryPolicy
         pattr_initialize :letter
         delegate :patient, :recipients, to: :letter
         delegate :practice, to: :patient
