@@ -94,6 +94,8 @@ module Renalware
 
     scope :dead, -> { where.not(died_on: nil) }
 
+    delegate :patient_at?, to: :hospital_identifiers
+
     def self.policy_class
       BasePolicy
     end
@@ -144,6 +146,7 @@ module Renalware
 
     private
 
+    # Before saving, convert all the local patient ids to upper case
     # TODO: Use a constant for the max number of local patient ids
     def upcase_local_patient_ids
       self.local_patient_id = local_patient_id.upcase if local_patient_id.present?

@@ -6,6 +6,7 @@ module Renalware::Patients
     # their 'display names' for use e.g. in the patient banner
     def configure_patient_hospital_identifiers
       Renalware.configure do |config|
+        # Note mixing up the order here is intentional
         config.patient_hospital_identifiers = {
           KCH: :local_patient_id,
           HOSP2: :local_patient_id_4,
@@ -95,6 +96,38 @@ module Renalware::Patients
           expect(identifiers.id).to eq(nil)
           expect(identifiers.name).to eq(nil)
         end
+      end
+    end
+
+    describe ".patient_at?" do
+      subject(:identifiers) { described_class.new(patient).patient_at?(hospital_code) }
+
+      context "when the patient has a local_patient_id for the requested hospital" do
+        let(:hospital_code) { "KCH" }
+        let(:patient) { build_stubbed(:patient, local_patient_id: "111") }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "when the patient does not have local_patient_id for the requested hospital" do
+        let(:hospital_code) { "KCH" }
+        let(:patient) { build_stubbed(:patient, local_patient_id: "") }
+
+        it { is_expected.to be_falsey }
+      end
+
+      context "when the hospital code is not configured" do
+        let(:patient) { build_stubbed(:patient, local_patient_id: "111") }
+        let(:hospital_code) { "XXX" }
+
+        it { is_expected.to be_falsey }
+      end
+
+      context "when the hospital code is blank" do
+        let(:patient) { build_stubbed(:patient) }
+        let(:hospital_code) { "" }
+
+        it { is_expected.to be_falsey }
       end
     end
   end

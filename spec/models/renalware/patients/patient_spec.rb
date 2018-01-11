@@ -25,6 +25,8 @@ module Renalware
     it { is_expected.to have_many(:alerts) }
     it { is_expected.to belong_to(:country_of_birth) }
 
+    it { is_expected.to respond_to(:patient_at?) }
+
     describe "diabetic? delegates to document.diabetes.diagnosis" do
       context "when the patient is diabetic" do
         before { allow(patient.document.diabetes).to receive(:diagnosis).and_return(true) }
