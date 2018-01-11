@@ -8,7 +8,8 @@ Renalware.configure do |config|
       "Renalware::Medications::PatientListener",
       "Renalware::Letters::PatientListener",
       "Renalware::HD::PatientListener"
-    ]
+    ],
+    "Renalware::Letters::ApproveLetter" => []
   }
 end
 
