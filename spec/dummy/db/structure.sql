@@ -2484,6 +2484,75 @@ ALTER SEQUENCE letter_signatures_id_seq OWNED BY letter_signatures.id;
 
 
 --
+-- Name: low_clearance_profiles; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE low_clearance_profiles (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    document jsonb,
+    updated_by_id bigint NOT NULL,
+    created_by_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: low_clearance_profiles_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE low_clearance_profiles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: low_clearance_profiles_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE low_clearance_profiles_id_seq OWNED BY low_clearance_profiles.id;
+
+
+--
+-- Name: low_clearance_versions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE low_clearance_versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: low_clearance_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE low_clearance_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: low_clearance_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE low_clearance_versions_id_seq OWNED BY low_clearance_versions.id;
+
+
+--
 -- Name: medication_prescription_terminations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -6490,6 +6559,20 @@ ALTER TABLE ONLY letter_signatures ALTER COLUMN id SET DEFAULT nextval('letter_s
 
 
 --
+-- Name: low_clearance_profiles id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY low_clearance_profiles ALTER COLUMN id SET DEFAULT nextval('low_clearance_profiles_id_seq'::regclass);
+
+
+--
+-- Name: low_clearance_versions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY low_clearance_versions ALTER COLUMN id SET DEFAULT nextval('low_clearance_versions_id_seq'::regclass);
+
+
+--
 -- Name: medication_prescription_terminations id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -7589,6 +7672,22 @@ ALTER TABLE ONLY letter_recipients
 
 ALTER TABLE ONLY letter_signatures
     ADD CONSTRAINT letter_signatures_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: low_clearance_profiles low_clearance_profiles_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY low_clearance_profiles
+    ADD CONSTRAINT low_clearance_profiles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: low_clearance_versions low_clearance_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY low_clearance_versions
+    ADD CONSTRAINT low_clearance_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -9589,6 +9688,41 @@ CREATE INDEX index_letter_signatures_on_user_id ON letter_signatures USING btree
 
 
 --
+-- Name: index_low_clearance_profiles_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_low_clearance_profiles_on_created_by_id ON low_clearance_profiles USING btree (created_by_id);
+
+
+--
+-- Name: index_low_clearance_profiles_on_document; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_low_clearance_profiles_on_document ON low_clearance_profiles USING gin (document);
+
+
+--
+-- Name: index_low_clearance_profiles_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_low_clearance_profiles_on_patient_id ON low_clearance_profiles USING btree (patient_id);
+
+
+--
+-- Name: index_low_clearance_profiles_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_low_clearance_profiles_on_updated_by_id ON low_clearance_profiles USING btree (updated_by_id);
+
+
+--
+-- Name: index_low_clearance_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_low_clearance_versions_on_item_type_and_item_id ON low_clearance_versions USING btree (item_type, item_id);
+
+
+--
 -- Name: index_medication_prescription_terminations_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -11294,6 +11428,14 @@ ALTER TABLE ONLY hd_diary_slots
 
 
 --
+-- Name: low_clearance_profiles fk_rails_20f40e75a5; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY low_clearance_profiles
+    ADD CONSTRAINT fk_rails_20f40e75a5 FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: modality_modalities fk_rails_21e1b74109; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -11939,6 +12081,14 @@ ALTER TABLE ONLY renal_aki_alerts
 
 ALTER TABLE ONLY access_profiles
     ADD CONSTRAINT fk_rails_8d75e5423f FOREIGN KEY (decided_by_id) REFERENCES users(id);
+
+
+--
+-- Name: low_clearance_profiles fk_rails_8d84feb2ed; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY low_clearance_profiles
+    ADD CONSTRAINT fk_rails_8d84feb2ed FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -12846,6 +12996,14 @@ ALTER TABLE ONLY medication_prescription_terminations
 
 
 --
+-- Name: low_clearance_profiles fk_rails_ff7b848263; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY low_clearance_profiles
+    ADD CONSTRAINT fk_rails_ff7b848263 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: hd_diaries fk_rails_ffb6b0d291; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -13406,6 +13564,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171219154529'),
 ('20180102155055'),
 ('20180105132358'),
-('20180108185400');
+('20180108185400'),
+('20180112151706'),
+('20180112151813');
 
 

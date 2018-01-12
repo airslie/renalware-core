@@ -1,0 +1,39 @@
+= within_patient_layout(title: "Profile",
+  breadcrumbs: breadcrumb_for("Low Clearance Summary", patient_low_clearance_dashboard_path(patient))) do
+
+
+  / in show
+  /        = render "renalware/shared/documents/attributes_group",
+                   group: profile.document.low_clearance,
+                   legend: "Low Clearance",
+                   width: "xlarge"
+
+  = simple_form_for profile,
+                    url: patient_low_clearance_profile_path(patient),
+                    html: { autocomplete: "off" },
+                    method: :put,
+                    wrapper: "horizontal_form" do |f|
+
+    = f.simple_fields_for :document, profile.document do |flc|
+      = flc.input :first_seen_on, as: :date_picker, wrapper: :horizontal_datepicker
+      = flc.input :dialysis_plan, wrapper: :horizontal_medium
+      = flc.input :dialysis_planned_on, as: :date_picker, wrapper: :horizontal_datepicker
+      = flc.input :predicted_esrf_date, as: :date_picker, wrapper: :horizontal_datepicker
+      = flc.input :referral_creatinine, wrapper: :horizontal_tiny
+      = flc.input :referral_egfr, wrapper: :horizontal_tiny
+      = flc.input :referred_by, wrapper: :horizontal_medium
+      = flc.input :education_status, wrapper: :horizontal_tiny
+      = flc.input :education_type, wrapper: :horizontal_tiny
+      = flc.input :attended_on, as: :date_picker, wrapper: :horizontal_datepicker
+      = flc.input :dvd1_provided, as: :inline_radio_buttons, wrapper: :horizontal_small
+      = flc.input :dvd2_provided, as: :inline_radio_buttons, wrapper: :horizontal_small
+      = flc.input :transplant_referral, as: :inline_radio_buttons, wrapper: :horizontal_small
+      = flc.input :transplant_referred_on, as: :date_picker, wrapper: :horizontal_datepicker
+      = flc.input :home_hd_possible, as: :inline_radio_buttons, wrapper: :horizontal_small
+      = flc.input :self_care_possible, as: :inline_radio_buttons, wrapper: :horizontal_small
+      = flc.input :access_notes, as: :text, wrapper: :horizontal_large
+
+    .form-actions
+      = f.submit "Save", class: "button"
+      span= " or "
+      = link_to "cancel", patient_low_clearance_dashboard_path(patient)

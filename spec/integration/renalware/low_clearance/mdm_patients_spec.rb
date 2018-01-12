@@ -6,26 +6,26 @@ RSpec.describe "Low Clearance Patients", type: :feature do
 
   describe "GET index" do
     def each_filter
-      Renalware::Renal::LowClearance::MDM_FILTERS.each do |filter_name|
+      Renalware::LowClearance::MDM_FILTERS.each do |filter_name|
         filter_label = I18n.t(
           filter_name,
-          scope: "renalware.renal.low_clearance.mdm_patients.filters.filter"
+          scope: "renalware.low_clearance.mdm_patients.filters.filter"
         )
-        filter_path = renal_low_clearance_filtered_mdm_patients_path(named_filter: filter_name)
+        filter_path = renal_clearance_filtered_mdm_patients_path(named_filter: filter_name)
         yield filter_label, filter_path
       end
     end
 
     it "responds successfully" do
       login_as_clinical
-      visit renal_low_clearance_mdm_patients_path
+      visit low_clearance_mdm_patients_path
 
       expect(page).to have_content("Low Clearance MDM Patients")
     end
 
     it "clicking on filters works" do
       login_as_clinical
-      visit renal_low_clearance_mdm_patients_path
+      visit low_clearance_mdm_patients_path
       each_filter do |filter_label, filter_path|
         within ".filters" do
           expect(page).to have_content(filter_label)

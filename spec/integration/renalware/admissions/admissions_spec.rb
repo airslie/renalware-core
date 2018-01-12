@@ -2,16 +2,19 @@
 require "rails_helper"
 module Renalware
   RSpec.describe "Admission management", type: :request do
+    include PatientsSpecHelper
+
     let(:user) { create(:user) }
     let(:time) { Time.zone.now }
     let(:hospital_ward) { create(:hospital_ward, name: "Ward1") }
-    let(:modality_desc) { create(:hd_modality_description) }
     let(:patient) do
       create(:patient).tap do |pat|
-        Renalware::Modalities::ChangePatientModality
-          .new(patient: pat, user: user)
-          .call(description: modality_desc, started_on: Time.zone.now)
-      end.reload
+        set_modality(
+          patient: pat,
+          modality_description: create(:hd_modality_description),
+          by: user
+        )
+      end
     end
 
     def convert_hash_dates_to_string_using_locale(hash)

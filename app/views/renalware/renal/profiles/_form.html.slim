@@ -48,27 +48,6 @@
             - fcm.object.class.attributes_list.each do |attribute|
               = render_input fcm, attribute
 
-      = render layout: "renalware/shared/fieldset",
-          locals: { legend: "Low Clearance", name: "low_clearance" } do
-        = fd.simple_fields_for :low_clearance, fd.object.low_clearance do |flc|
-          = flc.input :first_seen_on, as: :date_picker, wrapper: :horizontal_datepicker
-          = flc.input :dialysis_plan, wrapper: :horizontal_medium
-          = flc.input :dialysis_planned_on, as: :date_picker, wrapper: :horizontal_datepicker
-          = flc.input :predicted_esrf_date, as: :date_picker, wrapper: :horizontal_datepicker
-          = flc.input :referral_creatinine, wrapper: :horizontal_tiny
-          = flc.input :referral_egfr, wrapper: :horizontal_tiny
-          = flc.input :referred_by, wrapper: :horizontal_medium
-          = flc.input :education_status, wrapper: :horizontal_tiny
-          = flc.input :education_type, wrapper: :horizontal_tiny
-          = flc.input :attended_on, as: :date_picker, wrapper: :horizontal_datepicker
-          = flc.input :dvd1_provided, as: :inline_radio_buttons, wrapper: :horizontal_small
-          = flc.input :dvd2_provided, as: :inline_radio_buttons, wrapper: :horizontal_small
-          = flc.input :transplant_referral, as: :inline_radio_buttons, wrapper: :horizontal_small
-          = flc.input :transplant_referred_on, as: :date_picker, wrapper: :horizontal_datepicker
-          = flc.input :home_hd_possible, as: :inline_radio_buttons, wrapper: :horizontal_small
-          = flc.input :self_care_possible, as: :inline_radio_buttons, wrapper: :horizontal_small
-          = flc.input :access_notes, as: :text, wrapper: :horizontal_large
-
     - f.object.build_address_at_diagnosis if f.object.address_at_diagnosis.blank?
     - label = "Address at ESRF Date"
 

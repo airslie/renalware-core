@@ -10,4 +10,8 @@ li.heading= t(".heading")
                     active_when_controller_matches: %r{renalware/hd},
                     enabled: true
 
+= patient_menu_item title: t(".low_clearance"),
+                    path: patient_low_clearance_dashboard_path(patient),
+                    active_when_controller_matches: %r{renalware/low_clearance},
+                    enabled: true
 hr

@@ -11,7 +11,7 @@ module Renalware
           attr_reader :relation, :query_params
 
           def initialize(relation: nil, query_params: {})
-            @relation ||= default_relation
+            @relation = relation || default_relation
             @query_params = query_params
             @query_params[:s] = "modality_descriptions_name ASC" if @query_params[:s].blank?
           end

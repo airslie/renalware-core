@@ -234,11 +234,12 @@ Renalware::Engine.routes.draw do
         get :deaths
       end
     end
-    namespace :low_clearance do
-      resources :mdm_patients, only: :index
-      constraints(named_filter: /#{Renalware::Renal::LowClearance::MDM_FILTERS.join("|")}/) do
-        get "mdm_patients/:named_filter", to: "mdm_patients#index", as: :filtered_mdm_patients
-      end
+  end
+
+  namespace :low_clearance do
+    resources :mdm_patients, only: :index
+    constraints(named_filter: /#{Renalware::LowClearance::MDM_FILTERS.join("|")}/) do
+      get "mdm_patients/:named_filter", to: "mdm_patients#index", as: :filtered_mdm_patients
     end
   end
 
@@ -353,9 +354,6 @@ Renalware::Engine.routes.draw do
 
     namespace :renal do
       resource :profile, only: [:show, :edit, :update]
-      namespace :low_clearance do
-        resource :mdm, only: :show, controller: "mdm"
-      end
     end
 
     # Modalities
@@ -377,6 +375,12 @@ Renalware::Engine.routes.draw do
       resources :pet_adequacy_results, except: [:destroy]
       resources :assessments, except: [:index, :destroy]
       resources :training_sessions, except: [:index, :destroy]
+      resource :mdm, only: :show, controller: "mdm"
+    end
+
+    namespace :low_clearance do
+      resource :dashboard, only: :show
+      resource :profile, only: [:edit, :update]
       resource :mdm, only: :show, controller: "mdm"
     end
 

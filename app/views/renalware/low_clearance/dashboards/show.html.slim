@@ -1,0 +1,7 @@
+= content_for(:actions) do
+  = render "page_actions", dashboard: dashboard, patient: patient
+
+= within_patient_layout do
+  - if dashboard.profile&.persisted?
+    .row
+      = render "renalware/low_clearance/profiles/summary", profile: dashboard.profile

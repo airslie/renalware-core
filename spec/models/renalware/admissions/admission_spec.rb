@@ -1,15 +1,17 @@
 require "rails_helper"
+require_dependency "models/renalware/concerns/accountable"
 
 RSpec.describe Renalware::Admissions::Admission, type: :model do
+  include PatientsSpecHelper
   it { is_expected.to validate_presence_of :patient_id }
   it { is_expected.to validate_presence_of :hospital_ward_id }
   it { is_expected.to validate_presence_of :admitted_on }
   it { is_expected.to validate_presence_of :reason_for_admission }
   it { is_expected.to validate_presence_of :admission_type }
-  it { is_expected.to respond_to(:by=) } # accountable
   it { is_expected.to belong_to(:patient) }
   it { is_expected.to belong_to(:hospital_ward) }
   it { is_expected.to belong_to(:modality_at_admission) }
+  it_behaves_like "Accountable"
 
   it "is paranoid" do
     expect(described_class).to respond_to(:deleted)
@@ -19,10 +21,12 @@ RSpec.describe Renalware::Admissions::Admission, type: :model do
   let(:user) { create(:user) }
   let(:patient) do
     create(:patient).tap do |pat|
-      Renalware::Modalities::ChangePatientModality
-        .new(patient: pat, user: user)
-        .call(description: modality_desc, started_on: Time.zone.now)
-    end.reload
+      set_modality(
+        patient: pat,
+        modality_description: create(:hd_modality_description),
+        by: user
+      )
+    end
   end
 
   describe "scope .currently_admitted" do
