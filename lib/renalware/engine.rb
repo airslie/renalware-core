@@ -116,6 +116,8 @@ module Renalware
       app.config.assets.precompile += %w(renalware/protocol_pdf.css)
       app.config.assets.precompile += %w(renalware/hd_diary_pdf.css)
       app.config.assets.precompile += %w(
+        renalware/nhs_a4_letter_logo_blue.png
+        renalware/nhs_a4_letter_logo_black.png
         renalware/NHS-Black.jpg
         renalware/favicon/manifest.json
         renalware/favicon/apple-touch-icon.png
