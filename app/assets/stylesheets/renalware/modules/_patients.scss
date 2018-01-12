@@ -299,16 +299,19 @@ ul.provider {
   clear: both;
   height: 2rem;
   padding: 0.4em 0.2em 0.5em 0.6em;
-  background-color: $table-toggled-content-colour;
-  border-bottom: dotted 1px $light-grey;
+  background-color: $nhs-orange;
+  color: $white;
 
   &:hover {
-    background-color: lighten($table-toggled-content-colour, 5);
+    background-color: lighten($nhs-orange, 5);
+  }
+
+  td, td.actions a {
+    color: inherit;
   }
 
   td {
     border: 0;
-    border-top: dotted 1px $light-grey;
   }
 
   .icon {
@@ -320,6 +323,10 @@ ul.provider {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    &:before {
+      content: "Alert: ";
+    }
   }
 
   .author {
@@ -330,26 +337,20 @@ ul.provider {
   .actions {
     width: 3rem;
     padding-right: 1rem;
-
-    a {
-      color: $dark-grey;
-    }
   }
 
   &.urgent {
-    background-color: $nhs-yellow;
+    background-color: $nhs-red;
 
     &:hover {
-      background-color: lighten($nhs-yellow, 5);
+      background-color: lighten($nhs-red, 5);
     }
   }
 
-  &.urgent {
-    .icon {
-      @extend .fa;
-      @extend .fa-warning;
-      display: table-cell;
-    }
+  .icon {
+    @extend .fa;
+    @extend .fa-warning;
+    display: table-cell;
   }
 }
 
