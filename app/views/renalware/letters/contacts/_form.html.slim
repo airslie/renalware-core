@@ -2,7 +2,7 @@
             "Pick person from directory",
             class: "right inline"
 = text_field_tag "person_auto_complete", \
-    f.object.person.try!(:to_s),
+    f.object.person&.to_s,
     data: { \
       autocomplete_source: search_directory_people_path, \
       autocomplete_rel: "[name='letters_contact[person_id]']" \

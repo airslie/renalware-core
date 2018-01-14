@@ -1,5 +1,4 @@
 ruby:
-  new_pathology_timestamp = Time.zone.now
   diff = Renalware::Pathology::ObservationsDiff.new(
     patient: letter.patient,
     observation_set_a: letter.pathology_snapshot,

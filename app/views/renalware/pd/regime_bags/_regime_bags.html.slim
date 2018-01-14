@@ -19,4 +19,4 @@
           td= bag.per_week
           td= pd_regime_bag_days(bag)
           - if regime.capd?
-            td= t(bag.capd_overnight_bag.try!(:to_s))
+            td= t(bag.capd_overnight_bag&.to_s)

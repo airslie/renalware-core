@@ -2,7 +2,7 @@
 - recipient = letter.cc_recipient_for_contact(contact)
 tr
   = content_tag(:td, style: "width: 20px") do
-    = hidden_field_tag "letter[cc_recipients_attributes][][id]", recipient.try!(:id)
+    = hidden_field_tag "letter[cc_recipients_attributes][][id]", recipient&.id
     = hidden_field_tag "letter[cc_recipients_attributes][][person_role]", "contact"
     = hidden_field_tag "letter[cc_recipients_attributes][][addressee_id]", contact.id
 
