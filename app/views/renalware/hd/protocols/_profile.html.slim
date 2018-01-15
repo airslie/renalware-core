@@ -13,14 +13,14 @@ dl
   dt.new_line= t(".needle_size")
   dd= profile.needle_size
   dt= t(".single_needle")
-  dd= profile.single_needle.try!(:text)
+  dd= profile.single_needle&.text
   dt= t(".dialyser")
   dd= profile.dialyser
   dt= t(".dialysate")
   dd= profile.dialysate
 
   dt.new_line= t(".has_sodium_profiling")
-  dd= profile.has_sodium_profiling.try!(:text)
+  dd= profile.has_sodium_profiling&.text
   dt= t(".sodium_first_half")
   dd= profile.sodium_first_half
   dt= t(".sodium_second_half")
@@ -41,8 +41,8 @@ dl
   dd= profile.last_update
 
   dt.new_line= t(".transport.has_transport")
-  dd= profile.transport_has_transport.try!(:text)
+  dd= profile.transport_has_transport&.text
   dt= t(".transport.type")
-  dd= profile.transport_type.try!(:text)
+  dd= profile.transport_type&.text
   dt= t(".transport.decided_on")
   dd= profile.transport_decided_on

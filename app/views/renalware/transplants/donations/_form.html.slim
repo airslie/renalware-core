@@ -1,9 +1,9 @@
 ruby:
   back_path = if f.object.new_record?
-    patient_transplants_donor_dashboard_path(patient)
-  else
-    patient_transplants_donation_path(patient, f.object)
-  end
+                patient_transplants_donor_dashboard_path(patient)
+              else
+                patient_transplants_donation_path(patient, f.object)
+              end
 
 .row.top
   .medium-6.columns
@@ -26,11 +26,11 @@ ruby:
               collection: [],
               include_blank: false,
               wrapper: :horizontal_medium,
-              input_html: {\
+              input_html: { \
                  class: "select2-ajax-search",
                  data: { "ajax--url" => search_patients_path(format: :json),
                          "default-value" => default_value,
-                         "placeholder" => "Start entering the last name (min. 3 characters)" }\
+                         "placeholder" => "Start entering the last name (min. 3 characters)" } \
               }
 
     = f.input :blood_group_compatibility,

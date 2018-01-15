@@ -4,13 +4,18 @@ table.snippets
   thead
     tr
       th.col-width-toggle
-      th.col-width-medium= sort_link([:renalware, search], :title)
-      th(style="max-width: 100%")= sort_link([:renalware, search], :body)
+      th.col-width-medium
+        = sort_link([:renalware, search], :title)
+      th(style="max-width: 100%")
+        = sort_link([:renalware, search], :body)
       - unless author == :me
-        th.col-width-medium.author= sort_link([:renalware, search], :author_family_name, t(".author"))
+        th.col-width-medium.author
+          = sort_link([:renalware, search], :author_family_name, t(".author"))
       - unless remote
-        th.col-width-medium.last_used_on= sort_link([:renalware, search], :last_used_on, t(".last_used_on"))
-        th.col-width-date-time.updated_at= sort_link([:renalware, search], :updated_at, t(".updated_at"))
+        th.col-width-medium.last_used_on
+          = sort_link([:renalware, search], :last_used_on, t(".last_used_on"))
+        th.col-width-date-time.updated_at
+          = sort_link([:renalware, search], :updated_at, t(".updated_at"))
         th.col-width-medium
   tbody
     = render partial: "row",

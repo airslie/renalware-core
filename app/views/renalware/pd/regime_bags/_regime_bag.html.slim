@@ -10,7 +10,7 @@ li
     dd= pd_regime_bag_days(regime_bag)
     - if regime_bag.regime.capd?
       dt= t(".capd_overnight")
-      dd= t(regime_bag.capd_overnight_bag.try!(:to_s))
+      dd= t(regime_bag.capd_overnight_bag&.to_s)
     - if regime_bag.regime.apd?
       dt= t(".role")
       dd= regime_bag.role.text

@@ -20,7 +20,7 @@ table
           | &nbsp;|&nbsp;
           = link_to "Edit", edit_patient_pd_pet_adequacy_result_path(patient, pet_adequacy.id)
         td= l(pet_adequacy.pet_date)
-        td= pet_adequacy.pet_type.try!(:text)
+        td= pet_adequacy.pet_type&.text
         td= pet_adequacy.ktv_total
         td= pet_adequacy.crcl_total
         td= pet_adequacy.crcl_dialysate

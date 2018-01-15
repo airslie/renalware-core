@@ -29,7 +29,7 @@ article
     dt= t(".cannulation_type")
     dd= profile.cannulation_type
     dt= t(".anticoagulant.type")
-    dd= profile.anticoagulant_type.try!(:text)
+    dd= profile.anticoagulant_type&.text
 
   dl.dl-horizontal.large.full-hd-profile
     dt.inset=t(".anticoagulant.loading_dose")
@@ -42,7 +42,7 @@ article
     dt= t(".needle_size")
     dd= profile.needle_size
     dt= t(".single_needle")
-    dd= profile.single_needle.try!(:text)
+    dd= profile.single_needle&.text
     dt= t(".blood_flow")
     dd= profile.blood_flow
     dt= t(".temperature")
@@ -50,23 +50,23 @@ article
     dt= t(".bicarbonate")
     dd= profile.bicarbonate
     dt= t(".has_sodium_profiling")
-    dd= profile.has_sodium_profiling.try!(:text)
+    dd= profile.has_sodium_profiling&.text
     dt.inset= t(".sodium_first_half")
     dd.inset= profile.sodium_first_half
     dt.inset= t(".sodium_second_half")
     dd.inset= profile.sodium_second_half
 
     dt= t(".drugs.on_esa")
-    dd= profile.drugs_on_esa.try!(:text)
+    dd= profile.drugs_on_esa&.text
     dt= t(".drugs.on_iron")
-    dd= profile.drugs_on_iron.try!(:text)
+    dd= profile.drugs_on_iron&.text
     dt= t(".drugs.on_warfarin")
-    dd= profile.drugs_on_warfarin.try!(:text)
+    dd= profile.drugs_on_warfarin&.text
 
     dt= t(".transport.has_transport")
-    dd= profile.transport.has_transport.try!(:text)
+    dd= profile.transport.has_transport&.text
     dt.inset= t(".transport.type")
-    dd.inset= profile.transport.type.try!(:text)
+    dd.inset= profile.transport.type&.text
     dt.inset= t(".transport.decided_on")
     dd.inset= profile.transport.present? && I18n.l(profile.transport&.decided_on)
 

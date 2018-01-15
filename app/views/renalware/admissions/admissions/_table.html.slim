@@ -26,10 +26,8 @@
         th.col-width-date Summary date
         th.col-width-tiny Summary
 
-
     tbody
       - admissions.each do |admission|
-        - uid = "admission-#{admission.id}"
         tr
           td= admission.unit_and_ward
           - unless compact
@@ -57,24 +55,6 @@
             td
               - if policy(admission).edit?
                 = link_to "Edit", edit_admissions_admission_path(admission)
-            / td.actions-dropdown
-
-            /   / As we have lots of possible actions, group them in a button group.
-            /   / A wrapping div is required for now in order for the button group display correctly
-            /   / (though we could style the td like a div I guess).
-            /   / TODO add options for: discharge, add discharge summary (simplified forms)
-            /   div
-            /     button.button.secondary.dropdown(href="#"
-            /                                      data-dropdown=uid
-            /                                      aria-controls=uid
-            /                                      aria-expanded="false")
-            /       | Actions&hellip;
-            /     ul.f-dropdown(id="#{uid}" data-dropdown-content aria-hidden="true")
-
-            /       = dropdown_btn_item(icon: "fa-edit",
-            /                           url: edit_admissions_admission_path(admission),
-            /                           title: "Edit",
-            /                           enabled: policy(admission).edit?)
 
         = content_tag(:tr, id: "admission-quick-preview-#{admission.id}", style: "display: none")
           td

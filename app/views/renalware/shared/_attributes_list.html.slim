@@ -3,10 +3,10 @@ ruby:
     label = model.class.human_attribute_name(attribute)
     value = model.public_send(attribute)
     html = if value.respond_to?(:nested_attribute?)
-      render(value)
-    else
-      Presenter.for(value).to_s
-    end
+             render(value)
+           else
+             Presenter.for(value).to_s
+           end
     [label, html]
   end
 
