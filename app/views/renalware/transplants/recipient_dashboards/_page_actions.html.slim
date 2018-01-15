@@ -1,3 +1,8 @@
+- if patient.has_ever_been_a_recipient?
+  = link_to(patient_transplants_mdm_path(patient), class: "button with-icon secondary") do
+    i.fa.fa-group
+    = t(".mdm")
+
 a.button.dropdown(href="#"
                   data-dropdown="tx-recip-options"
                   aria-controls="tx-recip-options"
@@ -6,7 +11,6 @@ a.button.dropdown(href="#"
 br
 
 ul.f-dropdown#tx-recip-options(data-dropdown-content aria-hidden="true")
-
   = dropdown_btn_item enabled: policy(recipient_workup).new?,
                       title: t(".add_recipient_workup"),
                       url: edit_patient_transplants_recipient_workup_path(patient)
