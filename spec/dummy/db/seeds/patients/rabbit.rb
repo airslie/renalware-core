@@ -31,9 +31,7 @@ module Renalware
 
     primary_care_physician = Patients::PrimaryCarePhysician
       .find_or_create_by!(code: "GP912837465") do |doc|
-        doc.given_name = "John"
-        doc.family_name = "Merrill"
-        doc.email = "john.merrill@nhs.net"
+        doc.name = "MERRILL J"
         doc.practitioner_type = "GP"
         doc.practices << practice
     end
@@ -46,7 +44,6 @@ module Renalware
 
   log "Adding Address for Roger RABBIT" do
     address = rabbit.current_address || rabbit.build_current_address
-    address.name = "M. Roger Rabbit"
     address.name = "M. Roger Rabbit"
     address.street_1 = "123 South Street"
     address.town = "Toontown"

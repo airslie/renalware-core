@@ -35,7 +35,7 @@ module Renalware
       private
 
       def primary_care_physician_role
-        label = "Primary Care Physician <address>#{primary_care_physician.full_name}, " \
+        label = "Primary Care Physician <address>#{primary_care_physician.name}, " \
                 "#{primary_care_physician.address}</address>".html_safe
         [label, "primary_care_physician", primary_care_physician.salutation]
       end

@@ -1,0 +1,61 @@
+= within_admin_layout(title: "File Imports") do
+
+  .row
+    .small-12.columns.panel
+      .row
+        .small-12.columns
+          h2 Upload a file
+          = simple_form_for(uploaded_file,
+                            url: admin_feeds_files_path,
+                            as: :file_upload,
+                            method: :post,
+                            multipart: true,
+                            wrapper: :horizontal_form) do |f|
+            = f.input :file_type_id, collection: uploaded_file.file_type_dropdown_options
+            = f.input :file, as: :file, input_html: { accept: "*.zip" }
+
+            br
+            = f.submit "Upload", class: :button
+
+  table.feeds-files
+    thead
+      tr
+        th.col-width-date-time= attr_name(Renalware::Feeds::File, :created_at)
+        th.col-width-medium= attr_name(Renalware::Feeds::File, :type)
+        th.col-width-small= attr_name(Renalware::Feeds::File, :status)
+        th.col-width-tiny= attr_name(Renalware::Feeds::File, :attempts)
+        th.col-width-tiny= attr_name(Renalware::Feeds::File, :time_taken)
+        th= attr_name(Renalware::Feeds::File, :result)
+        th.col-width-medium= attr_name(Renalware::Feeds::File, :created_by)
+
+    tbody
+      - files.each do |file|
+        tr(class=file.status id="file-#{file.id}")
+          td= l(file.created_at)
+          td= file.file_type.name&.humanize
+          td.status
+            span= file.status&.capitalize
+          td= file.attempts
+          td= "#{(file.time_taken.to_f / 1000.0).round(2)}s" if file.time_taken?
+          td.col-width-large-with-ellipsis.css-toggle-container
+            - if file.result?
+              = link_to "Toggle",
+                "#file-#{file.id} .css-toggle-container",
+                class: "button compact low-key",
+                title: file.result,
+                data: { behaviour: "css-toggler" }
+              | &nbsp;
+              = file.result&.gsub("\n", "<br/>")&.html_safe
+              /#&.gsub("\n", "<br/>")&.html_safe
+          td= file.created_by.to_s
+
+  br
+  .panel
+    | Note that when you upload a file, a background job kicks off to process it asynchronously.
+    br
+    | You will need to check back to see the results.
+    - if defined?(delayed_job_path)
+      br
+      = "You can also see those jobs #{link_to("here", delayed_job_path)} if you have access.".html_safe
+
+

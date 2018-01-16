@@ -1,8 +1,6 @@
 Given("Phylis is a primary care physician") do
   @phylis = Renalware::Patients::PrimaryCarePhysician.create!(
-    given_name: "Patty",
-    family_name: "Parfit",
-    email: "patty.parfit@nhs.net",
+    name: "PARFIT P",
     telephone: "0203593082",
     code: "123IUY",
     practitioner_type: "GP",

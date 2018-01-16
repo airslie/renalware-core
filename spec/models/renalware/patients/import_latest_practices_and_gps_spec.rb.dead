@@ -1,0 +1,69 @@
+require "rails_helper"
+
+module Renalware
+  module Patients
+    module Imports
+      describe UpdateNHSPractices do
+        PRACTICE_CODE = "A81001".freeze
+
+        def active_practice_row
+          practice_csv_row(practice_code: PRACTICE_CODE, status_code: "A")
+        end
+
+        def closed_practice_row
+          practice_csv_row(practice_code: PRACTICE_CODE, status_code: "C")
+        end
+
+        def practice_csv_row(practice_code:, status_code:)
+          '"' + practice_code + '","THE DENSHAM SURGERY","Y54","Q74",'\
+          '"THE HEALTH CENTRE","LAWSON STREET","STOCKTON-ON-TEES","CLEVELAND","","TS18 1HU",'\
+          '"19740401","","' + status_code + '","B","00K","20130401",'\
+          '"","01642 672351","","","","0","","00K","","4",""'
+        end
+
+        def malformed_practice_row
+          '"some","thing","is","wrong"'
+        end
+
+        def mock_csv_open(pathname:, contents:)
+          expect(File).to receive(:open).with(pathname, universal_newline: false, headers: false) do
+            StringIO.new(contents)
+          end
+        end
+
+        def dummy_paths(epraccur: dummy_pathname, gpcur: dummy_pathname)
+          { epraccur: epraccur, egpcur: gpcur }
+        end
+
+        def dummy_pathname
+          Pathname.new(__FILE__)
+        end
+
+        describe "#new" do
+          context "when the file_paths hash does not contain a required path" do
+            it "raises an error" do
+              expect{
+                UpdateNHSPractices.new(csv_file_paths: {})
+              }.to raise_error(ArgumentError, "file_paths argument is missing a :epraccur key")
+            end
+          end
+
+          context "when a file is not found" do
+            it "raises an error" do
+              expect{
+                UpdateNHSPractices.new(csv_file_paths: dummy_paths(epraccur: Pathname.new("ugh")))
+              }.to raise_error(Exceptions::FileNotFoundError)
+            end
+          end
+
+          context "when all arguments are satisfied" do
+            it "succeeds" do
+              importer = UpdateNHSPractices.new(csv_file_paths: dummy_paths)
+              expect(importer).to be_present
+            end
+          end
+        end
+      end
+    end
+  end
+end

@@ -12,6 +12,7 @@
       tr
         th.col-width-small
         th Name
+        th Dm+d Virtual Product ID
     tbody
       - @drugs.each do |drug|
         tr
@@ -22,7 +23,7 @@
               id: "#{drug.id}-drug",
               method: :delete,
               data: { confirm: I18n.t("prompts.confirm_delete") }
-          td
-            = link_to drug, edit_drugs_drug_path(drug)
+          td= link_to drug, edit_drugs_drug_path(drug)
+          td= drug.vmpid
 
   = paginate @drugs

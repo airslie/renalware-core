@@ -1,12 +1,10 @@
 FactoryBot.define do
   sequence :gp_code do |n|
-    "GP123#{n}"
+    "GP1234#{n}"
   end
 
   factory :primary_care_physician, class: "Renalware::Patients::PrimaryCarePhysician" do
-    given_name "Donald"
-    family_name "Good"
-    email "donald.good@nhs.net"
+    name "GOOD PJ"
     telephone "0203593082"
     code { generate(:gp_code) }
     practitioner_type "GP"

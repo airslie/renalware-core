@@ -3,8 +3,11 @@ require_dependency "renalware/patients"
 module Renalware
   module Patients
     class Practice < ApplicationRecord
+      acts_as_paranoid
+
       has_one :address, as: :addressable
-      has_and_belongs_to_many :primary_care_physicians
+      has_many :practice_memberships
+      has_many :primary_care_physicians, through: :practice_memberships
 
       accepts_nested_attributes_for :address, allow_destroy: true
 

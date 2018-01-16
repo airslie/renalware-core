@@ -96,6 +96,314 @@ CREATE FUNCTION audit_view_as_json(view_name text) RETURNS json
 
 
 --
+-- Name: import_gps_csv(text); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION import_gps_csv(file text) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+        BEGIN
+        -- Imports a egpcur.csv.csv file created from ODS.
+        -- Returns counts of changed (insert/updated) and (soft) deleted rows.
+
+        DROP TABLE IF EXISTS tmp_gps_copy;
+
+        -- Create a tmp table to hold the ODS-defined standard 27 field format into which we will insert out CSV data
+        CREATE TEMP TABLE tmp_gps_copy (
+        code text NOT NULL,
+        name text NOT NULL,
+        unused3 text,
+        unused4 text,
+        street_1 text,
+        street_2 text,
+        street_3 text,
+        town text,
+        county text,
+        postcode text,
+        unused11 text,
+        unused12 text,
+        status text, -- A = Active B = Retired C = Closed P = Proposed
+        unused14 text,
+        unused15 text,
+        unused16 text,
+        unused17 text,
+        telephone text,
+        unused19 text,
+        unused20 text,
+        unused21 text,
+        amended_record_indicator text,
+        unused23 text,
+        unused24 text,
+        unused25 text,
+        unused26 text,
+        unused27 text,
+        CONSTRAINT tmp_gps_pkey PRIMARY KEY (code)
+        );
+
+        -- Import the CSV file into tmp_practices - note there is no CSV header in this file
+        EXECUTE format ('COPY tmp_gps_copy FROM %L DELIMITER %L CSV ', file, ',');
+
+        DROP TABLE IF EXISTS tmp_gps;
+        CREATE TEMP TABLE tmp_gps AS SELECT
+          code,
+          name,
+          telephone,
+          street_1,
+          street_2,
+          street_3,
+          town,
+          county,
+          postcode,
+          left(status,1) as status from tmp_gps_copy ;
+        ALTER TABLE tmp_gps ADD PRIMARY KEY (code);
+
+  RAISE NOTICE 'Calling cs_create_job(%)', (select status from tmp_gps limit 1);
+
+        -- Upsert GPs
+        WITH
+         data AS (select * from  tmp_gps),
+         gp_changes AS (
+          INSERT INTO renalware.patient_primary_care_physicians (code, name, telephone, practitioner_type, created_at, updated_at)
+          SELECT code, name, telephone, 'GP', clock_timestamp(), clock_timestamp()
+          FROM data
+          ON CONFLICT (code) DO UPDATE
+            SET
+             telephone = excluded.telephone,
+             name = excluded.name,
+             updated_at = excluded.updated_at
+            where (patient_primary_care_physicians.telephone) is distinct from (excluded.telephone)
+            RETURNING code, id
+           )
+
+        -- Upsert GP addresses
+        INSERT INTO renalware.addresses (
+          addressable_type,
+          addressable_id,
+          street_1,
+          street_2,
+          street_3,
+          town,
+          county,
+          postcode,
+          created_at,
+          updated_at)
+        SELECT
+          'Renalware::Patients::PrimaryCarePhysician' as addressable_type,
+          gps.id as addressable_id,
+          street_1,
+          street_2,
+          street_3,
+          town,
+          county,
+          postcode,
+          CURRENT_TIMESTAMP as created_at,
+          CURRENT_TIMESTAMP as updated_at
+          FROM data join patient_primary_care_physicians gps using(code)
+        ON CONFLICT (addressable_type, addressable_id) DO UPDATE
+          SET
+          street_1 = excluded.street_1,
+          street_2 = excluded.street_2,
+          street_3 = excluded.street_3,
+          town = excluded.town,
+          county = excluded.county,
+          postcode = excluded.postcode,
+          updated_at = clock_timestamp()
+          where (addresses.street_1, addresses.street_2, addresses.street_3)
+          is distinct from (excluded.street_1, excluded.street_2, excluded.street_3);
+
+        --GET DIAGNOSTICS changed_count = ROW_COUNT;
+
+        -- Update the deleted_at column of any gps which do not have an Active status_code
+        UPDATE renalware.patient_primary_care_physicians AS p
+        SET deleted_at = CURRENT_TIMESTAMP
+        FROM tmp_gps AS tp
+        WHERE p.code = tp.code AND tp.status IN ('C', 'P', 'B');
+
+        -- Un-delete any previously deleted GPs
+        UPDATE renalware.patient_primary_care_physicians AS gp
+        SET deleted_at = NULL
+        FROM tmp_gps
+        WHERE gp.code = tmp_gps.code AND tmp_gps.status IN ('A') AND gp.code NOT IN ('A');
+
+        --GET DIAGNOSTICS deleted_count = ROW_COUNT;
+        --select changed_count, deleted_count;
+        END;
+       $$;
+
+
+--
+-- Name: import_practice_memberships_csv(text); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION import_practice_memberships_csv(file text) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+          BEGIN
+
+          DROP TABLE IF EXISTS memberships_via_copy;
+          CREATE TEMP TABLE copied_memberships (
+            gp_code text NOT NULL,
+            practice_code text NOT NULL,
+            unused3 text,
+            unused4 text,
+            unused5 text,
+            unused7 text
+          );
+
+          -- Import the CSV file into copied_memberships - note there is no CSV header in this file
+          EXECUTE format ('COPY copied_memberships FROM %L DELIMITER %L CSV ', file, ',');
+
+          DROP TABLE IF EXISTS tmp_memberships;
+          CREATE TEMP TABLE tmp_memberships AS
+            SELECT
+              gp_code,
+              practice_code,
+              patient_primary_care_physicians.id primary_care_physician_id,
+              patient_practices.id as practice_id
+              from copied_memberships
+              INNER JOIN patient_practices on patient_practices.code = practice_code
+              INNER JOIN patient_primary_care_physicians on patient_primary_care_physicians.code = gp_code;
+
+          -- Insert any new memberships, ignoring any conflicts where the
+          -- practice_id + primary_care_physician_id already exists
+          INSERT INTO renalware.patient_practice_memberships
+            (practice_id, primary_care_physician_id, created_at, updated_at)
+          SELECT
+            practice_id,
+            primary_care_physician_id,
+            CURRENT_TIMESTAMP,
+            CURRENT_TIMESTAMP
+          FROM tmp_memberships
+          ON CONFLICT (practice_id, primary_care_physician_id) DO NOTHING;
+
+          -- Mark as deleted any memberships not in the latest uploaded data set - ie those gps have retired or moved on
+          UPDATE patient_practice_memberships mem
+            SET deleted_at = CURRENT_TIMESTAMP
+            WHERE NOT EXISTS (select 1 FROM tmp_memberships tmem
+            WHERE tmem.practice_id = mem.practice_id AND tmem.primary_care_physician_id = mem.primary_care_physician_id);
+
+        END;
+        $$;
+
+
+--
+-- Name: import_practices_csv(text); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION import_practices_csv(file text) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+      BEGIN
+      /*
+      Imports a practices.csv file created by parsing out an HSCOrgRefData_Full_xxxxx.xml file.
+      */
+      DROP TABLE IF EXISTS tmp_practices;
+
+      CREATE TEMP TABLE tmp_practices (
+        code text NOT NULL,
+        name text NOT NULL,
+        tel text,
+        street_1 text,
+        street_2 text,
+        street_3 text,
+        town text,
+        county text,
+        postcode text NOT NULL,
+        region text,
+        country_id integer,
+        active text NOT NULL,
+        CONSTRAINT tmp_practices_pkey PRIMARY KEY (code)
+      );
+
+      /* Import the CSV file into tmp_practices, ignoring the first row which is a header */
+      EXECUTE format ('COPY tmp_practices FROM %L DELIMITER %L CSV HEADER', file, ',');
+
+      /* Upsert practices */
+      WITH data(
+          code,
+          name,
+          telephone,
+          street_1,
+          street_2,
+          street_3,
+          town,
+          county,
+          postcode,
+          region,
+          country_id,
+          active)
+        AS (select * from tmp_practices)
+        , practice_changes AS (
+            INSERT INTO patient_practices (code, name, telephone, created_at, updated_at)
+            SELECT code, name, telephone, clock_timestamp(), clock_timestamp()
+            FROM data
+            ON CONFLICT (code) DO UPDATE
+              SET
+                name = excluded.name,
+                telephone = excluded.telephone,
+                updated_at = excluded.updated_at
+              RETURNING code, id
+          )
+
+      /* Upsert practice addresses */
+      INSERT INTO addresses (
+        addressable_type,
+        addressable_id,
+        street_1,
+        street_2,
+        street_3,
+        town,
+        county,
+        postcode,
+        region,
+        country_id,
+        created_at,
+        updated_at)
+      SELECT
+        'Renalware::Patients::Practice',
+        practice_changes.id,
+        street_1,
+        street_2,
+        street_3,
+        town,
+        county,
+        postcode,
+        region,
+        country_id,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+        FROM data join practice_changes using(code)
+      ON CONFLICT (addressable_type, addressable_id) DO UPDATE
+        SET
+        street_1 = excluded.street_1,
+        street_2 = excluded.street_2,
+        street_3 = excluded.street_3,
+        town = excluded.town,
+        county = excluded.county,
+        postcode = excluded.postcode,
+        region = excluded.region,
+        country_id = excluded.country_id,
+        updated_at = clock_timestamp();
+
+      /* Update the deleted_at column of any practices which do not have an Active status_code */
+      UPDATE patient_practices AS p
+      SET deleted_at = CURRENT_TIMESTAMP
+      FROM tmp_practices AS tp
+      WHERE p.code = tp.code AND tp.active = 'false';
+
+      /* Set deleted_at tp NULL for active practices */
+      UPDATE patient_practices AS p
+      SET deleted_at = NULL
+      FROM tmp_practices AS tp
+      WHERE p.code = tp.code AND tp.active != 'false';
+
+      DROP TABLE tmp_practices;
+
+      END;
+      $$;
+
+
+--
 -- Name: refresh_all_matierialized_views(text, boolean); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -623,7 +931,8 @@ CREATE TABLE addresses (
     telephone character varying,
     email character varying,
     street_3 character varying,
-    country_id integer
+    country_id integer,
+    region text
 );
 
 
@@ -1339,7 +1648,9 @@ CREATE TABLE drugs (
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    vmpid bigint,
+    description character varying
 );
 
 
@@ -1436,6 +1747,83 @@ CREATE SEQUENCE events_id_seq
 --
 
 ALTER SEQUENCE events_id_seq OWNED BY events.id;
+
+
+--
+-- Name: feed_file_types; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE feed_file_types (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    description text NOT NULL,
+    prompt text NOT NULL,
+    download_url_title character varying,
+    download_url character varying,
+    filename_validation_pattern character varying DEFAULT '.*'::character varying NOT NULL,
+    enabled boolean DEFAULT true NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: feed_file_types_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE feed_file_types_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_file_types_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE feed_file_types_id_seq OWNED BY feed_file_types.id;
+
+
+--
+-- Name: feed_files; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE feed_files (
+    id integer NOT NULL,
+    file_type_id integer NOT NULL,
+    location character varying NOT NULL,
+    status integer DEFAULT 0 NOT NULL,
+    result text,
+    time_taken integer,
+    attempts integer DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer
+);
+
+
+--
+-- Name: feed_files_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE feed_files_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_files_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE feed_files_id_seq OWNED BY feed_files.id;
 
 
 --
@@ -3576,6 +3964,40 @@ ALTER SEQUENCE patient_languages_id_seq OWNED BY patient_languages.id;
 
 
 --
+-- Name: patient_practice_memberships; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE patient_practice_memberships (
+    id integer NOT NULL,
+    practice_id integer NOT NULL,
+    primary_care_physician_id integer NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: patient_practice_memberships_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE patient_practice_memberships_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_practice_memberships_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE patient_practice_memberships_id_seq OWNED BY patient_practice_memberships.id;
+
+
+--
 -- Name: patient_practices; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -3585,7 +4007,9 @@ CREATE TABLE patient_practices (
     email character varying,
     code character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    deleted_at timestamp without time zone,
+    telephone character varying
 );
 
 
@@ -3610,16 +4034,6 @@ ALTER SEQUENCE patient_practices_id_seq OWNED BY patient_practices.id;
 
 
 --
--- Name: patient_practices_primary_care_physicians; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE patient_practices_primary_care_physicians (
-    primary_care_physician_id integer NOT NULL,
-    practice_id integer NOT NULL
-);
-
-
---
 -- Name: patient_primary_care_physicians; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -3627,12 +4041,13 @@ CREATE TABLE patient_primary_care_physicians (
     id integer NOT NULL,
     given_name character varying,
     family_name character varying,
-    email character varying,
     code character varying,
     practitioner_type character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    telephone character varying
+    telephone character varying,
+    deleted_at timestamp without time zone,
+    name character varying
 );
 
 
@@ -6363,6 +6778,20 @@ ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::reg
 
 
 --
+-- Name: feed_file_types id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY feed_file_types ALTER COLUMN id SET DEFAULT nextval('feed_file_types_id_seq'::regclass);
+
+
+--
+-- Name: feed_files id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY feed_files ALTER COLUMN id SET DEFAULT nextval('feed_files_id_seq'::regclass);
+
+
+--
 -- Name: feed_messages id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -6766,6 +7195,13 @@ ALTER TABLE ONLY patient_ethnicities ALTER COLUMN id SET DEFAULT nextval('patien
 --
 
 ALTER TABLE ONLY patient_languages ALTER COLUMN id SET DEFAULT nextval('patient_languages_id_seq'::regclass);
+
+
+--
+-- Name: patient_practice_memberships id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY patient_practice_memberships ALTER COLUMN id SET DEFAULT nextval('patient_practice_memberships_id_seq'::regclass);
 
 
 --
@@ -7451,6 +7887,22 @@ ALTER TABLE ONLY events
 
 
 --
+-- Name: feed_file_types feed_file_types_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY feed_file_types
+    ADD CONSTRAINT feed_file_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feed_files feed_files_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY feed_files
+    ADD CONSTRAINT feed_files_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: feed_messages feed_messages_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -7912,6 +8364,14 @@ ALTER TABLE ONLY patient_ethnicities
 
 ALTER TABLE ONLY patient_languages
     ADD CONSTRAINT patient_languages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_practice_memberships patient_practice_memberships_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY patient_practice_memberships
+    ADD CONSTRAINT patient_practice_memberships_pkey PRIMARY KEY (id);
 
 
 --
@@ -8435,6 +8895,13 @@ CREATE INDEX hd_versions_type_id ON hd_versions USING btree (item_type, item_id)
 
 
 --
+-- Name: idx_drugs_vmpid; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_drugs_vmpid ON drugs USING btree (vmpid);
+
+
+--
 -- Name: idx_infection_organisms; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -8460,6 +8927,13 @@ CREATE INDEX idx_medication_prescriptions_type ON medication_prescriptions USING
 --
 
 CREATE INDEX idx_mp_patient_id_medication_route_id ON medication_prescriptions USING btree (patient_id, medication_route_id);
+
+
+--
+-- Name: idx_practice_membership; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_practice_membership ON patient_practice_memberships USING btree (practice_id, primary_care_physician_id);
 
 
 --
@@ -8953,13 +9427,6 @@ CREATE INDEX index_directory_people_on_updated_by_id ON directory_people USING b
 
 
 --
--- Name: index_doctors_practices; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_doctors_practices ON patient_practices_primary_care_physicians USING btree (primary_care_physician_id, practice_id);
-
-
---
 -- Name: index_drug_types_drugs_on_drug_id_and_drug_type_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -9006,6 +9473,34 @@ CREATE INDEX index_events_on_type ON events USING btree (type);
 --
 
 CREATE INDEX index_events_on_updated_by_id ON events USING btree (updated_by_id);
+
+
+--
+-- Name: index_feed_file_types_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_file_types_on_name ON feed_file_types USING btree (name);
+
+
+--
+-- Name: index_feed_files_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_files_on_created_by_id ON feed_files USING btree (created_by_id);
+
+
+--
+-- Name: index_feed_files_on_file_type_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_files_on_file_type_id ON feed_files USING btree (file_type_id);
+
+
+--
+-- Name: index_feed_files_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_files_on_updated_by_id ON feed_files USING btree (updated_by_id);
 
 
 --
@@ -10101,17 +10596,38 @@ CREATE UNIQUE INDEX index_patient_languages_on_code ON patient_languages USING b
 
 
 --
+-- Name: index_patient_practice_memberships_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_practice_memberships_on_deleted_at ON patient_practice_memberships USING btree (deleted_at);
+
+
+--
+-- Name: index_patient_practice_memberships_on_practice_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_practice_memberships_on_practice_id ON patient_practice_memberships USING btree (practice_id);
+
+
+--
+-- Name: index_patient_practice_memberships_on_primary_care_physician_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_practice_memberships_on_primary_care_physician_id ON patient_practice_memberships USING btree (primary_care_physician_id);
+
+
+--
 -- Name: index_patient_practices_on_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_patient_practices_on_code ON patient_practices USING btree (code);
+CREATE UNIQUE INDEX index_patient_practices_on_code ON patient_practices USING btree (code);
 
 
 --
--- Name: index_patient_practices_primary_care_physicians_on_practice_id; Type: INDEX; Schema: renalware; Owner: -
+-- Name: index_patient_practices_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_patient_practices_primary_care_physicians_on_practice_id ON patient_practices_primary_care_physicians USING btree (practice_id);
+CREATE INDEX index_patient_practices_on_deleted_at ON patient_practices USING btree (deleted_at);
 
 
 --
@@ -10119,6 +10635,20 @@ CREATE INDEX index_patient_practices_primary_care_physicians_on_practice_id ON p
 --
 
 CREATE UNIQUE INDEX index_patient_primary_care_physicians_on_code ON patient_primary_care_physicians USING btree (code);
+
+
+--
+-- Name: index_patient_primary_care_physicians_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_primary_care_physicians_on_deleted_at ON patient_primary_care_physicians USING btree (deleted_at);
+
+
+--
+-- Name: index_patient_primary_care_physicians_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_primary_care_physicians_on_name ON patient_primary_care_physicians USING btree (name);
 
 
 --
@@ -11548,6 +12078,14 @@ ALTER TABLE ONLY clinical_dry_weights
 
 
 --
+-- Name: feed_files fk_rails_3196424d66; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY feed_files
+    ADD CONSTRAINT fk_rails_3196424d66 FOREIGN KEY (file_type_id) REFERENCES feed_file_types(id);
+
+
+--
 -- Name: access_plans fk_rails_32c8b62063; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -11788,14 +12326,6 @@ ALTER TABLE ONLY admission_requests
 
 
 --
--- Name: patient_practices_primary_care_physicians fk_rails_55ecff6804; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY patient_practices_primary_care_physicians
-    ADD CONSTRAINT fk_rails_55ecff6804 FOREIGN KEY (primary_care_physician_id) REFERENCES patient_primary_care_physicians(id);
-
-
---
 -- Name: hd_sessions fk_rails_563fedb262; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -11841,6 +12371,14 @@ ALTER TABLE ONLY patients
 
 ALTER TABLE ONLY pd_training_sessions
     ADD CONSTRAINT fk_rails_5cbe110e5f FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
+-- Name: patient_practice_memberships fk_rails_5cc07e383f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY patient_practice_memberships
+    ADD CONSTRAINT fk_rails_5cc07e383f FOREIGN KEY (practice_id) REFERENCES patient_practices(id);
 
 
 --
@@ -11969,14 +12507,6 @@ ALTER TABLE ONLY patients
 
 ALTER TABLE ONLY transplant_recipient_followups
     ADD CONSTRAINT fk_rails_78dc63040c FOREIGN KEY (operation_id) REFERENCES transplant_recipient_operations(id);
-
-
---
--- Name: patient_practices_primary_care_physicians fk_rails_7a89922302; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY patient_practices_primary_care_physicians
-    ADD CONSTRAINT fk_rails_7a89922302 FOREIGN KEY (practice_id) REFERENCES patient_practices(id);
 
 
 --
@@ -12697,6 +13227,14 @@ ALTER TABLE ONLY messaging_receipts
 
 ALTER TABLE ONLY pathology_current_observation_sets
     ADD CONSTRAINT fk_rails_dd99e95861 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: patient_practice_memberships fk_rails_dd9db188d9; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY patient_practice_memberships
+    ADD CONSTRAINT fk_rails_dd9db188d9 FOREIGN KEY (primary_care_physician_id) REFERENCES patient_primary_care_physicians(id);
 
 
 --
@@ -13482,10 +14020,16 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170608192234'),
 ('20170609144233'),
 ('20170614140457'),
+('20170615130714'),
+('20170615144802'),
 ('20170615184503'),
 ('20170619100927'),
+('20170620121255'),
+('20170621102157'),
 ('20170621205538'),
 ('20170622145529'),
+('20170627110058'),
+('20170627110619'),
 ('20170628115247'),
 ('20170703144902'),
 ('20170703153949'),
@@ -13534,6 +14078,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171005130109'),
 ('20171005144505'),
 ('20171009104106'),
+('20171009181615'),
 ('20171012110133'),
 ('20171012143050'),
 ('20171013145849'),
@@ -13551,17 +14096,23 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171123123712'),
 ('20171123143534'),
 ('20171123154116'),
+('20171127082158'),
+('20171127092158'),
+('20171127092359'),
 ('20171128163543'),
 ('20171204112150'),
 ('20171206121652'),
+('20171206140738'),
 ('20171208211206'),
 ('20171211130716'),
+('20171211131918'),
 ('20171211161400'),
 ('20171213111513'),
 ('20171214141335'),
 ('20171214190849'),
 ('20171215122454'),
 ('20171219154529'),
+('20171222153815'),
 ('20180102155055'),
 ('20180105132358'),
 ('20180108185400'),

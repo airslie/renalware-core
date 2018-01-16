@@ -1,0 +1,27 @@
+.feeds-files {
+  td {
+    vertical-align: top;
+  }
+
+  .status span {
+    color: $white;
+    border-radius: 0.3rem;
+    padding: .2rem .5rem;
+  }
+
+  .waiting .status span {
+    background-color: $muted-dark-grey;
+  }
+
+  .processing .status span {
+    background-color: $nhs-warm-yellow;
+  }
+
+  .failure .status span {
+    background-color: $nhs-red;
+  }
+
+  .success .status span {
+    background-color: $nhs-green;
+  }
+}

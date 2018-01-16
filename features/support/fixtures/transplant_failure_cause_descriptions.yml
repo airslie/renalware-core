@@ -2,15 +2,3 @@ hyperacute_rejection:
   group: rejection
   code: 10
   name: Hyperacute rejection
-# haemorrhage_post_transplant_biopsy:
-#   group: technical
-#   code: 48
-#   name: Haemorrhage post transplant biopsy
-# de_novo_glomerulonephritis:
-#   group: intrinsic_renal_disease
-#   code: 20
-#   name: De novo glomerulonephritis
-# other:
-#   group: other
-#   code: 98
-#   name: Other

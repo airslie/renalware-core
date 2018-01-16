@@ -7,6 +7,8 @@ module Renalware
 
       subject(:primary_care_physician) { build(:letter_primary_care_physician) }
 
+      it { is_expected.not_to validate_presence_of(:given_name) }
+
       describe "#cc_on_letter?" do
         context "when the Primary Care Physician is assigned to the patient" do
           let(:patient) { build(:letter_patient, primary_care_physician: primary_care_physician) }

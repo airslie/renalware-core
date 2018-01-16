@@ -40,10 +40,8 @@ end
 
 Given(/^Phylis is Patty's primary care physician$/) do
   @phylis = @patty.create_primary_care_physician!(
-    given_name: "Phylis",
-    family_name: "Good",
+    name: "GOOD PJ",
     practitioner_type: "GP",
-    email: "phylis@example.net",
     address: FactoryBot.build(:address)
   )
 end

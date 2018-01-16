@@ -7,24 +7,43 @@ module Renalware
     # - a foreign PCP or other referring physician
     #
     class PrimaryCarePhysician < ApplicationRecord
-      include Personable
       include ActiveModel::Validations
+      include Personable
+      acts_as_paranoid
 
       has_one :address, as: :addressable
-      has_and_belongs_to_many :practices
       has_many :patients
+      has_many :practice_memberships
+      has_many :practices, through: :practice_memberships
 
       accepts_nested_attributes_for :address, reject_if: Address.reject_if_blank
 
       validates_with PrimaryCarePhysicians::AddressValidator
-      validates :email, email: true, allow_blank: true
       validates :code, uniqueness: true
       validates :practitioner_type, presence: true
+      validates :name, presence: true
+      alias_attribute :family_name, :name
 
-      scope :ordered, -> { order(family_name: :asc) }
+      def full_name
+        :name
+      end
+
+      def given_name
+        ""
+      end
+
+      def skip_given_name_validation?
+        true
+      end
+
+      scope :ordered, -> { order(name: :asc) }
 
       def title
         "Dr"
+      end
+
+      def salutation
+        [title, name].join(" ")
       end
 
       def current_address
@@ -33,7 +52,7 @@ module Renalware
 
       def practice_address
         address = practices.first.try(:address)
-        address.name = "#{title} #{full_name}" if address.present?
+        address.name = "#{title} #{name}".strip if address.present?
         address
       end
     end

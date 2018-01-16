@@ -10,7 +10,8 @@ module Renalware
       before_action :find_primary_care_physician, only: [:edit, :update]
 
       def index
-        primary_care_physicians = PrimaryCarePhysician.order(:family_name)
+        primary_care_physicians = PrimaryCarePhysician.order(:name)
+                                                      .includes(:address)
                                                       .eager_load(practices: :address)
                                                       .page(page)
                                                       .per(per_page)
@@ -86,11 +87,11 @@ module Renalware
 
       def primary_care_physician_params
         params.require(:patients_primary_care_physician).permit(
-          :given_name, :family_name, :email, :practitioner_type, :code, :telephone,
+          :name, :practitioner_type, :code, :telephone,
           practice_ids: [],
           address_attributes: [
             :id, :name, :organisation_name, :street_1, :street_2, :street_3, :town, :county,
-            :postcode, :country_id, :telephone, :email
+            :postcode, :country_id, :telephone
           ]
         )
       end
