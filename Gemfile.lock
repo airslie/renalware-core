@@ -45,7 +45,7 @@ PATH
       pandoc-ruby
       paper_trail
       paranoia
-      pg
+      pg (~> 0.21.0)
       puma
       pundit (~> 1.1.0)
       rack-attack
@@ -342,7 +342,7 @@ GEM
       ast (~> 2.3)
     party_foul (1.5.5)
       octokit (~> 3.1)
-    pg (1.0.0)
+    pg (0.21.0)
     poltergeist (1.17.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
