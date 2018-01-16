@@ -43,21 +43,21 @@
         #dialysing_at_unit(style="display:none")
           = f.input :patient_id,
                     collection: [],
-                    input_html: {\
+                    input_html: { \
                       class: "patient-id-select2 patient-ajax-search",
                       name: "hd_diary_slot[patient_id][]",
                       data: { "ajax--url" => hd_patients_dialysing_at_unit_path(unit_id: slot.diary.hospital_unit_id, format: :json),
-                              placeholder: "Search by patient name or NHS/hosp no." }\
+                              placeholder: "Search by patient name or NHS/hosp no." } \
                     }
 
         #dialysing_at_hospital(style="display:none")
           = f.input :patient_id,
                     collection: [],
-                    input_html: {\
+                    input_html: { \
                       class: "patient-id-select2 patient-ajax-search",
                       name: "hd_diary_slot[patient_id][]",
                       data: { "ajax--url" => hd_patients_dialysing_at_hospital_path(format: :json),
-                              placeholder: "Search by patient name or NHS/hosp no." }\
+                              placeholder: "Search by patient name or NHS/hosp no." } \
                     }
   = f.submit "Add for this week only", class: "button save weekly"
   | &nbsp;

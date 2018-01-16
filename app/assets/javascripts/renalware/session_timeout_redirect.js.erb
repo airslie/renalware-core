@@ -18,7 +18,9 @@ $(document).ready(function() {
     if(window.location.pathname != login_path) {
       $.getScript("<%= Renalware::Engine.routes.url_helpers.session_timed_out_path %>")
        .fail(function(jqxhr, settings, exception) {
-         console.log("Failed to query for session timeout");
+         <% unless Rails.env.test? %>
+           console.log("Failed to query for session timeout");
+         <% end %>
        });
     }
   };

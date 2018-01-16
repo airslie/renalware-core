@@ -42,6 +42,7 @@ Gem::Specification.new do |s|
   s.add_dependency "delayed_job_web"
   s.add_dependency "delayed_job", "~> 4.1.4"
   s.add_dependency "devise", "~> 4.4.0"
+  s.add_dependency "dotenv-rails"
   s.add_dependency "friendly_id"
   s.add_dependency "lograge"
   s.add_dependency "dumb_delegator"

@@ -4,6 +4,7 @@ en:
       dashboards:
         show:
           page_actions:
+            mdm: MDM
             add_capd_regime: CAPD Regime
             add_apd_regime: APD Regime
             add_pet_adequacy: PET Adequacy

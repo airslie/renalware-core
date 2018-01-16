@@ -19,10 +19,9 @@
 #
 # Example usage which stores the PDF in the rails cache if not found
 #
-#   letter_presenter = LetterPresenterFactory.new(letter)
-#   PdfLetterCache.fetch(letter_presenter) do
+#   PdfLetterCache.fetch(..) do
 #     # No cache hit so render and return the PDF content which will be stored in the cache
-#     Letters::PdfRenderer.call(letter)
+#     WickedPdf.new.pdf_from_string(...)
 #   end
 #
 require_dependency "renalware/letters"

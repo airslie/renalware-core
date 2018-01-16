@@ -22,5 +22,8 @@ module Renalware
     def self.cast_primary_care_physician(primary_care_physician)
       ActiveType.cast(primary_care_physician, ::Renalware::Letters::PrimaryCarePhysician)
     end
+
+    module Delivery
+    end
   end
 end

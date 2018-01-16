@@ -1,7 +1,7 @@
 require_dependency "renalware/letters"
 
 # This class is responsible for transforming the attributes
-# of a recipient.  The resulting attributes can then
+# of a recipient. The resulting attributes can then
 # be mass assigned to an ActiveRecord recipient object.
 module Renalware
   module Letters

@@ -112,7 +112,7 @@ module Renalware
       describe "inactive" do
         it "retrieves inactive users" do
           active = create(:user, last_activity_at: 1.minute.ago)
-          inactive = create(:user, last_activity_at: 60.days.ago)
+          inactive = create(:user, last_activity_at: 90.days.ago)
 
           actual = User.inactive
           expect(actual.size).to eq(1)
