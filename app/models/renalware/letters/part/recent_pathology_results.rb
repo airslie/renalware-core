@@ -6,7 +6,7 @@ require "attr_extras"
 module Renalware
   module Letters
     class Part::RecentPathologyResults < Part
-      delegate :each, :any?, :present?, to: :recent_pathology_results
+      delegate :each, :any?, :present?, to: :results
 
       def to_partial_path
         "renalware/letters/parts/recent_pathology_results"
