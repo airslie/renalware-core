@@ -63,7 +63,7 @@ Gem::Specification.new do |s|
   s.add_dependency "nokogiri", ">= 1.7.1"
   s.add_dependency "paper_trail"
   s.add_dependency "paranoia"
-  s.add_dependency "pg"
+  s.add_dependency "pg", "~> 0.21.0"
   s.add_dependency "puma"
   s.add_dependency "pundit", "~> 1.1.0"
   s.add_dependency "rack-attack"

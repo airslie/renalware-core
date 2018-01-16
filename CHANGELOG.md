@@ -9,6 +9,29 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.0.pre.rc4
+16-01-2017
+
+### Added
+- Support for emailing letter to GP once approved
+- Support for emailing letter to an EPR endpoint once approved
+- Migrate to Ruby 2.5
+- Add Low Clearance Profile and Low Clearance section in Patient Nav
+
+### Changed
+- Prefix Alerts with `Alert:` and change styling
+- Expire users after 90 days of inactivity
+- RSpec housekeeping
+- Patient LH Menu made more compact
+- Reinstate and improve formatting of NHS logo in letters
+- Ensure there is a link to the MDM from each patient
+
+### Fixed
+- Mailer previews not displaying
+- New clinical letter for patient without recent pathology
+- Double render in Tx donor workup #show
+- Order of recent investigations (recent pathology) in Letters
+
 ## 2.0.0.pre.rc3
 18-12-2017
 
