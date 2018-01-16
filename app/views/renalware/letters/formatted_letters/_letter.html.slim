@@ -20,6 +20,7 @@ scss:
     p {
       padding: 0;
       line-height: 1.2em;
+      margin: .4rem 0;
     }
   }
 
@@ -52,21 +53,33 @@ scss:
 
       text-align: right;
 
-      .trust-name p {
-        font-size: 1.2em;
-        vertical-align: bottom;
-        margin: 0;
+      .trust-name {
+        padding: 0;
+
+        p {
+          font-size: 1.4em;
+          font-weight: bold;
+          vertical-align: bottom;
+          margin: 0;
+          padding: 0;
+        }
       }
 
-      .trust-caption p {
-        font-size: 0.8em;
-        margin-top: 5px;
+      .trust-caption {
+        padding: 0;
+
+        p {
+          font-size: 1em;
+          font-weight: bold;
+          margin-top: .1rem;
+          color: #005EB8; // NHS blue
+        }
       }
 
       .nhs-logo {
-        height: 33px;
+        // height: 33px; The height of the logo now determines the element height
         padding: 0;
-        margin: 0 0 0 10px;
+        margin: 0 0 .4rem 0;
         display: inline-block;
         vertical-align: bottom;
       }
@@ -112,7 +125,7 @@ scss:
 
       ul {
         padding-left: 20px;
-        margin-top: 7px;
+        margin-top: 0.4rem;
         margin-bottom: 7px;
       }
 
@@ -261,10 +274,10 @@ scss:
         p= letter.main_recipient.to_html
 
     .unit-block
+      span.nhs-logo
+            = image_tag(wicked_pdf_asset_base64("renalware/nhs_a4_letter_logo_blue.png"))
       .trust-name
-        p
-          = raw letter.letterhead.trust_name
-          /span.nhs-logo= inline_image_tag("renalware/NHS-Black.jpg", size: "82x33")
+        p= raw letter.letterhead.trust_name
       .trust-caption
         p= letter.letterhead.trust_caption
 

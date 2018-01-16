@@ -71,7 +71,12 @@ module Renalware
       end
 
       def pdf_filename
-        [patient.family_name, patient.local_patient_id, id, state].join("-").upcase
+        [
+          patient.family_name,
+          patient.local_patient_id,
+          id,
+          state
+        ].join("-").upcase.concat(".pdf")
       end
 
       def state_description
