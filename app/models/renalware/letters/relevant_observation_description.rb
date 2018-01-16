@@ -4,7 +4,6 @@ module Renalware
   module Letters
     # Responsible for defining the set of observation descriptions that
     # are relevant to clinical letters
-    #
     class RelevantObservationDescription
       def self.all
         Pathology::ObservationDescription.for(codes)
@@ -12,8 +11,8 @@ module Renalware
 
       def self.codes
         %w(
-          HGB PLT WBC WBC URE CRE POT NA BIC CCA PHOS
-          ALB BIL AST GGT ALP CHOL FER HBA BGLU EGFR PTHI
+          HGB PLT WBC URE CRE EGFR POT NA BIC CCA PHOS
+          ALB BIL AST GGT ALP CHOL FER HBA BGLU PTHI
         )
       end
     end
