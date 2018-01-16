@@ -2,17 +2,15 @@ require "rails_helper"
 
 module Renalware
   feature "Authentication" do
-    background do
-      @user = create(:user, :clinical)
-      @unapproved_user = create(:user, :unapproved)
-    end
+    let(:user) { create(:user, :clinical) }
+    let(:unapproved_user) { create(:user, :unapproved) }
 
     scenario "A user attempts to authenticate with invalid credentials" do
       visit root_path
 
       expect(page).to have_current_path(new_user_session_path)
 
-      fill_in "Username", with: @user.username
+      fill_in "Username", with: user.username
       fill_in "Password", with: "wuhfweilubfwlf"
       click_on "Log in"
 
@@ -25,8 +23,8 @@ module Renalware
 
       expect(page).to have_current_path(new_user_session_path)
 
-      fill_in "Username", with: @unapproved_user.username
-      fill_in "Password", with: @unapproved_user.password
+      fill_in "Username", with: unapproved_user.username
+      fill_in "Password", with: unapproved_user.password
       click_on "Log in"
 
       expect(page).to have_current_path(new_user_session_path)
@@ -36,16 +34,43 @@ module Renalware
       )
     end
 
-    scenario "An approved user authenticates with valid credentials" do
-      visit root_path
+    context "when the user has a complete 'profile' eg signature, professional_position etc "\
+            "meaning user.valid? is true" do
+      let(:user) { create(:user, :clinical) } # will be valid? once created
+      scenario "An approved user authenticates with valid credentials" do
+        visit root_path
 
-      expect(page).to have_current_path(new_user_session_path)
+        expect(page).to have_current_path(new_user_session_path)
 
-      fill_in "Username", with: @user.username
-      fill_in "Password", with: @user.password
-      click_on "Log in"
+        fill_in "Username", with: user.username
+        fill_in "Password", with: user.password
+        click_on "Log in"
 
-      expect(page).to have_current_path(root_path)
+        expect(page).to have_current_path(root_path)
+      end
+    end
+
+    context "when the user has an incomplete 'profile' eg signature, professional_position etc "\
+            "meaning user.valid? is false" do
+      let(:user) { create(:user, :clinical, signature: nil) } # will not be valid? once created
+
+      scenario "An approved user should still be able to login" do
+        visit root_path
+
+        expect(page).to have_current_path(new_user_session_path)
+
+        fill_in "Username", with: user.username
+        fill_in "Password", with: user.password
+        click_on "Log in"
+
+        # Note since Devise 4.4.o a redirect to dashboard will only occur if user.valid?
+        # Our conditional update validation in User means by default many users are not valid
+        # after creation as they might not have a signature etc (ideally signature etc should be
+        # moved to a Profile model)
+        # So here we check that whatever 'hack' we have introduced to get around Devise trying to
+        # validate the model before redirect, works.
+        expect(page).to have_current_path(root_path)
+      end
     end
 
     scenario "An authenticated user signs out" do

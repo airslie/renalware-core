@@ -26,11 +26,11 @@ module Renalware
     scope :author, -> { where.not(signature: nil) }
     scope :ordered, -> { order(:family_name, :given_name) }
 
-    # Non-persistent attribute to signify an update by an admin (bypassing some validations)
-    attr_accessor :super_admin_update
+    # Non-persistent attribute to signify we want to bypassing the :update validations
+    attr_writer :skip_validation
 
     def skip_validation
-      super_admin_update || reset_password_token
+      @skip_validation || reset_password_token
     end
 
     def self.policy_class
