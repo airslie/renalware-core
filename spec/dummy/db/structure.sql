@@ -2423,7 +2423,9 @@ CREATE TABLE letter_recipients (
     updated_at timestamp without time zone NOT NULL,
     letter_id integer NOT NULL,
     addressee_type character varying,
-    addressee_id integer
+    addressee_id integer,
+    emailed_at timestamp without time zone,
+    printed_at timestamp without time zone
 );
 
 
@@ -13403,6 +13405,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171215122454'),
 ('20171219154529'),
 ('20180102155055'),
+('20180105132358'),
 ('20180108185400');
 
 

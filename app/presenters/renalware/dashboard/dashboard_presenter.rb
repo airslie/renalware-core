@@ -22,7 +22,7 @@ module Renalware
       def letters_in_progress
         @letters_in_progress ||= begin
           present_letters(
-            Letters.cast_author(user).letters.in_progress.reverse
+            Renalware::Letters.cast_author(user).letters.in_progress.reverse
           )
         end
       end

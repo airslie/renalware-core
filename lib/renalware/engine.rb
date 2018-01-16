@@ -11,6 +11,7 @@ require "cocoon"
 require "devise"
 require "delayed_job_active_record"
 require "delayed_job_web"
+require "dotenv-rails"
 require "dumb_delegator"
 require "email_validator"
 require "enumerize"
@@ -165,6 +166,7 @@ module Renalware
         app.config.exceptions_app = Engine.routes
       end
       app.config.action_mailer.preview_path = Engine.root.join("app", "mailers", "renalware")
+      app.config.action_mailer.deliver_later_queue_name = "mailers"
       app.config.active_job.queue_adapter = :delayed_job
     end
   end

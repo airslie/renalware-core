@@ -19,6 +19,10 @@
     "DEMO": "1",
     "RACK_ENV": "staging",
     "RAILS_ENV": "staging",
+    "DEFAULT_FROM_EMAIL_ADDRESS": "test@example.com",
+    "PHONE_NUMBER_ON_LETTERS": "020 000 0000",
+    "RENAL_UNIT_ON_LETTERS": "Test Renal Unit",
+    "FALLBACK_EMAIL_ADDRESS_FOR_TEST_MESSAGES": "test@example.com",
     "COOKIE_SECRET": {
       "generator": "secret"
     },
