@@ -1,4 +1,6 @@
-= link_to "View MDM", patient_pd_mdm_path(patient), class: "button secondary"
+= link_to(patient_pd_mdm_path(patient), class: "button with-icon secondary") do
+  i.fa.fa-group
+  = t(".mdm")
 = blank_separator
 = blank_separator
 a.button.dropdown(href="#"
