@@ -1,4 +1,4 @@
-require_dependency "renalware/renal"
+require_dependency "renalware/low_clearance"
 
 module Renalware
   module LowClearance

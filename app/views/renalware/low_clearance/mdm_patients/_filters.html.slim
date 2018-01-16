@@ -6,4 +6,4 @@ dl.sub-nav.filters
   - Renalware::LowClearance::MDM_FILTERS.map(&:to_sym).each do |filter|
     dd(class=("active" if named_filter_param == filter.to_s))
       = link_to t(".filter.#{filter}"),
-                renal_clearance_filtered_mdm_patients_path(named_filter: filter)
+                low_clearance_filtered_mdm_patients_path(named_filter: filter)

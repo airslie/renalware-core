@@ -3,8 +3,8 @@ module Renalware
     class MDMPresenter < Renalware::MDMPresenter
       def low_clearance
         @low_clearance ||= begin
-          Renal.cast_patient(patient).profile&.document&.low_clearance ||
-            Renalware::Renal::ProfileDocument::LowClearance.new
+          LowClearance.cast_patient(patient).profile&.document ||
+            Renalware::LowClearance::ProfileDocument.new
         end
       end
     end

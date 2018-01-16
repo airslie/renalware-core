@@ -11,7 +11,7 @@ RSpec.describe "Low Clearance Patients", type: :feature do
           filter_name,
           scope: "renalware.low_clearance.mdm_patients.filters.filter"
         )
-        filter_path = renal_clearance_filtered_mdm_patients_path(named_filter: filter_name)
+        filter_path = low_clearance_filtered_mdm_patients_path(named_filter: filter_name)
         yield filter_label, filter_path
       end
     end
