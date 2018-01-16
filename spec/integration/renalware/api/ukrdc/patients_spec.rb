@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "API request for a single UKRDC patient XML document", type: :request do
+  include PatientsSpecHelper
+
   let(:user) { @current_user }
   let(:algeria) { create(:algeria) }
   let(:uk) { create(:united_kingdom) }
@@ -58,10 +60,11 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
 
     context "when the patient has died" do
       it "includes first and second cause of death elements" do
-        death_modality_description = create(:modality_description, :death)
-        Renalware::Modalities::ChangePatientModality
-          .new(patient: patient, user: user)
-          .call(description_id: death_modality_description.id, started_on: Time.zone.now)
+        set_modality(
+          patient: patient,
+          modality_description: create(:modality_description, :death),
+          by: user
+        )
 
         patient.first_cause = create(:cause_of_death, code: 11, description: "Abc")
         patient.second_cause = create(:cause_of_death, code: 12, description: "Xyz")

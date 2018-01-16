@@ -21,7 +21,7 @@ FactoryBot.define do
 
     trait :low_clearance do
       name "Low Clearance"
-      type "Renalware::Renal::LowClearance::ModalityDescription"
+      type "Renalware::LowClearance::ModalityDescription"
     end
 
     trait :death do

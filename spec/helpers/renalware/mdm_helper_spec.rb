@@ -33,7 +33,7 @@ module Renalware
         it "Low Clearance" do
           patient = patient_with_modality(modality_trait: :low_clearance)
           link = link_to_mdm(patient)
-          expect(link).to match(patient_renal_low_clearance_mdm_path(patient_id: patient))
+          expect(link).to match(patient_low_clearance_mdm_path(patient_id: patient))
         end
 
         it "anything else resolves to nil" do

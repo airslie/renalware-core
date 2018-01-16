@@ -65,7 +65,7 @@ dd.patient-name {
 .patient-side-nav {
   background-color: $patient-menu-background-colour;
   padding: 0.6rem 0;
-  padding-bottom: 8rem;
+  padding-bottom: 11rem;
   position: absolute;
   width: $patient-side-nav-width;
   overflow-y: auto;
@@ -87,7 +87,7 @@ dd.patient-name {
 
       a {
         border-radius: 3px;
-        padding: 0.2rem 0.5rem;
+        padding: 0.1rem 0.5rem;
         text-decoration: underline;
         color: $nhs-blue;
       }

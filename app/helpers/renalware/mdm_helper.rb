@@ -22,7 +22,7 @@ module Renalware
           when :pd then patient_pd_mdm_path(patient)
           when :hd then patient_hd_mdm_path(patient)
           when :transplant then patient_transplants_mdm_path(patient)
-          when :low_clearance then patient_renal_low_clearance_mdm_path(patient)
+          when :low_clearance then patient_low_clearance_mdm_path(patient)
           end
         end
       end

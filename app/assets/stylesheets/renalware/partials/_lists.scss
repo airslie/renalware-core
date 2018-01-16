@@ -46,6 +46,9 @@
     dt {
       width: $dl-horizontal-dt-width + 5.5rem;
     }
+    dd {
+      margin-left: $dl-horizontal-dt-width + 6.5rem;
+    }
   }
 
   &.xxlarge {

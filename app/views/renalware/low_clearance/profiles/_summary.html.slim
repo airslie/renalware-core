@@ -1,0 +1,125 @@
+- document = profile.document
+.columns.medium-12.large-6
+  article
+    header
+      h2.noprint= t(".title")
+      ul
+        li= link_to "Edit",
+            edit_patient_low_clearance_profile_path(profile.patient),
+            class: "button"
+
+    dl.dl-horizontal.xlarge
+      dt= t(".first_seen_on")
+      dd= document.first_seen_on
+      dt= t(".dialysis_plan")
+      dd= document.dialysis_plan&.text
+      dt= t(".dialysis_planned_on")
+      dd= document.dialysis_planned_on
+      dt= t(".predicted_esrf_date")
+      dd= document.predicted_esrf_date
+      dt= t(".referral_creatinine")
+      dd= document.referral_creatinine
+      dt= t(".referred_by")
+      dd= document.referred_by
+      dt= t(".education_status")
+      dd= document.education_status&.text
+      dt= t(".referral_egfr")
+      dd= document.referral_egfr
+      dt= t(".education_type")
+      dd= document.education_type&.text
+      dt= t(".attended_on")
+      dd= document.attended_on
+      dt= t(".dvd1_provided")
+      dd= document.dvd1_provided&.text
+      dt= t(".dvd2_provided")
+      dd= document.dvd2_provided&.text
+      dt= t(".transplant_referral")
+      dd= document.transplant_referral&.text
+      dt= t(".transplant_referred_on")
+      dd= document.transplant_referred_on
+      dt= t(".home_hd_possible")
+      dd= document.home_hd_possible&.text
+      dt= t(".self_care_possible")
+      dd= document.self_care_possible&.text
+      dt= t(".access_notes")
+      dd= document.access_notes
+  / Date first seen
+  / Dialysis plan
+  / Dialysis plan date
+  / Predicted ESRF date
+  / Referral CRE
+  / Referred by
+  / Education status
+  / Referral eGFR
+  / Education type
+  / Date attended educ.
+  / 'Your Kidneys' DVD
+  / 'Dialysis Choices' DVD
+  / Tx team referral
+  / Referral date
+  / Home HD
+  / Self Care
+  / Low Clearance access notes
+    / dl.dl-horizontal.large
+    /   dt= t(".last_update")
+    /   dd= profile.datw
+    /   dt= t(".schedule")
+    /   dd= profile.current_schedule
+    /   dt= t(".hospital_unit")
+    /   dd= profile.hospital_unit
+    /   dt= t(".prescribed_time")
+    /   dd= profile.formatted_prescribed_time
+    /   dt= t(".hd_type")
+    /   dd= profile.hd_type
+    /   dt= t(".named_nurse")
+    /   dd= profile.named_nurse
+    /   dt= t(".dialyser")
+    /   dd= profile.dialyser
+    /   dt= t(".dialysate")
+    /   dd= profile.dialysate
+    /   dt= t(".cannulation_type")
+    /   dd= profile.cannulation_type
+    /   dt= t(".anticoagulant.type")
+    /   dd= profile.anticoagulant_type.try!(:text)
+
+    / dl.dl-horizontal.large.full-hd-profile
+    /   dt.inset=t(".anticoagulant.loading_dose")
+    /   dd.inset= profile.anticoagulant_loading_dose
+    /   dt.inset= t(".anticoagulant.hourly_dose")
+    /   dd.inset= profile.anticoagulant_hourly_dose
+    /   dt.inset= t(".anticoagulant.stop_time")
+    /   dd.inset= profile.anticoagulant_stop_time
+
+    /   dt= t(".needle_size")
+    /   dd= profile.needle_size
+    /   dt= t(".single_needle")
+    /   dd= profile.single_needle.try!(:text)
+    /   dt= t(".blood_flow")
+    /   dd= profile.blood_flow
+    /   dt= t(".temperature")
+    /   dd= profile.temperature
+    /   dt= t(".bicarbonate")
+    /   dd= profile.bicarbonate
+    /   dt= t(".has_sodium_profiling")
+    /   dd= profile.has_sodium_profiling.try!(:text)
+    /   dt.inset= t(".sodium_first_half")
+    /   dd.inset= profile.sodium_first_half
+    /   dt.inset= t(".sodium_second_half")
+    /   dd.inset= profile.sodium_second_half
+
+    /   dt= t(".drugs.on_esa")
+    /   dd= profile.drugs_on_esa.try!(:text)
+    /   dt= t(".drugs.on_iron")
+    /   dd= profile.drugs_on_iron.try!(:text)
+    /   dt= t(".drugs.on_warfarin")
+    /   dd= profile.drugs_on_warfarin.try!(:text)
+
+    /   dt= t(".transport.has_transport")
+    /   dd= profile.transport.has_transport.try!(:text)
+    /   dt.inset= t(".transport.type")
+    /   dd.inset= profile.transport.type.try!(:text)
+    /   dt.inset= t(".transport.decided_on")
+    /   dd.inset= profile.transport.present? && I18n.l(profile.transport&.decided_on)
+
+    /   dt= t(".care_level.summary")
+    /   dd= profile.care_level

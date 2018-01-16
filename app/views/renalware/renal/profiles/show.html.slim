@@ -19,11 +19,6 @@
                  legend: "Comorbidities",
                  width: "xxlarge"
 
-        = render "renalware/shared/documents/attributes_group",
-                 group: profile.document.low_clearance,
-                 legend: "Low Clearance",
-                 width: "xlarge"
-
         - profile.build_address_at_diagnosis if profile.address_at_diagnosis.blank?
         - attrs = %i(name street_1 street_2 street_3 town county postcode country)
         = render "renalware/shared/attributes_group",

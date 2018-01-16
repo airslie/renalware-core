@@ -29,6 +29,7 @@ en:
           heading: Modalities
           pd: PD
           hd: HD
+          low_clearance: Low Clearance
         transplants:
           heading: Transplants
           donor_summary: Donor Summary
