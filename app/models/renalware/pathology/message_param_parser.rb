@@ -21,7 +21,7 @@ module Renalware
         if renalware_patient?
           build_patient_params
         else
-          logger.warn("Did not process pathology for #{internal_id}: not a renalware patient")
+          logger.debug("Did not process pathology for #{internal_id}: not a renalware patient")
           nil
         end
       end
