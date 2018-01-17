@@ -8,6 +8,8 @@ table#patients
       th.col-width-tiny= attr_name(Renalware::Patient, :sex)
       th.col-width-date= attr_name(Renalware::Patient, :born_on)
       th.col-width-tiny= attr_name(Renalware::Patient, :age)
+      th.col-width-tiny= sort_link(search, :send_to_rpv, "RPV")
+      th.col-width-tiny= sort_link(search, :send_to_renalreg, "RReg")
       th.col-width-small Modality
 
   tbody

@@ -16,5 +16,19 @@ module Renalware
       return if super.index(" ")
       "#{super[0..2]} #{super[3..5]} #{super[6..-1]}"
     end
+
+    def rpv_decision
+      [
+        I18n.l(rpv_decision_on),
+        rpv_recorded_by
+      ].compact.join(" by ")
+    end
+
+    def renalreg_decision
+      [
+        I18n.l(renalreg_decision_on),
+        renalreg_recorded_by
+      ].compact.join(" by ")
+    end
   end
 end

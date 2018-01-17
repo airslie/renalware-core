@@ -7,9 +7,12 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       def index
+        sort = params.dig(:q, :s)
+        patient_search.sorts = sort if sort
         patients = patient_search.result.page(page).per(per_page)
         authorize patients
         render locals: {
+          search: patient_search,
           patients: present(patients, PatientPresenter)
         }
       end
