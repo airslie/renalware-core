@@ -13,6 +13,17 @@ This project adheres to Semantic Versioning.
 16-01-2017
 
 ### Added
+- GP and Practice import via file
+
+### Changed
+
+### Fixed
+- Minor bug fixes
+
+## 2.0.0.pre.rc4
+16-01-2017
+
+### Added
 - Support for emailing letter to GP once approved
 - Support for emailing letter to an EPR endpoint once approved
 - Migrate to Ruby 2.5
