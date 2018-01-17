@@ -20,8 +20,8 @@ article
     dt= attr_name(clinic_visit, :bmi)
     dd= clinic_visit.bmi
     dt= attr_name(clinic_visit, :urine_blood)
-    dd= clinic_visit.urine_blood
+    dd= clinic_visit.urine_blood&.text
     dt= attr_name(clinic_visit, :urine_protein)
-    dd= clinic_visit.urine_protein
+    dd= clinic_visit.urine_protein&.text
     dt= attr_name(clinic_visit, :notes)
     dd= clinic_visit.notes&.html_safe
