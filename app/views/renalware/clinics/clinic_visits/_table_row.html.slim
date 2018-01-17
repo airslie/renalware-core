@@ -19,4 +19,6 @@ tr(class="#{'dna' if clinic_visit.did_not_attend?}")
   td.bp= clinic_visit.standing_bp
   td.bp= clinic_visit.pulse
   td.bp= clinic_visit.temperature
+  td= clinic_visit.urine_blood&.text
+  td= clinic_visit.urine_protein&.text
   td.created-by= clinic_visit.created_by
