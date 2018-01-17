@@ -21,10 +21,6 @@ module Renalware
       OpenStruct.new(table: pathology_table_view, rows: presenter.view_model)
     end
 
-    # def latest_pathology_for(code)
-    #   code
-    # end
-
     def clinic_visits(limit: 6)
       @clinic_visits ||= Clinics::ClinicVisit.for_patient(patient)
                                              .includes(:clinic)
