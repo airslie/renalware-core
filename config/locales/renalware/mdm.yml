@@ -18,7 +18,7 @@ en:
         ure_date: URE Date
         cre: CRE
         cre_date: CRE Date
-        mdrd: MDRD
+        egfr: EGFR
     mdm:
       problems:
         view_all: View All

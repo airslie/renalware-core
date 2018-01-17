@@ -27,7 +27,7 @@ module Renalware
         base.ransacker(:"#{code}_date") { pathology_date_sort_predicate(code) }
       end
 
-      %i(mdrd).each do |code|
+      %i(egfr).each do |code|
         base.ransacker(code) { pathology_result_sort_predicate(code) }
       end
     end

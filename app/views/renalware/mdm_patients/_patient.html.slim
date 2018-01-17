@@ -12,8 +12,6 @@ tr
   td= l(observation_set.ure_observed_at)
   td= observation_set.cre_result
   td= l(observation_set.cre_observed_at)
-  / Some confusion over mdrd_result results currently as its not a valid OBX code
-  / waiting to hear if it should be EGFR
-  td= observation_set.mdrd_result if observation_set.respond_to?(:mdrd_result)
+  td= observation_set.egfr_result
   td= l(patient.esrf_date)
   td.actions= link_to t(".view"), view_proc.call(patient)
