@@ -404,6 +404,45 @@ CREATE FUNCTION import_practices_csv(file text) RETURNS void
 
 
 --
+-- Name: preprocess_hl7_message(); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION preprocess_hl7_message() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $_$
+      BEGIN
+        /*
+        Mirth inserts a row into delayed job when a new HL7 message needs to be processed by Renalware.
+        The SQL it uses looks like this:
+          insert into renalware.delayed_jobs (handler, run_at)
+          values(E'--- !ruby/struct:FeedJob
+raw_message: |
+  ' || REPLACE(${message.rawData},E'',E'
+  '), NOW());
+        This works unless there is a 10^12 value in the unit of measurement segment for an OBX (e.g.
+        for WBC or HGB). Then Mirth encodes the ^ as S because ^ is a significant character in Mirth
+        (field separator). Unfortunately this creates the combination
+        10S
+ and S
+ is converted to 
+ when the handler's payload is loaded in by the delayed_job worker.
+        To get around this we need to convert instances of S with another escape sequence eg «
+        and manually map this back to a ^ in the job handler ruby code.
+
+        So here, if this delayed_job is destinated to be picked up by a Feed job handler
+        make sure we convert the Mirth escape sequence S to «
+        */
+        IF position('Feed' in NEW.handler) > 0 THEN
+          NEW.handler = replace(NEW.handler, 'S', '«');
+        END IF;
+
+        RETURN NEW;
+      END
+
+      $_$;
+
+
+--
 -- Name: refresh_all_matierialized_views(text, boolean); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -11695,6 +11734,13 @@ CREATE UNIQUE INDEX unique_study_participants ON research_study_participants USI
 
 
 --
+-- Name: delayed_jobs feed_messages_preprocessing_trigger; Type: TRIGGER; Schema: renalware; Owner: -
+--
+
+CREATE TRIGGER feed_messages_preprocessing_trigger BEFORE INSERT ON delayed_jobs FOR EACH ROW EXECUTE PROCEDURE preprocess_hl7_message();
+
+
+--
 -- Name: pathology_observations update_current_observation_set_trigger; Type: TRIGGER; Schema: renalware; Owner: -
 --
 
@@ -14117,6 +14163,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180105132358'),
 ('20180108185400'),
 ('20180112151706'),
-('20180112151813');
+('20180112151813'),
+('20180119121243');
 
 
