@@ -7,6 +7,11 @@ module Renalware::Feeds
         let(:raw_message) do
           # Notes:
           # - In OBX:2, TX = Text data
+          # - the \\S\\ is a result of a) Mirth encoding e.g. 10^12 as 10/S/12 and then b) our PG
+          #   trigger replacing \S\ with \\S\\ when the delayed job row is inserted so that the
+          #   string \S\12 is not interpreted by Ruby as a \n (!). Hence we expect \\S\\ to be
+          #   mapped to ^ somewhere here in the code so that for example WBC units is converted
+          #   to "10^12/L".
           <<-RAW.strip_heredoc
             MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
             PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||

@@ -18,10 +18,10 @@ class CreateTriggerToPreprocessHL7Msg < ActiveRecord::Migration[5.1]
         and manually map this back to a ^ in the job handler ruby code.
 
         So here, if this delayed_job is destinated to be picked up by a Feed job handler
-        make sure we convert the Mirth escape sequence \S\ to «
+        make sure we convert the Mirth escape sequence \S\ to \\S\\
         */
         IF position('Feed' in NEW.handler) > 0 THEN
-          NEW.handler = replace(NEW.handler, '\S\', '«');
+          NEW.handler = replace(NEW.handler, '\S\', '\\S\\');
         END IF;
 
         RETURN NEW;
@@ -44,7 +44,6 @@ class CreateTriggerToPreprocessHL7Msg < ActiveRecord::Migration[5.1]
   def down
     connection.execute("
       drop trigger if exists feed_messages_preprocessing_trigger on delayed_jobs;
-      drop function if exists preprocess_hl7_message1();
       drop function if exists preprocess_hl7_message();"
     )
   end
