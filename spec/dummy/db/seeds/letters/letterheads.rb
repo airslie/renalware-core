@@ -11,6 +11,7 @@ module Renalware
       letterhead.trust_name = row["trust_name"]
       letterhead.trust_caption = row["trust_caption"]
       letterhead.site_info = row["site_info"]
+      letterhead.include_pathology_in_letter_body =  row["include_pathology_in_letter_body"]
       letterhead.save!
     end
   end

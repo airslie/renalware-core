@@ -2760,7 +2760,8 @@ CREATE TABLE letter_letterheads (
     trust_caption character varying NOT NULL,
     site_info text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    include_pathology_in_letter_body boolean DEFAULT true
 );
 
 
@@ -14168,6 +14169,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180112151706'),
 ('20180112151813'),
 ('20180119121243'),
+('20180121115246'),
 ('20180125201356'),
 ('20180126142314');
 

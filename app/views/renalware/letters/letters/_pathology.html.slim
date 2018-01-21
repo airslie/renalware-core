@@ -5,7 +5,6 @@ ruby:
     observation_set_b: letter.patient.current_observation_set&.values,
     descriptions: Renalware::Letters::RelevantObservationDescription.all
   )
-
 - if letter.clinical?
   article.letter-pathology
     header
