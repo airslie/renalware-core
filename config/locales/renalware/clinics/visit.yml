@@ -7,9 +7,11 @@ en:
   activerecord:
     attributes:
       renalware/clinics/clinic_visit:
-        bp: "BP"
-        standing_bp: "Standing BP"
-        bmi: "BMI"
+        bp: BP
+        standing_bp: Standing BP
+        bmi: BMI
+        urine_blood: Urine Blood
+        urine_protein: Urine Protein
     errors:
       models:
         renalware/clinics/clinic_visit:
