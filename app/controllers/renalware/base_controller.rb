@@ -57,7 +57,7 @@ module Renalware
 
     def user_not_authorized
       flash[:error] = "You are not authorized to perform this action."
-      redirect_to patients_path
+      redirect_to dashboard_path
     end
   end
 end
