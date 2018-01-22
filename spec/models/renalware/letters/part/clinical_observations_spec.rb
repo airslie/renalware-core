@@ -5,16 +5,14 @@ module Renalware::Letters
     subject(:part) { Part::ClinicalObservations.new(patient, Letter.new, clinic_visit_event) }
 
     let(:clinic_visit_event) {
-      double(
-        :clinic_visit,
-        height: 180.0, weight: 90.0, bp: "110/70",
-        bmi: 40.0, urine_blood: "+", urine_protein: "+"
+      Renalware::Clinics::ClinicVisit.new(
+        height: 1.80, weight: 90.0, bp: "110/70", urine_blood: :very_low, urine_protein: :trace
       )
     }
     let(:patient) { double(:patient) }
 
     it "delegates the height to the event" do
-      expect(part.height).to eq(180.0)
+      expect(part.height).to eq(1.80)
     end
 
     it "delegates the weight to the event" do
@@ -26,15 +24,15 @@ module Renalware::Letters
     end
 
     it "delegates the bmi to the event" do
-      expect(part.bmi).to eq(40.0)
+      expect(part.bmi).to eq(27.78)
     end
 
     it "delegates the urine_blood to the event" do
-      expect(part.urine_blood).to eq("+")
+      expect(part.urine_blood.text).to eq("+")
     end
 
     it "delegates the urine_protein to the event" do
-      expect(part.urine_protein).to eq("+")
+      expect(part.urine_protein.text).to eq("Trace")
     end
   end
 end
