@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe "API request for a single UKRDC patient XML document", type: :request do
   include PatientsSpecHelper
+  include PathologySpecHelper
 
   let(:user) { @current_user }
   let(:algeria) { create(:algeria) }
@@ -84,6 +85,22 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
           puts error.message
           fail
         end
+      end
+    end
+  end
+
+  context "when the patient has pathology" do
+    it "includes laborder/resultitems" do
+      descriptions = create_descriptions(%w(HGB PLT))
+      create_observations(::Renalware::Pathology.cast_patient(patient), descriptions)
+
+      get api_ukrdc_patient_path(patient)
+
+      expect(response).to be_success
+
+      validate(response.body).each do |error|
+        puts error.message
+        fail
       end
     end
   end
