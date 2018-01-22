@@ -15,13 +15,15 @@
             = clinical_patient.allergy_status&.text
             - if clinical_patient.allergy_status_updated_at
               span.allergy_status_updated_at
-                = "(#{l(clinical_patient.allergy_status_updated_at&.to_date)})"
+                = "#{l(clinical_patient.allergy_status_updated_at&.to_date)}"
           th.protocol-prescriptions Prescriptions on HD
+          th.protocol-recent-pathology Recent Pathology
       tbody
         tr
           td= render "profile", profile: protocol.profile
           td= render "allergies", patient: protocol.patient
           td= render "prescriptions", prescriptions: protocol.prescriptions
+          td= render "recent_pathology", recent_pathology: protocol.recent_pathology
 
     .row.collapse
       .small-12.columns

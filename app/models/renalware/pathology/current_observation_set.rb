@@ -22,13 +22,19 @@ module Renalware
     # When displaying or using a patient's current_observation_set the consuming code
     # must filter out the codes it wants.
     class CurrentObservationSet < ApplicationRecord
-      belongs_to :patient, class_name: "Renalware::Pathology::Patient"
+      belongs_to :patient,
+                 class_name: "Renalware::Pathology::Patient",
+                 inverse_of: :current_observation_set
       validates :patient, presence: true
       serialize :values, ObservationsJsonbSerializer
 
       def values_for_codes(codes)
         codes = Array(codes)
         values.select{ |code, _| codes.include?(code) }
+      end
+
+      def self.null_values_hash
+        HashWithIndifferentAccess.new.extend(ObservationSetMethods)
       end
     end
   end

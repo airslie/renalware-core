@@ -1,0 +1,10 @@
+table.recent-pathology
+  tbody
+    tr
+      th.code HGB
+      td.result= recent_pathology.hgb_result
+      td.observed_at= (l(recent_pathology.hgb_observed_at))
+    tr
+      th.code PLT
+      td.result= recent_pathology.plt_result
+      td.observed_at= (l(recent_pathology.plt_observed_at))
