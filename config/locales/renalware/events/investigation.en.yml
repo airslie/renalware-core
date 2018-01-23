@@ -1,4 +1,14 @@
 en:
+  renalware:
+    events:
+      investigations:
+        list:
+          title: Investigations
+          add: Add
+          date_time: Date taken
+          type: Type
+          result: Result
+          notes: Notes
   activemodel:
     attributes:
       renalware/events/investigation/document:

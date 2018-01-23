@@ -1,31 +1,36 @@
 = content_for(:actions) do
   = render "page_actions",
-           patient: patient,
-           recipient_workup: recipient_workup,
-           registration: registration
+           patient: dashboard.patient,
+           recipient_workup: dashboard.recipient_workup,
+           registration: dashboard.registration
 
 = within_patient_layout(title: "Transplant Recipient Summary") do
 
-  - unless recipient_workup.new_record?
+  - unless dashboard.recipient_workup.new_record?
     = render "renalware/transplants/recipient_workups/summary",
-              patient: patient,
-              recipient_workup: recipient_workup
+              patient: dashboard.patient,
+              recipient_workup: dashboard.recipient_workup
 
-  - unless registration.new_record?
+  - unless dashboard.registration.new_record?
     = render "renalware/transplants/registrations/summary",
-             patient: patient,
-             registration: registration
+             patient: dashboard.patient,
+             registration: dashboard.registration
 
-  - unless registration.new_record?
+  - unless dashboard.registration.new_record?
     = render "renalware/transplants/registration_statuses/list",
-             patient: patient,
-             registration: registration
+             patient: dashboard.patient,
+             registration: dashboard.registration
 
-  - if donations.any?
+  - if dashboard.donations.any?
     = render "renalware/transplants/donations/recipient_list",
-             donations: donations
+             donations: dashboard.donations
 
-  - if recipient_operations.any?
+  - if dashboard.recipient_operations.any?
     = render "renalware/transplants/recipient_operations/list",
-             patient: patient,
-             recipient_operations: recipient_operations
+             patient: dashboard.patient,
+             recipient_operations: dashboard.recipient_operations
+
+  - if dashboard.investigations.any?
+    = render "renalware/events/investigations/list",
+             patient: dashboard.patient,
+             investigations: dashboard.investigations

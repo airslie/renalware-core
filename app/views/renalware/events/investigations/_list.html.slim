@@ -1,0 +1,30 @@
+- toggle_prefix ||= "investigation"
+
+article.investigations
+  header
+    h2= t(".title")
+    /= link_to t(".add"),
+              new_patient_investigation_path(@patient),
+              class: "button right"
+  table
+    thead
+      tr
+        /th.col-width-tiny
+        th.col-width-date-time= t(".date_time")
+        th.col-width-medium= t(".type")
+        th= t(".result")
+    tbody
+      - investigations.each do |investigation|
+        tr
+          /td
+          /  - if policy(investigation).edit?
+          /    = link_to("Edit", edit_patient_investigation_path(patient, investigation))
+          /td
+          td= l(investigation.date_time)
+          td= investigation.document.type&.text
+          td= investigation.document.result
+        = content_tag(:tr, id: "#{toggle_prefix}-quick-preview-#{investigation.id}", style: "display: none")
+          td(colspan=6)
+            .quick-preview
+              = render partial: "renalware/events/events/toggled_cell/#{investigation.to_partial_path}",
+                       locals: { event: investigation }

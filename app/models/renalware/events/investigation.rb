@@ -9,8 +9,12 @@ module Renalware
       include Document::Base
 
       class Document < Document::Embedded
+        attribute :modality,
+                  ::Document::Enum,
+                  enums: %i(transplant_donor transplant_recipient other)
         attribute :type, ::Document::Enum # See i18n for options
         attribute :result, String
+        validates :modality, presence: true
         validates :type, presence: true
         validates :result, presence: true
       end

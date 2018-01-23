@@ -4,7 +4,7 @@ require "test_support/ajax_helpers"
 RSpec.describe "Creating a investigation event", type: :feature, js: true do
   include AjaxHelpers
 
-  context "when adding a investigation event" do
+  context "when adding a investigation event through the Events screen" do
     it "captures extra data" do
       page.driver.add_headers("Referer" => root_path)
       user = login_as_clinical
@@ -16,6 +16,7 @@ RSpec.describe "Creating a investigation event", type: :feature, js: true do
 
       select "Investigation", from: "Event type"
       wait_for_ajax
+      choose "Transplant recipient"
       select "Dental Check", from: "Type"
       fill_in "Result", with: "result"
       fill_trix_editor with: "some notes"
@@ -29,6 +30,7 @@ RSpec.describe "Creating a investigation event", type: :feature, js: true do
       expect(event.notes).to match("some notes")
       expect(event.document.type).to eq("dental_check")
       expect(event.document.result).to eq("result")
+      expect(event.document.modality).to eq("transplant_recipient")
     end
   end
 end
