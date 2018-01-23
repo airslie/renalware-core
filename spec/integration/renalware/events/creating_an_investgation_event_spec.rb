@@ -10,7 +10,7 @@ RSpec.describe "Creating a investigation event", type: :feature, js: true do
       user = login_as_clinical
       patient = create(:patient, by: user)
 
-      create(:investigation_event_type)
+      event_type = create(:investigation_event_type)
 
       visit new_patient_event_path(patient)
 
@@ -18,19 +18,17 @@ RSpec.describe "Creating a investigation event", type: :feature, js: true do
       wait_for_ajax
       select "Dental Check", from: "Type"
       fill_in "Result", with: "result"
-      sleep 1
-      fill_in_trix_editor("events_event_notes_trix_input_events_investigation", "notes")
+      fill_trix_editor with: "some notes"
 
       click_on "Save"
 
-      # events = Renalware::Events::Event.for_patient(patient)
-      # expect(events.length).to eq(1)
-      # event = events.first
-      # expect(event.event_type_id).to eq(event_type.id)
-
-      # # These two fields are defined in the Events::Biopsy::Document
-      # expect(event.document.result1).to eq("de_novo_gn")
-      # expect(event.document.result2).to eq("from_26_to_50")
+      events = Renalware::Events::Event.for_patient(patient)
+      expect(events.length).to eq(1)
+      event = events.first
+      expect(event.event_type_id).to eq(event_type.id)
+      expect(event.notes).to match("some notes")
+      expect(event.document.type).to eq("dental_check")
+      expect(event.document.result).to eq("result")
     end
   end
 end

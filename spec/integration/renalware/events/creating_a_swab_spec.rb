@@ -8,10 +8,7 @@ RSpec.describe "Creating a swab", type: :feature, js: true do
 
     visit new_patient_swab_path(patient)
 
-    fill_in_trix_editor(
-      "events_event_notes_trix_input_events_swab",
-      "notes"
-    )
+    fill_trix_editor with: "some notes"
 
     find("div.radio_buttons", text: "Swab type").choose("MRSA")
     find("div.radio_buttons", text: "Swab result").choose("Positive")
@@ -24,6 +21,6 @@ RSpec.describe "Creating a swab", type: :feature, js: true do
     expect(event.event_type_id).to eq(event_type.id)
     expect(event.document.type).to eq("mrsa")
     expect(event.document.result).to eq("pos")
-    expect(event.notes).to eq("notes")
+    expect(event.notes).to match("some notes")
   end
 end
