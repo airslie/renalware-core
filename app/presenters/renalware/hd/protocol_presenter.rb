@@ -45,6 +45,11 @@ module Renalware
         ::CollectionPresenter.new(prescriptions, ::Renalware::Medications::PrescriptionPresenter)
       end
 
+      def recent_pathology
+        current_observation_set = Pathology.cast_patient(patient).current_observation_set
+        current_observation_set&.values || Pathology::CurrentObservationSet.null_values_hash
+      end
+
       def patient_title
         patient.to_s(:long)
       end

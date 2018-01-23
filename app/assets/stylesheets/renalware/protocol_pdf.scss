@@ -76,15 +76,26 @@ h1 {
         font-size: 1.1rem ;
 
         &.protocol-hd-profile {
-          width: 52%;
+          width: 42%;
         }
 
         &.protocol-allergies {
-          width: 20%;
+          width: 18%;
+
+          .allergy_status_updated_at {
+            padding-left: 0.2rem;
+            font-weight: normal;
+          }
         }
 
         &.protocol-prescriptions {
-          width: 28%;
+          width: 25%;
+        }
+
+        &.protocol-recent-pathology {
+          width: 15%;
+          padding: 0;
+          padding-left: .3rem;
         }
       }
     }
@@ -198,6 +209,17 @@ h1 {
     }
   }
 
+  table.recent-pathology {
+    text-align: left;
+
+    td, th {
+      padding-right: 0.2rem;
+    }
+
+    .result {
+      text-align: right;
+    }
+  }
 
   dl {
     padding-bottom: 0.2rem;
@@ -241,11 +263,11 @@ h1 {
   }
 
   .allergies {
-
     .allergy_status {
       font-weight: normal;
       margin-right: 10px;
     }
+
     .allergy_descriptions {
       font-weight: bold;
       padding: 0;
