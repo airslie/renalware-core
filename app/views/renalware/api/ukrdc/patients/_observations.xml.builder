@@ -5,7 +5,6 @@
 xml = builder
 
 xml.Observations(start: Time.zone.today.iso8601, stop: Time.zone.today.iso8601) do
-  xml.comment! "Check what start and stop refer to here"
   patient.clinic_visits.includes(:updated_by).each do |visit|
     render "clinic_visit_observation",
            visit: visit,
@@ -22,6 +21,13 @@ xml.Observations(start: Time.zone.today.iso8601, stop: Time.zone.today.iso8601) 
     render "clinic_visit_observation",
            visit: visit,
            method: :weight,
+           i18n_key: "weight",
+           builder: builder
+
+    render "clinic_visit_observation",
+           visit: visit,
+           method: :height,
+           i18n_key: "height",
            builder: builder
   end
 end

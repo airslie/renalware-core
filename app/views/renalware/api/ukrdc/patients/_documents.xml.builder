@@ -21,7 +21,7 @@ xml.Documents do
         xml.Code letter.hospital_unit_code
       end
       xml.FileType do
-        xml.Code "PDF"
+        xml.Code "application/pdf"
       end
       xml.Stream Base64.encode64(Renalware::Letters::PdfRenderer.call(letter))
     end
