@@ -6,7 +6,6 @@ en:
           attributes:
             unit:
               invalid_unit: Please enter age in amount of months
-
   enumerize:
     renalware/age:
       unit:

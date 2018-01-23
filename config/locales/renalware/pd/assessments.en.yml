@@ -52,7 +52,6 @@ en:
         bowel_disease: Bowel Disease?
         bowel_disease_notes: Bowel Disease Notes
         added_comments: Added Comments
-
   enumerize:
     renalware/pd/assessment/document:
       system_choice:

@@ -2,7 +2,6 @@ en:
   renalware:
     hd:
       diary_slot:
-
   activerecord:
     errors:
       models:

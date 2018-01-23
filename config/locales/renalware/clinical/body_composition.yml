@@ -16,7 +16,6 @@ en:
         body_cell_mass: Body Cell Mass (BCM)
         quality_of_reading: Quality of Reading (Q)
         notes: Notes
-
   renalware:
     clinical:
       body_compositions:
@@ -44,4 +43,3 @@ en:
           view_all: View All
           recent:
             title: Recent Body Composition Measurements
-

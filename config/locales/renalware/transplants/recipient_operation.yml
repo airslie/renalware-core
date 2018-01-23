@@ -57,7 +57,6 @@ en:
         failure_description: Failure Description
         stent_removed_on: Stent Removal Date
         transplant_failed: Transplant failed?
-
   enumerize:
     renalware/transplants/recipient_operation:
       operation_type:
@@ -157,7 +156,6 @@ en:
         trauma_rta_pushbike: "Trauma RTA - pushbike"
         trauma_rta_unknown: "Trauma RTA - unknown type"
         unknown: "Unknown"
-
   simple_form:
     hints:
       transplants_recipient_operation:
