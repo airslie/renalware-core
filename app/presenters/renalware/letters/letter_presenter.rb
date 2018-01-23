@@ -45,7 +45,6 @@ module Renalware
           part_classes: letter_event.part_classes,
           include_pathology_in_letter_body: letterhead.include_pathology_in_letter_body?
         )
-
         filtered_part_classes.to_h.values.map do |part_class|
           part_class.new(patient, self, letter_event)
         end
