@@ -10,7 +10,7 @@ RSpec.describe "Creating an event", type: :feature, js: true do
       user = login_as_clinical
       patient = create(:patient, by: user)
 
-      event_type = create(:events_type, name: "Access--Clinic")
+      event_type = create(:access_clinic_event_type, name: "Access--Clinic")
       visit new_patient_event_path(patient)
 
       select "Access--Clinic", from: "Event type"
