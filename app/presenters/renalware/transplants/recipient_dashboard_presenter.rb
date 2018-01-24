@@ -27,7 +27,12 @@ module Renalware
       end
 
       def investigations
-        @investigations ||= Events::Investigation.for_patient(patient).ordered
+        @investigations ||= begin
+          Events::Investigation
+            .for_patient(patient)
+            .transplant_recipients
+            .ordered
+        end
       end
     end
   end

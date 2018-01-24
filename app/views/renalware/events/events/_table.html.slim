@@ -14,4 +14,5 @@ table.has-togglable-rows
     = render partial: "renalware/events/events/event",
              collection: events,
              locals: { exclude_type_column: local_assigns[:exclude_type_column],
+                       edit_proc: local_assigns[:edit_proc],
                        toggle_prefix: toggle_prefix }
