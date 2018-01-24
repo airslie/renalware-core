@@ -3,8 +3,8 @@
 article.investigations
   header
     h2= t(".title")
-    /= link_to t(".add"),
-              new_patient_investigation_path(@patient),
+    = link_to t(".add"),
+              new_patient_investigation_path(patient),
               class: "button right"
   = render "renalware/events/events/table",
            events: investigations,
