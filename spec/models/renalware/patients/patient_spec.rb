@@ -99,5 +99,12 @@ module Renalware
         expect(patient.current_modality.started_on).to eq(Date.parse("2015-04-20"))
       end
     end
+
+    describe "#secure_id_dashed" do
+      let(:uuid) { "41a63bce-f786-47bb-aba3-c6ee6aa1e90e" }
+      subject{ described_class.new(secure_id: uuid).secure_id_dashed }
+
+      it { is_expected.to eq(uuid) }
+    end
   end
 end
