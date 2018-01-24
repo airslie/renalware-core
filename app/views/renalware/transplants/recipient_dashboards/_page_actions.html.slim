@@ -23,5 +23,9 @@ ul.f-dropdown#tx-recip-options(data-dropdown-content aria-hidden="true")
                       title: t(".add_recipient_operation"),
                       url: new_patient_transplants_recipient_operation_path(patient)
 
+  = dropdown_btn_item enabled: true,
+                      title: t(".add_investigation"),
+                      url: new_patient_investigation_path(patient)
+
 - unless patient.has_ever_been_a_recipient?
   = render "modality_missing_warning", message: t(".missing_modality_warning")

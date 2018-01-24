@@ -26,6 +26,9 @@
     li= link_to t(".add_operation"),
                 new_patient_transplants_donor_operation_path(dashboard.patient)
 
+    li= link_to t(".add_investigation"),
+                new_patient_investigation_path(dashboard.patient)
+
 = within_patient_layout(title: "Transplant Donor Summary") do
   - unless dashboard.donations.empty?
     = render "renalware/transplants/donations/list",
