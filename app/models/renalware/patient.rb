@@ -26,6 +26,10 @@ module Renalware
       @secure_id_without_dashes ||= super&.gsub("-", "")
     end
 
+    def secure_id_dashed
+      self[:secure_id]
+    end
+
     enumerize :marital_status, in: %i(married single divorced widowed)
 
     has_paper_trail class_name: "Renalware::Patients::Version"
