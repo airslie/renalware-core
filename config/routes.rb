@@ -308,6 +308,11 @@ Renalware::Engine.routes.draw do
               controller: "events/swabs",
               defaults: { slug: :swabs }
 
+    resources :investigations,
+              only: [:new, :create, :edit, :update],
+              controller: "events/investigations",
+              defaults: { slug: :investigations }
+
     # Here we could enable new event by any other slug
     # eg patient_new_specific_event(slug: "transplant_biopsies")
     # get "events/:slug/new",

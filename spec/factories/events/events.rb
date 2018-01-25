@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :event, class: "Renalware::Events::Event" do
     accountable
     patient
-    event_type factory: :events_type
+    event_type factory: :access_clinic_event_type
     date_time { Time.zone.now }
     description "Needs blood sample taken."
     notes "Would like son to accompany them on clinic visit."
@@ -19,6 +19,29 @@ FactoryBot.define do
           location: "The location"
         }
       }
+    end
+
+    factory :investigation, class: "Renalware::Events::Investigation" do
+      event_type factory: :investigation_event_type
+      document {
+        {
+          modality: "other",
+          type: Renalware::Events::Investigation::Document.type.values.first,
+          result: "result"
+        }
+      }
+
+      trait :transplant_recipient do
+        before :create do |investigation|
+          investigation.document.modality = "transplant_recipient"
+        end
+      end
+
+      trait :transplant_donor do
+        before :create do |investigation|
+          investigation.document.modality = "transplant_donor"
+        end
+      end
     end
   end
 end

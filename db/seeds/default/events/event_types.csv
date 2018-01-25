@@ -4,3 +4,4 @@
 "Swab","Renalware::Events::Swab","swabs"
 "Plasma Exchange",,
 "PD Line Change",,"pd_line_changes"
+"Investigation","Renalware::Events::Investigation","investigations"

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Configuring Event Types", type: :request do
-  let(:event_type) { create(:events_type) }
+  let(:event_type) { create(:access_clinic_event_type) }
 
   describe "GET new" do
     it "responds with a form" do
@@ -14,7 +14,7 @@ RSpec.describe "Configuring Event Types", type: :request do
   describe "POST create" do
     context "with valid attributes" do
       it "creates a new record" do
-        attributes = attributes_for(:events_type)
+        attributes = attributes_for(:access_clinic_event_type)
         post events_types_path, params: { events_type: attributes }
 
         expect(response).to have_http_status(:redirect)

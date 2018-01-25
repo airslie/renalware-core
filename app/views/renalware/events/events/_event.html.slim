@@ -1,7 +1,13 @@
 tr
-  td= link_to("Toggle",
+  td
+    = link_to("Toggle",
               "##{toggle_prefix}-quick-preview-#{event.id}",
               data: { behaviour: "toggler" })
+
+    - if local_assigns[:edit_proc]
+      = pipe_separator
+      = link_to("Edit", edit_proc.call(event))
+
   td.nowrap= l event.created_at.to_date
   - unless local_assigns.fetch(:exclude_type_column, false)
     td= event.event_type

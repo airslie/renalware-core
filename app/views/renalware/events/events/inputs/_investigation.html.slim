@@ -1,0 +1,4 @@
+= f.simple_fields_for :document, event.document do |fd|
+  = fd.input :modality, as: :inline_radio_buttons, wrapper: :horizontal_medium
+  = fd.input :type, wrapper: :horizontal_medium
+  = fd.input :result, wrapper: :horizontal_medium

@@ -5,27 +5,7 @@ module Renalware
     class RecipientDashboardsController < BaseController
       def show
         authorize patient
-        render locals: locals
-      end
-
-      private
-
-      def locals
-        {
-          patient: patient,
-          recipient_workup: RecipientWorkup.for_patient(patient).first_or_initialize,
-          registration: registration_presenter,
-          recipient_operations: RecipientOperation.for_patient(patient).reversed,
-          donations: Donation.for_recipient(patient).reversed
-        }
-      end
-
-      def registration_presenter
-        WaitListRegistrationPresenter.new(registration)
-      end
-
-      def registration
-        Registration.for_patient(patient).first_or_initialize
+        render locals: { dashboard: RecipientDashboardPresenter.new(patient) }
       end
     end
   end
