@@ -133,6 +133,59 @@ module Renalware
               expect_obs_to_match(hgb, obs.result, time)
             end
           end
+
+          describe "#updated_at" do
+            let(:time_format) { "%d-%m-%Y %Hh" }
+            let(:patient) { create(:pathology_patient) }
+            let(:obs_set) { CurrentObservationSet.find_by(patient_id: patient.id) }
+
+            context "when the triggered fn updates the obs set because a new value arrives" do
+              it "sets updated_at to the current time" do
+                old_time = Time.zone.now - 1.day
+                travel_to(old_time) do
+                  create_hgb_observation(
+                    patient: patient,
+                    observed_at: Time.zone.now,
+                    result: 111.1
+                  )
+                  # Because we can't affect the PG server time here we simulate the fact that
+                  # inserting a new obs changes  updated_at to the CURRENT_TIMESTAMP
+                  # which would occur if PG as travelling though time with us
+                  obs_set.update!(updated_at: old_time)
+                end
+
+                expect(obs_set.updated_at).to eq(old_time)
+
+                create_hgb_observation(patient: patient, observed_at: Time.zone.now, result: 111.2)
+
+                expect(obs_set.reload.updated_at.strftime(time_format))
+                  .to eq(Time.zone.now.strftime(time_format))
+              end
+            end
+
+            context "when the triggered fn skips updating the obs set cos inserted obs is older" do
+              it "does not change #updated_at" do
+                newer_time = Time.zone.now + 1.day
+                travel_to(newer_time) do
+                  create_hgb_observation(
+                    patient: patient,
+                    observed_at: Time.zone.now,
+                    result: 111.1
+                  )
+                  # Because we can't affect the PG server time here we simulate the fact that
+                  # inserting a new obs changes  updated_at to the CURRENT_TIMESTAMP
+                  # which would occur if PG as travelling though time with us
+                  obs_set.update!(updated_at: newer_time)
+                end
+
+                expect(obs_set.updated_at).to eq(newer_time)
+
+                create_hgb_observation(patient: patient, observed_at: Time.zone.now, result: 111.2)
+
+                expect(obs_set.updated_at).to eq(newer_time)
+              end
+            end
+          end
         end
       end
 
