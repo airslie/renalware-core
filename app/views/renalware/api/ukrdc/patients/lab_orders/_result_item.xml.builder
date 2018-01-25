@@ -8,7 +8,7 @@ xml.ResultItem do
   xml.PrePost observation.pre_post(patient_is_on_hd: patient.current_modality_hd?)
   xml.ServiceId do
     xml.CodingStandard "LOCAL"
-    xml.Code (observation.description_loinc_code || observation.description_code)
+    xml.Code(observation.description_loinc_code || observation.description_code)
     xml.Description observation.description_name
   end
   # xml.SubId

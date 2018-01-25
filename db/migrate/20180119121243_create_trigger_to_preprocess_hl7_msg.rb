@@ -1,6 +1,8 @@
 class CreateTriggerToPreprocessHL7Msg < ActiveRecord::Migration[5.1]
   def up
-    sql = <<-SQL
+    # Note that we need to use a quoted heredoc ('SQL') here in order to preserve our
+    # SQL escaping e.g. E'\\S\\' which would otherwise be interpreted by Ruby as E'\S\'
+    sql = <<-'SQL'
       /* Create a function for the trigger to call */
       CREATE FUNCTION preprocess_hl7_message() RETURNS trigger AS
       $body$
