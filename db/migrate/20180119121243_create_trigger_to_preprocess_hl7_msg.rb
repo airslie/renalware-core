@@ -17,11 +17,11 @@ class CreateTriggerToPreprocessHL7Msg < ActiveRecord::Migration[5.1]
         To get around this we need to convert instances of \S\ with another escape sequence eg «
         and manually map this back to a ^ in the job handler ruby code.
 
-        So here, if this delayed_job is destinated to be picked up by a Feed job handler
+        So here, if this delayed_job is destined to be picked up by a Feed job handler
         make sure we convert the Mirth escape sequence \S\ to \\S\\
         */
         IF position('Feed' in NEW.handler) > 0 THEN
-          NEW.handler = replace(NEW.handler, '\S\', '\\S\\');
+          NEW.handler = replace(NEW.handler, E'\\S\\', E'\\\\S\\\\');
         END IF;
 
         RETURN NEW;
