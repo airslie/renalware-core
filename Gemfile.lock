@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.0.pre.rc5)
+    renalware-core (2.0.0.pre.rc6)
       active_type (~> 0.7.1)
       activerecord-import
       attr_extras
@@ -110,7 +110,7 @@ GEM
       activemodel (= 5.1.4)
       activesupport (= 5.1.4)
       arel (~> 8.0)
-    activerecord-import (0.21.0)
+    activerecord-import (0.22.0)
       activerecord (>= 3.2)
     activesupport (5.1.4)
       concurrent-ruby (~> 1.0, >= 1.0.2)
@@ -348,10 +348,10 @@ GEM
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
-    polyamorous (1.3.2)
+    polyamorous (1.3.3)
       activerecord (>= 3.0)
     powerpack (0.1.1)
-    puma (3.11.0)
+    puma (3.11.2)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.3)
@@ -394,12 +394,12 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (3.0.0)
     rake (12.3.0)
-    ransack (1.8.4)
+    ransack (1.8.6)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
       activesupport (>= 3.0)
       i18n
-      polyamorous (~> 1.3)
+      polyamorous (~> 1.3.2)
     record_tag_helper (1.0.0)
       actionview (~> 5.x)
     regexp_parser (0.4.9)
@@ -508,7 +508,7 @@ GEM
       rails (> 4.1, < 5.2)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
-    uglifier (4.1.3)
+    uglifier (4.1.4)
       execjs (>= 0.3.0, < 3)
     underscore-rails (1.8.3)
     unicode (0.4.4.4)

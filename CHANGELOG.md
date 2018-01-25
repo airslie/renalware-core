@@ -9,6 +9,21 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.0.pre.rc6
+16-01-2017
+
+### Added
+- EPR support for saving PDF to filesystem
+- New drug types
+- Support for adding custom links in patient nav
+
+### Changed
+- UKRDC XML changes
+- Hide un-measured clinical measurements in letters
+
+### Fixed
+- HL7 Caret fix
+
 ## 2.0.0.pre.rc4
 16-01-2017
 
