@@ -2760,8 +2760,7 @@ CREATE TABLE letter_letterheads (
     trust_caption character varying NOT NULL,
     site_info text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    include_pathology_in_letter_body boolean DEFAULT true
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -2810,7 +2809,8 @@ CREATE TABLE letter_letters (
     clinical boolean,
     enclosures character varying,
     pathology_timestamp timestamp without time zone,
-    pathology_snapshot jsonb DEFAULT '{}'::jsonb
+    pathology_snapshot jsonb DEFAULT '{}'::jsonb,
+    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL
 );
 
 
@@ -5360,7 +5360,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -5438,7 +5438,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -10190,6 +10190,13 @@ CREATE INDEX index_letter_letters_on_updated_by_id ON letter_letters USING btree
 
 
 --
+-- Name: index_letter_letters_on_uuid; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_uuid ON letter_letters USING btree (uuid);
+
+
+--
 -- Name: index_letter_recipients_on_addressee_type_and_addressee_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -14161,7 +14168,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180112151706'),
 ('20180112151813'),
 ('20180119121243'),
-('20180121115246'),
-('20180125201356');
+('20180125201356'),
+('20180126142314');
 
 
