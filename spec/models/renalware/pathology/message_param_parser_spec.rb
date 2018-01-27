@@ -84,6 +84,43 @@ module Renalware::Pathology
           expect(parser.parse).to be_nil
         end
       end
+
+      context "when the message has > 1 OBR segment" do
+        let(:raw_message) do
+          <<-RAW.strip_heredoc
+            MSH|^~\&|HM|LIVE|SCM||20181212170103||ORU^R01|00002286|P|2.3.1|||AL
+            PID|||Z999990^^^PAS Number||XXX^XXX^^^Mr||11110715|M|||ss^ss^^^SE00 600
+            PV1||Inpatient|COPK|||||RABRO^Rabbit, Roger||||||||||NHS|ED001332881^^^Visit Number
+            ORC|RE|217SC5661^PCS|1010101010^LA||CM||||201801251204|||RABRO^Rabbit, Roger
+            OBR|1|217SC5661^PCS|1010101010^LA|RLU^RENAL/LIVER/UREA^HM||201801251204|201801250541||||||.|201801250541|B^Blood|RABRO^Rabbit, Roger||1010101010||||201801251249||HM|F
+            OBX|1|NM|NA^Sodium^HM||136|mmol/L|||||F|||201801251249||BHISVC01^BHI Authchecker
+            ORC|RE|111111111^PCS|100000000^LA||CM||||201801251204|||RABRO^Rabbit, Roger
+            OBR|2|217SC5661^PCS|1010101010^LA|BONE^BONE PROFILE^HM||201801251204|201801250541||||||.|201801250541|B^Blood|RABRO^Rabbit, Roger||1010101010||||201801251700||HM|F
+            OBX|1|NM|CCA^Corrected Calc^HM||3.16|mmol/L||H|||F|||201801251700||CBEAA^X Y
+          RAW
+        end
+
+        it "does not throw `undefined local variable or method `universal_service_id'`" do
+          create(:pathology_request_description, code: "RLU")
+          create(:pathology_request_description, code: "BONE")
+          create(:pathology_observation_description, code: "NA")
+          create(:pathology_observation_description, code: "CCA")
+          create(:patient, local_patient_id: "Z999990")
+          message = Renalware::Feeds::MessageParser.new.parse(raw_message)
+
+          parser = described_class.new(message)
+
+          expect{ parser.parse }.not_to raise_error
+        end
+
+        it "creates a params hash with multiple observation_requests" do
+          parser = described_class.new(message_payload)
+          expect(parser.renalware_patient?).to be_truthy
+          params = parser.parse
+
+          expect(params[:observation_requests]).to be_a(Array)
+        end
+      end
     end
   end
 end

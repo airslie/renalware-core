@@ -84,6 +84,8 @@ module Renalware
         end
       end
 
+      # There is a problem here is there are < 1 OBR
+      # i.e. self[:OBR] could be an array
       def observation_request
         ObservationRequest.new(self[:OBR], self[:OBX])
       end
