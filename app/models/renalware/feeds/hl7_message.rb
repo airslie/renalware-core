@@ -72,10 +72,13 @@ module Renalware
         # the `\12` within the message is interpreted as a `\n` (form feed) by
         # delayed_job when it is read into the yaml format string in the HL7 messages.
         # While it might be possible to write out yaml into delayed_job using a format
-        # that will not un-escape on reading, the approach here is that the Mirth channel must
-        # encode \S\ as \\S\\ in the message before inserting.
-        # Thus the raw data for units might look like `10\\S\\12/L` and this will work
-        # by the fact that the backslashes are escaped and a significant `\12` is not found.
+        # that will not un-escape on reading, the approach here is that the we have preprocessed
+        # the message using a trigger (at the point it is inserted into delayed_jobs) by
+        # replacing any instance of \S\ with \\S\\ in the message.
+        # Thus the raw data for units in the database will look like `10\\S\\12/L`.
+        # When ever this string is loaded by Ruby it will un-escaped and become "\S\"
+        # No `\12` is not found and un-escaped to \n"
+        # Note in the gsub here we double escape the \'s
         def units
           super&.gsub("\\S\\", "^")
         end
