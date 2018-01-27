@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Simulation of Mirth inserting an HL7 message into delayed_jobs" do
+  include DatabaseFunctionsSpecHelper
+
   let(:hl7_with_uom_caret_encoded_as_slash_s_slash) do
     <<-RAW.strip_heredoc
      MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
@@ -21,15 +23,22 @@ RSpec.describe "Simulation of Mirth inserting an HL7 message into delayed_jobs" 
     ActiveRecord::Base.connection.execute(sql)
   end
 
-  describe "postgres trigger" do
-    it "replaces \S\ with \\S\\ when the handler+message are inserted into delayed_jobs" do
-      expect{
-        simulate_mirth_inserting_a_new_hl7_message_into_delayed_jobs
-      }.to change{ Delayed::Job.count }.by(1)
+  describe "postgres trigger 'update_current_observation_set_trigger'" do
+    let(:expected_obx_preprocessed_by_trigger) { "OBX|1|TX|WBC^WBC^MB||6.09|10\\\\S\\\\12/L|" }
 
-      expected_obx_preprocessed_by_pg_trigger = "OBX|1|TX|WBC^WBC^MB||6.09|10\\\\S\\\\12/L|"
-      expect(Delayed::Job.first.handler)
-        .to include(expected_obx_preprocessed_by_pg_trigger)
+    it "replaces \S\ with \\S\\ when the handler+message are inserted into delayed_jobs" do
+      simulate_mirth_inserting_a_new_hl7_message_into_delayed_jobs
+      expect(Delayed::Job.first.handler).to include(expected_obx_preprocessed_by_trigger)
+    end
+
+    context "when the trigger is disabled" do
+      before { toggle_all_triggers(:off) }
+      after { toggle_all_triggers(:on) }
+
+      it "does not replace anything - i.e. the trigger works" do
+        simulate_mirth_inserting_a_new_hl7_message_into_delayed_jobs
+        expect(Delayed::Job.first.handler).not_to include(expected_obx_preprocessed_by_trigger)
+      end
     end
   end
 end
