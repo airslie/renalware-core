@@ -15,8 +15,9 @@ module Renalware
       end
 
       class ObservationRequest < SimpleDelegator
-        def initialize(observation_request_segment, observations_segments)
-          @observations_segments = observations_segments
+        alias_attribute :date_time, :observation_date
+
+        def initialize(observation_request_segment)
           super(observation_request_segment)
         end
 
@@ -24,8 +25,14 @@ module Renalware
           universal_service_id.split("^").first
         end
 
+        # Select only OBX children. OBR can have other types of child
+        # segments but we want to ignore those.
         def observations
-          Array(@observations_segments).map { |segment| Observation.new(segment) }
+          @observations ||= begin
+            children
+              .select{ |segment| segment.is_a? HL7::Message::Segment::OBX }
+              .map{ |obx_segment| Observation.new(obx_segment) }
+          end
         end
 
         def ordering_provider_name
@@ -36,10 +43,6 @@ module Renalware
           super.split("^").first
         end
 
-        def date_time
-          observation_date
-        end
-
         private
 
         def ordering_provider
@@ -48,6 +51,9 @@ module Renalware
       end
 
       class Observation < SimpleDelegator
+        alias_attribute :date_time, :observation_date
+        alias_attribute :value, :observation_value
+
         def identifier
           observation_id.split("^").first
         end
@@ -55,14 +61,6 @@ module Renalware
         # TODO: Implement comment extraction
         def comment
           ""
-        end
-
-        def date_time
-          observation_date
-        end
-
-        def value
-          observation_value
         end
 
         # Because some units of measurement, such as 10^12/L for WBC, contain a caret, the caret
@@ -86,17 +84,17 @@ module Renalware
 
       # There is a problem here is there are < 1 OBR
       # i.e. self[:OBR] could be an array
-      def observation_request
-        ObservationRequest.new(self[:OBR], self[:OBX])
+      def observation_requests
+        Array(self[:OBR]).map{ |obr| ObservationRequest.new(obr) }
       end
 
       class PatientIdentification < SimpleDelegator
+        alias_attribute :external_id, :patient_id
+        alias_attribute :sex, :admin_sex
+        alias_attribute :dob, :patient_dob
+
         def internal_id
           patient_id_list.split("^").first
-        end
-
-        def external_id
-          patient_id
         end
 
         def name
@@ -109,14 +107,6 @@ module Renalware
 
         def given_name
           patient_name[1]
-        end
-
-        def sex
-          admin_sex
-        end
-
-        def dob
-          patient_dob
         end
 
         private
@@ -139,7 +129,7 @@ module Renalware
       end
 
       def to_s
-        @message_string
+        @message_string.tr("\r", "\n")
       end
     end
   end

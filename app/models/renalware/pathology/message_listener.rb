@@ -9,19 +9,21 @@ module Renalware
     class MessageListener
       def message_processed(message_payload)
         pathology_params = parse_pathology_params(message_payload)
-        create_observations(pathology_params)
-        # Note the the current_observation_set for the patient is updated by a trigger here
+        create_observation_requests_and_their_child_observations_from(pathology_params)
+        #
+        # Note: The the current_observation_set for the patient is updated by a trigger here
+        #
       end
 
       private
 
       def parse_pathology_params(message_payload)
-        MessageParamParser.new(message_payload).parse
+        ObservationRequestsAttributesBuilder.new(message_payload).parse
       end
 
-      def create_observations(pathology_params)
+      def create_observation_requests_and_their_child_observations_from(pathology_params)
         return if pathology_params.nil? # eg patient does not exist
-        CreateObservations.new.call(pathology_params)
+        CreateObservationRequests.new.call(pathology_params)
       end
     end
   end
