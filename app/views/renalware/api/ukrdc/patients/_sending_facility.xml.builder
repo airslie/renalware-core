@@ -1,7 +1,7 @@
 xml = builder
 
-xml.SendingFacility(
-  channelName: "Renalware",
-  time: Time.zone.now.to_datetime) do
-end
+xml.SendingFacility Renalware.config.ukrdc_sending_facility_name,
+                    channelName: "Renalware",
+                    time: Time.zone.now.to_datetime
+
 xml.SendingExtract "UKRDC"

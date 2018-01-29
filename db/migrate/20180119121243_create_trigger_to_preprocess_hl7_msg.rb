@@ -1,6 +1,8 @@
 class CreateTriggerToPreprocessHL7Msg < ActiveRecord::Migration[5.1]
   def up
-    sql = <<-SQL
+    # Note that we need to use a quoted heredoc ('SQL') here in order to preserve our
+    # SQL escaping e.g. E'\\S\\' which would otherwise be interpreted by Ruby as E'\S\'
+    sql = <<-'SQL'
       /* Create a function for the trigger to call */
       CREATE FUNCTION preprocess_hl7_message() RETURNS trigger AS
       $body$
@@ -17,11 +19,11 @@ class CreateTriggerToPreprocessHL7Msg < ActiveRecord::Migration[5.1]
         To get around this we need to convert instances of \S\ with another escape sequence eg «
         and manually map this back to a ^ in the job handler ruby code.
 
-        So here, if this delayed_job is destinated to be picked up by a Feed job handler
+        So here, if this delayed_job is destined to be picked up by a Feed job handler
         make sure we convert the Mirth escape sequence \S\ to \\S\\
         */
         IF position('Feed' in NEW.handler) > 0 THEN
-          NEW.handler = replace(NEW.handler, '\S\', '\\S\\');
+          NEW.handler = replace(NEW.handler, E'\\S\\', E'\\\\S\\\\');
         END IF;
 
         RETURN NEW;

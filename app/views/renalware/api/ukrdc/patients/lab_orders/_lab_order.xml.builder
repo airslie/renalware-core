@@ -20,7 +20,7 @@ xml.LabOrder do
   xml.OrderCategory do
     xml.Code request.description.code
   end
-  # xml.SpecimenCollectedTime "TODO"
+  xml.SpecimenCollectedTime request.requested_at.iso8601
   # xml.SpecimenReceivedTime "TODO"
   # xml.Priority do
   #   xml.Code "TODO: Probably n/a"

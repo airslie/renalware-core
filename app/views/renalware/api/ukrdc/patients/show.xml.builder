@@ -5,11 +5,7 @@ xml.instruct! :xml, version: "1.0", encoding: "UTF-8"
 
 namespace_and_schema = {
   "xmlns:ukrdc" => "http://www.rixg.org.uk/",
-  "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
-  "xsi:schemaLocation" => [
-    "http://www.rixg.org.uk/",
-    "https://github.com/renalreg/ukrdc/blob/master/Schema/UKRDC.xsd"
-  ].join(" ")
+  "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance"
 }
 
 # Start of <ukrdc:Patient>
