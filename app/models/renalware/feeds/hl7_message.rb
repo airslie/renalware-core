@@ -15,8 +15,9 @@ module Renalware
       end
 
       class ObservationRequest < SimpleDelegator
-        def initialize(observation_request_segment, observations_segments)
-          @observations_segments = observations_segments
+        alias_attribute :date_time, :observation_date
+
+        def initialize(observation_request_segment)
           super(observation_request_segment)
         end
 
@@ -24,8 +25,14 @@ module Renalware
           universal_service_id.split("^").first
         end
 
+        # Select only OBX children. OBR can have other types of child
+        # segments but we want to ignore those.
         def observations
-          Array(@observations_segments).map { |segment| Observation.new(segment) }
+          @observations ||= begin
+            children
+              .select{ |segment| segment.is_a? HL7::Message::Segment::OBX }
+              .map{ |obx_segment| Observation.new(obx_segment) }
+          end
         end
 
         def ordering_provider_name
@@ -36,10 +43,6 @@ module Renalware
           super.split("^").first
         end
 
-        def date_time
-          observation_date
-        end
-
         private
 
         def ordering_provider
@@ -48,6 +51,9 @@ module Renalware
       end
 
       class Observation < SimpleDelegator
+        alias_attribute :date_time, :observation_date
+        alias_attribute :value, :observation_value
+
         def identifier
           observation_id.split("^").first
         end
@@ -57,14 +63,6 @@ module Renalware
           ""
         end
 
-        def date_time
-          observation_date
-        end
-
-        def value
-          observation_value
-        end
-
         # Because some units of measurement, such as 10^12/L for WBC, contain a caret, the caret
         # will initially have been encoded by Mirth as \S\ (a Mirth escape sequence for ^
         # or whatever the mirth component separator character is configured to be)
@@ -72,26 +70,31 @@ module Renalware
         # the `\12` within the message is interpreted as a `\n` (form feed) by
         # delayed_job when it is read into the yaml format string in the HL7 messages.
         # While it might be possible to write out yaml into delayed_job using a format
-        # that will not un-escape on reading, the approach here is that the Mirth channel must
-        # encode \S\ as \\S\\ in the message before inserting.
-        # Thus the raw data for units might look like `10\\S\\12/L` and this will work
-        # by the fact that the backslashes are escaped and a significant `\12` is not found.
+        # that will not un-escape on reading, the approach here is that the we have preprocessed
+        # the message using a trigger (at the point it is inserted into delayed_jobs) by
+        # replacing any instance of \S\ with \\S\\ in the message.
+        # Thus the raw data for units in the database will look like `10\\S\\12/L`.
+        # When ever this string is loaded by Ruby it will un-escaped and become "\S\"
+        # No `\12` is not found and un-escaped to \n"
+        # Note in the gsub here we double escape the \'s
         def units
           super&.gsub("\\S\\", "^")
         end
       end
 
-      def observation_request
-        ObservationRequest.new(self[:OBR], self[:OBX])
+      # There is a problem here is there are < 1 OBR
+      # i.e. self[:OBR] could be an array
+      def observation_requests
+        Array(self[:OBR]).map{ |obr| ObservationRequest.new(obr) }
       end
 
       class PatientIdentification < SimpleDelegator
+        alias_attribute :external_id, :patient_id
+        alias_attribute :sex, :admin_sex
+        alias_attribute :dob, :patient_dob
+
         def internal_id
           patient_id_list.split("^").first
-        end
-
-        def external_id
-          patient_id
         end
 
         def name
@@ -104,14 +107,6 @@ module Renalware
 
         def given_name
           patient_name[1]
-        end
-
-        def sex
-          admin_sex
-        end
-
-        def dob
-          patient_dob
         end
 
         private
@@ -134,7 +129,7 @@ module Renalware
       end
 
       def to_s
-        @message_string
+        @message_string.tr("\r", "\n")
       end
     end
   end

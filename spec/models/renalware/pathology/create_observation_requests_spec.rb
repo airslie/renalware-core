@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware::Pathology
-  RSpec.describe CreateObservations do
+  RSpec.describe CreateObservationRequests do
     describe "#call" do
       it "takes no action if the patient is not found", :aggregate_failures do
         request_description = create(:pathology_request_description)
@@ -24,6 +24,8 @@ module Renalware::Pathology
         expect(patient.observations.count).to eq(1)
       end
 
+      # Return an array of param hashes (in this case just one elements as there is
+      # one request)
       def build_params(patient_id, request_description, observation_description)
         request_attrs = attributes_for(:pathology_observation_request)
           .merge(description_id: request_description.id)
@@ -34,7 +36,7 @@ module Renalware::Pathology
         params[:patient_id] = patient_id
         params[:observation_request] = request_attrs
         params[:observation_request][:observations_attributes] = [observation_attrs]
-        params
+        [params]
       end
 
       def pathology_patient(patient)

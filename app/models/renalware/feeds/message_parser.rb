@@ -7,7 +7,8 @@ module Renalware
     #
     class MessageParser
       def parse(message_string)
-        HL7Message.new(message_string)
+        lines = message_string.split("\n").join("\r")
+        HL7Message.new(lines)
       end
     end
   end

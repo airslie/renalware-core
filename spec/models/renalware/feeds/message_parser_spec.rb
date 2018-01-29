@@ -2,8 +2,11 @@ require "rails_helper"
 
 module Renalware::Feeds
   RSpec.describe MessageParser do
+    let(:message_parser) { described_class.new }
+    subject(:message){ message_parser.parse(raw_message) }
+
     describe "#parse" do
-      context "with a message with multiple observation segments" do
+      context "with a message with >1 OBR each with >1 OBX observation segments" do
         let(:raw_message) do
           # Notes:
           # - In OBX:2, TX = Text data
@@ -20,65 +23,70 @@ module Renalware::Feeds
             OBR|1|123456^PCS|09B0099478^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
             OBX|1|TX|WBC^WBC^MB||6.09|10\\S\\12/L|||||F|||200911112026||BBKA^Kenneth AMENYAH|
             OBX|2|TX|RBC^RBC^MB||4.00|10\\S\\9/L|||||F|||200911112026||BBKA^Kenneth AMENYAH|
+            OBR|2|111111111^PCS|100000000^LA|RLU^RENAL/LIVER/UREA^HM||201801251204|201801250541||||||.|201801250541|B^Blood|RABRO^Rabbit, Roger||100000000||||201801251249||HM|F
+            OBX|1|NM|NA^Sodium^HM||136|mmol/L|||||F|||201801251249||XXXXXVC01^BHI Authchecker
+            OBX|2|NM|POT^Potassium^HM||4.7|mmol/L|||||F|||201801251249||XXXXXVC01^BHI Authchecker
+            OBX|3|NM|URE^Urea^HM||6.6|mmol/L|||||F|||201801251249||XXXXXVC01^BHI Authchecker
+            NTE|1|L|This should be ignored
+            OBX|4|NM|CRE^Creatinine^HM||102|umol/L|||||F|||201801251249||XXXXXVC01^BHI Authchecker
           RAW
         end
 
-        it "returns a message" do
-          message = subject.parse(raw_message)
+        it { is_expected.to be_a(HL7Message) }
+        it { is_expected.to have_attributes(type: "ORU^R01", header_id: "1258271") }
 
-          expect(message).to be_a(HL7Message)
-        end
+        describe "#patient_identification" do
+          subject { message.patient_identification }
 
-        it "assigns the type to the message" do
-          message = subject.parse(raw_message)
-
-          expect(message.type).to eq("ORU^R01")
-        end
-
-        it "assigns the header ID to the message" do
-          message = subject.parse(raw_message)
-
-          expect(message.header_id).to eq("1258271")
-        end
-
-        it "assigns the patient identification attributes to the message", :aggregate_failures do
-          message = subject.parse(raw_message)
-
-          expect(message.type).to eq("ORU^R01")
-
-          message.patient_identification.tap do |pi|
-            expect(pi.internal_id).to eq("Z999990")
-            expect(pi.external_id).to eq("")
-            expect(pi.family_name).to eq("RABBIT")
-            expect(pi.given_name).to eq("JESSICA")
-            expect(pi.sex).to eq("F")
-            expect(pi.dob).to eq("19880924")
+          it do
+            is_expected.to have_attributes(
+              internal_id: "Z999990",
+              external_id: "",
+              family_name: "RABBIT",
+              given_name: "JESSICA",
+              sex: "F",
+              dob: "19880924")
           end
+        end
+
+        it "parses out multiple OBRs with their OBXs and ignores NTE elements" do
+          message = message_parser.parse(raw_message)
+
+          requests = message.observation_requests
+          expect(requests).to be_a(Array)
+          expect(requests.count).to eq(2)
+          expect(requests.first.observations.count).to eq(2)
+          expect(requests.last.observations.count).to eq(4)
         end
 
         it "assigns the observation request attributes to the message", :aggregate_failures do
-          message = subject.parse(raw_message)
+          message = message_parser.parse(raw_message)
 
-          message.observation_request.tap do |obr|
-            expect(obr.identifier).to eq("FBC")
-            expect(obr.ordering_provider_name).to eq("KINGS MIDWIVES")
-            expect(obr.placer_order_number).to eq("123456")
-            expect(obr.date_time).to eq("200911111841")
-          end
+          request = message.observation_requests.first
 
-          message.observation_request.observations.first.tap do |obs|
-            expect(obs.identifier).to eq("WBC")
-            expect(obs.comment).to eq("")
-            expect(obs.date_time).to eq("200911112026")
-            expect(obs.value).to eq("6.09")
-            expect(obs.units).to eq("10^12/L")
-          end
+          expect(request.identifier).to eq("FBC")
+          expect(request.ordering_provider_name).to eq("KINGS MIDWIVES")
+          expect(request.placer_order_number).to eq("123456")
+          expect(request.date_time).to eq("200911111841")
+        end
+
+        it "assigns the observation attributes" do
+          message = message_parser.parse(raw_message)
+
+          request = message.observation_requests.first
+          obs = request.observations.first
+          expect(obs.identifier).to eq("WBC")
+          expect(obs.comment).to eq("")
+          expect(obs.date_time).to eq("200911112026")
+          expect(obs.value).to eq("6.09")
+          expect(obs.units).to eq("10^12/L")
         end
 
         it "assigns the payload to the message" do
-          message = subject.parse(raw_message)
+          raw_message_without_trailing_cr = raw_message.strip
+          message = message_parser.parse(raw_message_without_trailing_cr)
 
-          expect(message.to_s).to eq(raw_message)
+          expect(message.to_s).to eq(raw_message_without_trailing_cr)
         end
       end
 
@@ -95,9 +103,9 @@ module Renalware::Feeds
         end
 
         it "returns observations as a collection" do
-          message = subject.parse(raw_message)
+          message = message_parser.parse(raw_message)
 
-          expect(message.observation_request.observations).to be_a(Array)
+          expect(message.observation_requests.first.observations).to be_a(Array)
         end
       end
     end
