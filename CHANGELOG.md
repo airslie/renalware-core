@@ -9,6 +9,20 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.0.pre.rc7
+29-01-2017
+
+### Added
+- Patient Investigations
+
+### Changed
+- UKRDC XML changes
+- don't display path results on letter if letterhead forbids it
+
+### Fixed
+- support HL7 messages with > 1 OBR segment
+- set updated_at on pathology_current_observation_sets when jsonb is updated with a new result
+
 ## 2.0.0.pre.rc6
 16-01-2017
 
