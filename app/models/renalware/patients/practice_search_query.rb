@@ -12,7 +12,7 @@ module Renalware
 
         term = "%#{search_term}%"
         Practice.select(:id, :name)
-                .joins(:address)
+                .left_outer_joins(:address)
                 .where("patient_practices.name ILIKE ? OR addresses.postcode ILIKE ?", term, term)
         # .select("patient_practices.id", "patient_practices.name")
       end
