@@ -13,6 +13,15 @@ This project adheres to Semantic Versioning.
 29-01-2017
 
 ### Added
+### Changed
+- Email handling when letter approved
+
+### Fixed
+
+## 2.0.0.pre.rc7
+29-01-2017
+
+### Added
 - Patient Investigations
 
 ### Changed
