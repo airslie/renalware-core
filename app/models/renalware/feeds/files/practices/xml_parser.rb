@@ -35,50 +35,62 @@
 # If tags are encountered multiple times, their blocks will be called multiple times.
 
 require "nokogiri"
+require_dependency "renalware/feeds"
 
-class XmlParser
-  def initialize(node, &block)
-    @node = node
-    @node.each do
-      self.instance_eval(&block)
-    end
-  end
+# Note I moved XmlParse into this namespace as I was getting strange
+# 'uninitialised constant XmlParser' errors in production when it was in /lib
 
-  def name
-    @node.name
-  end
+module Renalware
+  module Feeds
+    module Files
+      module Practices
+        class XmlParser
+          def initialize(node, &block)
+            @node = node
+            @node.each do
+              self.instance_eval(&block)
+            end
+          end
 
-  def inner_xml
-    @node.inner_xml.strip
-  end
+          def name
+            @node.name
+          end
 
-  def is_start?
-    @node.node_type == Nokogiri::XML::Reader::TYPE_ELEMENT
-  end
+          def inner_xml
+            @node.inner_xml.strip
+          end
 
-  def is_end?
-    @node.node_type == Nokogiri::XML::Reader::TYPE_END_ELEMENT
-  end
+          def is_start?
+            @node.node_type == Nokogiri::XML::Reader::TYPE_ELEMENT
+          end
 
-  def attribute(attribute)
-    @node.attribute(attribute)
-  end
+          def is_end?
+            @node.node_type == Nokogiri::XML::Reader::TYPE_END_ELEMENT
+          end
 
-  def for_element(name, &block)
-    return unless self.name == name and is_start?
-    self.instance_eval(&block)
-  end
+          def attribute(attribute)
+            @node.attribute(attribute)
+          end
 
-  def inside_element(name=nil, &block)
-    return if @node.self_closing?
-    return unless name.nil? or (self.name == name and is_start?)
+          def for_element(name, &block)
+            return unless self.name == name and is_start?
+            self.instance_eval(&block)
+          end
 
-    name = @node.name
-    depth = @node.depth
+          def inside_element(name=nil, &block)
+            return if @node.self_closing?
+            return unless name.nil? or (self.name == name and is_start?)
 
-    @node.each do
-      return if self.name == name and is_end? and @node.depth == depth
-      self.instance_eval(&block)
+            name = @node.name
+            depth = @node.depth
+
+            @node.each do
+              return if self.name == name and is_end? and @node.depth == depth
+              self.instance_eval(&block)
+            end
+          end
+        end
+      end
     end
   end
 end
