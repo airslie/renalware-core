@@ -47,7 +47,7 @@ module Renalware
     config_accessor(:fallback_email_address_for_test_messages) do
       ENV["FALLBACK_EMAIL_ADDRESS_FOR_TEST_MESSAGES"]
     end
-    config_accessor(:ukrdc_sending_facility_name) { "NOT_CONFIGURED" }
+    config_accessor(:ukrdc_sending_facility_name) { ENV["UKRDC_SENDING_FACILITY_NAME"] }
   end
 
   def self.config
