@@ -7,7 +7,7 @@ module Renalware
     end
 
     def unzip
-      Dir.mktmpdir do |dir|
+      Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
         files = unzip_to_tmp_dir_and_return_pathames_array(dir)
         yield(files)
       end
