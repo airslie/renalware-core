@@ -4,7 +4,9 @@
 #   - bp
 xml = builder
 
-xml.Observations(start: Time.zone.today.iso8601, stop: Time.zone.today.iso8601) do
+# TODO: Implement start stop dates
+# xml.Observations do(start: Time.zone.today.iso8601, stop: Time.zone.today.iso8601) do
+xml.Observations do
   patient.clinic_visits.includes(:updated_by).each do |visit|
     render "clinic_visit_observation",
            visit: visit,
