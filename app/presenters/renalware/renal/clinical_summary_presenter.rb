@@ -22,7 +22,6 @@ module Renalware
       def current_problems
         @current_problems ||= @patient.problems
                                       .current
-                                      .with_patient
                                       .ordered
       end
 

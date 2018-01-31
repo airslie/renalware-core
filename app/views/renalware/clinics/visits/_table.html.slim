@@ -15,6 +15,9 @@ table.global-clinic-visits
       th.no-print
       th.col-width-medium Created by
   tbody
+    / Note we can't use cached: true yet when rendering the events collection, as each row is
+    / used in a different context and displays there slightly differently, for example showing
+    / an Edit link or Type column in certain circumstances.
     = render partial: "table_row",
              collection: clinic_visits,
              as: :clinic_visit

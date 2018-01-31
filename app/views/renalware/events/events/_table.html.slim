@@ -11,6 +11,9 @@ table.has-togglable-rows.events-table
       th.created_at.col-width-date-time= t(".date_time")
       th.created_by.col-width-medium= t(".created_by")
   tbody
+    / Note we can't use cached: true yet when rendering the events collection, as each row is
+    / used in a different context and displays there slightly differently, for example showing
+    / an Edit link or Type column in certain circumstances.
     = render partial: "renalware/events/events/event",
              collection: events,
              locals: { exclude_type_column: local_assigns[:exclude_type_column],
