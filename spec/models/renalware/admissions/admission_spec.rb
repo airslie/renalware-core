@@ -1,5 +1,4 @@
 require "rails_helper"
-require_dependency "models/renalware/concerns/accountable"
 
 RSpec.describe Renalware::Admissions::Admission, type: :model do
   include PatientsSpecHelper
@@ -11,11 +10,8 @@ RSpec.describe Renalware::Admissions::Admission, type: :model do
   it { is_expected.to belong_to(:patient) }
   it { is_expected.to belong_to(:hospital_ward) }
   it { is_expected.to belong_to(:modality_at_admission) }
-  it_behaves_like "Accountable"
-
-  it "is paranoid" do
-    expect(described_class).to respond_to(:deleted)
-  end
+  it_behaves_like "an Accountable model"
+  it_behaves_like "a Paranoid model"
 
   let(:modality_desc) { create(:hd_modality_description) }
   let(:user) { create(:user) }

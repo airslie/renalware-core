@@ -3,6 +3,8 @@ require "rails_helper"
 module Renalware
   module Patients
     describe Bookmark do
+      it_behaves_like "a Paranoid model"
+
       describe "validation" do
         subject { Bookmark.new(patient: patient, user: user) }
 

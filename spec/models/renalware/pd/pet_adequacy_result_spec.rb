@@ -3,6 +3,7 @@ require "rails_helper"
 module Renalware
   module PD
     RSpec.describe PETAdequacyResult, type: :model do
+      it_behaves_like "an Accountable model"
       it { is_expected.to belong_to(:patient).touch(true) }
 
       describe "validation" do

@@ -1,8 +1,11 @@
+# rubocop:disable Metrics/ModuleLength
 require "rails_helper"
 
 module Renalware
   module Medications
     RSpec.describe Prescription, type: :model do
+      it_behaves_like "an Accountable model"
+
       describe "validations" do
         it { is_expected.to validate_presence_of :patient }
         it { is_expected.to validate_presence_of :treatable }

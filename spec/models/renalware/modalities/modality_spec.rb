@@ -2,6 +2,7 @@ require "rails_helper"
 
 module Renalware
   describe Modalities::Modality, type: :model do
+    it_behaves_like "an Accountable model"
     it { is_expected.to validate_presence_of :patient }
     it { is_expected.to validate_presence_of :started_on }
     it { is_expected.to validate_presence_of :description }

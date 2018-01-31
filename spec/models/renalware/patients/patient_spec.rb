@@ -9,6 +9,7 @@ module Renalware
     it { is_expected.to have_db_index(:ukrdc_external_id) }
 
     it_behaves_like "Personable"
+    it_behaves_like "an Accountable model"
 
     it { is_expected.to validate_uniqueness_of(:nhs_number).case_insensitive }
     it { is_expected.to validate_length_of(:nhs_number).is_at_least(10) }
