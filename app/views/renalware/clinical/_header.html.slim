@@ -1,0 +1,30 @@
+- pathology = patient.latest_pathology
+
+.clinical-header
+  dl
+    dt BP
+    dd
+      span 2.0
+      span 12-Dec-2019
+    dt Wt
+    dd
+      span 90.0kg
+      span 12-Dec-2019
+    dt Ht
+    dd
+      span 1.82m
+      span 12-Dec-2019
+    dt Ht
+    dd
+      span 1.82m
+      span 12-Dec-2019
+    dt BMI
+    dd
+      span 1.00
+      span 12-Dec-2019
+
+    - %i(hgb cre mdrd pot egfr ure).each do |code|
+      dt= t(".#{code}")
+      dd
+        span= pathology.send(:"#{code}_result")
+        span= l(pathology.send(:"#{code}_observed_at"))
