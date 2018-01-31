@@ -9,7 +9,7 @@ tr
       = link_to("Edit", edit_proc.call(event))
 
   td.nowrap= l event.created_at.to_date
-  - unless local_assigns.fetch(:exclude_type_column, false)
+  - unless local_assigns[:exclude_type_column] == true
     td= event.event_type
   td.col-width-medium-with-ellipsis
     = render partial: "renalware/events/events/cell/#{event.to_partial_path}",
