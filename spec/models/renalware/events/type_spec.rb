@@ -2,6 +2,8 @@ require "rails_helper"
 
 module Renalware::Events
   describe Type, type: :model do
+    it_behaves_like "a Paranoid model"
+
     describe "validation" do
       it { is_expected.to validate_presence_of :name }
       it { is_expected.to respond_to(:event_class_name) }

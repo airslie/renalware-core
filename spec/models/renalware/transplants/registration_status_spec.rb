@@ -3,6 +3,7 @@ require "rails_helper"
 module Renalware
   module Transplants
     describe RegistrationStatus do
+      it_behaves_like "an Accountable model"
       it { is_expected.to belong_to(:registration).touch(true) }
       it { is_expected.to validate_presence_of(:description_id) }
       it { is_expected.to validate_timeliness_of(:started_on) }

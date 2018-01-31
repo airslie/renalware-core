@@ -2,6 +2,7 @@ require "rails_helper"
 
 module Renalware
   RSpec.describe Pathology::Requests::Request, type: :model do
+    it_behaves_like "an Accountable model"
     it { is_expected.to belong_to(:patient).touch(true) }
     it { is_expected.to belong_to(:clinic) }
     it { is_expected.to belong_to(:consultant) }

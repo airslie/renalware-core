@@ -2,6 +2,7 @@ require "rails_helper"
 
 module Renalware::Events
   describe Event, type: :model do
+    it_behaves_like "an Accountable model"
     it { is_expected.to validate_presence_of(:patient) }
     it { is_expected.to validate_presence_of(:date_time) }
     it { is_expected.to validate_presence_of(:event_type_id) }

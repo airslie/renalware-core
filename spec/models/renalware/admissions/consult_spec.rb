@@ -1,8 +1,7 @@
 require "rails_helper"
-require_dependency "models/renalware/concerns/accountable"
 
 RSpec.describe Renalware::Admissions::Consult, type: :model do
-  it_behaves_like "Accountable"
+  it_behaves_like "an Accountable model"
   it { is_expected.to validate_presence_of :patient_id }
   it { is_expected.to validate_presence_of :started_on }
   it { is_expected.to validate_presence_of :description }
@@ -10,10 +9,7 @@ RSpec.describe Renalware::Admissions::Consult, type: :model do
   it { is_expected.to belong_to(:patient) }
   it { is_expected.to belong_to(:consult_site) }
   it { is_expected.to belong_to(:hospital_ward) }
-
-  it "is paranoid" do
-    expect(described_class).to respond_to(:deleted)
-  end
+  it_behaves_like "a Paranoid model"
 
   describe "validation" do
     context "when consult_site_id and hospital_ward_id are not present" do

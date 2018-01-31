@@ -9014,6 +9014,13 @@ CREATE INDEX index_access_assessments_on_updated_by_id ON access_assessments USI
 
 
 --
+-- Name: index_access_plan_types_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_access_plan_types_on_deleted_at ON access_plan_types USING btree (deleted_at);
+
+
+--
 -- Name: index_access_plans_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -9210,6 +9217,13 @@ CREATE INDEX index_admission_consults_on_created_by_id ON admission_consults USI
 
 
 --
+-- Name: index_admission_consults_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_consults_on_deleted_at ON admission_consults USING btree (deleted_at);
+
+
+--
 -- Name: index_admission_consults_on_hospital_ward_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -9364,6 +9378,13 @@ CREATE INDEX index_clinical_allergies_on_created_by_id ON clinical_allergies USI
 
 
 --
+-- Name: index_clinical_allergies_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinical_allergies_on_deleted_at ON clinical_allergies USING btree (deleted_at);
+
+
+--
 -- Name: index_clinical_allergies_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -9469,6 +9490,20 @@ CREATE UNIQUE INDEX index_drug_types_drugs_on_drug_id_and_drug_type_id ON drug_t
 
 
 --
+-- Name: index_drugs_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_drugs_on_deleted_at ON drugs USING btree (deleted_at);
+
+
+--
+-- Name: index_event_types_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_event_types_on_deleted_at ON event_types USING btree (deleted_at);
+
+
+--
 -- Name: index_event_types_on_slug; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -9536,6 +9571,13 @@ CREATE INDEX index_feed_files_on_file_type_id ON feed_files USING btree (file_ty
 --
 
 CREATE INDEX index_feed_files_on_updated_by_id ON feed_files USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_cannulation_types_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_cannulation_types_on_deleted_at ON hd_cannulation_types USING btree (deleted_at);
 
 
 --
@@ -9802,6 +9844,13 @@ CREATE UNIQUE INDEX index_hd_profiles_on_active_and_patient_id ON hd_profiles US
 --
 
 CREATE INDEX index_hd_profiles_on_created_by_id ON hd_profiles USING btree (created_by_id);
+
+
+--
+-- Name: index_hd_profiles_on_deactivated_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_profiles_on_deactivated_at ON hd_profiles USING btree (deactivated_at);
 
 
 --
@@ -10379,6 +10428,13 @@ CREATE INDEX index_messaging_receipts_on_recipient_id ON messaging_receipts USIN
 
 
 --
+-- Name: index_modality_descriptions_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_modality_descriptions_on_deleted_at ON modality_descriptions USING btree (deleted_at);
+
+
+--
 -- Name: index_modality_descriptions_on_id_and_type; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -10600,6 +10656,13 @@ CREATE INDEX index_pathology_requests_requests_on_updated_by_id ON pathology_req
 --
 
 CREATE INDEX index_patient_alerts_on_created_by_id ON patient_alerts USING btree (created_by_id);
+
+
+--
+-- Name: index_patient_alerts_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_alerts_on_deleted_at ON patient_alerts USING btree (deleted_at);
 
 
 --
@@ -10981,6 +11044,13 @@ CREATE INDEX index_pd_regimes_on_system_id ON pd_regimes USING btree (system_id)
 
 
 --
+-- Name: index_pd_systems_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_systems_on_deleted_at ON pd_systems USING btree (deleted_at);
+
+
+--
 -- Name: index_pd_systems_on_pd_type; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -11205,6 +11275,13 @@ CREATE INDEX index_research_studies_on_created_by_id ON research_studies USING b
 
 
 --
+-- Name: index_research_studies_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_research_studies_on_deleted_at ON research_studies USING btree (deleted_at);
+
+
+--
 -- Name: index_research_studies_on_description; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -11230,6 +11307,13 @@ CREATE INDEX index_research_studies_on_updated_by_id ON research_studies USING b
 --
 
 CREATE INDEX index_research_study_participants_on_created_by_id ON research_study_participants USING btree (created_by_id);
+
+
+--
+-- Name: index_research_study_participants_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_research_study_participants_on_deleted_at ON research_study_participants USING btree (deleted_at);
 
 
 --
@@ -14169,6 +14253,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180112151813'),
 ('20180119121243'),
 ('20180125201356'),
-('20180126142314');
+('20180126142314'),
+('20180130165803');
 
 

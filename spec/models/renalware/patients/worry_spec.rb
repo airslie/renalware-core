@@ -3,6 +3,7 @@ require "rails_helper"
 module Renalware
   module Patients
     describe Worry do
+      it_behaves_like "an Accountable model"
       it { is_expected.to respond_to(:notes) }
 
       describe "validation" do
