@@ -6,7 +6,7 @@ xml.Observation do
 
   xml.ObservationCode do
     # xml.CodingStandard "2.16.840.1.113883.4.642.2.115"
-    xml.CodingStandard "LOCAL"
+    xml.CodingStandard "PV"
     xml.Code I18n.t("loinc.#{i18n_key}.code")
     xml.Description I18n.t("loinc.#{i18n_key}.description")
   end

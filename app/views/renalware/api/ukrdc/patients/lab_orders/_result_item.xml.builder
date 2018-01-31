@@ -7,8 +7,13 @@ xml.ResultItem do
   xml.EnteredOn observation.updated_at&.iso8601
   xml.PrePost observation.pre_post(patient_is_on_hd: patient.current_modality_hd?)
   xml.ServiceId do
-    xml.CodingStandard "LOCAL"
-    xml.Code(observation.description_loinc_code || observation.description_code)
+    if observation.description_loinc_code.present?
+      xml.CodingStandard "PV"
+      xml.Code observation.description_loinc_code
+    else
+      xml.CodingStandard "LOCAL"
+      xml.Code observation.description_code
+    end
     xml.Description observation.description_name
   end
   # xml.SubId
