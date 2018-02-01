@@ -6,7 +6,7 @@ class SetPatientsSecureId < ActiveRecord::Migration[5.1]
 
     reversible do |direction|
       direction.up do
-        ActiveRecord::Base.connection.execute(
+        connection.execute(
           "DROP FUNCTION IF EXISTS generate_secure_id(integer); \
            DROP FUNCTION IF EXISTS generate_patient_secure_id();"
         )

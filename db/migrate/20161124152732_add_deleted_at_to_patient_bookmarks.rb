@@ -12,7 +12,7 @@ class AddDeletedAtToPatientBookmarks < ActiveRecord::Migration[4.2]
     # deleted_at datetime. Because NULLs don't help in the index for our un-deleted
     # scenario (deleted_at == NULL) we have to coalesce those NULLs into the same
     # valid date. This lets us have a unique index when deleted_at is NULL.
-    ActiveRecord::Base.connection.execute(
+    connection.execute(
       "CREATE UNIQUE INDEX patient_bookmarks_uniqueness
       ON patient_bookmarks
       (patient_id, user_id, COALESCE(deleted_at, '1970-01-01'));"
