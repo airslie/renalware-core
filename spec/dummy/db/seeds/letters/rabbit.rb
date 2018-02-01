@@ -39,6 +39,7 @@ module Renalware
     Letters::Letter::Draft.create!(
       patient: patient,
       event: clinics_patient.clinic_visits.first,
+      clinical: true,
       issued_on: 1.day.ago,
       description: Renalware::Letters::Description.first.text,
       salutation: "Dear Mr Rabbit",
@@ -74,6 +75,7 @@ module Renalware
       issued_on: 1.days.ago,
       pathology_timestamp: 1.days.ago,
       event: clinics_patient.clinic_visits.first,
+      clinical:true,
       description: Renalware::Letters::Description.last.text,
       main_recipient_attributes: {
         person_role: "patient"

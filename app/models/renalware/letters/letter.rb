@@ -5,6 +5,10 @@ module Renalware
     class Letter < ApplicationRecord
       include Accountable
       extend Enumerize
+      # The letterhead is the only site-specific element in the letter, so we use this
+      # to determine site-specific settings - in this case whether the letter should contain
+      # pathology. At KCH for example, Darren Valley letters should not contain recent pathology.
+      delegate :include_pathology_in_letter_body?, to: :letterhead, allow_nil: true
 
       belongs_to :event, polymorphic: true
       belongs_to :author, class_name: "User"
@@ -25,7 +29,7 @@ module Renalware
                through: :electronic_receipts,
                source: :recipient
       has_one :signature, dependent: :destroy
-      has_one :archive, foreign_key: "letter_id"
+      has_one :archive, foreign_key: "letter_id", inverse_of: :letter
       serialize :pathology_snapshot, Pathology::ObservationsJsonbSerializer
 
       accepts_nested_attributes_for :main_recipient

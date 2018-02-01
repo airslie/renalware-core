@@ -7,6 +7,7 @@ module Renalware
       it { is_expected.to validate_presence_of(:unit_info) }
       it { is_expected.to validate_presence_of(:trust_name) }
       it { is_expected.to validate_presence_of(:trust_caption) }
+      it { is_expected.to respond_to(:include_pathology_in_letter_body?) }
     end
   end
 end
