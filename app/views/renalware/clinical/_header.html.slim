@@ -2,27 +2,21 @@
 
 .clinical-header
   dl
-    dt BP
+    dt= t(".blood_pressure")
     dd
-      span 2.0
-      span 12-Dec-2019
-    dt Wt
+      span= patient.most_recent_blood_pressure_measurement.compact.join("/")
+      span= patient.most_recent_blood_pressure_date
+    dt= t(".weight")
     dd
-      span 90.0kg
-      span 12-Dec-2019
-    dt Ht
+      span= patient.most_recent_weight_measurement
+      span= patient.most_recent_weight_date
+    dt= t(".height")
     dd
-      span 1.82m
-      span 12-Dec-2019
-    dt Ht
+      span= patient.most_recent_height_measurement
+      span= patient.most_recent_height_date
+    dt= t(".bmi")
     dd
-      span 1.82m
-      span 12-Dec-2019
-    dt BMI
-    dd
-      span 1.00
-      span 12-Dec-2019
-
+      span= patient.bmi
     - %i(hgb cre mdrd pot egfr ure).each do |code|
       dt= t(".#{code}")
       dd

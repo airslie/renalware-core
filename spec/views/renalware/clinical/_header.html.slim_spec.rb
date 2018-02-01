@@ -1,13 +1,37 @@
 require "rails_helper"
 
 describe "renalware/clinical/header" do
-  helper(Renalware::ApplicationHelper, Renalware::PatientHelper)
-  let(:patient) { build_stubbed(:patient) }
-  let(:visit) { build_stubbed(:clinic_visit, patient: patient, weight: 21.99) }
+  let(:patient) { create(:patient) }
   let(:presenter) { Renalware::Clinical::HeaderPresenter.new(patient) }
 
+  def t(key)
+    I18n.translate(key, scope: "renalware.clinical.header")
+  end
+
   it "displays the correct latest clinical observations" do
-    # path_codes = %i(weight height blood_pressure bmi)
+    create(
+      :clinic_visit,
+      patient_id: patient.id,
+      weight: 100.99,
+      height: 1.99,
+      systolic_bp: 123,
+      diastolic_bp: 91
+    )
+    latest_pathology = double(:latest_pathology)
+    %i(hgb cre mdrd pot egfr ure).each do |code|
+      allow(latest_pathology).to receive("#{code}_result").and_return "#{code}_result"
+      allow(latest_pathology).to receive("#{code}_observed_at").and_return Time.zone.now
+    end
+    allow(presenter).to receive(:latest_pathology).and_return(latest_pathology)
+    render partial: "renalware/clinical/header", locals: { patient: presenter }
+
+    expect(rendered).to include t("blood_pressure")
+    expect(rendered).to include t("weight")
+    expect(rendered).to include t("height")
+    expect(rendered).to include t("bmi")
+    expect(rendered).to include("100.99")
+    expect(rendered).to include("1.99")
+    expect(rendered).to include("123/91")
   end
 
   it "displays the correct latest pathology" do
