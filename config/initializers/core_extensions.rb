@@ -1,6 +1,7 @@
 require "core_extensions/i18n/handle_blank_value"
 require "core_extensions/i18n/always_cascade"
 require "core_extensions/dumb_delegator"
+require "core_extensions/active_record/migration_helpers"
 require "core_extensions/active_record/sort"
 require "core_extensions/date"
 require "core_extensions/active_support/duration"

@@ -23,7 +23,7 @@ class RenameAccessPlansToAccessPlanTypes < ActiveRecord::Migration[5.0]
     add_foreign_key :access_plans, :users, column: :updated_by_id
 
     # There can only ever be one un-terminated plan per user - is the current one
-    ActiveRecord::Base.connection.execute(
+    connection.execute(
       "CREATE UNIQUE INDEX access_plan_uniqueness ON access_plans
       (patient_id, COALESCE(terminated_at, '1970-01-01'));"
     )

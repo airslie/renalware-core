@@ -2,7 +2,7 @@ class AddScheduleDiurnalPeriodIdToHDProfiles < ActiveRecord::Migration[5.1]
   def change
 
     #ActiveRecord::Base.clear_all_connections!
-    conn = ActiveRecord::Base.connection
+    conn = connection
 
     # Enable the intarray extension which is required if we want to index the days[] array
     # - see below

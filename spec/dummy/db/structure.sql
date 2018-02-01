@@ -92,7 +92,21 @@ SET search_path = renalware, pg_catalog;
 
 CREATE FUNCTION audit_view_as_json(view_name text) RETURNS json
     LANGUAGE plpgsql
-    AS $$ DECLARE result json; BEGIN EXECUTE format(' select row_to_json(t) from ( select current_timestamp as runat, (select array_to_json(array_agg(row_to_json(d)) ) from (select * from %s) d) as data) t; ', quote_ident(view_name)) into result; return result; END $$;
+    AS $$
+  DECLARE result json;
+  BEGIN
+  EXECUTE format('
+  select row_to_json(t)
+    from (
+      select
+        current_timestamp as runat,
+        (select array_to_json(array_agg(row_to_json(d))
+      )
+    from (select * from %s) d) as data) t;
+    ', quote_ident(view_name)) into result;
+  return result;
+END
+$$;
 
 
 --
@@ -102,133 +116,133 @@ CREATE FUNCTION audit_view_as_json(view_name text) RETURNS json
 CREATE FUNCTION import_gps_csv(file text) RETURNS void
     LANGUAGE plpgsql
     AS $$
-        BEGIN
-        -- Imports a egpcur.csv.csv file created from ODS.
-        -- Returns counts of changed (insert/updated) and (soft) deleted rows.
+  BEGIN
+  -- Imports a egpcur.csv.csv file created from ODS.
+  -- Returns counts of changed (insert/updated) and (soft) deleted rows.
 
-        DROP TABLE IF EXISTS tmp_gps_copy;
+  DROP TABLE IF EXISTS tmp_gps_copy;
 
-        -- Create a tmp table to hold the ODS-defined standard 27 field format into which we will insert out CSV data
-        CREATE TEMP TABLE tmp_gps_copy (
-        code text NOT NULL,
-        name text NOT NULL,
-        unused3 text,
-        unused4 text,
-        street_1 text,
-        street_2 text,
-        street_3 text,
-        town text,
-        county text,
-        postcode text,
-        unused11 text,
-        unused12 text,
-        status text, -- A = Active B = Retired C = Closed P = Proposed
-        unused14 text,
-        unused15 text,
-        unused16 text,
-        unused17 text,
-        telephone text,
-        unused19 text,
-        unused20 text,
-        unused21 text,
-        amended_record_indicator text,
-        unused23 text,
-        unused24 text,
-        unused25 text,
-        unused26 text,
-        unused27 text,
-        CONSTRAINT tmp_gps_pkey PRIMARY KEY (code)
-        );
+  -- Create a tmp table to hold the ODS-defined standard 27 field format into which we will insert out CSV data
+  CREATE TEMP TABLE tmp_gps_copy (
+  code text NOT NULL,
+  name text NOT NULL,
+  unused3 text,
+  unused4 text,
+  street_1 text,
+  street_2 text,
+  street_3 text,
+  town text,
+  county text,
+  postcode text,
+  unused11 text,
+  unused12 text,
+  status text, -- A = Active B = Retired C = Closed P = Proposed
+  unused14 text,
+  unused15 text,
+  unused16 text,
+  unused17 text,
+  telephone text,
+  unused19 text,
+  unused20 text,
+  unused21 text,
+  amended_record_indicator text,
+  unused23 text,
+  unused24 text,
+  unused25 text,
+  unused26 text,
+  unused27 text,
+  CONSTRAINT tmp_gps_pkey PRIMARY KEY (code)
+  );
 
-        -- Import the CSV file into tmp_practices - note there is no CSV header in this file
-        EXECUTE format ('COPY tmp_gps_copy FROM %L DELIMITER %L CSV ', file, ',');
+  -- Import the CSV file into tmp_practices - note there is no CSV header in this file
+  EXECUTE format ('COPY tmp_gps_copy FROM %L DELIMITER %L CSV ', file, ',');
 
-        DROP TABLE IF EXISTS tmp_gps;
-        CREATE TEMP TABLE tmp_gps AS SELECT
-          code,
-          name,
-          telephone,
-          street_1,
-          street_2,
-          street_3,
-          town,
-          county,
-          postcode,
-          left(status,1) as status from tmp_gps_copy ;
-        ALTER TABLE tmp_gps ADD PRIMARY KEY (code);
+  DROP TABLE IF EXISTS tmp_gps;
+  CREATE TEMP TABLE tmp_gps AS SELECT
+    code,
+    name,
+    telephone,
+    street_1,
+    street_2,
+    street_3,
+    town,
+    county,
+    postcode,
+    left(status,1) as status from tmp_gps_copy ;
+  ALTER TABLE tmp_gps ADD PRIMARY KEY (code);
 
-  RAISE NOTICE 'Calling cs_create_job(%)', (select status from tmp_gps limit 1);
+RAISE NOTICE 'Calling cs_create_job(%)', (select status from tmp_gps limit 1);
 
-        -- Upsert GPs
-        WITH
-         data AS (select * from  tmp_gps),
-         gp_changes AS (
-          INSERT INTO renalware.patient_primary_care_physicians (code, name, telephone, practitioner_type, created_at, updated_at)
-          SELECT code, name, telephone, 'GP', clock_timestamp(), clock_timestamp()
-          FROM data
-          ON CONFLICT (code) DO UPDATE
-            SET
-             telephone = excluded.telephone,
-             name = excluded.name,
-             updated_at = excluded.updated_at
-            where (patient_primary_care_physicians.telephone) is distinct from (excluded.telephone)
-            RETURNING code, id
-           )
+  -- Upsert GPs
+  WITH
+   data AS (select * from  tmp_gps),
+   gp_changes AS (
+    INSERT INTO renalware.patient_primary_care_physicians (code, name, telephone, practitioner_type, created_at, updated_at)
+    SELECT code, name, telephone, 'GP', clock_timestamp(), clock_timestamp()
+    FROM data
+    ON CONFLICT (code) DO UPDATE
+      SET
+       telephone = excluded.telephone,
+       name = excluded.name,
+       updated_at = excluded.updated_at
+      where (patient_primary_care_physicians.telephone) is distinct from (excluded.telephone)
+      RETURNING code, id
+     )
 
-        -- Upsert GP addresses
-        INSERT INTO renalware.addresses (
-          addressable_type,
-          addressable_id,
-          street_1,
-          street_2,
-          street_3,
-          town,
-          county,
-          postcode,
-          created_at,
-          updated_at)
-        SELECT
-          'Renalware::Patients::PrimaryCarePhysician' as addressable_type,
-          gps.id as addressable_id,
-          street_1,
-          street_2,
-          street_3,
-          town,
-          county,
-          postcode,
-          CURRENT_TIMESTAMP as created_at,
-          CURRENT_TIMESTAMP as updated_at
-          FROM data join patient_primary_care_physicians gps using(code)
-        ON CONFLICT (addressable_type, addressable_id) DO UPDATE
-          SET
-          street_1 = excluded.street_1,
-          street_2 = excluded.street_2,
-          street_3 = excluded.street_3,
-          town = excluded.town,
-          county = excluded.county,
-          postcode = excluded.postcode,
-          updated_at = clock_timestamp()
-          where (addresses.street_1, addresses.street_2, addresses.street_3)
-          is distinct from (excluded.street_1, excluded.street_2, excluded.street_3);
+  -- Upsert GP addresses
+  INSERT INTO renalware.addresses (
+    addressable_type,
+    addressable_id,
+    street_1,
+    street_2,
+    street_3,
+    town,
+    county,
+    postcode,
+    created_at,
+    updated_at)
+  SELECT
+    'Renalware::Patients::PrimaryCarePhysician' as addressable_type,
+    gps.id as addressable_id,
+    street_1,
+    street_2,
+    street_3,
+    town,
+    county,
+    postcode,
+    CURRENT_TIMESTAMP as created_at,
+    CURRENT_TIMESTAMP as updated_at
+    FROM data join patient_primary_care_physicians gps using(code)
+  ON CONFLICT (addressable_type, addressable_id) DO UPDATE
+    SET
+    street_1 = excluded.street_1,
+    street_2 = excluded.street_2,
+    street_3 = excluded.street_3,
+    town = excluded.town,
+    county = excluded.county,
+    postcode = excluded.postcode,
+    updated_at = clock_timestamp()
+    where (addresses.street_1, addresses.street_2, addresses.street_3)
+    is distinct from (excluded.street_1, excluded.street_2, excluded.street_3);
 
-        --GET DIAGNOSTICS changed_count = ROW_COUNT;
+  --GET DIAGNOSTICS changed_count = ROW_COUNT;
 
-        -- Update the deleted_at column of any gps which do not have an Active status_code
-        UPDATE renalware.patient_primary_care_physicians AS p
-        SET deleted_at = CURRENT_TIMESTAMP
-        FROM tmp_gps AS tp
-        WHERE p.code = tp.code AND tp.status IN ('C', 'P', 'B');
+  -- Update the deleted_at column of any gps which do not have an Active status_code
+  UPDATE renalware.patient_primary_care_physicians AS p
+  SET deleted_at = CURRENT_TIMESTAMP
+  FROM tmp_gps AS tp
+  WHERE p.code = tp.code AND tp.status IN ('C', 'P', 'B');
 
-        -- Un-delete any previously deleted GPs
-        UPDATE renalware.patient_primary_care_physicians AS gp
-        SET deleted_at = NULL
-        FROM tmp_gps
-        WHERE gp.code = tmp_gps.code AND tmp_gps.status IN ('A') AND gp.code NOT IN ('A');
+  -- Un-delete any previously deleted GPs
+  UPDATE renalware.patient_primary_care_physicians AS gp
+  SET deleted_at = NULL
+  FROM tmp_gps
+  WHERE gp.code = tmp_gps.code AND tmp_gps.status IN ('A') AND gp.code NOT IN ('A');
 
-        --GET DIAGNOSTICS deleted_count = ROW_COUNT;
-        --select changed_count, deleted_count;
-        END;
-       $$;
+  --GET DIAGNOSTICS deleted_count = ROW_COUNT;
+  --select changed_count, deleted_count;
+  END;
+ $$;
 
 
 --
@@ -238,52 +252,52 @@ CREATE FUNCTION import_gps_csv(file text) RETURNS void
 CREATE FUNCTION import_practice_memberships_csv(file text) RETURNS void
     LANGUAGE plpgsql
     AS $$
-          BEGIN
+  BEGIN
 
-          DROP TABLE IF EXISTS memberships_via_copy;
-          CREATE TEMP TABLE copied_memberships (
-            gp_code text NOT NULL,
-            practice_code text NOT NULL,
-            unused3 text,
-            unused4 text,
-            unused5 text,
-            unused7 text
-          );
+  DROP TABLE IF EXISTS memberships_via_copy;
+  CREATE TEMP TABLE copied_memberships (
+    gp_code text NOT NULL,
+    practice_code text NOT NULL,
+    unused3 text,
+    unused4 text,
+    unused5 text,
+    unused7 text
+  );
 
-          -- Import the CSV file into copied_memberships - note there is no CSV header in this file
-          EXECUTE format ('COPY copied_memberships FROM %L DELIMITER %L CSV ', file, ',');
+  -- Import the CSV file into copied_memberships - note there is no CSV header in this file
+  EXECUTE format ('COPY copied_memberships FROM %L DELIMITER %L CSV ', file, ',');
 
-          DROP TABLE IF EXISTS tmp_memberships;
-          CREATE TEMP TABLE tmp_memberships AS
-            SELECT
-              gp_code,
-              practice_code,
-              patient_primary_care_physicians.id primary_care_physician_id,
-              patient_practices.id as practice_id
-              from copied_memberships
-              INNER JOIN patient_practices on patient_practices.code = practice_code
-              INNER JOIN patient_primary_care_physicians on patient_primary_care_physicians.code = gp_code;
+  DROP TABLE IF EXISTS tmp_memberships;
+  CREATE TEMP TABLE tmp_memberships AS
+    SELECT
+      gp_code,
+      practice_code,
+      patient_primary_care_physicians.id primary_care_physician_id,
+      patient_practices.id as practice_id
+      from copied_memberships
+      INNER JOIN patient_practices on patient_practices.code = practice_code
+      INNER JOIN patient_primary_care_physicians on patient_primary_care_physicians.code = gp_code;
 
-          -- Insert any new memberships, ignoring any conflicts where the
-          -- practice_id + primary_care_physician_id already exists
-          INSERT INTO renalware.patient_practice_memberships
-            (practice_id, primary_care_physician_id, created_at, updated_at)
-          SELECT
-            practice_id,
-            primary_care_physician_id,
-            CURRENT_TIMESTAMP,
-            CURRENT_TIMESTAMP
-          FROM tmp_memberships
-          ON CONFLICT (practice_id, primary_care_physician_id) DO NOTHING;
+  -- Insert any new memberships, ignoring any conflicts where the
+  -- practice_id + primary_care_physician_id already exists
+  INSERT INTO renalware.patient_practice_memberships
+    (practice_id, primary_care_physician_id, created_at, updated_at)
+  SELECT
+    practice_id,
+    primary_care_physician_id,
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP
+  FROM tmp_memberships
+  ON CONFLICT (practice_id, primary_care_physician_id) DO NOTHING;
 
-          -- Mark as deleted any memberships not in the latest uploaded data set - ie those gps have retired or moved on
-          UPDATE patient_practice_memberships mem
-            SET deleted_at = CURRENT_TIMESTAMP
-            WHERE NOT EXISTS (select 1 FROM tmp_memberships tmem
-            WHERE tmem.practice_id = mem.practice_id AND tmem.primary_care_physician_id = mem.primary_care_physician_id);
+  -- Mark as deleted any memberships not in the latest uploaded data set - ie those gps have retired or moved on
+  UPDATE patient_practice_memberships mem
+    SET deleted_at = CURRENT_TIMESTAMP
+    WHERE NOT EXISTS (select 1 FROM tmp_memberships tmem
+    WHERE tmem.practice_id = mem.practice_id AND tmem.primary_care_physician_id = mem.primary_care_physician_id);
 
-        END;
-        $$;
+END;
+$$;
 
 
 --
@@ -293,114 +307,114 @@ CREATE FUNCTION import_practice_memberships_csv(file text) RETURNS void
 CREATE FUNCTION import_practices_csv(file text) RETURNS void
     LANGUAGE plpgsql
     AS $$
-      BEGIN
-      /*
-      Imports a practices.csv file created by parsing out an HSCOrgRefData_Full_xxxxx.xml file.
-      */
-      DROP TABLE IF EXISTS tmp_practices;
+  BEGIN
+  /*
+  Imports a practices.csv file created by parsing out an HSCOrgRefData_Full_xxxxx.xml file.
+  */
+  DROP TABLE IF EXISTS tmp_practices;
 
-      CREATE TEMP TABLE tmp_practices (
-        code text NOT NULL,
-        name text NOT NULL,
-        tel text,
-        street_1 text,
-        street_2 text,
-        street_3 text,
-        town text,
-        county text,
-        postcode text NOT NULL,
-        region text,
-        country_id integer,
-        active text NOT NULL,
-        CONSTRAINT tmp_practices_pkey PRIMARY KEY (code)
-      );
+  CREATE TEMP TABLE tmp_practices (
+    code text NOT NULL,
+    name text NOT NULL,
+    tel text,
+    street_1 text,
+    street_2 text,
+    street_3 text,
+    town text,
+    county text,
+    postcode text NOT NULL,
+    region text,
+    country_id integer,
+    active text NOT NULL,
+    CONSTRAINT tmp_practices_pkey PRIMARY KEY (code)
+  );
 
-      /* Import the CSV file into tmp_practices, ignoring the first row which is a header */
-      EXECUTE format ('COPY tmp_practices FROM %L DELIMITER %L CSV HEADER', file, ',');
+  /* Import the CSV file into tmp_practices, ignoring the first row which is a header */
+  EXECUTE format ('COPY tmp_practices FROM %L DELIMITER %L CSV HEADER', file, ',');
 
-      /* Upsert practices */
-      WITH data(
-          code,
-          name,
-          telephone,
-          street_1,
-          street_2,
-          street_3,
-          town,
-          county,
-          postcode,
-          region,
-          country_id,
-          active)
-        AS (select * from tmp_practices)
-        , practice_changes AS (
-            INSERT INTO patient_practices (code, name, telephone, created_at, updated_at)
-            SELECT code, name, telephone, clock_timestamp(), clock_timestamp()
-            FROM data
-            ON CONFLICT (code) DO UPDATE
-              SET
-                name = excluded.name,
-                telephone = excluded.telephone,
-                updated_at = excluded.updated_at
-              RETURNING code, id
-          )
+  /* Upsert practices */
+  WITH data(
+      code,
+      name,
+      telephone,
+      street_1,
+      street_2,
+      street_3,
+      town,
+      county,
+      postcode,
+      region,
+      country_id,
+      active)
+    AS (select * from tmp_practices)
+    , practice_changes AS (
+        INSERT INTO patient_practices (code, name, telephone, created_at, updated_at)
+        SELECT code, name, telephone, clock_timestamp(), clock_timestamp()
+        FROM data
+        ON CONFLICT (code) DO UPDATE
+          SET
+            name = excluded.name,
+            telephone = excluded.telephone,
+            updated_at = excluded.updated_at
+          RETURNING code, id
+      )
 
-      /* Upsert practice addresses */
-      INSERT INTO addresses (
-        addressable_type,
-        addressable_id,
-        street_1,
-        street_2,
-        street_3,
-        town,
-        county,
-        postcode,
-        region,
-        country_id,
-        created_at,
-        updated_at)
-      SELECT
-        'Renalware::Patients::Practice',
-        practice_changes.id,
-        street_1,
-        street_2,
-        street_3,
-        town,
-        county,
-        postcode,
-        region,
-        country_id,
-        CURRENT_TIMESTAMP,
-        CURRENT_TIMESTAMP
-        FROM data join practice_changes using(code)
-      ON CONFLICT (addressable_type, addressable_id) DO UPDATE
-        SET
-        street_1 = excluded.street_1,
-        street_2 = excluded.street_2,
-        street_3 = excluded.street_3,
-        town = excluded.town,
-        county = excluded.county,
-        postcode = excluded.postcode,
-        region = excluded.region,
-        country_id = excluded.country_id,
-        updated_at = clock_timestamp();
+  /* Upsert practice addresses */
+  INSERT INTO addresses (
+    addressable_type,
+    addressable_id,
+    street_1,
+    street_2,
+    street_3,
+    town,
+    county,
+    postcode,
+    region,
+    country_id,
+    created_at,
+    updated_at)
+  SELECT
+    'Renalware::Patients::Practice',
+    practice_changes.id,
+    street_1,
+    street_2,
+    street_3,
+    town,
+    county,
+    postcode,
+    region,
+    country_id,
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP
+    FROM data join practice_changes using(code)
+  ON CONFLICT (addressable_type, addressable_id) DO UPDATE
+    SET
+    street_1 = excluded.street_1,
+    street_2 = excluded.street_2,
+    street_3 = excluded.street_3,
+    town = excluded.town,
+    county = excluded.county,
+    postcode = excluded.postcode,
+    region = excluded.region,
+    country_id = excluded.country_id,
+    updated_at = clock_timestamp();
 
-      /* Update the deleted_at column of any practices which do not have an Active status_code */
-      UPDATE patient_practices AS p
-      SET deleted_at = CURRENT_TIMESTAMP
-      FROM tmp_practices AS tp
-      WHERE p.code = tp.code AND tp.active = 'false';
+  /* Update the deleted_at column of any practices which do not have an Active status_code */
+  UPDATE patient_practices AS p
+  SET deleted_at = CURRENT_TIMESTAMP
+  FROM tmp_practices AS tp
+  WHERE p.code = tp.code AND tp.active = 'false';
 
-      /* Set deleted_at tp NULL for active practices */
-      UPDATE patient_practices AS p
-      SET deleted_at = NULL
-      FROM tmp_practices AS tp
-      WHERE p.code = tp.code AND tp.active != 'false';
+  /* Set deleted_at tp NULL for active practices */
+  UPDATE patient_practices AS p
+  SET deleted_at = NULL
+  FROM tmp_practices AS tp
+  WHERE p.code = tp.code AND tp.active != 'false';
 
-      DROP TABLE tmp_practices;
+  DROP TABLE tmp_practices;
 
-      END;
-      $$;
+  END;
+  $$;
 
 
 --
@@ -410,30 +424,32 @@ CREATE FUNCTION import_practices_csv(file text) RETURNS void
 CREATE FUNCTION preprocess_hl7_message() RETURNS trigger
     LANGUAGE plpgsql
     AS $_$
-      BEGIN
-        /*
-        Mirth inserts a row into delayed job when a new HL7 message needs to be processed by Renalware.
-        The SQL it uses looks like this:
-          insert into renalware.delayed_jobs (handler, run_at)
-          values(E'--- !ruby/struct:FeedJob\nraw_message: |\n  ' || REPLACE(${message.rawData},E'\r',E'\n  '), NOW());
-        This works unless there is a 10^12 value in the unit of measurement segment for an OBX (e.g.
-        for WBC or HGB). Then Mirth encodes the ^ as \S\ because ^ is a significant character in Mirth
-        (field separator). Unfortunately this creates the combination
-        10\S\12 and S\12 is converted to \n when the handler's payload is loaded in by the delayed_job worker.
-        To get around this we need to convert instances of \S\ with another escape sequence eg «
-        and manually map this back to a ^ in the job handler ruby code.
+BEGIN
+  /*
+  Mirth inserts a row into delayed job when a new HL7 message needs to be processed by Renalware.
+  The SQL it uses looks like this:
+    insert into renalware.delayed_jobs (handler, run_at)
+    values(E'--- !ruby/struct:FeedJob\nraw_message: |\n  ' || REPLACE(${message.rawData},E'\r',E'\n  '), NOW());
+  This works unless there is a 10^12 value in the unit of measurement segment for an OBX (e.g.
+  for WBC or HGB). Then Mirth encodes the ^ as \S\ because ^ is a significant character in Mirth
+  (field separator). Unfortunately this creates the combination
+  10\S\12 and S\12 is converted to \n when the handler's payload is loaded in by the delayed_job worker.
+  To get around this we need to convert instances of \S\ with another escape sequence eg «
+  and manually map this back to a ^ in the job handler ruby code.
 
-        So here, if this delayed_job is destined to be picked up by a Feed job handler
-        make sure we convert the Mirth escape sequence \S\ to \\S\\
-        */
-        IF position('Feed' in NEW.handler) > 0 THEN
-          NEW.handler = replace(NEW.handler, E'\\S\\', E'\\\\S\\\\');
-        END IF;
+  So here, if this delayed_job is destined to be picked up by a Feed job handler
+  make sure we convert the Mirth escape sequence \S\ to \\S\\
+  */
+  IF position('Feed' in NEW.handler) > 0 THEN
+    NEW.handler = replace(NEW.handler, E'\\S\\', E'\\\\S\\\\');
+    NEW.created_at = now();
+    NEW.updated_at = now();
+  END IF;
 
-        RETURN NEW;
-      END
+  RETURN NEW;
+END
 
-      $_$;
+$_$;
 
 
 --
@@ -442,7 +458,31 @@ CREATE FUNCTION preprocess_hl7_message() RETURNS trigger
 
 CREATE FUNCTION refresh_all_matierialized_views(_schema text DEFAULT '*'::text, _concurrently boolean DEFAULT false) RETURNS integer
     LANGUAGE plpgsql
-    AS $$ DECLARE r RECORD; BEGIN RAISE NOTICE 'Refreshing materialized view(s) in % %', CASE WHEN _schema = '*' THEN 'all schemas' ELSE 'schema "'|| _schema || '"' END, CASE WHEN _concurrently THEN 'concurrently' ELSE '' END; IF pg_is_in_recovery() THEN RETURN 0; ELSE FOR r IN SELECT schemaname, matviewname FROM pg_matviews WHERE schemaname = _schema OR _schema = '*' LOOP RAISE NOTICE 'Refreshing materialized view "%"."%"', r.schemaname, r.matviewname; EXECUTE 'REFRESH MATERIALIZED VIEW ' || CASE WHEN _concurrently THEN 'CONCURRENTLY ' ELSE '' END || '"' || r.schemaname || '"."' || r.matviewname || '"'; END LOOP; END IF; RETURN 1; END $$;
+    AS $$
+    DECLARE
+      r RECORD;
+    BEGIN
+      RAISE NOTICE 'Refreshing materialized view(s) in % %',
+        CASE WHEN _schema = '*' THEN 'all schemas'
+        ELSE 'schema "'|| _schema || '"'
+        END,
+        CASE WHEN _concurrently
+        THEN 'concurrently'
+        ELSE '' END;
+      IF pg_is_in_recovery() THEN
+        RETURN 0;
+      ELSE
+        FOR r IN SELECT schemaname,
+                        matviewname FROM pg_matviews WHERE schemaname = _schema OR _schema = '*'
+        LOOP
+          RAISE NOTICE 'Refreshing materialized view "%"."%"', r.schemaname, r.matviewname;
+          EXECUTE 'REFRESH MATERIALIZED VIEW ' || CASE WHEN _concurrently THEN 'CONCURRENTLY '
+          ELSE '' END || '"' || r.schemaname || '"."' || r.matviewname || '"';
+        END LOOP;
+      END IF;
+      RETURN 1;
+    END
+  $$;
 
 
 --
@@ -452,36 +492,36 @@ CREATE FUNCTION refresh_all_matierialized_views(_schema text DEFAULT '*'::text, 
 CREATE FUNCTION refresh_current_observation_set(a_patient_id integer) RETURNS integer
     LANGUAGE plpgsql
     AS $$
-        BEGIN
-        with current_patient_obs as(
-            select
-              DISTINCT ON (p.id, obxd.id)
-        p.id as patient_id,
-              obxd.code,
-              json_build_object('result',(obx.result),'observed_at',obx.observed_at) as value
-              from patients p
-              inner join pathology_observation_requests obr on obr.patient_id = p.id
-              inner join pathology_observations obx on obx.request_id = obr.id
-              inner join pathology_observation_descriptions obxd on obx.description_id = obxd.id
-              where p.id = a_patient_id
-              order by p.id, obxd.id, obx.observed_at desc
-          ),
-          current_patient_obs_as_jsonb as (
-            select patient_id,
-              jsonb_object_agg(code, value) as values,
-              CURRENT_TIMESTAMP,
-              CuRRENT_TIMESTAMP
-              from current_patient_obs
-              group by patient_id order by patient_id
-          )
-          insert into pathology_current_observation_sets (patient_id, values, created_at, updated_at)
-            select * from current_patient_obs_as_jsonb
-            ON conflict (patient_id)
-            DO UPDATE
-            SET values = excluded.values, updated_at = excluded.updated_at;
-        RETURN a_patient_id;
-      END
-      $$;
+  BEGIN
+  with current_patient_obs as(
+      select
+        DISTINCT ON (p.id, obxd.id)
+  p.id as patient_id,
+        obxd.code,
+        json_build_object('result',(obx.result),'observed_at',obx.observed_at) as value
+        from patients p
+        inner join pathology_observation_requests obr on obr.patient_id = p.id
+        inner join pathology_observations obx on obx.request_id = obr.id
+        inner join pathology_observation_descriptions obxd on obx.description_id = obxd.id
+        where p.id = a_patient_id
+        order by p.id, obxd.id, obx.observed_at desc
+    ),
+    current_patient_obs_as_jsonb as (
+      select patient_id,
+        jsonb_object_agg(code, value) as values,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+        from current_patient_obs
+        group by patient_id order by patient_id
+    )
+    insert into pathology_current_observation_sets (patient_id, values, created_at, updated_at)
+      select * from current_patient_obs_as_jsonb
+      ON conflict (patient_id)
+      DO UPDATE
+      SET values = excluded.values, updated_at = excluded.updated_at;
+  RETURN a_patient_id;
+END
+$$;
 
 
 --
@@ -491,94 +531,94 @@ CREATE FUNCTION refresh_current_observation_set(a_patient_id integer) RETURNS in
 CREATE FUNCTION update_current_observation_set_from_trigger() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
-        -- TC 14/12/2017
-        -- This function is called by a trigger when a row is inserted or updated in
-        -- pathology_observations. Its purpose is to keep current_observation_sets up to date
-        -- with the latest observations for any patient.
-        -- The current_observation_sets table maintains a jsonb hash into which we insert or replace
-        -- the observation, keyed by OBX code.
-        -- e.g.  .. {"HGB": { "result": 123.1, "observed_at": '2017-12-12-01:01:01'}, ..
-        DECLARE
-          a_patient_id bigint;
-          a_code text;
-          current_observed_at timestamp;
-          current_result text;
-          new_observed_at timestamp;
-        BEGIN
-          RAISE NOTICE 'TRIGGER called on %',TG_TABLE_NAME ;
+-- TC 14/12/2017 v02
+-- This function is called by a trigger when a row is inserted or updated in
+-- pathology_observations. Its purpose is to keep current_observation_sets up to date
+-- with the latest observations for any patient.
+-- The current_observation_sets table maintains a jsonb hash into which we insert or replace
+-- the observation, keyed by OBX code.
+-- e.g.  .. {"HGB": { "result": 123.1, "observed_at": '2017-12-12-01:01:01'}, ..
+DECLARE
+  a_patient_id bigint;
+  a_code text;
+  current_observed_at timestamp;
+  current_result text;
+  new_observed_at timestamp;
+BEGIN
+  RAISE NOTICE 'TRIGGER called on %',TG_TABLE_NAME ;
 
-          /*
-          If inserting or updating, we _could_ assume the last observation to be inserted is
-          the most 'recent' one (with the latest observed_at date).
-          However the order of incoming messages is not guaranteed, so we have two options:
-          1. Refresh the entire current_observation_set for the patient
-          2. Check the current observed_at date in the jsonb and only update if we have a more
-             recent one
-          We have gone for 2.
-          */
+  /*
+  If inserting or updating, we _could_ assume the last observation to be inserted is
+  the most 'recent' one (with the latest observed_at date).
+  However the order of incoming messages is not guaranteed, so we have two options:
+  1. Refresh the entire current_observation_set for the patient
+  2. Check the current observed_at date in the jsonb and only update if we have a more
+     recent one
+  We have gone for 2.
+  */
 
-          IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') THEN
+  IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') THEN
 
-            -- Note we could re-generate the entire current pathology for the patient using
-            --  select refresh_current_observation_set(a_patient_id);
-            -- which is safer but uses more resources, so avoiding this for now.
+    -- Note we could re-generate the entire current pathology for the patient using
+    --  select refresh_current_observation_set(a_patient_id);
+    -- which is safer but uses more resources, so avoiding this for now.
 
-            -- Find and store patient_id into local variable
-            select request.patient_id into a_patient_id
-              from pathology_observation_requests request
-              where request.id = NEW.request_id;
+    -- Find and store patient_id into local variable
+    select request.patient_id into a_patient_id
+      from pathology_observation_requests request
+      where request.id = NEW.request_id;
 
-            -- Find and store the obx code into local variable
-            select description.code into a_code
-              from pathology_observation_descriptions description
-              where description.id = NEW.description_id;
+    -- Find and store the obx code into local variable
+    select description.code into a_code
+      from pathology_observation_descriptions description
+      where description.id = NEW.description_id;
 
-            -- Important! Create the observation_set if it doesn't exist yet
-            -- ignore the error if the row already exists
-            insert into pathology_current_observation_sets (patient_id)
-            values (a_patient_id)
-            ON CONFLICT DO NOTHING;
+    -- Important! Create the observation_set if it doesn't exist yet
+    -- ignore the error if the row already exists
+    insert into pathology_current_observation_sets (patient_id)
+    values (a_patient_id)
+    ON CONFLICT DO NOTHING;
 
-            -- We are going to compare the current and new observed_at dates
-            -- so need to cast them  to a timestamp
-            select cast(New.observed_at as timestamp) into new_observed_at;
+    -- We are going to compare the current and new observed_at dates
+    -- so need to cast them  to a timestamp
+    select cast(New.observed_at as timestamp) into new_observed_at;
 
-            -- Get the most recent date and value for this observation
-            -- and store to variables.
-            select
-            cast(values -> a_code ->> 'observed_at' as timestamp),
-            values -> a_code ->> 'result'
-            into current_observed_at, current_result from
-            pathology_current_observation_sets
-            where patient_id = a_patient_id;
+    -- Get the most recent date and value for this observation
+    -- and store to variables.
+    select
+    cast(values -> a_code ->> 'observed_at' as timestamp),
+    values -> a_code ->> 'result'
+    into current_observed_at, current_result from
+    pathology_current_observation_sets
+    where patient_id = a_patient_id;
 
-            -- Output some info to helps us debug. This can be removed later.
-            RAISE NOTICE '  Request id % Patient id % Code %', NEW.request_id, a_patient_id, a_code;
-            RAISE NOTICE '  Last %: % at %', a_code, current_result, current_observed_at;
-            RAISE NOTICE '  New  %: % at %', a_code, NEW.result, new_observed_at;
+    -- Output some info to helps us debug. This can be removed later.
+    RAISE NOTICE '  Request id % Patient id % Code %', NEW.request_id, a_patient_id, a_code;
+    RAISE NOTICE '  Last %: % at %', a_code, current_result, current_observed_at;
+    RAISE NOTICE '  New  %: % at %', a_code, NEW.result, new_observed_at;
 
-            IF current_observed_at IS NULL OR new_observed_at >= current_observed_at THEN
-              -- The new pathology_observation row contain a more recent result that the old one.
-              -- (note there may not be an old one if the patient has neve had this obs before).
+    IF current_observed_at IS NULL OR new_observed_at >= current_observed_at THEN
+      -- The new pathology_observation row contain a more recent result that the old one.
+      -- (note there may not be an old one if the patient has neve had this obs before).
 
-              RAISE NOTICE '  Updating pathology_current_observation_sets..';
+      RAISE NOTICE '  Updating pathology_current_observation_sets..';
 
-              -- Update the values jsonb column with the new hash for this code, e.g.
-              -- .. {"HGB": { "result": 123.1, "observed_at": '2017-12-12-01:01:01'}, ..
-                    -- Note the `set values` below actually reads in the jsonb, updates it,
-                    -- and wites the whole thing back.
-              update pathology_current_observation_sets
-                set updated_at = CURRENT_TIMESTAMP,
-                  values = jsonb_set(
-                  values,
-                  ('{'||a_code||'}')::text[], -- defined in the fn path::text[]
-                  jsonb_build_object('result', NEW.result, 'observed_at', new_observed_at),
-                  true)
-                where patient_id = a_patient_id;
-            END IF;
-          END IF;
-          RETURN NULL ;
-        END $$;
+      -- Update the values jsonb column with the new hash for this code, e.g.
+      -- .. {"HGB": { "result": 123.1, "observed_at": '2017-12-12-01:01:01'}, ..
+            -- Note the `set values` below actually reads in the jsonb, updates it,
+            -- and wites the whole thing back.
+      update pathology_current_observation_sets
+        set updated_at = CURRENT_TIMESTAMP,
+          values = jsonb_set(
+          values,
+          ('{'||a_code||'}')::text[], -- defined in the fn path::text[]
+          jsonb_build_object('result', NEW.result, 'observed_at', new_observed_at),
+          true)
+        where patient_id = a_patient_id;
+    END IF;
+  END IF;
+  RETURN NULL ;
+END $$;
 
 
 SET search_path = public, pg_catalog;
@@ -14254,6 +14294,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180119121243'),
 ('20180125201356'),
 ('20180126142314'),
-('20180130165803');
+('20180130165803'),
+('20180201090444');
 
 
