@@ -24,7 +24,7 @@ RSpec.describe "Simulation of Mirth inserting an HL7 message into delayed_jobs" 
     ActiveRecord::Base.connection.execute(sql)
   end
 
-  describe "postgres trigger 'update_current_observation_set_trigger'" do
+  describe "postgres trigger 'feed_messages_preprocessing_trigger'" do
     let(:expected_obx_preprocessed_by_trigger) { "OBX|1|TX|WBC^WBC^MB||6.09|10\\\\S\\\\12/L|" }
 
     it "replaces \S\ with \\S\\ when the handler+message are inserted into delayed_jobs" do
@@ -36,10 +36,17 @@ RSpec.describe "Simulation of Mirth inserting an HL7 message into delayed_jobs" 
       before { toggle_all_triggers(:off) }
       after { toggle_all_triggers(:on) }
 
-      it "does not replace anything - i.e. the trigger works" do
+      it "does not replace anything - i.e. we know the trigger was working" do
         simulate_mirth_inserting_a_new_hl7_message_into_delayed_jobs
         expect(Delayed::Job.first.handler).not_to include(expected_obx_preprocessed_by_trigger)
       end
+    end
+
+    it "replaces \S\ with \\S\\ when the handler+message are inserted into delayed_jobs" do
+      simulate_mirth_inserting_a_new_hl7_message_into_delayed_jobs
+
+      expect(Delayed::Job.first.created_at).not_to be_nil
+      expect(Delayed::Job.first.updated_at).not_to be_nil
     end
   end
 end
