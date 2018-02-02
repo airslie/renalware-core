@@ -8,23 +8,23 @@ describe Renalware::Clinical::HeaderPresenter do
   let(:patient) { build(:patient, by: user) }
   let(:user) { create(:user) }
 
-  describe "latest_pathology" do
+  describe "current_pathology" do
     it "returns most recent results by delegating to the patient's current obs set" do
       value = "1.11"
       date = Time.zone.now.to_date
       descriptions = create_descriptions(%w(HGB PLT))
       create_observations(::Renalware::Pathology.cast_patient(patient), descriptions, result: value)
 
-      expect(presenter.latest_pathology.hgb_result).to eq(value)
-      expect(presenter.latest_pathology.hgb_observed_at).to eq(date)
+      expect(presenter.current_pathology.hgb_result).to eq(value)
+      expect(presenter.current_pathology.hgb_observed_at).to eq(date)
 
-      expect(presenter.latest_pathology.plt_result).to eq(value)
-      expect(presenter.latest_pathology.plt_observed_at).to eq(date)
+      expect(presenter.current_pathology.plt_result).to eq(value)
+      expect(presenter.current_pathology.plt_observed_at).to eq(date)
     end
   end
 
-  describe "clinical observation" do
-    describe "most_recent_weight" do
+  describe "clinical observations" do
+    describe "weight" do
       context "when there are clinic visits with weight measurements" do
         before do
           create_clinic_visit(Date.parse("2012-12-12"), weight: 103.1)
@@ -32,20 +32,20 @@ describe Renalware::Clinical::HeaderPresenter do
         end
 
         it "has the most observation" do
-          expect(presenter.most_recent_weight_measurement).to eq(103.1)
-          expect(presenter.most_recent_weight_date).to eq(Date.parse("2012-12-12"))
+          expect(presenter.weight_measurement).to eq(103.1)
+          expect(presenter.weight_date).to eq(Date.parse("2012-12-12"))
         end
       end
 
       context "when there are no clinic visits with these measurements" do
         it "date and measurement are nil" do
-          expect(presenter.most_recent_weight_measurement).to be_nil
-          expect(presenter.most_recent_weight_date).to be_nil
+          expect(presenter.weight_measurement).to be_nil
+          expect(presenter.weight_date).to be_nil
         end
       end
     end
 
-    describe "most_recent_height" do
+    describe "height" do
       context "when there are clinic visits with these measurements" do
         before do
           create_clinic_visit(Date.parse("2010-12-12"), height: 1.40)
@@ -53,15 +53,15 @@ describe Renalware::Clinical::HeaderPresenter do
         end
 
         it "has the most recent observation" do
-          expect(presenter.most_recent_height_measurement).to eq(1.41)
-          expect(presenter.most_recent_height_date).to eq(Date.parse("2012-12-12"))
+          expect(presenter.height_measurement).to eq(1.41)
+          expect(presenter.height_date).to eq(Date.parse("2012-12-12"))
         end
       end
 
       context "when there are no clinic visits with these measurements" do
         it "date and measurement are nil" do
-          expect(presenter.most_recent_height_measurement).to be_nil
-          expect(presenter.most_recent_height_date).to be_nil
+          expect(presenter.height_measurement).to be_nil
+          expect(presenter.height_date).to be_nil
         end
       end
     end
@@ -74,21 +74,21 @@ describe Renalware::Clinical::HeaderPresenter do
         end
 
         it "has the most recent observation" do
-          expect(presenter.most_recent_blood_pressure_measurement).to eq([110, 70])
-          expect(presenter.most_recent_blood_pressure_date).to eq(Date.parse("2012-12-12"))
+          expect(presenter.blood_pressure_measurement).to eq([110, 70])
+          expect(presenter.blood_pressure_date).to eq(Date.parse("2012-12-12"))
         end
       end
 
       context "when there are no clinic visits with these measurements" do
         it "date and measurement are nil" do
-          expect(presenter.most_recent_height_measurement).to be_nil
-          expect(presenter.most_recent_height_date).to be_nil
+          expect(presenter.height_measurement).to be_nil
+          expect(presenter.height_date).to be_nil
         end
       end
     end
 
     describe ".bmi" do
-      subject { presenter.bmi }
+      subject { presenter.bmi.measurement }
 
       before do
         create_clinic_visit(Date.parse("2010-12-12"), height: 1.8)
