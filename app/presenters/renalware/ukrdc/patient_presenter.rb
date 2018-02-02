@@ -5,7 +5,6 @@ module Renalware
     class PatientPresenter < SimpleDelegator
       delegate :allergies, to: :clinical_patient
       delegate :clinic_visits, to: :clinics_patient
-      delegate :observation_requests, to: :pathology_patient
       delegate :profile, to: :renal_patient, allow_nil: true
       delegate :first_seen_on, to: :profile, allow_nil: true
       alias_attribute :home_telephone, :telephone1
@@ -17,7 +16,7 @@ module Renalware
 
       def current_modality_hd?
         return false if current_modality.blank?
-        current_modality.description.is_a?(HD::ModalityDescription)
+        current_modality.description.is_a?(Renalware::HD::ModalityDescription)
       end
 
       def smoking_history
@@ -44,6 +43,13 @@ module Renalware
 
       def contact_details?
         email || home_telephone || mobile_telephone
+      end
+
+      def observation_requests
+        pathology_patient
+          .observation_requests
+          .having_observations_with_a_loinc_code
+          .where(patient_id: id)
       end
 
       private

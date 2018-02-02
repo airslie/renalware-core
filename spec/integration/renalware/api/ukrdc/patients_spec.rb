@@ -92,17 +92,26 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
 
   context "when the patient has pathology" do
     it "includes laborder/resultitems" do
-      descriptions = create_descriptions(%w(HGB PLT))
+      descriptions = create_descriptions(%w(HGB WBC))
       create_observations(::Renalware::Pathology.cast_patient(patient), descriptions)
 
       get api_ukrdc_patient_path(patient)
 
       expect(response).to be_success
 
-      validate(response.body).each do |error|
+      xml = response.body
+      validate(xml).each do |error|
         puts error.message
         fail
       end
+
+      # Lower case means here the factory has taken the code down-cased into loinc_code.
+      # So it indicates we are using the loin code and so the CodingStandard should be PV.
+      # Eventually we will move across to loinc codes properly but for now
+      # pathology_observation_description#loinc_code stores the Patient View (PV) code mapping.
+      expect(xml).to match("<Code>hgb</Code>")
+      expect(xml).to match("<Code>wbc</Code>")
+      expect(xml).to match("<CodingStandard>PV</CodingStandard>")
     end
   end
 

@@ -17,6 +17,9 @@ module Renalware
       validates :requested_at, presence: true
 
       scope :ordered, -> { order(requested_at: :desc) }
+      scope :having_observations_with_a_loinc_code, lambda {
+        joins(observations: :description).where("loinc_code is not null") # TODO: use a merge
+      }
 
       def requested_on
         requested_at.to_date
