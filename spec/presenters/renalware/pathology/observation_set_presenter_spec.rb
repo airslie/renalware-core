@@ -8,21 +8,14 @@ module Renalware
           context "when there is an observation set with one hgb observation" do
             let(:hgb) { { "result" => "123.4", "observed_at" => "2017-12-12" } }
             let(:observation_hash) { { HGB: hgb } }
-            let(:observation_set) do
+            let!(:observation_set) do
               CurrentObservationSet.new(values: ObservationsJsonbSerializer.load(observation_hash))
             end
 
             subject(:presenter) { described_class.new(observation_set) }
 
-            before do
-              # The observation_set call here is to get around a strange load problem I have not
-              # yet resolved where AllObservationCodes is not resolved until we load another
-              # class in that namespace
-              observation_set
-              expect(AllObservationCodes.instance).to receive(:all).once.times.and_return([:HGB])
-            end
-
             it "returns the whole observation using set.<obx_code>" do
+              expect(AllObservationCodes.instance).to receive(:all).once.times.and_return([:HGB])
               expect(presenter.hgb).to eq(hgb)
             end
 
