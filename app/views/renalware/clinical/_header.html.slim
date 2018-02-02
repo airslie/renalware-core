@@ -1,6 +1,6 @@
 ruby:
   header = Renalware::Clinical::HeaderPresenter.new(patient)
-  pathology = header.current_pathology
+  current_pathology = header.current_pathology
 
 .clinical-header
   dl
@@ -21,5 +21,5 @@ ruby:
 
     - %i(hgb cre mdrd pot egfr ure).each do |code|
       dt= t(".#{code}")
-      dd= pathology.send(:"#{code}_result")
-      dd.date= l(pathology.send(:"#{code}_observed_at"))
+      dd= current_pathology.send(:"#{code}_result")
+      dd.date= l(current_pathology.send(:"#{code}_observed_at"))
