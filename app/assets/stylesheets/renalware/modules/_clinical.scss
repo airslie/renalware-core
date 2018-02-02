@@ -31,3 +31,28 @@ article.clinical-allergies {
     }
   }
 }
+
+
+.clinical-header {
+  background-color: $light-grey;
+
+  dl {
+    dt, dd {
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+
+    dt {
+      font-weight: normal;
+    }
+
+    dd {
+      font-weight: bold;
+
+      &.date {
+        font-weight: normal;
+        font-style: italic;
+      }
+    }
+  }
+}

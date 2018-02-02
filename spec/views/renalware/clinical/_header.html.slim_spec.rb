@@ -17,12 +17,12 @@ describe "renalware/clinical/header" do
       systolic_bp: 123,
       diastolic_bp: 91
     )
-    latest_pathology = double(:latest_pathology)
+    current_pathology = double(:current_pathology)
     %i(hgb cre mdrd pot egfr ure).each do |code|
-      allow(latest_pathology).to receive("#{code}_result").and_return "#{code}_result"
-      allow(latest_pathology).to receive("#{code}_observed_at").and_return Time.zone.now
+      allow(current_pathology).to receive("#{code}_result").and_return "#{code}_result"
+      allow(current_pathology).to receive("#{code}_observed_at").and_return Time.zone.now
     end
-    allow(presenter).to receive(:latest_pathology).and_return(latest_pathology)
+    allow(presenter).to receive(:current_pathology).and_return(current_pathology)
     render partial: "renalware/clinical/header", locals: { patient: presenter }
 
     expect(rendered).to include t("blood_pressure")
@@ -42,9 +42,9 @@ describe "renalware/clinical/header" do
       hash[:"#{code}_observed_at"] = date
     end
 
-    latest_pathology = double(:latest_pathology, path)
+    current_pathology = double(:current_pathology, path)
 
-    allow(presenter).to receive(:latest_pathology).and_return(latest_pathology)
+    allow(presenter).to receive(:current_pathology).and_return(current_pathology)
     render partial: "renalware/clinical/header", locals: { patient: presenter }
 
     path_codes.each do |code|
@@ -54,15 +54,3 @@ describe "renalware/clinical/header" do
     end
   end
 end
-
-# Solutions
-# 1: brute force make it work with sql and ruby then augment with some caching
-# 2: use observation_set approach like path - for caching, use clinicl_obseupdaed and
-# patholog_onset_udupdated  dates (could be in patient_summary?)
-# 3: use patient summary in some way
-# 4. materialised view - NO
-# 5. View - expensive
-# it make sense to use path currentobs set
-# so whuy noa a clini obs set?
-# - risk (trigger not working - should we manually update over night also?)
-# - view is more risk free - but at cost

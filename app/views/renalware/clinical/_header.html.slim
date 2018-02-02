@@ -1,24 +1,25 @@
-- pathology = patient.latest_pathology
+ruby:
+  header = Renalware::Clinical::HeaderPresenter.new(patient)
+  pathology = header.current_pathology
 
 .clinical-header
   dl
     dt= t(".blood_pressure")
-    dd
-      span= patient.most_recent_blood_pressure_measurement.compact.join("/")
-      span= patient.most_recent_blood_pressure_date
+    dd= header.blood_pressure_measurement.compact.join("/")
+    dd.date= l(header.blood_pressure_date)
+
     dt= t(".weight")
-    dd
-      span= patient.most_recent_weight_measurement
-      span= patient.most_recent_weight_date
+    dd= header.weight_measurement
+    dd.date= l(header.weight_date)
+
     dt= t(".height")
-    dd
-      span= patient.most_recent_height_measurement
-      span= patient.most_recent_height_date
+    dd= header.height_measurement
+    dd.date= l(header.height_date)
+
     dt= t(".bmi")
-    dd
-      span= patient.bmi
+    dd= header.bmi_measurement
+
     - %i(hgb cre mdrd pot egfr ure).each do |code|
       dt= t(".#{code}")
-      dd
-        span= pathology.send(:"#{code}_result")
-        span= l(pathology.send(:"#{code}_observed_at"))
+      dd= pathology.send(:"#{code}_result")
+      dd.date= l(pathology.send(:"#{code}_observed_at"))

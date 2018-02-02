@@ -4,7 +4,6 @@ require_dependency "renalware/clinics"
 module Renalware
   module Clinics
     class ClinicVisit < ApplicationRecord
-      include MostRecentMeasurementScopes
 
       self.table_name = :clinic_visits
       has_paper_trail class_name: "Renalware::Clinics::Version"

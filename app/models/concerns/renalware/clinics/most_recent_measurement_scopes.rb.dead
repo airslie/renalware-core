@@ -8,7 +8,6 @@ module Renalware
       ClinicalObservation = Struct.new(:date, :measurement)
 
       class_methods do
-
         # Returns [date, weight]
         def most_recent_weight_for(patient)
           result = ClinicVisit
