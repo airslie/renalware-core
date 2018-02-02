@@ -2,7 +2,6 @@ require "rails_helper"
 
 describe "renalware/clinical/header" do
   let(:patient) { create(:patient) }
-  let(:presenter) { Renalware::Clinical::HeaderPresenter.new(patient) }
 
   def t(key)
     I18n.translate(key, scope: "renalware.clinical.header")
@@ -17,13 +16,7 @@ describe "renalware/clinical/header" do
       systolic_bp: 123,
       diastolic_bp: 91
     )
-    current_pathology = double(:current_pathology)
-    %i(hgb cre mdrd pot egfr ure).each do |code|
-      allow(current_pathology).to receive("#{code}_result").and_return "#{code}_result"
-      allow(current_pathology).to receive("#{code}_observed_at").and_return Time.zone.now
-    end
-    allow(presenter).to receive(:current_pathology).and_return(current_pathology)
-    render partial: "renalware/clinical/header", locals: { patient: presenter }
+    render partial: "renalware/clinical/header", locals: { patient: patient }
 
     expect(rendered).to include t("blood_pressure")
     expect(rendered).to include t("weight")
@@ -44,8 +37,9 @@ describe "renalware/clinical/header" do
 
     current_pathology = double(:current_pathology, path)
 
+    presenter = Renalware::Clinical::HeaderPresenter.new(patient)
     allow(presenter).to receive(:current_pathology).and_return(current_pathology)
-    render partial: "renalware/clinical/header", locals: { patient: presenter }
+    render partial: "renalware/clinical/header", locals: { patient: patient, header: presenter }
 
     path_codes.each do |code|
       expect(rendered).to include I18n.translate(code, scope: "renalware.clinical.header")

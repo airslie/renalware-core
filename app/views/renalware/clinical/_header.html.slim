@@ -1,5 +1,5 @@
 ruby:
-  header = Renalware::Clinical::HeaderPresenter.new(patient)
+  header = local_assigns[:header] || Renalware::Clinical::HeaderPresenter.new(patient)
   current_pathology = header.current_pathology
 
 .clinical-header
