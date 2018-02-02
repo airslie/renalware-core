@@ -2,4 +2,6 @@ article
   header
     h2 CMV DNA results
 
-  = mdm.cmvdna_pathology.table.render(mdm.cmvdna_pathology.rows)
+  = render "renalware/pathology/historical_observation_results/table",
+           table: mdm.cmvdna_pathology
+  /= mdm.cmvdna_pathology.table.render(mdm.cmvdna_pathology.rows)

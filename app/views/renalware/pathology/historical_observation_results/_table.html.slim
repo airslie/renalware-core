@@ -1,0 +1,13 @@
+table#observations
+  thead
+    tr
+      th Date
+      - table.observation_descriptions.each do |desc|
+         th(title=desc.name)= desc.code
+  tbody
+    - table.rows.each do |row|
+      tr
+        td.date= l(row.observed_on)
+        - table.observation_descriptions.each do |desc|
+          - code = desc.code
+          td(class=code.downcase)= row.result_for(code)

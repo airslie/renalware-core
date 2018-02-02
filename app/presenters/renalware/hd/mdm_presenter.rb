@@ -14,7 +14,7 @@ module Renalware
         @sessions ||= begin
           sessions = Sessions::LatestPatientSessionsQuery
                        .new(patient: patient)
-                       .call(max_sessions: 6)
+                       .call(max_sessions: 6).includes(:patient, :hospital_unit)
           CollectionPresenter.new(sessions, SessionPresenter, view_context)
         end
       end

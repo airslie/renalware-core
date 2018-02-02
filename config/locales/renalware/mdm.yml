@@ -23,8 +23,8 @@ en:
       problems:
         view_all: View All
       pathology:
-        title: Pathology
-        view: View
+        title: Recent Pathology
+        view: View All
       prescriptions:
         title: Prescriptions
         view_all: View All

@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 require_dependency "renalware/clinics"
 
 module Renalware
@@ -14,11 +15,12 @@ module Renalware
     end
 
     def pathology_for_codes(codes = nil)
-      presenter = Pathology::HistoricalObservationResults::Presenter.new
-      options = {}
-      options[:descriptions] = pathology_descriptions_for_codes(codes) if Array(codes).any?
-      Pathology::ViewObservationResults.new(pathology_patient.observations, presenter, options).call
-      OpenStruct.new(table: pathology_table_view, rows: presenter.view_model)
+      Pathology::CreateObservationsGroupedByDateTable.new(
+        patient: patient,
+        observation_descriptions: pathology_descriptions_for_codes(codes),
+        page: 1,
+        per_page: 10
+      ).call
     end
 
     def clinic_visits(limit: 6)
@@ -89,9 +91,11 @@ module Renalware
       @current_problems ||= patient.problems.current.limit(6).with_created_by.ordered
     end
 
+    # rubocop:disable Lint/UnusedMethodArgument
     def events_of_type(type: nil)
       Events::Event.for_patient(patient).includes([:created_by, :event_type]).limit(6).ordered
     end
+    # rubocop:enable Lint/UnusedMethodArgument
     alias_method :events, :events_of_type
 
     def letters
@@ -111,16 +115,20 @@ module Renalware
     private
 
     def pathology_descriptions_for_codes(codes)
-      Pathology::ObservationDescription.for(Array(codes))
+      if codes.nil?
+        Pathology::RelevantObservationDescription.all
+      else
+        Pathology::ObservationDescription.for(Array(codes))
+      end
     end
 
     def pathology_patient
       Renalware::Pathology.cast_patient(patient)
     end
 
-    def pathology_table_view
-      Pathology::HistoricalObservationResults::HTMLTableView.new(view_context)
-    end
+    # def pathology_table_view
+    #   Pathology::HistoricalObservationResults::HTMLTableView.new(view_context)
+    # end
 
     def execute_prescriptions_query(relation)
       query = Medications::PrescriptionsQuery.new(relation: relation)
@@ -128,6 +136,7 @@ module Renalware
            .with_created_by
            .with_medication_route
            .with_drugs
+           .with_classifications
            .with_termination
            .eager_load(drug: [:drug_types])
            .map { |prescrip| Medications::PrescriptionPresenter.new(prescrip) }

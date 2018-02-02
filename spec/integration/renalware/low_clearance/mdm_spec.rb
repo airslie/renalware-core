@@ -3,7 +3,10 @@ require "rails_helper"
 RSpec.describe "Low Clearance MDM", type: :feature do
   it "view an MDM" do
     patient = create(:patient, family_name: "Rabbit", local_patient_id: "KCH12345")
+    create(:pathology_observation_description, code: "HGB")
+
     login_as_clinical
+
     visit patient_low_clearance_mdm_path(patient)
 
     expect(page).to have_content(patient.to_s)

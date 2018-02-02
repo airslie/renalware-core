@@ -1,0 +1,18 @@
+/ Here we build a table of results grouped by date, but in contrast to
+/ historical results, we transpose the cols and rows so we have
+/ dates along the top and OBX codes down the left.
+table#observations
+  tr
+    th Year
+    - table.rows.each do |row|
+      th.date= row.observed_on.year
+  tr
+    th Date
+    - table.rows.each do |row|
+      th= row.observed_on.strftime("%d/%m")
+  - table.observation_descriptions.each do |desc|
+    - code = desc.code
+    tr
+      th(title=desc.name)= code
+      - table.rows.each do |row|
+        td(class=code.downcase)= row.results[code]

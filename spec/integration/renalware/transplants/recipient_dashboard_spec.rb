@@ -7,6 +7,8 @@ RSpec.describe "Viewing the Recipient Summary (Dashboard)", type: :feature do
     scenario "user follows the MDM link" do
       user = login_as_clinical
       patient = create(:transplant_patient, family_name: "Rabbit", local_patient_id: "KCH12345")
+      create(:pathology_observation_description, code: "HGB")
+      create(:pathology_observation_description, code: "CMVDNA")
       Renalware::Modalities::ChangePatientModality
         .new(patient: patient, user: user)
         .call(description: modality_description, started_on: Time.zone.now)

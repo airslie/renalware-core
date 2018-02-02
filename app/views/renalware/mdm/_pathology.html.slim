@@ -3,7 +3,9 @@
     header
       h2= t(".title")
       = link_to t(".view"),
-                patient_pathology_current_observations_path(mdm.patient),
+                patient_pathology_historical_observations_path(mdm.patient),
                 class: " button secondary left"
 
-    = mdm.pathology.table.render(mdm.pathology.rows)
+    = render "renalware/pathology/historical_observation_results/table",
+              table: mdm.pathology
+    /= mdm.pathology.table.render(mdm.pathology.rows)
