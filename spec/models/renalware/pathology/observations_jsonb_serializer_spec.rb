@@ -15,31 +15,33 @@ module Renalware
         end
 
         it "allows accessing OBX result via the code" do
-          expect(AllObservationCodes.instance).to receive(:all).once.and_return([:HGB])
           hash = ObservationsJsonbSerializer.load({ HGB: hgb })
 
           expect(hash.hgb_result).to eq(hgb["result"])
         end
 
         it "allows accessing OBX date via the code" do
-          expect(AllObservationCodes.instance).to receive(:all).once.and_return([:HGB])
           hash = ObservationsJsonbSerializer.load({ HGB: hgb })
 
           expect(hash.hgb_observed_at).to eq(Date.parse(hgb["observed_at"]))
         end
 
         context "when the code does not exist" do
-          it "raises method not defined" do
+          it "raises method not defined if accessing via code only eg :hgb" do
             hash = ObservationsJsonbSerializer.load({ HGB: hgb })
 
             expect{ hash.xyz }.to raise_error(NoMethodError)
-            expect{ hash.xyz_result }.to raise_error(NoMethodError)
-            expect{ hash.xyz_observed_at }.to raise_error(NoMethodError)
+          end
+
+          it "does not raise an error when accessed via using a suffix like _result" do
+            hash = ObservationsJsonbSerializer.load({ HGB: hgb })
+            expect{ hash.xyz_result }.not_to raise_error(NoMethodError)
+            expect{ hash.xyz_observed_at }.not_to raise_error(NoMethodError)
           end
         end
 
         context "when the hash is a string" do
-          it "works as expcted" do
+          it "works as expected" do
             expect(AllObservationCodes.instance).to receive(:all).once.and_return([:HGB])
             hash = ObservationsJsonbSerializer.load({ HGB: hgb }.to_json)
 

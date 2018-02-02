@@ -5,6 +5,8 @@ module Renalware
     # We mix this module into any database-returned jsonb hash of observations
     # (e.g. CurrentObservationSet.values and Letter.pathology_snapshot)
     module ObservationSetMethods
+      VALID_SUFFIXES = %w(_result _observed_at).freeze
+
       # Support these syntaxes
       #   values.hgb # => { result: ... observed_at: ...}
       #   values.HGB # => { result: ... observed_at: ...}
@@ -12,15 +14,14 @@ module Renalware
       #   values.hgb_observed_at # => "2017-17-01"
       # So the values has methods corresponding to the entire set of possible
       # OBX codes, and also methods to reach in and get their result and observed_at date.
-      #
-      # Note that if you get a missing method error for something like #hgb_result it means
-      # that HGB does not exist yet as an ObservationDescription so is not found in
-      # AllObservationCodes hence we can't respond to it.
       # rubocop:disable Style/MethodMissing
       def method_missing(method_name, *_args, &_block)
         code, suffix = method_parts(method_name)
-        return super unless AllObservationCodes.include?(code)
-        observation_hash_or_hash_element_for(code, suffix)
+        if VALID_SUFFIXES.include?(suffix) || AllObservationCodes.include?(code)
+          observation_hash_or_hash_element_for(code, suffix)
+        else
+          super
+        end
       end
       # rubocop:enable Style/MethodMissing
 
