@@ -2,24 +2,48 @@ ruby:
   header = local_assigns[:header] || Renalware::Clinical::HeaderPresenter.new(patient)
   current_pathology = header.current_pathology
 
-.clinical-header
-  dl
-    dt= t(".blood_pressure")
-    dd= header.blood_pressure_measurement.compact.join("/")
-    dd.date= l(header.blood_pressure_date)
-
-    dt= t(".weight")
-    dd= header.weight_measurement
-    dd.date= l(header.weight_date)
-
-    dt= t(".height")
-    dd= header.height_measurement
-    dd.date= l(header.height_date)
-
-    dt= t(".bmi")
-    dd= header.bmi_measurement
+.clinical-header.lozenge
+  ul
+    li
+      dl
+        dt= t(".blood_pressure")
+        - result = header.blood_pressure_measurement.compact.join("/")
+        - if result.present?
+          dd= result
+          dd.date= l(header.blood_pressure_date)
+        - else
+          dd.empty
+    li
+      dl
+        dt= t(".weight")
+        - result = header.weight_measurement
+        - if result.present?
+          dd= "#{result} kg"
+          dd.date= l(header.weight_date)
+        - else
+          dd.empty
+    li
+      dl
+        dt= t(".height")
+        - result = header.height_measurement
+        - if result.present?
+          dd= "#{result} m"
+          dd.date= l(header.height_date)
+        - else
+          dd.empty
+    li
+      dl
+        dt= t(".bmi")
+        dd= header.bmi_measurement
 
     - %i(hgb cre mdrd pot egfr ure).each do |code|
-      dt= t(".#{code}")
-      dd= current_pathology.send(:"#{code}_result")
-      dd.date= l(current_pathology.send(:"#{code}_observed_at"))
+      li
+        dl
+          dt= t(".#{code}")
+          - result = current_pathology.send(:"#{code}_result")
+          - if result.present?
+            dd= result
+            dd.date= l(current_pathology.send(:"#{code}_observed_at"))
+          - else
+            dd.empty
+

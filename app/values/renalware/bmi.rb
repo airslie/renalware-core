@@ -5,8 +5,8 @@ module Renalware
   #
   # Example usage:
   #   bmi = Renalware::BMI.new(height: 1.80, weight: 180)
-  #   bmi.to_f # => 55.56
-  #   bmi.to_s # => "55.56"
+  #   bmi.to_f # => 55.6
+  #   bmi.to_s # => "55.6"
   #
   class BMI
     pattr_initialize [:weight!, :height!]
@@ -14,7 +14,7 @@ module Renalware
 
     def to_f
       return unless weight && height && height > 0
-      ((weight / height) / height).round(2)
+      ((weight / height) / height).round(1)
     end
   end
 end
