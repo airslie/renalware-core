@@ -1,7 +1,7 @@
 table#patients
   thead
     tr
-      th.col-width-medium= attr_name(Renalware::Patient, :name)
+      th.col-width-large= attr_name(Renalware::Patient, :name)
       th.col-width-nhs-no NHS Number
       - Renalware.config.patient_hospital_identifiers.each_key do |key|
         th.col-width-reference-without-prefix="#{key} No"
@@ -10,7 +10,7 @@ table#patients
       th.col-width-tiny= attr_name(Renalware::Patient, :age)
       th.col-width-tiny= sort_link(search, :send_to_rpv, "RPV")
       th.col-width-tiny= sort_link(search, :send_to_renalreg, "RReg")
-      th.col-width-small Modality
+      th.col-width-medium Modality
 
   tbody
     = render partial: "patient", collection: patients
