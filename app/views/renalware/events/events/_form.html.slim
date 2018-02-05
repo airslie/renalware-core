@@ -24,8 +24,7 @@
   / The contents of this div will get replaced if a user selects an alternative
   / event type in the drop-down above. See events.js.
   #event-type-specific-inputs
-    = render partial: "renalware/events/events/inputs/#{event.to_partial_path}",
-             locals: { event: event, f: f }
+    = render partial: event.to_input_partial_path, locals: { event: event, f: f }
 
   = f.label :notes
   = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: ".event-notes")

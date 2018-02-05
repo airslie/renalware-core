@@ -5,3 +5,4 @@
 "Plasma Exchange",,
 "PD Line Change",,"pd_line_changes"
 "Investigation","Renalware::Events::Investigation","investigations"
+"Vaccination","Renalware::Virology::Vaccination","vaccinations"

@@ -8,5 +8,4 @@ tr
 = content_tag(:tr, id: "#{toggle_prefix}-quick-preview-#{event.id}", style: "display: none")
   td(colspan=4)
     .quick-preview
-      = render partial: "renalware/events/events/toggled_cell/#{event.to_partial_path}",
-               locals: { event: event }
+      = render partial: event.to_toggled_cell_partial_path, locals: { event: event }

@@ -27,5 +27,11 @@ FactoryBot.define do
       slug "investigations"
       event_class_name "Renalware::Events::Investigation"
     end
+
+    factory :vaccination_event_type do
+      name "Vaccination"
+      slug "vaccinations"
+      event_class_name "Renalware::Virology::Vaccination"
+    end
   end
 end

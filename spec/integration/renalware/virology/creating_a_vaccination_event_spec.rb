@@ -1,22 +1,21 @@
 require "rails_helper"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Creating an biopsy", type: :feature, js: true do
+RSpec.describe "Creating an vaccination", type: :feature, js: true do
   include AjaxHelpers
 
-  context "when adding a biopsy event" do
+  context "when adding a vaccination event" do
     it "captures extra data" do
       page.driver.add_headers("Referer" => root_path)
       user = login_as_clinical
       patient = create(:patient, by: user)
 
-      event_type = create(:biopsy_event_type)
+      event_type = create(:vaccination_event_type)
 
       visit new_patient_event_path(patient)
 
-      select "Renal biopsy", from: "Event type"
-      select "De Novo GN", from: "Rejection"
-      select "26-50%", from: "IFTA"
+      select "Vaccination", from: "Event type"
+      # .. other stuff here
 
       click_on "Save"
 
@@ -25,9 +24,8 @@ RSpec.describe "Creating an biopsy", type: :feature, js: true do
       event = events.first
       expect(event.event_type_id).to eq(event_type.id)
 
-      # These two fields are defined in the Events::Biopsy::Document
-      expect(event.document.result1).to eq("de_novo_gn")
-      expect(event.document.result2).to eq("from_26_to_50")
+      # Check document content here
+      # expect(...)
     end
   end
 end
