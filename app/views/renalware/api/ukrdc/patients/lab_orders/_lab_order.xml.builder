@@ -30,7 +30,7 @@ xml.LabOrder do
 
   xml.ResultItems do
     render partial: "renalware/api/ukrdc/patients/lab_orders/result_item",
-           collection: request.observations,
+           collection: request.observations.having_a_loinc_code,
            as: :observation,
            locals: { builder: builder, patient: patient }
   end

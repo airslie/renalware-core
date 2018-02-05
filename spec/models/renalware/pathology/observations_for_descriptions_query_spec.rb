@@ -15,12 +15,12 @@ module Renalware
           query = ObservationsForDescriptionsQuery.new(descriptions: target_descriptions)
           results = query.call
 
-          expect(results.map(&description_names)).to match_array(["target-1", "target-2"])
+          expect(results.map(&description_codes)).to match_array(["target-1", "target-2"])
         end
       end
 
-      def description_names
-        ->(observation) { observation.description.name }
+      def description_codes
+        ->(observation) { observation.description.code }
       end
 
       def create_patient
@@ -28,9 +28,9 @@ module Renalware
         Pathology.cast_patient(patient)
       end
 
-      def create_observations_with_descriptions(patient, *description_names)
-        description_names.map do |name|
-          description = create(:pathology_observation_description, name: name)
+      def create_observations_with_descriptions(patient, *description_codes)
+        description_codes.map do |code|
+          description = create(:pathology_observation_description, code: code)
           request = create(:pathology_observation_request, patient: patient)
           create(:pathology_observation, request: request, description: description)
 
@@ -39,7 +39,7 @@ module Renalware
       end
 
       def filter_targeted_descriptions(descriptions)
-        descriptions.select { |description| description.name.start_with?("target-") }
+        descriptions.select { |description| description.code.start_with?("target-") }
       end
     end
   end
