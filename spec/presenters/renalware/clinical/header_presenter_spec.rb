@@ -95,7 +95,7 @@ describe Renalware::Clinical::HeaderPresenter do
         create_clinic_visit(Date.parse("2012-12-12"), weight: 80)
       end
 
-      it { is_expected.to eq(35.56) }
+      it { is_expected.to eq(35.6) }
     end
 
     def create_clinic_visit(date, **args)

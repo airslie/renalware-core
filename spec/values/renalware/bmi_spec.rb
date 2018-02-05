@@ -9,7 +9,7 @@ module Renalware
       subject{ described_class.new(height: height, weight: weight).to_f }
 
       context "when height and weight are present" do
-        it { is_expected.to eq(55.56) }
+        it { is_expected.to eq(55.6) }
       end
 
       context "when height is missing" do
@@ -40,7 +40,7 @@ module Renalware
     describe ".to_s" do
       subject{ described_class.new(height: height, weight: weight).to_s }
 
-      it { is_expected.to eq("55.56") }
+      it { is_expected.to eq("55.6") }
 
       context "when height is missing" do
         let(:height) { nil }

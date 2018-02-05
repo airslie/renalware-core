@@ -19,7 +19,7 @@ describe Renalware::Clinics::ClinicVisit, type: :model do
     let(:patient) { Renalware::Clinics.cast_patient(create(:patient)) }
 
     it "is calculated from height and weight" do
-      expect(visit.bmi).to eq(28.55)
+      expect(visit.bmi).to eq(28.5)
     end
   end
 

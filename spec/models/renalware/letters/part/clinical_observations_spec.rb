@@ -24,7 +24,7 @@ module Renalware::Letters
     end
 
     it "delegates the bmi to the event" do
-      expect(part.bmi).to eq(27.78)
+      expect(part.bmi).to eq(27.8)
     end
 
     it "delegates the urine_blood to the event" do
