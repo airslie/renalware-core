@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ModuleLength
 require "rails_helper"
 
 module Renalware::Feeds
@@ -106,6 +107,26 @@ module Renalware::Feeds
           message = message_parser.parse(raw_message)
 
           expect(message.observation_requests.first.observations).to be_a(Array)
+        end
+      end
+
+      context "with a message with a 'Cancelled' message in an OBX segment" do
+        let(:raw_message) do
+          <<-RAW.strip_heredoc
+            MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
+            PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
+            PV1||Inpatient|NIBC^^^^^^^^|||||MID^KINGS MIDWIVES||||||||||NHS|HXF888888^^^Visit Number|||||||||
+            ORC|RE|^PCS|09B0099478^LA||CM||||200911111841|||MID^KINGS MIDWIVES|||||||
+            OBR|1|123456^PCS|09B0099478^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
+            OBX|1|TX|WBC^WBC^MB||##TEST CANCELLED## Insufficient specimen received||||||F|||200911112026||BBKA^Kenneth AMENYAH|
+          RAW
+        end
+
+        it "replaces the cancelled text with something more concise" do
+          obx = message.observation_requests.first.observations.first
+
+          expect(obx.value).to eq("CANCL")
+          expect(obx.comment).to eq("##TEST CANCELLED## Insufficient specimen received")
         end
       end
     end
