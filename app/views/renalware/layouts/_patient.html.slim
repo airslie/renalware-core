@@ -8,6 +8,7 @@
   .patient-content.full-screenable
     .layout-wrapper
       = render "renalware/patients/mini_profile", patient: current_patient
+      = render "renalware/clinical/header", patient: current_patient
       = render "renalware/patients/alerts/list", patient: current_patient
       .row.collapse
         - if local_assigns[:title].present?

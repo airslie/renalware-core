@@ -15,6 +15,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "AKI"
   inflect.acronym "APD"
   inflect.acronym "API"
+  inflect.acronym "BMI"
   inflect.acronym "CAPD"
   inflect.acronym "CC"
   inflect.acronym "CCs"

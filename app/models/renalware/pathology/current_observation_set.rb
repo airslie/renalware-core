@@ -37,5 +37,11 @@ module Renalware
         HashWithIndifferentAccess.new.extend(ObservationSetMethods)
       end
     end
+
+    class NullObservationSet
+      def values
+        ObservationsJsonbSerializer.load({})
+      end
+    end
   end
 end

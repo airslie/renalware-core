@@ -1,0 +1,14 @@
+en:
+  renalware:
+    clinical:
+      header:
+        blood_pressure: "BP:"
+        weight: "Wt:"
+        height: "Ht:"
+        bmi: "BMI:"
+        hgb: "HGB:"
+        cre: "Creat:"
+        pot: "Potass:"
+        egfr: "eGFR:"
+        ure: "Urea:"
+        cockroft_gault: "Cockr-Glt"

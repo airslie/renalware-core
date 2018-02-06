@@ -21,7 +21,7 @@ module Renalware
       render partial: partial, locals: { clinical_observations: part }
 
       expect(rendered).to include("BMI")
-      expect(rendered).to include("27.78")
+      expect(rendered).to include("27.8")
       expect(rendered).to include("Height")
       expect(rendered).to include("1.8 m")
       expect(rendered).to include("Weight")

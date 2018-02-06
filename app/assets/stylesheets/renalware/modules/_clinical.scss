@@ -31,3 +31,76 @@ article.clinical-allergies {
     }
   }
 }
+
+
+.clinical-header {
+  background-color: $table-border-colour;
+  padding: .2em .2em .2em .6em;
+
+  &.lozenge {
+    background-color: $white;
+    padding: .2em .3rem;
+
+    ul {
+      li {
+        padding: 0.3rem 0.3rem;
+        border: none;
+        margin: 0.1rem 0.3rem 0.2rem 0;
+        border-radius: 0.3rem;
+        background-color: $light-grey;
+      }
+    }
+
+    dl {
+      padding: 0;
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 0.9rem;
+    }
+  }
+
+
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: inline-block;
+      padding: 0;
+      border-bottom: 1px dotted $winter-sky;
+      margin: 0.2rem .6rem .2rem 0
+    }
+  }
+
+  dl {
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 0.8rem;
+
+    dt, dd {
+      padding: 0;
+      margin: 0;
+      display: inline-block;
+    }
+
+    dt {
+      font-weight: normal;
+    }
+
+    dd {
+      font-weight: bold;
+      padding-left: 0.2rem;
+
+      &.date {
+        font-weight: normal;
+        font-style: italic;
+        color: $muted-dark-grey;
+      }
+
+      &.empty {
+        display: none;
+      }
+    }
+  }
+}
