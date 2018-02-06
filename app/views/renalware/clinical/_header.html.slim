@@ -28,7 +28,6 @@ ruby:
         - result = header.height_measurement
         - if result.present?
           dd= "#{result} m"
-          dd.date= l(header.height_date)
         - else
           dd.empty
     li
@@ -36,7 +35,7 @@ ruby:
         dt= t(".bmi")
         dd= header.bmi_measurement
 
-    - %i(hgb cre mdrd pot egfr ure).each do |code|
+    - %i(hgb cre pot egfr ure).each do |code|
       li
         dl
           dt= t(".#{code}")

@@ -28,7 +28,7 @@ describe "renalware/clinical/header" do
   end
 
   it "displays the correct latest pathology" do
-    path_codes = %i(hgb cre mdrd pot egfr ure)
+    path_codes = %i(hgb cre pot egfr ure)
     date = Time.zone.now.to_date
     path = path_codes.each_with_object({}) do |code, hash|
       hash[:"#{code}_result"] = "#{code}_result"
