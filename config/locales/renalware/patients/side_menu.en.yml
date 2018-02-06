@@ -17,6 +17,7 @@ en:
           access_profiles: Access Summary (%{count})
           prescriptions: Prescriptions (%{count})
           pathology: Pathology (%{count})
+          virology: Virology (%{count})
           problems: Problems (%{count})
           modalities: Modalities (%{count})
           esrf: ESRF/Comorbidities

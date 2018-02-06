@@ -1,0 +1,14 @@
+article.vaccinations
+  header
+    h2= t(".title")
+
+    = link_to t(".add"),
+          new_patient_virology_vaccination_path(patient),
+          class: "button right"
+
+  - toggle_prefix ||= "investigation"
+
+  = render "renalware/events/events/table",
+           events: vaccinations,
+           exclude_type_column: true
+           / #edit_proc: ->(vaccination) { edit_patient_vaccination_path(patient, vaccination) },
