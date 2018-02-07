@@ -6,7 +6,9 @@ module Renalware
       include OrderedScope
       include PatientScope
 
-      BAG_VOLUMES = [1000, 1200, 1500, 1800, 2000, 2200, 2500].freeze
+      BAG_VOLUMES = [
+        500, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2200, 2500
+      ].freeze
 
       before_save :set_glucose_volume_low_strength
       before_save :set_glucose_volume_medium_strength
@@ -18,6 +20,7 @@ module Renalware
 
       private
 
+      # rubocop:disable Metrics/MethodLength
       def match_bag_type
         @match_bag_type ||= begin
           glucose_types = [[], [], []]
@@ -34,6 +37,7 @@ module Renalware
           glucose_types
         end
       end
+      # rubocop:enable Metrics/MethodLength
 
       def set_glucose_volume_low_strength
         if match_bag_type[0].empty?
