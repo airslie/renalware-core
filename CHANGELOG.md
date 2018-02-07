@@ -9,6 +9,21 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.0.pre.rc8
+06-02-2017
+
+### Added
+- Clinical grey bar on patient screens, displaying latest key results
+
+### Changed
+- Display only 10 path results on MDMs
+- Only output OBX results having a loinc_code in UKRDC XML
+- Other UKRDC XML changes
+- Table column width tweaks
+
+### Fixed
+- Add missing deleted_at indexes
+
 ## 2.0.0.pre.rc7
 29-01-2017
 
