@@ -9,7 +9,8 @@ module Renalware
       Pathology::ObservationDescription.find_or_create_by!(
         code: row["code"],
         name: row["name"],
-        measurement_unit_id: measurement_unit_id
+        measurement_unit_id: measurement_unit_id,
+        loinc_code: row["loinc_code"]
       )
     end
   end
