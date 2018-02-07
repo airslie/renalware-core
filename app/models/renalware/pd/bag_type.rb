@@ -6,6 +6,8 @@ module Renalware
       acts_as_paranoid
       extend Enumerize
 
+      scope :ordered, ->{ order(manufacturer: :asc, description: :asc) }
+
       enumerize :glucose_strength, in: { not_applicable: 0, low: 1, medium: 2, high: 3 }
 
       has_many :bags, class_name: "Renalware::PD::RegimeBag"

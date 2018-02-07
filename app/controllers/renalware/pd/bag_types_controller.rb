@@ -23,7 +23,7 @@ module Renalware
       end
 
       def index
-        bag_types = BagType.all
+        bag_types = BagType.ordered
         authorize bag_types
         render locals: { bag_types: bag_types }
       end
