@@ -110,6 +110,27 @@ $$;
 
 
 --
+-- Name: count_estimate(text); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION count_estimate(query text) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    rec   record;
+    ROWS  INTEGER;
+BEGIN
+    FOR rec IN EXECUTE 'EXPLAIN ' || query LOOP
+        ROWS := SUBSTRING(rec."QUERY PLAN" FROM ' rows=([[:digit:]]+)');
+        EXIT WHEN ROWS IS NOT NULL;
+    END LOOP;
+
+    RETURN ROWS;
+END
+$$;
+
+
+--
 -- Name: import_gps_csv(text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -557,7 +578,7 @@ BEGIN
   We have gone for 2.
   */
 
-  IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') THEN
+  IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') AND (NEW.result != 'CANCL') THEN
 
     -- Note we could re-generate the entire current pathology for the patient using
     --  select refresh_current_observation_set(a_patient_id);
@@ -14297,6 +14318,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180125201356'),
 ('20180126142314'),
 ('20180130165803'),
-('20180201090444');
+('20180201090444'),
+('20180206225525'),
+('20180207082540');
 
 
