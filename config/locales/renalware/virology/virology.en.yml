@@ -5,4 +5,14 @@ en:
         list:
           title: Vaccinations
           add: Add
-
+      dashboards:
+        actions:
+          add_vaccination: Vaccination
+  enumerize:
+    renalware/virology/vaccination/document:
+      type:
+        hbv1: HBV Vaccination 1
+        hbv2: HBV Vaccination 2
+        hbv3: HBV Vaccination 3
+        hbv4: HBV Vaccination 4
+        hbv_booster: HBV Booster

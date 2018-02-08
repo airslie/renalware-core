@@ -578,7 +578,7 @@ BEGIN
   We have gone for 2.
   */
 
-  IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') AND (NEW.result != 'CANCL') THEN
+  IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') THEN
 
     -- Note we could re-generate the entire current pathology for the patient using
     --  select refresh_current_observation_set(a_patient_id);
@@ -14363,7 +14363,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180126142314'),
 ('20180130165803'),
 ('20180201090444'),
-('20180206225525'),
 ('20180207082540');
 
 

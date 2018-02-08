@@ -1,0 +1,10 @@
+a.button.dropdown(href="#"
+                  data-dropdown="virology-options"
+                  aria-controls="virology-options"
+                  aria-expanded="false")
+  | Add...
+br
+
+ul.f-dropdown#virology-options(data-dropdown-content aria-hidden="true")
+  = dropdown_btn_item title: t(".add_vaccination"),
+                      url: new_patient_virology_vaccination_path(patient)

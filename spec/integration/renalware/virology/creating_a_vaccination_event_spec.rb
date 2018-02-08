@@ -3,6 +3,7 @@ require "test_support/ajax_helpers"
 
 RSpec.describe "Creating an vaccination", type: :feature, js: true do
   include AjaxHelpers
+  let(:event_date_time) { "08-Feb-2018 07:00" }
 
   context "when adding a vaccination event through the Events page" do
     it "captures extra data" do
@@ -14,25 +15,23 @@ RSpec.describe "Creating an vaccination", type: :feature, js: true do
 
       visit new_patient_event_path(patient)
 
+      fill_in "Date time", with: event_date_time
       select "Vaccination", from: "Event type"
       wait_for_ajax
-      fill_in "Description", with: "Desc"
-      # .. other stuff here
+      select "HBV Vaccination 1", from: "Type"
 
       click_on "Save"
 
       events = Renalware::Events::Event.for_patient(patient)
       expect(events.length).to eq(1)
       event = events.first
-      expect(event.description).to eq("Desc")
-
-      # Check document content here
-      # expect(...)
+      expect(event.document.type.text).to eq("HBV Vaccination 1")
+      expect(I18n.l(event.date_time)).to eq(event_date_time)
     end
   end
 
   context "when adding a vaccination through via the virology/vaccinations " do
-    it "works" do
+    it "captures extra data" do
       page.driver.add_headers("Referer" => root_path)
       user = login_as_clinical
       patient = create(:patient, by: user)
@@ -41,13 +40,15 @@ RSpec.describe "Creating an vaccination", type: :feature, js: true do
       visit new_patient_virology_vaccination_path(patient)
 
       wait_for_ajax
-      fill_in "Description", with: "Desc"
+      fill_in "Date time", with: event_date_time
+      select "HBV Booster", from: "Type"
       click_on "Save"
 
       events = Renalware::Virology::Vaccination.for_patient(patient)
       expect(events.length).to eq(1)
       event = events.first
-      expect(event.description).to match("Desc")
+      expect(event.document.type.text).to eq("HBV Booster")
+      expect(I18n.l(event.date_time)).to eq(event_date_time)
 
       # TODO: check we redirect back the virology dashboard
       #       (we don't atm, we go to events/)

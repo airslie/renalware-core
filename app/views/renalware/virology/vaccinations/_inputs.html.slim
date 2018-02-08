@@ -1,4 +1,4 @@
 / See Vaccination.to_partial_path etc
 / Pulled into the New Event form via a js get to EventsController#new
-
-= f.input :description, wrapper: :horizontal_medium
+= f.simple_fields_for :document, event.document do |fd|
+  = fd.input :type, wrapper: :horizontal_medium

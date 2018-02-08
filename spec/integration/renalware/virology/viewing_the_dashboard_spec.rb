@@ -11,7 +11,9 @@ RSpec.describe "Viewing the dashboard", type: :feature do
       patient: patient,
       date_time: Time.zone.parse(date),
       by: user,
-      description: "Desc"
+      document: {
+        type: :hbv1
+      }
     )
 
     visit patient_path(patient)
