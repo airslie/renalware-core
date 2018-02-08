@@ -62,7 +62,20 @@ module Renalware
       signed
     end
 
+    def generate_new_authentication_token!
+      build_authentication_token.tap do |token|
+        update_column(:authentication_token, token)
+      end
+    end
+
     private
+
+    def build_authentication_token
+      loop do
+        token = Devise.friendly_token
+        break token unless User.find_by(authentication_token: token)
+      end
+    end
 
     def approval_with_roles
       if approved? && roles.empty?

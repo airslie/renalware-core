@@ -5,6 +5,19 @@ module Renalware
   describe User, type: :model do
     it_behaves_like "Personable"
 
+    it { is_expected.to validate_presence_of(:given_name) }
+    it { is_expected.to validate_presence_of(:family_name) }
+    it { is_expected.to respond_to(:authentication_token) }
+
+    describe "#generate_new_authentication_token" do
+      it "creates a new token and saves it to the user" do
+        user = create(:user)
+        token = user.generate_new_authentication_token!
+        expect(token.length).to be >= 20
+        expect(user.reload.authentication_token).to eq(token)
+      end
+    end
+
     describe "validation" do
       it { is_expected.to validate_presence_of(:given_name) }
       it { is_expected.to validate_presence_of(:family_name) }

@@ -79,6 +79,10 @@ Renalware::Engine.routes.draw do
                 constraints: { format: :xml },
                 defaults: { format: :xml }
     end
+    resources :patients,
+              only: [:show],
+              constraints: { format: :json },
+              defaults: { format: :json }
   end
 
   namespace :research do

@@ -5587,7 +5587,8 @@ CREATE TABLE users (
     approved boolean DEFAULT false,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    telephone character varying
+    telephone character varying,
+    authentication_token character varying
 );
 
 
@@ -14365,6 +14366,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180201090444'),
 ('20180206225525'),
 ('20180207082540'),
+('20180208150629'),
 ('20180213124203'),
 ('20180213125734'),
 ('20180213171805'),
