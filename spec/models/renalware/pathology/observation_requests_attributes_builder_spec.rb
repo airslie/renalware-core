@@ -128,6 +128,42 @@ module Renalware::Pathology
           expect(params).to be_a(Array)
         end
       end
+
+      context "when the message has an OBX segment (eg WSUM) with no observation date" do
+        let(:raw_message) do
+          <<-RAW.strip_heredoc
+            MSH|^~\&|BLB|LIVE|SCM||1111111||ORU^R01|1111111|P|2.3.1|||AL
+            PID|||V1111111^^^PAS Number||SSS^SS^^^Mr||1111111|M|||s^s^^^x
+            PV1||Inpatient|DMU|||||xxx^xx, xxxx||||||||||NHS|V1111111^^^Visit Number
+            ORC|RE|0031111111^PCS|18T1111111^LA||CM||||201801221418|||xxx^xx, xxxx
+            OBR|1|0031111111^PCS|181111111^LA|GS^UNKNOWN G\T\S^BLB||201801221418|201801221418||||||haematology + 1 extra sample|201801221418|B^Blood|xxx^xx, xxxx||18T000000001||||201801251706||BLB|F
+            OBX|1|ST|GRP^Blood Group^BLB||A Rh D POSITIVE||||||F|||201801221711||BBAO^Bill Glover
+            OBX|2|ST|WSUM^Ward Unit Summary^BLB||......notes here......||||||F|||||WPBTSV5^BloodTracking
+          RAW
+        end
+
+        it "excludes those OBX segments and logs a warning" do
+          create(:pathology_request_description, code: "GS")
+          included_description = create(:pathology_observation_description, code: "GRP")
+          create(:pathology_observation_description, code: "WSUM")
+          create(:patient, local_patient_id: "V1111111")
+          logger = instance_double("Rails.logger").as_null_object
+          allow(logger).to receive(:warn).once
+
+          message = Renalware::Feeds::MessageParser.new.parse(raw_message)
+          parser = described_class.new(message, logger)
+          results = parser.parse
+
+          # Assert that WSUM was excluded
+          expect(logger).to have_received(:warn)
+          expect(results.length).to eq(1)
+          observations_to_create = results[0].dig(:observation_request, :observations_attributes)
+          expect(observations_to_create.length).to eq(1)
+          expect(
+            observations_to_create.map{ |ob| ob[:description_id] }
+          ).to eq([included_description.id])
+        end
+      end
     end
   end
 end

@@ -71,13 +71,14 @@ module Renalware
       def build_observations_params(request)
         request.observations.map do |observation|
           observation_description = find_observation_description(observation.identifier)
+          next unless validate_observation(observation, observation_description)
           {
             description_id: observation_description.id,
             observed_at: parse_time(observation.date_time),
             result: observation.value,
             comment: observation.comment
           }
-        end
+        end.compact
       end
 
       def find_request_description(code)
@@ -86,6 +87,18 @@ module Renalware
 
       def find_observation_description(code)
         ObservationDescription.find_by!(code: code)
+      end
+
+      def validate_observation(observation, observation_description)
+        if observation.date_time.blank?
+          logger.warn(
+            "Skipped observation with blank `observed_at` (date_time) "\
+            "in OBX with code #{observation_description.code}"
+          )
+          false
+        else
+          true
+        end
       end
 
       # TODO: Support searching by other local patient ids?

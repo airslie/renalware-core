@@ -11,7 +11,7 @@ RSpec.describe "Simulation of Mirth inserting an HL7 message into delayed_jobs" 
   let(:hl7_with_uom_caret_encoded_as_slash_s_slash) do
     <<-RAW.strip_heredoc
      MSH| on the the folowing OBX line is required in the this test
-     OBX|1|TX|WBC^WBC^MB||6.09|10\\S\\12/L|||||F|||200911112026||BBKA^Kenneth AMENYAH|
+     OBX|1|TX|WBC^WBC^MB||6.09|10\\S\\12/L|||||F|||200911112026||BBKA^Donald DUCK|
    RAW
   end
 
