@@ -2,34 +2,21 @@
   .row
     .columns.large-6
       #current-problems
-        = render "problems",
-                 problems: clinical_summary.current_problems,
-                 patient: patient
+        = render "problems", clinical_summary: clinical_summary
 
     .columns.large-6
       #current-prescriptions
-        = render "prescriptions",
-                 prescriptions: clinical_summary.current_prescriptions,
-                 patient: patient
+        = render "prescriptions", clinical_summary: clinical_summary
 
   .row
     .columns.large-12.xlarge-6
       #letters
-        = render "letters",
-                 letters: clinical_summary.letters,
-                 letters_count: clinical_summary.letters_count,
-                 patient: patient
+        = render "letters", clinical_summary: clinical_summary
 
     .columns.large-12.xlarge-6
       #events
-        = render "events",
-                  events: clinical_summary.current_events,
-                  current_events_count: clinical_summary.current_events_count,
-                  patient: patient
+        = render "events", clinical_summary: clinical_summary
 
     .columns.large-12.xlarge-6
       #admissions
-        = render "admissions",
-                 admissions: clinical_summary.admissions,
-                 admissions_count: clinical_summary.admissions_count,
-                 patient: patient
+        = render "admissions", clinical_summary: clinical_summary

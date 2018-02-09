@@ -1,11 +1,11 @@
 article
   header
-    h2= link_to "Events (#{current_events_count})", patient_events_path(patient)
+    h2= link_to "Events (#{clinical_summary.current_events_count})", patient_events_path(clinical_summary.patient)
 
     ul
-      li= link_to new_patient_event_path(patient), class: "button" do
+      li= link_to new_patient_event_path(clinical_summary.patient), class: "button" do
         | Add
-      li= link_to patient_events_path(patient), class: "button" do
+      li= link_to patient_events_path(clinical_summary.patient), class: "button" do
         | View All
 
-  = render "renalware/events/events/table", events: events
+  = render "renalware/events/events/table", events: clinical_summary.current_events

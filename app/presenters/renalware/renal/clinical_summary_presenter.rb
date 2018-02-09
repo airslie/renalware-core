@@ -4,6 +4,9 @@ require "collection_presenter"
 module Renalware
   module Renal
     class ClinicalSummaryPresenter
+      attr_reader :patient
+      delegate :nhs_number, to: :patient, prefix: true
+
       def initialize(patient)
         @patient = patient
       end
@@ -69,8 +72,6 @@ module Renalware
       end
 
       private
-
-      attr_reader :patient
 
       # Returns e.g. "9" or "10 of 11"
       def title_friendly_collection_count(actual:, total:)

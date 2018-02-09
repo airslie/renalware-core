@@ -1,11 +1,12 @@
 article
   header
-    h2= "Admissions (#{admissions_count})"
+    h2= "Admissions (#{clinical_summary.admissions_count})"
 
     ul
-      li= link_to admissions_admissions_path(query: { term: patient.nhs_number }), class: "button" do
+      li= link_to admissions_admissions_path(query: { term: clinical_summary.patient_nhs_number }),
+                  class: "button" do
         | View All
 
   = render "renalware/admissions/admissions/table",
-           admissions: admissions,
+           admissions: clinical_summary.admissions,
            compact: true

@@ -1,14 +1,14 @@
 article
   header
     h2
-      = link_to "Current Prescriptions (#{prescriptions.length})",
-                patient_prescriptions_path(patient)
+      = link_to "Current Prescriptions (#{clinical_summary.current_prescriptions.length})",
+                patient_prescriptions_path(clinical_summary.patient)
 
-    = link_to patient_prescriptions_path(patient), class: "button" do
+    = link_to patient_prescriptions_path(clinical_summary.patient), class: "button" do
       | Add
 
   ul.no-bullet
-    - prescriptions.each do |prescription|
+    - clinical_summary.current_prescriptions.each do |prescription|
       li class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
         = "#{prescription.drug.name}, "
         = "#{prescription.dose}, "
