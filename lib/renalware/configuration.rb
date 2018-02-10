@@ -48,6 +48,18 @@ module Renalware
       ENV["FALLBACK_EMAIL_ADDRESS_FOR_TEST_MESSAGES"]
     end
     config_accessor(:ukrdc_sending_facility_name) { ENV["UKRDC_SENDING_FACILITY_NAME"] }
+
+    # A host app can override this to add/remove/re-order the clinical summary display
+    # Note these have to be strings - they mapped to constants in ClinicalSummaryPresenter.
+    config_accessor(:clinical_summary_parts) {
+      %w(
+        Renalware::Problems::SummaryPart
+        Renalware::Medications::SummaryPart
+        Renalware::Letters::SummaryPart
+        Renalware::Events::SummaryPart
+        Renalware::Admissions::SummaryPart
+      )
+    }
   end
 
   def self.config

@@ -7,14 +7,8 @@ module Renalware
       rattr_initialize :patient
 
       # Host application may override the order or add other summary presenters
-      def summaries
-        [
-          Renalware::Problems::SummaryPart,
-          Renalware::Medications::SummaryPart,
-          Renalware::Letters::SummaryPart,
-          Renalware::Events::SummaryPart,
-          Renalware::Admissions::SummaryPart
-        ]
+      def summary_parts
+        Array(Renalware.config.clinical_summary_parts).map(&:constantize)
       end
     end
   end

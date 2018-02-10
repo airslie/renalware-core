@@ -1,8 +1,9 @@
 = within_patient_layout(title: "Clinical Summary") do
 
   .row
-    - summaries = clinical_summary.summaries.map{ |klass| klass.new(clinical_summary.patient) }
-    - summaries.each do |summary|
-      - cache_if summary.cache?, summary do
-        -# Template Dependency: renalware/events/*
-        = render summary
+    - patient = clinical_summary.patient
+    - summary_parts = clinical_summary.summary_parts.map{ |klass| klass.new(patient) }
+    / Cache each SummaryPart if it defined #cache_key
+    - summary_parts.each do |summary_part|
+      - cache_if summary_part.cache?, summary_part do
+        = render summary_part
