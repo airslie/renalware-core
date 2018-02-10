@@ -1,22 +1,8 @@
 = within_patient_layout(title: "Clinical Summary") do
-  .row
-    .columns.large-6
-      #current-problems
-        = render "problems", clinical_summary: clinical_summary
-
-    .columns.large-6
-      #current-prescriptions
-        = render "prescriptions", clinical_summary: clinical_summary
 
   .row
-    .columns.large-12.xlarge-6
-      #letters
-        = render "letters", clinical_summary: clinical_summary
-
-    .columns.large-12.xlarge-6
-      #events
-        = render "events", clinical_summary: clinical_summary
-
-    .columns.large-12.xlarge-6
-      #admissions
-        = render "admissions", clinical_summary: clinical_summary
+    - summaries = clinical_summary.summaries.map{ |klass| klass.new(clinical_summary.patient) }
+    - summaries.each do |summary|
+      - cache_if summary.cache?, summary do
+        -# Template Dependency: renalware/events/*
+        = render summary

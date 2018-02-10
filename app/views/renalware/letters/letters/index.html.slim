@@ -3,4 +3,4 @@
     = render "create_letter_button_dropdown", patient: @patient
 
 = within_patient_layout(title: "Letters") do
-  = render "table", letters: letters
+  = render "table", letters: letters, patient: @patient

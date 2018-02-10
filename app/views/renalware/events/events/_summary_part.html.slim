@@ -1,0 +1,15 @@
+.columns.large-12.xlarge-6
+  span
+  #events
+    article
+      header
+        h2= link_to "Events (#{summary_part.current_events_count})",
+                    patient_events_path(summary_part.patient)
+
+        ul
+          li= link_to new_patient_event_path(summary_part.patient), class: "button" do
+            | Add
+          li= link_to patient_events_path(summary_part.patient), class: "button" do
+            | View All
+
+      = render "renalware/events/events/table", events: summary_part.current_events

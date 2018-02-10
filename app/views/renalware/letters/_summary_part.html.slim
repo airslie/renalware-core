@@ -1,0 +1,17 @@
+.columns.large-12.xlarge-6
+  #letters
+    article
+      header
+        h2
+          = link_to "Letters (#{summary_part.letters_count})",
+                    patient_letters_letters_path(summary_part.patient)
+
+        ul
+          li= link_to patient_letters_letters_path(summary_part.patient), class: "button" do
+                | Draft letter
+          li= link_to patient_letters_letters_path(summary_part.patient), class: "button" do
+                | View All
+
+      = render "renalware/letters/letters/table",
+               letters: summary_part.letters,
+               patient: summary_part.patient
