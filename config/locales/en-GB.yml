@@ -43,6 +43,7 @@ en-GB:
       default: "%d-%b-%Y"
       long: "%a %e %b %Y"
       short: "%d %b"
+      compact: "%d-%b-%y"
     month_names:
     -
     - January

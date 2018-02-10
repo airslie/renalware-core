@@ -10,7 +10,7 @@ ruby:
         - result = header.blood_pressure_measurement.compact.join("/")
         - if result.present?
           dd= result
-          dd.date= l(header.blood_pressure_date)
+          dd.date= l(header.blood_pressure_date, format: :compact)
         - else
           dd.empty
     li
@@ -19,7 +19,7 @@ ruby:
         - result = header.weight_measurement
         - if result.present?
           dd= "#{result} kg"
-          dd.date= l(header.weight_date)
+          dd.date= l(header.weight_date, format: :compact)
         - else
           dd.empty
     li
@@ -42,6 +42,6 @@ ruby:
           - result = current_pathology.send(:"#{code}_result")
           - if result.present?
             dd= result
-            dd.date= l(current_pathology.send(:"#{code}_observed_at"))
+            dd.date= l(current_pathology.send(:"#{code}_observed_at"), format: :compact)
           - else
             dd.empty
