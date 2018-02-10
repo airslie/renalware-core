@@ -1,6 +1,6 @@
 = content_for(:actions) do
-  - if @patient.present?
-    = render "create_letter_button_dropdown", patient: @patient
+  - if patient.present?
+    = render "create_letter_button_dropdown", patient: patient
 
 = within_patient_layout(title: "Letters") do
-  = render "table", letters: letters, patient: @patient
+  = render "table", letters: letters, patient: patient

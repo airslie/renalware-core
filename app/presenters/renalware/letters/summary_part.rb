@@ -41,7 +41,7 @@ module Renalware
       end
 
       def letters_patient
-        Renalware::Letters.cast_patient(@patient)
+        Renalware::Letters.cast_patient(patient)
       end
     end
   end

@@ -4,6 +4,6 @@
     - patient = clinical_summary.patient
     - summary_parts = clinical_summary.summary_parts.map{ |klass| klass.new(patient) }
     / Cache each SummaryPart if it defined #cache_key
-    - summary_parts.each do |summary_part|
+    - summary_parts.select(&:render?).each do |summary_part|
       - cache_if summary_part.cache?, summary_part do
         = render summary_part

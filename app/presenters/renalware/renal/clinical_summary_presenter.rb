@@ -8,7 +8,7 @@ module Renalware
 
       # Host application may override the order or add other summary presenters
       def summary_parts
-        Array(Renalware.config.clinical_summary_parts).map(&:constantize)
+        Renalware.config.page_layouts[:clinical_summary].map(&:constantize)
       end
     end
   end

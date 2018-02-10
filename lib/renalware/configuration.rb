@@ -51,14 +51,16 @@ module Renalware
 
     # A host app can override this to add/remove/re-order the clinical summary display
     # Note these have to be strings - they mapped to constants in ClinicalSummaryPresenter.
-    config_accessor(:clinical_summary_parts) {
-      %w(
-        Renalware::Problems::SummaryPart
-        Renalware::Medications::SummaryPart
-        Renalware::Letters::SummaryPart
-        Renalware::Events::SummaryPart
-        Renalware::Admissions::SummaryPart
-      )
+    config_accessor(:page_layouts) {
+      {
+        clinical_summary: %w(
+          Renalware::Problems::SummaryPart
+          Renalware::Medications::SummaryPart
+          Renalware::Letters::SummaryPart
+          Renalware::Events::SummaryPart
+          Renalware::Admissions::SummaryPart
+        )
+      }
     }
   end
 

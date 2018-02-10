@@ -8,7 +8,7 @@ module Renalware
       before_action :load_patient, except: [:author]
 
       def index
-        render :index, locals: { letters: present_letters(find_letters) }
+        render :index, locals: { letters: present_letters(find_letters), patient: patient }
       end
 
       def author

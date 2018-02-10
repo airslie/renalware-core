@@ -7,7 +7,9 @@ html lang="en"
     - if defined?(page_title)
       title= page_title
 
+    = stylesheet_link_tag "application", media: :all
     = stylesheet_link_tag "renalware/application", media: :all
+
     = javascript_include_tag "renalware/modernizr"
     = csrf_meta_tag
     link(rel="apple-touch-icon" sizes="180x180" href="#{image_path('renalware/favicon/apple-touch-icon.png')}")
@@ -17,7 +19,7 @@ html lang="en"
     link(rel="mask-icon" href="#{image_path('renalware/favicon/safari-pinned-tab.svg')}" color="#5bbad5")
     meta(name="theme-color" content="#ffffff")
 
-  body(class="#{yield(:body_class)}")
+  body(class="#{ content_for?(:body_class) ? yield(:body_class) : 'page--' + controller_name }")
     #modals-wrapper
     .page
       .sticky-top

@@ -17,6 +17,10 @@ module Renalware
       cache_key.present?
     end
 
+    def render?
+      true
+    end
+
     protected
 
     def title_friendly_collection_count(actual:, total:)

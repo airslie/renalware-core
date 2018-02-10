@@ -10,8 +10,6 @@ module Renalware
 
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-    layout "renalware/layouts/application"
-
     # Expose a few attributes for use in the patient layout and its partials.
     # As a rule, we should be passing variables explicitly to all view using `locals`;
     # however, while not a fan of `helper_method`, exposing e.g. current_patient this (akin to
