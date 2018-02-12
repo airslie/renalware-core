@@ -34,6 +34,10 @@ li.heading= t(".heading")
                     path: patient_pathology_historical_observations_path(patient),
                     active_when_controller_matches: %r{renalware/pathology}
 
+= patient_menu_item title: t(".virology", count: 0),
+                    path: patient_virology_dashboard_path(patient),
+                    active_when_controller_matches: %r{renalware/virology}
+
 = patient_menu_item title: t(".prescriptions", count: summary.prescriptions_count),
                     path: patient_prescriptions_path(patient),
                     active_when_controller_matches: %r{renalware/medications}

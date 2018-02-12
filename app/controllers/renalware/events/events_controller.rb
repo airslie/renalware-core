@@ -6,6 +6,8 @@ module Renalware
     class EventsController < BaseController
       include Renalware::Concerns::Pageable
 
+      # HTML GET when rendering the new form
+      # JS GET after user selects event type, prompting us to return event-specific form fields
       def new
         save_path_to_return_to
         render locals: {

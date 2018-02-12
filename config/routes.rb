@@ -415,6 +415,14 @@ Renalware::Engine.routes.draw do
       resources :required_observations, only: :index
     end
 
+    namespace :virology do
+      resource :dashboard, only: :show, path: "/dashboard"
+
+      resources :vaccinations,
+              only: [:new, :create, :edit, :update],
+              defaults: { slug: :vaccinations }
+    end
+
     # Problems
     resources :problems, controller: "problems/problems" do
       post :sort, on: :collection

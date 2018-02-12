@@ -29,12 +29,37 @@ module Renalware
         NullObject.instance
       end
 
-      def to_partial_path
-        self.class.name.demodulize.underscore
-      end
-
       def to_s
         description
+      end
+
+      # As Events are a cross domain model, a subclass can choose to override to_partial_path etc
+      # in order to use events from another namespace for instance.
+      def to_partial_path
+        partial_for "inputs"
+      end
+      alias :to_input_partial_path :to_partial_path
+
+      def to_cell_partial_path
+        partial_for "cell"
+      end
+
+      def to_toggled_cell_partial_path
+        partial_for "toggled_cell"
+      end
+
+      def partial_for(partial_type)
+        File.join(
+          "renalware/events/events",
+          partial_type,
+          self.class.name.demodulize.underscore
+        )
+      end
+
+      private
+
+      def our_class_name
+        self.class.name.demodulize.underscore
       end
     end
   end

@@ -9,10 +9,9 @@
 // still means the ruby is interpreted and the block and its argument f are available!
 '<%= simple_form_for(event, url: new_patient_event_path(patient), as: :events_event, wrapper: "horizontal_form") do |f| %>'
   <%=
-    partial_name = "renalware/events/events/inputs/#{event.to_partial_path}"
     refresh("#event-type-specific-inputs",
-              partial: partial_name,
-              locals: { f: f, event: event })
+            partial: event.to_partial_path,
+            locals: { f: f, event: event })
   %>
 '<% end %>'
 initDatepickersIn("#event-type-specific-inputs");

@@ -578,7 +578,7 @@ BEGIN
   We have gone for 2.
   */
 
-  IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') AND (NEW.result != 'CANCL') THEN
+  IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') THEN
 
     -- Note we could re-generate the entire current pathology for the patient using
     --  select refresh_current_observation_set(a_patient_id);
@@ -6658,6 +6658,34 @@ ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
 
 
 --
+-- Name: virology_profiles; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE virology_profiles (
+    id bigint NOT NULL
+);
+
+
+--
+-- Name: virology_profiles_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE virology_profiles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: virology_profiles_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE virology_profiles_id_seq OWNED BY virology_profiles.id;
+
+
+--
 -- Name: access_assessments id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -7705,6 +7733,13 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
+
+
+--
+-- Name: virology_profiles id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY virology_profiles ALTER COLUMN id SET DEFAULT nextval('virology_profiles_id_seq'::regclass);
 
 
 SET search_path = public, pg_catalog;
@@ -8933,6 +8968,14 @@ ALTER TABLE ONLY users
 
 ALTER TABLE ONLY versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: virology_profiles virology_profiles_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY virology_profiles
+    ADD CONSTRAINT virology_profiles_pkey PRIMARY KEY (id);
 
 
 --
@@ -14315,11 +14358,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180112151813'),
 ('20180119121243'),
 ('20180121115246'),
+('20180122173922'),
 ('20180125201356'),
 ('20180126142314'),
 ('20180130165803'),
 ('20180201090444'),
-('20180206225525'),
 ('20180207082540');
 
 
