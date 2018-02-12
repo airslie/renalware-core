@@ -1,3 +1,5 @@
+require "attr_extras"
+
 module SQL
   # Example:
   #
@@ -15,18 +17,16 @@ module SQL
   #    Description.where(code: codes).order(indexed_case_stmt(:code, codes))
   #
   class IndexedCaseStmt
-    def initialize(column, items)
-      @column = column
-      @items = items
-    end
+    pattr_initialize :column, :items
 
     def generate
+      return if items.blank?
       clauses = []
-      @items.each_with_index do |item, index|
+      Array(items).each_with_index do |item, index|
         clauses << "WHEN '#{item}' THEN #{index}"
       end
 
-      "CASE #{@column} #{clauses.join(' ')} END"
+      "CASE #{column} #{clauses.join(' ')} END"
     end
   end
 end
