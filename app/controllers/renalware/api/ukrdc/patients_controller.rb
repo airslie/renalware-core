@@ -1,7 +1,7 @@
 module Renalware
   module API
     module UKRDC
-      class PatientsController < ApplicationController
+      class PatientsController < BaseController
         respond_to :xml
 
         def show
@@ -18,6 +18,7 @@ module Renalware
 
         def patient_presenter
           patient = Renalware::Patient.find_by!(secure_id: params[:id])
+          authorize patient
           Renalware::UKRDC::PatientPresenter.new(patient)
         end
       end
