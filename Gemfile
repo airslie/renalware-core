@@ -23,23 +23,23 @@ gem "devise_security_extension",
     git: "https://github.com/phatworx/devise_security_extension.git"
 
 group :test do
-  gem "capybara"
-  gem "capybara-screenshot"
-  gem "codeclimate-test-reporter", require: false # loads simplecov
+  gem "capybara", "~> 2.17.0"
+  gem "capybara-screenshot", "~> 1.0.18"
+  gem "codeclimate-test-reporter", "~> 1.0.7", require: false # loads simplecov
   gem "cucumber", "~> 3.1.0"
   gem "cucumber-rails", "~> 1.5.0", require: false # must be loaded in env.rb
-  gem "database_cleaner", require: false # for cucumber specs, no longer needed for rspec features
-  gem "factory_bot_rails"
+  gem "database_cleaner", "~> 1.6.2", require: false # for cucumber (now not needed for rspec)
+  gem "factory_bot_rails", "~> 4.8.2"
   gem "fuubar", require: false
-  gem "poltergeist"
-  gem "rails-controller-testing"
-  gem "rspec-html-matchers"
+  gem "poltergeist", "~> 1.17.0"
+  gem "rails-controller-testing", "~> 1.0.2"
+  gem "rspec-html-matchers", "~> 0.9.1"
   gem "rspec-rails", "~> 3.7.0"
-  gem "rspec_junit_formatter"
-  gem "shoulda-matchers"
-  gem "simplecov", require: false # only loaded if required
-  gem "webmock", require: false
-  gem "wisper-rspec"
+  gem "rspec_junit_formatter", "~> 0.3.0"
+  gem "shoulda-matchers", "~> 3.1.2"
+  gem "simplecov", "~> 0.15.1", require: false # only loaded if required
+  gem "webmock", "~> 3.3.0", require: false
+  gem "wisper-rspec", "~> 1.0.0"
 end
 
 group :staging do
