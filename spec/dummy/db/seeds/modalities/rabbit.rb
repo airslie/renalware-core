@@ -3,14 +3,21 @@ module Renalware
 
     rabbit = Patient.find_by(family_name: "RABBIT", given_name: "Roger")
     file_path = File.join(File.dirname(__FILE__), "rabbit_modalities.csv")
+    user = Renalware::User.first
+
+    if rabbit.current_modality.present?
+      rabbit.current_modality.terminate_by(user, on: Time.zone.now)
+    end
 
     CSV.foreach(file_path, headers: true) do |row|
       Modalities::Modality.find_or_create_by!(
         patient_id: rabbit.id,
-        description_id: row["description_id"],
-        started_on: row["started_on"],
-        ended_on: row["ended_on"],
-        created_by_id: Renalware::User.first.id)
+        description_id: row["description_id"]
+      ) do |modality|
+        modality.started_on = row["started_on"]
+        modality.ended_on = row["ended_on"]
+        modality.by = user
+      end
     end
   end
 end
