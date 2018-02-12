@@ -65,10 +65,6 @@ module Renalware
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
     config.autoload_paths += %W(#{config.root}/app/validators/concerns)
 
-    config.to_prepare do
-      Devise::SessionsController.layout "layouts/application"
-    end
-
     config.generators do |g|
       g.test_framework :rspec
       g.fixture_replacement :factory_girl, dir: "../../spec/factories"

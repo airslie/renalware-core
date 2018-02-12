@@ -2,8 +2,6 @@ module Renalware
   class Devise::SessionsController < ::Devise::SessionsController
     include Concerns::DeviseControllerMethods
 
-    layout "renalware/layouts/application"
-
     # Define the path to go to after logging in:
     # - if the user has never before logged-in, devise will take them to the root path (dashboard)
     # - if the user's session timed-out less that 30 minutes ago, we take them back to the
