@@ -44,7 +44,7 @@ describe "renalware/clinical/header" do
     path_codes.each do |code|
       expect(rendered).to include I18n.translate(code, scope: "renalware.clinical.header")
       expect(rendered).to include "#{code}_result"
-      expect(rendered).to include(I18n.l(date))
+      expect(rendered).to include(I18n.l(date, format: :compact))
     end
   end
 end
