@@ -23,6 +23,15 @@ module Renalware
     end
     attribute :referral, Referral
 
+    class Psychosocial < Document::Embedded
+      attribute :housing, String
+      attribute :social_network, String
+      attribute :care_package, String
+      attribute :other, String
+      attribute :updated_at, Date
+    end
+    attribute :psychosocial, Psychosocial
+
     class History < Document::Embedded
       attribute :alcohol, Document::Enum, enums: %i(never rarely social heavy)
       attribute :smoking, Document::Enum, enums: %i(no ex yes) # RRSMOKING %i(never former current)

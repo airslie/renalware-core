@@ -112,6 +112,13 @@ RSpec.describe "Managing patients", type: :request do
         referral_date: Faker::Date.backward(14),
         referral_type: "Unknown",
         referral_notes: Faker::Lorem.sentence
+      },
+      psychosocial: {
+        housing: Faker::Lorem.sentence,
+        social_network: Faker::Lorem.sentence,
+        care_package: Faker::Lorem.sentence,
+        other: Faker::Lorem.sentence,
+        updated_at: Date.parse("2012-12-12")
       }
     }
   end

@@ -1,0 +1,15 @@
+- psychosocial = patient.document.psychosocial
+article
+  header
+    h2 Psychosocial
+  dl.dl-horizontal
+    dt Housing:
+    dd= psychosocial.housing
+    dt Social Network:
+    dd= psychosocial.social_network
+    dt Care Package
+    dd= psychosocial.care_package
+    dt Other
+    dd= psychosocial.other
+    dt Updated at
+    dd= l(psychosocial.updated_at)

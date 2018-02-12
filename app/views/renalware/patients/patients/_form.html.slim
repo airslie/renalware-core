@@ -117,3 +117,16 @@
                              as: :text,
                              wrapper: :horizontal_large,
                              input_html: { rows: 3 }
+.columns.large-12
+  = field_set_tag do
+    legend Psychosocial
+
+    = f.simple_fields_for :document, patient.document do |patient_doc|
+      = patient_doc.simple_fields_for :psychosocial, patient.document.psychosocial do |psychosocial|
+        = psychosocial.input :housing, wrapper: :horizontal_medium
+        = psychosocial.input :social_network, wrapper: :horizontal_medium
+        = psychosocial.input :care_package, wrapper: :horizontal_medium
+        = psychosocial.input :other, as: :text,
+                             wrapper: :horizontal_large,
+                             input_html: { rows: 3 }
+        = psychosocial.input :updated_at, as: :date_picker, wrapper: :horizontal_datepicker
