@@ -6,7 +6,7 @@ module Renalware
     class ObservationDescriptionsByCodeQuery
       def initialize(relation: ObservationDescription, codes:)
         @relation = relation
-        @codes = codes
+        @codes = Array(codes)
       end
 
       # Executes SQL that looks like this:
@@ -37,6 +37,7 @@ module Renalware
       def verify_all_records_found(records)
         found_codes = records.map(&:code)
 
+        # TODO: Bug? Shouldn't this be @codes - found_codes?
         missing_records = found_codes - @codes
         if missing_records.present?
           raise ActiveRecord::RecordNotFound, "Missing records for #{missing_records}"
