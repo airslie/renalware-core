@@ -3445,7 +3445,9 @@ CREATE TABLE pathology_observation_descriptions (
     code character varying NOT NULL,
     name character varying,
     measurement_unit_id integer,
-    loinc_code character varying
+    loinc_code character varying,
+    display_order integer,
+    display_order_letters integer
 );
 
 
@@ -14363,6 +14365,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180126142314'),
 ('20180130165803'),
 ('20180201090444'),
-('20180207082540');
+('20180207082540'),
+('20180213171805');
 
 
