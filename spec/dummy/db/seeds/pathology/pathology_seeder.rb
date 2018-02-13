@@ -13,7 +13,7 @@ module Renalware
           patient.observation_requests.find_or_create_by!(id: row["id"].to_i) do |obr|
             obr.description = request_desc
             obr.requestor_order_number = row["order_no"]
-            obr.requested_at = random_date_between(1.days.ago, 2.years.ago)
+            obr.requested_at = Date.parse(row["requested_at"])
             obr.requestor_name = row["requestor_name"]
           end
         end
