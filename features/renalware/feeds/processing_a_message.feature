@@ -67,11 +67,11 @@ OBX|4|TX|FER^FER^MB||##TEST CANCELLED## Insufficient specimen received||||||F|||
       | requestor_name         | KINGS MIDWIVES            |
       | requested_at           | 2009-11-11 18:41:00 +0000 |
     And observations are created with the following attributes:
-      | description | result | comment | observed_at               |
-      | WBC         | 6.09   |         | 2009-11-11 20:26:00 +0000 |
-      | RBC         | 4.00   |         | 2009-11-11 20:26:00 +0000 |
-      | HGB         | 11.8   |         | 2009-11-11 20:26:00 +0000 |
-      | FER         | CANCL  | ##TEST CANCELLED## Insufficient specimen received | 2009-11-11 20:26:00 +0000 |
+      | description | result | comment | observed_at               | cancelled |
+      | WBC         | 6.09   |         | 2009-11-11 20:26:00 +0000 |           |
+      | RBC         | 4.00   |         | 2009-11-11 20:26:00 +0000 |           |
+      | HGB         | 11.8   |         | 2009-11-11 20:26:00 +0000 |           |
+      | FER         |        | ##TEST CANCELLED## Insufficient specimen received | 2009-11-11 20:26:00 +0000 | true |
     And current observations are updated to be:
       | code | result  | observed_at               |
       | WBC  | 6.09    | 2009-11-11 20:26:00 +0000 |

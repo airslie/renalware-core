@@ -125,7 +125,8 @@ module Renalware::Feeds
         it "replaces the cancelled text with something more concise" do
           obx = message.observation_requests.first.observations.first
 
-          expect(obx.value).to eq("CANCL")
+          expect(obx.value).to eq("")
+          expect(obx.cancelled).to eq(true)
           expect(obx.comment).to eq("##TEST CANCELLED## Insufficient specimen received")
         end
       end

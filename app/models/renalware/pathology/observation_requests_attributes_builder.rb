@@ -76,7 +76,8 @@ module Renalware
             description_id: observation_description.id,
             observed_at: parse_time(observation.date_time),
             result: observation.value,
-            comment: observation.comment
+            comment: observation.comment,
+            cancelled: observation.cancelled
           }
         end.compact
       end

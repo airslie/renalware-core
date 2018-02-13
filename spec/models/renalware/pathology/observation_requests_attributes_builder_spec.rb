@@ -25,7 +25,8 @@ module Renalware::Pathology
                   identifier: observation_description.code,
                   date_time: "200911112026",
                   value: "::value::",
-                  comment: "::comment::"
+                  comment: "::comment::",
+                  cancelled: nil
                 )
               ]
             )
@@ -52,7 +53,8 @@ module Renalware::Pathology
                   description_id: observation_description.id,
                   observed_at: "2009-11-11 20:26:00 +0000",
                   result: "::value::",
-                  comment: "::comment::"
+                  comment: "::comment::",
+                  cancelled: nil
                 ]
               }
             }
@@ -77,7 +79,8 @@ module Renalware::Pathology
                   identifier: observation_description.code,
                   date_time: "200911112026",
                   value: "::value::",
-                  comment: "::comment::"
+                  comment: "::comment::",
+                  cancelled: nil
                 )
               ]
             )

@@ -51,6 +51,7 @@ module Renalware
       end
 
       class Observation < SimpleDelegator
+        attr_reader :cancelled
         alias_attribute :date_time, :observation_date
         alias_attribute :value, :observation_value
 
@@ -70,7 +71,8 @@ module Renalware
         def observation_value
           if super.upcase.at("CANCELLED")
             @comment = super
-            "CANCL"
+            @cancelled = true
+            ""
           else
             super
           end

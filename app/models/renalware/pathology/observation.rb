@@ -7,7 +7,7 @@ module Renalware
       belongs_to :description, class_name: "ObservationDescription"
 
       validates :description, presence: true
-      validates :result, presence: true
+      validates :result, presence: true, unless: ->(obs) { obs.cancelled? }
       validates :observed_at, presence: true
 
       scope :ordered, -> { order(observed_at: :desc) }

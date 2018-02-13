@@ -43,7 +43,21 @@ module Renalware
       end
 
       def format_body_cell(cell)
-        content_tag(:td, cell, class: cell.html_class)
+        if cell.respond_to?(:cancelled?)
+          if cell.cancelled?
+            # content = cell.cancelled ? "CANCL" : cell.to_s
+            content_tag(:td, class: cell.html_class, style: "text-align: center") do
+              tooltip_with_block(label: cell.comment) do
+                content_tag(:i, "", class: "fa fa-warning centre")
+              end
+            end
+          else
+            content_tag(:td, cell, class: cell.html_class)
+          end
+        else
+          # A date?
+          content_tag(:td, cell, class: cell.html_class)
+        end
       end
     end
   end
