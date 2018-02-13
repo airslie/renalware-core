@@ -5,7 +5,11 @@ module Renalware
 
     CSV.foreach(file_path, headers: true) do |row|
       measurement_unit_name = row["unit_of_measurement"]
-      measurement_unit_id = Pathology::MeasurementUnit.find_by(name: measurement_unit_name).id
+      measurement_unit_id = if measurement_unit_name.present?
+                              Pathology::MeasurementUnit.find_by(name: measurement_unit_name).id
+                            else
+                              nil
+                            end
       Pathology::ObservationDescription.find_or_create_by!(
         code: row["code"],
         name: row["name"],
