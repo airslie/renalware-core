@@ -5,6 +5,7 @@ module Renalware
 
     CSV.foreach(file_path, headers: true) do |row|
       Pathology::MeasurementUnit.find_or_create_by!(
+        id: row["id"],
         name: row["name"],
         description: row["description"]
       )
