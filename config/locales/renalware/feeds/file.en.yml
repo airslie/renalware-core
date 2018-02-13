@@ -7,7 +7,6 @@ en:
         time_taken: Took
         result: Result
         status: Status
-
   enumerize:
     renalware/feeds/file:
       status:

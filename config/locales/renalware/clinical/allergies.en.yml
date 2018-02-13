@@ -9,13 +9,11 @@ en:
           add: Add
           delete: Delete
           edit: Edit
-
         new:
           title: Add allergy
           description: Description
           save: Add
           save_disable_with: Saving...
-
         mini:
           title: Allergies
       allergy_statuses:
@@ -23,7 +21,6 @@ en:
           no_known_allergies: The patient reports no allergies
           save: Confirm
           save_disable_with: Saving...
-
   enumerize:
     renalware/patient:
       allergy_status:

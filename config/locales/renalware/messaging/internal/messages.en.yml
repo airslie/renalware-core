@@ -31,5 +31,3 @@ en:
             recipient: Recipient
           sent_table:
             <<: *receipts_table
-
-

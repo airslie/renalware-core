@@ -27,7 +27,6 @@ en:
         training_duration: Duration (days)
         outcome: Outcome
         training_comments: Training Comments
-
   enumerize:
     renalware/pd/training_session/document:
       outcome:

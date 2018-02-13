@@ -11,7 +11,6 @@ en:
             weight:
               out_of_range: Must be between 5.0 and 300.0 kg
               invalid_number: Please enter a number with up to 1 decimal place, for example 100 or 100.1
-
   renalware:
     clinical:
       dry_weights:
@@ -25,4 +24,3 @@ en:
           view_all: View All
           recent:
             title: Recent Dry Weights
-

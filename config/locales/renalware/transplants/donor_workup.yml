@@ -54,7 +54,6 @@ en:
         oral_gtt: Oral GTT
         protein_creatinine_ratio: Protein Creatinine Ratio
         sitting_blood_pressure: Sitting Blood Pressure
-
     errors:
       models:
         renalware/transplants/donor_workup_document/scores:
@@ -85,7 +84,6 @@ en:
         pooled_paired: "Pooled/paired donor"
         altruistic_non_directed: "Altruistic non-directed donor"
         other_living_non_related: "Other living non-related donor - please specify"
-
   simple_form:
     hints:
       transplants_donor_workup:

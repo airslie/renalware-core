@@ -26,7 +26,6 @@ en:
         ischaemic_neuropathic_ulcers: Ischaemic/Neuropathic ulcers
         non_coronary_intervention: Angioplasty, vascular graft, aneurysm, stent (non-coronary)
         dementia: Dementia
-
   simple_form:
     hints:
       renal_profile:

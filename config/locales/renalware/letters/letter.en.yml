@@ -10,12 +10,10 @@ en:
         body: Message
         state: State
         notes: Internal Notes
-
   simple_form:
     hints:
       letters_letter:
         notes: These notes will not appear on the letter
-
   renalware:
     letters:
       letters:

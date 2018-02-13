@@ -24,7 +24,6 @@ en:
         donor_returned_to_previous_general_activity_level: Donor returned to previous levels of general activity
         nb_months_to_return_to_previous_general_activity_level: Time after donation when previous levels attained
         subsequent_operation_indicator: Requirement for re-operation
-
   enumerize:
     renalware/transplants/donor_operation:
       operating_surgeon:
@@ -43,7 +42,6 @@ en:
         laparoscropic_intra: Laparoscopic operation - intraperitoneal
         laparoscropic_extra: Laparoscopic operation - extraperitoneal
         other: Other (please specify)
-
   simple_form:
     hints:
       transplants_donor_operation:

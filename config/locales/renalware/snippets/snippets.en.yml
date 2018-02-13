@@ -1,7 +1,6 @@
 en:
   snippets:
     insert: Insert snippet
-
   activerecord:
     attributes:
       renalware/snippets/snippet:

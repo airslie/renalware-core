@@ -8,7 +8,6 @@ en:
           title: PD Bag Types
         edit:
           title: Edit
-
   enumerize:
     renalware/pd/bag_type:
       glucose_strength:
@@ -16,7 +15,6 @@ en:
         low: Low
         medium: Medium
         high: High
-
   activerecord:
     attributes:
       renalware/pd/bag_type:

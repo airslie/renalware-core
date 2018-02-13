@@ -8,7 +8,6 @@ en:
                 blank: "required if you have added an 'Additional manual exchange' bag"
               last_fill_volume:
                 blank: "required if you have added a 'Last fill' bag"
-
     attributes:
       renalware/pd/regime:
         glucose_volume_low_strength: Low strength
@@ -73,7 +72,6 @@ en:
           role: Type
           days_quantity: No. per week
           days: Days
-
   enumerize:
     renalware/pd/regime_bag:
       role:

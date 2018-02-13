@@ -21,7 +21,6 @@ en:
           home_hd_possible: Home HD
           self_care_possible: Self Care
           access_notes: Low Clearance access notes
-
   activemodel:
     attributes:
       renalware/low_clearance/profile_document:

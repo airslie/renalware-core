@@ -10,7 +10,6 @@ en:
         mismatch_grade: Mismatch Grade
         paired_pooled_donation: Paired Pooled Donation
         notes: Notes
-
   enumerize:
     renalware/transplants/donation:
       relationship_with_recipient:

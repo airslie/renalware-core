@@ -1,28 +1,21 @@
 en:
   :true: "Yes"
   :false: "No"
-
   disable_with:
     save: Saving...
-
   new_record:
     link_title: Add
     page_title: New
-
   edit_record:
     link_title: Edit
     page_title: Edit
-
   links:
     view_all: View All
-
   modal:
     close: Close
-
   collection:
     blank_option: Please select
     blank_option_for_multiple: Please select one or more
-
   enums:
     letter:
       state:
@@ -30,12 +23,10 @@ en:
         pending_review: Pending Review
         approved: Approved
         completed: Completed
-
     provider:
       gp: GP
       hospital: Hospital
       home_delivery: Home Delivery
-
   helpers:
     label:
       patient:
@@ -48,7 +39,6 @@ en:
       update: Save
       filter: Filter
     reset: Reset
-
   activerecord:
     attributes:
       renalware/event_type:
@@ -85,7 +75,6 @@ en:
         bag_type_id: PD bag type
         volume: "PD bag volume (ml)"
         days: PD bag
-
   errors:
     format: "%{attribute} %{message}"
     messages:

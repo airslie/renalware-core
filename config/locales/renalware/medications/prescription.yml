@@ -6,7 +6,6 @@ en:
     prompts:
       prescription:
         medication_route: Please select route of administration
-
   activerecord:
     attributes:
       renalware/medications/prescription:
@@ -22,7 +21,6 @@ en:
           attributes:
             route_description:
               not_other: can't be present when a route has been selected
-
   enumerize:
     renalware:
       medications:
