@@ -9,6 +9,32 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.0.pre.rc10
+13-02-2017
+
+### Added
+- Handle display of cancelled OBX tests
+- Add psychosocial fields to Demographics
+
+### Changed
+- Only list last 10 dates of pathology in MDM. Includes refactor of the Historical Pathology view
+to avoid excessive memory usage
+- Reduce space taken up in clinical grey bar
+- Refactor Clinical Summary view so make it easier to extend in host app
+- Update units of measurement and seeds #1924
+- Update CAPD bag volumes
+- Expand PD Fluid Types list
+- Pin gem versions ready for 2.0 release
+
+### Fixed
+- Bug when querying for path by OBX codes and codes is null #1936
+- Bug where its possible to Back in the browser once logged out #1934
+- Bug where no missing obs date in HL7 - now ignores OBX and logs a warning #1926
+- Bug where NHS No repeated in MDM table columns
+
+## 2.0.0.pre.rc9
+07-02-2017 - Created to debug gem resolution issue.
+
 ## 2.0.0.pre.rc8
 06-02-2017
 
