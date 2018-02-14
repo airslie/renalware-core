@@ -12,6 +12,10 @@ RSpec.describe "AKI alert management", type: :request do
         notes: "abc",
         patient: patient,
         hospital_ward: hospital_ward,
+        max_cre: 99,
+        cre_date: "2018-01-01",
+        max_aki: 2,
+        aki_date: "2018-02-01",
         action: create(:aki_alert_action, name: "action1"),
         by: create(:user, family_name: "Fink")
       )
@@ -20,6 +24,10 @@ RSpec.describe "AKI alert management", type: :request do
       expect(response).to have_http_status(:success)
       expect(response.body).to match(patient.to_s)
       expect(response.body).to match("action1")
+      expect(response.body).to match("01-Jan-2018")
+      expect(response.body).to match("01-Feb-2018")
+      expect(response.body).to match("99")
+      expect(response.body).to match("2")
       expect(response.body).to match("Fink")
       expect(response.body).to match(hospital_ward.name)
     end
@@ -43,6 +51,10 @@ RSpec.describe "AKI alert management", type: :request do
           patient: patient,
           action: action1,
           hotlist: false,
+          max_cre: 100,
+          cre_date: "2018-01-01",
+          max_aki: 2,
+          aki_date: "2018-02-01",
           hospital_ward: nil,
           by: user
         )
@@ -62,6 +74,12 @@ RSpec.describe "AKI alert management", type: :request do
         expect(alert.notes).to eq("xyz")
         expect(alert.action_id).to eq(action2.id)
         expect(alert).to be_hotlist
+        expect(alert).to have_attributes(
+          max_cre: 100,
+          cre_date: Date.parse("01-Jan-2018"),
+          max_aki: 2,
+          aki_date: Date.parse("01-Feb-2018")
+        )
         expect(alert.hospital_ward).to eq(hospital_ward)
       end
     end

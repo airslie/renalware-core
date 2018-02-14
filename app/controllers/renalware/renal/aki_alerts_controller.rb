@@ -37,7 +37,12 @@ module Renalware
       end
 
       def aki_alert_params
-        params.require(:renal_aki_alert).permit(:notes, :action_id, :hotlist, :hospital_ward_id)
+        params
+          .require(:renal_aki_alert)
+          .permit(
+            :notes, :action_id, :hotlist, :hospital_ward_id,
+            :max_cre, :cre_date, :max_aki, :aki_date
+          )
       end
     end
   end

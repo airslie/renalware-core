@@ -10,6 +10,10 @@ module Renalware
         patient_id: patient_ids.sample,
         hospital_ward_id: hospital_ward_ids.sample,
         hotlist: [true, false].sample,
+        max_cre: (80..100).to_a.sample,
+        cre_date: Time.zone.now,
+        max_aki: 2,
+        aki_date:Time.zone.now,
         notes: ""
       )
     end
