@@ -5232,12 +5232,15 @@ CREATE TABLE renal_aki_alerts (
     hotlist boolean DEFAULT false NOT NULL,
     renal_aki_alerts character varying,
     action character varying,
-    string character varying,
     notes text,
     updated_by_id bigint,
     created_by_id bigint,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    max_cre integer,
+    cre_date date,
+    max_aki integer,
+    aki_date date
 );
 
 
@@ -11319,13 +11322,6 @@ CREATE INDEX index_renal_aki_alerts_on_renal_aki_alerts ON renal_aki_alerts USIN
 
 
 --
--- Name: index_renal_aki_alerts_on_string; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_renal_aki_alerts_on_string ON renal_aki_alerts USING btree (string);
-
-
---
 -- Name: index_renal_aki_alerts_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -14366,6 +14362,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180130165803'),
 ('20180201090444'),
 ('20180207082540'),
-('20180213171805');
+('20180213171805'),
+('20180214124317');
 
 
