@@ -385,7 +385,17 @@ form {
 
   .summary-part--problems {
     @include grid-column(12);
+
     @media #{$large-up} {
+      @include grid-column(6);
+    }
+  }
+
+  .summary-part--events,
+  .summary-part--admissions {
+    @include grid-column(12);
+
+    @media #{$xxlarge-up} {
       @include grid-column(6);
     }
   }
