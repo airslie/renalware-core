@@ -1,16 +1,15 @@
-.columns.large-6
-  #current-problems
-    article
-      header
-        h2
-          = link_to "Problems (#{summary_part.current_problems.length})",
-                    patient_problems_path(summary_part.patient)
+.summary-part--problems
+  article
+    header
+      h2
+        = link_to "Problems (#{summary_part.problems.length})",
+                  patient_problems_path(summary_part.patient)
 
-        = link_to patient_problems_path(summary_part.patient), class: "button" do
-          | Add
+      = link_to patient_problems_path(summary_part.patient), class: "button" do
+        | Add
 
-      ul.no-bullet
-        - summary_part.current_problems.each do |problem|
-          li
-            = problem.full_description
-            = " - #{l(problem.created_at.to_date)}"
+    ul.no-bullet
+      - summary_part.problems.each do |problem|
+        li
+          = problem.full_description
+          = " - #{l(problem.created_at.to_date)}"

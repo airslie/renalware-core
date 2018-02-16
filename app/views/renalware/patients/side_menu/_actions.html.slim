@@ -1,5 +1,3 @@
-/li.heading.actions-heading= t(".heading")
-
 - bookmark = find_user_bookmark_for_patient(patient)
 
 - if bookmark.present?
@@ -23,12 +21,15 @@ li.link.action= render partial: "renalware/admissions/requests/create_request_li
                 locals: { patient: patient, link_text: t(".request_admission") }
 
 li.link.action
-  = render partial: "renalware/patients/alerts/create_alert_link",
-           locals: { patient: patient, link_text: t(".create_alert") }
-  = render "renalware/patients/alerts/modal_dialog_placeholder"
+  - cache(patient) do
+    = render partial: "renalware/patients/alerts/create_alert_link",
+             locals: { patient: patient, link_text: t(".create_alert") }
+    = render "renalware/patients/alerts/modal_dialog_placeholder"
 
 - if policy(patient).debug?
   li.link.action
     = link_to "Debug: UKRDC XML", api_ukrdc_patient_path(patient)
-= render "renalware/admissions/requests/modal_dialog_placeholder"
-= render "renalware/messaging/internal/messages/modal_dialog_placeholder"
+
+- cache do
+  = render "renalware/admissions/requests/modal_dialog_placeholder"
+  = render "renalware/messaging/internal/messages/modal_dialog_placeholder"

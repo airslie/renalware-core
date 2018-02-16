@@ -1,9 +1,3 @@
-// When the letter summary part is included in the clinical summary, make it 12 cols wide.
-.page--clinical_summaries {
-  .summary-part--letters {
-    @include grid-column(12);
-  }
-}
 
 table.contacts tbody td{
   vertical-align: top;
