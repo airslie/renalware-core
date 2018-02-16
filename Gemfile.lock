@@ -325,6 +325,7 @@ GEM
     mustermann (1.0.1)
     naught (1.1.0)
     nested_form (0.3.2)
+    newrelic_rpm (4.8.0.341)
     nio4r (2.2.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
@@ -564,6 +565,7 @@ DEPENDENCIES
   foreman
   fuubar
   launchy
+  newrelic_rpm
   party_foul (~> 1.5.5)
   poltergeist (~> 1.17.0)
   rack-mini-profiler
