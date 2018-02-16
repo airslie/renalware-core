@@ -5445,7 +5445,8 @@ CREATE TABLE reporting_audits (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     description text,
-    materialized boolean DEFAULT true NOT NULL
+    materialized boolean DEFAULT true NOT NULL,
+    enabled boolean DEFAULT true NOT NULL
 );
 
 
@@ -14363,6 +14364,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180201090444'),
 ('20180207082540'),
 ('20180213171805'),
-('20180214124317');
+('20180214124317'),
+('20180216132741');
 
 

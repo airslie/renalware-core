@@ -7,7 +7,7 @@ module Renalware
 
       def index
         authorize Audit, :index?
-        render locals: { audits: present(Audit.all, AuditPresenter) }
+        render locals: { audits: present(Audit.enabled, AuditPresenter) }
       end
 
       def show
