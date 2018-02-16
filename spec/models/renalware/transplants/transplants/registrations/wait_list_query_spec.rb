@@ -5,7 +5,7 @@ module Renalware
     module Registrations
       describe WaitListQuery, type: :model do
         describe "#call" do
-          subject(:query) { WaitListQuery.new(quick_filter: filter) }
+          subject(:query) { WaitListQuery.new(named_filter: filter) }
 
           before do
             create(:transplant_registration, :in_status, status: "active")

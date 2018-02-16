@@ -6,19 +6,28 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       def show
-        query = Registrations::WaitListQuery.new(quick_filter: params[:filter], q: params[:q])
         registrations = query.call.page(page).per(per_page || 50)
         authorize registrations
         render locals: {
           path_params: path_params,
           registrations: registrations,
-          q: query.search }
+          q: query.search
+        }
       end
 
       private
 
+      def query
+        @query ||= begin
+          Registrations::WaitListQuery.new(
+            named_filter: params[:named_filter],
+            q: params[:q]
+          )
+        end
+      end
+
       def path_params
-        params.permit([:controller, :action, :filter])
+        params.permit([:controller, :action, :named_filter])
       end
     end
   end

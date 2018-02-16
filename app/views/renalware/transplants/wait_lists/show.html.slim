@@ -8,11 +8,11 @@
       status_mismatch: "Status Mismatch"
     }
 
-  h2.print-only= filters[path_params[:filter].to_sym]
+  h2.print-only= filters[path_params[:named_filter].to_sym]
 
   dl.sub-nav
     - filters.each do |key, label|
-      - options = path_params.merge(filter: key).to_h.symbolize_keys
+      - options = path_params.merge(named_filter: key).to_h.symbolize_keys
       - path = Renalware::Engine.routes.url_for(options.merge!(only_path: true))
       = sub_nav_item(label, path)
 
