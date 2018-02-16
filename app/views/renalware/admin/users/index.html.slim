@@ -6,15 +6,15 @@
     thead
       th.col-width-tiny
       th.col-width-tiny ID
-      th.col-width-medium= sort_link(user_search,
+      th.col-width-large= sort_link(user_search,
                                      :family_name,
                                      [:family_name, :given_name],
                                      "User")
       th.col-width-small= sort_link(user_search, :username, "Login")
-      th.col-width-large Role
+      th.col-width-medium Role
       th.col-width-tiny Approved
       th= sort_link(user_search, :email, "Email")
-      th Telephone #
+      th.col-width-medium Telephone #
       th.col-width-date-time= sort_link(user_search, :created_at, "Added")
 
 

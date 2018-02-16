@@ -25,6 +25,12 @@ module Renalware
     }
     scope :author, -> { where.not(signature: nil) }
     scope :ordered, -> { order(:family_name, :given_name) }
+    scope :excluding_system_user, -> { where.not(username: SystemUser.username) }
+    scope :with_no_role, lambda {
+      left_joins(:roles)
+        .distinct("roles_users.user_id")
+        .where("roles_users.user_id is null")
+    }
 
     # Non-persistent attribute to signify we want to bypassing the :update validations
     attr_writer :skip_validation

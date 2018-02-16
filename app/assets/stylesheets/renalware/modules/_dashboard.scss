@@ -1,10 +1,19 @@
 .dashboard-content {
   margin-top: 10px;
 
-  p.empty-section {
+  h3 {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  p {
     padding-left: 0;
-    color: $dashboard-muted-color;
-    clear: both;
+
+    &.empty-section {
+      padding-left: 0;
+      color: $dashboard-muted-color;
+      clear: both;
+    }
   }
 }
 
