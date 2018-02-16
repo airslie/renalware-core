@@ -43,6 +43,7 @@ group :test do
 end
 
 group :staging do
+  gem "newrelic_rpm"
   gem "wkhtmltopdf-heroku", "~> 2.12.3"
 end
 
