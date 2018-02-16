@@ -1,0 +1,30 @@
+.admin-users {
+  td.approved {
+    text-align: center;
+  }
+
+  .tag {
+    color: $white;
+    padding: 0.1rem 0.5rem;
+    border: none;
+    margin: 0.1rem 0.3rem 0.2rem 0;
+    border-radius: 0.3rem;
+    background-color: $mid-grey;
+
+    &.devops {
+
+    }
+
+    &.clinical {
+      background-color: $nhs-green;
+    }
+
+    &.admin {
+      background-color: $nhs-blue;
+    }
+
+    &.super_admin {
+      background-color: $nhs-red;
+    }
+  }
+}
