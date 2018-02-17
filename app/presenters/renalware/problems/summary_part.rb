@@ -8,6 +8,15 @@ module Renalware
       end
 
       def cache_key
+        [
+          to_partial_path,
+          patient.id,
+          patient.summary.problems_count,
+          date_formatted_for_cache(max_updated_at)
+        ].join(":")
+      end
+
+      def max_updated_at
         problems.maximum(:updated_at)
       end
 

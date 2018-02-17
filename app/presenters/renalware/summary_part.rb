@@ -5,6 +5,7 @@ module Renalware
   # reporting dashboards or summary pages. The Clinical Summary for instance comprises an array
   # of various SummaryParts
   class SummaryPart
+    DATE_FORMAT = "%Y%m%d%H%M%S%L".freeze
     rattr_initialize :patient
     attr_implement :to_partial_path
 
@@ -22,6 +23,10 @@ module Renalware
     end
 
     protected
+
+    def date_formatted_for_cache(date)
+      date&.strftime(DATE_FORMAT)
+    end
 
     def title_friendly_collection_count(actual:, total:)
       if total > actual
