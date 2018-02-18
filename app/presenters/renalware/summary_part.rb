@@ -14,10 +14,6 @@ module Renalware
       nil
     end
 
-    def cache?
-      cache_key.present?
-    end
-
     def render?
       true
     end
