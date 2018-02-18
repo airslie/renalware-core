@@ -12,6 +12,9 @@
     },
     {
       "plan": "sendgrid"
+    },
+    {
+      "plan": "heroku-redis:hobby-dev"
     }
   ],
   "stack": "heroku-16",
