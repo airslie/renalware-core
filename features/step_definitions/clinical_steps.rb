@@ -37,7 +37,7 @@ end
 
 Then("Donna should see these current problems in the clinical summary:") do |table|
   expect_problems_to_match_table(
-    Renalware::Problems::SummaryPart.new(@patty).current_problems,
+    Renalware::Problems::SummaryPart.new(@patty).problems,
     table
   )
 end

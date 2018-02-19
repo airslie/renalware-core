@@ -1,9 +1,12 @@
+/ A note about Template Dependency - the `Template Dependency` comment below
+/ will make sure that changes to any summary part html partial will cause a new md5 digest
+/ for *this* template, Russian doll style. This is only really relevant if we start to cache
+/ content in this show template and are concerned about catching markup changes in
+/ nested templates
+-# Template Dependency: renalware/**/summary_part
 = within_patient_layout(title: "Clinical Summary") do
-
   .row
     - patient = clinical_summary.patient
     - summary_parts = clinical_summary.summary_parts.map{ |klass| klass.new(patient) }
-    / Cache each SummaryPart if it defined #cache_key
     - summary_parts.select(&:render?).each do |summary_part|
-      - cache_if summary_part.cache?, summary_part do
-        = render summary_part
+      = render summary_part

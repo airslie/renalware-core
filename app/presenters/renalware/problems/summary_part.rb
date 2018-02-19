@@ -3,13 +3,11 @@ require_dependency "renalware/problems"
 module Renalware
   module Problems
     class SummaryPart < Renalware::SummaryPart
-      def current_problems
-        @current_problems ||= patient.problems.current.ordered
-      end
+      delegate :cache_key, to: :problems
 
-      # def cache_key
-      #   current_problems.maximum(:updated_at)
-      # end
+      def problems
+        @problems ||= patient.problems.ordered
+      end
 
       def to_partial_path
         "renalware/problems/problems/summary_part"

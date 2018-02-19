@@ -3,6 +3,7 @@ require "attr_extras"
 
 module Renalware
   module Clinics
+    # TODO: Move this to a view?
     class CurrentObservations
       NULL_DATE = nil
       pattr_initialize :patient

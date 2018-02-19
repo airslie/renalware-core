@@ -36,8 +36,12 @@ module Renalware
       end
 
       # Note the letter must be a LetterPresenter which has a #to_html method
+      # The to_html method should (and does on the LetterPrsenter class) render the complete
+      # html including surrounding layout with inline css and images. This way if the layout changes
+      # or the image is changed for example, the cache for the pdf is no longer valid and a new
+      # key and cache entry will be created.
       def self.cache_key_for(letter)
-        "#{letter.id}-#{Digest::MD5.hexdigest(letter.to_html)}"
+        "letter:pdf:#{letter.id}:#{Digest::MD5.hexdigest(letter.to_html)}"
       end
     end
   end

@@ -19,9 +19,9 @@ module Renalware
         "renalware/letters/summary_part"
       end
 
-      # def cache_key
-      #   letters_patient.letters.maximum(:updated_at)
-      # end
+      def cache_key
+        letters_patient.letters.cache_key
+      end
 
       private
 
@@ -41,7 +41,7 @@ module Renalware
       end
 
       def letters_patient
-        Renalware::Letters.cast_patient(patient)
+        @letters_patient ||= Renalware::Letters.cast_patient(patient)
       end
     end
   end

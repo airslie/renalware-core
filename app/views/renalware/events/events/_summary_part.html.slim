@@ -1,9 +1,8 @@
-.columns.large-12.xlarge-6
-  span
-  #events
+- cache(summary_part) do
+  #events.summary-part--events
     article
       header
-        h2= link_to "Events (#{summary_part.current_events_count})",
+        h2= link_to "Events (#{summary_part.recent_events_count})",
                     patient_events_path(summary_part.patient)
 
         ul
@@ -12,4 +11,4 @@
           li= link_to patient_events_path(summary_part.patient), class: "button" do
             | View All
 
-      = render "renalware/events/events/table", events: summary_part.current_events
+      = render "renalware/events/events/table", events: summary_part.recent_events
