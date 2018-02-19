@@ -21,7 +21,6 @@ module Renalware
 
       def update!(params)
         User.transaction do
-          user.skip_validation = true
           approve if can_approve?(params)
           unexpire if can_unexpire?(params)
           authorise(params)

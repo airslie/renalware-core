@@ -32,3 +32,6 @@
                receipts: dashboard.unread_electronic_ccs
     - else
       p.empty-section= t(".electronic_ccs.none")
+
+  - if current_user_is_admin?
+    = render Renalware::Admin::Users::SummaryPart.new(nil)

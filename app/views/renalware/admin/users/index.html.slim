@@ -2,19 +2,25 @@
 
   = render "filters", user_search: user_search
 
-  table
+  table.admin-users
     thead
       th.col-width-tiny
       th.col-width-tiny ID
-      th.col-width-medium= sort_link(user_search,
+      th.col-width-large= sort_link(user_search,
                                      :family_name,
                                      [:family_name, :given_name],
                                      "User")
       th.col-width-small= sort_link(user_search, :username, "Login")
       th= sort_link(user_search, :email, "Email")
-      th Telephone #
-      th.col-width-date-time= sort_link(user_search, :created_at, "Added")
-      th.col-width-tiny Approved
+      th.col-width-medium Role
+      th.col-width-tiny= sort_link(user_search, :approved, "Approved")
+      th.col-width-date= sort_link(user_search, :expired_at, "Expired On")
+      th.col-width-date-time.show-for-large-up= sort_link(user_search, :current_sign_in_at, "Current sign in")
+      th.col-width-date-time.show-for-large-up= sort_link(user_search, :last_sign_in_at, "Last sign in")
+      th.col-width-date-time.show-for-large-up= sort_link(user_search, :last_activity_at, "Last activity")
+      th.col-width-medium.show-for-xlarge-up Telephone #
+      th.col-width-date-time.show-for-xlarge-up= sort_link(user_search, :created_at, "Added")
+
 
     tbody
       - users.each do |user|
@@ -24,8 +30,19 @@
           td= user.to_s
           td= user.username
           td= user.email
-          td= user.telephone
-          td= l user.created_at
-          td= yes_no(user.approved?)
+          td
+            - user.roles.each do |role|
+              span.tag(class=role.name)= role.name.humanize
+          td.approved
+            - if user.approved?
+              i.fa.fa-check-square-o
+            - else
+              i.unapproved.fa.fa-square-o
+          td.expired= l(user.expired_at&.to_date)
+          td.show-for-large-up= l(user.current_sign_in_at)
+          td.show-for-large-up= l(user.last_sign_in_at)
+          td.show-for-large-up= l(user.last_activity_at)
+          td.show-for-xlarge-up= user.telephone
+          td.show-for-xlarge-up= l(user.created_at)
 
   = paginate users

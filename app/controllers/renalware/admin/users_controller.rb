@@ -6,6 +6,7 @@ module Renalware
       query = params.fetch(:q, {})
       query[:s] ||= "family_name"
       search = User
+        .includes(:roles)
         .where.not(username: :systemuser)
         .search(query)
       users = search.result(distinct: true).page(page).per(per_page)
