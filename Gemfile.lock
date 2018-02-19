@@ -50,7 +50,7 @@ PATH
       puma (~> 3.11.2)
       pundit (~> 1.1.0)
       rack-attack (~> 5.0.1)
-      rails (~> 5.1.4)
+      rails (= 5.1.4)
       rails-assets-foundation-datepicker (= 1.5.0)
       rails-assets-select2 (~> 4.0.2)
       ransack (~> 1.8.7)

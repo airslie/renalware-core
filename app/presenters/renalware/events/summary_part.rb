@@ -19,30 +19,19 @@ module Renalware
         )
       end
 
-      # We construct our cache_key from:
-      # - the name of our partial
-      # - patient id (important!)
-      # - the current count of events - this will decrement when a letter is deleted thus
-      #   invalidating our cache (relying solely on maximum(:updated_at) would not catch this).
-      #   While there is currently no means of deleting an event, if one is removed in the database
-      #   we will still invalidate the cache correctly.
-      # - the max updated_at so we catch any edits (or new events, though that is also captured
-      #   by including events_count above).
+      # AR::Relation#cache_key here will issue:
+      #   SELECT COUNT(*) AS "size", MAX("events"."updated_at") AS timestamp
+      #   FROM "events" WHERE "events"."patient_id" = 1
+      # and use size and timestamp in the cache key.
+      # We purposefully don't use the recent_events relation here as it has includes and a limit
+      # and apart from being slower, using LIMIT in cache_key sql has been known to produce
+      # inconsistent results.
       def cache_key
-        [
-          to_partial_path,
-          patient.id,
-          patient.summary.events_count,
-          date_formatted_for_cache(max_updated_at)
-        ].join(":")
+        Events::Event.for_patient(patient).cache_key
       end
 
       def to_partial_path
         "renalware/events/events/summary_part"
-      end
-
-      def max_updated_at
-        Events::Event.for_patient(patient).maximum(:updated_at)
       end
     end
   end

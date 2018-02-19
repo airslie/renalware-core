@@ -1,27 +1,31 @@
 - bookmark = find_user_bookmark_for_patient(patient)
 
-- if bookmark.present?
-  li.link.action= render partial: "renalware/patients/bookmarks/delete",
-                  locals: { bookmark: bookmark, link_text: t(".delete_bookmark") }
-- else
-  li.link.action= render partial: "renalware/patients/bookmarks/new",
-                  locals: { patient: patient, link_text: t(".create_bookmark") }
+- cache([patient, current_user, bookmark || "bookmarks/"]) do
+  - if bookmark.present?
+    li.link.action= render partial: "renalware/patients/bookmarks/delete",
+                    locals: { bookmark: bookmark, link_text: t(".delete_bookmark") }
+  - else
+    li.link.action= render partial: "renalware/patients/bookmarks/new",
+                    locals: { patient: patient, link_text: t(".create_bookmark") }
 
-- if patient.worry.present?
-  li.link.action= render partial: "renalware/patients/worries/delete",
-                  locals: { patient: patient }
-- else
-  li.link.action= render partial: "renalware/patients/worries/new",
-                  locals: { patient: patient }
+- cache([patient, patient.worry || "worries/"]) do
+  - if patient.worry.present?
+    li.link.action= render partial: "renalware/patients/worries/delete",
+                    locals: { patient: patient }
+  - else
+    li.link.action= render partial: "renalware/patients/worries/new",
+                    locals: { patient: patient }
 
-li.link.action= render partial: "renalware/messaging/internal/messages/send_message_link",
-                locals: { patient: patient, link_text: t(".send_message") }
+- cache([patient, "send_message_link"]) do
+  li.link.action= render partial: "renalware/messaging/internal/messages/send_message_link",
+                  locals: { patient: patient, link_text: t(".send_message") }
+
 
 li.link.action= render partial: "renalware/admissions/requests/create_request_link",
                 locals: { patient: patient, link_text: t(".request_admission") }
 
 li.link.action
-  - cache(patient) do
+  - cache([patient, "alerts/"]) do
     = render partial: "renalware/patients/alerts/create_alert_link",
              locals: { patient: patient, link_text: t(".create_alert") }
     = render "renalware/patients/alerts/modal_dialog_placeholder"

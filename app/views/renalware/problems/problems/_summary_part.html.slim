@@ -1,15 +1,27 @@
-.summary-part--problems
-  article
-    header
-      h2
-        = link_to "Problems (#{summary_part.problems.length})",
-                  patient_problems_path(summary_part.patient)
+/ Note that summary_part#cache_key will be called and will return something like this
+/
+/  renalware/problems/problems/query-470b1201d5696133ec89b9415d438586-6-20180218160613719105
+/
+/ (see http://www.rubydoc.info/github/rails/rails/ActiveRecord%2FRelation%3Acache_key)
+/ and because we are caching inside a partial, Rails will append the MD5 digest of this template's
+/ content i.e. 1ff2cfc1505d571ac18a3d1d3708ebb4 and so in Redis the final cache key will be e.g.
+/
+/  renalware/problems/problems/...86-6-20180218160613719105/1ff2cfc1505d571ac18a3d1d3708ebb4
+/
+/ Note you can get the partial digest value using `cache_fragment_name[0]`
+- cache(summary_part) do
+  .summary-part--problems
+    article
+      header
+        h1
+          = link_to "Problems (#{summary_part.problems.length})",
+                    patient_problems_path(summary_part.patient)
 
-      = link_to patient_problems_path(summary_part.patient), class: "button" do
-        | Add
+        = link_to patient_problems_path(summary_part.patient), class: "button" do
+          | Add
 
-    ul.no-bullet
-      - summary_part.problems.each do |problem|
-        li
-          = problem.full_description
-          = " - #{l(problem.created_at.to_date)}"
+      ul.no-bullet
+        - summary_part.problems.each do |problem|
+          li
+            = problem.full_description
+            = " - #{l(problem.created_at.to_date)}"
