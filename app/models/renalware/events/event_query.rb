@@ -8,7 +8,7 @@ module Renalware
       def initialize(patient:, query: {})
         @query = query
         @patient = patient
-        @query[:s] = "created_at DESC" if @query[:s].blank?
+        @query[:s] = "datetime DESC" if @query[:s].blank?
       end
 
       def call
