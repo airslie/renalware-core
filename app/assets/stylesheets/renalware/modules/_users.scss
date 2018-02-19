@@ -1,14 +1,20 @@
 .admin-users {
   td.approved {
     text-align: center;
+    color: $nhs-light-green;
+
+    .unapproved {
+      color: $nhs-red;
+      font-weight: bold;
+    }
   }
 
   .tag {
     color: $white;
-    padding: 0.1rem 0.5rem;
+    padding: .05rem .5rem .15rem .5rem;
     border: none;
-    margin: 0.1rem 0.3rem 0.2rem 0;
-    border-radius: 0.3rem;
+    margin: .1rem .3rem .2rem 0;
+    border-radius: .3rem;
     background-color: $mid-grey;
 
     &.devops {
