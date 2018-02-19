@@ -69,6 +69,7 @@ Renalware::Engine.routes.draw do
     namespace :feeds do
       resources :files, only: [:index, :show, :new, :create]
     end
+    resource :cache, only: [:show, :destroy]
   end
 
   namespace :api do

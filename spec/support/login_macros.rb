@@ -1,4 +1,8 @@
 module LoginMacros
+  def login_as_super_admin
+    login_user(:super_admin)
+  end
+
   def login_as_admin
     login_user(:admin)
   end
@@ -21,6 +25,4 @@ module LoginMacros
     end
     @current_user = user
   end
-
-  alias_method :login_as_super_admin, :login_user
 end
