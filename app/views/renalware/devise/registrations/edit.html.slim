@@ -10,6 +10,8 @@
 
       = custom_devise_error_messages!
 
+      = f.hidden_field :with_extended_validation
+
       .field.large-8.small-6
         = f.label :email
         = f.email_field :email, autofocus: true

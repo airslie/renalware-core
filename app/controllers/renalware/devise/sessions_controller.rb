@@ -17,35 +17,6 @@ module Renalware
       max_duration_has_passed ? dashboard_path : super
     end
 
-    # Important note: Since Devise 4.4.0 the gem's SessionsController#create will do an implicit
-    # check to see if the resource (User signing-in) is valid (or rather, I think it checks for the
-    # presence of anything in resource.errors). If the user is not valid it now
-    # skips the redirect to the path specified in .after_sign_in_path_for.
-    # The result for us was that the user _could_ log on, but they stayed on the login screen
-    # (the appearance of the menu indicated they were in fact logged in). The redirect was not
-    # happening because the user was invalid (ie there were validation errors and
-    # user.valid? == false).
-    # The reason for the validation errors is that we have some conditional validation in User;
-    # for instance only validate #signature during an update, not on
-    # a create - after all #signature is something they set up later in their 'profile'.
-    # So what we have to do here is stop Devise from thinking the user in invalid by skipping
-    # validations.
-    # See https://github.com/plataformatec/devise/issues/4742#issuecomment-355154023
-    # Note that ideally we should move signature, professional position etc to a Profile model
-    # and then we could remove the conditional validation.
-    def create
-      super do |resource|
-        # This first line clears any existing errors that prevent Devise redirecting on successful
-        # login. It does not negate any password validations however. Its just a workaround to get
-        # the redirect to work.
-        resource.errors.clear
-        # This second line means resource.valid? returns true ie conditional on: :update validations
-        # are skipped. This line is not necessary (clearing the error above actually solves the
-        # problem) but does no harm and is belt and braces.
-        resource.skip_validation = true
-      end
-    end
-
     private
 
     def last_sign_in_at

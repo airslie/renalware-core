@@ -12,11 +12,11 @@ module Renalware
     validate :approval_with_roles, on: :update
     validates :professional_position, presence: {
       on: :update,
-      unless: :skip_validation
+      if: ->(user){ user.with_extended_validation }
     }
     validates :signature, presence: {
       on: :update,
-      unless: :skip_validation
+      if: ->(user){ user.with_extended_validation }
     }
 
     scope :unapproved, -> { where(approved: [nil, false]) }
@@ -32,12 +32,9 @@ module Renalware
         .where("roles_users.user_id is null")
     }
 
-    # Non-persistent attribute to signify we want to bypassing the :update validations
-    attr_writer :skip_validation
-
-    def skip_validation
-      @skip_validation || reset_password_token
-    end
+    # Non-persistent attribute to signify we want to use extended validation.
+    # We need to refactor this by ising a form object for updating a user.
+    attr_accessor :with_extended_validation
 
     def self.policy_class
       UserPolicy
