@@ -51,6 +51,7 @@ module Renalware
       end
 
       class Observation < SimpleDelegator
+        attr_reader :cancelled
         alias_attribute :date_time, :observation_date
         alias_attribute :value, :observation_value
 
@@ -60,7 +61,21 @@ module Renalware
 
         # TODO: Implement comment extraction
         def comment
-          ""
+          @comment || ""
+        end
+
+        # Some messages may come through with result text like
+        #   ##TEST CANCELLED## Insufficient specimen received
+        # in which case replace with something more concise.
+        # We could save the actual message somewhere
+        def observation_value
+          if super.upcase.at("CANCELLED")
+            @comment = super
+            @cancelled = true
+            ""
+          else
+            super
+          end
         end
 
         # Because some units of measurement, such as 10^12/L for WBC, contain a caret, the caret

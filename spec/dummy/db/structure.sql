@@ -578,7 +578,7 @@ BEGIN
   We have gone for 2.
   */
 
-  IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') THEN
+  IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') AND (NEW.result != '') THEN
 
     -- Note we could re-generate the entire current pathology for the patient using
     --  select refresh_current_observation_set(a_patient_id);
@@ -3479,7 +3479,8 @@ CREATE TABLE pathology_observations (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     description_id integer NOT NULL,
-    request_id integer NOT NULL
+    request_id integer NOT NULL,
+    cancelled boolean
 );
 
 
@@ -14362,7 +14363,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180126142314'),
 ('20180130165803'),
 ('20180201090444'),
+('20180206225525'),
 ('20180207082540'),
+('20180213124203'),
+('20180213125734'),
 ('20180213171805'),
 ('20180214124317'),
 ('20180216132741');

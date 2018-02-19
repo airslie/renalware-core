@@ -25,15 +25,18 @@ module Renalware
         describe "#current" do
           it "returns the one and only current status ie the only one (for this patient) "\
              "without a termination date" do
-            patient = Transplants.cast_patient(create(:patient, family_name: "Ng"))
+            user = create(:user)
+            patient = Transplants.cast_patient(create(:patient))
             terminated_status = create(:donor_stage,
                                        patient: patient,
                                        started_on: 1.week.ago,
-                                       terminated_on: 1.day.ago)
+                                       terminated_on: 1.day.ago,
+                                       by: user)
             current_status = create(:donor_stage,
                                     patient: patient,
                                     started_on: terminated_status.terminated_on,
-                                    terminated_on: nil)
+                                    terminated_on: nil,
+                                    by: user)
 
             current = DonorStage.for_patient(patient).current
             expect(current.length).to eq(1)

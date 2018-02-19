@@ -37,6 +37,9 @@ Feature: Processing a message
 
   Scenario: An HL7 pathology message was received
     Given Patty is a patient
+    And the following observations were recorded
+      | code | result | observed_at         |
+      | FER  | 6.09   | 2008-Nov-11 12:00:00 |
     And the following HL7 message:
 """
 MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
@@ -47,6 +50,7 @@ OBR|1|B33J9WXEHF^PCS|09B0099478^LA|FBC^FULL BLOOD COUNT^MB||200911111841|2009111
 OBX|1|TX|WBC^WBC^MB||6.09||||||F|||200911112026||BBKA^Donald DUCK|
 OBX|2|TX|RBC^RBC^MB||4.00||||||F|||200911112026||BBKA^Donald DUCK|
 OBX|3|TX|HGB^Hb^MB||11.8||||||F|||200911112026||BBKA^Donald DUCK|
+OBX|4|TX|FER^FER^MB||##TEST CANCELLED## Insufficient specimen received||||||F|||200911112026||BBKA^Kenneth AMENYAH|
 """
     When the message is processed
     Then the HL7 message is recorded
@@ -63,12 +67,14 @@ OBX|3|TX|HGB^Hb^MB||11.8||||||F|||200911112026||BBKA^Donald DUCK|
       | requestor_name         | KINGS MIDWIVES            |
       | requested_at           | 2009-11-11 18:41:00 +0000 |
     And observations are created with the following attributes:
-      | description | result | comment | observed_at               |
-      | WBC         | 6.09   |         | 2009-11-11 20:26:00 +0000 |
-      | RBC         | 4.00   |         | 2009-11-11 20:26:00 +0000 |
-      | HGB         | 11.8   |         | 2009-11-11 20:26:00 +0000 |
+      | description | result | comment | observed_at               | cancelled |
+      | WBC         | 6.09   |         | 2009-11-11 20:26:00 +0000 |           |
+      | RBC         | 4.00   |         | 2009-11-11 20:26:00 +0000 |           |
+      | HGB         | 11.8   |         | 2009-11-11 20:26:00 +0000 |           |
+      | FER         |        | ##TEST CANCELLED## Insufficient specimen received | 2009-11-11 20:26:00 +0000 | true |
     And current observations are updated to be:
       | code | result  | observed_at               |
       | WBC  | 6.09    | 2009-11-11 20:26:00 +0000 |
       | RBC  | 4.00    | 2009-11-11 20:26:00 +0000 |
       | HGB  | 11.8    | 2009-11-11 20:26:00 +0000 |
+      | FER  | 6.09    | 2008-Nov-11 12:00:00 |
