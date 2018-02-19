@@ -70,7 +70,7 @@ module World
 
       def view_wait_list_registrations(filter:, user: nil)
         @query = Renalware::Transplants::Registrations::WaitListQuery.new(
-          quick_filter: filter
+          named_filter: filter
         )
       end
 
@@ -161,7 +161,7 @@ module World
 
       def view_wait_list_registrations(filter:, user:)
         login_as user
-        visit transplants_wait_list_path(filter: filter)
+        visit transplants_wait_list_path(named_filter: filter)
       end
 
       def expect_wait_list_registrations_to_be(hashes)

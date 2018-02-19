@@ -1,22 +1,24 @@
+require_dependency "renalware/transplants"
+
 module Renalware
   module Transplants
     module Registrations
       class WaitListQuery
-        def initialize(quick_filter:, q: nil)
-          @quick_filter = quick_filter.to_sym
-          @q = q || {}
+        def initialize(named_filter:, q: nil)
+          @named_filter = named_filter&.to_sym || :active
+          @q = (q || ActionController::Parameters.new).permit(:s, :q)
         end
 
         def call
           search
             .result
             .extending(Scopes)
-            .apply_filter(@quick_filter)
+            .apply_filter(named_filter)
         end
 
         def search
           @search ||= begin
-            query = query_for_filter(@quick_filter).merge(@q)
+            query = query_for_filter(named_filter).merge(q)
             QueryableRegistration
               .includes(patient: [current_modality: :description])
               .search(query).tap do |s|
@@ -41,6 +43,8 @@ module Renalware
         end
 
         private
+
+        attr_reader :q, :named_filter
 
         def query_for_filter(filter)
           case filter
