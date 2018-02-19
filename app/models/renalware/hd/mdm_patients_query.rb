@@ -4,7 +4,7 @@ module Renalware
       include ModalityScopes
       include PatientPathologyScopes
       MODALITY_NAMES = "HD".freeze
-      DEFAULT_SEARCH_PREDICATE = "hgb_date".freeze
+      DEFAULT_SEARCH_PREDICATE = "hgb_date desc".freeze
       attr_reader :q, :relation
 
       def initialize(relation: HD::Patient.all, q:)
