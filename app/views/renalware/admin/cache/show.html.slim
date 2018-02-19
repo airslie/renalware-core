@@ -1,0 +1,20 @@
+= within_admin_layout(title: "Cache") do
+  .panel
+    p
+      | The cache (backed by Redis) stores some queries and html fragments in order to make
+      |  the rendering of pages faster and less resource intensive. Cached elements are invalidated
+      |  when the underlying database data changes (but it only examines the updated_at column and
+      |  count of records, in order to catch edits, inserts and deletions) or the html template
+      |  changes (changes are only reflected after am app restart in this latter case).
+    p
+      | There are certain cases where you might need to clear the cache:
+    ol
+      li
+        | You have changed the underlying database data directly in SQL without also updating the
+        |  updated_at column.
+
+  = link_to "Clear the Application Cache",
+            admin_cache_path,
+            method: :delete,
+            data: { confirm: "Are you sure you want to clear the application cache?\n" },
+            class: "button alert"

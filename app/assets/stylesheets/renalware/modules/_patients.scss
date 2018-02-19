@@ -383,7 +383,8 @@ form {
     @include grid-column(12);
   }
 
-  .summary-part--problems {
+  .summary-part--problems,
+  .summary-part--prescriptions {
     @include grid-column(12);
 
     @media #{$large-up} {
