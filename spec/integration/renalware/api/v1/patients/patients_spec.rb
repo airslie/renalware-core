@@ -5,13 +5,13 @@ RSpec.describe "API request for a single patient JSON document", type: :feature 
   include PatientsSpecHelper
 
   let(:json) { JSON.parse(page.body) }
-  let(:patient) { create(:patient) }
+  let(:patient) { create(:patient, local_patient_id: "123") }
   let(:user) { create(:user, username: "aaaaa", authentication_token: "wWsSmmHywhYMWPM6e9ib") }
 
   describe "rendering json for a patient" do
     context "when no authorisation credentials passed in the query string" do
       it "forbids access to the resource" do
-        visit api_v1_patient_path(patient)
+        visit api_v1_patient_path(id: patient.local_patient_id)
         expect(page.status_code).to eq(401)
         expect(json["error"]).to match("You need to sign in or sign up before continuing.")
       end
@@ -19,7 +19,7 @@ RSpec.describe "API request for a single patient JSON document", type: :feature 
 
     it "renders patient json" do
       visit api_v1_patient_path(
-        id: patient.nhs_number,
+        id: patient.local_patient_id,
         username: user.username,
         token: user.authentication_token
       )

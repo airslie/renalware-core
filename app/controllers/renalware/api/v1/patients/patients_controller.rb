@@ -7,7 +7,7 @@ module Renalware
       module Patients
         class PatientsController < TokenAuthenticatedApiController
           def show
-            patient = Patient.find_by!(nhs_number: params[:id])
+            patient = Patient.find_by!(local_patient_id: params[:id])
             render locals: { patient: patient }
           end
         end

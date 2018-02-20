@@ -1,3 +1,5 @@
+require "devise"
+
 module Renalware
   class User < ApplicationRecord
     include Deviseable
@@ -72,7 +74,7 @@ module Renalware
 
     def build_authentication_token
       loop do
-        token = Devise.friendly_token
+        token = ::Devise.friendly_token
         break token unless User.find_by(authentication_token: token)
       end
     end
