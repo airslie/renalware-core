@@ -14,7 +14,7 @@ Feature: Viewing recent pathology observation results for a patient
       | HGB  | 5.09   | 2009-11-12 12:00:00 |
       | MCV  | 3.00   | 2009-11-12 12:00:00 |
       | WBC  | 2.00   | 2009-11-13 12:00:00 |
-    Then the doctor views the following recents observation results:
+    Then the doctor views the following recent observation results:
       | year | 2009  | 2009  | 2009  |
       | date | 13/11 | 12/11 | 11/11 |
       | HGB  |       | 5.09  | 6.09  |

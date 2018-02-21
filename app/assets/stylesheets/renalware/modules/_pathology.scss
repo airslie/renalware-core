@@ -23,6 +23,11 @@ table#observations {
     border: 1px solid #ddd;
     font-size: 0.8rem;
   }
+
+  &.transposed {
+    tr { display: block; float: left; }
+    th, td { display: block; }
+  }
 }
 
 .current-observations {

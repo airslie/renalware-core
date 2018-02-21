@@ -1,12 +1,12 @@
 = within_patient_layout title: "Historical Pathology Results",
                         navigation_partial: "renalware/pathology/navigation" do
-  - if rows.empty?
+  - if table.rows.empty?
     p No results available for this patient.
 
   - else
     p.hint Hover over table then scroll horizontally to view more results.
 
     .embedded-scroll
-      = table.render(rows)
+      = render "table", table: table
 
-    = paginate paginator
+    = paginate(table)

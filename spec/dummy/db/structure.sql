@@ -3585,6 +3585,21 @@ ALTER SEQUENCE pathology_observation_descriptions_id_seq OWNED BY pathology_obse
 
 
 --
+-- Name: pathology_observation_digests; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW pathology_observation_digests AS
+ SELECT obs_req.patient_id,
+    (obs.observed_at)::date AS observed_on,
+    jsonb_object_agg(obs_desc.code, obs.result) AS results
+   FROM ((pathology_observations obs
+     JOIN pathology_observation_requests obs_req ON ((obs.request_id = obs_req.id)))
+     JOIN pathology_observation_descriptions obs_desc ON ((obs.description_id = obs_desc.id)))
+  GROUP BY obs_req.patient_id, ((obs.observed_at)::date)
+  ORDER BY obs_req.patient_id, ((obs.observed_at)::date) DESC;
+
+
+--
 -- Name: pathology_observation_requests_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -14364,6 +14379,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180126142314'),
 ('20180130165803'),
 ('20180201090444'),
+('20180202184954'),
 ('20180206225525'),
 ('20180207082540'),
 ('20180208150629'),

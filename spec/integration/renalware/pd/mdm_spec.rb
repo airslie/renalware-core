@@ -5,6 +5,8 @@ RSpec.describe "Patient PD MDM", type: :request do
 
   describe "GET show" do
     it "responds successfully" do
+      create(:pathology_observation_description, code: "HGB")
+
       get patient_pd_mdm_path(patient)
 
       expect(response).to have_http_status(:success)

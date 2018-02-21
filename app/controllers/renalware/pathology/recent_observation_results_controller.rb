@@ -3,19 +3,17 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class RecentObservationResultsController < Pathology::BaseController
+      include Renalware::Concerns::Pageable
       before_action :load_patient
 
       def index
-        table_view = RecentObservationResults::HTMLTableView.new(view_context)
-        presenter = RecentObservationResults::Presenter.new
-        service = ViewObservationResults.new(@patient.observations, presenter)
-        service.call(params)
-
-        render :index, locals: {
-          rows: presenter.view_model,
-          paginator: presenter.paginator,
-          table: table_view
-        }
+        observations_table = CreateObservationsGroupedByDateTable.new(
+          patient: patient,
+          observation_descriptions: RelevantObservationDescription.all,
+          page: page || 1,
+          per_page: per_page || 100
+        ).call
+        render :index, locals: { table: observations_table }
       end
     end
   end
