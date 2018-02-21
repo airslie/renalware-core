@@ -12,6 +12,7 @@ json.family_name patient.family_name
 json.born_on patient.born_on&.to_s
 json.died_on patient.died_on&.to_s
 json.sex patient.sex&.code
-json.ethnicity patient.ethnicity&.code
+json.ethnicity patient.ethnicity&.name
 json.medications_url api_v1_patient_medications_prescriptions_url(patient_id: patient)
 json.hd_profile_url api_v1_patient_hd_current_profile_url(patient_id: patient)
+# TODO: HD Profile link to have at least site and schedule
