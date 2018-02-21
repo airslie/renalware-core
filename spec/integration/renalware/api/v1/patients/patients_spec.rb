@@ -39,6 +39,8 @@ RSpec.describe "API request for a single patient JSON document", type: :feature 
     end
 
     it "renders patient json" do
+      patient.current_address.update(email: "email@example.com", telephone: "118118")
+
       visit api_v1_patient_path(
         id: patient.local_patient_id,
         username: user.username,
@@ -73,8 +75,8 @@ RSpec.describe "API request for a single patient JSON document", type: :feature 
             "region" => address.region,
             "postcode" => address.postcode,
             "country" => "United Kingdom",
-            "telephone" => address.telephone,
-            "email" => address.email
+            "telephone" => "118118",
+            "email" => "email@example.com"
           },
           "medications_url" => api_v1_patient_medications_prescriptions_url(patient_id: patient),
           "hd_profile_url" => api_v1_patient_hd_current_profile_url(patient_id: patient)

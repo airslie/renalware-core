@@ -7,8 +7,6 @@ FactoryBot.define do
     county "Berkshire"
     country { Renalware::System::Country.find_by(alpha2: "GB") }
     postcode "NW1 6BB"
-    telephone "118118"
-    email "email@example.com"
 
     trait :in_uk do
       association(:country, factory: :united_kingdom)
