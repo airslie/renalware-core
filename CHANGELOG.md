@@ -9,6 +9,27 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.0.pre.rc11
+21-02-2017
+
+### Added
+- Enable clearing the cache form the app when a super admin
+- Add fragment caching in key places
+- Add link to approve users at bottom of admin dashboard
+- Add postgres dump rake task and configure in schedule.rb (for whenever)
+- Add simple API for accessing patient demographics
+
+### Changed
+- Improve display of admin users table
+- Set default order to HGB date on PD and HD MDMs
+- Remove access to some audits for now as performance needs optimising
+- Add missing fields to AKI Alerts
+- Add unique display_order columns to observation_descriptions to support future ordering
+
+### Fixed
+- Changed events order to datetime desc
+- Fix display of Test Cancelled in pathology results
+
 ## 2.0.0.pre.rc10
 13-02-2017
 
