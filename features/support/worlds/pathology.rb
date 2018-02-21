@@ -107,12 +107,6 @@ module World
         codes = expected_rows.slice(2..-1).map(&:first)
         descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
-        # presenter = Renalware::Pathology::RecentObservationResults::Presenter.new
-        # service = Renalware::Pathology::ViewObservationResults.new(
-        #   patient.observations, presenter, descriptions: descriptions)
-        # service.call
-        # view = ArrayStringifier.new(presenter.view_model).to_a
-
         table = Renalware::Pathology::CreateObservationsGroupedByDateTable.new(
           patient: patient,
           observation_descriptions: descriptions
@@ -136,12 +130,6 @@ module World
         patient = Renalware::Pathology.cast_patient(patient)
         codes = expected_rows.first[1..-1]
         descriptions = Renalware::Pathology::ObservationDescription.for(codes)
-
-        # presenter = Renalware::Pathology::HistoricalObservationResults::Presenter.new
-        # service = Renalware::Pathology::ViewObservationResults.new(
-        #   patient.observations, presenter, descriptions: descriptions)
-        # service.call
-        # view = ArrayStringifier.new(presenter.view_model).to_a
 
         table = Renalware::Pathology::CreateObservationsGroupedByDateTable.new(
           patient: patient,

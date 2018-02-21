@@ -126,10 +126,6 @@ module Renalware
       Renalware::Pathology.cast_patient(patient)
     end
 
-    # def pathology_table_view
-    #   Pathology::HistoricalObservationResults::HTMLTableView.new(view_context)
-    # end
-
     def execute_prescriptions_query(relation)
       query = Medications::PrescriptionsQuery.new(relation: relation)
       query.call
