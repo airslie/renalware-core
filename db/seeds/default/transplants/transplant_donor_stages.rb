@@ -12,7 +12,7 @@ module Renalware
     ]
 
     names.each_with_index do |name, index|
-      Transplants::DonorStagePosition.find_or_create_by!(
+      Transplants::DonorStagePosition.find_or_create_by(
         name: name,
         position: index * 10
       )
@@ -30,7 +30,7 @@ module Renalware
     ]
 
     names.each_with_index do |name, index|
-      Transplants::DonorStageStatus.find_or_create_by!(
+      Transplants::DonorStageStatus.find_or_create_by(
         name: name,
         position: index * 10
       )
