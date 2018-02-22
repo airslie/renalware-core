@@ -1,3 +1,3 @@
 require "devise"
 
-World(Warden::Test::Helpers)
+include Warden::Test::Helpers
