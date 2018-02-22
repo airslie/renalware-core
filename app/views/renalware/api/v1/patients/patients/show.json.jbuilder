@@ -1,6 +1,6 @@
-json.nhs_number patient.nhs_number
+json.patient_id patient.id
 json.secure_id patient.secure_id
-json.legacy_patient_id patient.legacy_patient_id
+json.nhs_number patient.nhs_number
 json.local_patient_id patient.local_patient_id
 json.local_patient_id_2 patient.local_patient_id_2
 json.local_patient_id_3 patient.local_patient_id_3
