@@ -10605,6 +10605,13 @@ CREATE INDEX index_modality_modalities_on_reason_id ON modality_modalities USING
 
 
 --
+-- Name: index_modality_modalities_on_state; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_modality_modalities_on_state ON modality_modalities USING btree (state);
+
+
+--
 -- Name: index_modality_modalities_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -10811,7 +10818,7 @@ CREATE INDEX index_patient_alerts_on_updated_by_id ON patient_alerts USING btree
 -- Name: index_patient_bookmarks_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_patient_bookmarks_on_deleted_at ON patient_bookmarks USING btree (deleted_at);
+CREATE INDEX index_patient_bookmarks_on_deleted_at ON patient_bookmarks USING btree (deleted_at) WHERE (deleted_at IS NULL);
 
 
 --
@@ -14387,6 +14394,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180213125734'),
 ('20180213171805'),
 ('20180214124317'),
-('20180216132741');
+('20180216132741'),
+('20180221210458'),
+('20180222090501');
 
 
