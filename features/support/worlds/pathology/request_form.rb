@@ -111,7 +111,7 @@ module World
         def expect_patient_specific_test(request_forms, patient, expected_test_description)
           request_form = find_request_form_for_patient(request_forms, patient)
 
-          request_form.patient_requests_by_lab.each do |_lab_name, patient_rules|
+          request_form.patient_requests_by_lab.each_value do |patient_rules|
             patient_rules.each do |patient_rule|
               expect(patient_rule.test_description).to eq(expected_test_description)
             end

@@ -1,6 +1,5 @@
 # From https://github.com/rubysherpas/paranoia/wiki/Testing-with-rspec
 shared_examples_for "a Paranoid model" do
-
   it { is_expected.to have_db_column(:deleted_at) }
   it { is_expected.to have_db_index(:deleted_at) }
 

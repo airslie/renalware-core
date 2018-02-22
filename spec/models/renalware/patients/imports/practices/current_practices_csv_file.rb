@@ -37,7 +37,6 @@ module Renalware
           end
 
           describe "#call" do
-
             it "raises an error if the CSV file is not in the expected format" do
               mock_csv_open(pathname: dummy_pathname, contents: malformed_practice_row)
               expect{

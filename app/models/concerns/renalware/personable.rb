@@ -7,7 +7,7 @@ module Renalware
         validates :family_name, presence: true
         validates :given_name,
                   presence: {
-                    unless: -> {
+                    unless: lambda {
                       defined?(skip_given_name_validation?) && skip_given_name_validation?
                     }
                   }

@@ -19,5 +19,4 @@ module TestDateHelper
     "#{fake_date} #{fake_time}"
   end
 end
-
-include TestDateHelper
+World(TestDateHelper)
