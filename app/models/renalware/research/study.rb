@@ -11,9 +11,12 @@ module Renalware
       validates :started_on, timeliness: { type: :date, allow_blank: true }
       validates :terminated_on, timeliness: { type: :date, allow_blank: true, after: :started_on }
 
-      scope :ordered, -> { order(created_at: :asc) }
+      scope :ordered, -> { order(code: :asc) }
 
-      has_many :participants, class_name: "StudyParticipant", dependent: :destroy
+      has_many :participants,
+               class_name: "StudyParticipant",
+               dependent: :destroy,
+               inverse_of: :study
     end
   end
 end
