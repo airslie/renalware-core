@@ -51,7 +51,7 @@ RSpec.describe "API request for a single patient JSON document", type: :feature 
 
       expect(json).to eq(
         {
-          "patient_id" => patient.id,
+          "id" => patient.id,
           "secure_id" => patient.secure_id,
           "nhs_number" => patient.nhs_number,
           "local_patient_id" => patient.local_patient_id,
