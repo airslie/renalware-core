@@ -5,7 +5,10 @@ RSpec.describe "API request for a single patient JSON document", type: :feature 
   include PatientsSpecHelper
 
   let(:json) { JSON.parse(page.body) }
-  let(:patient) { create(:patient, local_patient_id: "123") }
+  let(:address) do
+    build(:address, :in_uk)
+  end
+  let(:patient) { create(:patient, local_patient_id: "123", current_address: address) }
   let(:user) { create(:user, username: "aaaaa", authentication_token: "wWsSmmHywhYMWPM6e9ib") }
 
   describe "rendering json for a patient" do
@@ -17,7 +20,27 @@ RSpec.describe "API request for a single patient JSON document", type: :feature 
       end
     end
 
+    context "when the address is blank" do
+      it "renders json successfully" do
+        patient.current_address.destroy!
+
+        visit api_v1_patient_path(
+          id: patient.local_patient_id,
+          username: user.username,
+          token: user.authentication_token
+        )
+
+        expect(page.status_code).to eq(200)
+
+        address = json["current_address"]
+        expect(address).to be_kind_of(Hash)
+        expect(address.values.compact).to eq([])
+      end
+    end
+
     it "renders patient json" do
+      patient.current_address.update(email: "email@example.com", telephone: "118118")
+
       visit api_v1_patient_path(
         id: patient.local_patient_id,
         username: user.username,
@@ -43,6 +66,18 @@ RSpec.describe "API request for a single patient JSON document", type: :feature 
           "died_on" => patient.died_on&.to_s,
           "sex" => patient.sex&.code,
           "ethnicity" => patient.ethnicity&.code,
+          "current_address" => {
+            "street_1" => address.street_1,
+            "street_2" => address.street_2,
+            "street_3" => address.street_3,
+            "town" => address.town,
+            "county" => address.county,
+            "region" => address.region,
+            "postcode" => address.postcode,
+            "country" => "United Kingdom",
+            "telephone" => "118118",
+            "email" => "email@example.com"
+          },
           "medications_url" => api_v1_patient_medications_prescriptions_url(patient_id: patient),
           "hd_profile_url" => api_v1_patient_hd_current_profile_url(patient_id: patient)
         }

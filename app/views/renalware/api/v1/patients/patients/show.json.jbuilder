@@ -13,6 +13,18 @@ json.born_on patient.born_on&.to_s
 json.died_on patient.died_on&.to_s
 json.sex patient.sex&.code
 json.ethnicity patient.ethnicity&.name
+json.current_address do
+  json.street_1 patient.current_address&.street_1
+  json.street_2 patient.current_address&.street_2
+  json.street_3 patient.current_address&.street_3
+  json.town patient.current_address&.town
+  json.county patient.current_address&.county
+  json.region patient.current_address&.region
+  json.postcode patient.current_address&.postcode
+  json.country patient.current_address&.country&.name
+  json.telephone patient.current_address&.telephone
+  json.email patient.current_address&.email
+end
 json.medications_url api_v1_patient_medications_prescriptions_url(patient_id: patient)
 json.hd_profile_url api_v1_patient_hd_current_profile_url(patient_id: patient)
 # TODO: HD Profile link to have at least site and schedule
