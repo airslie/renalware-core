@@ -3,7 +3,7 @@ require_dependency "renalware"
 module Renalware
   module UKRDC
     class PatientPresenter < SimpleDelegator
-      attr_reader :changes_since
+      attr_reader :changes_since, :changes_up_until
       delegate :profile, to: :renal_patient, allow_nil: true
       delegate :first_seen_on, to: :profile, allow_nil: true
       alias_attribute :home_telephone, :telephone1
@@ -18,6 +18,7 @@ module Renalware
             "No date for comparison: patient.no sent_to_ukrdc_at and changes_since are nil"
           )
         end
+        @changes_up_until = Time.zone.now
         super(patient)
       end
 
@@ -36,13 +37,19 @@ module Renalware
 
       def letters
         CollectionPresenter.new(
-          letters_patient.letters.approved.where("updated_at > ?", changes_since),
+          letters_patient
+            .letters
+            .approved
+            .where("updated_at > ?", changes_since),
           Renalware::Letters::LetterPresenterFactory
         )
       end
 
       def finished_hd_sessions
-        hd_patient.finished_hd_sessions.where("hd_sessions.updated_at > ?", changes_since)
+        hd_patient
+          .finished_hd_sessions
+          .includes(:patient, :dialysate)
+          .where("hd_sessions.updated_at > ?", changes_since)
       end
 
       def current_registration_status_rr_code
@@ -74,7 +81,9 @@ module Renalware
       end
 
       def prescriptions
-        __getobj__.prescriptions.where("updated_at > ?", changes_since)
+        __getobj__.prescriptions
+          .includes(:termination, :medication_route, :drug)
+          .where("updated_at > ?", changes_since)
       end
 
       def observation_requests
