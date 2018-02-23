@@ -4269,7 +4269,8 @@ CREATE TABLE patients (
     ukrdc_external_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     country_of_birth_id integer,
     legacy_patient_id integer,
-    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL
+    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    sent_to_ukrdc_at timestamp without time zone
 );
 
 
@@ -14396,6 +14397,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180214124317'),
 ('20180216132741'),
 ('20180221210458'),
-('20180222090501');
+('20180222090501'),
+('20180223100420');
 
 
