@@ -7,7 +7,7 @@ xml = builder
 # TODO: Implement start stop dates
 # xml.Observations do(start: Time.zone.today.iso8601, stop: Time.zone.today.iso8601) do
 xml.Observations do
-  patient.clinic_visits.includes(:updated_by).each do |visit|
+  patient.clinic_visits.each do |visit|
     render "clinic_visit_observation",
            visit: visit,
            method: :systolic_bp,

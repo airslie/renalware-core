@@ -24,7 +24,7 @@ xml.Treatment do
   end
 
   xml.Attributes do
-    xml.HDP01 hd_patient&.hd_profile&.schedule_definition&.days_per_week
+    xml.HDP01 session.patient&.hd_profile&.schedule_definition&.days_per_week
     xml.HDP02 session.duration
     xml.HDP03 session.document.dialysis.flow_rate
     xml.HDP04 session&.dialysate&.sodium_content
