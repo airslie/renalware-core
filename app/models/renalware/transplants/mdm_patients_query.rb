@@ -8,10 +8,12 @@ module Renalware
       include ModalityScopes
       include PatientPathologyScopes
       MODALITY_NAMES = ["Transplant"].freeze
+      DEFAULT_SEARCH_PREDICATE = "hgb_date DESC".freeze
       attr_reader :q, :relation, :named_filter
 
-      def initialize(relation: Transplants::Patient.all, named_filter: nil, q: {})
-        @q = q
+      def initialize(relation: Transplants::Patient.all, named_filter: nil, q: nil)
+        @q = q || {}
+        @q[:s] = DEFAULT_SEARCH_PREDICATE if @q[:s].blank?
         @relation = relation
         @named_filter = named_filter || :none
       end

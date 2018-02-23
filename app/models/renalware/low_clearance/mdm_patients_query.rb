@@ -4,7 +4,7 @@ module Renalware
   module LowClearance
     class MDMPatientsQuery
       include ModalityScopes
-      DEFAULT_SEARCH_PREDICATE = "ure_date ASC".freeze
+      DEFAULT_SEARCH_PREDICATE = "hgb_date DESC".freeze
       attr_reader :query, :relation, :named_filter
 
       def initialize(relation: Patient.all, query: nil, named_filter: nil)
