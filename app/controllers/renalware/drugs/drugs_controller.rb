@@ -53,10 +53,8 @@ module Renalware
       def update
         @drug = Drug.find(params[:id])
         authorize @drug
-
         if @drug.update(drug_params)
-          redirect_to drugs_drugs_path,
-            notice: t(".success", model_name: "drug")
+          redirect_to drugs_drugs_path, notice: t(".success", model_name: "drug")
         else
           flash.now[:error] = t(".failed", model_name: "drug")
           render :edit
@@ -65,9 +63,7 @@ module Renalware
 
       def destroy
         authorize Drug.destroy(params[:id])
-
-        redirect_to drugs_drugs_path,
-          notice: t(".success", model_name: "drug")
+        redirect_to drugs_drugs_path, notice: t(".success", model_name: "drug")
       end
 
       private
