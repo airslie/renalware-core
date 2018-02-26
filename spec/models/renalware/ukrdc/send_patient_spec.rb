@@ -1,0 +1,119 @@
+require "rails_helper"
+
+module Renalware
+  describe UKRDC::SendPatient do
+    let(:user) { create(:user) }
+    let(:xml) {
+      # This the XML our mock renderer will always render!
+      <<-XML
+      <xml>
+        <SendingFacility channelName='Renalware' time='2018-02-26T13:18:02+00:00'/>
+        <AnotherElement some_attribute=''></AnotherElement>
+      </xml>
+      XML
+    }
+    let(:xml_with_sending_facility_time_removed) {
+      <<-XML
+      <xml>
+        <SendingFacility channelName='Renalware' time=''/>
+        <AnotherElement some_attribute=''></AnotherElement>
+      </xml>
+      XML
+    }
+    let(:renderer) { double(:renderer, render: xml) }
+    let(:xml_md5_hash) { Digest::MD5.hexdigest(xml_with_sending_facility_time_removed) }
+    let(:patient) do
+      create(
+        :patient,
+        ukrdc_external_id: SecureRandom.uuid,
+        sent_to_ukrdc_at: 1.week.ago
+      )
+    end
+
+    context "when the patient has never been sent to the UKRDC before" do
+      it "'sends' a new XML file and updates the log entry correctly" do
+        patient.update_by(user, sent_to_ukrdc_at: nil)
+
+        Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
+          described_class.new(
+            renderer: renderer,
+            patient: patient,
+            dir: dir,
+            changes_since: "2017-01-01" # required if sent_to_ukrdc_at is nil!
+          ).call
+
+          log = UKRDC::TransmissionLog.where(patient: patient).last
+          expect(log.error).to be_nil
+          expect(log.payload).to eq(xml)
+          expect(log.payload_hash).to eq(xml_md5_hash)
+          expect(log.file_path).to eq(File.join(dir, "#{patient.ukrdc_external_id}.xml"))
+          expect(File.read(log.file_path)).to eq(xml) # Check the correct content was written
+        end
+      end
+    end
+
+    context "when the patient has previously been sent to the UKRDC but now something about "\
+            " has cause the XML content to differ" do
+      let(:prevous_transmission_log) {
+        UKRDC::TransmissionLog.create!(
+          patient: patient,
+          status: :sent,
+          sent_at: 1.week.ago,
+          payload: "<xml>out of date</xml>",
+          payload_hash: Digest::MD5.hexdigest("<xml>out of date</xml>")
+        )
+      }
+
+      it "'sends' a new XML file and updates the log entry correctly" do
+        prevous_transmission_log
+
+        Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
+          described_class.new(
+            renderer: renderer,
+            patient: patient,
+            dir: dir
+          ).call
+
+          log = UKRDC::TransmissionLog.where(patient: patient).last
+          expect(log.error).to be_nil
+          expect(log.payload).to eq(xml)
+          expect(log.payload_hash).to eq(xml_md5_hash)
+          expect(log.file_path).to eq(File.join(dir, "#{patient.ukrdc_external_id}.xml"))
+          expect(File.read(log.file_path)).to eq(xml) # Check the correct content was written
+        end
+      end
+    end
+
+    context "when the patient has previously been sent to the UKRDC but *nothing* about has "\
+            " changes so the payload_hash is the same" do
+
+      let(:prevous_transmission_log) {
+        UKRDC::TransmissionLog.create!(
+          patient: patient,
+          status: :sent,
+          sent_at: 1.week.ago,
+          payload: xml,
+          payload_hash: xml_md5_hash
+        )
+      }
+
+      it "does *not* send a new XML file but updates the log entry as unsent" do
+        prevous_transmission_log
+
+        Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
+          described_class.new(
+            renderer: renderer,
+            patient: patient,
+            dir: dir
+          ).call
+
+          log = UKRDC::TransmissionLog.where(patient: patient).last
+          expect(log.error).to be_nil
+          expect(log.payload).to eq(xml)
+          expect(log.payload_hash).to eq(xml_md5_hash)
+          expect(log.file_path).to be_nil
+        end
+      end
+    end
+  end
+end

@@ -6633,10 +6633,11 @@ CREATE TABLE ukrdc_transmission_logs (
     id bigint NOT NULL,
     patient_id bigint NOT NULL,
     sent_at timestamp without time zone NOT NULL,
-    result character varying,
+    status integer NOT NULL,
     payload xml,
     payload_hash text,
     error text,
+    file_path character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -11823,7 +11824,7 @@ CREATE INDEX index_transplant_registrations_on_patient_id ON transplant_registra
 -- Name: index_ukrdc_transmission_logs_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE UNIQUE INDEX index_ukrdc_transmission_logs_on_patient_id ON ukrdc_transmission_logs USING btree (patient_id);
+CREATE INDEX index_ukrdc_transmission_logs_on_patient_id ON ukrdc_transmission_logs USING btree (patient_id);
 
 
 --
