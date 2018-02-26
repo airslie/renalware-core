@@ -9,7 +9,7 @@ module Renalware
       validates :patient, presence: true
       validates :notes, presence: true
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
     end
   end
 end

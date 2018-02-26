@@ -3,7 +3,7 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class Contact < ApplicationRecord
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :person, class_name: "Directory::Person"
       belongs_to :description, class_name: "ContactDescription"
 

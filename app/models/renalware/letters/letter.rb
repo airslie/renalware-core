@@ -11,7 +11,7 @@ module Renalware
       delegate :include_pathology_in_letter_body?, to: :letterhead, allow_nil: true
 
       belongs_to :event, polymorphic: true
-      belongs_to :author, class_name: "User"
+      belongs_to :author, class_name: "User", inverse_of: :letters
       belongs_to :patient, touch: true
       belongs_to :letterhead
       has_one :main_recipient,

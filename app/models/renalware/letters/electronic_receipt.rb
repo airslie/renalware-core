@@ -7,7 +7,7 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class ElectronicReceipt < ApplicationRecord
-      belongs_to :letter
+      belongs_to :letter, touch: true
       belongs_to :recipient, class_name: "Renalware::User"
       validates :letter, presence: true
       validates :recipient_id, presence: true

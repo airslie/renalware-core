@@ -6,6 +6,8 @@ module Renalware
       it { is_expected.to validate_presence_of(:user) }
       it { is_expected.to validate_presence_of(:letter) }
       it { is_expected.to validate_presence_of(:signed_at) }
+      it { is_expected.to belong_to(:user).touch(true) }
+      it { is_expected.to belong_to(:letter).touch(true) }
 
       describe "#to_s" do
         subject(:signature) { Signature.new(user: user, signed_at: "2016-08-01 12:05:55") }

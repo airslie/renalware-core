@@ -5,7 +5,7 @@ module Renalware
     class Archive < ApplicationRecord
       include Accountable
 
-      belongs_to :letter
+      belongs_to :letter, touch: true
 
       validates :content, presence: true
     end

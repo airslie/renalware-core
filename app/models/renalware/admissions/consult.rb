@@ -14,7 +14,7 @@ module Renalware
         if: ->(consult){ consult.consult_site_id.blank? && consult.hospital_ward_id.blank? }
       }
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :consult_site, class_name: "Admissions::ConsultSite"
       belongs_to :hospital_ward, class_name: "Hospitals::Ward"
       belongs_to :seen_by, class_name: "User"

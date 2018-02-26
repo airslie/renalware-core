@@ -2,6 +2,7 @@ require_dependency "renalware/hd"
 
 module Renalware
   module HD
+    # TODO: Document
     class DiarySlot < ApplicationRecord
       # Changing to_ary from private to public here is a hack required to remove a SimpleDelgator
       # warning in eg Renalware::HD::WeeklyDiary::WeeklySlotDecorator:
@@ -26,8 +27,8 @@ module Renalware
       attr_accessor :change_type
 
       include Accountable
-      belongs_to :diary, class_name: "Renalware::HD::Diary"
-      belongs_to :patient
+      belongs_to :diary, class_name: "Renalware::HD::Diary", touch: true
+      belongs_to :patient, touch: true
       belongs_to :station, class_name: "Renalware::HD::Station"
       belongs_to :diurnal_period_code
 

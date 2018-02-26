@@ -13,7 +13,7 @@ module Renalware
       validates :patient, presence: true
       validates :sent_at, presence: true
 
-      belongs_to :patient
+      belongs_to :patient # no touch required
       belongs_to :author
     end
   end

@@ -3,6 +3,7 @@ require "rails_helper"
 module Renalware
   module Letters
     describe ElectronicReceipt, type: :model do
+      it { is_expected.to belong_to(:letter).touch(true) }
       it { is_expected.to have_db_index(:recipient_id) }
       it { is_expected.to have_db_index(:letter_id) }
       it { is_expected.to validate_presence_of(:letter) }

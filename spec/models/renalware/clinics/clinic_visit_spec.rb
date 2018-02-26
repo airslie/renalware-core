@@ -3,7 +3,7 @@ require "rails_helper"
 describe Renalware::Clinics::ClinicVisit, type: :model do
   it_behaves_like "an Accountable model"
   it { is_expected.to be_versioned }
-  it { is_expected.to belong_to :patient }
+  it { is_expected.to belong_to(:patient).touch(true) }
   it { is_expected.to validate_presence_of :date }
   it { is_expected.to validate_presence_of :clinic }
   it { is_expected.to validate_timeliness_of(:date) }

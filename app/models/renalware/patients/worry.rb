@@ -6,7 +6,10 @@ module Renalware
       include Accountable
       has_paper_trail class_name: "Renalware::Patients::Version"
 
-      belongs_to :patient, class_name: "Renalware::Patient", foreign_key: :patient_id
+      belongs_to :patient,
+                 class_name: "Renalware::Patient",
+                 foreign_key: :patient_id,
+                 touch: true
 
       validates :patient, presence: true, uniqueness: true
     end

@@ -5444,7 +5444,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -5523,7 +5523,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -6686,7 +6686,8 @@ ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
 --
 
 CREATE TABLE virology_profiles (
-    id bigint NOT NULL
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL
 );
 
 
@@ -11838,6 +11839,13 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 
 
 --
+-- Name: index_virology_profiles_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_virology_profiles_on_patient_id ON virology_profiles USING btree (patient_id);
+
+
+--
 -- Name: master_index_hd_diaries_on_hospital_unit_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -12609,6 +12617,14 @@ ALTER TABLE ONLY renal_profiles
 
 ALTER TABLE ONLY transplant_recipient_workups
     ADD CONSTRAINT fk_rails_571a3cadda FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: virology_profiles fk_rails_58ffa1276c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY virology_profiles
+    ADD CONSTRAINT fk_rails_58ffa1276c FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -14398,6 +14414,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180216132741'),
 ('20180221210458'),
 ('20180222090501'),
-('20180223100420');
+('20180223100420'),
+('20180226124724');
 
 
