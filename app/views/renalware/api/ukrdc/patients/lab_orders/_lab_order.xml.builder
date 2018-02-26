@@ -2,12 +2,18 @@
 #
 xml = builder
 
+# Migrated OBRs have the prefix 'PCS-'. Some have been reported as duplicates by URDC.
+# I don't believe PCS-XXX is the actual placerid in the HL7 message as this is not stored in RW1
+# so we are safe here to suffix them with a random string to remove the possibility of duplication.
+placer_id = request.requestor_order_number
+placer_id += SecureRandom.hex(8) if placer_id.to_s.upcase.start_with?("PCS-")
+
 xml.LabOrder do
   # xml.ReceivingLocation do
   #   xml.Code ""
   #   xml.Description # request.pathology_lab.name
   # end
-  xml.PlacerId request.requestor_order_number
+  xml.PlacerId placer_id
   # xml.FillerId "??ORC:3 Labs Order Id"
   # xml.OrderedBy do
   #   xml.Code "unknown"
