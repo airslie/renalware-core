@@ -15,7 +15,7 @@ module Renalware
         if @changes_since.blank?
           raise(
             ArgumentError,
-            "No date for comparison: patient.no sent_to_ukrdc_at and changes_since are nil"
+            "No date for comparison: patient#sent_to_ukrdc_at and changes_since are nil"
           )
         end
         @changes_up_until = Time.zone.now

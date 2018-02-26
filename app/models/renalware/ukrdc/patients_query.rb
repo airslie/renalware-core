@@ -1,3 +1,4 @@
+require_dependency "renalware/ukrdc"
 
 module Renalware
   module UKRDC
