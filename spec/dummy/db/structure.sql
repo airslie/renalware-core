@@ -6631,6 +6631,7 @@ ALTER SEQUENCE transplant_versions_id_seq OWNED BY transplant_versions.id;
 
 CREATE TABLE ukrdc_transmission_logs (
     id bigint NOT NULL,
+    request_uuid uuid NOT NULL,
     patient_id bigint NOT NULL,
     sent_at timestamp without time zone NOT NULL,
     status integer NOT NULL,
@@ -11825,6 +11826,13 @@ CREATE INDEX index_transplant_registrations_on_patient_id ON transplant_registra
 --
 
 CREATE INDEX index_ukrdc_transmission_logs_on_patient_id ON ukrdc_transmission_logs USING btree (patient_id);
+
+
+--
+-- Name: index_ukrdc_transmission_logs_on_request_uuid; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_transmission_logs_on_request_uuid ON ukrdc_transmission_logs USING btree (request_uuid);
 
 
 --

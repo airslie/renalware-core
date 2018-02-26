@@ -8,6 +8,9 @@ namespace :ukrdc do
   desc "Creates a folder of UKRDC XML files containing any changes to PV patients since "\
        "their last export"
   task :export, [:changed_since, :patient_ids] => [:environment] do |t, args|
+    logger           = Logger.new(STDOUT)
+    logger.level     = Logger::INFO
+    Rails.logger     = logger
     Renalware::UKRDC::SendPatients.new(**args.to_h).call
   end
 end

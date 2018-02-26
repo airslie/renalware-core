@@ -4,20 +4,26 @@ require "attr_extras"
 module Renalware
   module UKRDC
     class SendPatient
-      pattr_initialize [:patient!, :dir!, :renderer, :changes_since]
+      pattr_initialize [:patient!, :dir!, :request_uuid!, :renderer, :changes_since, :logger]
 
       def call
-        UKRDC::TransmissionLog.with_logging(patient) do |log|
+        UKRDC::TransmissionLog.with_logging(patient, request_uuid) do |log|
+          logger.info "  Patient #{patient.to_param}"
           xml_payload = build_payload(log)
           if xml_payload_same_as_last_sent_payload?(xml_payload)
             log.unsent_no_change_since_last_send!
           else
             send_file(xml_payload, log)
           end
+          logger.info "    Status: #{log.status}"
         end
       end
 
       private
+
+      def logger
+        @logger ||= Rails.logger
+      end
 
       def xml_payload_same_as_last_sent_payload?(payload)
         payload.to_md5_hash == last_sent_transmission_log.payload_hash
@@ -74,14 +80,16 @@ module Renalware
 
         private
 
-        # Remove the time from SendingFacility
+        # Remove the time elements from SendingFacility
         # e.g.
         #   <SendingFacility channelName='Renalware' time='2018-02-26T13:18:02+00:00'/>
         # becomes
-        #   <SendingFacility channelName='Renalware' time=''/>
+        #   <SendingFacility channelName='Renalware'/>
         # This allows us to do payload comparisons independent of the time they were sent.
         def time_neutral_payload
-          payload.gsub(/(time=["'][^'"]*['"])/, "time=''")
+          payload
+            .gsub(/<Stream>[^<]*<\/Stream>/, "<Stream>removed</Stream>")
+            .gsub(/ (time|start|stop)=["'][^'"]*['"]/, '')
         end
       end
     end

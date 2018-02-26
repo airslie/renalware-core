@@ -10,7 +10,9 @@ module Renalware
       alias_attribute :mobile_telephone, :telephone2
 
       def initialize(patient, changes_since: nil)
-        changes_since = Time.zone.parse(changes_since) if changes_since.present?
+        if changes_since.present? && changes_since.is_a?(String)
+          changes_since = Time.zone.parse(changes_since)
+        end
         @changes_since = changes_since || patient.sent_to_ukrdc_at
         if @changes_since.blank?
           raise(

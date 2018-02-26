@@ -8,11 +8,10 @@ module Renalware
       enum status: [:undefined, :error, :unsent_no_change_since_last_send, :sent]
       scope :ordered, ->{ order(sent_at: :asc) }
 
-      def self.with_logging(patient)
-        log = new(patient: patient, sent_at: Time.zone.now)
+      def self.with_logging(patient, request_uuid)
+        log = new(patient: patient, sent_at: Time.zone.now, request_uuid: request_uuid)
         yield log if block_given?
         log.save!
-
       rescue StandardError => error
         log.error = formatted_exception(error)
         log.status = :error

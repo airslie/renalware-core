@@ -3,20 +3,29 @@ require "rails_helper"
 module Renalware
   describe UKRDC::SendPatient do
     let(:user) { create(:user) }
+    let(:request_uuid) { SecureRandom.uuid }
     let(:xml) {
       # This the XML our mock renderer will always render!
       <<-XML
       <xml>
         <SendingFacility channelName='Renalware' time='2018-02-26T13:18:02+00:00'/>
         <AnotherElement some_attribute=''></AnotherElement>
+        <LabOrders start="2018-02-23T00:00:00+00:00" stop="2018-02-26T18:35:28+00:00">
+        </LabOrders>
+        <Observations start="2018-02-23T00:00:00+00:00" stop="2018-02-26T18:35:28+00:00">
+        </Observations>
       </xml>
       XML
     }
     let(:xml_with_sending_facility_time_removed) {
       <<-XML
       <xml>
-        <SendingFacility channelName='Renalware' time=''/>
+        <SendingFacility channelName='Renalware'/>
         <AnotherElement some_attribute=''></AnotherElement>
+        <LabOrders>
+        </LabOrders>
+        <Observations>
+        </Observations>
       </xml>
       XML
     }
@@ -36,6 +45,7 @@ module Renalware
 
         Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
           described_class.new(
+            request_uuid: request_uuid,
             renderer: renderer,
             patient: patient,
             dir: dir,
@@ -56,6 +66,7 @@ module Renalware
             " has cause the XML content to differ" do
       let(:prevous_transmission_log) {
         UKRDC::TransmissionLog.create!(
+          request_uuid: request_uuid,
           patient: patient,
           status: :sent,
           sent_at: 1.week.ago,
@@ -69,6 +80,7 @@ module Renalware
 
         Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
           described_class.new(
+            request_uuid: request_uuid,
             renderer: renderer,
             patient: patient,
             dir: dir
@@ -89,6 +101,7 @@ module Renalware
 
       let(:prevous_transmission_log) {
         UKRDC::TransmissionLog.create!(
+          request_uuid: request_uuid,
           patient: patient,
           status: :sent,
           sent_at: 1.week.ago,
@@ -102,6 +115,7 @@ module Renalware
 
         Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
           described_class.new(
+            request_uuid: request_uuid,
             renderer: renderer,
             patient: patient,
             dir: dir
