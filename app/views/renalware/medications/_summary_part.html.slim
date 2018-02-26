@@ -1,18 +1,19 @@
-.summary-part--prescriptions
-  #current-prescriptions
-    article
-      header
-        h2
-          = link_to "Current Prescriptions (#{summary_part.current_prescriptions.length})",
-                    patient_prescriptions_path(summary_part.patient)
+- cache(summary_part) do
+  .summary-part--prescriptions
+    #current-prescriptions
+      article
+        header
+          h2
+            = link_to "Current Prescriptions (#{summary_part.current_prescriptions.length})",
+                      patient_prescriptions_path(summary_part.patient)
 
-        = link_to patient_prescriptions_path(summary_part.patient), class: "button" do
-          | Add
+          = link_to patient_prescriptions_path(summary_part.patient), class: "button" do
+            | Add
 
-      ul.no-bullet
-        - summary_part.current_prescriptions.each do |prescription|
-          li class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
-            = "#{prescription.drug.name}, "
-            = "#{prescription.dose}, "
-            = "#{prescription.medication_route.code} #{prescription.frequency} - "
-            = l(prescription.prescribed_on)
+        ul.no-bullet
+          - summary_part.current_prescriptions.each do |prescription|
+            li class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
+              = "#{prescription.drug.name}, "
+              = "#{prescription.dose}, "
+              = "#{prescription.medication_route.code} #{prescription.frequency} - "
+              = l(prescription.prescribed_on)

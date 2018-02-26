@@ -7,5 +7,10 @@ FactoryBot.define do
       code "immunosuppressant"
       name "Immunosuppressant"
     end
+
+    trait :esa do
+      code "esa"
+      name "ESA"
+    end
   end
 end

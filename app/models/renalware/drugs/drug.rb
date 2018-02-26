@@ -6,7 +6,7 @@ module Renalware
       acts_as_paranoid
 
       has_many :classifications, dependent: :destroy
-      has_many :drug_types, through: :classifications
+      has_many :drug_types, through: :classifications, after_remove: proc { |drug| drug.touch }
 
       scope :ordered, -> { order(:name) }
 
