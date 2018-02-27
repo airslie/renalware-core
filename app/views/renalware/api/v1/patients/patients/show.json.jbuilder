@@ -25,6 +25,6 @@ json.current_address do
   json.telephone patient.current_address&.telephone
   json.email patient.current_address&.email
 end
-json.medications_url api_v1_patient_prescriptions_url(patient_id: patient)
+json.prescriptions_url api_v1_patient_prescriptions_url(patient_id: patient)
 json.hd_profile_url api_v1_patient_hd_current_profile_url(patient_id: patient)
 # TODO: HD Profile link to have at least site and schedule
