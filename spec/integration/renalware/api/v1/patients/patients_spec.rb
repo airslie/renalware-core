@@ -78,7 +78,7 @@ RSpec.describe "API request for a single patient JSON document", type: :feature 
             "telephone" => "118118",
             "email" => "email@example.com"
           },
-          "medications_url" => api_v1_patient_medications_prescriptions_url(patient_id: patient),
+          "medications_url" => api_v1_patient_prescriptions_url(patient_id: patient),
           "hd_profile_url" => api_v1_patient_hd_current_profile_url(patient_id: patient)
         }
       )
