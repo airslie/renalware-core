@@ -91,10 +91,16 @@ module Renalware
           end
 
           scope :ukt_status_is, lambda { |status|
-            where("transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike '#{status}'")
+            where(
+              "transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike ?",
+              status
+            )
           }
           scope :ukt_status_is_not, lambda { |status|
-            where.not("transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike '#{status}'")
+            where.not(
+              "transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike ?",
+              status
+            )
           }
           scope :current_status_is_active, ->{ current_status_in(:active) }
           scope :current_status_is_not_active, ->{ current_status_not_in(:active) }
