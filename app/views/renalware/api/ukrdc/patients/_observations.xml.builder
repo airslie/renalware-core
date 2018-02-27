@@ -4,7 +4,10 @@
 #   - bp
 xml = builder
 
-xml.Observations(start: patient.changes_since.iso8601, stop: patient.changes_up_until.iso8601) do
+xml.Observations(
+  start: patient.changes_since.to_date.iso8601,
+  stop: patient.changes_up_until.to_date.iso8601
+  ) do
   patient.clinic_visits.each do |visit|
     render "clinic_visit_observation",
            visit: visit,

@@ -7,11 +7,13 @@ module Renalware
     it { is_expected.to belong_to(:patient).touch(false) }
 
     describe ".with_logging" do
+      let(:uuid) { SecureRandom.uuid }
+
       context "when yielding to the supplied block" do
         context "when there is an exception" do
           it "catches the exception and logs the error message and set the status to 'error'" do
             patient = create(:patient)
-            UKRDC::TransmissionLog.with_logging(patient) do
+            UKRDC::TransmissionLog.with_logging(patient, uuid) do
               raise ArgumentError
             end
 
@@ -25,7 +27,7 @@ module Renalware
         context "when processing succeeds" do
           it "saves the log" do
             patient = create(:patient)
-            described_class.with_logging(patient) do |log|
+            described_class.with_logging(patient, uuid) do |log|
               log.payload = "XYZ"
               log.payload_hash = "123"
               log.sent!
@@ -44,7 +46,7 @@ module Renalware
         context "when unsent because no changes in the xml are found since the last sent" do
           it "saves the log" do
             patient = create(:patient)
-            described_class.with_logging(patient) do |log|
+            described_class.with_logging(patient, uuid) do |log|
               log.payload = "XYZ"
               log.payload_hash = "123"
               log.unsent_no_change_since_last_send!
