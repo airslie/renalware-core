@@ -17,9 +17,9 @@ feature "Alert management" do
       click_on "Create alert"
     end
 
-    within ".alerts" do
+    within ".patient-alerts" do
       expect(page).to have_content("Some note")
-      expect(page).to have_selector(".alerts--alert", count: 1)
+      expect(page).to have_selector(".patient-alert", count: 1)
     end
   end
 
@@ -33,17 +33,17 @@ feature "Alert management" do
 
     visit patient_path(patient)
 
-    within ".alerts" do
+    within ".patient-alerts" do
       expect(page).to have_content("Abc")
-      expect(page).to have_selector(".alerts--alert", count: 1)
+      expect(page).to have_selector(".patient-alert", count: 1)
     end
 
-    within ".alerts" do
+    within ".patient-alerts" do
       find(".actions a").click
     end
 
-    within ".alerts" do
-      expect(page).to have_selector(".alerts--alert", count: 0)
+    within ".patient-alerts" do
+      expect(page).to have_selector(".patient-alert", count: 0)
     end
   end
 end

@@ -1,10 +1,10 @@
-tr.alerts--alert(class=("urgent" if alert.urgent) id="alert-#{alert.id}")
-  td.icon
-  td.notes
-    span(title=alert.notes)= alert.notes
-  td.author= alert.created_by.username
-  td.col-width-date= l(alert.created_at.to_date)
-  td.actions
+li.patient-alert(class=("urgent" if alert.urgent) id="alert-#{alert.id}")
+  i.fa.fa-warning
+  span.title Alert:
+  span.body= alert.notes
+  span.author= alert.created_by.username
+  span.date= l(alert.created_at.to_date)
+  span.actions
     = link_to(patient_alert_path(alert.patient, alert),
               remote: true,
               method: :delete,

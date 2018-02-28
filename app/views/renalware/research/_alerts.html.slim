@@ -1,0 +1,6 @@
+/ Note the caching here relies on study_participant edit/create/destroy touching patient
+- cache(patient)
+  - participations = Renalware::Research::StudyParticipant.where(participant_id: patient.id).where("joined_on <= ?", Time.zone.now).where("left_on is null or left_on > ?", Time.zone.now)
+  = render partial: "renalware/research/alert",
+           collection: participations,
+           as: :participation
