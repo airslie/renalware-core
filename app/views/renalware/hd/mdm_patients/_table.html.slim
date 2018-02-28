@@ -16,6 +16,12 @@ table#patients.mdm-patients.columns
       th.at-least.col-width-small= t(".transport_type")
       th.col-width-tiny= sort_link(path, :hgb, t(".hgb"))
       th.col-width-date= sort_link(path, :hgb_date, t(".hgb_date"))
+      th.show-for-xlarge-up.col-width-tiny= sort_link(path, :phos, t(".phos"))
+      th.show-for-xlarge-up.col-width-date= sort_link(path, :phos_date, t(".phos_date"))
+      th.show-for-xlarge-up.col-width-tiny= sort_link(path, :pth, t(".pth"))
+      th.show-for-xlarge-up.col-width-date= sort_link(path, :pth_date, t(".pth_date"))
+      th.show-for-xlarge-up.col-width-tiny= sort_link(path, :urr, t(".urr"))
+      th.show-for-xlarge-up.col-width-date= sort_link(path, :urr_date, t(".urr_date"))
       th.col-width-tiny
   tbody
     = render partial: "patient",

@@ -25,6 +25,12 @@ en:
           hgb_date: HGB Date
           ure: URE
           ure_date: URE Date
+          urr: URR
+          urr_date: URR Date
+          phos: PO4
+          phos_date: PO4 Date
+          pth: PTH
+          pth_date: PTH Date
           cre: CRE
           cre_date: CRE Date
           egfr: EGFR
