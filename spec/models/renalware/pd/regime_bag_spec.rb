@@ -3,6 +3,7 @@ require "./spec/support/login_macros"
 
 module Renalware
   RSpec.describe PD::RegimeBag, type: :model do
+    it { is_expected.to belong_to(:regime).touch(true) }
     it { is_expected.to validate_presence_of :bag_type }
     it { is_expected.to validate_presence_of :volume }
     it { is_expected.to enumerize(:role).in(:ordinary, :additional_manual_exchange, :last_fill) }

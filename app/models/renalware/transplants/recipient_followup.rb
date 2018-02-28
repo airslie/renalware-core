@@ -12,8 +12,8 @@ module Renalware
                  foreign_key: "operation_id",
                  touch: true
       belongs_to :transplant_failure_cause_description,
-        class_name: "Transplants::FailureCauseDescription",
-        foreign_key: "transplant_failure_cause_description_id"
+                 class_name: "Transplants::FailureCauseDescription",
+                 foreign_key: "transplant_failure_cause_description_id"
 
       has_paper_trail class_name: "Renalware::Transplants::Version"
       has_document class_name: "Renalware::Transplants::RecipientFollowupDocument"

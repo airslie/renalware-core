@@ -4,7 +4,7 @@ module Renalware
   module UKRDC
     describe PatientPresenter do
       def smoker(status)
-        patient = Patient.new
+        patient = Patient.new(sent_to_ukrdc_at: 1.year.ago)
         patient.document.history.smoking = status
         UKRDC::PatientPresenter.new(patient).smoking_history
       end

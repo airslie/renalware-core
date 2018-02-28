@@ -14,7 +14,7 @@ module Renalware
       before_save :assign_days_per_week
 
       belongs_to :bag_type
-      belongs_to :regime
+      belongs_to :regime, touch: true
 
       validates :bag_type, presence: true
       validates :volume, presence: true

@@ -4269,7 +4269,8 @@ CREATE TABLE patients (
     ukrdc_external_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     country_of_birth_id integer,
     legacy_patient_id integer,
-    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL
+    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    sent_to_ukrdc_at timestamp without time zone
 );
 
 
@@ -6625,6 +6626,44 @@ ALTER SEQUENCE transplant_versions_id_seq OWNED BY transplant_versions.id;
 
 
 --
+-- Name: ukrdc_transmission_logs; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE ukrdc_transmission_logs (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    sent_at timestamp without time zone NOT NULL,
+    status integer NOT NULL,
+    request_uuid uuid NOT NULL,
+    payload_hash text,
+    payload xml,
+    error text,
+    file_path character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: ukrdc_transmission_logs_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE ukrdc_transmission_logs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: ukrdc_transmission_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE ukrdc_transmission_logs_id_seq OWNED BY ukrdc_transmission_logs.id;
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -6685,7 +6724,8 @@ ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
 --
 
 CREATE TABLE virology_profiles (
-    id bigint NOT NULL
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL
 );
 
 
@@ -7742,6 +7782,13 @@ ALTER TABLE ONLY transplant_registrations ALTER COLUMN id SET DEFAULT nextval('t
 --
 
 ALTER TABLE ONLY transplant_versions ALTER COLUMN id SET DEFAULT nextval('transplant_versions_id_seq'::regclass);
+
+
+--
+-- Name: ukrdc_transmission_logs id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY ukrdc_transmission_logs ALTER COLUMN id SET DEFAULT nextval('ukrdc_transmission_logs_id_seq'::regclass);
 
 
 --
@@ -8975,6 +9022,14 @@ ALTER TABLE ONLY transplant_registrations
 
 ALTER TABLE ONLY transplant_versions
     ADD CONSTRAINT transplant_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ukrdc_transmission_logs ukrdc_transmission_logs_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY ukrdc_transmission_logs
+    ADD CONSTRAINT ukrdc_transmission_logs_pkey PRIMARY KEY (id);
 
 
 --
@@ -11767,6 +11822,20 @@ CREATE INDEX index_transplant_registrations_on_patient_id ON transplant_registra
 
 
 --
+-- Name: index_ukrdc_transmission_logs_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_transmission_logs_on_patient_id ON ukrdc_transmission_logs USING btree (patient_id);
+
+
+--
+-- Name: index_ukrdc_transmission_logs_on_request_uuid; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_transmission_logs_on_request_uuid ON ukrdc_transmission_logs USING btree (request_uuid);
+
+
+--
 -- Name: index_users_on_approved; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -11834,6 +11903,13 @@ CREATE UNIQUE INDEX index_users_on_username ON users USING btree (username);
 --
 
 CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (item_type, item_id);
+
+
+--
+-- Name: index_virology_profiles_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_virology_profiles_on_patient_id ON virology_profiles USING btree (patient_id);
 
 
 --
@@ -12611,6 +12687,14 @@ ALTER TABLE ONLY transplant_recipient_workups
 
 
 --
+-- Name: virology_profiles fk_rails_58ffa1276c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY virology_profiles
+    ADD CONSTRAINT fk_rails_58ffa1276c FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: hd_diary_slots fk_rails_5910319259; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -13312,6 +13396,14 @@ ALTER TABLE ONLY modality_modalities
 
 ALTER TABLE ONLY patient_alerts
     ADD CONSTRAINT fk_rails_c37cc03264 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
+-- Name: ukrdc_transmission_logs fk_rails_c59f71164c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY ukrdc_transmission_logs
+    ADD CONSTRAINT fk_rails_c59f71164c FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -14396,6 +14488,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180214124317'),
 ('20180216132741'),
 ('20180221210458'),
-('20180222090501');
+('20180222090501'),
+('20180223100420'),
+('20180226124724'),
+('20180226132410');
 
 

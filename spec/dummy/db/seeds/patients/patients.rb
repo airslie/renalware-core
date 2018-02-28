@@ -21,6 +21,7 @@ module Renalware
           patient.born_on = row["born_on"]
           patient.nhs_number = demo_nhsno
           patient.created_at = row["created_at"]
+          patient.send_to_rpv = row["send_to_rpv"]
           patient.by = system_user
         end
 

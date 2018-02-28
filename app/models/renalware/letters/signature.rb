@@ -3,8 +3,8 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class Signature < ApplicationRecord
-      belongs_to :user
-      belongs_to :letter
+      belongs_to :user, touch: true
+      belongs_to :letter, touch: true
 
       validates :user, presence: true
       validates :letter, presence: true

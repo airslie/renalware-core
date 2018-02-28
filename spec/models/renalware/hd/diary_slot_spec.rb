@@ -3,8 +3,8 @@ require "rails_helper"
 module Renalware::HD
   RSpec.describe DiarySlot, type: :model do
     it_behaves_like "an Accountable model"
-    it { is_expected.to belong_to(:diary) }
-    it { is_expected.to belong_to(:patient) }
+    it { is_expected.to belong_to(:diary).touch(true) }
+    it { is_expected.to belong_to(:patient).touch(true) }
     it { is_expected.to belong_to(:station) }
     it { is_expected.to belong_to(:diurnal_period_code) }
     it { is_expected.to validate_presence_of(:diary) }

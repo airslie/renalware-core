@@ -3,7 +3,7 @@ FactoryBot.define do
     association :description, factory: :pathology_request_description
     requestor_order_number "123"
     requestor_name "Jane Doe"
-    requested_at "2016-03-04 10:14:49"
+    requested_at { 1.year.ago }
 
     trait :full_blood_count_with_observations do
       association :description, factory: :pathology_request_description, code: "FBC"

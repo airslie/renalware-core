@@ -7,7 +7,7 @@ module Renalware
       include PatientScope
       include Accountable
 
-      belongs_to :patient, class_name: "Renalware::Clinical::Patient"
+      belongs_to :patient, class_name: "Renalware::Clinical::Patient", touch: true
       belongs_to :assessor, class_name: "User", foreign_key: "assessor_id"
       belongs_to :modality_description, class_name: "Modalities::Description"
 

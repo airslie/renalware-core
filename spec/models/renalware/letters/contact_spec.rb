@@ -3,6 +3,8 @@ require "rails_helper"
 module Renalware
   module Letters
     RSpec.describe Contact, type: :model do
+      it { is_expected.to belong_to(:patient).touch(true) }
+
       describe "validation" do
         it { is_expected.to validate_presence_of(:person) }
         it { is_expected.to validate_presence_of(:description) }

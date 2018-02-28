@@ -8,7 +8,7 @@ module Renalware
 
       acts_as_paranoid
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :reason, class_name: "RequestReason"
 
       validates :patient_id, presence: true, uniqueness: true

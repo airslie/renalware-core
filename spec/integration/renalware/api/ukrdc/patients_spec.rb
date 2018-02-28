@@ -16,7 +16,8 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
       ethnicity: white_british,
       country_of_birth: uk,
       language: english,
-      by: user
+      by: user,
+      sent_to_ukrdc_at: 1.year.ago
     )
   end
 
@@ -83,6 +84,7 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
         expect(matches.length).to eq(2)
 
         validate(response.body).each do |error|
+          p response.body
           puts error.message
           fail
         end
