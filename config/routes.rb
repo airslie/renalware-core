@@ -82,9 +82,7 @@ Renalware::Engine.routes.draw do
     # The JSON API
     namespace :v1, constraints: { format: :json }, defaults: { format: :json } do
       resources :patients, only: :show, controller: "patients/patients" do
-        namespace :medications do
-          resources :prescriptions, only: :index
-        end
+        resources :prescriptions, controller: "medications/prescriptions", only: [:index]
         namespace :hd do
           resource :current_profile,
                    only: :show,
