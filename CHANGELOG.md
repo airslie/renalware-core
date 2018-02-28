@@ -9,6 +9,24 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.0.pre.rc12
+27-02-2017
+
+### Added
+- UKRDC export rake task
+
+### Changed
+- Default sort order to HGB desc on all MDMs
+- Sort Clinical Studies list
+- Add address fields to API
+- Limit delayed_job retries to 10 and do not remove from queue once exceeded
+- Ensure OBR placer ids are unique in UKRDC XML
+- Cache rendered PDFs using Cache::FileStore not the the default Rails.cache
+
+### Fixed
+
+- #1948 Fix patient side menu when patients have markup in event notes
+
 ## 2.0.0.pre.rc11
 21-02-2017
 
