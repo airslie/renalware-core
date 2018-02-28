@@ -6,7 +6,7 @@ module Renalware
       attr_reader :patient_ids, :changed_since, :logger, :request_uuid
 
       def initialize(changed_since: nil, patient_ids: nil, logger: nil)
-        @changed_since = DateTime.parse(changed_since) if changed_since.present?
+        @changed_since = Time.zone.parse(changed_since) if changed_since.present?
         @patient_ids = patient_ids
         @logger = logger || Rails.logger
         @request_uuid = SecureRandom.uuid # helps group logs together
@@ -82,7 +82,7 @@ module Renalware
 
       def print_summary(ms)
         logger.info "*** Summary ***"
-        logger.info "Took #{ ms.to_i / 1000 } seconds"
+        logger.info "Took #{ms.to_i / 1000} seconds"
         results = TransmissionLog.where(request_uuid: request_uuid).group(:status).count(:status)
         results.to_h.map{ |key, value| logger.info("#{key}: #{value}") }
       end

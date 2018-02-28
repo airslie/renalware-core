@@ -6,10 +6,7 @@ xml.LabOrders(
   stop: patient.changes_up_until.to_date.iso8601
   ) do
   render partial: "renalware/api/ukrdc/patients/lab_orders/lab_order",
-         collection: patient.observation_requests.includes(
-           :description,
-           observations: { description: :measurement_unit }
-         ),
+         collection: patient.observation_requests,
          as: :request,
          locals: { builder: builder, patient: patient }
 end

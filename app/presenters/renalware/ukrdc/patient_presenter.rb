@@ -91,9 +91,13 @@ module Renalware
       def observation_requests
         pathology_patient
           .observation_requests
-          .having_observations_with_a_loinc_code
+          .eager_load(
+            :description,
+            observations: { description: :measurement_unit }
+          )
           .where(patient_id: id)
           .where("requested_at >= ?", changes_since)
+          .where("loinc_code is not null")
       end
 
       private
