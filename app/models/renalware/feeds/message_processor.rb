@@ -9,10 +9,11 @@ module Renalware
       include Wisper::Publisher
 
       def call(raw_message)
-        message_payload = parse_message(raw_message)
-        persist_message(message_payload)
-
-        broadcast(:message_processed, message_payload)
+        ActiveRecord::Base.transaction do
+          message_payload = parse_message(raw_message)
+          persist_message(message_payload)
+          broadcast(:message_processed, message_payload)
+        end
       rescue StandardError => exception
         notify_exception(exception)
         raise exception
