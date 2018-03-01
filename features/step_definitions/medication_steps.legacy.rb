@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 When(/^they add a prescription$/) do
   visit patient_prescriptions_path(@patient_1,
     treatable_type: @patient_1.class, treatable_id: @patient_1.id)

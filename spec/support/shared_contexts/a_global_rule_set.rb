@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_context "a global_rule_set" do
   let!(:clinic) { create(:clinic) }
   let!(:required_observation_description) { create(:pathology_observation_description) }

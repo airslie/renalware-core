@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   sequence(:system_code) { |n| "sibling-#{n}" }
   sequence(:name) { |n| "Sibling #{n}" }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :pathology_observation_description,
           class: "Renalware::Pathology::ObservationDescription" do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given(/^Clyde recorded a problem for Patty$/) do
   record_problem_for(patient: @patty, user: @clyde)
 end

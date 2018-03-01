@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :ethnicity, class: "Renalware::Patients::Ethnicity" do
     name "White - British"

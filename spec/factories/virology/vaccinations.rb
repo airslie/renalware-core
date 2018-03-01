@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :vaccination, class: "Renalware::Virology::Vaccination" do
     event_type factory: :vaccination_event_type

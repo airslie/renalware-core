@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :apd_system, class: "Renalware::PD::System" do
     name { Faker::Company.name }

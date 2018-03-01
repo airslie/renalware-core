@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :aki_alert, class: "Renalware::Renal::AKIAlert" do
     accountable

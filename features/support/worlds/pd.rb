@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module World
   module PD
     def pd_patient(patient)

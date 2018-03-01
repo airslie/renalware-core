@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :directory_person, class: "Renalware::Directory::Person" do
     accountable

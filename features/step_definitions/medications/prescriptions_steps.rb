@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given(/^Patty has a recorded prescription|Patty has current prescriptions$/) do
   seed_prescription_for(
     patient: @patty

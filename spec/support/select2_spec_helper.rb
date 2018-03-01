@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Select2SpecHelper
   def select2(value, opts)
     scope = opts[:from]

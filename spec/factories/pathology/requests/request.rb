@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :pathology_requests_request, class: "Renalware::Pathology::Requests::Request" do
     accountable

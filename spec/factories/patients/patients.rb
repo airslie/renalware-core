@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   sequence :nhs_number do |n|
     n.to_s.rjust(10, "0000000000")

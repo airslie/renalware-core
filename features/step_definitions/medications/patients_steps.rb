@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given(/^these patients and prescriptions$/) do |table|
   seed_prescriptions(table)
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DrugsSpecHelper
   def load_drugs(*names)
     names.each do |name|

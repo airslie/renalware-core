@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   Drugs::Drug.transaction do
     reset_sequence_sql = nil

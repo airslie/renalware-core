@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :hospital_unit, class: "Renalware::Hospitals::Unit" do
     hospital_centre

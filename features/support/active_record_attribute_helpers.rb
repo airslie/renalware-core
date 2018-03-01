@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveRecordAttributeHelpers
   def bool_from_string(value)
     ActiveRecord::Type::Boolean.new.cast(value)

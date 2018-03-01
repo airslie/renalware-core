@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding AKI Alert actions" do
     [

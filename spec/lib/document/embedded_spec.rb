@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Naming/HeredocDelimiterNaming
 require "rails_helper"
 require "document/enum"

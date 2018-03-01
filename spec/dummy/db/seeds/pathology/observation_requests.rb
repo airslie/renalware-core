@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def create_observation(patient, request_description)
   pathology_patient = Renalware::Pathology.cast_patient(patient)
 

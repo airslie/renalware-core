@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Style/GlobalVars
 Dir[Renalware::Engine.root.join("features/support/worlds/*.rb")].each { |f| require f }
 

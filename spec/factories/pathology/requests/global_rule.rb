@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :pathology_requests_global_rule, class: "Renalware::Pathology::Requests::GlobalRule" do
     type "ObservationResult"

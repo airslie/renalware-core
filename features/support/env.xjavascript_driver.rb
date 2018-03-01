@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "capybara/poltergeist"
 
 # When this option is enabled, you can insert page.driver.debug into your tests

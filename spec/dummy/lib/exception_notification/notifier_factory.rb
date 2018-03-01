@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ExceptionNotification
   class NotifierFactory
     def initialize(filename: nil, environment: nil)

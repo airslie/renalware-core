@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ParameterType(
   name: "date",
   regexp: /(\d{2})\-(\d{2})\-(\d{4})/,

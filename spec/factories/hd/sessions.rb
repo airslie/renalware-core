@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :hd_session, class: "Renalware::HD::Session::Open" do
     accountable

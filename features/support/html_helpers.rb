@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module HTMLHelpers
   def html_table_to_array(dom_id)
     find_by_id(dom_id)

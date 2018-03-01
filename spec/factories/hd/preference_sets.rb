@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :hd_preference_set, class: "Renalware::HD::PreferenceSet" do
     accountable

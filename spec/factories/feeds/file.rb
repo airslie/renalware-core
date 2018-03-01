@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :feed_file, class: "Renalware::Feeds::File" do
     association :file_type, factory: :feed_file_type

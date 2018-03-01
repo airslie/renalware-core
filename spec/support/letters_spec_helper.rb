@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LettersSpecHelper
   def build_letter(state: :draft, to:, patient:, **args)
     trait = "#{state}_letter".to_sym

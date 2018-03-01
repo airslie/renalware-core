@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This listener had been wired to receive the letter_approved broadcast events in the
 # broadcast_subscription_map.
 # See config/initializers/renalware.rb

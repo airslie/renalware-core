@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :hd_weekly_diary, class: "Renalware::HD::WeeklyDiary" do
     year 2017

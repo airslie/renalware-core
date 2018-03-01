@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Creating Admission::ConsultSites" do
     ["Site A", "Site B", "Site C"].each do |name|

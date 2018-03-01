@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "csv"
 require Renalware::Engine.root.join("db", "seeds", "seeds_helper")
 

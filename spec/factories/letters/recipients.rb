@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :letter_recipient, class: "Renalware::Letters::Recipient" do
     trait :main do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This is feature spec (rather than adding to the existing request specs)
 # as adding a patient uses a modal (js)
 require "rails_helper"

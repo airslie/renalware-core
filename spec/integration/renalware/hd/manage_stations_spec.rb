@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 feature "Managing HD Stations for a Hospital Unit", type: :feature do

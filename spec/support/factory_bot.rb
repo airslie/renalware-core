@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.configure do |config|
   FactoryBot.definition_file_paths = Array(Renalware::Engine.root.join("spec", "factories"))
   config.include FactoryBot::Syntax::Methods

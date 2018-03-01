@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :hd_patient_statistics, class: "Renalware::HD::PatientStatistics" do
     patient factory: :hd_patient

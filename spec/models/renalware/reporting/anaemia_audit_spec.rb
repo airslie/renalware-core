@@ -1,8 +1,10 @@
+# TODO: list
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/ModuleLength
 require "rails_helper"
 
 # Anaemia Audit
-# TODO: list
 # - Refactor helpers into an AuditHelper mixin as some duplication here with other audit tests.
 # - Remove rubocop disable above
 # - Rename bone audit describe block

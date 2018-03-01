@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A simple collection of dates so we don't have to make these up every time
 # and protects us from changes in date/time UI implementation; i.e. selecting
 # a different Calendar widget.

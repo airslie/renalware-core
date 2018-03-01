@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "Viewing patients whose HD preferences do not match their profile", type: :feature do

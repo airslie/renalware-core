@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :peritonitis_episode, class: "Renalware::PD::PeritonitisEpisode" do
     patient

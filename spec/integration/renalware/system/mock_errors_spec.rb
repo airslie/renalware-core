@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 feature "Producing a mock error so we can test error reporting", type: :request do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :letter_letterhead, class: "Renalware::Letters::Letterhead" do
     name "KCH"

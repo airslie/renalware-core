@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :bag_type, class: "Renalware::PD::BagType" do
     manufacturer "Star Brand, Lucky Brand"

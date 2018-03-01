@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   sequence(:term) { |n| "term-#{n}" }
   factory :peritonitis_episode_type_description,

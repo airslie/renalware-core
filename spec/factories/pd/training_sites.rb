@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :pd_training_site, class: "Renalware::PD::TrainingSite" do
     code "HOME"

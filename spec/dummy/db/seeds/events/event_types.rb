@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding Demo Event Types" do
     file_path = File.join(File.dirname(__FILE__), "event_types.csv")
