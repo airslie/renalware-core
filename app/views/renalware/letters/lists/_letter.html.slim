@@ -1,14 +1,28 @@
 tr(class=letter.state.dasherize)
   td.noprint
+    - if letter.approved?
+      / The Print link will:
+      / - open a new tab with the PDF, ready to print
+      / - display a modal on this page (ready for when the user returns here after
+      /   printing) that asks if they want to mark the letters as printed or not.
+      / See letters.js where it binds to .printing-pdf.
+      / See also completed letters controller and the comments in
+      / ./show.js.erb and and ./show.html.slim
+      = link_to patient_letters_letter_print_path(letter),
+                target: "_blank",
+                class: "printing-pdf button secondary compact",
+                data: { \
+                  "modal-url" => new_patient_letters_letter_completed_path(letter.patient, letter) \
+                } do
+         i.fa.fa-print
+         | Print
+    | &nbsp;&nbsp;
     = link_to "Toggle",
               "#quick-preview-#{letter.id}",
               data: { behaviour: "toggler" }
     = pipe_separator
     = link_to "View", patient_letters_letter_path(letter.patient, letter)
-    = pipe_separator
-    = link_to "Print&nbsp;(PDF)".html_safe,
-              patient_letters_letter_print_path(letter),
-              target: "print"
+
   td.col-width-medium-with-ellipsis= letter.type
   td.state
     span= letter.state_description

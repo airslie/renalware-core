@@ -7,7 +7,7 @@ module Renalware
 
       def initialize(changed_since: nil, patient_ids: nil, logger: nil)
         @changed_since = Time.zone.parse(changed_since) if changed_since.present?
-        @patient_ids = patient_ids
+        @patient_ids = Array(patient_ids)
         @logger = logger || Rails.logger
         @request_uuid = SecureRandom.uuid # helps group logs together
       end

@@ -43,6 +43,7 @@ module Renalware
             ZipArchive.new(zipfile).unzip do |files|
               xml_pathname = find_file_in(files, FILE_TO_EXTRACT_FROM_ARCHIVE)
               csv_path = Practices::ConvertXmlToCsv.call(xml_pathname)
+              FileUtils.copy(csv_path, Rails.root.join("generated_organisations.csv"))
               Practices::ImportCSV.new(csv_path).call
             end
             log "Practice count after update: #{practice_count}"

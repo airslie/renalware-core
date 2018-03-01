@@ -367,7 +367,7 @@ Renalware::Engine.routes.draw do
         resource :pending_review, controller: "pending_review_letters", only: :create
         resource :rejected, controller: "rejected_letters", only: :create
         resource :approved, controller: "approved_letters", only: :create
-        resource :completed, controller: "completed_letters", only: :create
+        resource :completed, controller: "completed_letters", only: [:new, :create]
         resource :formatted, controller: "formatted_letters", only: :show
         collection do
           get :contact_added

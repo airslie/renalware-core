@@ -23,6 +23,12 @@ en:
         pending_review: Pending Review
         approved: Approved
         completed: Completed
+      for_receptionists:
+        state:
+          draft: Draft
+          pending_review: Pending Review
+          approved: Approved (Ready to Print)
+          completed: Completed (Printed)
     provider:
       gp: GP
       hospital: Hospital
