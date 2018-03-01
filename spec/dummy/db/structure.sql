@@ -275,7 +275,7 @@ CREATE FUNCTION import_practice_memberships_csv(file text) RETURNS void
     AS $$
   BEGIN
 
-  DROP TABLE IF EXISTS memberships_via_copy;
+  DROP TABLE IF EXISTS copied_memberships;
   CREATE TEMP TABLE copied_memberships (
     gp_code text NOT NULL,
     practice_code text NOT NULL,
@@ -317,6 +317,8 @@ CREATE FUNCTION import_practice_memberships_csv(file text) RETURNS void
     WHERE NOT EXISTS (select 1 FROM tmp_memberships tmem
     WHERE tmem.practice_id = mem.practice_id AND tmem.primary_care_physician_id = mem.primary_care_physician_id);
 
+  DROP TABLE IF EXISTS copied_memberships;
+  DROP TABLE IF EXISTS tmp_memberships;
 END;
 $$;
 
@@ -14491,6 +14493,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180222090501'),
 ('20180223100420'),
 ('20180226124724'),
-('20180226132410');
+('20180226132410'),
+('20180301095040');
 
 
