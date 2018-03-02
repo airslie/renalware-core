@@ -1,18 +1,19 @@
-table.report.letters
-  thead
-    tr
-      th.noprint.col-width-medium
-      th Type
-      th= sort_link([:renalware, q], :type, "State")
-      th.col-width-medium= sort_link([:renalware, q], :patient_family_name, "Patient")
-      th.col-width-nhs-no= sort_link([:renalware, q], :patient_nhs_number, "NHS No")
-      th= sort_link([:renalware, q], :enclosures, "Enc.")
-      th.col-width-date = sort_link([:renalware, q], :issued_on, "Date", default_order: :desc)
-      th= sort_link([:renalware, q], :author_family_name, "Author")
-      th= sort_link([:renalware, q], :created_by_family_name, "Typist")
-      th.col-width-small Recipient
-      th Description
-  tbody
-    = render partial: "letter", collection: letters
+.letters-table
+  table.report.letters
+    thead
+      tr
+        th.noprint.col-width-medium
+        th Type
+        th= sort_link([:renalware, q], :type, "State")
+        th.col-width-medium= sort_link([:renalware, q], :patient_family_name, "Patient")
+        th.col-width-nhs-no= sort_link([:renalware, q], :patient_nhs_number, "NHS No")
+        th= sort_link([:renalware, q], :enclosures, "Enc.")
+        th.col-width-date = sort_link([:renalware, q], :issued_on, "Date", default_order: :desc)
+        th= sort_link([:renalware, q], :author_family_name, "Author")
+        th= sort_link([:renalware, q], :created_by_family_name, "Typist")
+        th.col-width-small Recipient
+        th Description
+    tbody
+      = render partial: "letter", collection: letters
 
-= paginate letters
+  = paginate letters
