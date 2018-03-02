@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module UKRDC
     class PathologyObservationPresenter < SimpleDelegator

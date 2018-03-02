@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Override SessionPresenter methods where necessary in order
 # to tailor output for the Protocol PDF.
 module Renalware

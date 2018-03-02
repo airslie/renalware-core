@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # A presenter which, for a patient, displays any HD preferences (for example when or where they
 # have HD) that do not match their current HD profile.

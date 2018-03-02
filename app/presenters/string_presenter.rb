@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StringPresenter
   include ::ActionView::Helpers::TextHelper
 
