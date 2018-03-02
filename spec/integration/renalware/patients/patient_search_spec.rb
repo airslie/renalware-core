@@ -92,7 +92,7 @@ RSpec.describe "Searching patients", type: :request do
           get patients_path(q: { identity_match: "123 456 7890" })
 
           expect(response).to have_http_status(:success)
-          expect(response.body).to match("1234567890")
+          expect(response.body).to match("123 456 7890")
         end
       end
     end
