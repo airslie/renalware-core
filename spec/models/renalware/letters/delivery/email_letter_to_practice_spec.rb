@@ -13,7 +13,11 @@ module Renalware
       )
     end
     let(:user) { create(:user) }
-    let(:letter) { build(:approved_letter, patient: patient, by: user) }
+    let(:letter) do
+      build(:approved_letter, patient: patient, by: user).tap do |lett|
+        lett.type = lett.class.sti_name # TODO: remove hack caused by RSpec timing?
+      end
+    end
 
     before { ActiveJob::Base.queue_adapter = :test }
     # Make sure we allow external email in these tests (though none will actually be sent)!
