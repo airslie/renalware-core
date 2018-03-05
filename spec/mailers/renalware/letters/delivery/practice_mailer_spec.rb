@@ -28,6 +28,7 @@ module Renalware
                 description: "LetterDescription",
                 by: user).tap do |letter|
             letter.build_main_recipient(person_role: :primary_care_physician, addressee: gp)
+            letter.type ||= letter.class.sti_name # TODO: RSpec timing makes this required
             letter.save!
           end
         end

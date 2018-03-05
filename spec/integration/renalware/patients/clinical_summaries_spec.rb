@@ -13,8 +13,8 @@ module Renalware
 
         letter_patient = Letters.cast_patient(patient)
         letter = build(:approved_letter, patient: letter_patient, by: user)
-        letter.type || letter.class.sti_name # TODO: RSpec timing makes this required
         letter.build_main_recipient(person_role: :primary_care_physician)
+        letter.type ||= letter.class.sti_name # TODO: RSpec timing makes this required
         letter.save!
 
         visit patient_clinical_summary_path(patient)
