@@ -40,5 +40,12 @@ module Renalware
         [label, state]
       end
     end
+
+    def state_options_for_receptionists
+      Letters::Letter.states.map do |state|
+        label = I18n.t(state.to_sym, scope: "enums.letter.for_receptionists.state")
+        [label, state]
+      end
+    end
   end
 end

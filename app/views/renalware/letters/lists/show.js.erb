@@ -1,0 +1,11 @@
+// After a user has printed a letter and chosen Yes to
+// mark the Letter as printed, we will have made a POST to completed_letters
+// to set the letter status and completed_letters/create.js.erb will then load.
+// It looks for a URL to use to refresh the letter page content (see that partial)
+// and makes an AJAX get to that URL. This is the template for that AJX get call.
+// We close the print confirmation dialog and and refresh the letter table content.
+$(".reveal-modal").foundation('reveal', 'close');
+$(".letters-table").replaceWith("<%= escape_javascript(
+  render "table", letters: letters, q: q) %>");
+// We add this next class for testing so we know the table as refreshed
+$(".letters-table").addClass("ajax-refreshed");

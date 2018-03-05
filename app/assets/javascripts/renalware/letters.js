@@ -15,6 +15,15 @@ Renalware.Letters = (function() {
     $("#letter-form").change(hideOrShowContactSelector);
   }
 
+  var bindOnLetterAboutToPrint = function() {
+    $(document).on("click", "table.letters .printing-pdf", function(e) {
+      var modal = $("#letter-print-modal");
+      url = $(this).data("modal-url");
+      modal.load(url).foundation('reveal', 'open');
+      true;
+    });
+  }
+
   var bindOnSalutationChange = function() {
 
     $("#letter-form").on("click", ".has_salutation", function(e) {
@@ -92,6 +101,7 @@ Renalware.Letters = (function() {
       initNewContactAsMainRecipient();
       initNewContactAsCC();
       initInsertEventNotesIntoTextEditor();
+      bindOnLetterAboutToPrint();
     }
   };
 })();

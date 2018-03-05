@@ -52,3 +52,4 @@ rerun.txt
 /.idea
 /Find Results
 key.gpg
+/spec/dummy/generated_organisations.csv

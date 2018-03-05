@@ -10,7 +10,7 @@
           .small-6.medium-1.large-1.columns
             = f.input :enclosures_present, as: :select, label: "Enclosure"
           .small-6.medium-3.large-2.columns
-            = f.input :state_eq, collection: state_options, label: "State"
+            = f.input :state_eq, collection: state_options_for_receptionists, label: "State"
           .small-6.medium-3.large-2.columns
             = f.input :author_id_eq, as: :user_picker, collection: authors, label: "Author"
           .small-6.medium-3.large-2.columns
@@ -22,21 +22,16 @@
 
   .row
     .columns.small-12
-      table.report.letters
-        thead
-          tr
-            th.noprint
-            th Type
-            th= sort_link([:renalware, q], :type, "State")
-            th.col-width-medium= sort_link([:renalware, q], :patient_family_name, "Patient")
-            th.col-width-nhs-no= sort_link([:renalware, q], :patient_nhs_number, "NHS No")
-            th= sort_link([:renalware, q], :enclosures, "Enc.")
-            th.col-width-date = sort_link([:renalware, q], :issued_on, "Date", default_order: :desc)
-            th= sort_link([:renalware, q], :author_family_name, "Author")
-            th= sort_link([:renalware, q], :created_by_family_name, "Typist")
-            th.col-width-small Recipient
-            th Description
-        tbody
-          = render partial: "letter", collection: letters
+      = render "table", letters: letters, q: q
 
-      = paginate letters
+/ The modal dialog container for the dialog which will ask the user
+/ if they want to mark the letter as printed. We load this dialog via ajax.
+/ See letters/completed_letters/new.html.slim for th dialog content.
+/ See also
+/ - letters/completed_letters/create.js.erb
+/ - ./show.js.erb
+/ - letters.js
+/ for the complete works. Using ujs for these sort of dialog -> -> post -> page refresh
+/ cycles is a bit complex and we could move to using something like stimulus
+/ to keep thing a bit simpler
+#letter-print-modal.reveal-modal.small(data-reveal data-refresh-url=request.original_fullpath)

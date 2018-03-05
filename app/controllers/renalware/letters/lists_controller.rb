@@ -9,12 +9,20 @@ module Renalware
         query = LetterQuery.new(q: params[:q])
         letters = find_and_authorize_letters(query)
 
-        render locals: {
+        locals = {
           letters: letters,
           authors: User.author.ordered,
           typists: User.ordered,
           q: query.search
         }
+        respond_to do |format|
+          format.html do
+            render locals: locals
+          end
+          format.js do
+            render locals: locals, layout: false
+          end
+        end
       end
 
       private

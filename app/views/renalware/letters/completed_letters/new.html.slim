@@ -1,0 +1,27 @@
+.modal
+  .modal__header
+    h2= "Was printing successful?"
+    /= render "renalware/shared/modal_close_link"
+  .modal__body
+    dl.dl-horizontal
+      dt Patient
+      dd= letter.patient.to_s
+      dt Letter
+      dd= letter.description
+      dt Date
+      dd= l(letter.issued_on)
+      dt Author
+      dd= letter.author
+    br
+  .modal__footer
+    = link_to "No - leave in the Print Queue",
+              "#",
+              class: "button secondary reveal-modal-close",
+              "aria-label" => "Close"
+    | &nbsp;&nbsp;&nbsp;
+    = link_to "Yes - remove from the Print Queue",
+              patient_letters_letter_completed_path(letter.patient, letter),
+              method: :post,
+              remote: true,
+              data: { disable_with: "Updating..." },
+              class: "button primary right"

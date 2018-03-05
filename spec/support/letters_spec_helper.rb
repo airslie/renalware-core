@@ -11,6 +11,11 @@ module LettersSpecHelper
     attributes = build_main_recipient_attributes(to)
     letter.main_recipient = build(:letter_recipient, :main, attributes)
 
+    # We shouldn't have to do this but for some reason in RSpec tests if the second test in a suite
+    # creates a letter it can end up with type of nil - something in Rails is not setting it.
+    # Hence this unpleasant hack:
+    letter.type ||= letter.class.sti_name
+
     letter
   end
 
@@ -20,6 +25,7 @@ module LettersSpecHelper
     letter
   end
 
+  # rubocop:disable Metrics/MethodLength
   def build_main_recipient_attributes(to)
     case to
     when :patient
@@ -35,4 +41,5 @@ module LettersSpecHelper
       }
     end
   end
+  # rubocop:enable Metrics/MethodLength
 end
