@@ -214,4 +214,3 @@ docker build -t renalware .
 docker-compose run web rake db:create
 docker-compose run web rake app:db:create
 ```
-
