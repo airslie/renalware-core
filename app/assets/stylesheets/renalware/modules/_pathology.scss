@@ -19,20 +19,41 @@ table#observations {
     background-color: $white;
   }
 
-  td {
+  td, th {
     border: 1px solid #ddd;
     font-size: 0.8rem;
   }
 
   &.transposed {
-    tr { display: block; float: left; }
-    th, td { display: block; }
+    tr {
+      display: block; float: left;
+    }
+    th, td {
+      display: block;
+    }
   }
 }
 
 .current-observations {
   float: left;
   margin-right: 1em;
+
+  tbody {
+    td, th {
+      font-size: .9rem;
+    }
+
+    th {
+      &:first-child {
+        width: 4rem;
+      }
+    }
+    td {
+      &:last-child {
+        width: 8rem;
+      }
+    }
+  }
 }
 
 #observation-requests {

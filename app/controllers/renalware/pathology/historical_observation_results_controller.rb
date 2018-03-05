@@ -9,7 +9,7 @@ module Renalware
       def index
         observations_table = CreateObservationsGroupedByDateTable.new(
           patient: patient,
-          observation_descriptions: RelevantObservationDescription.all,
+          observation_descriptions: ObservationDescription.in_display_order,
           page: page || 1,
           per_page: 25
         ).call

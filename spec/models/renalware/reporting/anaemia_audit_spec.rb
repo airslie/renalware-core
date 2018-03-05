@@ -105,7 +105,7 @@ module Renalware
             json = Reporting::FetchAuditJson.call(audit_view_name)
             result = JSON.parse(json).deep_symbolize_keys!
 
-            expect(result[:data]).to eq(
+            expect(result[:data].sort{ |a,b| a[:modality] <=> b[:modality] }).to eq(
               [
                 {
                   modality: "HD",

@@ -11,5 +11,9 @@ FactoryBot.define do
 
     code "WBR"
     association :measurement_unit, factory: :pathology_measurement_unit
+    display_group 1
+    display_order 1
+    letter_group 1
+    letter_order 1
   end
 end
