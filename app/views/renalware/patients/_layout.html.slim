@@ -1,31 +1,34 @@
 - content_for(:header) do
   = render "renalware/patients/header", patient: current_patient
 
+- content_for(:css) do
+  = stylesheet_link_tag "renalware/patients", media: :all
+
 - title = breadcrumbs_and_title(breadcrumbs: local_assigns[:breadcrumbs],
                                 title: local_assigns[:title])
+
 - patient_page_title(title: title, patient: current_patient)
 
-.patient-container
-  .patient-content
-    = render "renalware/patients/mini_profile", patient: current_patient
-    .row
-      .page-heading.columns.small-12
-        h1= title
-        .actions
-          / Output any page-level actions
-          = yield(:actions)
+nav.patient-side-nav
+  = render "renalware/patients/side_menu", patient: current_patient
 
-      - if content_for?(:page_navigation)
-        .page-navigation= yield(:page_navigation)
-      - else
-        - unless local_assigns[:skip_top_navigation].present?
-          - partial = local_assigns[:navigation_partial] || "navigation"
+.patient-content
+  = render "renalware/patients/mini_profile", patient: current_patient
+  .row
+    .page-heading.columns.small-12
+      h1= title
+      .actions
+        / Output any page-level actions
+        = yield(:actions)
 
-          / Be sure to pass on any locals passed to us,
-          / along with the patient if not already provided
-          = render_if_exists partial, local_assigns.reverse_merge!(patient: current_patient)
+    - if content_for?(:page_navigation)
+      .page-navigation= yield(:page_navigation)
+    - else
+      - unless local_assigns[:skip_top_navigation].present?
+        - partial = local_assigns[:navigation_partial] || "navigation"
 
-      = yield
+        / Be sure to pass on any locals passed to us,
+        / along with the patient if not already provided
+        = render_if_exists partial, local_assigns.reverse_merge!(patient: current_patient)
 
-  nav.patient-side-nav
-    = render "renalware/patients/side_menu", patient: current_patient
+    = yield
