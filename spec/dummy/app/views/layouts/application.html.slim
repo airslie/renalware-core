@@ -9,6 +9,7 @@ html lang="en"
 
     = stylesheet_link_tag "application", media: :all
     = stylesheet_link_tag "renalware/application", media: :all
+    = yield :css
 
     = javascript_include_tag "renalware/modernizr"
     = csrf_meta_tag
@@ -21,25 +22,23 @@ html lang="en"
 
   body(class="#{ content_for?(:body_class) ? yield(:body_class) : 'page--' + controller_name }")
     #modals-wrapper
-    .page
-      .sticky-top
-        - if Renalware.config.display_feedback_banner
-          = render "renalware/system/user_feedback/banner"
-        - if content_for?(:top_navigation)
-          = yield :top_navigation
-        - else
-          = render "renalware/navigation/main"
-        = yield(:header)
+    header
+      - if Renalware.config.display_feedback_banner
+        = render "renalware/system/user_feedback/banner"
+      - if content_for?(:top_navigation)
+        = yield :top_navigation
+      - else
+        = render "renalware/navigation/main"
+      = yield(:header)
 
-      - if defined?(flash_messages)
-        = render "renalware/shared/flash_messages"
+    - if defined?(flash_messages)
+      = render "renalware/shared/flash_messages"
 
-      main
-        .main-content
-          = yield
+    main
+      = yield
 
-      - unless user_signed_in?
-        = render "renalware/navigation/footer"
+    - unless user_signed_in?
+      = render "renalware/navigation/footer"
     /- load_js_asynchonously = (Rails.env.staging? || Rails.env.production?)
     - load_js_asynchonously = false
     = javascript_include_tag "renalware/application", async: load_js_asynchonously
