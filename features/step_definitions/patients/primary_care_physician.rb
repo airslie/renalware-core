@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given("Phylis is a primary care physician") do
   @phylis = Renalware::Patients::PrimaryCarePhysician.create!(
     name: "PARFIT P",

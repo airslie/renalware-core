@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Assign Letters to Roger RABBIT" do
     patient = Letters.cast_patient(Patient.find_by(local_patient_id: "Z100001"))

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :infection_organism, class: "Renalware::PD::InfectionOrganism" do
     organism_code

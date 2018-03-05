@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "./system/seeds"
 require_relative "./hospitals/seeds"
 require_relative "./drugs/seeds"

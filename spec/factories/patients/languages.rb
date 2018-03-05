@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :language, class: "Renalware::Patients::Language" do
     name "English"

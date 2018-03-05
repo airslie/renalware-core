@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Assign contacts to Roger RABBIT" do
 

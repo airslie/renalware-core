@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding Clinic Visits for Roger RABBIT" do
 

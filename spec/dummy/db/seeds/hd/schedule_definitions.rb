@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding HD Schedule Definitions" do
     user = User.last

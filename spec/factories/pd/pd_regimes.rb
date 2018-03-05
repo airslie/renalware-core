@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :pd_regime, class: "Renalware::PD::Regime" do
     patient

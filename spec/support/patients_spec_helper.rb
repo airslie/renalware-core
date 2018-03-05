@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PatientsSpecHelper
   def set_modality(patient:,
                    modality_description:,

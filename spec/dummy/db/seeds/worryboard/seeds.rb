@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
 
   # add random patients plus RABBITs

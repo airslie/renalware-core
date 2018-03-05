@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DatabaseFunctionsSpecHelper
   def toggle_all_triggers(option)
     arg = (option == :off) ? "replica" : "DEFAULT"

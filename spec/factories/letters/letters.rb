@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :letter, class: "Renalware::Letters::Letter" do
     accountable

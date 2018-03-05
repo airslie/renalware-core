@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding Pathology Requests Drug Categories Drugs" do
 

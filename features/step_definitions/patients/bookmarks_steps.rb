@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # GIVEN
 
 Given("Clyde has the following patients bookmarked:") do |table|

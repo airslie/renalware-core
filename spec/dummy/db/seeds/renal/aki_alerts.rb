@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding demo AKI Alerts" do
     action_ids = Renal::AKIAlertAction.pluck(:id)

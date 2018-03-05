@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "dumb_delegator"
 
 module ExceptionNotification

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # GIVEN
 
 Given(/^Patty has a recorded letter$/) do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/ModuleLength
 require "array_stringifier"
 

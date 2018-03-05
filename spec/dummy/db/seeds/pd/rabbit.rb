@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
 
   log "Adding Exit Site Infection for Roger RABBIT" do

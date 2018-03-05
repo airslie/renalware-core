@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :admissions_consult, class: "Renalware::Admissions::Consult" do
     accountable

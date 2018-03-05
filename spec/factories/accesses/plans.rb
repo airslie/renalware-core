@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :access_plan, class: Renalware::Accesses::Plan do
     accountable

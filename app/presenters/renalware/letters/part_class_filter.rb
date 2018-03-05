@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "renalware/letters"
 require "attr_extras"
 

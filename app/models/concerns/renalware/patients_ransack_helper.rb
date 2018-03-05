@@ -18,8 +18,9 @@ module Renalware
 
       private
 
-      def remove_spaces_if_nhs_number!(query)
-        query.gsub!(/\s+/, "") if nhs_number?(query)
+      def remove_spaces_if_nhs_number(query)
+        return query.gsub(/\s+/, "") if nhs_number?(query)
+        query
       end
 
       # Returns true if the argument with spaces removed is a 10 digit number
@@ -29,15 +30,16 @@ module Renalware
         index.present?
       end
 
-      def sanitize_query!(query)
-        query.strip!
-        query.tr!(",", " ")
-        query.gsub!("  ", " ")
+      def sanitize_query(query)
+        query
+          .strip
+          .tr(",", " ")
+          .gsub("  ", " ")
       end
 
       def sql_and_params(query)
-        sanitize_query!(query)
-        remove_spaces_if_nhs_number!(query)
+        query = sanitize_query(query)
+        query = remove_spaces_if_nhs_number(query)
 
         if query.include?(" ")
           [full_name_sql, full_name_params(query)]

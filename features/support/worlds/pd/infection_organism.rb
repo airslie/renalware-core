@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module World
   module PD::InfectionOrganism
     module Domain

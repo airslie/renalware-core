@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :pathology_observation, class: "Renalware::Pathology::Observation" do
     association :description, factory: :pathology_observation_description

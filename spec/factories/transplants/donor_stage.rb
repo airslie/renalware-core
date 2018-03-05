@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :donor_stage, class: "Renalware::Transplants::DonorStage" do
     accountable

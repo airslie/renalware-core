@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding Letter Descriptions" do
     CSV.foreach(File.join(File.dirname(__FILE__),"letter_descriptions.csv"), headers: true) do |row|

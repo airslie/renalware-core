@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
 
   # Set the current DB connection

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given("Clyde is on Patty's event index") do
   visit patient_events_path(@patty)
 end

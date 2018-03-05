@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 log "Adding Research Studies" do
   unless Renalware::Research::Study.exists?
     user = Renalware::User.last

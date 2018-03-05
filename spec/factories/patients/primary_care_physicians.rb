@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   sequence :gp_code do |n|
     "GP1234#{n}"

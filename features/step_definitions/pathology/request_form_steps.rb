@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given("Patty has a request form generated with parameters:") do |table|
   params = table.rows_hash
   pathology_patient = Renalware::Pathology.cast_patient(@patty)

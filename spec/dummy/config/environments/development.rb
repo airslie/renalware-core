@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # In development don't ajax poll so often for a timeout as it can upset our byebug sessions.
 Renalware.configure do |config|
   config.session_timeout_polling_frequency = 1.hour

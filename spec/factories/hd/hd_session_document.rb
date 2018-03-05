@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A word about using FactoryBot to build document (jsonb) objects:
 #
 # The best solution I can find is to use OpenStructs to build each

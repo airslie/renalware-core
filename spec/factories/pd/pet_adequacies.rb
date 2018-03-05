@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :pet_adequacy_result, class: "Renalware::PD::PETAdequacyResult" do
     patient

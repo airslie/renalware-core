@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :hd_station_location, class: "Renalware::HD::StationLocation" do
     name "Side room"

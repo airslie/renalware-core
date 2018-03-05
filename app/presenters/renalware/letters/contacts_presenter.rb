@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/letters"
 require_dependency "collection_presenter"
 

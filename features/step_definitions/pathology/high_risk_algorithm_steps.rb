@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given("the high risk rule set contains these rules:") do |table|
   table.hashes.each do |params|
     create_global_rule(

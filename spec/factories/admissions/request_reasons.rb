@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :admissions_request_reason, class: "Renalware::Admissions::RequestReason" do
     initialize_with do

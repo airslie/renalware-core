@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DateHelpers
   def todays_date
     I18n.l(Time.zone.today)

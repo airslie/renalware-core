@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ExceptionNotification
   class Notifier::Silent < Notifier
     def notify(exception)

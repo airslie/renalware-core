@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ENV["RAILS_ENV"] ||= "test"
 
 if ENV.key?("CC_TEST_REPORTER_ID") || ENV.key?("SIMPLECOV")

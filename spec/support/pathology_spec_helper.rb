@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PathologySpecHelper
   def create_descriptions(names)
     names.map { |name| create_observation_description(name) }

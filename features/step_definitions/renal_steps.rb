@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given(/^Clyde has Patty's renal profile$/) do
   edit_renal_profile(@clyde, @patty)
 end

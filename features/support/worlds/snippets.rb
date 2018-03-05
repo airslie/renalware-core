@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module World
   module Snippets
     def snippets_user(user)

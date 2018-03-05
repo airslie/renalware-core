@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Assigning HD Profiles to Random Patients" do
 

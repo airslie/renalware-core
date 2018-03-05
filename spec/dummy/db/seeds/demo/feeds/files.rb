@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding dummy file feeds for display on the admin file feeds page" do
 

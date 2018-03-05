@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 # Note the handling of \S\ and \\S\\ in this file is a bit confusing.

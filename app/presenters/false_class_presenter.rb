@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FalseClassPresenter < SimpleDelegator
   def to_s
     # rubocop:disable Lint/BooleanSymbol
