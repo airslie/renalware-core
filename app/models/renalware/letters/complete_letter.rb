@@ -1,18 +1,22 @@
 require_dependency "renalware/letters"
+require "attr_extras"
 
 module Renalware
   module Letters
     class CompleteLetter
+      include Broadcasting
+      pattr_initialize :letter
+
       class << self
         alias_method :build, :new
       end
 
-      def initialize(letter)
-        @letter = letter
-      end
-
       def call(by:)
-        @letter.complete(by: by).save!
+        Letter.transaction do
+          @letter = letter.complete(by: by)
+          letter.save!
+          broadcast(:letter_completed, letter)
+        end
       end
     end
   end

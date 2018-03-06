@@ -2874,7 +2874,13 @@ CREATE TABLE letter_letters (
     enclosures character varying,
     pathology_timestamp timestamp without time zone,
     pathology_snapshot jsonb DEFAULT '{}'::jsonb,
-    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL
+    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    submitted_for_approval_at timestamp without time zone,
+    submitted_for_approval_by_id bigint,
+    approved_at timestamp without time zone,
+    approved_by_id bigint,
+    completed_at timestamp without time zone,
+    completed_by_id bigint
 );
 
 
@@ -10374,10 +10380,24 @@ CREATE INDEX index_letter_electronic_receipts_on_recipient_id ON letter_electron
 
 
 --
+-- Name: index_letter_letters_on_approved_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_approved_by_id ON letter_letters USING btree (approved_by_id);
+
+
+--
 -- Name: index_letter_letters_on_author_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_letter_letters_on_author_id ON letter_letters USING btree (author_id);
+
+
+--
+-- Name: index_letter_letters_on_completed_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_completed_by_id ON letter_letters USING btree (completed_by_id);
 
 
 --
@@ -10413,6 +10433,13 @@ CREATE INDEX index_letter_letters_on_letterhead_id ON letter_letters USING btree
 --
 
 CREATE INDEX index_letter_letters_on_patient_id ON letter_letters USING btree (patient_id);
+
+
+--
+-- Name: index_letter_letters_on_submitted_for_approval_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_submitted_for_approval_by_id ON letter_letters USING btree (submitted_for_approval_by_id);
 
 
 --
@@ -12537,6 +12564,14 @@ ALTER TABLE ONLY clinical_body_compositions
 
 
 --
+-- Name: letter_letters fk_rails_3de9a678b4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY letter_letters
+    ADD CONSTRAINT fk_rails_3de9a678b4 FOREIGN KEY (approved_by_id) REFERENCES users(id);
+
+
+--
 -- Name: hd_sessions fk_rails_3e035fe47f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -12646,6 +12681,14 @@ ALTER TABLE ONLY patients
 
 ALTER TABLE ONLY admission_consults
     ADD CONSTRAINT fk_rails_53e81afb74 FOREIGN KEY (seen_by_id) REFERENCES users(id);
+
+
+--
+-- Name: letter_letters fk_rails_54a74fd998; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY letter_letters
+    ADD CONSTRAINT fk_rails_54a74fd998 FOREIGN KEY (submitted_for_approval_by_id) REFERENCES users(id);
 
 
 --
@@ -12838,6 +12881,14 @@ ALTER TABLE ONLY events
 
 ALTER TABLE ONLY patients
     ADD CONSTRAINT fk_rails_76ea7f2448 FOREIGN KEY (second_cause_id) REFERENCES death_causes(id);
+
+
+--
+-- Name: letter_letters fk_rails_774d7e4879; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY letter_letters
+    ADD CONSTRAINT fk_rails_774d7e4879 FOREIGN KEY (completed_by_id) REFERENCES users(id);
 
 
 --
@@ -14487,6 +14538,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180226124724'),
 ('20180226132410'),
 ('20180301095040'),
-('20180306071308');
+('20180306071308'),
+('20180306080518');
 
 

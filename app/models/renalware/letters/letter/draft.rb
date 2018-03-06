@@ -13,7 +13,11 @@ module Renalware
       end
 
       def submit(by:)
-        becomes!(PendingReview).tap { |letter| letter.by = by }
+        becomes!(PendingReview).tap do |letter|
+          letter.by = by
+          letter.submitted_for_approval_by = by
+          letter.submitted_for_approval_at = Time.current
+        end
       end
     end
   end
