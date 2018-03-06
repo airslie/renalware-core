@@ -1,19 +1,4 @@
 html {
-  overflow: auto;
-
-  body {
-    overflow: hidden;
-
-    main {
-      .main-content {
-        width: 100%;
-        height: 100%;
-        overflow-y: auto;
-        position: absolute;
-        padding-bottom: 20rem;
-      }
-    }
-  }
   body.overflow {
     overflow: auto;
   }
@@ -91,7 +76,7 @@ section.display {
 
 .non-patient-page {
   padding-top: 1rem;
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
 
   .page-heading {
     margin-bottom: 0.5rem;
