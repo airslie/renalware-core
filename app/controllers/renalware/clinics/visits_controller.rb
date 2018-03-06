@@ -3,7 +3,7 @@ module Renalware
   module Clinics
     class VisitsController < BaseController
       include Renalware::Concerns::Pageable
-      PER_PAGE = 100
+      PER_PAGE = 25
 
       def index
         visits_query = VisitQuery.new(query_params)
