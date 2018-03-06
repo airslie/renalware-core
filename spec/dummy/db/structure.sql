@@ -5249,7 +5249,6 @@ CREATE TABLE renal_aki_alerts (
     action_id bigint,
     hospital_ward_id bigint,
     hotlist boolean DEFAULT false NOT NULL,
-    renal_aki_alerts character varying,
     action character varying,
     notes text,
     updated_by_id bigint,
@@ -11397,13 +11396,6 @@ CREATE INDEX index_renal_aki_alerts_on_patient_id ON renal_aki_alerts USING btre
 
 
 --
--- Name: index_renal_aki_alerts_on_renal_aki_alerts; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_renal_aki_alerts_on_renal_aki_alerts ON renal_aki_alerts USING btree (renal_aki_alerts);
-
-
---
 -- Name: index_renal_aki_alerts_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -14494,6 +14486,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180223100420'),
 ('20180226124724'),
 ('20180226132410'),
-('20180301095040');
+('20180301095040'),
+('20180306071308');
 
 
