@@ -12,6 +12,9 @@ module Renalware
 
       belongs_to :event, polymorphic: true
       belongs_to :author, class_name: "User"
+      belongs_to :submitted_for_approval_by, class_name: "User"
+      belongs_to :approved_by, class_name: "User"
+      belongs_to :completed_by, class_name: "User"
       belongs_to :patient, touch: true
       belongs_to :letterhead
       has_one :main_recipient,
