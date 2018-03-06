@@ -11,7 +11,8 @@ module Renalware
         footer: {
           font_size: 8,
           right: "Page [page] of [topage]"
-        }
+        },
+        encoding: "UTF-8"
       }.freeze
 
       def self.call(letter)

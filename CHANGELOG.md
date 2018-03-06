@@ -23,7 +23,7 @@ This project adheres to Semantic Versioning.
 - Add Prescriptions to the API
 
 ### Fixed
-- Removed roguw column in aki_alerts
+- Removed rogue column in aki_alerts
 - FireFox layout fix - we now use flexbox CSS on patient pages
 - Remove Print All button on Renal -> Letters. It didn't do anything.
 - Use a transaction around HL7 processing to prevent orphaned observations and

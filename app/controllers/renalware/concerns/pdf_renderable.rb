@@ -15,7 +15,8 @@ module Renalware
               font_size: 8,
               right: "Page [page] of [topage]"
             },
-            show_as_html: Rails.env.development? && params.key?(:debug)
+            show_as_html: Rails.env.development? && params.key?(:debug),
+            encoding: "UTF-8"
           }
         end
 

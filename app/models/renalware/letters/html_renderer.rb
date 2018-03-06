@@ -5,7 +5,8 @@ module Renalware
         context = LettersController.new
         context.render_to_string(
           partial: "/renalware/letters/formatted_letters/letter",
-          locals: { letter: letter }
+          locals: { letter: letter },
+          encoding: "UTF-8"
         )
       end
     end
