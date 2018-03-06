@@ -10,6 +10,26 @@ This project adheres to Semantic Versioning.
 ### Fixed
 
 ## 2.0.0.pre.rc12
+06-03-2017
+
+### Added
+- Use a modal to ask if letter should be marked as printed (ie completed) after printing
+
+### Changed
+- Capture the who and when of letter state changes
+- Use new database columns to restrict and order the pathology observations to display
+- Introduce frozen_string_literal comment in presenters, spec and cucumber features.
+  Roll out across the rest of the app later.
+- Add Prescriptions to the API
+
+### Fixed
+- Removed roguw column in aki_alerts
+- FireFox layout fix - we now use flexbox CSS on patient pages
+- Remove Print All button on Renal -> Letters. It didn't do anything.
+- Use a transaction around HL7 processing to prevent orphaned observations and
+  observation_requests if once of the OBXs fails (causing a delayed_job retry).
+
+## 2.0.0.pre.rc12
 27-02-2017
 
 ### Added
