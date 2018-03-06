@@ -1,239 +1,290 @@
-AL:
+AL: &default
   code: "AL"
   name: "Serum Aluminium"
   measurement_unit: grammes_per_litre
+  display_group: 1
+  display_order: 1
+  letter_group: 1
+  letter_order: 1
 
 ALB:
+  <<: *default
   code: "ALB"
   name: "Albumin"
   measurement_unit: grammes_per_litre
 
 ALP:
+  <<: *default
   code: "ALP"
   name: "Alk Phosph (ALP)"
   measurement_unit: grammes_per_litre
 
 ALT:
+  <<: *default
   code: "ALT"
   name: "ALT"
   measurement_unit: grammes_per_litre
 
 AST:
+  <<: *default
   code: "AST"
   name: "AST"
   measurement_unit: grammes_per_litre
 
 B12:
+  <<: *default
   code: "B12"
   name: "Vitamin B12"
   measurement_unit: grammes_per_litre
 
 BGLU:
+  <<: *default
   code: "BGLU"
   name: "Blood Glucose"
   measurement_unit: grammes_per_litre
 
 BIC:
+  <<: *default
   code: "BIC"
   name: "Bicarbonate"
   measurement_unit: grammes_per_litre
 
 BIL:
+  <<: *default
   code: "BIL"
   name: "Total Bilirubin"
   measurement_unit: grammes_per_litre
 
 CCA:
+  <<: *default
   code: "CCA"
   name: "Corrected Calc"
   measurement_unit: grammes_per_litre
 
 CHOL:
+  <<: *default
   code: "CHOL"
   name: "Cholesterol"
   measurement_unit: grammes_per_litre
 
 CK:
+  <<: *default
   code: "CK"
   name: "CK"
   measurement_unit: grammes_per_litre
 
 CRCL:
+  <<: *default
   code: "CRCL"
   name: "Creatinine Clearance"
   measurement_unit: grammes_per_litre
 
 CRE:
+  <<: *default
   code: "CRE"
   name: "Creatinine"
   measurement_unit: grammes_per_litre
 
 CRP:
+  <<: *default
   code: "CRP"
   name: "C-Reactive Protein"
   measurement_unit: grammes_per_litre
 
 EGFR:
+  <<: *default
   code: "EGFR"
   name: "eGFR / 1.73 m2"
   measurement_unit: grammes_per_litre
 
 ESR:
+  <<: *default
   code: "ESR"
   name: "ESR"
   measurement_unit: grammes_per_litre
 
 FER:
+  <<: *default
   code: "FER"
   name: "Ferritin"
   measurement_unit: grammes_per_litre
 
 FOL:
+  <<: *default
   code: "FOL"
   name: "Folate"
   measurement_unit: grammes_per_litre
 
 GGT:
+  <<: *default
   code: "GGT"
   name: "Gamma GT"
   measurement_unit: grammes_per_litre
 
 GLO:
+  <<: *default
   code: "GLO"
   name: "Globulin"
   measurement_unit: grammes_per_litre
 
 HGB:
+  <<: *default
   code: "HGB"
   name: "HGB"
   measurement_unit: grammes_per_litre
 
 HBA:
+  <<: *default
   code: "HBA"
   name: "HbA1c (DCCT)"
   measurement_unit: grammes_per_litre
 
 HBAI:
+  <<: *default
   code: "HBAI"
   name: "HbA1c (IFCC)"
   measurement_unit: grammes_per_litre
 
 HDL:
+  <<: *default
   code: "HDL"
   name: "HDL Chol"
   measurement_unit: grammes_per_litre
 
 HGB:
+  <<: *default
   code: "HGB"
   name: "HGB"
   measurement_unit: grammes_per_litre
 
 HIV:
+  <<: *default
   code: "HIV"
   name: "HIV"
   measurement_unit: grammes_per_litre
 
 HYPO:
+  <<: *default
   code: "HYPO"
   name: "% HYPO"
   measurement_unit: grammes_per_litre
 
 LDL:
+  <<: *default
   code: "LDL"
   name: "LDL Chol"
   measurement_unit: grammes_per_litre
 
 LYM:
+  <<: *default
   code: "LYM"
   name: "Lymphocytes"
   measurement_unit: grammes_per_litre
 
 MCH:
+  <<: *default
   code: "MCH"
   name: "MCH"
   measurement_unit: grammes_per_litre
 
 MCV:
+  <<: *default
   code: "MCV"
   name: "MCV"
   measurement_unit: grammes_per_litre
 
 NA:
+  <<: *default
   code: "NA"
   name: "Sodium"
   measurement_unit: grammes_per_litre
 
 NEUT:
+  <<: *default
   code: "NEUT"
   name: "Neutrophils"
   measurement_unit: grammes_per_litre
 
 PHOS:
+  <<: *default
   code: "PHOS"
   name: "Phosphate"
   measurement_unit: grammes_per_litre
 
 PLT:
+  <<: *default
   code: "PLT"
   name: "PLT"
   measurement_unit: grammes_per_litre
 
 POT:
+  <<: *default
   code: "POT"
   name: "Potassium"
   measurement_unit: grammes_per_litre
 
 PTHI:
+  <<: *default
   code: "PTHI"
   name: "PTH"
   measurement_unit: grammes_per_litre
 
 RBC:
+  <<: *default
   code: "RBC"
   name: "RBC"
   measurement_unit: grammes_per_litre
 
 RETA:
+  <<: *default
   code: "RETA"
   name: "Abs Retic Count"
   measurement_unit: grammes_per_litre
 
 TP:
+  <<: *default
   code: "TP"
   name: "Total Protein"
   measurement_unit: grammes_per_litre
 
 TRIG:
+  <<: *default
   code: "TRIG"
   name: "Triglycerides"
   measurement_unit: grammes_per_litre
 
 TSH:
+  <<: *default
   code: "TSH"
   name: "TSH"
   measurement_unit: grammes_per_litre
 
 URAT:
+  <<: *default
   code: "URAT"
   name: "Urate"
   measurement_unit: grammes_per_litre
 
 URE:
+  <<: *default
   code: "URE"
   name: "Urea"
   measurement_unit: grammes_per_litre
 
 UREP:
+  <<: *default
   code: "UREP"
   name: "Urea (post dial)"
   measurement_unit: grammes_per_litre
 
 URR:
+  <<: *default
   code: "URR"
   name: "URR"
   measurement_unit: grammes_per_litre
 
 WBC:
+  <<: *default
   code: "WBC"
   name: "WBC"
   measurement_unit: grammes_per_litre
