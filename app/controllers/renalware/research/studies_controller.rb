@@ -3,8 +3,10 @@ require_dependency "renalware/research"
 module Renalware
   module Research
     class StudiesController < BaseController
+      include Renalware::Concerns::Pageable
+
       def index
-        studies = Study.ordered
+        studies = Study.ordered.page(page).per(per_page)
         authorize studies
         render locals: { studies: studies }
       end
