@@ -149,6 +149,11 @@ article.clinical-allergies {
           background-color: darken($nhs-orange, 5);
         }
 
+        &:hover,
+        span:hover {
+          color: white
+        }
+
         &.urgent {
           background-color: $nhs-red;
 
