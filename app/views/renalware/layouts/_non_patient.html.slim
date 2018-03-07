@@ -1,16 +1,17 @@
 - generate_page_title(local_assigns: local_assigns)
 
-.non-patient-page
-  .row
-    ul.page-heading.columns.small-12
-      li
-        h1
-          = breadcrumbs_and_title(breadcrumbs: local_assigns[:breadcrumbs],
-                                  title: local_assigns[:title])
-      li.page-actions
-        / Output any page-level actions
-        = yield(:actions)
+.non-patient-page.main-content
+  .layout-wrapper
+    .row
+      ul.page-heading.columns.small-12
+        li
+          h1
+            = breadcrumbs_and_title(breadcrumbs: local_assigns[:breadcrumbs],
+                                    title: local_assigns[:title])
+        li.page-actions
+          / Output any page-level actions
+          = yield(:actions)
 
-  .row
-    .columns.small-12
-      = yield
+    .row
+      .columns.small-12
+        = yield

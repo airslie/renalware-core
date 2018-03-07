@@ -1,45 +1,43 @@
-.row
-  h1 Request Form Print History
+= within_admin_layout(title: "Request Form Print History") do
+  .row
+    .search-form
+      fieldset
+        legend Filters
+        = simple_form_for query,
+            as: :q,
+            url: pathology_requests_requests_path,
+            html: { autocomplete: "off" },
+            method: :get do |f|
+          .row
+            .large-4.columns
+              = f.input :created_on_eq, as: :date_picker, label: "Printed on"
+            .large-8.columns.actions
+              = f.submit t("helpers.submit.filter"), class: "button"
+              span= " or "
+              = link_to t("helpers.reset"), pathology_requests_requests_path
 
-.row
-  .search-form
-    fieldset
-      legend Filters
-      = simple_form_for query,
-          as: :q,
-          url: pathology_requests_requests_path,
-          html: { autocomplete: "off" },
-          method: :get do |f|
-        .row
-          .large-4.columns
-            = f.input :created_on_eq, as: :date_picker, label: "Printed on"
-          .large-8.columns.actions
-            = f.submit t("helpers.submit.filter"), class: "button"
-            span= " or "
-            = link_to t("helpers.reset"), pathology_requests_requests_path
-
-.row
-  - if requests.empty?
-    p No requests forms have been printed yet.
-  - else
-    table#requests
-      thead
-        tr
-          th
-          th Patient
-          th Clinic
-          th Consultant
-          th Printed On
-          th Printed By
-
-      tbody
-        - requests.each do |request|
+  .row
+    - if requests.empty?
+      p No requests forms have been printed yet.
+    - else
+      table#requests
+        thead
           tr
-            td = link_to "View", pathology_requests_request_path(id: request.id, format: "pdf")
-            td = request.patient.full_name
-            td = request.clinic.name
-            td = request.consultant.full_name
-            td = I18n.l request.printed_on
-            td = request.created_by.full_name
+            th
+            th Patient
+            th Clinic
+            th Consultant
+            th Printed On
+            th Printed By
 
-    = paginate requests
+        tbody
+          - requests.each do |request|
+            tr
+              td = link_to "View", pathology_requests_request_path(id: request.id, format: "pdf")
+              td = request.patient.full_name
+              td = request.clinic.name
+              td = request.consultant.full_name
+              td = I18n.l request.printed_on
+              td = request.created_by.full_name
+
+      = paginate requests

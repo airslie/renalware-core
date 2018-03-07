@@ -92,16 +92,6 @@ ul.provider {
   display: inline-block;
 }
 
-.patient-content {
-  padding-bottom: 16rem;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: $patient-side-nav-width;
-  overflow-y: auto;
-}
-
 .collapse-patient-menu .patient-content {
   left: 0;
 }

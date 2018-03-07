@@ -14,7 +14,7 @@
     = fdoc.input :had_home_visit, as: :inline_radio_buttons, wrapper: :horizontal_medium
     = fdoc.input :home_visit_on, as: :date_picker, wrapper: :horizontal_datepicker
     = fdoc.input :housing_type, as: :inline_radio_buttons, wrapper: :horizontal_medium
-    = fdoc.input :occupant_notes, as: :text, input_html: { rows: 5 }
+    = fdoc.input :occupant_notes, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
     = fdoc.input :exchange_area, wrapper: :horizontal_medium
     = fdoc.input :handwashing, wrapper: :horizontal_medium
     = fdoc.input :fluid_storage, wrapper: :horizontal_medium
@@ -23,7 +23,7 @@
                  collection: Renalware::PD::DeliveryIntervalPresenter.dropdown_options,
                  wrapper: :horizontal_small
     = fdoc.input :needs_rehousing, as: :inline_radio_buttons, wrapper: :horizontal_medium
-    = fdoc.input :rehousing_notes, as: :text, input_html: { rows: 5 }
+    = fdoc.input :rehousing_notes, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
     = fdoc.input :social_worker, as: :inline_radio_buttons, wrapper: :horizontal_medium
     = fdoc.input :seen_video, as: :inline_radio_buttons, wrapper: :horizontal_medium
     = fdoc.input :can_open_bag, as: :inline_radio_buttons, wrapper: :horizontal_medium
@@ -33,7 +33,7 @@
     = fdoc.input :dexterity, wrapper: :horizontal_medium
     = fdoc.input :motivation, wrapper: :horizontal_medium
     = fdoc.input :language, wrapper: :horizontal_medium
-    = fdoc.input :other_notes, as: :text, input_html: { rows: 5 }
+    = fdoc.input :other_notes, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
     = fdoc.input :suitable_for_pd, as: :inline_radio_buttons, wrapper: :horizontal_medium
     = fdoc.input :system_choice, as: :inline_radio_buttons, wrapper: :horizontal_medium
     = fdoc.input :insertion_discussed, as: :inline_radio_buttons, wrapper: :horizontal_medium
@@ -42,8 +42,11 @@
     = fdoc.input :access_clinic_on, as: :date_picker, wrapper: :horizontal_datepicker
     = fdoc.input :abdo_assessor, wrapper: :horizontal_medium
     = fdoc.input :bowel_disease, as: :inline_radio_buttons, wrapper: :horizontal_medium
-    = fdoc.input :bowel_disease_notes, as: :text, input_html: { rows: 5 }
-    = fdoc.input :added_comments, as: :text, input_html: { rows: 5 }
+    = fdoc.input :bowel_disease_notes,
+                  as: :text,
+                  input_html: { rows: 5 },
+                  wrapper: :horizontal_large
+    = fdoc.input :added_comments, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
 
   = f.submit "Save", class: "button"
   span= " or "
