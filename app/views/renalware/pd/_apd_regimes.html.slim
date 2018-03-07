@@ -1,38 +1,4 @@
-table.apd-regimes
-  thead
-    tr
-      th.col-width-9
-      th.col-width-date Started on
-      th.col-width-date Ended on
-      th.col-width-13 Treatment
-      th= t("glucose_volume_low_strength", scope: "renalware.pd.regimes")
-      th= t("glucose_volume_medium_strength", scope: "renalware.pd.regimes")
-      th= t("glucose_volume_high_strength", scope: "renalware.pd.regimes")
-      th.column-6-date Updated on
-
-  tbody
-    - apd_regimes.each do |r|
-      tr valign="top" data-regime-id=r.id
-        td
-          - if r.current? && !current_user.has_role?(:read_only)
-            = link_to "Update",
-                      edit_patient_pd_regime_path(patient, r.id),
-                      class: "update-pd-regime"
-            = pipe_separator
-          = link_to "View",
-                    patient_pd_regime_path(patient, r.id),
-                    class: "view-pd-regime"
-        td valign="top"
-          = l r.start_date
-        td valign="top"
-          = default_for_blank_date(r.end_date, "Pending")
-        td valign="top"
-          = r.treatment
-        td valign="top"
-          = "#{default_daily_glucose_average(r.glucose_volume_low_strength)} ml"
-        td valign="top"
-          = "#{default_daily_glucose_average(r.glucose_volume_medium_strength)} ml"
-        td valign="top"
-          = "#{default_daily_glucose_average(r.glucose_volume_high_strength)} ml"
-        td
-          = r.updated_at.to_date
+= render "renalware/pd/regimes",
+         regimes: apd_regimes,
+         patient: patient,
+         table_class: "apd-regimes"

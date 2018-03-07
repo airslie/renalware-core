@@ -262,6 +262,7 @@ When(/^I complete the form for a APD regime$/) do
 
   select "75", from: "Tidal (%)"
 
+  fill_in "Dwell time", with: "100"
   select "7:30", from: "Therapy time"
 
   fill_in "Cycles per session", with: 3
@@ -394,6 +395,7 @@ Then(/^the new APD regime should be current$/) do
 
     # expect(page).to have_content("Last Fill: 520")
     expect(page).to have_content("Therapy time: 7:30")
+    expect(page).to have_content("Dwell time: 100")
     expect(page).to have_content("Cycles per session: 3")
     expect(page).to have_content("123-4567-890")
   end
