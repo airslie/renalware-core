@@ -1,20 +1,21 @@
 = within_admin_layout(title: "AKI Alerts") do
+  = render "filters", form: form
   table.aki-alerts
     thead
       th
-      th Patient
+      th.col-width-large Patient
       th.col-width-nhs-no NHS No.
       th.col-width-reference Hosp. No.
       th.col-width-tiny Sex
       th.col-width-tiny Age
-      th.col-width-date Born on
-      th Action
-      th Ward
-      th Hotlist
-      th Max CRE
-      th.col-width-date  CRE Date
-      th Max AKI
-      th.col-width-date  AKI Date
+      th.col-width-date= sort_link(search, :patient_born_on, "Born on")
+      th= sort_link(search, :action_name, "Action")
+      th.col-width-medium Ward
+      th= sort_link(search, :hotlist, "Hotlist")
+      th= sort_link(search, :max_cre, "Max CRE")
+      th.col-width-date.col-width-date= sort_link(search, :cre_date, "CRE Date")
+      th= sort_link(search, :max_aki, "Max AKI")
+      th.col-width-date= sort_link(search, :aki_date, "AKI Date")
       th Decided by
     tbody
       - alerts.each do |alert|
@@ -27,7 +28,8 @@
           td= alert.patient.age
           td= alert.patient.born_on
           td= alert.action
-          td= alert.hospital_ward
+          td= [alert.hospital_ward, alert.hospital_ward&.hospital_unit&.unit_code]\
+              .compact.join(" - ")
           td= yes_no alert.hotlist?
           td= alert.max_cre
           td= l(alert.cre_date)

@@ -6,10 +6,14 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       def index
-        alerts = AKIAlert.includes(:updated_by, :action, :hospital_ward, :patient)
-                         .ordered.page(page).per(per_page)
+        query = search_form.query
+        alerts = query.call.page(page).per(per_page)
         authorize alerts
-        render locals: { alerts: alerts }
+        render locals: {
+          alerts: alerts,
+          form: search_form,
+          search: query.search
+        }
       end
 
       def edit
@@ -28,6 +32,13 @@ module Renalware
 
       private
 
+      def search_form
+        @search_form ||= begin
+          options = params.key?(:q) ? search_params : {}
+          AKIAlertSearchForm.new(options)
+        end
+      end
+
       def render_edit(alert)
         render :edit, locals: { alert: alert }
       end
@@ -43,6 +54,12 @@ module Renalware
             :notes, :action_id, :hotlist, :hospital_ward_id,
             :max_cre, :cre_date, :max_aki, :aki_date
           )
+      end
+
+      def search_params
+        params
+          .require(:q) {}
+          .permit(:term, :on_hotlist, :action, :hospital_unit_id, :hospital_ward_id, :s)
       end
     end
   end

@@ -4,6 +4,7 @@ module Renalware
   module Renal
     class AKIAlert < ApplicationRecord
       include Accountable
+      include PatientsRansackHelper
       scope :ordered, ->{ order(created_at: :desc) }
       belongs_to :patient, class_name: "Renal::Patient", touch: true
       belongs_to :action, class_name: "Renal::AKIAlertAction"
