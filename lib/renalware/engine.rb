@@ -1,6 +1,7 @@
 require "rubygems"
 require "active_type"
 require "activerecord-import"
+require "ahoy"
 require "autoprefixer-rails"
 require "chosen-rails"
 require "simple_form"

@@ -4962,7 +4962,8 @@ CREATE TABLE pd_regimes (
     additional_manual_exchange_volume integer,
     tidal_full_drain_every_three_cycles boolean DEFAULT true,
     daily_volume integer,
-    assistance_type character varying
+    assistance_type character varying,
+    dwell_time integer
 );
 
 
@@ -5453,7 +5454,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -5532,7 +5533,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -5999,6 +6000,39 @@ ALTER SEQUENCE system_countries_id_seq OWNED BY system_countries.id;
 
 
 --
+-- Name: system_events; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE system_events (
+    id bigint NOT NULL,
+    visit_id bigint,
+    user_id bigint,
+    name character varying,
+    properties jsonb,
+    "time" timestamp without time zone
+);
+
+
+--
+-- Name: system_events_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE system_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_events_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE system_events_id_seq OWNED BY system_events.id;
+
+
+--
 -- Name: system_templates; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -6062,6 +6096,55 @@ CREATE SEQUENCE system_user_feedback_id_seq
 --
 
 ALTER SEQUENCE system_user_feedback_id_seq OWNED BY system_user_feedback.id;
+
+
+--
+-- Name: system_visits; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE system_visits (
+    id bigint NOT NULL,
+    visit_token character varying,
+    visitor_token character varying,
+    user_id bigint,
+    ip character varying,
+    user_agent text,
+    referrer text,
+    referring_domain character varying,
+    search_keyword character varying,
+    landing_page text,
+    browser character varying,
+    os character varying,
+    device_type character varying,
+    country character varying,
+    region character varying,
+    city character varying,
+    utm_source character varying,
+    utm_medium character varying,
+    utm_term character varying,
+    utm_content character varying,
+    utm_campaign character varying,
+    started_at timestamp without time zone
+);
+
+
+--
+-- Name: system_visits_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE system_visits_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_visits_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE system_visits_id_seq OWNED BY system_visits.id;
 
 
 --
@@ -7668,6 +7751,13 @@ ALTER TABLE ONLY system_countries ALTER COLUMN id SET DEFAULT nextval('system_co
 
 
 --
+-- Name: system_events id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_events ALTER COLUMN id SET DEFAULT nextval('system_events_id_seq'::regclass);
+
+
+--
 -- Name: system_templates id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -7679,6 +7769,13 @@ ALTER TABLE ONLY system_templates ALTER COLUMN id SET DEFAULT nextval('system_te
 --
 
 ALTER TABLE ONLY system_user_feedback ALTER COLUMN id SET DEFAULT nextval('system_user_feedback_id_seq'::regclass);
+
+
+--
+-- Name: system_visits id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_visits ALTER COLUMN id SET DEFAULT nextval('system_visits_id_seq'::regclass);
 
 
 --
@@ -8890,6 +8987,14 @@ ALTER TABLE ONLY system_countries
 
 
 --
+-- Name: system_events system_events_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_events
+    ADD CONSTRAINT system_events_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: system_templates system_templates_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -8903,6 +9008,14 @@ ALTER TABLE ONLY system_templates
 
 ALTER TABLE ONLY system_user_feedback
     ADD CONSTRAINT system_user_feedback_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_visits system_visits_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_visits
+    ADD CONSTRAINT system_visits_pkey PRIMARY KEY (id);
 
 
 --
@@ -11600,6 +11713,34 @@ CREATE INDEX index_system_countries_on_position ON system_countries USING btree 
 
 
 --
+-- Name: index_system_events_on_name_and_time; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_events_on_name_and_time ON system_events USING btree (name, "time");
+
+
+--
+-- Name: index_system_events_on_properties_jsonb_path_ops; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_events_on_properties_jsonb_path_ops ON system_events USING gin (properties jsonb_path_ops);
+
+
+--
+-- Name: index_system_events_on_user_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_events_on_user_id ON system_events USING btree (user_id);
+
+
+--
+-- Name: index_system_events_on_visit_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_events_on_visit_id ON system_events USING btree (visit_id);
+
+
+--
 -- Name: index_system_templates_on_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -11618,6 +11759,20 @@ CREATE INDEX index_system_user_feedback_on_author_id ON system_user_feedback USI
 --
 
 CREATE INDEX index_system_user_feedback_on_category ON system_user_feedback USING btree (category);
+
+
+--
+-- Name: index_system_visits_on_user_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_visits_on_user_id ON system_visits USING btree (user_id);
+
+
+--
+-- Name: index_system_visits_on_visit_token; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_system_visits_on_visit_token ON system_visits USING btree (visit_token);
 
 
 --
@@ -14556,6 +14711,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180301095040'),
 ('20180305134959'),
 ('20180306071308'),
-('20180306080518');
+('20180306080518'),
+('20180307191650'),
+('20180307223111');
 
 
