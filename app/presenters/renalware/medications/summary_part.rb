@@ -45,14 +45,11 @@ module Renalware
         # - max(drug.updated_at) in drugs across all prescriptions
         # - count(drugs) across all prescriptions (same as prescriptions.count so not really
         #   required, but comes for free with AR::Relation.cache_key)
-
-        # Note 2.0 disabling prescription caching for now
-        # [
-        #   patient.cache_key,
-        #   prescriptions.cache_key,
-        #   Drugs::Drug.where(id: prescriptions.pluck(:drug_id)).cache_key
-        # ].join("$")
-        nil
+        [
+          patient.cache_key,
+          prescriptions.cache_key,
+          Drugs::Drug.where(id: prescriptions.pluck(:drug_id)).cache_key
+        ].join("$")
       end
     end
   end

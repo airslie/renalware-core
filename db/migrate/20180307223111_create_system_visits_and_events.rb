@@ -23,18 +23,6 @@ class CreateSystemVisitsAndEvents < ActiveRecord::Migration[5.1]
       t.string :os
       t.string :device_type
 
-      # location
-      t.string :country
-      t.string :region
-      t.string :city
-
-      # utm parameters
-      t.string :utm_source
-      t.string :utm_medium
-      t.string :utm_term
-      t.string :utm_content
-      t.string :utm_campaign
-
       t.timestamp :started_at
     end
 
@@ -43,10 +31,10 @@ class CreateSystemVisitsAndEvents < ActiveRecord::Migration[5.1]
     create_table :system_events do |t|
       t.references :visit
       t.references :user, index: true
+      t.timestamp :time
 
       t.string :name
       t.jsonb :properties
-      t.timestamp :time
     end
 
     add_index :system_events, [:name, :time]

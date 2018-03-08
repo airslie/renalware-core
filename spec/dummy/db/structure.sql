@@ -6007,9 +6007,9 @@ CREATE TABLE system_events (
     id bigint NOT NULL,
     visit_id bigint,
     user_id bigint,
+    "time" timestamp without time zone,
     name character varying,
-    properties jsonb,
-    "time" timestamp without time zone
+    properties jsonb
 );
 
 
@@ -6116,14 +6116,6 @@ CREATE TABLE system_visits (
     browser character varying,
     os character varying,
     device_type character varying,
-    country character varying,
-    region character varying,
-    city character varying,
-    utm_source character varying,
-    utm_medium character varying,
-    utm_term character varying,
-    utm_content character varying,
-    utm_campaign character varying,
     started_at timestamp without time zone
 );
 

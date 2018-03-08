@@ -51,7 +51,7 @@ module Renalware
         expect(page).to have_current_path(root_path)
 
         # It creates a signin event
-        system_event = Ahoy::Event.order(time: :desc).last
+        system_event = Renalware::System::Event.order(time: :desc).last
         expect(system_event).to have_attributes(
           user_id: user.id,
           name: "signin"
