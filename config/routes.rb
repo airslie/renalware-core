@@ -189,6 +189,7 @@ Renalware::Engine.routes.draw do
   end
 
   namespace :letters do
+    resource :pdf_letter_cache, only: [:destroy], controller: "pdf_letter_cache"
     resources :descriptions, only: :search do
       collection do
         get :search
