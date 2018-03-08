@@ -39,15 +39,20 @@ module Renalware
       def cache_key
         # Based on AR::Relation.cache_key, this key incorporates the following, scoped to the
         # current patient:
+        # - patient cachekey eg renalware/patients/166-20180306184938146827
         # - max(prescriptions.updated)
         # - count(prescriptions)
         # - max(drug.updated_at) in drugs across all prescriptions
         # - count(drugs) across all prescriptions (same as prescriptions.count so not really
         #   required, but comes for free with AR::Relation.cache_key)
-        [
-          prescriptions.cache_key,
-          Drugs::Drug.where(id: prescriptions.pluck(:drug_id)).cache_key
-        ].join("$")
+
+        # Note 2.0 disabling prescription caching for now
+        # [
+        #   patient.cache_key,
+        #   prescriptions.cache_key,
+        #   Drugs::Drug.where(id: prescriptions.pluck(:drug_id)).cache_key
+        # ].join("$")
+        nil
       end
     end
   end

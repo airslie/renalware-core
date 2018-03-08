@@ -28,8 +28,10 @@ module Renalware
       # We purposefully don't use the recent_events relation here as it has includes and a limit
       # and apart from being slower, using LIMIT in cache_key sql has been known to produce
       # inconsistent results.
+      # We need to include the patient.cache_key otherwise if there are no events, the key will
+      # be the same for other patients with no events.
       def cache_key
-        Events::Event.for_patient(patient).cache_key
+        [patient.cache_key, Events::Event.for_patient(patient).cache_key].join("~")
       end
 
       def to_partial_path
