@@ -9,6 +9,25 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.0
+09-03-2017
+
+### Added
+- Display an alert if the user is in a clinical study
+- Track page views and logins
+
+### Changed
+- Support overriding the login warning messages
+- Make OBR requestor_order_number unique
+- Filter and search AKI alerts
+- Add pagination to research studies
+- Update Investigation types codes
+
+### Fixed
+- Display correct html event notes when toggling events content
+- CSS display in Chrome, remove excessive padding at page bottom
+- Use UTF8 in PDFs
+
 ## 2.0.0.pre.rc12
 06-03-2017
 
