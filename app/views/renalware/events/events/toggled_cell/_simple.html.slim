@@ -2,4 +2,4 @@ dl.dl-horizontal
   dt= attr_name(event, :description, suffix: ":")
   dd= event.description
   dt= attr_name(event, :notes, suffix: ":")
-  dd= event.notes
+  dd= event.notes&.html_safe
