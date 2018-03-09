@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "5.1.4"
   s.add_dependency "active_type", "~> 0.7.1"
   s.add_dependency "activerecord-import", "~> 0.22.0"
+  s.add_dependency "ahoy_matey", "~> 2.0.1"
   s.add_dependency "attr_extras", "~> 5.2.0"
   s.add_dependency "autoprefixer-rails", "~> 7.2.5"
   s.add_dependency "chosen-rails", "~> 1.8.3"

@@ -53,7 +53,7 @@ module Renalware
     # Returns a truthy value if we came from a devise URL like users/sign_in
     def referrer_is_a_devise_url?
       referrer = request.referer
-      return if request.blank?
+      return if request.blank? || referrer.blank?
       regex_defining_devise_paths = %r{(#{new_user_session_path}|users\/password|users\/sign_up)}
       URI.parse(referrer).path =~ regex_defining_devise_paths
     end

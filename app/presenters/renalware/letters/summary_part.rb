@@ -22,7 +22,7 @@ module Renalware
       end
 
       def cache_key
-        letters_patient.letters.cache_key
+        [letters_patient.cache_key, letters_patient.letters.cache_key].join("~")
       end
 
       private

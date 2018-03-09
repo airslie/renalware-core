@@ -35,6 +35,8 @@ module Renalware
   module Letters
     class PdfLetterCache
       class << self
+        delegate :clear, to: :store
+
         def fetch(letter)
           store.fetch(cache_key_for(letter)) { yield }
         end
@@ -46,7 +48,8 @@ module Renalware
         # valid and a new key and cache entry will be created.
         def cache_key_for(letter)
           timestamp = letter&.updated_at&.strftime("%Y%m%d%H%M%S")
-          "letter-pdf-#{letter.id}-#{timestamp}-#{Digest::MD5.hexdigest(letter.to_html)}"
+          pat_id = letter.patient.id
+          "letter-pdf-#{letter.id}-#{pat_id}-#{timestamp}-#{Digest::MD5.hexdigest(letter.to_html)}"
         end
 
         def cache_path

@@ -20,6 +20,10 @@ module Renalware
       true
     end
 
+    def cache?
+      cache_key.present?
+    end
+
     protected
 
     def date_formatted_for_cache(date)

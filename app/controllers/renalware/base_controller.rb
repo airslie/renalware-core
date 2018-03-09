@@ -7,6 +7,7 @@ module Renalware
 
     before_action :set_paper_trail_whodunnit
     after_action :verify_authorized
+    after_action :track_action, except: [:has_user_timed_out]
 
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -38,6 +39,10 @@ module Renalware
 
     def paginate(collection, default_per_page: 25)
       collection.page(params[:page]).per(params[:per_page] || default_per_page)
+    end
+
+    def track_action
+      ahoy.track "action", request.path_parameters
     end
 
     private
