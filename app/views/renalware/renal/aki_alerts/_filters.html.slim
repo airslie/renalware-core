@@ -1,0 +1,25 @@
+.search-form.filters
+  = simple_form_for form,
+      as: :q,
+      url: renal_aki_alerts_path,
+      method: :get do |f|
+
+    .row
+      .columns.medium-2.large-3
+        = f.input :term
+      .columns.medium-1.large-1
+        = f.input :on_hotlist,
+                  collection: [["Yes",true],["No",false]]
+      .columns.medium-2.large-2
+        = f.input :action,
+                  collection: Renalware::Renal::AKIAlertAction.pluck(:name, :id)
+      .columns.medium-3.large-2
+        = f.input :hospital_unit_id,
+                  collection: Renalware::Hospitals::Unit.pluck(:name, :id)
+      .columns.medium-2.large-2
+        = f.input :hospital_ward_id,
+                  collection: Renalware::Hospitals::Ward.pluck(:name, :id)
+      .columns.medium-2.large-2.actions.end
+        = f.submit "Filter", class: "button"
+        span= " or "
+        = link_to t("helpers.reset"), renal_aki_alerts_path
