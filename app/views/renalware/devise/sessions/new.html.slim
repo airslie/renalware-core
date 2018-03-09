@@ -2,23 +2,16 @@
   .row.small-8.large-12
     h3 Log in to Renalware
 
-    .alert-box.warning
-      | NOTICE: This system contains patient clinical records. All information is highly&nbsp;
-      | confidential and must be treated as such. All data must be used with the Data&nbsp;
-      | Protection Act and related legislation and in compliance with security policies&nbsp;
-      | governing use of this system. Unauthorised, illegal or improper use may result&nbsp;
-      | in disciplinary action and civil or criminal prosecution. By continuing to access&nbsp;
-      | this system you agree that such access and use is subject to the foregoing.
+    = render "warning"
 
   .row.small-6.large-3
-
     = simple_form_for(resource,
                       as: resource_name,
                       url: session_path(resource_name),
                       html: { autocomplete: "off" }) do |f|
       = f.input :username, input_html: { autofocus: true }, required: false
       = f.input :password, input_html: { autocomplete: "off" }
-      = f.input(:remember_me, as: :boolean, boolean_style: :inline) if devise_mapping.rememberable?
+      /= f.input(:remember_me, as: :boolean, boolean_style: :inline) if devise_mapping.rememberable?
 
       .actions
         = f.submit "Log in", class: "button save"

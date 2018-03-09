@@ -4962,7 +4962,8 @@ CREATE TABLE pd_regimes (
     additional_manual_exchange_volume integer,
     tidal_full_drain_every_three_cycles boolean DEFAULT true,
     daily_volume integer,
-    assistance_type character varying
+    assistance_type character varying,
+    dwell_time integer
 );
 
 
@@ -14710,6 +14711,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180305134959'),
 ('20180306071308'),
 ('20180306080518'),
+('20180307191650'),
 ('20180307223111'),
 ('20180309140316');
 
