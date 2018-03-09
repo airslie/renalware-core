@@ -8,4 +8,4 @@ dl.dl-horizontal
   dt= attr_name(document, :result, suffix: ":")
   dd= document.result || t("unspecified")
   dt= attr_name(event, :notes, suffix: ":")
-  dd= event.notes || t("unspecified")
+  dd= event.notes&.html_safe || t("unspecified")

@@ -3,4 +3,4 @@ dl.dl-horizontal
   dt= attr_name(document, :location, suffix: ":")
   dd= document.location.present? ? document.location : t("unspecified")
   dt= attr_name(event, :notes, suffix: ":")
-  dd= event.notes
+  dd= event.notes&.html_safe
