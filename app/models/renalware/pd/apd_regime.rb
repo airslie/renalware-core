@@ -20,6 +20,7 @@ module Renalware
         additional_manual_exchange_volumes: 500..5_000,
         cycles_per_apd: 2..20,
         overnight_volumes: 3_000..25_000,
+        dwell_times: 10..120,
         tidal_percentages: (60..100).step(5).to_a
       ).freeze
 
@@ -62,6 +63,11 @@ module Renalware
                 allow_nil: true,
                 numericality: { only_integer: true },
                 numeric_inclusion: { in: VALID_RANGES.therapy_times }
+
+      validates :dwell_time,
+                allow_nil: true,
+                numericality: { only_integer: true },
+                numeric_inclusion: { in: VALID_RANGES.dwell_times }
 
       validate :all_active_days_have_the_same_available_volume
 

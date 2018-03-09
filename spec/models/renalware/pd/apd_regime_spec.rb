@@ -7,6 +7,7 @@ module Renalware
     describe APDRegime, type: :model do
       describe "validations" do
         it { is_expected.to validate_numericality_of(:last_fill_volume) }
+        it { is_expected.to validate_numericality_of(:dwell_time) }
         it { is_expected.to validate_numericality_of(:additional_manual_exchange_volume) }
         it do
           subject.tidal_indicator = true
@@ -100,8 +101,13 @@ module Renalware
 
         it "overnight_volume validates numeric_inclusion" do
           expect(
-            has_numeric_validation(:overnight_volume,
-                                   APDRegime::VALID_RANGES.overnight_volumes)
+            has_numeric_validation(:overnight_volume, APDRegime::VALID_RANGES.overnight_volumes)
+          ).to eq(true)
+        end
+
+        it "dwell_time validates numeric_inclusion" do
+          expect(
+            has_numeric_validation(:dwell_time, APDRegime::VALID_RANGES.dwell_times)
           ).to eq(true)
         end
 

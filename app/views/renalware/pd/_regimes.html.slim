@@ -1,0 +1,32 @@
+table(class=table_class)
+  thead
+    tr
+      th.col-width-small
+      th.col-width-date Started on
+      th.col-width-date Ended on
+      th Treatment
+      th.col-width-small= t("glucose_volume_low_strength", scope: "renalware.pd.regimes")
+      th.col-width-small= t("glucose_volume_medium_strength", scope: "renalware.pd.regimes")
+      th.col-width-small= t("glucose_volume_high_strength", scope: "renalware.pd.regimes")
+      th.col-width-date Updated on
+
+  tbody
+    - regimes.each do |r|
+      tr(data-regime-id=r.id)
+        td
+          / TODO: Use a policy
+          - if r.current? && !current_user.has_role?(:read_only)
+            = link_to "Update",
+                      edit_patient_pd_regime_path(patient, r.id),
+                      class: "update-pd-regime"
+            = pipe_separator
+          = link_to "View",
+                    patient_pd_regime_path(patient, r.id),
+                    class: "view-pd-regime"
+        td= l r.start_date
+        td= default_for_blank_date(r.end_date, "Pending")
+        td= r.treatment
+        td= "#{default_daily_glucose_average(r.glucose_volume_low_strength)} ml"
+        td= "#{default_daily_glucose_average(r.glucose_volume_medium_strength)} ml"
+        td= "#{default_daily_glucose_average(r.glucose_volume_high_strength)} ml"
+        td= l(r.updated_at.to_date)
