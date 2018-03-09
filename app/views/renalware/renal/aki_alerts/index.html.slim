@@ -4,11 +4,11 @@
     thead
       th
       th.col-width-large Patient
-      th.col-width-nhs-no NHS No.
-      th.col-width-reference Hosp. No.
+      /th.col-width-nhs-no NHS No.
+      th.col-width-reference-no Hosp. No.
       th.col-width-tiny Sex
       th.col-width-tiny Age
-      th.col-width-date= sort_link(search, :patient_born_on, "Born on")
+      /th.col-width-date= sort_link(search, :patient_born_on, "Born on")
       th= sort_link(search, :action_name, "Action")
       th.col-width-medium Ward
       th= sort_link(search, :hotlist, "Hotlist")
@@ -22,11 +22,11 @@
         tr
           td= link_to("Edit", edit_renal_aki_alert_path(alert))
           td= default_patient_link(alert.patient)
-          td= alert.patient.nhs_number
+          /td= alert.patient.nhs_number
           td= alert.patient.hospital_identifiers
           td= alert.patient.sex
           td= alert.patient.age
-          td= alert.patient.born_on
+          /td= alert.patient.born_on
           td= alert.action
           td= [alert.hospital_ward, alert.hospital_ward&.hospital_unit&.unit_code]\
               .compact.join(" - ")
