@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  sequence(:requestor_order_number) { |n| "PlacerID-#{n}" }
+
   factory :pathology_observation_request, class: "Renalware::Pathology::ObservationRequest" do
     association :description, factory: :pathology_request_description
-    requestor_order_number "123"
+    requestor_order_number
     requestor_name "Jane Doe"
     requested_at { 1.year.ago }
 
