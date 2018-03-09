@@ -1,7 +1,8 @@
-.row
-  = render "header"
+= within_admin_layout(title: "HD Dialysers") do
+  dl.sub-nav
+    dd= link_to "List", hd_dialysers_path
+    dd= link_to "Add dialyser", new_hd_dialyser_path
 
-.row
   table.auto-layout
     thead
       tr

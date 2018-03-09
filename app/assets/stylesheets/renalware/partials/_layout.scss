@@ -4,16 +4,76 @@ html {
   }
 }
 
+/* New flexbox layout */
+html, body {
+  height: 100%;
+}
+
+html {
+  body {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    > header {
+      flex: 0 0 auto;
+      background-color: #dcdcdc;
+    }
+
+    /* main is a wrapper about non-header content */
+    > main {
+      display: flex;
+      height: 100%;
+      min-height: 0;
+
+      > nav {
+        width: $patient-side-nav-width;
+        min-width: $patient-side-nav-width;
+      }
+
+      > .main-content {
+        position: relative; /* need this to position inner content */
+        width: 100%;
+      }
+
+      > nav,
+      > .main-content {
+        flex: 1 1 auto;
+        height: 100%;
+        min-height: 100%;
+        padding-bottom: 2rem;
+        overflow-y: auto;
+      }
+
+      .layout-wrapper {
+        padding-bottom: 3rem;
+      }
+    }
+
+    > footer {
+      flex: 0 0 auto;
+    }
+  }
+
+  /* When patient menu hidden/shown */
+  body.collapse-patient-menu nav.patient-side-nav {
+    margin-left: -15rem;
+    left: 0;
+  }
+
+  .full-screenable {
+    transition: margin .2s ease 0s;
+  }
+}
+
+/* End new flexbox layout */
+
 footer {
   background-color: $footer-bg-colour;
-  border-top: 1px solid $smoke;
+  border-top: 1px solid $light-grey;
   color: $footer-colour;
-  font-size: 12px;
-  padding: .2rem 1rem;
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  font-size: .8rem;
+  padding: 0 1rem;
   text-align: right;
 }
 

@@ -64,14 +64,9 @@ dd.patient-name {
 
 .patient-side-nav {
   background-color: $patient-menu-background-colour;
-  padding: 0.6rem 0;
-  padding-bottom: 11rem;
-  position: absolute;
+  padding: 0.6rem 0 2rem 0.6rem;
   width: $patient-side-nav-width;
-  overflow-y: auto;
-  top: 0;
-  bottom: 0;
-  left: 0;
+  min-width: $patient-side-nav-width;
 
   hr {
     margin: 0.3rem 0 0.5rem;

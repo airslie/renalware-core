@@ -1,7 +1,8 @@
-.row
-  = render "header"
+= within_admin_layout(title: "Primary Care Physicians") do
+  dl.sub-nav
+    dd= link_to "List", patients_primary_care_physicians_path
+    dd= link_to "Add Primary Care Physician", new_patients_primary_care_physician_path
 
-.row
   table.primary-care-physicians
     thead
       tr

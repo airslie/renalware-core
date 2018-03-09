@@ -1,30 +1,27 @@
-.row
-  = render "header"
-  = render "renalware/shared/errors", model: @primary_care_physician
+= render "renalware/shared/errors", model: @primary_care_physician
 
-.row
-  .large-6.columns
-    = simple_form_for @primary_care_physician, html: { autocomplete: "off" } do |f|
-      = f.input :name, placeholder: "e.g. SMITH J"
-      = f.input :telephone
-      = f.input :code
-      = f.input :practitioner_type, collection: ["GP", "Other"]
-      = label_tag "patients_primary_care_physician[practice_ids]", "Practices"
-      = select_tag "patients_primary_care_physician[practice_ids]",
-                   practices_options_for_select(f.object),
-                   { include_hidden: false, multiple: true }
+.large-6.columns
+  = simple_form_for @primary_care_physician, html: { autocomplete: "off" } do |f|
+    = f.input :name, placeholder: "e.g. SMITH J"
+    = f.input :telephone
+    = f.input :code
+    = f.input :practitioner_type, collection: ["GP", "Other"]
+    = label_tag "patients_primary_care_physician[practice_ids]", "Practices"
+    = select_tag "patients_primary_care_physician[practice_ids]",
+                 practices_options_for_select(f.object),
+                 { include_hidden: false, multiple: true }
 
-      hr
+    hr
 
-      a#address-form-toggle href="#address-form" class="button tiny" Alternative address
+    a#address-form-toggle href="#address-form" class="button tiny" Alternative address
 
-      .row
-        .large-12.columns
-          fieldset#address-form style="display:none"
-            = f.simple_fields_for @alternative_address do |a|
-              = a.input :id, as: :hidden
-              = render "renalware/addresses/form", a: a
+    .row
+      .large-12.columns
+        fieldset#address-form style="display:none"
+          = f.simple_fields_for @alternative_address do |a|
+            = a.input :id, as: :hidden
+            = render "renalware/addresses/form", a: a
 
-      = f.button :submit
-      span= " or "
-      = link_to "cancel", patients_primary_care_physicians_path
+    = f.button :submit
+    span= " or "
+    = link_to "cancel", patients_primary_care_physicians_path

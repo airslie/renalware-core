@@ -1,12 +1,9 @@
-.row
-  = render "header"
-  = render "renalware/shared/errors", model: cannulation_type
+= render "renalware/shared/errors", model: cannulation_type
 
-.row
-  .large-6.columns
-    = simple_form_for cannulation_type, html: { autocomplete: "off" } do |f|
-      = f.input :name, autofocus: true
+.large-6.columns
+  = simple_form_for cannulation_type, html: { autocomplete: "off" } do |f|
+    = f.input :name, autofocus: true
 
-      = f.button :submit
-      span= " or "
-      = link_to "cancel", hd_cannulation_types_path
+    = f.button :submit
+    span= " or "
+    = link_to "cancel", hd_cannulation_types_path

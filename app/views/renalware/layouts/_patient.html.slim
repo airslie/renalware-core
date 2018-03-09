@@ -1,6 +1,3 @@
-- content_for(:css) do
-  = stylesheet_link_tag "renalware/patient_pages", media: :all
-
 - content_for(:header) do
   = render "renalware/patients/header", patient: current_patient
 
@@ -11,7 +8,7 @@ nav.patient-side-nav.full-screenable
   .layout-wrapper
     = render "renalware/patients/side_menu", patient: current_patient
 
-.patient-content.full-screenable
+.main-content.patient-content.full-screenable
   .layout-wrapper
     = render "renalware/patients/mini_profile", patient: current_patient
     = render "renalware/clinical/header", patient: current_patient

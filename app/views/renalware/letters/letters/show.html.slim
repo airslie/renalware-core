@@ -1,17 +1,18 @@
-.letter-preview-admin
-  .row
-    .columns.large-8
-      .row
-        .columns.large-4
-          p Status: #{@letter.state.upcase}
-        .columns.large-8
-          p Typist: #{@letter.typist}
-      .row
-        .columns.large-12
-          div= render "actions", letter: @letter
+.main-content
+  .letter-preview-admin
+    .row
+      .columns.large-8
+        .row
+          .columns.large-4
+            p Status: #{@letter.state.upcase}
+          .columns.large-8
+            p Typist: #{@letter.typist}
+        .row
+          .columns.large-12
+            div= render "actions", letter: @letter
 
-    .columns.large-4
-      p Notes:
-      = simple_format @letter.notes
+      .columns.large-4
+        p Notes:
+        = simple_format @letter.notes
 
-= content_tag :iframe, "", src: patient_letters_letter_preview_path(@letter), class: "fullsize"
+  = content_tag :iframe, "", src: patient_letters_letter_preview_path(@letter), class: "fullsize"

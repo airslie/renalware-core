@@ -104,11 +104,11 @@ $table-border-colour: #CCC;
 $table-toggled-content-colour: #FEFFF1;
 $table-urgent-colour: $nhs-yellow;
 
-$footer-colour: #C0C0C0;
-$footer-bg-colour: #FAFAFA;
-
 $patient-menu-background-colour: #eeeeee;
 $menu-divider-colour: #E6E6E6;
+
+$footer-colour: $patient-header-muted-color;
+$footer-bg-colour:$patient-menu-background-colour;
 
 // Forms
 $form-hint-colour: #BBB;
