@@ -120,7 +120,10 @@ module Renalware
       if codes.nil?
         Pathology::RelevantObservationDescription.all
       else
-        Pathology::ObservationDescription.for(Array(codes))
+        codes = Array(codes)
+        descriptions = Pathology::ObservationDescription.for(Array(codes))
+        warn("No OBX(es) found for codes #{codes}") if descriptions.empty?
+        descriptions
       end
     end
 
