@@ -1,3 +1,7 @@
+-if Renalware.config.display_feedback_button_in_navbar && current_user.present?
+  li.show-for-medium-up= link_to("Feedback",
+              new_system_user_feedback_path,
+              class: "button secondary")
 li.has-dropdown
   = link_to dashboard_path do
     i.fa.fa-home

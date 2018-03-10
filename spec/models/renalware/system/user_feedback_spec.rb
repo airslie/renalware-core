@@ -8,6 +8,6 @@ module Renalware
     it { is_expected.to validate_presence_of(:category) }
     it { is_expected.to validate_presence_of(:comment) }
     it { is_expected.to have_db_index(:author_id) }
-    it { is_expected.to enumerize(:category).with_default(:general) }
+    it { is_expected.to enumerize(:category).with_default(:general_comment) }
   end
 end
