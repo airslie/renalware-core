@@ -1,0 +1,6 @@
+li.patient-alert.research-study-participant
+  i.fa.fa-warning
+  span.title= link_to(participation.study.code, research_study_participants_path(participation.study))
+  span.body participant
+  span.date= l(participation.joined_on)
+
