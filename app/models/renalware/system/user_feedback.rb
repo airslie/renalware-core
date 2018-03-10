@@ -10,7 +10,9 @@ module Renalware
 
       belongs_to :author, class_name: "User"
 
-      enumerize :category, in: %i(general bug missing_feature), default: :general
+      enumerize :category,
+                in: %i(urgent_bug non_urgent_bug missing_feature general_comment),
+                default: :general_comment
     end
   end
 end

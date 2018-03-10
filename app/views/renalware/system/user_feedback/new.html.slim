@@ -1,13 +1,9 @@
 = within_admin_layout(title: "Send Us Feedback") do
-
   = simple_form_for(feedback, as: :feedback, wrapper: :horizontal_form) do |f|
-
+    .panel
+      | Please do not include any patient identifiable data
     = f.input :category, include_blank: false, as: :radio_buttons
     = f.input :comment, as: :text
-    .row
-      .small-3.columns
-        label.right.inline From
-      .small-9.columns
-        = current_user.username
+
     br
     = f.submit "Submit", class: :button

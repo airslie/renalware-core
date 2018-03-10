@@ -37,6 +37,9 @@ module Renalware
     config_accessor(:letter_default_care_group_name) { "RenalCareGroup" }
     config_accessor(:default_from_email) { "dev@airslie.com" }
     config_accessor(:display_feedback_banner) { ENV.key?("DISPLAY_FEEDBACK_BANNER") }
+    config_accessor(:display_feedback_button_in_navbar) do
+      ENV.key?("DISPLAY_FEEDBACK_BUTTON_IN_NAVBAR")
+    end
     config_accessor(:default_from_email_address) { ENV["DEFAULT_FROM_EMAIL_ADDRESS"] }
     config_accessor(:phone_number_on_letters) { ENV["PHONE_NUMBER_ON_LETTERS"] }
     config_accessor(:renal_unit_on_letters) { ENV["RENAL_UNIT_ON_LETTERS"] }
