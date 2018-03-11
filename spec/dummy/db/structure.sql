@@ -10865,7 +10865,7 @@ CREATE INDEX index_pathology_observation_requests_on_requested_at ON pathology_o
 -- Name: index_pathology_observation_requests_on_requestor_order_number; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE UNIQUE INDEX index_pathology_observation_requests_on_requestor_order_number ON pathology_observation_requests USING btree (requestor_order_number);
+CREATE INDEX index_pathology_observation_requests_on_requestor_order_number ON pathology_observation_requests USING btree (requestor_order_number);
 
 
 --
@@ -14711,6 +14711,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180307191650'),
 ('20180307223111'),
 ('20180309140316'),
-('20180311071146');
+('20180311071146'),
+('20180311104609');
 
 
