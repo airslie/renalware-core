@@ -12,9 +12,6 @@ module Renalware
       end
 
       def call
-        if observation_descriptions.blank?
-          raise(ArgumentError, "No observation_descriptions supplied")
-        end
         create_observations_table
       end
 

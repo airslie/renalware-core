@@ -36,7 +36,8 @@ module Renalware
 
       def initialize(patient:, observation_descriptions:, page: 1, per_page: 50)
         @patient = patient
-        @observation_descriptions = observation_descriptions
+        @observation_descriptions =
+          observation_descriptions.presence || observation_descriptions_null_object
         @page = Integer(page)
         @limit = Integer(per_page)
       end
@@ -52,10 +53,15 @@ module Renalware
       end
 
       def all
+        return Pathology::Observation.none if observation_descriptions.empty?
         conn.execute(to_paginated_sql)
       end
 
       private
+
+      def observation_descriptions_null_object
+        Pathology::Observation.none
+      end
 
       def to_sql
         <<-SQL.squish
