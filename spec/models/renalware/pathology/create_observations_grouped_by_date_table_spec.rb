@@ -10,15 +10,6 @@ module Renalware
       let(:another_patient) { create(:pathology_patient) }
       let(:observation_descriptions) { [] }
 
-      it "raise an error if no observation_descriptions passed" do
-        expect{
-          described_class.new(
-            patient: instance_double(Pathology::Patient),
-            observation_descriptions: []
-          ).call
-        }.to raise_error(ArgumentError)
-      end
-
       context "when the patient has had path results on several dates in the past" do
         it "creates a paginated table object" do
           Observation.delete_all
