@@ -7,12 +7,13 @@ article.access-procedures
 
   table.auto-layout
     thead
-      th
-      th Performed
+      th.col-width-small
+      th.col-width-date Performed
       th Procedure
-      th Side
+      th.col-width-tiny Side
       th Performed By
-      th First Use
+      th.col-width-date First Use
+      th Notes
       th Outcome
 
     tbody
@@ -27,4 +28,5 @@ article.access-procedures
           td= procedure.side
           td= procedure.performed_by
           td= procedure.first_used_on
-          td= procedure.outcome
+          td.col-width-mediumish-with-ellipsis(title=procedure.notes)=procedure.notes
+          td.col-width-mediumish-with-ellipsis(title=procedure.outcome)=procedure.outcome

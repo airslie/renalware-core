@@ -4340,9 +4340,6 @@ CREATE VIEW patient_summaries AS
            FROM letter_letters
           WHERE (letter_letters.patient_id = patients.id)) AS letters_count,
     ( SELECT count(*) AS count
-           FROM access_profiles
-          WHERE (access_profiles.patient_id = patients.id)) AS access_profiles_count,
-    ( SELECT count(*) AS count
            FROM modality_modalities
           WHERE (modality_modalities.patient_id = patients.id)) AS modalities_count,
     ( SELECT count(*) AS count
@@ -14713,6 +14710,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180306080518'),
 ('20180307191650'),
 ('20180307223111'),
-('20180309140316');
+('20180309140316'),
+('20180311071146');
 
 

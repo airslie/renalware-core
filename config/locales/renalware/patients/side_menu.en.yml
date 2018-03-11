@@ -14,7 +14,7 @@ en:
           clinic_visits: Clinic Visits (%{count})
           letters: Letters (%{count})
           events: Events (%{count})
-          access_profiles: Access Summary (%{count})
+          access_profiles: Access Summary
           prescriptions: Prescriptions (%{count})
           pathology: Pathology (%{count})
           virology: Virology
