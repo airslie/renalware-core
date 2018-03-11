@@ -9,6 +9,15 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.1
+11-03-2017
+
+### Added
+### Changed
+- Make OBR requestor_order_number nil if blank
+- Ensure uniqueness of OBR requestor_order_number
+### Fixed
+
 ## 2.0.0
 09-03-2017
 
