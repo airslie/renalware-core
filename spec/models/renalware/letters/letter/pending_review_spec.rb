@@ -10,7 +10,16 @@ module Renalware::Letters
 
     let(:user) { build(:user) }
     let(:primary_care_physician) { build(:letter_primary_care_physician) }
-    let(:patient) { build(:letter_patient, primary_care_physician: primary_care_physician) }
+    let(:practice) do
+      build(:practice).tap{ |prac| prac.build_address(attributes_for(:address)) }
+    end
+    let(:patient) do
+      build(
+        :letter_patient,
+        primary_care_physician: primary_care_physician,
+        practice: practice
+      )
+    end
     let(:raw_letter) { build_letter(to: :patient, patient: patient) }
 
     describe "#sign" do
@@ -53,7 +62,7 @@ module Renalware::Letters
           content = letter.generate_archive(by: user).archive.content
           expect(content).to match(/class="unit-info"/)
           expect(content).to include(patient.full_name)
-          expect(content).to include(primary_care_physician.address.street_1)
+          expect(content).to include(patient.practice.address.street_1)
         end
       end
     end

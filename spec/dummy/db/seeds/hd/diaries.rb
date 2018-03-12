@@ -104,14 +104,12 @@ module Renalware
         #       # 1 = Monday
 
         #       # patient has to be unique for this station/day/period
-        #       byebug
         #       patient = Renalware::Patient.where.not(id: used_patient_ids).first
         #       next if patient.nil?
         #       used_patient_ids << patient.id
 
         #       ok = master.slots.create(patient_id: patient.id, station: station, day_of_week: day_of_week, diurnal_period_code: code, by: user)
         #       if ok == false
-        #         byebug
         #       end
         #     end
         #   end
@@ -132,7 +130,6 @@ module Renalware
         #           diurnal_period_code: code,
         #           by: user)
         #     if ok == false
-        #       byebug
         #     end
         #   end
         # end

@@ -9,7 +9,10 @@ module Renalware
 
       subject(:presenter) { RecipientPresenter::WithCurrentAddress.new(recipient) }
 
-      let(:patient) { build(:letter_patient) }
+      let(:practice) do
+        build(:practice).tap{ |prac| prac.build_address(attributes_for(:address)) }
+      end
+      let(:patient) { build(:letter_patient, practice: practice) }
       let(:recipient) { letter.main_recipient }
 
       describe "#address" do
@@ -24,8 +27,8 @@ module Renalware
         context "when the recipient's role is Primary Care Physician" do
           let(:letter) { build_letter(to: :primary_care_physician, patient: patient) }
 
-          it "returns the address of the Primary Care Physician" do
-            expect(presenter.address).to eq(letter.patient.primary_care_physician.current_address)
+          it "returns the address of the Practice" do
+            expect(presenter.address).to eq(letter.patient.practice.address)
           end
         end
 

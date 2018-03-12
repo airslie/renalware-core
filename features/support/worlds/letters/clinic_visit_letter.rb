@@ -134,6 +134,11 @@ module World
       include Domain
 
       def draft_clinic_visit_letter(patient:, user:, issued_on:)
+        # patient.create_practice!(
+        #   name: "aa", code: Time.current.to_i, address: FactoryBot.build(:address)
+        # )
+        # patient.save!
+
         login_as user
         visit patient_clinic_visits_path(patient)
         click_on "Draft Letter"

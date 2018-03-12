@@ -8,8 +8,15 @@ feature "Assign electronic CCs" do
   include AutocompleteHelpers
   include AjaxHelpers
 
+  let(:practice) { create(:practice) }
   let(:primary_care_physician) { create(:letter_primary_care_physician) }
-  let(:patient) { create(:letter_patient, primary_care_physician: primary_care_physician) }
+  let(:patient) do
+    create(
+      :letter_patient,
+      primary_care_physician: primary_care_physician,
+      practice: practice
+    )
+  end
 
   describe "assigning a new person as a CC recipient", js: true do
     before do
