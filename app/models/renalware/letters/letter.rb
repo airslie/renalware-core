@@ -92,7 +92,7 @@ module Renalware
       end
 
       def subject?(other_patient)
-        patient == other_patient
+        patient.id == other_patient.id
       end
 
       def find_cc_recipient_for_contact(contact)
