@@ -36,7 +36,7 @@ module Renalware
         when patient?
           letter.patient.current_address
         when primary_care_physician?
-          letter.primary_care_physician.current_address
+          letter.patient&.practice&.address
         else
           addressee.address
         end

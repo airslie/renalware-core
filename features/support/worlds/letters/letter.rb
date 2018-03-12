@@ -164,7 +164,7 @@ module World
           expect(main_recipient.address.town).to eq(recipient.current_address.town)
         elsif recipient.is_a? Renalware::Patients::PrimaryCarePhysician
           expect(main_recipient.person_role).to eq("primary_care_physician")
-          expect(main_recipient.address.town).to eq(recipient.current_address.town)
+          expect(main_recipient.address.town).to eq(patient.practice.address.town)
         elsif recipient.is_a? Renalware::Letters::Contact
           expect(main_recipient.person_role).to eq("contact")
           expect(main_recipient.addressee).to eq(recipient)
@@ -197,7 +197,7 @@ module World
           if cc.is_a? Renalware::Patient
             ["patient", cc.current_address.town]
           elsif cc.is_a? Renalware::Patients::PrimaryCarePhysician
-            ["primary_care_physician", cc.current_address.town]
+            ["primary_care_physician", patient.practice.address.town]
           else
             ["contact", cc.address.town]
           end

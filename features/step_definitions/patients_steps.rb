@@ -46,6 +46,11 @@ Given(/^Phylis is Patty's primary care physician$/) do
     practitioner_type: "GP",
     address: FactoryBot.build(:address)
   )
+  @patty.create_practice!(
+    name: "Practice A",
+    code: "132",
+    address: FactoryBot.build(:address)
+  )
 end
 
 Given(/^Patty is a diabetic (yes|no)$/) do |diabetic|
