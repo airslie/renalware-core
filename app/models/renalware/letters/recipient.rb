@@ -32,11 +32,10 @@ module Renalware
       end
 
       def current_address
-        case
-        when patient?
+        if patient?
           letter.patient.current_address
-        when primary_care_physician?
-          letter.patient&.practice&.address
+        elsif primary_care_physician?
+          address_for_primary_care_physician
         else
           addressee.address
         end
@@ -48,6 +47,14 @@ module Renalware
       end
 
       private
+
+      def address_for_primary_care_physician
+        address = letter.patient&.practice&.address
+        if address.present? && letter.primary_care_physician.present?
+          address.name = letter.primary_care_physician.salutation
+        end
+        address
+      end
 
       def patient_or_primary_care_physician?
         patient? || primary_care_physician?
