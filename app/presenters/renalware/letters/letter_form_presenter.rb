@@ -7,7 +7,9 @@ module Renalware
     class LetterFormPresenter < DumbDelegator
       def person_roles
         [].tap do |collection|
-          collection << primary_care_physician_role if patient.primary_care_physician.present?
+          if patient.primary_care_physician.present? && patient.practice.present?
+            collection << primary_care_physician_role
+          end
           collection << patient_role
           collection << other_role
         end
