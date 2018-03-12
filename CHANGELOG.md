@@ -9,6 +9,15 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.2
+12-03-2017
+
+### Added
+### Changed
+### Fixed
+- Always use practice address when sending to GP
+- Resolve missing patient CC on letters
+
 ## 2.0.1
 11-03-2017
 
