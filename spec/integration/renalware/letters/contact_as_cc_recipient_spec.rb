@@ -12,8 +12,15 @@ RSpec.describe "Assign a person as a CC recipient", type: :feature do
     login_as_clinical
   end
 
+  let(:practice) { create(:practice) }
   let(:primary_care_physician) { create(:letter_primary_care_physician) }
-  let(:patient) { create(:letter_patient, primary_care_physician: primary_care_physician) }
+  let(:patient) do
+    create(
+      :letter_patient,
+      primary_care_physician: primary_care_physician,
+      practice: practice
+    )
+  end
   let(:address) { build(:address, name: "::cc_name::") }
   let!(:person) { create(:directory_person, address: address, by: create(:user)) }
   let(:user) { create(:user) }

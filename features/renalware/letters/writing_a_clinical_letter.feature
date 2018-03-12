@@ -10,6 +10,7 @@ Feature: Writing a clinical letter
     Given Nathalie is a nurse
     And Patty is a patient
     And Doug is a doctor
+    And Patty has a practice
     And Patty has current prescriptions
     And Patty has recorded problems with notes
     And Patty has completed pathology investigations relevant to the clinic letter

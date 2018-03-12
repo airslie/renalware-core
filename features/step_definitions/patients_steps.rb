@@ -40,6 +40,15 @@ Given(/^Don is a patient$/) do
   )
 end
 
+Given "Patty has a practice" do
+  @patty.create_practice!(
+    name: "Practice A",
+    code: Time.current.to_i,
+    address: FactoryBot.build(:address)
+  )
+  @patty.save!
+end
+
 Given(/^Phylis is Patty's primary care physician$/) do
   @phylis = @patty.create_primary_care_physician!(
     name: "GOOD PJ",
@@ -48,9 +57,10 @@ Given(/^Phylis is Patty's primary care physician$/) do
   )
   @patty.create_practice!(
     name: "Practice A",
-    code: "132",
+    code: Time.current.to_i,
     address: FactoryBot.build(:address)
   )
+  @patty.save!
 end
 
 Given(/^Patty is a diabetic (yes|no)$/) do |diabetic|
