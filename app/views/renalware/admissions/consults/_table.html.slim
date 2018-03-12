@@ -2,15 +2,15 @@
   table
     thead
       tr
-        th.col-width-large Location
+        th.col-width-large= sort_link(query, :consult_site_id, "Location")
         th.at-least.col-width-medium Patient
         th.col-width-nhs-no NHS No.
         th.col-width-reference-no Hosp Nos.
         th.col-width-medium Modality
         th.col-width-tiny Sex
         th.col-width-tiny Age
-        th.col-width-small AKI Risk
-        th.col-width-small AKI Nurse?
+        th.col-width-tiny= sort_link(query, :aki_risk, "AKI Risk")
+        th.col-width-tiny= sort_link(query, :requires_aki_nurse, " AKI Nurse?")
         th.show-for-large-up Author
         th.col-width-medium Description
         th.col-width-tiny

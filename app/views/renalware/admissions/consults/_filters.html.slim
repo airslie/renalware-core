@@ -4,19 +4,24 @@
       url: admissions_consults_path,
       method: :get do |f|
     .row
-      .columns.medium-4.large-3
+      .columns.medium-3.large-2
         = f.input :consult_site_id_eq,
                   collection: Renalware::Admissions::ConsultSite.pluck(:name, :id),
                   label: "Site"
-      .columns.medium-3.large-2
+      .columns.medium-2.large-1
         = f.input :requires_aki_nurse_eq,
                   collection: [["Yes", true], ["No", false]],
-                  label: "AKI Nurse required"
+                  label: "AKI Nurse req."
       .columns.medium-2.large-1
         = f.input :seen_by_id_eq,
                   include_blank: false,
                   collection: [["Anyone", nil], ["Me", current_user.id]],
                   label: "Seen by"
+      .columns.medium-2.large-1
+        = f.input :aki_risk_eq,
+                  include_blank: true,
+                  collection: Renalware::Admissions::Consult.aki_risk.values.map{ |value| [value.text, value] },
+                  label: "AKI Risk"
       .columns.medium-2.large-2.actions.end
         = f.submit "Filter", class: "button"
         span= " or "
