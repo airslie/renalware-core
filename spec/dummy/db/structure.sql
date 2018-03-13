@@ -1152,7 +1152,6 @@ CREATE TABLE admission_consults (
     description text,
     updated_by_id bigint NOT NULL,
     created_by_id bigint NOT NULL,
-    deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     other_site_or_ward character varying,
@@ -4310,13 +4309,13 @@ CREATE TABLE transplant_recipient_operations (
     id integer NOT NULL,
     patient_id integer,
     performed_on date NOT NULL,
-    theatre_case_start_time time without time zone NOT NULL,
-    donor_kidney_removed_from_ice_at timestamp without time zone NOT NULL,
+    theatre_case_start_time time without time zone,
+    donor_kidney_removed_from_ice_at timestamp without time zone,
     operation_type character varying NOT NULL,
     hospital_centre_id integer NOT NULL,
-    kidney_perfused_with_blood_at timestamp without time zone NOT NULL,
-    cold_ischaemic_time integer NOT NULL,
-    warm_ischaemic_time integer NOT NULL,
+    kidney_perfused_with_blood_at timestamp without time zone,
+    cold_ischaemic_time integer,
+    warm_ischaemic_time integer,
     notes text,
     document jsonb,
     created_at timestamp without time zone NOT NULL,
@@ -9508,13 +9507,6 @@ CREATE INDEX index_admission_consults_on_consult_site_id ON admission_consults U
 --
 
 CREATE INDEX index_admission_consults_on_created_by_id ON admission_consults USING btree (created_by_id);
-
-
---
--- Name: index_admission_consults_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_admission_consults_on_deleted_at ON admission_consults USING btree (deleted_at);
 
 
 --
@@ -14712,6 +14704,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180307223111'),
 ('20180309140316'),
 ('20180311071146'),
-('20180311104609');
+('20180311104609'),
+('20180313114927'),
+('20180313124819');
 
 

@@ -1,6 +1,11 @@
+
 = within_admin_layout( \
   title: "Edit",
   breadcrumbs: breadcrumb_for("Admission Consults", admissions_consults_path) \
   ) do
 
+  = link_to "< Back to search results",
+            session[:consults_results] || admissions_consults_path,
+            class: "button secondary"
+  br
   = render "form", consult: consult
