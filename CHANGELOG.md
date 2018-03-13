@@ -9,6 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.5
+13-03-2017
+
+### Added
+### Changed
+### Fixed
+- Error displaying change_in values in HD Sessions table when measurement are not numeric
+
 ## 2.0.4
 13-03-2017
 
