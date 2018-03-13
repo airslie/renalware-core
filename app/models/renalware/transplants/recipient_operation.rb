@@ -21,17 +21,18 @@ module Renalware
       has_document class_name: "Renalware::Transplants::RecipientOperationDocument"
 
       validates :performed_on, presence: true
-      validates :theatre_case_start_time, presence: true
-      validates :donor_kidney_removed_from_ice_at, presence: true
-      validates :kidney_perfused_with_blood_at, presence: true
       validates :operation_type, presence: true
       validates :hospital_centre, presence: true
-      validates :cold_ischaemic_time_formatted, presence: true
-      validates :warm_ischaemic_time_formatted, presence: true
 
-      validates :donor_kidney_removed_from_ice_at, timeliness: { type: :datetime }
-      validates :kidney_perfused_with_blood_at, timeliness: { type: :datetime }
-      validates :theatre_case_start_time, timeliness: { type: :time }
+      validates :donor_kidney_removed_from_ice_at,
+                timeliness: { type: :datetime },
+                allow_blank: true
+      validates :kidney_perfused_with_blood_at,
+                timeliness: { type: :datetime },
+                allow_blank: true
+      validates :theatre_case_start_time,
+                timeliness: { type: :time },
+                allow_blank: true
 
       enumerize :operation_type,
                 in: %i(kidney kidney_dual kidney_pancreas pancreas kidney_liver liver)

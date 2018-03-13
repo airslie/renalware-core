@@ -5,7 +5,6 @@ module Renalware
     class Consult < ApplicationRecord
       include Accountable
       extend Enumerize
-      acts_as_paranoid
       validates :patient_id, presence: true
       validates :started_on, presence: true
       validates :description, presence: true
@@ -21,6 +20,9 @@ module Renalware
 
       enumerize :transfer_priority, in: %i(unknown necessary desirable potential unnecessary)
       enumerize :aki_risk, in: %i(yes no unknown)
+
+      scope :active, ->{ where(ended_on: nil) }
+
     end
   end
 end

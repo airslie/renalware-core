@@ -14,7 +14,7 @@ module Renalware
       end
 
       def search
-        @search ||= Consult.order(created_at: :desc).ransack(query)
+        @search ||= Consult.active.order(created_at: :desc).ransack(query)
       end
     end
   end

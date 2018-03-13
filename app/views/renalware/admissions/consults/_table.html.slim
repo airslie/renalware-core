@@ -2,10 +2,12 @@
   table
     thead
       tr
-        th.col-width-large= sort_link(query, :consult_site_id, "Location")
+        th= sort_link(query, :consult_site_id, "Location")
         th.at-least.col-width-medium Patient
         th.col-width-nhs-no NHS No.
         th.col-width-reference-no Hosp Nos.
+        th.col-width-date Started
+        th.col-width-date Ended
         th.col-width-medium Modality
         th.col-width-tiny Sex
         th.col-width-tiny Age
@@ -22,6 +24,8 @@
           td= consult.patient_name
           td= consult.patient_nhs_number
           td= consult.patient_hospital_identifiers
+          td= l(consult.started_on)
+          td= l(consult.ended_on)
           td= consult.patient_current_modality
           td= consult.patient_sex
           td= consult.patient_age
