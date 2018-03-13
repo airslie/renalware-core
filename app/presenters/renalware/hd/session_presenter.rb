@@ -72,8 +72,8 @@ module Renalware
         case pre
         when ::Float; (post - pre).round(1)
         when ::Integer; (post - pre)
-        else raise "Unsupported class '#{pre.class}'' - cannot calculate the change"
         end
+        # raise "Unsupported class '#{pre.class}'' - cannot calculate the change"
       end
 
       def summarised_access_used
