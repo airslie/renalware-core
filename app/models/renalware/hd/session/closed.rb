@@ -46,7 +46,7 @@ module Renalware
 
         class Dialysis < Renalware::HD::SessionDocument::Dialysis
           # rubocop:disable Rails/Validation
-          validates_presence_of attribute_set.map(&:name)
+          validates_presence_of attribute_set.map(&:name).reject{ |att| att == :machine_ktv }
           # rubocop:enable Rails/Validation
         end
         attribute :dialysis, Dialysis
