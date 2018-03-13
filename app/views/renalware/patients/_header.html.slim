@@ -16,8 +16,14 @@
       a
         i.fa.fa-ellipsis-v
         = patient
-    dt= patient.hospital_identifier.name
-    dd= patient.hospital_identifier.id
+    - if patient.hospital_identifiers.all.count > 1
+      - patient.hospital_identifiers.all.each do |hospital_identifier|
+        dl.hospital_no
+          dt= hospital_identifier[0]
+          dd= hospital_identifier[1]
+    - else
+      dt= patient.hospital_identifier.name
+      dd= patient.hospital_identifier.id
     dt= t(".nhs_number")
     dd= formatted_nhs_number(patient)
     dt= t(".sex")

@@ -218,6 +218,29 @@ ul.provider {
         }
       }
     }
+
+    &.hospital_no {
+      display: inline-block;
+      margin-right: .6em;
+      margin-left: 0;
+      margin-top: .1rem;
+
+      dt, dd {
+        display: block;
+        padding: 0;
+        margin: 0;
+      }
+      dd {
+        font-size: 1em;
+        line-height: 0.9rem;
+      }
+
+      @media #{$medium-only} {
+        dd {
+          line-height: 0.7rem;
+        }
+      }
+    }
   }
 
   .menu-icon {
