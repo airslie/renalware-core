@@ -22,11 +22,11 @@
                   include_blank: true,
                   collection: Renalware::Admissions::Consult.aki_risk.values.map{ |value| [value.text, value] },
                   label: "AKI Risk"
-      .columns.medium-2.large-1
-        = f.input :stopped_on_eq_nil,
-                  include_blank: false,
-                  collection: [["Yes", true], ["No", false]],
-                  label: "Active"
+      / .columns.medium-2.large-1
+      /   = f.input :stopped_on_eq_nil,
+      /             include_blank: false,
+      /             collection: [["Yes", true], ["No", false]],
+      /             label: "Active"
       .columns.medium-2.large-2.actions.end
         = f.submit "Filter", class: "button"
         span= " or "

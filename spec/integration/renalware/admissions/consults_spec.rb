@@ -151,8 +151,9 @@ module Renalware
         expect{
           delete admissions_consult_path(consult)
         }
-        .to change{ Admissions::Consult.count }.by(-1)
-        .and change{ Admissions::Consult.deleted.count }.by(1)
+        .to change{ Admissions::Consult.active.count }.by(-1)
+
+        expect(consult.reload.ended_on).not_to be_nil
       end
     end
   end

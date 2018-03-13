@@ -9,6 +9,17 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.4
+13-03-2017
+
+### Added
+### Changed
+- Removed unnecessary validations on Transplant Recipient Operation
+- Removed unnecessary validations on HD (Closed) Session
+
+### Fixed
+- Admission Consults uses ended_on date not deleted_at for determining active status
+
 ## 2.0.3
 13-03-2017
 

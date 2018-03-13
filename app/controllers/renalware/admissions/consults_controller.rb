@@ -47,7 +47,6 @@ module Renalware
       end
 
       def destroy
-        byebug
         find_and_authorize_consult.update!(ended_on: Time.zone.now, by: current_user)
         redirect_to admissions_consults_path, notice: success_msg_for("consult")
       end
