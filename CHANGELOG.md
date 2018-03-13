@@ -9,6 +9,16 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.3
+13-03-2017
+
+### Added
+- Filters on consults
+- Optional signup_help partial
+
+### Changed
+### Fixed
+
 ## 2.0.2
 12-03-2017
 
