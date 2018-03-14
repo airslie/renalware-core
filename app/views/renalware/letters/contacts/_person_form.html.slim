@@ -1,29 +1,52 @@
 = f.simple_fields_for :person do |ff|
-  = field_set_tag "Person" do
-    = ff.input :title
-    = ff.input :given_name
-    = ff.input :family_name
+  / article
+  /   header
+  /     h2 Person
+  .row
+    .columns.small-2
+      = ff.input :title
+    .columns.small-5
+      = ff.input :given_name
+    .columns.small-5
+      = ff.input :family_name
 
-  = field_set_tag "Address" do
-    - ff.object.build_address
-    = ff.simple_fields_for :address do |fa|
-      = fa.input :name,
-                  placeholder: "If different than above (optional)"
-      = fa.input :organisation_name,
-                 placeholder: "e.g. practice or hospital name (optional)"
-      = fa.input :street_1
-      = fa.input :street_2
-      = fa.input :street_3
-      = fa.input :town
-      = fa.input :county
-      = fa.input :postcode
-      = fa.association :country
-      = fa.input :telephone
-      = fa.input :email
+  /= field_set_tag "Address" do
+  - ff.object.build_address
+  = ff.simple_fields_for :address do |fa|
+    / = fa.input :name,
+    /             placeholder: "If different than above (optional)"
+    = fa.input :organisation_name,
+               placeholder: "e.g. practice or hospital name (optional)"
+    .row
+      .columns.small-6
+        = fa.input :street_1
+      .columns.small-6
+        = fa.input :street_2
+      .columns.small-6
+        = fa.input :street_3
+      .columns.small-6
+        = fa.input :town
+      .columns.small-6
+        = fa.input :county
+      .columns.small-6
+        = fa.input :postcode
+      .columns.small-6
+        = fa.association :country
+      .columns.small-6
+        = fa.input :telephone
+      .columns.small-6
+        = fa.input :email
+      .columns.small-6
+        // Disable `for` attribute, so it works when multiple contact form on the page
+        = f.input :default_cc, label_html: { for: nil }
 
-= f.input :description_id, collection: contact_descriptions
-= f.input :other_description
-= f.input :notes, as: :text, input_html: { rows: 2 }
+    .row
+      .columns.small-6
+        = f.input :description_id, collection: contact_descriptions
+      .columns.small-6
+        = f.input :other_description
+    .row
+      .columns.small-12
+        = f.input :notes, as: :text, input_html: { rows: 2 }
 
-// Disable `for` attribute, so it works when multiple contact form on the page
-= f.input :default_cc, label_html: { for: nil }
+

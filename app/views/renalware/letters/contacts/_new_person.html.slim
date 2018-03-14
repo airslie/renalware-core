@@ -1,16 +1,21 @@
-.row
-  .large-12.columns
-    .g-center
-      = link_to "Pick person from directory",
-                "#",
-                class: "button secondary",
-                data: { behaviour: "toggle-section" }
-
 = simple_form_for contact,
     url: patient_letters_contacts_path(patient),
-    html: { autocomplete: "off" },
-    wrapper: "horizontal_form" do |f|
+    html: { autocomplete: "off" } do |f|
 
+  .row
+    .large-12.columns
+      .left
+        = link_to "Cancel and go back to Pick person from directory",
+                  "#",
+                  class: "button secondary",
+                  data: { behaviour: "toggle-section" }
+      .right
+        = f.submit t(".save"), class: "button"
+        span= " or "
+        = link_to t(".cancel"),
+               "#",
+               "aria-label" => "Close",
+               class: "reveal-modal-close"
   .row.errors-container
     .large-12.columns
       ul.error-messages
@@ -20,12 +25,3 @@
       = render "/renalware/letters/contacts/person_form", f: f,
           contact_descriptions: contact_descriptions
 
-  .row
-    .large-12.columns
-      br
-      = f.submit t(".save"), class: "button"
-      span= " or "
-      = link_to t(".cancel"),
-               "#",
-               "aria-label" => "Close",
-               class: "reveal-modal-close"
