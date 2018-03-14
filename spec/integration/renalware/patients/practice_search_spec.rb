@@ -13,7 +13,15 @@ RSpec.describe "Changing a patient's GP (primary care physician)", type: :reques
 
         expect(response).to have_http_status(:success)
         expect(response.content_type).to eq("application/json")
-        expect(JSON.parse(response.body)).to eq([{ "id" => practice.id, "name" => practice.name }])
+        expect(JSON.parse(response.body)).to eq(
+          [
+            {
+              "id" => practice.id,
+              "name" => practice.name,
+              "address" => "123 Legoland, Windsor, Berkshire, NW1 6BB"
+            }
+          ]
+        )
       end
 
       it "responds with json containing the practice/s when searching by practice postcode" do
@@ -25,7 +33,15 @@ RSpec.describe "Changing a patient's GP (primary care physician)", type: :reques
 
         expect(response).to have_http_status(:success)
         expect(response.content_type).to eq("application/json")
-        expect(JSON.parse(response.body)).to eq([{ "id" => practice.id, "name" => practice.name }])
+        expect(JSON.parse(response.body)).to eq(
+          [
+            {
+              "id" => practice.id,
+              "name" => practice.name,
+              "address" => "123 Legoland, Windsor, Berkshire, NW1 1AA"
+            }
+          ]
+        )
       end
     end
 
