@@ -13,12 +13,17 @@ module Renalware
 
       organisation_name = [true, false].sample ? Faker::Company.name : nil
 
+      # TC I removed
+      # address_attributes: {
+      #  name: "#{title} #{given_name} #{family_name}",
+      #  }
+      #  as this is not set in the code anyway and leads to missing addresse name in letters
+      #  Need to remove this fields at some point
       Directory::Person.create!(
         title: title,
         given_name: given_name,
         family_name: family_name,
         address_attributes: {
-          name: "#{title} #{given_name} #{family_name}",
           organisation_name: organisation_name,
           street_1: Faker::Address.street_address,
           town: Faker::Address.city,

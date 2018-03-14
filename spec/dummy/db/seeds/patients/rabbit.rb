@@ -46,7 +46,7 @@ module Renalware
 
   log "Adding Address for Roger RABBIT" do
     address = rabbit.current_address || rabbit.build_current_address
-    address.name = "M. Roger Rabbit"
+    # NO! address.name = "M. Roger Rabbit"
     address.street_1 = "123 South Street"
     address.town = "Toontown"
     address.postcode = "TT1 1HD"
