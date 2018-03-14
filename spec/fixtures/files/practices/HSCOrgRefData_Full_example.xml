@@ -535,13 +535,6 @@
         </Date>
         <Status value="Inactive" />
       </Role>
-      <Role id="RO177" uniqueRoleId="230383" primaryRole="true">
-        <Date>
-          <Type value="Operational" />
-          <Start value="2015-02-23" />
-        </Date>
-        <Status value="Active" />
-      </Role>
       <Role id="RO247" uniqueRoleId="281352">
         <Date>
           <Type value="Operational" />

@@ -5,6 +5,8 @@ module Renalware
     module Files
       module Practices
         class ConvertXmlToCsv
+          PRACTICE_ROLES = %w(RO177 RO76).freeze
+
           def self.call(xml_path)
             new.call(xml_path)
           end
@@ -100,10 +102,12 @@ module Renalware
                     for_element "PostCode" do org.postcode = inner_xml end
                     for_element "Country" do
                       country_name = inner_xml
+
                       CountryMap.new.map(country_name).tap do |mapped|
                         org.region = mapped.region
                         found_country = countries.find_by(name: mapped.country)
                         if found_country.blank?
+                          Rails.logger.warn("#{country_name} not mapped")
                           org.skip = true
                           org.region = country_name
                           # raise(CountryNotFoundError, country_name)
@@ -119,12 +123,12 @@ module Renalware
                 end
               end
 
-              if org.roles.include?("RO76")
+              if (PRACTICE_ROLES & org.roles).any?
                 fail unless org.code&.length == 6
                 practices_count += 1
                 if org.skip
                   Rails.logger.warn(
-                    "Not importing practice, probably because country #{country_name} not found. "\
+                    "Not importing practice, probably because country country_name not found. "\
                     "#{org}"
                   )
                 else
