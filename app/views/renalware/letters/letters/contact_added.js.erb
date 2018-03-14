@@ -1,4 +1,6 @@
 $("#letter_main_recipient_attributes_addressee_id")
-  .append('<option value="<%= @contact.id %>"><%= @contact.name_and_description %></option>');
+  .append('<option value="<%= @contact.id %>" data-salutation="<%=@contact.salutation%>" data-class=".has_salutation"><%= @contact.name_and_description %></option>');
+setTimeout(function() { $("#letter_main_recipient_attributes_addressee_id").trigger("change") }, 200);
+
 $("#letter-ccs table tbody")
   .append('<%= j render(partial: "cc_recipient_form", object: @contact, as: :contact, locals: { letter: @letter }) %>');
