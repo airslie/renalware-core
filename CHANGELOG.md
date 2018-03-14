@@ -9,6 +9,16 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.6
+14-03-2017
+### Added
+### Changed
+### Fixed
+- Correct salutation on newly added letter contact
+- Remove use of address.name which was causing blank addresses in letters
+- Import practices with organisation role RO177 as well as RO76
+- Compact the New Contact dialog so it fits on the screen
+
 ## 2.0.5
 13-03-2017
 

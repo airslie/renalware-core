@@ -6,11 +6,10 @@ article
 
     .radio_buttons.row.optional.letter_main_recipient_person_role.field_with_hint
       .columns.small-12
-        .hint
-          - if patient.primary_care_physician.nil? || patient.practice.nil?
-            | No option to send to GP as patient has no Practice and/or GP
-            br
-          =f.object.patient_cc_hint
+        - if patient.primary_care_physician.nil? || patient.practice.nil?
+          .panel
+            | No option to send to GP as patient is missing a practice or GP
+
         = fmr.collection_radio_buttons(:person_role,
                                        f.object.person_roles,
                                        :second,
@@ -23,6 +22,7 @@ article
                              class: "radio_buttons recipient-person-role-picker has_salutation") \
                                     + b.text \
               }
+        .hint=f.object.patient_cc_hint
 
     = fmr.input :id, as: :hidden
 
