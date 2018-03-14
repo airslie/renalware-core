@@ -1,11 +1,13 @@
-.row
-  .large-12.columns
+.modal
+  .modal__header
     h2= t(".title")
+    = render "renalware/shared/modal_close_link"
 
-section.person-from-directory
-  = render "/renalware/letters/contacts/person_from_directory", contact: contact,
-      patient: patient, contact_descriptions: contact_descriptions
+  .modal__body
+    section.person-from-directory
+      = render "/renalware/letters/contacts/person_from_directory", contact: contact,
+          patient: patient, contact_descriptions: contact_descriptions
 
-section.new-person
-  = render "/renalware/letters/contacts/new_person", contact: contact,
-      patient: patient, contact_descriptions: contact_descriptions
+    section.new-person
+      = render "/renalware/letters/contacts/new_person", contact: contact,
+          patient: patient, contact_descriptions: contact_descriptions

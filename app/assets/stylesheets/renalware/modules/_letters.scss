@@ -50,6 +50,11 @@ table.contacts tbody td{
 #add-patient-contact-as-cc-modal {
   max-height: $max-modal-height;
   overflow-y: auto;
+
+  .columns {
+    padding-left: .2rem;
+    padding-right: .2rem;
+  }
 }
 
 textarea.letter-body {
