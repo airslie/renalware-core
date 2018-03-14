@@ -16,7 +16,27 @@ module Renalware
       private
 
       def practices_matching_search_term
-        PracticeSearchQuery.new(search_term: params[:q]).call
+        PracticeSearchQuery.new(search_term: params[:q])
+          .call
+          .map { |practice| format_practice_into_hash_for_json(practice) }
+      end
+
+      def null_address
+        Address.new
+      end
+
+      def format_practice_into_hash_for_json(practice)
+        address = practice.address || null_address
+        {
+          id: practice.id,
+          name: practice.name,
+          address: [
+            address.street_1,
+            address.town,
+            address.county,
+            address.postcode
+          ].reject(&:blank?).join(", ")
+        }
       end
     end
   end

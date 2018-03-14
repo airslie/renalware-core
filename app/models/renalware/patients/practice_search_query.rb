@@ -13,8 +13,11 @@ module Renalware
         term = "%#{search_term}%"
         Practice.select(:id, :name)
                 .left_outer_joins(:address)
-                .where("patient_practices.name ILIKE ? OR addresses.postcode ILIKE ?", term, term)
-        # .select("patient_practices.id", "patient_practices.name")
+                .includes(:address)
+                .where("patient_practices.name ILIKE ? "\
+                       "OR addresses.street_1 ILIKE ? " \
+                       "OR addresses.postcode ILIKE ?", term, term, term)
+                .limit(50)
       end
     end
   end

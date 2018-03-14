@@ -3,11 +3,15 @@ var Renalware = typeof Renalware === 'undefined' ? {} : Renalware;
 Renalware.PrimaryCarePhysicianSearch = (function() {
 
   var formatPractice = function(practice) {
-    return practice.name;
+    if (practice.name != undefined) {
+      return "<b>" + practice.name + "</b>&nbsp;" + practice.address;
+    }
   };
 
   var formatPracticeSelection = function(practice) {
-    return practice.name;
+    if (practice.name  != undefined) {
+      return practice.name;
+    }
   };
 
   var initPracticeAutocomplete = function(){
@@ -41,7 +45,7 @@ Renalware.PrimaryCarePhysicianSearch = (function() {
     }).select2('open');
 
     // When a Practice is selected from the autocomplete list,
-    // Do an ajax replace on the <form> in this modal by sendin a .js request
+    // Do an ajax replace on the <form> in this modal by sending a .js request
     // to the url the modal was loaded from (this is in a data attribute on the pratice-search
     // select). This will load in just the form under the practice-search select, bringing
     // with it a list of pcps associated with this practice.
