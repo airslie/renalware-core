@@ -32,13 +32,9 @@ module Renalware
       end
 
       def current_address
-        if patient?
-          letter.patient.current_address
-        elsif primary_care_physician?
-          address_for_primary_care_physician
-        else
-          addressee.address
-        end
+        return address_for_patient if patient?
+        return practice_address_for_patient if primary_care_physician?
+        address_for_addressee_eg_contact
       end
 
       def for_contact?(contact)
@@ -48,16 +44,45 @@ module Renalware
 
       private
 
-      def address_for_primary_care_physician
+      def address_for_patient
+        letter.patient.current_address.tap do |address|
+          ensure_address_has_a_name_required_when_displaying_letters(
+            address,
+            letter.patient.full_name
+          )
+        end
+      end
+
+      def practice_address_for_patient
         address = letter.patient&.practice&.address
         if address.present? && letter.primary_care_physician.present?
-          address.name = letter.primary_care_physician.salutation
+          ensure_address_has_a_name_required_when_displaying_letters(
+            address,
+            letter.primary_care_physician.salutation
+          )
         end
         address
       end
 
+      def address_for_addressee_eg_contact
+        addressee.address.tap do |address|
+          ensure_address_has_a_name_required_when_displaying_letters(address, addressee.to_s)
+        end
+      end
+
       def patient_or_primary_care_physician?
         patient? || primary_care_physician?
+      end
+
+      # Make sure we have a 'name' set in the address record set as this is used in the letter
+      # e.g. Roger Robar <- address.name
+      #      123 Toon Town
+      #      ...
+      # Note address.name is a redundant field not consistently populated in the app
+      # and should be removed. However its consumed in a quite a few laces building letters
+      # and displaying the letter form, hence this hack.
+      def ensure_address_has_a_name_required_when_displaying_letters(address, name)
+        address.name = name if address.present? && address.name.blank?
       end
     end
   end

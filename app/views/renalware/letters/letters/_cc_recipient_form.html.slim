@@ -8,5 +8,5 @@ tr
 
     = check_box_tag("letter[cc_recipients_attributes][][_keep]", "1",
         recipient.present?, id: check_box_id)
-  td= label_tag check_box_id, contact.address
+  td= label_tag check_box_id, [contact.to_s, contact.address].compact.join(" - ")
   td= label_tag check_box_id, contact.description_name

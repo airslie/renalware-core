@@ -29,7 +29,7 @@ ruby:
               }
     = hidden_field_tag "description_id"
     = f.input :clinical, as: :hidden
-    = f.input :issued_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :issued_on, as: :date_picker
     = f.association :author,
         as: :user_picker,
         collection: Renalware::System::UsersPresenter.new.list_for_dropdown( \
