@@ -240,11 +240,23 @@ scss:
         list-style-position: outside;
         margin: 0;
         padding: 0;
+
+        li {
+          margin-bottom: .2rem;
+        }
       }
 
       h3 {
         font-size: 1em;
-        margin-bottom: 20px;
+        margin: 1rem 0;
+      }
+
+      p.private {
+        margin: 1rem 0;
+      }
+
+      .address {
+        margin-bottom: 1.2rem;
       }
     }
   }
@@ -314,8 +326,7 @@ scss:
         - letter.electronic_cc_recipients.each do |user|
           li= user.professional_signature
 
-      .private
-        p Private and confidential
+      p.private Private and confidential
 
       - letter.cc_recipients.each do |cc|
         .address.nobreak
