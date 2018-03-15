@@ -42,7 +42,7 @@ module World
 
         def update_clinic_visit(clinic_visit, _patient, user)
           clinic = Renalware::Clinics::Clinic.find_by(name: "AKI")
-          clinic_visit.update_attributes(
+          clinic_visit.update(
             clinic: clinic,
             height: 1.71,
             weight: 75.0,

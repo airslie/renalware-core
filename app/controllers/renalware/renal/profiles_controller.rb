@@ -23,7 +23,7 @@ module Renalware
       def update
         profile = find_profile
 
-        if profile.update_attributes(profile_params)
+        if profile.update(profile_params)
           redirect_to patient_renal_profile_path(patient),
             notice: t(".success", model_name: "profile")
         else

@@ -8,7 +8,7 @@ Given(observation_required_regex) do |request_code, description_code|
   request_description = Renalware::Pathology::RequestDescription.find_by(code: request_code)
 
   if request_description.required_observation_description_id.blank?
-    request_description.update_attributes!(
+    request_description.update!(
       required_observation_description_id: observation_description.id
     )
   end
@@ -18,7 +18,7 @@ request_description_expiration_regex =
   /^the request description ([\d\w]+) has an expiration of (\d+) days$/
 Given(request_description_expiration_regex) do |request_code, expiration_days|
   request_description = Renalware::Pathology::RequestDescription.find_by(code: request_code)
-  request_description.update_attributes!(
+  request_description.update!(
     expiration_days: expiration_days
   )
 end
@@ -66,7 +66,7 @@ Given(/^the drugs with the drug_category (\w+):$/) do |drug_category_name, table
 
   category = Renalware::Pathology::Requests::DrugCategory.find_by(name: drug_category_name)
 
-  category.update_attributes!(drugs: drugs)
+  category.update!(drugs: drugs)
 end
 
 Then(/^an observation request is created with the following attributes:$/) do |table|

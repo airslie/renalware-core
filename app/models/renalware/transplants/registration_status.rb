@@ -26,7 +26,7 @@ module Renalware
       end
 
       def to_s
-        description.to_s if description
+        description&.to_s
       end
     end
   end

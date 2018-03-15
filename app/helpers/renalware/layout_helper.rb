@@ -63,11 +63,11 @@ module Renalware
     #
     # See http://stackoverflow.com/questions/339130/how-do-i-render-a-partial-of-a-\
     # different-format-in-rails/3427634#3427634
-    def with_format(format, &block)
+    def with_format(format)
       old_formats = formats
       begin
         self.formats = [format]
-        return block.call
+        return yield
       ensure
         self.formats = old_formats
       end

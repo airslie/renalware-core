@@ -4,7 +4,7 @@ xml = builder
 xml.LabOrders(
   start: patient.changes_since.to_date.iso8601,
   stop: patient.changes_up_until.to_date.iso8601
-  ) do
+) do
   render partial: "renalware/api/ukrdc/patients/lab_orders/lab_order",
          collection: patient.observation_requests,
          as: :request,

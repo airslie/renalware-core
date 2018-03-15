@@ -51,7 +51,7 @@ module World
         travel_to 1.hour.from_now
 
         profile = hd_dry_weight_for(patient)
-        profile.update_attributes!(
+        profile.update!(
           updated_at: Time.zone.now,
           by: user
         )

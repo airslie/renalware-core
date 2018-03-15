@@ -7,7 +7,7 @@ module Renalware
     module Imports
       module Practices
         describe CurrentPracticesCSVFile do
-          PRACTICE_CODE = "A81001".freeze
+          PRACTICE_CODE = "A81001"
 
           def active_practice_row
             practice_csv_row(practice_code: PRACTICE_CODE, status_code: "A")

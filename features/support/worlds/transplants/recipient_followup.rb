@@ -40,7 +40,7 @@ module World
         travel_to 1.hour.from_now
 
         operation = recipient_followup_for(operation)
-        operation.update_attributes!(
+        operation.update!(
           document: {
           },
           updated_at: Time.zone.now

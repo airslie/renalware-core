@@ -7,7 +7,7 @@ module Renalware
   # reporting dashboards or summary pages. The Clinical Summary for instance comprises an array
   # of various SummaryParts
   class SummaryPart
-    DATE_FORMAT = "%Y%m%d%H%M%S%L".freeze
+    DATE_FORMAT = "%Y%m%d%H%M%S%L"
     rattr_initialize :patient
     attr_implement :to_partial_path
 

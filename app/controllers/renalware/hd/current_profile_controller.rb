@@ -36,7 +36,7 @@ module Renalware
         if profile.persisted?
           ReviseHDProfile.new(profile).call(profile_params)
         else
-          profile.update_attributes(profile_params.merge(active: true))
+          profile.update(profile_params.merge(active: true))
         end
       end
 
