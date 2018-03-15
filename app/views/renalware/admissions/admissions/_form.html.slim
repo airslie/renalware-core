@@ -13,7 +13,7 @@
     / at option index 1.
     = f.input :patient_id,
               wrapper: :horizontal_medium,
-              collection: [[admission.patient&.to_s, admission.patient&.id]],
+              collection: [[admission.patient&.to_s(:long), admission.patient&.id]],
               selected: 1,
               input_html: { \
                 class: "patient-id-select2 patient-ajax-search",
