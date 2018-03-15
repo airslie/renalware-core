@@ -14,7 +14,18 @@ module Renalware
       end
 
       def search
-        @search ||= Consult.active.order(created_at: :desc).ransack(query)
+        @search ||= begin
+          Consult
+            .includes(
+              :created_by,
+              :consult_site,
+              :hospital_ward,
+              patient: { current_modality: :description }
+            )
+            .active
+            .order(created_at: :desc)
+            .ransack(query)
+        end
       end
     end
   end
