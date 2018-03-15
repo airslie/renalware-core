@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/hd"
 
 # A Diary is the schedule of HD Station/Patients assignments for one week for a particular unit.

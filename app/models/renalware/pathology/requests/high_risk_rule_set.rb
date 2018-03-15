@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/pathology"
 
 # This class used to include https://github.com/softace/activerecord-tableless but that does not

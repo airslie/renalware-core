@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module Transplants
     #  a list of everyone whose Modality is Transplant and the sort should

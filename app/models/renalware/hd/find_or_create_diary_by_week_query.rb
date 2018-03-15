@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/hd"
 require "renalware/week_period"
 ##

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module Admissions
     # Rather than using a Ransack Search object behind the form, as we do in many other places

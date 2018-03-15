@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module ModalityScopes
     def with_current_modality_matching(modality_names)

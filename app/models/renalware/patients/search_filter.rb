@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Works in concert with Patients::SearchQuery and Patients::SearchForm.
 # Example usage in a controller:
 #

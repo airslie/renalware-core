@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/letters"
 
 # This class is responsible for transforming the attributes

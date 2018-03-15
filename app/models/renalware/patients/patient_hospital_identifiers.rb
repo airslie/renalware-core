@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A patient can have may 'local hospital identifiers' for example they may have come
 # initially into hospital id where they were assigned the id e.g. KCH123. Subsequently
 # they might move to or be treated in another hospital and may be assigned a different number.

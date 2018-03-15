@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/modalities"
 require_dependency "renalware/success"
 require_dependency "renalware/failure"

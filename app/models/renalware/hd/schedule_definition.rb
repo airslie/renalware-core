@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/hd"
 
 # A ScheduleDefinition is a database-normalized way of expressing e.g. "Mon Wed Fri AM"

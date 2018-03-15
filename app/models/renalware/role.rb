@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   class Role < ApplicationRecord
     ROLES = %i(devops super_admin admin clinical read_only).freeze

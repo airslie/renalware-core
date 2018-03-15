@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Responsible for wrapping a third-party exception notification client. This
 # wrapper allows us to switch notification service without affecting the
 # rest of the application.

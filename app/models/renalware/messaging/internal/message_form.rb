@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/messaging"
 
 # A form object used behind the html messages#new form, and serving to helps us capture
