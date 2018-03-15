@@ -38,7 +38,7 @@ module World
         travel_to 1.hour.from_now
 
         person = fetch_person
-        person.update_attributes!(
+        person.update!(
           title: "Monsieur",
           updated_at: Time.zone.now,
           by: user

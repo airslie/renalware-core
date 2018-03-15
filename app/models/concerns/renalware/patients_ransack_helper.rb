@@ -66,7 +66,6 @@ module Renalware
         sql += " OR patients.ukrdc_external_id = :exact_term" if query_is_a_uuid?(query)
         sql
       end
-      # rubocop:enable Metrics/MethodLength
 
       def query_is_a_uuid?(query)
         query.match(UUID_REGEXP)

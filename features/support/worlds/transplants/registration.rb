@@ -91,7 +91,7 @@ module World
         travel_to 1.hour.from_now
 
         registration = transplant_registration_for(patient)
-        registration.update_attributes!(
+        registration.update!(
           document: {
           },
           updated_at: Time.zone.now

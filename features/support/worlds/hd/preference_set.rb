@@ -33,7 +33,7 @@ module World
         travel_to 1.hour.from_now
 
         set = hd_preference_set_for(patient)
-        set.update_attributes!(
+        set.update!(
           schedule_definition: Renalware::HD::ScheduleDefinition.last!,
           updated_at: Time.zone.now,
           by: user

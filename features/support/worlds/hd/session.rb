@@ -143,7 +143,7 @@ module World
         travel_to 1.hour.from_now
 
         profile = hd_session_for(patient)
-        profile.update_attributes!(
+        profile.update!(
           updated_at: Time.zone.now,
           end_time: profile.start_time + 1.minute,
           signed_off_by: user,

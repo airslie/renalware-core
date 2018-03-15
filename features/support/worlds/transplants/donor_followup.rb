@@ -39,7 +39,7 @@ module World
         travel_to 1.hour.from_now
 
         operation = donor_followup_for(operation)
-        operation.update_attributes!(
+        operation.update!(
           updated_at: Time.zone.now
         )
       end

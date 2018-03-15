@@ -45,7 +45,7 @@ module World
         travel_to 1.hour.from_now
 
         profile = profile_for(patient)
-        profile.update_attributes!(
+        profile.update!(
           updated_at: Time.zone.now,
           started_on: Time.zone.today,
           by: user

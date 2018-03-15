@@ -87,7 +87,6 @@ module Renalware
         )
       end
       # rubocop:enable Metrics/LineLength
-      # rubocop:enable Metrics/MethodLength
 
       def pdf_filename
         "#{patient.family_name}_#{patient.hospital_identifier&.id}" \

@@ -13,7 +13,7 @@ module Renalware
       def update
         preference_set = PreferenceSet.for_patient(patient).first_or_initialize
 
-        if preference_set.update_attributes(preference_set_params)
+        if preference_set.update(preference_set_params)
           redirect_to patient_hd_dashboard_path(patient),
             notice: t(".success", model_name: "HD preferences")
         else

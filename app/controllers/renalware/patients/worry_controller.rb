@@ -29,7 +29,7 @@ module Renalware
 
       def update_worry_notes_if_supplied(worry)
         if worry_params[:notes].present?
-          worry.update_attributes(worry_params.merge!(by: current_user))
+          worry.update(worry_params.merge!(by: current_user))
         end
       end
 

@@ -65,7 +65,7 @@ module World
         travel_to 1.hour.from_now
 
         operation = recipient_operation_for(patient)
-        operation.update_attributes!(
+        operation.update!(
           document: {
             donor: {
               age: {

@@ -14,7 +14,7 @@ module Renalware
   module Feeds
     module Files
       describe Practices::CountryMap do
-        UNITED_KINGDOM = "United Kingdom".freeze
+        UNITED_KINGDOM = "United Kingdom"
         it { is_expected.to map_country("ENGLAND", UNITED_KINGDOM, "England") }
         it { is_expected.to map_country("WALES", UNITED_KINGDOM, "Wales") }
         it { is_expected.to map_country("SCOTLAND", UNITED_KINGDOM, "Scotland") }

@@ -31,7 +31,7 @@ module Renalware
             }
 
             registration = Registration.new
-            registration.update_attributes(params)
+            registration.update(params)
             expect(registration).to be_persisted
             expect(registration.statuses.count).to eq(1)
           end

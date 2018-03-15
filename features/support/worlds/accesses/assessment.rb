@@ -55,7 +55,7 @@ module World
         travel_to 1.hour.from_now
 
         assessment = assessment_for(patient)
-        assessment.update_attributes!(
+        assessment.update!(
           updated_at: Time.zone.now,
           procedure_on: Time.zone.today,
           by: user

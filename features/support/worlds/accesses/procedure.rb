@@ -49,7 +49,7 @@ module World
         travel_to 1.hour.from_now
 
         procedure = procedure_for(patient)
-        procedure.update_attributes!(
+        procedure.update!(
           updated_at: Time.zone.now,
           first_used_on: Time.zone.today,
           by: user

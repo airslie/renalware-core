@@ -32,7 +32,7 @@ module World
         travel_to 1.hour.from_now
 
         workup = recipient_workup_for(patient)
-        workup.update_attributes!(
+        workup.update!(
           document: {
             historicals: {
               tb: "no"

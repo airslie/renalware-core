@@ -47,14 +47,14 @@ module World
         travel_to 1.hour.from_now
 
         donation = donation_for(patient)
-        donation.update_attributes!(
+        donation.update!(
           updated_at: Time.zone.now
         )
       end
 
       def assign_recipient_to_donation(patient:, recipient:, user: nil)
         donation = donation_for(patient)
-        donation.update_attributes!(
+        donation.update!(
           recipient_id: recipient.id
         )
       end

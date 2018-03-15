@@ -22,7 +22,6 @@ module Renalware
       enumerize :aki_risk, in: %i(yes no unknown)
 
       scope :active, ->{ where(ended_on: nil) }
-
     end
   end
 end

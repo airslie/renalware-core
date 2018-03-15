@@ -37,7 +37,7 @@ module World
         travel_to 1.hour.from_now
 
         workup = donor_workup_for(patient)
-        workup.update_attributes!(
+        workup.update!(
           document: {
             comorbidities: {
               diabetes: {

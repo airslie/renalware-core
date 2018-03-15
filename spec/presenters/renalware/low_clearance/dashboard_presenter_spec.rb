@@ -21,7 +21,6 @@ module Renalware
           end
           subject{ described_class.new(patient: patient) }
 
-          #
           it "allows adding a profile if the patient has none" do
             patient
           end
