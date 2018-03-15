@@ -17,6 +17,12 @@ table td.actions-dropdown {
       left: 160px;
     }
   }
+
+  &.going-right {
+    .f-dropdown {
+      margin-left: 0px;
+    }
+  }
 }
 
 table {

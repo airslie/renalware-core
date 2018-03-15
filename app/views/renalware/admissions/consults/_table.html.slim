@@ -2,12 +2,15 @@
   table
     thead
       tr
-        th= sort_link(query, :consult_site_id, "Location")
-        th.at-least.col-width-medium Patient
+        th.col-width-tiny
+        th.col-width-small= sort_link(query, :consult_site_name, "Site")
+        th.col-width-small= sort_link(query, :hospital_ward_name, "Ward")
+        th.col-width-large
+          = sort_link(query, :patient, ["patient_family_name", "patient_given_name asc"], "Patient")
         th.col-width-nhs-no NHS No.
         th.col-width-reference-no Hosp Nos.
-        th.col-width-date Started
-        th.col-width-date Ended
+        th.col-width-date= sort_link(query, :started_on, "Started")
+        th.col-width-date= sort_link(query, :ended_on, "Ended")
         th.col-width-medium Modality
         th.col-width-tiny Sex
         th.col-width-tiny Age
@@ -15,25 +18,12 @@
         th.col-width-tiny= sort_link(query, :requires_aki_nurse, " AKI Nurse?")
         th.show-for-large-up Author
         th.col-width-medium Description
-        th.col-width-tiny
+
     tbody
       - consults.each do |consult|
         - uid = "consult-#{consult.id}"
         tr
-          td= consult.location
-          td= consult.patient_name
-          td= consult.patient_nhs_number
-          td= consult.patient_hospital_identifiers
-          td= l(consult.started_on)
-          td= l(consult.ended_on)
-          td= consult.patient_current_modality
-          td= consult.patient_sex
-          td= consult.patient_age
-          td= consult.aki_risk&.text
-          td= yes_no(consult.requires_aki_nurse)
-          td.show-for-large-up.consult-author.col-width-medium-with-ellipsis(title=consult.created_by)= consult.created_by
-          td.col-width-medium-with-ellipsis(title=consult.description)= consult.description
-          td.actions-dropdown
+          td.actions-dropdown.going-right
             / As we have lots of possible actions, group them in a button group.
             / A wrapping div is required for now in order for the button group display correctly
             / (though we could style the td like a div I guess).
@@ -61,3 +51,18 @@
                   li= render "renalware/admissions/requests/create_request_link",
                              patient: consult.patient,
                              link_text: "Request Admission"
+
+          td= consult.consult_site&.name
+          td= consult.hospital_ward&.name
+          td= default_patient_link(consult.patient)
+          td= consult.patient_nhs_number
+          td= consult.patient_hospital_identifiers
+          td= l(consult.started_on)
+          td= l(consult.ended_on)
+          td= consult.patient_current_modality
+          td= consult.patient_sex
+          td= consult.patient_age
+          td= consult.aki_risk&.text
+          td= yes_no(consult.requires_aki_nurse)
+          td.show-for-large-up.consult-author.col-width-medium-with-ellipsis(title=consult.created_by)= consult.created_by
+          td.col-width-medium-with-ellipsis(title=consult.description)= consult.description
