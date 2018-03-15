@@ -47,6 +47,14 @@ module Renalware
             expect(presenter.change_in(:pulse)).to be_nil
           end
         end
+
+        context "when values are dodgy" do
+          it "returns nil if before measurement is a number but post a string" do
+            session.document.observations_before.pulse = 100
+            session.document.observations_after.pulse = "100,90"
+            expect(presenter.change_in(:pulse)).to be_nil
+          end
+        end
       end
 
       describe "#before_measurement_for" do

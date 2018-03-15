@@ -73,7 +73,8 @@ module Renalware
         when ::Float; (post - pre).round(1)
         when ::Integer; (post - pre)
         end
-        # raise "Unsupported class '#{pre.class}'' - cannot calculate the change"
+      rescue StandardError => exception
+        nil
       end
 
       def summarised_access_used
