@@ -6,7 +6,7 @@ module Renalware
   module Events
     class Type < ApplicationRecord
       self.table_name = "event_types"
-      DEFAULT_EVENT_CLASS_NAME = "Renalware::Events::Simple".freeze
+      DEFAULT_EVENT_CLASS_NAME = "Renalware::Events::Simple"
 
       acts_as_paranoid
 

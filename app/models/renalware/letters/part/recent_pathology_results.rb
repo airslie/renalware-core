@@ -53,9 +53,9 @@ module Renalware
       end
 
       def format_pathology_string(grouped_snapshot)
-        str = "".dup
+        str = ""
         grouped_snapshot.each do |date, observations|
-          str << "#{I18n.l(date&.to_date)}: #{observations.join(', ')}; "
+          str += "#{I18n.l(date&.to_date)}: #{observations.join(', ')}; "
         end
         str.strip
       end

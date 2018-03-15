@@ -5,8 +5,8 @@ module Renalware
     class MDMPatientsQuery
       include ModalityScopes
       include PatientPathologyScopes
-      MODALITY_NAMES = "PD".freeze
-      DEFAULT_SEARCH_PREDICATE = "hgb_date desc".freeze
+      MODALITY_NAMES = "PD"
+      DEFAULT_SEARCH_PREDICATE = "hgb_date desc"
       attr_reader :q, :relation
 
       def initialize(relation: PD::Patient.all, q:)
