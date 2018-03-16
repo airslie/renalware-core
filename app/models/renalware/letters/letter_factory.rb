@@ -38,9 +38,11 @@ module Renalware
         Letter::Draft.new(params.merge!(type: Letter::Draft.name, patient: patient))
       end
 
+      # note both practice and gp need to be present before we can the pcp - we'll use the
+      # practice address but the GP's name as the salutation.
       def include_primary_care_physician_as_default_main_recipient
         return if letter.main_recipient.present?
-        if patient.primary_care_physician.present?
+        if patient.primary_care_physician.present? && patient.practice_id.present?
           letter.build_main_recipient(person_role: :primary_care_physician)
         else
           letter.build_main_recipient(person_role: :patient)

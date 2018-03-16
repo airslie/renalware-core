@@ -24,12 +24,38 @@ module Renalware
           end
         end
 
-        it "sets the patient's Primary Care Physician as the main recipient if present" do
-          patient.primary_care_physician = create(:letter_primary_care_physician)
+        context "when the patient has a practice and a GP" do
+          before{ patient.practice = create(:practice) }
 
-          letter = factory.build
+          it "sets the patient's Primary Care Physician as the main recipient if present" do
+            patient.primary_care_physician = create(:letter_primary_care_physician)
 
-          expect(letter.main_recipient.person_role).to eq("primary_care_physician")
+            letter = factory.build
+
+            expect(letter.main_recipient.person_role).to eq("primary_care_physician")
+          end
+        end
+
+        context "when the patient a GP but no practice" do
+          before{ patient.update_columns(practice_id: nil) }
+
+          it "sets the patient as the main recipient if present" do
+            patient.primary_care_physician = create(:letter_primary_care_physician)
+
+            letter = factory.build
+
+            expect(letter.main_recipient.person_role).to eq("patient")
+          end
+        end
+
+        context "when the patient has no GP and no Practice" do
+          before{ patient.update_columns(practice_id: nil, primary_care_physician_id: nil) }
+
+          it "sets the patient as the main recipient" do
+            letter = factory.build
+
+            expect(letter.main_recipient.person_role).to eq("patient")
+          end
         end
 
         context "when the patient has contacts flagged as default CC" do
