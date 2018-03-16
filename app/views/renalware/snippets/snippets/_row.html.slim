@@ -17,13 +17,13 @@ tr(data={ "snippet-id" => snippet.id, invocation_url: snippet_invocations_path(s
                  "#",
                  title: "Insert this snippet into the letter",
                  class: "insert-snippet button compact alternative"
+  - unless author == :me
+    td.col-width-medium.author= snippet.author
   td.css-toggle-container.title
     = tooltip_with_block(label: snippet.title) do
       = snippet.title
   td.css-toggle-container.body
     .body-content= snippet.body.html_safe
-  - unless author == :me
-    td.col-width-medium.author= snippet.author
   - unless remote
     td.last_used_on
       = "#{snippet.last_used_on? ? l(snippet.last_used_on) : 'Never'} (#{snippet.times_used})"

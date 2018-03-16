@@ -5,13 +5,13 @@
     thead
       tr
         th.col-width-medium
+        - unless author == :me
+          th.col-width-medium.author
+            = sort_link([:renalware, search], :author_family_name, t(".author"))
         th.col-width-medium
           = sort_link([:renalware, search], :title)
         th(style="max-width: 100%")
           = sort_link([:renalware, search], :body)
-        - unless author == :me
-          th.col-width-medium.author
-            = sort_link([:renalware, search], :author_family_name, t(".author"))
         - unless remote
           th.col-width-medium.last_used_on
             = sort_link([:renalware, search], :last_used_on, t(".last_used_on"))
