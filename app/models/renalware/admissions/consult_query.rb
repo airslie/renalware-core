@@ -5,24 +5,29 @@ module Renalware
     class ConsultQuery
       attr_reader :query
 
-      def initialize(query = {})
-        @query = query
+      def initialize(query = nil)
+        @query = query || {}
+        @query[:ended_on_null] ||= true
       end
 
       def call
         search.result
       end
 
+      # Note we *MUST* join onto patients for PatientsRansackHelper.identity_match to work.
+      # It might be better to refactor PatientsRansackHelper so we can include where required
+      # eg below using .extending(PatientsRansackHelper) rather than relying on it being in
+      # included in the model file.
       def search
         @search ||= begin
           Consult
+            .joins(:patient)
             .includes(
               :created_by,
               :consult_site,
               :hospital_ward,
               patient: { current_modality: :description }
             )
-            .active
             .order(created_at: :desc)
             .ransack(query)
         end

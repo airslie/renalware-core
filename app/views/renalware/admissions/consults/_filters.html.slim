@@ -4,7 +4,10 @@
       url: admissions_consults_path,
       method: :get do |f|
     .row
-      .columns.medium-3.large-2
+      .columns.medium-2.large-2
+        = f.input :identity_match, label: "Hosp/NHS no. or name"
+
+      .columns.medium-2.large-2
         = f.input :consult_site_id_eq,
                   collection: Renalware::Admissions::ConsultSite.pluck(:name, :id),
                   label: "Site"
@@ -17,17 +20,17 @@
                   include_blank: false,
                   collection: [["Anyone", nil], ["Me", current_user.id]],
                   label: "Seen by"
-      .columns.medium-2.large-1
+      .columns.medium-1.large-1
         = f.input :aki_risk_eq,
                   include_blank: true,
                   collection: Renalware::Admissions::Consult.aki_risk.values.map{ |value| [value.text, value] },
                   label: "AKI Risk"
-      / .columns.medium-2.large-1
-      /   = f.input :stopped_on_eq_nil,
-      /             include_blank: false,
-      /             collection: [["Yes", true], ["No", false]],
-      /             label: "Active"
+      .columns.medium-1.large-1
+        = f.input :ended_on_null,
+                  include_blank: true,
+                  collection: [["Yes", true], ["No", false]],
+                  label: "Active"
       .columns.medium-2.large-2.actions.end
         = f.submit "Filter", class: "button"
         span= " or "
-        = link_to t("helpers.reset"), admissions_consults_path
+        = link_to t("helpers.reset"), admissions_consults_path(reset: 1)

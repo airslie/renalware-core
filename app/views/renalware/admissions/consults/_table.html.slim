@@ -3,8 +3,10 @@
     thead
       tr
         th.col-width-tiny
-        th.col-width-small= sort_link(query, :consult_site_name, "Site")
-        th.col-width-small= sort_link(query, :hospital_ward_name, "Ward")
+        th.col-width-medium= sort_link(query,
+                                      :location,
+                                      [:consult_site_name, :hospital_ward_name],
+                                      "Location")
         th.col-width-large
           = sort_link(query, :patient, ["patient_family_name", "patient_given_name asc"], "Patient")
         th.col-width-nhs-no NHS No.
@@ -52,8 +54,7 @@
                              patient: consult.patient,
                              link_text: "Request Admission"
 
-          td= consult.consult_site&.name
-          td= consult.hospital_ward&.name
+          td= consult.location
           td= default_patient_link(consult.patient)
           td= consult.patient_nhs_number
           td= consult.patient_hospital_identifiers
