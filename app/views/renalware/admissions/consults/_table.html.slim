@@ -2,38 +2,30 @@
   table
     thead
       tr
-        th= sort_link(query, :consult_site_id, "Location")
-        th.at-least.col-width-medium Patient
+        th.col-width-medium
+        th.col-width-medium= sort_link(query,
+                                      :location,
+                                      [:consult_site_name, :hospital_ward_name],
+                                      "Location")
+        th.col-width-large
+          = sort_link(query, :patient, ["patient_family_name", "patient_given_name asc"], "Patient")
         th.col-width-nhs-no NHS No.
         th.col-width-reference-no Hosp Nos.
-        th.col-width-date Started
-        th.col-width-date Ended
-        th.col-width-medium Modality
-        th.col-width-tiny Sex
-        th.col-width-tiny Age
+        th.col-width-date= sort_link(query, :started_on, "Started")
+        th.col-width-date= sort_link(query, :ended_on, "Ended")
+        th.col-width-small.show-for-large-up Modality
+        th.col-width-tiny.show-for-large-up Sex
+        th.col-width-tiny.show-for-large-up Age
         th.col-width-tiny= sort_link(query, :aki_risk, "AKI Risk")
         th.col-width-tiny= sort_link(query, :requires_aki_nurse, " AKI Nurse?")
-        th.show-for-large-up Author
-        th.col-width-medium Description
-        th.col-width-tiny
+        /th.show-for-large-up Author
+        /th.col-width-medium.show-for-xlarge-up Description
+
     tbody
       - consults.each do |consult|
         - uid = "consult-#{consult.id}"
         tr
-          td= consult.location
-          td= consult.patient_name
-          td= consult.patient_nhs_number
-          td= consult.patient_hospital_identifiers
-          td= l(consult.started_on)
-          td= l(consult.ended_on)
-          td= consult.patient_current_modality
-          td= consult.patient_sex
-          td= consult.patient_age
-          td= consult.aki_risk&.text
-          td= yes_no(consult.requires_aki_nurse)
-          td.show-for-large-up.consult-author.col-width-medium-with-ellipsis(title=consult.created_by)= consult.created_by
-          td.col-width-medium-with-ellipsis(title=consult.description)= consult.description
-          td.actions-dropdown
+          td.actions-dropdown.going-right
             / As we have lots of possible actions, group them in a button group.
             / A wrapping div is required for now in order for the button group display correctly
             / (though we could style the td like a div I guess).
@@ -42,7 +34,7 @@
                                                data-dropdown=uid
                                                aria-controls=uid
                                                aria-expanded="false")
-                | Actions&hellip;
+                | Actions
               ul.f-dropdown(id="#{uid}" data-dropdown-content aria-hidden="true")
 
                 = dropdown_btn_item(icon: "fa-edit",
@@ -61,3 +53,31 @@
                   li= render "renalware/admissions/requests/create_request_link",
                              patient: consult.patient,
                              link_text: "Request Admission"
+            | &nbsp;&nbsp;
+            = link_to("Toggle",
+                      "#consult-quick-preview-#{consult.id}",
+                      data: { behaviour: "toggler" })
+          td= consult.location
+          td= default_patient_link(consult.patient)
+          td= consult.patient_nhs_number
+          td= consult.patient_hospital_identifiers&.to_s_multiline
+          td= l(consult.started_on)
+          td= l(consult.ended_on)
+          td.show-for-large-up= consult.patient_current_modality
+          td.show-for-large-up= consult.patient_sex
+          td.show-for-large-up= consult.patient_age
+          td= consult.aki_risk&.text
+          td= yes_no(consult.requires_aki_nurse)
+          /td.show-for-xlarge-up.consult-author.col-width-medium-with-ellipsis(title=consult.created_by)= consult.created_by
+          /td.col-width-medium-with-ellipsis(title=consult.description)= consult.description
+        = content_tag(:tr, id: "consult-quick-preview-#{consult.id}", style: "display: none")
+          td(colspan=12)
+            .quick-preview
+              dl.dl-horizontal
+                dt Author
+                dd=consult.created_by
+                dt Modality
+                dd= consult.patient_current_modality
+                dt Description
+                dd= simple_format consult.description
+          td

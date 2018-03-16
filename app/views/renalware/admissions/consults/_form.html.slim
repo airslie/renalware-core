@@ -9,7 +9,7 @@
   / at option index 1.
   = f.input :patient_id,
             wrapper: :horizontal_medium,
-            collection: [[consult.patient&.to_s, consult.patient&.id]],
+            collection: [[consult.patient&.to_s(:long), consult.patient&.id]],
             selected: 1,
             input_html: { \
               class: "patient-id-select2 patient-ajax-search",
@@ -45,7 +45,7 @@
 
   = f.input :aki_risk, include_blank: "Please select", wrapper: :horizontal_small
   = f.input :requires_aki_nurse, as: :inline_radio_buttons, wrapper: :horizontal_small
-  = f.input :description, wrapper: :horizontal_large, input_html: { rows: 5 }
+  = f.input :description, wrapper: :horizontal_large, input_html: { rows: 10 }
 
   = f.submit class: :button
   span= " or "

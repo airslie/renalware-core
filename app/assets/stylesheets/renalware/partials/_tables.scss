@@ -4,9 +4,17 @@ table td.actions-dropdown {
   padding-bottom: 0.3rem;
   padding-right: 0;
 
+  > div  {
+    display: inline-block;
+  }
+
   .button.dropdown {
     padding: .2rem 2.3rem .2rem .4rem;
     margin: 0;
+
+    &:after {
+      right: 0.5rem;
+    }
   }
 
   .f-dropdown {
@@ -15,6 +23,12 @@ table td.actions-dropdown {
     &.open::before,
     &.open::after {
       left: 160px;
+    }
+  }
+
+  &.going-right {
+    .f-dropdown {
+      margin-left: 0px;
     }
   }
 }

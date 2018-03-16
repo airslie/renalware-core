@@ -6,7 +6,9 @@ module Renalware
     class ConsultsController < BaseController
       include Renalware::Concerns::Pageable
 
+      # rubocop:disable Metrics/AbcSize
       def index
+        session[:consults_results] = nil if params.key?(:reset)
         query = ConsultQuery.new(params[:q])
         consults = query.call.page(page).per(per_page)
         authorize consults
@@ -15,6 +17,7 @@ module Renalware
           query: query.search
         }
       end
+      # rubocop:enable Metrics/AbcSize
 
       def new
         consult = Consult.new(started_on: Time.zone.today)
@@ -40,7 +43,8 @@ module Renalware
       def update
         consult = find_and_authorize_consult
         if consult.update_by(current_user, consult_params)
-          redirect_to admissions_consults_path, notice: success_msg_for("consult")
+          url = session[:consults_results] || admissions_consults_path
+          redirect_to url, notice: success_msg_for("consult")
         else
           render_edit(consult)
         end

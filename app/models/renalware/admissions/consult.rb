@@ -5,6 +5,7 @@ module Renalware
     class Consult < ApplicationRecord
       include Accountable
       extend Enumerize
+      include PatientsRansackHelper
       validates :patient_id, presence: true
       validates :started_on, presence: true
       validates :description, presence: true
