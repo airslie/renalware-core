@@ -4,17 +4,17 @@
       url: admissions_consults_path,
       method: :get do |f|
     .row
-      .columns.medium-2.large-2
+      .columns.medium-3.large-2
         = f.input :identity_match, label: "Hosp/NHS no. or name"
 
       .columns.medium-2.large-2
         = f.input :consult_site_id_eq,
                   collection: Renalware::Admissions::ConsultSite.pluck(:name, :id),
                   label: "Site"
-      .columns.medium-2.large-1
+      .columns.medium-1.large-1
         = f.input :requires_aki_nurse_eq,
                   collection: [["Yes", true], ["No", false]],
-                  label: "AKI Nurse req."
+                  label: "AKI Nurse?"
       .columns.medium-2.large-1
         = f.input :seen_by_id_eq,
                   include_blank: false,

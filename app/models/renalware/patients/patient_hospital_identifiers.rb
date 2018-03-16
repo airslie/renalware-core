@@ -49,6 +49,10 @@ module Renalware
         all.map{ |name, hosp_no| "#{name}: #{hosp_no}" }.join(" ")
       end
 
+      def to_s_multiline
+        all.map{ |name, hosp_no| "#{name}: #{hosp_no}" }.join("<br>").html_safe
+      end
+
       # Returns true if the  patient has a hospital number at the requested hospital.
       # Example usage
       #   PatientHospitalIdentifiers.new(patient).patient_at?(:KCH) # => true
