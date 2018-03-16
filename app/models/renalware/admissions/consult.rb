@@ -9,7 +9,9 @@ module Renalware
       validates :patient_id, presence: true
       validates :started_on, presence: true
       validates :description, presence: true
-      validates :consult_type, presence: true
+      # Currently #consult_type is a string and we are not sure what should be in there
+      # Migrated consults may not have a type so only enforce it creation of new ones.
+      validates :consult_type, presence: true, on: :create
       validates :other_site_or_ward, presence: {
         if: ->(consult){ consult.consult_site_id.blank? && consult.hospital_ward_id.blank? }
       }

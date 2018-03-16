@@ -155,6 +155,18 @@ module Renalware
 
         expect(consult.reload.ended_on).not_to be_nil
       end
+
+      context "when a consult has been migrated from another system and does not have a #type" do
+        it "can still be deleted" do
+          consult = create_consult
+          consult.update_columns(consult_type: nil)
+
+          expect{
+            delete admissions_consult_path(consult)
+          }
+          .to change{ Admissions::Consult.active.count }.by(-1)
+        end
+      end
     end
   end
 end
