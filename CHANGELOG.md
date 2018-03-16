@@ -9,6 +9,23 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.7
+16-03-2017
+
+### Added
+
+### Changed
+- Increase spacing between CCs on letters
+- Consults: better filtering and searching
+- Enlarge Problems text entry box
+
+### Fixed
+- Footer on error pages now sticky
+- Alert partial missing error
+- Snippets modal and snippets management page are now scrollable and html content doesn't wrap
+- HD MDM change_in errors when post measurement is a string that cannot be coerced into a number
+- Correct the set of practices imported from TRUD
+
 ## 2.0.6
 14-03-2017
 ### Added
