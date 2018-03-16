@@ -3,6 +3,8 @@
   table
     thead
       tr
+        - unless compact
+          th.col-width-tiny(rowspan=2)
         th.col-width-medium(rowspan=2) Site/Ward
         - unless compact
           th.at-least.col-width-medium(rowspan=2) Patient
@@ -13,8 +15,6 @@
           th.col-width-tiny(rowspan=2) Age
         th.admission.subhead(colspan=3) Admission
         th.discharge.subhead(colspan=4) Discharge
-        - unless compact
-          th.col-width-tiny(rowspan=2)
 
       tr
         th.col-width-date Date
@@ -29,6 +29,10 @@
     tbody
       - admissions.each do |admission|
         tr
+          - unless compact
+            td
+              - if policy(admission).edit?
+                = link_to "Edit", edit_admissions_admission_path(admission)
           td= admission.unit_and_ward
           - unless compact
             td= default_patient_link(admission.patient)
@@ -50,11 +54,6 @@
                        data: { behaviour: "toggler" })
             - else
               | -
-
-          - unless compact
-            td
-              - if policy(admission).edit?
-                = link_to "Edit", edit_admissions_admission_path(admission)
 
         = content_tag(:tr, id: "admission-quick-preview-#{admission.id}", style: "display: none")
           td

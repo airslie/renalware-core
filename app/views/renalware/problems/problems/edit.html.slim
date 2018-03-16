@@ -4,10 +4,9 @@
 
   = simple_form_for problem,
                     url: patient_problem_path(patient, problem),
-                    html: { autocomplete: "off", class: "problem-form" },
-                    wrapper: :horizontal_form do |f|
+                    html: { autocomplete: "off", class: "problem-form" } do |f|
 
-      = f.input :description
+      = f.input :description, as: :text
       = f.button :button, "Save"
       span= " or "
       = link_to "cancel", patient_problems_path(patient)

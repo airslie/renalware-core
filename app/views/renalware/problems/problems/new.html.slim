@@ -2,10 +2,9 @@
 
   = simple_form_for problem,
                     url: patient_problems_path(patient),
-                    html: { autocomplete: "off" },
-                    wrapper: :horizontal_form do |f|
+                    html: { autocomplete: "off" } do |f|
 
-    = f.input :description, wrapper: :horizontal_small
+    = f.input :description, as: :text
 
     = f.button :submit
     span= " or "
