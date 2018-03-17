@@ -68,6 +68,17 @@ module Renalware
         it { is_expected.to validate_presence_of(:access_confirmed) }
       end
 
+      describe Session::Closed::SessionDocument::Dialysis do
+        it { is_expected.to validate_presence_of(:arterial_pressure) }
+        it { is_expected.to validate_presence_of(:venous_pressure) }
+        it { is_expected.to validate_presence_of(:fluid_removed) }
+        it { is_expected.to validate_presence_of(:blood_flow) }
+        it { is_expected.to validate_presence_of(:flow_rate) }
+        it { is_expected.not_to validate_presence_of(:machine_urr) }
+        it { is_expected.not_to validate_presence_of(:machine_ktv) }
+        it { is_expected.to validate_presence_of(:litres_processed) }
+      end
+
       describe Session::Closed::SessionDocument::Observations do
         subject(:observations) {
           Session::Closed::SessionDocument::Observations.new(blood_pressure: BloodPressure.new)
