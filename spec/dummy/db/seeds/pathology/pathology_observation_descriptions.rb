@@ -54,6 +54,8 @@ module Renalware
       UPDATE renalware.pathology_observation_descriptions set display_group=2, display_order=11, letter_group=2, letter_order=11  where code = 'GLO';
       UPDATE renalware.pathology_observation_descriptions set display_group=2, display_order=12, letter_group=2, letter_order=12  where code = 'ALB';
       UPDATE renalware.pathology_observation_descriptions set display_group=2, display_order=13, letter_group=2, letter_order=13  where code = 'URAT';
+      UPDATE renalware.pathology_observation_descriptions set display_group=2, display_order=14 where code = 'ACR';
+      UPDATE renalware.pathology_observation_descriptions set display_group=2, display_order=15 where code = 'PCR';
       UPDATE renalware.pathology_observation_descriptions set display_group=3, display_order=1,  letter_group=3, letter_order=1 where code = 'BIL';
       UPDATE renalware.pathology_observation_descriptions set display_group=3, display_order=2,  letter_group=3, letter_order=2 where code = 'ALT';
       UPDATE renalware.pathology_observation_descriptions set display_group=3, display_order=3,  letter_group=3, letter_order=3 where code = 'AST';
