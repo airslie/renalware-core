@@ -9,6 +9,21 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.8
+19-03-2017
+
+### Added
+- Added 'Tx in Past Year' filter to Tx MDM listing
+- Display Practice telephone and email in patient demographics
+### Changed
+- Added PCR and ACR to Current Investigations
+### Fixed
+- Remove 'Barts and London' title from printed Medications list
+- Sorting by OBX result in MDM lists where there are non-numeric results
+- Added 'Yours sincerely' to letters
+- Allow ssft delete of consults with no consult_type in migrated data
+- Fixed letter error when is GP but Practice (patient main recipient radio not selected by default)
+
 ## 2.0.7
 16-03-2017
 
