@@ -32,6 +32,10 @@ module Renalware
         ""
       end
 
+      def to_s
+        [title, name].compact.join(" ")
+      end
+
       def skip_given_name_validation?
         true
       end
