@@ -45,9 +45,12 @@ module Renalware
         attribute :observations_after, Observations
 
         class Dialysis < Renalware::HD::SessionDocument::Dialysis
-          # rubocop:disable Rails/Validation
-          validates_presence_of attribute_set.map(&:name).reject{ |att| att == :machine_ktv }
-          # rubocop:enable Rails/Validation
+          validates :arterial_pressure, presence: true
+          validates :venous_pressure, presence: true
+          validates :fluid_removed, presence: true
+          validates :blood_flow, presence: true
+          validates :flow_rate, presence: true
+          validates :litres_processed, presence: true
         end
         attribute :dialysis, Dialysis
 
