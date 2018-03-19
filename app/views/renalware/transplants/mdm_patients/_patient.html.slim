@@ -1,0 +1,18 @@
+- observation_set = patient.current_observation_set
+tr
+  td.full-name= link_to patient.to_s(:default), view_proc.call(patient)
+  td.nowrap= patient.nhs_number
+  td.nowrap= patient.hospital_identifier
+  td= patient.sex.code
+  td= patient.age
+  td= patient.modality_description&.name
+  td= l(patient.last_operation_on)
+  td= observation_set.hgb_result
+  td= l(observation_set.hgb_observed_at)
+  td= observation_set.ure_result
+  td= l(observation_set.ure_observed_at)
+  td= observation_set.cre_result
+  td= l(observation_set.cre_observed_at)
+  td= observation_set.egfr_result
+  td= l(patient.esrf_date)
+  td.actions= link_to t(".view"), view_proc.call(patient)

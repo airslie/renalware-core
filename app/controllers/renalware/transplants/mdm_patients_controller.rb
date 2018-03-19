@@ -6,7 +6,8 @@ module Renalware
       def index
         render_index(query: query,
                      page_title: t(".page_title"),
-                     view_proc: ->(patient) { patient_transplants_mdm_path(patient) })
+                     view_proc: ->(patient) { patient_transplants_mdm_path(patient) },
+                     patient_presenter_class: Transplants::MDMPatientPresenter)
       end
 
       private

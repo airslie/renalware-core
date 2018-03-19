@@ -42,6 +42,32 @@ RSpec.describe "Transplants MDM Patients", type: :feature do
       expect(page).to have_no_content(patient1.local_patient_id)
     end
 
+    it "`past_year` filter displays transplant patients in the last year" do
+      no_op_patient = create_recip_operation_patient(
+        user,
+        with_recent_operation: false
+      )
+      matched_patient = create_recip_operation_patient(
+        user,
+        with_recent_operation: true,
+        operation_performed_on: 51.weeks.ago
+      )
+      unmatched_patient = create_recip_operation_patient(
+        user,
+        with_recent_operation: true,
+        operation_performed_on: 53.weeks.ago
+      )
+
+      login_as_clinical
+
+      visit transplants_mdm_patients_path
+      click_on I18n.t("renalware.transplants.mdm_patients.filters.filter.past_year")
+
+      expect(page).to have_content(matched_patient.local_patient_id)
+      expect(page).to have_no_content(no_op_patient.local_patient_id)
+      expect(page).to have_no_content(unmatched_patient.local_patient_id)
+    end
+
     def create_donor_patient(user)
       create(:transplant_patient).tap do |patient|
         set_modality(patient: patient,
@@ -50,7 +76,9 @@ RSpec.describe "Transplants MDM Patients", type: :feature do
       end
     end
 
-    def create_recip_operation_patient(user, with_recent_operation: false)
+    def create_recip_operation_patient(user,
+                                       with_recent_operation: false,
+                                       operation_performed_on: 2.months.ago)
       create(:transplant_patient).tap do |patient|
         set_modality(patient: patient,
                      modality_description: create(:transplant_modality_description),
@@ -59,7 +87,7 @@ RSpec.describe "Transplants MDM Patients", type: :feature do
         if with_recent_operation
           create(:transplant_recipient_operation,
                  patient: patient,
-                 performed_on: 2.months.ago)
+                 performed_on: operation_performed_on)
         end
       end
     end

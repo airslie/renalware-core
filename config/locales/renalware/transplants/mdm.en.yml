@@ -2,10 +2,30 @@ en:
   renalware:
     transplants:
       mdm_patients:
+        patient:
+          view: "MDM"
+        table:
+          name: Name
+          nhs_no: NHS No.
+          hosp_no: Hosp No.
+          sex: Sex
+          age: Age
+          dob: Date of Birth
+          modality: Modality
+          esrf: ESRF
+          hgb: HGB
+          hgb_date: HGB Date
+          ure: URE
+          ure_date: URE Date
+          cre: CRE
+          cre_date: CRE Date
+          egfr: EGFR
+          last_operation_on: Last Op Date
         index:
           page_title: Transplant MDM Patients
         filters:
           filter:
             all: All
-            recent: Recent
+            recent: Tx in Past 3/12
             on_worryboard: On Worryboard
+            past_year: Tx in Past Year
