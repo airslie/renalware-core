@@ -43,7 +43,11 @@ module Renalware
       end
 
       def salutation
-        [title, name].join(" ")
+        [
+          Renalware.config.salutation_prefix,
+          title,
+          name
+        ].compact.join(" ")
       end
 
       class PrimaryCarePhysicianAddressAccessError < StandardError; end
