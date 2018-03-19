@@ -32,6 +32,10 @@ module Renalware
         ""
       end
 
+      def to_s
+        [title, name].compact.join(" ")
+      end
+
       def skip_given_name_validation?
         true
       end
@@ -43,7 +47,11 @@ module Renalware
       end
 
       def salutation
-        [title, name].join(" ")
+        [
+          Renalware.config.salutation_prefix,
+          title,
+          name
+        ].compact.join(" ")
       end
 
       class PrimaryCarePhysicianAddressAccessError < StandardError; end
