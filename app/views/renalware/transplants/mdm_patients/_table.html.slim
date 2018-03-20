@@ -1,0 +1,22 @@
+- path = [:renalware, presenter.q]
+table#patients.mdm-patients.columns
+  thead
+    tr
+      th.col-width-large= sort_link(path, :family_name, t(".name"))
+      th.col-width-nhs-no= sort_link(path, :nhs_number, t(".nhs_no"))
+      th.col-width-reference-no= t(".hosp_no")
+      th.col-width-tiny= t(".sex")
+      th.col-width-tiny= t(".age")
+      th.col-width-medium= t(".modality")
+      th.col-width-date= t(".last_operation_on")
+      - %i(hgb ure cre).each do |code|
+        th.col-width-tiny= sort_link(path, code, t(".#{code}"))
+        th.col-width-date= sort_link(path, :"#{code}_date", t(".#{code}_date"))
+      th.col-width-tiny= sort_link(path, :egfr, t(".egfr"))
+      th.col-width-date= t(".esrf")
+      th.col-width-small
+
+  tbody
+    = render partial: "patient",
+             collection: presenter.patients,
+             locals: { view_proc: presenter.view_proc, q: presenter.q }

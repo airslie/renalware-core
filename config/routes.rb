@@ -271,7 +271,7 @@ Renalware::Engine.routes.draw do
     end
     resources :live_donors, only: :index
     resources :mdm_patients, only: :index
-    constraints(named_filter: /(recent|on_worryboard)/) do
+    constraints(named_filter: /(recent|on_worryboard|past_year)/) do
       get "mdm_patients/:named_filter", to: "mdm_patients#index", as: :filtered_mdm_patients
     end
   end
