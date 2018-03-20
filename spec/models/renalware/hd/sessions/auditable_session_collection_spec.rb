@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable  Metrics/ModuleLength
+# rubocop:disable  Metrics/ModuleLength, Metrics/AbcSize
 require "rails_helper"
 
 module Renalware
@@ -71,6 +71,24 @@ module Renalware
         end
 
         describe "Mean blood pressure" do
+          it "ignores values strings that cannot be coerced into numbers" do
+            bad_stringy_bp = BloodPressure.new(systolic: "asas", diastolic: "100,90")
+            good_bp = BloodPressure.new(systolic: 100.1, diastolic: 100.2)
+            @sessions = [
+              Session::Closed.new.tap do |session|
+                session.document.observations_before.blood_pressure = bad_stringy_bp
+                session.document.observations_after.blood_pressure = good_bp
+              end,
+              Session::Closed.new.tap do |session|
+                session.document.observations_before.blood_pressure = good_bp
+                session.document.observations_after.blood_pressure = good_bp
+              end
+            ]
+
+            expect(audit.pre_mean_systolic_blood_pressure).to eq(100)
+            expect(audit.pre_mean_diastolic_blood_pressure).to eq(100)
+          end
+
           it "calculates pre mean blood pressures" do
             stub_sessions(observations: :observations_before,
                           systolic_range: (101..112),

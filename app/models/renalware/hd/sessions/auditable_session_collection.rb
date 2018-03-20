@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 #
 # Decorates an array of session objects, adding methods that provide e.g. a mean measured value
 # across all HD sessions for a patient. See also AuditableSession.
@@ -8,6 +9,8 @@
 #  auditable_sessions = AuditableSessionCollection.new(recent_sessions)
 #  auditable_sessions.pre_mean_systolic_blood_pressure => 121
 #
+# Note that resolution is to integer not float i.e. pre_mean_systolic_blood_pressure will
+# return 100 if the only measurement is 100.11.
 
 require_dependency "renalware/hd"
 
@@ -137,9 +140,11 @@ module Renalware
             values.blank? ? 0 : mean
           end
 
+          # Note here we ignore values that cannot be coerced into a number
+          # Any values like "## TEST CANCELLED" etc are thus excluded from the calculation
           def values
             @values ||= begin
-              sessions.map { |session| selector.call(session) }.compact
+              sessions.map { |session| selector.call(session) }.compact.select{ |val| number?(val) }
             end
           end
 
@@ -149,6 +154,13 @@ module Renalware
 
           def mean
             (total.to_f / values.count.to_f).round(2)
+          end
+
+          def number?(val)
+            Float(val)
+            true
+          rescue ArgumentError, TypeError
+            false
           end
         end
 
