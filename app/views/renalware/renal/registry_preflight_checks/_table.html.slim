@@ -10,6 +10,10 @@ table.renal-registry-preflight-checks
                       "Modality",
                       default_order: :asc)
       td.col-width-small HD Site
+      td.col-width-date
+        = sort_link([:renalware, query],
+                    :profile_esrf_on,
+                    "ESRF date")
       td Missing data
   tbody
     - patients.each do |patient|
@@ -19,6 +23,7 @@ table.renal-registry-preflight-checks
         td= patient.hospital_identifiers
         td= patient.current_modality
         td= patient.hd_unit
+        td= l(patient.renal_profile&.esrf_on)
         td.missing-data
           - patient.missing_data.map do |data_item|
             span(class=data_item)= t(".#{data_item}")

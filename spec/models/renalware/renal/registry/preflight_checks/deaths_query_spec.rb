@@ -34,14 +34,15 @@ module Renalware
           patient = create(:patient, by: user)
           change_patient_modality(patient, modality_description, user)
           expect(patient.reload.current_modality.description).to eq(modality_description)
-          patient
+          Renalware::Renal.cast_patient(patient)
         end
 
         def create_patient_passing_preflight_checks
           create_death_patient.tap do |patient|
             patient.update!(
               first_cause: create(:cause_of_death),
-              died_on: 1.week.ago.to_date
+              died_on: 1.week.ago.to_date,
+              by: user
             )
           end
         end
