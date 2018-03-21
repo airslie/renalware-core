@@ -118,6 +118,7 @@ CREATE FUNCTION convert_to_float(v_input text) RETURNS double precision
     AS $$
 DECLARE v_float_value FLOAT DEFAULT NULL;
 BEGIN
+    -- return the value as a float or 0 if the value cannot be coerced into a float
     BEGIN
         v_float_value := v_input::FLOAT;
     EXCEPTION WHEN OTHERS THEN
@@ -6156,17 +6157,6 @@ ALTER SEQUENCE system_visits_id_seq OWNED BY system_visits.id;
 
 
 --
--- Name: test_table; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE test_table (
-    id integer NOT NULL,
-    description character varying,
-    value character varying
-);
-
-
---
 -- Name: transplant_donations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8379,14 +8369,6 @@ ALTER TABLE ONLY hospital_units
 
 ALTER TABLE ONLY hospital_wards
     ADD CONSTRAINT hospital_wards_pkey PRIMARY KEY (id);
-
-
---
--- Name: test_table id; Type: CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY test_table
-    ADD CONSTRAINT id PRIMARY KEY (id);
 
 
 --
