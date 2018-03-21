@@ -1,4 +1,4 @@
-= "#{patient.sex.salutation} #{patient.full_name} ("
+= "#{patient.title.presence || patient.sex.salutation} #{patient.full_name} ("
 = "#{patient.sex.code}: "
 = "DOB: #{l patient.born_on}: "
 = patient.hospital_identifiers
