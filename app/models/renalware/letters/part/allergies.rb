@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "renalware/letters/part"
 
 # Decorates an a Clinical::Patient so we can access patient.allergies in the view

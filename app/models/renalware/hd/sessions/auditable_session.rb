@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Session decorator adding methods that derive statistical data for use in auditing.
 # See also AuditableSessionCollection
 #

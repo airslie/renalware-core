@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/letters"
 
 module Renalware
@@ -10,7 +12,7 @@ module Renalware
       scope :ordered, -> { order(:position) }
       scope :specified, -> { where.not(system_code: UNSPECIFIED_SYSTEM_CODE) }
 
-      UNSPECIFIED_SYSTEM_CODE = "other".freeze
+      UNSPECIFIED_SYSTEM_CODE = "other"
 
       def self.[](system_code)
         find_by!(system_code: system_code.to_s)

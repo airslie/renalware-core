@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/messaging"
 
 # Builds a new MessageForm form object. MessageForm is used behind the html form when displaying a

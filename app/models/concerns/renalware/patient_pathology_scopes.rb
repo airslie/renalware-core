@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware"
 
 # Mix this module into a Patient Query object for example in order to include the patient's

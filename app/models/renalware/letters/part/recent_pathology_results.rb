@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "renalware/letters/part"
 require "attr_extras"
 
@@ -53,7 +55,7 @@ module Renalware
       def format_pathology_string(grouped_snapshot)
         str = ""
         grouped_snapshot.each do |date, observations|
-          str << "#{I18n.l(date&.to_date)}: #{observations.join(', ')}; "
+          str += "#{I18n.l(date&.to_date)}: #{observations.join(', ')}; "
         end
         str.strip
       end

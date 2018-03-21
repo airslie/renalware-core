@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware"
 require_dependency "renalware/patients"
 require "document/base"

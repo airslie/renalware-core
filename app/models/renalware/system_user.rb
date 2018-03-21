@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Renalware
   class SystemUser
-    USERNAME = "systemuser".freeze
+    USERNAME = "systemuser"
 
     def self.username
       USERNAME

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Renalware
   module HD
     class MDMPatientsQuery
       include ModalityScopes
       include PatientPathologyScopes
-      MODALITY_NAMES = "HD".freeze
-      DEFAULT_SEARCH_PREDICATE = "hgb_date desc".freeze
+      MODALITY_NAMES = "HD"
+      DEFAULT_SEARCH_PREDICATE = "hgb_date desc"
       attr_reader :q, :relation
 
       def initialize(relation: HD::Patient.all, q:)

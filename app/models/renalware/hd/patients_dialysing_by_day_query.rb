@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/hd"
 
 # Find for example HD Patients who according to their HD Profile dialyse on Monday

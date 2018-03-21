@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/letters"
 
 # A method object initialized with an instance of Letter responsible

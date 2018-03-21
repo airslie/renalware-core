@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/letters"
 
 # Represents an Electronic CC - a reference to a letter sent to a recipient (another user on the

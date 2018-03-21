@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/pathology"
 require_dependency "renalware/feeds"
 require "subscription_registry"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "document/base"
 
 module Renalware
