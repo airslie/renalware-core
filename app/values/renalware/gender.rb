@@ -13,7 +13,7 @@ module Renalware
     SALUTATIONS = {
       "NK" => "",
       "M" => "Mr",
-      "F" => "Mme",
+      "F" => "Ms",
       "NS" => ""
     }.freeze
 
