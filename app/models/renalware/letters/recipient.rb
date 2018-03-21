@@ -60,7 +60,7 @@ module Renalware
         if address.present? && letter.primary_care_physician.present?
           ensure_address_has_a_name_required_when_displaying_letters(
             address,
-            letter.primary_care_physician.salutation
+            letter.primary_care_physician.to_s
           )
         end
         address
