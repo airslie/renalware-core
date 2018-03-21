@@ -76,4 +76,22 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
       end
     end
   end
+
+  context "when the letter has been successfully emailed to a GP main recipient" do
+    let(:patient) {
+      create(
+        :letter_patient,
+        primary_care_physician: primary_care_physician,
+        practice: create(:practice, email: "test@example.com"),
+        family_name: "RABBIT",
+        local_patient_id: "KCH57837"
+      )
+    }
+
+    it "indicates the letter has been sent via email to the GP" do
+      get patient_letters_letter_formatted_path(patient_id: letter.patient, letter_id: letter)
+      expect(response).to be_success
+      expect(response.body).to include("VIA EMAIL to test@example.com")
+    end
+  end
 end

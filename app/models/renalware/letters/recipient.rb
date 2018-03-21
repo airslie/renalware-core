@@ -24,6 +24,10 @@ module Renalware
 
       def to_s
         (address || current_address).to_s
+        # [
+        #   (address || current_address).to_s,
+        #   statment_to_indicate_letter_was_emailed_ok
+        # ].compact.join("\n")
       end
 
       def archive!
@@ -72,8 +76,18 @@ module Renalware
         end
       end
 
+      def statment_to_indicate_letter_was_emailed_ok
+        if practice_email_address.present? && emailed_at.present?
+          "VIA EMAIL to docman.H83005@nhs.net"
+        end
+      end
+
       def patient_or_primary_care_physician?
         patient? || primary_care_physician?
+      end
+
+      def practice_email_address
+        @practice_email_address ||= letter.patient&.practice&.email
       end
 
       # Make sure we have a 'name' set in the address record set as this is used in the letter
