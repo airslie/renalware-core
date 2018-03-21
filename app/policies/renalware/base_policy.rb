@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   # Responsible for determining if a user can manage the provided record. It
   # provides the Base policy for Renalware.
