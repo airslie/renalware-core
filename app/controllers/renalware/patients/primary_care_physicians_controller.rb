@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/patients"
 
 # Note this plural resource is for managing primary_care_physicians.

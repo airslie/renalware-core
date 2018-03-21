@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/events"
 require_dependency "renalware/virology"
 

@@ -1,5 +1,5 @@
-require_dependency "renalware"
-require "devise"
+# frozen_string_literal: true
+
 #
 # From https://gist.github.com/josevalim/fb706b1e933ef01e4fb6
 #

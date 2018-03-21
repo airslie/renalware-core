@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "collection_presenter"
 require_dependency "renalware/clinical"
 

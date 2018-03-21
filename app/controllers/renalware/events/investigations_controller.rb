@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/events"
 
 # This controller is mostly empty - we are using it for mainly routing and to let us

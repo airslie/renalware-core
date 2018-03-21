@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   class DeathsController < BaseController
     include PresenterHelper

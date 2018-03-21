@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "renalware/admissions"
 require "collection_presenter"
 

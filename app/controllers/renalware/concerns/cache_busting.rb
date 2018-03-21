@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "active_support/concern"
 
 # The host Rails application's ApplicationController could choose to mix-in this concern in order to

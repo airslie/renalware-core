@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # TODO: Remove this disable
 # rubocop:disable Metrics/ClassLength
 require_dependency "renalware/letters"

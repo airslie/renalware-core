@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/reporting"
 
 # An Audit Refreshment is a nominal sql-only activity. Its a REST #create action for consistency,
