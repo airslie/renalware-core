@@ -5,6 +5,7 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class LettersController < Letters::BaseController
+      include Concerns::Pageable
       before_action :load_patient, except: [:author]
 
       def index
@@ -14,7 +15,7 @@ module Renalware
       def author
         user = Renalware::User.find(params[:author_id])
         author = Letters.cast_author(user)
-        letters = author.letters
+        letters = author.letters.order(issued_on: :desc).page(page).per(per_page)
         authorize letters
         render locals: {
           author: author,
