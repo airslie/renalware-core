@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "core_extensions/i18n/handle_blank_value"
 require "core_extensions/i18n/always_cascade"
 require "core_extensions/dumb_delegator"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Renalware::Engine.routes.draw do
   match "/404", to: "system/errors#not_found", via: :all
   match "/500", to: "system/errors#internal_server_error", via: :all

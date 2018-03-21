@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module ReportingHelper
     def audits_breadcrumb

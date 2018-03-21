@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Document
   class Enum
     def self.default_enums(model_name, attribute_name)

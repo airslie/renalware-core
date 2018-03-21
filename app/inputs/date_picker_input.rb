@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DatePickerInput < SimpleForm::Inputs::StringInput
   # Note that where we use `wrapper: :clockpicker` or `wrapper: horizontal_clockpicker`,
   # #input is not called and we call #prefix_column and #input_column directly.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InlineRadioButtonsInput < SimpleForm::Inputs::CollectionRadioButtonsInput
   def input_type
     "radio_buttons"

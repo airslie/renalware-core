@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Enable mailer previews in Staging
 #
 if Rails.env.staging?

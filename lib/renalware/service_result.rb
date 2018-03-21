@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   class ServiceResult
     attr_reader :object

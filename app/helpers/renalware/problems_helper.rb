@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module ProblemsHelper
     def problems_breadcrumb(patient)

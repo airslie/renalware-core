@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 log "Seeding default data"
 
 require_relative "./system/seeds"

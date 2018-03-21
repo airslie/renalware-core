@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding System User" do
     Renalware::User.find_or_create_by!(given_name: "System", family_name: "User") do |user|

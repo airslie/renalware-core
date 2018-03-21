@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module InfectionOrganismsHelper
     def pd_infection_organisms_path(infectable)

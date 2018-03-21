@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   class WeekPeriod
     attr_reader :year, :week_number, :first_day_of_week

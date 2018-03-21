@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "scenic"
 
 # Override Scenic's definition#full_path so it will resolve db/views as whatever is in

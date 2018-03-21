@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MultipleSelectInput < SimpleForm::Inputs::CollectionSelectInput
   def input_type
     :multiple_select

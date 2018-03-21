@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Adds a sort method to ActiveRecord class.  Given a list of IDs, it will sort
 # the records in the order of the ids.  Assumes that the model has the :position attribute.
 #

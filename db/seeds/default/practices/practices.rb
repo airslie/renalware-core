@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding NHS Practices\n" do
     sample_status = "SAMPLE ONLY"

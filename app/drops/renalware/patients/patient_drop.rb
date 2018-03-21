@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Liquid 'Drop' - a safe, read-only presenter compatible with Liquid templates.
 # We use Liquid templates for one-off hospital-specific views or print-outs.
 require_dependency "renalware/patients"

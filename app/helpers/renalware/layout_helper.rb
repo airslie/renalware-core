@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module LayoutHelper
     # If you don't want the title argument to be used in the browser bar, pass in

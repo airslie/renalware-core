@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Document
   module AttributeInitializer
     class Enum < Base

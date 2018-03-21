@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding Peritonitis Fluid Descriptions" do
     PD::FluidDescription.find_or_create_by!(description: "Clear")

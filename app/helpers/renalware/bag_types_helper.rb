@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module BagTypesHelper
     def manufacturer_options

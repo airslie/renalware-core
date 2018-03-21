@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AutocompleteHelpers
   def fill_autocomplete(form, field, options = {})
     fill_in field, with: options[:with]

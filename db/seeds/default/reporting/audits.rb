@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding default audits" do
     file_path = File.join(File.dirname(__FILE__), "audits.yml")

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module Modalities
     log "Adding PD To Haemodialysis (Reasons for Change)" do

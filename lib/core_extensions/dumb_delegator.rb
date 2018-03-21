@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DumbDelegator < ::BasicObject
   # Handle public_send correctly when ActionView calls this method
   # Reference: https://github.com/stevenharman/dumb_delegator/issues/9

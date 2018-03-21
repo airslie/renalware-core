@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module ClipboardHelper
     # A helper to create a clipboard.js button https://clipboardjs.com/

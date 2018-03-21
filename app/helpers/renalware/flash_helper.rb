@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module FlashHelper
     STYLES = { notice: "success", error: "alert", warning: "warning" }.freeze
