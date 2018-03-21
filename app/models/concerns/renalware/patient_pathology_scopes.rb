@@ -34,9 +34,17 @@ module Renalware
       end
     end
 
+    # Note that because #result could have text like "Test Cancelled" in it, we need to
+    # handle that when sorting, and we do that by calling a custom sql function which returns
+    # 0 if casting to a float fails. Null results to we map to a 0.
+    # This way results appear in this order:
+    # 1. Valid floats e.g. 10.4
+    # 2. Results with a message like Test Cancelled (mapped to 0) - more significant than a null
+    #   so should rise above them when sorted
+    # 3. Nulls (mapped to -1)
     def self.pathology_result_sort_predicate(column)
       Arel.sql(
-        "cast(values -> '#{column.upcase}' ->> 'result' as float)"
+        "coalesce(convert_to_float(values -> '#{column.upcase}' ->> 'result'), -1)"
       )
     end
 

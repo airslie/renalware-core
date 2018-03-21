@@ -110,6 +110,26 @@ $$;
 
 
 --
+-- Name: convert_to_float(text); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION convert_to_float(v_input text) RETURNS double precision
+    LANGUAGE plpgsql
+    AS $$
+DECLARE v_float_value FLOAT DEFAULT NULL;
+BEGIN
+    BEGIN
+        v_float_value := v_input::FLOAT;
+    EXCEPTION WHEN OTHERS THEN
+        RAISE NOTICE 'Invalid float value: "%".  Returning NULL.', v_input;
+        RETURN 0;
+    END;
+RETURN v_float_value;
+END;
+$$;
+
+
+--
 -- Name: count_estimate(text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -6136,6 +6156,17 @@ ALTER SEQUENCE system_visits_id_seq OWNED BY system_visits.id;
 
 
 --
+-- Name: test_table; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE test_table (
+    id integer NOT NULL,
+    description character varying,
+    value character varying
+);
+
+
+--
 -- Name: transplant_donations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8348,6 +8379,14 @@ ALTER TABLE ONLY hospital_units
 
 ALTER TABLE ONLY hospital_wards
     ADD CONSTRAINT hospital_wards_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: test_table id; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY test_table
+    ADD CONSTRAINT id PRIMARY KEY (id);
 
 
 --
@@ -14706,6 +14745,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180311071146'),
 ('20180311104609'),
 ('20180313114927'),
-('20180313124819');
+('20180313124819'),
+('20180319191942');
 
 
