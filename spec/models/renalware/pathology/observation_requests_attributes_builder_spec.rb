@@ -39,7 +39,7 @@ module Renalware::Pathology
       it "transfers attributes from the message payload to the params" do
         parser = described_class.new(message_payload)
 
-        expect(parser.renalware_patient?).to be_truthy
+        expect(parser.renalware_patient?).to eq(true)
         params = parser.parse
 
         expect(params).to eq(
@@ -127,7 +127,7 @@ module Renalware::Pathology
 
         it "creates a params hash with multiple observation_requests" do
           parser = described_class.new(message_payload)
-          expect(parser.renalware_patient?).to be_truthy
+          expect(parser.renalware_patient?).to eq(true)
           params = parser.parse
 
           expect(params).to be_a(Array)

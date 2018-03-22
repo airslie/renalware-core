@@ -22,7 +22,7 @@ module Renalware
         end
         subject { described_class.new(letterhead: letterhead).include_pathology_in_letter_body? }
 
-        it { is_expected.to be_truthy }
+        it { is_expected.to eq(true) }
       end
     end
   end

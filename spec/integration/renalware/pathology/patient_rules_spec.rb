@@ -36,7 +36,7 @@ RSpec.describe "patient_rules Requests", type: :request do
         post url, params: { pathology_requests_patient_rule: patient_rule_attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(patient_rule_exists).to be_truthy
+        expect(patient_rule_exists).to eq(true)
 
         follow_redirect!
 

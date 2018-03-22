@@ -27,7 +27,7 @@ module Renalware::HD
         end
 
         it "returns a profile" do
-          expect(revised_profile).to be_truthy
+          expect(revised_profile).to be_present
         end
 
         context "when nothing has changed" do

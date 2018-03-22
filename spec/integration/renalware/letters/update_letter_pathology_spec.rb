@@ -31,7 +31,7 @@ module Renalware
           letter = create_letter(patient)
 
           expect(letter.pathology_timestamp).not_to be_blank
-          expect(letter.clinical).to be_truthy
+          expect(letter.clinical).to eq(true)
 
           create_extra_pathology_for(patient)
 

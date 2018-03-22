@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
+
 require "rails_helper"
 
 module Renalware::Patients
@@ -108,7 +110,7 @@ module Renalware::Patients
         let(:hospital_code) { "KCH" }
         let(:patient) { build_stubbed(:patient, local_patient_id: "111") }
 
-        it { is_expected.to be_truthy }
+        it { is_expected.to eq(true) }
       end
 
       context "when the patient does not have local_patient_id for the requested hospital" do
