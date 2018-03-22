@@ -21,16 +21,21 @@ module Renalware
         #   false: the patient does not have a practice or the practice has no email address
         def call
           return false unless email_letter_to_practice?
-          email_letter_to_the_patients_practice_and_flag_as_sent
+          email_letter_to_the_patients_practice
           true
         end
 
         private
 
-        def email_letter_to_the_patients_practice_and_flag_as_sent
+        def email_letter_to_the_patients_practice
           Letter.transaction do
-            mail = PracticeMailer.patient_letter(letter: letter, to: practice_email_address)
-            mail.deliver_later
+            PracticeMailer.patient_letter(
+              letter: letter,
+              to: practice_email_address,
+              recipient: nil # TODO
+            ).deliver_later
+
+            # Flag as sent
             gp_recipient.update(emailed_at: Time.zone.now)
           end
         end

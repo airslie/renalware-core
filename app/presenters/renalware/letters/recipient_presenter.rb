@@ -23,8 +23,6 @@ module Renalware
         __getobj__.address
       end
 
-      # @section sub-classes
-
       # The address for a recipient such as a primary care physician or a patient are
       # denormalized and stored with the recipient when the letter is archived.
       # Before the letter is archived, we display the current address directly

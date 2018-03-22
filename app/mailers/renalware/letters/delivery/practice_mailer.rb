@@ -6,7 +6,7 @@ module Renalware
   module Letters
     module Delivery
       class PracticeMailer < ApplicationMailer
-        def patient_letter(letter:, to:)
+        def patient_letter(letter:, to:, recipient:)
           validate_letter(letter)
           letter_presenter = LetterPresenterFactory.new(letter)
           attachments["letter.pdf"] = Letters::PdfRenderer.call(letter_presenter)

@@ -5,8 +5,11 @@ require "rails_helper"
 module Renalware
   module Letters
     RSpec.describe Delivery::PracticeMailer, type: :mailer do
-      subject(:mail) { described_class.patient_letter(letter: letter, to: recipient_email) }
+      subject(:mail) do
+        described_class.patient_letter(letter: letter, to: recipient_email, recipient: recipient)
+      end
       let(:recipient_email) { "practice@example.com" }
+      let(:recipient) { instance_double(Letters::Recipient) }
 
       before do
         allow(PdfLetterCache).to receive(:fetch).and_return(fake_pdf)
@@ -35,6 +38,7 @@ module Renalware
           end
         end
         let(:fake_pdf){ "%PDF-1.4\n1" }
+        let(:recipient) { letter.main_recipient }
 
         describe "error checking" do
           it "raises an error if the patient has no practice" do
