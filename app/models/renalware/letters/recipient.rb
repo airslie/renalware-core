@@ -24,10 +24,6 @@ module Renalware
 
       def to_s
         (address || current_address).to_s
-        # [
-        #   (address || current_address).to_s,
-        #   statment_to_indicate_letter_was_emailed_ok
-        # ].compact.join("\n")
       end
 
       def archive!
@@ -46,6 +42,12 @@ module Renalware
       def for_contact?(contact)
         return false unless person_role.contact?
         addressee_id == contact.id
+      end
+
+      def statment_to_indicate_letter_was_emailed_ok
+        if primary_care_physician? && practice_email_address.present?
+          "VIA EMAIL to #{practice_email_address}"
+        end
       end
 
       private
@@ -73,12 +75,6 @@ module Renalware
       def address_for_addressee_eg_contact
         addressee.address.tap do |address|
           ensure_address_has_a_name_required_when_displaying_letters(address, addressee.to_s)
-        end
-      end
-
-      def statment_to_indicate_letter_was_emailed_ok
-        if practice_email_address.present? && emailed_at.present?
-          "VIA EMAIL to docman.H83005@nhs.net"
         end
       end
 

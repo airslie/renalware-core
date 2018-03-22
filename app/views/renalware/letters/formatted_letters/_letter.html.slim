@@ -285,7 +285,12 @@ scss:
         p Private and confidential
 
       .address
-        p= letter.main_recipient.to_html
+        p
+          = letter.main_recipient.to_html
+          - email_statement = letter.main_recipient.statment_to_indicate_letter_was_emailed_ok
+          - if email_statement.present?
+            br
+            = email_statement
 
     .unit-block
       span.nhs-logo
@@ -334,4 +339,8 @@ scss:
 
       - letter.cc_recipients.each do |cc|
         .address.nobreak
-          p= cc.to_html
+          p
+            = cc.to_html
+            - if cc.statment_to_indicate_letter_was_emailed_ok.present?
+              br
+              = cc.statment_to_indicate_letter_was_emailed_ok
