@@ -24,8 +24,12 @@ module Renalware
       def letters_in_progress
         @letters_in_progress ||= begin
           present_letters(
-            Renalware::Letters.cast_author(user).letters.in_progress.reverse
+            Letters::Letter
+              .where("author_id = ? or created_by_id = ?", user.id, user.id)
+              .in_progress
+              .reverse
           )
+          # Renalware::Letters.cast_author(user)
         end
       end
 
