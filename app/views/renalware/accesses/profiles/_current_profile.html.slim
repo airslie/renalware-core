@@ -1,24 +1,24 @@
-- return if @current_profile.blank?
+- return if current_profile.blank?
 
 article
   header
     h2 Current Access Profile
     ul
       li= link_to "Edit",
-                  edit_patient_accesses_profile_path(@patient, @current_profile),
+                  edit_patient_accesses_profile_path(patient, current_profile),
                   class: "button"
       li= link_to "View",
-                  patient_accesses_profile_path(@patient, @current_profile),
+                  patient_accesses_profile_path(patient, current_profile),
                   class: "button secondary"
 
   dl.dl-horizontal
     dt Formed On:
-    dd= @current_profile.formed_on
+    dd= current_profile.formed_on
     dt Type:
-    dd= @current_profile.type
+    dd= current_profile.type
     dt Side:
-    dd= @current_profile.side
+    dd= current_profile.side
     dt Start Date:
-    dd= @current_profile.started_on
+    dd= current_profile.started_on
     dt Notes:
-    dd= simple_format @current_profile.notes
+    dd= simple_format current_profile.notes
