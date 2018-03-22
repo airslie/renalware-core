@@ -4,6 +4,8 @@ require "rails_helper"
 
 module Renalware::Events
   describe Event, type: :model do
+    subject(:event) { described_class.new }
+
     it_behaves_like "an Accountable model"
     it { is_expected.to validate_presence_of(:patient) }
     it { is_expected.to validate_presence_of(:date_time) }
@@ -13,11 +15,11 @@ module Renalware::Events
 
     it { is_expected.to validate_timeliness_of(:date_time) }
 
-    describe "#document" do
-      it "returns a NullObject because there is no jsonb document on this class" do
-        expect(subject.document).to be_nil
-        expect(subject.document).to be_a(Renalware::NullObject)
-      end
+    describe "#document jsonb" do
+      subject { event.document }
+
+      it { is_expected.to be_nil }
+      it { is_expected.to be_a(Renalware::NullObject) }
     end
   end
 end

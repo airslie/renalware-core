@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware
   module PD
     describe RegimePolicy, type: :policy do
-      subject { described_class }
+      subject(:policy) { described_class }
 
       let(:admin) { create(:user, :admin) }
 
@@ -13,13 +13,13 @@ module Renalware
         it "is permitted if the regime is current" do
           regime = Regime.new
           allow(regime).to receive(:current?).and_return(true)
-          expect(subject).to permit(admin, regime)
+          expect(policy).to permit(admin, regime)
         end
 
         it "is not permitted if the regime is not current" do
           regime = Regime.new
           allow(regime).to receive(:current?).and_return(false)
-          expect(subject).not_to permit(admin, regime)
+          expect(policy).not_to permit(admin, regime)
         end
       end
     end

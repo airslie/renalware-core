@@ -12,12 +12,15 @@ module Renalware
       it { is_expected.to validate_presence_of(:recipient_id) }
 
       describe "#read?" do
-        it "has an initial value of false" do
-          expect(subject).not_to be_read
+        context "when the receipt has not yet been read" do
+          subject{ described_class.new }
+
+          it { is_expected.not_to be_read }
         end
-        it "returns true if read_at is set" do
-          subject.read_at = Time.zone.now
-          expect(subject).to be_read
+        context "when the receipt has been read" do
+          subject{ described_class.new(read_at: Time.zone.now) }
+
+          it { is_expected.to be_read }
         end
       end
     end

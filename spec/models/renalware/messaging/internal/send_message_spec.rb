@@ -6,6 +6,8 @@ module Renalware
   module Messaging
     module Internal
       RSpec.describe SendMessage, type: :model do
+        subject(:service) { described_class.new }
+
         let(:patient)    { create(:messaging_patient) }
         let(:author)     { create(:internal_author) }
         let(:recipient1) { create(:internal_recipient) }
@@ -24,7 +26,7 @@ module Renalware
           context "with valid params" do
             it "saves message and 'sends' it to the correct recipients" do
               expect do
-                subject.call(patient: patient,
+                service.call(patient: patient,
                              author: author,
                              form: form)
               end.to change(Message, :count).by(1)

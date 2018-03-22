@@ -13,6 +13,12 @@ inherit_from:
 # RSpec/ExampleLength:
 #   Max: 10
 # End rubocop-rspec
+#
+
+# RSpec/DescribeClass:
+#   Enabled: false
+#   Exclude:
+#     - "spec/views/**/*"
 
 # Note that inheriting from a gem does not work as CodeClimate cannot cope with this
 # inherit_gem:
