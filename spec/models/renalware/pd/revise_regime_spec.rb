@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
+
 require "rails_helper"
 
 module Renalware
@@ -24,13 +26,13 @@ module Renalware
 
           it "does not create a new regime" do
             command = ReviseRegime.new(regime)
-            expect{ command.call(by: user, params: params) }.not_to change{ Regime.count }
+            expect{ command.call(by: user, params: params) }.not_to change(Regime, :count)
           end
 
           it "does not terminate the regime" do
             command = ReviseRegime.new(regime)
             expect{ command.call(by: user, params: params) }
-              .not_to change{ RegimeTermination.count }
+              .not_to change(RegimeTermination, :count)
           end
 
           it "returns true" do
@@ -49,7 +51,7 @@ module Renalware
 
           it "does not terminate the regime" do
             expect{ ReviseRegime.new(regime).call(by: user, params: params) }
-              .not_to change{ RegimeTermination.count }
+              .not_to change(RegimeTermination, :count)
           end
         end
 
@@ -58,7 +60,7 @@ module Renalware
 
           it "creates a new regime" do
             command = ReviseRegime.new(regime)
-            expect { command.call(by: user, params: params) }.to change{ Regime.count }.by(1)
+            expect { command.call(by: user, params: params) }.to change(Regime, :count).by(1)
           end
 
           it "terminates the old regime" do
@@ -169,7 +171,7 @@ module Renalware
 
           it "creates a new regime" do
             command = ReviseRegime.new(regime)
-            expect { command.call(by: user, params: params) }.to change{ Regime.count }.by(1)
+            expect { command.call(by: user, params: params) }.to change(Regime, :count).by(1)
           end
 
           it "the new regime is not the original regime" do

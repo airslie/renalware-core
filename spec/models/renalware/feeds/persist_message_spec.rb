@@ -15,7 +15,7 @@ module Renalware::Feeds
       }
 
       it "persists the payload" do
-        expect{ subject.call(message_payload) }.to change{ Message.count }.by(1)
+        expect{ subject.call(message_payload) }.to change(Message, :count).by(1)
       end
     end
   end

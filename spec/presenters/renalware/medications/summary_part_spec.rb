@@ -29,7 +29,7 @@ module Renalware
           expect {
             prescription.update_by(user, dose_amount: "xxx")
             patient.reload
-          }.to change{ summary_part.cache_key }
+          }.to change(summary_part, :cache_key)
         end
       end
 
@@ -39,7 +39,7 @@ module Renalware
           expect {
             prescription.drug.update(name: "DrugA1")
             patient.reload
-          }.to change{ summary_part.cache_key }
+          }.to change(summary_part, :cache_key)
         end
       end
 
@@ -50,7 +50,7 @@ module Renalware
           expect {
             prescription.drug.update(drug_types: [new_drug_type])
             patient.reload
-          }.to change{ summary_part.cache_key }
+          }.to change(summary_part, :cache_key)
         end
       end
 
@@ -60,7 +60,7 @@ module Renalware
           expect {
             prescription.drug.update(drug_types: [])
             patient.reload
-          }.to change{ summary_part.cache_key }
+          }.to change(summary_part, :cache_key)
         end
       end
     end
