@@ -4,8 +4,6 @@ require "rails_helper"
 
 module Renalware::Messaging::Internal
   describe Message, type: :model do
-    it "has the correct class" do
-      expect(subject.class).to eq(Renalware::Messaging::Internal::Message)
-    end
+    it { is_expected.to be_a(Renalware::Messaging::Internal::Message) }
   end
 end

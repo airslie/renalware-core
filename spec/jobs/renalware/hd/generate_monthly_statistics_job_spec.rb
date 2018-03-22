@@ -6,6 +6,8 @@ require "delayed_job_active_record"
 module Renalware
   module HD
     describe GenerateMonthlyStatisticsJob, type: :job do
+      subject(:job) { described_class.new }
+
       it { is_expected.to respond_to(:queue_name) }
 
       describe "#perform" do
@@ -16,7 +18,7 @@ module Renalware
             create(:hd_closed_session, patient: patient, signed_off_at: Time.zone.now - 1.month)
             expect(GenerateMonthlyStatisticsForPatientJob).to receive(:perform_later).exactly(:once)
 
-            subject.perform
+            job.perform
           end
         end
       end
