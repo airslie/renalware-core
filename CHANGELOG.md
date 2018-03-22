@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.10
+22-04-2017
+
+### Added
+- Display VIA EMAIL to xxx is recipient/cc is a GP and patient's practice has an email address
+
 ## 2.0.9
 22-03-2017
 
