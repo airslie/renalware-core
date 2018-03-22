@@ -1,19 +1,25 @@
 = content_for(:actions) do
-  = render "page_actions", patient: @patient
+  = render "page_actions", patient: dashboard.patient
 
 = within_patient_layout do
   .document
-    - if @current_profile.present?
-      = render "renalware/accesses/profiles/current_profile"
-    - if @profiles.any?
-      = render "renalware/accesses/profiles/list"
+    - if dashboard.current_profile.present?
+      = render "renalware/accesses/profiles/current_profile",
+               current_profile: dashboard.current_profile,
+               patient: dashboard.patient
+    - if dashboard.profiles.any?
+      = render "renalware/accesses/profiles/list",
+                patient: dashboard.patient,
+                profiles: dashboard.profiles
     = render "renalware/accesses/plans/summary",
-             patient: @patient,
-             plans: @plans,
-             current_plan: @current_plan
-    - if @procedures.any?
-      = render "renalware/accesses/procedures/list"
-    - if @assessments.any?
+             patient: dashboard.patient,
+             plans: dashboard.plans,
+             current_plan: dashboard.current_plan
+    - if dashboard.procedures.any?
+      = render "renalware/accesses/procedures/list",
+                patient: dashboard.patient,
+                procedures: dashboard.procedures
+    - if dashboard.assessments.any?
       = render "renalware/accesses/assessments/list",
-               patient: @patient,
-               assessments: @assessments
+               patient: dashboard.patient,
+               assessments: dashboard.assessments

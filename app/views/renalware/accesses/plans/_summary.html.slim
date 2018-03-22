@@ -4,14 +4,11 @@ article.access-plans
   header
     h2 Current Access Plan
     ul
-      / li= link_to "Create",
-            new_patient_accesses_plan_path(@patient),
-            class: "button"
       li= link_to "Edit",
-                  edit_patient_accesses_plan_path(@patient, current_plan),
+                  edit_patient_accesses_plan_path(patient, current_plan),
                   class: "button"
       li= link_to "View",
-                  patient_accesses_plan_path(@patient, current_plan),
+                  patient_accesses_plan_path(patient, current_plan),
                   class: "button secondary"
   .current-access-plan
     = render "renalware/accesses/plans/details", plan: current_plan
