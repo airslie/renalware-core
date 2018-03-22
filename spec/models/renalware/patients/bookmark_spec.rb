@@ -22,7 +22,7 @@ module Renalware
         let(:patient) { create(:patient, by: user) }
         let(:user) { create(:patients_user) }
 
-        it { expect(subject).to respond_to(:with_deleted) }
+        it { is_expected.to respond_to(:with_deleted) }
       end
     end
   end

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
+
 require "rails_helper"
 require_dependency "models/renalware/concerns/personable"
 
@@ -25,14 +27,14 @@ module Renalware
       it { is_expected.to validate_presence_of(:family_name) }
 
       context "when #with_extended_validation is true" do
-        before { subject.with_extended_validation = true }
+        subject{ described_class.new(with_extended_validation: true) }
 
         it { is_expected.to validate_presence_of(:professional_position).on(:update) }
         it { is_expected.to validate_presence_of(:signature).on(:update) }
       end
 
       context "when #with_extended_validation is false" do
-        before { subject.with_extended_validation = false }
+        subject{ described_class.new(with_extended_validation: false) }
 
         it { is_expected.not_to validate_presence_of(:professional_position).on(:update) }
         it { is_expected.not_to validate_presence_of(:signature).on(:update) }

@@ -1,16 +1,20 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
+
 require "rails_helper"
 
 module Renalware
   module PD
     describe APDRegime, type: :model do
+      subject(:regime) { described_class.new }
+
       describe "validations" do
         it { is_expected.to validate_numericality_of(:last_fill_volume) }
         it { is_expected.to validate_numericality_of(:dwell_time) }
         it { is_expected.to validate_numericality_of(:additional_manual_exchange_volume) }
         it do
-          subject.tidal_indicator = true
+          regime.tidal_indicator = true
           is_expected.to validate_numericality_of(:tidal_percentage)
         end
         it { is_expected.to validate_numericality_of(:no_cycles_per_apd) }
@@ -25,16 +29,16 @@ module Renalware
         describe "#additional_manual_exchange_volume" do
           context "when regime has an additional_manual_exchange bag" do
             it "requires additional_manual_exchange_volume to be specified" do
-              allow(subject).to receive(:has_additional_manual_exchange_bag?).and_return(true)
-              subject.additional_manual_exchange_volume = nil
+              allow(regime).to receive(:has_additional_manual_exchange_bag?).and_return(true)
+              regime.additional_manual_exchange_volume = nil
 
               is_expected.to validate_presence_of :additional_manual_exchange_volume
             end
           end
           context "when regime does not have an additional_manual_exchange bag" do
             it "does not expect additional_manual_exchange_volume to be specified" do
-              allow(subject).to receive(:has_additional_manual_exchange_bag?).and_return(false)
-              subject.additional_manual_exchange_volume = nil
+              allow(regime).to receive(:has_additional_manual_exchange_bag?).and_return(false)
+              regime.additional_manual_exchange_volume = nil
 
               is_expected.not_to validate_presence_of :additional_manual_exchange_volume
             end
@@ -44,16 +48,16 @@ module Renalware
         describe "#last_fill_volume" do
           context "when regime has a last_fill bag" do
             it "requires last_fill_volume to be specified" do
-              allow(subject).to receive(:has_last_fill_bag?).and_return(true)
-              subject.last_fill_volume = nil
+              allow(regime).to receive(:has_last_fill_bag?).and_return(true)
+              regime.last_fill_volume = nil
 
               is_expected.to validate_presence_of :last_fill_volume
             end
           end
           context "when regime does not have a last_fill bag" do
             it "does not expect last_fill_volume to be specified" do
-              allow(subject).to receive(:has_last_fill_bag?).and_return(false)
-              subject.last_fill_volume = nil
+              allow(regime).to receive(:has_last_fill_bag?).and_return(false)
+              regime.last_fill_volume = nil
 
               is_expected.not_to validate_presence_of :last_fill_volume
             end
@@ -62,30 +66,30 @@ module Renalware
 
         describe "#tidal_percentage" do
           it "validates #tidal_percentage when the regime is tidal" do
-            subject.tidal_indicator = true
+            regime.tidal_indicator = true
             is_expected.to validate_presence_of :tidal_percentage
           end
           it "doesn't validate #tidal_percentage when the regime is not tidal" do
-            subject.tidal_indicator = false
+            regime.tidal_indicator = false
             is_expected.not_to validate_presence_of :tidal_percentage
           end
         end
 
         def has_numeric_validation(attribute, range)
-          subject.send("#{attribute}=".to_sym, range.first - 1)
-          subject.valid?
+          regime.send("#{attribute}=".to_sym, range.first - 1)
+          regime.valid?
           expected_message = I18n.t(
             "errors.messages.numeric_inclusion",
             from: range.first,
             to: range.last
           )
-          subject.errors[attribute].include?(expected_message)
+          regime.errors[attribute].include?(expected_message)
 
           # clear errors and do with range.last?
         end
 
         it "tidal_percentage validates numeric_inclusion" do
-          subject.tidal_indicator = true
+          regime.tidal_indicator = true
           expect(
             has_numeric_validation(:tidal_percentage,
                                    APDRegime::VALID_RANGES.tidal_percentages)
