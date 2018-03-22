@@ -32,7 +32,7 @@ module Renalware
             PracticeMailer.patient_letter(
               letter: letter,
               to: practice_email_address,
-              recipient: gp_recipient
+              recipient: nil # TODO
             ).deliver_later
 
             # Flag as sent
