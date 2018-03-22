@@ -26,7 +26,7 @@ describe Renalware::HD::ProtocolPresenter do
 
       presenter.prescriptions
       expect(presenter.prescriptions.length).to eq(1)
-      expect(presenter.prescriptions.first.administer_on_hd).to be_truthy
+      expect(presenter.prescriptions.first.administer_on_hd).to eq(true)
     end
   end
 

@@ -6,6 +6,7 @@ require_dependency "models/renalware/concerns/personable"
 module Renalware::Patients
   describe PrimaryCarePhysician, type: :model do
     subject(:primary_care_physician) { create(:primary_care_physician) }
+
     it { is_expected.to have_many(:practice_memberships) }
     it { is_expected.to have_many(:practices).through(:practice_memberships) }
 

@@ -6,6 +6,7 @@ module Renalware
   module Letters
     RSpec.describe Delivery::PracticeEmail do
       subject(:email) { described_class.new(letter) }
+
       let(:user) { build_stubbed(:user) }
       let(:practice) { build_stubbed(:practice, email: "practice@example.com") }
       let(:patient) { build_stubbed(:letter_patient, practice: practice) }

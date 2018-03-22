@@ -11,7 +11,7 @@ module Renalware::Pathology
         nonexistent_patient_id = 919191919
         params = build_params(nonexistent_patient_id, request_description, observation_description)
 
-        expect{ subject.call(params) }.not_to change{ Observation.count }
+        expect{ subject.call(params) }.not_to change(Observation, :count)
       end
 
       it "creates the request and related observations", :aggregate_failures do

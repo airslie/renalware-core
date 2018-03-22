@@ -33,7 +33,7 @@ describe Renalware::Letters::SavePdfLetterToFileJob do
 
       job.perform(letter: letter, file_path: file_path)
 
-      expect(File.exist?(file_path)).to be_truthy
+      expect(File.exist?(file_path)).to eq(true)
     end
   end
 end

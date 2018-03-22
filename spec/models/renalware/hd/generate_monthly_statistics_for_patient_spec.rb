@@ -18,7 +18,7 @@ module Renalware
           create(:hd_closed_session, patient: patient, hospital_unit: hospital_unit)
         end
 
-        expect { command.call }.to change { PatientStatistics.count }.by(1)
+        expect { command.call }.to change(PatientStatistics, :count).by(1)
 
         stats = PatientStatistics.first
         expect(stats.patient.id).to eq(patient.id)

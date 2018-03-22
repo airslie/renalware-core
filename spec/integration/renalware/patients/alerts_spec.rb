@@ -26,7 +26,7 @@ RSpec.describe "Managing alerts", type: :request do
         alert = Renalware::Patients::Alert.find_by(patient_id: patient.id)
 
         expect(alert).not_to be_nil
-        expect(alert.urgent).to be_truthy
+        expect(alert.urgent).to eq(true)
         expect(alert.notes).to eq("An alert")
       end
     end

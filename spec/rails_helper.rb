@@ -9,7 +9,7 @@ if ENV.key?("CC_TEST_REPORTER_ID") || ENV.key?("SIMPLECOV")
   SimpleCov.command_name "RSpec"
 end
 
-require File.expand_path("../dummy/config/environment", __FILE__)
+require File.expand_path("dummy/config/environment", __dir__)
 require "spec_helper"
 require "fuubar"
 require "rspec/rails"

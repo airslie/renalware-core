@@ -22,7 +22,7 @@ module Renalware::Medications
         end
 
         it "returns true" do
-          expect(prescription_revision).to be_truthy
+          expect(prescription_revision).to eq(true)
         end
 
         it "terminates the original prescription and creates a new one" do

@@ -27,7 +27,7 @@ module Renalware
                 subject.call(patient: patient,
                              author: author,
                              form: form)
-              end.to change { Message.count }.by(1)
+              end.to change(Message, :count).by(1)
 
               expect(recipient1.reload.messages.count).to eq(1)
               expect(recipient2.reload.messages.count).to eq(1)

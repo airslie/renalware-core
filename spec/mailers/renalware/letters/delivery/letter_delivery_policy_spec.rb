@@ -34,6 +34,7 @@ module Renalware
 
           context "when the patient has no practice" do
             let(:patient) { build_stubbed(:letter_patient) }
+
             it { is_expected.to be_falsey }
           end
 
@@ -54,7 +55,7 @@ module Renalware
             let(:practice) { build_stubbed(:practice, email: "practice@example.com") }
             let(:patient) { build_stubbed(:letter_patient, practice: practice) }
 
-            it { is_expected.to be_truthy }
+            it { is_expected.to eq(true) }
           end
         end
       end
@@ -65,7 +66,7 @@ module Renalware
       #     before { allow(policy).to receive(:email_letter_to_practice?).and_return(false) }
 
       #     it "includes the gp in other_recipients" do
-      #       expect(policy.other_recipients.find(&:primary_care_physician?)).to be_truthy
+      #       expect(policy.other_recipients.find(&:primary_care_physician?)).to eq(true)
       #     end
       #   end
 

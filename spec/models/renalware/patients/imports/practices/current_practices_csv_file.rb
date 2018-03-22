@@ -51,8 +51,8 @@ module Renalware
 
               expect{
                 CurrentPracticesCSVFile.new(dummy_pathname).import
-              }.to change{ Practice.count }.by(1)
-               .and change{ Address.count }.by(1)
+              }.to change(Practice, :count).by(1)
+               .and change(Address, :count).by(1)
 
               practice = Practice.first
               expect(practice.code).to eq(PRACTICE_CODE)
@@ -70,7 +70,7 @@ module Renalware
               mock_csv_open(pathname: dummy_pathname, contents: closed_practice_row)
               expect{
                 CurrentPracticesCSVFile.new(dummy_pathname).import
-              }.to_not change{ Practice.count }
+              }.not_to change(Practice, :count)
             end
 
             it "soft deletes an existing practice if its status has changed away from 'active'" do
@@ -79,7 +79,7 @@ module Renalware
 
               expect{
                 CurrentPracticesCSVFile.new(dummy_pathname).import
-              }.to change{ Practice.count }.from(1).to(0)
+              }.to change(Practice, :count).from(1).to(0)
                .and change{ Practice.deleted.count }.from(0).to(1)
             end
           end

@@ -8,6 +8,7 @@ module Renalware
       subject(:mail) do
         described_class.patient_letter(letter: letter, to: recipient_email, recipient: recipient)
       end
+
       let(:recipient_email) { "practice@example.com" }
       let(:recipient) { instance_double(Letters::Recipient) }
 

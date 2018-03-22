@@ -100,7 +100,7 @@ module Renalware
 
               prescriptions = Prescription.to_be_administered_on_hd
               expect(prescriptions.length).to eq(1)
-              expect(prescriptions.first.administer_on_hd).to be_truthy
+              expect(prescriptions.first.administer_on_hd).to eq(true)
               expect(prescriptions.first).to eq(target)
             end
           end
