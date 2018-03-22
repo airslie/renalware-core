@@ -9,7 +9,8 @@
                 wrapper: :horizontal_datepicker
       = f.association :assessor,
                       as: :user_picker,
-                      collection: Renalware::User.ordered
+                      collection: Renalware::User.ordered,
+                      wrapper: :horizontal_medium
 .row
   .large-12.columns
     = f.button :submit
