@@ -9,6 +9,20 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.9
+22-03-2017
+
+### Added
+### Changed
+### Fixed
+- Female default name prefix changed from Mme to Ms
+- Use patient title in patient summary in letters
+- Fixed default sort order in user's letters list
+- Fixed sorting by eg HGB result in MDM patients lists
+- Fixed HD Audit delayed job error failing with non-numeric path results
+- Remove misplaced Dear in front of GP addresses in letters
+- Increase padding below CC: heading in letters
+
 ## 2.0.8
 19-03-2017
 
