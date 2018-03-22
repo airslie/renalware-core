@@ -34,6 +34,7 @@ module Renalware
 
           context "when the patient has no practice" do
             let(:patient) { build_stubbed(:letter_patient) }
+
             it { is_expected.to be_falsey }
           end
 

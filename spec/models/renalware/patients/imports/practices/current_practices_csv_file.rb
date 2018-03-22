@@ -70,7 +70,7 @@ module Renalware
               mock_csv_open(pathname: dummy_pathname, contents: closed_practice_row)
               expect{
                 CurrentPracticesCSVFile.new(dummy_pathname).import
-              }.to_not change(Practice, :count)
+              }.not_to change(Practice, :count)
             end
 
             it "soft deletes an existing practice if its status has changed away from 'active'" do
