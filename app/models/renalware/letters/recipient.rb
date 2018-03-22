@@ -44,7 +44,7 @@ module Renalware
         addressee_id == contact.id
       end
 
-      def statment_to_indicate_letter_was_emailed_ok
+      def statment_to_indicate_letter_will_be_emailed
         if primary_care_physician? && practice_email_address.present?
           "VIA EMAIL to #{practice_email_address}"
         end

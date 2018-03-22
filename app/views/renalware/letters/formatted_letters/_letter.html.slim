@@ -287,7 +287,7 @@ scss:
       .address
         p
           = letter.main_recipient.to_html
-          - email_statement = letter.main_recipient.statment_to_indicate_letter_was_emailed_ok
+          - email_statement = letter.main_recipient.statment_to_indicate_letter_will_be_emailed
           - if email_statement.present?
             br
             = email_statement
@@ -341,6 +341,6 @@ scss:
         .address.nobreak
           p
             = cc.to_html
-            - if cc.statment_to_indicate_letter_was_emailed_ok.present?
+            - if cc.statment_to_indicate_letter_will_be_emailed.present?
               br
-              = cc.statment_to_indicate_letter_was_emailed_ok
+              = cc.statment_to_indicate_letter_will_be_emailed
