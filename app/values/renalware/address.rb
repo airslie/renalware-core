@@ -3,9 +3,13 @@ module Renalware
     belongs_to :country, class_name: "System::Country"
     validates :email, email: true, allow_blank: true
     delegate :uk?, to: :country, allow_nil: true
-    validates_with AddressValidator
 
     belongs_to :addressable, polymorphic: true
+
+    # Set to true to avoid address validation - useful when archiving a letter with a migrated
+    # address that might not have a postcode for instance
+    attr_accessor :skip_validation
+    validates_with AddressValidator, unless: :skip_validation
 
     def self.reject_if_blank
       lambda { |attrs|

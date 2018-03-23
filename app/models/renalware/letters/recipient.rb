@@ -30,6 +30,11 @@ module Renalware
         build_address if address.blank?
 
         address.copy_from(current_address)
+        # Its possible a migrated address might not have a postcode. Don't let archiving fail
+        # at this stage because of that as the user cannot be informed at this stage
+        # so skip address validation.
+        address.skip_validation = true
+
         address.save!
       end
 
