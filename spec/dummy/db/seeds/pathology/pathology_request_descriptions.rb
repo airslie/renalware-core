@@ -2,7 +2,6 @@
 
 module Renalware
   log "Adding Pathology Request Descriptions" do
-
     file_path = File.join(File.dirname(__FILE__), "pathology_request_descriptions.csv")
     labs = Pathology::Lab.all.index_by(&:name)
 

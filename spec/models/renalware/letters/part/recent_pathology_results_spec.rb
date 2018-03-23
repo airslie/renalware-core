@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
+
 require "rails_helper"
 
 module Renalware::Letters
@@ -55,31 +57,40 @@ module Renalware::Letters
         let(:pathology_snapshot) do
           {
             NA: { result: 134, observed_at: obr_3_date },
+            POT: { result: 6.0, observed_at: obr_3_date },
             PLT: { result: 329, observed_at: obr_1_date },
             WBC: { result: 15.32, observed_at: obr_1_date },
-            URE: { result: 24.8, observed_at: obr_2_date },
             ALB: { result: 41, observed_at: obr_5_date },
-            EGFR: { result: 6, observed_at: obr_3_date },
             HGB: { result: 122, observed_at: obr_1_date },
-            POT: { result: 6.0, observed_at: obr_3_date },
             CRE: { result: 782, observed_at: obr_3_date },
-            BIC: { result: 18, observed_at: obr_4_date },
+            EGFR: { result: 782, observed_at: obr_3_date },
             CCA: { result: 2.29, observed_at: obr_5_date },
-            PHOS: { result: 2.52, observed_at: obr_5_date }
+            PHOS: { result: 2.52, observed_at: obr_5_date },
+            URE: { result: 2.52, observed_at: obr_1_date },
+            BIC: { result: 2.52, observed_at: obr_1_date },
+            PTHI: { result: 2.52, observed_at: obr_1_date },
+            BIL: { result: 2.52, observed_at: obr_2_date },
+            AST: { result: 2.52, observed_at: obr_2_date },
+            ALP: { result: 2.52, observed_at: obr_2_date },
+            GGT: { result: 2.52, observed_at: obr_2_date },
+            HBA: { result: 2.52, observed_at: obr_1_date },
+            CHOL: { result: 2.52, observed_at: obr_1_date }
           }
         end
 
         it "returns a string of observations grouped by OBR date "\
            "and ordered correctly" do
           create_all_letter_observation_descriptions
-          expected_results =
-            "12-Dec-2016: HGB 122, PLT 329, WBC 15.32; "\
-            "12-Dec-2017: URE 24.8; "\
-            "11-Nov-2017: CRE 782, EGFR 6, POT 6.0, NA 134; "\
-            "11-Nov-2017: BIC 18; "\
-            "11-Oct-2017: CCA 2.29, PHOS 2.52, ALB 41;"
 
-          expect(results).to eq(expected_results)
+          expect(results).to eq(
+            "<span>12-Dec-2016</span>: HGB 122, WBC 15.32, PLT 329; "\
+            "<span>12-Dec-2016</span>: URE 2.52; <span>11-Nov-2017</span>: CRE 782, EGFR 782; "\
+            "<span>11-Nov-2017</span>: NA 134, POT 6.0; <span>12-Dec-2016</span>: BIC 2.52; " \
+            "<span>11-Oct-2017</span>: CCA 2.29, PHOS 2.52; "\
+            "<span>12-Dec-2016</span>: PTHI 2.52; <span>11-Oct-2017</span>: ALB 41; "\
+            "<span>12-Dec-2017</span>: BIL 2.52, AST 2.52, ALP 2.52, GGT 2.52; "\
+            "<span>12-Dec-2016</span>: HBA 2.52; <span>12-Dec-2016</span>: CHOL 2.52;"
+          )
         end
       end
 
@@ -97,14 +108,52 @@ module Renalware::Letters
         it "displays those results and nothing for the others" do
           create_all_letter_observation_descriptions
 
-          expect(results).to eq("12-Dec-2016: HGB 122, PLT 329, WBC 15.32;")
+          expect(results).to eq("<span>12-Dec-2016</span>: HGB 122, WBC 15.32, PLT 329;")
         end
       end
 
-      def create_all_letter_observation_descriptions
-        RelevantObservationDescription.codes.each do |code|
-          create(:pathology_observation_description, code: code, name: code)
+      context "when for some reason in Full Blood Count group PLT has a separate date" do
+        let(:date1) { "2016-12-12 00:01:01" }
+        let(:date2) { "2016-12-13 00:01:01" }
+        let(:pathology_snapshot) do
+          {
+            PLT: { result: 329, observed_at: date2 },
+            WBC: { result: 15.32, observed_at: date1 },
+            HGB: { result: 122, observed_at: date1 }
+          }
         end
+        let(:letter) { instance_double(Letter, pathology_snapshot: pathology_snapshot) }
+
+        it "displays those results and nothing for the others" do
+          create_all_letter_observation_descriptions
+
+          expect(results).to eq(
+            "<span>12-Dec-2016</span>: HGB 122, WBC 15.32 <span>13-Dec-2016</span>: PLT 329;"
+          )
+        end
+      end
+
+      # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Metrics/AbcSize
+      def create_all_letter_observation_descriptions
+        create(:pathology_observation_description, code: "HGB", name: "HGB", letter_group: 1, letter_order: 1)
+        create(:pathology_observation_description, code: "WBC", name: "WBC", letter_group: 1, letter_order: 2)
+        create(:pathology_observation_description, code: "PLT", name: "PLT", letter_group: 1, letter_order: 3)
+        create(:pathology_observation_description, code: "URE", name: "URE", letter_group: 2, letter_order: 1)
+        create(:pathology_observation_description, code: "CRE", name: "CRE", letter_group: 3, letter_order: 1)
+        create(:pathology_observation_description, code: "EGFR", name: "EGFR", letter_group: 3, letter_order: 2)
+        create(:pathology_observation_description, code: "NA", name: "NA", letter_group: 4, letter_order: 1)
+        create(:pathology_observation_description, code: "POT", name: "POT", letter_group: 4, letter_order: 2)
+        create(:pathology_observation_description, code: "BIC", name: "BIC", letter_group: 5, letter_order: 1)
+        create(:pathology_observation_description, code: "CCA", name: "CCA", letter_group: 6, letter_order: 1)
+        create(:pathology_observation_description, code: "PHOS", name: "PHOS", letter_group: 6, letter_order: 2)
+        create(:pathology_observation_description, code: "PTHI", name: "PTHI", letter_group: 7, letter_order: 1)
+        create(:pathology_observation_description, code: "ALB", name: "ALB", letter_group: 8, letter_order: 1)
+        create(:pathology_observation_description, code: "BIL", name: "BIL", letter_group: 9, letter_order: 1)
+        create(:pathology_observation_description, code: "AST", name: "AST", letter_group: 9, letter_order: 2)
+        create(:pathology_observation_description, code: "ALP", name: "ALP", letter_group: 9, letter_order: 3)
+        create(:pathology_observation_description, code: "GGT", name: "GGT", letter_group: 9, letter_order: 4)
+        create(:pathology_observation_description, code: "HBA", name: "HBA", letter_group: 10, letter_order: 1)
+        create(:pathology_observation_description, code: "CHOL", name: "CHOL", letter_group: 11, letter_order: 1)
       end
     end
   end
