@@ -16,6 +16,12 @@ module Renalware
         super(view_context)
       end
 
+      def latest_dry_weight
+        @latest_dry_weight ||= begin
+          Clinical::DryWeight.for_patient(patient).order(assessed_on: :desc).first
+        end
+      end
+
       # TODO: some emerging duplication with HD::DashboardPresenter and forthcoming MDMPresenter?
       #       Could have a base HD presenter or mixin required elements e.g. from concerns
       def preference_set

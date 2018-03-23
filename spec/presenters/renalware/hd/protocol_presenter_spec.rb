@@ -8,6 +8,7 @@ describe Renalware::HD::ProtocolPresenter do
     subject(:presenter) { described_class.new(nil, nil) }
 
     let(:patient) { nil }
+    let(:user) { create(:user) }
 
     it { is_expected.to respond_to(:preference_set) }
     it { is_expected.to respond_to(:access) }
@@ -15,6 +16,7 @@ describe Renalware::HD::ProtocolPresenter do
     it { is_expected.to respond_to(:patient_title) }
     it { is_expected.to respond_to(:prescriptions) }
     it { is_expected.to respond_to(:recent_pathology) }
+    it { is_expected.to respond_to(:latest_dry_weight) }
   end
 
   describe "#prescriptions" do
@@ -27,6 +29,17 @@ describe Renalware::HD::ProtocolPresenter do
       presenter.prescriptions
       expect(presenter.prescriptions.length).to eq(1)
       expect(presenter.prescriptions.first.administer_on_hd).to eq(true)
+    end
+  end
+
+  describe "#latest_dry_weight" do
+    it "returns the latest dry weight" do
+      patient = create(:clinical_patient)
+      create(:dry_weight, patient: patient, weight: 123, assessed_on: 1.year.ago)
+      newer = create(:dry_weight, patient: patient, weight: 234, assessed_on: 1.day.ago)
+      presenter = described_class.new(patient, nil)
+
+      expect(presenter.latest_dry_weight).to eq(newer)
     end
   end
 

@@ -23,7 +23,9 @@
           td= render "profile", profile: protocol.profile
           td= render "allergies", patient: protocol.patient
           td= render "prescriptions", prescriptions: protocol.prescriptions
-          td= render "recent_pathology", recent_pathology: protocol.recent_pathology
+          td
+            = render "recent_pathology", recent_pathology: protocol.recent_pathology
+            = render "latest_dry_weight", latest_dry_weight: protocol.latest_dry_weight
 
     .row.collapse
       .small-12.columns

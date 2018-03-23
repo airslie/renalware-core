@@ -1,0 +1,13 @@
+table.recent-pathology
+  tbody
+    tr
+      th(colspan=2) Latest Dry Weight
+    - if latest_dry_weight.present?
+      tr
+        td
+          = latest_dry_weight.weight
+          | &nbsp;kg
+        td
+          = (l(latest_dry_weight.assessed_on))
+    - else
+      td(colspan=2) Unknown
