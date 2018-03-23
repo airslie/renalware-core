@@ -16,7 +16,7 @@ module Renalware
 
       def results
         @results ||= begin
-          snapshot = letter.pathology_snapshot&.dup
+          snapshot = letter.pathology_snapshot.dup
           return if snapshot.blank?
           groups = group_snapshot_by_code_and_date(snapshot)
           format_groups_into_string(groups)
