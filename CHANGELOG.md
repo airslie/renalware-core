@@ -9,8 +9,17 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.11
+23-03-2017
+
+### Added
+- Added latest dry weight to HD Protocol
+### Changed
+### Fixed
+- Error approving a letter with an address with no postcode
+
 ## 2.0.10
-22-04-2017
+22-03-2017
 
 ### Added
 - Display VIA EMAIL to xxx is recipient/cc is a GP and patient's practice has an email address
