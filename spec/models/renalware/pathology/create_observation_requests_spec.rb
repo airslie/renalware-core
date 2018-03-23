@@ -4,6 +4,8 @@ require "rails_helper"
 
 module Renalware::Pathology
   RSpec.describe CreateObservationRequests do
+    subject(:service) { described_class.new }
+
     describe "#call" do
       it "takes no action if the patient is not found", :aggregate_failures do
         request_description = create(:pathology_request_description)
@@ -11,7 +13,7 @@ module Renalware::Pathology
         nonexistent_patient_id = 919191919
         params = build_params(nonexistent_patient_id, request_description, observation_description)
 
-        expect{ subject.call(params) }.not_to change(Observation, :count)
+        expect{ service.call(params) }.not_to change(Observation, :count)
       end
 
       it "creates the request and related observations", :aggregate_failures do
@@ -20,7 +22,7 @@ module Renalware::Pathology
         observation_description = create(:pathology_observation_description)
         params = build_params(patient.id, request_description, observation_description)
 
-        expect{ subject.call(params) }.to change{ patient.reload.updated_at }
+        expect{ service.call(params) }.to change{ patient.reload.updated_at }
 
         expect(patient.observation_requests.count).to eq(1)
         expect(patient.observations.count).to eq(1)

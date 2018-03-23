@@ -20,7 +20,7 @@ module Renalware::Patients
       }
 
       it "transfers attributes from the message payload to the params" do
-        params = subject.parse(message_payload)
+        params = described_class.new.parse(message_payload)
 
         expect(params).to eq(
           {

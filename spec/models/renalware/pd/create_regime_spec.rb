@@ -5,10 +5,11 @@ require "rails_helper"
 module Renalware
   module PD
     RSpec.describe CreateRegime do
+      subject(:service) { CreateRegime.new(patient: patient).call(by: user, params: params) }
+
       let(:user) { create(:user) }
       let(:patient) { create(:patient, by: user) }
       let(:bag_type) { create(:bag_type) }
-      let(:subject) { CreateRegime.new(patient: patient).call(by: user, params: params) }
       let(:pre_existing_regime) do
         regime = build(:apd_regime,
                        add_hd: false,
@@ -32,21 +33,21 @@ module Renalware
           end
 
           it "returns true with the new regime" do
-            expect(subject).to be_success
-            expect(subject.object).to be_kind_of(Regime)
-            expect(subject.object).to be_persisted
+            expect(service).to be_success
+            expect(service.object).to be_kind_of(Regime)
+            expect(service.object).to be_persisted
           end
 
           it "makes the new regime current" do
-            expect(subject.object).to be_current
+            expect(service.object).to be_current
           end
 
           it "terminates the previous regime" do
             expect(pre_existing_regime).to be_current
 
-            expect(subject.object).to be_current
+            expect(service.object).to be_current
             expect(pre_existing_regime).to be_terminated
-            expect(pre_existing_regime.reload.end_date).to eq(subject.object.start_date)
+            expect(pre_existing_regime.reload.end_date).to eq(service.object.start_date)
           end
         end
 
@@ -54,9 +55,9 @@ module Renalware
           let(:params) { attributes_for(:apd_regime) } # no bags
 
           it "returns failure with the unsaved regime" do
-            expect(subject).to be_failure
-            expect(subject.object).to be_kind_of(Regime)
-            expect(subject.object).not_to be_persisted
+            expect(service).to be_failure
+            expect(service.object).to be_kind_of(Regime)
+            expect(service.object).not_to be_persisted
           end
         end
       end

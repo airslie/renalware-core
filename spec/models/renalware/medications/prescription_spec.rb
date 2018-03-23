@@ -6,6 +6,8 @@ require "rails_helper"
 module Renalware
   module Medications
     RSpec.describe Prescription, type: :model do
+      subject(:prescription) { described_class.new }
+
       it_behaves_like "an Accountable model"
 
       describe "validations" do
@@ -18,35 +20,33 @@ module Renalware
         it { is_expected.to validate_presence_of(:frequency) }
         it { is_expected.to validate_presence_of(:prescribed_on) }
         it { is_expected.to validate_presence_of(:provider) }
-
         it { is_expected.to belong_to(:patient).touch(true) }
-
         it { is_expected.to respond_to(:last_delivery_date) }
 
         describe "#valid?" do
           describe "route description" do
             context "with a route" do
-              before { subject.medication_route = build(:medication_route) }
+              before { prescription.medication_route = build(:medication_route) }
 
               it { is_expected.not_to validate_presence_of(:route_description) }
             end
 
             context "with an `other` route" do
-              before { subject.medication_route = build(:medication_route, :other) }
+              before { prescription.medication_route = build(:medication_route, :other) }
 
               it { is_expected.to validate_presence_of(:route_description) }
             end
 
             context "with a route and a route description" do
               before do
-                subject.medication_route = build(:medication_route)
-                subject.route_description = "::route description::"
+                prescription.medication_route = build(:medication_route)
+                prescription.route_description = "::route description::"
               end
 
               it "adds an error" do
-                subject.valid?
+                prescription.valid?
 
-                expect(subject.errors[:route_description]).to be_present
+                expect(prescription.errors[:route_description]).to be_present
               end
             end
           end

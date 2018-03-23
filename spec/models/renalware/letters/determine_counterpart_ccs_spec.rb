@@ -7,7 +7,7 @@ module Renalware
     RSpec.describe DetermineCounterpartCCs, type: :model do
       include LettersSpecHelper
 
-      subject { DetermineCounterpartCCs.new(letter) }
+      subject(:service) { DetermineCounterpartCCs.new(letter) }
 
       let(:patient) { build(:letter_patient) }
 
@@ -16,7 +16,7 @@ module Renalware
           let(:letter) { build_letter(to: :patient, patient: patient) }
 
           it "determines the primary_care_physician as a CC recipient" do
-            cc_recipients = subject.call
+            cc_recipients = service.call
             expect(cc_recipients.size).to eq(1)
             expect(cc_recipients.first.person_role).to eq("primary_care_physician")
           end
@@ -31,7 +31,7 @@ module Renalware
             end
 
             it "determines the patient as a CC recipient" do
-              cc_recipients = subject.call
+              cc_recipients = service.call
 
               expect(cc_recipients.size).to eq(1)
               expect(cc_recipients.first.person_role).to eq("patient")
@@ -44,7 +44,7 @@ module Renalware
             end
 
             it "does not determine the patient as a CC recipient" do
-              cc_recipients = subject.call
+              cc_recipients = service.call
 
               expect(cc_recipients).to be_empty
             end
@@ -60,7 +60,7 @@ module Renalware
             end
 
             it "determines the patient and the Primary Care Physician as CC recipients" do
-              cc_recipients = subject.call
+              cc_recipients = service.call
 
               expect(cc_recipients.size).to eq(2)
               person_roles = cc_recipients.map(&:person_role)

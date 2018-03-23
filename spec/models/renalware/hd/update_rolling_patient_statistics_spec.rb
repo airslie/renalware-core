@@ -18,7 +18,7 @@ module Renalware::HD
       create(:hd_closed_session, patient: patient, by: user, hospital_unit: hospital_unit)
       create(:hd_dna_session, patient: patient, by: user, hospital_unit: hospital_unit)
 
-      subject.call
+      command.call
 
       expect(PatientStatistics.count).to eq(1)
       patient_statistics = PatientStatistics.first

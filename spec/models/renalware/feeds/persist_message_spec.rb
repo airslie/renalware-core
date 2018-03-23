@@ -4,6 +4,8 @@ require "rails_helper"
 
 module Renalware::Feeds
   RSpec.describe PersistMessage do
+    subject(:service) { described_class.new }
+
     describe "#call" do
       let(:message_payload) {
         double(
@@ -15,7 +17,7 @@ module Renalware::Feeds
       }
 
       it "persists the payload" do
-        expect{ subject.call(message_payload) }.to change(Message, :count).by(1)
+        expect{ service.call(message_payload) }.to change(Message, :count).by(1)
       end
     end
   end

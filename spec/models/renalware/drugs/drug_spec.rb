@@ -4,17 +4,18 @@ require "rails_helper"
 
 module Renalware::Drugs
   RSpec.describe Drug, type: :model do
-    subject { build(:drug) }
+    subject(:drug) { build(:drug) }
+
     it { is_expected.to have_many(:classifications) }
     it { is_expected.to have_many(:drug_types).through(:classifications) }
     it_behaves_like "a Paranoid model"
 
     describe "destroy" do
       it "soft deletes the drug" do
-        subject.save!
-        expect{ subject.destroy! }.to change(Drug, :count).by(-1)
-        soft_deleted = Drug.with_deleted.find(subject.id)
-        expect(soft_deleted).to eq(subject)
+        drug.save!
+        expect{ drug.destroy! }.to change(Drug, :count).by(-1)
+        soft_deleted = Drug.with_deleted.find(drug.id)
+        expect(soft_deleted).to eq(drug)
         expect(soft_deleted.deleted_at).not_to be_nil
       end
     end
@@ -24,15 +25,15 @@ module Renalware::Drugs
         @antibiotic = create(:drug_type, code: "antibiotic", name: "Antibiotic")
         @esa = create(:drug_type, code: "esa", name: "ESA")
 
-        subject.drug_types << @antibiotic
-        subject.drug_types << @esa
+        drug.drug_types << @antibiotic
+        drug.drug_types << @esa
 
-        subject.save!
-        subject.reload
+        drug.save!
+        drug.reload
 
-        expect(subject.drug_types.size).to eq(2)
+        expect(drug.drug_types.size).to eq(2)
 
-        expect(subject).to be_valid
+        expect(drug).to be_valid
       end
     end
   end

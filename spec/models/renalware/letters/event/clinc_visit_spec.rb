@@ -5,11 +5,11 @@ require "rails_helper"
 module Renalware::Letters
   describe Event::ClinicVisit do
     context "with a clinical letter" do
-      subject { described_class.new(nil, clinical: true) }
+      subject(:clinic_visit) { described_class.new(nil, clinical: true) }
 
       describe "#part_classes" do
         it "contains the default clinical part classes and clinical" do
-          expect(subject.part_classes).to eq(
+          expect(clinic_visit.part_classes).to eq(
             {
               problems: Part::Problems,
               prescriptions: Part::Prescriptions,
@@ -21,13 +21,13 @@ module Renalware::Letters
         end
       end
 
-      it "has a #to_s of Clinical" do
-        expect(subject.to_s).to eq("Clinic Visit")
+      describe ".to_s" do
+        subject { clinic_visit.to_s }
+
+        it { is_expected.to eq("Clinic Visit") }
       end
 
-      it "is clinical" do
-        expect(subject).to be_clinical
-      end
+      it { is_expected.to be_clinical }
     end
   end
 end
