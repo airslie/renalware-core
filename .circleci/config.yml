@@ -14,7 +14,7 @@ jobs:
           - DISABLE_SPRING: 1
       - image: circleci/postgres:10.1-alpine
 
-    parallelism: 1
+    parallelism: 2
     steps:
       - checkout
       - run: git submodule sync ; git submodule update --init
@@ -55,32 +55,30 @@ jobs:
       # RSpec
       - type: shell
         command: |
-          bundle exec rspec --profile 10 \
+          case $CIRCLE_NODE_INDEX in 0) bundle exec rspec --profile 10 \
                             --format RspecJunitFormatter \
                             --out /tmp/test-results/rspec.xml \
-                            --format progress
-      # \
-      # $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+                            --format progress \
+                            --fail-fast ;; esac
+          # $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
       # Cucumber domain features
       - type: shell
         command: |
-          bundle exec cucumber --format progress \
+          case $CIRCLE_NODE_INDEX in 1) bundle exec cucumber --format progress \
                                --format junit \
-                               --out /tmp/test-results/cucumber-domain.xml
-      # \
-      # $(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings)
+                               --out /tmp/test-results/cucumber-domain.xml ;; esac
+          # $(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings)
 
       # Cucumber web features
       - type: shell
         command: |
-          TEST_DEPTH=web bundle exec cucumber \
+          case $CIRCLE_NODE_INDEX in 1) TEST_DEPTH=web bundle exec cucumber \
                                -p rake_web \
                                --format progress \
                                --format junit \
-                               --out /tmp/test-results/cucumber-web.xml
-      # \
-      # $(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings)
+                               --out /tmp/test-results/cucumber-web.xml ;; esac
+          # $(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings)
 
       # Save artifacts ie coverage data
       - store_artifacts:
