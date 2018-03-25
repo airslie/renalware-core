@@ -10,6 +10,8 @@ module Renalware
 
       describe "policy methods" do
         context "when the patient has the LowClearance modality" do
+          subject{ described_class.new(patient: patient) }
+
           let(:patient) do
             build(:low_clearance_patient).tap do |pat|
               set_modality(
@@ -19,7 +21,6 @@ module Renalware
               )
             end
           end
-          subject{ described_class.new(patient: patient) }
 
           it "allows adding a profile if the patient has none" do
             patient

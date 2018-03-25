@@ -5,8 +5,9 @@ require "rails_helper"
 
 module Renalware::Feeds
   RSpec.describe MessageParser do
-    let(:message_parser) { described_class.new }
     subject(:message){ message_parser.parse(raw_message) }
+
+    let(:message_parser) { described_class.new }
 
     describe "#parse" do
       context "with a message with >1 OBR each with >1 OBX observation segments" do

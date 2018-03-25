@@ -5,6 +5,7 @@ require "rails_helper"
 module Renalware::Feeds
   RSpec.describe File do
     subject { Renalware::Feeds::File.new }
+
     it_behaves_like "an Accountable model"
     it { is_expected.to validate_presence_of(:location) }
     it { is_expected.to validate_presence_of(:status) }

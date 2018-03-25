@@ -92,7 +92,7 @@ module Renalware::Pathology
 
           parser = described_class.new(message_payload, logger)
 
-          expect(parser.renalware_patient?).to be_falsey
+          expect(parser).not_to be_renalware_patient
           expect(parser.parse).to be_nil
         end
       end

@@ -5,7 +5,6 @@ require "builder"
 
 describe "Document element" do
   helper(Renalware::ApplicationHelper)
-  let(:patient) { instance_double(Renalware::UKRDC::PatientPresenter, letters: []) }
   subject do
     render partial: "renalware/api/ukrdc/patients/documents.xml.builder",
            locals: {
@@ -13,6 +12,8 @@ describe "Document element" do
              builder: Builder::XmlMarkup.new
            }
   end
+
+  let(:patient) { instance_double(Renalware::UKRDC::PatientPresenter, letters: []) }
 
   context "when there are no letters" do
     it { is_expected.to include("<Documents></Documents>") }
@@ -24,6 +25,7 @@ describe "Document element" do
       Renalware::Letters::Letter::Approved.new(created_at: time, issued_on: time.to_date)
     }
     let(:presenter) { Renalware::Letters::LetterPresenterFactory.new(letter) }
+
     before do
       allow(patient).to receive(:letters).and_return([presenter])
       allow(letter).to receive(:author).and_return(instance_double(Renalware::User, username: "x"))

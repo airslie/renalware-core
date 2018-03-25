@@ -72,7 +72,7 @@ module Renalware
           end
 
           context "when a GP was previously inactive but becomes active" do
-            it "it removes the soft delete" do
+            it "removes the soft delete" do
               pending("PG COPY not avail on CircleCI docker setup yet") if ENV.key?("CI")
 
               previously_inactive_gp = create(

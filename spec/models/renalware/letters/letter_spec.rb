@@ -17,10 +17,11 @@ module Renalware
       it { is_expected.to respond_to(:pathology_snapshot) }
 
       describe "#include_pathology_in_letter_body?" do
+        subject { described_class.new(letterhead: letterhead).include_pathology_in_letter_body? }
+
         let(:letterhead) do
           build_stubbed(:letter_letterhead, include_pathology_in_letter_body: true)
         end
-        subject { described_class.new(letterhead: letterhead).include_pathology_in_letter_body? }
 
         it { is_expected.to eq(true) }
       end

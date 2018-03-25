@@ -93,7 +93,7 @@ module Renalware
           end
 
           context "when a practice was previously inactive but becomes active" do
-            it "it removes the soft delete" do
+            it "removes the soft delete" do
               pending("PG COPY not avail on CircleCI docker setup yet") if ENV.key?("CI")
               create(:practice, code: "A11111", deleted_at: 1.day.ago)
 
