@@ -45,7 +45,7 @@ module Renalware
       describe "the TRIGGER on pathology_observations that updates current_observation_set" do
         context "when a patient has no current_observation_set yet" do
           it "creating an observation adds it to the current_observation_set jsonb hash" do
-            time = Time.zone.now
+            time = Time.now.utc
             patient = create(:pathology_patient)
             expect{
               create_hgb_observation(patient: patient, observed_at: time, result: 123.1)
@@ -61,7 +61,7 @@ module Renalware
         context "when a patient has a current_observation_set with an entry for HGB" do
           context "when a new HGB observation is created (importantly with a newer date)" do
             it "updates the values hash with the new result and time" do
-              time = Time.zone.now
+              time = Time.now.utc
               patient = create(:pathology_patient)
               obs = create_hgb_observation(patient: patient, observed_at: time, result: 111.1)
 
@@ -83,7 +83,7 @@ module Renalware
 
           context "when another HGB observation is created but with an OLDER date" do
             it "does not update the values hash" do
-              time = Time.zone.now
+              time = Time.now.utc
               patient = create(:pathology_patient)
               obs = create_hgb_observation(patient: patient, observed_at: time, result: 111.1)
               # trigger has now updated the current_observation_set
@@ -106,7 +106,7 @@ module Renalware
 
           context "when another HGB observation is updated and has a NEWER date" do
             it "updates the values hash with the new result and time" do
-              time = Time.zone.now
+              time = Time.now.utc
               patient = create(:pathology_patient)
               obs = create_hgb_observation(patient: patient, observed_at: time, result: 111.1)
               # trigger has now updated the current_observation_set
@@ -123,7 +123,7 @@ module Renalware
 
           context "when an HGB observation is updated with the same date but different result" do
             it "updates the values hash with the new result and time" do
-              time = Time.zone.now
+              time = Time.now.utc
               patient = create(:pathology_patient)
               obs = create_hgb_observation(patient: patient, observed_at: time, result: 111.1)
               # trigger has now updated the current_observation_set
