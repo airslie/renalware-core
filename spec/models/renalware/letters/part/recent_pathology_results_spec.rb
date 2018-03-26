@@ -78,13 +78,7 @@ module Renalware::Letters
           }
         end
 
-        # Note the order the output string is determined by letter_group and letter_order
-        # cols on pathology_observation_descriptions.
-        # Here HGB WBC and PLT grouped together because the share letter group (1) and within that
-        # group the order is determined by letter_order (HGB=1 WBC=2 PLT=3).
-        # for each group the date is output once, unless it changes within the group (not v likely
-        # as the results should arrive in the same OBR) and then we force output the date for each
-        # OBX
+        # See comments in letters/part/recent_pathology_results.rb for an understanding here.
         it "returns a string of observations grouped by OBR date "\
            "and ordered correctly" do
           create_all_letter_observation_descriptions
@@ -135,7 +129,7 @@ module Renalware::Letters
           create_all_letter_observation_descriptions
 
           expect(results).to eq(
-            "<span>12-Dec-2016</span>: HGB 122, WBC 15.32 <span>13-Dec-2016</span>: PLT 329;"
+            "<span>12-Dec-2016</span>: HGB 122, WBC 15.32; <span>13-Dec-2016</span>: PLT 329;"
           )
         end
       end
