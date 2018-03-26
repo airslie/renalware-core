@@ -36,32 +36,46 @@ module Renalware
       # a new sub group so it gets its own date.
       def group_snapshot_by_code_and_date(snapshot)
         groups = []
-        PathologyLayout.new.each_group do |_group_number, obs_descs|
-          dates = {}
-          obs_descs.each do |obs_desc|
-            match = snapshot[obs_desc.code.to_sym]
-            next if match.nil?
-            next if match[:observed_at].nil?
-            date = I18n.l(Date.parse(match[:observed_at]))
-            dates[date] ||= {}
-            dates[date][obs_desc.code] = match[:result]
-          end
-          groups << dates
+        PathologyLayout.new.each_group do |_group_number, obs_desc_group|
+          groups << build_hash_of_snapshot_results_keyed_by_date(obs_desc_group, snapshot)
         end
         groups
       end
 
+      def build_hash_of_snapshot_results_keyed_by_date(obs_desc_group, snapshot)
+        obs_desc_group.each_with_object({}) do |obs_desc, dates|
+          match = snapshot[obs_desc.code.to_sym]
+          next if match.nil?
+          next if match[:observed_at].nil?
+          date = I18n.l(Date.parse(match[:observed_at]))
+          dates[date] ||= {}
+          dates[date][obs_desc.code] = match[:result]
+        end
+      end
+
+      # {"07-Jun-2017"=>{"HGB"=>"10.4", "WBC"=>"3.40", "PLT"=>"435"}
+      # rubocop:disable Rails/OutputSafety
       def format_groups_into_string(groups)
         str = ""
         groups.each do |group|
-          # {"07-Jun-2017"=>{"HGB"=>"10.4", "WBC"=>"3.40", "PLT"=>"435"}}
           group.each do |date, observations|
-            observations_string = observations.map{ |code, result| "#{code} #{result}" }.join(", ")
-            str += " <span>#{date}</span>: #{observations_string};"
+            str += " <span>#{date}</span>: #{observations_as_string(observations)};"
           end
           str = str.strip
         end
         str.html_safe
+      end
+      # rubocop:enable Rails/OutputSafety
+
+      def observations_as_string(observations)
+        observations.map do |code, result|
+          format_code_and_result_string(code, result)
+        end.join(", ")
+      end
+
+      def format_code_and_result_string(code, result)
+        return "(#{code} #{result})" if code.casecmp?("EGFR")
+        "#{code} #{result}"
       end
     end
   end
