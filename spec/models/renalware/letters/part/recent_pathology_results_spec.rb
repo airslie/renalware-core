@@ -78,6 +78,13 @@ module Renalware::Letters
           }
         end
 
+        # Note the order the output string is determined by letter_group and letter_order
+        # cols on pathology_observation_descriptions.
+        # Here HGB WBC and PLT grouped together because the share letter group (1) and within that
+        # group the order is determined by letter_order (HGB=1 WBC=2 PLT=3).
+        # for each group the date is output once, unless it changes within the group (not v likely
+        # as the results should arrive in the same OBR) and then we force output the date for each
+        # OBX
         it "returns a string of observations grouped by OBR date "\
            "and ordered correctly" do
           create_all_letter_observation_descriptions
