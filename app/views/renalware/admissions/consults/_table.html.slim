@@ -2,22 +2,23 @@
   table
     thead
       tr
-        th.col-width-medium
+        th.col-width-medium.noprint
+        th.col-width-large
+          = sort_link(query, :patient, ["patient_family_name", "patient_given_name asc"], "Patient")
+        th.col-width-nhs-no.noprint NHS No.
+        th.col-width-reference-no Hosp Nos.
         th.col-width-medium= sort_link(query,
                                       :location,
                                       [:consult_site_name, :hospital_ward_name],
                                       "Location")
-        th.col-width-large
-          = sort_link(query, :patient, ["patient_family_name", "patient_given_name asc"], "Patient")
-        th.col-width-nhs-no NHS No.
-        th.col-width-reference-no Hosp Nos.
-        th.col-width-date= sort_link(query, :started_on, "Started")
-        th.col-width-date= sort_link(query, :ended_on, "Ended")
+        th.col-width-date.noprint= sort_link(query, :started_on, "Started")
+        th.col-width-date.noprint= sort_link(query, :ended_on, "Ended")
         th.col-width-small.show-for-large-up Modality
         th.col-width-tiny.show-for-large-up Sex
-        th.col-width-tiny.show-for-large-up Age
-        th.col-width-tiny= sort_link(query, :aki_risk, "AKI Risk")
-        th.col-width-tiny= sort_link(query, :requires_aki_nurse, " AKI Nurse?")
+        th.col-width-date.show-for-large-up= sort_link(query, :patient_born_on, "DOB")
+        th.col-width-tiny.show-for-large-up.noprint Age
+        th.col-width-tiny.noprint= sort_link(query, :aki_risk, "AKI Risk")
+        th.col-width-tiny.noprint= sort_link(query, :requires_aki_nurse, " AKI Nurse?")
         /th.show-for-large-up Author
         /th.col-width-medium.show-for-xlarge-up Description
 
@@ -25,7 +26,7 @@
       - consults.each do |consult|
         - uid = "consult-#{consult.id}"
         tr
-          td.actions-dropdown.going-right
+          td.actions-dropdown.going-right.noprint
             / As we have lots of possible actions, group them in a button group.
             / A wrapping div is required for now in order for the button group display correctly
             / (though we could style the td like a div I guess).
@@ -57,17 +58,18 @@
             = link_to("Toggle",
                       "#consult-quick-preview-#{consult.id}",
                       data: { behaviour: "toggler" })
-          td= consult.location
           td= default_patient_link(consult.patient)
-          td= consult.patient_nhs_number
+          td.noprint= consult.patient_nhs_number
           td= consult.patient_hospital_identifiers&.to_s_multiline
-          td= l(consult.started_on)
-          td= l(consult.ended_on)
+          td= consult.location
+          td.noprint= l(consult.started_on)
+          td.noprint= l(consult.ended_on)
           td.show-for-large-up= consult.patient_current_modality
           td.show-for-large-up= consult.patient_sex
-          td.show-for-large-up= consult.patient_age
-          td= consult.aki_risk&.text
-          td= yes_no(consult.requires_aki_nurse)
+          td.show-for-large-up= l(consult.patient.born_on)
+          td.show-for-large-up.noprint= consult.patient_age
+          td.noprint= consult.aki_risk&.text
+          td.noprint= yes_no(consult.requires_aki_nurse)
           /td.show-for-xlarge-up.consult-author.col-width-medium-with-ellipsis(title=consult.created_by)= consult.created_by
           /td.col-width-medium-with-ellipsis(title=consult.description)= consult.description
         = content_tag(:tr, id: "consult-quick-preview-#{consult.id}", style: "display: none")
