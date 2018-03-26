@@ -15,49 +15,67 @@ module Renalware
       end
 
       def results
-        @recent_pathology_results ||= begin
-          snapshot = letter.pathology_snapshot
+        @results ||= begin
+          snapshot = letter.pathology_snapshot.dup
           return if snapshot.blank?
-          group_snapshot_by_code_and_date(snapshot)
+          groups = group_snapshot_by_code_and_date(snapshot)
+          format_groups_into_string(groups)
         end
       end
 
       private
 
+      # Note that observation#letter_group determines the group each code falls into,
+      # and #letter_order the order codes are displayed within that group., h.g. HGB WBC and PLT
+      # are grouped together because they share letter group (1) and within that group the order
+      # is determined by letter_order (HGB=1 WBC=2 PLT=3).
+      # Results (OBX results) within a groups normally share an observed_at date - ie there is a
+      # 1 to 1 relationship between a group and d date output on the letter; most of the time
+      # they will arrive in the HL7 feed as part of the same OBR and therefore have the same date.
+      # However if, within a group, a code has come in separately with another date, we trigger
+      # a new sub group so it gets its own date.
       def group_snapshot_by_code_and_date(snapshot)
-        snapshot = snapshot_ordered_by_obx_codes_relevant_to_letters(snapshot)
-        snapshot_grouped_by_date = group_snapshot_by_date(snapshot)
-        format_pathology_string(snapshot_grouped_by_date)
+        groups = []
+        PathologyLayout.new.each_group do |_group_number, obs_desc_group|
+          groups << build_hash_of_snapshot_results_keyed_by_date(obs_desc_group, snapshot)
+        end
+        groups
       end
 
-      def snapshot_ordered_by_obx_codes_relevant_to_letters(snapshot)
-        RelevantObservationDescription.codes.each_with_object({}) do |code, hash|
-          hash[code.to_sym] = snapshot[code.to_sym]
+      def build_hash_of_snapshot_results_keyed_by_date(obs_desc_group, snapshot)
+        obs_desc_group.each_with_object({}) do |obs_desc, dates|
+          match = snapshot[obs_desc.code.to_sym]
+          next if match.nil?
+          next if match[:observed_at].nil?
+          date = I18n.l(Date.parse(match[:observed_at]))
+          dates[date] ||= {}
+          dates[date][obs_desc.code] = match[:result]
         end
       end
 
-      def group_snapshot_by_date(snapshot)
-        current_date = NullObject.instance
-        snapshot.each_with_object({}) do |observation, h|
-          code, obs = observation
-          next if obs.nil?
-          date = Time.zone.parse(obs[:observed_at])
-
-          if date != current_date
-            current_date = date
-            h[date] = []
-          end
-
-          h[date] << "#{code} #{obs[:result]}"
-        end
-      end
-
-      def format_pathology_string(grouped_snapshot)
+      # {"07-Jun-2017"=>{"HGB"=>"10.4", "WBC"=>"3.40", "PLT"=>"435"}
+      # rubocop:disable Rails/OutputSafety
+      def format_groups_into_string(groups)
         str = ""
-        grouped_snapshot.each do |date, observations|
-          str += "#{I18n.l(date&.to_date)}: #{observations.join(', ')}; "
+        groups.each do |group|
+          group.each do |date, observations|
+            str += " <span>#{date}</span>: #{observations_as_string(observations)};"
+          end
+          str = str.strip
         end
-        str.strip
+        str.html_safe
+      end
+      # rubocop:enable Rails/OutputSafety
+
+      def observations_as_string(observations)
+        observations.map do |code, result|
+          format_code_and_result_string(code, result)
+        end.join(", ")
+      end
+
+      def format_code_and_result_string(code, result)
+        return "(#{code} #{result})" if code.casecmp?("EGFR")
+        "#{code} #{result}"
       end
     end
   end
