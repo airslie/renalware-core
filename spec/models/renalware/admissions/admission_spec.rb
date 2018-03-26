@@ -4,6 +4,18 @@ require "rails_helper"
 
 RSpec.describe Renalware::Admissions::Admission, type: :model do
   include PatientsSpecHelper
+  let(:patient) do
+    create(:patient).tap do |pat|
+      set_modality(
+        patient: pat,
+        modality_description: create(:hd_modality_description),
+        by: user
+      )
+    end
+  end
+  let(:user) { create(:user) }
+  let(:modality_desc) { create(:hd_modality_description) }
+
   it { is_expected.to validate_presence_of :patient_id }
   it { is_expected.to validate_presence_of :hospital_ward_id }
   it { is_expected.to validate_presence_of :admitted_on }
@@ -14,18 +26,6 @@ RSpec.describe Renalware::Admissions::Admission, type: :model do
   it { is_expected.to belong_to(:modality_at_admission) }
   it_behaves_like "an Accountable model"
   it_behaves_like "a Paranoid model"
-
-  let(:modality_desc) { create(:hd_modality_description) }
-  let(:user) { create(:user) }
-  let(:patient) do
-    create(:patient).tap do |pat|
-      set_modality(
-        patient: pat,
-        modality_description: create(:hd_modality_description),
-        by: user
-      )
-    end
-  end
 
   describe "scope .currently_admitted" do
     it "returns only currently admitted patients" do

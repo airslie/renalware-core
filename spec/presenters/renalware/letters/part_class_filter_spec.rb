@@ -6,6 +6,8 @@ module Renalware
   module Letters
     describe PartClassFilter do
       describe "#to_h" do
+        subject(:to_h) { filter.to_h.keys }
+
         let(:part_classes) { { recent_pathology_results: :foo, problems: :bar } }
         let(:filter) do
           described_class.new(
@@ -13,8 +15,6 @@ module Renalware
             include_pathology_in_letter_body: include_pathology_in_letter_body
           )
         end
-
-        subject(:to_h) { filter.to_h.keys }
 
         context "when include_pathology_in_letter_body is true" do
           let(:include_pathology_in_letter_body) { true }

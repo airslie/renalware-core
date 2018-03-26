@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # rubocop:disable Metrics/ClassLength
 #
 # Decorates an array of session objects, adding methods that provide e.g. a mean measured value

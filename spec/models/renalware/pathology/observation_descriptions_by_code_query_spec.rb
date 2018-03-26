@@ -4,9 +4,10 @@ require "rails_helper"
 
 module Renalware::Pathology
   RSpec.describe ObservationDescriptionsByCodeQuery do
+    subject{ described_class.new(relation: relation, codes: codes).call }
+
     let(:codes) { %w(HGB PLT) }
     let(:relation) { ObservationDescription.all }
-    subject{ described_class.new(relation: relation, codes: codes).call }
 
     context "when codes supplied but there are no matching ObservationDescriptions" do
       it { is_expected.to be_empty }

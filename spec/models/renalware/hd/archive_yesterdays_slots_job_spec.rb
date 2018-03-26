@@ -54,7 +54,7 @@ module Renalware::HD
       end
 
       context "when there is an un-archived slot yesterday" do
-        it "it archives it" do
+        it "archives it" do
           diary = nil
           # Travel to an arbitrary yesterday
           # Its week 5 and the day_of_week is 2 (Tuesday)
