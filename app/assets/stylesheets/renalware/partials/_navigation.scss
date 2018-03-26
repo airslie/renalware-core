@@ -63,6 +63,10 @@ dd.patient-name {
 }
 
 .patient-side-nav {
+  @media print {
+    display: none;
+  }
+
   background-color: $patient-menu-background-colour;
   padding: 0.6rem 0 2rem 0.6rem;
   width: $patient-side-nav-width;
