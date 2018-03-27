@@ -40,7 +40,7 @@
               dd= l(patient.died_on)
 
               dt 1st Death cause:
-              dd= patient.first_cause.description
+              dd= patient.first_cause&.description
 
               dt 2nd Death cause:
               dd= default_for_associated(patient.second_cause, :description, "N/A")
