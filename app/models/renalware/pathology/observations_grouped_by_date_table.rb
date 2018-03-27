@@ -41,6 +41,10 @@ module Renalware
         @rows ||= relation.all.map(&:with_indifferent_access).map { |row| Row.new(row) }
       end
 
+      # Each row wraps a PGResult (database row).
+      # Each row is all the pathology results for this patient on a particular day.
+      # Hence there is one observed_on date but multiple results which are the columns going across
+      # the table.
       class Row
         pattr_initialize :row
 
@@ -49,11 +53,21 @@ module Renalware
         end
 
         def result_for(code)
-          results[code&.to_sym]
+          row_hash[code&.to_sym]&.first
         end
 
-        def results
-          @results = JSON.parse(row[:results]).with_indifferent_access
+        def comment_for(code)
+          row_hash[code&.to_sym]&.last
+        end
+
+        # A hash keyed by OBX code, containing an array of [result, comment] arrays, e.g.
+        #
+        #  { "HGB": [[123,nil],[124,'Some comment about the result',[..]], "PLT": [..] }
+        #
+        # This is a compressed format (as opposed to returning more verbose json) to
+        # improve performance. Just remember that for any result, its an array of [result, comment]
+        def row_hash
+          @row_hash = JSON.parse(row[:results]).with_indifferent_access
         end
       end
     end

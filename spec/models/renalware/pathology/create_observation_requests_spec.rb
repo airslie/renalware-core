@@ -28,6 +28,18 @@ module Renalware::Pathology
         expect(patient.observations.count).to eq(1)
       end
 
+      it "broadcasts before and after events around the persistence of each ObservationRequest" do
+        patient = pathology_patient(create(:patient))
+        request_description = create(:pathology_request_description)
+        observation_description = create(:pathology_observation_description)
+        params = build_params(patient.id, request_description, observation_description)
+
+        expect{
+          service.call(params)
+        }.to broadcast(:before_observation_request_persisted)
+         .and broadcast(:after_observation_request_persisted)
+      end
+
       # Return an array of param hashes (in this case just one elements as there is
       # one request)
       def build_params(patient_id, request_description, observation_description)

@@ -10,11 +10,15 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class CreateObservationRequests
+      include Wisper::Publisher
+
       def call(params)
         Array(params).each do |request|
           patient = find_patient(request.fetch(:patient_id))
           observation_params = request.fetch(:observation_request)
-          patient.observation_requests.create!(observation_params)
+          broadcast :before_observation_request_persisted, observation_params
+          obr = patient.observation_requests.create!(observation_params)
+          broadcast :after_observation_request_persisted, obr
         end
       end
 

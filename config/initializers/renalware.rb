@@ -11,7 +11,8 @@ Renalware.configure do |config|
       "Renalware::Letters::PatientListener",
       "Renalware::HD::PatientListener"
     ],
-    "Renalware::Letters::ApproveLetter" => []
+    "Renalware::Letters::ApproveLetter" => [],
+    "Renalware::Pathology::CreateObservationRequests" => []
   }
 end
 

@@ -19,15 +19,23 @@ RSpec.describe "HL7 message handling end to end" do
         OBX|3|NM|URE^Urea^HM||6.6|mmol/L|||||F|||201801251249||XXXXXVC01^BHI Authchecker
         NTE|1|L|This should be ignored
         OBX|4|NM|CRE^Creatinine^HM||102|umol/L|||||F|||201801251249||XXXXXVC01^BHI Authchecker
+        OBX|4|NM|EGFR^EGFR^HM||10|mmol/L|||||F|||201801251249||XXXXXVC01^BHI Authchecker
       RAW
+    end
+
+    def create_observation_descriptions_for(codes)
+      Array(codes).each { |code| create(:pathology_observation_description, code: code) }
+    end
+
+    def create_request_descriptions_for(codes)
+      Array(codes).each { |code| create(:pathology_request_description, code: code) }
     end
 
     it "creates the required patient observation requests and their observations" do
       patient = create(:pathology_patient, local_patient_id: "Z999990")
-      create(:pathology_request_description, code: "FBC")
-      %w(WBC RBC).each{ |code| create(:pathology_observation_description, code: code) }
-      create(:pathology_request_description, code: "RLU")
-      %w(NA POT URE CRE).each{ |code| create(:pathology_observation_description, code: code) }
+      create_request_descriptions_for(%w(FBC RLU))
+      create_observation_descriptions_for(%w(WBC RBC))
+      create_observation_descriptions_for(%w(NA POT URE CRE EGFR))
 
       # Simulate delayed_job picking up the job Mirth had inserted
       FeedJob.new(raw_message).perform
@@ -53,12 +61,19 @@ RSpec.describe "HL7 message handling end to end" do
       request_rlu = patient.observation_requests.last
       expect(request_rlu.requestor_order_number).to eq("PLACER_ORDER_NO_2")
       expect(request_rlu.description.code).to eq("RLU")
-      expect(request_rlu.observations.count).to eq(4)
+      expect(request_rlu.observations.count).to eq(5)
 
-      expect(request_rlu.observations.last).to have_attributes(
+      expect(request_rlu.observations[3]).to have_attributes(
         result: "102",
         observed_at: Time.zone.parse("201801251249"),
         description: Renalware::Pathology::ObservationDescription.find_by(code: "CRE")
+      )
+
+      # EGFR should be imported as normal
+      expect(request_rlu.observations[4]).to have_attributes(
+        result: "10",
+        observed_at: Time.zone.parse("201801251249"),
+        description: Renalware::Pathology::ObservationDescription.find_by(code: "EGFR")
       )
     end
   end

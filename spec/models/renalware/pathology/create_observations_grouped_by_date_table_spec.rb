@@ -84,11 +84,23 @@ module Renalware
 
           expect(table.rows.count).to eq(3)
           expect(table.rows.map(&:observed_on)).to eq(dates[0..2].map(&:to_date))
-          expect(table.rows.map(&:results)).to eq(
+          expect(table.rows.map(&:row_hash)).to eq(
             [
-              { "HGB" => "6.0", "PLT" => "6.0", "WBC" => "6.0" },
-              { "HGB" => "6.0", "PLT" => "6.0", "WBC" => "6.0" },
-              { "NA" => "1.0", "POT" => "1.0", "URE" => "1.0" }
+              {
+                "HGB" => ["6.0", "My Comment"],
+                "PLT" => ["6.0", "My Comment"],
+                "WBC" => ["6.0", "My Comment"]
+              },
+              {
+                "HGB" => ["6.0", "My Comment"],
+                "PLT" => ["6.0", "My Comment"],
+                "WBC" => ["6.0", "My Comment"]
+              },
+              {
+                "NA" => ["1.0", "My Comment"],
+                "POT" => ["1.0", "My Comment"],
+                "URE" => ["1.0", "My Comment"]
+              }
             ]
           )
         end

@@ -7,7 +7,12 @@ table#observations
   tbody
     - table.rows.each do |row|
       tr
-        td.date= l(row.observed_on)
+        th.date= l(row.observed_on)
         - table.observation_descriptions.each do |desc|
           - code = desc.code
-          td(class=code.downcase)= row.result_for(code)
+          - if row.comment_for(code).present?
+            td(class=code.downcase data-balloon=row.comment_for(code) data-balloon-pos="up")
+              .triangle-top-right
+              = row.result_for(code)
+          - else
+            td(class=code.downcase)= row.result_for(code)
