@@ -11,14 +11,15 @@ module Renalware
 
         # GET aka inbox
         def unread
-          render_receipts(receipts.unread)
+          render_receipts(unread_receipts)
         end
 
         # GET all read messages
         def read
-          render_receipts(receipts.read)
+          render_receipts(read_receipts)
         end
 
+        # GET all sent messages
         def sent
           render_receipts(sent_receipts)
         end
@@ -35,9 +36,11 @@ module Renalware
         private
 
         def render_receipts(receipts)
-          patient_filter = Patients::SearchFilter.new(search_term, request)
           receipts = receipts.joins(message: [:patient])
-          receipts = patient_filter.call(receipts).ordered.page(page).per(per_page)
+          if search_term.present?
+            receipts = patient_filter.call(receipts)
+          end
+          receipts = receipts.page(page).per(per_page)
           authorize receipts
 
           render locals: {
@@ -65,8 +68,20 @@ module Renalware
           params.fetch(:patient_search, {}).fetch(:term, nil)
         end
 
+        def unread_receipts
+          receipts.unread.order("messaging_messages.sent_at asc")
+        end
+
         def sent_receipts
-          Receipt.sent_by(current_user.id)
+          Receipt.sent_by(current_user.id).ordered
+        end
+
+        def read_receipts
+          receipts.read.ordered
+        end
+
+        def patient_filter
+          @patient_filter ||= Patients::SearchFilter.new(search_term, request)
         end
       end
     end
