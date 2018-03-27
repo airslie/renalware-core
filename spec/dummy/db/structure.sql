@@ -4328,7 +4328,7 @@ CREATE TABLE problem_problems (
 
 CREATE TABLE transplant_recipient_operations (
     id integer NOT NULL,
-    patient_id integer,
+    patient_id integer NOT NULL,
     performed_on date NOT NULL,
     theatre_case_start_time time without time zone,
     donor_kidney_removed_from_ice_at timestamp without time zone,
@@ -14729,6 +14729,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180313114927'),
 ('20180313124819'),
 ('20180319191942'),
-('20180323150241');
+('20180323150241'),
+('20180327100423');
 
 
