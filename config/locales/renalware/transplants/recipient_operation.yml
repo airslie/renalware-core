@@ -135,7 +135,7 @@ en:
         liver_failure: "Liver failure (not self-poisoning)"
         meningitis: "Meningitis"
         multi_organ_failure: "Multi-organ failure"
-        noycardial_infarction: "Myocardial infarction"
+        myocardial_infarction: "Myocardial infarction"
         other: "Other, please specify"
         other_drug_overdose: "Other drug overdose, please specify"
         other_trauma_accident: "Other trauma - accident"
