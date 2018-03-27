@@ -1,0 +1,19 @@
+= within_admin_layout( \
+  title: "Edit",
+  breadcrumbs: breadcrumb_for("User Feedback", system_user_feedback_index_path) \
+) do
+
+  dl.dl-horizontal
+    dt From
+    dd= feedback.author
+    dt Email
+    dd= mail_to(feedback.author.email)
+    dt Created at
+    dd= l(feedback.created_at)
+    dt Message
+    dd= feedback.comment
+
+  = simple_form_for(feedback, as: :feedback) do |f|
+    = f.input :admin_notes, input_html: { rows: 5 }
+    = f.input :acknowledged, as: :boolean, boolean_style: :inline
+    = f.submit "Save", class: :button
