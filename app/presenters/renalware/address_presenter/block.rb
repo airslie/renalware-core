@@ -21,7 +21,9 @@ module Renalware
         street_1,
         street_2,
         street_3,
-        [town, county, postcode].reject(&:blank?).join(", "),
+        town,
+        county,
+        postcode,
         country
       ]
     end
