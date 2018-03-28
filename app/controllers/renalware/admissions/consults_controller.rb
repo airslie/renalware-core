@@ -81,6 +81,10 @@ module Renalware
             :requires_aki_nurse, :description, :contact_number, :rrt
           )
       end
+
+      def per_page
+        params[:per_page] || 30
+      end
     end
   end
 end
