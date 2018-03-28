@@ -62,6 +62,7 @@ module Renalware
             started_on: date,
             decided_on: date,
             transferred_on: date,
+            rrt: true,
             consult_type: "TBC",
             transfer_priority: Renalware::Admissions::Consult.transfer_priority.values.first,
             aki_risk: Renalware::Admissions::Consult.aki_risk.values.first,

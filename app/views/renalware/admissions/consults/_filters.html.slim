@@ -4,8 +4,8 @@
       url: admissions_consults_path,
       method: :get do |f|
     .row
-      .columns.medium-3.large-2
-        = f.input :identity_match, label: "Hosp/NHS no. or name"
+      .columns.medium-2.large-2
+        = f.input :identity_match, label: "Hosp/NHS no or name"
 
       .columns.medium-2.large-2
         = f.input :consult_site_id_eq,
@@ -30,6 +30,11 @@
                   include_blank: true,
                   collection: [["Yes", true], ["No", false]],
                   label: "Active"
+      .columns.medium-1.large-1
+        = f.input :rrt_eq,
+                  include_blank: true,
+                  collection: [["Yes", true], ["No", false]],
+                  label: "RRT"
       .columns.medium-2.large-2.actions.end
         = f.submit "Filter", class: "button"
         span= " or "

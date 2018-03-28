@@ -45,6 +45,7 @@
 
   = f.input :aki_risk, include_blank: "Please select", wrapper: :horizontal_small
   = f.input :requires_aki_nurse, as: :inline_radio_buttons, wrapper: :horizontal_small
+  = f.input :rrt, as: :inline_radio_buttons, wrapper: :horizontal_small
   = f.input :description, wrapper: :horizontal_large, input_html: { rows: 10 }
 
   = f.submit class: :button
