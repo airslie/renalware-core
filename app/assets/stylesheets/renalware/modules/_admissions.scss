@@ -59,3 +59,11 @@
   }
 }
 
+.consults-list {
+  @media print {
+    .panel {
+      display: none;
+    }
+  }
+}
+

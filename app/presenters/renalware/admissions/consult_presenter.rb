@@ -23,7 +23,7 @@ module Renalware
           consult_site&.name,
           hospital_ward&.name,
           other_site_or_ward
-        ].compact.join(", ")
+        ].reject(&:blank?).join(", ")
       end
 
       def patient_name

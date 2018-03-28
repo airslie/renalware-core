@@ -54,6 +54,10 @@ article.clinical-allergies {
   background-color: $table-border-colour;
   padding: 0em .2em .2em .6em;
 
+  @media print {
+    display: none;
+  }
+
   &.lozenge {
     background-color: $white;
     padding: 0 .3rem .2em .3rem;
@@ -133,6 +137,10 @@ article.clinical-allergies {
 }
 
 .patient-alerts {
+  @media pring {
+    display: none;
+  }
+
   &.lozenge {
     ul {
       margin: 0;
