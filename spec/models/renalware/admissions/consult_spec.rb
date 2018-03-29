@@ -11,6 +11,7 @@ RSpec.describe Renalware::Admissions::Consult, type: :model do
   it { is_expected.to belong_to(:patient).touch(true) }
   it { is_expected.to belong_to(:consult_site) }
   it { is_expected.to belong_to(:hospital_ward) }
+  it { is_expected.to respond_to(:rrt) }
 
   describe "validation" do
     context "when consult_site_id and hospital_ward_id are not present" do
