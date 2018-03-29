@@ -9,6 +9,23 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.12
+29-03-2017
+
+### Added
+- Rake task to refresh all materialized views
+### Changed
+- In letters, patient and contact address parts have their own line rather than having
+  town county postcode on the last line
+- Make patient_id required in Transplant Recipient Operations table
+### Fixed
+- Printing consults list #2081
+- 'myocardial_infarction typo' in transplant recipient operations
+- Default sort in Internal Messages
+- Corrected default sort order of prescriptions in MDMs
+- Fixed an error viewing demographics when patient is deceased but has no first cause
+- Corrected display of recent pathology results in letters
+
 ## 2.0.11
 23-03-2017
 

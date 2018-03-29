@@ -355,7 +355,7 @@ GEM
     parallel (1.12.1)
     paranoia (2.4.0)
       activerecord (>= 4.0, < 5.2)
-    parser (2.5.0.4)
+    parser (2.5.0.5)
       ast (~> 2.4.0)
     party_foul (1.5.5)
       octokit (~> 3.1)
