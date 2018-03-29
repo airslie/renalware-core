@@ -1,33 +1,34 @@
-table#drug-type-prescriptions
-  thead
-    tr
-      th.hosp_no= sort_link([:renalware, search], :patient_local_patient_id, t(".patient_local_patient_id"))
-      th.patient_name= sort_link([:renalware, search], "patient_family_name", t(".patient_name"))
-      th.patient_age= sort_link([:renalware, search], "patient_born_on", t(".patient_age"))
-      th.patient_sex= t(".patient_sex")
-      th.modality= t(".modality")
-      th.col-width-date= sort_link([:renalware, search], "prescribed_on", t(".prescribed_on"))
-      th.col-width-date.hide-for-small-only
-        = sort_link([:renalware, search], "terminated_on", t(".terminated_on"))
-      th.drug_name= sort_link([:renalware, search], "drug_name", t(".drug_name"))
-      th.dose= t(".dose")
-      th.route_code= t(".route_code")
-      th.frequency= t(".frequency")
-      th.weekly_units= t(".weekly_units")
-  tbody
-    - prescriptions.each do |prescription|
+div
+  table#drug-type-prescriptions
+    thead
       tr
-        td= prescription.patient_local_patient_id
-        td= default_patient_link(prescription.patient)
-        td= prescription.patient_age
-        td= prescription.patient_sex
-        td= prescription.patient_current_modality_name
-        td= l(prescription.prescribed_on)
-        td= prescription.terminated_on && l(prescription.terminated_on)
-        td= prescription.drug_name
-        td= prescription.dose
-        td= prescription.route_code
-        td= prescription.frequency
-        td=
+        th.hosp_no= sort_link([:renalware, search], :patient_local_patient_id, t(".patient_local_patient_id"))
+        th.col-width-medium= sort_link([:renalware, search], "patient_family_name", t(".patient_name"))
+        th.patient_age= sort_link([:renalware, search], "patient_born_on", t(".patient_age"))
+        th.patient_sex= t(".patient_sex")
+        th.col-width-medium= t(".modality")
+        th.col-width-date= sort_link([:renalware, search], "prescribed_on", t(".prescribed_on"))
+        th.col-width-date.hide-for-small-only
+          = sort_link([:renalware, search], "terminated_on", t(".terminated_on"))
+        th.drug_name= sort_link([:renalware, search], "drug_name", t(".drug_name"))
+        th.col-width-small= t(".dose")
+        th.col-width-tiny= t(".route_code")
+        th.frequency= t(".frequency")
+        th.col-width-tiny= t(".weekly_units")
+    tbody
+      - prescriptions.each do |prescription|
+        tr
+          td= prescription.patient_local_patient_id
+          td= default_patient_link(prescription.patient)
+          td= prescription.patient_age
+          td= prescription.patient_sex
+          td= prescription.patient_current_modality_name
+          td= l(prescription.prescribed_on)
+          td= prescription.terminated_on && l(prescription.terminated_on)
+          td= prescription.drug_name
+          td= prescription.dose
+          td= prescription.route_code
+          td= prescription.frequency
+          td=
 
-= paginate prescriptions
+  = paginate prescriptions
