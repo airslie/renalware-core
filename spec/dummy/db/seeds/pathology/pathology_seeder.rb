@@ -25,15 +25,18 @@ module Renalware
     def seed_pathology_observations_for(patient:)
       log "Adding Pathology Observations (OBX) for #{patient}" do
         file_path = file_path_for(patient: patient, file_name: "pathology_obx.csv")
+        observations = []
+
         CSV.foreach(file_path, headers: true) do |row|
-          observation_desc = Pathology::ObservationDescription.find_by!(code: row["description"])
           request = Pathology::ObservationRequest.find(row["request_id"])
-          request.observations.create!(
-            description: observation_desc,
+          observations << Pathology::Observation.new(
+            request: request,
+            description: Pathology::ObservationDescription.find_by!(code: row["description"]),
             result: row["result"],
             observed_at: request.requested_at + 24.hours
           )
         end
+        Pathology::Observation.import! observations
       end
     end
 
@@ -45,7 +48,7 @@ module Renalware
     end
 
     def random_date_between(date1, date2)
-      Time.at((date2.to_f - date1.to_f)*rand + date1.to_f)
+      Time.at((date2.to_f - date1.to_f) * rand + date1.to_f)
     end
   end
 end
