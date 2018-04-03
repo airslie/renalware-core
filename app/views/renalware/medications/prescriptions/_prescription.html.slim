@@ -5,12 +5,6 @@ li.prescription class=("recently_changed" if recently_changed)
     | *
     = blank_separator
 
-  / We pass in date_changed if the prescription is recently_changed or recently_stopped
-  / It could be the prescribed_on or terminated_on date
-  - if defined?(date_changed)
-    span.date-changed= l(date_changed)
-    = blank_separator
-
   = prescription.drug.name
   = blank_separator
   = prescription.dose
@@ -18,3 +12,10 @@ li.prescription class=("recently_changed" if recently_changed)
   = prescription.medication_route.code
   = blank_separator
   = prescription.frequency
+
+  / We pass in date_changed if the prescription is recently_changed or recently_stopped
+  / It could be the prescribed_on or terminated_on date
+  - if defined?(date_changed)
+    = blank_separator
+    span.date-changed= l(date_changed)
+
