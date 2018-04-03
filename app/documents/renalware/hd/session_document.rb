@@ -33,6 +33,13 @@ module Renalware
         attribute :temperature_measured, Document::Enum, enums: %i(yes no), default: :yes
         attribute :bm_stix, Float
 
+        %i(
+          weight
+          temperature
+          bm_stix
+          pulse
+        ).each { |att| validates(att, numericality: { allow_blank: true }) }
+
         validates :weight, "renalware/patients/weight" => true
         validates :temperature, "renalware/patients/temperature" => true
         validates :bm_stix, "renalware/patients/bm_stix" => true
@@ -55,6 +62,16 @@ module Renalware
           (100..800).step(100)
         end
 
+        %i(
+          arterial_pressure
+          venous_pressure
+          fluid_removed
+          flow_rate
+          machine_urr
+          machine_ktv
+          litres_processed
+        ).each { |att| validates(att, numericality: { allow_blank: true }) }
+
         validates :machine_urr, inclusion: { in: 0..100, allow_blank: true }
         validates :machine_ktv, inclusion: { in: (0.2..3.5), allow_blank: true }
         validates :blood_flow, numericality: {
@@ -70,6 +87,13 @@ module Renalware
         attribute :subs_goal, Float
         attribute :subs_rate, Float
         attribute :subs_volume, Float
+
+        %i(
+          subs_fluid_pct
+          subs_goal
+          subs_rate
+          subs_volume
+        ).each { |att| validates(att, numericality: { allow_blank: true }) }
       end
       attribute :hdf, HDF
 
