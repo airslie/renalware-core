@@ -24,6 +24,7 @@ module Dummy
     config.active_job.queue_adapter = :delayed_job
     config.time_zone = "London"
     config.active_record.schema_format = :sql
+    config.active_support.escape_html_entities_in_json = false
 
     initializer :add_locales do
       config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]

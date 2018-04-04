@@ -7,13 +7,11 @@ RSpec.describe "API request for a single patient JSON document", type: :feature 
   include PatientsSpecHelper
 
   let(:json) { JSON.parse(page.body) }
-  let(:address) do
-    build(:address, :in_uk)
-  end
+  let(:address) { build(:address, :in_uk) }
   let(:patient) { create(:patient, local_patient_id: "123", current_address: address) }
   let(:user) { create(:user, username: "aaaaa", authentication_token: "wWsSmmHywhYMWPM6e9ib") }
 
-  describe "rendering json for a patient" do
+  describe "GET JSON #show" do
     context "when no authorisation credentials passed in the query string" do
       it "forbids access to the resource" do
         visit api_v1_patient_path(id: patient.local_patient_id)
@@ -84,6 +82,19 @@ RSpec.describe "API request for a single patient JSON document", type: :feature 
           "hd_profile_url" => api_v1_patient_hd_current_profile_url(patient_id: patient)
         }
       )
+    end
+  end
+
+  describe "GET JSON #index" do
+    context "when last_patient_id is not passed" do
+      it "renders an empty list of patients because we only support requests with a "\
+         "last_patient_id param" do
+
+        visit api_v1_patients_path(
+          username: user.username,
+          token: user.authentication_token
+        )
+      end
     end
   end
 end
