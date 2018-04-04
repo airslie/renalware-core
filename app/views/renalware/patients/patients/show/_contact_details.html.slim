@@ -4,10 +4,15 @@ article
 
   dl.dl-horizontal
     dt Email
-    dd= patient.email
+    - if patient.email.present?
+      dd= patient.email
+    - if patient.current_address&.email.present?
+      dd= patient.current_address&.email
 
-    dt Telephone1
-    dd= patient.telephone1
-
-    dt Telephone2
-    dd= patient.telephone2
+    dt Telephone
+    - if patient.telephone1.present?
+      dd= patient.telephone1
+    - if patient.telephone2.present?
+      dd= patient.telephone2
+    - if patient.current_address&.telephone.present?
+      dd= patient.current_address&.telephone

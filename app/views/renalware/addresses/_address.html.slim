@@ -1,27 +1,9 @@
-dl.dl-horizontal
-  / dt Name
-  / dd= address.name
-
-  dt Organisation Name
-  dd= address.organisation_name
-
-  dt Street 1
-  dd= address.street_1
-
-  dt Street 2
-  dd= address.street_2
-
-  dt Street 3
-  dd= address.street_3
-
-  dt Town
-  dd= address.town
-
-  dt County
-  dd= address.county
-
-  dt Postcode
-  dd= address.postcode
-
-  dt Country
-  dd= address.country
+= definition_list_for(address) do |list|
+  = list.definition(:organisation_name)
+  = list.definition(:street_1)
+  = list.definition(:street_2)
+  = list.definition(:street_3)
+  = list.definition(:town)
+  = list.definition(:county)
+  = list.definition(:postcode)
+  = list.definition(:country)
