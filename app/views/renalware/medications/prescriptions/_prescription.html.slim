@@ -1,10 +1,6 @@
 - recently_changed = defined?(recently_changed) && recently_changed
 
 li.prescription class=("recently_changed" if recently_changed)
-  - if recently_changed
-    | *
-    = blank_separator
-
   = prescription.drug.name
   = blank_separator
   = prescription.dose
@@ -19,3 +15,6 @@ li.prescription class=("recently_changed" if recently_changed)
     = blank_separator
     span.date-changed= l(date_changed)
 
+  - if recently_changed
+    = blank_separator
+    | *
