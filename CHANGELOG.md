@@ -15,6 +15,7 @@ This project adheres to Semantic Versioning.
 ### Added
 ### Changed
 - Add validation to HD Session to prevent non-numeric data being entered which affects auditing
+- Change layout of recently changed medications in letters and medications print-out
 ### Fixed
 - display any telephone or email associated wth a patients address in addition t
   o the those attached to the patient
