@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.12)
+    renalware-core (2.0.13)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.22.0)
       ahoy_matey (~> 2.0.1)
@@ -436,7 +436,7 @@ GEM
     redis-store (1.4.1)
       redis (>= 2.2, < 5)
     referer-parser (0.3.0)
-    regexp_parser (0.4.11)
+    regexp_parser (0.4.13)
     request_store (1.4.1)
       rack (>= 1.4)
     responders (2.4.0)
