@@ -1,5 +1,5 @@
 = within_admin_layout(title: "AKI Alerts") do
-  = render "filters", form: form
+  = render "filters", form: form, path_params: path_params
   = render "table", alerts: alerts, search: search
 
   = paginate alerts

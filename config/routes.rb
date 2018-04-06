@@ -1,4 +1,3 @@
-# rubocop:disable Style/FormatStringToken
 Renalware::Engine.routes.draw do
   match "/404", to: "system/errors#not_found", via: :all
   match "/500", to: "system/errors#internal_server_error", via: :all
@@ -21,7 +20,7 @@ Renalware::Engine.routes.draw do
 
   super_admin_constraint = lambda do |request|
     current_user = request.env["warden"].user
-    current_user && current_user.respond_to?(:has_role?) && current_user.has_role?(:super_admin)
+    current_user&.respond_to?(:has_role?) && current_user&.has_role?(:super_admin)
   end
 
   constraints super_admin_constraint do
@@ -244,7 +243,10 @@ Renalware::Engine.routes.draw do
         get :search
       end
     end
-    resources :aki_alerts, except: [:new, :create, :destroy]
+    resources :aki_alerts, only: [:edit, :update]
+    constraints(named_filter: /#{Renalware::Renal::AKI_ALERT_FILTERS.join("|")}/) do
+      get "aki_alerts/:named_filter", to: "aki_alerts#index", as: :filtered_aki_alerts
+    end
     resources :registry_preflight_checks, only: [] do
       collection do
         get :patients

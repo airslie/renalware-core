@@ -8,30 +8,52 @@ RSpec.describe "AKI alert management", type: :request do
   let(:hospital_ward) { create(:hospital_ward) }
 
   describe "GET index" do
-    it "renders a list of AKI Alerts" do
+    before do
       create(
         :aki_alert,
         notes: "abc",
         patient: patient,
         hospital_ward: hospital_ward,
-        max_cre: 99,
-        cre_date: "2018-01-01",
-        max_aki: 2,
-        aki_date: "2018-02-01",
-        action: create(:aki_alert_action, name: "action1"),
-        by: create(:user, family_name: "Fink")
+        max_aki: 1,
+        aki_date: Time.zone.today,
+        action: create(:aki_alert_action, name: "today"),
+        by: create(:user, family_name: "Patient1")
       )
-      get renal_aki_alerts_path
+      create(
+        :aki_alert,
+        notes: "abc",
+        patient: patient,
+        hospital_ward: hospital_ward,
+        max_aki: 2,
+        aki_date: Time.zone.today - 1.day,
+        action: create(:aki_alert_action, name: "yesterday"),
+        by: create(:user, family_name: "Patient2")
+      )
+    end
 
-      expect(response).to have_http_status(:success)
-      expect(response.body).to match(patient.to_s)
-      expect(response.body).to match("action1")
-      expect(response.body).to match("01-Jan-2018")
-      expect(response.body).to match("01-Feb-2018")
-      expect(response.body).to match("99")
-      expect(response.body).to match("2")
-      expect(response.body).to match("Fink")
-      expect(response.body).to match(hospital_ward.name)
+    describe "named_filter: :all" do
+      it "renders a list of AKI Alerts" do
+        get renal_filtered_aki_alerts_path(named_filter: :all)
+
+        expect(response).to have_http_status(:success)
+        expect(response.body).to match("today")
+        expect(response.body).to match("Patient1")
+        expect(response.body).to match(I18n.l(Time.zone.today))
+
+        expect(response.body).to match("yesterday")
+        expect(response.body).to match("Patient1")
+        expect(response.body).to match(I18n.l(Time.zone.today - 1 .day))
+        expect(response.body).to match(hospital_ward.name)
+      end
+    end
+    describe "named_filter: :today" do
+      it "renders a list of just today's AKI Alerts" do
+        get renal_filtered_aki_alerts_path(named_filter: :today)
+
+        expect(response).to have_http_status(:success)
+        expect(response.body).to match("Patient1")
+        expect(response.body).not_to match("Patient2")
+      end
     end
   end
 

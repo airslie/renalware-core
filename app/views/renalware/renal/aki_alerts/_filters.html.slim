@@ -1,7 +1,21 @@
+ruby:
+  filters = {
+    active: "Today",
+    suspended: "All"
+  }
+
+h2.print-only= filters[path_params[:named_filter].to_sym]
+
+dl.sub-nav
+  - Renalware::Renal::AKI_ALERT_FILTERS.each do |key|
+    - options = path_params.merge(named_filter: key).to_h.symbolize_keys
+    - path = Renalware::Engine.routes.url_for(options.merge!(only_path: true))
+    = sub_nav_item(key.to_s.humanize, path)
+
 .search-form.filters
   = simple_form_for form,
       as: :q,
-      url: renal_aki_alerts_path,
+      url: renal_filtered_aki_alerts_path,
       method: :get do |f|
 
     .row
@@ -22,4 +36,4 @@
       .columns.medium-2.large-2.actions.end
         = f.submit "Filter", class: "button"
         span= " or "
-        = link_to t("helpers.reset"), renal_aki_alerts_path
+        = link_to t("helpers.reset"), renal_filtered_aki_alerts_path
