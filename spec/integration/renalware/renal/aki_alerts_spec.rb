@@ -17,7 +17,8 @@ RSpec.describe "AKI alert management", type: :request do
         max_aki: 1,
         aki_date: Time.zone.today,
         action: create(:aki_alert_action, name: "today"),
-        by: create(:user, family_name: "Patient1")
+        by: create(:user, family_name: "Patient1"),
+        created_at: Time.zone.now
       )
       create(
         :aki_alert,
@@ -27,7 +28,8 @@ RSpec.describe "AKI alert management", type: :request do
         max_aki: 2,
         aki_date: Time.zone.today - 1.day,
         action: create(:aki_alert_action, name: "yesterday"),
-        by: create(:user, family_name: "Patient2")
+        by: create(:user, family_name: "Patient2"),
+        created_at: Time.zone.now - 1.day
       )
     end
 

@@ -15,7 +15,7 @@ module Renalware
       validates :max_aki, inclusion: 1..3, allow_nil: true
       alias_attribute :decided_by, :updated_by
 
-      scope :today, ->{ where(aki_date: Time.zone.today) }
+      scope :today, ->{ where(created_at: Time.zone.today.all_day) }
     end
   end
 end
