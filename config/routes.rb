@@ -1,4 +1,3 @@
-# rubocop:disable Style/FormatStringToken
 Renalware::Engine.routes.draw do
   match "/404", to: "system/errors#not_found", via: :all
   match "/500", to: "system/errors#internal_server_error", via: :all
@@ -21,7 +20,7 @@ Renalware::Engine.routes.draw do
 
   super_admin_constraint = lambda do |request|
     current_user = request.env["warden"].user
-    current_user && current_user.respond_to?(:has_role?) && current_user.has_role?(:super_admin)
+    current_user&.respond_to?(:has_role?) && current_user&.has_role?(:super_admin)
   end
 
   constraints super_admin_constraint do
@@ -81,7 +80,7 @@ Renalware::Engine.routes.draw do
     end
     # The JSON API
     namespace :v1, constraints: { format: :json }, defaults: { format: :json } do
-      resources :patients, only: :show, controller: "patients/patients" do
+      resources :patients, only: [:show, :index], controller: "patients/patients" do
         resources :prescriptions, controller: "medications/prescriptions", only: [:index]
         namespace :hd do
           resource :current_profile,
