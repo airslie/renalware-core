@@ -1,40 +1,5 @@
 = within_admin_layout(title: "AKI Alerts") do
-  = render "filters", form: form
-  table.aki-alerts
-    thead
-      th
-      th.col-width-large Patient
-      /th.col-width-nhs-no NHS No.
-      th.col-width-reference-no Hosp. No.
-      th.col-width-tiny Sex
-      th.col-width-tiny Age
-      /th.col-width-date= sort_link(search, :patient_born_on, "Born on")
-      th= sort_link(search, :action_name, "Action")
-      th.col-width-medium Ward
-      th= sort_link(search, :hotlist, "Hotlist")
-      th= sort_link(search, :max_cre, "Max CRE")
-      th.col-width-date.col-width-date= sort_link(search, :cre_date, "CRE Date")
-      th= sort_link(search, :max_aki, "Max AKI")
-      th.col-width-date= sort_link(search, :aki_date, "AKI Date")
-      th Decided by
-    tbody
-      - alerts.each do |alert|
-        tr
-          td= link_to("Edit", edit_renal_aki_alert_path(alert))
-          td= default_patient_link(alert.patient)
-          /td= alert.patient.nhs_number
-          td= alert.patient.hospital_identifiers
-          td= alert.patient.sex
-          td= alert.patient.age
-          /td= alert.patient.born_on
-          td= alert.action
-          td= [alert.hospital_ward, alert.hospital_ward&.hospital_unit&.unit_code]\
-              .compact.join(" - ")
-          td= yes_no alert.hotlist?
-          td= alert.max_cre
-          td= l(alert.cre_date)
-          td= alert.max_aki
-          td= l(alert.aki_date)
-          td= alert.decided_by
+  = render "filters", form: form, path_params: path_params
+  = render "table", alerts: alerts, search: search
 
   = paginate alerts

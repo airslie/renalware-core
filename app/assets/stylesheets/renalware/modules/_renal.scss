@@ -28,3 +28,18 @@
     }
   }
 }
+
+table.aki-alerts tr {
+  &:nth-of-type(even) {
+    background: $white;
+  }
+
+  &.aki_alert--hotlist {
+    background-color: $bookmark-urgent-colour;
+  }
+
+  td.notes {
+    text-align: right;
+    vertical-align: top;
+  }
+}

@@ -5,7 +5,7 @@ require_dependency "renalware/clinics"
 module Renalware
   module Renal
     class AKIAlertQuery
-      DEFAULT_SORT = "aki_date :desc"
+      DEFAULT_SORT = "aki_date desc"
       attr_reader :query
 
       def initialize(query = nil)
@@ -26,6 +26,7 @@ module Renalware
           AKIAlert
             .joins(:patient) # required for PatientsRansackHelper - see Admission
             .includes(:patient, :updated_by, :action, hospital_ward: :hospital_unit)
+            .public_send(query[:named_filter].to_s)
             .ransack(query)
         end
       end

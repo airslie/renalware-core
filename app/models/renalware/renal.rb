@@ -4,6 +4,8 @@ require_dependency "renalware"
 
 module Renalware
   module Renal
+    AKI_ALERT_FILTERS = %w(today all).freeze
+
     def self.table_name_prefix
       "renal_"
     end

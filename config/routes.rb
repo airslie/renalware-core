@@ -243,7 +243,10 @@ Renalware::Engine.routes.draw do
         get :search
       end
     end
-    resources :aki_alerts, except: [:new, :create, :destroy]
+    resources :aki_alerts, only: [:edit, :update]
+    constraints(named_filter: /#{Renalware::Renal::AKI_ALERT_FILTERS.join("|")}/) do
+      get "aki_alerts/:named_filter", to: "aki_alerts#index", as: :filtered_aki_alerts
+    end
     resources :registry_preflight_checks, only: [] do
       collection do
         get :patients
