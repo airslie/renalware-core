@@ -1,0 +1,13 @@
+tr(class="#{'aki_alert--hotlist' if aki_alert.hotlist?}")
+  td= link_to("Edit", edit_renal_aki_alert_path(aki_alert))
+  td= default_patient_link(aki_alert.patient)
+  td= aki_alert.patient.hospital_identifiers
+  td= aki_alert.patient.sex
+  td= aki_alert.patient.age
+  td= aki_alert.action
+  td= [aki_alert.hospital_ward, aki_alert.hospital_ward&.hospital_unit&.unit_code]\
+      .compact.join(" - ")
+  td= yes_no aki_alert.hotlist?
+  td= aki_alert.max_aki
+  td= l(aki_alert.aki_date)
+  td= aki_alert.decided_by

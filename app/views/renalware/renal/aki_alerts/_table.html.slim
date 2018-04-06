@@ -1,0 +1,15 @@
+table.aki-alerts
+  thead
+    th
+    th.col-width-large Patient
+    th.col-width-reference-no Hosp. No.
+    th.col-width-tiny Sex
+    th.col-width-tiny Age
+    th= sort_link(search, :action_name, "Action")
+    th.col-width-medium Ward
+    th= sort_link(search, :hotlist, "Hotlist")
+    th= sort_link(search, :max_aki, "Max AKI")
+    th.col-width-date= sort_link(search, :aki_date, "AKI Date")
+    th Decided by
+  tbody
+    = render alerts
