@@ -30,6 +30,10 @@ module Renalware
           def last_patient_id
             params[:last_patient_id]
           end
+
+          def per_page
+            params[:per_page] || 100
+          end
         end
       end
     end
