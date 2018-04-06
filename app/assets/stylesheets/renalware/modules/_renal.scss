@@ -37,4 +37,9 @@ table.aki-alerts tr {
   &.aki_alert--hotlist {
     background-color: $bookmark-urgent-colour;
   }
+
+  td.notes {
+    text-align: right;
+    vertical-align: top;
+  }
 }

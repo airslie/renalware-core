@@ -6,7 +6,7 @@
 
     .row
       .columns.medium-2.large-3
-        = f.input :term
+        = f.input :term, label: "Hosp/NHS no or name"
       .columns.medium-1.large-1
         = f.input :on_hotlist,
                   collection: [["Yes",true],["No",false]]
