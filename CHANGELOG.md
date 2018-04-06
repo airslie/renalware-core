@@ -9,6 +9,19 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.14
+06-04-2017
+
+### Added
+- AKI Alerts Today and All tabs on index view
+- Index view to patents API
+- Rake task to allow a developer to sign off stale sessions
+
+### Changed
+- Removed CRE value and date columns from AKI Alerts table
+
+### Fixed
+
 ## 2.0.13
 05-04-2017
 
