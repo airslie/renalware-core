@@ -45,7 +45,7 @@ Gem::Specification.new do |s|
   s.add_dependency "dotenv-rails", "~> 2.2.1"
   s.add_dependency "dumb_delegator", "~> 0.8.0"
   s.add_dependency "email_validator", "~> 1.6.0"
-  s.add_dependency "enumerize", "~> 2.1.2"
+  s.add_dependency "enumerize", "~> 2.2.2"
   s.add_dependency "font-awesome-rails", "~> 4.7.0.3" # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
   s.add_dependency "foundation-rails", "~> 5.5.3.2"
   s.add_dependency "friendly_id", "~> 5.2.3"
@@ -58,7 +58,7 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-ui-rails", "~> 6.0.1"
   s.add_dependency "kaminari", "~> 1.1.1"
   s.add_dependency "liquid", "~> 4.0.0"
-  s.add_dependency "lograge", "~> 0.9.0"
+  s.add_dependency "lograge", "~> 0.10.0"
   s.add_dependency "naught", "~> 1.1.0"
   s.add_dependency "nested_form", "~> 0.3.2"
   s.add_dependency "nokogiri", ">= 1.7.1"
@@ -69,7 +69,7 @@ Gem::Specification.new do |s|
   s.add_dependency "puma", "~> 3.11.2"
   s.add_dependency "pundit", "~> 1.1.0"
   s.add_dependency "rack-attack", "~> 5.0.1"
-  s.add_dependency "rails", "5.1.6"
+  s.add_dependency "rails", "5.1.4"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
   s.add_dependency "rails-assets-select2", "~> 4.0.2"
   s.add_dependency "ransack", "~> 1.8.7"

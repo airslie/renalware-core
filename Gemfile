@@ -38,7 +38,7 @@ group :test do
   gem "rspec-rails", "~> 3.7.0"
   gem "rspec_junit_formatter", "~> 0.3.0"
   gem "shoulda-matchers", "~> 3.1.2"
-  gem "simplecov", "~> 0.15.1", require: false # only loaded if required
+  gem "simplecov", "~> 0.16.0", require: false # only loaded if required
   gem "webmock", "~> 3.3.0", require: false
   gem "wisper-rspec", "~> 1.0.0"
 end
