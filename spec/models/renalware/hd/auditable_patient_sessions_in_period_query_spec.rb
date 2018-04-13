@@ -16,7 +16,7 @@ module Renalware
 
         it "selects closed and dna sessions within the requested month" do
           # This Nov one is too early
-          november_session = travel_to Time.zone.parse("2016-11-30 23:59:00") do
+          november_session = travel_to Time.zone.parse("2016-11-30 22:00:00") do
             create(:hd_closed_session, patient: patient, signed_off_at: Time.zone.now)
           end
 
@@ -31,13 +31,13 @@ module Renalware
           end
 
           # ..so are these Dec ones
-          travel_to Time.zone.parse("2016-12-31 23:59:00") do
+          travel_to Time.zone.parse("2016-12-31 22:00:00") do
             create(:hd_closed_session, patient: patient, signed_off_at: Time.zone.now)
             create(:hd_dna_session, patient: patient, performed_on: Time.zone.now)
           end
 
           # ..but this Jan one is too late
-          january_session = travel_to Time.zone.parse("2017-01-01 00:00:01") do
+          january_session = travel_to Time.zone.parse("2017-01-01 00:01:00") do
             create(:hd_closed_session, patient: patient, signed_off_at: Time.zone.now)
           end
 
