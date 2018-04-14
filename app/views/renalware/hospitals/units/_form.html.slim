@@ -1,6 +1,6 @@
-= render "renalware/shared/errors", model: @hospital_unit
+= render "renalware/shared/errors", model: hospital_unit
 
-= simple_form_for @hospital_unit,
+= simple_form_for hospital_unit,
                   wrapper: :horizontal_form,
                   html: { autocomplete: "off" } do |f|
   = f.association :hospital_centre,

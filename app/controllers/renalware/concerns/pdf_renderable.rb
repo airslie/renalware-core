@@ -6,6 +6,8 @@ module Renalware
       extend ActiveSupport::Concern
 
       included do
+        protected
+
         def default_pdf_options
           {
             page_size: "A4",

@@ -7,12 +7,6 @@ module Renalware
         include Renalware::Concerns::Pageable
         include PresenterHelper
 
-        def sent
-          messages = author.messages.page(page).per(per_page)
-          authorize messages
-          render locals: { messages: present(messages, MessagePresenter) }
-        end
-
         def new
           authorize Message, :new?
           form = MessageFormBuilder.new(patient: patient, params: params).call

@@ -1,0 +1,23 @@
+ignore_unreachable_actions:
+- \#authorize
+- \#current_patient
+- \#page
+- \#patient
+- \#per_page
+- \#permitted_attributes
+- \#pundit
+- \#skip_authorization
+- \#verify_authorized
+- ahoy
+- bust_cache
+- devise
+- dummies
+- foundation
+- policies
+- policy
+- present
+- rails_info
+- renalware_path
+- renalware_url
+ignore_unused_routes:
+- ^renalware/devise

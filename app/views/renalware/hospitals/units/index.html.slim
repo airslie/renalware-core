@@ -16,14 +16,14 @@
         th.col-width-tiny Stations
         th.col-width-medium
     tbody
-      - @hospital_units.each do |unit|
+      - hospital_units.each do |unit|
         tr
           td
             = link_to "Edit", edit_hospitals_unit_path(unit.id)
             = pipe_separator
             = link_to "Delete",
                       hospitals_unit_path(unit.id),
-                      RecipientFollowupmethod: :delete,
+                      method: :delete,
                       data: { confirm: I18n.t("prompts.confirm_delete") }
           td= unit.unit_code
           td= unit.name

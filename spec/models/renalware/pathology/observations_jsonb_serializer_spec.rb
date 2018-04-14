@@ -37,8 +37,7 @@ module Renalware
 
           it "does not raise an error when accessed via using a suffix like _result" do
             hash = ObservationsJsonbSerializer.load({ HGB: hgb })
-            expect{ hash.xyz_result }.not_to raise_error(NoMethodError)
-            expect{ hash.xyz_observed_at }.not_to raise_error(NoMethodError)
+            expect{ hash.xyz_result }.not_to raise_error
           end
         end
 

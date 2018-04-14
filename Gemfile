@@ -50,7 +50,9 @@ end
 
 group :development do
   gem "foreman", require: false
+  gem "meta_request" # useful for https://github.com/dejan/rails_panel
   gem "rubocop-rspec", require: false # for housekeeping
+  gem "traceroute" # for finding unused routes
   gem "web-console", require: false
 end
 
@@ -60,7 +62,6 @@ group :development, :test do
   gem "bundler-audit", require: false
   gem "byebug"
   gem "launchy", require: false
-  gem "rack-mini-profiler", require: false
   gem "rubocop", "~> 0.54.0", require: false
   gem "spring"
   gem "spring-commands-cucumber", require: false

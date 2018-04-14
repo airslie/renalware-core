@@ -3,58 +3,70 @@ require_dependency "renalware/hospitals"
 module Renalware
   module Hospitals
     class UnitsController < BaseController
-      before_action :load_hospital_unit, only: [:edit, :update]
-
       def new
-        @hospital_unit = Unit.new
-        authorize @hospital_unit
+        hospital_unit = Unit.new
+        authorize hospital_unit
+        render_new(hospital_unit)
       end
 
       def create
-        @hospital_unit = Unit.new(hospital_unit_params)
-        authorize @hospital_unit
+        hospital_unit = Unit.new(hospital_unit_params)
+        authorize hospital_unit
 
-        if @hospital_unit.save
-          redirect_to hospitals_units_path,
-            notice: t(".success", model_name: "hospital unit")
+        if hospital_unit.save
+          redirect_to hospitals_units_path, notice: success_msg_for("hospital unit")
         else
-          flash.now[:error] = t(".failed", model_name: "hospital unit")
-          render :new
+          flash.now[:error] = failed_msg_for("hospital unit")
+          render_new(hospital_unit)
         end
       end
 
       def index
-        @hospital_units = Unit.all
-        authorize @hospital_units
+        hospital_units = Unit.all
+        authorize hospital_units
+        render locals: { hospital_units: hospital_units }
+      end
+
+      def edit
+        render_edit(find_and_authorize_hospital_unit)
       end
 
       def update
-        if @hospital_unit.update(hospital_unit_params)
-          redirect_to hospitals_units_path,
-            notice: t(".success", model_name: "hospital unit")
+        hospital_unit = find_and_authorize_hospital_unit
+        if hospital_unit.update(hospital_unit_params)
+          redirect_to hospitals_units_path, notice: success_msg_for("hospital unit")
         else
-          flash.now[:error] = t(".failed", model_name: "hospital unit")
-          render :edit
+          flash.now[:error] = failed_msg_for("hospital unit")
+          render_edit(hospital_unit)
         end
       end
 
       def destroy
-        authorize Unit.destroy(params[:id])
-        redirect_to hospitals_units_path,
-          notice: t(".success", model_name: "hospital unit")
+        hospital_unit = find_and_authorize_hospital_unit
+        hospital_unit.destroy!
+        redirect_to hospitals_units_path, notice: success_msg_for("hospital unit")
       end
 
       private
+
+      def render_new(hospital_unit)
+        render :new, locals: { hospital_unit: hospital_unit }
+      end
+
+      def render_edit(hospital_unit)
+        render :edit, locals: { hospital_unit: hospital_unit }
+      end
+
+      def find_and_authorize_hospital_unit
+        hospital_unit = Unit.find(params[:id])
+        authorize hospital_unit
+        hospital_unit
+      end
 
       def hospital_unit_params
         params.require(:hospitals_unit).permit(
           :name, :unit_code, :renal_registry_code, :unit_type, :hospital_centre_id, :is_hd_site
         )
-      end
-
-      def load_hospital_unit
-        @hospital_unit = Unit.find(params[:id])
-        authorize @hospital_unit
       end
     end
   end
