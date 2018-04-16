@@ -361,12 +361,19 @@ module Renalware
             dry_weight1 = create(:dry_weight, patient: clinical_patient, weight: 100.0)
             session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
             session1.document.dialysis.fluid_removed = 1000.0 # ml
-            @sessions = [
-              session1
-            ]
+            @sessions = [session1]
             # 225 mins = 3.75 hours
             # 1000.0 ml / 3.75 hrs / 100.0 kg = 2.66
             expect(audit.mean_ufr).to eq(2.67)
+          end
+
+          it "returns zero if fluid_removed is not a number" do
+            clinical_patient = Clinical.cast_patient(patient)
+            dry_weight1 = create(:dry_weight, patient: clinical_patient, weight: 100.0)
+            session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
+            session1.document.dialysis.fluid_removed = "not a number"
+            @sessions = [session1]
+            expect(audit.mean_ufr).to eq(0)
           end
         end
       end
