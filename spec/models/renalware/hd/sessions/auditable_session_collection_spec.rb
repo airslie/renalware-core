@@ -213,6 +213,20 @@ module Renalware
 
             expect(audit.mean_litres_processed).to eq(10.2)
           end
+
+          context "when a session.document.dialysis.litres_processed is not a valid float" do
+            it "excludes that session from the mean value calculation" do
+              good_session = Session::Closed.new
+              good_session.document.dialysis.litres_processed = "15.1"
+
+              bad_session = Session::Closed.new
+              bad_session.document.dialysis.litres_processed = "23.1L"
+
+              @sessions = [good_session, bad_session]
+
+              expect(audit.mean_litres_processed).to eq(15.1)
+            end
+          end
         end
 
         describe "Missed HD time methods" do
@@ -356,17 +370,35 @@ module Renalware
             expect(audit.mean_ufr).to eq(3.56)
           end
 
-          it "returns the mean ufr for a single session if only one supplied" do
+          it "returns the mean UFR for a single session if only one supplied" do
             clinical_patient = Clinical.cast_patient(patient)
             dry_weight1 = create(:dry_weight, patient: clinical_patient, weight: 100.0)
             session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
             session1.document.dialysis.fluid_removed = 1000.0 # ml
-            @sessions = [
-              session1
-            ]
+            @sessions = [session1]
             # 225 mins = 3.75 hours
-            # 1000.0 ml / 3.75 hrs / 100.0 kg = 2.66
+            # 1000.0 ml / 3.75 hrs / 100.0 kg = 2.67
             expect(audit.mean_ufr).to eq(2.67)
+          end
+
+          it "returns just one session UFR if another other session has a fluid_removed "\
+            "which is not a number (i.e. 0) i.e. we do not include the 'bad' session when "\
+            "generating the mean value" do
+            clinical_patient = Clinical.cast_patient(patient)
+            dry_weight1 = create(:dry_weight, patient: clinical_patient, weight: 100.0)
+
+            session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
+            session1.document.dialysis.fluid_removed = 10.5
+
+            session2 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
+            session2.document.dialysis.fluid_removed = "not a number"
+
+            @sessions = [session1, session2]
+            # session2 excluded as fluid_removed effectively = 0
+            # Hence:
+            # 225 mins = 3.75 hours
+            # 10.5 l / 3.75 hrs / 100.0 kg = 0.03
+            expect(audit.mean_ufr).to eq(0.03)
           end
         end
       end
