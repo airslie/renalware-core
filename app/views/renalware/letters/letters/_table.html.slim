@@ -1,14 +1,19 @@
+- columns = local_assigns[:columns] || []
+
 table.auto-layout.letters.has-togglable-rows
   thead
     tr
-      th.col-width-medium
-      th State
+      th.col-width-small
+      th.col-width-tiny State
       th.col-width-date Date
-      th Author
-      th Recipient
-      th Description
+      th.col-width-medium Author
+      - if columns.include?(:patient)
+        th.col-width-medium Patient
+      th.col-width-medium Recipient
+      th.col-width-medium Description
 
   tbody
     = render partial: "renalware/letters/letters/letter",
              collection: letters,
-             cached: true
+             cached: true,
+             locals: { columns: columns }

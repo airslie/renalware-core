@@ -19,7 +19,8 @@ module Renalware
         authorize letters
         render locals: {
           author: author,
-          letters: present_letters(letters)
+          letters: present_letters(letters),
+          columns: %i(patient)
         }
       end
 
