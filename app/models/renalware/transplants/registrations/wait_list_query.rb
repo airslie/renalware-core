@@ -80,10 +80,6 @@ module Renalware
               .where.not(transplant_registration_status_descriptions: { code: codes })
           }
 
-          ransacker :uk_transplant_centre_code do
-            Arel.sql("transplant_registrations.document -> 'codes' ->> 'uk_transplant_centre_code'")
-          end
-
           ransacker :crf_highest_value do
             Arel.sql("transplant_registrations.document -> 'crf' -> 'highest' ->> 'result'")
           end
