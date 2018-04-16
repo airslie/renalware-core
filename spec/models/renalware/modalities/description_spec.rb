@@ -12,5 +12,14 @@ module Renalware
 
       it { is_expected.to validate_uniqueness_of :name }
     end
+
+    describe "#augmented_name_for(patient)" do
+      subject{ described_class.new(name: "XYZ").augmented_name_for(patient) }
+      let(:patient) { nil }
+
+      it "defaults to returning the modality name (a subclass may override to change behaviour)" do
+        is_expected.to eq("XYZ")
+      end
+    end
   end
 end
