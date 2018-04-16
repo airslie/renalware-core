@@ -151,7 +151,7 @@ module Renalware
           end
 
           def total
-            @total ||= values.inject(0){ |sum, value| sum + value }
+            @total ||= values.inject(0.0){ |sum, value| sum + value.to_f }
           end
 
           def mean

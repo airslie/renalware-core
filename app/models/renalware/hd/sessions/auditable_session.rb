@@ -81,7 +81,7 @@ module Renalware
         end
 
         def fluid_removed
-          document.dialysis.fluid_removed&.to_i
+          document.dialysis.fluid_removed.to_f
         end
       end
     end
