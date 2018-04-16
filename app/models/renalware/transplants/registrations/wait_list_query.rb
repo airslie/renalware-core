@@ -23,6 +23,7 @@ module Renalware
             query = query_for_filter(named_filter).merge(q)
             QueryableRegistration
               .includes(patient: [current_modality: :description])
+              .merge(HD::Patient.with_profile)
               .search(query).tap do |s|
               s.sorts = ["patient_family_name, patient_given_name"]
             end

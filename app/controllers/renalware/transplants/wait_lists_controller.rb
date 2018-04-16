@@ -10,7 +10,7 @@ module Renalware
         authorize registrations
         render locals: {
           path_params: path_params,
-          registrations: registrations,
+          registrations: CollectionPresenter.new(registrations, WaitListRegistrationPresenter),
           q: query.search
         }
       end
