@@ -36,16 +36,16 @@ Renalware::Engine.routes.draw do
   resources :mock_errors, only: [:index], controller: "system/mock_errors"
 
   namespace :reporting do
-    resources :audits, except: [:destroy]
+    resources :audits, except: [:destroy, :create, :new]
     resources :audit_refreshments, only: [:create]
   end
 
   namespace :admissions do
-    resources :requests do
+    resources :requests, except: :show do
       post :sort, on: :collection
     end
-    resources :consults
-    resources :admissions
+    resources :consults, except: :show
+    resources :admissions, except: :show
   end
 
   namespace :messaging do
@@ -110,11 +110,11 @@ Renalware::Engine.routes.draw do
 
   resources :bookmarks, controller: "patients/bookmarks", only: :destroy
   resource :dashboard, only: :show, controller: "dashboard/dashboards"
-  resource :worryboard, :show, controller: "patients/worryboard"
+  resource :worryboard, only: :show, controller: "patients/worryboard"
 
   # Clinics
   resources :appointments, controller: "clinics/appointments", only: [:index]
-  resources :clinic_visits, controller: "clinics/visits"
+  resources :clinic_visits, only: :index, controller: "clinics/visits"
 
   resources :deaths, only: :index, as: :patient_deaths
 
@@ -453,21 +453,27 @@ Renalware::Engine.routes.draw do
       scope "/donor" do
         resource :donor_dashboard, only: :show, path: "/dashboard"
         resource :donor_workup, only: [:show, :edit, :update], path: "/workup"
-        resources :donor_operations, expect: [:index, :destroy], path: "/operations" do
-          resource :followup, controller: "donor_followups", path: "/follow_up"
+        resources :donor_operations, except: [:index, :destroy], path: "/operations" do
+          resource :followup,
+                   except: :destroy,
+                   controller: "donor_followups",
+                   path: "/follow_up"
         end
-        resources :donations, expect: [:index, :destroy]
-        resource :donor_stage, expect: [:index, :destroy], path: "/stage"
+        resources :donations, except: [:index, :destroy]
+        resource :donor_stage, only: [:new, :create], path: "/stage"
       end
 
       scope "/recipient" do
         resource :recipient_dashboard, only: :show, path: "/dashboard"
         resource :recipient_workup, only: [:show, :edit, :update], path: "/workup"
-        resources :recipient_operations, expect: [:index, :destroy], path: "/operations" do
-          resource :followup, controller: "recipient_followups", path: "/follow_up"
+        resources :recipient_operations, except: [:index, :destroy], path: "/operations" do
+          resource :followup,
+                   except: :destroy,
+                   controller: "recipient_followups",
+                   path: "/follow_up"
         end
-        resource :registration, expect: [:index, :destroy] do
-          resources :statuses, controller: "registration_statuses"
+        resource :registration, only: [:show, :edit, :update] do
+          resources :statuses, except: [:index, :show], controller: "registration_statuses"
         end
       end
     end

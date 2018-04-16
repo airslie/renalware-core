@@ -3,8 +3,6 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module PD
     class RegimesController < BaseController
-      include Renalware::Concerns::NestedActionsControllerMethods
-
       before_action :load_patient
 
       def new
@@ -16,6 +14,7 @@ module Renalware
         }
       end
 
+      # rubocop:disable Metrics/AbcSize
       def create
         result = CreateRegime.new(patient: patient)
                              .call(by: current_user, params: pd_regime_params)
@@ -30,6 +29,7 @@ module Renalware
           }
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
       def edit
         render :edit, locals: {
@@ -38,6 +38,7 @@ module Renalware
         }
       end
 
+      # rubocop:disable Metrics/AbcSize
       def update
         result = ReviseRegime.new(pd_regime).call(by: current_user, params: pd_regime_params)
 
@@ -52,6 +53,7 @@ module Renalware
           }
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
       def show
         render :show, locals: {

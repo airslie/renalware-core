@@ -9,6 +9,8 @@ module Renalware
     include PresenterHelper
     include Renalware::Concerns::Pageable
 
+    protected
+
     def render_index(**args)
       presenter = build_presenter(params: params, **args)
       authorize presenter.patients
