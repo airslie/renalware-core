@@ -1,4 +1,4 @@
-- columns = local_assigns[:columns] || []
+- columns = local_assigns[:columns] || [:author]
 
 table.auto-layout.letters.has-togglable-rows
   thead
@@ -6,7 +6,8 @@ table.auto-layout.letters.has-togglable-rows
       th.col-width-small
       th.col-width-tiny State
       th.col-width-date Date
-      th.col-width-medium Author
+      - if columns.include?(:author)
+        th.col-width-medium Author
       - if columns.include?(:patient)
         th.col-width-medium Patient
       th.col-width-medium Recipient
