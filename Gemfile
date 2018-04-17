@@ -49,16 +49,16 @@ group :staging do
 end
 
 group :development do
+  gem "awesome_print", require: false
+  gem "bullet"
   gem "foreman", require: false
-  gem "meta_request" # useful for https://github.com/dejan/rails_panel
+  # gem "meta_request" # useful for https://github.com/dejan/rails_panel
   gem "rubocop-rspec", require: false # for housekeeping
-  gem "traceroute" # for finding unused routes
+  # gem "traceroute" # for finding unused routes
   gem "web-console", require: false
 end
 
 group :development, :test do
-  gem "awesome_print", require: false
-  gem "bullet"
   gem "bundler-audit", require: false
   gem "byebug"
   gem "launchy", require: false

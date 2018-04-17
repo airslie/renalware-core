@@ -5,27 +5,21 @@ tr
   td.full-name
     = link_to registration.patient.to_s,
               patient_clinical_summary_path(registration.patient)
-  td= registration.patient.hospital_identifier
-  td= registration.patient.age
-  td= registration.patient.sex.code
-  td= registration.patient.current_modality
-  td= registration.document.codes.uk_transplant_centre_code
+  td= registration.patient_hospital_identifier
+  td= registration.patient_age
+  td= registration.patient_sex.code
+  td= registration.patient_current_modality
+  td= registration.hd_hospital_unit_code
   td= registration.current_status
-  td= registration.document.uk_transplant_centre&.status
-  td
-    - Renalware::Renal.cast_patient(registration.patient).tap do |patient|
-      = I18n.l(patient.profile&.esrf_on)
-  td= I18n.l registration.entered_on
-  td
-    - if registration.entered_on
-      = (Time.zone.today - registration.entered_on).to_i
-  td= registration.document.transplant.blood_group.to_s
-  td= registration.document.crf.highest.result
-  td= I18n.l registration.document.crf.highest.recorded_on
-  td= registration.document.crf.latest.result
-  td= I18n.l registration.document.crf.latest.recorded_on
-  td
-    - if registration.document.crf.latest.result.present?
-      = (registration.document.crf.latest.result.to_i > 60 ? "Sens" : "Unsens")
-  td= registration.document.transplant.nb_of_previous_grafts
-  td= registration.document.organs.transplant_type.try(:text)
+  td= registration.uk_transplant_centre_status
+  td= l(registration.esrf_date)
+  td= l(registration.entered_on)
+  td= registration.dol
+  td= registration.transplant_blood_group.to_s
+  td= registration.crf_highest_result
+  td= l(registration.crf_highest_recorded_on)
+  td= registration.crf_latest_result
+  td= l(registration.crf_latest_recorded_on)
+  td= registration.sens
+  td= registration.transplant_nb_of_previous_grafts
+  td= registration.organs_transplant_type&.text

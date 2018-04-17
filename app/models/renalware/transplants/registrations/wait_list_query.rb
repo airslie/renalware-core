@@ -23,7 +23,11 @@ module Renalware
             query = query_for_filter(named_filter).merge(q)
             QueryableRegistration
               .includes(patient: [current_modality: :description])
+              .includes(current_status: :description)
+              .merge(HD::Patient.with_profile)
+              .merge(Renal::Patient.with_profile)
               .search(query).tap do |s|
+
               s.sorts = ["patient_family_name, patient_given_name"]
             end
           end
@@ -80,16 +84,22 @@ module Renalware
               .where.not(transplant_registration_status_descriptions: { code: codes })
           }
 
-          ransacker :uk_transplant_centre_code do
-            Arel.sql("transplant_registrations.document -> 'codes' ->> 'uk_transplant_centre_code'")
-          end
-
           ransacker :crf_highest_value do
             Arel.sql("transplant_registrations.document -> 'crf' -> 'highest' ->> 'result'")
           end
 
           ransacker :crf_latest_value do
             Arel.sql("transplant_registrations.document -> 'crf' -> 'latest' ->> 'result'")
+          end
+
+          # TODO: move ransacker to HD namespace
+          ransacker :hd_site do
+            Arel.sql("hospital_units.unit_code")
+          end
+
+          # TODO: move ransacker to Renal namespace
+          ransacker :esrf_on do
+            Arel.sql("renal_profiles.esrf_on")
           end
 
           scope :ukt_status_is, lambda { |status|
