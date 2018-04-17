@@ -1,3 +1,5 @@
+- columns = local_assigns[:columns] || []
+
 tr(class=letter.state.dasherize)
   td
     = link_to "Toggle", "#quick-preview-#{letter.id}", data: { behaviour: "toggler" }
@@ -16,12 +18,15 @@ tr(class=letter.state.dasherize)
   td.state
     span= letter.state_description
   td= l(letter.issued_on)
-  td= letter.author
+  - if columns.include?(:author)
+    td.col-width-medium-with-ellipsis= letter.author
+  - if columns.include?(:patient)
+    td.col-width-medium-with-ellipsis= default_patient_link(letter.patient)
   td.recipient= letter.main_recipient.address
-  td= letter.description
+  td.col-width-medium-with-ellipsis= letter.description
 
 = content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
   td
-  td(colspan=7)
+  td(colspan=8)
     .quick-preview
       = simple_format letter.body
