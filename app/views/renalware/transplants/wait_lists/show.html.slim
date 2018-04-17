@@ -25,13 +25,10 @@
         th= sort_link([:renalware, q], :patient_born_on, "Age")
         th= sort_link([:renalware, q], :patient_sex, "Sex")
         th Modal
-        th HD Site
+        th= sort_link([:renalware, q], :hd_site, "HD Site")
         th Status
         th UKT Status
-        / Note patient_profile_esrf_on sorting not yet working because patient is not a
-        / Renal::Patient so patient#profile does not exist. We may need to add a ransacker
-        / in WaitListQuery
-        th.col-width-date= sort_link([:renalware, q], :patient_profile_esrf_on, "ESRF Date")
+        th.col-width-date= sort_link([:renalware, q], :esrf_on, "ESRF Date")
         th.col-width-date= sort_link([:renalware, q], :entered_on, "Entry Date")
         th DOL
         th Bld Grp
