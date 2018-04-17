@@ -1,4 +1,5 @@
 - back_path ||= nil
+- patient = Renalware::Patients::BannerPresenter.new(patient)
 
 .header.patient-header
   / If screen-is-mobile-size is visible then we collapse the patient LH nav
@@ -31,4 +32,4 @@
     dt= t(".born_on")
     dd= "#{l(patient.born_on)} (#{patient.age}y)"
     dt= t(".modality")
-    dd= modality_description_for(patient.current_modality)
+    dd= patient.current_modality_description
