@@ -12,9 +12,7 @@ module Renalware
         500, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2200, 2500
       ].freeze
 
-      before_save :set_glucose_volume_low_strength
-      before_save :set_glucose_volume_medium_strength
-      before_save :set_glucose_volume_high_strength
+      before_save :calculate_daily_average_glucose_volumes
 
       def pd_type
         :capd
@@ -22,52 +20,48 @@ module Renalware
 
       private
 
-      # rubocop:disable Metrics/MethodLength
-      def match_bag_type
-        @match_bag_type ||= begin
-          glucose_types = [[], [], []]
-
-          bags.each do |bag|
-            weekly_total = bag.weekly_total_glucose_ml_per_bag
-            case bag.bag_type.glucose_strength.to_sym
-            when :low then glucose_types[0] << weekly_total
-            when :medium then glucose_types[1] << weekly_total
-            when :high then glucose_types[2] << weekly_total
-            else glucose_types
-            end
-          end
-          glucose_types
-        end
+      def calculate_daily_average_glucose_volumes
+        strengths = build_hash_of_glucose_strengths_and_bag_glucose_volumes
+        persist_daily_average_glucose_volume_for_each_strength(strengths)
       end
-      # rubocop:enable Metrics/MethodLength
 
-      def set_glucose_volume_low_strength
-        if match_bag_type[0].empty?
-          0
-        else
-          per_week_total = match_bag_type[0].inject{ |sum, v| sum + v }
-          glucose_daily_average = per_week_total / 7.to_f
-          self.glucose_volume_low_strength = glucose_daily_average.round
+      def build_hash_of_glucose_strengths_and_bag_glucose_volumes
+        strengths = initialise_hash_of_glucose_strengths
+        assign_weekly_glucose_volume_for_each_bag_to_corresponding_strength(strengths)
+        strengths
+      end
+
+      def persist_daily_average_glucose_volume_for_each_strength(strengths)
+        strengths.each do |name, strength|
+          strength_setter = :"glucose_volume_#{name}_strength="
+          send(strength_setter, strength.daily_average) if respond_to?(strength_setter)
         end
       end
 
-      def set_glucose_volume_medium_strength
-        if match_bag_type[1].empty?
-          0
-        else
-          per_week_total = match_bag_type[1].inject{ |sum, v| sum + v }
-          glucose_daily_average = per_week_total / 7.to_f
-          self.glucose_volume_medium_strength = glucose_daily_average.round
+      def initialise_hash_of_glucose_strengths
+        BagType.glucose_strength.values.each_with_object({}) do |strength, hash|
+          hash[strength.to_sym] = GlucoseStrength.new
         end
       end
 
-      def set_glucose_volume_high_strength
-        if match_bag_type[2].empty?
-          0
-        else
-          per_week_total = match_bag_type[2].inject{ |sum, v| sum + v }
-          glucose_daily_average = per_week_total / 7.to_f
-          self.glucose_volume_high_strength = glucose_daily_average.round
+      def assign_weekly_glucose_volume_for_each_bag_to_corresponding_strength(strengths)
+        bags.each do |bag|
+          weekly_total = bag.weekly_total_glucose_ml_per_bag
+          bag_strength = bag.bag_type.glucose_strength.to_sym
+          strengths[bag_strength].weekly_totals << weekly_total
+        end
+      end
+
+      class GlucoseStrength
+        attr_reader :weekly_totals
+
+        def initialize
+          @weekly_totals = []
+        end
+
+        def daily_average
+          per_week_total = weekly_totals.inject(0.0){ |sum, volume| sum + volume }
+          per_week_total / 7.to_f
         end
       end
     end
