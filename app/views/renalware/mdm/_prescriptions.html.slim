@@ -7,21 +7,27 @@ article
                 patient_prescriptions_path(mdm.patient),
                 class: "button secondary"
 
-  - if local_assigns[:with_esa] == true
+      = link_to "Toggle",
+                "#prescriptions",
+                class: "button secondary",
+                data: { behaviour: "css-toggler" }
 
-    ul.tab-strip(data-tab)
-      li.tab-title.active= link_to "Current", "#current"
-      li.tab-title= link_to "EPO History", "#epo-history"
+  #prescriptions.expandable
+    - if local_assigns[:with_esa] == true
 
-    .tabs-content
-      #current.content.active
-        = render "renalware/mdm/prescriptions/table",
-                 prescriptions: mdm.current_prescriptions,
-                 show_administer_on_hd: true
-      #epo-history.content
-        = render "renalware/mdm/prescriptions/table",
-                 prescriptions: mdm.esa_prescriptions,
-                 show_terminated_on: true,
-                 show_administer_on_hd: true
-  - else
-    = render "current_prescriptions", mdm: mdm
+      ul.tab-strip(data-tab)
+        li.tab-title.active= link_to "Current", "#current"
+        li.tab-title= link_to "EPO History", "#epo-history"
+
+      .tabs-content
+        #current.content.active
+          = render "renalware/mdm/prescriptions/table",
+                   prescriptions: mdm.current_prescriptions,
+                   show_administer_on_hd: true
+        #epo-history.content
+          = render "renalware/mdm/prescriptions/table",
+                   prescriptions: mdm.esa_prescriptions,
+                   show_terminated_on: true,
+                   show_administer_on_hd: true
+    - else
+      = render "current_prescriptions", mdm: mdm
