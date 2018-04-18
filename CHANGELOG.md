@@ -9,6 +9,29 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.16
+18-04-2017
+
+### Added
+### Changed
+- Display HD Site in TX Wait List
+- Display patient name to user's letters list
+- Display HD Site in patient banner
+- Removed unused code ad routes
+### Fixed
+- Fixed #2160 Unread eCCs now only visible (and be marked as read) for approved and completed letters
+- Fixed #2168 String comparison with zero error creating hd_statistics row
+
+## 2.0.15
+06-04-2017
+
+### Added
+### Changed
+- Make the HD Session Save button grey
+- Improve AKIAlert demo seeding
+### Fixed
+- Use created_at for the AKIAlert today scope
+
 ## 2.0.14
 06-04-2017
 
