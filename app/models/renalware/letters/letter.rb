@@ -63,6 +63,9 @@ module Renalware
       scope :with_patient, -> { includes(patient: :primary_care_physician) }
       scope :with_event, -> { includes(:event) }
       scope :with_cc_recipients, -> { includes(cc_recipients: { addressee: { person: :address } }) }
+      scope :approved_or_completed, lambda {
+        where(type: [state_class_name(:approved), state_class_name(:completed)])
+      }
 
       delegate :primary_care_physician, to: :patient
 
