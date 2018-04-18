@@ -19,6 +19,7 @@ en:
         cre: CRE
         cre_date: CRE Date
         egfr: EGFR
+        registration_status: Tx Status
     mdm:
       problems:
         view_all: View All
