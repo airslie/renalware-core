@@ -1,4 +1,5 @@
 - observation_set = patient.current_observation_set
+- transplant_patient = Renalware::Transplants::PatientPresenter.new(patient)
 tr
   td.full-name= link_to patient.to_s(:default), view_proc.call(patient)
   td.nowrap= patient.nhs_number
@@ -6,6 +7,7 @@ tr
   td= patient.sex.code
   td= patient.age
   td= patient.modality_description&.name
+  td= transplant_patient.current_registration_status
   td= observation_set.hgb_result
   td= l(observation_set.hgb_observed_at)
   td= observation_set.ure_result
