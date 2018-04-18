@@ -1,6 +1,7 @@
 table.letters.electronic-ccs.has-togglable-rows
   thead
     tr
+      th.col-width-tiny State
       th.col-width-date Date
       th.col-width-date-time Read at
       th.col-width-medium Author
@@ -15,7 +16,9 @@ table.letters.electronic-ccs.has-togglable-rows
       - letter = Renalware::Letters::LetterPresenter.new(receipt.letter)
       - patient = letter.patient
 
-      tr(id=receipt.html_identifier)
+      tr(id=receipt.html_identifier class=letter.state.dasherize)
+        td.state
+          span= letter.state_description
         td= l(letter.issued_on)
         td= l(receipt.read_at)
         td= letter.author
@@ -31,7 +34,7 @@ table.letters.electronic-ccs.has-togglable-rows
 
       = content_tag(:tr, id: receipt.html_preview_identifier, style: "display: none")
         td
-        td(colspan=6)
+        td(colspan=7)
           .quick-preview
             = simple_format letter.body
 

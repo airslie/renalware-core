@@ -20,8 +20,16 @@ module Renalware
           .merge(Letter::Approved.all)
           .where(letter_letters: { author_id: user_id })
       }
-      scope :unread, -> { where(read_at: nil).joins(:letter).merge(Letter::Approved.all) }
-      scope :read, -> { where.not(read_at: nil).joins(:letter).merge(Letter::Approved.all) }
+      scope :unread, lambda {
+        where(read_at: nil)
+          .joins(:letter)
+          .merge(Letter.approved_or_completed)
+      }
+      scope :read, lambda {
+        where.not(read_at: nil)
+          .joins(:letter)
+          .merge(Letter.approved_or_completed)
+      }
       scope :for_recipient, ->(user_id) { where(recipient_id: user_id) }
       scope :ordered, -> { order(created_at: :desc) }
 
