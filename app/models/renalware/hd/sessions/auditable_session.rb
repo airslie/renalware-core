@@ -59,11 +59,12 @@ module Renalware
         end
 
         # This is fluid removed (ml) / HD time in hours eg 3.75 / dry weight (kg)
-        # The result is in ml/hr/kg
+        # The result is in ml/hr/kg.
+        # Note that fluid removed is entered in L so we need to convert to ml here.
         def ufr
           return nil unless measured_dry_weight > 0 && duration > 0 && fluid_removed > 0
 
-          fluid_removed / duration_as_hours / measured_dry_weight
+          (fluid_removed * 1000) / duration_as_hours / measured_dry_weight
         end
 
         private

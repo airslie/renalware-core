@@ -356,10 +356,10 @@ module Renalware
             dry_weight2 = build_stubbed(:dry_weight, patient: clinical_patient, weight: 120.0)
 
             session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
-            session1.document.dialysis.fluid_removed = 1000.0 # ml
+            session1.document.dialysis.fluid_removed = 1.0 # L
 
             session2 = Session::Closed.new(dry_weight: dry_weight2, duration: 225)
-            session2.document.dialysis.fluid_removed = 2000.0 # ml
+            session2.document.dialysis.fluid_removed = 2.0 # L
 
             @sessions = [session1, session2]
 
@@ -374,7 +374,7 @@ module Renalware
             clinical_patient = Clinical.cast_patient(patient)
             dry_weight1 = create(:dry_weight, patient: clinical_patient, weight: 100.0)
             session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
-            session1.document.dialysis.fluid_removed = 1000.0 # ml
+            session1.document.dialysis.fluid_removed = 1.0 # ml
             @sessions = [session1]
             # 225 mins = 3.75 hours
             # 1000.0 ml / 3.75 hrs / 100.0 kg = 2.67
@@ -398,7 +398,7 @@ module Renalware
             # Hence:
             # 225 mins = 3.75 hours
             # 10.5 l / 3.75 hrs / 100.0 kg = 0.03
-            expect(audit.mean_ufr).to eq(0.03)
+            expect(audit.mean_ufr).to eq(28.0)
           end
         end
       end
