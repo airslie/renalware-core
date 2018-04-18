@@ -22,8 +22,8 @@ module Renalware
           @search ||= begin
             query = query_for_filter(named_filter).merge(q)
             QueryableRegistration
-              .includes(patient: [current_modality: :description])
-              .includes(current_status: :description)
+              .eager_load(patient: [current_modality: :description])
+              .eager_load(current_status: :description)
               .merge(HD::Patient.with_profile)
               .merge(Renal::Patient.with_profile)
               .search(query).tap do |s|

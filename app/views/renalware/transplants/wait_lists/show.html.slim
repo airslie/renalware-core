@@ -23,8 +23,8 @@
         th= sort_link([:renalware, q], :patient_family_name, "Patient")
         th Hosp No
         th= sort_link([:renalware, q], :patient_born_on, "Age")
-        th= sort_link([:renalware, q], :patient_sex, "Sex")
-        th Modal
+        th Sex
+        th= sort_link([:renalware, q], :patient_current_modality_description_name, "Modality")
         th= sort_link([:renalware, q], :hd_site, "HD Site")
         th Status
         th UKT Status
@@ -32,7 +32,7 @@
         th.col-width-date= sort_link([:renalware, q], :entered_on, "Entry Date")
         th DOL
         th Bld Grp
-        th.col-width-date= sort_link([:renalware, q], :crf_highest_value, "CRF high")
+        th.col-width-tiny= sort_link([:renalware, q], :crf_highest_value, "CRF high")
         th.col-width-date CRF high date
         th= sort_link([:renalware, q], :crf_latest_value, "CRF latest")
         th.col-width-date CRF latest date
