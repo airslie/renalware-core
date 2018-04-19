@@ -102,8 +102,8 @@ module Renalware
       click_on "Save"
 
       expect(page).to have_content("Low strength 857 ml")
-      expect(page).to have_content("Med. strength 1429 ml")
-      expect(page).to have_content("High strength 2286 ml")
+      expect(page).to have_content("Med. strength 1428 ml")
+      expect(page).to have_content("High strength 2285 ml")
     end
   end
 end
