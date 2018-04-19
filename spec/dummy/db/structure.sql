@@ -5592,16 +5592,19 @@ CREATE MATERIALIZED VIEW reporting_hd_blood_pressures_audit AS
 
 CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
  SELECT units.name,
+    stats.month,
+    stats.year,
     count(stats.id) AS patient_count,
     0 AS percentage_hb_gt_100,
     0 AS percentage_urr_gt_65,
     0 AS percentage_phosphate_lt_1_8,
     0 AS percentage_access_fistula_or_graft,
-    0 AS avg_missed_hd_time,
-    round((((count(stats.number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct) / count(stats.id)) * 100))::numeric, 1) AS pct_shortfall_gt_5_pct
-   FROM (hd_patient_statistics stats
-     JOIN hospital_units units ON ((units.id = stats.hospital_unit_id)))
-  GROUP BY units.name
+    avg(stats.dialysis_minutes_shortfall) AS avg_missed_hd_time,
+    avg(stats.number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct) AS pct_shortfall_gt_5_pct
+   FROM ((hd_patient_statistics stats
+     JOIN patients p ON ((p.id = stats.patient_id)))
+     LEFT JOIN hospital_units units ON ((units.id = stats.hospital_unit_id)))
+  GROUP BY units.name, stats.year, stats.month
   WITH NO DATA;
 
 
@@ -14735,6 +14738,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180323150241'),
 ('20180326155400'),
 ('20180327100423'),
-('20180328210434');
+('20180328210434'),
+('20180419141524');
 
 
