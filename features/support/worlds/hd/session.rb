@@ -263,7 +263,7 @@ module World
         end
 
         fill_in "Session End Time", with: "23:59"
-        select user.to_s, from: "Signed Off By"
+        select user.to_s, from: "Put Off By"
 
         within_fieldset "Session Info" do
           choose "HD"
