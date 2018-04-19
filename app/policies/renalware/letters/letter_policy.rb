@@ -32,7 +32,8 @@ module Renalware
       end
 
       def destroy?
-        record.state.downcase.to_sym != :approved
+        state = record.state.downcase.to_sym
+        !%i(approved completed).include?(state)
       end
     end
   end
