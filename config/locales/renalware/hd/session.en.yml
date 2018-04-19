@@ -6,7 +6,7 @@ en:
         hospital_unit: Hospital Unit
         hospital_centre: Hospital Centre
         signed_on_by: Put On By
-        signed_off_by: Put Off By
+        signed_off_by: Taken Off By
         start_time: Session Start Time
         end_time: Session End Time
         hd_type: HD Type
