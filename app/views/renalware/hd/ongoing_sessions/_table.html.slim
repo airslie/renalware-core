@@ -11,8 +11,8 @@ table.report
       th.col-width-date= sort_link([:renalware, query], :performed_on, "Date")
       th.col-width-time= sort_link([:renalware, query], :start_time, "Start Time")
       th.col-width-time= sort_link([:renalware, query], :end_time, "End Time")
-      td= sort_link([:renalware, query], :signed_on_by_family_name, "Signed On By")
-      td= sort_link([:renalware, query], :signed_off_by_family_name, "Signed Off By")
+      td= sort_link([:renalware, query], :signed_on_by_family_name, "Put On By")
+      td= sort_link([:renalware, query], :signed_off_by_family_name, "Taken Off By")
 
   tbody
     = render partial: "session", collection: sessions
