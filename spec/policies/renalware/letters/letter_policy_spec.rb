@@ -5,10 +5,17 @@ require "rails_helper"
 module Renalware::Letters
   describe LetterPolicy, type: :policy do
     subject(:policy) { described_class }
-    let(:super_admin_user) { create(:user, :super_admin) }
-    let(:admin_user) { create(:user, :admin) }
-    let(:clinical_user) { create(:user, :clinical) }
-    let(:read_only_user) { create(:user, :read_only) }
+    let(:super_admin_user) { user_with_role(:super_admin) }
+    let(:admin_user) { user_with_role(:admin) }
+    let(:clinical_user) { user_with_role(:clinical) }
+    let(:read_only_user) { user_with_role(:read_only) }
+
+    def user_with_role(role)
+      instance_double(Renalware::User).tap do |user|
+        allow(user).to receive(:has_role?).and_return(false)
+        allow(user).to receive(:has_role?).with(role).and_return(true)
+      end
+    end
 
     permissions :author? do
       it { is_expected.to permit(super_admin_user) }
@@ -23,14 +30,14 @@ module Renalware::Letters
           let(:letter) { "Renalware::Letters::Letter::#{letter_klass}".constantize.new }
           context "when the user is the author" do
             let(:user) { clinical_user }
-            before { letter.author = user }
+            before { allow(letter).to receive(:author).and_return(user) }
 
             it { is_expected.to permit(user, letter) }
           end
 
           context "when the user is the creator" do
             let(:user) { clinical_user }
-            before { letter.created_by = user }
+            before { allow(letter).to receive(:created_by).and_return(user) }
 
             it { is_expected.to permit(user, letter) }
           end
@@ -75,7 +82,7 @@ module Renalware::Letters
 
           context "when the user is the author" do
             let(:user) { clinical_user }
-            before { letter.author = user }
+            before { allow(letter).to receive(:author).and_return(user) }
 
             it { is_expected.not_to permit(user, letter) }
           end
