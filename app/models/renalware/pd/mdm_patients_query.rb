@@ -26,7 +26,7 @@ module Renalware
             .extending(PatientPathologyScopes)
             .with_current_modality_matching(MODALITY_NAMES)
             .with_current_pathology
-            .left_joins(:current_observation_set)
+            .left_outer_joins(:current_observation_set)
             .search(q)
         end
       end

@@ -1,3 +1,4 @@
+# rubocop:disable Style/ExpandPathArguments,Style/SpecialGlobalVars
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
@@ -26,7 +27,6 @@ Gem::Specification.new do |s|
     "README.md",
     "MIT-LICENSE"
   ]
-  s.add_dependency "rails", "5.1.4"
   s.add_dependency "active_type", "~> 0.7.1"
   s.add_dependency "activerecord-import", "~> 0.22.0"
   s.add_dependency "ahoy_matey", "~> 2.0.1"
@@ -69,6 +69,7 @@ Gem::Specification.new do |s|
   s.add_dependency "puma", "~> 3.11.2"
   s.add_dependency "pundit", "~> 1.1.0"
   s.add_dependency "rack-attack", "~> 5.0.1"
+  s.add_dependency "rails", "5.1.6"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
   s.add_dependency "rails-assets-select2", "~> 4.0.2"
   s.add_dependency "ransack", "~> 1.8.7"

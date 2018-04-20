@@ -46,13 +46,13 @@ module Renalware
                 in: DoseUnit.codes,
                 i18n_scope: "enumerize.renalware.medications.prescription.dose_unit"
 
-      scope :ordered, -> { includes(:drug).order("drugs.name") }
+      scope :ordered, -> { joins(:drug).order("drugs.name") }
       scope :with_medication_route, -> { includes(:medication_route) }
       scope :with_drugs, -> { includes(drug: :drug_types) }
       scope :with_classifications, -> { includes(drug: :classifications) }
       scope :with_termination, -> { includes(termination: [:created_by]) }
       scope :current, lambda { |date = Date.current|
-        eager_load(:termination)
+        left_outer_joins(:termination)
           .where("terminated_on IS NULL OR terminated_on > ?", date)
       }
       scope :terminated, lambda { |date = Date.current|

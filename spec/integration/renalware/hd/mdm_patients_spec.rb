@@ -6,23 +6,34 @@ RSpec.describe "HD MDM Patients", type: :feature do
   include PatientsSpecHelper
   let(:user) { create(:user) }
 
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create_hd_patient(unit:, family_name:, schedule_definition:, by: user)
-    create(:hd_patient, family_name: family_name).tap do |patient|
+    create(:hd_patient, family_name: family_name, by: user).tap do |patient|
       patient.hd_profile = create(:hd_profile,
                                    patient: patient,
                                    hospital_unit: unit,
-                                   schedule_definition: schedule_definition)
+                                   schedule_definition: schedule_definition,
+                                   by: user)
       set_modality(patient: patient,
                    modality_description: create(:hd_modality_description),
                    by: by)
+
+      create(:prescription, patient: patient, by: user)
+      pres = create(:prescription, patient: patient, prescribed_on: 1.day.ago, by: user)
+      create(:prescription_termination,
+             prescription: pres,
+             terminated_on: Time.zone.now,
+             by: user)
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   describe "GET index" do
     it "responds successfully" do
       patient = create(:hd_patient,
                        family_name: "Rabbit",
-                       local_patient_id: "KCH12345")
+                       local_patient_id: "KCH12345",
+                       by: user)
 
       set_modality(patient: patient,
                    modality_description: create(:hd_modality_description),

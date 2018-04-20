@@ -132,7 +132,6 @@ module Renalware
            .with_medication_route
            .with_drugs
            .with_classifications
-           .with_termination
            .eager_load(drug: [:drug_types])
            .map { |prescrip| Medications::PrescriptionPresenter.new(prescrip) }
     end

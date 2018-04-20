@@ -31,7 +31,7 @@ module Renalware
     scope :ordered, -> { order(:family_name, :given_name) }
     scope :excluding_system_user, -> { where.not(username: SystemUser.username) }
     scope :with_no_role, lambda {
-      left_joins(:roles)
+      left_outer_joins(:roles)
         .distinct("roles_users.user_id")
         .where("roles_users.user_id is null")
     }
