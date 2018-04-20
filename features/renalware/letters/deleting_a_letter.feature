@@ -9,7 +9,7 @@ Feature: Deleting a letter
 
   @web
   Scenario: A doctor deleted an un-archived letter
-    Given Patty has a letter pending review
+    Given Patty has a letter pending review authored by Doug
     Then Doug can delete Patty's letter
     And the letter is deleted
 

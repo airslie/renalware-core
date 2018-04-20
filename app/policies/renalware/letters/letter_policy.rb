@@ -32,7 +32,19 @@ module Renalware
       end
 
       def destroy?
-        record.state.downcase.to_sym != :approved
+        return false if user_is_read_only?
+        return false if %i(approved completed).include?(letter_state)
+
+        user_is_admin? ||
+          user_is_super_admin? ||
+          letter.author == user ||
+          letter.created_by == user
+      end
+
+      private
+
+      def letter_state
+        record.state.downcase.to_sym
       end
     end
   end
