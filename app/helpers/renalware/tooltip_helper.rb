@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module TooltipHelper
     def tooltip(label:, content:)

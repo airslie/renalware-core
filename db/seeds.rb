@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "csv"
 require_relative "./seeds/seeds_helper.rb"
 

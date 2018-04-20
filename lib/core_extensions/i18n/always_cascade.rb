@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Enables cascading I18n definitions
 #
 # Example:

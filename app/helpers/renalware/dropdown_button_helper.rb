@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "dropdown_button_item"
 
 module Renalware

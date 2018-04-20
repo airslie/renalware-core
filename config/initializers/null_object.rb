@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   NullObject = Naught.build do |config|
     config.black_hole

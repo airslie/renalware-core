@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SeedsHelper
   def without_papertrail_versioning_for(klass)
     raise ArgumentError unless klass.is_a? Class

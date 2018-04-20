@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Ahoy::Store < Ahoy::DatabaseStore
   def visit_model
     Renalware::System::Visit

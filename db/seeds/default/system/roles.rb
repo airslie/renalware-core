@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding Roles" do
     Role::ROLES.each do |role|

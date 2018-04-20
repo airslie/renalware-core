@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # When executed this job updates rolling statistics for a patient's
 # last past 12 HD sessions.
 

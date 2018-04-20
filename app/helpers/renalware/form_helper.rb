@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module FormHelper
     def errors_css_class(model, attr)

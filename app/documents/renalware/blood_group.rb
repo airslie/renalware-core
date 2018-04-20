@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   class BloodGroup < NestedAttribute
     attribute :group, Document::Enum, enums: %i(A B O AB)

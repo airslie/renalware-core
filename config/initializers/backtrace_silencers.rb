@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 SHOULDA_NOISE      = %w(shoulda).freeze
 FACTORY_GIRL_NOISE = %w(factory_bot).freeze
 RENALWARE_NOISE = SHOULDA_NOISE + FACTORY_GIRL_NOISE

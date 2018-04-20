@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Breadcrumb
   attr_reader :title, :anchor
 

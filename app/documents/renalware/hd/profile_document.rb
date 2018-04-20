@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Layout/EmptyLineBetweenDefs, Style/SingleLineMethods
 require "document/embedded"
 require "document/enum"

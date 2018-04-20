@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This job when executed will store a snapshot of last month's HD session statistics
 # for each HD patient.
 module Renalware

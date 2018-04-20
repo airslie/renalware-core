@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module DrugsHelper
     def drug_select_options

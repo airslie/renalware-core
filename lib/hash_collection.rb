@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A decorator for handling a collection of hashes with similar keys.
 #
 class HashCollection < SimpleDelegator

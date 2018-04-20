@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module PatientHelper
     def patient_menu_item(title:, path:, active_when_controller_matches:, enabled: true)

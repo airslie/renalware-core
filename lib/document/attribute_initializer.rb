@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "document/attribute_initializer/base"
 require "document/attribute_initializer/active_model"
 require "document/attribute_initializer/enum"

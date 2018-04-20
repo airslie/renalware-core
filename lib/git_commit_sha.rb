@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GitCommitSha
   def self.current
     new.current

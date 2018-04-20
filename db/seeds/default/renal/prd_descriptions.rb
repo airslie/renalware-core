@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding Primary Renal Diagnosis (PRD) Codes" do
 

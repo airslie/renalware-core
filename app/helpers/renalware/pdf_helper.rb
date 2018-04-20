@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module PdfHelper
     def find_asset_str(path)

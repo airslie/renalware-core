@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module PDRegimesHelper
     def system_options_for(regime)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module ClinicHelper
     def link_to_clinic_visit_letter(patient, clinic_visit)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Class for configuring the Renalware::Core engine
 # http://stackoverflow.com/questions/24104246/how-to-use-activesupportconfigurable-with-rails-engine
 #

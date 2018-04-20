@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module PDRegimeBagsHelper
     def highlight_days_invalid(bag)

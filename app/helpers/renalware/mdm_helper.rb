@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module MDMHelper
     def link_to_mdm(patient)

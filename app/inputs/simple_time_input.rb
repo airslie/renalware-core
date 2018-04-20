@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SimpleTimeInput < SimpleForm::Inputs::StringInput
   def input(_wrapper_options)
     template.content_tag(:div, class: "row collapse datepicker-wrapper") do

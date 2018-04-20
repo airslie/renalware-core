@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   log "Adding Modality Descriptions" do
     Deaths::ModalityDescription.find_or_create_by!(name: "Death")

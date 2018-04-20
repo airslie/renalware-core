@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Renalware
   module PrescriptionsHelper
     def patient_prescriptions_path(patient, treatable = nil, params = {})

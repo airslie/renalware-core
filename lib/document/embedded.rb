@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "document/attribute_initializer"
 
 module Document

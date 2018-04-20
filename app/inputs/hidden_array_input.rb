@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HiddenArrayInput < SimpleForm::Inputs::StringInput
   def input(_wrapper_options)
     input_html_options[:type] ||= input_type
