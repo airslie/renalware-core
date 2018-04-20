@@ -27,7 +27,7 @@ module Renalware
             .extending(ModalityScopes)
             .extending(NamedFilterScopes)
             .with_current_pathology
-            .left_joins(:current_observation_set)
+            .left_outer_joins(:current_observation_set)
             .with_current_modality_of_class(LowClearance::ModalityDescription)
             .public_send(named_filter.to_s)
             .search(query)

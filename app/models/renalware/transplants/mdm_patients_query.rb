@@ -33,7 +33,7 @@ module Renalware
             .extending(NamedFilterScopes)
             .with_current_modality_matching(MODALITY_NAMES)
             .with_current_pathology
-            .left_joins(:current_observation_set)
+            .left_outer_joins(:current_observation_set)
             .public_send(named_filter.to_s)
             .search(q)
         end

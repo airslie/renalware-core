@@ -52,7 +52,7 @@ module Renalware
       scope :with_classifications, -> { includes(drug: :classifications) }
       scope :with_termination, -> { includes(termination: [:created_by]) }
       scope :current, lambda { |date = Date.current|
-        left_joins(:termination)
+        left_outer_joins(:termination)
           .where("terminated_on IS NULL OR terminated_on > ?", date)
       }
       scope :terminated, lambda { |date = Date.current|
