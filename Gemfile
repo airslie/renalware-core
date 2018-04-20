@@ -29,7 +29,7 @@ group :test do
   gem "codeclimate-test-reporter", "~> 1.0.7", require: false # loads simplecov
   gem "cucumber", "~> 3.1.0"
   gem "cucumber-rails", "~> 1.5.0", require: false # must be loaded in env.rb
-  gem "database_cleaner", "~> 1.6.2", require: false # for cucumber (now not needed for rspec)
+  gem "database_cleaner", "~> 1.7.0", require: false # for cucumber (now not needed for rspec)
   gem "factory_bot_rails", "~> 4.8.2"
   gem "fuubar", require: false
   gem "poltergeist", "~> 1.17.0"
