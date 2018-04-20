@@ -29,7 +29,7 @@ group :test do
   gem "codeclimate-test-reporter", "~> 1.0.7", require: false # loads simplecov
   gem "cucumber", "~> 3.1.0"
   gem "cucumber-rails", "~> 1.5.0", require: false # must be loaded in env.rb
-  gem "database_cleaner", "~> 1.6.2", require: false # for cucumber (now not needed for rspec)
+  gem "database_cleaner", "~> 1.7.0", require: false # for cucumber (now not needed for rspec)
   gem "factory_bot_rails", "~> 4.8.2"
   gem "fuubar", require: false
   gem "poltergeist", "~> 1.17.0"
@@ -38,7 +38,7 @@ group :test do
   gem "rspec-rails", "~> 3.7.0"
   gem "rspec_junit_formatter", "~> 0.3.0"
   gem "shoulda-matchers", "~> 3.1.2"
-  gem "simplecov", "~> 0.15.1", require: false # only loaded if required
+  gem "simplecov", "~> 0.16.0", require: false # only loaded if required
   gem "webmock", "~> 3.3.0", require: false
   gem "wisper-rspec", "~> 1.0.0"
 end
@@ -62,7 +62,7 @@ group :development, :test do
   gem "bundler-audit", require: false
   gem "byebug"
   gem "launchy", require: false
-  gem "rubocop", "~> 0.54.0", require: false
+  gem "rubocop", "~> 0.55.0", require: false
   gem "spring"
   gem "spring-commands-cucumber", require: false
   gem "spring-commands-rspec", require: false

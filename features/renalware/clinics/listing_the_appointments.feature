@@ -66,4 +66,4 @@ Feature: Listing the appointments
     And Clyde filters the list by date to 08-06-2016
     Then Clyde should see these appointments:
       | date        | starts_at | patient            | user            | clinic        |
-      | 08-Jun-2016  | 11:00     | Wendy Sears        | Clay Haag       | AKI           |
+      | 08-Jun-2016 | 11:00     | Wendy Sears        | Clay Haag       | AKI           |
