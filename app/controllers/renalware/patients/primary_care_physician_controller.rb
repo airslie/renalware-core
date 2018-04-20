@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/patients"
 
 # Note this singular resource is for updating the patient.primary_care_physician.

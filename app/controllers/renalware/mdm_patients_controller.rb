@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware"
 
 # Note we rely on template inheritance with this MDM Base class i.e. subclasses (e.g.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Global visits not scoped to a patient
 module Renalware
   module Clinics

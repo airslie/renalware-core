@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/hd/base_controller"
 
 # The route to the edit route for this controller takes /:year/:week_number segments

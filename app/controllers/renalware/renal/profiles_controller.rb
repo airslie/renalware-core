@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "renalware/renal"
 require_dependency "renalware/renal/base_controller"
 
