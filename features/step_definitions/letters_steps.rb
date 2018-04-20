@@ -30,6 +30,13 @@ Given(/^Patty has completed pathology investigations relevant to the clinic lett
   seed_observations_relevant_to_clinic_letter(patient: @patty)
 end
 
+Given(/^Patty has a letter pending review authored by Doug$/) do
+  @doctor = find_or_create_user(given_name: "a_doctor", role: "clinical")
+
+  seed_simple_letter_for(@patty, user: @doctor, author: @doug)
+  submit_for_review(patient: @patty, user: @doctor)
+end
+
 Given(/^Patty has a letter pending review$/) do
   @doctor = find_or_create_user(given_name: "a_doctor", role: "clinical")
 
