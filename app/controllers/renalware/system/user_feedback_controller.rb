@@ -1,6 +1,8 @@
 module Renalware
   module System
     class UserFeedbackController < BaseController
+      include Concerns::Pageable
+
       def new
         feedback = UserFeedback.new
         authorize feedback
@@ -19,16 +21,49 @@ module Renalware
         end
       end
 
+      def index
+        search = UserFeedback
+          .includes(:author)
+          .order(created_at: :desc)
+          .page(page)
+          .per(per_page)
+          .search(search_params)
+        feedback_msgs = search.result
+        authorize feedback_msgs
+        render locals: { feedback_msgs: feedback_msgs, search: search }
+      end
+
+      def edit
+        feedback = UserFeedback.find(params[:id])
+        authorize feedback
+        render locals: { feedback: feedback }
+      end
+
+      def update
+        feedback = UserFeedback.find(params[:id])
+        authorize feedback
+        feedback.update!(user_feedback_admin_params)
+        redirect_to system_user_feedback_index_path, notice: "Updated"
+      end
+
       private
+
+      def search_params
+        hash = params[:q] || {}
+        hash[:s] ||= "created_at desc"
+        hash
+      end
 
       def render_new(feedback)
         render :new, locals: { feedback: feedback }
       end
 
       def user_feedback_params
-        params
-          .require(:feedback)
-          .permit(:comment, :category)
+        params.require(:feedback).permit(:comment, :category)
+      end
+
+      def user_feedback_admin_params
+        params.require(:feedback).permit(:acknowledged, :admin_notes)
       end
     end
   end

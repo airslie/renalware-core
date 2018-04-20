@@ -6093,7 +6093,9 @@ CREATE TABLE system_user_feedback (
     category character varying NOT NULL,
     comment text NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    admin_notes text,
+    acknowledged boolean
 );
 
 
@@ -14731,6 +14733,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180313124819'),
 ('20180319191942'),
 ('20180323150241'),
+('20180326155400'),
 ('20180327100423'),
 ('20180328210434');
 

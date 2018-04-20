@@ -19,8 +19,8 @@ Renalware::Engine.routes.draw do
   get "/session_timed_out" => "session_timeout#has_user_timed_out", as: "session_timed_out"
 
   super_admin_constraint = lambda do |request|
-    current_user = request.env["warden"].user
-    current_user&.respond_to?(:has_role?) && current_user&.has_role?(:super_admin)
+    current_user = request.env["warden"].user || NullObject.instance
+    current_user.has_role?(:super_admin)
   end
 
   constraints super_admin_constraint do
@@ -264,7 +264,7 @@ Renalware::Engine.routes.draw do
 
   namespace :system do
     resources :email_templates, only: :index
-    resources :user_feedback, only: [:new, :create]
+    resources :user_feedback, except: :destroy, controller: "user_feedback"
   end
 
   namespace :transplants do

@@ -1,0 +1,18 @@
+= within_admin_layout(title: "User Feedback") do
+  table.feedback
+    thead
+      th.col-width-tiny
+      th.col-width-date-time= sort_link(search, :created_at, "Date")
+      th.col-width-large= sort_link(search, :author_family_name, "Author")
+      th.col-width-mediumish-with-ellipsis Comment
+      th.col-width-mediumish-with-ellipsis= sort_link(search, :acknowledged, "Acknowledged")
+    tbody
+      - feedback_msgs.each do |feedback|
+        tr
+          td= link_to("Edit", edit_system_user_feedback_path(feedback))
+          td= l(feedback.created_at)
+          td= feedback.author
+          td.col-width-mediumish-with-ellipsis= feedback.comment
+          td.col-width-tiny= yes_no(feedback.acknowledged)
+
+  = paginate feedback_msgs
