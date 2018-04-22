@@ -50,15 +50,16 @@ module Renalware
       end
 
       # Filters a set of observations using a specific set of OBX codes.
-      # The snapshot is stored on the hd_patient_statistics table - ie it represents
+      # The snapshot is stored on the hd_patient_statistics table - i.e. it represents
       # the state of the patient's pathology *at the time the hd_stats row is created*.
       # So for an hd_stats row for say Patient X in the month of April 2018, the
       # pathology_snapshot is a frozen snapshot of their pathology at 30/4/2018 23:59
+      # TODO: de-dupe this with the other FilteredObservationSet in Letters::?
       class FilteredObservationSet
         # These are the codes for the results we want to store in
         # hd_patient_statics.pathology_snapshot - we are only interested in these
         # results. They will be used for instance in reporting_hd_overall_audit
-        CODES = %w(HGB PTH PHOS CRE URE).freeze
+        CODES = %w(HGB PTH PHOS CRE URE URR).freeze
 
         def initialize(patient:)
           @observation_set = Pathology.cast_patient(patient).fetch_current_observation_set
@@ -66,8 +67,8 @@ module Renalware
 
         # Returns a hash of the filtered observations e.g.
         # {
-        #   "NA"=>{"result"=>"139", "observed_at"=>"2016-03-15T03:28:00"},
-        #   "ALB"=>{"result"=>"49", "observed_at"=>"2016-03-15T03:28:00"},
+        #   "HGB"=>{"result"=>"139", "observed_at"=>"2016-03-15T03:28:00"},
+        #   "URR"=>{"result"=>"49", "observed_at"=>"2016-03-15T03:28:00"},
         #   ...
         # }
         def to_h

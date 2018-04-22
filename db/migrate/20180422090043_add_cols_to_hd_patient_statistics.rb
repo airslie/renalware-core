@@ -4,7 +4,7 @@ class AddColsToHDPatientStatistics < ActiveRecord::Migration[5.1]
                :pathology_snapshot,
                :jsonb,
                index: { using: :gin },
-               default: "'{}'::jsonb",
+               default: {},
                null: false
   end
 end

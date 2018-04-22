@@ -2223,7 +2223,7 @@ CREATE TABLE hd_patient_statistics (
     mean_ufr numeric(10,2),
     mean_weight_loss_as_percentage_of_body_weight numeric(10,2),
     number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct integer,
-    pathology_snapshot jsonb DEFAULT '"''{}''::jsonb"'::jsonb NOT NULL
+    pathology_snapshot jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
