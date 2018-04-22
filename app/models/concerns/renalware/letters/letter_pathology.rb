@@ -9,8 +9,6 @@ module Renalware
 
       # Filters a set of observations using a specific set of OBX codes
       class FilteredObservationSet
-        EMPTY_SNAPSHOT = {}.freeze
-
         def initialize(observation_set:, codes: nil)
           @codes = codes || RelevantObservationDescription.all.map(&:code)
           @observation_set = observation_set

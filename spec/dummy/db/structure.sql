@@ -2222,7 +2222,8 @@ CREATE TABLE hd_patient_statistics (
     dialysis_minutes_shortfall_percentage numeric(10,2),
     mean_ufr numeric(10,2),
     mean_weight_loss_as_percentage_of_body_weight numeric(10,2),
-    number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct integer
+    number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct integer,
+    pathology_snapshot jsonb DEFAULT '"''{}''::jsonb"'::jsonb NOT NULL
 );
 
 
@@ -14739,6 +14740,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180326155400'),
 ('20180327100423'),
 ('20180328210434'),
-('20180419141524');
+('20180419141524'),
+('20180422090043');
 
 
