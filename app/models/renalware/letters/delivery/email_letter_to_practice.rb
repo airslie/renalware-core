@@ -31,8 +31,7 @@ module Renalware
           Letter.transaction do
             PracticeMailer.patient_letter(
               letter: letter,
-              to: practice_email_address,
-              recipient: nil # TODO
+              to: practice_email_address
             ).deliver_later
 
             # Flag as sent
