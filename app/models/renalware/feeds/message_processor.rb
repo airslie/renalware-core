@@ -32,7 +32,7 @@ module Renalware
       end
 
       def notify_exception(exception)
-        ExceptionNotifier.new.notify(exception)
+        Engine.exception_notifier.notify(exception)
       end
     end
   end
