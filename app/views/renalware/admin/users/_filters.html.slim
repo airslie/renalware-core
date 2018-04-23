@@ -4,7 +4,7 @@
       .row
         .small-9.large-4.columns
           = f.label "Name or username contains"
-          = f.search_field :family_name_or_given_name_or_username_cont
+          = f.search_field :family_name_or_given_name_or_username_or_email_cont
         .small-3.large-4.columns.actions.end
           = f.submit t("helpers.submit.filter"), class: "button"
           span= " or "
