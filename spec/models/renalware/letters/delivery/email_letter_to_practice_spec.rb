@@ -56,7 +56,7 @@ module Renalware
     def stub_primary_care_physician_mailer(letter:, to:)
       message_delivery = instance_double(ActionMailer::MessageDelivery, deliver_later: nil)
       allow(Letters::Delivery::PracticeMailer)
-        .to receive(:patient_letter).with(letter: letter, to: to, recipient: nil)
+        .to receive(:patient_letter).with(letter: letter, to: to)
         .and_return(message_delivery)
       message_delivery
     end

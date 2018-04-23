@@ -6,7 +6,7 @@ module Renalware
   module Letters
     RSpec.describe Delivery::PracticeMailer, type: :mailer do
       subject(:mail) do
-        described_class.patient_letter(letter: letter, to: recipient_email, recipient: recipient)
+        described_class.patient_letter(letter: letter, to: recipient_email)
       end
 
       let(:recipient_email) { "practice@example.com" }
