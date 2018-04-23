@@ -10,7 +10,22 @@ This project adheres to Semantic Versioning.
 ### Fixed
 
 ## 2.0.16
-18-04-2017
+23-04-2018
+
+### Added
+- UI for managing feedback
+### Changed
+- Improve consults seeding in demo
+- Update Rails to version 5.1.6
+- Added sorting by modality in Wait List
+- Changed wording in HD Session for to Put On By and Taken Off By
+### Fixed
+- Prevent deletion of completed letters
+- Correct algorithm for calculating mean_ufr in HD audit
+- Fixed CAPD glucose calculations when a bag's type changes
+
+## 2.0.16
+18-04-2018
 
 ### Added
 ### Changed
@@ -23,7 +38,7 @@ This project adheres to Semantic Versioning.
 - Fixed #2168 String comparison with zero error creating hd_statistics row
 
 ## 2.0.15
-06-04-2017
+06-04-2018
 
 ### Added
 ### Changed
@@ -33,7 +48,7 @@ This project adheres to Semantic Versioning.
 - Use created_at for the AKIAlert today scope
 
 ## 2.0.14
-06-04-2017
+06-04-2018
 
 ### Added
 - AKI Alerts Today and All tabs on index view
@@ -46,7 +61,7 @@ This project adheres to Semantic Versioning.
 ### Fixed
 
 ## 2.0.13
-05-04-2017
+05-04-2018
 
 ### Added
 ### Changed
@@ -57,7 +72,7 @@ This project adheres to Semantic Versioning.
   o the those attached to the patient
 
 ## 2.0.12
-29-03-2017
+29-03-2018
 
 ### Added
 - Rake task to refresh all materialized views
@@ -74,7 +89,7 @@ This project adheres to Semantic Versioning.
 - Corrected display of recent pathology results in letters
 
 ## 2.0.11
-23-03-2017
+23-03-2018
 
 ### Added
 - Added latest dry weight to HD Protocol
@@ -83,13 +98,13 @@ This project adheres to Semantic Versioning.
 - Error approving a letter with an address with no postcode
 
 ## 2.0.10
-22-03-2017
+22-03-2018
 
 ### Added
 - Display VIA EMAIL to xxx is recipient/cc is a GP and patient's practice has an email address
 
 ## 2.0.9
-22-03-2017
+22-03-2018
 
 ### Added
 ### Changed
@@ -103,7 +118,7 @@ This project adheres to Semantic Versioning.
 - Increase padding below CC: heading in letters
 
 ## 2.0.8
-19-03-2017
+19-03-2018
 
 ### Added
 - Added 'Tx in Past Year' filter to Tx MDM listing
@@ -118,7 +133,7 @@ This project adheres to Semantic Versioning.
 - Fixed letter error when is GP but Practice (patient main recipient radio not selected by default)
 
 ## 2.0.7
-16-03-2017
+16-03-2018
 
 ### Added
 
@@ -135,7 +150,7 @@ This project adheres to Semantic Versioning.
 - Correct the set of practices imported from TRUD
 
 ## 2.0.6
-14-03-2017
+14-03-2018
 ### Added
 ### Changed
 ### Fixed
@@ -145,7 +160,7 @@ This project adheres to Semantic Versioning.
 - Compact the New Contact dialog so it fits on the screen
 
 ## 2.0.5
-13-03-2017
+13-03-2018
 
 ### Added
 ### Changed
@@ -153,7 +168,7 @@ This project adheres to Semantic Versioning.
 - Error displaying change_in values in HD Sessions table when measurement are not numeric
 
 ## 2.0.4
-13-03-2017
+13-03-2018
 
 ### Added
 ### Changed
@@ -164,7 +179,7 @@ This project adheres to Semantic Versioning.
 - Admission Consults uses ended_on date not deleted_at for determining active status
 
 ## 2.0.3
-13-03-2017
+13-03-2018
 
 ### Added
 - Filters on consults
@@ -174,7 +189,7 @@ This project adheres to Semantic Versioning.
 ### Fixed
 
 ## 2.0.2
-12-03-2017
+12-03-2018
 
 ### Added
 ### Changed
@@ -183,7 +198,7 @@ This project adheres to Semantic Versioning.
 - Resolve missing patient CC on letters
 
 ## 2.0.1
-11-03-2017
+11-03-2018
 
 ### Added
 ### Changed
@@ -192,7 +207,7 @@ This project adheres to Semantic Versioning.
 ### Fixed
 
 ## 2.0.0
-09-03-2017
+09-03-2018
 
 ### Added
 - Display an alert if the user is in a clinical study
@@ -211,7 +226,7 @@ This project adheres to Semantic Versioning.
 - Use UTF8 in PDFs
 
 ## 2.0.0.pre.rc12
-06-03-2017
+06-03-2018
 
 ### Added
 - Use a modal to ask if letter should be marked as printed (ie completed) after printing
@@ -231,7 +246,7 @@ This project adheres to Semantic Versioning.
   observation_requests if once of the OBXs fails (causing a delayed_job retry).
 
 ## 2.0.0.pre.rc12
-27-02-2017
+27-02-2018
 
 ### Added
 - UKRDC export rake task
@@ -249,7 +264,7 @@ This project adheres to Semantic Versioning.
 - #1948 Fix patient side menu when patients have markup in event notes
 
 ## 2.0.0.pre.rc11
-21-02-2017
+21-02-2018
 
 ### Added
 - Enable clearing the cache form the app when a super admin
@@ -270,7 +285,7 @@ This project adheres to Semantic Versioning.
 - Fix display of Test Cancelled in pathology results
 
 ## 2.0.0.pre.rc10
-13-02-2017
+13-02-2018
 
 ### Added
 - Handle display of cancelled OBX tests
@@ -293,10 +308,10 @@ to avoid excessive memory usage
 - Bug where NHS No repeated in MDM table columns
 
 ## 2.0.0.pre.rc9
-07-02-2017 - Created to debug gem resolution issue.
+07-02-2018 - Created to debug gem resolution issue.
 
 ## 2.0.0.pre.rc8
-06-02-2017
+06-02-2018
 
 ### Added
 - Clinical grey bar on patient screens, displaying latest key results
@@ -311,7 +326,7 @@ to avoid excessive memory usage
 - Add missing deleted_at indexes
 
 ## 2.0.0.pre.rc7
-29-01-2017
+29-01-2018
 
 ### Added
 ### Changed
@@ -320,7 +335,7 @@ to avoid excessive memory usage
 ### Fixed
 
 ## 2.0.0.pre.rc7
-29-01-2017
+29-01-2018
 
 ### Added
 - Patient Investigations
@@ -334,7 +349,7 @@ to avoid excessive memory usage
 - set updated_at on pathology_current_observation_sets when jsonb is updated with a new result
 
 ## 2.0.0.pre.rc6
-16-01-2017
+16-01-2018
 
 ### Added
 - EPR support for saving PDF to filesystem
@@ -349,7 +364,7 @@ to avoid excessive memory usage
 - HL7 Caret fix
 
 ## 2.0.0.pre.rc4
-16-01-2017
+16-01-2018
 
 ### Added
 - GP and Practice import via file
@@ -360,7 +375,7 @@ to avoid excessive memory usage
 - Minor bug fixes
 
 ## 2.0.0.pre.rc4
-16-01-2017
+16-01-2018
 
 ### Added
 - Support for emailing letter to GP once approved
