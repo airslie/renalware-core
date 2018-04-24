@@ -9,6 +9,18 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.17
+24-04-2018
+
+### Added
+- Allow searching users by email address
+### Changed
+- Allow a host app to supply an exception notifier instance via Renalware::Engine#exception_notifier
+  which will be used to log errors in non-ActiveJob and non-ApplicationMailer delayed jobs.
+### Fixed
+- Remove unused :recipient argument in PracticeMailer which was causing an error at KCH.
+- Fix `unresolved NullObject` error in routes by supplying an instance of the new NullUser class.
+
 ## 2.0.16
 23-04-2018
 
