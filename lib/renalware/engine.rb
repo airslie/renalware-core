@@ -65,6 +65,17 @@ module Renalware
   class Engine < ::Rails::Engine
     isolate_namespace Renalware
 
+    # Define a attr on the Engine's eigenclass so a host application
+    # can set an exception handler instance. It must accept a .notify(excetion) method.
+    # We use the exception handler when logging errors in background jobs only.
+    # Errors in the UI are bubbled up and handled in the host app in the usual way.
+    class << self
+      attr_writer :exception_notifier
+      def exception_notifier
+        @exception_notifier ||= NullExceptionNotifier.new
+      end
+    end
+
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
     config.autoload_paths += %W(#{config.root}/app/validators/concerns)
 
