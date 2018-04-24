@@ -21,7 +21,7 @@ Renalware::Engine.routes.draw do
   get "/session_timed_out" => "session_timeout#has_user_timed_out", as: "session_timed_out"
 
   super_admin_constraint = lambda do |request|
-    current_user = request.env["warden"].user || NullObject.instance
+    current_user = request.env["warden"].user || Renalware::NullUser.new
     current_user.has_role?(:super_admin)
   end
 
