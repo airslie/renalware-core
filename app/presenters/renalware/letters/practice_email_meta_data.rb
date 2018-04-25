@@ -19,6 +19,7 @@ module Renalware
     #
     class PracticeEmailMetaData
       NullPrimaryCarePhysician = Naught.build(&:define_explicit_conversions)
+      NullPractice = Naught.build(&:define_explicit_conversions)
 
       pattr_initialize [
         :letter!,
@@ -81,6 +82,10 @@ module Renalware
       # We allow a missing primary_care_physician as not all patient's have one.
       def primary_care_physician
         @primary_care_physician ||= NullPrimaryCarePhysician.new
+      end
+
+      def practice
+        @practice ||= NullPractice.new
       end
     end
   end
