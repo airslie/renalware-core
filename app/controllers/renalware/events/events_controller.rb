@@ -108,7 +108,7 @@ module Renalware
 
       def build_new_event
         event = new_event_for_patient
-        event.date_time = Time.zone.now.beginning_of_hour
+        event.date_time = Time.zone.now
         event.event_type = event_type
         # disable_selection_of_event_type is a virtual attribute
         event.disable_selection_of_event_type = disable_selection_of_event_type?
