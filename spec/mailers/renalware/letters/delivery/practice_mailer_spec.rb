@@ -28,8 +28,9 @@ module Renalware
           )
         end
         let(:user) { create(:user, email: "user@renalware.com") }
+        let(:letter_factory_name) { :approved_letter }
         let(:letter) do
-          build(:approved_letter,
+          build(letter_factory_name,
                 patient: patient,
                 description: "LetterDescription",
                 by: user).tap do |letter|
@@ -48,6 +49,38 @@ module Renalware
             expect{
               mail.subject
             }.to raise_error(Delivery::PatientHasNoPracticeError)
+          end
+
+          context "when the letter class is Letter::Approved" do
+            let(:letter_factory_name) { :approved_letter }
+
+            it "does not raise an error" do
+              expect{ mail.subject }.not_to raise_error
+            end
+          end
+
+          context "when the letter class is Letter::Completed" do
+            let(:letter_factory_name) { :completed_letter }
+
+            it "does not raise an error" do
+              expect{ mail.subject }.not_to raise_error
+            end
+          end
+
+          context "when the letter class is Letter::PendingReview" do
+            let(:letter_factory_name) { :pending_review_letter }
+
+            it "does not raise an error" do
+              expect{ mail.subject }.to raise_error(Delivery::LetterIsNotApprovedOrCompletedError)
+            end
+          end
+
+          context "when the letter class is Letter::Draft" do
+            let(:letter_factory_name) { :draft_letter }
+
+            it "does not raise an error" do
+              expect{ mail.subject }.to raise_error(Delivery::LetterIsNotApprovedOrCompletedError)
+            end
           end
         end
 
