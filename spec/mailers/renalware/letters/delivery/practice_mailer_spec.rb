@@ -43,14 +43,6 @@ module Renalware
         let(:recipient) { letter.main_recipient }
 
         describe "error checking" do
-          it "raises an error if the patient has no practice" do
-            patient.update!(practice: nil, by: user)
-
-            expect{
-              mail.subject
-            }.to raise_error(Delivery::PatientHasNoPracticeError)
-          end
-
           context "when the letter class is Letter::Approved" do
             let(:letter_factory_name) { :approved_letter }
 
