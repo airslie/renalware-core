@@ -7,6 +7,8 @@ require_relative "./errors"
 module Renalware
   module Letters
     module Delivery
+      # Note PracticeMailer not the best name as we use this mailer to send a letter to any
+      # recipient (practices, hospital secretaries etc)
       class PracticeMailer < ApplicationMailer
         def patient_letter(letter:, to:)
           validate_letter(letter)
@@ -49,7 +51,6 @@ module Renalware
         end
 
         def validate_letter(letter)
-          raise Delivery::PatientHasNoPracticeError if letter.patient&.practice.blank?
           unless letter.approved? || letter.completed?
             raise Delivery::LetterIsNotApprovedOrCompletedError, letter.id
           end
