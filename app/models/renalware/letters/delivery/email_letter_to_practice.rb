@@ -28,9 +28,18 @@ module Renalware
         private
 
         def email_letter_to_the_patients_practice
+          # Note we cast the letter back to the superclass Letters::Letter here to prevent
+          # GlobalID from trying to load the letter using e.g. Letters::Approved.find(123), because
+          # in the meantime the letter's class might have progressed to Letters::Completed in which
+          # case GlobalId/ ActiveJob would not be able to find the letter!
+          # Casting to Letters::Letter means in the delayed job the handler says e.g.
+          #   - letter:
+          #    _aj_globalid: gid://dummy/Renalware::Letters::Letter/3
+          # which it turns out works fine when the letter is loaded by GlobalId/ActiveJob;
+          # it correctly casts the letter to its STI type e.g. Letters::Approved in the job.
           Letter.transaction do
             PracticeMailer.patient_letter(
-              letter: letter,
+              letter: letter.becomes(Letter),
               to: practice_email_address
             ).deliver_later
 

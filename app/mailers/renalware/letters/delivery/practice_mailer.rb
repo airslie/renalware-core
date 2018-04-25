@@ -50,6 +50,9 @@ module Renalware
 
         def validate_letter(letter)
           raise Delivery::PatientHasNoPracticeError if letter.patient&.practice.blank?
+          unless letter.approved? || letter.completed?
+            raise Delivery::LetterIsNotApprovedOrCompletedError, letter.id
+          end
         end
       end
     end

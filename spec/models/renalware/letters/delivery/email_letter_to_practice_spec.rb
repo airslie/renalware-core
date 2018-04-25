@@ -53,10 +53,10 @@ module Renalware
       patient_recipient
     end
 
-    def stub_primary_care_physician_mailer(letter:, to:)
+    def stub_practice_mailer(letter:, to:)
       message_delivery = instance_double(ActionMailer::MessageDelivery, deliver_later: nil)
       allow(Letters::Delivery::PracticeMailer)
-        .to receive(:patient_letter).with(letter: letter, to: to)
+        .to receive(:patient_letter).with(letter: letter.becomes(Letters::Letter), to: to)
         .and_return(message_delivery)
       message_delivery
     end
@@ -74,7 +74,7 @@ module Renalware
         it "emails the gp" do
           make_gp_the_main_recipient
 
-          message_delivery = stub_primary_care_physician_mailer(
+          message_delivery = stub_practice_mailer(
             letter: letter,
             to: "practice@example.com"
           )
