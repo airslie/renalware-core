@@ -9,7 +9,20 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
-## 2.0.17
+## 2.0.19
+26-04-2018
+
+### Added
+### Changed
+- Add check in PracticeMailer that the letter is completed or approved
+- No longer rounds new Event date times to the nearest hour
+### Fixed
+- Removed unnecessary check that a letter has a practice in PracticMailer which was causing
+  letters for a patient without a practice to fail when sent to QEH admin email.
+- When sending letters using PracticeMailer, cast to a superclass otherwise if the letter state
+  (and STI class) moves on the letter will not be found by the background worker.
+
+## 2.0.18
 24-04-2018
 
 ### Added
@@ -21,7 +34,7 @@ This project adheres to Semantic Versioning.
 - Remove unused :recipient argument in PracticeMailer which was causing an error at KCH.
 - Fix `unresolved NullObject` error in routes by supplying an instance of the new NullUser class.
 
-## 2.0.16
+## 2.0.17
 23-04-2018
 
 ### Added
