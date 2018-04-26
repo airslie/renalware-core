@@ -37,7 +37,7 @@ module Renalware
       end
 
       def date_falling_in_the_previous_month
-        @date ||= Time.zone.today - 1.month
+        @date_falling_in_the_previous_month ||= Time.zone.today - 1.month
       end
     end
   end
