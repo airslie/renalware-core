@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.18)
+    renalware-core (2.0.19)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.22.0)
       ahoy_matey (~> 2.0.1)
@@ -267,7 +267,7 @@ GEM
     foundation-rails (5.5.3.2)
       railties (>= 3.1.0)
       sass (>= 3.3.0, < 3.5)
-    friendly_id (5.2.3)
+    friendly_id (5.2.4)
       activerecord (>= 4.0.0)
     fuubar (2.3.1)
       rspec-core (~> 3.0)
