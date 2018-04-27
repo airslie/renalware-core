@@ -1,7 +1,7 @@
 table.aki-alerts
   thead
     th.col-width-small
-    th.col-width-large Patient
+    th.col-width-large= sort_link(search, :patient_family_name, "Patient")
     th.col-width-reference-no Hosp. No.
     th.col-width-small.show-for-large-up
         = sort_link([:renalware, search], :patient_current_modality_description_name, "Modality")
