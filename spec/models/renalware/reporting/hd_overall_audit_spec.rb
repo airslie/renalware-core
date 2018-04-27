@@ -97,23 +97,51 @@ module Renalware
               [
                 {
                   name: "Unit1",
-                  patient_count: 4,
-                  percentage_hb_gt_100: 0,
-                  percentage_urr_gt_65: 0,
-                  percentage_phosphate_lt_1_8: 0,
-                  percentage_access_fistula_or_graft: 0,
+                  year: 2018,
+                  month: 1,
+                  patient_count: 2,
                   avg_missed_hd_time: 0,
-                  pct_shortfall_gt_5_pct: 100.0
+                  pct_shortfall_gt_5_pct: 0.0,
+                  pct_missed_sessions_gt_10_pct: 0,
+                  percentage_hgb_gt_100: 0,
+                  percentage_hgb_gt_130: 0,
+                  percentage_urr_gt_64: 0,
+                  percentage_urr_gt_69: 0,
+                  percentage_pth_lt_300: 0,
+                  percentage_phosphate_lt_1_8: 0,
+                  percentage_access_fistula_or_graft: "TBC"
+                },
+                {
+                  name: "Unit1",
+                  year: 2018,
+                  month: 2,
+                  patient_count: 2,
+                  avg_missed_hd_time: 0,
+                  pct_shortfall_gt_5_pct: 0.0,
+                  pct_missed_sessions_gt_10_pct: 0,
+                  percentage_hgb_gt_100: 0,
+                  percentage_hgb_gt_130: 0,
+                  percentage_urr_gt_64: 0,
+                  percentage_urr_gt_69: 0,
+                  percentage_pth_lt_300: 0,
+                  percentage_phosphate_lt_1_8: 0,
+                  percentage_access_fistula_or_graft: "TBC"
                 },
                 {
                   name: "Unit2",
+                  year: 2018,
+                  month: 1,
                   patient_count: 2,
-                  percentage_hb_gt_100: 0,
-                  percentage_urr_gt_65: 0,
-                  percentage_phosphate_lt_1_8: 0,
-                  percentage_access_fistula_or_graft: 0,
                   avg_missed_hd_time: 0,
-                  pct_shortfall_gt_5_pct: 100.0
+                  pct_shortfall_gt_5_pct: 0.0,
+                  pct_missed_sessions_gt_10_pct: 0,
+                  percentage_hgb_gt_100: 0,
+                  percentage_hgb_gt_130: 0,
+                  percentage_urr_gt_64: 0,
+                  percentage_urr_gt_69: 0,
+                  percentage_pth_lt_300: 0,
+                  percentage_phosphate_lt_1_8: 0,
+                  percentage_access_fistula_or_graft: "TBC"
                 }
               ]
             )

@@ -5473,7 +5473,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -5552,7 +5552,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -5592,20 +5592,47 @@ CREATE MATERIALIZED VIEW reporting_hd_blood_pressures_audit AS
 --
 
 CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
- SELECT units.name,
-    stats.month,
+ WITH fistula_or_graft_access_types AS (
+         SELECT access_types.id
+           FROM access_types
+          WHERE (((access_types.name)::text ~~* '%fistula%'::text) OR ((access_types.name)::text ~~* '%graft%'::text))
+        ), stats AS (
+         SELECT s.patient_id,
+            s.hospital_unit_id,
+            s.month,
+            s.year,
+            s.session_count,
+            s.number_of_missed_sessions,
+            s.number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct,
+            ((((s.number_of_missed_sessions)::double precision / NULLIF((s.session_count)::double precision, (0)::double precision)) * (100.0)::double precision) > (10.0)::double precision) AS missed_sessions_gt_10_pct,
+            (s.dialysis_minutes_shortfall)::double precision AS dialysis_minutes_shortfall,
+            (convert_to_float(((s.pathology_snapshot -> 'HGB'::text) ->> 'result'::text)) > (100)::double precision) AS hgb_gt_100,
+            (convert_to_float(((s.pathology_snapshot -> 'HGB'::text) ->> 'result'::text)) > (130)::double precision) AS hgb_gt_130,
+            (convert_to_float(((s.pathology_snapshot -> 'PTH'::text) ->> 'result'::text)) < (300)::double precision) AS pth_lt_300,
+            (convert_to_float(((s.pathology_snapshot -> 'URR'::text) ->> 'result'::text)) > (64)::double precision) AS urr_gt_64,
+            (convert_to_float(((s.pathology_snapshot -> 'URR'::text) ->> 'result'::text)) > (69)::double precision) AS urr_gt_69,
+            (convert_to_float(((s.pathology_snapshot -> 'PHOS'::text) ->> 'result'::text)) < (1.8)::double precision) AS phos_lt_1_8
+           FROM hd_patient_statistics s
+          WHERE (s.rolling IS NULL)
+        )
+ SELECT hu.name,
     stats.year,
-    count(stats.id) AS patient_count,
-    0 AS percentage_hb_gt_100,
-    0 AS percentage_urr_gt_65,
-    0 AS percentage_phosphate_lt_1_8,
-    0 AS percentage_access_fistula_or_graft,
+    stats.month,
+    count(*) AS patient_count,
     avg(stats.dialysis_minutes_shortfall) AS avg_missed_hd_time,
-    avg(stats.number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct) AS pct_shortfall_gt_5_pct
-   FROM ((hd_patient_statistics stats
-     JOIN patients p ON ((p.id = stats.patient_id)))
-     LEFT JOIN hospital_units units ON ((units.id = stats.hospital_unit_id)))
-  GROUP BY units.name, stats.year, stats.month
+    avg(stats.number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct) AS pct_shortfall_gt_5_pct,
+    (((count(*) FILTER (WHERE (stats.missed_sessions_gt_10_pct = true)))::double precision / (count(*))::double precision) * (100)::double precision) AS pct_missed_sessions_gt_10_pct,
+    (((count(*) FILTER (WHERE (stats.hgb_gt_100 = true)))::double precision / (count(*))::double precision) * (100)::double precision) AS percentage_hgb_gt_100,
+    (((count(*) FILTER (WHERE (stats.hgb_gt_130 = true)))::double precision / (count(*))::double precision) * (100)::double precision) AS percentage_hgb_gt_130,
+    (((count(*) FILTER (WHERE (stats.pth_lt_300 = true)))::double precision / (count(*))::double precision) * (100)::double precision) AS percentage_pth_lt_300,
+    (((count(*) FILTER (WHERE (stats.urr_gt_64 = true)))::double precision / (count(*))::double precision) * (100)::double precision) AS percentage_urr_gt_64,
+    (((count(*) FILTER (WHERE (stats.urr_gt_69 = true)))::double precision / (count(*))::double precision) * (100)::double precision) AS percentage_urr_gt_69,
+    (((count(*) FILTER (WHERE (stats.phos_lt_1_8 = true)))::double precision / (count(*))::double precision) * (100)::double precision) AS percentage_phosphate_lt_1_8,
+    'TBC'::text AS percentage_access_fistula_or_graft
+   FROM (stats
+     JOIN hospital_units hu ON ((hu.id = stats.hospital_unit_id)))
+  GROUP BY hu.name, stats.year, stats.month
+  ORDER BY hu.name, stats.year, stats.month
   WITH NO DATA;
 
 
