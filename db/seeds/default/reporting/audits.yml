@@ -85,6 +85,16 @@
           "data": "name"
         },
         {
+          "title": "Year",
+          "width": "100",
+          "data": "year"
+        },
+        {
+          "title": "Month",
+          "width": "100",
+          "data": "month"
+        },
+        {
           "title": "No. patients",
           "width": "120",
           "data": "patient_count"
@@ -92,17 +102,32 @@
         {
           "title": "% HGB > 100",
           "width": "120",
-          "data": "percentage_hb_gt_100"
+          "data": "percentage_hgb_gt_100"
         },
         {
-          "title": "% URR > 65",
+          "title": "% HGB > 130",
           "width": "120",
-          "data": "percentage_urr_gt_65"
+          "data": "percentage_hgb_gt_130"
         },
         {
           "title": "% Phosphate < 1.8",
           "width": "200",
           "data": "percentage_phosphate_lt_1_8"
+        },
+        {
+          "title": "% PTH < 300",
+          "width": "200",
+          "data": "percentage_pth_lt_300"
+        },
+        {
+          "title": "% URR > 64",
+          "width": "120",
+          "data": "percentage_urr_gt_64"
+        },
+        {
+          "title": "% URR > 69",
+          "width": "120",
+          "data": "percentage_urr_gt_69"
         },
         {
           "title": "% w/fistula or graft",
@@ -115,9 +140,9 @@
           "data": "avg_missed_hd_time"
         },
         {
-          "title": "% missing >5% HD time",
+          "title": "% missing >10% HD time",
           "width": "200",
-          "data": "pct_shortfall_gt_5_pct"
+          "data": "pct_shortfall_gt_10_pct"
         }
       ]
     }
