@@ -83,7 +83,7 @@ class UpdateHDOverallAuditToVersion6 < ActiveRecord::Migration[5.1]
                 "data": "pct_shortfall_gt_5_pct"
               }
             ]
-          }';
+          }' where view_name ='reporting_hd_overall_audit';
         SQL
       end
     end
