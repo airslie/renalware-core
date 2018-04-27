@@ -24,6 +24,7 @@ module Renalware
         @search ||= begin
           Consult
             .joins(:patient)
+            .eager_load(patient: [current_modality: :description])
             .includes(
               :created_by,
               :consult_site,
