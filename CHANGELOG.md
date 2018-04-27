@@ -9,6 +9,17 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.20
+27-04-2018
+
+### Added
+### Changed
+- HD Overall Audit enhancements
+- AKI Audit UI tweaks
+- Admission Consults UI tweaks
+### Fixed
+- UKRDC rake task accepts an optional list of patient ids correctly
+
 ## 2.0.19
 26-04-2018
 
