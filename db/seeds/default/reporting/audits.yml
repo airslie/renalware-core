@@ -96,7 +96,7 @@
         },
         {
           "title": "No. patients",
-          "width": "120",
+          "width": "100",
           "data": "patient_count"
         },
         {
@@ -111,12 +111,12 @@
         },
         {
           "title": "% Phosphate < 1.8",
-          "width": "200",
+          "width": "120",
           "data": "percentage_phosphate_lt_1_8"
         },
         {
           "title": "% PTH < 300",
-          "width": "200",
+          "width": "120",
           "data": "percentage_pth_lt_300"
         },
         {
@@ -131,18 +131,23 @@
         },
         {
           "title": "% w/fistula or graft",
-          "width": "200",
+          "width": "120",
           "data": "percentage_access_fistula_or_graft"
         },
         {
           "title": "Avg. missed HD time",
-          "width": "200",
+          "width": "120",
           "data": "avg_missed_hd_time"
         },
         {
-          "title": "% missing >10% HD time",
+          "title": "% sessions >5% dialysis time missed",
           "width": "200",
-          "data": "pct_shortfall_gt_10_pct"
+          "data": "pct_missed_sessions_gt_10_pct"
+        },
+        {
+          "title": "% missing >10% HD sessions",
+          "width": "150",
+          "data": "pct_shortfall_gt_5_pct"
         }
       ]
     }
