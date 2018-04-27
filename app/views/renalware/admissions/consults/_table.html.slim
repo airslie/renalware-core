@@ -18,9 +18,7 @@
         th.col-width-tiny.show-for-large-up Sex
         th.col-width-date.show-for-large-up= sort_link(query, :patient_born_on, "DOB")
         th.col-width-tiny.show-for-large-up Age
-        th.col-width-tiny RRT?
         th.col-width-tiny.noprint= sort_link(query, :aki_risk, "AKI Risk")
-        th.col-width-tiny.noprint= sort_link(query, :requires_aki_nurse, " AKI Nurse?")
         /th.show-for-large-up Author
         /th.col-width-medium.show-for-xlarge-up Description
 
@@ -70,13 +68,11 @@
           td.show-for-large-up= consult.patient_sex
           td.show-for-large-up= l(consult.patient.born_on)
           td.show-for-large-up= consult.patient_age
-          td= yes_no(consult.rrt)
           td.noprint= consult.aki_risk&.text
-          td.noprint= yes_no(consult.requires_aki_nurse)
           /td.show-for-xlarge-up.consult-author.col-width-medium-with-ellipsis(title=consult.created_by)= consult.created_by
           /td.col-width-medium-with-ellipsis(title=consult.description)= consult.description
         = content_tag(:tr, id: "consult-quick-preview-#{consult.id}", style: "display: none")
-          td(colspan=12)
+          td(colspan=11)
             .quick-preview
               dl.dl-horizontal
                 dt Author
