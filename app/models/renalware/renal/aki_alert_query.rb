@@ -26,6 +26,7 @@ module Renalware
           AKIAlert
             .joins(:patient) # required for PatientsRansackHelper - see Admission
             .includes(:patient, :updated_by, :action, hospital_ward: :hospital_unit)
+            .eager_load(patient: [current_modality: :description])
             .public_send(query[:named_filter].to_s)
             .ransack(query)
         end

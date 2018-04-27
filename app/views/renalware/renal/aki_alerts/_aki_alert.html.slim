@@ -8,6 +8,7 @@ tr(class="#{'aki_alert--hotlist' if aki_alert.hotlist?}")
               data: { behaviour: "toggler" })
   td= default_patient_link(aki_alert.patient)
   td= aki_alert.patient.hospital_identifiers
+  td.show-for-large-up.col-width-medium-with-ellipsis= aki_alert.patient.current_modality
   td= aki_alert.patient.sex
   td= aki_alert.patient.age
   td= aki_alert.action

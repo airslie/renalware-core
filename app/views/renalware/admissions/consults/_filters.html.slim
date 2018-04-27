@@ -11,10 +11,6 @@
         = f.input :consult_site_id_eq,
                   collection: Renalware::Admissions::ConsultSite.pluck(:name, :id),
                   label: "Site"
-      .columns.medium-1.large-1
-        = f.input :requires_aki_nurse_eq,
-                  collection: [["Yes", true], ["No", false]],
-                  label: "AKI Nurse?"
       .columns.medium-2.large-1
         = f.input :seen_by_id_eq,
                   include_blank: false,
@@ -30,11 +26,6 @@
                   include_blank: true,
                   collection: [["Yes", true], ["No", false]],
                   label: "Active"
-      .columns.medium-1.large-1
-        = f.input :rrt_eq,
-                  include_blank: true,
-                  collection: [["Yes", true], ["No", false]],
-                  label: "RRT"
       .columns.medium-2.large-2.actions.end
         = f.submit "Filter", class: "button"
         span= " or "
