@@ -6,8 +6,7 @@ module Renalware
   module Clinical
     class ProfilePresenter
       attr_reader :patient, :params
-      delegate :allergies, to: :patient
-      delegate :diagnosis, :diagnosed_on, to: :diabetes, prefix: true
+      delegate :allergies, :document, to: :patient
 
       def initialize(patient:, params:)
         @params = params
@@ -30,11 +29,13 @@ module Renalware
       end
 
       def history
-        patient.document.history || NullObject.instance
+        document.history || NullObject.instance
       end
 
-      def diabetes
-        patient.document.diabetes || NullObject.instance
+      %i(diabetes hiv hepatitis_b hepatitis_c).each do |document_attribute|
+        define_method(document_attribute) do
+          document.send(document_attribute) || NullObject.instance
+        end
       end
 
       def dry_weights

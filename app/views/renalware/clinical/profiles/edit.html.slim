@@ -12,11 +12,12 @@
       .columns.large-12
         article
           header
-            h2 Diabetes
+            h2 Clinical Alerts
 
-          = f.simple_fields_for :diabetes, patient.document.diabetes do |fd|
-            = fd.input :diagnosis, as: :inline_radio_buttons
-            = fd.input :diagnosed_on, as: :date_picker
+          = render_input f, :diabetes
+          = render_input f, :hiv
+          = render_input f, :hepatitis_b
+          = render_input f, :hepatitis_c
 
         article
           header
