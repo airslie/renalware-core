@@ -85,6 +85,11 @@ module Renalware
               length: { minimum: 10, maximum: 10 },
               uniqueness: { case_sensitive: false },
               allow_blank: true
+    validates :local_patient_id, uniqueness: { case_sensitive: false }, allow_blank: true
+    validates :local_patient_id_2, uniqueness: { case_sensitive: false }, allow_blank: true
+    validates :local_patient_id_3, uniqueness: { case_sensitive: false }, allow_blank: true
+    validates :local_patient_id_4, uniqueness: { case_sensitive: false }, allow_blank: true
+    validates :local_patient_id_5, uniqueness: { case_sensitive: false }, allow_blank: true
     validates :family_name, presence: true
     validates :given_name, presence: true
     validates :born_on, presence: true
