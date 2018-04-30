@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "month_period"
+
 module Renalware
   module HD
     class GenerateMonthlyStatisticsForPatientJob < ApplicationJob
@@ -7,7 +9,7 @@ module Renalware
 
       # :reek:UtilityFunction
       def perform(patient:, month:, year:)
-        period = MonthPeriod.new(month: month, year: year)
+        period = Renalware::MonthPeriod.new(month: month, year: year)
         GenerateMonthlyStatisticsForPatient.new(patient: patient, period: period).call
       end
     end

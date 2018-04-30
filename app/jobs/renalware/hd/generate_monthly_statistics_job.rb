@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "month_period"
+
 # This job when executed will store a snapshot of last month's HD session statistics
 # for each HD patient.
 module Renalware
@@ -25,7 +27,7 @@ module Renalware
       end
 
       def period
-        @period ||= MonthPeriod.new(month: month, year: year)
+        @period ||= Renalware::MonthPeriod.new(month: month, year: year)
       end
 
       def month
