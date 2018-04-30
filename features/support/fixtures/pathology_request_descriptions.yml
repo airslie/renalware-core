@@ -2,127 +2,19 @@ full_blood_count:
   code: FBC
   name: FULL BLOOD COUNT
   lab: haemotology
-prean_sickle_screen:
-  code: PRE
-  name: PREAN SICKLE SCREEN
-  lab: lab_unknown
-renal_liver_bone_urea:
-  code: RLBU
-  name: RENAL/LIVER/BONE/UREA
-  lab: lab_unknown
-magnesium:
-  code: MG
-  name: MAGNESIUM
-  lab: lab_unknown
 creactive_protein:
   code: CRP
   name: C-REACTIVE PROTEIN
   lab: biochemistry_tp
-coagulation_screen:
-  code: COAG
-  name: COAGULATION SCREEN
-  lab: lab_unknown
-sickle_+_thal_scre:
-  code: STS
-  name: SICKLE + THAL SCRE
-  lab: lab_unknown
-diabetic_profile:
-  code: DIAB
-  name: DIABETIC PROFILE
-  lab: lab_unknown
-bone_profile:
-  code: BONE
-  name: BONE PROFILE
-  lab: lab_unknown
-u+e+urea:
-  code: EUC
-  name: U+E+UREA
-  lab: lab_unknown
-liver_profile:
-  code: LFT
-  name: LIVER PROFILE
-  lab: biochemistry_tp
-sickle_solubility_test:
-  code: SOL
-  name: SICKLE SOLUBILITY TEST
-  lab: lab_unknown
-thyroid_function_tests:
-  code: TFT
-  name: THYROID FUNCTION TESTS
-  lab: lab_unknown
-faecal_calprotectin:
-  code: FCAL
-  name: FAECAL CALPROTECTIN
-  lab: lab_unknown
-ca125:
-  code: C125
-  name: CA125
-  lab: lab_unknown
 b12_folate_ferritin:
   code: BFF
   name: B12/FOLATE/FERRITIN
   lab: biochemistry
   bottle_type: serum
   required_observation_description: B12
-lipid_profile:
-  code: LPRO
-  name: LIPID PROFILE
-  lab: lab_unknown
-inr:
-  code: INR
-  name: INR
-  lab: lab_unknown
-inr_warfarin:
-  code: INRW
-  name: INR (WARFARIN)
-  lab: lab_unknown
-urine_albuminecreat_ratio:
-  code: ACR
-  name: URINE ALBUMINECREAT RATIO
-  lab: lab_unknown
-urine_protein_creat_ratio:
-  code: PCR
-  name: URINE PROTEIN/CREAT RATIO
-  lab: lab_unknown
-antenatal_sickle_thal:
-  code: ANT
-  name: ANTENATAL SICKLE/THAL
-  lab: lab_unknown
 malaria:
   code: MAL
   name: MALARIA
   lab: lab_unknown
   bottle_type: serum
   required_observation_description: B12
-film_comment:
-  code: FILM
-  name: FILM COMMENT
-  lab: lab_unknown
-reticulocyte_count:
-  code: RET
-  name: RETICULOCYTE COUNT
-  lab: lab_unknown
-parasite_stage:
-  code: PARS
-  name: PARASITE STAGE
-  lab: lab_unknown
-serum_electrophoresis_grp:
-  code: SEP
-  name: SERUM ELECTROPHORESIS GRP
-  lab: lab_unknown
-amylase:
-  code: AMY
-  name: AMYLASE
-  lab: lab_unknown
-troponin_i:
-  code: TROP
-  name: TROPONIN I
-  lab: lab_unknown
-growth_hormone:
-  code: GH
-  name: GROWTH HORMONE
-  lab: lab_unknown
-heparin_screen:
-  code: HEP
-  name: HEPARIN SCREEN
-  lab: lab_unknown
