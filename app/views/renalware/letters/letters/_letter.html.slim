@@ -1,32 +1,32 @@
 - columns = local_assigns[:columns] || []
-
-tr(class=letter.state.dasherize)
-  td
-    = link_to "Toggle", "#quick-preview-#{letter.id}", data: { behaviour: "toggler" }
-    = pipe_separator
-    = link_to letter.view_label, patient_letters_letter_path(letter.patient, letter)
-    - if policy(letter).update?
+- cache([letter, columns.join("-")]) do
+  tr(class=letter.state.dasherize)
+    td
+      = link_to "Toggle", "#quick-preview-#{letter.id}", data: { behaviour: "toggler" }
       = pipe_separator
-      = link_to "Edit", edit_patient_letters_letter_path(letter.patient, letter)
-    - if policy(letter).destroy?
-      = pipe_separator
-      = link_to "Delete",
-                patient_letters_letter_path(letter.patient, letter),
-                method: :delete,
-                data: { confirm: I18n.t("prompts.confirm_delete") }
+      = link_to letter.view_label, patient_letters_letter_path(letter.patient, letter)
+      - if policy(letter).update?
+        = pipe_separator
+        = link_to "Edit", edit_patient_letters_letter_path(letter.patient, letter)
+      - if policy(letter).destroy?
+        = pipe_separator
+        = link_to "Delete",
+                  patient_letters_letter_path(letter.patient, letter),
+                  method: :delete,
+                  data: { confirm: I18n.t("prompts.confirm_delete") }
 
-  td.state
-    span= letter.state_description
-  td= l(letter.issued_on)
-  - if columns.include?(:author)
-    td.col-width-medium-with-ellipsis= letter.author
-  - if columns.include?(:patient)
-    td.col-width-medium-with-ellipsis= default_patient_link(letter.patient)
-  td.recipient= letter.main_recipient.address
-  td.col-width-medium-with-ellipsis= letter.description
+    td.state
+      span= letter.state_description
+    td= l(letter.issued_on)
+    - if columns.include?(:author)
+      td.col-width-medium-with-ellipsis= letter.author
+    - if columns.include?(:patient)
+      td.col-width-medium-with-ellipsis= default_patient_link(letter.patient)
+    td.recipient= letter.main_recipient.address
+    td.col-width-medium-with-ellipsis= letter.description
 
-= content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
-  td
-  td(colspan=8)
-    .quick-preview
-      = simple_format letter.body
+  = content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
+    td
+    td(colspan=8)
+      .quick-preview
+        = simple_format letter.body
