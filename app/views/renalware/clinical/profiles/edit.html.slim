@@ -12,9 +12,16 @@
       .columns.large-12
         article
           header
+            h2 Diabetes
+          .hint If YES, enter year of diagnosis
+          = render_input f, :diabetes
+
+
+        article
+          header
             h2 Clinical Alerts
 
-          = render_input f, :diabetes
+          .hint If YES, enter year of diagnosis
           = render_input f, :hiv
           = render_input f, :hepatitis_b
           = render_input f, :hepatitis_c

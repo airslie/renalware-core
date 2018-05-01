@@ -9,9 +9,9 @@ module Renalware
     attribute :admin_notes, String
     attribute :special_needs_notes, String
     attribute :diabetes, DatedBooleanDiagnosis
-    attribute :hiv, DatedBooleanDiagnosis
-    attribute :hepatitis_b, DatedBooleanDiagnosis
-    attribute :hepatitis_c, DatedBooleanDiagnosis
+    attribute :hiv, YearDatedDiagnosis
+    attribute :hepatitis_b, YearDatedDiagnosis
+    attribute :hepatitis_c, YearDatedDiagnosis
 
     class Referral < Document::Embedded
       attribute :referring_physician_name, String

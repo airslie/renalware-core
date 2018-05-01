@@ -1,9 +1,9 @@
 - renderable = f.object.public_send(attribute)
 = f.simple_fields_for attribute, renderable do |fd|
   .row(class=attribute)
-    .columns.small-12.medium-3.large-2
+    .columns.small-12.medium-3.large-3
       = fd.label attribute, f.object.class.human_attribute_name(attribute)
-    .columns.small-4.medium-3.large-2
+    .columns.small-4.medium-4.large-3
       = fd.input :diagnosis, as: :inline_radio_buttons, wrapper: :bare
-    .columns.small-5.medium-4.large-3.end
-      = fd.input :diagnosed_on, as: :date_picker, label: "Date"
+    .columns.small-7.medium-5.large-4.end
+      = fd.input :diagnosed_on, as: :date_picker, label: "Diagnosed", input_html: { class: "tiny-input" }

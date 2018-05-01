@@ -47,9 +47,9 @@ module Renalware
           .require(:clinical_profile)
           .permit(
             diabetes: %i(diagnosis diagnosed_on),
-            hiv: %i(diagnosis diagnosed_on),
-            hepatitis_b: %i(diagnosis diagnosed_on),
-            hepatitis_c: %i(diagnosis diagnosed_on),
+            hiv: %i(status confirmed_on_year),
+            hepatitis_b: %i(status confirmed_on_year),
+            hepatitis_c: %i(status confirmed_on_year),
             history: %i(alcohol smoking))
           .to_h
       end
