@@ -1,0 +1,7 @@
+- document = protocol.patient.document || Renalware::PatientDocument.new
+table(style="text-align: left;")
+  - %i(hiv hepatitis_b hepatitis_c).each do |attr|
+    - if document.public_send(attr).status&.yes?
+      tr
+        th= attr_name(document, attr)
+        td= document.public_send(attr).to_s

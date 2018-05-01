@@ -1,0 +1,11 @@
+- document = patient.document
+
+article
+  header
+    h2 Virology
+
+  dl.dl-horizontal.medium
+    - %i(hiv hepatitis_b hepatitis_c).each do |attr|
+      - if document.public_send(attr).status&.yes?
+        dt= attr_name(document, attr)
+        dd= document.public_send(attr).to_s
