@@ -11,6 +11,7 @@ module Renalware
     # - This class could be removed and a Builder class used to create the database models
     # directly - this would remove the extra level of indirection that this class introduces.
     class ObservationRequestsAttributesBuilder
+      DEFAULT_REQUESTOR_NAME = "UNKNOWN"
       delegate :patient_identification, :observation_requests, to: :message_payload
       delegate :internal_id, to: :patient_identification
       alias_attribute :requests, :observation_requests
@@ -59,7 +60,7 @@ module Renalware
           hash = {
             observation_request: {
               description_id: request_description.id,
-              requestor_name: request.ordering_provider_name,
+              requestor_name: request.ordering_provider_name || DEFAULT_REQUESTOR_NAME,
               requestor_order_number: request.placer_order_number,
               requested_at: parse_time(request.date_time),
               observations_attributes: build_observations_params(request)
@@ -109,7 +110,9 @@ module Renalware
         Patient.find_by!(local_patient_id: local_patient_id)
       end
 
+      # Default to using today's date and time if no date_time passed in the message
       def parse_time(string)
+        return Time.zone.now.to_s if string.blank?
         Time.zone.parse(string).to_s
       end
     end
