@@ -169,6 +169,54 @@ module Renalware::Pathology
           ).to eq([included_description.id])
         end
       end
+      context "when requestor order name not present in the HL7 message" do
+        let(:message_payload) {
+          double(
+            :message_payload,
+            patient_identification: double(internal_id: patient.local_patient_id),
+            observation_requests: [
+              double(
+                identifier: request_description.code,
+                ordering_provider_name: nil,
+                placer_order_number: "::pcs code::",
+                date_time: "200911111841",
+                observations: []
+              )
+            ]
+          )
+        }
+
+        it "uses 'UNKNOWN'" do
+          requests = described_class.new(message_payload).parse
+          expect(requests.first[:observation_request][:requestor_name]).to eq("UNKNOWN")
+        end
+      end
+
+      context "when requested_at not present in the HL7 message" do
+        let(:message_payload) {
+          double(
+            :message_payload,
+            patient_identification: double(internal_id: patient.local_patient_id),
+            observation_requests: [
+              double(
+                identifier: request_description.code,
+                ordering_provider_name: "aasas",
+                placer_order_number: "::pcs code::",
+                date_time: nil,
+                observations: []
+              )
+            ]
+          )
+        }
+
+        it "uses the current data and time" do
+          travel_to("2018-01-01 01:01:01") do
+            requests = described_class.new(message_payload).parse
+            expect(requests.first[:observation_request][:requested_at])
+              .to eq("2018-01-01 01:01:01 +0000")
+          end
+        end
+      end
     end
   end
 end
