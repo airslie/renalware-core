@@ -2,5 +2,5 @@
   = render "actions", patient: patient
 
 = within_patient_layout(title: "Virology") do
-
+  = render "renalware/virology/profiles/summary", patient: patient
   = render "renalware/virology/vaccinations/list", vaccinations: vaccinations, patient: patient

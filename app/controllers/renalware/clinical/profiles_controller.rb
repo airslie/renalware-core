@@ -32,8 +32,12 @@ module Renalware
 
       def update_patient
         document = patient.document
-        document.diabetes = profile_params[:diabetes].symbolize_keys
-        document.history = profile_params[:history].symbolize_keys
+        %i(diabetes history).each do |document_attribute|
+          document.send(
+            :"#{document_attribute}=",
+            profile_params[document_attribute].symbolize_keys
+          )
+        end
         patient.by = current_user
         patient.save!
       end
@@ -41,7 +45,9 @@ module Renalware
       def profile_params
         params
           .require(:clinical_profile)
-          .permit(diabetes: %i(diagnosis diagnosed_on), history: %i(alcohol smoking))
+          .permit(
+            diabetes: %i(diagnosis diagnosed_on),
+            history: %i(alcohol smoking))
           .to_h
       end
     end

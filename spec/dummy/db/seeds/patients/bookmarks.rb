@@ -2,18 +2,22 @@
 
 module Renalware
   log "Adding Bookmarks" do
-    users = User.all
     roger_rabbit = Patient.find_by(family_name: "RABBIT", given_name: "Roger")
     jessica_rabbit = Patient.find_by(family_name: "RABBIT", given_name: "Jessica")
     francois_rabbit = Patient.find_by(family_name: "RABBIT", given_name: "François")
+    current_bookmarks = Patients::Bookmark.all.select(:user_id, :patient_id)
+    new_bookmarks = []
 
     Patient.transaction do
       [roger_rabbit, jessica_rabbit, francois_rabbit].each do |patient|
-        users.each do |user|
-          patients_user = Patients.cast_user(user)
-          patients_user.bookmarks.find_or_create_by!(patient: patient)
+        User.pluck(:id).each do |user_id|
+          next if current_bookmarks.find do |bookmark|
+            bookmark.patient_id = patient.id && bookmark.user_id = user_id
+          end
+          new_bookmarks << Patients::Bookmark.new(user_id: user_id, patient_id: patient.id)
         end
       end
     end
+    Patients::Bookmark.import!(new_bookmarks)
   end
 end

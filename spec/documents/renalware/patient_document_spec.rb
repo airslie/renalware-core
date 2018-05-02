@@ -7,5 +7,6 @@ module Renalware
     it { is_expected.to respond_to(:history) }
     it { is_expected.to respond_to(:referral) }
     it { is_expected.to respond_to(:psychosocial) }
+    it { is_expected.to respond_to(:diabetes) }
   end
 end

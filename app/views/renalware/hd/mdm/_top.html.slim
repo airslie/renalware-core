@@ -4,4 +4,8 @@
   - if mdm.access.present?
     = render "renalware/hd/accesses/summary", access: mdm.access, patient: mdm.patient
 .columns.medium-12.large-6
+  = render "renalware/virology/profiles/summary",
+           patient: mdm.patient,
+           positive_results_only: true
+.columns.medium-12.large-6
   = render "prescriptions", mdm: mdm, with_esa: true

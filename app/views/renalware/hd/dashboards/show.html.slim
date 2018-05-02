@@ -21,8 +21,13 @@
                  patient: dashboard.patient,
                  access: dashboard.access
 
+    .medium-6.large-4.xlarge-3.columns
+        = render "renalware/virology/profiles/summary",
+                 patient: dashboard.patient,
+                 positive_results_only: true
+
     - unless dashboard.preference_set.new_record?
-      .medium-6.large-4.xlarge-6.columns
+      .medium-6.large-4.xlarge-3.columns
         = render "renalware/hd/preference_sets/summary",
                  patient: dashboard.patient,
                  preference_set: dashboard.preference_set

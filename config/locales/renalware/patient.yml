@@ -16,7 +16,10 @@ en:
         renalreg_recorded_by: Renal Reg decision recorded by
         rpv_recorded_by: RPV decision recorded by
         language: Main Language
+  activemodel:
     attributes:
+      renalware/patient_document:
+        diabetes: Diabetes
       renalware/patient_document/history:
         alcohol:
         smoking:

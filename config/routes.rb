@@ -437,6 +437,7 @@ Renalware::Engine.routes.draw do
 
     namespace :virology do
       resource :dashboard, only: :show, path: "/dashboard"
+      resource :profile, except: :destroy
 
       resources :vaccinations,
               only: [:new, :create, :edit, :update],

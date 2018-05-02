@@ -67,7 +67,9 @@ module World
         login_as user
         visit patient_hd_dashboard_path(patient)
 
-        click_on "Edit"
+        within ".hd-preference-sets" do
+          click_on "Edit"
+        end
 
         within ".document" do
           select "Mon Wed Fri PM", from: "Schedule"

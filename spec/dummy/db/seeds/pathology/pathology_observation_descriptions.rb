@@ -2,20 +2,19 @@
 
 module Renalware
   log "Adding Pathology Observation Descriptions" do
-
     file_path = File.join(File.dirname(__FILE__), "pathology_observation_descriptions.csv")
+    descriptions = []
+    current_description_codes = Pathology::ObservationDescription.pluck(:code)
+    units_of_measurement_map = Renalware::Pathology::MeasurementUnit.select(:id, :name)
+      .each_with_object({}){ |uom, hash| hash[uom.name] = uom.id }
 
     CSV.foreach(file_path, headers: true) do |row|
-      measurement_unit_name = row["unit_of_measurement"]
-      measurement_unit_id = if measurement_unit_name.present?
-                              Pathology::MeasurementUnit.find_by(name: measurement_unit_name).id
-                            else
-                              nil
-                            end
-      Pathology::ObservationDescription.find_or_create_by!(
+      next if current_description_codes.include?(row["code"])
+
+      descriptions << Pathology::ObservationDescription.new(
         code: row["code"],
         name: row["name"],
-        measurement_unit_id: measurement_unit_id,
+        measurement_unit_id: units_of_measurement_map[row["unit_of_measurement"]],
         loinc_code: row["loinc_code"],
         display_group: row["display_group"],
         display_order: row["display_order"],
@@ -23,6 +22,8 @@ module Renalware
         letter_order: row["letter_order"]
       )
     end
+
+    Pathology::ObservationDescription.import!(descriptions)
 
     sql = <<-SQL
       -- Display group and order determine path display on e.g. Current Pathology

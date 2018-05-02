@@ -8,6 +8,12 @@ en:
       dashboards:
         actions:
           add_vaccination: Vaccination
+  activemodel:
+    attributes:
+      renalware/virology/profile_document:
+        hiv: HIV
+        hepatitis_b: Hepatitis B
+        hepatitis_c: Hepatitis C
   enumerize:
     renalware/virology/vaccination/document:
       type:

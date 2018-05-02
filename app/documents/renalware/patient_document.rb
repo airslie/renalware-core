@@ -8,14 +8,7 @@ module Renalware
     attribute :interpreter_notes, String
     attribute :admin_notes, String
     attribute :special_needs_notes, String
-
-    class Diabetes < NestedAttribute
-      attribute :diagnosis, Boolean
-      attribute :diagnosed_on, Date
-
-      validates :diagnosed_on, timeliness: { type: :date, allow_blank: true }
-    end
-    attribute :diabetes, Diabetes
+    attribute :diabetes, DatedBooleanDiagnosis
 
     class Referral < Document::Embedded
       attribute :referring_physician_name, String

@@ -39,6 +39,9 @@ RSpec.describe "Viewing clinical profile", type: :request do
       history = patient.reload.document.history
       expect(history.alcohol).to eq("rarely")
       expect(history.smoking).to eq("ex")
+
+      expect(patient.document.diabetes.diagnosis).to eq(true)
+      expect(patient.document.diabetes.diagnosed_on).to eq(Date.parse("12-12-2017"))
     end
   end
 end

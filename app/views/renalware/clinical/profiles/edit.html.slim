@@ -13,10 +13,8 @@
         article
           header
             h2 Diabetes
-
-          = f.simple_fields_for :diabetes, patient.document.diabetes do |fd|
-            = fd.input :diagnosis, as: :inline_radio_buttons
-            = fd.input :diagnosed_on, as: :date_picker
+          .hint If YES, enter year of diagnosis
+          = render_input f, :diabetes
 
         article
           header

@@ -27,10 +27,9 @@ module Renalware
         search = UserFeedback
           .includes(:author)
           .order(created_at: :desc)
-          .page(page)
-          .per(per_page)
           .search(search_params)
-        feedback_msgs = search.result
+
+        feedback_msgs = search.result.page(page).per(per_page)
         authorize feedback_msgs
         render locals: { feedback_msgs: feedback_msgs, search: search }
       end

@@ -5,15 +5,20 @@
   .grid
     .row
       .columns.medium-6
+
         article
           header
             h2 Diabetes
 
           dl.dl-horizontal
-            dt Diagnosis
-            dd= yes_no(profile.diabetes_diagnosis) unless profile.diabetes_diagnosis.nil?
-            dt Diagnosed on
-            dd= l(profile.diabetes_diagnosed_on)
+            - %i(diabetes).each do |document_attribute|
+              dt= profile.document.class.human_attribute_name(document_attribute)
+              dd= profile.send(document_attribute).to_s
+
+      .columns.medium-6
+          = render "renalware/virology/profiles/summary",
+                   patient: patient,
+                   positive_results_only: true
 
       .columns.medium-6
         article
