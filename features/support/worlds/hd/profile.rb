@@ -101,7 +101,10 @@ module World
       def update_hd_profile(patient:, user:, prescriber: nil)
         login_as user
         visit patient_hd_dashboard_path(patient)
-        click_on "Edit"
+
+        within ".hd-profile-summary" do
+          click_on "Edit"
+        end
 
         select "Mon Wed Fri PM", from: "Schedule"
         select "400", from: "Flow Rate"
