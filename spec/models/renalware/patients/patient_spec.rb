@@ -13,7 +13,26 @@ module Renalware
     it_behaves_like "Personable"
     it_behaves_like "an Accountable model"
 
-    it { is_expected.to validate_uniqueness_of(:nhs_number).case_insensitive }
+    describe "uniqueness of patient identifiers" do
+      subject(:patient) {
+        build(
+          :patient,
+          nhs_number: "1234567890",
+          local_patient_id: "1",
+          local_patient_id_2: "2",
+          local_patient_id_3: "3",
+          local_patient_id_4: "4",
+          local_patient_id_5: "5"
+        )
+      }
+
+      it { is_expected.to validate_uniqueness_of(:nhs_number).case_insensitive }
+      it { is_expected.to validate_uniqueness_of(:local_patient_id).case_insensitive }
+      (2..5).each do |idx|
+        it { is_expected.to validate_uniqueness_of(:"local_patient_id_#{idx}").case_insensitive }
+      end
+    end
+
     it { is_expected.to validate_length_of(:nhs_number).is_at_least(10) }
     it { is_expected.to validate_length_of(:nhs_number).is_at_most(10) }
 
