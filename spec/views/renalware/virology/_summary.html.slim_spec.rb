@@ -2,16 +2,20 @@
 
 require "rails_helper"
 
-describe "renalware/virology/summary", type: :view do
+# Commented out - cannot work out atm how to inject url helpers into RSpec view spec!
+describe "renalware/virology/profiles/summary", type: :view do
   VIROLOGY_ATTRIBUTES = %i(hiv hepatitis_b hepatitis_c).freeze
-  helper(Renalware::AttributeNameHelper)
+  helper(Renalware::Engine.routes.url_helpers, Renalware::AttributeNameHelper)
 
-  let(:patient) { build_stubbed(:patient) }
-  let(:partial) { "renalware/virology/summary" }
+  let(:patient) { create(:virology_patient).tap(&:create_profile) }
+  let(:profile) { patient.profile }
+  let(:user) { create(:user) }
+  let(:partial) { "renalware/virology/profiles/summary" }
 
   context "when the patient has no HIV, HepB or HEPC in their clinical profile" do
     it "displays an empty Virology section" do
-      render partial: partial, locals: { patient: patient }
+      profile
+      render partial: partial, locals: { patient: patient, positive_results_only: true }
 
       VIROLOGY_ATTRIBUTES.each do |virology_attribute|
         expect(rendered).not_to include(human_virology_attribute_name_for(virology_attribute))
@@ -20,17 +24,19 @@ describe "renalware/virology/summary", type: :view do
   end
 
   def human_virology_attribute_name_for(attr_name)
-    attr_name(patient.document, attr_name)
+    attr_name(profile.document, attr_name)
   end
 
   VIROLOGY_ATTRIBUTES.each do |virology_attr|
-    context "when the patient has #{virology_attr} only with a Yes and year of 2011" do
+    context "when the patient has #{virology_attr} only with a Year and year of 2011" do
       before do
-        patient.document.public_send(virology_attr).status = :yes
-        patient.document.public_send(virology_attr).confirmed_on_year = 2011
+        profile.document.public_send(virology_attr).status = :yes
+        profile.document.public_send(virology_attr).confirmed_on_year = 2011
+        profile.save_by!(user)
       end
+
       it "displays only #{virology_attr}, including the year" do
-        render partial: partial, locals: { patient: patient }
+        render partial: partial, locals: { patient: patient, positive_results_only: true }
 
         expect(rendered).to include(human_virology_attribute_name_for(virology_attr))
         expect(rendered).to include("Yes (2011)")

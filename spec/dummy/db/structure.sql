@@ -6862,7 +6862,11 @@ ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
 CREATE TABLE virology_profiles (
     id bigint NOT NULL,
     patient_id bigint NOT NULL,
-    document jsonb DEFAULT '{}'::jsonb NOT NULL
+    document jsonb DEFAULT '{}'::jsonb NOT NULL,
+    updated_by_id bigint,
+    created_by_id bigint,
+    updated_at timestamp without time zone,
+    created_at timestamp without time zone
 );
 
 
@@ -12175,6 +12179,13 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 
 
 --
+-- Name: index_virology_profiles_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_virology_profiles_on_created_by_id ON virology_profiles USING btree (created_by_id);
+
+
+--
 -- Name: index_virology_profiles_on_document; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -12186,6 +12197,13 @@ CREATE INDEX index_virology_profiles_on_document ON virology_profiles USING gin 
 --
 
 CREATE UNIQUE INDEX index_virology_profiles_on_patient_id ON virology_profiles USING btree (patient_id);
+
+
+--
+-- Name: index_virology_profiles_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_virology_profiles_on_updated_by_id ON virology_profiles USING btree (updated_by_id);
 
 
 --
@@ -12469,6 +12487,14 @@ ALTER TABLE ONLY modality_modalities
 
 ALTER TABLE ONLY pathology_observation_requests
     ADD CONSTRAINT fk_rails_050f679712 FOREIGN KEY (description_id) REFERENCES pathology_request_descriptions(id);
+
+
+--
+-- Name: virology_profiles fk_rails_05a8d28840; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY virology_profiles
+    ADD CONSTRAINT fk_rails_05a8d28840 FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -13565,6 +13591,14 @@ ALTER TABLE ONLY access_profiles
 
 ALTER TABLE ONLY pd_peritonitis_episodes
     ADD CONSTRAINT fk_rails_ae56e9fe7e FOREIGN KEY (episode_type_id) REFERENCES pd_peritonitis_episode_type_descriptions(id);
+
+
+--
+-- Name: virology_profiles fk_rails_af15bfebc8; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY virology_profiles
+    ADD CONSTRAINT fk_rails_af15bfebc8 FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --

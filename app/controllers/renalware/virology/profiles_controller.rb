@@ -37,7 +37,7 @@ module Renalware
         document.hiv = YearDatedDiagnosis.new(document_params[:hiv])
         document.hepatitis_b = YearDatedDiagnosis.new(document_params[:hepatitis_b])
         document.hepatitis_c = YearDatedDiagnosis.new(document_params[:hepatitis_c])
-        profile.save
+        profile.save_by(current_user)
       end
 
       def profile_params

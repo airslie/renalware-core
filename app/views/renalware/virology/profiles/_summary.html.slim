@@ -1,4 +1,5 @@
-- document = Renalware::Virology.cast_patient(patient).profile&.document || Renalware::NullObject.instance
+- profile = Renalware::Virology.cast_patient(patient).profile
+- document = profile&.document || Renalware::NullObject.instance
 - positive_results_only = local_assigns.fetch(:positive_results_only, false)
 
 article
