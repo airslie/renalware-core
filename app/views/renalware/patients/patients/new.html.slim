@@ -1,5 +1,20 @@
 = within_admin_layout(title: "New", breadcrumbs: breadcrumb_for("Patients", patients_path)) do
+
+  .panel.warn
+    h2 Before adding a patient, please check they are not already in Renalware
+    span
+      | Use the search at the top left of this page to identify a patient
+      | &nbsp;using their name or hospital/NHS number.
+      br
+      | If you find a match remember to check
+      | &nbsp;their name, date of birth and hospital numbers from the different hospitals.
+      br
+      | Please
+      b &nbsp;DO NOT ADD A PATIENT&nbsp;
+      | &nbsp;if you think they already exist on the database - check first and add them later if necessary
+
   .row
+
     = render "renalware/shared/errors", model: patient
 
     = simple_form_for patient,
