@@ -1,0 +1,18 @@
+= within_patient_layout(title: "Edit Profile",
+      breadcrumbs: breadcrumb_for("Virology", patient_virology_dashboard_path(patient))) do
+
+  = simple_form_for(profile,
+                    url: patient_virology_profile_path(patient, profile),
+                    method: :patch,
+                    html: { autocomplete: "off" },
+                    wrapper: :horizontal_form) do |f|
+
+    = f.simple_fields_for :document, profile.document do |fd|
+      .hint If YES, enter year of diagnosis
+      = render_input fd, :hiv
+      = render_input fd, :hepatitis_b
+      = render_input fd, :hepatitis_c
+
+    = f.submit "Save", class: "button"
+    span= " or "
+    = link_to "cancel", patient_virology_dashboard_path(patient)

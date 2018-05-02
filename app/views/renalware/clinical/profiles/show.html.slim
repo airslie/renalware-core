@@ -15,14 +15,10 @@
               dt= profile.document.class.human_attribute_name(document_attribute)
               dd= profile.send(document_attribute).to_s
 
-        article
-          header
-            h2 Virology
-
-          dl.dl-horizontal
-            - %i(hiv hepatitis_b hepatitis_c).each do |document_attribute|
-              dt= profile.document.class.human_attribute_name(document_attribute)
-              dd= profile.send(document_attribute).to_s
+      .columns.medium-6
+          = render "renalware/virology/profiles/summary",
+                   patient: patient,
+                   positive_results_only: true
 
       .columns.medium-6
         article

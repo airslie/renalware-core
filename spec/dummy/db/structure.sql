@@ -5474,7 +5474,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -5553,7 +5553,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -6886,6 +6886,37 @@ ALTER SEQUENCE virology_profiles_id_seq OWNED BY virology_profiles.id;
 
 
 --
+-- Name: virology_versions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE virology_versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: virology_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE virology_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: virology_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE virology_versions_id_seq OWNED BY virology_versions.id;
+
+
+--
 -- Name: access_assessments id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -7961,6 +7992,13 @@ ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq':
 --
 
 ALTER TABLE ONLY virology_profiles ALTER COLUMN id SET DEFAULT nextval('virology_profiles_id_seq'::regclass);
+
+
+--
+-- Name: virology_versions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY virology_versions ALTER COLUMN id SET DEFAULT nextval('virology_versions_id_seq'::regclass);
 
 
 SET search_path = public, pg_catalog;
@@ -9221,6 +9259,14 @@ ALTER TABLE ONLY versions
 
 ALTER TABLE ONLY virology_profiles
     ADD CONSTRAINT virology_profiles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: virology_versions virology_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY virology_versions
+    ADD CONSTRAINT virology_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -12143,6 +12189,13 @@ CREATE UNIQUE INDEX index_virology_profiles_on_patient_id ON virology_profiles U
 
 
 --
+-- Name: index_virology_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_virology_versions_on_item_type_and_item_id ON virology_versions USING btree (item_type, item_id);
+
+
+--
 -- Name: master_index_hd_diaries_on_hospital_unit_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -14779,6 +14832,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180419141524'),
 ('20180422090043'),
 ('20180427133558'),
-('20180502093256');
+('20180502093256'),
+('20180502110638');
 
 

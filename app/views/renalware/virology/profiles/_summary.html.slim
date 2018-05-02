@@ -1,0 +1,15 @@
+- document = Renalware::Virology.cast_patient(patient).profile&.document || Renalware::NullObject.instance
+- positive_results_only = local_assigns.fetch(:positive_results_only, false)
+
+article
+  header
+    h2 Virology
+    ul
+      li= link_to "Edit", edit_patient_virology_profile_path(patient), class: "button"
+
+  dl.dl-horizontal.medium
+    - %i(hiv hepatitis_b hepatitis_c).each do |attr_name|
+      - status = document.public_send(attr_name).status
+      - next if positive_results_only && !status&.yes?
+      dt= attr_name(document, attr_name)
+      dd= document.public_send(attr_name).to_s

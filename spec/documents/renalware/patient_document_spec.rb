@@ -8,8 +8,5 @@ module Renalware
     it { is_expected.to respond_to(:referral) }
     it { is_expected.to respond_to(:psychosocial) }
     it { is_expected.to respond_to(:diabetes) }
-    it { is_expected.to respond_to(:hiv) }
-    it { is_expected.to respond_to(:hepatitis_b) }
-    it { is_expected.to respond_to(:hepatitis_c) }
   end
 end

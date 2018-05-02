@@ -32,7 +32,7 @@ module Renalware
 
       def update_patient
         document = patient.document
-        %i(diabetes hiv hepatitis_b hepatitis_c history).each do |document_attribute|
+        %i(diabetes history).each do |document_attribute|
           document.send(
             :"#{document_attribute}=",
             profile_params[document_attribute].symbolize_keys
@@ -47,9 +47,6 @@ module Renalware
           .require(:clinical_profile)
           .permit(
             diabetes: %i(diagnosis diagnosed_on),
-            hiv: %i(status confirmed_on_year),
-            hepatitis_b: %i(status confirmed_on_year),
-            hepatitis_c: %i(status confirmed_on_year),
             history: %i(alcohol smoking))
           .to_h
       end

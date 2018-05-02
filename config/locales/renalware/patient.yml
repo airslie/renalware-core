@@ -20,9 +20,6 @@ en:
     attributes:
       renalware/patient_document:
         diabetes: Diabetes
-        hiv: HIV
-        hepatitis_b: Hepatitis B
-        hepatitis_c: Hepatitis C
       renalware/patient_document/history:
         alcohol:
         smoking:

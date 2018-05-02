@@ -32,7 +32,7 @@ module Renalware
         document.history || NullObject.instance
       end
 
-      %i(diabetes hiv hepatitis_b hepatitis_c).each do |document_attribute|
+      %i(diabetes).each do |document_attribute|
         define_method(document_attribute) do
           document.send(document_attribute) || NullObject.instance
         end

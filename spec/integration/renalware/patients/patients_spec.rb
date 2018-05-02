@@ -109,18 +109,6 @@ RSpec.describe "Managing patients", type: :request do
         diagnosis: nil,
         diagnosed_on: nil
       },
-      hiv: {
-        status: nil,
-        confirmed_on_year: nil
-      },
-      hepatitis_b: {
-        status: nil,
-        confirmed_on_year: nil
-      },
-      hepatitis_c: {
-        status: nil,
-        confirmed_on_year: nil
-      },
       referral: {
         referring_physician_name: Faker::Name.name,
         referral_date: Faker::Date.backward(14),

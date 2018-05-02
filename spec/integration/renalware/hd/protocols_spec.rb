@@ -47,9 +47,11 @@ RSpec.describe "Patient's Protocol PDF", type: :request do
 
       context "when the patient has HIV" do
         before do
-          patient.document.hiv.status = :yes
-          patient.document.hiv.confirmed_on_year = 2001
-          patient.save_by!(user)
+          virology_patient = Renalware::Virology.cast_patient(patient)
+          profile = virology_patient.profile || virology_patient.build_profile
+          profile.document.hiv.status = :yes
+          profile.document.hiv.confirmed_on_year = 2001
+          profile.save!
         end
 
         it "displays just the HIV result" do
