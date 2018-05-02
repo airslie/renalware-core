@@ -6861,7 +6861,8 @@ ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
 
 CREATE TABLE virology_profiles (
     id bigint NOT NULL,
-    patient_id bigint NOT NULL
+    patient_id bigint NOT NULL,
+    document jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -12128,6 +12129,13 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 
 
 --
+-- Name: index_virology_profiles_on_document; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_virology_profiles_on_document ON virology_profiles USING gin (document);
+
+
+--
 -- Name: index_virology_profiles_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -14770,6 +14778,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180328210434'),
 ('20180419141524'),
 ('20180422090043'),
-('20180427133558');
+('20180427133558'),
+('20180502093256');
 
 
