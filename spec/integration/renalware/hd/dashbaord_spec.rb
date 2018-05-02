@@ -13,7 +13,7 @@ RSpec.describe "HD Summary (Dashboard)", type: :request do
       expect(response).to have_http_status(:success)
     end
 
-    context "when the patient has no HIV, HepB or HEPC in their clinical profile" do
+    context "when the patient has no HIV, HepB or HepC in their clinical profile" do
       it "displays an empty Virology section" do
         get patient_hd_dashboard_path(patient)
 
@@ -32,7 +32,7 @@ RSpec.describe "HD Summary (Dashboard)", type: :request do
         patient.save_by!(user)
       end
 
-      it "displays an empty Virology section" do
+      it "displays an just the HIV result" do
         get patient_hd_dashboard_path(patient)
 
         expect(response).to have_http_status(:success)
