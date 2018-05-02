@@ -9,6 +9,21 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+
+## 2.0.22
+02-05-2018
+
+### Added
+- Add an warning to the New Patient form to ask the user to check the patient does not already exist
+- Add HIV HepB HepC to Virology Profile
+### Changed
+- Local patient ids (hospital numbers) should be unique (currently validating at the application but
+  not the db level).
+### Fixed
+- Supply defaults of UNKNOWN and today's date if HL7 requestor name or date are blank
+- Occasional incorrect format of letter rows in tables
+- Fix unresolved MonthPeriod constant generating HD Monthly audits
+
 ## 2.0.20
 27-04-2018
 
