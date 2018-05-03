@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.22)
+    renalware-core (2.0.23)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.22.0)
       ahoy_matey (~> 2.0.1)
@@ -342,7 +342,7 @@ GEM
     naught (1.1.0)
     nested_form (0.3.2)
     newrelic_rpm (5.0.0.342)
-    nio4r (2.3.0)
+    nio4r (2.3.1)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     octokit (3.8.0)
