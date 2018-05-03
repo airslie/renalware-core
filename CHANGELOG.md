@@ -9,6 +9,15 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.23
+03-05-2018
+
+### Added
+### Changed
+- Its now possible to generate HD monthly audits for specific year and month
+### Fixed
+- When a patient dies, terminate only current prescriptions and do not change the termination
+  dates of previously terminated ones
 
 ## 2.0.22
 02-05-2018
