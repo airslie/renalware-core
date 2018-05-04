@@ -44,3 +44,5 @@ AllCops:
     - "vendor/bundle/**/*"
     - "config/initializers/devise.rb"
 
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
