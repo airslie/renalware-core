@@ -9,9 +9,17 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.24
+08-05-2018
+
+### Added
+### Changed
+### Fixed
+- Allow a GP to be added to a patient with incomplete demographics.
+- Topup API error
+
 ## 2.0.23
 03-05-2018
-
 ### Added
 ### Changed
 - Its now possible to generate HD monthly audits for specific year and month
