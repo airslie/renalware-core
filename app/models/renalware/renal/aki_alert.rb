@@ -16,6 +16,7 @@ module Renalware
       alias_attribute :decided_by, :updated_by
 
       scope :today, ->{ where(created_at: Time.zone.today.all_day) }
+      scope :hotlist, ->{ where(hotlist: true) }
     end
   end
 end
