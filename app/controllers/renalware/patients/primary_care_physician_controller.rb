@@ -7,6 +7,10 @@ require_dependency "renalware/patients"
 module Renalware
   module Patients
     class PrimaryCarePhysicianController < BaseController
+      # We come in here when
+      # 1. We render the Add GP modal form the first time (html)
+      # 2. After a practice has been selected and we refresh the modal form so it has
+      #    the correct list of GPs in it (js)
       def edit
         authorize patient
         render_form
@@ -24,11 +28,19 @@ module Renalware
 
       private
 
+      # There maybe times (for instance after migration from a previous system) where the
+      # patient is not `valid` (going into Demographics and just saving them would produce a
+      # validation error) because for instance they have no Sex option selected. In these instances
+      # if we tried to update the Practice and GP here using an `update` call, it would fail.
+      # So to allow the Practice and GP to be assigned to such a patient we have to skip validation
+      # callbacks by using update_columns.
       def update_patient
         return false unless selected_pyhsician
-        patient.update(primary_care_physician: selected_pyhsician,
-                       practice_id: patient_params[:practice_id],
-                       by: current_user)
+        patient.update_columns(
+          primary_care_physician_id: selected_pyhsician.id,
+          practice_id: patient_params[:practice_id],
+          updated_by_id: current_user.id
+        )
       end
 
       def render_form

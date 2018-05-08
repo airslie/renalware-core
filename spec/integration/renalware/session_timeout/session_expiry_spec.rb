@@ -9,11 +9,9 @@ feature "Session timeout", type: :feature, js: true do
   around do |example|
     original_session_timeout = Devise.timeout_in
     Devise.timeout_in = 0.5.seconds
-    ActionController::Base.allow_forgery_protection = true
 
     example.run
 
-    ActionController::Base.allow_forgery_protection = false
     Devise.timeout_in = original_session_timeout
   end
 
@@ -47,28 +45,4 @@ feature "Session timeout", type: :feature, js: true do
     expect(page).to have_current_path(new_user_session_path)
   end
   # rubocop:enable Lint/HandleExceptions
-
-  scenario "A user can login even if the csrf token has expired for example because they "\
-           "have left the login page open overnight" do
-
-    create(
-      :user,
-      :clinical,
-      username: "joe",
-      password: "renalware",
-      password_confirmation: "renalware"
-    )
-
-    visit new_user_session_path
-
-    # simulate a day passing with user staring at the login page, then logging in!
-    # Without  us kipping
-    travel_to(Time.zone.now + 2.days) do
-      fill_in "user_username", with: "joe"
-      fill_in "user_password", with: "renalware"
-      click_on "Log in"
-    end
-
-    expect(page).to have_current_path(root_path)
-  end
 end

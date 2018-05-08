@@ -46,9 +46,9 @@ Renalware.PrimaryCarePhysicianSearch = (function() {
 
     // When a Practice is selected from the autocomplete list,
     // Do an ajax replace on the <form> in this modal by sending a .js request
-    // to the url the modal was loaded from (this is in a data attribute on the pratice-search
+    // to the url the modal was loaded from (this is in a data attribute on the practice-search
     // select). This will load in just the form under the practice-search select, bringing
-    // with it a list of pcps associated with this practice.
+    // with it a list of PCPs associated with this practice.
     $(practiceDropDown).on("select2:select", function(e) {
       var selectedPracticeOption = $("option:selected", this);
       var praticeId = $(selectedPracticeOption).val();
@@ -61,7 +61,7 @@ Renalware.PrimaryCarePhysicianSearch = (function() {
           practice_id: praticeId
         },
         error: function(jqXHR, textStatus, errorThrown) {
-          console.log(errorThrown, textStatus ,jqXHR)
+          // console.log(errorThrown, textStatus ,jqXHR)
         },
         success: function(data, textStatus, jqXHR) {
           // console.log("OK!")

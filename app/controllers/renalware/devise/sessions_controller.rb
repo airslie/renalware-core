@@ -4,15 +4,6 @@ module Renalware
   class Devise::SessionsController < ::Devise::SessionsController
     include Concerns::DeviseControllerMethods
 
-    # We get a lot of instances where users keep the login form open (after logging out manually or
-    # being logged out automatically) and after an amount of time the CSRF token in the session
-    # cookie expires and a subsequent attempt to submit the login form will fail with an
-    # InvalidAuthenticityToken error. Have looked into this extensively and there does not seem to
-    # be an agreed solution. You can generate the error (after removing the line below) by
-    # logging out, setting the OS system time to + 1 day, filling-in the form and submitting it.
-    # Skipping verify_authenticity_token works as a solution.
-    skip_before_action :verify_authenticity_token, only: :create
-
     # Define the path to go to after logging in:
     # - if the user has never before logged-in, devise will take them to the root path (dashboard)
     # - if the user's session timed-out less that 30 minutes ago, we take them back to the
