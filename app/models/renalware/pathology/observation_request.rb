@@ -17,7 +17,6 @@ module Renalware
       validates :patient, presence: true
       validates :requestor_name, presence: true
       validates :requested_at, presence: true
-      validates :requestor_order_number, presence: true, uniqueness: true
 
       scope :ordered, -> { order(requested_at: :desc) }
 
