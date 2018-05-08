@@ -7,7 +7,7 @@
           as: :grouped_select,
           group_method: :wards,
           collection: Renalware::Hospitals::Unit.includes(:wards).ordered,
-          label_method: :to_s,
+          label_method: ->(ward){ [ward.name, ward.code].compact.join(" - ") },
           wrapper: :horizontal_medium
     = f.input :hotlist, wrapper: :horizontal_small, as: :inline_radio_buttons
     = f.input :max_cre, wrapper: :horizontal_small

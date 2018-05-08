@@ -22,7 +22,7 @@ module Renalware
         ward = hospital_ward || NullObject.instance
         [
           ward.hospital_unit.unit_code,
-          ward.name
+          [ward.name, ward.code].reject.first
         ].compact.join(" / ")
       end
 
