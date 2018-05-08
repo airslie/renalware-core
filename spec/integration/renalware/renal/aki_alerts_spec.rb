@@ -48,6 +48,7 @@ RSpec.describe "AKI alert management", type: :request do
         expect(response.body).to match(hospital_ward.name)
       end
     end
+
     describe "named_filter: :today" do
       it "renders a list of just today's AKI Alerts" do
         get renal_filtered_aki_alerts_path(named_filter: :today)
@@ -55,6 +56,45 @@ RSpec.describe "AKI alert management", type: :request do
         expect(response).to have_http_status(:success)
         expect(response.body).to match("Patient1")
         expect(response.body).not_to match("Patient2")
+      end
+    end
+
+    describe "named_filter: :hotlist" do
+      it "renders a list of all AKI Alerts with hotlist=true" do
+        action1 = create(:aki_alert_action, name: "action1")
+        action2 = create(:aki_alert_action, name: "action2")
+        create(
+          :aki_alert,
+          notes: "abc",
+          patient: create(:renal_patient, family_name: "NOTHOT", by: user),
+          hotlist: false,
+          action: action1,
+          max_cre: 100,
+          cre_date: "2018-01-01",
+          max_aki: 2,
+          aki_date: "2018-02-01",
+          hospital_ward: nil,
+          by: user
+        )
+
+        create(
+          :aki_alert,
+          notes: "abc",
+          patient: create(:renal_patient, family_name: "HOT", by: user),
+          hotlist: true,
+          max_cre: 100,
+          action: action2,
+          cre_date: "2018-01-01",
+          max_aki: 2,
+          aki_date: "2018-02-01",
+          hospital_ward: nil,
+          by: user
+        )
+        get renal_filtered_aki_alerts_path(named_filter: :hotlist)
+
+        expect(response).to have_http_status(:success)
+        expect(response.body).to match("HOT")
+        expect(response.body).not_to match("NOTHOT")
       end
     end
   end

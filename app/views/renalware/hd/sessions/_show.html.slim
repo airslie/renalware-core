@@ -1,6 +1,6 @@
 .document-view
-  .row
-    .columns.large-6
+  .grid
+    .row
       = render "renalware/shared/attributes_group",
           legend: "Sign-In", destination: "signin",
           models: { session => [:performed_on,
@@ -28,7 +28,6 @@
           group: session.document.observations_after,
           legend: "Post-Dialysis Observations", destination: "after"
 
-    .columns.large-6
       - %W(Dialysis HDF).each do |group|
         = render "renalware/shared/documents/attributes_group",
             group: session.document.public_send(group.parameterize(separator: "_")),
@@ -39,6 +38,6 @@
           legend: "Notes/Complications", destination: "complications",
           models: { session.document.complications => attributes_list,
                     session => [:notes] }
-  .row
-    .columns.large-12
-      = render "prescription_administrations", session: session
+    .row
+      .columns
+        = render "prescription_administrations", session: session
