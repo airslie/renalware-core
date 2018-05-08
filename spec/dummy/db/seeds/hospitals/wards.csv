@@ -1,11 +1,11 @@
-hospital_unit_code,ward_name
-MOUNT,Ward A
-MOUNT,Ward B
-PEEL,Ward C
-PEEL,Ward D
-DRUM,Ward E
-DRUM,Ward F
-FAIR,Ward G
-FAIR,Ward H
-MCGILL,Ward I
-MCGILL,Ward J
+hospital_unit_code,ward_name,ward_code
+MOUNT,Ward A,A
+MOUNT,Ward B,B
+PEEL,Ward C,C
+PEEL,Ward D,D
+DRUM,Ward E,E
+DRUM,Ward F,F
+FAIR,Ward G,G
+FAIR,Ward H,H
+MCGILL,Ward I,I
+MCGILL,Ward J,J
