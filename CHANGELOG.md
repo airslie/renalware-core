@@ -16,7 +16,7 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 - Allow a GP to be added to a patient with incomplete demographics.
-- Enforce a unique OBR requestor order number
+- Topup API error
 
 ## 2.0.23
 03-05-2018
