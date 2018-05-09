@@ -9,6 +9,15 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.25
+08-05-2018
+
+### Added
+### Changed
+- display ward name and code in AKI alerts
+- add hotlist tab to AKI Alerts
+### Fixed
+
 ## 2.0.24
 08-05-2018
 
