@@ -2,11 +2,12 @@
 
 module Renalware
   log "Adding Languages" do
-
+    return if Patients::Language.count > 0
     file_path = File.join(File.dirname(__FILE__), "patients_languages.csv")
-
+    languages = []
     CSV.foreach(file_path, headers: true) do |row|
-      Patients::Language.find_or_create_by!(code: row["code"], name: row["name"])
+      languages << Patients::Language.new(code: row["code"], name: row["name"])
     end
+    Patients::Language.import! languages
   end
 end

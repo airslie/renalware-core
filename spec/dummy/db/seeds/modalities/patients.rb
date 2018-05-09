@@ -3,21 +3,25 @@
 module Renalware
   log "Adding Random Modalities for non-RABBIT Patients" do
     # Note the RABBIT family have special modalities assigned elsewhere, so skip them here
-    patients = Patient.all
+    patient_ids = Patient.where.not(family_name: "RABBIT").pluck(:id)
     user_id = User.first.id
-    modality_description_ids = Modalities::Description.pluck(:id) # (1..13).to_a
+    modality_description_ids = Modalities::Description.pluck(:id)
     months = (1..36).to_a
 
-    Patient.transaction do
-      patients.where.not(family_name: "RABBIT").all.each do |patient|
-        patient.modalities.destroy_all
-        patient.modalities.create!(
-          patient_id: patient.id,
-          description_id: modality_description_ids.sample,
-          started_on: months.sample.months.ago,
-          created_by_id: user_id
-        )
-      end
+    modalities = []
+
+    # Remove any current modalities
+    Modalities::Modality.where(patient_id: patient_ids).delete_all
+
+    patient_ids.each do |patient_id|
+      modalities << Modalities::Modality.new(
+        patient_id: patient_id,
+        description_id: modality_description_ids.sample,
+        started_on: months.sample.months.ago,
+        created_by_id: user_id,
+        updated_by_id: user_id
+      )
     end
+    Modalities::Modality.import! modalities
   end
 end
