@@ -15,9 +15,11 @@ module Renalware
             page_size: "A4",
             layout: "renalware/layouts/pdf",
             disposition: "inline",
+            margin: { top: 10, bottom: 10, left: 10, right: 10 },
             footer: {
               font_size: 8,
-              right: "Page [page] of [topage]"
+              right: "Page [page] of [topage]",
+              left: I18n.l(Time.zone.now)
             },
             show_as_html: Rails.env.development? && params.key?(:debug),
             encoding: "UTF-8"

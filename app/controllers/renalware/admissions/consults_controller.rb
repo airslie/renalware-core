@@ -7,17 +7,35 @@ module Renalware
   module Admissions
     class ConsultsController < BaseController
       include Renalware::Concerns::Pageable
+      include Renalware::Concerns::PdfRenderable
 
       # rubocop:disable Metrics/AbcSize
       def index
         session[:consults_results] = nil if params.key?(:reset)
         query = ConsultQuery.new(params[:q])
-        consults = query.call.page(page).per(per_page)
-        authorize consults
-        render locals: {
-          consults:  CollectionPresenter.new(consults, ConsultPresenter),
-          query: query.search
-        }
+
+        respond_to do |format|
+          format.pdf do
+            consults = query.call
+            authorize consults
+            options = default_pdf_options.merge!(
+              pdf: "Admission Consults #{I18n.l(Time.zone.today)}",
+              locals: {
+                consults: CollectionPresenter.new(consults, ConsultPresenter),
+                query: query.search
+              }
+            )
+            render options
+          end
+          format.html do
+            consults = query.call.page(page).per(per_page)
+            authorize consults
+            render locals: {
+              consults: CollectionPresenter.new(consults, ConsultPresenter),
+              query: query.search
+            }
+          end
+        end
       end
       # rubocop:enable Metrics/AbcSize
 

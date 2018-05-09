@@ -1,0 +1,188 @@
+.pdf {
+  // Header with Main title to the left and a muted subtitle to the right
+  .header {
+    h1, h2 {
+      margin-bottom: 7px;
+      margin-top: 0px;
+      line-height: 2rem;
+    }
+    h1 {
+      float: left;
+      font-size: 2rem;
+    }
+
+    h2 {
+      float: right;
+      color: #555;
+      font-size: 1.7rem;
+      line-height: 1.7rem;
+      font-weight: normal;
+      margin-top: 4px;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    // Could make this the default pdf table style but separate class for now
+    &.spacy {
+      td,
+      th {
+        padding: 4px 0;
+      }
+    }
+
+    &.nested-table-in-order-to-prevent-orphaned-rows {
+      page-break-inside: avoid !important;
+      border-top: solid 1px #000;
+    }
+
+    tr {
+      page-break-inside: avoid;
+    }
+
+    th {
+      text-align: left;
+      padding: 4px 0;
+    }
+
+    td {
+      border-bottom: solid 1px #ddd;
+    }
+
+    td,
+    th {
+      page-break-inside: avoid;
+
+      p {
+        padding: 0;
+        margin: 0;
+      }
+    }
+  }
+
+  // This section displays a summary of applied filters as a table
+  .filter-summary {
+    clear: both;
+    margin-bottom: 8px;
+
+    table {
+      width: auto;
+    }
+
+    th, td {
+      border: none;
+    }
+
+    th {
+      padding-left: 8px;
+      padding-right: 3px;
+    }
+
+    th:first-child {
+      text-decoration: underline;
+      padding-left: 0px;
+    }
+  }
+
+  // Table helper classes copied form the main application
+  tr th,
+  tr td {
+    &.col-width-date {
+      min-width: 7.1em;
+      width: 7.8em;
+
+      &.wide {
+        width: 9rem;
+      }
+    }
+
+    &.col-width-time {
+      width: 3rem;
+      min-width: 2.7rem;
+    }
+
+    &.col-width-date-time {
+      width: 9.5rem;
+      min-width: 9.3rem;
+    }
+
+    &.col-width-reference-without-prefix {
+      width: 7rem;
+      min-width: 5.5rem;
+      white-space: nowrap;
+    }
+
+    &.col-width-reference-no {
+      width: 8rem;
+      min-width: 8rem;
+      white-space: nowrap;
+    }
+
+    &.col-width-nhs-no {
+      width: 7rem;
+      min-width: 7rem;
+      white-space: nowrap;
+    }
+
+    &.col-width-bp {
+      width: 4.5rem;
+      min-width: 3.8rem;
+    }
+
+    &.col-width-toggle {
+      width: 9.7rem;
+      min-width: 9.7rem;
+    }
+
+    &.col-width-tinyish {
+      width: 5rem;
+      min-width: 4.5rem;
+    }
+
+    &.col-width-small {
+      width: 7rem;
+      min-width: 5.1rem;
+    }
+
+    &.col-width-medium {
+      width: 12rem;
+      min-width: 10rem;
+    }
+
+    &.col-width-medium-ish {
+      width: 14rem;
+      min-width: 12rem;
+    }
+
+    &.col-width-large {
+      width: 20rem;
+      min-width: 15rem;
+    }
+
+    &.column-6-width {
+      width: 6%;
+    }
+
+    &.col-width-6 {
+      width: 6rem;
+    }
+
+    &.col-width-9 {
+      width: 9rem;
+    }
+
+    &.col-width-11 {
+      width: 11rem;
+    }
+
+    &.col-width-13 {
+      width: 13rem;
+    }
+
+    &.at-least {
+      width: auto;
+    }
+  }
+}
