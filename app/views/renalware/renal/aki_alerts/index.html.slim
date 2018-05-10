@@ -1,4 +1,14 @@
+= content_for(:actions) do
+  / Make sure when generating the PDF we pass in exactly the same params eg q and named_filter
+  / An alternative to what we have used here is to use
+  /   url_for(request.filtered_parameters&.merge({format: :pdf})
+  / however this seems to loose the ransack sort option in  params[:q][:s]
+  = link_to(renal_filtered_aki_alerts_path(q: params[:q]&.permit!, format: :pdf), class: "button secondary") do
+    i.fa.fa-print
+    | Print (PDF)
+
 = within_admin_layout(title: "AKI Alerts") do
+  = render "renalware/shared/please_print_using_print_button_warning"
   = render "filters", form: form, path_params: path_params
   = render "table", alerts: alerts, search: search
 

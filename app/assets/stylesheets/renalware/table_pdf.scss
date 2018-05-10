@@ -13,11 +13,14 @@
 
     h2 {
       float: right;
-      color: #555;
       font-size: 1.7rem;
       line-height: 1.7rem;
       font-weight: normal;
       margin-top: 4px;
+    }
+
+    .muted {
+      color: #555;
     }
   }
 
@@ -90,7 +93,6 @@
   tr th,
   tr td {
     &.col-width-date {
-      min-width: 7.1em;
       width: 7.8em;
 
       &.wide {
@@ -134,6 +136,10 @@
     &.col-width-toggle {
       width: 9.7rem;
       min-width: 9.7rem;
+    }
+
+    &.col-width-tiny {
+      width: 3rem;
     }
 
     &.col-width-tinyish {

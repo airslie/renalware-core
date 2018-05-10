@@ -1,0 +1,25 @@
+table
+  thead
+    tr
+      th.col-width-large PATIENT
+      th.col-width-reference-no HOSP NOs.
+      th.col-width-medium WARD
+      th MODALITY
+      th.col-width-tiny SEX
+      th.col-width-date DOB
+
+  - alerts.each do |alert|
+    tr
+      table.nested-table-in-order-to-prevent-orphaned-rows.spacy
+        tbody
+          tr.alert-details
+            td.col-width-large
+              b= alert.patient.to_s(:default)
+            td.col-width-reference-no= alert.patient&.hospital_identifiers&.to_s_multiline
+            td.col-width-medium= alert.hospital_ward
+            td= alert.patient&.current_modality
+            td.col-width-tiny= alert.patient&.sex
+            td.col-width-date= l(alert.patient.born_on)
+
+          tr.alert-notes
+            td(colspan=6)= simple_format alert.notes
