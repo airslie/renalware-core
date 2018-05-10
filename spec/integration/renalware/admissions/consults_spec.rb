@@ -25,7 +25,7 @@ module Renalware
              description: "Lorem ipsum dolor")
     end
 
-    describe "GET index" do
+    describe "GET index HTML" do
       it "lists consults" do
         consult = create_consult
 
@@ -35,6 +35,21 @@ module Renalware
         expect(response.body).to include("Admission Consults")
         expect(response.body).to include("Site1")
         expect(response.body).to include(consult.patient.to_s)
+      end
+    end
+
+    context "when printing a PDF" do
+      describe "GET index PDF" do
+        it "generates a PDF version of the consults list" do
+          get admissions_consults_path(format: :pdf)
+
+          expect(response).to have_http_status(:success)
+          expect(response).to be_success
+          expect(response["Content-Type"]).to eq("application/pdf")
+          expect(response["Content-Disposition"]).to include("inline")
+          filename = "Admission Consults #{I18n.l(Time.zone.today)}.pdf"
+          expect(response["Content-Disposition"]).to include(filename)
+        end
       end
     end
 

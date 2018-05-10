@@ -10,6 +10,7 @@ module Renalware
       included do
         protected
 
+        # rubocop:disable Metrics/MethodLength
         def default_pdf_options
           {
             page_size: "A4",
@@ -21,10 +22,11 @@ module Renalware
               right: "Page [page] of [topage]",
               left: I18n.l(Time.zone.now)
             },
-            show_as_html: Rails.env.development? && params.key?(:debug),
+            show_as_html: render_pdf_as_html?,
             encoding: "UTF-8"
           }
         end
+        # rubocop:enable Metrics/MethodLength
 
         # Render a Liquid template loaded from the database.
         # The template may have variable place holders w.g. {{ patient.name }} and these
@@ -38,6 +40,11 @@ module Renalware
         end
 
         private
+
+        def render_pdf_as_html?
+          Renalware.config.render_pdf_as_html_for_debugging ||
+            (Rails.env.development? || Rails.env.test?) && params.key?(:debug)
+        end
 
         # By default if no variables supplied, we insert the patient drop to allow basic patient
         # data to be accessed in the template with eg {{ patient.name }}
