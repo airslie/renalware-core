@@ -14,6 +14,9 @@
         - if filters[:consult_site_id_eq].present?
           th Site:
           td= Renalware::Admissions::ConsultSite.find_by(id: filters[:consult_site_id_eq]).name
+        - if filters[:rrt_eq].present?
+          th RRT:
+          td= yes_no(filters[:rrt_eq] == "true")
         - if filters[:seen_by_id_eq].present?
           th Seen By:
           td= Renalware::User.find(filters[:seen_by_id_eq])&.to_s

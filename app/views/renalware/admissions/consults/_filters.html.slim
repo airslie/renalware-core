@@ -17,6 +17,11 @@
                   collection: [["Anyone", nil], ["Me", current_user.id]],
                   label: "Seen by"
       .columns.medium-1.large-1
+        = f.input :rrt_eq,
+                  include_blank: true,
+                  collection: [["Yes", true], ["No", false]],
+                  label: "RRT"
+      .columns.medium-1.large-1
         = f.input :aki_risk_eq,
                   include_blank: true,
                   collection: Renalware::Admissions::Consult.aki_risk.values.map{ |value| [value.text, value] },
