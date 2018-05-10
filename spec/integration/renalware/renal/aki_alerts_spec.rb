@@ -96,6 +96,18 @@ RSpec.describe "AKI alert management", type: :request do
         expect(response.body).to match("HOT")
         expect(response.body).not_to match("NOTHOT")
       end
+
+      context "when a Print version requested" do
+        it "renders a PDF" do
+          get renal_filtered_aki_alerts_path(named_filter: :hotlist, format: :pdf)
+
+          expect(response).to be_success
+          expect(response["Content-Type"]).to eq("application/pdf")
+          expect(response["Content-Disposition"]).to include("inline")
+          filename = "AKI Alerts #{I18n.l(Time.zone.today)}.pdf"
+          expect(response["Content-Disposition"]).to include(filename)
+        end
+      end
     end
   end
 

@@ -6,17 +6,17 @@ module Renalware
   module Renal
     class AKIAlertsController < BaseController
       include Renalware::Concerns::Pageable
+      include Renalware::Concerns::PdfRenderable
 
       def index
         query = search_form.query
-        alerts = query.call.page(page).per(per_page)
+        alerts = query.call
         authorize alerts
-        render locals: {
-          alerts: alerts,
-          form: search_form,
-          search: query.search,
-          path_params: path_params
-        }
+
+        respond_to do |format|
+          format.pdf { render_index_pdf(query, alerts) }
+          format.html { render_index_html(query, alerts) }
+        end
       end
 
       def edit
@@ -34,6 +34,28 @@ module Renalware
       end
 
       private
+
+      def render_index_pdf(query, alerts)
+        options = default_pdf_options.merge!(
+          pdf: "AKI Alerts #{I18n.l(Time.zone.today)}",
+          locals: {
+            alerts: alerts,
+            form: search_form,
+            search: query.search,
+            path_params: path_params
+          }
+        )
+        render options
+      end
+
+      def render_index_html(query, alerts)
+        render locals: {
+          alerts: alerts.page(page).per(per_page),
+          form: search_form,
+          search: query.search,
+          path_params: path_params
+        }
+      end
 
       def search_form
         @search_form ||= begin

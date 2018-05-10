@@ -1,0 +1,25 @@
+// Compile a summary of filters applied. Leave out anything not set.
+- filters = params.fetch(:q, {}).reject{ |key, value| value.blank? }
+
+.filter-summary
+  table
+    tr
+      th Filters
+      - if filters.empty?
+        td None
+      - else
+        - if filters[:term].present?
+          th Query:
+          td= filters[:term]
+        - if filters[:on_hotlist].present?
+          th On Hotlist:
+          td= yes_no(filters[:on_hotlist] == "true")
+        - if filters[:action].present?
+          th Action:
+          td=  Renalware::Renal::AKIAlertAction.find(filters[:action])&.to_s
+        - if filters[:hospital_unit_id].present?
+          th Site:
+          td= Renalware::Hospitals::Unit.find_by(id: filters[:hospital_unit_id])
+        - if filters[:hospital_ward_id].present?
+          th Ward:
+          td= Renalware::Hospitals::Ward.find_by(id: filters[:hospital_ward_id])
