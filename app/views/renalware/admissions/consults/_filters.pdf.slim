@@ -1,0 +1,25 @@
+// Compile a summary of filters applied. Leave out anything not set.
+- filters = params.fetch(:q, {}).reject{ |key, value| value.blank? }
+
+.filter-summary
+  table
+    tr
+      th Filters
+      - if filters.empty?
+        td None
+      - else
+        - if filters[:identity_match].present?
+          th Query:
+          td= filters[:identity_match]
+        - if filters[:consult_site_id_eq].present?
+          th Site:
+          td= Renalware::Admissions::ConsultSite.find_by(id: filters[:consult_site_id_eq]).name
+        - if filters[:seen_by_id_eq].present?
+          th Seen By:
+          td= Renalware::User.find(filters[:seen_by_id_eq])&.to_s
+        - if filters[:aki_risk_eq].present?
+          th AKI Risk:
+          td= yes_no(filters[:ended_on_null]&.humanize)
+        - if filters[:ended_on_null].present?
+          th Active:
+          td= yes_no(filters[:ended_on_null] == "true")

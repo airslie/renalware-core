@@ -19,13 +19,11 @@
         th.col-width-date.show-for-large-up= sort_link(query, :patient_born_on, "DOB")
         th.col-width-tiny.show-for-large-up Age
         th.col-width-tiny.noprint= sort_link(query, :aki_risk, "AKI Risk")
-        /th.show-for-large-up Author
-        /th.col-width-medium.show-for-xlarge-up Description
 
     tbody
       - consults.each do |consult|
         - uid = "consult-#{consult.id}"
-        tr
+        tr.keep-with-next
           td.actions-dropdown.going-right.noprint
             / As we have lots of possible actions, group them in a button group.
             / A wrapping div is required for now in order for the button group display correctly
@@ -82,3 +80,7 @@
                 dt Description
                 dd= simple_format consult.description
           td
+        / When printing we just show the notes on the second row
+        tr.print-only.child-row
+          td(colspan=12)= simple_format consult.description
+

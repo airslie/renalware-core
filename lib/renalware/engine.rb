@@ -126,6 +126,7 @@ module Renalware
       app.config.assets.precompile += %w(renalware/pdf.css renalware/watermark.css)
       app.config.assets.precompile += %w(renalware/protocol_pdf.css)
       app.config.assets.precompile += %w(renalware/hd_diary_pdf.css)
+      app.config.assets.precompile += %w(renalware/table_pdf.css)
       app.config.assets.precompile += %w(
         renalware/nhs_a4_letter_logo_blue.png
         renalware/nhs_a4_letter_logo_black.png
@@ -140,6 +141,7 @@ module Renalware
         renalware/favicon/mstile-150x150.png
         renalware/favicon/safari-pinned-tab.svg
         renalware/clippy.svg
+        renalware/print-button-example.png
       )
       app.config.assets.paths <<
         Rails.root.join(config.root, "vendor", "assets", "javascripts", "renalware")

@@ -1,0 +1,31 @@
+table
+  thead
+    tr
+      th.col-width-large PATIENT
+      th.col-width-reference-no HOSP NOs.
+      th.col-width-medium LOCATION
+      th MODALITY
+      th.col-width-tiny SEX
+      th.col-width-date DOB
+
+  - consults.each do |consult|
+    tr
+      / Nested tables. Yum. But necessary to get wkhtml2pdf to avoid orphaning the
+      / second 'notes' row (using css - see class definition) from the first 'patient details' row.
+      / When having just one table with 2 rows per consult, wkhtml2pdf sometimes breaks a page
+      / between the 2 rows when we really want to keep them together. Using a table like this and
+      / applying page-break-inside: avoid to it we can avoid this problem. The downside is that the
+      / columns may not always line up exactly if the content is wide.
+      table.nested-table-in-order-to-prevent-orphaned-rows.spacy
+        tbody
+          tr.consult-details
+            td.col-width-large
+              b= consult.patient.to_s(:default)
+            td.col-width-reference-no= consult.patient_hospital_identifiers&.to_s_multiline
+            td.col-width-medium= consult.hospital_ward
+            td= consult.patient_current_modality
+            td.col-width-tiny= consult.patient_sex
+            td.col-width-date= l(consult.patient.born_on)
+
+          tr.consult-notes
+            td(colspan=6)= simple_format consult.description

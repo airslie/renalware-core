@@ -1,0 +1,10 @@
+- content_for(:head) do
+  = wicked_pdf_stylesheet_link_tag "renalware/table_pdf"
+
+.pdf
+  .header
+    h1 Admission Consults
+    h2.muted= I18n.l(Time.zone.today)
+  = render "filters"
+  = render "table", consults: consults
+

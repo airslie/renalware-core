@@ -54,6 +54,10 @@ module Renalware
     end
     config_accessor(:ukrdc_sending_facility_name) { ENV["UKRDC_SENDING_FACILITY_NAME"] }
 
+    # We override this in some tests as a means of getting wicked_Pdf to generate an HTML version
+    # of the PDF so we can examine its content
+    config_accessor(:render_pdf_as_html_for_debugging) { false }
+
     # A host app can override this to add/remove/re-order the clinical summary display
     # Note these have to be strings - they mapped to constants in ClinicalSummaryPresenter.
     config_accessor(:page_layouts) {
