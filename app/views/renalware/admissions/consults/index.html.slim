@@ -8,6 +8,8 @@
   /data: { target: admissions_consults_path(format: :pdf)
 
 = within_admin_layout(title: "Admission Consults") do
+  = render "renalware/shared/please_print_using_print_button_warning"
+
   .panel.radius.compact
     | If the patient is not on Renalware yet, please&nbsp;
     = link_to("add them", new_patient_path)

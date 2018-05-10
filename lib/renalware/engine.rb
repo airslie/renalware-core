@@ -141,6 +141,7 @@ module Renalware
         renalware/favicon/mstile-150x150.png
         renalware/favicon/safari-pinned-tab.svg
         renalware/clippy.svg
+        renalware/print-button-example.png
       )
       app.config.assets.paths <<
         Rails.root.join(config.root, "vendor", "assets", "javascripts", "renalware")
