@@ -2,13 +2,15 @@
 
 module Renalware
   log "Adding Primary Renal Diagnosis (PRD) Codes" do
-
+    return if Renal::PRDDescription.count > 0
     file_path = File.join(File.dirname(__FILE__), "prd_descriptions.csv")
-
+    descriptions = []
     CSV.foreach(file_path, headers: true) do |row|
-      Renal::PRDDescription.find_or_create_by!(code: row["code"]) do |code|
-        code.term = row["term"]
-      end
+      descriptions << Renal::PRDDescription.new(
+        code: row["code"],
+        term: row["term"]
+      )
     end
+    Renal::PRDDescription.import! descriptions
   end
 end
