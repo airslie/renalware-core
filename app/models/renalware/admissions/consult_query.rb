@@ -10,6 +10,7 @@ module Renalware
       def initialize(query = nil)
         @query = query || {}
         @query[:ended_on_null] ||= true
+        @query[:s] ||= "hospital_ward_name"
       end
 
       def call
@@ -20,6 +21,7 @@ module Renalware
       # It might be better to refactor PatientsRansackHelper so we can include where required
       # eg below using .extending(PatientsRansackHelper) rather than relying on it being in
       # included in the model file.
+      # rubocop:disable Metrics/MethodLength
       def search
         @search ||= begin
           Consult
@@ -35,6 +37,7 @@ module Renalware
             .ransack(query)
         end
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end
