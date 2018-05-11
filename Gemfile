@@ -24,15 +24,17 @@ gem "devise_security_extension",
     git: "https://github.com/phatworx/devise_security_extension.git"
 
 group :test do
-  gem "capybara", "~> 2.17.0"
-  gem "capybara-screenshot", "~> 1.0.18"
+  gem "capybara" # "~> 2.17.0"
+  gem "capybara-screenshot" # "~> 1.0.18"
+  gem "chromedriver-helper"
+  gem "selenium-webdriver"
   gem "codeclimate-test-reporter", "~> 1.0.7", require: false # loads simplecov
   gem "cucumber", "~> 3.1.0"
   gem "cucumber-rails", "~> 1.6.0", require: false # must be loaded in env.rb
   gem "database_cleaner", "~> 1.7.0", require: false # for cucumber (now not needed for rspec)
   gem "factory_bot_rails", "~> 4.8.2"
   gem "fuubar", require: false
-  gem "poltergeist", "~> 1.17.0"
+  gem "poltergeist", require: false
   gem "rails-controller-testing", "~> 1.0.2"
   gem "rspec-html-matchers", "~> 0.9.1"
   gem "rspec-rails", "~> 3.7.0"
