@@ -67,7 +67,7 @@ module Renalware
       def status_params
         params
           .require(:transplants_registration_status)
-          .permit(:started_on, :description_id)
+          .permit(:started_on, :description_id, :notes)
           .merge(by: current_user)
       end
     end
