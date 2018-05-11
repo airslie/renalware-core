@@ -19,6 +19,7 @@ module Renalware
         started_on: started_on,
         ended_on: ended_on.sample,
         decided_on: started_on,
+        rrt: [true, false].sample,
         transfer_priority: Admissions::Consult.transfer_priority.values.sample,
         aki_risk: Admissions::Consult.aki_risk.values.sample,
         consult_type: "n/a",

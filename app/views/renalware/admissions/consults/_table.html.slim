@@ -11,6 +11,7 @@
                                       :location,
                                       [:consult_site_name, :hospital_ward_name],
                                       "Location")
+        th.col-width-tiny RRT
         th.col-width-date.noprint= sort_link(query, :started_on, "Started")
         th.col-width-date.noprint= sort_link(query, :ended_on, "Ended")
         th.col-width-small.show-for-large-up
@@ -60,6 +61,7 @@
           td.noprint= consult.patient_nhs_number
           td= consult.patient_hospital_identifiers&.to_s_multiline
           td= consult.location
+          td= yes_no(consult.rrt?)
           td.noprint= l(consult.started_on)
           td.noprint= l(consult.ended_on)
           td.show-for-large-up.col-width-medium-with-ellipsis= consult.patient_current_modality
