@@ -26,3 +26,7 @@
         - if filters[:ended_on_null].present?
           th Active:
           td= yes_no(filters[:ended_on_null] == "true")
+        - modality_id = filters[:patient_current_modality_description_id_eq]
+        - if modality_id.present?
+          th Modality:
+          td= Renalware::Modalities::Description.where(id: modality_id).first&.name

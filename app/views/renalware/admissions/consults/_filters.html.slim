@@ -11,7 +11,7 @@
         = f.input :consult_site_id_eq,
                   collection: Renalware::Admissions::ConsultSite.pluck(:name, :id),
                   label: "Site"
-      .columns.medium-2.large-1
+      .columns.medium-1.large-1
         = f.input :seen_by_id_eq,
                   include_blank: false,
                   collection: [["Anyone", nil], ["Me", current_user.id]],
@@ -31,6 +31,10 @@
                   include_blank: true,
                   collection: [["Yes", true], ["No", false]],
                   label: "Active"
+      .columns.medium-2.large-2
+        = f.input :patient_current_modality_description_id_eq,
+                  collection: Renalware::Modalities::Description.pluck("name", "id"),
+                  label: "Modality"
       .columns.medium-2.large-2.actions.end
         = f.submit "Filter", class: "button"
         span= " or "
