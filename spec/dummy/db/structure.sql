@@ -5620,15 +5620,15 @@ CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
     stats.year,
     stats.month,
     count(*) AS patient_count,
-    avg(stats.dialysis_minutes_shortfall) AS avg_missed_hd_time,
-    avg(stats.number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct) AS pct_shortfall_gt_5_pct,
-    (((count(*) FILTER (WHERE (stats.missed_sessions_gt_10_pct = true)))::double precision / (count(*))::double precision) * (100)::double precision) AS pct_missed_sessions_gt_10_pct,
-    (((count(*) FILTER (WHERE (stats.hgb_gt_100 = true)))::double precision / (count(*))::double precision) * (100)::double precision) AS percentage_hgb_gt_100,
-    (((count(*) FILTER (WHERE (stats.hgb_gt_130 = true)))::double precision / (count(*))::double precision) * (100)::double precision) AS percentage_hgb_gt_130,
-    (((count(*) FILTER (WHERE (stats.pth_lt_300 = true)))::double precision / (count(*))::double precision) * (100)::double precision) AS percentage_pth_lt_300,
-    (((count(*) FILTER (WHERE (stats.urr_gt_64 = true)))::double precision / (count(*))::double precision) * (100)::double precision) AS percentage_urr_gt_64,
-    (((count(*) FILTER (WHERE (stats.urr_gt_69 = true)))::double precision / (count(*))::double precision) * (100)::double precision) AS percentage_urr_gt_69,
-    (((count(*) FILTER (WHERE (stats.phos_lt_1_8 = true)))::double precision / (count(*))::double precision) * (100)::double precision) AS percentage_phosphate_lt_1_8,
+    round((avg(stats.dialysis_minutes_shortfall))::numeric, 2) AS avg_missed_hd_time,
+    round(avg(stats.number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct), 2) AS pct_shortfall_gt_5_pct,
+    round(((((count(*) FILTER (WHERE (stats.missed_sessions_gt_10_pct = true)))::double precision / (count(*))::double precision) * (100)::double precision))::numeric, 2) AS pct_missed_sessions_gt_10_pct,
+    round(((((count(*) FILTER (WHERE (stats.hgb_gt_100 = true)))::double precision / (count(*))::double precision) * (100)::double precision))::numeric, 2) AS percentage_hgb_gt_100,
+    round(((((count(*) FILTER (WHERE (stats.hgb_gt_130 = true)))::double precision / (count(*))::double precision) * (100)::double precision))::numeric, 2) AS percentage_hgb_gt_130,
+    round(((((count(*) FILTER (WHERE (stats.pth_lt_300 = true)))::double precision / (count(*))::double precision) * (100)::double precision))::numeric, 2) AS percentage_pth_lt_300,
+    round(((((count(*) FILTER (WHERE (stats.urr_gt_64 = true)))::double precision / (count(*))::double precision) * (100)::double precision))::numeric, 2) AS percentage_urr_gt_64,
+    round(((((count(*) FILTER (WHERE (stats.urr_gt_69 = true)))::double precision / (count(*))::double precision) * (100)::double precision))::numeric, 2) AS percentage_urr_gt_69,
+    round(((((count(*) FILTER (WHERE (stats.phos_lt_1_8 = true)))::double precision / (count(*))::double precision) * (100)::double precision))::numeric, 2) AS percentage_phosphate_lt_1_8,
     'TBC'::text AS percentage_access_fistula_or_graft
    FROM (stats
      JOIN hospital_units hu ON ((hu.id = stats.hospital_unit_id)))
@@ -14867,6 +14867,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180422090043'),
 ('20180427133558'),
 ('20180502093256'),
-('20180502110638');
+('20180502110638'),
+('20180510151959');
 
 
