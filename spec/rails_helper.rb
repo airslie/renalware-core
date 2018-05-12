@@ -24,6 +24,9 @@ require "paper_trail/frameworks/rspec"
 require "chosen-rails/rspec"
 require_relative "../lib/test_support/text_editor_helpers"
 
+require "capybara/rspec"
+require "capybara-screenshot/rspec"
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

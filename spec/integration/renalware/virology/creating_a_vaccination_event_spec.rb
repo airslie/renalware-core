@@ -9,7 +9,6 @@ RSpec.describe "Creating an vaccination", type: :feature, js: true do
 
   context "when adding a vaccination event through the Events page" do
     it "captures extra data" do
-      page.driver.add_headers("Referer" => root_path)
       user = login_as_clinical
       patient = create(:patient, by: user)
 
@@ -34,7 +33,6 @@ RSpec.describe "Creating an vaccination", type: :feature, js: true do
 
   context "when adding a vaccination through via the virology/vaccinations " do
     it "captures extra data" do
-      page.driver.add_headers("Referer" => root_path)
       user = login_as_clinical
       patient = create(:patient, by: user)
       create(:vaccination_event_type)

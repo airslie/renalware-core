@@ -11,6 +11,8 @@ feature "Remove Admission Request", type: :feature, js: true do
 
     visit admissions_requests_path
 
+    # Prevent alert from popping up i.e. auto accept it.
+    page.execute_script("window.confirm = function(){ return true; }")
     within "#admissions_request_#{request.id}" do
       find(:css, ".remove").click
     end

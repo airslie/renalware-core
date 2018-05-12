@@ -8,7 +8,6 @@ RSpec.describe "Creating an biopsy", type: :feature, js: true do
 
   context "when adding a biopsy event" do
     it "captures extra data" do
-      page.driver.add_headers("Referer" => root_path)
       user = login_as_clinical
       patient = create(:patient, by: user)
 

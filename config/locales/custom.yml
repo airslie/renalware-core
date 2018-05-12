@@ -1,9 +1,8 @@
 en:
   renalware:
     beta_message:
-      title: |
-         Important notice:
-      body: |
+      title: "Important notice: "
+      body: >
         This is the Renalware 2.0 test system.
         Not for clinical use. Any data entered will not be retained.
       feedback_button: Provide feedback or report a bug
