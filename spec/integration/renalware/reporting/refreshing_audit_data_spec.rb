@@ -13,8 +13,8 @@ feature "Refreshing audit data", type: :feature, js: true do
       click_on "Refresh Data"
     end
 
-    expect(page.status_code).to eq(200)
     pending
+
     expect(Renalware::Reporting::RefreshAuditDataJob).to have_been_enqueued
   end
 end

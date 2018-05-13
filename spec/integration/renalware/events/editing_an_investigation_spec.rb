@@ -8,7 +8,6 @@ RSpec.describe "Editing an investigation", type: :feature, js: true do
   include PatientsSpecHelper
 
   it "allows an investigation to be updated" do
-    page.driver.add_headers("Referer" => root_path)
     user = login_as_clinical
     patient = create(:patient, by: user)
     set_modality(

@@ -15,7 +15,7 @@
                       remote: true,
                       wrapper: :horizontal_form) do |f|
 
-      = f.input :default_cc, as: :inline_radio_buttons
+      = f.input :default_cc, as: :inline_radio_buttons, readonly: nil
       = f.input :description_id, collection: contact_descriptions
       = f.input :other_description
       = f.input :notes, as: :text

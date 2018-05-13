@@ -36,7 +36,10 @@ RSpec.describe "Insert letter.event notes (e.g. from a clinic visit) into the le
         # Simulate something similar to a ClinicVisit being associated with the Letter
         # We don't use a 'real' Clinics::Visit as its in a different module.
         my_clinic_visit = MyClinicVisit.new
-        decorator = Renalware::Letters::Event::ClinicVisit.new(my_clinic_visit, clinical: true)
+        decorator = Renalware::Letters::Event::ClinicVisit.new(
+          my_clinic_visit,
+          clinical: true
+        )
         expect_any_instance_of(Renalware::Letters::Letter)
           .to receive(:event)
           .exactly(:twice)

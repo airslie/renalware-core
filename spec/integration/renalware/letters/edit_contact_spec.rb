@@ -32,7 +32,12 @@ feature "Managing an existing letter contact" do
 
       expect(page).to have_content("Edit Patient Contact")
 
-      within ".letters_contact_default_cc" do
+      within "#edit-patient-contact-modal .letters_contact_default_cc" do
+        # As the data behind this radio is a boolean false, simple_form/rails was adding the
+        # readonly="readonly" attribute (https://github.com/plataformatec/simple_form/issues/1257),
+        # and this causes Capybara 3.x to fail.
+        # The solution is to set readonly: nil in the markup like this
+        #   = f.input :default_cc, as: :inline_radio_buttons, readonly: nil
         choose "No"
       end
 
@@ -75,6 +80,8 @@ feature "Managing an existing letter contact" do
       within "#contacts table tbody tr:first-child" do
         click_on "Edit"
       end
+
+      wait_for_ajax
 
       # Specify neither a description or other description
       select "", from: "Description"

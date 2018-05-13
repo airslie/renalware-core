@@ -76,6 +76,7 @@ module World
             row = page.find("tbody tr[data-allergy-id='#{allergy.id}']")
             within row do
               click_on t_allergies(".delete")
+              page.driver.browser.switch_to.alert.accept
             end
           end
         end

@@ -382,11 +382,11 @@ Then(/^the new APD regime should be current$/) do
     expect(page).to have_content("APD Wet")
     expect(page).to have_content("On additional HD?")
     expect(page).to have_content("No")
-    expect(page).to have_content("Add'l manual exchange?: No")
+    expect(page).to have_content("Add'l manual exchange?:\nNo")
 
-    expect(page).to have_content("Low strength 0 ml")
-    expect(page).to have_content("Med. strength 0 ml")
-    expect(page).to have_content("High strength 0 ml")
+    expect(page).to have_content("Low strength\n0 ml")
+    expect(page).to have_content("Med. strength\n0 ml")
+    expect(page).to have_content("High strength\n0 ml")
 
     # pd regime bags
     expect(page).to have_content("Nutrineal PD4 (Blue)")
@@ -394,9 +394,9 @@ Then(/^the new APD regime should be current$/) do
     # )
 
     # expect(page).to have_content("Last Fill: 520")
-    expect(page).to have_content("Therapy time: 7:30")
-    expect(page).to have_content("Dwell time: 100")
-    expect(page).to have_content("Cycles per session: 3")
+    expect(page).to have_content("Therapy time:\n7:30")
+    expect(page).to have_content("Dwell time:\n100")
+    expect(page).to have_content("Cycles per session:\n3")
     expect(page).to have_content("123-4567-890")
   end
 end

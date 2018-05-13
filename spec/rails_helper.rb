@@ -22,10 +22,10 @@ require "shoulda/matchers"
 require "pundit/rspec"
 require "paper_trail/frameworks/rspec"
 require "chosen-rails/rspec"
-require "capybara/poltergeist"
-require "capybara-screenshot/rspec" if RUBY_PLATFORM =~ /darwin/
-
 require_relative "../lib/test_support/text_editor_helpers"
+
+require "capybara/rspec"
+require "capybara-screenshot/rspec"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -50,6 +50,15 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  # System tests use Rack::Test for non JS test and headless Chrome for JS specs
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :selenium_chrome_headless
+  end
+
   config.example_status_persistence_file_path = "#{::Rails.root}/tmp/examples.txt"
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

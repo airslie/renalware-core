@@ -37,7 +37,7 @@ module World
 
         visit patient_problem_path(problem.patient, problem)
         within_article "Notes" do
-          find("a", text: "Add").trigger("click")
+          find("a", text: "Add").click
           wait_for_ajax
 
           fill_in "Text", with: "this is something"

@@ -117,12 +117,26 @@ delayed_job logs to its own log. To see the output:
 
 ## Running tests
 
-Install PhantomJS if you don't have it already (check with `phantomjs -v`).
-Download from [here](http://phantomjs.org/download.html) of follow these instructions
+### Install chromedriver
 
-    wget -O /tmp/phantomjs.tar.bz2 http://airslie-public.s3.amazonaws.com/phantomjs-2.1.1-linux-x86_64.tar.bz2
-    tar -xjf /tmp/phantomjs.tar.bz2 -C /tmp
-    mv /tmp/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs
+On a Mac:
+
+```
+brew install chromedriver
+gem install chromedriver-helper
+chromedriver-update
+```
+
+If you have chromedriver errors it maybe your installed version of Chrome is not
+compatible your chromedriver version.
+
+In this case check your versions
+```
+chromedriver -v
+chrome -v
+``
+and consult the driver release notee eg for [2.38](https://chromedriver.storage.googleapis.com/2.38/notes.txt)
+to check compatibility
 
 ### RSpec unit and integration tests
 

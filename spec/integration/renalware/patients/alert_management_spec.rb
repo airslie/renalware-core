@@ -39,6 +39,8 @@ feature "Alert management" do
     end
 
     within ".patient-alerts" do
+      # Prevent alert from popping up i.e. auto accept it.
+      page.execute_script("window.confirm = function(){ return true; }")
       find(".actions a").click
     end
 

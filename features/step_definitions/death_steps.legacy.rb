@@ -14,10 +14,13 @@ When("I select death modality") do
   within ".patient-content" do
     within "#modality-description-select" do
       select "Death"
+      # There maybe an alert if changing from another to modality to this Death
+      browser = page.driver.browser
+      browser.switch_to.alert.accept if browser.respond_to?(:switch_to)
+      wait_for_ajax
     end
 
     fill_in "Started on", with: I18n.l(Time.zone.today)
-
     click_on "Save"
   end
 end

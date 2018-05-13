@@ -8,7 +8,6 @@ RSpec.describe "Creating a investigation event", type: :feature, js: true do
 
   context "when adding a investigation event through the Events screen" do
     it "captures extra data" do
-      page.driver.add_headers("Referer" => root_path)
       user = login_as_clinical
       patient = create(:patient, by: user)
       event_type = create(:investigation_event_type)
@@ -36,7 +35,6 @@ RSpec.describe "Creating a investigation event", type: :feature, js: true do
 
   context "when adding a investigation event through the Investigations screen" do
     it "works" do
-      page.driver.add_headers("Referer" => root_path)
       user = login_as_clinical
       patient = create(:patient, by: user)
       event_type = create(:investigation_event_type)
