@@ -26,8 +26,7 @@ gem "devise_security_extension",
 group :test do
   gem "capybara" # "~> 2.17.0"
   gem "capybara-screenshot" # "~> 1.0.18"
-  gem "chromedriver-helper"
-  gem "selenium-webdriver"
+  # gem "chromedriver-helper" # this clashses with the */*-browsers images in cirlci so removed
   gem "codeclimate-test-reporter", "~> 1.0.7", require: false # loads simplecov
   gem "cucumber", "~> 3.1.0"
   gem "cucumber-rails", "~> 1.6.0", require: false # must be loaded in env.rb
@@ -38,6 +37,7 @@ group :test do
   gem "rspec-html-matchers", "~> 0.9.1"
   gem "rspec-rails", "~> 3.7.0"
   gem "rspec_junit_formatter", "~> 0.3.0"
+  gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 3.1.2"
   gem "simplecov", "~> 0.16.0", require: false # only loaded if required
   gem "webmock", "~> 3.4.0", require: false

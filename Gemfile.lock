@@ -129,8 +129,6 @@ GEM
       request_store
       safely_block (>= 0.2.1)
       user_agent_parser
-    archive-zip (0.11.0)
-      io-like (~> 0.3.0)
     arel (8.0.0)
     ast (2.4.0)
     attr_extras (5.2.0)
@@ -171,9 +169,6 @@ GEM
       coffee-rails (>= 3.2)
       railties (>= 3.0)
       sass-rails (>= 3.2)
-    chromedriver-helper (1.2.0)
-      archive-zip (~> 0.10)
-      nokogiri (~> 1.8)
     chronic (0.10.2)
     client_side_validations (11.0.0)
       jquery-rails (~> 4.3)
@@ -291,7 +286,6 @@ GEM
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    io-like (0.3.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -597,7 +591,6 @@ DEPENDENCIES
   byebug
   capybara
   capybara-screenshot
-  chromedriver-helper
   codeclimate-test-reporter (~> 1.0.7)
   cucumber (~> 3.1.0)
   cucumber-rails (~> 1.6.0)

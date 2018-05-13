@@ -3,24 +3,38 @@ jobs:
   build:
     working_directory: ~/renalwarev2
     docker:
+      # this is important to use proper image with browsers support
+      - image: circleci/ruby:2.5.0-node-browsers
+        environment:
+          PGHOST: 127.0.0.1
+          PGUSER: renalware
+          RAILS_ENV: test
       # We use a custom docker image uploaded to DockerHub - see the Dockerfile in this folder.
       # Note it is important to disable spring otherwise it affects the simplecov output because
       # spring loads files ahead of time - for example using spring you might find app/helpers
       # are not included in the coverage.
-      - image: airslie/renalware-circleci-primary:0.0.5
+      # - image: airslie/renalware-circleci-primary:0.0.5
+      #   environment:
+      #     - RAILS_ENV: test
+      #     - RACK_ENV: test
+      #     - DISABLE_SPRING: 1
+      - image: circleci/postgres:10.3-alpine
         environment:
-          - RAILS_ENV: test
-          - RACK_ENV: test
-          - DISABLE_SPRING: 1
-      - image: circleci/postgres:10.1-alpine
+          #   POSTGRES_DB: project-name_test
+          #   POSTGRES_PASSWORD: ""
+          POSTGRES_USER: renalware
+      - image: redis:3.2.7
 
     parallelism: 1
+
     steps:
       - checkout
+
+      # Also pull the UKRDC XSDs
       - run: git submodule sync ; git submodule update --init
 
-      - run: mkdir -p /tmp/test-artifacts
-      - run: mkdir -p /coverage
+      - run: mkdir -p ./tmp/test-artifacts
+      - run: mkdir -p ./coverage
 
       # Restore bundle cache
       - type: cache-restore
@@ -35,9 +49,16 @@ jobs:
         paths:
           - vendor/bundle
 
+      - run: sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+      - run: sudo sh -c 'wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -'
+      - run: sudo apt-get update
+      - run: sudo apt-get install postgresql-client-10
+
       # https://codegists.com/code/circleci-2.0-configuration/
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
+
+      - run: sudo apt install postgresql-client-10 pandoc unzip unrar-free
 
       # Database set-up
       - run: cp ./spec/dummy/config/database.circle.yml ./spec/dummy/config/database.yml
@@ -82,7 +103,7 @@ jobs:
 
       # Save artifacts ie coverage data
       - store_artifacts:
-          path: /tmp/test-artifacts
+          path: ./tmp/test-artifacts
           destination: build
 
       # Upload test results (junit xml)
