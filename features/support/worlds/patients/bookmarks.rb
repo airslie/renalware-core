@@ -56,13 +56,13 @@ module World
           login_as user
           visit_patient(patient_name)
 
-          find("a", text: "Bookmark").trigger("click")
+          find("a", text: "Bookmark").click
 
           # Modal shown here
           within("#add-patient-bookmark-modal") do
             check("Urgent") if urgent
             fill_in("Notes", with: notes)
-            find("input.button").trigger("click")
+            find("input.button").click
           end
           expect(page).to have_css("div.success")
         end
@@ -70,8 +70,8 @@ module World
         def delete_bookmark(user:, patient_name:)
           login_as user
           visit_patient(patient_name)
-
-          find("a", text: "Remove bookmark").trigger("click")
+          find("a", text: "Remove bookmark").click
+          page.driver.browser.switch_to.alert.accept
 
           expect(page).to have_css("div.success")
         end

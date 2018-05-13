@@ -34,7 +34,6 @@ group :test do
   gem "database_cleaner", "~> 1.7.0", require: false # for cucumber (now not needed for rspec)
   gem "factory_bot_rails", "~> 4.8.2"
   gem "fuubar", require: false
-  gem "poltergeist", require: false
   gem "rails-controller-testing", "~> 1.0.2"
   gem "rspec-html-matchers", "~> 0.9.1"
   gem "rspec-rails", "~> 3.7.0"

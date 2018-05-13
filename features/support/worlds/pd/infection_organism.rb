@@ -57,6 +57,7 @@ module World
       def terminate_organism_for(infectable:, user:)
         within "#infection-organisms" do
           click_on "Terminate"
+          page.driver.browser.switch_to.alert.accept
           wait_for_ajax
         end
 

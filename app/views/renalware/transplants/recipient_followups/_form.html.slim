@@ -13,7 +13,12 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Transplant Failure", name: "transplant_failure" } do
       = f.input :stent_removed_on, as: :date_picker, wrapper: :horizontal_datepicker
-      = f.input :transplant_failed, as: :inline_radio_buttons, wrapper: :horizontal_small
+      / readonly: nil here is required to prevent the No option being created with readonly=readonly
+      / which causes Capybara to fail because it cannot change the value of read-only element
+      = f.input :transplant_failed,
+                as: :inline_radio_buttons,
+                wrapper: :horizontal_small,
+                readonly: nil
       = f.input :transplant_failed_on, as: :date_picker, wrapper: :horizontal_datepicker
       = f.input :transplant_failure_cause_description_id,
                 as: :grouped_select,

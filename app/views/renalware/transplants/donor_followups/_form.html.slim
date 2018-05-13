@@ -10,10 +10,10 @@ ruby:
 .form-content
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Admin", name: "admin" } do
-    = f.input :followed_up, as: :inline_radio_buttons
+    = f.input :followed_up, as: :inline_radio_buttons, readonly: nil
     = f.input :last_seen_on, as: :date_picker
     = f.input :ukt_center_code
-    = f.input :lost_to_followup, as: :inline_radio_buttons
+    = f.input :lost_to_followup, as: :inline_radio_buttons, readonly: nil
     = f.input :transferred_for_followup, as: :inline_radio_buttons
     = f.input :dead_on, as: :date_picker
 
