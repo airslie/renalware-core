@@ -23,11 +23,19 @@ gem "party_foul", "~> 1.5.5"
 gem "devise_security_extension",
     git: "https://github.com/phatworx/devise_security_extension.git"
 
+# The main trix gem at https://github.com/maclover7/trix is not yet Rails 5.2 compatible; it give
+# an argument error when calling f.trix_editor due to a Rails 5.2 ActionView change.
+# For now use this fork until the upstream has been fixed (this line will also need to appear in
+# each hospital's Gemfile for now)
+gem "trix",
+    git: "https://github.com/markmercedes/trix.git",
+    branch: "master"
+
 group :test do
   gem "capybara"
   gem "capybara-screenshot" # "~> 1.0.18"
   # gem "chromedriver-helper" # this clashses with the */*-browsers images in cirlci so removed
-  gem "codeclimate-test-reporter", "~> 1.0.7", require: false # loads simplecov
+  gem "codeclimate-test-reporter", "~> 1.0.8", require: false # loads simplecov
   gem "cucumber", "~> 3.1.0"
   gem "cucumber-rails", "~> 1.6.0", require: false # must be loaded in env.rb
   gem "database_cleaner", "~> 1.7.0", require: false # for cucumber (now not needed for rspec)
@@ -39,7 +47,7 @@ group :test do
   gem "rspec_junit_formatter", "~> 0.3.0"
   gem "selenium-webdriver", "~> 3.14.0"
   gem "shoulda-matchers", "~> 3.1.2"
-  gem "simplecov", "~> 0.16.0", require: false # only loaded if required
+  gem "simplecov", "~> 0.13.0", require: false # only loaded if required
   gem "webmock", "~> 3.4.0", require: false
   gem "wisper-rspec", "~> 1.1.0"
 end
