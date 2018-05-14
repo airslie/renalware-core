@@ -38,8 +38,6 @@ module Renalware
         login_as_clinical
         visit admissions_admissions_path
 
-        expect(page).to be_successful
-
         within(".non-patient-page") do
           expect(body).to have_content("Inpatient Admissions")
           expect(body).to have_content("Ward1")
