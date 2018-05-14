@@ -120,20 +120,15 @@ delayed_job logs to its own log. To see the output:
 
 On a Mac:
 
-```
-brew install chromedriver
-gem install chromedriver-helper
-chromedriver-update
-```
+- Download chromedriver from eg [here](https://chromedriver.storage.googleapis.com/index.html?path=2.38/)
+- Unzip and place in location in your PATH eh `/usr/local/bin`
+- If you have chromedriver errors it maybe your installed version of Chrome is not
+compatible your chromedriver version. In this case check your versions with
 
-If you have chromedriver errors it maybe your installed version of Chrome is not
-compatible your chromedriver version.
-
-In this case check your versions
 ```
 chromedriver -v
 chrome -v
-``
+```
 and consult the driver release notee eg for [2.38](https://chromedriver.storage.googleapis.com/2.38/notes.txt)
 to check compatibility
 
