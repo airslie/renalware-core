@@ -22,6 +22,17 @@ module Renalware
         %i(identity_match)
       end
 
+      def sql_and_params(query)
+        query = sanitize_query(query)
+        query = remove_spaces_if_nhs_number(query)
+
+        if query.include?(" ")
+          [full_name_sql, full_name_params(query)]
+        else
+          [identity_sql(query), identity_params(query)]
+        end
+      end
+
       private
 
       def remove_spaces_if_nhs_number(query)
@@ -44,17 +55,6 @@ module Renalware
           .strip
           .tr(",", " ")
           .gsub("  ", " ")
-      end
-
-      def sql_and_params(query)
-        query = sanitize_query(query)
-        query = remove_spaces_if_nhs_number(query)
-
-        if query.include?(" ")
-          [full_name_sql, full_name_params(query)]
-        else
-          [identity_sql(query), identity_params(query)]
-        end
       end
 
       def identity_params(query)
