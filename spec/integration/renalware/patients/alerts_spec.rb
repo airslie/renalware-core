@@ -21,7 +21,7 @@ RSpec.describe "Managing alerts", type: :request do
         }
 
         post(patient_alerts_path(patient), params: params, headers: headers)
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
 
         alert = Renalware::Patients::Alert.find_by(patient_id: patient.id)
 
@@ -68,7 +68,7 @@ RSpec.describe "Managing alerts", type: :request do
 
       delete patient_alert_path(patient, alert), headers: headers
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(Renalware::Patients::Alert).not_to exist(id: alert.id)
     end
 
@@ -82,7 +82,7 @@ RSpec.describe "Managing alerts", type: :request do
 
       delete patient_alert_path(patient, alert), headers: headers
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(Renalware::Patients::Alert).not_to exist(id: alert.id)
 
       # Check the alert is still available in the #undeleted scope

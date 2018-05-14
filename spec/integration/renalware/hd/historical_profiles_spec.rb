@@ -8,7 +8,7 @@ RSpec.describe "Viewing historical HD Profiles", type: :request do
       patient = create(:hd_patient)
       get patient_hd_historical_profiles_path(patient)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -21,7 +21,7 @@ RSpec.describe "Viewing historical HD Profiles", type: :request do
 
         get patient_hd_historical_profile_path(patient, profile)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 

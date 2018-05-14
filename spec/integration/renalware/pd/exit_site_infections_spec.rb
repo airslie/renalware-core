@@ -13,7 +13,7 @@ RSpec.describe "Exit Site Infections", type: :request do
 
       get patient_pd_exit_site_infection_path(patient, esi, format: :pdf)
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response["Content-Type"]).to eq("application/pdf")
       filename = "RABBIT-KCH12345-ESI-#{esi.id}".upcase
       expect(response["Content-Disposition"]).to include("inline")

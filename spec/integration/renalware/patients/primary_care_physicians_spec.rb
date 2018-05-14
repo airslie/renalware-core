@@ -10,7 +10,7 @@ module Renalware
       it "responds with a form" do
         get new_patients_primary_care_physician_path
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -34,7 +34,7 @@ module Renalware
 
           follow_redirect!
 
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
         end
       end
 
@@ -45,7 +45,7 @@ module Renalware
           post patients_primary_care_physicians_path,
                params: { patients_primary_care_physician: attributes }
 
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
         end
       end
     end
@@ -54,7 +54,7 @@ module Renalware
       it "responds successfully" do
         get patients_primary_care_physicians_path
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -62,7 +62,7 @@ module Renalware
       it "responds with a form" do
         get edit_patients_primary_care_physician_path(primary_care_physician)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -78,7 +78,7 @@ module Renalware
 
           follow_redirect!
 
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
         end
       end
 
@@ -88,7 +88,7 @@ module Renalware
           patch patients_primary_care_physician_path(primary_care_physician),
                 params: { patients_primary_care_physician: attributes }
 
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
         end
       end
     end
@@ -104,7 +104,7 @@ module Renalware
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end

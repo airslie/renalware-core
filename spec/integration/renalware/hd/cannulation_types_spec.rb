@@ -9,7 +9,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
     it "responds with a form" do
       get new_hd_cannulation_type_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -24,7 +24,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
         attributes = { name: "" }
         post hd_cannulation_types_path, params: { hd_cannulation_type: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -42,7 +42,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
     it "responds with a form" do
       get edit_hd_cannulation_type_path(cannulation_type)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -58,7 +58,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -68,7 +68,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
         patch hd_cannulation_type_path(cannulation_type),
               params: { hd_cannulation_type: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -81,7 +81,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
       expect(Renalware::HD::CannulationType).not_to exist(id: cannulation_type.id)
 
       follow_redirect!
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 end

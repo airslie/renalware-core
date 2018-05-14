@@ -26,7 +26,7 @@ RSpec.describe "Managing bookmarks", type: :request do
         expect(bookmark.urgent).to eq(true)
         expect(bookmark.notes).to eq("Abc")
         follow_redirect!
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
 
       it "does not create and implies success if the bookmark already exists" do
@@ -49,7 +49,7 @@ RSpec.describe "Managing bookmarks", type: :request do
 
         expect(bookmark).to eq(extant_bookmark)
         follow_redirect!
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end

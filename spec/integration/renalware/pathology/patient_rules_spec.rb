@@ -14,7 +14,7 @@ RSpec.describe "patient_rules Requests", type: :request do
     it "responds with a form" do
       get new_patient_pathology_patient_rule_path(patient_id: patient)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -40,7 +40,7 @@ RSpec.describe "patient_rules Requests", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -49,7 +49,7 @@ RSpec.describe "patient_rules Requests", type: :request do
         post url,
              params: { pathology_requests_patient_rule: patient_rule_attributes.except(:lab_id) }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -58,7 +58,7 @@ RSpec.describe "patient_rules Requests", type: :request do
     it "responds with a form" do
       get edit_patient_pathology_patient_rule_path(patient_id: patient, id: patient_rule.id)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -73,7 +73,7 @@ RSpec.describe "patient_rules Requests", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -81,7 +81,7 @@ RSpec.describe "patient_rules Requests", type: :request do
       it "responds with form" do
         patch url, params: { pathology_requests_patient_rule: { test_description: nil } }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -99,7 +99,7 @@ RSpec.describe "patient_rules Requests", type: :request do
 
       follow_redirect!
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 end

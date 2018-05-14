@@ -15,8 +15,8 @@ RSpec.describe "Patient's Protocol PDF", type: :request do
       create_descriptions(%w(HGB PLT))
       get patient_hd_protocol_path(patient_id: patient)
 
-      expect(response).to have_http_status(:success)
-      expect(response).to be_success
+      expect(response).to be_successful
+      expect(response).to be_successful
       expect(response["Content-Type"]).to eq("application/pdf")
       expect(response["Content-Disposition"]).to include("inline")
     end
@@ -26,7 +26,7 @@ RSpec.describe "Patient's Protocol PDF", type: :request do
       create_descriptions(%w(HGB PLT))
       get patient_hd_protocol_path(patient_id: patient, disposition: :attachment)
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response["Content-Type"]).to eq("application/pdf")
       filename = "RABBIT-KCH12345-PROTOCOL.pdf"
       expect(response["Content-Disposition"]).to include("attachment")
@@ -38,7 +38,7 @@ RSpec.describe "Patient's Protocol PDF", type: :request do
         it "displays no Virology info" do
           get patient_hd_protocol_path(patient_id: patient, disposition: :attachment)
 
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
           expect(response.body).not_to include("HIV")
           expect(response.body).not_to include("Hepatitis B")
           expect(response.body).not_to include("Hepatitis C")
@@ -57,7 +57,7 @@ RSpec.describe "Patient's Protocol PDF", type: :request do
         it "displays just the HIV result" do
           get patient_hd_dashboard_path(patient)
 
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
           expect(response.body).to include("HIV")
           expect(response.body).to include("Yes (2001")
           expect(response.body).not_to include("Hepatitis B")

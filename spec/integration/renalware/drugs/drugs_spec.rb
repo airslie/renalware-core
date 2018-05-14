@@ -9,7 +9,7 @@ RSpec.describe "Configuring Drugs", type: :request do
     it "responds with a form" do
       get new_drugs_drug_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -25,7 +25,7 @@ RSpec.describe "Configuring Drugs", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -35,7 +35,7 @@ RSpec.describe "Configuring Drugs", type: :request do
 
         post drugs_drugs_path, params: { drugs_drug: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe "Configuring Drugs", type: :request do
     it "responds successfully" do
       get drugs_drugs_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -54,7 +54,7 @@ RSpec.describe "Configuring Drugs", type: :request do
 
       get drugs_drugs_path, params: { format: :json }
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
 
       parsed_json = JSON.parse(response.body)
 
@@ -70,7 +70,7 @@ RSpec.describe "Configuring Drugs", type: :request do
 
       get drugs_drugs_path, params: { q: { name_or_drug_types_name_start: "::target" } }
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(response.body).to match("::target drug name::")
       expect(response.body).not_to match("::another drug name::")
     end
@@ -80,7 +80,7 @@ RSpec.describe "Configuring Drugs", type: :request do
     it "responds with a form" do
       get edit_drugs_drug_path(drug)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -96,7 +96,7 @@ RSpec.describe "Configuring Drugs", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -106,7 +106,7 @@ RSpec.describe "Configuring Drugs", type: :request do
 
         patch drugs_drug_path(drug), params: { drugs_drug: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -120,7 +120,7 @@ RSpec.describe "Configuring Drugs", type: :request do
 
       follow_redirect!
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 end

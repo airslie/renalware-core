@@ -9,7 +9,7 @@ RSpec.describe "Managing Dialysers", type: :request do
     it "responds with a form" do
       get new_hd_dialyser_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -24,7 +24,7 @@ RSpec.describe "Managing Dialysers", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe "Managing Dialysers", type: :request do
         attributes = { name: "" }
         post hd_dialysers_path, params: { hd_dialyser: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -42,7 +42,7 @@ RSpec.describe "Managing Dialysers", type: :request do
     it "responds with a form" do
       get edit_hd_dialyser_path(dialyser)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -57,7 +57,7 @@ RSpec.describe "Managing Dialysers", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -66,7 +66,7 @@ RSpec.describe "Managing Dialysers", type: :request do
         attributes = { name: "" }
         patch hd_dialyser_path(dialyser), params: { hd_dialyser: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -79,7 +79,7 @@ RSpec.describe "Managing Dialysers", type: :request do
       expect(Renalware::HD::Dialyser).not_to exist(id: dialyser.id)
 
       follow_redirect!
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 end

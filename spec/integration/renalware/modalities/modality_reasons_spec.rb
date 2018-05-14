@@ -9,7 +9,7 @@ RSpec.describe "Listing Modality Reasons", type: :request do
 
       get modalities_reasons_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(response.body).to match("::modality name::")
     end
   end

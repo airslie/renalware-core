@@ -11,7 +11,7 @@ module Renalware
       describe "GET new" do
         it "responds successfully" do
           get new_patient_clinical_body_composition_path(patient_id: patient)
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
         end
       end
 
@@ -27,7 +27,7 @@ module Renalware
           }.to change(BodyComposition.all, :count).by(1)
 
           follow_redirect!
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
         end
       end
 
@@ -35,7 +35,7 @@ module Renalware
         it "responds successfully" do
           body_comp = create(:body_composition, patient: patient, by: user)
           get edit_patient_clinical_body_composition_path(patient_id: patient, id: body_comp)
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
         end
       end
 
@@ -51,7 +51,7 @@ module Renalware
 
           expect(response).to have_http_status(:redirect)
           follow_redirect!
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
         end
       end
     end

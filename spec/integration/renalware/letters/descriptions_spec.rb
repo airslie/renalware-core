@@ -43,6 +43,6 @@ RSpec.describe "Searching letter descriptions", type: :request do
   def search(term)
     get search_letters_descriptions_path(term: term), params: { format: :json }
 
-    expect(response).to be_success
+    expect(response).to be_successful
   end
 end

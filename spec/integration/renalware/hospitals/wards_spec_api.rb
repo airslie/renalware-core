@@ -13,7 +13,7 @@ RSpec.describe "Hospital Wards API", type: :request do
 
       get hospitals_unit_wards_path(unit, format: :json)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       wards = JSON.parse(response.body).map(&:symbolize_keys!)
       expect(wards).to eq(
         [

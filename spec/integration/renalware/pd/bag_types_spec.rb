@@ -9,7 +9,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
     it "responds with a form" do
       get new_pd_bag_type_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -24,7 +24,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
         attributes = { manufacturer: "" }
         post pd_bag_types_path, params: { pd_bag_type: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -42,7 +42,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
     it "responds successfully" do
       get pd_bag_types_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -50,7 +50,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
     it "responds with a form" do
       get edit_pd_bag_type_path(bag_type)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -66,7 +66,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -76,7 +76,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
 
         patch pd_bag_type_path(bag_type), params: { pd_bag_type: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -90,7 +90,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
 
       follow_redirect!
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 end

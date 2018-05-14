@@ -9,7 +9,7 @@ RSpec.describe "Snippet management", type: :request do
     it "responds successfully" do
       get snippets_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(response).to render_template(:index)
     end
   end
@@ -18,7 +18,7 @@ RSpec.describe "Snippet management", type: :request do
     it "responds with a form" do
       get new_snippet_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(response).to render_template(:new)
     end
   end
@@ -33,7 +33,7 @@ RSpec.describe "Snippet management", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(user.snippets.count).to eq(1)
         snippet = user.snippets.last
         expect(snippet.body).to eq(params[:snippet][:body])
@@ -48,7 +48,7 @@ RSpec.describe "Snippet management", type: :request do
 
         post(snippets_path, params: params, headers: headers)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response).to render_template(:new)
       end
     end
@@ -59,7 +59,7 @@ RSpec.describe "Snippet management", type: :request do
       snippet = create(:snippet, author: user)
       get edit_snippet_path(snippet)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(response).to render_template(:edit)
     end
   end
@@ -77,7 +77,7 @@ RSpec.describe "Snippet management", type: :request do
         follow_redirect!
 
         snippet.reload
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(snippet.body).to eq(params[:snippet][:body])
         expect(snippet.title).to eq(params[:snippet][:title])
       end
@@ -92,7 +92,7 @@ RSpec.describe "Snippet management", type: :request do
 
         patch snippet_path(snippet, params: params, headers: headers)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response).to render_template(:edit)
       end
     end

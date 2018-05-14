@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
+
 require "rails_helper"
 
 module Renalware
@@ -8,6 +10,7 @@ module Renalware
     let(:patient) { create(:patient, by: @current_user) }
     let(:bag_type) { create(:bag_type) }
 
+    # rubocop:disable Metrics/MethodLength
     def create_capd_regime
       create(:capd_regime,
               bags_attributes: [
@@ -24,6 +27,7 @@ module Renalware
               ]
             )
     end
+    # rubocop:enable Metrics/MethodLength
 
     describe "GET #new" do
       it "renders the new template" do
@@ -146,7 +150,7 @@ module Renalware
       it "responds with success" do
         capd_regime = create_capd_regime
         get :show, params: { id: capd_regime.id, patient_id: patient }
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -154,7 +158,7 @@ module Renalware
       it "responds with success" do
         capd_regime = create_capd_regime
         get :edit, params: { id: capd_regime.id, patient_id: patient }
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 

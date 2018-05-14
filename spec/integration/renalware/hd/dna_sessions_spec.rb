@@ -8,7 +8,7 @@ RSpec.describe "Managing an HD DNA Session", type: :request do
       dna_session = create(:hd_dna_session)
       get patient_hd_session_path(patient_id: dna_session.patient, id: dna_session.id)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -18,7 +18,7 @@ RSpec.describe "Managing an HD DNA Session", type: :request do
         dna_session = create(:hd_dna_session)
         get edit_patient_hd_session_path(patient_id: dna_session.patient, id: dna_session.id)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 

@@ -11,7 +11,7 @@ RSpec.describe "Managing patients", type: :request do
     it "responds with a form" do
       get new_patient_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -42,7 +42,7 @@ RSpec.describe "Managing patients", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -51,7 +51,7 @@ RSpec.describe "Managing patients", type: :request do
         attributes = { given_name: "" }
         post patients_path, params: { patient: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -60,7 +60,7 @@ RSpec.describe "Managing patients", type: :request do
     it "responds with a form" do
       get edit_patient_path(patient)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -81,7 +81,7 @@ RSpec.describe "Managing patients", type: :request do
         updated_patient = Renalware::Patient.find_by(attributes)
         expect(updated_patient.updated_by).to eq(@current_user)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -90,7 +90,7 @@ RSpec.describe "Managing patients", type: :request do
         attributes = { given_name: "" }
         patch patient_path(patient), params: { patient: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end

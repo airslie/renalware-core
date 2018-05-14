@@ -21,7 +21,7 @@ module Renalware
 
         get patient_admissions_path(patient)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response.body).to include("Inpatient Admissions")
         expect(response.body).to include("Reason1")
         expect(response.body).to include(hospital_ward.name)

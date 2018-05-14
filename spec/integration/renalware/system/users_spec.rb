@@ -9,7 +9,7 @@ RSpec.describe "Managing Users", type: :request do
     it "responds with a list" do
       get admin_users_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -17,7 +17,7 @@ RSpec.describe "Managing Users", type: :request do
     it "responds with a form" do
       get edit_admin_user_path(user)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
 
     context "when editing itself" do
@@ -40,7 +40,7 @@ RSpec.describe "Managing Users", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -49,7 +49,7 @@ RSpec.describe "Managing Users", type: :request do
         attributes = { approved: true, role_ids: [] }
         patch admin_user_path(user), params: { user: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response.body).to include("<form")
       end
     end

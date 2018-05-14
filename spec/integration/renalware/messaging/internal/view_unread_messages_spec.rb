@@ -7,7 +7,7 @@ RSpec.describe "View internal messages sent by the current", type: :request do
     it "responds successfully" do
       get messaging_internal_inbox_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 end

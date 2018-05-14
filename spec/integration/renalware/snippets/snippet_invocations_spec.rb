@@ -10,7 +10,7 @@ RSpec.describe "Invoking a snippet (indicating it has been used)", type: :reques
 
       post(snippet_invocations_path(snippet, format: :js))
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(snippet.reload.times_used).to eq(1)
       expect(response.content_type).to eq("text/javascript")
     end

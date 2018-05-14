@@ -10,7 +10,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
     it "responds with a form" do
       get new_hospitals_unit_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -26,7 +26,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -35,7 +35,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
         attributes = { name: "" }
         post hospitals_units_path, params: { hospitals_unit: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
     it "responds with a form" do
       get edit_hospitals_unit_path(hospital_unit)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -59,7 +59,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -68,7 +68,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
         attributes = { name: "" }
         patch hospitals_unit_path(hospital_unit), params: { hospitals_unit: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -81,7 +81,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
       expect(Renalware::Hospitals::Unit).not_to exist(id: hospital_unit.id)
 
       follow_redirect!
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 end

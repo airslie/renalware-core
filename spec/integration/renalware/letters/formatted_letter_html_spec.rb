@@ -22,7 +22,7 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
 
       it "responds with the HTML" do
         get patient_letters_letter_formatted_path(patient_id: letter.patient, letter_id: letter)
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response.body).to include(letter.patient.full_name)
       end
 
@@ -31,7 +31,7 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
           patient_id: letter.patient, letter_id: letter, format: "pdf"
         )
 
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response["Content-Type"]).to eq("application/pdf")
         filename = "RABBIT-KCH57837-#{letter.id}-DRAFT".upcase
         expect(response["Content-Disposition"]).to include("attachment")
@@ -43,7 +43,7 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
           patient_id: letter.patient, letter_id: letter, disposition: "inline", format: "pdf"
         )
 
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response["Content-Type"]).to eq("application/pdf")
         expect(response["Content-Disposition"]).to include("inline")
       end
@@ -53,7 +53,7 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
           patient_id: letter.patient, letter_id: letter, format: "rtf"
         )
 
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response["Content-Type"]).to eq("text/richtext")
         filename = "RABBIT-KCH57837-#{letter.id}-DRAFT".upcase
         expect(response["Content-Disposition"]).to include("attachment")
@@ -71,7 +71,7 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
     describe "GET show" do
       it "responds with the archived HTML" do
         get patient_letters_letter_formatted_path(patient_id: letter.patient, letter_id: letter)
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response.body).to include(letter.archive.content)
       end
     end
@@ -90,7 +90,7 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
 
     it "indicates the letter has been sent via email to the GP" do
       get patient_letters_letter_formatted_path(patient_id: letter.patient, letter_id: letter)
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response.body).to include("VIA EMAIL to test@example.com")
     end
   end
