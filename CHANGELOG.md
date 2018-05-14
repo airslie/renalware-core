@@ -14,8 +14,16 @@ This project adheres to Semantic Versioning.
 
 ### Added
 ### Changed
-- display ward name and code in AKI alerts
-- add hotlist tab to AKI Alerts
+- Display ward name and code in AKI alerts
+- Add hotlist tab to AKI Alerts
+- Prevent duplicate HL7 messages being imported #2244
+- Use headless chrome for testing #2243
+- Improve AKI ALert printing #2241
+- Improve Consult printing #2240
+- Display space for user putting on/taking off on HD Protocol #2145
+- Filter consults by RRT #2242
+- Add notes to Transplant Waitlist Registration #1854
+
 ### Fixed
 
 ## 2.0.24
