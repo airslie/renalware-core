@@ -1,4 +1,5 @@
-input::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: $form-hint-colour
 }
 

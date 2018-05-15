@@ -1,0 +1,18 @@
+- severities = Renalware::System::Message.severity.values.map{|val| [val&.humanize, val] }
+= simple_form_for(message,
+                  as: :message,
+                  html: { autocomplete: "off" }) do |f|
+
+  = render "renalware/shared/errors", model: f.object
+
+  = f.input :title, placeholder: "An optional title"
+  = f.trix_editor :body, wrapper: :horizontal_large
+  br
+  = f.input :severity,
+            collection: severities,
+            input_html: { style: "width:100px" },
+            include_blank: nil
+  = f.input :display_from, as: :datetime_picker
+  = f.input :display_until, as: :datetime_picker
+  br
+  = f.submit "Save", class: :button

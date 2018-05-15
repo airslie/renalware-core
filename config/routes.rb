@@ -267,6 +267,7 @@ Renalware::Engine.routes.draw do
   namespace :system do
     resources :email_templates, only: :index
     resources :user_feedback, except: :destroy, controller: "user_feedback"
+    resources :messages
   end
 
   namespace :transplants do

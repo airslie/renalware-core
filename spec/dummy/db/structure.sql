@@ -6114,6 +6114,42 @@ ALTER SEQUENCE system_events_id_seq OWNED BY system_events.id;
 
 
 --
+-- Name: system_messages; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE system_messages (
+    id bigint NOT NULL,
+    title character varying,
+    body text NOT NULL,
+    message_type integer DEFAULT 0 NOT NULL,
+    severity character varying,
+    display_from timestamp without time zone NOT NULL,
+    display_until timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: system_messages_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE system_messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE system_messages_id_seq OWNED BY system_messages.id;
+
+
+--
 -- Name: system_templates; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -7870,6 +7906,13 @@ ALTER TABLE ONLY system_events ALTER COLUMN id SET DEFAULT nextval('system_event
 
 
 --
+-- Name: system_messages id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_messages ALTER COLUMN id SET DEFAULT nextval('system_messages_id_seq'::regclass);
+
+
+--
 -- Name: system_templates id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -9111,6 +9154,14 @@ ALTER TABLE ONLY system_countries
 
 ALTER TABLE ONLY system_events
     ADD CONSTRAINT system_events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_messages system_messages_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_messages
+    ADD CONSTRAINT system_messages_pkey PRIMARY KEY (id);
 
 
 --
@@ -14910,6 +14961,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180510151959'),
 ('20180511100345'),
 ('20180511140415'),
+('20180514151627'),
 ('20180516111411');
 
 
