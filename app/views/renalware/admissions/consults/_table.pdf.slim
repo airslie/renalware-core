@@ -3,7 +3,7 @@ table
     tr
       th.col-width-large PATIENT
       th.col-width-reference-no HOSP NOs.
-      th.col-width-medium LOCATION
+      th.col-width-large LOCATION
       th MODALITY
       th.col-width-tiny SEX
       th.col-width-date DOB
@@ -22,7 +22,11 @@ table
             td.col-width-large
               b= consult.patient.to_s(:default)
             td.col-width-reference-no= consult.patient_hospital_identifiers&.to_s_multiline
-            td.col-width-medium= consult.hospital_ward
+            td.col-width-large
+              - unit = consult.hospital_ward&.hospital_unit
+              = [unit&.unit_code,
+                 consult&.hospital_ward,
+                 consult.other_site_or_ward].compact.join(" / ")
             td= consult.patient_current_modality
             td.col-width-tiny= consult.patient_sex
             td.col-width-date= l(consult.patient.born_on)

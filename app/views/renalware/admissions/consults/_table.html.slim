@@ -7,10 +7,8 @@
           = sort_link(query, :patient, ["patient_family_name", "patient_given_name asc"], "Patient")
         th.col-width-nhs-no.noprint NHS No.
         th.col-width-reference-no Hosp Nos.
-        th.col-width-medium= sort_link(query,
-                                      :location,
-                                      [:consult_site_name, :hospital_ward_name],
-                                      "Location")
+        th.col-width-medium= sort_link(query, :hospital_ward_name, "Ward")
+        th.col-width-tiny RRT
         th.col-width-date.noprint= sort_link(query, :started_on, "Started")
         th.col-width-date.noprint= sort_link(query, :ended_on, "Ended")
         th.col-width-small.show-for-large-up
@@ -59,7 +57,8 @@
           td= default_patient_link(consult.patient)
           td.noprint= consult.patient_nhs_number
           td= consult.patient_hospital_identifiers&.to_s_multiline
-          td= consult.location
+          td= consult.hospital_ward
+          td= yes_no(consult.rrt?)
           td.noprint= l(consult.started_on)
           td.noprint= l(consult.ended_on)
           td.show-for-large-up.col-width-medium-with-ellipsis= consult.patient_current_modality
