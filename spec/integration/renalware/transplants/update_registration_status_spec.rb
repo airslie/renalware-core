@@ -23,7 +23,8 @@ RSpec.describe "Update wait list registration status", type: :feature do
       registration = create(:transplant_registration, patient: patient)
       create(:transplant_registration_status,
              registration: registration,
-             started_on: Time.zone.now)
+             started_on: Time.zone.now,
+             notes: "Some notes")
 
       login_as_clinical
       visit new_patient_transplants_registration_status_path(patient)
@@ -31,6 +32,7 @@ RSpec.describe "Update wait list registration status", type: :feature do
       within ".document form" do
         select "Active", from: "Description"
         fill_in "Started on", with: "28-Apr-2017"
+        fill_in "Notes", with: "My notes"
         click_on "Save"
       end
 
@@ -41,8 +43,9 @@ RSpec.describe "Update wait list registration status", type: :feature do
       expect(registrations.length).to eq(1)
       registration = registrations.first
       expect(registration.statuses.length).to eq(2)
-
-      # http://localhost:3000/patients/1/transplants/registration/statuses
+      status = registration.statuses.last
+      expect(status.started_on).to eq(Date.parse("28-Apr-2017"))
+      expect(status.notes).to eq("My notes")
     end
   end
 end

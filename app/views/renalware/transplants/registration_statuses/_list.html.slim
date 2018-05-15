@@ -9,11 +9,12 @@ article.status-history.secondary
 
   table
     thead
-      th
-      th Start Date
+      th.col-width-medium
+      th.col-width-date Start Date
+      th.col-width-date End Date
       th Status
       th By
-      th Termination Date
+
     tbody
       - registration.statuses.reversed.each do |status|
         tr
@@ -25,7 +26,19 @@ article.status-history.secondary
                 patient_transplants_registration_status_path(patient, status),
                 method: :delete,
                 data: { confirm: I18n.t("prompts.confirm_delete") }
-          td= l status.started_on
+            = pipe_separator
+            = link_to("Toggle",
+                      "#status-quick-preview-#{status.id}",
+                      data: { behaviour: "toggler" })
+          td= l(status.started_on)
+          td= l(status.terminated_on) if status.terminated_on
           td= status.description
           td= status.updated_by.to_s
-          td= l status.terminated_on if status.terminated_on
+
+        = content_tag(:tr, id: "status-quick-preview-#{status.id}", style: "display: none")
+          td(colspan=5)
+            .quick-preview
+              dl.dl-horizontal
+                dt Notes
+                dd= simple_format status.notes
+
