@@ -194,6 +194,9 @@ en:
           pre: Pre
           post: Post
           post_with_changed: Post (chg)
+          user: User
+          put_on_by: Putting on
+          taken_off_by: Taking off
         form_actions:
           signoff: Save and Sign-Off
           signoff_disable_with: Saving and Signing-Off...

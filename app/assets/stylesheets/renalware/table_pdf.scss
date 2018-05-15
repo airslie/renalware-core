@@ -1,3 +1,19 @@
+
+.noprint {
+  display: none !important;
+  min-width: 0em !important;
+}
+
+.print-only {
+  display: block;
+}
+
+a,
+a:visited {
+  color: #000;
+  text-decoration: none;
+}
+
 .pdf {
   // Header with Main title to the left and a muted subtitle to the right
   .header {

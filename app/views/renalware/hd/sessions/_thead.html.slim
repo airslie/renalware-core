@@ -18,6 +18,8 @@ thead
     th.col-width-tiny.text-center(colspan=3)= t(".machine")
     th.col-width-drugs.text-center.print-only(rowspan=3)= t(".hd_drugs_administered")
     th.col-width-notes.text-center.print-only(rowspan=3)= t(".notes")
+    th.col-width-user.text-center.print-only= t(".user")
+
 
   tr.row2
     th(rowspan=2)= t(".access")
@@ -30,6 +32,7 @@ thead
     th.col-width-minute.col-width-tiny(rowspan=2)=t(".machine_no")
     th.col-width-minute.col-width-tiny(rowspan=2)=t(".machine_ktv")
     th.col-width-minute.col-width-tiny(rowspan=2)=t(".machine_urr")
+    th.print-only= t(".put_on_by")
   tr.row2
     th.col-width-time= t(".end_time")
     th= t(".post_with_changed")
@@ -37,3 +40,4 @@ thead
     th= t(".post")
     th= t(".post")
     th= t(".post")
+    th.print-only= t(".taken_off_by")
