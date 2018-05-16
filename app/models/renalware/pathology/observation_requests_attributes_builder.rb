@@ -87,10 +87,14 @@ module Renalware
 
       def find_request_description(code)
         RequestDescription.find_by!(code: code)
+      rescue ActiveRecord::RecordNotFound
+        raise MissingRequestDescriptionError, code
       end
 
       def find_observation_description(code)
         ObservationDescription.find_by!(code: code)
+      rescue ActiveRecord::RecordNotFound
+        raise MissingObservationDescriptionError, code
       end
 
       def validate_observation(observation, observation_description)
