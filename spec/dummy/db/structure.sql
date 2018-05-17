@@ -4048,6 +4048,94 @@ ALTER SEQUENCE patient_bookmarks_id_seq OWNED BY patient_bookmarks.id;
 
 
 --
+-- Name: patients; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE patients (
+    id integer NOT NULL,
+    nhs_number character varying,
+    local_patient_id character varying,
+    family_name character varying NOT NULL,
+    given_name character varying NOT NULL,
+    born_on date NOT NULL,
+    paediatric_patient_indicator boolean,
+    sex character varying,
+    ethnicity_id integer,
+    hospital_centre_code character varying,
+    primary_esrf_centre character varying,
+    died_on date,
+    first_cause_id integer,
+    second_cause_id integer,
+    death_notes text,
+    cc_on_all_letters boolean DEFAULT true,
+    cc_decision_on date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    practice_id integer,
+    primary_care_physician_id integer,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    title character varying,
+    suffix character varying,
+    marital_status character varying,
+    telephone1 character varying,
+    telephone2 character varying,
+    email character varying,
+    document jsonb,
+    religion_id integer,
+    language_id integer,
+    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
+    allergy_status_updated_at timestamp without time zone,
+    local_patient_id_2 character varying,
+    local_patient_id_3 character varying,
+    local_patient_id_4 character varying,
+    local_patient_id_5 character varying,
+    external_patient_id character varying,
+    send_to_renalreg boolean DEFAULT false NOT NULL,
+    send_to_rpv boolean DEFAULT false NOT NULL,
+    renalreg_decision_on date,
+    rpv_decision_on date,
+    renalreg_recorded_by character varying,
+    rpv_recorded_by character varying,
+    ukrdc_external_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    country_of_birth_id integer,
+    legacy_patient_id integer,
+    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    sent_to_ukrdc_at timestamp without time zone
+);
+
+
+--
+-- Name: patient_current_modalities; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW patient_current_modalities AS
+ SELECT patients.id AS patient_id,
+    patients.secure_id AS patient_secure_id,
+    current_modality.id AS modality_id,
+    modality_descriptions.id AS modality_description_id,
+    modality_descriptions.name AS modality_name,
+    current_modality.started_on
+   FROM ((patients
+     LEFT JOIN ( SELECT DISTINCT ON (modality_modalities.patient_id) modality_modalities.id,
+            modality_modalities.patient_id,
+            modality_modalities.description_id,
+            modality_modalities.reason_id,
+            modality_modalities.modal_change_type,
+            modality_modalities.notes,
+            modality_modalities.started_on,
+            modality_modalities.ended_on,
+            modality_modalities.state,
+            modality_modalities.created_at,
+            modality_modalities.updated_at,
+            modality_modalities.created_by_id,
+            modality_modalities.updated_by_id
+           FROM modality_modalities
+          ORDER BY modality_modalities.patient_id, modality_modalities.started_on DESC) current_modality ON ((patients.id = current_modality.patient_id)))
+     LEFT JOIN modality_descriptions ON ((modality_descriptions.id = current_modality.description_id)));
+
+
+--
 -- Name: patient_ethnicities; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -4248,64 +4336,6 @@ CREATE SEQUENCE patient_religions_id_seq
 --
 
 ALTER SEQUENCE patient_religions_id_seq OWNED BY patient_religions.id;
-
-
---
--- Name: patients; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE patients (
-    id integer NOT NULL,
-    nhs_number character varying,
-    local_patient_id character varying,
-    family_name character varying NOT NULL,
-    given_name character varying NOT NULL,
-    born_on date NOT NULL,
-    paediatric_patient_indicator boolean,
-    sex character varying,
-    ethnicity_id integer,
-    hospital_centre_code character varying,
-    primary_esrf_centre character varying,
-    died_on date,
-    first_cause_id integer,
-    second_cause_id integer,
-    death_notes text,
-    cc_on_all_letters boolean DEFAULT true,
-    cc_decision_on date,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    practice_id integer,
-    primary_care_physician_id integer,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    title character varying,
-    suffix character varying,
-    marital_status character varying,
-    telephone1 character varying,
-    telephone2 character varying,
-    email character varying,
-    document jsonb,
-    religion_id integer,
-    language_id integer,
-    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
-    allergy_status_updated_at timestamp without time zone,
-    local_patient_id_2 character varying,
-    local_patient_id_3 character varying,
-    local_patient_id_4 character varying,
-    local_patient_id_5 character varying,
-    external_patient_id character varying,
-    send_to_renalreg boolean DEFAULT false NOT NULL,
-    send_to_rpv boolean DEFAULT false NOT NULL,
-    renalreg_decision_on date,
-    rpv_decision_on date,
-    renalreg_recorded_by character varying,
-    rpv_recorded_by character varying,
-    ukrdc_external_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    country_of_birth_id integer,
-    legacy_patient_id integer,
-    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    sent_to_ukrdc_at timestamp without time zone
-);
 
 
 --
@@ -14879,6 +14909,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180502110638'),
 ('20180510151959'),
 ('20180511100345'),
-('20180511140415');
+('20180511140415'),
+('20180516111411');
 
 
