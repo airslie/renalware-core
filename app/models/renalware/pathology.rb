@@ -19,5 +19,8 @@ module Renalware
     def configure
       SubscriptionRegistry.instance.register(Feeds::MessageProcessor, MessageListener)
     end
+
+    class MissingRequestDescriptionError < StandardError; end
+    class MissingObservationDescriptionError < StandardError; end
   end
 end

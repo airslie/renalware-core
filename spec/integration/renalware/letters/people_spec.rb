@@ -15,16 +15,17 @@ RSpec.describe "Add person to directory and assign as a contact for a patient",
     @user = login_as_clinical
   end
 
-  let!(:contact_description) { create(:letter_contact_description) }
   let(:patient) { create(:patient, by: @user) }
   let(:person) { build(:directory_person, by: @user, address: build(:address)) }
 
   describe "creating a person and assign as a contact" do
     context "with valid attributes" do
       it "responds successfully" do
+        contact_description = create(:letter_contact_description)
+
         visit patient_letters_contacts_path(patient)
 
-        try_create_contact_with_valid_params
+        try_create_contact_with_valid_params(contact_description)
 
         expect_new_contact_for_patient
       end
@@ -40,7 +41,8 @@ RSpec.describe "Add person to directory and assign as a contact for a patient",
       end
     end
 
-    def try_create_contact_with_valid_params
+    # rubocop:disable Metrics/AbcSize
+    def try_create_contact_with_valid_params(contact_description)
       click_on "Add"
 
       within("#add-patient-contact-modal") do
@@ -55,6 +57,7 @@ RSpec.describe "Add person to directory and assign as a contact for a patient",
 
         click_on "Save"
       end
+      # rubocop:enable Metrics/AbcSize
 
       wait_for_ajax
     end

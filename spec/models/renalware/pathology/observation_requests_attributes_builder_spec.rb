@@ -217,6 +217,65 @@ module Renalware::Pathology
           end
         end
       end
+
+      context "when the OBR code is no found" do
+        let(:message_payload) {
+          double(
+            :message_payload,
+            patient_identification: double(internal_id: patient.local_patient_id),
+            observation_requests: [
+              double(
+                identifier: "I_DO_NOT_EXIST",
+                ordering_provider_name: "aasas",
+                placer_order_number: "::pcs code::",
+                date_time: nil,
+                observations: []
+              )
+            ]
+          )
+        }
+
+        it "uses the current data and time" do
+          expect {
+            described_class.new(message_payload).parse
+          }.to raise_error(Renalware::Pathology::MissingRequestDescriptionError, "I_DO_NOT_EXIST")
+        end
+      end
+
+      context "when the OBX code is no found" do
+        let(:message_payload) {
+          double(
+            :message_payload,
+            patient_identification: double(internal_id: patient.local_patient_id),
+            observation_requests: [
+              double(
+                identifier: request_description.code,
+                ordering_provider_name: "aasas",
+                placer_order_number: "::pcs code::",
+                date_time: nil,
+                observations: [
+                  double(
+                    identifier: "I_DO_NOT_EXIST",
+                    date_time: "200911112026",
+                    value: "::value::",
+                    comment: "::comment::",
+                    cancelled: nil
+                  )
+                ]
+              )
+            ]
+          )
+        }
+
+        it "uses the current data and time" do
+          expect {
+            described_class.new(message_payload).parse
+          }.to raise_error(
+            Renalware::Pathology::MissingObservationDescriptionError,
+            "I_DO_NOT_EXIST"
+          )
+        end
+      end
     end
   end
 end
