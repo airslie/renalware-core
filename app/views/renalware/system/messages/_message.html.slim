@@ -1,0 +1,4 @@
+div.system-message.alert-box.radius(class=message.severity)
+  - if message.title.present?
+    h1= message.title
+  = simple_format(message.body)

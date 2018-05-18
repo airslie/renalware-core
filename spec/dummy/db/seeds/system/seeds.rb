@@ -2,3 +2,4 @@
 
 require_relative "./users"
 require_relative "./templates"
+require_relative "./messages"

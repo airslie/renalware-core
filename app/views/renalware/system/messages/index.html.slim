@@ -1,0 +1,30 @@
+= content_for(:actions) do
+  = link_to "Add", new_system_message_path, class: :button
+
+= within_admin_layout(title: "System Messages") do
+  .system-messages
+    table
+      thead
+        th
+        th
+        th.col-width-tiny Severity
+        th.col-width-date-time Display from
+        th.col-width-date-time Display until
+        th.col-width-tiny Active now
+      tbody
+        - messages.each do |message|
+          tr
+            td
+              = link_to "Edit", edit_system_message_path(message)
+              = pipe_separator
+              = link_to "Delete",
+                        system_message_path(message),
+                        method: :delete,
+                        data: { confirm: I18n.t("prompts.confirm_delete") }
+            td
+              = render message
+            /td= simple_format(message.body)
+            td= message.severity&.humanize
+            td= l(message.display_from)
+            td= l(message.display_until)
+            td= yes_no(message.active?)
