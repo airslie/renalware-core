@@ -80,8 +80,8 @@ module Renalware
 
       def full_name_sql
         <<-SQL.squish
-          family_name ILIKE :family_name AND
-          given_name ILIKE :given_name
+          patients.family_name ILIKE :family_name AND
+          patients.given_name ILIKE :given_name
         SQL
       end
     end
