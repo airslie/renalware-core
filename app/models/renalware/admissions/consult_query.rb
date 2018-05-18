@@ -21,14 +21,14 @@ module Renalware
       # It might be better to refactor PatientsRansackHelper so we can include where required
       # eg below using .extending(PatientsRansackHelper) rather than relying on it being in
       # included in the model file.
-      # rubocop:disable Metrics/MethodLength
+      # note that adding .includes(:created_by) her creates an ambigous column
+      # 'family_name' error
       def search
         @search ||= begin
           Consult
             .joins(:patient)
             .eager_load(patient: [current_modality: :description])
             .includes(
-              :created_by,
               :consult_site,
               :hospital_ward,
               patient: { current_modality: :description }
@@ -37,7 +37,6 @@ module Renalware
             .ransack(query)
         end
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end
