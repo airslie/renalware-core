@@ -15,11 +15,13 @@
       - wards.each do |ward|
         tr
           td
-            = link_to "Edit", edit_hospitals_unit_ward_path(unit, ward)
-            = pipe_separator
-            = link_to "Delete",
-                      hospitals_unit_ward_path(unit, ward),
-                      method: :delete,
-                      data: { confirm: "Are you sure?" }
+            - if policy(ward).edit?
+              = link_to "Edit", edit_hospitals_unit_ward_path(unit, ward)
+            - if policy(ward).destroy?
+              = pipe_separator
+              = link_to "Delete",
+                        hospitals_unit_ward_path(unit, ward),
+                        method: :delete,
+                        data: { confirm: "Are you sure?" }
           td= ward.code
           td= ward.name

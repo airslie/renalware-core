@@ -15,7 +15,7 @@ RSpec.describe "Ward Management", type: :feature do
   end
 
   it "edit a ward" do
-    login_as_clinical
+    login_as_super_admin
     unit = create(:hospital_unit)
     create(:hospital_ward, name: "Name", code: "Code", hospital_unit: unit)
 
@@ -38,7 +38,7 @@ RSpec.describe "Ward Management", type: :feature do
   end
 
   it "add a ward" do
-    login_as_clinical
+    login_as_super_admin
     unit = create(:hospital_unit)
 
     visit hospitals_unit_wards_path(unit.id)
@@ -60,7 +60,7 @@ RSpec.describe "Ward Management", type: :feature do
   end
 
   it "delete a ward" do
-    login_as_clinical
+    login_as_super_admin
     unit = create(:hospital_unit)
     create(:hospital_ward, name: "Name", code: "Code", hospital_unit: unit)
 
