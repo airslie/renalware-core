@@ -1,0 +1,27 @@
+= content_for(:actions) do
+  = link_to "Add",
+          new_hospitals_unit_ward_path(unit),
+          class: "button"
+
+= within_admin_layout(title: "Wards", breadcrumbs: \
+    breadcrumb_for(unit.name, hospitals_units_path)) do
+
+  table.hospital-wards
+    thead
+      th.col-width-tiny
+      th.col-width-medium Code
+      th Name
+    tbody
+      - wards.each do |ward|
+        tr
+          td
+            - if policy(ward).edit?
+              = link_to "Edit", edit_hospitals_unit_ward_path(unit, ward)
+            - if policy(ward).destroy?
+              = pipe_separator
+              = link_to "Delete",
+                        hospitals_unit_ward_path(unit, ward),
+                        method: :delete,
+                        data: { confirm: "Are you sure?" }
+          td= ward.code
+          td= ward.name

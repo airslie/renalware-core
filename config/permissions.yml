@@ -1,5 +1,6 @@
 super_admin:
   - Renalware::Role
+  - Renalware::Hospitals::Ward
 admin:
   - Renalware::User
   - Renalware::BagType
