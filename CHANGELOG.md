@@ -9,6 +9,20 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.26
+21-05-2018
+
+### Added
+- Ward management
+- `patient_current modalities` view to make querying patients by modality easier
+### Changed
+- Raise custom error if OBX or OBR code not found, so we can see the missing code
+### Fixed
+- Bug searching consults using e.g. `rabbit r`
+- Fix letter layout when excluding pathology as instructed by the letterhead in use
+- Fix blank screen (InvalidAuthicityToken error) when logging in after a after a
+  javascript session timeout
+
 ## 2.0.25
 08-05-2018
 
