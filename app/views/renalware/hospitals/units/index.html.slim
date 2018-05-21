@@ -14,7 +14,7 @@
         th.col-width-small NRD Code
         th.col-width-small HD Site?
         th.col-width-tiny Stations
-        th.col-width-medium
+        th.col-width-largish
     tbody
       - hospital_units.each do |unit|
         tr
@@ -36,3 +36,5 @@
             = link_to("HD Stations", hd_unit_stations_path(unit))
             = pipe_separator
             = link_to("HD Diaries", hd_unit_diaries_path(unit))
+            = pipe_separator
+            = link_to("Wards", hospitals_unit_wards_path(unit))
