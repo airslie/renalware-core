@@ -9,7 +9,7 @@ module Renalware
     # Note:
     # - A message can have multiple observation_requests, each with its own observations.
     # - This class could be removed and a Builder class used to create the database models
-    # directly - this would remove the extra level of indirection that this class introduces.
+    #   directly - this would remove the extra level of indirection that this class introduces.
     class ObservationRequestsAttributesBuilder
       DEFAULT_REQUESTOR_NAME = "UNKNOWN"
       delegate :patient_identification, :observation_requests, to: :message_payload

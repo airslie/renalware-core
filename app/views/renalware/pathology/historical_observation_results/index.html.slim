@@ -2,11 +2,9 @@
                         navigation_partial: "renalware/pathology/navigation" do
   - if table.rows.empty?
     p No results available for this patient.
-
   - else
-    p.hint Hover over table then scroll horizontally to view more results.
-
     .embedded-scroll
+      p.hint Hover over table then scroll horizontally to view more results.
       = render "table", table: table
 
     = paginate(table)

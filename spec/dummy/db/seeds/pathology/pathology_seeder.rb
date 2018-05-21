@@ -22,6 +22,7 @@ module Renalware
       end
     end
 
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def seed_pathology_observations_for(patient:)
       log "Adding Pathology Observations (OBX) for #{patient}" do
         file_path = file_path_for(patient: patient, file_name: "pathology_obx.csv")
@@ -33,12 +34,14 @@ module Renalware
             request: request,
             description: Pathology::ObservationDescription.find_by!(code: row["description"]),
             result: row["result"],
-            observed_at: request.requested_at + 24.hours
+            observed_at: request.requested_at + 24.hours,
+            comment: row["comment"]
           )
         end
         Pathology::Observation.import! observations
       end
     end
+    # rubocop:enbale Metrics/MethodLength, Metrics/AbcSize
 
     def seed_pathology_for(local_patient_id:)
       patient = Patient.find_by(local_patient_id: local_patient_id)
@@ -48,7 +51,7 @@ module Renalware
     end
 
     def random_date_between(date1, date2)
-      Time.at((date2.to_f - date1.to_f) * rand + date1.to_f)
+      Time.zone.at((date2.to_f - date1.to_f) * rand + date1.to_f)
     end
   end
 end

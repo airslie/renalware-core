@@ -18,7 +18,7 @@ module Renalware
                                 descriptions,
                                 observed_at: Time.zone.now,
                                 result: 99)
-            # !! not current
+            # not current
             create_observations(patient,
                                 descriptions,
                                 observed_at: Time.zone.now - 1.day,

@@ -2,17 +2,25 @@
 / historical results, we transpose the cols and rows so we have
 / dates along the top and OBX codes down the left.
 table#observations
-  tr
-    th Year
-    - table.rows.each do |row|
-      th.date= row.observed_on.year
-  tr
-    th Date
-    - table.rows.each do |row|
-      th= row.observed_on.strftime("%d/%m")
-  - table.observation_descriptions.each do |desc|
-    - code = desc.code
+  thead
     tr
-      th(title=desc.name)= code
+      th Year
       - table.rows.each do |row|
-        td(class=code.downcase)= row.results[code]
+        th.date= row.observed_on.year
+  thead
+    tr
+      th Date
+      - table.rows.each do |row|
+        th= row.observed_on.strftime("%d/%m")
+  tbody
+    - table.observation_descriptions.each do |desc|
+      - code = desc.code
+      tr
+        th(title=desc.name)= code
+        - table.rows.each do |row|
+          - if row.comment_for(code).present?
+            td(class=code.downcase data-balloon=row.comment_for(code) data-balloon-pos="up")
+              .triangle-top-right
+              = row.result_for(code)
+          - else
+            td(class=code.downcase)= row.result_for(code)

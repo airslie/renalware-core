@@ -68,7 +68,7 @@ module Renalware
       def to_sql
         <<-SQL.squish
           select obs_req.patient_id, cast(observed_at as date) as observed_on,
-          jsonb_object_agg(obs_desc.code, obs.result) results
+          jsonb_object_agg(obs_desc.code, ARRAY[obs.result, obs.comment]) results
           from pathology_observations obs
           inner join pathology_observation_requests obs_req on obs.request_id = obs_req.id
           inner join pathology_observation_descriptions obs_desc on obs.description_id = obs_desc.id

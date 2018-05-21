@@ -9,6 +9,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class MessageListener
+      # Note: We are already inside a transaction here
       def message_processed(message_payload)
         pathology_params = parse_pathology_params(message_payload)
         create_observation_requests_and_their_child_observations_from(pathology_params)

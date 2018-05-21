@@ -55,3 +55,4 @@ key.gpg
 /spec/dummy/generated_organisations.csv
 /.vscode
 /spec/dummy/coverage
+/.vscode

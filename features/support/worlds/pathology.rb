@@ -146,7 +146,7 @@ module World
         # Now construct rows to match the cucumber table row and check they match
         expected_rows[1..-1].each_with_index do |expected_row, idx|
           actual_row = table.rows[idx]
-          actual_row_formatted = codes.map { |code| actual_row.results[code] || "" }
+          actual_row_formatted = codes.map { |code| actual_row.row_hash[code]&.first || "" }
           actual_row_formatted.prepend(I18n.l(actual_row.observed_on))
           expect(expected_row).to eq(actual_row_formatted)
         end
@@ -175,12 +175,27 @@ module World
     module Web
       include Domain
 
+      # rows - e.g.
+      # [
+      #   ["year", "2009", "2009", "2009"],
+      #   ["date", "13/11", "12/11", "11/11"],
+      #   ["HGB", "", "5.09", "6.09"],
+      #   ["MCV", "", "3.00", "4.00"],
+      #   ["WBC", "2.00", "", ""],
+      #   ["AL", "", "", ""]
+      # ]
+      # TODO: improve this test to examine the actual values not just the counts
       def expect_pathology_recent_observations(user:, patient:, rows:)
         login_as user
 
         visit patient_pathology_recent_observations_path(patient)
-
-        expect(page).to have_selector("table#observations tr:first-child th", count: 4)
+        # first column is a 'th' (the OBX code) so there should one less td
+        # than in the array where the first element is a code eg 3 tds in thie example:
+        #   ["HGB", "", "5.09", "6.09"]
+        expect(page)
+          .to have_selector(
+            "table#observations tbody tr:first-child td", count: rows.first.size - 1
+          )
       end
 
       def expect_pathology_historical_observations(user:, patient:, rows:)
