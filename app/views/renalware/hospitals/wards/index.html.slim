@@ -1,0 +1,11 @@
+= within_admin_layout(title: "Wards") do
+
+  table
+    thead
+      th Code
+      th Name
+    tbody
+      - wards.each do |ward|
+        tr
+          td= ward.code
+          td= ward.name
