@@ -9,6 +9,15 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.27
+21-05-2018
+
+### Added
+### Changed
+### Fixed
+- Fixed bug in BP validation where systolic or diastolic contains spaces #2260
+- Fixed bug loading a form where an underlying jsonb date is invalid #2259
+
 ## 2.0.26
 21-05-2018
 
