@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.26)
+    renalware-core (2.0.27)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.22.0)
       ahoy_matey (~> 2.0.1)
@@ -274,7 +274,7 @@ GEM
     fuubar (2.3.1)
       rspec-core (~> 3.0)
       ruby-progressbar (~> 1.4)
-    geocoder (1.4.7)
+    geocoder (1.4.8)
     gherkin (5.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
