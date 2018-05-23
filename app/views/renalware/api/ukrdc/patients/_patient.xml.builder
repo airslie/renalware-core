@@ -84,11 +84,6 @@ xml.Patient do
     end
   end
 
-  xml.comment! "Inclusion of CountryOfBirth causes XSD error for some reasons so temporarily excluded"
-  # if patient.country_of_birth.present?
-  #   xml.CountryOfBirth patient.country_of_birth.alpha3
-  # end
-
   if patient.dead?
     xml.Death true
   end
