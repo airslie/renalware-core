@@ -2081,7 +2081,15 @@ CREATE TABLE hd_dialysates (
     sodium_content_uom character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    bicarbonate_content numeric(10,2),
+    bicarbonate_content_uom character varying DEFAULT 'mmol/L'::character varying,
+    calcium_content numeric(10,2),
+    calcium_content_uom character varying DEFAULT 'mmol/L'::character varying,
+    glucose_content numeric(10,2),
+    glucose_content_uom character varying DEFAULT 'g/L'::character varying,
+    potassium_content numeric(10,2),
+    potassium_content_uom character varying DEFAULT 'mmol/L'::character varying
 );
 
 
@@ -2114,7 +2122,9 @@ CREATE TABLE hd_dialysers (
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    membrane_surface_area numeric(10,2),
+    membrane_surface_area_coefficient_k0a numeric(10,2)
 );
 
 
@@ -15044,6 +15054,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180511171835'),
 ('20180514151627'),
 ('20180516111411'),
+('20180524072633'),
+('20180524074320'),
 ('20180605114332'),
 ('20180605141806'),
 ('20180605175211');

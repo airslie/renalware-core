@@ -4,6 +4,8 @@
 = simple_form_for dialyser, html: { autocomplete: "off" } do |f|
   = f.input :group, autofocus: true, wrapper: :horizontal_small
   = f.input :name, wrapper: :horizontal_small
+  = f.input :membrane_surface_area, wrapper: :horizontal_small
+  = f.input :membrane_surface_area_coefficient_k0a, wrapper: :horizontal_small
 
   = f.button :submit
   span= " or "

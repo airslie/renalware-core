@@ -53,7 +53,9 @@ module Renalware
       private
 
       def dialyser_params
-        params.require(:hd_dialyser).permit(:group, :name)
+        params
+          .require(:hd_dialyser)
+          .permit(:group, :name, :membrane_surface_area, :membrane_surface_area_coefficient_k0a)
       end
 
       def load_and_authorize_dialyser
