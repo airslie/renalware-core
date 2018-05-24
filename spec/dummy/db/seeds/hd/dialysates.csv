@@ -1,5 +1,5 @@
-name,sodium_content,sodium_content_uom,description
-"Fresenius A7",136,"mmol/L",
-"Fresenius A10",137,"mmol/L",
-"Fresenius A17",138,"mmol/L",
-"Fresenius A27",140,"mmol/L",
+name,description,sodium_content,sodium_content_uom,bicarbonate_content,bicarbonate_content_uom,calcium_content,calcium_content_uom,potassium_content,potassium_content_uom,glucose_content,glucose_content_uom
+"Fresenius A7","Fresenius A7",136,"mmol/L",135,"mmol/L",134,"mmol/L",133,"mmol/L",2,"mmol/L"
+"Fresenius A10","Fresenius A10",136,"mmol/L",135,"mmol/L",134,"mmol/L",133,"mmol/L",3,"mmol/L"
+"Fresenius A17","Fresenius A17",136,"mmol/L",135,"mmol/L",134,"mmol/L",133,"mmol/L",4,"mmol/L"
+"Fresenius A27","Fresenius A27",136,"mmol/L",135,"mmol/L",134,"mmol/L",133,"mmol/L",5,"mmol/L"

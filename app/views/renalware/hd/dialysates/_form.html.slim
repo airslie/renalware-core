@@ -1,0 +1,12 @@
+= render "renalware/shared/errors", model: dialysate
+
+= simple_form_for dialysate, as: :dialysate, html: { autocomplete: "off" } do |f|
+  = f.input :name, autofocus: true, wrapper: :horizontal_medium
+  = f.input :description, wrapper: :horizontal_large
+  - %i(sodium bicarbonate potassium calcium glucose).each do |element|
+    = f.input :"#{element}_content", wrapper: :horizontal_small
+    = f.input :"#{element}_content_uom", wrapper: :horizontal_small
+
+  = f.button :submit
+  span= " or "
+  = link_to "cancel", hd_dialysates_path
