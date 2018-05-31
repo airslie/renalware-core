@@ -17,6 +17,8 @@ Renalware.configure do |config|
   map = config.broadcast_subscription_map
   map["Renalware::Letters::ApproveLetter"] << "LetterListener"
   map["Renalware::Pathology::CreateObservationRequests"] << "PathologyListener"
+
+  config.ukrdc_sending_facility_name = "Test"
 end
 
 # Renalware::Patients.configure
