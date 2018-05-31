@@ -9,6 +9,15 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.28
+31-05-2018
+
+### Added
+### Changed
+- UKRDC XML changes
+### Fixed
+- Disallow duplicate OBX and OBR codes
+
 ## 2.0.27
 21-05-2018
 
