@@ -6,8 +6,8 @@ describe Renalware::Pathology::RequestForPatientRequestDescriptionQuery do
   let!(:clinic) { create(:clinic) }
   let!(:patient) { create(:pathology_patient) }
   let!(:consultant) { create(:pathology_consultant) }
-  let!(:request_description) { create(:pathology_request_description) }
-  let!(:request_description_unrelated) { create(:pathology_request_description) }
+  let!(:request_description) { create(:pathology_request_description, code: "XYZ") }
+  let!(:request_description_unrelated) { create(:pathology_request_description, code: "ABC") }
 
   let!(:request_newest_but_unrelated) do
     create(

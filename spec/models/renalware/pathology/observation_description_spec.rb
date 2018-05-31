@@ -5,5 +5,6 @@ require "rails_helper"
 module Renalware
   RSpec.describe Pathology::ObservationDescription, type: :model do
     it { is_expected.to belong_to(:measurement_unit) }
+    it { is_expected.to have_db_index(:code).unique(true) }
   end
 end

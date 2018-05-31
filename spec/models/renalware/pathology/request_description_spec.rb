@@ -4,6 +4,7 @@ require "rails_helper"
 
 describe Renalware::Pathology::RequestDescription do
   it { is_expected.to validate_presence_of(:lab) }
+  it { is_expected.to have_db_index(:code).unique(true) }
 
   subject(:request_description) { build(:pathology_request_description) }
 

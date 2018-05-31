@@ -11026,7 +11026,7 @@ CREATE UNIQUE INDEX index_pathology_measurement_units_on_name ON pathology_measu
 -- Name: index_pathology_observation_descriptions_on_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_pathology_observation_descriptions_on_code ON pathology_observation_descriptions USING btree (code);
+CREATE UNIQUE INDEX index_pathology_observation_descriptions_on_code ON pathology_observation_descriptions USING btree (code);
 
 
 --
@@ -11076,6 +11076,13 @@ CREATE INDEX index_pathology_observations_on_observed_at ON pathology_observatio
 --
 
 CREATE INDEX index_pathology_observations_on_request_id ON pathology_observations USING btree (request_id);
+
+
+--
+-- Name: index_pathology_request_descriptions_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pathology_request_descriptions_on_code ON pathology_request_descriptions USING btree (code);
 
 
 --
@@ -14961,6 +14968,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180510151959'),
 ('20180511100345'),
 ('20180511140415'),
+('20180511171835'),
 ('20180514151627'),
 ('20180516111411');
 
