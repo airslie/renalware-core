@@ -24,14 +24,14 @@ gem "devise_security_extension",
     git: "https://github.com/phatworx/devise_security_extension.git"
 
 group :test do
-  gem "capybara" # "~> 2.17.0"
+  gem "capybara"
   gem "capybara-screenshot" # "~> 1.0.18"
   # gem "chromedriver-helper" # this clashses with the */*-browsers images in cirlci so removed
   gem "codeclimate-test-reporter", "~> 1.0.7", require: false # loads simplecov
   gem "cucumber", "~> 3.1.0"
   gem "cucumber-rails", "~> 1.6.0", require: false # must be loaded in env.rb
   gem "database_cleaner", "~> 1.7.0", require: false # for cucumber (now not needed for rspec)
-  gem "factory_bot_rails", "~> 4.8.2"
+  gem "factory_bot_rails", "~> 4.10.0"
   gem "fuubar", require: false
   gem "rails-controller-testing", "~> 1.0.2"
   gem "rspec-html-matchers", "~> 0.9.1"
@@ -41,7 +41,7 @@ group :test do
   gem "shoulda-matchers", "~> 3.1.2"
   gem "simplecov", "~> 0.16.0", require: false # only loaded if required
   gem "webmock", "~> 3.4.0", require: false
-  gem "wisper-rspec", "~> 1.0.0"
+  gem "wisper-rspec", "~> 1.1.0"
 end
 
 group :staging do
@@ -63,7 +63,7 @@ group :development, :test do
   gem "bundler-audit", require: false
   gem "byebug"
   gem "launchy", require: false
-  gem "rubocop", "~> 0.55.0", require: false
+  gem "rubocop", "~> 0.56.0", require: false
   gem "spring"
   gem "spring-commands-cucumber", require: false
   gem "spring-commands-rspec", require: false
