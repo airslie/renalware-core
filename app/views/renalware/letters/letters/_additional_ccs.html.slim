@@ -9,7 +9,7 @@ article
           = render partial: "cc_recipient_form",
                    collection: contacts,
                    as: :contact,
-                   locals: { letter: f.object }
+                   locals: { letter: letter }
 
         = link_to(t(".add_contact_as_cc"),
                   "#",
