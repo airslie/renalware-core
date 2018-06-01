@@ -2,7 +2,6 @@
 
 = within_patient_layout(title: t(".#{i18_scope}.page_title"),
                         breadcrumbs: letters_breadcrumb(patient)) do
-
   .document
     = simple_form_for letter,
         url: patient_letters_letters_path(patient, letter.event),
@@ -15,6 +14,7 @@
                patient: patient,
                contact: contact,
                contacts: contacts,
+               letter: letter,
                electronic_recipient_options: electronic_recipient_options
 
 = render "add_contact",
