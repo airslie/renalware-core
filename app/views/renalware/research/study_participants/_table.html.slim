@@ -9,6 +9,7 @@
         th.col-width-reference-no Hosp no
         th.col-width-tiny Age
         th Sex
+        th External ID
         th.col-width-small
     tbody
       - participants.each do |participant|
@@ -20,6 +21,7 @@
           td= participant.patient.hospital_identifiers
           td= participant.patient.age
           td= participant.patient.sex
+          td= participant.external_id
           td
             = link_to "Delete",
                       research_study_participant_path(study, participant),

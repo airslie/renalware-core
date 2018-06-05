@@ -9,6 +9,7 @@ module Renalware
       acts_as_paranoid
       validates :participant_id, presence: true, uniqueness: { scope: :study }
       validates :study, presence: true
+      validates :external_id, uniqueness: true # added by a trigger
       belongs_to :study, touch: true
       belongs_to :patient,
                  class_name: "Renalware::Patient",
