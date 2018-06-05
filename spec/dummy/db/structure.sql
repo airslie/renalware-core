@@ -497,6 +497,63 @@ $_$;
 
 
 --
+-- Name: pseudo_encrypt(integer); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION pseudo_encrypt(value integer) RETURNS integer
+    LANGUAGE plpgsql IMMUTABLE STRICT
+    AS $$
+DECLARE
+l1 int;
+l2 int;
+r1 int;
+r2 int;
+i int:=0;
+BEGIN
+ l1:= (VALUE >> 16) & 65535;
+ r1:= VALUE & 65535;
+ WHILE i < 3 LOOP
+   l2 := r1;
+   r2 := l1 # ((((1366 * r1 + 150889) % 714025) / 714025.0) * 32767)::int;
+   l1 := l2;
+   r1 := r2;
+   i := i + 1;
+ END LOOP;
+ RETURN ((r1 << 16) + l1);
+END;
+$$;
+
+
+--
+-- Name: pseudo_encrypt42(bigint); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION pseudo_encrypt42(value bigint) RETURNS bigint
+    LANGUAGE plpgsql IMMUTABLE STRICT
+    AS $$
+DECLARE
+  l1 bigint;
+  l2 bigint;
+  r1 bigint;
+  r2 bigint;
+  i int:=0;
+  b21 int:=(1<<21)-1; -- 21 bits mask for a half-number => 42 bits total
+BEGIN
+  l1:= VALUE >> 21;
+  r1:= VALUE & b21;
+  WHILE i < 3 LOOP
+    l2 := r1;
+    r2 := l1 # (((((1366*r1+150889)%714025)/714025.0)*32767*32767)::int & b21);
+    l1 := l2;
+    r1 := r2;
+    i := i + 1;
+  END LOOP;
+  RETURN ((l1::bigint << 21) + r1);
+END;
+$$;
+
+
+--
 -- Name: refresh_all_matierialized_views(text, boolean); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -569,13 +626,74 @@ $$;
 
 
 --
+-- Name: skip32(integer, boolean, bytea); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION skip32(val integer, encrypt boolean, cr_key bytea DEFAULT '\x6170706c657065616368'::bytea) RETURNS integer
+    LANGUAGE plpgsql IMMUTABLE STRICT
+    AS $$
+DECLARE
+  kstep int;
+  k int;
+  wl int4;
+  wr int4;
+  g1 int4;
+  g2 int4;
+  g3 int4;
+  g4 int4;
+  g5 int4;
+  g6 int4;
+  ftable bytea:='\xa3d70983f848f6f4b321157899b1aff9e72d4d8ace4cca2e5295d91e4e3844280adf02a017f1606812b77ac3e9fa3d5396846bbaf2639a197caee5f5f7166aa239b67b0fc193811beeb41aead0912fb855b9da853f41bfe05a58805f660bd89035d5c0a733066569450094566d989b7697fcb2c2b0fedb20e1ebd6e4dd474a1d42ed9e6e493ccd4327d207d4dec7671889cb301f8dc68faac874dcc95d5c31a47088612c9f0d2b8750825464267d0340344b1c73d1c4fd3bccfb7fabe63e5ba5ad04239c145122f02979717eff8c0ee20cefbc72756f37a1ecd38e628b8610e8087711be924f24c532369dcff3a6bbac5e6ca9135725b5e3bda83a0105592a46';
+BEGIN
+  IF (octet_length(cr_key)!=10) THEN
+    RAISE EXCEPTION 'The encryption key must be exactly 10 bytes long.';
+  END IF;
+
+  IF (encrypt) THEN
+    kstep := 1;
+    k := 0;
+  ELSE
+    kstep := -1;
+    k := 23;
+  END IF;
+
+  wl := (val & -65536) >> 16;
+  wr := val & 65535;
+
+  FOR i IN 0..11 LOOP
+    g1 := (wl>>8) & 255;
+    g2 := wl & 255;
+    g3 := get_byte(ftable, g2 # get_byte(cr_key, (4*k)%10)) # g1;
+    g4 := get_byte(ftable, g3 # get_byte(cr_key, (4*k+1)%10)) # g2;
+    g5 := get_byte(ftable, g4 # get_byte(cr_key, (4*k+2)%10)) # g3;
+    g6 := get_byte(ftable, g5 # get_byte(cr_key, (4*k+3)%10)) # g4;
+    wr := wr # (((g5<<8) + g6) # k);
+    k := k + kstep;
+
+    g1 := (wr>>8) & 255;
+    g2 := wr & 255;
+    g3 := get_byte(ftable, g2 # get_byte(cr_key, (4*k)%10)) # g1;
+    g4 := get_byte(ftable, g3 # get_byte(cr_key, (4*k+1)%10)) # g2;
+    g5 := get_byte(ftable, g4 # get_byte(cr_key, (4*k+2)%10)) # g3;
+    g6 := get_byte(ftable, g5 # get_byte(cr_key, (4*k+3)%10)) # g4;
+    wl := wl # (((g5<<8) + g6) # k);
+    k := k + kstep;
+  END LOOP;
+
+  RETURN (wr << 16) | (wl & 65535);
+
+END
+$$;
+
+
+--
 -- Name: update_current_observation_set_from_trigger(); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
 CREATE FUNCTION update_current_observation_set_from_trigger() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
--- TC 14/12/2017 v02
+-- TC 14/12/2017 v01
 -- This function is called by a trigger when a row is inserted or updated in
 -- pathology_observations. Its purpose is to keep current_observation_sets up to date
 -- with the latest observations for any patient.
@@ -601,7 +719,7 @@ BEGIN
   We have gone for 2.
   */
 
-  IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') AND (NEW.result != '') THEN
+  IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') THEN
 
     -- Note we could re-generate the entire current pathology for the patient using
     --  select refresh_current_observation_set(a_patient_id);
@@ -617,8 +735,8 @@ BEGIN
       from pathology_observation_descriptions description
       where description.id = NEW.description_id;
 
-    -- Important! Create the observation_set if it doesn't exist yet
-    -- ignore the error if the row already exists
+    -- Important! Create the observation_set if it doesn exist yet
+    -- ignore the error id the row already exists
     insert into pathology_current_observation_sets (patient_id)
     values (a_patient_id)
     ON CONFLICT DO NOTHING;
@@ -652,8 +770,7 @@ BEGIN
             -- Note the `set values` below actually reads in the jsonb, updates it,
             -- and wites the whole thing back.
       update pathology_current_observation_sets
-        set updated_at = CURRENT_TIMESTAMP,
-          values = jsonb_set(
+        set values = jsonb_set(
           values,
           ('{'||a_code||'}')::text[], -- defined in the fn path::text[]
           jsonb_build_object('result', NEW.result, 'observed_at', new_observed_at),
@@ -6259,6 +6376,97 @@ ALTER SEQUENCE system_visits_id_seq OWNED BY system_visits.id;
 
 
 --
+-- Name: tmp_csv_demographic_data; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE tmp_csv_demographic_data (
+    patzid integer,
+    patientidentifier text,
+    lastname character varying,
+    firstnames character varying,
+    modalsite character varying,
+    gender character varying,
+    height numeric,
+    ethnicity character varying,
+    age double precision
+);
+
+
+--
+-- Name: tmp_csv_pathology_data; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE tmp_csv_pathology_data (
+    patzid integer,
+    resultsdate date,
+    hb text,
+    fer text,
+    cal text,
+    phos text,
+    na text,
+    wbc text,
+    crp text,
+    alb text,
+    mcv text,
+    mch text,
+    pot text,
+    pthi text,
+    urr text
+);
+
+
+--
+-- Name: tmp_csv_session_data; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE tmp_csv_session_data (
+    patzid integer,
+    hdsessdate date,
+    modalsite character varying,
+    access text,
+    hdtype text,
+    wt_pre text,
+    wt_post text,
+    ufr numeric,
+    machineurr text,
+    machinektv text,
+    iron_given integer,
+    iron_dose_mg character varying,
+    esa_given integer,
+    esa character varying,
+    esadose text,
+    drywtdate date,
+    drywt numeric
+);
+
+
+--
+-- Name: tmp_given_medications; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE tmp_given_medications (
+    hd_session_id integer,
+    dose_unit character varying,
+    dose_amount character varying,
+    drug_id integer,
+    drug_name character varying,
+    drug_type_code character varying,
+    administered boolean
+);
+
+
+--
+-- Name: tmp_latest_heights; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE tmp_latest_heights (
+    patient_id integer,
+    date date,
+    height numeric
+);
+
+
+--
 -- Name: transplant_donations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -9452,6 +9660,34 @@ CREATE INDEX idx_mp_patient_id_medication_route_id ON medication_prescriptions U
 --
 
 CREATE UNIQUE INDEX idx_practice_membership ON patient_practice_memberships USING btree (practice_id, primary_care_physician_id);
+
+
+--
+-- Name: idx_tmp_given_medications_drug_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_tmp_given_medications_drug_id ON tmp_given_medications USING btree (drug_id);
+
+
+--
+-- Name: idx_tmp_given_medications_drug_type_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_tmp_given_medications_drug_type_code ON tmp_given_medications USING btree (drug_type_code);
+
+
+--
+-- Name: idx_tmp_given_medications_hd_session_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_tmp_given_medications_hd_session_id ON tmp_given_medications USING btree (hd_session_id);
+
+
+--
+-- Name: idx_tmp_latest_heights_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_tmp_latest_heights_patient_id ON tmp_latest_heights USING btree (patient_id);
 
 
 --
