@@ -23,18 +23,35 @@ module CoreExtensions
         load_sql_file(DatabaseObjectPaths.triggers, filename)
       end
 
-      def load_sql_file(path, filename)
-        connection.execute(File.read(path.join(filename)))
+      def load_sql_file(paths, filename)
+        found = false
+        paths.each do |path|
+          file_path = path.join(filename)
+          if File.exist?(file_path)
+            connection.execute(File.read(file_path))
+            found = true
+          end
+        end
+        unless found
+          raise "Cannot file #{filename} in #{paths.join(', ')}"
+        end
       end
 
+      # Make sure to look in the host Rails app as well as in the engine
       class DatabaseObjectPaths
         class << self
           def triggers
-            Renalware::Engine.root.join("db", "triggers")
+            [
+              Rails.root.join("db", "triggers"),
+              Renalware::Engine.root.join("db", "triggers")
+            ]
           end
 
           def functions
-            Renalware::Engine.root.join("db", "functions")
+            [
+              Rails.root.join("db", "triggers"),
+              Renalware::Engine.root.join("db", "functions")
+            ]
           end
         end
       end
