@@ -66,7 +66,10 @@ module Renalware
       def study_params
         params
           .require(:research_study)
-          .permit(:code, :description, :leader, :notes, :started_on, :terminated_on)
+          .permit(
+            :code, :description, :leader, :notes, :started_on, :terminated_on,
+            :application_url
+          )
       end
     end
   end

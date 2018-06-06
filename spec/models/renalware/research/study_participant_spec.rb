@@ -21,5 +21,24 @@ module Renalware
 
       it { is_expected.to validate_uniqueness_of(:external_id) }
     end
+
+    describe ".external_application_participant_url" do
+      subject do
+        build_stubbed(:research_study_participant, study: study, external_id: "123")
+          .external_application_participant_url
+      end
+
+      context "when the study has no application_link" do
+        let(:study) { build_stubbed(:research_study, application_url: nil) }
+
+        it { is_expected.to be_nil }
+      end
+
+      context "when the study has an application_link" do
+        let(:study) { build_stubbed(:research_study, application_url: "http://test/{external_id}") }
+
+        it { is_expected.to eq("http://test/123") }
+      end
+    end
   end
 end

@@ -2,5 +2,13 @@ li.patient-alert.research-study-participant
   i.fa.fa-warning
   span.title= link_to(participation.study.code, research_study_participants_path(participation.study))
   span.body participant
-  span.date= l(participation.joined_on)
 
+  / A Study might have a url linking to an external study application. In this case show the link
+  / in the alert.
+  - if participation.external_application_participant_url.present?
+    span.external_application_link
+      = link_to(participation.external_application_participant_url, target: "_blank") do
+        i.fa.fa-external-link
+        | &nbsp;Launch application
+
+  span.date= l(participation.joined_on)

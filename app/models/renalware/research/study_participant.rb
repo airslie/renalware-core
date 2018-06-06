@@ -19,6 +19,11 @@ module Renalware
       def to_s
         patient&.to_s
       end
+
+      def external_application_participant_url
+        return if study.application_url.blank?
+        study.application_url.gsub("{external_id}", external_id.to_s)
+      end
     end
   end
 end

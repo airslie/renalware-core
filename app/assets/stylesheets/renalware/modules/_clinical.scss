@@ -49,8 +49,7 @@ article.clinical-allergies {
   }
 }
 
-.clinical-header,
-.research-study-participation-alerts {
+.clinical-header {
   background-color: $table-border-colour;
   padding: 0em .2em .2em .6em;
 
@@ -125,25 +124,17 @@ article.clinical-allergies {
   }
 }
 
-.research-study-participation-alerts {
-  .lozenge {
-    ul {
-      li {
-        background-color: $nhs-pink;
-        color: $white;
-      }
-    }
-  }
-}
-
 .patient-alerts {
-  @media pring {
+  color: $white;
+
+  @media print {
     display: none;
   }
 
   &.lozenge {
     ul {
       margin: 0;
+      //font-size: 0.9rem;
 
       li {
         background-color: $nhs-orange;
@@ -157,29 +148,33 @@ article.clinical-allergies {
           background-color: darken($nhs-orange, 5);
         }
 
-        &:hover,
-        span:hover {
-          color: white
-        }
-
         &.urgent {
           background-color: $nhs-red;
 
           &:hover {
-            background-color: darken($nhs-red, 5);
+            background-color: darken($nhs-red, 7);
           }
         }
 
         &.research-study-participant {
-          background-color: $nhs-green;
+          background-color: darken($nhs-green, 3);
+          color: $white;
 
           &:hover {
             background-color: darken($nhs-green, 5);
           }
 
           a {
+            color: $white;;
+            border-bottom: 1px dotted $white
+          }
+
+          .date {
+            border-left: 1px solid $mid-grey;
+          }
+
+          span {
             color: $white;
-            border-bottom: 1px dotted $light-grey;
           }
         }
 
@@ -187,7 +182,8 @@ article.clinical-allergies {
           padding: 0 .4rem;
         }
 
-        .body {
+        .body,
+        .external_application_link {
           padding-left: 0;
         }
 
@@ -196,7 +192,6 @@ article.clinical-allergies {
         .actions {
           font-style: italic;
           border-left: 1px solid $winter-sky;
-          color: $light-grey;
           white-space: nowrap;
 
           .fa {
