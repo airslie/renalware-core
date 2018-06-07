@@ -75,12 +75,19 @@ module Renalware
           session = session.becomes!(Session::Closed)
           session.profile = patient.hd_profile
           session.signed_off_at = Time.zone.now
-          session.dry_weight = Renalware::Clinical::DryWeight.for_patient(patient).first
+          session.dry_weight = most_recent_dry_weight
           session
         end
 
         def session_klass
           session_type.constantize
+        end
+
+        def most_recent_dry_weight
+          Renalware::Clinical::DryWeight
+            .for_patient(patient)
+            .order(assessed_on: :desc)
+            .first
         end
 
         def lookup_access_type_abbreviation(session)

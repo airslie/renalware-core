@@ -497,6 +497,34 @@ $_$;
 
 
 --
+-- Name: pseudo_encrypt(integer); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION pseudo_encrypt(value integer) RETURNS integer
+    LANGUAGE plpgsql IMMUTABLE STRICT
+    AS $$
+DECLARE
+l1 int;
+l2 int;
+r1 int;
+r2 int;
+i int:=0;
+BEGIN
+ l1:= (VALUE >> 16) & 65535;
+ r1:= VALUE & 65535;
+ WHILE i < 3 LOOP
+   l2 := r1;
+   r2 := l1 # ((((1366 * r1 + 150889) % 714025) / 714025.0) * 32767)::int;
+   l1 := l2;
+   r1 := r2;
+   i := i + 1;
+ END LOOP;
+ RETURN ((r1 << 16) + l1);
+END;
+$$;
+
+
+--
 -- Name: refresh_all_matierialized_views(text, boolean); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -662,6 +690,35 @@ BEGIN
     END IF;
   END IF;
   RETURN NULL ;
+END $$;
+
+
+--
+-- Name: update_research_study_participants_from_trigger(); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION update_research_study_participants_from_trigger() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+/*
+TC 05/06/2018
+After a participant is added to a study, assign them an external_id, to be used when sending this
+data for example to an external study application.
+We use pseudo_encrypt() to generate a random id which is guaranteed to be unique as it is based
+on the id. Its not the most secure however as, without a secret, the id can be reverse engineered
+if our pseudo_encrypt sql function open source (which it is). If this is deemed to be a problem
+(our intention at this point is rudimentary obfuscation), a hospital can override replace this
+function with a more secure one.
+An alternative to using a trigger is to use an after_ or before_save hook in Rails. The trigger
+approach is chosen as, unlike a traditional Rails app, some direct data manipulation can be expected
+in Renalware, even if that is just during migration.
+*/
+BEGIN
+  IF (TG_OP = 'INSERT') THEN
+    NEW.external_id = renalware.pseudo_encrypt(NEW.id::integer);
+    RETURN NEW;
+  END IF;
+  RETURN NULL;
 END $$;
 
 
@@ -5889,7 +5946,8 @@ CREATE TABLE research_studies (
     updated_by_id bigint,
     created_by_id bigint,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    application_url character varying
 );
 
 
@@ -5926,7 +5984,8 @@ CREATE TABLE research_study_participants (
     updated_by_id bigint,
     created_by_id bigint,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    external_id integer
 );
 
 
@@ -11828,6 +11887,13 @@ CREATE INDEX index_research_study_participants_on_deleted_at ON research_study_p
 
 
 --
+-- Name: index_research_study_participants_on_external_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_research_study_participants_on_external_id ON research_study_participants USING btree (external_id);
+
+
+--
 -- Name: index_research_study_participants_on_participant_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -12448,6 +12514,13 @@ CREATE TRIGGER feed_messages_preprocessing_trigger BEFORE INSERT ON delayed_jobs
 --
 
 CREATE TRIGGER update_current_observation_set_trigger AFTER INSERT OR UPDATE ON pathology_observations FOR EACH ROW EXECUTE PROCEDURE update_current_observation_set_from_trigger();
+
+
+--
+-- Name: research_study_participants update_research_study_participants_trigger; Type: TRIGGER; Schema: renalware; Owner: -
+--
+
+CREATE TRIGGER update_research_study_participants_trigger BEFORE INSERT ON research_study_participants FOR EACH ROW EXECUTE PROCEDURE update_research_study_participants_from_trigger();
 
 
 --
@@ -14970,6 +15043,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180511140415'),
 ('20180511171835'),
 ('20180514151627'),
-('20180516111411');
+('20180516111411'),
+('20180605114332'),
+('20180605141806'),
+('20180605175211');
 
 

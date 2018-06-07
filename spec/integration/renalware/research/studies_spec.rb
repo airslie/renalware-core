@@ -10,7 +10,8 @@ RSpec.describe "Clinical Studies management", type: :request do
       :research_study,
       code: "Study1",
       description: "Study 1",
-      leader: "Jack Jones"
+      leader: "Jack Jones",
+      application_url: "http://example.com"
     )
   end
 
@@ -20,7 +21,7 @@ RSpec.describe "Clinical Studies management", type: :request do
 
       get research_studies_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(response).to render_template(:index)
       expect(response.body).to match("Clinical Studies")
       expect(response.body).to match("Add")
@@ -34,7 +35,7 @@ RSpec.describe "Clinical Studies management", type: :request do
     it "renders a form" do
       get new_research_study_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(response).to render_template(:new)
       expect(response.body).to match("Clinical Studies")
       expect(response.body).to match("New")
@@ -50,13 +51,14 @@ RSpec.describe "Clinical Studies management", type: :request do
           leader: "Mr X",
           notes: "Notes",
           started_on: 1.year.ago,
-          terminated_on: 1.day.ago
+          terminated_on: 1.day.ago,
+          application_url: "http://example.com"
         }
 
         post research_studies_path, params: { research_study: study_params }
 
         follow_redirect!
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response).to render_template(:index)
 
         study = Renalware::Research::Study.first
@@ -66,6 +68,7 @@ RSpec.describe "Clinical Studies management", type: :request do
         expect(study.leader).to eq(study_params[:leader])
         expect(study.started_on.to_date).to eq(study_params[:started_on].to_date)
         expect(study.terminated_on.to_date).to eq(study_params[:terminated_on].to_date)
+        expect(study.application_url).to eq("http://example.com")
       end
     end
 
@@ -78,7 +81,7 @@ RSpec.describe "Clinical Studies management", type: :request do
         }
         post research_studies_path, params: params
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response).to render_template(:new)
       end
     end
@@ -90,7 +93,7 @@ RSpec.describe "Clinical Studies management", type: :request do
 
       get edit_research_study_path(study)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(response).to render_template(:edit)
       expect(response.body).to match("Clinical Studies")
       expect(response.body).to match("Edit")
@@ -107,7 +110,7 @@ RSpec.describe "Clinical Studies management", type: :request do
         patch research_study_path(study), params: params
 
         follow_redirect!
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response).to render_template(:index)
 
         study.reload
@@ -125,7 +128,7 @@ RSpec.describe "Clinical Studies management", type: :request do
         }
         post research_studies_path, params: params
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response.body).to match(/error/)
       end
     end
@@ -144,7 +147,7 @@ RSpec.describe "Clinical Studies management", type: :request do
        .and change{ Renalware::Research::StudyParticipant.deleted.count }.by(1)
 
       follow_redirect!
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(response).to render_template(:index)
       expect(study.reload).to be_deleted
     end
