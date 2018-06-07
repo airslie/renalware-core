@@ -75,11 +75,11 @@ module Renalware
         end
 
         def lowest_systolic_blood_pressure
-          all_blood_pressure_measurements.select(&:systolic).min_by(&:systolic)
+          all_systolic_blood_pressure_measurements.min_by(&:systolic)
         end
 
         def highest_systolic_blood_pressure
-          all_blood_pressure_measurements.select(&:systolic).max_by(&:systolic)
+          all_systolic_blood_pressure_measurements.max_by(&:systolic)
         end
 
         def dialysis_minutes_shortfall
@@ -177,6 +177,14 @@ module Renalware
         def all_blood_pressure_measurements
           sessions.map(&:blood_pressure_measurements).flatten
         end
+
+        # rubocop:disable Style/RescueModifier
+        def all_systolic_blood_pressure_measurements
+          all_blood_pressure_measurements
+            .select(&:systolic)
+            .select{ |bp| true if Float(bp.systolic) rescue false }
+        end
+        # rubocop:enable Style/RescueModifier
 
         # Helper to build a dynamic selector to grab the observation (pre/post) and blood pressure
         # measurement (sys/dias) and mean them.
