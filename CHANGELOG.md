@@ -10,6 +10,12 @@ This project adheres to Semantic Versioning.
 ### Fixed
 
 ## 2.0.29
+07-06-2018
+
+### Fixed
+- Fixed an issue preventing migrationo of SQL functions in host app
+
+## 2.0.29
 06-06-2018
 
 ### Added
