@@ -9,6 +9,16 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.29
+06-06-2018
+
+### Added
+### Changed
+- Support linking to external clinical study applications, including passing a new
+  pusedo-anonymised participant id
+### Fixed
+- HD Sessions stamped with the wrong dry_weight (first not latest)
+
 ## 2.0.28
 31-05-2018
 
