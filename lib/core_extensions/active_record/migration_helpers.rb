@@ -49,7 +49,7 @@ module CoreExtensions
 
           def functions
             [
-              Rails.root.join("db", "triggers"),
+              Rails.root.join("db", "functions"),
               Renalware::Engine.root.join("db", "functions")
             ]
           end
