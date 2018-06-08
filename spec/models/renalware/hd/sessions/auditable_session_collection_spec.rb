@@ -87,6 +87,8 @@ module Renalware
 
             expect(audit.pre_mean_systolic_blood_pressure).to eq(100)
             expect(audit.pre_mean_diastolic_blood_pressure).to eq(100)
+            expect(audit.lowest_systolic_blood_pressure).to eq(good_bp)
+            expect(audit.highest_systolic_blood_pressure).to eq(good_bp)
           end
 
           it "calculates pre mean blood pressures" do
