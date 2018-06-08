@@ -9,7 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
-## 2.0.29
+## 2.0.31
+07-06-2018
+
+### Fixed
+- Fixed caching bug where research study participation alerts were not invalidating
+  when the study's application_url or name was changed.
+
+## 2.0.30
 07-06-2018
 
 ### Fixed
