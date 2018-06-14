@@ -9,6 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.32
+14-06-2018
+
+### Added
+### Changed
+- Updated Low Clearance profile dialysis plan dropdown options
+### Fixed
+
 ## 2.0.31
 07-06-2018
 

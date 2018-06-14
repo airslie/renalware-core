@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
   s.add_dependency "cronex", "~> 0.6.1"
   s.add_dependency "delayed_job", "~> 4.1.4"
   s.add_dependency "delayed_job_active_record", "~> 4.1.2"
-  s.add_dependency "delayed_job_web", "~> 1.4"
+  s.add_dependency "delayed_job_web", "~> 1.4.3"
   s.add_dependency "devise", "~> 4.4.0"
   s.add_dependency "dotenv-rails", "~> 2.4.0"
   s.add_dependency "dumb_delegator", "~> 0.8.0"
@@ -88,6 +88,6 @@ Gem::Specification.new do |s|
   s.add_dependency "whenever", "~> 0.10.0" # For managing/deploying cron jobs see config/schedule.rb
   s.add_dependency "wicked_pdf", "~> 1.1.0"
   s.add_dependency "wisper", "~> 2.0.0"
-  s.add_dependency "wkhtmltopdf-binary", "~> 0.12.3"
+  s.add_dependency "wkhtmltopdf-binary", "0.12.3.1"
   s.add_dependency "yard", "~> 0.9.12"
 end
