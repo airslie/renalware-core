@@ -17,7 +17,7 @@
 
     td.state
       span= letter.state_description
-    td= l(letter.issued_on)
+    td= l(letter.updated_at)
     - if columns.include?(:author)
       td.col-width-medium-with-ellipsis= letter.author
     - if columns.include?(:patient)
