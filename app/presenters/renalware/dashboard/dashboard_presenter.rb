@@ -21,13 +21,15 @@ module Renalware
         end
       end
 
+      # Note we want oldest letters ordered first on the dashboard - elsewhere letters
+      # are newest first
       def letters_in_progress
         @letters_in_progress ||= begin
           present_letters(
             Letters::Letter
               .where("author_id = ? or created_by_id = ?", user.id, user.id)
               .in_progress
-              .reverse
+              .order(updated_at: :asc)
           )
           # Renalware::Letters.cast_author(user)
         end
