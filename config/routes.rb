@@ -158,6 +158,7 @@ Renalware::Engine.routes.draw do
 
     resources :cannulation_types, except: :show
     resources :dialysers, except: :show
+    resources :dialysates, except: :show
     resource :ongoing_sessions, only: :show
     resources :mdm_patients, only: :index
     resources :unmet_preferences, only: :index

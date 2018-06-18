@@ -1,0 +1,35 @@
+= content_for(:actions) do
+  = link_to "Add",
+          new_hd_dialysate_path,
+          class: "button"
+
+= within_admin_layout(title: "HD Dialysates") do
+
+  table.hd-dialysates
+    thead
+      th.col-width-tiny
+      th.col-width-medium Name
+      th.col-width-medium Description
+      - %i(sodium bicarbonate potassium calcium glocose).each do |element|
+        th.col-width-tiny= element.to_s.capitalize
+    tbody
+      - dialysates.each do |dialysate|
+        tr
+          td
+            - if policy(dialysate).edit?
+              = link_to "Edit", edit_hd_dialysate_path(dialysate)
+            / Disabling destroy for now as it seems to let you delete a dialysate that is in use
+            / Need to add a FK first
+            / - if policy(dialysate).destroy?
+            /   = pipe_separator
+            /   = link_to "Delete",
+            /             hd_dialysate_path(dialysate),
+            /             method: :delete,
+            /             data: { confirm: "Are you sure?" }
+          td= dialysate.name
+          td= dialysate.description
+          - %i(sodium bicarbonate potassium calcium glucose).each do |element|
+            - line = [ \
+              dialysate.public_send(:"#{element}_content"), \
+              dialysate.public_send(:"#{element}_content_uom")].compact.join(" ")
+            td= line

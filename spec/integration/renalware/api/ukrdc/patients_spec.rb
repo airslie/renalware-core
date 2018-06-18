@@ -7,6 +7,8 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
   include LettersSpecHelper
   include PathologySpecHelper
 
+  before { Renalware.config.ukrdc_sending_facility_name = "TEST" }
+
   let(:user) { @current_user }
   let(:algeria) { create(:algeria) }
   let(:uk) { create(:united_kingdom) }

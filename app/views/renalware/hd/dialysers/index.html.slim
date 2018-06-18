@@ -8,16 +8,20 @@
       tr
         th.col-width-small
         th.col-width-small Group
-        th Name
+        th.col-width-large Name
+        th.col-width-small Membrane Surface Area
+        th Membrane Surface Area (K0A)
     tbody
-      - dialysers.each do |t|
+      - dialysers.each do |dialyser|
         tr
           td
-            = link_to "Edit", edit_hd_dialyser_path(t.id)
+            = link_to "Edit", edit_hd_dialyser_path(dialyser.id)
             = pipe_separator
             = link_to "Delete",
-                      hd_dialyser_path(t.id),
+                      hd_dialyser_path(dialyser.id),
                       method: :delete,
                       data: { confirm: I18n.t("prompts.confirm_delete") }
-          td= t.group
-          td= t.name
+          td= dialyser.group
+          td= dialyser.name
+          td= dialyser.membrane_surface_area
+          td= dialyser.membrane_surface_area_coefficient_k0a
