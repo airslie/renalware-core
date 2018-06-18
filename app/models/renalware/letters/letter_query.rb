@@ -21,7 +21,7 @@ module Renalware
     class LetterQuery
       def initialize(q: nil)
         @q = q || {}
-        @q[:s] ||= ["issued_on desc"]
+        @q[:s] ||= ["updated_at desc"]
       end
 
       def call
