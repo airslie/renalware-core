@@ -9,6 +9,19 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.33
+19-06-2018
+
+### Added
+### Changed
+- When displaying tables of letters, make the Date column the date+time when the letter was edited
+- When displaying tables of letters, display most recently updated letters at the top
+  except on the user's dashboard where the order is reversed
+- Add membrane_surface_area and membrane_surface_area_coefficient_k0a columns to HD Dialysers
+- Add bicarbonate_content etc columns to HD Dialysates
+### Fixed
+- Do not output patient language in UKRDC XML if it is "Unknown"
+
 ## 2.0.32
 14-06-2018
 
