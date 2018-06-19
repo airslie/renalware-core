@@ -58,7 +58,7 @@ xml.Patient do
 
   if patient.language.present?
     xml.PrimaryLanguage do
-      xml.CodingStandard "NHS_DATA_DICTIONARY_LANGUAGE_CODE" # ISO 639-1 plus braille an sign
+      xml.CodingStandard "NHS_DATA_DICTIONARY_LANGUAGE_CODE" # ISO 639-1 plus braille and sign
       xml.Code patient.language&.code
       xml.Description patient.language
     end
