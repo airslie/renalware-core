@@ -10,9 +10,14 @@ FactoryBot.define do
       code "en"
     end
 
-    trait :aftrikaans do
+    trait :afrikaans do
       name "Afrikaans"
       code "af"
+    end
+
+    trait :unknown do
+      name "Unknown"
+      code "un"
     end
   end
 end

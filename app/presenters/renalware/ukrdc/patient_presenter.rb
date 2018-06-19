@@ -26,6 +26,11 @@ module Renalware
         super(patient)
       end
 
+      def language
+        return if super.nil? || super.name == "Unknown"
+        super
+      end
+
       def dead?
         current_modality_death?
       end
