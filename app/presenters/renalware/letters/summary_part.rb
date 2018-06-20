@@ -30,12 +30,12 @@ module Renalware
       def find_letters
         letters_patient
           .letters
+          .ordered
           .with_main_recipient
           .with_letterhead
           .with_author
           .with_patient
           .limit(Renalware.config.clinical_summary_max_letters_to_display)
-          .order(issued_on: :desc)
       end
 
       def present_letters(letters)

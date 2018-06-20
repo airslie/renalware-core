@@ -56,7 +56,8 @@ module Renalware
       }
       singleton_class.send(:alias_method, :in_progress, :pending)
 
-      scope :reverse, -> { order(updated_at: :desc) }
+      scope :reverse, -> { order(updated_at: :asc) }
+      scope :ordered, -> { order(updated_at: :desc) }
       scope :with_letterhead, -> { includes(:letterhead) }
       scope :with_main_recipient, -> { includes(main_recipient: [:address, :addressee]) }
       scope :with_author, -> { includes(:author) }
