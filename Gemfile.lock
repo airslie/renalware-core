@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.33)
+    renalware-core (2.0.34)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.22.0)
       ahoy_matey (~> 2.0.1)
@@ -542,7 +542,7 @@ GEM
       rails (> 4.1, < 5.2)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.11)
+    uglifier (4.1.12)
       execjs (>= 0.3.0, < 3)
     underscore-rails (1.8.3)
     unicode (0.4.4.4)
