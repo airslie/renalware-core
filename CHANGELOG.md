@@ -9,6 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.35
+21-06-2018
+
+### Added
+### Changed
+### Fixed
+- UKRDC export updates patient.sent_to_ukrdc_at date correctly
+
 ## 2.0.34
 21-06-2018
 

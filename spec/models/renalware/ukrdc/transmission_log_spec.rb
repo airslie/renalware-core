@@ -15,9 +15,12 @@ module Renalware
         context "when there is an exception" do
           it "catches the exception and logs the error message and set the status to 'error'" do
             patient = create(:patient)
-            UKRDC::TransmissionLog.with_logging(patient, uuid) do
-              raise ArgumentError
-            end
+
+            expect {
+              UKRDC::TransmissionLog.with_logging(patient, uuid) do
+                raise ArgumentError
+              end
+            }.to raise_error
 
             log = described_class.where(patient_id: patient.id).last
 
