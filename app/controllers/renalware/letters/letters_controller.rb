@@ -17,7 +17,7 @@ module Renalware
       def author
         user = Renalware::User.find(params[:author_id])
         author = Letters.cast_author(user)
-        letters = author.letters.order(issued_on: :desc).page(page).per(per_page)
+        letters = author.letters.ordered.page(page).per(per_page)
         authorize letters
         render locals: {
           author: author,

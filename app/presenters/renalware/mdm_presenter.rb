@@ -97,7 +97,7 @@ module Renalware
     def letters
       patient_ = Renalware::Letters.cast_patient(patient)
       letters_ = patient_.letters
-                         .order(issued_on: :desc)
+                         .ordered
                          .with_main_recipient
                          .with_letterhead
                          .with_author
