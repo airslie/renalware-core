@@ -68,7 +68,7 @@ module Renalware
       end
 
       def within_new_folder
-        dir = Pathname(File.join("var", "ukrdc", timestamp))
+        dir = Pathname(File.join("/var", "ukrdc", timestamp))
         FileUtils.mkdir_p dir
         FileUtils.mkdir_p File.join(dir, "xml")
         FileUtils.mkdir_p File.join(dir, "encrypted")
