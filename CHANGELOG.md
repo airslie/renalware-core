@@ -9,6 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.34
+21-06-2018
+
+### Added
+### Changed
+### Fixed
+- Ordering of letters in lists
+
 ## 2.0.33
 19-06-2018
 
