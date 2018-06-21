@@ -15,7 +15,10 @@ module Renalware
         if changes_since.present? && changes_since.is_a?(String)
           changes_since = Time.zone.parse(changes_since)
         end
-        @changes_since = changes_since || patient.sent_to_ukrdc_at
+        # TODO: document what's happening here with dates
+        @changes_since = changes_since ||
+                         patient.sent_to_ukrdc_at ||
+                         Renalware.config.ukrdc_default_changes_since_date
         if @changes_since.blank?
           raise(
             ArgumentError,
@@ -114,7 +117,7 @@ module Renalware
       end
 
       def clinics_patient
-        @clinic_patient ||= Renalware::Clinics.cast_patient(__getobj__)
+        @clinics_patient ||= Renalware::Clinics.cast_patient(__getobj__)
       end
 
       def letters_patient

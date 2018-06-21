@@ -53,6 +53,9 @@ module Renalware
       ENV["FALLBACK_EMAIL_ADDRESS_FOR_TEST_MESSAGES"]
     end
     config_accessor(:ukrdc_sending_facility_name) { ENV["UKRDC_SENDING_FACILITY_NAME"] }
+    config_accessor(:ukrdc_default_changes_since_date) {
+      Date.parse(ENV.fetch("UKRDC_DEFAULT_CHANGES_SINCE_DATE", "2018-01-01"))
+    }
 
     # We override this in some tests as a means of getting wicked_Pdf to generate an HTML version
     # of the PDF so we can examine its content

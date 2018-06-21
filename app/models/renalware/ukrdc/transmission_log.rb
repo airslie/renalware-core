@@ -19,6 +19,7 @@ module Renalware
         log.error = formatted_exception(error)
         log.status = :error
         log.save!
+        raise error
       end
 
       def self.formatted_exception(error)
