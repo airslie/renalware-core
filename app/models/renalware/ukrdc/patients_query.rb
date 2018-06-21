@@ -9,10 +9,11 @@ module Renalware
     # patients who have changed since the last time they were exported.
     class PatientsQuery
       def call(changed_since: nil)
+
         if changed_since.present?
           rpv_patients.where("updated_at > ?", changed_since)
         else
-          rpv_patients.where("updated_at > sent_to_ukrdc_at")
+          rpv_patients.where("(sent_to_ukrdc_at is null) or (updated_at > sent_to_ukrdc_at)")
         end
       end
 

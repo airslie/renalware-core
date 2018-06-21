@@ -13,9 +13,16 @@ module Renalware
           logger.info "  Patient #{patient.to_param}"
           xml_payload = build_payload(log)
           if xml_payload_same_as_last_sent_payload?(xml_payload)
+            logger.info "    skipping as no change in XML file"
             log.unsent_no_change_since_last_send!
           else
             send_file(xml_payload, log)
+            # Important we use update_column here so we don't trigger updated_at to change
+            # on the patient, which affects the results of PatientsQuery next time.
+            patient.update_column(:sent_to_ukrdc_at, Time.zone.now)
+            logger.info(
+              "    sending file and setting patient.sent_to_ukrdc_at = #{patient.sent_to_ukrdc_at}"
+            )
           end
           logger.info "    Status: #{log.status}"
         end
@@ -58,7 +65,10 @@ module Renalware
       end
 
       def presenter_for(patient)
-        Renalware::UKRDC::PatientPresenter.new(patient, changes_since: changes_since)
+        Renalware::UKRDC::PatientPresenter.new(
+          patient,
+          changes_since: changes_since
+        )
       end
 
       # Note a test might have passed in a mock renderer
@@ -80,8 +90,6 @@ module Renalware
           @to_md5_hash ||= Digest::MD5.hexdigest(time_neutral_payload)
         end
 
-        private
-
         # Remove the time elements from SendingFacility
         # e.g.
         #   <SendingFacility channelName='Renalware' time='2018-02-26T13:18:02+00:00'/>
@@ -92,6 +100,7 @@ module Renalware
           payload
             .gsub(/<Stream>[^<]*<\/Stream>/, "<Stream>removed</Stream>")
             .gsub(/ (time|start|stop)=["'][^'"]*['"]/, '')
+            .gsub(/<UpdatedOn>[^<]*<\/UpdatedOn>/, "<UpdatedOn>removed</UpdatedOn>")
         end
       end
     end
