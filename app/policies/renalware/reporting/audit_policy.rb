@@ -5,7 +5,17 @@ require_dependency "renalware/reporting"
 module Renalware
   module Reporting
     class AuditPolicy < BasePolicy
-      # TODO: use a devops role for controlling edit update etc
+      def refresh?
+        user_is_super_admin?
+      end
+
+      def edit?
+        user_is_super_admin?
+      end
+
+      def update?
+        user_is_super_admin?
+      end
     end
   end
 end

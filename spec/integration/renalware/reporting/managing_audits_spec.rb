@@ -5,7 +5,7 @@ require "rails_helper"
 feature "Managing audits", type: :feature do
   scenario "Updating an audit" do
     audit = create(:audit, name: "XX")
-    login_as_clinical
+    login_as_super_admin
     visit reporting_audits_path
     stub_the_list_of_data_sources
 
