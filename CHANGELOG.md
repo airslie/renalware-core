@@ -9,6 +9,17 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.36
+21-06-2018
+
+### Added
+- Added letterhead filter on Renal Letters page
+### Changed
+- Strip whitespace around numerics when saving jsonb documents
+### Fixed
+- Prescriptions now sort by drug name then prescription date descending
+-
+
 ## 2.0.35
 21-06-2018
 
