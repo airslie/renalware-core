@@ -105,7 +105,33 @@ module Document
   class Embedded
     include Virtus.model
     include ActiveModel::Model
+    include ActiveModel::Validations::Callbacks
     extend Enumerize
+    STRIPPABLE_TYPES = %w(Float Integer)
+
+    before_validation :strip_leading_trailing_whitespace_from_numbers
+
+    def strip_leading_trailing_whitespace_from_numbers
+      attributes.keys.each do |att|
+        # Find the type defined in the document definition eg `attribute :weight, Integer``
+        # Note that primitive could be a string or class, hence :to_s
+        primitive = self.class.attribute_set[att].type.primitive.to_s
+
+        # If the type is in STRIPPABLE_TYPES ie its a numeric type,
+        # and it has arrived as a string (which responds to :strip) then
+        # ensure there are no leading or trailing spaces, otherwise Virtus cannot
+        # coerce it into the correct type. For example Virtus won't corece
+        # " 1" into 1 but will coerce "1" into 1 (FYI the Dry::Types gem (the successor to Virtus)
+        # rectifies this).
+        # Note also that here in this before_validation callback, the act of assignment in
+        # `self[att] =` prompts Virtus to re-attempt to coerce the value, which now, if space
+        # has prevented it from doing so before, it will do successfully.
+        next unless STRIPPABLE_TYPES.include?(primitive)
+        if self[att].respond_to?(:strip)
+          self[att] = self[att].strip
+        end
+      end
+    end
 
     # Assign a default value to the attributes using a custom type.
     # Set a validation on nested object.
