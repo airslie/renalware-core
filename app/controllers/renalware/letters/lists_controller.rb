@@ -7,6 +7,8 @@ module Renalware
     class ListsController < Letters::BaseController
       include Renalware::Concerns::Pageable
 
+      # rubocop:disable Metrics/MethodLength
+      # TODO: Use a presenter here
       def show
         query = LetterQuery.new(q: params[:q])
         letters = find_and_authorize_letters(query)
@@ -15,17 +17,15 @@ module Renalware
           letters: letters,
           authors: User.author.ordered,
           typists: User.ordered,
+          letterheads: Letters::Letterhead.ordered,
           q: query.search
         }
         respond_to do |format|
-          format.html do
-            render locals: locals
-          end
-          format.js do
-            render locals: locals, layout: false
-          end
+          format.html { render(locals: locals) }
+          format.js   { render(locals: locals, layout: false) }
         end
       end
+      # rubocop:enable Metrics/MethodLength
 
       private
 

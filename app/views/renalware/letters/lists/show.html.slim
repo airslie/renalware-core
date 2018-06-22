@@ -9,13 +9,15 @@
         .row
           .small-6.medium-1.large-1.columns
             = f.input :enclosures_present, as: :select, label: "Enclosure"
-          .small-6.medium-3.large-2.columns
+          .small-6.medium-2.large-2.columns
             = f.input :state_eq, collection: state_options_for_receptionists, label: "State"
-          .small-6.medium-3.large-2.columns
+          .small-6.medium-2.large-2.columns
             = f.input :author_id_eq, as: :user_picker, collection: authors, label: "Author"
-          .small-6.medium-3.large-2.columns
+          .small-6.medium-2.large-2.columns
             = f.input :created_by_id_eq, as: :user_picker, collection: typists, label: "Typist"
-          .small-12.medium-2.large-4.columns.actions.end
+          .small-6.medium-3.large-2.columns
+            = f.input :letterhead_id_eq, collection: letterheads, label: "Letterhead"
+          .small-12.medium-2.large-2.columns.actions.end
             = f.submit t("helpers.submit.filter"), class: "button"
             span= " or "
             = link_to t("helpers.reset"), letters_list_path
