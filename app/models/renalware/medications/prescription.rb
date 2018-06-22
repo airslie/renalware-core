@@ -77,7 +77,7 @@ module Renalware
 
       # This is a Ransack-compatible search predicate
       def self.default_search_order
-        "drug_name"
+        ["drug_name asc", "prescribed_on desc"]
       end
 
       def self.policy_class
