@@ -16,8 +16,9 @@
         tr
           td
             = link_to("View", reporting_audit_path(audit))
-            = pipe_separator
-            = link_to("Edit", edit_reporting_audit_path(audit))
+            - if policy(audit).edit?
+              = pipe_separator
+              = link_to("Edit", edit_reporting_audit_path(audit))
           td= audit.name
           td= audit.view_name
           td= yes_no audit.materialized?
@@ -25,7 +26,7 @@
           td= l(audit.updated_at)
           td= l(audit.refreshed_at)
           td
-            - if audit.materialized?
+            - if audit.materialized? && policy(audit).refresh?
               = link_to("Refresh Data",
                         reporting_audit_refreshments_path(audit_id: audit.id),
                         remote: true,
