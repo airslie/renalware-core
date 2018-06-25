@@ -2012,7 +2012,8 @@ CREATE TABLE feed_messages (
     body text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    body_hash text
+    body_hash text,
+    patient_identifer character varying
 );
 
 
@@ -15163,6 +15164,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180605141806'),
 ('20180605175211'),
 ('20180622130552'),
+('20180625124431'),
 ('20180628132323'),
 ('20180712143314'),
 ('20180718172750'),

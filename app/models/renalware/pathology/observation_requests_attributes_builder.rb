@@ -12,13 +12,13 @@ module Renalware
     #   directly - this would remove the extra level of indirection that this class introduces.
     class ObservationRequestsAttributesBuilder
       DEFAULT_REQUESTOR_NAME = "UNKNOWN"
-      delegate :patient_identification, :observation_requests, to: :message_payload
+      delegate :patient_identification, :observation_requests, to: :hl7_message
       delegate :internal_id, to: :patient_identification
       alias_attribute :requests, :observation_requests
 
-      # message_payload is an HL7Message (a decorator around an ::HL7::Message)
-      def initialize(message_payload, logger = Delayed::Worker.logger)
-        @message_payload = message_payload
+      # hl7_message is an HL7Message (a decorator around an ::HL7::Message)
+      def initialize(hl7_message, logger = Delayed::Worker.logger)
+        @hl7_message = hl7_message
         @logger = logger
       end
 
@@ -40,7 +40,7 @@ module Renalware
 
       private
 
-      attr_reader :message_payload, :logger
+      attr_reader :hl7_message, :logger
 
       def build_patient_params
         patient = find_patient(internal_id)

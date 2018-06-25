@@ -11,9 +11,9 @@ module Renalware::Pathology
 
       # Message payload simulates the HL7 message mapped into a hash (and already
       # archived in feed_messages).
-      let(:message_payload) {
+      let(:hl7_message) {
         double(
-          :message_payload,
+          :hl7_message,
           patient_identification: double(internal_id: patient.local_patient_id),
           observation_requests: [
             double(
@@ -36,7 +36,7 @@ module Renalware::Pathology
       }
 
       it "transfers attributes from the message payload to the params" do
-        parser = described_class.new(message_payload)
+        parser = described_class.new(hl7_message)
 
         expect(parser.renalware_patient?).to eq(true)
         params = parser.parse
@@ -67,8 +67,8 @@ module Renalware::Pathology
         it "logs a warning fails silently. This is an acceptable outcome "\
            "because most pathology messages will be for non-renal patients, and we ignore them" do
           non_existent_patient = "123123123"
-          message_payload = double(
-            :message_payload,
+          hl7_message = double(
+            :hl7_message,
             patient_identification: double(internal_id: non_existent_patient),
             observation_request: double(
               identifier: request_description.code,
@@ -89,7 +89,7 @@ module Renalware::Pathology
           logger = instance_double("Rails.logger").as_null_object
           expect(logger).to receive(:debug).once
 
-          parser = described_class.new(message_payload, logger)
+          parser = described_class.new(hl7_message, logger)
 
           expect(parser).not_to be_renalware_patient
           expect(parser.parse).to be_nil
@@ -125,7 +125,7 @@ module Renalware::Pathology
         end
 
         it "creates a params hash with multiple observation_requests" do
-          parser = described_class.new(message_payload)
+          parser = described_class.new(hl7_message)
           expect(parser.renalware_patient?).to eq(true)
           params = parser.parse
 
@@ -169,9 +169,9 @@ module Renalware::Pathology
         end
       end
       context "when requestor order name not present in the HL7 message" do
-        let(:message_payload) {
+        let(:hl7_message) {
           double(
-            :message_payload,
+            :hl7_message,
             patient_identification: double(internal_id: patient.local_patient_id),
             observation_requests: [
               double(
@@ -186,15 +186,15 @@ module Renalware::Pathology
         }
 
         it "uses 'UNKNOWN'" do
-          requests = described_class.new(message_payload).parse
+          requests = described_class.new(hl7_message).parse
           expect(requests.first[:observation_request][:requestor_name]).to eq("UNKNOWN")
         end
       end
 
       context "when requested_at not present in the HL7 message" do
-        let(:message_payload) {
+        let(:hl7_message) {
           double(
-            :message_payload,
+            :hl7_message,
             patient_identification: double(internal_id: patient.local_patient_id),
             observation_requests: [
               double(
@@ -210,7 +210,7 @@ module Renalware::Pathology
 
         it "uses the current data and time" do
           travel_to("2018-01-01 01:01:01") do
-            requests = described_class.new(message_payload).parse
+            requests = described_class.new(hl7_message).parse
             expect(requests.first[:observation_request][:requested_at])
               .to eq("2018-01-01 01:01:01 +0000")
           end
@@ -218,9 +218,9 @@ module Renalware::Pathology
       end
 
       context "when the OBR code is no found" do
-        let(:message_payload) {
+        let(:hl7_message) {
           double(
-            :message_payload,
+            :hl7_message,
             patient_identification: double(internal_id: patient.local_patient_id),
             observation_requests: [
               double(
@@ -236,15 +236,15 @@ module Renalware::Pathology
 
         it "uses the current data and time" do
           expect {
-            described_class.new(message_payload).parse
+            described_class.new(hl7_message).parse
           }.to raise_error(Renalware::Pathology::MissingRequestDescriptionError, "I_DO_NOT_EXIST")
         end
       end
 
       context "when the OBX code is no found" do
-        let(:message_payload) {
+        let(:hl7_message) {
           double(
-            :message_payload,
+            :hl7_message,
             patient_identification: double(internal_id: patient.local_patient_id),
             observation_requests: [
               double(
@@ -268,7 +268,7 @@ module Renalware::Pathology
 
         it "uses the current data and time" do
           expect {
-            described_class.new(message_payload).parse
+            described_class.new(hl7_message).parse
           }.to raise_error(
             Renalware::Pathology::MissingObservationDescriptionError,
             "I_DO_NOT_EXIST"

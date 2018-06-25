@@ -20,10 +20,10 @@ namespace :pathology do
       # this prevents us importing the same message twice.
       raw_message = raw_message.gsub("20091112164645", Time.zone.now.strftime("%Y%m%d%H%M%S"))
 
-      # Load the message into a hash as delayed_Job would do and spalt the hash keys as keyword args
+      # Load the message into a hash as delayed_Job would do and splat the hash keys as keyword args
       # into the FeedJob ctor.
       hash = YAML.safe_load(*raw_message).symbolize_keys
-      FeedJob.new(*hash).perform
+      FeedJob.new(hash[:raw_message]).perform
     end
   end
 end
