@@ -2522,7 +2522,8 @@ CREATE TABLE hd_sessions (
     profile_id integer,
     dry_weight_id integer,
     dialysate_id bigint,
-    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL
+    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    external_id bigint
 );
 
 
@@ -15161,6 +15162,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180605114332'),
 ('20180605141806'),
 ('20180605175211'),
+('20180622130552'),
 ('20180628132323'),
 ('20180712143314'),
 ('20180718172750'),
