@@ -14,7 +14,7 @@ module Renalware
           header_id: hl7_message.header_id,
           body: hl7_message.to_s,
           body_hash: Digest::MD5.hexdigest(hl7_message.to_s),
-          patient_identifer: hl7_message.patient_identification&.internal_id
+          patient_identifier: hl7_message.patient_identification&.internal_id
         )
       end
     end

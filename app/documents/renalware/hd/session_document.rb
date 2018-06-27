@@ -113,6 +113,19 @@ module Renalware
         attribute :had_blood_transfusion, Document::Enum, enums: %i(yes no), default: :no
       end
       attribute :complications, Complications
+
+      # rubocop:disable Metrics/AbcSize
+      def error_messages
+        [
+          observations_before.errors.full_messages,
+          observations_after.errors.full_messages,
+          dialysis.errors.full_messages,
+          info.errors.full_messages,
+          complications.errors.full_messages,
+          hdf.errors.full_messages
+        ].flatten.compact
+      end
+      # rubocop:enable Metrics/AbcSize
     end
   end
 end

@@ -2013,7 +2013,7 @@ CREATE TABLE feed_messages (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     body_hash text,
-    patient_identifer character varying
+    patient_identifier character varying
 );
 
 
