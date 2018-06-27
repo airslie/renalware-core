@@ -46,6 +46,7 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
       patient.document.history.smoking = :ex
       patient.practice = create(:practice)
       patient.primary_care_physician = create(:primary_care_physician)
+      patient.email = "x@y.com" # triggers ContactDetails
       patient.update!(by: user)
       create(:clinic_visit, patient: clinic_patient(patient), by: user)
       create(:allergy, patient: clinical_patient(patient), by: user)

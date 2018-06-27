@@ -20,6 +20,7 @@ xml.Patient do
         xml.Organization "LOCALHOSP"
         xml.NumberType "MRN"
       end
+      break
     end
   end
 
@@ -44,26 +45,6 @@ xml.Patient do
     end
   end
 
-  xml.FamilyDoctor do
-    xml.GPPracticeId patient.practice&.code
-    xml.GPId patient.primary_care_physician&.code
-  end
-
-  if patient.ethnicity.present?
-    xml.EthnicGroup do
-      xml.CodingStandard "NHS_DATA_DICTIONARY"
-      xml.Code patient.ethnicity&.rr18_code
-    end
-  end
-
-  if patient.language.present?
-    xml.PrimaryLanguage do
-      xml.CodingStandard "NHS_DATA_DICTIONARY_LANGUAGE_CODE" # ISO 639-1 plus braille and sign
-      xml.Code patient.language&.code
-      xml.Description patient.language
-    end
-  end
-
   if patient.contact_details?
     xml.ContactDetails do
       if patient.email.present?
@@ -81,6 +62,26 @@ xml.Patient do
           xml.Value patient.mobile_telephone
         end
       end
+    end
+  end
+
+  xml.FamilyDoctor do
+    xml.GPPracticeId patient.practice&.code
+    xml.GPId patient.primary_care_physician&.code
+  end
+
+  if patient.ethnicity.present?
+    xml.EthnicGroup do
+      xml.CodingStandard "NHS_DATA_DICTIONARY"
+      xml.Code patient.ethnicity&.rr18_code
+    end
+  end
+
+  if patient.language.present?
+    xml.PrimaryLanguage do
+      xml.CodingStandard "NHS_DATA_DICTIONARY_LANGUAGE_CODE" # ISO 639-1 plus braille and sign
+      xml.Code patient.language&.code
+      xml.Description patient.language
     end
   end
 
