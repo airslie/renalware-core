@@ -20,6 +20,7 @@ xml.Patient do
         xml.Organization "LOCALHOSP"
         xml.NumberType "MRN"
       end
+      break
     end
   end
 
