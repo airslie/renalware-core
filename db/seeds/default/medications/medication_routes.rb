@@ -2,7 +2,6 @@
 
 module Renalware
   log "Adding Medication Routes" do
-
     module RR
       ORAL = 1
       TOPICAL = 2
@@ -26,6 +25,7 @@ module Renalware
       MRoute.find_or_create_by!(code: "PERCUT", name: "Percutaneous", rr_code: RR::OTHER)
       MRoute.find_or_create_by!(code: "TOP", name: "Topical", rr_code: RR::TOPICAL)
       MRoute.find_or_create_by!(code: "OTHER", name: "Other", rr_code: RR::OTHER)
+      MRoute.find_or_create_by!(code: "PR", name: "PerRectum", rr_code: RR::OTHER)
     end
   end
 end
