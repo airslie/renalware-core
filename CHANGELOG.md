@@ -9,8 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.37
+28-06-2018
+
+### Fixed
+- letter sort order
+
 ## 2.0.36
-21-06-2018
+28-06-2018
 
 ### Added
 - Added letterhead filter on Renal Letters page
