@@ -16,9 +16,12 @@ This project adheres to Semantic Versioning.
 - Added letterhead filter on Renal Letters page
 ### Changed
 - Strip whitespace around numerics when saving jsonb documents
+- Add PerRectum medication route to demo data
 ### Fixed
 - Prescriptions now sort by drug name then prescription date descending
--
+- Letters now sort by the date they were moved into their currect state (e.g. Approved)
+- Fix UKRDC XML issues
+- Fix patient demographics layout where telephone and email labels not aligning
 
 ## 2.0.35
 21-06-2018
