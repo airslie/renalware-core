@@ -102,7 +102,9 @@ module Renalware
       end
 
       def find_letters
-        @patient.letters
+        @patient
+          .letters
+          .ordered
           .with_main_recipient
           .with_letterhead
           .with_author
