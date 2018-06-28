@@ -27,9 +27,9 @@ module Renalware
         @letters_in_progress ||= begin
           present_letters(
             Letters::Letter
+              .reverse
               .where("author_id = ? or created_by_id = ?", user.id, user.id)
               .in_progress
-              .order(updated_at: :asc)
           )
           # Renalware::Letters.cast_author(user)
         end
