@@ -124,6 +124,10 @@ module Renalware
       def archive_recipients!
         recipients.each(&:archive!)
       end
+
+      def effective_date
+        completed_at || approved_at || submitted_for_approval_at || created_at
+      end
     end
   end
 end
