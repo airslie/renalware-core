@@ -2012,7 +2012,8 @@ CREATE TABLE feed_messages (
     body text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    body_hash text
+    body_hash text,
+    patient_identifer character varying
 );
 
 
@@ -2496,7 +2497,8 @@ CREATE TABLE hd_sessions (
     profile_id integer,
     dry_weight_id integer,
     dialysate_id bigint,
-    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL
+    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    external_id bigint
 );
 
 
@@ -10742,6 +10744,13 @@ CREATE INDEX index_letter_electronic_receipts_on_recipient_id ON letter_electron
 
 
 --
+-- Name: index_letter_letters_on_approved_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_approved_at ON letter_letters USING btree (approved_at);
+
+
+--
 -- Name: index_letter_letters_on_approved_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -10756,10 +10765,24 @@ CREATE INDEX index_letter_letters_on_author_id ON letter_letters USING btree (au
 
 
 --
+-- Name: index_letter_letters_on_completed_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_completed_at ON letter_letters USING btree (completed_at);
+
+
+--
 -- Name: index_letter_letters_on_completed_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_letter_letters_on_completed_by_id ON letter_letters USING btree (completed_by_id);
+
+
+--
+-- Name: index_letter_letters_on_created_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_created_at ON letter_letters USING btree (created_at);
 
 
 --
@@ -10795,6 +10818,13 @@ CREATE INDEX index_letter_letters_on_letterhead_id ON letter_letters USING btree
 --
 
 CREATE INDEX index_letter_letters_on_patient_id ON letter_letters USING btree (patient_id);
+
+
+--
+-- Name: index_letter_letters_on_submitted_for_approval_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_submitted_for_approval_at ON letter_letters USING btree (submitted_for_approval_at);
 
 
 --
@@ -12384,6 +12414,13 @@ CREATE INDEX index_virology_profiles_on_updated_by_id ON virology_profiles USING
 --
 
 CREATE INDEX index_virology_versions_on_item_type_and_item_id ON virology_versions USING btree (item_type, item_id);
+
+
+--
+-- Name: letter_effective_date_idx; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX letter_effective_date_idx ON letter_letters USING btree (COALESCE(completed_at, approved_at, submitted_for_approval_at, created_at));
 
 
 --
@@ -15058,6 +15095,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180524074320'),
 ('20180605114332'),
 ('20180605141806'),
-('20180605175211');
+('20180605175211'),
+('20180622130552'),
+('20180625124431'),
+('20180628132323');
 
 
