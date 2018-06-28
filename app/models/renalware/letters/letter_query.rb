@@ -5,23 +5,30 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     module QueryableLetter
-      def finder_needs_type_condition?
-        false
-      end
+      extend ActiveSupport::Concern
+      included do
+        self.ransacker :effective_date, type: :date do
+          Arel.sql(Letter.effective_date_sort)
+        end
 
-      def ransackable_scopes(_auth_object = nil)
-        %i(state_eq)
-      end
+        def self.state_eq(state = :draft)
+          where(type: Letter.state_class_name(state))
+        end
 
-      def state_eq(state = :draft)
-        where(type: Letter.state_class_name(state))
+        def self.finder_needs_type_condition?
+          false
+        end
+
+        def self.ransackable_scopes(_auth_object = nil)
+          %i(state_eq)
+        end
       end
     end
 
     class LetterQuery
       def initialize(q: nil)
         @q = q || {}
-        @q[:s] ||= ["updated_at desc"]
+        @q[:s] ||= ["effective_date desc"]
       end
 
       def call
@@ -29,7 +36,7 @@ module Renalware
       end
 
       def search
-        @search ||= Letter.extend(QueryableLetter).includes(:event).search(@q)
+        @search ||= Letter.include(QueryableLetter).includes(:event).search(@q)
       end
     end
   end

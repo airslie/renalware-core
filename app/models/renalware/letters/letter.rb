@@ -56,8 +56,8 @@ module Renalware
       }
       singleton_class.send(:alias_method, :in_progress, :pending)
 
-      scope :reverse, -> { order(updated_at: :asc) }
-      scope :ordered, -> { order(updated_at: :desc) }
+      scope :reverse, -> { order("#{effective_date_sort} asc")  }
+      scope :ordered, -> { order("#{effective_date_sort} desc") }
       scope :with_letterhead, -> { includes(:letterhead) }
       scope :with_main_recipient, -> { includes(main_recipient: [:address, :addressee]) }
       scope :with_author, -> { includes(:author) }
@@ -76,6 +76,10 @@ module Renalware
 
       def self.for_event(event)
         where(event: event).first
+      end
+
+      def self.effective_date_sort
+        "coalesce(completed_at, approved_at, submitted_for_approval_at, created_at)"
       end
 
       EVENTS_MAP = {
@@ -123,6 +127,10 @@ module Renalware
 
       def archive_recipients!
         recipients.each(&:archive!)
+      end
+
+      def effective_date
+        completed_at || approved_at || submitted_for_approval_at || created_at
       end
     end
   end
