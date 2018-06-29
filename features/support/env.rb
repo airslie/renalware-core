@@ -7,7 +7,7 @@ if ENV.key?("CC_TEST_REPORTER_ID") || ENV.key?("SIMPLECOV")
   SimpleCov.command_name "Cucumber-" + (ENV["TEST_DEPTH"] || "domain")
 end
 
-require File.expand_path("../../../spec/dummy/config/environment.rb", __FILE__)
+require File.expand_path("../../spec/dummy/config/environment.rb", __dir__)
 
 # Tell cucumber-rails where rails lives
 ENV["RAILS_ROOT"] ||= File.dirname(__FILE__) + "../../../spec/dummy"

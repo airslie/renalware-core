@@ -13,7 +13,7 @@ end
 
 # We can use rake tasks like app:db:reset when APP_RAKEFILE set
 unless defined?(APP_RAKEFILE)
-  APP_RAKEFILE = File.expand_path("../spec/dummy/Rakefile", __FILE__)
+  APP_RAKEFILE = File.expand_path("spec/dummy/Rakefile", __dir__)
 end
 
 load "rails/tasks/engine.rake"

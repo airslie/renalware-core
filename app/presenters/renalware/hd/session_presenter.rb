@@ -70,8 +70,8 @@ module Renalware
         post = after_measurement_for(measurement)
         return if pre.blank? || post.blank?
         case pre
-        when ::Float; (post - pre).round(1)
-        when ::Integer; (post - pre)
+        when ::Float then (post - pre).round(1)
+        when ::Integer then (post - pre)
         end
       rescue StandardError => exception
         nil

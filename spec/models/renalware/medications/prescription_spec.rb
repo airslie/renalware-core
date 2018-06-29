@@ -187,7 +187,7 @@ module Renalware
            notes: notes,
            administer_on_hd: administer_on_hd,
            termination: build(:prescription_termination, terminated_on: terminated_on)
-        )
+         )
       end
     end
   end

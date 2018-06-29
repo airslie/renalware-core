@@ -12,10 +12,9 @@ module Document
     end
 
     def self.build_class(type)
-      case
-      when type == Document::Enum
+      if type == Document::Enum
         AttributeInitializer::Enum
-      when type && type.included_modules.include?(::ActiveModel::Model)
+      elsif type&.included_modules&.include?(::ActiveModel::Model)
         AttributeInitializer::ActiveModel
       else
         AttributeInitializer::Base

@@ -6,11 +6,11 @@ module Renalware
       layout "renalware/layouts/error"
 
       def not_found
-        render status: 404, formats: [:html]
+        render status: :not_found, formats: [:html]
       end
 
       def internal_server_error
-        render status: 500, formats: [:html]
+        render status: :internal_server_error, formats: [:html]
       end
 
       def generate_test_internal_server_error

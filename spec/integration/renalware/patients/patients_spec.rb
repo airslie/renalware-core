@@ -135,6 +135,6 @@ RSpec.describe "Managing patients", type: :request do
           town: Faker::Address.city,
           county: Faker::Address.state,
           country: Faker::Address.country
-      )
+        )
   end
 end
