@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Things we are not going to include in RW2.0
 # - PersonToContact

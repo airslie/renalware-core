@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 xml = builder
 
 # TODO: Implement start stop dates

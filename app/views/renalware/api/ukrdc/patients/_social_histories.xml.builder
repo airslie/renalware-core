@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 xml = builder
 
 # Currently only used for smoking for which CodingStandard=RRSMOKE Code=YES/NO/EX

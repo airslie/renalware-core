@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 builder.Name(use: "L") do
   builder.Prefix nameable.title
   builder.Family nameable.family_name

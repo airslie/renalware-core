@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 xml = builder
 
 xml.Treatment do
