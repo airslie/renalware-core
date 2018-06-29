@@ -37,7 +37,7 @@ group :test do
   gem "rspec-html-matchers", "~> 0.9.1"
   gem "rspec-rails", "~> 3.7.0"
   gem "rspec_junit_formatter", "~> 0.3.0"
-  gem "selenium-webdriver"
+  gem "selenium-webdriver", "~> 3.12.0"
   gem "shoulda-matchers", "~> 3.1.2"
   gem "simplecov", "~> 0.16.0", require: false # only loaded if required
   gem "webmock", "~> 3.4.0", require: false
