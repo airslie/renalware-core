@@ -27,7 +27,7 @@ module Renalware
         @letters_in_progress ||= begin
           present_letters(
             Letters::Letter
-              .reverse
+              .reversed
               .where("author_id = ? or created_by_id = ?", user.id, user.id)
               .in_progress
               .includes(:author, :patient, :letterhead)
