@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
   s.add_dependency "delayed_job_active_record", "~> 4.1.2"
   s.add_dependency "delayed_job_web", "~> 1.4.3"
   s.add_dependency "devise", "~> 4.4.0"
-  s.add_dependency "dotenv-rails", "~> 2.4.0"
+  s.add_dependency "dotenv-rails", "~> 2.5.0"
   s.add_dependency "dumb_delegator", "~> 0.8.0"
   s.add_dependency "email_validator", "~> 1.6.0"
   s.add_dependency "enumerize", "~> 2.2.2"
@@ -68,7 +68,7 @@ Gem::Specification.new do |s|
   s.add_dependency "pg", "~> 1.0.0"
   s.add_dependency "puma", "~> 3.11.2"
   s.add_dependency "pundit", "~> 1.1.0"
-  s.add_dependency "rack-attack", "~> 5.2.0"
+  s.add_dependency "rack-attack", "~> 5.3.0"
   s.add_dependency "rails", "5.1.6"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
   s.add_dependency "rails-assets-select2", "~> 4.0.2"
