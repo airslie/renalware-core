@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 xml = builder
 
 # From National MIM H=Home TMP=Temporary PST=Postal

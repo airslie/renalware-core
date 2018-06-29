@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 xml = builder
 
 xml.SendingFacility Renalware.config.ukrdc_sending_facility_name,

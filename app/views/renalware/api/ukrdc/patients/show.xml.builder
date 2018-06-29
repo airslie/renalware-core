@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # See
 # https://www.ukrdc.org/2015/09/15/ukrdc-schema/
 # https://github.com/renalreg/ukrdc

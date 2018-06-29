@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 xml = builder
 
 i18n_key ||= method

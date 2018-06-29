@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 xml = builder
 observation = Renalware::Pathology::ObservationPresenter.new(observation)
 observation = Renalware::UKRDC::PathologyObservationPresenter.new(observation)

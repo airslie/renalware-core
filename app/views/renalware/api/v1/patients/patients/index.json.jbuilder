@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def modify_query(url, options={})
   uri = URI(url)
   query_hash = Rack::Utils.parse_query(uri.query)

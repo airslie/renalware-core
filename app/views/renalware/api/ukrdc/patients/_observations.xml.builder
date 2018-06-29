@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # What are observations in RW?
 # - clinic visit
 #   - weight

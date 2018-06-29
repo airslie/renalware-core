@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # See HL7 spec http://pacs.hk/Doc/HL7/Hl7V231.pdf
 
 # A Note about PlacerId
