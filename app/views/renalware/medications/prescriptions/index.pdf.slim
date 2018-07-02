@@ -1,148 +1,39 @@
-scss:
-  html {
-    overflow: hidden;
-    font-family: Helvetica, Arial;
-    font-size: 13px;
-  }
+html
+  meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+  meta charset="utf-8" /
 
-  ul {
-    padding-left: 0;
-    list-style-position: inside;
-    line-height: 1.3em;
-    list-style-type: none;
-  }
+  head
+    = wicked_pdf_stylesheet_link_tag "renalware/medications_pdf"
 
-  dl {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 1.3em;
+  heading
+    .our-ref= "RW ref: #{patient.hospital_identifier}"
 
-    p {
-      padding-left: 0;
-    }
+    span.logo= wicked_pdf_image_tag "renalware/NHS-Black.jpg", width: 50
 
-    dt,
-    dd {
-      font-weight: normal;
-    }
+  main
+    h1 Medication List
+    = "As at #{l(Time.zone.now)}"
 
-    dt {
-      font-weight: bold;
-      float: left;
-      width: 9rem;
-      overflow: hidden;
-      clear: left;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      margin-bottom: 0;
-    }
-
-    dd {
-      margin-left: 9rem + 1rem;
-      margin-bottom: 0;
-
-      &:before {
-        content: " ";
-        display: table;
-      }
-
-      &:after {
-        content: " ";
-        display: table;
-        clear: both;
-      }
-    }
-  }
-
-  heading {
-    text-align: right;
-
-    .our-ref {
-      float: left;
-      font-weight: normal;
-      font-size: 0.8em;
-      color: #666;
-    }
-
-    .trust {
-      float: right;
-      margin-right: 1em;
-      .title {
-        font-size: 1.5em;
-      }
-    }
-
-    .logo {
-      float: right;
-    }
-  }
-
-  main {
-    clear: both;
-    display: block;
-    padding-top: 1em;
-
-    h1 {
-      margin-bottom: 0.2em;
-      padding-bottom: 0em;
-    }
-
-    section {
-      margin: 2em 0;
-    }
-  }
-
-  .prescriptions {
-    .prescription {
-      font-weight: normal;
-
-      &.recently_changed {
-        font-weight: bold;
-      }
-    }
-  }
-
-heading
-  .our-ref= "RW ref: #{patient.hospital_identifier}"
-
-  span.logo= wicked_pdf_image_tag "renalware/NHS-Black.jpg", width: 50
-  / .trust
-  /   .title Barts and the London
-  /   span NHS Trust
-
-main
-
-  h1 Medication List
-  = "As at #{l(Time.zone.now)}"
-
-  section
-    dl
-      dt Name
-      dd= patient.to_s
-      dt Date of Birth
-      dd= l(patient.born_on)
-      dt NHS Number
-      dd= patient.nhs_number
-      dt Hospital no
-      dd= patient.hospital_identifier
-
-  section
-    h3 Allergies
-    - allergies = Renalware::Clinical.cast_patient(patient).allergies
-    - if allergies.any?
-      ul.allergies
-        - allergies.each do |allergy|
-          li= allergy.description
-    - else
-      p None
-
-  section.prescriptions
     - with_format(:html) do
-      = render "current",
-               prescriptions: current_prescriptions,
-               recently_changed: recently_changed_prescriptions
+      = render "patient_details", patient: patient
 
-  section.prescriptions
-    - with_format(:html) do
-      = render "recently_stopped",
-               prescriptions: recently_stopped_prescriptions
+    section
+      h3 Allergies
+      - allergies = Renalware::Clinical.cast_patient(patient).allergies
+      - if allergies.any?
+        ul.allergies
+          - allergies.each do |allergy|
+            li= allergy.description
+      - else
+        p None
+
+    section.prescriptions
+      - with_format(:html) do
+        = render "current",
+                prescriptions: current_prescriptions,
+                recently_changed: recently_changed_prescriptions
+
+    section.prescriptions
+      - with_format(:html) do
+        = render "recently_stopped",
+                prescriptions: recently_stopped_prescriptions

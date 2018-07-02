@@ -9,5 +9,11 @@ FactoryBot.define do
         instance.drug_types << create(:drug_type, :immunosuppressant)
       end
     end
+
+    trait :esa do
+      after(:create) do |instance|
+        instance.drug_types << create(:drug_type, :esa)
+      end
+    end
   end
 end

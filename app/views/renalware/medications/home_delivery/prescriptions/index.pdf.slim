@@ -1,0 +1,21 @@
+html
+  meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+  meta charset="utf-8" /
+
+  head
+    = wicked_pdf_stylesheet_link_tag "renalware/medications_pdf"
+  heading
+    .our-ref= "RW ref: #{patient.hospital_identifier}"
+    span.logo= wicked_pdf_image_tag "renalware/NHS-Black.jpg", width: 50
+  main
+    h1 Home Delivery Medication List
+    = "As at #{l(Time.zone.now)}"
+
+    - with_format(:html) do
+      = render "renalware/medications/prescriptions/patient_details", patient: patient
+
+    section.prescriptions
+      - with_format(:html) do
+        = render "renalware/medications/prescriptions/current",
+                  prescriptions: prescriptions,
+                  recently_changed: []

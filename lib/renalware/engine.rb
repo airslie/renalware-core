@@ -127,6 +127,8 @@ module Renalware
       app.config.assets.precompile += %w(renalware/iframeResizer.contentWindow.js)
       app.config.assets.precompile += %w(renalware/pdf.css renalware/watermark.css)
       app.config.assets.precompile += %w(renalware/protocol_pdf.css)
+      app.config.assets.precompile += %w(renalware/medications_pdf.css)
+      app.config.assets.precompile += %w(renalware/medications/prescriptions_pdf.css)
       app.config.assets.precompile += %w(renalware/hd_diary_pdf.css)
       app.config.assets.precompile += %w(renalware/table_pdf.css)
       app.config.assets.precompile += %w(
