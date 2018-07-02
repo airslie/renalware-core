@@ -14,7 +14,7 @@ RSpec.describe "Simulation of Mirth inserting an HL7 message into delayed_jobs" 
     <<-RAW.strip_heredoc
      MSH| on the the folowing OBX line is required in the this test
      OBX|1|TX|WBC^WBC^MB||6.09|10\\S\\12/L|||||F|||200911112026||BBKA^Donald DUCK|
-   RAW
+    RAW
   end
 
   def simulate_mirth_inserting_a_new_hl7_message_into_delayed_jobs

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Naming/HeredocDelimiterNaming
 require "rails_helper"
 require "document/enum"
 
@@ -31,6 +30,7 @@ module Document
         end
 
         context "without given enums" do
+          # rubocop:disable Naming/HeredocDelimiterNaming
           let(:translations) do
             Psych.load(<<-EOF)
               enumerize:
@@ -41,6 +41,7 @@ module Document
                     three: three
             EOF
           end
+          # rubocop:enable Naming/HeredocDelimiterNaming
 
           before do
             with_translations(:"en-GB", translations) do

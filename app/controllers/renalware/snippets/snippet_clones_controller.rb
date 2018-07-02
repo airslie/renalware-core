@@ -9,8 +9,8 @@ require_dependency "renalware/snippets"
 module Renalware
   module Snippets
     class SnippetClonesController < BaseController
-      COPY_SUFFIX = "[COPY]".freeze
-      CLONE_SUFFIX = "[CLONE]".freeze
+      COPY_SUFFIX = "[COPY]"
+      CLONE_SUFFIX = "[CLONE]"
 
       def create
         snippet = duplicate_current_snippet

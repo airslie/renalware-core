@@ -13,8 +13,8 @@ module Renalware
       output = tag(:article, options, true)
       if title.present?
         output.safe_concat(
-          content_tag("header".freeze) do
-            content_tag("h1".freeze, title)
+          content_tag("header") do
+            content_tag("h1", title)
           end
         )
       end

@@ -348,7 +348,7 @@ module World
         if ccs.present?
           within "#letter-ccs" do
             ccs.each do |cc|
-              #find("#cc-contact-#{cc.id}").click
+              # find("#cc-contact-#{cc.id}").click
               find("#cc-contact-#{cc.id}").click
             end
           end

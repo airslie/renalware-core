@@ -16,7 +16,6 @@ module Renalware
       #   values.hgb_observed_at # => "2017-17-01"
       # So the values has methods corresponding to the entire set of possible
       # OBX codes, and also methods to reach in and get their result and observed_at date.
-      # rubocop:disable Style/MethodMissing
       def method_missing(method_name, *_args, &_block)
         code, suffix = method_parts(method_name)
         if VALID_SUFFIXES.include?(suffix) || AllObservationCodes.include?(code)

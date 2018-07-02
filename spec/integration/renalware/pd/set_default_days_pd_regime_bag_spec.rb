@@ -15,7 +15,7 @@ module Renalware
                           thursday: false,
                           friday: true,
                           saturday: false
-                              )
+                        )
       login_as_clinical
     end
 

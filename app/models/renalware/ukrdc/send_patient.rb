@@ -99,7 +99,7 @@ module Renalware
         def time_neutral_payload
           payload
             .gsub(/<Stream>[^<]*<\/Stream>/, "<Stream>removed</Stream>")
-            .gsub(/ (time|start|stop)=["'][^'"]*['"]/, '')
+            .gsub(/ (time|start|stop)=["'][^'"]*['"]/, "")
             .gsub(/<UpdatedOn>[^<]*<\/UpdatedOn>/, "<UpdatedOn>removed</UpdatedOn>")
         end
       end

@@ -107,7 +107,7 @@ module Document
     include ActiveModel::Model
     include ActiveModel::Validations::Callbacks
     extend Enumerize
-    STRIPPABLE_TYPES = %w(Float Integer)
+    STRIPPABLE_TYPES = %w(Float Integer).freeze
 
     before_validation :strip_leading_trailing_whitespace_from_numbers
 
