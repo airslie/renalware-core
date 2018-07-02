@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "./providers"
 require_relative "./dialysates"
 require_relative "./francois"
 require_relative "./diurnal_period_codes"

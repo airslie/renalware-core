@@ -2440,6 +2440,67 @@ ALTER SEQUENCE hd_profiles_id_seq OWNED BY hd_profiles.id;
 
 
 --
+-- Name: hd_provider_units; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE hd_provider_units (
+    id bigint NOT NULL,
+    hospital_unit_id bigint NOT NULL,
+    hd_provider_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_provider_units_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE hd_provider_units_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_provider_units_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE hd_provider_units_id_seq OWNED BY hd_provider_units.id;
+
+
+--
+-- Name: hd_providers; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE hd_providers (
+    id bigint NOT NULL,
+    name character varying
+);
+
+
+--
+-- Name: hd_providers_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE hd_providers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_providers_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE hd_providers_id_seq OWNED BY hd_providers.id;
+
+
+--
 -- Name: hd_schedule_definitions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -2613,6 +2674,46 @@ CREATE SEQUENCE hd_stations_id_seq
 --
 
 ALTER SEQUENCE hd_stations_id_seq OWNED BY hd_stations.id;
+
+
+--
+-- Name: hd_transmission_logs; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE hd_transmission_logs (
+    id bigint NOT NULL,
+    direction character varying NOT NULL,
+    format character varying NOT NULL,
+    status character varying,
+    hd_provider_unit_id bigint,
+    patient_id bigint,
+    filepath character varying,
+    payload text,
+    result jsonb DEFAULT '{}'::jsonb,
+    error text,
+    transmitted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_transmission_logs_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE hd_transmission_logs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_transmission_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE hd_transmission_logs_id_seq OWNED BY hd_transmission_logs.id;
 
 
 --
@@ -5601,7 +5702,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -5680,7 +5781,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -7400,6 +7501,20 @@ ALTER TABLE ONLY hd_profiles ALTER COLUMN id SET DEFAULT nextval('hd_profiles_id
 
 
 --
+-- Name: hd_provider_units id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_provider_units ALTER COLUMN id SET DEFAULT nextval('hd_provider_units_id_seq'::regclass);
+
+
+--
+-- Name: hd_providers id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_providers ALTER COLUMN id SET DEFAULT nextval('hd_providers_id_seq'::regclass);
+
+
+--
 -- Name: hd_schedule_definitions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -7425,6 +7540,13 @@ ALTER TABLE ONLY hd_station_locations ALTER COLUMN id SET DEFAULT nextval('hd_st
 --
 
 ALTER TABLE ONLY hd_stations ALTER COLUMN id SET DEFAULT nextval('hd_stations_id_seq'::regclass);
+
+
+--
+-- Name: hd_transmission_logs id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_transmission_logs ALTER COLUMN id SET DEFAULT nextval('hd_transmission_logs_id_seq'::regclass);
 
 
 --
@@ -8564,6 +8686,22 @@ ALTER TABLE ONLY hd_profiles
 
 
 --
+-- Name: hd_provider_units hd_provider_units_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_provider_units
+    ADD CONSTRAINT hd_provider_units_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_providers hd_providers_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_providers
+    ADD CONSTRAINT hd_providers_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: hd_schedule_definitions hd_schedule_definitions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -8593,6 +8731,14 @@ ALTER TABLE ONLY hd_station_locations
 
 ALTER TABLE ONLY hd_stations
     ADD CONSTRAINT hd_stations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_transmission_logs hd_transmission_logs_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_transmission_logs
+    ADD CONSTRAINT hd_transmission_logs_pkey PRIMARY KEY (id);
 
 
 --
@@ -10510,6 +10656,27 @@ CREATE INDEX index_hd_profiles_on_updated_by_id ON hd_profiles USING btree (upda
 
 
 --
+-- Name: index_hd_provider_units_on_hd_provider_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_provider_units_on_hd_provider_id ON hd_provider_units USING btree (hd_provider_id);
+
+
+--
+-- Name: index_hd_provider_units_on_hd_provider_id_and_hospital_unit_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_provider_units_on_hd_provider_id_and_hospital_unit_id ON hd_provider_units USING btree (hd_provider_id, hospital_unit_id);
+
+
+--
+-- Name: index_hd_provider_units_on_hospital_unit_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_provider_units_on_hospital_unit_id ON hd_provider_units USING btree (hospital_unit_id);
+
+
+--
 -- Name: index_hd_schedule_definitions_on_days; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -10675,6 +10842,55 @@ CREATE INDEX index_hd_stations_on_position ON hd_stations USING btree ("position
 --
 
 CREATE INDEX index_hd_stations_on_updated_by_id ON hd_stations USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_transmission_logs_on_direction; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_transmission_logs_on_direction ON hd_transmission_logs USING btree (direction);
+
+
+--
+-- Name: index_hd_transmission_logs_on_format; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_transmission_logs_on_format ON hd_transmission_logs USING btree (format);
+
+
+--
+-- Name: index_hd_transmission_logs_on_hd_provider_unit_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_transmission_logs_on_hd_provider_unit_id ON hd_transmission_logs USING btree (hd_provider_unit_id);
+
+
+--
+-- Name: index_hd_transmission_logs_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_transmission_logs_on_patient_id ON hd_transmission_logs USING btree (patient_id);
+
+
+--
+-- Name: index_hd_transmission_logs_on_result; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_transmission_logs_on_result ON hd_transmission_logs USING gin (result);
+
+
+--
+-- Name: index_hd_transmission_logs_on_status; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_transmission_logs_on_status ON hd_transmission_logs USING btree (status);
+
+
+--
+-- Name: index_hd_transmission_logs_on_transmitted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_transmission_logs_on_transmitted_at ON hd_transmission_logs USING btree (transmitted_at);
 
 
 --
@@ -13790,6 +14006,14 @@ ALTER TABLE ONLY letter_contacts
 
 
 --
+-- Name: hd_transmission_logs fk_rails_a5be9977b1; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_transmission_logs
+    ADD CONSTRAINT fk_rails_a5be9977b1 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: hd_patient_statistics fk_rails_a654a17f8d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -13803,6 +14027,14 @@ ALTER TABLE ONLY hd_patient_statistics
 
 ALTER TABLE ONLY pd_regimes
     ADD CONSTRAINT fk_rails_a70920e237 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: hd_provider_units fk_rails_a75dd1db4c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_provider_units
+    ADD CONSTRAINT fk_rails_a75dd1db4c FOREIGN KEY (hd_provider_id) REFERENCES hd_providers(id);
 
 
 --
@@ -14163,6 +14395,14 @@ ALTER TABLE ONLY hd_profiles
 
 ALTER TABLE ONLY access_plans
     ADD CONSTRAINT fk_rails_d944a58ba2 FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
+-- Name: hd_provider_units fk_rails_dae8c41b41; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_provider_units
+    ADD CONSTRAINT fk_rails_dae8c41b41 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
 
 
 --
@@ -14531,6 +14771,14 @@ ALTER TABLE ONLY medication_prescription_terminations
 
 ALTER TABLE ONLY low_clearance_profiles
     ADD CONSTRAINT fk_rails_ff7b848263 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: hd_transmission_logs fk_rails_ff7cf72650; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_transmission_logs
+    ADD CONSTRAINT fk_rails_ff7cf72650 FOREIGN KEY (hd_provider_unit_id) REFERENCES hd_provider_units(id);
 
 
 --
@@ -15166,6 +15414,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180622130552'),
 ('20180625124431'),
 ('20180628132323'),
+('20180702091222'),
+('20180702091237'),
+('20180702091352'),
 ('20180712143314'),
 ('20180718172750'),
 ('20180725132557'),
