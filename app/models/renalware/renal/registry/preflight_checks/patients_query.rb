@@ -11,11 +11,13 @@ module Renalware
           MODALITY_NAMES = %w(HD PD Transplant).freeze
           attr_reader :relation, :query_params
 
+          # rubocop:disable Lint/UnusedMethodArgument
           def initialize(relation: nil, query_params: {})
             @relation ||= default_relation
             @query_params = query_params
             @query_params[:s] = "modality_descriptions_name ASC" if @query_params[:s].blank?
           end
+          # rubocop:enable Lint/UnusedMethodArgument
 
           # The way I understand Ransack is that if you use a query like profile_esrf_gt
           # (that's the RenalProfile in this case as we are dealing with a Renal::Patient)
@@ -51,8 +53,6 @@ module Renalware
           def search
             @search ||= relation.ransack(query_params)
           end
-
-          protected
 
           def where_conditions
             <<-SQL.squish
