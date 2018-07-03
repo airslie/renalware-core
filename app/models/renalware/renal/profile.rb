@@ -17,7 +17,7 @@ module Renalware
 
       has_document class_name: "Renalware::Renal::ProfileDocument"
 
-      validates :patient, presence: true
+      validates :patient, presence: true, uniqueness: true
       validates :esrf_on, timeliness: { type: :date, allow_nil: true }, allow_blank: true
       validates :first_seen_on,
                 timeliness: {

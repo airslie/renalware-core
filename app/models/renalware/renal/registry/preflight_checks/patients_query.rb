@@ -17,25 +17,42 @@ module Renalware
             @query_params[:s] = "modality_descriptions_name ASC" if @query_params[:s].blank?
           end
 
+          # The way I understand Ransack is that if you use a query like profile_esrf_gt
+          # (that's the RenalProfile in this case as we are dealing with a Renal::Patient)
+          # it will do the left out join itself onto renal_profiles.
+          # At one point I did a manual join onto renal_profiles here like this
+          # .joins("LEFT OUTER JOIN renal_profiles ON renal_profiles.patient_id = patients.id")
+          # but that only worked when there was no search predicate passed; when you pass eg
+          # profile_esrf_gt it joins onto renal_profiles again and you get a duplicate join.
+          # However using left_outer_joins here somehow prevents a duplicate join;
+          # one join onto renal_profiles is there whether there is a renal_profile_esrf_gt present
+          # or not. However it ONLY works if you use left_outer_joins BEFORE calling .ransack
+          # - calling it afterwards (in #call below) still results in a duplicate join IF
+          # renal_profile_esrf_gt is present in the query.
+          #
+          # I have to say, ransack eats up a lot of time and presents a lot of cognitive friction.
+          # Building a custom form object would have shaved an hour off the writing (mainly
+          # debugging) of this code.
+          #
           def default_relation
-            Renalware::Patient
-              .preload(current_modality: [:description])
-              .all
+            Renalware::Renal::Patient.left_outer_joins(:profile)
           end
 
           def call
             search
               .result
+              .joins("LEFT OUTER JOIN hd_profiles ON hd_profiles.patient_id = patients.id")
               .extending(ModalityScopes)
+              .preload(current_modality: [:description])
               .with_current_modality_matching(MODALITY_NAMES)
-              .merge(HD::Patient.with_profile)
-              .joins("LEFT OUTER JOIN renal_profiles ON renal_profiles.patient_id = patients.id")
               .where(where_conditions)
           end
 
           def search
             @search ||= relation.ransack(query_params)
           end
+
+          protected
 
           def where_conditions
             <<-SQL.squish

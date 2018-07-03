@@ -19,18 +19,15 @@ module Renalware
           end
 
           def default_relation
-            Renalware::Patient
-              .preload(current_modality: [:description])
-              .all
-              .order(family_name: :asc)
+            Renalware::Renal::Patient.left_outer_joins(:profile)
           end
 
           def call
             search
               .result
               .extending(ModalityScopes)
+              .preload(current_modality: [:description])
               .with_current_modality_matching(MODALITY_NAMES)
-              .joins("LEFT OUTER JOIN renal_profiles ON renal_profiles.patient_id = patients.id")
               .where("patients.first_cause_id is NULL AND renal_profiles.esrf_on IS NOT NULL")
           end
 

@@ -1,0 +1,13 @@
+= simple_form_for query,
+                  url: url,
+                  method: :get,
+                  html: { autocomplete: "off" },
+                  wrapper: :horizontal_form do |f|
+  .row
+    .medium-4.columns
+      = f.input :profile_esrf_on_gteq, as: :date_picker, label: "ESRF after"
+
+    .medium-4.columns.actions.end
+      = f.submit t("helpers.submit.filter"), class: "button", name: nil
+      span= " or "
+      = link_to t("helpers.reset"), url

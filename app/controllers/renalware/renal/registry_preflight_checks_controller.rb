@@ -18,6 +18,10 @@ module Renalware
             Renalware::HD.cast_patient(__getobj__)&.hd_profile&.hospital_unit&.unit_code
           end
         end
+
+        def renal_profile
+          Renalware::Renal.cast_patient(__getobj__).profile
+        end
       end
 
       class DeceasedPatientPresenter < SimpleDelegator
@@ -26,12 +30,16 @@ module Renalware
         end
 
         def hd_unit; end
+
+        def renal_profile
+          Renalware::Renal.cast_patient(__getobj__).profile
+        end
       end
 
       def patients
         authorize [:renalware, :renal, :registry_preflight_check], :patients?
         query = Registry::PreflightChecks::PatientsQuery.new(
-          query_params: params.fetch(:q, {})
+          query_params: params.fetch(:q, { profile_esrf_on_gteq: 3.years.ago })
         )
         patients = query.call.page(page).per(per_page)
         patients = CollectionPresenter.new(patients, PatientPresenter)
@@ -41,7 +49,7 @@ module Renalware
       def deaths
         authorize [:renalware, :renal, :registry_preflight_check], :deaths?
         query = Registry::PreflightChecks::DeathsQuery.new(
-          query_params: params.fetch(:q, {})
+          query_params: params.fetch(:q, { profile_esrf_on_gteq: 3.years.ago })
         )
         patients = query.call.page(page).per(per_page)
         patients = CollectionPresenter.new(patients, DeceasedPatientPresenter)
