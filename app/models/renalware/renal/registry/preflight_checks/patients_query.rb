@@ -34,13 +34,18 @@ module Renalware
           # Building a custom form object would have shaved an hour off the writing (mainly
           # debugging) of this code.
           #
+          # Update: moved loading of profile to #call.
+          # Having it in #default_relation leads to a duplicate alias if sorting on esrf for
+          # instance. Having to use .eager_load(:profile) in #call. However this creates n+1
+          # queries. Ransack again creating more confusion...
           def default_relation
-            Renalware::Renal::Patient.left_outer_joins(:profile)
+            Renalware::Renal::Patient.all
           end
 
           def call
             search
               .result
+              .eager_load(:profile)
               .joins("LEFT OUTER JOIN hd_profiles ON hd_profiles.patient_id = patients.id")
               .extending(ModalityScopes)
               .preload(current_modality: [:description])

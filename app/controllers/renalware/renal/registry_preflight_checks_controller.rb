@@ -38,9 +38,7 @@ module Renalware
 
       def patients
         authorize [:renalware, :renal, :registry_preflight_check], :patients?
-        query = Registry::PreflightChecks::PatientsQuery.new(
-          query_params: params.fetch(:q, { profile_esrf_on_gteq: 3.years.ago })
-        )
+        query = Registry::PreflightChecks::PatientsQuery.new(query_params: query_params)
         patients = query.call.page(page).per(per_page)
         patients = CollectionPresenter.new(patients, PatientPresenter)
         render locals: { patients: patients, query: query.search }
@@ -48,12 +46,18 @@ module Renalware
 
       def deaths
         authorize [:renalware, :renal, :registry_preflight_check], :deaths?
-        query = Registry::PreflightChecks::DeathsQuery.new(
-          query_params: params.fetch(:q, { profile_esrf_on_gteq: 3.years.ago })
-        )
+        query = Registry::PreflightChecks::DeathsQuery.new(query_params: query_params)
         patients = query.call.page(page).per(per_page)
         patients = CollectionPresenter.new(patients, DeceasedPatientPresenter)
         render locals: { patients: patients, query: query.search }
+      end
+
+      private
+
+      def query_params
+        qparams = params.fetch(:q, {})
+        qparams[:profile_esrf_on_gteq] ||= 3.years.ago
+        qparams
       end
     end
   end

@@ -1,5 +1,8 @@
 = within_admin_layout(title: "Renal Registry Return: Preflight Checks") do
-  = render "filters", query: query, url: deaths_renal_registry_preflight_checks_path
+  = render "filters",
+           query: query,
+           url: deaths_renal_registry_preflight_checks_path,
+           display_modality_filter: false
   = render "navigation"
   = render "table", patients: patients, query: query
   = paginate patients
