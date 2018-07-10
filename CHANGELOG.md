@@ -9,6 +9,16 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.38
+10-07-2018
+
+### Fixed
+### Added
+- Add Additional Information section to HD MDM
+- Add ESRF date and modality filters to Renal Reg preflight checks
+### Changed
+- Strip white space around jsonb documents
+
 ## 2.0.37
 28-06-2018
 
