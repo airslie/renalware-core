@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.37)
+    renalware-core (2.0.38)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.22.0)
       ahoy_matey (~> 2.0.1)
@@ -302,8 +302,8 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    js_regex (2.2.1)
-      regexp_parser (>= 0.4.11, <= 0.5.0)
+    js_regex (2.2.2)
+      regexp_parser (>= 0.5.0, <= 0.6.0)
     json (2.1.0)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
@@ -544,7 +544,7 @@ GEM
       rails (> 4.1, < 5.2)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.12)
+    uglifier (4.1.14)
       execjs (>= 0.3.0, < 3)
     underscore-rails (1.8.3)
     unicode (0.4.4.4)
