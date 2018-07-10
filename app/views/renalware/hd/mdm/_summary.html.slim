@@ -1,0 +1,21 @@
+article
+  header
+    h2 Additional Information
+
+  dl.dl-horizontal.xlarge
+    dt Latest Pre mean BP
+    - if mdm.rolling_audit.present?
+      dd= "#{mdm.rolling_audit.pre_mean_systolic_blood_pressure.to_i} / #{mdm.rolling_audit.pre_mean_diastolic_blood_pressure.to_i}"
+    dt Latest Post mean BP
+    - if mdm.rolling_audit.present?
+      dd= "#{mdm.rolling_audit.post_mean_systolic_blood_pressure.to_i} / #{mdm.rolling_audit.post_mean_diastolic_blood_pressure.to_i}"
+
+    dt Latest URR
+    dd
+      - obs = mdm.current_pathology_for_code("URR")
+      = obs.value
+      | &nbsp;&nbsp;
+      = "(#{l(obs.date)})" if obs.date.present?
+
+    dt Transplant status
+    dd= mdm.transplant_status

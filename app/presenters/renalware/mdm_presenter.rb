@@ -108,6 +108,26 @@ module Renalware
       CollectionPresenter.new(letters_, Renalware::Letters::LetterPresenterFactory)
     end
 
+    def current_pathology_for_code(code)
+      result = OpenStruct.new(value: nil, date: nil)
+      hash = patient.current_observation_set&.values_for_codes(code) || {}
+      obs = hash[code]
+      if obs.present?
+        result.value = obs["result"]
+        result.date = obs["observed_at"]
+        result.date = Date.parse(result.date)
+      end
+      result
+    end
+
+    def transplant_status
+      Renalware::Transplants::Registration.for_patient(patient)
+        .first
+        &.current_status
+        &.description
+        &.name
+    end
+
     private
 
     def pathology_descriptions_for_codes(codes)
@@ -137,3 +157,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

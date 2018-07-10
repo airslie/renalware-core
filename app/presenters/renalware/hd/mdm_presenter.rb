@@ -50,6 +50,10 @@ module Renalware
       def audits
         @audits ||= PatientStatistics.for_patient(patient).limit(6).ordered
       end
+
+      def rolling_audit
+        @rolling_audit ||= audits.find_by(rolling: true)
+      end
     end
   end
 end
