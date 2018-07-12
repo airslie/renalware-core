@@ -104,8 +104,7 @@ RSpec.describe "Managing bookmarks", type: :request do
       get bookmarks_path
 
       expect(response).to be_success
-
-      expect(response.body).to match("Bookmarks")
+      expect(response.body).to match("Bookmarked Patients")
       expect(response.body).to match(bookmarks[0].patient.to_s)
       expect(response.body).to match(bookmarks[1].patient.to_s)
       expect(response.body).not_to match(bookmarks[2].patient.to_s)
