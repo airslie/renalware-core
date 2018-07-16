@@ -30,6 +30,7 @@ module Renalware
               .reverse
               .where("author_id = ? or created_by_id = ?", user.id, user.id)
               .in_progress
+              .includes(:author, :patient, :letterhead)
           )
           # Renalware::Letters.cast_author(user)
         end
@@ -37,14 +38,21 @@ module Renalware
 
       def unread_messages_receipts
         @unread_messages_receipts ||= begin
-          receipts = Messaging::Internal.cast_recipient(user).receipts.unread
+          receipts = Messaging::Internal.cast_recipient(user)
+            .receipts
+            .includes(message: [:author, :patient])
+            .unread
           CollectionPresenter.new(receipts, Messaging::Internal::ReceiptPresenter)
         end
       end
 
       def unread_electronic_ccs
         @unread_electronic_ccs ||= begin
-          receipts = Letters::ElectronicReceipt.unread.for_recipient(user.id).ordered
+          receipts = Letters::ElectronicReceipt
+            .includes(letter: [:patient, :author, :letterhead])
+            .unread
+            .for_recipient(user.id)
+            .ordered
           CollectionPresenter.new(receipts, Letters::ElectronicReceiptPresenter)
         end
       end
