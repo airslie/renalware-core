@@ -10,6 +10,10 @@ module Renalware
       belongs_to :hd_provider_unit, class_name: "ProviderUnit"
       validates :direction, presence: true
       validates :format, presence: true
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end

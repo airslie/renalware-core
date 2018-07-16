@@ -17,3 +17,4 @@ admin:
   - Renalware::PRDDescription
   - Renalware::Hospitals::Unit
   - Renalware::HD::Station
+  - Renalware::HD::TransmissionLog

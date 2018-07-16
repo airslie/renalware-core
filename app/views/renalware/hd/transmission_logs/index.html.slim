@@ -1,0 +1,18 @@
+= within_admin_layout(title: "HD Transmission Logs") do
+  .hd_transmission_logs
+    table
+      thead
+        tr
+          th.col-width-date-time Date
+          th.col-width-tiny Direction
+          th.col-width-tiny Format
+          th Payload
+      tbody
+        - logs.each do |log|
+          tr
+            td= l(log.created_at)
+            td= log.direction
+            td= log.format
+            td= log.payload
+
+    = paginate logs
