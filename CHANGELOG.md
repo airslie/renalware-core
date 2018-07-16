@@ -9,6 +9,17 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.39
+16-07-2018
+
+### Fixed
+### Added
+- Ability to hide a modality so it cannot be added to a patient #2318
+- Ability to view all bookmarks #2324
+- Added events to bottom of all MDMs #2323
+- Add Additional Info section to a PD MDM #2322
+### Changed
+
 ## 2.0.38
 10-07-2018
 
