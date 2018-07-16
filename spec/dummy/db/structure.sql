@@ -3403,7 +3403,8 @@ CREATE TABLE modality_descriptions (
     type character varying,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    hidden boolean DEFAULT false NOT NULL
 );
 
 
@@ -15094,6 +15095,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180605114332'),
 ('20180605141806'),
 ('20180605175211'),
-('20180628132323');
+('20180628132323'),
+('20180712143314');
 
 

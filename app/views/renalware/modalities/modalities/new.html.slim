@@ -13,10 +13,11 @@
         .large-9.columns
           = field_set_tag "", class: "borderless" do
 
-              = m.association :description,
-                  input_html: { id: "modality-description-select" },
-                  label_method: :name, value_method: :id,
-                  wrapper: :horizontal_medium
+              = m.input :description_id,
+                        collection: Renalware::Modalities::Description.where(hidden: false),
+                        input_html: { id: "modality-description-select" },
+                        label_method: :name, value_method: :id,
+                        wrapper: :horizontal_medium
 
               .hide-death
                 = m.input :modal_change_type,
