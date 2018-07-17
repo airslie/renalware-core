@@ -1,12 +1,12 @@
 table.report
   thead
     tr
-      th.noprint.col-width-11
+      th.noprint.col-width-13
       th.col-width-medium= sort_link([:renalware, query], :patient_family_name, "Patient")
-      th.col-width-tiny Hosp No
+      th.col-width-reference-no Hosp No
       th= sort_link([:renalware, query], :patient_born_on, "Age")
       th= sort_link([:renalware, query], :patient_sex, "Sex")
-      th Current Modality
+      th.col-width-tiny Current Modality
       th= sort_link([:renalware, query], :hospital_unit_name, "Unit")
       th.col-width-date= sort_link([:renalware, query], :performed_on, "Date")
       th.col-width-time= sort_link([:renalware, query], :start_time, "Start Time")
