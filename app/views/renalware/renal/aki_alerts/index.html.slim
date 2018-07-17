@@ -3,7 +3,7 @@
   / An alternative to what we have used here is to use
   /   url_for(request.filtered_parameters&.merge({format: :pdf})
   / however this seems to loose the ransack sort option in  params[:q][:s]
-  = link_to(renal_filtered_aki_alerts_path(q: params[:q]&.permit!, format: :pdf), class: "button secondary") do
+  = link_to(renal_aki_alerts_path(q: params[:q]&.permit!, format: :pdf), class: "button secondary") do
     i.fa.fa-print
     | Print (PDF)
 

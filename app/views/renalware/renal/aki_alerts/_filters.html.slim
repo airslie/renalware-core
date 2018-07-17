@@ -4,36 +4,47 @@ ruby:
     suspended: "All"
   }
 
-h2.print-only= filters[path_params[:named_filter].to_sym]
 
-dl.sub-nav
-  - Renalware::Renal::AKI_ALERT_FILTERS.each do |key|
-    - options = path_params.merge(named_filter: key).to_h.symbolize_keys
-    - path = Renalware::Engine.routes.url_for(options.merge!(only_path: true))
-    = sub_nav_item(key.to_s.humanize, path)
+/h2.print-only= filters[path_params[:named_filter].to_sym]
+
+/ dl.sub-nav
+/   - Renalware::Renal::AKI_ALERT_FILTERS.each do |key|
+/     - options = path_params.merge(named_filter: key).to_h.symbolize_keys
+/     - path = Renalware::Engine.routes.url_for(options.merge!(only_path: true))
+/     = sub_nav_item(key.to_s.humanize, path)
 
 .search-form.filters
   = simple_form_for form,
       as: :q,
-      url: renal_filtered_aki_alerts_path,
+      url: renal_aki_alerts_path,
       method: :get do |f|
 
     .row
-      .columns.medium-2.large-3
-        = f.input :term, label: "Hosp/NHS no or name"
+      .columns.medium-4.large-3
+        = f.input :term, label: "Hospital/NHS number or name"
+    .row
+      .columns.medium-2.large-2
+        = f.input :date, as: :date_picker
+        a.set_filter_date_to_today(href="") Today
+        | &nbsp;|&nbsp;
+        a.set_filter_date_to_any_date(href="") Any date
       .columns.medium-1.large-1
         = f.input :on_hotlist,
-                  collection: [["Yes",true],["No",false]]
+                  collection: [["Yes",true],["No",false]],
+                  label: "Hotlist"
       .columns.medium-2.large-2
         = f.input :action,
                   collection: Renalware::Renal::AKIAlertAction.pluck(:name, :id)
       .columns.medium-3.large-2
         = f.input :hospital_unit_id,
-                  collection: Renalware::Hospitals::Unit.pluck(:name, :id)
+                  collection: Renalware::Hospitals::Unit.pluck(:name, :id),
+                  label: "Unit"
       .columns.medium-2.large-2
         = f.input :hospital_ward_id,
-                  collection: Renalware::Hospitals::Ward.pluck(:name, :id)
+                  collection: Renalware::Hospitals::Ward.pluck(:name, :id),
+                  label: "Ward"
       .columns.medium-2.large-2.actions.end
         = f.submit "Filter", class: "button"
         span= " or "
-        = link_to t("helpers.reset"), renal_filtered_aki_alerts_path
+        = link_to t("helpers.reset"), renal_aki_alerts_path
+br

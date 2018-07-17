@@ -35,7 +35,7 @@ RSpec.describe "AKI alert management", type: :request do
 
     describe "named_filter: :all" do
       it "renders a list of AKI Alerts" do
-        get renal_filtered_aki_alerts_path(named_filter: :all)
+        get renal_aki_alerts_path
 
         expect(response).to have_http_status(:success)
         expect(response.body).to match("today")

@@ -41,7 +41,7 @@ module Renalware
         )
 
         # # Simulate going to AKI Alerts, filtering and clicking Print
-        visit renal_filtered_aki_alerts_path(named_filter: :today)
+        visit renal_aki_alerts_path
         select "Ward1", from: "Hospital ward"
         click_on "Filter"
         click_on "Print"

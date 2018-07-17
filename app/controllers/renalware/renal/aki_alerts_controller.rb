@@ -27,7 +27,7 @@ module Renalware
       def update
         authorize alert
         if alert.update(aki_alert_params.merge(by: current_user))
-          redirect_to renal_filtered_aki_alerts_path(named_filter: :today)
+          redirect_to renal_aki_alerts_path(named_filter: :today)
         else
           render_edit(alert)
         end
@@ -85,7 +85,7 @@ module Renalware
       def search_params
         params
           .require(:q) {}
-          .permit(:term, :on_hotlist, :action, :hospital_unit_id, :hospital_ward_id, :s)
+          .permit(:date, :term, :on_hotlist, :action, :hospital_unit_id, :hospital_ward_id, :s)
       end
 
       def path_params

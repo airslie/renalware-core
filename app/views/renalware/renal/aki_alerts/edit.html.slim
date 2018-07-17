@@ -1,5 +1,5 @@
 = within_admin_layout(title: "Edit",
-                      breadcrumbs: breadcrumb_for("AKI Alerts", renal_filtered_aki_alerts_path(named_filter: :today))) do
+                      breadcrumbs: breadcrumb_for("AKI Alerts", renal_aki_alerts_path)) do
 
   = simple_form_for(alert, wrapper: :horizontal_form) do |f|
     = f.association :action, wrapper: :horizontal_small
@@ -17,4 +17,4 @@
     = f.input :notes, wrapper: :horizontal_large, input_html: { rows: 5 }
     = f.submit class: "button"
     span= " or "
-    = link_to "cancel", renal_filtered_aki_alerts_path(named_filter: :today)
+    = link_to "cancel", renal_aki_alerts_path
