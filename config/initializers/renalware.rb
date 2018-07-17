@@ -9,7 +9,8 @@ Renalware.configure do |config|
     "Renalware::Modalities::ChangePatientModality" => [
       "Renalware::Medications::PatientListener",
       "Renalware::Letters::PatientListener",
-      "Renalware::HD::PatientListener"
+      "Renalware::HD::PatientListener",
+      "Renalware::Patients::PatientListener"
     ],
     "Renalware::Letters::ApproveLetter" => [],
     "Renalware::Pathology::CreateObservationRequests" => []
