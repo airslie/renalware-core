@@ -18,4 +18,6 @@ article
       = "(#{l(obs.date)})" if obs.date.present?
 
     dt Transplant status
-    dd= mdm.transplant_status
+    dd
+      b= "#{mdm.current_transplant_status} "
+      = "since #{l(mdm.current_transplant_status&.started_on)}"
