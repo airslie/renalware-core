@@ -120,12 +120,10 @@ module Renalware
       result
     end
 
-    def transplant_status
-      Renalware::Transplants::Registration.for_patient(patient)
-        .first
-        &.current_status
-        &.description
-        &.name
+    def current_transplant_status
+      @current_transplant_status ||= begin
+        Renalware::Transplants::Registration.for_patient(patient).first&.current_status
+      end
     end
 
     private
