@@ -4,4 +4,6 @@ article
 
   dl.dl-horizontal.xlarge
     dt Transplant status
-    dd= mdm.transplant_status
+    dd
+      b= "#{mdm.current_transplant_status} "
+      = "since #{l(mdm.current_transplant_status&.started_on)}"
