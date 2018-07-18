@@ -15,6 +15,7 @@ module Renalware
           microgram
           milligram
           millilitre
+          nanogram
           puff
           tab
           tablet
