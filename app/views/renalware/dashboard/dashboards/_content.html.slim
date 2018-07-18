@@ -1,32 +1,40 @@
 .dashboard-content
-  section.letters
-    h2 Letters in Progress
+  article.letters
+    header
+      h2 Letters in Progress
     - if dashboard.letters_in_progress.any?
       #letters-in-progress
         = render "renalware/dashboard/letters/table", letters: dashboard.letters_in_progress
     - else
       p.empty-section= t(".letters.in_progress.none").html_safe
 
-  section.bookmarks
-    h2 Bookmarked Patients
+  article.bookmarks
+    header
+      h2.title= "Bookmarked Patients"
+      ul
+        li= link_to "View All", bookmarks_path, class: "button"
+
     - if dashboard.bookmarks.any?
       #bookmarks
         = render "renalware/dashboard/bookmarks/table", bookmarks: dashboard.bookmarks
     - else
       p.empty-section= t(".bookmarks.none")
 
-  section.messages
-    h2 Messages
+  article.messages
+    header
+      h2 Messages
+      ul
+        li= render "renalware/messaging/shared/key"
     - if dashboard.unread_messages_receipts.any?
-      = render "renalware/messaging/shared/key"
       .unread-messages
         = render "renalware/messaging/internal/receipts/table",
                  receipts: dashboard.unread_messages_receipts
     - else
       p.empty-section= t(".messages.none")
 
-  section.electonic_ccs
-    h2 Electronic CCs
+  article.electonic_ccs
+    header
+      h2 Electronic CCs
     - if dashboard.unread_electronic_ccs.any?
       = render "renalware/letters/electronic_receipts/table",
                receipts: dashboard.unread_electronic_ccs

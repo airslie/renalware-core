@@ -9,7 +9,8 @@ default: &default
 
 development:
   <<: *default
-  database: renalware_development
+  # database: renalware_development
+  database: rw_anon
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -76,4 +77,3 @@ production:
   <<: *default
   username: renalware
   database: renalware_production
-

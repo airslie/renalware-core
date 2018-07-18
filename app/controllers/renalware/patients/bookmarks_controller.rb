@@ -5,6 +5,16 @@ module Renalware
     class BookmarksController < BaseController
       before_action :load_patient, only: :create
 
+      # Display the user's bookmarks
+      def index
+        bookmarks = Patients.cast_user(current_user)
+          .bookmarks
+          .ordered
+          .includes(patient: [current_modality: :description])
+        authorize bookmarks
+        render locals: { bookmarks: bookmarks }
+      end
+
       # idempotent
       def create
         Bookmark.find_or_create_by!(user: user, patient: patient) do |bookmark|

@@ -110,7 +110,7 @@ Renalware::Engine.routes.draw do
               as: :invocations
   end
 
-  resources :bookmarks, controller: "patients/bookmarks", only: :destroy
+  resources :bookmarks, controller: "patients/bookmarks", only: [:destroy, :index]
   resource :dashboard, only: :show, controller: "dashboard/dashboards"
   resource :worryboard, only: :show, controller: "patients/worryboard"
 

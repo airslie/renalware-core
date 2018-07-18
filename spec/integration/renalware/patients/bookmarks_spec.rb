@@ -77,4 +77,37 @@ RSpec.describe "Managing bookmarks", type: :request do
       expect(Renalware::Patients::Bookmark).not_to exist(id: bookmark.id)
     end
   end
+
+  describe "GET index" do
+    let(:bookmark) do
+      create(:patients_bookmark,
+             user: Renalware::Patients.cast_user(user),
+             patient: patient)
+    end
+
+    it "lists the user's bokmarks" do
+      patients = [
+        create(:patient, by: user, given_name: "A"),
+        create(:patient, by: user, given_name: "B"),
+        create(:patient, by: user, given_name: "C")
+      ]
+
+      puser = Renalware::Patients.cast_user(@current_user)
+      other_user = Renalware::Patients.cast_user(create(:user, username: "x"))
+
+      bookmarks = [
+        create(:patients_bookmark, user: puser, patient: patients[0]),
+        create(:patients_bookmark, user: puser, patient: patients[1]),
+        create(:patients_bookmark, user: other_user, patient: patients[2])
+      ]
+
+      get bookmarks_path
+
+      expect(response).to be_success
+      expect(response.body).to match("Bookmarked Patients")
+      expect(response.body).to match(bookmarks[0].patient.to_s)
+      expect(response.body).to match(bookmarks[1].patient.to_s)
+      expect(response.body).not_to match(bookmarks[2].patient.to_s)
+    end
+  end
 end
