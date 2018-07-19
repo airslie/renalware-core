@@ -33,19 +33,47 @@ module Renalware
           end
         end
 
-        # Mixing in some scopes here rather than using ransack as I cannot get ransack scopes
-        # to 'or' together other scopes like this. I seem to spend a lot of time debugging the
-        # vagaries of ransack and wonder if its more pain that its worth!
+        # The status_mismatch filter finds patients with a UKT status that does not match their
+        # tx wait list status. We filter out UKT statuses of null or ''.
+        # At some point we will have turn this into a mapping object or hash because there will
+        # probably not be a 1 to 1 mapping from wait list to UKT status.
         module Scopes
+          # rubocop:disable Metrics/MethodLength
           def apply_filter(filter)
             case filter
             when :status_mismatch
-              current_status_is_active.ukt_status_is_not_active
-              .or(current_status_is_not_active.ukt_status_is_active)
+              joins(statuses: :description)
+              .where(transplant_registration_statuses: { terminated_on: nil })
+              .where(
+                <<-SQL.squish
+                (
+                  transplant_registration_status_descriptions.code in ('active','suspended')
+                  and
+                  (
+                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' not ilike '%' || transplant_registration_status_descriptions.code || '%'
+                    or
+                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' = ''
+                    or
+                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' IS NULL
+                  )
+                )
+                or
+                (
+                  transplant_registration_status_descriptions.code not in ('active','suspended')
+                  and
+                  (
+                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike '%active%'
+                    or
+                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike '%suspended%'
+                  )
+                )
+                SQL
+              )
             else
               all
             end
           end
+          # rubocop:enable Metrics/MethodLength
         end
 
         private
@@ -77,13 +105,6 @@ module Renalware
               .where(transplant_registration_status_descriptions: { code: codes })
           }
 
-          scope :current_status_not_in, lambda { |codes|
-            codes ||= %w(active)
-            joins(statuses: :description)
-              .where(transplant_registration_statuses: { terminated_on: nil })
-              .where.not(transplant_registration_status_descriptions: { code: codes })
-          }
-
           ransacker :crf_highest_value do
             Arel.sql("transplant_registrations.document -> 'crf' -> 'highest' ->> 'result'")
           end
@@ -102,35 +123,10 @@ module Renalware
             Arel.sql("renal_profiles.esrf_on")
           end
 
-          scope :ukt_status_is, lambda { |status|
-            where(
-              "transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike ?",
-              status
-            )
-          }
-          scope :ukt_status_is_not, lambda { |status|
-            where.not(
-              "transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike ?",
-              status
-            )
-          }
-          scope :current_status_is_active, ->{ current_status_in(:active) }
-          scope :current_status_is_not_active, ->{ current_status_not_in(:active) }
-          scope :ukt_status_is_active, ->{ ukt_status_is(:active) }
-          scope :ukt_status_is_not_active, ->{ ukt_status_is_not(:active) }
-
           private_class_method :ransackable_scopes
 
           def self.ransackable_scopes(_auth_object = nil)
-            %i(current_status_in
-               current_status_not_in
-               current_status_is_active
-               current_status_is_not_active
-               ukt_status_is
-               ukt_status_is_not
-               ukt_status_is_active
-               ukt_status_is_not_active
-               status_mismatches)
+            %i(current_status_in)
           end
         end
       end
