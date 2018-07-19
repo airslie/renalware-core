@@ -38,24 +38,42 @@ module Renalware
         # At some point we will have turn this into a mapping object or hash because there will
         # probably not be a 1 to 1 mapping from wait list to UKT status.
         module Scopes
-          # rubocop:disable Metrics/LineLength, Metrics/MethodLength
+          # rubocop:disable Metrics/MethodLength
           def apply_filter(filter)
             case filter
             when :status_mismatch
               joins(statuses: :description)
               .where(transplant_registration_statuses: { terminated_on: nil })
               .where(
-                "( "\
-                "  upper(transplant_registration_status_descriptions.name) != "\
-                "  upper(transplant_registrations.document -> 'uk_transplant_centre' ->> 'status')"\
-                ") and "\
-                "(transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' = '') = false"
+                <<-SQL.squish
+                (
+                  transplant_registration_status_descriptions.code in ('active','suspended')
+                  and
+                  (
+                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' not ilike '%' || transplant_registration_status_descriptions.code || '%'
+                    or
+                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' = ''
+                    or
+                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' IS NULL
+                  )
+                )
+                or
+                (
+                  transplant_registration_status_descriptions.code not in ('active','suspended')
+                  and
+                  (
+                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike '%active%'
+                    or
+                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike '%suspended%'
+                  )
+                )
+                SQL
               )
             else
               all
             end
           end
-          # rubocop:enable Metrics/LineLength, Metrics/MethodLength
+          # rubocop:enable Metrics/MethodLength
         end
 
         private
