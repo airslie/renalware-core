@@ -5782,16 +5782,14 @@ CREATE MATERIALIZED VIEW reporting_main_authors_audit AS
              JOIN clinic_visits visits ON ((visits.id = letters.event_id)))
           WHERE (archive.created_at > (CURRENT_DATE - '3 mons'::interval))
         ), archived_clinic_letters_stats AS (
-         SELECT archived_clinic_letters.year,
-            archived_clinic_letters.month,
-            archived_clinic_letters.author_id,
+         SELECT archived_clinic_letters.author_id,
             count(*) AS total_letters,
             round(avg(archived_clinic_letters.days_to_archive)) AS avg_days_to_archive,
             (( SELECT count(*) AS count
                    FROM archived_clinic_letters acl
                   WHERE ((acl.days_to_archive <= (7)::double precision) AND (acl.author_id = archived_clinic_letters.author_id))))::numeric AS archived_within_7_days
            FROM archived_clinic_letters
-          GROUP BY archived_clinic_letters.year, archived_clinic_letters.month, archived_clinic_letters.author_id
+          GROUP BY archived_clinic_letters.author_id
         )
  SELECT (((users.family_name)::text || ', '::text) || (users.given_name)::text) AS name,
     stats.total_letters,
@@ -5800,8 +5798,7 @@ CREATE MATERIALIZED VIEW reporting_main_authors_audit AS
     users.id AS user_id
    FROM (archived_clinic_letters_stats stats
      JOIN users ON ((stats.author_id = users.id)))
-  GROUP BY (((users.family_name)::text || ', '::text) || (users.given_name)::text), users.id, stats.total_letters, stats.avg_days_to_archive, stats.archived_within_7_days
-  ORDER BY stats.total_letters
+  ORDER BY stats.total_letters DESC
   WITH NO DATA;
 
 
@@ -15096,6 +15093,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180605141806'),
 ('20180605175211'),
 ('20180628132323'),
-('20180712143314');
+('20180712143314'),
+('20180718172750');
 
 
