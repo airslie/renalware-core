@@ -41,6 +41,7 @@ module Renalware
           receipts = Messaging::Internal.cast_recipient(user)
             .receipts
             .includes(message: [:author, :patient])
+            .order("messaging_messages.sent_at asc")
             .unread
           CollectionPresenter.new(receipts, Messaging::Internal::ReceiptPresenter)
         end
@@ -52,7 +53,7 @@ module Renalware
             .includes(letter: [:patient, :author, :letterhead])
             .unread
             .for_recipient(user.id)
-            .ordered
+            .order(created_at: :asc)
           CollectionPresenter.new(receipts, Letters::ElectronicReceiptPresenter)
         end
       end
