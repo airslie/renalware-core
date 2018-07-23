@@ -12,7 +12,7 @@ module Renalware
         def index
           respond_to do |format|
             format.pdf do
-              prescriptions = patient.prescriptions.where(provider: :home_delivery)
+              prescriptions = patient.prescriptions.current.where(provider: :home_delivery)
               authorize prescriptions
               render_index_pdf prescriptions
             end

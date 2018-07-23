@@ -12,7 +12,7 @@ html
     = "As at #{l(Time.zone.now)}"
 
     - with_format(:html) do
-      = render "renalware/medications/prescriptions/patient_details", patient: patient
+      = render "renalware/medications/prescriptions/extended_patient_details", patient: patient
 
     section.prescriptions
       - with_format(:html) do
@@ -20,10 +20,21 @@ html
                   prescriptions: prescriptions,
                   recently_changed: []
 
+    section.checks
+      p
+        = wicked_pdf_image_tag "renalware/checkbox-empty"
+        span Repeat Prescription for either 3 Months or 6 Months
+      p
+        = wicked_pdf_image_tag "renalware/checkbox-empty"
+        span Freq of Delivery 3 Months or 6 Months
+
     section.signoff
       table
         tr
-          td Signed
+          td Prescriber:
+          td Signed:
+          td Date:
+        tr
+          td= [current_user.signature, current_user.professional_position].compact.join(", ")
           td
-          td Date
           td

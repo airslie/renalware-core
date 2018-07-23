@@ -101,6 +101,20 @@ main {
   }
 }
 
+.checks {
+  img {
+    height: 1.2rem;
+    margin-bottom: -0.2rem;
+  }
+  span {
+    vertical-align: text-top;
+    line-height: 1rem;
+  }
+  p span {
+    padding-left: .7rem;
+  }
+}
+
 .signoff {
   border-bottom: 1px solid #ddd;
   padding-top: 50px;
@@ -110,19 +124,20 @@ main {
     width: 100%;
     tr {
       td {
-        &:nth-child(2) { /* signature */
-          width: 60%;
-        }
+        // &:nth-child(2) {
+        //   width: 41%;
+        // }
 
-        &:nth-child(1),
-        &:nth-child(3) /* labels */
-        {
-          width: 10%;
-        }
+        // &:nth-child(1),
+        // &:nth-child(3),
+        // &:nth-child(5) /* labels */
+        // {
+        //   width: 10%;
+        // }
 
-        &:nth-child(4) {
-          width: 20%;
-        }
+        // &:nth-child(6) {
+        //   width: 8%;
+        // }
       }
     }
   }
