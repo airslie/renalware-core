@@ -1,5 +1,5 @@
 = within_admin_layout(title: presenter.page_title)
 
-  = render_if_exists "filters", presenter: presenter
+  = render_if_exists "filters", presenter: presenter, filter_form: filter_form
   = render "table", presenter: presenter
   = paginate presenter.patients

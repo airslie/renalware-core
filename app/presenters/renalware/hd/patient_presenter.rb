@@ -8,6 +8,7 @@ module Renalware
       # delegate_missing_to :patient # TODO: when rails 5.1, try instead of SimpleDelegator
       delegate :document, to: :hd_profile
       delegate :hospital_unit,
+               :schedule_definition,
                :transport_summary,
                to: :hd_profile, allow_nil: true
       delegate :unit_code, to: :hospital_unit, allow_nil: true, prefix: true
