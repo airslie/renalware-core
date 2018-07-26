@@ -63,7 +63,7 @@ group :development, :test do
   gem "bundler-audit", require: false
   gem "byebug"
   gem "launchy", require: false
-  gem "rubocop", "~> 0.57.0", require: false
+  gem "rubocop", "~> 0.58.1", require: false
   gem "spring"
   gem "spring-commands-cucumber", require: false
   gem "spring-commands-rspec", require: false
