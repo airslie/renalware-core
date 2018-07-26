@@ -143,3 +143,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength

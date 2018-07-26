@@ -54,6 +54,7 @@ module Renalware
           )
         ]
       end
+      # rubocop:enable Metrics/MethodLength
 
       private
 

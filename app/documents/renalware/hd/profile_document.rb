@@ -77,3 +77,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Layout/EmptyLineBetweenDefs, Style/SingleLineMethods

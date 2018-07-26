@@ -65,6 +65,7 @@ module Renalware
             notice: t(".success", model_name: "modality")
         end
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end
