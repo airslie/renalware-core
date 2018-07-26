@@ -159,3 +159,4 @@ module Renalware::Letters
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength

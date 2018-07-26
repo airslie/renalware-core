@@ -144,7 +144,8 @@ module Renalware
 
           class CountryNotFoundError < StandardError; end
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+        # rubocop:enable Metrics/CyclomaticComplexity
       end
     end
   end

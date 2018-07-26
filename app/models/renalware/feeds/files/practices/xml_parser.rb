@@ -96,3 +96,5 @@ module Renalware
     end
   end
 end
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/AbcSize

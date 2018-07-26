@@ -136,3 +136,4 @@ module Renalware::Patients
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength

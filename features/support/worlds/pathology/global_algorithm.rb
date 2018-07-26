@@ -37,6 +37,7 @@ module World
             param_comparison_value: params["value"]
           )
         end
+        # rubocop:enable Metrics/CyclomaticComplexity
 
         def create_global_rules_from_table(table)
           table.rows.map do |row|
