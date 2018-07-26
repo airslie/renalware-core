@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 # rubocop:disable Style/ExpandPathArguments,Style/SpecialGlobalVars
 $:.push File.expand_path("../lib", __FILE__)
 
@@ -61,14 +63,14 @@ Gem::Specification.new do |s|
   s.add_dependency "lograge", "~> 0.10.0"
   s.add_dependency "naught", "~> 1.1.0"
   s.add_dependency "nested_form", "~> 0.3.2"
-  s.add_dependency "nokogiri", ">= 1.7.1"
+  s.add_dependency "nokogiri", "~> 1.8.4"
   s.add_dependency "pandoc-ruby", "~> 2.0.2"
   s.add_dependency "paper_trail", "~> 8.1.2"
   s.add_dependency "paranoia", "~> 2.4.0"
   s.add_dependency "pg", "~> 1.0.0"
-  s.add_dependency "puma", "~> 3.11.2"
+  s.add_dependency "puma", "~> 3.11.0"
   s.add_dependency "pundit", "~> 1.1.0"
-  s.add_dependency "rack-attack", "~> 5.3.0"
+  s.add_dependency "rack-attack", "~> 5.4.0"
   s.add_dependency "rails", "5.1.6"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
   s.add_dependency "rails-assets-select2", "~> 4.0.2"
@@ -81,7 +83,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sinatra", "~> 2.0.1"
   s.add_dependency "slim-rails", "~> 3.1.3"
   s.add_dependency "trix", "~> 0.11.1"
-  s.add_dependency "uglifier", "~> 4.1.5"
+  s.add_dependency "uglifier", "~> 4.1.16"
   s.add_dependency "underscore-rails", "~> 1.8.3"
   s.add_dependency "validates_timeliness", "~> 4.0.2"
   s.add_dependency "virtus", "~> 1.0.5"
@@ -89,5 +91,6 @@ Gem::Specification.new do |s|
   s.add_dependency "wicked_pdf", "~> 1.1.0"
   s.add_dependency "wisper", "~> 2.0.0"
   s.add_dependency "wkhtmltopdf-binary", "0.12.3.1"
-  s.add_dependency "yard", "~> 0.9.12"
+  s.add_dependency "yard", "~> 0.9.15"
 end
+# rubocop:enable Style/ExpandPathArguments,Style/SpecialGlobalVars
