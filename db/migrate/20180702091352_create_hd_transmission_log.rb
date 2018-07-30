@@ -10,7 +10,7 @@ class CreateHDTransmissionLog < ActiveRecord::Migration[5.1]
       t.string :filepath
       t.text :payload
       t.jsonb :result, index: { using: :gin }, default: {}
-      t.text :error
+      t.text :error_messages, array: true, default: []
       t.datetime :transmitted_at, index: true
       t.timestamps null: false
     end

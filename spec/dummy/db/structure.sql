@@ -2694,7 +2694,7 @@ CREATE TABLE hd_transmission_logs (
     filepath character varying,
     payload text,
     result jsonb DEFAULT '{}'::jsonb,
-    error text,
+    error_messages text[] DEFAULT '{}'::text[],
     transmitted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
