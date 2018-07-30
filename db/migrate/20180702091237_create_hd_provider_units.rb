@@ -1,6 +1,6 @@
 class CreateHDProviderUnits < ActiveRecord::Migration[5.1]
   def change
-    create_table :hd_provider_units do |t|
+    create_table "renalware.hd_provider_units" do |t|
       t.references :hospital_unit, foreign_key: true, null: false
       t.references :hd_provider, foreign_key: true, null: false
       t.timestamps null: false

@@ -2477,7 +2477,9 @@ ALTER SEQUENCE hd_provider_units_id_seq OWNED BY hd_provider_units.id;
 
 CREATE TABLE hd_providers (
     id bigint NOT NULL,
-    name character varying
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -2682,6 +2684,7 @@ ALTER SEQUENCE hd_stations_id_seq OWNED BY hd_stations.id;
 
 CREATE TABLE hd_transmission_logs (
     id bigint NOT NULL,
+    parent_id bigint,
     direction character varying NOT NULL,
     format character varying NOT NULL,
     status character varying,
@@ -10656,24 +10659,10 @@ CREATE INDEX index_hd_profiles_on_updated_by_id ON hd_profiles USING btree (upda
 
 
 --
--- Name: index_hd_provider_units_on_hd_provider_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_hd_provider_units_on_hd_provider_id ON hd_provider_units USING btree (hd_provider_id);
-
-
---
 -- Name: index_hd_provider_units_on_hd_provider_id_and_hospital_unit_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE UNIQUE INDEX index_hd_provider_units_on_hd_provider_id_and_hospital_unit_id ON hd_provider_units USING btree (hd_provider_id, hospital_unit_id);
-
-
---
--- Name: index_hd_provider_units_on_hospital_unit_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_hd_provider_units_on_hospital_unit_id ON hd_provider_units USING btree (hospital_unit_id);
 
 
 --
@@ -10842,55 +10831,6 @@ CREATE INDEX index_hd_stations_on_position ON hd_stations USING btree ("position
 --
 
 CREATE INDEX index_hd_stations_on_updated_by_id ON hd_stations USING btree (updated_by_id);
-
-
---
--- Name: index_hd_transmission_logs_on_direction; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_hd_transmission_logs_on_direction ON hd_transmission_logs USING btree (direction);
-
-
---
--- Name: index_hd_transmission_logs_on_format; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_hd_transmission_logs_on_format ON hd_transmission_logs USING btree (format);
-
-
---
--- Name: index_hd_transmission_logs_on_hd_provider_unit_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_hd_transmission_logs_on_hd_provider_unit_id ON hd_transmission_logs USING btree (hd_provider_unit_id);
-
-
---
--- Name: index_hd_transmission_logs_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_hd_transmission_logs_on_patient_id ON hd_transmission_logs USING btree (patient_id);
-
-
---
--- Name: index_hd_transmission_logs_on_result; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_hd_transmission_logs_on_result ON hd_transmission_logs USING gin (result);
-
-
---
--- Name: index_hd_transmission_logs_on_status; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_hd_transmission_logs_on_status ON hd_transmission_logs USING btree (status);
-
-
---
--- Name: index_hd_transmission_logs_on_transmitted_at; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_hd_transmission_logs_on_transmitted_at ON hd_transmission_logs USING btree (transmitted_at);
 
 
 --
@@ -12133,6 +12073,76 @@ CREATE INDEX index_renal_versions_on_item_type_and_item_id ON renal_versions USI
 
 
 --
+-- Name: index_renalware.hd_provider_units_on_hd_provider_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX "index_renalware.hd_provider_units_on_hd_provider_id" ON hd_provider_units USING btree (hd_provider_id);
+
+
+--
+-- Name: index_renalware.hd_provider_units_on_hospital_unit_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX "index_renalware.hd_provider_units_on_hospital_unit_id" ON hd_provider_units USING btree (hospital_unit_id);
+
+
+--
+-- Name: index_renalware.hd_transmission_logs_on_direction; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX "index_renalware.hd_transmission_logs_on_direction" ON hd_transmission_logs USING btree (direction);
+
+
+--
+-- Name: index_renalware.hd_transmission_logs_on_format; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX "index_renalware.hd_transmission_logs_on_format" ON hd_transmission_logs USING btree (format);
+
+
+--
+-- Name: index_renalware.hd_transmission_logs_on_hd_provider_unit_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX "index_renalware.hd_transmission_logs_on_hd_provider_unit_id" ON hd_transmission_logs USING btree (hd_provider_unit_id);
+
+
+--
+-- Name: index_renalware.hd_transmission_logs_on_parent_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX "index_renalware.hd_transmission_logs_on_parent_id" ON hd_transmission_logs USING btree (parent_id);
+
+
+--
+-- Name: index_renalware.hd_transmission_logs_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX "index_renalware.hd_transmission_logs_on_patient_id" ON hd_transmission_logs USING btree (patient_id);
+
+
+--
+-- Name: index_renalware.hd_transmission_logs_on_result; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX "index_renalware.hd_transmission_logs_on_result" ON hd_transmission_logs USING gin (result);
+
+
+--
+-- Name: index_renalware.hd_transmission_logs_on_status; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX "index_renalware.hd_transmission_logs_on_status" ON hd_transmission_logs USING btree (status);
+
+
+--
+-- Name: index_renalware.hd_transmission_logs_on_transmitted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX "index_renalware.hd_transmission_logs_on_transmitted_at" ON hd_transmission_logs USING btree (transmitted_at);
+
+
+--
 -- Name: index_reporting_hd_blood_pressures_audit_on_hospital_unit_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -13230,6 +13240,14 @@ ALTER TABLE ONLY pd_peritonitis_episode_types
 
 
 --
+-- Name: hd_transmission_logs fk_rails_30b8eea154; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_transmission_logs
+    ADD CONSTRAINT fk_rails_30b8eea154 FOREIGN KEY (hd_provider_unit_id) REFERENCES hd_provider_units(id);
+
+
+--
 -- Name: clinical_dry_weights fk_rails_31546389ab; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -13347,6 +13365,14 @@ ALTER TABLE ONLY transplant_donor_stages
 
 ALTER TABLE ONLY transplant_recipient_operations
     ADD CONSTRAINT fk_rails_3a852d1667 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: hd_transmission_logs fk_rails_3b842bb40e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_transmission_logs
+    ADD CONSTRAINT fk_rails_3b842bb40e FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -13798,6 +13824,14 @@ ALTER TABLE ONLY renal_aki_alerts
 
 
 --
+-- Name: hd_provider_units fk_rails_8d21a18a82; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_provider_units
+    ADD CONSTRAINT fk_rails_8d21a18a82 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
 -- Name: access_profiles fk_rails_8d75e5423f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -13827,6 +13861,14 @@ ALTER TABLE ONLY hospital_units
 
 ALTER TABLE ONLY pathology_request_descriptions_requests_requests
     ADD CONSTRAINT fk_rails_8f574ed703 FOREIGN KEY (request_description_id) REFERENCES pathology_request_descriptions(id);
+
+
+--
+-- Name: hd_provider_units fk_rails_8f5e478f60; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_provider_units
+    ADD CONSTRAINT fk_rails_8f5e478f60 FOREIGN KEY (hd_provider_id) REFERENCES hd_providers(id);
 
 
 --
@@ -14006,14 +14048,6 @@ ALTER TABLE ONLY letter_contacts
 
 
 --
--- Name: hd_transmission_logs fk_rails_a5be9977b1; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY hd_transmission_logs
-    ADD CONSTRAINT fk_rails_a5be9977b1 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
 -- Name: hd_patient_statistics fk_rails_a654a17f8d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -14027,14 +14061,6 @@ ALTER TABLE ONLY hd_patient_statistics
 
 ALTER TABLE ONLY pd_regimes
     ADD CONSTRAINT fk_rails_a70920e237 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
--- Name: hd_provider_units fk_rails_a75dd1db4c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY hd_provider_units
-    ADD CONSTRAINT fk_rails_a75dd1db4c FOREIGN KEY (hd_provider_id) REFERENCES hd_providers(id);
 
 
 --
@@ -14395,14 +14421,6 @@ ALTER TABLE ONLY hd_profiles
 
 ALTER TABLE ONLY access_plans
     ADD CONSTRAINT fk_rails_d944a58ba2 FOREIGN KEY (updated_by_id) REFERENCES users(id);
-
-
---
--- Name: hd_provider_units fk_rails_dae8c41b41; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY hd_provider_units
-    ADD CONSTRAINT fk_rails_dae8c41b41 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
 
 
 --
@@ -14771,14 +14789,6 @@ ALTER TABLE ONLY medication_prescription_terminations
 
 ALTER TABLE ONLY low_clearance_profiles
     ADD CONSTRAINT fk_rails_ff7b848263 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
--- Name: hd_transmission_logs fk_rails_ff7cf72650; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY hd_transmission_logs
-    ADD CONSTRAINT fk_rails_ff7cf72650 FOREIGN KEY (hd_provider_unit_id) REFERENCES hd_provider_units(id);
 
 
 --

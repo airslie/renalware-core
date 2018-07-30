@@ -1,6 +1,7 @@
 class CreateHDTransmissionLog < ActiveRecord::Migration[5.1]
   def change
-    create_table :hd_transmission_logs do |t|
+    create_table "renalware.hd_transmission_logs" do |t|
+      t.references :parent, index: true
       t.string :direction, null: false, index: true
       t.string :format, null: false, index: true
       t.string :status, index: true
@@ -11,7 +12,6 @@ class CreateHDTransmissionLog < ActiveRecord::Migration[5.1]
       t.jsonb :result, index: { using: :gin }, default: {}
       t.text :error
       t.datetime :transmitted_at, index: true
-      t.timestamps null: false
       t.timestamps null: false
     end
   end
