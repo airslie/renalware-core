@@ -2447,6 +2447,7 @@ CREATE TABLE hd_provider_units (
     id bigint NOT NULL,
     hospital_unit_id bigint NOT NULL,
     hd_provider_id bigint NOT NULL,
+    providers_reference character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -12084,6 +12085,13 @@ CREATE INDEX "index_renalware.hd_provider_units_on_hd_provider_id" ON hd_provide
 --
 
 CREATE INDEX "index_renalware.hd_provider_units_on_hospital_unit_id" ON hd_provider_units USING btree (hospital_unit_id);
+
+
+--
+-- Name: index_renalware.hd_provider_units_on_providers_reference; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX "index_renalware.hd_provider_units_on_providers_reference" ON hd_provider_units USING btree (providers_reference);
 
 
 --
