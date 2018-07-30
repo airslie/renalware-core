@@ -10,6 +10,11 @@ module Renalware
       belongs_to :hd_provider_unit, class_name: "ProviderUnit"
       validates :direction, presence: true
       validates :format, presence: true
+      has_many :children,
+               class_name: "TransmissionLog",
+               foreign_key: "parent_id",
+               dependent: :destroy
+      belongs_to :parent, class_name: "TransmissionLog"
 
       def self.policy_class
         BasePolicy

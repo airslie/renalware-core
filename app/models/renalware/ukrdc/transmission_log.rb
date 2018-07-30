@@ -8,11 +8,6 @@ module Renalware
       validates :sent_at, presence: true
       validates :status, presence: true
       belongs_to :patient, class_name: "Renalware::Patient"
-      has_many :children,
-               class_name: "TransmissionLog",
-               foreign_key: "parent_id",
-               dependent: :destroy
-      belongs_to :parent, class_name: "TransmissionLog"
       enum status: [:undefined, :error, :unsent_no_change_since_last_send, :sent]
       scope :ordered, ->{ order(sent_at: :asc) }
 
