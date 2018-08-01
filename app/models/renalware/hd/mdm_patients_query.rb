@@ -14,6 +14,10 @@ module Renalware
         ransacker :access_plan_date, type: :date do
           Arel.sql("coalesce(access_plans.created_at, '1900-01-01'::timestamp)")
         end
+
+        ransacker :access_plan_type, type: :date do
+          Arel.sql("access_plan_types.name")
+        end
       end
     end
 
@@ -40,7 +44,9 @@ module Renalware
             .include(QueryablePatient)
             .joins(
               "left outer join access_plans on access_plans.patient_id = patients.id "\
-              "and access_plans.terminated_at is null"
+              "and access_plans.terminated_at is null "\
+              "left outer join access_plan_types "\
+              "on access_plans.plan_type_id = access_plan_types.id"
             )
             .eager_load(hd_profile: [:hospital_unit])
             .extending(ModalityScopes)

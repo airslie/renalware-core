@@ -9,7 +9,7 @@ table#patients.mdm-patients.columns
       th.col-width-tiny= t(".age")
       th.col-width-medium= t(".access")
       th.col-width-date= t(".access_started_on")
-      th.col-width-small= t(".access_plan")
+      th.col-width-medium= sort_link(path, :access_plan_type, t(".access_plan"))
       th.col-width-date= sort_link(path, :access_plan_date, t(".access_plan_date"))
       th.col-width-date= t(".dialysing_at")
       th.col-width-date= t(".registration_status")
