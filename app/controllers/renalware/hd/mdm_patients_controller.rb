@@ -6,10 +6,7 @@ module Renalware
   module HD
     class MDMPatientsController < Renalware::MDMPatientsController
       def index
-        query = HD::MDMPatientsQuery.new(
-          relation: HD::Patient.eager_load(hd_profile: [:hospital_unit]),
-          q: params[:q]
-        )
+        query = HD::MDMPatientsQuery.new(q: params[:q])
         render_index(query: query,
                      page_title: t(".page_title"),
                      view_proc: ->(patient) { patient_hd_mdm_path(patient) },
