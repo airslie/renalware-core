@@ -15,7 +15,11 @@ module Renalware
           Arel.sql("coalesce(access_plans.created_at, '1900-01-01'::timestamp)")
         end
 
-        ransacker :access_plan_type, type: :date do
+        ransacker :access_plan_type, type: :string do
+          Arel.sql("access_plan_types.name")
+        end
+
+        ransacker :current_access, type: :string do
           Arel.sql("access_plan_types.name")
         end
       end
@@ -26,6 +30,16 @@ module Renalware
       include PatientPathologyScopes
       MODALITY_NAMES = "HD"
       DEFAULT_SEARCH_PREDICATE = "hgb_date desc"
+      ACCESS_JOINS = <<-SQL.squish
+        left outer join access_plans on access_plans.patient_id = patients.id
+        and access_plans.terminated_at is null
+        left outer join access_plan_types
+        on access_plans.plan_type_id = access_plan_types.id
+        left outer join access_profiles on access_profiles.patient_id = patients.id
+        and access_profiles.terminated_on is not null
+        and access_profiles.started_on <= current_date
+        left outer join access_types on access_types.id = access_profiles.type_id
+      SQL
       attr_reader :q
 
       def initialize(q:)
@@ -37,17 +51,11 @@ module Renalware
         search.result
       end
 
-      # rubocop:disable Metrics/MethodLength
       def search
         @search ||= begin
           HD::Patient
             .include(QueryablePatient)
-            .joins(
-              "left outer join access_plans on access_plans.patient_id = patients.id "\
-              "and access_plans.terminated_at is null "\
-              "left outer join access_plan_types "\
-              "on access_plans.plan_type_id = access_plan_types.id"
-            )
+            .joins(ACCESS_JOINS)
             .eager_load(hd_profile: [:hospital_unit])
             .extending(ModalityScopes)
             .extending(PatientPathologyScopes)
@@ -56,7 +64,6 @@ module Renalware
             .search(q)
         end
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end
