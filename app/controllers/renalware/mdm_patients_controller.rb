@@ -23,7 +23,7 @@ module Renalware
       query = args.fetch(:query)
 
       MDMPatientsPresenter.new(
-        patients: query.call.page(page),
+        patients: query.call.page(page).per(per_page),
         page_title: args.fetch(:page_title),
         view_proc: args.fetch(:view_proc),
         q: query.search,

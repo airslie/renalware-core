@@ -12,7 +12,7 @@ table#patients.mdm-patients.columns
       th.col-width-medium= sort_link(path, :access_plan_type, t(".access_plan"))
       th.col-width-date= sort_link(path, :access_plan_date, t(".access_plan_date"))
       th.col-width-date= t(".dialysing_at")
-      th.col-width-date= t(".registration_status")
+      th.col-width-date= sort_link(path, :transplant_registration_status, t(".registration_status"))
       th.at-least.col-width-small= t(".transport_type")
       th.col-width-tiny= sort_link(path, :hgb, t(".hgb"))
       th.col-width-date= sort_link(path, :hgb_date, t(".hgb_date"))
