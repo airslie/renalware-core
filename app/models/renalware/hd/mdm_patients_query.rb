@@ -57,7 +57,7 @@ module Renalware
           end
 
           ransacker :current_access, type: :string do
-            Arel.sql("access_plan_types.name")
+            Arel.sql("access_types.name")
           end
 
           ransacker :transplant_registration_status do
