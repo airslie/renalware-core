@@ -2697,7 +2697,9 @@ CREATE TABLE hd_transmission_logs (
     error_messages text[] DEFAULT '{}'::text[],
     transmitted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    external_session_id character varying,
+    session_id bigint
 );
 
 
@@ -9820,6 +9822,13 @@ CREATE INDEX index_access_procedures_on_patient_id ON access_procedures USING bt
 
 
 --
+-- Name: index_access_procedures_on_performed_by; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_access_procedures_on_performed_by ON access_procedures USING btree (performed_by);
+
+
+--
 -- Name: index_access_procedures_on_type_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -9873,6 +9882,13 @@ CREATE INDEX index_access_profiles_on_updated_by_id ON access_profiles USING btr
 --
 
 CREATE UNIQUE INDEX index_addresses_on_addressable_type_and_addressable_id ON addresses USING btree (addressable_type, addressable_id);
+
+
+--
+-- Name: index_addresses_on_country_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_addresses_on_country_id ON addresses USING btree (country_id);
 
 
 --
@@ -10226,6 +10242,13 @@ CREATE UNIQUE INDEX index_drug_types_drugs_on_drug_id_and_drug_type_id ON drug_t
 
 
 --
+-- Name: index_drug_types_drugs_on_drug_type_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_drug_types_drugs_on_drug_type_id ON drug_types_drugs USING btree (drug_type_id);
+
+
+--
 -- Name: index_drugs_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -10314,6 +10337,13 @@ CREATE INDEX index_feed_files_on_updated_by_id ON feed_files USING btree (update
 --
 
 CREATE UNIQUE INDEX index_feed_messages_on_body_hash ON feed_messages USING btree (body_hash);
+
+
+--
+-- Name: index_feed_messages_on_patient_identifier; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_messages_on_patient_identifier ON feed_messages USING btree (patient_identifier);
 
 
 --
@@ -10709,6 +10739,13 @@ CREATE INDEX index_hd_sessions_on_dry_weight_id ON hd_sessions USING btree (dry_
 
 
 --
+-- Name: index_hd_sessions_on_external_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_sessions_on_external_id ON hd_sessions USING btree (external_id);
+
+
+--
 -- Name: index_hd_sessions_on_hospital_unit_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -10821,6 +10858,13 @@ CREATE INDEX index_hd_stations_on_hospital_unit_id ON hd_stations USING btree (h
 
 
 --
+-- Name: index_hd_stations_on_location_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_stations_on_location_id ON hd_stations USING btree (location_id);
+
+
+--
 -- Name: index_hd_stations_on_position; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -10835,6 +10879,13 @@ CREATE INDEX index_hd_stations_on_updated_by_id ON hd_stations USING btree (upda
 
 
 --
+-- Name: index_hd_transmission_logs_on_session_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_transmission_logs_on_session_id ON hd_transmission_logs USING btree (session_id);
+
+
+--
 -- Name: index_hospital_centres_on_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -10846,6 +10897,13 @@ CREATE INDEX index_hospital_centres_on_code ON hospital_centres USING btree (cod
 --
 
 CREATE INDEX index_hospital_units_on_hospital_centre_id ON hospital_units USING btree (hospital_centre_id);
+
+
+--
+-- Name: index_hospital_wards_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hospital_wards_on_code ON hospital_wards USING btree (code);
 
 
 --
@@ -10909,6 +10967,13 @@ CREATE UNIQUE INDEX index_letter_contact_descriptions_on_system_code ON letter_c
 --
 
 CREATE INDEX index_letter_contacts_on_description_id ON letter_contacts USING btree (description_id);
+
+
+--
+-- Name: index_letter_contacts_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_contacts_on_patient_id ON letter_contacts USING btree (patient_id);
 
 
 --
@@ -11052,10 +11117,24 @@ CREATE INDEX index_letter_recipients_on_addressee_type_and_addressee_id ON lette
 
 
 --
+-- Name: index_letter_recipients_on_emailed_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_recipients_on_emailed_at ON letter_recipients USING btree (emailed_at);
+
+
+--
 -- Name: index_letter_recipients_on_letter_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_letter_recipients_on_letter_id ON letter_recipients USING btree (letter_id);
+
+
+--
+-- Name: index_letter_recipients_on_printed_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_recipients_on_printed_at ON letter_recipients USING btree (printed_at);
 
 
 --
@@ -11189,6 +11268,13 @@ CREATE INDEX index_messaging_messages_on_author_id ON messaging_messages USING b
 --
 
 CREATE INDEX index_messaging_messages_on_patient_id ON messaging_messages USING btree (patient_id);
+
+
+--
+-- Name: index_messaging_messages_on_replying_to_message_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_messaging_messages_on_replying_to_message_id ON messaging_messages USING btree (replying_to_message_id);
 
 
 --
@@ -11336,6 +11422,13 @@ CREATE UNIQUE INDEX index_pathology_measurement_units_on_name ON pathology_measu
 --
 
 CREATE UNIQUE INDEX index_pathology_observation_descriptions_on_code ON pathology_observation_descriptions USING btree (code);
+
+
+--
+-- Name: index_pathology_observation_descriptions_on_measurement_unit_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_observation_descriptions_on_measurement_unit_id ON pathology_observation_descriptions USING btree (measurement_unit_id);
 
 
 --
@@ -11528,6 +11621,27 @@ CREATE INDEX index_patient_bookmarks_on_patient_id ON patient_bookmarks USING bt
 
 
 --
+-- Name: index_patient_bookmarks_on_urgent; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_bookmarks_on_urgent ON patient_bookmarks USING btree (urgent);
+
+
+--
+-- Name: index_patient_bookmarks_on_user_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_bookmarks_on_user_id ON patient_bookmarks USING btree (user_id);
+
+
+--
+-- Name: index_patient_ethnicities_on_cfh_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_ethnicities_on_cfh_name ON patient_ethnicities USING btree (cfh_name);
+
+
+--
 -- Name: index_patient_languages_on_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -11609,6 +11723,13 @@ CREATE UNIQUE INDEX index_patient_worries_on_patient_id ON patient_worries USING
 --
 
 CREATE INDEX index_patient_worries_on_updated_by_id ON patient_worries USING btree (updated_by_id);
+
+
+--
+-- Name: index_patients_on_country_of_birth_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patients_on_country_of_birth_id ON patients USING btree (country_of_birth_id);
 
 
 --
@@ -11731,6 +11852,27 @@ CREATE UNIQUE INDEX index_patients_on_secure_id ON patients USING btree (secure_
 
 
 --
+-- Name: index_patients_on_send_to_renalreg; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patients_on_send_to_renalreg ON patients USING btree (send_to_renalreg);
+
+
+--
+-- Name: index_patients_on_send_to_rpv; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patients_on_send_to_rpv ON patients USING btree (send_to_rpv);
+
+
+--
+-- Name: index_patients_on_sent_to_ukrdc_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patients_on_sent_to_ukrdc_at ON patients USING btree (sent_to_ukrdc_at);
+
+
+--
 -- Name: index_patients_on_ukrdc_external_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -11787,6 +11929,13 @@ CREATE INDEX index_pd_exit_site_infections_on_patient_id ON pd_exit_site_infecti
 
 
 --
+-- Name: index_pd_peritonitis_episode_types_description_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_peritonitis_episode_types_description_id ON pd_peritonitis_episode_types USING btree (peritonitis_episode_type_description_id);
+
+
+--
 -- Name: index_pd_peritonitis_episodes_on_episode_type_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -11812,6 +11961,13 @@ CREATE INDEX index_pd_peritonitis_episodes_on_patient_id ON pd_peritonitis_episo
 --
 
 CREATE INDEX index_pd_pet_adequacy_results_on_created_by_id ON pd_pet_adequacy_results USING btree (created_by_id);
+
+
+--
+-- Name: index_pd_pet_adequacy_results_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_pet_adequacy_results_on_patient_id ON pd_pet_adequacy_results USING btree (patient_id);
 
 
 --
@@ -12246,6 +12402,13 @@ CREATE INDEX index_research_study_participants_on_updated_by_id ON research_stud
 --
 
 CREATE INDEX index_roles_on_name ON roles USING btree (name);
+
+
+--
+-- Name: index_roles_users_on_role_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_roles_users_on_role_id ON roles_users USING btree (role_id);
 
 
 --
@@ -15439,7 +15602,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180718172750'),
 ('20180725132557'),
 ('20180725132808'),
+('20180730154454'),
 ('20180802103013'),
+('20180802132417'),
+('20180802144507'),
 ('20180814103916'),
 ('20180815144429');
 
