@@ -2699,7 +2699,8 @@ CREATE TABLE hd_transmission_logs (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     external_session_id character varying,
-    session_id bigint
+    session_id bigint,
+    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL
 );
 
 
@@ -15606,6 +15607,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180802103013'),
 ('20180802132417'),
 ('20180802144507'),
+('20180803131157'),
 ('20180814103916'),
 ('20180815144429');
 
