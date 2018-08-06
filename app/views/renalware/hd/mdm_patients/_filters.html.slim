@@ -13,7 +13,7 @@
 
     .medium-4.columns
       = f.input :schedule_definition_ids,
-          collection: Renalware::HD::ScheduleDefinitionFilter.all,
+          collection: Renalware::HD::ScheduleDefinitionFilter.order('ids::text').all,
           label_method: :days,
           value_method: :ids,
           include_blank: true,
