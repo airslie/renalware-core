@@ -42,7 +42,7 @@ module Renalware
 
         # # Simulate going to AKI Alerts, filtering and clicking Print
         visit renal_aki_alerts_path
-        select "Ward1", from: "Hospital ward"
+        select "Ward1", from: "Ward"
         click_on "Filter"
         click_on "Print"
 
