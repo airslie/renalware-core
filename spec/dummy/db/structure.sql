@@ -2237,7 +2237,8 @@ ALTER SEQUENCE hd_diary_slots_id_seq OWNED BY hd_diary_slots.id;
 CREATE TABLE hd_diurnal_period_codes (
     id bigint NOT NULL,
     code character varying NOT NULL,
-    description text
+    description text,
+    sort_order integer DEFAULT 0 NOT NULL
 );
 
 
@@ -2438,16 +2439,6 @@ ALTER SEQUENCE hd_profiles_id_seq OWNED BY hd_profiles.id;
 
 
 --
--- Name: hd_schedule_definition_filters; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW hd_schedule_definition_filters AS
-SELECT
-    NULL::bigint[] AS ids,
-    NULL::text AS days;
-
-
---
 -- Name: hd_schedule_definitions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -2458,8 +2449,32 @@ CREATE TABLE hd_schedule_definitions (
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    days_text text
+    days_text text,
+    sort_order integer DEFAULT 0 NOT NULL
 );
+
+
+--
+-- Name: hd_schedule_definition_filters; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW hd_schedule_definition_filters AS
+ SELECT filter.ids,
+    ((filter.days_text || ' '::text) || upper((filter.dirunal_code)::text)) AS days
+   FROM ( SELECT array_agg(s1.id) AS ids,
+            0 AS dirunal_order,
+            s1.days_text,
+            ''::character varying AS dirunal_code
+           FROM hd_schedule_definitions s1
+          GROUP BY s1.days_text
+        UNION ALL
+         SELECT public.intset((s2.id)::integer) AS intset,
+            hdpc.sort_order,
+            s2.days_text,
+            hdpc.code
+           FROM (hd_schedule_definitions s2
+             JOIN hd_diurnal_period_codes hdpc ON ((s2.diurnal_period_id = hdpc.id)))) filter
+  ORDER BY filter.days_text, filter.dirunal_order;
 
 
 --
@@ -12582,26 +12597,6 @@ CREATE INDEX tx_versions_type_id ON transplant_versions USING btree (item_type, 
 --
 
 CREATE UNIQUE INDEX unique_study_participants ON research_study_participants USING btree (participant_id, study_id) WHERE (deleted_at IS NULL);
-
-
---
--- Name: hd_schedule_definition_filters _RETURN; Type: RULE; Schema: renalware; Owner: -
---
-
-CREATE OR REPLACE VIEW hd_schedule_definition_filters AS
- SELECT t.ids,
-    t.days
-   FROM ( SELECT array_agg(s.id) AS ids,
-            s.days_text AS days
-           FROM hd_schedule_definitions s
-          GROUP BY s.days_text
-        UNION
-         SELECT array_agg(s.id) AS ids,
-            ((s.days_text || ' '::text) || upper((hdpc.code)::text)) AS days
-           FROM (hd_schedule_definitions s
-             JOIN hd_diurnal_period_codes hdpc ON ((s.diurnal_period_id = hdpc.id)))
-          GROUP BY s.id, hdpc.code) t
-  ORDER BY (t.ids)::text;
 
 
 --

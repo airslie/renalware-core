@@ -1,6 +1,7 @@
 class AddDaysTextToHDScheduleDefinitions < ActiveRecord::Migration[5.1]
   def change
     add_column :hd_schedule_definitions, :days_text, :text
+    add_column :hd_schedule_definitions, :sort_order, :integer, null: false, default: 0
 
     reversible do |direction|
       direction.up do
@@ -10,6 +11,17 @@ class AddDaysTextToHDScheduleDefinitions < ActiveRecord::Migration[5.1]
         SQL
         connection.execute(sql)
       end
+    end
+
+    add_column :hd_diurnal_period_codes, :sort_order, :integer, default: 0, null: false
+    reversible do |direction|
+      direction.up {
+        connection.execute(<<-SQL)
+          update hd_diurnal_period_codes set sort_order = 1 where code = 'am';
+          update hd_diurnal_period_codes set sort_order = 2 where code = 'pm';
+          update hd_diurnal_period_codes set sort_order = 3 where code = 'eve';
+        SQL
+      }
     end
   end
 end
