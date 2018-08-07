@@ -1,4 +1,4 @@
-- if patient.has_ever_been_a_recipient?
+- if patient.ever_been_a_recipient?
   = link_to(patient_transplants_mdm_path(patient), class: "button with-icon secondary") do
     i.fa.fa-group
     = t(".mdm")
@@ -19,7 +19,7 @@ ul.f-dropdown#tx-recip-options(data-dropdown-content aria-hidden="true")
                       title: t(".add_waitlist_registration"),
                       url: edit_patient_transplants_registration_path(patient)
 
-  = dropdown_btn_item enabled: patient.has_ever_been_a_recipient?,
+  = dropdown_btn_item enabled: patient.ever_been_a_recipient?,
                       title: t(".add_recipient_operation"),
                       url: new_patient_transplants_recipient_operation_path(patient)
 
@@ -27,5 +27,5 @@ ul.f-dropdown#tx-recip-options(data-dropdown-content aria-hidden="true")
                       title: t(".add_investigation"),
                       url: new_patient_investigation_path(patient)
 
-- unless patient.has_ever_been_a_recipient?
+- unless patient.ever_been_a_recipient?
   = render "modality_missing_warning", message: t(".missing_modality_warning")

@@ -2,7 +2,7 @@
 
 li.heading= t(".heading")
 
-- if transplant_patient.has_ever_been_a_donor?
+- if transplant_patient.ever_been_a_donor?
   = patient_menu_item title: t(".donor_summary"),
                       path: patient_transplants_donor_dashboard_path(patient),
                       active_when_controller_matches: %r{renalware/transplants/donor}
