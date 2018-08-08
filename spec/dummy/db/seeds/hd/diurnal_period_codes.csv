@@ -1,4 +1,4 @@
-code,description
-am,"0800 to 1230"
-pm,"1230 to 1800"
-eve,"1800 onwards"
+code,description,sort_order
+am,"0800 to 1230",1
+pm,"1230 to 1800",2
+eve,"1800 onwards",3

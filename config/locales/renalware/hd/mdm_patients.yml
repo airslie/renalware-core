@@ -18,6 +18,7 @@ en:
           access_plan: Access Plan
           access_plan_date: Plan Date
           registration_status: Tx Status
+          schedule: Schedule
           transport_type: Transport
           dialysing_at: Dialysing at
           esrf: ESRF

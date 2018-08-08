@@ -9,11 +9,11 @@ module Renalware
       include PatientPathologyScopes
       MODALITY_NAMES = "HD"
       DEFAULT_SEARCH_PREDICATE = "hgb_date desc"
-      attr_reader :q
+      attr_reader :params
 
-      def initialize(q:)
-        @q = q || {}
-        @q[:s] = DEFAULT_SEARCH_PREDICATE if @q[:s].blank?
+      def initialize(params:)
+        @params = params || {}
+        @params[:s] = DEFAULT_SEARCH_PREDICATE if @params[:s].blank?
       end
 
       def call
@@ -33,7 +33,7 @@ module Renalware
             .extending(PatientPathologyScopes)
             .with_current_pathology
             .with_current_modality_matching(MODALITY_NAMES)
-            .search(q)
+            .search(params)
         end
       end
       # rubocop:enable Metrics/MethodLength

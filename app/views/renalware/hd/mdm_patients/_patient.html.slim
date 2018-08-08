@@ -14,6 +14,7 @@ tr
   td= l(access_patient.access_plan_created_at.to_date)
   td= patient.dialysing_at_unit
   td= transplant_patient.current_registration_status
+  td.col-width-medium.show-for-xlarge-up= patient.schedule_definition
   td= patient.transport_summary
   td= patient.current_observation_set.hgb_result
   td= l(patient.current_observation_set.hgb_observed_at)
