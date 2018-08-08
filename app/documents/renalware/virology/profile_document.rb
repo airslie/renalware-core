@@ -9,6 +9,7 @@ module Renalware
       attribute :hiv, YearDatedDiagnosis
       attribute :hepatitis_b, YearDatedDiagnosis
       attribute :hepatitis_c, YearDatedDiagnosis
+      attribute :htlv, YearDatedDiagnosis
     end
   end
 end

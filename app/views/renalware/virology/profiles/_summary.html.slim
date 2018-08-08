@@ -9,7 +9,7 @@ article
       li= link_to "Edit", edit_patient_virology_profile_path(patient), class: "button"
 
   dl.dl-horizontal.medium
-    - %i(hiv hepatitis_b hepatitis_c).each do |attr_name|
+    - %i(hiv hepatitis_b hepatitis_c htlv).each do |attr_name|
       - status = document.public_send(attr_name).status
       - next if positive_results_only && !status&.yes?
       dt= attr_name(document, attr_name)
