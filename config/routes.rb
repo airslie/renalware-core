@@ -115,7 +115,7 @@ Renalware::Engine.routes.draw do
   resource :worryboard, only: :show, controller: "patients/worryboard"
 
   # Clinics
-  resources :appointments, controller: "clinics/appointments", only: [:index]
+  resources :appointments, controller: "clinics/appointments", only: [:new, :create, :index]
   resources :clinic_visits, only: :index, controller: "clinics/visits"
 
   resources :deaths, only: :index, as: :patient_deaths

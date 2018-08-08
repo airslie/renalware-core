@@ -1,3 +1,8 @@
+= content_for(:actions) do
+  = link_to "Add",
+          new_appointment_path,
+          class: "button"
+
 = within_admin_layout(title: "Upcoming Clinic Visit Appointments") do
 
   .search-form.filters
@@ -70,8 +75,7 @@
 
             td= I18n.l appointment.starts_on
             td= appointment.start_time
-            td= link_to appointment.patient.full_name,
-                        patient_clinical_summary_path(patient_id: appointment.patient)
+            td= default_patient_link(appointment.patient)
             td= appointment.patient.sex.code
             td= appointment.patient.age
             td= appointment.patient.current_modality
