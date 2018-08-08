@@ -9,6 +9,19 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.40
+08-08-2018
+
+### Added
+- On HD Session form display users who signed-on and off the session #2342
+- Add HTLV to Virology Profile #2341
+- Add Supportive Care filter to Low Clearance MDM patients listing #2332
+- Add HD Schedule filter (eg MWF, MWF AM, etc) to HD MDM patients listing #2074
+- Add MDM sorting by access plan type, plan date, current access and transplant registration status #2337
+### Changed
+### Fixed
+- Correct the dashboard default sorting #2263
+
 ## 2.0.39
 16-07-2018
 
