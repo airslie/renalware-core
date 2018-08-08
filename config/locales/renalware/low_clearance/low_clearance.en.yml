@@ -11,4 +11,5 @@ en:
             hgb_low: HGB < 100
             hgb_high: HGB > 130
             on_worryboard: On Worryboard
+            supportive_care: Supportive Care
             tx_candidates: Tx Candidates

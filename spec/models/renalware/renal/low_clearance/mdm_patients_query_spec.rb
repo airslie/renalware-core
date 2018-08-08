@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ModuleLength
 require "rails_helper"
 
 module Renalware
@@ -23,6 +22,14 @@ module Renalware
           set_modality(patient: patient,
                        modality_description: create(:low_clearance_modality_description),
                        by: user)
+        end
+      end
+
+      def create_lcc_patient_with_dialysis_plan(plan_enum)
+        create_lcc_patient.becomes(LowClearance::Patient).tap do |patient|
+          profile = create(:low_clearance_profile, patient: patient, by: user)
+          profile.document.dialysis_plan = plan_enum
+          profile.save_by!(user)
         end
       end
 
@@ -147,6 +154,22 @@ module Renalware
 
             expect(patients.map(&:id)).to eq [patient_w_hgb_gt_130.id]
           end
+        end
+      end
+
+      describe "#supportive_care" do
+        it "returns patients with any supportive care option in thie LCC profile dialysis plan" do
+          # Note re enums:
+          # not_for_dial_patient_choice: Supportive care - patient choice
+          # not_for_dial_consensus: Supportive Care - consensus
+          create_lcc_patient # no lcc profile
+          create_lcc_patient_with_dialysis_plan(:capd_la) # wrong plan
+          choice_patient = create_lcc_patient_with_dialysis_plan(:not_for_dial_patient_choice)
+          consensus_patient = create_lcc_patient_with_dialysis_plan(:not_for_dial_consensus)
+
+          patients = described_class.new(named_filter: :supportive_care).call
+
+          expect(patients.map(&:id).sort).to eq [choice_patient.id, consensus_patient.id]
         end
       end
     end
