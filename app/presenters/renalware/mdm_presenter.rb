@@ -5,6 +5,13 @@ require_dependency "renalware/clinics"
 
 module Renalware
   class MDMPresenter
+    NullAccess = Naught.build do |config|
+      config.black_hole
+      config.define_explicit_conversions
+      config.singleton
+      config.predicates_return false
+    end
+
     attr_reader :patient, :view_context
 
     def initialize(patient:, view_context:)
@@ -123,6 +130,17 @@ module Renalware
     def current_transplant_status
       @current_transplant_status ||= begin
         Renalware::Transplants::Registration.for_patient(patient).first&.current_status
+      end
+    end
+
+    def access
+      @access ||= begin
+        access_profile = Renalware::Accesses.cast_patient(patient).current_profile
+        if access_profile.present?
+          Accesses::ProfilePresenter.new(access_profile)
+        else
+          NullAccess.instance
+        end
       end
     end
 
