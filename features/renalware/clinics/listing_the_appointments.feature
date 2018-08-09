@@ -25,40 +25,40 @@ Feature: Listing the appointments
   Scenario: A clinician viewed the list of appointments
     When Clyde views the list of appointments
     Then Clyde should see these appointments:
-      | date        | starts_at | patient            | user            | clinic        |
-      | 07-Jun-2016  | 10:30     | Ibiere Elliott     | Emmett Eichmann | Haemodialysis |
-      | 08-Jun-2016  | 11:00     | Wendy Sears        | Clay Haag       | AKI           |
-      | 09-Jun-2016  | 16:45     | Rochelle Hinsberry | Levi Considine  | Transplant    |
+      | date         | starts_at | patient             | user            | clinic        |
+      | 07-Jun-2016  | 10:30     | ELLIOTT, Ibiere     | Emmett Eichmann | Haemodialysis |
+      | 08-Jun-2016  | 11:00     | SEARS, Wendy        | Clay Haag       | AKI           |
+      | 09-Jun-2016  | 16:45     | HINSBERRY, Rochelle | Levi Considine  | Transplant    |
 
   @web
   Scenario: A clinician viewed the list of appointments sorted by patient
     When Clyde views the list of appointments
     And Clyde sorts the list by patient
     Then Clyde should see these appointments:
-      | date        | starts_at | patient            | user            | clinic        |
-      | 07-Jun-2016  | 10:30     | Ibiere Elliott     | Emmett Eichmann | Haemodialysis |
-      | 09-Jun-2016  | 16:45     | Rochelle Hinsberry | Levi Considine  | Transplant    |
-      | 08-Jun-2016  | 11:00     | Wendy Sears        | Clay Haag       | AKI           |
+      | date         | starts_at | patient             | user            | clinic        |
+      | 07-Jun-2016  | 10:30     | ELLIOTT, Ibiere     | Emmett Eichmann | Haemodialysis |
+      | 09-Jun-2016  | 16:45     | HINSBERRY, Rochelle | Levi Considine  | Transplant    |
+      | 08-Jun-2016  | 11:00     | SEARS, Wendy        | Clay Haag       | AKI           |
 
   @web
   Scenario: A clinician viewed the list of appointments sorted by user
     When Clyde views the list of appointments
     And Clyde sorts the list by user
     Then Clyde should see these appointments:
-      | date        | starts_at | patient            | user            | clinic        |
-      | 09-06-2016  | 16:45     | Rochelle Hinsberry | Levi Considine  | Transplant    |
-      | 07-06-2016  | 10:30     | Ibiere Elliott     | Emmett Eichmann | Haemodialysis |
-      | 08-06-2016  | 11:00     | Wendy Sears        | Clay Haag       | AKI           |
+      | date        | starts_at | patient             | user            | clinic        |
+      | 09-06-2016  | 16:45     | HINSBERRY, Rochelle | Levi Considine  | Transplant    |
+      | 07-06-2016  | 10:30     | ELLIOTT, Ibiere     | Emmett Eichmann | Haemodialysis |
+      | 08-06-2016  | 11:00     | SEARS, Wendy        | Clay Haag       | AKI           |
 
   @web
   Scenario: A clinician viewed the list of appointments sorted by clinic
     When Clyde views the list of appointments
     And Clyde sorts the list by clinic
     Then Clyde should see these appointments:
-      | date        | starts_at | patient            | user            | clinic        |
-      | 08-06-2016  | 11:00     | Wendy Sears        | Clay Haag       | AKI           |
-      | 07-06-2016  | 10:30     | Ibiere Elliott     | Emmett Eichmann | Haemodialysis |
-      | 09-06-2016  | 16:45     | Rochelle Hinsberry | Levi Considine  | Transplant    |
+      | date        | starts_at | patient             | user            | clinic        |
+      | 08-06-2016  | 11:00     | SEARS, Wendy        | Clay Haag       | AKI           |
+      | 07-06-2016  | 10:30     | ELLIOTT, Ibiere     | Emmett Eichmann | Haemodialysis |
+      | 09-06-2016  | 16:45     | HINSBERRY, Rochelle | Levi Considine  | Transplant    |
 
   @web
   Scenario: A clinician viewed the list of appointments and filtered by date
@@ -66,4 +66,4 @@ Feature: Listing the appointments
     And Clyde filters the list by date to 08-06-2016
     Then Clyde should see these appointments:
       | date        | starts_at | patient            | user            | clinic        |
-      | 08-Jun-2016 | 11:00     | Wendy Sears        | Clay Haag       | AKI           |
+      | 08-Jun-2016 | 11:00     | SEARS, Wendy       | Clay Haag       | AKI           |
