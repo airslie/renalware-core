@@ -5,7 +5,7 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class OrganismCode < ApplicationRecord
-      has_many :infection_organisms
+      has_many :infection_organisms, dependent: :restrict_with_exception
       has_many :peritonitis_episodes,
                through: :infection_organisms,
                source: :infectable,

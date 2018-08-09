@@ -15,7 +15,7 @@ module Renalware
 
       belongs_to :patient, touch: true
       belongs_to :clinic
-      has_many :clinic_letters
+      has_many :clinic_letters, dependent: :restrict_with_exception
 
       validates :date, presence: true
       validates :clinic, presence: true

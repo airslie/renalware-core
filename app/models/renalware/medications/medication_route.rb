@@ -9,7 +9,7 @@ module Renalware
         "medication_routes"
       end
 
-      has_many :prescriptions
+      has_many :prescriptions, dependent: :restrict_with_exception
       has_many :patients, through: :prescriptions
       has_many :exit_site_infections,
                through: :prescriptions,

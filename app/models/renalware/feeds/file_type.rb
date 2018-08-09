@@ -9,7 +9,7 @@ module Renalware
       validates :description, presence: true
       validates :prompt, presence: true
 
-      has_many :files
+      has_many :files, dependent: :destroy
     end
   end
 end

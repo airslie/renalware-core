@@ -7,7 +7,7 @@ module Renalware
     class Description < ApplicationRecord
       validates :text, presence: true
 
-      has_many :letters
+      has_many :letters, dependent: :restrict_with_exception
     end
   end
 end

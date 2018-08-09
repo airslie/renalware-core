@@ -5,7 +5,7 @@ require_dependency "renalware/clinical"
 module Renalware
   module Clinical
     class Patient < ActiveType::Record[Renalware::Patient]
-      has_many :allergies
+      has_many :allergies, dependent: :restrict_with_exception
 
       # These statuses match NHS standards for the display of recorded allergy status.
       # Note that

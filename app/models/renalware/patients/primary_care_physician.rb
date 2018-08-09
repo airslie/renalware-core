@@ -14,8 +14,8 @@ module Renalware
       acts_as_paranoid
 
       has_one :address, as: :addressable
-      has_many :patients
-      has_many :practice_memberships
+      has_many :patients, dependent: :restrict_with_exception
+      has_many :practice_memberships, dependent: :restrict_with_exception
       has_many :practices, through: :practice_memberships
 
       accepts_nested_attributes_for :address, reject_if: Address.reject_if_blank
