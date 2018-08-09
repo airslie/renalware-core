@@ -26,25 +26,16 @@
   }
 }
 
-.mdm-page {
-  article {
-    &.events {
-      .created_at,
-      .created_by {
+.expandable {
+  clear: both;
+  height: 0;
+  opacity: 0;
+  float: left;
+  width: 100%;
 
-      }
-    }
-  }
-
-  .expandable {
-    clear: both;
-    height: 0;
-    opacity: 0;
-
-    &.expanded {
-      height: auto;
-      opacity: 1;
-      transition: all .3s ease .15s;
-    }
+  &.expanded {
+    height: auto;
+    opacity: 1;
+    transition: all .2s; // ease .15s;
   }
 }

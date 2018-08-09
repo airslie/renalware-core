@@ -37,6 +37,7 @@ ruby:
         )
 
   = render "pathology", letter: letter, f: f
+  = render "problems_prescriptions", letter: letter
   = render "main_recipient", f: f, contacts: contacts, patient: patient
   = render "additional_ccs", f: f, contacts: contacts, patient: patient
   = render "electronic_ccs",
@@ -44,6 +45,8 @@ ruby:
            contacts: contacts,
            patient: patient,
            electronic_recipient_options: electronic_recipient_options
+
+
 
   article
     header

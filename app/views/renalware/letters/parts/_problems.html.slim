@@ -2,7 +2,7 @@
   h3 Problems
 
   - if problems.any?
-    ul
+    ul.indented
       - problems.ordered.each do |problem|
         li.problem= problem.description
         - if problem.notes.present?
