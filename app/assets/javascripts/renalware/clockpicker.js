@@ -24,7 +24,7 @@
 			supported = (el.firstChild && el.firstChild.namespaceURI) == svgNS;
 			el.innerHTML = '';
 			return supported;
-		})();
+		}());
 
 	// Can I use transition ?
 	var transitionSupported = (function(){
@@ -34,7 +34,7 @@
 			'MozTransition' in style ||
 			'msTransition' in style ||
 			'OTransition' in style;
-	})();
+	}());
 
 	// Listen touch events in touch screen device, instead of mouse events in desktop.
 	var touchSupported = 'ontouchstart' in window,

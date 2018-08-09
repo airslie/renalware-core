@@ -78,7 +78,7 @@ Renalware.AjaxSearch = (function() {
       initAjaxSearch()
     }
   };
-})();
+}());
 
 $(document).ready(Renalware.AjaxSearch.init);
 $(document).on('opened.fndtn.reveal', '[data-reveal]', function() {

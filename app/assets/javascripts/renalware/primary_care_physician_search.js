@@ -75,7 +75,6 @@ Renalware.PrimaryCarePhysicianSearch = (function() {
       initPracticeAutocomplete()
     }
   };
-})();
+}());
 
 $(document).on('opened.fndtn.reveal', '[data-reveal]', Renalware.PrimaryCarePhysicianSearch.init);
-

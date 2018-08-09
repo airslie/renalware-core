@@ -104,6 +104,6 @@ Renalware.Letters = (function() {
       bindOnLetterAboutToPrint();
     }
   };
-})();
+}());
 
 $(document).ready(Renalware.Letters.init);
