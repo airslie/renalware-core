@@ -40,7 +40,7 @@ Renalware.PatientSearch = (function() {
       initPatientSearch()
     }
   };
-})();
+}());
 
 $(document).ready(Renalware.PatientSearch.init);
 $(document).on('opened.fndtn.reveal', '[data-reveal]', function() {

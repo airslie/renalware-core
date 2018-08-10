@@ -13,6 +13,6 @@ Renalware.Research = (function() {
       focusPatientInput();
     }
   };
-})();
+}());
 
 $(document).on('opened.fndtn.reveal', '#study-participant-modal', Renalware.Research.init);

@@ -10,6 +10,6 @@ Renalware.Messaging = (function() {
       focusRecipientSearchInput()
     }
   };
-})();
+}());
 
 $(document).on('opened.fndtn.reveal', '#send-message-modal', Renalware.Messaging.init);

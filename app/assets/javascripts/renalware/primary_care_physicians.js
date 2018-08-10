@@ -20,6 +20,6 @@ Renalware.PrimaryCarePhysicians = (function () {
       bindAddressFormToggle();
     }
   }
-})();
+}());
 
 $(document).ready(Renalware.PrimaryCarePhysicians.init);

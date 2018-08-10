@@ -29,6 +29,6 @@ Renalware.Renal = (function () {
       wireUpUseCurrentAddressButton();
     }
   }
-})();
+}());
 
 $(document).ready(Renalware.Renal.init);

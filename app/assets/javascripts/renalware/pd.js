@@ -47,7 +47,7 @@ Renalware.PdRegimes = (function () {
       $('a.remove-bag').show();
     }
   }
-})();
+}());
 // Bind DOM ready and nested_form:fieldAdded events
 // so that buttons are toggled when JS is active.
 $(document).ready(Renalware.PdRegimes.init);
