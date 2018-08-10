@@ -5,7 +5,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class Patient < ActiveType::Record[Renalware::Patient]
-      has_many :observation_requests
+      has_many :observation_requests, dependent: :restrict_with_exception
       has_many :observations, through: :observation_requests
       has_many :current_observations, class_name: "Pathology::CurrentObservation"
       has_many :rules, class_name: "Requests::PatientRule"

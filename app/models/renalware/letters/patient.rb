@@ -5,8 +5,8 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class Patient < ActiveType::Record[Renalware::Patient]
-      has_many :letters
-      has_many :contacts
+      has_many :letters, dependent: :restrict_with_exception
+      has_many :contacts, dependent: :restrict_with_exception
       belongs_to :primary_care_physician, class_name: "Renalware::Letters::PrimaryCarePhysician"
 
       def cc_on_letter?(letter)
