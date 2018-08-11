@@ -9,7 +9,7 @@ module Renalware
       DEFAULT_SEARCH_PREDICATE = "hgb_date DESC"
       attr_reader :query, :relation, :named_filter
 
-      def initialize(relation: Patient.all, query: nil, named_filter: nil)
+      def initialize(relation: LowClearance::Patient.all, query: nil, named_filter: nil)
         @query = query || {}
         @named_filter = named_filter || :none
         @query[:s] = DEFAULT_SEARCH_PREDICATE if @query[:s].blank?
@@ -37,6 +37,11 @@ module Renalware
       module NamedFilterScopes
         def none
           self # NOOP
+        end
+
+        def supportive_care
+          joins(:profile)
+          .where("low_clearance_profiles.document ->> 'dialysis_plan' LIKE 'not_for_dial%'")
         end
 
         def on_worryboard
