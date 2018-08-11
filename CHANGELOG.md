@@ -18,6 +18,9 @@ This project adheres to Semantic Versioning.
 - Add Supportive Care filter to Low Clearance MDM patients listing #2332
 - Add HD Schedule filter (eg MWF, MWF AM, etc) to HD MDM patients listing #2074
 - Add MDM sorting by access plan type, plan date, current access and transplant registration status #2337
+- Ability to see Problem list and Medications whilst composing a letter #2090
+- LCC MDM screen virology additions #2303
+
 ### Changed
 ### Fixed
 - Correct the dashboard default sorting #2263
