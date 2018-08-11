@@ -1,4 +1,14 @@
 = render "low_clearance_profile", mdm: mdm
+.columns.small-12.medium-6.xlarge-4
+  = render "summary", mdm: mdm
+.columns.small-12.medium-6.xlarge-4
+  = render "renalware/virology/profiles/summary",
+           patient: mdm.patient,
+           positive_results_only: true,
+           with_vaccinations: true
+.columns.small-12.medium-6.xlarge-4
+  - if mdm.access.present?
+    = render "renalware/hd/accesses/summary", access: mdm.access, patient: mdm.patient
 .columns.small-12.medium-6.large-6.xlarge-4
   = render "prescriptions", mdm: mdm, with_esa: true
 .columns.small-12.medium-6.large-6.xlarge-4

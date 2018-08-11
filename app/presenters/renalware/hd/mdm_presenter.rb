@@ -32,17 +32,6 @@ module Renalware
         end
       end
 
-      def access
-        @access ||= begin
-          access_profile = Renalware::Accesses.cast_patient(patient).current_profile
-          if access_profile.present?
-            Accesses::ProfilePresenter.new(access_profile)
-          else
-            NullObject.instance
-          end
-        end
-      end
-
       def preference_set
         @preference_set ||= PreferenceSet.for_patient(patient).first || NullObject.instance
       end

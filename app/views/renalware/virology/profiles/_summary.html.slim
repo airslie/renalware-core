@@ -1,6 +1,7 @@
 - profile = Renalware::Virology.cast_patient(patient).profile
 - document = profile&.document || Renalware::NullObject.instance
 - positive_results_only = local_assigns.fetch(:positive_results_only, false)
+- with_vaccinations = local_assigns.fetch(:with_vaccinations, false)
 
 article
   header
@@ -14,3 +15,9 @@ article
       - next if positive_results_only && !status&.yes?
       dt= attr_name(document, attr_name)
       dd= document.public_send(attr_name).to_s
+
+  - if with_vaccinations
+    - vaccinations = Renalware::Virology::Vaccination.for_patient(patient).order(date_time: :asc)
+    - if vaccinations.any?
+      h3 Vaccinations
+      = render "renalware/events/events/table", events: vaccinations, exclude_type_column: true
