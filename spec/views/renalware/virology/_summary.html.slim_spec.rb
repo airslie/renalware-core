@@ -4,7 +4,7 @@ require "rails_helper"
 
 # Commented out - cannot work out atm how to inject url helpers into RSpec view spec!
 describe "renalware/virology/profiles/summary", type: :view do
-  VIROLOGY_ATTRIBUTES = %i(hiv hepatitis_b hepatitis_c).freeze
+  VIROLOGY_ATTRIBUTES = %i(hiv hepatitis_b hepatitis_c htlv).freeze
   helper(Renalware::Engine.routes.url_helpers, Renalware::AttributeNameHelper)
 
   let(:patient) { create(:virology_patient).tap(&:create_profile) }

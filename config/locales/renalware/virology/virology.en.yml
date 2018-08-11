@@ -14,6 +14,7 @@ en:
         hiv: HIV
         hepatitis_b: Hepatitis B
         hepatitis_c: Hepatitis C
+        htlv: HTLV
   enumerize:
     renalware/virology/vaccination/document:
       type:

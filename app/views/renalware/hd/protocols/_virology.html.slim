@@ -1,6 +1,6 @@
 - document = Renalware::Virology.cast_patient(protocol.patient).profile&.document || Renalware::NullObject.instance
 table(style="text-align: left;")
-  - %i(hiv hepatitis_b hepatitis_c).each do |attr|
+  - %i(hiv hepatitis_b hepatitis_c htlv).each do |attr|
     - if document.public_send(attr).status&.yes?
       tr
         th= attr_name(document, attr)

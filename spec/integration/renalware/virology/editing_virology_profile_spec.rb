@@ -29,6 +29,11 @@ RSpec.describe "Editing the virology profile", type: :feature do
       choose("Unknown")
     end
 
+    within(".htlv") do
+      choose("Yes")
+      select("2018", from: "Diagnosed")
+    end
+
     within ".patient-content" do
       click_on "Save"
     end
@@ -42,5 +47,7 @@ RSpec.describe "Editing the virology profile", type: :feature do
     expect(document.hepatitis_b.confirmed_on_year).to eq(2011)
     expect(document.hepatitis_c.status.to_s).to eq("unknown")
     expect(document.hepatitis_c.confirmed_on_year).to be_blank
+    expect(document.htlv.status.to_s).to eq("yes")
+    expect(document.htlv.confirmed_on_year).to eq(2018)
   end
 end

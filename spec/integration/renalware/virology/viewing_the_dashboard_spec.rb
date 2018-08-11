@@ -45,11 +45,13 @@ RSpec.describe "Viewing the dashboard", type: :feature do
     end
   end
 
-  it "displays hiv, hepatitis c, hepatitis b" do
+  it "displays hiv, hepatitis c, hepatitis b, htlv" do
     user = login_as_clinical
     patient.build_profile
     patient.profile.document.hiv.status = :yes
     patient.profile.document.hiv.confirmed_on_year = 2001
+    patient.profile.document.htlv.status = :yes
+    patient.profile.document.htlv.confirmed_on_year = 2018
     patient.save_by!(user)
 
     visit patient_virology_dashboard_path(patient)
@@ -57,6 +59,8 @@ RSpec.describe "Viewing the dashboard", type: :feature do
     within ".patient-content" do
       expect(page).to have_content("HIV")
       expect(page).to have_content("Yes (2001)")
+      expect(page).to have_content("HTLV")
+      expect(page).to have_content("Yes (2018)")
     end
   end
 end
