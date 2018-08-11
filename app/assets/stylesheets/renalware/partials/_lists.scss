@@ -83,3 +83,11 @@
     }
   }
 }
+
+ul.indented {
+  li {
+    text-indent: -1.5em;
+    list-style-position: outside;
+    padding-left: 1.5em;
+  }
+}
