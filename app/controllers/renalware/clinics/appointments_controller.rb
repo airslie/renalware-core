@@ -21,7 +21,27 @@ module Renalware
         }
       end
 
+      def new
+        render_new(Appointment.new)
+      end
+
+      def create
+        appointment = Appointment.new(appointment_params)
+        appointment.user = current_user
+        authorize appointment
+        if appointment.save
+          redirect_to appointments_path, notice: t(".success", model_name: "Appointment")
+        else
+          render_new(appointment)
+        end
+      end
+
       private
+
+      def render_new(appointment)
+        authorize appointment
+        render :new, locals: { appointment: appointment }
+      end
 
       def build_params_for_html_form(appointments)
         OpenStruct.new(
@@ -33,6 +53,12 @@ module Renalware
         params
           .fetch(:q, {})
           .merge(page: page, per_page: per_page)
+      end
+
+      def appointment_params
+        params
+          .require(:clinics_appointment)
+          .permit(:patient_id, :clinic_id, :starts_at)
       end
     end
   end

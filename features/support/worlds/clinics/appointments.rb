@@ -34,7 +34,7 @@ module World
         def expect_appointments_to_match(appointments, expected_appointments)
           appointments.zip(expected_appointments).each do |appointment, expected_appointment|
             expect(appointment.start_time).to eq(expected_appointment["starts_at"])
-            expect(appointment.patient.full_name).to eq(expected_appointment["patient"])
+            expect(appointment.patient.to_s).to eq(expected_appointment["patient"])
             expect(appointment.user.full_name).to eq(expected_appointment["user"])
             expect(appointment.clinic.name).to eq(expected_appointment["clinic"])
           end

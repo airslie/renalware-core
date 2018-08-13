@@ -10,8 +10,8 @@ module Renalware
       belongs_to :user
 
       validates :starts_at, presence: true
-      validates :patient, presence: true
-      validates :clinic, presence: true
+      validates :patient_id, presence: true
+      validates :clinic_id, presence: true
       validates :user, presence: true
 
       validates :starts_at, timeliness: { type: :datetime }
