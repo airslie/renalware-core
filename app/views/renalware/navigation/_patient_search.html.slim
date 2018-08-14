@@ -3,6 +3,7 @@
     li.has-form
       = search_form_for the_patient_search,
                         url: patients_path,
+                        as: :patient_search,
                         class: "patient-search-form" do |f|
         .row.collapse
           .columns.small-12

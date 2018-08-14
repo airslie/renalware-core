@@ -6,7 +6,7 @@ module Renalware
       def self.call(params)
         Renalware::Patient
           .includes(current_modality: [:description])
-          .search(params[:q]).tap do |search|
+          .search(params[:patient_search]).tap do |search|
           search.sorts = %w(family_name given_name)
         end
       end
