@@ -8,6 +8,9 @@
       - if filters.empty?
         td None
       - else
+        - if filters[:date].present?
+          th Date:
+          td= filters[:date]
         - if filters[:term].present?
           th Query:
           td= filters[:term]
@@ -16,7 +19,7 @@
           td= yes_no(filters[:on_hotlist] == "true")
         - if filters[:action].present?
           th Action:
-          td=  Renalware::Renal::AKIAlertAction.find(filters[:action])&.to_s
+          td= Renalware::Renal::AKIAlertAction.find(filters[:action])&.to_s
         - if filters[:hospital_unit_id].present?
           th Site:
           td= Renalware::Hospitals::Unit.find_by(id: filters[:hospital_unit_id])

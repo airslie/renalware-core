@@ -4,11 +4,6 @@
 .pdf
   .header
     h1 AKI Alerts
-    - if params[:named_filter].present?
-      h1.muted
-        | &nbsp;/&nbsp;
-        = params[:named_filter]&.humanize
     h2.muted= I18n.l(Time.zone.today)
   = render "filters"
   = render "table", alerts: alerts
-
