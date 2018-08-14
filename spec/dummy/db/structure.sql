@@ -9549,6 +9549,13 @@ CREATE INDEX idx_mp_patient_id_medication_route_id ON medication_prescriptions U
 
 
 --
+-- Name: idx_patients_on_lower_family_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_patients_on_lower_family_name ON patients USING btree (lower((family_name)::text), given_name);
+
+
+--
 -- Name: idx_practice_membership; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -15160,6 +15167,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180725132557'),
 ('20180725132808'),
 ('20180802103013'),
+('20180814103916'),
 ('20180815144429');
 
 

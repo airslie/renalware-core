@@ -10,6 +10,10 @@ module Renalware
     included do
       class_eval do
         scope :identity_match, ->(identity = 1) { where(sql_and_params(identity)) }
+
+        ransacker :family_name_case_insensitive, type: :string do
+          arel_table[:family_name].lower
+        end
       end
     end
 

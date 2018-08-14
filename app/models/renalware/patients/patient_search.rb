@@ -7,8 +7,8 @@ module Renalware
         Renalware::Patient
           .includes(current_modality: [:description])
           .search(params[:patient_search]).tap do |search|
-          search.sorts = %w(family_name given_name)
-        end
+            search.sorts = %w(family_name_case_insensitive given_name)
+          end
       end
     end
   end
