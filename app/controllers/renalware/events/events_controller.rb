@@ -36,7 +36,7 @@ module Renalware
 
       def index
         events_query = EventQuery.new(patient: patient, query: query_params)
-        events = events_query.call
+        events = events_query.call.page(page).per(per_page)
         authorize events
         events = EventsPresenter.new(patient, events)
 
@@ -93,15 +93,6 @@ module Renalware
 
       private
 
-      def events
-        @events ||= Event.for_patient(patient)
-                         .includes(:event_type)
-                         .includes(:created_by)
-                         .page(page)
-                         .per(per_page)
-                         .ordered
-      end
-
       def disable_selection_of_event_type?
         event_type_slug.present? && event_type.present?
       end
@@ -145,8 +136,7 @@ module Renalware
       end
 
       def document_attributes
-        params.require(:events_event)
-              .fetch(:document, nil).try(:permit!)
+        params.require(:events_event).fetch(:document, nil).try(:permit!)
       end
 
       def new_event_for_patient(params = {})
@@ -176,9 +166,7 @@ module Renalware
       end
 
       def query_params
-        params
-          .fetch(:q, {})
-          .merge(page: page, per_page: per_page || 20)
+        params.fetch(:q, {})
       end
     end
   end
