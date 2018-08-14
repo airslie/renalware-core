@@ -21,7 +21,7 @@ module Renalware
       def query
         @query ||= begin
           options = {
-            aki_date_eq: date,
+            created_at_casted_date_equals: date,
             identity_match: term,
             hospital_ward_id_eq: hospital_ward_id,
             hospital_ward_hospital_unit_id_eq: hospital_unit_id,
