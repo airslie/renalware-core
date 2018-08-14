@@ -11,7 +11,7 @@ RSpec.describe "Searching patients", type: :request do
       end
 
       it "responds with a filtered list of records matching the hospital number" do
-        get patients_path(q: { identity_match: "::target number::" })
+        get patients_path(patient_search: { identity_match: "::target number::" })
 
         expect(response).to have_http_status(:success)
         expect(response.body).to match("::target number::")
@@ -25,7 +25,7 @@ RSpec.describe "Searching patients", type: :request do
       end
 
       it "responds with a filtered list of records matching the hospital number" do
-        get patients_path(q: { identity_match: "rabb r" })
+        get patients_path(patient_search: { identity_match: "rabb r" })
 
         expect(response).to have_http_status(:success)
         expect(response.body).to match("RABBIT")
@@ -39,7 +39,7 @@ RSpec.describe "Searching patients", type: :request do
       end
 
       it "responds with a filtered list of records matching the hospital number" do
-        get patients_path(q: { identity_match: "rabb,r" })
+        get patients_path(patient_search: { identity_match: "rabb,r" })
 
         expect(response).to have_http_status(:success)
         expect(response.body).to match("RABBIT")
@@ -53,7 +53,7 @@ RSpec.describe "Searching patients", type: :request do
       end
 
       it "responds with a filtered list of records matching the hospital number" do
-        get patients_path(q: { identity_match: "rabb, r" })
+        get patients_path(patient_search: { identity_match: "rabb, r" })
 
         expect(response).to have_http_status(:success)
         expect(response.body).to match("RABBIT")
@@ -67,7 +67,7 @@ RSpec.describe "Searching patients", type: :request do
       end
 
       it "responds with a filtered list of records matching the hospital number" do
-        get patients_path(q: { identity_match: "rabbit" })
+        get patients_path(patient_search: { identity_match: "rabbit" })
 
         expect(response).to have_http_status(:success)
         expect(response.body).to match("RABBIT")
@@ -81,7 +81,7 @@ RSpec.describe "Searching patients", type: :request do
       end
 
       it "responds with a filtered list of records matching the NHS number" do
-        get patients_path(q: { identity_match: "1234567890" })
+        get patients_path(patient_search: { identity_match: "1234567890" })
 
         expect(response).to have_http_status(:success)
         expect(response.body).to match("1234567890")
@@ -89,7 +89,7 @@ RSpec.describe "Searching patients", type: :request do
 
       context "when the NHS number is entered in the 3-groups-separated-with-spaces format" do
         it "responds with a filtered list of records matching the NHS number" do
-          get patients_path(q: { identity_match: "123 456 7890" })
+          get patients_path(patient_search: { identity_match: "123 456 7890" })
 
           expect(response).to have_http_status(:success)
           expect(response.body).to match("123 456 7890")
