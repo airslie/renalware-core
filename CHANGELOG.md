@@ -9,6 +9,15 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.41
+14-08-2018
+
+### Added
+- Manually create a clinic appointment #2343
+
+### Changed
+### Fixed
+
 ## 2.0.40
 08-08-2018
 
