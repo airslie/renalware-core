@@ -13,7 +13,11 @@ module Renalware
       has_paper_trail class_name: "Renalware::Medications::PrescriptionVersion"
 
       belongs_to :patient, touch: true
-      belongs_to :drug, class_name: "Renalware::Drugs::Drug"
+
+      # A drug can be soft-deleted (its deleted_at set) so that it can no longer be prescribed.
+      # We need to be sure we can still display deleted drugs in the read-only context of an
+      # existing prescription, so we include deleted drugs in the relationship.
+      belongs_to :drug, -> { with_deleted }, class_name: "Renalware::Drugs::Drug"
       belongs_to :treatable, polymorphic: true
       belongs_to :medication_route
 
