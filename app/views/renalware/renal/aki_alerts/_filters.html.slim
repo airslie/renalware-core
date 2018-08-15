@@ -4,6 +4,13 @@ ruby:
     suspended: "All"
   }
 
+scss:
+  .link_to_right_of_input_label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-right: .2rem;
+  }
 
 /h2.print-only= filters[path_params[:named_filter].to_sym]
 
@@ -20,14 +27,14 @@ ruby:
       method: :get do |f|
 
     .row
-      .columns.medium-4.large-3
-        = f.input :term, label: "Hospital/NHS number or name"
-    .row
+      .columns.medium-3.large-2
+        = f.input :term, label: "Hosp/NHS No. or name"
       .columns.medium-2.large-2
         = f.input :date, as: :date_picker
-        a.set_filter_date_to_today(href="") Today
-        | &nbsp;|&nbsp;
-        a.set_filter_date_to_any_date(href="") Any date
+        .link_to_right_of_input_label
+          a.set_filter_date_to_today(href="") Today
+          | &nbsp;|&nbsp;
+          a.set_filter_date_to_any_date(href="") Clear
       .columns.medium-1.large-1
         = f.input :on_hotlist,
                   collection: [["Yes",true],["No",false]],
@@ -35,14 +42,16 @@ ruby:
       .columns.medium-2.large-2
         = f.input :action,
                   collection: Renalware::Renal::AKIAlertAction.pluck(:name, :id)
-      .columns.medium-3.large-2
-        = f.input :hospital_unit_id,
-                  collection: Renalware::Hospitals::Unit.pluck(:name, :id),
-                  label: "Unit"
       .columns.medium-2.large-2
         = f.input :hospital_ward_id,
-                  collection: Renalware::Hospitals::Ward.pluck(:name, :id),
+                  as: :grouped_select,
+                  group_method: :wards,
+                  collection: Renalware::Hospitals::Unit.joins(:wards).includes(:wards).ordered,
+                  label_method: ->(s) { "#{s.name} @#{s.hospital_unit.unit_code}" },
+                  input_html: { class: "searchable_select" },
                   label: "Ward"
+
+        a.link_to_right_of_input_label(href="javascript:$('#q_hospital_ward_id').val(null).trigger('change');") Clear
       .columns.medium-2.large-2.actions.end
         = f.submit "Filter", class: "button"
         span= " or "

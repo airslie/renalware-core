@@ -47,7 +47,7 @@ module Renalware
         click_on "Print"
 
         expect(page.status_code).to eq(200)
-        expect(page).to have_content("AKI Alerts\n / Today")
+        expect(page).to have_content("AKI Alerts")
         expect(page).to have_content(I18n.l(Time.zone.today))
         expect(page).to have_content("Filters")
         expect(page).to have_content("Ward:Ward1")
