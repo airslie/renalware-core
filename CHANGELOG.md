@@ -9,6 +9,17 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.42
+16-08-2018
+
+### Added
+- Support for HD providers like Diaverum and Fresenius
+- Allow listing Aki Alerts by date #2248
+### Changed
+### Fixed
+- Patient search sort order order wrong when results contain a mix upper and lower case family names #2200
+- PatientSearch is intercepting ransack searches if params[:q] present #2316
+
 ## 2.0.41
 14-08-2018
 
