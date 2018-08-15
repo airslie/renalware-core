@@ -1,7 +1,6 @@
 # TODO: list
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ModuleLength
 require "rails_helper"
 
 # Anaemia Audit
@@ -143,4 +142,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ModuleLength

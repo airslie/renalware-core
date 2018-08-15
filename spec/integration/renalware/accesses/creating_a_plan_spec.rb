@@ -6,7 +6,7 @@ feature "Creating an Access Plan", type: :feature do
   include DateHelpers
 
   scenario "A clinician adds the first access plan to a patient using menus" do
-    user = patient = plan_type = nil
+    user = plan_type = nil
 
     user = login_as_clinical
     patient = create(:accesses_patient, by: user)
