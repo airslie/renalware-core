@@ -5722,6 +5722,11 @@ CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
          SELECT access_types.id
            FROM access_types
           WHERE (((access_types.name)::text ~~* '%fistula%'::text) OR ((access_types.name)::text ~~* '%graft%'::text))
+        ), patients_w_fistula_or_graft AS (
+         SELECT access_profiles.patient_id
+           FROM access_profiles
+          WHERE (access_profiles.type_id IN ( SELECT fistula_or_graft_access_types.id
+                   FROM fistula_or_graft_access_types))
         ), stats AS (
          SELECT s.patient_id,
             s.hospital_unit_id,
@@ -5730,6 +5735,9 @@ CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
             s.session_count,
             s.number_of_missed_sessions,
             s.number_of_sessions_with_dialysis_minutes_shortfall_gt_5_pct,
+            (EXISTS ( SELECT x.patient_id
+                   FROM patients_w_fistula_or_graft x
+                  WHERE (x.patient_id = s.patient_id))) AS has_fistula_or_graft,
             ((((s.number_of_missed_sessions)::double precision / NULLIF((s.session_count)::double precision, (0)::double precision)) * (100.0)::double precision) > (10.0)::double precision) AS missed_sessions_gt_10_pct,
             (s.dialysis_minutes_shortfall)::double precision AS dialysis_minutes_shortfall,
             (convert_to_float(((s.pathology_snapshot -> 'HGB'::text) ->> 'result'::text)) > (100)::double precision) AS hgb_gt_100,
@@ -5754,7 +5762,7 @@ CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
     round(((((count(*) FILTER (WHERE (stats.urr_gt_64 = true)))::double precision / (count(*))::double precision) * (100)::double precision))::numeric, 2) AS percentage_urr_gt_64,
     round(((((count(*) FILTER (WHERE (stats.urr_gt_69 = true)))::double precision / (count(*))::double precision) * (100)::double precision))::numeric, 2) AS percentage_urr_gt_69,
     round(((((count(*) FILTER (WHERE (stats.phos_lt_1_8 = true)))::double precision / (count(*))::double precision) * (100)::double precision))::numeric, 2) AS percentage_phosphate_lt_1_8,
-    'TBC'::text AS percentage_access_fistula_or_graft
+    round(((((count(*) FILTER (WHERE (stats.has_fistula_or_graft = true)))::double precision / (count(*))::double precision) * (100)::double precision))::numeric, 2) AS percentage_access_fistula_or_graft
    FROM (stats
      JOIN hospital_units hu ON ((hu.id = stats.hospital_unit_id)))
   GROUP BY hu.name, stats.year, stats.month
@@ -15151,6 +15159,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180718172750'),
 ('20180725132557'),
 ('20180725132808'),
-('20180802103013');
+('20180802103013'),
+('20180815144429');
 
 
