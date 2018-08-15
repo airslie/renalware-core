@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ModuleLength
-
 require "rails_helper"
 
 module Renalware::Letters
@@ -156,7 +154,7 @@ module Renalware::Letters
         create(:pathology_observation_description, code: "HBA", name: "HBA", letter_group: 10, letter_order: 1)
         create(:pathology_observation_description, code: "CHOL", name: "CHOL", letter_group: 11, letter_order: 1)
       end
+      # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Metrics/AbcSize
     end
   end
 end
-# rubocop:enable Metrics/ModuleLength

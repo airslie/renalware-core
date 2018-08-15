@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ModuleLength, Metrics/MethodLength
+# rubocop:disable Metrics/MethodLength
 module World
   module HD::Session
     module Domain
@@ -358,4 +358,4 @@ module World
     end
   end
 end
-# rubocop:enable Metrics/ModuleLength, Metrics/MethodLength
+# rubocop:enable Metrics/MethodLength

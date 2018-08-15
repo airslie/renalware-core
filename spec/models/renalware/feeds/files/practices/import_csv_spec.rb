@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/LineLength
-# rubocop:disable Metrics/ModuleLength
 require "rails_helper"
 
 module Renalware
@@ -145,3 +144,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Metrics/LineLength

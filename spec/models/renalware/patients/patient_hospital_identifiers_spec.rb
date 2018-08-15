@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ModuleLength
-
 require "rails_helper"
 
 module Renalware::Patients
@@ -136,4 +134,3 @@ module Renalware::Patients
     end
   end
 end
-# rubocop:enable Metrics/ModuleLength

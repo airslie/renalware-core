@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ModuleLength
-
 require "rails_helper"
 require_dependency "models/renalware/concerns/personable"
 
@@ -131,4 +129,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ModuleLength

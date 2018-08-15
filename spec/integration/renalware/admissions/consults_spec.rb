@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ModuleLength
 require "rails_helper"
 module Renalware
   RSpec.describe "Admission Consult management", type: :request do
@@ -186,4 +185,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ModuleLength

@@ -24,7 +24,6 @@ module Renalware
           super
         end
       end
-      # rubocop:enable Style/MethodMissing
 
       # From eg hgb_result, returns
       # [:HGB, "result"]

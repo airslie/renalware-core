@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable  Metrics/ModuleLength, Metrics/AbcSize
+# rubocop:disable Metrics/AbcSize
 require "rails_helper"
 
 module Renalware
@@ -313,7 +313,7 @@ module Renalware
 
         # Mean weight loss as percentage body weight last 12 sessions
         # Use dry weight for each HD session
-        # (pre dialysis weight – post dialysis weight)/dry weight * 100
+        # (pre dialysis weight - post dialysis weight)/dry weight * 100
         describe "#mean_weight_loss_as_percentage_of_body_weight" do
           it do
             clinical_patient = Clinical.cast_patient(patient)
@@ -407,3 +407,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Metrics/AbcSize
