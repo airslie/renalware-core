@@ -12,6 +12,11 @@ module Renalware
         render locals: { study: study, participants: participants }
       end
 
+      def show
+        authorize StudyParticipant, :show?
+        redirect_to research_study_participants_path(study)
+      end
+
       def create
         participant = study.participants.build(participant_params)
         participant.joined_on ||= Time.zone.today
