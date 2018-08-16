@@ -19,7 +19,6 @@ module Renalware
         @search ||= begin
           Prescription
             .current
-            .ordered
             .includes(:medication_route, :drug)
             .includes(patient: { current_modality: :description })
             .eager_load(drug: [:drug_types])

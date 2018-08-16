@@ -10,9 +10,7 @@
     method: :get do |f|
     /= search_form_for(search, url: medications_esa_prescriptions_path) do |f|
     .small-6.columns
-      /= f.search_field search_scope, placeholder: t(".search_prompt")
-      = f.input :patient_given_name_or_patient_family_name_or_drug_name_or_patient_local_patient_id_cont,
-                label: t(".search_prompt")
+      = f.input search_scope, label: t(".search_prompt")
     .small-3.columns
       = f.input :provider_eq,
                 include_blank: true,
