@@ -33,7 +33,7 @@ RSpec.describe "AKI alert management", type: :request do
       )
     end
 
-    describe "named_filter: :all" do
+    describe "with no filters" do
       it "renders a list of AKI Alerts" do
         get renal_aki_alerts_path
 
@@ -49,9 +49,9 @@ RSpec.describe "AKI alert management", type: :request do
       end
     end
 
-    describe "named_filter: :today" do
+    describe "filtering by date" do
       it "renders a list of just today's AKI Alerts" do
-        get renal_filtered_aki_alerts_path(named_filter: :today)
+        get renal_aki_alerts_path(q: { date: I18n.l(Time.zone.today) })
 
         expect(response).to have_http_status(:success)
         expect(response.body).to match("Patient1")
@@ -59,7 +59,7 @@ RSpec.describe "AKI alert management", type: :request do
       end
     end
 
-    describe "named_filter: :hotlist" do
+    describe "filtered by hotlist" do
       it "renders a list of all AKI Alerts with hotlist=true" do
         action1 = create(:aki_alert_action, name: "action1")
         action2 = create(:aki_alert_action, name: "action2")
@@ -90,7 +90,7 @@ RSpec.describe "AKI alert management", type: :request do
           hospital_ward: nil,
           by: user
         )
-        get renal_filtered_aki_alerts_path(named_filter: :hotlist)
+        get renal_aki_alerts_path(q: { on_hotlist: true })
 
         expect(response).to have_http_status(:success)
         expect(response.body).to match("HOT")
@@ -99,7 +99,7 @@ RSpec.describe "AKI alert management", type: :request do
 
       context "when a Print version requested" do
         it "renders a PDF" do
-          get renal_filtered_aki_alerts_path(named_filter: :hotlist, format: :pdf)
+          get renal_aki_alerts_path(q: { on_hotlist: true }, format: :pdf)
 
           expect(response).to be_success
           expect(response["Content-Type"]).to eq("application/pdf")
