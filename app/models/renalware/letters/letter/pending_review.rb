@@ -29,7 +29,14 @@ module Renalware
       def generate_archive(by:, presenter: default_presenter)
         becomes!(Approved).tap do |letter|
           letter.by = by
-          letter.build_archive(by: by, content: presenter.content)
+          # Note there is no need to set letter_id: id here but there is an
+          # intermittent issue where (oddly) build_archive fails because letter_id not
+          # present, so in attempt to fix this we are setting it here explicitly.
+          # Using self.id rather than letter.id in case the becomes! has lost the id
+          # for some reason. Also moved presenter.content to a new line so we can more easily see
+          # if that is causing the error as it does a lot of processing to build the letter.
+          achived_letter_content = presenter.content
+          letter.build_archive(by: by, content: achived_letter_content, letter_id: id)
         end
       end
 
