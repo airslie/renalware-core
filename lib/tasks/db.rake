@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "benchmark"
 
 namespace :db do
@@ -7,5 +9,16 @@ namespace :db do
       ActiveRecord::Base.connection.execute("SELECT refresh_all_matierialized_views();")
     end
     puts "Refreshing materialized views took #{ms}"
+  end
+
+  namespace :demo do
+    desc "Loads demo seed data from the renalware-core gem"
+    task seed: :environment do
+      if Rails.env.development?
+        require Renalware::Engine.root.join("spec/dummy/db/seeds")
+      else
+        puts "Task currently only possible in development environment"
+      end
+    end
   end
 end

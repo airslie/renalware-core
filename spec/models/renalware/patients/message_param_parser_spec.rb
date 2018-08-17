@@ -5,9 +5,9 @@ require "rails_helper"
 module Renalware::Patients
   RSpec.describe MessageParamParser do
     describe "#parse" do
-      let(:message_payload) {
+      let(:hl7_message) {
         double(
-          :message_payload,
+          :hl7_message,
           patient_identification: double(
             internal_id: "::internal id::",
             external_id: "::external id::",
@@ -20,7 +20,7 @@ module Renalware::Patients
       }
 
       it "transfers attributes from the message payload to the params" do
-        params = described_class.new.parse(message_payload)
+        params = described_class.new.parse(hl7_message)
 
         expect(params).to eq(
           {

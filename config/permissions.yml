@@ -2,6 +2,8 @@ super_admin:
   - Renalware::Role
   - Renalware::Hospitals::Ward
   - Renalware::HD::Dialysate
+  - Renalware::HD::Dialyser
+  - Renalware::HD::CannulationType
 admin:
   - Renalware::User
   - Renalware::BagType
@@ -15,3 +17,4 @@ admin:
   - Renalware::PRDDescription
   - Renalware::Hospitals::Unit
   - Renalware::HD::Station
+  - Renalware::HD::TransmissionLog

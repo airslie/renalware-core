@@ -156,6 +156,7 @@ Renalware::Engine.routes.draw do
       get "patients_dialysing_at_hospital" => "patients#dialysing_at_hospital"
     end
 
+    resources :transmission_logs, only: [:show, :index]
     resources :cannulation_types, except: :show
     resources :dialysers, except: :show
     resources :dialysates, except: :show

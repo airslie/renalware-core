@@ -3,29 +3,29 @@
 require_dependency "renalware/pathology"
 
 #
-# When subscribed to HL7 `message_processed` messages, gets notified of incoming HL7 messages
+# When subscribed to HL7 `message_arrived` messages, gets notified of incoming HL7 messages
 # and creates the observations contained therein provided the patient exists.
 #
 module Renalware
   module Pathology
     class MessageListener
       # Note: We are already inside a transaction here
-      def message_processed(message_payload)
-        pathology_params = parse_pathology_params(message_payload)
+      def message_arrived(hl7_message:, **)
+        pathology_params = parse_pathology_params(hl7_message)
         create_observation_requests_and_their_child_observations_from(pathology_params)
         #
-        # Note: The the current_observation_set for the patient is updated by a trigger here
+        # Note: The current_observation_set for the patient is updated by a trigger here!
         #
       end
 
       private
 
-      def parse_pathology_params(message_payload)
-        ObservationRequestsAttributesBuilder.new(message_payload).parse
+      def parse_pathology_params(hl7_message)
+        ObservationRequestsAttributesBuilder.new(hl7_message).parse
       end
 
       def create_observation_requests_and_their_child_observations_from(pathology_params)
-        return if pathology_params.nil? # eg patient does not exist
+        return if pathology_params.nil? # e.g. patient does not exist
         CreateObservationRequests.new.call(pathology_params)
       end
     end

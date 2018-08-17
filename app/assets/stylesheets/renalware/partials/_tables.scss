@@ -1,3 +1,9 @@
+table.stripeless {
+  tr:nth-of-type(even),
+  tr:nth-of-type(odd) {
+    background-color: transparent;
+  }
+}
 
 table td.actions-dropdown {
   padding-top: 0.3rem;

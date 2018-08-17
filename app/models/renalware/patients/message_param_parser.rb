@@ -8,8 +8,8 @@ module Renalware
     # that can be persisted by Patient.
     #
     class MessageParamParser
-      def parse(message_payload)
-        pi = message_payload.patient_identification
+      def parse(hl7_message)
+        pi = hl7_message.patient_identification
 
         {
           patient: {
