@@ -19,7 +19,6 @@ module Renalware
                      .eager_load(:event_type)
                      .includes(:created_by)
                      .eager_load(:created_by)
-                     .page(query[:page]).per(query[:per_page])
                      .ordered
       end
 

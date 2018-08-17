@@ -17,6 +17,10 @@ module Renalware
 
       scope :today, ->{ where(created_at: Time.zone.today.all_day) }
       scope :hotlist, ->{ where(hotlist: true) }
+
+      ransacker :created_at_casted do |_parent|
+        Arel.sql("date(renal_aki_alerts.created_at)")
+      end
     end
   end
 end

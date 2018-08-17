@@ -41,13 +41,13 @@ module Renalware
         )
 
         # # Simulate going to AKI Alerts, filtering and clicking Print
-        visit renal_filtered_aki_alerts_path(named_filter: :today)
-        select "Ward1", from: "Hospital ward"
+        visit renal_aki_alerts_path
+        select "Ward1", from: "Ward"
         click_on "Filter"
         click_on "Print"
 
         expect(page.status_code).to eq(200)
-        expect(page).to have_content("AKI Alerts\n / Today")
+        expect(page).to have_content("AKI Alerts")
         expect(page).to have_content(I18n.l(Time.zone.today))
         expect(page).to have_content("Filters")
         expect(page).to have_content("Ward:Ward1")

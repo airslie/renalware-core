@@ -8,7 +8,7 @@ module Renalware
       include ActiveModel::Model
       include Virtus::Model
 
-      attribute :hospital_unit_id, Integer
+      attribute :date, Date
       attribute :hospital_ward_id, Integer
       attribute :action, String
       attribute :term, String
@@ -19,9 +19,9 @@ module Renalware
       def query
         @query ||= begin
           options = {
+            created_at_casted_date_equals: date,
             identity_match: term,
             hospital_ward_id_eq: hospital_ward_id,
-            hospital_ward_hospital_unit_id_eq: hospital_unit_id,
             action_id_eq: action,
             hotlist_eq: on_hotlist,
             s: s,

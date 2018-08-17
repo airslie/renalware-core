@@ -12,8 +12,7 @@ tr(class="#{'aki_alert--hotlist' if aki_alert.hotlist?}")
   td= aki_alert.patient.sex
   td= aki_alert.patient.age
   td= aki_alert.action
-  td= [aki_alert.hospital_ward, aki_alert.hospital_ward&.hospital_unit&.unit_code]\
-      .compact.join(" - ")
+  td= "#{aki_alert.hospital_ward} @#{aki_alert.hospital_ward&.hospital_unit&.unit_code}"
   td= yes_no aki_alert.hotlist?
   td= aki_alert.max_aki
   td= l(aki_alert.aki_date)
@@ -23,4 +22,3 @@ tr(class="#{'aki_alert--hotlist' if aki_alert.hotlist?}")
   td(colspan=10)
     .quick-preview
       =aki_alert.notes
-

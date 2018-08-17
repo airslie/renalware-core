@@ -7,4 +7,9 @@ $(document).ready(function() {
     e.preventDefault();
     $(this).closest('form').submit();
   });
+
+  $("[data-behaviour='submit_on_change']").on('change', function(e) {
+    e.preventDefault();
+    $(this).closest('form').submit();
+  });
 });
