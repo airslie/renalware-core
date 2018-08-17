@@ -68,7 +68,7 @@ Gem::Specification.new do |s|
   s.add_dependency "paper_trail", "~> 8.1.2"
   s.add_dependency "paranoia", "~> 2.4.0"
   s.add_dependency "pg", "~> 1.0.0"
-  s.add_dependency "puma", "~> 3.11.0"
+  s.add_dependency "puma", "~> 3.12.0"
   s.add_dependency "pundit", "~> 1.1.0"
   s.add_dependency "rack-attack", "~> 5.4.0"
   s.add_dependency "rails", "5.1.6"
