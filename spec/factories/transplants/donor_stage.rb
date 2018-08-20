@@ -6,8 +6,8 @@ FactoryBot.define do
     patient
     stage_position factory: :donor_stage_position
     stage_status factory: :donor_stage_status
-    started_on ->{ Time.zone.now }
-    notes "Some notes"
-    terminated_on nil
+    started_on { ->{ Time.zone.now } }
+    notes { "Some notes" }
+    terminated_on { nil }
   end
 end

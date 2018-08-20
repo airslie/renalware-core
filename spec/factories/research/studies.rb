@@ -6,8 +6,8 @@ FactoryBot.define do
     description { "Description for #{code}" }
     leader { Faker::Name.name }
     started_on { 1.year.ago }
-    terminated_on nil
-    deleted_at nil
+    terminated_on { nil }
+    deleted_at { nil }
     accountable
   end
 end

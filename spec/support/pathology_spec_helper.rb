@@ -10,7 +10,7 @@ module PathologySpecHelper
                           observed_at: Time.zone.now,
                           result: 1)
     descriptions.map do |description|
-      request = create(:pathology_observation_request, patient: patient)
+      request = create(:pathology_observation_request, patient: patient, requested_at: observed_at)
       create(:pathology_observation,
              request: request,
              description: description,

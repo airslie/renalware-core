@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :drug, class: "Renalware::Drugs::Drug" do
-    name "Blue Pill"
+    name { "Blue Pill" }
 
     trait :immunosuppressant do
       after(:create) do |instance|

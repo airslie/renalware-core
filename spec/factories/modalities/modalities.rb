@@ -9,7 +9,7 @@ FactoryBot.define do
     started_on { Date.parse("2015-04-01") }
 
     trait :terminated do
-      state "terminated"
+      state { "terminated" }
     end
 
     trait :pd_to_haemo do

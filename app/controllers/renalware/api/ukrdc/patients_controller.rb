@@ -23,7 +23,8 @@ module Renalware
         def patient_presenter
           patient = Renalware::Patient.find_by!(secure_id: params[:id])
           authorize patient
-          Renalware::UKRDC::PatientPresenter.new(patient, changes_since: params[:changes_since])
+          changes_since = params.fetch(:changes_since, "2018-01-01")
+          Renalware::UKRDC::PatientPresenter.new(patient, changes_since: changes_since)
         end
       end
     end

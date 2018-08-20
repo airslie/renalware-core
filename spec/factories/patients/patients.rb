@@ -14,13 +14,13 @@ FactoryBot.define do
     nhs_number
     secure_id { SecureRandom.base58(24) }
     local_patient_id
-    family_name "Jones"
-    given_name "Jack"
-    born_on "01/01/1988"
-    paediatric_patient_indicator "0"
-    sex "M"
-    died_on nil
-    first_cause_id nil
+    family_name { "Jones" }
+    given_name { "Jack" }
+    born_on { "01/01/1988" }
+    paediatric_patient_indicator { "0" }
+    sex { "M" }
+    died_on { nil }
+    first_cause_id { nil }
 
     # ensures addressable_type and addressable_id work is assigned, using
     # FactoryBot's simple assoc method does not work

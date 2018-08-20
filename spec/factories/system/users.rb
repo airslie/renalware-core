@@ -14,15 +14,15 @@ FactoryBot.define do
     family_name { Faker::Name.last_name }
     username
     email
-    password "supersecret"
-    approved true
-    professional_position "Health Minister"
+    password { "supersecret" }
+    approved { true }
+    professional_position { "Health Minister" }
     signature { Faker::Name.name }
 
     # By default a user has no roles.
     # If you want a use with a role, use a trait, e.g. create(:user, :clinical)
     transient do
-      role nil
+      role { nil }
     end
 
     after(:create) do |user, obj|
@@ -32,7 +32,7 @@ FactoryBot.define do
     end
 
     trait :unapproved do
-      approved false
+      approved { false }
     end
 
     trait :author do
@@ -46,29 +46,29 @@ FactoryBot.define do
 
     trait :super_admin do
       transient do
-        role :super_admin
+        role { :super_admin }
       end
     end
 
     trait :admin do
       transient do
-        role :admin
+        role { :admin }
       end
     end
 
     trait :clinical do
-      given_name "Aneurin"
-      family_name "Bevan"
-      signature "Aneurin Bevan"
+      given_name { "Aneurin" }
+      family_name { "Bevan" }
+      signature { "Aneurin Bevan" }
 
       transient do
-        role :clinical
+        role { :clinical }
       end
     end
 
     trait :read_only do
       transient do
-        role :read_only
+        role { :read_only }
       end
     end
   end

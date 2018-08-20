@@ -6,12 +6,12 @@ FactoryBot.define do
     patient
     date { Time.zone.today }
     time { Time.zone.now }
-    did_not_attend false
-    height 1.5
-    weight 1.5
-    pulse 100
-    systolic_bp 112
-    diastolic_bp 71
+    did_not_attend { false }
+    height { 1.5 }
+    weight { 1.5 }
+    pulse { 100 }
+    systolic_bp { 112 }
+    diastolic_bp { 71 }
     clinic { create(:clinic, consultant: accountable_actor) }
   end
 end

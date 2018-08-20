@@ -6,6 +6,6 @@ FactoryBot.define do
     patient
     association :hospital_unit, factory: :hospital_unit
     association :schedule_definition, :mon_wed_fri_pm
-    other_schedule ""
+    other_schedule { "" }
   end
 end

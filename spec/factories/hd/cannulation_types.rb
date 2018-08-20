@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :hd_cannulation_type, class: "Renalware::HD::CannulationType" do
-    name "Buttonhole"
+    name { "Buttonhole" }
   end
 end

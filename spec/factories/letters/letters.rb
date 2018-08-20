@@ -5,8 +5,8 @@ FactoryBot.define do
     accountable
 
     issued_on { Time.zone.today }
-    description "This is a custom description"
-    body "I am pleased to report a marked improvement in her condition."
+    description { "This is a custom description" }
+    body { "I am pleased to report a marked improvement in her condition." }
 
     association :letterhead, factory: [:letter_letterhead]
 

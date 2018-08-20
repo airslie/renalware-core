@@ -5,6 +5,6 @@ FactoryBot.define do
     accountable
     association :reason, factory: :admissions_request_reason
     patient { create(:patient, by: accountable_actor) }
-    priority :low
+    priority { :low }
   end
 end

@@ -3,11 +3,11 @@
 FactoryBot.define do
   factory :letter_recipient, class: "Renalware::Letters::Recipient" do
     trait :main do
-      role "main"
+      role { "main" }
     end
 
     trait :cc do
-      role "cc"
+      role { "cc" }
     end
   end
 end

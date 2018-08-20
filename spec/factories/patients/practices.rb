@@ -5,8 +5,8 @@ FactoryBot.define do
     "PR432#{n}"
   end
   factory :practice, class: "Renalware::Patients::Practice" do
-    name "Trumpton Medical Centre"
-    email "admin@trumptonmedicalcentre-nhs.net"
+    name { "Trumpton Medical Centre" }
+    email { "admin@trumptonmedicalcentre-nhs.net" }
     code { generate(:practice_code) }
 
     # ensures addressable_type and addressable_id work is assigned, using

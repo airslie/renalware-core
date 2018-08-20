@@ -9,6 +9,15 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.43
+17-08-2018
+
+### Added
+### Changed
+- Improved AKI Alerts ward display
+
+### Fixed
+
 ## 2.0.42
 16-08-2018
 

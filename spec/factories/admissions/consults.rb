@@ -5,13 +5,13 @@ FactoryBot.define do
     accountable
     patient { create(:patient, by: accountable_actor) }
     association :consult_site, factory: :admissions_consult_site
-    consult_type "x"
+    consult_type { "x" }
     started_on { Time.zone.now - 2.days }
-    ended_on nil
-    description "Lorem ipsum dolor"
+    ended_on { nil }
+    description { "Lorem ipsum dolor" }
 
     trait :active do
-      ended_on nil
+      ended_on { nil }
     end
 
     trait :inactive do
