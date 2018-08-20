@@ -5,8 +5,8 @@ FactoryBot.define do
     accountable
     patient { create(:patient, by: accountable_actor) }
     admitted_on { Time.zone.today }
-    admission_type :unknown
-    reason_for_admission "Reason"
+    admission_type { :unknown }
+    reason_for_admission { "Reason" }
     hospital_ward
     modality_at_admission { patient&.current_modality }
   end

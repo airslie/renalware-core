@@ -11,8 +11,8 @@ FactoryBot.define do
     position
 
     trait :unspecified do
-      name "Other"
-      system_code "other"
+      name { "Other" }
+      system_code { "other" }
     end
   end
 end

@@ -5,7 +5,7 @@ FactoryBot.define do
     accountable
     patient
     type { create(:access_type) }
-    side :right
+    side { :right }
     formed_on { Time.zone.today }
 
     trait :current do

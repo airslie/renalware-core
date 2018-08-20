@@ -6,8 +6,8 @@ FactoryBot.define do
     patient
     event_type factory: :access_clinic_event_type
     date_time { Time.zone.now }
-    description "Needs blood sample taken."
-    notes "Would like son to accompany them on clinic visit."
+    description { "Needs blood sample taken." }
+    notes { "Would like son to accompany them on clinic visit." }
 
     factory :simple_event, class: "Renalware::Events::Simple" do
     end

@@ -6,6 +6,6 @@ FactoryBot.define do
       Renalware::Hospitals::Ward.find_or_create_by!(name: name, hospital_unit: hospital_unit)
     end
     hospital_unit
-    name "Ward A"
+    name { "Ward A" }
   end
 end

@@ -3,8 +3,8 @@
 FactoryBot.define do
   factory :renal_profile, class: "Renalware::Renal::Profile" do
     prd_description
-    first_seen_on "01-01-2017"
-    comorbidities_updated_on "01-01-2017"
+    first_seen_on { "01-01-2017" }
+    comorbidities_updated_on { "01-01-2017" }
 
     document {
       {

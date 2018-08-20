@@ -9,17 +9,17 @@ FactoryBot.define do
 
     before(:create){ |desc| desc.loinc_code ||= desc.code.downcase }
 
-    code "WBR"
+    code { "WBR" }
     association :measurement_unit, factory: :pathology_measurement_unit
-    display_group 1
-    display_order 1
-    letter_group 1
-    letter_order 1
+    display_group { 1 }
+    display_order { 1 }
+    letter_group { 1 }
+    letter_order { 1 }
 
     %i(urr ure hgb cre phos pth).each do |code|
       trait code do
-        code code.to_s.upcase
-        name code.to_s.upcase
+        code { code.to_s.upcase }
+        name { code.to_s.upcase }
       end
     end
   end

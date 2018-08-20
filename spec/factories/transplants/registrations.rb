@@ -25,7 +25,7 @@ FactoryBot.define do
 
     trait :in_status do
       transient do
-        status "active"
+        status { "active" }
       end
 
       after(:create) do |registration, evaluator|

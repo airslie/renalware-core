@@ -5,6 +5,6 @@ FactoryBot.define do
   factory :pathology_measurement_unit,
           class: "Renalware::Pathology::MeasurementUnit" do
     name { generate(:measurement_unit) }
-    description ""
+    description { "" }
   end
 end

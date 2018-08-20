@@ -6,7 +6,7 @@ FactoryBot.define do
   factory :pathology_observation_request, class: "Renalware::Pathology::ObservationRequest" do
     association :description, factory: :pathology_request_description
     requestor_order_number
-    requestor_name "Jane Doe"
+    requestor_name { "Jane Doe" }
     requested_at { 1.year.ago }
 
     trait :full_blood_count_with_observations do
