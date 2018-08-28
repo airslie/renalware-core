@@ -8,10 +8,10 @@
   article.pd_assessment_document
     header
     = definition_list_for(assessment.document, size: :xlarge) do |list|
-      = list.definition(:assessed_on) { |value| l(value) }
+      = list.definition(:assessed_on) { |value| value.is_a?(Date) ? l(value) : value }
       = list.definition(:assessor)
       = list.definition(:had_home_visit, &:text)
-      = list.definition(:home_visit_on) { |value| l(value) }
+      = list.definition(:home_visit_on) { |value| value.is_a?(Date) ? l(value) : value }
       = list.definition(:housing_type, &:text)
       = list.definition(:occupant_notes)
       = list.definition(:exchange_area)
@@ -37,7 +37,7 @@
       = list.definition(:insertion_discussed, &:text)
       = list.definition(:method_chosen, &:text)
       = list.definition(:access_clinic_referral, &:text)
-      = list.definition(:access_clinic_on) { |value| l(value) }
+      = list.definition(:access_clinic_on) { |value| value.is_a?(Date) ? l(value) : value }
       = list.definition(:abdo_assessor)
       = list.definition(:bowel_disease, &:text)
       = list.definition(:bowel_disease_notes)
