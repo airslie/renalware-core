@@ -14,7 +14,9 @@ module Renalware
         subject { Assessment::Document.new }
 
         it { is_expected.to respond_to(:had_home_visit) }
-        # no need to test presence of other attributes
+        it { is_expected.to validate_timeliness_of(:assessed_on) }
+        it { is_expected.to validate_timeliness_of(:home_visit_on) }
+        it { is_expected.to validate_timeliness_of(:access_clinic_on) }
       end
     end
   end

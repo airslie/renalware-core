@@ -51,7 +51,9 @@ module Renalware
         attribute :bowel_disease_notes
         attribute :added_comments
 
-        validates :assessed_on, presence: true
+        validates :assessed_on, presence: true, timeliness: { type: :date }
+        validates :home_visit_on, timeliness: { type: :date, allow_blank: true }
+        validates :access_clinic_on, timeliness: { type: :date, allow_blank: true }
       end
       has_document
     end
