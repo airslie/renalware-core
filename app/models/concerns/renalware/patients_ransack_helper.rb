@@ -38,6 +38,7 @@ module Renalware
 
       def sanitize_query(query)
         query
+          .to_s
           .strip
           .tr(",", " ")
           .gsub("  ", " ")
