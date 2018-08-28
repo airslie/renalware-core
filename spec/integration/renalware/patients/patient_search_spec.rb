@@ -96,5 +96,13 @@ RSpec.describe "Searching patients", type: :request do
         end
       end
     end
+
+    context "with a single digit number (meaningless but can produce an error" do
+      it "with no results" do
+        get patients_path(patient_search: { identity_match: 1 })
+
+        expect(response).to have_http_status(:success)
+      end
+    end
   end
 end
