@@ -32,6 +32,7 @@ describe "Document element" do
       allow(presenter).to receive(:hospital_unit_code).and_return("HC")
       allow(Renalware::Letters::PdfRenderer).to receive(:call).and_return("")
     end
+
     it { is_expected.to include("<FileType>application/pdf</FileType>") }
     it { is_expected.to include("<Stream>") }
     # yes this awful: trying to get e.g. 2018-01-24T00:00:00+00:00 as we have no time on

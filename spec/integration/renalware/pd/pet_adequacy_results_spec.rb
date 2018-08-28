@@ -13,6 +13,7 @@ RSpec.describe "Managing PD PET Adequacy Results", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
   describe "POST create" do
     it "responds with success" do
       params = { pet_adequacy: FactoryBot.attributes_for(:pet_adequacy_result) }

@@ -25,7 +25,7 @@ module Renalware::HD
       let(:unit){ create(:hospital_unit) }
 
       it do
-        is_expected.to validate_uniqueness_of(:week_number)
+        expect(subject).to validate_uniqueness_of(:week_number)
           .scoped_to([:year, :hospital_unit_id])
       end
     end

@@ -2,10 +2,10 @@
 
 require "rails_helper"
 
-feature "Viewing audits", type: :feature, js: true do
+describe "Viewing audits", type: :feature, js: true do
   include AjaxHelpers
 
-  scenario "viewing a list of audits" do
+  it "viewing a list of audits" do
     audit = create(:audit, name: "XX", refresh_schedule: "1 0 * * 1-6")
     login_as_clinical
 
@@ -15,7 +15,7 @@ feature "Viewing audits", type: :feature, js: true do
     expect(page).to have_content("At 0:01 AM, Monday through Saturday")
   end
 
-  scenario "viewing an audit" do
+  it "viewing an audit" do
     view_name = create_an_example_materialized_view
     audit = create_an_audit_configured_to_use_view_called(view_name)
 

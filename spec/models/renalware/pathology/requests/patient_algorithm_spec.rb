@@ -19,14 +19,14 @@ describe Renalware::Pathology::Requests::PatientAlgorithm do
   let(:rules) { [required_rule, not_required_rule] }
 
   describe "#determine_required_tests" do
+    subject(:required_tests) { patient_algorithm.determine_required_tests }
+
     before do
       allow(Renalware::Pathology).to receive(:cast_patient).and_return(pathology_patient)
       allow(pathology_patient).to receive(:rules).and_return(rules)
       allow(required_rule).to receive(:required?).and_return(true)
       allow(not_required_rule).to receive(:required?).and_return(false)
     end
-
-    subject(:required_tests) { patient_algorithm.determine_required_tests }
 
     it "returns the required rules" do
       expect(required_tests).to eq([required_rule])

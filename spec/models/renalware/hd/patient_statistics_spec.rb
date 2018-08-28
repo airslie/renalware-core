@@ -18,6 +18,7 @@ module Renalware
           it { is_expected.to validate_presence_of(:year) }
           it { is_expected.to validate_presence_of(:month) }
         end
+
         context "when rolling is true" do
           subject { described_class.new(rolling: true) }
 

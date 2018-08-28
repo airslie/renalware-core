@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-feature "Create an Admission Request", type: :feature, js: true do
-  scenario "Creating a new request from the patient LH menu" do
+describe "Create an Admission Request", type: :feature, js: true do
+  it "Creating a new request from the patient LH menu" do
     user = login_as_clinical
     patient = create(:patient, by: user)
     reason = create(:admissions_request_reason, description: "AKI")

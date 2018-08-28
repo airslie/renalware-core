@@ -27,6 +27,7 @@ module Renalware
           end
 
           before { termination.valid? }
+
           it { expect(termination.errors[:terminated_on]).to match([/after/]) }
         end
       end

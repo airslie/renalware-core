@@ -11,6 +11,7 @@ module Renalware
         policy: ->(patient, _observation){ patient.ethnicity&.cfh_name&.casecmp?("Time Lord") }
       )
     }
+
     let(:multiplier) { 1.21 }
     let(:target_ethnicity) { "Time Lord" }
     let(:obs_desc) { create(:pathology_observation_description, code: "MyEGFR") }

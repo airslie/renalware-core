@@ -62,6 +62,7 @@ module Renalware
                 expect(volume).to eq(regime_overnight_volume + 1000)
               end
             end
+
             context "when bag added but volume unset" do
               it "does not includes the volume" do
                 regime.bags << build(:pd_regime_bag, role: :last_fill)
@@ -73,6 +74,7 @@ module Renalware
                 expect(volume).to eq(regime_overnight_volume)
               end
             end
+
             context "when volume set but no bag added" do
               it "does not includes the volume" do
                 regime.last_fill_volume = 2000
@@ -98,6 +100,7 @@ module Renalware
                 expect(volume).to eq(regime_overnight_volume + 2000)
               end
             end
+
             context "when bag added but volume unset" do
               it "does not includes the volume" do
                 regime.bags << build(:pd_regime_bag, role: :additional_manual_exchange)
@@ -109,6 +112,7 @@ module Renalware
                 expect(volume).to eq(regime_overnight_volume)
               end
             end
+
             context "when volume set but no bag added" do
               it "does not includes the volume" do
                 regime.additional_manual_exchange_volume = 2000

@@ -2,10 +2,10 @@
 
 require "rails_helper"
 
-feature "Creating an Access Plan", type: :feature do
+describe "Creating an Access Plan", type: :feature do
   include DateHelpers
 
-  scenario "A clinician adds the first access plan to a patient using menus" do
+  it "A clinician adds the first access plan to a patient using menus" do
     user = plan_type = nil
 
     user = login_as_clinical
@@ -40,7 +40,7 @@ feature "Creating an Access Plan", type: :feature do
     end
   end
 
-  scenario "A clinician adds an plan to a patient, implicitly terminating the previous one" do
+  it "A clinician adds an plan to a patient, implicitly terminating the previous one" do
     user = login_as_clinical
 
     patient = create(:accesses_patient, by: user)
@@ -74,7 +74,7 @@ feature "Creating an Access Plan", type: :feature do
     end
   end
 
-  scenario "A clinician attempts to add a plan to a patient with invalid data" do
+  it "A clinician attempts to add a plan to a patient with invalid data" do
     user = login_as_clinical
     patient = create(:accesses_patient, by: user)
     visit new_patient_accesses_plan_path(patient)

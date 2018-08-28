@@ -17,6 +17,7 @@ module Renalware
 
           it { is_expected.not_to be_read }
         end
+
         context "when the receipt has been read" do
           subject{ described_class.new(read_at: Time.zone.now) }
 

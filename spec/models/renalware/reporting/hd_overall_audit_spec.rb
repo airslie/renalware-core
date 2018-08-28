@@ -71,7 +71,7 @@ module Renalware
           end
 
           it do
-            is_expected.to eq(
+            expect(subject).to eq(
               [
                 {
                   name: "Unit1",

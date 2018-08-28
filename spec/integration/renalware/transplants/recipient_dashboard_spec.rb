@@ -6,7 +6,7 @@ RSpec.describe "Viewing the Recipient Summary (Dashboard)", type: :feature do
   let(:modality_description) { create(:modality_description, :transplant) }
 
   context "when the patient has the tx recipient modality" do
-    scenario "user follows the MDM link" do
+    it "user follows the MDM link" do
       user = login_as_clinical
       patient = create(:transplant_patient, family_name: "Rabbit", local_patient_id: "KCH12345")
       create(:pathology_observation_description, code: "HGB")

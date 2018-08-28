@@ -17,6 +17,7 @@ module Renalware::Pathology
           expect(obs_set).not_to be_persisted
         end
       end
+
       context "when the patient already has one" do
         it "returns the existing one" do
           patient = create(:pathology_patient)

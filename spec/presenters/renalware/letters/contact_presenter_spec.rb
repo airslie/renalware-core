@@ -47,6 +47,7 @@ module Renalware
             expect(ContactPresenter.new(contact).salutation).to eq("Dear Mr Smith")
           end
         end
+
         context "when there is no title" do
           it "formats as John Smith" do
             person = Directory::Person.new(title: "", given_name: "John", family_name: "Smith")

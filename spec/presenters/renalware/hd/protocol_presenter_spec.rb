@@ -69,6 +69,7 @@ describe Renalware::HD::ProtocolPresenter do
       end
     end
   end
+
   context "when the patient has no pathology" do
     it "returns an empty current_observation_set so eg a #hgb_result call will not fail" do
       # Because the AllObservationCodes singleton might already have been instantiated

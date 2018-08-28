@@ -12,6 +12,7 @@ module Renalware
           expect(current_user_is_super_admin?).to be true
         end
       end
+
       context "with an admin user" do
         let(:current_user) { create(:user, :admin) }
 
@@ -20,6 +21,7 @@ module Renalware
         end
       end
     end
+
     describe "current_user_is_admin?" do
       context "with a super admin user" do
         let(:current_user) { create(:user, :super_admin) }
@@ -28,6 +30,7 @@ module Renalware
           expect(current_user_is_admin?).to be true
         end
       end
+
       context "with an admin user" do
         let(:current_user) { create(:user, :admin) }
 
@@ -35,6 +38,7 @@ module Renalware
           expect(current_user_is_admin?).to be true
         end
       end
+
       context "with a clinician" do
         let(:current_user) { create(:user, :clinical) }
 

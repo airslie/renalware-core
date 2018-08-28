@@ -39,6 +39,7 @@ module Renalware
     context "when the user has a complete 'profile' eg signature, professional_position etc "\
             "meaning user.valid? is true" do
       let(:user) { create(:user, :clinical) } # will be valid? once created
+
       scenario "An approved user authenticates with valid credentials" do
         visit root_path
 

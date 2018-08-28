@@ -40,6 +40,7 @@ RSpec.describe "Snippet management", type: :request do
         expect(snippet.title).to eq(params[:snippet][:title])
       end
     end
+
     context "with invalid params" do
       it "responds with a form" do
         headers = { "HTTP_REFERER" => "/" }
@@ -81,6 +82,7 @@ RSpec.describe "Snippet management", type: :request do
         expect(snippet.title).to eq(params[:snippet][:title])
       end
     end
+
     context "with invalid params" do
       it "renders a form" do
         snippet = create(:snippet, author: user)
