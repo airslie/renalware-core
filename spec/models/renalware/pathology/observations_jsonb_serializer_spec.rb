@@ -9,7 +9,7 @@ module Renalware
 
       describe "dynamic OBX methods via method missing" do
         it "allows retrieval of the observation hash via a method with the name of the OBX code" do
-          expect(AllObservationCodes.instance).to receive(:all).exactly(2).times.and_return([:HGB])
+          expect(AllObservationCodes.instance).to receive(:all).twice.and_return([:HGB])
           hash = ObservationsJsonbSerializer.load({ HGB: hgb })
 
           expect(hash.hgb).to eq(hgb)

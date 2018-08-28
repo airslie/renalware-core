@@ -20,11 +20,11 @@ module Renalware::HD
       end
 
       context "when updating the profile other_schedule with a valid value" do
-        let(:other_schedule) { "Mon Fri Sun" }
-
         subject!(:revised_profile) do
           ReviseHDProfile.new(original_profile).call(other_schedule: other_schedule, by: user)
         end
+
+        let(:other_schedule) { "Mon Fri Sun" }
 
         it "returns a profile" do
           expect(revised_profile).to be_present
@@ -76,12 +76,12 @@ module Renalware::HD
       end
 
       context "when updating with an invalid value" do
-        let(:revised_prescriber) { nil }
-
         subject!(:revised_profile) do
           ReviseHDProfile.new(original_profile)
                          .call(prescriber: revised_prescriber, by: user)
         end
+
+        let(:revised_prescriber) { nil }
 
         it "returns false" do
           expect(revised_profile).to eq(false)

@@ -16,6 +16,7 @@ module Renalware
           joined_on: "2018-01-01"
         )
       }
+
       let(:study) { create(:research_study) }
       let(:patient) { create(:patient) }
 

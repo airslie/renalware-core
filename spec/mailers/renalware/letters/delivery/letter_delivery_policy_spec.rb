@@ -22,6 +22,7 @@ module Renalware
 
         context "when the gp is not a recipient" do
           before { letter.recipients = [] }
+
           it { is_expected.to be_falsey }
         end
 

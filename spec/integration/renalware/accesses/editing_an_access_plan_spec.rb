@@ -2,12 +2,12 @@
 
 require "rails_helper"
 
-feature "Editing an Access Plan", type: :feature do
+describe "Editing an Access Plan", type: :feature do
   include DateHelpers
 
   # Note editing is actually a create using the current plan as a template.
   # There is no update action
-  scenario "A clinician edits an existing Access Plan causing a new current plan to be created "\
+  it "A clinician edits an existing Access Plan causing a new current plan to be created "\
            "and the previous one tp be terminated so that it appears in the historical list" do
 
     user = login_as_clinical
@@ -45,7 +45,7 @@ feature "Editing an Access Plan", type: :feature do
 
   # Note editing is actually a create using the current plan as a template.
   # There is no update action
-  scenario "A clinician edits an Access Plan without changing any data, causing no new Plan "\
+  it "A clinician edits an Access Plan without changing any data, causing no new Plan "\
            "to be created" do
 
     user = login_as_clinical

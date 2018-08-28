@@ -47,6 +47,7 @@ module Renalware
           end
         end
       end
+
       describe "building a dna session" do
         subject(:factory) { SessionFactory.new(patient: patient, user: user, type: "dna") }
 

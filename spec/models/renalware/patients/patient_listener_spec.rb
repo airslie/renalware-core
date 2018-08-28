@@ -6,6 +6,7 @@ module Renalware
   module Patients
     RSpec.describe PatientListener do
       subject(:listener) { described_class.new }
+
       describe "#patient_modality_changed_to_death" do
         it "delegates to ClearPatientUKRDCData" do
           patient = build_stubbed(:patient)

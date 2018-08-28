@@ -31,7 +31,7 @@ group :test do
   gem "cucumber", "~> 3.1.0"
   gem "cucumber-rails", "~> 1.6.0", require: false # must be loaded in env.rb
   gem "database_cleaner", "~> 1.7.0", require: false # for cucumber (now not needed for rspec)
-  gem "factory_bot_rails", "~> 4.10.0"
+  gem "factory_bot_rails", "~> 4.11"
   gem "fuubar", require: false
   gem "rails-controller-testing", "~> 1.0.2"
   gem "rspec-html-matchers", "~> 0.9.1"

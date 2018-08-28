@@ -16,9 +16,11 @@ module Renalware
             .to receive(:generate_message)
             .and_return("error message")
         end
+
         PETAdequacyResult::MAXIMUMS.each do |attr_name, max_value|
           it do
-            is_expected.to validate_numericality_of(attr_name).is_less_than_or_equal_to(max_value)
+            expect(subject)
+              .to validate_numericality_of(attr_name).is_less_than_or_equal_to(max_value)
           end
         end
       end

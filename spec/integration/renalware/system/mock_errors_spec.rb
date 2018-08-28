@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-feature "Producing a mock error so we can test error reporting", type: :request do
+describe "Producing a mock error so we can test error reporting", type: :request do
   describe "index" do
     it "raises a divide by zero error and thus returns a 500 http error" do
       expect {

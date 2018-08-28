@@ -7,7 +7,7 @@ module Renalware
     describe SessionDocument, type: :model do
       describe SessionDocument::Dialysis do
         it do
-          is_expected.to validate_numericality_of(:blood_flow)
+          expect(subject).to validate_numericality_of(:blood_flow)
             .is_greater_than_or_equal_to(50)
             .is_less_than_or_equal_to(800)
         end

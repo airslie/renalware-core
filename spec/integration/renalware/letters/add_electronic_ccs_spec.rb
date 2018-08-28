@@ -4,7 +4,7 @@ require "rails_helper"
 require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
-feature "Assign electronic CCs" do
+describe "Assign electronic CCs" do
   include AutocompleteHelpers
   include AjaxHelpers
 
@@ -18,7 +18,7 @@ feature "Assign electronic CCs" do
     )
   end
 
-  describe "assigning a new person as a CC recipient", js: true do
+  describe "assigning a new person as a CC recipient", js: true, type: :feature do
     before do
       create(:letter_letterhead)
     end

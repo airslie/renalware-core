@@ -151,7 +151,7 @@ module Renalware::Pathology
           included_description = create(:pathology_observation_description, code: "GRP")
           create(:pathology_observation_description, code: "WSUM")
           create(:patient, local_patient_id: "V1111111")
-          logger = instance_double("Rails.logger").as_null_object
+          logger = instance_spy("Rails.logger")
           allow(logger).to receive(:warn).once
 
           message = Renalware::Feeds::MessageParser.new.parse(raw_message)
@@ -168,6 +168,7 @@ module Renalware::Pathology
           ).to eq([included_description.id])
         end
       end
+
       context "when requestor order name not present in the HL7 message" do
         let(:hl7_message) {
           double(

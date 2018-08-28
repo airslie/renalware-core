@@ -2,10 +2,10 @@
 
 require "rails_helper"
 
-feature "Viewing an Access Plan", type: :feature do
+describe "Viewing an Access Plan", type: :feature do
   include DateHelpers
 
-  scenario "A clinician views a patient's Access Plan" do
+  it "A clinician views a patient's Access Plan" do
     user = login_as_clinical
     patient = create(:accesses_patient, by: user)
     plan = create(:access_plan, patient: patient, by: user)

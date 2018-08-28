@@ -3,7 +3,7 @@
 require "rails_helper"
 require "test_support/ajax_helpers"
 
-feature "Session timeout", type: :feature, js: true do
+describe "Session timeout", type: :feature, js: true do
   include AjaxHelpers
 
   around do |example|
@@ -16,7 +16,7 @@ feature "Session timeout", type: :feature, js: true do
   end
 
   # rubocop:disable Lint/HandleExceptions
-  scenario "A user is redirected by JS to the login page when their session expires" do
+  it "A user is redirected by JS to the login page when their session expires" do
     login_as_clinical
 
     visit root_path

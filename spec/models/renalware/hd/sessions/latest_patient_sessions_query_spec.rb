@@ -44,9 +44,7 @@ module Renalware
         end
 
         it "selects only the last 12 sessions" do
-          13.times do
-            create(:hd_closed_session, **options.merge(performed_on: 3.weeks.ago))
-          end
+          create_list(:hd_closed_session, 13, **options.merge(performed_on: 3.weeks.ago))
           sessions = query.new(patient: patient).call
           expect(sessions.count).to eq(12)
         end

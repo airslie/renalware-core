@@ -20,7 +20,7 @@ describe Renalware::Pathology::Requests::PatientRule do
   it { is_expected.to validate_presence_of(:frequency_type) }
   it { is_expected.to validate_presence_of(:patient_id) }
   it do
-    is_expected.to validate_inclusion_of(:frequency_type)
+    expect(subject).to validate_inclusion_of(:frequency_type)
       .in_array(Renalware::Pathology::Requests::Frequency.all_names)
   end
 

@@ -15,10 +15,11 @@ module Renalware
 
     describe "#augmented_name_for(patient)" do
       subject{ described_class.new(name: "XYZ").augmented_name_for(patient) }
+
       let(:patient) { nil }
 
       it "defaults to returning the modality name (a subclass may override to change behaviour)" do
-        is_expected.to eq("XYZ")
+        expect(subject).to eq("XYZ")
       end
     end
   end

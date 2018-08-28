@@ -16,6 +16,7 @@ module Renalware
           expect(PatientPresenter.new(patient).salutation).to eq("Dear Ms Smith")
         end
       end
+
       context "when the patient has no title" do
         it "formats as in Jane Smith" do
           patient = Patient.new(title: "", family_name: "Smith", given_name: "Jane")

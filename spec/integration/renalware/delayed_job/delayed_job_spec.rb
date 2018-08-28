@@ -9,7 +9,7 @@ RSpec.describe "Delayed Job management", type: :feature do
     it "is available for super_admin users" do
       login_user(:super_admin)
       visit delayed_job_path
-      expect(page).to have_http_status(200)
+      expect(page).to have_http_status(:ok)
     end
 
     it "is hidden for non-super-admin roles" do

@@ -14,12 +14,12 @@ module Renalware::Medications
       let(:user) { create(:user) }
 
       context "when updating the prescription's dose_amount with a valid value" do
-        let(:revised_dose_amount) { "200" }
-
         subject!(:prescription_revision) do
           RevisePrescription.new(original_prescription)
                             .call(dose_amount: revised_dose_amount, by: user)
         end
+
+        let(:revised_dose_amount) { "200" }
 
         it "returns true" do
           expect(prescription_revision).to eq(true)
@@ -39,12 +39,12 @@ module Renalware::Medications
       end
 
       context "when updating the prescription's dose_amount with an invalid value" do
-        let(:revised_dose_amount) { nil }
-
         subject!(:prescription_revision) do
           RevisePrescription.new(original_prescription)
                             .call(dose_amount: revised_dose_amount, by: user)
         end
+
+        let(:revised_dose_amount) { nil }
 
         it "returns false" do
           expect(prescription_revision).to be_falsey

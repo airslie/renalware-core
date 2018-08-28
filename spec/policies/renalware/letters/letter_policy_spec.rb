@@ -5,6 +5,7 @@ require "rails_helper"
 module Renalware::Letters
   describe LetterPolicy, type: :policy do
     subject(:policy) { described_class }
+
     let(:super_admin_user) { user_with_role(:super_admin) }
     let(:admin_user) { user_with_role(:admin) }
     let(:clinical_user) { user_with_role(:clinical) }
@@ -28,8 +29,10 @@ module Renalware::Letters
       %i(Draft PendingReview).each do |letter_klass|
         context "when the letter is #{letter_klass}" do
           let(:letter) { "Renalware::Letters::Letter::#{letter_klass}".constantize.new }
+
           context "when the user is the author" do
             let(:user) { clinical_user }
+
             before { allow(letter).to receive(:author).and_return(user) }
 
             it { is_expected.to permit(user, letter) }
@@ -37,6 +40,7 @@ module Renalware::Letters
 
           context "when the user is the creator" do
             let(:user) { clinical_user }
+
             before { allow(letter).to receive(:created_by).and_return(user) }
 
             it { is_expected.to permit(user, letter) }
@@ -82,6 +86,7 @@ module Renalware::Letters
 
           context "when the user is the author" do
             let(:user) { clinical_user }
+
             before { allow(letter).to receive(:author).and_return(user) }
 
             it { is_expected.not_to permit(user, letter) }

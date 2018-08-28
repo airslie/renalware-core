@@ -39,6 +39,7 @@ RSpec.describe "Clinic Visits Management", type: :request do
           }
         }
     end
+
     it "responds successfully" do
       expect(response).to have_http_status(:success)
     end
@@ -49,6 +50,7 @@ RSpec.describe "Clinic Visits Management", type: :request do
       clinic_visit = create(:clinic_visit, patient: patient, by: user)
       get edit_patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param)
     end
+
     it "responds successfully" do
       expect(response).to have_http_status(:success)
     end

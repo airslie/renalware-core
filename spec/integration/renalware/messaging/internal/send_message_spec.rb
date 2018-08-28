@@ -2,10 +2,10 @@
 
 require "rails_helper"
 
-feature "Sending a private message" do
+describe "Sending a private message", type: :feature do
   include AjaxHelpers
 
-  scenario "A clinician sends a private message about a patient", js: true do
+  it "A clinician sends a private message about a patient", js: true do
     user = login_as_clinical
     patient = create(:messaging_patient, by: user)
     create(:internal_recipient, family_name: "X", given_name: "Y")

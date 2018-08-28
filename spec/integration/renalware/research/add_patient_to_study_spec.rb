@@ -4,10 +4,10 @@
 # as adding a patient uses a modal (js)
 require "rails_helper"
 
-feature "Managing studies", type: :feature, js: true do
+describe "Managing studies", type: :feature, js: true do
   include AjaxHelpers
 
-  scenario "Adding a patient to a research study" do
+  it "Adding a patient to a research study" do
     pending "Can't work out how to do select from select2 ajax search atm"
     patient = create(:patient, family_name: "XX")
     study = create_study

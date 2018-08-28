@@ -33,6 +33,7 @@ module Renalware
             expect(presenter.change_in(:weight)).to eq(-1.1)
           end
         end
+
         context "with integer values" do
           it "returns the difference between before and after measurements" do
             session.document.observations_before.pulse = 70
@@ -40,6 +41,7 @@ module Renalware
             expect(presenter.change_in(:pulse)).to eq 10
           end
         end
+
         context "with invalid values" do
           it "returns nil if before or after measurement missing" do
             session.document.observations_before.pulse = 70
@@ -63,6 +65,7 @@ module Renalware
           expect(presenter.before_measurement_for(:weight)).to eq 101.1
         end
       end
+
       describe "#after_measurement_for" do
         it "returns the post-dialysis measurement" do
           session.document.observations_after.weight = 101.1

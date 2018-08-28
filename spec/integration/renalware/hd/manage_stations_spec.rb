@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-feature "Managing HD Stations for a Hospital Unit", type: :feature do
+describe "Managing HD Stations for a Hospital Unit", type: :feature do
   before do
     create(:hd_station_location, name: "Side room")
   end
@@ -11,7 +11,7 @@ feature "Managing HD Stations for a Hospital Unit", type: :feature do
     create(:hd_station, name: name, hospital_unit_id: unit.id, by: by)
   end
 
-  scenario "Listing existing stations" do
+  it "Listing existing stations" do
     user = login_as_clinical
     unit = create(:hospital_unit, unit_code: "UnitCode")
     create_station("Station-1", unit, user)
@@ -24,7 +24,7 @@ feature "Managing HD Stations for a Hospital Unit", type: :feature do
     expect(page).to have_content("Station-2")
   end
 
-  scenario "Adding a station" do
+  it "Adding a station" do
     login_as_admin
     unit = create(:hospital_unit, unit_code: "UnitCode")
 
@@ -42,7 +42,7 @@ feature "Managing HD Stations for a Hospital Unit", type: :feature do
     expect(page).to have_content("Side room")
   end
 
-  scenario "Editing a station" do
+  it "Editing a station" do
     user = login_as_admin
     unit = create(:hospital_unit, unit_code: "UnitCode")
     station = create_station("Station-1", unit, user)

@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-feature "Refreshing audit data", type: :feature, js: true do
-  scenario "Manually requesting to refresh audit data" do
+describe "Refreshing audit data", type: :feature, js: true do
+  it "Manually requesting to refresh audit data" do
     login_as_super_admin
     create(:audit, name: "xx", view_name: "yy")
     visit reporting_audits_path

@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-feature "Alert management" do
-  scenario "A clinician adds an alert to a patient", js: true do
+describe "Alert management", type: :feature do
+  it "A clinician adds an alert to a patient", js: true do
     user = login_as_clinical
     patient = create(:patient, by: user)
 
@@ -23,7 +23,7 @@ feature "Alert management" do
     end
   end
 
-  scenario "A clinician deletes an alert", js: true do
+  it "A clinician deletes an alert", js: true do
     user = login_as_clinical
     patient = create(:patient, by: user)
     create(:patient_alert,

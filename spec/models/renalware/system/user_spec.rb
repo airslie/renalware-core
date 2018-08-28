@@ -83,6 +83,7 @@ module Renalware
             expect(user.professional_signature).to eq "X Y (Consultant)"
           end
         end
+
         context "when there is a signature" do
           it "returns the signature and professional_position" do
             user.signature = "Dr X Y"
@@ -105,6 +106,7 @@ module Renalware
           expect(actual).not_to include(approved)
         end
       end
+
       describe "inactive" do
         it "retrieves inactive users" do
           active = create(:user, last_activity_at: 1.minute.ago)
@@ -116,6 +118,7 @@ module Renalware
           expect(actual).not_to include(active)
         end
       end
+
       describe "author" do
         it "retrieves users with a signature" do
           author = create(:user, signature: "Dr D.O. Good")

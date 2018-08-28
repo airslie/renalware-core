@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-feature "Clearing the Rails cache" do
-  scenario "A super admin clears the Redis cache" do
+describe "Clearing the Rails cache", type: :feature do
+  it "A super admin clears the Redis cache" do
     login_as_super_admin
     visit dashboard_path
 
@@ -21,7 +21,7 @@ feature "Clearing the Rails cache" do
     expect(Rails.cache).to have_received(:clear)
   end
 
-  scenario "A super admin clears the PDF Letter cache" do
+  it "A super admin clears the PDF Letter cache" do
     login_as_super_admin
 
     visit admin_cache_path
