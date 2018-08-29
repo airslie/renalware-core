@@ -6,6 +6,8 @@ require "fileutils"
 module Renalware
   module Letters
     class SavePdfLetterToFileJob < ApplicationJob
+      queue_with_priority 1
+
       def perform(letter:, file_path:)
         file_path = Pathname(file_path)
         create_folder_if_not_exists(file_path)

@@ -7,6 +7,7 @@ module Renalware
   module HD
     class UpdateRollingPatientStatisticsJob < ApplicationJob
       queue_as :hd_patient_statistics
+      queue_with_priority 1
 
       # :reek:UtilityFunction
       def perform(patient)

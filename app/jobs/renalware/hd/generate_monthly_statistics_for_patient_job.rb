@@ -5,6 +5,7 @@ require "month_period"
 module Renalware
   module HD
     class GenerateMonthlyStatisticsForPatientJob < ApplicationJob
+      queue_with_priority 2
       queue_as :hd_patient_statistics
 
       # :reek:UtilityFunction

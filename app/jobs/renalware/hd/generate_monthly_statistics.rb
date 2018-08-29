@@ -7,6 +7,7 @@ require "month_period"
 module Renalware
   module HD
     class GenerateMonthlyStatistics < ApplicationJob
+      queue_with_priority 1
       attr_reader :period
 
       def initialize(month: nil, year: nil)

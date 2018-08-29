@@ -6,6 +6,7 @@ module Renalware
   module Reporting
     class RefreshAuditDataJob < ApplicationJob
       queue_as :reporting
+      queue_with_priority 1
 
       # :reek:UtilityFunction
       def perform(audit)
