@@ -4,7 +4,7 @@
 # into the `delayed_jobs` table:
 #
 #     handler: {see h7_message_example.yml}
-#     run_at: {current_time}
+#     run_at: {current_time e.g. NOW() AT TIME ZONE 'UTC'}
 #
 # Notes:
 #
@@ -15,7 +15,26 @@ FeedJob = Struct.new(:raw_message) do
   def perform
     Renalware::Feeds
       .message_processor
-      .broadcasting_to_configured_subscribers
       .call(raw_message)
+  end
+
+  def max_attempts
+    4
+  end
+
+  def destroy_failed_jobs?
+    false
+  end
+
+  # Reschedule after an error. No point trying straight away, so try at these intervals:
+  # After attempt no.  Wait for hours
+  # ---------------------------
+  # 1                  2
+  # 2                  17
+  # 3                  82
+  # Then give up.
+  # Note e.g. attempts**4 == attempts to the power of 4 == 81
+  def reschedule_at(current_time, attempts)
+    current_time + ((attempts**4) + 1).hours
   end
 end
