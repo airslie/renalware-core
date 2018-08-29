@@ -9,6 +9,17 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.44
+29-08-2018
+
+### Added
+### Changed
+- Improve delayed job performance #2370
+### Fixed
+- Entering an integer into the Patient Search field causes an error #2364
+- PD Assessment date validation #2366
+- Transmission log fix #2363
+
 ## 2.0.43
 17-08-2018
 
