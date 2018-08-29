@@ -5,7 +5,10 @@ require "fileutils"
 
 module Renalware
   module Letters
+    # Used for example in a host app like renalware-kch to generate a PDF letter for saving to
+    # the electronic public register
     class SavePdfLetterToFileJob < ApplicationJob
+      queue_as :pdf_generation
       queue_with_priority 1
 
       def perform(letter:, file_path:)
