@@ -5793,6 +5793,59 @@ CREATE VIEW reporting_bone_audit AS
 
 
 --
+-- Name: reporting_daily_letters; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW reporting_daily_letters AS
+ SELECT ( SELECT count(*) AS count
+           FROM letter_letters
+          WHERE ((letter_letters.created_at)::date = (now())::date)) AS letters_created_today,
+    ( SELECT count(*) AS count
+           FROM letter_letters
+          WHERE ((letter_letters.completed_at)::date = (now())::date)) AS letters_printed_today;
+
+
+--
+-- Name: reporting_daily_pathology; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW reporting_daily_pathology AS
+ SELECT ( SELECT count(*) AS count
+           FROM delayed_jobs) AS delayed_jobs_total,
+    ( SELECT count(*) AS count
+           FROM delayed_jobs
+          WHERE (delayed_jobs.attempts = 0)) AS delayed_jobs_unprocessed,
+    ( SELECT count(*) AS count
+           FROM delayed_jobs
+          WHERE ((delayed_jobs.last_error IS NOT NULL) AND (delayed_jobs.failed_at IS NULL))) AS delayed_jobs_retrying,
+    ( SELECT count(*) AS count
+           FROM delayed_jobs
+          WHERE ((delayed_jobs.last_error IS NOT NULL) AND (delayed_jobs.failed_at IS NULL))) AS delayed_jobs_failed,
+    ( SELECT max(delayed_jobs.created_at) AS max
+           FROM delayed_jobs) AS delayed_jobs_latest_entry,
+    ( SELECT count(*) AS count
+           FROM delayed_jobs
+          WHERE (delayed_jobs.created_at >= (now())::date)) AS delayed_jobs_added_today,
+    ( SELECT jsonb_agg(query.*) AS jsonb_agg
+           FROM ( SELECT delayed_jobs.priority,
+                    count(*) AS count
+                   FROM delayed_jobs
+                  GROUP BY delayed_jobs.priority) query) AS delayed_jobs_priority_counts,
+    ( SELECT count(*) AS count
+           FROM feed_messages) AS feed_messages_total,
+    ( SELECT count(*) AS count
+           FROM feed_messages
+          WHERE (feed_messages.created_at >= (now())::date)) AS feed_messages_added_today,
+    ( SELECT max(feed_messages.created_at) AS max
+           FROM feed_messages) AS feed_messages_added_latest_entry,
+    ( SELECT count(*) AS count
+           FROM pathology_observations
+          WHERE ((pathology_observations.created_at)::date >= (now())::date)) AS pathology_observations_added_today,
+    ( SELECT max(pathology_observations.observed_at) AS max
+           FROM pathology_observations) AS pathology_observations_latest_observed_at;
+
+
+--
 -- Name: reporting_hd_blood_pressures_audit; Type: MATERIALIZED VIEW; Schema: renalware; Owner: -
 --
 
@@ -12910,6 +12963,13 @@ CREATE INDEX obx_unique_letter_grouping ON pathology_observation_descriptions US
 
 
 --
+-- Name: pathology_observations_created_on; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX pathology_observations_created_on ON pathology_observations USING btree (((created_at)::date));
+
+
+--
 -- Name: patient_bookmarks_uniqueness; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -15609,6 +15669,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180802144507'),
 ('20180803131157'),
 ('20180814103916'),
-('20180815144429');
+('20180815144429'),
+('20180831134606'),
+('20180831134926');
 
 
