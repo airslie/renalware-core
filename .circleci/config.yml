@@ -66,8 +66,7 @@ jobs:
       - run: RAILS_ENV=test bundle exec rake app:db:structure:load
 
       # Check gems for security vulnerabilities in gems
-      # TC 28-08-2018 temporarily ignore CVE-2018-1000544 becuase a patch is slow coming
-      - run: bundle exec bundle-audit update && bundle exec bundle-audit check --ignore CVE-2018-1000544
+      - run: bundle exec bundle-audit update && bundle exec bundle-audit check
 
       - run:
           name: Notify Code Climate of a pending report
