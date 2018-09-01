@@ -25,7 +25,7 @@ module Renalware
       def self.formatted_exception(error)
         [
           "#{error.backtrace.first}: #{error.message} (#{error.class})",
-          error.backtrace.drop(1).map{ |s| "\t#{s}" }
+          error.backtrace.drop(1).map{ |line| "\t#{line}" }
         ].join("\n")
       end
     end
