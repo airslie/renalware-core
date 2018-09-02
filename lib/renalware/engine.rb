@@ -79,9 +79,9 @@ module Renalware
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
     config.autoload_paths += %W(#{config.root}/app/validators/concerns)
 
-    config.generators do |g|
-      g.test_framework :rspec
-      g.fixture_replacement :factory_girl, dir: "../../spec/factories"
+    config.generators do |gens|
+      gens.test_framework :rspec
+      gens.fixture_replacement :factory_girl, dir: "../../spec/factories"
     end
 
     initializer :add_locales do |app|

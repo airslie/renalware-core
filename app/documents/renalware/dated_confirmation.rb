@@ -8,7 +8,7 @@ module Renalware
     attribute :confirmed_on, Date
 
     validates :confirmed_on, timeliness: { type: :date, allow_blank: true }
-    validates :confirmed_on, presence: true, if: ->(o) { o.status.try(:yes?) }
+    validates :confirmed_on, presence: true, if: ->(obj) { obj.status.try(:yes?) }
 
     def to_s
       datestamp = confirmed_on.present? ? "(#{I18n.l(confirmed_on)})" : nil

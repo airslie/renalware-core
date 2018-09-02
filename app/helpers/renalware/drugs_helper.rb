@@ -3,9 +3,12 @@
 module Renalware
   module DrugsHelper
     def drug_select_options
-      options_for_select Drugs::Type.all
-                                    .reject{ |r| r.name == "Peritonitis" }
-                                    .map { |dt| [dt.name, dt.name.downcase] }
+      options_for_select(
+        Drugs::Type
+          .all
+          .reject{ |dt| dt.name == "Peritonitis" }
+          .map { |dt| [dt.name, dt.name.downcase] }
+      )
     end
 
     def drug_types_colour_tag(drug_types)

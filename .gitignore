@@ -56,3 +56,5 @@ key.gpg
 /.vscode
 /spec/dummy/coverage
 /.vscode
+/.rubocop_todo.yml
+/rubocop_todo.yml
