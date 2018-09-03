@@ -69,7 +69,7 @@ describe "Edit Low Clearance", type: :feature do
           click_on "Save"
         end
 
-        expect(page.current_path).to eq(patient_low_clearance_dashboard_path(patient))
+        expect(page).to have_current_path(patient_low_clearance_dashboard_path(patient))
 
         profile_document = Renalware::LowClearance.cast_patient(patient).profile.document
         expect(profile_document.first_seen_on).to eq(fake_date)
