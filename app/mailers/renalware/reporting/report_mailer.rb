@@ -5,7 +5,7 @@ require_dependency "renalware/reporting"
 module Renalware
   module Reporting
     class ReportMailer < ApplicationMailer
-      def daily_summary(to: "")
+      def daily_summary(to: "dev@airslie.com")
         mail(
           to: Array(to),
           subject: "Renalware daily summary #{I18n.l(Time.zone.today)}"
@@ -17,7 +17,7 @@ module Renalware
 
       private
 
-      # Hijacks the reporting mechanism used elswhere for generating reports from json.
+      # Piggybacks on the reporting mechanism used elswhere for generating reports from json.
       #
       # returns e.g.
       # {
