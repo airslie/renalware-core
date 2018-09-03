@@ -1,0 +1,7 @@
+en:
+  renalware:
+    reporting:
+      reporting_daily_pathology:
+        title: Pathology
+      reporting_daily_letters:
+        title: Letters
