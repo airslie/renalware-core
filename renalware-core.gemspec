@@ -43,7 +43,7 @@ Gem::Specification.new do |s|
   s.add_dependency "delayed_job", "~> 4.1.4"
   s.add_dependency "delayed_job_active_record", "~> 4.1.2"
   s.add_dependency "delayed_job_web", "~> 1.4.3"
-  s.add_dependency "devise", "~> 4.4.0"
+  s.add_dependency "devise", "~> 4.5.0"
   s.add_dependency "dotenv-rails", "~> 2.5.0"
   s.add_dependency "dumb_delegator", "~> 0.8.0"
   s.add_dependency "email_validator", "~> 1.6.0"
