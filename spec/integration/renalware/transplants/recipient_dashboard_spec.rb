@@ -20,7 +20,7 @@ RSpec.describe "Viewing the Recipient Summary (Dashboard)", type: :feature do
         click_on "MDM"
       end
 
-      expect(page.current_path).to eq(patient_transplants_mdm_path(patient))
+      expect(page).to have_current_path(patient_transplants_mdm_path(patient))
     end
   end
 end
