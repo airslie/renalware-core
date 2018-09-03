@@ -35,9 +35,9 @@
               span.tag(class=role.name)= role.name.humanize
           td.approved
             - if user.approved?
-              i.fa.fa-check-square-o
+              i.far.fa-check-square
             - else
-              i.unapproved.fa.fa-square-o
+              i.unapproved.far.fa-square
           td.expired= l(user.expired_at&.to_date)
           td.show-for-large-up= l(user.current_sign_in_at)
           td.show-for-large-up= l(user.last_sign_in_at)

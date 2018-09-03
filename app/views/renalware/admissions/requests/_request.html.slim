@@ -23,7 +23,7 @@ ruby:
               method: :delete,
               class: "remove",
               data: { confirm: "Are you sure you want to remove this item?" } do
-      i.fa.fa-trash.fa-link-annotation
+      i.fas.fa-trash.fa-link-annotation
       | &nbsp;|&nbsp;&nbsp;
       = link_to "Edit",
                 edit_admissions_request_path(request, format: :html),
@@ -31,4 +31,4 @@ ruby:
                 method: :get,
                 data: { "reveal-id" => "admissions-request-modal", "reveal-ajax" => "true" }
   td.handle
-    i.fa.fa-reorder
+    i.fas.fa-bars

@@ -8,12 +8,12 @@ tr
   td= patient.age
   - if(patient.send_to_rpv?)
     td(title="#{patient.rpv_decision}")
-      i.fa.fa-check
+      i.fas.fa-check
   -else
     td
   - if(patient.send_to_renalreg?)
     td(title="#{patient.renalreg_decision}")
-      i.fa.fa-check
+      i.fas.fa-check
   -else
     td
   td= patient.current_modality

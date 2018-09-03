@@ -48,7 +48,7 @@ Gem::Specification.new do |s|
   s.add_dependency "dumb_delegator", "~> 0.8.0"
   s.add_dependency "email_validator", "~> 1.6.0"
   s.add_dependency "enumerize", "~> 2.2.2"
-  s.add_dependency "font-awesome-rails", "~> 5.3.1" # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
+  s.add_dependency "font-awesome-sass", "~> 5.3.1" # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
   s.add_dependency "foundation-rails", "~> 5.5.3.2"
   s.add_dependency "friendly_id", "~> 5.2.3"
   s.add_dependency "gpgme", "~>2.0.16"
@@ -77,7 +77,8 @@ Gem::Specification.new do |s|
   s.add_dependency "ransack", "~> 2.0.1"
   s.add_dependency "record_tag_helper", "~> 1.0.0"
   s.add_dependency "ruby-hl7", "~> 1.2.0"
-  s.add_dependency "sass-rails", "~> 5.0.7"
+  # s.add_dependency "sass-rails", "~> 5.0.7"
+  s.add_dependency "sassc-rails", "~> 1.3.0"
   s.add_dependency "scenic", "~> 1.4.1"
   s.add_dependency "simple_form", "3.5.0"
   s.add_dependency "sinatra", "~> 2.0.1"

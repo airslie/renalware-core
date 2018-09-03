@@ -27,14 +27,18 @@
     background-color: $nhs-blue;
   }
 
-  i.fa {
+  i.fa,
+  i.fas,
+  i.far {
     margin-right: .5rem;
   }
 
   &.with-icon {
     padding-left: 0.7rem;
 
-    i.fa {
+    i.fa,
+    i.fas,
+    i.far  {
       font-size: 1.1rem;
       margin-right: 0.6rem;
     }
