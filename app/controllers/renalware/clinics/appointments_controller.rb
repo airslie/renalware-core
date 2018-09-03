@@ -50,9 +50,7 @@ module Renalware
       end
 
       def query_params
-        params
-          .fetch(:q, {})
-          .merge(page: page, per_page: per_page)
+        params.fetch(:q, {})
       end
 
       def appointment_params

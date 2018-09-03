@@ -5,11 +5,10 @@ module Renalware
   module Clinics
     class VisitsController < BaseController
       include Renalware::Concerns::Pageable
-      PER_PAGE = 25
 
       def index
         visits_query = VisitQuery.new(query_params)
-        visits = visits_query.call.page(page).per(PER_PAGE)
+        visits = visits_query.call.page(page).per(per_page)
         authorize visits
 
         render locals: {
@@ -23,9 +22,7 @@ module Renalware
       private
 
       def query_params
-        params
-          .fetch(:q, {})
-          .merge(page: page, per_page: per_page)
+        params.fetch(:q, {})
       end
     end
   end

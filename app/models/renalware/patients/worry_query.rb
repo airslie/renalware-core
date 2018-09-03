@@ -17,8 +17,6 @@ module Renalware
           .result
           .includes(:created_by, patient: { current_modality: [:description] })
           .order(created_at: :asc)
-          .page(query_params[:page])
-          .per(query_params[:per_page])
       end
 
       def search

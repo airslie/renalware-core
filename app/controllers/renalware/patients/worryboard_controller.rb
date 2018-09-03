@@ -10,7 +10,7 @@ module Renalware
       def show
         authorize Worry, :index?
         query = WorryQuery.new(query_params)
-        worries = query.call
+        worries = query.call.page(page).per(per_page)
         render locals: {
           query: query.search,
           worries: worries,
@@ -21,9 +21,7 @@ module Renalware
       private
 
       def query_params
-        params
-          .fetch(:q, {})
-          .merge(page: page, per_page: per_page)
+        params.fetch(:q, {})
       end
     end
   end
