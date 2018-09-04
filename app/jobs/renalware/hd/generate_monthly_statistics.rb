@@ -6,6 +6,8 @@ require "month_period"
 # for each HD patient.
 module Renalware
   module HD
+    # TODO: not sure this needs to be a job - doesn't seem to be used as such
+    # instead is invoked directly
     class GenerateMonthlyStatistics < ApplicationJob
       queue_as :hd_patient_statistics
       queue_with_priority 1
@@ -29,6 +31,7 @@ module Renalware
             year: period.year
           )
         end
+
         Rails.logger.info(
           "Enqueued GenerateMonthlyStatisticsForPatientJob jobs for "\
           "#{patients_with_a_closed_hd_session_in_period.length} patients"

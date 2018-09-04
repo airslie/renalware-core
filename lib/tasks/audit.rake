@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 begin
   namespace :audit do
     desc <<-DESC
@@ -23,6 +25,9 @@ begin
         month: ENV["month"],
         year: ENV["year"]
       ).call
+
+      # Refresh the materialized view which will aggregate the monthly hd_patient_statistics data
+      RefreshMaterializedViewJob.perform_later(view_name: "renalware.reporting_hd_overall_audit")
     end
   end
 end
