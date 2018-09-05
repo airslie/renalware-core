@@ -194,7 +194,9 @@ article.clinical-allergies {
           border-left: 1px solid $winter-sky;
           white-space: nowrap;
 
-          .fa {
+          .fa,
+          .fas,
+          .far {
             color: $light-grey;
             &:hover {
               color: $white;

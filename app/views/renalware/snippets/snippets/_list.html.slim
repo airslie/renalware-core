@@ -9,11 +9,11 @@
   ul.tabs
     li(class= "#{'active' if author == :me}")
       = link_to snippets_path, remote: remote do
-        i.fa.fa-user
+        i.fas.fa-user
         | Mine
     li(class= "#{'active' if author == :anyone}")
       = link_to snippets_path(author: :anyone), remote: remote do
-        i.fa.fa-users
+        i.fas.fa-users
         | Everyone's
 
   = render "search_form", search: search, author: author, remote: remote

@@ -1,14 +1,14 @@
 = link_to(patient_hd_mdm_path(patient), class: "button with-icon secondary") do
-  i.fa.fa-group
+  i.fas.fa-users
   = t(".mdm")
 = link_to(patient_hd_protocol_path(patient), class: "button with-icon secondary") do
-  i.fa.fa-print
+  i.fas.fa-print
   = t(".protocol")
 a.button.dropdown.with-icon(href="#"
                             data-dropdown="pd-options"
                             aria-controls="pd-options"
                             aria-expanded="false")
-  i.fa.fa-plus
+  i.fas.fa-plus
   | Add
 br
 ul.f-dropdown#pd-options(data-dropdown-content aria-hidden="true")

@@ -9,11 +9,11 @@
 
   .diary__navigation
     = link_to hd_unit_edit_diary_path(**diary.week.previous.to_h), class: "button secondary" do
-      i.fa.fa-arrow-left
+      i.fas.fa-arrow-left
       | Previous week
 
     = link_to hd_unit_edit_diary_path(**diary.week.next.to_h), class: "button secondary" do
-      i.fa.fa-arrow-right
+      i.fas.fa-arrow-right
       | Next week
 
   .diary__key

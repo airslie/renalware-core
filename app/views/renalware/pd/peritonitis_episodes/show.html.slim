@@ -1,7 +1,7 @@
 = content_for(:actions) do
   = link_to(patient_pd_peritonitis_episode_path(patient, peritonitis_episode, format: :pdf),
             class: "button") do
-    i.fa.fa-print
+    i.fas.fa-print
     | &nbsp;Print
 
 - title = "Peritonitis Episode - Diagnosed: #{l(peritonitis_episode.diagnosis_date)}"

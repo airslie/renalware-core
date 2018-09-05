@@ -27,7 +27,7 @@
 
         = f.input :patient_ids, as: :hidden_array
         = button_tag(type: "submit", class: "button secondary") do
-          i.fa.fa-files-o
+          i.fas.fa-copy
           | Generate request forms
 
     table#appointments
@@ -63,13 +63,13 @@
               - if appointment.becomes_visit_id.present?
                 = link_to edit_patient_clinic_visit_path(appointment.patient,
                                                           id: appointment.becomes_visit_id) do
-                  i.fa.fa-file-o
+                  i.fas.fa-file
                   | &nbsp;&nbsp;
                   | View Clinic Visit
               - else
                 = link_to new_patient_clinic_visit_path(appointment.patient,
                                                         appointment_id: appointment.id) do
-                  i.fa.fa-pencil
+                  i.fas.fa-pencil-alt
                   | &nbsp;&nbsp;
                   | Create Clinic Visit
 

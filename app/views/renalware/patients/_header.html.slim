@@ -11,11 +11,11 @@
       dt
       dd.back-link
         = link_to back_path do
-          i.fa.fa-arrow-left
+          i.fas.fa-arrow-left
           | &nbsp;Back
     dd.name.patient-menu-toggler
       a
-        i.fa.fa-ellipsis-v
+        i.fas.fa-ellipsis-v
         = patient
     - if patient.hospital_identifiers.all.count > 1
       - patient.hospital_identifiers.all.each do |hospital_identifier|

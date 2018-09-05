@@ -14,8 +14,10 @@ module Renalware
       visit patient_pd_dashboard_path(patient)
 
       # Summary
-      click_link "Add..."
-      click_link "PD Training Session"
+      within ".page-actions" do
+        click_link "Add"
+        click_link "PD Training Session"
+      end
 
       # New
       started_on = I18n.l(Time.zone.today)

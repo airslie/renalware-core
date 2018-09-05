@@ -76,7 +76,7 @@ end
 
 Given(/^I choose to record a new APD regime$/) do
   within ".page-actions" do
-    click_on "Add..."
+    click_on "Add"
     click_on "APD Regime"
   end
 end
