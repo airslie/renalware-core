@@ -1,6 +1,6 @@
 -
   name: Main Authors
-  description: A list of authors with their letter statistics.
+  description: A list of authors with statistics across the last 3 months of letters.
   view_name: reporting_main_authors_audit
   materialized: true
   refresh_schedule: "1 0 * * *"
@@ -329,4 +329,3 @@
         }
       ]
     }
-
