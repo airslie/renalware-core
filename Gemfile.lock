@@ -71,6 +71,7 @@ PATH
       whenever (~> 0.10.0)
       wicked_pdf (~> 1.1.0)
       wisper (~> 2.0.0)
+      wisper-activejob (~> 1.0.0)
       wkhtmltopdf-binary (= 0.12.3.1)
       yard (~> 0.9.15)
 
@@ -585,6 +586,9 @@ GEM
       chronic (>= 0.6.3)
     wicked_pdf (1.1.0)
     wisper (2.0.0)
+    wisper-activejob (1.0.0)
+      activejob (>= 4.0.0)
+      wisper
     wisper-rspec (1.1.0)
     wkhtmltopdf-binary (0.12.3.1)
     wkhtmltopdf-heroku (2.12.4.0)
