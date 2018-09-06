@@ -375,6 +375,11 @@ Renalware::Engine.routes.draw do
         resource :approved, controller: "approved_letters", only: :create
         resource :completed, controller: "completed_letters", only: [:new, :create]
         resource :formatted, controller: "formatted_letters", only: :show
+        resource :printable,
+                 controller: "printable_letters",
+                 only: :show,
+                 constraints: { format: /(pdf)/ },
+                 defaults: { format: :pdf }
         collection do
           get :contact_added
         end

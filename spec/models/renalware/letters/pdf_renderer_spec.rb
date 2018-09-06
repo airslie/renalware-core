@@ -11,7 +11,9 @@ module Renalware
         letter = build(:approved_letter, patient: patient)
         letter.build_main_recipient(person_role: :primary_care_physician)
         letter.complete(by: build_stubbed(:user))
+
         pdf_content = PdfRenderer.call(letter)
+
         expect(pdf_content).to start_with("%PDF")
       end
     end
