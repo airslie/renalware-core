@@ -2,6 +2,7 @@
 
 require_dependency "renalware/letters"
 require "pdf/reader"
+require "attr_extras"
 
 module Renalware
   module Letters
@@ -18,15 +19,25 @@ module Renalware
     # but the page count setting on the printer will be 2 becuase of the additional address cover
     # sheet.
     class CalculatePageCountJob < ApplicationJob
+      pattr_initialize :letter
+
       # This method is the name of an event raised elsewhere by a Wisper publisher.
-      def letter_approved(letter)
-        reader = PDF::Reader.new(pdf_data_for(letter))
-        letter.update_column(:page_count, reader.page_count)
+      # It needs to be a class method in order to be invoked asynchronously by delayed_job
+      def self.letter_approved(letter)
+        new(letter).call
+      end
+
+      def call
+        letter.update_column(:page_count, pdf_reader.page_count)
       end
 
       private
 
-      def pdf_data_for(letter)
+      def pdf_reader
+        PDF::Reader.new(pdf_data)
+      end
+
+      def pdf_data
         letter_presenter = LetterPresenter.new(letter)
         StringIO.new(PdfRenderer.call(letter_presenter))
       end

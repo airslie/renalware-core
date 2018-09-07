@@ -6,7 +6,8 @@ require_dependency "renalware/letters"
 module Renalware
   describe Letters::CalculatePageCountJob do
     include LettersSpecHelper
-    subject(:job) { described_class.new }
+    subject(:job) { described_class }
+
     let(:patient) { create(:letter_patient) }
     let(:letter) do
       create_letter(
