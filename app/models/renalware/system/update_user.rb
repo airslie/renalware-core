@@ -11,8 +11,7 @@ module Renalware
         @user = user
         @notifier = Admin::UserMailer
         @notifications = []
-        # TODO: Change this to `:deliver_later` once we have background workers configured.
-        @delivery_method = :deliver_now
+        @delivery_method = :deliver_later
       end
 
       def call(params)
