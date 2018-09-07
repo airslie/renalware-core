@@ -579,12 +579,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.8)
     timeliness (0.3.8)
-<<<<<<< HEAD
-=======
-    trix (0.11.1)
-      rails (> 4.1, < 5.2)
     ttfunk (1.5.1)
->>>>>>> Letter formatting for envelope stuffers
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (4.1.19)
