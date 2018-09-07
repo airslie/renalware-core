@@ -91,6 +91,7 @@ Gem::Specification.new do |s|
   s.add_dependency "whenever", "~> 0.10.0" # For managing/deploying cron jobs see config/schedule.rb
   s.add_dependency "wicked_pdf", "~> 1.1.0"
   s.add_dependency "wisper", "~> 2.0.0"
+  s.add_dependency "wisper-activejob", "~> 1.0.0"
   s.add_dependency "wkhtmltopdf-binary", "0.12.3.1"
   s.add_dependency "yard", "~> 0.9.15"
 end
