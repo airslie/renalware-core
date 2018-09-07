@@ -32,6 +32,7 @@ tr(class=letter.state.dasherize)
   td= l(letter.effective_date)
   td= letter.author
   td= letter.typist
+  td= letter.page_count
   td.col-width-medium-with-ellipsis= letter.main_recipient.address
   td.col-width-medium-with-ellipsis= letter.description
 = content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
