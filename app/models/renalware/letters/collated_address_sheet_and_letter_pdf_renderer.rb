@@ -27,13 +27,13 @@ module Renalware
       def call
         pdf = CombinePDF.new
         # render address sheet for main recipient
-        pdf << CombinePDF.parse(render_cover_sheet_for(letter.main_recipient.address))
+        pdf << CombinePDF.parse(render_cover_sheet_for(letter.main_recipient))
         pdf << CombinePDF.parse(letter_pdf_content)
         # output address cover sheet avd letter for each non-email cc
         letter.cc_recipients.each do |cc_recipient|
           # p "here"
           if cc_recipient.statment_to_indicate_letter_will_be_emailed.blank?
-            pdf << CombinePDF.parse(render_cover_sheet_for(cc_recipient.address))
+            pdf << CombinePDF.parse(render_cover_sheet_for(cc_recipient))
             pdf << CombinePDF.parse(letter_pdf_content)
           end
         end
@@ -44,11 +44,11 @@ module Renalware
         @letter_pdf_content ||= WickedPdf.new.pdf_from_string(letter.to_html, OPTIONS)
       end
 
-      def render_cover_sheet_for(address)
+      def render_cover_sheet_for(recipient)
         WickedPdf.new.pdf_from_string(
           LettersController.new.render_to_string(
             partial: "/renalware/letters/formatted_letters/recipient_address_cover_sheet",
-            locals: { address: address },
+            locals: { recipient: recipient },
             encoding: "UTF-8"
           ),
           OPTIONS

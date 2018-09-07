@@ -29,7 +29,7 @@ module Renalware
         person = create(
           :directory_person,
           by: user,
-          address: build(:address, street_1: "::contactt_address::")
+          address: build(:address, street_1: "::contact_address::")
         )
         create(:letter_contact, patient: patient, person: person)
 

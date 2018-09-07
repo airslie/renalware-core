@@ -15,19 +15,9 @@ module Renalware
 
         respond_to do |format|
           format.html { render locals: { letter: letter } }
-          format.pdf  { render_pdf_simple(letter) }
+          format.pdf  { render_pdf(letter) }
           format.rtf  { render_rtf(letter) }
         end
-      end
-
-      # GET .pdf
-      # Prints with a separate address page before each instance of the letter, so that the printed
-      # output can be inserted into an envelope stuffer.
-      def print
-        raise "fail"
-        letter = find_letter(params[:letter_id])
-        letter = present_letter(letter)
-        render_pdf_as_collated_address_sheet_and_letter_for_each_recipient(letter)
       end
 
       private
@@ -44,20 +34,7 @@ module Renalware
         LetterPresenterFactory.new(letter)
       end
 
-      def render_pdf_simple(letter)
-        render_pdf(renderer: PdfRenderer, letter: letter)
-      end
-
-      def render_pdf_as_collated_address_sheet_and_letter_for_each_recipient(letter)
-        send_data(
-          CollatedAddressSheetAndLetterPdfRenderer.call(letter),
-          filename: letter.pdf_filename,
-          type: "application/pdf",
-          disposition: disposition
-        )
-      end
-
-      def render_pdf
+      def render_pdf(letter)
         send_data(
           PdfRenderer.call(letter),
           filename: letter.pdf_filename,
