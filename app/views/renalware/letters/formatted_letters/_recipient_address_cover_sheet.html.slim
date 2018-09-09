@@ -1,7 +1,40 @@
+/ Notes about window position on envelopes.
+/ BS 4264 specifies that the transparent window on a DL envelope should be 93 × 39 mm large.
+/ Its top-left corner should be located 20 mm from the left margin and 53 mm from the top margin of
+/ the envelope. BS 1808 specifies an 80 × 30 mm large address panel on the letterhead.
+/ Its top-left corner is located 20 mm from the left margin and 51 mm from the top margin of the
+/ page. The address panel is embedded inside a 91 × 48 mm large exclusion zone whose top left corner
+/ is located 20 mm from the left margin and 42 mm from the top margin of the page. In other words,
+/ the area 9 mm above and below and 11 mm right of the address panel should be kept clean of any
+/ other printing.
 scss:
   html {
     overflow: hidden;
     font-family: Helvetica, Arial;
   }
 
-= recipient.to_html
+  .envelope {
+    position: relative;
+  }
+
+  .address-in-window {
+    position: absolute;
+    left: 45px;
+    top: 120px; /* left 2.65 */
+    width: 50%;
+    height: 50%;
+  }
+
+.alwaysbreak
+/ some content required here as .address-in-window is abs pos and will not otherwise
+/ register as content
+| &nbsp;
+
+.envelope
+  .address-in-window
+    = recipient.to_html
+
+/ Generate a blank page because we are using duplex printing and otherwise the letter would start
+/ on the back of the cover sheet
+.alwaysbreak
+| &nbsp;

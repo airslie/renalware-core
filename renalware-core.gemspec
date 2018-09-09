@@ -39,7 +39,6 @@ Gem::Specification.new do |s|
   s.add_dependency "client_side_validations-simple_form", "~> 6.6.0"
   s.add_dependency "clipboard-rails", "~> 1.7.1"
   s.add_dependency "cocoon", "~> 1.2.11"
-  s.add_dependency "combine_pdf", "~> 1.0.15"
   s.add_dependency "cronex", "~> 0.6.1"
   s.add_dependency "delayed_job", "~> 4.1.4"
   s.add_dependency "delayed_job_active_record", "~> 4.1.2"

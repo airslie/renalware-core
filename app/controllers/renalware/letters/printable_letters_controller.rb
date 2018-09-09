@@ -4,6 +4,9 @@ require_dependency "renalware/letters"
 
 module Renalware
   module Letters
+    # Responsible for allowing a user to view/download a printable PDF that can be sent to an
+    # envelope stuffer. It will contain intervleaved address sheets and letters so that the machine
+    # can stuff a letter for each letter recipient.
     class PrintableLettersController < Letters::BaseController
       def show
         letter = find_letter(params[:letter_id])
@@ -27,15 +30,8 @@ module Renalware
       end
 
       def render_pdf_as_collated_address_sheet_and_letter_for_each_recipient(letter)
-        # send_file(
-        #   "/Users/tim/Desktop/pdf.pdf",
-        #   filename: letter.pdf_filename,
-        #   type: "application/pdf",
-        #   disposition: disposition
-        # )
-
         send_data(
-          CollatedAddressSheetAndLetterPdfRenderer.call(letter),
+          Printing::EnvelopeStufferPdfRenderer.call(letter),
           filename: letter.pdf_filename,
           type: "application/pdf",
           disposition: disposition

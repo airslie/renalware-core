@@ -13,10 +13,10 @@ module Renalware
     # We generate a PDF version of the letter (or retrieve it from the cache) and inspect it
     # using a PDF tool to get the page count. We then save that away to the letters table.
     #
-    # The page count is usefult when printing letters - letters with the same page count can be
-    # printed together and fed into an envlope stuffer with the same page count setting eg 2
-    # (address vocer sheet + duplex printed letter). Most of the time page count will be 1,
-    # but the page count setting on the printer will be 2 becuase of the additional address cover
+    # The page count is useful when printing letters; letters with the same page count can be
+    # printed together and fed into an envelope stuffer with the same page count setting eg 2
+    # (address cover sheet + duplex printed letter). Most of the time page count will be 1,
+    # but the page count setting on the printer will be 2 because of the additional address cover
     # sheet.
     class CalculatePageCountJob < ApplicationJob
       pattr_initialize :letter

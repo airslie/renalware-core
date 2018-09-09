@@ -81,7 +81,10 @@ module Renalware
 
       def address_for_addressee_eg_contact
         addressee.address.tap do |address|
-          ensure_address_has_a_name_required_when_displaying_letters(address, addressee.to_s)
+          ensure_address_has_a_name_required_when_displaying_letters(
+            address,
+            addressee.respond_to?(:full_name) ? addressee.full_name : addressee.to_s
+          )
         end
       end
 
@@ -98,7 +101,7 @@ module Renalware
       #      123 Toon Town
       #      ...
       # Note address.name is a redundant field not consistently populated in the app
-      # and should be removed. However its consumed in a quite a few laces building letters
+      # and should be removed. However its consumed in a quite a few places building letters
       # and displaying the letter form, hence this hack.
       def ensure_address_has_a_name_required_when_displaying_letters(address, name)
         address.name = name if address.present? && address.name.blank?

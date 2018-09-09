@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/MethodLength
 module LettersSpecHelper
   def build_letter(state: :draft, to:, patient:, **args)
     trait = "#{state}_letter".to_sym
@@ -25,7 +26,6 @@ module LettersSpecHelper
     letter
   end
 
-  # rubocop:disable Metrics/MethodLength
   def build_main_recipient_attributes(to)
     case to
     when :patient
@@ -41,5 +41,74 @@ module LettersSpecHelper
       }
     end
   end
-  # rubocop:enable Metrics/MethodLength
+
+  def create_letter_to_patient_with_cc_to_gp_and_one_contact(user: nil, body: "test", page_count: 1)
+    user ||= create(:user)
+
+    practice = create(
+      :practice,
+      email: nil
+    )
+    primary_care_physician = create(
+      :letter_primary_care_physician,
+      address: build(:address, street_1: "::gp_address::")
+    )
+
+    patient = create(
+      :letter_patient,
+      primary_care_physician: primary_care_physician,
+      practice: practice,
+      given_name: "John",
+      family_name: "Smith",
+      by: user
+    )
+
+    patient.current_address.update(
+      street_1: "A",
+      street_2: "B",
+      street_3: "C",
+      town: "D",
+      county: "E",
+      postcode: "F"
+    )
+
+    person = create(
+      :directory_person,
+      by: user,
+      given_name: "Jane",
+      family_name: "Contact",
+      address: build(
+        :address,
+        street_1: "1",
+        street_2: "2",
+        street_3: "3",
+        town: "4",
+        county: "5",
+        postcode: "6"
+      )
+    )
+    contact = create(
+      :letter_contact,
+      patient: patient,
+      person: person
+    )
+
+    letter = create_letter(
+      to: :patient,
+      patient: patient,
+      state: :completed,
+      page_count: page_count,
+      body: body
+    )
+
+    create(
+      :letter_recipient,
+      :cc,
+      person_role: "contact",
+      letter: letter,
+      addressee: contact
+    )
+    letter
+  end
 end
+# rubocop:enable Metrics/MethodLength

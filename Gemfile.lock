@@ -28,7 +28,6 @@ PATH
       client_side_validations-simple_form (~> 6.6.0)
       clipboard-rails (~> 1.7.1)
       cocoon (~> 1.2.11)
-      combine_pdf (~> 1.0.15)
       cronex (~> 0.6.1)
       delayed_job (~> 4.1.4)
       delayed_job_active_record (~> 4.1.2)
@@ -207,8 +206,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    combine_pdf (1.0.15)
-      ruby-rc4 (>= 0.1.5)
     concurrent-ruby (1.0.5)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
