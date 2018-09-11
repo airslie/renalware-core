@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/ukrdc"
+require "gpg_encrypt_folder"
 
 module Renalware
   module UKRDC
@@ -25,6 +26,7 @@ module Renalware
 
       private
 
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def send_patients
         logger.info("Generating XML files for #{patient_ids&.any? ? patient_ids : 'all'} patients")
         query = Renalware::UKRDC::PatientsQuery.new.call(changed_since: changed_since)
@@ -47,9 +49,11 @@ module Renalware
               logger: logger
             ).call
           end
+          encrypt_xml_files_in(dir)
         end
         logger.info("Files saved to #{folder_name}")
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       def gpg_encrypt(filepath, output_filepath)
         path_to_key = File.open(Rails.root.join("key.gpg"))
@@ -69,7 +73,6 @@ module Renalware
 
       def within_new_folder
         dir = Pathname(File.join("/var", "ukrdc", timestamp))
-        FileUtils.mkdir_p dir
         FileUtils.mkdir_p File.join(dir, "xml")
         FileUtils.mkdir_p File.join(dir, "encrypted")
         yield dir if block_given?
@@ -78,6 +81,7 @@ module Renalware
 
       def filepath_for(patient, dir, sub_folder)
         raise(ArgumentError, "Patient has no ukrdc_external_id") if patient.ukrdc_external_id.blank?
+
         filename = "#{patient.ukrdc_external_id}.xml"
         File.join(dir, sub_folder.to_s, filename)
       end
@@ -87,6 +91,26 @@ module Renalware
         logger.info "Took #{ms.to_i / 1000} seconds"
         results = TransmissionLog.where(request_uuid: request_uuid).group(:status).count(:status)
         results.to_h.map{ |key, value| logger.info("#{key}: #{value}") }
+      end
+
+      def encrypt_xml_files_in(dir)
+        logger.info "Encrypting..."
+        GpgEncryptFolder.new(folder: dir, options: gpg_options).call
+      end
+
+      def config
+        Renalware.config
+      end
+
+      def gpg_options
+        GpgOptions.new(
+          recipient: config.ukrdc_gpg_recipient,
+          keyring: config.ukrdc_gpg_keyring,
+          homedir: config.ukrdc_gpg_homedir,
+          filename_transform: lambda do |filename|
+            filename.to_s.gsub("/xml/", "/encrypted/") + ".enc"
+          end
+        )
       end
     end
   end
