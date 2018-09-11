@@ -16,7 +16,16 @@ tr(class=letter.state.dasherize)
                 } do
          i.fas.fa-print
          | Print
-    | &nbsp;&nbsp;
+      | &nbsp;
+    - if letter.approved? && letter.page_count
+      = link_to patient_letters_letter_printable_path(letter.patient, letter),
+                target: "_blank",
+                class: "printing-pdf button secondary compact",
+                data: { \
+                  "modal-url" => new_patient_letters_letter_completed_path(letter.patient, letter) \
+                } do
+         | P2
+      | &nbsp;
     = link_to "Toggle",
               "#quick-preview-#{letter.id}",
               data: { behaviour: "toggler" }

@@ -64,6 +64,12 @@ module Renalware::Letters
           expect(content).to include(patient.full_name)
           expect(content).to include(patient.practice.address.street_1)
         end
+
+        it "includes the GP CC name and address at the end of the letter (does not appear "\
+           "in the print version but we keep in the archive copy for reference" do
+          content = letter.generate_archive(by: user).archive.content
+          expect(content).to include(patient.primary_care_physician.to_s)
+        end
       end
     end
   end

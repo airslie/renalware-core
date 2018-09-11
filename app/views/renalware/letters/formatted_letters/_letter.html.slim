@@ -346,10 +346,11 @@ scss:
 
       p.private Private and confidential
 
-      - letter.cc_recipients.each do |cc|
-        .address.nobreak
-          p
-            = cc.to_html
-            - if cc.statment_to_indicate_letter_will_be_emailed.present?
-              br
-              = cc.statment_to_indicate_letter_will_be_emailed
+      - if defined?(display_ccs) && display_ccs
+        - letter.cc_recipients.each do |cc|
+          .address.nobreak
+            p
+              = cc.to_html
+              - if cc.statment_to_indicate_letter_will_be_emailed.present?
+                br
+                = cc.statment_to_indicate_letter_will_be_emailed

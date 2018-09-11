@@ -6,9 +6,16 @@ require "pdf/reader"
 module Renalware
   module Letters
     module Printing
-      describe EnvelopeStufferPdfRenderer, type: :model do
-        DEBUG = true
+      describe DuplexInterleavedPdfRenderer, type: :model do
+        DEBUG = false
         include LettersSpecHelper
+
+        def open_pdf_in_preview(pdf_file)
+          if DEBUG
+            FileUtils.cp pdf_file.path, "/Users/tim/Desktop/x.pdf"
+            `open /Users/tim/Desktop/x.pdf`
+          end
+        end
 
         context "when patient is main recipient CCs are the GP and a letter contact" do
           context "when the letter is only 1 page long" do
@@ -23,12 +30,7 @@ module Renalware
               end
               p "Rendering the letter/s took #{ms}"
 
-              if DEBUG
-                FileUtils.cp pdf_file.path, "/Users/tim/Desktop/x.pdf"
-                `open /Users/tim/Desktop/x.pdf`
-              end
-
-              reader = PDF::Reader.new(pdf_file.path)
+              open_pdf_in_preview(pdf_file)
 
               # We expect the following pages
               # 1. address page for main recipient (patient)
@@ -43,6 +45,9 @@ module Renalware
               # 10. a blank page duplex printed on back address page
               # 11 .the one page letter
               # 12. a blank page duplex printed on back of the letter
+              #
+              reader = PDF::Reader.new(pdf_file.path)
+
               expect(reader.page_count).to eq(12)
               pages = reader.pages
 
@@ -57,6 +62,10 @@ module Renalware
               # Page 3 is a copy of the letter
               expect(pages[2].text).not_to match("Page\t1\tof\t1")
               expect(pages[2].text).to match("Yours sincerely")
+
+              # The letter should not have the GP CC info at the end of the letter - this only
+              # appears in the html-viewed and archived version
+              expect(pages[2].text).not_to match("Dr GOOD PJ")
 
               # Page 4 is blank
               expect(pages[3].text).to be_blank
@@ -95,7 +104,7 @@ module Renalware
 
               # update body to tip the page across 2 pages
               letter = create_letter_to_patient_with_cc_to_gp_and_one_contact(
-                body: "xxxxxxxx " * 1000,
+                body: "xxxxxxxx " * 1100,
                 page_count: 2
               )
               pdf_file = Tempfile.new("merged_pdf", Rails.root.join("tmp"))
@@ -105,10 +114,7 @@ module Renalware
               end
               p "Rendering the letter/s took #{ms}"
 
-              if DEBUG
-                FileUtils.cp pdf_file.path, "/Users/tim/Desktop/x.pdf"
-                `open /Users/tim/Desktop/x.pdf`
-              end
+              open_pdf_in_preview(pdf_file)
 
               reader = PDF::Reader.new(pdf_file.path)
 
@@ -137,25 +143,27 @@ module Renalware
               expect(pages[1].text).to be_blank
 
               # Page 3 is a copy of the letter
+              expect(pages[2].text).to match("PRIVATE AND CONFIDENTIAL")
+              # Note we don't support page numbers when building a combined PDF this way so check
+              # they aren't there
               expect(pages[2].text).not_to match("Page\t1\tof\t1")
-              expect(pages[2].text).to match("Yours sincerely")
 
-              # Page 4 is blank
-              expect(pages[3].text).to be_blank
+              # Page 4 is the final page of the letter
+              expect(pages[3].text).to match("Yours sincerely")
 
               # Page 5 is the GP contact
               expect(pages[4].text.gsub("\n\n", "\n")).to match(
                 "Dr GOOD PJ\n123 Legoland\nBrewster Road\nBrownswater\nWindsor\nBerkshire\nNW1 6BB"
               )
 
-              # Page 6 is blank
+              # Page 6 is blank - the back of the address sheet
               expect(pages[5].text).to be_blank
 
-              # Page 7 is the letter
-              expect(pages[6].text).to match("Yours sincerely")
+              # Page 7 is the letter page 1
+              expect(pages[6].text).to match("PRIVATE AND CONFIDENTIAL")
 
-              # Page 8 is blank
-              expect(pages[7].text).to be_blank
+              # Page 8 is letter last page
+              expect(pages[7].text).to match("Yours sincerely")
 
               # Page 9 is address page for the letter contact
               expect(pages[8].text.gsub("\n\n", "\n")).to match("Jane Contact\n1\n2\n3\n4\n5\n6")
@@ -164,10 +172,10 @@ module Renalware
               expect(pages[9].text).to be_blank
 
               # Page 11 is the letter
-              expect(pages[10].text).to match("Yours sincerely")
+              expect(pages[10].text).to match("PRIVATE AND CONFIDENTIAL")
 
-              # Page 12 is blank
-              expect(pages[11].text).to be_blank
+              # Page 12 is letter last page
+              expect(pages[11].text).to match("Yours sincerely")
             end
           end
         end

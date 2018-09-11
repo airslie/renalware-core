@@ -79,7 +79,7 @@ module Renalware
           def create_letter_pdf_in(dir, letter)
             filename = "letter_#{letter.id}.pdf"
             path = dir.join(filename)
-            File.open(path, "wb") { |file| file.write(EnvelopeStufferPdfRenderer.call(letter)) }
+            File.open(path, "wb") { |file| file.write(DuplexInterleavedPdfRenderer.call(letter)) }
             filename
           end
         end

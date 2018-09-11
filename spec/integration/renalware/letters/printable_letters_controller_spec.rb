@@ -8,7 +8,7 @@ RSpec.describe "Rendering a letter for printing in an envelope stuffer", type: :
   let(:user) { create(:user) }
 
   describe "GET show" do
-    it "renders a Duplex interleaved address+letter PDF" do
+    it "renders a duplex interleaved address+letter PDF" do
       letter = create_letter_to_patient_with_cc_to_gp_and_one_contact
 
       get patient_letters_letter_printable_path(
@@ -19,8 +19,10 @@ RSpec.describe "Rendering a letter for printing in an envelope stuffer", type: :
 
       expect(response).to be_success
       expect(response["Content-Type"]).to eq("application/pdf")
-      filename = "JONES-Z99991-#{letter.id}-COMPLETED".upcase
-      expect(response["Content-Disposition"]).to include("attachment") # but only because we asked
+      filename = "#{letter.patient.family_name.upcase}-"\
+                 "#{letter.patient.local_patient_id.upcase}-"\
+                 "#{letter.id}-APPROVED.pdf"
+      expect(response["Content-Disposition"]).to include("inline")
       expect(response["Content-Disposition"]).to include(filename)
     end
   end

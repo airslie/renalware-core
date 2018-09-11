@@ -18,7 +18,8 @@ module Renalware
       private
 
       def find_letter(id)
-        patient.letters.completed
+        patient.letters
+          .approved
           .with_patient
           .with_main_recipient
           .with_cc_recipients
@@ -31,7 +32,7 @@ module Renalware
 
       def render_pdf_as_collated_address_sheet_and_letter_for_each_recipient(letter)
         send_data(
-          Printing::EnvelopeStufferPdfRenderer.call(letter),
+          Printing::DuplexInterleavedPdfRenderer.call(letter),
           filename: letter.pdf_filename,
           type: "application/pdf",
           disposition: disposition
@@ -39,7 +40,7 @@ module Renalware
       end
 
       def disposition
-        params.fetch("disposition", "attachment")
+        params.fetch("disposition", "inline")
       end
     end
   end

@@ -42,7 +42,10 @@ module LettersSpecHelper
     end
   end
 
-  def create_letter_to_patient_with_cc_to_gp_and_one_contact(user: nil, body: "test", page_count: 1)
+  def create_letter_to_patient_with_cc_to_gp_and_one_contact(user: nil,
+                                                             body: "test",
+                                                             page_count: 1,
+                                                             state: :approved)
     user ||= create(:user)
 
     practice = create(
@@ -96,7 +99,7 @@ module LettersSpecHelper
     letter = create_letter(
       to: :patient,
       patient: patient,
-      state: :completed,
+      state: state,
       page_count: page_count,
       body: body
     )

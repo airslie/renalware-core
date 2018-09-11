@@ -6,7 +6,7 @@ module Renalware
   module Letters
     module Printing
       # Renders a PDF for printing with interleaved address and letter pages for multiple recipients
-      class EnvelopeStufferPdfRenderer
+      class DuplexInterleavedPdfRenderer
         # Note we can't support page numbers here as they would start on the first address page and
         # end on the last letter, so the last letter if there are 3 recipients might say
         # Page 5 of 6 on the address page and Page 6 of 6 on the letter.
