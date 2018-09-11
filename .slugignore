@@ -16,3 +16,4 @@
 /spec/*.rb
 /test
 /features
+/doc

@@ -6,6 +6,12 @@ module Renalware::System
   describe UpdateUser do
     describe "#call" do
       let(:super_admin) { create(:role, :super_admin) }
+      let(:adapter) { ActiveJob::Base.queue_adapter }
+
+      before do
+        ActiveJob::Base.queue_adapter = :test
+        ActiveJob::Base.queue_adapter.enqueued_jobs.clear
+      end
 
       context "with an unapproved user" do
         subject(:commmand) { UpdateUser.new(user) }
@@ -29,11 +35,8 @@ module Renalware::System
         end
 
         it "notifies the user of approval" do
-          expect {
-            commmand.call(approved: "true", roles: [super_admin])
-          }.to change{
-            ActionMailer::Base.deliveries.count
-          }.by(1)
+          commmand.call(approved: "true", roles: [super_admin])
+          expect(adapter.enqueued_jobs.size).to eq(1)
         end
 
         it "does not approve a user without roles" do
@@ -58,9 +61,7 @@ module Renalware::System
         it "does not send an email" do
           expect{
             command.call(approved: "true")
-          }.to change{
-            ActionMailer::Base.deliveries.count
-          }.by(0)
+          }.to change(adapter.enqueued_jobs, :size).by(0)
         end
 
         it "authorises the user" do
@@ -88,7 +89,7 @@ module Renalware::System
         it "notifies the user of account reactivation" do
           expect{
             command.call(unexpire: "true")
-          }.to change(ActionMailer::Base.deliveries, :count).by(1)
+          }.to change(adapter.enqueued_jobs, :size).by(1)
         end
       end
 
@@ -108,7 +109,7 @@ module Renalware::System
         it "does not send an email" do
           expect{
             command.call(unexpire: "true")
-          }.to change(ActionMailer::Base.deliveries, :count).by(0)
+          }.to change(adapter.enqueued_jobs, :size).by(0)
         end
       end
     end

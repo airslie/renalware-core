@@ -48,7 +48,6 @@ rerun.txt
 /pkg
 .rubocop-https*
 /data
-/doc
 /.idea
 /Find Results
 key.gpg
