@@ -51,7 +51,7 @@ module Renalware
         CollectionPresenter.new(
           letters_patient
             .letters
-            .approved
+            .approved_or_completed
             .where("updated_at > ?", changes_since),
           Renalware::Letters::LetterPresenterFactory
         )
