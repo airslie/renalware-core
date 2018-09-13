@@ -9,7 +9,10 @@ table.renal-registry-preflight-checks
                      :modality_descriptions_name,
                       "Modality",
                       default_order: :asc)
-      td.col-width-small HD Site
+      td.col-width-small
+       = sort_link([:renalware, query],
+                    :hd_profile_unit_name,
+                    "HD Site")
       td.col-width-date
         = sort_link([:renalware, query],
                     :profile_esrf_on,
