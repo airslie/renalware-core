@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.46
+21-09-2018
+
+### Changed
+- Only pass the FeedMessage when broadcasting message_processed event #2391
+
 ## 2.0.45
 21-09-2018
 
