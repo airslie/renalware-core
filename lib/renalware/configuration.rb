@@ -56,6 +56,11 @@ module Renalware
     config_accessor(:ukrdc_default_changes_since_date) {
       Date.parse(ENV.fetch("UKRDC_DEFAULT_CHANGES_SINCE_DATE", "2018-01-01"))
     }
+    config_accessor(:ukrdc_gpg_recipient) { ENV.fetch("UKRDC_GPG_RECIPIENT", "renalware_test") }
+    config_accessor(:ukrdc_gpg_homedir) { ENV["UKRDC_GPG_HOMEDIR"] }
+    config_accessor(:ukrdc_gpg_keyring) do
+      ENV.fetch("UKRDC_GPG_KEYRING", Engine.root.join("config", "gpg", "renalware_test.gpg"))
+    end
 
     # We override this in some tests as a means of getting wicked_Pdf to generate an HTML version
     # of the PDF so we can examine its content
