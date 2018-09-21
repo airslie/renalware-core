@@ -9,6 +9,20 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.45
+21-09-2018
+
+### Added
+- Support async Wisper subscribers #2381
+- Support sending a daily summary email #2373
+### Changed
+- Encrypt UKRDC XML files automatically before sending #2386
+- Add 'Patient Refused' vaccination type
+- Prepare for Rails 5.2 #2372 #2376 #2375 #2377
+### Fixed
+- Should include both approved and completed letters in UKRDC export #2387
+- HD audit view does not refresh after monthly report generation #2378
+
 ## 2.0.44
 29-08-2018
 
@@ -85,9 +99,9 @@ This project adheres to Semantic Versioning.
 ### Fixed
 ### Added
 - Add Additional Information section to HD MDM
-- Add ESRF date and modality filters to Renal Reg preflight checks
+- Add ESRF date and modality filters to Renal Reg pre-flight checks
 ### Changed
-- Strip white space around jsonb documents
+- Strip white space around JSONB documents
 
 ## 2.0.37
 28-06-2018
@@ -105,7 +119,7 @@ This project adheres to Semantic Versioning.
 - Add PerRectum medication route to demo data
 ### Fixed
 - Prescriptions now sort by drug name then prescription date descending
-- Letters now sort by the date they were moved into their currect state (e.g. Approved)
+- Letters now sort by the date they were moved into their correct state (e.g. Approved)
 - Fix UKRDC XML issues
 - Fix patient demographics layout where telephone and email labels not aligning
 
@@ -157,7 +171,7 @@ This project adheres to Semantic Versioning.
 07-06-2018
 
 ### Fixed
-- Fixed an issue preventing migrationo of SQL functions in host app
+- Fixed an issue preventing migration of SQL functions in host app
 
 ## 2.0.29
 06-06-2018
@@ -165,7 +179,7 @@ This project adheres to Semantic Versioning.
 ### Added
 ### Changed
 - Support linking to external clinical study applications, including passing a new
-  pusedo-anonymised participant id
+  pseudo-anonymised participant id
 ### Fixed
 - HD Sessions stamped with the wrong dry_weight (first not latest)
 
@@ -210,7 +224,7 @@ This project adheres to Semantic Versioning.
 - Add hotlist tab to AKI Alerts
 - Prevent duplicate HL7 messages being imported #2244
 - Use headless chrome for testing #2243
-- Improve AKI ALert printing #2241
+- Improve AKI Alert printing #2241
 - Improve Consult printing #2240
 - Display space for user putting on/taking off on HD Protocol #2145
 - Filter consults by RRT #2242
@@ -269,9 +283,9 @@ This project adheres to Semantic Versioning.
 - Add check in PracticeMailer that the letter is completed or approved
 - No longer rounds new Event date times to the nearest hour
 ### Fixed
-- Removed unnecessary check that a letter has a practice in PracticMailer which was causing
+- Removed unnecessary check that a letter has a practice in PracticeMailer which was causing
   letters for a patient without a practice to fail when sent to QEH admin email.
-- When sending letters using PracticeMailer, cast to a superclass otherwise if the letter state
+- When sending letters using PracticeMailer, cast to a super class otherwise if the letter state
   (and STI class) moves on the letter will not be found by the background worker.
 
 ## 2.0.18
@@ -406,7 +420,7 @@ This project adheres to Semantic Versioning.
 - Remove 'Barts and London' title from printed Medications list
 - Sorting by OBX result in MDM lists where there are non-numeric results
 - Added 'Yours sincerely' to letters
-- Allow ssft delete of consults with no consult_type in migrated data
+- Allow soft delete of consults with no consult_type in migrated data
 - Fixed letter error when is GP but Practice (patient main recipient radio not selected by default)
 
 ## 2.0.7
