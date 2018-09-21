@@ -67,7 +67,7 @@ Gem::Specification.new do |s|
   s.add_dependency "pandoc-ruby", "~> 2.0.2"
   s.add_dependency "paper_trail", "~> 8.1.2"
   s.add_dependency "paranoia", "~> 2.4.0"
-  s.add_dependency "pg", "~> 1.1.2"
+  s.add_dependency "pg", "~> 1.1.3"
   s.add_dependency "puma", "~> 3.12.0"
   s.add_dependency "pundit", "~> 2.0.0"
   s.add_dependency "rack-attack", "~> 5.4.0"
