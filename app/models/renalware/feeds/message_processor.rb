@@ -14,7 +14,7 @@ module Renalware
       include Wisper::Publisher
 
       def call(raw_message)
-        broadcast_args = nil
+        feed_message = nil
 
         # We want to wrap message processing in a transaction because if message processing
         # fails we don't want to leave an unprocessed message in the feed_messages table.
@@ -28,8 +28,11 @@ module Renalware
         ActiveRecord::Base.transaction do
           hl7_message = build_hl7_object_from(raw_message)
           feed_message = persist_message(hl7_message)
-          broadcast_args = { hl7_message: hl7_message, feed_message: feed_message }
-          broadcast(:message_arrived, broadcast_args)
+          broadcast(
+            :message_arrived,
+            hl7_message: hl7_message,
+            feed_message: feed_message
+          )
         end
 
         # Another event, this one letting anyone interested know that a message been successfully
@@ -39,7 +42,10 @@ module Renalware
         # main processing of the HL7 message from being rolled back.
         # They could use this for message processing but we'd rather it was used for post-processing
         # e.g. forwarding, logging etc.
-        broadcast(:message_processed, broadcast_args)
+        # Its is recommended here to use an async listener - see example in renalware-diaverum
+        # - so that any error in the listener has its own try mechansim and does not cause the
+        # current job to retry,
+        broadcast(:message_processed, feed_message: feed_message)
       rescue StandardError => exception
         notify_exception(exception)
         raise exception
