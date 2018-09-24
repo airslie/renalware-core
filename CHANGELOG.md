@@ -15,6 +15,10 @@ This project adheres to Semantic Versioning.
 ### Changed
 - Only pass the FeedMessage when broadcasting message_processed event #2391
 
+### Fixed
+- Daily summary email not sending
+- Daily summary reports not always created in the renalware namespace
+
 ## 2.0.45
 21-09-2018
 
