@@ -244,6 +244,11 @@ table {
       min-width: 12rem;
     }
 
+    &.col-width-medium-plus {
+      width: 15rem;
+      min-width: 14rem;
+    }
+
     &.col-width-large {
       width: 20rem;
       min-width: 15rem;
