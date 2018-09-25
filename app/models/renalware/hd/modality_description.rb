@@ -28,6 +28,7 @@ module Renalware
 
         def to_s
           return default_name if patient.blank? || unit_code.blank?
+
           "#{default_name} (#{unit_code})"
         end
 

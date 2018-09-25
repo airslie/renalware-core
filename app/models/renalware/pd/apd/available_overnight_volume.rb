@@ -24,6 +24,7 @@ module Renalware
           if unique_daily_contents.length != 1
             raise NonUniqueOvernightVolumeError, unique_daily_contents
           end
+
           unique_daily_contents.first
         end
 
@@ -40,6 +41,7 @@ module Renalware
             regime.bags.select(&:ordinary?).each do |bag|
               next unless bag.volume
               next unless bag.public_send(day) == true
+
               hash[day] = (hash[day] || 0) + bag.volume
             end
             hash

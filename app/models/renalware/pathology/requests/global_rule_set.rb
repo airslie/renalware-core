@@ -46,11 +46,13 @@ module Renalware
 
         def validate_presence_of_required_observation_description_for_request_description
           return if request_description.required_observation_description.present?
+
           errors.add(:request_description, "required observation description can't be blank")
         end
 
         def validate_presence_of_bottle_type_for_request_description
           return if request_description.bottle_type.present?
+
           errors.add(:request_description, "bottle type can't be blank")
         end
       end

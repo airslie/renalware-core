@@ -120,6 +120,7 @@ module Renalware
 
       def constrain_route_description
         return unless medication_route
+
         route_description_present = route_description.present?
         route_other = medication_route.other?
         if route_other && !route_description_present

@@ -38,6 +38,7 @@ module Renalware
       # used to provide a link to it from the Appointments list.
       def update_appointment_with(visit_id)
         return true if appointment.blank?
+
         appointment.becomes_visit_id = visit_id
         appointment.save
       end

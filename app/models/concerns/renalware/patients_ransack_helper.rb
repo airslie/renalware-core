@@ -26,12 +26,14 @@ module Renalware
 
       def remove_spaces_if_nhs_number(query)
         return query.gsub(/\s+/, "") if nhs_number?(query)
+
         query
       end
 
       # Returns true if the argument with spaces removed is a 10 digit number
       def nhs_number?(str)
         return false unless str
+
         index = str.gsub(/\s+/, "") =~ /^\d{10}$/
         index.present?
       end

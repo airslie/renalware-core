@@ -75,6 +75,7 @@ module Renalware
         request.observations.map do |observation|
           observation_description = find_observation_description(observation.identifier)
           next unless validate_observation(observation, observation_description)
+
           {
             description_id: observation_description.id,
             observed_at: parse_time(observation.date_time),
@@ -117,6 +118,7 @@ module Renalware
       # Default to using today's date and time if no date_time passed in the message
       def parse_time(string)
         return Time.zone.now.to_s if string.blank?
+
         Time.zone.parse(string).to_s
       end
     end

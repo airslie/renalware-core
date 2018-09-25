@@ -44,6 +44,7 @@ module Renalware
       # practice address but the GP's name as the salutation.
       def include_primary_care_physician_as_default_main_recipient
         return if letter.main_recipient.present?
+
         if patient.primary_care_physician.present? && patient.practice_id.present?
           letter.build_main_recipient(person_role: :primary_care_physician)
         else
@@ -68,6 +69,7 @@ module Renalware
       # the parent letter is saved.
       def build_electronic_ccs
         return if electronic_cc_recipient_ids.blank?
+
         electronic_cc_recipient_ids.reject(&:blank?).map do |user_id|
           letter.electronic_receipts.build(recipient_id: user_id)
         end

@@ -13,6 +13,7 @@ module Renalware
         # that, on nights the patient does not do APD, the volume is zero).
         def calculated_overnight_volume
           return INCALCULABLE unless volume_calculable?
+
           if drain_every_three_cycles?
             volume_when_1st_and_then_every_3rd_exchange_is_full_and_the_remainder_are_tidal
           else
@@ -24,6 +25,7 @@ module Renalware
 
         def volume_calculable?
           raise ArgumentError, "Tidal indicator not set" unless tidal?
+
           fill_volume.to_i > 0 && cycles.to_i > 0 && tidal_percentage.to_i > 0
         end
 

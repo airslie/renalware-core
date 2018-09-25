@@ -22,6 +22,7 @@ module Renalware
 
           def map(country)
             return if country.blank?
+
             if UK_COUNTRIES.include?(country.upcase.strip)
               Country.new(country: "United Kingdom", region: country.strip.titleize)
             else

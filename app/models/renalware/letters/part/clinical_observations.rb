@@ -28,6 +28,7 @@ module Renalware
         OBSERVATION_ATTRS.each_with_object([]) do |observation, arr|
           value = send(observation)
           next if value.blank?
+
           arr << [
             label_for(observation),
             enum_text_or_raw_value_for(value),

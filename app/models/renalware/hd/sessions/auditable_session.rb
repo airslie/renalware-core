@@ -30,6 +30,7 @@ module Renalware
 
         def document
           return SessionDocument.new if dna?
+
           super || SessionDocument.new
         end
 
@@ -42,6 +43,7 @@ module Renalware
 
         def dialysis_minutes_shortfall_percentage
           return 0.0 if dialysis_minutes_shortfall == 0
+
           (dialysis_minutes_shortfall.to_f / prescribed_time.to_f) * 100.0
         end
 
@@ -55,6 +57,7 @@ module Renalware
 
         def weight_loss_as_percentage_of_body_weight
           return unless measured_dry_weight > 0
+
           (weight_loss / measured_dry_weight) * 100.0
         end
 

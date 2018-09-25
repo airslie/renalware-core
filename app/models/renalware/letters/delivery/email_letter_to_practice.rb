@@ -21,6 +21,7 @@ module Renalware
         #   false: the patient does not have a practice or the practice has no email address
         def call
           return false unless email_letter_to_practice?
+
           email_letter_to_the_patients_practice
           true
         end

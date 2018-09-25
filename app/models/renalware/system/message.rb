@@ -25,9 +25,11 @@ module Renalware
       # or in the future
       def active?
         return false if display_from.nil?
+
         now = Time.zone.now
         self.display_until ||= far_future_date
         return true if display_from < now && display_until > now
+
         false
       end
 

@@ -18,6 +18,7 @@ module Renalware
         @results ||= begin
           snapshot = letter.pathology_snapshot.dup
           return if snapshot.blank?
+
           groups = group_snapshot_by_code_and_date(snapshot)
           format_groups_into_string(groups)
         end
@@ -47,6 +48,7 @@ module Renalware
           match = snapshot[obs_desc.code.to_sym]
           next if match.nil?
           next if match[:observed_at].nil?
+
           date = I18n.l(Date.parse(match[:observed_at]))
           dates[date] ||= {}
           dates[date][obs_desc.code] = match[:result]
@@ -75,6 +77,7 @@ module Renalware
 
       def format_code_and_result_string(code, result)
         return "(#{code} #{result})" if code.casecmp?("EGFR")
+
         "#{code} #{result}"
       end
     end

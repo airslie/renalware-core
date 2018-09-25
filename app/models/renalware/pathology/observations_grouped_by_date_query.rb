@@ -56,6 +56,7 @@ module Renalware
 
       def all
         return Pathology::Observation.none if observation_descriptions.empty?
+
         conn.execute(to_paginated_sql)
       end
 

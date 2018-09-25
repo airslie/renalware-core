@@ -30,6 +30,7 @@ module Renalware
 
           def observation_description_present
             return if observation_description.present?
+
             errors.add(:param_id, "param_id must be the id of an ObservationDescription")
           end
         end
