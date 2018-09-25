@@ -13,7 +13,7 @@ module Renalware
       end
 
       def donor_workup
-        @donor_workups ||= DonorWorkup.for_patient(patient).first_or_initialize
+        @donor_workup ||= DonorWorkup.for_patient(patient).first_or_initialize
       end
 
       def donations
