@@ -25,6 +25,7 @@ module Renalware
 
           def drug_type_present
             return if drug_type.present?
+
             errors.add(:param_id, "param_id must be the id of a DrugType")
           end
         end

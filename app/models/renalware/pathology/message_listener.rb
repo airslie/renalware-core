@@ -26,6 +26,7 @@ module Renalware
 
       def create_observation_requests_and_their_child_observations_from(pathology_params)
         return if pathology_params.nil? # e.g. patient does not exist
+
         CreateObservationRequests.new.call(pathology_params)
       end
     end

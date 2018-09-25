@@ -46,6 +46,7 @@ module Renalware
       #
       def status_scope
         return {} if status.blank?
+
         { status.to_sym => true }
       end
     end

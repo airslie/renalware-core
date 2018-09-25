@@ -37,6 +37,7 @@ module Renalware
         return nil if obs_hash.nil? # the patient may not have this observation in the set
         return obs_hash[:result] if suffix == "_result"
         return Date.parse(obs_hash[:observed_at]) if suffix == "_observed_at"
+
         obs_hash
       end
     end

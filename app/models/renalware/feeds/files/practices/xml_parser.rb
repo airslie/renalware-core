@@ -76,6 +76,7 @@ module Renalware
 
           def for_element(name, &block)
             return unless self.name == name and is_start?
+
             self.instance_eval(&block)
           end
 
@@ -88,6 +89,7 @@ module Renalware
 
             @node.each do
               return if self.name == name and is_end? and @node.depth == depth
+
               self.instance_eval(&block)
             end
           end

@@ -38,11 +38,13 @@ module Renalware
 
       def bp
         return unless systolic_bp.present? && diastolic_bp.present?
+
         "#{systolic_bp}/#{diastolic_bp}"
       end
 
       def standing_bp
         return unless standing_systolic_bp.present? && standing_diastolic_bp.present?
+
         "#{standing_systolic_bp}/#{standing_diastolic_bp}"
       end
 
@@ -57,6 +59,7 @@ module Renalware
       def datetime
         return if date.blank?
         return date.to_datetime if time.blank?
+
         datetime_from_date_and_time
       end
 

@@ -54,6 +54,7 @@ module Renalware
 
       def set_default_access(session) # rubocop:disable Naming/AccessorMethodName
         return if dna_session?
+
         accesses_patient = Renalware::Accesses.cast_patient(patient)
         if (profile = accesses_patient.current_profile)
           session.document.info.access_type = profile.type.name
@@ -63,6 +64,7 @@ module Renalware
 
       def build_prescription_administrations(session)
         return unless session.new_record?
+
         patient.prescriptions.to_be_administered_on_hd.map do |prescription|
           session.prescription_administrations.build(prescription: prescription)
         end

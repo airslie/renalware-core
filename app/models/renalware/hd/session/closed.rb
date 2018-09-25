@@ -23,6 +23,7 @@ module Renalware
 
       def immutable?
         return true unless persisted?
+
         temporary_editing_window_has_elapsed?
       end
 

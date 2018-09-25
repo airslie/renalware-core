@@ -19,6 +19,7 @@ module Renalware
 
       def part_classes
         return clinical_part_classes if clinical?
+
         {}
       end
 

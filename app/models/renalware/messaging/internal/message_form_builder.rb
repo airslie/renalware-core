@@ -38,6 +38,7 @@ module Renalware
 
         def replying_to_message
           return NullObject.instance unless replying?
+
           @replying_to_message ||= Message.find(replying_to_message_id)
         end
 

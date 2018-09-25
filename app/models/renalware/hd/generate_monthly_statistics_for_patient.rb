@@ -20,6 +20,7 @@ module Renalware
 
       def create_patient_statistics(sessions)
         return unless sessions.any?
+
         stats = build_patient_statistics
         stats.hospital_unit = most_recently_used_hospital_unit(sessions)
         stats.assign_attributes(auditable_sessions(sessions).to_h)
@@ -73,6 +74,7 @@ module Renalware
         # }
         def to_h
           return {} if observation_set.blank?
+
           observation_set.values.select { |code, _| CODES.include?(code.to_s) }
         end
 

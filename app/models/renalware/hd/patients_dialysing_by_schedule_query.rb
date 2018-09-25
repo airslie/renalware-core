@@ -14,6 +14,7 @@ module Renalware
 
       def call
         return [] if schedule_definition_ids.empty?
+
         Patient
           .eager_load(hd_profile: [:hospital_unit, { schedule_definition: [:diurnal_period] }])
           .where(

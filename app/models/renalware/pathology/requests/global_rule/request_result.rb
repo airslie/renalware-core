@@ -21,6 +21,7 @@ module Renalware
             observation_result = observation.result.to_i if observation.present?
 
             return true if observation_result.nil?
+
             observation_result.send(param_comparison_operator.to_sym, param_comparison_value.to_i)
           end
 
@@ -40,12 +41,14 @@ module Renalware
 
           def request_description_present
             return if request_description.present?
+
             errors.add(:param_id, "param_id must be the id of an RequestDescription")
           end
 
           def required_observation_description_for_request_description_present
             return if request_description.present? &&
                       request_description.required_observation_description.present?
+
             errors.add(:request_description, "required observation description can't be blank")
           end
         end

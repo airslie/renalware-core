@@ -22,6 +22,7 @@ module Renalware
         # }
         def to_h
           return if observation_set.blank?
+
           hash = observation_set.values.select { |code, _| codes.include?(code.to_s) }
           hash.empty? ? nil : hash
         end

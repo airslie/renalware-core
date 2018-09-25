@@ -78,6 +78,7 @@ module Renalware
 
       def xml_filepath
         raise(ArgumentError, "Patient has no ukrdc_external_id") if patient.ukrdc_external_id.blank?
+
         filename = "#{patient.ukrdc_external_id}.xml"
         File.join(dir, filename)
       end

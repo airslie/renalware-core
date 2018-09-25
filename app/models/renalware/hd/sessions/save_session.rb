@@ -41,6 +41,7 @@ module Renalware
         def parse_params(params)
           @session_type = params.delete(:type)
           raise(ArgumentError, "Missing type in session params") if session_type.blank?
+
           params
         end
 
@@ -92,8 +93,10 @@ module Renalware
 
         def lookup_access_type_abbreviation(session)
           return unless session.document&.respond_to?(:info)
+
           access_type = Accesses::Type.find_by(name: session.document.info.access_type)
           return unless access_type
+
           session.document.info.access_type_abbreviation = access_type.abbreviation
         end
 

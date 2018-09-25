@@ -23,6 +23,7 @@ module Renalware
       Identifier = Struct.new(:name, :id) do
         def to_s
           return "" unless id
+
           "#{name}: #{id}"
         end
       end
@@ -60,6 +61,7 @@ module Renalware
       #   PatientHospitalIdentifiers.new(patient).patient_at?(:KCH) # => true
       def patient_at?(hospital_code)
         return false if hospital_code.blank?
+
         all.key?(hospital_code.to_sym.upcase)
       end
 

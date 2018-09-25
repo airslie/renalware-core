@@ -41,11 +41,13 @@ module Renalware
       def current_address
         return address_for_patient if patient?
         return practice_address_for_patient if primary_care_physician?
+
         address_for_addressee_eg_contact
       end
 
       def for_contact?(contact)
         return false unless person_role.contact?
+
         addressee_id == contact.id
       end
 

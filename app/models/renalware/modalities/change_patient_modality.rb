@@ -105,6 +105,7 @@ module Renalware
 
       def parse_options(options)
         return options[:modality] if options.key?(:modality)
+
         patient.modalities.new(options)
       end
 

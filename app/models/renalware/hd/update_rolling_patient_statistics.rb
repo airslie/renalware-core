@@ -9,6 +9,7 @@ module Renalware
 
       def call
         return unless recent_sessions.any?
+
         stats = rolling_stats_for_this_patient
         stats.hospital_unit = most_recently_used_hospital_unit
         stats.assign_attributes(auditable_sessions.to_h)

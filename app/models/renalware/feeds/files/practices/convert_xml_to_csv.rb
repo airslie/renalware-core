@@ -127,6 +127,7 @@ module Renalware
 
               if (PRACTICE_ROLES & org.roles).any?
                 fail unless org.code&.length == 6
+
                 practices_count += 1
                 if org.skip
                   Rails.logger.warn(

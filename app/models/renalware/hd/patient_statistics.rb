@@ -39,6 +39,7 @@ module Renalware
 
       def to_s
         return "Last #{session_count} sessions" if rolling?
+
         if year > 0 && month > 0
           Date.new(year, month).strftime("%b %Y")
         end

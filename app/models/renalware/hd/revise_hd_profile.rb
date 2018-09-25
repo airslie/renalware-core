@@ -5,6 +5,7 @@ module Renalware
     class ReviseHDProfile
       def initialize(profile)
         raise(ArgumentError, "Cannot revise a new Profile") unless profile.persisted?
+
         @profile = profile
       end
 
@@ -12,8 +13,8 @@ module Renalware
         profile.assign_attributes(params)
         return true unless profile.changed?
         return false unless profile.valid?
-        profile.restore_attributes
 
+        profile.restore_attributes
         profile.supersede!(params)
       end
 
