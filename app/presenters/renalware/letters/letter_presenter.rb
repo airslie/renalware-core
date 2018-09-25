@@ -11,7 +11,7 @@ module Renalware
       end
 
       def patient
-        @patient_presenter ||= PatientPresenter.new(super)
+        @patient ||= PatientPresenter.new(super)
       end
 
       def event_description
@@ -19,11 +19,11 @@ module Renalware
       end
 
       def main_recipient
-        @main_recipient_presenter ||= recipient_presenter_class.new(super)
+        @main_recipient ||= recipient_presenter_class.new(super)
       end
 
       def cc_recipients
-        @cc_recipients_with_counterparts ||= begin
+        @cc_recipients ||= begin
           recipients = build_cc_recipients
           present_cc_recipients(recipients)
         end

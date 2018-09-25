@@ -14,7 +14,7 @@ module Renalware
       delegate :measurement, :date, to: :bmi, prefix: true
 
       def current_pathology
-        @pathology ||= pathology_current_observation_set.values
+        @current_pathology ||= pathology_current_observation_set.values
       end
 
       private
