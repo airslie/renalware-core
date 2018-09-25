@@ -28,8 +28,6 @@ module Renalware
             .search(q)
         end
       end
-
-      # `
     end
   end
 end

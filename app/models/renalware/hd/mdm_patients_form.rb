@@ -27,6 +27,7 @@ module Renalware
       # Convert e.g. "[1,2,3]" to [1,2,3]
       def schedule_definition_ids_array
         return if schedule_definition_ids.blank?
+
         schedule_definition_ids.scan(/\d+/).map(&:to_i)
       end
     end

@@ -25,13 +25,14 @@ module Renalware
         @search ||= begin
           HD::Patient
             .include(QueryablePatient)
+            .extending(PatientTransplantScopes)
             .merge(Accesses::Patient.with_current_plan)
             .merge(Accesses::Patient.with_profile)
-            .merge(Transplants::Patient.with_registration_statuses)
             .eager_load(hd_profile: [:hospital_unit])
             .extending(ModalityScopes)
             .extending(PatientPathologyScopes)
             .with_current_pathology
+            .with_registration_statuses
             .with_current_modality_matching(MODALITY_NAMES)
             .search(params)
         end
@@ -58,10 +59,6 @@ module Renalware
 
           ransacker :current_access, type: :string do
             Arel.sql("access_types.name")
-          end
-
-          ransacker :transplant_registration_status do
-            Arel.sql("transplant_registration_status_descriptions.name")
           end
         end
       end

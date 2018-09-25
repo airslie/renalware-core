@@ -22,10 +22,12 @@ module Renalware
       def search
         @search ||= begin
           relation
+            .extending(PatientTransplantScopes)
             .extending(ModalityScopes)
             .extending(PatientPathologyScopes)
             .with_current_modality_matching(MODALITY_NAMES)
             .with_current_pathology
+            .with_registration_statuses
             .left_outer_joins(:current_observation_set)
             .search(q)
         end
