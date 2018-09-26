@@ -14,8 +14,7 @@
       | &nbsp;if you think they already exist on the database - check first and add them later if necessary
 
   .row
-
-    = render "renalware/shared/errors", model: patient
+    .columns.small-12= render "renalware/shared/errors", model: patient
 
     = simple_form_for patient,
                       html: { autocomplete: "off" },

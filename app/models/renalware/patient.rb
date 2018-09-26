@@ -94,6 +94,7 @@ module Renalware
     validates :given_name, presence: true
     validates :born_on, presence: true
     validate :validate_sex
+    validate :must_have_at_least_one_identifier
     validates :born_on, timeliness: { type: :date }
     validates :email, email: true, allow_blank: true
 
@@ -154,7 +155,7 @@ module Renalware
     end
 
     def hospital_identifiers
-      @patient_hospital_identifiers ||= Patients::PatientHospitalIdentifiers.new(self)
+      @hospital_identifiers ||= Patients::PatientHospitalIdentifiers.new(self)
     end
 
     private
@@ -178,6 +179,16 @@ module Renalware
 
     def validate_sex
       errors.add(:sex, "is invalid option (#{sex.code})") unless sex.valid?
+    end
+
+    def must_have_at_least_one_identifier
+      if hospital_identifiers.all.empty?
+        errors.add(
+          :base,
+          "The patient must have at least one of these numbers: "\
+          "#{Renalware.config.patient_hospital_identifiers.keys.join(', ')}"
+        )
+      end
     end
   end
 end
