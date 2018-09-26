@@ -1,8 +1,8 @@
 / For each recipient, render the out the address cover sheet for them followed by
 / an instance of the letter. Don't output a page break at the end of the last page.
 - recipients.each_with_index do |recipient, idx|
-  = render "renalware/letters/formatted_letters/recipient_address_cover_sheet", recipient: recipient
-  = render "renalware/letters/formatted_letters/letter", letter: letter
+  = render "renalware/letters/printable_letters/recipient_address_cover_sheet", recipient: recipient
+  = raw(letter.content)
   / if letter.page_count is e.g. 1 then output another page to prevent the following page
   / being printed on back of the letter
   - if letter.page_count % 2 == 1

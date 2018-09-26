@@ -39,8 +39,8 @@ module Renalware
       class << self
         delegate :clear, to: :store
 
-        def fetch(letter)
-          store.fetch(cache_key_for(letter)) { yield }
+        def fetch(letter, **options)
+          store.fetch(cache_key_for(letter, **options)) { yield }
         end
 
         # Note the letter must be a LetterPresenter which has a #to_html method
@@ -48,10 +48,11 @@ module Renalware
         # html including surrounding layout with inline css and images. This way if the
         # layout changes or the image is changed for example, the cache for the pdf is no longer
         # valid and a new key and cache entry will be created.
-        def cache_key_for(letter)
+        def cache_key_for(letter, **options)
           timestamp = letter&.updated_at&.strftime("%Y%m%d%H%M%S")
           pat_id = letter.patient.id
-          "letter-pdf-#{letter.id}-#{pat_id}-#{timestamp}-#{Digest::MD5.hexdigest(letter.to_html)}"
+          "letter-pdf-#{letter.id}-#{pat_id}-#{timestamp}-" \
+          "#{Digest::MD5.hexdigest(letter.to_html(**options))}"
         end
 
         def cache_path

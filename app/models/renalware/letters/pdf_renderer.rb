@@ -17,12 +17,12 @@ module Renalware
         encoding: "UTF-8"
       }.freeze
 
-      def self.call(letter)
+      def self.call(letter, **options)
         unless letter.respond_to?(:to_html)
           letter = LetterPresenterFactory.new(letter)
         end
-        PdfLetterCache.fetch(letter) do
-          WickedPdf.new.pdf_from_string(letter.to_html, OPTIONS)
+        PdfLetterCache.fetch(letter, **options) do
+          WickedPdf.new.pdf_from_string(letter.to_html(**options), OPTIONS)
         end
       end
     end

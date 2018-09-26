@@ -258,7 +258,7 @@ scss:
       h3 {
         font-size: 1em;
         margin: 1rem 0;
-        margin-bottom: 4rem;
+        margin-bottom: 1rem;
       }
 
       p.private {
@@ -266,7 +266,7 @@ scss:
       }
 
       .address {
-        margin-bottom: 6rem;
+        margin-bottom: 1.5rem;
       }
     }
   }
@@ -346,11 +346,10 @@ scss:
 
       p.private Private and confidential
 
-      - if defined?(display_ccs) && display_ccs
-        - letter.cc_recipients.each do |cc|
-          .address.nobreak
-            p
-              = cc.to_html
-              - if cc.statment_to_indicate_letter_will_be_emailed.present?
-                br
-                = cc.statment_to_indicate_letter_will_be_emailed
+      - letter.cc_recipients.each do |cc|
+        .address.nobreak
+          p
+            = cc.to_html
+            - if cc.statment_to_indicate_letter_will_be_emailed.present?
+              br
+              = cc.statment_to_indicate_letter_will_be_emailed

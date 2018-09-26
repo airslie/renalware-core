@@ -19,14 +19,19 @@ module Renalware
           unless letter.respond_to?(:to_html)
             letter = LetterPresenterFactory.new(letter)
           end
+          # NB not caching the pdf for now until we can find a more standard way of using the
+          # letter cache across adhoc and env stuffer renderers. Here for example we should be
+          # using a hex digest of the interleaved letter but currentlt would not be.
+          # PdfLetterCache.fetch(letter) do
           WickedPdf.new.pdf_from_string(
             LettersController.new.render_to_string(
-              partial: "/renalware/letters/formatted_letters/envelope_stuffed_letter",
+              template: "/renalware/letters/printable_letters/show",
               locals: { letter: letter, recipients: PrintableRecipients.for(letter) },
               encoding: "UTF-8"
             ),
             OPTIONS
           )
+          # end
         end
       end
     end
