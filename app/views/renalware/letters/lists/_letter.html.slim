@@ -14,8 +14,8 @@ tr(class=letter.state.dasherize)
                 data: { \
                   "modal-url" => new_patient_letters_letter_completed_path(letter.patient, letter) \
                 } do
-         i.fas.fa-print
-         | Print
+        i.fas.fa-print
+        | Print
       | &nbsp;
     - if letter.approved? && letter.page_count
       = link_to patient_letters_letter_printable_path(letter.patient, letter),
@@ -24,7 +24,8 @@ tr(class=letter.state.dasherize)
                 data: { \
                   "modal-url" => new_patient_letters_letter_completed_path(letter.patient, letter) \
                 } do
-         | P2
+        i.fas.fa-envelope
+        | Env Print
       | &nbsp;
     = link_to "Toggle",
               "#quick-preview-#{letter.id}",

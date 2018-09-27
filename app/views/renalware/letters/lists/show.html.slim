@@ -1,27 +1,29 @@
 = content_for(:filters) do
   .search-form.filters
-      = simple_form_for q,
-                        as: :q,
-                        url: letters_list_path,
-                        html: { autocomplete: "off" },
-                        method: :get do |f|
-        .row
-          .small-6.medium-1.large-1.columns
-            = f.input :enclosures_present, as: :select, label: "Enclosure"
-          .small-6.medium-2.large-2.columns
-            = f.input :state_eq, collection: state_options_for_receptionists, label: "State"
-          .small-6.medium-2.large-2.columns
-            = f.input :author_id_eq, as: :user_picker, collection: authors, label: "Author"
-          .small-6.medium-2.large-2.columns
-            = f.input :created_by_id_eq, as: :user_picker, collection: typists, label: "Typist"
-          .small-6.medium-2.large-2.columns
-            = f.input :letterhead_id_eq, collection: letterheads, label: "Letterhead"
-          .small-6.medium-1.large-1.columns
-            = f.input :page_count_eq, collection: [1,2,3], label: "Pages"
-          .small-12.medium-2.large-2.columns.actions.end
-            = f.submit t("helpers.submit.filter"), class: "button"
-            span= " or "
-            = link_to t("helpers.reset"), letters_list_path
+    = simple_form_for q,
+                      as: :q,
+                      url: letters_list_path,
+                      html: { autocomplete: "off" },
+                      method: :get do |f|
+      .row
+        .small-6.medium-1.large-1.columns
+          = f.input :enclosures_present, as: :select, label: "Enclosure"
+        .small-6.medium-2.large-2.columns
+          = f.input :state_eq, collection: state_options_for_receptionists, label: "State"
+        .small-6.medium-2.large-2.columns
+          = f.input :author_id_eq, as: :user_picker, collection: authors, label: "Author"
+        .small-6.medium-2.large-2.columns
+          = f.input :created_by_id_eq, as: :user_picker, collection: typists, label: "Typist"
+        .small-6.medium-2.large-2.columns
+          = f.input :letterhead_id_eq, collection: letterheads, label: "Letterhead"
+        .small-6.medium-1.large-1.columns
+          = f.input :page_count_in_array,
+                    collection: [["1 or 2", "[1,2]"],["3 or 4", "[3,4]"]],
+                    label: "Pages"
+        .small-12.medium-2.large-2.columns.actions.end
+          = f.submit t("helpers.submit.filter"), class: "button"
+          span= " or "
+          = link_to t("helpers.reset"), letters_list_path
 
 = within_admin_layout(title: "Letters") do
   = render "table", letters: letters, q: q
