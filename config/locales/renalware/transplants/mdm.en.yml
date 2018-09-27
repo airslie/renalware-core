@@ -23,8 +23,8 @@ en:
           last_operation_on: Last Op Date
         index:
           page_title: Transplant MDM Patients
-        filters:
-          filter:
+        tabs:
+          tab:
             all: All
             recent: Tx in Past 3/12
             on_worryboard: On Worryboard

@@ -7,6 +7,9 @@
     | Print (PDF)
   /data: { target: admissions_consults_path(format: :pdf)
 
+= content_for(:filters) do
+  = render "filters", query: query
+
 = within_admin_layout(title: "Admission Consults") do
   = render "renalware/shared/please_print_using_print_button_warning"
   = render "renalware/admissions/requests/modal_dialog_placeholder"
@@ -16,6 +19,5 @@
     = link_to("add them", new_patient_path)
     | &nbsp;first
 
-  = render "filters", query: query
   = render "table", consults: consults, query: query
   = paginate consults

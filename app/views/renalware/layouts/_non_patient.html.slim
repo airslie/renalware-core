@@ -2,16 +2,23 @@
 
 .non-patient-page.main-content
   .layout-wrapper
-    .row
-      ul.page-heading.columns.small-12
-        li
-          h1
-            = breadcrumbs_and_title(breadcrumbs: local_assigns[:breadcrumbs],
-                                    title: local_assigns[:title])
-        li.page-actions
-          / Output any page-level actions
-          = yield(:actions)
+    .non-patient-page-header(class=("with-tabs" if content_for?(:tabs)))
+      .row
+        .columns.small-12
+          ul.page-heading
+            li
+              h1
+                = breadcrumbs_and_title(breadcrumbs: local_assigns[:breadcrumbs],
+                                        title: local_assigns[:title])
+            li.page-actions
+              / Output any page-level actions
+              = yield(:actions)
+
+          - if content_for?(:tabs)
+
+            = yield(:tabs)
 
     .row
       .columns.small-12
+        = yield(:filters)
         = yield

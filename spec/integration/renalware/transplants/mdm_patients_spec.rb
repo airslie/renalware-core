@@ -22,7 +22,7 @@ RSpec.describe "Transplants MDM Patients", type: :feature do
       login_as_clinical
 
       visit transplants_mdm_patients_path
-      click_on I18n.t("renalware.transplants.mdm_patients.filters.filter.recent")
+      click_on I18n.t("renalware.transplants.mdm_patients.tabs.tab.recent")
 
       expect(page).to have_content(patient2.local_patient_id)
       expect(page).to have_no_content(patient1.local_patient_id)
@@ -36,7 +36,7 @@ RSpec.describe "Transplants MDM Patients", type: :feature do
       login_as_clinical
 
       visit transplants_mdm_patients_path
-      click_on I18n.t("renalware.transplants.mdm_patients.filters.filter.on_worryboard")
+      click_on I18n.t("renalware.transplants.mdm_patients.tabs.tab.on_worryboard")
 
       expect(page).to have_content(patient2.local_patient_id)
       expect(page).to have_no_content(patient1.local_patient_id)
@@ -61,7 +61,7 @@ RSpec.describe "Transplants MDM Patients", type: :feature do
       login_as_clinical
 
       visit transplants_mdm_patients_path
-      click_on I18n.t("renalware.transplants.mdm_patients.filters.filter.past_year")
+      click_on I18n.t("renalware.transplants.mdm_patients.tabs.tab.past_year")
 
       expect(page).to have_content(matched_patient.local_patient_id)
       expect(page).to have_no_content(no_op_patient.local_patient_id)

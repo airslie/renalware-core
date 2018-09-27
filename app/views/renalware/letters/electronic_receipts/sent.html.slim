@@ -1,6 +1,10 @@
-= within_admin_layout(title: "Electronic CCs") do
-  = render "renalware/letters/shared/electronic_cc_type_tabs"
+= content_for(:tabs) do
+  = render "renalware/letters/shared/electronic_cc_type_tabs", active: :sent
+
+= content_for(:filters) do
   = render search_form
+
+= within_admin_layout(title: "Electronic CCs") do
 
   table.letters.electronic-ccs.sent.has-togglable-rows
     thead

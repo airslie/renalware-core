@@ -1,7 +1,9 @@
-dl.sub-nav
-  dd
+- active_tab = local_assigns[:active]
+
+dl.sub-nav.no-js-selection
+  dd(class=("active" if active_tab == :unread))
     = link_to("Unread", unread_letters_electronic_receipts_path)
-  dd
+  dd(class=("active" if active_tab == :read))
     = link_to("Read", read_letters_electronic_receipts_path)
-  dd
+  dd(class=("active" if active_tab == :sent))
     = link_to("Sent", sent_letters_electronic_receipts_path)

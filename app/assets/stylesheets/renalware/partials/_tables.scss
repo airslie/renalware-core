@@ -46,11 +46,12 @@ table {
   border-collapse: collapse;
 
   thead {
+    background-color: transparent;
     border-bottom: solid 1px $letter-preview-background-colour;
-    border-top: solid 1px $letter-preview-background-colour;
+    //border-top: solid 1px $letter-preview-background-colour;
 
     a {
-      color: $oil;
+      color: $muted-dark-grey;
       text-decoration: underline;
     }
 
@@ -388,4 +389,8 @@ table {
       }
     }
   }
+}
+
+table tr.even, table tr.alt, table tr:nth-of-type(even) {
+  background: $table-even-row-colour;
 }

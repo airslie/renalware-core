@@ -1,4 +1,4 @@
-= within_admin_layout(title: "Transplant Wait List Registrations") do
+= content_for(:tabs) do
   ruby:
     filters = {
       active: "Active",
@@ -16,6 +16,7 @@
       - path = Renalware::Engine.routes.url_for(options.merge!(only_path: true))
       = sub_nav_item(label, path)
 
+= within_admin_layout(title: "Transplant Wait List Registrations") do
   table.report
     thead
       tr

@@ -1,9 +1,10 @@
 = content_for(:actions) do
   = link_to "Add Person", new_directory_person_path, class: "button"
 
-= within_admin_layout(title: "Directory")
+= content_for(:filters) do
   = render "filters", q: q
 
+= within_admin_layout(title: "Directory")
   = page_entries_info people
   = render "table", people: people
   = paginate people

@@ -2,6 +2,7 @@
 
 require_dependency "renalware/patient"
 
+# TODO: unused class
 module Renalware
   module Patients
     class IdempotentCreatePatient

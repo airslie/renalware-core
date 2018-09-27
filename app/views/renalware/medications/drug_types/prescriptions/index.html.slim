@@ -1,3 +1,5 @@
-= within_admin_layout(title: t(".heading")) do
+= content_for(:filters) do
   = render "filters", search: search
+
+= within_admin_layout(title: t(".heading")) do
   = render "table", prescriptions: prescriptions, search: search

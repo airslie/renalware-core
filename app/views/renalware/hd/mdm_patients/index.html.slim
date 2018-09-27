@@ -1,5 +1,6 @@
-= within_admin_layout(title: presenter.page_title)
-
+= content_for(:filters) do
   = render_if_exists "filters", presenter: presenter, filter_form: filter_form
+
+= within_admin_layout(title: presenter.page_title)
   = render "table", presenter: presenter
   = paginate presenter.patients

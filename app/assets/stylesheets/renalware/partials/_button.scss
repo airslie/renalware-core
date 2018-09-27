@@ -10,7 +10,8 @@
 .page-actions {
   .button {
     margin-right: 0.8rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0;
+    padding: 0.5rem 1rem;
   }
 
   @media print {
