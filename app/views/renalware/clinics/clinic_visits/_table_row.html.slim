@@ -2,6 +2,10 @@ tr(class="#{'dna' if clinic_visit.did_not_attend?}")
   td
     = link_to "Edit", edit_patient_clinic_visit_path(patient, clinic_visit)
     = pipe_separator
+    = link_to("Toggle",
+              "#clinic_visit-quick-preview-#{clinic_visit.id}",
+              data: { behaviour: "toggler" })
+    = pipe_separator
     - if policy(clinic_visit).destroy?
       = link_to "Delete",
                 patient_clinic_visit_path(patient, clinic_visit),
@@ -22,3 +26,9 @@ tr(class="#{'dna' if clinic_visit.did_not_attend?}")
   td= clinic_visit.urine_blood&.text
   td= clinic_visit.urine_protein&.text
   td.created-by= clinic_visit.created_by
+= content_tag(:tr, id: "clinic_visit-quick-preview-#{clinic_visit.id}", style: "display: none")
+  td(colspan=14)
+    .quick-preview
+      = definition_list_for(clinic_visit, size: :large) do |list|
+        = list.definition(:notes){ |value| simple_format(value) }
+        = list.definition(:admin_notes){ |value| simple_format(value) }
