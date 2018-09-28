@@ -126,18 +126,9 @@ module Renalware
       end
     end
 
-    # rubocop:disable Style/MultilineTernaryOperator
     def age
-      return unless born_on
-
-      now = Time.now.utc.to_date
-      now.year - born_on.year - (
-        (now.month > born_on.month ||
-          (now.month == born_on.month && now.day >= born_on.day)
-        ) ? 0 : 1
-      )
+      Patients::CalculateAge.for(self)
     end
-    # rubocop:enable Style/MultilineTernaryOperator
 
     def assigned_to_primary_care_physician?(primary_care_physician)
       self.primary_care_physician == primary_care_physician
