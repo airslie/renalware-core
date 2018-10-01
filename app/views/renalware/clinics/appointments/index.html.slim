@@ -1,10 +1,4 @@
-= content_for(:actions) do
-  = link_to "Add",
-          new_appointment_path,
-          class: "button"
-
-= within_admin_layout(title: "Upcoming Clinic Visit Appointments") do
-
+= content_for(:filters) do
   .search-form.filters
     = simple_form_for query,
         as: :q,
@@ -20,15 +14,22 @@
         .medium-3.large-3.columns.actions.end
           = f.submit "Filter", class: "button"
 
-    = simple_form_for request_html_form_params,
-                      url: pathology_requests_new_request_path,
-                      html: { autocomplete: "off" },
-                      as: :request do |f|
 
-        = f.input :patient_ids, as: :hidden_array
-        = button_tag(type: "submit", class: "button secondary") do
-          i.fas.fa-copy
-          | Generate request forms
+= content_for(:actions) do
+  = link_to "Add",
+          new_appointment_path,
+          class: "button"
+  = simple_form_for request_html_form_params,
+                  url: pathology_requests_new_request_path,
+                  html: { autocomplete: "off", style: "display: inline" },
+                  as: :request do |f|
+
+    = f.input :patient_ids, as: :hidden_array
+    = button_tag(type: "submit", class: "button secondary") do
+      i.fas.fa-copy
+      | Generate request forms
+
+= within_admin_layout(title: "Upcoming Clinic Visit Appointments") do
 
     table#appointments
       thead

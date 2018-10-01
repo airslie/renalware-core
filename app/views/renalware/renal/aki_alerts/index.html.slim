@@ -7,9 +7,11 @@
     i.fas.fa-print
     | Print (PDF)
 
+= content_for(:filters) do
+  = render "filters", form: form, path_params: path_params
+
 = within_admin_layout(title: "AKI Alerts") do
   = render "renalware/shared/please_print_using_print_button_warning"
-  = render "filters", form: form, path_params: path_params
   = render "table", alerts: alerts, search: search
 
   = paginate alerts

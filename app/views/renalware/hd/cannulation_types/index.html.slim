@@ -1,7 +1,9 @@
-= within_admin_layout(title: "HD Cannulation Types") do
+= content_for(:tabs) do
   dl.sub-nav
     dd= link_to "List", hd_cannulation_types_path
     dd= link_to "Add type", new_hd_cannulation_type_path
+
+= within_admin_layout(title: "HD Cannulation Types") do
 
   table.auto-layout
     thead

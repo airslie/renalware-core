@@ -201,7 +201,7 @@ dd.patient-name {
 }
 
 .sub-nav {
-  background-color: $white;
+  background-color: transparent;
   float: left;
   margin: 0 0 1rem;
   padding: 0;
@@ -212,35 +212,44 @@ dd.patient-name {
   margin: 0 0.25rem 0 0;
 }
 
+// Used when tabs are local to an area of a page and not inside a page-heading
+// Adds a border under the tabs, and the tabs within must be offset down by 1px
+// so that the active one seems to have no bottom border.
+.tabs-container {
+  border-bottom: 1px solid $tab-border-color;
+  float: left;
+  width: 100%;
+  clear: both;
+  margin-bottom: 1rem;
+
+  .sub-nav {
+    margin: 0;
+    position: relative;
+    top: 1px;
+  }
+}
+
 .sub-nav dd a {
-  background-color: $off-white;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  color: $link-colour;
   display: block;
-  padding: 0.2rem 0.5rem;
-  text-decoration: underline;
+  color: $monsoon;
+  background-color: transparent;
+  text-decoration: none;
+  white-space: nowrap;
+  border: solid transparent;
+  border-width: 3px 1px 1px;
+  border-radius: 3px 3px 0 0;
+  padding: 0.3rem 1.3rem;
 }
 
 .sub-nav dd a:hover {
-  background-color: $link-colour;
-  color: $white;
+  color: $dark-grey;
 }
 
 .sub-nav dd.active a {
-  background-color: $white;
-  border-top: 1px solid $table-border-colour;
-  border-right: 1px solid $table-border-colour;
-  border-left: 1px solid $table-border-colour;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-color: $nhs-orange $tab-border-color transparent;
   color: $dark-grey;
-  padding: 0.2rem 0.5rem;
-  text-decoration: none;
+  background-color: $white;
+  padding: 0.3rem 1.3rem;
 }
 
 .sub-nav dd.active {

@@ -1,6 +1,10 @@
-= within_admin_layout(title: "Users") do
-
+= content_for(:filters) do
   = render "filters", user_search: user_search
+
+= content_for(:tabs) do
+  = render "tabs", user_search: user_search
+
+= within_admin_layout(title: "Users") do
 
   table.admin-users
     thead

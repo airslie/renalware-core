@@ -1,4 +1,4 @@
-h3 Current
+h2 Current
 = render "renalware/medications/prescriptions/table",
       id: "current-prescriptions",
       patient: patient,
@@ -15,7 +15,7 @@ h3 Current
                 class: %i(button tiny add_prescription)
 
 - if defined? historical_prescriptions
-  h3 Historical
+  h2 Historical
   = render "renalware/medications/prescriptions/table",
       id: "historical-prescriptions",
       patient: patient,

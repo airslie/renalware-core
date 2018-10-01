@@ -4,8 +4,8 @@ en:
       mdm_patients:
         index:
           page_title: Low Clearance MDM Patients
-        filters:
-          filter:
+        tabs:
+          tab:
             all: All
             urea: Urea > 30
             hgb_low: HGB < 100

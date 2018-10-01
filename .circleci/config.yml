@@ -79,8 +79,7 @@ jobs:
           case $CIRCLE_NODE_INDEX in 0) bundle exec rspec --profile 10 \
                             --format RspecJunitFormatter \
                             --out /tmp/test-results/rspec.xml \
-                            --format progress \
-                            --fail-fast ;; esac
+                            --format progress ;; esac
           # $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
       # Cucumber domain features

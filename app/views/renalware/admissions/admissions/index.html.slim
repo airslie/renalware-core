@@ -1,12 +1,14 @@
 = content_for(:actions) do
   = link_to("Add", new_admissions_admission_path, class: :button)
 
+= content_for(:filters) do
+  = render "filters", form: form
+
 = within_admin_layout(title: "Inpatient Admissions") do
   .panel.radius.compact
     | If the patient is not on Renalware yet, please&nbsp;
     = link_to("add them", new_patient_path)
     | &nbsp;first
 
-  = render "filters", form: form
   = render "table", admissions: admissions
   = paginate admissions

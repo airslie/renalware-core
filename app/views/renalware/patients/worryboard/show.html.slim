@@ -1,3 +1,5 @@
-= within_admin_layout(title: "Worryboard") do
+= content_for(:tabs) do
   = render "filters", query: query, modalities: modalities
+
+= within_admin_layout(title: "Worryboard") do
   = render "table", query: query, worries: worries

@@ -4,7 +4,7 @@
 /         Note also we should really extend this so it searches all local_patient_ids
 - search_scope = :patient_given_name_or_patient_family_name_or_drug_name_or_patient_local_patient_id_cont
 - searching = search.send(search_scope).present?
-.search-form.filters
+.search-form.filters.row
   = simple_form_for search,
     url: medications_esa_prescriptions_path,
     method: :get do |f|

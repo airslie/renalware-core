@@ -1,8 +1,12 @@
-= within_admin_layout(title: "Renal Registry Return: Preflight Checks") do
+= content_for(:filters) do
   = render "filters",
            query: query,
            url: patients_renal_registry_preflight_checks_path,
            display_modality_filter: true
+
+= content_for(:tabs) do
   = render "navigation"
+
+= within_admin_layout(title: "Renal Registry Return: Preflight Checks") do
   = render "table", patients: patients, query: query
   = paginate patients

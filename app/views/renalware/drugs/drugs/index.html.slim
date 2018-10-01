@@ -3,10 +3,10 @@
             new_drugs_drug_path,
             class: "button"
 
-= within_admin_layout(title: "Drugs") do
-
+= content_for(:filters) do
   = render "filters", drugs_search: @drugs_search
 
+= within_admin_layout(title: "Drugs") do
   table.drugs
     thead
       tr

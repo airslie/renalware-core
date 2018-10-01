@@ -139,10 +139,38 @@ section.display {
 }
 
 .non-patient-page {
-  padding-top: 1rem;
   padding-bottom: 3rem;
 
+  .non-patient-page-header {
+    margin: 0;
+    padding:0;
+    margin-bottom: .5rem;
+
+    &.with-tabs {
+      border-bottom: 1px solid $tab-border-color;
+      margin-bottom: 1.5rem;
+
+      .page-heading {
+        margin-bottom: .8rem;
+      }
+    }
+  }
+
+  ul, dl {
+    float: none;
+    display: block;
+    margin-bottom: 0;
+  }
+
+  .sub-nav {
+    top: 1px;
+    position: relative;
+  }
+
   .page-heading {
-    margin-bottom: 0.5rem;
+    padding: 1.4rem 0 .7rem;
+    margin: 0;
+    float: left;
+    clear: both;
   }
 }

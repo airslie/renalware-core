@@ -1,8 +1,9 @@
-= within_admin_layout(title: "Primary Care Physicians") do
+= content_for(:tabs) do
   dl.sub-nav
     dd= link_to "List", patients_primary_care_physicians_path
     dd= link_to "Add Primary Care Physician", new_patients_primary_care_physician_path
 
+= within_admin_layout(title: "Primary Care Physicians") do
   table.primary-care-physicians
     thead
       tr
