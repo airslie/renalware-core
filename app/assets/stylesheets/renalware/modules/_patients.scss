@@ -154,6 +154,9 @@ ul.provider {
       padding: 0;
       text-transform: uppercase;
 
+      // Don't highlight the dt if a user double clicks/highlights the adjacent dd
+      user-select: none;
+
       @media print, #{$large-up} {
         font-size: .7em;
       }
@@ -164,6 +167,12 @@ ul.provider {
       display: inline;
       font-size: 1em;
       margin: 0 .5em 0 .1em;
+
+      // When the user clicks the content, select it all
+      &.selectable {
+        user-select: all;
+        -ms-user-select: all;
+      }
 
       &.name {
         display: inline;

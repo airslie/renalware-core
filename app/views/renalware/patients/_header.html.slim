@@ -21,12 +21,12 @@
       - patient.hospital_identifiers.all.each do |hospital_identifier|
         dl.hospital_no
           dt= hospital_identifier[0]
-          dd= hospital_identifier[1]
+          dd.selectable= hospital_identifier[1]
     - else
       dt= patient.hospital_identifier.name
-      dd= patient.hospital_identifier.id
+      dd.selectable= patient.hospital_identifier.id
     dt= t(".nhs_number")
-    dd= formatted_nhs_number(patient)
+    dd.selectable= formatted_nhs_number(patient)
     dt= t(".sex")
     dd= patient.sex
     dt= t(".born_on")
