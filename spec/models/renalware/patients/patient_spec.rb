@@ -83,6 +83,48 @@ module Renalware
 
         expect(patient).to be_invalid
       end
+
+      describe "patient identification validation" do
+        before do
+          Renalware.configure do |config|
+            config.patient_hospital_identifiers = {
+              HOSP1: :local_patient_id,
+              HOSP2: :local_patient_id_2,
+              HOSP3: :local_patient_id_3,
+              HOSP4: :local_patient_id_4,
+              HOSP5: :local_patient_id_5
+            }
+          end
+        end
+
+        let(:error_message) {
+          "The patient must have at least one of these numbers: HOSP1, HOSP2, HOSP3, HOSP4, HOSP5"
+        }
+        context "when the patient has no local_patient_id" do
+          it "is invalid" do
+            patient = Patient.new
+
+            expect(patient).to be_invalid
+            expect(patient.errors[:base]).to include(error_message)
+          end
+        end
+
+        context "when the patient has just a local_patient_id" do
+          it "is valid" do
+            patient = Patient.new(local_patient_id: "A123")
+
+            expect(patient.errors[:base] || []).not_to include(error_message)
+          end
+        end
+
+        context "when the patient has just a local_patient_id_2" do
+          it "is valid" do
+            patient = Patient.new(local_patient_id_2: "A123")
+
+            expect(patient.errors[:base] || []).not_to include(error_message)
+          end
+        end
+      end
     end
 
     describe "#update" do
