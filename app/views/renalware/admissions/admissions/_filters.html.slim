@@ -12,8 +12,7 @@
         = f.input :hospital_unit_id,
                   collection: Renalware::Hospitals::Unit.pluck(:name, :id)
       .columns.medium-2.large-2
-        = f.input :hospital_ward_id,
-                  collection: Renalware::Hospitals::Ward.pluck(:name, :id)
+        = ward_dropdown_grouped_by_hospital_unit(f, :hospital_ward_id, label: "Ward", wrapper: nil)
       .columns.medium-3.large-3
         = f.input :status,
                   collection: form.status_dropdown_options,

@@ -23,13 +23,9 @@
             include_blank: "Select local site (or enter other site below)",
             label: "Site"
 
-  = f.association :hospital_ward,
-                  as: :grouped_select,
-                  group_method: :wards,
-                  collection: Renalware::Hospitals::Unit.includes(wards: [:hospital_unit]),
-                  label_method: ->(s){ "#{s.to_s} (#{s.hospital_unit.unit_code})" },
-                  wrapper: :horizontal_medium,
-                  include_blank: "Select local ward (or enter other ward below)"
+  = ward_dropdown_grouped_by_hospital_unit(f,
+    :hospital_ward_id,
+    include_blank: "Select local ward (or enter other ward below)")
 
   = f.input :other_site_or_ward, wrapper: :horizontal_medium
   = f.input :started_on, as: :date_picker, wrapper: :horizontal_datepicker

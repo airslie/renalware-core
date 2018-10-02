@@ -3,12 +3,7 @@
 
   = simple_form_for(alert, wrapper: :horizontal_form) do |f|
     = f.association :action, wrapper: :horizontal_small
-    = f.association :hospital_ward,
-          as: :grouped_select,
-          group_method: :wards,
-          collection: Renalware::Hospitals::Unit.includes(:wards).ordered,
-          label_method: ->(ward){ [ward.name, ward.code].compact.join(" - ") },
-          wrapper: :horizontal_medium
+    = ward_dropdown_grouped_by_hospital_unit(f, :hospital_ward_id)
     = f.input :hotlist, wrapper: :horizontal_small, as: :inline_radio_buttons
     = f.input :max_cre, wrapper: :horizontal_small
     = f.input :cre_date, as: :date_picker, wrapper: :horizontal_datepicker
