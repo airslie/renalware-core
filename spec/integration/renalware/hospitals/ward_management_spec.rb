@@ -60,20 +60,4 @@ RSpec.describe "Ward Management", type: :feature do
       expect(page).to have_content("NewName")
     end
   end
-
-  it "delete a ward" do
-    login_as_super_admin
-    unit = create(:hospital_unit)
-    create(:hospital_ward, name: "Name", code: "Code", hospital_unit: unit)
-
-    visit hospitals_unit_wards_path(unit.id)
-
-    within ".hospital-wards" do
-      click_on "Delete"
-    end
-
-    expect(page).to have_content("You have successfully ")
-
-    expect(Renalware::Hospitals::Ward.count).to eq(0)
-  end
 end
