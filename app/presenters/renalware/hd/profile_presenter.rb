@@ -64,6 +64,7 @@ module Renalware
 
       def current_schedule
         return other_schedule if other_schedule.present?
+
         schedule_definition
       end
 
@@ -85,6 +86,7 @@ module Renalware
 
       def formatted_prescribed_time
         return unless prescribed_time
+
         ::Renalware::Duration.from_minutes(prescribed_time).to_s
       end
 
@@ -94,11 +96,13 @@ module Renalware
 
       def anticoagulant_stop_time
         return if anticoagulant.stop_time.blank?
+
         Duration.from_minutes(anticoagulant.stop_time).to_s
       end
 
       def transport_summary
         return if transport.blank?
+
         [transport.has_transport&.text, transport.type&.text].compact.join(": ")
       end
     end

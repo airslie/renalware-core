@@ -25,6 +25,7 @@ module Renalware
         unless request.save_by(current_user)
           return render_new(request)
         end
+
         flash.now[:notice] = success_msg_for("admission request")
       end
 

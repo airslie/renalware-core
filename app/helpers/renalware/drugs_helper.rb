@@ -15,6 +15,7 @@ module Renalware
       drug_names = drug_types.map(&:name)
       return "esa" if drug_names.include?("ESA")
       return "immunosuppressant" if drug_names.include?("Immunosuppressant")
+
       "other"
     end
 

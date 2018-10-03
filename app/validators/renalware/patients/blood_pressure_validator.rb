@@ -22,6 +22,7 @@ module Renalware
       def validate_diastolic_less_than_systolic(bp)
         errors = bp.errors
         return if errors.any?
+
         unless bp.diastolic.to_f < bp.systolic.to_f
           errors.add(:diastolic, :must_be_less_than_systolic)
         end

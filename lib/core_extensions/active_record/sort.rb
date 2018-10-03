@@ -26,6 +26,7 @@ module CoreExtensions
 
       def set_position
         return unless respond_to?(:position)
+
         self.position = (self.class.where("position < 99999").maximum(:position) || 0) + 1
       end
     end

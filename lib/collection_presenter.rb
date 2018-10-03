@@ -60,6 +60,7 @@ class CollectionPresenter
     if options.empty? && !block_given
       raise "A presenter class must be supplied if no block given"
     end
+
     presenter_class = options[0]
     view_context = options[1]
     [presenter_class, view_context]

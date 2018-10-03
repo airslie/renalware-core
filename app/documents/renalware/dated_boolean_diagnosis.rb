@@ -9,6 +9,7 @@ module Renalware
 
     def to_s
       return "" if diagnosis.to_s.blank?
+
       datestamp = diagnosed_on.present? ? "(#{I18n.l(diagnosed_on)})" : nil
       [(diagnosis ? "Yes" : "No"), datestamp].compact.join(" ")
     end

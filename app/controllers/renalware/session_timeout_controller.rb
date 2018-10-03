@@ -49,6 +49,7 @@ module Renalware
 
     def current_users_session_has_timed_out?
       return true if user_session.blank?
+
       last_request_at = Time.zone.at(user_session["last_request_at"])
       !current_user || current_user.timedout?(last_request_at)
     end
@@ -57,6 +58,7 @@ module Renalware
     def referrer_is_a_devise_url?
       referrer = request.referer
       return if request.blank? || referrer.blank?
+
       regex_defining_devise_paths = %r{(#{new_user_session_path}|users\/password|users\/sign_up)}
       URI.parse(referrer).path =~ regex_defining_devise_paths
     end

@@ -14,6 +14,7 @@ module Renalware
 
       def patient_current_modality_name
         return unless patient_current_modality
+
         patient_current_modality.description.to_s
       end
 

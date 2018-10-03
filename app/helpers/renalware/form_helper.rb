@@ -9,6 +9,7 @@ module Renalware
     def render_input(builder, attribute)
       renderable = builder.object.public_send(attribute)
       return unless renderable
+
       render input_partial_path_for(renderable),
              attribute: attribute,
              f: builder

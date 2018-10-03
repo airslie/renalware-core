@@ -45,6 +45,7 @@ module Renalware
         Plan.transaction do
           if current_plan.present?
             return true if current_plan.identical_to?(plan) # no change, no new plan to be created
+
             current_plan.terminate_by(current_user)
           end
           plan.save!

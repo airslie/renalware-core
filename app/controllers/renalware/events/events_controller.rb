@@ -72,6 +72,7 @@ module Renalware
 
       def save_path_to_return_to
         return unless request.format == :html
+
         session[:return_to] ||= request.path
       end
 
@@ -113,12 +114,14 @@ module Renalware
       def event_type
         return Events::Type.find(event_type_id) if event_type_id.present?
         return Events::Type.find_by!(slug: event_type_slug) if event_type_slug.present?
+
         Events::Type.new
       end
 
       def event_type_id
         @event_type_id ||= begin
           return event_params[:event_type_id] if params[:events_event]
+
           params[:event_type_id]
         end
       end

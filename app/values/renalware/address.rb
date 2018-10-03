@@ -22,6 +22,7 @@ module Renalware
 
     def copy_from(source)
       return self if source.blank?
+
       self.name = source.name
       self.organisation_name = source.organisation_name
       self.street_1 = source.street_1

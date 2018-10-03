@@ -36,6 +36,7 @@ module Renalware
       # callbacks by using update_columns.
       def update_patient
         return false unless selected_pyhsician
+
         patient.update_columns(
           primary_care_physician_id: selected_pyhsician.id,
           practice_id: patient_params[:practice_id],
@@ -75,6 +76,7 @@ module Renalware
       def available_primary_care_physicians
         pratice_id = params[:practice_id]
         return [] unless pratice_id
+
         Practice.find(pratice_id).primary_care_physicians.map do |physician|
           [physician.to_s, physician.id]
         end

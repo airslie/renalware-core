@@ -127,6 +127,7 @@ module Document
         # `self[att] =` prompts Virtus to re-attempt to coerce the value, which now, if space
         # has prevented it from doing so before, it will do successfully.
         next unless STRIPPABLE_TYPES.include?(primitive)
+
         if self[att].respond_to?(:strip)
           self[att] = self[att].strip
         end
