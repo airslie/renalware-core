@@ -23,6 +23,7 @@ module SQL
 
     def generate
       return if items.blank?
+
       clauses = []
       Array(items).each_with_index do |item, index|
         clauses << "WHEN '#{item}' THEN #{index}"

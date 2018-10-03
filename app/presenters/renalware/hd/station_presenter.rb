@@ -9,6 +9,7 @@ module Renalware
 
       def css
         return if location.blank?
+
         "background-color: #{location&.colour}"
       end
     end

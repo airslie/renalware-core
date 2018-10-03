@@ -37,6 +37,7 @@ module Renalware
 
       def uk_transplant_centre_summary
         return if uk_transplant_centre_status.blank?
+
         "#{uk_transplant_centre_status} (#{I18n.l(uk_transplant_centre_status_updated_on)})"
       end
 
@@ -54,6 +55,7 @@ module Renalware
 
       def sens
         return if crf_latest_result.blank?
+
         crf_latest_result.to_i > 60 ? "Sens" : "Unsens"
       end
     end

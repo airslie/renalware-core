@@ -52,6 +52,7 @@ module Renalware
 
       def save_path_to_return_to
         return unless request.format == :html
+
         session[:return_to] ||= request.referer
       end
 

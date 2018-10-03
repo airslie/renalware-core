@@ -9,6 +9,7 @@ module Renalware
 
       def to_s
         return "" unless info
+
         [
           info.access_type,
           info.access_side&.capitalize
@@ -17,6 +18,7 @@ module Renalware
 
       def to_html
         return "" unless info
+
         [
           abbreviated_type,
           abbreviated_side
@@ -37,6 +39,7 @@ module Renalware
 
       def abbreviated_side
         return if info.access_side.blank?
+
         info.access_side[0].upcase
       end
     end

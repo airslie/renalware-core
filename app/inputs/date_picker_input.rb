@@ -52,6 +52,7 @@ class DatePickerInput < SimpleForm::Inputs::StringInput
   # not be able to view the form to correct the data.
   def format_date(datestamp)
     return "" if datestamp.blank?
+
     I18n.l(datestamp)
   rescue I18n::ArgumentError # e.g. its a string containing an invalid date
     datestamp

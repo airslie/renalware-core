@@ -152,6 +152,7 @@ module Renalware
         if patient_ids.length > 1
           raise ArgumentError, "More than one id submitted in patient_id[] : #{patient_ids}"
         end
+
         patient_ids.first
       end
 

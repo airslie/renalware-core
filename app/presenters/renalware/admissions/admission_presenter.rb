@@ -34,6 +34,7 @@ module Renalware
       def length_of_stay
         return 0 if admitted_on.blank?
         return length_of_stay_if_discharged if discharged_on.present?
+
         length_of_stay_if_currently_admitted
       end
 

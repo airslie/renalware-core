@@ -69,6 +69,7 @@ module Renalware
         pre = before_measurement_for(measurement)
         post = after_measurement_for(measurement)
         return if pre.blank? || post.blank?
+
         case pre
         when ::Float then (post - pre).round(1)
         when ::Integer then (post - pre)
@@ -87,6 +88,7 @@ module Renalware
 
       def truncated_notes
         return unless notes
+
         notes.truncate(100, omission: "&hellip;").html_safe
       end
 

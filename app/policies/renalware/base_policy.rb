@@ -17,6 +17,7 @@ module Renalware
     def index?
       return true if user_is_devops? || user_is_super_admin?
       return permission_for_restricted? if restricted?
+
       has_any_role?
     end
 
@@ -27,6 +28,7 @@ module Renalware
     def create?
       return true if user_is_devops? || user_is_super_admin?
       return permission_for_restricted? if restricted?
+
       has_write_privileges?
     end
 

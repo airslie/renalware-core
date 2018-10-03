@@ -31,6 +31,7 @@ module Renalware
 
       def language
         return if super.nil? || super.name == "Unknown"
+
         super
       end
 
@@ -40,6 +41,7 @@ module Renalware
 
       def current_modality_hd?
         return false if current_modality.blank?
+
         current_modality.description.is_a?(Renalware::HD::ModalityDescription)
       end
 

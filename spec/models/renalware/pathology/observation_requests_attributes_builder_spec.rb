@@ -171,8 +171,8 @@ module Renalware::Pathology
 
       context "when requestor order name not present in the HL7 message" do
         let(:hl7_message) {
-          double(
-            :hl7_message,
+          instance_double(
+            Renalware::Feeds::HL7Message,
             patient_identification: double(internal_id: patient.local_patient_id),
             observation_requests: [
               double(

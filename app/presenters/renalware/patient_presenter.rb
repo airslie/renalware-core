@@ -16,6 +16,7 @@ module Renalware
     def nhs_number
       return super unless super.present? && super.length >= 10
       return if super.index(" ")
+
       "#{super[0..2]} #{super[3..5]} #{super[6..-1]}"
     end
 

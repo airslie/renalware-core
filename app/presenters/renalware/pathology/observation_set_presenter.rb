@@ -12,6 +12,7 @@ module Renalware
 
       def method_missing(method_name, **_args, &_block)
         return if __getobj__.nil?
+
         vals = __getobj__.values
         vals.public_send(method_name)
       end
@@ -22,6 +23,7 @@ module Renalware
 
       def each_display_group
         return unless block_given?
+
         ObservationDescription
           .in_display_order
           .to_a

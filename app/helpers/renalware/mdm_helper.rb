@@ -20,6 +20,7 @@ module Renalware
       def path
         @path ||= begin
           return if modality_description.type.blank?
+
           case modality_description_symbol
           when :pd then patient_pd_mdm_path(patient)
           when :hd then patient_hd_mdm_path(patient)

@@ -27,6 +27,7 @@ module Renalware
         value = public_send(:"preferred_#{attribute}")
         value = yield(value) if block_given?
         return value if preference_satisfied?(attribute)
+
         content_tag(:b, value)
       end
 
@@ -34,6 +35,7 @@ module Renalware
         preferred = public_send(:"preferred_#{attribute}")
         current = public_send(:"current_#{attribute}")
         return true if preferred.blank? || preferred == current
+
         false
       end
 

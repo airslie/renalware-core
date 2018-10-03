@@ -32,6 +32,7 @@ module Renalware
 
         def message_we_are_replying_to(message)
           return if message.replying_to_message_id.blank?
+
           MessagePresenter.new(message.replying_to_message)
         end
 

@@ -17,6 +17,7 @@ xml.Patient do
     end
     Renalware.config.patient_hospital_identifiers.values.each do |field|
       next if (number = patient.public_send(field)).blank?
+
       xml.PatientNumber do
         xml.Number number
         xml.Organization "LOCALHOSP"

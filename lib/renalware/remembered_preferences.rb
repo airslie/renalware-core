@@ -8,6 +8,7 @@ module Renalware
 
     def persist(model)
       return unless model
+
       self.class::ATTRIBUTES_TO_REMEMBER.each do |attribute|
         remembered_attributes[attribute] = model.public_send(attribute)
       end
@@ -16,6 +17,7 @@ module Renalware
 
     def apply_to(model)
       return unless model
+
       self.class::ATTRIBUTES_TO_REMEMBER.each do |attribute|
         unless model.public_send(:"#{attribute}?")
           model.public_send(:"#{attribute}=", remembered_attributes[attribute])

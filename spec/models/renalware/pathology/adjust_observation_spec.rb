@@ -30,6 +30,7 @@ module Renalware
     class TestAdjustedEgfrObservation < SimpleDelegator
       def adjust
         return self if adjusted?
+
         self.comment = adjusted_comment
         self.result =  (result.to_f * 1.21).round(2)
         self

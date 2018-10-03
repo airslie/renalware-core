@@ -148,6 +148,7 @@ module Renalware
 
       def find_event
         return if event_type.blank?
+
         event_class.for_patient(@patient).find(event_id)
       end
 

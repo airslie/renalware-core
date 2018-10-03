@@ -16,6 +16,7 @@ module Renalware
 
     def to_f
       return unless weight && height && height > 0
+
       ((weight / height) / height).round(1)
     end
   end
