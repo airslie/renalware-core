@@ -215,7 +215,7 @@ To make awesome_print the default formatter in irb, add the following to `~/.irb
     require "awesome_print"
     AwesomePrint.irb!
 
-#### Docker - WIP!
+#### Docker -  WIP!
 
 ```
 docker build -t renalware .
