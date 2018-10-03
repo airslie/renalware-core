@@ -71,7 +71,7 @@ Gem::Specification.new do |s|
   s.add_dependency "puma", "~> 3.12.0"
   s.add_dependency "pundit", "~> 2.0.0"
   s.add_dependency "rack-attack", "~> 5.4.0"
-  s.add_dependency "rails", "5.2.0"
+  s.add_dependency "rails", "~> 5.2.1"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
   s.add_dependency "rails-assets-select2", "~> 4.0.2"
   s.add_dependency "ransack", "~> 2.0.1"
@@ -83,7 +83,7 @@ Gem::Specification.new do |s|
   s.add_dependency "simple_form", "4.0.0"
   s.add_dependency "sinatra", "~> 2.0.1"
   s.add_dependency "slim-rails", "~> 3.1.3"
-  #s.add_dependency "trix", "~> 0.11.1"
+  # s.add_dependency "trix", "~> 0.11.1"
   s.add_dependency "uglifier", "~> 4.1.17"
   s.add_dependency "underscore-rails", "~> 1.8.3"
   s.add_dependency "validates_timeliness", "~> 4.0.2"
