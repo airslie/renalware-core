@@ -1,5 +1,10 @@
 tr.hd-session-row(class=[session.state, stripe_class])
-  td.noprint(rowspan=2)= session.edit_or_view_url
+  td.noprint(rowspan=2)
+    = link_to("Toggle",
+              "#hd-session-#{session.id}",
+              data: { behaviour: "toggler" })
+    = pipe_separator
+    = session.edit_or_view_url
   td.text-left(rowspan=2)= session.performed_on
   td= session.hospital_unit_unit_code
 
@@ -35,3 +40,8 @@ tr(class=[session.state, stripe_class])
   td= session.after_measurement_for(:bm_stix)
   td= session.after_measurement_for(:blood_pressure)
   td.print-only= session.signed_off_by
+= content_tag(:tr, id: "hd-session-#{session.id}", style: "display: none")
+  td(colspan=18)
+    .quick-preview
+      = definition_list_for(session, size: :large) do |list|
+        = list.definition(:notes){ |value| simple_format(value) }
