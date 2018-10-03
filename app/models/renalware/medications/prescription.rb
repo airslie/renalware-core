@@ -10,7 +10,8 @@ module Renalware
 
       attr_accessor :drug_select
 
-      has_paper_trail class_name: "Renalware::Medications::PrescriptionVersion"
+      has_paper_trail class_name: "Renalware::Medications::PrescriptionVersion",
+                      on: [:create, :update]
 
       belongs_to :patient, touch: true
 

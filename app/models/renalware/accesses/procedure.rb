@@ -12,7 +12,7 @@ module Renalware
       belongs_to :type, class_name: "Type"
       belongs_to :pd_catheter_insertion_technique, class_name: "CatheterInsertionTechnique"
 
-      has_paper_trail class_name: "Renalware::Accesses::Version"
+      has_paper_trail class_name: "Renalware::Accesses::Version", on: [:create, :update, :destroy]
 
       scope :ordered, -> { order(performed_on: :desc) }
 

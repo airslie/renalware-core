@@ -13,7 +13,7 @@ module Renalware
       belongs_to :assessor, class_name: "User", foreign_key: "assessor_id"
       belongs_to :modality_description, class_name: "Modalities::Description"
 
-      has_paper_trail class_name: "Renalware::Clinical::Version"
+      has_paper_trail class_name: "Renalware::Clinical::Version", on: [:create, :update, :destroy]
 
       scope :ordered, -> { order(assessed_on: :desc, created_at: :desc) }
 

@@ -82,6 +82,8 @@ RSpec.describe "Managing the patient worryboard", type: :request do
           expect(response).to have_http_status(:redirect)
           version = Renalware::Patients::Version.last
           expect(version.whodunnit.to_s).to eq(user.id.to_s)
+          expect(version.event).to eq("destroy")
+          expect(version.item_type).to eq("Renalware::Patients::Worry")
         end
       end
     end

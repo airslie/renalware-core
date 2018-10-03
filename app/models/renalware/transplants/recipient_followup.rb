@@ -17,7 +17,8 @@ module Renalware
                  class_name: "Transplants::FailureCauseDescription",
                  foreign_key: "transplant_failure_cause_description_id"
 
-      has_paper_trail class_name: "Renalware::Transplants::Version"
+      has_paper_trail class_name: "Renalware::Transplants::Version",
+                      on: [:create, :update, :destroy]
       has_document class_name: "Renalware::Transplants::RecipientFollowupDocument"
 
       validates :stent_removed_on, timeliness: { type: :date, allow_blank: true }
