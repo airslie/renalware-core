@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/markmercedes/trix.git
+  remote: https://github.com/airslie/trix.git
   revision: 56d84ae42e34488b0bb301bd9bd0f54fac7fc811
   branch: master
   specs:

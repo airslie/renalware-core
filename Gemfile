@@ -28,7 +28,7 @@ gem "devise_security_extension",
 # For now use this fork until the upstream has been fixed (this line will also need to appear in
 # each hospital's Gemfile for now)
 gem "trix",
-    git: "https://github.com/markmercedes/trix.git",
+    git: "https://github.com/airslie/trix.git",
     branch: "master"
 
 group :test do
