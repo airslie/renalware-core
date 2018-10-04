@@ -20,7 +20,7 @@ module Renalware
       belongs_to :schedule_definition, foreign_key: "schedule_definition_id"
 
       has_document class_name: "Renalware::HD::ProfileDocument"
-      has_paper_trail class_name: "Renalware::HD::Version"
+      has_paper_trail class_name: "Renalware::HD::Version", on: [:create, :update, :destroy]
 
       validates :patient, presence: true
       validates :prescriber, presence: true

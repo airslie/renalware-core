@@ -13,14 +13,14 @@ RSpec.describe "Clinic Visits Management", type: :request do
     end
 
     it "responds successfully" do
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
   describe "GET new" do
     it "responds successfully" do
       get new_patient_clinic_visit_path(patient_id: patient.to_param)
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -41,7 +41,7 @@ RSpec.describe "Clinic Visits Management", type: :request do
     end
 
     it "responds successfully" do
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.describe "Clinic Visits Management", type: :request do
     end
 
     it "responds successfully" do
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 

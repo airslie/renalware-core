@@ -13,7 +13,7 @@ RSpec.describe "Displaying the patient worryboard", type: :request do
 
       get worryboard_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(response.body).to match(/#{patient.family_name}/i)
     end
   end

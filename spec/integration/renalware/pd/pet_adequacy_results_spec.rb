@@ -10,7 +10,7 @@ RSpec.describe "Managing PD PET Adequacy Results", type: :request do
     it "responds with a form" do
       get new_patient_pd_pet_adequacy_result_path(patient)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -20,7 +20,7 @@ RSpec.describe "Managing PD PET Adequacy Results", type: :request do
       post patient_pd_pet_adequacy_results_path(patient, params)
 
       follow_redirect!
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe "Managing PD PET Adequacy Results", type: :request do
       get edit_patient_pd_pet_adequacy_result_path(patient_id: patient,
                                                    id: pet_adequacy_result)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -43,7 +43,7 @@ RSpec.describe "Managing PD PET Adequacy Results", type: :request do
         pet_adequacy: { daily_urine: 0.1 }
       }
       put patient_pd_pet_adequacy_result_path(params)
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -57,7 +57,7 @@ RSpec.describe "Managing PD PET Adequacy Results", type: :request do
 
       get patient_pd_pet_adequacy_result_path(params)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 end

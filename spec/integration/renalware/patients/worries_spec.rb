@@ -17,7 +17,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
         post(patient_worry_path(patient), params: params)
         expect(response).to have_http_status(:redirect)
         follow_redirect!
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
 
         worry = Renalware::Patients::Worry.find_by(patient_id: patient.id)
         expect(worry.notes).to eq("Abc")
@@ -32,7 +32,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
         post(patient_worry_path(patient), params: params)
         expect(response).to have_http_status(:redirect)
         follow_redirect!
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
 
         expect(Renalware::Patients::Worry.find_by(patient_id: patient.id)).not_to be_nil
       end
@@ -48,7 +48,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
         post(patient_worry_path(patient), params: params)
         expect(response).to have_http_status(:redirect)
         follow_redirect!
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
 
         worry = Renalware::Patients::Worry.find_by(patient_id: patient.id)
         expect(worry.notes).to eq("Abc")
@@ -82,6 +82,8 @@ RSpec.describe "Managing the patient worryboard", type: :request do
           expect(response).to have_http_status(:redirect)
           version = Renalware::Patients::Version.last
           expect(version.whodunnit.to_s).to eq(user.id.to_s)
+          expect(version.event).to eq("destroy")
+          expect(version.item_type).to eq("Renalware::Patients::Worry")
         end
       end
     end

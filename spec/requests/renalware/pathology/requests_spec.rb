@@ -30,7 +30,7 @@ RSpec.describe "Configuring Requests", type: :request do
     it "responds with a list of request forms" do
       get pathology_requests_requests_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -47,7 +47,7 @@ RSpec.describe "Configuring Requests", type: :request do
     it "responds with a list of request forms" do
       get pathology_requests_request_path(id: request.id, format: "pdf")
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(response.headers["Content-Type"]).to eq("application/pdf")
     end
   end

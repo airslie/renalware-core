@@ -59,7 +59,7 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
 
       get api_ukrdc_patient_path(patient)
 
-      expect(response).to be_success
+      expect(response).to be_successful
       validate(response.body).each do |error|
         puts error.message
         fail
@@ -83,7 +83,7 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
 
         get api_ukrdc_patient_path(patient)
 
-        expect(response).to be_success
+        expect(response).to be_successful
 
         matches = response.body.scan(/<CauseOfDeath>/)
         expect(matches.length).to eq(2)
@@ -104,7 +104,7 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
 
       get api_ukrdc_patient_path(patient)
 
-      expect(response).to be_success
+      expect(response).to be_successful
 
       xml = response.body
       validate(xml).each do |error|
@@ -132,7 +132,7 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
       )
       get api_ukrdc_patient_path(patient)
 
-      expect(response).to be_success
+      expect(response).to be_successful
 
       validate(response.body).each do |error|
         puts error.message

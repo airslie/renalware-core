@@ -10,7 +10,7 @@ RSpec.describe "Changing a patient's GP (primary care physician)", type: :reques
     it "responds with a form" do
       get edit_patient_primary_care_physician_path(patient)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -25,7 +25,7 @@ RSpec.describe "Changing a patient's GP (primary care physician)", type: :reques
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(patient.reload.primary_care_physician).to eq(primary_care_physician)
       end
     end

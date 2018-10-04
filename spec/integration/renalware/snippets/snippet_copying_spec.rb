@@ -38,7 +38,7 @@ RSpec.describe "Copying a snippet", type: :request do
       post snippet_clones_path(snippet_id: snippet_to_clone.id), headers: headers
 
       follow_redirect!
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
 
       expect(user.reload.snippets.length).to eq(1)
       find_and_validate_cloned_snippet_for(user, title: "A Snippet [CLONE]")
@@ -66,7 +66,7 @@ RSpec.describe "Copying a snippet", type: :request do
              headers: { "HTTP_REFERER" => "/" }
 
         follow_redirect!
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
 
         expect(user.reload.snippets.length).to eq(3)
         find_and_validate_cloned_snippet_for(user, title: "A Snippet [CLONE] (2)")
@@ -91,7 +91,7 @@ RSpec.describe "Copying a snippet", type: :request do
       post snippet_clones_path(snippet_id: snippet_to_clone.id), headers: headers
 
       follow_redirect!
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
 
       expect(user.reload.snippets.length).to eq(2)
 

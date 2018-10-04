@@ -9,7 +9,7 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
     it "responds with a form" do
       get new_modalities_description_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -25,7 +25,7 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -35,7 +35,7 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
 
         post modalities_descriptions_path, params: { modalities_description: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
     it "responds successfully" do
       get modalities_descriptions_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
     it "responds with a form" do
       get edit_modalities_description_path(modality_description)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -69,7 +69,7 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -80,7 +80,7 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
         patch modalities_description_path(modality_description),
               params: { modalities_description: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -94,7 +94,7 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
 
       follow_redirect!
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 end

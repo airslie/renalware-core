@@ -15,7 +15,7 @@ RSpec.describe "Peritonitis episodes", type: :request do
 
       get patient_pd_peritonitis_episode_path(patient, episode, format: :pdf)
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response["Content-Type"]).to eq("application/pdf")
       filename = "RABBIT-KCH12345-PERI-EPISODE-#{episode.id}".upcase
       expect(response["Content-Disposition"]).to include("inline")

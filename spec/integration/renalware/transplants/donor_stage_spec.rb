@@ -24,7 +24,7 @@ RSpec.describe "Donor stage management", type: :request do
 
         expect(response).to redirect_to(patient_transplants_donor_dashboard_path(patient))
         follow_redirect!
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -42,7 +42,7 @@ RSpec.describe "Donor stage management", type: :request do
         }
         post patient_transplants_donor_stage_path(patient, params)
         # No redirect, re-displays the form
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end

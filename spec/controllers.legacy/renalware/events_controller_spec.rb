@@ -55,7 +55,7 @@ module Renalware::Events
     describe "GET index" do
       it "responds with success" do
         get :index, params: { patient_id: patient }
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end

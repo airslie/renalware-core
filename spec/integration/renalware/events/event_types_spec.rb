@@ -9,7 +9,7 @@ RSpec.describe "Configuring Event Types", type: :request do
     it "responds with a form" do
       get new_events_type_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -24,7 +24,7 @@ RSpec.describe "Configuring Event Types", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe "Configuring Event Types", type: :request do
         attributes = { name: "" }
         post events_types_path, params: { events_type: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -42,7 +42,7 @@ RSpec.describe "Configuring Event Types", type: :request do
     it "responds with a form" do
       get edit_events_type_path(event_type)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -57,7 +57,7 @@ RSpec.describe "Configuring Event Types", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -66,7 +66,7 @@ RSpec.describe "Configuring Event Types", type: :request do
         attributes = { name: "" }
         patch events_type_path(event_type), params: { events_type: attributes }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end
@@ -79,7 +79,7 @@ RSpec.describe "Configuring Event Types", type: :request do
       expect(Renalware::Events::Type).not_to exist(id: event_type.id)
 
       follow_redirect!
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 end

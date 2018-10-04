@@ -30,7 +30,7 @@ module Renalware
 
         get admissions_consults_path
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response.body).to include("Admission Consults")
         expect(response.body).to include("Site1")
         expect(response.body).to include(consult.patient.to_s)
@@ -42,8 +42,7 @@ module Renalware
         it "generates a PDF version of the consults list" do
           get admissions_consults_path(format: :pdf)
 
-          expect(response).to have_http_status(:success)
-          expect(response).to be_success
+          expect(response).to be_successful
           expect(response["Content-Type"]).to eq("application/pdf")
           expect(response["Content-Disposition"]).to include("inline")
           filename = "Admission Consults #{I18n.l(Time.zone.today)}.pdf"
@@ -56,7 +55,7 @@ module Renalware
       it "renders a modal to allow a patient to be selected" do
         get new_admissions_consult_path
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response).to render_template(:new, format: :html)
       end
     end
@@ -89,7 +88,7 @@ module Renalware
           post admissions_consults_path, params: { admissions_consult: params }
 
           follow_redirect!
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
           expect(response).to render_template(:index)
 
           consults = Renalware::Admissions::Consult.all
@@ -112,7 +111,7 @@ module Renalware
 
           post admissions_consults_path, params: { admissions_consult: params }
 
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
           expect(response).to render_template(:new)
         end
       end
@@ -122,7 +121,7 @@ module Renalware
       it "renders the form" do
         get edit_admissions_consult_path(create_consult)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response).to render_template(:edit)
       end
     end
@@ -139,7 +138,7 @@ module Renalware
                 params: { admissions_consult: params })
 
           follow_redirect!
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
           expect(response).to render_template(:index)
           expect(consult.reload.consult_site_id).to eq(consult_site2.id)
         end
@@ -153,7 +152,7 @@ module Renalware
 
           patch(admissions_consult_path(consult), params: { admissions_consult: params })
 
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
           expect(response).to render_template(:edit)
         end
       end

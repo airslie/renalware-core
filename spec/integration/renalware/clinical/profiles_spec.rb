@@ -9,14 +9,14 @@ RSpec.describe "Viewing clinical profile", type: :request do
   describe "GET show" do
     it "responds successfully" do
       get patient_clinical_profile_path(patient_id: patient.to_param)
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
   describe "GET edit" do
     it "responds successfully" do
       get edit_patient_clinical_profile_path(patient_id: patient.to_param)
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe "Viewing clinical profile", type: :request do
       put(url, params: params, headers: headers)
 
       follow_redirect!
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
 
       history = patient.reload.document.history
       expect(history.alcohol).to eq("rarely")

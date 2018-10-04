@@ -13,7 +13,7 @@ RSpec.describe "Patient's Dry Weights", type: :request do
     it "responds with a list" do
       get patient_clinical_dry_weights_path(patient_id: patient)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 end

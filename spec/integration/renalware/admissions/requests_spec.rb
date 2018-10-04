@@ -25,7 +25,7 @@ RSpec.describe "Admission Request (TCI) management", type: :request do
 
       get admissions_requests_path
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(response.body).to include("XYZ")
       expect(response.body).to include(I18n.l(time))
       expect(response.body).to include(patient.to_s)
@@ -57,7 +57,7 @@ RSpec.describe "Admission Request (TCI) management", type: :request do
           post(admissions_requests_path(format: :js), params: params)
         }.to change(Renalware::Admissions::Request, :count).by(1)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 

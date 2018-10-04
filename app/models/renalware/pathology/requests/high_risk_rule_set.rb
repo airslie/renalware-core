@@ -40,6 +40,11 @@ module Renalware
           Renalware::Pathology::Requests::HighRiskRuleSet
         end
 
+        # Required for Rails 5.2
+        def self.polymorphic_name
+          name
+        end
+
         def marked_for_destruction?
           false
         end

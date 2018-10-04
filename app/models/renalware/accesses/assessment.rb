@@ -14,7 +14,7 @@ module Renalware
       belongs_to :type, class_name: "Type"
 
       has_document class_name: "Renalware::Accesses::AssessmentDocument"
-      has_paper_trail class_name: "Renalware::Accesses::Version"
+      has_paper_trail class_name: "Renalware::Accesses::Version", on: [:create, :update, :destroy]
 
       scope :ordered, -> { order(performed_on: :desc) }
 

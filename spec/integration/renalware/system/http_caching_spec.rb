@@ -12,8 +12,7 @@ RSpec.describe "HTTP Caching", type: :request do
       it "includes 'no-store' so the user cannot navigate back" do
         get patient_clinical_summary_path(patient)
 
-        expect(response.headers["Cache-Control"])
-          .to eq("no-cache, no-store, max-age=0, must-revalidate")
+        expect(response.headers["Cache-Control"]).to eq("no-cache, no-store")
       end
     end
   end

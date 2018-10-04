@@ -12,7 +12,7 @@ RSpec.describe "Problems Requests" do
       it "responds with the problem" do
         get patient_problem_path(patient_id: patient, id: problem.id)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -20,7 +20,7 @@ RSpec.describe "Problems Requests" do
       it "responds with the problem" do
         get patient_problem_path(patient_id: patient, id: archived_problem.id)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
   end

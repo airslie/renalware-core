@@ -1,6 +1,5 @@
 ruby:
   back_path = patient_letters_letters_path(patient)
-  letter = f.object
   event = letter.event
 
 .row.top
@@ -38,15 +37,13 @@ ruby:
 
   = render "pathology", letter: letter, f: f
   = render "problems_prescriptions", letter: letter
-  = render "main_recipient", f: f, contacts: contacts, patient: patient
-  = render "additional_ccs", f: f, contacts: contacts, patient: patient
+  = render "main_recipient", f: f, contacts: contacts, patient: patient, letter: letter
+  = render "additional_ccs", f: f, contacts: contacts, patient: patient, letter: letter
   = render "electronic_ccs",
            f: f,
            contacts: contacts,
            patient: patient,
            electronic_recipient_options: electronic_recipient_options
-
-
 
   article
     header

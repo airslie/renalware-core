@@ -37,7 +37,7 @@ RSpec.describe "AKI alert management", type: :request do
       it "renders a list of AKI Alerts" do
         get renal_aki_alerts_path
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response.body).to match("today")
         expect(response.body).to match("Patient1")
         expect(response.body).to match(I18n.l(Time.zone.today))
@@ -53,7 +53,7 @@ RSpec.describe "AKI alert management", type: :request do
       it "renders a list of just today's AKI Alerts" do
         get renal_aki_alerts_path(q: { date: I18n.l(Time.zone.today) })
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response.body).to match("Patient1")
         expect(response.body).not_to match("Patient2")
       end
@@ -92,7 +92,7 @@ RSpec.describe "AKI alert management", type: :request do
         )
         get renal_aki_alerts_path(q: { on_hotlist: true })
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response.body).to match("HOT")
         expect(response.body).not_to match("NOTHOT")
       end
@@ -101,7 +101,7 @@ RSpec.describe "AKI alert management", type: :request do
         it "renders a PDF" do
           get renal_aki_alerts_path(q: { on_hotlist: true }, format: :pdf)
 
-          expect(response).to be_success
+          expect(response).to be_successful
           expect(response["Content-Type"]).to eq("application/pdf")
           expect(response["Content-Disposition"]).to include("inline")
           filename = "AKI Alerts #{I18n.l(Time.zone.today)}.pdf"
@@ -147,7 +147,7 @@ RSpec.describe "AKI alert management", type: :request do
 
         follow_redirect!
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         alert.reload
         expect(alert.notes).to eq("xyz")
         expect(alert.action_id).to eq(action2.id)

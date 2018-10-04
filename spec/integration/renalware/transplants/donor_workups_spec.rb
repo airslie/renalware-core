@@ -31,7 +31,7 @@ RSpec.describe "Donor stage management", type: :request do
 
         get patient_transplants_donor_workup_path(patient)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response).to render_template(:show)
       end
     end

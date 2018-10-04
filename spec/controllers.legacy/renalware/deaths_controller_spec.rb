@@ -21,7 +21,8 @@ module Renalware
       it "responds with success" do
         get :index
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
+        expect(response).to be_successful
       end
     end
 
@@ -29,7 +30,7 @@ module Renalware
       it "responds with success" do
         get :edit, params: { patient_id: patient.to_param }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 

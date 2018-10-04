@@ -38,8 +38,6 @@ module Renalware
         login_as_clinical
         visit admissions_admissions_path
 
-        expect(page).to have_http_status(:success)
-
         within(".non-patient-page") do
           expect(body).to have_content("Inpatient Admissions")
           expect(body).to have_content("Ward1")
@@ -52,7 +50,7 @@ module Renalware
       it "render the form" do
         get new_admissions_admission_path
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response).to render_template(:new, format: :html)
       end
     end
@@ -79,7 +77,7 @@ module Renalware
           post admissions_admissions_path, params: { admissions_admission: params }
 
           follow_redirect!
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
           expect(response).to render_template(:index)
 
           admissions = Renalware::Admissions::Admission.all
@@ -120,7 +118,7 @@ module Renalware
 
           post admissions_admissions_path, params: { admissions_admission: params }
 
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
           expect(response).to render_template(:new)
         end
       end
@@ -130,7 +128,7 @@ module Renalware
       it "renders the form" do
         get edit_admissions_admission_path(create_admission)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response).to render_template(:edit)
       end
     end
@@ -146,7 +144,7 @@ module Renalware
           patch(admissions_admission_path(admission), params: { admissions_admission: params })
 
           follow_redirect!
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
           expect(response).to render_template(:index)
           expect(admission.reload.hospital_ward_id).to eq(hospital_ward2.id)
         end
@@ -159,7 +157,7 @@ module Renalware
 
           patch(admissions_admission_path(admission), params: { admissions_admission: params })
 
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
           expect(response).to render_template(:edit)
         end
       end

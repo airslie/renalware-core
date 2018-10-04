@@ -12,7 +12,7 @@ module Renalware
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"
       belongs_to :schedule_definition, foreign_key: "schedule_definition_id"
 
-      has_paper_trail class_name: "Renalware::HD::Version"
+      has_paper_trail class_name: "Renalware::HD::Version", on: [:create, :update, :destroy]
 
       validates :patient, presence: true
       validates :entered_on, timeliness: { type: :date, allow_blank: true }

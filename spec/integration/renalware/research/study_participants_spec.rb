@@ -20,7 +20,7 @@ RSpec.describe "Managing clinical study participation", type: :request do
 
       get research_study_participants_path(study)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(response).to render_template(:index)
       expect(response.body).to match("Clinical Studies")
       expect(response.body).to match(study.code)
@@ -34,7 +34,7 @@ RSpec.describe "Managing clinical study participation", type: :request do
 
       get new_research_study_participant_path(study)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(response).to render_template(:new, format: :html)
     end
   end
@@ -50,7 +50,7 @@ RSpec.describe "Managing clinical study participation", type: :request do
       end.to change{ Renalware::Research::StudyParticipant.count }.by(-1)
 
       follow_redirect!
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(Renalware::Research::StudyParticipant.deleted.count).to eq(1)
       within ".study-participants-table" do
         expect(response.body).not_to include("ZZ")
@@ -68,7 +68,7 @@ RSpec.describe "Managing clinical study participation", type: :request do
         post research_study_participants_path(study, format: :js),
              params: { research_study_participant: params }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response).to render_template(:create)
 
         expect(Renalware::Research::StudyParticipant.count).to eq(1)
@@ -87,7 +87,7 @@ RSpec.describe "Managing clinical study participation", type: :request do
         post research_study_participants_path(study, format: :js),
              params: { research_study_participant: params }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(response).to render_template(:new)
       end
     end
@@ -98,7 +98,7 @@ RSpec.describe "Managing clinical study participation", type: :request do
 
         get edit_research_study_participant_path(participant.study, participant)
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -110,7 +110,7 @@ RSpec.describe "Managing clinical study participation", type: :request do
         url = research_study_participant_path(participant.study, participant, format: :js)
         patch url, params: { research_study_participant: params }
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
         expect(participant.reload.joined_on).to eq(params[:joined_on])
       end
     end

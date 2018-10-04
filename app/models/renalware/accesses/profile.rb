@@ -11,7 +11,7 @@ module Renalware
       belongs_to :patient, touch: true
       belongs_to :type, class_name: "Type"
 
-      has_paper_trail class_name: "Renalware::Accesses::Version"
+      has_paper_trail class_name: "Renalware::Accesses::Version", on: [:create, :update, :destroy]
 
       scope :ordered, -> { order(formed_on: :desc) }
       scope :current, lambda {

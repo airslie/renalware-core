@@ -12,7 +12,8 @@ module Renalware
       belongs_to :patient, touch: true
       belongs_to :recipient, class_name: "Patient", foreign_key: "recipient_id", touch: true
 
-      has_paper_trail class_name: "Renalware::Transplants::Version"
+      has_paper_trail class_name: "Renalware::Transplants::Version",
+                      on: [:create, :update, :destroy]
 
       scope :ordered, -> { order(created_at: :asc) }
       scope :reversed, -> { order(created_at: :desc) }

@@ -11,7 +11,8 @@ module Renalware
       validates :patient, presence: true
       belongs_to :patient, touch: true
       has_document class_name: "Renalware::LowClearance::ProfileDocument"
-      has_paper_trail class_name: "Renalware::LowClearance::Version"
+      has_paper_trail class_name: "Renalware::LowClearance::Version",
+                      on: [:create, :update, :destroy]
     end
   end
 end

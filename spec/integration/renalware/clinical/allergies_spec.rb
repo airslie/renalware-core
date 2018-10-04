@@ -17,7 +17,7 @@ RSpec.describe "Allergy management", type: :request do
         post(url, params: params, headers: headers)
       }.to change(patient.allergies, :count).by(1)
       follow_redirect!
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -29,7 +29,7 @@ RSpec.describe "Allergy management", type: :request do
 
       expect{ delete(url, headers: headers) }.to change(patient.allergies, :count).by(-1)
       follow_redirect!
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
       expect(patient.allergies.with_deleted.count).to eq(1)
     end
   end

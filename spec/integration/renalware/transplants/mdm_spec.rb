@@ -12,7 +12,7 @@ RSpec.describe "Patient Transplant MDM", type: :request do
 
       get patient_transplants_mdm_path(patient)
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 end
