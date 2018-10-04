@@ -10,11 +10,27 @@ This project adheres to Semantic Versioning.
 ### Fixed
 
 ## 2.0.47
-25-09-2018
+04-10-2018
+
+### Added
+- Support generating printable output compatible with an envelope stuffer #2382
+- Sort and filter Renal Reg pre-flight checks by HD Site #2101
+- Upgrade rails to 5.2.1 #2247
+- Toggle HD session notes in HD session listing #2401
+- Disallow adding a patient with no hospital or NHS no #2217
+- Filter and tab design improvements #2400
+- Toggle clinic visit notes on Clinic Visits list #2395
+- Sorting on Tx Status in Low Clearance MDM patients list #2389
+- Prevent unapproved users from being new Message or eCC recipients #2403
+- Highlight banner patient number when clicked on #2165
+
+### Changed
+- Handle deleting a ward that is in use #2367
 
 ### Fixed
-- Daily summary email not sending
+- Daily summary email not sending #2392
 - Daily summary reports not always created in the renalware namespace
+- Deceased patients continue to age #2394
 
 ## 2.0.46
 21-09-2018
