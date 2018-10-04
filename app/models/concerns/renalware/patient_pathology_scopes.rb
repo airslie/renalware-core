@@ -21,7 +21,7 @@ module Renalware
     # So here we mix in useful ransackers as short cut to use in sort_link
     #
     # Example usage:
-    #   = sort_link(<url>, :cre_observed_at, "CRE date")
+    #   = sort_link(<url>, :cre_date, "CRE date")
     #
     def self.extended(base)
       %i(hgb ure cre urr phos pth).each do |code|

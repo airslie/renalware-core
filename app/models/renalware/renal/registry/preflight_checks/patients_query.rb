@@ -47,8 +47,8 @@ module Renalware
           def call
             search
               .result
+              .merge(HD::Patient.with_profile)
               .eager_load(:profile)
-              .joins("LEFT OUTER JOIN hd_profiles ON hd_profiles.patient_id = patients.id")
               .extending(ModalityScopes)
               .preload(current_modality: [:description])
               .with_current_modality_matching(MODALITY_NAMES)
@@ -56,7 +56,7 @@ module Renalware
           end
 
           def search
-            @search ||= relation.ransack(query_params)
+            @search ||= relation.include(QueryablePatient).ransack(query_params)
           end
 
           def where_conditions
@@ -88,6 +88,19 @@ module Renalware
             missing
           end
           # rubocop:enable Metrics/AbcSize
+
+          module QueryablePatient
+            extend ActiveSupport::Concern
+            included do
+              ransacker :hd_profile_unit_name, type: :string do
+                Arel.sql("hospital_units.name")
+              end
+
+              ransacker :hd_profile_unit_id, type: :string do
+                Arel.sql("hospital_units.id")
+              end
+            end
+          end
         end
       end
     end
