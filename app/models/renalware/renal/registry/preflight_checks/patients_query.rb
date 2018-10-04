@@ -88,16 +88,16 @@ module Renalware
             missing
           end
           # rubocop:enable Metrics/AbcSize
-          #
-
-          # class QueryablePatient < ActiveType::Record[Renal::Patient]
-          # end
 
           module QueryablePatient
             extend ActiveSupport::Concern
             included do
               ransacker :hd_profile_unit_name, type: :string do
                 Arel.sql("hospital_units.name")
+              end
+
+              ransacker :hd_profile_unit_id, type: :string do
+                Arel.sql("hospital_units.id")
               end
             end
           end
