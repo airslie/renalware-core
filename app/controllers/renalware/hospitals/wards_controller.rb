@@ -71,7 +71,7 @@ module Renalware
       end
 
       def ward_params
-        params.require(:ward).permit(:code, :name)
+        params.require(:ward).permit(:code, :name, :active)
       end
     end
   end
