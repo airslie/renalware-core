@@ -46,7 +46,8 @@ module Renalware
 
       def all_other_users
         ids_to_exclude = ids_of_users_having_previously_received_been_cced_about_this_patient +
-                         ids_of_users_having_recently_been_cced_by_author
+                         ids_of_users_having_recently_been_cced_by_author +
+                         ids_of_unapproved_users
         Group.new(
           name: "All other user",
           users: User.where.not(id: ids_to_exclude)
@@ -55,13 +56,14 @@ module Renalware
 
       def ids_of_users_having_previously_received_been_cced_about_this_patient
         @ids_of_users_having_previously_received_been_cced_about_this_patient ||= begin
-          Letter
+          ids = Letter
             .includes(:electronic_receipts)
             .eager_load(:electronic_receipts)
             .where(patient: patient)
             .limit(20)
             .pluck(:recipient_id)
             .flatten.uniq.compact
+          ids - ids_of_unapproved_users
         end
       end
 
@@ -72,8 +74,14 @@ module Renalware
             .where(author: author)
             .limit(20)
             .pluck(:recipient_id).uniq.compact
-          ids - ids_of_users_having_previously_received_been_cced_about_this_patient
+          ids -
+            ids_of_users_having_previously_received_been_cced_about_this_patient -
+            ids_of_unapproved_users
         end
+      end
+
+      def ids_of_unapproved_users
+        User.unapproved.pluck(:id)
       end
     end
   end

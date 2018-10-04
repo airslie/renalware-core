@@ -54,7 +54,9 @@ module Renalware
 
         def all_other_users
           ids_to_exclude = ids_of_users_having_received_a_message_about_patient +
-                           ids_of_users_having_received_messages_from_author
+                           ids_of_users_having_received_messages_from_author +
+                           ids_of_unapproved_users
+
           Group.new(
             name: "All other users",
             users: Recipient.where.not(id: ids_to_exclude)
@@ -63,25 +65,31 @@ module Renalware
 
         def ids_of_users_having_received_a_message_about_patient
           @ids_of_users_having_received_a_message_about_patient ||= begin
-            Message
+            ids = Message
               .includes(:receipts)
               .eager_load(:receipts)
               .where(patient: patient)
               .limit(20)
               .pluck(:author_id, :recipient_id)
               .flatten.uniq.compact
+            ids - ids_of_unapproved_users
           end
         end
 
         def ids_of_users_having_received_messages_from_author
           @ids_of_users_having_received_messages_from_author ||= begin
             ids = Message
-              .includes(:receipts).eager_load(:receipts)
+              .includes(:receipts)
+              .eager_load(:receipts)
               .where(author: author)
               .limit(20)
               .pluck(:recipient_id).uniq.compact
-            ids - ids_of_users_having_received_a_message_about_patient
+            ids - ids_of_users_having_received_a_message_about_patient - ids_of_unapproved_users
           end
+        end
+
+        def ids_of_unapproved_users
+          User.unapproved.pluck(:id)
         end
       end
     end
