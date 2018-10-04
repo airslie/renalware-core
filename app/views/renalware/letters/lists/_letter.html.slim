@@ -14,9 +14,19 @@ tr(class=letter.state.dasherize)
                 data: { \
                   "modal-url" => new_patient_letters_letter_completed_path(letter.patient, letter) \
                 } do
-         i.fas.fa-print
-         | Print
-    | &nbsp;&nbsp;
+        i.fas.fa-print
+        | Print
+      | &nbsp;
+    - if letter.approved? && letter.page_count
+      = link_to patient_letters_letter_printable_path(letter.patient, letter),
+                target: "_blank",
+                class: "printing-pdf button secondary compact",
+                data: { \
+                  "modal-url" => new_patient_letters_letter_completed_path(letter.patient, letter) \
+                } do
+        i.fas.fa-envelope
+        | Env Print
+      | &nbsp;
     = link_to "Toggle",
               "#quick-preview-#{letter.id}",
               data: { behaviour: "toggler" }
@@ -32,6 +42,7 @@ tr(class=letter.state.dasherize)
   td= l(letter.effective_date)
   td= letter.author
   td= letter.typist
+  td= letter.page_count
   td.col-width-medium-with-ellipsis= letter.main_recipient.address
   td.col-width-medium-with-ellipsis= letter.description
 = content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")

@@ -252,7 +252,7 @@ table {
 
     &.col-width-large {
       width: 20rem;
-      min-width: 15rem;
+      min-width: 17rem;
     }
 
     &.column-6-width {
@@ -273,6 +273,11 @@ table {
 
     &.col-width-13 {
       width: 13rem;
+    }
+
+    &.col-width-17 {
+      width: 17rem;
+      min-width: 17rem;
     }
 
     &.at-least {

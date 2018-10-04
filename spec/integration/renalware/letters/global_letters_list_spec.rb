@@ -7,11 +7,6 @@ RSpec.describe "View global letters list", type: :feature, js: false do
 
   describe "GET #show" do
     it "returns a list of letters" do
-      # # TODO: Also test with a clinic visit letter
-      pending
-      fail("Removed this test as it seemed to be causing problems elsewhere - strange.. "\
-           "it causes PG::NotNullViolation: ERROR:  null value in column 'type' violates "\
-           " not-null constraint")
       primary_care_physician = create(:letter_primary_care_physician)
       patient = create(:letter_patient, primary_care_physician: primary_care_physician)
       create_letter(to: :patient, patient: patient)
@@ -20,6 +15,7 @@ RSpec.describe "View global letters list", type: :feature, js: false do
 
       visit letters_list_path
 
+      expect(page.status_code).to eq(200)
       expect(page).to have_content(patient.to_s)
     end
   end

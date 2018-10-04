@@ -30,7 +30,12 @@ Renalware.configure do |config|
       "Renalware::HD::PatientListener",
       "Renalware::Patients::PatientListener"
     ],
-    "Renalware::Letters::ApproveLetter" => [],
+    "Renalware::Letters::ApproveLetter" => [
+      Renalware::Broadcasting::Subscriber.new(
+        "Renalware::Letters::CalculatePageCountJob",
+        async: true
+      )
+    ],
     "Renalware::Pathology::CreateObservationRequests" => []
   }
 end

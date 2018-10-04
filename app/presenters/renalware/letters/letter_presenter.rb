@@ -6,6 +6,13 @@ require "collection_presenter"
 module Renalware
   module Letters
     class LetterPresenter < DumbDelegator
+      ADHOC_PRINTING_CSS = <<-STYLE
+        <style>
+          .footer .ccs h3 { margin-bottom: 4rem !important; }
+          .footer .ccs .address { margin-bottom: 6rem !important; }
+        </style>
+      STYLE
+
       def type
         letter_event.to_link.call(patient)
       end
@@ -56,9 +63,13 @@ module Renalware
         letter_event.part_classes[part_name].new(patient, self, letter_event)
       end
 
-      def to_html
-        content
+      # rubocop:disable Rails/OutputSafety
+      def to_html(adhoc_printing: false)
+        html = content
+        html << ADHOC_PRINTING_CSS.html_safe if adhoc_printing
+        html
       end
+      # rubocop:enable Rails/OutputSafety
 
       def content
         if archived?

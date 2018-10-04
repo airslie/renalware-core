@@ -14,8 +14,12 @@
           = f.input :author_id_eq, as: :user_picker, collection: authors, label: "Author"
         .small-6.medium-2.large-2.columns
           = f.input :created_by_id_eq, as: :user_picker, collection: typists, label: "Typist"
-        .small-6.medium-3.large-2.columns
+        .small-6.medium-2.large-2.columns
           = f.input :letterhead_id_eq, collection: letterheads, label: "Letterhead"
+        .small-6.medium-1.large-1.columns
+          = f.input :page_count_in_array,
+                    collection: [["1 or 2", "[1,2]"],["3 or 4", "[3,4]"]],
+                    label: "Pages"
         .small-12.medium-2.large-2.columns.actions.end
           = f.submit t("helpers.submit.filter"), class: "button"
           span= " or "

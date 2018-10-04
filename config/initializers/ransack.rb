@@ -27,4 +27,15 @@ Ransack.configure do |config|
     validator: proc { |val| val.present? },
     type: :string
   )
+
+  # This predicate is used for example in letters/lists/show when a users filters a list of letters
+  # to display only letters with a page cont of 1 or 2, or 3 or 4, e.g.
+  # = f.input :page_count_in_array, collection: [["1 or 2", "[1,2]"],["3 or 4", "[3,4]"]]
+  config.add_predicate(
+    "in_array",
+    arel_predicate: "in",
+    formatter: proc { |val| val.to_s.scan(/\d+/).map(&:to_i) },
+    validator: proc { |val| val.present? },
+    type: :array
+  )
 end
