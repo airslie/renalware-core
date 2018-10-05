@@ -12965,13 +12965,6 @@ CREATE INDEX obx_unique_letter_grouping ON pathology_observation_descriptions US
 
 
 --
--- Name: pathology_observations_created_on; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX pathology_observations_created_on ON pathology_observations USING btree (((created_at)::date));
-
-
---
 -- Name: patient_bookmarks_uniqueness; Type: INDEX; Schema: renalware; Owner: -
 --
 
