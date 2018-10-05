@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.48
+04-10-2018
+
+### Changed
+- removed a migration with an index that was taking a long time to build
+
 ## 2.0.47
 04-10-2018
 
