@@ -24,9 +24,11 @@ module Renalware
     }
 
     scope :unapproved, -> { where(approved: [nil, false]) }
+    scope :expired, -> { where.not(expired_at: nil) }
     scope :inactive, lambda {
       where("last_activity_at IS NOT NULL AND last_activity_at < ?", expire_after.ago)
     }
+    scope :excludable, -> { unapproved.or(inactive).or(expired) }
     scope :author, -> { where.not(signature: nil) }
     scope :ordered, -> { order(:family_name, :given_name) }
     scope :excluding_system_user, -> { where.not(username: SystemUser.username) }
@@ -44,8 +46,9 @@ module Renalware
       UserPolicy
     end
 
+    # So we can uses these scopes as Ransack predicates eg. { expired: true }
     def self.ransackable_scopes(_auth_object = nil)
-      %i(unapproved inactive)
+      %i(unapproved inactive expired)
     end
 
     # rubocop:disable Naming/PredicateName

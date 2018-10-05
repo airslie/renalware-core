@@ -17,6 +17,14 @@ module Renalware
         user.update!(approved: false)
       end
 
+      def expire_user(user)
+        ActiveType.cast(user, ::Renalware::User).update_column(:expired_at, 1.day.ago)
+      end
+
+      def make_user_inactive(user)
+        ActiveType.cast(user, ::Renalware::User).update_column(:last_activity_at, 10.years.ago)
+      end
+
       before do
         disinterested_user # create this user
       end
@@ -86,6 +94,32 @@ module Renalware
           context "when the user subsequently becomes unapproved" do
             it "they do not appear in the second group" do
               unapprove_user(recipient1)
+
+              options = described_class.new(patient, author)
+              groups = options.to_a
+
+              expect(groups[0].users).to be_empty
+              expect(groups[1].users).not_to include(recipient1)
+              expect(groups[2].users).not_to include(recipient1)
+            end
+          end
+
+          context "when the user subsequently becomes expired" do
+            it "they do not appear in the second group" do
+              expire_user(recipient1)
+
+              options = described_class.new(patient, author)
+              groups = options.to_a
+
+              expect(groups[0].users).to be_empty
+              expect(groups[1].users).not_to include(recipient1)
+              expect(groups[2].users).not_to include(recipient1)
+            end
+          end
+
+          context "when the user subsequently becomes inactive" do
+            it "they do not appear in the second group" do
+              make_user_inactive(recipient1)
 
               options = described_class.new(patient, author)
               groups = options.to_a

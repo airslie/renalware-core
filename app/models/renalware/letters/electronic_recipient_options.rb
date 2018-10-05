@@ -47,7 +47,7 @@ module Renalware
       def all_other_users
         ids_to_exclude = ids_of_users_having_previously_received_been_cced_about_this_patient +
                          ids_of_users_having_recently_been_cced_by_author +
-                         ids_of_unapproved_users
+                         ids_of_excludable_users
         Group.new(
           name: "All other user",
           users: User.where.not(id: ids_to_exclude)
@@ -63,7 +63,7 @@ module Renalware
             .limit(20)
             .pluck(:recipient_id)
             .flatten.uniq.compact
-          ids - ids_of_unapproved_users
+          ids - ids_of_excludable_users
         end
       end
 
@@ -76,12 +76,12 @@ module Renalware
             .pluck(:recipient_id).uniq.compact
           ids -
             ids_of_users_having_previously_received_been_cced_about_this_patient -
-            ids_of_unapproved_users
+            ids_of_excludable_users
         end
       end
 
-      def ids_of_unapproved_users
-        User.unapproved.pluck(:id)
+      def ids_of_excludable_users
+        User.excludable.pluck(:id)
       end
     end
   end

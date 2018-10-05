@@ -33,6 +33,14 @@ module Renalware::Messaging::Internal
       ActiveType.cast(user, ::Renalware::User).update!(approved: false)
     end
 
+    def expire_user(user)
+      ActiveType.cast(user, ::Renalware::User).update_column(:expired_at, 1.day.ago)
+    end
+
+    def make_user_inactive(user)
+      ActiveType.cast(user, ::Renalware::User).update_column(:last_activity_at, 10.years.ago)
+    end
+
     describe "#to_h" do
       before do
         send_message_about(patient: patient_a, to: recipient_for_message_re_patient_a)
@@ -79,15 +87,15 @@ module Renalware::Messaging::Internal
         expect(all_other_users).to include(another_user)
       end
 
-      context "when a user has become unapproved (e.g. so they cannot log in) then they should "\
+      context "when a user as become unapproved, expired or inactive then they should "\
               "not appear in recipient options, even if they are a previous recipient for "\
               "messages about the current patient or from the current author" do
 
-        it "returns a hash of 3 recipient groups with unaproved users removed" do
+        it "returns a hash of 3 recipient groups with expired/unapproved/inactive users removed" do
           # Unapproved our users so they are excluded from returned results
           unapprove_user(recipient_for_message_re_patient_a)
-          unapprove_user(recipient_for_message_re_patient_b)
-          unapprove_user(another_user)
+          expire_user(recipient_for_message_re_patient_b)
+          make_user_inactive(another_user)
 
           # Get grouped dropdown options as if we want to send another message about patient_a
           recipient_options = described_class.new(patient_a, author)
