@@ -17,12 +17,14 @@ module Renalware
           end
         end
 
-        context "when patient is main recipient CCs are the GP and a letter contact" do
+        context "when patient is main recipient CCs are the GP and a letter contact "\
+                "and the patient's practice has no email address so we snail mail the GP" do
           context "when the letter is only 1 page long" do
             it "renders a PDF containing an address cover sheet + letter for each recipient "\
               "including blank pages where necessary" do
 
               letter = create_letter_to_patient_with_cc_to_gp_and_one_contact(page_count: 1)
+              letter.patient.practice.update_column(:email, nil)
               pdf_file = Tempfile.new("merged_pdf", Rails.root.join("tmp"))
 
               ms = Benchmark.ms do
