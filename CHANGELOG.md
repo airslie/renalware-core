@@ -9,11 +9,16 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
-## 2.0.49
+## 2.0.50
 08-10-2018
 
 ### Fixed
 - Remove GP from envelope-stuffer print output if they have already received the letter by email
+
+## 2.0.49
+08-10-2018
+
+No change
 
 ## 2.0.48
 04-10-2018
