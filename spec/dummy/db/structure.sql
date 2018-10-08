@@ -5804,7 +5804,10 @@ CREATE VIEW reporting_daily_letters AS
           WHERE ((letter_letters.created_at)::date = (now())::date)) AS letters_created_today,
     ( SELECT count(*) AS count
            FROM letter_letters
-          WHERE ((letter_letters.completed_at)::date = (now())::date)) AS letters_printed_today;
+          WHERE ((letter_letters.completed_at)::date = (now())::date)) AS letters_printed_today,
+    ( SELECT count(*) AS count
+           FROM letter_letters
+          WHERE (((letter_letters.type)::text = 'Renalware::Letters::Letter::Draft'::text) AND (letter_letters.issued_on < (CURRENT_DATE - '14 days'::interval)))) AS draft_letters_older_than_14_days;
 
 
 --
@@ -15668,6 +15671,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180831134606'),
 ('20180831134926'),
 ('20180907100545'),
-('20181001162513');
+('20181001162513'),
+('20181008144324');
 
 
