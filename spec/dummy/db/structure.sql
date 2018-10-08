@@ -5851,6 +5851,16 @@ CREATE VIEW reporting_daily_pathology AS
 
 
 --
+-- Name: reporting_daily_ukrdc; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW reporting_daily_ukrdc AS
+ SELECT ( SELECT count(*) AS count
+           FROM patients
+          WHERE ((patients.sent_to_ukrdc_at)::date = CURRENT_DATE)) AS patients_sent_to_ukrdc_today;
+
+
+--
 -- Name: reporting_hd_blood_pressures_audit; Type: MATERIALIZED VIEW; Schema: renalware; Owner: -
 --
 
@@ -15672,6 +15682,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180831134926'),
 ('20180907100545'),
 ('20181001162513'),
-('20181008144324');
+('20181008144324'),
+('20181008145159');
 
 
