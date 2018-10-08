@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.51
+08-10-2018
+
+### Fixed
+- Tweaked position of the address in the envelope window when targeting the envelope stuffer
+
 ## 2.0.50
 08-10-2018
 

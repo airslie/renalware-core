@@ -20,9 +20,10 @@ scss:
   .address-in-window {
     position: absolute;
     left: 60px;
-    top: 190px; /* left 2.65 */
+    top: 75px;
     width: 50%;
     height: 50%;
+    line-height: 1.2em;
   }
 
 .alwaysbreak
@@ -32,6 +33,8 @@ scss:
 
 .envelope
   .address-in-window
+    div PRIVATE AND CONFIDENTIAL
+    br
     = recipient.to_html
 
 / Generate a blank page because we are using duplex printing and otherwise the letter would start
