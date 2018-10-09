@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 require "fileutils"
-require "gpgme"
 
 # Note you can print out the help for this task and others with `rake -D`
 namespace :ukrdc do
