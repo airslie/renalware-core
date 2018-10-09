@@ -8,9 +8,10 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       def index
-        studies = Study.ordered.page(page).per(per_page)
+        query = Study.ordered.ransack(params[:q])
+        studies = query.result.page(page).per(per_page)
         authorize studies
-        render locals: { studies: studies }
+        render locals: { studies: studies, query: query }
       end
 
       def new
