@@ -55,18 +55,6 @@ module Renalware
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-      def gpg_encrypt(filepath, output_filepath)
-        path_to_key = File.open(Rails.root.join("key.gpg"))
-        # only needed if the key has not been imported previously
-        GPGME::Key.import(path_to_key)
-        crypto = GPGME::Crypto.new(always_trust: true)
-        File.open(filepath) do |in_file|
-          File.open(output_filepath, "wb") do |out_file|
-            crypto.encrypt in_file, output: out_file, recipients: "Patient View"
-          end
-        end
-      end
-
       def timestamp
         Time.zone.now.strftime("%Y%m%d%H%M%S%L")
       end
@@ -108,7 +96,7 @@ module Renalware
           keyring: config.ukrdc_gpg_keyring,
           homedir: config.ukrdc_gpg_homedir,
           filename_transform: lambda do |filename|
-            filename.to_s.gsub("/xml/", "/encrypted/") + ".enc"
+            filename.to_s.gsub("/xml/", "/encrypted/").gsub(".xml", ".gpg")
           end
         )
       end
