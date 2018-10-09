@@ -5,6 +5,9 @@
             class: :button,
             data: { "reveal-id" => "study-participant-modal", "reveal-ajax" => "true" })
 
+= content_for(:filters) do
+  = render "filters", study: study, query: query
+
 = within_admin_layout(\
   title: "Participants",
   breadcrumbs: [\

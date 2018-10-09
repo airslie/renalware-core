@@ -9,7 +9,9 @@ module Renalware
 
       def index
         authorize StudyParticipant, :index?
-        render locals: { study: study, participants: participants }
+        query = StudyParticipantsQuery.new(study: study, options: params[:q])
+        participants = query.call.page(page).per(per_page)
+        render locals: { study: study, participants: participants, query: query.search }
       end
 
       def show
