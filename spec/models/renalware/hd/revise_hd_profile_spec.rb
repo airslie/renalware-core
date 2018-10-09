@@ -7,7 +7,7 @@ module Renalware::HD
     let(:patient) { create(:hd_patient) }
 
     let(:original_profile) do
-      create(:hd_profile, patient: patient, other_schedule: nil)
+      create(:hd_profile, patient: patient, other_schedule: nil, by: user)
     end
 
     describe "#call" do
@@ -20,14 +20,22 @@ module Renalware::HD
       end
 
       context "when updating the profile other_schedule with a valid value" do
+        let(:another_user) { create(:user) }
+
         subject!(:revised_profile) do
-          ReviseHDProfile.new(original_profile).call(other_schedule: other_schedule, by: user)
+          ReviseHDProfile.new(original_profile)
+            .call(other_schedule: other_schedule, by: another_user)
         end
 
         let(:other_schedule) { "Mon Fri Sun" }
 
         it "returns a profile" do
           expect(revised_profile).to be_present
+        end
+
+        it "saves the user making the change in updated_by_id" do
+          expect(original_profile.updated_by).to eq(user)
+          expect(revised_profile.reload.updated_by).to eq(another_user)
         end
 
         context "when nothing has changed" do
