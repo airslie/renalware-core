@@ -2,8 +2,8 @@
   table
     thead
       tr
-        th.col-width-date Joined on
-        th.col-width-date Left on
+        th.col-width-date= sort_link(query, :joined_on, "Joined on")
+        th.col-width-date= sort_link(query, :left_on, "Left on")
         th Patient
         th.col-width-nhs-no NHS Number
         th.col-width-reference-no Hosp no

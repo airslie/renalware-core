@@ -9,6 +9,6 @@
                   label: "Search by any part of the code, description or leader's name"
 
       .columns.medium-4.actions.end
-        = f.submit "Search", class: "button secondary", name: nil
+        = f.submit t("helpers.submit.filter"), class: "button", name: nil
         span= " or "
         = link_to t("helpers.reset"), research_studies_path

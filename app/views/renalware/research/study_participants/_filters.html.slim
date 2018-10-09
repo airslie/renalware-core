@@ -4,8 +4,8 @@
       url: research_study_participants_path(study),
       method: :get do |f|
     .row
-      .columns.medium-2
-        = f.input :identity_match, label: "Hosp/NHS no or name"
+      .columns.medium-3
+        = f.input :identity_match, label: "Search by Hosp/NHS no or name"
 
       .columns.medium-4.actions.end
         = f.submit t("helpers.submit.filter"), class: "button", name: nil
