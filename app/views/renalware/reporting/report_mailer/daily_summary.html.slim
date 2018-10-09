@@ -2,7 +2,8 @@ h4= l(Time.zone.now)
 
 - view_data.each do |view_name, data|
   - rows = data["data"].first
-  h3= t(:title, scope: "renalware.reporting.#{view_name}", default: view_name)
+
+  h3= view_name.gsub("reporting_daily_", "").humanize
   table
     - rows.each do |row|
       - description = row[0]
