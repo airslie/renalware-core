@@ -12,13 +12,15 @@ module Renalware
       include Virtus::Model
 
       attribute :hospital_unit_id, Integer
+      attribute :named_nurse_id, Integer
       attribute :schedule_definition_ids, String # an Integer array in string form e.g. "[1 ,2]"
 
       # The hash returned here is passed into the Ransack #search method later i the ouery object.
       def ransacked_parameters
         {
           hd_profile_hospital_unit_id_eq: hospital_unit_id,
-          hd_profile_schedule_definition_id_in: schedule_definition_ids_array
+          hd_profile_schedule_definition_id_in: schedule_definition_ids_array,
+          hd_profile_named_nurse_id_eq: named_nurse_id
         }
       end
 

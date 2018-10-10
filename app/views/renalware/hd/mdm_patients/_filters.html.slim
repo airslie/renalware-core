@@ -5,21 +5,26 @@
                   html: { autocomplete: "off" },
                   wrapper: :horizontal_form do |f|
   .row
-    .medium-4.columns
+    .medium-3.columns
       = f.input :hospital_unit_id,
           collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
           as: :grouped_select, group_method: :hd_sites,
           label: t(".hospital_unit")
 
-    .medium-4.columns
+    .medium-3.columns
       = f.input :schedule_definition_ids,
           collection: Renalware::HD::ScheduleDefinitionFilter.all,
           label_method: :days,
           value_method: :ids,
           include_blank: true,
-          label:  t(".schedule")
+          label: t(".schedule")
 
-    .medium-4.columns.actions
+    .medium-4.columns
+      = f.input :named_nurse_id,
+                as: :user_picker,
+                collection: Renalware::User.ordered.select(:id, :given_name, :family_name)
+
+    .medium-2.columns.actions
       = f.submit t("helpers.submit.filter"), class: "button", name: nil
       span= " or "
       = link_to t("helpers.reset"), hd_mdm_patients_path
