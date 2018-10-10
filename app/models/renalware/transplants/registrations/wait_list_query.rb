@@ -123,6 +123,20 @@ module Renalware
             Arel.sql("renal_profiles.esrf_on")
           end
 
+          # TODO: move ransacker to Renal namespace
+          ransacker :patient_current_status_description_name do
+            Arel.sql("transplant_registration_status_descriptions.name")
+          end
+
+          ransacker :ukt_status do
+            Arel.sql(<<-SQL)
+              COALESCE(
+                transplant_registrations.document -> 'uk_transplant_centre' ->> 'status',
+                ''
+              )
+            SQL
+          end
+
           private_class_method :ransackable_scopes
 
           def self.ransackable_scopes(_auth_object = nil)
