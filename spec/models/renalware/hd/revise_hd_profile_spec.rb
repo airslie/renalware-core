@@ -20,12 +20,12 @@ module Renalware::HD
       end
 
       context "when updating the profile other_schedule with a valid value" do
-        let(:another_user) { create(:user) }
-
         subject!(:revised_profile) do
           ReviseHDProfile.new(original_profile)
             .call(other_schedule: other_schedule, by: another_user)
         end
+
+        let(:another_user) { create(:user) }
 
         let(:other_schedule) { "Mon Fri Sun" }
 
