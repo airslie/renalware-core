@@ -100,6 +100,7 @@ module Renalware
         let(:error_message) {
           "The patient must have at least one of these numbers: HOSP1, HOSP2, HOSP3, HOSP4, HOSP5"
         }
+
         context "when the patient has no local_patient_id" do
           it "is invalid" do
             patient = Patient.new

@@ -64,6 +64,7 @@ module Renalware
                 if letter.page_count.to_i < 1
                   raise(ArgumentError, "letter.page_count not set on letter.id=#{letter.id}")
                 end
+
                 letter_filename = create_letter_pdf_in(dir, letter)
                 files << letter_filename
               end

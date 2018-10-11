@@ -74,6 +74,7 @@ RSpec.describe "Printing a letter",
       # tab does kick off and try and render the PDF - hence we stub out
       # PDF generation above. But we don't need to worry about that,
       # just check later that a pdf was generated.
+      # NOTE: don't change this to have_current_path - we need to use match here
       expect(page.current_path).to match(letters_list_path)
 
       within(".modal") do
@@ -123,6 +124,7 @@ RSpec.describe "Printing a letter",
         click_on "Print"
       end
 
+      # NOTE: don't change this to have_current_path - we need to use match here
       expect(page.current_path).to match(letters_list_path)
 
       within(".modal") do

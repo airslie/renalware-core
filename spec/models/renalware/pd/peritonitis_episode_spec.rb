@@ -12,67 +12,67 @@ module Renalware
     it { is_expected.to belong_to(:patient).touch(true) }
 
     describe "peritonitis episode" do
-      before do
-        @patient = create(:patient)
-        @pe = build(:peritonitis_episode)
-        @mrsa = create(:organism_code, name: "MRSA")
-        @ecoli = create(:organism_code, name: "E.Coli")
-        @user = create(:user)
-
-        load_drugs_by_type("Amoxicillin" => %w(Antibiotic Peritonitis),
-                           "Penicillin" => %w(Antibiotic Peritonitis))
-
-        load_med_routes
-      end
+      let(:patient) { create(:patient) }
+      let(:episode) { build(:peritonitis_episode) }
+      let(:mrsa) { create(:organism_code, name: "MRSA") }
+      let(:ecoli) { create(:organism_code, name: "E.Coli") }
+      let(:user) { create(:user) }
 
       describe "prescriptions" do
         it "can be assigned many prescriptions and organisms/sensitivities" do
-          @prescription_one = create(
+          load_drugs_by_type(
+            "Amoxicillin" => %w(Antibiotic Peritonitis),
+            "Penicillin" => %w(Antibiotic Peritonitis)
+          )
+
+          load_med_routes
+
+          prescription_one = create(
             :prescription,
-            patient: @patient,
+            patient: patient,
             drug: @amoxicillin,
-            treatable: @pe,
+            treatable: episode,
             medication_route: @po,
             frequency: "daily",
             notes: "with food",
             prescribed_on: "02/03/2015",
             provider: 0,
-            by: @user
+            by: user
           )
 
-          @prescription_two = create(
+          prescription_two = create(
             :prescription,
-            patient: @patient,
+            patient: patient,
             drug: @penicillin,
-            treatable: @pe,
+            treatable: episode,
             medication_route: @iv,
             frequency: "daily",
             notes: "with food",
             prescribed_on: "02/03/2015",
             provider: 1,
-            by: @user
+            by: user
           )
 
-          @pe.prescriptions << @prescription_one
-          @pe.prescriptions << @prescription_two
+          episode.prescriptions << prescription_one
+          episode.prescriptions << prescription_two
 
-          @mrsa_sensitivity = @pe.infection_organisms
-                                 .build(organism_code: @mrsa,
+          mrsa_sensitivity = episode.infection_organisms
+                                 .build(organism_code: mrsa,
                                         sensitivity: "Sensitive to MRSA.")
-          @ecoli_sensitivity = @pe.infection_organisms
-                                   .build(organism_code: @ecoli,
+          @ecoli_sensitivity = episode.infection_organisms
+                                   .build(organism_code: ecoli,
                                           sensitivity: "Sensitive to E.Coli.")
 
-          @pe.save!
-          @pe.reload
+          episode.save!
+          episode.reload
 
-          expect(@pe.prescriptions.size).to eq(2)
-          expect(@pe.infection_organisms.size).to eq(2)
+          expect(episode.prescriptions.size).to eq(2)
+          expect(episode.infection_organisms.size).to eq(2)
 
-          expect(@pe.prescriptions).to match_array([@prescription_two, @prescription_one])
-          expect(@pe.infection_organisms).to match_array([@ecoli_sensitivity, @mrsa_sensitivity])
+          expect(episode.prescriptions).to match_array([prescription_two, prescription_one])
+          expect(episode.infection_organisms).to match_array([@ecoli_sensitivity, mrsa_sensitivity])
 
-          expect(@pe).to be_valid
+          expect(episode).to be_valid
         end
       end
     end
