@@ -56,8 +56,8 @@ module Renalware
       }
       singleton_class.send(:alias_method, :in_progress, :pending)
 
-      scope :reversed, -> { order("#{effective_date_sort} asc") }
-      scope :ordered, -> { order("#{effective_date_sort} desc") }
+      scope :reversed, -> { order(Arel.sql(effective_date_sort) => :asc) }
+      scope :ordered, -> { order(Arel.sql(effective_date_sort) => :desc) }
       scope :with_letterhead, -> { includes(:letterhead) }
       scope :with_main_recipient, -> { includes(main_recipient: [:address, :addressee]) }
       scope :with_author, -> { includes(:author) }
