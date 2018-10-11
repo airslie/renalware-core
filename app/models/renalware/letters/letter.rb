@@ -79,7 +79,7 @@ module Renalware
       end
 
       def self.effective_date_sort
-        "coalesce(completed_at, approved_at, submitted_for_approval_at, created_at)"
+        Arel.sql("coalesce(completed_at, approved_at, submitted_for_approval_at, created_at)")
       end
 
       EVENTS_MAP = {
