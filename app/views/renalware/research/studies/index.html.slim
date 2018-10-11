@@ -1,15 +1,18 @@
 = content_for(:actions) do
   = link_to("Add", new_research_study_path, class: :button)
 
+= content_for(:filters) do
+  = render "filters", query: query
+
 = within_admin_layout(title: "Clinical Studies") do
   table
     thead
       tr
-        th.col-width-date Started
-        th.col-width-date Terminated
-        th.col-width-small Code
+        th.col-width-date= sort_link(query, :started_on, "Started")
+        th.col-width-date= sort_link(query, :terminated_on, "Terminated")
+        th.col-width-small= sort_link(query, :code, "Code")
         th Description
-        th Leader
+        th= sort_link(query, :code, "Leader")
         th Participants
         th
     tbody

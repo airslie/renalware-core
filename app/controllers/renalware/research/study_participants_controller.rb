@@ -9,7 +9,7 @@ module Renalware
 
       def index
         authorize StudyParticipant, :index?
-        render locals: { study: study, participants: participants }
+        render_current_action_with_locals
       end
 
       def show
@@ -23,7 +23,7 @@ module Renalware
         authorize participant
 
         if participant.save
-          render locals: { study: study, participants: participants }
+          render_current_action_with_locals
         else
           render_new(participant)
         end
@@ -50,7 +50,7 @@ module Renalware
       def update
         participant = find_and_authorise_participant
         if participant.update(participant_params_for_update)
-          render locals: { study: study, participants: participants }
+          render_current_action_with_locals
         else
           render_edit(participant)
         end
@@ -68,6 +68,12 @@ module Renalware
 
       def render_new(participant)
         render :new, locals: { participant: participant }, layout: false
+      end
+
+      def render_current_action_with_locals
+        query = StudyParticipantsQuery.new(study: study, options: params[:q])
+        participants = query.call.page(page).per(per_page)
+        render locals: { study: study, participants: participants, query: query.search }
       end
 
       def study

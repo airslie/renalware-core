@@ -1,0 +1,14 @@
+.search-form.filters
+  = simple_form_for query,
+      as: :q,
+      url: research_studies_path,
+      method: :get do |f|
+    .row
+      .columns.medium-5
+        = f.input :code_or_description_or_leader_cont,
+                  label: "Search by any part of the code, description or leader's name"
+
+      .columns.medium-4.actions.end
+        = f.submit t("helpers.submit.filter"), class: "button", name: nil
+        span= " or "
+        = link_to t("helpers.reset"), research_studies_path

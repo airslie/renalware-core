@@ -6,6 +6,8 @@ module Renalware
   module Research
     class StudyParticipant < ApplicationRecord
       include Accountable
+      include PatientsRansackHelper
+
       acts_as_paranoid
       validates :participant_id, presence: true, uniqueness: { scope: :study }
       validates :study, presence: true
