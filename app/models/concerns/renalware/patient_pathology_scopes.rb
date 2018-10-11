@@ -43,17 +43,21 @@ module Renalware
     #   so should rise above them when sorted
     # 3. Nulls (mapped to -1)
     def self.pathology_result_sort_predicate(column)
-      sanitized_column = Arel.sql(column.to_s.upcase)
+      sanitized_column = Arel.sql(sanitize(column.to_s.upcase))
       Arel.sql(
-        "coalesce(convert_to_float(values -> '#{sanitized_column}' ->> 'result'), -1)"
+        "coalesce(convert_to_float(values -> #{sanitized_column} ->> 'result'), -1)"
       )
     end
 
     def self.pathology_date_sort_predicate(column)
-      sanitized_column = Arel.sql(column.to_s.upcase)
+      sanitized_column = Arel.sql(sanitize(column.to_s.upcase))
       Arel.sql(
-        "cast(values -> '#{sanitized_column}' ->> 'observed_at' as date)"
+        "cast(values -> #{sanitized_column} ->> 'observed_at' as date)"
       )
+    end
+
+    def self.sanitize(sql)
+      ActiveRecord::Base.connection.quote(sql)
     end
   end
 end
