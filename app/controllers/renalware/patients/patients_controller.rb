@@ -36,7 +36,7 @@ module Renalware
         patient = Patient.new(patient_params)
         authorize patient
 
-        if patient.save
+        if patient.save_by(current_user)
           # Reload in order to let pg generate the secure id
           redirect_to_patient_demographics(patient.reload)
         else
@@ -52,7 +52,7 @@ module Renalware
 
       def update
         authorize patient
-        if patient.update(patient_params)
+        if patient.update_by(current_user, patient_params)
           redirect_to_patient_demographics(patient)
         else
           flash.now[:error] = t(".failed", model_name: "patient")
@@ -81,11 +81,7 @@ module Renalware
       end
 
       def patient_params
-        params
-          .require(:patient)
-          .permit(patient_attributes)
-          .merge(document: document_attributes)
-          .merge(by: current_user)
+        params.require(:patient).permit(patient_attributes)
       end
 
       def patient_attributes
@@ -98,7 +94,8 @@ module Renalware
           :local_patient_id_4, :local_patient_id_5, :external_patient_id,
           :send_to_renalreg, :send_to_rpv, :renalreg_decision_on, :rpv_decision_on,
           :renalreg_recorded_by, :rpv_recorded_by,
-          current_address_attributes: address_params
+          current_address_attributes: address_params,
+          document: {}
         ]
       end
 
@@ -107,13 +104,6 @@ module Renalware
           :id, :name, :organisation_name, :street_1, :street_2, :street_3, :county, :country_id,
           :town, :postcode, :telephone, :email
         ]
-      end
-
-      def document_attributes
-        params
-          .require(:patient)
-          .fetch(:document, nil)
-          .try(:permit!)
       end
 
       def redirect_to_patient_demographics(patient)

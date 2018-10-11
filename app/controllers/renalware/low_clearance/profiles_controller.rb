@@ -33,14 +33,7 @@ module Renalware
       end
 
       def profile_params
-        params
-          .require(:low_clearance_profile)
-          .permit(document: [])
-          .merge(document: document_attributes)
-      end
-
-      def document_attributes
-        params.require(:low_clearance_profile)[:document]&.permit!
+        params.require(:low_clearance_profile).permit(document: {})
       end
     end
   end

@@ -20,7 +20,7 @@ module Renalware
       def create
         assessment = PD::Assessment.for_patient(patient).new(assessment_params)
         authorize assessment
-        if assessment.save
+        if assessment.save_by(current_user)
           redirect_to patient_pd_dashboard_path(patient),
                       notice: success_msg_for("assessment")
         else
@@ -37,7 +37,7 @@ module Renalware
       def update
         assessment = find_assessment
         authorize assessment
-        if assessment.update(assessment_params)
+        if assessment.update_by(current_user, assessment_params)
           redirect_to patient_pd_dashboard_path(patient),
                       notice: success_msg_for("assessment")
         else
@@ -52,20 +52,7 @@ module Renalware
       end
 
       def assessment_params
-        params
-          .require(:assessment)
-          .permit(attributes)
-          .merge(document: document_attributes, by: current_user)
-      end
-
-      def attributes
-        [
-          document: []
-        ]
-      end
-
-      def document_attributes
-        params.require(:assessment).fetch(:document, nil).try(:permit!)
+        params.require(:assessment).permit(document: {})
       end
     end
   end

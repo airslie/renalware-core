@@ -74,16 +74,6 @@ module Renalware
             expect(patients).to eq([patient_with_no_ethnicity])
           end
 
-          # it "returns patients with no renal profile (therefore no primary renal diag etc)" do
-          #   create_patient_passing_preflight_checks
-          #   patient_with_no_renal_profile = create_patient_passing_preflight_checks
-          #   Renal.cast_patient(patient_with_no_renal_profile).profile.destroy
-
-          #   patients = described_class.new.call
-
-          #   expect(patients).to eq([patient_with_no_renal_profile])
-          # end
-
           it "returns patients with no primary renal diagnosis (PRD) on their renal profile" do
             create_patient_passing_preflight_checks
             patient_with_no_prd = create_patient_passing_preflight_checks

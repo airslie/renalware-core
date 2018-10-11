@@ -1,11 +1,11 @@
 = within_patient_layout(title: "Edit", breadcrumbs: breadcrumb_for("Demographics", patient)) do
   .row.document
-    .columns.small-12= render "renalware/shared/errors", model: patient
+    .columns.small-12
+      = render "renalware/shared/errors", model: patient
     = simple_form_for patient,
                       wrapper: "horizontal_form",
                       html: { autocomplete: "off" } do |f|
 
-      = render "renalware/shared/errors", model: patient
       = render "form", f: f, patient: patient
 
       .columns.large-12

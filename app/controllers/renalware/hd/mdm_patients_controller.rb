@@ -6,7 +6,7 @@ module Renalware
   module HD
     class MDMPatientsController < Renalware::MDMPatientsController
       def index
-        filter_form = HD::MDMPatientsForm.new(filter_form_params)
+        filter_form = form_object_class.new(filter_form_params)
 
         query = HD::MDMPatientsQuery.new(
           params: filter_form.ransacked_parameters.merge(query_params).with_indifferent_access
@@ -21,12 +21,18 @@ module Renalware
 
       private
 
+      # Permit all attributes on the filter form object. Slightly messy
       def filter_form_params
-        params.fetch(:filter, {}).permit!
+        params.fetch(:filter, {}).permit(form_object_class.permittable_attributes)
       end
 
+      def form_object_class
+        Renalware::HD::MDMPatientsForm
+      end
+
+      # Ransack params use for column sorting
       def query_params
-        params.fetch(:q, {}).permit!
+        params.fetch(:q, {}).permit(:s)
       end
 
       def render_index(filter_form:, **args)

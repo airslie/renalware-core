@@ -95,38 +95,42 @@ ruby:
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Anticoagulant", name: "anticoagulant" } do
-      = fd.simple_fields_for :anticoagulant, profile.document.anticoagulant do |fcm|
-        = fcm.input :type, wrapper: :horizontal_small
-        = fcm.input :loading_dose, wrapper: :horizontal_tiny
-        = fcm.input :hourly_dose, wrapper: :horizontal_tiny
-        = fcm.input :stop_time, collection: fcm.object.class.stop_times, wrapper: :horizontal_tiny
+      .hd-profile-form-anticoagulant
+        = fd.simple_fields_for :anticoagulant, profile.document.anticoagulant do |fcm|
+          = fcm.input :type, wrapper: :horizontal_small
+          = fcm.input :loading_dose, wrapper: :horizontal_tiny
+          = fcm.input :hourly_dose, wrapper: :horizontal_tiny
+          = fcm.input :stop_time, collection: fcm.object.class.stop_times, wrapper: :horizontal_tiny
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Drugs", name: "drugs" } do
       = fd.simple_fields_for :drugs, profile.document.drugs do |fcm|
-        = fcm.input :on_esa, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :on_iron, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :on_warfarin, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        .hd-profile-form-drugs
+          = fcm.input :on_esa, as: :inline_radio_buttons, wrapper: :horizontal_medium
+          = fcm.input :on_iron, as: :inline_radio_buttons, wrapper: :horizontal_medium
+          = fcm.input :on_warfarin, as: :inline_radio_buttons, wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Transport", name: "transport" } do
-      = fd.simple_fields_for :transport, profile.document.transport do |fcm|
-        = fcm.input :has_transport, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :type, wrapper: :horizontal_small
-        = fcm.input :decided_on, as: :date_picker, wrapper: :horizontal_datepicker
-      = f.association :transport_decider,
-                      as: :user_picker,
-                      collection: Renalware::User.ordered,
-                      wrapper: :horizontal_medium
+      .hd-profile-form-transport
+        = fd.simple_fields_for :transport, profile.document.transport do |fcm|
+          = fcm.input :has_transport, as: :inline_radio_buttons, wrapper: :horizontal_medium
+          = fcm.input :type, wrapper: :horizontal_small
+          = fcm.input :decided_on, as: :date_picker, wrapper: :horizontal_datepicker
+        = f.association :transport_decider,
+                        as: :user_picker,
+                        collection: Renalware::User.ordered,
+                        wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Care Level", name: "care_level" } do
-      = fd.simple_fields_for :care_level, profile.document.care_level do |fcm|
-        table
-          = fcm.input :level, wrapper: :horizontal_medium
-          = fcm.input :assessed_on, as: :date_picker, wrapper: :horizontal_datepicker
+      .hd-profile-form-care-level
+        = fd.simple_fields_for :care_level, profile.document.care_level do |fcm|
+          table
+            = fcm.input :level, wrapper: :horizontal_medium
+            = fcm.input :assessed_on, as: :date_picker, wrapper: :horizontal_datepicker
 
-.row
+.row.form-actions
   .large-12.columns
     = f.button :submit
     span= " or "

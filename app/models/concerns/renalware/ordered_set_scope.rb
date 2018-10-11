@@ -32,7 +32,7 @@ module Renalware
         verified_values = verify_values(attribute, values.map(&:to_s))
 
         where(attribute => verified_values)
-          .order("CASE #{generate_conditions(attribute, values.uniq)} END")
+          .order(Arel.sql("CASE #{generate_conditions(attribute, values.uniq)} END"))
       end
 
       private

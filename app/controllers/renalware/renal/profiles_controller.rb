@@ -44,9 +44,8 @@ module Renalware
           .permit(
             :esrf_on, :first_seen_on, :prd_description_id, :weight_at_esrf,
             :modality_at_esrf, :comorbidities_updated_on,
-            address_at_diagnosis_attributes: address_params
+            address_at_diagnosis_attributes: address_params, document: {}
           )
-          .merge(document: document_attributes)
       end
 
       def address_params
@@ -58,13 +57,6 @@ module Renalware
 
       def find_profile
         patient.profile || patient.build_profile
-      end
-
-      def document_attributes
-        params
-          .require(:renal_profile)
-          .fetch(:document, nil)
-          .try(:permit!)
       end
     end
   end

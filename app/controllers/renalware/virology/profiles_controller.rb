@@ -42,20 +42,7 @@ module Renalware
       end
 
       def profile_params
-        params
-          .require(:virology_profile)
-          .permit(attributes)
-          .merge(document: document_attributes)
-      end
-
-      def attributes
-        [
-          document: []
-        ]
-      end
-
-      def document_attributes
-        params.require(:virology_profile).fetch(:document, nil).try(:permit!)
+        params.require(:virology_profile).permit(document: {})
       end
     end
   end
