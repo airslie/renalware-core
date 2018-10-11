@@ -25,6 +25,14 @@ module Renalware
 
         it { is_expected.to eq(true) }
       end
+
+      describe "self.effective_date_sort" do
+        it "generates a SQL coalesce statement to return the most relevant date for the letter" do
+          expect(
+            described_class.effective_date_sort
+          ).to eq("coalesce(completed_at, approved_at, submitted_for_approval_at, created_at)")
+        end
+      end
     end
   end
 end
