@@ -1,8 +1,0 @@
-- named_filter_param = params[:named_filter]
-
-dl.sub-nav
-  dd(class=("active" unless named_filter_param.present?))
-     = link_to t(".filter.all"), transplants_mdm_patients_path
-  - %i(on_worryboard recent past_year).each do |filter|
-    dd(class=("active" if named_filter_param == filter.to_s))
-      = link_to t(".filter.#{filter}"), transplants_filtered_mdm_patients_path(named_filter: filter)
