@@ -1,4 +1,0 @@
-h1 Patient Event Types
-
-dl.sub-nav
-  dd= link_to "Add event type", new_events_type_path

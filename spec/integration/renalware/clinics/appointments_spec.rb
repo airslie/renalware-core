@@ -17,7 +17,7 @@ RSpec.describe "Appointments", type: :request do
 
       get appointments_path
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response.body).to include(patient.to_s)
     end
   end
