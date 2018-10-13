@@ -5825,17 +5825,27 @@ CREATE VIEW reporting_daily_pathology AS
           WHERE ((delayed_jobs.last_error IS NOT NULL) AND (delayed_jobs.failed_at IS NULL))) AS delayed_jobs_retrying,
     ( SELECT count(*) AS count
            FROM delayed_jobs
-          WHERE ((delayed_jobs.last_error IS NOT NULL) AND (delayed_jobs.failed_at IS NULL))) AS delayed_jobs_failed,
+          WHERE ((delayed_jobs.last_error IS NOT NULL) AND (delayed_jobs.failed_at IS NOT NULL))) AS delayed_jobs_failed,
     ( SELECT max(delayed_jobs.created_at) AS max
            FROM delayed_jobs) AS delayed_jobs_latest_entry,
     ( SELECT count(*) AS count
            FROM delayed_jobs
           WHERE (delayed_jobs.created_at >= (now())::date)) AS delayed_jobs_added_today,
-    ( SELECT jsonb_agg(query.*) AS jsonb_agg
+    ( SELECT json_object_agg(query.priority, query.count) AS json_object_agg
            FROM ( SELECT delayed_jobs.priority,
                     count(*) AS count
                    FROM delayed_jobs
                   GROUP BY delayed_jobs.priority) query) AS delayed_jobs_priority_counts,
+    ( SELECT json_object_agg(query.queue, query.count) AS json_object_agg
+           FROM ( SELECT delayed_jobs.queue,
+                    count(*) AS count
+                   FROM delayed_jobs
+                  GROUP BY delayed_jobs.queue) query) AS delayed_jobs_queue_counts,
+    ( SELECT json_object_agg(query.attempts, query.count) AS json_object_agg
+           FROM ( SELECT delayed_jobs.attempts,
+                    count(*) AS count
+                   FROM delayed_jobs
+                  GROUP BY delayed_jobs.attempts) query) AS delayed_jobs_attempts_counts,
     ( SELECT count(*) AS count
            FROM feed_messages) AS feed_messages_total,
     ( SELECT count(*) AS count
@@ -15683,6 +15693,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180907100545'),
 ('20181001162513'),
 ('20181008144324'),
-('20181008145159');
+('20181008145159'),
+('20181013115138');
 
 
