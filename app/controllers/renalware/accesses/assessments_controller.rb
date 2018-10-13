@@ -6,10 +6,9 @@ module Renalware
       before_action :load_patient
 
       def show
-        assessment = patient.assessments.find(params[:id])
         render locals: {
           patient: patient,
-          assessment: AssessmentPresenter.new(assessment)
+          assessment: AssessmentPresenter.new(find_assessement)
         }
       end
 
@@ -21,7 +20,7 @@ module Renalware
       def create
         assessment = patient.assessments.new(assessment_params)
 
-        if assessment.save
+        if assessment.save_by(current_user)
           redirect_to patient_accesses_dashboard_path(patient),
             notice: t(".success", model_name: "Access assessment")
         else
@@ -31,14 +30,13 @@ module Renalware
       end
 
       def edit
-        assessment = patient.assessments.find(params[:id])
-        render_edit(assessment)
+        render_edit(find_assessement)
       end
 
       def update
-        assessment = patient.assessments.find(params[:id])
+        assessment = find_assessement
 
-        if assessment.update(assessment_params)
+        if assessment.update_by(current_user, assessment_params)
           redirect_to patient_accesses_dashboard_path(patient),
             notice: t(".success", model_name: "Access assessment")
         else
@@ -49,6 +47,10 @@ module Renalware
 
       protected
 
+      def find_assessement
+        patient.assessments.find(params[:id])
+      end
+
       def render_new(assessment)
         render :new, locals: { patient: patient, assessment: assessment }
       end
@@ -58,10 +60,7 @@ module Renalware
       end
 
       def assessment_params
-        params
-          .require(:accesses_assessment)
-          .permit(attributes)
-          .merge(document: document_attributes, by: current_user)
+        params.require(:accesses_assessment).permit(attributes)
       end
 
       def attributes
@@ -69,15 +68,9 @@ module Renalware
           :performed_on, :first_used_on, :failed_on,
           :side, :type_id,
           :catheter_make, :catheter_lot_no,
-          :performed_by, :notes, :outcome,
-          document: []
+          :performed_by, :notes, :outcome, :comments,
+          document: {}
         ]
-      end
-
-      def document_attributes
-        params
-          .require(:accesses_assessment)
-          .fetch(:document, nil).try(:permit!)
       end
     end
   end

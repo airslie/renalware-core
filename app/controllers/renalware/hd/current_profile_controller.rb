@@ -58,7 +58,7 @@ module Renalware
         params
           .require(:hd_profile)
           .permit(attributes)
-          .merge(document: document_attributes, by: current_user)
+          .to_h.merge(by: current_user)
       end
 
       def attributes
@@ -66,14 +66,8 @@ module Renalware
           :schedule_definition_id, :other_schedule, :hospital_unit_id, :dialysate_id,
           :prescribed_time, :prescribed_on, :prescriber_id,
           :named_nurse_id, :transport_decider_id,
-          document: []
+          document: {}
         ]
-      end
-
-      def document_attributes
-        params
-          .require(:hd_profile)
-          .fetch(:document, nil).try(:permit!)
       end
     end
   end

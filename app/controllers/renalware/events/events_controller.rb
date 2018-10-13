@@ -22,7 +22,7 @@ module Renalware
       def create
         event = new_event_for_patient(event_params)
 
-        if event.save
+        if event.save_by(current_user)
           redirect_to return_url, notice: t(".success", model_name: "event")
         else
           flash.now[:error] = t(".failed", model_name: "event")
@@ -56,7 +56,7 @@ module Renalware
 
       def update
         event = load_and_authorize_event_for_edit_or_update
-        if event.update(event_params)
+        if event.update_by(current_user, event_params)
           redirect_to return_url, notice: t(".success", model_name: "event")
         else
           flash.now[:error] = failed_msg_for("event type")
@@ -131,15 +131,16 @@ module Renalware
       end
 
       def event_params
-        params.require(:events_event)
-              .permit(:event_type_id, :date_time, :description, :notes,
-                      :disable_selection_of_event_type, document: [])
-              .merge!(document: document_attributes)
-              .merge!(by: current_user)
-      end
-
-      def document_attributes
-        params.require(:events_event).fetch(:document, nil).try(:permit!)
+        params
+          .require(:events_event)
+          .permit(
+            :event_type_id,
+            :date_time,
+            :description,
+            :notes,
+            :disable_selection_of_event_type,
+            document: {}
+          )
       end
 
       def new_event_for_patient(params = {})

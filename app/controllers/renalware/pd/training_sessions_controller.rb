@@ -12,15 +12,15 @@ module Renalware
       end
 
       def new
-        training_session = PD::TrainingSession.for_patient(patient).new
+        training_session = TrainingSession.for_patient(patient).new
         authorize training_session
         render locals: { patient: patient, training_session: training_session }
       end
 
       def create
-        training_session = PD::TrainingSession.for_patient(patient).new(training_session_params)
+        training_session = TrainingSession.for_patient(patient).new(training_session_params)
         authorize training_session
-        if training_session.save
+        if training_session.save_by(current_user)
           redirect_to patient_pd_dashboard_path(patient),
             notice: success_msg_for("training_session")
         else
@@ -37,7 +37,7 @@ module Renalware
       def update
         training_session = find_training_session
         authorize training_session
-        if training_session.update(training_session_params)
+        if training_session.update_by(current_user, training_session_params)
           redirect_to patient_pd_dashboard_path(patient),
             notice: success_msg_for("training_session")
         else
@@ -48,27 +48,13 @@ module Renalware
       private
 
       def find_training_session
-        PD::TrainingSession.for_patient(patient).find(params[:id])
+        TrainingSession.for_patient(patient).find(params[:id])
       end
 
       def training_session_params
         params
           .require(:training_session)
-          .permit(training_session_attributes)
-          .merge(document: document_attributes, by: current_user)
-      end
-
-      def training_session_attributes
-        [
-          :training_site_id, :training_type_id
-        ]
-      end
-
-      def document_attributes
-        params
-          .require(:training_session)
-          .fetch(:document, nil)
-          .try(:permit!)
+          .permit(:training_site_id, :training_type_id, document: {})
       end
     end
   end

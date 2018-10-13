@@ -54,11 +54,6 @@ module Renalware
         )
       end
 
-      # def filter_receipts(receipts, search_form)
-      #   matching_patients = Patients::SearchQuery.new(term: search_form.term).call
-      #   receipts.joins(letter: [:patient]).merge(matching_patients)
-      # end
-
       def search_term
         params.fetch(:patient_search, {}).fetch(:term, nil)
       end

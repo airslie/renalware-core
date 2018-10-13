@@ -26,10 +26,10 @@ module SQL
 
       clauses = []
       Array(items).each_with_index do |item, index|
-        clauses << "WHEN '#{item}' THEN #{index}"
+        clauses << Arel.sql("WHEN '#{item}' THEN #{index}")
       end
 
-      "CASE #{column} #{clauses.join(' ')} END"
+      Arel.sql("CASE #{column} #{clauses.join(' ')} END")
     end
   end
 end

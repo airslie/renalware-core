@@ -32,6 +32,16 @@ RSpec.describe "Renal Profile (ESRF/Comorbidities)", type: :feature, js: true do
 
       updated_esrf_date = "25-Mar-2016"
       fill_in "ESRF Date", with: updated_esrf_date
+
+      # Change something in the profile.document so we can test the document is persisting
+      within ".year-dated-confirmation--ischaemic_heart_dis" do
+        choose "Yes"
+        select(
+          "1990",
+          from: "renal_profile_document_comorbidities_ischaemic_heart_dis_confirmed_on_year"
+        )
+      end
+
       within page.first(".form-actions") do
         click_on "Save"
       end
@@ -39,6 +49,15 @@ RSpec.describe "Renal Profile (ESRF/Comorbidities)", type: :feature, js: true do
       # Renal profile #show
       expect(page).to have_current_path(patient_renal_profile_path(patient))
       expect(page).to have_content(updated_esrf_date)
+
+      # Reaching into the saved object here as it is a more reliable means of testing
+      # we saved the comorbities than reading the screen
+      document = patient.reload.profile.document
+      comorbidities = document.comorbidities
+      expect(comorbidities.ischaemic_heart_dis).to have_attributes(
+        status: "yes",
+        confirmed_on_year: 1990
+      )
     end
 
     it "pulling in the patient's current address" do

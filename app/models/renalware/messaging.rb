@@ -18,10 +18,6 @@ module Renalware
       ActiveType.cast(author, ::Renalware::Messaging::Author)
     end
 
-    # def cast_recipient(recipient)
-    #   ActiveType.cast(recipient, ::Renalware::Messaging::Recipient)
-    # end
-
     module Internal
       module_function
 

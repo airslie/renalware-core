@@ -210,12 +210,6 @@ module Renalware
         ]
       end
 
-      # def electronic_receipts_attributes
-      #   [
-      #     :recipient_id
-      #   ]
-      # end
-
       def address_attributes
         [
           :id, :name, :organisation_name, :street_1, :street_2, :street_3, :town, :county,

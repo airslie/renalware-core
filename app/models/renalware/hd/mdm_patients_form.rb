@@ -24,6 +24,11 @@ module Renalware
         }
       end
 
+      # StrongParameter support. Called by a controller when whitelisting params.
+      def self.permittable_attributes
+        attribute_set.map(&:name)
+      end
+
       private
 
       # Convert e.g. "[1,2,3]" to [1,2,3]
