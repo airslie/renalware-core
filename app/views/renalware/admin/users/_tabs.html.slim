@@ -1,7 +1,9 @@
-dl.sub-nav
-  dd(class=("active" if params[:q].nil?))
+dl.sub-nav.no-js-selection
+  dd(class=("active" if params.fetch(:q, {}).empty?))
     = link_to "All", admin_users_path(q: nil)
   dd(class=("active" if params.fetch(:q, {})[:unapproved]))
     = link_to "Unapproved", admin_unapproved_users_path
+  dd(class=("active" if params.fetch(:q, {})[:expired]))
+    = link_to "Expired", admin_expired_users_path
   dd(class=("active" if params.fetch(:q, {})[:inactive]))
     = link_to "Inactive", admin_inactive_users_path
