@@ -19,9 +19,6 @@ module Renalware
       describe "class methods" do
         subject { Bookmark }
 
-        let(:patient) { create(:patient, by: user) }
-        let(:user) { create(:patients_user) }
-
         it { is_expected.to respond_to(:with_deleted) }
       end
     end

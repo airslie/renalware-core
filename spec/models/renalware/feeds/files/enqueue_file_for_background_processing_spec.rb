@@ -9,7 +9,7 @@ module Renalware
         include ActiveJob::TestHelper
 
         it "enqueues an import job to process the file asynchronously" do
-          file = create(:feed_file, location: "a file path")
+          file = build_stubbed(:feed_file, location: "a file path")
           described_class.call(file)
           expect(enqueued_jobs.size).to eq(1)
         end

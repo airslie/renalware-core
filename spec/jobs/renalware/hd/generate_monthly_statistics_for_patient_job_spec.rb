@@ -7,7 +7,7 @@ module Renalware
     describe GenerateMonthlyStatisticsForPatientJob, type: :job do
       subject(:job) { described_class.new }
 
-      let(:patient) { create(:hd_patient) }
+      let(:patient) { build_stubbed(:hd_patient) }
       let(:month) { 12 }
       let(:year) { 2016 }
 

@@ -9,7 +9,7 @@ module Renalware
       describe AuditableSessionCollection do
         subject(:audit) { AuditableSessionCollection.new(@sessions) }
 
-        let(:patient) { create(:hd_patient) }
+        let(:patient) { build_stubbed(:hd_patient) }
 
         def stub_sessions(observations:, systolic_range:, diastolic_range:)
           systolic = *systolic_range
@@ -317,8 +317,8 @@ module Renalware
         describe "#mean_weight_loss_as_percentage_of_body_weight" do
           it do
             clinical_patient = Clinical.cast_patient(patient)
-            dry_weight1 = create(:dry_weight, patient: clinical_patient, weight: 100.0)
-            dry_weight2 = create(:dry_weight, patient: clinical_patient, weight: 200.0)
+            dry_weight1 = build_stubbed(:dry_weight, patient: clinical_patient, weight: 100.0)
+            dry_weight2 = build_stubbed(:dry_weight, patient: clinical_patient, weight: 200.0)
 
             session_with_no_dry_weight = Session::Closed.new(dry_weight: nil)
             session_with_no_dry_weight.document.observations_before.weight = 100.0
@@ -374,7 +374,7 @@ module Renalware
 
           it "returns the mean UFR for a single session if only one supplied" do
             clinical_patient = Clinical.cast_patient(patient)
-            dry_weight1 = create(:dry_weight, patient: clinical_patient, weight: 100.0)
+            dry_weight1 = build_stubbed(:dry_weight, patient: clinical_patient, weight: 100.0)
             session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
             session1.document.dialysis.fluid_removed = 1.0 # ml
             @sessions = [session1]
@@ -387,7 +387,7 @@ module Renalware
             "which is not a number (i.e. 0) i.e. we do not include the 'bad' session when "\
             "generating the mean value" do
             clinical_patient = Clinical.cast_patient(patient)
-            dry_weight1 = create(:dry_weight, patient: clinical_patient, weight: 100.0)
+            dry_weight1 = build_stubbed(:dry_weight, patient: clinical_patient, weight: 100.0)
 
             session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
             session1.document.dialysis.fluid_removed = 10.5

@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware
   RSpec.describe PDRegimesHelper, type: :helper do
     describe "default_daily_glucose_average" do
-      let(:patient) { create(:patient) }
+      let(:patient) { build_stubbed(:patient) }
       let(:capd_regime) do
         bag_type_13_6 = create(
           :bag_type,

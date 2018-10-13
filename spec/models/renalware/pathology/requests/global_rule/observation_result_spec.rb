@@ -18,7 +18,7 @@ describe Renalware::Pathology::Requests::GlobalRule::ObservationResult do
         )
       end
 
-      let(:observation_description) { create(:pathology_observation_description) }
+      let(:observation_description) { build_stubbed(:pathology_observation_description) }
 
       it { expect(global_rule).to be_valid }
     end
