@@ -8,7 +8,7 @@ module Renalware
     module Files
       module PrimaryCarePhysicians
         describe ImportCSV do
-          let(:uk) { create(:united_kingdom) }
+          let(:uk) { build_stubbed(:united_kingdom) }
 
           def with_tmpfile(content)
             tmpfile = Tempfile.new("test_csv")

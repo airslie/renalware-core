@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware
   module Pathology
     describe ObservationsDiff do
-      let(:patient) { create(:patient) }
+      let(:patient) { build_stubbed(:patient) }
 
       describe "ctor" do
         it "works" do
