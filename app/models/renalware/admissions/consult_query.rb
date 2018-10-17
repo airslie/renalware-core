@@ -23,9 +23,11 @@ module Renalware
       # included in the model file.
       # note that adding .includes(:created_by) her creates an ambigous column
       # 'family_name' error
+      # rubocop:disable Metrics/MethodLength
       def search
         @search ||= begin
           Consult
+            .extend(RansackScopes)
             .joins(:patient)
             .eager_load(patient: [current_modality: :description])
             .includes(
@@ -35,6 +37,18 @@ module Renalware
             )
             .order(created_at: :desc)
             .ransack(query)
+        end
+      end
+      # rubocop:enable Metrics/MethodLength
+
+      module RansackScopes
+        def self.extended(base)
+          # Using a custom ransacker here in order to sort by modality description name
+          # because using a predicate like  :patient_current_modality_description_name
+          # results in an INNER JOIN onto modalities.
+          base.ransacker :modality_desc do
+            Arel.sql("modality_descriptions.name")
+          end
         end
       end
     end
