@@ -12,7 +12,7 @@
         th.col-width-date.noprint= sort_link(query, :started_on, "Started")
         th.col-width-date.noprint= sort_link(query, :ended_on, "Ended")
         th.col-width-small.show-for-large-up
-          = sort_link([:renalware, query], :patient_current_modality_description_name, "Modality")
+          = sort_link([:renalware, query], :modality_desc, "Modality")
         th.col-width-tiny.show-for-large-up Sex
         th.col-width-date.show-for-large-up= sort_link(query, :patient_born_on, "DOB")
         th.col-width-tiny.show-for-large-up Age
@@ -82,4 +82,3 @@
         / When printing we just show the notes on the second row
         tr.print-only.child-row
           td(colspan=12)= simple_format consult.description
-
