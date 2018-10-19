@@ -88,6 +88,8 @@ module Renalware
 
       def practice_address_for_patient
         address = letter.patient&.practice&.address
+        ensure_practice_name_is_present_in(address)
+
         if address.present? && letter.primary_care_physician.present?
           ensure_address_has_a_name_required_when_displaying_letters(
             address,
@@ -95,6 +97,13 @@ module Renalware
           )
         end
         address
+      end
+
+      # There may not be an organisation name eg "Mill House Clinic" on the address record
+      # (in fact is unlikely) in which case copy it over from the practice so it will be displayed
+      # under the GP's name on the letter.
+      def ensure_practice_name_is_present_in(address)
+        address.organisation_name ||= letter.patient&.practice&.name
       end
 
       def address_for_addressee_eg_contact
