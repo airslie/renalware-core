@@ -50,6 +50,9 @@ module Renalware
 
       private
 
+      # Set the most recent status terminated_on to nil (so it is active)
+      # and then walk back across all other statuses and set the terminated_on
+      # to be started_on of the next status. Allow for > 1 status created on the same day.
       def recompute_termination_dates!
         previous_started_on = nil
         statuses.reversed.each do |status|
