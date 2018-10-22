@@ -35,7 +35,7 @@ group :test do
   gem "capybara"
   gem "capybara-screenshot" # "~> 1.0.18"
   # gem "chromedriver-helper" # this clashses with the */*-browsers images in cirlci so removed
-  gem "codeclimate-test-reporter", "~> 1.0.8", require: false # loads simplecov
+  gem "codeclimate-test-reporter", "~> 1.0.9", require: false # loads simplecov
   gem "cucumber", "~> 3.1.0"
   gem "cucumber-rails", "~> 1.6.0", require: false # must be loaded in env.rb
   gem "database_cleaner", "~> 1.7.0", require: false # for cucumber (now not needed for rspec)
