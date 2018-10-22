@@ -79,7 +79,8 @@ module Renalware
 
               # Page 5 is the GP contact cover page
               expect(pages[4]).to have_pdf_page_text(
-                "Dr GOOD PJ 123 Legoland Brewster Road Brownswater Windsor Berkshire NW1 6BB"
+                "Dr GOOD PJ Trumpton Medical Centre 123 Legoland Brewster Road "\
+                "Brownswater Windsor Berkshire NW1 6BB"
               )
 
               # Page 6 is blank
@@ -160,7 +161,8 @@ module Renalware
 
               # Page 5 is the GP contact
               expect(pages[4]).to have_pdf_page_text(
-                "Dr GOOD PJ 123 Legoland Brewster Road Brownswater Windsor Berkshire NW1 6BB"
+                "Dr GOOD PJ Trumpton Medical Centre 123 Legoland Brewster Road "\
+                "Brownswater Windsor Berkshire NW1 6BB"
               )
 
               # Page 6 is blank - the back of the address sheet

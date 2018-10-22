@@ -103,6 +103,8 @@ module Renalware
       # (in fact is unlikely) in which case copy it over from the practice so it will be displayed
       # under the GP's name on the letter.
       def ensure_practice_name_is_present_in(address)
+        return if address.blank?
+
         address.organisation_name ||= letter.patient&.practice&.name
       end
 
