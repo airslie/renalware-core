@@ -6,10 +6,11 @@ article
     .small-12.columns
       #letter-ccs
         table.auto-layout
-          = render partial: "cc_recipient_form",
-                   collection: contacts,
-                   as: :contact,
-                   locals: { letter: letter }
+          tbody
+            = render partial: "cc_recipient_form",
+                    collection: contacts,
+                    as: :contact,
+                    locals: { letter: letter }
 
         = link_to(t(".add_contact_as_cc"),
                   "#",
