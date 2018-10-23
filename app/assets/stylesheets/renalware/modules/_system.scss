@@ -1,6 +1,10 @@
 .system-message {
   line-height: 1.5;
-  h1, h2, p, div, span {
+  h1,
+  h2,
+  p,
+  div,
+  span {
     color: $white;
     margin-top: 0;
   }
@@ -8,7 +12,11 @@
   &.info,
   &.success,
   &.warning {
-    h1, h2, p, div, span {
+    h1,
+    h2,
+    p,
+    div,
+    span {
       color: $black;
     }
   }

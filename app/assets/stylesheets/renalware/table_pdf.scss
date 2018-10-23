@@ -17,7 +17,8 @@ a:visited {
 .pdf {
   // Header with Main title to the left and a muted subtitle to the right
   .header {
-    h1, h2 {
+    h1,
+    h2 {
       line-height: 2rem;
       margin-bottom: 7px;
       margin-top: 0;
@@ -91,7 +92,8 @@ a:visited {
       width: auto;
     }
 
-    th, td {
+    th,
+    td {
       border: 0;
     }
 

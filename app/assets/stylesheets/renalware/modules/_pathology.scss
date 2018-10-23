@@ -38,15 +38,20 @@ table#observations {
     background-color: #fc9;
   }
 
-  td.cre, td.ure, td.pot {
+  td.cre,
+  td.ure,
+  td.pot {
     background-color: #cf9;
   }
 
-  tr.even, tr.alt, tr:nth-of-type(even) {
+  tr.even,
+  tr.alt,
+  tr:nth-of-type(even) {
     background-color: $white;
   }
 
-  td, th {
+  td,
+  th {
     border: 1px solid #ddd;
     font-size: 0.85rem;
   }
@@ -56,7 +61,8 @@ table#observations {
       display: block; float: left;
     }
 
-    th, td {
+    th,
+    td {
       display: block;
     }
   }
@@ -68,7 +74,8 @@ table#observations {
   width: auto;
 
   tbody {
-    td, th {
+    td,
+    th {
       font-size: .9rem;
     }
 

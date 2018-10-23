@@ -40,13 +40,15 @@
     margin-top: 4px;
     min-width: 300px;
 
-    button, input {
+    button,
+    input {
       margin-bottom: 0;
     }
   }
 
   table {
     table-layout: fixed;
+
     td {
       vertical-align: top;
 
@@ -59,7 +61,8 @@
       }
     }
 
-    td, th {
+    td,
+    th {
       &.last_used_on,
       &.updated_at,
       &.times_used,
@@ -103,7 +106,8 @@
 
     @media #{$medium-up} {
 
-      td, th {
+      td,
+      th {
         &.author {
           display: table-cell;
         }
@@ -112,7 +116,8 @@
 
     @media #{$large-up} {
 
-      td, th {
+      td,
+      th {
         &.last_used_on {
           display: table-cell;
         }
@@ -121,7 +126,8 @@
 
     @media #{$xlarge-up} {
 
-      td, th {
+      td,
+      th {
         &.updated_at {
           display: table-cell;
         }

@@ -39,7 +39,8 @@
     white-space: normal;
     width: auto;
 
-    dt, dd {
+    dt,
+    dd {
       display: inline;
       margin-right: 0.4rem;
       white-space: initial;
@@ -72,7 +73,8 @@
       margin-right: 3px;
     }
 
-    .allergy_status, .allergy_descriptions {
+    .allergy_status,
+    .allergy_descriptions {
       font-weight: bold;
     }
   }
@@ -246,7 +248,8 @@ ul.provider {
       margin-right: .6em;
       margin-top: .1rem;
 
-      dt, dd {
+      dt,
+      dd {
         display: block;
         margin: 0;
         padding: 0;

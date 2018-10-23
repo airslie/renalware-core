@@ -401,6 +401,8 @@ table {
   }
 }
 
-table tr.even, table tr.alt, table tr:nth-of-type(even) {
+table tr.even,
+table tr.alt,
+table tr:nth-of-type(even) {
   background: $table-even-row-colour;
 }

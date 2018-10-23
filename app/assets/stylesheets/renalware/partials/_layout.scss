@@ -5,7 +5,8 @@ html {
 }
 
 /* New flexbox layout */
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -156,7 +157,8 @@ section.display {
     }
   }
 
-  ul, dl {
+  ul,
+  dl {
     display: block;
     float: none;
     margin-bottom: 0;

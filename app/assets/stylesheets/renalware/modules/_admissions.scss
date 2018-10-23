@@ -1,5 +1,6 @@
 .admissions-table table {
-  td, th {
+  td,
+  th {
     vertical-align: top;
   }
 
@@ -27,7 +28,7 @@
 
 .admissions_requests {
 
-   td.priority {
+  td.priority {
     span {
       @include badge;
     }
@@ -66,4 +67,3 @@
     }
   }
 }
-

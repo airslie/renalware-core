@@ -28,6 +28,7 @@ h1 {
   .patient-header {
     clear: right;
     float: left;
+
     dl {
       color: #000;
       font-size: 1.1rem;
@@ -117,7 +118,8 @@ h1 {
     padding: 0;
     width: 100%;
 
-    td, th {
+    td,
+    th {
       border-right: solid 1px #aaa;
       line-height: 0.8rem !important;
     }
@@ -212,7 +214,8 @@ h1 {
   table.recent-pathology {
     text-align: left;
 
-    td, th {
+    td,
+    th {
       padding-right: 0.2rem;
     }
 
@@ -227,7 +230,8 @@ h1 {
     margin-top: 0;
     padding-bottom: 0.2rem;
 
-    dd, dt {
+    dd,
+    dt {
       clear: none;
       float: left;
       margin: 0;
