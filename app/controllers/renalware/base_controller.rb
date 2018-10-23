@@ -9,6 +9,8 @@ module Renalware
 
     before_action :set_paper_trail_whodunnit
     after_action :verify_authorized
+    # has_user_timed_out is defined on SessionTimeoutController
+    # Perhaps we should define #has_user_timed_out here and override in SessionTimeoutController?
     after_action :track_action, except: [:has_user_timed_out]
 
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
