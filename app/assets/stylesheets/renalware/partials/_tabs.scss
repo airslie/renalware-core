@@ -1,6 +1,6 @@
 .ui-tabs-simple {
   .ui-tabs {
-    border: none;
+    border: 0;
   }
 
   .ui-tabs-nav {
@@ -8,9 +8,9 @@
   }
 
   .ui-widget-header {
-    padding: 0;
     background: none;
     border-width: 0;
+    padding: 0;
   }
 
   .ui-tabs-tab.ui-tabs-active,
@@ -31,16 +31,16 @@
 }
 
 .ui-tabs-simple  .ui-tabs-nav {
-  padding-left: 0px;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
   background: transparent;
-  border-width: 0px 0px 1px 0px;
-  -moz-border-radius: 0px;
-  -webkit-border-radius: 0px;
-  border-radius: 0px;
+  border-radius: 0;
+  border-width: 0 0 1px 0;
+  padding-left: 0;
 }
 
 .ui-tabs-simple  .ui-tabs-panel {
-  border-width: 0px 1px 1px 1px;
+  border-width: 0 1px 1px 1px;
 }
 
 .tab-strip {

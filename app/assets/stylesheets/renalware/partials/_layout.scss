@@ -4,35 +4,36 @@ html {
   }
 }
 
-/* New flexbox layout */
-html, body {
+// New flexbox layout
+html,
+body {
   height: 100%;
 }
 
 html {
   body {
-    overflow: hidden;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 
     > header {
-      flex: 0 0 auto;
       background-color: #dcdcdc;
+      flex: 0 0 auto;
     }
 
-    /* main is a wrapper about non-header content */
+    // main is a wrapper about non-header content
     > main {
       display: flex;
       height: 100%;
       min-height: 0;
 
       > nav {
-        width: $patient-side-nav-width;
         min-width: $patient-side-nav-width;
+        width: $patient-side-nav-width;
       }
 
       > .main-content {
-        position: relative; /* need this to position inner content */
+        position: relative; // need this to position inner content
         width: 100%;
       }
 
@@ -41,8 +42,8 @@ html {
         flex: 1 1 auto;
         height: 100%;
         min-height: 100%;
-        padding-bottom: 2rem;
         overflow-y: auto;
+        padding-bottom: 2rem;
 
         @media print {
           overflow-y: visible;
@@ -59,10 +60,10 @@ html {
     }
   }
 
-  /* When patient menu hidden/shown */
+  // When patient menu hidden/shown
   body.collapse-patient-menu nav.patient-side-nav {
-    margin-left: -15rem;
     left: 0;
+    margin-left: -15rem;
   }
 
   .full-screenable {
@@ -70,7 +71,7 @@ html {
   }
 }
 
-/* End new flexbox layout */
+// End new flexbox layout
 
 footer {
   background-color: $footer-bg-colour;
@@ -102,22 +103,22 @@ footer {
 
 section.display {
   h4 {
-    margin: .1rem 1rem 0 0;
-    float: left;
     clear: left;
-    font-size: 1.3rem;
     color: $dark-grey;
+    float: left;
+    font-size: 1.3rem;
+    margin: .1rem 1rem 0 0;
   }
 
   .section-actions {
-    float: left;
     clear: right;
+    float: left;
 
     a {
       @extend .button;
-      padding: .3rem 1rem;
       font-size: .9rem;
       margin: 0;
+      padding: .3rem 1rem;
     }
   }
 
@@ -143,8 +144,8 @@ section.display {
 
   .non-patient-page-header {
     margin: 0;
-    padding:0;
     margin-bottom: .5rem;
+    padding: 0;
 
     &.with-tabs {
       border-bottom: 1px solid $tab-border-color;
@@ -156,21 +157,22 @@ section.display {
     }
   }
 
-  ul, dl {
-    float: none;
+  ul,
+  dl {
     display: block;
+    float: none;
     margin-bottom: 0;
   }
 
   .sub-nav {
-    top: 1px;
     position: relative;
+    top: 1px;
   }
 
   .page-heading {
-    padding: 1.4rem 0 .7rem;
-    margin: 0;
-    float: left;
     clear: both;
+    float: left;
+    margin: 0;
+    padding: 1.4rem 0 .7rem;
   }
 }

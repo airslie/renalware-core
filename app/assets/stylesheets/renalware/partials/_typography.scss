@@ -18,8 +18,8 @@ h5 {
 }
 
 p {
-  padding: 0 0.5em 0 0.5em;
   margin: 0 0 0.5em 0;
+  padding: 0 0.5em 0 0.5em;
 }
 
 ul {
@@ -27,13 +27,13 @@ ul {
 }
 
 ul.table-data-list {
-  font-size: 1em;
   clear: both;
+  font-size: 1em;
 }
 
 li.history {
-  display: block;
   color: $aluminum;
+  display: block;
 }
 
 span.monospaced {
@@ -57,9 +57,9 @@ span.note {
 }
 
 .edit_timestamp {
+  font-size: 1rem;
   margin: -1rem 0 1rem 0;
   padding: 0;
-  font-size: 1rem;
 }
 
 .muted {

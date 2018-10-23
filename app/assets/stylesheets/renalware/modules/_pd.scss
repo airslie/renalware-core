@@ -9,12 +9,15 @@
 .regime-bags {
   dl {
     display: inline;
-    dd, dt {
+    dd,
+    dt {
       display: inline;
     }
+
     dt {
       margin-right: .2rem;
     }
+
     dd {
       margin-right: 0.6rem;
     }
@@ -26,17 +29,17 @@ dl.pd-regime-details {
 }
 
 form .row .columns .validate-days-of-week {
-  border: 1px red solid;
-  padding-top: 0.5rem;
+  border: 1px #f00 solid;
   padding-left: 0.5rem;
+  padding-top: 0.5rem;
 }
 
 form .row .columns .validate-add-min-bag {
-  border: 2px red solid;
-  width: 7rem;
+  border: 2px #f00 solid;
   height: 3.5rem;
-  padding-top: 0.5rem;
   padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  width: 7rem;
   z-index: 1;
 }
 
@@ -45,6 +48,7 @@ form .row .columns .validate-add-min-bag {
     label {
       display: inline-block;
     }
+
     a {
       padding-left: 1rem;
     }

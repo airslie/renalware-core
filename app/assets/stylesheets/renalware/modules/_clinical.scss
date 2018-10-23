@@ -11,14 +11,14 @@ article.clinical-allergies {
     padding: 0.5rem 0;
 
     .flex-container {
-      flex-align: stretch;
-      margin: 0 1rem;
       align-items: center;
+      flex-align: stretch;
       justify-content: center;
+      margin: 0 1rem;
 
       &.disabled {
-        pointer-events:none;
         opacity: .5;
+        pointer-events: none;
       }
 
       input {
@@ -37,21 +37,21 @@ article.clinical-allergies {
 
   ul {
     li {
-      padding: 0.3rem 0.3rem 0 .2rem;
-      border: none;
-      margin: 0.1rem 0.3rem 0.2rem 0;
-      border-radius: 0.3rem;
       background-color: $light-grey;
+      border: 0;
+      border-radius: 0.3rem;
       display: inline-block;
-      padding: 0;
-      margin: 0.2rem .6rem .2rem 0
+      margin: 0.1rem 0.3rem 0.2rem 0;
+      margin: 0.2rem .6rem .2rem 0;
+      padding: 0.3rem 0.3rem 0 .2rem;
+      padding: 0
     }
   }
 }
 
 .clinical-header {
   background-color: $table-border-colour;
-  padding: 0em .2em .2em .6em;
+  padding: 0 .2em .2em .6em;
 
   @media print {
     display: none;
@@ -63,44 +63,45 @@ article.clinical-allergies {
 
     ul {
       li {
-        padding: 0.3rem 0.3rem;
-        border: none;
-        margin: 0.1rem 0.3rem 0.2rem 0;
-        border-radius: 0.3rem;
         background-color: $light-grey;
+        border: 0;
+        border-radius: 0.3rem;
+        margin: 0.1rem 0.3rem 0.2rem 0;
+        padding: 0.3rem 0.3rem;
       }
     }
 
     dl {
-      padding: 0;
-      margin: 0;
       font-size: 0.9rem;
       line-height: 0.9rem;
+      margin: 0;
+      padding: 0;
     }
   }
 
   ul {
-    padding: 0;
     margin: 0;
+    padding: 0;
 
     li {
-      display: inline-block;
-      padding: 0;
       border-bottom: 1px dotted $winter-sky;
-      margin: 0.2rem .6rem .2rem 0
+      display: inline-block;
+      margin: 0.2rem .6rem .2rem 0;
+      padding: 0
     }
   }
 
   dl {
-    padding: 0;
-    margin: 0;
     font-size: 0.9rem;
     line-height: 0.8rem;
+    margin: 0;
+    padding: 0;
 
-    dt, dd {
-      padding: 0;
-      margin: 0;
+    dt,
+    dd {
       display: inline-block;
+      margin: 0;
+      padding: 0;
     }
 
     dt {
@@ -112,9 +113,9 @@ article.clinical-allergies {
       padding-left: 0.2rem;
 
       &.date {
-        font-weight: normal;
-        font-style: italic;
         color: $muted-dark-grey;
+        font-style: italic;
+        font-weight: normal;
       }
 
       &.empty {
@@ -139,10 +140,10 @@ article.clinical-allergies {
       li {
         background-color: $nhs-orange;
         color: $white;
-        margin: 0 .3rem 0 0;
         display: inline-block;
-        padding: 0 .4rem;
+        margin: 0 .3rem 0 0;
         margin: 0.1rem 0.3rem 0.2rem 0;
+        padding: 0 .4rem;
 
         &:hover {
           background-color: darken($nhs-orange, 5);
@@ -165,8 +166,8 @@ article.clinical-allergies {
           }
 
           a {
-            color: $white;;
-            border-bottom: 1px dotted $white
+            border-bottom: 1px dotted $white;;
+            color: $white
           }
 
           .date {
@@ -190,8 +191,8 @@ article.clinical-allergies {
         .date,
         .author,
         .actions {
-          font-style: italic;
           border-left: 1px solid $winter-sky;
+          font-style: italic;
           white-space: nowrap;
 
           .fa,
@@ -205,8 +206,8 @@ article.clinical-allergies {
         }
 
         .actions {
-          padding-right: .1rem;
           padding-left: .6rem;
+          padding-right: .1rem;
         }
       }
     }

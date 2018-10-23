@@ -1,14 +1,14 @@
 .renal-registry-preflight-checks {
   .missing-data {
     span {
+      background-color: $renal-reg-missing-data-default;
       border-radius: 0.2rem;
-      padding: 0.15rem 0.4rem;
       color: $white;
-      white-space: nowrap;
       font-size: 0.9rem;
       font-weight: normal;
-      background-color: $renal-reg-missing-data-default;
       margin-right: .2rem;
+      padding: 0.15rem 0.4rem;
+      white-space: nowrap;
 
       &.comorbidities_at_esrf {
         background-color: $renal-reg-missing-data-comorbidities-at-esrf;

@@ -5,25 +5,25 @@
   }
 
   background-color: $mini-profile-backgound-colour;
+  display: table;
   font-size: 0.9rem;
   margin: 0;
   padding: 0;
   position: relative;
-  display: table;
   width: 100%;
 
   > div {
-    padding: 0.4em 0.2em 0.5em 0.6em;
+    display: table-cell;
     margin: 0;
-    display: table-cell; // ensures both divs are equal height
+    padding: 0.4em 0.2em 0.5em 0.6em; // ensures both divs are equal height
 
     @media #{$small-only} {
       display: block; // at small widths make allergies and renal profile full width
     }
 
     a {
-      text-decoration: underline;
       color: $dark-grey;
+      text-decoration: underline;
 
       &:hover {
         color: $black;
@@ -32,14 +32,15 @@
   }
 
   dl {
-    margin: 0;
-    padding: 0;
-    width: auto;
     float: none;
     font-size: inherit;
+    margin: 0;
+    padding: 0;
     white-space: normal;
+    width: auto;
 
-    dt, dd {
+    dt,
+    dd {
       display: inline;
       margin-right: 0.4rem;
       white-space: initial;
@@ -72,7 +73,8 @@
       margin-right: 3px;
     }
 
-    .allergy_status, .allergy_descriptions {
+    .allergy_status,
+    .allergy_descriptions {
       font-weight: bold;
     }
   }
@@ -121,12 +123,12 @@ ul.provider {
     padding: 0;
 
     &.missing-modality-warning {
-      color: #666;
       background-color: lighten($nhs-yellow, 45);
+      border: solid 1px #eee;
+      color: #666;
       padding: 0.35rem;
       padding-left: 0.8rem;
       padding-right: 1rem;
-      border: solid 1px #eee;
       i {
         margin-right: 0.5rem;
       }
@@ -170,15 +172,15 @@ ul.provider {
 
       // When the user clicks the content, select it all
       &.selectable {
-        user-select: all;
         -ms-user-select: all;
+        user-select: all;
       }
 
       &.name {
         display: inline;
         font-size: 1.4em;
-        margin-right: .4em;
         margin-left: 0;
+        margin-right: .4em;
         width: 100%;
       }
 
@@ -200,10 +202,10 @@ ul.provider {
           }
 
           i {
-            padding-right: 0.4rem;
+            color: lighten($nhs-blue, 35%);
             display: inline-block;
             font-size: 0.9em;
-            color: lighten($nhs-blue, 35%);
+            padding-right: 0.4rem;
 
             @media print {
               display: none;
@@ -242,21 +244,24 @@ ul.provider {
 
     &.hospital_no {
       display: inline-block;
-      margin-right: .6em;
       margin-left: 0;
+      margin-right: .6em;
       margin-top: .1rem;
 
-      dt, dd {
+      dt,
+      dd {
         display: block;
-        padding: 0;
         margin: 0;
+        padding: 0;
       }
+
       dd {
         font-size: 1em;
         line-height: 0.9rem;
       }
 
       @media #{$medium-only} {
+
         dd {
           line-height: 0.7rem;
         }
@@ -265,34 +270,35 @@ ul.provider {
   }
 
   .menu-icon {
-    position: relative;
+    cursor: pointer;
     display: inline-block;
+    height: 21px;
+    position: relative;
     vertical-align: middle;
     width: 16px;
-    height: 21px;
-    cursor: pointer;
 
     @media #{$large-up} {
-      width: 21px;
       height: 24px;
+      width: 21px;
     }
   }
 
   .menu-icon::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 2px;
     background: $patient-menu-icon-color;
     box-shadow: 0 6px 0 $patient-menu-icon-color, 0 12px 0 $patient-menu-icon-color;
     content: '';
+    display: block;
+    height: 2px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
 
     @media #{$large-up} {
       box-shadow: 0 7px 0 $patient-menu-icon-color, 0 14px 0 $patient-menu-icon-color;
     }
   }
+
   .menu-icon:hover::after {
     background: $patient-menu-icon-hover-color;
     box-shadow: 0 6px 0 $patient-menu-icon-hover-color, 0 12px 0 $patient-menu-icon-hover-color;
@@ -373,8 +379,8 @@ form {
   li {
     font-size: 0.9rem;
     b {
-      font-size: 1rem;
       display: block;
+      font-size: 1rem;
     }
   }
 }

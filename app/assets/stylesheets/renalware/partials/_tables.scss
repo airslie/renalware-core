@@ -6,17 +6,17 @@ table.stripeless {
 }
 
 table td.actions-dropdown {
-  padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   padding-right: 0;
+  padding-top: 0.3rem;
 
   > div  {
     display: inline-block;
   }
 
   .button.dropdown {
-    padding: .2rem 2.3rem .2rem .4rem;
     margin: 0;
+    padding: .2rem 2.3rem .2rem .4rem;
 
     &:after {
       right: 0.5rem;
@@ -34,16 +34,16 @@ table td.actions-dropdown {
 
   &.going-right {
     .f-dropdown {
-      margin-left: 0px;
+      margin-left: 0;
     }
   }
 }
 
 table {
   // This will have to be removed at some point to comply with NHS table guidelines
-  width: 100%;
-
   border-collapse: collapse;
+
+  width: 100%;
 
   thead {
     background-color: transparent;
@@ -88,7 +88,7 @@ table {
       &.content-toggled {
         background-color: $table-toggled-content-colour;
         td {
-          border-bottom: none;
+          border-bottom: 0;
         }
       }
     }
@@ -96,9 +96,9 @@ table {
 
   .quick-preview {
     p {
-      padding: 0;
-      margin: 0;
       line-height: inherit;
+      margin: 0;
+      padding: 0;
     }
 
     dl {
@@ -128,9 +128,9 @@ table {
   tr th,
   tr td {
     border-bottom: 1px dotted $disabled-colour;
+    border-left-width: 0;
     border-right: solid 1px $white;
     font-size: 1rem;
-    border-left-width: 0;
 
     &:last-child {
       border-right: 0;
@@ -143,27 +143,27 @@ table {
 
   tr td {
     &.col-width-medium-with-ellipsis {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      min-width: 5rem;
       max-width: 7rem;
+      min-width: 5rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     &.col-width-mediumish-with-ellipsis {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      min-width: 7rem;
       max-width: 9rem;
+      min-width: 7rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     &.col-width-large-with-ellipsis {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      min-width: 15rem;
       max-width: 20rem;
+      min-width: 15rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     &.actions {
@@ -183,76 +183,76 @@ table {
     }
 
     &.col-width-time {
-      width: 3rem;
       min-width: 2.7rem;
+      width: 3rem;
     }
 
     &.col-width-date-time {
-      width: 9.5rem;
       min-width: 9.5rem;
+      width: 9.5rem;
     }
 
     &.col-width-reference-without-prefix {
-      width: 7rem;
       min-width: 5.5rem;
       white-space: nowrap;
+      width: 7rem;
     }
 
     &.col-width-reference-no {
-      width: 8.5rem;
       min-width: 8rem;
       white-space: nowrap;
+      width: 8.5rem;
     }
 
     &.col-width-nhs-no {
-      width: 7rem;
       min-width: 7rem;
       white-space: nowrap;
+      width: 7rem;
     }
 
     &.col-width-bp {
-      width: 4.5rem;
       min-width: 3.8rem;
+      width: 4.5rem;
     }
 
     &.col-width-toggle {
-      width: 9.7rem;
       min-width: 9.7rem;
+      width: 9.7rem;
     }
 
     &.col-width-tiny {
-      width: 3rem;
       min-width: 2rem;
+      width: 3rem;
     }
 
     &.col-width-tinyish {
-      width: 5rem;
       min-width: 4.5rem;
+      width: 5rem;
     }
 
     &.col-width-small {
-      width: 7rem;
       min-width: 5.1rem;
+      width: 7rem;
     }
 
     &.col-width-medium {
-      width: 12rem;
       min-width: 10rem;
+      width: 12rem;
     }
 
     &.col-width-medium-ish {
-      width: 14rem;
       min-width: 12rem;
+      width: 14rem;
     }
 
     &.col-width-medium-plus {
-      width: 15rem;
       min-width: 14rem;
+      width: 15rem;
     }
 
     &.col-width-large {
-      width: 20rem;
       min-width: 17rem;
+      width: 20rem;
     }
 
     &.column-6-width {
@@ -276,8 +276,8 @@ table {
     }
 
     &.col-width-17 {
-      width: 17rem;
       min-width: 17rem;
+      width: 17rem;
     }
 
     &.at-least {
@@ -329,9 +329,9 @@ td {
     .accordion dd > a.toggle-info {
       background: none;
       border-radius: 0.5em;
-      padding: 0 0.3em 0 0.3em;
-      font-size: 0.9em;
       color: $link-colour;
+      font-size: 0.9em;
+      padding: 0 0.3em 0 0.3em;
     }
 
     thead,
@@ -344,15 +344,15 @@ td {
     }
 
     td:before {
-      font-weight: bold;
-      position: absolute;
-      top: 6px;
-      left: 6px;
-      width: 33%;
-      padding-right: 10px;
-      white-space: nowrap;
       content: attr(data-heading);
       float: left;
+      font-weight: bold;
+      left: 6px;
+      padding-right: 10px;
+      position: absolute;
+      top: 6px;
+      white-space: nowrap;
+      width: 33%;
     }
 
     td:first-child {
@@ -364,20 +364,20 @@ td {
     }
 
     thead tr {
+      left: -9999px;
       position: absolute;
       top: -9999px;
-      left: -9999px;
     }
 
     tbody tr {
-      margin-bottom: 20px;
       border-bottom: 1px solid $table-border-colour;
+      margin-bottom: 20px;
     }
 
     td {
-      position: relative;
-      padding: 6px 24px 24px 35%;
       border-bottom: 0;
+      padding: 6px 24px 24px 35%;
+      position: relative;
     }
 
     th {
@@ -401,6 +401,8 @@ table {
   }
 }
 
-table tr.even, table tr.alt, table tr:nth-of-type(even) {
+table tr.even,
+table tr.alt,
+table tr:nth-of-type(even) {
   background: $table-even-row-colour;
 }

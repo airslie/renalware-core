@@ -14,10 +14,10 @@
 
 .mdm-page .obs-result {
   :first-child {
-    font-weight: bold;
-    min-width: 2.75rem;
     display: inline-block;
+    font-weight: bold;
     margin-right: .5rem;
+    min-width: 2.75rem;
     white-space: nowrap;
   }
 
@@ -28,9 +28,9 @@
 
 .expandable {
   clear: both;
+  float: left;
   height: 0;
   opacity: 0;
-  float: left;
   width: 100%;
 
   &.expanded {

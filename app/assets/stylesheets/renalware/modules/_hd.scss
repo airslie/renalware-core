@@ -4,7 +4,7 @@ table.stripeless {
   // }
 
   .session_import_error {
-    background-color: #FFE5E5 !important;
+    background-color: #ffe5e5 !important;
   }
 }
 
@@ -38,8 +38,8 @@ table.stripeless {
 
 .diary__key {
   margin: auto;
-  width: 50%;
   text-align: center;
+  width: 50%;
 
   .diary__key--master-diary {
     background-color: $white;
@@ -50,21 +50,21 @@ table.stripeless {
   }
 
   .title {
+    color: $dark-grey;
     display: inline-block;
     font-size: 1.1rem;
-    color: $dark-grey;
   }
 
   ul {
-    list-style: none;
     display: inline-block;
+    list-style: none;
 
     li {
+      border: solid 1px $mid-grey;
       display: inline;
+      font-size: 0.9rem;
       margin: 0 0.1rem;
       padding: 0.2rem 0.5rem;
-      font-size: 0.9rem;
-      border: solid 1px $mid-grey;
     }
   }
 }
@@ -76,13 +76,14 @@ table.stripeless {
   }
 
   header {
-    text-align: center;
     margin-bottom: 1rem;
+    text-align: center;
 
-    h1, h2 {
+    h1,
+    h2 {
+      display: inline;
       font-size: 1.6rem;
       font-weight: normal;
-      display: inline;
       margin-right: 1rem;
 
       &:last-child {
@@ -96,8 +97,8 @@ table.stripeless {
   }
 
   h3 {
-    font-size: 1.5rem;
     color: $dark-grey;
+    font-size: 1.5rem;
   }
 
   tr {
@@ -114,8 +115,8 @@ table.stripeless {
       background-color: $smoke;
 
       th {
-        text-align: center;
         border-color: $smoke;
+        text-align: center;
 
         h3 {
           margin: 0;
@@ -139,34 +140,34 @@ table.stripeless {
 
 
   .diary__button {
-    white-space: nowrap;
-    margin: 0;
-    padding: 0.5rem;
     background-color: transparent;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100%;
-    text-align: center;
     display: inline-block;
-    white-space: nowrap;
     font-size: 0.9rem;
+    margin: 0;
+    overflow: hidden;
+    padding: 0.5rem;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    white-space: nowrap;
+    width: 100%;
   }
 
   td {
-    padding: 0;
-    border: 1px solid $light-grey;
-    text-align: center;
     background-color: $white;
+    border: 1px solid $light-grey;
+    padding: 0;
+    text-align: center;
 
     // Creates a red triangle top left. Some work to do overlaying cell.
     &.infected-patient {
       div {
-        width: 0;
-        height: 0;
-        position: absolute;
+        border-color: $nhs-red transparent transparent transparent;
         border-style: solid;
         border-width: 2rem 2rem 0 0;
-        border-color: $nhs-red transparent transparent transparent;
+        height: 0;
+        position: absolute;
+        width: 0;
       }
     }
 
@@ -204,7 +205,7 @@ table.stripeless {
     &[data-master] {
       background-color: $white;
       a {
-       color: $dark-grey;
+        color: $dark-grey;
       }
     }
   }
@@ -222,24 +223,24 @@ label#toggle-full-hd-profile {
 }
 
 .full-hd-profile {
-  transition: max-height .3s ease 0s;
   max-height: 0;
   overflow-y: hidden;
+  transition: max-height .3s ease 0s;
 }
 
 input#toggle-full-hd-profile-input {
   display: none;
 
   &:checked ~ .full-hd-profile {
-    overflow: hidden;
     max-height: 500px;
+    overflow: hidden;
   }
 }
 // End CSS-only toggle of full HD Profile
 
 table.hd-sessions {
-  border-spacing: 0;
   border-collapse: collapse;
+  border-spacing: 0;
   td {
     height: 2rem;
   }
@@ -253,16 +254,17 @@ table.hd-sessions {
       &:nth-of-type(even) {
         background-color: #f5f5f5;
       }
+
       th {
-        vertical-align: top;
+        border: 1px solid #ddd;
         padding: 3px;
-        border: 1px solid #DDDDDD;
+        vertical-align: top;
       }
 
       &.row2 {
         th {
-          font-weight: normal;
           font-style: italic;
+          font-weight: normal;
         }
       }
     }
@@ -273,16 +275,18 @@ table.hd-sessions {
       &:nth-of-type(even) {
         background-color: $white;
       }
+
       &:nth-of-type(odd) {
         background-color: $white;
       }
+
       &.even{
-        background-color: #F9F9F9;
+        background-color: #f9f9f9;
       }
 
       &.open {
         td {
-          background-color: #FFFFC8;
+          background-color: #ffffc8;
         }
       }
 
@@ -296,7 +300,7 @@ table.hd-sessions {
       }
 
       td {
-        border-right: 1px solid #DDDDDD;
+        border-right: 1px solid #ddd;
         &.derived {
           font-style: italic;
         }
@@ -310,9 +314,10 @@ table.hd-sessions {
     label.boolean {
       padding-left: 0;
     }
+
     input.boolean {
-      margin-top: 0.3rem;
       float: none;
+      margin-top: 0.3rem;
     }
   }
 }
@@ -341,13 +346,13 @@ table.mdm.audit {
       }
 
       &.secondary th {
-        font-style: italic;
         background: $smoke;
         border-top: 0;
+        font-style: italic;
         font-weight: normal;
       }
-     }
-   }
+    }
+  }
 
 
   td {
@@ -357,9 +362,9 @@ table.mdm.audit {
   dl,
   dd,
   dt {
+    line-height: 1.3rem;
     margin: 0;
     padding: 0;
-    line-height: 1.3rem;
   }
 
   dd {

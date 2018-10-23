@@ -13,40 +13,45 @@ table#observations {
     }
 
     td {
-      position: relative;
-      padding: 0 .2rem;
       height: 2rem;
-      text-align: center;
       overflow: visible;
+      padding: 0 .2rem;
+      position: relative;
+      text-align: center;
 
       // Generated with http://triangle.designyourcode.io/
       .triangle-top-right {
-        display: inline-block;
-        width: 0;
-        height: 0;
+        border-color: transparent $nhs-bright-blue transparent transparent;
         border-style: solid;
         border-width: 0 11px 10px 0;
-        border-color: transparent $nhs-bright-blue transparent transparent;
+        display: inline-block;
+        height: 0;
+        position: absolute;
         right: 0;
         top: 0;
-        position: absolute;
+        width: 0;
       }
     }
   }
 
   td.hgb {
-    background-color : #fc9;
+    background-color: #fc9;
   }
 
-  td.cre, td.ure, td.pot {
-    background-color : #cf9;
+  td.cre,
+  td.ure,
+  td.pot {
+    background-color: #cf9;
   }
 
-  tr.even, tr.alt, tr:nth-of-type(even) {
+  tr.even,
+  tr.alt,
+  tr:nth-of-type(even) {
     background-color: $white;
   }
 
-  td, th {
+  td,
+  th {
     border: 1px solid #ddd;
     font-size: 0.85rem;
   }
@@ -55,7 +60,9 @@ table#observations {
     tr {
       display: block; float: left;
     }
-    th, td {
+
+    th,
+    td {
       display: block;
     }
   }
@@ -67,7 +74,8 @@ table#observations {
   width: auto;
 
   tbody {
-    td, th {
+    td,
+    th {
       font-size: .9rem;
     }
 
@@ -76,6 +84,7 @@ table#observations {
         width: 4rem;
       }
     }
+
     td {
       &:last-child {
         width: 8rem;

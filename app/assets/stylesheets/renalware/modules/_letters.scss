@@ -9,18 +9,18 @@ table.contacts tbody td{
     text-align: right;
 
     .button {
-      padding: 0.4rem .6rem;
       margin: 0.3rem 0 0.2rem 0;
+      padding: 0.4rem .6rem;
     }
   }
 }
 
 .letter-preview-admin {
-  margin-top: -0.3em;
-  padding-top: 10px;
-  padding-bottom: 10px;
   background-color: $letter-preview-background-colour;
   margin-bottom: 20px;
+  margin-top: -0.3em;
+  padding-bottom: 10px;
+  padding-top: 10px;
 
   @media print {
     display: none;
@@ -34,15 +34,15 @@ table.contacts tbody td{
 .letters {
   .quick-preview p {
     font-size: 0.9rem;
-    line-height: 1.0rem;
+    line-height: 1rem;
   }
 
   td {
     &.recipient {
       max-width: 200px;
       overflow: hidden;
-      white-space: nowrap;
       text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }

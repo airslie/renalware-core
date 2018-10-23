@@ -2,11 +2,11 @@
 // @import "base/mixins"
 
 @mixin badge {
+  background-color: $letter-state-unknown;
   border-radius: 0.2rem;
-  padding: 0.15rem 0.4rem;
   color: $white;
-  white-space: nowrap;
   font-size: 0.9rem;
   font-weight: normal;
-  background-color: $letter-state-unknown;
+  padding: 0.15rem 0.4rem;
+  white-space: nowrap;
 }

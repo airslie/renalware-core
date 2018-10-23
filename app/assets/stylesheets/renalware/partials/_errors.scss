@@ -20,14 +20,15 @@
   }
 
   .error-content {
+    height: 100%;
     padding: 50px;
     text-align: center;
-    height: 100%;
   }
 
   .heading {
     font-weight: bold;
   }
+
   .subheading {
     font-size: 1.4rem;
   }
@@ -41,27 +42,28 @@
   background-color: $nhs-red;
 }
 
-.error label, .error label.error {
+.error label,
+.error label.error {
   color: $nhs-red;
 }
 
 #new-form input.field_with_errors {
-  border: 1px solid red;
+  border: 1px solid #f00;
 }
 
 .field_with_errors {
   input,
   select,
   textarea {
-    border: 1px solid red;
+    border: 1px solid #f00;
   }
 }
 
 ul.error-messages {
-  padding: 0 1rem;
-  color: $nhs-red;
   background-color: $error-background;
+  color: $nhs-red;
   margin: 0;
   margin-bottom: 1rem;
+  padding: 0 1rem;
   padding: 0.6rem 2rem;
 }

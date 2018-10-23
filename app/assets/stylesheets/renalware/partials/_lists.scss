@@ -1,7 +1,7 @@
 
 .dl-horizontal {
-  margin-top: 0;
   margin-bottom: 0;
+  margin-top: 0;
 
   p {
     padding-left: 0;
@@ -17,18 +17,18 @@
   }
 
   dt {
-    float: left;
-    width: $dl-horizontal-dt-width;
-    overflow: hidden;
     clear: left;
+    float: left;
+    margin-bottom: 0;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-bottom: 0;
+    width: $dl-horizontal-dt-width;
   }
 
   dd {
-    margin-left: $dl-horizontal-dt-width + 1rem;
     margin-bottom: 0;
+    margin-left: $dl-horizontal-dt-width + 1rem;
 
     &:before {
       content: " ";
@@ -36,9 +36,9 @@
     }
 
     &:after {
+      clear: both;
       content: " ";
       display: table;
-      clear: both;
     }
   }
 
@@ -46,6 +46,7 @@
     dt {
       width: $dl-horizontal-dt-width + 5.5rem;
     }
+
     dd {
       margin-left: $dl-horizontal-dt-width + 6.5rem;
     }
@@ -86,8 +87,8 @@
 
 ul.indented {
   li {
-    text-indent: -1.5em;
     list-style-position: outside;
     padding-left: 1.5em;
+    text-indent: -1.5em;
   }
 }

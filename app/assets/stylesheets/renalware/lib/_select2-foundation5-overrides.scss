@@ -22,3 +22,15 @@ span.select2 {
     // min-width: 500px !important;
   }
 }
+
+.select2-container .select2-selection--single {
+  height: $select2-input-height;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: $select2-input-height;
+}
+
+.select2-container--classic .select2-selection--single .select2-selection__rendered {
+  line-height: $select2-input-height;
+}

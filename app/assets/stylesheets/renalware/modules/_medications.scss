@@ -3,13 +3,16 @@ input[type="checkbox"].discardable-checkbox-used-when-reviewing-drugs-with-patie
   margin: 0 0 2px 0;
 }
 
-a, li, tbody tr {
+a,
+li,
+tbody tr {
   &[class^="drug-"] {
     background: $drug-type-default-colour;
 
     &.drug-esa {
       background: $drug-type-esa-colour;
     }
+
     &.drug-immunosuppressant {
       background: $drug-type-immunosuppressant-colour;
     }
@@ -29,10 +32,10 @@ a, li, tbody tr {
 }
 
 .med-form.content ul.drug-results {
-  height: 15em;
-  padding: 1em;
-  overflow-y: scroll;
   border: 1px solid #ccc;
+  height: 15em;
+  overflow-y: scroll;
+  padding: 1em;
 
   li.drug-select-link {
     cursor: pointer;
@@ -47,6 +50,7 @@ a, li, tbody tr {
     padding-left: 0;
     padding-right: 1rem;
   }
+
   input {
     margin: 0;
   }
@@ -58,8 +62,8 @@ a, li, tbody tr {
   }
 
   .button {
-    border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
     padding: .53rem 1rem;
   }
 }
@@ -89,25 +93,32 @@ dl.medication-history {
     min-width: 8rem;
     width: 25%;
   }
+
   th.patient_name {
     min-width: 8rem;
   }
+
   th.patient_sex,
   th.patient_age {
     width: 2.5rem;
   }
+
   th.route_code {
     width: 3rem;
   }
+
   th.dose {
     width: 4rem;
   }
+
   th.modality {
     width: 5rem;
   }
+
   th.frequency {
     width: 5rem;
   }
+
   th.hosp_no {
     width: 5rem;
   }
