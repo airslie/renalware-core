@@ -9,6 +9,25 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.52
+08-10-2018
+
+### Added
+- Use jemalloc in Heroku review apps to reduce memory usage #2433
+- Add Transplant Candidates tab to Low Clearance MDM patients list #1774
+
+### Changed
+- Use jemalloc in Heroku review apps to reduce memory usage #2433
+- Improvements to Daily Summary Email #2424
+- UKRDC XML changes #2445
+
+### Fixed
+- Add Practice name to GP addresses on letters #2384
+- Fix issue where if > 1 transplant registration status added on the same day,
+  the first stays active #2162
+- Fix missing patients when sorting Consults by modality #2432
+- Security fixes #2420
+
 ## 2.0.51
 08-10-2018
 
