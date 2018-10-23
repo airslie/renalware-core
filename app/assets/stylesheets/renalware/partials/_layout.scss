@@ -4,7 +4,7 @@ html {
   }
 }
 
-/* New flexbox layout */
+// New flexbox layout
 html,
 body {
   height: 100%;
@@ -21,7 +21,7 @@ html {
       flex: 0 0 auto;
     }
 
-    /* main is a wrapper about non-header content */
+    // main is a wrapper about non-header content
     > main {
       display: flex;
       height: 100%;
@@ -33,7 +33,7 @@ html {
       }
 
       > .main-content {
-        position: relative; /* need this to position inner content */
+        position: relative; // need this to position inner content
         width: 100%;
       }
 
@@ -60,7 +60,7 @@ html {
     }
   }
 
-  /* When patient menu hidden/shown */
+  // When patient menu hidden/shown
   body.collapse-patient-menu nav.patient-side-nav {
     left: 0;
     margin-left: -15rem;
@@ -71,7 +71,7 @@ html {
   }
 }
 
-/* End new flexbox layout */
+// End new flexbox layout
 
 footer {
   background-color: $footer-bg-colour;
