@@ -10,7 +10,6 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
   before { Renalware.config.ukrdc_sending_facility_name = "TEST" }
 
   let(:user) { @current_user }
-  let(:algeria) { create(:algeria) }
   let(:uk) { create(:united_kingdom) }
   let(:english) { create(:language, :english) }
   let(:white_british) { create(:ethnicity, :white_british) }
@@ -21,7 +20,9 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
       country_of_birth: uk,
       language: english,
       by: user,
-      sent_to_ukrdc_at: 1.year.ago
+      sent_to_ukrdc_at: 1.year.ago,
+      practice: create(:practice),
+      primary_care_physician: create(:primary_care_physician)
     )
   end
 
@@ -44,8 +45,6 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
   describe "GET #show" do
     it "renders the correct UK RDC XML" do
       patient.document.history.smoking = :ex
-      patient.practice = create(:practice)
-      patient.primary_care_physician = create(:primary_care_physician)
       patient.email = "x@y.com" # triggers ContactDetails
       patient.update!(by: user)
       create(:clinic_visit, patient: clinic_patient(patient), by: user)
@@ -61,13 +60,12 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
 
       expect(response).to be_successful
       validate(response.body).each do |error|
-        puts error.message
-        fail
+        raise error.message
       end
     end
 
     context "when the patient has died" do
-      it "includes first and second cause of death elements" do
+      it "includes first cause of death elements" do
         set_modality(
           patient: patient,
           modality_description: create(:modality_description, :death),
@@ -86,12 +84,11 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
         expect(response).to be_successful
 
         matches = response.body.scan(/<CauseOfDeath>/)
-        expect(matches.length).to eq(2)
+        expect(matches.length).to eq(1)
 
         validate(response.body).each do |error|
           p response.body
-          puts error.message
-          fail
+          raise error.message
         end
       end
     end
@@ -108,8 +105,7 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
 
       xml = response.body
       validate(xml).each do |error|
-        puts error.message
-        fail
+        raise error.message
       end
 
       # Lower case means here the factory has taken the code down-cased into loinc_code.
@@ -124,7 +120,7 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
 
   context "when the patient has a letter" do
     it "validates Document/s element" do
-      create_letter(
+      letter = create_letter(
         to: :patient,
         state: :approved,
         patient: Renalware::Letters.cast_patient(patient),
@@ -133,10 +129,20 @@ RSpec.describe "API request for a single UKRDC patient XML document", type: :req
       get api_ukrdc_patient_path(patient)
 
       expect(response).to be_successful
+      xml = response.body
+      expect(xml).to match("<Document>")
+      expect(xml).to match(
+        "<FileName>"\
+        "#{patient.family_name.upcase}-"\
+        "#{patient.local_patient_id}-"\
+        "#{letter.id}.pdf"\
+        "</FileName>"
+      )
+      expect(xml).to match("<FileType>application/pdf</FileType>")
+      expect(xml).to match("<Stream>")
 
       validate(response.body).each do |error|
-        puts error.message
-        fail
+        raise error.message
       end
     end
   end

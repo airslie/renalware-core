@@ -10,7 +10,7 @@ xml.Allergies do
   patient.allergies.includes(:updated_by).each do |allergy|
     xml.Allergy do
       xml.Allergy do
-        xml.comment! "We don't have snomed code for allergies..?"
+        xml.comment! "Not available"
       end
       xml.Clinician do
         xml.Description allergy.updated_by&.to_s

@@ -4,9 +4,14 @@
 # This is snomed-based, so might not be possible?
 xml = builder
 xml.Diagnoses do
+  xml.Diagnosis
   if patient.dead?
-    [patient.first_cause, patient.second_cause].compact.each do |cause|
-      render "renalware/api/ukrdc/patients/diagnoses/cause_of_death", builder: xml, cause: cause
-    end
+    # Only 1 CauseOfDeath element is allowed so we ignore patient.second_cause
+    render(
+      "renalware/api/ukrdc/patients/diagnoses/cause_of_death",
+      builder: xml,
+      cause: patient.first_cause
+    )
   end
+  xml.RenalDiagnosis
 end
