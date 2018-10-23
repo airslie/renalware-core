@@ -41,7 +41,7 @@ module Renalware
     end
 
     def street
-      [street_1, street_2, street_3].compact.join(", ")
+      [street_1, street_2, street_3].reject(&:blank?).join(", ")
     end
   end
 end

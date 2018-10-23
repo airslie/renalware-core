@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   sequence :gp_code do |n|
-    "GP1234#{n}"
+    "G" + n.to_s.rjust(7, "0")
   end
 
   factory :primary_care_physician, class: "Renalware::Patients::PrimaryCarePhysician" do

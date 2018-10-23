@@ -3,6 +3,7 @@
 require_dependency "renalware/letters"
 require "collection_presenter"
 
+# rubocop:disable Metrics/ClassLength
 module Renalware
   module Letters
     class LetterPresenter < DumbDelegator
@@ -88,12 +89,24 @@ module Renalware
       end
 
       def pdf_filename
-        [
-          patient.family_name,
-          patient.local_patient_id,
-          id,
-          state
-        ].join("-").upcase.concat(".pdf")
+        build_filename_from(
+          [
+            patient.family_name,
+            patient.local_patient_id,
+            id,
+            state
+          ]
+        )
+      end
+
+      def pdf_stateless_filename
+        build_filename_from(
+          [
+            patient.family_name,
+            patient.local_patient_id,
+            id
+          ]
+        )
       end
 
       def state_description
@@ -105,6 +118,10 @@ module Renalware
       end
 
       private
+
+      def build_filename_from(arr)
+        Array(arr).join("-").upcase.concat(".pdf")
+      end
 
       # Include the counterpart cc recipients (i.e. patient and/or primary care physician)
       def build_cc_recipients
@@ -151,3 +168,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

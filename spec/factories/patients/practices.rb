@@ -2,8 +2,9 @@
 
 FactoryBot.define do
   sequence :practice_code do |n|
-    "PR432#{n}"
+    "M" + n.to_s.rjust(5, "0")
   end
+
   factory :practice, class: "Renalware::Patients::Practice" do
     name { "Trumpton Medical Centre" }
     email { "admin@trumptonmedicalcentre-nhs.net" }
