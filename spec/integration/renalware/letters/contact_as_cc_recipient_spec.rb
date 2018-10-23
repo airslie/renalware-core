@@ -27,13 +27,10 @@ RSpec.describe "Assign a person as a CC recipient", type: :feature do
   let!(:contact_description) { create(:letter_contact_description) }
 
   describe "assigning a new person as a CC recipient", js: true do
-    before do
-      create(:letter_letterhead)
-      create(:letter_contact, patient: patient, person: create(:directory_person, by: user))
-    end
+    before { create(:letter_letterhead) }
 
     context "with valid attributes" do
-      it "responds successfully" do
+      it "adds the new contact to the contacts list on the letters form so it can be selected" do
         visit patient_letters_letters_path(patient)
         click_on "Create"
         click_on "Simple Letter"
@@ -68,6 +65,8 @@ RSpec.describe "Assign a person as a CC recipient", type: :feature do
       end
 
       wait_for_ajax
+
+      expect(page).to have_text(person.family_name)
 
       expect(page).to have_no_text("is already a contact for the patient")
     end

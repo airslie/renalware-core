@@ -20,7 +20,18 @@ module Renalware
 
       validates :addressee_id, presence: { if: :contact? }
 
-      delegate :primary_care_physician?, :patient?, :contact?, to: :person_role
+      validate :person_role_present?
+
+      # Check we have a person_role. If we don't add an error to the parent letter if one is
+      # present, otherwise add to our errors.
+      def person_role_present?
+        return if person_role.present?
+
+        errs = letter&.errors || errors
+        errs.add(:base, "Please select a main recipient")
+      end
+
+      delegate :primary_care_physician?, :patient?, :contact?, to: :person_role, allow_nil: true
 
       def to_s
         (address || current_address).to_s

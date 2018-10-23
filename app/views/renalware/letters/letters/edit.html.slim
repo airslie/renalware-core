@@ -10,6 +10,7 @@
       wrapper: "horizontal_form",
       html: { id: "letter-form", autocomplete: "off" } do |f|
 
+    = render "renalware/shared/errors", model: letter
     = render "form",
              f: f,
              patient: patient,
