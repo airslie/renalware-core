@@ -12,15 +12,15 @@
       margin-bottom: 10px;
 
       h1 {
-        margin: 0 0 0.2rem 0;
         font-size: 1.5rem;
+        margin: 0 0 0.2rem 0;
       }
 
       .reveal-modal-close {
-        position: absolute;
-        top: 0.5rem;
-        right: 1.1rem;
         font-size: 1.6rem;
+        position: absolute;
+        right: 1.1rem;
+        top: 0.5rem;
 
         i {
           padding-right: 5px;
@@ -29,15 +29,15 @@
     }
 
     .scrollable {
+      clear: both;
       height: 300px;
       overflow-y: auto;
-      clear: both;
     }
   }
 
   #snippet-search-form {
-    margin-top: 4px;
     float: left;
+    margin-top: 4px;
     min-width: 300px;
 
     button, input {
@@ -69,18 +69,18 @@
     }
 
     td.body {
-      position: relative;
       height: 1rem;
+      position: relative;
 
       &:after {
-        content: '';
-        width: 100%;
-        //height: 2rem;
-        position: absolute;
-        left: 0;
         bottom: 0;
         box-shadow: 0 0 .5em 0.5em #fff;
+        //height: 2rem;
+        content: '';
         height: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
         //background:linear-gradient(rgba(255,255,255,0) 0, white);
       }
 
@@ -102,6 +102,7 @@
     }
 
     @media #{$medium-up} {
+
       td, th {
         &.author {
           display: table-cell;
@@ -110,6 +111,7 @@
     }
 
     @media #{$large-up} {
+
       td, th {
         &.last_used_on {
           display: table-cell;
@@ -118,6 +120,7 @@
     }
 
     @media #{$xlarge-up} {
+
       td, th {
         &.updated_at {
           display: table-cell;
@@ -127,16 +130,16 @@
   }
 
   .tabs {
+    float: left;
     list-style-type: none;
     margin: 0 0 2px 0 !important;
     padding: 10px 50px 7px 4px;
-    float: left;
 
     li {
-      padding: 8px 20px 12px 15px;
-      display: inline;
       background-color: #ddd;
       border-radius: 4px 5px 0 0;
+      display: inline;
+      padding: 8px 20px 12px 15px;
 
       .fa,
       .far,
@@ -160,7 +163,7 @@
 
 .insert-snippet-button,
 .editor-toolbar-button {
-  padding: 5px 8px;
   margin-bottom: 5px !important;
   margin-left: 1rem;
+  padding: 5px 8px;
 }

@@ -4,25 +4,25 @@
     margin-bottom: 10px;
 
     h1, h2, h3 {
-      margin: 0 0 0.5rem 0;
-      font-size: 1.3rem;
       color: $dark-grey;
       display: inline-block;
+      font-size: 1.3rem;
+      margin: 0 0 0.5rem 0;
     }
 
     h3 {
-      font-weight: normal;
       color: $dashboard-muted-color;
+      font-weight: normal;
     }
 
     .reveal-modal-close {
-      position: absolute;
-      top: 0.3rem;
-      right: 0.8rem;
-      font-size: 1.5rem;
       color: $winter-sky;
-      padding: 0.2rem;
+      font-size: 1.5rem;
       font-weight: normal;
+      padding: 0.2rem;
+      position: absolute;
+      right: 0.8rem;
+      top: 0.3rem;
 
       i {
         padding-right: 5px;
@@ -49,41 +49,41 @@
 }
 
 .modal-show {
-  position: relative;
   background: $oil;
   background: rgba(56, 80, 70, 0.5);
-  width: 100%;
   height: 100%;
+  left: 0;
+  position: relative;
   position: fixed;
   top: 0;
-  left: 0;
+  width: 100%;
   z-index: 100;
 }
 
 .modal-window {
   background: $white;
-  width: 600px;
-  margin-left: auto;
-  margin: auto;
-  margin-top: 100px;
-  padding: 20px;
   border-radius: 5px;
   box-shadow: 1px 1px 1px $oil;
   height: 460px;
+  margin: auto;
+  margin-left: auto;
+  margin-top: 100px;
+  padding: 20px;
+  width: 600px;
 }
 
 #modal-holder {
-  width: 560px;
   height: 380px;
   overflow: scroll;
+  width: 560px;
 }
 
 .modal-close {
+  cursor: pointer;
   display: fixed;
   float: right;
-  width: 20px;
   height: 20px;
-  cursor: pointer;
+  width: 20px;
   z-index: 100;
 }
 

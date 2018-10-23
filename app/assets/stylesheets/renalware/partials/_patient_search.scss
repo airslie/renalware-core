@@ -10,10 +10,10 @@ $btn-hover-color: darken($dark-grey, 10%);
 .patient-search-form {
 
   button.button.tiny.postfix {
-    padding: 0;
     background-color: $off-white;
     color: $dark-grey;
     height: $search-bar-height;
+    padding: 0;
 
     &:hover {
       background-color: $btn-hover-background-color;
@@ -22,7 +22,7 @@ $btn-hover-color: darken($dark-grey, 10%);
   }
 
   input {
-    height: $search-bar-height;
     border: 0;
+    height: $search-bar-height;
   }
 }

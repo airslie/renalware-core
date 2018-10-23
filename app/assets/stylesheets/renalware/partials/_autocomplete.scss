@@ -1,7 +1,7 @@
 input[type='text'].ui-autocomplete-loading {
   background-image: image-path('renalware/ajax-loader.gif');
-  background-repeat: no-repeat;
   background-position: 98% center;
+  background-repeat: no-repeat;
 }
 
 .ui-widget.ui-autocomplete {
@@ -9,11 +9,11 @@ input[type='text'].ui-autocomplete-loading {
 }
 
 .ui-menu.ui-autocomplete .ui-menu-item {
-  padding-top: 0;
-  padding-bottom: 0;
   font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
-  overflow-x: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   margin: 0 4px;
+  overflow-x: hidden;
+  padding-bottom: 0;
+  padding-top: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

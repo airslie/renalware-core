@@ -17,25 +17,25 @@
 //
 
 // NHS Colours
-$nhs-yellow: #FAE100;
-$nhs-warm-yellow: #FFB81C;
-$nhs-orange: #ED8B00;
-$nhs-red: #D81E05;
+$nhs-yellow: #fae100;
+$nhs-warm-yellow: #ffb81c;
+$nhs-orange: #ed8b00;
+$nhs-red: #d81e05;
 
-$nhs-emergency-red: #DA291C;
-$nhs-dark-red: #8A1538;
-$nhs-dark-pink: #7C2855;
+$nhs-emergency-red: #da291c;
+$nhs-dark-red: #8a1538;
+$nhs-dark-pink: #7c2855;
 $nhs-purple: #330072;
-$nhs-pink: #AE2573;
+$nhs-pink: #ae2573;
 
 $nhs-dark-blue: #003087;
-$nhs-blue: #005EB8;
-$nhs-bright-blue: #0072CE;
-$nhs-light-blue: #41B6E6;
-$nhs-aqua-blue: #00A9CE;
+$nhs-blue: #005eb8;
+$nhs-bright-blue: #0072ce;
+$nhs-light-blue: #41b6e6;
+$nhs-aqua-blue: #00a9ce;
 
-$nhs-aqua-green: #00A499;
-$nhs-light-green: #78BE20;
+$nhs-aqua-green: #00a499;
+$nhs-light-green: #78be20;
 $nhs-green: #009639;
 $nhs-dark-green: #006747;
 
@@ -43,12 +43,12 @@ $dashboard-muted-color: #888;
 $link-colour: $primary-color; // #008CBA;
 $link-focus-colour: #0078a0;
 $link-hover-colour: #64d6fb;
-$white: #FFF;
-$off-white: #EEE;
+$white: #fff;
+$off-white: #eee;
 $dark-grey: #222;
 $muted-dark-grey: #555;
-$winter-sky: #AAA;
-$light-grey: #DDD;
+$winter-sky: #aaa;
+$light-grey: #ddd;
 $mid-grey: #999;
 $very-light-grey: #f5f5f5;
 $error-background: $off-white;
@@ -58,8 +58,8 @@ $light-green: #00e658;
 
 // Drug type colours
 $drug-type-default-colour: none;
-$drug-type-esa-colour: #FFFF99;
-$drug-type-immunosuppressant-colour: #CCFeFF;
+$drug-type-esa-colour: #ff9;
+$drug-type-immunosuppressant-colour: #ccfeff;
 
 $tab-border-color: $off-white;
 
@@ -69,7 +69,7 @@ $patient-header-icon-color: #bbb;
 $patient-header-bg-color: $nhs-blue;
 
 // Bookmarks
-$bookmark-urgent-colour: #FFFFC8;
+$bookmark-urgent-colour: #ffffc8;
 
 // Letter states
 $letter-state-unknown: $mid-grey;
@@ -94,27 +94,27 @@ $priority-low: $nhs-green;
 // Modals
 $max-modal-height: 600px;
 
-$mini-profile-backgound-colour: #DEF0F6;
-$mini-profile-renal-backgound-colour: #DEF0F6;
+$mini-profile-backgound-colour: #def0f6;
+$mini-profile-renal-backgound-colour: #def0f6;
 $mini-profile-allergies-backgound-colour: $nhs-yellow;
 
 $letter-preview-background-colour: #ddd;
 
 // tables
-$table-even-row-colour: #FCFCFC;
-$table-border-colour: #CCC;
-$table-toggled-content-colour: #FEFFF1;
+$table-even-row-colour: #fcfcfc;
+$table-border-colour: #ccc;
+$table-toggled-content-colour: #fefff1;
 $table-urgent-colour: $nhs-yellow;
 
-$patient-menu-background-colour: #eeeeee;
-$menu-divider-colour: #E6E6E6;
+$patient-menu-background-colour: #eee;
+$menu-divider-colour: #e6e6e6;
 
 $footer-colour: $patient-header-muted-color;
-$footer-bg-colour:$patient-menu-background-colour;
+$footer-bg-colour: $patient-menu-background-colour;
 
 // Forms
-$form-hint-colour: #BBB;
-$disabled-colour: #CCC;
+$form-hint-colour: #bbb;
+$disabled-colour: #ccc;
 
 // Menus
 $patient-menu-icon-color: $gainsboro;
@@ -136,7 +136,7 @@ $patient-side-nav-width: 15rem;
 $select2-input-height: 2.2rem;
 
 // Breakpoints
-$small-range: (0em, 40em);
+$small-range: (0, 40em);
 $medium-range: (40.063em, 64em);
 $large-range: (64.063em, 90em);
 $xlarge-range: (90.063em, 120em);

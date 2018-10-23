@@ -1,7 +1,7 @@
 .admin-users {
   td.approved {
-    text-align: center;
     color: $nhs-light-green;
+    text-align: center;
 
     .unapproved {
       color: $nhs-red;
@@ -10,12 +10,12 @@
   }
 
   .tag {
-    color: $white;
-    padding: .05rem .5rem .15rem .5rem;
-    border: none;
-    margin: .1rem .3rem .2rem 0;
-    border-radius: .3rem;
     background-color: $mid-grey;
+    border: 0;
+    border-radius: .3rem;
+    color: $white;
+    margin: .1rem .3rem .2rem 0;
+    padding: .05rem .5rem .15rem .5rem;
     white-space: nowrap;
 
     &.devops {

@@ -1,13 +1,13 @@
 .save {
-  background-color: green !important;
+  background-color: #008000 !important;
 }
 
 .cancel {
-  background-color: red !important;
+  background-color: #f00 !important;
 }
 
 .delete {
-  color: red !important;
+  color: #f00 !important;
 }
 
 .sub-nav dd a.has-tip:hover {
@@ -18,18 +18,18 @@
   margin-bottom: 0.8rem;
 
   dd {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
   }
 }
 
 .tooltip {
   background-color: rgba(92,92,92,0.9);
   border-radius: 0.5em;
-  radius: 20px;
-  padding: 6px 8px;
-  font-size: 0.9rem;
   color: $white;
+  font-size: 0.9rem;
+  padding: 6px 8px;
+  radius: 20px;
 }
 
 .tooltip > .nub {
@@ -68,9 +68,9 @@ dd.patient-name {
   }
 
   background-color: $patient-menu-background-colour;
+  min-width: $patient-side-nav-width;
   padding: 0.6rem 0 2rem 0.6rem;
   width: $patient-side-nav-width;
-  min-width: $patient-side-nav-width;
 
   hr {
     margin: 0.3rem 0 0.5rem;
@@ -86,9 +86,9 @@ dd.patient-name {
 
       a {
         border-radius: 3px;
+        color: $nhs-blue;
         padding: 0.1rem 0.5rem;
         text-decoration: underline;
-        color: $nhs-blue;
       }
 
       span {
@@ -100,22 +100,22 @@ dd.patient-name {
         padding-right: .5rem;
 
         a {
-          text-decoration: none;
-          text-align: left;
-          margin-right:1rem;
+          background-color: $light-grey;
+          border-radius: 2px;
+          border-radius: 3px;
+          color: $dark-grey;
           margin-bottom: 0.2rem;
+          margin-right: 1rem;
           margin-top: 0.1rem;
           padding: 0.2rem 0.5rem;
-          background-color: $light-grey;
-          color: $dark-grey;
-          border-radius: 3px;
+          text-align: left;
+          text-decoration: none;
           transition: all 0.3s ease 0s;
-          border-radius: 2px;
 
           &:hover {
             background-color: $nhs-blue;
-            color: $off-white;
             box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.13), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+            color: $off-white;
           }
         }
       }
@@ -134,18 +134,18 @@ dd.patient-name {
 .patient-side-nav li > a:hover,
 .patient-side-nav li > a:hover:first-child:not(.button) {
   background-color: $link-colour;
-  color: $white;
-  border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  color: $white;
 }
 
 .patient-side-nav li.active > a,
 .patient-side-nav li.active > a:first-child:not(.button) {
   background-color: $white;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 0;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 0;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 0;
   color: $dark-grey;
   margin-right: 0;
   text-decoration: none;
@@ -158,19 +158,19 @@ dd.patient-name {
 
 .patient-side-nav li.heading {
   color: $dark-grey;
-  font-weight: normal;
   font-size: .9rem;
+  font-weight: normal;
 }
 
 .mdm-top-bar {
   height: 2.3rem;
 
   ul li.name {
+    color: $white;
+    font-size: 1rem;
     height: 2.2rem;
     padding-left: 0.5rem;
     padding-top: 0.4rem;
-    color: $white;
-    font-size: 1rem;
 
     a {
       color: $white;
@@ -187,9 +187,9 @@ dd.patient-name {
 
 .top-bar-section  .dropdown li.info {
   color: rgba(255, 255, 255, 0.5);
-  padding: 0 15px;
-  line-height: 45px;
   font-size: 0.8em;
+  line-height: 45px;
+  padding: 0 15px;
 }
 
 .dropdown.button {
@@ -217,10 +217,10 @@ dd.patient-name {
 // so that the active one seems to have no bottom border.
 .tabs-container {
   border-bottom: 1px solid $tab-border-color;
-  float: left;
-  width: 100%;
   clear: both;
+  float: left;
   margin-bottom: 1rem;
+  width: 100%;
 
   .sub-nav {
     margin: 0;
@@ -230,15 +230,15 @@ dd.patient-name {
 }
 
 .sub-nav dd a {
-  display: block;
-  color: $monsoon;
   background-color: transparent;
+  border: solid transparent;
+  border-radius: 3px 3px 0 0;
+  border-width: 3px 1px 1px;
+  color: $monsoon;
+  display: block;
+  padding: 0.3rem 1.3rem;
   text-decoration: none;
   white-space: nowrap;
-  border: solid transparent;
-  border-width: 3px 1px 1px;
-  border-radius: 3px 3px 0 0;
-  padding: 0.3rem 1.3rem;
 }
 
 .sub-nav dd a:hover {
@@ -246,9 +246,9 @@ dd.patient-name {
 }
 
 .sub-nav dd.active a {
+  background-color: $white;
   border-color: $nhs-orange $tab-border-color transparent;
   color: $dark-grey;
-  background-color: $white;
   padding: 0.3rem 1.3rem;
 }
 
@@ -263,10 +263,10 @@ dd.patient-name {
 
 .f-dropdown li {
   &.disabled {
-    padding: 0.5rem;
     color: $mid-grey;
     cursor: default;
     display: block;
+    padding: 0.5rem;
 
     &:hover {
       background-color: $white;

@@ -1,7 +1,7 @@
 
 .noprint {
   display: none !important;
-  min-width: 0em !important;
+  min-width: 0 !important;
 }
 
 .print-only {
@@ -18,10 +18,11 @@ a:visited {
   // Header with Main title to the left and a muted subtitle to the right
   .header {
     h1, h2 {
-      margin-bottom: 7px;
-      margin-top: 0px;
       line-height: 2rem;
+      margin-bottom: 7px;
+      margin-top: 0;
     }
+
     h1 {
       float: left;
       font-size: 2rem;
@@ -30,8 +31,8 @@ a:visited {
     h2 {
       float: right;
       font-size: 1.7rem;
-      line-height: 1.7rem;
       font-weight: normal;
+      line-height: 1.7rem;
       margin-top: 4px;
     }
 
@@ -41,8 +42,8 @@ a:visited {
   }
 
   table {
-    width: 100%;
     border-collapse: collapse;
+    width: 100%;
 
     // Could make this the default pdf table style but separate class for now
     &.spacy {
@@ -53,8 +54,8 @@ a:visited {
     }
 
     &.nested-table-in-order-to-prevent-orphaned-rows {
-      page-break-inside: avoid !important;
       border-top: solid 1px #000;
+      page-break-inside: avoid !important;
     }
 
     tr {
@@ -62,8 +63,8 @@ a:visited {
     }
 
     th {
-      text-align: left;
       padding: 4px 0;
+      text-align: left;
     }
 
     td {
@@ -75,8 +76,8 @@ a:visited {
       page-break-inside: avoid;
 
       p {
-        padding: 0;
         margin: 0;
+        padding: 0;
       }
     }
   }
@@ -91,7 +92,7 @@ a:visited {
     }
 
     th, td {
-      border: none;
+      border: 0;
     }
 
     th {
@@ -100,8 +101,8 @@ a:visited {
     }
 
     th:first-child {
+      padding-left: 0;
       text-decoration: underline;
-      padding-left: 0px;
     }
   }
 
@@ -117,41 +118,41 @@ a:visited {
     }
 
     &.col-width-time {
-      width: 3rem;
       min-width: 2.7rem;
+      width: 3rem;
     }
 
     &.col-width-date-time {
-      width: 9.5rem;
       min-width: 9.5rem;
+      width: 9.5rem;
     }
 
     &.col-width-reference-without-prefix {
-      width: 7rem;
       min-width: 5.5rem;
       white-space: nowrap;
+      width: 7rem;
     }
 
     &.col-width-reference-no {
-      width: 8rem;
       min-width: 8rem;
       white-space: nowrap;
+      width: 8rem;
     }
 
     &.col-width-nhs-no {
-      width: 7rem;
       min-width: 7rem;
       white-space: nowrap;
+      width: 7rem;
     }
 
     &.col-width-bp {
-      width: 4.5rem;
       min-width: 3.8rem;
+      width: 4.5rem;
     }
 
     &.col-width-toggle {
-      width: 9.7rem;
       min-width: 9.7rem;
+      width: 9.7rem;
     }
 
     &.col-width-tiny {
@@ -159,28 +160,28 @@ a:visited {
     }
 
     &.col-width-tinyish {
-      width: 5rem;
       min-width: 4.5rem;
+      width: 5rem;
     }
 
     &.col-width-small {
-      width: 7rem;
       min-width: 5.1rem;
+      width: 7rem;
     }
 
     &.col-width-medium {
-      width: 12rem;
       min-width: 10rem;
+      width: 12rem;
     }
 
     &.col-width-medium-ish {
-      width: 14rem;
       min-width: 12rem;
+      width: 14rem;
     }
 
     &.col-width-large {
-      width: 20rem;
       min-width: 15rem;
+      width: 20rem;
     }
 
     &.column-6-width {

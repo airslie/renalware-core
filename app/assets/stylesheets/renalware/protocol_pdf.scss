@@ -4,8 +4,8 @@ html {
 
 html,
 body {
-  font-size: 10px;
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  font-size: 10px;
 }
 
 h1 {
@@ -13,25 +13,25 @@ h1 {
 }
 
 .page-break {
-  display:block;
-  clear:both;
-  page-break-after:always;
+  clear: both;
+  display: block;
+  page-break-after: always;
 }
 
 .noprint {
   display: none !important;
-  min-width: 0em !important;
+  min-width: 0 !important;
 }
 
 .protocol {
 
   .patient-header {
-    float: left;
     clear: right;
+    float: left;
     dl {
+      color: #000;
       font-size: 1.1rem;
       margin: 0 0 .2em 0;
-      color: #000;
 
       dt {
         display: inline-block;
@@ -44,17 +44,17 @@ h1 {
 
       dd {
         display: inline;
-        margin: 0 .5em 0 .1em;
-        margin: 0 .6rem 0 .2em;
         font-size: 1.5em;
         line-height: 1.3em;
+        margin: 0 .5em 0 .1em;
+        margin: 0 .6rem 0 .2em;
 
         &.name {
           display: inline-block;
-          margin-right: .4em;
-          margin-left: 0;
-          margin-right: .6em;
           font-weight: bold;
+          margin-left: 0;
+          margin-right: .4em;
+          margin-right: .6em;
           width: auto;
         }
       }
@@ -62,18 +62,18 @@ h1 {
   }
 
   table.protocol-patient-summary {
-    border: none;
-    float:left;
+    border: 0;
     clear: both;
+    float: left;
 
     thead {
       background-color: transparent;
       text-align: left;
 
       th {
+        font-size: 1.1rem;
         padding: 0;
-        padding-bottom: 0.4rem;
-        font-size: 1.1rem ;
+        padding-bottom: 0.4rem ;
 
         &.protocol-hd-profile {
           width: 42%;
@@ -83,8 +83,8 @@ h1 {
           width: 18%;
 
           .allergy_status_updated_at {
-            padding-left: 0.2rem;
             font-weight: normal;
+            padding-left: 0.2rem;
           }
         }
 
@@ -93,33 +93,33 @@ h1 {
         }
 
         &.protocol-recent-pathology {
-          width: 15%;
           padding: 0;
           padding-left: .3rem;
+          width: 15%;
         }
       }
     }
 
     td {
-      vertical-align: top;
       margin: 0;
       padding: 0 0.1rem;
+      vertical-align: top;
     }
   }
 
   table.protocol-sessions {
-    float: left;
-    clear: both;
     border: solid 1px #000;
-    padding: 0;
-    margin: 0;
-    border-spacing: 0;
     border-collapse: separate;
+    border-spacing: 0;
+    clear: both;
+    float: left;
+    margin: 0;
+    padding: 0;
     width: 100%;
 
     td, th {
+      border-right: solid 1px #aaa;
       line-height: 0.8rem !important;
-      border-right: solid 1px #AAA;
     }
 
     thead {
@@ -129,8 +129,8 @@ h1 {
 
           &.col-width-tiny {
             min-width: 2.5rem;
-            width: 4.5rem;
             text-align: centre;
+            width: 4.5rem;
           }
 
           &.col-width-date {
@@ -171,13 +171,13 @@ h1 {
 
     tbody {
       tr {
-        padding:0;
         border: solid 1px #000;
+        padding: 0;
 
         td {
-          padding: 3px;
           border-top: solid 1px #000;
           height: 2rem;
+          padding: 3px;
           text-align: center;
 
           &.text-left {
@@ -199,9 +199,10 @@ h1 {
             border-top: solid 2px #000;
           }
         }
+
         &:nth-child(even){
           td {
-            border-top: solid 1px #BBB;
+            border-top: solid 1px #bbb;
           }
         }
       }
@@ -221,40 +222,43 @@ h1 {
   }
 
   dl {
-    padding-bottom: 0.2rem;
+    float: left;
     margin-bottom: 0.2rem;
     margin-top: 0;
-    float:left;
+    padding-bottom: 0.2rem;
 
     dd, dt {
-      float: left;
       clear: none;
-      width: auto;
+      float: left;
       margin: 0;
+      margin-bottom: 0.3rem;
       padding: 0;
 
-      margin-bottom: 0.3rem;
+      width: auto;
 
       &.new_line {
-        clear:left;
+        clear: left;
       }
     }
+
     dt {
+      font-weight: bold;
       margin-right: 0.3rem;
       white-space: nowrap;
-      font-weight: bold;
     }
+
     dd {
       margin-right: 0.6rem;
+      margin-top: .07rem;
       white-space: nowrap;
-      margin-top:.07rem;
     }
 
     &.prescriptions {
       dt {
-        float: left;
         clear: left;
+        float: left;
       }
+
       dd {
         clear: right;
       }
@@ -269,10 +273,10 @@ h1 {
 
     .allergy_descriptions {
       font-weight: bold;
-      padding: 0;
+      list-style-type: none;
       margin: 0;
       margin-top: 0.1rem;
-      list-style-type: none;
+      padding: 0;
 
       li {
         margin-bottom: 0.3rem;

@@ -25,8 +25,8 @@ textarea.monospace {
 }
 
 // Hide up down arrows on number inputs
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -36,8 +36,8 @@ input[type=number]::-webkit-outer-spin-button {
   margin-left: 15px;
 
   &.disabled {
-    pointer-events: none;
     color: $disabled-colour;
+    pointer-events: none;
   }
 }
 
@@ -52,8 +52,8 @@ input[type=number]::-webkit-outer-spin-button {
 form {
   .striped {
     > .row {
-      padding-top: .35rem;
       padding-bottom: .35rem;
+      padding-top: .35rem;
 
       input {
         margin-bottom: 0;
@@ -112,8 +112,8 @@ form {
     }
 
     .datepicker_error {
-      float: left;
       clear: both;
+      float: left;
       width: 100%;
     }
   }
@@ -130,15 +130,15 @@ article {
   width: 100%;
 
   &.secondary {
-    border-width: 1px;
     border-color: lighten($link-colour, 20%);
+    border-width: 1px;
   }
 
   h3 {
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
     font-size: 1.1rem;
     font-weight: bold;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
   }
 
   header {
@@ -152,9 +152,9 @@ article {
       float: left;
       font-size: 1.2rem;
       font-weight: bold;
+      line-height: 1.8rem;
       margin: 0 .5rem 0 0;
       padding: 0;
-      line-height: 1.8rem;
 
       a {
         font-weight: bold;
@@ -166,10 +166,10 @@ article {
       // float: left;
 
       span {
+        color: $mid-grey;
         font-size: 1.1rem;
         line-height: 1.78rem;
         margin: 0 .5rem 0 0;
-        color: $mid-grey;
       }
 
       a {
@@ -179,8 +179,8 @@ article {
     }
 
     h3 {
-      font-size: 1.1rem;
       color: $muted-dark-grey;
+      font-size: 1.1rem;
     }
 
     ul {
@@ -197,8 +197,8 @@ article {
       background-color: $steel;
       border-radius: 3px !important;
       color: $white;
-      float: right;
       display: block;
+      float: right;
       padding: 0.4rem;
       text-decoration: none;
     }
@@ -240,15 +240,15 @@ article {
 
   legend {
     .fieldset-action {
-      padding-left: 1rem;
-      font-weight: normal;
       font-size: 1rem;
+      font-weight: normal;
+      padding-left: 1rem;
     }
   }
 
   dt {
-    font-weight: normal;
     color: rgb(153, 153, 153);
+    font-weight: normal;
   }
 
   .button {
@@ -261,8 +261,8 @@ article {
     }
 
     address {
-      display: inline;
       color: $form-hint-colour;
+      display: inline;
       font-size: 0.9em;
     }
   }
@@ -313,22 +313,22 @@ article {
 
     th:first-child,
     td:first-child {
-      text-align: right;
       min-width: 24%;
       padding-top: 11px;
+      text-align: right;
     }
   }
 }
 
 .profile-info-form table {
   td:first-child {
-    width: 34%;
     min-width: 120px;
+    width: 34%;
   }
 
   td:nth-child(2) {
-    width: 24%;
     min-width: 200px;
+    width: 24%;
   }
 
   td:last-child {
@@ -366,8 +366,8 @@ article {
 fieldset {
 
   &.borderless {
-    padding: 0 !important;
     border: 0;
+    padding: 0 !important;
 
     legend {
       display: none;
@@ -375,24 +375,24 @@ fieldset {
   }
 
   &.simple {
-    padding: 0.8rem 0 0 0;
-    margin: 40px 0 10px 0;
     border-width: 1px 0 0 0;
+    margin: 40px 0 10px 0;
+    padding: 0.8rem 0 0 0;
     position: relative;
 
     legend {
+      font-size: 1.3rem;
+      left: 0;
+      line-height: 1.3rem;
       position: absolute;
       top: -28px;
-      left: 0;
       width: 100%;
-      font-size: 1.3rem;
-      line-height: 1.3rem;
 
       span {
 
         &.title {
-          padding-right: 1rem;
           font-weight: normal;
+          padding-right: 1rem;
         }
 
         &.actions {
@@ -402,8 +402,8 @@ fieldset {
 
           &.action-links {
             a {
-              font-weight: normal;
               font-size: 1rem;
+              font-weight: normal;
             }
           }
 

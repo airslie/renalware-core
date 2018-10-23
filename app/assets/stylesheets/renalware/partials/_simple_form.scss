@@ -2,8 +2,8 @@
 
   fieldset {
     border: 0;
-    padding: 0.5rem 0;
     margin: 0 0 1.5rem;
+    padding: 0.5rem 0;
 
     legend {
       border-top: 2px solid $link-colour;
@@ -62,7 +62,7 @@
   }
 
   td {
-    input[type=radio] {
+    input[type="radio"] {
       margin: auto;
     }
   }

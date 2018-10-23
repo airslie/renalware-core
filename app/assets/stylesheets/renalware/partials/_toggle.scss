@@ -12,9 +12,9 @@
 
 .accordion .accordion-navigation > a,
 .accordion dd > a {
+  border-radius: 0.5em;
   font-size: 1rem;
   padding: 0 0.5em 0 0;
-  border-radius: 0.5em;
   text-decoration: none;
 }
 
@@ -118,8 +118,8 @@
 .accordion dd > a.toggle-info {
   background: none;
   border-radius: 3px;
-  padding: 0 0.3em 0 0.3em;
   color: $link-colour;
+  padding: 0 0.3em 0 0.3em;
 }
 
 .toggle-text {
@@ -137,8 +137,8 @@
 
 .css-toggle-container {
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
+  white-space: nowrap;
 
   &.expanded {
     white-space: normal;
