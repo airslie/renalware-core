@@ -1,3 +1,5 @@
+- death_configuration = local_assigns[:death_configuration] || false
+
 table.renal-registry-preflight-checks
   thead
     tr
@@ -9,10 +11,11 @@ table.renal-registry-preflight-checks
                      :modality_descriptions_name,
                       "Modality",
                       default_order: :asc)
-      td.col-width-small
-       = sort_link([:renalware, query],
-                    :hd_profile_unit_name,
-                    "HD Site")
+      - unless death_configuration
+        td.col-width-small
+          = sort_link([:renalware, query],
+                      :hd_profile_unit_name,
+                      "HD Site")
       td.col-width-date
         = sort_link([:renalware, query],
                     :profile_esrf_on,
@@ -25,7 +28,8 @@ table.renal-registry-preflight-checks
         td= patient.nhs_number
         td= patient.hospital_identifiers
         td= patient.current_modality
-        td= patient.hd_unit
+        - unless death_configuration
+          td= patient.hd_unit
         td= l(patient.renal_profile&.esrf_on)
         td.missing-data
           - patient.missing_data.map do |data_item|
