@@ -63,21 +63,36 @@ module Renalware
         end
 
         describe "#tx_candidates" do
-          it "returns only patients with a registration status" do
+          it "returns patients with a non '*permanent' registration status" do
             create_lcc_patient
-            lcc_patient_on_tx_wait_list = create_lcc_patient
-
-            create(
-              :transplant_registration,
-              :in_status,
-              status: "active",
-              patient: Renalware::Transplants.cast_patient(lcc_patient_on_tx_wait_list)
-            )
+            lcc_patient_on_tx_wait_list = create_lcc_patient.tap do |patient|
+              create(
+                :transplant_registration,
+                :in_status,
+                status: "active",
+                patient: Renalware::Transplants.cast_patient(patient)
+              )
+            end
 
             patients = described_class.new(named_filter: :tx_candidates).call
 
-            pending "Need to implement this filter"
             expect(patients.map(&:id)).to eq [lcc_patient_on_tx_wait_list.id]
+          end
+
+          it "excludes patients with a tx status of *permanent" do
+            # Create a patient and give them with '*permament' Transplant registration status
+            create_lcc_patient.tap do |patient|
+              create(
+                :transplant_registration,
+                :in_status,
+                status: "unfit_permanent",
+                patient: Renalware::Transplants.cast_patient(patient)
+              )
+            end
+
+            patients = described_class.new(named_filter: :tx_candidates).call
+
+            expect(patients.map(&:id)).to eq []
           end
         end
 

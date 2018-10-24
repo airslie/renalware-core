@@ -20,6 +20,7 @@ module Renalware
         search.result
       end
 
+      # rubocop:disable Metrics/MethodLength
       def search
         @search ||= begin
           relation
@@ -35,6 +36,7 @@ module Renalware
             .search(query)
         end
       end
+      # rubocop:enable Metrics/MethodLength
 
       module NamedFilterScopes
         def none
@@ -51,7 +53,7 @@ module Renalware
         end
 
         def tx_candidates
-          self
+          where("transplant_registration_status_descriptions.code not ilike '%permanent'")
         end
 
         def urea
