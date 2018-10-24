@@ -9,6 +9,11 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.53
+### Fixed
+- Report errors in UKRDC rake tasks #2451
+- UKRDC XML undefined method 'renal_registry_code' for nil:NilClass #2388
+
 ## 2.0.52
 08-10-2018
 

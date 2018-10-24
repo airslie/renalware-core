@@ -22,9 +22,16 @@ module Renalware
           send_patients
         end
         print_summary(ms)
+      rescue StandardError => exception
+        notify_exception(exception)
+        raise exception
       end
 
       private
+
+      def notify_exception(exception)
+        Engine.exception_notifier.notify(exception)
+      end
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def send_patients
