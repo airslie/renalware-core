@@ -22,7 +22,7 @@ xml.Treatment do
   end
 
   xml.EnteredAt do
-    xml.Code session.hospital_unit.renal_registry_code
+    xml.Code session.hospital_unit_renal_registry_code
   end
 
   xml.Attributes do
