@@ -9,6 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.54
+### Changes
+- Changes to the way UKRDC XML files are saved #2456
+- Most HD Session HDF fields can now be blank, to allow for Diaverum which does not supply them #2452
+- KTV values can not be in the range 0.05 to 3.5 #2452
+### Fixed
+- In problem lists display the name of the last user to make a change #2452
+
 ## 2.0.53
 ### Fixed
 - Report errors in UKRDC rake tasks #2451
