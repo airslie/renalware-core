@@ -49,10 +49,10 @@ module Renalware
           it "validates presence of #hdf if hd_type is hdf" do
             document.info.hd_type = hd_type
             document.valid?
-            expect(document.hdf.errors).to include(:subs_fluid_pct,
-                                                   :subs_goal,
-                                                   :subs_rate,
-                                                   :subs_volume)
+            expect(document.hdf.errors).to include(:subs_volume)
+            expect(document.hdf.errors).not_to include(:subs_goal)
+            expect(document.hdf.errors).not_to include(:subs_rate)
+            expect(document.hdf.errors).not_to include(:subs_pct)
           end
         end
 
