@@ -9,7 +9,7 @@ select
   (select max(created_at) from delayed_jobs) as delayed_jobs_latest_entry,
   (select count(*) from delayed_jobs where created_at >= now()::date) as delayed_jobs_added_today,
   (select json_object_agg(priority, count) from (select priority, count(*) from delayed_jobs group by priority ) query) as delayed_jobs_priority_counts,
-  (select json_object_agg(queue, count) from (select queue, count(*) from delayed_jobs group by queue ) query) as delayed_jobs_queue_counts,
+  (select json_object_agg(coalesce(queue, 'unset'), count) from (select queue, count(*) from delayed_jobs group by queue ) query) as delayed_jobs_queue_counts,
   (select json_object_agg(attempts, count) from (select attempts, count(*) from delayed_jobs group by attempts ) query) as delayed_jobs_attempts_counts,
   (select count(*) from feed_messages) as feed_messages_total,
   (select count(*) from feed_messages where created_at >= now()::date) as feed_messages_added_today,
