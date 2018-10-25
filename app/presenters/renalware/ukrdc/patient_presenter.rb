@@ -78,7 +78,7 @@ module Renalware
       end
 
       def contact_details?
-        email || home_telephone || mobile_telephone
+        email.present? || home_telephone.present? || mobile_telephone.present?
       end
 
       def allergies
