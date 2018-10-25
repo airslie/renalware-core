@@ -61,6 +61,9 @@ module Renalware
     config_accessor(:ukrdc_gpg_keyring) do
       ENV.fetch("UKRDC_GPG_KEYRING", Engine.root.join("config", "gpg", "renalware_test.gpg"))
     end
+    config_accessor(:ukrdc_working_path) do
+      ENV.fetch("UKRDC_WORKING_PATH", File.join("/var", "ukrdc"))
+    end
 
     # We override this in some tests as a means of getting wicked_Pdf to generate an HTML version
     # of the PDF so we can examine its content

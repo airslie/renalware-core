@@ -18,14 +18,19 @@ class GpgEncryptFolder
   pattr_initialize [:folder!, :options!]
 
   def call
-    Dir.glob(folder.join("xml", "*.xml")) do |file|
+    Dir.glob(folder.join("*.xml")) do |file|
       GpgEncryptFile.new(file: file, options: options).call
     end
   end
 end
 
 class GpgOptions
-  attr_reader_initialize [:recipient, :keyring, :homedir, :filename_transform]
+  attr_reader_initialize [
+    :recipient,
+    :keyring,
+    :homedir,
+    :destination_folder,
+    :timestamp]
 end
 
 class GpgEncryptFile
@@ -67,8 +72,15 @@ class GpgCommand
     "--keyring #{options.keyring}"
   end
 
-  # Calls a proc to transform the in file name into an out file name
+  def filename_with_extension
+    File.basename(file, ".xml")
+  end
+
+  def output_filename
+    "#{options.timestamp}_#{filename_with_extension}.gpg"
+  end
+
   def encrypted_filename
-    options.filename_transform.call(file)
+    options.destination_folder.join(output_filename)
   end
 end
