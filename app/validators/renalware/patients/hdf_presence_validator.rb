@@ -10,7 +10,7 @@ module Renalware
     class HDFPresenceValidator < ActiveModel::EachValidator
       def validate_each(_record, _attribute, value)
         hdf = value
-        attribute_names = hdf.attributes.map(&:first)
+        attribute_names = [:subs_volume]
         attribute_names.each do |attribute_name|
           hdf.errors.add(attribute_name, :blank) if value[attribute_name].blank?
         end

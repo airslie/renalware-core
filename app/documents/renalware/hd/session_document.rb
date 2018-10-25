@@ -75,7 +75,7 @@ module Renalware
         ).each { |att| validates(att, numericality: { allow_blank: true }) }
 
         validates :machine_urr, inclusion: { in: 0..100, allow_blank: true }
-        validates :machine_ktv, inclusion: { in: (0.2..3.5), allow_blank: true }
+        validates :machine_ktv, inclusion: { in: (0.05..3.5), allow_blank: true }
         validates :blood_flow, numericality: {
           greater_than_or_equal_to: 50,
           less_than_or_equal_to: 800,

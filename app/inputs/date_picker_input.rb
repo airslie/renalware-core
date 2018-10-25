@@ -30,7 +30,7 @@ class DatePickerInput < SimpleForm::Inputs::StringInput
   # rubocop:enable Metrics/AbcSize
 
   def icon_calendar
-    "<span class='prefix'><i class='fa fa-calendar'></i></span>".html_safe
+    "<span class='prefix'><i class='far fa-calendar'></i></span>".html_safe
   end
 
   def input_type
