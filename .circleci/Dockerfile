@@ -13,7 +13,7 @@
 # and then update the docker image tag (eg 0.0.2) in `.circleci/config`.
 # The next time a build is triggered on CircleCI the new image will be pulled and cached.
 
-FROM ruby:2.5.0
+FROM ruby:2.5.1
 MAINTAINER Tim Crowe <tim@airslie.com>
 # Version 0.0.3 Updated Ruby 2.4.1 => 2.4.2 and Postgres 9.6 => 10.1
 # Version 0.0.5 Updated Ruby 2.4.2 => 2.5.0, Add unrar and unzip
