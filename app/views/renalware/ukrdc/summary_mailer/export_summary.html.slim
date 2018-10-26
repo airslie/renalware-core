@@ -1,0 +1,13 @@
+p= l(Time.zone.now)
+p= "XML files archived to #{summary.archive_folder} and took #{summary.elapsed_time} seconds"
+p= "Count of patients changed since the last time they were sent: #{summary.num_changed_patients}"
+
+- if summary.results.empty?
+  p Nothing to send
+- else
+  ul
+    - summary.results.each do |key, value|
+      li= "#{key.to_s.humanize}: #{value}"
+
+
+p= "Count of files waiting in outgoing folder: #{summary.count_of_files_in_outgoing_folder}"

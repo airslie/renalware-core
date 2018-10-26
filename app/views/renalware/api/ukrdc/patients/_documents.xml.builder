@@ -23,12 +23,10 @@ xml.Documents do
       xml.EnteredAt do
         xml.CodingStandard "ODS"
         xml.Code letter.hospital_unit_code
-        xml.Description ""
       end
       xml.FileType "application/pdf"
       xml.FileName letter.pdf_stateless_filename
       xml.Stream Base64.encode64(Renalware::Letters::PdfRenderer.call(letter))
-      xml.DocumentURL
     end
   end
 end

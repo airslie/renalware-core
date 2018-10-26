@@ -5,12 +5,10 @@ xml = builder
 xml.Medications do
   patient.prescriptions.each do |prescription|
     xml.Medication do
-      xml.PrescriptionNumber
       xml.FromTime prescription.prescribed_on.to_datetime
       if prescription.terminated_or_marked_for_termination?
         xml.ToTime prescription.terminated_on&.to_datetime
       end
-      xml.OrderedBy
       xml.Route do
         xml.CodingStandard "RR22"
         xml.Code prescription.medication_route&.rr_code

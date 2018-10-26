@@ -40,9 +40,6 @@ xml.LabOrder do
   end
   # xml.SpecimenCollectedTime request.requested_at.iso8601
   # xml.SpecimenReceivedTime "TODO"
-  # xml.Priority do
-  #   xml.Code "TODO: Probably n/a"
-  # end
   xml.SpecimenSource request.description.bottle_type
   # xml.Duration "OBR:27.3 but no available in the example messages I have"
 

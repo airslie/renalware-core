@@ -33,10 +33,10 @@ namespace :ukrdc do
          bundle exec rake ukrdc:export\["2018-02-23","1 2"\]
   DESC
   task :export, [:changed_since, :patient_ids] => [:environment] do |_task, args|
-    logger           = Logger.new(STDOUT)
+    logger           = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
     logger.level     = Logger::INFO
     Rails.logger     = logger
-    Renalware::UKRDC::SendPatients.new(
+    Renalware::UKRDC::CreateEncryptedPatientXMLFiles.new(
       changed_since: args[:changed_since],
       patient_ids: args.fetch(:patient_ids, "").split(" ").map(&:to_i)
     ).call

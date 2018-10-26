@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  describe UKRDC::SendPatient do
+  describe UKRDC::CreatePatientXMLFile do
     let(:user) { create(:user) }
     let(:request_uuid) { SecureRandom.uuid }
     let(:xml) {

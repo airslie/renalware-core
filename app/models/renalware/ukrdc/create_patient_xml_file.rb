@@ -5,10 +5,12 @@ require "attr_extras"
 
 module Renalware
   module UKRDC
-    class SendPatient
+    class CreatePatientXMLFile
       pattr_initialize [:patient!, :dir!, :request_uuid!, :renderer, :changes_since, :logger]
 
+      # rubocop:disable Metrics/AbcSize
       def call
+        update_patient_to_indicated_we_checked_them_for_any_relevant_changes
         UKRDC::TransmissionLog.with_logging(patient, request_uuid) do |log|
           logger.info "  Patient #{patient.to_param}"
           xml_payload = build_payload(log)
@@ -16,17 +18,13 @@ module Renalware
             logger.info "    skipping as no change in XML file"
             log.unsent_no_change_since_last_send!
           else
-            send_file(xml_payload, log)
-            # Important we use update_column here so we don't trigger updated_at to change
-            # on the patient, which affects the results of PatientsQuery next time.
-            patient.update_column(:sent_to_ukrdc_at, Time.zone.now)
-            logger.info(
-              "    sending file and setting patient.sent_to_ukrdc_at = #{patient.sent_to_ukrdc_at}"
-            )
+            create_xml_file(xml_payload, log)
+            update_patient_to_indicate_we_have_sent_their_data_to_ukrdc
           end
           logger.info "    Status: #{log.status}"
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
       private
 
@@ -34,11 +32,26 @@ module Renalware
         @logger ||= Rails.logger
       end
 
+      # Important we use update_column here so we don't trigger updated_at to change
+      # on the patient, which affects the results of PatientsQuery next time.
+      def update_patient_to_indicated_we_checked_them_for_any_relevant_changes
+        patient.update_column(:checked_for_ukrdc_changes_at, Time.zone.now)
+      end
+
+      # Important we use update_column here so we don't trigger updated_at to change
+      # on the patient, which affects the results of PatientsQuery next time.
+      def update_patient_to_indicate_we_have_sent_their_data_to_ukrdc
+        patient.update_column(:sent_to_ukrdc_at, Time.zone.now)
+        logger.info(
+          "    sending file and setting patient.sent_to_ukrdc_at = #{patient.sent_to_ukrdc_at}"
+        )
+      end
+
       def xml_payload_same_as_last_sent_payload?(payload)
         payload.to_md5_hash == last_sent_transmission_log.payload_hash
       end
 
-      def send_file(payload, log)
+      def create_xml_file(payload, log)
         File.open(xml_filepath, "w") { |file| file.write(payload) }
         log.file_path = xml_filepath
         log.sent!
@@ -99,9 +112,9 @@ module Renalware
         # This allows us to do payload comparisons independent of the time they were sent.
         def time_neutral_payload
           payload
-            .gsub(/<Stream>[^<]*<\/Stream>/, "<Stream>removed</Stream>")
+            .gsub(%r{<Stream>[^<]*<\/Stream>}, "<Stream>removed</Stream>")
             .gsub(/ (time|start|stop)=["'][^'"]*['"]/, "")
-            .gsub(/<UpdatedOn>[^<]*<\/UpdatedOn>/, "<UpdatedOn>removed</UpdatedOn>")
+            .gsub(%r{<UpdatedOn>[^<]*<\/UpdatedOn>}, "<UpdatedOn>removed</UpdatedOn>")
         end
       end
     end
