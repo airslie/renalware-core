@@ -5837,7 +5837,7 @@ CREATE VIEW reporting_daily_pathology AS
                     count(*) AS count
                    FROM delayed_jobs
                   GROUP BY delayed_jobs.priority) query) AS delayed_jobs_priority_counts,
-    ( SELECT json_object_agg(query.queue, query.count) AS json_object_agg
+    ( SELECT json_object_agg(COALESCE(query.queue, 'unset'::character varying), query.count) AS json_object_agg
            FROM ( SELECT delayed_jobs.queue,
                     count(*) AS count
                    FROM delayed_jobs
@@ -7120,6 +7120,36 @@ ALTER SEQUENCE transplant_versions_id_seq OWNED BY transplant_versions.id;
 
 
 --
+-- Name: ukrdc_batch_numbers; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE ukrdc_batch_numbers (
+    id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: ukrdc_batch_numbers_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE ukrdc_batch_numbers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: ukrdc_batch_numbers_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE ukrdc_batch_numbers_id_seq OWNED BY ukrdc_batch_numbers.id;
+
+
+--
 -- Name: ukrdc_transmission_logs; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8354,6 +8384,13 @@ ALTER TABLE ONLY transplant_registrations ALTER COLUMN id SET DEFAULT nextval('t
 --
 
 ALTER TABLE ONLY transplant_versions ALTER COLUMN id SET DEFAULT nextval('transplant_versions_id_seq'::regclass);
+
+
+--
+-- Name: ukrdc_batch_numbers id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY ukrdc_batch_numbers ALTER COLUMN id SET DEFAULT nextval('ukrdc_batch_numbers_id_seq'::regclass);
 
 
 --
@@ -9649,6 +9686,14 @@ ALTER TABLE ONLY transplant_registrations
 
 ALTER TABLE ONLY transplant_versions
     ADD CONSTRAINT transplant_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ukrdc_batch_numbers ukrdc_batch_numbers_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY ukrdc_batch_numbers
+    ADD CONSTRAINT ukrdc_batch_numbers_pkey PRIMARY KEY (id);
 
 
 --
@@ -15696,6 +15741,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181008144324'),
 ('20181008145159'),
 ('20181013115138'),
-('20181025170410');
+('20181025170410'),
+('20181026145459');
 
 

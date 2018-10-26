@@ -6,7 +6,15 @@ require "attr_extras"
 module Renalware
   module UKRDC
     class CreatePatientXMLFile
-      pattr_initialize [:patient!, :dir!, :request_uuid!, :renderer, :changes_since, :logger]
+      pattr_initialize [
+        :patient!,
+        :dir!,
+        :request_uuid!,
+        :renderer,
+        :changes_since,
+        :logger,
+        :batch_number
+      ]
 
       # rubocop:disable Metrics/AbcSize
       def call
@@ -90,10 +98,17 @@ module Renalware
       end
 
       def xml_filepath
-        raise(ArgumentError, "Patient has no ukrdc_external_id") if patient.ukrdc_external_id.blank?
+        File.join(dir, xml_filename)
+      end
 
-        filename = "#{patient.ukrdc_external_id}.xml"
-        File.join(dir, filename)
+      def xml_filename
+        patient_identifier = patient.nhs_number || patient.local_patient_id
+        if patient_identifier.blank?
+          raise(ArgumentError, "Patient has no NHS number or local patient id")
+        end
+
+        site_code = Renalware.config.ukrdc_site_code # e.g. RJZ
+        "#{site_code}_#{batch_number}_#{patient_identifier.upcase}.xml"
       end
 
       class Payload

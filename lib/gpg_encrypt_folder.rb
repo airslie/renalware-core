@@ -29,8 +29,8 @@ class GpgOptions
     :recipient,
     :keyring,
     :homedir,
-    :destination_folder,
-    :timestamp]
+    :destination_folder
+  ]
 end
 
 class GpgEncryptFile
@@ -72,12 +72,12 @@ class GpgCommand
     "--keyring #{options.keyring}"
   end
 
-  def filename_with_extension
+  def filename_without_extension
     File.basename(file, ".xml")
   end
 
   def output_filename
-    "#{options.timestamp}_#{filename_with_extension}.gpg"
+    "#{filename_without_extension}.gpg"
   end
 
   def encrypted_filename

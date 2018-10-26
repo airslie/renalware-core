@@ -64,6 +64,7 @@ module Renalware
     config_accessor(:ukrdc_working_path) do
       ENV.fetch("UKRDC_WORKING_PATH", File.join("/var", "ukrdc"))
     end
+    config_accessor(:ukrdc_site_code) { ENV.fetch("UKRDC_PREFIX", "RJZ") }
 
     # We override this in some tests as a means of getting wicked_Pdf to generate an HTML version
     # of the PDF so we can examine its content
