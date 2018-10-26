@@ -1,0 +1,11 @@
+<%= l(Time.zone.now) %>
+
+XML files archived to <%=summary.archive_folder%> and took <%=summary.elapsed_time %> seconds.
+
+Results
+
+<% summary.results.each do |key, value| %>
+  <%= %"#{key.to_s.humanize}: #{value}" %>
+<% end %>
+
+Count of files waiting in outgoing folder: <%= summary.count_of_files_in_outgoing_folder %>

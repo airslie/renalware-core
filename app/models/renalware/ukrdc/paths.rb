@@ -10,13 +10,10 @@ module Renalware
       def initialize(timestamp: nil, working_path:)
         raise(ArgumentError, "Invalid working_path") if working_path.blank?
 
-        @timestamp = timestamp || default_timestamp
+        @timestamp = timestamp
+        @timestamp ||= Time.zone.now.strftime("%Y%m%d%H%M%S%L")
         @working_path = Pathname(working_path)
         create_folders
-      end
-
-      def default_timestamp
-        Time.zone.now.strftime("%Y%m%d%H%M%S%L")
       end
 
       def archive_folder

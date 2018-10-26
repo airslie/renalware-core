@@ -10,6 +10,7 @@ module Renalware
 
       # rubocop:disable Metrics/AbcSize
       def call
+        update_patient_to_indicated_we_checked_them_for_any_relevant_changes
         UKRDC::TransmissionLog.with_logging(patient, request_uuid) do |log|
           logger.info "  Patient #{patient.to_param}"
           xml_payload = build_payload(log)
@@ -29,6 +30,12 @@ module Renalware
 
       def logger
         @logger ||= Rails.logger
+      end
+
+      # Important we use update_column here so we don't trigger updated_at to change
+      # on the patient, which affects the results of PatientsQuery next time.
+      def update_patient_to_indicated_we_checked_them_for_any_relevant_changes
+        patient.update_column(:checked_for_ukrdc_changes_at, Time.zone.now)
       end
 
       # Important we use update_column here so we don't trigger updated_at to change
