@@ -50,6 +50,7 @@ module Renalware
             request_uuid: request_uuid,
             renderer: renderer,
             patient: patient,
+            batch_number: 1,
             dir: dir,
             changes_since: "2017-01-01" # required if sent_to_ukrdc_at is nil!
           ).call
@@ -58,7 +59,7 @@ module Renalware
           expect(log.error).to be_nil
           expect(log.payload).to eq(xml)
           expect(log.payload_hash).to eq(xml_md5_hash)
-          expect(log.file_path).to eq(File.join(dir, "#{patient.ukrdc_external_id}.xml"))
+          expect(log.file_path).to eq(File.join(dir, "RJZ_1_#{patient.nhs_number}.xml"))
           expect(File.read(log.file_path)).to eq(xml) # Check the correct content was written
         end
       end
@@ -85,6 +86,7 @@ module Renalware
             request_uuid: request_uuid,
             renderer: renderer,
             patient: patient,
+            batch_number: 1,
             dir: dir
           ).call
 
@@ -92,7 +94,7 @@ module Renalware
           expect(log.error).to be_nil
           expect(log.payload).to eq(xml)
           expect(log.payload_hash).to eq(xml_md5_hash)
-          expect(log.file_path).to eq(File.join(dir, "#{patient.ukrdc_external_id}.xml"))
+          expect(log.file_path).to eq(File.join(dir, "RJZ_1_#{patient.nhs_number}.xml"))
           expect(File.read(log.file_path)).to eq(xml) # Check the correct content was written
         end
       end
@@ -120,6 +122,7 @@ module Renalware
             request_uuid: request_uuid,
             renderer: renderer,
             patient: patient,
+            batch_number: 1,
             dir: dir
           ).call
 

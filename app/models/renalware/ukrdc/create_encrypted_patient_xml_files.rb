@@ -12,7 +12,16 @@ module Renalware
     # is mount on a remote share for example on an SFTP server.
     #
     class CreateEncryptedPatientXMLFiles
-      attr_reader :patient_ids, :changed_since, :logger, :request_uuid, :paths, :timestamp, :summary
+      attr_reader(
+        :patient_ids,
+        :changed_since,
+        :logger,
+        :request_uuid,
+        :paths,
+        :timestamp,
+        :summary,
+        :batch_number
+      )
 
       def initialize(changed_since: nil, patient_ids: nil, logger: nil)
         @changed_since = Time.zone.parse(changed_since) if changed_since.present?
@@ -26,17 +35,22 @@ module Renalware
 
       def call
         logger.tagged(request_uuid) do
+          # Skipping transaction for now as worried about the quantity of rows and data invovled.
+          # ActiveRecord::Base.transaction do
+          @batch_number = BatchNumber.next
           summary.milliseconds_taken = Benchmark.ms do
             create_patient_xml_files
             encrypt_patient_xml_files
             copy_encrypted_xml_files_into_the_outgoing_folder
             paths.create_symlink_to_latest_timestamped_folder_so_it_is_easier_to_eyeball
           end
+          # end
           build_summary
           print_summary
           email_summary
         end
       rescue StandardError => exception
+        # TODO: if fails before copying to outgoing then we should roll back BatchNumber
         Engine.exception_notifier.notify(exception)
         raise exception
       end
@@ -52,6 +66,7 @@ module Renalware
             dir: paths.timestamped_xml_folder,
             changes_since: changed_since,
             request_uuid: request_uuid,
+            batch_number: batch_number,
             logger: logger
           ).call
         end
@@ -127,8 +142,7 @@ module Renalware
           recipient: config.ukrdc_gpg_recipient,
           keyring: config.ukrdc_gpg_keyring,
           homedir: config.ukrdc_gpg_homedir,
-          destination_folder: paths.timestamped_encrypted_folder,
-          timestamp: timestamp
+          destination_folder: paths.timestamped_encrypted_folder
         )
       end
     end
