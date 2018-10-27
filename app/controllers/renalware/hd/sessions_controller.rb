@@ -13,7 +13,11 @@ module Renalware
 
       def index
         query = sessions_query
-        sessions = query.call.includes(:hospital_unit, :patient).page(page).per(per_page || 15)
+        sessions = query
+          .call
+          .includes(:hospital_unit, :patient, :signed_on_by, :signed_off_by)
+          .page(page)
+          .per(per_page || 15)
         authorize sessions
         presenter = CollectionPresenter.new(sessions, SessionPresenter, view_context)
         @q = query.search
