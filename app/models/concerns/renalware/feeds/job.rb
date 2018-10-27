@@ -19,7 +19,7 @@ module Renalware
       end
 
       def find_file_in(files, pattern)
-        file = files.select{ |f| f.basename.to_s.match(pattern) }.first
+        file = files.detect{ |f| f.basename.to_s.match(pattern) }
         if file.nil?
           msg = "Zip file does not contain a file with name matching #{pattern}!"
           log(msg)
