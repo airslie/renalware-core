@@ -8,13 +8,13 @@ module Renalware
         authorize problems
         render locals: {
           patient: patient,
-          current_problems: problems.current.with_created_by.ordered,
+          current_problems: problems.current.with_updated_by.ordered,
           archived_problems: problems.archived.with_created_by.ordered
         }
       end
 
       def show
-        problem = patient.problems.with_archived.find(params[:id])
+        problem = patient.problems.with_archived.includes(versions: :item).find(params[:id])
         notes = problem.notes.with_updated_by.ordered
         authorize problem
         render locals: {

@@ -69,7 +69,10 @@ module Renalware
       end
 
       def schedule_definitions
-        ScheduleDefinition.ordered.map{ |definition| [definition.to_s, definition.id] }
+        ScheduleDefinition
+          .includes(:diurnal_period)
+          .ordered
+          .map{ |definition| [definition.to_s, definition.id] }
       end
 
       def last_update
