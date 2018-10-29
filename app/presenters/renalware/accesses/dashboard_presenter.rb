@@ -10,7 +10,7 @@ module Renalware
 
       def profiles
         @profiles ||= CollectionPresenter.new(
-          patient.profiles.past_and_future.ordered,
+          patient.profiles.past_and_future.ordered.includes(:type),
           ProfilePresenter
         )
       end
@@ -24,14 +24,14 @@ module Renalware
 
       def procedures
         @procedures ||= CollectionPresenter.new(
-          patient.procedures.ordered,
+          patient.procedures.ordered.includes(:type),
           ProcedurePresenter
         )
       end
 
       def assessments
         @assessments ||= CollectionPresenter.new(
-          patient.assessments.ordered,
+          patient.assessments.ordered.includes(:type),
           AssessmentPresenter
         )
       end

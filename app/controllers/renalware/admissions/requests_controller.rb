@@ -8,7 +8,11 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       def index
-        requests = Request.ordered.all.page(page).per(per_page)
+        requests = Request
+          .ordered
+          .includes(:patient, :reason, :created_by, :updated_by, :hospital_unit)
+          .all
+          .page(page).per(per_page)
         authorize requests
         render locals: { requests: requests }
       end

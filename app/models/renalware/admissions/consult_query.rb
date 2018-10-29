@@ -33,6 +33,7 @@ module Renalware
             .includes(
               :consult_site,
               :hospital_ward,
+              :created_by,
               patient: { current_modality: :description }
             )
             .order(created_at: :desc)

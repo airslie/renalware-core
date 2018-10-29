@@ -13,7 +13,7 @@ module Renalware
       end
 
       def find_hd_unit_by_code(code)
-        unit = units.select{ |un| un.unit_code == code }.first
+        unit = units.detect{ |un| un.unit_code == code }
         fail "Unit '#{code}' not found" if unit.nil?
         unit
       end

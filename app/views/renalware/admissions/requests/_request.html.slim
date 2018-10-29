@@ -1,6 +1,5 @@
 ruby:
   patient = request.patient
-  unit = Renalware::Hospitals::Unit.find_by(id: request.hospital_unit_id)
   editing_history = "Created #{l(request.created_at)} by #{request.created_by}\n"\
                     "Updated #{l(request.updated_at)} by #{request.updated_by}"
 = content_tag_for(:tr,
@@ -13,7 +12,7 @@ ruby:
   td= default_patient_link(patient)
   td= patient.nhs_number
   td= patient.hospital_identifiers
-  td= unit&.name
+  td= request.hospital_unit&.name
   td.col-width-medium-with-ellipsis(title=request.notes)
     = request.notes
   td(title=editing_history)= l(request.created_at)

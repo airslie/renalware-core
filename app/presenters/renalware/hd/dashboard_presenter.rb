@@ -47,7 +47,7 @@ module Renalware
 
       def sessions
         @sessions ||= begin
-          hd_sessions = Session.includes(:hospital_unit, :patient)
+          hd_sessions = Session.includes(:hospital_unit, :patient, :signed_on_by, :signed_off_by)
                                .for_patient(patient)
                                .limit(10).ordered
           CollectionPresenter.new(hd_sessions, SessionPresenter, view_context)
