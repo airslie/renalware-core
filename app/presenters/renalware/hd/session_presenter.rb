@@ -28,6 +28,7 @@ module Renalware
                :renal_registry_code,
                to: :hospital_unit,
                prefix: true, allow_nil: true
+      delegate :username, :to_s, to: :updated_by, prefix: true, allow_nil: true
       delegate :sodium_content, to: :dialysate, allow_nil: true
       delegate :had_intradialytic_hypotension,
                to: :complications,
@@ -52,6 +53,10 @@ module Renalware
         url = view_context.patient_hd_session_path(session.patient, session)
         text = ::I18n.l(super)
         view_context.link_to(text, url)
+      end
+
+      def performed_on_date
+        __getobj__.performed_on
       end
 
       def start_time

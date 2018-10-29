@@ -30,8 +30,68 @@ describe "DialysisSession" do
 
     expect(rendered).to include("start=\"2018-11-01T11:00:00+00:00\"")
     expect(rendered).to include("stop=\"2018-11-01T13:00:00+00:00\"")
-    expect(rendered).to include("<QHD19>Y</QHD19>")
-    p rendered
+  end
+
+  describe "#ProcedureType" do
+    it { is_expected.to include("<Code>19647005</Code>") }
+    it { is_expected.to include("<CodingStandard>SNOMED</CodingStandard>") }
+    it { is_expected.to include("<Description>Plasma Exchange</Description>") }
+  end
+
+  describe "#ExternalId" do
+    before { allow(session).to receive(:uuid).and_return("00000000-0000-0000-0000-000000000001") }
+
+    it { is_expected.to include("<ExternalId>00000000-0000-0000-0000-000000000001</ExternalId>") }
+  end
+
+  describe "#ProcedureTime" do
+    context "when start time is present" do
+      before do
+        session.start_time = Time.parse("09:10")
+        session.performed_on = Date.parse("2018-11-01")
+      end
+
+      it { is_expected.to include("<ProcedureTime>201811010910</ProcedureTime") }
+    end
+
+    context "when start time is missing" do
+      before do
+        session.start_time = nil
+        session.performed_on = Date.parse("2018-11-01")
+      end
+
+      it { is_expected.to include("<ProcedureTime>201811010000</ProcedureTime") }
+    end
+  end
+
+  describe "#EnteredAt" do
+    before do
+      session.hospital_unit = build_stubbed(:hospital_unit, renal_registry_code: "HospRRCode")
+    end
+
+    it do
+      is_expected.to include(
+        "<EnteredAt>"\
+        "<Code>HospRRCode</Code>"\
+        "</EnteredAt>"
+      )
+    end
+  end
+
+  describe "#EnteredBy" do
+    before do
+      session.updated_by = build_stubbed(:user, family_name: "Smith", given_name: "John", username: "js")
+    end
+
+    it do
+      is_expected.to include(
+        "<EnteredBy>"\
+        "<CodingStandard>LOCAL</CodingStandard>"\
+        "<Code>js</Code>" \
+        "<Description>Smith, John</Description>"\
+        "</EnteredBy>"
+      )
+    end
   end
 
   describe "#QHD19 (Symptomatic hypotension)" do

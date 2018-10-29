@@ -63,6 +63,9 @@ module Renalware
       private
 
       def datetime_at(time)
+        return if performed_on.blank?
+        return performed_on.to_time if start_time.blank?
+
         Time.zone.parse("#{performed_on.strftime('%F')} #{time.strftime('%T')}")
       end
 
