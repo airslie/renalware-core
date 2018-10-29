@@ -8,6 +8,7 @@ module Renalware
                :observations_before,
                :observations_after,
                :dialysis,
+               :complications,
                to: :document, allow_nil: true
       delegate :access_type,
                :access_type_abbreviation,
@@ -27,12 +28,20 @@ module Renalware
                :renal_registry_code,
                to: :hospital_unit,
                prefix: true, allow_nil: true
+      delegate :sodium_content, to: :dialysate, allow_nil: true
+      delegate :had_intradialytic_hypotension,
+               to: :complications,
+               allow_nil: true
       delegate :class, to: :__getobj__
 
       def initialize(session, view_context = nil)
         @view_context = view_context
         @session = session
         super(session)
+      end
+
+      def had_intradialytic_hypotension?
+        had_intradialytic_hypotension&.yes? ? "Y" : "N"
       end
 
       def state
@@ -53,8 +62,14 @@ module Renalware
         ::I18n.l(super, format: :time)
       end
 
+      # Returns duration as e.g. "02:01"
       def duration
         super && ::Renalware::Duration.from_minutes(super)
+      end
+
+      # Returns duration as e.g. 121 (minutes)
+      def duration_in_minutes
+        __getobj__.duration
       end
 
       def before_measurement_for(measurement)

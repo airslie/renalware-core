@@ -54,6 +54,12 @@ module Renalware
         datetime_at(end_time)
       end
 
+      def compute_duration
+        return unless start_time_changed? || end_time_changed?
+
+        self.duration = DurationCalculator.in_minutes(start_time, end_time)
+      end
+
       private
 
       def datetime_at(time)
@@ -62,12 +68,6 @@ module Renalware
 
       def assign_modality
         self.modality_description = patient.modality_description
-      end
-
-      def compute_duration
-        return unless start_time_changed? || end_time_changed?
-
-        self.duration = DurationCalculator.in_minutes(start_time, end_time)
       end
     end
   end
