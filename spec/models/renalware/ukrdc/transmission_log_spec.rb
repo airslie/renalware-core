@@ -20,7 +20,7 @@ module Renalware
               UKRDC::TransmissionLog.with_logging(patient, uuid) do
                 raise ArgumentError
               end
-            }.to raise_error
+            }.to raise_error(ArgumentError)
 
             log = described_class.where(patient_id: patient.id).last
 

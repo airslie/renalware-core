@@ -98,17 +98,8 @@ module Renalware
       end
 
       def xml_filepath
+        xml_filename = Filename.new(patient: patient, batch_number: batch_number).to_s
         File.join(dir, xml_filename)
-      end
-
-      def xml_filename
-        patient_identifier = patient.nhs_number || patient.local_patient_id
-        if patient_identifier.blank?
-          raise(ArgumentError, "Patient has no NHS number or local patient id")
-        end
-
-        site_code = Renalware.config.ukrdc_site_code # e.g. RJZ
-        "#{site_code}_#{batch_number}_#{patient_identifier.upcase}.xml"
       end
 
       class Payload
