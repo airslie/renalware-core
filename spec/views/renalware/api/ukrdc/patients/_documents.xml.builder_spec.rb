@@ -13,7 +13,10 @@ describe "Document element" do
            }
   end
 
-  let(:patient) { build_stubbed(:letter_patient, family_name: "Jones", local_patient_id: "1") }
+  let(:patient) do
+    build_stubbed(:letter_patient, family_name: "Jones", local_patient_id: "1")
+  end
+
   let(:patient_presenter) do
     Renalware::UKRDC::PatientPresenter.new(patient)
   end
@@ -28,7 +31,9 @@ describe "Document element" do
       Renalware::Letters::Letter::Approved.new(
         created_at: time,
         issued_on: time.to_date,
-        patient: patient)
+        patient: patient,
+        id: 12
+      )
     }
     let(:presenter) { Renalware::Letters::LetterPresenterFactory.new(letter) }
 
@@ -41,6 +46,8 @@ describe "Document element" do
 
     it { is_expected.to include("<FileType>application/pdf</FileType>") }
     it { is_expected.to include("<Stream>") }
+    it { is_expected.to include("<DocumentName>JONES-1-12.pdf</DocumentName>") }
+    it { is_expected.to include("<FileName>JONES-1-12.pdf</FileName>") }
     it { is_expected.to include("<DocumentTime>#{time.to_date.to_time.iso8601}</DocumentTime>") }
   end
 end

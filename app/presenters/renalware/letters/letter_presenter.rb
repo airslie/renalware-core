@@ -85,7 +85,7 @@ module Renalware
       end
 
       def title
-        "TBC"
+        pdf_stateless_filename
       end
 
       def pdf_filename
