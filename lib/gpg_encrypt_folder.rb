@@ -56,8 +56,8 @@ class GpgCommand
   def to_s
     "gpg --armor --no-default-keyring --trust-model always "\
       "#{keyring} #{homedir} #{recipient} "\
-      "-o #{encrypted_filename} "\
-      "--encrypt #{file}"
+      "-o \"#{encrypted_filename}\" "\
+      "--encrypt \"#{file}\""
   end
 
   def recipient
