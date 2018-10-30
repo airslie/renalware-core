@@ -20,7 +20,7 @@ module Renalware
       def call
         update_patient_to_indicated_we_checked_them_for_any_relevant_changes
         UKRDC::TransmissionLog.with_logging(patient, request_uuid) do |log|
-          logger.info "  Patient #{patient.to_param}"
+          logger.info "  Patient #{patient.ukrdc_external_id}"
           xml_payload = build_payload(log)
           if xml_payload_same_as_last_sent_payload?(xml_payload)
             logger.info "    skipping as no change in XML file"
