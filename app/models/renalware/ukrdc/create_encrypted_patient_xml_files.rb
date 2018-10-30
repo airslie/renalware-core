@@ -36,20 +36,20 @@ module Renalware
       def call
         logger.tagged(request_uuid) do
           # Skipping transaction for now as worried about the quantity of rows and data invovled.
-          # ActiveRecord::Base.transaction do
-          @batch_number = BatchNumber.next.number
-          @paths = Paths.new(
-            timestamp: timestamp,
-            batch_number: batch_number,
-            working_path: config.ukrdc_working_path
-          )
-          summary.milliseconds_taken = Benchmark.ms do
-            create_patient_xml_files
-            encrypt_patient_xml_files
-            copy_encrypted_xml_files_into_the_outgoing_folder
-            paths.create_symlink_to_latest_timestamped_folder_so_it_is_easier_to_eyeball
+          ActiveRecord::Base.transaction do
+            @batch_number = BatchNumber.next.number
+            @paths = Paths.new(
+              timestamp: timestamp,
+              batch_number: batch_number,
+              working_path: config.ukrdc_working_path
+            )
+            summary.milliseconds_taken = Benchmark.ms do
+              create_patient_xml_files
+              encrypt_patient_xml_files
+              copy_encrypted_xml_files_into_the_outgoing_folder
+            end
           end
-          # end
+          paths.create_symlink_to_latest_timestamped_folder_so_it_is_easier_to_eyeball
           build_summary
           print_summary
           email_summary

@@ -10,9 +10,9 @@ module Renalware
 
       let(:batch_number) { instance_double(UKRDC::BatchNumber, to_s: "000001") }
       let(:ukrdc_external_id) { nil }
-      let(:nhs_number) { nil }
+      let(:nhs_number) { "" }
       let(:local_patient_id) { "" }
-      let(:local_patient_id_2) { nil }
+      let(:local_patient_id_2) { "" }
 
       let(:patient) do
         build_stubbed(

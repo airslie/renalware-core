@@ -40,13 +40,13 @@ class GpgEncryptFile
     err = Open3.popen3(gpg_command) do |_stdin, _stdout, stderr|
       stderr.read
     end
-    raise "Error encrypting UKRDC files: #{err}" unless err.empty?
+    raise "Error encrypting UKRDC files: #{err}, #{gpg_command}" unless err.empty?
   end
 
   private
 
   def gpg_command
-    GpgCommand.new(file: file, options: options).to_s
+    @gpg_command ||= GpgCommand.new(file: file, options: options).to_s
   end
 end
 
@@ -56,8 +56,8 @@ class GpgCommand
   def to_s
     "gpg --armor --no-default-keyring --trust-model always "\
       "#{keyring} #{homedir} #{recipient} "\
-      "-o #{encrypted_filename} "\
-      "--encrypt #{file}"
+      "-o \"#{encrypted_filename}\" "\
+      "--encrypt \"#{file}\""
   end
 
   def recipient
