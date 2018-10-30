@@ -61,15 +61,15 @@ class GpgCommand
   end
 
   def recipient
-    options.recipient && "--recipient #{options.recipient}"
+    options.recipient && "--recipient \"#{options.recipient}\""
   end
 
   def homedir
-    options.homedir && "--homedir #{options.homedir}"
+    options.homedir && "--homedir \"#{options.homedir}\""
   end
 
   def keyring
-    "--keyring #{options.keyring}"
+    "--keyring \"#{options.keyring}\""
   end
 
   def filename_without_extension
