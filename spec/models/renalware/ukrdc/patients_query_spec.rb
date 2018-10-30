@@ -20,6 +20,12 @@ module Renalware
         context "when a patient has the RPV flag" do
           before { patient.update(send_to_rpv: true) }
 
+          context "when they have never been sent to ukrdc" do
+            before { patient.update(sent_to_ukrdc_at: nil, by: user) }
+
+            it { is_expected.to eq([patient]) }
+          end
+
           context "when they also have changed since the last export date" do
             before { patient.update(sent_to_ukrdc_at: 1.day.ago, updated_at: 1.hour.ago, by: user) }
 
