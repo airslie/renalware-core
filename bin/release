@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# A simple script to push changes in master to the downstream opensource remote
+# and cut a new gem version.
+# Currently not sure how this handles a duplicate
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+if [[ "$BRANCH" != "chore/release_script" ]]; then
+  echo 'Aborting: not on master branch';
+  exit 1;
+fi
+
+if [[ `git status --porcelain` ]]; then
+  echo 'Aborting: there are unstaged changes ';
+  exit 1;
+fi
+
+git pull
+
+# Get the version we are going to deploy into a variable
+VERSION=$(cat lib/renalware/version.rb | egrep -o '[[:digit:]]{1}.[[:digit:]]{1}.[[:digit:]]{2}')
+echo "Version $VERSION"
+
+# Check the gem version we are going to build does not exist already
+VERSIONS=$(gem list renalware --remote --all)
+if [[ $( echo "$VERSIONS" | grep -o $VERSION ) = "$VERSION" ]]; then
+  echo "Aborting: $VERSION already pushed"
+  exit 1
+fi
+
+# check that running bundle and migrate etc does not create any new files, which
+# would suggest the version has not been initialized correctly in a another branch.
+
+bundle
+bundle exec rake db:drop:all
+bundle exec rake db:create
+bundle exec rake db:migrate
+bundle rake db:seed
+
+if [[ `git status --porcelain` ]]; then
+  echo 'Aborting: there are unstaged changes ';
+  exit 1;
+fi
+
+git push opensource master
+OVERCOMMIT_DISABLE=1 rake release
+git push opensource --tags
