@@ -107,7 +107,7 @@ module Renalware
       end
 
       def truncated_notes
-        return unless notes
+        return if notes.blank?
 
         notes.truncate(100, omission: "&hellip;").html_safe
       end

@@ -17,7 +17,7 @@ xml.DialysisSession(
     xml.Description session.updated_by
   end
 
-  xml.ProcedureTime session.start_datetime.to_datetime #&.strftime("%Y%m%d%H%M") # CCYYMMDDhhmm
+  xml.ProcedureTime session.start_datetime.to_datetime
 
   xml.EnteredBy do
     xml.CodingStandard "LOCAL"

@@ -28,8 +28,8 @@ describe "DialysisSession" do
       end_time: "13:00"
     )
 
-    expect(rendered).to include("start=\"2018-11-01T11:00:00+00:00\"")
-    expect(rendered).to include("stop=\"2018-11-01T13:00:00+00:00\"")
+    expect(rendered).to include("start=\"2018-11-01\"")
+    expect(rendered).to include("stop=\"2018-11-01\"")
   end
 
   describe "#ProcedureType" do
@@ -47,11 +47,11 @@ describe "DialysisSession" do
   describe "#ProcedureTime" do
     context "when start time is present" do
       before do
-        session.start_time = Time.parse("09:10")
+        session.start_time = Time.zone.parse("09:10")
         session.performed_on = Date.parse("2018-11-01")
       end
 
-      it { is_expected.to include("<ProcedureTime>201811010910</ProcedureTime") }
+      it { is_expected.to include("<ProcedureTime>2018-11-01T09:10:00+00:00</ProcedureTime") }
     end
 
     context "when start time is missing" do
@@ -60,7 +60,7 @@ describe "DialysisSession" do
         session.performed_on = Date.parse("2018-11-01")
       end
 
-      it { is_expected.to include("<ProcedureTime>201811010000</ProcedureTime") }
+      it { is_expected.to include("<ProcedureTime>2018-11-01T00:00:00+00:00</ProcedureTime") }
     end
   end
 
@@ -80,7 +80,12 @@ describe "DialysisSession" do
 
   describe "#EnteredBy" do
     before do
-      session.updated_by = build_stubbed(:user, family_name: "Smith", given_name: "John", username: "js")
+      session.updated_by = build_stubbed(
+        :user,
+        family_name: "Smith",
+        given_name: "John",
+        username: "js"
+      )
     end
 
     it do

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-xml = builder
+# xml = builder
 
 # xml.Encounters do
 #   patient.finished_hd_sessions.each do |session|
