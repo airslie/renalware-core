@@ -34,15 +34,15 @@ module Renalware
         end
 
         describe "patient recently opted out of RPV" do
-          context "when a patient does not the RPV flag" do
-            context "when they have changed since last export date" do
-              context "when they also have changed since the last export date" do
-                before do
-                  patient.update(sent_to_ukrdc_at: 1.day.ago, updated_at: 1.hour.ago, by: user)
-                end
+          context "when a patient does not have the RPV flag" do
+            before { patient.update(send_to_rpv: false) }
 
-                it { is_expected.to be_empty }
+            context "when their updated_at has changed since the last export" do
+              before do
+                patient.update(sent_to_ukrdc_at: 1.day.ago, updated_at: 1.hour.ago, by: user)
               end
+
+              it { is_expected.to be_empty }
             end
           end
         end

@@ -6,9 +6,15 @@ module Renalware
   module UKRDC
     class BatchNumber < ApplicationRecord
       def self.next
-        new_batcher_number = new
-        new_batcher_number.save!
-        new_batcher_number.id.to_s.rjust(6, "0")
+        create!
+      end
+
+      def number
+        id.to_s.rjust(6, "0")
+      end
+
+      def to_s
+        number
       end
     end
   end

@@ -29,7 +29,7 @@ module Renalware
         @logger = logger || Rails.logger
         @request_uuid = SecureRandom.uuid # helps group logs together
         @timestamp = Time.zone.now.strftime("%Y%m%d%H%M%S%L")
-        @paths = Paths.new(timestamp: @timestamp, working_path: config.ukrdc_working_path)
+
         @summary = ExportSummary.new
       end
 
@@ -37,7 +37,12 @@ module Renalware
         logger.tagged(request_uuid) do
           # Skipping transaction for now as worried about the quantity of rows and data invovled.
           # ActiveRecord::Base.transaction do
-          @batch_number = BatchNumber.next
+          @batch_number = BatchNumber.next.number
+          @paths = Paths.new(
+            timestamp: timestamp,
+            batch_number: batch_number,
+            working_path: config.ukrdc_working_path
+          )
           summary.milliseconds_taken = Benchmark.ms do
             create_patient_xml_files
             encrypt_patient_xml_files

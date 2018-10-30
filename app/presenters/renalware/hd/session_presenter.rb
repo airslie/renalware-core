@@ -8,6 +8,7 @@ module Renalware
                :observations_before,
                :observations_after,
                :dialysis,
+               :complications,
                to: :document, allow_nil: true
       delegate :access_type,
                :access_type_abbreviation,
@@ -27,12 +28,21 @@ module Renalware
                :renal_registry_code,
                to: :hospital_unit,
                prefix: true, allow_nil: true
+      delegate :username, :to_s, to: :updated_by, prefix: true, allow_nil: true
+      delegate :sodium_content, to: :dialysate, allow_nil: true
+      delegate :had_intradialytic_hypotension,
+               to: :complications,
+               allow_nil: true
       delegate :class, to: :__getobj__
 
       def initialize(session, view_context = nil)
         @view_context = view_context
         @session = session
         super(session)
+      end
+
+      def had_intradialytic_hypotension?
+        had_intradialytic_hypotension&.yes? ? "Y" : "N"
       end
 
       def state
@@ -45,6 +55,10 @@ module Renalware
         view_context.link_to(text, url)
       end
 
+      def performed_on_date
+        __getobj__.performed_on
+      end
+
       def start_time
         ::I18n.l(super, format: :time)
       end
@@ -53,8 +67,14 @@ module Renalware
         ::I18n.l(super, format: :time)
       end
 
+      # Returns duration as e.g. "02:01"
       def duration
         super && ::Renalware::Duration.from_minutes(super)
+      end
+
+      # Returns duration as e.g. 121 (minutes)
+      def duration_in_minutes
+        __getobj__.duration
       end
 
       def before_measurement_for(measurement)
@@ -87,7 +107,7 @@ module Renalware
       end
 
       def truncated_notes
-        return unless notes
+        return if notes.blank?
 
         notes.truncate(100, omission: "&hellip;").html_safe
       end

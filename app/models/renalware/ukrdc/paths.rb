@@ -5,12 +5,13 @@ require_dependency "renalware/ukrdc"
 module Renalware
   module UKRDC
     class Paths
-      attr_reader :timestamp, :working_path
+      attr_reader :timestamp, :batch_number, :working_path
 
-      def initialize(timestamp: nil, working_path:)
+      def initialize(timestamp: nil, batch_number:, working_path:)
         raise(ArgumentError, "Invalid working_path") if working_path.blank?
 
         @timestamp = timestamp
+        @batch_number = batch_number
         @timestamp ||= Time.zone.now.strftime("%Y%m%d%H%M%S%L")
         @working_path = Pathname(working_path)
         create_folders
@@ -30,7 +31,7 @@ module Renalware
       end
 
       def timestamped_folder
-        @timestamped_folder ||= archive_folder.join(timestamp)
+        @timestamped_folder ||= archive_folder.join("#{batch_number}_#{timestamp}")
       end
 
       def timestamped_xml_folder
