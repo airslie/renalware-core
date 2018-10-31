@@ -32,7 +32,7 @@ gem "trix",
     branch: "master"
 
 group :test do
-  gem "capybara"
+  gem "capybara", "~> 3.10.0"
   gem "capybara-screenshot" # "~> 1.0.18"
   # gem "chromedriver-helper" # this clashses with the */*-browsers images in cirlci so removed
   gem "codeclimate-test-reporter", "~> 1.0.9", require: false # loads simplecov
@@ -71,7 +71,7 @@ group :development, :test do
   gem "bundler-audit", require: false
   gem "byebug"
   gem "launchy", require: false
-  gem "rubocop", "~> 0.59.0", require: false
+  gem "rubocop", "~> 0.60.0", require: false
   gem "spring"
   gem "spring-commands-cucumber", require: false
   gem "spring-commands-rspec", require: false
