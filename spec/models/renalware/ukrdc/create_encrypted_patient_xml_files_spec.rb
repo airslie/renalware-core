@@ -32,7 +32,7 @@ module Renalware
       #   end
       # end
 
-      # context "when then operation succeeds" do
+      # context "when the operation succeeds" do
       #   it "updates sent_to_ukrdc_at for each sent patient" do
       #     travel_to(Time.zone.now) do
       #       patient
