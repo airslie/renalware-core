@@ -16,7 +16,7 @@ FactoryBot.define do
     letter_group { 1 }
     letter_order { 1 }
 
-    %i(urr ure hgb cre phos pth).each do |code|
+    %i(urr ure hgb cre phos pth pthi).each do |code|
       trait code do
         code { code.to_s.upcase }
         name { code.to_s.upcase }
