@@ -22,14 +22,14 @@ module Renalware
         it "returns a hash of differences" do
           hgb_old = { result: 2.1, observed_at: "2017-12-12 00:01:01" }
           hgb_new = { result: 1.0, observed_at: "2018-12-12 00:01:01" }
-          pth_new = { result: 9, observed_at: "2017-12-12 00:01:01" }
+          pthi_new = { result: 9, observed_at: "2017-12-12 00:01:01" }
           cre_old = { result: 1.1, observed_at: "2017-12-12 00:01:01" }
           cre_new = { result: 1.1, observed_at: "2017-12-11 00:01:01" } # no change!
           obj = described_class.new(
             patient: patient,
             observation_set_a: { HGB: hgb_old, CRE: cre_old },
-            observation_set_b: { HGB: hgb_new, PTH: pth_new, CRE: cre_new },
-            descriptions: %w(HGB CRE PTH).map{ |code| OpenStruct.new(code: code) } # mock obs descs
+            observation_set_b: { HGB: hgb_new, PTHI: pthi_new, CRE: cre_new },
+            descriptions: %w(HGB CRE PTHI).map{ |code| OpenStruct.new(code: code) } # mock obs descs
           )
 
           diff_hash = obj.to_h
@@ -42,7 +42,7 @@ module Renalware
           #    numeric change in result (b.result - a.result) if a and b present above
           #   ]
           # }
-          expect(diff_hash.keys).to eq([:HGB, :CRE, :PTH])
+          expect(diff_hash.keys).to eq([:HGB, :CRE, :PTHI])
 
           expect(diff_hash[:HGB][0].result).to eq(hgb_old[:result])
           expect(diff_hash[:HGB][0].observed_at).to eq(hgb_old[:observed_at])
@@ -50,10 +50,10 @@ module Renalware
           expect(diff_hash[:HGB][1].observed_at).to eq(hgb_new[:observed_at])
           expect(diff_hash[:HGB][2]).to eq(-1.1) # 2.1 - 1.0 (new - old)
 
-          expect(diff_hash[:PTH][0]).to be_nil
-          expect(diff_hash[:PTH][1].result).to eq(9)
-          expect(diff_hash[:PTH][1].observed_at).to eq("2017-12-12 00:01:01")
-          expect(diff_hash[:PTH][2]).to eq(9)
+          expect(diff_hash[:PTHI][0]).to be_nil
+          expect(diff_hash[:PTHI][1].result).to eq(9)
+          expect(diff_hash[:PTHI][1].observed_at).to eq("2017-12-12 00:01:01")
+          expect(diff_hash[:PTHI][2]).to eq(9)
 
           expect(diff_hash[:CRE][0].result).to eq(cre_old[:result])
           expect(diff_hash[:CRE][0].observed_at).to eq(cre_old[:observed_at])

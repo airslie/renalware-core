@@ -5825,7 +5825,7 @@ CREATE VIEW reporting_bone_audit AS
              JOIN modality_descriptions md ON ((m.description_id = md.id)))) e1
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS pth
            FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'PTH'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
+          WHERE (((pathology_current_observations.description_code)::text = 'PTHI'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS phos
            FROM pathology_current_observations
           WHERE (((pathology_current_observations.description_code)::text = 'PHOS'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e3 ON (true))
