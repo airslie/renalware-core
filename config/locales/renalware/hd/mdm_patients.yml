@@ -32,6 +32,8 @@ en:
           phos_date: PO4 Date
           pth: PTH
           pth_date: PTH Date
+          pthi: PTHI
+          pthi_date: PTHI Date
           cre: CRE
           cre_date: CRE Date
           egfr: EGFR
