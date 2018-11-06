@@ -60,7 +60,7 @@ module Renalware
         # These are the codes for the results we want to store in
         # hd_patient_statics.pathology_snapshot - we are only interested in these
         # results. They will be used for instance in reporting_hd_overall_audit
-        CODES = %w(HGB PTH PHOS CRE URE URR).freeze
+        CODES = %w(HGB PTHI PHOS CRE URE URR).freeze
 
         def initialize(patient:)
           @observation_set = Pathology.cast_patient(patient).fetch_current_observation_set
