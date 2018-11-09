@@ -2263,6 +2263,80 @@ ALTER SEQUENCE hd_diurnal_period_codes_id_seq OWNED BY hd_diurnal_period_codes.i
 
 
 --
+-- Name: hd_transmission_logs; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE hd_transmission_logs (
+    id bigint NOT NULL,
+    parent_id bigint,
+    direction character varying NOT NULL,
+    format character varying NOT NULL,
+    status character varying,
+    hd_provider_unit_id bigint,
+    patient_id bigint,
+    filepath character varying,
+    payload text,
+    result jsonb DEFAULT '{}'::jsonb,
+    error_messages text[] DEFAULT '{}'::text[],
+    transmitted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    external_session_id character varying,
+    session_id bigint,
+    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL
+);
+
+
+--
+-- Name: hd_grouped_transmission_logs; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW hd_grouped_transmission_logs AS
+ WITH RECURSIVE parent_child_logs(parent_id, id, uuid, level) AS (
+         SELECT t.parent_id,
+            t.id,
+            t.uuid,
+            1 AS level
+           FROM hd_transmission_logs t
+          WHERE (t.parent_id IS NULL)
+        UNION ALL
+         SELECT parent_child_logs.id,
+            t.id,
+            t.uuid,
+            (parent_child_logs.level + 1)
+           FROM (hd_transmission_logs t
+             JOIN parent_child_logs ON ((t.parent_id = parent_child_logs.id)))
+        ), ordered_parent_child_logs AS (
+         SELECT parent_child_logs.id,
+            parent_child_logs.parent_id,
+            parent_child_logs.level,
+            max(parent_child_logs.level) OVER (PARTITION BY parent_child_logs.id) AS maxlevel
+           FROM parent_child_logs
+        )
+ SELECT h.id,
+    h.parent_id,
+    h.direction,
+    h.format,
+    h.status,
+    h.hd_provider_unit_id,
+    h.patient_id,
+    h.filepath,
+    h.payload,
+    h.result,
+    h.error_messages,
+    h.transmitted_at,
+    h.created_at,
+    h.updated_at,
+    h.external_session_id,
+    h.session_id,
+    h.uuid
+   FROM (ordered_parent_child_logs
+     JOIN hd_transmission_logs h ON ((h.id = ordered_parent_child_logs.id)))
+  WHERE (ordered_parent_child_logs.level = ordered_parent_child_logs.maxlevel)
+  ORDER BY h.id, h.updated_at;
+
+
+--
 -- Name: hd_patient_statistics; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -2677,31 +2751,6 @@ CREATE SEQUENCE hd_stations_id_seq
 --
 
 ALTER SEQUENCE hd_stations_id_seq OWNED BY hd_stations.id;
-
-
---
--- Name: hd_transmission_logs; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE hd_transmission_logs (
-    id bigint NOT NULL,
-    parent_id bigint,
-    direction character varying NOT NULL,
-    format character varying NOT NULL,
-    status character varying,
-    hd_provider_unit_id bigint,
-    patient_id bigint,
-    filepath character varying,
-    payload text,
-    result jsonb DEFAULT '{}'::jsonb,
-    error_messages text[] DEFAULT '{}'::text[],
-    transmitted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    external_session_id character varying,
-    session_id bigint,
-    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL
-);
 
 
 --
@@ -15742,6 +15791,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181008145159'),
 ('20181013115138'),
 ('20181025170410'),
-('20181026145459');
+('20181026145459'),
+('20181109110616');
 
 

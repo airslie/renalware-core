@@ -9,6 +9,10 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.59
+### Changes
+- Add a view to aid reporting of incoming HD Sessions
+
 ## 2.0.58
 ### Changes
 - Look for 'reporting_daily_xxx' views in any namespace #2473
