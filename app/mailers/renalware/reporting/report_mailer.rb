@@ -40,15 +40,15 @@ module Renalware
         end
       end
 
-      # returns eg ["reporting_daily_pathology", "reporting_daily_letters"]
+      # Returns the names of views that start with 'reporting_daily_', regardless of namespace
+      # e.g.
+      # ["reporting_daily_pathology", "reporting_daily_letters"]
       def reporting_daily_views
         result = ActiveRecord::Base.connection.execute(<<-SQL)
           SELECT relname FROM pg_class
           WHERE relkind = 'v'
           AND relname like 'reporting_daily_%'
-          AND relnamespace IN (
-            SELECT oid FROM pg_namespace WHERE nspname = 'renalware'
-          ) order by relname desc;
+          order by relname desc;
         SQL
         result.values.flatten
       end

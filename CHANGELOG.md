@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.58
+### Changes
+- Look for 'reporting_daily_xxx' views in any namespace #2473
+- Keep development logs small #2472
+- Change copyright to 2018 #2468
+
 ## 2.0.57
 ### Changes
 - UKRDC XML enhancements
