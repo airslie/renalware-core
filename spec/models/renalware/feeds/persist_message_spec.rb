@@ -8,8 +8,8 @@ module Renalware::Feeds
 
     describe "#call" do
       let(:hl7_message) {
-        double(
-          :hl7_message,
+        instance_double(
+          HL7Message,
           type: "::message type code::",
           header_id: "::header id::",
           to_s: "::message body::",

@@ -44,3 +44,9 @@ AllCops:
     - "vendor/bundle/**/*"
     - "config/initializers/devise.rb"
 
+RSpec/ExampleLength:
+  Max: 20
+RSpec/NestedGroups:
+  Max: 4
+RSpec/MultipleExpectations:
+  Max: 2

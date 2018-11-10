@@ -24,9 +24,9 @@ class AgeCalculator
 
   def build_calculation(birth_date, current_date)
     OpenStruct.new(
-      days:   current_date.day - birth_date.day,
+      days: current_date.day - birth_date.day,
       months: current_date.month - birth_date.month,
-      years:  current_date.year - birth_date.year,
+      years: current_date.year - birth_date.year,
       borrowed_month: false
     )
   end

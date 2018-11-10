@@ -3,7 +3,7 @@
 require "rails_helper"
 require "builder"
 
-describe "patient" do
+describe "_patient.xml.builder" do
   helper(Renalware::ApplicationHelper)
 
   it "includes the correctly formatted NHS number" do

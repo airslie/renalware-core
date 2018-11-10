@@ -94,7 +94,7 @@ module Renalware
               expect{
                 obs = create_hgb_observation(
                   patient: patient,
-                  observed_at:  time - 1.hour, # an older date,
+                  observed_at: time - 1.hour, # an older date,
                   result: 222.2
                 )
               }.to change(CurrentObservationSet, :count).by(0)
