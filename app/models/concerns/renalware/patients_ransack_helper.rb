@@ -5,6 +5,7 @@ require "active_support/concern"
 module Renalware
   module PatientsRansackHelper
     extend ActiveSupport::Concern
+
     UUID_REGEXP = /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
 
     included do

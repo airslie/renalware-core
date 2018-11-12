@@ -15,7 +15,7 @@ module Renalware::Medications
       previously_terminated_prescription = create(
         :prescription,
         patient: patient,
-        prescribed_on:  "2017-01-01"
+        prescribed_on: "2017-01-01"
       )
       create(:prescription_termination,
              prescription: previously_terminated_prescription,

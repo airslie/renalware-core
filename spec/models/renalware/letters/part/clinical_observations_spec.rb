@@ -11,7 +11,7 @@ module Renalware::Letters
         height: 1.80, weight: 90.0, bp: "110/70", urine_blood: :very_low, urine_protein: :trace
       )
     }
-    let(:patient) { double(:patient) }
+    let(:patient) { instance_double(Patient) }
 
     it "delegates the height to the event" do
       expect(part.height).to eq(1.80)

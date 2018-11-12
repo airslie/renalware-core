@@ -9,9 +9,11 @@ describe Renalware::HD::SessionAccessPresenter do
                    access_type_abbreviation: "A",
                    access_side: "right")
     instance_double(
-      "Session",
-      document: double(
-        info: double(
+      Renalware::HD::Session,
+      document: instance_double(
+        Renalware::HD::SessionDocument,
+        info: instance_double(
+          Renalware::HD::SessionDocument::Info,
           access_type: access_type,
           access_type_abbreviation: access_type_abbreviation,
           access_side: access_side

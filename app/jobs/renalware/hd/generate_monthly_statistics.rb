@@ -18,7 +18,7 @@ module Renalware
 
         @period = Renalware::MonthPeriod.new(
           month: (month || default_month).to_i,
-          year:  (year || default_year).to_i
+          year: (year || default_year).to_i
         )
       end
 

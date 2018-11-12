@@ -6,8 +6,8 @@ module Renalware::Patients
   RSpec.describe MessageParamParser do
     describe "#parse" do
       let(:hl7_message) {
-        double(
-          :hl7_message,
+        instance_double(
+          Renalware::Feeds::HL7Message,
           patient_identification: double(
             internal_id: "::internal id::",
             external_id: "::external id::",

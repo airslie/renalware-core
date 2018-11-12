@@ -69,13 +69,7 @@ describe "DialysisSession" do
       session.hospital_unit = build_stubbed(:hospital_unit, renal_registry_code: "HospRRCode")
     end
 
-    it do
-      is_expected.to include(
-        "<EnteredAt>"\
-        "<Code>HospRRCode</Code>"\
-        "</EnteredAt>"
-      )
-    end
+    it { is_expected.to include("<EnteredAt><Code>HospRRCode</Code></EnteredAt>") }
   end
 
   describe "#EnteredBy" do
@@ -89,7 +83,7 @@ describe "DialysisSession" do
     end
 
     it do
-      is_expected.to include(
+      expect(subject).to include(
         "<EnteredBy>"\
         "<CodingStandard>LOCAL</CodingStandard>"\
         "<Code>js</Code>" \
