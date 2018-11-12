@@ -5,7 +5,7 @@
     # The presenter in this case is a bit unconventional as it returns a reformatted
     # array of OpenStructs which are easier to consume that any other format we currently have.
     presenter = Renalware::Pathology::ObservationsForCodesPresenter
-                  .new(patient: mdm.patient, codes: %w(HBA FER PTH))
+                  .new(patient: mdm.patient, codes: %w(HBA FER PTHI))
 
   article
     header

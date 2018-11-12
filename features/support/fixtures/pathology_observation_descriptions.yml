@@ -226,7 +226,7 @@ POT:
 PTHI:
   <<: *default
   code: "PTHI"
-  name: "PTH"
+  name: "PTHI"
   measurement_unit: grammes_per_litre
 
 RBC:

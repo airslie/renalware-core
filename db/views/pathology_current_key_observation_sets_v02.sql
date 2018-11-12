@@ -11,6 +11,6 @@ select p.id as patient_id,
 (select observed_at from pathology_current_observations where description_code = 'HBA' and patient_id = p.id) as hba_observed_at,
 (select result from pathology_current_observations where description_code = 'FER' and patient_id = p.id) as fer_result,
 (select observed_at from pathology_current_observations where description_code = 'FER' and patient_id = p.id) as fer_observed_at,
-(select result from pathology_current_observations where description_code = 'PTH' and patient_id = p.id) as pth_result,
-(select observed_at from pathology_current_observations where description_code = 'PTH' and patient_id = p.id) as pth_observed_at
+(select result from pathology_current_observations where description_code = 'PTHI' and patient_id = p.id) as pth_result,
+(select observed_at from pathology_current_observations where description_code = 'PTHI' and patient_id = p.id) as pth_observed_at
 from patients p

@@ -14,7 +14,7 @@ module Renalware
       let(:month) { 12 }
       let(:year)  { 2016 }
       let(:hgb)   { create(:pathology_observation_description, :hgb) }
-      let(:pth)   { create(:pathology_observation_description, :pth) }
+      let(:pthi)  { create(:pathology_observation_description, :pthi) }
       let(:phos)  { create(:pathology_observation_description, :phos) }
       let(:cre)   { create(:pathology_observation_description, :cre) }
       let(:ure)   { create(:pathology_observation_description, :ure) }
@@ -26,7 +26,7 @@ module Renalware
           create(:hd_closed_session, patient: patient, hospital_unit: hospital_unit)
           create_observations(
             Renalware::Pathology.cast_patient(patient),
-            [hgb, phos, pth, cre, ure, urr],
+            [hgb, phos, pthi, cre, ure, urr],
             result: 1.0
           )
         end
@@ -40,7 +40,7 @@ module Renalware
         expect(stats.year).to eq(year)
 
         # Check the snapshot was stored correctly
-        %w(HGB CRE PHOS PTH URR URE).each do |code|
+        %w(HGB CRE PHOS PTHI URR URE).each do |code|
           expect(stats.pathology_snapshot[code]).to eq(
             { "result" => "1.0", "observed_at" => "2016-12-03T00:00:00" }
           )
@@ -56,7 +56,7 @@ module Renalware
           create(:hd_closed_session, patient: patient, hospital_unit: hospital_unit)
           create_observations(
             Renalware::Pathology.cast_patient(patient),
-            [hgb, phos, pth, cre, ure, urr],
+            [hgb, phos, pthi, cre, ure, urr],
             result: 1.0
           )
         end
@@ -84,7 +84,7 @@ module Renalware
           create(:hd_closed_session, patient: patient, hospital_unit: hospital_unit)
           create_observations(
             Renalware::Pathology.cast_patient(patient),
-            [hgb, phos, pth, cre, ure, urr],
+            [hgb, phos, pthi, cre, ure, urr],
             result: 1.0
           )
         end
@@ -93,7 +93,7 @@ module Renalware
 
         stats = PatientStatistics.first
         # Check the snapshot was stored correctly
-        %w(HGB CRE PHOS PTH URR URE).each do |code|
+        %w(HGB CRE PHOS PTHI URR URE).each do |code|
           expect(stats.pathology_snapshot[code]).to eq(
             { "result" => "1.0", "observed_at" => "2016-12-03T00:00:00" }
           )

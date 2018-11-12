@@ -5825,7 +5825,7 @@ CREATE VIEW reporting_bone_audit AS
              JOIN modality_descriptions md ON ((m.description_id = md.id)))) e1
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS pth
            FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'PTH'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
+          WHERE (((pathology_current_observations.description_code)::text = 'PTHI'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS phos
            FROM pathology_current_observations
           WHERE (((pathology_current_observations.description_code)::text = 'PHOS'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e3 ON (true))
@@ -5980,7 +5980,7 @@ CREATE MATERIALIZED VIEW reporting_hd_overall_audit AS
             (s.dialysis_minutes_shortfall)::double precision AS dialysis_minutes_shortfall,
             (convert_to_float(((s.pathology_snapshot -> 'HGB'::text) ->> 'result'::text)) > (100)::double precision) AS hgb_gt_100,
             (convert_to_float(((s.pathology_snapshot -> 'HGB'::text) ->> 'result'::text)) > (130)::double precision) AS hgb_gt_130,
-            (convert_to_float(((s.pathology_snapshot -> 'PTH'::text) ->> 'result'::text)) < (300)::double precision) AS pth_lt_300,
+            (convert_to_float(((s.pathology_snapshot -> 'PTHI'::text) ->> 'result'::text)) < (300)::double precision) AS pth_lt_300,
             (convert_to_float(((s.pathology_snapshot -> 'URR'::text) ->> 'result'::text)) > (64)::double precision) AS urr_gt_64,
             (convert_to_float(((s.pathology_snapshot -> 'URR'::text) ->> 'result'::text)) > (69)::double precision) AS urr_gt_69,
             (convert_to_float(((s.pathology_snapshot -> 'PHOS'::text) ->> 'result'::text)) < (1.8)::double precision) AS phos_lt_1_8
@@ -15792,6 +15792,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181013115138'),
 ('20181025170410'),
 ('20181026145459'),
+('20181106133500'),
 ('20181109110616');
 
 

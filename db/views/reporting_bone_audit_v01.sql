@@ -20,7 +20,7 @@ select
     inner join modality_modalities m on m.patient_id = p.id
     inner join modality_descriptions md on m.description_id = md.id
   ) e1
-  left join lateral (select result::decimal pth  from pathology_current_observations where description_code = 'PTH'  and patient_id = e1.patient_id) e2 ON true
+  left join lateral (select result::decimal pth  from pathology_current_observations where description_code = 'PTHI'  and patient_id = e1.patient_id) e2 ON true
   left join lateral (select result::decimal phos from pathology_current_observations where description_code = 'PHOS' and patient_id = e1.patient_id) e3 ON true
   left join lateral (select result::decimal cca  from pathology_current_observations where description_code = 'CCA'  and patient_id = e1.patient_id) e4 ON true
   left join lateral (select phos phos_lt_1_8 where phos < 1.8) e5 ON true
@@ -29,4 +29,3 @@ select
   left join lateral (select cca cca_2_1_to_2_4 where cca between 2.1 and 2.4) e8 ON true
   where modality_desc in ('HD','PD','Transplant', 'Low Clearance')
   group by modality_desc
-

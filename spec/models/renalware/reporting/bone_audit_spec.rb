@@ -62,7 +62,7 @@ module Renalware
             create_observation(patient: hd_patient2, description: cca, result: 2.3)
 
             # PTH
-            pth = create_observation_description("PTH")
+            pth = create_observation_description("PTHI")
             create_observation(patient: hd_patient1, description: pth, result: 300.1)
             create_observation(patient: hd_patient2, description: pth, result: 800.1)
 
