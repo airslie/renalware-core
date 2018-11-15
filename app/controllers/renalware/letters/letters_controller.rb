@@ -28,11 +28,12 @@ module Renalware
 
       def new
         @patient = load_and_authorize_patient
-        letter = LetterFactory
-          .new(@patient,
-               event: find_event,
-               author: current_user,
-               clinical: clinical?)
+        letter = LetterFactory.new(
+            @patient,
+            event: find_event,
+            author: current_user,
+            clinical: clinical?
+          )
           .with_contacts_as_default_ccs
           .build
         RememberedLetterPreferences.new(session).apply_to(letter)

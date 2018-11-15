@@ -19,7 +19,6 @@ module Renalware
                                     reject_if: :patient_or_primary_care_physician?
 
       validates :addressee_id, presence: { if: :contact? }
-
       validate :person_role_present?
 
       # Check we have a person_role. If we don't add an error to the parent letter if one is
@@ -37,10 +36,18 @@ module Renalware
         (address || current_address).to_s
       end
 
+      # Archiving a letter means taking the current address for the recipient (they could be a
+      # practice, patient, gp etc) and copying their address into a new Address row so it becomes
+      # immutably recorded as a definitive statement of where the letter was sent.
+      # Without this, if for example the patient's address subsequently changes, we would only be
+      # able to resolve the new address for the patient, not the address used at the time the letter
+      # was sent. We could also look at the archived letter content however to see what was
+      # physically on the letter, but we can't do that in SQL.
       def archive!
         build_address if address.blank?
 
         address.copy_from(current_address)
+
         # Its possible a migrated address might not have a postcode. Don't let archiving fail
         # at this stage because of that as the user cannot be informed at this stage
         # so skip address validation.

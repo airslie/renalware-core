@@ -15,6 +15,7 @@ module Renalware
       def call(patient, letter_id, params = {})
         letter = patient.letters.pending.find(letter_id)
         Letter.transaction do
+          # See e.g. Letter::Draft.revise
           letter.revise(params)
           if letter.changes.key?(:pathology_timestamp)
             letter.pathology_snapshot = build_pathology_snapshot(patient)

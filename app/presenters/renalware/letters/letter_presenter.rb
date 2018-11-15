@@ -37,6 +37,13 @@ module Renalware
         end
       end
 
+      def cc_recipients_for_envelop_stuffing
+        @cc_recipients_for_envelop_stuffing ||= begin
+          recipients = build_cc_recipients
+          present_cc_recipients(recipients)
+        end
+      end
+
       def electronic_cc_receipts
         @electronic_cc_receipts ||=
           CollectionPresenter.new(super, Letters::ElectonicReceiptPresenter)
@@ -124,8 +131,16 @@ module Renalware
       end
 
       # Include the counterpart cc recipients (i.e. patient and/or primary care physician)
+      # Because of ApproveLetter#add_missing_counterpart_cc_recipients we need to only
+      # bring in determine_counterpart_ccs if the letter is not yet approved
       def build_cc_recipients
-        determine_counterpart_ccs + __getobj__.cc_recipients
+        # Get CCs order by person_role: :desc so that gp floats above contacts
+        persisted_ccs = __getobj__.cc_recipients.order(person_role: :desc)
+        if draft? || pending_review?
+          determine_counterpart_ccs + persisted_ccs
+        else
+          persisted_ccs
+        end
       end
 
       def present_cc_recipients(recipients)

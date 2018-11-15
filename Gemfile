@@ -32,7 +32,7 @@ gem "trix",
     branch: "master"
 
 group :test do
-  gem "capybara", "~> 3.10.0"
+  gem "capybara", "~> 3.11.0"
   gem "capybara-screenshot" # "~> 1.0.18"
   # gem "chromedriver-helper" # this clashses with the */*-browsers images in cirlci so removed
   gem "codeclimate-test-reporter", "~> 1.0.9", require: false # loads simplecov
@@ -45,7 +45,7 @@ group :test do
   gem "rspec-html-matchers", "~> 0.9.1"
   gem "rspec-rails", "~> 3.8.0"
   gem "rspec_junit_formatter", "~> 0.4.1"
-  gem "selenium-webdriver", "~> 3.14.0"
+  gem "selenium-webdriver", "~> 3.141.0"
   gem "shoulda-matchers", "~> 3.1.2"
   gem "simplecov", "~> 0.13.0", require: false # only loaded if required
   gem "webmock", "~> 3.4.0", require: false

@@ -4,6 +4,12 @@ require_dependency "renalware/letters"
 
 module Renalware
   module Letters
+    # Build a new draft letter.
+    # Used e.g from .
+    # - LettersController#new - when building the initial letter form
+    #   (in which case params are those suppplied in #new)
+    # - LettersController#create via DraftLetter.build - before saving the letter, in which case
+    #   params is the posted hash of letter attributes from the html form.
     class LetterFactory
       def initialize(patient, params = {})
         @params = LetterParamsProcessor.new(patient).call(params)
@@ -88,6 +94,7 @@ module Renalware
 
       def assign_default_ccs
         return if @default_ccs.empty?
+
 
         @default_ccs.each do |contact|
           letter.cc_recipients.build(person_role: "contact", addressee: contact)
