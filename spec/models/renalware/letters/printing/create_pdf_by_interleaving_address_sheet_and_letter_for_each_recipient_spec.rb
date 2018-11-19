@@ -10,14 +10,13 @@ module Renalware
 
       # This test is pretty slow, rendering two largish PDFs and merging them into one, but I feel
       # required as it tests the PDF merging process.
-      # See
       context "when a letter to the patient has a GP and Contact CC" do
         context "when the letter is one or two pages long" do
-          it "writes a merged pdf containing interleaved addres and letter pages to the "\
+          it "writes a merged pdf containing interleaved address and letter pages to the "\
             "specified file" do
             output_file = Tempfile.new("merged_pdf", Rails.root.join("tmp"))
-            letter1 = create_letter_to_patient_with_cc_to_gp_and_one_contact
-            letter2 = create_letter_to_patient_with_cc_to_gp_and_one_contact
+            letter1 = create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact
+            letter2 = create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact
             svc = described_class.new(
               letters: [letter1, letter2],
               output_file: output_file.path

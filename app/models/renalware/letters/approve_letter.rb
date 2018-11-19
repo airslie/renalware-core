@@ -15,9 +15,10 @@ module Renalware
 
       def call(by:)
         Letter.transaction do
+          add_missing_counterpart_cc_recipients
+          archive_recipients
           sign(by: by)
           archive_content(by: by)
-          archive_recipients
           broadcast(:letter_approved, letter)
         end
       end
@@ -39,6 +40,15 @@ module Renalware
 
       def archive_recipients
         letter.archive_recipients!
+      end
+
+      def add_missing_counterpart_cc_recipients
+        DetermineCounterpartCCs.new(letter).call.each do |recipient|
+          already_a_recipient = letter.recipients.exists?(addressee: recipient.addressee)
+          unless already_a_recipient
+            recipient.save!
+          end
+        end
       end
     end
   end

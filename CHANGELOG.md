@@ -9,6 +9,10 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.60
+### Changes
+- Letter improvements and additional tests
+
 ## 2.0.59
 ### Changes
 - Add a view to aid reporting of incoming HD Sessions

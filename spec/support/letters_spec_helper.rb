@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/MethodLength, Metrics/AbcSize
 module LettersSpecHelper
   def build_letter(state: :draft, to:, patient:, **args)
     trait = "#{state}_letter".to_sym
@@ -42,15 +42,17 @@ module LettersSpecHelper
     end
   end
 
-  def create_letter_to_patient_with_cc_to_gp_and_one_contact(user: nil,
-                                                             body: "test",
-                                                             page_count: 1,
-                                                             state: :approved)
+  def create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact(
+    user: nil,
+    body: "test",
+    page_count: 1,
+    practice_email: nil
+  )
     user ||= create(:user)
 
     practice = create(
       :practice,
-      email: nil
+      email: practice_email
     )
     primary_care_physician = create(
       :letter_primary_care_physician,
@@ -99,7 +101,7 @@ module LettersSpecHelper
     letter = create_letter(
       to: :patient,
       patient: patient,
-      state: state,
+      state: :pending_review,
       page_count: page_count,
       body: body
     )
@@ -111,7 +113,8 @@ module LettersSpecHelper
       letter: letter,
       addressee: contact
     )
-    letter
+    Renalware::Letters::ApproveLetter.new(letter).call(by: user)
+    Renalware::Letters::Letter.find(letter.id)
   end
 end
-# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/MethodLength, Metrics/AbcSize
