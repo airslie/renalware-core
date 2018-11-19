@@ -15,10 +15,10 @@ module Renalware
 
       def call(by:)
         Letter.transaction do
+          add_missing_counterpart_cc_recipients
           archive_recipients
           sign(by: by)
           archive_content(by: by)
-          add_missing_counterpart_cc_recipients
           broadcast(:letter_approved, letter)
         end
       end

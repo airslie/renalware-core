@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module Renalware
-  VERSION = "2.0.59"
+  VERSION = "2.0.60"
 end

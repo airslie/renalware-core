@@ -2,17 +2,16 @@
 
 require_relative "../page_object"
 
+# rubocop disable Metrics/LineLength
 module Pages
   module Letters
     class Form < PageObject
-      # rubocop disable Metrics/LineLength
       PERSON_ROLE_TO_RADIO_ID_MAP = {
         patient: :letter_main_recipient_attributes_person_role_patient,
         primary_care_physician: :letter_main_recipient_attributes_person_role_primary_care_physician,
         gp: :letter_main_recipient_attributes_person_role_primary_care_physician,
         contact: :letter_main_recipient_attributes_person_role_contact
       }.freeze
-      # rubocop enable Metrics/LineLength
 
       def issued_on=(date)
         fill_in "Date", with: I18n.l(date)
@@ -59,3 +58,4 @@ module Pages
     end
   end
 end
+# rubocop enable Metrics/LineLength

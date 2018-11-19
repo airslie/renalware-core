@@ -95,7 +95,6 @@ module Renalware
       def assign_default_ccs
         return if @default_ccs.empty?
 
-
         @default_ccs.each do |contact|
           letter.cc_recipients.build(person_role: "contact", addressee: contact)
         end
