@@ -57,29 +57,16 @@ module Renalware
             let(:patient) { build_stubbed(:letter_patient, practice: practice) }
 
             it { is_expected.to eq(true) }
+
+            context "when the email has already been sent" do
+              before do
+                letter.recipients.find(&:primary_care_physician?).emailed_at = 1.day.ago
+              end
+              it { is_expected.to be_falsey }
+            end
           end
         end
       end
-
-      # describe ".other_recipients" do
-      #   context "when the gp is a recipient but we are not sending the practice an email" do
-      #     before { letter.recipients.build(person_role: :primary_care_physician) }
-      #     before { allow(policy).to receive(:email_letter_to_practice?).and_return(false) }
-
-      #     it "includes the gp in other_recipients" do
-      #       expect(policy.other_recipients.find(&:primary_care_physician?)).to eq(true)
-      #     end
-      #   end
-
-      #   context "when the gp is a recipient and we are sending the practice an email" do
-      #     before { letter.recipients.build(person_role: :primary_care_physician) }
-      #     before { allow(policy).to receive(:email_letter_to_practice?).and_return(true) }
-
-      #     it "does not include the gp in other_recipients" do
-      #       expect(policy.other_recipients.find(&:primary_care_physician?)).to be_falsey
-      #     end
-      #   end
-      # end
     end
   end
 end

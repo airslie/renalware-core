@@ -14,7 +14,7 @@ module Renalware
 
         def email_letter_to_practice?
           email = PracticeEmail.new(letter).address
-          email.present? && gp_recipient.present?
+          email.present? && gp_recipient.present? && gp_recipient.emailed_at.blank?
         end
 
         def gp_is_a_recipient?

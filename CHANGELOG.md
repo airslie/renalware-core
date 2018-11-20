@@ -9,6 +9,10 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.62
+### Changed
+- Letter enhancements
+
 ## 2.0.61
 ### Fixed
 - Fixed migration error
