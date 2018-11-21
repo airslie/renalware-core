@@ -80,7 +80,7 @@ en:
               out_of_range: Please enter a pulse between 20 and 200
             weight:
               out_of_range: Please enter a weight between 5.0 and 300.0 kg
-              invalid_number: Please enter a number with up to 1 decimal place, for example 100 or 100.1
+              invalid_number: Please enter a number with up to 2 decimal place, for example 100 or 100.11
             temperature:
               out_of_range: Please enter a temperature between 28.0 and 45.0°C
               invalid_number: Please enter a number with up to 1 decimal place, for example 37 or 37.1

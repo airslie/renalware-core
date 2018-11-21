@@ -45,14 +45,20 @@ module Renalware
           expect(model).to be_valid
         end
 
-        it "rejects valid values that have more than one decimal place" do
+        it "accepts numeric values with two decimal places" do
           model = model_class.new(weight: min_value + 0.11)
+
+          expect(model).to be_valid
+        end
+
+        it "rejects valid values that have more than two decimal places" do
+          model = model_class.new(weight: min_value + 0.111)
 
           expect_model_to_be_invalid_with_messages(model, invalid_number_message)
         end
 
-        it "rejects invalid values that have more than one decimal place" do
-          model = model_class.new(weight: max_value + 0.11)
+        it "rejects invalid values that have more than two decimal places" do
+          model = model_class.new(weight: max_value + 0.111)
 
           expect_model_to_be_invalid_with_messages(model,
                                                    invalid_number_message,
