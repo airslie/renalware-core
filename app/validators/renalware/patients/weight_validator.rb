@@ -7,7 +7,7 @@ module Renalware
       include NumericScaleValidations
       MIN_VALUE = 5.0
       MAX_VALUE = 300.0
-      MAX_DECIMAL_PLACES = 1
+      MAX_DECIMAL_PLACES = 2
 
       def validate_each(record, attribute, value)
         return if value.blank?
