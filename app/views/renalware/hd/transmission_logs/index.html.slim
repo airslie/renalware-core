@@ -11,7 +11,7 @@
           th.col-width-medium Patient
           th.col-width-small Ext Session Id
           th.col-width-small Session Id
-          th.col-width-tiny Result
+          th.col-width-large Result
           th Errors
       tbody
         - logs.each do |log|
@@ -19,24 +19,37 @@
             klass = if log.parent_id.present?
                       log.session_id.present? ? "session_import_success" : "session_import_error"
                     else
-                      ""
+                      "file"
                     end
           tr(class=klass)
             td= l(log.created_at)
             td= log.direction
             td= log.format
-            td= link_to "...",
+            td
+              - if log.payload.present?
+                = link_to "...",
                         hd_transmission_log_path(log, format: :xml),
                         class: "button small_ellipsis_button",
                         target: "_blank"
             td
-              span(title=log.filepath)= log.filepath && Pathname(log.filepath).basename
+              span(title=log.filepath)
+                - filename = log.filepath && Pathname(log.filepath).basename
+                - if filename.present?
+                  i.fas.fa-file
+                  | &nbsp;
+                  = filename
             td= log.patient && link_to(log.patient, patient_hd_sessions_path(log.patient))
-            td= log.external_session_id
-            th
+            td
+              - if log.parent_id.present?
+                = log.external_session_id
+              - else
+                i.fas.fa-arrow
+            td
               - if log.patient && log.session
                 = link_to log.session_id, patient_hd_session_path(log.patient, log.session)
-            td= log.result
-            td= log.error_messages.compact.uniq.join("<br>").html_safe
+            td.result
+              = log.result
+            td.result
+              = log.error_messages.compact.uniq.join("<br>").html_safe
 
     = paginate logs
