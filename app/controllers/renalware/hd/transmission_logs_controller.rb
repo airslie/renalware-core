@@ -24,7 +24,7 @@ module Renalware
         log = TransmissionLog.find(params[:id])
         authorize log
         respond_to do |format|
-          format.xml { render xml: log.payload }
+          format.xml { render xml: log.payload, template: nil }
         end
       end
     end

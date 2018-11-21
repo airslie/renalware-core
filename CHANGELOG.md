@@ -9,6 +9,10 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.63
+### Changed
+- Allow 2 decimal places in weights, to support dialyser data import
+
 ## 2.0.62
 ### Changed
 - Letter enhancements

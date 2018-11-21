@@ -1,10 +1,21 @@
-table.stripeless {
-  // .session_import_success {
-  //   background-color: lightgreen !important;
-  // }
-
-  .session_import_error {
-    background-color: #ffe5e5 !important;
+.hd_transmission_logs {
+  tr {
+    &.session_import_success {
+      td.result {
+        background: lighten($nhs-light-green, 50);
+      }
+    }
+    &.file {
+      td {
+        background: $off-white;
+        border-bottom: solid 2px $charcoal;
+      }
+    }
+    &.session_import_error {
+      td.result {
+        background-color:lighten($nhs-pink, 50);
+      }
+    }
   }
 }
 
