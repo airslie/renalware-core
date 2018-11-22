@@ -136,7 +136,14 @@ module Renalware
       def build_cc_recipients
         # Get CCs order by person_role: :desc so that gp floats above contacts
         persisted_ccs = __getobj__.cc_recipients.order(person_role: :desc)
-        if draft? || pending_review?
+        # There is an issue here - if we are archiving the letter then at the point the
+        # archive html content is generated, the letter is signed but not yet approved.
+        # We need to change this so it is approved before this point. For now
+        # check if the letter is signed? which will indicate we are in the process of
+        # archiving - in which case we have already generated the complete list of
+        # letter_recipients so we don't need to use #determine_counterpart_ccs to derive
+        # missing ones.
+        if draft? || (pending_review? && !signed?)
           determine_counterpart_ccs + persisted_ccs
         else
           persisted_ccs
