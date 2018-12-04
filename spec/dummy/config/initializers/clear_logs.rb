@@ -5,7 +5,7 @@ if Rails.env.development?
   MAX_LOG_SIZE = 10.megabytes
   logs = Rails.root.join("log", "*.log")
   if Dir[logs].any? { |log| File.size?(log).to_i > MAX_LOG_SIZE }
-    $stdout.puts "Running rails log:clear"
-    `rails log:clear`
+    $stdout.puts "Running rails app:log:clear"
+    `rails app:log:clear`
   end
 end

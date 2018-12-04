@@ -1,9 +1,13 @@
 class CreateFnToRefreshCurrentObs < ActiveRecord::Migration[5.1]
   def up
-    load_function("refresh_current_observation_set_v01.sql")
+    within_renalware_schema do
+      load_function("refresh_current_observation_set_v01.sql")
+    end
   end
 
   def down
-    connection.execute("drop function if exists refresh_current_observation_set(integer)")
+    within_renalware_schema do
+      connection.execute("drop function if exists refresh_current_observation_set(integer)")
+    end
   end
 end

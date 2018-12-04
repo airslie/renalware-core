@@ -1,6 +1,4 @@
 class UpdateDailyLettersReportViewToVersion2 < ActiveRecord::Migration[5.2]
-  include MigrationHelper
-
   def change
     within_renalware_schema do
       update_view(

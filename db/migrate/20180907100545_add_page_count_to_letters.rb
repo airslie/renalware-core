@@ -1,5 +1,7 @@
 class AddPageCountToLetters < ActiveRecord::Migration[5.1]
   def change
-    add_column :letter_letters, :page_count, :integer
+    within_renalware_schema do
+      add_column :letter_letters, :page_count, :integer
+    end
   end
 end
