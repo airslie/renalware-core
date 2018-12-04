@@ -3,6 +3,15 @@
 module CoreExtensions
   module ActiveRecord
     module MigrationHelpers
+      def within_renalware_schema(suffix: nil)
+        underscore_suffix = "_#{suffix}" if suffix.present?
+        target_schema = "renalware#{underscore_suffix}"
+        original_schema_search_path = connection.schema_search_path
+        connection.schema_search_path = "#{target_schema},public"
+        yield if block_given?
+        connection.schema_search_path = original_schema_search_path
+      end
+
       # Can be called from a migration to load in a function from a sql file
       # at e.g. db/functions/my_function_v01.sql
       #
@@ -59,4 +68,4 @@ module CoreExtensions
   end
 end
 
-ActiveRecord::Migration[5.1].send(:prepend, CoreExtensions::ActiveRecord::MigrationHelpers)
+ActiveRecord::Migration.send(:prepend, CoreExtensions::ActiveRecord::MigrationHelpers)

@@ -9,6 +9,10 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.66
+### Fixed
+- Database migration enhancements to support BLT
+
 ## 2.0.65
 ### Fixed
 - Extend information stored when logging imported HD Sessions
