@@ -10,6 +10,8 @@ gem "bootsnap", require: false # speeds up rspec and rails server boot time in d
 gem "daemons", require: false # to use cmds like `bin/delayed_job start`
 gem "faker"
 gem "party_foul", "~> 1.5.5"
+gem "redis"
+
 #
 # devise_security_extension
 #
@@ -76,8 +78,4 @@ group :development, :test do
   gem "spring-commands-cucumber", require: false
   gem "spring-commands-rspec", require: false
   gem "terminal-notifier-guard", require: false
-end
-
-group :staging, :production do
-  gem "redis-rails", "5.0.2"
 end
