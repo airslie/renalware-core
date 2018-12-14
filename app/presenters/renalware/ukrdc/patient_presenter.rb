@@ -83,10 +83,6 @@ module Renalware
         letter_head.site_code
       end
 
-      def contact_details?
-        email.present? || home_telephone.present? || mobile_telephone.present?
-      end
-
       def allergies
         clinical_patient
           .allergies

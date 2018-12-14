@@ -4,6 +4,7 @@
 # Things we are not going to include in RW2.0
 # - PersonToContact
 # - Occupation
+# - ContactDetails - these may contain data not relating to the patient
 #
 xml = builder
 path = "renalware/api/ukrdc/patients" # or "."
@@ -44,16 +45,6 @@ xml.Patient do
     xml.Addresses do
       if address.present?
         render("#{path}/address", builder: xml, address: address)
-      end
-    end
-  end
-
-  if patient.contact_details?
-    xml.ContactDetails do
-      if patient.email.present?
-        xml.ContactDetail(use: "NET") do
-          xml.Value patient.email
-        end
       end
     end
   end
