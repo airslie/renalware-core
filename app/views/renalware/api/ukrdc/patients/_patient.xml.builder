@@ -55,16 +55,6 @@ xml.Patient do
           xml.Value patient.email
         end
       end
-      if patient.home_telephone.present?
-        xml.ContactDetail(use: "PRN") do
-          xml.Value patient.home_telephone
-        end
-      end
-      if patient.mobile_telephone.present?
-        xml.ContactDetail(use: "PRS") do
-          xml.Value patient.mobile_telephone
-        end
-      end
     end
   end
 

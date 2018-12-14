@@ -31,14 +31,6 @@ module Renalware
       end
       # rubocop:enable Metrics/MethodLength
 
-      def home_telephone
-        telephone1&.truncate(UKRDC_MAX_PHONE_LEN)
-      end
-
-      def mobile_telephone
-        telephone2&.truncate(UKRDC_MAX_PHONE_LEN)
-      end
-
       def language
         return if super.nil? || super.name == "Unknown"
 
