@@ -6,7 +6,15 @@ module Renalware
   module UKRDC
     class XmlRenderer
       DEFAULT_TEMPLATE = "/renalware/api/ukrdc/patients/show"
-      attr_reader :template, :xsd_path, :locals
+      attr_reader :template, :xsd_path, :locals, :errors
+
+      class Success < Renalware::Success
+        alias_method :xml, :object
+      end
+
+      class Failure < Renalware::Failure
+        alias_method :validation_errors, :object
+      end
 
       def initialize(template: nil, xsd_path: nil, locals: {})
         @template = template || DEFAULT_TEMPLATE
@@ -14,12 +22,14 @@ module Renalware
         @locals = locals
       end
 
+      # If we successfully generate the UKRDC XML for a patient, return a Success object where
+      # success#xml is the valid XML
+      # If there are XSD validation messages, we return a Failure object where
+      # failure#validation_messages is an array of XSD validation messages.
       def call
-        if validation_errors.any?
-          raise(ArgumentError, validation_errors.join(", "))
-        end
+        return XmlRenderer::Failure.new(validation_errors) if validation_errors.any?
 
-        xml
+        XmlRenderer::Success.new(xml)
       end
 
       def xml
@@ -33,18 +43,20 @@ module Renalware
         end
       end
 
+      # Returns an array of SchemaValidation errors
+      def validation_errors
+        @validation_errors ||= begin
+          document = Nokogiri::XML(xml)
+          xsddoc = Nokogiri::XML(File.read(xsd_path), xsd_path)
+          schema = Nokogiri::XML::Schema.from_document(xsddoc)
+          schema.validate(document)
+        end
+      end
+
       private
 
       def default_xsd_path
         File.join(Renalware::Engine.root, "vendor/xsd/ukrdc/Schema/UKRDC.xsd")
-      end
-
-      # Returns an array of SchemaValidation errors
-      def validation_errors
-        document = Nokogiri::XML(xml)
-        xsddoc = Nokogiri::XML(File.read(xsd_path), xsd_path)
-        schema = Nokogiri::XML::Schema.from_document(xsddoc)
-        schema.validate(document)
       end
     end
   end
