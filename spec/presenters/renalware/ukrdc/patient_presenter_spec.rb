@@ -18,6 +18,26 @@ module Renalware
       end
     end
 
+    describe "#home_telephone" do
+      it "truncates telephone1 to 80 characters ie 77 characters plus three periods..." do
+        actual = "X" * 100
+        patient = instance_double(Patient, telephone1: actual, sent_to_ukrdc_at: nil)
+        expected = "X" * 77 + "..."
+
+        expect(described_class.new(patient).home_telephone).to eq(expected)
+      end
+    end
+
+    describe "#mobile_telephone" do
+      it "truncates telephone2 to 80 characters ie 77 characters plus three periods..." do
+        actual = "X" * 100
+        patient = instance_double(Patient, telephone2: actual, sent_to_ukrdc_at: nil)
+        expected = "X" * 77 + "..."
+
+        expect(described_class.new(patient).mobile_telephone).to eq(expected)
+      end
+    end
+
     describe "#langauge" do
       subject(:presenter) { described_class.new(patient).language }
 

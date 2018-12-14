@@ -6,11 +6,10 @@ require_dependency "renalware"
 module Renalware
   module UKRDC
     class PatientPresenter < SimpleDelegator
+      UKRDC_MAX_PHONE_LEN = 80
       attr_reader :changes_since, :changes_up_until
       delegate :profile, to: :renal_patient, allow_nil: true
       delegate :first_seen_on, to: :profile, allow_nil: true
-      alias_attribute :home_telephone, :telephone1
-      alias_attribute :mobile_telephone, :telephone2
 
       # rubocop:disable Metrics/MethodLength
       def initialize(patient, changes_since: nil)
@@ -31,6 +30,14 @@ module Renalware
         super(patient)
       end
       # rubocop:enable Metrics/MethodLength
+
+      def home_telephone
+        telephone1&.truncate(UKRDC_MAX_PHONE_LEN)
+      end
+
+      def mobile_telephone
+        telephone2&.truncate(UKRDC_MAX_PHONE_LEN)
+      end
 
       def language
         return if super.nil? || super.name == "Unknown"
