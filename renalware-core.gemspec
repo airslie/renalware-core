@@ -73,6 +73,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rack-attack", "~> 5.4.0"
   s.add_dependency "rails", "~> 5.2.2"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
+  s.add_dependency "rails-assets-moment", "2.22.1"
   s.add_dependency "rails-assets-select2", "~> 4.0.2"
   s.add_dependency "ransack", "~> 2.1.1"
   s.add_dependency "record_tag_helper", "~> 1.0.0"

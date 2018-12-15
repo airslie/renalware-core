@@ -54,6 +54,7 @@ require "wisper"
 require "wisper/activejob"
 require "rails-assets-foundation-datepicker"
 require "rails-assets-select2"
+require "rails-assets-moment"
 if ENV["RAILS_ENV"] == "development"
   require "byebug"
 end
