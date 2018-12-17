@@ -3,14 +3,7 @@ article
     h2= t(".title")
     .supplemental
       span= "#{mdm.current_prescriptions.length} of #{mdm.patient.summary.prescriptions_count}"
-      = link_to t(".view_all"),
-                patient_prescriptions_path(mdm.patient),
-                class: "button secondary"
-
-      = link_to "Toggle",
-                "#prescriptions",
-                class: "button secondary",
-                data: { behaviour: "css-toggler" }
+      = render "prescription_buttons", patient: mdm.patient
 
   #prescriptions.expandable
     - if local_assigns[:with_esa] == true

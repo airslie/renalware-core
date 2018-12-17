@@ -3,14 +3,7 @@ article
     h1 Prescriptions
     .supplemental
       span= "#{mdm.current_prescriptions.length} of #{mdm.patient.summary.prescriptions_count}"
-      = link_to t("links.view_all"),
-                patient_prescriptions_path(mdm.patient),
-                class: "button secondary"
-
-      = link_to "Toggle",
-                "#prescriptions",
-                class: "button secondary",
-                data: { behaviour: "css-toggler" }
+      = render "prescription_buttons", patient: mdm.patient
 
   #prescriptions.expandable
 
