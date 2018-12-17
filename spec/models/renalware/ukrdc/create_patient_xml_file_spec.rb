@@ -31,13 +31,28 @@ module Renalware
       </xml>
       XML
     }
-    let(:renderer) { double(:renderer, render: xml) }
+
+    let(:success_result) { double(:success, xml: xml, success?: true, failure?: false) }
+    let(:success_renderer) { double(:renderer, call: success_result) }
+
+    let(:failure_result) do
+      double(
+        :success,
+        validation_errors: [:error1, :error2],
+        success?: false,
+        failure?: true
+      )
+    end
+    let(:failure_renderer) { double(:renderer, call: failure_result) }
+
     let(:xml_md5_hash) { Digest::MD5.hexdigest(xml_with_sending_facility_time_removed) }
     let(:patient) do
       create(
         :patient,
         ukrdc_external_id: SecureRandom.uuid,
-        sent_to_ukrdc_at: 1.week.ago
+        sent_to_ukrdc_at: 1.week.ago,
+        practice: create(:practice),
+        primary_care_physician: create(:primary_care_physician)
       )
     end
 
@@ -46,17 +61,19 @@ module Renalware
         patient.update_by(user, sent_to_ukrdc_at: nil)
 
         Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
-          described_class.new(
+          service = described_class.new(
             request_uuid: request_uuid,
-            renderer: renderer,
             patient: patient,
             batch_number: 1,
             dir: dir,
+            renderer: success_renderer,
             changes_since: "2017-01-01" # required if sent_to_ukrdc_at is nil!
-          ).call
+          )
+
+          expect{ service.call }.to change(patient, :sent_to_ukrdc_at)
 
           log = UKRDC::TransmissionLog.where(patient: patient).last
-          expect(log.error).to be_nil
+          expect(log.error).to eq([])
           expect(log.payload).to eq(xml)
           expect(log.payload_hash).to eq(xml_md5_hash)
           expect(log.file_path).to eq(File.join(dir, "RJZ_1_#{patient.nhs_number}.xml"))
@@ -82,16 +99,18 @@ module Renalware
         prevous_transmission_log
 
         Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
-          described_class.new(
+          service = described_class.new(
             request_uuid: request_uuid,
-            renderer: renderer,
+            renderer: success_renderer,
             patient: patient,
             batch_number: 1,
             dir: dir
-          ).call
+          )
+
+          expect{ service.call }.to change(patient, :sent_to_ukrdc_at)
 
           log = UKRDC::TransmissionLog.where(patient: patient).last
-          expect(log.error).to be_nil
+          expect(log.error).to eq([])
           expect(log.payload).to eq(xml)
           expect(log.payload_hash).to eq(xml_md5_hash)
           expect(log.file_path).to eq(File.join(dir, "RJZ_1_#{patient.nhs_number}.xml"))
@@ -118,18 +137,44 @@ module Renalware
         prevous_transmission_log
 
         Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
-          described_class.new(
+          service = described_class.new(
             request_uuid: request_uuid,
-            renderer: renderer,
+            renderer: success_renderer,
             patient: patient,
             batch_number: 1,
             dir: dir
-          ).call
+          )
+
+          expect{ service.call }.not_to change(patient, :sent_to_ukrdc_at)
 
           log = UKRDC::TransmissionLog.where(patient: patient).last
-          expect(log.error).to be_nil
+          expect(log.error).to eq([])
           expect(log.payload).to eq(xml)
           expect(log.payload_hash).to eq(xml_md5_hash)
+          expect(log.file_path).to be_nil
+        end
+      end
+    end
+
+    context "when the patient XML has UKRDC XSD validation errors" do
+
+      it "does *not* send a new XML file but updates the log entry as unsent" do
+        Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
+          service = described_class.new(
+            request_uuid: request_uuid,
+            renderer: failure_renderer,
+            patient: patient,
+            batch_number: 1,
+            dir: dir
+          )
+
+          expect{ service.call }.not_to change(patient, :sent_to_ukrdc_at)
+
+          log = UKRDC::TransmissionLog.where(patient: patient).last
+          expect(log.error).to eq(%w(error1 error2))
+          expect(log.status).to eq("error")
+          expect(log.payload).to be_nil
+          expect(log.payload_hash).to be_nil
           expect(log.file_path).to be_nil
         end
       end

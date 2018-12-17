@@ -16,7 +16,7 @@ module Renalware
         yield log if block_given?
         log.save!
       rescue StandardError => error
-        log.error = formatted_exception(error)
+        log.error << formatted_exception(error)
         log.status = :error
         log.save!
         raise error

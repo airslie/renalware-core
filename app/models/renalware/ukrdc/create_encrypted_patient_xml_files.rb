@@ -17,10 +17,9 @@ module Renalware
         :changed_since,
         :logger,
         :request_uuid,
-        :paths,
         :timestamp,
-        :summary,
-        :batch_number
+        :batch_number,
+        :summary
       )
 
       def initialize(changed_since: nil, patient_ids: nil, logger: nil)
@@ -29,20 +28,13 @@ module Renalware
         @logger = logger || Rails.logger
         @request_uuid = SecureRandom.uuid # helps group logs together
         @timestamp = Time.zone.now.strftime("%Y%m%d%H%M%S%L")
-
+        @batch_number ||= BatchNumber.next.number
         @summary = ExportSummary.new
       end
 
       def call
         logger.tagged(request_uuid) do
-          # Skipping transaction for now as worried about the quantity of rows and data invovled.
           ActiveRecord::Base.transaction do
-            @batch_number = BatchNumber.next.number
-            @paths = Paths.new(
-              timestamp: timestamp,
-              batch_number: batch_number,
-              working_path: config.ukrdc_working_path
-            )
             summary.milliseconds_taken = Benchmark.ms do
               create_patient_xml_files
               encrypt_patient_xml_files
@@ -61,6 +53,16 @@ module Renalware
       end
 
       private
+
+      def paths
+        @paths ||= begin
+          Paths.new(
+            timestamp: timestamp,
+            batch_number: batch_number,
+            working_path: config.ukrdc_working_path
+          )
+        end
+      end
 
       def create_patient_xml_files
         patients = ukrdc_patients_who_have_changed_since_last_send
