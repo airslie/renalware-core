@@ -45,6 +45,11 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # Keep the developoment log no bigger than 10mb.
+  # Keep at most 1 rotated file, so there will usually be a 10mb spec/dummy/log/developmen.log.0
+  # file and the current development.log in existence
+  config.logger = ActiveSupport::Logger.new(config.paths["log"].first, 1, 10 * 1024 * 1024)
+
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
