@@ -25,6 +25,10 @@ module Renalware
       def self.policy_class
         BasePolicy
       end
+
+      def self.latest
+        ordered.first
+      end
     end
   end
 end

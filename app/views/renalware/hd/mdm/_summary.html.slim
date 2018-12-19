@@ -1,14 +1,22 @@
+- clinical_patient = Renalware::Clinical.cast_patient(mdm.patient)
+
 article
   header
     h2 Additional Information
 
   dl.dl-horizontal.xlarge
     dt Latest Pre mean BP
-    - if mdm.rolling_audit.present?
-      dd= "#{mdm.rolling_audit.pre_mean_systolic_blood_pressure.to_i} / #{mdm.rolling_audit.pre_mean_diastolic_blood_pressure.to_i}"
+    dd
+      - if mdm.rolling_audit.present?
+        = "#{mdm.rolling_audit.pre_mean_systolic_blood_pressure.to_i} / #{mdm.rolling_audit.pre_mean_diastolic_blood_pressure.to_i}"
     dt Latest Post mean BP
-    - if mdm.rolling_audit.present?
-      dd= "#{mdm.rolling_audit.post_mean_systolic_blood_pressure.to_i} / #{mdm.rolling_audit.post_mean_diastolic_blood_pressure.to_i}"
+    dd
+      - if mdm.rolling_audit.present?
+        = "#{mdm.rolling_audit.post_mean_systolic_blood_pressure.to_i} / #{mdm.rolling_audit.post_mean_diastolic_blood_pressure.to_i}"
+    dt Latest Dry Weight (kg)
+    dd
+      - if clinical_patient.dry_weights.latest.present?
+        = Renalware::Clinical::DryWeightPresenter.new(clinical_patient.dry_weights.latest)
 
     dt Latest URR
     dd

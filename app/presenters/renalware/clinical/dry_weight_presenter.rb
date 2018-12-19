@@ -6,6 +6,10 @@ module Renalware
       def assessed_on
         ::I18n.l(super)
       end
+
+      def to_s
+        "#{weight} (#{assessed_on})"
+      end
     end
   end
 end
