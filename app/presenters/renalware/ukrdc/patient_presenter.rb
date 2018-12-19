@@ -2,15 +2,16 @@
 
 require_dependency "renalware"
 
+# rubocop:disable Metrics/ClassLength
 module Renalware
   module UKRDC
     class PatientPresenter < SimpleDelegator
+      UKRDC_MAX_PHONE_LEN = 80
       attr_reader :changes_since, :changes_up_until
       delegate :profile, to: :renal_patient, allow_nil: true
       delegate :first_seen_on, to: :profile, allow_nil: true
-      alias_attribute :home_telephone, :telephone1
-      alias_attribute :mobile_telephone, :telephone2
 
+      # rubocop:disable Metrics/MethodLength
       def initialize(patient, changes_since: nil)
         if changes_since.present? && changes_since.is_a?(String)
           changes_since = Time.zone.parse(changes_since)
@@ -28,11 +29,16 @@ module Renalware
         @changes_up_until = Time.zone.now
         super(patient)
       end
+      # rubocop:enable Metrics/MethodLength
 
       def language
         return if super.nil? || super.name == "Unknown"
 
         super
+      end
+
+      def modalities
+        __getobj__.modalities.order(started_on: :asc)
       end
 
       def dead?
@@ -75,10 +81,6 @@ module Renalware
 
       def hospital_unit_code
         letter_head.site_code
-      end
-
-      def contact_details?
-        email.present? || home_telephone.present? || mobile_telephone.present?
       end
 
       def allergies
@@ -144,3 +146,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

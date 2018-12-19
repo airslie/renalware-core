@@ -38,7 +38,7 @@ xml.LabOrder do
   xml.OrderCategory do
     xml.Code request.description.code
   end
-  # xml.SpecimenCollectedTime request.requested_at.iso8601
+  xml.SpecimenCollectedTime request.requested_at&.iso8601
   # xml.SpecimenReceivedTime "TODO"
   xml.SpecimenSource request.description.bottle_type
   # xml.Duration "OBR:27.3 but no available in the example messages I have"

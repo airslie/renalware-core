@@ -43,5 +43,26 @@ module Renalware
         it { is_expected.not_to be_present }
       end
     end
+
+    describe "#modalties" do
+      subject(:presenter) { UKRDC::PatientPresenter.new(patient) }
+
+      let(:patient) { create(:patient) }
+      let(:user) { create(:user) }
+
+      it "returns patient modalities in ascending chronological order" do
+        hd_modality_description = create(:modality_description, :hd)
+        pd_modality_description = create(:modality_description, :pd)
+        tx_modality_description = create(:modality_description, :transplant)
+
+        # Create 3 modalities in this chronological order: PD, HD, Transplant
+        svc = Modalities::ChangePatientModality.new(patient: patient, user: user)
+        pd = svc.call(description: pd_modality_description, started_on: 3.days.ago).object
+        hd = svc.call(description: hd_modality_description, started_on: 2.days.ago).object
+        tx = svc.call(description: tx_modality_description, started_on: 1.day.ago).object
+
+        expect(presenter.modalities).to eq([pd, hd, tx])
+      end
+    end
   end
 end

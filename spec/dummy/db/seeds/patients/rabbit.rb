@@ -13,11 +13,13 @@ module Renalware
     rabbit.religion = Renalware::Patients::Religion.second!
     rabbit.language = Renalware::Patients::Language.first!
     rabbit.by = user
-    rabbit.document = { referral:
-      { referral_date: 1.week.ago,
+    rabbit.document = {
+      referral: {
+        referral_date: 1.week.ago,
         referral_type: "Urgent",
         referral_notes: "NB family friend of referrer",
-        referring_physician_name: "Dr Jack L N Hyde" },
+        referring_physician_name: "Dr Jack L N Hyde"
+      },
       admin_notes: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
       interpreter_notes: "Second language French",
       special_needs_notes: "Lorem ipsum dolor sit amet"
@@ -31,14 +33,13 @@ module Renalware
   log "Adding Primary Care Physician for Roger RABBIT" do
     practice = Patients::Practice.first!
 
-    primary_care_physician = Patients::PrimaryCarePhysician
-      .find_or_create_by!(code: "GP912837465") do |doc|
-        doc.name = "MERRILL J"
-        doc.practitioner_type = "GP"
-        doc.practices << practice
+    pcp = Patients::PrimaryCarePhysician.find_or_create_by!(code: "G91283") do |doc|
+      doc.name = "MERRILL J"
+      doc.practitioner_type = "GP"
+      doc.practices << practice
     end
 
-    rabbit.primary_care_physician = primary_care_physician
+    rabbit.primary_care_physician = pcp
     rabbit.practice = practice
     rabbit.by = system_user
     rabbit.save!

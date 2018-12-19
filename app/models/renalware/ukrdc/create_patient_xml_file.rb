@@ -10,24 +10,28 @@ module Renalware
         :patient!,
         :dir!,
         :request_uuid!,
-        :renderer,
         :changes_since,
         :logger,
-        :batch_number
+        :batch_number,
+        :renderer, # so we can pass a test renderer to bypass real rendering
+        :log
       ]
 
       # rubocop:disable Metrics/AbcSize
       def call
         update_patient_to_indicated_we_checked_them_for_any_relevant_changes
         UKRDC::TransmissionLog.with_logging(patient, request_uuid) do |log|
+          @log = log
           logger.info "  Patient #{patient.ukrdc_external_id}"
           xml_payload = build_payload(log)
-          if xml_payload_same_as_last_sent_payload?(xml_payload)
-            logger.info "    skipping as no change in XML file"
-            log.unsent_no_change_since_last_send!
-          else
-            create_xml_file(xml_payload, log)
-            update_patient_to_indicate_we_have_sent_their_data_to_ukrdc
+          if xml_payload.present?
+            if xml_payload_same_as_last_sent_payload?(xml_payload)
+              logger.info "    skipping as no change in XML file"
+              log.unsent_no_change_since_last_send!
+            else
+              create_xml_file(xml_payload, log)
+              update_patient_to_indicate_we_have_sent_their_data_to_ukrdc
+            end
           end
           logger.info "    Status: #{log.status}"
         end
@@ -72,17 +76,30 @@ module Renalware
       end
 
       def build_payload(log)
-        Payload.new(render_xml_for(patient)).tap do |payload|
-          log.payload = payload.to_s
-          log.payload_hash = payload.to_md5_hash
+        result = attempt_to_generate_patient_ukrdc_xml
+        if result.failure?
+          handle_invalid_xml(result)
+          nil
+        else
+          Payload.new(result.xml).tap do |payload|
+            log.payload = payload.to_s
+            log.payload_hash = payload.to_md5_hash
+          end
         end
       end
 
-      def render_xml_for(patient)
-        renderer.render(
-          "renalware/api/ukrdc/patients/show",
-          locals: { patient: presenter_for(patient) }
-        )
+      def attempt_to_generate_patient_ukrdc_xml
+        (renderer || default_renderer).call
+      end
+
+      def handle_invalid_xml(result)
+        log.error = result.validation_errors
+        log.status = :error
+        nil
+      end
+
+      def default_renderer
+        Renalware::UKRDC::XmlRenderer.new(locals: { patient: presenter_for(patient) })
       end
 
       def presenter_for(patient)
@@ -90,11 +107,6 @@ module Renalware
           patient,
           changes_since: changes_since
         )
-      end
-
-      # Note a test might have passed in a mock renderer
-      def renderer
-        @renderer ||= Renalware::API::UKRDC::PatientsController.renderer
       end
 
       def xml_filepath
