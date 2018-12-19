@@ -14,7 +14,7 @@ module Renalware
       end
 
       def search
-        @search ||= DryWeight.where(patient: @patient).search(@search_params)
+        @search ||= DryWeight.where(patient: @patient).ransack(@search_params)
       end
     end
   end

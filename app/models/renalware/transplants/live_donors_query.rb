@@ -16,7 +16,7 @@ module Renalware
 
       def search
         @search ||= begin
-          relation.search(q).tap do |search|
+          relation.ransack(q).tap do |search|
             search.sorts = DEFAULT_ORDER
           end
         end

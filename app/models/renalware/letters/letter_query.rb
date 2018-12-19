@@ -36,7 +36,7 @@ module Renalware
       end
 
       def search
-        @search ||= Letter.include(QueryableLetter).includes(:event).search(@q)
+        @search ||= Letter.include(QueryableLetter).includes(:event).ransack(@q)
       end
     end
   end

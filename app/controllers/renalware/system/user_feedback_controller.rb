@@ -27,7 +27,7 @@ module Renalware
         search = UserFeedback
           .includes(:author)
           .order(created_at: :desc)
-          .search(search_params)
+          .ransack(search_params)
 
         feedback_msgs = search.result.page(page).per(per_page)
         authorize feedback_msgs

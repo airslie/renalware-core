@@ -16,7 +16,7 @@ module Renalware
       end
 
       def search
-        @search ||= @relation.search(@search_params)
+        @search ||= @relation.ransack(@search_params)
       end
 
       private

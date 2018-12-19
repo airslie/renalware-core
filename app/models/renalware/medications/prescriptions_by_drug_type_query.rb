@@ -23,7 +23,7 @@ module Renalware
             .includes(patient: { current_modality: :description })
             .eager_load(drug: [:drug_types])
             .where("lower(drug_types.name) = lower(?)", drug_type_name)
-            .search(search_params)
+            .ransack(search_params)
         end
       end
     end

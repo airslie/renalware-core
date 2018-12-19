@@ -13,7 +13,7 @@ module Renalware
       end
 
       def search
-        @search ||= QueryablePerson.search(@q)
+        @search ||= QueryablePerson.ransack(@q)
       end
 
       class QueryablePerson < ActiveType::Record[Person]

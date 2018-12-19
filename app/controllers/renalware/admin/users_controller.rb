@@ -10,7 +10,7 @@ module Renalware
       search = User
         .includes(:roles)
         .where.not(username: :systemuser)
-        .search(query)
+        .ransack(query)
       users = search.result(distinct: true).page(page).per(per_page)
       authorize users
       render locals: { users: users, user_search: search }

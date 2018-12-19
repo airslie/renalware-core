@@ -26,7 +26,7 @@ module Renalware
               .eager_load(current_status: :description)
               .merge(HD::Patient.with_profile)
               .merge(Renal::Patient.with_profile)
-              .search(query).tap do |s|
+              .ransack(query).tap do |s|
 
               s.sorts = ["patient_family_name, patient_given_name"]
             end

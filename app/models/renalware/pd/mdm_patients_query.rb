@@ -29,7 +29,7 @@ module Renalware
             .with_current_pathology
             .with_registration_statuses
             .left_outer_joins(:current_observation_set)
-            .search(q)
+            .ransack(q)
         end
       end
     end
