@@ -14,18 +14,24 @@ module Renalware
         @weights = dry_weights # optional otherwise we grab them ourselves
       end
 
-      def weights
-        @weights ||= begin
-          Renalware::Clinical::DryWeight.for_patient(patient)
-                                        .includes(:assessor)
-                                        .limit(limit)
-                                        .ordered
+      def dry_weights
+        @dry_weights ||= begin
+          CollectionPresenter.new(
+            weights,
+            Renalware::Clinical::DryWeightPresenter
+          )
         end
       end
 
-      def dry_weights
-        @dry_weights ||= begin
-          CollectionPresenter.new(weights, Renalware::Clinical::DryWeightPresenter)
+      private
+
+      def weights
+        @weights ||= begin
+          Renalware::Clinical::DryWeight
+            .for_patient(patient)
+            .includes(:assessor)
+            .limit(limit)
+            .ordered
         end
       end
     end

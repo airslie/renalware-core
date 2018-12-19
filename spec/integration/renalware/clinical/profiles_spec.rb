@@ -33,6 +33,7 @@ RSpec.describe "Viewing clinical profile", type: :request do
 
       put(url, params: params, headers: headers)
 
+      expect(response).to have_http_status(:redirect)
       follow_redirect!
       expect(response).to be_successful
 
