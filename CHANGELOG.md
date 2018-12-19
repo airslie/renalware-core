@@ -9,6 +9,21 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.67
+### Added
+### Changed
+- HD MDM - displaying latest Dry Weight #2459
+- On MDM screens add a link, opening in a new tab, to the patient's Prescriptions screen to make
+  updating prescriptions easier #2498
+- UKRDC changes  #2495
+  - Add date to LabOrder SpecimenCollectedTime
+  - Remove unused elements
+  - Remove ContactDetails
+- On HD Session form add field for MR VICTOR status (an inspection tool for HD catheter site) #2494
+- Update Rails to 5.2.2 #2496
+- Housekeeping #2500 #2502 #2499 #2492 #2491 #2488 #2487 #2503
+### Fixed
+
 ## 2.0.66
 ### Fixed
 - Database migration enhancements to support BLT
