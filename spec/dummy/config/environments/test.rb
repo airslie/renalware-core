@@ -17,6 +17,11 @@ Rails.application.configure do
   # config.log_tags = [:request_id]
   # config.log_formatter = ::Logger::Formatter.new
 
+  # Keep the test log no bigger than 10mb.
+  # Keep at most 1 rotated file, so there usually be a 10mb spec/dummy/log/test.log.0 file
+  # and the current test.log in existence
+  config.logger = ActiveSupport::Logger.new(config.paths["log"].first, 1, 10 * 1024 * 1024)
+
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
   # preloads Rails for running tests, you may have to set it to true.
