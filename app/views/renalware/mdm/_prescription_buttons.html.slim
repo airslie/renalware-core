@@ -1,0 +1,15 @@
+= link_to patient_prescriptions_path(patient),
+            class: "button secondary",
+            target: "_blank" do
+    i.fa.fa-external-link-square-alt
+    | Update
+    end
+
+= link_to "View all",
+          patient_prescriptions_path(patient),
+          class: "button secondary"
+
+= link_to "Toggle",
+          "#prescriptions",
+          class: "button secondary",
+          data: { behaviour: "css-toggler" }
