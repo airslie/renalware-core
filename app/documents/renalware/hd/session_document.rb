@@ -101,6 +101,7 @@ module Renalware
 
       class Complications < Document::Embedded
         attribute :access_site_status, Document::Enum
+        attribute :line_exit_site_status, Document::Enum
         attribute :was_dressing_changed, Document::Enum, enums: %i(yes no), default: :no
         attribute :had_mrsa_swab, Document::Enum, enums: %i(yes no), default: :no
         attribute :had_mssa_swab, Document::Enum, enums: %i(yes no), default: :no

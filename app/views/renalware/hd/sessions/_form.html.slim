@@ -114,6 +114,7 @@ ruby:
         locals: { legend: "Notes/Complications", name: "complications" } do
       = fd.simple_fields_for :complications, fd.object.complications do |fcm|
         = fcm.input :access_site_status, wrapper: :horizontal_small
+        = fcm.input :line_exit_site_status, wrapper: :horizontal_small
         = fcm.input :was_dressing_changed, as: :inline_radio_buttons, wrapper: :horizontal_small
         = fcm.input :had_mrsa_swab, as: :inline_radio_buttons, wrapper: :horizontal_small
         = fcm.input :had_mssa_swab, as: :inline_radio_buttons, wrapper: :horizontal_small

@@ -50,6 +50,7 @@ en:
         subs_volume: Subs Volume
       renalware/hd/session_document/complications:
         access_site_status: Access Site Status
+        line_exit_site_status: MR VICTOR (line exit site assessment)
         was_dressing_changed: Was dressing changed?
         had_intradialytic_hypotension: Had intradialytic hypotension?
         had_saline_administration: Had saline administration?
@@ -102,6 +103,12 @@ en:
         slight_erythema: Slight Erythema
         erythema: Erythema
         purulent: Purulent
+      line_exit_site_status:
+        0: 0
+        1: 1
+        2: 2
+        3: 3
+        4: 4
 
   simple_form:
     hints:
