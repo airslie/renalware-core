@@ -16,7 +16,7 @@ module Renalware
         end
 
         def search
-          @search ||= Description.search(@search_params)
+          @search ||= Description.ransack(@search_params)
         end
       end
     end

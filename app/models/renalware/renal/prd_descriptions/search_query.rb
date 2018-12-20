@@ -21,7 +21,7 @@ module Renalware
         private
 
         def search
-          @search ||= PRDDescription.search(term_or_code_cont: term).tap do |s|
+          @search ||= PRDDescription.ransack(term_or_code_cont: term).tap do |s|
             s.sorts = ["term"]
           end
         end

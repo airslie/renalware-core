@@ -34,7 +34,7 @@ module Renalware
             .with_current_pathology
             .with_registration_statuses
             .with_current_modality_matching(MODALITY_NAMES)
-            .search(params)
+            .ransack(params)
         end
       end
       # rubocop:enable Metrics/MethodLength

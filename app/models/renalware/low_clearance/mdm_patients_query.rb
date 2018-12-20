@@ -33,7 +33,7 @@ module Renalware
             .left_outer_joins(:current_observation_set)
             .with_current_modality_of_class(LowClearance::ModalityDescription)
             .public_send(named_filter.to_s)
-            .search(query)
+            .ransack(query)
         end
       end
       # rubocop:enable Metrics/MethodLength

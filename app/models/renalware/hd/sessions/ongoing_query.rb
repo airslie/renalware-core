@@ -13,7 +13,7 @@ module Renalware
         end
 
         def search
-          @search ||= Session::Open.search(@q)
+          @search ||= Session::Open.ransack(@q)
         end
       end
     end

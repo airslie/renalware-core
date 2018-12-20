@@ -8,7 +8,7 @@ module Renalware
       def index
         authorize Snippet, :index?
         snippets = snippets_for_author(author)
-        search = snippets.search(params[:q])
+        search = snippets.ransack(params[:q])
         search.sorts = ["times_used desc", "last_used_on desc"] if search.sorts.empty?
         snippets = paginate(search.result, default_per_page: 10)
         render locals: { snippets: snippets, search: search, author: author }

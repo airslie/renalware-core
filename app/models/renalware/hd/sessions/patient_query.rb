@@ -14,7 +14,7 @@ module Renalware
         end
 
         def search
-          @search ||= Session.where(patient: @patient).search(@q)
+          @search ||= Session.where(patient: @patient).ransack(@q)
         end
       end
     end

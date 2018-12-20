@@ -35,7 +35,7 @@ module Renalware
             .with_current_pathology
             .left_outer_joins(:current_observation_set)
             .public_send(named_filter.to_s)
-            .search(q)
+            .ransack(q)
         end
       end
 
