@@ -8,3 +8,15 @@ en:
           cancel: Cancel
         delete:
           confirm: Are you sure you want to remove this bookmark?
+        none: There are no patients bookmarked.
+        table:
+          patient_name: Name
+          nhs_number: NHS Number
+          hospital_number: Hosp No
+          born_on: DOB
+          age: Age
+          sex: Sex
+          notes: Notes
+          tags: Tags
+          modality: Modality
+          bookmarked_on: Bookmarked

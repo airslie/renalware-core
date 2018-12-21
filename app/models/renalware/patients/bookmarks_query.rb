@@ -3,14 +3,14 @@
 require_dependency "renalware/admissions"
 
 module Renalware
-  module Admissions
-    class ConsultQuery
-      attr_reader :query
+  module Patients
+    class BookmarksQuery
+      attr_reader :default_relation, :query
 
-      def initialize(query = nil)
-        @query = query || {}
-        @query[:ended_on_null] ||= true
-        @query[:s] ||= "hospital_ward_name"
+      def initialize(default_relation:, params: nil)
+        @default_relation = default_relation
+        @query = params || {}
+        @query[:s] ||= "created_at desc"
       end
 
       def call
@@ -23,24 +23,16 @@ module Renalware
       # included in the model file.
       # note that adding .includes(:created_by) here creates an ambigous column
       # 'family_name' error
-      # rubocop:disable Metrics/MethodLength
       def search
         @search ||= begin
-          Consult
+          (default_relation || Bookmark)
             .extend(RansackScopes)
             .joins(:patient)
             .eager_load(patient: [current_modality: :description])
-            .includes(
-              :consult_site,
-              :hospital_ward,
-              :created_by,
-              patient: { current_modality: :description }
-            )
             .order(created_at: :desc)
             .ransack(query)
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       module RansackScopes
         def self.extended(base)

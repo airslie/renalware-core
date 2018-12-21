@@ -3,16 +3,19 @@
 module Renalware
   module Patients
     class BookmarksController < BaseController
+      include Concerns::Pageable
       before_action :load_patient, only: :create
 
       # Display the user's bookmarks
       def index
-        bookmarks = Patients.cast_user(current_user)
-          .bookmarks
-          .ordered
-          .includes(patient: [current_modality: :description])
+        search = BookmarksQuery.new(
+          default_relation: Patients.cast_user(current_user).bookmarks,
+          params: params[:q]
+        ).search
+
+        bookmarks = search.result.page(page).per(per_page)
         authorize bookmarks
-        render locals: { bookmarks: bookmarks }
+        render locals: { bookmarks: bookmarks, search: search }
       end
 
       # idempotent
@@ -25,6 +28,7 @@ module Renalware
       end
 
       # idempotent
+      # rubocop:disable Metrics/AbcSize
       def destroy
         bookmark = user.bookmarks.find_by(id: params[:id])
         patient = bookmark&.patient
@@ -38,6 +42,7 @@ module Renalware
         redirect_back(fallback_location: patient_path(fallback_location),
                       notice: success_msg_for("bookmark"))
       end
+      # rubocop:enable Metrics/AbcSize
 
       private
 
@@ -47,6 +52,12 @@ module Renalware
 
       def bookmark_params
         params.require(:patients_bookmark).permit(:notes, :urgent, :tags)
+      end
+
+      def search_params
+        hash = params[:q] || {}
+        hash[:s] ||= "created_at desc"
+        hash
       end
     end
   end

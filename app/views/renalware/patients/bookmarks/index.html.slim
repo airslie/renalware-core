@@ -1,2 +1,4 @@
 = within_admin_layout(title: "Bookmarked Patients") do
-  #bookmarks= render "renalware/dashboard/bookmarks/table", bookmarks: bookmarks
+  #bookmarks
+    = render "table", bookmarks: bookmarks, search: search
+  = paginate bookmarks
