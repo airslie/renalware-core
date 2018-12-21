@@ -3,7 +3,7 @@
 require "rails_helper"
 require_dependency "renalware/renal"
 
-RSpec.describe "Renal Profile (ESRF/Comorbidities)", type: :feature, js: true do
+RSpec.describe "Renal Profile", type: :feature, js: true do
   describe "GET #show" do
     it "updating the renal profile" do
       user = login_as_clinical
@@ -16,7 +16,7 @@ RSpec.describe "Renal Profile (ESRF/Comorbidities)", type: :feature, js: true do
 
       visit patient_path(patient)
       within ".side-nav" do
-        click_on "ESRF/Comorbidities"
+        click_on "Renal Profile"
       end
 
       # Renal profile #show
