@@ -20,7 +20,7 @@ en:
           virology: Virology
           problems: Problems (%{count})
           modalities: Modalities (%{count})
-          esrf: ESRF/Comorbidities
+          esrf: Renal Profile
           clinical_profile: Clinical Profile
           contacts: Contacts (%{count})
           demographics: Demographics
