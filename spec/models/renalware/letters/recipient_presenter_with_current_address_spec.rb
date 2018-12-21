@@ -9,8 +9,12 @@ module Renalware
 
       subject(:presenter) { RecipientPresenter::WithCurrentAddress.new(recipient) }
 
+      let(:practice_name) { "Practice1" }
+      let(:address_organisation_name) { "AddressOrgName" }
       let(:practice) do
-        build(:practice).tap{ |prac| prac.build_address(attributes_for(:address)) }
+        build(:practice, name: practice_name).tap do |prac|
+          prac.build_address(attributes_for(:address, organisation_name: address_organisation_name))
+        end
       end
       let(:patient) { build(:letter_patient, practice: practice) }
       let(:recipient) { letter.main_recipient }
@@ -29,6 +33,24 @@ module Renalware
 
           it "returns the address of the Practice" do
             expect(presenter.address).to eq(letter.patient.practice.address)
+          end
+
+          context "when there is no organisation name in the address" do
+            let(:practice_name) { "Practice1" }
+            let(:address_organisation_name) { nil }
+
+            it "uses the pratice name" do
+              expect(presenter.address.organisation_name).to eq("Practice1")
+            end
+          end
+
+          context "when there is an organisation name in the address" do
+            let(:practice_name) { "Practice1" }
+            let(:address_organisation_name) { "AddressOrgName" }
+
+            it "uses that and does not copy across the pratice name" do
+              expect(presenter.address.organisation_name).to eq("AddressOrgName")
+            end
           end
         end
 
