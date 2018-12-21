@@ -43,7 +43,7 @@ module Renalware
           footer: {
             font_size: 8
           },
-          show_as_html: Rails.env.development? && params.key?("debug")
+          show_as_html: (Rails.env.development? || Rails.env.test?) && params.key?("debug")
         }
       end
 

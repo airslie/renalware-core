@@ -11,19 +11,14 @@ RSpec.describe "Patient's Protocol PDF", type: :request do
 
   describe "GET show" do
     it "responds with an inlined PDF by default" do
-      # TODO: stub out patient.current_observation_set so we don't need to create these descs?
-      create_descriptions(%w(HGB PLT))
       get patient_hd_protocol_path(patient_id: patient)
 
-      expect(response).to be_successful
       expect(response).to be_successful
       expect(response["Content-Type"]).to eq("application/pdf")
       expect(response["Content-Disposition"]).to include("inline")
     end
 
     it "can responds with a PDF download" do
-      # TODO: stub out patient.current_observation_set so we don't need to create these descs?
-      create_descriptions(%w(HGB PLT))
       get patient_hd_protocol_path(patient_id: patient, disposition: :attachment)
 
       expect(response).to be_successful
@@ -33,10 +28,26 @@ RSpec.describe "Patient's Protocol PDF", type: :request do
       expect(response["Content-Disposition"]).to include(filename)
     end
 
+    describe "Recent pathology" do
+      it "displays latest HGB PLT CRP values" do
+        # Pass debug=1 so we get back html rather than pdf (see pdf options in protocols controller)
+        get patient_hd_protocol_path(patient_id: patient, debug: 1)
+
+        expect(response).to be_successful
+        expect(response.body).to include("PLT")
+        expect(response.body).to include("CRP")
+        expect(response.body).to include("HGB")
+
+        # TODO: To test the actual values we would need to parse the template.
+        # We could make this test a type: :feature
+      end
+    end
+
     describe "Virology" do
       context "when the patient has no HIV, HepB or HepC" do
         it "displays no Virology info" do
-          get patient_hd_protocol_path(patient_id: patient, disposition: :attachment)
+          # Pass debug=1 in order to render html not pdf
+          get patient_hd_protocol_path(patient_id: patient, disposition: :attachment, debug: 1)
 
           expect(response).to be_successful
           expect(response.body).not_to include("HIV")
@@ -45,7 +56,7 @@ RSpec.describe "Patient's Protocol PDF", type: :request do
         end
       end
 
-      context "when the patient has HIV" do
+      context "when the patient is HIV+" do
         before do
           virology_patient = Renalware::Virology.cast_patient(patient)
           profile = virology_patient.profile || virology_patient.build_profile
