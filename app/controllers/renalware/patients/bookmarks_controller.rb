@@ -8,11 +8,10 @@ module Renalware
 
       # Display the user's bookmarks
       def index
-        search = Patients.cast_user(current_user)
-          .bookmarks
-          .ordered
-          .includes(patient: [current_modality: :description])
-          .ransack(search_params)
+        search = BookmarksQuery.new(
+          default_relation: Patients.cast_user(current_user).bookmarks,
+          params: params[:q]
+        ).search
 
         bookmarks = search.result.page(page).per(per_page)
         authorize bookmarks
