@@ -16,6 +16,7 @@ module Renalware
         example.run
         Renalware.config.allow_external_mail = old_value
       end
+
       let(:email) { "x@y.com" }
 
       let(:practice) { create(:practice, email: email) }

@@ -157,7 +157,6 @@ module Renalware
     end
 
     context "when the patient XML has UKRDC XSD validation errors" do
-
       it "does *not* send a new XML file but updates the log entry as unsent" do
         Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
           service = described_class.new(
