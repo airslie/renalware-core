@@ -4,3 +4,7 @@ en:
       mdm_patients:
         index:
           page_title: PD MDM Patients
+        tabs:
+          tab:
+            all: All
+            on_worryboard: On Worryboard

@@ -1,6 +1,7 @@
+
 = simple_form_for filter_form,
                   as: :filter,
-                  url: hd_mdm_patients_path,
+                  url: filter_form.url,
                   method: :get,
                   html: { autocomplete: "off" },
                   wrapper: :horizontal_form do |f|
@@ -27,4 +28,4 @@
     .medium-2.columns.actions
       = f.submit t("helpers.submit.filter"), class: "button", name: nil
       span= " or "
-      = link_to t("helpers.reset"), hd_mdm_patients_path
+      = link_to t("helpers.reset"), filter_form.url

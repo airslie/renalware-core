@@ -1,0 +1,8 @@
+- named_filter_param = params[:named_filter]
+
+dl.sub-nav
+  dd(class=("active" unless named_filter_param.present?))
+     = link_to t(".tab.all"), pd_mdm_patients_path
+  - %i(on_worryboard).each do |filter|
+    dd(class=("active" if named_filter_param == filter.to_s))
+      = link_to t(".tab.#{filter}"), pd_filtered_mdm_patients_path(named_filter: filter)
