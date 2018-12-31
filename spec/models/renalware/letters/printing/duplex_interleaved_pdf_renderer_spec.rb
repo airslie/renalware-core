@@ -188,6 +188,7 @@ module Renalware
             end
           end
         end
+
         context "when patient is main recipient CCs are the GP and a letter contact "\
                 "and the patient's practice has an email address so the GP will not be printed" do
           context "when the letter is only 1 page long" do

@@ -62,6 +62,7 @@ module Renalware
               before do
                 letter.recipients.find(&:primary_care_physician?).emailed_at = 1.day.ago
               end
+
               it { is_expected.to be_falsey }
             end
           end
