@@ -12,7 +12,6 @@ module Renalware
         def index
           respond_to do |format|
             format.pdf do
-              prescriptions = patient.prescriptions.current.where(provider: :home_delivery)
               authorize prescriptions
               render_index_pdf prescriptions
             end
@@ -20,6 +19,16 @@ module Renalware
         end
 
         private
+
+        def prescriptions
+          @prescriptions ||= begin
+            patient
+              .prescriptions
+              .current
+              .where(provider: :home_delivery)
+              .includes(:medication_route, :drug)
+          end
+        end
 
         def render_index_pdf(prescriptions)
           options = default_pdf_options.merge!(

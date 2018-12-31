@@ -1,3 +1,5 @@
+- clinical_patient = Renalware::Clinical.cast_patient(patient)
+
 html
   meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
   meta charset="utf-8" /
@@ -11,14 +13,27 @@ html
     h1 Home Delivery Medication List
     = "As at #{l(Time.zone.now)}"
 
-    - with_format(:html) do
-      = render "renalware/medications/prescriptions/extended_patient_details", patient: patient
+    section.extended_patient_details
+      - with_format(:html) do
+        = render "renalware/medications/prescriptions/extended_patient_details", patient: patient
 
     section.prescriptions
       - with_format(:html) do
         = render "renalware/medications/prescriptions/current",
                   prescriptions: prescriptions,
                   recently_changed: []
+
+    section.allergies
+      h3
+        = clinical_patient.allergy_status&.text
+        - if clinical_patient.allergy_status_updated_at
+          span.allergy_status_updated_at
+            | &nbsp;
+            = l(clinical_patient.allergy_status_updated_at&.to_date)
+
+      ul
+        - clinical_patient.allergies.each do |allergy|
+          li= allergy.description
 
     section.checks
       p
@@ -38,3 +53,5 @@ html
           td= [current_user.signature, current_user.professional_position].compact.join(", ")
           td
           td
+    section.order-number
+      p Order number:
