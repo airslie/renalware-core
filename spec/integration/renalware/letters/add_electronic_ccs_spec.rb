@@ -33,7 +33,7 @@ describe "Assign electronic CCs" do
 
         fill_out_letter
 
-        # Add ourself as an Electronic CC. Narcissistic perhaps, but hey.
+        # Add ourself as an Electronic CC.
         select2 user.given_name, from: "#letter_electronic_cc_recipient_ids"
 
         within ".top" do

@@ -36,6 +36,9 @@ Renalware.configure do |config|
         async: true
       )
     ],
+    "Renalware::Letters::ResolveDefaultElectronicCCs" => [
+      "Renalware::HD::PatientListener"
+    ],
     "Renalware::Pathology::CreateObservationRequests" => []
   }
 end

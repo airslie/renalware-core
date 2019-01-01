@@ -26,6 +26,12 @@ module Renalware
           modality_descriptions.exists?(type: "Renalware::HD::ModalityDescription")
       end
 
+      def current_modality_hd?
+        return false if current_modality.blank?
+
+        current_modality.description.is_a?(HD::ModalityDescription)
+      end
+
       def __getobj__
         self
       end
