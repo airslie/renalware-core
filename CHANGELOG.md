@@ -12,6 +12,7 @@ This project adheres to Semantic Versioning.
 ## 2.0.67
 ### Added
 ### Changed
+- Add an HD patient's named nurse as a default electronic CC on new letters #2483
 - HD MDM - displaying latest Dry Weight #2459
 - On MDM screens add a link, opening in a new tab, to the patient's Prescriptions screen to make
   updating prescriptions easier #2498
