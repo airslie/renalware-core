@@ -3,9 +3,11 @@
 require "rails_helper"
 
 module Renalware
+  # rubocop:disable RSpec/InstanceVariable
   RSpec.describe PD::RegimesController, type: :controller do
     routes { Engine.routes }
-    let(:patient) { create(:patient, by: @current_user) }
+    let(:user) { @current_user }
+    let(:patient) { create(:patient, by: user) }
     let(:bag_type) { create(:bag_type) }
 
     # rubocop:disable Metrics/MethodLength
@@ -198,4 +200,5 @@ module Renalware
       end
     end
   end
+  # rubocop:enable RSpec/InstanceVariable
 end

@@ -3,6 +3,7 @@
 require "rails_helper"
 
 module Renalware::Events
+  # rubocop:disable RSpec/InstanceVariable
   RSpec.describe EventsController, type: :controller do
     routes { Renalware::Engine.routes }
     let(:user) { @current_user }
@@ -59,4 +60,5 @@ module Renalware::Events
       end
     end
   end
+  # rubocop:enable RSpec/InstanceVariable
 end
