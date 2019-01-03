@@ -14,6 +14,7 @@ module Renalware
       attribute :hospital_unit_id, Integer
       attribute :named_nurse_id, Integer
       attribute :schedule_definition_ids, String # an Integer array in string form e.g. "[1 ,2]"
+      attribute :url
 
       # The hash returned here is passed into the Ransack #search method later i the ouery object.
       def ransacked_parameters

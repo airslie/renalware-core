@@ -37,3 +37,7 @@ en:
           cre: CRE
           cre_date: CRE Date
           egfr: EGFR
+        tabs:
+          tab:
+            all: All
+            on_worryboard: On Worryboard

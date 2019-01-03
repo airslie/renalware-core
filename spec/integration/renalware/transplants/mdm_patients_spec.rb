@@ -28,7 +28,7 @@ RSpec.describe "Transplants MDM Patients", type: :feature do
       expect(page).to have_no_content(patient1.local_patient_id)
     end
 
-    it "`on worryboard` filter displays transplant patients on the worryboard" do
+    it "'on worryboard' filter displays transplant patients on the worryboard" do
       patient1 = create_recip_operation_patient(user)
       patient2 = create_recip_operation_patient(user)
       patient2.build_worry(by: user).save!

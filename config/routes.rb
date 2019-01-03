@@ -162,6 +162,10 @@ Renalware::Engine.routes.draw do
     resources :dialysates, except: :show
     resource :ongoing_sessions, only: :show
     resources :mdm_patients, only: :index
+    resources :mdm_patients, only: :index
+    constraints(named_filter: /(on_worryboard)/) do
+      get "mdm_patients/:named_filter", to: "mdm_patients#index", as: :filtered_mdm_patients
+    end
     resources :unmet_preferences, only: :index
     resources :units, only: [] do
       resources :stations do
@@ -240,6 +244,9 @@ Renalware::Engine.routes.draw do
     resources :bag_types, except: [:show]
     resources :infection_organisms
     resources :mdm_patients, only: :index
+    constraints(named_filter: /(on_worryboard)/) do
+      get "mdm_patients/:named_filter", to: "mdm_patients#index", as: :filtered_mdm_patients
+    end
   end
 
   namespace :renal do

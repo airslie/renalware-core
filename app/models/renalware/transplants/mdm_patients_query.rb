@@ -9,7 +9,7 @@ module Renalware
     class MDMPatientsQuery
       include ModalityScopes
       include PatientPathologyScopes
-      MODALITY_NAMES = ["Transplant"].freeze
+      MODALITY_NAMES = "Transplant"
       DEFAULT_SEARCH_PREDICATE = "hgb_date DESC"
       attr_reader :q, :relation, :named_filter
 

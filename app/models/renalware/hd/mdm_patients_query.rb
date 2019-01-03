@@ -9,18 +9,19 @@ module Renalware
       include PatientPathologyScopes
       MODALITY_NAMES = "HD"
       DEFAULT_SEARCH_PREDICATE = "hgb_date desc"
-      attr_reader :params
+      attr_reader :params, :named_filter
 
-      def initialize(params:)
+      def initialize(params:, named_filter:)
         @params = params || {}
         @params[:s] = DEFAULT_SEARCH_PREDICATE if @params[:s].blank?
+        @named_filter = named_filter || :none
       end
 
       def call
         search.result
       end
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def search
         @search ||= begin
           HD::Patient
@@ -31,13 +32,15 @@ module Renalware
             .eager_load(hd_profile: [:hospital_unit])
             .extending(ModalityScopes)
             .extending(PatientPathologyScopes)
+            .extending(NamedFilterScopes)
             .with_current_pathology
             .with_registration_statuses
             .with_current_modality_matching(MODALITY_NAMES)
+            .public_send(named_filter.to_s)
             .ransack(params)
         end
       end
-      # rubocop:enable Metrics/MethodLength
+      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
       # Module to allow us to mixin ransackers
       module QueryablePatient
@@ -62,6 +65,19 @@ module Renalware
           end
         end
       end
+    end
+
+    # Module to allow us to mixin named filters like on_worryboard which correspond to tabs
+    # on the UI for example.
+    module NamedFilterScopes
+      def none
+        self # NOOP - aka 'all'
+      end
+
+      def patients_on_the_worry_board
+        joins("RIGHT OUTER JOIN patient_worries ON patient_worries.patient_id = patients.id")
+      end
+      alias_method :on_worryboard, :patients_on_the_worry_board
     end
   end
 end
