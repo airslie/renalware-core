@@ -3,10 +3,12 @@
 require "rails_helper"
 
 module Renalware::Problems
+  # rubocop:disable RSpec/InstanceVariable
   RSpec.describe ProblemsController, type: :controller do
     routes { Renalware::Engine.routes }
-    let(:patient) { create(:patient, by: @current_user) }
-    let(:problem) { create(:problem, patient: patient, by: @current_user) }
+    let(:user) { @current_user }
+    let(:patient) { create(:patient, by: user) }
+    let(:problem) { create(:problem, patient: patient, by: user) }
 
     describe "GET index" do
       it "responds with success" do
@@ -43,4 +45,5 @@ module Renalware::Problems
       end
     end
   end
+  # rubocop:enable RSpec/InstanceVariable
 end

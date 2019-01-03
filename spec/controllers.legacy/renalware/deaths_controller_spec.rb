@@ -3,6 +3,7 @@
 require "rails_helper"
 
 module Renalware
+  # rubocop:disable RSpec/InstanceVariable
   RSpec.describe DeathsController, type: :controller do
     routes { Engine.routes }
     let(:user) { @current_user }
@@ -21,7 +22,6 @@ module Renalware
       it "responds with success" do
         get :index
 
-        expect(response).to be_successful
         expect(response).to be_successful
       end
     end
@@ -63,4 +63,5 @@ module Renalware
       end
     end
   end
+  # rubocop:enable RSpec/InstanceVariable
 end
