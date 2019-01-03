@@ -50,7 +50,7 @@ group :test do
   gem "selenium-webdriver", "~> 3.141.0"
   gem "shoulda-matchers", "~> 3.1.2"
   gem "simplecov", "~> 0.13.0", require: false # only loaded if required
-  gem "webmock", "~> 3.4.0", require: false
+  gem "webmock", require: false
   gem "wisper-rspec", "~> 1.1.0"
 end
 
@@ -73,7 +73,7 @@ group :development, :test do
   gem "bundler-audit", require: false
   gem "byebug"
   gem "launchy", require: false
-  gem "rubocop", "~> 0.61.1", require: false
+  gem "rubocop", require: false
   gem "spring"
   gem "spring-commands-cucumber", require: false
   gem "spring-commands-rspec", require: false
