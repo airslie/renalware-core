@@ -47,6 +47,11 @@ tr(class=letter.state.dasherize)
   td.col-width-medium-with-ellipsis= letter.description
 = content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
   td
-  td(colspan=10)
+  td(colspan=11)
     .quick-preview
       = simple_format letter.body
+      - if letter.notes.present?
+        .admin-notes
+          p
+            | Notes:&nbsp;&nbsp;
+            = letter.notes

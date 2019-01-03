@@ -16,4 +16,9 @@ tr(class=letter.state.dasherize)
   td
   td(colspan=7)
     .quick-preview
-      = simple_format letter.body
+      p
+        = simple_format letter.body
+      - if letter.notes.present?
+        .admin-notes
+          i Notes:&nbsp;&nbsp;
+          = letter.notes
