@@ -19,14 +19,10 @@ RSpec.describe "Create new appointment manually (not via HL7 message)", type: :f
       expect(page).to have_content("Clinic Appointments / New")
 
       within(".new_clinics_appointment") do
-        # fill_in "Patient", with: patient.id
-        # select2 patient.to_s(:long), from: "Patient"
-        # TODO: fix this
-        pending
-        select2_ajax(
+        select2(
           patient.to_s(:long),
-          from: "Search by patient name or hospital/NHS no.",
-          minlength: 4
+          css: "#patient-select2",
+          search: true
         )
 
         select clinic.name, from: "Clinic"

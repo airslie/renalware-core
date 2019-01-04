@@ -29,7 +29,7 @@ RSpec.describe "Managing clinical study participation", type: :request do
   end
 
   describe "GET new" do
-    it "renders a modal to allow a patient to be selected" do
+    it "renders" do
       study = create_study
 
       get new_research_study_participant_path(study)
@@ -58,18 +58,22 @@ RSpec.describe "Managing clinical study participation", type: :request do
     end
   end
 
-  describe "POST JS create" do
+  describe "POST HTTP create" do
     context "with valid inputs" do
       it "add the participant to the study" do
         study = create_study
         patient = create(:patient, by: user)
         params = { participant_id: patient.id, joined_on: "01-Oct-2017", left_on: "02-Oct-2017" }
 
-        post research_study_participants_path(study, format: :js),
-             params: { research_study_participant: params }
+        post(
+          research_study_participants_path(study),
+          params: { research_study_participant: params }
+        )
 
+        expect(response).to be_redirect
+        follow_redirect!
         expect(response).to be_successful
-        expect(response).to render_template(:create)
+        expect(response).to render_template(:index)
 
         expect(Renalware::Research::StudyParticipant.count).to eq(1)
         participant = Renalware::Research::StudyParticipant.first
@@ -80,12 +84,14 @@ RSpec.describe "Managing clinical study participation", type: :request do
     end
 
     context "with invalid inputs" do
-      it "re-renders the orm with validation errors" do
+      it "re-renders the form with validation errors" do
         study = create_study
         params = { participant_id: nil }
 
-        post research_study_participants_path(study, format: :js),
-             params: { research_study_participant: params }
+        post(
+          research_study_participants_path(study),
+          params: { research_study_participant: params }
+        )
 
         expect(response).to be_successful
         expect(response).to render_template(:new)
@@ -99,6 +105,7 @@ RSpec.describe "Managing clinical study participation", type: :request do
         get edit_research_study_participant_path(participant.study, participant)
 
         expect(response).to be_successful
+        expect(response).to render_template(:edit)
       end
     end
 
@@ -107,9 +114,11 @@ RSpec.describe "Managing clinical study participation", type: :request do
         participant = create(:research_study_participant)
 
         params = { joined_on: 1.year.ago.to_date }
-        url = research_study_participant_path(participant.study, participant, format: :js)
+        url = research_study_participant_path(participant.study, participant)
         patch url, params: { research_study_participant: params }
 
+        expect(response).to be_redirect
+        follow_redirect!
         expect(response).to be_successful
         expect(participant.reload.joined_on).to eq(params[:joined_on])
       end

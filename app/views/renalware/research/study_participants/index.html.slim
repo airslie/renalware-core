@@ -1,9 +1,5 @@
 = content_for(:actions) do
-  = link_to("Add",
-            new_research_study_participant_path,
-            id: "add-study-participants",
-            class: :button,
-            data: { "reveal-id" => "study-participant-modal", "reveal-ajax" => "true" })
+  = link_to("Add", new_research_study_participant_path, class: :button)
 
 = content_for(:filters) do
   = render "filters", study: study, query: query
@@ -24,5 +20,3 @@
       = "Leader: #{study.leader}"
 
   = render "table", study: study, participants: participants, query: query
-
-  #study-participant-modal.reveal-modal.small(data-reveal)

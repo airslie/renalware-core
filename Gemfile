@@ -36,6 +36,7 @@ gem "trix",
 group :test do
   gem "capybara", "~> 3.12.0"
   gem "capybara-screenshot" # "~> 1.0.18"
+  gem "capybara-select-2"
   # gem "chromedriver-helper" # this clashses with the */*-browsers images in cirlci so removed
   gem "codeclimate-test-reporter", "~> 1.0.9", require: false # loads simplecov
   gem "cucumber", "~> 3.1.0"

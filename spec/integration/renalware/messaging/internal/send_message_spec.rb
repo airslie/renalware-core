@@ -19,7 +19,7 @@ describe "Sending a private message", type: :feature do
     fill_in "Body", with: "Test"
 
     # Problem here: select2 not initialised at this point.
-    select2 "X, Y", from: "#message_recipient_ids"
+    select2 "X, Y", from: "Recipients"
     click_on "Send"
 
     expect(page).to have_content("Message was successfully sent")

@@ -181,6 +181,7 @@ GEM
     capybara-screenshot (1.0.22)
       capybara (>= 1.0, < 4)
       launchy
+    capybara-select-2 (0.3.2)
     character_set (1.1.2)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
@@ -622,6 +623,7 @@ DEPENDENCIES
   byebug
   capybara (~> 3.12.0)
   capybara-screenshot
+  capybara-select-2
   codeclimate-test-reporter (~> 1.0.9)
   cucumber (~> 3.1.0)
   cucumber-rails (~> 1.6.0)
