@@ -87,9 +87,9 @@ RSpec.configure do |config|
   config.include Renalware::Engine.routes.url_helpers
   config.include Wisper::RSpec::BroadcastMatcher
   config.include CapybaraHelper, type: :feature
-  config.include Select2SpecHelper, type: :feature
   config.include SelectDateSpecHelper, type: :feature
   config.include TextEditorHelpers, type: :feature
+  config.include CapybaraSelect2, type: :feature
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Chosen::Rspec::FeatureHelpers, type: :feature
   config.include(Shoulda::Matchers::ActiveModel, type: :model)

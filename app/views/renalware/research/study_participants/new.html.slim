@@ -1,1 +1,7 @@
-= render "form", participant: participant
+= within_admin_layout(title: "New",
+                      breadcrumbs: breadcrumb_for("Clinical Studies",
+                                   research_studies_path)) do
+
+  = render "form",
+           participant: participant,
+           url: research_study_participants_path(participant.study)

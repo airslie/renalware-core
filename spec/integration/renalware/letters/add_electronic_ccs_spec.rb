@@ -34,7 +34,7 @@ describe "Assign electronic CCs" do
         fill_out_letter
 
         # Add ourself as an Electronic CC.
-        select2 user.given_name, from: "#letter_electronic_cc_recipient_ids"
+        select2 user.given_name, css: "article.electonic_ccs"
 
         within ".top" do
           click_on "Create"
