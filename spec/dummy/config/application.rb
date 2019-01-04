@@ -10,6 +10,7 @@ module Dummy
   class Application < Rails::Application
     config.cache_store = :file_store, Rails.root.join("tmp", "cache") # capistrano symmlinked
     config.active_record.time_zone_aware_types = [:datetime]
+    config.active_storage.service = :local
 
     # Important!!
     # Unless set to :all, pg extensions are not put into structure.sql so certain

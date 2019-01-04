@@ -60,3 +60,4 @@ key.gpg
 /letter-pdf-1-104-20180830113638-05b485cce1aecfcfceb1f52149d0c673.pdf
 /node_modules
 /package-lock.json
+spec/dummy/storage/**/*
