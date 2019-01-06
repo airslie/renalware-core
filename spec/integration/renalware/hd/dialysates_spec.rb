@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Managing Dialysates", type: :feature do
+describe "Managing Dialysates", type: :system do
   let(:dialysate) { create(:hd_dialysate) }
 
   describe "creating a new dialysate" do

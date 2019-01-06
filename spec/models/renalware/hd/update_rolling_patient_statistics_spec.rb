@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::HD
-  RSpec.describe UpdateRollingPatientStatistics do
+  describe UpdateRollingPatientStatistics do
     subject(:command) { described_class.new(patient: patient) }
 
     let(:patient) { create(:hd_patient, by: user) }

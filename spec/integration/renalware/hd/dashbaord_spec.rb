@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "HD Summary (Dashboard)", type: :request do
+describe "HD Summary (Dashboard)", type: :request do
   let(:patient) { create(:hd_patient) }
   let(:user) { create(:user) }
 

@@ -3,13 +3,13 @@
 require "rails_helper"
 
 module Renalware
-  feature "Updating user profile" do
-    background do
+  describe "Updating user profile", type: :system do
+    before do
       @clinician = login_as_clinical
       visit edit_user_registration_path(@clinician)
     end
 
-    scenario "updating professional position and signature" do
+    it "updating professional position and signature" do
       fill_in "Professional position", with: "Renal Nurse"
       fill_in "Signature", with: "Dr. D O Good, Senior Human Mechanic, Trumpton Hospital"
       fill_in "Current password", with: @clinician.password
@@ -21,7 +21,7 @@ module Renalware
       expect(@clinician.signature).to eq("Dr. D O Good, Senior Human Mechanic, Trumpton Hospital")
     end
 
-    scenario "updating with no signature or professional position" do
+    it "updating with no signature or professional position" do
       fill_in "Signature", with: ""
       fill_in "Professional position", with: ""
       fill_in "Current password", with: @clinician.password

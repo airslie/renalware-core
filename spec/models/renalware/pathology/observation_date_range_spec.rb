@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Pathology
-    RSpec.describe ObservationDateRange do
+    describe ObservationDateRange do
       describe ".build" do
         it "returns a range" do
           date_series = [

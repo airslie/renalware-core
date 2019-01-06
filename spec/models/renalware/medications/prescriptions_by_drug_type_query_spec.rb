@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Medications
-  RSpec.describe PrescriptionsByDrugTypeQuery, type: :model do
+  describe PrescriptionsByDrugTypeQuery, type: :model do
     subject(:esa_presciption) { PrescriptionsByDrugTypeQuery.new(drug_type_name: "ESA") }
 
     describe "#call" do

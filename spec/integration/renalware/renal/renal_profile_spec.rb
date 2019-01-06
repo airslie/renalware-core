@@ -3,7 +3,7 @@
 require "rails_helper"
 require_dependency "renalware/renal"
 
-RSpec.describe "Renal Profile", type: :feature, js: true do
+describe "Renal Profile", type: :system, js: true do
   describe "GET #show" do
     it "updating the renal profile" do
       user = login_as_clinical

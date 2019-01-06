@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Pathology
-  RSpec.describe ObservationDescriptionsByCodeQuery do
+  describe ObservationDescriptionsByCodeQuery do
     subject{ described_class.new(relation: relation, codes: codes).call }
 
     let(:codes) { %w(HGB PLT) }

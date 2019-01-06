@@ -3,11 +3,11 @@
 require "rails_helper"
 
 module Renalware
-  feature "Bringing in new pathology results into a letter while editing" do
+  describe "Bringing in new pathology results into a letter while editing", type: :system do
     include LettersSpecHelper
 
     context "when there are no new pathology results" do
-      scenario "a user edits a letter" do
+      it "a user edits a letter" do
         patient = create(:letter_patient)
         patient.primary_care_physician = create(:letter_primary_care_physician)
         create_initial_pathology_for(patient)
@@ -24,7 +24,7 @@ module Renalware
 
     context "when there are new pathology results since the letters creation" do
       context "when the letter is being edited" do
-        scenario "a user elects to refresh the letter's pathology" do
+        it "a user elects to refresh the letter's pathology" do
           patient = create(:letter_patient)
           patient.primary_care_physician = create(:letter_primary_care_physician)
           create_initial_pathology_for(patient)

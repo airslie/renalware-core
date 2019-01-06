@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "Bone Audit", type: :model do
+  describe "Bone Audit", type: :model do
     include PatientsSpecHelper
     let(:uom) { create(:pathology_measurement_unit) }
     let(:user) { create(:user) }

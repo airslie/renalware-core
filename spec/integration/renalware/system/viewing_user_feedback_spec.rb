@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Managing user feedback", type: :feature do
+describe "Managing user feedback", type: :system do
   it "adding notes and acknowledgement to feedback" do
     user = login_as_super_admin
     create(:user_feedback, author: user, comment: "My comment is..")

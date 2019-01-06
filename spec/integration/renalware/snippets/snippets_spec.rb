@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Snippet management", type: :request do
+describe "Snippet management", type: :request do
   let(:user) { Renalware::Snippets.cast_user(@current_user) }
 
   describe "GET index" do

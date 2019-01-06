@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Configuring Modality Descriptions", type: :feature, js: true do
+describe "Configuring Modality Descriptions", type: :system, js: true do
   describe "when cancelling out of the new prescription form" do
     it "returns the the original location" do
       user = login_as_clinical

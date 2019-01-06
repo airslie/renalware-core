@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Pathology
-    RSpec.describe DetermineObservationDateSeries do
+    describe DetermineObservationDateSeries do
       describe "#call" do
         it "returns the range for the specified limit" do
           patient = create_patient

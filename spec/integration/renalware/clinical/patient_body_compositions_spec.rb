@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Clinical
-    RSpec.describe "Patient's Body Compositions", type: :request do
+    describe "Patient's Body Compositions", type: :request do
       let(:patient) { create(:clinical_patient, by: user) }
       let(:user) { @current_user }
 

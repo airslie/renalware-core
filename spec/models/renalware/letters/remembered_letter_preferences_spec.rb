@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    RSpec.describe RememberedLetterPreferences, type: :model do
+    describe RememberedLetterPreferences, type: :model do
       describe "#persist" do
         it "saves certain model attributes to the session" do
           letter = instance_double("Letter",

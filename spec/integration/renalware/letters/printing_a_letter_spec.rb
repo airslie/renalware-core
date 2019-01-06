@@ -3,8 +3,8 @@
 require "rails_helper"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Printing a letter",
-               type: :feature,
+describe "Printing a letter",
+               type: :system,
                js: true do
   include LettersSpecHelper
   include AjaxHelpers

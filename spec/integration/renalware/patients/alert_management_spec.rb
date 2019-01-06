@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Alert management", type: :feature do
+describe "Alert management", type: :system do
   it "A clinician adds an alert to a patient", js: true do
     user = login_as_clinical
     patient = create(:patient, by: user)

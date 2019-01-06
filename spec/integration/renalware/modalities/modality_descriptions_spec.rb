@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Configuring Modality Descriptions", type: :request do
+describe "Configuring Modality Descriptions", type: :request do
   let(:modality_description) { create(:modality_description) }
 
   describe "GET new" do

@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    RSpec.describe Recipient, type: :model do
+    describe Recipient, type: :model do
       it { is_expected.to respond_to(:emailed_at) }
       it { is_expected.to respond_to(:printed_at) }
 

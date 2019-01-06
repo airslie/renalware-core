@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "Filtering consults", type: :feature do
+  describe "Filtering consults", type: :system do
     let(:consult_site1) { create(:admissions_consult_site, name: "Site1") }
     let(:consult_site2) { create(:admissions_consult_site, name: "Site2") }
     let(:hospital_unit) { create(:hospital_unit, unit_code: "HospUnit1") }

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe PD::BagType, type: :model do
+  describe PD::BagType, type: :model do
     it_behaves_like "a Paranoid model"
 
     it { is_expected.to respond_to(:glucose_strength) }

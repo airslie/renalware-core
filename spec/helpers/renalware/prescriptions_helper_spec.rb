@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe PrescriptionsHelper, type: :helper do
+  describe PrescriptionsHelper, type: :helper do
     let(:patient) { create(:patient) }
     let(:med_route) { create(:medication_route) }
     let(:amoxicillin) { create(:drug, name: "Amoxicillin") }

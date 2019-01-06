@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::HD
-  RSpec.describe WeeklyDiary, type: :model do
+  describe WeeklyDiary, type: :model do
     it { is_expected.to validate_presence_of(:week_number) }
     it { is_expected.to validate_presence_of(:year) }
     it { is_expected.to validate_inclusion_of(:week_number).in_range(1..53) }

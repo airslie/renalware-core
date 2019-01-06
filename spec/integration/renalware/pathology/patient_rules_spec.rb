@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "patient_rules Requests", type: :request do
+describe "patient_rules Requests", type: :request do
   let!(:patient) { create(:pathology_patient) }
   let!(:lab) { create(:pathology_lab) }
   let!(:patient_rule) do

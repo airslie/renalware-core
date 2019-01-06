@@ -3,7 +3,7 @@
 require "rails_helper"
 require "test_support/ajax_helpers"
 
-describe "Session timeout", type: :feature, js: true do
+describe "Session timeout", type: :system, js: true do
   include AjaxHelpers
 
   around do |example|

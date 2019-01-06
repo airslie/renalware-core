@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Drugs
-  RSpec.describe Drug, type: :model do
+  describe Drug, type: :model do
     subject(:drug) { build(:drug) }
 
     it { is_expected.to have_many(:classifications) }

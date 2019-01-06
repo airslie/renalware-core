@@ -4,8 +4,8 @@ require "rails_helper"
 require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Add person to directory and assign as a contact for a patient",
-               type: :feature,
+describe "Add person to directory and assign as a contact for a patient",
+               type: :system,
                js: true do
 
   include AutocompleteHelpers

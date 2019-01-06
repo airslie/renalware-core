@@ -3,9 +3,9 @@
 require "rails_helper"
 
 module Renalware
-  feature "PD Assessment management", js: true do
+  describe "PD Assessment management", js: true, type: :system do
     ###
-    scenario "Add a PD Assessment" do
+    it "Add a PD Assessment" do
       patient = create(:pd_patient)
       login_as_clinical
 
@@ -47,7 +47,7 @@ module Renalware
     end
 
     ###
-    scenario "Edit a PD Assessment" do
+    it "Edit a PD Assessment" do
       patient = create(:pd_patient)
       user = login_as_clinical
       create(:pd_assessment, patient: patient, by: user)
@@ -75,7 +75,7 @@ module Renalware
     end
 
     ###
-    scenario "View a PD Assessment" do
+    it "View a PD Assessment" do
       patient = create(:pd_patient)
       user = login_as_clinical
       assessment = create(:pd_assessment, patient: patient, by: user)

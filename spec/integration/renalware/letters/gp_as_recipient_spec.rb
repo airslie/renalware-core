@@ -4,9 +4,9 @@ require "rails_helper"
 require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
-RSpec.describe(
+describe(
   "Persisting the correct recipients when a letter is saved",
-  type: :feature,
+  type: :system,
   js: false
 ) do
   include AjaxHelpers

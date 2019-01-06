@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Viewing patients whose HD preferences do not match their profile", type: :feature do
+describe "Viewing patients whose HD preferences do not match their profile", type: :system do
   let(:hospital) { create(:hospital_centre) }
   let(:current_unit) do
     create(:hospital_unit, name: "X", hospital_centre: hospital, is_hd_site: true)

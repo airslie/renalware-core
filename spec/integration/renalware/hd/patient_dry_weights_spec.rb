@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Patient's Dry Weights", type: :request do
+describe "Patient's Dry Weights", type: :request do
   let(:patient) { create(:hd_patient) }
 
   describe "GET index" do

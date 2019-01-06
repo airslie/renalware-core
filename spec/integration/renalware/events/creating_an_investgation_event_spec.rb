@@ -3,7 +3,7 @@
 require "rails_helper"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Creating a investigation event", type: :feature, js: true do
+describe "Creating a investigation event", type: :system, js: true do
   include AjaxHelpers
 
   context "when adding a investigation event through the Events screen" do

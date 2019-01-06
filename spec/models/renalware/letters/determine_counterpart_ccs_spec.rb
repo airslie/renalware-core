@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    RSpec.describe DetermineCounterpartCCs, type: :model do
+    describe DetermineCounterpartCCs, type: :model do
       include LettersSpecHelper
 
       subject(:service) { DetermineCounterpartCCs.new(letter) }

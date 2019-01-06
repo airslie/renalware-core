@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Accesses
-  RSpec.describe Patient, type: :model do
+  describe Patient, type: :model do
     it { is_expected.to have_many(:profiles) }
     it { is_expected.to have_many(:plans) }
     it { is_expected.to have_many(:procedures) }

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::HD
-  RSpec.describe ScheduleDefinition, type: :model do
+  describe ScheduleDefinition, type: :model do
     it { is_expected.to validate_presence_of(:days) }
     it { is_expected.to validate_presence_of(:diurnal_period_id) }
     it { is_expected.to belong_to(:diurnal_period) }

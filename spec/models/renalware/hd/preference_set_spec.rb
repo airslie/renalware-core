@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module HD
-    RSpec.describe PreferenceSet, type: :model do
+    describe PreferenceSet, type: :model do
       it_behaves_like "an Accountable model"
       it { is_expected.to validate_presence_of(:patient) }
       it { is_expected.to validate_timeliness_of(:entered_on) }

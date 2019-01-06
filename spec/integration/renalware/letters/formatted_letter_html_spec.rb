@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Get formatted letter HTML content", type: :request do
+describe "Get formatted letter HTML content", type: :request do
   include LettersSpecHelper
 
   let(:primary_care_physician) { create(:letter_primary_care_physician) }

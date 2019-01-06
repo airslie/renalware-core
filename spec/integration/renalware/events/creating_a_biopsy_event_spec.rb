@@ -3,7 +3,7 @@
 require "rails_helper"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Creating an biopsy", type: :feature, js: true do
+describe "Creating an biopsy", type: :system, js: true do
   include AjaxHelpers
 
   context "when adding a biopsy event" do

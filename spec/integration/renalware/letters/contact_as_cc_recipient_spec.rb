@@ -4,7 +4,7 @@ require "rails_helper"
 require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Assign a person as a CC recipient", type: :feature do
+describe "Assign a person as a CC recipient", type: :system, js: true do
   include AutocompleteHelpers
   include AjaxHelpers
 
@@ -26,7 +26,7 @@ RSpec.describe "Assign a person as a CC recipient", type: :feature do
   let(:user) { create(:user) }
   let!(:contact_description) { create(:letter_contact_description) }
 
-  describe "assigning a new person as a CC recipient", js: true do
+  describe "assigning a new person as a CC recipient" do
     before { create(:letter_letterhead) }
 
     context "with valid attributes" do

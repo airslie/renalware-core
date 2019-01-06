@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe HD::ModalityDescription do
+  describe HD::ModalityDescription do
     it { is_expected.to respond_to(:to_sym) }
 
     describe "#augmented_name_for(patient)" do

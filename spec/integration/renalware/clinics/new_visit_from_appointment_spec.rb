@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "New Visit from existing Appointment", type: :feature do
+describe "New Visit from existing Appointment", type: :system do
   describe "GET index" do
     context "with no appointment id" do
       it "does not pre-populate the form" do

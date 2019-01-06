@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Pathology
-    RSpec.describe PatientPathologyScopes do
+    describe PatientPathologyScopes do
       describe "class methods" do
         describe "#pathology_result_sort_predicate" do
           it "creates a SQL coalesce statement that will map null results as -1" do

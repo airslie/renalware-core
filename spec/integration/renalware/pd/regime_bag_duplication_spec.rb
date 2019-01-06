@@ -3,10 +3,10 @@
 require "rails_helper"
 
 module Renalware
-  feature "PD Regime bag duplication", js: true do
+  describe "PD Regime bag duplication", js: true, type: :system do
     include PatientsSpecHelper
 
-    scenario "duplicate an existing bag" do
+    it "duplicate an existing bag" do
       patient = create(:patient)
       set_modality(patient: patient,
                    modality_description: create(:pd_modality_description),

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Managing system messages that are displayed on the login page", type: :feature do
+describe "Managing system messages that are displayed on the login page", type: :system do
   it "listing system message via the menu" do
     message = create(
       :system_message,

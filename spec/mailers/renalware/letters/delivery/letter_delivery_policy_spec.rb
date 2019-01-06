@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    RSpec.describe Delivery::DeliveryPolicy do
+    describe Delivery::DeliveryPolicy do
       subject(:policy) { described_class.new(letter) }
 
       let(:user) { build_stubbed(:user) }

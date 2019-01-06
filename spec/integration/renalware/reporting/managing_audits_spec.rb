@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Managing audits", type: :feature do
+describe "Managing audits", type: :system do
   it "Updating an audit" do
     audit = create(:audit, name: "XX")
     login_as_super_admin

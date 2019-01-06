@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Clinical
-    RSpec.describe BodyComposition, type: :model do
+    describe BodyComposition, type: :model do
       it_behaves_like "an Accountable model"
       it { is_expected.to belong_to(:patient).touch(true) }
       it { is_expected.to belong_to(:assessor) }

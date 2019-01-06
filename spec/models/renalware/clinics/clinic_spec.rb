@@ -2,6 +2,6 @@
 
 require "rails_helper"
 
-RSpec.describe Renalware::Clinics::Clinic, type: :model do
+describe Renalware::Clinics::Clinic, type: :model do
   it { is_expected.to validate_presence_of :name }
 end

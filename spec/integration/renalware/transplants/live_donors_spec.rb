@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  feature "Live Donors", js: false do
+  describe "Live Donors", js: false, type: :system do
     include PatientsSpecHelper
 
     def create_live_donor(by:)
@@ -18,7 +18,7 @@ module Renalware
       create(:patient, family_name: "Smith")
     end
 
-    scenario "Viewing the list of live donors" do
+    it "Viewing the list of live donors" do
       login_as_clinical
       user = User.first # the clinician we just implicitly created
       live_donor = create_live_donor(by: user)

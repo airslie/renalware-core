@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Managing Diaries", type: :request do
+describe "Managing Diaries", type: :request do
   describe "GET edit a weekly diary" do
     it "creates the diary for the requested week (and the missing unit master diary), "\
        " and renders the diary for editing" do

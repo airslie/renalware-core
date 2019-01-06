@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Peritonitis episodes", type: :request do
+describe "Peritonitis episodes", type: :request do
   let(:patient) { create(:pd_patient, family_name: "Rabbit", local_patient_id: "KCH12345") }
 
   describe "GET show as pdf" do

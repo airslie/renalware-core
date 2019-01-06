@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Pathology
-    RSpec.describe CurrentObservation do
+    describe CurrentObservation do
       include PathologySpecHelper
       it { is_expected.to belong_to(:patient) }
 

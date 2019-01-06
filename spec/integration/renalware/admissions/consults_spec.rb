@@ -2,7 +2,7 @@
 
 require "rails_helper"
 module Renalware
-  RSpec.describe "Admission Consult management", type: :request do
+  describe "Admission Consult management", type: :request do
     let(:user) { @current_user }
     let(:time) { Time.zone.now }
     let(:consult_site) { create(:admissions_consult_site, name: "Site1") }

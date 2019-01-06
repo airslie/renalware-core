@@ -18,7 +18,7 @@ describe "Assign electronic CCs" do
     )
   end
 
-  describe "assigning a new person as a CC recipient", js: true, type: :feature do
+  describe "assigning a new person as a CC recipient", js: true, type: :system do
     before do
       create(:letter_letterhead)
     end

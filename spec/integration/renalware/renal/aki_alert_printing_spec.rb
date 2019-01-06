@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "AKI Alert printing", type: :feature do
+  describe "AKI Alert printing", type: :system do
     let(:hospital_unit) { create(:hospital_unit, unit_code: "HospUnit1") }
     let(:hospital_ward1) { create(:hospital_ward, name: "Ward1", hospital_unit: hospital_unit) }
     let(:hospital_ward2) { create(:hospital_ward, name: "Ward2", hospital_unit: hospital_unit) }

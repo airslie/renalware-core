@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::PD
-  RSpec.describe ExitSiteInfectionDrop, type: :model do
+  describe ExitSiteInfectionDrop, type: :model do
     subject(:drop) { ExitSiteInfectionDrop.new(esi) }
 
     let(:patient) { build(:patient) }

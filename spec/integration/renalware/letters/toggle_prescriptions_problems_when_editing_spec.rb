@@ -3,11 +3,16 @@
 require "rails_helper"
 
 module Renalware
-  feature "Toggle current problems and prescriptions when editing letter", js: true do
+  describe(
+    "Toggle current problems & prescriptions when editing letter",
+    js: true,
+    type: :system
+  ) do
+
     include LettersSpecHelper
 
     context "when a user is creating or editing a clinical letter" do
-      scenario "they can toggle open the patient's prescriptions and problems to get context" do
+      it "they can toggle open the patient's prescriptions and problems to get context" do
         user = login_as_clinical
         patient = create(:letter_patient, by: user)
         problem = create(:problem, patient: patient, description: "Problem 1", by: user)

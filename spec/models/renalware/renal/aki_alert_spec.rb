@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe Renal::AKIAlert, type: :model do
+  describe Renal::AKIAlert, type: :model do
     it_behaves_like "an Accountable model"
     it { is_expected.to validate_presence_of(:patient) }
     it { is_expected.to have_db_index(:hotlist) }

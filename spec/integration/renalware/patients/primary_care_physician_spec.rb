@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Changing a patient's GP (primary care physician)", type: :request do
+describe "Changing a patient's GP (primary care physician)", type: :request do
   let(:patient) { create(:patient) }
   let(:primary_care_physician) { create(:primary_care_physician) }
 

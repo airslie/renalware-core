@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Managing the patient worryboard", type: :request do
+describe "Managing the patient worryboard", type: :request do
   let(:user) { @current_user }
   let(:patient) { create(:patient, by: user) }
 

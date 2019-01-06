@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Patient's Observation Requests", type: :request do
+describe "Patient's Observation Requests", type: :request do
   let(:patient) { create(:pathology_patient) }
 
   describe "GET index" do

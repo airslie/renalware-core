@@ -5,7 +5,7 @@ require "./spec/support/login_macros"
 
 module Renalware
   module PD
-    RSpec.describe Regime, type: :model do
+    describe Regime, type: :model do
       describe "validations" do
         it { is_expected.to validate_presence_of :patient }
         it { is_expected.to validate_presence_of :start_date }

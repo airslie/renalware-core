@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "Clinical summary", type: :feature do
+  describe "Clinical summary", type: :system do
     describe "GET show" do
       it "renders correctly" do
         user = login_as_clinical

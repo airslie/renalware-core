@@ -8,7 +8,7 @@ require "rails_helper"
 # - Remove rubocop disable above
 # - Rename bone audit describe block
 module Renalware
-  RSpec.describe "Anaemia Audit", type: :model do
+  describe "Anaemia Audit", type: :model do
     include PatientsSpecHelper
     let(:uom) { create(:pathology_measurement_unit) }
     let(:user) { create(:user) }

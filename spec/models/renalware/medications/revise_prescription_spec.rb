@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Medications
-  RSpec.describe RevisePrescription do
+  describe RevisePrescription do
     let(:patient) { create(:patient) }
     let(:original_dose_amount) { "100" }
     let(:original_prescription) do

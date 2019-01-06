@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe Letters::PathologyLayout do
+  describe Letters::PathologyLayout do
     subject(:layout) { described_class.new }
 
     describe "#each_group" do

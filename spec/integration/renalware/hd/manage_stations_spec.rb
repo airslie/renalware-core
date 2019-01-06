@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Managing HD Stations for a Hospital Unit", type: :feature do
+describe "Managing HD Stations for a Hospital Unit", type: :system do
   before do
     create(:hd_station_location, name: "Side room")
   end

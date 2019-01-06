@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Searching drugs", type: :feature, js: true do
+describe "Searching drugs", type: :system, js: true do
   context "with a drug matching the search term" do
     it "returns drug names that partially match" do
       user = login_as_clinical

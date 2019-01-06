@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Managing Cannulation Types", type: :request do
+describe "Managing Cannulation Types", type: :request do
   let(:cannulation_type) { create(:hd_cannulation_type) }
 
   describe "GET new" do

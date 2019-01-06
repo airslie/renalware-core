@@ -3,11 +3,11 @@
 require "rails_helper"
 
 module Renalware
-  feature "Authentication" do
+  describe "Authentication", type: :system do
     let(:user) { create(:user, :clinical) }
     let(:unapproved_user) { create(:user, :unapproved) }
 
-    scenario "A user attempts to authenticate with invalid credentials" do
+    it "A user attempts to authenticate with invalid credentials" do
       visit root_path
 
       expect(page).to have_current_path(new_user_session_path)
@@ -20,7 +20,7 @@ module Renalware
       expect(page).to have_css(".alert", text: /Invalid username or password/i)
     end
 
-    scenario "An unapproved user authenticates with valid credentials" do
+    it "An unapproved user authenticates with valid credentials" do
       visit root_path
 
       expect(page).to have_current_path(new_user_session_path)
@@ -40,7 +40,7 @@ module Renalware
             "meaning user.valid? is true" do
       let(:user) { create(:user, :clinical) } # will be valid? once created
 
-      scenario "An approved user authenticates with valid credentials" do
+      it "An approved user authenticates with valid credentials" do
         visit root_path
 
         expect(page).to have_current_path(new_user_session_path)
@@ -64,7 +64,7 @@ module Renalware
             "meaning user.valid? is false" do
       let(:user) { create(:user, :clinical, signature: nil) } # will not be valid? once created
 
-      scenario "An approved user should still be able to login" do
+      it "An approved user should still be able to login" do
         visit root_path
 
         expect(page).to have_current_path(new_user_session_path)
@@ -83,7 +83,7 @@ module Renalware
       end
     end
 
-    scenario "An authenticated user signs out" do
+    it "An authenticated user signs out" do
       login_as_clinical
       visit root_path
 
@@ -92,7 +92,7 @@ module Renalware
       expect(page).to have_current_path(new_user_session_path)
     end
 
-    scenario "An inactive user attempts to authenticate" do
+    it "An inactive user attempts to authenticate" do
       inactive = create(:user, last_activity_at: 90.days.ago)
 
       visit new_user_session_path
@@ -108,7 +108,7 @@ module Renalware
       )
     end
 
-    scenario "A fairly inactive user attempts to authenticate" do
+    it "A fairly inactive user attempts to authenticate" do
       inactive = create(:user, :clinical, last_activity_at: 89.days.ago)
 
       visit new_user_session_path

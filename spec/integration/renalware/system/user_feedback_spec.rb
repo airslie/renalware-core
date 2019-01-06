@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Beta banner and capturing user feedback", type: :feature do
+describe "Beta banner and capturing user feedback", type: :system do
   let(:user) { create(:user, :unapproved, :clinician) }
 
   describe "beta banner" do

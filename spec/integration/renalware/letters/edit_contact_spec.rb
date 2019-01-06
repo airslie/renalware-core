@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Managing an existing letter contact", type: :feature do
+describe "Managing an existing letter contact", type: :system, js: true do
   include AjaxHelpers
 
   context "with valid parameters" do
@@ -64,7 +64,7 @@ describe "Managing an existing letter contact", type: :feature do
   end
 
   context "with invalid parameters" do
-    it "A user cannot change an existing patient contact", js: true do
+    it "A user cannot change an existing patient contact" do
       user = @current_user
       patient = create(:letter_patient)
       create(

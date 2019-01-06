@@ -25,7 +25,7 @@ module Renalware
             .extending(PatientPathologyScopes)
             .with_current_pathology
             .with_current_modality_matching(modality_names)
-            .search(q)
+            .ransack(q)
         end
       end
     end

@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Pathology
-    RSpec.describe ObservationDigest do
+    describe ObservationDigest do
     end
   end
 end

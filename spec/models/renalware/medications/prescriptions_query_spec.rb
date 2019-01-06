@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Medications
-  RSpec.describe PrescriptionsQuery, type: :model do
+  describe PrescriptionsQuery, type: :model do
     let(:patient) { create(:patient) }
 
     context "with no filter" do

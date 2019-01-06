@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Managing patients", type: :request do
+describe "Managing patients", type: :request do
   let(:user) { @current_user }
   let(:patient) { create(:patient, by: user) }
   let(:algeria) { create(:algeria) }

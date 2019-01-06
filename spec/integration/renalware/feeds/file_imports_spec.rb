@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "File Import viewing and uploading", type: :feature do
+describe "File Import viewing and uploading", type: :system do
   describe "Listing file imports" do
     it "responds successfully with a paginated list of file imports" do
       user = create(:user)

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Creating a swab", type: :feature, js: true do
+describe "Creating a swab", type: :system, js: true do
   it "allows creation of a new swab event" do
     user = login_as_clinical
     patient = create(:patient, by: user)

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Pathology
-  RSpec.describe ObservationRequestsAttributesBuilder do
+  describe ObservationRequestsAttributesBuilder do
     describe "#parse" do
       let(:patient) { create(:patient) }
       let(:observation_description) { create(:pathology_observation_description) }

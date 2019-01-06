@@ -4,10 +4,10 @@ require "rails_helper"
 require "action_view/record_identifier"
 
 module Renalware
-  feature "Authorising, approving and reactivating users" do
+  describe "Authorising, approving and reactivating users", type: :system do
     include ActionView::RecordIdentifier
 
-    background do
+    before do
       @clinician_role = Role.find_or_create_by(name: "clinical")
       @approved = create(:user)
       @unapproved = create(:user, :unapproved)
@@ -18,7 +18,7 @@ module Renalware
       visit admin_users_path
     end
 
-    scenario "An admin approves a newly registered user" do
+    it "An admin approves a newly registered user" do
       click_on "Unapproved"
 
       click_link "Edit"
@@ -33,7 +33,7 @@ module Renalware
       expect(@unapproved.roles).to match_array([@clinician_role])
     end
 
-    scenario "An admin approves a user without assigning a role" do
+    it "An admin approves a user without assigning a role" do
       click_on "Unapproved"
 
       click_link "Edit"
@@ -47,7 +47,7 @@ module Renalware
       expect(page).to have_content(/approved users must have a role/)
     end
 
-    scenario "An admin removes all roles from a user" do
+    it "An admin removes all roles from a user" do
       first("tbody tr##{dom_id(@approved)}").click_link("Edit")
       expect(page).to have_current_path(edit_admin_user_path(@approved))
 
@@ -59,7 +59,7 @@ module Renalware
       expect(page).to have_content(/approved users must have a role/)
     end
 
-    scenario "An admin authorises an existing user with additional roles" do
+    it "An admin authorises an existing user with additional roles" do
       within("tbody") do
         find("a[href='#{edit_admin_user_path(@approved)}']").click
       end
@@ -74,7 +74,7 @@ module Renalware
       expect(@approved.roles).to include(@clinician_role)
     end
 
-    scenario "An admin reactivates an inactive user" do
+    it "An admin reactivates an inactive user" do
       click_link "Inactive"
 
       first("tbody tr").click_link("Edit")
@@ -92,7 +92,7 @@ module Renalware
       expect(page).not_to have_content(@expired.username)
     end
 
-    scenario "An admin cannot assign super_admin role to anyone" do
+    it "An admin cannot assign super_admin role to anyone" do
       within("tbody") do
         find("a[href='#{edit_admin_user_path(@approved)}']").click
       end
@@ -101,7 +101,7 @@ module Renalware
       expect(find("input[type='checkbox'][disabled='disabled']")).not_to be_nil
     end
 
-    scenario "An admin cannot remove the super_admin role" do
+    it "An admin cannot remove the super_admin role" do
       superadmin = create(:user, :super_admin)
       visit admin_users_path
       within("tbody") do

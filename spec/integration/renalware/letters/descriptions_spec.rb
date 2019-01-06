@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Searching letter descriptions", type: :request do
+describe "Searching letter descriptions", type: :request do
   include JsonHelpers
 
   let!(:other_description) { create(:letter_description, text: "123456789") }

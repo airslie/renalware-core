@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Feeds
-  RSpec.describe MessageParser do
+  describe MessageParser do
     subject(:message){ message_parser.parse(raw_message) }
 
     let(:message_parser) { described_class.new }

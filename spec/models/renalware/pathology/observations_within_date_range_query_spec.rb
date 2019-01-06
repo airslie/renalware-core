@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Pathology
-    RSpec.describe ObservationsWithinDateRangeQuery do
+    describe ObservationsWithinDateRangeQuery do
       describe "#call" do
         it "returns the observation for the specified range" do
           patient = create_patient

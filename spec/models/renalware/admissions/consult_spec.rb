@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Renalware::Admissions::Consult, type: :model do
+describe Renalware::Admissions::Consult, type: :model do
   it_behaves_like "an Accountable model"
   it { is_expected.to validate_presence_of :patient_id }
   it { is_expected.to validate_presence_of :started_on }

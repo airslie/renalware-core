@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Edit a patient's participation in a study", type: :feature, js: true do
+describe "Edit a patient's participation in a study", type: :system, js: true do
   include AjaxHelpers
 
   it "Updating a participation" do

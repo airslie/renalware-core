@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module HD
-    RSpec.describe ProviderUnit, type: :model do
+    describe ProviderUnit, type: :model do
       it { is_expected.to belong_to(:hospital_unit) }
       it { is_expected.to belong_to(:hd_provider) }
       it { is_expected.to validate_presence_of(:hospital_unit) }

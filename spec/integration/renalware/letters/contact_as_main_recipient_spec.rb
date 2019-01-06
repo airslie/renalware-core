@@ -4,7 +4,7 @@ require "rails_helper"
 require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Assign a person as a main recipient", type: :feature do
+describe "Assign a person as a main recipient", type: :system do
   include AutocompleteHelpers
   include AjaxHelpers
 

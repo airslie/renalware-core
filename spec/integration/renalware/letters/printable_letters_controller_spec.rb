@@ -3,7 +3,7 @@
 require "rails_helper"
 require "pdf/reader"
 
-RSpec.describe "Rendering a letter for printing in an envelope stuffer", type: :request do
+describe "Rendering a letter for printing in an envelope stuffer", type: :request do
   include LettersSpecHelper
   let(:user) { create(:user) }
 

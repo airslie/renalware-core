@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware::Problems
   # rubocop:disable RSpec/InstanceVariable
-  RSpec.describe ProblemsController, type: :controller do
+  describe ProblemsController, type: :controller do
     routes { Renalware::Engine.routes }
     let(:user) { @current_user }
     let(:patient) { create(:patient, by: user) }

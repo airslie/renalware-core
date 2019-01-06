@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "API request for a single UKRDC patient XML document", type: :request do
+describe "API request for a single UKRDC patient XML document", type: :request do
   include PatientsSpecHelper
   include LettersSpecHelper
   include PathologySpecHelper
