@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Donor stage management", type: :request do
+describe "Donor stage management", type: :request do
   let(:patient) { create(:transplant_patient, by: @current_user) }
 
   describe "GET show" do

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "Bringing in new pathology results into a letter while editing", type: :system do
+  describe "Bringing in new pathology results into a letter while editing", type: :system do
     include LettersSpecHelper
 
     context "when there are no new pathology results" do

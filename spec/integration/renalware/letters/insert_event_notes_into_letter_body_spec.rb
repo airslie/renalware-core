@@ -4,7 +4,7 @@ require "rails_helper"
 require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Insert letter.event notes (e.g. from a clinic visit) into the letter body",
+describe "Insert letter.event notes (e.g. from a clinic visit) into the letter body",
                type: :system,
                js: true do
 

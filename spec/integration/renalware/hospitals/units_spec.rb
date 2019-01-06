@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Managing Hospital Units", type: :request do
+describe "Managing Hospital Units", type: :request do
   let(:hospital_centre) { create(:hospital_centre) }
   let(:hospital_unit) { create(:hospital_unit) }
 

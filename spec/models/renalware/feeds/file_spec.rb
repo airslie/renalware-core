@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Feeds
-  RSpec.describe File do
+  describe File do
     subject { Renalware::Feeds::File.new }
 
     it_behaves_like "an Accountable model"

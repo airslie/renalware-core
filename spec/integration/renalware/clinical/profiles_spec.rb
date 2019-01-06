@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Viewing clinical profile", type: :request do
+describe "Viewing clinical profile", type: :request do
   let(:patient) { Renalware::Clinical.cast_patient(create(:patient, by: user)) }
   let(:user) { @current_user }
 

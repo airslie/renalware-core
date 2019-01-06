@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Pathology
-    RSpec.describe CreateObservationsGroupedByDateTable do
+    describe CreateObservationsGroupedByDateTable do
       let(:options) { {} }
       let(:patient) { create(:pathology_patient) }
       let(:another_patient) { create(:pathology_patient) }

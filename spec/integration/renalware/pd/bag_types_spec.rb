@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Configuring PD Bag Types", type: :request do
+describe "Configuring PD Bag Types", type: :request do
   let(:bag_type) { create(:bag_type) }
 
   describe "GET new" do

@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   # HD Overall Audit is currently a materialized view
-  RSpec.describe "HD Overall Audit", type: :model do
+  describe "HD Overall Audit", type: :model do
     include PatientsSpecHelper
 
     let(:user) { create(:user) }

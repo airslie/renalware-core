@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    RSpec.describe RecipientPresenter::WithCurrentAddress, type: :model do
+    describe RecipientPresenter::WithCurrentAddress, type: :model do
       include LettersSpecHelper
 
       subject(:presenter) { RecipientPresenter::WithCurrentAddress.new(recipient) }

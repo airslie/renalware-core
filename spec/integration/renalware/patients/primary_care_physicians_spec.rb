@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "Configuring Primary Care Physicians", type: :request do
+  describe "Configuring Primary Care Physicians", type: :request do
     let(:primary_care_physician) { create(:primary_care_physician) }
 
     describe "GET new" do

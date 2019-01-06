@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "PD Training Session management", js: true, type: :system do
+  describe "PD Training Session management", js: true, type: :system do
     ###
     it "Add a PD Training Session" do
       patient = create(:pd_patient)

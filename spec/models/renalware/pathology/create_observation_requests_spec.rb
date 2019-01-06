@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Pathology
-  RSpec.describe CreateObservationRequests do
+  describe CreateObservationRequests do
     subject(:service) { described_class.new }
 
     describe "#call" do

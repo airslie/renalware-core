@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe Pathology::AdjustObservation do
+  describe Pathology::AdjustObservation do
     subject(:service) {
       described_class.new(
         observation_request: observation_request,

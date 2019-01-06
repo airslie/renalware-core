@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module HD
-    RSpec.describe Profile, type: :model do
+    describe Profile, type: :model do
       it_behaves_like "an Accountable model"
       it_behaves_like "a Supersedable model"
       it { is_expected.to validate_presence_of(:patient) }

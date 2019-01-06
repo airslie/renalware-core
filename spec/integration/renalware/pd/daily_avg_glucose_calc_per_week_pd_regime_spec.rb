@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "Daily average glucose(ml) calculated from bags per type assigned during one week",
+  describe "Daily average glucose(ml) calculated from bags per type assigned during one week",
           js: true,
           type: :system do
     include PatientsSpecHelper

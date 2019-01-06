@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Low Clearance Patients", type: :system do
+describe "Low Clearance Patients", type: :system do
   include PatientsSpecHelper
   let(:user) { create(:user) }
 

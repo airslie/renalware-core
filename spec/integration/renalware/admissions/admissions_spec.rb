@@ -2,7 +2,7 @@
 
 require "rails_helper"
 module Renalware
-  RSpec.describe "Admission management", type: :request do
+  describe "Admission management", type: :request do
     include PatientsSpecHelper
 
     let(:user) { create(:user) }

@@ -4,7 +4,7 @@ require "rails_helper"
 require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Assign a contact to a patient", type: :system, js: true do
+describe "Assign a contact to a patient", type: :system, js: true do
   include AutocompleteHelpers
   include AjaxHelpers
 

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Managing an existing letter contact", type: :system, js: true do
+describe "Managing an existing letter contact", type: :system, js: true do
   include AjaxHelpers
 
   context "with valid parameters" do

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Viewing the dashboard", type: :system do
+describe "Viewing the dashboard", type: :system do
   let(:patient) { create(:virology_patient) }
 
   it "is accessible from the patient LH menu" do

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Patient HD MDM", type: :request do
+describe "Patient HD MDM", type: :request do
   let(:patient) { create(:hd_patient, family_name: "Rabbit", local_patient_id: "KCH12345") }
 
   describe "GET show" do

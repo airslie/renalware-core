@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Pathology
-    RSpec.describe CurrentObservationsForDescriptionsQuery do
+    describe CurrentObservationsForDescriptionsQuery do
       include PathologySpecHelper
       describe "#call" do
         let(:patient) { create_patient }

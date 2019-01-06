@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Listing Modality Reasons", type: :request do
+describe "Listing Modality Reasons", type: :request do
   describe "GET index" do
     it "responds with a list" do
       create(:pd_to_haemodialysis, description: "::modality name::")

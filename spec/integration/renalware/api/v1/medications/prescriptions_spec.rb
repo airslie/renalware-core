@@ -3,7 +3,7 @@
 require "rails_helper"
 require "devise"
 
-RSpec.describe "API request for a patient's prescriptions as JSON", type: :system do
+describe "API request for a patient's prescriptions as JSON", type: :system do
   include PatientsSpecHelper
   let(:patient) { create(:patient) }
   let(:drug) { create(:drug, name: "Drug1") }

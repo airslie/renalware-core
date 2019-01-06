@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Configuring Drugs", type: :request do
+describe "Configuring Drugs", type: :request do
   let(:drug) { create(:drug) }
 
   describe "GET new" do

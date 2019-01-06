@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "HL7 message handling end to end" do
+describe "HL7 message handling end to end" do
   context "when we have an incoming HL7 msg wth > 1 OBR segment, via delayed_job" do
     let(:raw_message) do
       <<-RAW.strip_heredoc

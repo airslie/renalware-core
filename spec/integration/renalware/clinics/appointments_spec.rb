@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Appointments", type: :request do
+describe "Appointments", type: :request do
   describe "GET index" do
     it "responds with a a list of appointments" do
       user = login_as_clinical

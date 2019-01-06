@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware
   module Messaging
     module Internal
-      RSpec.describe SendMessage, type: :model do
+      describe SendMessage, type: :model do
         subject(:service) { described_class.new }
 
         let(:patient)    { create(:messaging_patient) }

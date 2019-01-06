@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "Listing admissions for the current patient", type: :request do
+  describe "Listing admissions for the current patient", type: :request do
     let(:user) { create(:user) }
     let(:time) { Time.zone.now }
     let(:hospital_ward) { create(:hospital_ward, name: "Ward1") }

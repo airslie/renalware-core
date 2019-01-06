@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe PD::PeritonitisEpisode, type: :model do
+  describe PD::PeritonitisEpisode, type: :model do
     include DrugsSpecHelper
 
     it { is_expected.to validate_presence_of :patient }

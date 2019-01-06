@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "HTTP Caching", type: :request do
+describe "HTTP Caching", type: :request do
   let(:patient) { create(:patient) }
 
   # Note spec/dummy/app/controllers/applciation_controller

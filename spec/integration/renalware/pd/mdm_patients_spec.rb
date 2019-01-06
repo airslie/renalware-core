@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "PD MDM Patients", type: :system do
+describe "PD MDM Patients", type: :system do
   include PatientsSpecHelper
   let(:user) { create(:user) }
 

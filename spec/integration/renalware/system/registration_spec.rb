@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "User registration", type: :system do
+  describe "User registration", type: :system do
     it "A user registers giving incomplete information" do
       visit new_user_registration_path
 

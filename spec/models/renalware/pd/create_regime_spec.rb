@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module PD
-    RSpec.describe CreateRegime do
+    describe CreateRegime do
       subject(:service) { CreateRegime.new(patient: patient).call(by: user, params: params) }
 
       let(:user) { create(:user) }

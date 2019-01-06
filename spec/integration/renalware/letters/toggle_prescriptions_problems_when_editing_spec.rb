@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  Rspec.describe(
+  describe(
     "Toggle current problems & prescriptions when editing letter",
     js: true,
     type: :system

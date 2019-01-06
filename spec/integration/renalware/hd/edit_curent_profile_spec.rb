@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Editing a patient's current HD profile", type: :system, js: false do
+describe "Editing a patient's current HD profile", type: :system, js: false do
   include PatientsSpecHelper
 
   let(:nurse) { create(:user) }

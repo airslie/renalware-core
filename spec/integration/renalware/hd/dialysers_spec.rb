@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Managing Dialysers", type: :request do
+describe "Managing Dialysers", type: :request do
   let(:dialyser) { create(:hd_dialyser) }
 
   describe "GET new" do

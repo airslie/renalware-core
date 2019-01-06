@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Patients
-  RSpec.describe IdempotentCreatePatient do
+  describe IdempotentCreatePatient do
     describe "#call" do
       subject(:command) { IdempotentCreatePatient.new(user) }
 

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Displaying the patient worryboard", type: :request do
+describe "Displaying the patient worryboard", type: :request do
   let(:user) { @current_user }
 
   describe "GET index" do

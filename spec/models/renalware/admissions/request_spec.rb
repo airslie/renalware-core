@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Renalware::Admissions::Request, type: :model do
+describe Renalware::Admissions::Request, type: :model do
   it_behaves_like "a Paranoid model"
   it_behaves_like "an Accountable model"
   it { is_expected.to belong_to(:patient).touch(true) }

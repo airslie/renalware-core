@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Snippets
-    RSpec.describe Snippet, type: :model do
+    describe Snippet, type: :model do
       describe "validation" do
         it { is_expected.to belong_to(:author) }
         it { is_expected.to validate_presence_of(:title) }

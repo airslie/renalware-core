@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Viewing historical HD Profiles", type: :request do
+describe "Viewing historical HD Profiles", type: :request do
   describe "GET index" do
     it "renders successfully" do
       patient = create(:hd_patient)

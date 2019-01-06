@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Patient's Protocol PDF", type: :request do
+describe "Patient's Protocol PDF", type: :request do
   include PathologySpecHelper
   let(:user) { create(:user) }
   let(:patient) do

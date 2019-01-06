@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::HD
-  RSpec.describe ReviseHDProfile do
+  describe ReviseHDProfile do
     let(:patient) { create(:hd_patient) }
 
     let(:original_profile) do

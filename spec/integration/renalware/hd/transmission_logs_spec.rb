@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "View transmission logs", type: :system do
+describe "View transmission logs", type: :system do
   describe "GET index" do
     it "displays a paginated list of transmission logs, most recent first" do
       login_as_admin

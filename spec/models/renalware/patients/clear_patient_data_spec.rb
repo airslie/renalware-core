@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Patients
-    RSpec.describe ClearPatientUKRDCData do
+    describe ClearPatientUKRDCData do
       describe "#call" do
         it "clears the RPV status if the modality description type is death" do
           travel_to(Time.zone.now) do

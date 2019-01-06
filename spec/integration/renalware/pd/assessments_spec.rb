@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "PD Assessment management", js: true, type: :system do
+  describe "PD Assessment management", js: true, type: :system do
     ###
     it "Add a PD Assessment" do
       patient = create(:pd_patient)

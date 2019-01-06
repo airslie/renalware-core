@@ -4,7 +4,7 @@
 
 # module Renalware
 #   module Letters
-#     RSpec.describe DraftLeter, type: :model do
+#     describe DraftLeter, type: :model do
 
 #       describe "#call" do
 

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Ward Management", type: :system do
+describe "Ward Management", type: :system do
   it "displays a list of wards for a hospital" do
     login_as_clinical
     unit = create(:hospital_unit)

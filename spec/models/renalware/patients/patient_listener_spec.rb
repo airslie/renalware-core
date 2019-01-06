@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Patients
-    RSpec.describe PatientListener do
+    describe PatientListener do
       subject(:listener) { described_class.new }
 
       describe "#patient_modality_changed_to_death" do

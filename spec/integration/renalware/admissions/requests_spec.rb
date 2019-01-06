@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Admission Request (TCI) management", type: :request do
+describe "Admission Request (TCI) management", type: :request do
   let(:reason) { create(:admissions_request_reason, description: "XYZ") }
   let(:user) { @current_user }
   let(:time) { Time.zone.now }

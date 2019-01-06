@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Medications
-  RSpec.describe TerminateAllPatientPrescriptions do
+  describe TerminateAllPatientPrescriptions do
     it "terminates all patient prescriptions but leaves untouched previously terminated ones" do
       user = create(:user)
       patient = create(:patient, by: user)

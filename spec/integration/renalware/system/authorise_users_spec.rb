@@ -4,7 +4,7 @@ require "rails_helper"
 require "action_view/record_identifier"
 
 module Renalware
-  RSpec.describe "Authorising, approving and reactivating users", type: :system do
+  describe "Authorising, approving and reactivating users", type: :system do
     include ActionView::RecordIdentifier
 
     before do

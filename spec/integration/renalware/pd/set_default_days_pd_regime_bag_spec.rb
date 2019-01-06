@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "pd regime bag's days assigned are by default set all to true", type: :system do
+  describe "pd regime bag's days assigned are by default set all to true", type: :system do
     before do
       @patient = create(:patient)
       @pd_regime_bag_1 = PD::RegimeBag.new

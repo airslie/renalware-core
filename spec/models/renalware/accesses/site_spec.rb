@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Accesses
-  RSpec.describe Site, type: :model do
+  describe Site, type: :model do
     it { is_expected.to validate_presence_of(:code) }
     it { is_expected.to validate_presence_of(:name) }
   end

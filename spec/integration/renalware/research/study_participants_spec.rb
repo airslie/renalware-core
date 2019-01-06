@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Managing clinical study participation", type: :request do
+describe "Managing clinical study participation", type: :request do
   let(:user) { @current_user }
 
   def create_study

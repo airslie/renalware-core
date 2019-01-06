@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module LowClearance
-    RSpec.describe Profile, type: :model do
+    describe Profile, type: :model do
       it_behaves_like "an Accountable model"
       it { is_expected.to validate_presence_of(:patient) }
       it { is_expected.to belong_to(:patient).touch(true) }

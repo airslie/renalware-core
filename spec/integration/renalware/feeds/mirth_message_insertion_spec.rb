@@ -7,7 +7,7 @@ require "rails_helper"
 # We can use quoted heredocs to avoid Ruby escaping these strings - I tried this but
 # comparing database content doesn't work as that is already escaped when loaded by AR.
 # So we're stuck with the mental gymnastics.
-RSpec.describe "Simulation of Mirth inserting an HL7 message into delayed_jobs" do
+describe "Simulation of Mirth inserting an HL7 message into delayed_jobs" do
   include DatabaseFunctionsSpecHelper
 
   let(:hl7_with_uom_caret_encoded_as_slash_s_slash) do

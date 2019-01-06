@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module PD
-    RSpec.describe CAPDRegime, type: :model do
+    describe CAPDRegime, type: :model do
       describe "validations" do
         it { is_expected.not_to validate_numericality_of(:last_fill_volume) }
         it { is_expected.not_to validate_numericality_of(:additional_manual_exchange_volume) }

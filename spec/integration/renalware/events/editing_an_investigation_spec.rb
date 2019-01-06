@@ -3,7 +3,7 @@
 require "rails_helper"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Editing an investigation", type: :system, js: true do
+describe "Editing an investigation", type: :system, js: true do
   include AjaxHelpers
   include PatientsSpecHelper
 

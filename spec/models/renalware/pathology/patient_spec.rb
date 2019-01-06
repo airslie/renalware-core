@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Pathology
-  RSpec.describe Patient do
+  describe Patient do
     it { is_expected.to have_one(:current_observation_set) }
 
     describe ".fetch_current_observation_set" do

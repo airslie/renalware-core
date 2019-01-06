@@ -3,7 +3,7 @@
 require "rails_helper"
 require "devise"
 
-RSpec.describe "API request for a single patient JSON document", type: :system do
+describe "API request for a single patient JSON document", type: :system do
   include PatientsSpecHelper
 
   let(:json) { JSON.parse(page.body) }

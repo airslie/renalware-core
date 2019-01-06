@@ -3,7 +3,7 @@
 require "rails_helper"
 require_dependency "renalware/renal"
 
-RSpec.describe "Renal Registry Preflight checks", type: :request do
+describe "Renal Registry Preflight checks", type: :request do
   let(:user) { @current_user }
 
   describe "GET patients" do

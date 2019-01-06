@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "AKI alert management", type: :request do
+describe "AKI alert management", type: :request do
   let(:user) { @current_user }
   let(:patient) { create(:renal_patient, by: user) }
   let(:hospital_ward) { create(:hospital_ward) }

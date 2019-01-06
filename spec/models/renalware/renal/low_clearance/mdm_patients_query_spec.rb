@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module LowClearance
-    RSpec.describe MDMPatientsQuery, type: :query do
+    describe MDMPatientsQuery, type: :query do
       include PatientsSpecHelper
       include PathologySpecHelper
 

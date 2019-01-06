@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Feeds
-  RSpec.describe PersistMessage do
+  describe PersistMessage do
     subject(:service) { described_class.new }
 
     describe "#call" do

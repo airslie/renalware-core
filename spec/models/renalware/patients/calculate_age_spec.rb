@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Patients
-    RSpec.describe CalculateAge do
+    describe CalculateAge do
       subject { CalculateAge.for(patient) }
 
       let(:patient) { Patient.new(died_on: died_on, born_on: born_on) }

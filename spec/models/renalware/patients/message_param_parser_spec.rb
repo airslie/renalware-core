@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Patients
-  RSpec.describe MessageParamParser do
+  describe MessageParamParser do
     describe "#parse" do
       let(:hl7_message) {
         instance_double(

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Searching patients", type: :request do
+describe "Searching patients", type: :request do
   describe "GET index" do
     context "with a hospital code filter" do
       before do

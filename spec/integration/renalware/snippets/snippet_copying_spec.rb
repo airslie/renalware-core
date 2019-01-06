@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Copying a snippet", type: :request do
+describe "Copying a snippet", type: :request do
   let(:user) { Renalware::Snippets.cast_user(@current_user) }
 
   def find_and_validate_cloned_snippet_for(author, title:)

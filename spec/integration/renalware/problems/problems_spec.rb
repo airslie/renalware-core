@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Problems Requests" do
+describe "Problems Requests" do
   let!(:patient) { create(:pathology_patient) }
   let!(:problem) { create(:problem, patient: patient) }
   let!(:archived_problem) { create(:problem, patient: patient, deleted_at: Date.current) }

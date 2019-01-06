@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware
   module HD
     module Sessions
-      RSpec.describe SaveSession, type: :command do
+      describe SaveSession, type: :command do
         include ActiveJob::TestHelper
 
         let(:patient) { build_stubbed(:hd_patient) }

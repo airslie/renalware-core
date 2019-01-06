@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe Hospitals::WardPresenter do
+  describe Hospitals::WardPresenter do
     subject(:presenter) { described_class.new(ward) }
 
     let(:ward) do

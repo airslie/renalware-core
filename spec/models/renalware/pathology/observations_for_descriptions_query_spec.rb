@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Pathology
-    RSpec.describe ObservationsForDescriptionsQuery do
+    describe ObservationsForDescriptionsQuery do
       describe "#call" do
         it "returns the patient's observations for the specified descriptions" do
           patient = create_patient

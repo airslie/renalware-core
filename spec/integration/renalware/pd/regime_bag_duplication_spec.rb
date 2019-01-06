@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "PD Regime bag duplication", js: true, type: :system do
+  describe "PD Regime bag duplication", js: true, type: :system do
     include PatientsSpecHelper
 
     it "duplicate an existing bag" do

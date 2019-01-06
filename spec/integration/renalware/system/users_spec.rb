@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Managing Users", type: :request do
+describe "Managing Users", type: :request do
   let(:user) { create(:user, :unapproved, :clinical) }
 
   describe "GET index" do

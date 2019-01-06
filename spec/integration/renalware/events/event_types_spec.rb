@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Configuring Event Types", type: :request do
+describe "Configuring Event Types", type: :request do
   let(:event_type) { create(:access_clinic_event_type) }
 
   describe "GET new" do

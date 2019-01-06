@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    RSpec.describe ResolveDefaultElectronicCCs, type: :model do
+    describe ResolveDefaultElectronicCCs, type: :model do
       subject(:resolver) { described_class.for(patient) }
 
       let(:patient) { build_stubbed(:letter_patient) }

@@ -6,7 +6,7 @@ module Renalware
   module Letters
     # This is an attempt to explore the two ways we have of determining if the practice will
     # get emailed - we can converge into one once the behaviour understood.
-    RSpec.describe "Check parity of letter displaying as emailed to GP vs the (GP) recipient "\
+    describe "Check parity of letter displaying as emailed to GP vs the (GP) recipient "\
                   "being marked having an updated emailed_at once approved." do
       include LettersSpecHelper
 

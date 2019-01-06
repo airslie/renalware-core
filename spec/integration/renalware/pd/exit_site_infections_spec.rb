@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Exit Site Infections", type: :request do
+describe "Exit Site Infections", type: :request do
   describe "GET show as pdf" do
     it "responds successfully with a pdf form for the nurse to print out and use to gather" \
        " information about the infection " do

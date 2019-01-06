@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "View global letters list", type: :system, js: false do
+describe "View global letters list", type: :system, js: false do
   include LettersSpecHelper
 
   describe "GET #show" do
