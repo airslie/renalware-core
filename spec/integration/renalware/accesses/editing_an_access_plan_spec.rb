@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Editing an Access Plan", type: :feature do
+describe "Editing an Access Plan", type: :system do
   include DateHelpers
 
   # Note editing is actually a create using the current plan as a template.

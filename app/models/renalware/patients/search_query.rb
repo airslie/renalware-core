@@ -31,7 +31,7 @@ module Renalware
       def search
         @search ||= begin
           scope
-            .search(identity_match: term).tap do |search|
+            .ransack(identity_match: term).tap do |search|
               search.sorts = %w(family_name given_name)
             end
         end

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Viewing the Recipient Summary (Dashboard)", type: :feature do
+RSpec.describe "Viewing the Recipient Summary (Dashboard)", type: :system do
   let(:modality_description) { create(:modality_description, :transplant) }
 
   context "when the patient has the tx recipient modality" do

@@ -6,7 +6,7 @@ require "test_support/ajax_helpers"
 
 RSpec.describe(
   "Persisting the correct recipients when a letter is saved",
-  type: :feature,
+  type: :system,
   js: false
 ) do
   include AjaxHelpers

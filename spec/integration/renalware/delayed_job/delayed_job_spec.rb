@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Delayed Job management", type: :feature do
+RSpec.describe "Delayed Job management", type: :system do
   include RolesSpecHelper
 
   describe "Delayed Job dashboard" do

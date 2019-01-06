@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Refreshing audit data", type: :feature, js: true do
+describe "Refreshing audit data", type: :system, js: true do
   it "Manually requesting to refresh audit data" do
     login_as_super_admin
     create(:audit, name: "xx", view_name: "yy")

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Viewing audits", type: :feature, js: true do
+describe "Viewing audits", type: :system, js: true do
   include AjaxHelpers
 
   it "viewing a list of audits" do

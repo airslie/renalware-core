@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Listing patient events", type: :feature do
+describe "Listing patient events", type: :system do
   it "A user views a list of patient events" do
     user = login_as_clinical
     patient = create(:patient, by: user)

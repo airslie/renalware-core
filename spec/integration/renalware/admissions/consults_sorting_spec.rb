@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "Filtering sorting", type: :feature do
+  RSpec.describe "Filtering sorting", type: :system do
     context "when sorting by modality" do
       it "if a patient has no modality they still appear in the list" do
         login_as_clinical

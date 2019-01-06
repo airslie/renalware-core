@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Viewing an Access Plan", type: :feature do
+describe "Viewing an Access Plan", type: :system do
   include DateHelpers
 
   it "A clinician views a patient's Access Plan" do

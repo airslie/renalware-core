@@ -3,11 +3,12 @@
 require "rails_helper"
 
 module Renalware
-  feature "Daily average glucose(ml) calculated from bags per type assigned during one week",
-          js: true do
+  RSpec.describe "Daily average glucose(ml) calculated from bags per type assigned during one week",
+          js: true,
+          type: :system do
     include PatientsSpecHelper
 
-    background do
+    before do
       @patient = create(:patient)
       set_modality(patient: @patient,
                    modality_description: create(:pd_modality_description),
@@ -36,7 +37,7 @@ module Renalware
       visit patient_pd_dashboard_path(@patient)
     end
 
-    scenario "should return daily average volume (ml) for each concentration type" do
+    it "should return daily average volume (ml) for each concentration type" do
       within ".page-actions" do
         click_link "Add"
         click_link "CAPD Regime"

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Create an Admission Request", type: :feature, js: true do
+describe "Create an Admission Request", type: :system, js: true do
   it "Creating a new request from the patient LH menu" do
     user = login_as_clinical
     patient = create(:patient, by: user)

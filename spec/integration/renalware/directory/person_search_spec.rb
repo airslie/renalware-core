@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Searching people", type: :feature do
+RSpec.describe "Searching people", type: :system do
   describe "GET index" do
     before do
       user = login_as_clinical

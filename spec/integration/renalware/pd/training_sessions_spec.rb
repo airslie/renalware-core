@@ -3,9 +3,9 @@
 require "rails_helper"
 
 module Renalware
-  feature "PD Training Session management", js: true do
+  RSpec.describe "PD Training Session management", js: true, type: :system do
     ###
-    scenario "Add a PD Training Session" do
+    it "Add a PD Training Session" do
       patient = create(:pd_patient)
       create(:pd_training_site, name: "Home")
       create(:pd_training_type, name: "APD Baxter")
@@ -42,7 +42,7 @@ module Renalware
     end
 
     ###
-    scenario "Edit a PD Training Session" do
+    it "Edit a PD Training Session" do
       patient = create(:pd_patient)
       user = login_as_clinical
       create(:pd_training_session, patient: patient, by: user)
@@ -67,7 +67,7 @@ module Renalware
     end
 
     ###
-    scenario "View a PD Training Session" do
+    it "View a PD Training Session" do
       patient = create(:pd_patient)
       user = login_as_clinical
       training_session = create(:pd_training_session, patient: patient, by: user)

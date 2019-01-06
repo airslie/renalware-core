@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Sending a private message", type: :feature do
+describe "Sending a private message", type: :system do
   include AjaxHelpers
 
   it "A clinician sends a private message about a patient", js: true do

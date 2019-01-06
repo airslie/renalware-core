@@ -39,7 +39,7 @@ RSpec.describe "Patient's Protocol PDF", type: :request do
         expect(response.body).to include("HGB")
 
         # TODO: To test the actual values we would need to parse the template.
-        # We could make this test a type: :feature
+        # We could make this test a type: :system
       end
     end
 

@@ -32,7 +32,7 @@ module Renalware
              hospital_ward: hospital_ward)
     end
 
-    describe "GET index", type: :feature do
+    describe "GET index", type: :system do
       it "lists admissions" do
         admission = create_admission
         login_as_clinical

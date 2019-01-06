@@ -3,7 +3,7 @@
 require "rails_helper"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Editing a swab", type: :feature, js: true do
+RSpec.describe "Editing a swab", type: :system, js: true do
   include AjaxHelpers
 
   it "allows a swab to be updated" do

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "View Admission Request", type: :feature do
+describe "View Admission Request", type: :system do
   it "Use the top menu to navigate to the list of admission requests" do
     login_as_clinical
     visit dashboard_path

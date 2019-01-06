@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Edit Low Clearance", type: :feature do
+describe "Edit Low Clearance", type: :system do
   include PatientsSpecHelper
 
   let(:user) { @current_user }

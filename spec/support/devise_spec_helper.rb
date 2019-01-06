@@ -8,6 +8,9 @@ RSpec.configure do |config|
   config.include LoginMacros, type: :controller
 
   config.include Warden::Test::Helpers, type: :feature
+  config.include Warden::Test::Helpers, type: :system
+  config.include Devise::Test::IntegrationHelpers, type: :system
+  config.include LoginMacros, type: :system
   config.include LoginMacros, type: :feature
 
   config.include Warden::Test::Helpers, type: :request

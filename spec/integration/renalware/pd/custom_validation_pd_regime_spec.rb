@@ -3,10 +3,10 @@
 require "rails_helper"
 
 module Renalware
-  feature "Validate for at least one bag per PD regime", js: true do
+  RSpec.describe "Validate for at least one bag per PD regime", js: true, type: :system do
     include PatientsSpecHelper
 
-    scenario "creating a CAPD regime without a bag should fail validation" do
+    it "creating a CAPD regime without a bag should fail validation" do
       patient = create(:patient)
       set_modality(patient: patient,
                    modality_description: create(:pd_modality_description),

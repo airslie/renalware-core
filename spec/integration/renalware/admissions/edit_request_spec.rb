@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Update Admission Request", type: :feature, js: true do
+describe "Update Admission Request", type: :system, js: true do
   include AjaxHelpers
 
   it "Edit the request in a modal and updated it" do

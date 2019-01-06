@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe "Errors", type: :feature do
+  RSpec.describe "Errors", type: :system do
     before do
       method = Rails.application.method(:env_config)
       expect(Rails.application).to receive(:env_config).with(no_args) do

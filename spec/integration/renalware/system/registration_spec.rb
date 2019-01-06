@@ -3,8 +3,8 @@
 require "rails_helper"
 
 module Renalware
-  feature "User registration" do
-    scenario "A user registers giving incomplete information" do
+  RSpec.describe "User registration", type: :system do
+    it "A user registers giving incomplete information" do
       visit new_user_registration_path
 
       fill_in "Given name", with: "John"
@@ -19,7 +19,7 @@ module Renalware
       end
     end
 
-    scenario "A user registers with an existing username" do
+    it "A user registers with an existing username" do
       create(:user, username: "bevana")
 
       visit new_user_registration_path
@@ -36,7 +36,7 @@ module Renalware
       expect(page).to have_css(".error-messages", text: /Username has already been taken/)
     end
 
-    scenario "A user registers with an existing email address" do
+    it "A user registers with an existing email address" do
       create(:user, email: "aneurin.bevan@nhs.net")
 
       visit new_user_registration_path
@@ -53,7 +53,7 @@ module Renalware
       expect(page).to have_css(".error-messages", text: /Email has already been taken/)
     end
 
-    scenario "A user registers giving required information" do
+    it "A user registers giving required information" do
       visit new_user_registration_path
 
       fill_in "Given name", with: "Aneurin"

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Low Clearance MDM", type: :feature do
+RSpec.describe "Low Clearance MDM", type: :system do
   it "view an MDM" do
     patient = create(:patient, family_name: "Rabbit", local_patient_id: "KCH12345")
     create(:pathology_observation_description, code: "HGB")

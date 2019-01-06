@@ -3,7 +3,7 @@
 require "rails_helper"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Creating an vaccination", type: :feature, js: true do
+RSpec.describe "Creating an vaccination", type: :system, js: true do
   include AjaxHelpers
   let(:event_date_time) { "08-Feb-2018 07:00" }
 

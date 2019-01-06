@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Global Clinic Visits list", type: :feature do
+RSpec.describe "Global Clinic Visits list", type: :system do
   describe "GET index" do
     it "responds successfully" do
       user = login_as_clinical

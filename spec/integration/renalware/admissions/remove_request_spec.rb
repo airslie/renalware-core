@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Remove Admission Request", type: :feature, js: true do
+describe "Remove Admission Request", type: :system, js: true do
   include AjaxHelpers
 
   it "Clicking remove soft delete the request and removes it from the list" do

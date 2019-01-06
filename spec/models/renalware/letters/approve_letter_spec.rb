@@ -45,9 +45,13 @@ module Renalware
         it "queues a job to calculate the page size" do
           service.call(by: user)
 
-          jobs = adapter.enqueued_jobs
-          expect(jobs.size).to eq(1)
-          expect(jobs[0][:args][0]).to eq("Renalware::Letters::CalculatePageCountJob")
+          expect(Wisper::ActiveJobBroadcaster::Wrapper).to(
+            have_been_enqueued.with(
+              "Renalware::Letters::CalculatePageCountJob",
+              "letter_approved",
+              [approved_letter]
+            )
+          )
         end
       end
     end

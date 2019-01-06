@@ -4,7 +4,7 @@ require "rails_helper"
 require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Manage electronic CCs", type: :feature do
+RSpec.describe "Manage electronic CCs", type: :system do
   include LettersSpecHelper
   include AutocompleteHelpers
   include AjaxHelpers

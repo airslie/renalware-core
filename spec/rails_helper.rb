@@ -55,8 +55,35 @@ RSpec.configure do |config|
     driven_by :rack_test
   end
 
+  Capybara.register_driver(:rw_headless_chrome) do |app|
+    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+      # This makes logs available, but doesn't cause them to appear
+      # in real time on the console
+      loggingPrefs: {
+        browser: "ALL",
+        client: "ALL",
+        driver: "ALL",
+        server: "ALL"
+      }
+    )
+
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.add_argument("window-size=1366,1768")
+    options.add_argument("headless")
+    options.add_argument("disable-gpu")
+    options.add_argument("disable-dev-shm-usage")
+    options.add_argument("no-sandbox")
+
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :chrome,
+      desired_capabilities: capabilities,
+      options: options
+    )
+  end
+
   config.before(:each, type: :system, js: true) do
-    driven_by :selenium_chrome_headless
+    driven_by :rw_headless_chrome
   end
 
   config.example_status_persistence_file_path = "#{::Rails.root}/tmp/examples.txt"
@@ -86,12 +113,12 @@ RSpec.configure do |config|
 
   config.include Renalware::Engine.routes.url_helpers
   config.include Wisper::RSpec::BroadcastMatcher
-  config.include CapybaraHelper, type: :feature
-  config.include SelectDateSpecHelper, type: :feature
-  config.include TextEditorHelpers, type: :feature
-  config.include CapybaraSelect2, type: :feature
+  config.include CapybaraHelper, type: :system
+  config.include SelectDateSpecHelper, type: [:system, :feature]
+  config.include TextEditorHelpers, type: :system
+  config.include CapybaraSelect2, type: :system
   config.include ActiveSupport::Testing::TimeHelpers
-  config.include Chosen::Rspec::FeatureHelpers, type: :feature
+  config.include Chosen::Rspec::FeatureHelpers, type: :system
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
 

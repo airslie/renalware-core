@@ -33,7 +33,7 @@ module Renalware
               ms = Benchmark.ms do
                 File.open(pdf_file, "wb") { |file| file.write(described_class.call(letter)) }
               end
-              p "Rendering the letter/s took #{ms}"
+              puts "Rendering the letter/s took #{ms}"
 
               open_pdf_in_preview(pdf_file)
 
@@ -120,7 +120,7 @@ module Renalware
               ms = Benchmark.ms do
                 File.open(pdf_file, "wb") { |file| file.write(described_class.call(letter)) }
               end
-              p "Rendering the letter/s took #{ms}"
+              puts "Rendering the letter/s took #{ms}"
 
               open_pdf_in_preview(pdf_file)
 

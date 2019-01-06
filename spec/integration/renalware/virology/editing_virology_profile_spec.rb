@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Editing the virology profile", type: :feature do
+RSpec.describe "Editing the virology profile", type: :system do
   let(:patient) { create(:virology_patient) }
 
   it "will build a new profile for the form if the patient had none" do

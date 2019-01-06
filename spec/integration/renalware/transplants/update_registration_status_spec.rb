@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Update wait list registration status", type: :feature do
+RSpec.describe "Update wait list registration status", type: :system do
   # This exercises a bug I am trying to fix, where in certain circumstances
   # (I'm trying to ascertain these) adding a new registration status causes the error
   #   PG::UniqueViolation: ERROR: duplicate key value violates unique constraint
