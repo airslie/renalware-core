@@ -31,6 +31,24 @@ describe "Clinical Studies management", type: :request do
     end
   end
 
+  describe "GET show" do
+    it "renders the study summary and tabbed menu" do
+      study = create_study
+
+      get research_study_path(study)
+
+      expect(response).to be_successful
+      expect(response).to render_template(:show)
+      expect(response.body).to match(study.code)
+      expect(response.body).to match(study.description)
+      expect(response.body).to match(study.leader)
+      # tabs
+      expect(response.body).to match("Summary")
+      expect(response.body).to match("Participants")
+      expect(response.body).to match("Settings")
+    end
+  end
+
   describe "GET new" do
     it "renders a form" do
       get new_research_study_path
@@ -95,8 +113,7 @@ describe "Clinical Studies management", type: :request do
 
       expect(response).to be_successful
       expect(response).to render_template(:edit)
-      expect(response.body).to match("Clinical Studies")
-      expect(response.body).to match("Edit")
+      expect(response.body).to match("Summary")
     end
   end
 
@@ -111,7 +128,7 @@ describe "Clinical Studies management", type: :request do
 
         follow_redirect!
         expect(response).to be_successful
-        expect(response).to render_template(:index)
+        expect(response).to render_template(:show)
 
         study.reload
 

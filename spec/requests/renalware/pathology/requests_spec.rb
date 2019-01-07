@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Configuring Requests", type: :request do
+describe "Configuring Requests" do
   describe "GET index" do
     let!(:clinic_1) { create(:clinic) }
     let!(:patient_1) { create(:pathology_patient) }

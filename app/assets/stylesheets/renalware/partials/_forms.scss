@@ -3,8 +3,18 @@ textarea::placeholder {
   color: $form-hint-colour
 }
 
-.panel.compact {
-  padding: 0.5rem 1rem;
+.panel {
+  p {
+    padding-left: 0;
+  }
+
+  &.compact {
+    padding: 0.5rem 1rem;
+  }
+
+  .muted {
+    color: $dashboard-muted-color;
+  }
 }
 
 textarea.monospace {
@@ -431,6 +441,27 @@ fieldset {
 
     &.small {
       padding: 0.3rem 0.6rem;
+    }
+  }
+}
+
+.panel.danger-zone {
+  background-color: $white;
+  color: $nhs-red;
+
+  h4 {
+    color: inherit;
+  }
+
+  a {
+    color: inherit;
+    font-weight: bold;
+    background-color: $table-border-color;
+
+    &:hover,
+    &:active   {
+      background-color: $nhs-red;
+      color: $white;
     }
   }
 }

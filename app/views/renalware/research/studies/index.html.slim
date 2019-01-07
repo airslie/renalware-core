@@ -8,30 +8,24 @@
   table
     thead
       tr
-        th.col-width-date= sort_link(query, :started_on, "Started")
-        th.col-width-date= sort_link(query, :terminated_on, "Terminated")
+        th
         th.col-width-small= sort_link(query, :code, "Code")
         th Description
         th= sort_link(query, :code, "Leader")
         th Participants
-        th
+        th.col-width-date= sort_link(query, :started_on, "Started")
+        th.col-width-date= sort_link(query, :terminated_on, "Terminated")
+
     tbody
       - studies.each do |study|
         tr
-          td= l(study.started_on)
-          td= l(study.terminated_on)
+          td.actions.left
+            = link_to "View", research_study_path(study)
           td= study.code
-          td= study.description
+          td= study.description.truncate(60)
           td= study.leader
           td= study.participants.count
-          td.actions
-            = link_to "Delete",
-                      research_study_path(study),
-                      method: :delete,
-                      data: { confirm: "Are you sure you want to delete this study?" }
-            = " | "
-            = link_to "Edit", edit_research_study_path(study)
-            = " | "
-            = link_to "View Participants", research_study_participants_path(study)
+          td= l(study.started_on)
+          td= l(study.terminated_on)
 
   = paginate studies

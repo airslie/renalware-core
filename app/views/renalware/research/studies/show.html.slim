@@ -1,18 +1,14 @@
-= content_for(:actions) do
-  = link_to("Add Participant", new_research_study_participant_path(study), class: :button)
+= content_for(:tabs) do
+  = render "tabs", study: study
 
 = within_admin_layout(title: study.code,
                       breadcrumbs: breadcrumb_for("Clinical Studies",
                                    research_studies_path)) do
 
-  p= study.description
-
-  table
-    thead
-      tr
-        th Patient
-        th
-    tbody
-      - study.participants.each do |participant|
-        tr
-          td= participant
+  - if study.description.present?
+    p.panel.radius.compact
+      = "Description: #{study.description}"
+      br
+      = "Started on: #{l(study.started_on)}"
+      br
+      = "Leader: #{study.leader}"

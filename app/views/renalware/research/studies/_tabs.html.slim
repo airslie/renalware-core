@@ -1,0 +1,12 @@
+dl.sub-nav
+  dd= link_to "Summary", research_study_path(study)
+  dd
+    = link_to edit_research_study_path(study) do
+      i.fas.fa-cogs
+      | Settings
+  dd
+    = link_to research_study_participants_path(study) do
+      i.fas.fa-users
+      | Participants
+  / dd(class=("active" if params.fetch(:q, {})[:expired]))
+  /   = link_to "Members", admin_expired_users_path
