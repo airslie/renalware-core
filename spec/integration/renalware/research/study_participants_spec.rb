@@ -22,9 +22,7 @@ describe "Managing clinical study participation", type: :request do
 
       expect(response).to be_successful
       expect(response).to render_template(:index)
-      expect(response.body).to match("Clinical Studies")
-      expect(response.body).to match(study.code)
-      expect(response.body).to match(study.description)
+      expect(response.body).to match("Participants")
     end
   end
 

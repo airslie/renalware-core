@@ -15,11 +15,7 @@ describe "Add a patient to a study (creating a participation)", type: :system, j
     click_on "Add"
 
     expect(page).to have_current_path(new_research_study_participant_path(study))
-    select2(
-      patient.to_s(:long),
-      css: "#patient-select2",
-      search: true
-    )
+    select2(patient.to_s(:long), css: "#patient-select2", search: true)
 
     fill_in "Joined on", with: "2019-01-01"
     click_on "Save"

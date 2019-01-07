@@ -14,6 +14,11 @@ module Renalware
         render locals: { studies: studies, query: query }
       end
 
+      def show
+        study = find_and_authorize_study
+        render locals: { study: study }
+      end
+
       def new
         study = Study.new
         authorize study
@@ -38,7 +43,7 @@ module Renalware
       def update
         study = find_and_authorize_study
         if study.update_by(current_user, study_params)
-          redirect_to research_studies_path, notice: success_msg_for("clinical study")
+          redirect_to research_study_path(study), notice: success_msg_for("clinical study")
         else
           render_edit(study)
         end

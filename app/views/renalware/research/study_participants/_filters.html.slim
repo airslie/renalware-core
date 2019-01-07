@@ -8,6 +8,6 @@
         = f.input :identity_match, label: "Search by Hosp/NHS no or name"
 
       .columns.medium-4.actions.end
-        = f.submit t("helpers.submit.filter"), class: "button", name: nil
+        = f.submit t("helpers.submit.filter"), class: "button secondary", name: nil
         span= " or "
         = link_to t("helpers.reset"), research_study_participants_path(study)
