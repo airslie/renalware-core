@@ -1,0 +1,13 @@
+name,description,store_file_externally
+"Histology Images","Histology Images",false
+"Histology Report","Histology Report",false
+"MRI Images","MRI Images",true
+"MRI Report","MRI Report",false
+"Other Radiology Images","Other Radiology Images",false
+"Other Radiology Reports","Other Radiology Reports",false
+"Echo Images","Echo Images",false
+"Echo Report","Echo Report",false
+"ECG","ECG",false
+"Misc Letter","Misc Letter",false
+"Misc Discharge Summary","Misc Discharge Summary",false
+"Misc Documents","Misc Documents",false
