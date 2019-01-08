@@ -40,5 +40,6 @@ nav.patient-side-nav.full-screenable
           / if not already provided
           = render_if_exists partial, local_assigns.reverse_merge!(patient: current_patient)
     .row
+      = yield(:filters)
       = yield
       = yield(:below_content)

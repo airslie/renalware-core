@@ -25,7 +25,6 @@ describe "Copying a snippet", type: :request do
   describe "POST clone - cloning another user's snippet" do
     it "clones and saves another user's snippet and assigns it to the current user" do
       another_user = create(:snippets_user)
-      headers = { "HTTP_REFERER" => "/" }
 
       snippet_to_clone = create(:snippet,
                                 author: another_user,
@@ -35,7 +34,7 @@ describe "Copying a snippet", type: :request do
 
       snippet_to_clone_attrs = attributes_from_snippet(snippet_to_clone)
 
-      post snippet_clones_path(snippet_id: snippet_to_clone.id), headers: headers
+      post snippet_clones_path(snippet_id: snippet_to_clone.id)
 
       follow_redirect!
       expect(response).to be_successful
@@ -62,8 +61,7 @@ describe "Copying a snippet", type: :request do
                                   last_used_on: Time.zone.now)
         snippet_to_clone_attrs = attributes_from_snippet(snippet_to_clone)
 
-        post snippet_clones_path(snippet_id: snippet_to_clone.id),
-             headers: { "HTTP_REFERER" => "/" }
+        post snippet_clones_path(snippet_id: snippet_to_clone.id)
 
         follow_redirect!
         expect(response).to be_successful
@@ -79,8 +77,6 @@ describe "Copying a snippet", type: :request do
 
   describe "POST clone - cloning one of my own snippets" do
     it "clones and saves one of my snippets" do
-      headers = { "HTTP_REFERER" => "/" }
-
       snippet_to_clone = create(:snippet,
                                 author: user,
                                 title: "My Snippet",
@@ -88,7 +84,7 @@ describe "Copying a snippet", type: :request do
                                 times_used: 10)
       snippet_to_clone_attrs = attributes_from_snippet(snippet_to_clone)
 
-      post snippet_clones_path(snippet_id: snippet_to_clone.id), headers: headers
+      post snippet_clones_path(snippet_id: snippet_to_clone.id)
 
       follow_redirect!
       expect(response).to be_successful

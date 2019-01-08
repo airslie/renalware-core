@@ -86,6 +86,7 @@ module Renalware
             through: :current_modality,
             class_name: "Modalities::Description",
             source: :description
+    has_many :attachments, dependent: :destroy, class_name: "Patients::Attachment"
 
     has_document class_name: "Renalware::PatientDocument"
 
