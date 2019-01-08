@@ -27,6 +27,7 @@ en:
           clinical_summary: Clinical Summary
           inpatient_admissions: Inpatient Admissions (%{count})
           proms: PROMS
+          attachments: Linked Files (%{count})
         modalities:
           heading: Modalities
           pd: PD
