@@ -26,10 +26,9 @@ describe "Snippet management", type: :request do
   describe "POST create" do
     context "with valid params" do
       it "successfully and creates a new snippet" do
-        headers = { "HTTP_REFERER" => "/" }
         params = { snippet: { title: "title", body: "Body" } }
 
-        post(snippets_path, params: params, headers: headers)
+        post(snippets_path, params: params)
 
         follow_redirect!
 
@@ -43,10 +42,9 @@ describe "Snippet management", type: :request do
 
     context "with invalid params" do
       it "responds with a form" do
-        headers = { "HTTP_REFERER" => "/" }
         params = { snippet: { title: "", body: "" } }
 
-        post(snippets_path, params: params, headers: headers)
+        post(snippets_path, params: params)
 
         expect(response).to be_successful
         expect(response).to render_template(:new)
@@ -68,11 +66,10 @@ describe "Snippet management", type: :request do
     context "with valid params" do
       it "updates snippet and redirects to #index" do
         snippet = create(:snippet, author: user)
-        headers = { "HTTP_REFERER" => "/" }
 
         params = { snippet: { title: "title1", body: "Body1" } }
 
-        patch snippet_path(snippet, params: params, headers: headers)
+        patch snippet_path(snippet, params: params)
 
         follow_redirect!
 
@@ -86,11 +83,10 @@ describe "Snippet management", type: :request do
     context "with invalid params" do
       it "renders a form" do
         snippet = create(:snippet, author: user)
-        headers = { "HTTP_REFERER" => "/" }
 
         params = { snippet: { title: "", body: "" } }
 
-        patch snippet_path(snippet, params: params, headers: headers)
+        patch snippet_path(snippet, params: params)
 
         expect(response).to be_successful
         expect(response).to render_template(:edit)
