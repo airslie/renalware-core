@@ -1,0 +1,19 @@
+- url = patient_attachments_path(patient)
+.filters
+  .filters__form
+    = search_form_for search, url: url do |f|
+      .row
+        .small-5.large-3.columns
+          = f.label "Name or description contains"
+          = f.search_field :name_or_description_cont
+        .small-4.large-3.columns
+          = f.label "Attachment type"
+          = f.collection_select :attachment_type_id_eq,
+            Renalware::Patients::AttachmentType.pluck(:id, :name),
+            :first,
+            :last,
+            include_blank: true
+        .small-3.large-3.columns.actions.end
+          = f.submit t("helpers.submit.filter"), class: "button secondary"
+          span= " or "
+          = link_to t("helpers.reset"), url
