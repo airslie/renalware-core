@@ -28,6 +28,7 @@ en:
           inpatient_admissions: Inpatient Admissions (%{count})
           messages: Messages
           proms: PROMS
+          attachments: Linked Files (%{count})
         modalities:
           heading: Modalities
           pd: PD
