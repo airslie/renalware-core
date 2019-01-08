@@ -151,6 +151,7 @@ module Renalware
         "BOTH" => "NS"
       }.freeze
     end
+    config_accessor(:max_file_upload_size) { ENV.fetch("MAX_FILE_UPLOAD_SIZE", "10_000_000").to_i }
   end
 
   def self.config
