@@ -9,7 +9,6 @@ describe "Managing bookmarks", type: :request do
   describe "POST create" do
     context "with valid attributes" do
       it "creates a new bookmark" do
-        headers = { "HTTP_REFERER" => "/" }
         params = {
           patients_bookmark: {
             urgent: true,
@@ -17,7 +16,7 @@ describe "Managing bookmarks", type: :request do
           }
         }
 
-        post(patient_bookmarks_path(patient), params: params, headers: headers)
+        post(patient_bookmarks_path(patient), params: params)
         expect(response).to have_http_status(:redirect)
 
         bookmark = Renalware::Patients::Bookmark.find_by(patient_id: patient.id)
@@ -30,7 +29,6 @@ describe "Managing bookmarks", type: :request do
       end
 
       it "does not create and implies success if the bookmark already exists" do
-        headers = { "HTTP_REFERER" => "/" }
         params = {
           patients_bookmark: {
             urgent: true,
@@ -42,7 +40,7 @@ describe "Managing bookmarks", type: :request do
         attributes = params[:patients_bookmark].merge!(patient_id: patient.id)
         extant_bookmark = Renalware::Patients::Bookmark.create(attributes)
 
-        post(patient_bookmarks_path(patient), params: params, headers: headers)
+        post(patient_bookmarks_path(patient), params: params)
         expect(response).to have_http_status(:redirect)
 
         bookmark = Renalware::Patients::Bookmark.find_by(attributes)
@@ -62,8 +60,7 @@ describe "Managing bookmarks", type: :request do
     end
 
     it "soft deletes the bookmark" do
-      headers = { "HTTP_REFERER" => "/" }
-      delete bookmark_path(bookmark), headers: headers
+      delete bookmark_path(bookmark)
       expect(response).to have_http_status(:redirect)
       expect(Renalware::Patients::Bookmark).not_to exist(id: bookmark.id)
     end
@@ -71,8 +68,7 @@ describe "Managing bookmarks", type: :request do
     it "does not baulk if the bookmark has already been deleted" do
       bookmark.destroy!
       expect(Renalware::Patients::Bookmark).not_to exist(id: bookmark.id)
-      headers = { "HTTP_REFERER" => "/" }
-      delete bookmark_path(bookmark), headers: headers
+      delete bookmark_path(bookmark)
       expect(response).to have_http_status(:redirect)
       expect(Renalware::Patients::Bookmark).not_to exist(id: bookmark.id)
     end
