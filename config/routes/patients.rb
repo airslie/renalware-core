@@ -32,6 +32,7 @@ resources :patients, except: [:destroy], controller: "patients/patients" do
   resources :bookmarks, only: :create, controller: "patients/bookmarks"
   resources :alerts, only: [:new, :create, :destroy], controller: "patients/alerts"
   resource :worry, only: [:create, :destroy], controller: "patients/worry"
+  resources :attachments, controller: "patients/attachments"
 
   # Problems
   resources :problems, controller: "problems/problems" do

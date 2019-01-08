@@ -8,6 +8,8 @@ module Renalware
     include PatientsSpecHelper
     subject(:patient) { create(:patient, nhs_number: "1234567890") }
 
+    let(:user) { create(:user) }
+
     it do
       aggregate_failures do
         is_expected.to be_versioned
@@ -155,15 +157,13 @@ module Renalware
         it "stills retain patient details" do
           patient = create(:patient)
           expect {
-            patient.update(died_on: "2015-02-25", by: create(:user))
+            patient.update(died_on: "2015-02-25", by: user)
           }.to change(Patient, :count).by(0)
         end
       end
     end
 
     describe "#sex" do
-      let(:user) { create(:user) }
-
       it "serializes gender" do
         expect(patient.sex).to be_a Gender
       end
