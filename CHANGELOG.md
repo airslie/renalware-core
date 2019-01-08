@@ -9,6 +9,15 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.68
+### Added
+- Add ActiveStorage in preparation for adding file attachments to patients #2514
+### Changed
+- Changes to way Clinical Studies are displayed, in order to prepare for HEROIC #2522
+- Convert Study Participants add/edit modal dialog into a full page #2516
+- Move address on letter cover sheets down 10mm for Z-folding #2525
+### Fixed
+
 ## 2.0.67
 ### Added
 ### Changed
