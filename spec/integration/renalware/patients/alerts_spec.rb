@@ -9,10 +9,6 @@ describe "Managing alerts", type: :request do
   describe "POST create" do
     context "with valid attributes" do
       it "creates a new alert" do
-        headers = {
-          "HTTP_REFERER" => "/",
-          "ACCEPT" => "application/javascript"
-        }
         params = {
           patients_alert: {
             urgent: true,
@@ -20,7 +16,7 @@ describe "Managing alerts", type: :request do
           }
         }
 
-        post(patient_alerts_path(patient), params: params, headers: headers)
+        post(patient_alerts_path(patient, format: :js), params: params)
         expect(response).to be_successful
 
         alert = Renalware::Patients::Alert.find_by(patient_id: patient.id)
@@ -33,10 +29,6 @@ describe "Managing alerts", type: :request do
 
     context "with invalid attributes" do
       it "returns 44 validation error and does not create a new alert" do
-        headers = {
-          "HTTP_REFERER" => "/",
-          "ACCEPT" => "application/javascript"
-        }
         params = {
           patients_alert: {
             urgent: true,
@@ -44,7 +36,7 @@ describe "Managing alerts", type: :request do
           }
         }
 
-        post(patient_alerts_path(patient), params: params, headers: headers)
+        post(patient_alerts_path(patient, format: :js), params: params)
 
         expect(response).to have_http_status(:unprocessable_entity)
         alert = Renalware::Patients::Alert.find_by(patient_id: patient.id)
@@ -61,12 +53,7 @@ describe "Managing alerts", type: :request do
     end
 
     it "soft deletes the alert" do
-      headers = {
-        "HTTP_REFERER" => "/",
-        "ACCEPT" => "application/javascript"
-      }
-
-      delete patient_alert_path(patient, alert), headers: headers
+      delete patient_alert_path(patient, alert, format: :js)
 
       expect(response).to be_successful
       expect(Renalware::Patients::Alert).not_to exist(id: alert.id)
@@ -75,12 +62,8 @@ describe "Managing alerts", type: :request do
     it "does not baulk if the alert has already been deleted" do
       alert.destroy!
       expect(Renalware::Patients::Alert).not_to exist(id: alert.id)
-      headers = {
-        "HTTP_REFERER" => "/",
-        "ACCEPT" => "application/javascript"
-      }
 
-      delete patient_alert_path(patient, alert), headers: headers
+      delete patient_alert_path(patient, alert, format: :js)
 
       expect(response).to be_successful
       expect(Renalware::Patients::Alert).not_to exist(id: alert.id)

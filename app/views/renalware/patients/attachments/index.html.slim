@@ -1,0 +1,11 @@
+= content_for(:filters) do
+  = render "filters", patient: patient, search: search
+
+= content_for(:actions) do
+  = link_to t("new_record.link_title"),
+            new_patient_attachment_path(patient),
+            class: "button"
+
+= within_patient_layout(title: "Linked Files") do
+  = render "table", attachments: attachments, search: search
+  = paginate attachments

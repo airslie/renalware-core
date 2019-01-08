@@ -4769,6 +4769,79 @@ ALTER SEQUENCE renalware.patient_alerts_id_seq OWNED BY renalware.patient_alerts
 
 
 --
+-- Name: patient_attachment_types; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.patient_attachment_types (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description character varying,
+    store_file_externally boolean DEFAULT false NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: patient_attachment_types_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.patient_attachment_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_attachment_types_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.patient_attachment_types_id_seq OWNED BY renalware.patient_attachment_types.id;
+
+
+--
+-- Name: patient_attachments; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.patient_attachments (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    attachment_type_id bigint NOT NULL,
+    name character varying,
+    description text,
+    external_location character varying,
+    updated_by_id bigint,
+    created_by_id bigint,
+    document_date date,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: patient_attachments_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.patient_attachments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.patient_attachments_id_seq OWNED BY renalware.patient_attachments.id;
+
+
+--
 -- Name: patient_bookmarks; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -5224,7 +5297,10 @@ CREATE VIEW renalware.patient_summaries AS
           WHERE (transplant_recipient_operations.patient_id = patients.id)) AS recipient_operations_count,
     ( SELECT count(*) AS count
            FROM renalware.admission_admissions
-          WHERE (admission_admissions.patient_id = patients.id)) AS admissions_count
+          WHERE (admission_admissions.patient_id = patients.id)) AS admissions_count,
+    ( SELECT count(*) AS count
+           FROM renalware.patient_attachments
+          WHERE ((patient_attachments.patient_id = patients.id) AND (patient_attachments.deleted_at IS NULL))) AS attachments_count
    FROM renalware.patients;
 
 
@@ -9253,6 +9329,20 @@ ALTER TABLE ONLY renalware.patient_alerts ALTER COLUMN id SET DEFAULT nextval('r
 
 
 --
+-- Name: patient_attachment_types id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_attachment_types ALTER COLUMN id SET DEFAULT nextval('renalware.patient_attachment_types_id_seq'::regclass);
+
+
+--
+-- Name: patient_attachments id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_attachments ALTER COLUMN id SET DEFAULT nextval('renalware.patient_attachments_id_seq'::regclass);
+
+
+--
 -- Name: patient_bookmarks id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -10665,6 +10755,22 @@ ALTER TABLE ONLY renalware.pathology_requests_sample_types
 
 ALTER TABLE ONLY renalware.patient_alerts
     ADD CONSTRAINT patient_alerts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_attachment_types patient_attachment_types_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_attachment_types
+    ADD CONSTRAINT patient_attachment_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_attachments patient_attachments_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_attachments
+    ADD CONSTRAINT patient_attachments_pkey PRIMARY KEY (id);
 
 
 --
@@ -13612,6 +13718,69 @@ CREATE INDEX index_patient_alerts_on_updated_by_id ON renalware.patient_alerts U
 
 
 --
+-- Name: index_patient_attachment_types_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_attachment_types_on_deleted_at ON renalware.patient_attachment_types USING btree (deleted_at);
+
+
+--
+-- Name: index_patient_attachment_types_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patient_attachment_types_on_name ON renalware.patient_attachment_types USING btree (name);
+
+
+--
+-- Name: index_patient_attachments_on_attachment_type_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_attachments_on_attachment_type_id ON renalware.patient_attachments USING btree (attachment_type_id);
+
+
+--
+-- Name: index_patient_attachments_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_attachments_on_created_by_id ON renalware.patient_attachments USING btree (created_by_id);
+
+
+--
+-- Name: index_patient_attachments_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_attachments_on_deleted_at ON renalware.patient_attachments USING btree (deleted_at);
+
+
+--
+-- Name: index_patient_attachments_on_document_date; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_attachments_on_document_date ON renalware.patient_attachments USING btree (document_date);
+
+
+--
+-- Name: index_patient_attachments_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_attachments_on_name ON renalware.patient_attachments USING btree (name);
+
+
+--
+-- Name: index_patient_attachments_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_attachments_on_patient_id ON renalware.patient_attachments USING btree (patient_id);
+
+
+--
+-- Name: index_patient_attachments_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_attachments_on_updated_by_id ON renalware.patient_attachments USING btree (updated_by_id);
+
+
+--
 -- Name: index_patient_bookmarks_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -15531,6 +15700,14 @@ ALTER TABLE ONLY renalware.patients
 
 
 --
+-- Name: patient_attachments fk_rails_04327b7e88; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_attachments
+    ADD CONSTRAINT fk_rails_04327b7e88 FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
 -- Name: modality_modalities fk_rails_0447199042; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16115,6 +16292,14 @@ ALTER TABLE ONLY renalware.renal_aki_alerts
 
 
 --
+-- Name: patient_attachments fk_rails_4fe08d5c90; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_attachments
+    ADD CONSTRAINT fk_rails_4fe08d5c90 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: access_assessments fk_rails_506a7ce21d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16392,6 +16577,14 @@ ALTER TABLE ONLY renalware.hd_sessions
 
 ALTER TABLE ONLY renalware.events
     ADD CONSTRAINT fk_rails_75f14fef31 FOREIGN KEY (event_type_id) REFERENCES renalware.event_types(id);
+
+
+--
+-- Name: patient_attachments fk_rails_76bb588f1f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_attachments
+    ADD CONSTRAINT fk_rails_76bb588f1f FOREIGN KEY (attachment_type_id) REFERENCES renalware.patient_attachment_types(id);
 
 
 --
@@ -17523,6 +17716,14 @@ ALTER TABLE ONLY renalware.hd_prescription_administrations
 
 
 --
+-- Name: patient_attachments fk_rails_f5a021419e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_attachments
+    ADD CONSTRAINT fk_rails_f5a021419e FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: admission_consults fk_rails_f5abb5bad4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -18322,6 +18523,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190104095254'),
 ('20190104170135'),
 ('20190107163734'),
+('20190109121934'),
+('20190109122032'),
+('20190110100057'),
 ('20190117144832'),
 ('20190120105229'),
 ('20190121092403'),
