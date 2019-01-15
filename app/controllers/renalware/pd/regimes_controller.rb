@@ -86,7 +86,8 @@ module Renalware
           :system_id, :last_fill_volume, :additional_manual_exchange_volume,
           bags_attributes: [
             :id, :regime_id, :bag_type_id, :volume, :role, :capd_overnight_bag, :per_week,
-            :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :_destroy]
+            :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :_destroy
+          ]
         )
       end
 

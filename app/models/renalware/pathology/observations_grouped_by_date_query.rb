@@ -33,8 +33,8 @@ module Renalware
     #
     class ObservationsGroupedByDateQuery
       attr_reader :patient, :observation_descriptions, :page, :limit
-      alias :current_page :page
-      alias :limit_value :limit
+      alias current_page page
+      alias limit_value limit
 
       def initialize(patient:, observation_descriptions:, page: 1, per_page: 50)
         @patient = patient

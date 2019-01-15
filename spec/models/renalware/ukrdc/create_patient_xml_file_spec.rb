@@ -38,7 +38,7 @@ module Renalware
     let(:failure_result) do
       double(
         :success,
-        validation_errors: [:error1, :error2],
+        validation_errors: %i(error1 error2),
         success?: false,
         failure?: true
       )

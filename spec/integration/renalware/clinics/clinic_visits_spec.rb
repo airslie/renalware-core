@@ -67,7 +67,8 @@ describe "Clinic Visits Management", type: :request do
             did_not_attend: false,
             height: 1.75, weight: 89.2, bp: "110/70",
             urine_blood: "neg", urine_protein: "neg",
-            notes: "Nothing unusual" }
+            notes: "Nothing unusual"
+          }
         }
     end
 

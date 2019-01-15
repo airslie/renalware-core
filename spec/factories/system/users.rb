@@ -26,9 +26,7 @@ FactoryBot.define do
     end
 
     after(:create) do |user, obj|
-      if obj.role.present?
-        user.roles << create(:role, obj.role)
-      end
+      user.roles << create(:role, obj.role) if obj.role.present?
     end
 
     trait :unapproved do

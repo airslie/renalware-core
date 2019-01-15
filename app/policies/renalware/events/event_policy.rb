@@ -9,7 +9,7 @@ module Renalware
       def edit?
         false
       end
-      alias_method :update?, :edit?
+      alias update? edit?
     end
   end
 end

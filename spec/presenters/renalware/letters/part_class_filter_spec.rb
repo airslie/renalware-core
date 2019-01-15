@@ -19,7 +19,7 @@ module Renalware
         context "when include_pathology_in_letter_body is true" do
           let(:include_pathology_in_letter_body) { true }
 
-          it { is_expected.to eq([:recent_pathology_results, :problems]) }
+          it { is_expected.to eq(%i(recent_pathology_results problems)) }
         end
 
         context "when include_pathology_in_letter_body is false" do

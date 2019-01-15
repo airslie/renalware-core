@@ -114,7 +114,8 @@ module Renalware
                   "thursday" => "1",
                   "friday" => "1",
                   "saturday" => "1",
-                  "id" => bag.id.to_s }
+                  "id" => bag.id.to_s
+                }
               }
             }
 
@@ -148,7 +149,8 @@ module Renalware
                   "thursday" => "1",
                   "friday" => "1",
                   "saturday" => "1",
-                  "id" => bag.id.to_s }
+                  "id" => bag.id.to_s
+                }
               }
             }
 

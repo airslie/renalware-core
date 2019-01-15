@@ -9,11 +9,11 @@ module Renalware
       attr_reader :template, :xsd_path, :locals, :errors
 
       class Success < Renalware::Success
-        alias_method :xml, :object
+        alias xml object
       end
 
       class Failure < Renalware::Failure
-        alias_method :validation_errors, :object
+        alias validation_errors object
       end
 
       def initialize(template: nil, xsd_path: nil, locals: {})

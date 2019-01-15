@@ -26,7 +26,7 @@ module Renalware::HD
 
       it do
         expect(subject).to validate_uniqueness_of(:week_number)
-          .scoped_to([:year, :hospital_unit_id])
+          .scoped_to(%i(year hospital_unit_id))
       end
     end
   end

@@ -10,7 +10,7 @@ module Renalware
       let(:user) { User.new }
       let(:session) { HD::Session::Closed.new }
 
-      [:edit?, :destroy?].each do |permission|
+      %i(edit? destroy?).each do |permission|
         permissions permission do
           it "not permitted if the session is ye saved" do
             allow(session).to receive(:persisted?).and_return(false)

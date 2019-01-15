@@ -129,12 +129,12 @@ describe "Managing patients", type: :request do
   def address_attributes
     attributes_for(:address)
       .merge(
-          name: Faker::Name.name,
-          organisation_name: Faker::Company.name,
-          street_2: Faker::Address.street_name,
-          town: Faker::Address.city,
-          county: Faker::Address.state,
-          country: Faker::Address.country
-        )
+        name: Faker::Name.name,
+        organisation_name: Faker::Company.name,
+        street_2: Faker::Address.street_name,
+        town: Faker::Address.city,
+        county: Faker::Address.state,
+        country: Faker::Address.country
+      )
   end
 end

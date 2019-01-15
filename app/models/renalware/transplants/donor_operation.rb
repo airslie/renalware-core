@@ -28,7 +28,8 @@ module Renalware
       enumerize :anaesthetist, in: %i(consultant fellow_senior_registrar other)
       enumerize :nephrectomy_type, in: %i(
         open_transperitoneal open_loin_with_resection open_loin_without_resection
-        open_extraperitoneal laparoscropic_intra laparoscropic_extra other)
+        open_extraperitoneal laparoscropic_intra laparoscropic_extra other
+      )
       enumerize :donor_splenectomy_peri_or_post_operatively, in: %i(yes no unknown)
 
       validates :performed_on, presence: true
