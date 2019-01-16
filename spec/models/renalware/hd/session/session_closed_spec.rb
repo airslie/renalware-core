@@ -45,7 +45,7 @@ module Renalware
       describe Session::Closed::SessionDocument do
         subject(:document) { Session::Closed::SessionDocument.new }
 
-        [:hdf_pre, :hdf_post].each do |hd_type|
+        %i(hdf_pre hdf_post).each do |hd_type|
           it "validates presence of #hdf if hd_type is hdf" do
             document.info.hd_type = hd_type
             document.valid?

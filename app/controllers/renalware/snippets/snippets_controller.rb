@@ -55,7 +55,7 @@ module Renalware
       private
 
       def snippets_for_author(author)
-        user = (author == :me) ? current_user : nil
+        user = author == :me ? current_user : nil
         SnippetQuery.new(author: user).call
       end
 

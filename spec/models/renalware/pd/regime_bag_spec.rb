@@ -40,7 +40,7 @@ module Renalware
 
     describe "Date::DAYNAME_SYMBOLS" do
       it "converts rails date daynames module to become lowercase and to symbol" do
-        days = [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
+        days = %i(sunday monday tuesday wednesday thursday friday saturday)
         expect(Date::DAYNAME_SYMBOLS).to eq(days)
       end
     end

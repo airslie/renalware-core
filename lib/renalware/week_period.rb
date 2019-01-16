@@ -45,9 +45,7 @@ module Renalware
     end
 
     def validate_year
-      if year <= 2000
-        raise(ArgumentError, "invalid date year must be >= 2000")
-      end
+      raise(ArgumentError, "invalid date year must be >= 2000") if year <= 2000
     end
 
     def to_h

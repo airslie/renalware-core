@@ -24,7 +24,7 @@ module CoreExtensions
       def translate(key, options = {})
         super(key, options.merge({ cascade: { offset: 2, skip_root: false } }))
       end
-      alias :t :translate
+      alias t translate
     end
   end
 end

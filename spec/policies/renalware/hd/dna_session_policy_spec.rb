@@ -10,7 +10,7 @@ module Renalware
       let(:user) { FactoryBot.build(:user, :super_admin) }
       let(:session) { HD::Session::DNA.new }
 
-      [:edit?, :destroy?].each do |permission|
+      %i(edit? destroy?).each do |permission|
         permissions permission do
           it "not permitted if unsaved" do
             expect(policy).not_to permit(user, session)

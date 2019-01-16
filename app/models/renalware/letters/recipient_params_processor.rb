@@ -48,7 +48,7 @@ module Renalware
         # In our form, we need to use to "check" the contacts to be
         # assigned as CC's (not to destroy them).  So we therefore convert
         # the "_keep" flag to a "_destroy" one.
-        params[:_destroy] = (params[:_keep] == "1") ? "0" : "1"
+        params[:_destroy] = params[:_keep] == "1" ? "0" : "1"
         params.except(:_keep)
       end
 

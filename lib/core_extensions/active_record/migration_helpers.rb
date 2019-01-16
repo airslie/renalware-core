@@ -74,9 +74,7 @@ module CoreExtensions
             found = true
           end
         end
-        unless found
-          raise "Cannot file #{filename} in #{paths.join(', ')}"
-        end
+        raise "Cannot file #{filename} in #{paths.join(', ')}" unless found
       end
 
       # Make sure to look in the host Rails app as well as in the engine

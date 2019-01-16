@@ -126,8 +126,7 @@ module Renalware
          prescription_administrations_attributes: [
            :id, :hd_session_id, :prescription_id, :administered, :notes
          ],
-         document: []
-        ]
+         document: []]
       end
 
       def document_attributes

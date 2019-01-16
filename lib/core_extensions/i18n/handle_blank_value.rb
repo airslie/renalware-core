@@ -6,7 +6,7 @@ module CoreExtensions
       def localize(object, options = nil)
         object.blank? ? "" : super
       end
-      alias :l :localize
+      alias l localize
     end
   end
 end

@@ -9,7 +9,7 @@ module Renalware
       it { is_expected.to belong_to(:hd_provider) }
       it { is_expected.to validate_presence_of(:hospital_unit) }
       it { is_expected.to validate_presence_of(:hd_provider) }
-      it { is_expected.to have_db_index([:hd_provider_id, :hospital_unit_id]).unique(true) }
+      it { is_expected.to have_db_index(%i(hd_provider_id hospital_unit_id)).unique(true) }
     end
   end
 end

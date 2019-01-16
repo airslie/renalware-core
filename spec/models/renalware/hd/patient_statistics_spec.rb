@@ -9,7 +9,7 @@ module Renalware
       it { is_expected.to validate_presence_of(:patient) }
 
       it { is_expected.to have_db_index(:patient_id) }
-      it { is_expected.to have_db_index([:patient_id, :month, :year]).unique(true) }
+      it { is_expected.to have_db_index(%i(patient_id month year)).unique(true) }
 
       describe "month and year presence validation" do
         context "when rolling is nil" do
