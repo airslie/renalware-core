@@ -5,7 +5,7 @@ require "attr_extras"
 
 module Renalware
   module Research
-    class StudyParticipantsQuery
+    class InvestigatorshipQuery
       pattr_initialize [:study!, :options!]
 
       def call
@@ -13,7 +13,11 @@ module Renalware
       end
 
       def search
-        study.participants.joins(:patient).eager_load(:patient).ransack(options)
+        study
+          .investigatorships
+          .ordered
+          .eager_load(:user, :hospital_centre)
+          .ransack(options)
       end
     end
   end
