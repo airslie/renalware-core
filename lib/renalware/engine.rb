@@ -58,6 +58,7 @@ require "wicked_pdf"
 require "wisper"
 require "wisper/activejob"
 require "rails-assets-foundation-datepicker"
+require "document/base"
 require "byebug" if ENV["RAILS_ENV"] == "development"
 
 module Renalware
