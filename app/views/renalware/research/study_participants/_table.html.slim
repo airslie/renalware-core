@@ -23,12 +23,13 @@
           td= participant.patient.sex
           td= participant.external_id
           td.actions
-            = link_to t("btn.delete"),
+            - if policy(participant).destroy?
+              = link_to t("btn.delete"),
                       research_study_participant_path(study, participant),
                       method: :delete,
                       data: { confirm: "Are you sure?" }
-            = link_to(t("btn.edit"),
+            - if policy(participant).edit?
+              = link_to(t("btn.edit"),
                       edit_research_study_participant_path(study, participant),
                       data: { "reveal-id" => "study-participant-modal", "reveal-ajax" => "true" })
-
   = paginate participants
