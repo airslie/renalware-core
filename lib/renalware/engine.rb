@@ -59,6 +59,7 @@ require "wisper"
 require "wisper/activejob"
 require "rails-assets-foundation-datepicker"
 require "document/base"
+require "document/enum"
 require "byebug" if ENV["RAILS_ENV"] == "development"
 
 module Renalware
