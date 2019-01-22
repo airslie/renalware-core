@@ -59,7 +59,8 @@ require "virtus"
 require "wicked_pdf"
 require "wisper"
 require "wisper/activejob"
-# require "document/base"
+require "document/base"
+require "document/enum"
 require "byebug" if ENV["RAILS_ENV"] == "development"
 
 module Renalware
