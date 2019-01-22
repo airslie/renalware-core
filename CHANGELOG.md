@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+
+## 2.0.69
+### Added
+### Changed
+- Housekeeping #2529
+### Fixed
+
 ## 2.0.68
 ### Added
 - Add ActiveStorage in preparation for adding file attachments to patients #2514
