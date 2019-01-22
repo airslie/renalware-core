@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Configuring Requests" do
+describe "Configuring Requests", type: :request do
   describe "GET index" do
     it "responds with a list of request forms" do
       create(
