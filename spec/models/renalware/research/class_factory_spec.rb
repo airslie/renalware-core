@@ -36,7 +36,7 @@ module Renalware
           it "raises an error" do
             expect{
               factory.public_send(method)
-            }.to raise_error(Research::ClassFactory::UnresolvedResearchNamespaceOrClassError)
+            }.to raise_error(NameError)
           end
         end
       end
