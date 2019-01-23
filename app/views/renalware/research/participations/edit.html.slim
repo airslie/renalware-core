@@ -8,13 +8,14 @@
   br
 
   .row
-    .columns.small-12
-      h3= participation.patient.to_s(:long)
-      hr
-    .columns.small-3
-      = render "side_nav"
+    /   .columns.small-12
+    h3= participation.patient.to_s(:long)
+    hr
+    / hr
+      .columns.small-3
+        = render "side_nav"
 
-    .columns.small-9
-      = render "form",
-              participation: participation,
-              url: research_study_participation_path(participation.study, participation)
+    /.columns.small-9
+    = render "form",
+            participation: participation,
+            url: research_study_participation_path(participation.study, participation)
