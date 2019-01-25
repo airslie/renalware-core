@@ -14,6 +14,9 @@ describe Renalware::Clinics::ClinicVisit, type: :model do
   it { is_expected.not_to validate_presence_of :pulse }
   it { is_expected.not_to validate_presence_of :temperature }
   it { is_expected.not_to validate_presence_of(:admin_notes) }
+  it { is_expected.to respond_to(:document) }
+  it { is_expected.to have_db_index(:document) }
+  it { is_expected.to respond_to(:type) }
 
   describe "bmi" do
     subject(:visit) { build_stubbed(:clinic_visit, height: 1.7, weight: 82.5, patient: patient) }
@@ -42,5 +45,11 @@ describe Renalware::Clinics::ClinicVisit, type: :model do
         systolic_bp: 112
       )
     end
+  end
+
+  describe "#document" do
+    subject { described_class.new.document }
+
+    it { is_expected.to be_a(::Document::Embedded) }
   end
 end
