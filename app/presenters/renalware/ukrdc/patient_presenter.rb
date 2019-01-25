@@ -60,6 +60,7 @@ module Renalware
           letters_patient
             .letters
             .approved_or_completed
+            .includes(:updated_by, :author, :letterhead, :archive)
             .where("updated_at > ?", changes_since),
           Renalware::Letters::LetterPresenterFactory
         )
@@ -68,7 +69,7 @@ module Renalware
       def finished_hd_sessions
         hd_patient
           .finished_hd_sessions
-          .includes(:patient, :dialysate)
+          .includes(:patient, :dialysate, :updated_by)
           .where("hd_sessions.updated_at > ?", changes_since)
       end
 
