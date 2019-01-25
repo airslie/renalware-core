@@ -6,13 +6,9 @@ require_dependency "renalware/clinics"
 module Renalware
   module Clinics
     class ClinicVisit < ApplicationRecord
+      include Document::Base
       self.table_name = :clinic_visits
-
-      has_paper_trail(
-        versions: { class_name: "Renalware::Clinics::Version" },
-        on: [:create, :update, :destroy]
-      )
-
+      has_paper_trail class_name: "Renalware::Clinics::Version", on: [:create, :update, :destroy]
       include Accountable
       include PatientScope
       extend Enumerize
@@ -39,6 +35,17 @@ module Renalware
 
       before_save :calculate_body_surface_area
       before_save :calculate_total_body_water
+
+      def self.policy_class
+        Renalware::Clinics::ClinicVisitPolicy
+      end
+
+      # The basic clinic visit document is empty and stored as {}.
+      # An STI sub class might choose add custom data to this document by extending this
+      # Document class.
+      class Document < ::Document::Embedded
+      end
+      has_document
 
       def bmi
         BMI.new(weight: weight, height: height).to_f
@@ -69,6 +76,10 @@ module Renalware
         return date.to_datetime if time.blank?
 
         datetime_from_date_and_time
+      end
+
+      def to_form_partial_path
+        "/renalware/clinics/clinic_visits/visit_specific_form_fields"
       end
 
       private
