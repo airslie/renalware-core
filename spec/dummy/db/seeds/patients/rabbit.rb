@@ -33,7 +33,7 @@ module Renalware
   log "Adding Primary Care Physician for Roger RABBIT" do
     practice = Patients::Practice.first!
 
-    pcp = Patients::PrimaryCarePhysician.find_or_create_by!(code: "G91283") do |doc|
+    pcp = Patients::PrimaryCarePhysician.find_or_create_by!(code: "G1234567") do |doc|
       doc.name = "MERRILL J"
       doc.practitioner_type = "GP"
       doc.practices << practice
