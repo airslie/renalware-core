@@ -1520,7 +1520,8 @@ CREATE TABLE renalware.clinic_clinics (
     name character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    user_id integer NOT NULL
+    user_id integer NOT NULL,
+    visit_class_name character varying
 );
 
 
@@ -1607,6 +1608,8 @@ CREATE TABLE renalware.clinic_visits (
     temperature numeric(3,1),
     standing_systolic_bp integer,
     standing_diastolic_bp integer,
+    document jsonb DEFAULT '{}'::jsonb NOT NULL,
+    type character varying,
     body_surface_area numeric(8,2),
     total_body_water numeric(8,2)
 );
@@ -13204,6 +13207,13 @@ CREATE INDEX index_clinic_appointments_on_updated_by_id ON renalware.clinic_appo
 
 
 --
+-- Name: index_clinic_clinics_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_clinic_clinics_on_name ON renalware.clinic_clinics USING btree (name);
+
+
+--
 -- Name: index_clinic_clinics_on_user_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -13225,10 +13235,24 @@ CREATE INDEX index_clinic_visits_on_created_by_id ON renalware.clinic_visits USI
 
 
 --
+-- Name: index_clinic_visits_on_document; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_visits_on_document ON renalware.clinic_visits USING gin (document);
+
+
+--
 -- Name: index_clinic_visits_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_clinic_visits_on_patient_id ON renalware.clinic_visits USING btree (patient_id);
+
+
+--
+-- Name: index_clinic_visits_on_type; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_visits_on_type ON renalware.clinic_visits USING btree (type);
 
 
 --
@@ -20401,6 +20425,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190121092403'),
 ('20190121125239'),
 ('20190121135548'),
+('20190125111045'),
+('20190125130940'),
+('20190125132911'),
 ('20190128094652'),
 ('20190131152758'),
 ('20190201151346'),
