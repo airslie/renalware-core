@@ -5,7 +5,7 @@ require_dependency "renalware/clinics"
 module Renalware
   module Clinics
     class Clinic < ApplicationRecord
-      validates :name, presence: true
+      validates :name, presence: true, uniqueness: true
 
       scope :ordered, -> { order(name: :asc) }
 
