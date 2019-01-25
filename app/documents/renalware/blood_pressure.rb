@@ -18,5 +18,17 @@ module Renalware
     def blank?
       systolic.blank? && diastolic.blank?
     end
+
+    # In order to compare 2 BloodPressure value objects add diastolic and systolic together
+    # and compare the result
+    def <=>(other)
+      to_i <=> other.to_i
+    end
+
+    def to_i
+      return 1_000_000 if (systolic.to_i + diastolic.to_i).zero?
+
+      systolic.to_i + diastolic.to_i
+    end
   end
 end
