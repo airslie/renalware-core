@@ -5,6 +5,7 @@ require "rails_helper"
 module Renalware
   RSpec.describe Research::Investigatorship, type: :model do
     it_behaves_like "an Accountable model"
+    it { is_expected.to be_versioned }
 
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to :study }
