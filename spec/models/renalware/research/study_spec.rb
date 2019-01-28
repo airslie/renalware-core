@@ -5,6 +5,7 @@ require "rails_helper"
 module Renalware
   describe Research::Study, type: :model do
     it :aggregate_failures do
+      is_expected.to be_versioned
       is_expected.to validate_presence_of :code
       is_expected.to validate_presence_of :description
       is_expected.to have_db_index(:code)
