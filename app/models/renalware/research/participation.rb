@@ -10,6 +10,8 @@ module Renalware
       include PatientsRansackHelper
       include Document::Base
       acts_as_paranoid
+      has_paper_trail class_name: "Renalware::Research::Version", on: [:create, :update, :destroy]
+
       validates :patient_id, presence: true, uniqueness: { scope: :study }
       validates :study, presence: true
       validates :external_id, uniqueness: true # added by a trigger

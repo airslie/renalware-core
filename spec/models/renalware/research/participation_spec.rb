@@ -6,6 +6,7 @@ module Renalware
   describe Research::Participation, type: :model do
     it_behaves_like "an Accountable model"
     it_behaves_like "a Paranoid model"
+    it { is_expected.to be_versioned }
     it { is_expected.to validate_presence_of :patient_id }
     it { is_expected.to belong_to :patient }
     it { is_expected.to belong_to :study }
