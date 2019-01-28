@@ -8207,6 +8207,41 @@ ALTER SEQUENCE renalware.research_studies_id_seq OWNED BY renalware.research_stu
 
 
 --
+-- Name: research_versions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.research_versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit integer,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: research_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.research_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: research_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.research_versions_id_seq OWNED BY renalware.research_versions.id;
+
+
+--
 -- Name: roles; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -11334,6 +11369,13 @@ ALTER TABLE ONLY renalware.research_studies ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: research_versions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.research_versions ALTER COLUMN id SET DEFAULT nextval('renalware.research_versions_id_seq'::regclass);
+
+
+--
 -- Name: roles id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -12956,6 +12998,14 @@ ALTER TABLE ONLY renalware.research_participations
 
 ALTER TABLE ONLY renalware.research_studies
     ADD CONSTRAINT research_studies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: research_versions research_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.research_versions
+    ADD CONSTRAINT research_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -16923,6 +16973,20 @@ CREATE INDEX index_research_studies_on_leader ON renalware.research_studies USIN
 --
 
 CREATE INDEX index_research_studies_on_updated_by_id ON renalware.research_studies USING btree (updated_by_id);
+
+
+--
+-- Name: index_research_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_research_versions_on_item_type_and_item_id ON renalware.research_versions USING btree (item_type, item_id);
+
+
+--
+-- Name: index_research_versions_on_whodunnit; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_research_versions_on_whodunnit ON renalware.research_versions USING btree (whodunnit);
 
 
 --
@@ -21167,6 +21231,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190121092403'),
 ('20190121125239'),
 ('20190121135548'),
+('20190128094652'),
 ('20190131152758'),
 ('20190218142207'),
 ('20190225103005'),
