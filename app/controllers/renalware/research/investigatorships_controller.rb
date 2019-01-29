@@ -66,13 +66,10 @@ module Renalware
       end
 
       def build_investigatorship(params = {})
-        class_factory.investigatorship.new(params).tap do |investigatorship|
+        investigatorship_class = study.class.investigatorship_class
+        investigatorship_class.new(params).tap do |investigatorship|
           investigatorship.study = study
         end
-      end
-
-      def class_factory
-        ClassFactory.new(namespace: study.namespace)
       end
 
       def investigatorship_params
