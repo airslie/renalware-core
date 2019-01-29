@@ -70,7 +70,8 @@ module Renalware
       end
 
       def build_participation(params = {})
-        class_factory.participation.new(params).tap do |participation|
+        participation_class = study.class.participation_class
+        participation_class.new(params).tap do |participation|
           participation.study = study
           participation.joined_on ||= Time.zone.today
         end
@@ -86,10 +87,6 @@ module Renalware
 
       def study
         @study ||= Study.find(params[:study_id])
-      end
-
-      def class_factory
-        ClassFactory.new(namespace: study.namespace)
       end
 
       def find_and_authorise_participation
