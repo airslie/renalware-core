@@ -71,6 +71,11 @@ module Renalware
                class_name: "Renalware::User",
                through: :investigatorships
 
+      class << self
+        define_method(:investigatorship_class) { Investigatorship }
+        define_method(:participation_class) { Participation }
+      end
+
       # Define this explicity so that an subclasses will inherit it - otherwise Pundit will try
       # and resolve eg MyStudy::XxxPolicy which won't exist and not need to the
       # impementor to create.
