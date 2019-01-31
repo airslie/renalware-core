@@ -2115,6 +2115,38 @@ ALTER SEQUENCE renalware.drugs_id_seq OWNED BY renalware.drugs.id;
 
 
 --
+-- Name: event_categories; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE event_categories (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: event_categories_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE event_categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: event_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE event_categories_id_seq OWNED BY event_categories.id;
+
+
+--
 -- Name: event_types; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -2126,6 +2158,7 @@ CREATE TABLE renalware.event_types (
     updated_at timestamp without time zone NOT NULL,
     event_class_name character varying,
     slug character varying,
+    category_id bigint,
     save_pdf_to_electronic_public_register boolean DEFAULT false NOT NULL,
     title character varying,
     hidden boolean DEFAULT false NOT NULL
@@ -9505,6 +9538,13 @@ ALTER TABLE ONLY renalware.drugs ALTER COLUMN id SET DEFAULT nextval('renalware.
 
 
 --
+-- Name: event_categories id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY event_categories ALTER COLUMN id SET DEFAULT nextval('event_categories_id_seq'::regclass);
+
+
+--
 -- Name: event_types id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -10946,6 +10986,14 @@ ALTER TABLE ONLY renalware.drug_types
 
 ALTER TABLE ONLY renalware.drugs
     ADD CONSTRAINT drugs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: event_categories event_categories_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY event_categories
+    ADD CONSTRAINT event_categories_pkey PRIMARY KEY (id);
 
 
 --
@@ -13042,6 +13090,27 @@ CREATE INDEX index_drug_types_drugs_on_drug_type_id ON renalware.drug_types_drug
 --
 
 CREATE INDEX index_drugs_on_deleted_at ON renalware.drugs USING btree (deleted_at);
+
+
+--
+-- Name: index_event_categories_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_event_categories_on_deleted_at ON event_categories USING btree (deleted_at);
+
+
+--
+-- Name: index_event_categories_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_event_categories_on_name ON event_categories USING btree (name);
+
+
+--
+-- Name: index_event_types_on_category_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_event_types_on_category_id ON event_types USING btree (category_id);
 
 
 --
@@ -19834,6 +19903,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190121125239'),
 ('20190121135548'),
 ('20190128094652'),
+('20190131152758'),
 ('20190218142207'),
 ('20190225103005'),
 ('20190315125638'),
