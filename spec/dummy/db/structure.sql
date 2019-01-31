@@ -2250,6 +2250,7 @@ ALTER SEQUENCE renalware.drugs_id_seq OWNED BY renalware.drugs.id;
 CREATE TABLE renalware.event_categories (
     id bigint NOT NULL,
     name character varying NOT NULL,
+    "position" integer DEFAULT 10 NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -18114,6 +18115,14 @@ ALTER TABLE ONLY renalware.hd_prescription_administrations
 
 ALTER TABLE ONLY renalware.hd_profiles
     ADD CONSTRAINT fk_rails_0aab25a07c FOREIGN KEY (named_nurse_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: event_types fk_rails_0af1b89c85; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_types
+    ADD CONSTRAINT fk_rails_0af1b89c85 FOREIGN KEY (category_id) REFERENCES renalware.event_categories(id);
 
 
 --
