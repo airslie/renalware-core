@@ -67,6 +67,10 @@
     dt {
       width: $dl-horizontal-dt-width + 9.5rem;
     }
+
+    dd {
+      margin-left: $dl-horizontal-dt-width + 11.5rem;
+    }
   }
 
   // Default
