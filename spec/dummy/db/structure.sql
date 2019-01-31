@@ -18192,6 +18192,14 @@ ALTER TABLE ONLY renalware.event_types
 
 
 --
+-- Name: event_types fk_rails_0af1b89c85; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_types
+    ADD CONSTRAINT fk_rails_0af1b89c85 FOREIGN KEY (category_id) REFERENCES renalware.event_categories(id);
+
+
+--
 -- Name: transplant_rejection_episodes fk_rails_0b121fa111; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
