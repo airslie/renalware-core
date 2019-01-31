@@ -24,7 +24,7 @@ require "bundler/gem_tasks"
 # Bundler::GemHelper.install_tasks
 
 # assets:* tasks for For Heroku only
-# When deploying the engine to Heroku, we are actually deployment the spec/dummy app.
+# When deploying the engine to Heroku, we are actually deploy the spec/dummy app.
 # Heroku however loads this Rakefile first hunting for an assets:precompile task to indicate
 # it should compile the assets. If not found it won't compile assets and we won't have any styling.
 namespace :assets do

@@ -14,10 +14,10 @@ namespace :db do
   namespace :demo do
     desc "Loads demo seed data from the renalware-core gem"
     task seed: :environment do
-      if Rails.env.development? || ENV["ALLOW_DEMO_SEEDS"] == "1"
+      if Rails.env.development? || ENV["ALLOW_DEMO_SEEDS"].present?
         require Renalware::Engine.root.join("spec/dummy/db/seeds")
       else
-        puts "Task currently only possible in development environment"
+        puts "Task currently only possible in development environment or with ALLOW_DEMO_SEEDS"
       end
     end
   end
