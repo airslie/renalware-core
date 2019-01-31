@@ -13,6 +13,7 @@ module Renalware
   class SessionTimeoutController < BaseController
     prepend_before_action :skip_timeout, only: :has_user_timed_out
     skip_before_action :authenticate_user!, only: :has_user_timed_out
+    skip_before_action :track_ahoy_visit, only: :has_user_timed_out
     protect_from_forgery except: [:has_user_timed_out, :reset_user_clock]
 
     # Note this action will NOT update the session activity (thus keeping the session alive)
