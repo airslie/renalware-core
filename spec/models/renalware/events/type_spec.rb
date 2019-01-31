@@ -5,6 +5,7 @@ require "rails_helper"
 module Renalware::Events
   describe Type, type: :model do
     it_behaves_like "a Paranoid model"
+    it { is_expected.to belong_to(:category) }
 
     it { is_expected.to belong_to(:category) }
     it { is_expected.to have_many(:subtypes) }

@@ -30,6 +30,7 @@ module Renalware
       DEFAULT_EVENT_CLASS_NAME = "Renalware::Events::Simple"
 
       acts_as_paranoid
+      belongs_to :category
 
       validates :name, presence: true, uniqueness: true
       validates :category_id, presence: true
