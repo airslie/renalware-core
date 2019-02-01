@@ -14,7 +14,7 @@ module Renalware::Events
       end
 
       describe "uniqueness" do
-        subject { Type.new(name: "X") }
+        subject { Type.new(name: "X", category: create(:event_category)) }
 
         it { is_expected.to validate_uniqueness_of :name }
       end
