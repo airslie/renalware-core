@@ -16,7 +16,8 @@ describe "Configuring Event Types", type: :request do
   describe "POST create" do
     context "with valid attributes" do
       it "creates a new record" do
-        attributes = attributes_for(:access_clinic_event_type)
+        category = create(:event_category)
+        attributes = attributes_for(:access_clinic_event_type).merge(category_id: category.id)
         post events_types_path, params: { events_type: attributes }
 
         expect(response).to have_http_status(:redirect)
