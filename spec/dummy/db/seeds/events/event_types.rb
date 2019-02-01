@@ -9,6 +9,7 @@ module Renalware
       Events::Type.find_or_create_by!(name: row["name"], category: category) do |event_type|
         event_type.save_pdf_to_electronic_public_register =
           row["save_pdf_to_electronic_public_register"]
+        event_type.category = category
       end
     end
   end
