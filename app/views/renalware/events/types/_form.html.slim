@@ -5,6 +5,7 @@
   .large-6.columns
     = simple_form_for event_type, html: { autocomplete: "off" } do |f|
       = f.input :name, label: "Event Type"
+      = f.association :category
       = f.button :submit
       '  or
       = link_to "cancel", events_types_path
