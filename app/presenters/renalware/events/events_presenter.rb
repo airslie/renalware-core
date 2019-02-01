@@ -19,10 +19,15 @@ module Renalware
       end
 
       def event_types_for_filtering
-        Events::Type
-          .where(id: all_event_type_ids_in_use_for_this_patient)
-          .distinct
-          .order(name: :asc)
+        Events::Category
+          .eager_load(:types)
+          .order(position: :asc)
+          .merge(
+            Events::Type
+              .where(id: all_event_type_ids_in_use_for_this_patient)
+              .distinct
+              .order(name: :asc)
+          )
       end
 
       private
