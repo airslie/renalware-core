@@ -2870,6 +2870,7 @@ CREATE TABLE renalware.event_versions (
     item_id integer NOT NULL,
     event character varying NOT NULL,
     whodunnit character varying,
+    whodunnit integer,
     object jsonb,
     object_changes jsonb,
     created_at timestamp without time zone
@@ -2912,7 +2913,7 @@ CREATE TABLE renalware.events (
     updated_by_id integer NOT NULL,
     type character varying NOT NULL,
     document jsonb,
-    subtype_id bigint
+    deleted_at timestamp without time zone
 );
 
 
@@ -14738,6 +14739,13 @@ CREATE INDEX index_events_on_created_by_id ON renalware.events USING btree (crea
 
 
 --
+-- Name: index_events_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_events_on_deleted_at ON renalware.events USING btree (deleted_at);
+
+
+--
 -- Name: index_events_on_event_type_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -21868,6 +21876,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190121135548'),
 ('20190128094652'),
 ('20190131152758'),
+('20190201151346'),
+('20190201153850'),
 ('20190218142207'),
 ('20190225103005'),
 ('20190315125638'),
@@ -22020,5 +22030,3 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210531082528'),
 ('20210701161843'),
 ('20210705082359');
-
-
