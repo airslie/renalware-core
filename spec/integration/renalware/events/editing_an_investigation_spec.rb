@@ -49,8 +49,8 @@ describe "Editing an investigation", type: :system, js: true do
     #   expect(page).to have_selector("tbody tr", count: 1)
     #   expect(page).to have_content("edited_result")
     # end
-    expect(page).to have_current_path(patient_events_path(patient))
-    within("table.events-table") do
+    expect(page).to have_current_path(tx_dashboard_path)
+    within(".investigations .events-table") do
       expect(page).to have_selector("tbody tr", count: 1)
       expect(page).to have_content("edited_result")
     end
