@@ -12,7 +12,7 @@ module Renalware::Events
       it { is_expected.to respond_to(:event_class_name) }
 
       describe "uniqueness" do
-        subject { Type.new(name: "X") }
+        subject { Type.new(name: "X", category: create(:event_category)) }
 
         it { is_expected.to validate_uniqueness_of :name }
       end

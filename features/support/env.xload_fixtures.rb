@@ -12,6 +12,7 @@ class Fixtures
     Renalware::Deaths::Cause,
     Renalware::Drugs::Drug,
     Renalware::Drugs::Type,
+    Renalware::Events::Category,
     Renalware::Events::Type,
     Renalware::HD::CannulationType,
     Renalware::HD::Dialyser,
