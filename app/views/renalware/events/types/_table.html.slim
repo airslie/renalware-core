@@ -3,6 +3,9 @@ table
     tr
       th.col-width-small
       th Name
+      th Category
+      th Slug
+      th Event class name
   tbody
     - event_types.each do |t|
       tr
@@ -13,3 +16,6 @@ table
                     method: :delete,
                     data: { confirm: I18n.t("prompts.confirm_delete") }
         td= t.name
+        td= t.category&.name
+        td= t.slug
+        td= t.event_class_name
