@@ -196,6 +196,26 @@ module Renalware
       end
       # rubocop:enable Metrics/MethodLength
 
+      # Returns an array of objects defininig each category, with that category's types within it.
+      # rubocop:disable Metrics/MethodLength
+      def event_types
+        Events::Category.order(:position).map do |category|
+          types = category.types.visible.order(:name).map do |event_type|
+            [
+              event_type.name,
+              event_type.id,
+              {
+                data: {
+                  source: new_patient_event_path(patient, event_type_id: event_type.id, format: :js)
+                }
+              }
+            ]
+          end
+          OpenStruct.new(name: category.name, id: category.id, types: types)
+        end
+      end
+      # rubocop:enable Metrics/MethodLength
+
       def query_params
         params.fetch(:q, {})
       end

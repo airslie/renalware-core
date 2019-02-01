@@ -13,6 +13,7 @@
   - if event.disable_selection_of_event_type
     = f.input :event_type_id, as: :hidden
   - else
+    /= select_tag "", options_from_collection_for_select(event_categories, :first, :last)
     #event-type-dropdown-container
       = f.input :event_type_id,
                 as: :grouped_select,
