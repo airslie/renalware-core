@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 resources :patients, only: [] do
-  resources :events, only: [:new, :create, :index], controller: "events/events"
+  resources :events, except: :show, controller: "events/events"
   constraints(format: /(pdf)/) do
     resources :events, only: :show, controller: "events/events"
   end

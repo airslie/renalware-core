@@ -1,9 +1,31 @@
 - row_id = "#{toggle_prefix}-quick-preview-#{event.id}"
 tr
   td.noprint= toggler("##{row_id}")
-  - if local_assigns[:edit_proc]
-    td.noprint
-      = link_to("Edit", edit_proc.call(event))
+  td
+    = link_to("Toggle",
+              "##{toggle_prefix}-quick-preview-#{event.id}",
+              data: { behaviour: "toggler" })
+
+    - if policy(event).edit?
+      = pipe_separator
+      / If the event supports editing (most don't as they are immuatble once created, to ensure a
+      / consistent clinical record), then use the supplied proc if passed (which will render a
+      / custom edit link (e.g. the Investigations event subclass, has its own slug, controllwe and
+      / and form) otherwise render a standard Event edit link.
+      - if local_assigns[:edit_proc]
+        = link_to("Edit", edit_proc.call(event))
+      - else
+        = link_to("Edit", edit_patient_event_path(event.patient, event))
+
+    - if policy(event).destroy?
+      = pipe_separator
+      - if local_assigns[:destroy_proc]
+        = link_to("Delete", destroy_proc.call(event))
+      - else
+        = link_to("Delete",
+                  patient_event_path(event.patient, event),
+                  method: :delete,
+                  data: { confirm: "Are you sure you want delete this event?\n" })
 
   td.nowrap= l event.created_at.to_date
   - unless local_assigns[:exclude_type_column] == true
