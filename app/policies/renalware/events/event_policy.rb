@@ -10,6 +10,10 @@ module Renalware
         false
       end
       alias update? edit?
+
+      def destroy?
+        false
+      end
     end
   end
 end

@@ -1,10 +1,10 @@
 = within_patient_layout(\
-    title: "Swab / Edit",
-    breadcrumbs:  breadcrumb_for("Clinical Profile", patient_clinical_profile_path(patient))\
+    title: "Event / Edit",
+    breadcrumbs:  breadcrumb_for("Events", patient_events_path(patient)) \
   ) do
 
   = render "renalware/events/events/form",
             event: event,
             patient: patient,
             event_types: event_types,
-            url: patient_swab_path(patient, event)
+            url: patient_event_path(patient, event)
