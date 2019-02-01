@@ -6,6 +6,8 @@
     .row
       .medium-5.large-4.columns
         = f.input :event_type_id_eq,
+                  as: :grouped_select,
+                  group_method: :types,
                   collection: events.event_types_for_filtering,
                   label: "Type",
                   input_html: { class: "searchable_select" }
