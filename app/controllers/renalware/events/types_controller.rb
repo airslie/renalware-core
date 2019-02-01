@@ -52,7 +52,7 @@ module Renalware
       private
 
       def event_params
-        params.require(:events_type).permit(:name, :deleted_at)
+        params.require(:events_type).permit(:name, :category_id, :deleted_at)
       end
 
       def load_and_authorize_event_type
