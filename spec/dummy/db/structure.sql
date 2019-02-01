@@ -2199,6 +2199,41 @@ ALTER SEQUENCE renalware.event_types_id_seq OWNED BY renalware.event_types.id;
 
 
 --
+-- Name: event_versions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.event_versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit integer,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: event_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.event_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: event_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.event_versions_id_seq OWNED BY renalware.event_versions.id;
+
+
+--
 -- Name: events; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -2214,7 +2249,8 @@ CREATE TABLE renalware.events (
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     type character varying NOT NULL,
-    document jsonb
+    document jsonb,
+    deleted_at timestamp without time zone
 );
 
 
@@ -9763,6 +9799,13 @@ ALTER TABLE ONLY renalware.event_types ALTER COLUMN id SET DEFAULT nextval('rena
 
 
 --
+-- Name: event_versions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_versions ALTER COLUMN id SET DEFAULT nextval('renalware.event_versions_id_seq'::regclass);
+
+
+--
 -- Name: events id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -11234,6 +11277,14 @@ ALTER TABLE ONLY renalware.event_categories
 
 ALTER TABLE ONLY renalware.event_types
     ADD CONSTRAINT event_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: event_versions event_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_versions
+    ADD CONSTRAINT event_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -13391,10 +13442,31 @@ CREATE UNIQUE INDEX index_event_types_on_slug ON renalware.event_types USING btr
 
 
 --
+-- Name: index_event_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_event_versions_on_item_type_and_item_id ON renalware.event_versions USING btree (item_type, item_id);
+
+
+--
+-- Name: index_event_versions_on_whodunnit; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_event_versions_on_whodunnit ON renalware.event_versions USING btree (whodunnit);
+
+
+--
 -- Name: index_events_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_events_on_created_by_id ON renalware.events USING btree (created_by_id);
+
+
+--
+-- Name: index_events_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_events_on_deleted_at ON renalware.events USING btree (deleted_at);
 
 
 --
@@ -20331,6 +20403,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190121135548'),
 ('20190128094652'),
 ('20190131152758'),
+('20190201151346'),
+('20190201153850'),
 ('20190218142207'),
 ('20190225103005'),
 ('20190315125638'),
