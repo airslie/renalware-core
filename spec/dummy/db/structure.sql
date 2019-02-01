@@ -1995,7 +1995,7 @@ CREATE TABLE renalware.event_types (
     updated_at timestamp without time zone NOT NULL,
     event_class_name character varying,
     slug character varying,
-    category_id bigint,
+    category_id bigint NOT NULL,
     save_pdf_to_electronic_public_register boolean DEFAULT false NOT NULL,
     title character varying,
     hidden boolean DEFAULT false NOT NULL
