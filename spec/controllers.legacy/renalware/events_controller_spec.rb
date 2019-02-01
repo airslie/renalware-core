@@ -8,7 +8,8 @@ module Renalware::Events
     routes { Renalware::Engine.routes }
     let(:user) { @current_user }
     let(:patient) { create(:patient, by: user) }
-    let(:event_type) { create(:access_clinic_event_type) }
+    let(:event_type) { create(:access_clinic_event_type, category: event_category) }
+    let(:event_category) { create(:event_category) }
 
     describe "GET new" do
       it "renders the new template" do
