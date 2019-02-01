@@ -8,7 +8,6 @@ FactoryBot.define do
         category: category
       )
     end
-
     category factory: :event_category
     name { "Test" }
 
