@@ -7,6 +7,9 @@ module Renalware
     class Event < ApplicationRecord
       include Accountable
       include PatientScope
+      acts_as_paranoid
+
+      has_paper_trail class_name: "Renalware::Events::Version", on: [:update, :destroy]
 
       # Virtual attribute helps us persist in the UI (across posts) whether or not the
       # event_type can be changed. If we target e.g.

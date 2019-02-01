@@ -1,5 +1,5 @@
 = simple_form_for event,
-    url: patient_events_path(patient, event),
+    url: url,
     as: :events_event,
     html: { autocomplete: "off" },
     wrapper: "horizontal_form" do |f|
@@ -13,7 +13,6 @@
   - if event.disable_selection_of_event_type
     = f.input :event_type_id, as: :hidden
   - else
-    /= select_tag "", options_from_collection_for_select(event_categories, :first, :last)
     #event-type-dropdown-container
       = f.input :event_type_id,
                 as: :grouped_select,
