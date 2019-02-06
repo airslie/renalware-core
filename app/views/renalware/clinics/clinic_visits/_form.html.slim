@@ -1,6 +1,8 @@
 - clinic_visit = f.object
 = render "renalware/shared/errors", model: f.object
 
+= hidden_field_tag "visit_class_name", f.object.clinic&.visit_class_name
+
 .simple_form
   .row
     .large-12.columns

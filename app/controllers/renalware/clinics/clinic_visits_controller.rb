@@ -2,6 +2,7 @@
 
 module Renalware
   module Clinics
+    # rubocop:disable Metrics/ClassLength
     class ClinicVisitsController < Clinics::BaseController
       def index
         visits = patient.clinic_visits.includes([:clinic, :created_by]).ordered
@@ -73,7 +74,7 @@ module Renalware
           patient: patient,
           clinic_visit: visit,
           built_from_appointment: appointment,
-          clinic_options: clinic_options
+          clinic_options: clinic_options_for(template)
         }
       end
 
@@ -137,20 +138,26 @@ module Renalware
         end
       end
 
-      def clinic_options
+      def clinic_options_for(template)
         Renalware::Clinics::Clinic.order(:name).map do |clinic|
-          url = if clinic.visit_class_name.present?
-                  new_patient_clinic_visit_url(patient, clinic_id: clinic.id)
-                else
-                  new_patient_clinic_visit_url(patient)
-                end
           [
             clinic.name,
             clinic.id,
             {
-              data: { refresh_url: url }
+              data: {
+                refresh_url: new_or_edit_url_for_visit(template, clinic),
+                visit_class_name: clinic.visit_class_name
+              }
             }
           ]
+        end
+      end
+
+      def new_or_edit_url_for_visit(template, clinic)
+        case template
+        when :new then new_patient_clinic_visit_url(patient, clinic_id: clinic.id)
+        when :edit then edit_patient_clinic_visit_url(patient, clinic_id: clinic.id)
+        else raise ArgumentError("Unrecognised template #{template}")
         end
       end
 
@@ -160,5 +167,6 @@ module Renalware
         end
       end
     end
+    # rubocop:enable Metrics/ClassLength
   end
 end
