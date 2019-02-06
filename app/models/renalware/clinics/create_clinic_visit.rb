@@ -59,14 +59,14 @@ module Renalware
       # instanciated when creating a new Visit. If blank then it is just a vailla Visit.
       def class_for_new_visit
         @class_for_new_visit ||= begin
-          return Clinics::ClinicVisit if clinic.visit_class_name.blank?
+          return Clinics::ClinicVisit if clinic&.visit_class_name.blank?
 
           Class.const_get(clinic.visit_class_name.classify)
         end
       end
 
       def clinic
-        @clinic ||= Clinic.find(params[:clinic_id])
+        @clinic ||= Clinic.find_by(id: params[:clinic_id])
       end
 
       attr_reader :params, :patient, :built_from_appointment_id
