@@ -10,25 +10,8 @@
         th.col-width-tiny Age
         th Sex
         th External ID
-        th.col-width-small
+        th.col-width-medium
     tbody
-      - participations.each do |participation|
-        tr
-          td= l(participation.joined_on)
-          td= l(participation.left_on)
-          td= default_patient_link(participation.patient)
-          td= participation.patient.nhs_number
-          td= participation.patient.hospital_identifiers
-          td= participation.patient.age
-          td= participation.patient.sex
-          td= participation.external_id
-          td
-            = link_to "Delete",
-                      research_study_participation_path(study, participation),
-                      method: :delete,
-                      data: { confirm: "Are you sure?" }
-            = " | "
-            = link_to("Edit",
-                      edit_research_study_participation_path(study, participation),
-                      data: { "reveal-id" => "study-participation-modal", "reveal-ajax" => "true" })
+      = render participations, study: study
+
   = paginate participations
