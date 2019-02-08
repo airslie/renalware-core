@@ -19,16 +19,20 @@ module Renalware
       systolic.blank? && diastolic.blank?
     end
 
-    # In order to compare 2 BloodPressure value objects add diastolic and systolic together
-    # and compare the result
+    # Compare BPs by first comparing systolic values. If they are equal, compare by diastolic.
+    # Missing values default to a large number so they will come e.g last if #min is called
+    # on an array of BloodPressures.
     def <=>(other)
-      to_i <=> other.to_i
-    end
+      dia = diastolic.presence || 10000
+      sys = systolic.presence || 10000
+      other_dia = other.diastolic.presence || 10000
+      other_sys = other.systolic.presence || 10000
 
-    def to_i
-      return 1_000_000 if (systolic.to_i + diastolic.to_i).zero?
-
-      systolic.to_i + diastolic.to_i
+      if sys == other_sys
+        dia <=> other_dia
+      else
+        sys <=> other_sys
+      end
     end
   end
 end
