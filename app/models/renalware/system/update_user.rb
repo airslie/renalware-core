@@ -32,6 +32,7 @@ module Renalware
           end
           authorise(params)
           user.telephone = params[:telephone]
+          user.hospital_centre_id = params[:hospital_centre_id]
           user.save!
         end
       rescue ActiveRecord::RecordInvalid
