@@ -14,6 +14,7 @@ module Renalware
       aggregate_failures do
         is_expected.to be_versioned
         is_expected.to have_db_index(:ukrdc_external_id)
+        is_expected.to belong_to(:hospital_centre)
       end
     end
 
