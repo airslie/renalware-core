@@ -3339,6 +3339,7 @@ CREATE TABLE renalware.users (
     updated_at timestamp without time zone,
     telephone character varying,
     authentication_token character varying,
+    hospital_centre_id bigint,
     asked_for_write_access boolean DEFAULT false NOT NULL,
     consultant boolean DEFAULT false NOT NULL,
     hidden boolean DEFAULT false NOT NULL,
@@ -17814,6 +17815,13 @@ CREATE INDEX index_users_on_hidden ON renalware.users USING btree (hidden);
 
 
 --
+-- Name: index_users_on_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_users_on_hospital_centre_id ON renalware.users USING btree (hospital_centre_id);
+
+
+--
 -- Name: index_users_on_last_activity_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -20416,6 +20424,14 @@ ALTER TABLE ONLY renalware.hd_profiles
 
 
 --
+-- Name: users fk_rails_ec9881f9c2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.users
+    ADD CONSTRAINT fk_rails_ec9881f9c2 FOREIGN KEY (hospital_centre_id) REFERENCES renalware.hospital_centres(id);
+
+
+--
 -- Name: problem_problems fk_rails_edf3902cb0; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -21334,6 +21350,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190131152758'),
 ('20190201151346'),
 ('20190201153850'),
+('20190209135334'),
 ('20190218142207'),
 ('20190225103005'),
 ('20190315125638'),
