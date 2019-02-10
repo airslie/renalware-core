@@ -22,9 +22,10 @@
       th.col-width-tiny= sort_link(user_search, :consultant, "Consultant")
       th.col-width-tiny= sort_link(user_search, :prescriber, "Prescriber")
       th.col-width-date= sort_link(user_search, :expired_at, "Expired On")
-      th.col-width-date-time.show-for-large-up= sort_link(user_search, :current_sign_in_at, "Current sign in")
-      th.col-width-date-time.show-for-large-up= sort_link(user_search, :last_sign_in_at, "Last sign in")
+      th.col-width-date-time.show-for-xlarge-up= sort_link(user_search, :current_sign_in_at, "Current sign in")
+      th.col-width-date-time.show-for-xlarge-up= sort_link(user_search, :last_sign_in_at, "Last sign in")
       th.col-width-date-time.show-for-large-up= sort_link(user_search, :last_activity_at, "Last activity")
+      th.col-width-mediumish.show-for-large-up= sort_link(user_search, :hospital_centre_id, "Site")
       th.col-width-medium.show-for-xlarge-up Telephone #
       th.col-width-date-time.show-for-xlarge-up= sort_link(user_search, :created_at, "Added")
 
@@ -65,9 +66,10 @@
             - else
               i.muted.unapproved.far.fa-square
           td.expired= l(user.expired_at&.to_date)
-          td.show-for-large-up= l(user.current_sign_in_at)
-          td.show-for-large-up= l(user.last_sign_in_at)
+          td.show-for-xlarge-up= l(user.current_sign_in_at)
+          td.show-for-xlarge-up= l(user.last_sign_in_at)
           td.show-for-large-up= l(user.last_activity_at)
+          td.show-for-large-up.col-width-mediumish-with-ellipsis(title=user.hospital_centre)= user.hospital_centre
           td.show-for-xlarge-up= user.telephone
           td.show-for-xlarge-up= l(user.created_at)
 
