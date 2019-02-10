@@ -62,6 +62,11 @@
                 wrapper: :horizontal_small
 
     - msg = user.approved? ? "Update" : "Approve"
+    = f.association :hospital_centre,
+        collection: Renalware::Hospitals::Centre.ordered.pluck(:name, :id),
+        wrapper: :horizontal_medium,
+        input_html: { class: "searchable_select" }
+
     = f.submit msg, class: "button"
     '  or
     = link_to "cancel", admin_users_path
