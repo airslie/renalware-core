@@ -20,6 +20,10 @@
                 input_html: index.zero? ? controlled_by_demographics_feed : {}
 
     = f.input :external_patient_id, wrapper: :horizontal_small
+    = f.association :hospital_centre,
+                  collection: Renalware::Hospitals::Centre.ordered,
+                  wrapper: :horizontal_medium,
+                  input_html: { class: "searchable_select" }
     = f.input :title, wrapper: :horizontal_tiny
     = f.input :family_name, wrapper: :horizontal_small, input_html: controlled_by_demographics_feed
     = f.input :given_name, wrapper: :horizontal_small, input_html: controlled_by_demographics_feed
