@@ -4,7 +4,6 @@ require "rails_helper"
 
 describe "Managing clinical study investigatorships", type: :request do
   let(:user) { @current_user }
-  let(:hospital) { create(:hospital_centre) }
   let(:study) do
     create(
       :research_study,
@@ -19,7 +18,6 @@ describe "Managing clinical study investigatorships", type: :request do
       :research_investigatorship,
       study: study,
       user: user,
-      hospital_centre: hospital,
       by: user
     )
   end
@@ -58,7 +56,7 @@ describe "Managing clinical study investigatorships", type: :request do
   describe "POST HTTP create" do
     context "with valid inputs" do
       it "add the user to the study" do
-        params = { user_id: user.id, hospital_centre_id: hospital.id }
+        params = { user_id: user.id }
 
         post(
           research_study_investigatorships_path(study),
@@ -74,7 +72,7 @@ describe "Managing clinical study investigatorships", type: :request do
 
     context "with invalid inputs" do
       it "re-renders the form with validation errors" do
-        params = { user_id: nil, hospital_centre_id: nil }
+        params = { user_id: nil }
 
         post(
           research_study_investigatorships_path(study),
@@ -97,7 +95,7 @@ describe "Managing clinical study investigatorships", type: :request do
 
     describe "PATCH html update" do
       it "updates the investigatorship" do
-        params = { hospital_centre_id: hospital.id }
+        params = {}
         url = research_study_investigatorship_path(investigatorship.study, investigatorship)
         patch url, params: { investigatorship: params }
 

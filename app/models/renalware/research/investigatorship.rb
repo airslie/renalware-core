@@ -13,11 +13,9 @@ module Renalware
 
       belongs_to :user
       belongs_to :study
-      belongs_to :hospital_centre, class_name: "Renalware::Hospitals::Centre"
 
       validates :user, presence: true
       validates :study, presence: true
-      validates :hospital_centre, presence: true
 
       validates :user_id, uniqueness: { scope: :study_id }
 
