@@ -10,7 +10,7 @@
       - investigatorships.each do |investigatorship|
         tr
           td= investigatorship.user
-          td.col-width-medium-with-ellipsis= investigatorship.hospital_centre
+          td.col-width-medium-with-ellipsis= investigatorship.user&.hospital_centre
           td= l(investigatorship.created_at)
           td.right
             - if policy(investigatorship).edit?
