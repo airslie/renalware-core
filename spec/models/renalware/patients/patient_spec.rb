@@ -11,6 +11,7 @@ module Renalware
 
     it { is_expected.to be_versioned }
     it { is_expected.to have_db_index(:ukrdc_external_id) }
+    it { is_expected.to belong_to(:hospital_centre) }
 
     it_behaves_like "Personable"
     it_behaves_like "an Accountable model"

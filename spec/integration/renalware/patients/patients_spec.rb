@@ -6,6 +6,7 @@ describe "Managing patients", type: :request do
   let(:user) { @current_user }
   let(:patient) { create(:patient, by: user) }
   let(:algeria) { create(:algeria) }
+  let(:hospital_centre) { create(:hospital_centre) }
 
   describe "GET new" do
     it "responds with a form" do
@@ -21,6 +22,7 @@ describe "Managing patients", type: :request do
         attributes = attributes_for(
           :patient,
           country_of_birth_id: algeria.id,
+          hospital_centre_id: hospital_centre.id,
           local_patient_id: "abc123",
           local_patient_id_2: "xyz123"
         )
@@ -37,6 +39,7 @@ describe "Managing patients", type: :request do
           country_of_birth: algeria,
           created_by: @current_user,
           updated_by: @current_user,
+          hospital_centre: hospital_centre,
           local_patient_id: "ABC123",
           local_patient_id_2: "XYZ123"
         )
@@ -68,7 +71,12 @@ describe "Managing patients", type: :request do
   describe "PATCH update" do
     context "with valid attributes" do
       it "updates a record" do
-        attributes = { given_name: "My Edited Patient", next_of_kin: "ABC" }
+        attributes = {
+          given_name: "My Edited Patient",
+          hospital_centre_id: hospital_centre.id,
+          next_of_kin: "ABC"
+        }
+
         patch patient_path(patient), params: { patient: attributes }
 
         expect(response).to have_http_status(:redirect)
@@ -82,9 +90,9 @@ describe "Managing patients", type: :request do
         updated_patient = Renalware::Patient.find_by(attributes)
         expect(updated_patient).to have_attributes(
           updated_by: @current_user,
-          next_of_kin: "ABC"
+          next_of_kin: "ABC",
+          hospital_centre: hospital_centre
         )
-
         expect(response).to be_successful
       end
     end

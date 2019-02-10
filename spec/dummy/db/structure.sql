@@ -5007,6 +5007,7 @@ CREATE TABLE renalware.patients (
     secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     sent_to_ukrdc_at timestamp without time zone,
     checked_for_ukrdc_changes_at timestamp without time zone,
+    hospital_centre_id bigint,
     named_consultant_id bigint,
     next_of_kin text
 );
@@ -14179,6 +14180,13 @@ CREATE INDEX index_patients_on_first_cause_id ON renalware.patients USING btree 
 
 
 --
+-- Name: index_patients_on_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patients_on_hospital_centre_id ON renalware.patients USING btree (hospital_centre_id);
+
+
+--
 -- Name: index_patients_on_language_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -16207,6 +16215,14 @@ ALTER TABLE ONLY renalware.hd_session_form_batch_items
 
 ALTER TABLE ONLY renalware.ukrdc_treatments
     ADD CONSTRAINT fk_rails_2a03129a59 FOREIGN KEY (modality_code_id) REFERENCES renalware.ukrdc_modality_codes(id);
+
+
+--
+-- Name: patients fk_rails_2a3ebeae72; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patients
+    ADD CONSTRAINT fk_rails_2a3ebeae72 FOREIGN KEY (hospital_centre_id) REFERENCES renalware.hospital_centres(id);
 
 
 --
@@ -18778,6 +18794,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190201153850'),
 ('20190209135334'),
 ('20190210125211'),
+('20190210143717'),
 ('20190218142207'),
 ('20190225103005'),
 ('20190315125638'),
