@@ -11,6 +11,7 @@ module Renalware
       is_expected.to validate_presence_of(:given_name)
       is_expected.to validate_presence_of(:family_name)
       is_expected.to respond_to(:authentication_token)
+      is_expected.to belong_to(:hospital_centre)
     end
 
     describe "#generate_new_authentication_token" do

@@ -1931,6 +1931,7 @@ CREATE TABLE renalware.users (
     updated_at timestamp without time zone,
     telephone character varying,
     authentication_token character varying,
+    hospital_centre_id bigint,
     asked_for_write_access boolean DEFAULT false NOT NULL,
     consultant boolean DEFAULT false NOT NULL,
     hidden boolean DEFAULT false NOT NULL,
@@ -2872,7 +2873,6 @@ CREATE TABLE renalware.event_versions (
     item_type character varying NOT NULL,
     item_id integer NOT NULL,
     event character varying NOT NULL,
-    whodunnit character varying,
     whodunnit integer,
     object jsonb,
     object_changes jsonb,
@@ -2916,7 +2916,8 @@ CREATE TABLE renalware.events (
     updated_by_id integer NOT NULL,
     type character varying NOT NULL,
     document jsonb,
-    deleted_at timestamp without time zone
+    deleted_at timestamp without time zone,
+    subtype_id bigint
 );
 
 
@@ -14756,6 +14757,13 @@ CREATE INDEX index_event_versions_on_item_type_and_item_id ON renalware.event_ve
 
 
 --
+-- Name: index_event_versions_on_whodunnit; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_event_versions_on_whodunnit ON renalware.event_versions USING btree (whodunnit);
+
+
+--
 -- Name: index_events_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -18305,6 +18313,13 @@ CREATE INDEX index_users_on_hidden ON renalware.users USING btree (hidden);
 
 
 --
+-- Name: index_users_on_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_users_on_hospital_centre_id ON renalware.users USING btree (hospital_centre_id);
+
+
+--
 -- Name: index_users_on_last_activity_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -20971,6 +20986,14 @@ ALTER TABLE ONLY renalware.hd_profiles
 
 
 --
+-- Name: users fk_rails_ec9881f9c2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.users
+    ADD CONSTRAINT fk_rails_ec9881f9c2 FOREIGN KEY (hospital_centre_id) REFERENCES renalware.hospital_centres(id);
+
+
+--
 -- Name: problem_problems fk_rails_edf3902cb0; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -21897,6 +21920,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190131152758'),
 ('20190201151346'),
 ('20190201153850'),
+('20190209135334'),
 ('20190218142207'),
 ('20190225103005'),
 ('20190315125638'),
@@ -22045,7 +22069,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210414103735'),
 ('20210419110721'),
 ('20210419111931'),
-('20210419161507'),
 ('20210531082528'),
 ('20210701161843'),
 ('20210705082359');
+
+
