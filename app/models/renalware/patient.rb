@@ -43,17 +43,18 @@ module Renalware
     serialize :sex, Gender
 
     has_one :current_observation_set, class_name: "Pathology::CurrentObservationSet"
-    has_one :current_address, as: :addressable, class_name: "Address"
+    has_one :current_address, as: :addressable, class_name: "Address", dependent: :destroy
     has_one :summary, class_name: "Patients::Summary"
     belongs_to :ethnicity, class_name: "Patients::Ethnicity"
     belongs_to :country_of_birth, class_name: "System::Country"
     belongs_to :religion, class_name: "Patients::Religion"
     belongs_to :language, class_name: "Patients::Language"
+    belongs_to :hospital_centre, class_name: "Hospitals::Centre"
     belongs_to :named_consultant, class_name: "User"
     belongs_to :named_nurse, class_name: "User"
-    has_many :bookmarks, class_name: "Patients::Bookmark"
-    has_many :alerts, class_name: "Patients::Alert"
-    has_one :worry, class_name: "Patients::Worry"
+    has_many :bookmarks, class_name: "Patients::Bookmark", dependent: :destroy
+    has_many :alerts, class_name: "Patients::Alert", dependent: :destroy
+    has_one :worry, class_name: "Patients::Worry", dependent: :destroy
 
     belongs_to :first_cause, class_name: "Deaths::Cause"
     belongs_to :second_cause, class_name: "Deaths::Cause"
@@ -69,7 +70,7 @@ module Renalware
     has_many :medication_reviews, class_name: "Medications::Review"
     has_many :drugs, through: :prescriptions
     has_many :medication_routes, through: :prescriptions, class_name: "Medications::MedicationRoute"
-    has_many :modalities, class_name: "Modalities::Modality"
+    has_many :modalities, class_name: "Modalities::Modality", dependent: :destroy
     has_many :modality_descriptions,
              class_name: "Modalities::Description",
              through: :modalities,
