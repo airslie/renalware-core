@@ -3,6 +3,7 @@ tr
   td= patient.nhs_number
   - Renalware.config.patient_hospital_identifiers.each_value do |value|
     td= patient.public_send(value)
+  td.col-width-medium-with-ellipsis= patient.hospital_centre
   td= patient.sex.code
   td= patient.born_on
   td= patient.age
