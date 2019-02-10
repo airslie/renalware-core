@@ -17,11 +17,6 @@
             user_to_promote_to_top: current_user \
           )
 
-  = f.association :hospital_centre,
-        collection: Renalware::Hospitals::Centre.ordered,
-        label_method: :to_s,
-        wrapper: :horizontal_medium
-
   - if investigatorship.study.type.present?
     = render path_to_research_document_form_partial(investigatorship.study.type, :investigatorships), f: f
   br
