@@ -9,11 +9,9 @@ module Renalware
 
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to :study }
-    it { is_expected.to belong_to :hospital_centre }
 
     it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_presence_of :study }
-    it { is_expected.to validate_presence_of :hospital_centre }
 
     describe "#to_s" do
       it "delegates to user" do
