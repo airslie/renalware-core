@@ -1995,7 +1995,7 @@ ALTER SEQUENCE renalware.event_types_id_seq OWNED BY renalware.event_types.id;
 -- Name: event_versions; Type: TABLE; Schema: renalware; Owner: -
 --
 
-CREATE TABLE event_versions (
+CREATE TABLE renalware.event_versions (
     id bigint NOT NULL,
     item_type character varying NOT NULL,
     item_id integer NOT NULL,
@@ -2011,7 +2011,7 @@ CREATE TABLE event_versions (
 -- Name: event_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
-CREATE SEQUENCE event_versions_id_seq
+CREATE SEQUENCE renalware.event_versions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2023,7 +2023,7 @@ CREATE SEQUENCE event_versions_id_seq
 -- Name: event_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
 --
 
-ALTER SEQUENCE event_versions_id_seq OWNED BY event_versions.id;
+ALTER SEQUENCE renalware.event_versions_id_seq OWNED BY renalware.event_versions.id;
 
 
 --
@@ -6798,6 +6798,7 @@ CREATE TABLE renalware.users (
     updated_at timestamp without time zone,
     telephone character varying,
     authentication_token character varying,
+    hospital_centre_id bigint,
     asked_for_write_access boolean DEFAULT false NOT NULL,
     consultant boolean DEFAULT false NOT NULL,
     hidden boolean DEFAULT false NOT NULL
@@ -8950,7 +8951,7 @@ ALTER TABLE ONLY renalware.event_types ALTER COLUMN id SET DEFAULT nextval('rena
 -- Name: event_versions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
-ALTER TABLE ONLY event_versions ALTER COLUMN id SET DEFAULT nextval('event_versions_id_seq'::regclass);
+ALTER TABLE ONLY renalware.event_versions ALTER COLUMN id SET DEFAULT nextval('renalware.event_versions_id_seq'::regclass);
 
 
 --
@@ -10330,7 +10331,7 @@ ALTER TABLE ONLY renalware.event_types
 -- Name: event_versions event_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
-ALTER TABLE ONLY event_versions
+ALTER TABLE ONLY renalware.event_versions
     ADD CONSTRAINT event_versions_pkey PRIMARY KEY (id);
 
 
@@ -12117,7 +12118,7 @@ CREATE INDEX index_clinic_appointments_on_updated_by_id ON renalware.clinic_appo
 -- Name: index_clinic_clinics_on_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE UNIQUE INDEX index_clinic_clinics_on_name ON clinic_clinics USING btree (name);
+CREATE UNIQUE INDEX index_clinic_clinics_on_name ON renalware.clinic_clinics USING btree (name);
 
 
 --
@@ -12145,7 +12146,7 @@ CREATE INDEX index_clinic_visits_on_created_by_id ON renalware.clinic_visits USI
 -- Name: index_clinic_visits_on_document; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_clinic_visits_on_document ON clinic_visits USING gin (document);
+CREATE INDEX index_clinic_visits_on_document ON renalware.clinic_visits USING gin (document);
 
 
 --
@@ -12159,7 +12160,7 @@ CREATE INDEX index_clinic_visits_on_patient_id ON renalware.clinic_visits USING 
 -- Name: index_clinic_visits_on_type; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_clinic_visits_on_type ON clinic_visits USING btree (type);
+CREATE INDEX index_clinic_visits_on_type ON renalware.clinic_visits USING btree (type);
 
 
 --
@@ -12348,14 +12349,14 @@ CREATE UNIQUE INDEX index_event_types_on_slug ON renalware.event_types USING btr
 -- Name: index_event_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_event_versions_on_item_type_and_item_id ON event_versions USING btree (item_type, item_id);
+CREATE INDEX index_event_versions_on_item_type_and_item_id ON renalware.event_versions USING btree (item_type, item_id);
 
 
 --
 -- Name: index_event_versions_on_whodunnit; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_event_versions_on_whodunnit ON event_versions USING btree (whodunnit);
+CREATE INDEX index_event_versions_on_whodunnit ON renalware.event_versions USING btree (whodunnit);
 
 
 --
@@ -12369,7 +12370,7 @@ CREATE INDEX index_events_on_created_by_id ON renalware.events USING btree (crea
 -- Name: index_events_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_events_on_deleted_at ON events USING btree (deleted_at);
+CREATE INDEX index_events_on_deleted_at ON renalware.events USING btree (deleted_at);
 
 
 --
@@ -15572,6 +15573,13 @@ CREATE INDEX index_users_on_hidden ON renalware.users USING btree (hidden);
 
 
 --
+-- Name: index_users_on_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_users_on_hospital_centre_id ON renalware.users USING btree (hospital_centre_id);
+
+
+--
 -- Name: index_users_on_last_activity_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -17874,6 +17882,14 @@ ALTER TABLE ONLY renalware.hd_profiles
 
 
 --
+-- Name: users fk_rails_ec9881f9c2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.users
+    ADD CONSTRAINT fk_rails_ec9881f9c2 FOREIGN KEY (hospital_centre_id) REFERENCES renalware.hospital_centres(id);
+
+
+--
 -- Name: problem_problems fk_rails_edf3902cb0; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -18776,6 +18792,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190131152758'),
 ('20190201151346'),
 ('20190201153850'),
+('20190209135334'),
 ('20190218142207'),
 ('20190225103005'),
 ('20190315125638'),

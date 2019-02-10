@@ -4,6 +4,7 @@ require "rails_helper"
 
 describe "Managing Users", type: :request do
   let(:user) { create(:user, :unapproved, :clinical) }
+  let(:hospital_centre) { create(:hospital_centre) }
 
   describe "GET index" do
     it "responds with a list" do
@@ -35,8 +36,9 @@ describe "Managing Users", type: :request do
         attributes = {
           approved: !user.approved,
           role_ids: user.role_ids,
-          consultant: "true",
-          hidden: true
+          hidden: true,
+          hospital_centre_id: hospital_centre.id,
+          consultant: "true"
         }
         patch admin_user_path(user), params: { user: attributes }
 
@@ -44,8 +46,9 @@ describe "Managing Users", type: :request do
         expect(Renalware::User).to exist(
           id: user.id,
           approved: !user.approved,
-          consultant: true,
-          hidden: true
+          hidden: true,
+          hospital_centre: hospital_centre,
+          consultant: true
         )
 
         follow_redirect!
