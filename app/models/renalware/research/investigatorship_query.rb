@@ -16,7 +16,7 @@ module Renalware
         study
           .investigatorships
           .ordered
-          .eager_load(:user, :hospital_centre)
+          .eager_load(user: :hospital_centre)
           .ransack(options)
       end
     end
