@@ -8,7 +8,7 @@ module Renalware
       query = params.fetch(:q, {})
       query[:s] ||= "family_name"
       search = User
-        .includes(:roles)
+        .includes(:roles, :hospital_centre)
         .where.not(username: :systemuser)
         .ransack(query)
       users = search.result(distinct: true).page(page).per(per_page)
@@ -51,6 +51,7 @@ module Renalware
           :telephone,
           :consultant,
           :hidden,
+          :hospital_centre_id,
           role_ids: []
         )
     end
