@@ -75,7 +75,7 @@ module Renalware
       def investigatorship_params
         params
           .require(:investigatorship)
-          .permit(:user_id, :hospital_centre_id, document: {})
+          .permit(:user_id, document: {})
       end
 
       def render_new(investigatorship)

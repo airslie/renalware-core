@@ -8133,7 +8133,6 @@ CREATE TABLE renalware.research_investigatorships (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
     study_id bigint NOT NULL,
-    hospital_centre_id bigint NOT NULL,
     updated_by_id bigint NOT NULL,
     created_by_id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -16947,13 +16946,6 @@ CREATE INDEX index_research_investigatorships_on_document ON renalware.research_
 
 
 --
--- Name: index_research_investigatorships_on_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_research_investigatorships_on_hospital_centre_id ON renalware.research_investigatorships USING btree (hospital_centre_id);
-
-
---
 -- Name: index_research_investigatorships_on_study_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -18949,14 +18941,6 @@ ALTER TABLE ONLY renalware.admission_requests
 
 ALTER TABLE ONLY renalware.hd_sessions
     ADD CONSTRAINT fk_rails_563fedb262 FOREIGN KEY (dry_weight_id) REFERENCES renalware.clinical_dry_weights(id);
-
-
---
--- Name: research_investigatorships fk_rails_56861b7f4d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.research_investigatorships
-    ADD CONSTRAINT fk_rails_56861b7f4d FOREIGN KEY (hospital_centre_id) REFERENCES renalware.hospital_centres(id);
 
 
 --
@@ -21351,6 +21335,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190201151346'),
 ('20190201153850'),
 ('20190209135334'),
+('20190210125211'),
 ('20190218142207'),
 ('20190225103005'),
 ('20190315125638'),
