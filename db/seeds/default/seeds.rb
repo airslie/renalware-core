@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
-log "Seeding default data"
+require "engineer/database/seed_helper"
+
+module Renalware
+  extend Engineer::Database::SeedHelper
+  log_section "Seeding default renalware-core data"
+end
 
 require_relative "./system/seeds"
 require_relative "./ukrdc/seeds"
