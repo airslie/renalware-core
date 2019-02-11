@@ -8,6 +8,7 @@ module Renalware
       demo_nhsno = 1234567890
       countries = System::Country.all
       patients = []
+      default_hospital_centre = Hospitals::Centre.find_by!(code: "QC001")
 
       Patient.transaction do
         CSV.foreach(file_path, headers: true) do |row|
@@ -28,16 +29,8 @@ module Renalware
             # which are not available to us if using .import! (see below)
             patient.ukrdc_external_id = SecureRandom.uuid
             patient.secure_id = SecureRandom.uuid
+            patient.hospital_centre = default_hospital_centre
           end
-
-          address = pat.current_address || pat.build_current_address
-          address.street_1 = Faker::Address.secondary_address
-          address.street_2 = Faker::Address.street_address
-          address.town = Faker::Address.city
-          address.county = Faker::Address.state
-          address.postcode = Faker::Address.postcode
-          address.country = countries.sample
-          patients << pat
         end
 
         Patient.import! patients
