@@ -42,6 +42,7 @@ AllCops:
     - "bin/**/*"
     - "lib/tasks/**/*"
     - "db/**/*"
+    - "demo_data/**/*"
     - "spec/dummy/bin/**/*"
     - "spec/dummy/lib/tasks/**/*"
     - "spec/dummy/db/**/*"

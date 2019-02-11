@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware
-  # add random patients plus RABBITs
+  # Add random patients plus RABBITs
   users = User.all.to_a
   dates = (1..365).to_a
   log "Adding Patients to Worryboard" do
