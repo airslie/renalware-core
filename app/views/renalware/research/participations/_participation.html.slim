@@ -9,7 +9,7 @@ tr
   td.col-width-mediumish-with-ellipsis(title=participation.patient&.hospital_centre)
     = participation.patient&.hospital_centre
   td= participation.external_id
-  td
+  td.right
     = link_to "Delete",
               research_study_participation_path(participation.study, participation),
               method: :delete,

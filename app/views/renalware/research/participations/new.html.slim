@@ -1,6 +1,5 @@
-= within_admin_layout(title: "Add Participant",
-                      breadcrumbs: breadcrumb_for("Clinical Studies",
-                                   research_studies_path)) do
+= within_admin_layout(title: "Add",
+                      breadcrumbs: research_study_participants_breadcrumb(participation.study)) do
 
   = render "form",
            participation: participation,
