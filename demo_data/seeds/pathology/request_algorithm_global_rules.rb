@@ -2,15 +2,15 @@
 
 def find_param_id(row)
   case row["type"].demodulize
-  when "ObservationResult"
+  when "ObservationResult" then
     Renalware::Pathology::ObservationDescription.find_by!(code: row["param_id"]).id
-  when "RequestResult"
+  when "RequestResult" then
     Renalware::Pathology::RequestDescription.find_by!(code: row["param_id"]).id
-  when "PrescriptionDrug"
+  when "PrescriptionDrug" then
     Renalware::Drugs::Drug.find_by!(name: row["param_id"]).id
-  when "PrescriptionDrugType"
+  when "PrescriptionDrugType" then
     Renalware::Drugs::Type.find_by!(name: row["param_id"]).id
-  when "PrescriptionDrugCategory"
+  when "PrescriptionDrugCategory" then
     Renalware::Pathology::Requests::DrugCategory.find_by(name: row["param_id"]).id
   end
 end

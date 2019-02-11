@@ -2,6 +2,8 @@
 
 module Renalware
   class PathologySeeder
+    include Engineer::Database::SeedHelper
+
     def file_path_for(patient:, file_name:)
       folder = ActiveSupport::Inflector.transliterate(patient.given_name).to_s # remove cedilla
       File.join(File.dirname(__FILE__), folder.downcase, file_name)
