@@ -28,6 +28,7 @@ PATH
       active_type (~> 0.7.1)
       activerecord-import (= 0.28.0)
       ahoy_matey (~> 2.1.0)
+      airslie-engineer (~> 1.0.0)
       attr_extras (~> 6.2)
       autoprefixer-rails (~> 9.6)
       chartkick (~> 3.3)
@@ -158,6 +159,8 @@ GEM
       request_store
       safely_block (>= 0.2.1)
       user_agent_parser
+    airslie-engineer (1.0.0)
+      rails (>= 5.2.2)
     arel (9.0.0)
     ast (2.4.0)
     attr_extras (6.2.1)
