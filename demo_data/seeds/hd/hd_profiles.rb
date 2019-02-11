@@ -16,7 +16,7 @@ module Renalware
       i = 0
       patients.each do |patient|
         i += 1
-        next unless (i % 10).zero?
+        next unless i % 10 == 0
 
         patient = HD.cast_patient(patient)
         # Assign HD modality
@@ -39,6 +39,7 @@ module Renalware
         }
         preference_set.save!
 
+        profile = nil
         # Assign an HD profile -- NB could be further randomised
         profile = HD::Profile.find_or_initialize_by(patient: patient)
         profile.dialysate = HD::Dialysate.first
@@ -69,7 +70,7 @@ module Renalware
               sodium_second_half: 145
             },
             anticoagulant: {
-              type: :none,
+              type: :heparin,
               loading_dose: 45,
               hourly_dose: 66,
               stop_time: "0:45"
