@@ -1,7 +1,7 @@
 
 = within_admin_layout(\
-   title: "Add investigator",
-   breadcrumbs: breadcrumb_for("Clinical Studies", research_studies_path)) do
+   title: "Add",
+   breadcrumbs: research_study_investigators_breadcrumb(investigatorship.study)) do
 
   = render "form",
            investigatorship: investigatorship,

@@ -2,8 +2,8 @@
   = render "renalware/research/studies/tabs", study: participation.study, active: :participations
 
 = within_admin_layout(\
-  title: participation.study.code,
-  breadcrumbs: breadcrumb_for("Clinical Studies", research_studies_path)) do
+  title: "Edit",
+  breadcrumbs: research_study_participants_breadcrumb(participation.study)) do
 
   br
 
