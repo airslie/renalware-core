@@ -2,7 +2,6 @@
 
 module Renalware
   log "Adding Religions" do
-
     file_path = File.join(File.dirname(__FILE__), "patients_religions.csv")
 
     CSV.foreach(file_path, headers: true) do |row|
