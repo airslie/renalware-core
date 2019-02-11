@@ -17,5 +17,21 @@ module Renalware
       partial_path = "#{study_class.deconstantize.underscore}/#{type}/form"
       partial_path&.gsub("::", "/")&.gsub("//", "/")&.gsub("//", "/")
     end
+
+    def research_study_participants_breadcrumb(study)
+      [
+        breadcrumb_for("Clinical Studies", research_studies_path),
+        breadcrumb_for(study.code, research_study_path(study)),
+        breadcrumb_for("Participants", research_study_participations_path(study))
+      ]
+    end
+
+    def research_study_investigators_breadcrumb(study)
+      [
+        breadcrumb_for("Clinical Studies", research_studies_path),
+        breadcrumb_for(study.code, research_study_path(study)),
+        breadcrumb_for("Investigators", research_study_participations_path(study))
+      ]
+    end
   end
 end
