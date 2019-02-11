@@ -34,7 +34,6 @@ module Renalware
   end
 
   log "Assign Access profiles to Francois RABBIT" do
-
     patient = Accesses.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
     patient.profiles.destroy_all
     users = User.limit(3).to_a
@@ -83,7 +82,7 @@ module Renalware
       document: {
         results: {
           method: :hand_doppler,
-          flow_feed_artery: "abcdef" ,
+          flow_feed_artery: "abcdef",
           has_art_stenosis: :no,
           art_stenosis_notes: dummy_text,
           has_ven_stenosis: :yes,
@@ -109,7 +108,7 @@ module Renalware
       document: {
         results: {
           method: :hand_doppler,
-          flow_feed_artery: "abcdef" ,
+          flow_feed_artery: "abcdef",
           has_art_stenosis: :no,
           art_stenosis_notes: dummy_text,
           has_ven_stenosis: :yes,
