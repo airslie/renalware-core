@@ -27,7 +27,7 @@ module Renalware
 
       validates :patient, presence: true
       validates :attachment_type, presence: true
-      validates :file, presence: true
+      # validates :file, presence: true
       validates :name, presence: true
       validates :external_location, presence: { if: -> { attachment_type&.store_file_externally } }
       validate :validate_uploaded_file_size
@@ -37,7 +37,7 @@ module Renalware
       # has store_file_externally = true, thus hiding the file input, but the file still gets sent.
       def discard_uploaded_file_if_attachment_type_suggests_external_storage
         if file.attached? && attachment_type.store_file_externally?
-          file.purge
+          file.purge if file.persisted?
         end
       end
 
@@ -46,7 +46,7 @@ module Renalware
       def validate_uploaded_file_size
         max = Renalware.config.max_file_upload_size
         if file.attached? && file.blob.byte_size > max
-          file.purge
+          file.purge if file.persisted?
           errors[:file] << "Sorry, the file is too large. The maximum is #{max} bytes."
         end
       end
