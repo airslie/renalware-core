@@ -5,6 +5,20 @@ module Renalware
     sites = %w(Barts KCH Kent Lister)
     default_hospital_centre = Hospitals::Centre.find_by!(code: "QC001")
 
+    # add rwdev superadmin
+    username = "rwdev"
+    Renalware::User.find_or_create_by!(username: username) do |u|
+      u.given_name = "Renalware"
+      u.family_name = "Developer"
+      u.email = "renalware@airslie.com"
+      u.password = "develop!"
+      u.approved = true
+      u.roles = [Renalware::Role.find_by!(name: :super_admin)]
+      u.signature = "Renalware Developer"
+      u.hospital_centre = default_hospital_centre
+      u.professional_position = Faker::Job.position
+    end
+
     sites.each do |site|
       site_code = site.downcase
 
