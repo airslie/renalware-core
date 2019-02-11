@@ -69,7 +69,8 @@ module Renalware
       has_many :investigatorships, dependent: :destroy
       has_many :investigators,
                class_name: "Renalware::User",
-               through: :investigatorships
+               through: :investigatorships,
+               source: :user
 
       class << self
         define_method(:investigatorship_class) { Investigatorship }

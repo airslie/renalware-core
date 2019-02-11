@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
   s.add_dependency "activerecord-postgres_enum", "~> 1.6.0"
   s.add_dependency "active_type", "~> 0.7.1"
   s.add_dependency "ahoy_matey", "~> 2.1.0"
+  s.add_dependency "airslie-engineer", "~> 1.0.0"
   s.add_dependency "attr_extras", "~> 6.2"
   s.add_dependency "autoprefixer-rails", "~> 9.6"
   s.add_dependency "chartkick", "~> 3.3"

@@ -36,7 +36,7 @@ module Renalware
       # has store_file_externally = true, thus hiding the file input, but the file still gets sent.
       def discard_uploaded_file_if_attachment_type_suggests_external_storage
         if file.attached? && attachment_type.store_file_externally?
-          file.purge
+          file.purge if file.persisted?
         end
       end
 
