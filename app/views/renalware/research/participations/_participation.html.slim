@@ -6,6 +6,8 @@ tr
   td= participation.patient.hospital_identifiers
   td= participation.patient.age
   td= participation.patient.sex
+  td.col-width-mediumish-with-ellipsis(title=participation.patient&.hospital_centre)
+    = participation.patient&.hospital_centre
   td= participation.external_id
   td
     = link_to "Delete",
