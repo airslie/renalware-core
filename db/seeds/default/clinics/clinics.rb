@@ -2,7 +2,6 @@
 
 module Renalware
   log "Adding Clinics" do
-
     [
       "Access",
       "AKI",

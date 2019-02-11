@@ -2,7 +2,6 @@
 
 module Renalware
   log "Adding PD Systems" do
-
     file_path = File.join(File.dirname(__FILE__), "systems.csv")
 
     CSV.foreach(file_path, headers: true) do |row|

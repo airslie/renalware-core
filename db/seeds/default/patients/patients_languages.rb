@@ -3,6 +3,7 @@
 module Renalware
   log "Adding Languages" do
     return if Patients::Language.count > 0
+
     file_path = File.join(File.dirname(__FILE__), "patients_languages.csv")
     languages = []
     CSV.foreach(file_path, headers: true) do |row|

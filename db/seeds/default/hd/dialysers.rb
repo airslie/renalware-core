@@ -2,7 +2,6 @@
 
 module Renalware
   log "Adding HD Dialysers" do
-
     file_path = File.join(File.dirname(__FILE__), "dialysers.csv")
 
     CSV.foreach(file_path, headers: true) do |row|
