@@ -3,6 +3,7 @@
 module Renalware
   log "Adding Demo Site Users\n" do
     sites = %w(Barts KCH Kent Lister)
+    default_hospital_centre = Hospitals::Centre.find_by!(code: "QC001")
 
     sites.each do |site|
       site_code = site.downcase
@@ -17,6 +18,7 @@ module Renalware
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :super_admin)]
         u.signature = "#{site} Superuser"
+        u.hospital_centre = default_hospital_centre
       end
 
       log "#{username} created.", type: :sub
@@ -31,6 +33,7 @@ module Renalware
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :admin)]
         u.signature = "Dr #{site} Admin, MRCP"
+        u.hospital_centre = default_hospital_centre
       end
 
       log "#{username} created.", type: :sub
@@ -46,6 +49,7 @@ module Renalware
         u.roles = [Renalware::Role.find_by!(name: :clinical)]
         u.signature = "Dr #{site}"
         u.telephone = Faker::PhoneNumber.phone_number
+        u.hospital_centre = default_hospital_centre
       end
 
       log "#{username} created.", type: :sub
@@ -60,6 +64,7 @@ module Renalware
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :clinical)]
         u.signature = "#{site} Nurse"
+        u.hospital_centre = default_hospital_centre
       end
 
       log "#{username} created.", type: :sub
@@ -74,6 +79,7 @@ module Renalware
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :read_only)]
         u.signature = "#{site} Guest"
+        u.hospital_centre = default_hospital_centre
       end
 
       log "#{username} created.", type: :sub
@@ -88,6 +94,7 @@ module Renalware
       u.approved = true
       u.roles = [Renalware::Role.find_by!(name: :devops)]
       u.signature = "Renalware Developer"
+      u.hospital_centre = default_hospital_centre
     end
   end
 end
