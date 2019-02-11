@@ -38,6 +38,7 @@ Gem::Specification.new do |s|
   s.add_dependency "chartkick", "~> 3.3"
   s.add_dependency "client_side_validations", "~> 16.0"
   s.add_dependency "client_side_validations-simple_form", "~> 9.0"
+  s.add_dependency "airslie-engineer", "~> 1.0.0"
   s.add_dependency "clipboard-rails", "~> 1.7.1"
   s.add_dependency "cocoon", "~> 1.2.11"
   s.add_dependency "concurrent-ruby", "~> 1.1.6"
