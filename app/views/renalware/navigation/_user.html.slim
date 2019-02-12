@@ -1,16 +1,16 @@
 -if Renalware.config.display_feedback_button_in_navbar && current_user.present?
   li.show-for-medium-up= link_to("Feedback",
-              new_system_user_feedback_path,
+              renalware.new_system_user_feedback_path,
               class: "button secondary")
 li.has-dropdown
-  = link_to dashboard_path do
+  = link_to renalware.dashboard_path do
     i.fas.fa-home
     | &nbsp;
     = current_user.username
   ul.dropdown
-    li= link_to "My Dashboard", dashboard_path
-    li= link_to "Update Profile", edit_user_registration_path
-    li= link_to "View Letters", author_letters_path(current_user.id)
-    li= link_to "Manage Snippets", snippets_path
-    li= link_to "Messages", messaging_internal_inbox_path
-    li= link_to "Electronic CCs", unread_letters_electronic_receipts_path
+    li= link_to "My Dashboard", renalware.dashboard_path
+    li= link_to "Update Profile", renalware.edit_user_registration_path
+    li= link_to "View Letters", renalware.author_letters_path(current_user.id)
+    li= link_to "Manage Snippets", renalware.snippets_path
+    li= link_to "Messages", renalware.messaging_internal_inbox_path
+    li= link_to "Electronic CCs", renalware.unread_letters_electronic_receipts_path
