@@ -18,6 +18,13 @@ module Renalware
       partial_path&.gsub("::", "/")&.gsub("//", "/")&.gsub("//", "/")
     end
 
+    def path_to_research_show_partial(study_class, type = nil)
+      return if study_class.blank?
+
+      partial_path = "#{study_class.deconstantize.underscore}/#{type}/show"
+      partial_path&.gsub("::", "/")&.gsub("//", "/")&.gsub("//", "/")
+    end
+
     def research_study_participants_breadcrumb(study)
       [
         breadcrumb_for("Clinical Studies", research_studies_path),
