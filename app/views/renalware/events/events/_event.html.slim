@@ -20,6 +20,7 @@ tr
 
   td.nowrap= l event.created_at.to_date
   - unless local_assigns[:exclude_type_column] == true
+    td= event.event_type&.category
     td= event.event_type
   - if local_assigns[:include_patient_column] == true
     td= default_patient_link(event.patient)
