@@ -18,7 +18,8 @@ describe "Managing clinical study investigatorships", type: :request do
       :research_investigatorship,
       study: study,
       user: user,
-      by: user
+      by: user,
+      started_on: "01-01-2018"
     )
   end
 
@@ -56,7 +57,7 @@ describe "Managing clinical study investigatorships", type: :request do
   describe "POST HTTP create" do
     context "with valid inputs" do
       it "add the user to the study" do
-        params = { user_id: user.id }
+        params = { user_id: user.id, started_on: "2018-01-01" }
 
         post(
           research_study_investigatorships_path(study),
@@ -72,7 +73,7 @@ describe "Managing clinical study investigatorships", type: :request do
 
     context "with invalid inputs" do
       it "re-renders the form with validation errors" do
-        params = { user_id: nil }
+        params = { user_id: nil, started_on: "2018-01-01" }
 
         post(
           research_study_investigatorships_path(study),
