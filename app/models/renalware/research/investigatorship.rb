@@ -16,6 +16,7 @@ module Renalware
 
       validates :user, presence: true
       validates :study, presence: true
+      validates :started_on, presence: true
 
       validates :user_id, uniqueness: { scope: :study_id }
 
