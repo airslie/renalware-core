@@ -7652,7 +7652,9 @@ CREATE TABLE renalware.research_investigatorships (
     updated_at timestamp without time zone NOT NULL,
     deleted_at timestamp without time zone,
     type character varying,
-    document jsonb
+    document jsonb,
+    started_on date,
+    left_on date
 );
 
 
@@ -20451,6 +20453,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190209135334'),
 ('20190210125211'),
 ('20190210143717'),
+('20190213104817'),
 ('20190218142207'),
 ('20190225103005'),
 ('20190315125638'),
