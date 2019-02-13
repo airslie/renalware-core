@@ -1,5 +1,5 @@
 name,description,store_file_externally
-"Histology Images","Histology Images",false
+"Histology Images","Histology Images",true
 "Histology Report","Histology Report",false
 "MRI Images","MRI Images",true
 "MRI Report","MRI Report",false
