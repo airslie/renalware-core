@@ -4,7 +4,7 @@
                     url: patient_problems_path(patient),
                     html: { autocomplete: "off" } do |f|
 
-    = f.input :description, as: :text
+    = f.input :description, as: :text, autofocus: true
 
     = f.button :submit
     span= " or "
