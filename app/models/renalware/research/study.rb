@@ -73,8 +73,8 @@ module Renalware
                source: :user
 
       class << self
-        define_method(:investigatorship_class) { Investigatorship }
-        define_method(:participation_class) { Participation }
+        define_method(:investigatorship_class) { Renalware::Research::Investigatorship }
+        define_method(:participation_class) { Renalware::Research::Participation }
       end
 
       # Define this explicity so that an subclasses will inherit it - otherwise Pundit will try
