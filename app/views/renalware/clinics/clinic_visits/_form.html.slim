@@ -10,9 +10,6 @@
         header
           h2 Summary
 
-        = f.input :date, as: :date_picker, wrapper: :horizontal_datepicker
-        = f.input :time, as: :clock_picker, wrapper: :horizontal_clockpicker
-
         #clinic-visit-clinic-container
           = f.association :clinic,
                           collection: clinic_options,
@@ -22,6 +19,8 @@
                             id: "clinic-visit-clinic-dropdown",
                             class: "searchable_select" \
                           }
+        = f.input :date, as: :date_picker, wrapper: :horizontal_datepicker
+        = f.input :time, as: :clock_picker, wrapper: :horizontal_clockpicker
         = f.input :did_not_attend,
                   as: :boolean,
                   boolean_style: :inline,
