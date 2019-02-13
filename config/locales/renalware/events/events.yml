@@ -4,6 +4,7 @@ en:
       events:
         table:
           created_at: Added
+          category: Category
           type: Type
           description: Description
           date_time: Date/Time
