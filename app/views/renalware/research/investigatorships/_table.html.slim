@@ -4,14 +4,16 @@
       tr
         th Name
         th Site
-        th.col-width-date-time Added
+        th.col-width-date-time Started on
+        th.col-width-date-time Left on
         th.col-width-small
     tbody
       - investigatorships.each do |investigatorship|
         tr
           td= investigatorship.user
           td.col-width-medium-with-ellipsis= investigatorship.user&.hospital_centre
-          td= l(investigatorship.created_at)
+          td= l(investigatorship.started_on)
+          td= l(investigatorship.left_on)
           td.right
             - if policy(investigatorship).edit?
               = link_to "Edit", edit_research_study_investigatorship_path(study, investigatorship)
