@@ -13,7 +13,10 @@ module Renalware
       end
 
       def search
-        study.participations.joins(:patient).eager_load(:patient).ransack(options)
+        study
+          .participations
+          .eager_load(patient: [:worry, :hospital_centre])
+          .ransack(options)
       end
     end
   end
