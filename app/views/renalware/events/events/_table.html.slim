@@ -7,7 +7,7 @@ table.has-togglable-rows.events-table
       th.col-width-tiny
       th.col-width-date=t(".created_at")
       - unless local_assigns.fetch(:exclude_type_column, false)
-        th.col-width-tiny= t(".category")
+        th= t(".category")
         th.col-width-large= t(".type")
       - if local_assigns.fetch(:include_patient_column, false)
         th.col-width-large= t(".patient")
