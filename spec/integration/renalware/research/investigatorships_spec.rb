@@ -96,13 +96,14 @@ describe "Managing clinical study investigatorships", type: :request do
 
     describe "PATCH html update" do
       it "updates the investigatorship" do
-        params = {}
+        params = { started_on: "2018-01-03" }
         url = research_study_investigatorship_path(investigatorship.study, investigatorship)
         patch url, params: { investigatorship: params }
 
         expect(response).to be_redirect
         follow_redirect!
         expect(response).to be_successful
+        expect(investigatorship.reload.started_on).to eq(Date.parse("2018-01-03"))
       end
     end
   end
