@@ -7,7 +7,8 @@ ruby:
 
     = f.input :schedule_definition_id,
               collection: Renalware::HD::ScheduleDefinition.ordered,
-              wrapper: :horizontal_small
+              wrapper: :horizontal_small,
+              autofocus: true
     = f.input :other_schedule,
               input_html: { class: "small-input" }
     = f.association :hospital_unit,

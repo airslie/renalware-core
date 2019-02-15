@@ -120,9 +120,10 @@ module Renalware
     def to_s(format = :default)
       title_suffix = " (#{title})" if has_title?
       formatted_name = "#{family_name.upcase}, #{given_name}#{title_suffix}"
+      formatted_nhs_number = " (#{nhs_number})" if nhs_number.present?
       case format
       when :default then formatted_name
-      when :long then "#{formatted_name} (#{nhs_number})"
+      when :long then "#{formatted_name}#{formatted_nhs_number}"
       else full_name
       end
     end

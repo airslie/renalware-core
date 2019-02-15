@@ -6,7 +6,7 @@
                     url: patient_problem_path(patient, problem),
                     html: { autocomplete: "off", class: "problem-form" } do |f|
 
-      = f.input :description, as: :text
+      = f.input :description, as: :text, autofocus: true
       = f.button :button, "Save"
       span= " or "
       = link_to "cancel", patient_problems_path(patient)

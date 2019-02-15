@@ -172,5 +172,53 @@ module Renalware
 
       it { is_expected.to eq(uuid) }
     end
+
+    describe "#to_s" do
+      subject { patient.to_s(format) }
+
+      let(:patient) {
+        described_class.new(title: title, family_name: "A", given_name: "B", nhs_number: nhs_number)
+      }
+      let(:format) { :default }
+      let(:title) { "Mrs" }
+      let(:nhs_number) { "1" }
+
+      context "when the patient has a title" do
+        let(:title) { "Mrs" }
+
+        it { is_expected.to eq("A, B (Mrs)") }
+      end
+
+      context "when the patient has no title" do
+        let(:title) { "" }
+
+        it { is_expected.to eq("A, B") }
+      end
+
+      context "when the format is :long" do
+        let(:format) { :long }
+
+        context "when there is an nhs_number" do
+          let(:nhs_number) { "1" }
+
+          it { is_expected.to eq("A, B (Mrs) (1)") }
+        end
+
+        context "when there is no nhs_number" do
+          let(:nhs_number) { "" }
+
+          it { is_expected.to eq("A, B (Mrs)") }
+        end
+
+        context "when there is no nhs_number and no title" do
+          let(:nhs_number) { "" }
+          let(:title) { "" }
+
+          it { is_expected.to eq("A, B") }
+        end
+      end
+
+      #context "when the patient has no title" do
+    end
   end
 end

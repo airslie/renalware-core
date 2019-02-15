@@ -17,7 +17,8 @@
                         collection: Renalware::Modalities::Description.where(hidden: false),
                         input_html: { id: "modality-description-select" },
                         label_method: :name, value_method: :id,
-                        wrapper: :horizontal_medium
+                        wrapper: :horizontal_medium,
+                        autofocus: true
 
               .hide-death
                 = m.input :modal_change_type,

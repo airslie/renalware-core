@@ -17,7 +17,7 @@
           strong= request.patient.to_s(:long)
 
       = f.input :patient_id, as: :hidden
-      = f.input :reason_id, collection: reasons, wrapper: :horizontal_medium
+      = f.input :reason_id, collection: reasons, wrapper: :horizontal_medium, autofocus: true
       = f.input :priority, wrapper: :horizontal_small
       = f.input :hospital_unit_id, collection: hospital_units, wrapper: :horizontal_medium
       = f.input :notes, as: :text, wrapper: :horizontal_large, input_html: { rows: 5 }

@@ -9,7 +9,8 @@
   = f.input :ignore_me, as: :hidden
   = f.association :training_site,
       collection: Renalware::PD::TrainingSite.ordered,
-      wrapper: :horizontal_small
+      wrapper: :horizontal_small,
+      autofocus: true
 
   = f.association :training_type,
       collection: Renalware::PD::TrainingType.ordered,

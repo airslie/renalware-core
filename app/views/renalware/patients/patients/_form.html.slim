@@ -2,7 +2,7 @@
   = field_set_tag do
     legend Patient Demographics
 
-    = f.input :nhs_number, wrapper: :horizontal_small
+    = f.input :nhs_number, wrapper: :horizontal_small, autofocus: true
 
     - Renalware.config.patient_hospital_identifiers.each do |key, field|
       = f.input field,

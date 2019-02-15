@@ -5,7 +5,9 @@
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Diagnosis & ESRF Info", name: "diagnosis" } do
 
-    = f.input :esrf_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :esrf_on,
+              as: :date_picker,
+              wrapper: :horizontal_datepicker
     = f.input :weight_at_esrf, wrapper: :horizontal_small
     = f.input :modality_at_esrf,
               include_blank: "Select modality",

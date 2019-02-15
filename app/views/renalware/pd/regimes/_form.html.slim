@@ -5,7 +5,8 @@
   = f.input :treatment,
             collection: available_pd_treatments_for(f.object),
             include_blank: t("collection.blank_option"),
-            wrapper: :horizontal_medium
+            wrapper: :horizontal_medium,
+            autofocus: true
 
   - if f.object.apd?
     = f.input :assistance_type, wrapper: :horizontal_small, default: :none
