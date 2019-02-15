@@ -23,6 +23,11 @@ jobs:
             gem install bundler
 
       - checkout
+      - setup_remote_docker
+
+      - run: docker container ls
+      # - run: touch test.txt
+      # - run: docker cp test.txt
 
       # Also pull the UKRDC XSDs
       - run: git submodule sync ; git submodule update --init
