@@ -6,6 +6,11 @@
     .row
       .columns.medium-3
         = f.input :identity_match, label: "Search by Hosp/NHS no or name"
+      .columns.small-4.medium-3
+        br
+        = f.check_box :patient_worry_id_not_null, {}, 1, nil
+        = f.label :patient_worry_id_not_null, "On Worryboard"
+
 
       .columns.medium-4.actions.end
         = f.submit t("btn.filter"), class: "button secondary", name: nil
