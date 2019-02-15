@@ -37,7 +37,7 @@ module Renalware
       [
         breadcrumb_for("Clinical Studies", research_studies_path),
         breadcrumb_for(study.code, research_study_path(study)),
-        breadcrumb_for("Investigators", research_study_participations_path(study))
+        breadcrumb_for("Investigators", research_study_investigatorships_path(study))
       ]
     end
   end
