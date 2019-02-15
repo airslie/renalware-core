@@ -40,7 +40,7 @@ module Renalware
 
       def update
         investigatorship = find_and_authorize_investigatorship
-        if investigatorship.save_by(current_user)
+        if investigatorship.update_by(current_user, investigatorship_params)
           redirect_to research_study_investigatorships_path(study)
         else
           render_edit(investigatorship)
