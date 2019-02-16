@@ -58,8 +58,6 @@ describe "Managing an existing letter contact", type: :system, js: true do
         expect(page).to have_content("No")
         expect(page).to have_content("Child")
       end
-
-      expect(page).to have_css(".flash-message .alert-box.success")
     end
   end
 

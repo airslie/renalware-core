@@ -11,3 +11,5 @@ We need to remove the real row and the (initially hidden) preview row also.
   $("#<%= original_message.html_identifier %>, #<%= original_message.html_preview_identifier %>")
     .fadeOut(300, function(){ $(this).remove();});
 <% end %>
+
+defer( function(){ toastr.success("Message sent") });
