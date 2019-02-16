@@ -7,13 +7,13 @@ en:
         Not for clinical use. Any data entered will not be retained.
       feedback_button: Provide feedback or report a bug
     create:
-      success: You have successfully added a new %{model_name}.
+      success: "%{model_name} created."
       failed: You have failed to add a new %{model_name}.
     update:
-      success: You have successfully updated this %{model_name}.
+      success: "%{model_name} updated."
       failed: You have failed to update this %{model_name}.
     destroy:
-      success: You have successfully removed this %{model_name}.
+      success: "%{model_name} removed."
       success_with_name: You have successfully removed '%{name}'.
       failed: You have failed to remove this %{model_name}.
     esrf:
