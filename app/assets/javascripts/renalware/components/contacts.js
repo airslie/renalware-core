@@ -145,7 +145,6 @@ Renalware.Contacts = {
       event.preventDefault();
 
       var valuesToSubmit = this.form.serialize();
-      // console.log(valuesToSubmit);
       var self = this;
 
       self._clearErrors();
@@ -169,6 +168,10 @@ Renalware.Contacts = {
     this._onContactAdded = function(contact) {
       this.el.foundation('reveal', 'close');
       this.callback(contact);
+      // Highlight the new tr once page dom up to date
+      setTimeout(function(){
+        $("#letters_contact_" + contact.id).addClass("post-action-highlight");
+      }, 1000);
     }
   }
 };

@@ -34,20 +34,18 @@ describe "Beta banner and capturing user feedback", type: :system do
     end
   end
 
-  describe "GET new html" do
+  describe "GET new html", js: true do
     context "when inputs are valid" do
       it "user offers feedback about the application" do
         login_as_clinical
         visit new_system_user_feedback_path
 
-        expect(page.status_code).to eq(200)
         expect(page).to have_content("Feedback")
 
         choose "Missing feature"
         fill_in "Comment", with: "My commment"
         click_on "Submit"
 
-        expect(page.status_code).to eq(200)
         expect(page).to have_content("Feedback registered, thank you")
       end
     end

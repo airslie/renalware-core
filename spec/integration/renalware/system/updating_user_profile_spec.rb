@@ -16,7 +16,6 @@ module Renalware
       click_on "Update"
 
       expect(page).to have_current_path(root_path)
-      expect(page).to have_content("Your account has been updated successfully")
       expect(@clinician.reload.professional_position).to eq("Renal Nurse")
       expect(@clinician.signature).to eq("Dr. D O Good, Senior Human Mechanic, Trumpton Hospital")
     end

@@ -36,8 +36,7 @@ html lang="en"
         = render "renalware/navigation/main"
       = yield(:header)
 
-    - if defined?(flash_messages)
-      = render "renalware/shared/flash_messages"
+    = render "renalware/shared/flash_messages" if defined?(warning_and_error_flash_messages)
 
     main
       = yield
@@ -47,3 +46,4 @@ html lang="en"
     = javascript_include_tag "application"
     = javascript_include_tag "renalware/core"
     = yield(:javascript)
+    = toastr_flash_messages
