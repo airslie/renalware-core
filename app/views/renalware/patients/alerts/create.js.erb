@@ -1,3 +1,4 @@
 <%= refresh(".flash-message", partial: "renalware/shared/flash_messages", locals: local_assigns) %>
 $(".patient-alerts ul").append("<%= j(render alert, format: :html) %>");
 $("#create-alert-modal").foundation('reveal', 'close');
+defer( function(){ toastr.success("Alert created") });

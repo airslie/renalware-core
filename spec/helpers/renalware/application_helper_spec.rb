@@ -12,16 +12,32 @@ describe Renalware::ApplicationHelper, type: :helper do
     end
   end
 
-  describe ".flash_messages" do
-    it "returns alert, notice and success flash message" do
+  describe ".warning_and_error_flash_messages" do
+    it "returns alert e" do
       allow(helper).to receive(:flash).and_return(
         alert: [:alert_message],
         notice: [:notice_message],
         success: [:success_message],
+        warning: [:warning_message],
         timedout: [true]
       )
-      expect(helper.flash_messages).to eq(
+      expect(helper.warning_and_error_flash_messages).to eq(
         alert: [:alert_message],
+        warning: [:warning_message]
+      )
+    end
+  end
+
+  describe ".success_flash_messages" do
+    it "returns alert and notice and success flash message" do
+      allow(helper).to receive(:flash).and_return(
+        alert: [:alert_message],
+        notice: [:notice_message],
+        success: [:success_message],
+        warning: [:warning_message],
+        timedout: [true]
+      )
+      expect(helper.success_flash_messages).to eq(
         notice: [:notice_message],
         success: [:success_message]
       )

@@ -64,7 +64,9 @@ module World
             fill_in("Notes", with: notes)
             find("input.button").click
           end
-          expect(page).to have_css("div.success")
+
+          # check toastr message
+          expect(page).to have_content(I18n.t("renalware.create.success", model_name: "Bookmark"))
         end
 
         def delete_bookmark(user:, patient_name:)
@@ -73,7 +75,8 @@ module World
           find("a", text: "Remove bookmark").click
           page.driver.browser.switch_to.alert.accept
 
-          expect(page).to have_css("div.success")
+          # check toastr message
+          expect(page).to have_content(I18n.t("renalware.destroy.success", model_name: "Bookmark"))
         end
 
         private
