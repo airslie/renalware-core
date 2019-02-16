@@ -28,7 +28,6 @@ module Renalware
       click_on "Approve"
 
       expect(page).to have_current_path(admin_users_path)
-      expect(page).to have_content("You have successfully updated this user.")
       expect(@unapproved.reload).to be_approved
       expect(@unapproved.roles).to match_array([@clinician_role])
     end
@@ -69,7 +68,6 @@ module Renalware
       click_on t("btn.update")
 
       expect(page).to have_current_path(admin_users_path)
-      expect(page).to have_content("You have successfully updated this")
       expect(@approved.reload).to be_approved
       expect(@approved.roles).to include(@clinician_role)
     end
@@ -84,7 +82,6 @@ module Renalware
       click_on t("btn.update")
 
       expect(page).to have_current_path(admin_users_path)
-      expect(page).to have_content("You have successfully updated this")
       expect(@expired.reload.expired_at).to be_nil
 
       click_link "Inactive"
