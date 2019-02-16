@@ -31,8 +31,6 @@ describe "Ward Management", type: :system do
     fill_in "Name", with: "NewName"
     click_on "Save"
 
-    expect(page).to have_content("You have successfully updated")
-
     within ".hospital-wards" do
       expect(page).to have_content("NewCode")
       expect(page).to have_content("NewName")
@@ -52,8 +50,6 @@ describe "Ward Management", type: :system do
     fill_in "Code", with: "NewCode"
     fill_in "Name", with: "NewName"
     click_on "Create"
-
-    expect(page).to have_content("You have successfully added")
 
     within ".hospital-wards" do
       expect(page).to have_content("NewCode")

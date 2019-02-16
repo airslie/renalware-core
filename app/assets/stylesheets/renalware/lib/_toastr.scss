@@ -1,0 +1,10 @@
+#toast-container {
+  & > div {
+    opacity: 0.95;
+  }
+
+  &.toast-top-right {
+    // top: 3.21429rem;
+    top: 3.5rem;
+  }
+}

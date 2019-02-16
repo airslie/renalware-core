@@ -81,6 +81,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 5.2"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
   s.add_dependency "ransack", "~> 2.3.0"
+  s.add_dependency "rails-assets-toastr", "~> 2.1.3"
   s.add_dependency "record_tag_helper", "~> 1.0.0"
   s.add_dependency "ruby-hl7", "~> 1.2.0"
   s.add_dependency "rubyzip", "~> 1.3.0"
