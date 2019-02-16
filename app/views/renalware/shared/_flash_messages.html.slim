@@ -1,5 +1,8 @@
+/ Note that we display warning and error flash messages in markup in the page, under header
+/ but notive and success messages are handled with toastr js notifications.
+/ See the application layout in the host app.
 .flash-message
-  - flash_messages.each do |name, msg|
+  - warning_and_error_flash_messages.each do |name, msg|
     .row.no-side-gutters class=name
       .alert-box class=flash_style(name) data={ alert: nil }
         = msg

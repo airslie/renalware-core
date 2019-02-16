@@ -3,6 +3,7 @@
     *= require jquery-ui/core
     *= require jquery-ui/sortable
     *= require jquery-ui/tabs
+    *= require toastr
     *= require_self
 */
 
@@ -13,6 +14,7 @@
 @import "trix/dist/trix";
 @import "balloon-css/src/balloon";
 @import "./lib/foundation_and_overrides";
+@import "./lib/toastr";
 @import "./lib/clockpicker";
 @import "./base/variables";
 @import "./base/mixins";
