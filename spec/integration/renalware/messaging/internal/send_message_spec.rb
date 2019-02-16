@@ -22,7 +22,7 @@ describe "Sending a private message", type: :system do
     select2 "X, Y", from: "Recipients"
     click_on "Send"
 
-    expect(page).to have_content("Message was successfully sent")
+    expect(page).to have_content("Message sent")
   end
 
   # scenario "A clinician replies to a message", js: true do

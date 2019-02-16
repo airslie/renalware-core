@@ -37,6 +37,14 @@ module Renalware
       flash.to_hash.reject { |key| key.to_sym == :timedout }
     end
 
+    def warning_and_error_flash_messages
+      flash.to_hash.reject { |key| %i(timedout notice success).include?(key.to_sym) }
+    end
+
+    def success_flash_messages
+      flash.to_hash.select { |key| %i(notice success).include?(key.to_sym) }
+    end
+
     # For use in pages
     # rubocop:disable Rails/OutputSafety
     def page_heading(title)
@@ -114,6 +122,22 @@ module Renalware
 
     def semantic_app_version
       "#{Renalware::VERSION}+sha.#{GitCommitSha.current}"
+    end
+
+    # Shows a toastr alert which fades away after a period of time.
+    # To position the toastr notification you could add this before the toastr call
+    #   toastr.options.positionClass = 'toast-top-full-width';
+    def toastr_flash_messages
+      messages = []
+      success_flash_messages.each do |type, message|
+        type = "success" if type == "notice"
+        type = "error"   if type == "alert"
+        type = "warning" if type == "warning"
+        text = "<script>$(function() { toastr.#{type}('#{message}') });</script>"
+        messages << text.html_safe if message
+      end
+      messages.join("\n").html_safe if messages.any?
+      # returns nil if no success messages
     end
   end
 end

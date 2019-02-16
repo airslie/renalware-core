@@ -49,7 +49,7 @@ module Renalware
     end
 
     def success_msg_for(model_name)
-      t(".success", model_name: model_name)
+      t(".success", model_name: model_name&.capitalize)
     end
 
     def failed_msg_for(model_name)
