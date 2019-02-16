@@ -22,11 +22,10 @@ describe "Sending a private message", type: :system do
     select2 "X, Y", from: "Recipients"
     click_on "Send"
 
-    expect(page).to have_content("Message was successfully sent")
-
     # Message should be marked as public= true by default
     message = Renalware::Messaging::Internal::Message.find_by(body: "Test")
     expect(message.public).to eq(true)
+    expect(page).to have_content("Message sent")
   end
 
   # scenario "A clinician replies to a message", js: true do

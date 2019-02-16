@@ -17,6 +17,7 @@
 //= require jquery-ui/core
 //= require jquery-ui/widgets/sortable
 //= require jquery-ui/effects/effect-highlight
+//= require toastr
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.foundation
 //= require foundation/foundation
@@ -52,3 +53,29 @@
 window.console = window.console || { log: function() {} };
 
 $.fn.select2.defaults.set( "width", "100%" );
+
+$(document).ready(function() {
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "positionClass": "toast-top-right",
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+});
+
+// Defer execution of a method until jQuery has loaded
+function defer(method) {
+  if (window.jQuery) {
+    method();
+  } else {
+    setTimeout(function() { defer(method) }, 100);
+  }
+}
