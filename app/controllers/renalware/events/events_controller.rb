@@ -12,25 +12,17 @@ module Renalware
       # JS GET after user selects event type, prompting us to return event-specific form fields
       def new
         save_path_to_return_to
-        render locals: {
-          patient: patient,
-          event: build_new_event,
-          event_types: event_types
-        }
+        render_new(build_new_event)
       end
 
       def create
         event = new_event_for_patient(event_params)
 
-        if event.save_by(current_user)
+        if CreateEvent.call(event: event, by: current_user)
           redirect_to return_url, notice: t(".success", model_name: "event")
         else
           flash.now[:error] = t(".failed", model_name: "event")
-          render :new, locals: {
-            patient: patient,
-            event: event,
-            event_types: event_types
-          }
+          render_new(event)
         end
       end
 
@@ -47,28 +39,42 @@ module Renalware
       end
 
       def edit
-        render locals: {
-          patient: patient,
-          event: load_and_authorize_event_for_edit_or_update,
-          event_types: []
-        }
+        render_edit(load_and_authorize_event_for_edit_or_update)
       end
 
       def update
         event = load_and_authorize_event_for_edit_or_update
-        if event.update_by(current_user, event_params)
+
+        if UpdateEvent.call(event: event, params: event_params, by: current_user)
           redirect_to return_url, notice: t(".success", model_name: "event")
         else
           flash.now[:error] = failed_msg_for("event type")
-          render :edit, locals: {
-            patient: patient,
-            event: event,
-            event_types: []
-          }
+          render_edit(event)
         end
       end
 
+      def destroy
+        load_and_authorize_event_for_edit_or_update.destroy!
+        redirect_to patient_events_path
+      end
+
       protected
+
+      def render_new(event)
+        render :new, locals: {
+          patient: patient,
+          event: event,
+          event_types: event_types
+        }
+      end
+
+      def render_edit(event)
+        render :edit, locals: {
+          patient: patient,
+          event: event,
+          event_types: []
+        }
+      end
 
       def save_path_to_return_to
         return unless request.format == :html
@@ -168,6 +174,26 @@ module Renalware
           ]
         end
       end
+
+      # Returns an array of objects defininig each category, with that category's types within it.
+      # rubocop:disable Metrics/MethodLength
+      def event_types_new
+        Events::Category.order(:position).map do |category|
+          types = category.types.order(:name).map do |event_type|
+            [
+              event_type.name,
+              event_type.id,
+              {
+                data: {
+                  source: new_patient_event_path(patient, event_type_id: event_type.id, format: :js)
+                }
+              }
+            ]
+          end
+          OpenStruct.new(name: category.name, id: category.id, types: types)
+        end
+      end
+      # rubocop:enable Metrics/MethodLength
 
       def query_params
         params.fetch(:q, {})
