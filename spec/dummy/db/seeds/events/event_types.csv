@@ -1,23 +1,24 @@
-"name"
-"A&E assessment - Anaesthetic Review"
-"Access - Anaesthetic Review"
-"Access - Assessment"
-"Access - Clinic"
-"Access - Clinic Review"
-"Access - Comment / Others"
-"Access - MDT"
-"Access - Surgery"
-"Anaesthetic assessment - Anaesthetic Review"
-"Biopsy - Comment / Others"
-"Biopsy - MDT"
-"Clinic - AKI"
-"Clinic - Clinic"
-"Clinic - General Nephrology"
-"Clinic - HD"
-"Clinic - HomeHD"
-"Clinic - Joint clinic"
-"Clinic - Live Donor Assessment"
-"Clinic - Live Donor FU"
-"Clinic - Low Clearance"
-"Clinic - Misc / Others"
-"Clinic - PD"
+"name","save_pdf_to_electronic_public_register"
+"A&E assessment - Anaesthetic Review",false
+"Access - Anaesthetic Review",false
+"Access - Assessment",false
+"Access - Clinic",false
+"Access - Clinic Review",false
+"Access - Comment / Others",false
+"Access - MDT",false
+"Access - Surgery",false
+"Anaesthetic assessment - Anaesthetic Review",false
+"Biopsy - Comment / Others",false
+"Biopsy - MDT",false
+"Clinic - AKI",false
+"Clinic - Clinic",false
+"Clinic - General Nephrology",false
+"Clinic - HD",false
+"Clinic - HomeHD",false
+"Clinic - Joint clinic",false
+"Clinic - Live Donor Assessment",false
+"Clinic - Live Donor FU",false
+"Clinic - Low Clearance",false
+"Clinic - Misc / Others",false
+"Clinic - PD",false
+"HD - MDT",true

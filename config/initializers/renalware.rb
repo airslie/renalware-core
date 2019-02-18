@@ -21,7 +21,7 @@ require_dependency "renalware"
 #     end
 #   end
 # As it stands its a bit too easy for the exposed subscription map hash to be overwritten by a host
-# application with confusing and undesirable outcomes.
+# application with confusing and outcomes.
 Renalware.configure do |config|
   config.broadcast_subscription_map = {
     "Renalware::Modalities::ChangePatientModality" => [

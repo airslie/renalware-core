@@ -110,7 +110,7 @@ module Renalware
     end
 
     def semantic_app_version
-      "#{VERSION}+sha.#{GitCommitSha.current}"
+      "#{Renalware::VERSION}+sha.#{GitCommitSha.current}"
     end
   end
 end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "test_support/ajax_helpers"
 
 describe "Creating a Event triggers an event_created broadcast", type: :request do
   context "when creating a simple event" do
