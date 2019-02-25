@@ -22,14 +22,12 @@ describe Renalware::Events::SavePdfEventToFileJob do
     )
   end
 
-  let(:event_presenter) { Renalware::Events::EventPdfPresenter.new(event) }
-
   describe "#perform" do
     it "creates the specific file with the pdf event content" do
       file_path = Renalware::Engine.root.join("tmp", "test.pdf")
       create(:hospital_centre, code: Renalware.config.ukrdc_site_code)
 
-      job.perform(event: event_presenter, file_path: file_path)
+      job.perform(event: event, file_path: file_path)
 
       expect(File.exist?(file_path)).to eq(true)
     end

@@ -18,7 +18,8 @@ module Renalware
       end
 
       def pdf_data_for(event)
-        EventPdf.new(event).build.render
+        decorated_event = EventPdfPresenter.new(event)
+        EventPdf.new(decorated_event).render
       end
 
       def create_folder_if_not_exists(path)
