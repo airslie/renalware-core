@@ -17,7 +17,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.69)
+    renalware-core (2.0.70)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.28.0)
       ahoy_matey (~> 2.1.0)
@@ -150,7 +150,7 @@ GEM
     arel (9.0.0)
     ast (2.4.0)
     attr_extras (5.2.0)
-    autoprefixer-rails (9.4.7)
+    autoprefixer-rails (9.4.9)
       execjs
     awesome_print (1.8.0)
     axiom-types (0.1.1)
