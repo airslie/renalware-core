@@ -8,6 +8,8 @@ module Renalware
     # envelope stuffer. It will contain intervleaved address sheets and letters so that the machine
     # can stuff a letter for each letter recipient.
     class PrintableLettersController < Letters::BaseController
+      skip_after_action :verify_policy_scoped
+
       def show
         letter = find_letter(params[:letter_id])
         authorize letter
