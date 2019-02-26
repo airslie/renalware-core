@@ -5,6 +5,8 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module HD
     class DialysatesController < HD::BaseController
+      skip_after_action :verify_policy_scoped
+
       def index
         dialysates = Dialysate.all
         authorize dialysates

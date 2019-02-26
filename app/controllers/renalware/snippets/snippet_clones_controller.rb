@@ -9,6 +9,7 @@ require_dependency "renalware/snippets"
 module Renalware
   module Snippets
     class SnippetClonesController < BaseController
+      skip_after_action :verify_policy_scoped
       COPY_SUFFIX = "[COPY]"
       CLONE_SUFFIX = "[CLONE]"
 

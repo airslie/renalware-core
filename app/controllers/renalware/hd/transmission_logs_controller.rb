@@ -8,6 +8,7 @@ module Renalware
     class TransmissionLogsController < BaseController
       include PresenterHelper
       include Pagy::Backend
+      skip_after_action :verify_policy_scoped
 
       # NB be sure not to select the payload as this will slow things down.
       # The payload is loaded by clicking on a link in the table

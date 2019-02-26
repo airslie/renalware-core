@@ -7,6 +7,7 @@ module Renalware
   module Renal
     class RegistryPreflightChecksController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       class PatientPresenter < SimpleDelegator
         def missing_data
