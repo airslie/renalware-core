@@ -9,6 +9,7 @@ module Renalware
 
     before_action :set_paper_trail_whodunnit
     after_action :verify_authorized
+    after_action :verify_policy_scoped
 
     # A note on ahoy tracking:
     # has_user_timed_out is defined on SessionTimeoutController
@@ -35,7 +36,7 @@ module Renalware
 
     def patient
       @patient ||= begin
-        Renalware::Patient.find_by(secure_id: params[:patient_id]).tap do |patient_|
+        policy_scope(Renalware::Patient).find_by(secure_id: params[:patient_id]).tap do |patient_|
           raise PatientNotFoundError unless patient_
         end
       end
@@ -44,7 +45,7 @@ module Renalware
     protected
 
     def patient_search
-      Patients::PatientSearch.call(params)
+      Patients::PatientSearch.call(params, policy_scope(Renalware::Patient))
     end
 
     def success_msg_for(model_name)
