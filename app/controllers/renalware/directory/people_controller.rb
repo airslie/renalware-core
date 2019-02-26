@@ -7,6 +7,7 @@ module Renalware
   module Directory
     class PeopleController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       def index
         query = PersonQuery.new(q: params[:q])

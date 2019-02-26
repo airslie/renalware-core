@@ -5,6 +5,8 @@ require_dependency "renalware/patients"
 module Renalware
   module Patients
     class PracticesController < BaseController
+      skip_after_action :verify_policy_scoped
+
       # Search for GP Practices matching part of a name
       def search
         authorize Practice, :search?

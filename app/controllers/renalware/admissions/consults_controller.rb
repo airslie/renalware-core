@@ -8,6 +8,7 @@ module Renalware
     class ConsultsController < BaseController
       include Renalware::Concerns::Pageable
       include Renalware::Concerns::PdfRenderable
+      skip_after_action :verify_policy_scoped
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def index
