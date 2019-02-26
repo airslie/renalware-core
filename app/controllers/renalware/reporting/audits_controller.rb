@@ -6,6 +6,7 @@ module Renalware
   module Reporting
     class AuditsController < BaseController
       include PresenterHelper
+      skip_after_action :verify_policy_scoped
 
       def index
         authorize Audit, :index?

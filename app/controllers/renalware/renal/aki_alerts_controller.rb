@@ -7,6 +7,7 @@ module Renalware
     class AKIAlertsController < BaseController
       include Renalware::Concerns::Pageable
       include Renalware::Concerns::PdfRenderable
+      skip_after_action :verify_policy_scoped
 
       def index
         query = search_form.query
