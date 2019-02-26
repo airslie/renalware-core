@@ -3962,7 +3962,8 @@ CREATE TABLE renalware.hospital_centres (
     updated_at timestamp without time zone NOT NULL,
     info text,
     trust_name character varying,
-    trust_caption character varying
+    trust_caption character varying,
+    host_site boolean DEFAULT false NOT NULL
 );
 
 
@@ -14973,6 +14974,13 @@ CREATE INDEX index_hospital_centres_on_code ON renalware.hospital_centres USING 
 
 
 --
+-- Name: index_hospital_centres_on_host_site; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hospital_centres_on_host_site ON hospital_centres USING btree (host_site) WHERE (host_site = true);
+
+
+--
 -- Name: index_hospital_units_on_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -21285,6 +21293,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190213104817'),
 ('20190218142207'),
 ('20190225103005'),
+('20190226162607'),
 ('20190306121545'),
 ('20190315125638'),
 ('20190322120025'),
