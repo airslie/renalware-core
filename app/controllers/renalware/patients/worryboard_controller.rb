@@ -9,16 +9,23 @@ module Renalware
 
       def show
         authorize Worry, :index?
-        query = WorryQuery.new(query_params)
-        worries = query.call.page(page).per(per_page)
         render locals: {
-          query: query.search,
-          worries: worries,
+          query: worry_query.search,
+          worries: worry_query.call.page(page).per(per_page),
           modalities: Modalities::Description.order(:name)
         }
       end
 
       private
+
+      def worry_query
+        @worry_query ||= begin
+          WorryQuery.new(
+            query_params: query_params,
+            patient_scope: policy_scope(Renalware::Patient)
+          )
+        end
+      end
 
       def query_params
         params.fetch(:q, {})
