@@ -10,6 +10,7 @@ module Renalware
       class ReceiptsController < BaseController
         include Renalware::Concerns::Pageable
         include PresenterHelper
+        skip_after_action :verify_policy_scoped
 
         # GET aka inbox
         def unread

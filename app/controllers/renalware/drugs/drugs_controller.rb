@@ -6,6 +6,7 @@ module Renalware
   module Drugs
     class DrugsController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       before_action :prepare_drugs_search, only: :index
 

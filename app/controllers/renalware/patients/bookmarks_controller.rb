@@ -5,7 +5,6 @@ module Renalware
     class BookmarksController < BaseController
       include Concerns::Pageable
       skip_after_action :verify_policy_scoped
-      # before_action :load_patient, only: :create
 
       # Display the user's bookmarks
       def index
@@ -21,10 +20,11 @@ module Renalware
 
       # idempotent
       def create
-        Bookmark.find_or_create_by!(user: user, patient: patient) do |bookmark|
-          authorize bookmark
-          bookmark.assign_attributes(bookmark_params)
+        bookmark = Bookmark.find_or_create_by!(user: user, patient: patient) do |bm|
+          bm.assign_attributes(bookmark_params)
         end
+        authorize bookmark
+
         redirect_back(fallback_location: patient_path(patient),
                       notice: success_msg_for("bookmark"))
       end
