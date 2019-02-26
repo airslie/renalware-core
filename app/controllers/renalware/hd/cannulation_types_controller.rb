@@ -5,6 +5,8 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module HD
     class CannulationTypesController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def new
         cannulation_type = CannulationType.new
         authorize cannulation_type
