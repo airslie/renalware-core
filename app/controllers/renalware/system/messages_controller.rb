@@ -3,6 +3,8 @@
 module Renalware
   module System
     class MessagesController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def index
         messages = Message.all.order(created_at: :desc)
         authorize messages

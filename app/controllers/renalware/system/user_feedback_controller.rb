@@ -4,6 +4,7 @@ module Renalware
   module System
     class UserFeedbackController < BaseController
       include Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       def new
         feedback = UserFeedback.new
