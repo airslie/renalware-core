@@ -7,6 +7,7 @@ module Renalware
     class PatientsController < BaseController
       include PresenterHelper
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped, only: [:new, :create]
 
       def index
         sort = params.dig(:q, :s)
@@ -67,7 +68,7 @@ module Renalware
 
       def patient
         @patient ||= begin
-          Renalware::Patient.find_by(secure_id: params[:id]).tap do |patient_|
+          policy_scope(Renalware::Patient).find_by(secure_id: params[:id]).tap do |patient_|
             raise PatientNotFoundError unless patient_
           end
         end
