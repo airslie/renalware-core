@@ -7,6 +7,7 @@ module Renalware
     module Requests
       class RequestsController < Pathology::BaseController
         include Renalware::Concerns::Pageable
+        skip_after_action :verify_policy_scoped
 
         before_action :load_patients, only: [:new, :create]
 

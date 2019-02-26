@@ -5,6 +5,7 @@ module Renalware
   module Clinics
     class VisitsController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       def index
         visits_query = VisitQuery.new(query_params)

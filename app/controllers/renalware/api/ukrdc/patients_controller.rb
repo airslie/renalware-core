@@ -6,6 +6,7 @@ module Renalware
   module API
     module UKRDC
       class PatientsController < BaseController
+        skip_after_action :verify_policy_scoped
         respond_to :xml
 
         def show
