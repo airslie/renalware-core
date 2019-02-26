@@ -6,6 +6,7 @@ module Renalware
   module Clinics
     class AppointmentsController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       def index
         appointments_query = AppointmentQuery.new(query_params)

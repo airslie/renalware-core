@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "Appointments", type: :request do
   describe "GET index" do
-    it "responds with a a list of appointments" do
+    it "responds with a list of appointments" do
       user = login_as_clinical
       consultant = create(:renal_consultant)
       patient = Renalware::Clinics.cast_patient(create(:patient, by: user))

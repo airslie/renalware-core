@@ -6,6 +6,7 @@ module Renalware
   module HD
     class UnmetPreferencesController < BaseController
       include PresenterHelper
+      skip_after_action :verify_policy_scoped
 
       def index
         query = PatientsWithUnmetPreferencesQuery.new(query_params)
