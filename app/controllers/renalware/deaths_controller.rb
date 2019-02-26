@@ -6,7 +6,7 @@ module Renalware
     include Renalware::Concerns::Pageable
 
     def index
-      patients = Patient.dead.page(page).per(per_page)
+      patients = policy_scope(Patient).dead.page(page).per(per_page)
       authorize patients
       render locals: { patients: present(patients, PatientPresenter) }
     end
