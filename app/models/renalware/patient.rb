@@ -123,7 +123,7 @@ module Renalware
     delegate :patient_at?, to: :hospital_identifiers
 
     def self.policy_class
-      BasePolicy
+      ::Renalware::Patients::PatientPolicy
     end
 
     def diabetic?
