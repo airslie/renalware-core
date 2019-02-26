@@ -6,7 +6,6 @@ module Renalware
   module PD
     class PETAdequacyResultsController < BaseController
       include PresenterHelper
-      before_action :load_patient
 
       def new
         result = patient.pet_adequacy_results.new
