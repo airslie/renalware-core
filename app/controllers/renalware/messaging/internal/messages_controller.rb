@@ -8,6 +8,7 @@ module Renalware
       class MessagesController < BaseController
         include Renalware::Concerns::Pageable
         include PresenterHelper
+        skip_after_action :verify_policy_scoped
 
         def new
           authorize Message, :new?

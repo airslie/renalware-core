@@ -6,6 +6,7 @@ module Renalware
   module Modalities
     class ReasonsController < BaseController
       skip_after_action :verify_authorized
+      skip_after_action :verify_policy_scoped
 
       def index
         @reason_hd_pd = HaemodialysisToPD.all
