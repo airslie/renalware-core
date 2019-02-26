@@ -5,6 +5,8 @@ require_dependency "renalware/snippets"
 module Renalware
   module Snippets
     class SnippetsController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def index
         authorize Snippet, :index?
         snippets = snippets_for_author(author)

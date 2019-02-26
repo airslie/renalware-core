@@ -5,6 +5,8 @@ require_dependency "renalware/hospitals"
 module Renalware
   module Hospitals
     class WardsController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def index
         authorize Ward, :index?
         wards = Ward.where(hospital_unit_id: unit.id).order(name: :asc)

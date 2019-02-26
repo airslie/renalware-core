@@ -6,6 +6,7 @@ module Renalware
   module Dashboard
     class DashboardsController < BaseController
       skip_after_action :verify_authorized
+      skip_after_action :verify_policy_scoped
 
       def show
         render :show, locals: {

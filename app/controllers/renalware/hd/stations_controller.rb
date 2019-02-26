@@ -7,6 +7,7 @@ module Renalware
   module HD
     class StationsController < BaseController
       include PresenterHelper
+      skip_after_action :verify_policy_scoped
 
       def index
         stations = Station.for_unit(unit_id).includes(:location).ordered

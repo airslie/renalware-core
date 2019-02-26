@@ -5,6 +5,8 @@ require_dependency "renalware/hospitals"
 module Renalware
   module Hospitals
     class UnitsController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def new
         hospital_unit = Unit.new
         authorize hospital_unit
