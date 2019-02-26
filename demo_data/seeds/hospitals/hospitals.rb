@@ -17,5 +17,6 @@ module Renalware
         end
       end
     end
+    Hospitals::Centre.find_by(code: "RJZ").update!(host_site: true)
   end
 end
