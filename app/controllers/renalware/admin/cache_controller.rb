@@ -5,6 +5,8 @@ require_dependency "renalware/admin"
 module Renalware
   module Admin
     class CacheController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def show
         authorize [:renalware, :admin, :cache], :show?
       end

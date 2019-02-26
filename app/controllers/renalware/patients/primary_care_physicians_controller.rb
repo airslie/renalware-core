@@ -8,6 +8,7 @@ module Renalware
   module Patients
     class PrimaryCarePhysiciansController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       before_action :find_primary_care_physician, only: [:edit, :update]
 

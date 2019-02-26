@@ -6,7 +6,7 @@ module Renalware
   module PD
     class RegimesController < BaseController
       include Renalware::Concerns::Pageable
-      before_action :load_patient
+      # before_action :load_patient
 
       def index
         regimes = regime_type_class.for_patient(patient).with_bags.ordered.page(page).per(per_page)

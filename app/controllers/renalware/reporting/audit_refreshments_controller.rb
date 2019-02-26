@@ -8,6 +8,8 @@ require_dependency "renalware/reporting"
 module Renalware
   module Reporting
     class AuditRefreshmentsController < BaseController
+      skip_after_action :verify_policy_scoped
+
       # TODO: Move to Job
       def create
         authorize audit

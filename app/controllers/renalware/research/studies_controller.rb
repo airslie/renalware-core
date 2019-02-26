@@ -6,6 +6,7 @@ module Renalware
   module Research
     class StudiesController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       def index
         query = Study.ordered.ransack(params[:q])
