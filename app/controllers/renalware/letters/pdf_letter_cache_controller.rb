@@ -5,6 +5,8 @@ require_dependency "renalware/admin"
 module Renalware
   module Letters
     class PdfLetterCacheController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def destroy
         authorize [:renalware, :admin, :cache], :destroy?
         Renalware::Letters::PdfLetterCache.clear
