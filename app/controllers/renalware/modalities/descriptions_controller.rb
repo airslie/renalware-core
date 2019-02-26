@@ -5,6 +5,8 @@ require_dependency "renalware/modalities"
 module Renalware
   module Modalities
     class DescriptionsController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def new
         modality_description = Description.new
         authorize modality_description

@@ -5,6 +5,8 @@ require_dependency "renalware/events"
 module Renalware
   module Events
     class TypesController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def new
         event_type = Type.new
         authorize event_type

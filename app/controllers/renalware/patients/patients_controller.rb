@@ -22,7 +22,7 @@ module Renalware
 
       def search
         skip_authorization
-        query = Patients::SearchQuery.new(term: params[:term])
+        query = Patients::SearchQuery.new(scope: policy_scope(Patient), term: params[:term])
         patients = query.call.page(page).per(per_page)
         render json: simplify(patients).to_json
       end
