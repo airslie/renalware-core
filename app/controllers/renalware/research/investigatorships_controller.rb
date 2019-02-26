@@ -6,6 +6,7 @@ module Renalware
   module Research
     class InvestigatorshipsController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       def index
         query = InvestigatorshipQuery.new(study: study, options: params[:q])

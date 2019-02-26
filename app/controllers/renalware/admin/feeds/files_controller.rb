@@ -7,6 +7,7 @@ module Renalware
     module Feeds
       class FilesController < BaseController
         include Renalware::Concerns::Pageable
+        skip_after_action :verify_policy_scoped
 
         def index
           authorize files
