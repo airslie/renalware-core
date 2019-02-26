@@ -9,6 +9,7 @@ module Renalware
         include Renalware::Concerns::Pageable
         include PresenterHelper
         include Pagy::Backend
+        skip_after_action :verify_policy_scoped
 
         def new
           authorize Messaging::Internal::Message, :new?
