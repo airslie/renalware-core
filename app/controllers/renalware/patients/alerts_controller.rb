@@ -5,6 +5,8 @@ require_dependency "renalware/patients"
 module Renalware
   module Patients
     class AlertsController < BaseController
+      skip_after_action :verify_policy_scoped, only: [:new, :destroy]
+
       # GET html
       def new
         alert = Alert.new

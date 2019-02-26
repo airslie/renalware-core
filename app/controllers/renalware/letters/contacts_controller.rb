@@ -5,11 +5,10 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class ContactsController < Letters::BaseController
-      before_action :load_patient
-
       def index
+        authorize patient
         render :index, locals: {
-          patient: @patient,
+          patient: patient,
           contact: build_contact,
           contact_descriptions: find_contact_descriptions,
           contacts: find_contacts
@@ -17,7 +16,8 @@ module Renalware
       end
 
       def create
-        contact = @patient.assign_contact(contact_params)
+        authorize patient
+        contact = patient.assign_contact(contact_params)
         if contact.save
           create_contact_successful(contact)
         else
@@ -26,11 +26,13 @@ module Renalware
       end
 
       def edit
+        authorize patient
         contact = patient.contacts.find(params[:id])
         render_edit(contact)
       end
 
       def update
+        authorize patient
         contact = patient.contacts.find(params[:id])
         if contact.update(update_contact_params)
           flash.now[:notice] = success_msg_for("contact")
@@ -64,7 +66,7 @@ module Renalware
 
       def find_contacts
         CollectionPresenter.new(
-          @patient.contacts.includes(:description).ordered,
+          patient.contacts.includes(:description).ordered,
           ContactPresenter
         )
       end

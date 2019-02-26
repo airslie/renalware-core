@@ -7,6 +7,7 @@ module Renalware
   module Admissions
     class AdmissionsController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped, except: [:create]
 
       def index
         admissions = search_form.submit.page(page).per(per_page)
@@ -55,7 +56,7 @@ module Renalware
       private
 
       def build_admission
-        patient = Patient.find_by(id: admission_params[:patient_id])
+        patient = policy_scope(Patient).find_by(id: admission_params[:patient_id])
         args = admission_params.merge(modality_at_admission: patient&.current_modality)
         Admission.new(args)
       end

@@ -7,6 +7,7 @@ module Renalware
   module Letters
     class ElectronicReceiptsController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       # PATCH
       def mark_as_read
