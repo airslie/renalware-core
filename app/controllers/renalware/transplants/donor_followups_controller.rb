@@ -5,20 +5,21 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class DonorFollowupsController < BaseController
-      before_action :load_patient
-
       def show
+        authorize operation.followup
         render locals: { patient: patient, donor_followup: operation.followup }
       end
 
       def new
         donor_followup = operation.build_followup
+        authorize donor_followup
         render locals: { patient: patient, donor_followup: donor_followup }
       end
 
       def create
         donor_followup = operation.build_followup
         donor_followup.attributes = followup_attributes
+        authorize donor_followup
 
         if donor_followup.save
           redirect_to patient_transplants_donor_dashboard_path(patient)
@@ -28,12 +29,14 @@ module Renalware
       end
 
       def edit
+        authorize operation.followup
         render locals: { patient: patient, donor_followup: operation.followup }
       end
 
       def update
         donor_followup = operation.followup
         donor_followup.attributes = followup_attributes
+        authorize donor_followup
 
         if donor_followup.save
           redirect_to patient_transplants_donor_dashboard_path(patient)
