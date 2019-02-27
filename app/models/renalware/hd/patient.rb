@@ -18,10 +18,6 @@ module Renalware
         .where("hd_profiles.deactivated_at is NULL")
       }
 
-      def self.policy_class
-        HD::PatientPolicy
-      end
-
       def treated?
         modality_descriptions.exists?(type: "Renalware::HD::ModalityDescription")
       end
