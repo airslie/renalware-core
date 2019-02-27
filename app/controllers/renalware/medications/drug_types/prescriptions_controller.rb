@@ -9,6 +9,7 @@ module Renalware
     module DrugTypes
       class PrescriptionsController < BaseController
         include Renalware::Concerns::Pageable
+        skip_after_action :verify_policy_scoped
 
         def index
           authorize Prescription, :index?
