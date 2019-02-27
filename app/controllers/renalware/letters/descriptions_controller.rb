@@ -5,8 +5,6 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class DescriptionsController < ApplicationController
-      skip_after_action :verify_policy_scoped
-
       def search
         query = Letters::Descriptions::SearchQuery.new(params[:term])
         render json: DescriptionAutocompleteResponse.to_json(query.call)

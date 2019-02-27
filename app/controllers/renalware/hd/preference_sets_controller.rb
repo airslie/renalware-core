@@ -6,6 +6,7 @@ module Renalware
   module HD
     class PreferenceSetsController < BaseController
       before_action :load_patient
+      skip_after_action :verify_policy_scoped
 
       def edit
         preference_set = PreferenceSet.for_patient(patient).first_or_initialize

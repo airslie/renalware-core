@@ -14,7 +14,11 @@ module Renalware
       private
 
       def query
-        LowClearance::MDMPatientsQuery.new(query: q, named_filter: named_filter)
+        LowClearance::MDMPatientsQuery.new(
+          relation: policy_scope(LowClearance::Patient),
+          query: q,
+          named_filter: named_filter
+        )
       end
 
       def named_filter

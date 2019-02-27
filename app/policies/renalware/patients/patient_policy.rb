@@ -18,9 +18,9 @@ module Renalware
           end
         end
 
-        def patient_class
-          Renalware::Patient
-        end
+        # def patient_class
+        #   Renalware::Patient
+        # end
 
         def resolve
           # Here is the gruesome logic
@@ -52,14 +52,14 @@ module Renalware
           # use 'left join patient_access where patient_id is null'
           #
           # So here we use top level roles first
-          return patient_class.all if user_is_super_admin?
+          return scope.all if user_is_super_admin?
 
-          scope = nil
           # If the user works at the host site then they can see any patient at that site
           if user.hospital_centre&.host_site?
-            scope = patient_class.where(hospital_centre_id: user.hospital_centre_id)
+            scope.where(hospital_centre_id: user.hospital_centre_id)
+          else
+            scope.none
           end
-          scope || patient_class.none
           # user.hospital_centre_id = patient.hosiptal_centre_id
           # letft outer join study_access
           # study_access

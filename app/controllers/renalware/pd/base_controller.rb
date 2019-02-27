@@ -8,7 +8,7 @@ module Renalware
       protected
 
       def patient
-        @pd_patient ||= Renalware::PD.cast_patient(super)
+        Renalware::PD.cast_patient(super)
       end
     end
   end
