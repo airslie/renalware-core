@@ -27,6 +27,7 @@ module Renalware
 
       def new
         regime = cloned_last_known_regime_of_type || patient.pd_regimes.new(type: regime_type)
+        authorize regime
 
         render :new, locals: {
           regime: regime,
@@ -35,6 +36,7 @@ module Renalware
       end
 
       def create
+        authorize(Regime, :create?)
         result = CreateRegime.new(patient: patient)
                              .call(by: current_user, params: pd_regime_params)
 
