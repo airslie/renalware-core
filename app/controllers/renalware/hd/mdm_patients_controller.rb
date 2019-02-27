@@ -20,6 +20,7 @@ module Renalware
       def query
         @query ||= begin
           MDMPatientsQuery.new(
+            relation: policy_scope(HD::Patient),
             params: filter_form.ransacked_parameters.merge(query_params).with_indifferent_access,
             named_filter: named_filter
           )
