@@ -34,6 +34,10 @@ module Renalware
           modality_descriptions.exists?(type: recipient_modality)
         end
       end
+
+      def self.policy_class
+        Transplants::PatientPolicy
+      end
     end
   end
 end

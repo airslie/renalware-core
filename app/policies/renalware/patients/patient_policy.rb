@@ -18,6 +18,10 @@ module Renalware
           end
         end
 
+        def patient_class
+          Renalware::Patient
+        end
+
         def resolve
           # Here is the gruesome logic
           # RF HEROIC user - sees HEROIC patients at RF and RL, and all non-HEROIC patients at RF
@@ -48,14 +52,14 @@ module Renalware
           # use 'left join patient_access where patient_id is null'
           #
           # So here we use top level roles first
-          return Renalware::Patient.all if user_is_super_admin?
+          return patient_class.all if user_is_super_admin?
 
           scope = nil
           # If the user works at the host site then they can see any patient at that site
           if user.hospital_centre&.host_site?
-            scope = Renalware::Patient.where(hospital_centre_id: user.hospital_centre_id)
+            scope = patient_class.where(hospital_centre_id: user.hospital_centre_id)
           end
-          scope || Renalware::Patient.none
+          scope || patient_class.none
           # user.hospital_centre_id = patient.hosiptal_centre_id
           # letft outer join study_access
           # study_access
