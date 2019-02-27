@@ -5,20 +5,22 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class DonationsController < BaseController
-      before_action :load_patient
-
       def show
         donation = Donation.for_patient(patient).find(params[:id])
+        authorize donation
         render locals: { patient: patient, donation: donation }
       end
 
       def new
-        render locals: { patient: patient, donation: Donation.new }
+        donation = Donation.new
+        authorize donation
+        render locals: { patient: patient, donation: donation }
       end
 
       def create
         donation = Donation.new(patient: patient)
         donation.attributes = donation_params
+        authorize donation
 
         if donation.save
           redirect_to patient_transplants_donor_dashboard_path(patient),
@@ -31,12 +33,14 @@ module Renalware
 
       def edit
         donation = Donation.for_patient(patient).find(params[:id])
+        authorize donation
         render locals: { patient: patient, donation: donation }
       end
 
       def update
         donation = Donation.for_patient(patient).find(params[:id])
         donation.attributes = donation_params
+        authorize donation
 
         if donation.save
           redirect_to patient_transplants_donor_dashboard_path(patient),
