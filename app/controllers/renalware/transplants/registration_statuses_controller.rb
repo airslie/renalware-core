@@ -5,17 +5,18 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class RegistrationStatusesController < BaseController
-      before_action :load_patient
-
       def new
+        status = registration.statuses.build
+        authorize status
         render locals: {
           patient: patient,
-          status: registration.statuses.build
+          status: status
         }
       end
 
       def create
         status = registration.add_status!(status_params)
+        authorize status
 
         if status.valid?
           redirect_to patient_transplants_recipient_dashboard_path(patient),
@@ -28,6 +29,7 @@ module Renalware
 
       def edit
         status = registration.statuses.find(params[:id])
+        authorize status
         render locals: {
           patient: patient,
           status: status
@@ -36,6 +38,7 @@ module Renalware
 
       def update
         status = update_status
+        authorize status
         if status.valid?
           redirect_to patient_transplants_recipient_dashboard_path(patient),
                       notice: t(".success", model_name: "registration status")
@@ -47,6 +50,7 @@ module Renalware
 
       def destroy
         status = registration.statuses.find(params[:id])
+        authorize status
         registration.delete_status!(status)
 
         redirect_to patient_transplants_recipient_dashboard_path(patient),
