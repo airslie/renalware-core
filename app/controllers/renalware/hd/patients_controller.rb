@@ -5,6 +5,8 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module HD
     class PatientsController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def dialysing_at_unit
         skip_authorization
         unit_id = params.fetch(:unit_id)
