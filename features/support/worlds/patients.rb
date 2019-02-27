@@ -18,6 +18,7 @@ module World
           patient.sex = "M"
           patient.born_on = Date.new(1989, 1, 1)
           patient.by = Renalware::SystemUser.find
+          patient.hospital_centre = Renalware::Hospitals::Centre.first
         end
       end
 

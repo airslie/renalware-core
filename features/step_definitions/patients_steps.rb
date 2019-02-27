@@ -14,7 +14,8 @@ Given(/^Patty is a patient$/) do
       street_1: "1 Main St",
       town: "London"
     },
-    by: Renalware::SystemUser.find
+    by: Renalware::SystemUser.find,
+    hospital_centre: Renalware::Hospitals::Centre.first
   )
 end
 
@@ -32,7 +33,8 @@ Given(/^Don is a patient$/) do
     sex: "M",
     born_on: Date.new(1989, 1, 1),
     primary_care_physician: primary_care_physician,
-    by: Renalware::SystemUser.find
+    by: Renalware::SystemUser.find,
+    hospital_centre: Renalware::Hospitals::Centre.first
   )
   @don.create_current_address(
     street_1: "2 Main St",
@@ -78,7 +80,8 @@ Given(/^the following patients:$/) do |table|
       local_patient_id: SecureRandom.uuid,
       sex: "M",
       born_on: Date.new(1989, 1, 1),
-      by: Renalware::SystemUser.find
+      by: Renalware::SystemUser.find,
+      hospital_centre: Renalware::Hospitals::Centre.first
     )
   end
 end

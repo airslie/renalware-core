@@ -6,6 +6,7 @@ module Renalware
   module Transplants
     class WaitListsController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       def show
         registrations = query.call.page(page).per(per_page || 50)
