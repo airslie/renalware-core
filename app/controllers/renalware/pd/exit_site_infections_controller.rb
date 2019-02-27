@@ -7,6 +7,7 @@ module Renalware
     class ExitSiteInfectionsController < BaseController
       include PresenterHelper
       include Renalware::Concerns::PdfRenderable
+      skip_after_action :verify_policy_scoped
 
       def show
         authorize exit_site_infection

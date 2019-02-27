@@ -6,6 +6,8 @@ module Renalware
   module Pathology
     module Requests
       class RulesController < Pathology::BaseController
+        skip_after_action :verify_policy_scoped
+
         def index
           rule_sets = GlobalRuleSet.all
           clinics = Renalware::Pathology::Clinic.for_algorithm
