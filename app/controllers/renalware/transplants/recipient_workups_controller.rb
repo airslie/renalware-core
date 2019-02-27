@@ -5,10 +5,9 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class RecipientWorkupsController < BaseController
-      before_action :load_patient
-
       def show
         workup = RecipientWorkup.for_patient(patient).first_or_initialize
+        authorize workup
 
         if workup.new_record?
           redirect_to edit_patient_transplants_recipient_workup_path(patient)
@@ -19,6 +18,7 @@ module Renalware
 
       def edit
         workup = RecipientWorkup.for_patient(patient).first_or_initialize
+        authorize workup
         workup = RecipientWorkupBuilder.new(
           workup: workup,
           default_consenter_name: current_user.to_s
@@ -28,6 +28,7 @@ module Renalware
 
       def update
         workup = RecipientWorkup.for_patient(patient).first_or_initialize
+        authorize workup
 
         if workup.update workup_params
           redirect_to patient_transplants_recipient_workup_path(patient),

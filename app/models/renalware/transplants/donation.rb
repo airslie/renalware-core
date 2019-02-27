@@ -45,6 +45,10 @@ module Renalware
       validates :donated_on, timeliness: { type: :date, allow_blank: true }
       validate :validate_recipient
 
+      def self.policy_class
+        BasePolicy
+      end
+
       private
 
       def validate_recipient
