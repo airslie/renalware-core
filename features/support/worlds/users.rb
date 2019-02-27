@@ -9,7 +9,8 @@ module World
         email: "#{given_name}.#{family_name}@renalware.net",
         username: "#{given_name}_#{family_name}",
         approved: true,
-        password: "supersecret"
+        password: "supersecret",
+        hospital_centre: Renalware::Hospitals::Centre.first
       )
     end
   end

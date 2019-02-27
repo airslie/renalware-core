@@ -6,6 +6,7 @@ module Renalware
   module HD
     class OngoingSessionsController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       def show
         query = Sessions::OngoingQuery.new(q: params[:q])
