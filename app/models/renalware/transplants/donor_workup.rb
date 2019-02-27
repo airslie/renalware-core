@@ -14,6 +14,10 @@ module Renalware
       has_paper_trail class_name: "Renalware::Transplants::Version",
                       on: [:create, :update, :destroy]
       has_document class_name: "Renalware::Transplants::DonorWorkupDocument"
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end
