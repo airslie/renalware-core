@@ -5,8 +5,6 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class RegistrationsController < BaseController
-      before_action :load_patient
-
       def show
         if registration.new_record?
           redirect_to edit_patient_transplants_registration_path(patient)
@@ -38,7 +36,11 @@ module Renalware
       end
 
       def registration
-        @registration ||= Registration.for_patient(@patient).first_or_initialize
+        @registration ||= begin
+          Registration.for_patient(patient).first_or_initialize.tap do |reg|
+            authorize reg
+          end
+        end
       end
 
       def registration_params
