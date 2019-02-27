@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "test_support/ajax_helpers"
 
 describe "Updating a Event triggers an event_updated broadcast", type: :request do
   context "when updating a simple event" do

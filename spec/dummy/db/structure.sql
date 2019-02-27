@@ -1928,7 +1928,9 @@ CREATE TABLE event_types (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     event_class_name character varying,
-    slug character varying
+    slug character varying,
+    save_pdf_to_electronic_public_register boolean DEFAULT false NOT NULL,
+    title character varying
 );
 
 
@@ -2890,7 +2892,10 @@ CREATE TABLE hospital_centres (
     active boolean,
     is_transplant_site boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    info text,
+    trust_name character varying,
+    trust_caption character varying
 );
 
 
@@ -5831,7 +5836,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -5910,7 +5915,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -15926,6 +15931,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181126090401'),
 ('20181126123745'),
 ('20181217124025'),
-('20190104095254');
+('20190104095254'),
+('20190218142207'),
+('20190225103005');
 
 

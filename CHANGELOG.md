@@ -9,6 +9,16 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.70
+### Added
+- Support saving an Event to PDF for example to EPR #2573 #2489
+### Changed
+- Autofocus the first/relevant input on forms #2568
+- Prefix top menu urls with renalware.* to allow link to work while rendering views inside another engine #2566
+### Fixed
+- Remove empty parentheses next to patient name if they have no NHS number #2568
+- Prevent an entry in system_visits on session_timed_out #2547
+- Remove n+1 queries in UKRDC XML generation #2541
 
 ## 2.0.69
 ### Added

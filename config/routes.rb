@@ -330,6 +330,9 @@ Renalware::Engine.routes.draw do
 
     # Events
     resources :events, only: [:new, :create, :index], controller: "events/events"
+    constraints(format: /(pdf)/) do
+      resources :events, only: :show, controller: "events/events"
+    end
 
     resources :swabs,
               only: [:new, :create, :edit, :update],

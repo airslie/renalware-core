@@ -68,6 +68,7 @@ Gem::Specification.new do |s|
   s.add_dependency "paranoia", "~> 2.4.0"
   s.add_dependency "pdf-reader", "~> 2.2.0"
   s.add_dependency "pg", "~> 1.1.3"
+  s.add_dependency "prawn", "~> 2.2.2"
   s.add_dependency "puma", "~> 3.12.0"
   s.add_dependency "pundit", "~> 2.0.0"
   s.add_dependency "rack-attack", "~> 5.4.0"

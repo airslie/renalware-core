@@ -62,7 +62,6 @@ end
 
 group :development do
   gem "awesome_print", require: false
-  gem "better_errors"
   gem "binding_of_caller"
   gem "bullet"
   gem "foreman", require: false

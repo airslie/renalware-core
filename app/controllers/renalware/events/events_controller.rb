@@ -2,11 +2,24 @@
 
 # rubocop:disable Metrics/ClassLength
 require_dependency "renalware/events"
+require "attr_extras"
 
 module Renalware
   module Events
     class EventsController < BaseController
       include Renalware::Concerns::Pageable
+      include Renalware::Concerns::PdfRenderable
+
+      # Render a PDF of the event
+      def show
+        event = load_and_authorize_event_for_edit_or_update
+        respond_to do |format|
+          format.pdf do
+            pdf = EventPdf.new(EventPdfPresenter.new(event))
+            send_data pdf.render, type: "application/pdf", disposition: "inline"
+          end
+        end
+      end
 
       # HTML GET when rendering the new form
       # JS GET after user selects event type, prompting us to return event-specific form fields
