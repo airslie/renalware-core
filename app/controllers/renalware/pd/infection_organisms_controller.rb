@@ -5,6 +5,8 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module PD
     class InfectionOrganismsController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def index
         @infectable = infectable_class.find(infectable_id)
         @infection_organisms = @infectable.infection_organisms

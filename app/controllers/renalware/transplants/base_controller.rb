@@ -9,11 +9,12 @@ module Renalware
         @transplant_patient ||= Renalware::Transplants.cast_patient(super)
       end
 
-      private
+      # private
 
       def load_patient
-        super
-        @patient = Renalware::Transplants.cast_patient(@patient)
+        # noop
+        # super
+        # @patient = Renalware::Transplants.cast_patient(@patient)
       end
     end
   end
