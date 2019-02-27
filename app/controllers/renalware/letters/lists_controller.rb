@@ -6,6 +6,7 @@ module Renalware
   module Letters
     class ListsController < Letters::BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       # rubocop:disable Metrics/MethodLength
       # TODO: Use a presenter here

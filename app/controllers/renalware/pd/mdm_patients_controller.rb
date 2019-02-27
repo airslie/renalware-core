@@ -12,7 +12,13 @@ module Renalware
       end
 
       def query
-        @query ||= MDMPatientsQuery.new(q: params[:q], named_filter: named_filter)
+        @query ||= begin
+          MDMPatientsQuery.new(
+            relation: policy_scope(PD::Patient),
+            q: params[:q],
+            named_filter: named_filter
+          )
+        end
       end
 
       def named_filter
