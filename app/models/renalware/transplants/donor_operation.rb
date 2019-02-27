@@ -35,6 +35,10 @@ module Renalware
       enumerize :donor_splenectomy_peri_or_post_operatively, in: %i(yes no unknown)
 
       validates :performed_on, presence: true
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end
