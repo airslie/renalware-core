@@ -30,6 +30,10 @@ module Renalware
       def to_s
         description&.to_s
       end
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end

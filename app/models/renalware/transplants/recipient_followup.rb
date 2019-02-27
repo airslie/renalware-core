@@ -45,6 +45,10 @@ module Renalware
       validates :transplant_failure_cause_other,
                 presence: true,
                 if: ->(o) { o.transplant_failure_cause_description.try(:name) == "Other" }
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end

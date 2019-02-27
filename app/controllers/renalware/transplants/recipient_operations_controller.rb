@@ -5,8 +5,6 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class RecipientOperationsController < BaseController
-      before_action :load_patient
-
       def show
         render locals: {
           patient: patient,
@@ -15,15 +13,18 @@ module Renalware
       end
 
       def new
+        operation = RecipientOperation.new
+        authorize operation
         render locals: {
           patient: patient,
-          recipient_operation: RecipientOperation.new
+          recipient_operation: operation
         }
       end
 
       def create
         recipient_operation = RecipientOperation.new(patient: patient)
         recipient_operation.attributes = operation_params
+        authorize recipient_operation
 
         if recipient_operation.save
           redirect_to patient_transplants_recipient_dashboard_path(patient),
@@ -60,7 +61,11 @@ module Renalware
       protected
 
       def operation
-        @operation ||= RecipientOperation.for_patient(patient).find(params[:id])
+        @operation ||= begin
+          RecipientOperation.for_patient(patient).find(params[:id]).tap do |op|
+            authorize op
+          end
+        end
       end
 
       def operation_params
