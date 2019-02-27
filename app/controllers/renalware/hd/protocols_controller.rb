@@ -7,6 +7,8 @@ module Renalware
     # Responsible for rendering an HD Session Form PDF (aka Protocol) which has the patients
     # past 3 sessions on it, and empty rows for their next three sessions.
     class ProtocolsController < BaseController
+      skip_after_action :verify_policy_scoped
+
       # Note that although rendering an individual PDF for a patient here, we use PdfRender
       # which can handles multiple patients, and hence it uses the index.pdf.slim view.
       # The show view is not used.
