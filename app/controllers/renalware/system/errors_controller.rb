@@ -3,8 +3,6 @@
 module Renalware
   module System
     class ErrorsController < ApplicationController
-      skip_after_action :verify_policy_scoped
-
       layout "renalware/layouts/error"
 
       def not_found

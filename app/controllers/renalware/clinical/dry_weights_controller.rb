@@ -8,6 +8,7 @@ module Renalware
     class DryWeightsController < Clinical::BaseController
       include Renalware::Concerns::Pageable
       before_action :load_patient
+      skip_after_action :verify_policy_scoped
 
       def index
         query = PatientDryWeightsQuery.new(patient: patient, search_params: params[:q])
