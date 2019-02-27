@@ -15,7 +15,13 @@ module Renalware
       private
 
       def query
-        @query ||= MDMPatientsQuery.new(q: q, named_filter: named_filter)
+        @query ||= begin
+          MDMPatientsQuery.new(
+            relation: policy_scope(Transplants::Patient),
+            q: q,
+            named_filter: named_filter
+          )
+        end
       end
 
       def named_filter
