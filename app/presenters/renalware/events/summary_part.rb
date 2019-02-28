@@ -7,11 +7,20 @@ module Renalware
     class SummaryPart < Renalware::SummaryPart
       def recent_events
         @recent_events ||= begin
-          Events::Event.includes([:created_by, :event_type])
-                       .for_patient(patient)
-                       .limit(Renalware.config.clinical_summary_max_events_to_display)
-                       .ordered
+          events = query
+                    .call
+                    .limit(Renalware.config.clinical_summary_max_events_to_display)
+                    .ordered
+          CollectionPresenter.new(events, EventPresenter)
         end
+      end
+
+      def query
+        @query ||= EventQuery.new(patient: patient, query: query_params)
+      end
+
+      def search
+        @search ||= query.search
       end
 
       def recent_events_count
@@ -19,6 +28,10 @@ module Renalware
           actual: recent_events.size,
           total: patient.summary.events_count
         )
+      end
+
+      def query_params
+        params.fetch(:q, {})
       end
 
       # AR::Relation#cache_key here will issue:

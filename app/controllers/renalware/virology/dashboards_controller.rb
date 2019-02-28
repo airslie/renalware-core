@@ -9,6 +9,15 @@ module Renalware
         authorize [:renalware, :virology, :dashboard], :show?
         render locals: { dashboard: DashboardPresenter.new(patient) }
       end
+
+      private
+
+      def vaccinations
+        CollectionPresenter.new(
+          Vaccination.for_patient(patient),
+          Events::EventPresenter
+        )
+      end
     end
   end
 end

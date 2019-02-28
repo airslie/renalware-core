@@ -29,10 +29,11 @@ module Renalware
 
       def investigations
         @investigations ||= begin
-          Events::Investigation
-            .for_patient(patient)
-            .transplant_recipients
-            .ordered
+          events = Events::Investigation
+                    .for_patient(patient)
+                    .transplant_recipients
+                    .ordered
+          CollectionPresenter.new(events, Events::EventPresenter)
         end
       end
     end

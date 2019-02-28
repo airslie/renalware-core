@@ -18,7 +18,8 @@ tr
                   data: { confirm: "Are you sure you want delete this event?\n" }) do
           i.far.fa-trash-alt
 
-  td.nowrap= l event.created_at.to_date
+
+  td.nowrap.created_at= l(event.date_time)
   - unless local_assigns[:exclude_type_column] == true
     td.col-width-mediumish-with-ellipsis= event.event_type&.category
     td= event.event_type
@@ -27,9 +28,9 @@ tr
   td.col-width-medium-with-ellipsis
     = render partial: event.to_cell_partial_path,
                locals: { event: event }
-  td.created_at= l(event.date_time)
+  td.nowrap= l event.created_at.to_date
   td.created_by= event.created_by.full_name
-= content_tag(:tr, id: row_id, style: "display: none")
+= content_tag(:tr, id: "#{toggle_prefix}-quick-preview-#{event.id}", style: "display: none")
   td(colspan=7)
     .quick-preview
       = render partial: event.to_toggled_cell_partial_path,
