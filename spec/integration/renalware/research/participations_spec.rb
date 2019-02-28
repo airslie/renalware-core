@@ -28,8 +28,9 @@ describe "Managing clinical study participation", type: :request do
   end
 
   describe "GET new" do
-    it "renders" do
+    it "renders new pariticipation form provided the the current user is an investigator" do
       study = create_study
+      create(:research_investigatorship, study: study, user: user)
 
       get new_research_study_participation_path(study)
 
@@ -39,8 +40,9 @@ describe "Managing clinical study participation", type: :request do
   end
 
   describe "DELETE JS destroy" do
-    it "soft deletes the participation" do
+    it "soft deletes the participation provided the the current user is an investigator" do
       study = create_study
+      create(:research_investigatorship, study: study, user: user)
       patient = create(:patient, by: user, family_name: "ZZ")
       participation = create(:research_participation, study: study, patient: patient, by: user)
 
@@ -59,8 +61,9 @@ describe "Managing clinical study participation", type: :request do
 
   describe "POST HTTP create" do
     context "with valid inputs" do
-      it "add the participant to the study" do
+      it "add the participant to the study provided the the current user is an investigator" do
         study = create_study
+        create(:research_investigatorship, study: study, user: user)
         patient = create(:patient, by: user)
         params = { patient_id: patient.id, joined_on: "01-Oct-2017", left_on: "02-Oct-2017" }
 
@@ -85,6 +88,7 @@ describe "Managing clinical study participation", type: :request do
     context "with invalid inputs" do
       it "re-renders the form with validation errors" do
         study = create_study
+        create(:research_investigatorship, study: study, user: user)
         params = { patient_id: nil }
 
         post(
@@ -100,6 +104,7 @@ describe "Managing clinical study participation", type: :request do
     describe "GET html edit" do
       it "renders the form" do
         participant = create(:research_participation, by: user)
+        create(:research_investigatorship, study: participant.study, user: user)
 
         get edit_research_study_participation_path(participant.study, participant)
 
@@ -111,6 +116,7 @@ describe "Managing clinical study participation", type: :request do
     describe "PATCH html update" do
       it "updates the participant" do
         participant = create(:research_participation, by: user)
+        create(:research_investigatorship, study: participant.study, user: user)
 
         params = { joined_on: 1.year.ago.to_date }
         url = research_study_participation_path(participant.study, participant)
