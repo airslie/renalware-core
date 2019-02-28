@@ -11,8 +11,10 @@ en:
           type: Type
           description: Description
           date_time: Date/Time
-          created_by: Created by
           patient: Patient
+          created_by: Added by
+          updated_by: Last edited by
+          updated_at: Last edited
   activerecord:
     attributes:
       renalware/events/event:
