@@ -1,10 +1,10 @@
 = content_for(:filters) do
+  = render "filters", study: study, query: query
   - if policy(study.participations.new).new?
     .filter-actions
-      = link_to(new_research_study_participation_path, class: "button right add-participation") do
+      = link_to(new_research_study_participation_path, class: "button left add-participation") do
         i.fas.fa-plus
-        | Add
-  = render "filters", study: study, query: query
+        | Add participant
 
 = content_for(:tabs) do
   = render "renalware/research/studies/tabs", study: study, active: :participations
