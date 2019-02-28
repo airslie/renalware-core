@@ -9,7 +9,7 @@ module Renalware
 
       def initialize(patient, events)
         @patient = patient
-        super(events)
+        super(CollectionPresenter.new(events, Events::EventPresenter))
       end
 
       def users_for_filtering
