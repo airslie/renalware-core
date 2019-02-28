@@ -10,11 +10,13 @@ tr
     = participation.patient&.hospital_centre
   td= participation.external_id
   td.right
-    = link_to "Delete",
-              research_study_participation_path(participation.study, participation),
-              method: :delete,
-              data: { confirm: "Are you sure?" }
-    = " | "
-    = link_to("Edit",
-              edit_research_study_participation_path(participation.study, participation),
-              data: { "reveal-id" => "study-participation-modal", "reveal-ajax" => "true" })
+    - if policy(participation).destroy?
+      = link_to "Delete",
+        research_study_participation_path(participation.study, participation),
+        method: :delete,
+        data: { confirm: "Are you sure?" }
+      = " | "
+    - if policy(participation).edit?
+      = link_to("Edit",
+        edit_research_study_participation_path(participation.study, participation),
+        data: { "reveal-id" => "study-participation-modal", "reveal-ajax" => "true" })
