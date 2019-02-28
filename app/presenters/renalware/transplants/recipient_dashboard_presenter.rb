@@ -2,6 +2,7 @@
 
 require_dependency "renalware/transplants"
 require "attr_extras"
+require "collection_presenter"
 
 module Renalware
   module Transplants
@@ -30,10 +31,11 @@ module Renalware
 
       def investigations
         @investigations ||= begin
-          Events::Investigation
-            .for_patient(patient)
-            .transplant_recipients
-            .ordered
+          events = Events::Investigation
+                    .for_patient(patient)
+                    .transplant_recipients
+                    .ordered
+          CollectionPresenter.new(events, Events::EventPresenter)
         end
       end
     end
