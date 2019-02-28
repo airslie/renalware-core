@@ -5,5 +5,5 @@
 
 = within_patient_layout(title: "Events") do
   = render "filters", query: query, events: events
-  = render "table", events: events, query: query
+  = render "table", events: events, query: query, sortable_columns: true
   = paginate(events)
