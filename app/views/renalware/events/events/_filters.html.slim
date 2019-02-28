@@ -19,7 +19,7 @@
         = f.input :created_by_id_eq,
                   as: :user_picker,
                   collection: events.users_for_filtering,
-                  label: "Created by"
+                  label: "Added by"
       .medium-3.large-3.columns.actions.end
         = f.submit "Filter", class: "button"
         span= " or "

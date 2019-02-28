@@ -1,19 +1,23 @@
 - toggle_prefix ||= "event"
+- query ||= nil
+- sortable = query.present? && local_assigns.fetch(:sortable_columns, false)
+- path = [:renalware, query] if sortable
 
 table.has-togglable-rows.events-table
   thead
     tr
       th.noprint.togglers= table_toggler
       th.col-width-tiny
-      th.col-width-date=t(".created_at")
+      th.created_at.col-width-date-time= sort_link_if(sortable, query, :date_time, t(".date_time"))
       - unless local_assigns.fetch(:exclude_type_column, false)
-        th= t(".category")
-        th.col-width-large= t(".type")
+        th= sort_link_if(sortable, query, :event_type_category_name, t(".category"))
+        th.col-width-large= sort_link_if(sortable, query, :event_type_name, t(".type"))
       - if local_assigns.fetch(:include_patient_column, false)
         th.col-width-large= t(".patient")
       th= t(".description")
-      th.created_at.col-width-date-time= t(".date_time")
-      th.created_by.col-width-medium= t(".created_by")
+      th.col-width-date.show-for-large-up= sort_link_if(sortable, query, :updated_at, t(".updated_at"))
+      th.col-width-medium.show-for-large-up=t(".updated_by")
+
   tbody
     / Note we can't use cached: true yet when rendering the events collection, as each row is
     / used in a different context and displays there slightly differently, for example showing
