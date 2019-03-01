@@ -472,6 +472,12 @@ This project adheres to Semantic Versioning.
 ### Added
 - Allow editing problem notes #2792
 ### Changed
+- Only an investigator can add, edit or delete participants #2582
+- Add hospital centre filter to study participants list #2578
+- Add sorting to events table when show in the events view (not clinical summary) #2578
+- Make event date_tme the default sort order for event lists #2578
+- Only display updated_at/by if different from updated_at > created_at #2578
+
 ### Fixed
 - Raise the correct error when a duplicate feed mesage is received
 - Handle unknown HL7 event codes
