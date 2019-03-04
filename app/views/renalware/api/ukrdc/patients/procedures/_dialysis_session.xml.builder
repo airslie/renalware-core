@@ -9,8 +9,8 @@ xml.DialysisSession(
 
   xml.ProcedureType do
     xml.CodingStandard "SNOMED"
-    xml.Code "19647005"
-    xml.Description "Plasma Exchange"
+    xml.Code "302497006"
+    xml.Description "Haemodialysis"
   end
 
   xml.Clinician do
