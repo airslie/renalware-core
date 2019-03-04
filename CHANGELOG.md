@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.71
+### Added
+### Changed
+### Fixed
+- UKRDC XML Change procedure type to Haemodialysis #2583
+- UKRDC XML Fix error when there is a missing cause of death #2583
+
 ## 2.0.70
 ### Added
 - Support saving an Event to PDF for example to EPR #2573 #2489
