@@ -5,7 +5,7 @@
 xml = builder
 xml.Diagnoses do
   xml.Diagnosis
-  if patient.dead?
+  if patient.dead? && patient.first_cause.present?
     # Only 1 CauseOfDeath element is allowed so we ignore patient.second_cause
     render(
       "renalware/api/ukrdc/patients/diagnoses/cause_of_death",
