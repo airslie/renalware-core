@@ -2,7 +2,7 @@
 
 builder.Name(use: "L") do
   builder.Prefix nameable.title
-  builder.Family nameable.family_name
-  builder.Given nameable.given_name
+  builder.Family nameable.family_name.strip
+  builder.Given nameable.given_name.strip
   builder.Suffix nameable.suffix
 end

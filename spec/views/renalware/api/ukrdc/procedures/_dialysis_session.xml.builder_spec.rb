@@ -33,9 +33,9 @@ describe "DialysisSession" do
   end
 
   describe "#ProcedureType" do
-    it { is_expected.to include("<Code>19647005</Code>") }
+    it { is_expected.to include("<Code>302497006</Code>") }
     it { is_expected.to include("<CodingStandard>SNOMED</CodingStandard>") }
-    it { is_expected.to include("<Description>Plasma Exchange</Description>") }
+    it { is_expected.to include("<Description>Haemodialysis</Description>") }
   end
 
   describe "#ExternalId" do
