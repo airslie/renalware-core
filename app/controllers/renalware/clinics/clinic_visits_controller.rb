@@ -5,11 +5,14 @@ module Renalware
     # rubocop:disable Metrics/ClassLength
     class ClinicVisitsController < Clinics::BaseController
       def index
-        visits = patient.clinic_visits.includes([:clinic, :created_by]).ordered
+        query = VisitQuery.new(query_params)
+        visits = query.call.where(patient_id: patient.id)
         authorize visits
+
         render locals: {
           patient: patient,
-          clinic_visits: CollectionPresenter.new(visits, ClinicVisitPresenter)
+          clinic_visits: CollectionPresenter.new(visits, ClinicVisitPresenter),
+          query: query.search
         }
       end
 
@@ -136,6 +139,10 @@ module Renalware
             :admin_notes, :did_not_attend, :built_from_appointment_id, document: {}
           ).to_h.merge(by: current_user)
         end
+      end
+
+      def query_params
+        params.fetch(:q, {})
       end
 
       def clinic_options_for(template)
