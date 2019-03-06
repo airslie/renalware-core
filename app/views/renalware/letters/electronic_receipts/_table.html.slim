@@ -26,7 +26,7 @@ table.letters.electronic-ccs.has-togglable-rows
         td= patient.nhs_number
         td= patient.hospital_identifiers
         td.col-width-medium-with-ellipsis= letter.description
-        td.actions
+        td.col-width-medium.actions
           = link_to t("btn.toggle"), "##{receipt.html_preview_identifier}", data: { behaviour: "toggler" }
           = link_to letter.view_label,
                     patient_letters_letter_path(letter.patient, letter, back_url: request.fullpath)
