@@ -8083,7 +8083,8 @@ CREATE TABLE renalware.research_investigatorships (
     type character varying,
     document jsonb,
     started_on date,
-    left_on date
+    left_on date,
+    manager boolean DEFAULT false NOT NULL
 );
 
 
@@ -21284,6 +21285,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190213104817'),
 ('20190218142207'),
 ('20190225103005'),
+('20190306121545'),
 ('20190315125638'),
 ('20190322120025'),
 ('20190325134823'),
