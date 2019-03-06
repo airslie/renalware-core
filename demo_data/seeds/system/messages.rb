@@ -11,7 +11,7 @@ module Renalware
             "for maintenance.</div>",
       severity: :default,
       display_from: Date.parse("2018-05-15"),
-      display_until: nil
+      display_until: Date.parse("2018-05-16")
     )
     # An inactive message - not displayed as finished in the past
     System::Message.create!(
