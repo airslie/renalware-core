@@ -36,17 +36,4 @@ describe "Edit a patient's participation in a study", type: :system do
       expect(page).to have_content("01-Feb-2019")
     end
   end
-
-  context "when the user not an investogator in the study" do
-    it "they cannot see the edit option" do
-      user = login_as_admin
-      participation = create(:research_participation, by: user)
-
-      visit research_study_participations_path(participation.study)
-
-      within ".study-participations-table" do
-        expect(page).not_to have_content "Edit"
-      end
-    end
-  end
 end
