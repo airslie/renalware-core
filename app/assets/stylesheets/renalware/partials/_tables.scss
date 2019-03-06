@@ -70,6 +70,22 @@ table.stripeless {
   }
 }
 
+/*
+  Add a pipe between action links (Edit, Delete etc) in tables
+*/
+td.actions {
+  a, span {
+    &:after {
+      color: $disabled-colour;
+      content: " | ";
+    }
+
+    &:last-child:after {
+      content: "";
+    }
+  }
+}
+
 table td.actions-dropdown {
   padding-bottom: 0.3rem;
   padding-right: 0;

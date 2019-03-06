@@ -1,5 +1,5 @@
 = content_for(:filters) do
-  - if policy(investigatorships).create?
+  - if policy(study.investigatorships.build).create?
     .filter-actions
       = link_to new_research_study_investigatorship_path, class: "button right" do
         i.fas.fa-plus
