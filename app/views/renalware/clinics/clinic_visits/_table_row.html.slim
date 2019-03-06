@@ -4,6 +4,7 @@ tr(class="#{'dna' if clinic_visit.did_not_attend?}")
     - if policy(clinic_visit).edit?
       = link_to t("btn.edit"),
                 edit_patient_clinic_visit_path(patient, clinic_visit)
+
     - if policy(clinic_visit).destroy?
       = link_to t("btn.delete"),
                 patient_clinic_visit_path(patient, clinic_visit),
