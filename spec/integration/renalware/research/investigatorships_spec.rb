@@ -57,7 +57,7 @@ describe "Managing clinical study investigatorships", type: :request do
   describe "POST HTTP create" do
     context "with valid inputs" do
       it "add the user to the study" do
-        params = { user_id: user.id, started_on: "2018-01-01" }
+        params = { user_id: user.id, started_on: "2018-01-01", manager: true }
 
         post(
           research_study_investigatorships_path(study),
@@ -68,6 +68,9 @@ describe "Managing clinical study investigatorships", type: :request do
         follow_redirect!
         expect(response).to be_successful
         expect(response).to render_template(:index)
+        investigatorship = study.reload.investigatorships.first
+        expect(investigatorship.manager).to eq(true)
+        expect(investigatorship.user).to eq(user)
       end
     end
 
