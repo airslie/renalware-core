@@ -77,7 +77,7 @@ jobs:
       # RSpec
       - type: shell
         command: |
-          case $CIRCLE_NODE_INDEX in 0) bundle exec rspec --profile 10 \
+          case $CIRCLE_NODE_INDEX in 0) bundle exec rspec \
                             --format RspecJunitFormatter \
                             --out /tmp/test-results/rspec.xml \
                             --fail-fast \
