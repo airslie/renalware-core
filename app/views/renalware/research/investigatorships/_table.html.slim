@@ -17,14 +17,16 @@
             i.fas(class=("fa-check" if investigatorship.manager?))
           td= l(investigatorship.started_on)
           td= l(investigatorship.left_on)
-          td.right
-            - if policy(investigatorship).edit?
-              = link_to "Edit", edit_research_study_investigatorship_path(study, investigatorship)
-            - if policy(investigatorship).destroy?
-              | &nbsp;|&nbsp;
-              = link_to "Delete",
-                        research_study_investigatorship_path(study, investigatorship),
-                        method: :delete,
-                        data: { confirm: "Are you sure?" }
+          td.right.actions
+            = link_to_if_allowed \
+              policy(investigatorship).edit?,
+              "Edit",
+              edit_research_study_investigatorship_path(study, investigatorship)
+            = link_to_if_allowed \
+              policy(investigatorship).destroy?,
+              "Delete",
+              research_study_investigatorship_path(study, investigatorship),
+              method: :delete,
+              data: { confirm: "Are you sure?" }
 
   = paginate investigatorships
