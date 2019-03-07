@@ -50,8 +50,12 @@ xml.Patient do
   end
 
   xml.FamilyDoctor do
-    xml.GPPracticeId patient.practice&.code
-    xml.GPId patient.primary_care_physician&.code
+    if patient.practice.present?
+      xml.GPPracticeId patient.practice.code
+    end
+    if patient.primary_care_physician.present?
+      xml.GPId patient.primary_care_physician.code
+    end
   end
 
   if patient.ethnicity.present?
