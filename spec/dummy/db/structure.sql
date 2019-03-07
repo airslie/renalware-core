@@ -7739,7 +7739,8 @@ CREATE TABLE renalware.research_studies (
     application_url character varying,
     namespace character varying,
     type character varying,
-    document jsonb
+    document jsonb,
+    private boolean DEFAULT false NOT NULL
 );
 
 
@@ -16243,6 +16244,13 @@ CREATE INDEX index_research_studies_on_leader ON renalware.research_studies USIN
 
 
 --
+-- Name: index_research_studies_on_private; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_research_studies_on_private ON research_studies USING btree (private);
+
+
+--
 -- Name: index_research_studies_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -20467,6 +20475,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190225103005'),
 ('20190226162607'),
 ('20190306121545'),
+('20190307123232'),
 ('20190315125638'),
 ('20190322120025'),
 ('20190325134823'),
