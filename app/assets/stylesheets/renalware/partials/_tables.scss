@@ -86,6 +86,7 @@ td.actions {
   }
 }
 
+
 table td.actions-dropdown {
   padding-bottom: 0.3rem;
   padding-right: 0;
@@ -240,6 +241,12 @@ table {
 
     &.no-wrap {
       white-space: nowrap;
+    }
+
+    &:first-child {
+      &.actions {
+        text-align: left;
+      }
     }
   }
 
