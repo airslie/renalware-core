@@ -18,64 +18,79 @@ module Renalware
           end
         end
 
-        # def patient_class
-        #   Renalware::Patient
-        # end
-
+        # Access to a patient or patients needs to be through this scope.
+        # Here we filter out patients that the current user should not be able to see - for example
+        # if patients are in a private clinical study etc.
+        # The need for this policy scope arose from work on the HEROIC clinical study, where there
+        # were 2 sites using the same instance of Renalware - RL (the host site), and RF.
+        # The specific patient access requirements for HEROIC, which now apply to all similar
+        # 'private' studies, are as follows:
+        #
+        #   RF HEROIC user - sees HEROIC patients at RF and RL, and all non-HEROIC patients at RF
+        #   RL HEROIC user - sees HEROIC patients at RL and RF and all non-HEROIC patients at RL
+        #   RF non-HEROIC user - sees all non-HEROIC patients at RF
+        #   RL non-HEROIC user - sees all patients at RL including HEROIC patient
+        #
+        # There are a few ways to implement this login in SQL.
+        # Here are two:
+        #
+        # 1. left outer joins
+        #
+        # EXPLAIN ANALYSE: 0.7ms to plan and 1.3ms to execute.
+        #
+        #
+        # select * from patients p
+        # left outer join research_participations rp on rp.patient_id = p.id
+        # left outer join research_studies rs on rs.id = rp.study_id
+        # left outer join research_investigatorships ri on rs.id = ri.study_id and ri.user_id = 18
+        # where (p.hospital_centre_id = 1 and rs.private is not true)
+        # or (ri.user_id is not null and rs.private is true)
+        # order by p.id
+        #
+        #
+        # 2. where exists
+        #
+        # EXPLAIN ANALYSE: 1.4ms to plan and 0.9ms to execute.
+        #
+        # select * from patients p
+        # where
+        #   p.hospital_centre_id = 1
+        #   and not exists(
+        #     select from research_participations rp
+        #       inner join research_studies rs on rs.id = rp.study_id
+        #       where rs.private = true and rp.patient_id = p.id
+        #     )
+        # or
+        #   exists (
+        #     select from research_participations rp
+        #     inner join research_studies rs on rs.id = rp.study_id and rs.private = true
+        #     inner join research_investigatorships ri on rs.id = ri.study_id
+        #     where p.id = rp.patient_id and ri.user_id = 18
+        #   )
+        #
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         def resolve
-          # Here is the gruesome logic
-          # RF HEROIC user - sees HEROIC patients at RF and RL, and all non-HEROIC patients at RF
-          # RL HEROIC user - sees HEROIC patients at RL and RF and all non-HEROIC patients at RL
-          # RF non-HEROIC user - sees all non-HEROIC patients at RF
-          # RL non-HEROIC user - sees all patients at RL including HEROIC patient
-          #
-          # Attributes we have to play with
-          # - patient.hospital_centre
-          # - user.hospital_centre
-          # - user.investigatorships
-          # - user.participations
-          #
-          # The ideal scenario
-          # - a SQL view where we say can this user access this patient?
-          # looks like this with compound key
-          # user_id, patient_id
-          # 1        11
-          # would be built using the above logic
-          # if mat view would need to be async
-          # PatientAccess.where(user: user, patient: patient)
-          # 300 30000 => 9,000,000
-          # or we could do it by exclusion so we list exclusions
-          #  # user_id, patient_id
-          # 1        11
-          # user 1 cannot see patient 11
-          # still if there are 30 users at another site nearly a million rows
-          # use 'left join patient_access where patient_id is null'
-          #
-          # So here we use top level roles first
+          return if scope.nil?
           return scope.all if user_is_super_admin?
 
-          # If the user works at the host site then they can see any patient at that site
           if user.hospital_centre&.host_site?
+            # The user is based at the host site e.g. Royal London so uis allowed to see any patient
+            # at that site including those in private studies
             scope.where(hospital_centre_id: user.hospital_centre_id)
           else
-            scope.none
+            # The user is not at the host site e.g. they are at Royal Free.
+            # They can see any patients at the same site who are not in a private study
+            # They can see any patients at the same site who in a private study and the user
+            # is an investigator in that study
+            scope
+              .joins("left outer join research_participations rp on rp.patient_id = patients.id")
+              .joins("left outer join research_studies rs on rs.id = rp.study_id")
+              .joins("left outer join research_investigatorships ri "\
+                    "on rs.id = ri.study_id and ri.user_id = #{user.id}")
+              .where("(patients.hospital_centre_id = ? and rs.private is not true) "\
+              "or (ri.user_id is not null and rs.private is true)", user.hospital_centre_id)
           end
-          # user.hospital_centre_id = patient.hosiptal_centre_id
-          # letft outer join study_access
-          # study_access
-          # patient_id, user_id, study_ids, net_visible
-          # 1            11      [123,1]     true   # user is investigator in private study
-          # This works!
-          #scope.joins("left join user_patient_bans on user_patient_bans.patient_id = patients.id and user_patient_bans.user_id = #{user.id} where user_patient_bans.patient_id is null")
-
-          # something abut the study tells us the access also
-          # left outer join research_patients_in_private_studies priv_pat on priv_pat.patient_id = patients.id
-          # left outer join research_private_access priv_acc on priv_acc.patient_id = patients.id && priv_acc.user_id = #{user.id}
-          # where priv_pat is null # ie not in a provate study
-          # or priv_acc.user is not null # ie they are provate but wee have access
-
-          # another way
-          # some kind of code checksum binary bitwise & |
+          # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
         end
       end
     end
