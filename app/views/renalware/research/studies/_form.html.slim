@@ -7,6 +7,10 @@ br
   = f.input :code, wrapper: :horizontal_small
   = f.input :description, wrapper: :horizontal_large
   = f.input :leader, wrapper: :horizontal_small
+  = f.input :private,
+            wrapper: :horizontal_small,
+            hint: "Only investigators in this study, or any user at the host site, can see "\
+                  "the patients who are participants in a private study"
   = f.input :application_url,
             wrapper: :horizontal_medium,
             hint: "If there is an an external application associated with this study " \
