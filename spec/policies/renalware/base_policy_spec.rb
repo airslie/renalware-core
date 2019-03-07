@@ -4,11 +4,11 @@ require "rails_helper"
 
 module Renalware
   describe BasePolicy, type: :policy do
-    include PolicySpecHelper
+    include RolesSpecHelper
 
-    let(:super_admin) { user_double_with_role(:super_admin) }
-    let(:admin) { user_double_with_role(:admin) }
-    let(:clinician) { user_double_with_role(:clinical) }
+    let(:super_admin) { user_with_role(:super_admin) }
+    let(:admin) { create(:user, :admin) }
+    let(:clinician) { create(:user, :clinical) }
 
     it "checks and defines permissions for super admins" do
       policy = BasePolicy.new(super_admin, User.new)

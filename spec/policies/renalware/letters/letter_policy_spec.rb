@@ -4,13 +4,13 @@ require "rails_helper"
 
 module Renalware::Letters
   describe LetterPolicy, type: :policy do
-    include PolicySpecHelper
+    include RolesSpecHelper
     subject(:policy) { described_class }
 
-    let(:super_admin_user) { user_double_with_role(:super_admin) }
-    let(:admin_user) { user_double_with_role(:admin) }
-    let(:clinical_user) { user_double_with_role(:clinical) }
-    let(:read_only_user) { user_double_with_role(:read_only) }
+    let(:super_admin_user) { user_with_role(:super_admin) }
+    let(:admin_user) { user_with_role(:admin) }
+    let(:clinical_user) { user_with_role(:clinical) }
+    let(:read_only_user) { user_with_role(:read_only) }
 
     permissions :author? do
       it { is_expected.to permit(super_admin_user) }
