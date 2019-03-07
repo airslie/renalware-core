@@ -12,6 +12,7 @@
         th
         th.col-width-small= sort_link(query, :code, "Code")
         th Description
+        th.col-width-tiny Private
         th= sort_link(query, :code, "Leader")
         th Participants
         th.col-width-date= sort_link(query, :started_on, "Started")
@@ -24,6 +25,7 @@
             = link_to "View", research_study_path(study)
           td= study.code
           td= study.description.truncate(60)
+          td= yes_no(study.private)
           td= study.leader
           td= study.participations.count
           td= l(study.started_on)
