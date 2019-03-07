@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Renalware
-  module Modalities
-    log "Adding PD To Haemodialysis (Reasons for Change)" do
+  log "Adding PD To Haemodialysis (Reasons for Change)" do
+    module Modalities
       PDToHaemodialysis.find_or_create_by!(rr_code: 201, description: "Patient/partner choice")
       PDToHaemodialysis.find_or_create_by!(rr_code: 202, description: "Loss of supporting partner")
       PDToHaemodialysis.find_or_create_by!(rr_code: 203, description: "Other change of personal circumstances")
@@ -15,8 +15,10 @@ module Renalware
       PDToHaemodialysis.find_or_create_by!(rr_code: 215, description: "Inadequate clearance")
       PDToHaemodialysis.find_or_create_by!(rr_code: 216, description: "Abdominal surgery or complications")
     end
+  end
 
-    log "Adding Haemodialysis To PD (Reasons for Change)" do
+  log "Adding Haemodialysis To PD (Reasons for Change)" do
+    module Modalities
       HaemodialysisToPD.find_or_create_by!(rr_code: 221, description: "Patient/partner choice")
       HaemodialysisToPD.find_or_create_by!(rr_code: 222, description: "Loss of supporting partner")
       HaemodialysisToPD.find_or_create_by!(rr_code: 223, description: "Other change of personal circumstances")
