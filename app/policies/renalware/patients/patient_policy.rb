@@ -82,13 +82,32 @@ module Renalware
             # They can see any patients at the same site who are not in a private study
             # They can see any patients at the same site who in a private study and the user
             # is an investigator in that study
-            scope
-              .joins("left outer join research_participations rp on rp.patient_id = patients.id")
-              .joins("left outer join research_studies rs on rs.id = rp.study_id")
-              .joins("left outer join research_investigatorships ri "\
-                    "on rs.id = ri.study_id and ri.user_id = #{user.id}")
-              .where("(patients.hospital_centre_id = ? and rs.private is not true) "\
-              "or (ri.user_id is not null and rs.private is true)", user.hospital_centre_id)
+            # scope
+            #   .joins("left outer join research_participations rp on rp.patient_id = patients.id")
+            #   .joins("left outer join research_studies rs on rs.id = rp.study_id")
+            #   .joins("left outer join research_investigatorships ri "\
+            #         "on rs.id = ri.study_id and ri.user_id = #{user.id}")
+            #   .uniq
+            #   .where("(patients.hospital_centre_id = ? and rs.private is not true) "\
+            #   "or (ri.user_id is not null)", user.hospital_centre_id)
+
+            scope.where(<<-SQL.squish, user.hospital_centre_id, user.id)
+              (
+                patients.hospital_centre_id = ?
+                and not exists(
+                  select from research_participations rp
+                    inner join research_studies rs on rs.id = rp.study_id
+                    where rs.private = true and rp.patient_id = patients.id
+                )
+              )
+              or
+                exists (
+                  select from research_participations rp
+                    inner join research_studies rs on rs.id = rp.study_id
+                    inner join research_investigatorships ri on rs.id = ri.study_id
+                    where patients.id = rp.patient_id and ri.user_id = ?
+                )
+            SQL
           end
           # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
         end
