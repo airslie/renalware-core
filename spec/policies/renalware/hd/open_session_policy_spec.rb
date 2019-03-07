@@ -5,9 +5,10 @@ require "rails_helper"
 module Renalware
   module HD
     describe OpenSessionPolicy, type: :policy do
+      include RolesSpecHelper
       subject(:policy) { described_class }
 
-      let(:user) { FactoryBot.build(:user, :super_admin) }
+      let(:user) { user_with_role(:super_admin) }
       let(:session) { HD::Session::Closed.new }
 
       %i(edit? destroy?).each do |permission|
