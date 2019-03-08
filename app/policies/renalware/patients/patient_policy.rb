@@ -68,48 +68,56 @@ module Renalware
         #     where p.id = rp.patient_id and ri.user_id = 18
         #   )
         #
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+        # rubocop:disable Metrics/AbcSize
         def resolve
           return if scope.nil?
           return scope.all if user_is_super_admin?
 
-          if user.hospital_centre&.host_site?
-            # The user is based at the host site e.g. Royal London so uis allowed to see any patient
-            # at that site including those in private studies
-            scope.where(hospital_centre_id: user.hospital_centre_id)
-          else
-            # The user is not at the host site e.g. they are at Royal Free.
-            # They can see any patients at the same site who are not in a private study
-            # They can see any patients at the same site who in a private study and the user
-            # is an investigator in that study
-            # scope
-            #   .joins("left outer join research_participations rp on rp.patient_id = patients.id")
-            #   .joins("left outer join research_studies rs on rs.id = rp.study_id")
-            #   .joins("left outer join research_investigatorships ri "\
-            #         "on rs.id = ri.study_id and ri.user_id = #{user.id}")
-            #   .uniq
-            #   .where("(patients.hospital_centre_id = ? and rs.private is not true) "\
-            #   "or (ri.user_id is not null)", user.hospital_centre_id)
+          #  If the user is based at the host site e.g. Royal London they can see any patient
+          # at that site including those in private studies
+          # If the user is not at the host site e.g. they are at Royal Free.
+          #  They can see any patients at the same site who are not in a private study
+          #  They can see any patients at the same site who in a private study and the user
+          #  is an investigator in that study
+          # scope
+          #   .joins("left outer join research_participations rp on rp.patient_id = patients.id")
+          #   .joins("left outer join research_studies rs on rs.id = rp.study_id")
+          #   .joins("left outer join research_investigatorships ri "\
+          #         "on rs.id = ri.study_id and ri.user_id = #{user.id}")
+          #   .uniq
+          #   .where("(patients.hospital_centre_id = ? and rs.private is not true) "\
+          #   "or (ri.user_id is not null)", user.hospital_centre_id)
+          user_is_based_at_host_hospital = user.hospital_centre&.host_site?
 
-            scope.where(<<-SQL.squish, user.hospital_centre_id, user.id)
-              (
-                patients.hospital_centre_id = ?
-                and not exists(
-                  select from research_participations rp
-                    inner join research_studies rs on rs.id = rp.study_id
-                    where rs.private = true and rp.patient_id = patients.id
-                )
+          scope.where(
+            where_sql,
+            user.hospital_centre_id,
+            user_is_based_at_host_hospital,
+            user.hospital_centre_id, user.id
+          )
+        end
+        # rubocop:enable Metrics/AbcSize
+
+        def where_sql
+          <<-SQL.squish
+          (patients.hospital_centre_id = ? and ?)
+            or
+            (
+              (patients.hospital_centre_id = ?)
+              and not exists(
+                select from research_participations rp
+                  inner join research_studies rs on rs.id = rp.study_id
+                  where rs.private = true and rp.patient_id = patients.id
               )
-              or
-                exists (
-                  select from research_participations rp
-                    inner join research_studies rs on rs.id = rp.study_id
-                    inner join research_investigatorships ri on rs.id = ri.study_id
-                    where patients.id = rp.patient_id and ri.user_id = ?
-                )
-            SQL
-          end
-          # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+            )
+            or
+              exists (
+                select from research_participations rp
+                  inner join research_studies rs on rs.id = rp.study_id
+                  inner join research_investigatorships ri on rs.id = ri.study_id
+                  where patients.id = rp.patient_id and ri.user_id = ?
+              )
+          SQL
         end
       end
     end
