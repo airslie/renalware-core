@@ -9,7 +9,7 @@ xml.Address(use: "H") do
   xml.Street address.street
   xml.Town address.town
   xml.County address.county
-  xml.Postcode address.postcode
+  xml.Postcode address.postcode&.strip
   xml.Country do
     xml.CodingStandard "ISO3166-1"
     xml.Code address&.country&.alpha3
