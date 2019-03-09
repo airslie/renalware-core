@@ -50,7 +50,7 @@ describe "Manage a patient's attachments (linked files)" do
         click_on attachment.name
       end
 
-      expect(page.current_path).to match(%(rails\/active_storage.*))
+      expect(page).to have_current_path(%r{rails/active_storage.*})
     end
   end
 end
