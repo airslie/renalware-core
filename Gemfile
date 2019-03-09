@@ -30,7 +30,7 @@ group :test do
   gem "capybara-select-2"
   gem "cucumber-rails", "~> 2.0.0", require: false # must be loaded in env.rb
   gem "database_cleaner", "~> 1.7.0", require: false # for cucumber (now not needed for rspec)
-  gem "factory_bot_rails", "~> 4.11"
+  gem "factory_bot_rails", "~> 5.0.1"
   gem "fuubar", require: false
   gem "rails-controller-testing", "~> 1.0.4"
   gem "rspec-html-matchers", "~> 0.9.1", require: false
