@@ -15,6 +15,7 @@ module Renalware
 
       describe "#file via ActiveStorage" do
         subject(:attachment) { create(:patient_attachment, :with_file) }
+
         let(:user) { attachment.updated_by }
 
         it "can accept an uploaded file" do
