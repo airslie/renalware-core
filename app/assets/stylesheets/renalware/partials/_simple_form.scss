@@ -66,4 +66,61 @@
       margin: auto;
     }
   }
+
+  .wrapper.wrapper_style_horizontal {
+    @include grid-row($behavior: nest);
+
+    > .wrapper__label {
+      @media #{$small-only} {
+        @include grid-column(12);
+      }
+      @media #{$medium-only} {
+        @include grid-column(4);
+      }
+      @media #{$large-up} {
+        @include grid-column(3);
+      }
+
+      label {
+        margin: 0 0 0.85714rem 0;
+        padding: 0.5rem 0;
+        float: none !important;
+        text-align: right;
+        display: inline;
+      }
+    }
+
+    // Medium is the default style if no other wrapper name given
+    > .wrapper__input {
+      @media #{$small-only} {
+        @include grid-column(12);
+      }
+      @media #{$medium-up} {
+        @include grid-column(6, $last-column: false);
+      }
+
+      .datepicker-wrapper {
+        max-width: 12rem !important;
+      }
+    }
+
+    &.wrapper_size_large {
+      > .wrapper__input {
+        @media #{$medium-only} {
+          @include grid-column(8, $last-column: false);
+        }
+        @media #{$large-up} {
+          @include grid-column(9, $last-column: false);
+        }
+      }
+    }
+
+    &.wrapper_size_small {
+      > .wrapper__input {
+        @media #{$medium-up} {
+          @include grid-column(4, $last-column: false);
+        }
+      }
+    }
+  }
 }
