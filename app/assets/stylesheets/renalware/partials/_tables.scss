@@ -242,6 +242,7 @@ table {
     &:first-child {
       &.actions {
         text-align: left;
+        white-space: nowrap;
       }
     }
   }
