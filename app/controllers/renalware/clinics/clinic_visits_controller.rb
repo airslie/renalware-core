@@ -8,10 +8,9 @@ module Renalware
         query = VisitQuery.new(query_params)
         visits = query.call.where(patient_id: patient.id)
         authorize visits
-
         render locals: {
           patient: patient,
-          clinic_visits: CollectionPresenter.new(visits, ClinicVisitPresenter),
+          clinic_visits: CollectionPresenter.new(visits, VisitPresenter),
           query: query.search
         }
       end

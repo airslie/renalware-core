@@ -5,7 +5,7 @@ table.clinics.auto-layout
   thead
     tr
       th.noprint.togglers= table_toggler
-      th.noprint.col-width-medium
+      th.actions.noprint.col-width-medium
       th.col-width-date= sort_link_if(sortable, query, :date, "Date")
       th.col-width-tiny DNA
       th.col-width-medium= sort_link_if(sortable, query, :clinic_name, "Clinic Type")
@@ -21,6 +21,8 @@ table.clinics.auto-layout
       th.col-width-tiny(title="Body surface area") BSA
       th.col-width-tiny(title="Total Body Water") TBW
       th.col-width-medium Created by
+      th.col-width-date Last edited
+      th.col-width-medium Last edited by
   tbody
     = render partial: "renalware/clinics/clinic_visits/table_row",
              collection: clinic_visits,
