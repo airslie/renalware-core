@@ -11,5 +11,6 @@ module Renalware
     it { is_expected.to belong_to(:action).class_name("AKIAlertAction") }
     it { is_expected.to belong_to(:hospital_ward) }
     it { is_expected.to belong_to(:patient).touch(true) }
+    it { is_expected.to be_versioned }
   end
 end
