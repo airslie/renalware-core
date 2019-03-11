@@ -14,20 +14,6 @@ module Renalware
       alias new? destroy?
       alias create? destroy?
       alias update? destroy?
-
-      private
-
-      def user_is_an_investigator_in_this_study?
-        investigator_ids.pluck(:user_id).include?(user.id)
-      end
-
-      def user_is_a_manager_in_this_study?
-        investigator_ids.where(manager: true).pluck(:user_id).include?(user.id)
-      end
-
-      def investigator_ids
-        record.study.investigatorships
-      end
     end
   end
 end
