@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/events"
+require_dependency "renalware/clinics"
 
 module Renalware
-  module Events
-    class EventPresenter < DumbDelegator
+  module Clinics
+    class VisitPresenter < DumbDelegator
       include ::Renalware::AccountablePresentation
     end
   end

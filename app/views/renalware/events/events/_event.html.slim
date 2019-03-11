@@ -1,19 +1,18 @@
 - row_id = "#{toggle_prefix}-quick-preview-#{event.id}"
 tr
   td.noprint= toggler("##{row_id}")
-  td
-    - if policy(event).edit?
-      / If the event supports editing (most don't as they are immuatble once created, to ensure a
-      / consistent clinical record), then use the supplied proc if passed (which will render a
-      / custom edit link (e.g. the Investigations event subclass, has its own slug, controllwe and
-      / and form) otherwise render a standard Event edit link.
-      - if local_assigns[:edit_proc]
-        = link_to("Edit", edit_proc.call(event))
-      - else
-        = link_to("Edit", edit_patient_event_path(event.patient, event))
+  td.actions
+    / If the event supports editing (most don't as they are immuatble once created, to ensure a
+    / consistent clinical record), then use the supplied proc if passed (which will render a
+    / custom edit link (e.g. the Investigations event subclass, has its own slug, controllwe and
+    / and form) otherwise render a standard Event edit link.
+    = link_to_if_allowed(\
+      policy(event).edit?,
+      "Edit",
+      local_assigns[:edit_proc] ? edit_proc.call(event) : edit_patient_event_path(event.patient, event)\
+      )
 
     - if policy(event).destroy?
-      = pipe_separator
       - if local_assigns[:destroy_proc]
         = link_to("Delete", destroy_proc.call(event))
       - else
@@ -34,8 +33,10 @@ tr
                locals: { event: event }
   td.nowrap= l event.created_at.to_date
   td.created_by= event.created_by.full_name
+  td.updated_at= l(event.effective_updated_at_date)
+  td.updated_by= event.effective_updated_by
 = content_tag(:tr, id: "#{toggle_prefix}-quick-preview-#{event.id}", style: "display: none")
-  td(colspan=7)
+  td(colspan=9)
     .quick-preview
       = render partial: event.to_toggled_cell_partial_path,
                locals: { event: event }
