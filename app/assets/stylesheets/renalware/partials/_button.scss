@@ -116,6 +116,15 @@
   }
 }
 
+.f-dropdown {
+  /* separator */
+  li.separator {
+    margin: .3rem 0 .1rem 0;
+    padding: 0;
+    border-top: 1px solid #ccc;
+  }
+}
+
 .f-dropdown.f-dropdown-no-arrow {
   border-radius: 3px;
   box-shadow: 0 3px 12px rgba(0,0,0,.05);
