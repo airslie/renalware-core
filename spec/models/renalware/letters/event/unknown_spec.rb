@@ -10,11 +10,19 @@ module Renalware::Letters
       describe "#part_classes" do
         it "contains the default clinical part classes" do
           expect(event.part_classes).to eq(
+<<<<<<< HEAD
             problems: Part::Problems,
             prescriptions: Part::Prescriptions,
             recent_pathology_results: Part::RecentPathologyResults,
             allergies: Part::Allergies
           )
+=======
+              problems: Part::Problems,
+              prescriptions: Part::Prescriptions,
+              recent_pathology_results: Part::RecentPathologyResults,
+              allergies: Part::Allergies
+            )
+>>>>>>> Spec housekeeping
         end
       end
 
