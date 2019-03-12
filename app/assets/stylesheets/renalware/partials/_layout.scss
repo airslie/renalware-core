@@ -152,9 +152,9 @@ section.display {
     padding: 0;
 
     &.with-tabs {
+      background-color: $nearly-white;
       border-bottom: 1px solid $tab-border-color;
       margin-bottom: 1.5rem;
-      background-color: $nearly-white;
 
       .page-heading {
         margin-bottom: .8rem;
