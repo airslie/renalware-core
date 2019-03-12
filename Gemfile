@@ -51,7 +51,6 @@ group :development do
   # gem "meta_request" # useful for https://github.com/dejan/rails_panel
   # gem "traceroute" # for finding unused routes
   gem "awesome_print", require: false
-  gem "binding_of_caller"
   gem "bullet"
   gem "foreman", require: false
   gem "rubocop-performance"
