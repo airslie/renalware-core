@@ -11,6 +11,7 @@ body {
 }
 
 .letter-wrapper {
+
   &.draft,
   &.pendingreview {
     background-image: asset-data-url('renalware/draft.jpg');
