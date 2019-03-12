@@ -1,7 +1,7 @@
 html {
   overflow: hidden;
   font-family: Helvetica, Arial;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 ul {
@@ -92,6 +92,40 @@ main {
 }
 
 .prescriptions {
+
+  table {
+    width: 100%;
+  }
+
+  th, td {
+    padding: .5rem .5rem .3rem 0;
+
+    &.date {
+      width: 6rem;
+      white-space: nowrap;
+    }
+
+    &.dose {
+      min-width: 5rem;
+    }
+
+    &.route {
+      min-width: 5rem;
+    }
+    &.drug {
+      min-width: 12rem;
+    }
+
+    &.freq {
+      min-width: 5rem;
+    }
+  }
+
+  td {
+    border-top: solid 1px #ddd;
+    border-bottom: solid 1px #ddd;
+  }
+
   .prescription {
     font-weight: normal;
 
@@ -101,44 +135,72 @@ main {
   }
 }
 
+.allergies {
+  th, td {
+    padding: .3rem .2rem .2rem 0;
+  }
+}
+
 .checks {
+  th, td {
+    vertical-align: middle;
+    padding: 0 1rem 0 0;
+  }
+
+  th {
+    white-space: nowrap;
+    padding-right: 1rem;
+  }
+
+  td {
+    min-width: 7rem;
+  }
+
   img {
     height: 1.2rem;
-    margin-bottom: -0.2rem;
-  }
-  span {
-    vertical-align: text-top;
-    line-height: 1rem;
-  }
-  p span {
-    padding-left: .7rem;
+    vertical-align: middle;
+    margin: 0 0 0.3rem 0.5rem;
   }
 }
 
 .signoff {
   border-bottom: 1px solid #ddd;
-  padding-top: 50px;
+  padding-top: 30px;
   padding-bottom: 5px;
 
   table {
     width: 100%;
-    tr {
-      td {
-        // &:nth-child(2) {
-        //   width: 41%;
-        // }
 
-        // &:nth-child(1),
-        // &:nth-child(3),
-        // &:nth-child(5) /* labels */
-        // {
-        //   width: 10%;
-        // }
-
-        // &:nth-child(6) {
-        //   width: 8%;
-        // }
-      }
+    td.prescriber   {
+      width: 30rem;
     }
+
+    td.signature {
+
+    }
+  }
+}
+
+.consultant {
+  span {
+    width: 30rem;
+    border-bottom: solid 1px #ccc;
+    display: inline-block;
+  }
+}
+
+
+.order-number {
+  table {
+    width: 100%;
+    // border: 1px solid #ddd;
+  }
+}
+
+table {
+  border-collapse: collapse;
+
+  thead, th {
+    text-align: left;
   }
 }
