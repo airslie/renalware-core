@@ -470,9 +470,9 @@ fieldset {
   }
 
   a {
+    background-color: $table-border-color;
     color: inherit;
     font-weight: bold;
-    background-color: $table-border-color;
 
     &:hover,
     &:active   {
