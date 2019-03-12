@@ -24,15 +24,17 @@
         background: lighten($nhs-light-green, 50);
       }
     }
+
     &.file {
       td {
         background: $off-white;
         border-bottom: solid 2px $charcoal;
       }
     }
+
     &.session_import_error {
       td.result {
-        background-color:lighten($nhs-pink, 50);
+        background-color: lighten($nhs-pink, 50);
       }
     }
   }
