@@ -372,6 +372,12 @@ Renalware::Engine.routes.draw do
     # Medications
     resources :prescriptions, controller: "medications/prescriptions", except: [:destroy]
     namespace :medications do
+      namespace :home_delivery do
+        resources :prescriptions,
+                  only: [:index],
+                  constraints: { format: /(pdf)/ },
+                  defaults: { format: :pdf }
+      end
       resources :prescriptions, only: [] do
         resource :termination, only: [:new, :create]
       end

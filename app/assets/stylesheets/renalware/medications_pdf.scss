@@ -1,0 +1,206 @@
+html {
+  overflow: hidden;
+  font-family: Helvetica, Arial;
+  font-size: 11px;
+}
+
+ul {
+  padding-left: 0;
+  list-style-position: inside;
+  line-height: 1.3em;
+  list-style-type: none;
+}
+
+dl {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.3em;
+
+  p {
+    padding-left: 0;
+  }
+
+  dt,
+  dd {
+    font-weight: normal;
+  }
+
+  dt {
+    font-weight: bold;
+    float: left;
+    width: 9rem;
+    overflow: hidden;
+    clear: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0;
+  }
+
+  dd {
+    margin-left: 9rem + 1rem;
+    margin-bottom: 0;
+
+    &:before {
+      content: " ";
+      display: table;
+    }
+
+    &:after {
+      content: " ";
+      display: table;
+      clear: both;
+    }
+  }
+}
+
+heading {
+  text-align: right;
+
+  .our-ref {
+    float: left;
+    font-weight: normal;
+    font-size: 0.8em;
+    color: #666;
+  }
+
+  .trust {
+    float: right;
+    margin-right: 1em;
+    .title {
+      font-size: 1.5em;
+    }
+  }
+
+  .logo {
+    float: right;
+  }
+}
+
+main {
+  clear: both;
+  display: block;
+  padding-top: 1em;
+
+  h1 {
+    margin-bottom: 0.2em;
+    padding-bottom: 0em;
+  }
+
+  section {
+    margin: 2em 0;
+  }
+}
+
+.prescriptions {
+
+  table {
+    width: 100%;
+  }
+
+  th, td {
+    padding: .5rem .5rem .3rem 0;
+
+    &.date {
+      width: 6rem;
+      white-space: nowrap;
+    }
+
+    &.dose {
+      min-width: 5rem;
+    }
+
+    &.route {
+      min-width: 5rem;
+    }
+    &.drug {
+      min-width: 12rem;
+    }
+
+    &.freq {
+      min-width: 5rem;
+    }
+  }
+
+  td {
+    border-top: solid 1px #ddd;
+    border-bottom: solid 1px #ddd;
+  }
+
+  .prescription {
+    font-weight: normal;
+
+    &.recently_changed {
+      font-weight: bold;
+    }
+  }
+}
+
+.allergies {
+  th, td {
+    padding: .3rem .2rem .2rem 0;
+  }
+}
+
+.checks {
+  th, td {
+    vertical-align: middle;
+    padding: 0 1rem 0 0;
+  }
+
+  th {
+    white-space: nowrap;
+    padding-right: 1rem;
+  }
+
+  td {
+    min-width: 7rem;
+  }
+
+  img {
+    height: 1.2rem;
+    vertical-align: middle;
+    margin: 0 0 0.3rem 0.5rem;
+  }
+}
+
+.signoff {
+  border-bottom: 1px solid #ddd;
+  padding-top: 30px;
+  padding-bottom: 5px;
+
+  table {
+    width: 100%;
+
+    td.prescriber   {
+      width: 30rem;
+    }
+
+    td.signature {
+
+    }
+  }
+}
+
+.consultant {
+  span {
+    width: 30rem;
+    border-bottom: solid 1px #ccc;
+    display: inline-block;
+  }
+}
+
+
+.order-number {
+  table {
+    width: 100%;
+    // border: 1px solid #ddd;
+  }
+}
+
+table {
+  border-collapse: collapse;
+
+  thead, th {
+    text-align: left;
+  }
+}

@@ -1,0 +1,13 @@
+dl
+  dt Name
+  dd= patient.to_s
+  dt Modality
+  dd= patient.current_modality
+  dt Date of Birth
+  dd= l(patient.born_on)
+  dt NHS Number
+  dd= patient.nhs_number
+  dt Hospital no
+  dd= patient.hospital_identifier
+  dt Address
+  dd= Renalware::AddressPresenter.new(patient.current_address).to_a.join("<br>").html_safe

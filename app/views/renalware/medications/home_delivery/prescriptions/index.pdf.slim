@@ -1,0 +1,93 @@
+- clinical_patient = Renalware::Clinical.cast_patient(patient)
+
+html
+  meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+  meta charset="utf-8" /
+
+  head
+    = wicked_pdf_stylesheet_link_tag "renalware/medications_pdf"
+  heading
+    .our-ref= "RW ref: #{patient.hospital_identifier}"
+    span.logo= wicked_pdf_image_tag "renalware/NHS-Black.jpg", width: 50
+  main
+    h1 Home Delivery Medication List
+    = "As at #{l(Time.zone.now)}"
+
+    section.extended_patient_details
+      - with_format(:html) do
+        = render "renalware/medications/prescriptions/extended_patient_details", patient: patient
+
+    section.prescriptions
+      table
+        thead
+          th.date Date
+          th.drug Drug
+          th.dose Dose
+          th.route Route
+          th.freq Freq
+          th.comments Pharmacy comments
+        tbody
+          - prescriptions.each do |prescription|
+            tr
+              td.date= l(prescription.prescribed_on)
+              td= prescription.drug.name
+              td= prescription.dose
+              td= prescription.medication_route.code
+              td= prescription.frequency
+              td
+
+    section.allergies
+      table
+        thead
+          th
+            = clinical_patient.allergy_status&.text
+            - if clinical_patient.allergy_status_updated_at
+              span.allergy_status_updated_at
+                | &nbsp;
+                = l(clinical_patient.allergy_status_updated_at&.to_date)
+        tbody
+          - clinical_patient.allergies.each do |allergy|
+            tr
+              td= allergy.description
+
+    section.checks
+      table
+        tbody
+          tr
+            th Repeat prescription for
+            td
+              span 3 months
+              = wicked_pdf_image_tag "renalware/checkbox-empty"
+            td
+              span 6 months
+              = wicked_pdf_image_tag "renalware/checkbox-empty"
+          tr
+            th Frequency of deliveries
+            td
+              span 3 months
+              = wicked_pdf_image_tag "renalware/checkbox-empty"
+            td
+              span 6 months
+              = wicked_pdf_image_tag "renalware/checkbox-empty"
+
+    section.consultant
+      p
+        b Consultant:
+        span &nbsp;
+    section.signoff
+      table
+        tr
+          td Prescriber:
+          td
+          td
+        tr
+          td.prescriber= [current_user.signature, current_user.professional_position].compact.join(", ")
+          td.signature Signature:
+          td Date:
+
+    section.order-number
+      table
+        thead
+          th Order number:
+      p
+        b Other pharmacy comments:

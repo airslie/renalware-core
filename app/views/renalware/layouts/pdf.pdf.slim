@@ -4,8 +4,10 @@ html
     meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
     meta charset="utf-8" /
 
+
     = yield(:head)
     = wicked_pdf_stylesheet_link_tag "renalware/pdf"
+    = yield(:head2)
 
   body
     = yield

@@ -17,7 +17,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.71)
+    renalware-core (2.0.72)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.28.0)
       ahoy_matey (~> 2.1.0)
@@ -150,7 +150,7 @@ GEM
     arel (9.0.0)
     ast (2.4.0)
     attr_extras (5.2.0)
-    autoprefixer-rails (9.4.9)
+    autoprefixer-rails (9.4.10.2)
       execjs
     awesome_print (1.8.0)
     axiom-types (0.1.1)
@@ -346,7 +346,7 @@ GEM
     kaminari-core (1.1.1)
     launchy (2.4.3)
       addressable (~> 2.3)
-    liquid (4.0.1)
+    liquid (4.0.2)
     lograge (0.10.0)
       actionpack (>= 4)
       activesupport (>= 4)
@@ -569,7 +569,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    temple (0.8.0)
+    temple (0.8.1)
     terminal-notifier-guard (1.7.0)
     thor (0.19.4)
     thread_safe (0.3.6)
@@ -671,4 +671,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.6
+   1.17.3
