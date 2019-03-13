@@ -16,6 +16,8 @@ module Renalware
         @bookmarks ||= begin
           Patients.cast_user(user)
                   .bookmarks
+                  .joins(:patient)
+                  .merge(patient_scope)
                   .ordered
                   .includes(patient: [current_modality: :description])
         end
@@ -62,6 +64,10 @@ module Renalware
 
       def present_letters(letters)
         CollectionPresenter.new(letters, Letters::LetterPresenterFactory)
+      end
+
+      def patient_scope
+        ::Renalware::Patients::PatientPolicy::Scope.new(user, Patient).resolve
       end
     end
   end
