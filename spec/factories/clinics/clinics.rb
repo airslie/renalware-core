@@ -6,7 +6,7 @@ FactoryBot.define do
   end
 
   factory :clinic, class: "Renalware::Clinics::Clinic" do
-    name{ generate(:clinic_name) }
+    name { generate(:clinic_name) }
 
     association :consultant, factory: :user
   end

@@ -30,7 +30,7 @@ module Renalware
             patient: patient,
             observation_set_a: { HGB: hgb_old, CRE: cre_old },
             observation_set_b: { HGB: hgb_new, PTHI: pthi_new, CRE: cre_new },
-            descriptions: %w(HGB CRE PTHI).map { |code| OpenStruct.new(code: code) } # mock ob descs
+            descriptions: %w(HGB CRE PTHI).map { |code| OpenStruct.new(code: code) } # mock obs desc
           )
 
           diff_hash = obj.to_h
