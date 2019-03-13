@@ -7,12 +7,14 @@
   = link_to patient_prescriptions_path(@patient,
                                        treatable,
                                        format: :pdf),
-            class: "button secondary with-icon" do
+            class: "button secondary with-icon",
+            target: :blank do
     i.fas.fa-print
     | Print
   |&nbsp;
   = link_to patient_medications_home_delivery_prescriptions_path(@patient),
-            class: "button secondary with-icon" do
+            class: "button secondary with-icon",
+            target: :blank do
     i.fa.fa-print
     | Print home delivery drugs
 
