@@ -107,7 +107,10 @@ module Renalware
               and not exists(
                 select from research_participations rp
                   inner join research_studies rs on rs.id = rp.study_id
-                  where rs.private = true and rp.patient_id = patients.id
+                  where
+                    rs.private = true
+                    and rp.patient_id = patients.id
+                    and rp.deleted_at is null
               )
             )
             or
@@ -115,7 +118,11 @@ module Renalware
                 select from research_participations rp
                   inner join research_studies rs on rs.id = rp.study_id
                   inner join research_investigatorships ri on rs.id = ri.study_id
-                  where patients.id = rp.patient_id and ri.user_id = ?
+                  where
+                    patients.id = rp.patient_id
+                    and ri.user_id = ?
+                    and ri.deleted_at is null
+                    and rp.deleted_at is null
               )
           SQL
         end
