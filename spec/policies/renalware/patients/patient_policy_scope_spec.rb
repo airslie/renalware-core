@@ -112,6 +112,25 @@ module Renalware::Patients
             expect(resolved_scope.to_a).to eq(expected_patients)
           end
         end
+
+        context "when they WERE an investigator of the private study but were removed" do
+          let(:user) { create_user_with_role(:clinical, at_hospital: host_hospital) }
+
+          it "they cannot see study participants at another hospital" do
+            investigatorship = add_user_to_study(user, private_study)
+            investigatorship.destroy! # soft deletes so wil get a deleted_at
+
+            expected_patients = [
+              patient_at(host_hospital, in_study: private_study)
+            ]
+
+            # They should not see this one as they are no longer a member of the study
+            # and the user is at antother hospital
+            patient_at(other_hospital, in_study: private_study)
+
+            expect(resolved_scope.to_a).to eq(expected_patients)
+          end
+        end
       end
     end
   end
