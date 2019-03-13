@@ -102,6 +102,30 @@ module Renalware::Patients
             expect(resolved_scope).to eq(expected_patients)
           end
 
+          it "they cannot see deleted participations for patients from another hospital" do
+            # ie the patient was removed from the study so they have a deleted_at datetime
+            add_user_to_study(user, private_study)
+            p1 = patient_at(host_hospital, in_study: private_study)
+            p2 = patient_at(other_hospital, in_study: private_study)
+
+            # Remove patient 2 from the study - will set deleted_at
+            Renalware::Research::Participation.find_by(patient_id: p2.id).destroy!
+
+            expect(resolved_scope.to_a).to eq([p1])
+          end
+
+          it "they cannot see participants from another hospital with a left_on date in the past" do
+            # ie the patient was removed from the study so they have a deleted_at datetime
+            add_user_to_study(user, private_study)
+            p1 = patient_at(host_hospital, in_study: private_study)
+            p2 = patient_at(other_hospital, in_study: private_study)
+
+            p2_participant = Renalware::Research::Participation.find_by(patient_id: p2.id)
+            p2_participant.update!(left_on: 1.week.ago)
+
+            expect(resolved_scope.to_a).to eq([p1])
+          end
+
           it "they can see study participants even if they are at another hospital" do
             add_user_to_study(user, private_study)
             expected_patients = [
@@ -125,7 +149,25 @@ module Renalware::Patients
             ]
 
             # They should not see this one as they are no longer a member of the study
-            # and the user is at antother hospital
+            # and the user is at another hospital
+            patient_at(other_hospital, in_study: private_study)
+
+            expect(resolved_scope.to_a).to eq(expected_patients)
+          end
+        end
+
+        context "when they are an investigator of the private study but the study was deleted" do
+          let(:user) { create_user_with_role(:clinical, at_hospital: host_hospital) }
+
+          it "they cannot see study participants at another hospital" do
+            add_user_to_study(user, private_study)
+            private_study.update_column(:deleted_at, 1.day.ago)
+
+            expected_patients = [
+              patient_at(host_hospital, in_study: private_study)
+            ]
+
+            # They should not see this one as the study is deleted
             patient_at(other_hospital, in_study: private_study)
 
             expect(resolved_scope.to_a).to eq(expected_patients)
