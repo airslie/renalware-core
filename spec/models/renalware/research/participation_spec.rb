@@ -12,7 +12,7 @@ module Renalware
     it { is_expected.to belong_to :study }
 
     describe "uniqueness" do
-      subject{
+      subject {
         Research::Participation.new(
           patient_id: patient.id,
           study_id: study.id,
