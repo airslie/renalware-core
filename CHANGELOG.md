@@ -9,6 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.72
+### Added
+- Add versioning to AKI alerts #2597
+- Print home delivery drugs #2315
+### Changed
+### Fixed
+- UKRDC validation fixes #2594
+
 ## 2.0.71
 ### Added
 ### Changed
