@@ -34,7 +34,7 @@ gem "trix",
     branch: "master"
 
 group :test do
-  gem "capybara", "~> 3.12.0"
+  gem "capybara", "~> 3.12"
   gem "capybara-screenshot" # "~> 1.0.18"
   gem "capybara-select-2"
   # gem "chromedriver-helper" # this clashses with the */*-browsers images in cirlci so removed
@@ -46,10 +46,10 @@ group :test do
   gem "fuubar", require: false
   gem "rails-controller-testing", "~> 1.0.4"
   gem "rspec-html-matchers", "~> 0.9.1"
-  gem "rspec-rails", "~> 3.8.0"
+  gem "rspec-rails", "~> 3.8"
   gem "rspec_junit_formatter", "~> 0.4.1"
   gem "selenium-webdriver", "~> 3.141.0"
-  gem "shoulda-matchers", "~> 3.1.2"
+  gem "shoulda-matchers", "~> 4.0"
   gem "simplecov", "~> 0.13.0", require: false # only loaded if required
   gem "webmock", require: false
   gem "wisper-rspec", "~> 1.1.0"
