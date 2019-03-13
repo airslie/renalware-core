@@ -108,9 +108,10 @@ module Renalware
                 select from research_participations rp
                   inner join research_studies rs on rs.id = rp.study_id
                   where
-                    rs.private = true
-                    and rp.patient_id = patients.id
-                    and rp.deleted_at is null
+                    patients.id = rp.patient_id
+                    and rs.private = true
+                    and rs.deleted_at is null
+                    and rp.left_on is null
               )
             )
             or
@@ -121,8 +122,10 @@ module Renalware
                   where
                     patients.id = rp.patient_id
                     and ri.user_id = ?
+                    and rs.deleted_at is null
                     and ri.deleted_at is null
                     and rp.deleted_at is null
+                    and rp.left_on is null
               )
           SQL
         end
