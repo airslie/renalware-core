@@ -30,8 +30,10 @@ module Renalware
           present_letters(
             Letters::Letter
               .reversed
-              .where("author_id = ? or created_by_id = ?", user.id, user.id)
+              .where("author_id = ? or letter_letters.created_by_id = ?", user.id, user.id)
               .in_progress
+              .joins(:patient)
+              .merge(patient_scope)
               .includes(:author, :patient, :letterhead)
           )
           # Renalware::Letters.cast_author(user)
@@ -42,7 +44,9 @@ module Renalware
         @unread_messages_receipts ||= begin
           receipts = Messaging::Internal.cast_recipient(user)
             .receipts
+            .joins(message: :patient)
             .includes(message: [:author, :patient])
+            .merge(patient_scope)
             .order("messaging_messages.sent_at asc")
             .unread
           CollectionPresenter.new(receipts, Messaging::Internal::ReceiptPresenter)
@@ -54,6 +58,8 @@ module Renalware
           receipts = Letters::ElectronicReceipt
             .includes(letter: [:patient, :author, :letterhead])
             .unread
+            .joins(letter: :patient)
+            .merge(patient_scope)
             .for_recipient(user.id)
             .order(created_at: :asc)
           CollectionPresenter.new(receipts, Letters::ElectronicReceiptPresenter)
