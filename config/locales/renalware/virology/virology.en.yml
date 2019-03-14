@@ -13,6 +13,7 @@ en:
       renalware/virology/profile_document:
         hiv: HIV
         hepatitis_b: Hepatitis B
+        hepatitis_b_core_antibody: Hepatitis B Core Antibody
         hepatitis_c: Hepatitis C
         htlv: HTLV
   enumerize:

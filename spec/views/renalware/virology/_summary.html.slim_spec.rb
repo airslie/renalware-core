@@ -2,9 +2,8 @@
 
 require "rails_helper"
 
-# Commented out - cannot work out atm how to inject url helpers into RSpec view spec!
 describe "renalware/virology/profiles/summary", type: :view do
-  VIROLOGY_ATTRIBUTES = %i(hiv hepatitis_b hepatitis_c htlv).freeze
+  VIROLOGY_ATTRIBUTES = %i(hiv hepatitis_b hepatitis_b_core_antibody hepatitis_c htlv).freeze
   helper(Renalware::Engine.routes.url_helpers, Renalware::AttributeNameHelper)
 
   let(:patient) { create(:virology_patient).tap(&:create_profile) }
@@ -44,7 +43,7 @@ describe "renalware/virology/profiles/summary", type: :view do
         # The other ones should not be displayed
         (VIROLOGY_ATTRIBUTES - [virology_attr]).each do |absent_virology_attribute|
           expect(rendered).not_to include(
-            human_virology_attribute_name_for(absent_virology_attribute)
+            ">#{human_virology_attribute_name_for(absent_virology_attribute)}<"
           )
         end
       end
