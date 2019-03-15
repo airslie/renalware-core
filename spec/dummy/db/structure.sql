@@ -3811,7 +3811,9 @@ CREATE TABLE pathology_observation_descriptions (
     display_group integer,
     display_order integer,
     letter_group integer,
-    letter_order integer
+    letter_order integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -4014,7 +4016,9 @@ CREATE TABLE pathology_request_descriptions (
     required_observation_description_id integer,
     expiration_days integer DEFAULT 0 NOT NULL,
     lab_id integer NOT NULL,
-    bottle_type character varying
+    bottle_type character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -15933,6 +15937,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181217124025'),
 ('20190104095254'),
 ('20190218142207'),
-('20190225103005');
+('20190225103005'),
+('20190315125638');
 
 
