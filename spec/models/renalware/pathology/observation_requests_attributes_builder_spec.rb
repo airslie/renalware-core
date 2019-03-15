@@ -121,7 +121,7 @@ module Renalware::Pathology
 
           parser = described_class.new(message)
 
-          expect{ parser.parse }.not_to raise_error
+          expect { parser.parse }.not_to raise_error
         end
 
         it "creates a params hash with multiple observation_requests" do
@@ -164,7 +164,7 @@ module Renalware::Pathology
           observations_to_create = results[0].dig(:observation_request, :observations_attributes)
           expect(observations_to_create.length).to eq(1)
           expect(
-            observations_to_create.map{ |ob| ob[:description_id] }
+            observations_to_create.map { |ob| ob[:description_id] }
           ).to eq([included_description.id])
         end
       end
@@ -235,14 +235,20 @@ module Renalware::Pathology
           )
         }
 
-        it "uses the current data and time" do
-          expect {
-            described_class.new(hl7_message).parse
-          }.to raise_error(Renalware::Pathology::MissingRequestDescriptionError, "I_DO_NOT_EXIST")
+        it "creates the OBR code dynamcically" do
+          create(:pathology_lab, name: "Lab: Unknown")
+          described_class.new(hl7_message).parse
+
+          expect(
+            RequestDescription.exists?(
+              code: "I_DO_NOT_EXIST",
+              name: "I_DO_NOT_EXIST"
+            )
+          ).to eq(true)
         end
       end
 
-      context "when the OBX code is no found" do
+      context "when the OBX code is not found" do
         let(:hl7_message) {
           double(
             :hl7_message,
@@ -267,13 +273,15 @@ module Renalware::Pathology
           )
         }
 
-        it "uses the current data and time" do
-          expect {
-            described_class.new(hl7_message).parse
-          }.to raise_error(
-            Renalware::Pathology::MissingObservationDescriptionError,
-            "I_DO_NOT_EXIST"
-          )
+        it "creates the OBX code dynamcically" do
+          described_class.new(hl7_message).parse
+
+          expect(
+            ObservationDescription.exists?(
+              code: "I_DO_NOT_EXIST",
+              name: "I_DO_NOT_EXIST"
+            )
+          ).to eq(true)
         end
       end
     end

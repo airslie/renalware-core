@@ -87,13 +87,16 @@ module Renalware
       end
 
       def find_request_description(code)
-        RequestDescription.find_by!(code: code)
+        RequestDescription.find_or_create_by!(code: code) do |desc|
+          desc.name = code
+          desc.lab = Lab.unknown
+        end
       rescue ActiveRecord::RecordNotFound
         raise MissingRequestDescriptionError, code
       end
 
       def find_observation_description(code)
-        ObservationDescription.find_by!(code: code)
+        ObservationDescription.find_or_create_by!(code: code) { |desc| desc.name = code }
       rescue ActiveRecord::RecordNotFound
         raise MissingObservationDescriptionError, code
       end

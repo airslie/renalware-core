@@ -10,6 +10,10 @@ module Renalware
       scope :ordered, -> { order(name: :asc) }
 
       validates :name, presence: true
+
+      def self.unknown
+        find_by!(name: "Lab: Unknown")
+      end
     end
   end
 end
