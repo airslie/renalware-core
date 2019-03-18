@@ -6,9 +6,6 @@
                       wrapper: "horizontal_form",
                       html: { autocomplete: "off" } do |f|
 
+      .columns= save_or_cancel(form: f, back_path: patient_path(patient))
       = render "form", f: f, patient: patient
-
-      .columns.large-12
-        = submit_tag "Update", class: "button"
-        span= " or "
-        = link_to "Cancel", patient_path(patient)
+      .columns= save_or_cancel(form: f, back_path: patient_path(patient))

@@ -170,7 +170,13 @@ module Renalware
     end
 
     def validate_sex
-      errors.add(:sex, "is invalid option (#{sex.code})") unless sex.valid?
+      unless sex.valid?
+        if sex.code.present?
+          errors.add(:sex, "has an invalid option (#{sex.code})")
+        else
+          errors.add(:sex, "is required")
+        end
+      end
     end
 
     def must_have_at_least_one_identifier
