@@ -59,7 +59,8 @@
   }
 }
 
-ul.error-messages {
+ul.error-messages,
+.non-patient-page ul.error-messages {
   background-color: $error-background;
   color: $nhs-red;
   margin: 0;

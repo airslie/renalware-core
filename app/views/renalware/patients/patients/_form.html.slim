@@ -15,15 +15,13 @@
     = f.input :family_name, wrapper: :horizontal_small
     = f.input :given_name, wrapper: :horizontal_small
     = f.input :suffix, wrapper: :horizontal_small
-    = f.input :email, wrapper: :horizontal_small
-    = f.input :telephone1, wrapper: :horizontal_small
-    = f.input :telephone2, wrapper: :horizontal_small
+    = f.input :born_on, as: :date_picker, label: "DoB", wrapper: :horizontal_datepicker
     = f.input :sex,
         selected: patient.sex.code,
-        placeholder: "Please select gender",
         collection: Renalware::Gender.all,
         label_method: :name, value_method: :code,
-        include_blank: "Please select gender",
+        include_blank: "Please select",
+        required: true,
         wrapper: :horizontal_small
     = f.association :ethnicity,
         label_method: :name, value_method: :id,
@@ -43,11 +41,14 @@
     = f.input :marital_status,
                     include_blank: "Please select marital status",
                     wrapper: :horizontal_small
-    = f.input :born_on, as: :date_picker, label: "DoB", wrapper: :horizontal_datepicker
     = f.input :paediatric_patient_indicator,
         as: :inline_radio_buttons,
         label: "If under 18 years, is the recipient being treated in a paediatric unit?",
         wrapper: :horizontal_small
+
+    = f.input :telephone1, wrapper: :horizontal_small
+    = f.input :telephone2, wrapper: :horizontal_small
+    = f.input :email, wrapper: :horizontal_small
 
     - if patient.persisted?
       .row
