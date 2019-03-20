@@ -25,6 +25,7 @@
                   collection: available_centres,
                   wrapper: :horizontal_medium,
                   input_html: { class: "searchable_select" },
+                  required: true,
                   hint: ("You are only allowed to add a patient to your own hospital" if available_centres.size == 1)
     = f.input :title, wrapper: :horizontal_tiny
     = f.input :family_name, wrapper: :horizontal_small, input_html: controlled_by_demographics_feed
