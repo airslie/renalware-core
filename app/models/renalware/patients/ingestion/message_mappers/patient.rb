@@ -22,7 +22,8 @@ module Renalware
 
           private
 
-          # rubocop:disable Metrics/AbcSize
+          # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+          # TODO: address, gp, practice
           def map_attributes
             patient.attributes = {
               local_patient_id: message.patient_identification.internal_id,
@@ -34,14 +35,20 @@ module Renalware
               title: message.patient_identification.title,
               born_on: Time.zone.parse(message.patient_identification.dob).to_date,
               died_on: Time.zone.parse(message.patient_identification.death_date),
-              sex: message.patient_identification.sex
-              # ,
-              # practice_code: message.practice_code,
-              # gp_code: message.gp_code,
-              # source: source
+              sex: message.patient_identification.sex,
+              practice: find_practice(message.practice_code),
+              primary_care_physician: find_primary_care_physician(message.gp_code)
             }
           end
-          # rubocop:enable Metrics/AbcSize
+          # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+          def find_practice(code)
+            Patients::Practice.find_by(code: code)
+          end
+
+          def find_primary_care_physician(code)
+            Patients::PrimaryCarePhysician.find_by(code: code)
+          end
         end
       end
     end

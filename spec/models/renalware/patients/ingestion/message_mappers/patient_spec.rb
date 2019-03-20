@@ -29,24 +29,32 @@ module Renalware
           )
         }
 
+        let(:primary_care_physician) { build_stubbed(:primary_care_physician) }
+        let(:practice) { build_stubbed(:practice) }
+
         subject { described_class.new(message) }
 
         it "maps a message to a patient" do
+          allow(Renalware::Patients::PrimaryCarePhysician)
+            .to receive(:find_by).and_return(primary_care_physician)
+          allow(Renalware::Patients::Practice)
+            .to receive(:find_by).and_return(practice)
+
           actual = subject.fetch
 
           expect(actual.local_patient_id).to eq(message.patient_identification.internal_id)
           expect(actual.nhs_number.to_s).to eq(message.patient_identification.external_id)
           expect(actual.given_name).to eq(message.patient_identification.given_name)
           expect(actual.family_name).to eq(message.patient_identification.family_name)
-          # expect(actual.middle_name).to eq(message.patient_middle_initial_or_name)
           expect(actual.suffix).to eq(message.patient_identification.suffix)
           expect(actual.title).to eq(message.patient_identification.title)
           expect(actual.sex.code).to eq(message.patient_identification.sex)
           expect(actual.born_on).to eq(Date.parse("01-01-1960"))
           expect(actual.died_on).to eq(Time.zone.parse("01-01-2001"))
-
-          # expect(actual.practice_code).to eq(message.practice_code)
-          # expect(actual.gp_code).to eq(message.gp_code)
+          expect(actual.primary_care_physician).to eq(primary_care_physician)
+          expect(actual.practice).to eq(practice)
+          # TODO: address
+          #
         end
       end
     end
