@@ -156,6 +156,21 @@ module Renalware
       def to_s
         @message_string.tr("\r", "\n")
       end
+
+      def message_type
+        type.split("^").first
+      end
+
+      def event_type
+        parts = type.split("^")
+        parts.length == 2 && parts.last
+      end
+
+      %i(ORU ADT).each do |msg_type|
+        define_method(:"#{msg_type.to_s.downcase}?") do
+          msg_type.to_s == message_type
+        end
+      end
     end
   end
 end
