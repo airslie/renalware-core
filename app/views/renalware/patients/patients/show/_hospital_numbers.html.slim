@@ -3,6 +3,9 @@ article
     h1 Hospital Numbers
 
   dl.dl-horizontal
+    dt Hospital:
+    dd= patient.hospital_centre&.name
+
     dt NHS Number:
     dd= formatted_nhs_number(patient)
 
