@@ -13,6 +13,7 @@ module Renalware
       # For SubscriptionRegistry only, may not be needed as also inc in Broadcasting module
       include Wisper::Publisher
 
+      # rubocop:disable Metrics/MethodLength
       def call(raw_message)
         feed_message = nil
 
@@ -52,11 +53,12 @@ module Renalware
         notify_exception(e)
         raise e
       end
+      # rubocop:enable Metrics/MethodLength
 
       private
 
       def build_hl7_object_from(raw_message)
-        MessageParser.new.parse(raw_message)
+        MessageParser.parse(raw_message)
       end
 
       # If the incoming message has already been processed we should not be processing it again.
