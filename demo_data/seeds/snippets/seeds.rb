@@ -18,7 +18,7 @@ module Renalware
                   "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui "\
                   "officia deserunt mollit anim id est laborum."
 
-    x.times do |i|
+    y.times do |i|
       clinic = modals.sample
       Renalware::Snippets::Snippet.create(
         author_id: i,
@@ -28,7 +28,7 @@ module Renalware
         body: "I saw this patient in #{clinic} Clinic today. #{body_text_1}")
     end
 
-    x.times do |i|
+    y.times do |i|
       mdm = modals.sample
       Renalware::Snippets::Snippet.create(
         author_id: i,
