@@ -12,7 +12,6 @@ describe "Update patient information on receipt of an ADT~A31 HL7 message" do
   let(:died_on) { "20150122154801" }
   let(:sex) { "F" }
   let(:nhs_number) { "1234567890" }
-
   let(:message) do
     hl7 = <<-HL7
       MSH|^~\&|ADT|iSOFT Engine|eGate|Kings|20150122154918||ADT^A31|897847653|P|2.3
@@ -39,6 +38,7 @@ describe "Update patient information on receipt of an ADT~A31 HL7 message" do
       expect(patient.born_on).to eq(Time.zone.parse(dob).to_date)
       expect(patient.died_on).to eq(Time.zone.parse(died_on).to_date)
       expect(patient.nhs_number).to eq(nhs_number)
+      expect(patient.primary_care_physician.code).to eq(nhs_number)
     end
   end
 end
