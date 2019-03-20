@@ -8,9 +8,14 @@ module Renalware::Patients
       subject(:command) { IdempotentCreatePatient.new(user) }
 
       let(:user) { create(:user) }
+      let(:hospital) { create(:hospital_centre) }
 
       context "when a patient does not have the same hospital number" do
-        let(:params) { { patient: attributes_for(:patient) } }
+        let(:params) do
+          {
+            patient: attributes_for(:patient, hospital_centre_id: hospital.id)
+          }
+        end
 
         it "creates the patient" do
           expect { command.call(params) }.to change { ::Renalware::Patient.count }.by(1)
