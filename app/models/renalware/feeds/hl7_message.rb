@@ -11,6 +11,19 @@ module Renalware
     #   HL7Message.new(raw_message).patient_identification.internal_id
     #
     class HL7Message < SimpleDelegator
+      ACTIONS = {
+        "ADT^A28" => :add_person_information,
+        "ADT^A31" => :update_person_information,
+        "ADT^A08" => :update_admission,
+        "ADT^A01" => :admit_patient,
+        "ADT^A02" => :transfer_patient,
+        "ADT^A03" => :discharge_patient,
+        "ADT^A11" => :cancel_admission,
+        "MFN^M02" => :add_consultant,
+        "ADT^A34" => :merge_patient,
+        "ADT^A13" => :cancel_discharge,
+        "ORU^R01" => :add_pathology_observations
+      }.freeze
       def initialize(message_string)
         @message_string = message_string
         super(::HL7::Message.new(message_string.lines))
@@ -170,6 +183,10 @@ module Renalware
         define_method(:"#{msg_type.to_s.downcase}?") do
           msg_type.to_s == message_type
         end
+      end
+
+      def action
+        ACTIONS.fetch(type)
       end
     end
   end
