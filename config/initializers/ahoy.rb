@@ -14,3 +14,4 @@ end
 Ahoy.api = false
 Ahoy.visit_duration = 30.minutes
 Ahoy.geocode = false
+Ahoy.exclude_method = ->(_controller, _request) { ENV["SKIP_AHOY"] }
