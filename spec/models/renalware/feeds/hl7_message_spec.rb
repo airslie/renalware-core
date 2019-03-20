@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware::Feeds
   describe HL7Message do
-    subject(:decorator) { described_class.new(raw_message) }
+    subject(:decorator) { described_class.new(::HL7::Message.new(raw_message)) }
 
     let(:message_type) { "ORU^R01" }
     let(:raw_message) do
@@ -97,6 +97,22 @@ module Renalware::Feeds
         let(:message_type) { "ADT^A31" }
 
         it { is_expected.to eq(true) }
+      end
+    end
+
+    describe "#action" do
+      subject { decorator.action }
+
+      context "for pathology messages" do
+        let(:message_type) { "ORU^R01" }
+
+        it { is_expected.to eq(:add_pathology_observations) }
+      end
+
+      context "for ADT^A31 messages" do
+        let(:message_type) { "ADT^A31" }
+
+        it { is_expected.to eq(:update_person_information) }
       end
     end
   end

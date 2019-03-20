@@ -24,10 +24,6 @@ module Renalware
         "ADT^A13" => :cancel_discharge,
         "ORU^R01" => :add_pathology_observations
       }.freeze
-      def initialize(message_string)
-        @message_string = message_string
-        super(::HL7::Message.new(message_string.lines))
-      end
 
       class ObservationRequest < SimpleDelegator
         alias_attribute :date_time, :observation_date
@@ -166,8 +162,9 @@ module Renalware
         self[:MSH].message_control_id
       end
 
-      def to_s
-        @message_string.tr("\r", "\n")
+      # Adding this so it is part of the interface and we can mock an HL7Message in tests
+      def to_hl7
+        super
       end
 
       def message_type

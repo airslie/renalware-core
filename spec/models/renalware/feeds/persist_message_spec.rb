@@ -12,7 +12,7 @@ module Renalware::Feeds
           HL7Message,
           type: "::message type code::",
           header_id: "::header id::",
-          to_s: "::message body::",
+          to_hl7: "::message body::",
           patient_identification: double(internal_id: "123")
         )
       }
