@@ -46,7 +46,8 @@ module World
         local_patient_id: FactoryBot.generate(:local_patient_id),
         sex: "M",
         born_on: Time.zone.today,
-        by: Renalware::SystemUser.find
+        by: Renalware::SystemUser.find,
+        hospital_centre: Renalware::Hospitals::Centre.first
       )
     end
 
