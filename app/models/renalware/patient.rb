@@ -100,6 +100,7 @@ module Renalware
     validate :must_have_at_least_one_identifier
     validates :born_on, timeliness: { type: :date }
     validates :email, email: true, allow_blank: true
+    validates :hospital_centre, presence: true
 
     attr_accessor :skip_death_validations
     with_options if: :validate_death_attributes?, on: :update do

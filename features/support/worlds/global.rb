@@ -43,7 +43,8 @@ module World
         local_patient_id: rand(10000).to_s.rjust(6, "Z99999"),
         sex: "M",
         born_on: Time.zone.today,
-        by: Renalware::SystemUser.find
+        by: Renalware::SystemUser.find,
+        hospital_centre: Renalware::Hospitals::Centre.first
       )
     end
 
