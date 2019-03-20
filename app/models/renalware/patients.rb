@@ -13,9 +13,7 @@ module Renalware
     end
 
     def configure
-      # Note that we no longer create all patients that coe in from the HL7 feed, so
-      # MessageListener has been removed from the registry.
-      # SubscriptionRegistry.instance.register(Feeds::MessageProcessor, MessageListener)
+      SubscriptionRegistry.instance.register(Feeds::MessageProcessor, MessageListener)
     end
 
     def self.cast_user(user)
