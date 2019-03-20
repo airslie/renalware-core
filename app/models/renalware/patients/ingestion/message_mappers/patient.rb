@@ -25,16 +25,16 @@ module Renalware
           # rubocop:disable Metrics/AbcSize
           def map_attributes
             patient.attributes = {
-              local_patient_id: hospital_number,
-              nhs_number: message.patient_external_id,
-              given_name: message.patient_given_name,
-              family_name: message.patient_family_name,
+              local_patient_id: message.patient_identification.internal_id,
+              nhs_number: message.patient_identification.external_id,
+              given_name: message.patient_identification.given_name,
+              family_name: message.patient_identification.family_name,
               # middle_name: message.patient_middle_initial_or_name,
-              suffix: message.patient_suffix,
-              title: message.patient_prefix,
-              born_on: Time.zone.parse(message.patient_date_time_of_birth).to_date,
-              died_on: Time.zone.parse(message.patient_date_time_of_death),
-              sex: message.patient_sex
+              suffix: message.patient_identification.suffix,
+              title: message.patient_identification.title,
+              born_on: Time.zone.parse(message.patient_identification.dob).to_date,
+              died_on: Time.zone.parse(message.patient_identification.death_date),
+              sex: message.patient_identification.sex
               # ,
               # practice_code: message.practice_code,
               # gp_code: message.gp_code,
@@ -42,10 +42,6 @@ module Renalware
             }
           end
           # rubocop:enable Metrics/AbcSize
-
-          def hospital_number
-            message.patient_internal_id
-          end
         end
       end
     end

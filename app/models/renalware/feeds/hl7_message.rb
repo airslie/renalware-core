@@ -143,6 +143,14 @@ module Renalware
           patient_name[1]
         end
 
+        def suffix
+          patient_name[3]
+        end
+
+        def title
+          patient_name[4]
+        end
+
         private
 
         def patient_name

@@ -7,7 +7,7 @@ module Renalware
     module Ingestion
       module Commands
         class UpdatePatient < Command
-          def initialize(message, mapper_factory: MessageMapper::Patient)
+          def initialize(message, mapper_factory: MessageMappers::Patient)
             @mapper_factory = mapper_factory
 
             super(message)
@@ -18,6 +18,7 @@ module Renalware
           def call
             patient = find_patient
             patient = mapper_factory.new(message, patient).fetch
+            patient.by = SystemUser.find
             patient.save!
 
             patient
@@ -26,8 +27,8 @@ module Renalware
           private
 
           def find_patient
-            Patients::Patient.find_or_initialize_by(
-              hospital_number: message.patient_internal_id
+            ::Renalware::Patient.find_or_initialize_by(
+              local_patient_id: message.patient_identification.internal_id
             )
           end
         end

@@ -10,7 +10,7 @@ module Renalware
       #
       class CommandFactory
         def for(message)
-          case message.type
+          case message.action
           # when :add_person_information then make_add_patient_with_finder(message)
           when :update_person_information then make_update_patient(message)
           # when :admit_patient then make_admit_patient(message)
@@ -101,8 +101,10 @@ module Renalware
 
         def make_minor_patient_finder_with_add_if_missing
           missing_patient_handler = lambda { |message|
-            command = Commands::AddPatient.new(message, mapper_factory: MessageMapper::MinorPatient)
-            command.call
+            Commands::AddPatient.new(
+              message,
+              mapper_factory: MessageMappers::MinorPatient
+            ).call
           }
 
           MissingRecordHandler.new(Finder::MinorPatient.new,

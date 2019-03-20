@@ -7,9 +7,14 @@ require_dependency "renalware/patients"
 #
 module Renalware
   module Patients
-    class MessageListener
-      def message_arrived(hl7_message:, **)
-        return unless hl7_message.adt?
+    module Ingestion
+      class MessageListener
+        def message_arrived(hl7_message:, **)
+          return unless hl7_message.adt?
+
+          command = Command.for(hl7_message)
+          command.call
+        end
       end
     end
   end

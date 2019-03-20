@@ -13,7 +13,10 @@ module Renalware
     end
 
     def configure
-      SubscriptionRegistry.instance.register(Feeds::MessageProcessor, MessageListener)
+      SubscriptionRegistry.instance.register(
+        Feeds::MessageProcessor,
+        Ingestion::MessageListener
+      )
     end
 
     def self.cast_user(user)
