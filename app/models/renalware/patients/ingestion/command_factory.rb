@@ -11,7 +11,7 @@ module Renalware
       class CommandFactory
         def for(message)
           case message.action
-          # when :add_person_information then make_add_patient_with_finder(message)
+          when :add_person_information then make_add_patient(message)
           when :update_person_information then make_update_patient(message)
           # when :admit_patient then make_admit_patient(message)
           # when :merge_patient then make_merge_patient(message)
@@ -27,19 +27,26 @@ module Renalware
 
         private
 
-        def make_add_patient_with_finder(message)
-          CommandWithFinder.new(
-            make_add_patient(message),
-            message, finder: Finder::Patient.new
-          )
-        end
+        # def make_add_patient_with_finder(message)
+        #   CommandWithFinder.new(
+        #     make_add_patient(message),
+        #     message, finder: Finder::Patient.new
+        #   )
+        # end
+
+        # def make_add_patient_with_finder(message)
+        #   CommandWithFinder.new(
+        #     make_add_patient(message),
+        #     message, finder: Finder::Patient.new
+        #   )
+        # end
 
         def make_add_patient(message)
-          Commands::AddPatient.new(message)
+          Commands::AddOrUpdatePatient.new(message)
         end
 
         def make_update_patient(message)
-          Commands::UpdatePatient.new(message)
+          Commands::AddOrUpdatePatient.new(message)
         end
 
         def make_merge_patient(message)

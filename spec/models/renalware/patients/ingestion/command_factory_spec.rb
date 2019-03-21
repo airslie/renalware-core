@@ -15,29 +15,17 @@ module Renalware
               allow(message).to receive(:has_assigned_location?).and_return(false)
               actual = subject.for(message)
 
-              expect(actual).to be_a(Commands::UpdatePatient)
+              expect(actual).to be_a(Commands::AddOrUpdatePatient)
             end
           end
 
           context "given a :add_person_information message type" do
             it "returns a new AddPatient command" do
-              pending
-              message = double(:message, type: :add_person_information)
+              message = double(:message, action: :add_person_information)
               allow(message).to receive(:has_assigned_location?).and_return(false)
               actual = subject.for(message)
 
-              expect(actual).to be_a(Commands::AddPatient)
-            end
-          end
-
-          context "given a :add_patient_information message type" do
-            it "returns a new AddPatient command" do
-              pending
-              message = double(:message, type: :add_person_information)
-              allow(message).to receive(:has_assigned_location?).and_return(false)
-              actual = subject.for(message)
-
-              expect(actual).to be_a(Commands::AddPatient)
+              expect(actual).to be_a(Commands::AddOrUpdatePatient)
             end
           end
 

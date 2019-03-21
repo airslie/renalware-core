@@ -19,11 +19,13 @@ describe "Update patient information on receipt of an ADT~A31 HL7 message" do
   let(:system_user) { create(:user, username: Renalware::SystemUser.username) }
   let(:message) do
     hl7 = <<-HL7
-      MSH|^~\&|ADT|iSOFT Engine|eGate|Kings|20150122154918||ADT^A31|897847653|P|2.3
-      EVN|A31|20150122154918
+      MSH|^~\&|iPM|iIE|TIE|TIE|20110415094635||ADT^A28|558267|P|2.4|||AL|NE
+      EVN|A28|20110415094635
       PID|1|#{nhs_number}|#{local_patient_id}||#{family_name}^#{given_name}^#{middle_name}^^#{title}||#{dob}|#{sex}||Not Specified|34 Florence Road^SOUTH CROYDON^Surrey^^CR2 0PP^ZZ993CZ^HOME^QAD||0123456789|5554443333|NSP||NSP|||||Not Specified|.|DNU||8||NSP|#{died_on}|Y
       PD1|||DR WHM SUMISU PRACTICE, Nowhere Surgery, 22 Raccoon Road, Erewhon, Erewhonshire^GPPRC^#{practice_code}|#{gp_code}^Deeley^DP^^^DR
-      PV1|1|I|FISK^1^^LD^^^^^Fiske Ward|22||||#{gp_code}^Deeley^DP^^^DR|#{practice_code}^Hoskin^P^^^P^370|370||||19|||C2458519^Hoskin^P^^^P^370|01|877511|||||||||||||||||||||NORMC||||20110412095300
+      NK1|1|NOKONE^TESTING^^^MRS|NSP|EREWHON HOSPITAL N H S TR^LEWSEY ROAD^EREWHON^^ER9 0DZ^ZZ993CZ^HOME|01582 111111|01582 333333|NOK^Next of Kin|20110415|||||||F|19600406000000
+      PV1|1|R
+      Z01|07921 222222|07921 222222|||N|Nowhere Surgery^22 Raccoon Road^Erewhon^Erewhonshire^ER9 9QZ^01582 572817
     HL7
     hl7.gsub(/^[ ]*/, "")
   end

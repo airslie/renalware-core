@@ -6,7 +6,7 @@ module Renalware
   module Patients
     module Ingestion
       module Commands
-        class UpdatePatient < Command
+        class AddOrUpdatePatient < Command
           def initialize(message, mapper_factory: MessageMappers::Patient)
             @mapper_factory = mapper_factory
 
