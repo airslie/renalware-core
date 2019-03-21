@@ -12,13 +12,15 @@ describe "Update patient information on receipt of an ADT~A31 HL7 message" do
   let(:died_on) { "20150122154801" }
   let(:sex) { "F" }
   let(:nhs_number) { "1234567890" }
+  let(:gp_code) { "G1234567" }
+  let(:practice_code) { "P123456" }
   let(:message) do
     hl7 = <<-HL7
       MSH|^~\&|ADT|iSOFT Engine|eGate|Kings|20150122154918||ADT^A31|897847653|P|2.3
       EVN|A31|20150122154918
       PID|1|#{nhs_number}|#{local_patient_id}||#{family_name}^#{given_name}^#{middle_name}^^#{title}||#{dob}|#{sex}||Not Specified|34 Florence Road^SOUTH CROYDON^Surrey^^CR2 0PP^ZZ993CZ^HOME^QAD||0123456789|5554443333|NSP||NSP|||||Not Specified|.|DNU||8||NSP|#{died_on}|Y
-      PD1||||||||||||
-      PV1|1|R|FISK^^^KCH||||||||||||||||||||||||||||||||||||||||||||||
+      PD1|||DR WHM SUMISU PRACTICE, Nowhere Surgery, 22 Raccoon Road, Erewhon, Erewhonshire^GPPRC^#{practice_code}|#{gp_code}^Deeley^DP^^^DR
+      PV1|1|I|FISK^1^^LD^^^^^Fiske Ward|22||||#{gp_code}^Deeley^DP^^^DR|#{practice_code}^Hoskin^P^^^P^370|370||||19|||C2458519^Hoskin^P^^^P^370|01|877511|||||||||||||||||||||NORMC||||20110412095300
     HL7
     hl7.gsub(/^[ ]*/, "")
   end
@@ -26,6 +28,8 @@ describe "Update patient information on receipt of an ADT~A31 HL7 message" do
   context "when the patient exists in Renalware" do
     it "updates their information" do
       create(:user, username: Renalware::SystemUser.username)
+      practice = create(:practice, code: practice_code)
+      primary_care_physician = create(:primary_care_physician, code: gp_code)
       patient = create(:patient, local_patient_id: local_patient_id)
 
       FeedJob.new(message).perform
@@ -38,7 +42,8 @@ describe "Update patient information on receipt of an ADT~A31 HL7 message" do
       expect(patient.born_on).to eq(Time.zone.parse(dob).to_date)
       expect(patient.died_on).to eq(Time.zone.parse(died_on).to_date)
       expect(patient.nhs_number).to eq(nhs_number)
-      expect(patient.primary_care_physician.code).to eq(nhs_number)
+      expect(patient.primary_care_physician).to eq(primary_care_physician)
+      expect(patient.practice).to eq(practice)
     end
   end
 end

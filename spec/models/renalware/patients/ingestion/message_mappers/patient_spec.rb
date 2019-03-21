@@ -6,13 +6,17 @@ module Renalware
   module Patients
     module Ingestion
       describe MessageMappers::Patient do
+        subject { described_class.new(message) }
+
+        let(:primary_care_physician) { build_stubbed(:primary_care_physician) }
+        let(:practice) { build_stubbed(:practice) }
         let(:message) {
           double(
             :message,
             type: "A123",
             patient_date_time_of_birth: "19600101000000",
             patient_date_time_of_death: "20010101000000",
-            practice_code: "E81010",
+            practice_code: "P1234567",
             gp_code: "G9803006",
             patient_identification: double(
               :patient_dentification,
@@ -24,37 +28,52 @@ module Renalware
               title: "Mr",
               sex: "M",
               dob: "01-01-1960",
-              death_date: " 01-01-2001"
+              death_date: " 01-01-2001",
+              address: %w(street1 street2 town county postcode)
             )
           )
         }
 
-        let(:primary_care_physician) { build_stubbed(:primary_care_physician) }
-        let(:practice) { build_stubbed(:practice) }
-
-        subject { described_class.new(message) }
-
         it "maps a message to a patient" do
-          allow(Renalware::Patients::PrimaryCarePhysician)
-            .to receive(:find_by).and_return(primary_care_physician)
-          allow(Renalware::Patients::Practice)
-            .to receive(:find_by).and_return(practice)
+          stub_primary_care_physician_find
+          stub_practice_find
 
           actual = subject.fetch
 
-          expect(actual.local_patient_id).to eq(message.patient_identification.internal_id)
-          expect(actual.nhs_number.to_s).to eq(message.patient_identification.external_id)
-          expect(actual.given_name).to eq(message.patient_identification.given_name)
-          expect(actual.family_name).to eq(message.patient_identification.family_name)
-          expect(actual.suffix).to eq(message.patient_identification.suffix)
-          expect(actual.title).to eq(message.patient_identification.title)
+          expect(actual).to have_attributes(
+            local_patient_id: message.patient_identification.internal_id,
+            nhs_number: message.patient_identification.external_id,
+            given_name: message.patient_identification.given_name,
+            family_name: message.patient_identification.family_name,
+            suffix: message.patient_identification.suffix,
+            title: message.patient_identification.title,
+            born_on: Date.parse("01-01-1960"),
+            died_on: Time.zone.parse("01-01-2001"),
+            primary_care_physician: primary_care_physician,
+            practice: practice
+          )
           expect(actual.sex.code).to eq(message.patient_identification.sex)
-          expect(actual.born_on).to eq(Date.parse("01-01-1960"))
-          expect(actual.died_on).to eq(Time.zone.parse("01-01-2001"))
-          expect(actual.primary_care_physician).to eq(primary_care_physician)
-          expect(actual.practice).to eq(practice)
-          # TODO: address
-          #
+
+          expect(actual.current_address).to have_attributes(
+            street_1: "street1",
+            street_2: "street2",
+            street_3: nil,
+            town: "town",
+            county: "county",
+            postcode: "postcode"
+          )
+        end
+
+        def stub_primary_care_physician_find
+          allow(
+            Renalware::Patients::PrimaryCarePhysician
+          ).to receive(:find_by).and_return(primary_care_physician)
+        end
+
+        def stub_practice_find
+          allow(
+            Renalware::Patients::Practice
+          ).to receive(:find_by).and_return(practice)
         end
       end
     end

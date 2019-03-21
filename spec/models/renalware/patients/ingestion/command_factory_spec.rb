@@ -11,7 +11,7 @@ module Renalware
         describe "for" do
           context "given a :update_person_information message type" do
             it "returns a new UpdatePatient command" do
-              message = double(:message, type: :update_person_information)
+              message = double(:message, action: :update_person_information)
               allow(message).to receive(:has_assigned_location?).and_return(false)
               actual = subject.for(message)
 

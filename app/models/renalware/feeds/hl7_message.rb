@@ -151,6 +151,10 @@ module Renalware
           patient_name[4]
         end
 
+        def address
+          super.split("^")
+        end
+
         private
 
         def patient_name
@@ -192,6 +196,14 @@ module Renalware
 
       def action
         ACTIONS.fetch(type)
+      end
+
+      def practice_code
+        self[:PD1].e3.split("^")[2] if self[:PD1]
+      end
+
+      def gp_code
+        self[:PD1].e4.split("^")[0] if self[:PD1]
       end
     end
   end
