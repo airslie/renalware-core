@@ -7,9 +7,10 @@ module Renalware
       before_action :load_clinic_visit, only: [:edit, :update, :destroy]
 
       def index
+        visits = patient.clinic_visits.includes([:clinic, :created_by]).ordered
         render locals: {
           patient: patient,
-          clinic_visits: patient.clinic_visits.includes([:clinic, :created_by]).ordered
+          clinic_visits: CollectionPresenter.new(visits, ClinicVisitPresenter)
         }
       end
 

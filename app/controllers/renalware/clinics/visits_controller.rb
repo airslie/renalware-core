@@ -12,7 +12,7 @@ module Renalware
         authorize visits
 
         render locals: {
-          visits: visits,
+          visits: CollectionPresenter.new(visits, ClinicVisitPresenter),
           query: visits_query.search,
           clinics: Clinic.ordered,
           users: User.ordered
