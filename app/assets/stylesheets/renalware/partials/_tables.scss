@@ -108,6 +108,16 @@ table {
         color: $monsoon;
         text-align: right;
       }
+
+      dd {
+        * {
+          font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+          font-size: 1rem;
+          border: 0;
+          margin: 0;
+          padding: 0;
+        }
+      }
     }
   }
 
