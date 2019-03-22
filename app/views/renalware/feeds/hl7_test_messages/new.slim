@@ -1,0 +1,18 @@
+= within_admin_layout(title: "HL7 Test Messages") do
+
+  .row.hl7-file-browser
+    .columns.small-3
+      - test_messages.each do |msg|
+        .file
+          = link_to "#", data: { body: msg.body } do
+            .panel
+              = msg.name
+              | &nbsp;
+              i.fas.fa-arrow-circle-right
+              p= msg.description
+
+    .columns.small-9.file-viewer
+      = simple_form_for(form, remote: true, url: renalware.feeds_hl7_test_messages_path) do |f|
+        = f.input :body, as: :text
+        = f.submit "Submit", class: :button
+      pre#output

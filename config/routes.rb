@@ -11,6 +11,7 @@ Renalware::Engine.routes.draw do
   draw :directory
   draw :drugs
   draw :events
+  draw :feeds
   draw :hd
   draw :hospitals
   draw :letters

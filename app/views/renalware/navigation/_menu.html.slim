@@ -12,6 +12,8 @@ section.top-bar-section
       = render "renalware/navigation/admin"
     - if current_user_is_super_admin?
       = render "renalware/navigation/super_admin"
+    - if current_user_is_developer?
+      = render "renalware/navigation/developer"
     li.divider
     = render "renalware/navigation/sign_out"
     li.divider

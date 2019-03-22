@@ -37,7 +37,7 @@ module Renalware
               family_name: patient_identification.family_name,
               suffix: patient_identification.suffix,
               title: patient_identification.title,
-              born_on: Time.zone.parse(patient_identification.dob).to_date,
+              born_on: Time.zone.parse(patient_identification.dob)&.to_date,
               died_on: Time.zone.parse(patient_identification.death_date),
               sex: patient_identification.sex,
               practice: find_practice(message.practice_code),

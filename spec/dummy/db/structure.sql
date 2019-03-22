@@ -2062,6 +2062,39 @@ ALTER SEQUENCE feed_files_id_seq OWNED BY feed_files.id;
 
 
 --
+-- Name: feed_hl7_test_messages; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE feed_hl7_test_messages (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description character varying,
+    body text NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: feed_hl7_test_messages_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE feed_hl7_test_messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_hl7_test_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE feed_hl7_test_messages_id_seq OWNED BY feed_hl7_test_messages.id;
+
+
+--
 -- Name: feed_messages; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8590,6 +8623,13 @@ ALTER TABLE ONLY feed_files ALTER COLUMN id SET DEFAULT nextval('feed_files_id_s
 
 
 --
+-- Name: feed_hl7_test_messages id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY feed_hl7_test_messages ALTER COLUMN id SET DEFAULT nextval('feed_hl7_test_messages_id_seq'::regclass);
+
+
+--
 -- Name: feed_messages id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -9910,6 +9950,14 @@ ALTER TABLE ONLY feed_file_types
 
 ALTER TABLE ONLY feed_files
     ADD CONSTRAINT feed_files_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feed_hl7_test_messages feed_hl7_test_messages_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY feed_hl7_test_messages
+    ADD CONSTRAINT feed_hl7_test_messages_pkey PRIMARY KEY (id);
 
 
 --
@@ -11861,6 +11909,13 @@ CREATE INDEX index_feed_files_on_file_type_id ON feed_files USING btree (file_ty
 --
 
 CREATE INDEX index_feed_files_on_updated_by_id ON feed_files USING btree (updated_by_id);
+
+
+--
+-- Name: index_feed_hl7_test_messages_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_hl7_test_messages_on_name ON feed_hl7_test_messages USING btree (name);
 
 
 --
@@ -17869,6 +17924,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190218142207'),
 ('20190225103005'),
 ('20190315125638'),
+('20190322120025'),
 ('20190401105149'),
 ('20190422095620'),
 ('20190424101709'),
