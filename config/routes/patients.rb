@@ -10,6 +10,7 @@ namespace :patients do
               only: :index,
               controller: "practices/primary_care_physicians"
   end
+  resources :abridgements, only: :index
 end
 
 resources :bookmarks, controller: "patients/bookmarks", only: [:destroy, :index]
