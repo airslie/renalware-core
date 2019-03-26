@@ -36,6 +36,7 @@ describe "Add person to directory and assign as a contact for a patient",
         visit patient_letters_contacts_path(patient)
 
         try_create_contact_with_invalid_params
+        wait_for_ajax
 
         expect_to_display_errors
       end

@@ -67,12 +67,18 @@ RSpec.configure do |config|
       }
     )
 
+    client = Selenium::WebDriver::Remote::Http::Default.new
+    client.read_timeout = 10000
+    client.open_timeout = 10000
+
     options = Selenium::WebDriver::Chrome::Options.new
     options.add_argument("window-size=1366,1768")
     options.add_argument("headless")
     options.add_argument("disable-gpu")
     options.add_argument("disable-dev-shm-usage")
+    # options.add_argument("whitelisted-ips") # required for circleci to work
     options.add_argument("no-sandbox")
+    # options.add_argument("privileged")
 
     Capybara::Selenium::Driver.new(
       app,

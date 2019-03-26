@@ -4,22 +4,12 @@ jobs:
     working_directory: ~/renalwarev2
     docker:
       # this is important to use proper image with browsers support
-      - image: circleci/ruby:2.5.1-node-browsers
+      - image: circleci/ruby:2.6.2-node-browsers
         environment:
           PGHOST: 127.0.0.1
           PGUSER: renalware
           RAILS_ENV: test
-      # We use a custom docker image uploaded to DockerHub - see the Dockerfile in this folder.
-      # Note it is important to disable spring otherwise it affects the simplecov output because
-      # spring loads files ahead of time - for example using spring you might find app/helpers
-      # are not included in the coverage.
-      # - image: airslie/renalware-circleci-primary:0.0.5
-      #   environment:
-      #     - RAILS_ENV: test
-      #     - RACK_ENV: test
-      #     - DISABLE_SPRING: 1
       - image: circleci/postgres:11.2-alpine-ram
-      # 10.3-alpine
       - image: redis:3.2.7
 
     parallelism: 1
@@ -46,20 +36,30 @@ jobs:
         paths:
           - vendor/bundle
 
+      - run:
+          name: Install Chromedriver latest stable version
+          command: |
+            sudo apt-get update
+            sudo apt-get install lsb-release libappindicator3-1
+            curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            sudo dpkg -i google-chrome.deb
+            sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome
+            rm google-chrome.deb
+            chmod +x /usr/local/bin/chromedriver
+
       # https://codegists.com/code/circleci-2.0-configuration/
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
 
       - run:
-          name: install postgresql-client
+          name: Prepare to install postgresql-client 11
           command: |
             wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
             RELEASE=$(lsb_release -cs)
             echo "deb http://apt.postgresql.org/pub/repos/apt/ ${RELEASE}"-pgdg main | sudo tee  /etc/apt/sources.list.d/pgdg.list
-            sudo apt-get update && sudo apt install postgresql-client-11
 
       - run: sudo apt-get update
-      - run: sudo apt install pandoc unzip unrar-free ghostscript
+      - run: sudo apt install pandoc unzip unrar-free ghostscript postgresql-client-11
 
       # Database set-up
       - run: cp ./spec/dummy/config/database.circle.yml ./spec/dummy/config/database.yml
@@ -79,7 +79,7 @@ jobs:
           case $CIRCLE_NODE_INDEX in 0) bundle exec rspec --profile 10 \
                             --format RspecJunitFormatter \
                             --out /tmp/test-results/rspec.xml \
-                            --fail-fast\
+                            --fail-fast \
                             --format progress ;; esac
 
       # Cucumber domain features
