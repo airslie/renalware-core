@@ -11,6 +11,18 @@ This project adheres to Semantic Versioning.
 
 ## 2.0.72
 ### Added
+- HD Session Form - add CRP to Pathology section #2484
+### Changed
+- Split routes.rb into separate files for each module #2565
+- New/edit patient form improvements #2609
+- Add updated_at and created_at cols to obx and obr tables #2608
+- Create missing OBR and OBX codes dynamically #2607
+- Update ruby version used in dev and testing to 2.6.2 #2614
+### Fixed
+- Toggling clinic visits is ugly when there are html notes #2569
+
+## 2.0.72
+### Added
 - Add versioning to AKI alerts #2597
 - Print home delivery drugs #2315
 ### Changed
