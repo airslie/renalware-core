@@ -18,11 +18,8 @@ jobs:
       #     - RAILS_ENV: test
       #     - RACK_ENV: test
       #     - DISABLE_SPRING: 1
-      - image: circleci/postgres:10.3-alpine
-        environment:
-          #   POSTGRES_DB: project-name_test
-          #   POSTGRES_PASSWORD: ""
-          POSTGRES_USER: renalware
+      - image: circleci/postgres:11.2-alpine-ram
+      # 10.3-alpine
       - image: redis:3.2.7
 
     parallelism: 1
@@ -49,21 +46,24 @@ jobs:
         paths:
           - vendor/bundle
 
-      - run: sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
-      - run: sudo sh -c 'wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -'
-      - run: sudo apt-get update
-      - run: sudo apt-get install postgresql-client-10
-
       # https://codegists.com/code/circleci-2.0-configuration/
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
 
-      - run: sudo apt install postgresql-client-10 pandoc unzip unrar-free ghostscript
+      - run:
+          name: install postgresql-client
+          command: |
+            wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+            RELEASE=$(lsb_release -cs)
+            echo "deb http://apt.postgresql.org/pub/repos/apt/ ${RELEASE}"-pgdg main | sudo tee  /etc/apt/sources.list.d/pgdg.list
+            sudo apt-get update && sudo apt install postgresql-client-11
+
+      - run: sudo apt-get update
+      - run: sudo apt install pandoc unzip unrar-free ghostscript
 
       # Database set-up
       - run: cp ./spec/dummy/config/database.circle.yml ./spec/dummy/config/database.yml
-      - run: RAILS_ENV=test bundle exec rake app:db:create
-      - run: RAILS_ENV=test bundle exec rake app:db:structure:load
+      - run: RAILS_ENV=test bundle exec rake app:db:create app:db:structure:load
 
       # Check gems for security vulnerabilities in gems
       - run: bundle exec bundle-audit update && bundle exec bundle-audit check
@@ -79,8 +79,8 @@ jobs:
           case $CIRCLE_NODE_INDEX in 0) bundle exec rspec --profile 10 \
                             --format RspecJunitFormatter \
                             --out /tmp/test-results/rspec.xml \
+                            --fail-fast\
                             --format progress ;; esac
-          # $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
       # Cucumber domain features
       - type: shell
@@ -88,7 +88,6 @@ jobs:
           case $CIRCLE_NODE_INDEX in 0) bundle exec cucumber --format progress \
                                --format junit \
                                --out /tmp/test-results/cucumber-domain.xml ;; esac
-          # $(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings)
 
       # Cucumber web features
       - type: shell
@@ -98,7 +97,6 @@ jobs:
                                --format progress \
                                --format junit \
                                --out /tmp/test-results/cucumber-web.xml ;; esac
-          # $(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings)
 
       # Save artifacts ie coverage data
       - store_artifacts:
