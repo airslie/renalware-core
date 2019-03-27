@@ -14,7 +14,7 @@ module Renalware
           delegate :address, to: :patient_identification
 
           def initialize(message, patient = nil)
-            @patient = patient || Patients::Patient.new
+            @patient = patient || ::Renalware::Patient.new
 
             super(message)
           end

@@ -126,6 +126,8 @@ module Renalware
         alias_attribute :external_id, :patient_id
         alias_attribute :sex, :admin_sex
         alias_attribute :dob, :patient_dob
+        alias_attribute :born_on, :patient_dob
+        alias_attribute :died_at, :death_date
 
         def internal_id
           patient_id_list.split("^").first

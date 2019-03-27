@@ -17,7 +17,7 @@ describe "A user adds a patient", type: :system do
 
         visit patients_abridgements_path
 
-        fill_in "Criteria", with: "KCH123"
+        fill_in "Search by hospital number or name", with: "KCH123"
         click_on "Search"
 
         expect(page).to have_content("SMITH, John")
@@ -46,14 +46,14 @@ describe "A user adds a patient", type: :system do
 
           visit patients_abridgements_path
 
-          fill_in "Criteria", with: "KCH123"
+          fill_in "Search by hospital number or name", with: "KCH123"
           click_on "Search"
 
           within(".search-results") do
             expect(page).to have_content("SMITH, John")
           end
 
-          within(".search-results-by-dob") do
+          within(".search-results--by-dob") do
             expect(page).to have_content("OTHER, Jake")
             expect(page).not_to have_content("SMITH, John")
           end
