@@ -2106,7 +2106,8 @@ CREATE TABLE feed_messages (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     body_hash text,
-    patient_identifier character varying
+    patient_identifier character varying,
+    processed boolean DEFAULT false
 );
 
 
@@ -18021,6 +18022,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190315125638'),
 ('20190322120025'),
 ('20190325134823'),
+('20190327100851'),
 ('20190401105149'),
 ('20190422095620'),
 ('20190424101709'),
