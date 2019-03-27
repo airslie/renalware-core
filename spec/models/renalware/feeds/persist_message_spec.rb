@@ -28,13 +28,15 @@ module Renalware::Feeds
         expect(Message.first.body_hash).to eq(Digest::MD5.hexdigest("::message body::"))
       end
 
-      context "when a duplicate message arrives (ie body_hash is identical)" do
-        it "persists the payload" do
-          expect { service.call(hl7_message) }.to change(Message, :count).by(1)
-          expect {
-            service.call(hl7_message)
-          }.to raise_error(Renalware::Feeds::DuplicateMessageReceivedError)
-        end
+      it "causes a database unique constraint violation if the same message body is saved twice" do
+        service.call(hl7_message)
+
+        expect {
+          service.call(hl7_message)
+        }.to raise_error(
+          Renalware::Feeds::DuplicateMessageError,
+          "header_id=::header id::, body_hash=#{Digest::MD5.hexdigest('::message body::')}"
+        )
       end
     end
   end
