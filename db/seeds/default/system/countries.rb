@@ -2,7 +2,7 @@
 
 module Renalware
   log "Adding Countries" do
-    return if System::Country.positive?
+    return if System::Country.count.positive?
 
     file_path = File.join(File.dirname(__FILE__), "countries.csv")
     countries = []
