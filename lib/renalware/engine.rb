@@ -20,6 +20,7 @@ require "delayed_job_web"
 require "dotenv-rails"
 require "dumb_delegator"
 require "email_validator"
+require "scenic" # must be before engineer!
 require "engineer"
 require "enumerize"
 require "font-awesome-sass"
@@ -51,7 +52,6 @@ require "pandoc-ruby"
 require "rack/attack"
 require "ruby-hl7"
 require "sass-rails"
-require "scenic"
 require "slim-rails"
 require "store_model"
 require "uglifier"
@@ -71,6 +71,7 @@ module Renalware
 
   class Engine < ::Rails::Engine
     isolate_namespace Renalware
+    include Engineer::DefaultInitializers
 
     # Define a attr on the Engine's eigenclass so a host application
     # can set an exception handler instance. It must accept a .notify(excetion) method.
@@ -94,11 +95,11 @@ module Renalware
       gens.fixture_replacement :factory_girl, dir: "../../spec/factories"
     end
 
-    initializer :add_locales do |app|
-      app.config.i18n.load_path += Dir[config.root.join("config/locales/**/*.{rb,yml}")]
-      app.config.i18n.default_locale = "en-GB"
-      app.config.i18n.fallbacks = [:en]
-    end
+    # initializer :add_locales do |app|
+    #   app.config.i18n.load_path += Dir[config.root.join("config", "locales", "**", "*.{rb,yml}")]
+    #   app.config.i18n.default_locale = "en-GB"
+    #   app.config.i18n.fallbacks = [:en]
+    # end
 
     # In production use lograge to help us tame a verbose logs/production.log.
     # Note that the timestamp will be added before the lograge output by whatever Rails
@@ -137,32 +138,34 @@ module Renalware
       app.config.assets.paths << Engine.root.join("node_modules")
     end
 
-    initializer :append_migrations do |app|
-      # Prevent duplicate migrations if we are db:migrating at the engine level (eg when
-      # running tests) rather than the host app
-      running_in_dummy_app = Dir.pwd.ends_with?("dummy")
-      running_outside_of_engine = app.root.to_s.match(root.to_s + File::SEPARATOR).nil?
+    # Now in engineer
+    # initializer :append_migrations do |app|
+    #   # Prevent duplicate migrations if we are db:migrating at the engine level (eg when
+    #   # running tests) rather than the host app
+    #   running_in_dummy_app = Dir.pwd.ends_with?("dummy")
+    #   running_outside_of_engine = app.root.to_s.match(root.to_s + File::SEPARATOR).nil?
 
-      if running_in_dummy_app || running_outside_of_engine
-        engine_migration_paths = config.paths["db/migrate"]
-        app_migration_paths =  app.config.paths["db/migrate"]
+    #   if running_in_dummy_app || running_outside_of_engine
+    #     engine_migration_paths = config.paths["db/migrate"]
+    #     app_migration_paths =  app.config.paths["db/migrate"]
 
-        engine_migration_paths.expanded.each do |expanded_path|
-          app_migration_paths << expanded_path
-        end
-      end
-    end
+    #     engine_migration_paths.expanded.each do |expanded_path|
+    #       app_migration_paths << expanded_path
+    #     end
+    #   end
+    # end
 
-    initializer :resolve_scenic_views_inside_engine do |app|
-      # Set app.config.paths["db/views"] to the engine's db/views path so (our monkey-patched)
-      # scenic will load views from the engine (otherwise not supported unless manually copies in
-      # a rake task, which I am keen to avoid)
-      # See lib/core_extensions/scenic.rb
-      %w(views functions triggers).each do |db_thing|
-        dir = Rails.root.join(config.root, "db", db_thing)
-        app.config.paths.add("db/#{db_thing}", with: dir)
-      end
-    end
+    # Now in engineer
+    # initializer :resolve_scenic_views_inside_engine do |app|
+    #   # Set app.config.paths["db/views"] to the engine's db/views path so (our monkey-patched)
+    #   # scenic will load views from the engine (otherwise not supported unless manually copies in
+    #   # a rake task, which I am keen to avoid)
+    #   # See lib/core_extensions/scenic.rb
+    #   %w(views functions triggers).each do |db_thing|
+    #     dir = Rails.root.join(config.root, "db", db_thing)
+    #     app.config.paths.add("db/#{db_thing}", with: dir)
+    #   end
+    # end
 
     initializer :general do |app|
       app.config.time_zone = "London"
