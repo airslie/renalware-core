@@ -10,8 +10,8 @@ module Renalware
       belongs_to :description, class_name: "RegistrationStatusDescription"
       belongs_to :registration, touch: true
 
-      scope :ordered, -> { order(started_on: :asc) }
-      scope :reversed, -> { order(started_on: :desc) }
+      scope :ordered, -> { order(started_on: :asc, created_at: :asc) }
+      scope :reversed, -> { order(started_on: :desc, created_at: :desc) }
 
       validates :description_id, presence: true
       validates :started_on, timeliness: { type: :date, allow_blank: false }
