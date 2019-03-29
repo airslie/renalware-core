@@ -7,7 +7,7 @@ module HL7Helpers
   end
 
   def parse_hl7_file(filename, patient, pid = nil)
-    body = file_fixture("hl7/#{filename}.erb").read
+    body = file_fixture("hl7/#{filename}.hl7.erb").read
     ERB.new(body).result(binding)
   end
 end

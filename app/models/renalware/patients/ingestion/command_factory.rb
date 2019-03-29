@@ -49,86 +49,86 @@ module Renalware
           Commands::AddOrUpdatePatient.new(message)
         end
 
-        def make_merge_patient(message)
-          Commands::MergePatient.new(message,
-            major_patient_finder: make_patient_finder_with_add_if_missing,
-            minor_patient_finder: make_minor_patient_finder_with_add_if_missing)
-        end
+        # def make_merge_patient(message)
+        #   Commands::MergePatient.new(message,
+        #     major_patient_finder: make_patient_finder_with_add_if_missing,
+        #     minor_patient_finder: make_minor_patient_finder_with_add_if_missing)
+        # end
 
-        def make_admit_patient(message)
-          Commands::AdmitPatient.new(message,
-            patient_finder: make_patient_finder_with_add_if_missing)
-        end
+        # def make_admit_patient(message)
+        #   Commands::AdmitPatient.new(message,
+        #     patient_finder: make_patient_finder_with_add_if_missing)
+        # end
 
-        def make_update_admission(message)
-          Commands::UpdateAdmission.new(message,
-            admission_finder: make_admission_finder_with_logging_if_missing)
-        end
+        # def make_update_admission(message)
+        #   Commands::UpdateAdmission.new(message,
+        #     admission_finder: make_admission_finder_with_logging_if_missing)
+        # end
 
-        def make_cancel_admission(message)
-          Commands::CancelAdmission.new(message,
-            admission_finder: make_admission_finder_with_logging_if_missing)
-        end
+        # def make_cancel_admission(message)
+        #   Commands::CancelAdmission.new(message,
+        #     admission_finder: make_admission_finder_with_logging_if_missing)
+        # end
 
-        def make_transfer_patient(message)
-          Commands::TransferPatient.new(message,
-            admission_finder: make_admission_finder_with_admit_if_missing)
-        end
+        # def make_transfer_patient(message)
+        #   Commands::TransferPatient.new(message,
+        #     admission_finder: make_admission_finder_with_admit_if_missing)
+        # end
 
-        def make_discharge_patient(message)
-          Commands::DischargePatient.new(message,
-            admission_finder: make_admission_finder_with_logging_if_missing)
-        end
+        # def make_discharge_patient(message)
+        #   Commands::DischargePatient.new(message,
+        #     admission_finder: make_admission_finder_with_logging_if_missing)
+        # end
 
-        def make_cancel_discharge(message)
-          Commands::CancelDischarge.new(message)
-        end
+        # def make_cancel_discharge(message)
+        #   Commands::CancelDischarge.new(message)
+        # end
 
-        def make_add_consultant(message)
-          Commands::AddConsultant.new(message)
-        end
+        # def make_add_consultant(message)
+        #   Commands::AddConsultant.new(message)
+        # end
 
-        def make_admission_finder_with_logging_if_missing
-          MissingAdmissionLogger.new(make_admission_finder)
-        end
+        # def make_admission_finder_with_logging_if_missing
+        #   MissingAdmissionLogger.new(make_admission_finder)
+        # end
 
-        def make_admission_finder_with_admit_if_missing
-          MissingRecordHandler.new(make_admission_finder,
-            policy: make_missing_admission_handler)
-        end
+        # def make_admission_finder_with_admit_if_missing
+        #   MissingRecordHandler.new(make_admission_finder,
+        #     policy: make_missing_admission_handler)
+        # end
 
-        def make_admission_finder
-          Finder::Admission.new
-        end
+        # def make_admission_finder
+        #   Finder::Admission.new
+        # end
 
-        def make_patient_finder_with_add_if_missing
-          MissingRecordHandler.new(Finder::Patient.new,
-            policy: make_missing_patient_handler)
-        end
+        # def make_patient_finder_with_add_if_missing
+        #   MissingRecordHandler.new(Finder::Patient.new,
+        #     policy: make_missing_patient_handler)
+        # end
 
-        def make_minor_patient_finder_with_add_if_missing
-          missing_patient_handler = lambda { |message|
-            Commands::AddPatient.new(
-              message,
-              mapper_factory: MessageMappers::MinorPatient
-            ).call
-          }
+        # def make_minor_patient_finder_with_add_if_missing
+        #   missing_patient_handler = lambda { |message|
+        #     Commands::AddPatient.new(
+        #       message,
+        #       mapper_factory: MessageMappers::MinorPatient
+        #     ).call
+        #   }
 
-          MissingRecordHandler.new(Finder::MinorPatient.new,
-            policy: missing_patient_handler)
-        end
+        #   MissingRecordHandler.new(Finder::MinorPatient.new,
+        #     policy: missing_patient_handler)
+        # end
 
-        def make_missing_patient_handler
-          lambda { |message|
-            make_add_patient(message).call
-          }
-        end
+        # def make_missing_patient_handler
+        #   lambda { |message|
+        #     make_add_patient(message).call
+        #   }
+        # end
 
-        def make_missing_admission_handler
-          lambda { |message|
-            make_admit_patient(message).call
-          }
-        end
+        # def make_missing_admission_handler
+        #   lambda { |message|
+        #     make_admit_patient(message).call
+        #   }
+        # end
       end
     end
   end
