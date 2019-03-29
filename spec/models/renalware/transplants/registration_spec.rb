@@ -10,6 +10,12 @@ module Renalware
       let(:latest_status) { registration.statuses.order("created_at DESC").first }
       let(:clinician) { create(:user, :clinical) }
       let(:status_description) { create(:transplant_registration_status_description) }
+      let(:status_description1) do
+        create(:transplant_registration_status_description, name: "Status1", code: "Status1")
+      end
+      let(:status_description2) do
+        create(:transplant_registration_status_description, name: "Status2", code: "Status2")
+      end
 
       it { is_expected.to accept_nested_attributes_for(:statuses) }
       it { is_expected.to belong_to(:patient).touch(true) }
@@ -65,6 +71,32 @@ module Renalware
           status = registration.add_status!({})
 
           expect(status).not_to be_valid
+        end
+
+        context "when > 1 status is added on the same day" do
+          it "activates only the most recently added status" do
+            initial_status = registration.current_status
+
+            new_status_a = registration.add_status!(
+              description: status_description,
+              started_on: Time.zone.today,
+              by: clinician
+            )
+            new_status_b = registration.add_status!(
+              description: status_description1,
+              started_on: Time.zone.today,
+              by: clinician
+            )
+            new_status_c = registration.add_status!(
+              description: status_description2,
+              started_on: Time.zone.today,
+              by: clinician
+            )
+            expect(initial_status.reload).to be_terminated
+            expect(new_status_a.reload).to be_terminated
+            expect(new_status_b.reload).to be_terminated
+            expect(new_status_c.reload).not_to be_terminated
+          end
         end
       end
 
