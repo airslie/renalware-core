@@ -18,12 +18,14 @@ module Renalware::Pathology
           observation_requests: [
             double(
               identifier: request_description.code,
+              name: request_description.code,
               ordering_provider_name: "::name::",
               placer_order_number: "::pcs code::",
               date_time: "200911111841",
               observations: [
                 double(
                   identifier: observation_description.code,
+                  name: observation_description.name,
                   date_time: "200911112026",
                   value: "::value::",
                   comment: "::comment::",
@@ -72,6 +74,7 @@ module Renalware::Pathology
             patient_identification: double(internal_id: non_existent_patient),
             observation_request: double(
               identifier: request_description.code,
+              name: request_description.name,
               ordering_provider_name: "::name::",
               placer_order_number: "::pcs code::",
               date_time: "200911111841",
@@ -177,6 +180,7 @@ module Renalware::Pathology
             observation_requests: [
               double(
                 identifier: request_description.code,
+                name: request_description.name,
                 ordering_provider_name: nil,
                 placer_order_number: "::pcs code::",
                 date_time: "200911111841",
@@ -200,6 +204,7 @@ module Renalware::Pathology
             observation_requests: [
               double(
                 identifier: request_description.code,
+                name: request_description.name,
                 ordering_provider_name: "aasas",
                 placer_order_number: "::pcs code::",
                 date_time: nil,
@@ -225,7 +230,8 @@ module Renalware::Pathology
             patient_identification: double(internal_id: patient.local_patient_id),
             observation_requests: [
               double(
-                identifier: "I_DO_NOT_EXIST",
+                identifier: "I_DO_NOT_EXIST_CODE",
+                name: "I_DO_NOT_EXIST_NAME",
                 ordering_provider_name: "aasas",
                 placer_order_number: "::pcs code::",
                 date_time: nil,
@@ -241,8 +247,8 @@ module Renalware::Pathology
 
           expect(
             RequestDescription.exists?(
-              code: "I_DO_NOT_EXIST",
-              name: "I_DO_NOT_EXIST"
+              code: "I_DO_NOT_EXIST_CODE",
+              name: "I_DO_NOT_EXIST_NAME"
             )
           ).to eq(true)
         end
@@ -256,12 +262,14 @@ module Renalware::Pathology
             observation_requests: [
               double(
                 identifier: request_description.code,
+                name: request_description.name,
                 ordering_provider_name: "aasas",
                 placer_order_number: "::pcs code::",
                 date_time: nil,
                 observations: [
                   double(
-                    identifier: "I_DO_NOT_EXIST",
+                    identifier: "I_DO_NOT_EXIST_CODE",
+                    name: "I_DO_NOT_EXIST_NAME",
                     date_time: "200911112026",
                     value: "::value::",
                     comment: "::comment::",
@@ -278,8 +286,8 @@ module Renalware::Pathology
 
           expect(
             ObservationDescription.exists?(
-              code: "I_DO_NOT_EXIST",
-              name: "I_DO_NOT_EXIST"
+              code: "I_DO_NOT_EXIST_CODE",
+              name: "I_DO_NOT_EXIST_NAME"
             )
           ).to eq(true)
         end

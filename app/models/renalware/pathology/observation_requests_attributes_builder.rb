@@ -56,7 +56,10 @@ module Renalware
       # rubocop:disable Metrics/MethodLength
       def build_observation_request_params
         requests.each_with_object([]) do |request, arr|
-          request_description = find_request_description(request.identifier)
+          request_description = find_request_description(
+            code: request.identifier,
+            name: request.name
+          )
           hash = {
             observation_request: {
               description_id: request_description.id,
@@ -71,9 +74,13 @@ module Renalware
       end
       # rubocop:enable Metrics/MethodLength
 
+      # rubocop:disable Metrics/MethodLength
       def build_observations_params(request)
         request.observations.map do |observation|
-          observation_description = find_observation_description(observation.identifier)
+          observation_description = find_observation_description(
+            code: observation.identifier,
+            name: observation.name
+          )
           next unless validate_observation(observation, observation_description)
 
           {
@@ -85,18 +92,19 @@ module Renalware
           }
         end.compact
       end
+      # rubocop:enable Metrics/MethodLength
 
-      def find_request_description(code)
+      def find_request_description(code:, name:)
         RequestDescription.find_or_create_by!(code: code) do |desc|
-          desc.name = code
+          desc.name = name || code
           desc.lab = Lab.unknown
         end
       rescue ActiveRecord::RecordNotFound
         raise MissingRequestDescriptionError, code
       end
 
-      def find_observation_description(code)
-        ObservationDescription.find_or_create_by!(code: code) { |desc| desc.name = code }
+      def find_observation_description(code:, name:)
+        ObservationDescription.find_or_create_by!(code: code) { |desc| desc.name = name || code }
       rescue ActiveRecord::RecordNotFound
         raise MissingObservationDescriptionError, code
       end

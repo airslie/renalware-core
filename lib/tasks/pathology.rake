@@ -25,5 +25,26 @@ namespace :pathology do
       hash = YAML.safe_load(*raw_message).symbolize_keys
       FeedJob.new(hash[:raw_message]).perform
     end
+
+    desc "In development only, enqueue a test HL7 message"
+    task enqueue_one: :environment do
+      raise NotImplementedError unless Rails.env.development?
+
+      # Load the example HL7 file.
+      path = Renalware::Engine.root.join("app", "jobs", "hl7_message_example.txt")
+      raw_message = File.read(path)
+
+      # Make sure line endings are \r and not \n or as that is how the HL7 looks
+      raw_message = raw_message.gsub /\n/, "\r"
+
+      # Replace the MSH date with now() to guarantee a unique message. not doing so results in
+      # an index violation becuase we calc am MD5 hash of the message and this has to be unique -
+      # this prevents us importing the same message twice.
+      raw_message = raw_message.gsub("20091112164645", Time.zone.now.strftime("%Y%m%d%H%M%S"))
+
+      ActiveRecord::Base.connection.execute(
+        "select renalware.new_hl7_message('#{raw_message}'::text);"
+      )
+    end
   end
 end

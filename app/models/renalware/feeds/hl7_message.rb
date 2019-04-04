@@ -27,13 +27,17 @@ module Renalware
           universal_service_id.split("^").first
         end
 
+        def name
+          universal_service_id.split("^")[1]
+        end
+
         # Select only OBX children. OBR can have other types of child
         # segments but we want to ignore those.
         def observations
           @observations ||= begin
             children
-              .select{ |segment| segment.is_a? HL7::Message::Segment::OBX }
-              .map{ |obx_segment| Observation.new(obx_segment) }
+              .select { |segment| segment.is_a? HL7::Message::Segment::OBX }
+              .map { |obx_segment| Observation.new(obx_segment) }
           end
         end
 
@@ -59,6 +63,10 @@ module Renalware
 
         def identifier
           observation_id.split("^").first
+        end
+
+        def name
+          observation_id.split("^")[1]
         end
 
         # TODO: Implement comment extraction
@@ -102,7 +110,7 @@ module Renalware
       # There is a problem here is there are < 1 OBR
       # i.e. self[:OBR] could be an array
       def observation_requests
-        Array(self[:OBR]).map{ |obr| ObservationRequest.new(obr) }
+        Array(self[:OBR]).map { |obr| ObservationRequest.new(obr) }
       end
 
       class PatientIdentification < SimpleDelegator
