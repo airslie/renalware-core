@@ -97,10 +97,9 @@ module Renalware
           .includes(:updated_by)
       end
 
+      # We always send the patients current prescriptions.
       def prescriptions
-        __getobj__.prescriptions
-          .includes(:termination, :medication_route, :drug)
-          .where("updated_at > ?", changes_since)
+        __getobj__.prescriptions.current
       end
 
       def observation_requests
