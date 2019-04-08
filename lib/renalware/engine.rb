@@ -133,9 +133,44 @@ module Renalware
     end
 
     initializer :assets do |app|
+<<<<<<< HEAD
       # Add some extra paths so sprocket asset directives can locate dependent files
       vendor_js_path = Rails.root.join(config.root, "vendor", "assets", "javascripts", "renalware")
       app.config.assets.paths << vendor_js_path
+=======
+      app.config.assets.precompile += %w(renalware/core.scss)
+      app.config.assets.precompile += %w(renalware/print/pathology_request_forms.css)
+      app.config.assets.precompile += %w(renalware/modernizr.js)
+      app.config.assets.precompile += %w(renalware/charting/charting.js)
+      app.config.assets.precompile += %w(renalware/iframeResizer.contentWindow.js)
+      app.config.assets.precompile += %w(renalware/pdf.css renalware/watermark.css)
+      app.config.assets.precompile += %w(renalware/protocol_pdf.css)
+      app.config.assets.precompile += %w(renalware/medications_pdf.css)
+      app.config.assets.precompile += %w(renalware/medications/prescriptions_pdf.css)
+      app.config.assets.precompile += %w(renalware/hd_diary_pdf.css)
+      app.config.assets.precompile += %w(renalware/table_pdf.css)
+      app.config.assets.precompile += %w(
+        renalware/nhs_a4_letter_logo_blue.png
+        renalware/nhs_a4_letter_logo_black.png
+        renalware/NHS-Black.jpg
+        renalware/favicon/manifest.json
+        renalware/favicon/apple-touch-icon.png
+        renalware/favicon/favicon-32x32.png
+        renalware/favicon/favicon-16x16.png
+        renalware/favicon/favicon.ico
+        renalware/favicon/android-chrome-192x192.png
+        renalware/favicon/android-chrome-512x512.png
+        renalware/favicon/mstile-150x150.png
+        renalware/favicon/safari-pinned-tab.svg
+        renalware/clippy.svg
+        renalware/print-button-example.png
+        renalware/hd/mr_victor.jpg
+        renalware/hd/avf_avg_assessment.jpg
+        renalware/loading-gears-animation.gif
+      )
+      app.config.assets.paths <<
+        Rails.root.join(config.root, "vendor", "assets", "javascripts", "renalware")
+>>>>>>> Rename application.css core.css
       app.config.assets.paths << Engine.root.join("node_modules")
     end
 
