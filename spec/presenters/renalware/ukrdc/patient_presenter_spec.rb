@@ -70,11 +70,14 @@ module Renalware
         let(:patient) { build_stubbed(:patient) }
 
         it "uses current prescriptions" do
-          allow(Renalware::Medications::Prescription).to receive(:current)
+          allow(Renalware::Medications::Prescription)
+            .to receive(:current)
+            .and_return(NullObject.instance)
 
           presenter.prescriptions
 
-          expect(Renalware::Medications::Prescription).to have_received(:current)
+          expect(Renalware::Medications::Prescription)
+            .to have_received(:current)
         end
       end
     end
