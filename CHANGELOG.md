@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.75
+### Added
+### Changed
+### Fixed
+- Fix duplidate LabOrders in UKRDC XML #2631
+
 ## 2.0.74
 ### Added
 ### Changed

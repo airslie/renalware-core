@@ -114,12 +114,16 @@ module Renalware
           .select(<<-SELECT)
           DISTINCT ON (
             pathology_observation_requests.patient_id,
-            pathology_observation_requests.requestor_order_number)
+            pathology_observation_requests.requestor_order_number,
+            pathology_observation_requests.requested_at,
+            pathology_observation_requests.description_id)
           *
           SELECT
           .order(<<-ORDER)
             pathology_observation_requests.patient_id ASC,
             pathology_observation_requests.requestor_order_number ASC,
+            pathology_observation_requests.requested_at ASC,
+            pathology_observation_requests.description_id ASC,
             pathology_observation_requests.created_at DESC
           ORDER
       end
