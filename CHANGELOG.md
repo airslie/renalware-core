@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.74
+### Added
+### Changed
+### Fixed
+- avoid duplidate LabOrders in UKRDC XML #2630
+
 ## 2.0.72
 ### Added
 - HD Session Form - add CRP to Pathology section #2484
