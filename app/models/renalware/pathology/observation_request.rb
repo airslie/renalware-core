@@ -23,6 +23,28 @@ module Renalware
       def requested_on
         requested_at.to_date
       end
+
+      # Exlucludes duplicate rows; there may be an original OBR and one or more updates (with more
+      # complete results) and we only want the last received one got any requestor_order_number
+      # (actually for any requestor_order_number + requested_at + description_id) combination
+      # because requestor_order_number is sometimes blank
+      # rubocop:disable Metrics/MethodLength
+      def self.distinct_for_patient_id(patient_id)
+        select(
+          Arel.sql(
+            "DISTINCT ON (patient_id, requestor_order_number, requested_at, description_id) id"
+          )
+        )
+        .where(patient_id: patient_id)
+        .order(
+          patient_id: :asc,
+          requestor_order_number: :asc,
+          requested_at: :asc,
+          description_id: :asc,
+          created_at: :desc
+        )
+      end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

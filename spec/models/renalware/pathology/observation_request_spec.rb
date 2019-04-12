@@ -4,9 +4,46 @@ require "rails_helper"
 
 module Renalware
   describe Pathology::ObservationRequest, type: :model do
+    include PathologySpecHelper
+
     it { is_expected.to validate_presence_of(:patient) }
     it { is_expected.to validate_presence_of(:requested_at) }
     it { is_expected.to validate_presence_of(:requestor_name) }
     it { is_expected.to belong_to(:patient).touch(true) }
+
+    describe "distinct_for_patient_id" do
+      it "returns the most recently processed OBR for a given "\
+          "requestor_order_number + requested_at + description_id " do
+
+        patient = create(:pathology_patient)
+        requested_at = "2019-01-01"
+        updated_request = create_request_with_observations(
+          requested_at: requested_at,
+          requestor_order_number: "X1",
+          obr_code: "OBR1",
+          obx_codes: %w(OBX1 OBX2),
+          patient: patient,
+          created_at: 1.day.ago
+        )
+        _original_request = create_request_with_observations(
+          requested_at: requested_at,
+          requestor_order_number: "X1",
+          obr_code: "OBR1",
+          obx_codes: ["OBX1"],
+          patient: patient,
+          created_at: 2.days.ago
+        )
+
+        results = described_class.distinct_for_patient_id(patient.id)
+
+        expect(results).to eq [updated_request]
+        expect(
+          results.first.observations
+            .map(&:description)
+            .map(&:code)
+            .sort
+        ).to eq %w(OBX1 OBX2)
+      end
+    end
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "renalware"
+require_dependency "renalware/ukrdc"
 
 # rubocop:disable Metrics/ClassLength
 module Renalware
@@ -102,41 +102,11 @@ module Renalware
         __getobj__.prescriptions.current.includes(:termination, :medication_route, :drug)
       end
 
-      # We want to avoid returning duplicate pathology_observation_requests. We might have had
-      # and update to a pathology_observation_requests, adding a previously missing result,
-      # and the requestor_order_number is the same, so we have two rows with the same
-      # patient_id and requestor_order_number. We want to just select that latest one. We'll use
-      # created_at for this, even though it would be more accurate to look at the timestamp in the
-      # OBR or MSH segment (these not currently available).
-      # We use fully qualified column names here to prevent SQL errors when AR compiles the SQL.
-      def latest_observation_requests
-        Pathology::ObservationRequest
-          .select(<<-SELECT)
-          DISTINCT ON (
-            pathology_observation_requests.patient_id,
-            pathology_observation_requests.requestor_order_number,
-            pathology_observation_requests.requested_at,
-            pathology_observation_requests.description_id)
-          *
-          SELECT
-          .order(<<-ORDER)
-            pathology_observation_requests.patient_id ASC,
-            pathology_observation_requests.requestor_order_number ASC,
-            pathology_observation_requests.requested_at ASC,
-            pathology_observation_requests.description_id ASC,
-            pathology_observation_requests.created_at DESC
-          ORDER
-      end
-
       def observation_requests
-        latest_observation_requests
-          .where(patient_id: id)
-          .where("requested_at >= ?", changes_since)
-          .where("loinc_code is not null")
-          .eager_load(
-            :description,
-            observations: { description: :measurement_unit }
-          )
+        UKRDC::PathologyObservationRequestsQuery.new(
+          patient_id: id,
+          changes_since: changes_since
+        ).call
       end
 
       private
