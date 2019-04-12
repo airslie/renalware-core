@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
+require "rails-controller-testing"
 require "rails_helper"
 
 module Renalware
-  # rubocop:disable RSpec/InstanceVariable
   describe PD::RegimesController, type: :controller do
     routes { Engine.routes }
     let(:user) { @current_user }
@@ -12,20 +12,21 @@ module Renalware
 
     # rubocop:disable Metrics/MethodLength
     def create_capd_regime
-      create(:capd_regime,
-              bags_attributes: [
-                bag_type: bag_type,
-                role: :additional_manual_exchange,
-                volume: 600,
-                sunday: true,
-                monday: true,
-                tuesday: true,
-                wednesday: true,
-                thursday: true,
-                friday: true,
-                saturday: true
-              ]
-            )
+      create(
+        :capd_regime,
+        bags_attributes: [
+          bag_type: bag_type,
+          role: :additional_manual_exchange,
+          volume: 600,
+          sunday: true,
+          monday: true,
+          tuesday: true,
+          wednesday: true,
+          thursday: true,
+          friday: true,
+          saturday: true
+        ]
+      )
     end
     # rubocop:enable Metrics/MethodLength
 
@@ -200,5 +201,4 @@ module Renalware
       end
     end
   end
-  # rubocop:enable RSpec/InstanceVariable
 end

@@ -14,14 +14,12 @@ require "spec_helper"
 require "fuubar"
 require "rspec/rails"
 require "factory_bot_rails"
-require "wisper/rspec/matchers"
-require "rspec-html-matchers"
-require "rails-controller-testing"
 require "byebug"
 require "shoulda/matchers"
 require "pundit/rspec"
 require "paper_trail/frameworks/rspec"
-require "chosen-rails/rspec"
+require "wisper/rspec/matchers"
+
 require_relative "../lib/test_support/text_editor_helpers"
 
 require "capybara/rspec"
@@ -119,7 +117,6 @@ RSpec.configure do |config|
   config.include TextEditorHelpers, type: :system
   config.include CapybaraSelect2, type: :system
   config.include ActiveSupport::Testing::TimeHelpers
-  config.include Chosen::Rspec::FeatureHelpers, type: :system
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
 

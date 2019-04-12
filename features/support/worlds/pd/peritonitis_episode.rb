@@ -37,6 +37,7 @@ module World
         expect(prescription).to be_present
       end
 
+      # rubocop:disable Metrics/AbcSize
       def expect_peritonitis_episodes_revisions_recorded(patient:)
         exit_site_infection = patient.peritonitis_episodes.last!
         organism = exit_site_infection.infection_organisms.last!
@@ -46,6 +47,7 @@ module World
 
         expect_exit_site_prescriptions_to_be_revised(patient, exit_site_infection)
       end
+      # rubocop:enable Metrics/AbcSize
     end
 
     module Web
@@ -57,12 +59,18 @@ module World
         login_as user
 
         visit new_patient_pd_peritonitis_episode_path(patient)
-        select_from_chosen("Recurrent", from: "Episode type")
+
+        select2(
+          "Recurrent",
+          css: "#peritonitis_episode_types"
+        )
+
         fill_in "Diagnosed on", with: diagnosed_on
 
         click_on "Save"
       end
 
+      # rubocop:disable Metrics/MethodLength
       def revise_peritonitis_episode_for(patient:, user:, diagnosed_on:)
         login_as user
 
@@ -70,12 +78,17 @@ module World
         visit patient_pd_peritonitis_episode_path(patient, episode)
         within "#" + dom_id(episode) do
           click_on "Edit"
-          select_from_chosen("Relapsing", from: "Episode type")
+          # select_from_chosen("Relapsing", from: "Episode type")
+          select2(
+            "Relapsing",
+            css: "#peritonitis_episode_types"
+          )
           fill_in "Diagnosed on", with: diagnosed_on
           click_on "Save"
           wait_for_ajax
         end
       end
+      # rubocop:enable Metrics/MethodLength
 
       def peritonitis_episode_drug_selector
         lambda do |drug_name|

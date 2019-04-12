@@ -34,7 +34,6 @@ Gem::Specification.new do |s|
   s.add_dependency "ahoy_matey", "~> 2.1"
   s.add_dependency "attr_extras", "~> 6.2"
   s.add_dependency "autoprefixer-rails", "~> 9.4.2"
-  s.add_dependency "chosen-rails", "~> 1.8.3"
   s.add_dependency "client_side_validations", "11.1.3"
   s.add_dependency "client_side_validations-simple_form", "~> 6.7.0"
   s.add_dependency "clipboard-rails", "~> 1.7.1"

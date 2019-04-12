@@ -6,14 +6,17 @@
 .row
   .large-12.columns
     = field_set_tag t(".fieldsets.outcomes") do
-      = f.input :episode_types,
-                collection: Renalware::PD::PeritonitisEpisodeTypeDescription.pluck(:term, :id),
-                include_blank: t("collection.blank_option"),
-                input_html: { data: { placeholder: t("collection.blank_option_for_multiple") } },
-                as: :multiple_select,
-                include_hidden: false,
-                selected: f.object.episode_types.map(&:peritonitis_episode_type_description_id)
+      #peritonitis_episode_types
+        = f.input :episode_types,
+                  collection: Renalware::PD::PeritonitisEpisodeTypeDescription.pluck(:term, :id),
+                  include_blank: t("collection.blank_option"),
+                  input_html: { data: { placeholder: t("collection.blank_option_for_multiple") },
+                    class: "searchable_select",
+                    multiple: "multiple"},
+                  include_hidden: false,
+                  selected: f.object.episode_types.map(&:peritonitis_episode_type_description_id)
       = f.input :catheter_removed, as: :inline_radio_buttons
+
 .row
   .large-12.columns
     = field_set_tag t(".fieldsets.causes") do

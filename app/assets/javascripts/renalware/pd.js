@@ -53,3 +53,8 @@ Renalware.PdRegimes = (function () {
 $(document).ready(Renalware.PdRegimes.init);
 $(document).ready(Renalware.PdRegimes.toggleAddRemoveBags);
 $(document).on('nested:fieldAdded:bags', Renalware.PdRegimes.toggleAddRemoveBags);
+
+
+$(document).on('ready ajaxSuccess', function(event, xhr, status) {
+  $("#peritonitis_episode_types .searchable_select").select2();
+});
