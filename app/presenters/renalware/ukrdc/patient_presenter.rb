@@ -103,10 +103,11 @@ module Renalware
       end
 
       def observation_requests
-        UKRDC::PathologyObservationRequestsQuery.new(
+        requests = UKRDC::PathologyObservationRequestsQuery.new(
           patient_id: id,
           changes_since: changes_since
         ).call
+        CollectionPresenter.new(requests, UKRDC::PathologyObservationRequestPresenter)
       end
 
       private
