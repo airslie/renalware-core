@@ -2,22 +2,6 @@
 
 # See HL7 spec http://pacs.hk/Doc/HL7/Hl7V231.pdf
 
-# A Note about PlacerId
-# ---------------------
-# In UKRDC terms an OBR equates to their LabOrder. Each LabOrder must have a unique
-# PlacerId. However an HL7 message (for example at KCH) can have multiple OBRs with the same
-# placer id (aka requester order number) thus causing duplicate placer ids to appear in the XML.
-# After email discussion with George and Nick at UKRDC it was decided that PlacerID could be
-# any value as long as it is unique and is persisted in Renalware (in case an update needs to be
-# sent, and the original LabOrder identified). To solve this we obfuscate the request.id (slightly)
-# by converting to base 16 (hex) and then append it to the original requester order number.
-# Its not good practice to expose a database id in this way though it is to an internal NHS consumer
-# and the hex obfuscation helps slightly.
-# A better approach might be to generate a GUID for each pathology_observation_request and pass
-# this as the placer id. However that would introduce more moving parts (calling the SQL function
-# to generate the uuid) and increases storage and XML file sizes.
-placer_id = "#{request.requestor_order_number}-#{request.id.to_s(16)}".upcase
-
 xml = builder
 
 xml.LabOrder do
@@ -25,7 +9,7 @@ xml.LabOrder do
   #   xml.Code ""
   #   xml.Description # request.pathology_lab.name
   # end
-  xml.PlacerId placer_id
+  xml.PlacerId request.placer_id
   # xml.FillerId "??ORC:3 Labs Order Id"
   # xml.OrderedBy do
   #   xml.Code "unknown"
