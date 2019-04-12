@@ -44,8 +44,8 @@ group :test do
   gem "database_cleaner", "~> 1.7.0", require: false # for cucumber (now not needed for rspec)
   gem "factory_bot_rails", "~> 4.11"
   gem "fuubar", require: false
-  gem "rails-controller-testing", "~> 1.0.4"
-  gem "rspec-html-matchers", "~> 0.9.1"
+  gem "rails-controller-testing", "~> 1.0.4", require: false
+  gem "rspec-html-matchers", "~> 0.9.1", require: false
   gem "rspec-rails", "~> 3.8"
   gem "rspec_junit_formatter", "~> 0.4.1"
   gem "selenium-webdriver", "~> 3.141.0"
@@ -76,8 +76,4 @@ group :development, :test do
   gem "byebug"
   gem "launchy", require: false
   gem "rubocop", require: false
-  gem "spring"
-  gem "spring-commands-cucumber", require: false
-  gem "spring-commands-rspec", require: false
-  gem "terminal-notifier-guard", require: false
 end

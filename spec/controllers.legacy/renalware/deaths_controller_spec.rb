@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
+require "rails-controller-testing"
 require "rails_helper"
 
 module Renalware
-  # rubocop:disable RSpec/InstanceVariable
   describe DeathsController, type: :controller do
     routes { Engine.routes }
     let(:user) { @current_user }
@@ -63,5 +63,4 @@ module Renalware
       end
     end
   end
-  # rubocop:enable RSpec/InstanceVariable
 end

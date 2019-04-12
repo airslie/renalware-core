@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "rspec-html-matchers"
 require "rails_helper"
 
 module Renalware
