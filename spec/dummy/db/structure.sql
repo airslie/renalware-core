@@ -6011,19 +6011,7 @@ CREATE VIEW reporting_daily_pathology AS
            FROM ( SELECT delayed_jobs.attempts,
                     count(*) AS count
                    FROM delayed_jobs
-                  GROUP BY delayed_jobs.attempts) query) AS delayed_jobs_attempts_counts,
-    ( SELECT count(*) AS count
-           FROM feed_messages) AS feed_messages_total,
-    ( SELECT count(*) AS count
-           FROM feed_messages
-          WHERE (feed_messages.created_at >= (now())::date)) AS feed_messages_added_today,
-    ( SELECT max(feed_messages.created_at) AS max
-           FROM feed_messages) AS feed_messages_added_latest_entry,
-    ( SELECT count(*) AS count
-           FROM pathology_observations
-          WHERE ((pathology_observations.created_at)::date >= (now())::date)) AS pathology_observations_added_today,
-    ( SELECT max(pathology_observations.observed_at) AS max
-           FROM pathology_observations) AS pathology_observations_latest_observed_at;
+                  GROUP BY delayed_jobs.attempts) query) AS delayed_jobs_attempts_counts;
 
 
 --
@@ -15976,6 +15964,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190218142207'),
 ('20190225103005'),
 ('20190315125638'),
-('20190401105149');
+('20190401105149'),
+('20190422095620');
 
 
