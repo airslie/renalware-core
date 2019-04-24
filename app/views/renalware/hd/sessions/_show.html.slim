@@ -38,6 +38,11 @@
           legend: "Notes/Complications", destination: "complications",
           models: { session.document.complications => attributes_list,
                     session => [:notes] }
+
+      = render "renalware/shared/documents/attributes_group",
+          group: session.document.avf_avg_assessment,
+          legend: "AVF/AVG Assessment", destination: "avf_avg_assessment"
+
     .row
       .columns
         = render "prescription_administrations", session: session

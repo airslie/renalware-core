@@ -56,9 +56,23 @@ ruby:
             = fcm.input :access_site_status, wrapper: :horizontal_small
             = fcm.input :line_exit_site_status,
                         wrapper: :horizontal_tiny,
-                        hint: link_to("", asset_path("renalware/hd/mr_victor.jpg"),
+                        hint: link_to("", "#",
                                       data: {"reveal-id" => "mr-vistor-help-modal" }),
                         hint_html: { class: "hint-help-link" }
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "AVF/AVG Assessment", name: "avf_avg_assessment" } do
+      = fd.simple_fields_for :avf_avg_assessment, fd.object.avf_avg_assessment do |favf|
+        = favf.input :score,
+                     wrapper: :horizontal_small,
+                     hint: link_to("", "#",
+                           data: {"reveal-id" => "avf-assessment-help-modal" }),
+                     hint_html: { class: "hint-help-link" }
+        = favf.input :aneurysm, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        = favf.input :bruit, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        = favf.input :thrill, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        = favf.input :feel, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        = favf.input :safe_to_use, as: :inline_radio_buttons, wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Pre-Dialysis Observations", name: "before" } do
@@ -140,17 +154,20 @@ ruby:
   .large-12.columns
     = render "form_actions", f: f, back_path: back_path, session: session, patient: @patient
 
-/ Failed in all attempts to override close_on_background_click using eg data-options or any
-/ variation of e.g. data-options="closeOnBackgroundClick:false"
-/ data-options="close_on_background_click:false"
-/ I can only assume its not possible so we would need to use another handler top initialize modals
-/ that allow a bg click to close.
 #mr-vistor-help-modal.reveal-modal.medium(data-reveal style="width: 600px")
   .modal
     .modal__header
       h2 MR VICTOR
-      | &nbsp;
-      span Multi Racial Visual Inspection Catheter Tool Observation Record
+      .modal__header-subtitle Multi Racial Visual Inspection Catheter Tool Observation Record
       = render "renalware/shared/modal_close_link"
     .modal__body(style="text-align: center")
       = image_tag(asset_path("renalware/hd/mr_victor.jpg"))
+
+#avf-assessment-help-modal.reveal-modal.medium(data-reveal style="width: 600px")
+  .modal
+    .modal__header
+      h2 AVF/AVG Assessment
+      .modal__header-subtitle Arteriovenous Fistula/Graft (AVF/AVG) Pre-Needling Assessment Tool
+      = render "renalware/shared/modal_close_link"
+    .modal__body(style="text-align: center")
+      = image_tag(asset_path("renalware/hd/avf_avg_assessment.jpg"))

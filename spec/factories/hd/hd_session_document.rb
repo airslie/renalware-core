@@ -34,6 +34,10 @@ FactoryBot.define do
     is_access_first_use { "no" }
   end
 
+  factory :hd_session_document_avf_avg_assessment, class: OpenStruct do
+    score { 1 }
+  end
+
   factory :hd_session_document_dialysis, class: OpenStruct do
     flow_rate { 200 }
     blood_flow { 150 }
@@ -68,6 +72,7 @@ FactoryBot.define do
   factory :hd_session_document, class: OpenStruct do
     info factory: :hd_session_document_info, strategy: :marshal_dump
     dialysis factory: :hd_session_document_dialysis, strategy: :marshal_dump
+    avf_avg_assessment factory: :hd_session_document_avf_avg_assessment, strategy: :marshal_dump
     observations_before factory: :hd_session_document_observations_before, strategy: :marshal_dump
     observations_after factory: :hd_session_document_observations_after, strategy: :marshal_dump
     complications factory: :hd_session_document_complications, strategy: :marshal_dump

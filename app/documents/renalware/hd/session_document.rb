@@ -115,6 +115,17 @@ module Renalware
       end
       attribute :complications, Complications
 
+      class AvfAvgAssessment < Document::Embedded
+        # See i18n for enum values
+        attribute :score, Document::Enum
+        attribute :aneurysm, Document::Enum, default: :N
+        attribute :bruit, Document::Enum, default: :N
+        attribute :thrill, Document::Enum, default: :N
+        attribute :feel, Document::Enum, default: :S
+        attribute :safe_to_use, Document::Enum, default: :Y
+      end
+      attribute :avf_avg_assessment, AvfAvgAssessment
+
       # rubocop:disable Metrics/AbcSize
       def error_messages
         [

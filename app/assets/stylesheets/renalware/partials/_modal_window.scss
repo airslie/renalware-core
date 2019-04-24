@@ -30,9 +30,17 @@
         padding-right: 5px;
       }
     }
+
+    .modal__header-subtitle {
+      margin-top: -.5rem;
+    }
   }
 
   .modal__body {
+    // Ensure the content can be scrolled if drops of the bottom of the page
+    overflow-y: auto;
+    max-height: calc(100vh - 200px);
+
     // remove excessive l and r padding in modals
     .row {
       margin-left: 0;
@@ -46,8 +54,8 @@
     }
   }
 
-  .modal__footer {
-  }
+  // .modal__footer {
+  // }
 }
 
 .modal-show {

@@ -127,6 +127,9 @@ module Renalware
           litres_processed: rand(10.0..20.0).round(1),
           arterial_pressure: rand(5..10)
         },
+        avf_avg_assessment: {
+          score: 1
+        },
         observations_after: {
           pulse: rand(60..80),
           weight: rand(110.0..112.0).round(1),

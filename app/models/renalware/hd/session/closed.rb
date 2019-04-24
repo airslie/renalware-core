@@ -35,6 +35,11 @@ module Renalware
         end
         attribute :info, Info
 
+        class AvfAvgAssessment < Renalware::HD::SessionDocument::AvfAvgAssessment
+          validates :score, presence: true
+        end
+        attribute :avf_avg_assessment, AvfAvgAssessment
+
         class Observations < Renalware::HD::SessionDocument::Observations
           validates :pulse, presence: true
           validates :blood_pressure, presence: true
