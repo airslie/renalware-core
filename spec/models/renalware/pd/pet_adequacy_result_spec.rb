@@ -7,6 +7,7 @@ module Renalware
     describe PETAdequacyResult, type: :model do
       it_behaves_like "an Accountable model"
       it { is_expected.to belong_to(:patient).touch(true) }
+      it { is_expected.to validate_numericality_of(:dietry_protein_intake) }
 
       describe "validation" do
         before do
