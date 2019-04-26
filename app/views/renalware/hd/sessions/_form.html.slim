@@ -54,6 +54,10 @@ ruby:
         = fcm.input :machine_no, wrapper: :horizontal_tiny
         = f.association :dialysate, wrapper: :horizontal_small
 
+      = fd.simple_fields_for :complications, fd.object.complications do |fcm|
+        = fcm.input :access_site_status, wrapper: :horizontal_small
+        = fcm.input :line_exit_site_status, wrapper: :horizontal_tiny
+
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Pre-Dialysis Observations", name: "before" } do
       = fd.simple_fields_for :observations_before, fd.object.observations_before do |fcm|
@@ -113,8 +117,8 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Notes/Complications", name: "complications" } do
       = fd.simple_fields_for :complications, fd.object.complications do |fcm|
-        = fcm.input :access_site_status, wrapper: :horizontal_small
-        = fcm.input :line_exit_site_status, wrapper: :horizontal_small
+        / = fcm.input :access_site_status, wrapper: :horizontal_small
+        / = fcm.input :line_exit_site_status, wrapper: :horizontal_small
         = fcm.input :was_dressing_changed, as: :inline_radio_buttons, wrapper: :horizontal_small
         = fcm.input :had_mrsa_swab, as: :inline_radio_buttons, wrapper: :horizontal_small
         = fcm.input :had_mssa_swab, as: :inline_radio_buttons, wrapper: :horizontal_small
