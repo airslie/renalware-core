@@ -1,4 +1,7 @@
-table#observations
+table#observations.column_hover
+  / colgroups are required for js highlighting of column on hover - see table.js
+  - (table.observation_descriptions.size + 1).times do
+    <colgroup></colgroup>
   thead
     tr
       th Date

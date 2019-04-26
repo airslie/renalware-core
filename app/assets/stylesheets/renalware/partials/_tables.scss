@@ -9,10 +9,10 @@ table tr td {
   padding: 0.4rem 0.28571rem;
 }
 
-table tr:hover {
-  background-color: $table-even-row-colour;
+table tbody tr:hover,
+table.column_hover .hover { // for js column hovering see table.js
+  background-color: $table-row-hover-colour;
 }
-
 
 table.stripeless {
   tr:nth-of-type(even),
@@ -431,8 +431,4 @@ table tr.even,
 table tr.alt,
 table tr:nth-of-type(even) {
   background: transparent;
-}
-
-table tr:hover {
-  background-color: $table-even-row-colour;
 }

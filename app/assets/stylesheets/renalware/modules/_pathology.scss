@@ -54,6 +54,10 @@ table#observations {
         top: 0;
         width: 0;
       }
+
+      &:hover {
+        font-weight: bold;
+      }
     }
   }
 
