@@ -2,14 +2,37 @@ table.pathology-observation-diff {
   width: auto;
 }
 
+// .embedded-scroll.pathology {
+//   height: 400px;
+// }
+/*
+Note thhat to get position sticky to work in the embedded scroll div we need to
+add a height if using overflow: auto. We also need the top lh th to be both
+left: 0 and top: 0 and have a zindex of 2
+*/
 table#observations {
   border-collapse: collapse;
   white-space: nowrap;
   width: auto;
+  background: transparent;
+  //overflow: hidden;
+
+  thead {
+    th {
+      // position: sticky;
+      // z-index: 1;
+      // top: 0;
+      // background-color: $white;
+    }
+  }
 
   tbody {
     th {
       padding: 0 .3rem;
+      // position: sticky;
+      // z-index: 1;
+      // left: 0;
+      // background-color: $white;
     }
 
     td {
@@ -44,11 +67,28 @@ table#observations {
     background-color: #cf9;
   }
 
-  tr.even,
-  tr.alt,
-  tr:nth-of-type(even) {
-    background-color: $white;
-  }
+  // tr.even,
+  // tr.alt,
+  // tr:nth-of-type(even) {
+  //   background-color: $white;
+  // }
+  //
+
+  /*
+  Highlight the column on hover.
+  See https://css-tricks.com/simple-css-row-column-highlighting/
+  */
+  // td:hover::after,
+  // th:hover::after {
+  //   content: "";
+  //   position: absolute;
+  //   background-color: $off-white;
+  //   left: 0;
+  //   top: -5000px;
+  //   height: 10000px;
+  //   width: 100%;
+  //   z-index: -1;
+  // }
 
   td,
   th {

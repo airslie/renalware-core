@@ -3,7 +3,7 @@
   - if table.rows.empty?
     p No results available for this patient.
   - else
-    .embedded-scroll
+    .embedded-scroll.pathology
       p.hint Hover over table then scroll horizontally to view more results.
       = render "table", table: table
 

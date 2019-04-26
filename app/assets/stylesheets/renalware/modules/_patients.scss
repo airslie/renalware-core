@@ -15,7 +15,7 @@
   > div {
     display: table-cell;
     margin: 0;
-    padding: 0.4em 0.2em 0.5em 0.6em; // ensures both divs are equal height
+    padding: 0.3em 0.2em 0.2em 0.6em; // ensures both divs are equal height
 
     @media #{$small-only} {
       display: block; // at small widths make allergies and renal profile full width
@@ -113,7 +113,7 @@ ul.provider {
 
 .page-heading {
   float: left;
-  margin: 0.5rem 0 1rem;
+  margin: 0.5rem 0 .7rem;
   width: 100%;
 
   & > li {
@@ -146,12 +146,14 @@ ul.provider {
   dl {
     font-size: 1.1rem;
     margin: 0 0 0 0.5em;
+    line-height: 1.5;
 
     dt {
       color: $white;
       display: inline-block;
       font-size: .6em;
       font-weight: normal;
+      line-height: inherit;
       margin: 0;
       padding: 0;
       text-transform: uppercase;
@@ -169,6 +171,7 @@ ul.provider {
       display: inline;
       font-size: 1em;
       margin: 0 .5em 0 .1em;
+      line-height: inherit;
 
       // When the user clicks the content, select it all
       &.selectable {

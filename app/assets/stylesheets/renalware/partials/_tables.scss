@@ -1,3 +1,19 @@
+table thead tr th,
+table tfoot tr th,
+table tfoot tr td,
+table tbody tr th,
+table tbody tr td,
+table tr td {
+  display: table-cell;
+  line-height: 1rem;
+  padding: 0.4rem 0.28571rem;
+}
+
+table tr:hover {
+  background-color: $table-even-row-colour;
+}
+
+
 table.stripeless {
   tr:nth-of-type(even),
   tr:nth-of-type(odd) {
@@ -74,25 +90,25 @@ table {
   // 6 -- Visible grey bg --
   // 7 Hidden white bg
   // So this == tr:nth-child(4n+3) (offset of 3 then every 4 rows)
-  &.has-togglable-rows {
-    tbody tr {
-      &:nth-child(4n+3) {
-        background: $table-even-row-colour;
-      }
+  // &.has-togglable-rows {
+  //   tbody tr {
+  //     &:nth-child(4n+3) {
+  //       background: $table-even-row-colour;
+  //     }
 
-      // The (initially hidden) toggle content row
-      &:nth-child(even) {
-        background-color: $table-toggled-content-colour;
-      }
+  //     // The (initially hidden) toggle content row
+  //     &:nth-child(even) {
+  //       background-color: $table-toggled-content-colour;
+  //     }
 
-      &.content-toggled {
-        background-color: $table-toggled-content-colour;
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-  }
+  //     &.content-toggled {
+  //       background-color: $table-toggled-content-colour;
+  //       td {
+  //         border-bottom: 0;
+  //       }
+  //     }
+  //   }
+  // }
 
   .quick-preview {
     p {
@@ -414,5 +430,9 @@ table {
 table tr.even,
 table tr.alt,
 table tr:nth-of-type(even) {
-  background: $table-even-row-colour;
+  background: transparent;
+}
+
+table tr:hover {
+  background-color: $table-even-row-colour;
 }
