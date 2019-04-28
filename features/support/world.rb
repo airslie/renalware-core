@@ -5,6 +5,7 @@ Dir[Renalware::Engine.root.join("features/support/worlds/*.rb")].each { |f| requ
 
 $world_methods = []
 
+# rubocop:disable Metrics/MethodLength, Metrics/AbcSize
 def add_class_to_world(klass_name)
   exclusions = ENV["TEST_DEPTH"] == "web" ? [:Domain] : [:Web]
 
@@ -28,6 +29,7 @@ def add_class_to_world(klass_name)
     add_class_to_world("#{klass.name}::#{constant}")
   end
 end
+# rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
 add_class_to_world("World")
 
@@ -40,3 +42,5 @@ World(AjaxHelpers)
 require_relative "../../lib/test_support/text_editor_helpers"
 World(TextEditorHelpers)
 # rubocop:enable Style/GlobalVars
+
+World(CapybaraSelect2)

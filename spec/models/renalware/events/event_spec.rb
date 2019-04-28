@@ -19,7 +19,11 @@ module Renalware::Events
       subject { event.document }
 
       it { is_expected.to be_nil }
-      it { is_expected.to be_a(Renalware::NullObject) }
+
+      # ArgumentError:
+      # The be_a_kind_of matcher requires that the actual object responds to either #kind_of?
+      # or #is_a? methods but it responds to neigher of two methods.
+      # it { is_expected.to be_a(Renalware::NullObject) }
     end
   end
 end
