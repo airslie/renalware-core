@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "capybara_select2/selectors"
+
 module World
   module PD::PeritonitisEpisode
     module Domain
@@ -59,7 +61,6 @@ module World
         login_as user
 
         visit new_patient_pd_peritonitis_episode_path(patient)
-
         select2(
           "Recurrent",
           css: "#peritonitis_episode_types"

@@ -40,7 +40,7 @@ group :test do
   # gem "chromedriver-helper" # this clashses with the */*-browsers images in cirlci so removed
   gem "codeclimate-test-reporter", "~> 1.0.9", require: false # loads simplecov
   gem "cucumber", "~> 3.1.0"
-  gem "cucumber-rails", "~> 1.6.0", require: false # must be loaded in env.rb
+  gem "cucumber-rails", "~> 1.7.0", require: false # must be loaded in env.rb
   gem "database_cleaner", "~> 1.7.0", require: false # for cucumber (now not needed for rspec)
   gem "factory_bot_rails", "~> 4.11"
   gem "fuubar", require: false
@@ -48,7 +48,7 @@ group :test do
   gem "rspec-html-matchers", "~> 0.9.1", require: false
   gem "rspec-rails", "~> 3.8"
   gem "rspec_junit_formatter", "~> 0.4.1"
-  gem "selenium-webdriver", "~> 3.141.0"
+  gem "selenium-webdriver", "~> 3.142.0"
   gem "shoulda-matchers", "~> 4.0"
   gem "simplecov", "~> 0.13.0", require: false # only loaded if required
   gem "webmock", require: false
