@@ -40,8 +40,8 @@ module Renalware
           validates :blood_pressure, presence: true
           validates :weight_measured, presence: true
           validates :temperature_measured, presence: true
-          validates :weight, presence: { if: ->{ weight_measured&.yes? } }
-          validates :temperature, presence: { if: ->{ temperature_measured&.yes? } }
+          validates :weight, presence: { if: -> { weight_measured&.yes? } }
+          validates :temperature, presence: { if: -> { temperature_measured&.yes? } }
           validates :blood_pressure, "renalware/patients/blood_pressure_presence" => true
         end
         attribute :observations_before, Observations
@@ -56,6 +56,11 @@ module Renalware
           validates :litres_processed, presence: true
         end
         attribute :dialysis, Dialysis
+
+        class Complications < Renalware::HD::SessionDocument::Complications
+          validates :line_exit_site_status, presence: true
+        end
+        attribute :complications, Complications
 
         validates :hdf, "renalware/patients/hdf_presence" => true, if: :hd_type_is_hdf?
 

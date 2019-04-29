@@ -50,10 +50,6 @@ module Renalware
           it { is_expected.to allow_value("", nil).for(att) }
         end
       end
-
-      describe SessionDocument::Complications do
-        it { is_expected.to validate_presence_of(:line_exit_site_status) }
-      end
     end
   end
 end
