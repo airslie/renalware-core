@@ -112,6 +112,8 @@ module Renalware
         attribute :had_chest_pain, Document::Enum, enums: %i(yes no), default: :no
         attribute :had_alteplase_urokinase, Document::Enum, enums: %i(yes no), default: :no
         attribute :had_blood_transfusion, Document::Enum, enums: %i(yes no), default: :no
+
+        validates :line_exit_site_status, presence: true
       end
       attribute :complications, Complications
 
