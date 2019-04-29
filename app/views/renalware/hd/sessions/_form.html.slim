@@ -51,8 +51,6 @@ ruby:
         = fcm.input :fistula_plus_line, as: :inline_radio_buttons, wrapper: :horizontal_medium
         = fcm.input :single_needle, as: :inline_radio_buttons, wrapper: :horizontal_medium
         = fcm.input :lines_reversed, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :machine_no, wrapper: :horizontal_tiny
-        = f.association :dialysate, wrapper: :horizontal_small
 
       = fd.simple_fields_for :complications, fd.object.complications do |fcm|
         = fcm.input :access_site_status, wrapper: :horizontal_small
@@ -90,8 +88,11 @@ ruby:
         = fcm.input :flow_rate, collection: fcm.object.class.flow_rates, wrapper: :horizontal_tiny
         = fcm.input :blood_flow, wrapper: :horizontal_tiny
         = fcm.input :machine_urr, wrapper: :horizontal_tiny
-        = fcm.input :machine_ktv, wrapper: :horizontal_tiny
         = fcm.input :litres_processed, wrapper: :horizontal_tiny
+        = f.association :dialysate, wrapper: :horizontal_small
+        = fcm.input :machine_ktv, wrapper: :horizontal_tiny
+        = fd.simple_fields_for :info, fd.object.info do |fi|
+          = fi.input :machine_no, wrapper: :horizontal_tiny
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "HDF", name: "hdf" } do
