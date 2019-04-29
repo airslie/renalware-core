@@ -1,4 +1,22 @@
 .simple_form {
+  /*
+  This class repositions the hint to the right of the input and adds a ? icon to the anchor.
+  Used for example in help popups/tooltips on forms.
+  */
+  .hint.hint-help-link {
+    display: inline-block;
+    margin-left: 1rem;
+
+    a {
+      font-size: 1.5rem;
+      @extend %fa-icon;
+      @extend .far;
+
+      &:before {
+        content: fa-content($fa-var-question-circle);
+      }
+    }
+  }
 
   fieldset {
     border: 0;
