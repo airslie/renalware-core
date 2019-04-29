@@ -126,9 +126,7 @@ article.clinical-allergies {
   }
 }
 
-.patient-alerts {
-  color: $white;
-  background-color: transparent;
+.patient-alerts--sticky {
   /*
   Using  position: sticky is in Chrome 56 and recent Firefox and will not work in IE11
   but is a simple way for us to fix the alerts under the patient banner when the user
@@ -138,6 +136,11 @@ article.clinical-allergies {
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.patient-alerts {
+  color: $white;
+  background-color: transparent;
 
   @media print {
     display: none;

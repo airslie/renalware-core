@@ -11,6 +11,8 @@ nav.patient-side-nav.full-screenable
 .main-content.patient-content.full-screenable
   .layout-wrapper
     = render "renalware/patients/mini_profile", patient: current_patient
+    / adding .patient-alerts--sticky will stick the alerts under the patient header on scroll
+    /.patient-alerts.patient-alerts--sticky.lozenge
     .patient-alerts.lozenge
       ul
         = render "renalware/patients/alerts/list", patient: current_patient
