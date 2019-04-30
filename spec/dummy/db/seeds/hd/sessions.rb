@@ -52,7 +52,8 @@ module Renalware
       arterial_pressure: 100
     },
     complications: {
-      access_site_status: "clean_and_dry"
+      access_site_status: "clean_and_dry",
+      line_exit_site_status: "1"
     },
     observations_after: {
       pulse: 72,

@@ -47,18 +47,18 @@ ruby:
               wrapper: :horizontal_small
           = fcm.input :access_side, wrapper: :horizontal_small
           = fcm.input :access_confirmed, as: :boolean, wrapper: :horizontal_medium
-        = fcm.input :is_access_first_use, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :fistula_plus_line, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :single_needle, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :lines_reversed, as: :inline_radio_buttons, wrapper: :horizontal_medium
+          = fcm.input :is_access_first_use, as: :inline_radio_buttons, wrapper: :horizontal_medium
+          = fcm.input :fistula_plus_line, as: :inline_radio_buttons, wrapper: :horizontal_medium
+          = fcm.input :single_needle, as: :inline_radio_buttons, wrapper: :horizontal_medium
+          = fcm.input :lines_reversed, as: :inline_radio_buttons, wrapper: :horizontal_medium
 
-      = fd.simple_fields_for :complications, fd.object.complications do |fcm|
-        = fcm.input :access_site_status, wrapper: :horizontal_small
-        = fcm.input :line_exit_site_status,
-                    wrapper: :horizontal_tiny,
-                    hint: link_to("", asset_path("renalware/hd/mr_victor.jpg"),
-                                  data: {"reveal-id" => "mr-vistor-help-modal" }),
-                    hint_html: { class: "hint-help-link" }
+          = fd.simple_fields_for :complications, fd.object.complications do |fcm|
+            = fcm.input :access_site_status, wrapper: :horizontal_small
+            = fcm.input :line_exit_site_status,
+                        wrapper: :horizontal_tiny,
+                        hint: link_to("", asset_path("renalware/hd/mr_victor.jpg"),
+                                      data: {"reveal-id" => "mr-vistor-help-modal" }),
+                        hint_html: { class: "hint-help-link" }
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Pre-Dialysis Observations", name: "before" } do

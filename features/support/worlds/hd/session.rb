@@ -29,7 +29,7 @@ module World
 
       def valid_closed_session_attributes(patient)
         # TODO: seed the document in a more sophisticated way!
-        json = <<-END
+        json = <<-JSONB
           {"hdf": {"subs_goal": "", "subs_rate": "", "subs_volume": "", "subs_fluid_pct": ""},
           "info": {"hd_type": "hd", "machine_no": "222", "access_confirmed": "true",
             "access_side": "right", "access_type": "Tunnelled subclav",
@@ -39,7 +39,7 @@ module World
              "dialysis": {"flow_rate": 200, "blood_flow": 150,
              "machine_ktv": 1.0, "machine_urr": 1, "fluid_removed": 1.0, "venous_pressure": 1,
              "litres_processed": 1.0, "arterial_pressure": 1}, "complications":
-             {"had_cramps": "no", "had_headache": "no", "had_mrsa_swab": "no",
+             {"line_exit_site_status": "0", "had_cramps": "no", "had_headache": "no", "had_mrsa_swab": "no",
               "had_mssa_swab": "no", "had_chest_pain": "no", "access_site_status": null,
                "was_dressing_changed": "no", "had_alteplase_urokinase": "no",
                "had_saline_administration": "no", "had_intradialytic_hypotension": "no"},
@@ -47,15 +47,13 @@ module World
                 "temperature": 36.0, "blood_pressure": {"systolic": 100, "diastolic": 80}},
                 "observations_before": {"pulse": 67, "weight": 100.0, "bm_stix": 1.0,
                   "temperature": 36.0, "blood_pressure": {"systolic": 100, "diastolic": 80}}}
-        END
+        JSONB
 
         # "23:59"
         valid_open_session_attributes(patient).merge(
-          {
-            end_time: Time.zone.parse("10pm"),
-            dialysate_id: Renalware::HD::Dialysate.first,
-            document: JSON.parse(json)
-          }
+          end_time: Time.zone.parse("10pm"),
+          dialysate_id: Renalware::HD::Dialysate.first,
+          document: JSON.parse(json)
         )
       end
 
@@ -271,9 +269,9 @@ module World
             select "Tunnelled subclav", from: "Access Type Used"
             select "Left", from: "Access Side Used"
             check "Confirm this access was used"
+            select "Clean and Dry", from: "Access Site Status"
+            select "1", from: "MR VICTOR (line exit site assessment)"
           end
-          fill_in "Machine No", with: "123"
-          select "Dialysate1", from: "Dialysis Solution Used"
         end
 
         within_fieldset "Pre-Dialysis Observations" do
@@ -303,11 +301,8 @@ module World
           fill_in "Machine URR", with: "1.0"
           fill_in "Machine KTV", with: "1.0"
           fill_in "Litres Processed", with: "10"
-        end
-
-        within_fieldset "Notes/Complications" do
-          select "Clean and Dry", from: "Access Site Status"
-          select "1", from: "MR VICTOR (line exit site assessment)"
+          fill_in "Machine No", with: "123"
+          select "Dialysate1", from: "Dialysis Solution Used"
         end
 
         page.all("input[name='signoff']").first.click
