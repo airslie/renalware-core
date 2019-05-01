@@ -4,7 +4,7 @@
   javascript:
     var userConfiguredColumns = eval(#{raw(audit.display_configuration)})['columnDefs'];
 
-    $("body").ready(function() {
+    document.addEventListener("DOMContentLoaded", function(event) {
       $("body.audits-show table#audit").DataTable(
         {
           ajax: "#{reporting_audit_path(audit, format: :json)}",
