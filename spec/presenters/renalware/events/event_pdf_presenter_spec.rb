@@ -13,7 +13,8 @@ describe Renalware::Events::EventPdfPresenter do
       code: centre_code,
       info: "Info",
       trust_name: "Some Hospital",
-      trust_caption: "NHS Trust"
+      trust_caption: "NHS Trust",
+      host_site: false
     )
   end
 
