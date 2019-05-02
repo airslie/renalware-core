@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+return if visit.public_send(method).blank?
+
 xml = builder
 
 i18n_key ||= method
