@@ -25,6 +25,7 @@ module Renalware
     config_accessor(:hospital_name) { "KINGS COLLEGE HOSPITAL" }
     config_accessor(:delay_after_which_a_finished_session_becomes_immutable) { 6.hours }
     config_accessor(:new_clinic_visit_deletion_window) { 24.hours }
+    config_accessor(:new_clinic_visit_edit_window) { 7.days }
     config_accessor(:salutation_prefix) { "Dear" }
     config_accessor(:page_title_spearator) { " : " }
     config_accessor(:patient_hospital_identifiers) { {} }

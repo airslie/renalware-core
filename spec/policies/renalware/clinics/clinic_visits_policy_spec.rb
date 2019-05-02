@@ -7,30 +7,75 @@ module Renalware
     describe ClinicVisitPolicy, type: :policy do
       subject(:policy) { described_class }
 
-      let(:user) { User.new }
-      let(:clinic_visit) { ClinicVisit.new }
+      let(:user) { User.new(id: 1) }
+      let(:other_user) { User.new(id: 2) }
+      let(:super_admin) { User.new(id: 99) }
+      let(:created_by_id) { nil }
+      let(:created_at) { nil }
+      let(:persisted) { false }
+      let(:clinic_visit) do
+        instance_double(
+          Renalware::Clinics::ClinicVisit,
+          created_at: created_at,
+          created_by_id: user.id,
+          persisted?: persisted
+        )
+      end
+
+      before do
+        Renalware.configure do |config|
+          config.new_clinic_visit_deletion_window = 24.hours
+          config.new_clinic_visit_edit_window = 7.days
+        end
+        allow(super_admin).to receive(:has_role?).with(:super_admin).and_return(true)
+      end
 
       permissions :destroy? do
         context "with an unsaved clinic visit" do
-          it "is not permitted" do
-            expect(policy).not_to permit(user, clinic_visit)
-          end
+          it { is_expected.not_to permit(user, clinic_visit) }
         end
 
         context "with a saved clinic visit" do
-          before do
-            allow(clinic_visit).to receive(:persisted?).and_return(true)
-            Renalware.configure{ |config| config.new_clinic_visit_deletion_window = 24.hours }
+          let(:persisted) { true }
+
+          context "when the creation date is outside the deletion window" do
+            let(:created_at) { Time.zone.now - 25.hours }
+
+            it { is_expected.not_to permit(user, clinic_visit) }
+            it { is_expected.not_to permit(other_user, clinic_visit) }
           end
 
-          it "is not permitted if creation date not is within the deletion window" do
-            allow(clinic_visit).to receive(:created_at).and_return(Time.zone.now - 25.hours)
-            expect(policy).not_to permit(user, clinic_visit)
+          context "when the creation date is within the deletion window" do
+            let(:created_at) { Time.zone.now - 23.hours }
+
+            it { is_expected.to permit(user, clinic_visit) }
+            it { is_expected.to permit(super_admin, clinic_visit) }
+            it { is_expected.not_to permit(other_user, clinic_visit) }
+          end
+        end
+      end
+
+      permissions :edit? do
+        context "with an unsaved clinic visit" do
+          it { is_expected.not_to permit(user, clinic_visit) }
+          it { is_expected.not_to permit(other_user, clinic_visit) }
+        end
+
+        context "with a saved clinic visit" do
+          let(:persisted) { true }
+
+          context "when the visit was created within 7 days" do
+            let(:created_at) { Time.zone.now - 7.days + 1.hour }
+
+            it { is_expected.to permit(user, clinic_visit) }
+            it { is_expected.not_to permit(other_user, clinic_visit) }
           end
 
-          it "is permitted if creation date is within the deletion window" do
-            allow(clinic_visit).to receive(:created_at).and_return(Time.zone.now - 23.hours)
-            expect(policy).to permit(user, clinic_visit)
+          context "when the visit was created more than 7 days ago" do
+            let(:created_at) { Time.zone.now - 7.days - 1.hour }
+
+            it { is_expected.not_to permit(user, clinic_visit) }
+            it { is_expected.not_to permit(other_user, clinic_visit) }
           end
         end
       end

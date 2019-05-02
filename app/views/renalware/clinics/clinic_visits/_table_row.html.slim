@@ -1,7 +1,9 @@
 tr(class="#{'dna' if clinic_visit.did_not_attend?}")
   td
-    = link_to "Edit", edit_patient_clinic_visit_path(patient, clinic_visit)
-    = pipe_separator
+    - if policy(clinic_visit).edit?
+      = link_to "Edit",
+                edit_patient_clinic_visit_path(patient, clinic_visit)
+      = pipe_separator
     = link_to("Toggle",
               "#clinic_visit-quick-preview-#{clinic_visit.id}",
               data: { behaviour: "toggler" })
