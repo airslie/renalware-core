@@ -9,7 +9,7 @@ en:
       diastolic:
         # code: 76539-6
         code: bpdia
-        description: Blood pressure device Cuff pressure.systolic
+        description: Blood pressure device Cuff pressure.diastolic
         units: "mmHg"
     weight:
       # code: 3141-9
@@ -20,4 +20,3 @@ en:
       code: height
       description: Height Measured
       units: "m"
-
