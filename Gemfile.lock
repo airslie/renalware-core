@@ -17,7 +17,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.75)
+    renalware-core (2.0.76)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.28.0)
       ahoy_matey (~> 2.1)
@@ -65,7 +65,7 @@ PATH
       rails-assets-foundation-datepicker (= 1.5.0)
       rails-assets-moment (= 2.22.2)
       rails-assets-mousetrap (= 1.6.2)
-      rails-assets-select2 (~> 4.0.2)
+      rails-assets-select2 (= 4.0.5)
       ransack (~> 2.1.1)
       record_tag_helper (~> 1.0.0)
       ruby-hl7 (~> 1.2.0)
@@ -376,8 +376,8 @@ GEM
       activerecord (>= 4.2, < 5.3)
       request_store (~> 1.1)
     parallel (1.17.0)
-    paranoia (2.4.1)
-      activerecord (>= 4.0, < 5.3)
+    paranoia (2.4.2)
+      activerecord (>= 4.0, < 6.1)
     parser (2.6.2.1)
       ast (~> 2.4.0)
     party_foul (1.5.5)

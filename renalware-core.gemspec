@@ -76,7 +76,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
   s.add_dependency "rails-assets-moment", "2.22.2"
   s.add_dependency "rails-assets-mousetrap", "1.6.2"
-  s.add_dependency "rails-assets-select2", "~> 4.0.2"
+  s.add_dependency "rails-assets-select2", "4.0.5"
   s.add_dependency "ransack", "~> 2.1.1"
   s.add_dependency "record_tag_helper", "~> 1.0.0"
   s.add_dependency "ruby-hl7", "~> 1.2.0"
