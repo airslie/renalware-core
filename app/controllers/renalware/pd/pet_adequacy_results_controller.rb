@@ -14,6 +14,7 @@ module Renalware
         render locals: { pet_adequacy_result: result, patient: patient }
       end
 
+      # rubocop:disable Metrics/AbcSize
       def create
         result = patient.pet_adequacy_results.new(pet_adequacy_result_params)
         authorize result
@@ -24,11 +25,13 @@ module Renalware
           render :new, locals: { pet_adequacy_result: result, patient: patient }
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
       def edit
         render locals: { pet_adequacy_result: pet_adequacy_result, patient: patient }
       end
 
+      # rubocop:disable Metrics/AbcSize
       def update
         pet_adequacy_result.assign_attributes(pet_adequacy_result_params)
         if pet_adequacy_result.save
@@ -38,6 +41,7 @@ module Renalware
           render :edit, locals: { pet_adequacy_result: pet_adequacy_result, patient: patient }
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
       def show
         render locals: { pet_adequacy_result: pet_adequacy_result, patient: patient }
@@ -62,7 +66,7 @@ module Renalware
                       :crcl_total, :crcl_dialysate, :crcl_rrf,
                       :daily_uf, :daily_urine, :date_rff, :creat_value, :dialysate_effluent_volume,
                       :date_creat_clearance, :date_creat_value,
-                      :urine_urea_conc, :urine_creat_conc)
+                      :urine_urea_conc, :urine_creat_conc, :dietry_protein_intake)
               .merge!(by: current_user)
       end
     end

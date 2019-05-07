@@ -32,7 +32,8 @@ module Renalware
         creat_value: 9999,
         dialysate_effluent_volume: 5,
         urine_urea_conc: 999,
-        urine_creat_conc: 9999
+        urine_creat_conc: 9999,
+        dietry_protein_intake: 2
       }.freeze
 
       # This map is currently for documentation purposes but may be useful when exporting
@@ -153,6 +154,11 @@ module Renalware
                 numericality: {
                   less_than_or_equal_to: MAXIMUMS[:urine_creat_conc],
                   only_integer: true
+                },
+                allow_nil: true
+      validates :dietry_protein_intake,
+                numericality: {
+                  less_than_or_equal_to: MAXIMUMS[:dietry_protein_intake]
                 },
                 allow_nil: true
     end

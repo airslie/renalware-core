@@ -5250,7 +5250,8 @@ CREATE TABLE pd_pet_adequacy_results (
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    dietry_protein_intake numeric(8,2)
 );
 
 
@@ -15965,6 +15966,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190225103005'),
 ('20190315125638'),
 ('20190401105149'),
-('20190422095620');
+('20190422095620'),
+('20190424101709');
 
 
