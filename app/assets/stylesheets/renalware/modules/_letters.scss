@@ -32,9 +32,21 @@ table.contacts tbody td{
 }
 
 .letters {
-  .quick-preview p {
-    font-size: 0.9rem;
-    line-height: 1rem;
+  .quick-preview {
+    font-size: .9rem;
+
+    p {
+      font-size: .9rem;
+      line-height: 1rem;
+    }
+
+    .admin-notes {
+      display: inline-block;
+      background-color: darken($table-even-row-colour, 10);
+      padding: .2rem;
+      margin: .5rem 0 0 0;
+      font-size: .9rem;
+    }
   }
 
   td {
