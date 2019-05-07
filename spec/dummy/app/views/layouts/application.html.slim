@@ -19,6 +19,7 @@ html lang="en"
     link(rel="manifest" href="#{image_path('renalware/favicon/manifest.json')}")
     link(rel="mask-icon" href="#{image_path('renalware/favicon/safari-pinned-tab.svg')}" color="#5bbad5")
     meta(name="theme-color" content="#ffffff")
+    meta(name="google" content="notranslate")
 
   body(class="#{ content_for?(:body_class) ? yield(:body_class) : 'page--' + controller_name }")
     #modals-wrapper

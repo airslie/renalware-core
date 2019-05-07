@@ -47,12 +47,18 @@ ruby:
               wrapper: :horizontal_small
           = fcm.input :access_side, wrapper: :horizontal_small
           = fcm.input :access_confirmed, as: :boolean, wrapper: :horizontal_medium
-        = fcm.input :is_access_first_use, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :fistula_plus_line, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :single_needle, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :lines_reversed, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :machine_no, wrapper: :horizontal_tiny
-        = f.association :dialysate, wrapper: :horizontal_small
+          = fcm.input :is_access_first_use, as: :inline_radio_buttons, wrapper: :horizontal_medium
+          = fcm.input :fistula_plus_line, as: :inline_radio_buttons, wrapper: :horizontal_medium
+          = fcm.input :single_needle, as: :inline_radio_buttons, wrapper: :horizontal_medium
+          = fcm.input :lines_reversed, as: :inline_radio_buttons, wrapper: :horizontal_medium
+
+          = fd.simple_fields_for :complications, fd.object.complications do |fcm|
+            = fcm.input :access_site_status, wrapper: :horizontal_small
+            = fcm.input :line_exit_site_status,
+                        wrapper: :horizontal_tiny,
+                        hint: link_to("", asset_path("renalware/hd/mr_victor.jpg"),
+                                      data: {"reveal-id" => "mr-vistor-help-modal" }),
+                        hint_html: { class: "hint-help-link" }
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Pre-Dialysis Observations", name: "before" } do
@@ -86,8 +92,11 @@ ruby:
         = fcm.input :flow_rate, collection: fcm.object.class.flow_rates, wrapper: :horizontal_tiny
         = fcm.input :blood_flow, wrapper: :horizontal_tiny
         = fcm.input :machine_urr, wrapper: :horizontal_tiny
-        = fcm.input :machine_ktv, wrapper: :horizontal_tiny
         = fcm.input :litres_processed, wrapper: :horizontal_tiny
+        = f.association :dialysate, wrapper: :horizontal_small
+        = fcm.input :machine_ktv, wrapper: :horizontal_tiny
+        = fd.simple_fields_for :info, fd.object.info do |fi|
+          = fi.input :machine_no, wrapper: :horizontal_tiny
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "HDF", name: "hdf" } do
@@ -113,8 +122,8 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Notes/Complications", name: "complications" } do
       = fd.simple_fields_for :complications, fd.object.complications do |fcm|
-        = fcm.input :access_site_status, wrapper: :horizontal_small
-        = fcm.input :line_exit_site_status, wrapper: :horizontal_small
+        / = fcm.input :access_site_status, wrapper: :horizontal_small
+        / = fcm.input :line_exit_site_status, wrapper: :horizontal_small
         = fcm.input :was_dressing_changed, as: :inline_radio_buttons, wrapper: :horizontal_small
         = fcm.input :had_mrsa_swab, as: :inline_radio_buttons, wrapper: :horizontal_small
         = fcm.input :had_mssa_swab, as: :inline_radio_buttons, wrapper: :horizontal_small
@@ -130,3 +139,18 @@ ruby:
 .row
   .large-12.columns
     = render "form_actions", f: f, back_path: back_path, session: session, patient: @patient
+
+/ Failed in all attempts to override close_on_background_click using eg data-options or any
+/ variation of e.g. data-options="closeOnBackgroundClick:false"
+/ data-options="close_on_background_click:false"
+/ I can only assume its not possible so we would need to use another handler top initialize modals
+/ that allow a bg click to close.
+#mr-vistor-help-modal.reveal-modal.medium(data-reveal style="width: 600px")
+  .modal
+    .modal__header
+      h2 MR VICTOR
+      | &nbsp;
+      span Multi Racial Visual Inspection Catheter Tool Observation Record
+      = render "renalware/shared/modal_close_link"
+    .modal__body(style="text-align: center")
+      = image_tag(asset_path("renalware/hd/mr_victor.jpg"))

@@ -121,6 +121,10 @@ module Renalware
           end
         end
       end
+
+      describe Session::Closed::SessionDocument::Complications do
+        it { is_expected.to validate_presence_of(:line_exit_site_status) }
+      end
     end
   end
 end

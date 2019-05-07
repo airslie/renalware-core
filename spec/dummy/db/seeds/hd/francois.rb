@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Renalware
-
   patient = HD.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
   kch_doc = User.find_by!(username: "kchdoc")
   barts_doc = User.find_by!(username: "bartsdoc")
@@ -19,7 +18,6 @@ module Renalware
   end
 
   log "Assign some HD preferences to Francois RABBIT" do
-
     preference_set = HD::PreferenceSet.find_or_initialize_by(patient: patient)
     preference_set.attributes = {
       schedule_definition: schedule_definition,
@@ -64,7 +62,7 @@ module Renalware
           type: :heparin,
           loading_dose: 45,
           hourly_dose: 66,
-          stop_time: "0:45",
+          stop_time: "0:45"
         },
         drugs: {
           on_esa: :no,
@@ -74,7 +72,7 @@ module Renalware
         transport: {
           has_transport: :yes,
           type: :taxi,
-          decided_on: 2.days.ago.to_date,
+          decided_on: 2.days.ago.to_date
         },
         care_level: {
           level: :level1,
@@ -98,13 +96,13 @@ module Renalware
   end
 
   log "Assign HD sessions to Francois RABBIT" do
-
     units = Hospitals::Unit.hd_sites.limit(3).to_a
     users = User.limit(3).to_a
     start_times = ["13:00", "13:15", "13:30"]
     end_times = ["15:30", "15:45", "16:00"]
     dialysate_id = HD::Dialysate.first.id
 
+    # rubocop:disable Metrics/AbcSize
     def self.session_document
       {
         info: {
@@ -148,9 +146,14 @@ module Renalware
             systolic: rand(100..120),
             diastolic: rand(80..99)
           }
+        },
+        complications: {
+          access_site_status: "clean_and_dry",
+          line_exit_site_status: "1"
         }
       }
     end
+    # rubocop:enable Metrics/AbcSize
 
     # Make the most recent session ongoing
     HD::Session::Open.create!(

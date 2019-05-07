@@ -145,6 +145,7 @@ module Renalware
         renalware/favicon/safari-pinned-tab.svg
         renalware/clippy.svg
         renalware/print-button-example.png
+        renalware/hd/mr_victor.jpg
       )
       app.config.assets.paths <<
         Rails.root.join(config.root, "vendor", "assets", "javascripts", "renalware")

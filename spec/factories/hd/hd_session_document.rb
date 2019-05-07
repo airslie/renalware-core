@@ -61,10 +61,15 @@ FactoryBot.define do
     blood_pressure factory: :blood_pressure, strategy: :marshal_dump
   end
 
+  factory :hd_session_document_complications, class: OpenStruct do
+    line_exit_site_status { "0" }
+  end
+
   factory :hd_session_document, class: OpenStruct do
     info factory: :hd_session_document_info, strategy: :marshal_dump
     dialysis factory: :hd_session_document_dialysis, strategy: :marshal_dump
     observations_before factory: :hd_session_document_observations_before, strategy: :marshal_dump
     observations_after factory: :hd_session_document_observations_after, strategy: :marshal_dump
+    complications factory: :hd_session_document_complications, strategy: :marshal_dump
   end
 end
