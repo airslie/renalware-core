@@ -49,7 +49,7 @@
           td= admission.summarised_on
           td
             - if admission.discharge_summary.present?
-             = link_to("Toggle",
+              = link_to("Toggle",
                        "#admission-quick-preview-#{admission.id}",
                        data: { behaviour: "toggler" })
             - else
