@@ -103,11 +103,14 @@ module World
 
         def update_clinic_visit(clinic_visit, patient, user)
           login_as user
-
-          visit edit_patient_clinic_visit_path(
+          edit_path = edit_patient_clinic_visit_path(
             patient_id: patient,
             id: clinic_visit.id
           )
+
+          visit edit_path
+
+          expect(page).to have_current_path(edit_path)
           select "AKI", from: "Clinic"
           fill_in "Height", with: "1.71"
           fill_in "Weight", with: "75"
