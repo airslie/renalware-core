@@ -1,15 +1,22 @@
 tr(class="#{'dna' if clinic_visit.did_not_attend?}")
   td.noprint= toggler("#clinic_visit-quick-preview-#{clinic_visit.id}")
   td.noprint.actions
-    - if policy(clinic_visit).edit?
-      = link_to "Edit",
-                edit_patient_clinic_visit_path(patient, clinic_visit)
+    - uid = "visit-#{clinic_visit.id}-options"
+    a.button.actions.dropdown.with-icon(href="#"
+                                data-dropdown=uid
+                                aria-controls=uid
+                                aria-expanded="false")
 
-    - if policy(clinic_visit).destroy?
-      = link_to "Delete",
+    ul.actions-dropdown.f-dropdown.f-dropdown-no-arrow(id="#{uid}" data-dropdown-content aria-hidden="true")
+      li= link_to_if_allowed policy(clinic_visit).edit?,
+                  "Edit",
+                  edit_patient_clinic_visit_path(patient, clinic_visit)
+      li= link_to_if_allowed policy(clinic_visit).destroy?,
+                "Delete",
                 patient_clinic_visit_path(patient, clinic_visit),
                 method: :delete,
                 data: { confirm: I18n.t("prompts.confirm_delete") }
+
     = link_to_clinic_visit_letter(patient, clinic_visit)
   td.date-time= l(clinic_visit.date)
   td= yes_no(clinic_visit.did_not_attend)
