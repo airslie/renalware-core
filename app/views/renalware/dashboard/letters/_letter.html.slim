@@ -10,6 +10,7 @@ tr(class=letter.state.dasherize)
     = link_to letter.view_label, patient_letters_letter_path(letter.patient, letter)
     - if Pundit.policy!(current_user, letter).update?
       = link_to t("btn.edit"), edit_patient_letters_letter_path(letter.patient, letter)
+    = toggler "#quick-preview-#{letter.id}"
 = content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
   td
   td(colspan=7)
