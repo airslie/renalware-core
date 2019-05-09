@@ -7,7 +7,7 @@ Given(/^Clinics$/) do |clinics|
 end
 
 Given("Patty has a recorded clinic visit") do
-  @clinic_visit = create_clinic_visit(@patty, @clyde)
+  @clinic_visit = create_clinic_visit(@patty, @doug || @clyde)
 end
 
 Given("the following consultants:") do |table|
