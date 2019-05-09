@@ -9,6 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.77
+### Added
+### Changed
+- MR VICTOR changes #2641
+- Add dietry protein intake (DPI) to PET Adequacy #2618
+- Admin notes not visible after letter approved #1366
+### Fixed
+
 ## 2.0.76
 ### Added
 ### Changed
