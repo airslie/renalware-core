@@ -6,11 +6,12 @@ module Renalware
 
     category = Events::Category.first
     CSV.foreach(file_path, headers: true) do |row|
-      Events::Type.find_or_create_by!(name: row["name"]) do |event_type|
-        event_type.save_pdf_to_electronic_public_register =
-          row["save_pdf_to_electronic_public_register"]
-        event_type.category = category
-      end
+      event_type = Events::Type.find_or_create_by!(name: row["name"], category: category)
+      # For some reason save_pdf_to_electronic_public_register is not available until we
+      # reload the event_type. Started happening on 9 May 18.
+      event_type.reload.update!(
+        save_pdf_to_electronic_public_register: row["save_pdf_to_electronic_public_register"]
+      )
     end
   end
 end
