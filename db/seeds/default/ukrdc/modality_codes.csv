@@ -1,0 +1,76 @@
+qbl_code,txt_code,description
+1,1,Haemodialysis
+2,2,Haemofiltration
+3,3,Haemodiafiltration
+4,4,Haemodialysis > 4 days per week / daily
+5,5,Ultrafiltration
+9,9,Haemodialysis – type unknown
+110,110,Plamsmapharesis / Plasma exchange
+11,11,CAPD
+111,111,Assisted CAPD
+12,12,APD
+121,121,Assisted APD
+19,19,Peritoneal dialysis – type unknown
+201,201,Hybrid CAPD with HD
+202,202,Hybrid APD with HD
+203,203,Hybrid APD with CAPD
+20,20,Transplant ; Cadaver donor
+21,21,Transplant ; Live related - sibling
+74,74,Transplant ; Live related - father
+75,75,Transplant ; Live related - mother
+77,77,Transplant ; Live related - child
+23,23,Transplant ; Live related - other
+24,24,Transplant ; Live genetically unrelated
+25,25,Transplant ; Cadaver donor + transp other organ
+26,26,Transplant ; Live donor + transplant other organ
+27,27,Transplant ; Live donor non-UK transplant
+28,28,Transplant ; non-heart-beating donor
+29,29,Transplant ; type unknown
+30,,Graft failure
+31,,Graft acute rejection episode - biopsy proven
+32,29,Graft acute rejection episode - no biopsy
+35,29,Transfer in for pre-emptive transplant
+36,,Transfer out for pre-emptive transplant elsewhere
+37,,Transfer to adult nephrology
+38,,Patient transferred out
+39,,Transfer in from another centre treatment unknown
+41,1,Transfer in on : Haemodialysis
+42,2,Transfer in on : Haemofiltration
+43,3,Transfer in on : Haemodiafiltration
+44,4,Transfer in on : Haemodialysis > 4 days per week
+45,5,Transfer in on : Ultrafiltration
+49,9,Transfer in on : Haemodialysis – type unknown
+150,110,Transfer in on : Plasmapharesis / plasma exchange
+51,11,Transfer in on : CAPD
+52,12,Transfer in on : APD
+162,121,Transfer in on : Assisted APD
+241,201,Transfer in on : Hybrid CAPD with HD
+242,202,Transfer in on : Hybrid APD with HD
+243,203,Transfer in on : Hybrid APD with CAPD
+59,19,Transfer in on : Peritoneal dialysis - type unknown
+60,20,Transfer in on : Transplant ; Cadaver donor
+61,21,Transfer in on : Transplant ; Live related - sibling
+62,22,Transfer in on : Transplant ; Live related - parent or child
+63,23,Transfer in on : Transplant ; Live related - other
+64,24,Transfer in on : Transplant ; Live genetically unrelated
+65,25,Transfer in on : Transplant ; Cadaver + transp other organ
+66,26,Transfer in on : Transplant ; Live donor + transp other organ
+68,28,Transfer in on : Transplant ; non-heart-beating donor
+69,29,Transfer in on : Transplant ; type unknown
+72,72,Graft functioning
+76,,Nephrectomy -of  transplanted kidney
+79,,Transplant pancreas (only)
+80,80,Acute renal failure not dialysed
+81,81,Acute haemodialysis – ARF
+82,82,Acute haemofiltration – ARF
+83,83,Acute peritoneal dialysis – ARF
+84,84,ARF recovered
+85,85,ARF - stopped dialysis (without recovery of function)
+86,86,ARF – transferred out
+90,90,Patient – renal function recovered
+91,91,Patient – treatment stopped (without recovery of function)
+92,92,Treatment stopped without recovery - conservative management
+93,93,Conservative Management - mutual decision not to offer RRT
+94,94,Clinical Decision not to offer RRT - conservative management
+95,,Patient lost to follow up
+900,900,Chronic Kidney Disease (not on RRT)

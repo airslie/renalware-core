@@ -7304,6 +7304,39 @@ ALTER SEQUENCE ukrdc_batch_numbers_id_seq OWNED BY ukrdc_batch_numbers.id;
 
 
 --
+-- Name: ukrdc_modality_codes; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE ukrdc_modality_codes (
+    id bigint NOT NULL,
+    qbl_code character varying,
+    txt_code character varying,
+    description text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: ukrdc_modality_codes_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE ukrdc_modality_codes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: ukrdc_modality_codes_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE ukrdc_modality_codes_id_seq OWNED BY ukrdc_modality_codes.id;
+
+
+--
 -- Name: ukrdc_transmission_logs; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8559,6 +8592,13 @@ ALTER TABLE ONLY transplant_versions ALTER COLUMN id SET DEFAULT nextval('transp
 --
 
 ALTER TABLE ONLY ukrdc_batch_numbers ALTER COLUMN id SET DEFAULT nextval('ukrdc_batch_numbers_id_seq'::regclass);
+
+
+--
+-- Name: ukrdc_modality_codes id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY ukrdc_modality_codes ALTER COLUMN id SET DEFAULT nextval('ukrdc_modality_codes_id_seq'::regclass);
 
 
 --
@@ -9878,6 +9918,14 @@ ALTER TABLE ONLY transplant_versions
 
 ALTER TABLE ONLY ukrdc_batch_numbers
     ADD CONSTRAINT ukrdc_batch_numbers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ukrdc_modality_codes ukrdc_modality_codes_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY ukrdc_modality_codes
+    ADD CONSTRAINT ukrdc_modality_codes_pkey PRIMARY KEY (id);
 
 
 --
@@ -13092,6 +13140,20 @@ CREATE INDEX index_transplant_registrations_on_patient_id ON transplant_registra
 
 
 --
+-- Name: index_ukrdc_modality_codes_on_qbl_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_modality_codes_on_qbl_code ON ukrdc_modality_codes USING btree (qbl_code);
+
+
+--
+-- Name: index_ukrdc_modality_codes_on_txt_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_modality_codes_on_txt_code ON ukrdc_modality_codes USING btree (txt_code);
+
+
+--
 -- Name: index_ukrdc_transmission_logs_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -15967,6 +16029,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190315125638'),
 ('20190401105149'),
 ('20190422095620'),
-('20190424101709');
+('20190424101709'),
+('20190511164137');
 
 
