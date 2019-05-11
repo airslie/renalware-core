@@ -27,6 +27,13 @@ module Renalware
       expect(approved_letter.approved_at.to_s).to eq(time.to_s)
     end
 
+    it "touches the patient" do
+      patient
+      expect {
+        service.call(by: user)
+      }.to change(patient, :updated_at)
+    end
+
     describe "broadcasting" do
       it "broadcasts a letter_approved event when the letter is approved successfully" do
         expect {
