@@ -3,6 +3,7 @@
 log "Seeding default data"
 
 require_relative "./system/seeds"
+require_relative "./ukrdc/seeds"
 require_relative "./reporting/audits"
 require_relative "./feeds/seeds"
 require_relative "./deaths/seeds"
