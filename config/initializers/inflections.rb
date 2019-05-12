@@ -44,5 +44,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "XHR"
   inflect.irregular "feedback", "feedback"
   inflect.acronym "NHS"
-  inflect.uncountable %w(cache)
+  inflect.uncountable %w(cache help)
 end

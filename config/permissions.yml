@@ -4,6 +4,7 @@ super_admin:
   - Renalware::HD::Dialysate
   - Renalware::HD::Dialyser
   - Renalware::HD::CannulationType
+  - Renalware::System::Help
 admin:
   - Renalware::User
   - Renalware::BagType

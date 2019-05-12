@@ -1,0 +1,11 @@
+= render "renalware/shared/errors", model: help_item
+= simple_form_for help_item,
+                  url: help_item.new_record? ? system_help_index_path : system_help_path(help_item),
+                  as: :help,
+                  html: { autocomplete: "off" },
+                  wrapper: "horizontal_form" do |form|
+
+  = form.input :name
+  = form.input :description, as: :text
+  = form.input :file, as: :file
+  = form.submit "Save", class: :button

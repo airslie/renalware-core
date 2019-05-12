@@ -1,0 +1,44 @@
+= content_for(:actions) do
+  - if policy(Renalware::System::Help).new?
+    = link_to t("new_record.link_title"),
+              new_system_help_path,
+              class: "button"
+
+= within_admin_layout(title: "Help") do
+
+  .filters
+    .filters__form
+      = search_form_for search, url: system_help_index_path do |f|
+        .row
+          .small-7.large-4.columns
+            = f.label "Name or description contains"
+            = f.search_field :name_or_description_cont
+          .small-5.large-4.columns.actions.end
+            = f.submit "Search", class: "button secondary"
+            span= " or "
+            = link_to t("helpers.reset"), system_help_index_path
+
+  .help-items
+    - items.each do |item|
+      .help-item
+        .file
+          = link_to(system_help_path(item), target: "_blank") do
+            i.far.fa-file-alt
+        .details
+          h3= link_to(item.name, system_help_path(item), target: "_blank")
+          p= item.description
+          .updated_at= "Updated #{l(item.updated_at)} by #{item.updated_by}"
+
+          - if policy(Renalware::System::Help).edit? || policy(Renalware::System::Help).destroy?
+            .actions
+              = link_to_if policy(Renalware::System::Help).edit?,
+                            "Edit",
+                            edit_system_help_path(item)
+              = pipe_separator
+              = link_to_if policy(Renalware::System::Help).destroy?,
+                            "Delete",
+                            system_help_path(item),
+                            method: :delete,
+                            data: { confirm: "Are you sure you want to delete this item?" }
+
+  = paginate items

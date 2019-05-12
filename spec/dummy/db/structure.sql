@@ -6624,6 +6624,41 @@ ALTER SEQUENCE system_events_id_seq OWNED BY system_events.id;
 
 
 --
+-- Name: system_help; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE system_help (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description character varying,
+    deleted_at timestamp without time zone,
+    updated_by_id bigint NOT NULL,
+    created_by_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: system_help_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE system_help_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_help_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE system_help_id_seq OWNED BY system_help.id;
+
+
+--
 -- Name: system_messages; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8528,6 +8563,13 @@ ALTER TABLE ONLY system_events ALTER COLUMN id SET DEFAULT nextval('system_event
 
 
 --
+-- Name: system_help id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_help ALTER COLUMN id SET DEFAULT nextval('system_help_id_seq'::regclass);
+
+
+--
 -- Name: system_messages id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -9846,6 +9888,14 @@ ALTER TABLE ONLY system_countries
 
 ALTER TABLE ONLY system_events
     ADD CONSTRAINT system_events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_help system_help_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_help
+    ADD CONSTRAINT system_help_pkey PRIMARY KEY (id);
 
 
 --
@@ -12984,6 +13034,34 @@ CREATE INDEX index_system_events_on_visit_id ON system_events USING btree (visit
 
 
 --
+-- Name: index_system_help_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_help_on_created_by_id ON system_help USING btree (created_by_id);
+
+
+--
+-- Name: index_system_help_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_help_on_deleted_at ON system_help USING btree (deleted_at);
+
+
+--
+-- Name: index_system_help_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_system_help_on_name ON system_help USING btree (name);
+
+
+--
+-- Name: index_system_help_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_help_on_updated_by_id ON system_help USING btree (updated_by_id);
+
+
+--
 -- Name: index_system_templates_on_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -14695,6 +14773,14 @@ ALTER TABLE ONLY patient_alerts
 
 
 --
+-- Name: system_help fk_rails_a039f696fc; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_help
+    ADD CONSTRAINT fk_rails_a039f696fc FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: pathology_request_descriptions fk_rails_a0b9cd97fe; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -14748,6 +14834,14 @@ ALTER TABLE ONLY hd_patient_statistics
 
 ALTER TABLE ONLY pd_regimes
     ADD CONSTRAINT fk_rails_a70920e237 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: system_help fk_rails_a740179cd4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_help
+    ADD CONSTRAINT fk_rails_a740179cd4 FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --
@@ -16171,6 +16265,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190422095620'),
 ('20190424101709'),
 ('20190511164137'),
+('20190512155900'),
 ('20190513135312');
 
 
