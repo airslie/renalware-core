@@ -9,7 +9,7 @@ module Renalware
       include Renalware::Concerns::Pageable
       include Renalware::Concerns::PdfRenderable
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def index
         session[:consults_results] = nil if params.key?(:reset)
         query = ConsultQuery.new(params[:q])
@@ -37,7 +37,7 @@ module Renalware
           end
         end
       end
-      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       def new
         consult = Consult.new(started_on: Time.zone.today)
@@ -72,7 +72,10 @@ module Renalware
 
       def destroy
         find_and_authorize_consult.update!(ended_on: Time.zone.now, by: current_user)
-        redirect_to admissions_consults_path, notice: success_msg_for("consult")
+        redirect_back(
+          fallback_location: admissions_consults_path,
+          notice: success_msg_for("consult")
+        )
       end
 
       private
