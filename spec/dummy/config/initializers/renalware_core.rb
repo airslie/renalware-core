@@ -19,6 +19,7 @@ Renalware.configure do |config|
   map["Renalware::Pathology::CreateObservationRequests"] << "PathologyListener"
 
   config.ukrdc_sending_facility_name = "Test"
+  config.site_name = "Renalware"
 end
 
 # Renalware::Patients.configure
