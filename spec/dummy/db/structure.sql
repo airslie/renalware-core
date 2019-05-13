@@ -4003,6 +4003,71 @@ CREATE VIEW pathology_observation_digests AS
 
 
 --
+-- Name: pathology_observation_group_memberships; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE pathology_observation_group_memberships (
+    id bigint NOT NULL,
+    group_id bigint NOT NULL,
+    description_id bigint NOT NULL,
+    sub_group integer DEFAULT 1 NOT NULL,
+    "position" integer DEFAULT 1 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pathology_observation_group_memberships_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE pathology_observation_group_memberships_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_observation_group_memberships_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE pathology_observation_group_memberships_id_seq OWNED BY pathology_observation_group_memberships.id;
+
+
+--
+-- Name: pathology_observation_groups; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE pathology_observation_groups (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pathology_observation_groups_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE pathology_observation_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_observation_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE pathology_observation_groups_id_seq OWNED BY pathology_observation_groups.id;
+
+
+--
 -- Name: pathology_observation_requests_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -5878,7 +5943,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -5957,7 +6022,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -8063,6 +8128,20 @@ ALTER TABLE ONLY pathology_observation_descriptions ALTER COLUMN id SET DEFAULT 
 
 
 --
+-- Name: pathology_observation_group_memberships id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_group_memberships ALTER COLUMN id SET DEFAULT nextval('pathology_observation_group_memberships_id_seq'::regclass);
+
+
+--
+-- Name: pathology_observation_groups id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_groups ALTER COLUMN id SET DEFAULT nextval('pathology_observation_groups_id_seq'::regclass);
+
+
+--
 -- Name: pathology_observation_requests id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -9310,6 +9389,22 @@ ALTER TABLE ONLY pathology_measurement_units
 
 ALTER TABLE ONLY pathology_observation_descriptions
     ADD CONSTRAINT pathology_observation_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_observation_group_memberships pathology_observation_group_memberships_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_group_memberships
+    ADD CONSTRAINT pathology_observation_group_memberships_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_observation_groups pathology_observation_groups_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_groups
+    ADD CONSTRAINT pathology_observation_groups_pkey PRIMARY KEY (id);
 
 
 --
@@ -11807,6 +11902,48 @@ CREATE UNIQUE INDEX index_pathology_observation_descriptions_on_code ON patholog
 --
 
 CREATE INDEX index_pathology_observation_descriptions_on_measurement_unit_id ON pathology_observation_descriptions USING btree (measurement_unit_id);
+
+
+--
+-- Name: index_pathology_observation_group_memberships_on_description_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_observation_group_memberships_on_description_id ON pathology_observation_group_memberships USING btree (description_id);
+
+
+--
+-- Name: index_pathology_observation_group_memberships_on_group_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_observation_group_memberships_on_group_id ON pathology_observation_group_memberships USING btree (group_id);
+
+
+--
+-- Name: index_pathology_observation_group_memberships_on_position; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_observation_group_memberships_on_position ON pathology_observation_group_memberships USING btree ("position");
+
+
+--
+-- Name: index_pathology_observation_group_memberships_on_sub_group; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_observation_group_memberships_on_sub_group ON pathology_observation_group_memberships USING btree (sub_group);
+
+
+--
+-- Name: index_pathology_observation_group_memberships_uniq; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pathology_observation_group_memberships_uniq ON pathology_observation_group_memberships USING btree (group_id, description_id);
+
+
+--
+-- Name: index_pathology_observation_groups_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pathology_observation_groups_on_name ON pathology_observation_groups USING btree (name);
 
 
 --
@@ -14811,6 +14948,14 @@ ALTER TABLE ONLY access_plans
 
 
 --
+-- Name: pathology_observation_group_memberships fk_rails_b9a0b304e7; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_group_memberships
+    ADD CONSTRAINT fk_rails_b9a0b304e7 FOREIGN KEY (description_id) REFERENCES pathology_observation_descriptions(id);
+
+
+--
 -- Name: problem_problems fk_rails_bbae3e065d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -14912,6 +15057,14 @@ ALTER TABLE ONLY hd_profiles
 
 ALTER TABLE ONLY pd_regime_bags
     ADD CONSTRAINT fk_rails_ca16ec591e FOREIGN KEY (regime_id) REFERENCES pd_regimes(id);
+
+
+--
+-- Name: pathology_observation_group_memberships fk_rails_cb77198a3c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_group_memberships
+    ADD CONSTRAINT fk_rails_cb77198a3c FOREIGN KEY (group_id) REFERENCES pathology_observation_groups(id);
 
 
 --
@@ -16030,6 +16183,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190401105149'),
 ('20190422095620'),
 ('20190424101709'),
-('20190511164137');
+('20190511164137'),
+('20190513135312');
 
 
