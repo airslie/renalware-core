@@ -44,7 +44,7 @@ module Renalware
         visit renal_aki_alerts_path
         select "Ward1", from: "Ward"
         click_on "Filter"
-        click_on "Print"
+        click_on "Print (PDF)"
 
         expect(page.status_code).to eq(200)
         expect(page).to have_content("AKI Alerts")

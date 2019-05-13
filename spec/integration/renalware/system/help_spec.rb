@@ -69,4 +69,19 @@ describe "Managing help files", type: :system do
     expect(page).to have_css(".help-item", count: 1)
     expect(page).to have_content("Description2")
   end
+
+  describe "viewing an attachment" do
+    it "clicking on the name opens the attachment in a new window using & increments view_count" do
+      login_as_super_admin
+      item = create(:system_help, :with_file, name: "Name1", description: "Description1")
+      visit system_help_index_path
+
+      within(".help-item") do
+        click_on "Name1"
+      end
+
+      expect(page).to have_current_path(%r{rails/active_storage.*})
+      expect(item.reload.view_count).to eq(1)
+    end
+  end
 end

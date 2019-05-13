@@ -37,7 +37,7 @@ module Renalware
         visit admissions_consults_path
         select "Yes", from: "Active"
         click_on "Filter"
-        click_on "Print"
+        click_on "Print (PDF)"
 
         expect(page.status_code).to eq(200)
         expect(page).to have_content("Admission Consults")

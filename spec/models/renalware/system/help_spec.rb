@@ -9,21 +9,21 @@ module Renalware
     it { is_expected.to validate_presence_of(:name) }
 
     describe "uniqueness" do
-      subject { described_class.new(by: create(:user)) }
+      subject { described_class.new(by: create(:user), name: "A") }
 
       it { is_expected.to validate_uniqueness_of(:name) }
     end
 
     describe "#file via ActiveStorage" do
-      subject(:help) { create(:system_help) }
+      subject(:help) { create(:system_help, :with_file) }
 
       let(:user) { help.updated_by }
 
       it "can accept an uploaded file" do
         help.file.attach(
-          io: File.open(file_fixture("README.md")),
-          filename: "README.md",
-          content_type: "text/markdown; charset=UTF-8"
+          io: File.open(file_fixture("dog.jpg")),
+          filename: "dog.jpg",
+          content_type: "image/jpg"
         )
         help.save_by!(user)
 

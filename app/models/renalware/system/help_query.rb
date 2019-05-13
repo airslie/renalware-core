@@ -9,7 +9,6 @@ module Renalware
 
       def initialize(query_params)
         @query_params = query_params || {}
-        @query_params[:s] = "name ASC" if @query_params[:s].blank?
       end
 
       def call
@@ -17,7 +16,7 @@ module Renalware
       end
 
       def search
-        @search ||= Help.ransack(query_params)
+        @search ||= Help.order(view_count: :desc, name: :asc).ransack(query_params)
       end
     end
   end

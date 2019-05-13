@@ -6635,7 +6635,8 @@ CREATE TABLE system_help (
     updated_by_id bigint NOT NULL,
     created_by_id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    view_count integer DEFAULT 0 NOT NULL
 );
 
 
@@ -16266,6 +16267,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190424101709'),
 ('20190511164137'),
 ('20190512155900'),
+('20190513131826'),
 ('20190513135312');
 
 

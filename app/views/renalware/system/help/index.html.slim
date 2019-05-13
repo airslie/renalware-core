@@ -27,7 +27,10 @@
         .details
           h3= link_to(item.name, system_help_path(item), target: "_blank")
           p= item.description
-          .updated_at= "Updated #{l(item.updated_at)} by #{item.updated_by}"
+          .updated_at
+            = "Viewed #{item.view_count} times."
+            | &nbsp;&nbsp;
+            = "Updated #{l(item.updated_at)} by #{item.updated_by}"
 
           - if policy(Renalware::System::Help).edit? || policy(Renalware::System::Help).destroy?
             .actions

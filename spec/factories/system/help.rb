@@ -9,9 +9,9 @@ FactoryBot.define do
     trait :with_file do
       after(:build) do |help|
         help.file.attach(
-          io: File.open(Renalware::Engine.root.join("spec", "fixtures", "files", "README.md")),
-          filename: "README.md",
-          content_type: "text/markdown; charset=UTF-8"
+          io: File.open(Renalware::Engine.root.join("spec", "fixtures", "files", "dog.jpg")),
+          filename: "dog.jpg",
+          content_type: "image./jpg"
         )
       end
     end

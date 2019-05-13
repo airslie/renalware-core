@@ -49,17 +49,10 @@ module Renalware
 
       # Redirects the uploaded file eg PDF etc
       def show
-        help = find_and_authorize_help
-        if help.file.attached?
-          file = help.file
-          url = Rails.application.routes.url_for(
-            controller: "active_storage/blobs",
-            action: :show,
-            signed_id: file.signed_id,
-            filename: file.filename,
-            only_path: true
-          )
-          redirect_to(url)
+        item = find_and_authorize_help
+        if item.file.attached?
+          update_view_count_for item
+          redirect_to(raw_active_storage_url_for(item.file))
         end
       end
 
@@ -83,6 +76,20 @@ module Renalware
 
       def notice
         t(".success", model_name: "Help item")
+      end
+
+      def update_view_count_for(item)
+        item.update_column(:view_count, item.view_count + 1)
+      end
+
+      def raw_active_storage_url_for(file)
+        Rails.application.routes.url_for(
+          controller: "active_storage/blobs",
+          action: :show,
+          signed_id: file.signed_id,
+          filename: file.filename,
+          only_path: true
+        )
       end
     end
   end
