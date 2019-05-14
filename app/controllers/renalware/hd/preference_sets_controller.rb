@@ -17,7 +17,7 @@ module Renalware
 
         if preference_set.update(preference_set_params)
           redirect_to patient_hd_dashboard_path(patient),
-            notice: t(".success", model_name: "HD preferences")
+                      notice: t(".success", model_name: "HD preferences")
         else
           flash.now[:error] = t(".failed", model_name: "HD preferences")
           render :edit, locals: { patient: patient, preference_set: preference_set }

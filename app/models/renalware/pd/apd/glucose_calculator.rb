@@ -63,7 +63,7 @@ module Renalware
         end
 
         def bags_having_glucose_strength(bags, strength)
-          bags.select{ |bag| bag.bag_type.glucose_strength == strength.to_sym }
+          bags.select { |bag| bag.bag_type.glucose_strength == strength.to_sym }
         end
       end
     end

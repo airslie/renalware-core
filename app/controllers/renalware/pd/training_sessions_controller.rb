@@ -22,7 +22,7 @@ module Renalware
         authorize training_session
         if training_session.save_by(current_user)
           redirect_to patient_pd_dashboard_path(patient),
-            notice: success_msg_for("training_session")
+                      notice: success_msg_for("training_session")
         else
           render :new, locals: { patient: patient, training_session: training_session }
         end
@@ -39,7 +39,7 @@ module Renalware
         authorize training_session
         if training_session.update_by(current_user, training_session_params)
           redirect_to patient_pd_dashboard_path(patient),
-            notice: success_msg_for("training_session")
+                      notice: success_msg_for("training_session")
         else
           render :edit, locals: { patient: patient, training_session: training_session }
         end

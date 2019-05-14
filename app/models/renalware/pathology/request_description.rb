@@ -9,7 +9,7 @@ module Renalware
       belongs_to :lab
       has_many :global_rule_sets, class_name: "::Renalware::Pathology::Requests::GlobalRuleSet"
       has_and_belongs_to_many :requests,
-        class_name: "::Renalware::Pathology::Requests::Request"
+                              class_name: "::Renalware::Pathology::Requests::Request"
 
       validates :lab, presence: true
 

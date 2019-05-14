@@ -25,7 +25,7 @@ module Renalware
 
       if update_user.call(update_params)
         redirect_to admin_users_path,
-          notice: t(".success", model_name: "user")
+                    notice: t(".success", model_name: "user")
       else
         flash.now[:error] = t(".failed", model_name: "user")
         render :edit

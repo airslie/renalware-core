@@ -15,7 +15,7 @@ module Renalware
       # Migrated consults may not have a type so only enforce it creation of new ones.
       validates :consult_type, presence: true, on: :create
       validates :other_site_or_ward, presence: {
-        if: ->(consult){ consult.consult_site_id.blank? && consult.hospital_ward_id.blank? }
+        if: ->(consult) { consult.consult_site_id.blank? && consult.hospital_ward_id.blank? }
       }
 
       belongs_to :patient, touch: true
@@ -26,7 +26,7 @@ module Renalware
       enumerize :transfer_priority, in: %i(unknown necessary desirable potential unnecessary)
       enumerize :aki_risk, in: %i(yes no unknown)
 
-      scope :active, ->{ where(ended_on: nil) }
+      scope :active, -> { where(ended_on: nil) }
     end
   end
 end

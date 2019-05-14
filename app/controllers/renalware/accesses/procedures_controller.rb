@@ -21,7 +21,7 @@ module Renalware
 
         if procedure.save
           redirect_to patient_accesses_dashboard_path(patient),
-            notice: t(".success", model_name: "Access procedure")
+                      notice: t(".success", model_name: "Access procedure")
         else
           flash.now[:error] = t(".failed", model_name: "Access procedure")
           render :new, locals: { patient: patient, procedure: procedure }

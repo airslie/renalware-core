@@ -18,7 +18,7 @@ module Renalware
 
         if patient_rule.save
           redirect_to patient_pathology_required_observations_path(@patient),
-            notice: t(".success", model_name: "Patient Rule")
+                      notice: t(".success", model_name: "Patient Rule")
         else
           flash.now[:error] = t(".failed", model_name: "Patient Rule")
           render_new(patient_rule)
@@ -36,7 +36,7 @@ module Renalware
 
         if patient_rule.update(patient_rule_params)
           redirect_to patient_pathology_required_observations_path(@patient),
-            notice: t(".success", model_name: "patient rule")
+                      notice: t(".success", model_name: "patient rule")
         else
           flash.now[:error] = t(".failed", model_name: "patient rule")
           render_edit(patient_rule)
@@ -47,7 +47,7 @@ module Renalware
         Requests::PatientRule.destroy(params[:id])
 
         redirect_to patient_pathology_required_observations_path(@patient),
-          notice: t(".success", model_name: "patient rule")
+                    notice: t(".success", model_name: "patient rule")
       end
 
       private

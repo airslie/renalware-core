@@ -32,7 +32,7 @@ module Renalware
 
       def values_for_codes(codes)
         codes = Array(codes)
-        values.select{ |code, _| codes.include?(code) }
+        values.select { |code, _| codes.include?(code) }
       end
 
       def self.null_values_hash

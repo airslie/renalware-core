@@ -33,13 +33,13 @@ module Renalware
 
       class Organs < Document::Embedded
         attribute :transplant_type, Document::Enum,
-          enums: %i(kidney kidney_pancreas pancreas kidney_liver liver)
+                  enums: %i(kidney kidney_pancreas pancreas kidney_liver liver)
         attribute :pancreas_only_type, Document::Enum, enums: %i(solid_organ islets)
         attribute :rejection_risk, Document::Enum, enums: %i(low standard high individualised)
         attribute :also_listed_for_kidney_only, Document::Enum, enums: %i(yes no unknown)
         attribute :to_be_listed_for_other_organs, Document::Enum, enums: %i(yes no unknown)
         attribute :received_previous_kidney_or_pancreas_grafts, Document::Enum,
-          enums: %i(yes no unknown)
+                  enums: %i(yes no unknown)
       end
       attribute :organs, Organs
 

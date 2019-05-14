@@ -146,12 +146,12 @@ module Renalware
           # Any values like "## TEST CANCELLED" etc are thus excluded from the calculation
           def values
             @values ||= begin
-              sessions.map { |session| selector.call(session) }.compact.select{ |val| number?(val) }
+              sessions.map { |session| selector.call(session) }.compact.select { |val| number?(val) }
             end
           end
 
           def total
-            @total ||= values.inject(0.0){ |sum, value| sum + value.to_f }
+            @total ||= values.inject(0.0) { |sum, value| sum + value.to_f }
           end
 
           def mean
@@ -182,7 +182,7 @@ module Renalware
         def all_systolic_blood_pressure_measurements
           all_blood_pressure_measurements
             .select(&:systolic)
-            .select{ |bp| true if Float(bp.systolic) rescue false }
+            .select { |bp| true if Float(bp.systolic) rescue false }
         end
         # rubocop:enable Style/RescueModifier
 

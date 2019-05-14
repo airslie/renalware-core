@@ -28,7 +28,7 @@ module Renalware
 
         if @drug.save
           redirect_to drugs_drugs_path,
-            notice: t(".success", model_name: "drug")
+                      notice: t(".success", model_name: "drug")
         else
           flash.now[:error] = t(".failed", model_name: "drug")
           render :new

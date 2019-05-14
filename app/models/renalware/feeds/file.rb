@@ -17,7 +17,7 @@ module Renalware
 
       enum status: { waiting: 0, processing: 1, success: 2, failure: 3 }
 
-      scope :ordered, ->{ order(created_at: :desc) }
+      scope :ordered, -> { order(created_at: :desc) }
 
       def self.build(location:, file_type:, user: SystemUser.find)
         new(

@@ -26,7 +26,7 @@ module Renalware
         body_composition = build_body_composition
         if body_composition.save
           redirect_to patient_clinical_profile_path(patient),
-          notice: t(".success", model_name: "body composition")
+                      notice: t(".success", model_name: "body composition")
         else
           flash.now[:error] = t(".failed", model_name: "body composition")
           render_new(body_composition)
@@ -43,7 +43,7 @@ module Renalware
         authorize body_composition
         if body_composition.update(body_composition_params)
           redirect_to patient_clinical_profile_path(patient),
-            notice: success_msg_for("body_composition")
+                      notice: success_msg_for("body_composition")
         else
           render :edit, locals: { patient: patient, body_composition: body_composition }
         end

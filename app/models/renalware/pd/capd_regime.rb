@@ -60,7 +60,7 @@ module Renalware
         end
 
         def daily_average
-          per_week_total = weekly_totals.inject(0.0){ |sum, volume| sum + volume }
+          per_week_total = weekly_totals.inject(0.0) { |sum, volume| sum + volume }
           per_week_total / 7.to_f
         end
       end

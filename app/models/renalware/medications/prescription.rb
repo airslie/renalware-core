@@ -28,8 +28,8 @@ module Renalware
               inverse_of: :prescription
 
       accepts_nested_attributes_for :termination,
-        update_only: true,
-        reject_if: ->(attributes) { attributes["terminated_on"].blank? }
+                                    update_only: true,
+                                    reject_if: ->(attributes) { attributes["terminated_on"].blank? }
 
       delegate :terminated_on, to: :termination, allow_nil: true
       delegate :name, to: :drug, prefix: true, allow_nil: true

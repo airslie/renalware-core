@@ -80,7 +80,7 @@ module Renalware
             self.instance_eval(&block)
           end
 
-          def inside_element(name=nil, &block)
+          def inside_element(name = nil, &block)
             return if @node.self_closing?
             return unless name.nil? or (self.name == name and is_start?)
 

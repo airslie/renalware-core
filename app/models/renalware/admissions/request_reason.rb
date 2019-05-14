@@ -7,7 +7,7 @@ module Renalware
     class RequestReason < ApplicationRecord
       acts_as_paranoid
       validates :description, presence: true
-      scope :ordered, ->{ order(description: :asc) }
+      scope :ordered, -> { order(description: :asc) }
     end
   end
 end

@@ -10,7 +10,7 @@ module Renalware
       validates :trust_name, presence: true
       validates :trust_caption, presence: true
 
-      scope :ordered, ->{ order(name: :asc) }
+      scope :ordered, -> { order(name: :asc) }
     end
   end
 end

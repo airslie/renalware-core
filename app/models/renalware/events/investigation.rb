@@ -10,10 +10,10 @@ module Renalware
     class Investigation < Event
       include Document::Base
 
-      scope :transplant_donors, lambda{
+      scope :transplant_donors, lambda {
         where("document ->> 'modality' = ?", "transplant_donor")
       }
-      scope :transplant_recipients, lambda{
+      scope :transplant_recipients, lambda {
         where("document ->> 'modality' = ?", "transplant_recipient")
       }
 

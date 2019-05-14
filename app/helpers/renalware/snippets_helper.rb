@@ -18,9 +18,9 @@ module Renalware
                              target: target_input_for_seleted_snippet
                            })
         concat link_to t("snippets.insert"),
-                        snippets_path(format: :js),
-                        class: "button alternative right insert-snippet-button",
-                        remote: true
+                       snippets_path(format: :js),
+                       class: "button alternative right insert-snippet-button",
+                       remote: true
       end
     end
   end
