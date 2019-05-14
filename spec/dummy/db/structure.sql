@@ -5944,7 +5944,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -6023,7 +6023,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -6591,6 +6591,42 @@ ALTER SEQUENCE system_countries_id_seq OWNED BY system_countries.id;
 
 
 --
+-- Name: system_downloads; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE system_downloads (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description character varying,
+    deleted_at timestamp without time zone,
+    updated_by_id bigint NOT NULL,
+    created_by_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    view_count integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: system_downloads_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE system_downloads_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_downloads_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE system_downloads_id_seq OWNED BY system_downloads.id;
+
+
+--
 -- Name: system_events; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -6621,42 +6657,6 @@ CREATE SEQUENCE system_events_id_seq
 --
 
 ALTER SEQUENCE system_events_id_seq OWNED BY system_events.id;
-
-
---
--- Name: system_help; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE system_help (
-    id bigint NOT NULL,
-    name character varying NOT NULL,
-    description character varying,
-    deleted_at timestamp without time zone,
-    updated_by_id bigint NOT NULL,
-    created_by_id bigint NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    view_count integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: system_help_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE system_help_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: system_help_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE system_help_id_seq OWNED BY system_help.id;
 
 
 --
@@ -8557,17 +8557,17 @@ ALTER TABLE ONLY system_countries ALTER COLUMN id SET DEFAULT nextval('system_co
 
 
 --
+-- Name: system_downloads id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_downloads ALTER COLUMN id SET DEFAULT nextval('system_downloads_id_seq'::regclass);
+
+
+--
 -- Name: system_events id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
 ALTER TABLE ONLY system_events ALTER COLUMN id SET DEFAULT nextval('system_events_id_seq'::regclass);
-
-
---
--- Name: system_help id; Type: DEFAULT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY system_help ALTER COLUMN id SET DEFAULT nextval('system_help_id_seq'::regclass);
 
 
 --
@@ -9884,19 +9884,19 @@ ALTER TABLE ONLY system_countries
 
 
 --
+-- Name: system_downloads system_downloads_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_downloads
+    ADD CONSTRAINT system_downloads_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: system_events system_events_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
 ALTER TABLE ONLY system_events
     ADD CONSTRAINT system_events_pkey PRIMARY KEY (id);
-
-
---
--- Name: system_help system_help_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY system_help
-    ADD CONSTRAINT system_help_pkey PRIMARY KEY (id);
 
 
 --
@@ -13007,6 +13007,34 @@ CREATE INDEX index_system_countries_on_position ON system_countries USING btree 
 
 
 --
+-- Name: index_system_downloads_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_downloads_on_created_by_id ON system_downloads USING btree (created_by_id);
+
+
+--
+-- Name: index_system_downloads_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_downloads_on_deleted_at ON system_downloads USING btree (deleted_at);
+
+
+--
+-- Name: index_system_downloads_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_system_downloads_on_name ON system_downloads USING btree (name);
+
+
+--
+-- Name: index_system_downloads_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_downloads_on_updated_by_id ON system_downloads USING btree (updated_by_id);
+
+
+--
 -- Name: index_system_events_on_name_and_time; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -13032,34 +13060,6 @@ CREATE INDEX index_system_events_on_user_id ON system_events USING btree (user_i
 --
 
 CREATE INDEX index_system_events_on_visit_id ON system_events USING btree (visit_id);
-
-
---
--- Name: index_system_help_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_system_help_on_created_by_id ON system_help USING btree (created_by_id);
-
-
---
--- Name: index_system_help_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_system_help_on_deleted_at ON system_help USING btree (deleted_at);
-
-
---
--- Name: index_system_help_on_name; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_system_help_on_name ON system_help USING btree (name);
-
-
---
--- Name: index_system_help_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_system_help_on_updated_by_id ON system_help USING btree (updated_by_id);
 
 
 --
@@ -14230,6 +14230,14 @@ ALTER TABLE ONLY admission_admissions
 
 
 --
+-- Name: system_downloads fk_rails_42cdf8956b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_downloads
+    ADD CONSTRAINT fk_rails_42cdf8956b FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: system_user_feedback fk_rails_4cc9cf2dca; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -14534,6 +14542,14 @@ ALTER TABLE ONLY research_study_participants
 
 
 --
+-- Name: system_downloads fk_rails_8344ecfc27; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_downloads
+    ADD CONSTRAINT fk_rails_8344ecfc27 FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: research_study_participants fk_rails_87bef0e757; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -14774,14 +14790,6 @@ ALTER TABLE ONLY patient_alerts
 
 
 --
--- Name: system_help fk_rails_a039f696fc; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY system_help
-    ADD CONSTRAINT fk_rails_a039f696fc FOREIGN KEY (created_by_id) REFERENCES users(id);
-
-
---
 -- Name: pathology_request_descriptions fk_rails_a0b9cd97fe; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -14835,14 +14843,6 @@ ALTER TABLE ONLY hd_patient_statistics
 
 ALTER TABLE ONLY pd_regimes
     ADD CONSTRAINT fk_rails_a70920e237 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
--- Name: system_help fk_rails_a740179cd4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY system_help
-    ADD CONSTRAINT fk_rails_a740179cd4 FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --

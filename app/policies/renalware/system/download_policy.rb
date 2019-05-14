@@ -4,7 +4,7 @@ require_dependency "renalware/snippets"
 
 module Renalware
   module System
-    class HelpPolicy < BasePolicy
+    class DownloadPolicy < BasePolicy
       def new?
         user_is_super_admin?
       end

@@ -4,7 +4,7 @@ namespace :system do
   resources :email_templates, only: :index
   resources :user_feedback, except: :destroy, controller: "user_feedback"
   resources :messages
-  resources :help
+  resources :downloads
 end
 
 match "/404", to: "system/errors#not_found", via: :all

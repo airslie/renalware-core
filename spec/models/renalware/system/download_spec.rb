@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  describe System::Help, type: :model do
+  describe System::Download, type: :model do
     it_behaves_like "a Paranoid model"
     it_behaves_like "an Accountable model"
     it { is_expected.to validate_presence_of(:name) }
@@ -15,26 +15,26 @@ module Renalware
     end
 
     describe "#file via ActiveStorage" do
-      subject(:help) { create(:system_help, :with_file) }
+      subject(:download) { create(:system_download, :with_file) }
 
-      let(:user) { help.updated_by }
+      let(:user) { download.updated_by }
 
       it "can accept an uploaded file" do
-        help.file.attach(
+        download.file.attach(
           io: File.open(file_fixture("dog.jpg")),
           filename: "dog.jpg",
           content_type: "image/jpg"
         )
-        help.save_by!(user)
+        download.save_by!(user)
 
-        expect(help.file).to be_attached
+        expect(download.file).to be_attached
       end
 
       it "validates the presence of #file" do
-        help_item = build(:system_help, file: nil)
+        download = build(:system_download, file: nil)
 
-        expect(help_item).not_to be_valid
-        expect(help_item.errors.first).to eq([:file, "Please specify a file to upload"])
+        expect(download).not_to be_valid
+        expect(download.errors.first).to eq([:file, "Please specify a file to upload"])
       end
     end
   end

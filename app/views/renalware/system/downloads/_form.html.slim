@@ -1,7 +1,7 @@
-= render "renalware/shared/errors", model: help_item
-= simple_form_for help_item,
-                  url: help_item.new_record? ? system_help_index_path : system_help_path(help_item),
-                  as: :help,
+= render "renalware/shared/errors", model: download
+= simple_form_for download,
+                  url: download.new_record? ? system_downloads_path : system_download_path(download),
+                  as: :download,
                   html: { autocomplete: "off" },
                   wrapper: "horizontal_form" do |form|
 

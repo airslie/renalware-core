@@ -4,7 +4,7 @@ require_dependency "renalware/system"
 
 module Renalware
   module System
-    class HelpQuery
+    class DownloadQuery
       attr_reader :query_params
 
       def initialize(query_params)
@@ -16,7 +16,7 @@ module Renalware
       end
 
       def search
-        @search ||= Help.order(view_count: :desc, name: :asc).ransack(query_params)
+        @search ||= Download.order(view_count: :desc, name: :asc).ransack(query_params)
       end
     end
   end

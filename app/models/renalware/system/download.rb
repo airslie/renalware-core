@@ -4,7 +4,7 @@ require_dependency "renalware/system"
 
 module Renalware
   module System
-    class Help < ApplicationRecord
+    class Download < ApplicationRecord
       include Accountable
       acts_as_paranoid
       validates :name, presence: true, uniqueness: true

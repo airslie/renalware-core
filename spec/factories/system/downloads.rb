@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :system_help, class: "Renalware::System::Help" do
+  factory :system_download, class: "Renalware::System::Download" do
     accountable
     name { Faker::File.file_name }
     description { Faker::Lorem.sentence }
