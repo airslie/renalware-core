@@ -47,7 +47,7 @@ module Renalware
       def update
         if @clinic_visit.update(visit_params)
           redirect_to patient_clinic_visits_path(@patient),
-            notice: t(".success", model_name: "clinic visit")
+                      notice: t(".success", model_name: "clinic visit")
         else
           flash.now[:error] = t(".failed", model_name: "clinic visit")
           render :edit
@@ -57,7 +57,7 @@ module Renalware
       def destroy
         @clinic_visit.destroy
         redirect_to patient_clinic_visits_path(@patient),
-          notice: t(".success", model_name: "clinic visit")
+                    notice: t(".success", model_name: "clinic visit")
       end
 
       private

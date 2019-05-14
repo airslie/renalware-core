@@ -25,7 +25,7 @@ module Renalware
 
         if recipient_followup.save
           redirect_to patient_transplants_recipient_dashboard_path(patient),
-            notice: t(".success", model_name: "recipient follow up")
+                      notice: t(".success", model_name: "recipient follow up")
         else
           flash.now[:error] = t(".failed", model_name: "recipient follow up")
           render :new, locals: { patient: patient, recipient_followup: recipient_followup }
@@ -45,7 +45,7 @@ module Renalware
 
         if recipient_followup.save
           redirect_to patient_transplants_recipient_dashboard_path(patient),
-            notice: t(".success", model_name: "recipient follow up")
+                      notice: t(".success", model_name: "recipient follow up")
         else
           flash.now[:error] = t(".failed", model_name: "recipient follow up")
           render :edit,

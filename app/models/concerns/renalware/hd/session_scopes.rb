@@ -13,10 +13,10 @@ module Renalware
                 type: Session::Closed.sti_name,
                 signed_off_at: range
               }).or(
-          where(hd_sessions: {
-                  type: Session::DNA.sti_name,
-                  performed_on: range
-                }))
+                where(hd_sessions: {
+                        type: Session::DNA.sti_name,
+                        performed_on: range
+                      }))
       end
 
       def with_finished_sessions

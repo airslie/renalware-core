@@ -11,7 +11,7 @@ module Renalware
       validates :name, presence: true, uniqueness: { scope: :hospital_unit_id }
 
       scope :ordered, -> { order(:name) }
-      scope :active, ->{ where(active: true) }
+      scope :active, -> { where(active: true) }
 
       def self.policy_class
         BasePolicy

@@ -10,7 +10,7 @@ module Renalware
         has_many :receipts, dependent: :destroy
         has_many :recipients, through: :receipts
         belongs_to :replying_to_message, class_name: name
-        scope :ordered, ->{ order(sent_at: :desc) }
+        scope :ordered, -> { order(sent_at: :desc) }
       end
     end
   end

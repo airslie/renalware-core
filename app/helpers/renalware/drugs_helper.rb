@@ -6,7 +6,7 @@ module Renalware
       options_for_select(
         Drugs::Type
           .all
-          .reject{ |dt| dt.name == "Peritonitis" }
+          .reject { |dt| dt.name == "Peritonitis" }
           .map { |dt| [dt.name, dt.name.downcase] }
       )
     end

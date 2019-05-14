@@ -49,11 +49,11 @@ module Renalware
       # Renders all patients hospital numbers in the format e.g.
       # "KCH: X12344 QEH: 12123123 XXX: Xxxxx ..."
       def to_s
-        all.map{ |name, hosp_no| "#{name}: #{hosp_no}" }.join(" ")
+        all.map { |name, hosp_no| "#{name}: #{hosp_no}" }.join(" ")
       end
 
       def to_s_multiline
-        all.map{ |name, hosp_no| "#{name}: #{hosp_no}" }.join("<br>").html_safe
+        all.map { |name, hosp_no| "#{name}: #{hosp_no}" }.join("<br>").html_safe
       end
 
       # Returns true if the  patient has a hospital number at the requested hospital.

@@ -33,12 +33,12 @@ module Renalware
     end
 
     def flash_messages
-      flash.to_hash.reject{ |key| key.to_sym == :timedout }
+      flash.to_hash.reject { |key| key.to_sym == :timedout }
     end
 
     # For use in pages
     def page_heading(title)
-      content_for(:page_title){ title.html_safe }
+      content_for(:page_title) { title.html_safe }
     end
 
     def t?(key)

@@ -20,7 +20,7 @@ module Renalware
 
       enumerize :priority, in: %i(low medium high urgent)
 
-      scope :ordered, ->{ order(position: :asc) }
+      scope :ordered, -> { order(position: :asc) }
     end
   end
 end

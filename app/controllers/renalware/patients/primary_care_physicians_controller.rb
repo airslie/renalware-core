@@ -37,7 +37,7 @@ module Renalware
 
         if @primary_care_physician.save
           redirect_to patients_primary_care_physicians_path,
-            notice: t(".success", model_name: "primary_care_physician")
+                      notice: t(".success", model_name: "primary_care_physician")
         else
           @alternative_address = alternative_address
           flash.now[:error] = t(".failed", model_name: "primary_care_physician")
@@ -57,7 +57,7 @@ module Renalware
         authorize PrimaryCarePhysician.destroy(params[:id])
 
         redirect_to patients_primary_care_physicians_path,
-          notice: t(".success", model_name: "primary_care_physician")
+                    notice: t(".success", model_name: "primary_care_physician")
       end
 
       private

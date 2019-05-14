@@ -17,7 +17,7 @@ module Renalware
             log "PrimaryCarePhysician count before update: #{primary_care_physician_count}"
             file.update!(status: :processing, attempts: file.attempts + 1)
             status = :success
-            elapsed_ms = Benchmark.ms{ process_archive(file.location) }
+            elapsed_ms = Benchmark.ms { process_archive(file.location) }
             log "PrimaryCarePhysician count after update: #{primary_care_physician_count}"
           rescue StandardError => e
             Rails.logger.error(formatted_exception(e))

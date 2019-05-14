@@ -17,7 +17,7 @@ module Renalware
                 "#{inactive_practice_membership_count} inactive practice memberships"
             file.update!(status: :processing, attempts: file.attempts + 1)
             status = :success
-            elapsed_ms = Benchmark.ms{ process_archive(file.location) }
+            elapsed_ms = Benchmark.ms { process_archive(file.location) }
             log "After upload there are #{practice_membership_count} active and "\
                 "#{inactive_practice_membership_count} inactive practice memberships"
           rescue StandardError => e

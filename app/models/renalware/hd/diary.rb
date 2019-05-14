@@ -20,7 +20,7 @@ module Renalware
       validates :master, inclusion: { in: [true, false], allow_nil: true }
       composed_of :week,
                   mapping: [%w(week_number week_number), %w(year year)],
-                  constructor: lambda{ |week_number, year|
+                  constructor: lambda { |week_number, year|
                     WeekPeriod.new(week_number: week_number, year: year)
                   }
 

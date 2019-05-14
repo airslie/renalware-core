@@ -12,7 +12,7 @@ module Renalware
       end
 
       def exit_site_infections
-        patient.exit_site_infections.map{ |esi| ExitSiteInfectionDrop.new(esi) }
+        patient.exit_site_infections.map { |esi| ExitSiteInfectionDrop.new(esi) }
       end
 
       private

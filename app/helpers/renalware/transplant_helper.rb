@@ -28,7 +28,7 @@ module Renalware
 
     def recipient_operation_breadcrumb(patient, operation)
       breadcrumb_for("Recipient Operation",
-                      patient_transplants_recipient_operation_path(patient, operation))
+                     patient_transplants_recipient_operation_path(patient, operation))
     end
 
     def recipient_operation_breadcrumbs(patient, operation)
@@ -40,7 +40,7 @@ module Renalware
 
     def recipient_workup_breadcrumb(patient, workup)
       breadcrumb_for("Recipient Workup",
-                      patient_transplants_recipient_workup_path(patient, workup))
+                     patient_transplants_recipient_workup_path(patient, workup))
     end
 
     def recipient_workup_breadcrumbs(patient, workup)

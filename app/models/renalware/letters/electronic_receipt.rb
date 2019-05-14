@@ -15,7 +15,7 @@ module Renalware
       validates :recipient_id, presence: true
 
       # Merge scope here to make sure we only get approved letters
-      scope :sent_by, lambda{ |user_id|
+      scope :sent_by, lambda { |user_id|
         joins(:letter)
           .merge(Letter::Approved.all)
           .where(letter_letters: { author_id: user_id })

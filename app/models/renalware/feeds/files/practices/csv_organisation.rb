@@ -28,7 +28,7 @@ module Renalware
           end
 
           def to_a
-            self.class.headers.map{ |key| public_send(key) }
+            self.class.headers.map { |key| public_send(key) }
           end
         end
       end

@@ -67,7 +67,7 @@ module Renalware
       end
 
       def find_an_authorise_ward
-        unit.wards.find(params[:id]).tap{ |ward| authorize(ward) }
+        unit.wards.find(params[:id]).tap { |ward| authorize(ward) }
       end
 
       def ward_params

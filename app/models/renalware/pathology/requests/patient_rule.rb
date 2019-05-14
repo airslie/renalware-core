@@ -13,7 +13,7 @@ module Renalware
         belongs_to :patient, class_name: "::Renalware::Pathology::Patient"
         belongs_to :lab, class_name: "::Renalware::Pathology::Lab"
         has_and_belongs_to_many :requests,
-          class_name: "::Renalware::Pathology::Requests::Request"
+                                class_name: "::Renalware::Pathology::Requests::Request"
 
         validates :lab, presence: true
         validates :test_description, presence: true

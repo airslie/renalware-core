@@ -62,7 +62,7 @@ module Renalware
       private
 
       def build_new_prescription_for(treatable)
-        gp_provider_code = Provider.codes.find{ |code| code == :gp }
+        gp_provider_code = Provider.codes.find { |code| code == :gp }
         prescription = Prescription.new(treatable: treatable, provider: gp_provider_code)
         prescription.build_termination
         prescription

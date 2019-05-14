@@ -38,12 +38,12 @@ module Renalware
 
         def render_new(form)
           render :new,
-                  locals: {
-                    form: form,
-                    recipient_options: RecipientOptions.new(patient, author).to_a,
-                    patient: patient
-                  },
-                  layout: false
+                 locals: {
+                   form: form,
+                   recipient_options: RecipientOptions.new(patient, author).to_a,
+                   patient: patient
+                 },
+                 layout: false
         end
 
         def render_create(message)

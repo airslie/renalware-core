@@ -17,7 +17,7 @@ module Renalware
 
         if bag_type.save
           redirect_to pd_bag_types_path,
-            notice: t(".success", model_name: "bag type")
+                      notice: t(".success", model_name: "bag type")
         else
           flash.now[:error] = t(".failed", model_name: "bag type")
           render :new, locals: { bag_type: bag_type }
@@ -38,7 +38,7 @@ module Renalware
         bag_type = load_and_authorize_bag_type
         if bag_type.update(bag_type_params)
           redirect_to pd_bag_types_path,
-            notice: t(".success", model_name: "bag type")
+                      notice: t(".success", model_name: "bag type")
         else
           flash.now[:error] = t(".failed", model_name: "bag type")
           render :edit, locals: { bag_type: bag_type }

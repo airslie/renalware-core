@@ -16,7 +16,7 @@ module Renalware
       validates :master, inclusion: { in: [false], allow_nil: false }
       validates :master_diary, presence: true
       delegate :to_s, to: :week
-      scope :ordered, ->{ order(year: :desc, week_number: :desc) }
+      scope :ordered, -> { order(year: :desc, week_number: :desc) }
 
       def applies_to_current_week?
         today = Time.zone.today

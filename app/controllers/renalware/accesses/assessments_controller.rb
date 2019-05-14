@@ -22,7 +22,7 @@ module Renalware
 
         if assessment.save_by(current_user)
           redirect_to patient_accesses_dashboard_path(patient),
-            notice: t(".success", model_name: "Access assessment")
+                      notice: t(".success", model_name: "Access assessment")
         else
           flash.now[:error] = t(".failed", model_name: "Access assessment")
           render_new(assessment)
@@ -38,7 +38,7 @@ module Renalware
 
         if assessment.update_by(current_user, assessment_params)
           redirect_to patient_accesses_dashboard_path(patient),
-            notice: t(".success", model_name: "Access assessment")
+                      notice: t(".success", model_name: "Access assessment")
         else
           flash.now[:error] = t(".failed", model_name: "Access assessment")
           render_edit(assessment)

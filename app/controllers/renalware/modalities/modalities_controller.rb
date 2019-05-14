@@ -62,7 +62,7 @@ module Renalware
           }
         else
           redirect_to patient_modalities_path(patient),
-            notice: t(".success", model_name: "modality")
+                      notice: t(".success", model_name: "modality")
         end
       end
       # rubocop:enable Metrics/MethodLength

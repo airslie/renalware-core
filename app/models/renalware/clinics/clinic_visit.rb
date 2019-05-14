@@ -29,7 +29,7 @@ module Renalware
       enumerize :urine_blood, in: %i(neg trace very_low low medium high)
       enumerize :urine_protein, in: %i(neg trace very_low low medium high)
 
-      scope :ordered, ->{ order(date: :desc, created_at: :desc) }
+      scope :ordered, -> { order(date: :desc, created_at: :desc) }
       scope :most_recent_for_patient, ->(patient) { for_patient(patient).ordered.limit(1) }
 
       def bmi

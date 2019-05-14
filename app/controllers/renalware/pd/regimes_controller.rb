@@ -46,7 +46,7 @@ module Renalware
 
         if result.success?
           redirect_to patient_pd_dashboard_path(patient),
-            notice: t(".success", model_name: "PD regime")
+                      notice: t(".success", model_name: "PD regime")
         else
           flash.now[:error] = t(".failed", model_name: "PD regime")
           render :edit, locals: {

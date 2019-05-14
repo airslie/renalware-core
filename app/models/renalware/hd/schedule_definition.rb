@@ -33,7 +33,7 @@ module Renalware
       # ABBREV_DAY_NAMES is a 0-based array, so we have to subtract 1 from our days of the week
       # when mapping to a day name string.
       def to_s
-        day_names = days.map{ |day_number| ABBREV_DAY_NAMES[day_number - 1] }.join(" ")
+        day_names = days.map { |day_number| ABBREV_DAY_NAMES[day_number - 1] }.join(" ")
         "#{day_names} #{diurnal_period.code.upcase}".strip
       end
 
