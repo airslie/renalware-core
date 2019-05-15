@@ -1,0 +1,11 @@
+= render "renalware/shared/errors", model: download
+= simple_form_for download,
+                  url: download.new_record? ? system_downloads_path : system_download_path(download),
+                  as: :download,
+                  html: { autocomplete: "off" },
+                  wrapper: "horizontal_form" do |form|
+
+  = form.input :name
+  = form.input :description, as: :text
+  = form.input :file, as: :file
+  = form.submit "Save", class: :button
