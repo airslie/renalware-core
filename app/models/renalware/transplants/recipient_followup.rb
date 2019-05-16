@@ -22,6 +22,7 @@ module Renalware
       has_document class_name: "Renalware::Transplants::RecipientFollowupDocument"
 
       validates :stent_removed_on, timeliness: { type: :date, allow_blank: true }
+      validates :graft_nephrectomy_on, timeliness: { type: :date, allow_blank: true }
       validates :transplant_failed_on, timeliness: { type: :date, allow_blank: true }
       validates :transplant_failed_on,
                 presence: true,

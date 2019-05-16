@@ -33,10 +33,7 @@ module Renalware
       end
 
       def edit
-        render locals: {
-          patient: patient,
-          recipient_followup: operation.followup
-        }
+        render_edit(operation.followup)
       end
 
       def update
@@ -45,18 +42,21 @@ module Renalware
 
         if recipient_followup.save
           redirect_to patient_transplants_recipient_dashboard_path(patient),
-                      notice: t(".success", model_name: "recipient follow up")
+                      notice: success_msg_for("recipient follow up")
         else
-          flash.now[:error] = t(".failed", model_name: "recipient follow up")
-          render :edit,
-                 locals: {
-                   patient: patient,
-                   recipient_followup: recipient_followup
-                 }
+          flash.now[:error] = failed_msg_for("recipient follow up")
+          render_edit(recipient_followup)
         end
       end
 
       protected
+
+      def render_edit(followup)
+        render :edit, locals: {
+          patient: patient,
+          recipient_followup: followup
+        }
+      end
 
       def operation
         @operation ||= RecipientOperation.find(params[:recipient_operation_id])
@@ -78,6 +78,7 @@ module Renalware
           :transplant_failure_cause_description_id,
           :transplant_failure_cause_other,
           :transplant_failure_notes,
+          :graft_nephrectomy_on,
           document: []
         ]
       end
