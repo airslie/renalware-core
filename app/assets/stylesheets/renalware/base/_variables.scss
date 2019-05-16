@@ -105,6 +105,7 @@ $table-even-row-colour: #fcfcfc;
 $table-border-colour: #ccc;
 $table-toggled-content-colour: #fefff1;
 $table-urgent-colour: $nhs-yellow;
+$table-row-hover-colour: #f9f9f9;
 
 $patient-menu-background-colour: #eee;
 $menu-divider-colour: #e6e6e6;
@@ -130,7 +131,7 @@ $hd-weekly-diary-hover-colour: lighten($hd-weekly-diary-colour, 25);
 //
 $dl-horizontal-dt-width: 9rem;
 
-$patient-side-nav-width: 15rem;
+$patient-side-nav-width: 14.5rem;
 
 // Select2
 $select2-input-height: 2.2rem;

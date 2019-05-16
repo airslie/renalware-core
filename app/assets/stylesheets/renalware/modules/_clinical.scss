@@ -33,7 +33,7 @@ article.clinical-allergies {
 }
 
 .lozenge {
-  padding: .2em .3rem 0 .3rem;
+  padding: 0 .3rem;
 
   ul {
     li {
@@ -41,10 +41,11 @@ article.clinical-allergies {
       border: 0;
       border-radius: 0.3rem;
       display: inline-block;
-      margin: 0.1rem 0.3rem 0.2rem 0;
-      margin: 0.2rem .6rem .2rem 0;
+      // margin: 0.1rem 0.3rem 0.2rem 0;
+      margin: 0.1rem .6rem .2rem 0;
       padding: 0.3rem 0.3rem 0 .2rem;
-      padding: 0
+      padding: 0;
+      //padding: .2em .3rem 0 .3rem;
     }
   }
 }
@@ -73,7 +74,7 @@ article.clinical-allergies {
 
     dl {
       font-size: 0.9rem;
-      line-height: 0.9rem;
+      line-height: 0.8rem;
       margin: 0;
       padding: 0;
     }
@@ -125,8 +126,21 @@ article.clinical-allergies {
   }
 }
 
+.patient-alerts--sticky {
+  /*
+  Using  position: sticky is in Chrome 56 and recent Firefox and will not work in IE11
+  but is a simple way for us to fix the alerts under the patient banner when the user
+  has scroll downn, so they are always there
+  https://gedd.ski/post/position-sticky/
+  */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
 .patient-alerts {
   color: $white;
+  background-color: transparent;
 
   @media print {
     display: none;
@@ -135,6 +149,7 @@ article.clinical-allergies {
   &.lozenge {
     ul {
       margin: 0;
+      //margin-top: 1px;
       //font-size: 0.9rem;
 
       li {
@@ -142,8 +157,9 @@ article.clinical-allergies {
         color: $white;
         display: inline-block;
         margin: 0 .3rem 0 0;
-        margin: 0.1rem 0.3rem 0.2rem 0;
+        margin: 0.1rem 0.3rem 0.1rem 0;
         padding: 0 .4rem;
+        line-height: 1.7rem;
 
         &:hover {
           background-color: darken($nhs-orange, 5);

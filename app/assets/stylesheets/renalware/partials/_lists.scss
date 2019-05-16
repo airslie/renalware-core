@@ -2,6 +2,7 @@
 .dl-horizontal {
   margin-bottom: 0;
   margin-top: 0;
+  line-height: 1.5rem;
 
   p {
     padding-left: 0;
@@ -10,10 +11,20 @@
   dt,
   dd {
     font-weight: normal;
+    // border-top: dotted 1px #ddd;
+
+    // &:first-child {
+    //   border-top: none;
+    // }
+
 
     &.inset {
       margin-left: 0.8em;
     }
+  }
+
+  dd:nth-child(2) {
+    border-top: none;
   }
 
   dt {
