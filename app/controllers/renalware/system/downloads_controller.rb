@@ -3,6 +3,7 @@
 module Renalware
   module System
     class DownloadsController < BaseController
+      skip_after_action :verify_policy_scoped
       include Concerns::Pageable
 
       def index
