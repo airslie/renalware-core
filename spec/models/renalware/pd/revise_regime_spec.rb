@@ -24,12 +24,12 @@ module Renalware
 
           it "does not create a new regime" do
             command = ReviseRegime.new(regime)
-            expect{ command.call(by: user, params: params) }.not_to change(Regime, :count)
+            expect { command.call(by: user, params: params) }.not_to change(Regime, :count)
           end
 
           it "does not terminate the regime" do
             command = ReviseRegime.new(regime)
-            expect{ command.call(by: user, params: params) }
+            expect { command.call(by: user, params: params) }
               .not_to change(RegimeTermination, :count)
           end
 
@@ -48,7 +48,7 @@ module Renalware
           end
 
           it "does not terminate the regime" do
-            expect{ ReviseRegime.new(regime).call(by: user, params: params) }
+            expect { ReviseRegime.new(regime).call(by: user, params: params) }
               .not_to change(RegimeTermination, :count)
           end
         end

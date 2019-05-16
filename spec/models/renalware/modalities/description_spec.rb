@@ -8,13 +8,13 @@ module Renalware
     it { is_expected.to validate_presence_of :name }
 
     describe "#validation" do
-      subject{ described_class.new(name: "P") }
+      subject { described_class.new(name: "P") }
 
       it { is_expected.to validate_uniqueness_of :name }
     end
 
     describe "#augmented_name_for(patient)" do
-      subject{ described_class.new(name: "XYZ").augmented_name_for(patient) }
+      subject { described_class.new(name: "XYZ").augmented_name_for(patient) }
 
       let(:patient) { nil }
 

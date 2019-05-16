@@ -7,7 +7,7 @@ module Renalware::HD
     it { is_expected.to validate_presence_of(:code) }
 
     describe "#code uniqueness" do
-      subject{ described_class.new(code: "AM") }
+      subject { described_class.new(code: "AM") }
 
       it { is_expected.to validate_uniqueness_of(:code) }
     end

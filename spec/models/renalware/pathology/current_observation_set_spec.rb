@@ -37,7 +37,7 @@ module Renalware
           set.save!
 
           set.reload
-          expect(set.values_for_codes("HGB")).to eq({ "HGB" => hgb })
+          expect(set.values_for_codes("HGB")).to eq("HGB" => hgb)
         end
       end
 
@@ -46,7 +46,7 @@ module Renalware
           it "creating an observation adds it to the current_observation_set jsonb hash" do
             time = Time.now.utc
             patient = create(:pathology_patient)
-            expect{
+            expect {
               create_hgb_observation(patient: patient, observed_at: time, result: 123.1)
             }.to change(CurrentObservationSet, :count).by(1)
             # trigger has now updated the current_observation_set
@@ -69,7 +69,7 @@ module Renalware
               expect_obs_to_match(hgb, 111.1, time)
 
               new_time = time + 1.hour
-              expect{
+              expect {
                 obs = create_hgb_observation(patient: patient, observed_at: new_time, result: 222.2)
               }.to change(CurrentObservationSet, :count).by(0)
               # trigger has now updated the current_observation_set
@@ -91,7 +91,7 @@ module Renalware
               hgb = obs_set.values[:HGB]
               expect_obs_to_match(hgb, obs.result, time)
 
-              expect{
+              expect {
                 obs = create_hgb_observation(
                   patient: patient,
                   observed_at: time - 1.hour, # an older date,

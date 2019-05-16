@@ -162,10 +162,10 @@ module Renalware
       it "soft deletes the consult and sets the ended_on date to today" do
         consult = create_consult
 
-        expect{
+        expect {
           delete admissions_consult_path(consult)
         }
-        .to change{ Admissions::Consult.active.count }.by(-1)
+        .to change { Admissions::Consult.active.count }.by(-1)
 
         expect(consult.reload.ended_on).not_to be_nil
       end
@@ -175,10 +175,10 @@ module Renalware
           consult = create_consult
           consult.update_columns(consult_type: nil)
 
-          expect{
+          expect {
             delete admissions_consult_path(consult)
           }
-          .to change{ Admissions::Consult.active.count }.by(-1)
+          .to change { Admissions::Consult.active.count }.by(-1)
         end
       end
     end

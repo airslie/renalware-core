@@ -21,7 +21,7 @@ module Renalware
                 uploaded_file: path_to_zipfile,
                 user: user
               )
-            }.to change{ Feeds::File.count }.by(1)
+            }.to change { Feeds::File.count }.by(1)
 
             expect(file.file_type).to eq(file_type)
             expect(file.created_by_id).to eq(user.id)

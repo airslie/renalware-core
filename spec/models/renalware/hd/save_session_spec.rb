@@ -13,7 +13,7 @@ module Renalware
 
         it "expects session params to contain type" do
           obj = SaveSession.new(patient: patient, current_user: user)
-          expect{ obj.call(params: {}, signing_off: false, id: nil) }.to raise_error(ArgumentError)
+          expect { obj.call(params: {}, signing_off: false, id: nil) }.to raise_error(ArgumentError)
         end
 
         it "broadcasts an event on success" do
@@ -83,8 +83,8 @@ module Renalware
 
           # Create a listener to receive broadcast success or failure from SaveSession
           MyListener = Class.new do
-            define_method :save_success, ->(session){ saved_session = session }
-            define_method :save_failure, ->(_session){ fail("should not get here") }
+            define_method :save_success, ->(session) { saved_session = session }
+            define_method :save_failure, ->(_session) { fail("should not get here") }
           end
           obj.subscribe MyListener.new
 

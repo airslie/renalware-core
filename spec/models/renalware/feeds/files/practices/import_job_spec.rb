@@ -17,11 +17,11 @@ module Renalware
               )
               create(:united_kingdom)
 
-              expect{
+              expect {
                 described_class.new.perform(file)
               }
-              .to change{ Patients::Practice.count }.by(4)
-              .and change{ Patients::Practice.deleted.count }.by(1)
+              .to change { Patients::Practice.count }.by(4)
+              .and change { Patients::Practice.deleted.count }.by(1)
             end
           end
         end

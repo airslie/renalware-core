@@ -11,7 +11,7 @@ module Renalware::Letters
     let(:user) { build(:user) }
     let(:primary_care_physician) { build(:letter_primary_care_physician) }
     let(:practice) do
-      build(:practice).tap{ |prac| prac.build_address(attributes_for(:address)) }
+      build(:practice).tap { |prac| prac.build_address(attributes_for(:address)) }
     end
     let(:patient) do
       build(

@@ -16,7 +16,7 @@ module Renalware
 
           Worry.create!(patient: patient, by: user)
 
-          expect{ Worry.create!(patient: patient, by: user) }
+          expect { Worry.create!(patient: patient, by: user) }
             .to raise_error(ActiveRecord::RecordInvalid)
         end
       end

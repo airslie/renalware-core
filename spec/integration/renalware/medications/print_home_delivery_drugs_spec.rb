@@ -29,7 +29,7 @@ RSpec.describe "Printing home delivery drugs from the patient prescriptions page
       it "responds with an inlined PDF by default" do
         get patient_medications_home_delivery_prescriptions_path(patient)
 
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response["Content-Type"]).to eq("application/pdf")
         expected_filename = "#{patient.local_patient_id} prescriptions-for-home-delivery.pdf"
         expect(response["Content-Disposition"]).to eq("inline; filename=\"#{expected_filename}\"")
@@ -44,7 +44,7 @@ RSpec.describe "Printing home delivery drugs from the patient prescriptions page
 
         get patient_medications_home_delivery_prescriptions_path(patient, format: :pdf, debug: 1)
 
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response["Content-Type"]).to eq("text/html; charset=utf-8")
         expect(response.body).to include("Home Delivery Medication List")
         expect(response.body).to include(patient.to_s)

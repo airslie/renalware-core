@@ -31,6 +31,7 @@ module Renalware
           create_patient_with_modality(create(:death_modality_description))
         end
 
+        # rubocop:disable Metrics/AbcSize
         def create_patient_with_modality(modality_description)
           patient = create(:patient, by: user)
           change_patient_modality(patient, modality_description, user)
@@ -38,6 +39,7 @@ module Renalware
           create(:renal_profile, patient: Renal.cast_patient(patient), esrf_on: 1.month.ago)
           Renalware::Renal.cast_patient(patient)
         end
+        # rubocop:enable Metrics/AbcSize
 
         def create_patient_passing_preflight_checks
           create_hd_patient.tap do |patient|

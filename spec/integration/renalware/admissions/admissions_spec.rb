@@ -167,11 +167,11 @@ module Renalware
       it "soft deletes the admission and sets the ended_on date to today" do
         admission = create_admission
 
-        expect{
+        expect {
           delete admissions_admission_path(admission)
         }
-        .to change{ Admissions::Admission.count }.by(-1)
-        .and change{ Admissions::Admission.deleted.count }.by(1)
+        .to change { Admissions::Admission.count }.by(-1)
+        .and change { Admissions::Admission.deleted.count }.by(1)
       end
     end
   end

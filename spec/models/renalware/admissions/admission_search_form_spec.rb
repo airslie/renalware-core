@@ -17,12 +17,10 @@ module Renalware
       form.submit
 
       expect(Admissions::AdmissionQuery).to have_received(:call).with(
-        {
-          hospital_ward_hospital_unit_id_eq: 1,
-          hospital_ward_id_eq: 2,
-          test_scope_selected_from_dropdown: true,
-          identity_match: "123"
-        }
+        hospital_ward_hospital_unit_id_eq: 1,
+        hospital_ward_id_eq: 2,
+        test_scope_selected_from_dropdown: true,
+        identity_match: "123"
       )
     end
   end

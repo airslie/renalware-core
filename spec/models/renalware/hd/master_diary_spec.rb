@@ -12,10 +12,10 @@ module Renalware::HD
     end
 
     describe "only allows one master diary per hospital unit" do
-      subject{ create(:hd_master_diary, hospital_unit_id: unit.id, by: user) }
+      subject { create(:hd_master_diary, hospital_unit_id: unit.id, by: user) }
 
-      let(:unit){ create(:hospital_unit) }
-      let(:user){ create(:user) }
+      let(:unit) { create(:hospital_unit) }
+      let(:user) { create(:user) }
 
       it { is_expected.to validate_uniqueness_of(:hospital_unit_id) }
     end

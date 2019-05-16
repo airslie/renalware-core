@@ -45,7 +45,7 @@ describe "Managing clinical study participation", type: :request do
 
       expect do
         delete research_study_participant_path(study, participant, format: :js)
-      end.to change{ Renalware::Research::StudyParticipant.count }.by(-1)
+      end.to change { Renalware::Research::StudyParticipant.count }.by(-1)
 
       follow_redirect!
       expect(response).to be_successful

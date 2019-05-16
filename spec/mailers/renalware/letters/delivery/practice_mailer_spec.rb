@@ -39,7 +39,7 @@ module Renalware
             letter.save!
           end
         end
-        let(:fake_pdf){ "%PDF-1.4\n1" }
+        let(:fake_pdf) { "%PDF-1.4\n1" }
         let(:recipient) { letter.main_recipient }
 
         describe "error checking" do
@@ -47,7 +47,7 @@ module Renalware
             let(:letter_factory_name) { :approved_letter }
 
             it "does not raise an error" do
-              expect{ mail.subject }.not_to raise_error
+              expect { mail.subject }.not_to raise_error
             end
           end
 
@@ -55,7 +55,7 @@ module Renalware
             let(:letter_factory_name) { :completed_letter }
 
             it "does not raise an error" do
-              expect{ mail.subject }.not_to raise_error
+              expect { mail.subject }.not_to raise_error
             end
           end
 
@@ -63,7 +63,7 @@ module Renalware
             let(:letter_factory_name) { :pending_review_letter }
 
             it "does not raise an error" do
-              expect{ mail.subject }.to raise_error(Delivery::LetterIsNotApprovedOrCompletedError)
+              expect { mail.subject }.to raise_error(Delivery::LetterIsNotApprovedOrCompletedError)
             end
           end
 
@@ -71,7 +71,7 @@ module Renalware
             let(:letter_factory_name) { :draft_letter }
 
             it "does not raise an error" do
-              expect{ mail.subject }.to raise_error(Delivery::LetterIsNotApprovedOrCompletedError)
+              expect { mail.subject }.to raise_error(Delivery::LetterIsNotApprovedOrCompletedError)
             end
           end
         end

@@ -41,7 +41,7 @@ module Renalware
           describe "#call" do
             it "raises an error if the CSV file is not in the expected format" do
               mock_csv_open(pathname: dummy_pathname, contents: malformed_practice_row)
-              expect{
+              expect {
                 CurrentPracticesCSVFile.new(dummy_pathname).import
               }.to raise_error(Exceptions::UnexpectedCSVFormatError)
             end
@@ -49,7 +49,7 @@ module Renalware
             it "can import a single practice" do
               mock_csv_open(pathname: dummy_pathname, contents: active_practice_row)
 
-              expect{
+              expect {
                 CurrentPracticesCSVFile.new(dummy_pathname).import
               }.to change(Practice, :count).by(1)
                .and change(Address, :count).by(1)
@@ -68,7 +68,7 @@ module Renalware
 
             it "does not import a practice if it is not active" do
               mock_csv_open(pathname: dummy_pathname, contents: closed_practice_row)
-              expect{
+              expect {
                 CurrentPracticesCSVFile.new(dummy_pathname).import
               }.not_to change(Practice, :count)
             end
@@ -77,10 +77,10 @@ module Renalware
               mock_csv_open(pathname: dummy_pathname, contents: closed_practice_row)
               FactoryBot.create(:practice, code: PRACTICE_CODE)
 
-              expect{
+              expect {
                 CurrentPracticesCSVFile.new(dummy_pathname).import
               }.to change(Practice, :count).from(1).to(0)
-               .and change{ Practice.deleted.count }.from(0).to(1)
+               .and change { Practice.deleted.count }.from(0).to(1)
             end
           end
         end

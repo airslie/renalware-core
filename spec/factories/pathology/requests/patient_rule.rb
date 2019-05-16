@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :pathology_requests_patient_rule,
-    class: "Renalware::Pathology::Requests::PatientRule" do
+          class: "Renalware::Pathology::Requests::PatientRule" do
     association :lab, factory: :pathology_lab
     patient
     test_description { "Test for HepB" }

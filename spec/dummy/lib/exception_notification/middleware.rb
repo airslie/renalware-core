@@ -14,11 +14,11 @@ module ExceptionNotification
     # rubocop:disable Lint/RescueException
     def call(env)
       @app.call(env)
-    rescue Exception => captured_exception
-      if allow_handling?(captured_exception)
-        PartyFoul::ExceptionHandler.handle(FilteredException.new(captured_exception), env)
+    rescue Exception => e
+      if allow_handling?(e)
+        PartyFoul::ExceptionHandler.handle(FilteredException.new(e), env)
       end
-      raise captured_exception
+      raise e
     end
     # rubocop:enable Lint/RescueException
   end

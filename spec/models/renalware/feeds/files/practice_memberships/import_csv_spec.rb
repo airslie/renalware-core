@@ -33,10 +33,10 @@ module Renalware
               CSV
 
               with_tmpfile(csv_content) do |tmpfile|
-                expect{
+                expect {
                   described_class.new(tmpfile).call
                 }
-                .to change{ Patients::PracticeMembership.count }.by(2)
+                .to change { Patients::PracticeMembership.count }.by(2)
               end
             end
           end
@@ -66,11 +66,11 @@ module Renalware
               CSV
 
               with_tmpfile(csv_content) do |tmpfile|
-                expect{
+                expect {
                   described_class.new(tmpfile).call
                 }
-                .to change{ Patients::PracticeMembership.count }.by(-1)
-                .and change{ Patients::PracticeMembership.deleted.count }.by(1)
+                .to change { Patients::PracticeMembership.count }.by(-1)
+                .and change { Patients::PracticeMembership.deleted.count }.by(1)
               end
 
               expect(membership1.reload).not_to be_deleted

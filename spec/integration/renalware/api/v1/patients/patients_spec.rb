@@ -50,37 +50,35 @@ describe "API request for a single patient JSON document", type: :system do
       expect(page.status_code).to eq(200)
 
       expect(json).to eq(
-        {
-          "id" => patient.id,
-          "secure_id" => patient.secure_id,
-          "nhs_number" => patient.nhs_number,
-          "local_patient_id" => patient.local_patient_id,
-          "local_patient_id_2" => patient.local_patient_id_2,
-          "local_patient_id_3" => patient.local_patient_id_3,
-          "local_patient_id_4" => patient.local_patient_id_4,
-          "local_patient_id_5" => patient.local_patient_id_5,
-          "title" => patient.title,
-          "given_name" => patient.given_name,
-          "family_name" => patient.family_name,
-          "born_on" => patient.born_on.to_s,
-          "died_on" => patient.died_on&.to_s,
-          "sex" => patient.sex&.code,
-          "ethnicity" => patient.ethnicity&.code,
-          "current_address" => {
-            "street_1" => address.street_1,
-            "street_2" => address.street_2,
-            "street_3" => address.street_3,
-            "town" => address.town,
-            "county" => address.county,
-            "region" => address.region,
-            "postcode" => address.postcode,
-            "country" => "United Kingdom",
-            "telephone" => "118118",
-            "email" => "email@example.com"
-          },
-          "prescriptions_url" => api_v1_patient_prescriptions_url(patient_id: patient),
-          "hd_profile_url" => api_v1_patient_hd_current_profile_url(patient_id: patient)
-        }
+        "id" => patient.id,
+        "secure_id" => patient.secure_id,
+        "nhs_number" => patient.nhs_number,
+        "local_patient_id" => patient.local_patient_id,
+        "local_patient_id_2" => patient.local_patient_id_2,
+        "local_patient_id_3" => patient.local_patient_id_3,
+        "local_patient_id_4" => patient.local_patient_id_4,
+        "local_patient_id_5" => patient.local_patient_id_5,
+        "title" => patient.title,
+        "given_name" => patient.given_name,
+        "family_name" => patient.family_name,
+        "born_on" => patient.born_on.to_s,
+        "died_on" => patient.died_on&.to_s,
+        "sex" => patient.sex&.code,
+        "ethnicity" => patient.ethnicity&.code,
+        "current_address" => {
+          "street_1" => address.street_1,
+          "street_2" => address.street_2,
+          "street_3" => address.street_3,
+          "town" => address.town,
+          "county" => address.county,
+          "region" => address.region,
+          "postcode" => address.postcode,
+          "country" => "United Kingdom",
+          "telephone" => "118118",
+          "email" => "email@example.com"
+        },
+        "prescriptions_url" => api_v1_patient_prescriptions_url(patient_id: patient),
+        "hd_profile_url" => api_v1_patient_hd_current_profile_url(patient_id: patient)
       )
     end
   end

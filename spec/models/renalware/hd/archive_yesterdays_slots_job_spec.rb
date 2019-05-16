@@ -7,8 +7,8 @@ module Renalware::HD
   describe ArchiveYesterdaysSlotsJob do
     subject(:job) { described_class.new }
 
-    let(:user){ create(:user) }
-    let(:patient){ create(:hd_patient) }
+    let(:user) { create(:user) }
+    let(:patient) { create(:hd_patient) }
     let(:unit) { create(:hospital_unit) }
     let(:station) { create(:hd_station, hospital_unit_id: unit.id, by: user) }
     let(:diurnal_period_code) { create(:hd_diurnal_period_code) }
@@ -33,12 +33,12 @@ module Renalware::HD
 
     def create_slot(diary:, day_of_week:)
       create(:hd_diary_slot,
-              diary: diary,
-              patient: patient,
-              station: station,
-              day_of_week: day_of_week,
-              diurnal_period_code_id: diurnal_period_code.id,
-              by: user)
+             diary: diary,
+             patient: patient,
+             station: station,
+             day_of_week: day_of_week,
+             diurnal_period_code_id: diurnal_period_code.id,
+             by: user)
     end
 
     describe "#perform" do

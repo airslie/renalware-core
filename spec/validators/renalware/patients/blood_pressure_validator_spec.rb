@@ -55,8 +55,8 @@ module Renalware
         model = build_model(systolic: 80, diastolic: 90)
         expect_model_to_be_invalid_with_messages(model, :systolic, [])
         expect_model_to_be_invalid_with_messages(model,
-                                                :diastolic,
-                                                must_be_less_than_systolic_message)
+                                                 :diastolic,
+                                                 must_be_less_than_systolic_message)
       end
 
       def build_model(systolic:, diastolic:)

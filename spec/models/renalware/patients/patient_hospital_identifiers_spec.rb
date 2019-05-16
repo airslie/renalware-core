@@ -23,11 +23,11 @@ module Renalware::Patients
       it "lists local_patient_ids in use in the correct order" do
         configure_patient_hospital_identifiers
         patient = build(:patient,
-                         local_patient_id: "LP1",
-                         local_patient_id_2: "",
-                         local_patient_id_3: nil,
-                         local_patient_id_4: "LP4",
-                         local_patient_id_5: "LP5")
+                        local_patient_id: "LP1",
+                        local_patient_id_2: "",
+                        local_patient_id_3: nil,
+                        local_patient_id_4: "LP4",
+                        local_patient_id_5: "LP5")
 
         expected = {
           KCH: "LP1",
@@ -40,11 +40,11 @@ module Renalware::Patients
       it "returns an empty hash if the patient has no local_patient_ids" do
         configure_patient_hospital_identifiers
         patient = build(:patient,
-                         local_patient_id: nil,
-                         local_patient_id_2: nil,
-                         local_patient_id_3: nil,
-                         local_patient_id_4: "",
-                         local_patient_id_5: "")
+                        local_patient_id: nil,
+                        local_patient_id_2: nil,
+                        local_patient_id_3: nil,
+                        local_patient_id_4: "",
+                        local_patient_id_5: "")
         expect(PatientHospitalIdentifiers.new(patient).all).to eq({})
       end
     end
@@ -53,11 +53,11 @@ module Renalware::Patients
       it "renders patient's complete hospital numbers list in the format KCH: Xxx QEH: Zxxx .." do
         configure_patient_hospital_identifiers
         patient = build(:patient,
-                         local_patient_id: "A",
-                         local_patient_id_2: "B",
-                         local_patient_id_3: nil,
-                         local_patient_id_4: "",
-                         local_patient_id_5: "C")
+                        local_patient_id: "A",
+                        local_patient_id_2: "B",
+                        local_patient_id_3: nil,
+                        local_patient_id_4: "",
+                        local_patient_id_5: "C")
 
         expected = "KCH: A HOSP3: B HOSP5: C"
         expect(PatientHospitalIdentifiers.new(patient).to_s).to eq(expected)
@@ -68,11 +68,11 @@ module Renalware::Patients
       it "returns the value of name of the topmost found local_patient_id in order of preference" do
         configure_patient_hospital_identifiers
         patient = build(:patient,
-                         local_patient_id: "",
-                         local_patient_id_2: "",
-                         local_patient_id_3: nil,
-                         local_patient_id_4: "LP4",
-                         local_patient_id_5: "LP5")
+                        local_patient_id: "",
+                        local_patient_id_2: "",
+                        local_patient_id_3: nil,
+                        local_patient_id_4: "LP4",
+                        local_patient_id_5: "LP5")
 
         identifiers = PatientHospitalIdentifiers.new(patient)
         expect(identifiers.id).to eq("LP4")
@@ -88,11 +88,11 @@ module Renalware::Patients
         it ":id and :name return nil" do
           configure_patient_hospital_identifiers
           patient = build(:patient,
-                           local_patient_id: nil,
-                           local_patient_id_2: nil,
-                           local_patient_id_3: nil,
-                           local_patient_id_4: "",
-                           local_patient_id_5: "")
+                          local_patient_id: nil,
+                          local_patient_id_2: nil,
+                          local_patient_id_3: nil,
+                          local_patient_id_4: "",
+                          local_patient_id_5: "")
 
           identifiers = PatientHospitalIdentifiers.new(patient)
           expect(identifiers.id).to eq(nil)

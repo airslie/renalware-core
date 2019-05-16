@@ -25,14 +25,14 @@ module Renalware
       it { is_expected.to validate_presence_of(:family_name) }
 
       context "when #with_extended_validation is true" do
-        subject{ described_class.new(with_extended_validation: true) }
+        subject { described_class.new(with_extended_validation: true) }
 
         it { is_expected.to validate_presence_of(:professional_position).on(:update) }
         it { is_expected.to validate_presence_of(:signature).on(:update) }
       end
 
       context "when #with_extended_validation is false" do
-        subject{ described_class.new(with_extended_validation: false) }
+        subject { described_class.new(with_extended_validation: false) }
 
         it { is_expected.not_to validate_presence_of(:professional_position).on(:update) }
         it { is_expected.not_to validate_presence_of(:signature).on(:update) }

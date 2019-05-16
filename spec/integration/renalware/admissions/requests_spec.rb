@@ -53,7 +53,7 @@ describe "Admission Request (TCI) management", type: :request do
           }
         }
 
-        expect{
+        expect {
           post(admissions_requests_path(format: :js), params: params)
         }.to change(Renalware::Admissions::Request, :count).by(1)
 
@@ -69,7 +69,7 @@ describe "Admission Request (TCI) management", type: :request do
           }
         }
 
-        expect{
+        expect {
           post(admissions_requests_path, params: params)
         }.not_to change(Renalware::Admissions::Request, :count)
 
@@ -131,7 +131,7 @@ describe "Admission Request (TCI) management", type: :request do
     it "soft delete the request" do
       request = create_request
 
-      expect{
+      expect {
         delete admissions_request_path(request, format: :js)
       }.to change(Renalware::Admissions::Request, :count).by(-1)
 

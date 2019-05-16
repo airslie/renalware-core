@@ -70,7 +70,7 @@ module Renalware
             changes_since: "2017-01-01" # required if sent_to_ukrdc_at is nil!
           )
 
-          expect{ service.call }.to change(patient, :sent_to_ukrdc_at)
+          expect { service.call }.to change(patient, :sent_to_ukrdc_at)
 
           log = UKRDC::TransmissionLog.where(patient: patient).last
           expect(log.error).to eq([])
@@ -107,7 +107,7 @@ module Renalware
             dir: dir
           )
 
-          expect{ service.call }.to change(patient, :sent_to_ukrdc_at)
+          expect { service.call }.to change(patient, :sent_to_ukrdc_at)
 
           log = UKRDC::TransmissionLog.where(patient: patient).last
           expect(log.error).to eq([])
@@ -145,7 +145,7 @@ module Renalware
             dir: dir
           )
 
-          expect{ service.call }.not_to change(patient, :sent_to_ukrdc_at)
+          expect { service.call }.not_to change(patient, :sent_to_ukrdc_at)
 
           log = UKRDC::TransmissionLog.where(patient: patient).last
           expect(log.error).to eq([])
@@ -167,7 +167,7 @@ module Renalware
             dir: dir
           )
 
-          expect{ service.call }.not_to change(patient, :sent_to_ukrdc_at)
+          expect { service.call }.not_to change(patient, :sent_to_ukrdc_at)
 
           log = UKRDC::TransmissionLog.where(patient: patient).last
           expect(log.error).to eq(%w(error1 error2))

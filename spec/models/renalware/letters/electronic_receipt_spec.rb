@@ -13,13 +13,13 @@ module Renalware
 
       describe "#read?" do
         context "when the receipt has not yet been read" do
-          subject{ described_class.new }
+          subject { described_class.new }
 
           it { is_expected.not_to be_read }
         end
 
         context "when the receipt has been read" do
-          subject{ described_class.new(read_at: Time.zone.now) }
+          subject { described_class.new(read_at: Time.zone.now) }
 
           it { is_expected.to be_read }
         end

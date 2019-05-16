@@ -9,7 +9,7 @@ module Renalware
     it { is_expected.to validate_presence_of :participant_id }
 
     describe "uniqueness" do
-      subject{
+      subject {
         Research::StudyParticipant.new(
           participant_id: patient.id,
           study_id: study.id,

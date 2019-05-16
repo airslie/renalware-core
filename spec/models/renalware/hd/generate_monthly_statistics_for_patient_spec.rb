@@ -42,7 +42,7 @@ module Renalware
         # Check the snapshot was stored correctly
         %w(HGB CRE PHOS PTHI URR URE).each do |code|
           expect(stats.pathology_snapshot[code]).to eq(
-            { "result" => "1.0", "observed_at" => "2016-12-03T00:00:00" }
+            "result" => "1.0", "observed_at" => "2016-12-03T00:00:00"
           )
         end
         expect(stats.rolling).to be_nil
@@ -95,7 +95,7 @@ module Renalware
         # Check the snapshot was stored correctly
         %w(HGB CRE PHOS PTHI URR URE).each do |code|
           expect(stats.pathology_snapshot[code]).to eq(
-            { "result" => "1.0", "observed_at" => "2016-12-03T00:00:00" }
+            "result" => "1.0", "observed_at" => "2016-12-03T00:00:00"
           )
         end
       end

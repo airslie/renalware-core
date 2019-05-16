@@ -13,10 +13,10 @@ describe "HD MDM Patients", type: :system do
   def create_hd_patient(unit:, family_name:, schedule_definition: nil, by: user)
     create(:hd_patient, :with_hd_modality, family_name: family_name, by: user).tap do |patient|
       patient.hd_profile = create(:hd_profile,
-                                   patient: patient,
-                                   hospital_unit: unit,
-                                   schedule_definition: schedule_definition,
-                                   by: by)
+                                  patient: patient,
+                                  hospital_unit: unit,
+                                  schedule_definition: schedule_definition,
+                                  by: by)
 
       create(:prescription, patient: patient, by: user)
       pres = create(:prescription, patient: patient, prescribed_on: 1.day.ago, by: user)

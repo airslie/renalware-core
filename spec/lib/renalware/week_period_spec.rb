@@ -5,23 +5,23 @@ require "rails_helper"
 describe Renalware::WeekPeriod do
   describe "#new" do
     it "raises an error if the week/year combination is not valid" do
-      expect{ described_class.new(week_number: 54, year: 2017) }.to raise_error(ArgumentError)
+      expect { described_class.new(week_number: 54, year: 2017) }.to raise_error(ArgumentError)
     end
 
     it "raises an error if the week is 0" do
-      expect{ described_class.new(week_number: 0, year: 2017) }.to raise_error(ArgumentError)
+      expect { described_class.new(week_number: 0, year: 2017) }.to raise_error(ArgumentError)
     end
 
     it "raises an error if the week is nil" do
-      expect{ described_class.new(year: 2017) }.to raise_error(ArgumentError)
+      expect { described_class.new(year: 2017) }.to raise_error(ArgumentError)
     end
 
     it "raises an error if the year is 0" do
-      expect{ described_class.new(week_number: 51, year: 0) }.to raise_error(ArgumentError)
+      expect { described_class.new(week_number: 51, year: 0) }.to raise_error(ArgumentError)
     end
 
     it "raises an error if the year is nil" do
-      expect{ described_class.new(week_number: 51) }.to raise_error(ArgumentError)
+      expect { described_class.new(week_number: 51) }.to raise_error(ArgumentError)
     end
 
     it "coerces a year string into an integer" do

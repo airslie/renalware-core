@@ -10,13 +10,11 @@ module Renalware::Letters
       describe "#part_classes" do
         it "contains the default clinical part classes and clinical" do
           expect(clinic_visit.part_classes).to eq(
-            {
-              problems: Part::Problems,
-              prescriptions: Part::Prescriptions,
-              recent_pathology_results: Part::RecentPathologyResults,
-              clinical_observations: Part::ClinicalObservations,
-              allergies: Part::Allergies
-            }
+            problems: Part::Problems,
+            prescriptions: Part::Prescriptions,
+            recent_pathology_results: Part::RecentPathologyResults,
+            clinical_observations: Part::ClinicalObservations,
+            allergies: Part::Allergies
           )
         end
       end

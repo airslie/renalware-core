@@ -22,7 +22,7 @@ module Renalware
           params[:clinical_body_composition] = attributes_for(:body_composition)
           params[:clinical_body_composition][:assessor_id] = Renalware::User.first.id
 
-          expect{
+          expect {
             post(url, params: params)
           }.to change(BodyComposition.all, :count).by(1)
 
