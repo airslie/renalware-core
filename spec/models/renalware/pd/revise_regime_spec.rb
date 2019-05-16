@@ -35,7 +35,7 @@ module Renalware
 
           it "returns true" do
             result = ReviseRegime.new(regime).call(by: user, params: params)
-            expect(result).to be_successful
+            expect(result).to be_success
           end
         end
 
@@ -44,7 +44,7 @@ module Renalware
 
           it "returns false" do
             result = ReviseRegime.new(regime).call(by: user, params: params)
-            expect(result).not_to be_successful
+            expect(result).not_to be_success
           end
 
           it "does not terminate the regime" do
@@ -78,7 +78,7 @@ module Renalware
 
             result = ReviseRegime.new(regime).call(by: user, params: params)
 
-            expect(result).to be_successful
+            expect(result).to be_success
             expect(result.object).to be_current
           end
 
@@ -86,7 +86,7 @@ module Renalware
             travel_to Time.zone.now do
               result = ReviseRegime.new(regime).call(by: user, params: params)
 
-              expect(result).to be_successful
+              expect(result).to be_success
               expect(regime.end_date).to eq(result.object.start_date)
             end
           end

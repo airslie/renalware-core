@@ -37,7 +37,7 @@ module Renalware
           set.save!
 
           set.reload
-          expect(set.values_for_codes("HGB")).to eq({ "HGB" => hgb })
+          expect(set.values_for_codes("HGB")).to eq("HGB" => hgb)
         end
       end
 

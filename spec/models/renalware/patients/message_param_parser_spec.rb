@@ -23,15 +23,13 @@ module Renalware::Patients
         params = described_class.new.parse(hl7_message)
 
         expect(params).to eq(
-          {
-            patient: {
-              nhs_number: "::external id::",
-              local_patient_id: "::internal id::",
-              family_name: "::family name::",
-              given_name: "::given name::",
-              sex: "F",
-              born_on: "1988-09-24"
-            }
+          patient: {
+            nhs_number: "::external id::",
+            local_patient_id: "::internal id::",
+            family_name: "::family name::",
+            given_name: "::given name::",
+            sex: "F",
+            born_on: "1988-09-24"
           }
         )
       end

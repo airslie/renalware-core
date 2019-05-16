@@ -17,7 +17,7 @@ module Renalware
       admission = create(:admissions_admission, patient: patient)
       create(:admissions_admission) # other admission
 
-      admissions = described_class.call({ identity_match: "JOn to" })
+      admissions = described_class.call(identity_match: "JOn to")
 
       expect(admissions).to eq([admission])
     end
@@ -28,7 +28,7 @@ module Renalware
       create(:admissions_admission) # other admission
 
       admissions = described_class.call(
-        { hospital_ward_hospital_unit_id_eq: ward.hospital_unit.id }
+        hospital_ward_hospital_unit_id_eq: ward.hospital_unit.id
       )
 
       expect(admissions).to eq([admission])
@@ -39,7 +39,7 @@ module Renalware
       admission = create(:admissions_admission, hospital_ward: ward)
       create(:admissions_admission) # other admission
 
-      admissions = described_class.call({ hospital_ward_id_eq: ward.id })
+      admissions = described_class.call(hospital_ward_id_eq: ward.id)
 
       expect(admissions).to eq([admission])
     end

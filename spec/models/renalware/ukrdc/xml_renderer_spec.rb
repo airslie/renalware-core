@@ -14,7 +14,7 @@ module Renalware
 
         result = renderer.call
 
-        expect(result).to be_successful
+        expect(result).to be_success
         expect(result.xml).to be_present
         expect(result.xml).to be_a(String)
         expect(result.xml).to include("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")

@@ -79,30 +79,26 @@ module Renalware
             hd = data.find { |x| x[:modality] == "HD" }
 
             expect(pd).to eq(
-              {
-                modality: "PD",
-                patient_count: 1,
-                avg_cca: nil,
-                pct_cca_2_1_to_2_4: 0.0,
-                pct_pth_gt_300: 0.0,
-                pct_pth_gt_800_pct: 0.0,
-                avg_phos: nil,
-                max_phos: nil,
-                pct_phos_lt_1_8: 0.0
-              }
+              modality: "PD",
+              patient_count: 1,
+              avg_cca: nil,
+              pct_cca_2_1_to_2_4: 0.0,
+              pct_pth_gt_300: 0.0,
+              pct_pth_gt_800_pct: 0.0,
+              avg_phos: nil,
+              max_phos: nil,
+              pct_phos_lt_1_8: 0.0
             )
             expect(hd).to eq(
-              {
-                modality: "HD",
-                patient_count: 2,
-                avg_cca: 2.15,
-                pct_cca_2_1_to_2_4: 50.0,
-                pct_pth_gt_300: 100.0,
-                pct_pth_gt_800_pct: 50.0,
-                avg_phos: 1.5,
-                max_phos: 2.0,
-                pct_phos_lt_1_8: 50.0 # pct_phos_lt_1_8 = 50%
-              }
+              modality: "HD",
+              patient_count: 2,
+              avg_cca: 2.15,
+              pct_cca_2_1_to_2_4: 50.0,
+              pct_pth_gt_300: 100.0,
+              pct_pth_gt_800_pct: 50.0,
+              avg_phos: 1.5,
+              max_phos: 2.0,
+              pct_phos_lt_1_8: 50.0 # pct_phos_lt_1_8 = 50%
             )
           end
         end
