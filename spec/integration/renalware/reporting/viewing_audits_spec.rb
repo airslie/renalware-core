@@ -46,14 +46,14 @@ describe "Viewing audits", type: :system, js: true do
 
   def create_an_audit_configured_to_use_view_called(view_name)
     create(:audit,
-            name: "Test",
-            description: "A short description",
-            view_name: view_name,
-            display_configuration: '{
-              "columnDefs": [
-                { "title": "Col 1", "width": "100", "data": "col1" },
-                { "title": "Col 2", "width": "100", "data": "col2" }
-                ]}')
+           name: "Test",
+           description: "A short description",
+           view_name: view_name,
+           display_configuration: '{
+             "columnDefs": [
+               { "title": "Col 1", "width": "100", "data": "col1" },
+               { "title": "Col 2", "width": "100", "data": "col2" }
+               ]}')
   end
 
   def wait_for_datatables_to_fetch_json_and_build_table

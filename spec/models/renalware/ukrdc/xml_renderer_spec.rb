@@ -14,7 +14,7 @@ module Renalware
 
         result = renderer.call
 
-        expect(result).to be_success
+        expect(result).to be_successful
         expect(result.xml).to be_present
         expect(result.xml).to be_a(String)
         expect(result.xml).to include("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
@@ -41,7 +41,7 @@ module Renalware
         # - not correct pattern eg not matching G[0-9]{7}
         # - not of correct local atomic type
         expect(
-          result.validation_errors.count{ |x| x.message =~ /GPPracticeId/ }
+          result.validation_errors.count { |x| x.message =~ /GPPracticeId/ }
         ).to eq(3)
 
         # There will be 3 errors about GPId
@@ -49,7 +49,7 @@ module Renalware
         # - not correct pattern eg not matching G[0-9]{7}
         # - not of correct local atomic type
         expect(
-          result.validation_errors.count{ |x| x.message =~ /GPId/ }
+          result.validation_errors.count { |x| x.message =~ /GPId/ }
         ).to eq(3)
       end
     end

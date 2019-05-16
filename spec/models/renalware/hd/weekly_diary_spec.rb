@@ -21,8 +21,8 @@ module Renalware::HD
         described_class.new(hospital_unit_id: unit.id, week_number: 1, year: 2017, by: user)
       end
 
-      let(:user){ create(:user) }
-      let(:unit){ create(:hospital_unit) }
+      let(:user) { create(:user) }
+      let(:unit) { create(:hospital_unit) }
 
       it do
         expect(subject).to validate_uniqueness_of(:week_number)

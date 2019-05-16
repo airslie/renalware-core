@@ -43,8 +43,8 @@ RSpec.configure do |config|
   config.after(:suite) do
     results = factory_bot_results
       .to_a
-      .each_with_object({}){ |(key, val), hash| hash[key] = val[:create] }
-      .sort{ |a, b| (b.flatten.last || 0) <=> (a.flatten.last || 0) }
+      .each_with_object({}) { |(key, val), hash| hash[key] = val[:create] }
+      .sort { |a, b| (b.flatten.last || 0) <=> (a.flatten.last || 0) }
     warn "FactoryBot creates: #{results}"
   end
 end

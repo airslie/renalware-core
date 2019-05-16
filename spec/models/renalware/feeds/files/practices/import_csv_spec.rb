@@ -33,11 +33,11 @@ module Renalware
               "A11111,SURGERY A,0111 1111111,STREET A,SOME TOWN,,CITY A,COUNTY A,AO11 11A,ENGLAND,#{uk.id},true\n"
 
             with_tmpfile(csv_content) do |tmpfile|
-              expect{
+              expect {
                 described_class.new(tmpfile).call
               }
-              .to change{ Patients::Practice.count }.by(1)
-              .and change{ Patients::Practice.deleted.count }.by(0)
+              .to change { Patients::Practice.count }.by(1)
+              .and change { Patients::Practice.deleted.count }.by(0)
 
               practice = Patients::Practice.first
               expect(practice.name).to eq("SURGERY A")
@@ -58,11 +58,11 @@ module Renalware
                 "A11111,SURGERY A,0111 1111111,STREET A,SOME TOWN,,CITY A,COUNTY A,AO11 11A,ENGLAND,#{uk.id},false\n"
 
               with_tmpfile(csv_content) do |tmpfile|
-                expect{
+                expect {
                   described_class.new(tmpfile).call
                 }
-                .to change{ Patients::Practice.count }.by(0)
-                .and change{ Patients::Practice.deleted.count }.by(1)
+                .to change { Patients::Practice.count }.by(0)
+                .and change { Patients::Practice.deleted.count }.by(1)
 
                 practice = Patients::Practice.deleted.last
                 expect(practice.name).to eq("SURGERY A")
@@ -82,11 +82,11 @@ module Renalware
                 "A11111,SURGERY A,0111 1111111,STREET A,SOME TOWN,,CITY A,COUNTY A,AO11 11A,ENGLAND,#{uk.id},false\n"
 
               with_tmpfile(csv_content) do |tmpfile|
-                expect{
+                expect {
                   described_class.new(tmpfile).call
                 }
-                .to change{ Patients::Practice.count }.by(-1)
-                .and change{ Patients::Practice.deleted.count }.by(1)
+                .to change { Patients::Practice.count }.by(-1)
+                .and change { Patients::Practice.deleted.count }.by(1)
               end
             end
           end
@@ -101,11 +101,11 @@ module Renalware
                 "A11111,SURGERY A,0111 1111111,STREET A,SOME TOWN,,CITY A,COUNTY A,AO11 11A,ENGLAND,#{uk.id},true\n"
 
               with_tmpfile(csv_content) do |tmpfile|
-                expect{
+                expect {
                   described_class.new(tmpfile).call
                 }
-                .to change{ Patients::Practice.count }.by(1)
-                .and change{ Patients::Practice.deleted.count }.by(-1)
+                .to change { Patients::Practice.count }.by(1)
+                .and change { Patients::Practice.deleted.count }.by(-1)
               end
             end
           end
@@ -126,11 +126,11 @@ module Renalware
                 "A11111,SURGERY A,0111 1111111,STREET A,SOME TOWN,,CITY A,COUNTY A,AO11 11A,ENGLAND,#{uk.id},true\n"
 
               with_tmpfile(csv_content) do |tmpfile|
-                expect{
+                expect {
                   described_class.new(tmpfile).call
                 }
-                .to change{ Patients::Practice.count }.by(0)
-                .and change{ Patients::Practice.deleted.count }.by(0)
+                .to change { Patients::Practice.count }.by(0)
+                .and change { Patients::Practice.deleted.count }.by(0)
               end
 
               expect(practice.reload.name).to eq("SURGERY A")

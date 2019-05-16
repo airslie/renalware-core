@@ -16,7 +16,7 @@ module Renalware
     end
     let(:practice) { build(:practice, code: "PRAC1") }
     let(:primary_care_physician) do
-      build(:primary_care_physician, code: "G123").tap{ |gp| gp.practices << practice }
+      build(:primary_care_physician, code: "G123").tap { |gp| gp.practices << practice }
     end
     let(:patient) do
       build(

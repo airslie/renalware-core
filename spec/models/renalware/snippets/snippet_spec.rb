@@ -18,14 +18,14 @@ module Renalware
         it "does not have a unique title across users" do
           create(:snippet, author: create(:snippets_user), title: "X")
 
-          expect{ create(:snippet, author: create(:snippets_user), title: "X") }.not_to raise_error
+          expect { create(:snippet, author: create(:snippets_user), title: "X") }.not_to raise_error
         end
 
         it "has a unique title within the scope of a user" do
           author = create(:snippets_user)
           create(:snippet, author: author, title: "X")
 
-          expect{
+          expect {
             create(:snippet, author: author, title: "X")
           }.to raise_error(ActiveRecord::RecordInvalid)
         end
@@ -36,9 +36,9 @@ module Renalware
           snippet = create(:snippet, author: create(:snippets_user), title: "X")
           expect(snippet.times_used).to eq(0)
 
-          expect{
+          expect {
             snippet.record_usage.reload
-          }.to change{ snippet.times_used }.by(1)
+          }.to change { snippet.times_used }.by(1)
         end
 
         it "updates last_used_on to the current time" do

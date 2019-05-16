@@ -29,7 +29,7 @@ module Renalware
             patient: patient,
             observation_set_a: { HGB: hgb_old, CRE: cre_old },
             observation_set_b: { HGB: hgb_new, PTHI: pthi_new, CRE: cre_new },
-            descriptions: %w(HGB CRE PTHI).map{ |code| OpenStruct.new(code: code) } # mock obs descs
+            descriptions: %w(HGB CRE PTHI).map { |code| OpenStruct.new(code: code) } # mock obs descs
           )
 
           diff_hash = obj.to_h
@@ -68,7 +68,7 @@ module Renalware
             patient: patient,
             observation_set_a: { HGB: { result: 2.1, observed_at: "2017-12-12 00:01:01" } },
             observation_set_b: { HGB: { result: 1.0, observed_at: "2017-12-13 00:01:01" } },
-            descriptions: %w(HGB).map{ |code| OpenStruct.new(code: code) } # mock obs descs
+            descriptions: %w(HGB).map { |code| OpenStruct.new(code: code) } # mock obs descs
           )
           html = diff.to_html
           expect(html).not_to be_blank

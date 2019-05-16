@@ -27,17 +27,17 @@ describe "Clinic Visits Management", type: :request do
   describe "POST create" do
     before do
       post patient_clinic_visits_path(patient_id: patient.to_param),
-        params: {
-          clinic_visit: {
-            date: Time.zone.today,
-            time: Time.zone.now,
-            clinic_id: clinic,
-            did_not_attend: false,
-            height: 1.75, weight: 89.2, bp: "110/78",
-            urine_blood: "neg", urine_protein: "neg",
-            notes: "Nothing unusual"
-          }
-        }
+           params: {
+             clinic_visit: {
+               date: Time.zone.today,
+               time: Time.zone.now,
+               clinic_id: clinic,
+               did_not_attend: false,
+               height: 1.75, weight: 89.2, bp: "110/78",
+               urine_blood: "neg", urine_protein: "neg",
+               notes: "Nothing unusual"
+             }
+           }
     end
 
     it "responds successfully" do
@@ -60,16 +60,16 @@ describe "Clinic Visits Management", type: :request do
     before do
       clinic_visit = create(:clinic_visit, patient: patient, by: user)
       put patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param),
-        params: {
-          clinic_visit: {
-            date: Time.zone.today,
-            time: Time.zone.now,
-            did_not_attend: false,
-            height: 1.75, weight: 89.2, bp: "110/70",
-            urine_blood: "neg", urine_protein: "neg",
-            notes: "Nothing unusual"
+          params: {
+            clinic_visit: {
+              date: Time.zone.today,
+              time: Time.zone.now,
+              did_not_attend: false,
+              height: 1.75, weight: 89.2, bp: "110/70",
+              urine_blood: "neg", urine_protein: "neg",
+              notes: "Nothing unusual"
+            }
           }
-        }
     end
 
     it "redirects to the clinic_visits index" do
@@ -80,7 +80,7 @@ describe "Clinic Visits Management", type: :request do
   describe "DELETE destroy" do
     it "deletes a clinic_visit" do
       clinic_visit = create(:clinic_visit, patient: patient, by: user)
-      expect{
+      expect {
         delete patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param)
       }.to change(patient.clinic_visits, :count).by(-1)
     end

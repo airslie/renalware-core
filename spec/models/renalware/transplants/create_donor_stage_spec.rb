@@ -67,7 +67,7 @@ module Renalware
             }
             result = CreateDonorStage.new(patient: patient, options: options).call
 
-            expect(result).to be_success
+            expect(result).to be_successful
 
             stages = DonorStage.for_patient(patient).order(created_at: :desc).all
             expect(stages.length).to eq(2)

@@ -28,7 +28,7 @@ module Renalware
               # and 2000 litres on Sat and Sun
               regime.bags << build(:pd_regime_bag, :weekend_only, role: :ordinary, volume: 2000)
 
-              expect{ AvailableOvernightVolume.new(regime: regime).value }
+              expect { AvailableOvernightVolume.new(regime: regime).value }
                 .to raise_error(Renalware::PD::APD::NonUniqueOvernightVolumeError)
             end
           end

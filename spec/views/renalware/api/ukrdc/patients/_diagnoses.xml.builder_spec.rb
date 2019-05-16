@@ -42,10 +42,10 @@ describe "Diagnoses element" do
     context "when the patient has a first cause of death" do
       it "includes a cause of death" do
         patient = build_stubbed(:patient,
-          family_name: "Jones",
-          local_patient_id: "1",
-          first_cause: build_stubbed(:cause_of_death)
-        )
+                                family_name: "Jones",
+                                local_patient_id: "1",
+                                first_cause: build_stubbed(:cause_of_death)
+                               )
         build_stubbed_death_modality(patient)
         presenter = Renalware::UKRDC::PatientPresenter.new(patient)
 

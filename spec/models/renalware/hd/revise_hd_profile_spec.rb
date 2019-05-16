@@ -14,7 +14,7 @@ module Renalware::HD
       let(:user) { create(:user) }
 
       it "raises an error if the supplied profile is new and not persisted" do
-        expect{
+        expect {
           ReviseHDProfile.new(Profile.new)
         }.to raise_error(ArgumentError)
       end

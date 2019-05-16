@@ -32,11 +32,11 @@ module Renalware
             CSV
 
             with_tmpfile(csv_content) do |tmpfile|
-              expect{
+              expect {
                 described_class.new(tmpfile).call
               }
-              .to change{ Patients::PrimaryCarePhysician.count }.by(1)
-              .and change{ Patients::PrimaryCarePhysician.deleted.count }.by(1)
+              .to change { Patients::PrimaryCarePhysician.count }.by(1)
+              .and change { Patients::PrimaryCarePhysician.deleted.count }.by(1)
             end
 
             gp = Patients::PrimaryCarePhysician.first
@@ -59,11 +59,11 @@ module Renalware
                 "G0102926","SMITH BB","Y55","Q79","LENSFIELD MEDICAL PRAC.","48 LENSFIELD ROAD","CAMBRIDGE","","","CB2 1EH","19740401","","C","O","D81001","19740401","19911231","01223 651011","","","","0","","06H","","",""
               CSV
               with_tmpfile(csv_content) do |tmpfile|
-                expect{
+                expect {
                   described_class.new(tmpfile).call
                 }
-                .to change{ Patients::PrimaryCarePhysician.count }.by(-1)
-                .and change{ Patients::PrimaryCarePhysician.deleted.count }.by(1)
+                .to change { Patients::PrimaryCarePhysician.count }.by(-1)
+                .and change { Patients::PrimaryCarePhysician.deleted.count }.by(1)
               end
 
               expect(previously_active_gp.reload.deleted_at).to be_present
@@ -87,11 +87,11 @@ module Renalware
               CSV
 
               with_tmpfile(csv_content) do |tmpfile|
-                expect{
+                expect {
                   described_class.new(tmpfile).call
                 }
-                .to change{ Patients::PrimaryCarePhysician.count }.by(1)
-                .and change{ Patients::PrimaryCarePhysician.deleted.count }.by(-1)
+                .to change { Patients::PrimaryCarePhysician.count }.by(1)
+                .and change { Patients::PrimaryCarePhysician.deleted.count }.by(-1)
               end
 
               expect(previously_inactive_gp.reload.deleted_at).to be_nil
@@ -116,11 +116,11 @@ module Renalware
               CSV
 
               with_tmpfile(csv_content) do |tmpfile|
-                expect{
+                expect {
                   described_class.new(tmpfile).call
                 }
-                .to change{ Patients::PrimaryCarePhysician.count }.by(0)
-                .and change{ Patients::PrimaryCarePhysician.deleted.count }.by(0)
+                .to change { Patients::PrimaryCarePhysician.count }.by(0)
+                .and change { Patients::PrimaryCarePhysician.deleted.count }.by(0)
               end
 
               gp.reload

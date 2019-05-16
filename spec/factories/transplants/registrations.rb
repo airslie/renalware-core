@@ -34,7 +34,7 @@ FactoryBot.define do
           registration: registration,
           started_on: 7.days.ago,
           description: create(:transplant_registration_status_description,
-            name: evaluator.status.humanize, code: evaluator.status)
+                              name: evaluator.status.humanize, code: evaluator.status)
         )
         create(
           :transplant_registration_status,

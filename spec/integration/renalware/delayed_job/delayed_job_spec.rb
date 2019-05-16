@@ -16,7 +16,7 @@ describe "Delayed Job management", type: :system do
       roles = define_roles - %i(super_admin devops)
       roles.each do |role|
         login_user(role)
-        expect{ visit delayed_job_path }.to raise_error(ActionController::RoutingError)
+        expect { visit delayed_job_path }.to raise_error(ActionController::RoutingError)
       end
     end
   end

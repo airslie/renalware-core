@@ -52,7 +52,7 @@ describe "Assign a person as a main recipient", type: :system do
 
       within("#add-patient-contact-modal") do
         fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",
-          with: person.family_name, select: person.to_s
+                          with: person.family_name, select: person.to_s
         select contact_description.name, from: "Description"
 
         click_on "Save"

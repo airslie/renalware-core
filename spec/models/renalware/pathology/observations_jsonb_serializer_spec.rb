@@ -32,12 +32,12 @@ module Renalware
           it "raises method not defined if accessing via code only eg :hgb" do
             hash = ObservationsJsonbSerializer.load({ HGB: hgb })
 
-            expect{ hash.xyz }.to raise_error(NoMethodError)
+            expect { hash.xyz }.to raise_error(NoMethodError)
           end
 
           it "does not raise an error when accessed via using a suffix like _result" do
             hash = ObservationsJsonbSerializer.load({ HGB: hgb })
-            expect{ hash.xyz_result }.not_to raise_error
+            expect { hash.xyz_result }.not_to raise_error
           end
         end
 

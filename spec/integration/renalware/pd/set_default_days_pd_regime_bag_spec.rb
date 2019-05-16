@@ -8,14 +8,14 @@ module Renalware
       @patient = create(:patient)
       @pd_regime_bag_1 = PD::RegimeBag.new
       @pd_regime_bag_2 = build(:pd_regime_bag,
-                          sunday: true,
-                          monday: false,
-                          tuesday: true,
-                          wednesday: false,
-                          thursday: false,
-                          friday: true,
-                          saturday: false
-                        )
+                               sunday: true,
+                               monday: false,
+                               tuesday: true,
+                               wednesday: false,
+                               thursday: false,
+                               friday: true,
+                               saturday: false
+                              )
       login_as_clinical
     end
 

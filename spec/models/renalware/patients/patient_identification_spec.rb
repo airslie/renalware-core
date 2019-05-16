@@ -21,10 +21,10 @@ module Renalware
       it "resolves correctly using the patient_hospital_identifiers" do
         configure_patient_hospital_identifiers
         patient = build(:patient,
-                         local_patient_id: "",
-                         local_patient_id_2: "",
-                         local_patient_id_3: nil,
-                         local_patient_id_4: "LP4")
+                        local_patient_id: "",
+                        local_patient_id_2: "",
+                        local_patient_id_3: nil,
+                        local_patient_id_4: "LP4")
 
         expect(patient.hospital_identifier.id).to eq("LP4")
         expect(patient.hospital_identifier.name).to eq(:HOSP4)

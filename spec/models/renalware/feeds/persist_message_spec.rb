@@ -18,7 +18,7 @@ module Renalware::Feeds
       }
 
       it "persists the payload" do
-        expect{ service.call(hl7_message) }.to change(Message, :count).by(1)
+        expect { service.call(hl7_message) }.to change(Message, :count).by(1)
       end
 
       it "generates an MD5 hash of the payload which should be unique and therefore "\
@@ -31,7 +31,7 @@ module Renalware::Feeds
       it "causes a database unique constraint violation if the same message body is saved twice" do
         service.call(hl7_message)
 
-        expect{ service.call(hl7_message) }.to raise_error(ActiveRecord::RecordNotUnique)
+        expect { service.call(hl7_message) }.to raise_error(ActiveRecord::RecordNotUnique)
       end
     end
   end

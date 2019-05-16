@@ -59,7 +59,7 @@ module Renalware::System
         end
 
         it "does not send an email" do
-          expect{
+          expect {
             command.call(approved: "true")
           }.to change(adapter.enqueued_jobs, :size).by(0)
         end
@@ -87,7 +87,7 @@ module Renalware::System
         end
 
         it "notifies the user of account reactivation" do
-          expect{
+          expect {
             command.call(unexpire: "true")
           }.to change(adapter.enqueued_jobs, :size).by(1)
         end
@@ -107,7 +107,7 @@ module Renalware::System
         end
 
         it "does not send an email" do
-          expect{
+          expect {
             command.call(unexpire: "true")
           }.to change(adapter.enqueued_jobs, :size).by(0)
         end

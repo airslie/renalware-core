@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   describe HD::FindOrCreateDiaryByWeekQuery do
-    let(:week_period){ WeekPeriod.from_date(Time.zone.today) }
+    let(:week_period) { WeekPeriod.from_date(Time.zone.today) }
     let(:user) { create(:user) }
     let(:unit) { create(:hospital_unit) }
 

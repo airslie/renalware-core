@@ -18,7 +18,7 @@ module Renalware
       before { Renalware.configure { |config| config.allow_external_mail = true } }
 
       describe ".email_letter_to_practice?" do
-        subject{ policy.email_letter_to_practice? }
+        subject { policy.email_letter_to_practice? }
 
         context "when the gp is not a recipient" do
           before { letter.recipients = [] }

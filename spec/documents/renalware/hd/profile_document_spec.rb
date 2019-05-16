@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware
   module HD
     describe ProfileDocument::Dialysis, type: :model do
-      subject(:dialysis){ described_class.new }
+      subject(:dialysis) { described_class.new }
 
       describe "validation" do
         it { is_expected.to validate_numericality_of(:blood_flow).is_greater_than_or_equal_to(50) }

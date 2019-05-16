@@ -24,18 +24,18 @@ module Renalware
 
           it "does not create a new regime" do
             command = ReviseRegime.new(regime)
-            expect{ command.call(by: user, params: params) }.not_to change(Regime, :count)
+            expect { command.call(by: user, params: params) }.not_to change(Regime, :count)
           end
 
           it "does not terminate the regime" do
             command = ReviseRegime.new(regime)
-            expect{ command.call(by: user, params: params) }
+            expect { command.call(by: user, params: params) }
               .not_to change(RegimeTermination, :count)
           end
 
           it "returns true" do
             result = ReviseRegime.new(regime).call(by: user, params: params)
-            expect(result).to be_success
+            expect(result).to be_successful
           end
         end
 
@@ -44,11 +44,11 @@ module Renalware
 
           it "returns false" do
             result = ReviseRegime.new(regime).call(by: user, params: params)
-            expect(result).not_to be_success
+            expect(result).not_to be_successful
           end
 
           it "does not terminate the regime" do
-            expect{ ReviseRegime.new(regime).call(by: user, params: params) }
+            expect { ReviseRegime.new(regime).call(by: user, params: params) }
               .not_to change(RegimeTermination, :count)
           end
         end
@@ -78,7 +78,7 @@ module Renalware
 
             result = ReviseRegime.new(regime).call(by: user, params: params)
 
-            expect(result).to be_success
+            expect(result).to be_successful
             expect(result.object).to be_current
           end
 
@@ -86,7 +86,7 @@ module Renalware
             travel_to Time.zone.now do
               result = ReviseRegime.new(regime).call(by: user, params: params)
 
-              expect(result).to be_success
+              expect(result).to be_successful
               expect(regime.end_date).to eq(result.object.start_date)
             end
           end

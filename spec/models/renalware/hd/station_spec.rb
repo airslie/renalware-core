@@ -14,8 +14,8 @@ module Renalware
           described_class.new(name: station.name, hospital_unit_id: station.hospital_unit_id)
         end
 
-        let(:user){ create(:user) }
-        let(:unit){ create(:hospital_unit) }
+        let(:user) { create(:user) }
+        let(:unit) { create(:hospital_unit) }
         let(:station) { create(:hd_station, hospital_unit_id: unit.id, name: "A", by: user) }
 
         it { is_expected.to validate_uniqueness_of(:name).scoped_to(:hospital_unit_id) }

@@ -5,8 +5,8 @@ require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
 describe "Insert letter.event notes (e.g. from a clinic visit) into the letter body",
-               type: :system,
-               js: true do
+         type: :system,
+         js: true do
 
   before do
     login_as_clinical

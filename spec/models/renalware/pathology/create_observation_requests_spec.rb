@@ -13,7 +13,7 @@ module Renalware::Pathology
         nonexistent_patient_id = 919191919
         params = build_params(nonexistent_patient_id, request_description, observation_description)
 
-        expect{ service.call(params) }.not_to change(Observation, :count)
+        expect { service.call(params) }.not_to change(Observation, :count)
       end
 
       it "creates the request and related observations", :aggregate_failures do
@@ -22,7 +22,7 @@ module Renalware::Pathology
         observation_description = create(:pathology_observation_description)
         params = build_params(patient.id, request_description, observation_description)
 
-        expect{ service.call(params) }.to change{ patient.reload.updated_at }
+        expect { service.call(params) }.to change { patient.reload.updated_at }
 
         expect(patient.observation_requests.count).to eq(1)
         expect(patient.observations.count).to eq(1)
@@ -34,7 +34,7 @@ module Renalware::Pathology
         observation_description = create(:pathology_observation_description)
         params = build_params(patient.id, request_description, observation_description)
 
-        expect{
+        expect {
           service.call(params)
         }.to broadcast(:before_observation_request_persisted)
          .and broadcast(:after_observation_request_persisted)

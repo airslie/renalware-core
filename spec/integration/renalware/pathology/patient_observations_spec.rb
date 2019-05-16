@@ -11,7 +11,7 @@ describe "Patient's Observations", type: :request do
 
     before do
       create_pair(:pathology_observation,
-        request: observation_request, description: observation_description)
+                  request: observation_request, description: observation_description)
     end
 
     it "responds with a list" do

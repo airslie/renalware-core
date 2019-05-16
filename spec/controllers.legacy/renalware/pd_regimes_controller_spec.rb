@@ -106,15 +106,15 @@ module Renalware
           expect(PD::RegimeBag.count).to eq(1)
           expect {
             post :create,
-                  params: {
-                    patient_id: patient,
-                    actions: { add_bag: "Add Bag" },
-                    pd_regime: {
-                      type: "Renalware::PD::CAPDRegime",
-                      start_date: Time.zone.today,
-                      treatment: "CAPD 3 exchanges per day"
-                    }
-                  }
+                 params: {
+                   patient_id: patient,
+                   actions: { add_bag: "Add Bag" },
+                   pd_regime: {
+                     type: "Renalware::PD::CAPDRegime",
+                     start_date: Time.zone.today,
+                     treatment: "CAPD 3 exchanges per day"
+                   }
+                 }
           }.to change(PD::Regime, :count).by(0)
           expect(PD::RegimeBag.count).to eq(1)
         end
@@ -124,23 +124,23 @@ module Renalware
         it "removes a bag from the unsaved CAPD Regime" do
           create_capd_regime
           post :create,
-          params: {
-            patient_id: patient,
-            actions: { remove: { "0" => "Remove" } },
-            pd_regime: {
-              type: "Renalware::PD::CAPDRegime",
-              start_date: Time.zone.today,
-              treatment: "CAPD 4 exchanges per day",
-              bags_attributes: [
-                {
-                  bag_type_id: "100",
-                  volume: "2",
-                  per_week: "1",
-                  monday: true
-                }
-              ]
-            }
-          }
+               params: {
+                 patient_id: patient,
+                 actions: { remove: { "0" => "Remove" } },
+                 pd_regime: {
+                   type: "Renalware::PD::CAPDRegime",
+                   start_date: Time.zone.today,
+                   treatment: "CAPD 4 exchanges per day",
+                   bags_attributes: [
+                     {
+                       bag_type_id: "100",
+                       volume: "2",
+                       per_week: "1",
+                       monday: true
+                     }
+                   ]
+                 }
+               }
 
           expect(PD::RegimeBag.count).to eq(1)
         end

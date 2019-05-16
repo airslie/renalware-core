@@ -13,7 +13,7 @@ module Renalware
       let(:letter) { build_stubbed(:letter, patient: patient, by: user) }
 
       describe ".address" do
-        subject{ email.address }
+        subject { email.address }
 
         context "when we are permitted to send external emails" do
           before { Renalware.configure { |config| config.allow_external_mail = true } }

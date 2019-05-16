@@ -158,10 +158,10 @@ describe "Clinical Studies management", type: :request do
 
       expect {
         delete research_study_path(study)
-      }.to change{ Renalware::Research::Study.count }.by(-1)
-       .and change{ Renalware::Research::StudyParticipant.count }.by(-1)
-       .and change{ Renalware::Research::Study.deleted.count }.by(1)
-       .and change{ Renalware::Research::StudyParticipant.deleted.count }.by(1)
+      }.to change { Renalware::Research::Study.count }.by(-1)
+       .and change { Renalware::Research::StudyParticipant.count }.by(-1)
+       .and change { Renalware::Research::Study.deleted.count }.by(1)
+       .and change { Renalware::Research::StudyParticipant.deleted.count }.by(1)
 
       follow_redirect!
       expect(response).to be_successful

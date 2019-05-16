@@ -8,7 +8,7 @@ module Renalware
       described_class.new(
         observation_request: observation_request,
         code: obs_desc.code,
-        policy: ->(patient, _observation){ patient.ethnicity&.cfh_name&.casecmp?("Time Lord") }
+        policy: ->(patient, _observation) { patient.ethnicity&.cfh_name&.casecmp?("Time Lord") }
       )
     }
 

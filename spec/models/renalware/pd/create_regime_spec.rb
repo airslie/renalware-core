@@ -33,7 +33,7 @@ module Renalware
           end
 
           it "returns true with the new regime" do
-            expect(service).to be_success
+            expect(service).to be_successful
             expect(service.object).to be_kind_of(Regime)
             expect(service.object).to be_persisted
           end

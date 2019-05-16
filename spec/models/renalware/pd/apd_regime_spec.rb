@@ -125,7 +125,7 @@ module Renalware
         it "therapy_time validates numeric_inclusion" do
           expect(
             has_numeric_validation(:therapy_time,
-                                    APDRegime::VALID_RANGES.therapy_times)
+                                   APDRegime::VALID_RANGES.therapy_times)
           ).to eq(true)
         end
 

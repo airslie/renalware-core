@@ -22,7 +22,7 @@ module Renalware
         let(:lines_of_body_text) { 1 }
 
         it "renders the letter to PDF and saves the number of pages found" do
-          expect{
+          expect {
             job.letter_approved(letter)
           }.to change(letter, :page_count).from(nil).to(1)
         end
@@ -32,7 +32,7 @@ module Renalware
         let(:lines_of_body_text) { 70 }
 
         it "renders the letter to PDF and saves the number of pages found" do
-          expect{
+          expect {
             job.letter_approved(letter)
           }.to change(letter, :page_count).from(nil).to(2)
         end

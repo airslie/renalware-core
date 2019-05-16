@@ -4,8 +4,8 @@ require "rails_helper"
 
 module Renalware
   describe "Daily average glucose(ml) calculated from bags per type assigned during one week",
-          js: true,
-          type: :system do
+           js: true,
+           type: :system do
     include PatientsSpecHelper
 
     before do
@@ -15,22 +15,22 @@ module Renalware
                    by: User.first)
 
       @bag_type_13_6 = create(:bag_type,
-                    manufacturer: "Baxter",
-                    description: "Dianeal PD2 1.36% (Yellow)",
-                    glucose_content: 1.3,
-                    glucose_strength: :low)
+                              manufacturer: "Baxter",
+                              description: "Dianeal PD2 1.36% (Yellow)",
+                              glucose_content: 1.3,
+                              glucose_strength: :low)
 
       @bag_type_22_7 = create(:bag_type,
-                    manufacturer: "Baxter",
-                    description: "Dianeal PD2 2.27% (Green)",
-                    glucose_content: 2.2,
-                    glucose_strength: :medium)
+                              manufacturer: "Baxter",
+                              description: "Dianeal PD2 2.27% (Green)",
+                              glucose_content: 2.2,
+                              glucose_strength: :medium)
 
       @bag_type_38_6 = create(:bag_type,
-                    manufacturer: "Baxter",
-                    description: "Dianeal PD2 3.86% (Red)",
-                    glucose_content: 3.8,
-                    glucose_strength: :high)
+                              manufacturer: "Baxter",
+                              description: "Dianeal PD2 3.86% (Red)",
+                              glucose_content: 3.8,
+                              glucose_strength: :high)
 
       login_as_clinical
 

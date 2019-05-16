@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware::Pathology
   describe ObservationDescriptionsByCodeQuery do
-    subject{ described_class.new(relation: relation, codes: codes).call }
+    subject { described_class.new(relation: relation, codes: codes).call }
 
     let(:codes) { %w(HGB PLT) }
     let(:relation) { ObservationDescription.all }
