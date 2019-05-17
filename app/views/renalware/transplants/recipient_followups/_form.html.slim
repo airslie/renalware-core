@@ -31,6 +31,7 @@ ruby:
       = f.input :transplant_failure_notes,
                 input_html: { rows: 5 },
                 wrapper: :horizontal_large
+      = f.input :graft_nephrectomy_on, as: :date_picker, wrapper: :horizontal_datepicker
 
     = render layout: "renalware/shared/fieldset",
              locals: { legend: "Cardiovascular Complication",

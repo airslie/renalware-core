@@ -3,6 +3,7 @@ en:
     attributes:
       renalware/transplants/recipient_followup:
         stent_removed_on: Stent Removal Date
+        graft_nephrectomy_on: Date of Graft Nephrectomy
         transplant_failed: Transplant Failed
         transplant_failed_on: Date of Transplant Failure
         transplant_failure_cause_description_id: Cause of Transplant Failure
