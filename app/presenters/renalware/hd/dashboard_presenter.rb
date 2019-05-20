@@ -30,7 +30,7 @@ module Renalware
             .deleted
             .ordered
             .limit(3)
-            .for_patient(patient).map{ |prof| ProfilePresenter.new(prof) }
+            .for_patient(patient).map { |prof| ProfilePresenter.new(prof) }
         end
       end
 

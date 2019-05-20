@@ -9,9 +9,9 @@ resources :patients, only: [] do
       resource :donor_workup, only: [:show, :edit, :update], path: "/workup"
       resources :donor_operations, except: [:index, :destroy], path: "/operations" do
         resource :followup,
-                except: :destroy,
-                controller: "donor_followups",
-                path: "/follow_up"
+                 except: :destroy,
+                 controller: "donor_followups",
+                 path: "/follow_up"
       end
       resources :donations, except: [:index, :destroy]
       resource :donor_stage, only: [:new, :create], path: "/stage"
@@ -22,9 +22,9 @@ resources :patients, only: [] do
       resource :recipient_workup, only: [:show, :edit, :update], path: "/workup"
       resources :recipient_operations, except: [:index, :destroy], path: "/operations" do
         resource :followup,
-                except: :destroy,
-                controller: "recipient_followups",
-                path: "/follow_up"
+                 except: :destroy,
+                 controller: "recipient_followups",
+                 path: "/follow_up"
       end
       resource :registration, only: [:show, :edit, :update] do
         resources :statuses, except: [:index, :show], controller: "registration_statuses"

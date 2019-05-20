@@ -9,12 +9,19 @@ jobs:
           PGHOST: 127.0.0.1
           PGUSER: renalware
           RAILS_ENV: test
+          BUNDLER_VERSION: 2.0.1
       - image: circleci/postgres:11.2-alpine-ram
       - image: redis:3.2.7
 
     parallelism: 1
 
     steps:
+      - run:
+          name: install dependencies
+          command: |
+            gem update --system
+            gem install bundler
+
       - checkout
 
       # Also pull the UKRDC XSDs

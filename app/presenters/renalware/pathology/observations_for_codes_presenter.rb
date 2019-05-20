@@ -36,11 +36,11 @@ module Renalware
       end
 
       def description_for(code)
-        descriptions.find{ |desc| desc.code.upcase == code } || NullObject.instance
+        descriptions.find { |desc| desc.code.upcase == code } || NullObject.instance
       end
 
       def observation_for(code)
-        matching_observations.find{ |observation| observation.description_code.upcase == code }
+        matching_observations.find { |observation| observation.description_code.upcase == code }
       end
     end
   end

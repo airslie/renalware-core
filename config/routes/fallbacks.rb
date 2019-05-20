@@ -7,6 +7,6 @@ get "/patients/:id/hd", to: redirect("/patients/%{id}/hd/dashboard")
 get "/patients/:id/pd", to: redirect("/patients/%{id}/pd/dashboard")
 get "/patients/:id/transplants", to: redirect("/patients/%{id}")
 get "/patients/:id/transplants/donor",
-  to: redirect("/patients/%{id}/transplants/donor/dashboard")
+    to: redirect("/patients/%{id}/transplants/donor/dashboard")
 get "/patients/:id/transplants/recipient",
     to: redirect("/patients/%{id}/transplants/recipient/dashboard")

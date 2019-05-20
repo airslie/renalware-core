@@ -9,7 +9,7 @@ module Renalware
       validates :status, presence: true
       belongs_to :patient, class_name: "Renalware::Patient"
       enum status: [:undefined, :error, :unsent_no_change_since_last_send, :sent]
-      scope :ordered, ->{ order(sent_at: :asc) }
+      scope :ordered, -> { order(sent_at: :asc) }
 
       def self.with_logging(patient, request_uuid)
         log = new(patient: patient, sent_at: Time.zone.now, request_uuid: request_uuid)
@@ -25,7 +25,7 @@ module Renalware
       def self.formatted_exception(error)
         [
           "#{error.backtrace.first}: #{error.message} (#{error.class})",
-          error.backtrace.drop(1).map{ |line| "\t#{line}" }
+          error.backtrace.drop(1).map { |line| "\t#{line}" }
         ].join("\n")
       end
     end

@@ -16,7 +16,7 @@ module CoreExtensions
       def to_formatted_s
         parts
           .reduce(::Hash.new(0)) { |h, (l, r)| h[l] += r; h }
-          .reject{ |_, val| val < 1 }
+          .reject { |_, val| val < 1 }
           .sort_by { |unit, _| FORMATTING_ELEMENTS.index(unit) }
           .map { |unit, val| "#{val} #{val == 1 ? unit.to_s.chop : unit.to_s}" }
           .to_sentence(locale: ::I18n.default_locale)

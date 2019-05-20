@@ -16,7 +16,7 @@ module Renalware
 
       scope :ordered, -> { order(position: :asc) }
       scope :with_notes, -> { includes(:notes) }
-      scope :with_patient, ->{ includes(:patient) }
+      scope :with_patient, -> { includes(:patient) }
 
       validates :patient, presence: true
       validates :description, presence: true

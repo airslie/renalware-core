@@ -12,7 +12,7 @@ module Renalware
                 timeliness: { type: :datetime, allow_blank: true, after: :display_from }
       enumerize :severity, in: %i(default warning info success)
 
-      scope :active, lambda{
+      scope :active, lambda {
         where(
           "display_from <= ? and (display_until is null or display_until >= ?)",
           Time.zone.now,
