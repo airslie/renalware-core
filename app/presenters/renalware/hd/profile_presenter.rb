@@ -26,7 +26,7 @@ module Renalware
       delegate :type,
                :loading_dose,
                :hourly_dose,
-                to: :anticoagulant, allow_nil: true, prefix: true
+               to: :anticoagulant, allow_nil: true, prefix: true
 
       delegate :unit_code,
                to: :hospital_unit, prefix: true, allow_nil: true
@@ -72,7 +72,7 @@ module Renalware
         ScheduleDefinition
           .includes(:diurnal_period)
           .ordered
-          .map{ |definition| [definition.to_s, definition.id] }
+          .map { |definition| [definition.to_s, definition.id] }
       end
 
       def last_update

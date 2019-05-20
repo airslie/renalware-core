@@ -90,8 +90,12 @@ module World
         click_on "Add"
 
         within("#add-patient-contact-modal") do
-          fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",
-            with: person.family_name, select: person.to_s
+          fill_autocomplete(
+            "#add-patient-contact-modal",
+            "person_auto_complete",
+            with: person.family_name,
+            select: person.to_s
+          )
 
           find(:css, "#letters_contact_default_cc").set(true) if default_cc
 

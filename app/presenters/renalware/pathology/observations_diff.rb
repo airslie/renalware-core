@@ -107,7 +107,7 @@ module Renalware
       end
 
       def filter_observations_by_descriptions(observations)
-        observations.select!{ |code, _obs| description_codes.include?(code.to_sym) }
+        observations.select! { |code, _obs| description_codes.include?(code.to_sym) }
       end
 
       def description_codes

@@ -29,7 +29,7 @@ module Renalware
       # put the site-specific configuration in say a jsonb field on the Site.
       def remove_recent_observations_part_if_no_pathology_required_in_body(part_klasses)
         unless include_pathology_in_letter_body
-          part_klasses = part_klasses.reject{ |key| key == :recent_pathology_results }
+          part_klasses = part_klasses.reject { |key| key == :recent_pathology_results }
         end
         part_klasses
       end

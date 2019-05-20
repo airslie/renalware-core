@@ -5,14 +5,14 @@ resources :patients, only: [] do
     resource :mdm, only: :show, controller: "mdm"
     resource :dashboard, only: :show
     resource :protocol,
-            only: :show,
-            constraints: { format: /(pdf)/ },
-            defaults: { format: :pdf }
+             only: :show,
+             constraints: { format: /(pdf)/ },
+             defaults: { format: :pdf }
     resource :preference_set, only: [:edit, :update]
     resource :current_profile,
-            only: [:show, :edit, :update],
-            path: "/profiles/current",
-            controller: "current_profile"
+             only: [:show, :edit, :update],
+             path: "/profiles/current",
+             controller: "current_profile"
     resources :historical_profiles,
               only: [:index, :show],
               path: "/profiles/historical"

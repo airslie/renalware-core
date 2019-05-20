@@ -19,21 +19,21 @@ module World
 
         def remove_allergy_from_patient(patient:, allergy_description:, user:)
           patient = clinical_patient(patient)
-          expect{
+          expect {
             patient.allergies.where(description: allergy_description).first.destroy
-          }.to change{ patient.allergies.count } .by(-1)
+          }.to change { patient.allergies.count } .by(-1)
         end
 
         def expect_allergies_to_be(expected_allergies:, patient:)
           patient = clinical_patient(patient)
-          expected_allergies = expected_allergies.map{ |allergy| allergy["description"] }
+          expected_allergies = expected_allergies.map { |allergy| allergy["description"] }
           actual_allergies = patient.allergies.map(&:description)
           expect(actual_allergies && expected_allergies).to eq(expected_allergies)
         end
 
         def expect_archived_allergies_to_be(expected_allergies:, patient:)
           patient = clinical_patient(patient)
-          expected_allergies = expected_allergies.map{ |allergy| allergy["description"] }
+          expected_allergies = expected_allergies.map { |allergy| allergy["description"] }
           actual_allergies = patient.allergies.only_deleted.map(&:description)
           expect(actual_allergies).to eq(expected_allergies)
         end

@@ -11,9 +11,9 @@ module World
       person = FactoryBot.build(:directory_person, address: address, by: user)
       description = Renalware::Letters::ContactDescription[:sibling]
       FactoryBot.create(:letter_contact,
-                         patient: patient,
-                         person: person,
-                         description: description)
+                        patient: patient,
+                        person: person,
+                        description: description)
     end
   end
 end

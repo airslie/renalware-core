@@ -107,7 +107,7 @@ module Renalware
         logger.info("Files saved to #{summary.archive_folder}")
         logger.info "*** Summary ***"
         logger.info "Took #{summary.milliseconds_taken.to_i / 1000} seconds"
-        summary.results.map{ |key, value| logger.info("#{key}: #{value}") }
+        summary.results.map { |key, value| logger.info("#{key}: #{value}") }
       end
       # rubocop:enable Metrics/AbcSize
 

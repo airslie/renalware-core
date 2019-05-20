@@ -16,11 +16,11 @@ module Renalware
     validate :approval_with_roles, on: :update
     validates :professional_position, presence: {
       on: :update,
-      if: ->(user){ user.with_extended_validation }
+      if: ->(user) { user.with_extended_validation }
     }
     validates :signature, presence: {
       on: :update,
-      if: ->(user){ user.with_extended_validation }
+      if: ->(user) { user.with_extended_validation }
     }
 
     scope :unapproved, -> { where(approved: [nil, false]) }

@@ -6,7 +6,7 @@ resources :patients, only: [] do
     resource :profile, except: :destroy
 
     resources :vaccinations,
-            only: [:new, :create, :edit, :update],
-            defaults: { slug: :vaccinations }
+              only: [:new, :create, :edit, :update],
+              defaults: { slug: :vaccinations }
   end
 end

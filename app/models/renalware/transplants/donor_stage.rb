@@ -16,8 +16,8 @@ module Renalware
       validates :stage_status, presence: true
       validates :started_on, presence: true
 
-      scope :current, ->{ where(terminated_on: nil) }
-      scope :ordered, ->{ order(terminated_on: :desc, started_on: :desc) }
+      scope :current, -> { where(terminated_on: nil) }
+      scope :ordered, -> { order(terminated_on: :desc, started_on: :desc) }
     end
   end
 end

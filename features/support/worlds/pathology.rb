@@ -117,7 +117,7 @@ module World
         year_row = table.rows.map(&:observed_on).map(&:year).map(&:to_s).prepend("year")
         expect(expected_rows[0]).to eq(year_row)
 
-        day_row = table.rows.map(&:observed_on).map{ |date| date.strftime("%d/%m") }.prepend("date")
+        day_row = table.rows.map(&:observed_on).map { |date| date.strftime("%d/%m") }.prepend("date")
         expect(expected_rows[1]).to eq(day_row)
 
         expected_rows[2..-1].each_with_index do |_expected_row, idx|
@@ -155,7 +155,7 @@ module World
       def expect_pathology_current_observations(user:, patient:, rows:)
         patient = Renalware::Pathology.cast_patient(patient)
         curr_obs_set = patient.fetch_current_observation_set
-        rows.reject!{ |row| row[1].blank? } # reject observations with no value
+        rows.reject! { |row| row[1].blank? } # reject observations with no value
         codes = rows.map(&:first)[1..-1]
 
         expect(codes - curr_obs_set.values.keys).to eq([])

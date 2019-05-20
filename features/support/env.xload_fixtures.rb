@@ -52,7 +52,7 @@ class Fixtures
   end
 
   def table_model_map
-    MODELS.each_with_object({}){ |model, hsh| hsh[model.table_name.to_sym] = model }
+    MODELS.each_with_object({}) { |model, hsh| hsh[model.table_name.to_sym] = model }
   end
 
   def fixtures_folder

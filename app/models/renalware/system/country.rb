@@ -9,7 +9,7 @@ module Renalware
       validates :alpha2, presence: true, uniqueness: true
       validates :alpha3, presence: true, uniqueness: true
 
-      default_scope ->{ order(position: :asc) }
+      default_scope -> { order(position: :asc) }
 
       def to_s
         name
