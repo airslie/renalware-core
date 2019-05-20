@@ -2,7 +2,8 @@ table.mdm.prescriptions
   thead
     tr
       th.col-width-medium= t(".drug_name")
-      th.col-width-small= t(".drug_type")
+      - if local_assigns[:show_drug_types]
+        th.col-width-small= t(".drug_type")
       th.col-width-small= t(".dose")
       th.col-width-tiny= t(".frequency")
       th.col-width-tiny= t(".route")
@@ -16,7 +17,8 @@ table.mdm.prescriptions
     - prescriptions.each do |prescription|
       tr class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
         td= prescription.drug.name
-        td= prescription.drug_type_names
+        - if local_assigns[:show_drug_types]
+          td= prescription.drug_type_names
         td= prescription.dose
         td= prescription.frequency
         td= prescription.route_code
