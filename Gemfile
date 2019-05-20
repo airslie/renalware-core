@@ -61,13 +61,14 @@ group :staging do
 end
 
 group :development do
+  # gem "meta_request" # useful for https://github.com/dejan/rails_panel
+  # gem "traceroute" # for finding unused routes
   gem "awesome_print", require: false
   gem "binding_of_caller"
   gem "bullet"
   gem "foreman", require: false
-  # gem "meta_request" # useful for https://github.com/dejan/rails_panel
+  gem "rubocop-performance"
   gem "rubocop-rspec", require: false # for housekeeping
-  # gem "traceroute" # for finding unused routes
   gem "web-console", require: false
 end
 
