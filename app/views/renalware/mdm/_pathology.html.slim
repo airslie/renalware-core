@@ -2,9 +2,10 @@
   article
     header
       h2= t(".title")
-      = link_to t(".view"),
-                patient_pathology_historical_observations_path(mdm.patient),
-                class: " button secondary left"
+      span.noprint
+        = link_to t(".view"),
+                  patient_pathology_historical_observations_path(mdm.patient),
+                  class: " button secondary left"
 
     = render "renalware/pathology/historical_observation_results/table",
               table: mdm.pathology

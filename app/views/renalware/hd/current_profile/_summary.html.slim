@@ -1,7 +1,7 @@
 article.hd-profile-summary
   header
-    h2.noprint= t(".title")
-    ul
+    h2= t(".title")
+    ul.noprint
       li= link_to "View", patient_hd_current_profile_path(patient), class: "button"
       li= link_to "Edit", edit_patient_hd_current_profile_path(patient), class: "button"
       li

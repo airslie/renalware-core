@@ -3,12 +3,13 @@
       h2 Recipient Operations
       .supplemental
         span= "#{recipient_operations.length} of #{patient.summary.recipient_operations_count}"
-        = link_to "View Recipient Workup",
-                  patient_transplants_recipient_workup_path(patient),
-                  class: "button secondary"
-        = link_to "View All",
-                  patient_transplants_recipient_dashboard_path(patient),
-                  class: "button secondary"
+        span.noprint
+          = link_to "View Recipient Workup",
+                    patient_transplants_recipient_workup_path(patient),
+                    class: "button secondary"
+          = link_to "View All",
+                    patient_transplants_recipient_dashboard_path(patient),
+                    class: "button secondary"
     table
       thead
         th.col-width-date Op Date

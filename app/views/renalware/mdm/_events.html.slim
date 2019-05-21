@@ -5,7 +5,8 @@
       h2 Events
       .supplemental
         span= "#{events.length} of #{mdm.patient.summary.events_count}"
-        = link_to "View All",
+        span.noprint
+          = link_to "View All",
                     patient_events_path(mdm.patient),
                     class: "button secondary"
 

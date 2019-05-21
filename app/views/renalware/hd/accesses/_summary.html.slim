@@ -1,7 +1,7 @@
 article
   header
     h2= t(".title")
-    ul
+    ul.noprint
       li= link_to t(".view"), patient_accesses_profile_path(patient, access), class: :button
       li= link_to t(".edit"), edit_patient_accesses_profile_path(patient, access), class: :button
 
