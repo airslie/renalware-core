@@ -1,7 +1,8 @@
 article
   header
     h2= t(".title")
-    =link_to t(".view_all"),
-             patient_hd_sessions_path(mdm.patient),
-             class: "button left secondary"
+    .noprint
+      =link_to t(".view_all"),
+               patient_hd_sessions_path(mdm.patient),
+               class: "button left secondary"
   = render "renalware/hd/sessions/table", sessions: mdm.sessions

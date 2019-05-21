@@ -4,12 +4,12 @@
       h2= t(".title")
       .supplemental
         span= "#{mdm.letters.length} of #{mdm.patient.summary.letters_count}"
+        span.noprint
+          = render "renalware/letters/letters/create_letter_button_dropdown",
+                  patient: mdm.patient
 
-        = render "renalware/letters/letters/create_letter_button_dropdown",
-                 patient: mdm.patient
-
-        = link_to t(".view_all"),
-                  patient_letters_letters_path(mdm.patient),
-                  class: "button secondary"
+          = link_to t(".view_all"),
+                    patient_letters_letters_path(mdm.patient),
+                    class: "button secondary"
 
     = render "renalware/letters/letters/table", letters: mdm.letters

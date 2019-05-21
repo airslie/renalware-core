@@ -27,7 +27,7 @@
   }
 
   .noprint {
-    display: none;
+    display: none !important;
   }
 
   // Use the large grid when printing, instead of the default small one.

@@ -3,7 +3,8 @@ article
     h2= t(".title")
     .supplemental
       span= "#{mdm.current_prescriptions.length} of #{mdm.patient.summary.prescriptions_count}"
-      = render "prescription_buttons", patient: mdm.patient
+      span.noprint
+        = render "prescription_buttons", patient: mdm.patient
 
   #prescriptions.expandable
     - if local_assigns[:with_esa] == true
