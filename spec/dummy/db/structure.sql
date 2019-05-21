@@ -7426,6 +7426,10 @@ CREATE TABLE ukrdc_treatments (
     patient_id bigint NOT NULL,
     clinician_id bigint,
     modality_code_id bigint NOT NULL,
+    modality_id bigint,
+    modality_description_id bigint,
+    hospital_centre_id bigint,
+    hospital_unit_id bigint,
     started_on date NOT NULL,
     ended_on date,
     created_at timestamp without time zone NOT NULL,
@@ -13384,10 +13388,38 @@ CREATE INDEX index_ukrdc_treatments_on_clinician_id ON ukrdc_treatments USING bt
 
 
 --
+-- Name: index_ukrdc_treatments_on_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_treatments_on_hospital_centre_id ON ukrdc_treatments USING btree (hospital_centre_id);
+
+
+--
+-- Name: index_ukrdc_treatments_on_hospital_unit_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_treatments_on_hospital_unit_id ON ukrdc_treatments USING btree (hospital_unit_id);
+
+
+--
 -- Name: index_ukrdc_treatments_on_modality_code_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_ukrdc_treatments_on_modality_code_id ON ukrdc_treatments USING btree (modality_code_id);
+
+
+--
+-- Name: index_ukrdc_treatments_on_modality_description_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_treatments_on_modality_description_id ON ukrdc_treatments USING btree (modality_description_id);
+
+
+--
+-- Name: index_ukrdc_treatments_on_modality_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_treatments_on_modality_id ON ukrdc_treatments USING btree (modality_id);
 
 
 --
@@ -14560,11 +14592,27 @@ ALTER TABLE ONLY hd_profiles
 
 
 --
+-- Name: ukrdc_treatments fk_rails_7d0d8e5131; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY ukrdc_treatments
+    ADD CONSTRAINT fk_rails_7d0d8e5131 FOREIGN KEY (modality_description_id) REFERENCES modality_descriptions(id);
+
+
+--
 -- Name: pd_regime_terminations fk_rails_7d318fdf1a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
 ALTER TABLE ONLY pd_regime_terminations
     ADD CONSTRAINT fk_rails_7d318fdf1a FOREIGN KEY (regime_id) REFERENCES pd_regimes(id);
+
+
+--
+-- Name: ukrdc_treatments fk_rails_7d4def4f31; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY ukrdc_treatments
+    ADD CONSTRAINT fk_rails_7d4def4f31 FOREIGN KEY (hospital_centre_id) REFERENCES hospital_centres(id);
 
 
 --
@@ -15253,6 +15301,14 @@ ALTER TABLE ONLY admission_requests
 
 ALTER TABLE ONLY letter_signatures
     ADD CONSTRAINT fk_rails_d4aaa80dee FOREIGN KEY (letter_id) REFERENCES letter_letters(id);
+
+
+--
+-- Name: ukrdc_treatments fk_rails_d5e9d1f118; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY ukrdc_treatments
+    ADD CONSTRAINT fk_rails_d5e9d1f118 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
 
 
 --
