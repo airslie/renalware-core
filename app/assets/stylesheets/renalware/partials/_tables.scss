@@ -9,6 +9,10 @@ table tr td {
   padding: 0.4rem 0.28571rem;
 }
 
+table thead th {
+  vertical-align: bottom;
+}
+
 table tbody tr:hover,
 table.column_hover .hover { // for js column hovering see table.js
   background-color: $table-row-hover-colour;

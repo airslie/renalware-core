@@ -11,4 +11,5 @@
           li= link_to patient_events_path(summary_part.patient), class: "button" do
             | View All
 
-      = render "renalware/events/events/table", events: summary_part.recent_events
+      - if summary_part.recent_events.any?
+        = render "renalware/events/events/table", events: summary_part.recent_events
