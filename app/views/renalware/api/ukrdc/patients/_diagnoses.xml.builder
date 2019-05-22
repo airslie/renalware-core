@@ -4,7 +4,7 @@
 # This is snomed-based, so might not be possible?
 xml = builder
 xml.Diagnoses do
-  xml.Diagnosis
+
   if patient.dead? && patient.first_cause.present?
     # Only 1 CauseOfDeath element is allowed so we ignore patient.second_cause
     render(
@@ -13,5 +13,19 @@ xml.Diagnoses do
       cause: patient.first_cause
     )
   end
-  xml.RenalDiagnosis
+
+  if patient.prd_description_code.present?
+    xml.RenalDiagnosis do
+      # xml.DiagnosisType
+      # xml.DiagnosingClinician
+      xml.Diagnosis do
+        xml.CodingStandard "EDTA2"
+        xml.Code patient.prd_description_code
+        xml.Description patient.prd_description_term
+      end
+      # xml.IdentificationTime
+      # xml.OnsetTime
+      # xml.EnteredOn
+    end
+  end
 end

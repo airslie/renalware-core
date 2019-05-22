@@ -9,7 +9,8 @@ module Renalware
       UKRDC_MAX_PHONE_LEN = 80
       attr_reader :changes_since, :changes_up_until
       delegate :profile, to: :renal_patient, allow_nil: true
-      delegate :first_seen_on, to: :profile, allow_nil: true
+      delegate :first_seen_on, :prd_description, to: :profile, allow_nil: true
+      delegate :code, :term, to: :prd_description, allow_nil: true, prefix: true
 
       # rubocop:disable Metrics/MethodLength
       def initialize(patient, changes_since: nil)
