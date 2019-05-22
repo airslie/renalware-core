@@ -55,3 +55,7 @@ RSpec/NestedGroups:
   Max: 4
 RSpec/MultipleExpectations:
   Max: 4
+RSpec/DescribeClass:
+  Enabled: false
+RSpec/ImplicitSubject:
+  Enabled: false

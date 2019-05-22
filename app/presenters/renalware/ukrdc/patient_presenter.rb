@@ -7,9 +7,9 @@ module Renalware
   module UKRDC
     class PatientPresenter < SimpleDelegator
       UKRDC_MAX_PHONE_LEN = 80
+
       attr_reader :changes_since, :changes_up_until
-      delegate :profile, to: :renal_patient, allow_nil: true
-      delegate :first_seen_on, :prd_description, to: :profile, allow_nil: true
+      delegate :prd_description, to: :profile, allow_nil: true
       delegate :code, :term, to: :prd_description, allow_nil: true, prefix: true
 
       # rubocop:disable Metrics/MethodLength
@@ -50,10 +50,6 @@ module Renalware
         return false if current_modality.blank?
 
         current_modality.description.is_a?(Renalware::HD::ModalityDescription)
-      end
-
-      def smoking_history
-        @smoking_history ||= document.history&.smoking&.upcase
       end
 
       def letters
@@ -111,7 +107,52 @@ module Renalware
         CollectionPresenter.new(requests, UKRDC::PathologyObservationRequestPresenter)
       end
 
+      # Return comorbidities marked as Yes.
+      # UKRDC expects a date time and we only have the year, so convert to midnight Jan 1
+      def yes_comorbidities
+        comorbidity_attributes.each_with_object([]) do |attr, arr|
+          name, value = attr
+          next unless value.respond_to?(:confirmed_on_year) && value.status == "yes"
+
+          arr << OpenStruct.new(
+            name: comorbidities.class.human_attribute_name(name),
+            date: comorbidity_date_time_from_year(value.confirmed_on_year),
+            code: comorbidities.class.snomed_code_for(name)
+          )
+        end
+      end
+
+      def smoking_history
+        history = clinical_patient.document&.history || NullObject.new
+        smoking_history = history.smoking
+        return if smoking_history.blank?
+
+        OpenStruct.new(history.smoking_snomed)
+      end
+
+      def profile
+        renal_patient.profile || NullObject.instance
+      end
+
+      def first_seen_on
+        return if profile.first_seen_on.blank?
+
+        profile.first_seen_on.to_time.iso8601
+      end
+
       private
+
+      def comorbidity_date_time_from_year(year)
+        Time.new(year).iso8601 if year.present?
+      end
+
+      def comorbidity_attributes
+        profile&.document&.comorbidities&.attributes || {}
+      end
+
+      def comorbidities
+        @comorbidities ||= profile&.document&.comorbidities
+      end
 
       def clinical_patient
         @clinical_patient ||= Renalware::Clinical.cast_patient(__getobj__)
