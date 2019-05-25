@@ -122,12 +122,24 @@ module Renalware
         end
       end
 
-      def smoking_history
-        history = clinical_patient.document&.history || NullObject.new
-        smoking_history = history.smoking
-        return if smoking_history.blank?
+      def snomed_smoking_history
+        return unless smoking_history?
 
-        OpenStruct.new(history.smoking_snomed)
+        OpenStruct.new(clinical_history.smoking_snomed)
+      end
+
+      def rr_smoking_history
+        return unless smoking_history?
+
+        clinical_history.smoking_rr
+      end
+
+      def clinical_history
+        @clinical_history ||= document&.history || NullObject.new
+      end
+
+      def smoking_history?
+        clinical_history.smoking.present?
       end
 
       def profile
@@ -138,6 +150,12 @@ module Renalware
         return if profile.first_seen_on.blank?
 
         profile.first_seen_on.to_time.iso8601
+      end
+
+      def esrf_on
+        return if profile.esrf_on.blank?
+
+        profile.esrf_on.to_time.iso8601
       end
 
       private

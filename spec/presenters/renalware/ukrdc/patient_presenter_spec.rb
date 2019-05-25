@@ -4,18 +4,16 @@ require "rails_helper"
 
 module Renalware
   describe UKRDC::PatientPresenter do
-    def smoker(status)
+    def rr_smoker(status)
       patient = Patient.new(sent_to_ukrdc_at: 1.year.ago)
       patient.document.history.smoking = status
-      UKRDC::PatientPresenter.new(patient).smoking_history
+      UKRDC::PatientPresenter.new(patient).rr_smoking_history
     end
 
-    describe "#smoking_history" do
-      it "converts RW enums to RRSMOKING codes" do
-        expect(smoker(:no)).to eq("NO")
-        expect(smoker(:yes)).to eq("YES")
-        expect(smoker(:ex)).to eq("EX")
-      end
+    describe "#rr_smoking_history which converts RW enums to RRSMOKING codes" do
+      it { expect(rr_smoker(:yes)).to eq("YES") }
+      it { expect(rr_smoker(:no)).to eq("NO") }
+      it { expect(rr_smoker(:ex)).to eq("EX") }
     end
 
     describe "#langauge" do

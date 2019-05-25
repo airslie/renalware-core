@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # https://github.com/renalreg/ukrdc/blob/6d95e364dd8de857839fe6cdbd4e7fc3fb4c1d42/Schema/Diagnoses/Diagnosis.xsd
-# This is snomed-based, so might not be possible?
 xml = builder
 xml.Diagnoses do
   if patient.dead? && patient.first_cause.present?
@@ -20,18 +19,24 @@ xml.Diagnoses do
         xml.Code comorb.code
         xml.Description comorb.name
       end
-      xml.OnsetTime(comorb.date) if comorb.date.present?
+
+      # If no date (or year) is associated with the comorbidity then
+      # use the esrf date. See email from GS to TC 23/5/18.
+      onset_date = comorb.date || patient.esrf_on
+      xml.OnsetTime(onset_date) if onset_date.present?
     end
   end
 
-  if patient.smoking_history.present?
+  if patient.smoking_history?
     xml.Diagnosis do
       xml.Diagnosis do
         xml.CodingStandard "SNOMED"
-        xml.Code patient.smoking_history.code
-        xml.Description patient.smoking_history.description
+        xml.Code patient.snomed_smoking_history.code
+        xml.Description "Smoking history: #{patient.snomed_smoking_history.description}"
       end
-      xml.Comments "Smoking history"
+      # We don't store a smoking date (it doesn't make much sense to) but UKRDC
+      # would like a date so send th ESRF date. See email from GS to TC 23/5/18.
+      xml.OnsetTime(patient.esrf_on) if patient.esrf_on.present?
     end
   end
 

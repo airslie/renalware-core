@@ -40,6 +40,10 @@ module Renalware
       def smoking_snomed
         SMOKING_SNOMED_MAP[@smoking]
       end
+
+      def smoking_rr
+        @smoking&.upcase
+      end
     end
     attribute :history, History
   end
