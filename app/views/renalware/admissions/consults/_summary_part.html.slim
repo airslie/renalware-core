@@ -1,0 +1,16 @@
+#consults.summary-part--consults
+  article
+    header
+      h2= "Consults (#{summary_part.recent_consults_count})"
+
+      ul
+        li= link_to admissions_consults_path( \
+          q: { \
+            identity_match: summary_part.patient_nhs_number,
+            ended_on_null: nil \
+          }), class: "button" do
+          | View All
+
+    /= render "renalware/admissions/consults/table",
+             admissions: summary_part.recent_consults,
+             compact: true
