@@ -2,12 +2,12 @@
   article
     header
       h2= "Admissions (#{summary_part.admissions_count})"
-
       ul
         li= link_to admissions_admissions_path(query: { term: summary_part.patient_nhs_number }),
                     class: "button" do
           | View All
 
-    = render "renalware/admissions/admissions/table",
-             admissions: summary_part.admissions,
-             compact: true
+    - if summary_part.admissions.any?
+      = render "renalware/admissions/admissions/table",
+              admissions: summary_part.admissions,
+              compact: true

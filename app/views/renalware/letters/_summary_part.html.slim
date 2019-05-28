@@ -12,6 +12,7 @@
           li= link_to patient_letters_letters_path(summary_part.patient), class: "button" do
                 | View All
 
-      = render "renalware/letters/letters/table",
-               letters: summary_part.letters,
-               patient: summary_part.patient
+      - if summary_part.letters.any?
+        = render "renalware/letters/letters/table",
+                 letters: summary_part.letters,
+                 patient: summary_part.patient
