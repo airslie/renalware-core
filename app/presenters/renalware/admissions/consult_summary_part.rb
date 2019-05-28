@@ -8,18 +8,22 @@ module Renalware
     class ConsultSummaryPart < Renalware::SummaryPart
       delegate :nhs_number, to: :patient, prefix: true
 
-      def recent_consults
-        @recent_consults ||= begin
+      def consults
+        @consults ||= begin
           CollectionPresenter.new(
-            Admissions::Consult.where(patient: patient).limit(5),
+            Admissions::Consult
+              .where(patient: patient)
+              .includes(:created_by, :hospital_ward, :patient)
+              .order(started_on: :desc)
+              .limit(5),
             Renalware::Admissions::ConsultPresenter
           )
         end
       end
 
-      def recent_consults_count
+      def consults_count
         title_friendly_collection_count(
-          actual: recent_consults.size,
+          actual: consults.size,
           total: Admissions::Consult.where(patient: patient).count
         )
       end

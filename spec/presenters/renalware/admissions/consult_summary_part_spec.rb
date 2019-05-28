@@ -8,8 +8,8 @@ module Renalware
 
     let(:patient) { Patient.new }
 
-    it { is_expected.to respond_to(:recent_consults) }
-    it { is_expected.to respond_to(:recent_consults_count) }
+    it { is_expected.to respond_to(:consults) }
+    it { is_expected.to respond_to(:consults_count) }
     it { is_expected.to respond_to(:to_partial_path) }
     it { is_expected.to respond_to(:cache_key) }
   end

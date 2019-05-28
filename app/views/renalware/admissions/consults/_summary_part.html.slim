@@ -1,7 +1,7 @@
 #consults.summary-part--consults
   article
     header
-      h2= "Consults (#{summary_part.recent_consults_count})"
+      h2= "Consults (#{summary_part.consults_count})"
 
       ul
         li= link_to admissions_consults_path( \
@@ -11,6 +11,7 @@
           }), class: "button" do
           | View All
 
-    /= render "renalware/admissions/consults/table",
-             admissions: summary_part.recent_consults,
-             compact: true
+    - if summary_part.consults.any?
+      = render "renalware/admissions/consults/table",
+              consults: summary_part.consults,
+              compact: true
