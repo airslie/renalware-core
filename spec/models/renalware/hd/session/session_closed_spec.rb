@@ -79,6 +79,10 @@ module Renalware
         it { is_expected.to validate_presence_of(:litres_processed) }
       end
 
+      describe Session::Closed::SessionDocument::AvfAvgAssessment do
+        it { is_expected.to validate_presence_of(:score) }
+      end
+
       describe Session::Closed::SessionDocument::Observations do
         subject(:observations) {
           Session::Closed::SessionDocument::Observations.new(blood_pressure: BloodPressure.new)

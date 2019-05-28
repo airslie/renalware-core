@@ -29,7 +29,6 @@ describe "Managing Diaries", type: :request do
       get hd_unit_diaries_path(unit)
 
       expect(response).to be_successful
-      expect(response).to render_template(:index)
     end
   end
 end

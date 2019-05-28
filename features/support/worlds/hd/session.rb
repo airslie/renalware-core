@@ -38,7 +38,9 @@ module World
             "is_access_first_use": "no"},
              "dialysis": {"flow_rate": 200, "blood_flow": 150,
              "machine_ktv": 1.0, "machine_urr": 1, "fluid_removed": 1.0, "venous_pressure": 1,
-             "litres_processed": 1.0, "arterial_pressure": 1}, "complications":
+             "litres_processed": 1.0, "arterial_pressure": 1},
+             "avf_avg_assessment": { "score": "1" },
+             "complications":
              {"line_exit_site_status": "0", "had_cramps": "no", "had_headache": "no", "had_mrsa_swab": "no",
               "had_mssa_swab": "no", "had_chest_pain": "no", "access_site_status": null,
                "was_dressing_changed": "no", "had_alteplase_urokinase": "no",
@@ -274,6 +276,25 @@ module World
           end
         end
 
+        within_fieldset "AVF/AVG Assessment" do
+          select "2", from: "AVF score"
+          within ".hd_session_document_avf_avg_assessment_aneurysm" do
+            choose "Yes"
+          end
+          within ".hd_session_document_avf_avg_assessment_bruit" do
+            choose "Abnormal"
+          end
+          within ".hd_session_document_avf_avg_assessment_thrill" do
+            choose "Abnormal"
+          end
+          within ".hd_session_document_avf_avg_assessment_feel" do
+            choose "Hard"
+          end
+          within ".hd_session_document_avf_avg_assessment_safe_to_use" do
+            choose "No"
+          end
+        end
+
         within_fieldset "Pre-Dialysis Observations" do
           fill_in "Weight (kg)", with: "111"
           fill_in "Pulse", with: "80"
@@ -313,6 +334,14 @@ module World
         sessions = hd_patient.reload.hd_sessions
         expect(sessions.length).to eq(1)
         new_session = sessions.first
+
+        avf_avg_assessment = new_session.document.avf_avg_assessment
+        expect(avf_avg_assessment.score).to eq(2)
+        expect(avf_avg_assessment.aneurysm).to eq("Y")
+        expect(avf_avg_assessment.bruit).to eq("A")
+        expect(avf_avg_assessment.thrill).to eq("A")
+        expect(avf_avg_assessment.feel).to eq("H")
+        expect(avf_avg_assessment.safe_to_use).to eq("N")
 
         # TODO: We have not populated the prescription_administrations yet in this test, so
         # we _should_ have had a validation error because neither Yes nor Nor were selected

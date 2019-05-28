@@ -60,6 +60,8 @@ en:
         had_alteplase_urokinase: Had alteplase urokinase?
         had_mrsa_swab: Had MRSA swab?
         had_mssa_swab: Had MSSA swab?
+      renalware/hd/session_document/avf_avg_assessment:
+        score: "AVF score"
 
     errors:
       models:
@@ -110,6 +112,30 @@ en:
         2: 2
         3: 3
         4: 4
+    renalware/hd/session_document/avf_avg_assessment:
+      score:
+        99: Not applicable
+        0: 0
+        1: 1
+        2: 2
+        3: 3
+      aneurysm:
+        Y: "Yes"
+        N: "No"
+      bruit:
+        N: Normal
+        A: Abnormal
+        NIL: Absent
+      thrill:
+        N: Normal
+        A: Abnormal
+        NIL: Absent
+      feel:
+        S: Soft
+        H: Hard
+      safe_to_use:
+        Y: "Yes"
+        N: "No"
 
   simple_form:
     hints:
