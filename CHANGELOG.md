@@ -9,6 +9,20 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.78
+### Added
+- Add recent clinic visits to all MDMs #2652
+- Create AVF/AVG Assessment Tool #2632
+- Hide non-printable elements on MDM pages when printing #2663
+- Add date of graft nephrectomy to Tx Recipient Followup #2682
+- Support multiple configurable subsets of path results for use eg. in MDMs #2664
+- Add a ukrdc_modality_codes table #2678
+### Changed
+- In HD MDM prescriptions section remove the type column #2665
+- Make login banner title configurable #2673
+### Fixed
+- Preserve filters on Consults list when marking one as Done #2671
+
 ## 2.0.77
 ### Added
 ### Changed
