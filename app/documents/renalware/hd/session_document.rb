@@ -34,11 +34,14 @@ module Renalware
         attribute :temperature, Float
         attribute :temperature_measured, Document::Enum, enums: %i(yes no), default: :yes
         attribute :bm_stix, Float
+        attribute :respiratory_rate, Integer
+        attribute :respiratory_rate_measured, Document::Enum, enums: %i(yes no), default: :yes
 
         %i(
           weight
           temperature
           bm_stix
+          respiratory_rate
           pulse
         ).each { |att| validates(att, numericality: { allow_blank: true }) }
 
@@ -46,6 +49,7 @@ module Renalware
         validates :temperature, "renalware/patients/temperature" => true
         validates :bm_stix, "renalware/patients/bm_stix" => true
         validates :pulse, "renalware/patients/pulse" => true
+        validates :respiratory_rate, "renalware/patients/respiratory_rate" => true
       end
       attribute :observations_before, Observations
       attribute :observations_after, Observations

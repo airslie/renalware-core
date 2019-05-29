@@ -83,6 +83,8 @@ ruby:
         = render_input fcm, :blood_pressure
         = fcm.input :temperature_measured, as: :inline_radio_buttons, wrapper: :horizontal_medium
         = fcm.input :temperature, wrapper: :horizontal_tiny
+        = fcm.input :respiratory_rate_measured, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        = fcm.input :respiratory_rate, wrapper: :horizontal_tiny
         = fcm.input :bm_stix, wrapper: :horizontal_tiny
 
     = render layout: "renalware/shared/fieldset",
@@ -94,6 +96,8 @@ ruby:
         = render_input fcm, :blood_pressure
         = fcm.input :temperature_measured, as: :inline_radio_buttons, wrapper: :horizontal_medium
         = fcm.input :temperature, wrapper: :horizontal_tiny
+        = fcm.input :respiratory_rate_measured, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        = fcm.input :respiratory_rate, wrapper: :horizontal_tiny
         = fcm.input :bm_stix, wrapper: :horizontal_tiny
 
     = render layout: "renalware/shared/fieldset",

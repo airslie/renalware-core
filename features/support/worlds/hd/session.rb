@@ -45,9 +45,9 @@ module World
               "had_mssa_swab": "no", "had_chest_pain": "no", "access_site_status": null,
                "was_dressing_changed": "no", "had_alteplase_urokinase": "no",
                "had_saline_administration": "no", "had_intradialytic_hypotension": "no"},
-               "observations_after": {"pulse": 36, "weight": 100.0, "bm_stix": 1.0,
+               "observations_after": {"pulse": 36, "weight": 100.0, "bm_stix": 1.0, "respiratory_rate": 30,
                 "temperature": 36.0, "blood_pressure": {"systolic": 100, "diastolic": 80}},
-                "observations_before": {"pulse": 67, "weight": 100.0, "bm_stix": 1.0,
+                "observations_before": {"pulse": 67, "weight": 100.0, "bm_stix": 1.0, "respiratory_rate": 30,
                   "temperature": 36.0, "blood_pressure": {"systolic": 100, "diastolic": 80}}}
         JSONB
 
@@ -302,6 +302,7 @@ module World
           find(:css, "#hd_session_document_observations_before_blood_pressure_systolic").set("120")
           find(:css, "#hd_session_document_observations_before_blood_pressure_diastolic").set("80")
           fill_in "BM Stix", with: "1.0"
+          fill_in "Respiratory rate", with: "11"
         end
 
         within_fieldset "Post-Dialysis Observations" do
@@ -311,6 +312,7 @@ module World
           find(:css, "#hd_session_document_observations_after_blood_pressure_systolic").set("121")
           find(:css, "#hd_session_document_observations_after_blood_pressure_diastolic").set("81")
           fill_in "BM Stix", with: "1.0"
+          fill_in "Respiratory rate", with: "12"
         end
 
         within_fieldset "Dialysis" do
@@ -342,6 +344,12 @@ module World
         expect(avf_avg_assessment.thrill).to eq("A")
         expect(avf_avg_assessment.feel).to eq("H")
         expect(avf_avg_assessment.safe_to_use).to eq("N")
+
+        pre_observations = new_session.document.observations_before
+        expect(pre_observations.respiratory_rate).to eq(11)
+
+        post_observations = new_session.document.observations_after
+        expect(post_observations.respiratory_rate).to eq(12)
 
         # TODO: We have not populated the prescription_administrations yet in this test, so
         # we _should_ have had a validation error because neither Yes nor Nor were selected

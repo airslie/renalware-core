@@ -45,6 +45,8 @@ module Renalware
           validates :blood_pressure, presence: true
           validates :weight_measured, presence: true
           validates :temperature_measured, presence: true
+          validates :respiratory_rate_measured, presence: true
+          validates :respiratory_rate, presence: { if: -> { respiratory_rate_measured&.yes? } }
           validates :weight, presence: { if: -> { weight_measured&.yes? } }
           validates :temperature, presence: { if: -> { temperature_measured&.yes? } }
           validates :blood_pressure, "renalware/patients/blood_pressure_presence" => true

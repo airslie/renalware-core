@@ -135,6 +135,7 @@ module Renalware
           weight: rand(110.0..112.0).round(1),
           bm_stix: rand(0.6..10.0).round(1),
           temperature: rand(36..38),
+          respiratory_rate: 40,
           blood_pressure: {
             systolic: rand(100..120),
             diastolic: rand(80..99)
@@ -145,6 +146,7 @@ module Renalware
           weight: rand(106.0..110.0).round(1),
           bm_stix: rand(0.6..10.0).round(1),
           temperature: rand(36..38),
+          respiratory_rate: 40,
           blood_pressure: {
             systolic: rand(100..120),
             diastolic: rand(80..99)
