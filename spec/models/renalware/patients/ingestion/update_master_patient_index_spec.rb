@@ -65,7 +65,7 @@ module Renalware::Patients
           context "when the patient exists in Renalware" do
             context "when the patient does not exist in the master patient index" do
               it "adds the patient to the master patient index and updates the patient_id "\
-                 "to point to the renalware patients" do
+                 "to point to the renalware patient" do
                 rw_patient = create(:patient, local_patient_id: "A123")
 
                 hl7_message = hl7_message_from_file("ADT_A31", hl7_data)

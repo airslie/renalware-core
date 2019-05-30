@@ -2,8 +2,11 @@
 
 require "rails_helper"
 
+# This test currently targets a dummy patient/abridgements path so we can simulate
+# a user searching for a patient in the master index, At some point that functionality will be moved
+# to patients/new and this test will need updating.
 describe "A user adds a patient", type: :system do
-  describe "displaying search results that match use-entered criteria" do
+  describe "displaying search results that match user-entered criteria" do
     context "when an abridged patient exists in the master index" do
       it "displays the abridged patient" do
         login_as_clinical

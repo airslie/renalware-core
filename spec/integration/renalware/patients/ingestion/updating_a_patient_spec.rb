@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Update patient information on receipt of an ADT~A31 HL7 message" do
+describe "HL7 ADT~A31 message handling: 'Update person information'" do
   let(:local_patient_id) { "P123" }
   let(:family_name) { "SMITH" }
   let(:given_name) { "John" }
@@ -28,24 +28,93 @@ describe "Update patient information on receipt of an ADT~A31 HL7 message" do
     hl7.gsub(/^[ ]*/, "")
   end
 
-  before do
+  def create_dependencies
     primary_care_physician
     practice
-    system_user
   end
+
+  before { system_user }
 
   context "when the patient exists in Renalware" do
     it "updates their information" do
+      create_dependencies
       patient = create(:patient, local_patient_id: local_patient_id)
 
       FeedJob.new(message).perform
 
       verify_patient_properties(patient.reload)
     end
+
+    context "when the incoming practice does not exist yet in Renalware" do
+      context "when the patient has no current practice" do
+        it "leaves practice as nil" do
+          patient = create(:patient, local_patient_id: local_patient_id)
+
+          FeedJob.new(message).perform
+
+          expect(patient.reload).to have_attributes(
+            family_name: family_name,
+            practice: nil
+          )
+        end
+      end
+
+      context "when the patient already has a practice" do
+        it "leaves practice unchanged" do
+          original_practice = create(:practice, code: "ABC")
+          patient = create(
+            :patient,
+            local_patient_id: local_patient_id,
+            practice_id: original_practice.id
+          )
+
+          FeedJob.new(message).perform
+
+          expect(patient.reload).to have_attributes(
+            family_name: family_name,
+            practice_id: original_practice.id
+          )
+        end
+      end
+    end
+
+    context "when the incoming gp does not exist yet in Renalware" do
+      context "when the patient has no current gp" do
+        it "leaves gp as nil" do
+          patient = create(:patient, local_patient_id: local_patient_id)
+
+          FeedJob.new(message).perform
+
+          expect(patient.reload).to have_attributes(
+            family_name: family_name,
+            primary_care_physician: nil
+          )
+        end
+      end
+
+      context "when the patient already has a practice" do
+        it "leaves practice unchanged" do
+          original_gp = create(:primary_care_physician, code: "MYGP")
+          patient = create(
+            :patient,
+            local_patient_id: local_patient_id,
+            primary_care_physician: original_gp
+          )
+
+          FeedJob.new(message).perform
+
+          expect(patient.reload).to have_attributes(
+            family_name: family_name,
+            primary_care_physician: original_gp
+          )
+        end
+      end
+    end
   end
 
   context "when the patient does not exists in Renalware" do
     it "creates a new patient" do
+      create_dependencies
       FeedJob.new(message).perform
 
       verify_patient_properties(Renalware::Patient.first)

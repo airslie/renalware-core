@@ -2,7 +2,10 @@
 
 require "rails_helper"
 
-describe "Update patient information on receipt of an ADT~A31 HL7 message" do
+#
+# See http://www.hl7.org.uk/repository/uploads/871/1/HL72UKA.3%20v2.pdf
+#
+describe "HL7 ADT~A28 message handling: 'Add person information'" do
   let(:local_patient_id) { "P123" }
   let(:family_name) { "SMITH" }
   let(:given_name) { "John" }
@@ -46,10 +49,10 @@ describe "Update patient information on receipt of an ADT~A31 HL7 message" do
     end
   end
 
-  context "when the patient does not exists in Renalware" do
-    it "creates a new patient" do
+  context "when the patient does not exist in Renalware" do
+    it "adds them to the master patient index" do
       FeedJob.new(message).perform
-
+      raise "not impl"
       verify_patient_properties(Renalware::Patient.first)
     end
   end

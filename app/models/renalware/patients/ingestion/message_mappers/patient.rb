@@ -40,7 +40,7 @@ module Renalware
               born_on: Time.zone.parse(patient_identification.dob)&.to_date,
               died_on: Time.zone.parse(patient_identification.death_date)&.to_date,
               sex: patient_identification.sex,
-              practice: find_practice(message.practice_code),
+              practice: find_practice(message.practice_code) || patient.practice,
               primary_care_physician: find_primary_care_physician(message.gp_code)
             }
             patient.build_current_address if patient.current_address.blank?
@@ -55,12 +55,16 @@ module Renalware
           end
           # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+          # If for some reason we cannot find the new practice (perhaps we have not imported it yet)
+          # then be sure to leave the patient's current practice unchanged.
           def find_practice(code)
-            Patients::Practice.find_by(code: code)
+            Patients::Practice.find_by(code: code) || patient.practice
           end
 
+          # If for some reason we cannot find the new gp (perhaps we have not imported them yet)
+          # then be sure to leave the patient's current gp unchanged.
           def find_primary_care_physician(code)
-            Patients::PrimaryCarePhysician.find_by(code: code)
+            Patients::PrimaryCarePhysician.find_by(code: code) || patient.primary_care_physician
           end
         end
       end
