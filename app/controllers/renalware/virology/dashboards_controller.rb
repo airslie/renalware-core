@@ -7,10 +7,7 @@ module Renalware
     class DashboardsController < BaseController
       def show
         authorize [:renalware, :virology, :dashboard], :show?
-        render locals: {
-          patient: patient,
-          vaccinations: Vaccination.for_patient(patient)
-        }
+        render locals: { dashboard: DashboardPresenter.new(patient) }
       end
     end
   end

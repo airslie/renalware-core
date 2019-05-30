@@ -1,0 +1,5 @@
+article.hep_b_antibody_path_results
+  h2 Latest BHI Hep B Anti HBS Status
+  - if dashboard.latest_hep_b_antibody_statuses?
+    = render "renalware/pathology/historical_observation_results/table",
+             table: dashboard.latest_hep_b_antibody_statuses

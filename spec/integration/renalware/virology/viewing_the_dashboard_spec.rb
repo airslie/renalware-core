@@ -3,6 +3,8 @@
 require "rails_helper"
 
 describe "Viewing the dashboard", type: :system do
+  include PathologySpecHelper
+
   let(:patient) { create(:virology_patient) }
 
   it "is accessible from the patient LH menu" do
@@ -61,6 +63,24 @@ describe "Viewing the dashboard", type: :system do
       expect(page).to have_content("Yes (2001)")
       expect(page).to have_content("HTLV")
       expect(page).to have_content("Yes (2018)")
+    end
+  end
+
+  it "displays 5 most recent BHBS pathology results (bhi hep b anti hbs status)" do
+    login_as_clinical
+    pathology_patient = Renalware::Pathology.cast_patient(patient)
+    create_request_with_observations(
+      patient: pathology_patient,
+      obx_codes: ["BHBS"],
+      count: 6, # create 6 BHBS observations..
+      result: "1.11" # they will all have this value
+    )
+
+    visit patient_virology_dashboard_path(patient)
+
+    within ".hep_b_antibody_path_results #observations" do
+      expect(page).to have_content("1.11", count: 5)
+      expect(page).to have_content("BHBS")
     end
   end
 end
