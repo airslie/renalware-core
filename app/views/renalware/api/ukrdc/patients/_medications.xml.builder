@@ -23,9 +23,27 @@ xml.Medications do
         # end
       end
       xml.Frequency prescription.frequency
-      xml.Comments prescription.notes
-      # xml.DoseUoM
-      # xml.Indication
+      xml.Comments [prescription.dose_amount,
+                    prescription.dose_unit&.text,
+                    prescription.frequency].compact.join(" ")
+
+
+      # rubocop:disable Style/RescueModifier
+      # Only output DoseQuantity is it is an integer or decimal
+      dose_amount_is_a_number = Float(prescription.dose_amount) rescue nil
+      # rubocop:enable Style/RescueModifier
+      if dose_amount_is_a_number
+        xml.DoseQuantity prescription.dose_amount
+      end
+
+      if prescription.dose_unit.present?
+        xml.DoseUoM do
+          prescription.dose_unit
+          xml.CodingStandard "LOCAL"
+          xml.Code prescription.dose_unit&.text
+          xml.Description prescription.dose_unit
+        end
+      end
     end
   end
 end
