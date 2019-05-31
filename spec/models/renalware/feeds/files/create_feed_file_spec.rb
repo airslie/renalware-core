@@ -11,7 +11,7 @@ module Renalware
             path_to_zipfile = Pathname.new(
               Renalware::Engine.root.join("spec", "fixtures", "files", "simple.zip")
             )
-            file_type = create(:feed_file_type, :practices)
+            file_type = create(:feed_file_type, :primary_care_physicians)
             user = create(:user)
             file = nil
 

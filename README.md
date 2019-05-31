@@ -123,7 +123,7 @@ On a Mac:
 - Download chromedriver from eg [here](https://chromedriver.storage.googleapis.com/index.html?path=2.38/)
 - Unzip and place in location in your PATH eh `/usr/local/bin`
 - If you have chromedriver errors it maybe your installed version of Chrome is not
-compatible your chromedriver version. In this case check your versions with
+compatible your chromedriver version. In this case check your versions with:
 
 ```
 chromedriver -v

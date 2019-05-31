@@ -2,14 +2,6 @@
 
 module Renalware
   log "Adding Import File Types" do
-    Feeds::FileType.find_or_create_by!(name: "practices") do |type|
-      type.description = "Refresh NHS Practices"
-      type.prompt = "Upload fullfile.zip from the HSCOrgRefData zip file you have downloaded from the NHS TRUD site"
-      type.download_url_title = "ODS XML Organisation Data (fullfile.zip)",
-      type.download_url = "https://isd.digital.nhs.uk/trud3/user/authenticated/group/0/pack/5/subpack/341/releases"
-      type.filename_validation_pattern = "/fullfile.zip/i"
-    end
-
     Feeds::FileType.find_or_create_by!(name: "primary_care_physicians") do |type|
       type.description = "Refresh NHS GPs"
       type.prompt = "Upload egpcur.zip from NHS ODS weekly data downloaded from the NHS TRUD site"

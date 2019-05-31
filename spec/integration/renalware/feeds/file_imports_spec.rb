@@ -22,11 +22,4 @@ describe "File Import viewing and uploading", type: :system do
       expect(page).to have_content(type.name)
     end
   end
-
-  describe "Uploading a file import" do
-    it "works" do
-      pending
-      fail NotImplementedError
-    end
-  end
 end

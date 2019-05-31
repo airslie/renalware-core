@@ -11,7 +11,7 @@ module Renalware
             it "calls ImportCSV to do the work" do
               file = create(
                 :feed_file,
-                :practices,
+                :primary_care_physicians,
                 location: file_fixture("practice_memberships/epracmem.zip")
               )
               create(:united_kingdom)
