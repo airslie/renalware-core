@@ -1,4 +1,9 @@
 GIT
+  remote: https://github.com/airslie/nhs_api_client.git
+  revision: 35298a23a1a8812aaa0c1369c0aad85743591aa7
+  specs:
+
+GIT
   remote: https://github.com/airslie/trix.git
   revision: 56d84ae42e34488b0bb301bd9bd0f54fac7fc811
   branch: master
@@ -13,6 +18,13 @@ GIT
     devise_security_extension (0.10.0)
       devise (>= 3.0.0, < 5.0)
       railties (>= 3.2.6, < 6.0)
+
+PATH
+  remote: ../nhs_api_client
+  specs:
+    nhs_api_client (0.1.0)
+      httparty (~> 0.16.4)
+      rails (>= 5.2.3)
 
 PATH
   remote: .
@@ -295,7 +307,7 @@ GEM
       activesupport (>= 4.2.0)
     hashdiff (0.3.9)
     hashery (2.1.2)
-    httparty (0.17.0)
+    httparty (0.16.4)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
     i18n (1.5.3)
@@ -629,6 +641,7 @@ DEPENDENCIES
   fuubar
   launchy
   newrelic_rpm
+  nhs_api_client!
   party_foul (~> 1.5.5)
   rails-controller-testing (~> 1.0.4)
   redis

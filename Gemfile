@@ -33,6 +33,11 @@ gem "trix",
     git: "https://github.com/airslie/trix.git",
     branch: "master"
 
+gem "nhs_api_client",
+    git: "https://github.com/airslie/nhs_api_client.git",
+    path: "../nhs_api_client",
+    require: false
+
 group :test do
   gem "capybara", "~> 3.12"
   gem "capybara-screenshot" # "~> 1.0.18"
