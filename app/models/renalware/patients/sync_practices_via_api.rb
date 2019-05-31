@@ -5,21 +5,34 @@ require_dependency "renalware/patients"
 module Renalware
   module Patients
     class SyncPracticesViaApi
-      def call
-        # Fetch each page of organisations from the API
-        client.fetch_pages(roles: roles, last_change_date: nil) do |page|
-          # For each organisation in the page..
-          page.items.each do |item|
-            next if item.last_change_date.blank?
+      def initialize(client: nil, dry_run: false)
+        @client ||= NHSApiClient::Organisations::Client.new
+        @dry_run = dry_run
+      end
 
-            practice = add_or_update_practice(item)
-            soft_delete_practice(practice) if practice.present? && item.status != "Active"
-            log flush: true
+      def call
+        ActiveRecord::Base.transaction do
+          # Fetch each page of organisations from the API
+          client.fetch_pages(roles: roles, last_change_date: nil) do |page|
+            # For each organisation in the page..
+            page.items.each do |item|
+              next if item.last_change_date.blank?
+
+              practice = add_or_update_practice(item)
+              soft_delete_practice(practice) if practice.present? && item.status != "Active"
+              log flush: true
+            end
+          end
+          if dry_run
+            log("Rolling back changes because dry_run=true", flush: true)
+            raise ActiveRecord::Rollback
           end
         end
       end
 
       private
+
+      attr_reader :client, :dry_run
 
       # Returns the added or updated practice
       def add_or_update_practice(item)
@@ -91,10 +104,6 @@ module Renalware
       def soft_delete_practice(practice)
         log "Deleting "
         practice.destroy
-      end
-
-      def client
-        @client ||= NHSApiClient::Organisations::Client.new
       end
 
       def roles
