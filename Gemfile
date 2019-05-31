@@ -68,7 +68,8 @@ group :development do
   gem "bullet"
   gem "foreman", require: false
   gem "rubocop-performance"
-  gem "rubocop-rspec", require: false # for housekeeping
+  gem "rubocop-rails", require: false
+  gem "rubocop-rspec", require: false
   gem "web-console", require: false
 end
 

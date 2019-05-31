@@ -14,7 +14,7 @@ plugins:
       score_threshold: 20.0
   rubocop:
     enabled: true
-    channel: rubocop-0-67
+    channel: rubocop-0-71
   reek:
     enabled: true
   brakeman:
