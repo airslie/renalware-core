@@ -8,31 +8,10 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: anemex; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA anemex;
-
-
---
 -- Name: renalware; Type: SCHEMA; Schema: -; Owner: -
 --
 
 CREATE SCHEMA renalware;
-
-
---
--- Name: renalware_diaverum; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA renalware_diaverum;
-
-
---
--- Name: renalware_kch; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA renalware_kch;
 
 
 --
@@ -78,34 +57,6 @@ COMMENT ON EXTENSION intarray IS 'functions, operators, and index support for 1-
 
 
 --
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA renalware;
-
-
---
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
-
-
---
--- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA renalware;
-
-
---
--- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
-
-
---
 -- Name: tablefunc; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -120,20 +71,6 @@ COMMENT ON EXTENSION tablefunc IS 'functions that manipulate whole tables, inclu
 
 
 --
--- Name: unaccent; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS unaccent WITH SCHEMA renalware_kch;
-
-
---
--- Name: EXTENSION unaccent; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION unaccent IS 'text search dictionary that removes accents';
-
-
---
 -- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -145,217 +82,6 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 --
 
 COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
-
-
-SET search_path = anemex, pg_catalog;
-
---
--- Name: refresh_anemex_tables(); Type: FUNCTION; Schema: anemex; Owner: -
---
-
-CREATE FUNCTION refresh_anemex_tables() RETURNS void
-    LANGUAGE plpgsql
-    AS $_$
-  DECLARE
-    anemex_study_id int := 125;
-    iron_drug_id int := 663;
-
-BEGIN
-
--- make sure we create all objects in the anemex schema
-create schema if not exists anemex;
-SET search_path = anemex, renalware_kch, renalware, public;
-
-/******************************************************************************************/
-/* Create a table of participants in the ANEMX study and generates a unique id for each   */
-/******************************************************************************************/
-
-drop table if exists participants;
-  create table participants as
-SELECT
-  p.id                                                    as patient_id,
-  rsp.external_id                                         as participant_external_id,
-  concat(p.id + 201689 + EXTRACT(YEAR FROM p.created_at)) as pseudo_anonymised_patient_id,
-  p.local_patient_id,
-  p.family_name,
-  p.given_name
-from patients p
-  inner join research_study_participants rsp on p.id = rsp.participant_id
-where left_on is NULL AND deleted_at is NULL AND joined_on <= current_date and rsp.study_id = anemex_study_id;
-
-CREATE INDEX idx_participants_patient_id ON participants USING btree (patient_id);
-
-/******************************************************************************************/
-/* Create a summary table of latest patient heights                                       */
-/******************************************************************************************/
-drop table if exists latest_heights;
-  create table latest_heights as
-select
-  distinct on (p.patient_id)
-  p.patient_id                          as patient_id,
-  v.date,
-  round(v.height :: numeric, 2) as height
-from clinic_visits v
-  inner join participants p on p.patient_id = v.patient_id
-order by p.patient_id, v.date DESC;
-
-CREATE INDEX idx_tmp_latest_heights_patient_id ON latest_heights USING btree (patient_id);
-
-/******************************************************************************************/
-/* Create a summary table of meds give on HD                                              */
-/******************************************************************************************/
-drop table if exists given_medications;
-  create table given_medications as
-select
-  p.patient_id,
-  admins.hd_session_id,
-  mp.dose_unit,
-  mp.dose_amount,
-  drugs.id                              as drug_id,
-  drugs.name                            as drug_name,
-  dt.code                               as drug_type_code,
-  admins.administered                   as administered
-from participants p
-inner join hd_sessions s on s.patient_id = p.patient_id
-inner join hd_prescription_administrations admins on admins.hd_session_id = s.id
-  inner join medication_prescriptions mp on mp.id = admins.prescription_id
-  inner join drugs on drugs.id = mp.drug_id
-  left outer join drug_types_drugs dtd on drugs.id = dtd.drug_id
-  left outer join drug_types dt on dtd.drug_type_id = dt.id
-where admins.administered = true;
-
-CREATE INDEX idx_tmp_given_medications_hd_session_id  ON given_medications USING btree (hd_session_id);
-CREATE INDEX idx_tmp_given_medications_drug_id        ON given_medications USING btree (drug_id);
-CREATE INDEX idx_tmp_given_medications_drug_type_code ON given_medications USING btree (drug_type_code);
-
-/******************************************************************************************/
-/* Sessions                                                                               */
-/******************************************************************************************/
-drop table if exists csv_session_data;
-  create table csv_session_data as
-SELECT
-  p.participant_external_id                        as Patzid,
-  s.performed_on                                   as hdsessdate,
-  u.unit_code                                      as modalsite,
-  access_types.name                                as access,
-  s.document -> 'info' ->> 'hd_type'               as hdtype,
-  s.document -> 'observations_before' ->> 'weight' as wt_pre,
-  s.document -> 'observations_after' ->> 'weight'  as wt_post,
-  -- note ufr is fluid_removed /duration in hours / dry weight in kg
-  round(((s.document -> 'dialysis' ->> 'fluid_removed') :: numeric /
-         (NULLIF(duration, 0) :: numeric / 60.0) /
-         NULLIF(dw.weight, 0)) :: numeric, 2)      as UFR,
-  s.document -> 'dialysis' ->> 'machine_urr'       as machineURR,
-  s.document -> 'dialysis' ->> 'machine_ktv'       as machineKTV,
-  CASE
-    WHEN iron.administered = true then 1
-    ELSE 0
-  END                                              as iron_given,
-  iron.dose_amount                                 as iron_dose_mg,
-  CASE
-    WHEN esa.administered = true then 1
-    ELSE 0
-  END                                              as esa_given,
-  esa.drug_name                                    as ESA,
-  esa.dose_amount || ' ' || esa.dose_unit          as ESAdose,
-  dw.assessed_on                                   as drywtdate,
-  round(dw.weight::numeric,2)                      as drywt
-from hd_sessions s
-  inner join participants p on p.patient_id = s.patient_id
-  inner join hospital_units u on s.hospital_unit_id = u.id
-  left outer join (select distinct on (hd_session_id) *
-                   from given_medications
-                   where drug_type_code = 'esa') as esa on esa.hd_session_id = s.id
-  left outer join (select distinct on (hd_session_id) *
-                   from given_medications
-                   where drug_id = iron_drug_id) as iron on iron.hd_session_id = s.id
-  left outer join clinical_dry_weights dw on s.dry_weight_id = dw.id
-  left outer join access_profiles on access_profiles.patient_id = p.patient_id
-  left outer join access_types on access_types.id = access_profiles.type_id
-where s.type = 'Renalware::HD::Session::Closed' and s.performed_on::date > '2018-01-01'
-order by s.id desc;
-
-/******************************************************************************************/
-/* Demographics                                                                           */
-/******************************************************************************************/
-
-drop table if exists csv_demographic_data;
-  create table csv_demographic_data as
-select
-  participants.participant_external_id                 as Patzid,
-  participants.pseudo_anonymised_patient_id            as PatientIdentifier,
-  p.family_name                                        as lastname,
-  p.given_name                                         as firstnames,
-  unit.unit_code                                       as modalsite,
-  p.sex                                                as Gender,
-  h.height                                             as height,
-  e.name                                               as ethnicity,
-  date_part('year', age(current_timestamp, p.born_on)) as age
-from patients p
-  inner join participants on participants.patient_id = p.id
-  left outer join patient_ethnicities e on e.id = p.ethnicity_id
-  left outer join latest_heights h on h.patient_id = p.id
-  left outer join hd_profiles on hd_profiles.patient_id = p.id AND hd_profiles.deactivated_at is null
-  /* TODO: is using hd_profile.hospital_unit_id here correct? */
-  left outer join hospital_units unit on unit.id = hd_profiles.hospital_unit_id;
-
-/******************************************************************************************/
-/* Pathology                                                                              */
-/******************************************************************************************/
-
--- Step 1
--- Generate a table of path results for each patient+day when results available. Looks like this:
---
--- patient_id,observed_on,results
--- 12345,2017-01-21,"{""NA"": ""139"", ""CRE"": ""83"", ""POT"": ""4.2"", ""URE"": ""3.3"", ""EGFR"": ""83""}"
--- 12345,2016-12-06,{"FOL": "6.4"}
--- 12345,2016-10-20,"{""FT4"": ""17.3"", ""TSH"": ""0.36""}"
--- ...
--- Note we use a regex to exclude non-numeric values etc 'Test Cancelled' and '10.0%' and '23L'
-drop table if exists pathology_summary;
-create table pathology_summary as
-SELECT
-  participants.patient_id,
-  (obs.observed_at)::date AS observed_on,
-  jsonb_object_agg(obs_desc.code, obs.result) AS results
- FROM
-  participants
-   inner JOIN pathology_observation_requests obr ON obr.patient_id = participants.patient_id
-   inner JOIN pathology_observations obs on obs.request_id = obr.id
-   inner JOIN pathology_observation_descriptions obs_desc ON obs.description_id = obs_desc.id
-   where obs.result  ~ '^\d+(.\d+)?$' and (obs.observed_at)::date >= '2018-01-01'
-GROUP BY participants.patient_id, ((obs.observed_at)::date)
-ORDER BY participants.patient_id, ((obs.observed_at)::date) DESC;
-
--- Step 2
--- Now generate anemex pathology data to be copied to CSV.
--- Note unlike RW1 the path data is not flat but normalised, so we have to pivot it to get eg HGB as a column name.
--- Using the previously created jsonb is a good way to do this. The alternative would be to use the crosstab() function.
--- but that's more SQL and a bit harder to read.
-drop table if exists csv_pathology_data;
-  create table csv_pathology_data as
-select
-  p.participant_external_id           as Patzid,
-  obs.observed_on                     as resultsdate,
-  obs.results ->> 'HGB'               as HB,
-  obs.results ->> 'FER'               as FER,
-  obs.results ->> 'CAL'               as CAL,
-  obs.results ->> 'PHOS'              as PHOS,
-  obs.results ->> 'NA'                as NA,
-  obs.results ->> 'WBC'               as WBC,
-  obs.results ->> 'CRP'               as CRP,
-  obs.results ->> 'ALB'               as ALB,
-  obs.results ->> 'MCV'               as MCV,
-  obs.results ->> 'MCH'               as MCH,
-  obs.results ->> 'POT'               as POT,
-  obs.results ->> 'PTHI'              as PTHI,
-  obs.results ->> 'URR'               as URR
-from participants p
-  inner join pathology_summary obs on obs.patient_id = p.patient_id
-order by p.patient_id, obs.observed_on;
-
-END;
-$_$;
 
 
 SET search_path = renalware, pg_catalog;
@@ -1033,34 +759,6 @@ BEGIN
 END $$;
 
 
-SET search_path = renalware_kch, pg_catalog;
-
---
--- Name: preprocess_pathology_observation_requests(); Type: FUNCTION; Schema: renalware_kch; Owner: -
---
-
-CREATE FUNCTION preprocess_pathology_observation_requests() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-BEGIN
-raise notice 'a';
-UPDATE
-    pathology_observation_requests
-SET
-    latest = null
-WHERE
-    requestor_order_number = NEW.requestor_order_number
-    AND patient_id = NEW.patient_id
-    AND description_id = NEW.description_id;
-
-    NEW.latest = true;
-
-  RETURN NEW;
-END
-
-$$;
-
-
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -1736,19 +1434,6 @@ ALTER SEQUENCE admission_requests_id_seq OWNED BY admission_requests.id;
 
 
 --
--- Name: all_months; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW all_months AS
- SELECT date_part('year'::text, dd.dd) AS year,
-    date_part('month'::text, dd.dd) AS month,
-    (date_trunc('day'::text, dd.dd))::date AS first_day_of_month,
-    (((date_trunc('month'::text, dd.dd) + '1 mon'::interval) - '1 day'::interval))::date AS last_day_of_month
-   FROM generate_series(('2001-01-01 00:00:00'::timestamp without time zone)::timestamp with time zone, CURRENT_TIMESTAMP, '1 mon'::interval) dd(dd)
-  ORDER BY (date_part('year'::text, dd.dd)), (date_part('month'::text, dd.dd));
-
-
---
 -- Name: clinic_appointments; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -2057,37 +1742,6 @@ CREATE SEQUENCE clinical_versions_id_seq
 --
 
 ALTER SEQUENCE clinical_versions_id_seq OWNED BY clinical_versions.id;
-
-
---
--- Name: days_of_week; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE days_of_week (
-    id integer NOT NULL,
-    abbrev text,
-    name text
-);
-
-
---
--- Name: days_of_week_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE days_of_week_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: days_of_week_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE days_of_week_id_seq OWNED BY days_of_week.id;
 
 
 --
@@ -3654,8 +3308,7 @@ CREATE TABLE letter_recipients (
     addressee_type character varying,
     addressee_id integer,
     emailed_at timestamp without time zone,
-    printed_at timestamp without time zone,
-    email_later boolean DEFAULT false NOT NULL
+    printed_at timestamp without time zone
 );
 
 
@@ -4279,10 +3932,8 @@ CREATE TABLE pathology_observation_requests (
     patient_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    description_id integer NOT NULL,
-    latest boolean
-)
-WITH (fillfactor='70');
+    description_id integer NOT NULL
+);
 
 
 --
@@ -4842,7 +4493,7 @@ CREATE TABLE patients (
     nhs_number character varying,
     local_patient_id character varying,
     family_name character varying NOT NULL,
-    given_name text NOT NULL,
+    given_name character varying NOT NULL,
     born_on date NOT NULL,
     paediatric_patient_indicator boolean,
     sex character varying,
@@ -6294,7 +5945,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -6358,7 +6009,7 @@ CREATE VIEW reporting_bone_audit AS
              JOIN modality_descriptions md ON ((m.description_id = md.id)))) e1
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS pth
            FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'PTH'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
+          WHERE (((pathology_current_observations.description_code)::text = 'PTHI'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS phos
            FROM pathology_current_observations
           WHERE (((pathology_current_observations.description_code)::text = 'PHOS'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e3 ON (true))
@@ -6373,7 +6024,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -7192,18 +6843,6 @@ ALTER SEQUENCE system_visits_id_seq OWNED BY system_visits.id;
 
 
 --
--- Name: tmp_problems_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE tmp_problems_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
 -- Name: transplant_donations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -7997,142 +7636,6 @@ CREATE SEQUENCE virology_versions_id_seq
 ALTER SEQUENCE virology_versions_id_seq OWNED BY virology_versions.id;
 
 
-SET search_path = renalware_diaverum, pg_catalog;
-
---
--- Name: access_maps; Type: TABLE; Schema: renalware_diaverum; Owner: -
---
-
-CREATE TABLE access_maps (
-    id bigint NOT NULL,
-    diaverum_location_id character varying NOT NULL,
-    diaverum_type_id character varying NOT NULL,
-    side character varying,
-    access_type_id integer NOT NULL
-);
-
-
---
--- Name: access_maps_id_seq; Type: SEQUENCE; Schema: renalware_diaverum; Owner: -
---
-
-CREATE SEQUENCE access_maps_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: access_maps_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware_diaverum; Owner: -
---
-
-ALTER SEQUENCE access_maps_id_seq OWNED BY access_maps.id;
-
-
---
--- Name: hd_type_maps; Type: TABLE; Schema: renalware_diaverum; Owner: -
---
-
-CREATE TABLE hd_type_maps (
-    id bigint NOT NULL,
-    diaverum_type_id character varying NOT NULL,
-    hd_type character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: hd_type_maps_id_seq; Type: SEQUENCE; Schema: renalware_diaverum; Owner: -
---
-
-CREATE SEQUENCE hd_type_maps_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: hd_type_maps_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware_diaverum; Owner: -
---
-
-ALTER SEQUENCE hd_type_maps_id_seq OWNED BY hd_type_maps.id;
-
-
-SET search_path = renalware_kch, pg_catalog;
-
---
--- Name: pathology_code_group_memberships; Type: TABLE; Schema: renalware_kch; Owner: -
---
-
-CREATE TABLE pathology_code_group_memberships (
-    id bigint NOT NULL,
-    code_group_id bigint NOT NULL,
-    description_id bigint NOT NULL,
-    subgroup integer DEFAULT 1 NOT NULL,
-    position_within_subgroup integer DEFAULT 1 NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: pathology_code_group_memberships_id_seq; Type: SEQUENCE; Schema: renalware_kch; Owner: -
---
-
-CREATE SEQUENCE pathology_code_group_memberships_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pathology_code_group_memberships_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware_kch; Owner: -
---
-
-ALTER SEQUENCE pathology_code_group_memberships_id_seq OWNED BY pathology_code_group_memberships.id;
-
-
---
--- Name: pathology_code_groups; Type: TABLE; Schema: renalware_kch; Owner: -
---
-
-CREATE TABLE pathology_code_groups (
-    id bigint NOT NULL,
-    name character varying NOT NULL,
-    description text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: pathology_code_groups_id_seq; Type: SEQUENCE; Schema: renalware_kch; Owner: -
---
-
-CREATE SEQUENCE pathology_code_groups_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pathology_code_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware_kch; Owner: -
---
-
-ALTER SEQUENCE pathology_code_groups_id_seq OWNED BY pathology_code_groups.id;
-
-
-SET search_path = renalware, pg_catalog;
-
 --
 -- Name: access_assessments id; Type: DEFAULT; Schema: renalware; Owner: -
 --
@@ -8306,13 +7809,6 @@ ALTER TABLE ONLY clinical_dry_weights ALTER COLUMN id SET DEFAULT nextval('clini
 --
 
 ALTER TABLE ONLY clinical_versions ALTER COLUMN id SET DEFAULT nextval('clinical_versions_id_seq'::regclass);
-
-
---
--- Name: days_of_week id; Type: DEFAULT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY days_of_week ALTER COLUMN id SET DEFAULT nextval('days_of_week_id_seq'::regclass);
 
 
 --
@@ -9307,38 +8803,6 @@ ALTER TABLE ONLY virology_profiles ALTER COLUMN id SET DEFAULT nextval('virology
 --
 
 ALTER TABLE ONLY virology_versions ALTER COLUMN id SET DEFAULT nextval('virology_versions_id_seq'::regclass);
-
-
-SET search_path = renalware_diaverum, pg_catalog;
-
---
--- Name: access_maps id; Type: DEFAULT; Schema: renalware_diaverum; Owner: -
---
-
-ALTER TABLE ONLY access_maps ALTER COLUMN id SET DEFAULT nextval('access_maps_id_seq'::regclass);
-
-
---
--- Name: hd_type_maps id; Type: DEFAULT; Schema: renalware_diaverum; Owner: -
---
-
-ALTER TABLE ONLY hd_type_maps ALTER COLUMN id SET DEFAULT nextval('hd_type_maps_id_seq'::regclass);
-
-
-SET search_path = renalware_kch, pg_catalog;
-
---
--- Name: pathology_code_group_memberships id; Type: DEFAULT; Schema: renalware_kch; Owner: -
---
-
-ALTER TABLE ONLY pathology_code_group_memberships ALTER COLUMN id SET DEFAULT nextval('pathology_code_group_memberships_id_seq'::regclass);
-
-
---
--- Name: pathology_code_groups id; Type: DEFAULT; Schema: renalware_kch; Owner: -
---
-
-ALTER TABLE ONLY pathology_code_groups ALTER COLUMN id SET DEFAULT nextval('pathology_code_groups_id_seq'::regclass);
 
 
 SET search_path = public, pg_catalog;
@@ -10705,44 +10169,6 @@ ALTER TABLE ONLY virology_versions
     ADD CONSTRAINT virology_versions_pkey PRIMARY KEY (id);
 
 
-SET search_path = renalware_diaverum, pg_catalog;
-
---
--- Name: access_maps access_maps_pkey; Type: CONSTRAINT; Schema: renalware_diaverum; Owner: -
---
-
-ALTER TABLE ONLY access_maps
-    ADD CONSTRAINT access_maps_pkey PRIMARY KEY (id);
-
-
---
--- Name: hd_type_maps hd_type_maps_pkey; Type: CONSTRAINT; Schema: renalware_diaverum; Owner: -
---
-
-ALTER TABLE ONLY hd_type_maps
-    ADD CONSTRAINT hd_type_maps_pkey PRIMARY KEY (id);
-
-
-SET search_path = renalware_kch, pg_catalog;
-
---
--- Name: pathology_code_group_memberships pathology_code_group_memberships_pkey; Type: CONSTRAINT; Schema: renalware_kch; Owner: -
---
-
-ALTER TABLE ONLY pathology_code_group_memberships
-    ADD CONSTRAINT pathology_code_group_memberships_pkey PRIMARY KEY (id);
-
-
---
--- Name: pathology_code_groups pathology_code_groups_pkey; Type: CONSTRAINT; Schema: renalware_kch; Owner: -
---
-
-ALTER TABLE ONLY pathology_code_groups
-    ADD CONSTRAINT pathology_code_groups_pkey PRIMARY KEY (id);
-
-
-SET search_path = renalware, pg_catalog;
-
 --
 -- Name: access_plan_uniqueness; Type: INDEX; Schema: renalware; Owner: -
 --
@@ -10765,31 +10191,10 @@ CREATE INDEX access_versions_type_id ON access_versions USING btree (item_type, 
 
 
 --
--- Name: bla; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX bla ON patients USING gin (family_name gin_trgm_ops);
-
-
---
--- Name: bla2; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX bla2 ON patients USING gin (given_name gin_trgm_ops);
-
-
---
 -- Name: clinic_versions_type_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX clinic_versions_type_id ON clinic_versions USING btree (item_type, item_id);
-
-
---
--- Name: delayed_jobs_created_on; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX delayed_jobs_created_on ON delayed_jobs USING btree (((created_at)::date));
 
 
 --
@@ -11910,6 +11315,13 @@ CREATE INDEX index_hd_sessions_on_document ON hd_sessions USING gin (document);
 --
 
 CREATE INDEX index_hd_sessions_on_dry_weight_id ON hd_sessions USING btree (dry_weight_id);
+
+
+--
+-- Name: index_hd_sessions_on_external_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_sessions_on_external_id ON hd_sessions USING btree (external_id);
 
 
 --
@@ -14153,13 +13565,6 @@ CREATE INDEX pathology_code_group_membership_obx ON pathology_code_group_members
 
 
 --
--- Name: pathology_observations_created_date; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX pathology_observations_created_date ON pathology_observations USING btree (((created_at)::date));
-
-
---
 -- Name: patient_bookmarks_uniqueness; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -14263,75 +13668,6 @@ CREATE INDEX tx_versions_type_id ON transplant_versions USING btree (item_type, 
 
 CREATE UNIQUE INDEX unique_study_participants ON research_study_participants USING btree (participant_id, study_id) WHERE (deleted_at IS NULL);
 
-
---
--- Name: yada; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX yada ON pathology_observations USING btree (description_id) WHERE (cancelled = true);
-
-
---
--- Name: yada_cancelled; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX yada_cancelled ON pathology_observations USING btree (cancelled);
-
-
-SET search_path = renalware_diaverum, pg_catalog;
-
---
--- Name: index_renalware_diaverum.hd_type_maps_on_diaverum_type_id; Type: INDEX; Schema: renalware_diaverum; Owner: -
---
-
-CREATE UNIQUE INDEX "index_renalware_diaverum.hd_type_maps_on_diaverum_type_id" ON hd_type_maps USING btree (diaverum_type_id);
-
-
---
--- Name: index_renalware_diaverum.hd_type_maps_on_hd_type; Type: INDEX; Schema: renalware_diaverum; Owner: -
---
-
-CREATE UNIQUE INDEX "index_renalware_diaverum.hd_type_maps_on_hd_type" ON hd_type_maps USING btree (hd_type);
-
-
---
--- Name: renalware_diaverum_access_maps_idx; Type: INDEX; Schema: renalware_diaverum; Owner: -
---
-
-CREATE UNIQUE INDEX renalware_diaverum_access_maps_idx ON access_maps USING btree (diaverum_location_id, diaverum_type_id);
-
-
-SET search_path = renalware_kch, pg_catalog;
-
---
--- Name: index_pathology_code_group_memberships_on_code_group_id; Type: INDEX; Schema: renalware_kch; Owner: -
---
-
-CREATE INDEX index_pathology_code_group_memberships_on_code_group_id ON pathology_code_group_memberships USING btree (code_group_id);
-
-
---
--- Name: index_pathology_code_group_memberships_on_description_id; Type: INDEX; Schema: renalware_kch; Owner: -
---
-
-CREATE INDEX index_pathology_code_group_memberships_on_description_id ON pathology_code_group_memberships USING btree (description_id);
-
-
---
--- Name: index_pathology_code_group_memberships_uniq; Type: INDEX; Schema: renalware_kch; Owner: -
---
-
-CREATE UNIQUE INDEX index_pathology_code_group_memberships_uniq ON pathology_code_group_memberships USING btree (code_group_id, description_id);
-
-
---
--- Name: index_pathology_code_groups_on_name; Type: INDEX; Schema: renalware_kch; Owner: -
---
-
-CREATE UNIQUE INDEX index_pathology_code_groups_on_name ON pathology_code_groups USING btree (name);
-
-
-SET search_path = renalware, pg_catalog;
 
 --
 -- Name: delayed_jobs feed_messages_preprocessing_trigger; Type: TRIGGER; Schema: renalware; Owner: -
@@ -16562,24 +15898,6 @@ ALTER TABLE ONLY transplant_registration_statuses
     ADD CONSTRAINT transplant_registration_statuses_updated_by_id_fk FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
-SET search_path = renalware_kch, pg_catalog;
-
---
--- Name: pathology_code_group_memberships fk_rails_aff8ecb964; Type: FK CONSTRAINT; Schema: renalware_kch; Owner: -
---
-
-ALTER TABLE ONLY pathology_code_group_memberships
-    ADD CONSTRAINT fk_rails_aff8ecb964 FOREIGN KEY (code_group_id) REFERENCES pathology_code_groups(id);
-
-
---
--- Name: pathology_code_group_memberships fk_rails_d93988545f; Type: FK CONSTRAINT; Schema: renalware_kch; Owner: -
---
-
-ALTER TABLE ONLY pathology_code_group_memberships
-    ADD CONSTRAINT fk_rails_d93988545f FOREIGN KEY (description_id) REFERENCES renalware.pathology_observation_descriptions(id);
-
-
 --
 -- PostgreSQL database dump complete
 --
@@ -16920,24 +16238,19 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180119121243'),
 ('20180121115246'),
 ('20180122173922'),
-('20180124190235'),
 ('20180125201356'),
 ('20180126142314'),
-('20180129080544'),
 ('20180130165803'),
 ('20180201090444'),
 ('20180202184954'),
 ('20180206225525'),
 ('20180207082540'),
 ('20180208150629'),
-('20180209095614'),
-('20180209115743'),
 ('20180213124203'),
 ('20180213125734'),
 ('20180213171805'),
 ('20180214124317'),
 ('20180216132741'),
-('20180220110945'),
 ('20180221210458'),
 ('20180222090501'),
 ('20180223100420'),
@@ -16945,7 +16258,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180226132410'),
 ('20180301095040'),
 ('20180305134959'),
-('20180305154250'),
 ('20180306071308'),
 ('20180306080518'),
 ('20180307191650'),
@@ -16955,13 +16267,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180311104609'),
 ('20180313114927'),
 ('20180313124819'),
-('20180319182238'),
 ('20180319191942'),
 ('20180323150241'),
 ('20180326155400'),
 ('20180327100423'),
 ('20180328210434'),
-('20180404092241'),
 ('20180419141524'),
 ('20180422090043'),
 ('20180427133558'),
@@ -16973,18 +16283,13 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180511171835'),
 ('20180514151627'),
 ('20180516111411'),
-('20180523162018'),
 ('20180524072633'),
 ('20180524074320'),
 ('20180605114332'),
 ('20180605141806'),
 ('20180605175211'),
-('20180606154103'),
-('20180608084826'),
 ('20180622130552'),
-('20180625105333'),
 ('20180625124431'),
-('20180627155720'),
 ('20180628132323'),
 ('20180702091222'),
 ('20180702091237'),
@@ -16999,24 +16304,18 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180802144507'),
 ('20180803131157'),
 ('20180814103916'),
-('20180815124429'),
 ('20180815144429'),
-('20180830140422'),
 ('20180831134606'),
 ('20180831134926'),
 ('20180907100545'),
 ('20181001162513'),
 ('20181008144324'),
 ('20181008145159'),
-('20181010123132'),
 ('20181013115138'),
 ('20181025170410'),
 ('20181026145459'),
-('20181106133400'),
 ('20181106133500'),
 ('20181109110616'),
-('20181120110340'),
-('20181120110757'),
 ('20181126090401'),
 ('20181126123745'),
 ('20181217124025'),
