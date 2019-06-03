@@ -20,6 +20,7 @@ module Renalware
                        "OR patient_practices.code = ? " \
                        "OR addresses.street_1 ILIKE ? " \
                        "OR addresses.postcode ILIKE ?", term, search_term, term, term)
+                .where(active: true)
                 .limit(50)
       end
     end
