@@ -17,8 +17,9 @@ module Renalware
                 .left_outer_joins(:address)
                 .includes(:address)
                 .where("patient_practices.name ILIKE ? "\
+                       "OR patient_practices.code = ? " \
                        "OR addresses.street_1 ILIKE ? " \
-                       "OR addresses.postcode ILIKE ?", term, term, term)
+                       "OR addresses.postcode ILIKE ?", term, search_term, term, term)
                 .limit(50)
       end
     end
