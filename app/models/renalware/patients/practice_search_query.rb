@@ -13,7 +13,7 @@ module Renalware
         return [] if search_term.blank?
 
         term = "%#{search_term}%"
-        Practice.select(:id, :name)
+        Practice.select(:id, :name, :code)
                 .left_outer_joins(:address)
                 .includes(:address)
                 .where("patient_practices.name ILIKE ? "\

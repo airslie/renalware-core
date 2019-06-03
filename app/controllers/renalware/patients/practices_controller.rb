@@ -31,7 +31,7 @@ module Renalware
         address = practice.address || null_address
         {
           id: practice.id,
-          name: practice.name,
+          name: "#{practice.name} (#{practice.code})",
           address: [
             address.street_1,
             address.town,
