@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/airslie/nhs_api_client.git
-  revision: ddbed48d2ec22e570f304ec67c9e0972c278fd46
-  specs:
-    nhs_api_client (0.1.0)
-      httparty (~> 0.16.4)
-      rails (>= 5.2.3)
-
-GIT
   remote: https://github.com/airslie/trix.git
   revision: 56d84ae42e34488b0bb301bd9bd0f54fac7fc811
   branch: master
@@ -21,6 +13,13 @@ GIT
     devise_security_extension (0.10.0)
       devise (>= 3.0.0, < 5.0)
       railties (>= 3.2.6, < 6.0)
+
+PATH
+  remote: ../nhs_api_client
+  specs:
+    nhs_api_client (0.1.0)
+      httparty (~> 0.16.4)
+      rails (>= 5.2.3)
 
 PATH
   remote: .

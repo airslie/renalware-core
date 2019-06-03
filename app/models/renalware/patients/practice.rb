@@ -5,8 +5,6 @@ require_dependency "renalware/patients"
 module Renalware
   module Patients
     class Practice < ApplicationRecord
-      acts_as_paranoid
-
       has_one :address, as: :addressable
       has_many :practice_memberships, dependent: :restrict_with_exception
       has_many :primary_care_physicians, through: :practice_memberships
