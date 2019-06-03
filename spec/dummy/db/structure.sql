@@ -301,8 +301,8 @@ CREATE FUNCTION import_practice_memberships_csv(file text) RETURNS void
     gp_code text NOT NULL,
     practice_code text NOT NULL,
     unused3 text,
-    unused4 text,
-    unused5 text,
+    joined_on text,
+    left_on text,
     unused7 text
   );
 
@@ -312,25 +312,40 @@ CREATE FUNCTION import_practice_memberships_csv(file text) RETURNS void
   DROP TABLE IF EXISTS tmp_memberships;
   CREATE TEMP TABLE tmp_memberships AS
     SELECT
-      gp_code,
-      practice_code,
+      C.gp_code,
+      C.practice_code,
+      case C.joined_on when '' then NULL else C.joined_on::date end,
+      case C.left_on when '' then NULL else C.left_on::date end,
       patient_primary_care_physicians.id primary_care_physician_id,
       patient_practices.id as practice_id
-      from copied_memberships
-      INNER JOIN patient_practices on patient_practices.code = practice_code
-      INNER JOIN patient_primary_care_physicians on patient_primary_care_physicians.code = gp_code;
+      from copied_memberships C
+      INNER JOIN patient_practices on patient_practices.code = C.practice_code
+      INNER JOIN patient_primary_care_physicians on patient_primary_care_physicians.code = C.gp_code;
 
   -- Insert any new memberships, ignoring any conflicts where the
   -- practice_id + primary_care_physician_id already exists
   INSERT INTO renalware.patient_practice_memberships
-    (practice_id, primary_care_physician_id, created_at, updated_at)
+    (practice_id, primary_care_physician_id, joined_on, left_on, active, created_at, updated_at)
   SELECT
     practice_id,
     primary_care_physician_id,
+    joined_on,
+    left_on,
+    case when left_on is null then true else false end,
     CURRENT_TIMESTAMP,
     CURRENT_TIMESTAMP
   FROM tmp_memberships
   ON CONFLICT (practice_id, primary_care_physician_id) DO NOTHING;
+
+  -- However we need to ensure the joined_on left_on and active columns are up to date as these
+  -- were recently added
+  UPDATE renalware.patient_practice_memberships AS M
+  SET
+    joined_on = T.joined_on,
+    left_on = T.left_on,
+    active = case when T.left_on is null then true else false end
+  FROM tmp_memberships T
+  WHERE T.practice_id = M.practice_id  AND T.primary_care_physician_id = M.primary_care_physician_id;
 
   -- Mark as deleted any memberships not in the latest uploaded data set - ie those gps have retired or moved on
   UPDATE patient_practice_memberships mem
@@ -4648,7 +4663,11 @@ CREATE TABLE patient_practice_memberships (
     primary_care_physician_id integer NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    last_change_date date,
+    joined_on date,
+    left_on date,
+    active boolean DEFAULT true NOT NULL
 );
 
 
@@ -16333,6 +16352,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190516093707'),
 ('20190531172829'),
 ('20190602114659'),
-('20190603084428');
+('20190603084428'),
+('20190603135247'),
+('20190603143834');
 
 
