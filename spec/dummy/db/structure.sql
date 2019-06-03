@@ -360,123 +360,6 @@ $$;
 
 
 --
--- Name: import_practices_csv(text); Type: FUNCTION; Schema: renalware; Owner: -
---
-
-CREATE FUNCTION import_practices_csv(file text) RETURNS void
-    LANGUAGE plpgsql
-    AS $$
-  BEGIN
-  /*
-  Imports a practices.csv file created by parsing out an HSCOrgRefData_Full_xxxxx.xml file.
-  */
-  DROP TABLE IF EXISTS tmp_practices;
-
-  CREATE TEMP TABLE tmp_practices (
-    code text NOT NULL,
-    name text NOT NULL,
-    tel text,
-    street_1 text,
-    street_2 text,
-    street_3 text,
-    town text,
-    county text,
-    postcode text NOT NULL,
-    region text,
-    country_id integer,
-    active text NOT NULL,
-    CONSTRAINT tmp_practices_pkey PRIMARY KEY (code)
-  );
-
-  /* Import the CSV file into tmp_practices, ignoring the first row which is a header */
-  EXECUTE format ('COPY tmp_practices FROM %L DELIMITER %L CSV HEADER', file, ',');
-
-  /* Upsert practices */
-  WITH data(
-      code,
-      name,
-      telephone,
-      street_1,
-      street_2,
-      street_3,
-      town,
-      county,
-      postcode,
-      region,
-      country_id,
-      active)
-    AS (select * from tmp_practices)
-    , practice_changes AS (
-        INSERT INTO patient_practices (code, name, telephone, created_at, updated_at)
-        SELECT code, name, telephone, clock_timestamp(), clock_timestamp()
-        FROM data
-        ON CONFLICT (code) DO UPDATE
-          SET
-            name = excluded.name,
-            telephone = excluded.telephone,
-            updated_at = excluded.updated_at
-          RETURNING code, id
-      )
-
-  /* Upsert practice addresses */
-  INSERT INTO addresses (
-    addressable_type,
-    addressable_id,
-    street_1,
-    street_2,
-    street_3,
-    town,
-    county,
-    postcode,
-    region,
-    country_id,
-    created_at,
-    updated_at)
-  SELECT
-    'Renalware::Patients::Practice',
-    practice_changes.id,
-    street_1,
-    street_2,
-    street_3,
-    town,
-    county,
-    postcode,
-    region,
-    country_id,
-    CURRENT_TIMESTAMP,
-    CURRENT_TIMESTAMP
-    FROM data join practice_changes using(code)
-  ON CONFLICT (addressable_type, addressable_id) DO UPDATE
-    SET
-    street_1 = excluded.street_1,
-    street_2 = excluded.street_2,
-    street_3 = excluded.street_3,
-    town = excluded.town,
-    county = excluded.county,
-    postcode = excluded.postcode,
-    region = excluded.region,
-    country_id = excluded.country_id,
-    updated_at = clock_timestamp();
-
-  /* Update the deleted_at column of any practices which do not have an Active status_code */
-  UPDATE patient_practices AS p
-  SET deleted_at = CURRENT_TIMESTAMP
-  FROM tmp_practices AS tp
-  WHERE p.code = tp.code AND tp.active = 'false';
-
-  /* Set deleted_at tp NULL for active practices */
-  UPDATE patient_practices AS p
-  SET deleted_at = NULL
-  FROM tmp_practices AS tp
-  WHERE p.code = tp.code AND tp.active != 'false';
-
-  DROP TABLE tmp_practices;
-
-  END;
-  $$;
-
-
---
 -- Name: new_hl7_message(text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -5964,7 +5847,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -6043,7 +5926,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -16354,6 +16237,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190602114659'),
 ('20190603084428'),
 ('20190603135247'),
-('20190603143834');
+('20190603143834'),
+('20190603165812');
 
 

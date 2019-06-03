@@ -17,7 +17,7 @@ describe "Changing a patient's GP (primary care physician)", type: :request do
           [
             {
               "id" => practice.id,
-              "name" => practice.name,
+              "name" => "#{practice.name} (#{practice.code})",
               "address" => "123 Legoland, Windsor, Berkshire, NW1 6BB"
             }
           ]
@@ -37,7 +37,7 @@ describe "Changing a patient's GP (primary care physician)", type: :request do
           [
             {
               "id" => practice.id,
-              "name" => practice.name,
+              "name" => "#{practice.name} (#{practice.code})",
               "address" => "123 Legoland, Windsor, Berkshire, NW1 1AA"
             }
           ]

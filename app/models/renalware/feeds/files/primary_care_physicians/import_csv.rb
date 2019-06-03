@@ -11,13 +11,13 @@ module Renalware
           pattr_initialize :csv_path
 
           def call
-            import_practices_csv_using_sql_function
+            import_gp_csv_using_sql_function
           end
 
           private
 
           # See migration for SQL function definition
-          def import_practices_csv_using_sql_function
+          def import_gp_csv_using_sql_function
             conn = ActiveRecord::Base.connection
             conn.execute(
               "SELECT renalware.import_gps_csv(#{conn.quote(csv_path.realpath.to_s)}::text)"
