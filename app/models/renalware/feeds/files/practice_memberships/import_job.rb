@@ -13,13 +13,11 @@ module Renalware
 
           def perform(file)
             logging_to_stringio(strio = StringIO.new)
-            log "Before upload there are #{practice_membership_count} active and "\
-                "#{inactive_practice_membership_count} inactive practice memberships"
+            log "Before upload there are #{practice_membership_count} practice memberships"
             file.update!(status: :processing, attempts: file.attempts + 1)
             status = :success
             elapsed_ms = Benchmark.ms { process_archive(file.location) }
-            log "After upload there are #{practice_membership_count} active and "\
-                "#{inactive_practice_membership_count} inactive practice memberships"
+            log "After upload there are #{practice_membership_count} practice memberships"
           rescue StandardError => e
             Rails.logger.error(formatted_exception(e))
             status = :failure
@@ -39,10 +37,6 @@ module Renalware
 
           def practice_membership_count
             Patients::PracticeMembership.count
-          end
-
-          def inactive_practice_membership_count
-            Patients::PracticeMembership.deleted.count
           end
         end
       end

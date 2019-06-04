@@ -1,0 +1,23 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+module Renalware
+  module Patients
+    describe SyncODSJob do
+      include ActiveJob::TestHelper
+
+      describe "#perform" do
+        it "delegates to other API and download service object" do
+          allow(Renalware::Patients::SyncPracticesViaApi).to receive(:call)
+          allow(Renalware::Patients::SyncGpsViaFileDownloadJob).to receive(:perform_later)
+
+          described_class.perform_now(dry_run: false)
+
+          expect(Renalware::Patients::SyncPracticesViaApi).to have_received(:call)
+          expect(Renalware::Patients::SyncGpsViaFileDownloadJob).to have_received(:perform_later)
+        end
+      end
+    end
+  end
+end

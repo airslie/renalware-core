@@ -4,7 +4,7 @@ class AddLastChangeDateToPatientPractices < ActiveRecord::Migration[5.2]
 
     # Here we are moving away from using a deleted_at/acts_as_paranoid approach to hiding practices
     # to just having an #active boolean flag - this more closely emulates the output of the NHS
-    # organisational data API which returns Status = Active ot Status = Inactive.
+    # Organisation Data Service (ODS) API which returns Status = Active ot Status = Inactive.
     # Because we are doing some data migration here also, we need to manually handle the rollback.
     reversible do |direction|
       direction.up do

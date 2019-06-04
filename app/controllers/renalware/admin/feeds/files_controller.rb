@@ -39,7 +39,13 @@ module Renalware
         private
 
         def files
-          @files ||= Renalware::Feeds::File.ordered.page(page).per(per_page)
+          @files ||= begin
+            Renalware::Feeds::File
+              .ordered
+              .includes(:file_type, :created_by)
+              .page(page)
+              .per(per_page)
+          end
         end
 
         def file_upload_params

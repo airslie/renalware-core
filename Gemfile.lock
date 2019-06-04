@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/airslie/nhs_api_client.git
-  revision: ecde526eea511a3dadfedc9e07033c85ffdab72f
+  revision: 3a1c0f86a1444c6e369583550d548d39736857ec
   specs:
     nhs_api_client (0.1.0)
       httparty (~> 0.16.4)

@@ -4,8 +4,14 @@ require_dependency "renalware/patients"
 
 module Renalware
   module Patients
-    #
+    # Fetches pratice changes and additions from the NHS ODS API.
+    # Called from a rake task.
+    # See doc/ods.md
     class SyncPracticesViaApi
+      def self.call(**args)
+        new(**args).call
+      end
+
       def initialize(api_log:, client: nil, dry_run: false)
         @client = client || NHSApiClient::Organisations::Client.new
         @dry_run = dry_run
@@ -29,6 +35,8 @@ module Renalware
       attr_reader :client, :dry_run, :api_log
 
       def sync
+        # ods_logger = Logger.new(Rails.root.join("log", "ods.log"))
+        # Rails.logger.extend(ActiveSupport::Logger.broadcast(ods_logger))
         # Fetch each page of organisations from the API
         # Note that the api we are calling does not support a last_change_date > 185 days ago,
         # in which case the client will set it to null so that all records are returned.
@@ -76,7 +84,6 @@ module Renalware
         else
           practice = add_practice(item)
         end
-        log flush: true
         practice
       end
 
@@ -96,8 +103,8 @@ module Renalware
       end
 
       def log(*args, flush: false)
-        print sprintf(*args) if args.any?
-        puts "" if flush
+        Rails.logger.info(sprintf(*args)) if args.any?
+        Rails.logger.info("") if flush
       end
 
       def find_practice_with_code(code)
@@ -109,10 +116,10 @@ module Renalware
           code: item.org_id,
           name: item.name,
           telephone: item.details.tel,
-          last_change_date: item.last_change_date, # unless we do this, updated_at won't update if no changes
+          last_change_date: item.last_change_date,
           active: item.status == "Active"
         )
-        build_practice_address(practice.address, item)
+        build_practice_address(practice.address || practice.build_address, item)
         practice.save!
         practice
       end
