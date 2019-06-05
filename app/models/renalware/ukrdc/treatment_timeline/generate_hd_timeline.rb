@@ -18,6 +18,7 @@ module Renalware
         private
 
         def create_treatment_from_modality
+          print "[#{treatment.txt_code}] "
           treatments << Treatment.create!(
             patient: patient,
             clinician: modality.created_by,
@@ -27,28 +28,54 @@ module Renalware
           )
         end
 
+        class ProfileDecorator < DumbDelegator
+          def initialize(profile, last_profile:)
+            @last_profile = last_profile
+            super(profile)
+          end
+
+          def hd_type
+            document.dialysis.hd_type
+          end
+
+          def changed?
+            return true if last_profile.blank?
+
+            hd_type_changed? || hospital_unit_changed?
+          end
+
+          def unchanged?
+            !changed?
+          end
+
+          def hd_type_changed?
+            last_profile.document.dialysis.hd_type != hd_type
+          end
+
+          def hospital_unit_changed?
+            last_profile.hospital_unit_id != hospital_unit_id
+          end
+
+          private
+
+          attr_reader :last_profile
+        end
+
         # 3 things trigger a new Treatment for an HD patient
         # - change of site
         # - change of hd_type to from hd and (hdf_pre || hdf_post)
-        # - change of medications
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # - change of hd prescription
+        # Looop through the hd_profiles and trigger an new treatment when these change
         def create_treatments_within_modality
           profiles = hd_profiles_for(patient, from: modality.started_on, to: modality.ended_on)
           last_profile = NullObject.instance
-          profiles.each do |profile|
-            hd_type = profile.document.dialysis.hd_type
-            next if last_profile.document.dialysis.hd_type == hd_type
 
-            treatments << Treatment.create!(
-              patient: patient,
-              clinician: modality.created_by,
-              started_on: modality.started_on,
-              ended_on: modality.ended_on,
-              modality_code: treatment_for_hd_type(hd_type)
-            )
+          profiles.each do |profile_|
+            profile = ProfileDecorator.new(profile_, last_profile: last_profile)
+            create_treatment_from(profile) if profile.changed?
+            last_profile = profile_
           end
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
         # - if modality started on same day as hd profile prescribed then use HD Profile hd_type
         #   if present else hd
@@ -58,6 +85,18 @@ module Renalware
         # - if medications change? new treatment? Check with GS
         def deduplicate
           # p treatments.map(&:id)
+        end
+
+        def create_treatment_from(profile)
+          code = treatment_for_hd_type(profile.hd_type)
+          print "[#{code.txt_code}] "
+          treatments << Treatment.create!(
+            patient: patient,
+            clinician: modality.created_by,
+            started_on: modality.started_on,
+            ended_on: modality.ended_on,
+            modality_code: treatment_for_hd_type(profile.hd_type)
+          )
         end
 
         def treatments
