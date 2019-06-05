@@ -33,6 +33,7 @@ module Renalware
           weight
           bm_stix
           pulse
+          respiratory_rate
         ).each do |att|
           it { is_expected.to validate_numericality_of(att) }
           it { is_expected.to allow_value("", nil).for(att) }

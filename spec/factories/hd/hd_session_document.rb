@@ -54,6 +54,7 @@ FactoryBot.define do
     weight { 100.0 }
     bm_stix { 1.0 }
     temperature { 36.0 }
+    respiratory_rate { 20.0 }
     blood_pressure factory: :blood_pressure, strategy: :marshal_dump
   end
 
@@ -62,6 +63,7 @@ FactoryBot.define do
     weight { 99.0 }
     bm_stix { 0.9 }
     temperature { 35.0 }
+    respiratory_rate { 25.0 }
     blood_pressure factory: :blood_pressure, strategy: :marshal_dump
   end
 

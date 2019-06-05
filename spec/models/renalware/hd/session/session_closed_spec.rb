@@ -94,10 +94,25 @@ module Renalware
           it { is_expected.not_to validate_presence_of(:bm_stix) }
           it { is_expected.to validate_presence_of(:weight_measured) }
           it { is_expected.to validate_presence_of(:temperature_measured) }
+          it { is_expected.to validate_presence_of(:respiratory_rate_measured) }
 
           it "validates presence of blood_pressure" do
             expect(observations).not_to be_valid
             expect(observations.blood_pressure.errors).to include(:systolic, :diastolic)
+          end
+
+          describe "#respiratory_rate" do
+            context "when respiratory_rate_measured is false" do
+              before { observations.respiratory_rate_measured = :no }
+
+              it { is_expected.not_to validate_presence_of(:respiratory_rate) }
+            end
+
+            context "when respiratory_rate_measured is true" do
+              before { observations.respiratory_rate_measured = :yes }
+
+              it { is_expected.to validate_presence_of(:respiratory_rate) }
+            end
           end
 
           describe "#weight" do
