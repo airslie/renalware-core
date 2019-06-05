@@ -10,6 +10,9 @@ module Renalware
         pattr_initialize :patient
 
         def call
+          PrepareTables.call
+          RemapModelTableNamesToTheirPreparedEquivalents.call
+
           modalities.each do |modality|
             case modality.description
             when Renalware::HD::ModalityDescription then GenerateHDTimeline.new(modality).call
