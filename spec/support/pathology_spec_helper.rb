@@ -25,7 +25,9 @@ module PathologySpecHelper
                                        obx_codes: ["OBX1"],
                                        requested_at: 1.year.ago,
                                        patient:,
-                                       created_at: nil)
+                                       created_at: nil,
+                                       count: 1,
+                                       result: "1.1")
     request_desc = create(:pathology_request_description, code: obr_code)
     create(
       :pathology_observation_request,
@@ -37,13 +39,15 @@ module PathologySpecHelper
     ).tap do |request|
       obx_codes.each do |obx_code|
         description = create(:pathology_observation_description, code: obx_code)
-        create(
-          :pathology_observation,
-          request: request,
-          description: description,
-          observed_at: 1.year.ago,
-          result: "1.1"
-        )
+        (1..count).each do |num|
+          create(
+            :pathology_observation,
+            request: request,
+            description: description,
+            observed_at: num.years.ago,
+            result: result
+          )
+        end
       end
     end
   end

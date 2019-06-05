@@ -1,6 +1,9 @@
 = content_for(:actions) do
-  = render "actions", patient: patient
+  = render "actions", patient: dashboard.patient
 
 = within_patient_layout(title: "Virology") do
-  = render "renalware/virology/profiles/summary", patient: patient
-  = render "renalware/virology/vaccinations/list", vaccinations: vaccinations, patient: patient
+  = render "renalware/virology/profiles/summary", patient: dashboard.patient
+  = render "renalware/virology/vaccinations/list",
+           vaccinations: dashboard.vaccinations,
+           patient: dashboard.patient
+  = render "latest_hep_b_antibody_statuses", dashboard: dashboard

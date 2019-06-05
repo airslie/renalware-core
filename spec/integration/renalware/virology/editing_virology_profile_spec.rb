@@ -25,6 +25,11 @@ describe "Editing the virology profile", type: :system do
       select("2011", from: "Diagnosed")
     end
 
+    within(".hepatitis_b_core_antibody") do
+      choose("Yes")
+      select("2010", from: "Diagnosed")
+    end
+
     within(".hepatitis_c") do
       choose("Unknown")
     end
@@ -45,6 +50,8 @@ describe "Editing the virology profile", type: :system do
     expect(document.hiv.confirmed_on_year).to eq(2012)
     expect(document.hepatitis_b.status.to_s).to eq("no")
     expect(document.hepatitis_b.confirmed_on_year).to eq(2011)
+    expect(document.hepatitis_b_core_antibody.status.to_s).to eq("yes")
+    expect(document.hepatitis_b_core_antibody.confirmed_on_year).to eq(2010)
     expect(document.hepatitis_c.status.to_s).to eq("unknown")
     expect(document.hepatitis_c.confirmed_on_year).to be_blank
     expect(document.htlv.status.to_s).to eq("yes")
