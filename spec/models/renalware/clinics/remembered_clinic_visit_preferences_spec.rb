@@ -7,7 +7,7 @@ module Renalware
     describe RememberedClinicVisitPreferences, type: :model do
       describe "#persist" do
         it "saves certain model attributes to the session" do
-          visit = instance_double("ClinicVisit", date: Time.zone.now)
+          visit = instance_double("ClinicVisit", date: Time.zone.now, clinic_id: 1)
           session = {}
 
           RememberedClinicVisitPreferences.new(session).persist(visit)
@@ -21,12 +21,13 @@ module Renalware
       describe "#apply_to" do
         it "copies any previously remembered session data to the visit" do
           date = Time.zone.now
-          session = { clinic_visit_preferences: { date: date } }
-          visit = OpenStruct.new(date: nil)
+          clinic_id = 1
+          session = { clinic_visit_preferences: { date: date, clinic_id: clinic_id } }
+          visit = OpenStruct.new(date: nil, clinic_id: nil)
 
           RememberedClinicVisitPreferences.new(session).apply_to(visit)
 
-          expect(visit.date).to eq(date)
+          expect(visit).to have_attributes(date: date, clinic_id: clinic_id)
         end
       end
     end
