@@ -45,7 +45,7 @@ describe "Medications element" do
     it "includes a Medication element with a DoseQuantity element" do
       patient = create(:patient)
       presenter = Renalware::UKRDC::PatientPresenter.new(patient)
-      create_prescription_for(patient, dose_amount: "99")
+      prescription = create_prescription_for(patient, dose_amount: "99")
 
       xml = partial_content(presenter)
 
@@ -71,6 +71,7 @@ describe "Medications element" do
             <Code>mg</Code>
             <Description>milligram</Description>
           </DoseUoM>
+          <ExternalId>#{prescription.id}</ExternalId>
         </Medication>
       </Medications>
       XML

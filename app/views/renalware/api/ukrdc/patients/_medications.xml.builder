@@ -44,6 +44,8 @@ xml.Medications do
           xml.Description prescription.dose_unit
         end
       end
+
+      xml.ExternalId prescription.id
     end
   end
 end
