@@ -2,14 +2,9 @@
 
 FactoryBot.define do
   factory :feed_file_type, class: "Renalware::Feeds::FileType" do
-    name { "Practices" }
-    description { "Import practices" }
+    name { "PrimaryCarePhysicians" }
+    description { "Import GPs" }
     prompt { "Where to get the file etc" }
-
-    trait :practices do
-      name { "Practices" }
-      description { "Import practices" }
-    end
 
     trait :primary_care_physicians do
       name { "GPs" }

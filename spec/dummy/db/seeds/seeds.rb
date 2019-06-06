@@ -3,7 +3,6 @@
 require_relative "./system/seeds"
 require_relative "./hospitals/seeds"
 require_relative "./drugs/seeds"
-require_relative "./feeds/seeds"
 require_relative "./patients/seeds"
 require_relative "./directory/seeds"
 require_relative "./accesses/seeds"

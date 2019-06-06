@@ -301,8 +301,8 @@ CREATE FUNCTION import_practice_memberships_csv(file text) RETURNS void
     gp_code text NOT NULL,
     practice_code text NOT NULL,
     unused3 text,
-    unused4 text,
-    unused5 text,
+    joined_on text,
+    left_on text,
     unused7 text
   );
 
@@ -312,25 +312,40 @@ CREATE FUNCTION import_practice_memberships_csv(file text) RETURNS void
   DROP TABLE IF EXISTS tmp_memberships;
   CREATE TEMP TABLE tmp_memberships AS
     SELECT
-      gp_code,
-      practice_code,
+      C.gp_code,
+      C.practice_code,
+      case C.joined_on when '' then NULL else C.joined_on::date end,
+      case C.left_on when '' then NULL else C.left_on::date end,
       patient_primary_care_physicians.id primary_care_physician_id,
       patient_practices.id as practice_id
-      from copied_memberships
-      INNER JOIN patient_practices on patient_practices.code = practice_code
-      INNER JOIN patient_primary_care_physicians on patient_primary_care_physicians.code = gp_code;
+      from copied_memberships C
+      INNER JOIN patient_practices on patient_practices.code = C.practice_code
+      INNER JOIN patient_primary_care_physicians on patient_primary_care_physicians.code = C.gp_code;
 
   -- Insert any new memberships, ignoring any conflicts where the
   -- practice_id + primary_care_physician_id already exists
   INSERT INTO renalware.patient_practice_memberships
-    (practice_id, primary_care_physician_id, created_at, updated_at)
+    (practice_id, primary_care_physician_id, joined_on, left_on, active, created_at, updated_at)
   SELECT
     practice_id,
     primary_care_physician_id,
+    joined_on,
+    left_on,
+    case when left_on is null then true else false end,
     CURRENT_TIMESTAMP,
     CURRENT_TIMESTAMP
   FROM tmp_memberships
   ON CONFLICT (practice_id, primary_care_physician_id) DO NOTHING;
+
+  -- However we need to ensure the joined_on left_on and active columns are up to date as these
+  -- were recently added
+  UPDATE renalware.patient_practice_memberships AS M
+  SET
+    joined_on = T.joined_on,
+    left_on = T.left_on,
+    active = case when T.left_on is null then true else false end
+  FROM tmp_memberships T
+  WHERE T.practice_id = M.practice_id  AND T.primary_care_physician_id = M.primary_care_physician_id;
 
   -- Mark as deleted any memberships not in the latest uploaded data set - ie those gps have retired or moved on
   UPDATE patient_practice_memberships mem
@@ -342,123 +357,6 @@ CREATE FUNCTION import_practice_memberships_csv(file text) RETURNS void
   DROP TABLE IF EXISTS tmp_memberships;
 END;
 $$;
-
-
---
--- Name: import_practices_csv(text); Type: FUNCTION; Schema: renalware; Owner: -
---
-
-CREATE FUNCTION import_practices_csv(file text) RETURNS void
-    LANGUAGE plpgsql
-    AS $$
-  BEGIN
-  /*
-  Imports a practices.csv file created by parsing out an HSCOrgRefData_Full_xxxxx.xml file.
-  */
-  DROP TABLE IF EXISTS tmp_practices;
-
-  CREATE TEMP TABLE tmp_practices (
-    code text NOT NULL,
-    name text NOT NULL,
-    tel text,
-    street_1 text,
-    street_2 text,
-    street_3 text,
-    town text,
-    county text,
-    postcode text NOT NULL,
-    region text,
-    country_id integer,
-    active text NOT NULL,
-    CONSTRAINT tmp_practices_pkey PRIMARY KEY (code)
-  );
-
-  /* Import the CSV file into tmp_practices, ignoring the first row which is a header */
-  EXECUTE format ('COPY tmp_practices FROM %L DELIMITER %L CSV HEADER', file, ',');
-
-  /* Upsert practices */
-  WITH data(
-      code,
-      name,
-      telephone,
-      street_1,
-      street_2,
-      street_3,
-      town,
-      county,
-      postcode,
-      region,
-      country_id,
-      active)
-    AS (select * from tmp_practices)
-    , practice_changes AS (
-        INSERT INTO patient_practices (code, name, telephone, created_at, updated_at)
-        SELECT code, name, telephone, clock_timestamp(), clock_timestamp()
-        FROM data
-        ON CONFLICT (code) DO UPDATE
-          SET
-            name = excluded.name,
-            telephone = excluded.telephone,
-            updated_at = excluded.updated_at
-          RETURNING code, id
-      )
-
-  /* Upsert practice addresses */
-  INSERT INTO addresses (
-    addressable_type,
-    addressable_id,
-    street_1,
-    street_2,
-    street_3,
-    town,
-    county,
-    postcode,
-    region,
-    country_id,
-    created_at,
-    updated_at)
-  SELECT
-    'Renalware::Patients::Practice',
-    practice_changes.id,
-    street_1,
-    street_2,
-    street_3,
-    town,
-    county,
-    postcode,
-    region,
-    country_id,
-    CURRENT_TIMESTAMP,
-    CURRENT_TIMESTAMP
-    FROM data join practice_changes using(code)
-  ON CONFLICT (addressable_type, addressable_id) DO UPDATE
-    SET
-    street_1 = excluded.street_1,
-    street_2 = excluded.street_2,
-    street_3 = excluded.street_3,
-    town = excluded.town,
-    county = excluded.county,
-    postcode = excluded.postcode,
-    region = excluded.region,
-    country_id = excluded.country_id,
-    updated_at = clock_timestamp();
-
-  /* Update the deleted_at column of any practices which do not have an Active status_code */
-  UPDATE patient_practices AS p
-  SET deleted_at = CURRENT_TIMESTAMP
-  FROM tmp_practices AS tp
-  WHERE p.code = tp.code AND tp.active = 'false';
-
-  /* Set deleted_at tp NULL for active practices */
-  UPDATE patient_practices AS p
-  SET deleted_at = NULL
-  FROM tmp_practices AS tp
-  WHERE p.code = tp.code AND tp.active != 'false';
-
-  DROP TABLE tmp_practices;
-
-  END;
-  $$;
 
 
 --
@@ -4648,7 +4546,11 @@ CREATE TABLE patient_practice_memberships (
     primary_care_physician_id integer NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    last_change_date date,
+    joined_on date,
+    left_on date,
+    active boolean DEFAULT true NOT NULL
 );
 
 
@@ -4683,8 +4585,9 @@ CREATE TABLE patient_practices (
     code character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    deleted_at timestamp without time zone,
-    telephone character varying
+    telephone character varying,
+    last_change_date date,
+    active boolean DEFAULT true
 );
 
 
@@ -5944,7 +5847,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -6023,7 +5926,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -6556,6 +6459,43 @@ CREATE SEQUENCE snippets_snippets_id_seq
 --
 
 ALTER SEQUENCE snippets_snippets_id_seq OWNED BY snippets_snippets.id;
+
+
+--
+-- Name: system_api_logs; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE system_api_logs (
+    id bigint NOT NULL,
+    identifier character varying NOT NULL,
+    status character varying NOT NULL,
+    records_added integer DEFAULT 0 NOT NULL,
+    records_updated integer DEFAULT 0 NOT NULL,
+    dry_run boolean DEFAULT false NOT NULL,
+    error text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    pages integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: system_api_logs_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE system_api_logs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_api_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE system_api_logs_id_seq OWNED BY system_api_logs.id;
 
 
 --
@@ -8551,6 +8491,13 @@ ALTER TABLE ONLY snippets_snippets ALTER COLUMN id SET DEFAULT nextval('snippets
 
 
 --
+-- Name: system_api_logs id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_api_logs ALTER COLUMN id SET DEFAULT nextval('system_api_logs_id_seq'::regclass);
+
+
+--
 -- Name: system_countries id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -9874,6 +9821,14 @@ ALTER TABLE ONLY roles_users
 
 ALTER TABLE ONLY snippets_snippets
     ADD CONSTRAINT snippets_snippets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_api_logs system_api_logs_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY system_api_logs
+    ADD CONSTRAINT system_api_logs_pkey PRIMARY KEY (id);
 
 
 --
@@ -12224,13 +12179,6 @@ CREATE UNIQUE INDEX index_patient_practices_on_code ON patient_practices USING b
 
 
 --
--- Name: index_patient_practices_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_patient_practices_on_deleted_at ON patient_practices USING btree (deleted_at);
-
-
---
 -- Name: index_patient_primary_care_physicians_on_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -12977,6 +12925,20 @@ CREATE INDEX index_snippets_snippets_on_author_id ON snippets_snippets USING btr
 --
 
 CREATE INDEX index_snippets_snippets_on_title ON snippets_snippets USING btree (title);
+
+
+--
+-- Name: index_system_api_logs_on_identifier; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_api_logs_on_identifier ON system_api_logs USING btree (identifier);
+
+
+--
+-- Name: index_system_api_logs_on_status; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_api_logs_on_status ON system_api_logs USING btree (status);
 
 
 --
@@ -16270,6 +16232,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190512155900'),
 ('20190513131826'),
 ('20190513135312'),
-('20190516093707');
+('20190516093707'),
+('20190531172829'),
+('20190602114659'),
+('20190603084428'),
+('20190603135247'),
+('20190603143834'),
+('20190603165812');
 
 

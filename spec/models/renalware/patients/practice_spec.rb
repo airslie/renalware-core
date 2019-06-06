@@ -9,6 +9,5 @@ module Renalware::Patients
     it { is_expected.to validate_presence_of :code }
     it { is_expected.to have_many(:practice_memberships) }
     it { is_expected.to have_many(:primary_care_physicians).through(:practice_memberships) }
-    it_behaves_like "a Paranoid model"
   end
 end

@@ -5,10 +5,6 @@ FactoryBot.define do
     association :file_type, factory: :feed_file_type
     accountable
 
-    trait :practices do
-      association :file_type, factory: %i(feed_file_type practices)
-    end
-
     trait :primary_care_physicians do
       association :file_type, factory: %i(feed_file_type primary_care_physicians)
     end

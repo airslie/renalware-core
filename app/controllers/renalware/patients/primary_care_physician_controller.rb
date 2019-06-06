@@ -35,10 +35,8 @@ module Renalware
       # So to allow the Practice and GP to be assigned to such a patient we have to skip validation
       # callbacks by using update_columns.
       def update_patient
-        return false unless selected_pyhsician
-
         patient.update_columns(
-          primary_care_physician_id: selected_pyhsician.id,
+          primary_care_physician_id: selected_physician_id,
           practice_id: patient_params[:practice_id],
           updated_by_id: current_user.id
         )
@@ -56,9 +54,12 @@ module Renalware
         }
       end
 
-      def selected_pyhsician
-        @selected_pyhsician ||= begin
-          PrimaryCarePhysician.find_by(id: patient_params[:primary_care_physician_id])
+      def selected_physician_id
+        @selected_physician_id ||= begin
+          PrimaryCarePhysician
+            .select(:id)
+            .find_by(id: patient_params[:primary_care_physician_id])
+            &.id
         end
       end
 
@@ -67,19 +68,37 @@ module Renalware
       end
 
       # Every time a practice is selected from the autocomplete list in the Find GP modal
-      # we re-render the edit form and inject the practice_id as a hidden field therein. This was
-      # its available in a form submission in the #update action.
+      # we re-render the edit form and inject the practice_id as a hidden field therein so it
+      # is available in a form submission in the #update action.
       # The practice_id in this method is supplied here as a query param by the JS that refreshes
       # the form when a practice is selected - it will be the same as that posted in the form when
-      # saved, but at this stage its  ephemeral and just here to let us build the PCP list to
+      # saved, but at this stage its ephemeral and just here to let us build the GP list to
       # render in the form.
       def available_primary_care_physicians
-        pratice_id = params[:practice_id]
-        return [] unless pratice_id
+        practice_id = params[:practice_id]
+        return [] unless practice_id
 
-        Practice.find(pratice_id).primary_care_physicians.map do |physician|
-          [physician.to_s, physician.id]
+        find_practice_memberships_for(practice_id).map do |membership|
+          [
+            format_gp_name(membership),
+            membership.primary_care_physician&.id
+          ]
         end
+      end
+
+      def find_practice_memberships_for(practice_id)
+        PracticeMembership
+          .eager_load(:primary_care_physician)
+          .where(practice_id: practice_id)
+          .order(
+            "#{PracticeMembership.table_name}.left_on desc,"\
+            "#{PrimaryCarePhysician.table_name}.name asc"
+          )
+      end
+
+      def format_gp_name(membership)
+        left_on = " (Left #{I18n.l(membership.left_on)})" if membership.left_on.present?
+        "#{membership.primary_care_physician}#{left_on}"
       end
     end
   end

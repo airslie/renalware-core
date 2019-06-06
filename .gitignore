@@ -61,3 +61,4 @@ key.gpg
 /node_modules
 /package-lock.json
 spec/dummy/storage/**/*
+/egpcur.zip
