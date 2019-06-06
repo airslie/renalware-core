@@ -9,6 +9,22 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.79
+### Added
+- Send UKRDC medication dose uom and quantity #2688
+- Add a scroll bar to the top of Historical Pathology #2694
+- Send comorbidity diagnoses in UKRDC XML #2691
+- Add recent consults to bottom of clinical summary #2669
+- Add Pre/Post Respiratory Rate to HD Session form #2642
+- Enhancements to Virology page #2540
+  - add Hepatitis B Core Antibody positive
+  - display the latest HepB Surface Antibody titre on virology page
+- Sync practice additions/deletions/changes via the NHS API #2696
+### Changed
+- Update EDTA textual descriptions to match UKRDC #2689
+- Make clinic visit form remember the last chosen options #2651
+### Fixed
+
 ## 2.0.78
 ### Added
 - Add recent clinic visits to all MDMs #2652
