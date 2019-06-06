@@ -5,18 +5,25 @@ require "builder"
 
 describe "Diagnoses element" do
   helper(Renalware::ApplicationHelper)
+  subject(:xml) { partial_content(presenter) }
+
+  let(:presenter) { Renalware::UKRDC::PatientPresenter.new(patient) }
+  let(:patient) { nil }
 
   def partial_content(patient_presenter)
-    render partial: "renalware/api/ukrdc/patients/diagnoses.xml.builder",
-           locals: {
-             patient: patient_presenter,
-             builder: Builder::XmlMarkup.new
-           }
+    render(
+      partial: "renalware/api/ukrdc/patients/diagnoses.xml.builder",
+      locals: {
+        patient: patient_presenter,
+        builder: Builder::XmlMarkup.new
+      }
+    )
   end
 
   def build_stubbed_death_modality(patient)
-    death = build_stubbed(:modality_description, :death)
-      .becomes(Renalware::Deaths::ModalityDescription)
+    death = build_stubbed(:modality_description, :death).becomes(
+      Renalware::Deaths::ModalityDescription
+    )
     modality = build_stubbed(
       :modality,
       patient: patient,
@@ -28,31 +35,167 @@ describe "Diagnoses element" do
 
   context "when the patient is deceased" do
     context "when the patient has no first cause of death" do
-      it "does not include a cause of death" do
-        patient = build_stubbed(:patient, family_name: "Jones", local_patient_id: "1")
-        build_stubbed_death_modality(patient)
-        presenter = Renalware::UKRDC::PatientPresenter.new(patient)
-
-        xml = partial_content(presenter)
-
-        expect(xml).not_to include("<CauseOfDeath>")
+      let(:patient) do
+        build_stubbed(:patient) do |pat|
+          build_stubbed_death_modality(pat)
+        end
       end
+
+      it { is_expected.not_to include("<CauseOfDeath>") }
     end
 
     context "when the patient has a first cause of death" do
-      it "includes a cause of death" do
-        patient = build_stubbed(:patient,
-                                family_name: "Jones",
-                                local_patient_id: "1",
-                                first_cause: build_stubbed(:cause_of_death)
-                               )
-        build_stubbed_death_modality(patient)
-        presenter = Renalware::UKRDC::PatientPresenter.new(patient)
+      let(:patient) do
+        build_stubbed(:patient, first_cause: build_stubbed(:cause_of_death)) do |pat|
+          build_stubbed_death_modality(pat)
+        end
+      end
 
-        xml = partial_content(presenter)
+      it { is_expected.to include("<CauseOfDeath") }
+    end
+  end
 
-        expect(xml).to include("<CauseOfDeath")
+  describe "Cormobidity Diagnoses" do
+    context "when the patient has had a malignancy with an onset date recorded" do
+      let(:patient) do
+        create(:patient) do |pat|
+          create(
+            :renal_profile,
+            patient: Renalware::Renal.cast_patient(pat),
+            esrf_on: "2012-01-01",
+            document: {
+              comorbidities: {
+                malignancy: {
+                  status: "yes",
+                  confirmed_on_year: "2018"
+                }
+              }
+            }
+          )
+        end
+      end
+
+      it "adds an OnsetTime of Jan 1 on the 'confirmed_on_year'" do
+        is_expected.to include(<<-XML.squish.gsub("> <", "><"))
+          <Diagnosis>
+            <Diagnosis>
+              <CodingStandard>SNOMED</CodingStandard>
+              <Code>86049000</Code>
+              <Description>Malignancy</Description>
+            </Diagnosis>
+            <OnsetTime>2018-01-01T00:00:00+00:00</OnsetTime>
+          </Diagnosis>
+        XML
       end
     end
+
+    context "when the patient has had a malignancy with no onset date recorded" do
+      let(:patient) do
+        create(:patient) do |pat|
+          create(
+            :renal_profile,
+            patient: Renalware::Renal.cast_patient(pat),
+            esrf_on: "2012-02-02",
+            document: {
+              comorbidities: {
+                malignancy: {
+                  status: "yes",
+                  confirmed_on_year: ""
+                }
+              }
+            }
+          )
+        end
+      end
+
+      it "uses the esrf date as the IdentificationTime" do
+        is_expected.to include(<<-XML.squish.gsub("> <", "><"))
+          <Diagnosis>
+            <Diagnosis>
+              <CodingStandard>SNOMED</CodingStandard>
+              <Code>86049000</Code>
+              <Description>Malignancy</Description>
+            </Diagnosis>
+            <IdentificationTime>2012-02-02T00:00:00+00:00</IdentificationTime>
+          </Diagnosis>
+        XML
+      end
+    end
+
+    context "when the patient has had a malignancy with no onset date recorded and no esrf date" do
+      let(:patient) do
+        create(:patient) do |pat|
+          create(
+            :renal_profile,
+            patient: Renalware::Renal.cast_patient(pat),
+            esrf_on: nil,
+            document: {
+              comorbidities: {
+                malignancy: {
+                  status: "yes",
+                  confirmed_on_year: ""
+                }
+              }
+            }
+          )
+        end
+      end
+
+      it "includes no IdentificationTime or OnsetTime" do
+        is_expected.to include(<<-XML.squish.gsub("> <", "><"))
+          <Diagnosis>
+            <Diagnosis>
+              <CodingStandard>SNOMED</CodingStandard>
+              <Code>86049000</Code>
+              <Description>Malignancy</Description>
+            </Diagnosis>
+          </Diagnosis>
+        XML
+      end
+    end
+  end
+
+  describe "RenalDiagnosis" do
+    context "when the patient has no Primary Renal Diagnosis (PRD)" do
+      let(:patient) { build_stubbed(:patient) }
+
+      it { is_expected.not_to include("<RenalDiagnosis") }
+    end
+
+    context "when the patient has a Primary Renal Diagnosis (PRD)" do
+      let(:patient) do
+        create(:patient) do |pat|
+          create(
+            :renal_profile,
+            first_seen_on: "2018-12-01",
+            patient: Renalware::Renal.cast_patient(pat),
+            prd_description: create(:prd_description, code: 111, term: "XXX")
+          )
+        end
+      end
+
+      it do
+        is_expected.to include(<<-XML.squish.gsub("> <", "><"))
+          <RenalDiagnosis>
+            <Diagnosis>
+              <CodingStandard>EDTA2</CodingStandard>
+              <Code>111</Code>
+              <Description>XXX</Description>
+            </Diagnosis>
+            <IdentificationTime>2018-12-01T00:00:00+00:00</IdentificationTime>
+          </RenalDiagnosis>
+        XML
+      end
+    end
+
+    # describe "Comorbidities" do
+    #   context "when the patient has a recorded episode of ischaemic_heart_dis" do
+    #     let(:patient) do
+    #       create(:patient) do |pat|
+    #       end
+    #     end
+    #     # it { is_expected.not_to include("<RenalDiagnosis") }
+    #   end
+    # end
   end
 end

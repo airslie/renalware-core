@@ -28,8 +28,22 @@ module Renalware
     attribute :psychosocial, Psychosocial
 
     class History < Document::Embedded
+      SMOKING_SNOMED_MAP = {
+        "yes" => { code: 77176002, description: "Current" },
+        "no" => { code: 8392000, description: "Non" },
+        "ex" => { code: 8517006, description: "Ex" }
+      }.freeze
+
       attribute :alcohol, Document::Enum, enums: %i(never rarely social heavy)
-      attribute :smoking, Document::Enum, enums: %i(no ex yes) # RRSMOKING %i(never former current)
+      attribute :smoking, Document::Enum, enums: %i(no ex yes)
+
+      def smoking_snomed
+        SMOKING_SNOMED_MAP[@smoking]
+      end
+
+      def smoking_rr
+        @smoking&.upcase
+      end
     end
     attribute :history, History
   end
