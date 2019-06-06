@@ -55,6 +55,106 @@ describe "Diagnoses element" do
     end
   end
 
+  describe "Cormobidity Diagnoses" do
+    context "when the patient has had a malignancy with an onset date recorded" do
+      let(:patient) do
+        create(:patient) do |pat|
+          create(
+            :renal_profile,
+            patient: Renalware::Renal.cast_patient(pat),
+            esrf_on: "2012-01-01",
+            document: {
+              comorbidities: {
+                malignancy: {
+                  status: "yes",
+                  confirmed_on_year: "2018"
+                }
+              }
+            }
+          )
+        end
+      end
+
+      it "adds an OnsetTime of Jan 1 on the 'confirmed_on_year'" do
+        is_expected.to include(<<-XML.squish.gsub("> <", "><"))
+          <Diagnosis>
+            <Diagnosis>
+              <CodingStandard>SNOMED</CodingStandard>
+              <Code>86049000</Code>
+              <Description>Malignancy</Description>
+            </Diagnosis>
+            <OnsetTime>2018-01-01T00:00:00+00:00</OnsetTime>
+          </Diagnosis>
+        XML
+      end
+    end
+
+    context "when the patient has had a malignancy with no onset date recorded" do
+      let(:patient) do
+        create(:patient) do |pat|
+          create(
+            :renal_profile,
+            patient: Renalware::Renal.cast_patient(pat),
+            esrf_on: "2012-02-02",
+            document: {
+              comorbidities: {
+                malignancy: {
+                  status: "yes",
+                  confirmed_on_year: ""
+                }
+              }
+            }
+          )
+        end
+      end
+
+      it "uses the esrf date as the IdentificationTime" do
+        is_expected.to include(<<-XML.squish.gsub("> <", "><"))
+          <Diagnosis>
+            <Diagnosis>
+              <CodingStandard>SNOMED</CodingStandard>
+              <Code>86049000</Code>
+              <Description>Malignancy</Description>
+            </Diagnosis>
+            <IdentificationTime>2012-02-02T00:00:00+00:00</IdentificationTime>
+          </Diagnosis>
+        XML
+      end
+    end
+
+    context "when the patient has had a malignancy with no onset date recorded and no esrf date" do
+      let(:patient) do
+        create(:patient) do |pat|
+          create(
+            :renal_profile,
+            patient: Renalware::Renal.cast_patient(pat),
+            esrf_on: nil,
+            document: {
+              comorbidities: {
+                malignancy: {
+                  status: "yes",
+                  confirmed_on_year: ""
+                }
+              }
+            }
+          )
+        end
+      end
+
+      it "includes no IdentificationTime or OnsetTime" do
+        is_expected.to include(<<-XML.squish.gsub("> <", "><"))
+          <Diagnosis>
+            <Diagnosis>
+              <CodingStandard>SNOMED</CodingStandard>
+              <Code>86049000</Code>
+              <Description>Malignancy</Description>
+            </Diagnosis>
+          </Diagnosis>
+        XML
+      end
+    end
+  end
+
   describe "RenalDiagnosis" do
     context "when the patient has no Primary Renal Diagnosis (PRD)" do
       let(:patient) { build_stubbed(:patient) }

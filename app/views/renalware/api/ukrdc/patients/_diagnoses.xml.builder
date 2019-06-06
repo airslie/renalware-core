@@ -20,10 +20,14 @@ xml.Diagnoses do
         xml.Description comorb.name
       end
 
-      # If no date (or year) is associated with the comorbidity then
-      # use the esrf date. See email from GS to TC 23/5/18.
-      onset_date = comorb.date || patient.esrf_on
-      xml.OnsetTime(onset_date) if onset_date.present?
+      # See email from GS to TC 23/5/18 regarding dates.
+      # UKRDC would like to receive a date so if no onset date stored in RW for the comorbidity,
+      # send the esrf date as the identification date
+      if comorb.date.present?
+        xml.OnsetTime comorb.date
+      elsif patient.esrf_on.present?
+        xml.IdentificationTime patient.esrf_on
+      end
     end
   end
 
@@ -36,7 +40,7 @@ xml.Diagnoses do
       end
       # We don't store a smoking date (it doesn't make much sense to) but UKRDC
       # would like a date so send th ESRF date. See email from GS to TC 23/5/18.
-      xml.OnsetTime(patient.esrf_on) if patient.esrf_on.present?
+      xml.IdentificationTime(patient.esrf_on) if patient.esrf_on.present?
     end
   end
 
