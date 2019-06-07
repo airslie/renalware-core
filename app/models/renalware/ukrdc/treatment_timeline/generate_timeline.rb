@@ -3,6 +3,7 @@
 require_dependency "renalware/ukrdc"
 require "attr_extras"
 
+# rubocop:disable Rails/Output
 module Renalware
   module UKRDC
     module TreatmentTimeline
@@ -18,11 +19,7 @@ module Renalware
 
           modalities.each do |modality|
             print "#{modality.description.name} "
-            case modality.description
-            when Renalware::HD::ModalityDescription then GenerateHDTimeline.new(modality).call
-            when Renalware::PD::ModalityDescription then GeneratePDTimeline.new(modality).call
-              # else raise "unrecognised modality class #{modality.description.class}"
-            end
+            GeneratorFactory.call(modality).call
           end
         end
 
@@ -35,3 +32,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Rails/Output

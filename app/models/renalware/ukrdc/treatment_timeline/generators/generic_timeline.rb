@@ -5,11 +5,12 @@ require_dependency "renalware/ukrdc"
 module Renalware
   module UKRDC
     module TreatmentTimeline
-      class GeneratePDTimeline
-        pattr_initialize :modality
-        delegate :patient, to: :modality
+      module Generators
+        class GenericTimeline
+          pattr_initialize :modality
 
-        def call; end
+          def call; end
+        end
       end
     end
   end
