@@ -3601,7 +3601,8 @@ CREATE TABLE modality_descriptions (
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    hidden boolean DEFAULT false NOT NULL
+    hidden boolean DEFAULT false NOT NULL,
+    ukrdc_modality_code_id bigint
 );
 
 
@@ -11869,6 +11870,13 @@ CREATE INDEX index_modality_descriptions_on_name ON modality_descriptions USING 
 
 
 --
+-- Name: index_modality_descriptions_on_ukrdc_modality_code_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_modality_descriptions_on_ukrdc_modality_code_id ON modality_descriptions USING btree (ukrdc_modality_code_id);
+
+
+--
 -- Name: index_modality_modalities_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -14936,6 +14944,14 @@ ALTER TABLE ONLY hd_patient_statistics
 
 
 --
+-- Name: modality_descriptions fk_rails_a6efc804a5; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY modality_descriptions
+    ADD CONSTRAINT fk_rails_a6efc804a5 FOREIGN KEY (ukrdc_modality_code_id) REFERENCES ukrdc_modality_codes(id);
+
+
+--
 -- Name: pd_regimes fk_rails_a70920e237; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16390,6 +16406,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190603084428'),
 ('20190603135247'),
 ('20190603143834'),
-('20190603165812');
+('20190603165812'),
+('20190607134717');
 
 

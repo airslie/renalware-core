@@ -14,11 +14,13 @@ module Renalware
             let(:description) { build_stubbed(:modality_description, name: "X", type: "") }
             let(:modality) { build_stubbed(:modality, description: description, patient: patient) }
 
-            it { is_expected.to be_a(GenerateGenericTimeline) }
+            it { is_expected.to be_a(Generators::GenericTimeline) }
           end
 
-          class GenerateTestMeTimeline
-            pattr_initialize :modality
+          module Generators
+            class TestMeTimeline
+              pattr_initialize :modality
+            end
           end
 
           context "when the supplied modality has a type and a custom generator" do
@@ -32,7 +34,11 @@ module Renalware
             end
             let(:modality) { build_stubbed(:modality, description: description, patient: patient) }
 
-            it { is_expected.to be_a(GenerateTestMeTimeline) }
+            it do
+              is_expected.to be_a(
+                Renalware::UKRDC::TreatmentTimeline::Generators::TestMeTimeline
+              )
+            end
           end
 
           context "when the supplied modality has a type but no custom generator" do
@@ -46,7 +52,7 @@ module Renalware
             end
             let(:modality) { build_stubbed(:modality, description: description, patient: patient) }
 
-            it { is_expected.to be_a(GenerateGenericTimeline) }
+            it { is_expected.to be_a(Generators::GenericTimeline) }
           end
         end
       end
