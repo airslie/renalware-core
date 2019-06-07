@@ -96,7 +96,10 @@ module Renalware
 
       # We always send the patients current prescriptions.
       def prescriptions
-        __getobj__.prescriptions.current.includes(:termination, :medication_route, :drug)
+        __getobj__
+          .prescriptions
+          .includes(:termination, :medication_route, :drug)
+          .order(:prescribed_on)
       end
 
       def observation_requests
