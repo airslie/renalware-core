@@ -1,7 +1,11 @@
-ruby "2.6.3"
+# frozen_string_literal: true
 
 source "https://rubygems.org"
 source "https://rails-assets.org"
+
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+ruby "~> 2.6.3"
 
 gemspec
 
@@ -22,20 +26,13 @@ gem "redis"
 # The issue with the gem version of 0.10.0 is it requires rails < v5
 # The master branch has this fixed so we are using that.
 # Perhaps we should fork this into our own repo/gem.
-gem "devise_security_extension",
-    git: "https://github.com/phatworx/devise_security_extension.git"
-
+gem "devise_security_extension", github: "airslie/devise_security_extension"
+gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 # The main trix gem at https://github.com/maclover7/trix is not yet Rails 5.2 compatible; it give
 # an argument error when calling f.trix_editor due to a Rails 5.2 ActionView change.
 # For now use this fork until the upstream has been fixed (this line will also need to appear in
 # each hospital's Gemfile for now)
-gem "trix",
-    git: "https://github.com/airslie/trix.git",
-    branch: "master"
-
-gem "nhs_api_client",
-    require: false,
-    git: "https://github.com/airslie/nhs_api_client.git"
+gem "trix", github: "airslie/trix"
 
 group :test do
   gem "capybara", "~> 3.12"
