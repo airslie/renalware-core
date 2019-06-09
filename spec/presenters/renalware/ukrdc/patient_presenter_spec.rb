@@ -61,23 +61,6 @@ module Renalware
 
         expect(presenter.modalities).to eq([pd, hd, tx])
       end
-
-      describe "#prescriptions" do
-        subject(:presenter) { UKRDC::PatientPresenter.new(patient) }
-
-        let(:patient) { build_stubbed(:patient) }
-
-        it "uses current prescriptions" do
-          allow(Renalware::Medications::Prescription)
-            .to receive(:current)
-            .and_return(NullObject.instance)
-
-          presenter.prescriptions
-
-          expect(Renalware::Medications::Prescription)
-            .to have_received(:current)
-        end
-      end
     end
   end
 end
