@@ -26,7 +26,10 @@ module Renalware
       end
 
       def vaccinations
-        Vaccination.for_patient(patient)
+        CollectionPresenter.new(
+          Vaccination.for_patient(patient),
+          Events::EventPresenter
+        )
       end
     end
   end

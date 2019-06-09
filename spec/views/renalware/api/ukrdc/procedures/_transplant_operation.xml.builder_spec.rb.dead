@@ -10,7 +10,7 @@ describe "TransplantProcedure" do
     render partial: partial, locals: { operation: presenter, builder: builder }
   end
 
-  let(:hospital) { build(:hospital_centre, code: "ABC", name: "Centre1") }
+  let(:hospital) { build(:hospital_centre, code: "ABC", name: "Centre1", host_site: false) }
   let(:presenter) { Renalware::UKRDC::TransplantOperationPresenter.new(operation) }
   let(:operation) do
     build(
