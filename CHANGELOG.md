@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.82
+### Added
+### Changed
+### Fixed
+- Omit UKRDC Treatment ToTime if missing #2708
+
 ## 2.0.81
 ### Added
 ### Changed
