@@ -12,8 +12,8 @@ patient.modalities.each do |modality|
   xml.Treatment do
     xml.EncounterNumber modality.id
     xml.EncounterType "N"
-    xml.FromTime modality.started_on.to_time&.iso8601
-    xml.ToTime modality.ended_on.to_time&.iso8601
+    xml.FromTime modality.started_on&.iso8601
+    xml.ToTime modality.ended_on&.iso8601
 
     xml.HealthCareFacility do
       xml.CodingStandard "ODS"

@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.81
+### Added
+### Changed
+### Fixed
+- UKRDC Treatment changes as per schema #2708
+- Move position of DeathCause in UKRDC XML #2706
+
 ## 2.0.80
 ### Added
 - Generate UKRDC treatments #2685
