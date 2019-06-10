@@ -41,4 +41,12 @@ namespace :ukrdc do
       patient_ids: args.fetch(:patient_ids, "").split(" ").map(&:to_i)
     ).call
   end
+
+  desc "Regenerates the ukrdc_treatments table ready for exporting to UKRDC in another task"
+  task generate_treatments: :environment do
+    logger           = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+    logger.level     = Logger::INFO
+    Rails.logger     = logger
+    Renalware::UKRDC::TreatmentTimeline::GenerateTreatments.call
+  end
 end

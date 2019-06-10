@@ -6,7 +6,6 @@ xml.DialysisSession(
   start: session.performed_on_date,
   stop: session.performed_on_date
 ) do
-
   xml.ProcedureType do
     xml.CodingStandard "SNOMED"
     xml.Code "302497006"

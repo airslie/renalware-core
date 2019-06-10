@@ -15,7 +15,7 @@ Rails application, and configure it to include the Renalware engine. The host ap
 extremely thin, adding no custom features other than site-specific configuration, or it may include
 Ruby, HTML and JavaScript to override or augment renalware-core's features.
 
-While the engine is indented to be deployed inside a host application in production, it can be run
+While the engine is intended to be deployed inside a host application in production, it can be run
 stand-alone in a local development environment (or indeed deployed  in a limited way to somewhere like Heroku) by employing
 the _dummy_ host application that ships inside the engine. This dummy app (in `./spec/dummy`)
 allows a developer to quickly mount the engine, and is used also used Rails integration tests (which is why
