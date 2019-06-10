@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.80
+### Added
+- Generate UKRDC treatments #2685
+### Changed
+- Send all medications to UKRDC, not just current ones #2699
+### Fixed
+
 ## 2.0.79
 ### Added
 - Send UKRDC medication dose uom and quantity #2688
