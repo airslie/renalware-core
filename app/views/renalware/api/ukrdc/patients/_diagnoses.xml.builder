@@ -3,15 +3,6 @@
 # https://github.com/renalreg/ukrdc/blob/6d95e364dd8de857839fe6cdbd4e7fc3fb4c1d42/Schema/Diagnoses/Diagnosis.xsd
 xml = builder
 xml.Diagnoses do
-  if patient.dead? && patient.first_cause.present?
-    # Only 1 CauseOfDeath element is allowed so we ignore patient.second_cause
-    render(
-      "renalware/api/ukrdc/patients/diagnoses/cause_of_death",
-      builder: xml,
-      cause: patient.first_cause
-    )
-  end
-
   patient.yes_comorbidities.each do |comorb|
     xml.Diagnosis do
       xml.Diagnosis do
@@ -42,6 +33,15 @@ xml.Diagnoses do
       # would like a date so send th ESRF date. See email from GS to TC 23/5/18.
       xml.IdentificationTime(patient.esrf_on) if patient.esrf_on.present?
     end
+  end
+
+  if patient.dead? && patient.first_cause.present?
+    # Only 1 CauseOfDeath element is allowed so we ignore patient.second_cause
+    render(
+      "renalware/api/ukrdc/patients/diagnoses/cause_of_death",
+      builder: xml,
+      cause: patient.first_cause
+    )
   end
 
   if patient.prd_description_code.present?
