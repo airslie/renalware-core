@@ -12,6 +12,7 @@ module World
       def valid_recipient_followup_attributes
         {
           stent_removed_on: Time.zone.today,
+          graft_function_onset: "immediate",
           transplant_failed: false
         }
       end
@@ -70,6 +71,7 @@ module World
           click_on "Enter details"
         end
 
+        select "Immediate (1)", from: "Graft Function Onset"
         fill_in "Stent Removal Date", with: valid_recipient_followup_attributes[:stent_removed_on]
 
         within ".top" do

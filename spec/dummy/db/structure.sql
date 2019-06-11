@@ -7090,7 +7090,8 @@ CREATE TABLE transplant_recipient_followups (
     document jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    graft_nephrectomy_on date
+    graft_nephrectomy_on date,
+    graft_function_onset character varying
 );
 
 
@@ -16407,6 +16408,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190603135247'),
 ('20190603143834'),
 ('20190603165812'),
-('20190607134717');
+('20190607134717'),
+('20190611152859');
 
 

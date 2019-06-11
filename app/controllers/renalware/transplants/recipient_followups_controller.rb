@@ -79,6 +79,7 @@ module Renalware
           :transplant_failure_cause_other,
           :transplant_failure_notes,
           :graft_nephrectomy_on,
+          :graft_function_onset,
           document: []
         ]
       end
