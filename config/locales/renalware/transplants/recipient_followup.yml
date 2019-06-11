@@ -6,6 +6,7 @@ en:
         last_post_transplant_dialysis_on: Date of last Dialysis Post-Transplant
         stent_removed_on: Stent Removal Date
         graft_nephrectomy_on: Date of Graft Nephrectomy
+        return_to_regular_dialysis_on: Date of Return to Regular Dialysis
         transplant_failed: Transplant Failed
         transplant_failed_on: Date of Transplant Failure
         transplant_failure_cause_description_id: Cause of Transplant Failure

@@ -81,6 +81,7 @@ module Renalware
           :graft_nephrectomy_on,
           :graft_function_onset,
           :last_post_transplant_dialysis_on,
+          :return_to_regular_dialysis_on,
           document: []
         ]
       end

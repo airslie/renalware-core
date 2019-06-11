@@ -7092,7 +7092,8 @@ CREATE TABLE transplant_recipient_followups (
     updated_at timestamp without time zone NOT NULL,
     graft_nephrectomy_on date,
     graft_function_onset character varying,
-    last_post_transplant_dialysis_on date
+    last_post_transplant_dialysis_on date,
+    return_to_regular_dialysis_on date
 );
 
 
