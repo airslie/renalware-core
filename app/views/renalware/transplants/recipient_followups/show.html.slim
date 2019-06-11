@@ -15,6 +15,7 @@
         = render "renalware/shared/attributes_group",
             legend: "Transplant Outcomes", destination: "transplant_failure",
             models: { recipient_followup => [:graft_function_onset,
+                                             :last_post_transplant_dialysis_on,
                                              :stent_removed_on,
                                              :transplant_failed, :transplant_failed_on,
                                              :transplant_failure_cause_description,

@@ -80,6 +80,7 @@ module Renalware
           :transplant_failure_notes,
           :graft_nephrectomy_on,
           :graft_function_onset,
+          :last_post_transplant_dialysis_on,
           document: []
         ]
       end

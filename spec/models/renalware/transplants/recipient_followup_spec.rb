@@ -12,6 +12,7 @@ module Renalware
       it { is_expected.to validate_timeliness_of(:transplant_failed_on) }
       it { is_expected.to validate_timeliness_of(:graft_nephrectomy_on) }
       it { is_expected.to respond_to(:graft_function_onset) }
+      it { is_expected.to respond_to(:last_post_transplant_dialysis_on) }
 
       describe "#valid?" do
         subject do

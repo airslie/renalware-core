@@ -3,6 +3,7 @@ en:
     attributes:
       renalware/transplants/recipient_followup:
         graft_function_onset: Graft Function Onset
+        last_post_transplant_dialysis_on: Date of last Dialysis Post-Transplant
         stent_removed_on: Stent Removal Date
         graft_nephrectomy_on: Date of Graft Nephrectomy
         transplant_failed: Transplant Failed
