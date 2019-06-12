@@ -214,6 +214,7 @@ en:
           weight: Weight
           pulse: Pulse
           temperature: Temp
+          respiratory_rate: RespR
           bm_stix: BM
           blood_pressure: BP
           arterial_pressure: AP

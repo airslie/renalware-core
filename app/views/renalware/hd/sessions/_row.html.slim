@@ -13,6 +13,7 @@ tr.hd-session-row(class=[session.state, stripe_class])
   td= session.before_measurement_for(:weight)
   td= session.before_measurement_for(:pulse)
   td= session.before_measurement_for(:temperature)
+  td= session.before_measurement_for(:respiratory_rate)
   td= session.before_measurement_for(:bm_stix)
   td= session.before_measurement_for(:blood_pressure)
   td(rowspan=2)= session.arterial_pressure
@@ -37,11 +38,12 @@ tr(class=[session.state, stripe_class])
       i=" (#{change})"
   td= session.after_measurement_for(:pulse)
   td= session.after_measurement_for(:temperature)
+  td= session.after_measurement_for(:respiratory_rate)
   td= session.after_measurement_for(:bm_stix)
   td= session.after_measurement_for(:blood_pressure)
   td.print-only= session.signed_off_by
 = content_tag(:tr, id: "hd-session-#{session.id}", style: "display: none")
-  td(colspan=18)
+  td(colspan=19)
     .quick-preview
       = definition_list_for(session, size: :large) do |list|
         = list.definition(:notes){ |value| simple_format(value) }
