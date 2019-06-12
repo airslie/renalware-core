@@ -46,7 +46,7 @@ PATH
       font-awesome-sass (~> 5.6)
       foundation-rails (~> 5.5.3.2)
       friendly_id (~> 5.2.5)
-      hashdiff (~> 0.3.7)
+      hashdiff (~> 0.3.9)
       httparty (~> 0.16)
       i18n (= 1.5.3)
       jbuilder (~> 2.8)
@@ -67,7 +67,7 @@ PATH
       prawn (~> 2.2.2)
       puma (~> 3.12.0)
       pundit (~> 2.0.0)
-      rack-attack (~> 5.4)
+      rack-attack
       rails (~> 5.2)
       rails-assets-foundation-datepicker (= 1.5.0)
       rails-assets-moment (= 2.22.2)
@@ -83,10 +83,10 @@ PATH
       slim-rails (~> 3.2.0)
       uglifier (~> 4.1.17)
       underscore-rails (~> 1.8.3)
-      validates_timeliness (~> 4.0.2)
+      validates_timeliness (~> 4.1.0)
       virtus (~> 1.0.5)
-      whenever (~> 0.10.0)
-      wicked_pdf (~> 1.1.0)
+      whenever
+      wicked_pdf
       wisper (~> 2.0.0)
       wisper-activejob (~> 1.0.0)
       wkhtmltopdf-binary (= 0.12.3.1)
@@ -403,7 +403,7 @@ GEM
     pundit (2.0.1)
       activesupport (>= 3.0.0)
     rack (2.0.7)
-    rack-attack (5.4.2)
+    rack-attack (6.0.0)
       rack (>= 1.0, < 3)
     rack-protection (2.0.5)
       rack
@@ -565,7 +565,7 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.9)
-    timeliness (0.3.10)
+    timeliness (0.4.1)
     ttfunk (1.5.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
@@ -576,8 +576,8 @@ GEM
     unicode-display_width (1.6.0)
     uniform_notifier (1.12.1)
     user_agent_parser (2.5.1)
-    validates_timeliness (4.0.2)
-      timeliness (~> 0.3.7)
+    validates_timeliness (4.1.0)
+      timeliness (>= 0.3.10, < 1)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -585,11 +585,6 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.8)
       rack (>= 2.0.6)
-    web-console (3.7.0)
-      actionview (>= 5.0)
-      activemodel (>= 5.0)
-      bindex (>= 0.4.0)
-      railties (>= 5.0)
     webmock (3.5.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -597,9 +592,10 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
-    whenever (0.10.0)
+    whenever (0.11.0)
       chronic (>= 0.6.3)
-    wicked_pdf (1.1.0)
+    wicked_pdf (1.4.0)
+      activesupport
     wisper (2.0.0)
     wisper-activejob (1.0.0)
       activejob (>= 4.0.0)
@@ -621,8 +617,8 @@ DEPENDENCIES
   bullet
   bundler-audit
   byebug
-  capybara (~> 3.12)
-  capybara-screenshot
+  capybara (~> 3.23.0)
+  capybara-screenshot (~> 1.0)
   capybara-select-2
   codeclimate-test-reporter (~> 1.0.9)
   cucumber (~> 3.1.0)
@@ -649,11 +645,10 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   selenium-webdriver (~> 3.142.0)
-  shoulda-matchers (~> 4.0)
-  simplecov (~> 0.13.0)
+  shoulda-matchers (~> 4.0.1)
+  simplecov
   trix!
-  web-console
-  webmock
+  webmock (~> 3.5.1)
   wisper-rspec (~> 1.1.0)
   wkhtmltopdf-heroku (~> 2.12.3)
 
