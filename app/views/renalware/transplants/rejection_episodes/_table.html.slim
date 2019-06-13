@@ -1,0 +1,13 @@
+- return if episodes.blank?
+
+table
+  thead
+    tr
+      th.col-width-date Recorded On
+      th.col-width-medium Recorded By
+      th Notes
+  - episodes.each do |episode|
+    tr
+      td= l(episode.recorded_on)
+      td.col-width-medium-with-ellipsis= episode.created_by
+      td= episode.notes

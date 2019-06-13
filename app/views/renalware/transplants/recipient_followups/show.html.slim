@@ -39,3 +39,10 @@
         = render "renalware/shared/attributes_group",
             legend: "Admin", destination: "admin",
             models: { recipient_followup => [:notes] }
+
+        .columns.small-12
+          article
+            header
+              h2 Transplant Rejection
+            = render "renalware/transplants/rejection_episodes/table",
+                     episodes: recipient_followup.rejection_episodes.ordered.includes(:created_by)

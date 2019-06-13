@@ -5,30 +5,27 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class RecipientFollowupsController < BaseController
-      before_action :load_patient
+      # before_action :load_patient
 
       def show
-        recipient_followup = operation.followup
-        render locals: { patient: patient, recipient_followup: recipient_followup }
+        followup = operation.followup
+        authorize followup
+        render locals: { patient: patient, recipient_followup: followup }
       end
 
       def new
-        render locals: {
-          patient: patient,
-          recipient_followup: operation.build_followup
-        }
+        render_new(operation.build_followup)
       end
 
       def create
-        recipient_followup = operation.build_followup
-        recipient_followup.attributes = followup_attributes
-
-        if recipient_followup.save
+        followup = copy_attributes_onto_followup(operation.build_followup)
+        authorize followup
+        if followup.save
           redirect_to patient_transplants_recipient_dashboard_path(patient),
-                      notice: t(".success", model_name: "recipient follow up")
+                      notice: success_msg_for("recipient follow up")
         else
-          flash.now[:error] = t(".failed", model_name: "recipient follow up")
-          render :new, locals: { patient: patient, recipient_followup: recipient_followup }
+          flash.now[:error] = failed_msg_for("recipient follow up")
+          render_new(followup)
         end
       end
 
@@ -37,25 +34,47 @@ module Renalware
       end
 
       def update
-        recipient_followup = operation.followup
-        recipient_followup.attributes = followup_attributes
-
-        if recipient_followup.save
+        followup = copy_attributes_onto_followup(operation.followup)
+        authorize followup
+        if followup.save
           redirect_to patient_transplants_recipient_dashboard_path(patient),
                       notice: success_msg_for("recipient follow up")
         else
           flash.now[:error] = failed_msg_for("recipient follow up")
-          render_edit(recipient_followup)
+          render_edit(followup)
         end
       end
 
       protected
 
+      def copy_attributes_onto_followup(followup)
+        followup.attributes = followup_attributes
+        followup.rejection_episodes.each do |episode|
+          episode.by = current_user
+        end
+        followup
+      end
+
+      def render_new(followup)
+        authorize followup
+        render(
+          :new,
+          locals: {
+            patient: patient,
+            recipient_followup: followup
+          }
+        )
+      end
+
       def render_edit(followup)
-        render :edit, locals: {
-          patient: patient,
-          recipient_followup: followup
-        }
+        authorize followup
+        render(
+          :edit,
+          locals: {
+            patient: patient,
+            recipient_followup: followup
+          }
+        )
       end
 
       def operation
@@ -69,6 +88,7 @@ module Renalware
           .merge(document: document_attributes)
       end
 
+      # rubocop:disable Metrics/MethodLength
       def attributes
         [
           :notes,
@@ -82,9 +102,20 @@ module Renalware
           :graft_function_onset,
           :last_post_transplant_dialysis_on,
           :return_to_regular_dialysis_on,
+          rejection_episodes_attributes: [
+            :id,
+            :recorded_on,
+            :notes,
+            :created_at,
+            :updated_at,
+            :created_by_id,
+            :updated_by_id,
+            :_destroy
+          ],
           document: []
         ]
       end
+      # rubocop:enable Metrics/MethodLength
 
       def document_attributes
         params

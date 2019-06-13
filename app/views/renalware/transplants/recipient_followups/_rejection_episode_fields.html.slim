@@ -1,0 +1,12 @@
+/ Fields for cocoon gem
+.rejection-episode.nested-fields(data={rejection_episode_id: f.object.id} )
+  - if policy(f.object).destroy?
+    = link_to_remove_association "Remove", f
+  = f.input :recorded_on, as: :date_picker, wrapper: :horizontal_datepicker
+  = f.input :notes, as: :text, input_html: { rows: 3 }, wrapper: :horizontal_large
+  = f.input :updated_by_id, as: :hidden
+  = f.input :created_by_id, as: :hidden
+  = f.input :updated_at, as: :hidden
+  = f.input :created_at, as: :hidden
+  - if f.object.persisted?
+    .rejection-episode--creation= "Created by #{f.object.created_by} on #{l(f.object.created_at.to_date)}"

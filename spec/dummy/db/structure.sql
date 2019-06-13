@@ -5848,7 +5848,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -5927,7 +5927,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -7282,6 +7282,41 @@ CREATE SEQUENCE transplant_registrations_id_seq
 --
 
 ALTER SEQUENCE transplant_registrations_id_seq OWNED BY transplant_registrations.id;
+
+
+--
+-- Name: transplant_rejection_episodes; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE transplant_rejection_episodes (
+    id bigint NOT NULL,
+    recorded_on date NOT NULL,
+    notes text,
+    followup_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    created_by_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: transplant_rejection_episodes_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE transplant_rejection_episodes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplant_rejection_episodes_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE transplant_rejection_episodes_id_seq OWNED BY transplant_rejection_episodes.id;
 
 
 --
@@ -8695,6 +8730,13 @@ ALTER TABLE ONLY transplant_registrations ALTER COLUMN id SET DEFAULT nextval('t
 
 
 --
+-- Name: transplant_rejection_episodes id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY transplant_rejection_episodes ALTER COLUMN id SET DEFAULT nextval('transplant_rejection_episodes_id_seq'::regclass);
+
+
+--
 -- Name: transplant_versions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -10055,6 +10097,14 @@ ALTER TABLE ONLY transplant_registration_statuses
 
 ALTER TABLE ONLY transplant_registrations
     ADD CONSTRAINT transplant_registrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_rejection_episodes transplant_rejection_episodes_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY transplant_rejection_episodes
+    ADD CONSTRAINT transplant_rejection_episodes_pkey PRIMARY KEY (id);
 
 
 --
@@ -13364,6 +13414,27 @@ CREATE INDEX index_transplant_registrations_on_patient_id ON transplant_registra
 
 
 --
+-- Name: index_transplant_rejection_episodes_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_transplant_rejection_episodes_on_created_by_id ON transplant_rejection_episodes USING btree (created_by_id);
+
+
+--
+-- Name: index_transplant_rejection_episodes_on_followup_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_transplant_rejection_episodes_on_followup_id ON transplant_rejection_episodes USING btree (followup_id);
+
+
+--
+-- Name: index_transplant_rejection_episodes_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_transplant_rejection_episodes_on_updated_by_id ON transplant_rejection_episodes USING btree (updated_by_id);
+
+
+--
 -- Name: index_ukrdc_modality_codes_on_qbl_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -13880,6 +13951,14 @@ ALTER TABLE ONLY hd_schedule_definitions
 
 ALTER TABLE ONLY hd_profiles
     ADD CONSTRAINT fk_rails_0aab25a07c FOREIGN KEY (named_nurse_id) REFERENCES users(id);
+
+
+--
+-- Name: transplant_rejection_episodes fk_rails_0b121fa111; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY transplant_rejection_episodes
+    ADD CONSTRAINT fk_rails_0b121fa111 FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -14459,6 +14538,14 @@ ALTER TABLE ONLY patient_practice_memberships
 
 
 --
+-- Name: transplant_rejection_episodes fk_rails_5eed551513; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY transplant_rejection_episodes
+    ADD CONSTRAINT fk_rails_5eed551513 FOREIGN KEY (followup_id) REFERENCES transplant_recipient_followups(id);
+
+
+--
 -- Name: pd_regime_terminations fk_rails_6021bed852; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -14800,6 +14887,14 @@ ALTER TABLE ONLY transplant_failure_cause_descriptions
 
 ALTER TABLE ONLY clinical_allergies
     ADD CONSTRAINT fk_rails_9193bda748 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
+-- Name: transplant_rejection_episodes fk_rails_93bb09b431; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY transplant_rejection_episodes
+    ADD CONSTRAINT fk_rails_93bb09b431 FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --
@@ -16411,6 +16506,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190603143834'),
 ('20190603165812'),
 ('20190607134717'),
-('20190611152859');
+('20190611152859'),
+('20190612124015');
 
 
