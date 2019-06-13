@@ -24,6 +24,8 @@ describe "Alert management", type: :system do
   end
 
   it "A clinician deletes an alert", js: true do
+    # pending if ENV.key?("SEMAPHORECI")
+
     user = login_as_clinical
     patient = create(:patient, by: user)
     create(:patient_alert,
