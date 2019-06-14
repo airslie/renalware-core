@@ -72,6 +72,25 @@ module Renalware
           expect(presenter.after_measurement_for(:weight)).to eq 101.1
         end
       end
+
+      describe "#access_side_rr40_code" do
+        it "maps left to L" do
+          session.document.info.access_side = "left"
+          expect(presenter.access_side_rr40_code).to eq("L")
+        end
+
+        it "maps right to R" do
+          session.document.info.access_side = "right"
+          expect(presenter.access_side_rr40_code).to eq("R")
+        end
+
+        it "maps anything else (ie unknown) to U " do
+          [nil, "", "xyz"].each do |side|
+            session.document.info.access_side = side
+            expect(presenter.access_side_rr40_code).to eq("U")
+          end
+        end
+      end
     end
   end
 end
