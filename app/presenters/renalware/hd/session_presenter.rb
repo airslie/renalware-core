@@ -3,6 +3,12 @@
 module Renalware
   module HD
     class SessionPresenter < SimpleDelegator
+      RR40_ACCESS_SIDE_MAP = {
+        "left" => "L",
+        "right" => "R",
+        "unknown" => "U"
+      }.freeze
+
       attr_reader :preference_set
       delegate :info,
                :observations_before,
@@ -11,7 +17,7 @@ module Renalware
                :complications,
                to: :document, allow_nil: true
       delegate :access_type,
-               :access_type_abbreviation,
+               :access_type_abbreviation, # a concatenation of rr02 and rr41
                :access_side,
                :machine_no,
                to: :info, allow_nil: true
@@ -123,6 +129,10 @@ module Renalware
                                view_context.edit_patient_hd_session_path(patient, self),
                                class: "nowrap")
         end
+      end
+
+      def access_side_rr40_code
+        RR40_ACCESS_SIDE_MAP[access_side] || RR40_ACCESS_SIDE_MAP["unknown"]
       end
 
       protected
