@@ -66,7 +66,10 @@ module Renalware
         return unless session.new_record?
 
         patient.prescriptions.to_be_administered_on_hd.map do |prescription|
-          session.prescription_administrations.build(prescription: prescription)
+          session.prescription_administrations.build(
+            prescription: prescription,
+            administered_by: user
+          )
         end
       end
 

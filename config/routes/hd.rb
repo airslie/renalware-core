@@ -26,6 +26,7 @@ namespace :hd do
     get "patients_dialysing_at_hospital" => "patients#dialysing_at_hospital"
   end
 
+  resources :prescription_administration_authorisations, only: :create
   resources :transmission_logs, only: [:show, :index]
   resources :cannulation_types, except: :show
   resources :dialysers, except: :show

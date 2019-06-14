@@ -3,6 +3,10 @@ en:
     attributes:
       renalware/hd/prescription_administration:
         administered: Administered
+        administered_by: Nurse
+        witnessed_by: Witness
+        witnessed_by_password: Password
+        administered_by_password: Password
     errors:
       models:
         renalware/hd/prescription_administration:

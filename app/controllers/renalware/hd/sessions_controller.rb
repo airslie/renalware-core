@@ -5,6 +5,7 @@ require "collection_presenter"
 
 module Renalware
   module HD
+    # rubocop:disable Metrics/ClassLength
     class SessionsController < BaseController
       include PresenterHelper
       include Renalware::Concerns::Pageable
@@ -45,6 +46,14 @@ module Renalware
 
       def edit
         session = Session.for_patient(patient).find(params[:id])
+        session.prescription_administrations.each do |a|
+          if a.administrator_authorised?
+            a.administrator_authorisation_token = a.administered_by&.auth_token
+          end
+          if a.witness_authorised?
+            a.witness_authorisation_token = a.witnessed_by&.auth_token
+          end
+        end
         authorize session
         render :edit, locals: locals(session)
       rescue Pundit::NotAuthorizedError
@@ -124,7 +133,9 @@ module Renalware
          :hospital_unit_id, :notes, :dialysate_id,
          :signed_on_by_id, :signed_off_by_id, :type,
          prescription_administrations_attributes: [
-           :id, :hd_session_id, :prescription_id, :administered, :notes
+           :id, :hd_session_id, :prescription_id, :administered, :notes,
+           :administered_by_id, :administrator_authorisation_token,
+           :witnessed_by_id, :witness_authorisation_token
          ],
          document: []]
       end
@@ -136,5 +147,6 @@ module Renalware
           .try(:permit!)
       end
     end
+    # rubocop:enable Metrics/ClassLength
   end
 end

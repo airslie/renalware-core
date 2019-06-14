@@ -375,3 +375,191 @@ table.hd-sessions {
     margin-bottom: 0.2rem;
   }
 }
+
+/*
+For the prescription administration section in the HD Session form
+use flexbox to layout items inside each prescription.
+*/
+.hd-drug-administration {
+  display: flex;
+  border: solid 1px $light-grey;
+  margin: .7rem 0;
+  padding: .3rem .6rem;
+  border-right-width: 15px;
+  flex-wrap: wrap;
+
+  .summary {
+    flex-basis: 100%;
+    display: flex; /* also a flex for items within it */
+
+    .hd-drug {
+      flex: 1;
+      padding-bottom: .5rem;
+      color: $mid-grey;
+
+      .hd-drug--name {
+        font-weight: bold;
+      }
+      .hd-drug--name,
+      .hd-drug--dose,
+      .hd-drug--route,
+      .hd-drug--prescribed-on,
+      .hd-drug--frequency {
+        display: inline-block;
+        padding-right: .5rem;
+        color: $dark-grey;
+      }
+
+      .hd-drug--prescriber-name {
+        display: inline-block;
+        color: $mid-grey;
+      }
+
+      .hd-drug--termination {
+        .hd-drug--termination-date {
+          color: $dark-grey;
+          display: inline-block;
+          color: $dark-grey;
+          padding: 0 .3rem;
+        }
+      }
+    }
+
+    /*
+    This is the checkox to indicate the drug was administered.
+    We fix its width as we never want it to shrink.
+    */
+    .hd-drug-administered {
+      flex-basis: 220px;
+      text-align: right;
+
+      // input[type="checkbox"] {
+      //   margin-left: .5rem;
+      // }
+      //
+      .radio {
+        display: inline-block !important;
+      }
+    }
+  }
+
+  &.administered {
+    border-right-color: $nhs-red;
+
+    /* The 'status' values for the prescription-administration */
+    &[data-token-count='2'] {
+      border-right-color: $nhs-green;
+    }
+  }
+
+  .small-input {
+    max-width: inherit !important;
+  }
+
+  .notes {
+    flex: 1;
+    margin-right: 1rem;
+
+    textarea {
+      height: 5.2rem;
+    }
+
+    @media screen and (max-width: 768px) {
+      // As the screen shrinks, put the user/password boxes under the notes
+      flex-basis: 100%;
+    }
+  }
+
+  /* this section contains select2 inputs and pwd fields for the 2 users */
+  .authentication {
+    flex-basis: 330px;
+    flex-grow: 0;
+
+    // Addinng the disabled-with-faded-overlay class to authentication adds a semi transparent overlay
+    // that indicates the section is no receiving input ie because the drug has been marked
+    // as not administered.
+    &.disabled-with-faded-overlay {
+      position: relative;
+    }
+
+    &.disabled-with-faded-overlay:after {
+      content: " ";
+      z-index: 10;
+      display: block;
+      position: absolute;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .user-and-password {
+      display: inline-block;
+      width: 50%;
+      padding-right: 1rem;
+      vertical-align: top;
+
+      .select2-container--default.select2-container--disabled .select2-selection--single {
+        background-color: $white;
+      }
+
+      .spinner {
+        display: none;
+      }
+
+      &.working {
+        .spinner {
+          display: inline-block;
+        }
+
+        .user-password  {
+          background: $mid-grey;
+        }
+
+      }
+
+      .error.invalid-password {
+        display: none;
+      }
+
+      &.error {
+        small.error {
+          display: block;
+        }
+      }
+
+      .select2 {
+        margin-bottom: 0.75rem;
+      }
+
+      .user-password {
+        margin-bottom: 0;
+      }
+
+      .confirmed {
+        display: none;
+        text-align: center;
+
+        i {
+          font-size: 1.6rem;
+          color: $nhs-green;
+        }
+
+        a {
+          margin-left: .4rem;
+        }
+      }
+
+      &.authorised {
+        .user-password {
+          display: none
+        }
+
+        .confirmed {
+          display: block;
+        }
+      }
+    }
+  }
+}

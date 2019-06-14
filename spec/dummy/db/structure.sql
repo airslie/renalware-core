@@ -2457,7 +2457,11 @@ CREATE TABLE hd_prescription_administrations (
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    administered_by_id bigint,
+    witnessed_by_id bigint,
+    administrator_authorised boolean DEFAULT false NOT NULL,
+    witness_authorised boolean DEFAULT false NOT NULL
 );
 
 
@@ -11358,6 +11362,13 @@ CREATE INDEX index_hd_preference_sets_on_updated_by_id ON hd_preference_sets USI
 
 
 --
+-- Name: index_hd_prescription_administrations_on_administered_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_prescription_administrations_on_administered_by_id ON hd_prescription_administrations USING btree (administered_by_id);
+
+
+--
 -- Name: index_hd_prescription_administrations_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -11383,6 +11394,13 @@ CREATE INDEX index_hd_prescription_administrations_on_prescription_id ON hd_pres
 --
 
 CREATE INDEX index_hd_prescription_administrations_on_updated_by_id ON hd_prescription_administrations USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_prescription_administrations_on_witnessed_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_prescription_administrations_on_witnessed_by_id ON hd_prescription_administrations USING btree (witnessed_by_id);
 
 
 --
@@ -14186,6 +14204,14 @@ ALTER TABLE ONLY hd_schedule_definitions
 
 
 --
+-- Name: hd_prescription_administrations fk_rails_09b9e3828d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_prescription_administrations
+    ADD CONSTRAINT fk_rails_09b9e3828d FOREIGN KEY (administered_by_id) REFERENCES users(id);
+
+
+--
 -- Name: hd_profiles fk_rails_0aab25a07c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -14687,6 +14713,14 @@ ALTER TABLE ONLY access_assessments
 
 ALTER TABLE ONLY messaging_receipts
     ADD CONSTRAINT fk_rails_50de46762d FOREIGN KEY (message_id) REFERENCES messaging_messages(id);
+
+
+--
+-- Name: hd_prescription_administrations fk_rails_51e9a49d43; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_prescription_administrations
+    ADD CONSTRAINT fk_rails_51e9a49d43 FOREIGN KEY (witnessed_by_id) REFERENCES users(id);
 
 
 --
@@ -16781,6 +16815,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190611152859'),
 ('20190612124015'),
 ('20190617121528'),
+('20190624130020'),
+('20190627141751'),
 ('20190705083727'),
 ('20190705105921'),
 ('20190709101610'),
