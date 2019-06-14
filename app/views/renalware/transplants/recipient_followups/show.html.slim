@@ -13,13 +13,16 @@
     .grid
       .row
         = render "renalware/shared/attributes_group",
-            legend: "Transplant Failure", destination: "transplant_failure",
-            models: { recipient_followup => [:stent_removed_on,
-                                              :transplant_failed, :transplant_failed_on,
-                                              :transplant_failure_cause_description,
-                                              :transplant_failure_cause_other,
-                                              :transplant_failure_notes,
-                                              :graft_nephrectomy_on] }
+            legend: "Transplant Outcomes", destination: "transplant_failure",
+            models: { recipient_followup => [:graft_function_onset,
+                                             :last_post_transplant_dialysis_on,
+                                             :stent_removed_on,
+                                             :return_to_regular_dialysis_on,
+                                             :transplant_failed, :transplant_failed_on,
+                                             :transplant_failure_cause_description,
+                                             :transplant_failure_cause_other,
+                                             :transplant_failure_notes,
+                                             :graft_nephrectomy_on] }
 
         = render "renalware/shared/documents/attributes_group",
             group: recipient_followup.document.cardiovascular_complication,

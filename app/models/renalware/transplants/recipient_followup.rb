@@ -9,6 +9,8 @@ module Renalware
       include Document::Base
       extend Enumerize
 
+      enumerize :graft_function_onset, in: %w(immediate delayed primary_non_function)
+
       belongs_to :operation,
                  class_name: "RecipientOperation",
                  foreign_key: "operation_id",

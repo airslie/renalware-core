@@ -12,6 +12,9 @@ module World
       def valid_recipient_followup_attributes
         {
           stent_removed_on: Time.zone.today,
+          graft_function_onset: "immediate",
+          last_post_transplant_dialysis_on: "2018-01-01",
+          return_to_regular_dialysis_on: "2018-03-01",
           transplant_failed: false
         }
       end
@@ -70,7 +73,10 @@ module World
           click_on "Enter details"
         end
 
+        select "Immediate (1)", from: "Graft Function Onset"
         fill_in "Stent Removal Date", with: valid_recipient_followup_attributes[:stent_removed_on]
+        fill_in "Date of last Dialysis Post-Transplant", with: "2018-12-01"
+        fill_in "Date of Return to Regular Dialysis", with: "2019-02-01"
 
         within ".top" do
           click_on "Save"
