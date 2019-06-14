@@ -9,6 +9,16 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.83
+### Added
+- Transplant Followup - adding graft function onset #2702
+- Transplant Followup - record date of last Dialysis post transplant #2703
+- Transplant Followup - record date of last Dialysis post transplant #2703
+- Haemodialysis session - display Resp Rate in the columns #2711
+### Changed
+- UKRDC access changes in XML for HD Sessions #2713
+### Fixed
+
 ## 2.0.82
 ### Added
 ### Changed

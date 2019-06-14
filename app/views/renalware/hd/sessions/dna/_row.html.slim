@@ -8,10 +8,10 @@ tr(class=[session.state, stripe_class])
   td= session.performed_on
   td= session.hospital_unit_unit_code
   td(colspan=3) Did not attend
-  td(colspan=12)
+  td(colspan=13)
    i= session.truncated_notes
 = content_tag(:tr, id: "hd-session-#{session.id}", style: "display: none")
-  td(colspan=18)
+  td(colspan=19)
     .quick-preview
       = definition_list_for(session, size: :large) do |list|
-        = list.definition(:notes){ |value| simple_format(value) }
+        = list.definition(:notes) { |value| simple_format(value) }

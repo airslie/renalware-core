@@ -300,9 +300,6 @@ table.hd-sessions {
         }
       }
 
-      &.closed {
-      }
-
       &.dna {
         td {
           background-color: #ccc;
@@ -311,6 +308,11 @@ table.hd-sessions {
 
       td {
         border-right: 1px solid #ddd;
+
+        &:first-child {
+          border-left: 1px solid #ddd;
+        }
+
         &.derived {
           font-style: italic;
         }
