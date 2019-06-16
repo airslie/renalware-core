@@ -55,4 +55,13 @@ namespace :ukrdc do
     logger.info "UKRDC housekeeping"
     Renalware::UKRDC::Housekeeping::RemoveOldExportArchiveFolders.call
   end
+
+  task import: :environment do
+    # Import patient questionnaire data from SFTP'ed UKRDC XML files
+    logger           = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+    logger.level     = Logger::INFO
+    Rails.logger     = logger
+
+    Renalware::UKRDC::Incoming::ImportSurveys.new(logger: logger).call
+  end
 end

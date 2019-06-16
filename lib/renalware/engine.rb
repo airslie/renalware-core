@@ -6,6 +6,7 @@ require "activerecord-import"
 require "ahoy"
 require "autoprefixer-rails"
 require "simple_form"
+require "chartkick"
 require "client_side_validations"
 require "client_side_validations/simple_form"
 require "clipboard/rails"
@@ -21,6 +22,7 @@ require "enumerize"
 require "font-awesome-sass"
 require "foundation-rails"
 require "friendly_id"
+require "groupdate"
 require "hashdiff"
 require "httparty"
 require "jbuilder"
@@ -120,6 +122,7 @@ module Renalware
     initializer :assets do |app|
       app.config.assets.precompile += %w(renalware/print/pathology_request_forms.css)
       app.config.assets.precompile += %w(renalware/modernizr.js)
+      app.config.assets.precompile += %w(renalware/charting/charting.js)
       app.config.assets.precompile += %w(renalware/iframeResizer.contentWindow.js)
       app.config.assets.precompile += %w(renalware/pdf.css renalware/watermark.css)
       app.config.assets.precompile += %w(renalware/protocol_pdf.css)

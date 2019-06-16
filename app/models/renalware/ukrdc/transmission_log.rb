@@ -8,11 +8,22 @@ module Renalware
       validates :sent_at, presence: true
       validates :status, presence: true
       belongs_to :patient, class_name: "Renalware::Patient"
-      enum status: { undefined: 0, error: 1, unsent_no_change_since_last_send: 2, sent: 3 }
+      enum status: {
+        undefined: 0,
+        error: 1,
+        unsent_no_change_since_last_send: 2,
+        sent: 3,
+        imported: 4
+      }
+      enum direction: [:out, :in]
       scope :ordered, -> { order(sent_at: :asc) }
 
-      def self.with_logging(patient, request_uuid)
-        log = new(patient: patient, sent_at: Time.zone.now, request_uuid: request_uuid)
+      def self.with_logging(patient, request_uuid, **options)
+        log = new(
+          patient: patient,
+          sent_at: Time.zone.now,
+          request_uuid: request_uuid,
+          **options)
         yield log if block_given?
         log.save!
       rescue StandardError => e
