@@ -12,6 +12,7 @@ describe "RecipientFollowup", type: :system, js: true do
     it "a new one will be be created" do
       user = login_as_clinical
       operation
+      treatment = create(:transplant_rejection_treatment, name: "Treatment A")
 
       visit patient_transplants_recipient_dashboard_path(patient)
 
@@ -37,6 +38,7 @@ describe "RecipientFollowup", type: :system, js: true do
 
         fill_in "Recorded on", with: "01-03-2018"
         fill_in "Notes", with: "xyz"
+        select "Treatment A", from: "Treatment given"
       end
 
       within "form.new_transplants_recipient_followup" do
@@ -54,6 +56,7 @@ describe "RecipientFollowup", type: :system, js: true do
       expect(followup.rejection_episodes.first).to have_attributes(
         recorded_on: Time.zone.parse("01-03-2018").to_date,
         notes: "xyz",
+        treatment_id: treatment.id,
         updated_by: user,
         created_by: user
       )

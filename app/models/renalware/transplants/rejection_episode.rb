@@ -11,6 +11,7 @@ module Renalware
         on: [:create, :update, :destroy]
       )
       belongs_to :followup, class_name: "RecipientFollowup", touch: true
+      belongs_to :treatment, class_name: "RejectionTreatment"
       validates :recorded_on, presence: true
       validates :notes, presence: true
       validates :followup,    presence: true, if: proc { |re| re.followup_id.blank? }

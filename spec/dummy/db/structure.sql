@@ -7296,7 +7296,8 @@ CREATE TABLE transplant_rejection_episodes (
     updated_by_id bigint NOT NULL,
     created_by_id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    treatment_id bigint
 );
 
 
@@ -7317,6 +7318,38 @@ CREATE SEQUENCE transplant_rejection_episodes_id_seq
 --
 
 ALTER SEQUENCE transplant_rejection_episodes_id_seq OWNED BY transplant_rejection_episodes.id;
+
+
+--
+-- Name: transplant_rejection_treatments; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE transplant_rejection_treatments (
+    id bigint NOT NULL,
+    name text NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: transplant_rejection_treatments_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE transplant_rejection_treatments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplant_rejection_treatments_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE transplant_rejection_treatments_id_seq OWNED BY transplant_rejection_treatments.id;
 
 
 --
@@ -8737,6 +8770,13 @@ ALTER TABLE ONLY transplant_rejection_episodes ALTER COLUMN id SET DEFAULT nextv
 
 
 --
+-- Name: transplant_rejection_treatments id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY transplant_rejection_treatments ALTER COLUMN id SET DEFAULT nextval('transplant_rejection_treatments_id_seq'::regclass);
+
+
+--
 -- Name: transplant_versions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -10105,6 +10145,14 @@ ALTER TABLE ONLY transplant_registrations
 
 ALTER TABLE ONLY transplant_rejection_episodes
     ADD CONSTRAINT transplant_rejection_episodes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_rejection_treatments transplant_rejection_treatments_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY transplant_rejection_treatments
+    ADD CONSTRAINT transplant_rejection_treatments_pkey PRIMARY KEY (id);
 
 
 --
@@ -13428,10 +13476,31 @@ CREATE INDEX index_transplant_rejection_episodes_on_followup_id ON transplant_re
 
 
 --
+-- Name: index_transplant_rejection_episodes_on_treatment_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_transplant_rejection_episodes_on_treatment_id ON transplant_rejection_episodes USING btree (treatment_id);
+
+
+--
 -- Name: index_transplant_rejection_episodes_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_transplant_rejection_episodes_on_updated_by_id ON transplant_rejection_episodes USING btree (updated_by_id);
+
+
+--
+-- Name: index_transplant_rejection_treatments_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_transplant_rejection_treatments_on_name ON transplant_rejection_treatments USING btree (name);
+
+
+--
+-- Name: index_transplant_rejection_treatments_on_position; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_transplant_rejection_treatments_on_position ON transplant_rejection_treatments USING btree ("position");
 
 
 --
@@ -14935,6 +15004,14 @@ ALTER TABLE ONLY patients
 
 ALTER TABLE ONLY research_study_participants
     ADD CONSTRAINT fk_rails_980af0ec33 FOREIGN KEY (participant_id) REFERENCES patients(id);
+
+
+--
+-- Name: transplant_rejection_episodes fk_rails_98de4be6aa; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY transplant_rejection_episodes
+    ADD CONSTRAINT fk_rails_98de4be6aa FOREIGN KEY (treatment_id) REFERENCES transplant_rejection_treatments(id);
 
 
 --
@@ -16507,6 +16584,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190603165812'),
 ('20190607134717'),
 ('20190611152859'),
-('20190612124015');
+('20190612124015'),
+('20190617121528');
 
 

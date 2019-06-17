@@ -2,6 +2,7 @@
 
 require_dependency "renalware/transplants/base_controller"
 
+# rubocop:disable Metrics/ClassLength
 module Renalware
   module Transplants
     class RecipientFollowupsController < BaseController
@@ -106,6 +107,7 @@ module Renalware
             :id,
             :recorded_on,
             :notes,
+            :treatment_id,
             :created_at,
             :updated_at,
             :created_by_id,
@@ -126,3 +128,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

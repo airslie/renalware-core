@@ -5,9 +5,11 @@ table
     tr
       th.col-width-date Recorded On
       th.col-width-medium Recorded By
+      th.col-width-large Treatment
       th Notes
   - episodes.each do |episode|
     tr
       td= l(episode.recorded_on)
       td.col-width-medium-with-ellipsis= episode.created_by
+      td= episode.treatment
       td= episode.notes
