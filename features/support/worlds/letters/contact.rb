@@ -88,6 +88,7 @@ module World
 
         visit patient_letters_contacts_path(patient)
         click_on "Add"
+        wait_for_ajax
 
         within("#add-patient-contact-modal") do
           fill_autocomplete(
