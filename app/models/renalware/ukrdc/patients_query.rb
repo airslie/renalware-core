@@ -20,16 +20,18 @@ module Renalware
     class PatientsQuery
       def call(changed_since: nil)
         if changed_since.present?
-          rpv_patients.where("updated_at > ?", changed_since)
+          sendable_patients.where("updated_at > ?", changed_since)
         else
-          rpv_patients.where("(sent_to_ukrdc_at is null) or (updated_at > sent_to_ukrdc_at)")
+          sendable_patients.where("(sent_to_ukrdc_at is null) or (updated_at > sent_to_ukrdc_at)")
         end
       end
 
       private
 
-      def rpv_patients
-        Renalware::Patient.where(send_to_rpv: true)
+      def sendable_patients
+        Renalware::Patient.where(send_to_rpv: true).or(
+          Renalware::Patient.where(send_to_renalreg: true)
+        )
       end
     end
   end
