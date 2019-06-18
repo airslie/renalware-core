@@ -1,0 +1,86 @@
+# Use the latest stable version of Semaphore 2.0 YML syntax:
+version: v1.0
+name: renalwarev2
+
+# An agent defines the environment in which your code runs.
+# It is a combination of one of available machine types and operating
+# system images.
+# See https://docs.semaphoreci.com/article/20-machine-types
+# and https://docs.semaphoreci.com/article/32-ubuntu-1804-image
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+# Blocks are the heart of a pipeline and are executed sequentially.
+# Each block has a task that defines one or more jobs. Jobs define the
+# commands to execute.
+# See https://docs.semaphoreci.com/article/62-concepts
+blocks:
+  - name: Test setup
+    task:
+      jobs:
+        - name: bundle
+          commands:
+          # Checkout code from Git repository. This step is mandatory if the
+          # job is to work with your code.
+          # Optionally you may use --use-cache flag to avoid roundtrip to
+          # remote repository.
+          # See https://docs.semaphoreci.com/article/54-toolbox-reference#libcheckout
+          - checkout
+          # Restore dependencies from cache.
+          # Read about caching: https://docs.semaphoreci.com/article/54-toolbox-reference#cache
+          - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
+          # Set Ruby version:
+          - sem-version ruby 2.6.3
+          - bundle install --deployment -j 4 --path vendor/bundle
+          # Store the latest version of dependencies in cache,
+          # to be used in next blocks and future workflows:
+          - cache store gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock) vendor/bundle
+
+  # - name: Code scanning
+  #   task:
+  #     jobs:
+  #       - name: check style + security
+  #         commands:
+  #           - checkout
+  #           - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
+  #           - sem-version ruby 2.6.3
+  #           - bundle install --deployment --path vendor/bundle
+  #           - bundle exec rubocop
+  #           - bundle exec brakeman
+
+  - name: Tests
+    task:
+      # This block runs two jobs in parallel and they both share common
+      # setup steps. We can group them in a prologue.
+      # See https://docs.semaphoreci.com/article/50-pipeline-yaml#prologue
+      env_vars:
+        - name: RAILS_ENV
+          value: test
+
+      prologue:
+        commands:
+          - checkout
+          - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
+          - git submodule sync ; git submodule update --init
+          - sudo apt install -qq -y pandoc
+          # Start Postgres database service.
+          # See https://docs.semaphoreci.com/article/54-toolbox-reference#sem-service
+          - sem-service start postgres 10.8
+          - sem-version ruby 2.6.3
+          - bundle install --deployment --path vendor/bundle
+          # Use CI's database.yml
+          - cp ./.semaphore/database.yml ./spec/dummy/config/database.yml
+          - bundle exec rake db:create
+          - bundle exec rake db:migrate
+
+      jobs:
+      - name: RSpec tests
+        commands:
+          - bundle exec rspec --format progress
+
+      - name: Cucumber tests
+        commands:
+          - bundle exec cucumber --format progress
+          - TEST_DEPTH=web bundle exec cucumber -p rake_web --format progress
