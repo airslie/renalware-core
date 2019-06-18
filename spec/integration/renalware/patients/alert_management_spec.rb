@@ -3,6 +3,8 @@
 require "rails_helper"
 
 describe "Alert management", type: :system do
+  include AjaxHelpers
+
   it "A clinician adds an alert to a patient", js: true do
     user = login_as_clinical
     patient = create(:patient, by: user)
@@ -17,6 +19,7 @@ describe "Alert management", type: :system do
       click_on "Create alert"
     end
 
+    wait_for_ajax
     within ".patient-alerts" do
       expect(page).to have_content("Some note")
       expect(page).to have_selector(".patient-alert", count: 1)
@@ -24,8 +27,6 @@ describe "Alert management", type: :system do
   end
 
   it "A clinician deletes an alert", js: true do
-    # pending if ENV.key?("SEMAPHORECI")
-
     user = login_as_clinical
     patient = create(:patient, by: user)
     create(:patient_alert,
@@ -44,9 +45,7 @@ describe "Alert management", type: :system do
       # Prevent alert from popping up i.e. auto accept it.
       page.execute_script("window.confirm = function(){ return true; }")
       find(".actions a").click
-    end
-
-    within ".patient-alerts" do
+      wait_for_ajax
       expect(page).to have_selector(".patient-alert", count: 0)
     end
   end
