@@ -3,7 +3,7 @@ ruby:
 
 .row.top
   .medium-6.columns
-    = f.submit "Save", class: "button"
+    = f.submit "Save", class: "button save-button"
     span= " or "
     = link_to "cancel", back_path
 
@@ -56,15 +56,36 @@ ruby:
         = render_input fd, :acute_rejection_biopsy_proven
         = render_input fd, :primary_or_recurrent_renal_disease
 
+  / followup.rejection_episodes can be dynamically added using the helpers in the cooon gem
+  / We use accepts_nested.. on the server to rebuild the collection on save
+  article.rejection-episodes
+    header
+      h2 Transplant Rejection
+      = link_to_add_association "Add",
+                                f,
+                                :rejection_episodes,
+                                class: "button",
+                                data: { "association-insertion-node" => "#rejection-episodes",
+                                        "association-insertion-method" => "append" }
+    #rejection-episodes
+      / It is important we do not try and SQL-order the episodes here as that discards the
+      / unsaved ones that cocoon has kept around for us. So instead use #sort_by, allowing for
+      / a nil recorded_on date if that value in a newly added and unsaved episode has not yet been
+      / entered.
+      - episodes = f.object.rejection_episodes.sort_by{ |ep| ep.recorded_on || Time.zone.today }
+      = f.simple_fields_for :rejection_episodes, episodes do |episode|
+        = render "rejection_episode_fields", f: episode
+
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Admin", name: "admin" } do
     = f.input :notes,
               as: :text,
               input_html: { rows: 5 }
 
+
 .row
   .large-12.columns
-    = f.submit "Save", class: "button"
+    = f.submit "Save", class: "button save-button"
 
     span= " or "
     = link_to "cancel", back_path

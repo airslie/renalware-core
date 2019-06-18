@@ -2,7 +2,6 @@
 
 module Renalware
   log "Adding Failure Causes" do
-
     file_path = File.join(File.dirname(__FILE__), "failure_cause_descriptions.csv")
 
     CSV.foreach(file_path, headers: true) do |row|

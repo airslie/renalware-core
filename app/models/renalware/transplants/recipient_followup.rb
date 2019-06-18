@@ -18,6 +18,15 @@ module Renalware
       belongs_to :transplant_failure_cause_description,
                  class_name: "Transplants::FailureCauseDescription",
                  foreign_key: "transplant_failure_cause_description_id"
+      has_many :rejection_episodes,
+               class_name: "RejectionEpisode",
+               dependent: :restrict_with_exception,
+               foreign_key: "followup_id",
+               inverse_of: :followup
+
+      accepts_nested_attributes_for :rejection_episodes,
+                                    reject_if: :all_blank,
+                                    allow_destroy: true
 
       has_paper_trail class_name: "Renalware::Transplants::Version",
                       on: [:create, :update, :destroy]

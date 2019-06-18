@@ -35,8 +35,8 @@ gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 gem "trix", github: "airslie/trix"
 
 group :test do
-  gem "capybara", "~> 3.12"
-  gem "capybara-screenshot" # "~> 1.0.18"
+  gem "capybara", "~> 3.24.0"
+  gem "capybara-screenshot", "~> 1.0"
   gem "capybara-select-2"
   # gem "chromedriver-helper" # this clashses with the */*-browsers images in cirlci so removed
   gem "codeclimate-test-reporter", "~> 1.0.9", require: false # loads simplecov
@@ -50,9 +50,9 @@ group :test do
   gem "rspec-rails", "~> 3.8"
   gem "rspec_junit_formatter", "~> 0.4.1"
   gem "selenium-webdriver", "~> 3.142.0"
-  gem "shoulda-matchers", "~> 4.0"
-  gem "simplecov", "~> 0.13.0", require: false # only loaded if required
-  gem "webmock", require: false
+  gem "shoulda-matchers", "~> 4.1.0"
+  gem "simplecov", require: false # only loaded if required
+  gem "webmock", "~> 3.5.1", require: false
   gem "wisper-rspec", "~> 1.1.0"
 end
 
@@ -71,7 +71,6 @@ group :development do
   gem "rubocop-performance"
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
-  gem "web-console", require: false
 end
 
 group :development, :test do

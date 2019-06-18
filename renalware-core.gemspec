@@ -50,7 +50,7 @@ Gem::Specification.new do |s|
   s.add_dependency "font-awesome-sass", "~> 5.6" # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
   s.add_dependency "foundation-rails", "~> 5.5.3.2"
   s.add_dependency "friendly_id", "~> 5.2.5"
-  s.add_dependency "hashdiff", "~> 0.3.7"
+  s.add_dependency "hashdiff", "~> 0.3.9"
   s.add_dependency "httparty", "~> 0.16"
   s.add_dependency "i18n", "1.5.3"
   s.add_dependency "jbuilder", "~> 2.8"
@@ -71,7 +71,7 @@ Gem::Specification.new do |s|
   s.add_dependency "prawn", "~> 2.2.2"
   s.add_dependency "puma", "~> 3.12.0"
   s.add_dependency "pundit", "~> 2.0.0"
-  s.add_dependency "rack-attack", "~> 5.4"
+  s.add_dependency "rack-attack"
   s.add_dependency "rails", "~> 5.2"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
   s.add_dependency "rails-assets-moment", "2.22.2"
@@ -87,10 +87,10 @@ Gem::Specification.new do |s|
   s.add_dependency "slim-rails", "~> 3.2.0"
   s.add_dependency "uglifier", "~> 4.1.17"
   s.add_dependency "underscore-rails", "~> 1.8.3"
-  s.add_dependency "validates_timeliness", "~> 4.0.2"
+  s.add_dependency "validates_timeliness", "~> 4.1.0"
   s.add_dependency "virtus", "~> 1.0.5"
-  s.add_dependency "whenever", "~> 0.10.0" # For managing/deploying cron jobs see config/schedule.rb
-  s.add_dependency "wicked_pdf", "~> 1.1.0"
+  s.add_dependency "whenever" # For managing/deploying cron jobs see config/schedule.rb
+  s.add_dependency "wicked_pdf"
   s.add_dependency "wisper", "~> 2.0.0"
   s.add_dependency "wisper-activejob", "~> 1.0.0"
   s.add_dependency "wkhtmltopdf-binary", "0.12.3.1"

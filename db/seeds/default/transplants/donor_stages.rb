@@ -2,7 +2,6 @@
 
 module Renalware
   log "Adding Transplant Donor Stage Positions" do
-
     names = [
       "Currently Active",
       "Active Workup but on Hold",
@@ -22,13 +21,12 @@ module Renalware
   end
 
   log "Adding Transplant Donor Stage Statuses" do
-
     names = [
       "Initial Contact",
       "Initial Meeting / Tests",
       "Extended Assessment",
       "Awaiting HTA",
-      "Completed / Ready",
+      "Completed / Ready"
     ]
 
     names.each_with_index do |name, index|

@@ -8,6 +8,7 @@ module Renalware
       require "rails_helper"
 
       it { is_expected.to belong_to(:operation).touch(true) }
+      it { is_expected.to have_many(:rejection_episodes) }
       it { is_expected.to validate_timeliness_of(:stent_removed_on) }
       it { is_expected.to validate_timeliness_of(:transplant_failed_on) }
       it { is_expected.to validate_timeliness_of(:graft_nephrectomy_on) }
