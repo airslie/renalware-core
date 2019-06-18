@@ -24,7 +24,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.83)
+    renalware-core (2.0.84)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.28.0)
       ahoy_matey (~> 2.1)
@@ -564,7 +564,7 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.9)
-    timeliness (0.4.1)
+    timeliness (0.4.3)
     ttfunk (1.5.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
@@ -591,7 +591,7 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
-    whenever (0.11.0)
+    whenever (1.0.0)
       chronic (>= 0.6.3)
     wicked_pdf (1.4.0)
       activesupport
