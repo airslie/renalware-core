@@ -8,7 +8,6 @@ module Renalware
     js: true,
     type: :system
   ) do
-
     include LettersSpecHelper
 
     context "when a user is creating or editing a clinical letter" do

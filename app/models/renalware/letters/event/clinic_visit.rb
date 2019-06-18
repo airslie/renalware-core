@@ -16,7 +16,7 @@ module Renalware
       end
 
       def part_classes
-        super.merge!({ clinical_observations: Part::ClinicalObservations })
+        super.merge!(clinical_observations: Part::ClinicalObservations)
       end
 
       def to_s

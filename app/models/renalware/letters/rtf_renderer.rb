@@ -6,7 +6,7 @@ module Renalware
   module Letters
     class RTFRenderer
       include ActionController::Rendering
-      REGEX_TO_STRIP_IMAGES = %r{(?m)<img\s*.*?"\s*\/>}
+      REGEX_TO_STRIP_IMAGES = %r{(?m)<img\s*.*?"\s*\/>}.freeze
 
       def initialize(letter, controller)
         @letter = letter

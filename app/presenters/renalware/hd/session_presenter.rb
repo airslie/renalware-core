@@ -100,7 +100,7 @@ module Renalware
         when ::Float then (post - pre).round(1)
         when ::Integer then (post - pre)
         end
-      rescue StandardError => exception
+      rescue StandardError => e
         nil
       end
 

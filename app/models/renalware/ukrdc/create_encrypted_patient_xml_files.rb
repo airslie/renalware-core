@@ -46,10 +46,10 @@ module Renalware
           print_summary
           email_summary
         end
-      rescue StandardError => exception
+      rescue StandardError => e
         # TODO: if fails before copying to outgoing then we should roll back BatchNumber
-        Engine.exception_notifier.notify(exception)
-        raise exception
+        Engine.exception_notifier.notify(e)
+        raise e
       end
 
       private

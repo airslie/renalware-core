@@ -46,9 +46,9 @@ module Renalware
         # - so that any error in the listener has its own try mechansim and does not cause the
         # current job to retry,
         broadcast(:message_processed, feed_message: feed_message)
-      rescue StandardError => exception
-        notify_exception(exception)
-        raise exception
+      rescue StandardError => e
+        notify_exception(e)
+        raise e
       end
 
       private

@@ -12,7 +12,7 @@ module CoreExtensions
       #   duration.inspect        #=> "1 week, 0 days, and 0 hours"
       #   duration.to_formatted_s #=> "1 week"
       #
-      # rubocop:disable Style/Semicolon, Style/EachWithObject, Metrics/AbcSize
+      # rubocop:disable Style/Semicolon, Style/EachWithObject
       def to_formatted_s
         parts
           .reduce(::Hash.new(0)) { |h, (l, r)| h[l] += r; h }

@@ -9,7 +9,6 @@ module Renalware
 
       describe "#call" do
         it "delegates to other API and download service object" do
-
         end
       end
     end

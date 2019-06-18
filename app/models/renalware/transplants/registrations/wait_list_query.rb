@@ -27,7 +27,6 @@ module Renalware
               .merge(HD::Patient.with_profile)
               .merge(Renal::Patient.with_profile)
               .ransack(query).tap do |s|
-
               s.sorts = ["patient_family_name, patient_given_name"]
             end
           end

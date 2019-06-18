@@ -22,7 +22,6 @@ module Renalware
           context "when the letter is only 1 page long" do
             it "renders a PDF containing an address cover sheet + letter for each recipient "\
               "including blank pages where necessary" do
-
               # practice_email: "x@y.com"
               letter = create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact(
                 page_count: 1,
@@ -109,7 +108,6 @@ module Renalware
           context "when the letter spans 2 pages" do
             it "renders a PDF containing an address cover sheet + letter for each recipient "\
               "including blank pages where necessary" do
-
               # update body to tip the page across 2 pages
               letter = create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact(
                 body: "xxxxxxxx " * 1100,
@@ -194,7 +192,6 @@ module Renalware
           context "when the letter is only 1 page long" do
             it "renders a PDF containing an address cover sheet + letter for each recipient "\
               "including blank pages where necessary" do
-
               # practice_email: "x@y.com"
               letter = create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact(
                 page_count: 1,

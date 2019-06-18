@@ -22,7 +22,7 @@ module CoreExtensions
   module I18n
     module AlwaysCascade
       def translate(key, options = {})
-        super(key, options.merge({ cascade: { offset: 2, skip_root: false } }))
+        super(key, options.merge(cascade: { offset: 2, skip_root: false }))
       end
       alias t translate
     end

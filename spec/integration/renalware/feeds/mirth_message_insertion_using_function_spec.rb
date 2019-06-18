@@ -28,6 +28,7 @@ describe "Simulation of Mirth inserting an HL7 message using our helper function
 
     context "when the trigger is disabled" do
       before { toggle_all_triggers(:off) }
+
       after { toggle_all_triggers(:on) }
 
       it "does not replace anything - i.e. we know the trigger was working" do

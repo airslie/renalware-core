@@ -80,7 +80,7 @@ module Document
           Date.new(*date_fields)
         else
           args = date_fields + time_fields
-          Time.zone ? Time.zone.local(*args) : Time.new(*args)
+          Time.zone ? Time.zone.local(*args) : Time.zone.new(*args)
         end
       end
 

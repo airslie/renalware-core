@@ -144,7 +144,6 @@ describe "DialysisSession" do
       # rr02_code { "TLN" }
       # rr41_code { "LS" }
       session.document.info.access_type_abbreviation = "TLN LS"
-
     }
 
     it { is_expected.to include("<QHD20>TLN LS</QHD20>") }

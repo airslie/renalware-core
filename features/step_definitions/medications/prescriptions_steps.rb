@@ -167,5 +167,5 @@ Then(/^the prescription termination is rejected$/) do
 end
 
 Then(/^the prescription revision is rejected$/) do
-  expect_prescription_revision_to_be_rejected(@patty, { dose_amount: nil })
+  expect_prescription_revision_to_be_rejected(@patty, dose_amount: nil)
 end
