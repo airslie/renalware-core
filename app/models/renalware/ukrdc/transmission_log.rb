@@ -15,11 +15,11 @@ module Renalware
         log = new(patient: patient, sent_at: Time.zone.now, request_uuid: request_uuid)
         yield log if block_given?
         log.save!
-      rescue StandardError => error
-        log.error << formatted_exception(error)
+      rescue StandardError => e
+        log.error << formatted_exception(e)
         log.status = :error
         log.save!
-        raise error
+        raise e
       end
 
       def self.formatted_exception(error)

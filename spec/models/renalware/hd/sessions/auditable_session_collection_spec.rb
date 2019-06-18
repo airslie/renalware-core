@@ -352,7 +352,6 @@ module Renalware
         describe "#mean_ufr" do
           it "returns fluid removed (ml) / HD time in hours / dry weight (kg) "\
              "in units of ml/hr/kg" do
-
             clinical_patient = Clinical.cast_patient(patient)
             dry_weight1 = build_stubbed(:dry_weight, patient: clinical_patient, weight: 100.0)
             dry_weight2 = build_stubbed(:dry_weight, patient: clinical_patient, weight: 120.0)

@@ -27,7 +27,6 @@ xml.Medications do
                     prescription.dose_unit&.text,
                     prescription.frequency].compact.join(" ")
 
-
       # rubocop:disable Style/RescueModifier
       # Only output DoseQuantity is it is an integer or decimal
       dose_amount_is_a_number = Float(prescription.dose_amount) rescue nil

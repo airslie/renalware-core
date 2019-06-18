@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :api_log, class: "Renalware::System::APILog" do
-    identifier { "A1"}
+    identifier { "A1" }
 
     trait :done do
       status { Renalware::System::APILog::STATUS_DONE }

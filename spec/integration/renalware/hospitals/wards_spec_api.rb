@@ -6,7 +6,6 @@ describe "Hospital Wards API", type: :request do
   describe "GET index JSON" do
     it "returns wards for a hospital unit, useful for example for inserting into a wards select " \
        "when the parent unit dropdown has changed" do
-
       unit = create(:hospital_unit)
       ward_a = create(:hospital_ward, name: "WardA", hospital_unit: unit)
       ward_b = create(:hospital_ward, name: "WardB", hospital_unit: unit)

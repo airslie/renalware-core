@@ -121,7 +121,6 @@ module Renalware
 
     context "when the patient has previously been sent to the UKRDC but *nothing* about has "\
             " changes so the payload_hash is the same" do
-
       let(:prevous_transmission_log) {
         UKRDC::TransmissionLog.create!(
           request_uuid: request_uuid,

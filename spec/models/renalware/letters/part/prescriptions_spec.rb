@@ -59,7 +59,6 @@ module Renalware::Letters
     describe "#recently_stopped" do
       it "comprises prescriptions stopped within the last 14 days having a drug which is not in " \
          "the #current list" do
-
         other_drug = create(:drug, name: "a drug not in the current list")
 
         # No as not terminated

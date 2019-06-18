@@ -15,7 +15,6 @@ module Renalware
           .order("letter_group asc, letter_order asc")
           .group_by(&:letter_group)
           .each do |group_number, descriptions|
-
           yield(group_number, descriptions) if block_given?
         end
       end

@@ -33,7 +33,6 @@ module Renalware
         ).to eq [practice]
       end
 
-
       it "finds a practice by its code" do
         create(:practice, code: "A1A1")
         practice = create(:practice, code: "A1")

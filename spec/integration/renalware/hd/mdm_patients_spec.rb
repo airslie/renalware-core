@@ -129,6 +129,7 @@ describe "HD MDM Patients", type: :system do
         visit hd_mdm_patients_path
         click_on I18n.t("renalware.hd.mdm_patients.tabs.tab.on_worryboard")
 
+        # Do not use have_current_path here
         expect(page).to have_current_path(
           hd_filtered_mdm_patients_path(named_filter: :on_worryboard)
         )
@@ -138,6 +139,7 @@ describe "HD MDM Patients", type: :system do
         click_on I18n.t("helpers.submit.filter")
 
         # Ensure we are still at the on worryboard path
+        # !! Do not use have_current_path here
         expect(page.current_path).to eq(
           hd_filtered_mdm_patients_path(named_filter: :on_worryboard)
         )

@@ -37,7 +37,7 @@ module Renalware
       visit patient_pd_dashboard_path(@patient)
     end
 
-    it "should return daily average volume (ml) for each concentration type" do
+    it "returns daily average volume (ml) for each concentration type" do
       within ".page-actions" do
         click_link "Add"
         click_link "CAPD Regime"

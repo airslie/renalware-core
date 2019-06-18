@@ -55,7 +55,7 @@ module Renalware
         Liquid::Template.error_mode = :strict
         template = Template.find_by!(name: template_name)
         liquified_template = Liquid::Template.parse(template.body)
-        liquified_template.render!(variables, { strict_variables: true })
+        liquified_template.render!(variables, strict_variables: true)
       end
     end
   end

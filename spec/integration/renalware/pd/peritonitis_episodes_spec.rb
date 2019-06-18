@@ -8,7 +8,6 @@ describe "Peritonitis episodes", type: :request do
   describe "GET show as pdf" do
     it "responds successfully with a pdf form for the nurse to print out and use to gather" \
        " information about the infection " do
-
       patient = create(:pd_patient, family_name: "Rabbit", local_patient_id: "KCH12345")
       episode = create(:peritonitis_episode, patient: patient)
       create(:peritonitis_episode_printable_form_template)

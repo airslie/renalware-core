@@ -52,7 +52,7 @@ describe "Medications element" do
         dose_amount: "98",
         prescribed_on: 2.weeks.ago
       )
-      terminated_prescription.terminate(by: user,  terminated_on: 1.week.ago).save!
+      terminated_prescription.terminate(by: user, terminated_on: 1.week.ago).save!
       active_prescription = create_prescription_for(
         patient,
         dose_amount: "99",
