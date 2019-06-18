@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.84
+### Added
+- Add Rejection Episodes in Recipient Transplant Followup #2700
+### Changed
+- Include patients with send_to_renalreg=true in UKRDC XML export #2717
+### Fixed
+
 ## 2.0.83
 ### Added
 - Transplant Followup - adding graft function onset #2702
