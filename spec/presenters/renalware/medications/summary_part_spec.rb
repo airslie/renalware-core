@@ -4,9 +4,10 @@ require "rails_helper"
 
 module Renalware
   describe Medications::SummaryPart do
-    subject(:summary_part) { described_class.new(patient) }
+    subject(:summary_part) { described_class.new(patient, user) }
 
     let(:patient) { Patient.new }
+    let(:user) { User.new }
 
     it { is_expected.to respond_to(:current_prescriptions) }
     it { is_expected.to respond_to(:to_partial_path) }

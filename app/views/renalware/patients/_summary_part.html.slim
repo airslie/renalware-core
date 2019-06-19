@@ -1,0 +1,32 @@
+- if summary_part.bookmarked?
+  - bookmark = summary_part.bookmark
+  .summary-part--bookmark-notes
+    article
+      header
+        h2 Bookmark
+        = link_to("Remove",
+                  bookmark_path(bookmark),
+                  method: :delete,
+                  data: { confirm: "Are you sure?" },
+                  class: :button)
+      - if bookmark.urgent?
+          span.urgent Urgent
+      - if summary_part.bookmark_tags.any?
+        .lozenge
+          ul
+            - summary_part.bookmark_tags.each do |tag|
+              li= tag
+      p= summary_part.bookmark_notes
+
+- if summary_part.on_worryboard?
+  .summary-part--worryboard-notes
+    article
+      header
+        h2 Worryboard notes
+        = link_to("Remove",
+                  patient_worry_path( summary_part.patient, summary_part.worry),
+                  method: :delete,
+                  data: { confirm: "Are you sure you want to remove the patient from the worryboard?" },
+                  class: :button)
+
+      p= summary_part.worryboard_notes

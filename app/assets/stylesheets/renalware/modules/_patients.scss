@@ -376,8 +376,49 @@ form {
       @include grid-column(6);
     }
   }
-}
 
+  .summary-part--bookmark-notes,
+  .summary-part--worryboard-notes {
+    @include grid-column(12);
+
+    @media #{$medium-up} {
+      @include grid-column(6);
+    }
+
+    p {
+      padding: .2rem 0 0 0;
+    }
+
+    .urgent {
+      background-color: $nhs-yellow;
+      padding: .05rem .6rem;
+      display: inline-block;
+      border-radius: 0.3rem;
+      margin-right: .4rem;
+    }
+
+    .lozenge {
+      margin: 0;
+      padding: 0;
+      font-size: .9rem;
+      display: inline-block;
+
+      ul {
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+
+        li {
+          padding: 0 .4rem;
+          background-color: $nhs-green;
+          line-height: 1.4rem;
+          color: $white;
+          margin-right: .3rem;
+        }
+      }
+    }
+  }
+}
 
 #select2-practice-search-results {
   li {
