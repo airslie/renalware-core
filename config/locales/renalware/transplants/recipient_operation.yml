@@ -72,6 +72,12 @@ en:
         cadaver: Cadaver
         non_heart_beating: NHB
         live_unrelated: Live unrelated
+      relationship:
+        sibling: Sibling
+        father: Father
+        mother: Mother
+        child: Child
+        other: Other
       ethnic_category:
         white: "White"
         black_caribbean: "Black Caribbean"

@@ -21,6 +21,7 @@ module Renalware
         attribute :ukt_donor_number
         attribute :ukt_notified_at, DateTime
         attribute :type, Document::Enum
+        attribute :relationship, Document::Enum
         attribute :gender, Document::Enum, enums: %i(male female)
         attribute :ethnic_category, Document::Enum
         attribute :age, Age

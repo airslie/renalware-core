@@ -41,6 +41,7 @@ ruby:
              locals: { legend: "Donor", name: "donor" } do
       = fd.simple_fields_for :donor, fd.object.donor do |fcm|
         = fcm.input :type, wrapper: :horizontal_small
+        = fcm.input :relationship, wrapper: :horizontal_small
         = fcm.input :ukt_donor_number, wrapper: :horizontal_small
         = fcm.input :ukt_notified_at, as: :datetime_picker, wrapper: :horizontal_datepicker
         = fcm.input :gender, wrapper: :horizontal_small
