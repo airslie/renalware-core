@@ -20,12 +20,16 @@ xml.Transplant do
   end
 
   xml.Attributes do
-    if operation.rr_tra76_options.present?
-      xml.TRA76 do
-        xml.CodingStandard "CF_RR7_TREATMENT"
-        xml.Code operation.rr_tra76_options[:code]
-        xml.Description operation.rr_tra76_options[:description]
-      end
+    if operation.nhsbt_type.present?
+      xml.TRA77 operation.nhsbt_type
     end
+    # Note sending TRA76 yet as defined as datetime in XSD and needs changeing there.
+    # if operation.rr_tra76_options.present?
+    #   xml.TRA76 do
+    #     xml.CodingStandard "CF_RR7_TREATMENT"
+    #     xml.Code operation.rr_tra76_options[:code]
+    #     xml.Description operation.rr_tra76_options[:description]
+    #   end
+    # end
   end
 end

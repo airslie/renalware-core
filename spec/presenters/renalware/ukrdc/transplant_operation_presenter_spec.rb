@@ -92,5 +92,50 @@ module Renalware
         it { is_expected.to eq(code: 24, description: "Transplant; Live genetically unrelated") }
       end
     end
+
+    describe "nhsbt_type" do
+      subject { presenter.nhsbt_type }
+
+      let(:operation) do
+        build(
+          :transplant_recipient_operation,
+          document: {
+            donor: {
+              type: donor_type
+            }
+          }
+        )
+      end
+
+      context "when donor type is nil" do
+        let(:donor_type) { nil }
+
+        it { is_expected.to be_nil }
+      end
+
+      context "when donor type is live_related" do
+        let(:donor_type) { :live_related }
+
+        it { is_expected.to eq "Live" }
+      end
+
+      context "when donor type is live_unrelated" do
+        let(:donor_type) { :live_unrelated }
+
+        it { is_expected.to eq "Live" }
+      end
+
+      context "when donor type is cadaver" do
+        let(:donor_type) { :cadaver }
+
+        it { is_expected.to eq "DBD" }
+      end
+
+      context "when donor type is non_heart_beating" do
+        let(:donor_type) { :non_heart_beating }
+
+        it { is_expected.to eq "DCD" }
+      end
+    end
   end
 end

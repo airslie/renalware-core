@@ -34,8 +34,16 @@ module Renalware
         unknown: { code: 29, description: "Transplant; type unknown" }
       }.freeze
 
+      NHSBT_TYPE_MAP = {
+        cadaver: "DBD",
+        live_unrelated: "Live",
+        live_related: "Live",
+        non_heart_beating: "DCD"
+      }.freeze
+
       pattr_initialize :operation
       delegate_missing_to :operation
+      delegate :document, to: :operation
       delegate :code, :name, to: :hospital_centre, prefix: true, allow_nil: true
 
       def procedure_type_snomed_code
@@ -46,6 +54,10 @@ module Renalware
         PROCEDURE_SNOMED_MAP.fetch(operation_type.to_sym)[:name]
       end
 
+      def nhsbt_type
+        NHSBT_TYPE_MAP[document.donor.type&.to_sym]
+      end
+
       # TRA76 is the type of donor. For us it is a combination of donor type and donor relationship
       # (if live related).
       # Unhandled options:
@@ -54,9 +66,9 @@ module Renalware
       # 27 "Transplant; Live donor non-UK transplant"
       def rr_tra76_options
         @rr_tra76_options ||= begin
-          return if operation.document.donor.type.blank?
+          return if document.donor.type.blank?
 
-          donor_type = operation.document.donor.type.to_sym
+          donor_type = document.donor.type.to_sym
           if donor_type == :live_related
             rr_tra76_live_related
           else
@@ -68,7 +80,7 @@ module Renalware
       private
 
       def rr_tra76_live_related
-        donor_relationship = operation.document.donor.relationship&.to_sym
+        donor_relationship = document.donor.relationship&.to_sym
         TRA76_TYPE_LIVE_RELATED_MAP[donor_relationship] || TRA76_TYPE_LIVE_RELATED_MAP[:other]
       end
 
