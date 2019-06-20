@@ -15,6 +15,13 @@ GIT
       rails (>= 5.2.3)
 
 GIT
+  remote: https://github.com/airslie/party_foul.git
+  revision: 215834ca503162fea7c674649c103ba55636168b
+  specs:
+    party_foul (1.5.6)
+      octokit (~> 4.2)
+
+GIT
   remote: https://github.com/airslie/trix.git
   revision: 56d84ae42e34488b0bb301bd9bd0f54fac7fc811
   specs:
@@ -280,7 +287,7 @@ GEM
       railties (>= 3.0.0)
     faker (1.9.3)
       i18n (>= 0.7)
-    faraday (0.9.2)
+    faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.1)
     font-awesome-sass (5.8.1)
@@ -373,8 +380,8 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
-    octokit (3.8.0)
-      sawyer (~> 0.6.0, >= 0.5.3)
+    octokit (4.14.0)
+      sawyer (~> 0.8.0, >= 0.5.3)
     orm_adapter (0.5.0)
     pandoc-ruby (2.0.2)
     paper_trail (9.0.2)
@@ -385,8 +392,6 @@ GEM
       activerecord (>= 4.0, < 6.1)
     parser (2.6.3.0)
       ast (~> 2.4.0)
-    party_foul (1.5.5)
-      octokit (~> 3.1)
     pdf-core (0.7.0)
     pdf-reader (2.2.0)
       Ascii85 (~> 1.0.0)
@@ -522,9 +527,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sawyer (0.6.0)
-      addressable (~> 2.3.5)
-      faraday (~> 0.8, < 0.10)
+    sawyer (0.8.2)
+      addressable (>= 2.3.5)
+      faraday (> 0.8, < 2.0)
     scenic (1.5.1)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
@@ -632,7 +637,7 @@ DEPENDENCIES
   launchy
   newrelic_rpm
   nhs_api_client!
-  party_foul (~> 1.5.5)
+  party_foul (~> 1.5.5)!
   rails-controller-testing (~> 1.0.4)
   redis
   renalware-core!
