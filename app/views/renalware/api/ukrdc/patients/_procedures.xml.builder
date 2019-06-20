@@ -13,9 +13,9 @@ xml.Procedures do
 
   # Transplant operation procedures
   patient.transplant_operations.each do |operation|
-    render "renalware/api/ukrdc/patients/procedures/transplant_opertation",
+    render "renalware/api/ukrdc/patients/procedures/transplant_operation",
            builder: xml,
            patient: patient,
-           operation: operation
+           operation: Renalware::UKRDC::TransplantOperationPresenter.new(operation)
   end
 end

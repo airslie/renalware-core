@@ -19,6 +19,21 @@ module Renalware
         liver: SNOMED_KIDNEY
       }.freeze
 
+      TRA76_TYPE_LIVE_RELATED_MAP = {
+        sibling: { code: 21, description: "Transplant; Live related - sibling" },
+        father: { code: 74, description: "Transplant;  Live related - father" },
+        mother: { code: 75, description: "Transplant; Live related - mother" },
+        child: { code: 77, description: "Transplant; Live related - child " },
+        other: { code: 23, description: "Transplant; Live related - other" }
+      }.freeze
+
+      TRA76_TYPE_OTHER_MAP = {
+        cadaver: { code: 20, description: "Transplant; Cadaver donor" },
+        live_unrelated: { code: 24, description: "Transplant; Live genetically unrelated" },
+        non_heart_beating: { code: 28, description: "Transplant; non-heart-beating donor" },
+        unknown: { code: 29, description: "Transplant; type unknown" }
+      }.freeze
+
       pattr_initialize :operation
       delegate_missing_to :operation
       delegate :code, :name, to: :hospital_centre, prefix: true, allow_nil: true
@@ -29,6 +44,36 @@ module Renalware
 
       def procedure_type_name
         PROCEDURE_SNOMED_MAP.fetch(operation_type.to_sym)[:name]
+      end
+
+      # TRA76 is the type of donor. For us it is a combination of donor type and donor relationship
+      # (if live related).
+      # Unhandled options:
+      # 25 "Transplant; Cadaver donor + transp other organ"
+      # 26 "Transplant; Live donor + transplant other organ"
+      # 27 "Transplant; Live donor non-UK transplant"
+      def rr_tra76_options
+        @rr_tra76_options ||= begin
+          return if operation.document.donor.type.blank?
+
+          donor_type = operation.document.donor.type.to_sym
+          if donor_type == :live_related
+            rr_tra76_live_related
+          else
+            rr_tra76_other(donor_type)
+          end
+        end
+      end
+
+      private
+
+      def rr_tra76_live_related
+        donor_relationship = operation.document.donor.relationship&.to_sym
+        TRA76_TYPE_LIVE_RELATED_MAP[donor_relationship] || TRA76_TYPE_LIVE_RELATED_MAP[:other]
+      end
+
+      def rr_tra76_other(donor_type)
+        TRA76_TYPE_OTHER_MAP[donor_type] || TRA76_TYPE_OTHER_MAP[:unknown]
       end
     end
   end

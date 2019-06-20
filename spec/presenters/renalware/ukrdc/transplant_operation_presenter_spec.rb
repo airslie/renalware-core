@@ -4,14 +4,14 @@ require "rails_helper"
 
 module Renalware
   describe UKRDC::TransplantOperationPresenter do
-    subject(:presenter) { described_class.new(operation) }
-
-    let(:operation) { build(:transplant_recipient_operation, operation_type: operation_type) }
+    let(:presenter) { described_class.new(operation) }
     let(:operation_type) { :kidney }
 
     # operation_type in %i(kidney kidney_dual kidney_pancreas pancreas kidney_liver liver)
-    describe "ProcedureType" do
+    describe "#procedure_type_snomed_code" do
       subject { presenter.procedure_type_snomed_code }
+
+      let(:operation) { build(:transplant_recipient_operation, operation_type: operation_type) }
 
       %i(kidney_dual kidney kidney_dual kidney_liver liver).each do |operation_type|
         context "when the operation_type is #{operation_type}" do
@@ -31,6 +31,65 @@ module Renalware
         let(:operation_type) { :pancreas }
 
         it { is_expected.to eq("62438007​") }
+      end
+    end
+
+    describe "#rr_tra76_options" do
+      subject { presenter.rr_tra76_options }
+
+      let(:donor_type) { nil }
+      let(:donor_relationship) { nil }
+
+      let(:operation) do
+        build(
+          :transplant_recipient_operation,
+          operation_type: operation_type,
+          document: {
+            donor: {
+              type: donor_type,
+              relationship: donor_relationship
+            }
+          }
+        )
+      end
+
+      context "when the donor type is missing" do
+        it { is_expected.to be_nil }
+      end
+
+      context "when the donor type is live_related" do
+        let(:donor_type) { :live_related }
+
+        # 2 example srelationship pecs, no point testing all
+        context "when donor relationship is not specified" do
+          let(:donor_relationship) { nil }
+
+          it { is_expected.to eq(code: 23, description: "Transplant; Live related - other") }
+        end
+
+        context "when donor relationship :mother" do
+          let(:donor_relationship) { :mother }
+
+          it { is_expected.to eq(code: 75, description: "Transplant; Live related - mother") }
+        end
+      end
+
+      context "when the donor type is cadaver" do
+        let(:donor_type) { :cadaver }
+
+        it { is_expected.to eq(code: 20, description: "Transplant; Cadaver donor") }
+      end
+
+      context "when the donor type is NHB" do
+        let(:donor_type) { :non_heart_beating }
+
+        it { is_expected.to eq(code: 28, description: "Transplant; non-heart-beating donor") }
+      end
+
+      context "when the donor type is live unrelated" do
+        let(:donor_type) { :live_unrelated }
+
+        it { is_expected.to eq(code: 24, description: "Transplant; Live genetically unrelated") }
       end
     end
   end

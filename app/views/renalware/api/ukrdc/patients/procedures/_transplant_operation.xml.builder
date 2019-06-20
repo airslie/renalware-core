@@ -1,7 +1,15 @@
 xml = builder
 
-xml.TransplantProcedure do
-  xml.ProcedureTime operation.performed_on&.iso8601
+xml.Transplant do
+  if operation.operation_type.present?
+    xml.ProcedureType do
+      xml.CodingStandard "SNOMED"
+      xml.Code operation.procedure_type_snomed_code
+      xml.Description operation.procedure_type_name
+    end
+  end
+
+  xml.ProcedureTime operation.performed_on&.to_time&.iso8601
 
   if operation.hospital_centre_code.present?
     xml.EnteredAt do
@@ -11,15 +19,13 @@ xml.TransplantProcedure do
     end
   end
 
-  if operation.operation_type.present?
-    xml.ProcedureType do
-      xml.CodingStandard "SNOMED"
-      xml.Code operation.procedure_type_snomed_code
-      xml.Description operation.procedure_type_name
-    end
-  end
-
   xml.Attributes do
-    xml.TRA76
+    if operation.rr_tra76_options.present?
+      xml.TRA76 do
+        xml.CodingStandard "CF_RR7_TREATMENT"
+        xml.Code operation.rr_tra76_options[:code]
+        xml.Description operation.rr_tra76_options[:description]
+      end
+    end
   end
 end
