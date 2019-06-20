@@ -53,6 +53,8 @@ module Renalware
       end
 
       def letters
+        return Letters::Letter.none if send_to_rpv == false
+
         CollectionPresenter.new(
           letters_patient
             .letters
