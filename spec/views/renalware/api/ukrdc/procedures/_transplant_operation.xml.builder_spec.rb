@@ -29,7 +29,7 @@ describe "TransplantProcedure" do
     Renalware::UKRDC::TransplantOperationPresenter::SNOMED_KIDNEY[:name]
   end
 
-  it { is_expected.to include("<ProcedureTime>2019-02-01</ProcedureTime>") }
+  it { is_expected.to include("<ProcedureTime>2019-02-01T00:00:00+00:00</ProcedureTime>") }
   it { is_expected.to include("<EnteredAt>") }
   it { is_expected.to include("<Code>ABC</Code>") }
   it { is_expected.to include("<Description>Centre1</Description>") }
@@ -38,5 +38,4 @@ describe "TransplantProcedure" do
   it { is_expected.to include("<Code>#{kidney_tx_snomed_code}</Code>") }
   it { is_expected.to include("<Description>#{kidney_tx_name}</Description>") }
   it { is_expected.to include("<Attributes>") }
-  # TRA76
 end
