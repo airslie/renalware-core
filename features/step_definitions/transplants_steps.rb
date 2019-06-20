@@ -126,14 +126,16 @@ When(/^Clyde submits an erroneous registration$/) do
   )
 end
 
+# rubocop:disable Style/RescueModifier
 When(/^Clyde submits an erroneous recipient operation$/) do
   create_recipient_operation(
     patient: @patty,
     user: @clyde,
     performed_on: "",
     age: 30
-  )
+  ) rescue nil
 end
+# rubocop:enable Style/RescueModifier
 
 When(/^Clyde submits an erroneous donor operation$/) do
   create_donor_operation(
@@ -208,7 +210,7 @@ When(/^Clyde creates a recipient operation followup for Patty$/) do
 end
 
 When(/^Clyde updates a recipient operation followup for Patty$/) do
-  update_recipient_followup(operation: @operation, user: @clyde)
+  update_recipient_followup(operation: @operation, user: @clyde, performed_on: 1.day.ago)
 end
 
 When(/^Clyde creates a donor operation followup for Don$/) do

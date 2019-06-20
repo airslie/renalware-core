@@ -45,13 +45,14 @@ module World
       #
       def create_recipient_operation(patient:, user:, performed_on:, age:)
         patient = transplant_patient(patient)
-
-        Renalware::Transplants::RecipientOperation.create(
+        Renalware::Transplants::RecipientOperation.create!(
           valid_recipient_operation_attributes.merge(
             patient: patient,
             performed_on: performed_on,
             document: {
               donor: {
+                type: "live_related",
+                relationship: "mother",
                 age: {
                   amount: age
                 }
@@ -84,6 +85,8 @@ module World
         operation = Renalware::Transplants::RecipientOperation.for_patient(patient).first
         expect(operation).to be_present
         expect(operation.document.donor.age.amount).to eq(age)
+        expect(operation.document.donor.type).to eq("live_related")
+        expect(operation.document.donor.relationship).to eq("mother")
       end
 
       def expect_update_recipient_operation_to_succeed(patient:, user:)
@@ -117,6 +120,8 @@ module World
         fill_in "Kidney Perfused With Blood At", with: fake_time
         fill_in "Cold Ischaemic Time", with: fake_time
         fill_in "Warm Ischaemic Time", with: fake_time
+        select "Live related", from: "Donor Type"
+        select "Mother", from: "Relationship"
         find("#transplants_recipient_operation_document_donor_age_amount").set(age)
         select "years", from: "transplants_recipient_operation_document_donor_age_unit"
 
