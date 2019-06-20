@@ -83,7 +83,7 @@ describe "DialysisSession" do
     end
 
     it do
-      expect(subject).to include(
+      expect(rendered).to include(
         "<EnteredBy>"\
         "<CodingStandard>LOCAL</CodingStandard>"\
         "<Code>js</Code>" \
@@ -143,10 +143,12 @@ describe "DialysisSession" do
       # Eg when
       # rr02_code { "TLN" }
       # rr41_code { "LS" }
+      # however we only want the rr02_code but both are stored concatenated together
+      # in access_type_abbreviation.
       session.document.info.access_type_abbreviation = "TLN LS"
     }
 
-    it { is_expected.to include("<QHD20>TLN LS</QHD20>") }
+    it { is_expected.to include("<QHD20>TLN</QHD20>") }
   end
 
   describe "QHD21 (Vascular Access Side) RR40" do

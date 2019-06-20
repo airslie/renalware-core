@@ -31,7 +31,7 @@ xml.DialysisSession(
   xml.ExternalId session.uuid
   xml.Attributes do
     xml.QHD19 session.had_intradialytic_hypotension?
-    xml.QHD20 session.access_type_abbreviation
+    xml.QHD20 session.access_rr02_code
     xml.QHD21 session.access_side_rr40_code
     xml.QHD22 "N" # Access in two sites simultaneously
     xml.QHD30 session.blood_flow
