@@ -62,5 +62,40 @@ module Renalware
         expect(presenter.modalities).to eq([pd, hd, tx])
       end
     end
+
+    describe "#letters" do
+      # Setup is a bit complicated because when the presenter casts the patient to a
+      # Letters::Patient the object id changes, so we have to stub cast_patient to return a
+      # known Letters::Patient instance. Then we put a spy on letters_patient.letters to
+      # ensure it is or isn't called.
+      def stub_letters_patient(patient)
+        Letters.cast_patient(patient).tap do |letters_patient|
+          allow(Letters).to receive(:cast_patient).and_return(letters_patient)
+          allow(letters_patient).to receive(:letters).and_return(Letters::Letter.none)
+        end
+      end
+
+      context "when the patient has opted-in to RPV" do
+        it "returns the patient's letters" do
+          patient = build_stubbed(:patient, send_to_rpv: true, send_to_renalreg: true)
+          letters_patient = stub_letters_patient(patient)
+
+          UKRDC::PatientPresenter.new(patient).letters
+
+          expect(letters_patient).to have_received(:letters)
+        end
+      end
+
+      context "when the patient has not opted-in to RPV" do
+        it "returns an empty array even if the patient has letters" do
+          patient = build_stubbed(:patient, send_to_rpv: false,  send_to_renalreg: true)
+          letters_patient = stub_letters_patient(patient)
+
+          UKRDC::PatientPresenter.new(patient).letters
+
+          expect(letters_patient).not_to have_received(:letters)
+        end
+      end
+    end
   end
 end

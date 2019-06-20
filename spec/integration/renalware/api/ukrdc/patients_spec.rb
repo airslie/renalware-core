@@ -21,6 +21,7 @@ describe "API request for a single UKRDC patient XML document", type: :request d
       language: english,
       by: user,
       sent_to_ukrdc_at: 1.year.ago,
+      send_to_rpv: true,
       practice: create(:practice),
       primary_care_physician: create(:primary_care_physician)
     )
