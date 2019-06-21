@@ -163,6 +163,10 @@ module Renalware
         profile.esrf_on.to_time.iso8601
       end
 
+      def transplant_operations
+        Transplants::RecipientOperation.for_patient(id).order(performed_on: :asc)
+      end
+
       private
 
       def comorbidity_date_time_from_year(year)

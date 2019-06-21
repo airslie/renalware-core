@@ -2,12 +2,15 @@
 
 xml = builder
 
-# A temporary output ot the treatment timeline using just this modality descriptions with a
-# crude renal reg modality code assigned to them - HD PD Transplant vCKD - all other modalities
+# A temporary output of the treatment timeline using just modality descriptions with a
+# crude renal reg modality code assigned to them - HD, PD, Transplant, vCKD - all other modalities
 # fall through the gaps at this stage until we implement this properly. Also sub RR modal codes
 # like CAPD and HDF are not yet implemented, just the top level modality.
 patient.modalities.each do |modality|
-  next if modality.description.ukrdc_modality_code_id.blank?
+  ukrdc_modality_code_id = modality.description.ukrdc_modality_code_id
+  next if ukrdc_modality_code_id.blank?
+
+  ukrdc_modality_code = Renalware::UKRDC::ModalityCode.find(ukrdc_modality_code_id)
 
   xml.Treatment do
     xml.EncounterNumber modality.id
@@ -22,7 +25,27 @@ patient.modalities.each do |modality|
 
     xml.AdmitReason do
       xml.CodingStandard "CF_RR7_TREATMENT"
-      xml.Code Renalware::UKRDC::ModalityCode.find(modality.description.ukrdc_modality_code_id).txt_code
+      xml.Code ukrdc_modality_code.txt_code
     end
+
+    # # This is a bit of hack to get the HD Profile location for the current modality
+    # if [1, 2, 3, 4, 5, 9].include?(ukrdc_modality_code.txt_code.to_i) # HD
+    #   profile = Renalware::HD::Profile
+    #     .for_patient(patient)
+    #     .where(<<-SQL).first
+    #     created_at::date <= '#{modality.started_on}'
+    #     and (
+    #       deactivated_at is NULL or
+    #       (
+    #         deactivated_at >= '#{modality.started_on}'
+    #       )
+    #     )
+    #     SQL
+    #   if profile&.hospital_unit.present?
+    #     xml.Attributes do
+    #       xml.QBL05 profile.hospital_unit.unit_type # eg home
+    #     end
+    #   end
+    # end
   end
 end

@@ -13,7 +13,7 @@ gemspec
 gem "bootsnap", require: false # speeds up rspec and rails server boot time in development
 gem "daemons", require: false # to use cmds like `bin/delayed_job start`
 gem "faker"
-gem "party_foul", "~> 1.5.5"
+gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
 gem "redis"
 
 #

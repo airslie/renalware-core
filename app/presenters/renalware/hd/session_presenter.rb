@@ -135,6 +135,14 @@ module Renalware
         RR40_ACCESS_SIDE_MAP[access_side] || RR40_ACCESS_SIDE_MAP["unknown"]
       end
 
+      # We only store the abbreviated access (rr02 + " " + rr41) so just take the first word
+      # which will be the rr02 code
+      def access_rr02_code
+        return if access_type_abbreviation.blank?
+
+        access_type_abbreviation.split(" ").first
+      end
+
       protected
 
       attr_reader :session, :view_context

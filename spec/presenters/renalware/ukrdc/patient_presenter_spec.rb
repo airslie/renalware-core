@@ -97,5 +97,19 @@ module Renalware
         end
       end
     end
+
+    describe "#transplant_operations" do
+      subject(:presenter) { UKRDC::PatientPresenter.new(patient) }
+
+      let(:patient) { create(:transplant_patient) }
+      let(:user) { create(:user) }
+
+      it "returns a patients Tx operations in date ascending order" do
+        op1 = create(:transplant_recipient_operation, patient: patient, performed_on: 1.month.ago)
+        op2 = create(:transplant_recipient_operation, patient: patient, performed_on: 1.year.ago)
+
+        expect(presenter.transplant_operations).to eq([op2, op1])
+      end
+    end
   end
 end

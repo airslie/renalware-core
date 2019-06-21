@@ -18,7 +18,7 @@ xml.ukrdc(:PatientRecord, namespace_and_schema) do
   render "social_histories", builder: xml, patient: patient
   render "family_histories", builder: xml, patient: patient
   render "observations", builder: xml, patient: patient
-  render "allergies", builder: xml, patient: patient
+  # render "allergies", builder: xml, patient: patient
   render "diagnoses", builder: xml, patient: patient
   render "medications", builder: xml, patient: patient
   render "procedures", builder: xml, patient: patient
