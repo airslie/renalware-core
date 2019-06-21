@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.85
+### Added
+### Changed
+- Add Tx Operations to UKRDC XML #2719
+### Fixed
+- Omit documents in UKRDC XML for non-RPV patients #2720
+
 ## 2.0.84
 ### Added
 - Add Rejection Episodes in Recipient Transplant Followup #2700
