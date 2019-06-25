@@ -9,7 +9,9 @@ module Renalware
     end
 
     def unzip
-      Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
+      # Create a tmp dir and ensure PG has access to it.
+      Dir.mktmpdir do |dir|
+        `chmod a+rX #{dir}`
         files = unzip_to_tmp_dir_and_return_pathames_array(dir)
         yield(files)
       end
