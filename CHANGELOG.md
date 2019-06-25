@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.87
+### Added
+### Changed
+### Fixed
+- Fix ODS/zip file permissions access on Linux
+
 ## 2.0.86
 ### Added
 ### Changed
