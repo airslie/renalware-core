@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.86
+### Added
+### Changed
+### Fixed
+- Letters const resolution bug in UKRDC export #2722
+- ODS CSV import PG path error - use /tmp folder #2724
+
 ## 2.0.85
 ### Added
 ### Changed
