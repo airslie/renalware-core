@@ -16,7 +16,6 @@ module Renalware
         yield(log) if block_given?
         log.update!(status: STATUS_DONE)
         log
-
       rescue StandardError => e
         log.update(
           status: STATUS_ERROR,

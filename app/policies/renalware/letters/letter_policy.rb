@@ -8,7 +8,7 @@ module Renalware
       alias_attribute :letter, :record
 
       def author?
-        has_write_privileges?
+        write_privileges?
       end
 
       def update?

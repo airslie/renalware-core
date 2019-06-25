@@ -77,7 +77,6 @@ SimpleForm.setup do |config|
                   class: "row",
                   hint_class: :field_with_hint,
                   error_class: :error do |b|
-
     b.use :html5
     b.use :placeholder
     b.optional :maxlength

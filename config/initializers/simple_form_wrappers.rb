@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 SimpleForm.setup do |config|
   def configure_label(b)
     b.use :html5
@@ -42,7 +44,6 @@ SimpleForm.setup do |config|
     hint_class: :field_with_hint,
     error_class: :error
   ) do |b|
-
     configure_label(b)
 
     b.wrapper :right_input_wrapper, tag: :div, class: "wrapper__input" do |ba|

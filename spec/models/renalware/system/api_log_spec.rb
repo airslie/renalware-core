@@ -9,7 +9,7 @@ module Renalware
 
     describe ".with_log" do
       it "creates a new log with a working status, yields it, then updates the status to success" do
-        log = described_class.with_log("test") do |log|
+        the_log = described_class.with_log("test") do |log|
           expect(log).to be_persisted
           expect(log).to have_attributes(
             identifier: "test",
@@ -23,7 +23,7 @@ module Renalware
           )
         end
 
-        expect(log.reload).to have_attributes(
+        expect(the_log.reload).to have_attributes(
           identifier: "test",
           status: described_class::STATUS_DONE,
           dry_run: true,

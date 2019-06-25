@@ -29,7 +29,6 @@ module Renalware
           .to_a
           .group_by(&:display_group)
           .each do |group_number, array_of_obs_desc|
-
           group = array_of_obs_desc.map do |obs_desc|
             observation_hash = send(obs_desc.code.to_sym) || {}
             observed_at = observation_hash["observed_at"]

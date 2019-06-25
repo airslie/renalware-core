@@ -29,7 +29,7 @@ module Renalware
       return true if user_is_devops? || user_is_super_admin?
       return permission_for_restricted? if restricted?
 
-      has_write_privileges?
+      write_privileges?
     end
 
     def update?
@@ -73,7 +73,7 @@ module Renalware
       permission_configuration.has_permission?(user)
     end
 
-    def has_write_privileges?
+    def write_privileges?
       user_is_super_admin? || user_is_admin? || user_is_clinical?
     end
 
