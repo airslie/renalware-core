@@ -30,8 +30,9 @@ module Renalware
       # practices, gps, practice memberships - is strict.
       def perform
         ODS_DOWNLOADABLES.each do |type, options|
-          # Download the ODS file to a temporary location
-          tmp_file = Rails.root.join("tmp").join(options[:filename])
+          # Download the ODS file to a temporary location - must be /tmp dir on linux
+          # in order for PG to have access - hence using Tempfile
+          tmp_file = Pathname(Tempfile.new(options[:filename]))
           `wget -O #{tmp_file} #{options[:url]}`
           file = create_feed_file(type, tmp_file)
           Renalware::Feeds::Files::ImportJobFactory.job_class_for(file.file_type).perform_now(file)
