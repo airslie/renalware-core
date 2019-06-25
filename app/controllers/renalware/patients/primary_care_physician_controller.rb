@@ -86,10 +86,12 @@ module Renalware
         end
       end
 
+      # TODO: move to a query object
       def find_practice_memberships_for(practice_id)
         PracticeMembership
           .eager_load(:primary_care_physician)
           .where(practice_id: practice_id)
+          .where("#{PrimaryCarePhysician.table_name}.deleted_at is NULL")
           .order(
             "#{PracticeMembership.table_name}.left_on desc,"\
             "#{PrimaryCarePhysician.table_name}.name asc"

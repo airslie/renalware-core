@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.88
+### Added
+### Changed
+### Fixed
+- Filter out deleted GPs when adding a GP to a patient
+- Move database tables to the corect schema.
+
 ## 2.0.87
 ### Added
 ### Changed
