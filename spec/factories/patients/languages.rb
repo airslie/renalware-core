@@ -19,5 +19,10 @@ FactoryBot.define do
       name { "Unknown" }
       code { "un" }
     end
+
+    trait :other do
+      name { "Other" }
+      code { "ot" }
+    end
   end
 end
