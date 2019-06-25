@@ -8,7 +8,7 @@ module Renalware
     # Using a working folder with a timestamp name, find matching patients and for each, generate
     # an XML file (see UKRDC Schema) containing changes since the last time we sent the URDC data
     # about them. Encrypt the xml files and copy to an outgoing folder
-    # which might for example be a symlink to an outgoing folder in /mmedia/ukrdc which in turn
+    # which might for example be a symlink to an outgoing folder in /media/ukrdc which in turn
     # is mount on a remote share for example on an SFTP server.
     #
     class CreateEncryptedPatientXMLFiles

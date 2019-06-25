@@ -11,11 +11,14 @@ path = "renalware/api/ukrdc/patients" # or "."
 
 xml.Patient do
   xml.PatientNumbers do
-    xml.PatientNumber do
-      xml.Number patient.nhs_number
-      xml.Organization "NHS"
-      xml.NumberType "NI"
+    if patient.nhs_number.present?
+      xml.PatientNumber do
+        xml.Number patient.nhs_number
+        xml.Organization "NHS"
+        xml.NumberType "NI"
+      end
     end
+
     Renalware.config.patient_hospital_identifiers.values.each do |field|
       next if (number = patient.public_send(field)).blank?
 
@@ -65,7 +68,8 @@ xml.Patient do
     end
   end
 
-  if patient.language.present?
+  # Omit 'Other' language as it is not part of the ISO set, but we have it for some reason
+  if patient.language.present? && patient.language.code != "ot"
     xml.PrimaryLanguage do
       xml.CodingStandard "NHS_DATA_DICTIONARY_LANGUAGE_CODE" # ISO 639-1 plus braille and sign
       xml.Code patient.language&.code
