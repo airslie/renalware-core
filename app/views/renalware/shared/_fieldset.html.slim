@@ -2,5 +2,8 @@
   .large-12.columns
     a name="#{name}"
     fieldset
-      legend= legend
+      legend
+        = legend
+        - if local_assigns.key?(:legend_note)
+          span.legend-note= legend_note
       = yield

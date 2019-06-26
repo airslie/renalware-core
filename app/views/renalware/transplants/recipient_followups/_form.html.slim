@@ -9,32 +9,42 @@ ruby:
 
 .form-content
   = f.simple_fields_for :document, f.object.document do |fd|
-
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Transplant Outcomes", name: "transplant_failure" } do
-      = f.input :graft_function_onset, wrapper: :horizontal_small
-      = f.input :last_post_transplant_dialysis_on, as: :date_picker, wrapper: :horizontal_datepicker
+        locals: { legend: "Transplant Outcomes",
+                  name: "transplant_failure",
+                  legend_note: "Bold items required for NHSBT" } do
+      = f.input :graft_function_onset, wrapper: :horizontal_small, label_html: { class: "label-emphasis" }
+      = f.input :last_post_transplant_dialysis_on, as: :date_picker, wrapper: :horizontal_datepicker, label_html: { class: "label-emphasis" }
       = f.input :stent_removed_on, as: :date_picker, wrapper: :horizontal_datepicker
-      = f.input :return_to_regular_dialysis_on, as: :date_picker, wrapper: :horizontal_datepicker
+      = f.input :return_to_regular_dialysis_on, as: :date_picker, wrapper: :horizontal_datepicker, label_html: { class: "label-emphasis" }
       / readonly: nil here is required to prevent the No option being created with readonly=readonly
       / which causes Capybara to fail because it cannot change the value of read-only element
       = f.input :transplant_failed,
                 as: :inline_radio_buttons,
                 wrapper: :horizontal_small,
-                readonly: nil
-      = f.input :transplant_failed_on, as: :date_picker, wrapper: :horizontal_datepicker
+                readonly: nil,
+                label_html: { class: "label-emphasis" }
+      = f.input :transplant_failed_on,
+                as: :date_picker,
+                wrapper: :horizontal_datepicker,
+                label_html: { class: "label-emphasis" }
       = f.input :transplant_failure_cause_description_id,
                 as: :grouped_select,
                 collection: Renalware::Transplants::FailureCauseDescriptionGroup.all,
                 group_method: :ordered_descriptions,
                 group_label_method: :name,
                 value_method: :id,
+                wrapper: :horizontal_medium,
+                label_html: { class: "label-emphasis" }
+      = f.input :transplant_failure_cause_other,
                 wrapper: :horizontal_medium
-      = f.input :transplant_failure_cause_other, wrapper: :horizontal_medium
       = f.input :transplant_failure_notes,
                 input_html: { rows: 5 },
                 wrapper: :horizontal_large
-      = f.input :graft_nephrectomy_on, as: :date_picker, wrapper: :horizontal_datepicker
+      = f.input :graft_nephrectomy_on,
+                as: :date_picker,
+                wrapper: :horizontal_datepicker,
+                label_html: { class: "label-emphasis" }
 
     = render layout: "renalware/shared/fieldset",
              locals: { legend: "Cardiovascular Complication",

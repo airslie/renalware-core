@@ -461,3 +461,17 @@ fieldset {
     }
   }
 }
+
+label.label-emphasis {
+  font-weight: bold;
+}
+
+legend .legend-note {
+  right: 0;
+  top: 0;
+  position: absolute;
+  margin: .5rem 1rem;
+  font-weight: normal;
+  font-size: .9rem;
+  color: $steel;
+}
