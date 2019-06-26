@@ -16,17 +16,6 @@ gem "faker"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
 gem "redis"
 
-#
-# devise_security_extension
-#
-# NB for now you will need to put this into the host app's Gemfile also.
-# Once latest devise_security_extension changes are released uncomment this line.
-# (check version has not bumped to 11 though). In the meantime, because we cannot use git
-# references in the gemspec, we add this gem in the host app.
-# The issue with the gem version of 0.10.0 is it requires rails < v5
-# The master branch has this fixed so we are using that.
-# Perhaps we should fork this into our own repo/gem.
-gem "devise_security_extension", github: "airslie/devise_security_extension"
 gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 # The main trix gem at https://github.com/maclover7/trix is not yet Rails 5.2 compatible; it give
 # an argument error when calling f.trix_editor due to a Rails 5.2 ActionView change.
