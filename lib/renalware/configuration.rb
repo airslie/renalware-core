@@ -82,6 +82,7 @@ module Renalware
           Renalware::Events::SummaryPart
           Renalware::Admissions::SummaryPart
           Renalware::Admissions::ConsultSummaryPart
+          Renalware::Patients::SummaryPart
         )
       }
     }

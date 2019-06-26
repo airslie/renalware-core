@@ -8,7 +8,7 @@ module Renalware
   # of various SummaryParts
   class SummaryPart
     DATE_FORMAT = "%Y%m%d%H%M%S%L"
-    rattr_initialize :patient
+    rattr_initialize :patient, :current_user
     attr_implement :to_partial_path
 
     # If the subclass defines a cache_key Rails will cache the partial
