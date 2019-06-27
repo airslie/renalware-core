@@ -43,3 +43,12 @@ namespace :assets do
     Rake::Task["app:assets:clobber"].invoke
   end
 end
+
+# Default rake task to run all tests:
+#   bundle exec rake
+task :engine_default_task do
+  sh "bin/rspec"
+  sh "bin/cucumber"
+  sh "bin/cucumber TEST_DEPTH=web --profile rake_web"
+end
+task(:default).clear.enhance(["engine_default_task"])
