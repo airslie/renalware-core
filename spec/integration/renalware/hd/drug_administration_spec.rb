@@ -71,4 +71,69 @@ describe "Administering drugs while creating an HD Session", type: :system do
       end
     end
   end
+
+  describe "authorising and saving (but not signing-off) a prescription administration", js: true do
+    it "the happy path" do
+      create(:prescription, patient: patient, administer_on_hd: true)
+      unit = create(:hospital_unit, name: "X", unit_code: "Y", is_hd_site: true)
+      password = "renalware"
+      login_as_clinical
+      nurse = create(:user, password: password)
+      witness = create(:user, password: password)
+
+      visit renalware.new_patient_hd_session_path(patient)
+
+      select unit.to_s, from: "Hospital Unit"
+
+      # There will be one .hd-drug-administration div. Select Admiistered: Yes
+      within ".hd-drug-administration" do
+        within(".hd-drug-administered") { choose "Yes" }
+        fill_in "Notes", with: "Notes test"
+      end
+
+      # Fill in user and password fields
+      # Note nurse == administrator here
+      within ".user-and-password--administrator" do
+        select2 nurse.given_name, from: "Nurse"
+        fill_in "Password", with: "wrong_password"
+        # Simulate a tab which will cause a blur and the handler will authenticate the password
+        page.find(".user-password").send_keys :tab
+        # we should now have a validation error as the password is invalid
+        expect(page).to have_css(".invalid-password", visible: true)
+        # Now enter the right password
+        fill_in "Password", with: password
+        page.find(".user-password").send_keys :tab
+        expect(page).not_to have_css(".invalid-password", visible: true)
+      end
+
+      within ".user-and-password--witness" do
+        select2 witness.given_name, from: "Witness"
+        fill_in "Password", with: "wrong_password"
+        page.find(".user-password").send_keys :tab
+        # we should now have a validation error as the password is invalid
+        expect(page).to have_css(".invalid-password", visible: true)
+        # Now enter the right password
+        fill_in "Password", with: password
+        page.find(".user-password").send_keys :tab
+        expect(page).not_to have_css(".invalid-password", visible: true)
+      end
+
+      within page.first(".hd-session-form-actions") do
+        click_on "Save"
+      end
+
+      expect(Renalware::HD::Session.count).to eq(1)
+
+      session = Renalware::HD::Session.first
+      expect(session.prescription_administrations.count).to eq(1)
+
+      pa = session.prescription_administrations.first
+      expect(pa.notes).to eq("Notes test")
+      expect(pa.administered).to eq(true) # ie we clicked on Administered: Yes
+      expect(pa.administered_by_id).to eq(nurse.id)
+      expect(pa.witnessed_by_id).to eq(witness.id)
+      expect(pa.administrator_authorised).to eq(true)
+      expect(pa.witness_authorised).to eq(true)
+    end
+  end
 end

@@ -21,6 +21,17 @@ $(document).ready(function() {
     $(".authentication", container).toggleClass("disabled-with-faded-overlay", !checked)
   });
 
+  $(".hd-drug-administration .authentication-user-id").on("select2:select", function(e) {
+    var container = $(this).closest(".user-and-password");
+    var topContainer = $(container).closest(".hd-drug-administration")
+    $(container).find(".authentication-token").val("")
+    $("input.user-password", container).val("");
+    $(container).removeClass("authorised");
+    var tokenCount = $(topContainer).find(".authorised").length;
+    $(topContainer).attr("data-token-count", tokenCount);
+  });
+
+
   // When a user clicks the link to clear the authorisation (they might have used the wrong user
   // for instance) the clear the relevant token and password fields and classes.
   $(".hd-drug-administration .user-and-password .user-and-password--clear").on("click", function(e) {
@@ -72,7 +83,7 @@ $(document).ready(function() {
             // We save the token to a hidden field so it wikll be submitted in the session form.
             $(authorisationTokenHiddenField).val(token);
             $(container).removeClass("unauthorised").addClass("authorised").removeClass("error");
-            $(userSelect).prop("disabled", true);
+            // $(userSelect).prop("disabled", true);
             var tokenCount = $(topContainer).find(".authorised").length;
             $(topContainer).attr("data-token-count", tokenCount);
 

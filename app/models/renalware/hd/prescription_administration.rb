@@ -18,6 +18,8 @@ module Renalware
       belongs_to :witnessed_by, class_name: "User"
       validates :administered, inclusion: { in: [true, false] }, unless: :skip_validation
       validates :prescription, presence: true
+      validates :administered_by, presence: true, unless: :skip_validation
+      validates :witnessed_by, presence: true, unless: :skip_validation
       validate :check_administrator_authorisation_token
       validate :check_witness_authorisation_token
 
@@ -40,7 +42,8 @@ module Renalware
       end
 
       def verify_submitted_user_token(user, token, error_key)
-        return if user.blank? || administered.nil? || administered == false || skip_validation
+        return if skip_validation
+        return if user.blank? || administered.nil? || administered == false
 
         if token.blank?
           errors[error_key] << "can't be blank"

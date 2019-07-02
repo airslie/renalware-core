@@ -74,8 +74,7 @@ module Renalware
       end
 
       def save_session
-        command = Sessions::SaveSession.new(patient: patient,
-                                            current_user: current_user)
+        command = Sessions::SaveSession.new(patient: patient, current_user: current_user)
         command.subscribe(self)
         command.call(params: session_params,
                      id: params[:id],
