@@ -17,7 +17,7 @@
       "plan": "heroku-redis:hobby-dev"
     }
   ],
-  "stack": "heroku-16",
+  "stack": "heroku-18",
   "env": {
     "DEMO": "1",
     "RACK_ENV": "staging",
