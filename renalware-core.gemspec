@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   s.add_dependency "activerecord-import", "~> 0.28.0"
   s.add_dependency "ahoy_matey", "~> 2.1"
   s.add_dependency "attr_extras", "~> 6.2"
-  s.add_dependency "autoprefixer-rails", "~> 9.4.2"
+  s.add_dependency "autoprefixer-rails", "~> 9.6"
   s.add_dependency "client_side_validations", "~> 14.1.0"
   s.add_dependency "client_side_validations-simple_form", "~> 6.10.0"
   s.add_dependency "clipboard-rails", "~> 1.7.1"
@@ -95,6 +95,6 @@ Gem::Specification.new do |s|
   s.add_dependency "wisper", "~> 2.0.0"
   s.add_dependency "wisper-activejob", "~> 1.0.0"
   s.add_dependency "wkhtmltopdf-binary", "0.12.3.1"
-  s.add_dependency "yard", "~> 0.9.15"
+  s.add_dependency "yard", ">= 0.9.20"
 end
 # rubocop:enable Style/ExpandPathArguments,Style/SpecialGlobalVars
