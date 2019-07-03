@@ -28,7 +28,7 @@ PATH
       activerecord-import (~> 0.28.0)
       ahoy_matey (~> 2.1)
       attr_extras (~> 6.2)
-      autoprefixer-rails (~> 9.4.2)
+      autoprefixer-rails (~> 9.6)
       client_side_validations (~> 14.1.0)
       client_side_validations-simple_form (~> 6.10.0)
       clipboard-rails (~> 1.7.1)
@@ -90,7 +90,7 @@ PATH
       wisper (~> 2.0.0)
       wisper-activejob (~> 1.0.0)
       wkhtmltopdf-binary (= 0.12.3.1)
-      yard (~> 0.9.15)
+      yard (>= 0.9.20)
 
 GEM
   remote: https://rubygems.org/
@@ -142,7 +142,8 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.3.8)
+    addressable (2.6.0)
+      public_suffix (>= 2.0.2, < 4.0)
     afm (0.2.2)
     ahoy_matey (2.2.1)
       addressable
@@ -157,7 +158,7 @@ GEM
     arel (9.0.0)
     ast (2.4.0)
     attr_extras (6.2.1)
-    autoprefixer-rails (9.4.10.2)
+    autoprefixer-rails (9.6.0)
       execjs
     awesome_print (1.8.0)
     axiom-types (0.1.1)
@@ -172,14 +173,14 @@ GEM
       msgpack (~> 1.0)
     browser (2.5.3)
     builder (3.2.3)
-    bullet (6.0.0)
+    bullet (6.0.1)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     bundler-audit (0.6.1)
       bundler (>= 1.2.0, < 3)
       thor (~> 0.18)
     byebug (11.0.1)
-    capybara (3.24.0)
+    capybara (3.25.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -203,7 +204,7 @@ GEM
       client_side_validations (>= 9.3.2, < 15)
       simple_form (>= 3.5, < 5)
     clipboard-rails (1.7.1)
-    cocoon (1.2.13)
+    cocoon (1.2.14)
     codeclimate-test-reporter (1.0.9)
       simplecov (<= 0.13)
     coercible (1.0.0)
@@ -399,6 +400,7 @@ GEM
     prawn (2.2.2)
       pdf-core (~> 0.7.0)
       ttfunk (~> 1.5)
+    public_suffix (3.1.1)
     puma (3.12.1)
     pundit (2.0.1)
       activesupport (>= 3.0.0)
@@ -456,9 +458,9 @@ GEM
     regexp_property_values (0.3.5)
     request_store (1.4.1)
       rack (>= 1.4)
-    responders (2.4.1)
-      actionpack (>= 4.2.0, < 6.0)
-      railties (>= 4.2.0, < 6.0)
+    responders (3.0.0)
+      actionpack (>= 5.0)
+      railties (>= 5.0)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
@@ -605,7 +607,7 @@ GEM
     wkhtmltopdf-heroku (2.12.5.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    yard (0.9.19)
+    yard (0.9.20)
 
 PLATFORMS
   ruby
@@ -617,7 +619,7 @@ DEPENDENCIES
   bullet
   bundler-audit
   byebug
-  capybara (~> 3.24.0)
+  capybara (~> 3.24)
   capybara-screenshot (~> 1.0)
   capybara-select-2
   codeclimate-test-reporter (~> 1.0.9)
@@ -647,7 +649,7 @@ DEPENDENCIES
   shoulda-matchers (~> 4.1.0)
   simplecov
   trix!
-  webmock (~> 3.5.1)
+  webmock (~> 3.5)
   wisper-rspec (~> 1.1.0)
   wkhtmltopdf-heroku (~> 2.12.3)
 
@@ -655,4 +657,4 @@ RUBY VERSION
    ruby 2.6.3p62
 
 BUNDLED WITH
-   2.0.1
+   2.0.2
