@@ -14,10 +14,13 @@ module Renalware
         :logger,
         :batch_number,
         :renderer, # so we can pass a test renderer to bypass real rendering
-        :log
+        :log,
+        :force_send
       ]
 
       # rubocop:disable Metrics/AbcSize
+      # If force_send is true then send all files even if they have not changed since the last
+      # send. This is primarily for debugging and testing phases with UKRDC
       def call
         update_patient_to_indicated_we_checked_them_for_any_relevant_changes
         UKRDC::TransmissionLog.with_logging(patient, request_uuid) do |log|
@@ -25,7 +28,7 @@ module Renalware
           logger.info "  Patient #{patient.ukrdc_external_id}"
           xml_payload = build_payload(log)
           if xml_payload.present?
-            if xml_payload_same_as_last_sent_payload?(xml_payload)
+            if !force_send && xml_payload_same_as_last_sent_payload?(xml_payload)
               logger.info "    skipping as no change in XML file"
               log.unsent_no_change_since_last_send!
             else

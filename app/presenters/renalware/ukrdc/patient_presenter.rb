@@ -52,6 +52,7 @@ module Renalware
         current_modality.description.is_a?(Renalware::HD::ModalityDescription)
       end
 
+      # Note we of course only send letters for RPV patients and exlcude them for all others.
       def letters
         return ::Renalware::Letters::Letter.none if send_to_rpv == false
 

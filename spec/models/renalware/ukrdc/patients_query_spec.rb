@@ -7,9 +7,29 @@ module Renalware
     let(:patient) { build(:patient, by: user) }
     let(:user) { create(:user) }
 
-    it { is_expected.to respond_to(:call) }
-
     describe ".call" do
+      context "when the changed_since_last_send boolean argument is false" do
+        it "returns the entire RPV and RR population even if not changed since last send" do
+          patient1 = create(
+            :patient,
+            family_name: "Jones",
+            updated_at: 1.year.ago,
+            sent_to_ukrdc_at: 1.minute.ago,
+            send_to_rpv: true
+          )
+          patient2 = create(
+            :patient,
+            family_name: "Smith",
+            updated_at: 1.year.ago,
+            sent_to_ukrdc_at: 1.minute.ago,
+            send_to_renalreg: true
+          )
+          create(:patient, send_to_rpv: false, send_to_renalreg: false)
+
+          expect(described_class.new.call(changed_since_last_send: false)).to eq([patient1, patient2])
+        end
+      end
+
       context "when the optional :changed_since argument is not specified" do
         subject { described_class.new.call }
 
