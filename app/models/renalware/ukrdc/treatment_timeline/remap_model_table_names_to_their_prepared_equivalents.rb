@@ -4,7 +4,7 @@
 module Renalware
   module UKRDC
     module TreatmentTimeline
-      # Wehen generating the tratment timeline, sites may want to pre-prepare a massaged version
+      # When generating the treatment timeline, sites may want to pre-prepare a massaged version
       # of say hd_profiles, in order to correct any anomalies. This service object
       # will remap the table_name of the supplied (or default models) to the
       # 'ukrdc_prepared_*' version if it exists. Otrherwise it will not change the table name.
@@ -19,15 +19,24 @@ module Renalware
         ].freeze
         class ExecutionNotAllowedError < StandardError; end
 
-        def self.call(models = MODELS)
-          new.call(models)
-        end
-
-        def call(models)
+        # Saves the original table names for the array of models classes
+        # remaps to its ukrdc_prepared_* varaient if it exists, yields to allow
+        # the claling process to do its thing, then importantly winds back to
+        # the original table names.
+        def call(models = MODELS)
           fail_unless_running_in_rake_or_rspec
-          Array(models).each do |model_class|
+          models = Array(models)
+          original_table_names = models.map(&:table_name)
+
+          models.each do |model_class|
             prepared_table_name = prepared_table_name_for(model_class.table_name)
             model_class.table_name = prepared_table_name if table_exists?(prepared_table_name)
+          end
+
+          yield if block_given?
+
+          models.each_with_index do |model_class, index|
+            model_class.table_name = original_table_names[index]
           end
         end
 

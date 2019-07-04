@@ -15,11 +15,11 @@ module Renalware
 
         def call
           PrepareTables.call
-          RemapModelTableNamesToTheirPreparedEquivalents.call
-
-          modalities.each do |modality|
-            print "#{modality.description.name} "
-            GeneratorFactory.call(modality).call
+          RemapModelTableNamesToTheirPreparedEquivalents.new.call do
+            modalities.each do |modality|
+              print "#{modality.description.name} "
+              GeneratorFactory.call(modality).call
+            end
           end
         end
 

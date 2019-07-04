@@ -39,7 +39,10 @@ module Renalware
       end
 
       def modalities
-        __getobj__.modalities.includes(:description).order(started_on: :asc, created_at: :asc)
+        __getobj__
+          .modalities
+          .includes(:description)
+          .order(started_on: :asc, created_at: :asc)
       end
 
       def dead?
