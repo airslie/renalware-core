@@ -8,6 +8,7 @@ xml = builder
 # like CAPD and HDF are not yet implemented, just the top level modality.
 patient.modalities.each do |modality|
   ukrdc_modality_code_id = modality.description.ukrdc_modality_code_id
+
   next if ukrdc_modality_code_id.blank?
 
   ukrdc_modality_code = Renalware::UKRDC::ModalityCode.find(ukrdc_modality_code_id)
@@ -28,24 +29,25 @@ patient.modalities.each do |modality|
       xml.Code ukrdc_modality_code.txt_code
     end
 
-    # # This is a bit of hack to get the HD Profile location for the current modality
-    # if [1, 2, 3, 4, 5, 9].include?(ukrdc_modality_code.txt_code.to_i) # HD
-    #   profile = Renalware::HD::Profile
-    #     .for_patient(patient)
-    #     .where(<<-SQL).first
-    #     created_at::date <= '#{modality.started_on}'
-    #     and (
-    #       deactivated_at is NULL or
-    #       (
-    #         deactivated_at >= '#{modality.started_on}'
-    #       )
-    #     )
-    #     SQL
-    #   if profile&.hospital_unit.present?
-    #     xml.Attributes do
-    #       xml.QBL05 profile.hospital_unit.unit_type # eg home
-    #     end
-    #   end
-    # end
+    # This is a bit of hack to get the HD Profile location for the current modality
+    if [1, 2, 3, 4, 5, 9].include?(ukrdc_modality_code.txt_code.to_i) # HD
+      profile = Renalware::HD::Profile
+        .where(patient_id: patient.id)
+        .where(<<-SQL).order(created_at: :desc).first
+        created_at::date <= '#{modality.started_on}'
+        and (
+          deactivated_at is NULL or
+          (
+            deactivated_at > '#{modality.started_on}'
+          )
+        )
+        SQL
+
+      if profile&.hospital_unit&.unit_type_rr8.present?
+        xml.Attributes do
+          xml.QBL05 profile.hospital_unit.unit_type_rr8 # eg HOME
+        end
+      end
+    end
   end
 end
