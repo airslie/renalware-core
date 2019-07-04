@@ -19,10 +19,11 @@ module Renalware
         :request_uuid,
         :timestamp,
         :batch_number,
-        :summary
+        :summary,
+        :force_send
       )
 
-      def initialize(changed_since: nil, patient_ids: nil, logger: nil)
+      def initialize(changed_since: nil, patient_ids: nil, logger: nil, force_send: false)
         @changed_since = Time.zone.parse(changed_since) if changed_since.present?
         @patient_ids = Array(patient_ids)
         @logger = logger || Rails.logger
@@ -30,6 +31,7 @@ module Renalware
         @timestamp = Time.zone.now.strftime("%Y%m%d%H%M%S%L")
         @batch_number ||= BatchNumber.next.number
         @summary = ExportSummary.new
+        @force_send = force_send
       end
 
       def call
@@ -74,7 +76,8 @@ module Renalware
             changes_since: changed_since,
             request_uuid: request_uuid,
             batch_number: batch_number,
-            logger: logger
+            logger: logger,
+            force_send: force_send
           ).call
         end
       end
@@ -89,11 +92,18 @@ module Renalware
       def ukrdc_patients_who_have_changed_since_last_send
         @ukrdc_patients_who_have_changed_since_last_send ||= begin
           logger.info("Finding #{patient_ids&.any? ? patient_ids : 'all ukrdc'} patients")
-          query = Renalware::UKRDC::PatientsQuery.new.call(changed_since: changed_since)
+          query = Renalware::UKRDC::PatientsQuery.new.call(
+            changed_since: changed_since,
+            changed_since_last_send: !force_send
+          )
           query = query.where(id: Array(patient_ids)) if patient_ids.present?
 
           if changed_since.present?
-            logger.info("#{query.count} patients have changed since #{changed_since}")
+            if force_send
+              logger.info("sending #{query.count} patients, taking changes since #{changed_since}")
+            else
+              logger.info("#{query.count} patients have changed since #{changed_since}")
+            end
           else
             logger.info("#{query.count} patients have changed since the last send")
           end

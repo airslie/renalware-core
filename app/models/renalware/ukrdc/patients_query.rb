@@ -18,11 +18,15 @@ module Renalware
     # this for now I think. If it is a problem we can use the checked_for_ukrdc_changes_at column
     # on patients.
     class PatientsQuery
-      def call(changed_since: nil)
+      def call(changed_since: nil, changed_since_last_send: true)
         if changed_since.present?
-          sendable_patients.where("updated_at > ?", changed_since)
-        else
+          # patients who changed since a specific date (inclusive)
+          sendable_patients.where("updated_at >= ?", changed_since)
+        elsif changed_since_last_send
+          # patients who have never been sent, or have changed since the last time they were sent
           sendable_patients.where("(sent_to_ukrdc_at is null) or (updated_at > sent_to_ukrdc_at)")
+        else
+          sendable_patients
         end
       end
 
@@ -31,7 +35,7 @@ module Renalware
       def sendable_patients
         Renalware::Patient.where(send_to_rpv: true).or(
           Renalware::Patient.where(send_to_renalreg: true)
-        )
+        ).order(family_name: :asc, given_name: :asc)
       end
     end
   end
