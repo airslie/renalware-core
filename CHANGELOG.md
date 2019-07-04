@@ -9,6 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.89
+### Added
+- Output QBL05 for HD Treatments #2736
+- UKRDC export - add 'force_send' option #2735
+### Changed
+### Fixed
+
+
 ## 2.0.88
 ### Added
 ### Changed
