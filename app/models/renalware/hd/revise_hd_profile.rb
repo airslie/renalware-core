@@ -3,6 +3,8 @@
 module Renalware
   module HD
     class ReviseHDProfile
+      attr_reader :profile, :new_profile
+
       def initialize(profile)
         raise(ArgumentError, "Cannot revise a new Profile") unless profile.persisted?
 
@@ -15,12 +17,8 @@ module Renalware
         return false unless profile.valid?
 
         profile.restore_attributes
-        profile.supersede!(params)
+        @new_profile = profile.supersede!(params)
       end
-
-      private
-
-      attr_reader :profile
     end
   end
 end

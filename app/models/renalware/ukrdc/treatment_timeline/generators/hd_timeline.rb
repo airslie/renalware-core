@@ -27,7 +27,7 @@ module Renalware
               started_on: modality.started_on,
               ended_on: modality.ended_on,
               modality_code: treatment,
-              hd_profile: find_hd_profile_associated_with_modality_change
+              hd_profile: hd_profile_at_start_of_modality
             )
           end
 
@@ -38,10 +38,15 @@ module Renalware
           # Its complicated a bit by the fact that although there is a prescribed_on in the
           # hd_profile, it is sometimes missing so we need to default to created_at in that
           # instance.
-          def find_hd_profile_associated_with_modality_change
-            HD::Profile
-              .where(patient_id: patient.id)
-              .where("coalesce(prescribed_on, created_at)::date")
+          def hd_profile_at_start_of_modality
+            @hd_profile_at_start_of_modality ||= begin
+              hd_profile_id = HD::ProfileForModality.find_by!(
+                modality_id: modality.id
+              ).hd_profile_id
+              return if hd_profile_id.blank?
+
+              HD::Profile.with_deactivated.find(hd_profile_id)
+            end
           end
 
           class ProfileDecorator < DumbDelegator
@@ -86,14 +91,21 @@ module Renalware
           # I think we need to first find the hd profile that is associated with the hd modality
           # and that becomes the 'last_profile' here
           def create_treatments_within_modality
-            profiles = hd_profiles_for(patient, from: modality.started_on, to: modality.ended_on)
-            last_profile = NullObject.instance
+            last_profile = hd_profile_at_start_of_modality
 
-            profiles.each do |profile_|
+            hd_profiles.each do |profile_|
               profile = ProfileDecorator.new(profile_, last_profile: last_profile)
-              create_treatment_from(profile) if profile.changed?
-              last_profile = profile_
+              create_treatment_from(profile) if last_profile.nil? || profile.changed?
+              last_profile = profile
             end
+          end
+
+          def hd_profiles
+            hd_profiles_for(
+              patient,
+              from: modality.started_on,
+              to: modality.ended_on
+            ) - Array(hd_profile_at_start_of_modality)
           end
 
           # - if modality started on same day as hd profile prescribed then use HD Profile hd_type
