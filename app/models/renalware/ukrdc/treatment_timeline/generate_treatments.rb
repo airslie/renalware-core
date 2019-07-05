@@ -23,7 +23,9 @@ module Renalware
         private
 
         def patient_scope
-          Renalware::Patient.select(:id)
+          Renalware::Patient
+            .select(:id)
+            .where("send_to_renal_reg = true or send_to_rpv = true")
         end
 
         # rubocop:disable Rails/Output

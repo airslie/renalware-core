@@ -29,7 +29,6 @@ module Renalware
         it "generates one Treatment with the relevant UKRDC modality code" do
           set_modality(patient: patient, modality_description: hd_mod_desc, by: user)
           hd_ukrdc_modality_code
-          hdf_ukrdc_modality_code
 
           service.call
 
@@ -45,13 +44,16 @@ module Renalware
       end
 
       context "when the patient has 2 simple modalities" do
-        it "generates 2 Treatment with the relevant UKRDC modality code" do
+        before do
+          hd_ukrdc_modality_code
+          hdf_ukrdc_modality_code
+        end
+
+        it "generates 2 Treatments with the relevant UKRDC modality code" do
           options = { patient: patient, modality_description: hd_mod_desc, by: user }
           modality1 = set_modality(options.merge(started_on: 1.month.ago))
           modality2 = set_modality(options.merge(started_on: 1.day.ago))
           modality1.reload # gets the change to ended_on caused by adding a successor
-          hd_ukrdc_modality_code
-          hdf_ukrdc_modality_code
 
           service.call
 

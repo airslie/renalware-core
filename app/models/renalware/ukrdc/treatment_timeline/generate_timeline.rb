@@ -18,7 +18,8 @@ module Renalware
           RemapModelTableNamesToTheirPreparedEquivalents.new.call do
             modalities.each do |modality|
               print "#{modality.description.name} "
-              GeneratorFactory.call(modality).call
+              generator = GeneratorFactory.call(modality)
+              generator.call
             end
           end
         end

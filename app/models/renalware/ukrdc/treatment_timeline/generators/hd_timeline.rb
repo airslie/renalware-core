@@ -26,8 +26,22 @@ module Renalware
               clinician: modality.created_by,
               started_on: modality.started_on,
               ended_on: modality.ended_on,
-              modality_code: treatment
+              modality_code: treatment,
+              hd_profile: find_hd_profile_associated_with_modality_change
             )
+          end
+
+          # Find the modality that was active on the day of the modality change
+          # The profile might have been added up to say 14 days later however so if there is none
+          # active on the day the modality was created, search up to one week ahead until we find
+          # one. Return nil if none found.
+          # Its complicated a bit by the fact that although there is a prescribed_on in the
+          # hd_profile, it is sometimes missing so we need to default to created_at in that
+          # instance.
+          def find_hd_profile_associated_with_modality_change
+            HD::Profile
+              .where(patient_id: patient.id)
+              .where("coalesce(prescribed_on, created_at)::date")
           end
 
           class ProfileDecorator < DumbDelegator
@@ -67,7 +81,10 @@ module Renalware
           # - change of site
           # - change of hd_type to from hd and (hdf_pre || hdf_post)
           # - change of hd prescription
-          # Looop through the hd_profiles and trigger an new treatment when these change
+          # Loop through the hd_profiles and trigger an new treatment when these change
+          # There is a problem here as we are creating duplicate treatments
+          # I think we need to first find the hd profile that is associated with the hd modality
+          # and that becomes the 'last_profile' here
           def create_treatments_within_modality
             profiles = hd_profiles_for(patient, from: modality.started_on, to: modality.ended_on)
             last_profile = NullObject.instance
