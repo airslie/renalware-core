@@ -19,7 +19,7 @@ module Renalware
           records = query.call
 
           expect(records.map(&extract_observed_on)).to \
-            match_array(["2016-01-01", "2016-01-01", "2015-01-01", "2014-01-01"])
+            match_array(%w(2016-01-01 2016-01-01 2015-01-01 2014-01-01))
         end
       end
 

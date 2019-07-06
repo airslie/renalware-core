@@ -17,7 +17,7 @@ module Renalware
           query = ObservationsForDescriptionsQuery.new(descriptions: target_descriptions)
           results = query.call
 
-          expect(results.map(&description_codes)).to match_array(["target-1", "target-2"])
+          expect(results.map(&description_codes)).to match_array(%w(target-1 target-2))
         end
       end
 
