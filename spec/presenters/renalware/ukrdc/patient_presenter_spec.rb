@@ -111,5 +111,19 @@ module Renalware
         expect(presenter.transplant_operations).to eq([op2, op1])
       end
     end
+
+    describe "#prescriptions" do
+      subject(:presenter) { UKRDC::PatientPresenter.new(patient) }
+
+      let(:patient) { create(:patient) }
+      let(:user) { create(:user) }
+
+      it "returns those with a numeric dose_amount" do
+        pre1 = create(:prescription, patient: patient, dose_amount: "  2.22  ")
+        create(:prescription, patient: patient, dose_amount: "1 or 2")
+
+        expect(presenter.prescriptions).to eq([pre1])
+      end
+    end
   end
 end
