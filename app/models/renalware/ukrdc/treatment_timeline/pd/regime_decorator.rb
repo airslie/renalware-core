@@ -6,8 +6,8 @@ require "attr_extras"
 module Renalware
   module UKRDC
     module TreatmentTimeline
-      module Generators
-        class PDRegimeDecorator < DumbDelegator
+      module PD
+        class RegimeDecorator < DumbDelegator
           def initialize(regime, last_regime:)
             @last_regime = last_regime
             super(regime)
@@ -20,7 +20,7 @@ module Renalware
           end
 
           def regime_type_changed?
-            last_regime&.type != regime.type
+            last_regime&.type != type
           end
 
           def unchanged?
@@ -29,7 +29,7 @@ module Renalware
 
           private
 
-          attr_reader :last_profile
+          attr_reader :last_regime
         end
       end
     end

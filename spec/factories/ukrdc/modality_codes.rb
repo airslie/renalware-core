@@ -26,13 +26,22 @@ FactoryBot.define do
       qbl_code { 12 }
     end
 
+    trait :apd_assisted do
+      description { "Assisted APD" }
+      txt_code { 121 }
+      qbl_code { 121 }
+    end
+
     trait :capd do
       description { "CAPD" }
       txt_code { 11 }
       qbl_code { 11 }
     end
 
-    # 111,111,Assisted CAPD
-    # 121,121,Assisted APD
+    trait :capd_assisted do
+      description { "Assisted CAPD" }
+      txt_code { 111 }
+      qbl_code { 111 }
+    end
   end
 end

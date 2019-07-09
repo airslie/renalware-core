@@ -49,9 +49,10 @@ SELECT
             distinct_pd_regimes pdr
         WHERE
             pdr.patient_id = m.patient_id
-            AND( pdr.end_date IS NULL
-                OR pdr.end_date > m.started_on)
-             AND pdr.start_date <= (m.started_on + interval '2 weeks')::date
+            AND (pdr.end_date IS NULL OR pdr.end_date > m.started_on)
+            -- No longer limiting our look-ahead search for a regime to a specific time limit -
+            -- instead we just keep looking til we find the first regime
+            -- AND pdr.start_date <= (m.started_on + interval '2 weeks')::date
         ORDER BY
             created_at ASC
         LIMIT 1) AS pd_regime_id

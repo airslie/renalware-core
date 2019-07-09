@@ -100,6 +100,12 @@ module Renalware
           .includes(:updated_by)
       end
 
+      def treatments
+        UKRDC::Treatment
+          .where(patient_id: id)
+          .order(:patient_id, :started_on)
+      end
+
       # We always send the patients current prescriptions.
       # Because the XSD rejects non-numeric dose amounts, only send prescriptions with a
       # dose_amount of eg 10 or 10.23 or .23

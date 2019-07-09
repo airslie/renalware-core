@@ -13,6 +13,7 @@ module Renalware
       # If the site has not defined the ukrdc_prepare_tables SQL function then we exit gracefully.
       class PrepareTables
         def self.call
+          Treatment.delete_all
           connection = ActiveRecord::Base.connection
           result = connection.execute(<<-SQL)
             select 1 where exists(select 1 from pg_proc where proname = 'ukrdc_prepare_tables');

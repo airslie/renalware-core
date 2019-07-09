@@ -2568,7 +2568,7 @@ CREATE VIEW hd_profile_for_modalities AS
     m.ended_on,
     ( SELECT hp.hd_profile_id
            FROM distinct_hd_profiles hp
-          WHERE ((hp.patient_id = m.patient_id) AND ((hp.deactivated_at IS NULL) OR (hp.deactivated_at > m.started_on)) AND (hp.created_on <= (m.started_on + '14 days'::interval)))
+          WHERE ((hp.patient_id = m.patient_id) AND ((hp.deactivated_at IS NULL) OR (hp.deactivated_at > m.started_on)))
           ORDER BY hp.created_at
          LIMIT 1) AS hd_profile_id
    FROM hd_modalities m;
@@ -5391,7 +5391,7 @@ CREATE VIEW pd_regime_for_modalities AS
     m.ended_on,
     ( SELECT pdr.pd_regime_id
            FROM distinct_pd_regimes pdr
-          WHERE ((pdr.patient_id = m.patient_id) AND ((pdr.end_date IS NULL) OR (pdr.end_date > m.started_on)) AND (pdr.start_date <= ((m.started_on + '14 days'::interval))::date))
+          WHERE ((pdr.patient_id = m.patient_id) AND ((pdr.end_date IS NULL) OR (pdr.end_date > m.started_on)))
           ORDER BY pdr.created_at
          LIMIT 1) AS pd_regime_id
    FROM pd_modalities m

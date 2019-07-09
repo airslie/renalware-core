@@ -14,10 +14,9 @@ module Renalware
         pattr_initialize :patient
 
         def call
-          PrepareTables.call
           RemapModelTableNamesToTheirPreparedEquivalents.new.call do
             modalities.each do |modality|
-              print "#{modality.description.name} "
+              print "#{modality.description.name} -> "
               generator = GeneratorFactory.call(modality)
               generator.call
             end

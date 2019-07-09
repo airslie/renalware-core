@@ -26,6 +26,14 @@ module Renalware
       def augmented_name_for(_patient)
         name
       end
+
+      # For a ModalityDescription with type Renalware::HD::ModalityDescription
+      # this will return "HD"
+      def namespace
+        return if type.blank?
+
+        type.gsub("::", "").gsub(/^Renalware/, "").gsub(/ModalityDescription$/, "").underscore
+      end
     end
   end
 end

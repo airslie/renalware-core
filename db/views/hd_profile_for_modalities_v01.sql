@@ -53,9 +53,9 @@ SELECT
             distinct_hd_profiles hp
         WHERE
             hp.patient_id = m.patient_id
-            AND(hp.deactivated_at IS NULL
-                OR deactivated_at > m.started_on)
-            AND hp.created_on <= (started_on + interval '2 weeks')
+            AND(hp.deactivated_at IS NULL OR deactivated_at > m.started_on)
+            -- No longer limiting the look ahead to 2 weeks - there is now no future limit
+            -- AND hp.created_on <= (started_on + interval '2 weeks')
         ORDER BY
             created_at ASC
         LIMIT 1) AS hd_profile_id
