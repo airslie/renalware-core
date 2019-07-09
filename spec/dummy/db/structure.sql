@@ -5327,41 +5327,6 @@ ALTER SEQUENCE pd_regime_bags_id_seq OWNED BY pd_regime_bags.id;
 
 
 --
--- Name: pd_regime_terminations; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE pd_regime_terminations (
-    id integer NOT NULL,
-    terminated_on date NOT NULL,
-    regime_id integer NOT NULL,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: pd_regime_terminations_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE pd_regime_terminations_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pd_regime_terminations_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE pd_regime_terminations_id_seq OWNED BY pd_regime_terminations.id;
-
-
---
 -- Name: pd_regimes; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -5396,6 +5361,76 @@ CREATE TABLE pd_regimes (
     assistance_type character varying,
     dwell_time integer
 );
+
+
+--
+-- Name: pd_regime_for_modalities; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW pd_regime_for_modalities AS
+ WITH pd_modalities AS (
+         SELECT m_1.patient_id,
+            m_1.id AS modality_id,
+            m_1.started_on,
+            m_1.ended_on
+           FROM (modality_modalities m_1
+             JOIN modality_descriptions md ON ((md.id = m_1.description_id)))
+          WHERE ((md.name)::text = 'PD'::text)
+        ), distinct_pd_regimes AS (
+         SELECT DISTINCT ON (pd_regimes.patient_id, pd_regimes.start_date) pd_regimes.id AS pd_regime_id,
+            pd_regimes.patient_id,
+            pd_regimes.start_date,
+            pd_regimes.end_date,
+            pd_regimes.created_at
+           FROM pd_regimes
+          ORDER BY pd_regimes.patient_id, pd_regimes.start_date, pd_regimes.created_at DESC
+        )
+ SELECT m.patient_id,
+    m.modality_id,
+    m.started_on,
+    m.ended_on,
+    ( SELECT pdr.pd_regime_id
+           FROM distinct_pd_regimes pdr
+          WHERE ((pdr.patient_id = m.patient_id) AND ((pdr.end_date IS NULL) OR (pdr.end_date > m.started_on)) AND (pdr.start_date <= ((m.started_on + '14 days'::interval))::date))
+          ORDER BY pdr.created_at
+         LIMIT 1) AS pd_regime_id
+   FROM pd_modalities m
+  ORDER BY m.patient_id;
+
+
+--
+-- Name: pd_regime_terminations; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE pd_regime_terminations (
+    id integer NOT NULL,
+    terminated_on date NOT NULL,
+    regime_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_regime_terminations_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE pd_regime_terminations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_regime_terminations_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE pd_regime_terminations_id_seq OWNED BY pd_regime_terminations.id;
 
 
 --
@@ -5885,7 +5920,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -5964,7 +5999,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -16656,6 +16691,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190612124015'),
 ('20190617121528'),
 ('20190705083727'),
-('20190705105921');
+('20190705105921'),
+('20190709101610');
 
 
