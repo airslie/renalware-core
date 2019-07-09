@@ -67,9 +67,11 @@ module Renalware
       end
 
       def create_patient_xml_files
+        count = 0
         patients = ukrdc_patients_who_have_changed_since_last_send
         summary.num_changed_patients = patients.count
         patients.find_each do |patient|
+          count += 1
           CreatePatientXMLFile.new(
             patient: patient,
             dir: paths.timestamped_xml_folder,
@@ -79,6 +81,9 @@ module Renalware
             logger: logger,
             force_send: force_send
           ).call
+
+          # Every n patients, force the garbage collector to kick in
+          GC.start if (count % 10).zero?
         end
       end
 
@@ -129,7 +134,7 @@ module Renalware
       end
 
       def email_recipients
-        Array(ENV.fetch("DAILY_REPORT_EMAIL_RECIPIENTS", "dev@airslie.com").split(","))
+        Array(ENV.fetch("DAILY_REPORT_EMAIL_RECIPIENTS", "tim@airslie.com").split(","))
       end
 
       def export_results
