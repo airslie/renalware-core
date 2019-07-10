@@ -2501,6 +2501,80 @@ CREATE TABLE hd_profiles (
 
 
 --
+-- Name: modality_descriptions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE modality_descriptions (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    type character varying,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    hidden boolean DEFAULT false NOT NULL,
+    ukrdc_modality_code_id bigint
+);
+
+
+--
+-- Name: modality_modalities; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE modality_modalities (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    description_id integer NOT NULL,
+    reason_id integer,
+    modal_change_type character varying,
+    notes text,
+    started_on date NOT NULL,
+    ended_on date,
+    state character varying DEFAULT 'current'::character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL
+);
+
+
+--
+-- Name: hd_profile_for_modalities; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW hd_profile_for_modalities AS
+ WITH hd_modalities AS (
+         SELECT m_1.patient_id,
+            m_1.id AS modality_id,
+            m_1.started_on,
+            m_1.ended_on
+           FROM (modality_modalities m_1
+             JOIN modality_descriptions md ON ((md.id = m_1.description_id)))
+          WHERE ((md.name)::text = 'HD'::text)
+        ), distinct_hd_profiles AS (
+         SELECT DISTINCT ON (hd_profiles.patient_id, ((hd_profiles.created_at)::date)) hd_profiles.id AS hd_profile_id,
+            hd_profiles.patient_id,
+            (COALESCE((hd_profiles.prescribed_on)::timestamp without time zone, hd_profiles.created_at))::date AS effective_prescribed_on,
+            hd_profiles.prescribed_on,
+            (hd_profiles.created_at)::date AS created_on,
+            hd_profiles.created_at,
+            hd_profiles.deactivated_at,
+            hd_profiles.active
+           FROM hd_profiles
+          ORDER BY hd_profiles.patient_id, ((hd_profiles.created_at)::date), hd_profiles.created_at DESC
+        )
+ SELECT m.patient_id,
+    m.modality_id,
+    m.started_on,
+    m.ended_on,
+    ( SELECT hp.hd_profile_id
+           FROM distinct_hd_profiles hp
+          WHERE ((hp.patient_id = m.patient_id) AND ((hp.deactivated_at IS NULL) OR (hp.deactivated_at > m.started_on)))
+          ORDER BY hp.created_at
+         LIMIT 1) AS hd_profile_id
+   FROM hd_modalities m;
+
+
+--
 -- Name: hd_profiles_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -3591,22 +3665,6 @@ ALTER SEQUENCE messaging_receipts_id_seq OWNED BY messaging_receipts.id;
 
 
 --
--- Name: modality_descriptions; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE modality_descriptions (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    type character varying,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    hidden boolean DEFAULT false NOT NULL,
-    ukrdc_modality_code_id bigint
-);
-
-
---
 -- Name: modality_descriptions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -3624,27 +3682,6 @@ CREATE SEQUENCE modality_descriptions_id_seq
 --
 
 ALTER SEQUENCE modality_descriptions_id_seq OWNED BY modality_descriptions.id;
-
-
---
--- Name: modality_modalities; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE modality_modalities (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    description_id integer NOT NULL,
-    reason_id integer,
-    modal_change_type character varying,
-    notes text,
-    started_on date NOT NULL,
-    ended_on date,
-    state character varying DEFAULT 'current'::character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL
-);
 
 
 --
@@ -5290,41 +5327,6 @@ ALTER SEQUENCE pd_regime_bags_id_seq OWNED BY pd_regime_bags.id;
 
 
 --
--- Name: pd_regime_terminations; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE pd_regime_terminations (
-    id integer NOT NULL,
-    terminated_on date NOT NULL,
-    regime_id integer NOT NULL,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: pd_regime_terminations_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE pd_regime_terminations_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pd_regime_terminations_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE pd_regime_terminations_id_seq OWNED BY pd_regime_terminations.id;
-
-
---
 -- Name: pd_regimes; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -5359,6 +5361,76 @@ CREATE TABLE pd_regimes (
     assistance_type character varying,
     dwell_time integer
 );
+
+
+--
+-- Name: pd_regime_for_modalities; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW pd_regime_for_modalities AS
+ WITH pd_modalities AS (
+         SELECT m_1.patient_id,
+            m_1.id AS modality_id,
+            m_1.started_on,
+            m_1.ended_on
+           FROM (modality_modalities m_1
+             JOIN modality_descriptions md ON ((md.id = m_1.description_id)))
+          WHERE ((md.name)::text = 'PD'::text)
+        ), distinct_pd_regimes AS (
+         SELECT DISTINCT ON (pd_regimes.patient_id, pd_regimes.start_date) pd_regimes.id AS pd_regime_id,
+            pd_regimes.patient_id,
+            pd_regimes.start_date,
+            pd_regimes.end_date,
+            pd_regimes.created_at
+           FROM pd_regimes
+          ORDER BY pd_regimes.patient_id, pd_regimes.start_date, pd_regimes.created_at DESC
+        )
+ SELECT m.patient_id,
+    m.modality_id,
+    m.started_on,
+    m.ended_on,
+    ( SELECT pdr.pd_regime_id
+           FROM distinct_pd_regimes pdr
+          WHERE ((pdr.patient_id = m.patient_id) AND ((pdr.end_date IS NULL) OR (pdr.end_date > m.started_on)))
+          ORDER BY pdr.created_at
+         LIMIT 1) AS pd_regime_id
+   FROM pd_modalities m
+  ORDER BY m.patient_id;
+
+
+--
+-- Name: pd_regime_terminations; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE pd_regime_terminations (
+    id integer NOT NULL,
+    terminated_on date NOT NULL,
+    regime_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_regime_terminations_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE pd_regime_terminations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_regime_terminations_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE pd_regime_terminations_id_seq OWNED BY pd_regime_terminations.id;
 
 
 --
@@ -7505,7 +7577,9 @@ CREATE TABLE ukrdc_treatments (
     started_on date NOT NULL,
     ended_on date,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    hd_profile_id bigint,
+    pd_regime_id bigint
 );
 
 
@@ -13539,6 +13613,13 @@ CREATE INDEX index_ukrdc_treatments_on_clinician_id ON ukrdc_treatments USING bt
 
 
 --
+-- Name: index_ukrdc_treatments_on_hd_profile_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_treatments_on_hd_profile_id ON ukrdc_treatments USING btree (hd_profile_id);
+
+
+--
 -- Name: index_ukrdc_treatments_on_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -13578,6 +13659,13 @@ CREATE INDEX index_ukrdc_treatments_on_modality_id ON ukrdc_treatments USING btr
 --
 
 CREATE INDEX index_ukrdc_treatments_on_patient_id ON ukrdc_treatments USING btree (patient_id);
+
+
+--
+-- Name: index_ukrdc_treatments_on_pd_regime_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_treatments_on_pd_regime_id ON ukrdc_treatments USING btree (pd_regime_id);
 
 
 --
@@ -14447,6 +14535,14 @@ ALTER TABLE ONLY patient_bookmarks
 
 
 --
+-- Name: ukrdc_treatments fk_rails_4011924f9c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY ukrdc_treatments
+    ADD CONSTRAINT fk_rails_4011924f9c FOREIGN KEY (hd_profile_id) REFERENCES hd_profiles(id);
+
+
+--
 -- Name: pd_assessments fk_rails_408dde93e5; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -14652,6 +14748,14 @@ ALTER TABLE ONLY pathology_requests_requests
 
 ALTER TABLE ONLY letter_letters
     ADD CONSTRAINT fk_rails_6191e75b3b FOREIGN KEY (author_id) REFERENCES users(id);
+
+
+--
+-- Name: ukrdc_treatments fk_rails_63f35ffdfe; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY ukrdc_treatments
+    ADD CONSTRAINT fk_rails_63f35ffdfe FOREIGN KEY (pd_regime_id) REFERENCES pd_regimes(id);
 
 
 --
@@ -16585,6 +16689,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190607134717'),
 ('20190611152859'),
 ('20190612124015'),
-('20190617121528');
+('20190617121528'),
+('20190705083727'),
+('20190705105921'),
+('20190709101610');
 
 

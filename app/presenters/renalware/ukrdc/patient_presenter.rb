@@ -38,12 +38,12 @@ module Renalware
         super
       end
 
-      def modalities
-        __getobj__
-          .modalities
-          .includes(:description)
-          .order(started_on: :asc, created_at: :asc)
-      end
+      # def modalities
+      #   __getobj__
+      #     .modalities
+      #     .includes(:description)
+      #     .order(started_on: :asc, created_at: :asc)
+      # end
 
       def dead?
         current_modality_death?
@@ -98,6 +98,14 @@ module Renalware
           .clinic_visits
           .where("date >= ?", changes_since)
           .includes(:updated_by)
+      end
+
+      def treatments
+        @treatments ||= begin
+          UKRDC::Treatment.where(patient_id: id).delete_all
+          UKRDC::TreatmentTimeline::GenerateTimeline.new(self).call
+          UKRDC::Treatment.where(patient_id: id).order(:patient_id, :started_on)
+        end
       end
 
       # We always send the patients current prescriptions.

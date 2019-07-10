@@ -23,18 +23,23 @@ module Renalware
         private
 
         def patient_scope
-          Renalware::Patient.select(:id)
+          Renalware::Patient
+            .select(:id)
+            .where("send_to_renalreg = true or send_to_rpv = true")
         end
 
-        # rubocop:disable Rails/Output
+        # rubocop:disable Rails/Output, Metrics/AbcSize
         def generate_treatments
+          PrepareTables.call
           Rails.logger.info "#{patient_scope.count} patients"
-          patient_scope.find_each do |patient|
+          patient_scope.find_each.with_index do |patient, index|
             print "\n#{patient.id}: "
             GenerateTimeline.new(patient).call
+            # Start gargbage collection periodically to prevent server ram issues.
+            GC.start if (index % 50).zero?
           end
         end
-        # rubocop:enable Rails/Output
+        # rubocop:enable Rails/Output, Metrics/AbcSize
 
         def log(msg)
           Rails.logger.info(msg)

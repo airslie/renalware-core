@@ -50,7 +50,7 @@ AllCops:
     - "config/initializers/devise.rb"
 
 RSpec/ExampleLength:
-  Max: 25
+  Max: 30
 RSpec/NestedGroups:
   Max: 4
 RSpec/MultipleExpectations:

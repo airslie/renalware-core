@@ -14,6 +14,7 @@ describe "Document element" do
   end
 
   let(:partial) { "renalware/api/ukrdc/patients/treatments.xml.builder" }
+  let(:hospital_unit) { create(:hospital_unit) }
   let(:builder) { Builder::XmlMarkup.new }
   let(:patient) { create(:patient) }
   let(:presenter) { Renalware::UKRDC::PatientPresenter.new(patient) }
@@ -59,12 +60,11 @@ describe "Document element" do
   end
 
   it "renders the HealthCareFacility" do
-    allow(Renalware.config).to receive(:ukrdc_site_code).and_return("ABC")
+    create(:hd_profile, patient: Renalware::HD.cast_patient(patient), hospital_unit: hospital_unit)
 
     expect(rendered).to include(
-      "<HealthCareFacility><CodingStandard>ODS</CodingStandard><Code>ABC</Code>"
+      "<HealthCareFacility><CodingStandard>ODS</CodingStandard><Code>#{hospital_unit.unit_code}</Code>"
     )
-    expect(Renalware.config).to have_received(:ukrdc_site_code)
   end
 
   context "when modality is HD" do

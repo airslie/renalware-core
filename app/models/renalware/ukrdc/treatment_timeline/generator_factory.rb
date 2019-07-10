@@ -25,7 +25,7 @@ module Renalware
         end
 
         def self.klass_for(type)
-          "Renalware::UKRDC::TreatmentTimeline::Generators::#{type}Timeline".safe_constantize
+          "Renalware::UKRDC::TreatmentTimeline::#{type}::Generator".safe_constantize
         end
       end
     end

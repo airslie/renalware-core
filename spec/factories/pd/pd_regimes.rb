@@ -13,6 +13,10 @@ FactoryBot.define do
     amino_acid_volume { 40 }
     icodextrin_volume { 50 }
     add_hd { false }
+
+    factory :capd_assisted_regime do
+      treatment { "CAPD Dry Day Assisted" }
+    end
   end
 
   factory :apd_regime, class: "Renalware::PD::APDRegime" do
@@ -33,5 +37,9 @@ FactoryBot.define do
     no_cycles_per_apd { 7 }
     overnight_volume { 5100 }
     apd_machine_pac { "123-4567-890" }
+
+    factory :apd_assisted_regime do
+      treatment { "APD Dry Day Assisted" }
+    end
   end
 end

@@ -16,5 +16,29 @@ FactoryBot.define do
         }
       }
     }
+
+    trait :hd do
+      # noop
+    end
+
+    trait :hdf_pre do
+      document {
+        {
+          dialysis: {
+            hd_type: :hdf_pre
+          }
+        }
+      }
+    end
+
+    trait :hdf_post do
+      document {
+        {
+          dialysis: {
+            hd_type: :hdf_post
+          }
+        }
+      }
+    end
   end
 end

@@ -29,7 +29,6 @@ module Renalware
         it "generates one Treatment with the relevant UKRDC modality code" do
           set_modality(patient: patient, modality_description: hd_mod_desc, by: user)
           hd_ukrdc_modality_code
-          hdf_ukrdc_modality_code
 
           service.call
 
@@ -44,14 +43,17 @@ module Renalware
         end
       end
 
-      context "when the patient has 2 simple modalities" do
-        it "generates 2 Treatment with the relevant UKRDC modality code" do
+      context "when the patient has 2 simple HD modalities (no profiles invovled)" do
+        before do
+          hd_ukrdc_modality_code
+          hdf_ukrdc_modality_code
+        end
+
+        it "generates 2 Treatments with the relevant UKRDC modality code" do
           options = { patient: patient, modality_description: hd_mod_desc, by: user }
           modality1 = set_modality(options.merge(started_on: 1.month.ago))
           modality2 = set_modality(options.merge(started_on: 1.day.ago))
           modality1.reload # gets the change to ended_on caused by adding a successor
-          hd_ukrdc_modality_code
-          hdf_ukrdc_modality_code
 
           service.call
 
@@ -81,76 +83,70 @@ module Renalware
           hdf_ukrdc_modality_code
         end
 
-        context "when an existing HD patient is assigned an HD profile with hd_type: :hd" do
-          it "does not trigger a new Treatment" do
+        context "when an existing HD patient has an HD profile within 2 wks of the modal start" do
+          # Such that it is assigned to the modality and in itself it does not trigger new
+          # Treatment
+          let(:initial_profile) do
+            create(
+              :hd_profile,
+              patient: Renalware::HD.cast_patient(patient),
+              prescribed_on: 2.weeks.ago,
+              created_at: 2.weeks.ago,
+              by: user
+            )
+          end
+
+          before do
+            initial_profile
             set_modality(
               patient: patient,
               modality_description: hd_mod_desc,
               by: user,
-              started_on: 1.month.ago
+              started_on: 4.weeks.ago
             )
+          end
 
-            hd_profile = create(
-              :hd_profile,
-              patient: Renalware::HD.cast_patient(patient),
-              prescribed_on: 3.weeks.ago,
-              by: user
-            )
-            hd_profile.document.dialysis.hd_type = :hd
-            hd_profile.save!
-
+          it "in combination with the modality it only outputs one Treatment" do
             service.call
 
-            pending
             expect(UKRDC::Treatment.count).to eq(1)
           end
-        end
 
-        context "when an existing HD patient is assigned an HD profile with hd_type: :hdf_pre" do
-          it "trigger a new Treatment" do
-            set_modality(
-              patient: patient,
-              modality_description: hd_mod_desc,
-              by: user,
-              started_on: 1.month.ago
-            )
+          context "when another profile is created with a changed hd_type" do
+            it "triggers a new Treatment" do
+              svc = HD::ReviseHDProfile.new(initial_profile)
+              new_profile = svc.call(prescribed_time: 456, by: user)
+              new_profile.document.dialysis.hd_type = :hdf_pre
+              new_profile.save!
 
-            hd_profile = create(
-              :hd_profile,
-              patient: Renalware::HD.cast_patient(patient),
-              prescribed_on: 3.weeks.ago,
-              by: user
-            )
-            hd_profile.document.dialysis.hd_type = :hdf_pre
-            hd_profile.save!
+              service.call
 
-            service.call
-
-            expect(UKRDC::Treatment.count).to eq(2)
+              expect(UKRDC::Treatment.count).to eq(2)
+            end
           end
-        end
 
-        context "when an existing HD patient is assigned an HD profile with hd_type: :hdf_post" do
-          it "trigger a new Treatment" do
-            set_modality(
-              patient: patient,
-              modality_description: hd_mod_desc,
-              by: user,
-              started_on: 1.month.ago
-            )
+          context "when another profile is created with a changed hospital_unit_id" do
+            it "triggers a new Treatment" do
+              other_unit = create(:hospital_unit, name: "X")
+              svc = HD::ReviseHDProfile.new(initial_profile)
+              svc.call(hospital_unit: other_unit, by: user)
 
-            hd_profile = create(
-              :hd_profile,
-              patient: Renalware::HD.cast_patient(patient),
-              prescribed_on: 3.weeks.ago,
-              by: user
-            )
-            hd_profile.document.dialysis.hd_type = :hdf_post
-            hd_profile.save!
+              service.call
 
-            service.call
+              expect(UKRDC::Treatment.count).to eq(2)
+            end
+          end
 
-            expect(UKRDC::Treatment.count).to eq(2)
+          context "when another profile is created a non-triggering change " do
+            it "triggers a new Treatment" do
+              other_unit = create(:hospital_unit, name: "X")
+              svc = HD::ReviseHDProfile.new(initial_profile)
+              svc.call(hospital_unit: other_unit, by: user)
+
+              service.call
+
+              expect(UKRDC::Treatment.count).to eq(2)
+            end
           end
         end
       end
