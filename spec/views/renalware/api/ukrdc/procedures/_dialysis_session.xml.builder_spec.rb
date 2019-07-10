@@ -151,12 +151,12 @@ describe "DialysisSession" do
     it { is_expected.to include("<QHD20>TLN</QHD20>") }
   end
 
-  describe "QHD21 (Vascular Access Side) RR40" do
+  describe "QHD21 (Vascular Access Site) RR41" do
     before {
-      session.document.info.access_side = "left"
+      session.document.info.access_type_abbreviation = "TLN LS"
     }
 
-    it { is_expected.to include("<QHD21>L</QHD21>") }
+    it { is_expected.to include("<QHD21>LS</QHD21>") }
   end
 
   # TODO: Needling Method == hd_profile.cannualation type?

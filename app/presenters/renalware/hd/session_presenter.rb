@@ -143,6 +143,12 @@ module Renalware
         access_type_abbreviation.split(" ").first
       end
 
+      def access_rr41_code
+        return if access_type_abbreviation.blank?
+
+        access_type_abbreviation.split(" ").last
+      end
+
       protected
 
       attr_reader :session, :view_context
