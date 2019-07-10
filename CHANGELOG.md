@@ -7,6 +7,15 @@ This project adheres to Semantic Versioning.
 ## Unreleased
 ### Added
 ### Changed
+- Improve memory handling in UKRDC XML export #2742
+- Omit prescriptions in with a non numeric dose amount - UKRDC XML #2741
+### Fixed
+- UKRDC Treatment refinements #2743
+
+## 2.0.90
+10-07-2019
+### Added
+### Changed
 ### Fixed
 
 ## 2.0.89
