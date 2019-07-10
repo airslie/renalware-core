@@ -32,7 +32,7 @@ namespace :ukrdc do
     logger           = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
     logger.level     = Logger::INFO
     Rails.logger     = logger
-    Renalware::UKRDC::TreatmentTimeline::GenerateTreatments.call
+    # Renalware::UKRDC::TreatmentTimeline::GenerateTreatments.call
     Renalware::UKRDC::CreateEncryptedPatientXMLFiles.new(
       changed_since: ENV["changed_since"],
       patient_ids: ENV.fetch("patient_ids", "").split(",").map(&:to_i),

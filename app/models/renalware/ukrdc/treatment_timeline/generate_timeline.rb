@@ -14,19 +14,25 @@ module Renalware
         pattr_initialize :patient
 
         def call
-          RemapModelTableNamesToTheirPreparedEquivalents.new.call do
-            modalities.each do |modality|
-              print "#{modality.description.name} -> "
-              generator = GeneratorFactory.call(modality)
-              generator.call
-            end
+         # RemapModelTableNamesToTheirPreparedEquivalents.new.call do
+          Rails.logger.info "    Generating Treatment rows for modalities #{modality_names}"
+          modalities.each do |modality|
+            generator = GeneratorFactory.call(modality)
+            generator.call
           end
+          # end
         end
 
         private
 
         def modalities
-          patient.modalities.order(started_on: :asc, updated_at: :asc)
+          @modalities ||= begin
+            patient.modalities.includes(:description).order(started_on: :asc, updated_at: :asc)
+          end
+        end
+
+        def modality_names
+          modalities.map { |mod| mod.description.name }.join("->")
         end
       end
     end
