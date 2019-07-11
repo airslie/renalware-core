@@ -60,10 +60,15 @@ describe "Document element" do
   end
 
   it "renders the HealthCareFacility" do
-    create(:hd_profile, patient: Renalware::HD.cast_patient(patient), hospital_unit: hospital_unit)
+    unit = create(:hospital_unit, renal_registry_code: "ABC")
+    create(
+      :hd_profile,
+      patient: Renalware::HD.cast_patient(patient),
+      hospital_unit: unit
+    )
 
     expect(rendered).to include(
-      "<HealthCareFacility><CodingStandard>ODS</CodingStandard><Code>#{hospital_unit.unit_code}</Code>"
+      "<HealthCareFacility><CodingStandard>ODS</CodingStandard><Code>ABC</Code>"
     )
   end
 

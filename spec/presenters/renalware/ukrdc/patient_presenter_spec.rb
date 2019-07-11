@@ -124,6 +124,7 @@ module Renalware
         create(:prescription, patient: patient, dose_amount: "10,000")
         create(:prescription, patient: patient, dose_amount: "1-2")
         create(:prescription, patient: patient, dose_amount: "10%")
+        create(:prescription, patient: patient, dose_amount: "UNSPEC")
 
         expect(presenter.prescriptions_with_numeric_dose_amount).to contain_exactly(pre1, pre2)
       end
