@@ -36,6 +36,13 @@ describe "Document element" do
       ukrdc_modality_code_id: create(:ukrdc_modality_code, :hd).id
     )
   end
+  let(:pd_modality_description) do
+    create(
+      :modality_description,
+      :pd,
+      ukrdc_modality_code_id: create(:ukrdc_modality_code, :pd).id
+    )
+  end
 
   before { modality }
 
@@ -60,10 +67,15 @@ describe "Document element" do
   end
 
   it "renders the HealthCareFacility" do
-    create(:hd_profile, patient: Renalware::HD.cast_patient(patient), hospital_unit: hospital_unit)
+    unit = create(:hospital_unit, renal_registry_code: "ABC")
+    create(
+      :hd_profile,
+      patient: Renalware::HD.cast_patient(patient),
+      hospital_unit: unit
+    )
 
     expect(rendered).to include(
-      "<HealthCareFacility><CodingStandard>ODS</CodingStandard><Code>#{hospital_unit.unit_code}</Code>"
+      "<HealthCareFacility><CodingStandard>ODS</CodingStandard><Code>ABC</Code>"
     )
   end
 
@@ -84,6 +96,23 @@ describe "Document element" do
       it "outputs QBL05 whichis the hosp unit unit_type mapped to an RR RR8 code" do
         expect(rendered).to include("<QBL05>SATL</QBL05>")
       end
+    end
+  end
+
+  context "when modality is HP" do
+    it "uses the default site code for the location of treatment" do
+      allow(Renalware.config).to receive(:ukrdc_site_code).and_return("XYZ")
+      create(
+        :modality,
+        patient: patient,
+        description: pd_modality_description,
+        started_on: modality_started_on,
+        ended_on: modality_ended_on
+      )
+
+      expect(rendered).to include(
+        "<HealthCareFacility><CodingStandard>ODS</CodingStandard><Code>XYZ</Code>"
+      )
     end
   end
 end

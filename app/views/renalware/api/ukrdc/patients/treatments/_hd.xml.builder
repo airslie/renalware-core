@@ -11,7 +11,7 @@ xml.Treatment do
   if treatment.hospital_unit.present?
     xml.HealthCareFacility do
       xml.CodingStandard "ODS"
-      xml.Code treatment.hospital_unit.unit_code
+      xml.Code treatment.hospital_unit.renal_registry_code
     end
   end
 
