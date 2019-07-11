@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.92
+11-07-2019
+### Added
+### Changed
+- UKRDC treatment changes
+### Fixed
+
 ## 2.0.91
 11-07-2019
 ### Added
