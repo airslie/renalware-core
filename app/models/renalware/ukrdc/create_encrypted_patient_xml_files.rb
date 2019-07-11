@@ -36,13 +36,13 @@ module Renalware
 
       def call
         logger.tagged(request_uuid) do
-          ActiveRecord::Base.transaction do
-            summary.milliseconds_taken = Benchmark.ms do
-              create_patient_xml_files
-              encrypt_patient_xml_files
-              copy_encrypted_xml_files_into_the_outgoing_folder
-            end
+          # ActiveRecord::Base.transaction do
+          summary.milliseconds_taken = Benchmark.ms do
+            create_patient_xml_files
+            encrypt_patient_xml_files
+            copy_encrypted_xml_files_into_the_outgoing_folder
           end
+          # end
           paths.create_symlink_to_latest_timestamped_folder_so_it_is_easier_to_eyeball
           build_summary
           print_summary
