@@ -7,16 +7,23 @@ This project adheres to Semantic Versioning.
 ## Unreleased
 ### Added
 ### Changed
-- Improve memory handling in UKRDC XML export #2742
-- Omit prescriptions in with a non numeric dose amount - UKRDC XML #2741
 ### Fixed
-- UKRDC Treatment refinements #2743
+
+## 2.0.91
+11-07-2019
+### Added
+### Changed
+### Fixed
+- Fix UKRDC query to select medications with a numeric dose_amount
 
 ## 2.0.90
 10-07-2019
 ### Added
 ### Changed
+- Improve memory handling in UKRDC XML export #2742
+- Omit prescriptions in with a non numeric dose amount - UKRDC XML #2741
 ### Fixed
+- UKRDC Treatment refinements #2743
 
 ## 2.0.89
 ### Added
