@@ -3,7 +3,7 @@
 xml = builder
 
 xml.Medications do
-  patient.prescriptions.each do |prescription|
+  patient.prescriptions_with_numeric_dose_amount.each do |prescription|
     xml.Medication do
       xml.FromTime prescription.prescribed_on.to_datetime
       if prescription.terminated_or_marked_for_termination?

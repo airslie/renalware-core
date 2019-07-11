@@ -111,11 +111,11 @@ module Renalware
       # We always send the patients current prescriptions.
       # Because the XSD rejects non-numeric dose amounts, only send prescriptions with a
       # dose_amount of eg 10 or 10.23 or .23
-      def prescriptions
+      def prescriptions_with_numeric_dose_amount
         __getobj__
           .prescriptions
           .includes(:termination, :medication_route, :drug)
-          .where("dose_amount ~ '^[ ]*(\\d+|\\d+\.\\d+|\\.\\d+)[ ]*$'")
+          .where("dose_amount ~ '^[ ]*(\\d+|\\d+\\.\\d+|\\.\\d+)[ ]*$'")
           .order(:prescribed_on)
       end
 

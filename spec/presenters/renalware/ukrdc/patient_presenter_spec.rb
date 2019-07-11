@@ -112,17 +112,20 @@ module Renalware
       end
     end
 
-    describe "#prescriptions" do
+    describe "#prescriptions_with_numeric_dose_amount" do
       subject(:presenter) { UKRDC::PatientPresenter.new(patient) }
 
       let(:patient) { create(:patient) }
       let(:user) { create(:user) }
 
       it "returns those with a numeric dose_amount" do
-        pre1 = create(:prescription, patient: patient, dose_amount: "  2.22  ")
-        create(:prescription, patient: patient, dose_amount: "1 or 2")
+        pre1 = create(:prescription, patient: patient, dose_amount: "  2222.22  ")
+        pre2 = create(:prescription, patient: patient, dose_amount: "2")
+        create(:prescription, patient: patient, dose_amount: "10,000")
+        create(:prescription, patient: patient, dose_amount: "1-2")
+        create(:prescription, patient: patient, dose_amount: "10%")
 
-        expect(presenter.prescriptions).to eq([pre1])
+        expect(presenter.prescriptions_with_numeric_dose_amount).to contain_exactly(pre1, pre2)
       end
     end
   end
