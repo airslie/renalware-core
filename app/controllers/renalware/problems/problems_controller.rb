@@ -3,6 +3,8 @@
 module Renalware
   module Problems
     class ProblemsController < BaseController
+      skip_after_action :verify_policy_scoped, only: [:sort]
+
       def index
         problems = patient.problems.with_notes
         authorize problems
