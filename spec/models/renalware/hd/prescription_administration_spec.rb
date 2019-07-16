@@ -8,6 +8,7 @@ module Renalware
       it_behaves_like "an Accountable model"
       it { is_expected.to belong_to(:prescription) }
       it { is_expected.to belong_to(:hd_session).touch(true) }
+      it { is_expected.to belong_to(:reason) }
       it { is_expected.to validate_presence_of(:prescription) }
 
       describe "validation errors" do
@@ -32,7 +33,6 @@ module Renalware
           administered_by: :administrator,
           witnessed_by: :witness
         }.each do |user, user_prefix|
-
           token_name = :"#{user_prefix}_authorisation_token"
           error_key = :"#{user_prefix}_authorisation_token"
 

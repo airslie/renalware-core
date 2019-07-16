@@ -16,6 +16,7 @@ module Renalware
       belongs_to :prescription, class_name: "Medications::Prescription"
       belongs_to :administered_by, class_name: "User"
       belongs_to :witnessed_by, class_name: "User"
+      belongs_to :reason, class_name: "PrescriptionAdministrationReason"
       validates :administered, inclusion: { in: [true, false] }, unless: :skip_validation
       validates :prescription, presence: true
       validates :administered_by, presence: true, unless: :skip_validation
@@ -43,13 +44,17 @@ module Renalware
 
       def verify_submitted_user_token(user, token, error_key)
         return if skip_validation
-        return if user.blank? || administered.nil? || administered == false
+        return if user.blank? || not_administered?
 
         if token.blank?
           errors[error_key] << "can't be blank"
         elsif user.auth_token != token
           errors[error_key] << "invalid token"
         end
+      end
+
+      def not_administered?
+        administered.nil? || administered == false
       end
     end
   end
