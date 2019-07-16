@@ -29,7 +29,7 @@ module Renalware
     end
 
     def within_layout(layout:, title: nil, **opts)
-      opts[:title] = title || resolve_page_title_for_layout(title)
+      opts[:title] = title || resolve_page_title_for_layout
       render(layout: layout, locals: opts) { yield }
     end
 
