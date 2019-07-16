@@ -29,10 +29,24 @@ module Renalware
     end
 
     def within_layout(layout:, title: nil, **opts)
-      title ||= t?(".page_title") ? t(".page_title") : t(".title", cascade: false)
-      opts[:title] = title
+      opts[:title] = title || resolve_page_title_for_layout(title)
       render(layout: layout, locals: opts) { yield }
     end
+
+    # rubocop:disable Lint/HandleExceptions
+    def resolve_page_title_for_layout
+      t?(".page_title") ? t(".page_title") : t(".title", cascade: false)
+    rescue RuntimeError
+      # For now, ignore I18n error caused when the host application calls renalware_view
+      # - it fails because @virtual_path is nil here.
+      # # The error is 't(".xxxx") shortcut because path is not available' and is due to there being
+      # a period at the start of the key.
+      # This means if a host app overrides a view
+      # eg hd/dashboards/show and tha view calls t(".something") then we would get an error.
+      # https://apidock.com/rails/v5.2.3/ActionView/Helpers/TranslationHelper/scope_key_by_partial
+      # We could do something clever like Spree do to set @virtual_path (search the GH repo).
+    end
+    # rubocop:enable Lint/HandleExceptions
 
     def generate_page_title(local_assigns:,
                             patient: nil,
