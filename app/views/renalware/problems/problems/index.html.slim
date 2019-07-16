@@ -4,6 +4,9 @@
           class: "button"
 
 = within_patient_layout(title: "Problems") do
+  / .problems
+  /   h2 Current
+  /   = render "renalware/problems/problems/current_table", problems: current_problems
 
   article
     header
