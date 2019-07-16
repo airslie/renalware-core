@@ -4,9 +4,10 @@
           class: "button"
 
 = within_patient_layout(title: "Problems") do
+  .problems
+    h2 Current
+    = render "renalware/problems/problems/current_table", problems: current_problems
 
-  h2 Current
-  = render "renalware/problems/problems/current_table", problems: current_problems
-  br
-  h2 Archived
-  = render "renalware/problems/problems/archived_table", problems: archived_problems
+  .problems
+    h2 Archived
+    = render "renalware/problems/problems/archived_table", problems: archived_problems
