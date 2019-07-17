@@ -17,8 +17,12 @@ $(document).ready(function() {
   $(".hd-drug-administered input[type='radio']").on("change", function(e) {
     var checked = ($(this).val() == "true");
     var container = $(this).closest(".hd-drug-administration");
-    $(container).toggleClass("administered", checked);
+    $(container).toggleClass("administered", checked)
+    $(container).toggleClass("not-administered", !checked)
+    $(container).removeClass("undecided");
+    $(".authentication", container).toggle(checked)
     $(".authentication", container).toggleClass("disabled-with-faded-overlay", !checked)
+    $(".reason-why-not-administered", container).toggle(!checked)
   });
 
   $(".hd-drug-administration .authentication-user-id").on("select2:select", function(e) {

@@ -134,7 +134,7 @@ module Renalware
          prescription_administrations_attributes: [
            :id, :hd_session_id, :prescription_id, :administered, :notes,
            :administered_by_id, :administrator_authorisation_token,
-           :witnessed_by_id, :witness_authorisation_token
+           :witnessed_by_id, :witness_authorisation_token, :reason_id
          ],
          document: []]
       end

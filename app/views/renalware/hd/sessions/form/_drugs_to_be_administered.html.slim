@@ -8,9 +8,21 @@
         - prescription = Renalware::Medications::PrescriptionPresenter.new(fpa.object.prescription)
         - administration = fpa.object
 
+        / There are three possible states for a drug administration:
+        / 1. administration.administered == nil -> no decision has been made
+        / 2. administration.administered == false -> drug was not administered
+        / 3. administration.administered == true -> drug was administered
+        ruby:
+          administration_klass = case administration.administered
+                                 when true then "administered"
+                                 when false then "not-administered"
+                                 else "undecided"
+                                 end
+          # administration_klass = "not-administered" unless administration.administered?
+          #- administration_klass = "undecided" if administration.administered.nil?
         .hd-drug-administration(
           data-token-count="#{'2' if administration.administrator_authorised? && administration.witness_authorised?}"
-          class="#{'administered' if administration.administered?}"
+          class="#{administration_klass}"
         )
           .summary
             .hd-drug
@@ -27,14 +39,6 @@
                   .hd-drug--termination-date= l(prescription.terminated_on)
 
             .hd-drug-administered
-              / label.checkbox
-              / = fpa.radio_button :administered, label: false, "Yes"
-              / = fpa.radio_button :administered, label: false
-              /   | Administered
-              /   = fpa.radio_button :administered, true, "Yes"
-              /   = fpa.radio_button :administered, false, "No"
-              / = fpa.collection_radio_buttons(:administered, [[true, 'Yes'] ,[false, 'No']]) do |b|
-              /   b.label { b.radio_button + b.text }
               = fpa.input :administered, as: :inline_radio_buttons
 
             = fpa.input :prescription_id, as: :hidden
@@ -42,6 +46,10 @@
           .notes
             = fpa.label :notes
             = fpa.input :notes, label: false, wrapper: :zilch, input_html: { rows: 2 }
+
+          .reason-why-not-administered
+            = fpa.label :reason_id
+            = fpa.association :reason, wrapper: :zilch
 
           .authentication(
             class="#{'disabled-with-faded-overlay' unless administration.administered?}"
@@ -71,13 +79,6 @@
                                       class: "user-password",
                                       autocomplete: :off
                 small.error.invalid-password Invalid password
-                / p = administration.errors[token_symbol]
-                / - if administration.errors[token_symbol].any?
-                /   small.error.missing-authorisation-token Please authorise
-
-
-                / This div is shown (using CSS based on the .ahuthorised class on user-and-password)
-                / the once password has been entered and validated via ajax
                 .confirmed
                   i.fas.fa-check-circle
                   = link_to "Clear", "#", class: "user-and-password--clear"

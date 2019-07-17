@@ -433,13 +433,19 @@ use flexbox to layout items inside each prescription.
       flex-basis: 220px;
       text-align: right;
 
-      // input[type="checkbox"] {
-      //   margin-left: .5rem;
-      // }
-      //
       .radio {
         display: inline-block !important;
       }
+    }
+  }
+
+  .reason-why-not-administered {
+    display: none;
+  }
+
+  &.undecided {
+    .authentication {
+      display: block;
     }
   }
 
@@ -449,6 +455,16 @@ use flexbox to layout items inside each prescription.
     /* The 'status' values for the prescription-administration */
     &[data-token-count='2'] {
       border-right-color: $nhs-green;
+    }
+  }
+
+  &.not-administered {
+    .authentication {
+      display: none;
+    }
+
+    .reason-why-not-administered {
+      display: block;
     }
   }
 
@@ -530,7 +546,7 @@ use flexbox to layout items inside each prescription.
       }
 
       .select2 {
-        margin-bottom: 0.75rem;
+        // margin-bottom: 0.75rem;
       }
 
       .user-password {

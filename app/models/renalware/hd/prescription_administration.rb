@@ -19,12 +19,18 @@ module Renalware
       belongs_to :reason, class_name: "PrescriptionAdministrationReason"
       validates :administered, inclusion: { in: [true, false] }, unless: :skip_validation
       validates :prescription, presence: true
-      validates :administered_by, presence: true, unless: :skip_validation
-      validates :witnessed_by, presence: true, unless: :skip_validation
+      validates :administered_by, presence: true, if: :validate_administrator_and_witness?
+      validates :witnessed_by, presence: true, if: :validate_administrator_and_witness?
       validate :check_administrator_authorisation_token
       validate :check_witness_authorisation_token
 
       private
+
+      def validate_administrator_and_witness?
+        return false if skip_validation || not_administered?
+
+        true
+      end
 
       def check_administrator_authorisation_token
         verify_submitted_user_token(
