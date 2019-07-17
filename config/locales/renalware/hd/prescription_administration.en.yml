@@ -7,6 +7,7 @@ en:
         witnessed_by: Witness
         witnessed_by_password: Password
         administered_by_password: Password
+        reason_id: Reason not administered
     errors:
       models:
         renalware/hd/prescription_administration:
