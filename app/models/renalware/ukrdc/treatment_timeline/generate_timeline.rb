@@ -3,7 +3,6 @@
 require_dependency "renalware/ukrdc"
 require "attr_extras"
 
-# rubocop:disable Rails/Output
 module Renalware
   module UKRDC
     module TreatmentTimeline
@@ -14,7 +13,7 @@ module Renalware
         pattr_initialize :patient
 
         def call
-         # RemapModelTableNamesToTheirPreparedEquivalents.new.call do
+          # RemapModelTableNamesToTheirPreparedEquivalents.new.call do
           Rails.logger.info "    Generating Treatment rows for modalities #{modality_names}"
           modalities.each do |modality|
             generator = GeneratorFactory.call(modality)
@@ -27,7 +26,10 @@ module Renalware
 
         def modalities
           @modalities ||= begin
-            patient.modalities.includes(:description).order(started_on: :asc, updated_at: :asc)
+            patient
+              .modalities
+              .includes(:description, :created_by)
+              .order(started_on: :asc, updated_at: :asc)
           end
         end
 
@@ -38,4 +40,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Rails/Output

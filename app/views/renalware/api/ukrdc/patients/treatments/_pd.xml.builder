@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 xml = builder
 
 xml.Treatment do
@@ -15,4 +17,10 @@ xml.Treatment do
     xml.CodingStandard "CF_RR7_TREATMENT"
     xml.Code treatment.modality_code.txt_code
   end
+
+  render(
+    "renalware/api/ukrdc/patients/treatments/discharge_reason",
+    treatment: treatment,
+    builder: builder
+  )
 end

@@ -20,6 +20,12 @@ xml.Treatment do
     xml.Code treatment.modality_code.txt_code
   end
 
+  render(
+    "renalware/api/ukrdc/patients/treatments/discharge_reason",
+    treatment: treatment,
+    builder: builder
+  )
+
   # HD
   rr8 = treatment.hospital_unit&.unit_type_rr8
   if rr8.present?

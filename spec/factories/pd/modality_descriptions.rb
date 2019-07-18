@@ -6,5 +6,6 @@ FactoryBot.define do
       Renalware::PD::ModalityDescription.find_or_create_by!(name: name)
     end
     name { "PD" }
+    code { "pd" }
   end
 end

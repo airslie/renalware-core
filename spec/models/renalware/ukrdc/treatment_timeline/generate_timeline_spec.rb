@@ -12,6 +12,7 @@ module Renalware
       let(:user) { create(:user) }
       let(:patient) { create(:patient) }
       let(:hd_mod_desc) { create(:hd_modality_description) }
+      let(:transfer_out_mod_desc) { create(:modality_description, :transfer_out) }
       let(:hd_ukrdc_modality_code) { create(:ukrdc_modality_code, :hd) }
       let(:hdf_ukrdc_modality_code) { create(:ukrdc_modality_code, :hdf) }
 
@@ -73,6 +74,42 @@ module Renalware
             patient_id: patient.id,
             started_on: modality2.started_on,
             ended_on: modality2.ended_on
+          )
+        end
+      end
+
+      context "when the patient has 1 simple modality followed by a TransferOut modality" do
+        before do
+          hd_ukrdc_modality_code
+        end
+
+        it "generates 1 Treatment and assigns it the appropriate DischargeReason" do
+          options = { patient: patient, modality_description: hd_mod_desc, by: user }
+          set_modality(options.merge(started_on: 1.year.ago))
+          hd_modality2 = set_modality(options.merge(started_on: 1.month.ago))
+          transfer_out_mod = set_modality(
+            patient: patient,
+            modality_description: transfer_out_mod_desc,
+            started_on: 1.week.ago
+          )
+          # Patient returns from from a transfer out!
+          set_modality(options.merge(started_on: 1.day.ago))
+
+          service.call
+
+          treatments = UKRDC::Treatment.ordered
+          expect(treatments.size).to eq(3)
+
+          # Get the middle one in [0 1 2] where 2 is the last PD one
+          most_recent_treatment = treatments.ordered[1]
+          expect(most_recent_treatment).to have_attributes(
+            modality_code_id: hd_ukrdc_modality_code.id,
+            clinician_id: user.id,
+            patient_id: patient.id,
+            started_on: hd_modality2.started_on,
+            ended_on: transfer_out_mod.started_on,
+            discharge_reason_code: 38,
+            discharge_reason_comment: "transfer_out"
           )
         end
       end

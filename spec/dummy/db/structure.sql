@@ -2512,7 +2512,8 @@ CREATE TABLE modality_descriptions (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     hidden boolean DEFAULT false NOT NULL,
-    ukrdc_modality_code_id bigint
+    ukrdc_modality_code_id bigint,
+    code character varying
 );
 
 
@@ -7579,7 +7580,9 @@ CREATE TABLE ukrdc_treatments (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     hd_profile_id bigint,
-    pd_regime_id bigint
+    pd_regime_id bigint,
+    discharge_reason_code integer,
+    discharge_reason_comment character varying
 );
 
 
@@ -12021,6 +12024,13 @@ CREATE INDEX index_messaging_receipts_on_read_at ON messaging_receipts USING btr
 --
 
 CREATE INDEX index_messaging_receipts_on_recipient_id ON messaging_receipts USING btree (recipient_id);
+
+
+--
+-- Name: index_modality_descriptions_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_modality_descriptions_on_code ON modality_descriptions USING btree (code);
 
 
 --
@@ -16692,6 +16702,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190617121528'),
 ('20190705083727'),
 ('20190705105921'),
-('20190709101610');
+('20190709101610'),
+('20190718091430'),
+('20190718095851');
 
 

@@ -31,8 +31,7 @@ describe "Document element" do
   end
   let(:hd_modality_description) do
     create(
-      :modality_description,
-      :hd,
+      :hd_modality_description,
       ukrdc_modality_code_id: create(:ukrdc_modality_code, :hd).id
     )
   end
@@ -58,7 +57,7 @@ describe "Document element" do
     end
   end
 
-  context "when the modality is current and has no ended_on" do
+  context "when the modality has an end date" do
     let(:modality_ended_on) { "2018-12-31" }
 
     it "renders modality ToTime" do
@@ -99,7 +98,7 @@ describe "Document element" do
     end
   end
 
-  context "when modality is HP" do
+  context "when modality is HD" do
     it "uses the default site code for the location of treatment" do
       allow(Renalware.config).to receive(:ukrdc_site_code).and_return("XYZ")
       create(
@@ -112,6 +111,29 @@ describe "Document element" do
 
       expect(rendered).to include(
         "<HealthCareFacility><CodingStandard>ODS</CodingStandard><Code>XYZ</Code>"
+      )
+    end
+  end
+
+  context "when patient has transferred out" do
+    it "renders a discharge reason of 38" do
+      create(
+        :modality,
+        patient: patient,
+        description: pd_modality_description,
+        started_on: 1.year.ago,
+        ended_on: 6.months.ago
+      )
+      create(
+        :modality,
+        patient: patient,
+        description: create(:modality_description, :transfer_out),
+        started_on: 6.months.ago,
+        ended_on: nil
+      )
+
+      expect(rendered).to include(
+        "<DischargeReason"
       )
     end
   end

@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+module Renalware
+  module UKRDC
+    describe TreatmentTimeline::Transplant::Generator do
+      include PatientsSpecHelper
+      subject(:generator) { described_class.new(modality) }
+
+      it do
+      end
+    end
+  end
+end
