@@ -9,6 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.93
+18-07-2019
+### Added
+### Changed
+- UKRDC treatment changes
+- GPG encryption changes to avoid use of random_seed file
+### Fixed
+
 ## 2.0.92
 11-07-2019
 ### Added
