@@ -26,7 +26,9 @@ module Renalware
           )
           create(:patient, send_to_rpv: false, send_to_renalreg: false)
 
-          expect(described_class.new.call(changed_since_last_send: false)).to eq([patient1, patient2])
+          expect(
+            described_class.new.call(changed_since_last_send: false)
+          ).to eq([patient1, patient2])
         end
       end
 
