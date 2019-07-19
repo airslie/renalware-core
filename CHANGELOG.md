@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.94
+19-07-2019
+### Added
+### Changed
+### Fixed
+Fix extraction of rr41 from session#access_type_abbreviation #2756
+
 ## 2.0.93
 18-07-2019
 ### Added
