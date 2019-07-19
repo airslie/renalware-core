@@ -143,10 +143,13 @@ module Renalware
         access_type_abbreviation.split(" ").first
       end
 
+      # We only store the abbreviated access (rr02 + " " + rr41) so to resolve rr41, take the last
+      # word if there are >1 words in the abbreviation
       def access_rr41_code
         return if access_type_abbreviation.blank?
 
-        access_type_abbreviation.split(" ").last
+        parts = access_type_abbreviation.split(" ")
+        return parts.last if parts.length > 1
       end
 
       protected
