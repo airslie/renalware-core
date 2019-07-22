@@ -63,6 +63,35 @@ module Renalware
             expect(resolved_profile_id).to eq(hd_profile.id)
           end
         end
+
+        context "when an HD modality has no HD profile in its lifespan" do
+          it "looks ahead to find the first one it can and uses that" do
+            old_hd_modality = create(
+              :modality,
+              description: hd_modality_description,
+              patient: patient,
+              started_on: 10.years.ago,
+              ended_on: 9.years.ago
+            )
+            newer_hd_modality = create(
+              :modality,
+              description: hd_modality_description,
+              patient: patient,
+              started_on: 1.year.ago
+            )
+            hd_profile = travel_to newer_hd_modality.started_on + 1.day do
+              create(:hd_profile, patient: patient)
+            end
+
+            expect(
+              described_class.find_by!(modality_id: old_hd_modality.id).hd_profile_id
+            ).to eq hd_profile.id
+
+            expect(
+              described_class.find_by!(modality_id: newer_hd_modality.id).hd_profile_id
+            ).to eq hd_profile.id
+          end
+        end
       end
     end
   end
