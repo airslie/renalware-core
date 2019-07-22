@@ -217,8 +217,16 @@ module Renalware
           it { is_expected.to eq("A, B") }
         end
       end
+    end
 
-      # context "when the patient has no title" do
+    describe "#ukrdc_external_id" do
+      context "when the patient is saved without a value being explicitly set" do
+        it "postgres creates a default value" do
+          patient = create(:patient)
+
+          expect(patient.reload.ukrdc_external_id.length).to be > 0
+        end
+      end
     end
   end
 end

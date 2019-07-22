@@ -4471,7 +4471,7 @@ CREATE TABLE patients (
     rpv_decision_on date,
     renalreg_recorded_by character varying,
     rpv_recorded_by character varying,
-    ukrdc_external_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    ukrdc_external_id text DEFAULT public.uuid_generate_v4(),
     country_of_birth_id integer,
     legacy_patient_id integer,
     secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
@@ -12618,7 +12618,7 @@ CREATE INDEX index_patients_on_sent_to_ukrdc_at ON patients USING btree (sent_to
 -- Name: index_patients_on_ukrdc_external_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_patients_on_ukrdc_external_id ON patients USING btree (ukrdc_external_id);
+CREATE UNIQUE INDEX index_patients_on_ukrdc_external_id ON patients USING btree (ukrdc_external_id);
 
 
 --
@@ -16704,6 +16704,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190705105921'),
 ('20190709101610'),
 ('20190718091430'),
-('20190718095851');
+('20190718095851'),
+('20190722145936');
 
 
