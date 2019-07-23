@@ -94,10 +94,13 @@ module Renalware
       end
 
       def clinic_visits
-        clinics_patient
-          .clinic_visits
-          .where("date >= ?", changes_since)
-          .includes(:updated_by)
+        @clinic_visits ||= begin
+          visits = clinics_patient
+            .clinic_visits
+            .where("date >= ?", changes_since)
+            .includes(:updated_by)
+          CollectionPresenter.new(visits, Clinics::ClinicVisitPresenter)
+        end
       end
 
       def treatments
