@@ -11,7 +11,7 @@ module Renalware
 
     describe "#rr_type enum" do
       it "defaults to 0 (simple)" do
-        expect(described_class.new.rr_type).to eq("simple")
+        expect(described_class.new.rr_type).to eq("rr_type_simple")
       end
     end
 
