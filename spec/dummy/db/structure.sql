@@ -3853,7 +3853,9 @@ CREATE TABLE pathology_observation_descriptions (
     letter_group integer,
     letter_order integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    rr_type integer DEFAULT 0 NOT NULL,
+    rr_coding_standard integer DEFAULT 0 NOT NULL
 );
 
 
@@ -16705,6 +16707,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190709101610'),
 ('20190718091430'),
 ('20190718095851'),
-('20190722145936');
+('20190722145936'),
+('20190723150737');
 
 
