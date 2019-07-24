@@ -31,7 +31,7 @@ xml.Observations(
 
     render "clinic_visit_observation",
            visit: visit,
-           method: :height,
+           method: :height_in_cm,
            i18n_key: "height",
            builder: builder
   end

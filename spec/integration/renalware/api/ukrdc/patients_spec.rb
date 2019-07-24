@@ -114,7 +114,7 @@ describe "API request for a single UKRDC patient XML document", type: :request d
       # pathology_observation_description#loinc_code stores the Patient View (PV) code mapping.
       expect(xml).to match("<Code>hgb</Code>")
       expect(xml).to match("<Code>wbc</Code>")
-      expect(xml).to match("<CodingStandard>PV</CodingStandard>")
+      expect(xml).to match("<CodingStandard>UKRR</CodingStandard>")
     end
   end
 

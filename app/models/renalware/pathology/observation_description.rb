@@ -21,6 +21,9 @@ module Renalware
         .order([:display_group, :display_order])
       }
 
+      enum rr_type: { rr_type_simple: 0, rr_type_interpretation: 1 }
+      enum rr_coding_standard: { ukrr: 0, pv: 1 }
+
       def self.for(codes)
         ObservationDescriptionsByCodeQuery.new(codes: codes).call
       end

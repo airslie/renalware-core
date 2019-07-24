@@ -5,7 +5,8 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ObservationPresenter < SimpleDelegator
-      delegate :name, :code, :loinc_code, to: :description, prefix: true, allow_nil: true
+      delegate :name, :code, :loinc_code, :rr_type, :rr_coding_standard,
+               to: :description, prefix: true, allow_nil: true
       delegate :measurement_unit, to: :description, allow_nil: true
       delegate :name, to: :measurement_unit, prefix: true, allow_nil: true
 
