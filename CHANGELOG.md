@@ -9,6 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.95
+23-07-2019
+### Added
+### Changed
+- UKRDC LabOrder changes #2762
+- Change patient ukrdc_external_id type from uuid to string #2760
+### Fixed
+
 ## 2.0.94
 19-07-2019
 ### Added
