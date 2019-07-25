@@ -23,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.95)
+    renalware-core (2.0.96)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.28.0)
       ahoy_matey (~> 2.1)

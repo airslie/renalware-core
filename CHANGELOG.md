@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.97
+### Added
+### Changed
+### Fixed
+- Fix slow UKRDC path query
+
 ## 2.0.95
 23-07-2019
 ### Added
