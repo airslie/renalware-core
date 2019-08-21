@@ -11,6 +11,12 @@ This project adheres to Semantic Versioning.
 
 ## 2.0.97
 ### Added
+- Add a configurable ukrdc_pathology_start_date #2781
+### Changed
+### Fixed
+
+## 2.0.96
+### Added
 ### Changed
 ### Fixed
 - Fix slow UKRDC path query

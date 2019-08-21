@@ -17,12 +17,27 @@ module Renalware
       def observation_requests
         Pathology::ObservationRequest
           .where(id: Pathology::ObservationRequest.distinct_for_patient_id(patient_id))
-          .where("requested_at >= ?", changes_since)
+          .where("requested_at >= ?", effective_changes_since)
           .where("loinc_code is not null")
           .eager_load(
             :description,
             observations: { description: :measurement_unit }
           )
+      end
+
+      # If there is a pathology_start_date configured in an ENV var, use this
+      # for fetching pathology. This allows us to send a one-off batch of patients
+      # with historical pathology. Most of the time this setting is not present, and
+      # default to using changes_since.
+      def effective_changes_since
+        configured_pathology_start_date || changes_since
+      end
+
+      def configured_pathology_start_date
+        start_date = Renalware.config.ukrdc_pathology_start_date
+        return if start_date.blank?
+
+        Date.parse(start_date)
       end
     end
   end
