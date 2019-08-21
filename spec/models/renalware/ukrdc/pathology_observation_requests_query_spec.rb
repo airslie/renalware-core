@@ -56,6 +56,43 @@ module Renalware
             .to have_received(:distinct_for_patient_id).with(patient.id)
         end
       end
+
+      context "when config.ukrdc_pathology_start_date is confgured as earlier date" do
+        let(:changes_since) { 1.day.ago }
+
+        it "fetches pathology since the configured ukrdc_pathology_start_date" do
+          allow(Renalware.config)
+            .to receive(:ukrdc_pathology_start_date)
+            .and_return("01-01-2011")
+
+          recent_request = create_request_with_observations(
+            requested_at: 1.day.ago,
+            patient: patient
+          )
+          old_request = create_request_with_observations(
+            requested_at: 3.days.ago,
+            patient: patient
+          )
+          _ancient_request = create_request_with_observations(
+            requested_at: 200.years.ago,
+            patient: patient
+          )
+
+          expect(query.call).to eq [recent_request, old_request]
+        end
+      end
+
+      context "when config.ukrdc_pathology_start_date is not a date" do
+        let(:changes_since) { 1.day.ago }
+
+        it "uses the overriden age" do
+          allow(Renalware.config)
+            .to receive(:ukrdc_pathology_start_date)
+            .and_return("ssdf")
+
+          expect { query.call }.to raise_error(ArgumentError)
+        end
+      end
     end
   end
 end

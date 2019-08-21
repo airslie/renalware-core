@@ -67,7 +67,16 @@ module Renalware
     end
     config_accessor(:ukrdc_site_code) { ENV.fetch("UKRDC_PREFIX", "RJZ") }
 
-    # We override this in some tests as a means of getting wicked_Pdf to generate an HTML version
+    # To use a date other that the default changes_since date when
+    # compiling pathology to send to UKRDC, you can set an ENV var as follows:
+    #   UKRDC_PATHOLOGY_START_DATE=01-01-2011
+    # in the .env file (or e.g. .env.production) and we will always fetch pathology
+    # from this date on. It only affects pathology and not medications, letters etc.
+    # It is not indented to keep this date set, but its useful if UKRDC ask for
+    # a dump of historical pathology.
+    config_accessor(:ukrdc_pathology_start_date) { ENV["UKRDC_PATHOLOGY_START_DATE"] }
+
+    # We override this in some tests as a means of getting wicked_pdf to generate an HTML version
     # of the PDF so we can examine its content
     config_accessor(:render_pdf_as_html_for_debugging) { false }
 
