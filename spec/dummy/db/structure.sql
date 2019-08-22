@@ -5761,6 +5761,36 @@ ALTER SEQUENCE renal_aki_alerts_id_seq OWNED BY renal_aki_alerts.id;
 
 
 --
+-- Name: renal_consultants; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renal_consultants (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    name character varying
+);
+
+
+--
+-- Name: renal_consultants_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renal_consultants_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: renal_consultants_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renal_consultants_id_seq OWNED BY renal_consultants.id;
+
+
+--
 -- Name: renal_prd_descriptions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8619,6 +8649,13 @@ ALTER TABLE ONLY renal_aki_alerts ALTER COLUMN id SET DEFAULT nextval('renal_aki
 
 
 --
+-- Name: renal_consultants id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renal_consultants ALTER COLUMN id SET DEFAULT nextval('renal_consultants_id_seq'::regclass);
+
+
+--
 -- Name: renal_prd_descriptions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -9961,6 +9998,14 @@ ALTER TABLE ONLY renal_aki_alert_actions
 
 ALTER TABLE ONLY renal_aki_alerts
     ADD CONSTRAINT renal_aki_alerts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: renal_consultants renal_consultants_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renal_consultants
+    ADD CONSTRAINT renal_consultants_pkey PRIMARY KEY (id);
 
 
 --
@@ -12944,6 +12989,13 @@ CREATE INDEX index_renal_aki_alerts_on_patient_id ON renal_aki_alerts USING btre
 --
 
 CREATE INDEX index_renal_aki_alerts_on_updated_by_id ON renal_aki_alerts USING btree (updated_by_id);
+
+
+--
+-- Name: index_renal_consultants_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_renal_consultants_on_code ON renal_consultants USING btree (code);
 
 
 --
@@ -16710,6 +16762,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190718095851'),
 ('20190722145936'),
 ('20190723150737'),
-('20190822175644');
+('20190822175644'),
+('20190822180201');
 
 
