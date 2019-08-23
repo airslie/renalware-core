@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.99
+23-08-2019
+### Added
+- Add option on signup for user to request write access
+### Changed
+### Fixed
+
 ## 2.0.98
 23-08-2019
 ### Added
