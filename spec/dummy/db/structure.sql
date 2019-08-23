@@ -1341,7 +1341,9 @@ CREATE TABLE clinic_appointments (
     patient_id integer NOT NULL,
     user_id integer NOT NULL,
     clinic_id integer NOT NULL,
-    becomes_visit_id integer
+    becomes_visit_id integer,
+    outcome_notes text,
+    dna_notes text
 );
 
 
@@ -16763,6 +16765,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190722145936'),
 ('20190723150737'),
 ('20190822175644'),
-('20190822180201');
+('20190822180201'),
+('20190823044107');
 
 
