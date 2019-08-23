@@ -74,6 +74,7 @@ module Renalware
         regime = patient.pd_regimes
                         .order(start_date: :desc, created_at: :desc)
                         .where(type: regime_type).first
+        regime&.start_date = Time.zone.today
         regime&.deep_dup
       end
 
