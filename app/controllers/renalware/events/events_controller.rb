@@ -175,7 +175,7 @@ module Renalware
       end
 
       def event_types
-        Renalware::Events::Type.order(:name).map do |event_type|
+        Renalware::Events::Type.visible.order(:name).map do |event_type|
           [
             event_type.name,
             event_type.id,
