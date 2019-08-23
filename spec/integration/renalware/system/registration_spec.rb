@@ -62,11 +62,15 @@ module Renalware
       fill_in "Email", with: "aneurin.bevan@nhs.net"
       fill_in "Password", with: "supersecret"
       fill_in "Password confirmation", with: "supersecret"
+      check "Write access required"
 
       click_on "Sign up"
 
       expect(page).to have_current_path(new_user_session_path)
       # TODO: There should be a message explaining that admin approval is required before login.
+
+      user = Renalware::User.find_by(username: "bevana")
+      expect(user.asked_for_write_access).to eq(true)
     end
   end
 end

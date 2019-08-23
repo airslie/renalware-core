@@ -19,6 +19,18 @@
               as: :password,
               input_html: { autocomplete: "off" },
               wrapper: :horizontal_small
+
+
+    .panel
+      b
+        | Check this box if you feel you should have full access to the database.
+        br
+        | Leaving the box unchecked means you will have read-only access.
+      br
+      br
+
+      = f.input :asked_for_write_access, label: "Write access required"
+
     = f.submit "Sign up", class: "button save"
 
   = render "devise/shared/links"

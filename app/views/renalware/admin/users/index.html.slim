@@ -16,6 +16,7 @@
                                      "User")
       th.col-width-small= sort_link(user_search, :username, "Login")
       th= sort_link(user_search, :email, "Email")
+      th.col-width-small Requested write access
       th.col-width-medium Role
       th.col-width-tiny= sort_link(user_search, :approved, "Approved")
       th.col-width-date= sort_link(user_search, :expired_at, "Expired On")
@@ -35,13 +36,18 @@
           td= user.username
           td= user.email
           td
+            - if user.asked_for_write_access?
+              i.far.fa-check-square
+            - else
+              i.muted.far.fa-square
+          td
             - user.roles.each do |role|
               span.tag(class=role.name)= role.name.humanize
-          td.approved
+          td
             - if user.approved?
               i.far.fa-check-square
             - else
-              i.unapproved.far.fa-square
+              i.muted.unapproved.far.fa-square
           td.expired= l(user.expired_at&.to_date)
           td.show-for-large-up= l(user.current_sign_in_at)
           td.show-for-large-up= l(user.last_sign_in_at)
