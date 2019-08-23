@@ -20,6 +20,7 @@ module Renalware
         configure_account_update_parameters
       end
 
+      # rubocop:disable Metrics/MethodLength
       def configure_sign_up_parameters
         devise_parameter_sanitizer.permit(
           :sign_up,
@@ -30,10 +31,12 @@ module Renalware
             :email,
             :password,
             :password_confirmation,
+            :asked_for_write_access,
             :remember_me
           ]
         )
       end
+      # rubocop:enable Metrics/MethodLength
 
       def configure_sign_in_parameters
         devise_parameter_sanitizer.permit(:sign_in, keys: [:username, :password, :remember_me])
