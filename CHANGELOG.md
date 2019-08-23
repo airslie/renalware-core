@@ -9,6 +9,16 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.98
+23-08-2019
+### Added
+- Add dna and outcome notes columns to appointments #2813
+- Add consultants table #2782
+- Add legacy_code column to pathology_observation_descriptions #2784
+### Changed
+- Create new PD regime - start date should be todays date #2791
+### Fixed
+
 ## 2.0.97
 ### Added
 - Add a configurable ukrdc_pathology_start_date #2781
