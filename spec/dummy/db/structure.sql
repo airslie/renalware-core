@@ -1867,7 +1867,8 @@ CREATE TABLE event_types (
     event_class_name character varying,
     slug character varying,
     save_pdf_to_electronic_public_register boolean DEFAULT false NOT NULL,
-    title character varying
+    title character varying,
+    hidden boolean DEFAULT false NOT NULL
 );
 
 
@@ -16766,6 +16767,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190723150737'),
 ('20190822175644'),
 ('20190822180201'),
-('20190823044107');
+('20190823044107'),
+('20190823051014');
 
 

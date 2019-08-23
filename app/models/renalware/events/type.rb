@@ -19,6 +19,8 @@ module Renalware
                 uniqueness: true,
                 allow_nil: true
 
+      scope :visible, -> { where(hidden: false) }
+
       def self.policy_class
         BasePolicy
       end

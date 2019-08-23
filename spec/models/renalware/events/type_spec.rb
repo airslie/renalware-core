@@ -25,6 +25,17 @@ module Renalware::Events
           expect(Type.new.event_class_name).to eq(Type::DEFAULT_EVENT_CLASS_NAME)
         end
       end
+
+      describe "#visible" do
+        it "returns only types which are not hidden" do
+          _hidden_event = create(:event_type, name: "A", hidden: true)
+          visible_event = create(:event_type, name: "B", hidden: false)
+
+          types = described_class.visible
+
+          expect(types).to eq([visible_event])
+        end
+      end
     end
   end
 end

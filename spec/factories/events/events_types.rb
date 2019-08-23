@@ -6,6 +6,7 @@ FactoryBot.define do
 
     factory :access_clinic_event_type do
       name { "Access--Clinic" }
+      hidden { false }
     end
 
     factory :swab_event_type do
