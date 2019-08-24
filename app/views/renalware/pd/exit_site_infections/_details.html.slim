@@ -9,7 +9,7 @@
     dt Treatment:
     dd= exit_site_infection.treatment
     dt Notes:
-    dd= exit_site_infection.notes
+    dd= simple_format(exit_site_infection.notes)
     dt= attr_name(exit_site_infection, :clinical_presentation)
     dd= exit_site_infection.clinical_presentation&.texts&.join(", ")
     - %i(recurrent cleared catheter_removed).each do |option|
