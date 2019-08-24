@@ -41,7 +41,7 @@
   .row
     .large-12.columns
       = article_tag "Peritonitis Episode Notes" do
-        p= peritonitis_episode.notes
+        = simple_format(peritonitis_episode.notes)
 
   .right
     = link_to "Edit",
