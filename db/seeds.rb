@@ -20,6 +20,7 @@ def log(msg, type: :full)
   end
 end
 
+PaperTrail.enabled = false
 
 # Seed the database with data common to all installations.
 # Site specific data should be seeded from the host application.

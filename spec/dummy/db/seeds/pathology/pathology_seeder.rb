@@ -8,15 +8,17 @@ module Renalware
     end
 
     def seed_pathology_requests_for(patient:)
-      log "Adding Pathology Requests (OBR) for #{patient}" do
-        file_path = file_path_for(patient: patient, file_name: "pathology_obr.csv")
-        CSV.foreach(file_path, headers: true) do |row|
-          request_desc = Pathology::RequestDescription.find_by!(code: row["description"])
-          patient.observation_requests.find_or_create_by!(id: row["id"].to_i) do |obr|
-            obr.description = request_desc
-            obr.requestor_order_number = row["order_no"]
-            obr.requested_at = Date.parse(row["requested_at"])
-            obr.requestor_name = row["requestor_name"]
+      Pathology::ObservationRequest.transaction do
+        log "Adding Pathology Requests (OBR) for #{patient}" do
+          file_path = file_path_for(patient: patient, file_name: "pathology_obr.csv")
+          CSV.foreach(file_path, headers: true) do |row|
+            request_desc = Pathology::RequestDescription.find_by!(code: row["description"])
+            patient.observation_requests.find_or_create_by!(id: row["id"].to_i) do |obr|
+              obr.description = request_desc
+              obr.requestor_order_number = row["order_no"]
+              obr.requested_at = Date.parse(row["requested_at"])
+              obr.requestor_name = row["requestor_name"]
+            end
           end
         end
       end
@@ -41,7 +43,7 @@ module Renalware
         Pathology::Observation.import! observations
       end
     end
-    # rubocop:enbale Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     def seed_pathology_for(local_patient_id:)
       patient = Patient.find_by(local_patient_id: local_patient_id)
