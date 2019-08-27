@@ -52,6 +52,7 @@ namespace :ukrdc do
     logger           = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
     logger.level     = Logger::INFO
     Rails.logger     = logger
+    logger.info "UKRDC housekeeping"
     Renalware::UKRDC::Housekeeping::RemoveOldExportArchiveFolders.call
   end
 end

@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.100
+27-08-2019
+### Added
+- Add housekeeping rake task #2763
+### Changed
+### Fixed
+
 ## 2.0.99
 23-08-2019
 ### Added
