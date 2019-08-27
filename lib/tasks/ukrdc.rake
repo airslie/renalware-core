@@ -47,4 +47,11 @@ namespace :ukrdc do
     Rails.logger     = logger
     Renalware::UKRDC::TreatmentTimeline::GenerateTreatments.call
   end
+
+  task housekeeping: :environment do
+    logger           = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+    logger.level     = Logger::INFO
+    Rails.logger     = logger
+    Renalware::UKRDC::Housekeeping::RemoveOldExportArchiveFolders.call
+  end
 end
