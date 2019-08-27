@@ -36,13 +36,11 @@ module Renalware
 
       def call
         logger.tagged(request_uuid) do
-          # ActiveRecord::Base.transaction do
           summary.milliseconds_taken = Benchmark.ms do
             create_patient_xml_files
             encrypt_patient_xml_files
             copy_encrypted_xml_files_into_the_outgoing_folder
           end
-          # end
           paths.create_symlink_to_latest_timestamped_folder_so_it_is_easier_to_eyeball
           build_summary
           print_summary
@@ -93,7 +91,7 @@ module Renalware
         summary.results = export_results
       end
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def ukrdc_patients_who_have_changed_since_last_send
         @ukrdc_patients_who_have_changed_since_last_send ||= begin
           logger.info("Finding #{patient_ids&.any? ? patient_ids : 'all ukrdc'} patients")
@@ -115,7 +113,7 @@ module Renalware
           query.all
         end
       end
-      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       # rubocop:disable Metrics/AbcSize
       def print_summary

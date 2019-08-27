@@ -66,6 +66,9 @@ module Renalware
       ENV.fetch("UKRDC_WORKING_PATH", File.join("/var", "ukrdc"))
     end
     config_accessor(:ukrdc_site_code) { ENV.fetch("UKRDC_PREFIX", "RJZ") }
+    config_accessor(:ukrdc_number_of_archived_folders_to_keep) do
+      ENV.fetch("UKRDC_NUMBER_OF_ARCHIVED_FOLDERS_TO_KEEP", "3")
+    end
 
     # To use a date other that the default changes_since date when
     # compiling pathology to send to UKRDC, you can set an ENV var as follows:
