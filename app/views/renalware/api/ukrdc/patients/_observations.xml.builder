@@ -35,4 +35,7 @@ xml.Observations(
            i18n_key: "height",
            builder: builder
   end
+  patient.finished_hd_sessions.each do |session|
+    render "hd_session_observations", session: session, builder: builder
+  end
 end

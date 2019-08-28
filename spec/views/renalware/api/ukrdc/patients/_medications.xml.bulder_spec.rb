@@ -66,6 +66,10 @@ describe "Medications element" do
           <Medication>
             <FromTime>#{2.weeks.ago.to_date.iso8601}T00:00:00+00:00</FromTime>
             <ToTime>#{1.week.ago.to_date.iso8601}T00:00:00+00:00</ToTime>
+            <EnteringOrganization>
+              <CodingStandard>ODS</CodingStandard>
+              <Code>RJZ</Code>
+            </EnteringOrganization>
             <Route>
               <CodingStandard>RR22</CodingStandard>
               <Code/>
@@ -86,6 +90,10 @@ describe "Medications element" do
           </Medication>
           <Medication>
             <FromTime>#{1.week.ago.to_date.iso8601}T00:00:00+00:00</FromTime>
+            <EnteringOrganization>
+              <CodingStandard>ODS</CodingStandard>
+              <Code>RJZ</Code>
+            </EnteringOrganization>
             <Route>
               <CodingStandard>RR22</CodingStandard>
               <Code/>
@@ -121,6 +129,10 @@ describe "Medications element" do
       <Medications>
         <Medication>
           <FromTime>#{1.week.ago.to_date.iso8601}T00:00:00+00:00</FromTime>
+          <EnteringOrganization>
+            <CodingStandard>ODS</CodingStandard>
+            <Code>RJZ</Code>
+          </EnteringOrganization>
           <Route>
             <CodingStandard>RR22</CodingStandard>
             <Code/>

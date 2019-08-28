@@ -20,3 +20,15 @@ en:
       code: height
       description: Height Measured
       units: "cm"
+    temperature:
+      code: temperature
+      description: Temperature
+      units: "C"
+    bm_stix:
+      code: bm_stix
+      description: bm_stix
+      units: "?"
+    respiratory_rate:
+      code: respiratory_rate
+      description: respiratory_rate
+      units: "?"
