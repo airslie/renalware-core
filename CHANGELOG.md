@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.101
+28-08-2019
+### Added
+### Changed
+### Fixed
+
 ## 2.0.100
 27-08-2019
 ### Added
