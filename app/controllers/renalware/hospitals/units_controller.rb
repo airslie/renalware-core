@@ -24,7 +24,7 @@ module Renalware
       end
 
       def index
-        hospital_units = Unit.all
+        hospital_units = Unit.includes(:hospital_centre).all
         authorize hospital_units
         render locals: { hospital_units: hospital_units }
       end

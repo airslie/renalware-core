@@ -6,6 +6,10 @@ module Renalware
       def sort?
         edit?
       end
+
+      def index
+        true
+      end
     end
   end
 end

@@ -1,5 +1,6 @@
 = content_for(:actions) do
-  = link_to t("new_record.link_title"), new_hospitals_unit_path, class: "button"
+  - if pundit_policy_for(Renalware::Hospitals::Centre).create?
+    = link_to t("new_record.link_title"), new_hospitals_unit_path, class: "button"
 
 = within_admin_layout(title: "Hospital Units") do
 
@@ -19,12 +20,14 @@
       - hospital_units.each do |unit|
         tr
           td
-            = link_to "Edit", edit_hospitals_unit_path(unit.id)
-            = pipe_separator
-            = link_to "Delete",
-                      hospitals_unit_path(unit.id),
-                      method: :delete,
-                      data: { confirm: I18n.t("prompts.confirm_delete") }
+            - if policy(unit).edit?
+              = link_to "Edit", edit_hospitals_unit_path(unit.id)
+              = pipe_separator
+            - if policy(unit).destroy?
+              = link_to "Delete",
+                        hospitals_unit_path(unit.id),
+                        method: :delete,
+                        data: { confirm: I18n.t("prompts.confirm_delete") }
           td= unit.unit_code
           td= unit.name
           td= unit.hospital_centre
@@ -33,8 +36,11 @@
           td= yes_no unit.is_hd_site
           td= Renalware::HD::Station.where(hospital_unit_id: unit.id).count
           td.actions
-            = link_to("HD Stations", hd_unit_stations_path(unit))
-            = pipe_separator
-            = link_to("HD Diaries", hd_unit_diaries_path(unit))
-            = pipe_separator
-            = link_to("Wards", hospitals_unit_wards_path(unit))
+            - if pundit_policy_for(Renalware::HD::Station).index?
+              = link_to("HD Stations", hd_unit_stations_path(unit))
+              = pipe_separator
+            - if pundit_policy_for(Renalware::HD::Diary).index?
+              = link_to("HD Diaries", hd_unit_diaries_path(unit))
+            - if pundit_policy_for(Renalware::Hospitals::Ward).index?
+              = pipe_separator
+              = link_to("Wards", hospitals_unit_wards_path(unit))

@@ -9,7 +9,7 @@ module Renalware
       include PresenterHelper
 
       def index
-        stations = Station.for_unit(unit_id).ordered
+        stations = Station.for_unit(unit_id).includes(:location).ordered
         authorize stations
         render locals: {
           unit_id: unit_id,

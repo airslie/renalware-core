@@ -12,6 +12,10 @@ module Renalware
 
         "background-color: #{location&.colour}"
       end
+
+      def self.policy_class
+        StationPolicy
+      end
     end
   end
 end

@@ -1,7 +1,8 @@
 = content_for(:actions) do
-  = link_to "Add",
-          new_hospitals_unit_ward_path(unit),
-          class: "button"
+  - if policy(Renalware::Hospitals::Ward.new).create?
+    = link_to "Add",
+            new_hospitals_unit_ward_path(unit),
+            class: "button"
 
 = within_admin_layout(title: "Wards", breadcrumbs: \
     breadcrumb_for(unit.name, hospitals_units_path)) do
