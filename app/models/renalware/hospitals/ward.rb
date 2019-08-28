@@ -13,10 +13,6 @@ module Renalware
       scope :ordered, -> { order(:name) }
       scope :active, -> { where(active: true) }
 
-      def self.policy_class
-        BasePolicy
-      end
-
       def to_s
         name
       end

@@ -5,7 +5,12 @@ require_dependency "renalware/hospitals"
 module Renalware
   module Hospitals
     class Centre < ApplicationRecord
-      has_many :units, class_name: "Hospitals::Unit", foreign_key: :hospital_centre_id
+      has_many(
+        :units,
+        class_name: "Hospitals::Unit",
+        foreign_key: :hospital_centre_id,
+        dependent: :restrict_with_exception
+      )
 
       scope :ordered, -> { order(:name) }
       scope :active, -> { where(active: true) }
@@ -17,6 +22,10 @@ module Renalware
 
       def hd_sites
         units.hd_sites.ordered
+      end
+
+      def self.policy_class
+        BasePolicy
       end
 
       def to_s

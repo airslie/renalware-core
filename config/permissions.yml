@@ -1,6 +1,8 @@
 super_admin:
   - Renalware::Role
   - Renalware::Hospitals::Ward
+  - Renalware::Hospitals::Centre
+  - Renalware::Hospitals::Unit
   - Renalware::HD::Dialysate
   - Renalware::HD::Dialyser
   - Renalware::HD::CannulationType
@@ -16,6 +18,5 @@ admin:
   - Renalware::Modality::Description
   - Renalware::OrganismCode
   - Renalware::PRDDescription
-  - Renalware::Hospitals::Unit
-  - Renalware::HD::Station
   - Renalware::HD::TransmissionLog
+  - Renalware::HD::Station
