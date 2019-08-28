@@ -11,6 +11,7 @@ module Renalware
       # id of the UKRDC::BatchNumber model created at the start of each export. We can find the
       # folders to remove by extracting the batch number from the folder name and deleting the
       # folder if that batch is no longer 'recent'.
+      # Called from a housekeeping rake task.
       class RemoveOldExportArchiveFolders
         def self.call
           new.call
