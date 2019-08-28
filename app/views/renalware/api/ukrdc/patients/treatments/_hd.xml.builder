@@ -8,10 +8,12 @@ xml.Treatment do
   xml.FromTime treatment.started_on&.iso8601
   xml.ToTime(treatment.ended_on&.iso8601) if treatment.ended_on.present?
 
-  if treatment.hospital_unit.present?
-    xml.HealthCareFacility do
-      xml.CodingStandard "ODS"
+  xml.HealthCareFacility do
+    xml.CodingStandard "ODS"
+    if treatment.hospital_unit.present?
       xml.Code treatment.hospital_unit.renal_registry_code
+    else
+      xml.Code Renalware.config.ukrdc_site_code
     end
   end
 
