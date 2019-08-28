@@ -9,6 +9,10 @@ xml.Medications do
       if prescription.terminated_or_marked_for_termination?
         xml.ToTime prescription.terminated_on&.to_datetime
       end
+      xml.EnteringOrganization do
+        xml.CodingStandard "ODS"
+        xml.Code Renalware.config.ukrdc_site_code
+      end
       xml.Route do
         xml.CodingStandard "RR22"
         xml.Code prescription.medication_route&.rr_code
