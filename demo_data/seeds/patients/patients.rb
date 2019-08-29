@@ -32,8 +32,17 @@ module Renalware
           end
         end
 
-        Patient.import! patients
+        address = pat.current_address || pat.build_current_address
+        address.street_1 = Faker::Address.secondary_address
+        address.street_2 = Faker::Address.street_address
+        address.town = Faker::Address.city
+        address.county = Faker::Address.state
+        address.postcode = Faker::Address.postcode
+        address.country = countries.sample
+        patients << pat
       end
+
+      Patient.import! patients, validate: false
     end
   end
 end
