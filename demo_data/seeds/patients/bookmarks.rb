@@ -8,15 +8,13 @@ module Renalware
     current_bookmarks = Patients::Bookmark.all.select(:user_id, :patient_id)
     new_bookmarks = []
 
-    Patient.transaction do
-      [roger_rabbit, jessica_rabbit, francois_rabbit].each do |patient|
-        User.pluck(:id).each do |user_id|
-          next if current_bookmarks.find do |bookmark|
-            bookmark.patient_id = patient.id && bookmark.user_id = user_id
-          end
-
-          new_bookmarks << Patients::Bookmark.new(user_id: user_id, patient_id: patient.id)
+    [roger_rabbit, jessica_rabbit, francois_rabbit].each do |patient|
+      User.pluck(:id).each do |user_id|
+        next if current_bookmarks.find do |bookmark|
+          bookmark.patient_id = patient.id && bookmark.user_id = user_id
         end
+
+        new_bookmarks << Patients::Bookmark.new(user_id: user_id, patient_id: patient.id)
       end
     end
     Patients::Bookmark.import!(new_bookmarks)
