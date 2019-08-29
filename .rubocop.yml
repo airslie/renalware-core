@@ -59,3 +59,5 @@ RSpec/DescribeClass:
   Enabled: false
 RSpec/ImplicitSubject:
   Enabled: false
+RSpec/DescribedClass:
+  Enabled: false

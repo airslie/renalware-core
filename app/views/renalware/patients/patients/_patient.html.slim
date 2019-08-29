@@ -6,7 +6,7 @@ tr
   td= patient.sex.code
   td= patient.born_on
   td= patient.age
-  - if(patient.send_to_rpv?)
+  - if patient.send_to_rpv?
     td(title="#{patient.rpv_decision}")
       i.fas.fa-check
   -else

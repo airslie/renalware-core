@@ -6,6 +6,5 @@
 -# Template Dependency: renalware/**/summary_part
 = within_patient_layout(title: "Clinical Summary") do
   .row
-    - patient = clinical_summary.patient
     - summary_parts = clinical_summary.summary_parts(current_user).each do |summary_part|
       = render summary_part

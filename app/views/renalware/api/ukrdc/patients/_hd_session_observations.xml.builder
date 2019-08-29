@@ -15,7 +15,7 @@ observation_times = {
     "blood_pressure.systolic" => observations.blood_pressure&.systolic,
     "blood_pressure.diastolic" => observations.blood_pressure&.diastolic,
     "weight" => observations.weight,
-    "bm_stix" => observations.bm_stix,
+    "bm_stix" => observations.bm_stix
   }
 
   if observations.temperature_measured == :yes
