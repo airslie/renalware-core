@@ -33,11 +33,15 @@ module Renalware
     end
 
     def clinic_visits(limit: 6)
-      @clinic_visits ||= Clinics::ClinicVisit.for_patient(patient)
-                                             .includes(:clinic)
-                                             .with_created_by
-                                             .ordered
-                                             .limit(limit)
+      @clinic_visits ||= begin
+        visits_ = Clinics::ClinicVisit
+          .for_patient(patient)
+          .includes(:clinic)
+          .with_created_by
+          .ordered
+          .limit(limit)
+        CollectionPresenter.new(visits_, Renalware::Clinics::VisitPresenter)
+      end
     end
 
     def clinic_visits_having_measurements(limit: 3)
@@ -96,7 +100,12 @@ module Renalware
 
     # rubocop:disable Lint/UnusedMethodArgument
     def events_of_type(type: nil)
-      Events::Event.for_patient(patient).includes([:created_by, :event_type]).limit(6).ordered
+      events_ = Events::Event
+        .for_patient(patient)
+        .includes([:created_by, :patient, event_type: :category])
+        .limit(6)
+        .ordered
+      CollectionPresenter.new(events_, Renalware::Events::EventPresenter)
     end
     # rubocop:enable Lint/UnusedMethodArgument
     alias_method :events, :events_of_type
@@ -108,8 +117,6 @@ module Renalware
                          .with_main_recipient
                          .with_letterhead
                          .with_author
-                         .with_event
-                         .with_patient
                          .limit(6)
 
       CollectionPresenter.new(letters_, Renalware::Letters::LetterPresenterFactory)
