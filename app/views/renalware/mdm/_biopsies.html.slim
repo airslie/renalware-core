@@ -1,5 +1,5 @@
 - relation = Renalware::Events::Biopsy.for_patient(mdm.patient).includes(:created_by)
-- biopsies = relation.limit(6).ordered
+- biopsies = CollectionPresenter.new(relation.limit(6).ordered, Renalware::Events::EventPresenter)
 - total_biopsies = relation.count
 
 article.events
