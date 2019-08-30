@@ -154,7 +154,7 @@ module Renalware
 
       # Ensure drug administrations are always in the same order.
       def prescription_administrations
-        __getobj__.prescription_administrations.order(created_at: asc)
+        __getobj__.prescription_administrations.order(created_at: :asc)
       end
 
       protected
