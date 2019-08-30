@@ -24,6 +24,15 @@ Renalware.Letters = (function() {
     });
   }
 
+  var bindOnLetterAboutToBatchPrint = function() {
+    $(document).on("click", ".print-batch-letter", function(e) {
+      var modal = $("#letter-print-modal");
+      url = $(this).data("modal-url");
+      modal.load(url).foundation('reveal', 'open');
+      true;
+    });
+  }
+
   var bindOnSalutationChange = function() {
 
     $("#letter-form").on("click", ".has_salutation", function(e) {
@@ -91,7 +100,35 @@ Renalware.Letters = (function() {
         alert("There are no notes to insert");
       }
     });
-  }
+  };
+
+  var pollBatchStatus = function(url) {
+    var POLL_INTERVAL = 1500; // ms
+    var batch = {};
+
+    // Check the current status of the TaskStatus object.
+    var updateStatus = function() {
+      $.ajax({
+        method: 'GET',
+        url: url,
+        contentType: 'json'
+      }).done(function(batch) {
+        // Done!
+        $(".modal .percent_complete").html(batch.percent_complete + "%");
+        if(batch.status == 'awaiting_printing') {
+          $(".batch_results_container .preparing").hide();
+          $(".batch_results_container .generated-batch-print-pdf-container").show();
+        }
+        // Not done!
+        else {
+          // Could update a progress/100% tracker here
+          // Ask again in POLL_INTERVAL ms.
+          setTimeout(updateStatus, POLL_INTERVAL);
+        }
+      });
+    };
+    setTimeout(updateStatus, POLL_INTERVAL);
+  };
 
   return {
     init: function () {
@@ -101,8 +138,10 @@ Renalware.Letters = (function() {
       initNewContactAsMainRecipient();
       initNewContactAsCC();
       initInsertEventNotesIntoTextEditor();
+      bindOnLetterAboutToBatchPrint();
       bindOnLetterAboutToPrint();
-    }
+    },
+    pollBatchStatus: pollBatchStatus
   };
 }());
 

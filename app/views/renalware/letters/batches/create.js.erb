@@ -1,0 +1,3 @@
+<%= refresh("#batch-print-modal", partial: "create", locals: local_assigns) %>
+$("#batch-print-modal").foundation('reveal', 'open');
+Renalware.Letters.pollBatchStatus('<%= letters_batch_status_path(batch) %>');

@@ -22,13 +22,30 @@ resources :patients, only: [] do
 end
 
 namespace :letters do
+  resources :batches, only: [:create, :index, :show] do
+    get :status, constraints: { format: :json }, defaults: { format: :json }
+    resources :completions, only: [:new, :create], controller: "completed_batches"
+  end
   resource :pdf_letter_cache, only: [:destroy], controller: "pdf_letter_cache"
   resources :descriptions, only: :search do
     collection do
       get :search
     end
   end
-  resource :list, only: :show
+
+  # Letters::ListsController displays prefined lists of letters. The default list is :all
+  # We want to support dynamic urls with letters_list_path(named_parameeter: :all)
+  # as well as named routes eg letters_list_all_path.
+  # If you use the helper list_batch_printable_path, the named route is used to build the url,
+  # but when it is accessed it is actually the first, dynamic route definition that matches first,
+  # so the named_filter paramters is populated when we hit the controller.
+  constraints(named_filter: /(all|batch_printable)/) do
+    get "list/:named_filter", to: "lists#show", as: :filtered_letters_list
+  end
+  get "list/batch_printable", to: "lists#show", as: :list_batch_printable
+  get "list/all", to: "lists#show", as: :list_all
+  get "list", to: "lists#show", as: :list, defaults: { named_filter: :all }
+
   resources :letters, only: [] do
     resources :electronic_receipts, only: [] do
       patch :mark_as_read, on: :member

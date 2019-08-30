@@ -11,41 +11,44 @@ module Renalware
       module PdfCombining
         extend ActiveSupport::Concern
 
-        def combine_multiple_pdfs_into_one(dir, output_filepath)
+        def combine_multiple_pdfs_into_file(filepath:, glob:)
+          filepath = Pathname(filepath)
+          Rails.logger.info " Compiling PDFs #{glob.join(',')} into #{filepath}"
+          shell_to_ghostscript_to_combine_files(glob, dir, filepath)
+          filepath
+        end
+
+        def combine_multiple_pdfs_using_filenames(filenames, dir, output_filepath)
+          filenames = Array(filenames)
+          Rails.logger.info " Compiling PDFs #{filenames.join(',')} into #{output_filepath}"
           using_a_temporary_output_file do |tmp_outfile|
-            shell_to_ghostscript_to_combine_files_into(tmp_outfile, dir)
-            copy_tempfile_to_output_file(tmp_outfile, output_filepath)
+            shell_to_ghostscript_to_combine_files(filenames, dir, tmp_outfile)
+            move_tempfile_to_output_file(tmp_outfile, output_filepath)
           end
         end
 
         # rubocop:disable Metrics/LineLength
-        def shell_to_ghostscript_to_combine_files_into(outfile, dir)
-          cmd = "gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=#{outfile.path} -dBATCH #{files.join(' ')}"
-          err = Open3.popen3(cmd, chdir: dir.to_s) do |_stdin, _stdout, stderr|
-            stderr.read
+        def shell_to_ghostscript_to_combine_files(filenames, dir, outputfile)
+          outputfile = Pathname(outputfile)
+          cmd = "gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=#{outputfile} -dBATCH #{filenames.join(' ')}"
+          err = msg = nil
+          Open3.popen3(cmd, chdir: dir.to_s) do |_stdin, stdout, stderr|
+            err = stderr.read
+            msg = stdout.read
           end
-          raise "Error combining PDFs: #{err}" unless err.empty?
+          if err.present?
+            raise "Error combining PDFs: #{[err, msg].join(' ')} command: #{cmd}"
+          end
         end
         # rubocop:enable Metrics/LineLength
 
-        def copy_tempfile_to_output_file(tmp_outfile, output_file)
-          FileUtils.cp tmp_outfile.path, output_file
+        def move_tempfile_to_output_file(tmp_outfile, output_file)
+          FileUtils.mv tmp_outfile.path, output_file
           output_file
-        end
-
-        def files
-          @files ||= []
         end
 
         def rails_tmp_folder
           Rails.root.join("tmp").to_s
-        end
-
-        def in_a_temporary_folder
-          Dir.mktmpdir(nil, rails_tmp_folder) do |dir|
-            yield Pathname(dir)
-            # temp dir removed here!
-          end
         end
 
         # Create a tempfile outside the temp dir as dir will be destroyed when outside block closes.

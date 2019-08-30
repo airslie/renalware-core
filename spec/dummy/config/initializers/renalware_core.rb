@@ -20,6 +20,7 @@ Renalware.configure do |config|
 
   config.ukrdc_sending_facility_name = "Test"
   config.site_name = "Renalware"
+  config.batch_printing_enabled = true
 end
 
 # Renalware::Patients.configure

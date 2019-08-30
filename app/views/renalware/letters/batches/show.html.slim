@@ -1,0 +1,7 @@
+.generated-batch-print-pdf-container
+  = link_to letters_batch_path(batch, format: :pdf),
+            target: "_blank",
+            class: "print-batch-letter",
+            data: { "modal-url" => new_letters_batch_completion_path(batch) } do
+    i.far.fa-file-pdf
+    | Open PDF in a new tab

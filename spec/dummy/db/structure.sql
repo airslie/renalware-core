@@ -3081,6 +3081,73 @@ ALTER SEQUENCE letter_archives_id_seq OWNED BY letter_archives.id;
 
 
 --
+-- Name: letter_batch_items; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE letter_batch_items (
+    id bigint NOT NULL,
+    letter_id bigint NOT NULL,
+    batch_id bigint NOT NULL,
+    status smallint DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: letter_batch_items_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE letter_batch_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_batch_items_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE letter_batch_items_id_seq OWNED BY letter_batch_items.id;
+
+
+--
+-- Name: letter_batches; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE letter_batches (
+    id bigint NOT NULL,
+    status integer DEFAULT 0 NOT NULL,
+    query_params jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    batch_items_count integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    filepath character varying
+);
+
+
+--
+-- Name: letter_batches_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE letter_batches_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_batches_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE letter_batches_id_seq OWNED BY letter_batches.id;
+
+
+--
 -- Name: letter_contact_descriptions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8254,6 +8321,20 @@ ALTER TABLE ONLY letter_archives ALTER COLUMN id SET DEFAULT nextval('letter_arc
 
 
 --
+-- Name: letter_batch_items id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY letter_batch_items ALTER COLUMN id SET DEFAULT nextval('letter_batch_items_id_seq'::regclass);
+
+
+--
+-- Name: letter_batches id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY letter_batches ALTER COLUMN id SET DEFAULT nextval('letter_batches_id_seq'::regclass);
+
+
+--
 -- Name: letter_contact_descriptions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -9549,6 +9630,22 @@ ALTER TABLE ONLY hospital_wards
 
 ALTER TABLE ONLY letter_archives
     ADD CONSTRAINT letter_archives_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: letter_batch_items letter_batch_items_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY letter_batch_items
+    ADD CONSTRAINT letter_batch_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: letter_batches letter_batches_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY letter_batches
+    ADD CONSTRAINT letter_batches_pkey PRIMARY KEY (id);
 
 
 --
@@ -11854,6 +11951,41 @@ CREATE INDEX index_letter_archives_on_letter_id ON letter_archives USING btree (
 --
 
 CREATE INDEX index_letter_archives_on_updated_by_id ON letter_archives USING btree (updated_by_id);
+
+
+--
+-- Name: index_letter_batch_items_on_batch_id_and_status; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_batch_items_on_batch_id_and_status ON letter_batch_items USING btree (batch_id, status);
+
+
+--
+-- Name: index_letter_batch_items_on_letter_id_and_batch_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_letter_batch_items_on_letter_id_and_batch_id ON letter_batch_items USING btree (letter_id, batch_id);
+
+
+--
+-- Name: index_letter_batches_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_batches_on_created_by_id ON letter_batches USING btree (created_by_id);
+
+
+--
+-- Name: index_letter_batches_on_status; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_batches_on_status ON letter_batches USING btree (status);
+
+
+--
+-- Name: index_letter_batches_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_batches_on_updated_by_id ON letter_batches USING btree (updated_by_id);
 
 
 --
@@ -15021,6 +15153,14 @@ ALTER TABLE ONLY ukrdc_treatments
 
 
 --
+-- Name: letter_batch_items fk_rails_65e38cb9dc; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY letter_batch_items
+    ADD CONSTRAINT fk_rails_65e38cb9dc FOREIGN KEY (batch_id) REFERENCES letter_batches(id);
+
+
+--
 -- Name: messaging_messages fk_rails_65f878b7cf; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -15202,6 +15342,14 @@ ALTER TABLE ONLY patient_worries
 
 ALTER TABLE ONLY hd_prescription_administrations
     ADD CONSTRAINT fk_rails_885e37560e FOREIGN KEY (prescription_id) REFERENCES medication_prescriptions(id);
+
+
+--
+-- Name: letter_batches fk_rails_88dce46ac4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY letter_batches
+    ADD CONSTRAINT fk_rails_88dce46ac4 FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -15434,6 +15582,14 @@ ALTER TABLE ONLY admission_consults
 
 ALTER TABLE ONLY patient_alerts
     ADD CONSTRAINT fk_rails_9efea309bb FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
+-- Name: letter_batch_items fk_rails_a02ff59ff6; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY letter_batch_items
+    ADD CONSTRAINT fk_rails_a02ff59ff6 FOREIGN KEY (letter_id) REFERENCES letter_letters(id);
 
 
 --
@@ -16229,6 +16385,14 @@ ALTER TABLE ONLY pd_training_sessions
 
 
 --
+-- Name: letter_batches fk_rails_fa73ef427b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY letter_batches
+    ADD CONSTRAINT fk_rails_fa73ef427b FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: renal_aki_alerts fk_rails_fae5bb71b3; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16984,10 +17148,14 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190823051014'),
 ('20190823105642'),
 ('20190830082736'),
+('20190830153416'),
+('20190902085216'),
 ('20190909084425'),
 ('20190915071451'),
 ('20190915083424'),
 ('20190916160231'),
-('20190917124204');
+('20190917124204'),
+('20190919073410'),
+('20190920063447');
 
 
