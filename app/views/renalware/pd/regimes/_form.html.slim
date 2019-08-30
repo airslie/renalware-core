@@ -21,6 +21,9 @@
             wrapper: :horizontal_small
   = f.input :start_date, as: :date_picker, wrapper: :horizontal_datepicker
   = f.input :end_date, as: :date_picker, wrapper: :horizontal_datepicker
+  = f.input :exchanges_done_by, wrapper: :horizontal_small
+  = f.input :exchanges_done_by_if_other, wrapper: :horizontal_small
+  = f.input :exchanges_done_by_notes, as: :string, wrapper: :horizontal_medium
   = f.input :add_hd, as: :boolean, wrapper: :horizontal_small
 
 = render(partial: "pd_regime_bags", locals: { f: f })

@@ -29,6 +29,9 @@ en:
         delivery_interval: Delivery interval
         start_date: Start date
         end_date: End date
+        exchanges_done_by: Exchanges done by
+        exchanges_done_by_if_other: Exchanges done by (if other)
+        exchanges_done_by_notes: Exchanges done by (if specify)
       renalware/pd/regime_bag:
         sunday: Sun
         monday: Mon
@@ -78,3 +81,15 @@ en:
         ordinary: Ordinary bag
         last_fill: Last fill
         additional_manual_exchange: Additional manual exchange
+    renalware/pd/regime:
+      exchanges_done_by:
+        by_patient: By patient
+        predominantly_by_patient: Predominantly by patient
+        equally_between_patient_and_others: Equally between patient and others
+        predominantly_by_others: Predominantly by others
+        only_by_others: Only by others
+      exchanges_done_by_if_other:
+        spouse: Spouse
+        daughter_son_in_law: Daughter/son/in-law
+        others_specify: Others - specify
+        mix_specify: Mix - specify

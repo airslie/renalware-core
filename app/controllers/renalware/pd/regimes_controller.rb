@@ -85,6 +85,7 @@ module Renalware
           :tidal_indicator, :tidal_percentage, :no_cycles_per_apd,
           :apd_machine_pac, :dwell_time, :therapy_time, :fill_volume, :delivery_interval,
           :system_id, :last_fill_volume, :additional_manual_exchange_volume,
+          :exchanges_done_by, :exchanges_done_by_if_other, :exchanges_done_by_notes,
           bags_attributes: [
             :id, :regime_id, :bag_type_id, :volume, :role, :capd_overnight_bag, :per_week,
             :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :_destroy
