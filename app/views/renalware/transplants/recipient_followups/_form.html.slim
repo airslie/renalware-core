@@ -82,7 +82,7 @@ ruby:
       / unsaved ones that cocoon has kept around for us. So instead use #sort_by, allowing for
       / a nil recorded_on date if that value in a newly added and unsaved episode has not yet been
       / entered.
-      - episodes = f.object.rejection_episodes.sort_by{ |ep| ep.recorded_on || Time.zone.today }
+      - episodes = f.object.rejection_episodes.sort_by { |ep| ep.recorded_on || Time.zone.today }
       = f.simple_fields_for :rejection_episodes, episodes do |episode|
         = render "rejection_episode_fields", f: episode
 
@@ -91,7 +91,6 @@ ruby:
     = f.input :notes,
               as: :text,
               input_html: { rows: 5 }
-
 
 .row
   .large-12.columns

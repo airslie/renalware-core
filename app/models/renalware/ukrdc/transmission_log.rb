@@ -8,7 +8,7 @@ module Renalware
       validates :sent_at, presence: true
       validates :status, presence: true
       belongs_to :patient, class_name: "Renalware::Patient"
-      enum status: [:undefined, :error, :unsent_no_change_since_last_send, :sent]
+      enum status: { undefined: 0, error: 1, unsent_no_change_since_last_send: 2, sent: 3 }
       scope :ordered, -> { order(sent_at: :asc) }
 
       def self.with_logging(patient, request_uuid)
