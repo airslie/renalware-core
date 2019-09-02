@@ -7,7 +7,7 @@
     .columns.medium-6
       = article_tag "Treatment" do
 
-          dl.dl-horizontal
+          dl.dl-horizontal.xlarge
             dt Last Updated:
             dd= l regime.updated_at
             dt Start:
@@ -18,6 +18,12 @@
             dd= regime.treatment
             - if regime.apd?
               = render("renalware/pd/regimes/assistance_type", regime: regime)
+            dt= attr_name(regime, :exchanges_done_by)
+            dd= regime.exchanges_done_by&.text
+            dt= attr_name(regime, :exchanges_done_by_if_other)
+            dd= regime.exchanges_done_by_if_other&.text
+            dt= attr_name(regime, :exchanges_done_by_notes)
+            dd= regime.exchanges_done_by_notes
             dt On additional HD?:
             dd= yes_no(regime.add_hd)
             = render "renalware/pd/regimes/glucose", regime: regime

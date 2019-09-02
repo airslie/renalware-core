@@ -8,6 +8,20 @@ module Renalware
       extend Enumerize
 
       enumerize :assistance_type, in: %i(none setup connect disconnect connect_and_disconnect)
+      enumerize(
+        :exchanges_done_by,
+        in: %i(
+          by_patient
+          predominantly_by_patient
+          equally_between_patient_and_others
+          predominantly_by_others
+          only_by_others
+        )
+      )
+      enumerize(
+        :exchanges_done_by_if_other,
+        in: %i(spouse daughter_son_in_law others_specify mix_specify)
+      )
 
       belongs_to :patient, class_name: "Renalware::Patient", touch: true
       belongs_to :system

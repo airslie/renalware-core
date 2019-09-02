@@ -13,7 +13,7 @@ module Renalware
         it { is_expected.to validate_numericality_of(:additional_manual_exchange_volume) }
         it do
           regime.tidal_indicator = true
-          expect(subject).to validate_numericality_of(:tidal_percentage)
+          expect(regime).to validate_numericality_of(:tidal_percentage)
         end
         it { is_expected.to validate_numericality_of(:no_cycles_per_apd) }
         it { is_expected.to validate_numericality_of(:overnight_volume) }

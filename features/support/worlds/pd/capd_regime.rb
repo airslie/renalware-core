@@ -10,6 +10,9 @@ module World
             volume: 1000,
             bag_type: Renalware::PD::BagType.first
           )
+          regime.exchanges_done_by = :by_patient
+          regime.exchanges_done_by_if_other = :mix_specify
+          regime.exchanges_done_by_notes = "partner, son, brother"
         end
       end
 
@@ -35,6 +38,10 @@ module World
         fill_in "* Start date", with: "02/04/2015"
         fill_in "End date", with: "02/05/2015"
 
+        select "By patient", from: "Exchanges done by"
+        select "Mix - specify", from: "Exchanges done by (if other)"
+        fill_in "Exchanges done by (if specify)", with: "partner, son, brother"
+
         select "1 week", from: "Delivery interval"
         select "Baxter", from: "System"
         select("CAPD 4 exchanges per day", from: "Treatment")
@@ -55,7 +62,12 @@ module World
         expect(page).to have_current_path(dashboard_path)
 
         # return the regime
-        patient.pd_regimes.order(created_at: :desc).first
+        regime = patient.pd_regimes.order(created_at: :desc).first
+
+        expect(regime.exchanges_done_by).to eq(:by_patient)
+        expect(regime.exchanges_done_by_if_other).to eq(:mix_specify)
+        expect(regime.exchanges_done_by_notes).to eq("partner, son, brother")
+        regime
       end
 
       def regime_is_immutable(regime)

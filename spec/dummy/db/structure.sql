@@ -5366,7 +5366,10 @@ CREATE TABLE pd_regimes (
     tidal_full_drain_every_three_cycles boolean DEFAULT true,
     daily_volume integer,
     assistance_type character varying,
-    dwell_time integer
+    dwell_time integer,
+    exchanges_done_by character varying,
+    exchanges_done_by_if_other character varying,
+    exchanges_done_by_notes text
 );
 
 
@@ -16770,6 +16773,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190822180201'),
 ('20190823044107'),
 ('20190823051014'),
-('20190823105642');
+('20190823105642'),
+('20190830082736');
 
 
