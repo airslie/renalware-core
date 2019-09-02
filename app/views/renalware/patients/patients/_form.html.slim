@@ -20,7 +20,7 @@
                 input_html: index.zero? ? controlled_by_demographics_feed : {}
 
     = f.input :external_patient_id, wrapper: :horizontal_small
-    - available_centres = policy_scope(Renalware::Hospitals::Centre)
+    - available_centres = policy_scope(Renalware::Hospitals::Centre).all
     = f.association :hospital_centre,
                   collection: available_centres,
                   wrapper: :horizontal_medium,
