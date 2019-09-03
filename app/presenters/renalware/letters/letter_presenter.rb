@@ -91,6 +91,10 @@ module Renalware
         letterhead.site_code
       end
 
+      def hospital_unit_renal_registry_code
+        ::Renalware::Hospitals::Unit.find_by(unit_code: hospital_unit_code)&.renal_registry_code
+      end
+
       def title
         pdf_stateless_filename
       end
