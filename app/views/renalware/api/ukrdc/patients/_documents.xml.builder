@@ -20,9 +20,11 @@ xml.Documents do
         xml.Code letter.updated_by&.username
         xml.Description letter.updated_by
       end
-      xml.EnteredAt do
-        xml.CodingStandard "ODS"
-        xml.Code letter.hospital_unit_code
+      if letter.hospital_unit_renal_registry_code.present?
+        xml.EnteredAt do
+          xml.CodingStandard "LOCAL"
+          xml.Code letter.hospital_unit_renal_registry_code
+        end
       end
       xml.FileType "application/pdf"
       xml.FileName letter.pdf_stateless_filename

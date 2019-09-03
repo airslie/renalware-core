@@ -21,6 +21,8 @@ xml.LabOrder do
   # end
   xml.OrderCategory do
     xml.Code request.description.code
+    # xml.CodingStandard "LOCAL"
+    # xml.Description "Standard Renal Tests"
   end
   xml.SpecimenCollectedTime request.requested_at&.iso8601
   # xml.SpecimenReceivedTime "TODO"
