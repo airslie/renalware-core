@@ -14,7 +14,7 @@
     = f.input :title, wrapper: :horizontal_tiny
     = f.input :family_name, wrapper: :horizontal_small
     = f.input :given_name, wrapper: :horizontal_small
-    = f.input :suffix, wrapper: :horizontal_small
+    /= f.input :suffix, wrapper: :horizontal_small
     = f.input :born_on, as: :date_picker, label: "DoB", wrapper: :horizontal_datepicker
     = f.input :sex,
         selected: patient.sex.code,
