@@ -22,12 +22,12 @@ xml.Diagnoses do
     end
   end
 
-  if patient.smoking_history?
+  if patient.smoking_cormbidity&.value.present?
     xml.Diagnosis do
       xml.Diagnosis do
         xml.CodingStandard "SNOMED"
-        xml.Code patient.snomed_smoking_history.code
-        xml.Description "Smoking history: #{patient.snomed_smoking_history.description}"
+        xml.Code patient.smoking_cormbidity.snomed_code
+        xml.Description "Smoking history: #{patient.smoking_cormbidity.snomed_description}"
       end
       # We don't store a smoking date (it doesn't make much sense to) but UKRDC
       # would like a date so send th ESRF date. See email from GS to TC 23/5/18.
