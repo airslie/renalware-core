@@ -17,14 +17,6 @@ observation_times = {
     "weight" => observations.weight
   }
 
-  if observations.temperature_measured == :yes
-    measurements["temperature"] = observations.temperature
-  end
-
-  if observations.respiratory_rate_measured == :yes
-    measurements["respiratory_rate"] = observations.respiratory_rate
-  end
-
   measurements.each do |i18n_key, value|
     xml.Observation do
       xml.ObservationTime observation_times[pre_post].iso8601

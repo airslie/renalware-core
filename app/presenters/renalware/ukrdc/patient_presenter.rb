@@ -38,13 +38,6 @@ module Renalware
         super
       end
 
-      # def modalities
-      #   __getobj__
-      #     .modalities
-      #     .includes(:description)
-      #     .order(started_on: :asc, created_at: :asc)
-      # end
-
       def dead?
         current_modality_death?
       end
@@ -158,15 +151,19 @@ module Renalware
       end
 
       def clinical_history
-        @clinical_history ||= document&.history || NullObject.new
+        @clinical_history ||= document&.history || NullObject.instance
       end
 
       def smoking_history?
         clinical_history.smoking.present?
       end
 
+      def smoking_cormbidity
+        comorbidity_attributes[:smoking]
+      end
+
       def profile
-        renal_patient.profile || NullObject.instance
+        renal_patient.profile || Renalware::Renal::Profile.new
       end
 
       def first_seen_on
@@ -192,11 +189,11 @@ module Renalware
       end
 
       def comorbidity_attributes
-        profile&.document&.comorbidities&.attributes || {}
+        profile.document&.comorbidities&.attributes || {}
       end
 
       def comorbidities
-        @comorbidities ||= profile&.document&.comorbidities
+        @comorbidities ||= profile.document&.comorbidities
       end
 
       def clinical_patient
