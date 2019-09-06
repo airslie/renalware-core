@@ -16,7 +16,7 @@ xml.Medications do
       xml.Route do
         xml.CodingStandard "RR22"
         xml.Code prescription.medication_route&.rr_code
-        xml.Description prescription.medication_route&.name
+        # xml.Description prescription.medication_route&.name
       end
       xml.DrugProduct do
         xml.Generic prescription.drug
