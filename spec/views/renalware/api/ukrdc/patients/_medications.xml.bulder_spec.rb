@@ -73,7 +73,6 @@ describe "Medications element" do
             <Route>
               <CodingStandard>RR22</CodingStandard>
               <Code/>
-              <Description>Route1</Description>
             </Route>
             <DrugProduct>
               <Generic>Drug1</Generic>
@@ -97,7 +96,6 @@ describe "Medications element" do
             <Route>
               <CodingStandard>RR22</CodingStandard>
               <Code/>
-              <Description>Route1</Description>
             </Route>
             <DrugProduct>
               <Generic>Drug1</Generic>
@@ -136,7 +134,6 @@ describe "Medications element" do
           <Route>
             <CodingStandard>RR22</CodingStandard>
             <Code/>
-            <Description>Route1</Description>
           </Route>
           <DrugProduct>
             <Generic>Drug1</Generic>
