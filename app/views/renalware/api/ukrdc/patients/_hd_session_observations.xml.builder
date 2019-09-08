@@ -21,7 +21,7 @@ observation_times = {
     xml.Observation do
       xml.ObservationTime observation_times[pre_post].iso8601
       xml.ObservationCode do
-        xml.CodingStandard "PV"
+        xml.CodingStandard "UKRR"
         xml.Code I18n.t("loinc.#{i18n_key}.code")
         xml.Description I18n.t("loinc.#{i18n_key}.description")
       end
