@@ -8,7 +8,6 @@ module Renalware
       module PreflightChecks
         class DeathsQuery
           include ModalityScopes
-          MODALITY_NAMES = %w(Death).freeze
 
           attr_reader :relation, :query_params
 
@@ -27,7 +26,7 @@ module Renalware
               .result
               .extending(ModalityScopes)
               .preload(current_modality: [:description])
-              .with_current_modality_matching(MODALITY_NAMES)
+              .with_current_modality_of_class(Renalware::Deaths::ModalityDescription)
               .where("patients.first_cause_id is NULL AND renal_profiles.esrf_on IS NOT NULL")
           end
 

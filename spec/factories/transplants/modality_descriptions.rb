@@ -6,7 +6,12 @@ FactoryBot.define do
     name { "Live Donor" }
   end
 
-  factory :transplant_modality_description, class: "Renalware::HD::ModalityDescription" do
-    initialize_with { Renalware::HD::ModalityDescription.find_or_create_by(name: "Transplant") }
+  factory(
+    :transplant_modality_description,
+    class: "Renalware::Transplants::RecipientModalityDescription"
+  ) do
+    initialize_with do
+      Renalware::Transplants::RecipientModalityDescription.find_or_create_by(name: "Transplant")
+    end
   end
 end
