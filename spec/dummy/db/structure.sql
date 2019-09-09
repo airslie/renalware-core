@@ -1160,7 +1160,8 @@ CREATE TABLE admission_admissions (
     created_by_id bigint NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    feed_id character varying
 );
 
 
@@ -1343,7 +1344,10 @@ CREATE TABLE clinic_appointments (
     clinic_id integer NOT NULL,
     becomes_visit_id integer,
     outcome_notes text,
-    dna_notes text
+    dna_notes text,
+    feed_id character varying,
+    consultant_id bigint,
+    clinic_description text
 );
 
 
@@ -5960,7 +5964,7 @@ CREATE VIEW reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -6039,7 +6043,7 @@ CREATE VIEW reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -10840,6 +10844,13 @@ CREATE INDEX index_admission_requests_on_updated_by_id ON admission_requests USI
 --
 
 CREATE INDEX index_clinic_appointments_on_clinic_id ON clinic_appointments USING btree (clinic_id);
+
+
+--
+-- Name: index_clinic_appointments_on_consultant_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_appointments_on_consultant_id ON clinic_appointments USING btree (consultant_id);
 
 
 --
@@ -15951,6 +15962,14 @@ ALTER TABLE ONLY pd_peritonitis_episodes
 
 
 --
+-- Name: clinic_appointments fk_rails_f37cb95f48; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY clinic_appointments
+    ADD CONSTRAINT fk_rails_f37cb95f48 FOREIGN KEY (consultant_id) REFERENCES renal_consultants(id);
+
+
+--
 -- Name: hd_stations fk_rails_f4cc4cd5c4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16774,6 +16793,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190823044107'),
 ('20190823051014'),
 ('20190823105642'),
-('20190830082736');
+('20190830082736'),
+('20190909084425');
 
 
