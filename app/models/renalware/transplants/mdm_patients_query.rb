@@ -9,7 +9,6 @@ module Renalware
     class MDMPatientsQuery
       include ModalityScopes
       include PatientPathologyScopes
-      MODALITY_NAMES = "Transplant"
       DEFAULT_SEARCH_PREDICATE = "hgb_date DESC"
       attr_reader :q, :relation, :named_filter
 
@@ -31,7 +30,7 @@ module Renalware
             .extending(ModalityScopes)
             .extending(PatientPathologyScopes)
             .extending(NamedFilterScopes)
-            .with_current_modality_matching(MODALITY_NAMES)
+            .with_current_modality_of_class(Transplants::RecipientModalityDescription)
             .with_current_pathology
             .left_outer_joins(:current_observation_set)
             .public_send(named_filter.to_s)
