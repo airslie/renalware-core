@@ -223,3 +223,9 @@ docker build -t renalware .
 docker-compose run web rake db:create
 docker-compose run web rake app:db:create
 ```
+
+#### Browser testing
+
+<a href="https://www.browserstack.com">
+<img alt="Browserstack logo" src="doc/Browserstack-logo.svg" width="188" height="43">
+</a>
