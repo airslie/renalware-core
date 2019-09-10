@@ -178,22 +178,6 @@ When(/^Clyde submits an pre\-dated registration status$/) do
   )
 end
 
-When(/^Clyde changes the "(.*?)" start date to "(.*?)"$/) do |status, started_on|
-  update_transplant_registration_status(
-    patient: @patty,
-    status: status, started_on: started_on,
-    user: @clyde
-  )
-end
-
-When(/^Clyde deletes the "(.*?)" status change$/) do |status|
-  delete_transplant_registration_status(
-    patient: @patty,
-    status: status,
-    user: @clyde
-  )
-end
-
 When(/^Clyde assigns Patty as a recipient for Don's donation$/) do
   assign_recipient_to_donation(
     patient: @don,

@@ -31,21 +31,6 @@ Feature: Changing the wait list status
       | Active       | 15-Jul-2015 | 11-Aug-2015       |
 
   @web
-  Scenario: A clinician edited a registration status
-    When Clyde changes the "Active" start date to "11-07-2015"
-    Then the status history has the following revised statuses
-      | status       | start_date  | termination_date | by       |
-      | Active       | 11-Jul-2015 | 15-Aug-2015       | Clyde    |
-      | Transfer Out | 15-Jun-2015 | 11-Jul-2015       | Chloe    |
-
-  @web
-  Scenario: A clinician deleted a registration status
-    When Clyde deletes the "Active" status change
-    Then the status history has the following revised termination dates
-      | status       | start_date  | termination_date |
-      | Transfer Out | 15-Jun-2015 | 15-Aug-2015       |
-
-  @web
   Scenario: A clinician submitted an erroneous registration status
     When Clyde submits an erroneous registration status
     Then the registration status is not accepted

@@ -31,7 +31,7 @@
           td= unit.unit_code
           td= unit.name
           td= unit.hospital_centre
-          td= unit.unit_type.text
+          td= unit.unit_type&.text
           td= unit.renal_registry_code
           td= yes_no unit.is_hd_site
           td= Renalware::HD::Station.where(hospital_unit_id: unit.id).count
