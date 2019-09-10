@@ -52,10 +52,11 @@ en:
         hdf_post: HDF-POST
 
     renalware/hd/profile_document/anticoagulant:
+      # The host app should implement this I18n key to specify available coagulants.
+      # See e.g. dummy/config/locales for anticoagulant types
+      # We always specify a Non option because enumerize complains if the key is not
+      # a non-empty array.
       type:
-        heparin: Heparin
-        enoxyparin: Enoxyparin
-        warfarin: Warfarin
         none: None
 
     renalware/hd/profile_document/transport:
