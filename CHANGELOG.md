@@ -9,11 +9,21 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.106
+10-09-2019
+### Added
+### Changed
+- Reduce use of with_current_modality_matching #2859
+- Add columns to support data migration and feeds #2858
+### Fixed
+- UKRDC changes #2862
+
 ## 2.0.105
 08-09-2019
 ### Added
 ### Changed
-- UKRDC changes #2856
+- Change coding standard and codes for observation measurements #2856
+- Attempt to speed up UKRDC XML export #2857
 ### Fixed
 
 ## 2.0.104
@@ -35,6 +45,7 @@ This project adheres to Semantic Versioning.
 ### Added
 ### Changed
 - UKRDC changes #2838
+- Remove UKRDC medication route description #2854
 ### Fixed
 
 ## 2.0.101
