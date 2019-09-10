@@ -51,6 +51,13 @@ en:
         hdf_pre: HDF-PRE
         hdf_post: HDF-POST
 
+    renalware/hd/profile_document/anticoagulant:
+      type:
+        heparin: Heparin
+        enoxyparin: Enoxyparin
+        warfarin: Warfarin
+        none: None
+
     renalware/hd/profile_document/transport:
       type:
         ambulance_wheelchair: Ambulance (wheelchair)

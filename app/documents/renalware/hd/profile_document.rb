@@ -47,7 +47,7 @@ module Renalware
       attribute :dialysis, Dialysis
 
       class Anticoagulant < Document::Embedded
-        attribute :type, Document::Enum, enums: %i(heparin enoxyparin warfarin none)
+        attribute :type, Document::Enum # See .yml file for values
         attribute :loading_dose
         attribute :hourly_dose
         attribute :stop_time
