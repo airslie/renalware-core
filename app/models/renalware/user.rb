@@ -75,6 +75,19 @@ module Renalware
       end
     end
 
+    # Create a sha that can be saved in another model to indicate a user has authenticated
+    # (or perhaps more correctly, authorised) an action - e.g. in HD Session form where a nurse
+    # and witness both enter their credentials against a prescription administered on HD.
+    # The idea is that we can check the token belongs to the user buy regenerating the token at any
+    # time and checking it still matches. Unlike Devise.friendly_token, we can always regenerate
+    # the same token here for any user as it is salted with the same secret. This secret is not
+    # stored git for staging and production environments.
+    def auth_token
+      digest = OpenSSL::Digest.new("sha256")
+      key = Rails.application.secrets.secret_key_base
+      OpenSSL::HMAC.hexdigest(digest, key, id.to_s)
+    end
+
     private
 
     def build_authentication_token

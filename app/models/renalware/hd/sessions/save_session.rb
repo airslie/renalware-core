@@ -26,6 +26,13 @@ module Renalware
           session = find_or_build_session(id)
           session = update_session_attributes(session, signing_off)
 
+          session.prescription_administrations.each do |pa|
+            pa.administrator_authorised =
+              (pa.administrator_authorisation_token == pa.administered_by&.auth_token)
+            pa.witness_authorised =
+              (pa.witness_authorisation_token == pa.witnessed_by&.auth_token)
+          end
+
           if session.save
             # Might be cleaner if something listened for this event and created this job there?
             UpdateRollingPatientStatisticsJob.perform_later(patient) unless session.open?

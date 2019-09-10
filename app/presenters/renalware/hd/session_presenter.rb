@@ -152,6 +152,11 @@ module Renalware
         return parts.last if parts.length > 1
       end
 
+      # Ensure drug administrations are always in the same order.
+      def prescription_administrations
+        __getobj__.prescription_administrations.order(created_at: :asc)
+      end
+
       protected
 
       attr_reader :session, :view_context

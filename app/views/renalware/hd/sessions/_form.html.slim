@@ -124,18 +124,9 @@ ruby:
         = fcm.input :subs_goal, wrapper: :horizontal_tiny
         = fcm.input :subs_volume, wrapper: :horizontal_tiny
 
-    = render layout: "renalware/shared/fieldset",
-        locals: { legend: "HD Drugs", name: "hd_prescriptions" } do
-
-        = f.simple_fields_for :prescription_administrations,
-                              f.object.prescription_administrations do |fpa|
-
-          - presenter = Renalware::Medications::PrescriptionPresenter.new(fpa.object.prescription)
-          b= "#{presenter.drug_name}"
-          span= "#{presenter.dose} #{presenter.frequency}"
-          = fpa.input :prescription_id, as: :hidden
-          = fpa.input :administered, as: :inline_radio_buttons
-          = fpa.input :notes, input_html: { class: "small-input" }
+    = render "renalware/hd/sessions/form/drugs_to_be_administered",
+             f: f,
+             prescription_administrations: f.object.prescription_administrations
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Notes/Complications", name: "complications" } do

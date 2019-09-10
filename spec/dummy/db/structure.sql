@@ -2445,6 +2445,37 @@ ALTER SEQUENCE hd_preference_sets_id_seq OWNED BY hd_preference_sets.id;
 
 
 --
+-- Name: hd_prescription_administration_reasons; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE hd_prescription_administration_reasons (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_prescription_administration_reasons_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE hd_prescription_administration_reasons_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_prescription_administration_reasons_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE hd_prescription_administration_reasons_id_seq OWNED BY hd_prescription_administration_reasons.id;
+
+
+--
 -- Name: hd_prescription_administrations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -2457,7 +2488,12 @@ CREATE TABLE hd_prescription_administrations (
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    administered_by_id bigint,
+    witnessed_by_id bigint,
+    administrator_authorised boolean DEFAULT false NOT NULL,
+    witness_authorised boolean DEFAULT false NOT NULL,
+    reason_id bigint
 );
 
 
@@ -8079,6 +8115,13 @@ ALTER TABLE ONLY hd_preference_sets ALTER COLUMN id SET DEFAULT nextval('hd_pref
 
 
 --
+-- Name: hd_prescription_administration_reasons id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_prescription_administration_reasons ALTER COLUMN id SET DEFAULT nextval('hd_prescription_administration_reasons_id_seq'::regclass);
+
+
+--
 -- Name: hd_prescription_administrations id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -9345,6 +9388,14 @@ ALTER TABLE ONLY hd_patient_statistics
 
 ALTER TABLE ONLY hd_preference_sets
     ADD CONSTRAINT hd_preference_sets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_prescription_administration_reasons hd_prescription_administration_reasons_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_prescription_administration_reasons
+    ADD CONSTRAINT hd_prescription_administration_reasons_pkey PRIMARY KEY (id);
 
 
 --
@@ -11358,6 +11409,20 @@ CREATE INDEX index_hd_preference_sets_on_updated_by_id ON hd_preference_sets USI
 
 
 --
+-- Name: index_hd_prescription_administration_reasons_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_prescription_administration_reasons_on_name ON hd_prescription_administration_reasons USING btree (name);
+
+
+--
+-- Name: index_hd_prescription_administrations_on_administered_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_prescription_administrations_on_administered_by_id ON hd_prescription_administrations USING btree (administered_by_id);
+
+
+--
 -- Name: index_hd_prescription_administrations_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -11379,10 +11444,24 @@ CREATE INDEX index_hd_prescription_administrations_on_prescription_id ON hd_pres
 
 
 --
+-- Name: index_hd_prescription_administrations_on_reason_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_prescription_administrations_on_reason_id ON hd_prescription_administrations USING btree (reason_id);
+
+
+--
 -- Name: index_hd_prescription_administrations_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_hd_prescription_administrations_on_updated_by_id ON hd_prescription_administrations USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_prescription_administrations_on_witnessed_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_prescription_administrations_on_witnessed_by_id ON hd_prescription_administrations USING btree (witnessed_by_id);
 
 
 --
@@ -14186,6 +14265,14 @@ ALTER TABLE ONLY hd_schedule_definitions
 
 
 --
+-- Name: hd_prescription_administrations fk_rails_09b9e3828d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_prescription_administrations
+    ADD CONSTRAINT fk_rails_09b9e3828d FOREIGN KEY (administered_by_id) REFERENCES users(id);
+
+
+--
 -- Name: hd_profiles fk_rails_0aab25a07c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -14687,6 +14774,14 @@ ALTER TABLE ONLY access_assessments
 
 ALTER TABLE ONLY messaging_receipts
     ADD CONSTRAINT fk_rails_50de46762d FOREIGN KEY (message_id) REFERENCES messaging_messages(id);
+
+
+--
+-- Name: hd_prescription_administrations fk_rails_51e9a49d43; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_prescription_administrations
+    ADD CONSTRAINT fk_rails_51e9a49d43 FOREIGN KEY (witnessed_by_id) REFERENCES users(id);
 
 
 --
@@ -15359,6 +15454,14 @@ ALTER TABLE ONLY pathology_requests_drugs_drug_categories
 
 ALTER TABLE ONLY pathology_requests_requests
     ADD CONSTRAINT fk_rails_a8d58d31e6 FOREIGN KEY (clinic_id) REFERENCES clinic_clinics(id);
+
+
+--
+-- Name: hd_prescription_administrations fk_rails_a9d677a6f8; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_prescription_administrations
+    ADD CONSTRAINT fk_rails_a9d677a6f8 FOREIGN KEY (reason_id) REFERENCES hd_prescription_administration_reasons(id);
 
 
 --
@@ -16781,9 +16884,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190611152859'),
 ('20190612124015'),
 ('20190617121528'),
+('20190624130020'),
+('20190627141751'),
 ('20190705083727'),
 ('20190705105921'),
 ('20190709101610'),
+('20190716125837'),
 ('20190718091430'),
 ('20190718095851'),
 ('20190722145936'),
