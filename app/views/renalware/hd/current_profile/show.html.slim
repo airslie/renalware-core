@@ -8,3 +8,4 @@
   .grid-disabled
     .row
       = render "show", patient: patient, profile: profile
+    = render_if_exists "bottom", local_assigns
