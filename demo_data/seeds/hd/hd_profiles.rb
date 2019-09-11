@@ -70,7 +70,7 @@ module Renalware
               sodium_second_half: 145
             },
             anticoagulant: {
-              type: :heparin,
+              type: :none,
               loading_dose: 45,
               hourly_dose: 66,
               stop_time: "0:45"
