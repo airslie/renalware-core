@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/MethodLength
 module Renalware
   patient = HD.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
   kch_doc = User.find_by!(username: "kchdoc")
@@ -59,7 +60,7 @@ module Renalware
           sodium_second_half: 145
         },
         anticoagulant: {
-          type: :heparin,
+          type: :none,
           loading_dose: 45,
           hourly_dose: 66,
           stop_time: "0:45"
@@ -223,3 +224,4 @@ module Renalware
     HD::UpdateRollingPatientStatistics.new(patient: patient).call
   end
 end
+# rubocop:enable Metrics/MethodLength
