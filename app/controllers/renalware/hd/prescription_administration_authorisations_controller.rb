@@ -6,6 +6,7 @@ module Renalware
   module HD
     class PrescriptionAdministrationAuthorisationsController < BaseController
       skip_after_action :verify_authorized
+      skip_after_action :verify_policy_scoped
 
       def create
         user = User.find(auth_params[:id])
