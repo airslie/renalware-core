@@ -75,11 +75,14 @@ table.stripeless {
 */
 td.actions {
   padding-left: 0;
+  white-space: nowrap;
 
   a, span {
     &:after {
       color: $disabled-colour;
-      content: " | ";
+      content: "|";
+      padding-right: .3rem;
+      padding-left: .3rem;
     }
 
     &:last-child:after {
