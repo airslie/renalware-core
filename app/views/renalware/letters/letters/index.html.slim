@@ -4,3 +4,4 @@
 
 = within_patient_layout(title: "Letters") do
   = render "table", letters: letters, patient: patient
+  = render_if_exists "bottom", local_assigns
