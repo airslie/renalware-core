@@ -18,6 +18,7 @@ article
 
   - if with_vaccinations
     - vaccinations = Renalware::Virology::Vaccination.for_patient(patient).order(date_time: :asc)
+    - vaccinations = CollectionPresenter.new(vaccinations, Renalware::Events::EventPresenter)
     - if vaccinations.any?
       h3 Vaccinations
       = render "renalware/events/events/table", events: vaccinations, exclude_type_column: true
