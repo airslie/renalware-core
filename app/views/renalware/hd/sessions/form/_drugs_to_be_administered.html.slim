@@ -18,8 +18,7 @@
                                  when false then "not-administered"
                                  else "undecided"
                                  end
-          # administration_klass = "not-administered" unless administration.administered?
-          #- administration_klass = "undecided" if administration.administered.nil?
+
         .hd-drug-administration(
           data-token-count="#{'2' if administration.administrator_authorised? && administration.witness_authorised?}"
           class="#{administration_klass}"
@@ -51,34 +50,35 @@
             = fpa.label :reason_id
             = fpa.association :reason, wrapper: :zilch
 
-          .authentication(
-            class="#{'disabled-with-faded-overlay' unless administration.administered?}"
-            data-authentication-url=renalware.hd_prescription_administration_authorisations_path
-          )
-            / Output username and password fields for administrator and witness
-            - { administrator: :administered, witness: :witnessed }.each do |user_role, prefix|
+          - if Renalware.config.hd_session_prescriptions_require_signoff
+            .authentication(
+              class="#{'disabled-with-faded-overlay' unless administration.administered?}"
+              data-authentication-url=renalware.hd_prescription_administration_authorisations_path
+            )
+              / Output username and password fields for administrator and witness
+              - { administrator: :administered, witness: :witnessed }.each do |user_role, prefix|
 
-              - authorised = administration.public_send(:"#{user_role}_authorised?")
-              - token_symbol = :"#{user_role}_authorisation_token"
-              .user-and-password(
-                class="user-and-password--#{user_role} #{'authorised' if authorised} #{'error' if fpa.object.errors[token_symbol].any?}"
-              )
-                = fpa.hidden_field token_symbol, class: "authentication-token"
-                = fpa.label :"#{prefix}_by"
-                = fpa.association :"#{prefix}_by",
-                                  as: :user_picker,
-                                  collection: Renalware::User.ordered,
-                                  wrapper: :zilch,
-                                  label: false,
-                                  input_html: { class: "authentication-user-id" }
+                - authorised = administration.public_send(:"#{user_role}_authorised?")
+                - token_symbol = :"#{user_role}_authorisation_token"
+                .user-and-password(
+                  class="user-and-password--#{user_role} #{'authorised' if authorised} #{'error' if fpa.object.errors[token_symbol].any?}"
+                )
+                  = fpa.hidden_field token_symbol, class: "authentication-token"
+                  = fpa.label :"#{prefix}_by"
+                  = fpa.association :"#{prefix}_by",
+                                    as: :user_picker,
+                                    collection: Renalware::User.ordered,
+                                    wrapper: :zilch,
+                                    label: false,
+                                    input_html: { class: "authentication-user-id" }
 
-                / Password is only visible as long as the user has not been authenticated
-                = password_field_tag :"#{prefix}_by_password",
-                                      "",
-                                      placeholder: "Password",
-                                      class: "user-password",
-                                      autocomplete: :off
-                small.error.invalid-password Invalid password
-                .confirmed
-                  i.fas.fa-check-circle
-                  = link_to "Clear", "#", class: "user-and-password--clear"
+                  / Password is only visible as long as the user has not been authenticated
+                  = password_field_tag :"#{prefix}_by_password",
+                                        "",
+                                        placeholder: "Password",
+                                        class: "user-password",
+                                        autocomplete: :off
+                  small.error.invalid-password Invalid password
+                  .confirmed
+                    i.fas.fa-check-circle
+                    = link_to "Clear", "#", class: "user-and-password--clear"

@@ -83,6 +83,8 @@ module Renalware
     # of the PDF so we can examine its content
     config_accessor(:render_pdf_as_html_for_debugging) { false }
 
+    config_accessor(:hd_session_prescriptions_require_signoff) { true }
+
     # A host app can override this to add/remove/re-order the clinical summary display
     # Note these have to be strings - they mapped to constants in ClinicalSummaryPresenter.
     config_accessor(:page_layouts) {
