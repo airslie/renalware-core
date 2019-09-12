@@ -9,6 +9,7 @@ module Renalware
     class LettersController < Letters::BaseController
       include Concerns::Pageable
       before_action :load_patient, except: [:author]
+      skip_after_action :verify_policy_scoped
 
       def index
         render :index, locals: { letters: present_letters(find_letters), patient: patient }
