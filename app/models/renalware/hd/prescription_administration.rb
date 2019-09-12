@@ -28,6 +28,7 @@ module Renalware
 
       def validate_administrator_and_witness?
         return false if skip_validation || not_administered?
+        return false unless Renalware.config.hd_session_prescriptions_require_signoff
 
         true
       end

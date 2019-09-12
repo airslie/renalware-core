@@ -7,9 +7,14 @@ module Renalware
     describe PrescriptionAdministration, type: :model do
       let(:administered_by) { User.new }
       let(:witnessed_by) { User.new }
-      let(:skip_validation) { false }
       let(:administrator_authorisation_token) { nil }
       let(:witness_authorisation_token) { nil }
+
+      before do
+        allow(Renalware.config)
+          .to receive(:hd_session_prescriptions_require_signoff)
+          .and_return(true)
+      end
 
       it_behaves_like "an Accountable model"
       it { is_expected.to belong_to(:prescription) }
@@ -17,55 +22,66 @@ module Renalware
       it { is_expected.to belong_to(:reason) }
       it { is_expected.to validate_presence_of(:prescription) }
 
+      shared_examples_for "no validation on administrator or witness" do
+        it "does not validate the presence of administered_by" do
+          expect(errors[:administered_by]).to be_empty
+        end
+
+        it "does not validate the presence of witnessed_by" do
+          expect(errors[:witnessed_by]).to be_empty
+        end
+
+        it "does not validate the presence of administrator_authorisation_token" do
+          expect(errors[:administrator_authorisation_token]).to be_empty
+        end
+
+        it "does not validate the presence of witness_authorisation_token" do
+          expect(errors[:witness_authorisation_token]).to be_empty
+        end
+      end
+
       context "when administered is false" do
         describe "validation errors" do
           subject(:errors) do
             PrescriptionAdministration.new(
-              administered: false
-            ).tap(&:valid?).errors
-          end
-
-          it "does not validate the presence of administered_by" do
-            expect(errors[:administered_by]).to be_empty
-          end
-
-          it "does not validate the presence of witnessed_by" do
-            expect(errors[:witnessed_by]).to be_empty
-          end
-
-          it "does not validate the presence of administrator_authorisation_token" do
-            expect(errors[:administrator_authorisation_token]).to be_empty
-          end
-
-          it "does not validate the presence of witness_authorisation_token" do
-            expect(errors[:witness_authorisation_token]).to be_empty
-          end
-        end
-      end
-
-      context "when skip_validation is false" do
-        describe "validation errors" do
-          subject(:errors) do
-            PrescriptionAdministration.new(
+              administered: false,
               skip_validation: false
             ).tap(&:valid?).errors
           end
 
-          it "does not validate the presence of administered_by" do
-            expect(errors[:administered_by]).to be_empty
+          it_behaves_like "no validation on administrator or witness"
+        end
+      end
+
+      context "when skip_validation is true" do
+        describe "validation errors" do
+          subject(:errors) do
+            PrescriptionAdministration.new(
+              administered: true,
+              skip_validation: true
+            ).tap(&:valid?).errors
           end
 
-          it "does not validate the presence of witnessed_by" do
-            expect(errors[:witnessed_by]).to be_empty
+          it_behaves_like "no validation on administrator or witness"
+        end
+      end
+
+      context "when config.hd_session_prescriptions_require_signoff = false" do
+        describe "validation errors" do
+          subject(:errors) do
+            PrescriptionAdministration.new(
+              administered: true,
+              skip_validation: false
+            ).tap(&:valid?).errors
           end
 
-          it "does not validate the presence of administrator_authorisation_token" do
-            expect(errors[:administrator_authorisation_token]).to be_empty
+          before do
+            allow(Renalware.config)
+              .to receive(:hd_session_prescriptions_require_signoff)
+              .and_return(false)
           end
 
-          it "does not validate the presence of witness_authorisation_token" do
-            expect(errors[:witness_authorisation_token]).to be_empty
-          end
+          it_behaves_like "no validation on administrator or witness"
         end
       end
 
@@ -75,7 +91,7 @@ module Renalware
             administered: true,
             administered_by: administered_by,
             witnessed_by: witnessed_by,
-            skip_validation: skip_validation,
+            skip_validation: false,
             administrator_authorisation_token: administrator_authorisation_token,
             witness_authorisation_token: witness_authorisation_token
           ).tap(&:valid?).errors
@@ -89,14 +105,6 @@ module Renalware
           error_key = :"#{user_prefix}_authorisation_token"
 
           describe "#{user_prefix}_authorisation_token" do
-            context "when skip_validation is true" do
-              let(:skip_validation) { true }
-
-              it "does not validate the token" do
-                expect(errors[error_key]).to be_empty
-              end
-            end
-
             context "when #{user} is missing" do
               let(:"#{user}") { nil }
 
