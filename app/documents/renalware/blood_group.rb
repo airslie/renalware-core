@@ -2,7 +2,7 @@
 
 module Renalware
   class BloodGroup < NestedAttribute
-    attribute :group, Document::Enum, enums: %i(A B O AB)
+    attribute :group, Document::Enum
     attribute :rhesus, Document::Enum, enums: %i(positive negative)
 
     def to_s
