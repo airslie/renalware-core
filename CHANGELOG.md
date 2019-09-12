@@ -9,6 +9,16 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.107
+12-09-2019
+### Added
+### Changed
+- Fix sort order in PD regimes #2835
+- Fix HD Profile seeding #2866
+- Only include None in the default anticoagulants #2865
+- Move anticoagulant#type enum to an I18n file #2864
+### Fixed
+
 ## 2.0.106
 10-09-2019
 ### Added
