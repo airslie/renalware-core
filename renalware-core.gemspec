@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
   s.add_dependency "delayed_job", "~> 4.1.4"
   s.add_dependency "delayed_job_active_record", "~> 4.1.2"
   s.add_dependency "delayed_job_web", "~> 1.4.3"
-  s.add_dependency "devise", "~> 4.6.0"
+  s.add_dependency "devise", "~> 4.7.1"
   s.add_dependency "devise-security", "~> 0.14.3"
   s.add_dependency "dotenv-rails", "~> 2.5"
   s.add_dependency "dumb_delegator", "~> 0.8.0"
@@ -75,7 +75,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rack-attack"
   s.add_dependency "rails", "~> 5.2"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
-  s.add_dependency "rails-assets-moment", "2.22.2"
+  s.add_dependency "rails-assets-moment", "2.24.0"
   s.add_dependency "rails-assets-mousetrap", "1.6.2"
   s.add_dependency "rails-assets-select2", "4.0.5"
   s.add_dependency "ransack", "~> 2.1.1"
