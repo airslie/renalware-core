@@ -1,23 +1,25 @@
 # frozen_string_literal: true
 
-return if visit.public_send(method).blank?
+measurement = visit.public_send(method)
 
-xml = builder
+if measurement.present? && measurement.to_f.nonzero?
+  xml = builder
+  i18n_key ||= method
 
-i18n_key ||= method
-xml.Observation do
-  xml.ObservationTime visit.datetime
+  xml.Observation do
+    xml.ObservationTime visit.datetime
 
-  xml.ObservationCode do
-    xml.CodingStandard "UKRR"
-    xml.Code I18n.t("loinc.#{i18n_key}.code")
-    xml.Description I18n.t("loinc.#{i18n_key}.description")
-  end
+    xml.ObservationCode do
+      xml.CodingStandard "UKRR"
+      xml.Code I18n.t("loinc.#{i18n_key}.code")
+      xml.Description I18n.t("loinc.#{i18n_key}.description")
+    end
 
-  xml.ObservationValue visit.public_send(method)
-  xml.ObservationUnits I18n.t("loinc.#{i18n_key}.units")
+    xml.ObservationValue measurement
+    xml.ObservationUnits I18n.t("loinc.#{i18n_key}.units")
 
-  xml.Clinician do
-    xml.Description visit.updated_by&.to_s
+    xml.Clinician do
+      xml.Description visit.updated_by&.to_s
+    end
   end
 end
