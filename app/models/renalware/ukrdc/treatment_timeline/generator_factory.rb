@@ -13,7 +13,9 @@ module Renalware
         # Each modality_description has a :code fiekd
         def self.call(modality)
           type = modality.description.code&.to_s&.camelize
-          (klass_for(type) || klass_for(DEFAULT_TYPE)).new(modality)
+          klass = (klass_for(type) || klass_for(DEFAULT_TYPE)).new(modality)
+          Rails.logger.info "GeneratorFactory type = #{type} class = #{klass}"
+          klass
         end
 
         def self.klass_for(type)
