@@ -9,6 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.108
+13-09-2019
+### Added
+### Changed
+### Fixed
+- Fix UKRDC transplant treatments #2872
+- Omit blank and zero observation results in UKRDC XML #2871
+
 ## 2.0.107
 12-09-2019
 ### Added
