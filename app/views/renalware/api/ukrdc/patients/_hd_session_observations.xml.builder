@@ -18,17 +18,19 @@ observation_times = {
   }
 
   measurements.each do |i18n_key, value|
-    xml.Observation do
-      xml.ObservationTime observation_times[pre_post].iso8601
-      xml.ObservationCode do
-        xml.CodingStandard "UKRR"
-        xml.Code I18n.t("loinc.#{i18n_key}.code")
-        xml.Description I18n.t("loinc.#{i18n_key}.description")
-      end
+    if value.present? && value.to_f.nonzero?
+      xml.Observation do
+        xml.ObservationTime observation_times[pre_post].iso8601
+        xml.ObservationCode do
+          xml.CodingStandard "UKRR"
+          xml.Code I18n.t("loinc.#{i18n_key}.code")
+          xml.Description I18n.t("loinc.#{i18n_key}.description")
+        end
 
-      xml.ObservationValue value
-      xml.ObservationUnits I18n.t("loinc.#{i18n_key}.units")
-      xml.PrePost pre_post.to_s.upcase # eg PRE or POST
+        xml.ObservationValue value
+        xml.ObservationUnits I18n.t("loinc.#{i18n_key}.units")
+        xml.PrePost pre_post.to_s.upcase # eg PRE or POST
+      end
     end
   end
 end
