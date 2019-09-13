@@ -80,7 +80,7 @@ module Renalware
           # - change of site
           # - change of hd_type to from hd and (hdf_pre || hdf_post)
           # - change of hd prescription
-          # Loop through the hd_profiles and trigger an new treatment when these change
+          # Loop through the hd_profiles and trigger a new treatment when any of these change
           # There is a problem here as we are creating duplicate treatments
           # I think we need to first find the hd profile that is associated with the hd modality
           # and that becomes the 'last_profile' here
