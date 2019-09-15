@@ -38,7 +38,7 @@
             br
             |
             = link_to "(Uncheck all)", "#", id: "uncheck_all_appointments_link"
-          th.col-width-medium
+          th.col-width-medium-ish
           th.col-width-date
             = sort_link([:renalware, query], :starts_at, "Date", default_order: :asc)
           th.col-width-time
@@ -54,24 +54,27 @@
                        default_order: :asc)
           th= sort_link([:renalware, query], :clinic_name, "Clinic", default_order: :asc)
           th= sort_link([:renalware, query], :user_family_name, "Consultant", default_order: :asc)
+          th.show-for-large-up Outcome notes
+          th.show-for-large-up DNA notes
 
       tbody
         - appointments.each do |appointment|
           tr
             td= check_box_tag nil, appointment.patient.id, true, class: "patient_checkbox"
-            td
+            td.nowrap
+              = link_to("Toggle",
+                       "#appointment-quick-preview-#{appointment.id}",
+                       data: { behaviour: "toggler" })
+              = " | "
               - if appointment.becomes_visit_id.present?
                 = link_to edit_patient_clinic_visit_path(appointment.patient,
                                                           id: appointment.becomes_visit_id) do
-                  i.fas.fa-file
-                  | &nbsp;&nbsp;
                   | View Clinic Visit
               - else
                 = link_to new_patient_clinic_visit_path(appointment.patient,
                                                         appointment_id: appointment.id) do
                   i.fas.fa-pencil-alt
-                  | &nbsp;&nbsp;
-                  | Create Clinic Visit
+                  = " Create Clinic Visit"
 
             td= I18n.l appointment.starts_on
             td= appointment.start_time
@@ -81,5 +84,14 @@
             td= appointment.patient.current_modality
             td= appointment.clinic.name
             td= appointment.user.full_name
+            td.show-for-large-up.col-width-medium-with-ellipsis= appointment.outcome_notes
+            td.show-for-large-up.col-width-medium-with-ellipsis= appointment.dna_notes
+          = content_tag(:tr, id: "appointment-quick-preview-#{appointment.id}", style: "display: none")
+            td
+            td(colspan=13)
+              .quick-preview
+                = definition_list_for(appointment, size: :large) do |list|
+                  = list.definition(:outcome_notes){ |value| simple_format(value) }
+                  = list.definition(:dna_notes){ |value| simple_format(value) }
 
     = paginate appointments
