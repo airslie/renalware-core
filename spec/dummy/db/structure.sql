@@ -12116,6 +12116,20 @@ CREATE INDEX index_medication_prescriptions_on_updated_by_id ON medication_presc
 
 
 --
+-- Name: index_medication_routes_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_medication_routes_on_code ON medication_routes USING btree (code);
+
+
+--
+-- Name: index_medication_routes_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_medication_routes_on_name ON medication_routes USING btree (name);
+
+
+--
 -- Name: index_messaging_messages_on_author_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -16900,6 +16914,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190823051014'),
 ('20190823105642'),
 ('20190830082736'),
-('20190909084425');
+('20190909084425'),
+('20190915071451');
 
 

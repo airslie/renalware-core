@@ -19,9 +19,11 @@ module Renalware
                through: :prescriptions,
                source: :treatable,
                source_type: "PeritonitisEpisode"
+      validates :code, presence: true
+      validates :name, presence: true
 
       def other?
-        code == "Other"
+        code.casecmp("other").zero?
       end
     end
   end
