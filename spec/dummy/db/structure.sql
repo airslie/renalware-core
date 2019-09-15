@@ -4395,6 +4395,38 @@ ALTER SEQUENCE pathology_requests_requests_id_seq OWNED BY pathology_requests_re
 
 
 --
+-- Name: pathology_requests_sample_types; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE pathology_requests_sample_types (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    code character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pathology_requests_sample_types_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE pathology_requests_sample_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_requests_sample_types_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE pathology_requests_sample_types_id_seq OWNED BY pathology_requests_sample_types.id;
+
+
+--
 -- Name: patient_alerts; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8472,6 +8504,13 @@ ALTER TABLE ONLY pathology_requests_requests ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: pathology_requests_sample_types id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_sample_types ALTER COLUMN id SET DEFAULT nextval('pathology_requests_sample_types_id_seq'::regclass);
+
+
+--
 -- Name: patient_alerts id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -9796,6 +9835,14 @@ ALTER TABLE ONLY pathology_requests_patient_rules_requests
 
 ALTER TABLE ONLY pathology_requests_requests
     ADD CONSTRAINT pathology_requests_requests_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_requests_sample_types pathology_requests_sample_types_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_sample_types
+    ADD CONSTRAINT pathology_requests_sample_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -12484,6 +12531,20 @@ CREATE INDEX index_pathology_requests_requests_on_patient_id ON pathology_reques
 --
 
 CREATE INDEX index_pathology_requests_requests_on_updated_by_id ON pathology_requests_requests USING btree (updated_by_id);
+
+
+--
+-- Name: index_pathology_requests_sample_types_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pathology_requests_sample_types_on_code ON pathology_requests_sample_types USING btree (code);
+
+
+--
+-- Name: index_pathology_requests_sample_types_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pathology_requests_sample_types_on_name ON pathology_requests_sample_types USING btree (name);
 
 
 --
@@ -16915,6 +16976,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190823105642'),
 ('20190830082736'),
 ('20190909084425'),
-('20190915071451');
+('20190915071451'),
+('20190915083424');
 
 
