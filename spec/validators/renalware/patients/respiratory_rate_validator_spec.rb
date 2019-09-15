@@ -9,13 +9,17 @@ module Renalware
       let(:invalid_number_message) { "Invalid number" }
       let(:min_value) { Patients::RespiratoryRateValidator::MIN_VALUE }
       let(:max_value) { Patients::RespiratoryRateValidator::MAX_VALUE }
-      let(:model_class) { RespiratoryRateValidatable }
+      let(:model_class) do
+        Class.new do
+          include ActiveModel::Validations
+          include Virtus::Model
+          attribute :respiratory_rate, Integer
+          validates :respiratory_rate, "renalware/patients/respiratory_rate" => true
 
-      class RespiratoryRateValidatable
-        include ActiveModel::Validations
-        include Virtus::Model
-        attribute :respiratory_rate, Integer
-        validates :respiratory_rate, "renalware/patients/respiratory_rate" => true
+          def self.model_name
+            ActiveModel::Name.new(self, nil, "renalware/patients/respiratory_rate_validatable")
+          end
+        end
       end
 
       describe "#validate" do

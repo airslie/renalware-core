@@ -9,13 +9,17 @@ module Renalware
       let(:invalid_number_message) { "Invalid number" }
       let(:min_value) { Patients::WeightValidator::MIN_VALUE }
       let(:max_value) { Patients::WeightValidator::MAX_VALUE }
-      let(:model_class) { WeightValidatable }
+      let(:model_class) do
+        Class.new do
+          include ActiveModel::Validations
+          include Virtus::Model
+          attribute :weight, Float
+          validates :weight, "renalware/patients/weight" => true
 
-      class WeightValidatable
-        include ActiveModel::Validations
-        include Virtus::Model
-        attribute :weight, Float
-        validates :weight, "renalware/patients/weight" => true
+          def self.model_name
+            ActiveModel::Name.new(self, nil, "renalware/patients/weight_validatable")
+          end
+        end
       end
 
       describe "#validate" do

@@ -9,13 +9,17 @@ module Renalware
       let(:invalid_number_message) { "Invalid number" }
       let(:min_value) { Patients::BmStixValidator::MIN_VALUE }
       let(:max_value) { Patients::BmStixValidator::MAX_VALUE }
-      let(:model_class) { BmStixValidatable }
+      let(:model_class) do
+        Class.new do
+          include ActiveModel::Validations
+          include Virtus::Model
+          attribute :bm_stix, Float
+          validates :bm_stix, "renalware/patients/bm_stix" => true
 
-      class BmStixValidatable
-        include ActiveModel::Validations
-        include Virtus::Model
-        attribute :bm_stix, Float
-        validates :bm_stix, "renalware/patients/bm_stix" => true
+          def self.model_name
+            ActiveModel::Name.new(self, nil, "renalware/patients/bm_stix_validatable")
+          end
+        end
       end
 
       describe "#validate" do

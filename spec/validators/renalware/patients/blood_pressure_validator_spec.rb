@@ -9,13 +9,18 @@ module Renalware
       let(:must_be_less_than_systolic_message) { "must_be_less_than_systolic" }
       let(:min_value) { BloodPressureValidator::MIN_VALUE }
       let(:max_value) { BloodPressureValidator::MAX_VALUE }
+      let(:model_class) do
+        Class.new do
+          include ActiveModel::Validations
+          include Virtus::Model
+          attribute :systolic, Integer
+          attribute :diastolic, Integer
+          validates_with BloodPressureValidator
 
-      class BloodPressureValidatable
-        include ActiveModel::Validations
-        include Virtus::Model
-        attribute :systolic, Integer
-        attribute :diastolic, Integer
-        validates_with BloodPressureValidator
+          def self.model_name
+            ActiveModel::Name.new(self, nil, "renalware/patients/blood_pressure_validatable")
+          end
+        end
       end
 
       before do
@@ -60,7 +65,7 @@ module Renalware
       end
 
       def build_model(systolic:, diastolic:)
-        BloodPressureValidatable.new(systolic: systolic, diastolic: diastolic)
+        model_class.new(systolic: systolic, diastolic: diastolic)
       end
 
       def expect_model_to_be_invalid_with_messages(model, attribute, *expected_messages)
