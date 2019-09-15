@@ -2,6 +2,7 @@
 
 require "rails_helper"
 
+# rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
 describe "Create new appointment manually (not via HL7 message)", type: :system, js: true do
   context "with valid inputs" do
     it "creates a new clinic appointment" do
@@ -27,6 +28,8 @@ describe "Create new appointment manually (not via HL7 message)", type: :system,
 
         select clinic.name, from: "Clinic"
         fill_in "Starts at", with: "08-Aug-2018"
+        fill_in "Outcome notes", with: "Outcome notes"
+        fill_in "DNA notes", with: "DNA notes"
         click_on "Create"
       end
 
@@ -36,6 +39,13 @@ describe "Create new appointment manually (not via HL7 message)", type: :system,
         expect(page).to have_content(patient.to_s)
         expect(page).to have_content(clinic.to_s)
       end
+
+      appointment = Renalware::Clinics::Appointment.last
+      expect(appointment).to have_attributes(
+        outcome_notes: "Outcome notes",
+        dna_notes: "DNA notes"
+      )
     end
   end
 end
+# rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
