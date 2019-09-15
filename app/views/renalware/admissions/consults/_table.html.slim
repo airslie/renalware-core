@@ -20,6 +20,11 @@
           - else
             | Ward
         th.col-width-tiny RRT
+        th.col-width-small.nowrap
+          - if allow_sorting
+            = sort_link(query, :transfer_priority, "Transfer Priority")
+          - else
+            | Transfer Priority
         th.col-width-date.noprint
           - if allow_sorting
             = sort_link(query, :started_on, "Started")
@@ -44,8 +49,6 @@
               = sort_link(query, :patient_born_on, "DOB")
             - else
               | DOB
-        - unless compact
-          th.col-width-tiny.show-for-large-up Age
         th.col-width-tiny.noprint
           - if allow_sorting
             = sort_link(query, :aki_risk, "AKI Risk")
@@ -93,6 +96,7 @@
           td= consult.patient_hospital_identifiers&.to_s_multiline
           td= consult.hospital_ward
           td= yes_no(consult.rrt?)
+          td.nowrap= consult.transfer_priority&.text
           td.noprint= l(consult.started_on)
           td.noprint= l(consult.ended_on)
           - unless compact
@@ -101,8 +105,6 @@
             td.show-for-large-up= consult.patient_sex
           - unless compact
             td.show-for-large-up= l(consult.patient.born_on)
-          - unless compact
-            td.show-for-large-up= consult.patient_age
           td.noprint= consult.aki_risk&.text
           /td.show-for-xlarge-up.consult-author.col-width-medium-with-ellipsis(title=consult.created_by)= consult.created_by
           /td.col-width-medium-with-ellipsis(title=consult.description)= consult.description
