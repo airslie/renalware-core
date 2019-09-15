@@ -56,7 +56,7 @@ module Renalware
       def appointment_params
         params
           .require(:clinics_appointment)
-          .permit(:patient_id, :clinic_id, :starts_at)
+          .permit(:patient_id, :clinic_id, :starts_at, :outcome_notes, :dna_notes, :clinician_id)
       end
     end
   end
