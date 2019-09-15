@@ -9,13 +9,17 @@ module Renalware
       let(:invalid_number_message) { "Invalid number" }
       let(:min_value) { Patients::HeightValidator::MIN_VALUE }
       let(:max_value) { Patients::HeightValidator::MAX_VALUE }
-      let(:model_class) { HeightValidatable }
+      let(:model_class) do
+        Class.new do
+          include ActiveModel::Validations
+          include Virtus::Model
+          attribute :height, Float
+          validates :height, "renalware/patients/height" => true
 
-      class HeightValidatable
-        include ActiveModel::Validations
-        include Virtus::Model
-        attribute :height, Float
-        validates :height, "renalware/patients/height" => true
+          def self.model_name
+            ActiveModel::Name.new(self, nil, "renalware/patients/height_validatable")
+          end
+        end
       end
 
       describe "#validate" do
@@ -77,12 +81,15 @@ module Renalware
           expect_model_to_be_invalid_with_messages(model, out_of_range_message)
         end
 
+        # rubocop:disable Metrics/AbcSize
         def expect_model_to_be_invalid_with_messages(model, *expected_messages)
+          errors = model.errors
           expect(model).not_to be_valid
-          expect(model.errors.count).to eq(expected_messages.count)
-          messages = model.errors.messages[:height]
+          expect(errors.count).to eq(expected_messages.count)
+          messages = errors.messages[:height]
           expect(messages & expected_messages).to eq(messages)
         end
+        # rubocop:enable Metrics/AbcSize
       end
     end
   end

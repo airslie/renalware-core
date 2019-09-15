@@ -9,13 +9,17 @@ module Renalware
       let(:invalid_number_message) { "Invalid number" }
       let(:min_value) { Patients::TemperatureValidator::MIN_VALUE }
       let(:max_value) { Patients::TemperatureValidator::MAX_VALUE }
-      let(:model_class) { TemperatureValidatable }
+      let(:model_class) do
+        Class.new do
+          include ActiveModel::Validations
+          include Virtus::Model
+          attribute :temperature, Float
+          validates :temperature, "renalware/patients/temperature" => true
 
-      class TemperatureValidatable
-        include ActiveModel::Validations
-        include Virtus::Model
-        attribute :temperature, Float
-        validates :temperature, "renalware/patients/temperature" => true
+          def self.model_name
+            ActiveModel::Name.new(self, nil, "renalware/patients/temperature_validatable")
+          end
+        end
       end
 
       describe "#validate" do
