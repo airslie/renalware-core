@@ -92,13 +92,9 @@ module Renalware
           # and that becomes the 'last_profile' here
           def create_treatments_within_modality
             last_profile = hd_profile_at_start_of_modality
-            # p "start #{modality.started_on}"
-            # p "end #{modality.ended_on}"
             hd_profiles.each do |profile_|
               profile = HD::ProfileDecorator.new(profile_, last_profile: last_profile)
-              # p "profile.created_at #{profile.created_at}"
-              # p profile.changed?
-              create_treatment_from(profile) if last_profile.nil? || profile.changed?
+              create_treatment_from(profile) # if last_profile.nil? || profile.changed?
               last_profile = profile
             end
           end
@@ -113,15 +109,8 @@ module Renalware
           end
 
           def create_treatment_from(profile)
-            p "create_treatment_from"
-            p "profile.created_at #{profile.created_at}"
-            p "profile.deactivated_at #{profile.deactivated_at}"
-            p "modality.started_on #{modality.started_on}"
-            p "modality.ended_on #{modality.ended_on}"
             start_date = profile.created_at.presence || modality.started_on
             end_date = profile.deactivated_at.presence || modality.ended_on
-            p "start_date #{start_date}"
-            p "end_date #{end_date}"
 
             create_treatment(profile, start_date, end_date)
           end
