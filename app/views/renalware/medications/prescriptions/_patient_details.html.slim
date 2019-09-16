@@ -1,10 +1,16 @@
 section
   dl
+    dt Hospital Numbers
+    dd= patient.hospital_identifiers
+    dt NHS Number
+    dd= formatted_nhs_number(patient)
     dt Name
     dd= patient.to_s
     dt Date of Birth
     dd= l(patient.born_on)
-    dt NHS Number
-    dd= patient.nhs_number
-    dt Hospital no
-    dd= patient.hospital_identifier
+    dt Address
+    dd= patient.current_address&.to_s(:without_postcode)
+    dt Postcode
+    dd= patient.current_address&.postcode
+    dt Telephone
+    dd= patient.telephone1.presence || patient.telephone2

@@ -35,9 +35,10 @@ module Renalware
       self
     end
 
-    def to_s
-      [name, organisation_name, street_1, street_2, street_3, town, county, postcode, country]
-        .reject(&:blank?).join(", ")
+    def to_s(format = nil)
+      parts = [name, organisation_name, street_1, street_2, street_3, town, county]
+      parts += [postcode, country] unless format == :without_postcode
+      parts.reject(&:blank?).join(", ")
     end
 
     def street
