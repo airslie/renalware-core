@@ -14,6 +14,7 @@ module Renalware
 
         scope
           .where(conditions.merge(deactivated_at: from..to))
+          .or(scope.where(conditions.merge(deactivated_at: nil)))
         # .where(conditions.merge(deactivated_at: from..to))
         # .or(scope.where(conditions.merge(deactivated_at: nil)))
       end

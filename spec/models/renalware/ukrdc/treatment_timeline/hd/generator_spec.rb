@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-# rubocop:disable RSpec/ExampleLength
+# rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
 module Renalware
   module UKRDC
     describe TreatmentTimeline::HD::Generator do
@@ -152,8 +152,8 @@ module Renalware
               started_on: "2017-12-02"
             )
 
-            hospital_unit1 = create(:hospital_unit)
-            hospital_unit2 = create(:hospital_unit)
+            unit1 = create(:hospital_unit)
+            unit2 = create(:hospital_unit)
 
             # 3 HD profiles but all created on the same day so the last one is the 'effective' one
             # But note they are not 'in range' of any HD modality so count for nothing
@@ -163,7 +163,7 @@ module Renalware
               hd_type: :hd,
               active: nil,
               prescribed_on: nil,
-              hospital_unit: hospital_unit1,
+              hospital_unit: unit1,
               prescribed_time: 210
             )
 
@@ -173,7 +173,7 @@ module Renalware
               hd_type: :hd,
               active: true,
               prescribed_on: nil,
-              hospital_unit: hospital_unit2,
+              hospital_unit: unit2,
               prescribed_time: 210
             )
 
@@ -189,83 +189,143 @@ module Renalware
             # The SQL view hd_profile_for_modalities will find the first HD Profile
             # and takes its hospital unit id. No other modalities define in their window
             # a new HD profile that would change the unit id (or hd type)
-            expect(treatments.map(&:hospital_unit_id).uniq).to eq [hospital_unit1.id]
+            expect(treatments.map(&:hospital_unit_id).uniq).to eq [unit1.id]
             expect(treatments.map(&:hd_type).uniq).to eq ["hd"]
           end
         end
 
-        describe "patient has 4 HD modalities in the past but only HD profiles which are much "\
-                 "more recent" do
-          # Based on 133651
+        ########################################################################
+        ########################################################################
+        ########################################################################
+        describe "patient has 4 HD modalities and 2 HD profiles" do
           it "uses the first found hd profile in order to resolve the unit id" do
             modal1 = set_modality(
               patient: patient,
               modality_description: hd_mod_desc,
               by: user,
-              started_on: "2017-06-21"
+              started_on: "2017-01-01"
             )
             modal2 = set_modality(
               patient: patient,
               modality_description: hd_mod_desc,
               by: user,
-              started_on: "2017-08-10"
+              started_on: "2018-01-01"
             )
             modal3 = set_modality(
               patient: patient,
               modality_description: hd_mod_desc,
               by: user,
-              started_on: "2017-11-14"
+              started_on: "2019-01-01"
             )
             modal4 = set_modality(
               patient: patient,
               modality_description: hd_mod_desc,
               by: user,
-              started_on: "2017-12-02"
+              started_on: "2020-01-01"
             )
 
-            hospital_unit1 = create(:hospital_unit)
-            hospital_unit2 = create(:hospital_unit)
+            unit1 = create(:hospital_unit)
+            unit2 = create(:hospital_unit)
 
-            # 3 HD profiles but all created on the same day so the last one is the 'effective' one
-            # But note they are not 'in range' of any HD modality so count for nothing
+            # First profile is a year after the first modality, but it is found and used by
+            # modality1. The profile lasts fior 1 month then another is created
             create_profile(
-              start_date: "2018-03-08 18:00:14.760431", # created_at
-              end_date: "2018-03-12 11:20:39.431778", # deactivated_at
+              start_date: "2018-02-01", # created_at
+              end_date: "2018-03-01", # deactivated_at
               hd_type: :hd,
               active: nil,
               prescribed_on: nil,
-              hospital_unit: hospital_unit1,
+              hospital_unit: unit1,
+              prescribed_time: 210
+            )
+
+            # Change in profile as hd_type has changed
+            create_profile(
+              start_date: "2018-03-01", # created_at
+              end_date: "2018-04-01", # deactivated_at
+              hd_type: :hdf_pre, # changed!!
+              active: nil,
+              prescribed_on: nil,
+              hospital_unit: unit1,
               prescribed_time: 210
             )
 
             create_profile(
-              start_date: "2018-03-12 11:20:39.443311", # created_at
-              end_date: nil, # deactivated_at
-              hd_type: :hd,
+              start_date: "2018-04-01", # created_at
+              end_date: nil, # deactivated_at = nil so == current profile
+              hd_type: :hdf_pre,
               active: true,
               prescribed_on: nil,
-              hospital_unit: hospital_unit2,
+              hospital_unit: unit2, # changed
               prescribed_time: 210
             )
 
             expect {
-              described_class.new(modal1).call
-              described_class.new(modal2).call
-              described_class.new(modal3).call
-              described_class.new(modal4).call
-            }.to change(UKRDC::Treatment, :count).by(4)
-
-            treatments = UKRDC::Treatment.all
+              described_class.new(modal1.reload).call
+              described_class.new(modal2.reload).call
+              described_class.new(modal3.reload).call
+              described_class.new(modal4.reload).call
+            }.to change(UKRDC::Treatment, :count).by(6)
 
             # The SQL view hd_profile_for_modalities will find the first HD Profile
             # and takes its hospital unit id. No other modalities define in their window
             # a new HD profile that would change the unit id (or hd type)
-            expect(treatments.map(&:hospital_unit_id).uniq).to eq [hospital_unit1.id]
-            expect(treatments.map(&:hd_type).uniq).to eq ["hd"]
+
+            treatments = UKRDC::Treatment.all.order(:started_on)
+
+            # Vanilla HD modality (1)
+            expect(treatments[0]).to have_attributes(
+              started_on: Date.parse("2017-01-01"),
+              ended_on: Date.parse("2018-01-01"),
+              hd_type: "hd", # from 1st hd profile
+              hospital_unit: unit1
+            )
+
+            # Vanilla HD modality (2)
+            expect(treatments[1]).to have_attributes(
+              started_on: Date.parse("2018-01-01"),
+              ended_on: Date.parse("2018-03-01"), # end early due to hd_profile change
+              hd_type: "hd", # from 1st hd profile
+              hospital_unit: unit1
+            )
+
+            # Triggered by hd_type change in profile
+            expect(treatments[2]).to have_attributes(
+              started_on: Date.parse("2018-03-01"),
+              ended_on: Date.parse("2018-04-01"), # end here is start of last profile
+              hd_type: "hdf_pre",
+              hospital_unit: unit1
+            )
+
+            # Triggered by hospital unit change in profile
+            # Check ended_on not nil ie based on current hd_profile with no deativated date
+            # Should be set to previous start date
+            expect(treatments[3]).to have_attributes(
+              started_on: Date.parse("2018-04-01"),
+              ended_on: Date.parse("2019-01-01"),
+              hd_type: "hdf_pre",
+              hospital_unit: unit2
+            )
+
+            # Vanilla HD modality (3)
+            expect(treatments[4]).to have_attributes(
+              started_on: Date.parse("2019-01-01"),
+              ended_on: Date.parse("2020-01-01"),
+              hd_type: "hdf_pre",
+              hospital_unit: unit2
+            )
+
+            # Vanilla HD modality (4)
+            expect(treatments[5]).to have_attributes(
+              started_on: Date.parse("2020-01-01"),
+              ended_on: nil,
+              hd_type: "hdf_pre",
+              hospital_unit: unit2
+            )
           end
         end
       end
     end
   end
 end
-# rubocop:enable RSpec/ExampleLength
+# rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations

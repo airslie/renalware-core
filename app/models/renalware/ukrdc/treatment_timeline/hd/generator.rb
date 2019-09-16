@@ -3,6 +3,7 @@
 require_dependency "renalware/ukrdc"
 require "attr_extras"
 
+# rubocop:disable Rails/Output, Metrics/AbcSize, Metrics/MethodLength
 module Renalware
   module UKRDC
     module TreatmentTimeline
@@ -38,7 +39,6 @@ module Renalware
             )
           end
 
-          # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           def create_treatment(profile, start_date, end_date)
             treatments << Treatment.create!(
               patient: patient,
@@ -55,12 +55,12 @@ module Renalware
 
             # Update the end date on the previous treatment - ie the one we just added is
             # taking over as the currently active treatment
-            unless treatments.length <= 1
+            if treatments.length > 1
               previous_treatment = treatments[treatments.length - 2]
+              p "updating end date from #{previous_treatment.ended_on} to #{start_date}"
               previous_treatment.update!(ended_on: start_date)
             end
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
           # Find the modality that was active on the day of the modality change
           # The profile might have been added up to say 14 days later however so if there is none
@@ -92,9 +92,12 @@ module Renalware
           # and that becomes the 'last_profile' here
           def create_treatments_within_modality
             last_profile = hd_profile_at_start_of_modality
-
+            # p "start #{modality.started_on}"
+            # p "end #{modality.ended_on}"
             hd_profiles.each do |profile_|
               profile = HD::ProfileDecorator.new(profile_, last_profile: last_profile)
+              # p "profile.created_at #{profile.created_at}"
+              # p profile.changed?
               create_treatment_from(profile) if last_profile.nil? || profile.changed?
               last_profile = profile
             end
@@ -110,8 +113,15 @@ module Renalware
           end
 
           def create_treatment_from(profile)
-            start_date = profile.present? ? profile.created_at : modality.started_on
-            end_date = profile.present? ? profile.deactivated_at : modality.ended_on
+            p "create_treatment_from"
+            p "profile.created_at #{profile.created_at}"
+            p "profile.deactivated_at #{profile.deactivated_at}"
+            p "modality.started_on #{modality.started_on}"
+            p "modality.ended_on #{modality.ended_on}"
+            start_date = profile.created_at.presence || modality.started_on
+            end_date = profile.deactivated_at.presence || modality.ended_on
+            p "start_date #{start_date}"
+            p "end_date #{end_date}"
 
             create_treatment(profile, start_date, end_date)
           end
@@ -132,3 +142,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Rails/Output, Metrics/AbcSize, Metrics/MethodLength
