@@ -14,6 +14,11 @@ module Renalware
         # a treatment for each significant change in the HD::Profile during the period of the
         # modality (ie until it ends).
         #
+        # Note that the first HD Profile associated with any HD Modality is determined in the SQL
+        # view hd_profile_for_modalities. Test with
+        #   select * from hd_profile_for_modalities;
+        # It looks ahead to find the very first HD profile.
+        #
         class Generator
           pattr_initialize :modality
           delegate :patient, to: :modality
@@ -44,7 +49,8 @@ module Renalware
               hospital_unit: profile&.hospital_unit,
               ended_on: end_date,
               modality_code: ukrdc_modality_code_from_profile(profile),
-              hd_profile: profile
+              hd_profile: profile,
+              hd_type: profile&.document&.dialysis&.hd_type
             )
 
             # Update the end date on the previous treatment - ie the one we just added is

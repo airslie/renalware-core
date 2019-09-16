@@ -1,4 +1,4 @@
--- This view is HD-specific, but really serevers to make UKRDC export easier.
+-- This view is HD-specific, but really serves to make UKRDC export easier.
 -- It attempts to solve the gnarly problem of finding the hd profile associated with the start
 -- of an HD modality. For example if a patient goes on to HD, an HD modality row is created.
 -- However it could be a couple of weeks before they have an HD profile setup. This view

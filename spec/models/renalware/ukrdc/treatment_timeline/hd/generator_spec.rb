@@ -124,27 +124,28 @@ module Renalware
           end
         end
 
-        describe "replacating an issue in production" do
-          it do
-            set_modality(
+        describe "patient has 4 HD modalities in the past but only much newer HD profiles" do
+          # Based on 133651
+          it "uses the first found hd profile in order to resolve the unit id" do
+            modal1 = set_modality(
               patient: patient,
               modality_description: hd_mod_desc,
               by: user,
               started_on: "2017-06-21"
             )
-            set_modality(
+            modal2 = set_modality(
               patient: patient,
               modality_description: hd_mod_desc,
               by: user,
               started_on: "2017-08-10"
             )
-            set_modality(
+            modal3 = set_modality(
               patient: patient,
               modality_description: hd_mod_desc,
               by: user,
               started_on: "2017-11-14"
             )
-            set_modality(
+            modal4 = set_modality(
               patient: patient,
               modality_description: hd_mod_desc,
               by: user,
@@ -155,42 +156,112 @@ module Renalware
             hospital_unit2 = create(:hospital_unit)
 
             # 3 HD profiles but all created on the same day so the last one is the 'effective' one
+            # But note they are not 'in range' of any HD modality so count for nothing
             create_profile(
-              start_date: "2018-03-10 13:02:23.610562", # created_at
-              end_date: "2018-04-10 10:57:14.582812", # deactivated_at
+              start_date: "2018-03-08 18:00:14.760431", # created_at
+              end_date: "2018-03-12 11:20:39.431778", # deactivated_at
               hd_type: :hd,
               active: nil,
-              prescribed_on: "2017-06-21",
+              prescribed_on: nil,
               hospital_unit: hospital_unit1,
               prescribed_time: 210
             )
 
             create_profile(
-              start_date: "2018-04-10 10:57:14.621685", # created_at
-              end_date: "2018-07-07 18:05:00.152214", # deactivated_at
-              hd_type: :hd,
-              active: nil,
-              prescribed_on: "2017-06-21",
-              hospital_unit: hospital_unit1,
-              prescribed_time: 210
-            )
-
-            create_profile(
-              start_date: "2018-07-07 18:05:00.163591", # created_at
-              end_date: nil, # deactivated_at,
+              start_date: "2018-03-12 11:20:39.443311", # created_at
+              end_date: nil, # deactivated_at
               hd_type: :hd,
               active: true,
-              prescribed_on: "2017-06-21",
+              prescribed_on: nil,
               hospital_unit: hospital_unit2,
               prescribed_time: 210
             )
 
             expect {
-              generator.call
-            }.to change(UKRDC::Treatment, :count).by(1)
+              described_class.new(modal1).call
+              described_class.new(modal2).call
+              described_class.new(modal3).call
+              described_class.new(modal4).call
+            }.to change(UKRDC::Treatment, :count).by(4)
 
-            treatment = UKRDC::Treatment.first
-            expect(treatment.hospital_unit).to eq(hospital_unit2)
+            treatments = UKRDC::Treatment.all
+
+            # The SQL view hd_profile_for_modalities will find the first HD Profile
+            # and takes its hospital unit id. No other modalities define in their window
+            # a new HD profile that would change the unit id (or hd type)
+            expect(treatments.map(&:hospital_unit_id).uniq).to eq [hospital_unit1.id]
+            expect(treatments.map(&:hd_type).uniq).to eq ["hd"]
+          end
+        end
+
+        describe "patient has 4 HD modalities in the past but only HD profiles which are much "\
+                 "more recent" do
+          # Based on 133651
+          it "uses the first found hd profile in order to resolve the unit id" do
+            modal1 = set_modality(
+              patient: patient,
+              modality_description: hd_mod_desc,
+              by: user,
+              started_on: "2017-06-21"
+            )
+            modal2 = set_modality(
+              patient: patient,
+              modality_description: hd_mod_desc,
+              by: user,
+              started_on: "2017-08-10"
+            )
+            modal3 = set_modality(
+              patient: patient,
+              modality_description: hd_mod_desc,
+              by: user,
+              started_on: "2017-11-14"
+            )
+            modal4 = set_modality(
+              patient: patient,
+              modality_description: hd_mod_desc,
+              by: user,
+              started_on: "2017-12-02"
+            )
+
+            hospital_unit1 = create(:hospital_unit)
+            hospital_unit2 = create(:hospital_unit)
+
+            # 3 HD profiles but all created on the same day so the last one is the 'effective' one
+            # But note they are not 'in range' of any HD modality so count for nothing
+            create_profile(
+              start_date: "2018-03-08 18:00:14.760431", # created_at
+              end_date: "2018-03-12 11:20:39.431778", # deactivated_at
+              hd_type: :hd,
+              active: nil,
+              prescribed_on: nil,
+              hospital_unit: hospital_unit1,
+              prescribed_time: 210
+            )
+
+            create_profile(
+              start_date: "2018-03-12 11:20:39.443311", # created_at
+              end_date: nil, # deactivated_at
+              hd_type: :hd,
+              active: true,
+              prescribed_on: nil,
+              hospital_unit: hospital_unit2,
+              prescribed_time: 210
+            )
+
+            expect {
+              described_class.new(modal1).call
+              described_class.new(modal2).call
+              described_class.new(modal3).call
+              described_class.new(modal4).call
+            }.to change(UKRDC::Treatment, :count).by(4)
+
+            treatments = UKRDC::Treatment.all
+
+            # The SQL view hd_profile_for_modalities will find the first HD Profile
+            # and takes its hospital unit id. No other modalities define in their window
+            # a new HD profile that would change the unit id (or hd type)
+            expect(treatments.map(&:hospital_unit_id).uniq).to eq [hospital_unit1.id]
+            expect(treatments.map(&:hd_type).uniq).to eq ["hd"]
           end
         end
       end

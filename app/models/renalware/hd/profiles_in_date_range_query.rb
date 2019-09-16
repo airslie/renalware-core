@@ -14,17 +14,17 @@ module Renalware
 
         scope
           .where(conditions.merge(deactivated_at: from..to))
-          .or(
-            scope.where(conditions.merge(deactivated_at: nil))
-          )
+        # .where(conditions.merge(deactivated_at: from..to))
+        # .or(scope.where(conditions.merge(deactivated_at: nil)))
       end
 
       private
 
+      # created_at: from..DateTime::Infinity.new
       def conditions
         {
           patient_id: patient.id,
-          created_at: from..DateTime::Infinity.new
+          created_at: from..(to || DateTime::Infinity.new)
         }
       end
     end
