@@ -47,7 +47,11 @@ module Renalware
       end
 
       def render_rtf(letter)
-        RTFRenderer.new(letter, self).render
+        renderer = RTFRenderer.new(letter)
+        send_data renderer.render,
+                  type: "text/richtext",
+                  filename: renderer.filename,
+                  disposition: disposition
       end
 
       def disposition

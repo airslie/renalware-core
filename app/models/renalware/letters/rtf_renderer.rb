@@ -1,29 +1,30 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/letters"
+require "attr_extras"
 
 module Renalware
   module Letters
+    # Use pandoc to convert the html letter to RTF
     class RTFRenderer
-      include ActionController::Rendering
+      pattr_initialize :letter
       REGEX_TO_STRIP_IMAGES = %r{(?m)<img\s*.*?"\s*\/>}.freeze
-
-      def initialize(letter, controller)
-        @letter = letter
-        @controller = controller
-      end
 
       def render
         using_temp_html_file do |temp_file|
-          controller.send_data rtf_content_converted_from(temp_file),
-                               type: "text/richtext",
-                               filename: filename
+          rtf_content_converted_from(temp_file)
         end
       end
 
-      private
+      def filename
+        "#{letter.pdf_filename}.rtf"
+      end
 
-      attr_accessor :letter, :controller
+      def disposition
+        "attachment; filename=\"#{filename}\""
+      end
+
+      private
 
       def using_temp_html_file
         temp_html_file = Tempfile.new("html_to_be_converted_to_rtf")
@@ -33,14 +34,6 @@ module Renalware
         yield(temp_html_file) if block_given?
       ensure
         temp_html_file.unlink # allows garbage collection and temp file removal
-      end
-
-      def filename
-        "#{letter.pdf_filename}.rtf"
-      end
-
-      def disposition
-        "attachment; filename=\"#{filename}\""
       end
 
       def rtf_content_converted_from(html_temp_file)
