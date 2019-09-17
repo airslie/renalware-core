@@ -57,15 +57,15 @@ module Renalware
         end
 
         def urea
-          where("cast(values->'URE'->>'result' as float) >= 30.0")
+          where("convert_to_float(values->'URE'->>'result') >= 30.0")
         end
 
         def hgb_low
-          where("cast(values->'HGB'->>'result' as float) < 100.0")
+          where("convert_to_float(values->'HGB'->>'result') < 100.0")
         end
 
         def hgb_high
-          where("cast(values->'HGB'->>'result' as float) > 130.0")
+          where("convert_to_float(values->'HGB'->>'result') > 130.0")
         end
       end
     end

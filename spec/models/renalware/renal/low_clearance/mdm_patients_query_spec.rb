@@ -140,9 +140,15 @@ module Renalware
             patient_w_hgb_lt_100 = create_lcc_patient
             create_observation(patient_w_hgb_lt_100, hgb, 99.9, at: Time.zone.now - 1.month)
 
+            # This is a test to make sure that patients with a textual result, which is effectively
+            # NULL (which is < 100 in the postgres world as far as ordering is concerned) still
+            # appears in the < 100 group
+            patient_w_textual_hgb = create_lcc_patient
+            create_observation(patient_w_textual_hgb, hgb, "CANCELLED", at: Time.zone.now - 1.month)
+
             patients = described_class.new(named_filter: :hgb_low).call
 
-            expect(patients.map(&:id)).to eq [patient_w_hgb_lt_100.id]
+            expect(patients.map(&:id)).to eq [patient_w_hgb_lt_100.id, patient_w_textual_hgb.id]
           end
         end
 
