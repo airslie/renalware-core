@@ -3,6 +3,8 @@
 require_dependency "renalware/ukrdc"
 require "attr_extras"
 
+# rubocop:disable Lint/UnneededCopDisableDirective, Rails/Output
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 module Renalware
   module UKRDC
     module TreatmentTimeline
@@ -13,6 +15,11 @@ module Renalware
         # There will be an initial treatment triggered by the modality itself, and then
         # a treatment for each significant change in the HD::Profile during the period of the
         # modality (ie until it ends).
+        #
+        # Note that the first HD Profile associated with any HD Modality is determined in the SQL
+        # view hd_profile_for_modalities. Test with
+        #   select * from hd_profile_for_modalities;
+        # It looks ahead to find the very first HD profile.
         #
         class Generator
           pattr_initialize :modality
@@ -33,7 +40,6 @@ module Renalware
             )
           end
 
-          # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           def create_treatment(profile, start_date, end_date)
             treatments << Treatment.create!(
               patient: patient,
@@ -44,17 +50,18 @@ module Renalware
               hospital_unit: profile&.hospital_unit,
               ended_on: end_date,
               modality_code: ukrdc_modality_code_from_profile(profile),
-              hd_profile: profile
+              hd_profile: profile,
+              hd_type: profile&.document&.dialysis&.hd_type
             )
 
             # Update the end date on the previous treatment - ie the one we just added is
             # taking over as the currently active treatment
-            unless treatments.length <= 1
+            if treatments.length > 1
               previous_treatment = treatments[treatments.length - 2]
+              # p "updating end date from #{previous_treatment.ended_on} to #{start_date}"
               previous_treatment.update!(ended_on: start_date)
             end
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
           # Find the modality that was active on the day of the modality change
           # The profile might have been added up to say 14 days later however so if there is none
@@ -86,10 +93,9 @@ module Renalware
           # and that becomes the 'last_profile' here
           def create_treatments_within_modality
             last_profile = hd_profile_at_start_of_modality
-
             hd_profiles.each do |profile_|
               profile = HD::ProfileDecorator.new(profile_, last_profile: last_profile)
-              create_treatment_from(profile) if last_profile.nil? || profile.changed?
+              create_treatment_from(profile) # if last_profile.nil? || profile.changed?
               last_profile = profile
             end
           end
@@ -100,12 +106,18 @@ module Renalware
               from: modality.started_on,
               to: modality.ended_on
             ).call
-            profiles - Array(hd_profile_at_start_of_modality)
+
+            # p profiles.to_sql
+
+            profiles -= Array(hd_profile_at_start_of_modality)
+            # p "found #{profiles.size} profiles #{profiles.map(&:id)} between "\
+            #    "#{modality.started_on} and #{modality.ended_on}"
+            profiles
           end
 
           def create_treatment_from(profile)
-            start_date = profile.present? ? profile.created_at : modality.started_on
-            end_date = profile.present? ? profile.deactivated_at : modality.ended_on
+            start_date = profile.created_at.presence || modality.started_on
+            end_date = profile.deactivated_at.presence || modality.ended_on
 
             create_treatment(profile, start_date, end_date)
           end
@@ -126,3 +138,5 @@ module Renalware
     end
   end
 end
+# rubocop:enable Lint/UnneededCopDisableDirective, Rails/Output
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength

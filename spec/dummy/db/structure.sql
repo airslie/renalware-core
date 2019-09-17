@@ -7694,7 +7694,8 @@ CREATE TABLE ukrdc_treatments (
     hd_profile_id bigint,
     pd_regime_id bigint,
     discharge_reason_code integer,
-    discharge_reason_comment character varying
+    discharge_reason_comment character varying,
+    hd_type character varying
 );
 
 
@@ -16977,6 +16978,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190830082736'),
 ('20190909084425'),
 ('20190915071451'),
-('20190915083424');
+('20190915083424'),
+('20190916160231');
 
 
