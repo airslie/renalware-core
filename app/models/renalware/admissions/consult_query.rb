@@ -32,9 +32,9 @@ module Renalware
             .eager_load(patient: [current_modality: :description])
             .includes(
               :consult_site,
-              :hospital_ward,
               :created_by,
-              patient: { current_modality: :description }
+              patient: { current_modality: :description },
+              hospital_ward: :hospital_unit
             )
             .order(created_at: :desc)
             .ransack(query)

@@ -20,6 +20,7 @@ module Renalware
              started_on: Time.zone.today,
              consult_site: consult_site,
              hospital_ward: hospital_ward,
+             priority: 13,
              consult_type: "TBC",
              description: "Lorem ipsum dolor")
     end
@@ -78,6 +79,7 @@ module Renalware
             rrt: true,
             consult_type: "TBC",
             transfer_priority: Renalware::Admissions::Consult.transfer_priority.values.first,
+            priority: 13,
             aki_risk: Renalware::Admissions::Consult.aki_risk.values.first,
             seen_by_id: user.id,
             contact_number: "x123",
@@ -132,7 +134,7 @@ module Renalware
           consult = create_consult
           consult_site2 = create(:admissions_consult_site, name: "Site2")
 
-          params = { consult_site_id: consult_site2.id }
+          params = { consult_site_id: consult_site2.id, priority: 14 }
 
           patch(admissions_consult_path(consult),
                 params: { admissions_consult: params })
@@ -140,7 +142,11 @@ module Renalware
           follow_redirect!
           expect(response).to be_successful
           expect(response).to render_template(:index)
-          expect(consult.reload.consult_site_id).to eq(consult_site2.id)
+          consult.reload
+          expect(consult).to have_attributes(
+            consult_site_id: consult_site2.id,
+            priority: 14
+          )
         end
       end
 
