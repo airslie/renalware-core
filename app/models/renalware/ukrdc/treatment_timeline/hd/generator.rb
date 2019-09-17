@@ -3,7 +3,8 @@
 require_dependency "renalware/ukrdc"
 require "attr_extras"
 
-# rubocop:disable Rails/Output, Metrics/AbcSize, Metrics/MethodLength
+# rubocop:disable Lint/UnneededCopDisableDirective, Rails/Output
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 module Renalware
   module UKRDC
     module TreatmentTimeline
@@ -57,7 +58,7 @@ module Renalware
             # taking over as the currently active treatment
             if treatments.length > 1
               previous_treatment = treatments[treatments.length - 2]
-              p "updating end date from #{previous_treatment.ended_on} to #{start_date}"
+              # p "updating end date from #{previous_treatment.ended_on} to #{start_date}"
               previous_treatment.update!(ended_on: start_date)
             end
           end
@@ -105,7 +106,13 @@ module Renalware
               from: modality.started_on,
               to: modality.ended_on
             ).call
-            profiles - Array(hd_profile_at_start_of_modality)
+
+            # p profiles.to_sql
+
+            profiles -= Array(hd_profile_at_start_of_modality)
+            # p "found #{profiles.size} profiles #{profiles.map(&:id)} between "\
+            #    "#{modality.started_on} and #{modality.ended_on}"
+            profiles
           end
 
           def create_treatment_from(profile)
@@ -131,4 +138,5 @@ module Renalware
     end
   end
 end
-# rubocop:enable Rails/Output, Metrics/AbcSize, Metrics/MethodLength
+# rubocop:enable Lint/UnneededCopDisableDirective, Rails/Output
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength

@@ -94,26 +94,44 @@ module Renalware
               "a futher Treatment to register the change from HDF to HD" do
             # The first profile - this will be associated with the modality when creating
             # the first treatment record - is the treatment record will use its HD type etc
+            unit = create(:hospital_unit)
+
+            # this will be their current modality as it is the only one and has no ended_on
+            modality1 = set_modality(
+              patient: patient,
+              modality_description: hd_mod_desc,
+              by: user,
+              started_on: "2017-01-01"
+            )
+
+            # SQL View will find this and use data in here for hd_type and unit in the first
+            # treatment (created for the modality). It won't trigger a new treatment as its data
+            # has been applied to the first treatment
             create_profile(
-              start_date: Time.zone.now,
-              end_date: Time.zone.now + 1.year,
+              start_date: "2018-01-01",
+              end_date: "2019-01-01",
               hd_type: :hdf_pre,
+              hospital_unit: unit,
               active: false
             )
+
+            # should create another treatment based on this as hd type has changed
+            # provided it thinks it is within the range from..to in ProfilesInDateRangeQuery
+            # this is complicated by the fact it has a nil end_date...
             last_hd_profile = create_profile(
-              start_date: Time.zone.now + 1.year,
-              end_date: nil,
+              start_date: "2019-01-01",
+              end_date: nil, # current
               hd_type: :hd
             )
 
             expect {
-              generator.call
+              described_class.new(modality1).call
             }.to change(UKRDC::Treatment, :count).by(2)
 
             treatments = UKRDC::Treatment.order(started_on: :asc)
             expect(treatments[0]).to have_attributes(
               modality_code: hdf_ukrdc_modality_code,
-              started_on: modality.started_on,
+              started_on: modality1.started_on,
               ended_on: last_hd_profile.created_at.to_date
             )
             expect(treatments[1]).to have_attributes(
@@ -178,18 +196,18 @@ module Renalware
             )
 
             expect {
-              described_class.new(modal1).call
-              described_class.new(modal2).call
-              described_class.new(modal3).call
-              described_class.new(modal4).call
-            }.to change(UKRDC::Treatment, :count).by(4)
+              described_class.new(modal1.reload).call
+              described_class.new(modal2.reload).call
+              described_class.new(modal3.reload).call
+              described_class.new(modal4.reload).call
+            }.to change(UKRDC::Treatment, :count).by(5)
 
             treatments = UKRDC::Treatment.all
 
             # The SQL view hd_profile_for_modalities will find the first HD Profile
             # and takes its hospital unit id. No other modalities define in their window
             # a new HD profile that would change the unit id (or hd type)
-            expect(treatments.map(&:hospital_unit_id).uniq).to eq [unit1.id]
+            expect(treatments.map(&:hospital_unit_id).uniq).to eq [unit1.id, unit2.id]
             expect(treatments.map(&:hd_type).uniq).to eq ["hd"]
           end
         end
