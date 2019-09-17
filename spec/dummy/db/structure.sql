@@ -1238,7 +1238,8 @@ CREATE TABLE admission_consults (
     updated_at timestamp without time zone NOT NULL,
     other_site_or_ward character varying,
     consult_site_id bigint,
-    rrt boolean DEFAULT false NOT NULL
+    rrt boolean DEFAULT false NOT NULL,
+    priority integer
 );
 
 
@@ -10862,6 +10863,13 @@ CREATE INDEX index_admission_consults_on_patient_id ON admission_consults USING 
 
 
 --
+-- Name: index_admission_consults_on_priority; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_consults_on_priority ON admission_consults USING btree (priority);
+
+
+--
 -- Name: index_admission_consults_on_seen_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -16979,6 +16987,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190909084425'),
 ('20190915071451'),
 ('20190915083424'),
-('20190916160231');
+('20190916160231'),
+('20190917124204');
 
 

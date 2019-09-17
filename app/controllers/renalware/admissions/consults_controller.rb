@@ -100,7 +100,7 @@ module Renalware
           .permit(
             :consult_site_id, :hospital_ward_id, :patient_id, :q, :other_site_or_ward,
             :decided_on, :transferred_on, :started_on, :ended_on, :decided_on,
-            :aki_risk, :transfer_priority, :seen_by_id, :consult_type,
+            :aki_risk, :transfer_priority, :priority, :seen_by_id, :consult_type,
             :requires_aki_nurse, :description, :contact_number, :rrt
           )
       end

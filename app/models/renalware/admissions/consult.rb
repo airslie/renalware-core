@@ -8,12 +8,20 @@ module Renalware
       include Accountable
       extend Enumerize
       include PatientsRansackHelper
+      PRIORITY_VALUES = (1..20).freeze
       validates :patient_id, presence: true
       validates :started_on, presence: true
       validates :description, presence: true
       # Currently #consult_type is a string and we are not sure what should be in there
       # Migrated consults may not have a type so only enforce it creation of new ones.
       validates :consult_type, presence: true, on: :create
+      validates :priority,
+                numericality: {
+                  only_integer: true,
+                  less_than_or_equal_to: PRIORITY_VALUES.last,
+                  allow_blank: true
+                }
+
       validates :other_site_or_ward, presence: {
         if: ->(consult) { consult.consult_site_id.blank? && consult.hospital_ward_id.blank? }
       }
@@ -27,6 +35,10 @@ module Renalware
       enumerize :aki_risk, in: %i(yes no unknown)
 
       scope :active, -> { where(ended_on: nil) }
+
+      ransacker :priority do
+        Arel.sql("coalesce(priority, -1)")
+      end
     end
   end
 end

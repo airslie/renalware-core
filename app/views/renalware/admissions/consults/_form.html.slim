@@ -32,6 +32,10 @@
   = f.input :consult_type, wrapper: :horizontal_medium
   = f.input :decided_on, as: :date_picker, wrapper: :horizontal_datepicker
   = f.input :transfer_priority, include_blank: false, wrapper: :horizontal_small
+  = f.input :priority,
+            include_blank: true,
+            collection: Renalware::Admissions::Consult::PRIORITY_VALUES,
+            wrapper: :horizontal_tiny
   = f.input :transferred_on, as: :date_picker, wrapper: :horizontal_datepicker
   = f.association :seen_by,
                   as: :user_picker,

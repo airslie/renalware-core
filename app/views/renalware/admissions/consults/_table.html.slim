@@ -25,6 +25,11 @@
             = sort_link(query, :transfer_priority, "Transfer Priority")
           - else
             | Transfer Priority
+        th.col-width-tiny
+          - if allow_sorting
+            = sort_link(query, :priority, "Priority")
+          - else
+            | Priority
         th.col-width-date.noprint
           - if allow_sorting
             = sort_link(query, :started_on, "Started")
@@ -97,6 +102,7 @@
           td= consult.hospital_ward
           td= yes_no(consult.rrt?)
           td.nowrap= consult.transfer_priority&.text
+          td= consult.priority
           td.noprint= l(consult.started_on)
           td.noprint= l(consult.ended_on)
           - unless compact
