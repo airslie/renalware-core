@@ -9,8 +9,8 @@ default: &default
 
 development:
   <<: *default
-  # database: renalware_development
-  database: rw_anon_new
+  database: renalware_development
+  # database: rw_anon_new
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
