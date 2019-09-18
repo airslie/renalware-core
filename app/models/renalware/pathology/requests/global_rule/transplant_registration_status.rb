@@ -14,6 +14,8 @@ module Renalware
             return false if registration.blank?
 
             registration_status = registration.current_status
+            return false if registration_status.blank?
+
             registration_status.description.code == param_comparison_value
           end
 
