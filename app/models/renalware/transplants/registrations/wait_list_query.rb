@@ -46,24 +46,18 @@ module Renalware
               .where(
                 <<-SQL.squish
                 (
-                  transplant_registration_status_descriptions.code in ('active','suspended')
+                  transplant_registration_status_descriptions.code in ('active')
                   and
                   (
-                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' not ilike '%' || transplant_registration_status_descriptions.code || '%'
-                    or
-                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' = ''
-                    or
-                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' IS NULL
+                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' not ilike 'A'
                   )
                 )
                 or
                 (
-                  transplant_registration_status_descriptions.code not in ('active','suspended')
+                  transplant_registration_status_descriptions.code not in ('active')
                   and
                   (
-                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike '%active%'
-                    or
-                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike '%suspended%'
+                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike 'A'
                   )
                 )
                 SQL
