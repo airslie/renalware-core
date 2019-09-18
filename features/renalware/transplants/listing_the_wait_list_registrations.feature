@@ -9,9 +9,9 @@ Feature: Listing the wait list registrations
     Given Clyde is a clinician
     And These patients are on the transplant wait list
       | patient         | status             | ukt_status |
-      | Rabbit, Roger   | Active             | Active     |
+      | Rabbit, Roger   | Active             | A     |
       | Rabbit, Jessica | Suspended          |            |
-      | Bunny, Bugs     | Transplanted       | Active     |
+      | Bunny, Bugs     | Transplanted       | A     |
       | Rabbit, Fran    | Active             | Suspended  |
 
   @web
@@ -19,7 +19,7 @@ Feature: Listing the wait list registrations
     When Clyde views the list of active wait list registrations
     Then Clyde sees these wait list registrations
       | patient       | status | ukt_status |
-      | RABBIT, Roger | Active | Active     |
+      | RABBIT, Roger | Active | A     |
       | RABBIT, Fran  | Active | Suspended  |
 
   @web
@@ -28,5 +28,5 @@ Feature: Listing the wait list registrations
     When Clyde views the list of registrations having a status mismatch
     Then Clyde sees these wait list registrations
       | patient         | status             | ukt_status |
-      | BUNNY, Bugs     | Transplanted       | Active     |
+      | BUNNY, Bugs     | Transplanted       | A     |
       | RABBIT, Fran    | Active             | Suspended  |
