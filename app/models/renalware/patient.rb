@@ -180,11 +180,12 @@ module Renalware
     end
 
     def must_have_at_least_one_identifier
-      if hospital_identifiers.all.empty?
+      if hospital_identifiers.all.empty? && external_patient_id.blank?
         errors.add(
           :base,
           "The patient must have at least one of these numbers: "\
-          "#{Renalware.config.patient_hospital_identifiers.keys.join(', ')}"
+          "#{Renalware.config.patient_hospital_identifiers.keys.join(', ')}, "\
+          "Other Hospital Number"
         )
       end
     end
