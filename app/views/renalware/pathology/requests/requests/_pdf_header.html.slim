@@ -6,9 +6,8 @@ html lang="en"
     title= content_for?(:title) ? yield(:title) : "Renalware v#{Renalware::VERSION}"
 
     / CSS needs to be inlined to work with wicked_pdf gem
-    style[type="text/css"] = find_asset_str("application.css")
-    style[type="text/css"] = find_asset_str("print/pathology_request_forms.css")
-
+    = wicked_pdf_stylesheet_link_tag "renalware/application"
+    = wicked_pdf_stylesheet_link_tag "renalware/print/pathology_request_forms.css"
     = csrf_meta_tag
 
   body
