@@ -6,6 +6,7 @@ module Renalware
   module Letters
     class BatchesController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       def create
         batch = create_unprocessed_batch_and_batch_items(ids_of_letters_to_batch_print)
