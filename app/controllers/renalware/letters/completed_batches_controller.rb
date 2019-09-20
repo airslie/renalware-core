@@ -6,6 +6,7 @@ module Renalware
   module Letters
     class CompletedBatchesController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       # Renders a modal asking the user if they want to complete (ie mark as printed)
       # the batch.
