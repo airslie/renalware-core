@@ -9,9 +9,16 @@ module Renalware
 
     before_action :set_paper_trail_whodunnit
     after_action :verify_authorized
+
+    # A note on ahoy tracking:
     # has_user_timed_out is defined on SessionTimeoutController
-    # Perhaps we should define #has_user_timed_out here and override in SessionTimeoutController?
-    after_action :track_action, except: [:has_user_timed_out]
+    # using this in the that controller
+    #   skip_before_action :track_ahoy_visit, only: has_user_timed_out
+    # does not seem to work hence this global blacklist
+
+    # rubocop:disable Rails/LexicallyScopedActionFilter
+    after_action :track_action, except: [:has_user_timed_out, :status]
+    # rubocop:enable Rails/LexicallyScopedActionFilter
 
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 

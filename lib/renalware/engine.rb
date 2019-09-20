@@ -148,6 +148,7 @@ module Renalware
         renalware/print-button-example.png
         renalware/hd/mr_victor.jpg
         renalware/hd/avf_avg_assessment.jpg
+        renalware/loading-gears-animation.gif
       )
       app.config.assets.paths <<
         Rails.root.join(config.root, "vendor", "assets", "javascripts", "renalware")

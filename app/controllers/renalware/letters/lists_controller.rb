@@ -10,16 +10,24 @@ module Renalware
       # rubocop:disable Metrics/MethodLength
       # TODO: Use a presenter here
       def show
-        query = LetterQuery.new(q: params[:q])
+        named_filter = params.fetch(:named_filter, "all").to_sym
+        form = form_for(named_filter)
+        query = LetterQuery.new(q: form.attributes)
         letters = find_and_authorize_letters(query)
+
+        q = query.search
 
         locals = {
           letters: letters,
-          authors: User.author.ordered,
-          typists: User.ordered,
-          letterheads: Letters::Letterhead.ordered,
-          q: query.search
+          q: q,
+          form: form_for(named_filter)
         }
+
+        # Could pass back a batchprint summary
+        # {
+        #   count: 123,
+        #   excluded_enc: 3
+        # }
         respond_to do |format|
           format.html { render(locals: locals) }
           format.js   { render(locals: locals, layout: false) }
@@ -28,6 +36,10 @@ module Renalware
       # rubocop:enable Metrics/MethodLength
 
       private
+
+      def form_for(named_filter)
+        Lists::Form.new(named_filter: named_filter, params: filter_parameters)
+      end
 
       def find_and_authorize_letters(query)
         collection = call_query(query).page(page).per(per_page)
@@ -46,6 +58,23 @@ module Renalware
           .with_letterhead
           .with_author
           .with_created_by
+      end
+
+      # These are used also when creating a batch.
+      def filter_parameters
+        return {} unless params.key?(:q)
+
+        params
+          .require(:q)
+          .permit(
+            :enclosures_present,
+            :state_eq,
+            :author_id_eq,
+            :created_by_id_eq,
+            :letterhead_id_eq,
+            :page_count_in_array,
+            :s
+          )
       end
     end
   end

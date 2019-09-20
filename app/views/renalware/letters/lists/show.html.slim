@@ -1,29 +1,75 @@
+- named_filter = params[:named_filter]&.to_sym || :all
+
+= content_for(:tabs) do
+  = render "tabs"
+
 = content_for(:filters) do
   .search-form.filters
-    = simple_form_for q,
+    = simple_form_for form,
                       as: :q,
-                      url: letters_list_path,
+                      url: renalware.letters_filtered_letters_list_path(named_filter: named_filter),
                       html: { autocomplete: "off" },
                       method: :get do |f|
       .row
         .small-6.medium-1.large-1.columns
-          = f.input :enclosures_present, as: :select, label: "Enclosure"
+            = f.input :enclosures_present,
+                      as: :select,
+                      label: "Enclosure",
+                      input_html: { disabled: form.disabled_inputs.include?(:enclosures_present) }
         .small-6.medium-2.large-2.columns
-          = f.input :state_eq, collection: state_options_for_receptionists, label: "State"
+          = f.input :state_eq,
+                    collection: form.letter_state_options,
+                    label: "State",
+                    include_blank: form.allow_blank_inputs.include?(:state_eq),
+                    input_html: { disabled: form.disabled_inputs.include?(:state_eq) }
         .small-6.medium-2.large-2.columns
-          = f.input :author_id_eq, as: :user_picker, collection: authors, label: "Author"
+          = f.input :author_id_eq,
+                    as: :user_picker,
+                    collection: form.author_options,
+                    label: "Author",
+                    input_html: { disabled: form.disabled_inputs.include?(:author_id_eq) }
         .small-6.medium-2.large-2.columns
-          = f.input :created_by_id_eq, as: :user_picker, collection: typists, label: "Typist"
+          = f.input :created_by_id_eq,
+                    as: :user_picker,
+                    collection: form.typist_options,
+                    label: "Typist"
         .small-6.medium-2.large-2.columns
-          = f.input :letterhead_id_eq, collection: letterheads, label: "Letterhead"
+          = f.input :letterhead_id_eq,
+                    collection: form.letterhead_options,
+                    label: "Letterhead"
         .small-6.medium-1.large-1.columns
           = f.input :page_count_in_array,
-                    collection: [["1 or 2", "[1,2]"],["3 or 4", "[3,4]"]],
-                    label: "Pages"
+                    collection: form.page_count_options,
+                    label: "Pages",
+                    include_blank: form.allow_blank_inputs.include?(:page_count_in_array)
         .small-12.medium-2.large-2.columns.actions.end
-          = f.submit t("helpers.submit.filter"), class: "button"
+          = f.submit t("helpers.submit.filter"), class: "button secondary"
           span= " or "
-          = link_to t("helpers.reset"), letters_list_path
+          = link_to t("helpers.reset"), renalware.letters_filtered_letters_list_path(named_filter: named_filter)
+
+  - if named_filter == :batch_printable
+    / Thus form wil all hidden fields and one button is otherwise a mirror of the above filter form.
+    / It POSTs the form to create a batch and its items (which really just help us to keep track)
+    / or what was printed and the user does not need to know about it) and once created
+    / it pops up a dialog with a spinner and an asycn_render partial that, once the PDFs are compiled
+    / will return with a partial containing a link to the PDF. The user clicks on this to open it in a
+    / new window. At the same time on the original page we close the modal and display another one
+    / which asks the user if the print batch was successful - if so we send a patch to update
+    / the batch status and set letter status to Completed.
+    = simple_form_for form,
+                      as: :batch,
+                      url: letters_batches_path,
+                      method: :post,
+                      remote: true do |f|
+      = f.input :enclosures_present, as: :hidden
+      = f.input :state_eq, as: :hidden
+      = f.input :author_id_eq, as: :hidden
+      = f.input :created_by_id_eq, as: :hidden
+      = f.input :letterhead_id_eq, as: :hidden
+      = f.input :page_count_in_array, as: :hidden
+      = f.submit "Batch Print #{letters.total_count} letters", class: "button", disabled: letters.none?
+
+    #batch-print-modal.reveal-modal.small(data-reveal)
 
 = within_admin_layout(title: "Letters") do
   = render "table", letters: letters, q: q

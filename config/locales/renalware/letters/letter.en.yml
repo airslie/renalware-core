@@ -26,3 +26,8 @@ en:
             page_title: New Clinical Letter
           simple:
             page_title: New Simple Letter
+      lists:
+        tabs:
+          tab:
+            all: All
+            batch_printable: Batch Printable

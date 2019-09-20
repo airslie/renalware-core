@@ -66,5 +66,7 @@ group :development, :test do
   gem "bundler-audit", require: false
   gem "byebug"
   gem "launchy", require: false
+  gem "pry-byebug", require: false
+  gem "pry-rails", require: false
   gem "rubocop", require: false
 end

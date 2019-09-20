@@ -21,7 +21,7 @@ module Renalware
           end
           # NB not caching the pdf for now until we can find a more standard way of using the
           # letter cache across adhoc and env stuffer renderers. Here for example we should be
-          # using a hex digest of the interleaved letter but currentlt would not be.
+          # using a hex digest of the interleaved letter but currently would not be.
           # PdfLetterCache.fetch(letter) do
           WickedPdf.new.pdf_from_string(
             LettersController.new.render_to_string(

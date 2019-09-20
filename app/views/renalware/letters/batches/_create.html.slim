@@ -1,0 +1,27 @@
+.modal
+  .modal__header
+    h1= "Compiling #{batch.batch_items_count} letters"
+    .percent_complete
+  .modal__body
+    .content
+      .batch_results_container(data={"poll-url" => renalware.letters_batch_status_path(batch)})
+        .preparing
+          = image_tag("renalware/loading-gears-animation.gif", height: "116")
+
+
+        .generated-batch-print-pdf-container(style="display:none")
+          = link_to letters_batch_path(batch, format: :pdf),
+                    target: "_blank",
+                    class: "print-batch-letter",
+                    data: { "modal-url" => new_letters_batch_completion_path(batch) } do
+            i.far.fa-check-circle
+            | Open PDF in a new tab
+
+  .modal__footer
+    .left
+      = "##{batch.id}"
+    .right
+      = link_to "Cancel",
+        "#",
+        "aria-label" => "Close",
+        class: "reveal-modal-close cancel-link"

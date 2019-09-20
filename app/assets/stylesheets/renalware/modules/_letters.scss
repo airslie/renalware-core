@@ -112,3 +112,49 @@ table.letters {
     }
   }
 }
+
+#batch-print-modal {
+  .cancel-link {
+    margin-bottom: 0.5em;
+    display: inline-block;
+    font-size: 1rem;
+  }
+
+  .percent_complete {
+    font-size: 1.3rem;
+    float: right;
+  }
+
+  .modal__footer {
+    .left {
+      color: $dashboard-muted-color;
+    }
+  }
+}
+
+.batch_results_container {
+  text-align: center;
+}
+
+.generated-batch-print-pdf-container {
+  text-align: center;
+  padding: 1.5rem 0;
+  font-size: 1.3rem;
+
+  .print-batch-letter {
+    padding: .5rem 1rem;
+    text-decoration: underline;
+    color: $nhs-green;
+
+    &:hover {
+      color: $nhs-dark-green;
+    }
+
+    i {
+      padding: 1rem 1rem 1rem 0;
+      vertical-align: sub;
+      color: $nhs-green;
+      font-size: 1.8rem;
+    }
+  }
+}

@@ -20,7 +20,7 @@ module Renalware
       private
 
       def address_for_addressee
-        __getobj__.address
+        __getobj__&.address
       end
 
       # The address for a recipient such as a primary care physician or a patient are

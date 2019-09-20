@@ -1,0 +1,20 @@
+= within_admin_layout(title: "Print Batches") do
+
+  table
+    thead
+      tr
+        th.col-width-tiny Id
+        th.col-width-medium Status
+        th.col-width-date-time Created
+        th.col-width-tiny Letters
+        th Created by
+    tbody
+      - batches.each do |batch|
+        tr
+          td= batch.id
+          td= batch.status.humanize
+          td= l(batch.created_at)
+          td= batch.batch_items_count
+          td= batch.created_by
+
+  = paginate batches

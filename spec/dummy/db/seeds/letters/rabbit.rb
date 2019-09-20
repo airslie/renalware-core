@@ -4,7 +4,7 @@ module Renalware
   log "Assign Letters to Roger RABBIT" do
     patient = Letters.cast_patient(Patient.find_by(local_patient_id: "Z100001"))
     clinics_patient = Renalware::Clinics.cast_patient(patient)
-    patient.letters.each {|letter| letter.archive && letter.archive.destroy! }
+    patient.letters.each { |letter| letter.archive && letter.archive.destroy! }
     patient.letters.destroy_all
     users = User.limit(3).to_a
 
@@ -59,7 +59,7 @@ module Renalware
     Letters::Letter::PendingReview.create!(
       patient: patient,
       issued_on: 3.days.ago,
-      pathology_timestamp: 1.days.ago,
+      pathology_timestamp: 1.day.ago,
       description: Renalware::Letters::Description.last.text,
       main_recipient_attributes: {
         person_role: "contact",
@@ -74,10 +74,10 @@ module Renalware
 
     letter = Letters::Letter::PendingReview.create!(
       patient: patient,
-      issued_on: 1.days.ago,
-      pathology_timestamp: 1.days.ago,
+      issued_on: 1.day.ago,
+      pathology_timestamp: 1.day.ago,
       event: clinics_patient.clinic_visits.first,
-      clinical:true,
+      clinical: true,
       description: Renalware::Letters::Description.last.text,
       main_recipient_attributes: {
         person_role: "patient"
