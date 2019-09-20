@@ -98,7 +98,8 @@ module Renalware
         end
 
         let(:error_message) {
-          "The patient must have at least one of these numbers: HOSP1, HOSP2, HOSP3, HOSP4, HOSP5"
+          "The patient must have at least one of these numbers: "\
+          "HOSP1, HOSP2, HOSP3, HOSP4, HOSP5, Other Hospital Number"
         }
 
         context "when the patient has no local_patient_id" do
