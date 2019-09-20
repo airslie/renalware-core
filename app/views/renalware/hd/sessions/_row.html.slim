@@ -5,7 +5,7 @@ tr.hd-session-row(class=[session.state, stripe_class])
               data: { behaviour: "toggler" })
     = pipe_separator
     = session.edit_or_view_url
-  td.text-left(rowspan=2)= session.performed_on
+  td.col-width-date(rowspan=2)= session.performed_on
   td= session.hospital_unit_unit_code
 
   td= session.start_time

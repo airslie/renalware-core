@@ -1,3 +1,22 @@
+#hd-session-form-batch-print-modal {
+  .cancel-link {
+    margin-bottom: 0.5em;
+    display: inline-block;
+    font-size: 1rem;
+  }
+
+  .percent_complete {
+    font-size: 1.3rem;
+    float: right;
+  }
+
+  .modal__footer {
+    .left {
+      color: $dashboard-muted-color;
+    }
+  }
+}
+
 .hd_transmission_logs {
   tr {
     &.session_import_success {

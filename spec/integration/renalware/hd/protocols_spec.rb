@@ -16,15 +16,7 @@ describe "Patient's Protocol PDF", type: :request do
       expect(response).to be_successful
       expect(response["Content-Type"]).to eq("application/pdf")
       expect(response["Content-Disposition"]).to include("inline")
-    end
-
-    it "can responds with a PDF download" do
-      get patient_hd_protocol_path(patient_id: patient, disposition: :attachment)
-
-      expect(response).to be_successful
-      expect(response["Content-Type"]).to eq("application/pdf")
       filename = "RABBIT-KCH12345-PROTOCOL.pdf"
-      expect(response["Content-Disposition"]).to include("attachment")
       expect(response["Content-Disposition"]).to include(filename)
     end
 

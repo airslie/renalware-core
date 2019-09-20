@@ -9,5 +9,11 @@ module Renalware
     def self.cast_patient(patient)
       ActiveType.cast(patient, ::Renalware::HD::Patient)
     end
+
+    module SessionForms
+      def self.table_name_prefix
+        "hd_session_form_"
+      end
+    end
   end
 end
