@@ -103,7 +103,7 @@ Renalware.Letters = (function() {
   };
 
   var pollBatchStatus = function(url) {
-    var POLL_INTERVAL = 1500; // ms
+    var POLL_INTERVAL = 2000; // ms
     var batch = {};
 
     // Check the current status of the TaskStatus object.
@@ -112,6 +112,12 @@ Renalware.Letters = (function() {
         method: 'GET',
         url: url,
         contentType: 'json'
+      }).fail(function(e, x, a) {
+        // Possible network glitch or perhaps a re-deploy causing the site to be down momentarily.
+        // Anyway, not enough for us to give up polling.
+        // TODO: examine the response code to see if we should in fact give up and show an
+        // appropriate message.
+        setTimeout(updateStatus, POLL_INTERVAL);
       }).done(function(batch) {
         // Done!
         $(".modal .percent_complete").html(batch.percent_complete + "%");
