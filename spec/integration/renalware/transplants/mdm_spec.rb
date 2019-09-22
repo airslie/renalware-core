@@ -8,7 +8,7 @@ describe "Patient Transplant MDM", type: :request do
   describe "GET show" do
     it "responds successfully" do
       create(:pathology_observation_description, code: "HGB")
-      create(:pathology_observation_description, code: "CMVDNA")
+      create(:pathology_observation_description, code: "CMVD")
 
       get patient_transplants_mdm_path(patient)
 

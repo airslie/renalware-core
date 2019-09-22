@@ -188,7 +188,7 @@
 "HBCV","Hepatitus B Core total antibody","Virology","HBCV","7","serum"
 "HIV","HIV 1 & 2 Antibody","Virology","HIV2","7","serum"
 "CMVIG","CMV IgG","Virology","CMVIG","7","serum"
-"CMVDNA","CMV DNA Quantitive","Virology","CMVDNA","7","edta"
+"CMVD","CMV DNA Quantitive","Virology","CMVD","7","edta"
 "BKDNA","BK Virus DNA","Virology","BKDNA","7","edta"
 "HEPBDNA","HBV DNA Quantitive","Virology","HEPBDNA","7","edta"
 "SYPH","Syphilis Enzyme Immunoassay IgG/IgM","Microbiology","SYPH","7","serum"
