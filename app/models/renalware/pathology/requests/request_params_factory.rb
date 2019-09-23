@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/pathology"
+require "attr_extras"
 
 module Renalware
   module Pathology
     module Requests
       class RequestParamsFactory
-        def initialize(params)
-          @params = params
-        end
+        pattr_initialize :params
 
         def build
           {
@@ -16,7 +15,7 @@ module Renalware
             consultant: consultant,
             telephone: telephone,
             template: template,
-            by: @params[:by]
+            by: params[:by]
           }
         end
 
@@ -39,9 +38,9 @@ module Renalware
         end
 
         def requested_clinic
-          return if @params[:clinic_id].blank?
+          return if params[:clinic_id].blank?
 
-          Renalware::Clinics::Clinic.find(@params[:clinic_id])
+          Renalware::Clinics::Clinic.find(params[:clinic_id])
         end
 
         def default_clinic
@@ -49,25 +48,25 @@ module Renalware
         end
 
         def requested_consultant
-          return if @params[:consultant_id].blank?
+          return if params[:consultant_id].blank?
 
-          Renalware::Pathology::Consultant.find(@params[:consultant_id])
+          Renalware::Renal::Consultant.find(params[:consultant_id])
         end
 
         def default_consultant
-          Renalware::Pathology::Consultant.ordered.first
+          Renalware::Renal::Consultant.ordered.first
         end
 
         def requested_telephone
-          @params[:telephone]
+          params[:telephone]
         end
 
         def default_telephone
-          consultant.telephone
+          consultant&.telephone
         end
 
         def requested_template
-          @params[:template]
+          params[:template]
         end
 
         def default_template

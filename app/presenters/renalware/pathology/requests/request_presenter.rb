@@ -23,7 +23,7 @@ module Renalware
         end
 
         def consultant
-          request_form.consultant.full_name
+          request_form.consultant&.name
         end
 
         def clinical_detail

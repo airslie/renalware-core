@@ -11,7 +11,7 @@ describe Renalware::Pathology::Requests::RequestQuery do
 
     let!(:clinic) { create(:clinic) }
     let!(:patient) { create(:pathology_patient) }
-    let!(:consultant) { create(:pathology_consultant) }
+    let!(:consultant) { create(:renal_consultant) }
     let!(:request_new) do
       create(
         :pathology_requests_request,

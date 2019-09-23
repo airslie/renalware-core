@@ -8,7 +8,7 @@ describe "Create new appointment manually (not via HL7 message)", type: :system,
     it "creates a new clinic appointment" do
       user = login_as_clinical
       patient = Renalware::Clinics.cast_patient(create(:patient, by: user))
-      clinic = create(:clinic)
+      clinic = create(:clinic, name: "Clinic A")
 
       visit appointments_path
 

@@ -52,7 +52,7 @@ describe Renalware::Pathology::Requests::PatientRule do
             :pathology_requests_request,
             clinic: create(:clinic),
             patient: patient,
-            consultant: create(:pathology_consultant),
+            consultant: create(:renal_consultant),
             created_at: observed_on
           )
         end

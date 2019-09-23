@@ -26,6 +26,9 @@
     = f.input :clinic_id,
               collection: Renalware::Clinics::Clinic.all,
               wrapper: :horizontal_medium
+    = f.input :consultant_id,
+              collection: Renalware::Renal::Consultant.pluck(:name, :id),
+              wrapper: :horizontal_medium
     = f.input :starts_at, as: :datetime_picker, wrapper: :horizontal_datepicker
     = f.input :outcome_notes, as: :text, wrapper: :horizontal_large
     = f.input :dna_notes, as: :text, wrapper: :horizontal_large

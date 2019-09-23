@@ -2,6 +2,7 @@
 
 require "rails_helper"
 
+# rubocop:disable RSpec/MultipleExpectations
 describe "New Visit from existing Appointment", type: :system do
   describe "GET index" do
     context "with no appointment id" do
@@ -25,8 +26,7 @@ describe "New Visit from existing Appointment", type: :system do
         appointment = create(:appointment,
                              patient: patient,
                              clinic: clinic,
-                             starts_at: Time.zone.now,
-                             user: user)
+                             starts_at: Time.zone.now)
 
         visit new_patient_clinic_visit_path(patient, appointment_id: appointment.id)
 
@@ -44,3 +44,4 @@ describe "New Visit from existing Appointment", type: :system do
     end
   end
 end
+# rubocop:enable RSpec/MultipleExpectations

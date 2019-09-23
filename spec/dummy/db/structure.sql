@@ -1341,14 +1341,15 @@ CREATE TABLE clinic_appointments (
     id integer NOT NULL,
     starts_at timestamp without time zone NOT NULL,
     patient_id integer NOT NULL,
-    user_id integer NOT NULL,
     clinic_id integer NOT NULL,
     becomes_visit_id integer,
     outcome_notes text,
     dna_notes text,
     feed_id character varying,
     consultant_id bigint,
-    clinic_description text
+    clinic_description text,
+    updated_by_id bigint,
+    created_by_id bigint
 );
 
 
@@ -4431,14 +4432,14 @@ CREATE TABLE pathology_requests_requests (
     id integer NOT NULL,
     patient_id integer NOT NULL,
     clinic_id integer NOT NULL,
-    consultant_id integer NOT NULL,
     telephone character varying NOT NULL,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     template character varying NOT NULL,
-    high_risk boolean NOT NULL
+    high_risk boolean NOT NULL,
+    consultant_id bigint
 );
 
 
@@ -5912,8 +5913,9 @@ ALTER SEQUENCE renal_aki_alerts_id_seq OWNED BY renal_aki_alerts.id;
 
 CREATE TABLE renal_consultants (
     id bigint NOT NULL,
-    code character varying NOT NULL,
-    name character varying
+    code character varying,
+    name character varying,
+    telephone character varying
 );
 
 
@@ -11058,6 +11060,13 @@ CREATE INDEX index_clinic_appointments_on_consultant_id ON clinic_appointments U
 
 
 --
+-- Name: index_clinic_appointments_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_appointments_on_created_by_id ON clinic_appointments USING btree (created_by_id);
+
+
+--
 -- Name: index_clinic_appointments_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -11065,10 +11074,10 @@ CREATE INDEX index_clinic_appointments_on_patient_id ON clinic_appointments USIN
 
 
 --
--- Name: index_clinic_appointments_on_user_id; Type: INDEX; Schema: renalware; Owner: -
+-- Name: index_clinic_appointments_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_clinic_appointments_on_user_id ON clinic_appointments USING btree (user_id);
+CREATE INDEX index_clinic_appointments_on_updated_by_id ON clinic_appointments USING btree (updated_by_id);
 
 
 --
@@ -13305,10 +13314,10 @@ CREATE INDEX index_renal_aki_alerts_on_updated_by_id ON renal_aki_alerts USING b
 
 
 --
--- Name: index_renal_consultants_on_code; Type: INDEX; Schema: renalware; Owner: -
+-- Name: index_renal_consultants_on_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE UNIQUE INDEX index_renal_consultants_on_code ON renal_consultants USING btree (code);
+CREATE UNIQUE INDEX index_renal_consultants_on_name ON renal_consultants USING btree (name);
 
 
 --
@@ -15057,6 +15066,14 @@ ALTER TABLE ONLY transplant_recipient_workups
 
 
 --
+-- Name: clinic_appointments fk_rails_57295b1aa7; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY clinic_appointments
+    ADD CONSTRAINT fk_rails_57295b1aa7 FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: virology_profiles fk_rails_58ffa1276c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -15133,7 +15150,7 @@ ALTER TABLE ONLY letter_signatures
 --
 
 ALTER TABLE ONLY pathology_requests_requests
-    ADD CONSTRAINT fk_rails_617c726b94 FOREIGN KEY (consultant_id) REFERENCES users(id);
+    ADD CONSTRAINT fk_rails_617c726b94 FOREIGN KEY (consultant_id) REFERENCES renal_consultants(id);
 
 
 --
@@ -16153,14 +16170,6 @@ ALTER TABLE ONLY pd_infection_organisms
 
 
 --
--- Name: clinic_appointments fk_rails_e03d4a27ce; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY clinic_appointments
-    ADD CONSTRAINT fk_rails_e03d4a27ce FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
 -- Name: admission_requests fk_rails_e0d84c3803; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16334,6 +16343,14 @@ ALTER TABLE ONLY hd_prescription_administrations
 
 ALTER TABLE ONLY admission_consults
     ADD CONSTRAINT fk_rails_f5abb5bad4 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
+-- Name: clinic_appointments fk_rails_f6f9057d90; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY clinic_appointments
+    ADD CONSTRAINT fk_rails_f6f9057d90 FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -17156,6 +17173,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190916160231'),
 ('20190917124204'),
 ('20190919073410'),
-('20190920063447');
+('20190920063447'),
+('20190925104902'),
+('20190925130052'),
+('20190925161724'),
+('20190925173849');
 
 

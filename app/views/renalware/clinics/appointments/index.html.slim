@@ -10,7 +10,9 @@
         .medium-3.large-3.columns
           = f.input :clinic_id_eq, collection: clinics, label: "Clinic"
         .medium-3.large-3.columns
-          = f.input :user_id_eq, as: :user_picker, collection: users, label: "User"
+          = f.input(:consultant_id_eq,
+                    collection: Renalware::Renal::Consultant.pluck(:name, :id),
+                    label: "Consultant")
         .medium-3.large-3.columns.actions.end
           = f.submit "Filter", class: "button"
 
@@ -29,7 +31,6 @@
       | Generate request forms
 
 = within_admin_layout(title: "Upcoming Clinic Visit Appointments") do
-
     table#appointments
       thead
         tr
@@ -68,7 +69,7 @@
               = " | "
               - if appointment.becomes_visit_id.present?
                 = link_to edit_patient_clinic_visit_path(appointment.patient,
-                                                          id: appointment.becomes_visit_id) do
+                                                         id: appointment.becomes_visit_id) do
                   | View Clinic Visit
               - else
                 = link_to new_patient_clinic_visit_path(appointment.patient,
@@ -83,7 +84,7 @@
             td= appointment.patient.age
             td= appointment.patient.current_modality
             td= appointment.clinic.name
-            td= appointment.user.full_name
+            td= appointment.consultant&.name
             td.show-for-large-up.col-width-medium-with-ellipsis= appointment.outcome_notes
             td.show-for-large-up.col-width-medium-with-ellipsis= appointment.dna_notes
           = content_tag(:tr, id: "appointment-quick-preview-#{appointment.id}", style: "display: none")
