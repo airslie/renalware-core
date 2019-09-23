@@ -3,8 +3,8 @@
 xml = builder
 
 observation_times = {
-  pre: session.performed_on + session.start_time.seconds_since_midnight.seconds,
-  post: session.performed_on + session.end_time.seconds_since_midnight.seconds
+  pre: session.performed_on.to_datetime + session.start_time.seconds_since_midnight.seconds,
+  post: session.performed_on.to_datetime + session.end_time.seconds_since_midnight.seconds
 }
 
 {
