@@ -30,7 +30,7 @@ module Renalware
       end
 
       def rolling_stats_for_this_patient
-        @patient_rolling_stats ||= begin
+        @rolling_stats_for_this_patient ||= begin
           PatientStatistics.where(patient: patient,
                                   rolling: true,
                                   year: nil,

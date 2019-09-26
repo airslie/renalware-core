@@ -35,7 +35,11 @@ module Renalware
 
           if session.save
             # Might be cleaner if something listened for this event and created this job there?
-            UpdateRollingPatientStatisticsJob.perform_later(patient) unless session.open?
+            # UpdateRollingPatientStatisticsJob.perform_later(patient) unless session.open?
+            unless session.open?
+              Delayed::Job.enqueue UpdateRollingPatientStatisticsDjJob.new(patient.id)
+            end
+
             broadcast(:save_success, session)
           else
             session.type = session_type # See method comment
