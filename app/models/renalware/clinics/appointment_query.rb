@@ -13,7 +13,11 @@ module Renalware
       end
 
       def call
-        search.result.includes(:user, :clinic, patient: [current_modality: [:description]])
+        search.result.includes(
+          :clinic,
+          :consultant,
+          patient: [current_modality: [:description]]
+        )
       end
 
       def search

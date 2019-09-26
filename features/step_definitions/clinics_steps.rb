@@ -10,6 +10,12 @@ Given("Patty has a recorded clinic visit") do
   @clinic_visit = create_clinic_visit(@patty, Renalware::User.first)
 end
 
+Given("the following consultants:") do |table|
+  table.raw.flatten.each do |name|
+    FactoryBot.create(:renal_consultant, name: name, code: SecureRandom.uuid)
+  end
+end
+
 When("Clyde records Patty's clinic visit") do
   @clinic_visit = record_clinic_visit(@patty, @clyde)
 end

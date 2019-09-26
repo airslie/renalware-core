@@ -27,9 +27,8 @@ module Renalware
 
       def create
         appointment = Appointment.new(appointment_params)
-        appointment.user = current_user
         authorize appointment
-        if appointment.save
+        if appointment.save_by(current_user)
           redirect_to appointments_path, notice: t(".success", model_name: "Appointment")
         else
           render_new(appointment)
@@ -56,7 +55,13 @@ module Renalware
       def appointment_params
         params
           .require(:clinics_appointment)
-          .permit(:patient_id, :clinic_id, :starts_at, :outcome_notes, :dna_notes, :clinician_id)
+          .permit(
+            :patient_id,
+            :clinic_id,
+            :starts_at,
+            :outcome_notes,
+            :dna_notes,
+            :consultant_id)
       end
     end
   end

@@ -60,7 +60,7 @@ module World
           Renalware::Pathology::Requests::Request.create!(
             patient: Renalware::Pathology.cast_patient(patient),
             clinic: Renalware::Clinics::Clinic.first,
-            consultant: Renalware::Pathology::Consultant.first,
+            consultant: FactoryBot.create(:renal_consultant),
             telephone: "123",
             by: Renalware::SystemUser.find,
             patient_rules: patient_rules,
@@ -83,7 +83,7 @@ module World
           Renalware::Pathology::Requests::Request.create!(
             patient: Renalware::Pathology.cast_patient(params[:patient]),
             clinic: Renalware::Clinics::Clinic.first,
-            consultant: Renalware::Pathology::Consultant.first,
+            consultant: FactoryBot.create(:renal_consultant),
             telephone: "123",
             template: Renalware::Pathology::Requests::Request::TEMPLATES.first,
             by: Renalware::SystemUser.find,
@@ -194,7 +194,6 @@ module World
               pathology_request_descriptions: { id: request_descriptions.map(&:id) },
               pathology_requests_patient_rules: { id: patient_rules.map(&:id) }
             )
-
           expect(request).to be_exist
         end
 
@@ -212,16 +211,12 @@ module World
           Renalware::Clinics::Clinic.find_by!(name: clinic_name)
         end
 
-        def find_or_create_requested_consultant(consultant_names)
-          return if consultant_names.blank?
+        def find_or_create_requested_consultant(name)
+          return if name.blank?
 
-          given_name, family_name = consultant_names.split(" ")
-          consultant = Renalware::Pathology::Consultant.find_by(
-            given_name: given_name,
-            family_name: family_name
+          Renalware::Renal::Consultant.find_or_create_by(
+            name: name
           )
-
-          consultant.presence || create_user(given_name: given_name, family_name: family_name)
         end
 
         def find_requested_patients(patients)
@@ -254,7 +249,7 @@ module World
           click_on "Generate Forms"
 
           update_request_form_clinic(clinic.name) if clinic.present?
-          update_request_form_consultant(consultant.full_name) if consultant.present?
+          update_request_form_consultant(consultant.name) if consultant.present?
           update_request_form_telephone(telephone) if telephone.present?
           update_request_form_template(params[:template])
         end

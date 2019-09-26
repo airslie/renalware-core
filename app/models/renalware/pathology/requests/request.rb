@@ -12,7 +12,7 @@ module Renalware
 
         belongs_to :patient, class_name: "::Renalware::Pathology::Patient", touch: true
         belongs_to :clinic, class_name: "::Renalware::Clinics::Clinic"
-        belongs_to :consultant, class_name: "::Renalware::Pathology::Consultant"
+        belongs_to :consultant, class_name: "::Renalware::Renal::Consultant"
         has_and_belongs_to_many :request_descriptions,
                                 class_name: "::Renalware::Pathology::RequestDescription"
         has_and_belongs_to_many :patient_rules,

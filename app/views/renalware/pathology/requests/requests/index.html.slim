@@ -36,7 +36,7 @@
               td = link_to "View", pathology_requests_request_path(id: request.id, format: "pdf")
               td = request.patient.full_name
               td = request.clinic.name
-              td = request.consultant.full_name
+              td = request.consultant
               td = I18n.l request.printed_on
               td = request.created_by.full_name
 

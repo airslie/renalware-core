@@ -6,7 +6,7 @@ describe "Configuring Requests" do
   describe "GET index" do
     let!(:clinic_1) { create(:clinic) }
     let!(:patient_1) { create(:pathology_patient) }
-    let!(:consultant_1) { create(:pathology_consultant) }
+    let!(:consultant_1) { create(:renal_consultant) }
     let!(:request_1) do
       create(
         :pathology_requests_request,
@@ -17,7 +17,7 @@ describe "Configuring Requests" do
     end
     let!(:clinic_2) { create(:clinic) }
     let!(:patient_2) { create(:pathology_patient) }
-    let!(:consultant_2) { create(:pathology_consultant) }
+    let!(:consultant_2) { create(:renal_consultant) }
     let!(:request_2) do
       create(
         :pathology_requests_request,
@@ -40,7 +40,7 @@ describe "Configuring Requests" do
         :pathology_requests_request,
         clinic: create(:clinic),
         patient: create(:pathology_patient),
-        consultant: create(:pathology_consultant)
+        consultant: create(:renal_consultant)
       )
     end
 

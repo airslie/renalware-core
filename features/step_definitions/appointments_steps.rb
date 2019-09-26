@@ -14,10 +14,6 @@ When("Clyde sorts the list by patient") do
   @appointments = view_appointments(@clyde, q: { s: "patient_family_name asc" })
 end
 
-When("Clyde sorts the list by user") do
-  @appointments = view_appointments(@clyde, q: { s: "user_family_name asc" })
-end
-
 When("Clyde sorts the list by clinic") do
   @appointments = view_appointments(@clyde, q: { s: "clinic_name asc" })
 end

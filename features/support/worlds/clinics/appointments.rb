@@ -1,24 +1,25 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 module World
   module Clinics
     module Appointments
       module Domain
         # @section commands
-        #
+
         def create_appointment(table_row)
           starts_at = parse_date_time_for_appointment(
             table_row["starts_at_date"],
             table_row["starts_at_time"]
           )
-          user = find_or_create_user_for_appointment(table_row["user"])
+          consultant = find_or_create_consultant_for_appointment(table_row["consultant"])
           clinic = find_or_create_clinic_for_appointment(table_row["clinic"])
           patient = find_or_create_patient_by_name(table_row["patient"])
 
           Renalware::Clinics::Appointment.create!(
             starts_at: starts_at,
             patient: patient,
-            user: user,
+            consultant: consultant,
             clinic: clinic
           )
         end
@@ -35,7 +36,7 @@ module World
           appointments.zip(expected_appointments).each do |appointment, expected_appointment|
             expect(appointment.start_time).to eq(expected_appointment["starts_at"])
             expect(appointment.patient.to_s).to eq(expected_appointment["patient"])
-            expect(appointment.user.full_name).to eq(expected_appointment["user"])
+            expect(appointment.consultant.name).to eq(expected_appointment["consultant"])
             expect(appointment.clinic.name).to eq(expected_appointment["clinic"])
           end
         end
@@ -53,18 +54,8 @@ module World
           Renalware::Clinics::Clinic.find_or_create_by!(name: clinic_name)
         end
 
-        def find_or_create_user_for_appointment(user_full_name)
-          given_name, family_name = user_full_name.split(" ")
-
-          Renalware::User.find_or_create_by!(
-            given_name: given_name,
-            family_name: family_name
-          ) do |user|
-            user.email = "#{given_name}.#{family_name}@renalware.net"
-            user.username = "#{given_name}_#{family_name}"
-            user.approved = true
-            user.password = "supersecret"
-          end
+        def find_or_create_consultant_for_appointment(name)
+          FactoryBot.create(:renal_consultant, name: name)
         end
       end
 
@@ -91,10 +82,11 @@ module World
             expect(appointment[3]).to eq(expected_appointment["starts_at"])
             expect(appointment[4]).to eq(expected_appointment["patient"])
             expect(appointment[8]).to eq(expected_appointment["clinic"])
-            expect(appointment[9]).to eq(expected_appointment["user"])
+            expect(appointment[9]).to eq(expected_appointment["consultant"])
           end
         end
       end
     end
   end
 end
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength
