@@ -20,7 +20,7 @@ module Renalware
           end
 
           def to_s
-            "transplant date within #{@param_comparison_value} weeks ago"
+            "transplant date within #{param_comparison_value} weeks ago"
           end
         end
       end

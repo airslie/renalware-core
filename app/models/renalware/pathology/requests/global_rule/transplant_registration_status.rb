@@ -20,7 +20,7 @@ module Renalware
           end
 
           def to_s
-            "transplant registration status is #{@param_comparison_value}"
+            "transplant registration status is #{param_comparison_value}"
           end
         end
       end
