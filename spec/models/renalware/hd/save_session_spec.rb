@@ -37,7 +37,8 @@ module Renalware
           expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
 
           obj.call(params: { type: "Renalware::HD::Session::Open" })
-          expect(enqueued_jobs.size).to eq(0)
+          # expect(enqueued_jobs.size).to eq(0)
+          expect(Delayed::Job.count).to eq 0
         end
 
         it "enqueues a request to update rolling session stats if its an closed session" do
@@ -45,7 +46,8 @@ module Renalware
           expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
 
           obj.call(params: { type: "Renalware::HD::Session::Closed" })
-          expect(enqueued_jobs.size).to eq(1)
+          # expect(enqueued_jobs.size).to eq(1)
+          expect(Delayed::Job.count).to eq 1
         end
 
         it "enqueues a request to update rolling session stats if its an dna session" do
@@ -53,7 +55,8 @@ module Renalware
           expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
 
           obj.call(params: { type: "Renalware::HD::Session::DNA" })
-          expect(enqueued_jobs.size).to eq(1)
+          # expect(enqueued_jobs.size).to eq(1)
+          expect(Delayed::Job.count).to eq 1
         end
 
         it "assigns the most recent hd dry weight to the session" do

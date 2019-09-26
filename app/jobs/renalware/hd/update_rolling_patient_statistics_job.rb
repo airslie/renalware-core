@@ -15,14 +15,6 @@ module Renalware
       def perform(patient)
         UpdateRollingPatientStatistics.new(patient: patient).call
       end
-
-      def max_attempts
-        3
-      end
-
-      def destroy_failed_jobs?
-        true
-      end
     end
   end
 end
