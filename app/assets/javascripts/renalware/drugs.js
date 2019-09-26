@@ -79,7 +79,7 @@ $(document).ready(function(){
       if (query.length > 2) {
         $.ajax({
           url: '/drugs/drugs.json',
-          data: { q : { name_or_drug_types_name_start : query } },
+          data: { q : { name_or_drug_types_name_cont : query } },
           success: function(json) {
             $drugResults.html('').show();
             for (var i = 0; i < json.length; i++) {
