@@ -28,8 +28,6 @@ describe "Batch printing letters", type: :system, js: true do
       click_on "Filter"
 
       within ".letters-table" do
-        p letter1.author.to_s
-        p letter2.author.to_s
         expect(page).to have_content(letter1.author.to_s)
         expect(page).not_to have_content(letter2.author.to_s)
       end

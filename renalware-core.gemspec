@@ -51,7 +51,7 @@ Gem::Specification.new do |s|
   s.add_dependency "font-awesome-sass", "~> 5.6" # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
   s.add_dependency "foundation-rails", "~> 5.5.3.2"
   s.add_dependency "friendly_id", "~> 5.2.5"
-  s.add_dependency "hashdiff", "~> 0.3.9"
+  s.add_dependency "hashdiff", "~> 1.0"
   s.add_dependency "httparty", "~> 0.16"
   s.add_dependency "i18n", "1.5.3"
   s.add_dependency "jbuilder", "~> 2.8"
