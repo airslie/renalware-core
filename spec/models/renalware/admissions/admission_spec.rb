@@ -24,6 +24,7 @@ describe Renalware::Admissions::Admission, type: :model do
   it { is_expected.to belong_to(:patient).touch(true) }
   it { is_expected.to belong_to(:hospital_ward) }
   it { is_expected.to belong_to(:modality_at_admission) }
+
   it_behaves_like "an Accountable model"
   it_behaves_like "a Paranoid model"
 

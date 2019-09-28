@@ -10,6 +10,7 @@ module Renalware
       describe "validation" do
         it { is_expected.to validate_numericality_of(:blood_flow).is_greater_than_or_equal_to(50) }
         it { is_expected.to validate_numericality_of(:blood_flow).is_less_than_or_equal_to(800) }
+
         context "when it has sodium profiling" do
           before { dialysis.has_sodium_profiling = :yes }
 

@@ -11,9 +11,10 @@ module Renalware
 
       def latest_hep_b_antibody_statuses
         @latest_hep_b_antibody_statuses ||= begin
+          observation_descriptions = Renalware::Pathology::ObservationDescription.for(Array("BHBS"))
           Renalware::Pathology::CreateObservationsGroupedByDateTable.new(
             patient: patient,
-            observation_descriptions: Renalware::Pathology::ObservationDescription.for(Array("BHBS")),
+            observation_descriptions: observation_descriptions,
             page: 1,
             per_page: 5
           ).call

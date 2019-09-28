@@ -19,6 +19,7 @@ describe Renalware::Pathology::Requests::PatientRule do
   it { is_expected.to validate_presence_of(:test_description) }
   it { is_expected.to validate_presence_of(:frequency_type) }
   it { is_expected.to validate_presence_of(:patient_id) }
+
   it do
     expect(subject).to validate_inclusion_of(:frequency_type)
       .in_array(Renalware::Pathology::Requests::Frequency.all_names)

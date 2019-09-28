@@ -15,11 +15,13 @@ module Renalware
           it "not permitted if unsaved" do
             expect(policy).not_to permit(user, session)
           end
+
           it "permitted if the session is not yet immutable" do
             allow(session).to receive(:persisted?).and_return(true)
             allow(session).to receive(:immutable?).and_return(false)
             expect(policy).to permit(user, session)
           end
+
           it "not permitted if the session is immutable" do
             allow(session).to receive(:persisted?).and_return(true)
             allow(session).to receive(:immutable?).and_return(true)

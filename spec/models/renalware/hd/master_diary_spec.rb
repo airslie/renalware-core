@@ -5,6 +5,7 @@ require "rails_helper"
 module Renalware::HD
   describe MasterDiary, type: :model do
     it { is_expected.to have_many(:weekly_diaries) }
+
     describe "#master" do
       it "defaults to false" do
         expect(described_class.new).to be_master

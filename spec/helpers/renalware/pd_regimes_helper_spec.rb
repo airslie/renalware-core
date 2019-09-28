@@ -76,6 +76,7 @@ module Renalware
             default_daily_glucose_average(capd_regime.glucose_volume_low_strength)
           ).to eq(1071)
         end
+
         it "returns the correct medium strength glucose volume" do
           expect(
             default_daily_glucose_average(capd_regime.glucose_volume_medium_strength)
