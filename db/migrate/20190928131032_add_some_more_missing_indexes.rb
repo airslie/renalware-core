@@ -4,7 +4,7 @@ class AddSomeMoreMissingIndexes < ActiveRecord::Migration[5.2]
       add_index :modality_descriptions, :type
       add_index :addresses, :addressable_id
       add_index :letter_recipients, :role
-      add_index :clinic_clinics, :name
+      # add_index :clinic_clinics, :name # this is added in heroic branch so don't add here
       add_index :pathology_requests_global_rules, :rule_set_type
       add_index :event_types, :hidden
       add_index :letter_letters, :type
