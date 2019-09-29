@@ -8,6 +8,7 @@ module Renalware::Drugs
 
     it { is_expected.to have_many(:classifications) }
     it { is_expected.to have_many(:drug_types).through(:classifications) }
+
     it_behaves_like "a Paranoid model"
 
     describe "destroy" do

@@ -14,6 +14,7 @@ shared_examples_for "Personable" do
     it "accepts the :full_name format" do
       expect(user.full_name).to eq("Aneurin Bevan")
     end
+
     it "accepts the :default format" do
       expect(user.to_s).to match(/^Bevan, Aneurin$/i)
     end

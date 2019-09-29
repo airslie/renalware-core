@@ -38,6 +38,7 @@ module Renalware
 
           expect(regimes).to eq [regime]
         end
+
         it { is_expected.to be_empty }
       end
     end

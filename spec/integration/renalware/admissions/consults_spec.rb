@@ -103,7 +103,7 @@ module Renalware
             :id, :updated_at, :created_at, :created_by_id, :updated_by_id, :deleted_at, :ended_on
           )
           convert_hash_dates_to_string_using_locale(attribs)
-          expect(HashDiff.diff(params, attribs)).to eq([])
+          expect(Hashdiff.diff(params, attribs)).to eq([])
         end
       end
 

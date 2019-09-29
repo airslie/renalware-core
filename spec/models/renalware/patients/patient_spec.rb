@@ -28,6 +28,7 @@ module Renalware
 
       it { is_expected.to validate_uniqueness_of(:nhs_number).case_insensitive }
       it { is_expected.to validate_uniqueness_of(:local_patient_id).case_insensitive }
+
       (2..5).each do |idx|
         it { is_expected.to validate_uniqueness_of(:"local_patient_id_#{idx}").case_insensitive }
       end

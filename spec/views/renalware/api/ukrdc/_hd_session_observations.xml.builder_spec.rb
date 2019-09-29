@@ -90,7 +90,6 @@ describe "hd_session_observations.xml.builder" do
     end
 
     it do
-      p rendered
       is_expected.to eq(<<-XML.squish.gsub("> <", "><"))
         <Observation>
           <ObservationTime>2018-01-01T12:01:00+00:00</ObservationTime>

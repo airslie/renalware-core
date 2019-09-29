@@ -9,6 +9,27 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.110
+29-09-2019
+### Added
+- Rake task to re-apply pd calculations after data migration #2907
+### Changed
+- Add missing indexes #2913
+- Allow searching by any part of drug name #2912
+- Switch to a custom UpdateRollingPatientStatisticsJob delayed job class #2908
+- Display and filter by consultant in appointments list #2903
+- Allow no hospital_identifiers if external_patient_id is present #2893
+- Changes to Tx registration status mismatch query #2888
+### Fixed
+- Fix display bug in pathology request configuration screen #2909
+- Fix UKRDC observations to allow for 00:00 time #2902
+- Fix missing CMVD pathology on MDMs #2899
+- Fix issue adding prescription when using drug category #2898
+- Use wicked_pdf_stylesheet_link_tag for css in path request form pdf #2892
+- Fix error in GlobalRule where Tx Reg Status is missing #2889
+- Fix invalid text representation error when sorting MDMs #2886
+- Add priority integer to Admission Consults #2885
+
 ## 2.0.109
 17-09-2019
 ### Added

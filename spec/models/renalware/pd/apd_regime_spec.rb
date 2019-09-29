@@ -11,10 +11,12 @@ module Renalware
         it { is_expected.to validate_numericality_of(:last_fill_volume) }
         it { is_expected.to validate_numericality_of(:dwell_time) }
         it { is_expected.to validate_numericality_of(:additional_manual_exchange_volume) }
+
         it do
           regime.tidal_indicator = true
           expect(regime).to validate_numericality_of(:tidal_percentage)
         end
+
         it { is_expected.to validate_numericality_of(:no_cycles_per_apd) }
         it { is_expected.to validate_numericality_of(:overnight_volume) }
         it { is_expected.to validate_numericality_of(:daily_volume) }
@@ -30,7 +32,7 @@ module Renalware
               allow(regime).to receive(:has_additional_manual_exchange_bag?).and_return(true)
               regime.additional_manual_exchange_volume = nil
 
-              expect(subject).to validate_presence_of :additional_manual_exchange_volume
+              expect(regime).to validate_presence_of :additional_manual_exchange_volume
             end
           end
 
@@ -39,7 +41,7 @@ module Renalware
               allow(regime).to receive(:has_additional_manual_exchange_bag?).and_return(false)
               regime.additional_manual_exchange_volume = nil
 
-              expect(subject).not_to validate_presence_of :additional_manual_exchange_volume
+              expect(regime).not_to validate_presence_of :additional_manual_exchange_volume
             end
           end
         end
@@ -50,7 +52,7 @@ module Renalware
               allow(regime).to receive(:has_last_fill_bag?).and_return(true)
               regime.last_fill_volume = nil
 
-              expect(subject).to validate_presence_of :last_fill_volume
+              expect(regime).to validate_presence_of :last_fill_volume
             end
           end
 
@@ -59,7 +61,7 @@ module Renalware
               allow(regime).to receive(:has_last_fill_bag?).and_return(false)
               regime.last_fill_volume = nil
 
-              expect(subject).not_to validate_presence_of :last_fill_volume
+              expect(regime).not_to validate_presence_of :last_fill_volume
             end
           end
         end
@@ -67,11 +69,12 @@ module Renalware
         describe "#tidal_percentage" do
           it "validates #tidal_percentage when the regime is tidal" do
             regime.tidal_indicator = true
-            expect(subject).to validate_presence_of :tidal_percentage
+            expect(regime).to validate_presence_of :tidal_percentage
           end
+
           it "doesn't validate #tidal_percentage when the regime is not tidal" do
             regime.tidal_indicator = false
-            expect(subject).not_to validate_presence_of :tidal_percentage
+            expect(regime).not_to validate_presence_of :tidal_percentage
           end
         end
 

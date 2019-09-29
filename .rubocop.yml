@@ -54,10 +54,12 @@ RSpec/ExampleLength:
 RSpec/NestedGroups:
   Max: 4
 RSpec/MultipleExpectations:
-  Max: 4
+  Max: 6
 RSpec/DescribeClass:
   Enabled: false
 RSpec/ImplicitSubject:
   Enabled: false
 RSpec/DescribedClass:
+  Enabled: false
+Performance/RedundantBlockCall:
   Enabled: false
