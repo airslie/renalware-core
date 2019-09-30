@@ -24,12 +24,13 @@
 
     br
     br
-    - Renalware::Role.all.each_with_index do |role, index|
+    - Renalware::Role.all.order(id: :asc).each_with_index do |role, index|
       - element_id = "user_role_ids_#{index}"
+      - policy = Pundit.policy(current_user, @user)
       = check_box_tag "user[role_ids][]",
                       role.id,
                       @user.has_role?(role.name),
-                      disabled: role.hidden,
+                      disabled: !(policy.assign_role?(role)),
                       id: element_id,
                       class: "inline"
       = label_tag element_id, role.name.humanize
