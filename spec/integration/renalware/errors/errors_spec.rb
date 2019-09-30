@@ -6,7 +6,7 @@ module Renalware
   describe "Errors", type: :system do
     before do
       method = Rails.application.method(:env_config)
-      expect(Rails.application).to receive(:env_config).with(no_args) do
+      allow(Rails.application).to receive(:env_config).with(no_args) do
         method.call.merge(
           "action_dispatch.show_exceptions" => true,
           "action_dispatch.show_detailed_exceptions" => false,
@@ -17,9 +17,9 @@ module Renalware
 
     describe "accessing a non-existent page or resource" do
       it "displays the 404 page" do
-        login_as_clinical
+        login_as_super_admin
 
-        visit patient_path(id: 9999999)
+        visit admin_user_path(id: 99999999999)
 
         expect(page.status_code).to eq(404)
         expect(page).to have_content(t_404("heading"))

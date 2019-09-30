@@ -22,6 +22,9 @@ module Renalware
 
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+    class PatientNotFoundError < StandardError; end
+    rescue_from PatientNotFoundError, with: :patient_not_found
+
     # Expose a few attributes for use in the patient layout and its partials.
     # As a rule, we should be passing variables explicitly to all view using `locals`;
     # however, while not a fan of `helper_method`, exposing e.g. current_patient this (akin to
@@ -31,7 +34,11 @@ module Renalware
     alias_attribute :current_patient, :patient
 
     def patient
-      @patient ||= Renalware::Patient.find_by!(secure_id: params[:patient_id])
+      @patient ||= begin
+        Renalware::Patient.find_by(secure_id: params[:patient_id]).tap do |patient_|
+          raise PatientNotFoundError unless patient_
+        end
+      end
     end
 
     protected
@@ -71,6 +78,11 @@ module Renalware
 
     def user_not_authorized
       flash[:error] = "You are not authorized to perform this action."
+      redirect_to dashboard_path
+    end
+
+    def patient_not_found
+      flash[:error] = "Patient not found"
       redirect_to dashboard_path
     end
   end
