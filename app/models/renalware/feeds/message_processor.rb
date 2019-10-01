@@ -46,6 +46,8 @@ module Renalware
         # - so that any error in the listener has its own try mechansim and does not cause the
         # current job to retry,
         broadcast(:message_processed, feed_message: feed_message)
+      rescue Feeds::DuplicateMessageReceivedError => e
+        Rails.logger.warn("Rejected duplicate HL7 message: #{e.message}")
       rescue StandardError => e
         notify_exception(e)
         raise e
