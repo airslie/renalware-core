@@ -21,7 +21,7 @@ module Renalware
       describe "#max_attempts" do
         subject { job.max_attempts }
 
-        it { is_expected.to eq(3) }
+        it { is_expected.to eq(2) }
       end
 
       describe "#destroy_failed_jobs?" do

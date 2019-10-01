@@ -14,7 +14,7 @@ module Renalware
       end
 
       def max_attempts
-        3
+        2
       end
 
       def queue_name
