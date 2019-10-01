@@ -10,7 +10,7 @@ module Renalware
       end
 
       def cmvdna_pathology
-        @cmvdna_pathology ||= pathology_for_codes("CMVD")
+        @cmvdna_pathology ||= pathology_for_codes("CMVD", per_page: 6)
       end
     end
   end

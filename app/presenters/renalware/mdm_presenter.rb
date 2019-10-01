@@ -23,12 +23,12 @@ module Renalware
       @pathology ||= pathology_for_codes
     end
 
-    def pathology_for_codes(codes = nil)
+    def pathology_for_codes(codes = nil, per_page: 10, page: 1)
       Pathology::CreateObservationsGroupedByDateTable.new(
         patient: patient,
         observation_descriptions: pathology_descriptions_for_codes(codes),
-        page: 1,
-        per_page: 10
+        page: page,
+        per_page: per_page
       ).call
     end
 
