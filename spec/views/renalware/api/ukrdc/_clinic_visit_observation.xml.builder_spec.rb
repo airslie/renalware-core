@@ -28,6 +28,12 @@ describe "ClinicVisitObservation" do
 
       it { is_expected.to eq("") }
     end
+
+    context "when a string" do
+      before { visit.weight = "kjhkjhkjhkjhkjhkjh" }
+
+      it { is_expected.to eq("") }
+    end
   end
 
   describe "weight" do
@@ -51,6 +57,16 @@ describe "ClinicVisitObservation" do
           </Clinician>
         </Observation>
       XML
+    end
+  end
+
+  describe "#systolic_bp" do
+    let(:method) { :systolic_bp }
+
+    context "when the value evaluates as a number but is actually longer than 20 chars" do
+      before { visit.systolic_bp = "123                 123" }
+
+      it { is_expected.to match("<ObservationValue>123</ObservationValue>") }
     end
   end
 end
