@@ -24,7 +24,7 @@
       td data-role="telephone" = request_form.telephone
 
 .row.full_height data-role="form_pathology" data-patient-id="#{request_form.patient.id}"
-  .border_box_half.columns.full_height
+  .border_box_half.columns.full_height.global_requests
     - if request_form.has_global_requests?
       - request_form.global_requests_by_lab_and_bottle_type.each do |(lab_name, bottle_type), request_descriptions|
         p
@@ -33,7 +33,7 @@
           p = request_description.name.downcase.titleize
     - else
       p No tests required.
-  .border_box_half.columns
+  .border_box_half.columns.patient_requests
     - if request_form.high_risk
       p
         h3 HIGH RISK

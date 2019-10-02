@@ -18,6 +18,7 @@ module Renalware
           render :index, locals: { requests: requests, query: requests_query.search }
         end
 
+        # Displays an historical PDF
         def show
           request = RequestPresenter.new(
             Request.find(params[:id])
@@ -25,12 +26,15 @@ module Renalware
           authorize request
           render(
             pdf: "show",
-            layout: false,
+            page_size: "A4",
+            layout: "renalware/layouts/pdf",
             locals: { request: request },
+            show_as_html: params.key?(:debug),
             extra: "--no-print-media-type" # NOTE: Foundation CSS does not work well in print mode
           )
         end
 
+        # HTML POST
         # NOTE: This needs to be POST since params[:patient_ids] may exceed url char limit in GET
         def new
           render(
@@ -44,12 +48,15 @@ module Renalware
           )
         end
 
+        # PDF POST
+        # Displays multiple PDFs
         def create
           requests.each(&:print_form)
 
           render(
             pdf: "create",
-            layout: false,
+            page_size: "A4",
+            layout: "renalware/layouts/pdf",
             locals: local_vars,
             extra: "--no-print-media-type" # NOTE: Foundation CSS does not work well in print mode
           )
@@ -93,7 +100,15 @@ module Renalware
 
         def load_patients
           patient_ids = raw_request_params[:patient_ids]
-          @patients = Pathology::OrderedPatientQuery.new(patient_ids).call
+
+          @patients =
+            Pathology::OrderedPatientQuery
+              .new(patient_ids)
+              .call
+              .eager_load(:requests)
+              .eager_load(:rules)
+              .eager_load(:prescriptions)
+              .eager_load(:drugs)
           authorize Renalware::Patient
         end
 

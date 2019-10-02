@@ -31,3 +31,27 @@ hr.page_break {
 }
 
 div.alwaysbreak { page-break-before: always; }
+
+table {
+  width: 100%;
+  td, th {
+    padding: .3rem;
+  }
+}
+
+h4, h3 {
+  font-size: 1.2rem;
+}
+
+.border_box_half {
+  width: 47%;
+  margin-top: .5rem;
+  padding: 0.5rem;
+
+  &.global_requests {
+    float: left;
+  }
+  &.patient_requests {
+    float: right;
+  }
+}

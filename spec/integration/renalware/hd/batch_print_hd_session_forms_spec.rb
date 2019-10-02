@@ -55,10 +55,9 @@ describe "Batch printing HD Session form PDFs from the HD MDM list", type: :syst
         status: :awaiting_printing,
         filepath: "X123.pdf"
       )
-      # Wait for batch status polling to find changes and display a link to the compiled PDF
-      # in the modal.
-      wait_for_ajax(10000)
-      expect(page).to have_content("Open PDF in a new tab")
+      # have_css will for batch status polling to find changes and display a link to the compiled
+      # PDF in the modal.
+      expect(page).to have_css("a.print-batch-letter")
     end
   end
 end

@@ -11,7 +11,6 @@ This project adheres to Semantic Versioning.
 
 ## 2.0.110
 02-10-2019
-## Unreleased
 ### Added
 - Redirect to dashboard if patient not found #2919
 - Display configured hospital address in Home Prescriptions print-out #2932
