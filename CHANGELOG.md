@@ -10,6 +10,21 @@ This project adheres to Semantic Versioning.
 ### Fixed
 
 ## 2.0.110
+02-10-2019
+## Unreleased
+### Added
+- Redirect to dashboard if patient not found #2919
+- Display configured hospital address in Home Prescriptions print-out #2932
+### Changed
+- Limit CMVD results on MDM to 6 most recent #2930
+- Add ‘On Worryboard’ to HD session form (‘Protocol’) #2890
+- Do not allow an admin to assign the admin role #2916
+### Fixed
+- Strip and truncate UKRDC ObservationValue to 20 chars #2891
+- Catch PG::UniqueViolation on feed_messages #2923
+- Address simple_form security vulnerability #2929
+
+## 2.0.110
 29-09-2019
 ### Added
 - Rake task to re-apply pd calculations after data migration #2907
