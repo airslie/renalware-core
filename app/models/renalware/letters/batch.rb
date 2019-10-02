@@ -6,6 +6,8 @@ module Renalware
   module Letters
     class Batch < ApplicationRecord
       include Accountable
+
+      # TODO: I think these attributes are dead
       attr_accessor(
         :url,
         :enclosures_present,

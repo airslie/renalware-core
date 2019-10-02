@@ -2763,6 +2763,74 @@ ALTER SEQUENCE hd_schedule_definitions_id_seq OWNED BY hd_schedule_definitions.i
 
 
 --
+-- Name: hd_session_form_batch_items; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE hd_session_form_batch_items (
+    id bigint NOT NULL,
+    batch_id bigint NOT NULL,
+    printable_id integer NOT NULL,
+    status smallint DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: hd_session_form_batch_items_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE hd_session_form_batch_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_session_form_batch_items_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE hd_session_form_batch_items_id_seq OWNED BY hd_session_form_batch_items.id;
+
+
+--
+-- Name: hd_session_form_batches; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE hd_session_form_batches (
+    id bigint NOT NULL,
+    status integer DEFAULT 0 NOT NULL,
+    query_params jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    filepath character varying,
+    last_error character varying,
+    batch_items_count integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_session_form_batches_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE hd_session_form_batches_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_session_form_batches_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE hd_session_form_batches_id_seq OWNED BY hd_session_form_batches.id;
+
+
+--
 -- Name: hd_sessions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8260,6 +8328,20 @@ ALTER TABLE ONLY hd_schedule_definitions ALTER COLUMN id SET DEFAULT nextval('hd
 
 
 --
+-- Name: hd_session_form_batch_items id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_session_form_batch_items ALTER COLUMN id SET DEFAULT nextval('hd_session_form_batch_items_id_seq'::regclass);
+
+
+--
+-- Name: hd_session_form_batches id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_session_form_batches ALTER COLUMN id SET DEFAULT nextval('hd_session_form_batches_id_seq'::regclass);
+
+
+--
 -- Name: hd_sessions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -9560,6 +9642,22 @@ ALTER TABLE ONLY hd_providers
 
 ALTER TABLE ONLY hd_schedule_definitions
     ADD CONSTRAINT hd_schedule_definitions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_session_form_batch_items hd_session_form_batch_items_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_session_form_batch_items
+    ADD CONSTRAINT hd_session_form_batch_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_session_form_batches hd_session_form_batches_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_session_form_batches
+    ADD CONSTRAINT hd_session_form_batches_pkey PRIMARY KEY (id);
 
 
 --
@@ -11757,6 +11855,41 @@ CREATE INDEX index_hd_schedule_definitions_on_days ON hd_schedule_definitions US
 --
 
 CREATE INDEX index_hd_schedule_definitions_on_diurnal_period_id ON hd_schedule_definitions USING btree (diurnal_period_id);
+
+
+--
+-- Name: index_hd_session_form_batch_items_on_batch_id_and_printable_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_session_form_batch_items_on_batch_id_and_printable_id ON hd_session_form_batch_items USING btree (batch_id, printable_id);
+
+
+--
+-- Name: index_hd_session_form_batch_items_on_status; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_session_form_batch_items_on_status ON hd_session_form_batch_items USING btree (status);
+
+
+--
+-- Name: index_hd_session_form_batches_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_session_form_batches_on_created_by_id ON hd_session_form_batches USING btree (created_by_id);
+
+
+--
+-- Name: index_hd_session_form_batches_on_status; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_session_form_batches_on_status ON hd_session_form_batches USING btree (status);
+
+
+--
+-- Name: index_hd_session_form_batches_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_session_form_batches_on_updated_by_id ON hd_session_form_batches USING btree (updated_by_id);
 
 
 --
@@ -14751,6 +14884,14 @@ ALTER TABLE ONLY admission_consults
 
 
 --
+-- Name: hd_session_form_batch_items fk_rails_282567e56b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_session_form_batch_items
+    ADD CONSTRAINT fk_rails_282567e56b FOREIGN KEY (batch_id) REFERENCES hd_session_form_batches(id);
+
+
+--
 -- Name: ukrdc_treatments fk_rails_2a03129a59; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16295,6 +16436,14 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
+-- Name: hd_session_form_batches fk_rails_e3cb548b22; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_session_form_batches
+    ADD CONSTRAINT fk_rails_e3cb548b22 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: transplant_recipient_operations fk_rails_e41edf9bc0; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16420,6 +16569,14 @@ ALTER TABLE ONLY hd_prescription_administrations
 
 ALTER TABLE ONLY admission_consults
     ADD CONSTRAINT fk_rails_f5abb5bad4 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
+-- Name: hd_session_form_batches fk_rails_f68439991d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY hd_session_form_batches
+    ADD CONSTRAINT fk_rails_f68439991d FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --
@@ -17255,6 +17412,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190925130052'),
 ('20190925161724'),
 ('20190925173849'),
+('20190927124840'),
+('20190927130911'),
 ('20190928131032');
 
 

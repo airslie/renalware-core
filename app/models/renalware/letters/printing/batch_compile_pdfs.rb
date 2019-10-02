@@ -10,9 +10,6 @@ module Renalware
       # - compiles each letter along with its recipient cover sheets
       # - adds blank pages to make sure the letter always starts on an odd page
       # - appends all PDF letters
-      #   2-page documents (from the contents of the /2 folder)
-      # - moves these compiled PDFs to a network share.
-      # - removes the temp folder structure - auto
       class BatchCompilePdfs
         include PdfCombining
         PAGE_COUNTS = %w(2 3 4 5 6 7 8 9 10).freeze

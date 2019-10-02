@@ -1,0 +1,25 @@
+.modal
+  .modal__header
+    h1= "Compiling #{batch.batch_items_count} HD Session Forms"
+    .percent_complete
+  .modal__body
+    .content
+      .batch_results_container
+        .preparing
+          = image_tag("renalware/loading-gears-animation.gif", height: "116")
+
+        .generated-batch-print-pdf-container(style="display:none")
+          = link_to hd_session_forms_batch_path(batch, format: :pdf),
+                    target: "_blank",
+                    class: "print-batch-letter" do
+            i.far.fa-check-circle
+            | Open PDF in a new tab
+
+  .modal__footer
+    .left
+      = "##{batch.id}"
+    .right
+      = link_to "Cancel",
+        "#",
+        "aria-label" => "Close",
+        class: "reveal-modal-close cancel-link"

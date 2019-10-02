@@ -138,11 +138,11 @@ h1 {
           &.col-width-date {
             min-width: 6rem;
             width: 6rem;
+            text-align: centre;
           }
 
           &.col-width-time {
-            min-width: 5.6rem;
-            width: 5.6rem;
+            width: 3rem;
           }
 
           &.col-width-minute {
@@ -153,6 +153,11 @@ h1 {
           &.col-width-small {
             min-width: 5rem;
             width: 5rem;
+          }
+
+          &.col-width-bp {
+            min-width: 3.7rem;
+            width: 3.7rem;
           }
 
           &.col-width-drugs {
@@ -179,7 +184,7 @@ h1 {
         td {
           border-top: solid 1px #000;
           height: 2rem;
-          padding: 3px;
+          padding: 1px;
           text-align: center;
 
           &.text-left {
@@ -188,7 +193,7 @@ h1 {
         }
 
         &.empty-session-row {
-          height: 4rem;
+          height: 3.5rem;
           &.first {
             td {
               border-top: solid 2px #000;

@@ -1,5 +1,11 @@
+/ = content_for(:actions) do
+/   = render "page_actions", presenter: presenter, form: filter_form
+
 = content_for(:filters) do
-  = render_if_exists "filters", presenter: presenter, filter_form: filter_form
+  = render "filters",
+           presenter: presenter,
+           filter_form: filter_form,
+           batch_print_form: batch_print_form
 
 = content_for(:tabs) do
   = render_if_exists "tabs", presenter: presenter
@@ -7,3 +13,5 @@
 = within_admin_layout(title: presenter.page_title)
   = render "table", presenter: presenter
   = paginate presenter.patients
+
+  #hd-session-form-batch-print-modal.reveal-modal.small(data-reveal)

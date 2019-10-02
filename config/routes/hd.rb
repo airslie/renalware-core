@@ -6,7 +6,6 @@ resources :patients, only: [] do
     resource :dashboard, only: :show
     resource :protocol,
              only: :show,
-             constraints: { format: /(pdf)/ },
              defaults: { format: :pdf }
     resource :preference_set, only: [:edit, :update]
     resource :current_profile,
@@ -50,5 +49,10 @@ namespace :hd do
     get "slots/day/:day_of_week/period/:diurnal_period_code_id/station/:station_id",
         to: "diary_slots#show",
         as: :refresh_slot
+  end
+  namespace :session_forms do
+    resources :batches, only: [:create, :show] do
+      get :status, constraints: { format: :json }, defaults: { format: :json }
+    end
   end
 end

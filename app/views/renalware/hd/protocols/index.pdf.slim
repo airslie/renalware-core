@@ -1,0 +1,4 @@
+- protocols.each_with_index do |protocol, index|
+  = render "protocol", protocol: protocol
+  - if (index + 1) < protocols.size
+    .page-break

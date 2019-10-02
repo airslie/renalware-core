@@ -4,51 +4,42 @@ require_dependency "renalware/hd/base_controller"
 
 module Renalware
   module HD
+    # Responsible for rendering an HD Session Form PDF (aka Protocol) which has the patients
+    # past 3 sessions on it, and empty rows for their next three sessions.
     class ProtocolsController < BaseController
-      before_action :load_patient
-
+      # Note that although rendering an individual PDF for a patient here, we use PdfRender
+      # which can handles multiple patients, and hence it uses the index.pdf.slim view.
+      # The show view is not used.
       def show
+        authorize Session, :show?
         respond_to do |format|
-          format.pdf {
-            disposition = params.fetch("disposition", "inline")
-            render_pdf(disposition)
-          }
+          format.html { render html: pdf_renderer.call }
+          format.pdf { send_pdf_data_as_inline_file }
         end
       end
 
       private
 
-      def render_pdf(disposition)
-        render(
-          pdf_options.merge(
-            pdf: pdf_filename,
-            disposition: disposition,
-            print_media_type: true,
-            locals: {
-              protocol: ProtocolPresenter.new(patient, view_context)
-            }
-          )
+      def send_pdf_data_as_inline_file
+        send_data(
+          pdf_renderer.call,
+          filename: pdf_filename,
+          type: "application/pdf",
+          disposition: "inline"
         )
       end
 
-      # Other options to consider:
-      #  viewport_size: '1280x1024'
-      #  disable_smart_shrinking: true
-      def pdf_options
-        {
-          page_size: "A4",
-          orientation: "Landscape",
-          layout: "renalware/layouts/pdf",
-          margin: { top: 10, bottom: 10, left: 10, right: 10 },
-          footer: {
-            font_size: 8
-          },
-          show_as_html: (Rails.env.development? || Rails.env.test?) && params.key?("debug")
-        }
+      def pdf_renderer
+        @pdf_renderer ||= begin
+          SessionForms::PdfRenderer.new(
+            patients: patient,
+            output_html_for_debugging: params.key?(:debug)
+          )
+        end
       end
 
       def pdf_filename
-        "#{patient.family_name}-#{patient.hospital_identifier.id}-protocol".upcase
+        "#{patient.family_name}-#{patient.hospital_identifier.id}-protocol".upcase + ".pdf"
       end
     end
   end

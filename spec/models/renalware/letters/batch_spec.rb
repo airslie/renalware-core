@@ -6,17 +6,19 @@ module Renalware
   module Letters
     describe Batch, type: :model do
       include LettersSpecHelper
+      it_behaves_like "an Accountable model"
       it { is_expected.to have_many :items }
       it { is_expected.to have_many(:letters).through(:items) }
 
       describe "#status" do
         it "defaults to queued" do
-          user = create(:user)
-          batch = described_class.create!(by: user).reload
-          expect(batch.queued?).to eq(true)
-          expect(batch.processing?).to eq(false)
-          expect(batch.failure?).to eq(false)
-          expect(batch.success?).to eq(false)
+          expect(described_class.new).to have_attributes(
+            queued?: true,
+            processing?: false,
+            failure?: false,
+            awaiting_printing?: false,
+            success?: false
+          )
         end
       end
 

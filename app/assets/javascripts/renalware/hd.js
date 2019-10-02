@@ -17,18 +17,18 @@ $(document).ready(function() {
   $(".hd-drug-administered input[type='radio']").on("change", function(e) {
     var checked = ($(this).val() == "true");
     var container = $(this).closest(".hd-drug-administration");
-    $(container).toggleClass("administered", checked)
-    $(container).toggleClass("not-administered", !checked)
+    $(container).toggleClass("administered", checked);
+    $(container).toggleClass("not-administered", !checked);
     $(container).removeClass("undecided");
-    $(".authentication", container).toggle(checked)
-    $(".authentication", container).toggleClass("disabled-with-faded-overlay", !checked)
+    $(".authentication", container).toggle(checked);
+    $(".authentication", container).toggleClass("disabled-with-faded-overlay", !checked);
     $(".reason-why-not-administered", container).toggle(!checked)
   });
 
   $(".hd-drug-administration .authentication-user-id").on("select2:select", function(e) {
     var container = $(this).closest(".user-and-password");
-    var topContainer = $(container).closest(".hd-drug-administration")
-    $(container).find(".authentication-token").val("")
+    var topContainer = $(container).closest(".hd-drug-administration");
+    $(container).find(".authentication-token").val("");
     $("input.user-password", container).val("");
     $(container).removeClass("authorised");
     var tokenCount = $(topContainer).find(".authorised").length;
@@ -41,8 +41,8 @@ $(document).ready(function() {
   $(".hd-drug-administration .user-and-password .user-and-password--clear").on("click", function(e) {
     e.preventDefault();
     var container = $(this).closest(".user-and-password");
-    var topContainer = $(container).closest(".hd-drug-administration")
-    $(container).find(".authentication-token").val("")
+    var topContainer = $(container).closest(".hd-drug-administration");
+    $(container).find(".authentication-token").val("");
     $("input.user-password", container).val("");
     $(container).removeClass("authorised");
     var tokenCount = $(topContainer).find(".authorised").length;
@@ -55,7 +55,7 @@ $(document).ready(function() {
   // TODO: also do this if enter pressed while in the password field.
   $(".user-and-password input.user-password").on("blur", function(e) {
     var container = $(this).closest(".user-and-password");
-    var topContainer = $(container).closest(".hd-drug-administration")
+    var topContainer = $(container).closest(".hd-drug-administration");
     var authUrl = $(container).closest(".authentication").data("authentication-url");
     var userSelect = $(container).find(".authentication-user-id");
     var userId = $(userSelect).find("option:selected").val();
@@ -106,3 +106,53 @@ $(document).ready(function() {
     }
   });
 });
+
+var Renalware = typeof Renalware === 'undefined' ? {} : Renalware;
+
+Renalware.HD = (function() {
+  // This is pretty much a duplicate of Letters.pollBatchStatus and we will merge them soon
+  var pollBatchStatus = function(url) {
+    var POLL_INTERVAL = 2000; // ms
+    var batch = {};
+
+    // Check the current status of the TaskStatus object.
+    var updateStatus = function() {
+      $.ajax({
+        method: 'GET',
+        url: url,
+        contentType: 'json'
+      }).fail(function(e, x, a) {
+        // Possible network glitch or perhaps a re-deploy causing the site to be down momentarily.
+        // Anyway, not enough for us to give up polling.
+        // TODO: examine the response code to see if we should in fact give up and show an
+        // appropriate message.
+        setTimeout(updateStatus, POLL_INTERVAL);
+      }).done(function(batch) {
+        $(".modal .percent_complete").html(batch.percent_complete + "%");
+
+        switch(batch.status) {
+          case 'awaiting_printing':
+            $(".batch_results_container .preparing").hide();
+            $(".batch_results_container .generated-batch-print-pdf-container").show();
+            break;
+          case 'failure':
+            $(".batch_results_container .preparing").html("Failed");
+            break;
+          default:
+            // Ask again in POLL_INTERVAL ms.
+            setTimeout(updateStatus, POLL_INTERVAL);
+        };
+      });
+    };
+    setTimeout(updateStatus, POLL_INTERVAL);
+  };
+
+  return {
+    init: function () {
+      // nothing here yet
+    },
+    pollBatchStatus: pollBatchStatus
+  };
+}());
+
+$(document).ready(Renalware.HD.init);

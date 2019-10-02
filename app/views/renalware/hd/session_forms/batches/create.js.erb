@@ -1,0 +1,3 @@
+<%= refresh("#hd-session-form-batch-print-modal", partial: "create", locals: local_assigns) %>
+$("#hd-session-form-batch-print-modal").foundation('reveal', 'open');
+Renalware.HD.pollBatchStatus('<%= hd_session_forms_batch_status_path(batch) %>');

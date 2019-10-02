@@ -6,11 +6,13 @@ module Renalware
   module HD
     class MDMPatientsController < Renalware::MDMPatientsController
       def index
-        render_index(filter_form: filter_form,
-                     query: query,
-                     page_title: t(".page_title"),
-                     view_proc: ->(patient) { patient_hd_mdm_path(patient) },
-                     patient_presenter_class: HD::PatientPresenter)
+        render_index(
+          filter_form: filter_form,
+          query: query,
+          page_title: t(".page_title"),
+          view_proc: ->(patient) { patient_hd_mdm_path(patient) },
+          patient_presenter_class: HD::PatientPresenter
+        )
       end
 
       private
@@ -48,12 +50,21 @@ module Renalware
         params[:named_filter]
       end
 
+      def batch_print_form
+        patient_ids = query.call.pluck("patients.id").join(",")
+        SessionForms::Form.new(patient_ids: patient_ids)
+      end
+
       def render_index(filter_form:, **args)
         presenter = build_presenter(params: params, **args)
         authorize presenter.patients
         render(
           :index,
-          locals: { presenter: presenter, filter_form: filter_form }
+          locals: {
+            presenter: presenter,
+            filter_form: filter_form,
+            batch_print_form: batch_print_form
+          }
         )
       end
     end
