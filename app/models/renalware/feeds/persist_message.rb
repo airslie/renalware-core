@@ -16,6 +16,12 @@ module Renalware
           body_hash: Digest::MD5.hexdigest(hl7_message.to_s),
           patient_identifier: hl7_message.patient_identification&.internal_id
         )
+      rescue ActiveRecord::RecordNotUnique => e
+        # If a duplicate messages comes in (we have calculated the body_hash for the message and it
+        # turns out that body_hash is not unique in the database, meaning the message is already
+        # stored) then raise a custom error so it can be handled upstream - ie we can choose to
+        # ignore it.
+        raise Feeds::DuplicateMessageReceivedError, e.message
       end
     end
   end
