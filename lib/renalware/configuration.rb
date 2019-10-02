@@ -22,7 +22,8 @@ module Renalware
     Dotenv::Railtie.load
 
     config_accessor(:site_name) { "Renalware" }
-    config_accessor(:hospital_name) { "KINGS COLLEGE HOSPITAL" }
+    config_accessor(:hospital_name) { ENV.fetch("HOSPITAL_NAME", "KINGS COLLEGE HOSPITAL") }
+    config_accessor(:hospital_address) { ENV.fetch("HOSPITAL_ADDRESS", "") } # comma-delimited
     config_accessor(:delay_after_which_a_finished_session_becomes_immutable) { 6.hours }
     config_accessor(:new_clinic_visit_deletion_window) { 24.hours }
     config_accessor(:new_clinic_visit_edit_window) { 7.days }
@@ -84,7 +85,6 @@ module Renalware
     config_accessor(:render_pdf_as_html_for_debugging) { false }
 
     config_accessor(:hd_session_prescriptions_require_signoff) { true }
-
     config_accessor(:batch_printing_enabled) { true }
 
     # A host app can override this to add/remove/re-order the clinical summary display

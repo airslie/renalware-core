@@ -8,7 +8,11 @@ html
     = wicked_pdf_stylesheet_link_tag "renalware/medications_pdf"
   heading
     .our-ref= "RW ref: #{patient.hospital_identifier}"
-    span.logo= wicked_pdf_image_tag "renalware/NHS-Black.jpg", width: 50
+    span.logo
+      = wicked_pdf_image_tag "renalware/NHS-Black.jpg", width: 50
+    .address
+      = Renalware.config.hospital_address.split(",").join("<br>").html_safe
+
   main
     h1 Home Delivery Medication List
     = "As at #{l(Time.zone.now)}"
