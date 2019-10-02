@@ -15,7 +15,10 @@ if measurement.present? && measurement.to_f.nonzero?
       xml.Description I18n.t("loinc.#{i18n_key}.description")
     end
 
-    xml.ObservationValue measurement
+    # Only take the first 20 characters, and then strip leading and trailing space.
+    # This is to allow for rogue values like
+    # '615                       615'
+    xml.ObservationValue measurement.to_s[0, 19].strip
     xml.ObservationUnits I18n.t("loinc.#{i18n_key}.units")
 
     xml.Clinician do

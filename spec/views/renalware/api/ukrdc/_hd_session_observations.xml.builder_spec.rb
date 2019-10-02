@@ -104,5 +104,14 @@ describe "hd_session_observations.xml.builder" do
         </Observation>
       XML
     end
+
+    context "when the value has something that evalautes as a number but is > 20 chars" do
+      it "trims and strips the value" do
+        observations_after = session.document.observations_before
+        observations_after.blood_pressure.systolic = "123                    123"
+
+        expect(rendered).to match("<ObservationValue>123</ObservationValue>")
+      end
+    end
   end
 end
