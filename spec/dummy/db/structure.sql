@@ -11102,13 +11102,6 @@ CREATE INDEX index_clinic_appointments_on_updated_by_id ON clinic_appointments U
 
 
 --
--- Name: index_clinic_clinics_on_name; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_clinic_clinics_on_name ON clinic_clinics USING btree (name);
-
-
---
 -- Name: index_clinic_clinics_on_user_id; Type: INDEX; Schema: renalware; Owner: -
 --
 

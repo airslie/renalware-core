@@ -66,7 +66,11 @@ module Renalware
       end
 
       def patient
-        @patient ||= Renalware::Patient.find_by!(secure_id: params[:id])
+        @patient ||= begin
+          Renalware::Patient.find_by(secure_id: params[:id]).tap do |patient_|
+            raise PatientNotFoundError unless patient_
+          end
+        end
       end
 
       private
