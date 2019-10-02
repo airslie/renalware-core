@@ -6,7 +6,7 @@ require "attr_extras"
 
 module Renalware
   module Letters
-    # This class is both a Wispler listener (subscribing to ApproveLetter events) and an ActiveJob.
+    # This class is both a Wisper listener (subscribing to ApproveLetter events) and an ActiveJob.
     # Should be configured in the broadcast_subscription_map to listen to events from ApproveLetter
     # and be invoked aysnchronously via a background queue ie delayed_job.
     #
