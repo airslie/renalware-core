@@ -43,13 +43,15 @@ module Renalware
 
       def sessions
         @sessions ||= begin
-          hd_sessions = Sessions::ProtocolSessionsQuery.new(patient: patient).call
+          hd_sessions =
+            Sessions::ProtocolSessionsQuery.new(patient: patient)
+              .call.includes(:patient, :signed_on_by, :signed_off_by)
           ::CollectionPresenter.new(hd_sessions, Protocol::SessionPresenter, view_context)
         end
       end
 
       def prescriptions
-        prescriptions = patient.prescriptions.to_be_administered_on_hd
+        prescriptions = patient.prescriptions.includes(:drug).to_be_administered_on_hd
         ::CollectionPresenter.new(prescriptions, ::Renalware::Medications::PrescriptionPresenter)
       end
 

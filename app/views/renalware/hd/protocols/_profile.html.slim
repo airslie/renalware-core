@@ -46,3 +46,5 @@ dl
   dd= profile.transport_type&.text
   dt= t(".transport.decided_on")
   dd= profile.transport_decided_on
+  dt= t(".on_worryboard")
+  dd= yes_no(profile.patient.worry.present?)

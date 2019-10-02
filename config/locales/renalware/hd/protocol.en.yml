@@ -3,6 +3,7 @@ en:
     hd:
       protocols:
         profile:
+          on_worryboard: "On Worryboard"
           site: "Site:"
           schedule: "Schedule:"
           prescribed_time: "Prescribed time:"
