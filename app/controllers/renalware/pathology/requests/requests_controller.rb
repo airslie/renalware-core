@@ -39,7 +39,6 @@ module Renalware
         def new
           render(
             :new,
-            layout: false,
             locals: local_vars.merge(
               all_clinics: Renalware::Pathology::Clinic.for_algorithm,
               all_consultants: Renalware::Renal::Consultant.ordered,
