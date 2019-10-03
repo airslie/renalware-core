@@ -6,6 +6,8 @@ module Renalware
   module HD
     module SessionForms
       class BatchesController < BaseController
+        skip_after_action :verify_policy_scoped
+
         def create
           batch = create_unprocessed_batch_and_batch_items
           authorize batch
