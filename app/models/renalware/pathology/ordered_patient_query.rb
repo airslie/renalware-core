@@ -19,7 +19,7 @@ module Renalware
       private
 
       def ids_index
-        ::SQL::IndexedCaseStmt.new(:id, @patient_ids).generate
+        ::SQL::IndexedCaseStmt.new("patients.id", @patient_ids).generate
       end
     end
   end

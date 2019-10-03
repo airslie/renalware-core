@@ -13,7 +13,7 @@ module Renalware
       def call
         @patient
           .requests
-          .joins(:request_descriptions)
+          .eager_load(:request_descriptions)
           .where(
             pathology_request_descriptions_requests_requests: {
               request_description_id: @request_description.id
