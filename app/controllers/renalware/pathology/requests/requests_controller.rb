@@ -74,8 +74,8 @@ module Renalware
         def request_html_form_params
           OpenStruct.new(
             patient_ids: raw_request_params[:patient_ids],
-            clinic_id: request_params[:clinic].id,
-            consultant_id: request_params[:consultant].id,
+            clinic_id: request_params[:clinic]&.id,
+            consultant_id: request_params[:consultant]&.id,
             telephone: request_params[:telephone],
             template: request_params[:template]
           )
