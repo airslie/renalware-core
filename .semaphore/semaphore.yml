@@ -48,8 +48,8 @@ blocks:
           value: test
 
       secrets:
-        # The codeclimate secret contains CC_TEST_REPORTER_ID, AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY env vars
-        - name: codeclimate
+        - name: aws
+        - name: renalware-core-env
 
       prologue:
         commands:
@@ -92,8 +92,8 @@ blocks:
   - name: Merging test coverage and upload to codeclimate
     task:
       secrets:
-        # The codeclimate secret contains CC_TEST_REPORTER_ID, AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY env vars
-        - name: codeclimate
+        - name: aws
+        - name: renalware-core-env
 
       jobs:
         - name: Merge and upload
