@@ -6,7 +6,7 @@
         method: :get do |f|
       .row
         .medium-3.large-2.columns
-          = f.input :starts_at_eq, as: :date_picker, label: "Date"
+          = f.input :starts_on_eq, as: :date_picker, label: "Date"
         .medium-3.large-3.columns
           = f.input :clinic_id_eq, collection: clinics, label: "Clinic"
         .medium-3.large-3.columns
@@ -40,21 +40,32 @@
             |
             = link_to "(Uncheck all)", "#", id: "uncheck_all_appointments_link"
           th.col-width-medium-ish
-          th.col-width-date
-            = sort_link([:renalware, query], :starts_at, "Date", default_order: :asc)
-          th.col-width-time
-            = sort_link([:renalware, query], :start_time, "Time", default_order: :asc)
+          th.col-width-date-time
+            = sort_link([:renalware, query], :starts_at, "Date and Time", default_order: :asc)
           th.col-width-medium
-            = sort_link([:renalware, query], :patient_family_name, "Patient", default_order: :asc)
+            = sort_link([:renalware, query],
+                        :patient_family_name,
+                        [:patient_family_name, "starts_at asc"],
+                        "Patient",
+                        default_order: :asc)
           th.col-width-tiny Sex
           th.col-width-tiny Age
-          th.col-width-small
+          th.col-width-medium
             = sort_link([:renalware, query],
                        :patient_current_modality_description_name,
+                       [:patient_current_modality_description_name, "starts_at asc"],
                        "Modality",
                        default_order: :asc)
-          th= sort_link([:renalware, query], :clinic_name, "Clinic", default_order: :asc)
-          th= sort_link([:renalware, query], :user_family_name, "Consultant", default_order: :asc)
+          th= sort_link([:renalware, query],
+                        :clinic_name,
+                        [:clinic_name, "starts_at asc"],
+                        "Clinic",
+                        default_order: :asc)
+          th= sort_link([:renalware, query],
+                        :consultant_name,
+                        [:consultant_name, "starts_at asc"],
+                        "Consultant",
+                        default_order: :asc)
           th.show-for-large-up Outcome notes
           th.show-for-large-up DNA notes
 
@@ -77,8 +88,8 @@
                   i.fas.fa-pencil-alt
                   = " Create Clinic Visit"
 
-            td= I18n.l appointment.starts_on
-            td= appointment.start_time
+            td= I18n.l appointment.starts_at
+            /td= appointment.start_time
             td= default_patient_link(appointment.patient)
             td= appointment.patient.sex.code
             td= appointment.patient.age

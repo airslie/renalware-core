@@ -25,12 +25,8 @@ module Renalware
       end
 
       class QueryableAppointment < ActiveType::Record[Appointment]
-        ransacker :starts_at, type: :date do
+        ransacker :starts_on, type: :date do
           Arel.sql("DATE(starts_at)")
-        end
-
-        ransacker :start_time, type: :datetime do
-          Arel.sql("starts_at")
         end
       end
     end
