@@ -6,7 +6,7 @@ module Renalware
       attr_reader :author, :relation
 
       def initialize(relation: nil, author:)
-        @relation ||= Snippet.includes(:author).all
+        @relation = relation || Snippet.includes(:author).all
         @author = author
       end
 

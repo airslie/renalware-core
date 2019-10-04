@@ -10,15 +10,15 @@ module World
         def create_global_rule(params)
           param_id =
             case params["type"]
-            when "ObservationResult" then
+            when "ObservationResult"
               Renalware::Pathology::ObservationDescription.find_by!(code: params["id"]).id
-            when "RequestResult" then
+            when "RequestResult"
               Renalware::Pathology::RequestDescription.find_by!(code: params["id"]).id
-            when "PrescriptionDrug" then
+            when "PrescriptionDrug"
               Renalware::Drugs::Drug.find_by!(name: params["id"]).id
-            when "PrescriptionDrugType" then
+            when "PrescriptionDrugType"
               Renalware::Drugs::Type.find_by!(name: params["id"]).id
-            when "PrescriptionDrugCategory" then
+            when "PrescriptionDrugCategory"
               Renalware::Pathology::Requests::DrugCategory.find_by(name: params["id"]).id
             end
 

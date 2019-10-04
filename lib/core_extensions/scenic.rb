@@ -16,4 +16,4 @@ module ResolveSceneicViewsInEngineOnly
   end
 end
 
-Scenic::Definition.send(:prepend, ResolveSceneicViewsInEngineOnly)
+Scenic::Definition.prepend(ResolveSceneicViewsInEngineOnly)
