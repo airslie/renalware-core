@@ -1,4 +1,4 @@
-# Use the latest stable version of Semaphore 2.0 YML syntax:
+# Use the latest stable version of Semaphore 2.0 YML syntax :
 version: v1.0
 name: renalwarev2
 
@@ -38,18 +38,6 @@ blocks:
           # to be used in next blocks and future workflows:
           - cache store gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock) vendor/bundle
 
-  # - name: Code scanning
-  #   task:
-  #     jobs:
-  #       - name: check style + security
-  #         commands:
-  #           - checkout
-  #           - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
-  #           - sem-version ruby 2.6.3
-  #           - bundle install --deployment --path vendor/bundle
-  #           - bundle exec rubocop
-  #           - bundle exec brakeman
-
   - name: Tests
     task:
       # This block runs two jobs in parallel and they both share common
@@ -59,12 +47,22 @@ blocks:
         - name: RAILS_ENV
           value: test
 
+      # The codeclimate secret contains  CC_TEST_REPORTER_ID, AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY env vars
+      secrets:
+        - name: codeclimate
+
       prologue:
         commands:
           - checkout
           - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
           - git submodule sync ; git submodule update --init
           - sudo apt install -qq -y pandoc
+
+          # codeclimate setup - see https://docs.semaphoreci.com/article/148-configuring-parallel-tests-with-code-climate
+          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          - chmod +x ./cc-test-reporter
+          - ./cc-test-reporter before-build
+
           # Start Postgres database service.
           # See https://docs.semaphoreci.com/article/54-toolbox-reference#sem-service
           - sem-service start postgres 10.8
@@ -79,8 +77,34 @@ blocks:
       - name: RSpec tests
         commands:
           - bundle exec rspec --format progress
+          - ls ./coverage
+          - ./cc-test-reporter format-coverage -t simplecov --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json"
+          - ls ./coverage
+          - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://renalware-ci-coverage/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
 
       - name: Cucumber tests
         commands:
           - bundle exec cucumber --format progress
           - TEST_DEPTH=web bundle exec cucumber -p rake_web --format progress
+          - ./cc-test-reporter format-coverage -t simplecov --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json"
+          - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://renalware-ci-coverage/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+
+  - name: Merging test coverage and upload to codeclimate
+    task:
+      # The codeclimate secret contains  CC_TEST_REPORTER_ID, AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY env vars
+      secrets:
+        - name: codeclimate
+
+      jobs:
+        - name: Merge and upload
+          commands:
+            # codeclimate setup - see https://docs.semaphoreci.com/article/148-configuring-parallel-tests-with-code-climate
+            - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            - chmod +x ./cc-test-reporter
+            # fetching partial tests from S3
+            - mkdir ./coverage
+            - echo "s3://renalware-ci-coverage/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+            - aws s3 sync "s3://renalware-ci-coverage/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/" coverage/
+            # merging tests
+            - ./cc-test-reporter sum-coverage --parts $(ls -1 coverage/ | wc -l) coverage/codeclimate.*.json
+            - ./cc-test-reporter upload-coverage
