@@ -12,7 +12,7 @@ module Renalware
         Allergy.transaction do
           patient = allergy.patient
           allergy.destroy
-          if patient.allergies.count == 0
+          if patient.allergies.count.zero?
             patient.update(allergy_status: :unrecorded, by: user)
           end
         end

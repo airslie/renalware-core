@@ -99,4 +99,4 @@ module CoreExtensions
   end
 end
 
-ActiveRecord::Migration.send(:prepend, CoreExtensions::ActiveRecord::MigrationHelpers)
+ActiveRecord::Migration.prepend(CoreExtensions::ActiveRecord::MigrationHelpers)

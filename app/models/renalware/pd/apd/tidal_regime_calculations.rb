@@ -26,7 +26,7 @@ module Renalware
         def volume_calculable?
           raise ArgumentError, "Tidal indicator not set" unless tidal?
 
-          fill_volume.to_i > 0 && cycles.to_i > 0 && tidal_percentage.to_i > 0
+          fill_volume.to_i.positive? && cycles.to_i.positive? && tidal_percentage.to_i.positive?
         end
 
         def volume_when_1st_and_then_every_3rd_exchange_is_full_and_the_remainder_are_tidal

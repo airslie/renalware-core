@@ -26,4 +26,4 @@ module CoreExtensions
   end
 end
 
-ActiveSupport::Duration.send(:include, CoreExtensions::ActiveSupport::DurationAdditions)
+ActiveSupport::Duration.include(CoreExtensions::ActiveSupport::DurationAdditions)

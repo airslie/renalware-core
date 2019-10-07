@@ -11,8 +11,8 @@ require "core_extensions/hash"
 require "core_extensions/active_record/migration_helpers"
 
 I18n.extend CoreExtensions::I18n::HandleBlankValue
-I18n::Backend::Simple.send(:include, I18n::Backend::Cascade)
+I18n::Backend::Simple.include(I18n::Backend::Cascade)
 I18n.extend CoreExtensions::I18n::AlwaysCascade
-ActiveRecord::Base.send(:include, CoreExtensions::ActiveRecord::Sort)
-Date.include CoreExtensions::Date::Constants
-Hash.send(:include, CoreExtensions::Hash::OpenStructConversion)
+ActiveRecord::Base.include(CoreExtensions::ActiveRecord::Sort)
+Date.include(CoreExtensions::Date::Constants)
+Hash.include(CoreExtensions::Hash::OpenStructConversion)

@@ -3,7 +3,7 @@
 module Renalware
   module HD
     class PatientListener
-      def patient_modality_changed_to_death(patient:, modality:, actor:)
+      def patient_modality_changed_to_death(patient:, actor:, **)
         nullify_significant_hd_profile_attributes(patient, by: actor)
       end
 

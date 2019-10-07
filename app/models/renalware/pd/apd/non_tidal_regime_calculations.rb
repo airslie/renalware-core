@@ -15,7 +15,7 @@ module Renalware
         private
 
         def volume_calculable?
-          fill_volume.to_i > 0 && cycles.to_i > 0
+          fill_volume.to_i.positive? && cycles.to_i.positive?
         end
       end
     end
