@@ -1,11 +1,14 @@
-/ = content_for(:actions) do
-/   = render "page_actions", presenter: presenter, form: filter_form
+= content_for(:actions) do
+  = render "page_actions",
+            presenter: presenter,
+            batch_print_form: batch_print_form,
+            pathology_requests_form: pathology_requests_form
 
 = content_for(:filters) do
   = render "filters",
            presenter: presenter,
-           filter_form: filter_form,
-           batch_print_form: batch_print_form
+           filter_form: filter_form
+
 
 = content_for(:tabs) do
   = render_if_exists "tabs", presenter: presenter
