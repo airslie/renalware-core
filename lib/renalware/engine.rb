@@ -54,9 +54,6 @@ require "wicked_pdf"
 require "wisper"
 require "wisper/activejob"
 require "rails-assets-foundation-datepicker"
-require "rails-assets-select2"
-require "rails-assets-moment"
-require "rails-assets-mousetrap"
 require "byebug" if ENV["RAILS_ENV"] == "development"
 
 module Renalware
@@ -152,6 +149,7 @@ module Renalware
       )
       app.config.assets.paths <<
         Rails.root.join(config.root, "vendor", "assets", "javascripts", "renalware")
+      app.config.assets.paths << Engine.root.join("node_modules")
     end
 
     initializer :append_migrations do |app|

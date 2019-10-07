@@ -36,6 +36,9 @@
   },
   "buildpacks": [
     {
+      "url": "heroku/nodejs"
+    },
+    {
       "url": "https://github.com/mojodna/heroku-buildpack-jemalloc.git"
     },
     {
