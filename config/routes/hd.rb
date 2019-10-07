@@ -41,14 +41,18 @@ namespace :hd do
     resources :stations do
       post :sort, on: :collection
     end
-    resources :diaries, only: [:index, :show]
-    get "diaries/:year/:week_number/edit", to: "diaries#edit", as: :edit_diary
   end
-  resources :diaries, only: [] do
-    resources :slots, except: :show, controller: :diary_slots
-    get "slots/day/:day_of_week/period/:diurnal_period_code_id/station/:station_id",
-        to: "diary_slots#show",
-        as: :refresh_slot
+  namespace :scheduling do
+    resources :units, only: [] do
+      resources :diaries, only: [:index, :show]
+      get "diaries/:year/:week_number/edit", to: "diaries#edit", as: :edit_diary
+    end
+    resources :diaries, only: [] do
+      resources :slots, except: :show, controller: :diary_slots
+      get "slots/day/:day_of_week/period/:diurnal_period_code_id/station/:station_id",
+          to: "diary_slots#show",
+          as: :refresh_slot
+    end
   end
   namespace :session_forms do
     resources :batches, only: [:create, :show] do
