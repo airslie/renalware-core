@@ -11,7 +11,7 @@
 @import "foundation-datepicker";
 @import "dataTables/jquery.dataTables.foundation";
 @import "trix";
-@import "renalware/balloon";
+@import "balloon-css/src/balloon";
 @import "./lib/foundation_and_overrides";
 @import "./lib/clockpicker";
 @import "./base/variables";
@@ -19,6 +19,5 @@
 @import "renalware/select2-foundation5";
 @import "./lib/select2-foundation5-overrides";
 @import "./modules/**/*";
-@import "renalware/print.min";
-// @import "./print/**/*";
+@import "print-js/dist/print";
 @import "./partials/**/*";

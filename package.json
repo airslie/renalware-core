@@ -6,8 +6,11 @@
   "author": "Airslie Ltd",
   "license": "MIT",
   "dependencies": {
+    "balloon-css": "^1.0.3",
+    "masonry-layout": "^4.2.2",
     "moment": "2.24.0",
     "mousetrap": "1.6.3",
+    "print-js": "^1.0.61",
     "select2": "4.0.5"
   },
   "devDependencies": {},
