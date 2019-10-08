@@ -26,39 +26,44 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "HLA", name: "hla" } do
       = fd.simple_fields_for :hla, fd.object.hla do |fcm|
-        = fcm.input :type, wrapper: :horizontal_large
-        = fcm.input :recorded_on, as: :date_picker, wrapper: :horizontal_datepicker
+        = fcm.input :type, wrapper: :horizontal_large, input_html: { "data-controlled-by-tissue-typing-feed": true }
+        = fcm.input :recorded_on, as: :date_picker, wrapper: :horizontal_datepicker, input_html: { "data-controlled-by-tissue-typing-feed": true }
         table
           tbody
-            = render_input fcm, :a
-            = render_input fcm, :b
-            = render_input fcm, :cw
-            = render_input fcm, :dr
-            = render_input fcm, :dq
-            = render_input fcm, :drw
-            = render_input fcm, :drq
+            = render_input fcm, :a, html_options: { "data-controlled-by-tissue-typing-feed": true }
+            = render_input fcm, :b, html_options: { "data-controlled-by-tissue-typing-feed": true }
+            = render_input fcm, :cw, html_options: { "data-controlled-by-tissue-typing-feed": true }
+            = render_input fcm, :dr, html_options: { "data-controlled-by-tissue-typing-feed": true }
+            = render_input fcm, :dq, html_options: { "data-controlled-by-tissue-typing-feed": true }
+            = render_input fcm, :drw, html_options: { "data-controlled-by-tissue-typing-feed": true }
+            = render_input fcm, :drq, html_options: { "data-controlled-by-tissue-typing-feed": true }
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Transplant", name: "transplant" } do
       = fd.simple_fields_for :transplant, fd.object.transplant do |fcm|
         table.no-stripes
-          = render_input fcm, :blood_group
+          = render_input fcm, :blood_group, html_options: { "data-controlled-by-tissue-typing-feed": true }
           = fcm.input :nb_of_previous_grafts,
                       collection: 0..5,
                       include_blank: false,
-                      wrapper: :horizontal_small
-          = fcm.input :sens_status, wrapper: :horizontal_medium
+                      wrapper: :horizontal_small,
+                      input_html: { "data-controlled-by-tissue-typing-feed": true }
+          = fcm.input :sens_status,
+                      wrapper: :horizontal_medium,
+                      input_html: { "data-controlled-by-tissue-typing-feed": true }
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Tissue Typing (UKT Status)", name: "tissue_typing" } do
       = fd.simple_fields_for :uk_transplant_centre, fd.object.uk_transplant_centre do |fcm|
           = fcm.input :status,
                       wrapper: :horizontal_small,
-                      hint: "To be updated by feed"
+                      hint: "To be updated by feed",
+                      input_html: { "data-controlled-by-tissue-typing-feed": true }
           = fcm.input :status_updated_on,
                       as: :date_picker,
                       wrapper: :horizontal_datepicker,
-                      hint: "To be updated by feed"
+                      hint: "To be updated by feed",
+                      input_html: { "data-controlled-by-tissue-typing-feed": true }
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Organs", name: "organs" } do
@@ -83,9 +88,9 @@ ruby:
         locals: { legend: "Admin", name: "admin" } do
       = f.input :referred_on, as: :date_picker, wrapper: :horizontal_datepicker
       = f.input :assessed_on, as: :date_picker, wrapper: :horizontal_datepicker
-      = f.input :entered_on, as: :date_picker, wrapper: :horizontal_datepicker
-      = f.input :contact, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
-      = f.input :notes, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
+      = f.input :entered_on, as: :date_picker, wrapper: :horizontal_datepicker, input_html: { "data-controlled-by-tissue-typing-feed": true }
+      = f.input :contact, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large, input_html: { "data-controlled-by-tissue-typing-feed": true }
+      = f.input :notes, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large, input_html: { "data-controlled-by-tissue-typing-feed": true }
 
     = render "status_form", f: f if f.object.new_record?
 

@@ -21,6 +21,8 @@ Renalware.configure do |config|
   config.ukrdc_sending_facility_name = "Test"
   config.site_name = "Renalware"
   config.batch_printing_enabled = true
+  config.disable_inputs_controlled_by_tissue_typing_feed = false
+  config.disable_inputs_controlled_by_demographics_feed = false
 end
 
 # Renalware::Patients.configure
