@@ -1,0 +1,32 @@
+= within_patient_layout(title: "PROMS") do
+
+  = render Renalware::Surveys::EQ5DSummaryPart.new(patient, current_user)
+  = render Renalware::Surveys::POSSSummaryPart.new(patient, current_user)
+
+  / .summary-part--eq5d
+  /   article
+  /     header
+  /       h2 EQ5D
+
+
+  /   / b Example WIP for charting one question over time
+  /   / = line_chart(eq5d_summary_part.data_for_question_code(1), curve: false)
+  /   / br
+  /   / br
+  /   / br
+
+  /   / - return if eq5d_summary_part.rows.blank?
+
+  /   .xsss
+  /     table
+  /       thead
+  /         tr
+  /           th Date
+  /           - eq5d_responses.question_labels.each do |code, label|
+  /             th= label
+  /       tbody
+  /         - eq5d_responses.rows.each do |row|
+  /           tr
+  /             td= row.answered_on
+  /             - eq5d_summary_part.question_labels.each do |code, label|
+  /               td= row.send(code.to_sym)

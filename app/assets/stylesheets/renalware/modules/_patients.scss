@@ -369,6 +369,7 @@ form {
 
   .summary-part--events,
   .summary-part--admissions,
+  .summary-part--eq5d,
   .summary-part--consults {
     @include grid-column(12);
 
@@ -416,6 +417,12 @@ form {
           margin-right: .3rem;
         }
       }
+    }
+  }
+
+  .summary-part--eq5d table {
+    td, th {
+      text-align: center;
     }
   }
 }

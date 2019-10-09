@@ -1,0 +1,7 @@
+"code","position","label","validation_regex"
+"YOHQ1",1,"Mobility (walking about)","^[1-5]$"
+"YOHQ2",2,"Self-care (washing, dressing)","^[1-5]$"
+"YOHQ3",3,"Usual activities","^[1-5]$"
+"YOHQ4",4,"Pain / discomfort","^[1-5]$"
+"YOHQ5",5,"Anxiety / depression","^[1-5]$"
+"YOHQ6",6,"Overall health score today","^([0-9]|[1-9][0-9]|100)$"

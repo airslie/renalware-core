@@ -26,6 +26,7 @@ en:
           demographics: Demographics
           clinical_summary: Clinical Summary
           inpatient_admissions: Inpatient Admissions (%{count})
+          proms: PROMS
         modalities:
           heading: Modalities
           pd: PD

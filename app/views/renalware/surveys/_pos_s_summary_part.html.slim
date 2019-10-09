@@ -1,0 +1,26 @@
+.summary-part--pos_s
+  article
+    header
+      h2 POS-S
+
+  / b Example WIP for charting one question over time
+  / = line_chart(eq5d_summary_part.data_for_question_code(1), curve: false)
+  / br
+  / br
+  / br
+
+  - return if pos_s_summary_part.rows.blank?
+
+  .xsss
+    table
+      thead
+        tr
+          th Date
+          - pos_s_summary_part.question_labels.each do |code, label|
+            th= label
+      tbody
+        - pos_s_summary_part.rows.each do |row|
+          tr
+            td= row.answered_on
+            - pos_s_summary_part.question_labels.each do |code, label|
+              td= row.send(code.to_sym)

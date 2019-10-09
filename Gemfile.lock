@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/airslie/nhs_api_client.git
-  revision: 5c1732a4540b0fbbeb225129730df3cb469cb95d
+  revision: f590768c215b80af8f880e9abd812a7763e22e3c
   specs:
     nhs_api_client (0.1.0)
       httparty (~> 0.16.4)
@@ -23,12 +23,13 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.111)
+    renalware-core (2.0.112)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.28.0)
       ahoy_matey (~> 2.1)
       attr_extras (~> 6.2)
       autoprefixer-rails (~> 9.6)
+      chartkick (~> 3.2.0)
       client_side_validations (~> 16.0)
       client_side_validations-simple_form (~> 9.0)
       clipboard-rails (~> 1.7.1)
@@ -46,6 +47,7 @@ PATH
       font-awesome-sass (~> 5.6)
       foundation-rails (~> 5.5.3.2)
       friendly_id (~> 5.2.5)
+      groupdate (~> 4.1.2)
       hashdiff (~> 1.0)
       httparty (~> 0.16)
       i18n (= 1.5.3)
@@ -79,6 +81,7 @@ PATH
       simple_form (~> 5.0)
       sinatra (~> 2.0.5)
       slim-rails (~> 3.2.0)
+      sprockets (~> 3.7.2)
       uglifier (~> 4.1.17)
       validates_timeliness (~> 4.1.0)
       virtus (~> 1.0.5)
@@ -206,8 +209,8 @@ GEM
       launchy
     capybara-select-2 (0.4.2)
     character_set (1.4.0)
+    chartkick (3.2.1)
     childprocess (2.0.0)
-      rake (< 13.0)
     chronic (0.10.2)
     client_side_validations (16.0.3)
       jquery-rails (~> 4.3)
@@ -315,6 +318,8 @@ GEM
     gherkin (5.1.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    groupdate (4.1.2)
+      activesupport (>= 4.2)
     hashdiff (1.0.0)
     hashery (2.1.2)
     httparty (0.16.4)
@@ -462,7 +467,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.19.0, < 2.0)
     rainbow (3.0.0)
-    rake (12.3.3)
+    rake (13.0.0)
     ransack (2.1.1)
       actionpack (>= 5.0)
       activerecord (>= 5.0)
@@ -485,7 +490,7 @@ GEM
       rspec-mocks (~> 3.8.0)
     rspec-core (3.8.2)
       rspec-support (~> 3.8.0)
-    rspec-expectations (3.8.5)
+    rspec-expectations (3.8.6)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-html-matchers (0.9.1)
