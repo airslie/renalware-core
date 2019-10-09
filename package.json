@@ -1,0 +1,19 @@
+{
+  "name": "renalware-core",
+  "version": "2.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/airslie/renalware-core.git",
+  "author": "Airslie Ltd",
+  "license": "MIT",
+  "dependencies": {
+    "balloon-css": "^1.0.3",
+    "masonry-layout": "^4.2.2",
+    "moment": "2.24.0",
+    "mousetrap": "1.6.3",
+    "print-js": "^1.0.61",
+    "select2": "4.0.5",
+    "underscore": "1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {}
+}

@@ -16,7 +16,7 @@ Feature: Changing the wait list status
   Scenario: A clinician changed the current status of a registration
     When Clyde sets the registration status to "Transplanted" and the start date to "15-Sep-2015"
     Then the registration status history is
-      | status       | start_date | by      | termination_date |
+      | status       | start_date  | by      | termination_date |
       | Transplanted | 15-Sep-2015 | Clyde   |                  |
       | Suspended    | 15-Aug-2015 | Chloe   | 15-Sep-2015       |
       | Active       | 15-Jul-2015 | Chloe   | 15-Aug-2015       |
@@ -26,7 +26,7 @@ Feature: Changing the wait list status
     When Clyde sets the registration status to "Died" and the start date to "11-08-2015"
     Then the transplant current status stays "Suspended" since "15-Aug-2015"
     And the status history has the following revised termination dates
-      | status       | start_date | termination_date |
+      | status       | start_date  | termination_date  |
       | Died         | 11-Aug-2015 | 15-Aug-2015       |
       | Active       | 15-Jul-2015 | 11-Aug-2015       |
 
