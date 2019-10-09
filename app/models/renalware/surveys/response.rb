@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/patients"
+require_dependency "renalware/surveys"
 
 module Renalware
-  module Patients
-    class SurveyResponse < ApplicationRecord
-      belongs_to :question, class_name: "SurveyQuestion"
+  module Surveys
+    class Response < ApplicationRecord
+      belongs_to :question, class_name: "Question"
       validates :patient_id, presence: true
       validates :answered_on, presence: true
       validates :question, presence: true

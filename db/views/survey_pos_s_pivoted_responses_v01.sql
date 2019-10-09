@@ -28,9 +28,9 @@ SELECT r.answered_on,
          MAX(CASE WHEN q.code = 'YSQ21' THEN r.value ELSE NULL END) AS "YSQ21",
          MAX(CASE WHEN q.code = 'YSQ22' THEN r.value ELSE NULL END) AS "YSQ22"
 
-    FROM patient_survey_responses r
-    inner JOIN patient_survey_questions q ON q.id = r.question_id
-    inner JOIN patient_surveys s ON s.id = q.survey_id
-WHERE s.name = 'POS-S'
+    FROM survey_responses r
+    inner JOIN survey_questions q ON q.id = r.question_id
+    inner JOIN survey_surveys s ON s.id = q.survey_id
+WHERE s.code = 'prom'
 GROUP BY r.answered_on, r.patient_id
 ORDER BY r.answered_on DESC;

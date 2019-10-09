@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/patients"
+require_dependency "renalware/surveys"
 
 module Renalware
-  module Patients
-    class SurveyQuestion < ApplicationRecord
+  module Surveys
+    class Question < ApplicationRecord
+      include PatientScope
       acts_as_paranoid
       belongs_to :survey
       has_many(
         :responses,
-        class_name: "SurveyResponse",
+        class_name: "Response",
         dependent: :nullify,
         foreign_key: :question_id
       )

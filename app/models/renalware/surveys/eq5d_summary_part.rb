@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/events"
+require_dependency "renalware/surveys"
 
 module Renalware
-  module Patients
+  module Surveys
     class EQ5DSummaryPart < Renalware::SummaryPart
       def rows
         @rows ||= EQ5DPivotedResponse.where(patient_id: patient.id)
@@ -18,7 +18,7 @@ module Renalware
       end
 
       def data_for_question_code(_code)
-        Renalware::Patients::SurveyResponse
+        Renalware::Surveys::Response
           .where(patient_id: patient.id, question_id: 1)
           .pluck(:answered_on, :value)
           .to_h
@@ -29,8 +29,8 @@ module Renalware
           headings = ["Date"]
 
           headings.concat(
-            Renalware::Patients::Survey
-            .find_by!(name: "EQ5D-5L")
+            Renalware::Survey
+            .find_by!(code: "eq5d")
             .questions
             .order(:position)
             .pluck(:label)
@@ -40,11 +40,11 @@ module Renalware
       end
 
       def to_partial_path
-        "renalware/patients/surveys/eq5d_summary_part"
+        "renalware/surveys/eq5d_summary_part"
       end
 
       def survey
-        @survey ||= Renalware::Patients::Survey.find_by!(name: "EQ5D-5L")
+        @survey ||= Renalware::Surveys::Survey.find_by!(code: "eq5d")
       end
     end
   end

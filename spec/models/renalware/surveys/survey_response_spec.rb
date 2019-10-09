@@ -3,8 +3,8 @@
 require "rails_helper"
 
 module Renalware
-  module Patients
-    describe SurveyResponse do
+  module Surveys
+    describe Response do
       it { is_expected.to belong_to :question }
       it { is_expected.to validate_presence_of(:patient_id) }
       it { is_expected.to validate_presence_of(:answered_on) }
@@ -24,7 +24,7 @@ module Renalware
         end
 
         let(:question) do
-          SurveyQuestion.new(
+          Question.new(
             code: "Q1",
             validation_regex: validation_regex
           )

@@ -4726,98 +4726,6 @@ CREATE VIEW patient_current_modalities AS
 
 
 --
--- Name: patient_survey_questions; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE patient_survey_questions (
-    id bigint NOT NULL,
-    survey_id bigint NOT NULL,
-    code character varying NOT NULL,
-    label character varying,
-    "position" integer DEFAULT 0 NOT NULL,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    validation_regex text
-);
-
-
---
--- Name: patient_survey_responses; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE patient_survey_responses (
-    id bigint NOT NULL,
-    answered_on date NOT NULL,
-    patient_id bigint NOT NULL,
-    question_id bigint NOT NULL,
-    value character varying,
-    reference character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: patient_surveys; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE patient_surveys (
-    id bigint NOT NULL,
-    name character varying NOT NULL,
-    description character varying,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: patient_eq5d_pivoted_responses; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW patient_eq5d_pivoted_responses AS
- SELECT r.answered_on,
-    r.patient_id,
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YOHQ1'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YOHQ1",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YOHQ2'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YOHQ2",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YOHQ3'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YOHQ3",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YOHQ4'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YOHQ4",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YOHQ5'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YOHQ5",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YOHQ6'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YOHQ6"
-   FROM ((patient_survey_responses r
-     JOIN patient_survey_questions q ON ((q.id = r.question_id)))
-     JOIN patient_surveys s ON ((s.id = q.survey_id)))
-  WHERE ((s.name)::text = 'EQ5D-5L'::text)
-  GROUP BY r.answered_on, r.patient_id
-  ORDER BY r.answered_on DESC;
-
-
---
 -- Name: patient_ethnicities; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -4880,131 +4788,6 @@ CREATE SEQUENCE patient_languages_id_seq
 --
 
 ALTER SEQUENCE patient_languages_id_seq OWNED BY patient_languages.id;
-
-
---
--- Name: patient_pos_s_pivoted_responses; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW patient_pos_s_pivoted_responses AS
- SELECT r.answered_on,
-    r.patient_id,
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ1'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ1",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ2'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ2",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ3'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ3",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ4'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ4",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ5'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ5",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ6'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ6",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ7'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ7",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ8'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ8",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ9'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ9",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ10'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ10",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ11'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ11",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ12'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ12",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ13'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ13",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ14'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ14",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ15'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ15",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ16'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ16",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ17'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ17",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ18'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ18",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ19'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ19",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ20'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ20",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ21'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ21",
-    max((
-        CASE
-            WHEN ((q.code)::text = 'YSQ22'::text) THEN r.value
-            ELSE NULL::character varying
-        END)::text) AS "YSQ22"
-   FROM ((patient_survey_responses r
-     JOIN patient_survey_questions q ON ((q.id = r.question_id)))
-     JOIN patient_surveys s ON ((s.id = q.survey_id)))
-  WHERE ((s.name)::text = 'POS-S'::text)
-  GROUP BY r.answered_on, r.patient_id
-  ORDER BY r.answered_on DESC;
 
 
 --
@@ -5228,63 +5011,6 @@ CREATE VIEW patient_summaries AS
            FROM admission_admissions
           WHERE (admission_admissions.patient_id = patients.id)) AS admissions_count
    FROM patients;
-
-
---
--- Name: patient_survey_questions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE patient_survey_questions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: patient_survey_questions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE patient_survey_questions_id_seq OWNED BY patient_survey_questions.id;
-
-
---
--- Name: patient_survey_responses_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE patient_survey_responses_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: patient_survey_responses_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE patient_survey_responses_id_seq OWNED BY patient_survey_responses.id;
-
-
---
--- Name: patient_surveys_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE patient_surveys_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: patient_surveys_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE patient_surveys_id_seq OWNED BY patient_surveys.id;
 
 
 --
@@ -7057,6 +6783,281 @@ CREATE SEQUENCE snippets_snippets_id_seq
 --
 
 ALTER SEQUENCE snippets_snippets_id_seq OWNED BY snippets_snippets.id;
+
+
+--
+-- Name: survey_questions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE survey_questions (
+    id bigint NOT NULL,
+    survey_id bigint NOT NULL,
+    code character varying NOT NULL,
+    label character varying,
+    "position" integer DEFAULT 0 NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    validation_regex text
+);
+
+
+--
+-- Name: survey_responses; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE survey_responses (
+    id bigint NOT NULL,
+    answered_on date NOT NULL,
+    patient_id bigint NOT NULL,
+    question_id bigint NOT NULL,
+    value character varying,
+    reference character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: survey_surveys; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE survey_surveys (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    code character varying NOT NULL,
+    description character varying,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: survey_eq5d_pivoted_responses; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW survey_eq5d_pivoted_responses AS
+ SELECT r.answered_on,
+    r.patient_id,
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YOHQ1'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YOHQ1",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YOHQ2'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YOHQ2",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YOHQ3'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YOHQ3",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YOHQ4'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YOHQ4",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YOHQ5'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YOHQ5",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YOHQ6'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YOHQ6"
+   FROM ((survey_responses r
+     JOIN survey_questions q ON ((q.id = r.question_id)))
+     JOIN survey_surveys s ON ((s.id = q.survey_id)))
+  WHERE ((s.code)::text = 'eq5d'::text)
+  GROUP BY r.answered_on, r.patient_id
+  ORDER BY r.answered_on DESC;
+
+
+--
+-- Name: survey_pos_s_pivoted_responses; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW survey_pos_s_pivoted_responses AS
+ SELECT r.answered_on,
+    r.patient_id,
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ1'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ1",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ2'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ2",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ3'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ3",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ4'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ4",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ5'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ5",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ6'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ6",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ7'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ7",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ8'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ8",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ9'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ9",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ10'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ10",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ11'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ11",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ12'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ12",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ13'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ13",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ14'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ14",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ15'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ15",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ16'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ16",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ17'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ17",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ18'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ18",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ19'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ19",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ20'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ20",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ21'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ21",
+    max((
+        CASE
+            WHEN ((q.code)::text = 'YSQ22'::text) THEN r.value
+            ELSE NULL::character varying
+        END)::text) AS "YSQ22"
+   FROM ((survey_responses r
+     JOIN survey_questions q ON ((q.id = r.question_id)))
+     JOIN survey_surveys s ON ((s.id = q.survey_id)))
+  WHERE ((s.code)::text = 'prom'::text)
+  GROUP BY r.answered_on, r.patient_id
+  ORDER BY r.answered_on DESC;
+
+
+--
+-- Name: survey_questions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE survey_questions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: survey_questions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE survey_questions_id_seq OWNED BY survey_questions.id;
+
+
+--
+-- Name: survey_responses_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE survey_responses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: survey_responses_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE survey_responses_id_seq OWNED BY survey_responses.id;
+
+
+--
+-- Name: survey_surveys_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE survey_surveys_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: survey_surveys_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE survey_surveys_id_seq OWNED BY survey_surveys.id;
 
 
 --
@@ -9009,27 +9010,6 @@ ALTER TABLE ONLY patient_religions ALTER COLUMN id SET DEFAULT nextval('patient_
 
 
 --
--- Name: patient_survey_questions id; Type: DEFAULT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY patient_survey_questions ALTER COLUMN id SET DEFAULT nextval('patient_survey_questions_id_seq'::regclass);
-
-
---
--- Name: patient_survey_responses id; Type: DEFAULT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY patient_survey_responses ALTER COLUMN id SET DEFAULT nextval('patient_survey_responses_id_seq'::regclass);
-
-
---
--- Name: patient_surveys id; Type: DEFAULT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY patient_surveys ALTER COLUMN id SET DEFAULT nextval('patient_surveys_id_seq'::regclass);
-
-
---
 -- Name: patient_versions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -9272,6 +9252,27 @@ ALTER TABLE ONLY roles_users ALTER COLUMN id SET DEFAULT nextval('roles_users_id
 --
 
 ALTER TABLE ONLY snippets_snippets ALTER COLUMN id SET DEFAULT nextval('snippets_snippets_id_seq'::regclass);
+
+
+--
+-- Name: survey_questions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY survey_questions ALTER COLUMN id SET DEFAULT nextval('survey_questions_id_seq'::regclass);
+
+
+--
+-- Name: survey_responses id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY survey_responses ALTER COLUMN id SET DEFAULT nextval('survey_responses_id_seq'::regclass);
+
+
+--
+-- Name: survey_surveys id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY survey_surveys ALTER COLUMN id SET DEFAULT nextval('survey_surveys_id_seq'::regclass);
 
 
 --
@@ -10405,30 +10406,6 @@ ALTER TABLE ONLY patient_religions
 
 
 --
--- Name: patient_survey_questions patient_survey_questions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY patient_survey_questions
-    ADD CONSTRAINT patient_survey_questions_pkey PRIMARY KEY (id);
-
-
---
--- Name: patient_survey_responses patient_survey_responses_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY patient_survey_responses
-    ADD CONSTRAINT patient_survey_responses_pkey PRIMARY KEY (id);
-
-
---
--- Name: patient_surveys patient_surveys_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY patient_surveys
-    ADD CONSTRAINT patient_surveys_pkey PRIMARY KEY (id);
-
-
---
 -- Name: patient_versions patient_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -10706,6 +10683,30 @@ ALTER TABLE ONLY roles_users
 
 ALTER TABLE ONLY snippets_snippets
     ADD CONSTRAINT snippets_snippets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: survey_questions survey_questions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY survey_questions
+    ADD CONSTRAINT survey_questions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: survey_responses survey_responses_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY survey_responses
+    ADD CONSTRAINT survey_responses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: survey_surveys survey_surveys_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY survey_surveys
+    ADD CONSTRAINT survey_surveys_pkey PRIMARY KEY (id);
 
 
 --
@@ -13333,69 +13334,6 @@ CREATE INDEX index_patient_primary_care_physicians_on_name ON patient_primary_ca
 
 
 --
--- Name: index_patient_survey_questions_on_code_and_survey_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_patient_survey_questions_on_code_and_survey_id ON patient_survey_questions USING btree (code, survey_id) WHERE (deleted_at IS NULL);
-
-
---
--- Name: index_patient_survey_questions_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_patient_survey_questions_on_deleted_at ON patient_survey_questions USING btree (deleted_at);
-
-
---
--- Name: index_patient_survey_questions_on_position; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_patient_survey_questions_on_position ON patient_survey_questions USING btree ("position");
-
-
---
--- Name: index_patient_survey_questions_on_survey_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_patient_survey_questions_on_survey_id ON patient_survey_questions USING btree (survey_id);
-
-
---
--- Name: index_patient_survey_responses_on_answered_on; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_patient_survey_responses_on_answered_on ON patient_survey_responses USING btree (answered_on);
-
-
---
--- Name: index_patient_survey_responses_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_patient_survey_responses_on_patient_id ON patient_survey_responses USING btree (patient_id);
-
-
---
--- Name: index_patient_survey_responses_on_question_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_patient_survey_responses_on_question_id ON patient_survey_responses USING btree (question_id);
-
-
---
--- Name: index_patient_surveys_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_patient_surveys_on_deleted_at ON patient_surveys USING btree (deleted_at);
-
-
---
--- Name: index_patient_surveys_on_name; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_patient_surveys_on_name ON patient_surveys USING btree (name) WHERE (deleted_at IS NULL);
-
-
---
 -- Name: index_patient_worries_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -14131,6 +14069,76 @@ CREATE INDEX index_snippets_snippets_on_title ON snippets_snippets USING btree (
 
 
 --
+-- Name: index_survey_questions_on_code_and_survey_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_survey_questions_on_code_and_survey_id ON survey_questions USING btree (code, survey_id) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: index_survey_questions_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_survey_questions_on_deleted_at ON survey_questions USING btree (deleted_at);
+
+
+--
+-- Name: index_survey_questions_on_position; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_survey_questions_on_position ON survey_questions USING btree ("position");
+
+
+--
+-- Name: index_survey_questions_on_survey_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_survey_questions_on_survey_id ON survey_questions USING btree (survey_id);
+
+
+--
+-- Name: index_survey_responses_on_answered_on; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_survey_responses_on_answered_on ON survey_responses USING btree (answered_on);
+
+
+--
+-- Name: index_survey_responses_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_survey_responses_on_patient_id ON survey_responses USING btree (patient_id);
+
+
+--
+-- Name: index_survey_responses_on_question_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_survey_responses_on_question_id ON survey_responses USING btree (question_id);
+
+
+--
+-- Name: index_survey_surveys_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_survey_surveys_on_code ON survey_surveys USING btree (code) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: index_survey_surveys_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_survey_surveys_on_deleted_at ON survey_surveys USING btree (deleted_at);
+
+
+--
+-- Name: index_survey_surveys_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_survey_surveys_on_name ON survey_surveys USING btree (name) WHERE (deleted_at IS NULL);
+
+
+--
 -- Name: index_system_api_logs_on_identifier; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -14796,13 +14804,6 @@ CREATE UNIQUE INDEX patient_bookmarks_uniqueness ON patient_bookmarks USING btre
 
 
 --
--- Name: patient_survey_responses_indexes; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX patient_survey_responses_indexes ON patient_survey_responses USING btree (answered_on, patient_id, question_id);
-
-
---
 -- Name: patient_versions_versions_type_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -14863,6 +14864,13 @@ CREATE INDEX prgr_rule_set_id_and_rule_set_type_idx ON pathology_requests_global
 --
 
 CREATE INDEX prprr_patient_rule_id_idx ON pathology_requests_patient_rules_requests USING btree (patient_rule_id);
+
+
+--
+-- Name: survey_responses_compound_index; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX survey_responses_compound_index ON survey_responses USING btree (answered_on, patient_id, question_id);
 
 
 --
@@ -15247,6 +15255,14 @@ ALTER TABLE ONLY pathology_requests_drugs_drug_categories
 
 ALTER TABLE ONLY medication_prescriptions
     ADD CONSTRAINT fk_rails_25e627b557 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: survey_responses fk_rails_26b13a300f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY survey_responses
+    ADD CONSTRAINT fk_rails_26b13a300f FOREIGN KEY (question_id) REFERENCES survey_questions(id);
 
 
 --
@@ -16562,22 +16578,6 @@ ALTER TABLE ONLY hd_prescription_administrations
 
 
 --
--- Name: patient_survey_questions fk_rails_c6c457ac1e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY patient_survey_questions
-    ADD CONSTRAINT fk_rails_c6c457ac1e FOREIGN KEY (survey_id) REFERENCES patient_surveys(id);
-
-
---
--- Name: patient_survey_responses fk_rails_c6de39c903; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY patient_survey_responses
-    ADD CONSTRAINT fk_rails_c6de39c903 FOREIGN KEY (question_id) REFERENCES patient_survey_questions(id);
-
-
---
 -- Name: transplant_donor_followups fk_rails_c75064199c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16631,6 +16631,14 @@ ALTER TABLE ONLY renal_profiles
 
 ALTER TABLE ONLY access_profiles
     ADD CONSTRAINT fk_rails_d04ba97fc5 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: survey_questions fk_rails_d0558bfd89; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY survey_questions
+    ADD CONSTRAINT fk_rails_d0558bfd89 FOREIGN KEY (survey_id) REFERENCES survey_surveys(id);
 
 
 --
@@ -17788,13 +17796,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190607134717'),
 ('20190611152859'),
 ('20190612124015'),
-('20190616120839'),
-('20190617064636'),
-('20190617080154'),
 ('20190617121528'),
 ('20190624130020'),
 ('20190627141751'),
-('20190703095159'),
 ('20190705083727'),
 ('20190705105921'),
 ('20190709101610'),
@@ -17824,6 +17828,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190925173849'),
 ('20190927124840'),
 ('20190927130911'),
-('20190928131032');
+('20190928131032'),
+('20191008010839'),
+('20191008024636'),
+('20191008030154'),
+('20191008045159');
 
 

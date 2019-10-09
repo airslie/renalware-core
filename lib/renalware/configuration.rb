@@ -99,7 +99,6 @@ module Renalware
           Renalware::Admissions::SummaryPart
           Renalware::Admissions::ConsultSummaryPart
           Renalware::Patients::SummaryPart
-          Renalware::Patients::EQ5DSummaryPart
         )
       }
     }

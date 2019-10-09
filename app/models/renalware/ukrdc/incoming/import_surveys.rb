@@ -20,6 +20,9 @@ module Renalware
           Incoming::FileList.new(paths: paths).each_file do |filepath|
             import_surveys_from_file(filepath)
           end
+        rescue StandardError => e
+          Renalware::Engine.exception_notifier.notify(e)
+          raise e
         end
 
         private

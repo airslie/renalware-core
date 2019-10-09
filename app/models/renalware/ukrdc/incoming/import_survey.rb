@@ -13,7 +13,7 @@ module Renalware
           responses.each do |question_code, answer|
             question = question_having_code(question_code)
 
-            Patients::SurveyResponse.create!(
+            Surveys::Response.create!(
               patient_id: patient.id,
               question: question,
               value: answer,
@@ -29,7 +29,10 @@ module Renalware
         end
 
         def survey
-          @survey ||= Patients::Survey.includes(:questions).find_by!(name: survey_hash[:code])
+          @survey ||= begin
+            survey_code = survey_hash[:code].downcase
+            Surveys::Survey.includes(:questions).find_by!(code: survey_code)
+          end
         rescue ActiveRecord::RecordNotFound
           raise UKRDC::SurveyNotFoundError, "Survey with name #{survey_hash[:code]} not found"
         end

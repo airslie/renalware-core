@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  module Patients
+  module Surveys
     describe Survey do
       it_behaves_like "a Paranoid model"
       it { is_expected.to have_many(:questions) }
@@ -12,7 +12,7 @@ module Renalware
       it { is_expected.to have_db_index(:deleted_at) }
 
       describe "#uniqueness" do
-        subject { Survey.new(name: "x") }
+        subject { Survey.new(name: "x", code: "x") }
 
         it { is_expected.to validate_uniqueness_of :name }
       end

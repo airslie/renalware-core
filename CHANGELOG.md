@@ -9,7 +9,16 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
-## 2.0.110
+## 2.0.112
+09-10-2019
+### Added
+- PROMS import #2695
+- Allow generating pathology request forms from HD MDM listing #2950
+### Changed
+- Start moving js assets to Yarn #2949
+### Fixed
+
+## 2.0.111
 02-10-2019
 ### Added
 - Redirect to dashboard if patient not found #2919

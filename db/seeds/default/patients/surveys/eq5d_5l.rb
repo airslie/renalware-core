@@ -4,12 +4,12 @@ module Renalware
   extend SeedsHelper
 
   log "Adding EQ5D Survey" do
-    survey = Patients::Survey.create(name: "EQ5D-5L", description: "Patient health status")
+    survey = Surveys::Survey.create(name: "EQ5D-5L", code: "eq5d", description: "Patient health status")
     file_path = File.join(File.dirname(__FILE__), "eq5d_5l_questions.csv")
     questions = []
 
     CSV.foreach(file_path, headers: true) do |row|
-      questions << Patients::SurveyQuestion.new(
+      questions << Surveys::Question.new(
         survey: survey,
         code: row["code"],
         position: row["position"],
@@ -17,6 +17,6 @@ module Renalware
         validation_regex: row["validation_regex"]
       )
     end
-    Patients::SurveyQuestion.import! questions
+    Surveys::Question.import! questions
   end
 end

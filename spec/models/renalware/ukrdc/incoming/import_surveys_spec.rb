@@ -55,7 +55,7 @@ module Renalware
 
             expect {
               service.call
-            }.to change(Patients::SurveyResponse, :count).by(28) # 6 EQ5D questions + 22 POS-S
+            }.to change(Surveys::Response, :count).by(28) # 6 EQ5D questions + 22 POS-S
 
             # expect the test file to have been archived
             expect(paths.incoming.glob("*.xml").length).to eq(0)
@@ -81,7 +81,7 @@ module Renalware
 
               expect {
                 service.call
-              }.to change(Patients::SurveyResponse, :count).by(0)
+              }.to change(Surveys::Response, :count).by(0)
 
               expect(paths.incoming.glob("*.xml").length).to eq(0)
               expect(paths.archive.glob("*.xml").length).to eq(1)
@@ -106,7 +106,7 @@ module Renalware
 
               expect {
                 service.call
-              }.to change(Patients::SurveyResponse, :count).by(0)
+              }.to change(Surveys::Response, :count).by(0)
 
               expect(paths.incoming.glob("*.xml").length).to eq(0)
               expect(paths.archive.glob("*.xml").length).to eq(1)
@@ -133,7 +133,7 @@ module Renalware
 
               expect {
                 service.call
-              }.to change(Patients::SurveyResponse, :count).by(0)
+              }.to change(Surveys::Response, :count).by(0)
 
               expect(paths.incoming.glob("*.xml").length).to eq(0)
               expect(paths.archive.glob("*.xml").length).to eq(1)

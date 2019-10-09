@@ -5,7 +5,7 @@ module Renalware
 
   log "Adding EQ5D survey responses" do
     patient = Patient.find_by!(family_name: "RABBIT", given_name: "Roger")
-    survey = Patients::Survey.find_by!(name: "EQ5D-5L")
+    survey = Surveys::Survey.find_by!(code: "eq5d")
     (1..4).each do |month|
       survey.questions.each do |question|
         question.responses.create!(
@@ -19,7 +19,7 @@ module Renalware
 
   log "Adding POS-S survey responses" do
     patient = Patient.find_by!(family_name: "RABBIT", given_name: "Roger")
-    survey = Patients::Survey.find_by!(name: "POS-S")
+    survey = Surveys::Survey.find_by!(code: "prom")
     (1..4).each do |month|
       survey.questions.each do |question|
         question.responses.create!(
