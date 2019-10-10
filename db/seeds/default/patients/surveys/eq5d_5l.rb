@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module Renalware
-  extend SeedsHelper
-
   log "Adding EQ5D Survey" do
     survey = Surveys::Survey.create(name: "EQ5D-5L", code: "eq5d", description: "Patient health status")
     file_path = File.join(File.dirname(__FILE__), "eq5d_5l_questions.csv")
