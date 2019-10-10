@@ -63,3 +63,5 @@ RSpec/DescribedClass:
   Enabled: false
 Performance/RedundantBlockCall:
   Enabled: false
+Style/NumericPredicate:
+  Enabled: false
