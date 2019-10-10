@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module Renalware
-  extend SeedsHelper
-
   log "Adding POS-S Renal Survey" do
     survey = Surveys::Survey.create(name: "PROM", code: "prom", description: "Patient health status")
     file_path = File.join(File.dirname(__FILE__), "pos_s_questions.csv")
