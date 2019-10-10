@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware
-  extend SeedsHelper
+  # extend SeedsHelper
 
   log "Adding EQ5D survey responses" do
     patient = Patient.find_by!(family_name: "RABBIT", given_name: "Roger")
