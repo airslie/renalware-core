@@ -1,0 +1,29 @@
+.page-action-inline-form
+
+  - if Renalware.config.batch_printing_enabled
+    / This form lets us batch print the HD Session Forms for all patients in the list (all pages)
+    = simple_form_for batch_print_form,
+                      as: :batch,
+                      url: hd_session_forms_batches_path,
+                      method: :post,
+                      remote: true do |f|
+      = f.input :patient_ids, as: :hidden_array
+      = button_tag(type: "submit",
+                  class: "button secondary",
+                  disabled: presenter.patients.none?) do
+        i.fas.fa-print
+        = "Batch Print #{presenter.patients.total_count} HD Session Forms"
+
+  / This form lets us generate pathology request forms (eg for monthly bloods) for all patients
+  / in the list (all pages)
+  - if Renalware.config.generate_pathology_request_forms_from_hd_mdm_listing
+    = simple_form_for pathology_requests_form,
+                      url: pathology_requests_new_request_path,
+                      html: { autocomplete: "off", style: "display: inline" },
+                      as: :request do |f|
+      = f.input :patient_ids, as: :hidden_array
+      = button_tag(type: "submit",
+                   class: "button secondary",
+                   disabled: presenter.patients.none?) do
+        i.fas.fa-copy
+        = "Generate #{presenter.patients.total_count} Request Forms"

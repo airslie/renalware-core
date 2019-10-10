@@ -70,7 +70,7 @@ module Renalware
         end
 
         def patient_ids
-          params.require(:batch).require(:patient_ids).split(",")
+          params.require(:batch).require(:patient_ids)
         end
 
         def find_and_authorize_batch(id = nil)

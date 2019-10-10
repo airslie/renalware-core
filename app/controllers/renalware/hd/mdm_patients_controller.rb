@@ -50,11 +50,6 @@ module Renalware
         params[:named_filter]
       end
 
-      def batch_print_form
-        patient_ids = query.call.pluck("patients.id").join(",")
-        SessionForms::Form.new(patient_ids: patient_ids)
-      end
-
       def render_index(filter_form:, **args)
         presenter = build_presenter(params: params, **args)
         authorize presenter.patients
@@ -63,9 +58,24 @@ module Renalware
           locals: {
             presenter: presenter,
             filter_form: filter_form,
-            batch_print_form: batch_print_form
+            batch_print_form: batch_print_form,
+            pathology_requests_form: pathology_requests_form
           }
         )
+      end
+
+      # Form object behind the batch print session forms button
+      def batch_print_form
+        SessionForms::Form.new(patient_ids: patient_ids)
+      end
+
+      # Form object behind the 'generate request forms' button
+      def pathology_requests_form
+        OpenStruct.new(patient_ids: patient_ids)
+      end
+
+      def patient_ids
+        @patient_ids ||= query.call.pluck("patients.id")
       end
     end
   end

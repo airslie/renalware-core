@@ -28,14 +28,3 @@
       = f.submit t("helpers.submit.filter"), class: "button", name: nil
       span= " or "
       = link_to t("helpers.reset"), filter_form.url
-
-- if Renalware.config.batch_printing_enabled
-  = simple_form_for batch_print_form,
-                    as: :batch,
-                    url: hd_session_forms_batches_path,
-                    method: :post,
-                    remote: true do |f|
-        = f.input :patient_ids, as: :hidden
-        = f.submit "Batch Print #{presenter.patients.total_count} HD Session Forms",
-                  class: "button",
-                  disabled: presenter.patients.none?
