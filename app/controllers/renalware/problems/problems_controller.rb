@@ -4,7 +4,7 @@ module Renalware
   module Problems
     class ProblemsController < BaseController
       def index
-        problems = patient.problems
+        problems = patient.problems.with_notes
         authorize problems
         render locals: {
           patient: patient,
@@ -14,7 +14,7 @@ module Renalware
       end
 
       def show
-        problem = patient.problems.with_archived.includes(versions: :item).find(params[:id])
+        problem = patient.problems.with_archived.with_versions.find(params[:id])
         notes = problem.notes.with_updated_by.ordered
         authorize problem
         render locals: {

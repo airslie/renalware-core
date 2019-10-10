@@ -58,7 +58,7 @@ module Renalware
     has_many :exit_site_infections, class_name: "PD::ExitSiteInfection"
     has_many :peritonitis_episodes, class_name: "PD::PeritonitisEpisode"
     has_many :pd_regimes, class_name: "PD::Regime"
-    has_many :problems, class_name: "Problems::Problem"
+    has_many :problems, -> { ordered }, class_name: "Problems::Problem"
     has_many :prescriptions, class_name: "Medications::Prescription"
     has_many :drugs, through: :prescriptions
     has_many :medication_routes, through: :prescriptions, class_name: "Medications::MedicationRoute"
