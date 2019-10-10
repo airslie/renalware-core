@@ -54,6 +54,19 @@ module Renalware
           expect(response).to be_successful
         end
       end
+
+      describe "GET index" do
+        it "displays a table of body composition measurements" do
+          body_comp = create(:body_composition, patient: patient, by: user, overhydration: 12.2)
+          url = patient_clinical_body_compositions_path(patient_id: patient)
+
+          get url
+
+          expect(response).to be_successful
+          expect(response.body).to include "Body Composition"
+          expect(response.body).to include body_comp.overhydration.to_s
+        end
+      end
     end
   end
 end

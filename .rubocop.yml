@@ -65,3 +65,5 @@ Performance/RedundantBlockCall:
   Enabled: false
 Style/NumericPredicate:
   Enabled: false
+RSpec/InstanceVariable:
+  Enabled: false

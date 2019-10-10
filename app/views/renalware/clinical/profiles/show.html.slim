@@ -63,9 +63,11 @@
       .columns.medium-12.large-6
         = render "renalware/clinical/dry_weights/list",
                  dry_weights: profile.dry_weights,
-                 patient: patient
+                 patient: patient,
+                 limit: true
 
       .columns
         = render "renalware/clinical/body_compositions/list",
                  body_compositions: profile.body_compositions,
-                 patient: patient
+                 patient: patient,
+                 limit: true
