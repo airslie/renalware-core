@@ -1,12 +1,16 @@
-/ = a.input :name,
-/           placeholder: "If different than above (optional)",
-/           wrapper: :horizontal_medium
-= a.input :street_1, wrapper: :horizontal_large
+/ line 1 of the address and the postcode are provided by a feed, so when editing a patient address
+/ the caller will pass in a controlled_by_feed_options hash - probably containing a data attribute
+/ which will cause the input to be disabled.
+/ When editing other kinds of addresses, or adding a new patient address, controlled_by_feed_options
+/ is not passed in.
+- controlled_by_feed_options = (defined?(:controlled_by_feed_options) && controlled_by_feed_options).presence || {}
+
+= a.input :street_1, wrapper: :horizontal_large, input_html: controlled_by_feed_options
 = a.input :street_2, wrapper: :horizontal_large
 = a.input :street_3, wrapper: :horizontal_large
 = a.input :town, wrapper: :horizontal_medium
 = a.input :county, wrapper: :horizontal_small
-= a.input :postcode, wrapper: :horizontal_small
+= a.input :postcode, wrapper: :horizontal_small, input_html: controlled_by_feed_options
 = a.input :country_id,
           collection: Renalware::System::Country.pluck(:name, :id),
           wrapper: :horizontal_small

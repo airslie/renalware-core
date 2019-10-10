@@ -87,6 +87,8 @@ module Renalware
     config_accessor(:hd_session_prescriptions_require_signoff) { true }
     config_accessor(:batch_printing_enabled) { true }
     config_accessor(:generate_pathology_request_forms_from_hd_mdm_listing) { true }
+    config_accessor(:disable_inputs_controlled_by_tissue_typing_feed) { false }
+    config_accessor(:disable_inputs_controlled_by_demographics_feed) { false }
 
     # A host app can override this to add/remove/re-order the clinical summary display
     # Note these have to be strings - they mapped to constants in ClinicalSummaryPresenter.

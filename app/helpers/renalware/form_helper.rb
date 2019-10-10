@@ -6,13 +6,14 @@ module Renalware
       " field_with_errors" if model.errors.key?(attr)
     end
 
-    def render_input(builder, attribute)
+    def render_input(builder, attribute, html_options: {})
       renderable = builder.object.public_send(attribute)
       return unless renderable
 
       render input_partial_path_for(renderable),
              attribute: attribute,
-             f: builder
+             f: builder,
+             html_options: html_options
     end
 
     def input_partial_path_for(renderable)
