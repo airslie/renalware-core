@@ -28,6 +28,7 @@ module Renalware
 
           private
 
+          # Will return false if request_description.required_observation_description_id is nil
           def last_observation_too_recent?
             return false if last_observation.nil?
 
@@ -41,6 +42,8 @@ module Renalware
             expiration_days = @rule_set.request_description.expiration_days
             return false if expiration_days == 0
 
+            # This subtraction works because ActiveSupport::TimeWithZone works in days
+            # e.g. TimeWithZone1 - TimeWithZone2 = 3 days
             requested_days_ago = @date - last_request.requested_on
             requested_days_ago < expiration_days
           end
@@ -52,6 +55,7 @@ module Renalware
               .all?
           end
 
+          # NB request.requested_on == request.created_at
           def last_request_has_an_observation_result?
             last_observation.present? &&
               last_observation.observed_on > last_request.requested_on
