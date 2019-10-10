@@ -13,10 +13,4 @@ article.dry-weights.simple.simple-table
       li= link_to t(".add"), new_patient_clinical_dry_weight_path(patient), class: "button"
       li= link_to t(".view_all"), patient_clinical_dry_weights_path(patient), class: "button"
 
-  table.auto-layout
-    thead
-      th.col-width-date= t(".date")
-      th.col-width-small= t(".weight")
-      th= t(".assessor")
-    tbody
-      = render presenter.dry_weights
+  = render "renalware/clinical/dry_weights/table", dry_weights: presenter.dry_weights

@@ -1,0 +1,9 @@
+= within_patient_layout( \
+  title: "Body Composition Measurements",
+  breadcrumbs: clinical_profile_breadcrumb(patient)) do
+
+  = render "renalware/clinical/body_compositions/table",
+          body_compositions: body_compositions,
+          patient: patient
+
+  = paginate body_compositions

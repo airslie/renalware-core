@@ -39,7 +39,7 @@ module Renalware
       end
 
       def dry_weights
-        @dry_weights ||= DryWeight.for_patient(patient).ordered
+        @dry_weights ||= DryWeight.for_patient(patient).ordered.limit(5)
       end
 
       def body_compositions
@@ -48,6 +48,7 @@ module Renalware
             .for_patient(patient)
             .includes([:modality_description, :assessor])
             .ordered
+            .limit(5)
         end
       end
     end

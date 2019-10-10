@@ -6,7 +6,13 @@ require_dependency "renalware/clinical"
 module Renalware
   module Clinical
     class BodyCompositionsController < Clinical::BaseController
+      include Renalware::Concerns::Pageable
       before_action :load_patient
+
+      def index
+        body_compositions = BodyComposition.for_patient(patient).ordered.page(page).per(per_page)
+        render locals: { patient: patient, body_compositions: body_compositions }
+      end
 
       def show
         body_composition = find_body_composition

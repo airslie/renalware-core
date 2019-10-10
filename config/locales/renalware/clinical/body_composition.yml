@@ -19,12 +19,18 @@ en:
   renalware:
     clinical:
       body_compositions:
+        index:
+          title: Body Composition Measurements
         show:
           title: Body Composition Measurements
         list:
           title: Body Composition Measurements
           add_dry_weight: Add a Body Composition Measurements
           add: Add
+          view_all: View All
+          recent:
+            title: Recent Body Composition Measurements
+        table:
           modality_description: Modality
           assessed_on: Date
           overhydration: OH
@@ -40,6 +46,3 @@ en:
           body_cell_mass: BCM
           quality_of_reading: Q
           assessor: Assessor
-          view_all: View All
-          recent:
-            title: Recent Body Composition Measurements
