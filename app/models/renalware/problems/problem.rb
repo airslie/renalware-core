@@ -19,6 +19,9 @@ module Renalware
       scope :with_patient, -> { includes(:patient) }
       scope :with_versions, -> { includes(versions: :item) }
 
+      # This scope is called by CoreExtensions::ActiveRecord::Sort
+      scope :position_sorting_scope, ->(problem) { where(patient_id: problem.patient.id) }
+
       validates :patient, presence: true
       validates :description, presence: true
 
