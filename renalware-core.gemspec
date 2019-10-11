@@ -62,7 +62,7 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-ui-rails", "~> 6.0.1"
   s.add_dependency "kaminari", "~> 1.1.1"
   s.add_dependency "liquid", "~> 4.0.0"
-  s.add_dependency "lograge", "~> 0.10.0"
+  s.add_dependency "lograge", "~> 0.11.2"
   s.add_dependency "naught", "~> 1.1.0"
   s.add_dependency "nested_form", "~> 0.3.2"
   s.add_dependency "nokogiri", "~> 1.9"
