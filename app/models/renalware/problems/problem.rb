@@ -12,11 +12,15 @@ module Renalware
       has_paper_trail class_name: "Renalware::Problems::Version", on: [:create, :update, :destroy]
 
       belongs_to :patient, touch: true
-      has_many :notes, dependent: :destroy
+      has_many :notes, -> { ordered }, dependent: :destroy
 
       scope :ordered, -> { order(position: :asc) }
-      scope :with_notes, -> { includes(:notes) }
+      scope :with_notes, -> { eager_load(:notes).merge(Renalware::Problems::Note.ordered) }
       scope :with_patient, -> { includes(:patient) }
+      scope :with_versions, -> { includes(versions: :item) }
+
+      # This scope is called by CoreExtensions::ActiveRecord::Sort
+      scope :position_sorting_scope, ->(problem) { where(patient_id: problem.patient.id) }
 
       validates :patient, presence: true
       validates :description, presence: true
