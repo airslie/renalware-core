@@ -35,9 +35,7 @@ namespace :assets do
 
   desc "Precompile assets within dummy app"
   task :precompile do
-    p "Here"
     Rake::Task["app:yarn:install"].invoke
-    p "There"
     Rake::Task["app:assets:precompile"].invoke
   end
 

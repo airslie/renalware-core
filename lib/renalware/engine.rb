@@ -51,6 +51,7 @@ require "slim-rails"
 require "trix"
 require "validates_timeliness"
 require "virtus"
+require "webpacker"
 require "wicked_pdf"
 require "wisper"
 require "wisper/activejob"
@@ -62,8 +63,35 @@ module Renalware
   # This will keep Rails Engine from generating all table prefixes with the engines name
   def self.table_name_prefix; end
 
+  # rubocop:disable Metrics/ClassLength
   class Engine < ::Rails::Engine
     isolate_namespace Renalware
+
+    # Configure webpacker dev server proxy
+    # rubocop:disable Style/RescueStandardError
+    initializer "webpacker.proxy" do |app|
+      insert_middleware = begin
+                            Renalware.webpacker.config.dev_server.present?
+                          rescue
+                            nil
+                          end
+      next unless insert_middleware
+
+      app.middleware.insert_before(
+        0, Webpacker::DevServerProxy, # "Webpacker::DevServerProxy" if Rails version < 5
+        ssl_verify_none: true,
+        webpacker: Renalware.webpacker
+      )
+    end
+    # rubocop:enable Style/RescueStandardError
+
+    # Allow the host app to consume webpacker-compiled packs in the engine's public folder.
+    initializer :packs do |_app|
+      config.app_middleware.use(
+        Rack::Static,
+        urls: ["/renalware-core-packs"], root: Engine.root.join("public")
+      )
+    end
 
     # Define a attr on the Engine's eigenclass so a host application
     # can set an exception handler instance. It must accept a .notify(excetion) method.
@@ -192,3 +220,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
