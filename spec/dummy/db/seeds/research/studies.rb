@@ -14,12 +14,11 @@ log "Adding Research Studies" do
         code: "#{Faker::Name.initials}#{SecureRandom.hex(5).upcase}",
         description: Faker::Company.catch_phrase,
         leader: Faker::Name.name,
-        notes: Faker::Lorem.sentence(12),
+        notes: Faker::Lorem.sentence(word_count: 12),
         started_on: started_on,
         terminated_on: terminated_on,
         by: user
       ).tap do |study|
-
         patient_ids.each_with_index do |patient_id, patient_idx|
           joined_on = study.started_on + idx.weeks
           left_on = patient_idx.zero? ? joined_on + idx.months : nil

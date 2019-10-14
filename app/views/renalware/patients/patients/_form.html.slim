@@ -10,6 +10,8 @@
               autofocus: true,
               input_html: controlled_by_demographics_feed
 
+    / If configured to do so we disable the first patient_identifier aka local_patient_id eg the
+    / BLT or KCH number. The others are unlikely to come in via feed so are editable.
     - Renalware.config.patient_hospital_identifiers.each_with_index do |(key, field), index|
       = f.input field,
                 as: :string,
@@ -33,33 +35,39 @@
         label_method: :name, value_method: :code,
         include_blank: "Please select",
         required: true,
-        wrapper: :horizontal_small
+        wrapper: :horizontal_small,
+        input_html: controlled_by_demographics_feed
     = f.association :ethnicity,
         label_method: :name, value_method: :id,
         include_blank: "Please select",
-        wrapper: :horizontal_small
+        wrapper: :horizontal_small,
+        input_html: controlled_by_demographics_feed
     = f.association :country_of_birth,
         include_blank: "Please select",
-        wrapper: :horizontal_small
+        wrapper: :horizontal_small,
+        input_html: controlled_by_demographics_feed
     = f.association :religion,
         label_method: :name, value_method: :id,
         include_blank: "Please select",
-        wrapper: :horizontal_small
+        wrapper: :horizontal_small,
+        input_html: controlled_by_demographics_feed
     = f.association :language,
         label_method: :name, value_method: :id,
         include_blank: "Please select main language",
-        wrapper: :horizontal_small
+        wrapper: :horizontal_small,
+        input_html: controlled_by_demographics_feed
     = f.input :marital_status,
-                    include_blank: "Please select marital status",
-                    wrapper: :horizontal_small
+        include_blank: "Please select marital status",
+        wrapper: :horizontal_small,
+        input_html: controlled_by_demographics_feed
     = f.input :paediatric_patient_indicator,
         as: :inline_radio_buttons,
         label: "If under 18 years, is the recipient being treated in a paediatric unit?",
         wrapper: :horizontal_small
 
-    = f.input :telephone1, wrapper: :horizontal_small
-    = f.input :telephone2, wrapper: :horizontal_small
-    = f.input :email, wrapper: :horizontal_small
+    = f.input :telephone1, wrapper: :horizontal_small, input_html: controlled_by_demographics_feed
+    = f.input :telephone2, wrapper: :horizontal_small, input_html: controlled_by_demographics_feed
+    = f.input :email, wrapper: :horizontal_small, input_html: controlled_by_demographics_feed
 
     - if patient.persisted?
       .row

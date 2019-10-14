@@ -61,3 +61,5 @@ key.gpg
 /package-lock.json
 spec/dummy/storage/**/*
 /egpcur.zip
+/yarn-error.log
+/public/renalware-core-packs
