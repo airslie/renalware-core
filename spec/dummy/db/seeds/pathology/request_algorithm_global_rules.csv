@@ -80,11 +80,17 @@ rule_set_id,type,param_id,param_comparison_operator,param_comparison_value
 136,Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugCategory,Warfarin,,
 137,Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugCategory,Warfarin,,
 138,Renalware::Pathology::Requests::GlobalRule::TransplantRegistrationStatus,,,A
+138,Renalware::Pathology::Requests::GlobalRule::LatestCRFOlderThanWeeks,,,8
 139,Renalware::Pathology::Requests::GlobalRule::TransplantRegistrationStatus,,,A
+139,Renalware::Pathology::Requests::GlobalRule::LatestCRFOlderThanWeeks,,,8
 140,Renalware::Pathology::Requests::GlobalRule::TransplantRegistrationStatus,,,A
+140,Renalware::Pathology::Requests::GlobalRule::LatestCRFOlderThanWeeks,,,8
 141,Renalware::Pathology::Requests::GlobalRule::TransplantRegistrationStatus,,,S
+141,Renalware::Pathology::Requests::GlobalRule::LatestCRFOlderThanWeeks,,,8
 142,Renalware::Pathology::Requests::GlobalRule::TransplantRegistrationStatus,,,S
+142,Renalware::Pathology::Requests::GlobalRule::LatestCRFOlderThanWeeks,,,8
 143,Renalware::Pathology::Requests::GlobalRule::TransplantRegistrationStatus,,,S
+143,Renalware::Pathology::Requests::GlobalRule::LatestCRFOlderThanWeeks,,,8
 144,Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugCategory,Digoxin,,
 145,Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugCategory,Digoxin,,
 146,Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugCategory,Digoxin,,
