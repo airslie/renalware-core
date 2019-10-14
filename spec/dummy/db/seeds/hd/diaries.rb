@@ -10,12 +10,15 @@ module Renalware
       @user = user
     end
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def call
       HD::Scheduling::DiarySlot.delete_all
       HD::Scheduling::Diary.delete_all
 
       # Build master diary
-      master = HD::MasterDiary.find_or_initialize_by(hospital_unit_id: unit.id) do |diary|
+      master = HD::Scheduling::MasterDiary.find_or_initialize_by(
+        hospital_unit_id: unit.id
+      ) do |diary|
         diary.save_by!(user)
       end
 
@@ -162,6 +165,7 @@ module Renalware
       #   position: row["position"]
       # ).save_by!(user)
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   end
 
   CreateDiary.new(Renalware::Hospitals::Unit.first, User.first).call
