@@ -6433,7 +6433,8 @@ CREATE TABLE users (
     updated_at timestamp without time zone,
     telephone character varying,
     authentication_token character varying,
-    asked_for_write_access boolean DEFAULT false NOT NULL
+    asked_for_write_access boolean DEFAULT false NOT NULL,
+    consultant boolean DEFAULT false NOT NULL
 );
 
 
@@ -17832,6 +17833,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191008010839'),
 ('20191008024636'),
 ('20191008030154'),
-('20191008045159');
+('20191008045159'),
+('20191012121433');
 
 
