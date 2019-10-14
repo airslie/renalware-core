@@ -138,12 +138,12 @@ id,request_description_code,clinic,frequency_type
 135,INR,CAPD,Always
 136,INR,Haemodialysis,Always
 137,INR,Transplant,Always
-138,CYTO,General Nephrology,TwoMonthly
-139,CYTO,CAPD,TwoMonthly
-140,CYTO,Haemodialysis,TwoMonthly
-141,CYTO,General Nephrology,TwoMonthly
-142,CYTO,CAPD,TwoMonthly
-143,CYTO,Haemodialysis,TwoMonthly
+138,CYTO,General Nephrology,Always
+139,CYTO,CAPD,Always
+140,CYTO,Haemodialysis,Always
+141,CYTO,General Nephrology,Always
+142,CYTO,CAPD,Always
+143,CYTO,Haemodialysis,Always
 144,DIG,General Nephrology,Always
 145,DIG,CAPD,Always
 146,DIG,Transplant,Always

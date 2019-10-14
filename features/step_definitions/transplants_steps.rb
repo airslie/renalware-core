@@ -18,7 +18,7 @@ Given(/^Don has a donor workup$/) do
 end
 
 Given(/^Patty is registered on the wait list$/) do
-  seed_patient_on_wait_list(@patty)
+  @registration = seed_patient_on_wait_list(@patty)
 end
 
 Given(/^Patty is registered on the wait list with this status history$/) do |table|
@@ -78,7 +78,7 @@ end
 
 When(/^Clyde registers Patty on the wait list with status "(.*?)" starting on "(.*?)"$/) \
   do |status, started_on|
-  create_transplant_registration(
+  @registration = create_transplant_registration(
     patient: @patty,
     status: status, started_on: started_on,
     user: @clyde
@@ -160,6 +160,11 @@ When(/^Clyde sets the registration status to "(.*?)" and the start date to "(.*?
     status: status, started_on: started_on,
     user: @clyde
   )
+end
+
+When("Clyde sets the registration latest crf date to {int} weeks ago") do |int|
+  @registration.document.crf.latest.recorded_on = Date.current - int.weeks
+  @registration.save!
 end
 
 When(/^Clyde submits an erroneous registration status$/) do
