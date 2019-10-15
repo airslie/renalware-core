@@ -104,10 +104,6 @@ module Renalware
             Pathology::OrderedPatientQuery
               .new(patient_ids)
               .call
-              .eager_load(:requests)
-              .eager_load(:rules)
-              .eager_load(:prescriptions)
-              .eager_load(:drugs)
           authorize Renalware::Patient
         end
 
