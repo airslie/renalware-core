@@ -22,7 +22,7 @@ module Renalware
           end
 
           def param_comparison_boolean
-            param_comparison_value == "true"
+            param_comparison_value&.casecmp("true") == 0
           end
         end
       end
