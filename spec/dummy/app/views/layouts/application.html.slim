@@ -43,4 +43,5 @@ html lang="en"
     - unless user_signed_in?
       = render "renalware/navigation/footer"
     = javascript_include_tag "renalware/application"
+    = javascript_pack_tag("renalware_core") if ENV.key?("INCLUDE_ENGINE_JS_PACK")
     = yield(:javascript)

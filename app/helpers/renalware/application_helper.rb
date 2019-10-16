@@ -3,10 +3,17 @@
 require "inline_image"
 require "git_commit_sha"
 require "breadcrumb"
+require "webpacker/helper"
 
 module Renalware
   module ApplicationHelper
     include Renalware::Engine.routes.url_helpers
+    include ::Webpacker::Helper
+
+    # See https://github.com/rails/webpacker/blob/master/docs/engines.md
+    def current_webpacker_instance
+      Renalware.webpacker
+    end
 
     def default_patient_link(patient)
       link_to(patient.to_s(:default), patient_clinical_summary_path(patient))
@@ -37,9 +44,11 @@ module Renalware
     end
 
     # For use in pages
+    # rubocop:disable Rails/OutputSafety
     def page_heading(title)
       content_for(:page_title) { title.html_safe }
     end
+    # rubocop:enable Rails/OutputSafety
 
     def t?(key)
       t(key, cascade: false, raise: false, default: "").present?
