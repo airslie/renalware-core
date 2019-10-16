@@ -64,3 +64,4 @@ spec/dummy/storage/**/*
 /yarn-error.log
 /public/renalware-core-packs
 /public/renalware/renalware-core-packs
+/public/packs-test

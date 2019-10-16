@@ -6,17 +6,16 @@ module Renalware
   module UKRDC
     module Incoming
       class Paths
-        def initialize
-          FileUtils.mkdir_p incoming
-          FileUtils.mkdir_p archive
-        end
-
         def incoming
-          @incoming ||= working_path.join("incoming")
+          @incoming ||= begin
+            working_path.join("incoming").tap { |path| FileUtils.mkdir_p(path) }
+          end
         end
 
         def archive
-          @archive ||= working_path.join("archive", "incoming")
+          @archive ||= begin
+            working_path.join("archive", "incoming").tap { |path| FileUtils.mkdir_p(path) }
+          end
         end
 
         private
