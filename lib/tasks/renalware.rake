@@ -15,14 +15,27 @@ namespace :renalware do
   task :yarn_install do
     puts "Installing renalware-core/package.json dependencies with yarn"
     Dir.chdir(File.join(__dir__, "../..")) do
-      # puts Dir.pwd
-      # puts `node -v`
       system "yarn install --no-progress --production"
     end
   end
 
+  desc "Cleans the Webpack output folder (public/renalware-core-packs)"
+  task :clean_webpack_output_folder do
+    puts "Destroying packs output folder ..."
+    Dir.chdir(File.join(__dir__, "..", "..")) do
+      # TODO : Load packs output from config/webpacker.yml
+      system "rm -rf public/renalware-core-packs"
+    end
+  end
+
+  # I have found that it is necessary to force remove public/renalware-core-packs with the
+  # clean_webpack_output_folder task above before compiling, otherwise webpack does not
+  # always find changes in js/controllers/*.js. I think this is safe to do in a capistrano deploy
+  # because the symlink to public is only applied after a successful execution of (among other
+  # things) assets:precompile.
   desc "Compile JavaScript packs using webpack for production with digests"
-  task webpacker_compile: [:yarn_install, :environment] do
+  task webpacker_compile: %i(clean_webpack_output_folder yarn_install environment) do
+    puts "Compiling renalware-core packs with webpack.."
     Webpacker.with_node_env("production") do
       ensure_log_goes_to_stdout do
         if Renalware.webpacker.commands.compile

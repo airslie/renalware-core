@@ -9,6 +9,19 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.114
+16-10-2019
+### Added
+- Run webpacker in the renalware-core engine #2963
+- Add new LatestCRFOlderThanWeeks rule #2965
+- Add consultant boolean flag to users #2959
+### Changed
+- Restrict further demographics inputs that are controlled by a feed #2964
+- Dry weights and BCM on clinical profile - show first 5 #2805
+### Fixed
+- Pathology request forms performance improvement #2967
+- Ensure problems and notes are ordered correctly #2962
+
 ## 2.0.113
 10-10-2019
 ### Added
