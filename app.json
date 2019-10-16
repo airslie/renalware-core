@@ -20,6 +20,7 @@
   "stack": "heroku-18",
   "env": {
     "DEMO": "1",
+    "UKRDC_WORKING_PATH": "tmp/ukrdc",
     "WEBPACKER_PRECOMPILE": "no",
     "RACK_ENV": "staging",
     "RAILS_ENV": "staging",
