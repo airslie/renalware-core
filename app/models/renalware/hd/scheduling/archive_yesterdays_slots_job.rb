@@ -52,6 +52,12 @@ module Renalware
         end
 
         def create_missing_weekly_diaries
+          args = ArchiveArguments.new
+          DiaryRange.new(
+            from_week_period: args.from_week_period,
+            to_week_period: args.to_week_period
+          ).create_missing_weekly_diaries_for
+
           # Start from a point in time perhaps the first slot datetime
           # here is a problem if you remove them from the master diary that will impact the future
           # so we can't do that. We have to leave them in the master, otherwise it affects this week

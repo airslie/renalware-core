@@ -15,7 +15,6 @@ module Renalware
           @user = user
         end
 
-        # TODO: !alwasy suing first :0)
         def call
           MasterDiary.find_or_initialize_by(hospital_unit_id: unit_id).tap do |master|
             master.by = user

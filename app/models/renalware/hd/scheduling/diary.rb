@@ -16,6 +16,7 @@ module Renalware
         include Accountable
         self.table_name = :hd_diaries
         has_many :slots, class_name: "DiarySlot", dependent: :restrict_with_exception
+        belongs_to :hospital_unit, class_name: "Hospitals::Unit"
         has_many :patients,
                  through: :slots, class_name: "Renalware::HD::Patient",
                  dependent: :restrict_with_exception

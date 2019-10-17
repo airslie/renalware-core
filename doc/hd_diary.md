@@ -1,6 +1,6 @@
 # HD Diary
 
-## Archiving lots in the past
+## Archiving slots in the past
 
 Each night a rake task kicks off that does the following:
 
