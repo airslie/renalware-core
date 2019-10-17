@@ -6,7 +6,7 @@ module Renalware
 
     def self.from_date(date)
       date = date.to_date
-      new(week_number: date.cweek, year: date.year)
+      new(week_number: date.cweek, year: date.cwyear)
     end
 
     def initialize(week_number:, year:)
