@@ -9,23 +9,7 @@ require "renalware/hd"
 # and where the weekly diary is inheriting slots from the master diary
 # create corresponding slots in the weekly diary (ie migrate those slots from master to weekly)
 # and archive them.
-# No slots before the current day (or the up_until: arg) should be touched
-#
-#
-# OK we have a problem,
-# If last week there was no weekly diary created... then there is nothing to archive if eg today is
-# Monday.
-# So really whats the query for finding slots to archive?
-# We need to really always inner join onto weekly diaries, and within those for their slots
-# select unarchived onces in the past.
-# So we MUST always have weekly diaries for every possible week and not rely om a user working the
-# UI to create these JIT - because if they don't, unless we have a fn to create missing diaries,
-# (from which date?) then we can't query
-# So either
-# - seed next 10 years (520 per unit)
-# - have a fn to generate missing diaries - might be better and safer in the long run?
-# - Otherwise after 5 or 10 years or whatever its bound to have caused a problem.
-
+# No slots before the current day should be touched
 module Renalware
   module HD
     module Scheduling
@@ -34,11 +18,38 @@ module Renalware
         def perform(up_until: Time.zone.today - 1.day)
           up_until = up_until.to_date
           create_missing_weekly_diaries
+          move_elapsed_master_slots_into_weekly_slot_equivalent
           archive_old_weekly_slots(up_until)
         end
 
         private
 
+        # Just inc case there are some missing weekly diaries
+        def create_missing_weekly_diaries
+          args = ArchiveArguments.new
+          Hospitals::Unit.hd_sites.each do |unit|
+            DiaryRange.new(
+              from_week_period: args.from_week_period,
+              to_week_period: args.to_week_period,
+              unit: unit
+            ).create_missing_weekly_diaries(by: User.first)
+          end
+        end
+
+        # Copy any master slots that are now in the past (as of midnight Sunday just gone) and
+        # which do not already have a weekly slot overriding the master, into weekly slots.
+        # This is to stop changes to the master diary affecting diary history.
+        # This executes a SQL view to do the dirty work. It references a SQL view called
+        # hd_diary_matrix to help it to decide which master slots to copy to the weekly diary.
+        # That view could be useful for other things. We could in fact build the diary UI from it.
+        def move_elapsed_master_slots_into_weekly_slot_equivalent
+          Rails.logger.debug("DEBUG: SELECT renalware.hd_diary_archive_elapsed_master_slots()")
+          conn = ActiveRecord::Base.connection
+          conn.execute("SELECT renalware.hd_diary_archive_elapsed_master_slots()")
+        end
+
+        # Flag elapsed slots as archived. Principally this will help us to stop them from being
+        # changed.
         def archive_old_weekly_slots(up_until)
           slots = DiarySlot
             .unarchived
@@ -49,43 +60,6 @@ module Renalware
           ids = slots.pluck(:id)
           Rails.logger.info("Archiving #{ids.length} slots up_until #{up_until} with ids #{ids}")
           slots.update_all(archived: true, archived_at: Time.zone.now)
-        end
-
-        def create_missing_weekly_diaries
-          args = ArchiveArguments.new
-          DiaryRange.new(
-            from_week_period: args.from_week_period,
-            to_week_period: args.to_week_period
-          ).create_missing_weekly_diaries_for
-
-          # Start from a point in time perhaps the first slot datetime
-          # here is a problem if you remove them from the master diary that will impact the future
-          # so we can't do that. We have to leave them in the master, otherwise it affects this week
-          # and next week.
-          #
-          # 1. find the earliest slot datetime and start the query there?
-          #
-
-          # A Slot belongs to a diary. It dsoesn't care what the week or date is.
-          # The diary defines the week number and year and hence where in the year it is
-          # A master diary does not have a concept of time - there is one per hosp unit - unique
-          # indexes are in place to enforce this.
-          # 1 2 3 4 5 6 7 master
-          #   x   x x x
-          # 1 2 3 4 5 6 7 weekly
-          #     x
-          # 1 2 3 4 5 6 7 weekly
-          #   x
-          # could create a view master where slot and not weekly eqiv
-          # mater view
-          #
-          #
-          # select all weeklydiaries pluch year week from installation start date??? to now
-          # loop through
-          #  diary year 2017 week 1
-          #  MISSING diary year 2017 week 1 - so create
-          #  diary year 2017 week 3
-          #  select
         end
       end
     end

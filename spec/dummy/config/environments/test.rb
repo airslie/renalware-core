@@ -12,7 +12,7 @@ Rails.application.configure do
   # and recreated between test runs. Don't rely on the data there!
   config.cache_classes = true
 
-  config.log_level = :error
+  config.log_level = :debug
 
   # To test log formatting and lograge in the Test env uncomment these lines
   # (by default in test we log to STDOUT)
