@@ -31,7 +31,7 @@
                    value_method: :id,
                    input_html: { class: "searchable_select patient-id-select2",
                                  id: "patient_id1",
-                                 name: "slot[patient_id][]" }
+                                 name: "slot[patient_ids][]" }
 
         #dialysing_on_day(style="display:none")
           = f.input :patient_id,
@@ -40,13 +40,13 @@
                    value_method: :id,
                    input_html: { class: "searchable_select patient-id-select2",
                                  id: "patient_id2",
-                                 name: "slot[patient_id][]" }
+                                 name: "slot[patient_ids][]" }
         #dialysing_at_unit(style="display:none")
           = f.input :patient_id,
                     collection: [],
                     input_html: { \
                       class: "patient-id-select2 patient-ajax-search",
-                      name: "slot[patient_id][]",
+                      name: "slot[patient_ids][]",
                       data: { "ajax--url" => hd_patients_dialysing_at_unit_path(unit_id: slot.diary.hospital_unit_id, format: :json),
                               placeholder: "Search by patient name or NHS/hosp no." } \
                     }
@@ -56,10 +56,12 @@
                     collection: [],
                     input_html: { \
                       class: "patient-id-select2 patient-ajax-search",
-                      name: "slot[patient_id][]",
+                      name: "slot[patient_ids][]",
                       data: { "ajax--url" => hd_patients_dialysing_at_hospital_path(format: :json),
                               placeholder: "Search by patient name or NHS/hosp no." } \
                     }
+  / This is the one that actually gets posted
+  = f.input :patient_id, as: :hidden, input_html: { id: "patient_id" }
   = f.submit "Add for this week only", class: "button save weekly"
   | &nbsp;
   = f.submit "Add to this and all future weeks", class: "button secondary master", name: "master"
@@ -72,6 +74,11 @@
 
 javascript:
   $(document).ready(function() {
+
+    $(".patient-id-select2").on("select2:select", function(e) {
+      var selected_patient_id = $(this).find(':selected').val();
+      $("#patient_id").val(selected_patient_id);
+    })
 
     // 1. add handler for button if master set action
     $('input.master[type=submit]').click(function (e) {
@@ -104,6 +111,7 @@ javascript:
 
     $("#change_type").on("change", function() {
       change_type = $(this).val(); // e.g. "dialysing_at_unit"
+       $("#patient_id").val("");
       refreshSelect2s(change_type);
     })
   });

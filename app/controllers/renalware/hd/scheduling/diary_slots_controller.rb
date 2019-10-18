@@ -144,18 +144,8 @@ module Renalware
           }
         end
 
-        # In the modal dialog that submits the patient_id there are several (select2) dropdown
-        # a user can use to choose the patient. Each one has the name patient_id[] so they are
-        # submitted in the form as an array. However the array can only hold one id value ie we
-        # might get posted patient_id: ["", "123", ""] but never  ["2", "123", ""].
-        # Here we reduce that array down to one patient id.
         def posted_patient_id
-          patient_ids = Array(slot_params[:patient_id]).reject(&:blank?).uniq
-          if patient_ids.length > 1
-            raise ArgumentError, "More than one id submitted in patient_id[] : #{patient_ids}"
-          end
-
-          patient_ids.first
+          slot_params[:patient_id]
         end
 
         def slot_params
@@ -168,7 +158,8 @@ module Renalware
               :station_id,
               :target_diary_id,
               :change_type,
-              patient_id: []
+              :patient_id,
+              patient_ids: []
             )
         end
       end

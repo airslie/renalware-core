@@ -28,6 +28,8 @@ module Renalware
 
         # Virtual attribute used on a form to determine what action as preformed on the slot
         attr_accessor :change_type
+        # Virtual to help the prepopulation of select2 with the offending patient if an error
+        attr_accessor :patient_ids
 
         include Accountable
         belongs_to :diary, class_name: "Renalware::HD::Scheduling::Diary", touch: true
