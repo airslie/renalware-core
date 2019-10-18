@@ -13,9 +13,26 @@ require "renalware/hd"
 module Renalware
   module HD
     module Scheduling
-      class ArchiveYesterdaysSlotsJob < ApplicationJob
+      DiaryHousekeepingJob = Struct.new(:up_until) do
+        def max_attempts
+          1
+        end
+
+        def queue_name
+          "hd_diary_houskeeping"
+        end
+
+        def priority
+          5 # medium
+        end
+
+        def destroy_failed_jobs?
+          true
+        end
+
         # :reek:UtilityFunction
-        def perform(up_until: Time.zone.today - 1.day)
+        def perform
+          up_until ||= Time.zone.today - 1.day
           up_until = up_until.to_date
           create_missing_weekly_diaries
           move_elapsed_master_slots_into_weekly_slot_equivalent

@@ -12,4 +12,11 @@ namespace :hd do
       performed_before: 3.days.ago
     )
   end
+
+  namespace :diary do
+    task housekeeping: :environment do
+      Rails.logger = Logger.new(STDOUT)
+      Delayed::Job.enqueue Renalware::HD::Scheduling::ArchiveYesterdaysSlotsJob.new
+    end
+  end
 end

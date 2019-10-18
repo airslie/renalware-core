@@ -4,7 +4,7 @@ require "rails_helper"
 require "renalware/week_period"
 
 module Renalware::HD::Scheduling
-  describe ArchiveYesterdaysSlotsJob do
+  describe DiaryHousekeepingJob do
     subject(:job) { described_class.new }
 
     let(:user) { create(:user) }
