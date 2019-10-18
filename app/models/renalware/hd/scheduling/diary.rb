@@ -33,11 +33,19 @@ module Renalware
         end
 
         # Searchs the object graph rather than a SQL search
-        def slot_for(diurnal_period_code_id, station_id, day_of_week)
+        def slot_for(diurnal_period_code_id, station_id, day_of_week, valid_from: nil)
           slots.find do |slot|
-            slot.diurnal_period_code_id == diurnal_period_code_id &&
-              slot.station_id == station_id &&
-              slot.day_of_week == day_of_week
+            found = slot.diurnal_period_code_id == diurnal_period_code_id &&
+                    slot.station_id == station_id &&
+                    slot.day_of_week == day_of_week
+
+            # This applies to master diaries only really, where we only
+            # show recurring slots if they were created before the timeframe
+            # of the current week being viewed.
+            if found && valid_from
+              found = (slot.created_at <= valid_from.end_of_week)
+            end
+            found
           end
         end
       end
