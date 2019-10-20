@@ -36,17 +36,56 @@ namespace :renalware do
   desc "Compile JavaScript packs using webpack for production with digests"
   task webpacker_compile: %i(clean_webpack_output_folder yarn_install environment) do
     puts "Compiling renalware-core packs with webpack.."
-    Webpacker.with_node_env("production") do
-      ensure_log_goes_to_stdout do
-        if Renalware.webpacker.commands.compile
-          # Successful compilation!
-        else
-          # Failed compilation
-          exit!
-        end
+    if Rails.env.development? || Rails.env.test?
+      compile_webpacker_output
+    else
+      temporarily_point_webpacker_config_public_root_path_to_rails_app_root do
+        compile_webpacker_output
       end
     end
   end
+end
+
+def compile_webpacker_output
+  Webpacker.with_node_env("production") do
+    ensure_log_goes_to_stdout do
+      if Renalware.webpacker.commands.compile
+        # Successful compilation!
+      else
+        # Failed compilation
+        exit!
+      end
+    end
+  end
+end
+
+# This is something of a hack to get webpacker to compile the renalware-core-packs in the
+# host Rails app's public folder. We change out config/webpacker.yml to point to the host app's
+# public path, do the compile, then revert out change.
+# The downside of this approach is that if running staging or production env locally without
+# nginx to find and serve public/renalware-core-packs, the pack files will not be found by the host
+# because the Rack::Static middleware we setup in engine.rb will not find them.
+# An alternative is for us to do the compile inside the engine and then cp -R or rsync (better
+# if we are symlinking renawlare-core-packs to shared in deploy.rb) the
+# folder into the host's public app where it can be served by nginx (if configured).
+# This has the advantage that the same files are available in the engine's public folder (so they
+# can be servered by Rack::Static - see engine.rb) and also in the host apps public folder
+# where nginx can server them if we are in a real 'environment'
+def temporarily_point_webpacker_config_public_root_path_to_rails_app_root
+  engine_config_folder = Renalware::Engine.root.join("config")
+  find = "public_root_path: .*$"
+  replace = "public_root_path: #{Rails.root.join('public')}"
+
+  # This changes the contents of file, creating a backup in webpacker.yml.bak
+  `ruby -pi.bak -e "gsub(/#{find}/, '#{replace}')" #{engine_config_folder}/webpacker.yml`
+
+  yield if block_given?
+ensure
+  # Ensure that we always restore the backup webpacker.yml
+  FileUtils.mv(
+    engine_config_folder.join("webpacker.yml.bak"),
+    engine_config_folder.join("webpacker.yml")
+  )
 end
 
 def enhance_assets_precompile_with_renalware_webpacker_compile

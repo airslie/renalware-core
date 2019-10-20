@@ -3,11 +3,12 @@
 default: &default
   source_path: app/javascript
   source_entry_path: packs
+  # public_root_path: /Users/tim/Sites/airslie/renalware/renalwarev2/spec/dummy/public
   public_root_path: public
   public_output_path: renalware-core-packs
   cache_path: tmp/cache/webpacker
   check_yarn_integrity: false
-  webpack_compile_output: false
+  webpack_compile_output: true
 
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
@@ -53,7 +54,7 @@ development:
   compile: true
 
   # Verifies that correct packages and versions are installed by inspecting package.json, yarn.lock, and node_modules
-  check_yarn_integrity: true
+  check_yarn_integrity: false
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
