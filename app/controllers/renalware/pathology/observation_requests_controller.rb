@@ -31,9 +31,10 @@ module Renalware
       def obr_filter_options
         @patient.observation_requests
           .joins(:description)
+          .order("pathology_request_descriptions.code asc")
           .pluck(
             Arel.sql(
-              "distinct on(pathology_request_descriptions.id) pathology_request_descriptions.code"
+              "distinct on(pathology_request_descriptions.code) pathology_request_descriptions.code"
             ),
             "pathology_request_descriptions.id",
             "pathology_request_descriptions.name"
@@ -49,7 +50,7 @@ module Renalware
 
       def find_observation_request
         @patient.observation_requests
-          .includes(:description, observations: :description)
+          .includes(observations: :description)
           .find(params[:id])
       end
     end
