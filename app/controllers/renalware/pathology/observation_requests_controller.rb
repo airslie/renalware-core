@@ -10,8 +10,12 @@ module Renalware
 
       def index
         observation_requests = find_observation_requests
-
-        render locals: { observation_requests: observation_requests, patient: @patient }
+        render locals: {
+          observation_requests: observation_requests.result .page(page).per(per_page),
+          search: observation_requests,
+          obr_filter_options: obr_filter_options,
+          patient: @patient
+        }
       end
 
       def show
@@ -22,11 +26,25 @@ module Renalware
 
       private
 
+      # Select just the OBR description ids and codes that have been associated with this patient.
+      # We'll uses them to build a filter dropdown list.
+      def obr_filter_options
+        @patient.observation_requests
+          .joins(:description)
+          .pluck(
+            Arel.sql(
+              "distinct on(pathology_request_descriptions.id) pathology_request_descriptions.code"
+            ),
+            "pathology_request_descriptions.id",
+            "pathology_request_descriptions.name"
+          )
+      end
+
       def find_observation_requests
         @patient.observation_requests
-          .page(page)
           .includes(:description)
           .ordered
+          .ransack(params[:q])
       end
 
       def find_observation_request
