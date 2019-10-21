@@ -72,6 +72,7 @@ module World
 
       def draft_clinical_letter(patient:, user:, issued_on:)
         login_as user
+        FactoryBot.create(:letter_description, text: "Foo bar")
         visit patient_letters_letters_path(patient)
         click_on "Create"
         click_on "Clinical Letter"
@@ -80,7 +81,7 @@ module World
         fill_in "Date", with: I18n.l(attributes[:issued_on]) if issued_on.present?
         select attributes[:letterhead].name, from: "Letterhead"
         select user.to_s, from: "Author"
-        fill_in "Description", with: attributes[:description]
+        select2 attributes[:description], css: ".letter_description"
 
         within ".bottom" do
           click_on "Create"

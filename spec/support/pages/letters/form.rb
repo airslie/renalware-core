@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
+require "rails_helper"
 require_relative "../page_object"
 
 # rubocop disable Metrics/LineLength
 module Pages
   module Letters
     class Form < PageObject
+      include CapybaraSelect2
+
       PERSON_ROLE_TO_RADIO_ID_MAP = {
         patient: :letter_main_recipient_attributes_person_role_patient,
         primary_care_physician: :letter_main_recipient_attributes_person_role_primary_care_physician,
@@ -26,7 +29,7 @@ module Pages
       end
 
       def description=(value)
-        fill_in "Description", with: value
+        select2 value, css: ".letter_description"
       end
 
       def main_recipient=(main_recipient_role)

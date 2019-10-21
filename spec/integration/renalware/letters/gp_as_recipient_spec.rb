@@ -4,11 +4,7 @@ require "rails_helper"
 require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
-describe(
-  "Persisting the correct recipients when a letter is saved",
-  type: :system,
-  js: false
-) do
+describe("Persisting the correct recipients when a letter is saved", type: :system, js: true) do
   include AjaxHelpers
 
   let(:practice) { create(:practice) }
@@ -36,11 +32,18 @@ describe(
 
   def approve_letter
     # navigate through the submission process
-    click_on "Submit for Review"
-    click_on "Approve and archive"
+    accept_alert do
+      click_on "Submit for Review"
+    end
+    accept_alert do
+      click_on "Approve and archive"
+    end
+
+    expect(page).to have_current_path(patient_clinical_summary_path(patient))
 
     # Sanity checks
     expect(patient.letters.count).to eq(1)
+    # byebug
     letter = patient.letters.first
     expect(letter).to be_approved
     letter
@@ -55,6 +58,7 @@ describe(
         it "create recipients rows main:#{main_person_role} cc:#{cc_person_role}" do
           user = login_as_clinical
           create(:letter_letterhead)
+          create(:letter_description, text: "::description::")
 
           draft_new_letter(user, main_recipient_person_role: main_person_role)
           letter = approve_letter
@@ -74,6 +78,7 @@ describe(
     it "create recipient rows main: contact cc: [patient primary_care_physician]" do
       user = login_as_clinical
       create(:letter_letterhead)
+      create(:letter_description, text: "::description::")
       create(
         :letter_contact,
         patient: patient,
