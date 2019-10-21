@@ -34,7 +34,7 @@ These are synced using the [ODS API](https://directory.spineservices.nhs.uk/ORD/
 
 ### GPs and GP -> Practice memberships
 These are imported by downloading the current CSV for each and passing the path to the CSV to
-a corresponding Renawlare SQL function which imports the data usin the Postgres `COPY` command.
+a corresponding Renalware SQL function which imports the data usin the Postgres `COPY` command.
 **Note that currently if the PostreSQL database is on a different server (or another Docker
 container) to the Renalware application code, `COPY` will fail (PG needs the file to be local to
 the database server). There is an open issue to remove the use of `COPY` for this reason.**
