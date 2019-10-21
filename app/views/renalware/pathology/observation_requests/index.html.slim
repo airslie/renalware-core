@@ -4,8 +4,9 @@
     p No investigations available for this patient.
 
   - else
-    p.hint Hover over table then scroll vertically to view more results.
+    / p.hint Hover over table then scroll vertically to view more results.
     .row
+      = render "filters", search: search, patient: patient, obr_filter_options: obr_filter_options
       #observation-requests.large-6.columns.embedded-scroll
         = render "table", observation_requests: observation_requests, patient: patient
 
