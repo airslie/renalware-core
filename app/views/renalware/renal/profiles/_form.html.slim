@@ -13,30 +13,13 @@
               include_blank: "Select modality",
               wrapper: :horizontal_small
     = f.input :first_seen_on, as: :date_picker, wrapper: :horizontal_datepicker
-    = f.input :prd_description_id,
-              input_html: { class: "clear-autocomplete" },
-              as: :hidden
-
-    .row
-      .columns.small-12.medium-4.large-3
-        = label_tag "prd_description_auto_complete",
-            f.object.class.human_attribute_name(:prd_description),
-            class: "right inline"
-      .columns.small-12.medium-8.large-9
-        .row.collapse
-          .small-11.columns
-            = text_field_tag "prd_description_auto_complete", \
-                f.object.prd_description.to_s,
-                data: { \
-                  autocomplete_source: search_renal_prd_descriptions_path, \
-                  autocomplete_rel: "[name='renal_profile[prd_description_id]']" \
-                },
-                placeholder: "Start entering the diagnosis or PRD code (min. 2 characters)",
-                spellcheck: false,
-                class: "clear-autocomplete"
-          .small-1.columns
-            span.postfix
-              = link_to "Clear", "#", data: { clear_value_on_click: ".clear-autocomplete" }
+    = f.association :prd_description,
+                    collection: Renalware::Renal::PRDDescription.all.order(:term),
+                    input_html: { \
+                      class: "searchable_select", \
+                      data: { \
+                        placeholder: "",
+                        "allow-clear" => "true" }}
 
     = f.input :comorbidities_updated_on, as: :date_picker, wrapper: :horizontal_datepicker
 

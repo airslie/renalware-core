@@ -25,12 +25,8 @@ module World
       end
 
       def update_renal_profile(_user, patient)
+        select2 "Cystinuria", css: ".renal_profile_prd_description"
         fill_in "ESRF Date", with: fake_date.to_s
-        fill_autocomplete "form.simple_form",
-                          "prd_description_auto_complete",
-                          with: "Cystinuria",
-                          select: "Cystinuria"
-
         within page.first(".form-actions") do
           click_on "Save"
         end

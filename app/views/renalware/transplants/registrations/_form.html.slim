@@ -89,8 +89,8 @@ ruby:
       = f.input :referred_on, as: :date_picker, wrapper: :horizontal_datepicker
       = f.input :assessed_on, as: :date_picker, wrapper: :horizontal_datepicker
       = f.input :entered_on, as: :date_picker, wrapper: :horizontal_datepicker, input_html: { "data-controlled-by-tissue-typing-feed": true }
-      = f.input :contact, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large, input_html: { "data-controlled-by-tissue-typing-feed": true }
-      = f.input :notes, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large, input_html: { "data-controlled-by-tissue-typing-feed": true }
+      = f.input :contact, as: :text, wrapper: :horizontal_large, input_html: { rows: 5, "data-controlled-by-tissue-typing-feed": true }
+      = f.input :notes, as: :text, wrapper: :horizontal_large, input_html: { rows: 5, "data-controlled-by-tissue-typing-feed": true }
 
     = render "status_form", f: f if f.object.new_record?
 
