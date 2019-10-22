@@ -10,24 +10,22 @@
   .document-view
     .grid
       .row
-        = render "renalware/shared/attributes_group",
-            legend: "Access Procedure", destination: "procedure",
-            models: { procedure => [:performed_on,
-                                    :performed_by,
-                                    :type,
-                                    :side,
-                                    :pd_catheter_insertion_technique,
-                                    :notes,
-                                    :catheter_make,
-                                    :catheter_lot_no] }
+        .columns.small-12.large-6
+          = article_tag "Access Procedure" do
+            = definition_list_for(procedure) do |list|
+              = list.definition(:performed_on)
+              = list.definition(:performed_by)
+              = list.definition(:type)
+              = list.definition(:side)
+              = list.definition(:pd_catheter_insertion_technique)
+              = list.definition(:notes) { |str| simple_format(str) }
+              = list.definition(:catheter_make)
+              = list.definition(:catheter_lot_no)
 
-        = render "renalware/shared/attributes_group",
-            legend: "Follow-up", destination: "followup",
-            models: { procedure => [:outcome,
-                                    :first_used_on,
-                                    :failed_on] }
+      = render "renalware/shared/attributes_group",
+          legend: "Follow-up", destination: "followup",
+          models: { procedure => [:outcome, :first_used_on, :failed_on] }
 
-        = render "renalware/shared/attributes_group",
-            legend: "Admin", destination: "notes",
-            models: { procedure => [:updated_by,
-                                    :updated_at] }
+      = render "renalware/shared/attributes_group",
+          legend: "Admin", destination: "notes",
+          models: { procedure => [:updated_by, :updated_at] }
