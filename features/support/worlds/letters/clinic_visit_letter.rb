@@ -134,12 +134,8 @@ module World
       include Domain
 
       def draft_clinic_visit_letter(patient:, user:, issued_on:)
-        # patient.create_practice!(
-        #   name: "aa", code: Time.current.to_i, address: FactoryBot.build(:address)
-        # )
-        # patient.save!
-
         login_as user
+        FactoryBot.create(:letter_description, text: "Foo bar")
         visit patient_clinic_visits_path(patient)
         click_on "Draft Letter"
 
@@ -147,7 +143,7 @@ module World
         fill_in "Date", with: I18n.l(attributes[:issued_on]) if issued_on.present?
         select attributes[:letterhead].name, from: "Letterhead"
         select user.to_s, from: "Author"
-        fill_in "Description", with: attributes[:description]
+        select2 attributes[:description], css: ".letter_description"
 
         within ".bottom" do
           click_on "Create"

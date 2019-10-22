@@ -17,7 +17,7 @@ Feature: Writing a clinic visit letter
       | Nuts               |
       | Penicillin         |
 
-  @web
+  @web @javascript
   Scenario: A doctor drafted a clinic visit letter
     When Doug drafts a clinic visit letter for Patty
     Then a letter for Patty's clinical visit is drafted
@@ -32,7 +32,7 @@ Feature: Writing a clinic visit letter
     Given a letter for Patty's clinical visit was drafted
     Then Doug can revise Patty's clinic visit letter
 
-  @web
+  @web @javascript
   Scenario: A doctor drafted an erroneous clinic visit letter
     When Doug drafts an erroneous clinic visit letter
     Then the letter is not drafted

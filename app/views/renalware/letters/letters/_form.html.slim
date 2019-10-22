@@ -17,15 +17,8 @@ ruby:
 
     = f.association :letterhead, autofocus: true
     = f.input :description,
-              input_html: { \
-                data: { \
-                  autocomplete_source: search_letters_descriptions_path,
-                  autocomplete_rel: "[name='letters[description]']" \
-                },
-                placeholder: "Start entering the description (min. 2 characters)",
-                spellcheck: false,
-                class: "clear-autocomplete" \
-              }
+              collection: Renalware::Letters::Description.pluck(:text).uniq,
+              input_html: { class: "searchable_select" }
     = hidden_field_tag "description_id"
     = f.input :clinical, as: :hidden
     = f.input :issued_on, as: :date_picker

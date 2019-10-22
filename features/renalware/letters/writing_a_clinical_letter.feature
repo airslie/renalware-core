@@ -15,7 +15,7 @@ Feature: Writing a clinical letter
     And Patty has recorded problems with notes
     And Patty has completed pathology investigations relevant to the clinic letter
 
-  @web
+  @web @javascript
   Scenario: A doctor drafted a clinical letter
     When Doug drafts a clinical letter for Patty
     Then a clinical letter is drafted for Patty
