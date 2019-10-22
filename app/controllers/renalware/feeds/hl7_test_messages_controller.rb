@@ -46,7 +46,7 @@ module Renalware
       end
 
       def test_patient
-        @test_patient ||= Patient.find_by!(local_patient_id: "Z999990")
+        @test_patient ||= Patient.find_by!(local_patient_id: "Z100001")
       end
 
       def replace_placeholders_in_hl7_message(message)
