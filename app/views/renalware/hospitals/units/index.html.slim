@@ -39,8 +39,8 @@
             - if pundit_policy_for(Renalware::HD::Station).index?
               = link_to("HD Stations", hd_unit_stations_path(unit))
               = pipe_separator
-            - if pundit_policy_for(Renalware::HD::Diary).index?
-              = link_to("HD Diaries", hd_unit_diaries_path(unit))
+            - if pundit_policy_for(Renalware::HD::Scheduling::Diary).index?
+              = link_to("HD Diaries", hd_scheduling_unit_diaries_path(unit))
             - if pundit_policy_for(Renalware::Hospitals::Ward).index?
               = pipe_separator
               = link_to("Wards", hospitals_unit_wards_path(unit))

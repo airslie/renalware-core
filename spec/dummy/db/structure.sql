@@ -152,6 +152,52 @@ $$;
 
 
 --
+-- Name: hd_diary_archive_elapsed_master_slots(); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION hd_diary_archive_elapsed_master_slots() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+  BEGIN
+
+INSERT into hd_diary_slots
+(
+    diary_id,
+    station_id,
+    day_of_week,
+    diurnal_period_code_id,
+    patient_id,
+    created_by_id,
+    updated_by_id,
+    created_at,
+    updated_at,
+    deleted_at
+)
+(
+    select
+        weekly_diary_id,
+        station_id,
+        day_of_week,
+        diurnal_period_code_id,
+        patient_id,
+        master_slot_created_by_id,
+        master_slot_updated_by_id,
+        master_slot_created_at,
+        master_slot_updated_at,
+        deleted_at
+    from renalware.hd_diary_matrix -- a SQL view
+    where
+        weekly_slot_id is null
+        and master_slot_id is not null
+        and master_slot_created_at <= slot_date
+        and slot_date >= now() - interval '3 months'
+);
+
+END;
+$$;
+
+
+--
 -- Name: import_gps_csv(text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -2227,6 +2273,97 @@ CREATE TABLE hd_diary_slots (
 
 
 --
+-- Name: hd_diurnal_period_codes; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE hd_diurnal_period_codes (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    description text,
+    sort_order integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: hd_stations; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE hd_stations (
+    id bigint NOT NULL,
+    hospital_unit_id bigint NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
+    name character varying,
+    updated_by_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    location_id integer
+);
+
+
+--
+-- Name: hospital_units; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE hospital_units (
+    id integer NOT NULL,
+    hospital_centre_id integer NOT NULL,
+    name character varying NOT NULL,
+    unit_code character varying NOT NULL,
+    renal_registry_code character varying NOT NULL,
+    unit_type character varying NOT NULL,
+    is_hd_site boolean DEFAULT false,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_diary_matrix; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW hd_diary_matrix AS
+ WITH hd_empty_diary_matrix AS (
+         SELECT date_part('year'::text, the_date.the_date) AS year,
+            date_part('week'::text, the_date.the_date) AS week_number,
+            h.id AS hospital_unit_id,
+            s.id AS station_id,
+            a.day_of_week,
+            period.id AS diurnal_period_code_id
+           FROM ((((generate_series((now() - '1 year'::interval), (now() - '7 days'::interval), '7 days'::interval) the_date(the_date)
+             CROSS JOIN hospital_units h)
+             CROSS JOIN hd_stations s)
+             CROSS JOIN ( SELECT generate_series(1, 7) AS day_of_week) a)
+             CROSS JOIN hd_diurnal_period_codes period)
+          WHERE (h.is_hd_site = true)
+          ORDER BY (date_part('year'::text, the_date.the_date)), (date_part('week'::text, the_date.the_date)), h.id, s.id, a.day_of_week, period.id
+        )
+ SELECT m.year,
+    m.week_number,
+    m.hospital_unit_id,
+    m.station_id,
+    m.day_of_week,
+    m.diurnal_period_code_id,
+    wd.id AS weekly_diary_id,
+    md.id AS master_diary_id,
+    ws.id AS weekly_slot_id,
+    ms.id AS master_slot_id,
+    COALESCE(ws.patient_id, ms.patient_id) AS patient_id,
+    ms.deleted_at,
+    ms.created_by_id AS master_slot_created_by_id,
+    ms.updated_by_id AS master_slot_updated_by_id,
+    (ms.created_at)::date AS master_slot_created_at,
+    (ms.updated_at)::date AS master_slot_updated_at,
+    to_date((((((wd.year)::text || '-'::text) || (wd.week_number)::text) || '-'::text) || (ms.day_of_week)::text), 'iyyy-iw-ID'::text) AS slot_date
+   FROM ((((hd_empty_diary_matrix m
+     LEFT JOIN hd_diaries wd ON (((wd.hospital_unit_id = m.hospital_unit_id) AND ((wd.year)::double precision = m.year) AND ((wd.week_number)::double precision = m.week_number) AND (wd.master = false))))
+     LEFT JOIN hd_diaries md ON (((md.hospital_unit_id = m.hospital_unit_id) AND (md.master = true))))
+     LEFT JOIN hd_diary_slots ws ON (((ws.diary_id = wd.id) AND (ws.station_id = m.station_id) AND (ws.day_of_week = m.day_of_week) AND (ws.diurnal_period_code_id = m.diurnal_period_code_id))))
+     LEFT JOIN hd_diary_slots ms ON (((ms.diary_id = md.id) AND (ms.station_id = m.station_id) AND (ms.day_of_week = m.day_of_week) AND (ms.diurnal_period_code_id = m.diurnal_period_code_id))));
+
+
+--
 -- Name: hd_diary_slots_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -2243,18 +2380,6 @@ CREATE SEQUENCE hd_diary_slots_id_seq
 --
 
 ALTER SEQUENCE hd_diary_slots_id_seq OWNED BY hd_diary_slots.id;
-
-
---
--- Name: hd_diurnal_period_codes; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE hd_diurnal_period_codes (
-    id bigint NOT NULL,
-    code character varying NOT NULL,
-    description text,
-    sort_order integer DEFAULT 0 NOT NULL
-);
 
 
 --
@@ -2912,24 +3037,6 @@ ALTER SEQUENCE hd_station_locations_id_seq OWNED BY hd_station_locations.id;
 
 
 --
--- Name: hd_stations; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE hd_stations (
-    id bigint NOT NULL,
-    hospital_unit_id bigint NOT NULL,
-    "position" integer DEFAULT 0 NOT NULL,
-    name character varying,
-    updated_by_id integer NOT NULL,
-    created_by_id integer NOT NULL,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    location_id integer
-);
-
-
---
 -- Name: hd_stations_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -3040,23 +3147,6 @@ CREATE SEQUENCE hospital_centres_id_seq
 --
 
 ALTER SEQUENCE hospital_centres_id_seq OWNED BY hospital_centres.id;
-
-
---
--- Name: hospital_units; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE hospital_units (
-    id integer NOT NULL,
-    hospital_centre_id integer NOT NULL,
-    name character varying NOT NULL,
-    unit_code character varying NOT NULL,
-    renal_registry_code character varying NOT NULL,
-    unit_type character varying NOT NULL,
-    is_hd_site boolean DEFAULT false,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
 
 
 --
@@ -17834,6 +17924,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191008024636'),
 ('20191008030154'),
 ('20191008045159'),
-('20191012121433');
+('20191012121433'),
+('20191018143635'),
+('20191018144917');
 
 

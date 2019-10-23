@@ -2,11 +2,11 @@
 
 module Renalware
   class WeekPeriod
-    attr_reader :year, :week_number, :first_day_of_week
+    attr_reader :year, :week_number, :date_on_first_day_of_week
 
     def self.from_date(date)
       date = date.to_date
-      new(week_number: date.cweek, year: date.year)
+      new(week_number: date.cweek, year: date.cwyear)
     end
 
     def initialize(week_number:, year:)
@@ -14,15 +14,15 @@ module Renalware
       @year = year.to_i
       validate_week_number
       validate_year
-      @first_day_of_week = Date.commercial(@year, @week_number)
+      @date_on_first_day_of_week = Date.commercial(@year, @week_number)
     end
 
     def next
-      self.class.from_date(first_day_of_week + 1.week)
+      self.class.from_date(date_on_first_day_of_week + 1.week)
     end
 
     def previous
-      self.class.from_date(first_day_of_week - 1.week)
+      self.class.from_date(date_on_first_day_of_week - 1.week)
     end
 
     def to_a
@@ -30,12 +30,13 @@ module Renalware
     end
 
     def to_s
-      "#{I18n.l(first_day_of_week, format: :long)} to #{I18n.l(last_day_of_week, format: :long)}"
+      "#{I18n.l(date_on_first_day_of_week, format: :long)} " \
+      "to #{I18n.l(last_day_of_week, format: :long)}"
     end
 
     # The date of last day of the week (a Sunday)
     def last_day_of_week
-      @last_day_of_week ||= (first_day_of_week + 1.week - 1.minute).to_date
+      @last_day_of_week ||= (date_on_first_day_of_week + 1.week - 1.minute).to_date
     end
 
     def validate_week_number
