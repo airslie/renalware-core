@@ -136,8 +136,11 @@ module Renalware::HD::Scheduling
           # there are 53 weeks across the year (which is possible as they are commercial weeks)
           # and we already have 1 weekly diary so it is creating 52 more.
           expect(Diary.count).to eq(54)
-          # There should 53 weekly slots (1 in each weekly diary) + 1 master slot.
-          expect(DiarySlot.count).to eq(54)
+
+          # We go back 3 months when archiving past slots.
+          # There should now be 14 weekly slots (1 in each weekly diary, and 3 months from 'now'
+          # actually spans 14 commercial weeks) + 1 master slot.
+          expect(DiarySlot.count).to eq(15)
         end
       end
     end

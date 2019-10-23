@@ -29,7 +29,11 @@ INSERT into hd_diary_slots
         master_slot_updated_at,
         deleted_at
     from renalware.hd_diary_matrix -- a SQL view
-    where  weekly_slot_id is null and master_slot_id  is not null and master_slot_created_at <= slot_date
+    where
+        weekly_slot_id is null
+        and master_slot_id is not null
+        and master_slot_created_at <= slot_date
+        and slot_date >= now() - interval '3 months'
 );
 
 END;
