@@ -23,7 +23,7 @@ namespace :pathology do
       # Load the message into a hash as delayed_Job would do and splat the hash keys as keyword args
       # into the FeedJob ctor.
       hash = YAML.safe_load(*raw_message).symbolize_keys
-      FeedJob.new(hash[:raw_message]).perform
+      Delayed::Job.enqueue FeedJob.new(hash[:raw_message])
     end
 
     desc "In development only, enqueue a test HL7 message"

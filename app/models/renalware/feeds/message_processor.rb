@@ -44,8 +44,9 @@ module Renalware
       end
 
       def allow_listeners_to_process_the_message
+        message_to_broadcast = "#{hl7_message.message_type.downcase}_message_arrived"
         broadcast(
-          :message_arrived,
+          message_to_broadcast.to_sym,
           hl7_message: hl7_message,
           feed_message: feed_message
         )
@@ -61,8 +62,9 @@ module Renalware
         # e.g. forwarding, logging etc.
         # Its is recommended here to use an async listener - see example in renalware-diaverum
         # - so that any error in the listener has its own try mechansim and does not cause the
-        # current job to retry,
-        broadcast(:message_processed, feed_message: feed_message)
+        # current job to retry.
+        message_to_broadcast = "#{hl7_message.message_type.downcase}_message_processed"
+        broadcast(message_to_broadcast.to_sym, feed_message: feed_message)
       rescue Feeds::DuplicateMessageReceivedError => e
         Rails.logger.warn("Rejected duplicate HL7 message: #{e.message}")
       rescue StandardError => e
