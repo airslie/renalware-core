@@ -6,7 +6,8 @@
 
 nav.patient-side-nav.full-screenable
   .layout-wrapper
-    = render "renalware/patients/side_menu", patient: current_patient
+    /= render "renalware/patients/side_menu", patient: current_patient
+    = render Renalware::Patients::SideMenuComponent, patient: current_patient
 
 .main-content.patient-content.full-screenable
   .layout-wrapper
