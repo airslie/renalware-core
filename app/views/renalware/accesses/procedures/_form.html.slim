@@ -24,7 +24,11 @@ ruby:
                     label_method: :description,
                     value_method: :code,
                     wrapper: :horizontal_medium
-    = f.input :notes, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
+    - target = "procedure-notes-editor"
+    = f.label :notes
+    = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: ".#{target}")
+    = f.trix_editor :notes, class: target
+    br
     = f.input :catheter_make, wrapper: :horizontal_small
     = f.input :catheter_lot_no, wrapper: :horizontal_small
 

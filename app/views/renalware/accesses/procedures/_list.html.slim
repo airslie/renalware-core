@@ -13,8 +13,6 @@ article.access-procedures
       th.col-width-tiny Side
       th Performed By
       th.col-width-date First Use
-      th Notes
-      th Outcome
 
     tbody
       - procedures.each do |procedure|
@@ -23,10 +21,19 @@ article.access-procedures
             = link_to "View", patient_accesses_procedure_path(patient, procedure)
             = pipe_separator
             = link_to "Edit", edit_patient_accesses_procedure_path(patient, procedure)
+            = pipe_separator
+            = link_to("Toggle", "#procedure-quick-preview-#{procedure.id}", data: { behaviour: "toggler" })
           td= procedure.performed_on
           td= procedure.type&.long_name
           td= procedure.side
           td= procedure.performed_by
           td= procedure.first_used_on
-          td.col-width-mediumish-with-ellipsis(title=procedure.notes)=procedure.notes
-          td.col-width-mediumish-with-ellipsis(title=procedure.outcome)=procedure.outcome
+
+        = content_tag(:tr, id: "procedure-quick-preview-#{procedure.id}", style: "display: none")
+          td(colspan=6)
+            .quick-preview
+              dl.dl-horizontal
+                dt Notes
+                dd= simple_format(procedure.notes)
+                dt Outcome
+                dd= simple_format(procedure.outcome)
