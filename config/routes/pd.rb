@@ -6,11 +6,11 @@ resources :patients, only: [] do
     resources :apd_regimes,
               controller: "regimes",
               type: "PD::APDRegime",
-              only: [:new, :create, :edit, :update, :show]
+              only: [:new, :create, :edit, :update, :show, :index]
     resources :capd_regimes,
               controller: "regimes",
               type: "PD::CAPDRegime",
-              only: [:new, :create, :edit, :update, :show]
+              only: [:new, :create, :edit, :update, :show, :index]
     resources :regimes, only: [:new, :create, :edit, :update, :show]
     resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
     resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
