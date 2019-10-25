@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
     "README.md",
     "MIT-LICENSE"
   ]
+  s.add_dependency "actionview-component", "~> 1.3.6"
   s.add_dependency "active_type", "~> 0.7.1"
   s.add_dependency "activerecord-import", "~> 0.28.0"
   s.add_dependency "ahoy_matey", "~> 2.1"
