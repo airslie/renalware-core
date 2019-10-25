@@ -112,15 +112,6 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
     end
   end
 
-  context "when the patient does not exists in Renalware" do
-    it "creates a new patient" do
-      create_dependencies
-      FeedJob.new(message).perform
-
-      verify_patient_properties(Renalware::Patient.first)
-    end
-  end
-
   # rubocop:disable Metrics/AbcSize
   def verify_patient_properties(patient)
     expect(patient).to have_attributes(

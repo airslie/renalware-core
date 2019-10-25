@@ -43,6 +43,8 @@ module Renalware::Patients
               expect {
                 service.call(hl7_message)
               }.to change(Abridgement, :count).by(1)
+
+              expect(Abridgement.first).to have_attributes(hl7_data.to_h)
             end
           end
 

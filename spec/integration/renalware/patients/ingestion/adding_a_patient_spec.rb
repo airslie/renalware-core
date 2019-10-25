@@ -43,17 +43,34 @@ describe "HL7 ADT~A28 message handling: 'Add person information'" do
     it "updates their information" do
       patient = create(:patient, local_patient_id: local_patient_id)
 
-      FeedJob.new(message).perform
+      expect {
+        FeedJob.new(message).perform
+      }.not_to change(Renalware::Patient, :count)
 
       verify_patient_properties(patient.reload)
     end
   end
 
   context "when the patient does not exist in Renalware" do
+    it "does not add them as a Renalware::Patient" do
+      expect {
+        FeedJob.new(message).perform
+      }.not_to change(Renalware::Patient, :count)
+    end
+  end
+
+  context "when the patient is not in the master index" do
     it "adds them to the master patient index" do
-      FeedJob.new(message).perform
-      raise "not impl"
-      verify_patient_properties(Renalware::Patient.first)
+      # See also UpdateMasterPatientIndex
+      expect {
+        FeedJob.new(message).perform
+      }.to change(Renalware::Patients::Abridgement, :count).by(1)
+    end
+  end
+
+  context "when the patient is already in the master index" do
+    it "updates the patient index" do
+      # See UpdateMasterPatientIndex
     end
   end
 

@@ -25,7 +25,6 @@ module Renalware
         @raw_message = raw_message
 
         parse_raw_message_into_hl7_object
-
         ActiveRecord::Base.transaction do
           create_feed_message_using_raw_message_and_basic_extracted_patient_data
           allow_listeners_to_process_the_message
