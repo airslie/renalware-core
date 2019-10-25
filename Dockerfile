@@ -52,7 +52,7 @@ WORKDIR /app
 # the RubyGems. This is a separate step so the dependencies
 # will be cached unless changes to one of those two files
 # are made.
-# NB This does not work as .gemspec requries lib/version.rb etc
+# NB This does not work as .gemspec requires lib/version.rb etc
 COPY Gemfile renalware-core.gemspec Gemfile.lock /app/
 RUN mkdir -p /app/lib/renalware
 COPY ./lib/renalware/version.rb /app/lib/renalware/version.rb
@@ -70,4 +70,3 @@ EXPOSE 3000
 # tell the Rails dev server to bind to all interfaces by
 # default.
 CMD ["bundle", "exec", "bin/web"]
-

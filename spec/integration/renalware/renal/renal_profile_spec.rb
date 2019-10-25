@@ -3,10 +3,12 @@
 require "rails_helper"
 require_dependency "renalware/renal"
 
+# rubocop:disable RSpec/ExampleLength
 describe "Renal Profile", type: :system, js: true do
   describe "GET #show" do
     it "updating the renal profile" do
       user = login_as_clinical
+      prd = create(:prd_description, term: "PRD1")
 
       esrf_date = "24-Mar-2017"
       patient = Renalware::Renal.cast_patient(create(:patient, by: user))
@@ -32,6 +34,7 @@ describe "Renal Profile", type: :system, js: true do
 
       updated_esrf_date = "25-Mar-2016"
       fill_in "ESRF Date", with: updated_esrf_date
+      select prd.term, from: "Primary Renal Diagnosis (PRD)"
 
       # Change something in the profile.document so we can test the document is persisting
       within ".year-dated-confirmation--ischaemic_heart_dis" do
@@ -74,3 +77,4 @@ describe "Renal Profile", type: :system, js: true do
     end
   end
 end
+# rubocop:enable RSpec/ExampleLength
