@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
 describe "Assign a person as a main recipient", type: :system do
-  include AutocompleteHelpers
   include AjaxHelpers
 
   before do
@@ -52,8 +50,11 @@ describe "Assign a person as a main recipient", type: :system do
       click_on "Add a different recipient via the contacts Directory"
 
       within("#add-patient-contact-modal") do
-        fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",
-                          with: person.family_name, select: person.to_s
+        select2(
+          person.family_name,
+          css: "#person-id-select2",
+          search: true
+        )
         select contact_description.name, from: "Description"
 
         click_on "Save"

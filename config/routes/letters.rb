@@ -27,11 +27,6 @@ namespace :letters do
     resources :completions, only: [:new, :create], controller: "completed_batches"
   end
   resource :pdf_letter_cache, only: [:destroy], controller: "pdf_letter_cache"
-  resources :descriptions, only: :search do
-    collection do
-      get :search
-    end
-  end
 
   # Letters::ListsController displays prefined lists of letters. The default list is :all
   # We want to support dynamic urls with letters_list_path(named_parameeter: :all)

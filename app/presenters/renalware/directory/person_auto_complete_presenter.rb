@@ -10,7 +10,7 @@ module Renalware
       end
 
       def to_hash
-        { id: id, label: name_and_address }
+        { id: id, text: name_and_address }
       end
     end
   end

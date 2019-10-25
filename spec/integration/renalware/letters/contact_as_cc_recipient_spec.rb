@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
 describe "Assign a person as a CC recipient", type: :system, js: true do
-  include AutocompleteHelpers
   include AjaxHelpers
 
   before do
@@ -60,8 +58,11 @@ describe "Assign a person as a CC recipient", type: :system, js: true do
       click_on "Add new person to the list"
 
       within("#add-patient-contact-as-cc-modal") do
-        fill_autocomplete "#add-patient-contact-as-cc-modal", "person_auto_complete",
-                          with: person.family_name, select: person.to_s
+        select2(
+          person.family_name,
+          css: "#person-id-select2",
+          search: true
+        )
         select contact_description.name, from: "Description"
         fill_in "Notes", with: "some contact notes"
         click_on "Save"

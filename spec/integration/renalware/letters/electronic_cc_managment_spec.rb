@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
 describe "Manage electronic CCs", type: :system do
   include LettersSpecHelper
-  include AutocompleteHelpers
   include AjaxHelpers
 
   it "Marks an Electronic CC as `read` for an approved letter", js: true do

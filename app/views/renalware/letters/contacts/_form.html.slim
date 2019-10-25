@@ -1,16 +1,13 @@
-= label_tag "person_auto_complete",
-            "Pick person from directory",
-            class: "right inline"
-= text_field_tag "person_auto_complete", \
-    f.object.person&.to_s,
-    data: { \
-      autocomplete_source: search_directory_people_path, \
-      autocomplete_rel: "[name='letters_contact[person_id]']" \
-    },
-    autofocus: true,
-    spellcheck: false,
-    placeholder: t(".person_auto_complete.prompt")
-= f.input :person_id, as: :hidden
+#person-id-select2
+  = f.input :person_id,
+            wrapper: :horizontal_large,
+            collection: [[f.object.person&.to_s, f.object.person&.id]],
+            selected: 1,
+            input_html: { \
+              class: "person-ajax-search",
+              data: { "ajax--url" => search_directory_people_path(format: :json),
+                      placeholder: "Start entering the person's name (min. 2 characters)" } \
+            }
 = f.input :description_id, collection: contact_descriptions
 = f.input :other_description
 = f.input :notes, as: :text, input_html: { rows: 2 }

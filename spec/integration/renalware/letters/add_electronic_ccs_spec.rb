@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
 describe "Assign electronic CCs" do
-  include AutocompleteHelpers
   include AjaxHelpers
 
   let(:practice) { create(:practice) }

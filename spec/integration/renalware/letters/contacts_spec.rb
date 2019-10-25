@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
 describe "Assign a contact to a patient", type: :system, js: true do
-  include AutocompleteHelpers
   include AjaxHelpers
 
   before do
@@ -41,10 +39,12 @@ describe "Assign a contact to a patient", type: :system, js: true do
       click_on "Add"
 
       within("#add-patient-contact-modal") do
-        fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",
-                          with: person.family_name, select: person.to_s
+        select2(
+          person.family_name,
+          css: "#person-id-select2",
+          search: true
+        )
         select contact_description.to_s, from: "Description"
-
         click_on "Save"
       end
 
