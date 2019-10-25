@@ -52,7 +52,7 @@ Gem::Specification.new do |s|
   s.add_dependency "enumerize", "~> 2.3.1"
   s.add_dependency "font-awesome-sass", "~> 5.6" # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
   s.add_dependency "foundation-rails", "~> 5.5.3.2"
-  s.add_dependency "friendly_id", "~> 5.2.5"
+  s.add_dependency "friendly_id", "~> 5.3.0"
   s.add_dependency "groupdate", "~> 4.1.2"
   s.add_dependency "hashdiff", "~> 1.0"
   s.add_dependency "httparty", "~> 0.16"
@@ -74,11 +74,11 @@ Gem::Specification.new do |s|
   s.add_dependency "pg", "~> 1.1.3"
   s.add_dependency "prawn", "~> 2.2.2"
   s.add_dependency "puma", "~> 3.12.0"
-  s.add_dependency "pundit", "~> 2.0.0"
+  s.add_dependency "pundit", "~> 2.1.0"
   s.add_dependency "rack-attack"
   s.add_dependency "rails", "~> 5.2"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
-  s.add_dependency "ransack", "~> 2.1.1"
+  s.add_dependency "ransack", "~> 2.3.0"
   s.add_dependency "record_tag_helper", "~> 1.0.0"
   s.add_dependency "ruby-hl7", "~> 1.2.0"
   s.add_dependency "rubyzip", "~> 1.3.0"
