@@ -33,9 +33,6 @@ end
 
 add_class_to_world("World")
 
-require_relative "../../lib/test_support/autocomplete_helpers"
-World(AutocompleteHelpers)
-
 require_relative "../../lib/test_support/ajax_helpers"
 World(AjaxHelpers)
 

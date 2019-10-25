@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
 describe "Add person to directory and assign as a contact for a patient",
          type: :system,
          js: true do
-  include AutocompleteHelpers
   include AjaxHelpers
 
   before do

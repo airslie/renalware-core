@@ -19,8 +19,6 @@ en:
         new:
           title: Add new contact
         form:
-          person_auto_complete:
-            prompt: Start entering the person's name (min. 2 characters)"
           description:
             other: Other - please specify in the field below
         person_from_directory:
