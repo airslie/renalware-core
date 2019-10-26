@@ -12,6 +12,10 @@ module Renalware
       scope :ordered, -> { order(created_at: :asc) }
 
       validates :description, presence: true
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end

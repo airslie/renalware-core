@@ -1,10 +1,12 @@
-- if notes.empty?
+- if notes.blank?
   #new-note-area
     spam No notes
 
 - else
   table.auto-layout
     thead
+      - unless problem.archived?
+        th.col-width-tiny
       th Description
       th.col-width-medium Recorded By
       th.col-width-date-time Recorded On
@@ -12,8 +14,12 @@
     tbody
       - notes.each do |note|
         tr
-          td= note.description
+          - unless problem.archived?
+            td= link_to "Edit",
+                        edit_patient_problem_note_path(problem.patient, problem, note),
+                        remote: true
+          td(class="problem-note-#{note.id}")= note.description
           td= note.updated_by
-          td= l note.updated_at
+          td= l(note.updated_at)
 
   #new-note-area

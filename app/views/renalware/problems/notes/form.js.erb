@@ -1,2 +1,4 @@
-<%= refresh("#new-note-area", partial: "form", locals: local_assigns) %>
+<% div = note.persisted? ? ".problem-note-#{note.id}" : "#new-note-area" %>
+<%= refresh(div, partial: "form", locals: local_assigns) %>
+
 $("#problems_note_description").focus();

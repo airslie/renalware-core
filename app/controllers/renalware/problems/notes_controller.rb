@@ -3,50 +3,77 @@
 module Renalware
   module Problems
     class NotesController < BaseController
-      before_action :load_patient
-
       def index
-        load_problem
         render_index
       end
 
       def new
-        load_problem
-        note = @problem.notes.new
-        render_form(note, url: patient_problem_notes_path(patient, @problem))
+        note = problem.notes.new
+        authorize(note)
+        render_form(
+          note,
+          url: patient_problem_notes_path(patient, problem)
+        )
       end
 
       def create
-        load_problem
-        note = @problem.notes.create(notes_params)
-
+        note = problem.notes.create(notes_params)
+        authorize(note)
         if note.save
           render_index
         else
-          render_form(note, url: patient_problem_notes_path(patient, @problem))
+          render_form(
+            note,
+            url: patient_problem_notes_path(patient, problem)
+          )
+        end
+      end
+
+      def edit
+        authorize note
+        render_form(
+          note,
+          url: patient_problem_note_path(patient, problem, note)
+        )
+      end
+
+      def update
+        authorize note
+        if note.update_by(current_user, notes_params)
+          render_index
+        else
+          render_form(
+            note,
+            url: patient_problem_notes_path(patient, problem)
+          )
         end
       end
 
       private
 
-      def load_problem
-        @problem = patient.problems.find(params[:problem_id])
+      def problem
+        @problem ||= patient.problems.find(params[:problem_id])
+      end
+
+      def notes
+        @notes ||= problem.notes.includes(:updated_by).ordered
+      end
+
+      def note
+        notes.find(params[:id])
       end
 
       def render_index
-        render "index", locals: { problem: @problem, notes: notes }
+        authorize(notes)
+        render "index", locals: { problem: problem, notes: notes }
       end
 
       def render_form(note, url:)
-        render "form", locals: { problem: @problem, note: note, url: url }
+        render "form", locals: { problem: problem, note: note, url: url }
       end
 
       def notes_params
         params.require(:problems_note).permit(:description).merge(by: current_user)
-      end
-
-      def notes
-        @notes ||= @problem.notes.ordered
       end
     end
   end
