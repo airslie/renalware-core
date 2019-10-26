@@ -1,0 +1,7 @@
+
+= within_patient_layout( \
+  title: "#{pd_type_string} Regimes",
+  breadcrumbs: breadcrumb_for("PD Summary", patient_pd_dashboard_path(patient))) do
+
+  = render "renalware/pd/#{pd_type_string.downcase}_regimes", local_assigns
+  = paginate regimes

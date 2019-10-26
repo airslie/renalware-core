@@ -5,7 +5,25 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module PD
     class RegimesController < BaseController
+      include Renalware::Concerns::Pageable
       before_action :load_patient
+
+      def index
+        regimes = regime_type_class.for_patient(patient).with_bags.ordered.page(page).per(per_page)
+        render locals: {
+          patient: patient,
+          regimes: regimes,
+          pd_type_string: pd_type_string
+        }
+      end
+
+      def capd_regimes
+        @capd_regimes ||= CAPDRegime.for_patient(patient).with_bags.ordered.page(1).per(5)
+      end
+
+      def apd_regimes
+        @apd_regimes ||= APDRegime.for_patient(patient).with_bags.ordered.page(1).per(5)
+      end
 
       def new
         regime = cloned_last_known_regime_of_type || patient.pd_regimes.new(type: regime_type)
@@ -68,6 +86,14 @@ module Renalware
 
       def regime_type
         params[:type] ? "Renalware::#{params[:type]}" : nil
+      end
+
+      def regime_type_class
+        @regime_type_class ||= regime_type.constantize
+      end
+
+      def pd_type_string
+        regime_type_class.new.pd_type.upcase # CAPD or APD
       end
 
       def cloned_last_known_regime_of_type

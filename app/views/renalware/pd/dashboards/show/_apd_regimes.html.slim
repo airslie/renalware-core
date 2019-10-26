@@ -1,2 +1,11 @@
-= article_tag "APD Regimes (#{apd_regimes.length})", class: "apd-regimes-group" do
-  = render "renalware/pd/apd_regimes", local_assigns
+article.apd-regimes
+  header
+    h2 APD Regimes
+    .supplemental
+      = collection_count(apd_regimes)
+    span.noprint
+      = link_to "View All",
+                patient_pd_apd_regimes_path(patient),
+                class: "button secondary"
+
+  = render "renalware/pd/apd_regimes", regimes: apd_regimes, patient: patient

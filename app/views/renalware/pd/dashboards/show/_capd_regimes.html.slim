@@ -1,2 +1,11 @@
-= article_tag "CAPD Regimes (#{capd_regimes.length})", class: "capd-regimes-group" do
-  = render "renalware/pd/capd_regimes", local_assigns
+article.capd-regimes
+  header
+    h2 CAPD Regimes
+    .supplemental
+      = collection_count(capd_regimes)
+    span.noprint
+      = link_to "View All",
+                patient_pd_capd_regimes_path(patient),
+                class: "button secondary"
+
+  = render "renalware/pd/capd_regimes", regimes: capd_regimes, patient: patient
