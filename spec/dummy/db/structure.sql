@@ -2654,7 +2654,8 @@ CREATE TABLE hd_prescription_administrations (
     witnessed_by_id bigint,
     administrator_authorised boolean DEFAULT false NOT NULL,
     witness_authorised boolean DEFAULT false NOT NULL,
-    reason_id bigint
+    reason_id bigint,
+    deleted_at timestamp without time zone
 );
 
 
@@ -3016,7 +3017,8 @@ CREATE TABLE hd_sessions (
     dry_weight_id integer,
     dialysate_id bigint,
     uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    external_id bigint
+    external_id bigint,
+    deleted_at timestamp without time zone
 );
 
 
@@ -6501,7 +6503,7 @@ CREATE MATERIALIZED VIEW reporting_hd_blood_pressures_audit AS
             (((hd_sessions.document -> 'observations_after'::text) -> 'blood_pressure'::text) ->> 'diastolic'::text) AS diastolic_post
            FROM (hd_sessions
              JOIN patients ON ((patients.id = hd_sessions.patient_id)))
-          WHERE (hd_sessions.signed_off_at IS NOT NULL)
+          WHERE ((hd_sessions.signed_off_at IS NOT NULL) AND (hd_sessions.deleted_at IS NULL))
         ), some_other_derived_table_variable AS (
          SELECT 1
            FROM blood_pressures blood_pressures_1
@@ -12246,6 +12248,13 @@ CREATE INDEX index_hd_prescription_administrations_on_created_by_id ON hd_prescr
 
 
 --
+-- Name: index_hd_prescription_administrations_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_prescription_administrations_on_deleted_at ON hd_prescription_administrations USING btree (deleted_at);
+
+
+--
 -- Name: index_hd_prescription_administrations_on_hd_session_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -12425,6 +12434,13 @@ CREATE INDEX index_hd_session_form_batches_on_updated_by_id ON hd_session_form_b
 --
 
 CREATE INDEX index_hd_sessions_on_created_by_id ON hd_sessions USING btree (created_by_id);
+
+
+--
+-- Name: index_hd_sessions_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_deleted_at ON hd_sessions USING btree (deleted_at);
 
 
 --
@@ -18089,6 +18105,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191012121433'),
 ('20191018143635'),
 ('20191018144917'),
-('20191029095202');
+('20191026120029'),
+('20191029095202'),
+('20191105095304');
 
 

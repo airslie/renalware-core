@@ -27,6 +27,10 @@ module World
         }
       end
 
+      def assert_rolling_session_statitics_job_enqueued
+        # not applicable in domain test atm
+      end
+
       def valid_closed_session_attributes(patient)
         # TODO: seed the document in a more sophisticated way!
         json = <<-JSONB
@@ -387,6 +391,12 @@ module World
         within ".top" do
           click_on "Delete"
         end
+      end
+
+      def assert_rolling_session_statitics_job_enqueued
+        expect(Delayed::Job.count).to eq(1)
+        # A more sophisticated approach that I can't get to work in cucumber
+        # expect(Renalware::HD::UpdateRollingPatientStatisticsJob).to have_been_enqueued
       end
 
       private

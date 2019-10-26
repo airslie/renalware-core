@@ -6,6 +6,7 @@ module Renalware
   module HD
     class PrescriptionAdministration < ApplicationRecord
       include Accountable
+      acts_as_paranoid
       attr_accessor :administrator_authorisation_token
       attr_accessor :witness_authorisation_token
 
