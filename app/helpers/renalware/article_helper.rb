@@ -21,5 +21,23 @@ module Renalware
       output.concat(capture(&block)) if block_given?
       output.safe_concat("</article>")
     end
+
+    # Renders
+    # <span>5 of 16<div>
+    # if the collection has been paginated, otherwise
+    # <span>5<div>
+    def collection_count(collection)
+      return unless collection&.respond_to?(:length)
+
+      parts = ["("]
+      parts.append(collection.length)
+      if collection.respond_to?(:total_count)
+        if collection.total_count > collection.length
+          parts.append(" of #{collection.total_count}")
+        end
+      end
+      parts.append(")")
+      content_tag("span", parts.join(""))
+    end
   end
 end

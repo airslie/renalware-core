@@ -1,11 +1,8 @@
-- count_prefix = "(#{apd_regimes.length}"
-- count_suffix = apd_regimes.respond_to?(:total_count) ? " of #{apd_regimes.total_count})" : ")"
-
 article.apd-regimes
   header
-    h3 APD Regimes
+    h2 APD Regimes
     .supplemental
-      span= "#{count_prefix}#{count_suffix}"
+      = collection_count(apd_regimes)
     span.noprint
       = link_to "View All",
                 patient_pd_apd_regimes_path(patient),
