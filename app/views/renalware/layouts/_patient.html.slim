@@ -6,8 +6,12 @@
 
 nav.patient-side-nav.full-screenable
   .layout-wrapper
-    /= render "renalware/patients/side_menu", patient: current_patient
-    = render Renalware::Patients::SideMenuComponent, patient: current_patient
+    = render "renalware/patients/side_menu", patient: current_patient
+    / Note that ActionView::Components are not really working out of the box inside an engine:
+    / "Could not find a template file for Renalware::Patients::SideMenuComponent."
+    / source_location.split(".")[0] returns the wrong segment when there is eg .rbenv and .2.6.3
+    / in the path. TODO: Check/raise issue on https://github.com/github/actionview-component
+    /= render Renalware::Patients::SideMenuComponent, patient: current_patient
 
 .main-content.patient-content.full-screenable
   .layout-wrapper
