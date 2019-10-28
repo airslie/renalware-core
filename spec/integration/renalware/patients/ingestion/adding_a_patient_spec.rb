@@ -41,6 +41,7 @@ describe "HL7 ADT~A28 message handling: 'Add person information'" do
 
   context "when the patient exists in Renalware" do
     it "updates their information" do
+      pending
       patient = create(:patient, local_patient_id: local_patient_id)
 
       expect {
