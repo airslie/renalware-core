@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.116
+28-10-2019
+### Added
+### Changed
+### Fixed
+- Revert use of ActionView::Component
+
 ## 2.0.115
 28-10-2019
 ### Added
