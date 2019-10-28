@@ -12,6 +12,7 @@ module Renalware
 
           FILE_TO_EXTRACT_FROM_ARCHIVE = /^egpcur.csv$/.freeze
 
+          # rubocop:disable Metrics/AbcSize
           def perform(file)
             logging_to_stringio(strio = StringIO.new)
             log "PrimaryCarePhysician count before update: #{primary_care_physician_count}"
@@ -26,6 +27,7 @@ module Renalware
           ensure
             file.update!(status: status, result: strio.string, time_taken: elapsed_ms)
           end
+          # rubocop:enable Metrics/AbcSize
 
           private
 

@@ -2,7 +2,6 @@
 
 module Renalware
   log "Adding Demo Site Users\n" do
-
     sites = %w(Barts KCH Kent Lister)
 
     sites.each do |site|
@@ -87,7 +86,7 @@ module Renalware
       u.email = "renalware@airslie.com"
       u.password = "develop!"
       u.approved = true
-      u.roles = [Renalware::Role.find_by!(name: :super_admin)]
+      u.roles = [Renalware::Role.find_by!(name: :devops)]
       u.signature = "Renalware Developer"
     end
   end

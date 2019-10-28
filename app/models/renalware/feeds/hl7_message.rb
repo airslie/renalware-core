@@ -11,10 +11,19 @@ module Renalware
     #   HL7Message.new(raw_message).patient_identification.internal_id
     #
     class HL7Message < SimpleDelegator
-      def initialize(message_string)
-        @message_string = message_string
-        super(::HL7::Message.new(message_string.lines))
-      end
+      ACTIONS = {
+        "ADT^A28" => :add_person_information,
+        "ADT^A31" => :update_person_information,
+        "ADT^A08" => :update_admission,
+        "ADT^A01" => :admit_patient,
+        "ADT^A02" => :transfer_patient,
+        "ADT^A03" => :discharge_patient,
+        "ADT^A11" => :cancel_admission,
+        "MFN^M02" => :add_consultant,
+        "ADT^A34" => :merge_patient,
+        "ADT^A13" => :cancel_discharge,
+        "ORU^R01" => :add_pathology_observations
+      }.freeze
 
       class ObservationRequest < SimpleDelegator
         alias_attribute :date_time, :observation_date
@@ -117,6 +126,8 @@ module Renalware
         alias_attribute :external_id, :patient_id
         alias_attribute :sex, :admin_sex
         alias_attribute :dob, :patient_dob
+        alias_attribute :born_on, :patient_dob
+        alias_attribute :died_at, :death_date
 
         def internal_id
           patient_id_list.split("^").first
@@ -132,6 +143,18 @@ module Renalware
 
         def given_name
           patient_name[1]
+        end
+
+        def suffix
+          patient_name[3]
+        end
+
+        def title
+          patient_name[4]
+        end
+
+        def address
+          super.split("^")
         end
 
         private
@@ -153,8 +176,36 @@ module Renalware
         self[:MSH].message_control_id
       end
 
-      def to_s
-        @message_string.tr("\r", "\n")
+      # Adding this so it is part of the interface and we can mock an HL7Message in tests
+      def to_hl7
+        super
+      end
+
+      def message_type
+        type.split("^").first
+      end
+
+      def event_type
+        parts = type.split("^")
+        parts.length == 2 && parts.last
+      end
+
+      %i(ORU ADT).each do |msg_type|
+        define_method(:"#{msg_type.to_s.downcase}?") do
+          msg_type.to_s == message_type
+        end
+      end
+
+      def action
+        ACTIONS.fetch(type)
+      end
+
+      def practice_code
+        self[:PD1].e3.split("^")[2] if self[:PD1]
+      end
+
+      def gp_code
+        self[:PD1].e4.split("^")[0] if self[:PD1]
       end
     end
   end

@@ -9,6 +9,21 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.115
+28-10-2019
+### Added
+- Introduce ActionView::Component using the LH patient nav as an example #2975
+- Pathololgy investigations: add searchable dropdown of OBRs #2918
+- Add a colour banner to identify the staging/test env #2819
+### Changed
+- PD Dashboard - limit number of regimes to 5 with option to View All #2814
+- Change Renal Profile PRD selection to use the Select2 widget #2972
+- Allow html and snippets in access procedure notes #2809
+- Disallow free text description when creating or editing a letter #2810
+- Pathology Investigations - make RH scrollable area taller #2917
+### Fixed
+- HD Diary - editing future slot replaces previous ones #2881
+
 ## 2.0.114
 16-10-2019
 ### Added

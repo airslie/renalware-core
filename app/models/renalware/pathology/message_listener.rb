@@ -3,14 +3,14 @@
 require_dependency "renalware/pathology"
 
 #
-# When subscribed to HL7 `message_arrived` messages, gets notified of incoming HL7 messages
+# When subscribed to HL7 `oru_message_arrived` messages, gets notified of incoming HL7 messages
 # and creates the observations contained therein provided the patient exists.
 #
 module Renalware
   module Pathology
     class MessageListener
       # Note: We are already inside a transaction here
-      def message_arrived(hl7_message:, **)
+      def oru_message_arrived(hl7_message:, **)
         pathology_params = parse_pathology_params(hl7_message)
         create_observation_requests_and_their_child_observations_from(pathology_params)
         #

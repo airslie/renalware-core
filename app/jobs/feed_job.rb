@@ -13,9 +13,7 @@
 #
 FeedJob = Struct.new(:raw_message) do
   def perform
-    Renalware::Feeds
-      .message_processor
-      .call(raw_message)
+    Renalware::Feeds.message_processor.call(raw_message)
   end
 
   def max_attempts

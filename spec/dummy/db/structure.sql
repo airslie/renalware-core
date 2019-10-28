@@ -2062,6 +2062,39 @@ ALTER SEQUENCE feed_files_id_seq OWNED BY feed_files.id;
 
 
 --
+-- Name: feed_hl7_test_messages; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE feed_hl7_test_messages (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description character varying,
+    body text NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: feed_hl7_test_messages_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE feed_hl7_test_messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_hl7_test_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE feed_hl7_test_messages_id_seq OWNED BY feed_hl7_test_messages.id;
+
+
+--
 -- Name: feed_messages; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -2073,7 +2106,8 @@ CREATE TABLE feed_messages (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     body_hash text,
-    patient_identifier character varying
+    patient_identifier character varying,
+    processed boolean DEFAULT false
 );
 
 
@@ -4878,6 +4912,50 @@ CREATE SEQUENCE patient_languages_id_seq
 --
 
 ALTER SEQUENCE patient_languages_id_seq OWNED BY patient_languages.id;
+
+
+--
+-- Name: patient_master_index; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE patient_master_index (
+    id bigint NOT NULL,
+    patient_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    nhs_number character varying,
+    hospital_number character varying,
+    title character varying,
+    family_name character varying,
+    middle_name character varying,
+    given_name character varying,
+    suffix character varying,
+    sex character varying,
+    born_on date,
+    died_at timestamp without time zone,
+    ethnicity character varying,
+    practice_code character varying,
+    gp_code character varying
+);
+
+
+--
+-- Name: patient_master_index_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE patient_master_index_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_master_index_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE patient_master_index_id_seq OWNED BY patient_master_index.id;
 
 
 --
@@ -8590,6 +8668,13 @@ ALTER TABLE ONLY feed_files ALTER COLUMN id SET DEFAULT nextval('feed_files_id_s
 
 
 --
+-- Name: feed_hl7_test_messages id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY feed_hl7_test_messages ALTER COLUMN id SET DEFAULT nextval('feed_hl7_test_messages_id_seq'::regclass);
+
+
+--
 -- Name: feed_messages id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -9070,6 +9155,13 @@ ALTER TABLE ONLY patient_ethnicities ALTER COLUMN id SET DEFAULT nextval('patien
 --
 
 ALTER TABLE ONLY patient_languages ALTER COLUMN id SET DEFAULT nextval('patient_languages_id_seq'::regclass);
+
+
+--
+-- Name: patient_master_index id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY patient_master_index ALTER COLUMN id SET DEFAULT nextval('patient_master_index_id_seq'::regclass);
 
 
 --
@@ -9913,6 +10005,14 @@ ALTER TABLE ONLY feed_files
 
 
 --
+-- Name: feed_hl7_test_messages feed_hl7_test_messages_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY feed_hl7_test_messages
+    ADD CONSTRAINT feed_hl7_test_messages_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: feed_messages feed_messages_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -10462,6 +10562,14 @@ ALTER TABLE ONLY patient_ethnicities
 
 ALTER TABLE ONLY patient_languages
     ADD CONSTRAINT patient_languages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_master_index patient_master_index_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY patient_master_index
+    ADD CONSTRAINT patient_master_index_pkey PRIMARY KEY (id);
 
 
 --
@@ -11861,6 +11969,13 @@ CREATE INDEX index_feed_files_on_file_type_id ON feed_files USING btree (file_ty
 --
 
 CREATE INDEX index_feed_files_on_updated_by_id ON feed_files USING btree (updated_by_id);
+
+
+--
+-- Name: index_feed_hl7_test_messages_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_hl7_test_messages_on_name ON feed_hl7_test_messages USING btree (name);
 
 
 --
@@ -13373,6 +13488,34 @@ CREATE INDEX index_patient_ethnicities_on_cfh_name ON patient_ethnicities USING 
 --
 
 CREATE UNIQUE INDEX index_patient_languages_on_code ON patient_languages USING btree (code);
+
+
+--
+-- Name: index_patient_master_index_on_family_name_and_given_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_master_index_on_family_name_and_given_name ON patient_master_index USING btree (family_name, given_name);
+
+
+--
+-- Name: index_patient_master_index_on_hospital_number; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_master_index_on_hospital_number ON patient_master_index USING btree (hospital_number);
+
+
+--
+-- Name: index_patient_master_index_on_nhs_number; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_master_index_on_nhs_number ON patient_master_index USING btree (nhs_number);
+
+
+--
+-- Name: index_patient_master_index_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_master_index_on_patient_id ON patient_master_index USING btree (patient_id);
 
 
 --
@@ -15530,6 +15673,14 @@ ALTER TABLE ONLY hd_diary_slots
 
 ALTER TABLE ONLY transplant_registration_statuses
     ADD CONSTRAINT fk_rails_36cb307ab5 FOREIGN KEY (description_id) REFERENCES transplant_registration_status_descriptions(id);
+
+
+--
+-- Name: patient_master_index fk_rails_37b31022ff; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY patient_master_index
+    ADD CONSTRAINT fk_rails_37b31022ff FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -17869,6 +18020,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190218142207'),
 ('20190225103005'),
 ('20190315125638'),
+('20190322120025'),
+('20190325134823'),
+('20190327100851'),
 ('20190401105149'),
 ('20190422095620'),
 ('20190424101709'),

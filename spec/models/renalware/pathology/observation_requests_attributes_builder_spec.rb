@@ -120,7 +120,7 @@ module Renalware::Pathology
           create(:pathology_observation_description, code: "NA")
           create(:pathology_observation_description, code: "CCA")
           create(:patient, local_patient_id: "Z999990")
-          message = Renalware::Feeds::MessageParser.new.parse(raw_message)
+          message = Renalware::Feeds::MessageParser.parse(raw_message)
 
           parser = described_class.new(message)
 
@@ -157,7 +157,7 @@ module Renalware::Pathology
           logger = instance_spy("Rails.logger")
           allow(logger).to receive(:warn).once
 
-          message = Renalware::Feeds::MessageParser.new.parse(raw_message)
+          message = Renalware::Feeds::MessageParser.parse(raw_message)
           parser = described_class.new(message, logger)
           results = parser.parse
 

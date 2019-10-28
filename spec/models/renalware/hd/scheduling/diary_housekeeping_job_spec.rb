@@ -102,45 +102,47 @@ module Renalware::HD::Scheduling
 
       context "when past master slots are being inherited by weekly diaries" do
         it "copies the master slot to the weekly diaries" do
-          day_of_week = Time.zone.today.cwday
-          week_period = Renalware::WeekPeriod.from_date(Time.zone.today)
-          weekly_diary = create_weekly_diary(week_period: week_period)
+          travel_to Date.new(2019, 10, 25) do
+            day_of_week = Time.zone.today.cwday
+            week_period = Renalware::WeekPeriod.from_date(Time.zone.today)
+            weekly_diary = create_weekly_diary(week_period: week_period)
 
-          create(
-            :hd_diary_slot,
-            diary: weekly_diary,
-            patient: patient,
-            station: station,
-            day_of_week: day_of_week,
-            diurnal_period_code_id: diurnal_period_code.id,
-            by: user
-          )
+            create(
+              :hd_diary_slot,
+              diary: weekly_diary,
+              patient: patient,
+              station: station,
+              day_of_week: day_of_week,
+              diurnal_period_code_id: diurnal_period_code.id,
+              by: user
+            )
 
-          create(
-            :hd_diary_slot,
-            diary: master_diary,
-            created_at: 5.years.ago,
-            patient: patient,
-            station: station,
-            day_of_week: day_of_week,
-            diurnal_period_code_id: diurnal_period_code.id,
-            by: user
-          )
+            create(
+              :hd_diary_slot,
+              diary: master_diary,
+              created_at: 5.years.ago,
+              patient: patient,
+              station: station,
+              day_of_week: day_of_week,
+              diurnal_period_code_id: diurnal_period_code.id,
+              by: user
+            )
 
-          expect(Diary.count).to eq(2) # we have a weekly and master diary already
-          expect(DiarySlot.count).to eq(2) # each has a slot
+            expect(Diary.count).to eq(2) # we have a weekly and master diary already
+            expect(DiarySlot.count).to eq(2) # each has a slot
 
-          job.perform
+            job.perform
 
-          # creates another 52 weekly diaries - we already have 1 master. Sot it is calculating
-          # there are 53 weeks across the year (which is possible as they are commercial weeks)
-          # and we already have 1 weekly diary so it is creating 52 more.
-          expect(Diary.count).to eq(54)
+            # creates another 52 weekly diaries - we already have 1 master. Sot it is calculating
+            # there are 53 weeks across the year (which is possible as they are commercial weeks)
+            # and we already have 1 weekly diary so it is creating 52 more.
+            expect(Diary.count).to eq(54)
 
-          # We go back 3 months when archiving past slots.
-          # There should now be 14 weekly slots (1 in each weekly diary, and 3 months from 'now'
-          # actually spans 14 commercial weeks) + 1 master slot.
-          expect(DiarySlot.count).to eq(15)
+            # We go back 3 months when archiving past slots.
+            # There should now be 13 weekly slots (1 in each weekly diary, and 3 months from 'now'
+            # actually spans 13 commercial weeks) + 1 master slot.
+            expect(DiarySlot.count).to eq(14)
+          end
         end
       end
     end

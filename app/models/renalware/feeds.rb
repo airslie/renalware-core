@@ -13,6 +13,8 @@ module Renalware
       "feed_"
     end
 
+    class DuplicateMessageError < StandardError; end
+
     def message_processor
       @message_processor ||= build_message_processor
     end
