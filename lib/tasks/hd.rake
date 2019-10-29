@@ -16,7 +16,7 @@ namespace :hd do
   namespace :diary do
     task housekeeping: :environment do
       Rails.logger = Logger.new(STDOUT)
-      Delayed::Job.enqueue Renalware::HD::Scheduling::ArchiveYesterdaysSlotsJob.new
+      Delayed::Job.enqueue Renalware::HD::Scheduling::DiaryHousekeepingJob.new
     end
   end
 end
