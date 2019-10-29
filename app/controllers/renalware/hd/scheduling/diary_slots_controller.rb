@@ -7,6 +7,8 @@ module Renalware
   module HD
     module Scheduling
       class DiarySlotsController < BaseController
+        skip_after_action :verify_policy_scoped
+
         # GET html -  renders a form
         # Here we will have been passed in the query string:
         # - the unit id

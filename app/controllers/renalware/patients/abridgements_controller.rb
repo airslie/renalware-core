@@ -5,6 +5,8 @@ require_dependency "renalware/patients"
 module Renalware
   module Patients
     class AbridgementsController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def index
         authorize Abridgement, :index?
         render locals: {
