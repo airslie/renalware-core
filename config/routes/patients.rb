@@ -36,7 +36,7 @@ resources :patients, except: [:destroy], controller: "patients/patients" do
   # Problems
   resources :problems, controller: "problems/problems" do
     post :sort, on: :collection
-    resources :notes, only: [:index, :new, :create], controller: "problems/notes"
+    resources :notes, only: [:index, :new, :create, :edit, :update], controller: "problems/notes"
   end
 
   namespace :surveys do
