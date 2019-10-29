@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.117
+29-10-2019
+### Added
+### Changed
+### Fixed
+- Raise the correct error when a duplicate feed mesage is received
+
 ## 2.0.116
 28-10-2019
 ### Added
