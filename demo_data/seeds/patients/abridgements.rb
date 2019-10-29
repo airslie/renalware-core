@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module Renalware
-  extend SeedsHelper
-
   log "Adding Abridged Patients" do
     abridgements = []
     file_path = Rails.root.join(File.dirname(__FILE__), "abridgements.csv")
