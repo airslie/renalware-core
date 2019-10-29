@@ -12,6 +12,7 @@ module Renalware
       class DiariesController < BaseController
         include Renalware::Concerns::PdfRenderable
         include Renalware::Concerns::Pageable
+        skip_after_action :verify_policy_scoped
 
         def edit
           authorize weekly_diary, :show?

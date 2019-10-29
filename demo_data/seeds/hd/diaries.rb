@@ -12,11 +12,11 @@ module Renalware
     end
 
     def call
-      HD::DiarySlot.delete_all
-      HD::Diary.delete_all
+      HD::Scheduling::DiarySlot.delete_all
+      HD::Scheduling::Diary.delete_all
 
       # Build master diary
-      master = HD::MasterDiary.find_or_initialize_by(hospital_unit_id: unit.id) do |diary|
+      master = HD::Scheduling::MasterDiary.find_or_initialize_by(hospital_unit_id: unit.id) do |diary|
         diary.save_by!(user)
       end
 
@@ -64,7 +64,7 @@ module Renalware
       diurnal_period_code_ids = HD::DiurnalPeriodCode.pluck(:id)
       station_ids = Renalware::HD::Station.where(hospital_unit_id: unit.id).pluck(:id)
 
-      weekly = HD::WeeklyDiary.find_or_initialize_by(
+      weekly = HD::Scheduling::WeeklyDiary.find_or_initialize_by(
         hospital_unit_id: unit.id,
         master_diary: master,
         year: 2017,

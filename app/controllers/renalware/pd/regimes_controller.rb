@@ -6,10 +6,11 @@ module Renalware
   module PD
     class RegimesController < BaseController
       include Renalware::Concerns::Pageable
-      # before_action :load_patient
+      skip_after_action :verify_policy_scoped
 
       def index
         regimes = regime_type_class.for_patient(patient).with_bags.ordered.page(page).per(per_page)
+        authorize(Regime, :index?)
         render locals: {
           patient: patient,
           regimes: regimes,
