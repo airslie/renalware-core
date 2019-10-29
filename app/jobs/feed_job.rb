@@ -17,7 +17,7 @@ FeedJob = Struct.new(:raw_message) do
   end
 
   def max_attempts
-    4
+    2
   end
 
   def destroy_failed_jobs?
@@ -25,13 +25,12 @@ FeedJob = Struct.new(:raw_message) do
   end
 
   # Reschedule after an error. No point trying straight away, so try at these intervals:
-  # After attempt no.  Wait for hours
+  # After attempt no. Wait for hours
   # ---------------------------
   # 1                  2
   # 2                  17
-  # 3                  82
   # Then give up.
-  # Note e.g. attempts**4 == attempts to the power of 4 == 81
+  # Note e.g. attempts**4 == attempts to the power of 4
   def reschedule_at(current_time, attempts)
     current_time + ((attempts**4) + 1).hours
   end
