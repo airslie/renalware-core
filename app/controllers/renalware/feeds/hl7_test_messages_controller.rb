@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/admin"
-require "ap"
 
 module Renalware
   module Feeds
