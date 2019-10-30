@@ -86,7 +86,6 @@ PATH
       uglifier (~> 4.2)
       validates_timeliness (~> 4.1.0)
       virtus (~> 1.0.5)
-      webpacker (~> 4.0)
       whenever
       wicked_pdf
       wisper (~> 2.0.0)
@@ -677,7 +676,7 @@ DEPENDENCIES
   simplecov
   trix!
   webmock (~> 3.7)
-  webpacker
+  webpacker (~> 4.0)
   wisper-rspec (~> 1.1.0)
   wkhtmltopdf-heroku (~> 2.12.3)
 
