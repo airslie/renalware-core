@@ -9,10 +9,11 @@ module Renalware::Feeds
     subject(:decorator) { MessageParser.parse(raw_message) }
 
     let(:message_type) { "ORU^R01" }
+    let(:sex) { "F" }
     let(:raw_message) do
       msg = <<-RAW.strip_heredoc
         MSH|^~\&|HM|LBE|SCM||20091112164645||#{message_type}|1258271|P|2.3.1|||AL||||
-        PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
+        PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|#{sex}|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
         PV1||Inpatient|NIBC^^^^^^^^|||||MID^KINGS MIDWIVES||||||||||NHS|HXF888888^^^Visit Number|||||||||
         ORC|RE|^PCS|09B0099478^LA||CM||||200911111841|||MID^KINGS MIDWIVES|||||||
         OBR|1|123456^PCS|09B0099478^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
@@ -132,6 +133,31 @@ module Renalware::Feeds
         subject { pi.address }
 
         it { is_expected.to eq(["18 RABBITHOLE ROAD", "LONDON", "", "", "SE8 8JR"]) }
+      end
+
+      describe "#sex" do
+        %w(F M O U A N C f m).each do |admin_sex|
+          context "when #{admin_sex}" do
+            let(:sex) { admin_sex }
+
+            it { expect { pi.sex }.not_to raise_error }
+          end
+        end
+
+        %w(MALE OTHER).each do |admin_sex|
+          context "when #{admin_sex}" do
+            let(:sex) { admin_sex }
+
+            it {
+              expect {
+                pi.sex
+              }.to raise_error(
+                HL7::InvalidDataError,
+                "bad administrative sex value (not F|M|O|U|A|N|C) value is '#{admin_sex}'"
+              )
+            }
+          end
+        end
       end
     end
   end
