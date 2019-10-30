@@ -124,7 +124,6 @@ module Renalware
 
       class PatientIdentification < SimpleDelegator
         alias_attribute :external_id, :patient_id
-        alias_attribute :sex, :admin_sex
         alias_attribute :dob, :patient_dob
         alias_attribute :born_on, :patient_dob
         alias_attribute :died_at, :death_date
@@ -155,6 +154,15 @@ module Renalware
 
         def address
           super.split("^")
+        end
+
+        # Try to read sex_admin, but be aware it raises an error if it is not in F|M|O|U|A|N|C
+        # in which case append the actual value so we know what is causing the failure.
+        def sex
+          self[8] = self[8]&.upcase # Sex eg F should always be uppercase so no harm in doing this
+          admin_sex
+        rescue HL7::InvalidDataError => e
+          raise e, "#{e} value is '#{self[8]}'", e.backtrace
         end
 
         private

@@ -21,7 +21,7 @@ module Renalware
           # when :discharge_patient then make_discharge_patient(message)
           # when :cancel_discharge then make_cancel_discharge(message)
           # when :add_consultant then make_add_consultant(message)
-          else :no_matching_command
+          else noop
           end
         end
 
@@ -47,6 +47,10 @@ module Renalware
 
         def make_update_patient(message)
           Commands::AddOrUpdatePatient.new(message)
+        end
+
+        def noop
+          NullObject.instance
         end
 
         # def make_merge_patient(message)
