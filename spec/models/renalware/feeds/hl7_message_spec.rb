@@ -74,13 +74,13 @@ module Renalware::Feeds
     describe "#oru?" do
       subject { decorator.oru? }
 
-      context "for pathology messages" do
+      context "when a pathology ORU message" do
         let(:message_type) { "ORU^R01" }
 
         it { is_expected.to eq(true) }
       end
 
-      context "for ADT messages" do
+      context "when an ADT message" do
         let(:message_type) { "ADT^A31" }
 
         it { is_expected.to be_falsey }
@@ -90,13 +90,13 @@ module Renalware::Feeds
     describe "#adt?" do
       subject { decorator.adt? }
 
-      context "for pathology messages" do
+      context "when a pathology ORU message" do
         let(:message_type) { "ORU^R01" }
 
         it { is_expected.to be_falsey }
       end
 
-      context "for ADT messages" do
+      context "when an ADT message" do
         let(:message_type) { "ADT^A31" }
 
         it { is_expected.to eq(true) }
@@ -106,13 +106,19 @@ module Renalware::Feeds
     describe "#action" do
       subject { decorator.action }
 
-      context "for pathology messages" do
+      context "when a pathology ORU message" do
         let(:message_type) { "ORU^R01" }
 
         it { is_expected.to eq(:add_pathology_observations) }
       end
 
-      context "for ADT^A31 messages" do
+      context "when there is an unhandled message" do
+        let(:message_type) { "ADT^Z99" }
+
+        it { is_expected.to eq(:no_matching_command) }
+      end
+
+      context "when an ADT^A31 message" do
         let(:message_type) { "ADT^A31" }
 
         it { is_expected.to eq(:update_person_information) }
