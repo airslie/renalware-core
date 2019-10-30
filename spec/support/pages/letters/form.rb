@@ -2,6 +2,7 @@
 
 require "rails_helper"
 require_relative "../page_object"
+require "capybara-select-2"
 
 # rubocop disable Metrics/LineLength
 module Pages
@@ -11,7 +12,8 @@ module Pages
 
       PERSON_ROLE_TO_RADIO_ID_MAP = {
         patient: :letter_main_recipient_attributes_person_role_patient,
-        primary_care_physician: :letter_main_recipient_attributes_person_role_primary_care_physician,
+        primary_care_physician:
+          :letter_main_recipient_attributes_person_role_primary_care_physician,
         gp: :letter_main_recipient_attributes_person_role_primary_care_physician,
         contact: :letter_main_recipient_attributes_person_role_contact
       }.freeze

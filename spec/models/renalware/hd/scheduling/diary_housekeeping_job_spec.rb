@@ -12,7 +12,7 @@ module Renalware::HD::Scheduling
     # before 4 January which is always in the first week of the yea
     # http://en.wikipedia.org/wiki/ISO_week_date#Last_week
     def num_weeks_in_year(year = Date.current.year)
-      Date.new(year, 12, 28).cweek # magick date!
+      Date.new(year - 1, 12, 28).cweek # magick date!
     end
 
     let(:user) { create(:user) }

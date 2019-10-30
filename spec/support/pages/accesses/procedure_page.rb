@@ -1,0 +1,53 @@
+# frozen_string_literal: true
+
+require_relative "../page_object"
+
+module Pages
+  module Accesses
+    class ProcedurePage < PageObject
+      include CapybaraHelper
+      pattr_initialize :patient
+
+      def visit_add
+        visit patient_accesses_dashboard_path(patient)
+        within(".page-actions") do
+          click_on "Add"
+          click_on "Access Procedure"
+        end
+      end
+
+      def visit_edit
+        visit patient_accesses_dashboard_path(patient)
+        within_article "Procedure History" do
+          click_on "Edit"
+        end
+      end
+
+      def performed_on=(value)
+        fill_in "Performed On", with: value
+      end
+
+      def performed_by=(value)
+        fill_in "Performed By", with: value
+      end
+
+      def procedure_type=(value)
+        select(value, from: "Access Procedure")
+      end
+
+      def side=(value)
+        select value, from: "Access Side"
+      end
+
+      def catetheter_insertion_technique=(value)
+        select value, from: "PD Catheter Insertion Technique"
+      end
+
+      def save
+        within ".top" do
+          find('input[name="commit"]').click
+        end
+      end
+    end
+  end
+end
