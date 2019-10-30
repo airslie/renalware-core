@@ -6,8 +6,11 @@ This project adheres to Semantic Versioning.
 
 ## Unreleased
 ### Added
+- Allow editing problem notes #2792
 ### Changed
 ### Fixed
+- Raise the correct error when a duplicate feed mesage is received
+- Handle unknown HL7 event codes
 
 ## 2.0.117
 29-10-2019
