@@ -89,7 +89,12 @@ ensure
 end
 
 def enhance_assets_precompile_with_renalware_webpacker_compile
-  Rake::Task["assets:precompile"].enhance(["renalware:webpacker_compile"])
+  # Becuase of an issue deploying BLT (not affecting KCH for some reason) I am temporarily
+  # removing the engine webpacker_precompile and insterad just doing yarn_install.
+  # The utter mess of webpacker in an engine means I think that I will need to publish a
+  # @renalware/core npm package at gem publish time and reference that from the host app.
+  # Rake::Task["assets:precompile"].enhance(["renalware:webpacker_compile"])
+  Rake::Task["assets:precompile"].enhance(["renalware:yarn_install"])
 end
 
 # When a host app runs rake assets:precompile, hook into this and enhance the

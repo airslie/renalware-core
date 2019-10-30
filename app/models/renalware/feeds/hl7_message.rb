@@ -197,7 +197,7 @@ module Renalware
       end
 
       def action
-        ACTIONS.fetch(type)
+        ACTIONS.fetch(type, :no_matching_command)
       end
 
       def practice_code
