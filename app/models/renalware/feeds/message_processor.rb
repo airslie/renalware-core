@@ -31,6 +31,8 @@ module Renalware
         end
 
         allow_listeners_to_post_process_the_message
+      rescue Feeds::DuplicateMessageError => e
+        Rails.logger.warn("Rejected duplicate HL7 message: #{e.message}")
       rescue StandardError => e
         notify_exception(e)
         raise e
@@ -64,11 +66,6 @@ module Renalware
         # current job to retry.
         message_to_broadcast = "#{hl7_message.message_type.downcase}_message_processed"
         broadcast(message_to_broadcast.to_sym, feed_message: feed_message)
-      rescue Feeds::DuplicateMessageError => e
-        Rails.logger.warn("Rejected duplicate HL7 message: #{e.message}")
-      rescue StandardError => e
-        notify_exception(e)
-        raise e
       end
 
       def parse_raw_message_into_hl7_object
