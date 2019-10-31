@@ -23,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.119)
+    renalware-core (2.0.120)
       actionview-component (~> 1.3.6)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.28.0)
@@ -433,7 +433,7 @@ GEM
     pundit (2.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.7)
-    rack-attack (6.2.0)
+    rack-attack (6.2.1)
       rack (>= 1.0, < 3)
     rack-protection (2.0.7)
       rack

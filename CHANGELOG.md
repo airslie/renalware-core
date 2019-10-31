@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.120
+### Added
+### Changed
+### Fixed
+- Fix ADT sex issues
+
 ### 2.0.119
 ### Added
 ### Changed
