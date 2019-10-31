@@ -160,6 +160,9 @@ module Renalware
         # in which case append the actual value so we know what is causing the failure.
         def sex
           self[8] = self[8]&.upcase # Sex eg F should always be uppercase so no harm in doing this
+          self[8] = "M" if self[8] == "MALE"
+          self[8] = "F" if self[8] == "FEMALE"
+          self[8] = "O" if self[8] == "OTHER"
           admin_sex
         rescue HL7::InvalidDataError => e
           raise e, "#{e} value is '#{self[8]}'", e.backtrace

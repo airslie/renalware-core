@@ -144,7 +144,7 @@ module Renalware::Feeds
           end
         end
 
-        %w(MALE OTHER).each do |admin_sex|
+        %w(XX YYYY Z).each do |admin_sex|
           context "when #{admin_sex}" do
             let(:sex) { admin_sex }
 
@@ -156,6 +156,46 @@ module Renalware::Feeds
                 "bad administrative sex value (not F|M|O|U|A|N|C) value is '#{admin_sex}'"
               )
             }
+          end
+        end
+
+        context "when sex is MALE" do
+          let(:sex) { "MALE" }
+
+          it "maps if to M" do
+            expect(pi.sex).to eq("M")
+          end
+        end
+
+        context "when sex is male" do
+          let(:sex) { "male" }
+
+          it "maps if to M" do
+            expect(pi.sex).to eq("M")
+          end
+        end
+
+        context "when sex is female" do
+          let(:sex) { "female" }
+
+          it "maps if to M" do
+            expect(pi.sex).to eq("F")
+          end
+        end
+
+        context "when sex is FEMALE" do
+          let(:sex) { "FEMALE" }
+
+          it "maps if to F" do
+            expect(pi.sex).to eq("F")
+          end
+        end
+
+        context "when sex is OTHER" do
+          let(:sex) { "OTHER" }
+
+          it "maps if to O" do
+            expect(pi.sex).to eq("O")
           end
         end
       end
