@@ -105,6 +105,24 @@ module Renalware
         )
       }
     }
+
+    # This the default mapping from possible HL7 PID 'administrative sex' values that we
+    # might see in a message, to their Renalware equivalent. A hospital can override this
+    # mapping if they have different values in their HL7 messages.
+    # Note that the standard HL7 PID admin sex values are not adhered to here. For reference
+    # they are:
+    # F Female, M Male, O Other, U Unknown, A Ambiguous, N Not applicable
+    config_accessor(:hl7_pid_sex_map) do
+      {
+        "MALE" => "M",
+        "FEMALE" => "F",
+        "OTHER" => "NS",
+        "UNKNOWN" => "NK",
+        "NOTKNOWN" => "NK",
+        "AMBIGUOUS" => "NS",
+        "NOT APPLICABLE" => "NS"
+      }.freeze
+    end
   end
 
   def self.config

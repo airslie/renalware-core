@@ -156,17 +156,26 @@ module Renalware
           super.split("^")
         end
 
-        # Try to read sex_admin, but be aware it raises an error if it is not in F|M|O|U|A|N|C
-        # in which case append the actual value so we know what is causing the failure.
+        # We don't use the HL7::Message#sex_admin method (from the ruby hl7 gem) because it
+        # raises an error during reading if the sex value in the PID is not in (F|M|O|U|A|N|C).
+        # I think that behaviour is a not quite right as a hospital might not use those values in
+        # their HL7 PID implementation, especially in the UK. KCH does not for instance.
+        # So instead we read the PID array directly, and map whatever is in there to its Renalware
+        # equivalent, then overwrite the existing #admin_sex method so the HL7::Message version
+        # cannot be called. If we can't map it we just return whatever is in there and its up to
+        # calling code to handle any coercion issues. The hl7_pid_sex_map hash can be configured
+        # by the host app to support whatever sex values it uses intenrally.
+        # I think some work needs to be done on Renalware sex and gender (which are slightly
+        # conflated in Renalware). For example:
+        # - the LOINC names for administrative sex: Male Female Unknown (https://loinc.org/72143-1/)
+        # - the LOINC names for sex at birth: Male Female Unknown (https://loinc.org/LL3324-2/)
+        # - HL7's definitions: F Female, M Male, O Other, U Unknown, A Ambiguous, N Not applicable
+        # - gender: 7 options https://loinc.org/76691-5/
         def sex
-          self[8] = self[8]&.upcase # Sex eg F should always be uppercase so no harm in doing this
-          self[8] = "M" if self[8] == "MALE"
-          self[8] = "F" if self[8] == "FEMALE"
-          self[8] = "O" if self[8] == "OTHER"
-          admin_sex
-        rescue HL7::InvalidDataError => e
-          raise e, "#{e} value is '#{self[8]}'", e.backtrace
+          pid_sex = self[8]&.upcase
+          Renalware.config.hl7_pid_sex_map.fetch(pid_sex, pid_sex)
         end
+        alias admin_sex sex
 
         private
 
