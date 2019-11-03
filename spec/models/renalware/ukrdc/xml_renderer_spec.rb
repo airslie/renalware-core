@@ -39,18 +39,16 @@ module Renalware
         # There will be 3 errors about GPPracticeId
         # - too long
         # - not correct pattern eg not matching G[0-9]{7}
-        # - not of correct local atomic type
         expect(
           result.validation_errors.count { |x| x.message =~ /GPPracticeId/ }
-        ).to eq(3)
+        ).to eq(2)
 
         # There will be 3 errors about GPId
         # - too long
         # - not correct pattern eg not matching G[0-9]{7}
-        # - not of correct local atomic type
         expect(
           result.validation_errors.count { |x| x.message =~ /GPId/ }
-        ).to eq(3)
+        ).to eq(2)
       end
     end
   end
