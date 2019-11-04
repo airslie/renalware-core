@@ -129,6 +129,8 @@ module Renalware
         alias_attribute :died_at, :death_date
 
         def internal_id
+          return unless defined?(patient_id_list)
+
           patient_id_list.split("^").first
         end
 
