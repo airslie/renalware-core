@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.121
+### Added
+### Changed
+### Fixed
+- Translate HL7 PID administrative sex to Renalware sex #2992
+
 ### 2.0.120
 ### Added
 ### Changed
