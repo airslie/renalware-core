@@ -135,67 +135,31 @@ module Renalware::Feeds
         it { is_expected.to eq(["18 RABBITHOLE ROAD", "LONDON", "", "", "SE8 8JR"]) }
       end
 
-      describe "#sex" do
-        %w(F M O U A N C f m).each do |admin_sex|
-          context "when #{admin_sex}" do
-            let(:sex) { admin_sex }
+      describe "#sex (mapping PID sex to Renalware sex)" do
+        subject { pi.sex }
 
-            it { expect { pi.sex }.not_to raise_error }
-          end
-        end
+        {
+          "FEMALE" => "F",
+          "female" => "F",
+          "f" => "F",
+          "MALE" => "M",
+          "male" => "M",
+          "m" => "M",
+          "UNKNOWN" => "NK",
+          "unknown" => "NK",
+          "NOTKNOWN" => "NK",
+          "OTHER" => "NS",
+          "other" => "NS",
+          "Ambiguous" => "NS",
+          "Not applicable" => "NS",
+          "XyXy" => "XYXY",
+          "" => ""
 
-        %w(XX YYYY Z).each do |admin_sex|
-          context "when #{admin_sex}" do
-            let(:sex) { admin_sex }
+        }.each do |original, mapped|
+          context "when PID sex is #{original}" do
+            let(:sex) { original }
 
-            it {
-              expect {
-                pi.sex
-              }.to raise_error(
-                HL7::InvalidDataError,
-                "bad administrative sex value (not F|M|O|U|A|N|C) value is '#{admin_sex}'"
-              )
-            }
-          end
-        end
-
-        context "when sex is MALE" do
-          let(:sex) { "MALE" }
-
-          it "maps if to M" do
-            expect(pi.sex).to eq("M")
-          end
-        end
-
-        context "when sex is male" do
-          let(:sex) { "male" }
-
-          it "maps if to M" do
-            expect(pi.sex).to eq("M")
-          end
-        end
-
-        context "when sex is female" do
-          let(:sex) { "female" }
-
-          it "maps if to M" do
-            expect(pi.sex).to eq("F")
-          end
-        end
-
-        context "when sex is FEMALE" do
-          let(:sex) { "FEMALE" }
-
-          it "maps if to F" do
-            expect(pi.sex).to eq("F")
-          end
-        end
-
-        context "when sex is OTHER" do
-          let(:sex) { "OTHER" }
-
-          it "maps if to O" do
-            expect(pi.sex).to eq("O")
+            it { is_expected.to eq(mapped) }
           end
         end
       end
