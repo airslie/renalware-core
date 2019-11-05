@@ -23,20 +23,20 @@ describe "Managing an HD DNA Session", type: :request do
     end
 
     context "when the session is no longer mutable" do
-      it "redirects to #show with a flash message" do
+      it "redirects to #show with a flash message", type: :system do
         dna_session = travel_to(Time.zone.now - 1.day) do
           create(:hd_dna_session)
         end
 
         route_params = { patient_id: dna_session.patient, id: dna_session.id }
-        # show_path = patient_hd_session_path(route_params)
+        show_path = patient_hd_session_path(route_params)
+        login_as_clinical
         edit_path = edit_patient_hd_session_path(route_params)
 
-        get edit_path
+        visit edit_path
 
-        # expect(response).to redirect_to(show_path)
-        expect(flash[:warning]).to be_present
-        expect(flash[:warning]).not_to match(/translation/)
+        # Disallows edit and redirect to the show page
+        expect(page).to have_current_path(show_path)
       end
     end
   end

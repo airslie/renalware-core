@@ -5,6 +5,7 @@ require "rails_helper"
 module Renalware
   module HD
     describe PrescriptionAdministration, type: :model do
+      it_behaves_like "a Paranoid model"
       let(:administered_by) { User.new }
       let(:witnessed_by) { User.new }
       let(:administrator_authorisation_token) { nil }

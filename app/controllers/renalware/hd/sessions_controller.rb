@@ -69,6 +69,7 @@ module Renalware
         session = Session.for_patient(patient).find(params[:id])
         authorize session
         session.destroy!
+        regenerate_rolling_hd_statistics
         message = t(".success", model_name: "HD session")
         redirect_to patient_hd_dashboard_path(patient), notice: message
       end
@@ -144,6 +145,10 @@ module Renalware
           .require(:hd_session)
           .fetch(:document, nil)
           .try(:permit!)
+      end
+
+      def regenerate_rolling_hd_statistics
+        Delayed::Job.enqueue UpdateRollingPatientStatisticsDjJob.new(patient.id)
       end
     end
     # rubocop:enable Metrics/ClassLength

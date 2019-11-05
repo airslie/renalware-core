@@ -8,7 +8,9 @@ module Renalware
       end
 
       def edit?
-        !record.immutable?
+        return false unless record.persisted?
+
+        user_is_super_admin? || !record.immutable?
       end
     end
   end

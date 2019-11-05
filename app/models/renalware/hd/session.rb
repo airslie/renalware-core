@@ -10,6 +10,8 @@ module Renalware
       include Accountable
       include ExplicitStateModel
 
+      acts_as_paranoid
+
       # Prevent instances of this of this base class from being saved
       validates :type, presence: true
 

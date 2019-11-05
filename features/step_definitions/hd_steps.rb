@@ -190,3 +190,7 @@ Then(/^the protocol contains$/) do |table|
   pending
   expect_protocol_to_be(table.hashes)
 end
+
+Then("the rolling session statitics for the patient are regenerated") do
+  assert_rolling_session_statitics_job_enqueued
+end
