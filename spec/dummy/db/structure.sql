@@ -5989,7 +5989,8 @@ CREATE TABLE problem_notes (
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    deleted_at timestamp without time zone
 );
 
 
@@ -13953,6 +13954,13 @@ CREATE INDEX index_problem_notes_on_created_by_id ON problem_notes USING btree (
 
 
 --
+-- Name: index_problem_notes_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_problem_notes_on_deleted_at ON problem_notes USING btree (deleted_at);
+
+
+--
 -- Name: index_problem_notes_on_problem_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -18080,6 +18088,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191008045159'),
 ('20191012121433'),
 ('20191018143635'),
-('20191018144917');
+('20191018144917'),
+('20191029095202');
 
 
