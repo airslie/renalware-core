@@ -10,7 +10,7 @@ module Renalware
           validate :drug_present
 
           def observation_required_for_patient?(patient, _date)
-            patient.drugs.include?(drug)
+            patient.drugs.exists?(id: param_id)
           end
 
           def to_s
@@ -24,7 +24,7 @@ module Renalware
           end
 
           def drug_present
-            return if drug.present?
+            return if Drugs::Drug.exists?(id: param_id)
 
             errors.add(:param_id, "param_id must be the id of a Drug")
           end

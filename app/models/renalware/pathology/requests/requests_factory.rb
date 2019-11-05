@@ -6,14 +6,11 @@ module Renalware
   module Pathology
     module Requests
       class RequestsFactory
-        def initialize(patients, params)
-          @patients = patients
-          @params = params
-        end
+        pattr_initialize :patients, :params
 
         def build
-          @patients.map do |patient|
-            RequestFactory.new(patient, @params).build
+          patients.map do |patient|
+            RequestFactory.new(patient, params).build
           end
         end
       end

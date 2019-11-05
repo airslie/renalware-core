@@ -10,7 +10,12 @@ module Renalware
           validate :drug_type_present
 
           def observation_required_for_patient?(patient, _date)
-            patient.drugs.flat_map(&:drug_types).include?(drug_type)
+            patient
+              .drugs
+              .select(:id)
+              .joins(:classifications)
+              .where("drug_types_drugs.drug_type_id = ?", param_id)
+              .count > 0
           end
 
           def to_s
@@ -24,7 +29,7 @@ module Renalware
           end
 
           def drug_type_present
-            return if drug_type.present?
+            return if Drugs::Type.exists?(param_id)
 
             errors.add(:param_id, "param_id must be the id of a DrugType")
           end
