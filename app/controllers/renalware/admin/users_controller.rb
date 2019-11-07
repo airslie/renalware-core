@@ -17,26 +17,24 @@ module Renalware
     end
 
     def edit
-      load_user
+      render locals: { user: find_and_authorize_user }
     end
 
     def update
-      load_user
-
-      if update_user.call(update_params)
+      user = find_and_authorize_user
+      if System::UpdateUser.new(user).call(update_params)
         redirect_to admin_users_path,
                     notice: t(".success", model_name: "user")
       else
         flash.now[:error] = t(".failed", model_name: "user")
-        render :edit
+        render :edit, locals: { user: user }
       end
     end
 
     private
 
-    def load_user
-      @user = User.find(params[:id])
-      authorize @user
+    def find_and_authorize_user
+      User.find(params[:id]).tap { |user_| authorize user_ }
     end
 
     def update_params
@@ -45,15 +43,19 @@ module Renalware
     end
 
     def user_params
-      params.require(:user).permit(:approved, :unexpire, :telephone, role_ids: [])
+      params
+        .require(:user)
+        .permit(
+          :approved,
+          :unexpire,
+          :telephone,
+          :consultant,
+          role_ids: []
+        )
     end
 
     def role_ids
       (user_params[:role_ids] || []).reject(&:blank?)
-    end
-
-    def update_user
-      @update_user ||= System::UpdateUser.new(@user)
     end
   end
 end

@@ -1,47 +1,52 @@
 = within_admin_layout(title: "Edit",
                       breadcrumbs: breadcrumb_for("Users", admin_users_path)) do
 
-  h2= @user
+  h2= user
 
-  = simple_form_for @user,
+  = simple_form_for user,
                     html: { autocomplete: "off" },
-                    url: admin_user_path(@user) do |f|
+                    url: admin_user_path(user) do |f|
     = f.input :approved, as: :hidden, input_html: { value: true }
 
-    - if @user.errors.any?
+    - if user.errors.any?
       ul.error-messages
-        - @user.errors.full_messages.each do |msg|
+        - user.errors.full_messages.each do |msg|
           li= msg
 
-    - if @user.expired?
+    - if user.expired?
       .row
         = check_box_tag "user[unexpire]", true, false, class: "inline"
         = label_tag :user_unexpire, "Reactivate account"
 
     span
       | Requested write access: &nbsp;
-      = yes_no(@user.asked_for_write_access)
+      = yes_no(user.asked_for_write_access)
 
     br
     br
     - Renalware::Role.all.order(id: :asc).each_with_index do |role, index|
       - element_id = "user_role_ids_#{index}"
-      - policy = Pundit.policy(current_user, @user)
+      - policy = Pundit.policy(current_user, user)
       = check_box_tag "user[role_ids][]",
                       role.id,
-                      @user.has_role?(role.name),
+                      user.has_role?(role.name),
                       disabled: !(policy.assign_role?(role)),
                       id: element_id,
                       class: "inline"
       = label_tag element_id, role.name.humanize
-    br
     br
 
     = f.input :telephone,
               input_html: { class: "input small" },
               wrapper: :horizontal_small
 
-    - msg = @user.approved? ? "Update" : "Approve"
+    = f.input :consultant,
+              as: :boolean,
+              checked_value: "true",
+              unchecked_value: "false",
+              wrapper: :horizontal_small
+
+    - msg = user.approved? ? "Update" : "Approve"
     = f.submit msg, class: "button"
     span= " or "
     = link_to "cancel", admin_users_path

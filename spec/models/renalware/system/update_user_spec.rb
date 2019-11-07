@@ -112,6 +112,41 @@ module Renalware::System
           }.to change(adapter.enqueued_jobs, :size).by(0)
         end
       end
+
+      context "with an non-consultant user" do
+        it "assigns them the consultant flag" do
+          user = build(:user, consultant: false)
+
+          UpdateUser.new(user).call(consultant: "true")
+
+          expect(user.reload.consultant).to eq(true)
+        end
+
+        it "does not send an email" do
+          user = build(:user, consultant: false)
+          expect {
+            UpdateUser.new(user).call(consultant: "true")
+          }.to change(adapter.enqueued_jobs, :size).by(0)
+        end
+      end
+
+      context "with an consultant user" do
+        it "can remove the consultant flag" do
+          user = build(:user, consultant: true)
+
+          UpdateUser.new(user).call(consultant: "bla")
+
+          expect(user.reload.consultant).to eq(false)
+        end
+
+        it "does not send an email" do
+          user = build(:user, consultant: true)
+
+          expect {
+            UpdateUser.new(user).call(consultant: "bla")
+          }.to change(adapter.enqueued_jobs, :size).by(0)
+        end
+      end
     end
   end
 end
