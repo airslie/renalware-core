@@ -24,6 +24,7 @@ module Renalware
         User.transaction do
           approve if can_approve?(params)
           unexpire if can_unexpire?(params)
+          user.consultant = true?(params[:consultant])
           authorise(params)
           user.telephone = params[:telephone]
           user.save!

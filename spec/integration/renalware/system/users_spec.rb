@@ -32,11 +32,11 @@ describe "Managing Users", type: :request do
   describe "PATCH update" do
     context "with valid attributes" do
       it "updates a record" do
-        attributes = { approved: !user.approved, role_ids: user.role_ids }
+        attributes = { approved: !user.approved, role_ids: user.role_ids, consultant: "true" }
         patch admin_user_path(user), params: { user: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::User).to exist(id: user.id, approved: !user.approved)
+        expect(Renalware::User).to exist(id: user.id, approved: !user.approved, consultant: true)
 
         follow_redirect!
 
