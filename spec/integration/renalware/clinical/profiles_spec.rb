@@ -26,8 +26,10 @@ describe "Viewing clinical profile", type: :request do
       headers = { "HTTP_REFERER" => "/" }
       params = {
         clinical_profile: {
-          history: { smoking: "ex", alcohol: "rarely" },
-          diabetes: { diagnosis: "true", diagnosed_on: "12-12-2017" }
+          document: {
+            history: { smoking: "ex", alcohol: "rarely" },
+            diabetes: { diagnosis: "true", diagnosed_on: "12-12-2017" }
+          }
         }
       }
 

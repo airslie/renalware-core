@@ -45,6 +45,7 @@ module Renalware
     belongs_to :country_of_birth, class_name: "System::Country"
     belongs_to :religion, class_name: "Patients::Religion"
     belongs_to :language, class_name: "Patients::Language"
+    belongs_to :named_consultant, class_name: "User"
     has_many :bookmarks, class_name: "Patients::Bookmark"
     has_many :alerts, class_name: "Patients::Alert"
     has_one :worry, class_name: "Patients::Worry"

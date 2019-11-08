@@ -129,6 +129,17 @@ module Renalware
           expect(actual).not_to include(unsigned)
         end
       end
+
+      describe "consultants" do
+        it "retrieves only users wih the consultant boolean flag set to true" do
+          consultant = create(:user, consultant: true)
+          create(:user)
+
+          consultants = User.consultants
+
+          expect(consultants).to eq([consultant])
+        end
+      end
     end
   end
 end

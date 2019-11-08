@@ -37,6 +37,7 @@ module Renalware
         .distinct("roles_users.user_id")
         .where("roles_users.user_id is null")
     }
+    scope :consultants, -> { where(consultant: true).excluding_system_user.ordered }
 
     # Non-persistent attribute to signify we want to use extended validation.
     # We need to refactor this by ising a form object for updating a user.
