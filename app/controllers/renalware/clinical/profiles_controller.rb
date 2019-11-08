@@ -4,6 +4,7 @@ require_dependency "renalware/clinical"
 
 module Renalware
   module Clinical
+    # Note that there is no concrete Clinical::Profile, most data here is persisted in the patient
     class ProfilesController < Clinical::BaseController
       def show
         authorize patient
@@ -31,24 +32,28 @@ module Renalware
       private
 
       def update_patient
+        patient.named_consultant_id = profile_params[:named_consultant_id]
         document = patient.document
+
         %i(diabetes history).each do |document_attribute|
           document.send(
             :"#{document_attribute}=",
-            profile_params[document_attribute].symbolize_keys
+            profile_params[:document][document_attribute].symbolize_keys
           )
         end
-        patient.by = current_user
-        patient.save!
+        patient.save_by! current_user
       end
 
       def profile_params
         params
           .require(:clinical_profile)
           .permit(
-            diabetes: %i(diagnosis diagnosed_on),
-            history: %i(alcohol smoking))
-          .to_h
+            :named_consultant_id,
+            document: {
+              diabetes: %i(diagnosis diagnosed_on),
+              history: %i(alcohol smoking)
+            }
+          ).to_h
       end
     end
   end

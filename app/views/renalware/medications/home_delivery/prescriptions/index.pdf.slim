@@ -77,15 +77,18 @@ html
     section.consultant
       p
         b Consultant:
-        span &nbsp;
+        / TODO: Move this logic to a presenter
+        - consultant = patient.named_consultant
+        - if consultant.present?
+          | &nbsp;&nbsp;
+          - name = consultant.signature.presence || consultant.to_s
+          = [name, consultant.professional_position].compact.join(", ")
+        - else
+          span &nbsp;
     section.signoff
       table
         tr
-          td Prescriber:
-          td
-          td
-        tr
-          td.prescriber= [current_user.signature, current_user.professional_position].compact.join(", ")
+          td.prescriber Prescriber:
           td.signature Signature:
           td Date:
 

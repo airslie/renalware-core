@@ -5,7 +5,11 @@
   .grid
     .row
       .columns.medium-6
+        = article_tag("General") do
+          = definition_list_for(patient) do |list|
+            = list.definition(:named_consultant)
 
+      .columns.medium-6
         article
           header
             h2 Diabetes

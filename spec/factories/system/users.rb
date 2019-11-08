@@ -29,6 +29,10 @@ FactoryBot.define do
       user.roles << create(:role, obj.role) if obj.role.present?
     end
 
+    trait :consultant do
+      consultant { true }
+    end
+
     trait :unapproved do
       approved { false }
     end

@@ -3,8 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Printing home delivery drugs from the patient prescriptions page", type: :feature do
-  let(:patient) { create(:patient) }
-  let(:user) { create(:user) }
+  let(:patient) { create(:patient, named_consultant: user) }
+  let(:user) {
+    create(:user, :consultant, signature: "Dr Ernst Blofeld", professional_position: "Evil Genius")
+  }
   let(:drug1) { create(:drug, name: "drug1") }
   let(:drug2) { create(:drug, name: "drug2") }
   let(:drug3) { create(:drug, name: "drug3") }
@@ -25,7 +27,7 @@ RSpec.describe "Printing home delivery drugs from the patient prescriptions page
   end
 
   describe "GET index", type: :request do
-    context "format: :pdf" do
+    context "when format: :pdf" do
       it "responds with an inlined PDF by default" do
         get patient_medications_home_delivery_prescriptions_path(patient)
 
@@ -36,7 +38,8 @@ RSpec.describe "Printing home delivery drugs from the patient prescriptions page
       end
     end
 
-    context "format: :html (for debugging but lets us interrogate the html)" do
+    # rubocop:disable RSpec/MultipleExpectations
+    context "when format: :html (for debugging but lets us interrogate the html)" do
       it "responds with html and correct content" do
         create(:prescription, drug: drug1, by: user, patient: patient, provider: :home_delivery)
         create(:prescription, drug: drug2, by: user, patient: patient, provider: :home_delivery)
@@ -54,7 +57,10 @@ RSpec.describe "Printing home delivery drugs from the patient prescriptions page
         expect(response.body).to include(drug1.name)
         expect(response.body).to include(drug2.name)
         expect(response.body).not_to include(drug3.name)
+        expect(response.body).to include(patient.named_consultant.signature)
+        expect(response.body).to include(patient.named_consultant.professional_position)
       end
     end
+    # rubocop:enable RSpec/MultipleExpectations
   end
 end

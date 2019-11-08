@@ -47,6 +47,7 @@ module Renalware
 
     it { is_expected.to have_many(:alerts) }
     it { is_expected.to belong_to(:country_of_birth) }
+    it { is_expected.to belong_to(:named_consultant) }
 
     it { is_expected.to respond_to(:patient_at?) }
 
