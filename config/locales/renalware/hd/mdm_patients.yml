@@ -30,10 +30,10 @@ en:
           urr_date: URR Date
           phos: PO4
           phos_date: PO4 Date
-          pth: PTH
-          pth_date: PTH Date
           pthi: PTHI
           pthi_date: PTHI Date
+          pot: POT
+          pot_date: POT Date
           cre: CRE
           cre_date: CRE Date
           egfr: EGFR

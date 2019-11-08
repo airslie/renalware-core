@@ -24,7 +24,7 @@ module Renalware
     #   = sort_link(<url>, :cre_date, "CRE date")
     #
     def self.extended(base)
-      %i(hgb ure cre urr phos pth).each do |code|
+      %i(hgb ure cre urr phos pthi pot).each do |code|
         base.ransacker(code) { pathology_result_sort_predicate(code) }
         base.ransacker(:"#{code}_date") { pathology_date_sort_predicate(code) }
       end
