@@ -20,8 +20,10 @@ tr
   td= l(patient.current_observation_set.hgb_observed_at)
   td.show-for-xlarge-up= patient.current_observation_set.phos_result
   td.show-for-xlarge-up= l(patient.current_observation_set.phos_observed_at)
-  td.show-for-xlarge-up= patient.current_observation_set.pth_result
-  td.show-for-xlarge-up= l(patient.current_observation_set.pth_observed_at)
+  td.show-for-xlarge-up= patient.current_observation_set.pot_result
+  td.show-for-xlarge-up= l(patient.current_observation_set.pot_observed_at)
+  td.show-for-xlarge-up= patient.current_observation_set.pthi_result
+  td.show-for-xlarge-up= l(patient.current_observation_set.pthi_observed_at)
   td.show-for-xlarge-up= patient.current_observation_set.urr_result
   td.show-for-xlarge-up= l(patient.current_observation_set.urr_observed_at)
   td.actions= link_to t(".view"), view_proc.call(patient)
