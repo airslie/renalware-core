@@ -23,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.121)
+    renalware-core (2.0.122)
       actionview-component (~> 1.3.6)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.28.0)

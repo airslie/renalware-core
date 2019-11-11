@@ -9,6 +9,17 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.122
+### Added
+- Assign the consultant boolean flag to a user #2997
+- Add named consultant in Demographics and in home delivery form #147
+- Allow a superadmin to soft-delete an HD Session at any time #2937
+### Changed
+- Add PTHI and POT columns to HD MDM patients list #2998
+- Pathology requests speed up #2996
+### Fixed
+-  Archiving a problem should soft delete its notes #2978
+
 ### 2.0.121
 ### Added
 ### Changed
