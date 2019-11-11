@@ -4423,113 +4423,6 @@ ALTER SEQUENCE pathology_request_descriptions_requests_requests_id_seq OWNED BY 
 
 
 --
--- Name: pathology_requests_batch_items; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE pathology_requests_batch_items (
-    id bigint NOT NULL,
-    batch_id bigint NOT NULL,
-    request_id bigint NOT NULL,
-    status smallint DEFAULT 0 NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: pathology_requests_batch_items_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE pathology_requests_batch_items_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pathology_requests_batch_items_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE pathology_requests_batch_items_id_seq OWNED BY pathology_requests_batch_items.id;
-
-
---
--- Name: pathology_requests_batch_previews; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE pathology_requests_batch_previews (
-    id bigint NOT NULL,
-    patient_ids integer[] DEFAULT '{}'::integer[] NOT NULL,
-    clinic_id bigint NOT NULL,
-    consultant_id bigint,
-    telephone character varying DEFAULT ''::character varying,
-    template character varying,
-    created_by_id bigint NOT NULL,
-    updated_by_id bigint NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: pathology_requests_batch_previews_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE pathology_requests_batch_previews_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pathology_requests_batch_previews_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE pathology_requests_batch_previews_id_seq OWNED BY pathology_requests_batch_previews.id;
-
-
---
--- Name: pathology_requests_batches; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE pathology_requests_batches (
-    id bigint NOT NULL,
-    status integer DEFAULT 0 NOT NULL,
-    query_params jsonb DEFAULT '{}'::jsonb NOT NULL,
-    created_by_id bigint NOT NULL,
-    updated_by_id bigint NOT NULL,
-    filepath character varying,
-    last_error character varying,
-    batch_items_count integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: pathology_requests_batches_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE pathology_requests_batches_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pathology_requests_batches_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE pathology_requests_batches_id_seq OWNED BY pathology_requests_batches.id;
-
-
---
 -- Name: pathology_requests_drug_categories; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -9185,27 +9078,6 @@ ALTER TABLE ONLY pathology_request_descriptions_requests_requests ALTER COLUMN i
 
 
 --
--- Name: pathology_requests_batch_items id; Type: DEFAULT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY pathology_requests_batch_items ALTER COLUMN id SET DEFAULT nextval('pathology_requests_batch_items_id_seq'::regclass);
-
-
---
--- Name: pathology_requests_batch_previews id; Type: DEFAULT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY pathology_requests_batch_previews ALTER COLUMN id SET DEFAULT nextval('pathology_requests_batch_previews_id_seq'::regclass);
-
-
---
--- Name: pathology_requests_batches id; Type: DEFAULT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY pathology_requests_batches ALTER COLUMN id SET DEFAULT nextval('pathology_requests_batches_id_seq'::regclass);
-
-
---
 -- Name: pathology_requests_drug_categories id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -10598,30 +10470,6 @@ ALTER TABLE ONLY pathology_request_descriptions
 
 ALTER TABLE ONLY pathology_request_descriptions_requests_requests
     ADD CONSTRAINT pathology_request_descriptions_requests_requests_pkey PRIMARY KEY (id);
-
-
---
--- Name: pathology_requests_batch_items pathology_requests_batch_items_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY pathology_requests_batch_items
-    ADD CONSTRAINT pathology_requests_batch_items_pkey PRIMARY KEY (id);
-
-
---
--- Name: pathology_requests_batch_previews pathology_requests_batch_previews_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY pathology_requests_batch_previews
-    ADD CONSTRAINT pathology_requests_batch_previews_pkey PRIMARY KEY (id);
-
-
---
--- Name: pathology_requests_batches pathology_requests_batches_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY pathology_requests_batches
-    ADD CONSTRAINT pathology_requests_batches_pkey PRIMARY KEY (id);
 
 
 --
@@ -13486,69 +13334,6 @@ CREATE INDEX index_pathology_request_descriptions_on_lab_id ON pathology_request
 
 
 --
--- Name: index_pathology_requests_batch_items_on_request_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_pathology_requests_batch_items_on_request_id ON pathology_requests_batch_items USING btree (request_id);
-
-
---
--- Name: index_pathology_requests_batch_items_on_status; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_pathology_requests_batch_items_on_status ON pathology_requests_batch_items USING btree (status);
-
-
---
--- Name: index_pathology_requests_batch_previews_on_clinic_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_pathology_requests_batch_previews_on_clinic_id ON pathology_requests_batch_previews USING btree (clinic_id);
-
-
---
--- Name: index_pathology_requests_batch_previews_on_consultant_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_pathology_requests_batch_previews_on_consultant_id ON pathology_requests_batch_previews USING btree (consultant_id);
-
-
---
--- Name: index_pathology_requests_batch_previews_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_pathology_requests_batch_previews_on_created_by_id ON pathology_requests_batch_previews USING btree (created_by_id);
-
-
---
--- Name: index_pathology_requests_batch_previews_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_pathology_requests_batch_previews_on_updated_by_id ON pathology_requests_batch_previews USING btree (updated_by_id);
-
-
---
--- Name: index_pathology_requests_batches_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_pathology_requests_batches_on_created_by_id ON pathology_requests_batches USING btree (created_by_id);
-
-
---
--- Name: index_pathology_requests_batches_on_status; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_pathology_requests_batches_on_status ON pathology_requests_batches USING btree (status);
-
-
---
--- Name: index_pathology_requests_batches_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_pathology_requests_batches_on_updated_by_id ON pathology_requests_batches USING btree (updated_by_id);
-
-
---
 -- Name: index_pathology_requests_drug_categories_on_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -15278,13 +15063,6 @@ CREATE INDEX pathology_code_group_membership_obx ON pathology_code_group_members
 
 
 --
--- Name: pathology_requests_batch_items_idx; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX pathology_requests_batch_items_idx ON pathology_requests_batch_items USING btree (batch_id, request_id);
-
-
---
 -- Name: patient_bookmarks_uniqueness; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -15674,14 +15452,6 @@ ALTER TABLE ONLY medication_prescriptions
 
 
 --
--- Name: pathology_requests_batches fk_rails_1d2541d146; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY pathology_requests_batches
-    ADD CONSTRAINT fk_rails_1d2541d146 FOREIGN KEY (created_by_id) REFERENCES users(id);
-
-
---
 -- Name: medication_prescription_terminations fk_rails_1f3fb8ef97; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -15735,14 +15505,6 @@ ALTER TABLE ONLY pd_assessments
 
 ALTER TABLE ONLY hd_sessions
     ADD CONSTRAINT fk_rails_23d8c477eb FOREIGN KEY (dialysate_id) REFERENCES hd_dialysates(id);
-
-
---
--- Name: pathology_requests_batch_previews fk_rails_24cb7cdc1f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY pathology_requests_batch_previews
-    ADD CONSTRAINT fk_rails_24cb7cdc1f FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -16314,14 +16076,6 @@ ALTER TABLE ONLY ukrdc_treatments
 
 
 --
--- Name: pathology_requests_batch_items fk_rails_65b4709d0b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY pathology_requests_batch_items
-    ADD CONSTRAINT fk_rails_65b4709d0b FOREIGN KEY (batch_id) REFERENCES pathology_requests_batches(id);
-
-
---
 -- Name: letter_batch_items fk_rails_65e38cb9dc; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16367,14 +16121,6 @@ ALTER TABLE ONLY hd_preference_sets
 
 ALTER TABLE ONLY problem_notes
     ADD CONSTRAINT fk_rails_6a44f3907b FOREIGN KEY (problem_id) REFERENCES problem_problems(id);
-
-
---
--- Name: pathology_requests_batch_previews fk_rails_70014ba993; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY pathology_requests_batch_previews
-    ADD CONSTRAINT fk_rails_70014ba993 FOREIGN KEY (clinic_id) REFERENCES clinic_clinics(id);
 
 
 --
@@ -16770,14 +16516,6 @@ ALTER TABLE ONLY letter_batch_items
 
 
 --
--- Name: pathology_requests_batch_previews fk_rails_a035938893; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY pathology_requests_batch_previews
-    ADD CONSTRAINT fk_rails_a035938893 FOREIGN KEY (updated_by_id) REFERENCES users(id);
-
-
---
 -- Name: pathology_request_descriptions fk_rails_a0b9cd97fe; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16911,14 +16649,6 @@ ALTER TABLE ONLY hd_preference_sets
 
 ALTER TABLE ONLY access_profiles
     ADD CONSTRAINT fk_rails_acbcae03df FOREIGN KEY (type_id) REFERENCES access_types(id);
-
-
---
--- Name: pathology_requests_batch_previews fk_rails_ae346278e2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY pathology_requests_batch_previews
-    ADD CONSTRAINT fk_rails_ae346278e2 FOREIGN KEY (consultant_id) REFERENCES renal_consultants(id);
 
 
 --
@@ -17130,14 +16860,6 @@ ALTER TABLE ONLY hd_prescription_administrations
 
 
 --
--- Name: pathology_requests_batches fk_rails_c688fb2036; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY pathology_requests_batches
-    ADD CONSTRAINT fk_rails_c688fb2036 FOREIGN KEY (updated_by_id) REFERENCES users(id);
-
-
---
 -- Name: transplant_donor_followups fk_rails_c75064199c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -17303,14 +17025,6 @@ ALTER TABLE ONLY pathology_observations
 
 ALTER TABLE ONLY messaging_messages
     ADD CONSTRAINT fk_rails_dc393c1672 FOREIGN KEY (replying_to_message_id) REFERENCES messaging_messages(id);
-
-
---
--- Name: pathology_requests_batch_items fk_rails_dc6badf662; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY pathology_requests_batch_items
-    ADD CONSTRAINT fk_rails_dc6badf662 FOREIGN KEY (request_id) REFERENCES pathology_requests_requests(id);
 
 
 --
@@ -18410,7 +18124,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191026120029'),
 ('20191029095202'),
 ('20191105095304'),
-('20191105120315'),
 ('20191108105923');
 
 

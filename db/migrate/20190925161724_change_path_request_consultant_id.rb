@@ -1,3 +1,4 @@
+# rubocop:disable Style/RescueModifier
 class ChangePathRequestConsultantId < ActiveRecord::Migration[5.2]
   def change
     within_renalware_schema do
@@ -6,7 +7,8 @@ class ChangePathRequestConsultantId < ActiveRecord::Migration[5.2]
         :consultant,
         foreign_key: { to_table: :users },
         index: true
-      )
+      ) rescue nil # I have seen this fail on certain datasets, not sure why, hence the rescue.
+
       add_reference(
         :pathology_requests_requests,
         :consultant,
@@ -17,3 +19,4 @@ class ChangePathRequestConsultantId < ActiveRecord::Migration[5.2]
     end
   end
 end
+# rubocop:enable Style/RescueModifier
