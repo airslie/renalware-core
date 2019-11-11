@@ -51,6 +51,12 @@ namespace :yarn do
   end
 end
 
+namespace :webpacker do
+  task :compile do
+    Rake::Task["app:renalware:webpacker_compile"].invoke
+  end
+end
+
 # Default rake task to run all tests:
 #   bundle exec rake
 task :engine_default_task do
