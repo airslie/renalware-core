@@ -30,9 +30,9 @@ module Renalware
 
           # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           def map_attributes
-            patient.attributes = {
+            attrs = {
               local_patient_id: patient_identification.internal_id,
-              nhs_number: patient_identification.external_id,
+              nhs_number: patient_identification.nhs_number,
               given_name: patient_identification.given_name,
               family_name: patient_identification.family_name,
               suffix: patient_identification.suffix,
@@ -43,6 +43,28 @@ module Renalware
               practice: find_practice(message.practice_code) || patient.practice,
               primary_care_physician: find_primary_care_physician(message.gp_code)
             }
+
+            # Don't overwrite existing patient data if the new data is blank?
+            attrs.reject! { |_key, value| value.blank? }
+            patient.attributes = attrs
+
+            # patient.given_name = patient_identification.given_name
+            # patient.family_name = patient_identification.family_name
+            # patient.suffix = patient_identification.suffix
+            # patient.title = patient_identification.title
+            # patient.attributes = {
+            #   local_patient_id: patient_identification.internal_id,
+            #   nhs_number: patient_identification.nhs_number,
+            #   given_name: patient_identification.given_name,
+            #   family_name: patient_identification.family_name,
+            #   suffix: patient_identification.suffix,
+            #   title: patient_identification.title,
+            #   born_on: Time.zone.parse(patient_identification.dob)&.to_date,
+            #   died_on: Time.zone.parse(patient_identification.death_date)&.to_date,
+            #   sex: patient_identification.sex,
+            #   practice: find_practice(message.practice_code) || patient.practice,
+            #   primary_care_physician: find_primary_care_physician(message.gp_code)
+            # }
             patient.build_current_address if patient.current_address.blank?
             patient.current_address.attributes = {
               street_1: address[0],

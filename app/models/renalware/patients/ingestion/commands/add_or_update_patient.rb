@@ -35,15 +35,15 @@ module Renalware
           attr_reader :mapper_factory
 
           def call
-            # For now skip updating the patient, just update the index ie create/update a
-            # patient abridgement
-            # update_patient_if_exists
+            update_patient_if_exists
             UpdateMasterPatientIndex.new(message).call
           end
 
           private
 
           def update_patient_if_exists
+            return if ENV.key?("ADT_SKIP_UPDATE_PATIENT")
+
             patient = find_patient
             return if patient.blank?
 

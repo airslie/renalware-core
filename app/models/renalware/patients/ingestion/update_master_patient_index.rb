@@ -20,8 +20,6 @@ module Renalware
 
           @rw_patient = find_patient_in_renalware
           update_or_create_abridged_patient
-          # update_primary_care_physician
-          # update_practice
         end
 
         private
@@ -32,9 +30,10 @@ module Renalware
           ) || NullObject.instance
         end
 
-        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         def update_or_create_abridged_patient
           find_or_initialize_abridged_patient.update!(
+            nhs_number: patient_identification.nhs_number,
             given_name: patient_identification.given_name,
             family_name: patient_identification.family_name,
             sex: patient_identification.sex,
@@ -47,7 +46,7 @@ module Renalware
             gp_code: hl7_message.gp_code
           )
         end
-        # rubocop:enable Metrics/AbcSize
+        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
         def find_or_initialize_abridged_patient
           Patients::Abridgement.find_or_initialize_by(
