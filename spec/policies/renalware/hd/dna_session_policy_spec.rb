@@ -23,10 +23,10 @@ module Renalware
             expect(policy).to permit(user, session)
           end
 
-          it "not permitted if the session is immutable" do
+          it "also permitted if the session is immutable" do
             allow(session).to receive(:persisted?).and_return(true)
             allow(session).to receive(:immutable?).and_return(true)
-            expect(policy).not_to permit(user, session)
+            expect(policy).to permit(user, session)
           end
         end
       end
