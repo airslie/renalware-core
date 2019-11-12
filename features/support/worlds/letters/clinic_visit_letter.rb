@@ -137,6 +137,7 @@ module World
         login_as user
         FactoryBot.create(:letter_description, text: "Foo bar")
         visit patient_clinic_visits_path(patient)
+        find("td.actions .dropdown").click
         click_on "Draft Letter"
 
         attributes = valid_simple_letter_attributes(patient)
@@ -153,6 +154,7 @@ module World
       def revise_clinic_visit_letter(patient:, user:)
         login_as user
         visit patient_clinic_visits_path(patient)
+        find("td.actions .dropdown").click
         click_on "Preview Letter"
         click_on "Edit"
 
@@ -165,6 +167,7 @@ module World
 
       def expect_letter_to_list_current_prescriptions(patient:)
         visit patient_clinic_visits_path(patient)
+        find("td.actions .dropdown").click
         click_on "Preview Letter"
 
         visit_iframe_content
@@ -176,6 +179,7 @@ module World
 
       def expect_letter_to_list_clinical_observations(patient:)
         visit patient_clinic_visits_path(patient)
+        find("td.actions .dropdown").click
         click_on "Preview Letter"
 
         visit_iframe_content
@@ -188,6 +192,7 @@ module World
 
       def expect_letter_to_list_problems(patient:)
         visit patient_clinic_visits_path(patient)
+        find("td.actions .dropdown").click
         click_on "Preview Letter"
 
         visit_iframe_content
