@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.123
+### Added
+### Changed
+- Rename ‘Prescribed by’ to ‘Recorded by’ in prescriptions list #3002
+### Fixed
+- Update nhs_number from ADT messages #3000
+
 ### 2.0.122
 ### Added
 - Assign the consultant boolean flag to a user #2997
