@@ -134,6 +134,12 @@ module Renalware
           patient_id_list.split("^").first
         end
 
+        def nhs_number
+          return unless defined?(patient_id)
+
+          patient_id.split("^").first
+        end
+
         def name
           Name.new(patient_name)
         end

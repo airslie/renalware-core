@@ -12,12 +12,14 @@ module Renalware
         def hl7_data
           OpenStruct.new(
             hospital_number: "A123",
+            nhs_number: "0000000001",
             family_name: "new_family_name",
             given_name: "new_given_name",
             born_on: Time.zone.parse("2002-02-01").to_date,
             died_at: Time.zone.parse("2003-03-02").to_date,
             gp_code: "G123",
-            practice_code: "P456"
+            practice_code: "P456",
+            sex: "M"
           )
         end
 
@@ -35,10 +37,9 @@ module Renalware
 
           expect(actual).to have_attributes(
             local_patient_id: message.patient_identification.internal_id,
-            nhs_number: message.patient_identification.external_id,
+            nhs_number: message.patient_identification.nhs_number,
             given_name: message.patient_identification.given_name,
             family_name: message.patient_identification.family_name,
-            suffix: message.patient_identification.suffix,
             title: message.patient_identification.title,
             born_on: Time.zone.parse(message.patient_identification.born_on).to_date,
             died_on: Time.zone.parse(message.patient_identification.died_at).to_date,

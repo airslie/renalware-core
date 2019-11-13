@@ -12,6 +12,7 @@ module Renalware::Patients
     def hl7_data
       OpenStruct.new(
         hospital_number: "A123",
+        nhs_number: "9999999999",
         family_name: "new_family_name",
         given_name: "new_given_name",
         born_on: Time.zone.parse("2002-02-01").to_date,
