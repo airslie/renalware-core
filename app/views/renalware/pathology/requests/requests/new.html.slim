@@ -1,21 +1,6 @@
-/ doctype html
-/ html lang="en"
-/   head
-/     meta charset="utf-8"
-
-/     title= content_for?(:title) ? yield(:title) : "Renalware v#{Renalware::VERSION}"
-
-/     = stylesheet_link_tag "renalware/application", media: :all
-/     = stylesheet_link_tag "renalware/print/pathology_request_forms", media: :all
-/     = javascript_include_tag "renalware/modernizr"
-
-/     = csrf_meta_tag
-
-
-/  body.overflow
-
 = content_for(:css) do
   = stylesheet_link_tag "renalware/pathology_request_forms", media: :all
+
 = within_admin_layout(title: "Pathology Request CRS Form Preview") do
     / .row
     /   h4 Pathology Request CRS Form Preview
@@ -59,5 +44,3 @@
 
     = render partial: "renalware/pathology/requests/requests/request_form/#{request_html_form_params.template}",
              locals: { requests: requests, format: :html }
-
-    /= javascript_include_tag "renalware/application"
