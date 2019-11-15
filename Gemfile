@@ -61,6 +61,7 @@ group :development do
 end
 
 group :development, :test do
+  gem "babel-transpiler"
   gem "bundler-audit", require: false
   gem "byebug"
   gem "launchy", require: false

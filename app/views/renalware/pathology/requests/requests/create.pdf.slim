@@ -1,5 +1,5 @@
 = content_for(:head2) do
-  = wicked_pdf_stylesheet_link_tag "renalware/print/pathology_request_forms.css"
+  = wicked_pdf_stylesheet_link_tag "renalware/pathology_request_forms.css"
 
 = render partial: "renalware/pathology/requests/requests/request_form/#{request_html_form_params.template}",
          locals: { requests: requests }

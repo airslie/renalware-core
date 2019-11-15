@@ -87,7 +87,7 @@ Gem::Specification.new do |s|
   s.add_dependency "simple_form", "~> 5.0"
   s.add_dependency "sinatra", "~> 2.0.5"
   s.add_dependency "slim-rails", "~> 3.2.0"
-  s.add_dependency "sprockets", "~> 3.7.2"
+  s.add_dependency "sprockets", "~> 4.0.0"
   s.add_dependency "uglifier", "~> 4.2"
   s.add_dependency "validates_timeliness", "~> 4.1.0"
   s.add_dependency "virtus", "~> 1.0.5"
