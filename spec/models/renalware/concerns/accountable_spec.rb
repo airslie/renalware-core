@@ -4,12 +4,14 @@ require "rails_helper"
 
 module Renalware
   describe Accountable do
-    Klass = Class.new(ApplicationRecord) do
-      include Accountable
-      self.table_name = "examples"
+    def test_class
+      Class.new(ApplicationRecord) do
+        include Accountable
+        self.table_name = "examples"
 
-      def self.name
-        "Example"
+        def self.name
+          "Example"
+        end
       end
     end
 
@@ -20,7 +22,7 @@ module Renalware
     describe "#create" do
       context "when the created user is explicity assigned" do
         it "assigns the user who created the record" do
-          thing = Klass.create!(created_by: created_by_user, dummy: ":: created it ::")
+          thing = test_class.create!(created_by: created_by_user, dummy: ":: created it ::")
 
           expect(thing).to have_attributes(
             created_by: created_by_user,
@@ -31,7 +33,7 @@ module Renalware
 
       context "when the user is implicity assigned" do
         it "assigns the user who created the record" do
-          thing = Klass.create!(by: created_by_user, dummy: ":: created it ::")
+          thing = test_class.create!(by: created_by_user, dummy: ":: created it ::")
 
           expect(thing).to have_attributes(
             created_by: created_by_user,
@@ -46,7 +48,7 @@ module Renalware
 
       context "when the updated user is explicity assigned" do
         it "assigns the user who updated the record" do
-          thing = Klass.create!(created_by: created_by_user, dummy: ":: created it ::")
+          thing = test_class.create!(created_by: created_by_user, dummy: ":: created it ::")
 
           thing.update(updated_by: updated_by_user, dummy: ":: updated_it ::")
 
@@ -56,7 +58,7 @@ module Renalware
 
       context "when the updated user is implicity assigned" do
         it "assigns the user who updated the record" do
-          thing = Klass.create!(by: created_by_user, dummy: ":: created it ::")
+          thing = test_class.create!(by: created_by_user, dummy: ":: created it ::")
 
           thing.update(by: updated_by_user, dummy: ":: updated_it ::")
 

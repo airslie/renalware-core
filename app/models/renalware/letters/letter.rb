@@ -6,6 +6,7 @@ module Renalware
   module Letters
     class Letter < ApplicationRecord
       include Accountable
+      include TransactionRetry
       extend Enumerize
       # The letterhead is the only site-specific element in the letter, so we use this
       # to determine site-specific settings - in this case whether the letter should contain
