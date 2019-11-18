@@ -71,6 +71,13 @@ module Renalware
 
         it { expect(patient).to validate_presence_of(:died_on) }
         it { expect(patient).to validate_presence_of(:first_cause_id) }
+
+        context "when #skip_death_validations is true (for updating non-interactively)" do
+          before { patient.skip_death_validations = true }
+
+          it { expect(patient).not_to validate_presence_of(:died_on) }
+          it { expect(patient).not_to validate_presence_of(:first_cause_id) }
+        end
       end
 
       context "when the current modality is not death" do
