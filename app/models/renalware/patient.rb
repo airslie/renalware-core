@@ -99,10 +99,11 @@ module Renalware
     validates :born_on, timeliness: { type: :date }
     validates :email, email: true, allow_blank: true
 
-    with_options if: :current_modality_death?, on: :update do |death|
-      death.validates :died_on, presence: true
-      death.validates :died_on, timeliness: { type: :date }
-      death.validates :first_cause_id, presence: true
+    attr_accessor :skip_death_validations
+    with_options if: :validate_death_attributes?, on: :update do
+      validates :died_on, presence: true
+      validates :died_on, timeliness: { type: :date }
+      validates :first_cause_id, presence: true
     end
 
     scope :dead, -> { where.not(died_on: nil) }
@@ -135,6 +136,10 @@ module Renalware
 
     def assigned_to_primary_care_physician?(primary_care_physician)
       self.primary_care_physician == primary_care_physician
+    end
+
+    def validate_death_attributes?
+      current_modality_death? && !skip_death_validations
     end
 
     def current_modality_death?
