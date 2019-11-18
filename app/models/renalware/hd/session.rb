@@ -9,6 +9,7 @@ module Renalware
       include PatientScope
       include Accountable
       include ExplicitStateModel
+      include TransactionRetry
 
       acts_as_paranoid
 
