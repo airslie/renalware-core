@@ -49,6 +49,12 @@ module Renalware
 
             patient = mapper_factory.new(message, patient).fetch
             patient.by = SystemUser.find
+            # If we update a patient who has the Death modality, and they do not have certain
+            # fields set yet like cause of death, we don't want those validations so stop us
+            # updating - so we set a flag here to effectively skip death attribute validations
+            # e.g. Died on can't be blank, Died on is not a valid date, First cause can't be blank
+            patient.skip_death_validations = true
+
             patient.save!
             patient
           end
