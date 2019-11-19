@@ -42,13 +42,13 @@ describe("Persisting the correct recipients when a letter is saved", type: :syst
 
     # Sanity checks
     expect(patient.letters.count).to eq(1)
-    # byebug
+
     letter = patient.letters.first
     expect(letter).to be_approved
     letter
   end
 
-  context "whern the main recipient is one of patient or primary_care_physician" do
+  context "when the main recipient is one of patient or primary_care_physician" do
     PERSON_ROLES = %i(patient primary_care_physician).freeze
     PERSON_ROLES.each do |main_person_role|
       cc_person_role = (PERSON_ROLES - [main_person_role]).first

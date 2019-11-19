@@ -49,6 +49,12 @@ module Renalware
         end
       end
 
+      def destroy
+        authorize note
+        note.destroy!
+        render_index
+      end
+
       private
 
       def problem

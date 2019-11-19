@@ -41,4 +41,21 @@ describe "Problem notes management", type: :system, js: true do
       expect(note.reload.description).to eq("ACB321")
     end
   end
+
+  it "deleting a problem note" do
+    user = login_as_clinical
+    patient = create(:patient, by: user)
+    problem = create(:problem, patient: patient, by: user)
+    note = problem.notes.create!(description: "Z123", by: user)
+
+    visit patient_problem_path(patient, problem)
+
+    within "#problem-notes" do
+      expect(page).to have_content(note.description)
+      accept_alert do
+        click_on "Delete"
+      end
+      expect(page).not_to have_content(note.description)
+    end
+  end
 end
