@@ -30,7 +30,7 @@ module Renalware
       scope :with_profile, lambda {
         joins(<<-SQL)
           left outer join access_profiles on (access_profiles.patient_id = patients.id
-            and access_profiles.terminated_on is not null
+            and access_profiles.terminated_on is null
             and access_profiles.started_on <= current_date)
           left outer join access_types on access_types.id = access_profiles.type_id
         SQL
