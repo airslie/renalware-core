@@ -32,11 +32,9 @@ tr(data={ "snippet-id" => snippet.id, invocation_url: snippet_invocations_path(s
 
       - if snippet_authored_by_me
         = link_to t(".edit"), edit_snippet_path(snippet)
-        = pipe_separator
         = link_to t(".duplicate"),
                    snippet_clones_path(snippet_id: snippet),
                    method: :post
-        = pipe_separator
         = link_to t(".delete"),
                   snippet_path(snippet),
                   method: :delete,

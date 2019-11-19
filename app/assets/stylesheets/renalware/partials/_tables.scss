@@ -18,6 +18,48 @@ table.column_hover .hover { // for js column hovering see table.js
   background-color: $table-row-hover-colour;
 }
 
+.actions-dropdown {
+  .no-permission {
+    color: $disabled-colour;
+    padding: 0.5rem;
+    display: inline-block;
+    line-height: inherit;
+  }
+}
+
+/*
+  Add a pipe between action links (Edit, Delete etc) in tables
+*/
+td.actions {
+  padding-left: 0;
+  white-space: nowrap;
+
+  > a, > span {
+    &:after {
+      color: $pipe-separator-colour;
+      content: "|";
+      padding-right: 0;
+      padding-left: .3rem;
+    }
+
+    &:last-child:after {
+      content: "";
+    }
+
+    &:before {
+      display: inline-block;
+      color: $pipe-separator-colour;
+      content: "";
+      padding-right: 0;
+      padding-right: .3rem;
+    }
+
+    &:first-child:before {
+      padding-right: 0;
+    }
+  }
+}
+
 table.stripeless {
   tr:nth-of-type(even),
   tr:nth-of-type(odd) {
@@ -167,6 +209,14 @@ table {
 
       &.actions {
         text-align: right;
+        white-space: nowrap;
+      }
+    }
+
+    &:first-child {
+      &.actions {
+        text-align: left;
+        white-space: nowrap;
       }
     }
   }

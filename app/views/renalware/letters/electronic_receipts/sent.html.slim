@@ -31,7 +31,6 @@
           td.col-width-medium-with-ellipsis= letter.description
           td.actions
             = link_to "Toggle", "##{receipt.html_preview_identifier}", data: { behaviour: "toggler" }
-            = pipe_separator
             = link_to(\
                 letter.view_label,
                 patient_letters_letter_path(letter.patient, letter, back_url: request.fullpath))
