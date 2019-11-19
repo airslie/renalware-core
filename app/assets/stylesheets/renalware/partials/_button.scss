@@ -79,3 +79,52 @@
   border-bottom-right-radius: 0 !important;
   border-top-right-radius: 0 !important;
 }
+
+.button.dropdown.actions {
+  @extend %fa-icon;
+  @extend .fas;
+  background-color: $white;
+  color: $monsoon;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 .7rem 0 0;
+  padding: 0.2rem .9rem;
+  border: solid 1px $light-grey;
+  vertical-align: middle;
+
+  &:hover {
+    background-color: darken(#efefef, 10);
+    color: darken(#555, 10);
+  }
+
+  &:before {
+    content: fa-content($fa-var-ellipsis-h);
+  }
+
+  &:after {
+    border: 0;
+    position: relative;
+  }
+}
+
+.f-dropdown {
+  /* separator */
+  li.separator {
+    border-top: 1px solid #ccc;
+    margin: .3rem 0 .1rem 0;
+    padding: 0;
+  }
+}
+
+.f-dropdown.f-dropdown-no-arrow {
+  border-radius: 3px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.05);
+  margin-left: 23px;
+  margin-top: 0;
+  max-width: 150px;
+
+  &:before, &:after {
+    border: 0;
+    position: relative;
+  }
+}

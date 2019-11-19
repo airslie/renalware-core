@@ -8,5 +8,16 @@ module Renalware
               class: "button compact low-key",
               data: { behaviour: "css-toggler" }
     end
+
+    def toggler(row_selector, link_title: "Toggle")
+      link_to(
+        row_selector,
+        data: { behaviour: "toggler" },
+        class: "toggler",
+        title: link_title
+      ) do
+        content_tag(:i)
+      end
+    end
   end
 end
