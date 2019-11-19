@@ -1,5 +1,4 @@
-
 //= link_tree ../images
 //= link_directory ../javascripts .js
 //= link_directory ../stylesheets .css
-//= link renalware/core-manifest.js
+//= link renalware/core/manifest.js
