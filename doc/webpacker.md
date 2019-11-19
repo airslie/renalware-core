@@ -9,3 +9,13 @@ the cause of the error is due to the production flag - ie the node_modules were 
 don't match.
 
 `app:renalware:webpacker_compile` is really for use in the production or staging environment only.
+
+## Update 19 Nov 2019
+
+Webpacker removed from the engine as I think its the wrong solution. Ideally we need to build and
+publish an npm package + package.json that the host app can reference in its package.json.
+This way dependencies like lodash etc are included once. It also simplifies the engine - adding
+webpacker added lots of uncessary complexity.
+However in the meantime we will use the asset pipeline.
+Introducing Sprockets 4 has allowed us to use es6 and stimulus, albeit in a less sophisiticated
+way.

@@ -6,8 +6,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "~> 2.6.3"
 
-gem "webpacker", "~> 4.0"
-
 gemspec
 
 # These are visible to dummy app only

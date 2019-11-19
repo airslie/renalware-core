@@ -30,15 +30,3 @@ Rails.application.config.content_security_policy_nonce_generator =
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
 # Rails.application.config.content_security_policy_report_only = true
 #
-
-Rails.application.config.content_security_policy do |policy|
-  # Required for webpacker dev server
-  if Rails.env.development?
-    policy.connect_src(
-      :self,
-      :https,
-      "http://localhost:3035",
-      "ws://localhost:3035"
-    )
-  end
-end
