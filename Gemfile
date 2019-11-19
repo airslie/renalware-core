@@ -10,6 +10,7 @@ gemspec
 
 # These are visible to dummy app only
 gem "aws-sdk-s3", require: false # for active storage when using Heroku for test environments
+gem "babel-transpiler"
 gem "bootsnap", require: false # speeds up rspec and rails server boot time in development
 gem "daemons", require: false # to use cmds like `bin/delayed_job start`
 gem "faker"
@@ -59,7 +60,6 @@ group :development do
 end
 
 group :development, :test do
-  gem "babel-transpiler"
   gem "bundler-audit", require: false
   gem "byebug"
   gem "launchy", require: false
