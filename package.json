@@ -6,7 +6,6 @@
   "author": "Airslie Ltd",
   "license": "MIT",
   "dependencies": {
-    "@rails/webpacker": "^4.0.7",
     "balloon-css": "^1.0.3",
     "masonry-layout": "^4.2.2",
     "moment": "2.24.0",
@@ -17,16 +16,6 @@
     "underscore": "1.8.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "webpack-dev-server": "^3"
   },
-  "scripts": {},
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-class-properties"
-    ]
-  }
+  "scripts": {}
 }

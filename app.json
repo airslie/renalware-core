@@ -21,7 +21,6 @@
   "env": {
     "DEMO": "1",
     "UKRDC_WORKING_PATH": "tmp/ukrdc",
-    "WEBPACKER_PRECOMPILE": "no",
     "RACK_ENV": "staging",
     "RAILS_ENV": "staging",
     "DEFAULT_FROM_EMAIL_ADDRESS": "test@example.com",
