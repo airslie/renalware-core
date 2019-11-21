@@ -1,13 +1,9 @@
 tr.hd-session-row(class=[session.state, stripe_class])
+  td.noprint(rowspan=2)= toggler("#hd-session-#{session.id}")
   td.noprint(rowspan=2)
-    = link_to("Toggle",
-              "#hd-session-#{session.id}",
-              data: { behaviour: "toggler" })
-    = pipe_separator
     = session.edit_or_view_url
   td.col-width-date(rowspan=2)= session.performed_on
   td= session.hospital_unit_unit_code
-
   td= session.start_time
   td.derived(rowspan=2)= session.duration
   td= session.before_measurement_for(:weight)
@@ -42,7 +38,7 @@ tr(class=[session.state, stripe_class])
   td.nowrap= session.after_measurement_for(:blood_pressure)
   td.print-only= session.signed_off_by
 = content_tag(:tr, id: "hd-session-#{session.id}", style: "display: none")
-  td(colspan=19)
+  td(colspan=20)
     .quick-preview
       = definition_list_for(session, size: :large) do |list|
         = list.definition(:notes){ |value| simple_format(value) }

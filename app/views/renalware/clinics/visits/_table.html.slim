@@ -1,19 +1,20 @@
 table.global-clinic-visits
   thead
     tr
-      th.col-width-tiny.no-print
+      th.togglers= table_toggler
+      th.col-width-actions-dropdown.no-print
       th.col-width-date Date
       th.col-width-tiny DNA
-      th.col-width-medium Patient
+      th.col-width-large Patient
       th.col-width-nhs-no NHS Number
       th.col-width-tiny Sex
       th.col-width-tiny Age
-      th.col-width-medium Modality
-      th.col-width-medium Clinic Type
+      th Modality
+      th Clinic Type
       th.col-width-tiny BMI
       th.col-width-tiny BP
       th.col-width-small.no-print
-      th.col-width-medium Created by
+      th Created by
   tbody
     / Note we can't use cached: true yet when rendering the events collection, as each row is
     / used in a different context and displays there slightly differently, for example showing

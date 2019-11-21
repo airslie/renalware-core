@@ -3,7 +3,9 @@
 table.has-togglable-rows.events-table
   thead
     tr
-      th.col-width-tiny
+      th.noprint.togglers= table_toggler
+      - if local_assigns[:edit_proc]
+        th.col-width-tiny
       th.col-width-date=t(".created_at")
       - unless local_assigns.fetch(:exclude_type_column, false)
         th.col-width-large= t(".type")

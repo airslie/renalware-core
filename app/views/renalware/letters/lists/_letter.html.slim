@@ -1,6 +1,9 @@
 tr(class=letter.state.dasherize)
+  td= toggler("#letter-quick-preview-#{letter.id}")
   td.noprint
+    = link_to "View", patient_letters_letter_path(letter.patient, letter)
     - if letter.approved?
+      | &nbsp;
       / The Print link will:
       / - open a new tab with the PDF, ready to print
       / - display a modal on this page (ready for when the user returns here after
@@ -16,8 +19,8 @@ tr(class=letter.state.dasherize)
                 } do
         i.fas.fa-print
         | Print
-      | &nbsp;
     - if letter.approved? && letter.page_count
+      | &nbsp;
       = link_to patient_letters_letter_printable_path(letter.patient, letter),
                 target: "_blank",
                 class: "printing-pdf button secondary compact",
@@ -26,13 +29,6 @@ tr(class=letter.state.dasherize)
                 } do
         i.fas.fa-envelope
         | Env Print
-      | &nbsp;
-    = link_to "Toggle",
-              "#quick-preview-#{letter.id}",
-              data: { behaviour: "toggler" }
-    = pipe_separator
-    = link_to "View", patient_letters_letter_path(letter.patient, letter)
-
   td.col-width-medium-with-ellipsis= letter.type
   td.state
     span= letter.state_description
@@ -40,14 +36,14 @@ tr(class=letter.state.dasherize)
   td= letter.patient.nhs_number
   td= letter.enclosures&.truncate(6)
   td= l(letter.effective_date)
-  td= letter.author
-  td= letter.typist
+  td.col-width-medium-with-ellipsis= letter.author
+  td.col-width-medium-with-ellipsis= letter.typist
   td= letter.page_count
   td.col-width-medium-with-ellipsis= letter.main_recipient.address
   td.col-width-medium-with-ellipsis= letter.description
-= content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
+= content_tag(:tr, id: "letter-quick-preview-#{letter.id}", style: "display: none")
   td
-  td(colspan=11)
+  td(colspan=12)
     .quick-preview
       = simple_format letter.body
       - if letter.notes.present?
