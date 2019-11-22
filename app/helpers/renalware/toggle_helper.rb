@@ -19,5 +19,16 @@ module Renalware
         content_tag(:i)
       end
     end
+
+    def table_toggler(link_title: "Toggle all rows")
+      link_to(
+        "#",
+        data: { behaviour: "table-toggler" },
+        class: "toggler",
+        title: link_title
+      ) do
+        content_tag(:i)
+      end
+    end
   end
 end

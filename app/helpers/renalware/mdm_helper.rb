@@ -45,7 +45,8 @@ module Renalware
       end
 
       def mdm_name
-        "#{modality_description_name} MDM"
+        # "#{modality_description_name} MDM"
+        "MDM"
       end
 
       def modality_description_symbol

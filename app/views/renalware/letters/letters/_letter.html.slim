@@ -1,8 +1,8 @@
 - columns = local_assigns[:columns] || []
 - cache([letter, columns.join("-")]) do
   tr(class=letter.state.dasherize)
+    td= toggler("#letter-quick-preview-#{letter.id}")
     td.actions
-      = link_to "Toggle", "#quick-preview-#{letter.id}", data: { behaviour: "toggler" }
       = link_to letter.view_label, patient_letters_letter_path(letter.patient, letter)
       - if policy(letter).update?
         = link_to "Edit", edit_patient_letters_letter_path(letter.patient, letter)
@@ -22,9 +22,9 @@
     td.recipient= letter.main_recipient.address
     td.col-width-medium-with-ellipsis= letter.description
 
-  = content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
+  = content_tag(:tr, id: "letter-quick-preview-#{letter.id}", style: "display: none")
     td
-    td(colspan=8)
+    td(colspan=9)
       .quick-preview
         = simple_format letter.body
         - if letter.notes.present?

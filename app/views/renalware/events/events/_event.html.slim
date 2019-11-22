@@ -1,11 +1,8 @@
+- row_id = "#{toggle_prefix}-quick-preview-#{event.id}"
 tr
-  td
-    = link_to("Toggle",
-              "##{toggle_prefix}-quick-preview-#{event.id}",
-              data: { behaviour: "toggler" })
-
-    - if local_assigns[:edit_proc]
-      = pipe_separator
+  td.noprint= toggler("##{row_id}")
+  - if local_assigns[:edit_proc]
+    td.noprint
       = link_to("Edit", edit_proc.call(event))
 
   td.nowrap= l event.created_at.to_date
@@ -16,8 +13,8 @@ tr
                locals: { event: event }
   td.created_at= l(event.date_time)
   td.created_by= event.created_by.full_name
-= content_tag(:tr, id: "#{toggle_prefix}-quick-preview-#{event.id}", style: "display: none")
-  td(colspan=6)
+= content_tag(:tr, id: row_id, style: "display: none")
+  td(colspan=7)
     .quick-preview
       = render partial: event.to_toggled_cell_partial_path,
                locals: { event: event }

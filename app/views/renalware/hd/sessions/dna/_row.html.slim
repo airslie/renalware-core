@@ -1,9 +1,6 @@
 tr(class=[session.state, stripe_class])
-  td
-    = link_to("Toggle",
-              "#hd-session-#{session.id}",
-              data: { behaviour: "toggler" })
-    = pipe_separator
+  td.noprint= toggler("#hd-session-#{session.id}")
+  td.noprint
     = session.edit_or_view_url
   td= session.performed_on
   td= session.hospital_unit_unit_code
@@ -11,7 +8,7 @@ tr(class=[session.state, stripe_class])
   td(colspan=13)
    i= session.truncated_notes
 = content_tag(:tr, id: "hd-session-#{session.id}", style: "display: none")
-  td(colspan=19)
+  td(colspan=20)
     .quick-preview
       = definition_list_for(session, size: :large) do |list|
         = list.definition(:notes) { |value| simple_format(value) }
