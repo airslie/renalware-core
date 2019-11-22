@@ -31,12 +31,12 @@ module Renalware
         letter = LetterFactory.new(
           @patient,
           event: find_event,
-          author: current_user,
           clinical: clinical?
         )
           .with_contacts_as_default_ccs
           .build
         RememberedLetterPreferences.new(session).apply_to(letter)
+        letter.author_id ||= current_user.id
         render_form(letter, :new)
       end
 
