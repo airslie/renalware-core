@@ -8,6 +8,11 @@
           = link_to "View All",
                       patient_clinic_visits_path(mdm.patient),
                       class: "button secondary"
+          = link_to new_patient_clinic_visit_path(mdm.patient),
+                    class: "button",
+                    target: "_blank" do
+              i.fa.fa-external-link-square-alt
+              | Add
 
     = render "renalware/clinics/clinic_visits/table",
             clinic_visits: mdm.clinic_visits,
