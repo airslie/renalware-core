@@ -218,10 +218,10 @@ module Renalware
             units = [create(:hospital_unit), create(:hospital_unit)]
 
             modality_start_dates = [
+              "2016-01-01",
               "2017-01-01",
               "2018-01-01",
-              "2019-01-01",
-              "2020-01-01"
+              "2019-01-01"
             ]
 
             modalities = modality_start_dates.map do |date|
@@ -237,9 +237,9 @@ module Renalware
             # modality[0]. The profile lasts for 1 month then another is created
             profiles_definitions = [
               # start_date,   end_date,     hd_type,  unit
-              ["2018-02-01",  "2018-03-01", :hd,      units.first],
-              ["2018-03-01",  "2018-04-01", :hdf_pre, units.first], # hd_type changes
-              ["2018-04-01",  nil,          :hdf_pre, units.last]   # unit changes NB deactivated_at = nil as current profile
+              ["2017-02-01",  "2017-03-01", :hd,      units.first],
+              ["2017-03-01",  "2017-04-01", :hdf_pre, units.first], # hd_type changes
+              ["2017-04-01",  nil,          :hdf_pre, units.last]   # unit changes NB deactivated_at = nil as current profile
             ]
 
             profiles_definitions.each do |defn|
@@ -264,12 +264,12 @@ module Renalware
 
             expected = [
               # started_on,  ended_on,     hd_type,   unit
-              ["2017-01-01", "2018-01-01", "hd",      units[0]], # modality[0]
-              ["2018-01-01", "2018-03-01", "hd",      units[0]], # modality[1] - ends early due to hd_profile change
-              ["2018-03-01", "2018-04-01", "hdf_pre", units[0]], # triggered by hd_type change in profile
-              ["2018-04-01", "2019-01-01", "hdf_pre", units[1]], # triggered by unit change in profile,
-              ["2019-01-01", "2020-01-01", "hdf_pre", units[1]], # modality[3],
-              ["2020-01-01", nil,          "hdf_pre", units[1]]  # modality[4]
+              ["2016-01-01", "2017-01-01", "hd",      units[0]], # modality[0]
+              ["2017-01-01", "2017-03-01", "hd",      units[0]], # modality[1] - ends early due to hd_profile change
+              ["2017-03-01", "2017-04-01", "hdf_pre", units[0]], # triggered by hd_type change in profile
+              ["2017-04-01", "2018-01-01", "hdf_pre", units[1]], # triggered by unit change in profile,
+              ["2018-01-01", "2019-01-01", "hdf_pre", units[1]], # modality[3],
+              ["2019-01-01", nil,          "hdf_pre", units[1]]  # modality[4]
             ]
 
             expected.each_with_index do |row, index|
