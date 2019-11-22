@@ -19,7 +19,7 @@ module Renalware
       validates :patient, presence: true
       validates :started_on, presence: true
       validates :description, presence: true
-      validates :started_on, timeliness: { type: :date }
+      validates :started_on, timeliness: { type: :date, on_or_before: -> { Date.current } }
       validate :validate_modality_starts_later_than_previous, on: :create, if: :patient
 
       def terminate_by(user, on:)
