@@ -9,6 +9,21 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.124
+### Added
+- Add button to create new clinic visit from MDM #3029
+- Allow deletion of problem notes #3004
+- Toggle all rows by clicking an icon in the header #3023
+### Changed
+- Prevent a modality being added with a future date #3028
+- Remember letter author between letters #3022
+- Add toggle to body compositions to show notes #3021
+- Handle ActiveRecord::PreparedStatementCacheExpired errors during deploy #3011
+### Fixed
+- Sort HD MDM by access not working #2847
+- Skip validation of deceased fields when updating via ADT #3014
+- Fix display of erorr pages #3013
+
 ### 2.0.123
 ### Added
 ### Changed
