@@ -1,11 +1,7 @@
 - toggleable_id = "aki-alert-quick-preview-#{aki_alert.id}"
 tr(class="#{'aki_alert--hotlist' if aki_alert.hotlist?}")
-  td
-    = link_to("Edit", edit_renal_aki_alert_path(aki_alert))
-    | &nbsp;|&nbsp;
-    = link_to("Toggle",
-              "##{toggleable_id}",
-              data: { behaviour: "toggler" })
+  td= toggler("##{toggleable_id}")
+  td= link_to("Edit", edit_renal_aki_alert_path(aki_alert))
   td= default_patient_link(aki_alert.patient)
   td= aki_alert.patient.hospital_identifiers
   td.show-for-large-up.col-width-medium-with-ellipsis= aki_alert.patient.current_modality
@@ -18,6 +14,7 @@ tr(class="#{'aki_alert--hotlist' if aki_alert.hotlist?}")
   td= l(aki_alert.aki_date)
   td= aki_alert.decided_by
 = content_tag(:tr, id: "#{toggleable_id}", style: "display: none")
+  td
   td.notes Notes
   td(colspan=10)
     .quick-preview

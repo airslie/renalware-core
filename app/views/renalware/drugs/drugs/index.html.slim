@@ -16,9 +16,8 @@
     tbody
       - @drugs.each do |drug|
         tr
-          td
+          td.actions
             = link_to "Edit", edit_drugs_drug_path(drug)
-            = pipe_separator
             = link_to "Delete", drugs_drug_path(drug),
               id: "#{drug.id}-drug",
               method: :delete,

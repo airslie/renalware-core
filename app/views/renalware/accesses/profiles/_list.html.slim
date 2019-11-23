@@ -17,9 +17,8 @@ article.access-profiles
     tbody
       - profiles.each do |profile|
         tr
-          td
+          td.actions
             = link_to "View", patient_accesses_profile_path(patient, profile)
-            = pipe_separator
             = link_to "Edit", edit_patient_accesses_profile_path(patient, profile)
           td= profile.formed_on
           td= profile.started_on

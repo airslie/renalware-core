@@ -5,7 +5,8 @@
   table
     thead
       tr
-        th.col-width-medium.noprint
+        th.noprint.togglers = table_toggler
+        th.col-width-small.noprint
         - unless compact
           th.col-width-large
             - if allow_sorting
@@ -63,6 +64,7 @@
       - consults.each do |consult|
         - uid = "consult-#{consult.id}"
         tr.keep-with-next
+          td = toggler("#consult-quick-preview-#{consult.id}")
           td.actions-dropdown.going-right.noprint
             / As we have lots of possible actions, group them in a button group.
             / A wrapping div is required for now in order for the button group display correctly
@@ -91,10 +93,6 @@
                   li= render "renalware/admissions/requests/create_request_link",
                              patient: consult.patient,
                              link_text: "Request Admission"
-            | &nbsp;&nbsp;
-            = link_to("Toggle",
-                      "#consult-quick-preview-#{consult.id}",
-                      data: { behaviour: "toggler" })
           - unless compact
             td= default_patient_link(consult.patient)
           td.noprint= consult.patient_nhs_number

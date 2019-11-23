@@ -13,11 +13,10 @@
     tbody
       - modality_descriptions.each do |description|
         tr
-          td
+          td.actions
             - if policy(description).edit?
               = link_to "Edit", edit_modalities_description_path(description.id)
             - if policy(description).destroy?
-              = pipe_separator
               = link_to "Delete",
                         modalities_description_path(description.id),
                         method: :delete,
