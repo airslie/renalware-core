@@ -28,7 +28,7 @@ group :test do
   gem "capybara", "~> 3.24"
   gem "capybara-screenshot", "~> 1.0"
   gem "capybara-select-2"
-  gem "cucumber-rails", "~> 1.8.0", require: false # must be loaded in env.rb
+  gem "cucumber-rails", "~> 2.0.0", require: false # must be loaded in env.rb
   gem "database_cleaner", "~> 1.7.0", require: false # for cucumber (now not needed for rspec)
   gem "factory_bot_rails", "~> 4.11"
   gem "fuubar", require: false

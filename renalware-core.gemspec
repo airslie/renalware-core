@@ -73,7 +73,7 @@ Gem::Specification.new do |s|
   s.add_dependency "pdf-reader", "~> 2.2.0"
   s.add_dependency "pg", "~> 1.1.3"
   s.add_dependency "prawn", "~> 2.2.2"
-  s.add_dependency "puma", "~> 3.12.0"
+  s.add_dependency "puma", "~> 4.3.0"
   s.add_dependency "pundit", "~> 2.1.0"
   s.add_dependency "rack-attack"
   s.add_dependency "rails", "~> 5.2"
