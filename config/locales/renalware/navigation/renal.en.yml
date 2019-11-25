@@ -5,6 +5,7 @@ en:
         menu_title: Renal
         appointments: Appointments
         clinic_visits: Clinic Visits
+        events: Events
         tx_wait_list: Tx Wait List
         live_donors: Live Donors
         ongoing_hd_sessions: Ongoing HD Sessions

@@ -9,6 +9,8 @@ table.has-togglable-rows.events-table
       th.col-width-date=t(".created_at")
       - unless local_assigns.fetch(:exclude_type_column, false)
         th.col-width-large= t(".type")
+      - if local_assigns.fetch(:include_patient_column, false)
+        th.col-width-large= t(".patient")
       th= t(".description")
       th.created_at.col-width-date-time= t(".date_time")
       th.created_by.col-width-medium= t(".created_by")
@@ -18,6 +20,9 @@ table.has-togglable-rows.events-table
     / an Edit link or Type column in certain circumstances.
     = render partial: "renalware/events/events/event",
              collection: events,
-             locals: { exclude_type_column: local_assigns[:exclude_type_column],
-                       edit_proc: local_assigns[:edit_proc],
-                       toggle_prefix: toggle_prefix }
+             locals: { \
+              exclude_type_column: local_assigns[:exclude_type_column],
+              include_patient_column: local_assigns[:include_patient_column],
+              edit_proc: local_assigns[:edit_proc],
+              toggle_prefix: toggle_prefix \
+            }

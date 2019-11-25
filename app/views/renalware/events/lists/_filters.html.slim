@@ -1,0 +1,29 @@
+.search-form.filters
+  = simple_form_for form,
+                    as: :filters,
+                    url: renalware.events_filtered_list_path(named_filter: :all),
+                    html: { autocomplete: "off" },
+                    method: :get do |f|
+    .row
+      .small-6.medium-3.large-2.columns
+        = f.input :event_type_id_eq,
+              collection: form.event_type_options,
+              input_html: { class: "searchable_select" },
+              label: "Event type"
+      .small-6.medium-3.large-2.columns
+        = f.input :created_by_id_eq,
+                  as: :user_picker,
+                  collection: form.created_by_options,
+                  label: "Created by"
+      .small-6.medium-2.large-2.columns
+        = f.input :created_at_gteq,
+                  as: :date_picker,
+                  label: "From"
+      .small-6.medium-2.large-2.columns
+        = f.input :created_at_lteq,
+                  as: :date_picker,
+                  label: "To"
+      .small-12.medium-2.large-2.columns.actions.end
+        = f.submit t("helpers.submit.filter"), class: "button secondary"
+        span= " or "
+        = link_to t("helpers.reset"), renalware.events_filtered_list_path(named_filter: :all)

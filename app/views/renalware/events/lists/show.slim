@@ -1,0 +1,9 @@
+
+= content_for(:tabs) do
+  = render "tabs"
+
+= content_for(:filters) do
+  = render "filters", form: form
+
+= within_admin_layout(title: "Events") do
+  = render "table", events: events, q: q
