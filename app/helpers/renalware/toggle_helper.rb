@@ -30,5 +30,17 @@ module Renalware
         content_tag(:i)
       end
     end
+
+    def th_toggle_all_rows
+      content_tag(:th, class: "noprint togglers") do
+        table_toggler(link_title: "Toggle all rows")
+      end
+    end
+
+    def td_toggle_row(row_selector)
+      content_tag(:td, class: "noprint") do
+        toggler(row_selector)
+      end
+    end
   end
 end

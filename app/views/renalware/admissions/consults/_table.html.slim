@@ -5,7 +5,7 @@
   table
     thead
       tr
-        th.noprint.togglers = table_toggler
+        = th_toggle_all_rows
         th.col-width-small.noprint
         - unless compact
           th.col-width-large
@@ -64,7 +64,7 @@
       - consults.each do |consult|
         - uid = "consult-#{consult.id}"
         tr.keep-with-next
-          td = toggler("#consult-quick-preview-#{consult.id}")
+          = td_toggle_row("#consult-quick-preview-#{consult.id}")
           td.actions-dropdown.going-right.noprint
             / As we have lots of possible actions, group them in a button group.
             / A wrapping div is required for now in order for the button group display correctly
