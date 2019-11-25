@@ -17,10 +17,9 @@ article.pd_training_sessions
       - training_sessions.each do |training_session|
         - document = training_session.document
         tr
-          td
+          td.actions
             - if policy(training_session).edit?
               = link_to("Edit", edit_patient_pd_training_session_path(patient, training_session))
-              = pipe_separator
             - if policy(training_session).show?
               = link_to("View", [patient, training_session])
           td= l(training_session.created_at)

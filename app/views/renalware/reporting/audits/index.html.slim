@@ -14,10 +14,9 @@
     tbody
       - audits.each do |audit|
         tr
-          td
+          td.actions
             = link_to("View", reporting_audit_path(audit))
             - if policy(audit).edit?
-              = pipe_separator
               = link_to("Edit", edit_reporting_audit_path(audit))
           td= audit.name
           td= audit.view_name

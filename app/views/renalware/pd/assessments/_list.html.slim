@@ -16,10 +16,9 @@ article.pd_assessments
       - assessments.each do |assessment|
         - document = assessment.document
         tr
-          td
+          td.actions
             - if policy(assessment).edit?
               = link_to("Edit", edit_patient_pd_assessment_path(patient, assessment))
-              = pipe_separator
             - if policy(assessment).show?
               = link_to("View", [patient, assessment])
           td= l(assessment.created_at)

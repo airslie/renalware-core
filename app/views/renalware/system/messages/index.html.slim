@@ -14,9 +14,8 @@
       tbody
         - messages.each do |message|
           tr
-            td
+            td.actions
               = link_to "Edit", edit_system_message_path(message)
-              = pipe_separator
               = link_to "Delete",
                         system_message_path(message),
                         method: :delete,

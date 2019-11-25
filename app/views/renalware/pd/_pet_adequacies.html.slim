@@ -15,9 +15,8 @@ table
   tbody
     - pet_adequacies.each do |pet_adequacy|
       tr data-assessment-id="#{pet_adequacy.id}" valign="top"
-        td
+        td.actions
           = link_to "View", patient_pd_pet_adequacy_result_path(patient, pet_adequacy.id)
-          | &nbsp;|&nbsp;
           = link_to "Edit", edit_patient_pd_pet_adequacy_result_path(patient, pet_adequacy.id)
         td= l(pet_adequacy.pet_date)
         td= pet_adequacy.pet_type&.text
