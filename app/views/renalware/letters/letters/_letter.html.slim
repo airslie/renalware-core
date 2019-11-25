@@ -1,8 +1,8 @@
 - columns = local_assigns[:columns] || []
 - cache([letter, columns.join("-")]) do
   tr(class=letter.state.dasherize)
-    td= toggler("#letter-quick-preview-#{letter.id}")
-    td.actions
+    td.noprint= toggler("#letter-quick-preview-#{letter.id}")
+    td.noprint.actions
       = link_to letter.view_label, patient_letters_letter_path(letter.patient, letter)
       - if policy(letter).update?
         = link_to "Edit", edit_patient_letters_letter_path(letter.patient, letter)
