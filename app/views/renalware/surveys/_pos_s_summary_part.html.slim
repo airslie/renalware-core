@@ -23,4 +23,17 @@
           tr
             td= row.answered_on
             - pos_s_summary_part.question_labels.each do |code, label|
-              td= row.send(code.to_sym)
+              - value = row.send(code.to_sym)
+              td(class="pos-s--#{value}") = value
+
+    dl.pos-s-key
+      dt.pos-s--0 0
+      dd Not at all
+      dt.pos-s--1 1
+      dd Slightly
+      dt.pos-s--2 2
+      dd Moderately
+      dt.pos-s--3 3
+      dd Severely
+      dt.pos-s--4 4
+      dd Overwhelmingly

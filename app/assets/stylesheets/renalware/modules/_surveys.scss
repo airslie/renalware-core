@@ -1,0 +1,58 @@
+$survey-0: #fff;
+$survey-1: #FFF8E8;
+$survey-2: #FFE8B4;
+$survey-3: #FFB81C;
+$survey-4: #ED8B00;
+
+dl.pos-s-key {
+  font-size: .9rem;
+  margin-top: 2rem;
+
+  dt, dd {
+    display: inline-block;
+    padding-right: .2rem;
+  }
+
+  dd {
+    padding: 0 .2rem;
+    margin-right: 1rem;
+  }
+
+  dt {
+    padding: 0 .5rem;
+    text-align: center;
+    border-radius: 3px;
+    border: solid 1px #DDD;
+    margin-right: .2rem;
+  }
+}
+
+.pos-s--0 {
+  background-color: $survey-0;
+}
+
+.pos-s--1 {
+  background-color: $survey-1;
+}
+
+.pos-s--2 {
+  background-color: $survey-2;
+}
+
+.pos-s--3 {
+  background-color: $survey-3;
+}
+
+.pos-s--4 {
+  background-color: $survey-4;
+}
+
+.summary-part--pos_s table {
+  td {
+    text-align: center;
+
+    &:first-child {
+      text-align: left;
+    }
+  }
+}
