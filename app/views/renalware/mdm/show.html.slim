@@ -8,7 +8,9 @@
   / TODO: a.trigger-full-screen Full screen
   .full-screen-container.mdm-page.no-side-gutters
     .grid
-      .row= render_if_exists "top", mdm: mdm
+      .row
+        = render_if_exists "top", mdm: mdm
+
       .row= render "pathology", mdm: mdm
       .row= render_if_exists "middle", mdm: mdm
       = render_if_exists "bottom", mdm: mdm

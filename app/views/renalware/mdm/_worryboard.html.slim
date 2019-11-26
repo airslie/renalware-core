@@ -1,0 +1,10 @@
+- worry = mdm.patient.worry
+- return if worry.blank?
+
+.columns.medium-6
+  article
+    header
+      h2 Worryboard
+      ul
+        li(style="float:right")= "Added #{l(worry.created_at&.to_date)} by #{worry.created_by}"
+    = worry.notes
