@@ -6,7 +6,7 @@ tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
   td= message.author
   td= l(message.sent_at)
   td= l(receipt.read_at)
-  td= default_patient_link(patient)
+  td.col-width-medium-with-ellipsis= default_patient_link(patient)
   td= patient.nhs_number
   td= patient.hospital_identifier
   td.col-width-medium-with-ellipsis= message.subject

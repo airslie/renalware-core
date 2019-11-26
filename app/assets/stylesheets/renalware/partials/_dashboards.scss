@@ -1,0 +1,15 @@
+@media only screen and (min-width: 830px) {
+  // Add body page--* classes to give them, the dashboard look.
+  body.page--dashboard-dashboards {
+    .main-content {
+      background-color: #E8EDEE;
+    }
+
+    article {
+      background-color: #fff;
+      padding: 0.3rem .5rem .5rem;
+      border-top-width: 2px;
+      border-top-color: $nhs-bright-blue;
+    }
+  }
+}

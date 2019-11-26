@@ -6,70 +6,71 @@
     header
       h2 POS-S
 
-  / b Example WIP for charting one question over time
-  / = line_chart(eq5d_summary_part.data_for_question_code(1), curve: false)
-  / br
-  / br
-  / br
+    / b Example WIP for charting one question over time
+    / = line_chart(eq5d_summary_part.data_for_question_code(1), curve: false)
+    / br
+    / br
+    / br
 
-  - return if pos_s_summary_part.rows.blank?
-  br
-  br
-  br
-  br
-  .xsss
-    table.table-header-rotated.toggleable
-      thead
-        tr
-          th.togglers= rows_toggler
-          th.col-width-date.valign-bottom Date
-          th.col-width-tiny.valign-bottom Total
-          - pos_s_summary_part.question_labels.each do |code, label|
-            th.rotate
-              div
-                span= label
+    - return if pos_s_summary_part.rows.blank?
 
-      - superscript_char = 97
-      - pos_s_summary_part.rows.each do |row|
-        tbody
+    br
+    br
+    br
+    br
+    .xsss
+      table.table-header-rotated.toggleable
+        thead
           tr
-            td= row_toggler
-            td= row.answered_on
-            td= row.total_score
+            th.togglers= rows_toggler
+            th.col-width-date.valign-bottom Date
+            th.col-width-tiny.valign-bottom Total
             - pos_s_summary_part.question_labels.each do |code, label|
-              - value = row.send(code.to_sym)
-              - patient_question_text = row.try(:"#{code}_patient_question_text")
-              td(class="pos-s--#{value}")
-                - if patient_question_text
-                  span(title="Toggle row for question text")= value
-                  sup= superscript_char.chr
-                  - superscript_char += 1
-                - else
-                  = value
-          tr
-            td
-            td
-            td
-            td(class="summary-part--pos_s-patient-question-text" colspan=(pos_s_summary_part.question_labels.count ))
-              - superscript_char = 97
-              - pos_s_summary_part.question_labels.each do |code, label|
-                - patient_question_text = row.try(:"#{code}_patient_question_text")
-                - if patient_question_text
-                  sup= superscript_char.chr
-                  | &nbsp;
-                  span= patient_question_text
-                  | &nbsp;&nbsp;
-                  - superscript_char += 1
+              th.rotate
+                div
+                  span= label
 
-    / Colour-coded key
-    dl.pos-s-key
-      dt.pos-s--0 0
-      dd Not at all
-      dt.pos-s--1 1
-      dd Slightly
-      dt.pos-s--2 2
-      dd Moderately
-      dt.pos-s--3 3
-      dd Severely
-      dt.pos-s--4 4
-      dd Overwhelmingly
+        - superscript_char = 97
+        - pos_s_summary_part.rows.each do |row|
+          tbody
+            tr
+              td= row_toggler
+              td= row.answered_on
+              td= row.total_score
+              - pos_s_summary_part.question_labels.each do |code, label|
+                - value = row.send(code.to_sym)
+                - patient_question_text = row.try(:"#{code}_patient_question_text")
+                td(class="pos-s--#{value}")
+                  - if patient_question_text
+                    span(title="Toggle row for question text")= value
+                    sup= superscript_char.chr
+                    - superscript_char += 1
+                  - else
+                    = value
+            tr
+              td
+              td
+              td
+              td(class="summary-part--pos_s-patient-question-text" colspan=(pos_s_summary_part.question_labels.count ))
+                - superscript_char = 97
+                - pos_s_summary_part.question_labels.each do |code, label|
+                  - patient_question_text = row.try(:"#{code}_patient_question_text")
+                  - if patient_question_text
+                    sup= superscript_char.chr
+                    | &nbsp;
+                    span= patient_question_text
+                    | &nbsp;&nbsp;
+                    - superscript_char += 1
+
+      / Colour-coded key
+      dl.pos-s-key
+        dt.pos-s--0 0
+        dd Not at all
+        dt.pos-s--1 1
+        dd Slightly
+        dt.pos-s--2 2
+        dd Moderately
+        dt.pos-s--3 3
+        dd Severely
+        dt.pos-s--4 4
+        dd Overwhelmingly

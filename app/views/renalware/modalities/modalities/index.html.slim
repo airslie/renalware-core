@@ -4,20 +4,21 @@
             class: "button"
 
 = within_patient_layout(title: "Modality History") do
-  table
-    thead
-      tr
-        th Modality
-        th Notes
-        th.col-width-date Start Date
-        th.col-width-date.wide Termination Date
-        th Added by
-
-    tbody
-      - modalities.each do |modality|
+  article
+    table
+      thead
         tr
-          td= modality.description.name
-          td= modality.notes
-          td= l modality.started_on
-          td= l modality.ended_on
-          td= modality.created_by.full_name
+          th Modality
+          th Notes
+          th.col-width-date Start Date
+          th.col-width-date.wide Termination Date
+          th Added by
+
+      tbody
+        - modalities.each do |modality|
+          tr
+            td= modality.description.name
+            td= modality.notes
+            td= l modality.started_on
+            td= l modality.ended_on
+            td= modality.created_by.full_name

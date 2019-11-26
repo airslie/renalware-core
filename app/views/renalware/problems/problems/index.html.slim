@@ -5,8 +5,12 @@
 
 = within_patient_layout(title: "Problems") do
 
-  h2 Current
-  = render "renalware/problems/problems/current_table", problems: current_problems
-  br
-  h2 Archived
-  = render "renalware/problems/problems/archived_table", problems: archived_problems
+  article
+    header
+      h2 Current
+    = render "renalware/problems/problems/current_table", problems: current_problems
+
+  article
+    header
+      h2 Archived
+    = render "renalware/problems/problems/archived_table", problems: archived_problems
