@@ -16,7 +16,19 @@ module Renalware
         query = sessions_query
         sessions = query
           .call
-          .includes(:hospital_unit, :patient, :signed_on_by, :signed_off_by)
+          .eager_load(
+            :hospital_unit,
+            :patient,
+            :signed_on_by,
+            :signed_off_by,
+            prescription_administrations: [
+              {
+                prescription: [:medication_route, :drug]
+              },
+              :administered_by,
+              :reason
+            ])
+          .merge(PrescriptionAdministration.ordered)
           .page(page)
           .per(per_page || 15)
         authorize sessions

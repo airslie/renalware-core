@@ -1,0 +1,22 @@
+- drugs_count = session.prescription_administrations.length
+- rows_span = drugs_count + 1
+tbody.hd-session-row(class=[session.state, stripe_class])
+  tr
+    td(rowspan=rows_span)= session.edit_or_view_url
+    td(rowspan=rows_span)= session.performed_on
+    td.col-width-medium-with-ellipsis(rowspan=rows_span)= session.hospital_unit_unit_code
+    - if drugs_count.zero?
+      td
+      td
+      td
+      td
+      td
+
+  - session.prescription_administrations.each do |da|
+    tr(class="administered-#{da.administered?}")
+      td= Renalware::Medications::PrescriptionPresenter.new(da.prescription).to_s
+      td
+        span.given= yes_no da.administered?
+      td.col-width-medium-with-ellipsis= da.administered_by
+      td.col-width-medium-with-ellipsis= da.reason&.name
+      td= da.notes

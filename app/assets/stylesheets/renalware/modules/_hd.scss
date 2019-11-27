@@ -300,6 +300,18 @@ table.hd-sessions {
   }
 
   tbody {
+    &.dna {
+      td {
+        background-color: #ccc;
+      }
+    }
+
+    &.open {
+      td {
+        background-color: #ffffc8;
+      }
+    }
+
     tr {
       &:nth-of-type(even) {
         background-color: $white;
@@ -594,6 +606,29 @@ use flexbox to layout items inside each prescription.
         .confirmed {
           display: block;
         }
+      }
+    }
+  }
+}
+
+table.hd-session-drugs {
+  tbody {
+    border-bottom: solid 1px #999;
+  }
+
+  tr {
+    span.given {
+      @include badge;
+    }
+    &.administered-true {
+      span.given {
+        background-color: $nhs-light-green;
+      }
+    }
+
+    &.administered-false {
+      span.given {
+        background-color: $nhs-red;
       }
     }
   }

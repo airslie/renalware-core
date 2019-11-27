@@ -45,14 +45,25 @@ module Renalware
         end
       end
 
+      # rubocop:disable Metrics/MethodLength
       def sessions
         @sessions ||= begin
-          hd_sessions = Session.includes(:hospital_unit, :patient, :signed_on_by, :signed_off_by)
-                               .for_patient(patient)
-                               .limit(10).ordered
+          hd_sessions = Session
+            .eager_load(
+              :hospital_unit,
+              :patient,
+              :signed_on_by,
+              :signed_off_by,
+              prescription_administrations: [
+                { prescription: [:medication_route, :drug] }, :administered_by, :reason
+              ]
+            )
+            .for_patient(patient)
+            .limit(10).ordered.merge(PrescriptionAdministration.ordered)
           CollectionPresenter.new(hd_sessions, SessionPresenter, view_context)
         end
       end
+      # rubocop:enable Metrics/MethodLength
 
       def can_add_hd_profile?
         profile.new_record? && policy_for(profile).edit? && has_ever_been_on_hd?
