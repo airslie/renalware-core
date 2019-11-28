@@ -45,8 +45,8 @@ describe Renalware::Pathology::RequestForPatientRequestDescriptionQuery do
   end
 
   describe "#call" do
-    subject(:resulting_request) { query.call }
+    subject(:resulting_request_date) { query.call }
 
-    it { expect(resulting_request).to eq(request_new) }
+    it { expect(resulting_request_date).to eq(request_new.created_at) }
   end
 end

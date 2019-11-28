@@ -63,7 +63,7 @@ BEGIN
     pathology_current_observation_sets
     where patient_id = a_patient_id;
 
-    -- Output some info to helps us debug. This can be removed later.
+    -- Output some info to help us debug. This can be removed later.
     RAISE NOTICE '  Request id % Patient id % Code %', NEW.request_id, a_patient_id, a_code;
     RAISE NOTICE '  Last %: % at %', a_code, current_result, current_observed_at;
     RAISE NOTICE '  New  %: % at %', a_code, NEW.result, new_observed_at;

@@ -104,6 +104,7 @@ module Renalware
             Pathology::OrderedPatientQuery
               .new(patient_ids)
               .call
+              .includes(:current_observation_set, :rules)
           authorize Renalware::Patient
         end
 

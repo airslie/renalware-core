@@ -40,6 +40,10 @@ module Renalware
         current_observation_set || build_current_observation_set
       end
 
+      def current_drug_ids
+        @current_drug_ids ||= prescriptions.current.pluck(:drug_id).uniq
+      end
+
       private
 
       def date_for_algorithms

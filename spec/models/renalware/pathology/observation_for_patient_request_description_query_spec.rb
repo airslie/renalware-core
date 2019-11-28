@@ -14,25 +14,30 @@ describe Renalware::Pathology::ObservationForPatientRequestDescriptionQuery do
       )
       create_observation(patient: patient_b, description: description, observed_at: 2.weeks.ago)
       create_observation(patient: patient_a, description: description, observed_at: 2.weeks.ago)
-      most_recent_observation = create_observation(
+      create_observation(
         patient: patient_a,
         description: description,
-        observed_at: 1.week.ago
+        observed_at: 1.week.ago,
+        result: 999.9
       )
 
       query = described_class.new(patient_a, request_description_a)
 
-      expect(query.call).to eq(most_recent_observation)
+      expect(query.call).to have_attributes(
+        observed_on: 1.week.ago.to_date,
+        result: 999.9
+      )
     end
   end
 end
 
-def create_observation(patient:, description:, observed_at:)
+def create_observation(patient:, description:, observed_at:, result: 1.0)
   request = create(:pathology_observation_request, patient: patient)
   create(
     :pathology_observation,
     request: request,
     description: description,
-    observed_at: observed_at
+    observed_at: observed_at,
+    result: result
   )
 end

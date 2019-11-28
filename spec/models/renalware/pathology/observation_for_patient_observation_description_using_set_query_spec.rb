@@ -17,7 +17,8 @@ describe Renalware::Pathology::ObservationForPatientObservationDescriptionUsingS
       create_observation(patient: patient_a, description: description, observed_at: "2016-01-01")
       create_observation(patient: patient_b, description: description, observed_at: "2016-01-01")
 
-      res = described_class.new(patient_a, description).call
+      res = described_class.new(patient_a, description.code).call
+
       # E.g. { "result"=>"6.0", "observed_at"=>"2019-10-31T18:00:24.032192" }
       expect(res["result"]).to eq(most_recent_observation.result)
       expect(Date.parse(res["observed_at"])).to eq(most_recent_observation.observed_at.to_date)

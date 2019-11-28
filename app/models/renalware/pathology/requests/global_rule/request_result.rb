@@ -36,7 +36,7 @@ module Renalware
           end
 
           def request_description
-            RequestDescription.find_by(id: param_id)
+            RequestDescription.eager_load(:required_observation_description).find_by(id: param_id)
           end
 
           def request_description_present

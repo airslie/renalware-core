@@ -22,14 +22,20 @@ module Renalware
             "#{param_comparison_value}"
           end
 
-          def observation_description
-            @observation_description ||= ObservationDescription.find_by(id: param_id)
+          # def observation_description
+          #   @observation_description ||= ObservationDescription.where(id: param_id).first
+          # end
+
+          def observation_description_code
+            @observation_description_code ||= begin
+              ObservationDescription.where(id: param_id).pluck(:code).first
+            end
           end
 
           private
 
           def observation_description_present
-            return if observation_description.present?
+            return if observation_description_code.present?
 
             errors.add(:param_id, "param_id must be the id of an ObservationDescription")
           end
@@ -37,7 +43,13 @@ module Renalware
 
         class PatientGlobalRuleDecision
           pattr_initialize :patient, :rule
-          delegate :param_comparison_operator, :param_comparison_value, :param_id, to: :rule
+          delegate(
+            :param_comparison_operator,
+            :param_comparison_value,
+            :param_id,
+            :observation_description_code,
+            to: :rule
+          )
 
           def observation_required_for_patient?
             return true if observation.blank?
@@ -63,7 +75,7 @@ module Renalware
               # The call returns eg { "result" => "123", "observed_on" => "2019-01-01" }
               ObservationForPatientObservationDescriptionUsingSetQuery.new(
                 patient,
-                observation_description
+                observation_description_code
               ).call["result"]
 
               # ObservationForPatientObservationDescriptionQuery.new(
@@ -73,9 +85,9 @@ module Renalware
             end
           end
 
-          def observation_description
-            rule.observation_description ||= ObservationDescription.new(id: param_id)
-          end
+          # def observation_description_code
+          #   rule.observation_description_code # ||= ObservationDescription.new(id: param_id)
+          # end
         end
       end
     end

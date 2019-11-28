@@ -28,7 +28,11 @@ end
 
 Given(/^Patty was last tested for ([A-Z0-9]+) (.*)$/) do |code, time_ago|
   if time_ago.present?
-    observed_at = str_to_time(time_ago).to_date
+    # Setting the time here to 01:00 to allow for timezone errors in this test that need
+    # addressing at some point. I think it is to do with the current_observation_set observed_at
+    # not being stored with time zone information, so parsing to a Time ort Date might result
+    # in the date beng the day before the results was actually observered.
+    observed_at = str_to_time(time_ago).beginning_of_day + 3600
     record_observations(
       patient: @patty,
       observations_attributes: [
