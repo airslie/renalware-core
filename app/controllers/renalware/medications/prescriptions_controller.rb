@@ -65,6 +65,7 @@ module Renalware
         gp_provider_code = Provider.codes.find { |code| code == :gp }
         prescription = Prescription.new(treatable: treatable, provider: gp_provider_code)
         prescription.build_termination
+        prescription.prescribed_on = Date.current
         prescription
       end
 
