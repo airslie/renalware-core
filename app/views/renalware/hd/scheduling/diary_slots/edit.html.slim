@@ -1,6 +1,11 @@
 .modal
   .modal__header
-    h2= slot.patient
+    h2
+      = link_to(patient_clinical_summary_path(slot.patient), target: "_blank") do
+        = slot.patient.to_s(:default)
+        | &nbsp;
+        i.fa.fa-external-link-square-alt
+
     = render "renalware/shared/modal_close_link"
 
   .modal__body
