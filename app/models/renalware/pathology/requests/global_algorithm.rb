@@ -22,7 +22,10 @@ module Renalware
         private
 
         def rule_sets
-          GlobalRuleSet.for_clinic(@clinic).ordered
+          GlobalRuleSet
+            .for_clinic(@clinic)
+            .ordered
+            .eager_load(:rules, request_description: :required_observation_description)
         end
       end
     end

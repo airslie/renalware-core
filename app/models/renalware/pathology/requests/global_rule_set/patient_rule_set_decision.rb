@@ -32,14 +32,14 @@ module Renalware
           end
 
           def last_request_still_being_processed?
-            return false if last_request.nil? || last_request_has_an_observation_result?
+            return false if last_request_date.nil? || last_request_has_an_observation_result?
 
             expiration_days = rule_set.request_description.expiration_days
             return false if expiration_days == 0
 
             # This subtraction works because ActiveSupport::TimeWithZone works in days
             # e.g. TimeWithZone1 - TimeWithZone2 = 3 days
-            requested_days_ago = date - last_request.requested_on
+            requested_days_ago = date - last_request_date.to_date
             requested_days_ago < expiration_days
           end
 
@@ -53,7 +53,7 @@ module Renalware
           # NB request.requested_on == request.created_at
           def last_request_has_an_observation_result?
             last_observation.present? &&
-              last_observation.observed_on > last_request.requested_on
+              last_observation.observed_on > last_request_date
           end
 
           def last_observation
@@ -64,8 +64,17 @@ module Renalware
               ).call
           end
 
-          def last_request
-            @last_request ||=
+          # def last_request
+          #   raise 'u'
+          #   @last_request ||=
+          #     RequestForPatientRequestDescriptionQuery.new(
+          #       patient,
+          #       rule_set.request_description
+          #     ).call
+          # end
+
+          def last_request_date
+            @last_request_date ||=
               RequestForPatientRequestDescriptionQuery.new(
                 patient,
                 rule_set.request_description

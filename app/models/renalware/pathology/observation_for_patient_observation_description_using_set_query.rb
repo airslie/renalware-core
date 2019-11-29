@@ -5,7 +5,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ObservationForPatientObservationDescriptionUsingSetQuery
-      pattr_initialize :patient, :observation_description
+      pattr_initialize :patient, :observation_description_code
 
       # Fetches the patient's most recent observation for the supplied observation_description.code
       # (eg 'HGB') using the patient's current_observation_set jsonb hash and returnd something
@@ -13,7 +13,7 @@ module Renalware
       def call
         return {} unless patient.current_observation_set
 
-        patient.current_observation_set.values.fetch(observation_description.code, {})
+        patient.current_observation_set.values.fetch(observation_description_code, {})
       end
     end
   end

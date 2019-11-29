@@ -11,9 +11,7 @@ module Renalware
 
           def observation_required_for_patient?(patient, _date)
             patient
-              .drugs
-              .select(:id)
-              .joins(:classifications)
+              .prescriptions.current.joins(drug: :classifications)
               .where("drug_types_drugs.drug_type_id = ?", param_id)
               .count > 0
           end

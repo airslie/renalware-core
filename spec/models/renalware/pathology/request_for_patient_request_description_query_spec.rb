@@ -3,13 +3,13 @@
 require "rails_helper"
 
 describe Renalware::Pathology::RequestForPatientRequestDescriptionQuery do
-  let!(:clinic) { create(:clinic) }
-  let!(:patient) { create(:pathology_patient) }
-  let!(:consultant) { create(:renal_consultant) }
-  let!(:request_description) { create(:pathology_request_description, code: "XYZ") }
-  let!(:request_description_unrelated) { create(:pathology_request_description, code: "ABC") }
+  let(:clinic) { create(:clinic) }
+  let(:patient) { create(:pathology_patient) }
+  let(:consultant) { create(:renal_consultant) }
+  let(:request_description) { create(:pathology_request_description, code: "XYZ") }
+  let(:request_description_unrelated) { create(:pathology_request_description, code: "ABC") }
 
-  let!(:request_newest_but_unrelated) do
+  let(:request_newest_but_unrelated) do
     create(
       :pathology_requests_request,
       clinic: clinic,
@@ -19,7 +19,7 @@ describe Renalware::Pathology::RequestForPatientRequestDescriptionQuery do
       created_at: Time.zone.now
     )
   end
-  let!(:request_new) do
+  let(:request_new) do
     create(
       :pathology_requests_request,
       clinic: clinic,
@@ -29,7 +29,7 @@ describe Renalware::Pathology::RequestForPatientRequestDescriptionQuery do
       created_at: Time.current - 1.day
     )
   end
-  let!(:request_old) do
+  let(:request_old) do
     create(
       :pathology_requests_request,
       clinic: clinic,
@@ -45,8 +45,14 @@ describe Renalware::Pathology::RequestForPatientRequestDescriptionQuery do
   end
 
   describe "#call" do
-    subject(:resulting_request) { query.call }
+    subject(:resulting_request_date) { query.call }
 
-    it { expect(resulting_request).to eq(request_new) }
+    it do
+      request_newest_but_unrelated
+      request_new
+      request_old
+
+      expect(resulting_request_date.to_date).to eq(request_new.created_at.to_date)
+    end
   end
 end
