@@ -10,7 +10,7 @@ module Renalware
           validate :drug_present
 
           def observation_required_for_patient?(patient, _date)
-            patient.drugs.exists?(id: param_id)
+            patient.current_drug_ids.include?(param_id.to_i)
           end
 
           def to_s

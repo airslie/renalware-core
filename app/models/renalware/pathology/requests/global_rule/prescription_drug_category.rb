@@ -10,7 +10,7 @@ module Renalware
           validate :drug_category_present
 
           def observation_required_for_patient?(patient, _date)
-            (patient.drugs.pluck(&:id) & drug_ids).any?
+            (patient.current_drug_ids & drug_ids).any?
           end
 
           def to_s
@@ -20,7 +20,7 @@ module Renalware
           private
 
           def drug_ids
-            drug_category.drugs.pluck(&:id)
+            drug_category.drugs.pluck(:id)
           end
 
           def drug_category

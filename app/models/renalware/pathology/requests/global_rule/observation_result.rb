@@ -17,7 +17,7 @@ module Renalware
           end
 
           def to_s
-            "#{observation_description.code} " \
+            "#{observation_description_code} " \
             " #{param_comparison_operator} " \
             "#{param_comparison_value}"
           end
