@@ -44,8 +44,8 @@ SimpleForm.setup do |config|
 
     b.wrapper :right_input_wrapper, tag: :div, class: "small-7 medium-8 large-9 columns" do |ba|
       ba.use :input, class: "tiny-input"
-      ba.use :error, wrap_with: { tag: :small, class: ["error", "tiny-input"] }
-      ba.use :hint,  wrap_with: { tag: :span, class: ["hint", "tiny-input"] }
+      ba.use :error, wrap_with: { tag: :small, class: %w(error tiny-input) }
+      ba.use :hint,  wrap_with: { tag: :span, class: %w(hint tiny-input) }
     end
   end
 
@@ -67,8 +67,8 @@ SimpleForm.setup do |config|
 
     b.wrapper :right_input_wrapper, tag: :div, class: "small-12 medium-8 large-9 columns" do |ba|
       ba.use :input, class: "small-input"
-      ba.use :error, wrap_with: { tag: :small, class: ["error", "small-input"] }
-      ba.use :hint,  wrap_with: { tag: :span, class: ["hint", "small-input"] }
+      ba.use :error, wrap_with: { tag: :small, class: %w(error small-input) }
+      ba.use :hint,  wrap_with: { tag: :span, class: %w(hint small-input) }
     end
   end
 
@@ -86,8 +86,8 @@ SimpleForm.setup do |config|
 
     b.wrapper :right_input_wrapper, tag: :div, class: "small-11 columns" do |ba|
       ba.use :input, class: "small-input"
-      ba.use :error, wrap_with: { tag: :small, class: ["error", "small-input"] }
-      ba.use :hint,  wrap_with: { tag: :span, class: ["hint", "small-input"] }
+      ba.use :error, wrap_with: { tag: :small, class: %w(error small-input) }
+      ba.use :hint,  wrap_with: { tag: :span, class: %w(hint small-input) }
     end
   end
 
@@ -104,8 +104,8 @@ SimpleForm.setup do |config|
 
     b.wrapper :right_input_wrapper, tag: :div, class: "" do |ba|
       ba.use :input
-      ba.use :error, wrap_with: { tag: :small, class: ["error", "small-input"] }
-      ba.use :hint,  wrap_with: { tag: :span, class: ["hint", "small-input"] }
+      ba.use :error, wrap_with: { tag: :small, class: %w(error small-input) }
+      ba.use :hint,  wrap_with: { tag: :span, class: %w(hint small-input) }
     end
   end
 
@@ -129,8 +129,8 @@ SimpleForm.setup do |config|
               tag: :div,
               class: "small-12 medium-8 large-9 columns horizontal_medium" do |ba|
       ba.use :input, class: "medium-input"
-      ba.use :error, wrap_with: { tag: :small, class: ["error", "medium-input"] }
-      ba.use :hint,  wrap_with: { tag: :span, class: ["hint", "medium-input"] }
+      ba.use :error, wrap_with: { tag: :small, class: %w(error medium-input) }
+      ba.use :hint,  wrap_with: { tag: :span, class: %w(hint medium-input) }
     end
   end
 

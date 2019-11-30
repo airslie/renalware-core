@@ -30,7 +30,7 @@ module Renalware
         # Import all surverys (they will be for the same patient) in the XML file.
         # Note that #with_logging yields a block that will catch and save any error to
         # ukrdc_transmission_logs
-        # rubocop:disable Lint/HandleExceptions, Metrics/AbcSize
+        # rubocop:disable Metrics/AbcSize
         def import_surveys_from_file(file)
           # Important to create the log before we do anything that might cause an error
           # eg parse the xml etc.
@@ -48,7 +48,7 @@ module Renalware
         ensure
           FileUtils.mv file, paths.archive.join(file.basename)
         end
-        # rubocop:enable Lint/HandleExceptions, Metrics/AbcSize
+        # rubocop:enable Metrics/AbcSize
 
         def import_survey(survey_hash, patient)
           ImportSurvey.new(

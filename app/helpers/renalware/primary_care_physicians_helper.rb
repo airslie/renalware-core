@@ -13,8 +13,9 @@ module Renalware
       if primary_care_physician.practices.any?
         return practices_list(primary_care_physician.practices)
       end
+
       if primary_care_physician.address.present?
-        return format_address(primary_care_physician.address)
+        format_address(primary_care_physician.address)
       end
     end
 

@@ -69,7 +69,7 @@ module Renalware
       old_formats = formats
       begin
         self.formats = [format]
-        return yield
+        yield
       ensure
         self.formats = old_formats
       end

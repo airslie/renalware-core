@@ -2,8 +2,6 @@
 
 require_dependency "renalware/ukrdc"
 require "attr_extras"
-
-# rubocop:disable Lint/UnneededCopDisableDirective, Rails/Output
 # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 module Renalware
   module UKRDC
@@ -138,5 +136,4 @@ module Renalware
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective, Rails/Output
 # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

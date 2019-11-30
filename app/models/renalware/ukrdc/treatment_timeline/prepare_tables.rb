@@ -20,7 +20,7 @@ module Renalware
           SQL
           if result.ntuples == 1
             connection.execute("select ukrdc_prepare_tables();")
-            return true
+            true
           end
         end
       end

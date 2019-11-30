@@ -15,7 +15,6 @@ describe "Session timeout", type: :system, js: true do
     Devise.timeout_in = original_session_timeout
   end
 
-  # rubocop:disable Lint/HandleExceptions
   it "A user is redirected by JS to the login page when their session expires" do
     login_as_clinical
 
@@ -44,5 +43,4 @@ describe "Session timeout", type: :system, js: true do
     # to the login page
     expect(page).to have_current_path(new_user_session_path)
   end
-  # rubocop:enable Lint/HandleExceptions
 end

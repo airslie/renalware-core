@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-# rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
+# rubocop:disable RSpec/ExampleLength
 describe "Create new appointment manually (not via HL7 message)", type: :system, js: true do
   context "with valid inputs" do
     it "creates a new clinic appointment" do
@@ -48,4 +48,4 @@ describe "Create new appointment manually (not via HL7 message)", type: :system,
     end
   end
 end
-# rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
+# rubocop:enable RSpec/ExampleLength
