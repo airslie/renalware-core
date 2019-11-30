@@ -1,5 +1,11 @@
-tr.hd-session-row(class=[session.state, stripe_class])
-  td
-  td= session.performed_on
-  td= session.hospital_unit_unit_code
-  td(colspan=5) Did not attend
+tbody(class=[session.state, stripe_class])
+  tr
+    td.noprint= row_toggler
+    td= session.performed_on
+    td= session.hospital_unit_unit_code
+    td(colspan=6) Did not attend
+  tr
+    td(colspan=10)
+      .quick-preview
+        = definition_list_for(session, size: :large) do |list|
+          = list.definition(:notes){ |value| simple_format(value) }

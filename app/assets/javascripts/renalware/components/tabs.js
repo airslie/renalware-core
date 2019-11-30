@@ -1,14 +1,4 @@
 function initTabs() {
-  function masonryLayoutRefresh() {
-    $('.grid > .row').masonry('layout');
-  }
-
-  function triggerMasonryLayoutRefresh() {
-    setTimeout(masonryLayoutRefresh, 200)
-  }
-
-  $(".tab-strip a").on("click", triggerMasonryLayoutRefresh);
-
   $(".sub-nav.with-tabs dl a").on("click", function(e) {
     e.preventDefault();
     var anchor = e.target

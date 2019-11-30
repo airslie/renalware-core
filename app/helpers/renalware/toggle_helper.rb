@@ -42,5 +42,30 @@ module Renalware
         toggler(row_selector)
       end
     end
+
+    # Create a link in a thead > tr > th that will toggle the last row in all tbodies in the table.
+    def rows_toggler(link_title: "Toggle all rows")
+      link_to(
+        "#",
+        data: { action: "row-toggler#toggleTable" },
+        class: "toggler",
+        title: link_title
+      ) do
+        content_tag(:i)
+      end
+    end
+
+    # Create a link to be used in a tbody > tr > td that will toggle the last row in the current
+    # tbody.
+    def row_toggler(link_title: "Toggle")
+      link_to(
+        "#",
+        data: { action: "row-toggler#toggleRow" },
+        class: "toggler",
+        title: link_title
+      ) do
+        content_tag(:i)
+      end
+    end
   end
 end

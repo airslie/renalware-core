@@ -261,7 +261,7 @@ module World
         visit patient_hd_dashboard_path(patient)
 
         within_article "Latest HD Sessions" do
-          expect(all(:css, "tbody tr.hd-session-row").count).to eq(1)
+          expect(all(:css, "#hd-sessions tbody").count).to eq(1)
           label = t_sessions(".edit", scope: "renalware.hd.sessions.open")
           click_on label
         end
@@ -381,7 +381,7 @@ module World
       end
 
       def expect_all_patient_hd_sessions_to_be_present(*)
-        trs = page.find_all(".hd-sessions tbody tr")
+        trs = page.find_all("#hd-sessions tbody")
         expect(trs.count).to eq(3)
       end
 

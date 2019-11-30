@@ -10,8 +10,8 @@ article
     - if local_assigns[:with_esa] == true
 
       ul.tab-strip(data-tab)
-        li.tab-title.active= link_to "Current", "#current"
-        li.tab-title= link_to "EPO History", "#epo-history"
+        li.tab-title.active= link_to "Current", "#current", data: { "trigger-masonry-refresh" => true }
+        li.tab-title= link_to "EPO History", "#epo-history", data: { "trigger-masonry-refresh" => true }
 
       .tabs-content
         #current.content.active

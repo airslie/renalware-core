@@ -36,3 +36,26 @@ th.togglers .toggler {
 th.togglers {
   width: 1rem;
 }
+
+// row-toggler-controller classes
+.toggleable {
+  .toggleable--open {
+    td .toggler i:before {
+      content: asset-data-url("renalware/icons/chevron-up.svg");
+    }
+
+    th .toggler i:before {
+      content: asset-data-url("renalware/icons/chevrons-up.svg");
+    }
+  }
+
+  tbody {
+    tr:last-child {
+      display: none
+    }
+
+    &.toggleable--open tr:last-child {
+      display: table-row;
+    }
+  }
+}
