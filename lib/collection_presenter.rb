@@ -37,7 +37,7 @@ class CollectionPresenter
 
   delegate :size, to: :to_ary
 
-  def to_json
+  def to_json(*_args)
     @decorated_collection.map(&:to_hash).to_json
   end
 

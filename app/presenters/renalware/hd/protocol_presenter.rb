@@ -82,7 +82,7 @@ module Renalware
         old_formats = formats
         begin
           self.formats = [format]
-          return block.call
+          block.call
         ensure
           self.formats = old_formats
         end

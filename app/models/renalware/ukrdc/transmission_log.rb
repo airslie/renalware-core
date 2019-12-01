@@ -15,7 +15,7 @@ module Renalware
         sent: 3,
         imported: 4
       }
-      enum direction: [:out, :in]
+      enum direction: { out: 0, in: 1 }
       scope :ordered, -> { order(sent_at: :asc) }
 
       def self.with_logging(patient, request_uuid, **options)

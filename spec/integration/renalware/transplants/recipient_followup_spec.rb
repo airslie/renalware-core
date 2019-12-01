@@ -65,7 +65,7 @@ describe "RecipientFollowup", type: :system, js: true do
   end
 
   describe "editing an existing followup" do
-    # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
+    # rubocop:disable RSpec/ExampleLength
     it "updates the followup and any changed/removed rejection episodes; preserves others" do
       other_user = create(:user)
       me = login_as_clinical
@@ -130,6 +130,6 @@ describe "RecipientFollowup", type: :system, js: true do
       expect(followup.rejection_episodes.count).to eq(2)
       expect(followup.rejection_episodes.last.updated_by).to eq(me)
     end
-    # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
+    # rubocop:enable RSpec/ExampleLength
   end
 end

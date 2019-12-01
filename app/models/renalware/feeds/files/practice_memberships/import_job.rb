@@ -11,7 +11,7 @@ module Renalware
           include Feeds::Job
           FILE_TO_EXTRACT_FROM_ARCHIVE = /epracmem.csv/.freeze
 
-          # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+          # rubocop:disable Metrics/AbcSize
           # TODO: refactor
           def perform(file)
             logging_to_stringio(strio = StringIO.new)
@@ -27,7 +27,7 @@ module Renalware
           ensure
             file.update!(status: status, result: strio.string, time_taken: elapsed_ms)
           end
-          # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+          # rubocop:enable Metrics/AbcSize
 
           private
 

@@ -124,7 +124,7 @@ module Renalware
             :catheter_removed, :line_break, :exit_site_infection,
             :diarrhoea, :abdominal_pain, :fluid_description_id, :white_cell_total,
             :white_cell_neutro, :white_cell_lympho, :white_cell_degen,
-            :white_cell_other, :notes, { episode_types: [] }
+            :white_cell_other, :notes, episode_types: []
           )
       end
     end

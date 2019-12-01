@@ -8,7 +8,7 @@ Given(/^(\w+) has a recorded patient rule:$/) do |patient_name, table|
   )
 end
 
-Given(/^the current date is between the rule's start\/end dates (yes|no)$/) do |within_rage|
+Given(%r{^the current date is between the rule's start/end dates (yes|no)$}) do |within_rage|
   update_patient_rule_start_end_dates(@patient_rule, within_rage)
 end
 

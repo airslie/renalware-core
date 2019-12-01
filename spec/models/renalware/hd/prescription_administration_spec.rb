@@ -5,17 +5,18 @@ require "rails_helper"
 module Renalware
   module HD
     describe PrescriptionAdministration, type: :model do
-      it_behaves_like "a Paranoid model"
-      let(:administered_by) { User.new }
-      let(:witnessed_by) { User.new }
-      let(:administrator_authorisation_token) { nil }
       let(:witness_authorisation_token) { nil }
+      let(:administrator_authorisation_token) { nil }
+      let(:witnessed_by) { User.new }
+      let(:administered_by) { User.new }
 
       before do
         allow(Renalware.config)
           .to receive(:hd_session_prescriptions_require_signoff)
           .and_return(true)
       end
+
+      it_behaves_like "a Paranoid model"
 
       it_behaves_like "an Accountable model"
       it { is_expected.to belong_to(:prescription) }
