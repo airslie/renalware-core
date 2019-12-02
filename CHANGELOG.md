@@ -9,6 +9,15 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.125
+### Added
+### Changed
+- Reintroduce ActionView::Component #3052
+- Default prescibed_on to today in new prescription form #3049
+- Add ability to link to patient from a diary slot #3046
+### Fixed
+- Hide togglers when printing consults list #3035
+
 ### 2.0.124
 ### Added
 - Add button to create new clinic visit from MDM #3029
