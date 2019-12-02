@@ -13145,7 +13145,7 @@ CREATE INDEX index_hospital_centres_on_code ON renalware.hospital_centres USING 
 -- Name: index_hospital_centres_on_host_site; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE UNIQUE INDEX index_hospital_centres_on_host_site ON hospital_centres USING btree (host_site) WHERE (host_site = true);
+CREATE UNIQUE INDEX index_hospital_centres_on_host_site ON renalware.hospital_centres USING btree (host_site) WHERE (host_site = true);
 
 
 --
@@ -14965,7 +14965,7 @@ CREATE INDEX index_research_studies_on_leader ON renalware.research_studies USIN
 -- Name: index_research_studies_on_private; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_research_studies_on_private ON research_studies USING btree (private);
+CREATE INDEX index_research_studies_on_private ON renalware.research_studies USING btree (private);
 
 
 --
