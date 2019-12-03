@@ -26,4 +26,12 @@ end
 
 namespace :events do
   resources :types, except: :show
+  constraints(named_filter: /all/) do
+    get(
+      "list/:named_filter",
+      to: "lists#show",
+      as: :filtered_list,
+      defaults: { named_filter: "all" }
+    )
+  end
 end
