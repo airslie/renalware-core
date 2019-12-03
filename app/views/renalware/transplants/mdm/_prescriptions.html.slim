@@ -8,10 +8,10 @@ article
   #prescriptions.expandable
 
     ul.tab-strip(data-tab)
-      li.tab-title.active= link_to "Current", "#current"
-      li.tab-title= link_to "Current Immunosuppressant", "#current_immunosuppressant"
-      li.tab-title= link_to "Historical", "#historical"
-      li.tab-title= link_to "Historical Immunosuppressant", "#historical_immunosuppressant"
+      li.tab-title.active= link_to "Current", "#current", data: { "trigger-masonry-refresh" => true }
+      li.tab-title= link_to "Current Immunosuppressant", "#current_immunosuppressant", data: { "trigger-masonry-refresh" => true }
+      li.tab-title= link_to "Historical", "#historical", data: { "trigger-masonry-refresh" => true }
+      li.tab-title= link_to "Historical Immunosuppressant", "#historical_immunosuppressant", data: { "trigger-masonry-refresh" => true }
 
     .tabs-content
       #current.content.active

@@ -1,12 +1,11 @@
 tbody(class=[session.state, stripe_class])
   tr
     td.noprint= row_toggler
-    td.noprint= session.edit_or_view_url
     td= session.performed_on
     td= session.hospital_unit_unit_code
-    td(colspan=16) Did not attend
+    td(colspan=6) Did not attend
   tr
-    td(colspan=20)
+    td(colspan=10)
       .quick-preview
         = definition_list_for(session, size: :large) do |list|
           = list.definition(:notes){ |value| simple_format(value) }

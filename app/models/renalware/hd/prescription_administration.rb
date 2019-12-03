@@ -24,6 +24,7 @@ module Renalware
       validates :witnessed_by, presence: true, if: :validate_administrator_and_witness?
       validate :check_administrator_authorisation_token
       validate :check_witness_authorisation_token
+      scope :ordered, -> { order(created_at: :desc) }
 
       private
 

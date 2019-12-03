@@ -81,3 +81,29 @@
     }
   }
 }
+
+
+.sub-nav {
+  &.with-tabs {
+    position: relative;
+    margin: 0;
+    padding: 0;
+
+    dl {
+      position: relative;
+      top: 1px;
+      z-index: 2; // So we can overlap .tab-bottom-border
+    }
+
+    .tab-bottom-border {
+      position: relative;
+      display: block;
+      z-index: 0;
+      color: $table-border-colour;
+      background-color: $table-border-colour;
+      padding: 0;
+      margin: 0;
+      margin-bottom: 1rem;
+    }
+  }
+}

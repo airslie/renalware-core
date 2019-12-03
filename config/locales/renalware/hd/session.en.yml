@@ -265,3 +265,6 @@ en:
             edit: Edit
           dna:
             edit: Edit
+        administered_drugs_thead:
+          date: Date
+          site: Site

@@ -254,7 +254,7 @@ label#toggle-full-hd-profile {
 .full-hd-profile {
   max-height: 0;
   overflow-y: hidden;
-  transition: max-height .3s ease 0s;
+  //transition: max-height .3s ease 0s;
 }
 
 input#toggle-full-hd-profile-input {
@@ -268,8 +268,9 @@ input#toggle-full-hd-profile-input {
 // End CSS-only toggle of full HD Profile
 
 table.hd-sessions {
-  border-collapse: collapse;
   border-spacing: 0;
+  border-collapse: collapse;
+
   td {
     height: 2rem;
   }
@@ -279,13 +280,11 @@ table.hd-sessions {
   }
 
   thead {
-    tr {
-      &:nth-of-type(even) {
-        background-color: #f5f5f5;
-      }
+    border-bottom: solid 1px #222;
 
+    tr {
       th {
-        border: 1px solid #ddd;
+        border-bottom: none;
         padding: 3px;
         vertical-align: top;
       }
@@ -300,41 +299,38 @@ table.hd-sessions {
   }
 
   tbody {
-    tr {
-      &:nth-of-type(even) {
-        background-color: $white;
-      }
+    border-top: solid 1px #555;
 
-      &:nth-of-type(odd) {
-        background-color: $white;
-      }
+    &:last-child {
+      border-bottom: solid 1px #BBB;
+    }
 
-      &.even{
-        background-color: #f9f9f9;
-      }
+    &:hover {
+      background-color: $table-row-hover-colour !important;
+    }
 
-      &.open {
-        td {
-          background-color: #ffffc8;
-        }
-      }
-
-      &.dna {
-        td {
-          background-color: #ccc;
-        }
-      }
-
+    &.dna {
       td {
-        border-right: 1px solid #ddd;
+        background-color: #E6EFF8;
+      }
+    }
 
-        &:first-child {
-          border-left: 1px solid #ddd;
-        }
+    &.open {
+      td {
+        background-color: #FFF1CC; // #FFF1CC; // #ffffc8;
+      }
+    }
 
-        &.derived {
-          font-style: italic;
-        }
+    &.dna {
+      td {
+        // background-color: #eee;
+        background-color: #E6EFF8;
+      }
+    }
+
+    td {
+      &.derived {
+        font-style: italic;
       }
     }
   }
@@ -594,6 +590,29 @@ use flexbox to layout items inside each prescription.
         .confirmed {
           display: block;
         }
+      }
+    }
+  }
+}
+
+table.hd-session-drugs {
+  thead {
+    border-bottom: solid 1px #222;
+  }
+
+  tr {
+    span.given {
+      @include badge;
+    }
+    &.administered-true {
+      span.given {
+        background-color: $nhs-light-green;
+      }
+    }
+
+    &.administered-false {
+      span.given {
+        background-color: $nhs-red;
       }
     }
   }

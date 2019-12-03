@@ -38,6 +38,15 @@ module Renalware
         administer_on_hd ? "Yes" : "No"
       end
 
+      def to_s
+        [
+          drug,
+          "DOSE #{dose}",
+          route_code,
+          frequency
+        ].compact.join(" - ")
+      end
+
       private
 
       def translated_dose_unit
