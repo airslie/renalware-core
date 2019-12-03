@@ -16,6 +16,7 @@
   }
 }
 
+// Toggle-all
 th.togglers .toggler {
   i:before {
     content: asset-data-url("renalware/icons/chevrons-down.svg");
@@ -37,7 +38,23 @@ th.togglers {
   width: 1rem;
 }
 
-// row-toggler-controller classes
+// Classes to be used when toggling open an initially hidden tr.
+// The expected structure
+// table.toggleable
+//   thead
+//      th.togglers
+//        a.toggler (link to toggle all rows)
+//      th ...
+//  (for each thing)
+//    tbody
+//      tr (visible)
+//        td.toggleable--toggler-container
+//          a.toggler (link to toggle thos tobody's last row)
+//        td ...
+//      tr (will be initially hidden as its the last tr)
+//        td
+//        td Content to display when toggled
+//
 .toggleable {
   .toggleable--open {
     td .toggler i:before {
@@ -57,5 +74,34 @@ th.togglers {
     &.toggleable--open tr:last-child {
       display: table-row;
     }
+
+    // Add this class to a toggleable tbody if there is nothing to toggle open to see.
+    // It prevents an empty row expanding down and taking up valuable space.
+    // An alternative could be to display 'No notes' or whatever, but that seems slightly odd.
+    &.toggleable--no-toggleable-content {
+      tr:last-child {
+        display: none;
+      }
+    }
+  }
+
+  &.toggleable--without-border-between-toggled-and-non-toggled-tr {
+    tbody.toggleable--open:not(.no-toggleable-content) {
+      tr:first-child td {
+        border-bottom: none;
+      }
+
+      tr:last-child:not(.no-toggleable-content) td {
+        border-top: none;
+        padding-top: 0;
+      }
+    }
+  }
+
+  .toggleable--toggler-container {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    vertical-align: middle;
   }
 }

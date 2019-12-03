@@ -6,7 +6,7 @@ module Renalware
   module Problems
     class SummaryPart < Renalware::SummaryPart
       def problems
-        @problems ||= patient.problems.ordered
+        @problems ||= patient.problems.with_notes
       end
 
       def cache_key

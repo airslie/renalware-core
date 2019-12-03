@@ -1,6 +1,6 @@
 tbody(class=[session.state, stripe_class])
   tr
-    td.noprint= row_toggler
+    td.toggleable--toggler-container.noprint= row_toggler
     td.noprint= session.edit_or_view_url
     td= session.performed_on
     td= session.hospital_unit_unit_code
