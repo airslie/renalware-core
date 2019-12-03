@@ -45,6 +45,20 @@ COMMENT ON EXTENSION intarray IS 'functions, operators, and index support for 1-
 
 
 --
+-- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA renalware;
+
+
+--
+-- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
+
+
+--
 -- Name: tablefunc; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -18102,6 +18116,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191026120029'),
 ('20191029095202'),
 ('20191105095304'),
-('20191108105923');
+('20191108105923'),
+('20191203112310');
 
 
