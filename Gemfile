@@ -17,6 +17,7 @@ gem "paper_trail", "9.0.2"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
 gem "redis"
 gem "ruby-prof", require: false
+# gem "renalware-forms", path: "../renalware-forms"
 
 gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 # The main trix gem at https://github.com/maclover7/trix is not yet Rails 5.2 compatible; it give

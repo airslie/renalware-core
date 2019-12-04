@@ -7,7 +7,10 @@ html
   head
     = wicked_pdf_stylesheet_link_tag "renalware/medications_pdf"
   heading
-    .our-ref= "RW ref: #{patient.hospital_identifier}"
+    .references
+      .purchase_order_no= "PO: #{purchase_order_number}"
+      .our-ref= "RW ref: #{patient.hospital_identifier}"
+      .drug_types= "Drug types: #{drug_types.map(&:name).join(", ")}"
     span.logo
       = wicked_pdf_image_tag "renalware/NHS-Black.jpg", width: 50
     .address

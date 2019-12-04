@@ -1,0 +1,71 @@
+/ This modal asks the user whether they successfully printed the homecare delivery form.
+/ If it was successful, we make a call to update event#printed = true and then dismiss the form
+/ (see update.js.erb)
+.modal
+  = simple_form_for(event,
+      url: patient_medications_home_delivery_event_path(id: event.id),
+      remote: true,
+      authenticity_token: true,
+      method: :patch,
+      data: { target: "home-delivery-modal.form" },
+      as: :event) do |f|
+
+    .modal__header
+      h2
+        | Print home delivery drugs
+        span= " PO: #{event.reference_number}"
+      = render "renalware/shared/modal_close_link"
+
+    .modal__body
+      #error-message
+        = render "renalware/shared/errors", model: event
+
+      / There are 2 main divs in the modal
+      / - the first is initially displayed and has the print options and a print button
+      / - the second is displayed once Print has been clicked, and asked asks for feedback as to
+      /   whether printing was successful or not. It it was successful we set
+      .form-fields data-target="home-delivery-modal.printOptions"
+        - homecare_forms = Renalware::Drugs::HomecareForm.all
+        = f.association :drug_type,
+                  collection: Renalware::Drugs::Type.where(id: homecare_forms.map(&:drug_type_id)),
+                  include_blank: false,
+                  input_html: { \
+                    data: { \
+                      action: "change->home-delivery-modal#refreshForm", \
+                      target: "home-delivery-modal.drugtype" \
+                    } \
+                  },
+                  wrapper: :horizontal_medium
+
+        = f.input :prescription_duration,
+                  collection: event.homecare_form.prescription_durations,
+                  include_blank: false,
+                  label_method: lambda { |dur| \
+                    "#{dur} #{event.homecare_form.prescription_duration_unit.pluralize(dur)}" \
+                  },\
+                  wrapper: :horizontal_medium,
+                  input_html: { data: { action: "change->home-delivery-modal#refreshForm" } }
+
+        .panel
+          u= "Homecare supply form"
+          br
+          = "#{event.homecare_form&.supplier&.name} '#{event.homecare_form&.form_name} version #{event.homecare_form&.form_version}'"
+
+        - disabled_args = event.errors.any? ? { disabled: "disabled" } : {}
+        = link_to "Print",
+                  renalware.patient_medications_home_delivery_event_path(id: event.id, format: :pdf),
+                  target: "_blank",
+                  class: "button primary right home-delivery--print",
+                  data: { action: "click->home-delivery-modal#askForPrintFeedback" },
+                  **disabled_args
+
+      .show-after-printing.visuallyhidden data-target="home-delivery-modal.printFeedback"
+
+        h2 Was printing successful?
+        .right
+          = link_to "No - I didnt print anything",
+                "#",
+                class: "button secondary reveal-modal-close",
+                "aria-label" => "Close"
+
+          = f.submit "Yes - mark as printed", class: "button primary ", name: "event[printed]"

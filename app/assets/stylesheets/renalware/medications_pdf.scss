@@ -56,11 +56,27 @@ dl {
 heading {
   text-align: right;
 
-  .our-ref {
+  .references {
     float: left;
     font-weight: normal;
     font-size: 0.8em;
     color: #666;
+    clear: both;
+    text-align: left;
+  }
+
+  .our-ref {
+    margin-top: .5rem;
+  }
+
+  .purchase_order_no {
+    font-size: 1.5em;
+    color: #000;
+    margin-top: .5rem;
+  }
+
+  .drug_types {
+    margin-top: .5rem;
   }
 
   .trust {

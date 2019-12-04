@@ -7,5 +7,11 @@ module Renalware
     def self.table_name_prefix
       "medication_"
     end
+
+    module Delivery
+      def self.table_name_prefix
+        "medication_delivery_"
+      end
+    end
   end
 end
