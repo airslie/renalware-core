@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.126
+### Added
+### Changed
+- Display HD drugs administered as a table #2604
+- List all patient events and allow them be filtered #2987
+### Fixed
+
 ### 2.0.125
 ### Added
 ### Changed
