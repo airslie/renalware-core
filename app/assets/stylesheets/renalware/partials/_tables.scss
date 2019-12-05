@@ -498,3 +498,9 @@ table tr.alt,
 table tr:nth-of-type(even) {
   background: transparent;
 }
+
+th, td {
+  &.valign-bottom {
+    vertical-align: bottom;
+  }
+}
