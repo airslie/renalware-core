@@ -16,12 +16,14 @@
       thead
         tr
           th.col-width-date Date
+          th.col-width-tiny Total
           - pos_s_summary_part.question_labels.each do |code, label|
             th= label
       tbody
         - pos_s_summary_part.rows.each do |row|
           tr
             td= row.answered_on
+            td= row.total_score
             - pos_s_summary_part.question_labels.each do |code, label|
               - value = row.send(code.to_sym)
               td(class="pos-s--#{value}") = value
