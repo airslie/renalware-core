@@ -1,6 +1,6 @@
 tbody.hd-session-row(class=[session.state, stripe_class])
   tr
-    td.noprint(rowspan=2)= row_toggler
+    td.toggleable--toggler-container.noprint(rowspan=2)= row_toggler
     td.noprint(rowspan=2)= session.edit_or_view_url
     td.col-width-date(rowspan=2)= session.performed_on
     td= session.hospital_unit_unit_code

@@ -2,7 +2,10 @@ table#problems,
 table#current_problems,
 table#archived_problems {
   td {
-    vertical-align: top;
+    // vertical-align: top;
+    span {
+      line-height: 1.1rem;
+    }
 
     ol {
       font-size: 1em;

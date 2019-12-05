@@ -20,8 +20,24 @@
         = link_to patient_problems_path(summary_part.patient), class: "button" do
           | Add
 
-      ul.no-bullet
-        - summary_part.problems.each do |problem|
-          li
-            = problem.full_description
-            = " - #{l(problem.created_at.to_date)}"
+      table#problems.toggleable.toggleable--without-border-between-toggled-and-non-toggled-tr
+        thead.toggleable--open
+          th.togglers.noprint =rows_toggler
+          th Description
+          th.col-width-date Date
+
+        - summary_part.problems.each_with_index do |problem|
+          tbody.toggleable--open(class=("toggleable--no-toggleable-content" if problem.notes.none?))
+            tr
+              td.toggleable--toggler-container.noprint = row_toggler
+              td
+                span= problem.full_description
+              td= problem.created_at.to_date
+            tr
+              td
+              td
+                - if problem.notes.any?
+                  ol
+                    - problem.notes.each do |note|
+                      li= note.description
+              td
