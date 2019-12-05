@@ -7054,6 +7054,7 @@ CREATE VIEW renalware.survey_eq5d_pivoted_responses AS
 CREATE VIEW renalware.survey_pos_s_pivoted_responses AS
  SELECT r.answered_on,
     r.patient_id,
+    sum((r.value)::integer) AS total_score,
     max((
         CASE
             WHEN ((q.code)::text = 'YSQ1'::text) THEN r.value
@@ -18117,6 +18118,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191029095202'),
 ('20191105095304'),
 ('20191108105923'),
-('20191203112310');
+('20191203112310'),
+('20191205185835');
 
 
