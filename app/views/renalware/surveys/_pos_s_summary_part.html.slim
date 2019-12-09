@@ -10,15 +10,20 @@
   / br
 
   - return if pos_s_summary_part.rows.blank?
-
+  br
+  br
+  br
+  br
   .xsss
-    table
+    table.table-header-rotated
       thead
         tr
-          th.col-width-date Date
-          th.col-width-tiny Total
+          th.col-width-date.valign-bottom Date
+          th.col-width-tiny.valign-bottom Total
           - pos_s_summary_part.question_labels.each do |code, label|
-            th= label
+            th.rotate
+              div
+                span= label
       tbody
         - pos_s_summary_part.rows.each do |row|
           tr
