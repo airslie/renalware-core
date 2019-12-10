@@ -23,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.126)
+    renalware-core (2.0.127)
       actionview-component (~> 1.5)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.28.0)
@@ -213,7 +213,7 @@ GEM
     capybara-screenshot (1.0.24)
       capybara (>= 1.0, < 4)
       launchy
-    capybara-select-2 (0.4.2)
+    capybara-select-2 (0.4.3)
     character_set (1.4.0)
     chartkick (3.3.0)
     childprocess (2.0.0)
@@ -397,7 +397,7 @@ GEM
     naught (1.1.0)
     nested_form (0.3.2)
     nio4r (2.5.2)
-    nokogiri (1.10.5)
+    nokogiri (1.10.7)
       mini_portile2 (~> 2.4.0)
     octokit (4.14.0)
       sawyer (~> 0.8.0, >= 0.5.3)
@@ -433,7 +433,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.1)
-    puma (4.3.0)
+    puma (4.3.1)
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)

@@ -9,6 +9,18 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.127
+10-12-2019
+### Added
+- Add last 5 dry weights to HD MDM #3045
+- Process additional ADT messages #3061
+- Display problem notes on Clinical Summary #3047
+### Changed
+- Use 45 deg angled text in survey table titles #3058
+- Add a total score column to POS-S survey table #3057
+### Fixed
+- Fix survey import issues for POS-S #3059
+
 ### 2.0.126
 ### Added
 ### Changed
