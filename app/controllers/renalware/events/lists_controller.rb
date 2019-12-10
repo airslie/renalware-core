@@ -6,12 +6,18 @@ module Renalware
   module Events
     class ListsController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       def show
         query = EventListQuery.new(params: form.attributes)
         events = query.call.page(page).per(per_page)
         authorize events
-        render locals: { events: events, q: query.search, form: form }
+
+        render locals: {
+          events: CollectionPresenter.new(events, Events::EventPresenter),
+          q: query.search,
+          form: form
+        }
       end
 
       private
