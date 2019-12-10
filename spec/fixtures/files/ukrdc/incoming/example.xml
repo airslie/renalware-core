@@ -5,12 +5,12 @@
   <Patient>
     <PatientNumbers>
       <PatientNumber>
-        <Number>1234567890</Number>
+        <Number>1234567891</Number>
         <Organization>NHS</Organization>
         <NumberType>NI</NumberType>
       </PatientNumber>
       <PatientNumber>
-        <Number>1234567890</Number>
+        <Number>1234567891</Number>
         <Organization>NHS</Organization>
         <NumberType>MRN</NumberType>
       </PatientNumber>

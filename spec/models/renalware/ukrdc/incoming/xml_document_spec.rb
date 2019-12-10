@@ -2,6 +2,7 @@
 
 require "rails_helper"
 
+# rubocop:disable Style/WordArray
 module Renalware
   module UKRDC
     describe Incoming::XmlDocument do
@@ -14,7 +15,7 @@ module Renalware
       describe "#nhs_number" do
         subject { doc.nhs_number }
 
-        it { is_expected.to eq("1234567890") }
+        it { is_expected.to eq("1234567891") }
       end
 
       describe "#dob" do
@@ -42,7 +43,10 @@ module Renalware
                   "YSQ1" => "0", "YSQ2" => "0", "YSQ3" => "0", "YSQ4" => "0", "YSQ5" => "0",
                   "YSQ6" => "0", "YSQ7" => "0", "YSQ8" => "0", "YSQ9" => "0", "YSQ10" => "0",
                   "YSQ11" => "0", "YSQ12" => "1", "YSQ13" => "0", "YSQ14" => "0", "YSQ15" => "0",
-                  "YSQ16" => "2", "YSQ17" => "0", "YSQ18" => "1", "YSQ19" => "2", "YSQ20" => "3",
+                  "YSQ16" => "2", "YSQ17" => "0",
+                  "YSQ18" => ["1", "Headaches"],
+                  "YSQ19" => ["2", "Paranoia"],
+                  "YSQ20" => ["3", "Loss of Appetite"],
                   "YSQ21" => "Constipation", "YSQ22" => "Itching"
                 }
               },
@@ -61,3 +65,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Style/WordArray

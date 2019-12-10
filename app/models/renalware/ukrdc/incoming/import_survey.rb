@@ -9,14 +9,18 @@ module Renalware
       class ImportSurvey
         pattr_initialize [:patient, :survey_hash]
 
+        # Note that each question's answer may be a value like "1" or be an array where the second
+        # element is the user-entered question text e.g. ["1", "Paranoia"]
+        # This is used in POS-S so that a user can enter their own question text.
         def call
           responses.each do |question_code, answer|
             question = question_having_code(question_code)
-
+            answer = Array(answer)
             Surveys::Response.create!(
               patient_id: patient.id,
               question: question,
-              value: answer,
+              value: answer[0],
+              patient_question_text: answer[1],
               answered_on: answered_on
             )
           end

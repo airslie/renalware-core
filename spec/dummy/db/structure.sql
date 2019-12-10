@@ -6983,7 +6983,8 @@ CREATE TABLE renalware.survey_responses (
     value character varying,
     reference character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    patient_question_text text
 );
 
 
@@ -7054,7 +7055,7 @@ CREATE VIEW renalware.survey_eq5d_pivoted_responses AS
 CREATE VIEW renalware.survey_pos_s_pivoted_responses AS
  SELECT r.answered_on,
     r.patient_id,
-    sum((r.value)::integer) AS total_score,
+    (sum(renalware.convert_to_float((r.value)::text)))::integer AS total_score,
     max((
         CASE
             WHEN ((q.code)::text = 'YSQ1'::text) THEN r.value
@@ -7164,7 +7165,22 @@ CREATE VIEW renalware.survey_pos_s_pivoted_responses AS
         CASE
             WHEN ((q.code)::text = 'YSQ22'::text) THEN r.value
             ELSE NULL::character varying
-        END)::text) AS "YSQ22"
+        END)::text) AS "YSQ22",
+    max(
+        CASE
+            WHEN ((q.code)::text = 'YSQ18'::text) THEN r.patient_question_text
+            ELSE NULL::text
+        END) AS "YSQ18_patient_question_text",
+    max(
+        CASE
+            WHEN ((q.code)::text = 'YSQ19'::text) THEN r.patient_question_text
+            ELSE NULL::text
+        END) AS "YSQ19_patient_question_text",
+    max(
+        CASE
+            WHEN ((q.code)::text = 'YSQ20'::text) THEN r.patient_question_text
+            ELSE NULL::text
+        END) AS "YSQ20_patient_question_text"
    FROM ((renalware.survey_responses r
      JOIN renalware.survey_questions q ON ((q.id = r.question_id)))
      JOIN renalware.survey_surveys s ON ((s.id = q.survey_id)))
@@ -18119,6 +18135,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191105095304'),
 ('20191108105923'),
 ('20191203112310'),
-('20191205185835');
+('20191205185835'),
+('20191209160151'),
+('20191209163151');
 
 
