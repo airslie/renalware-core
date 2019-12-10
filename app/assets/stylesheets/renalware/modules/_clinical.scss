@@ -51,7 +51,7 @@ article.clinical-allergies {
 }
 
 .clinical-header {
-  background-color: $table-border-colour;
+  background-color: $disabled-colour;
   padding: 0 .2em .2em .6em;
 
   @media print {
@@ -85,7 +85,7 @@ article.clinical-allergies {
     padding: 0;
 
     li {
-      border-bottom: 1px dotted $winter-sky;
+      border-bottom: 1px solid $winter-sky;
       display: inline-block;
       margin: 0.2rem .6rem .2rem 0;
       padding: 0
@@ -182,7 +182,7 @@ article.clinical-allergies {
           }
 
           a {
-            border-bottom: 1px dotted $white;;
+            border-bottom: 1px solid $white;;
             color: $white
           }
 
