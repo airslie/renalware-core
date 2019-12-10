@@ -54,12 +54,22 @@ module Renalware
           end
         end
 
+        # Note that if a response has a QuestionText this can be some text the user entered
+        # (presumably so they can then assign it a response value) so we need to store the
+        # question text (e.g. Paranoia) as well as the response (eg 4).
+        # If we find a QuestionText we store an array containing it and the response in the hash
+        # otherwise we just add the response.
         def question_hash_from(survey_node)
           question_nodes = survey_node.xpath("Questions/Question")
           question_nodes.each_with_object({}) do |question_node, responses|
             code = question_node.xpath("string(QuestionType/Code)")
             response = question_node.xpath("string(Response)")
-            responses[code] = response
+            question_text = question_node.xpath("string(QuestionText)")
+            responses[code] = if question_text.present?
+                                [response, question_text]
+                              else
+                                response
+                              end
           end
         end
       end

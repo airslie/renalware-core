@@ -1,3 +1,6 @@
+/
+/ TODO: this could do with refactoring to move the formatting code into a helper or presenter.
+/
 .summary-part--pos_s
   article
     header
@@ -15,24 +18,50 @@
   br
   br
   .xsss
-    table.table-header-rotated
+    table.table-header-rotated.toggleable
       thead
         tr
+          th.togglers= rows_toggler
           th.col-width-date.valign-bottom Date
           th.col-width-tiny.valign-bottom Total
           - pos_s_summary_part.question_labels.each do |code, label|
             th.rotate
               div
                 span= label
-      tbody
-        - pos_s_summary_part.rows.each do |row|
+
+      - superscript_char = 97
+      - pos_s_summary_part.rows.each do |row|
+        tbody
           tr
+            td= row_toggler
             td= row.answered_on
             td= row.total_score
             - pos_s_summary_part.question_labels.each do |code, label|
               - value = row.send(code.to_sym)
-              td(class="pos-s--#{value}") = value
+              - patient_question_text = row.try(:"#{code}_patient_question_text")
+              td(class="pos-s--#{value}")
+                - if patient_question_text
+                  span(title="Toggle row for question text")= value
+                  sup= superscript_char.chr
+                  - superscript_char += 1
+                - else
+                  = value
+          tr
+            td
+            td
+            td
+            td(class="summary-part--pos_s-patient-question-text" colspan=(pos_s_summary_part.question_labels.count ))
+              - superscript_char = 97
+              - pos_s_summary_part.question_labels.each do |code, label|
+                - patient_question_text = row.try(:"#{code}_patient_question_text")
+                - if patient_question_text
+                  sup= superscript_char.chr
+                  | &nbsp;
+                  span= patient_question_text
+                  | &nbsp;&nbsp;
+                  - superscript_char += 1
 
+    / Colour-coded key
     dl.pos-s-key
       dt.pos-s--0 0
       dd Not at all

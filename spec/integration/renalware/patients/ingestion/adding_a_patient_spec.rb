@@ -14,7 +14,7 @@ describe "HL7 ADT~A28 message handling: 'Add person information'" do
   let(:dob) { "19720822000000" }
   let(:died_on) { "20150122154801" }
   let(:sex) { "F" }
-  let(:nhs_number) { "1234567890" }
+  let(:nhs_number) { "1234567891" }
   let(:gp_code) { "G1234567" }
   let(:practice_code) { "P123456" }
   let(:practice) { create(:practice, code: practice_code) }

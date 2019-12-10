@@ -5,18 +5,22 @@ require_dependency "renalware/surveys"
 module Renalware
   module Surveys
     class POSSSummaryPart < Renalware::SummaryPart
+      # Backed by a SQL view
       def rows
         @rows ||= POSSPivotedResponse.where(patient_id: patient.id)
       end
 
       def question_labels
-        survey
-          .questions
-          .order(:position)
-          .select(:code, :label)
-          .each_with_object({}) { |q, hash| hash[q.code] = q.label }
+        @question_labels ||= begin
+          survey
+            .questions
+            .order(:position)
+            .select(:code, :label)
+            .each_with_object({}) { |q, hash| hash[q.code] = q.label }
+        end
       end
 
+      # Return data for charting
       def data_for_question_code(_code)
         Renalware::Surveys::Response
           .where(patient_id: patient.id, question_id: 1)
