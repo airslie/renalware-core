@@ -12,29 +12,23 @@ module Renalware
           instance_double(Renalware::Feeds::HL7Message, action: action)
         end
 
+        # For the moment all ADT messages do is update the patient's details if they exist in RW,
+        # or update the master patient index.
         describe "#for" do
-          context "when a :update_person_information message type" do
-            it "returns a new UpdatePatient command" do
-              expect(
-                factory.for(message_returning_action(:update_person_information))
-              ).to be_a(Commands::AddOrUpdatePatient)
-            end
-          end
+          {
+            update_person_information: Commands::AddOrUpdatePatient,
+            add_person_information: Commands::AddOrUpdatePatient,
+            discharge_patient: Commands::AddOrUpdatePatient,
+            admit_patient: Commands::AddOrUpdatePatient,
+            update_admission: Commands::AddOrUpdatePatient,
+            cancel_admission: Commands::AddOrUpdatePatient,
+            transfer_patient: Commands::AddOrUpdatePatient,
+            cancel_discharge: Commands::AddOrUpdatePatient
+          }.each do |message_type, command_class|
+            context "when a #{message_type} message type" do
+              subject { factory.for(message_returning_action(message_type)) }
 
-          context "when a :add_person_information message type" do
-            it "returns a new AddPatient command" do
-              expect(
-                factory.for(message_returning_action(:add_person_information))
-              ).to be_a(Commands::AddOrUpdatePatient)
-            end
-          end
-
-          context "when a :discharge_patient message type" do
-            it "returns a new DischargePatient command" do
-              pending
-              expect(
-                factory.for(message_returning_action(:discharge_patient))
-              ).to be_a(Commands::DischargePatient)
+              it { is_expected.to be_a(command_class) }
             end
           end
 

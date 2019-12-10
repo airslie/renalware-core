@@ -34,50 +34,54 @@ module Renalware::Patients
         end
       end
 
-      context "when an ADT A31 message" do
-        context "when the patient does not exist in Renalware" do
-          context "when the patient does not exist in the master patient index" do
-            it "adds the patient to the master patient index" do
-              hl7_message = hl7_message_from_file("ADT_A31", hl7_data)
-              expect(hl7_message).to be_adt
+      %w(A01 A28 A31 A08 A02 A03 A11 A13).each do |adt_message_type|
+        context "when an ADT {adt_message_type} message" do
+          let(:filename) { "ADT_#{adt_message_type}" }
 
-              expect {
-                service.call(hl7_message)
-              }.to change(Abridgement, :count).by(1)
-
-              expect(Abridgement.first).to have_attributes(hl7_data.to_h)
-            end
-          end
-
-          context "when the patient already exist in the master patient index" do
-            it "updates the patient in the master patient index" do
-              abridged_patient = create(
-                :abridged_patient,
-                hospital_number: "A123",
-                born_on: "1900-01-01"
-              )
-              hl7_message = hl7_message_from_file("ADT_A31", hl7_data)
-              expect(hl7_message).to be_adt
-
-              expect { service.call(hl7_message) }.not_to change(Abridgement, :count)
-
-              expect(abridged_patient.reload).to have_attributes(hl7_data.to_h)
-            end
-          end
-
-          context "when the patient exists in Renalware" do
+          context "when the patient does not exist in Renalware" do
             context "when the patient does not exist in the master patient index" do
-              it "adds the patient to the master patient index and updates the patient_id "\
-                 "to point to the renalware patient" do
-                rw_patient = create(:patient, local_patient_id: "A123")
-
-                hl7_message = hl7_message_from_file("ADT_A31", hl7_data)
+              it "adds the patient to the master patient index" do
+                hl7_message = hl7_message_from_file(filename, hl7_data)
                 expect(hl7_message).to be_adt
 
-                expect { service.call(hl7_message) }.to change(Abridgement, :count).by(1)
+                expect {
+                  service.call(hl7_message)
+                }.to change(Abridgement, :count).by(1)
 
-                abridgement = Abridgement.find_by!(hospital_number: "A123")
-                expect(abridgement.patient_id).to eq(rw_patient.id)
+                expect(Abridgement.first).to have_attributes(hl7_data.to_h)
+              end
+            end
+
+            context "when the patient already exist in the master patient index" do
+              it "updates the patient in the master patient index" do
+                abridged_patient = create(
+                  :abridged_patient,
+                  hospital_number: "A123",
+                  born_on: "1900-01-01"
+                )
+                hl7_message = hl7_message_from_file(filename, hl7_data)
+                expect(hl7_message).to be_adt
+
+                expect { service.call(hl7_message) }.not_to change(Abridgement, :count)
+
+                expect(abridged_patient.reload).to have_attributes(hl7_data.to_h)
+              end
+            end
+
+            context "when the patient exists in Renalware" do
+              context "when the patient does not exist in the master patient index" do
+                it "adds the patient to the master patient index and updates the patient_id "\
+                  "to point to the renalware patient" do
+                  rw_patient = create(:patient, local_patient_id: "A123")
+
+                  hl7_message = hl7_message_from_file(filename, hl7_data)
+                  expect(hl7_message).to be_adt
+
+                  expect { service.call(hl7_message) }.to change(Abridgement, :count).by(1)
+
+                  abridgement = Abridgement.find_by!(hospital_number: "A123")
+                  expect(abridgement.patient_id).to eq(rw_patient.id)
+                end
               end
             end
           end
