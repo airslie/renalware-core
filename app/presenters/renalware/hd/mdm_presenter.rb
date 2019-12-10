@@ -33,6 +33,12 @@ module Renalware
         end
       end
 
+      def dry_weights
+        @dry_weights ||= begin
+          Clinical::DryWeight.for_patient(patient).ordered.includes(:assessor).limit(5)
+        end
+      end
+
       def preference_set
         @preference_set ||= PreferenceSet.for_patient(patient).first || NullObject.instance
       end

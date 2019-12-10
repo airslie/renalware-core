@@ -1,13 +1,22 @@
-.columns.small-12.medium-6.large-6
+.columns.small-12.medium-6
   = render "renalware/hd/current_profile/summary", profile: mdm.hd_profile, patient: mdm.patient
+
+.columns.medium-6
+  = render "renalware/clinical/dry_weights/list",
+            dry_weights: mdm.dry_weights,
+            patient: mdm.patient,
+            limit: true
+
 .columns.small-12.medium-6.large-3
   - if mdm.access.present?
     = render "renalware/hd/accesses/summary", access: mdm.access, patient: mdm.patient
-.columns.medium-6.large-6
+
+.columns.medium-6
   = render "renalware/virology/profiles/summary",
            patient: mdm.patient,
            positive_results_only: true
-.columns.medium-6.large-6
+
+.columns.medium-6
   = render "summary", mdm: mdm
 = render "worryboard", mdm: mdm
 
