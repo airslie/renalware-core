@@ -87,6 +87,10 @@ th.togglers {
 
   &.toggleable--without-border-between-toggled-and-non-toggled-tr {
     tbody.toggleable--open:not(.no-toggleable-content) {
+      td {
+        border-top: solid 1px $table-border-colour;
+      }
+
       tr:first-child td {
         border-bottom: none;
       }
