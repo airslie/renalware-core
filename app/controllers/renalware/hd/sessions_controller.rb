@@ -28,7 +28,6 @@ module Renalware
               :administered_by,
               :reason
             ])
-          .merge(PrescriptionAdministration.ordered)
           .page(page)
           .per(per_page || 15)
         authorize sessions
