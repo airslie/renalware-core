@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.128
+11-12-2019
+### Added
+### Changed
+### Fixed
+- Fix HD Session pagation bug
+
 ### 2.0.127
 10-12-2019
 ### Added
