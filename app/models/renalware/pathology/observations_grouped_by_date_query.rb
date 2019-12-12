@@ -30,7 +30,6 @@ module Renalware
     #   1           2016-03-15        {"NA": "137", "TP": "74", "ALB": "48", "ALP": "71", ...
     #   1           2016-02-29        {"NA": "136", "TP": "78", "ALB": "47", "ALP": "71", ...
     #
-    #
     class ObservationsGroupedByDateQuery
       attr_reader :patient, :observation_descriptions, :page, :limit
       alias current_page page
@@ -66,10 +65,24 @@ module Renalware
         Pathology::Observation.none
       end
 
+      # Returns path results grouped by day, and on each day, a hash results keyed by OBX code
+      # containing an array of [result, comment]. The array and data structure is designed to
+      # save space over the wire and in memory - we could have retuned an array of hashes with
+      # code, result, comment keys etc.
+      # Note in jsonb_object_agg the final ORDER BY is by ASC when you would think it would be
+      # by DESC seeing as how we want to the latest result. However ASC works and DESC does not
+      # and I am not not sure why yet.
+      #
+      # Example output:
+      #
+      # 2016-12-06, "{""NA"": [""139"", """"], ""EGFR"": [""83"", ""adjusted original: 77""]}"
+      # 2016-10-20, "{""FOL"": [""6.4"", """"]}"
+      # 2016-09-04, "{""TSH"": [""0.36"", """"]}"
+      # ...
       def to_sql
         <<-SQL.squish
           select obs_req.patient_id, cast(observed_at as date) as observed_on,
-          jsonb_object_agg(obs_desc.code, ARRAY[obs.result, obs.comment]) results
+          jsonb_object_agg(obs_desc.code, ARRAY[obs.result, obs.comment] order by observed_at asc) results
           from pathology_observations obs
           inner join pathology_observation_requests obs_req on obs.request_id = obs_req.id
           inner join pathology_observation_descriptions obs_desc on obs.description_id = obs_desc.id
