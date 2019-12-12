@@ -37,7 +37,7 @@ tbody.hd-session-row(class=[session.state, stripe_class])
     td.nowrap= session.after_measurement_for(:bm_stix)
     td.nowrap= session.after_measurement_for(:blood_pressure)
     td.print-only= session.signed_off_by
-  tr
+  tr.noprint
     td(colspan=20)
       .quick-preview
         = definition_list_for(session, size: :large) do |list|
