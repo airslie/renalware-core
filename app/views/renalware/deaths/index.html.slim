@@ -13,8 +13,8 @@
         th.col-width-nhs-no NHS No.
         th.col-width-reference-no Hosp No.
         th.col-width-tiny Sex
-        th.col-width-date Date of Birth
-        th.col-width-date Date of Death
+        th.col-width-date= sort_link(q, :born_on, "Date of Birth")
+        th.col-width-date-time= sort_link(q, :died_on, "Date of Death")
         th.col-width-tiny Age
         th.col-width-medium
 

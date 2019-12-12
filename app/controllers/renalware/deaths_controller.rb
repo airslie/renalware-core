@@ -7,8 +7,12 @@ module Renalware
 
     def index
       patients = Patient.dead.page(page).per(per_page)
+      search = patients.ransack(params[:q])
       authorize patients
-      render locals: { patients: present(patients, PatientPresenter) }
+      render locals: {
+        patients: present(search.result, PatientPresenter),
+        q: search
+      }
     end
 
     def edit
