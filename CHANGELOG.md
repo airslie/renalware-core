@@ -9,12 +9,21 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.129
+13-12-2019
+### Added
+### Changed
+- Low Clearance data - changing 'referred by' to a drop down #3082
+### Fixed
+- Fix pathology sorting issue on for tests on the same day #3086
+- Fix HD protocol table formatting #3085
+
 ### 2.0.128
 11-12-2019
 ### Added
 ### Changed
 ### Fixed
-- Fix HD Session pagation bug
+- Fix HD Session pagation bug #3063
 
 ### 2.0.127
 10-12-2019
