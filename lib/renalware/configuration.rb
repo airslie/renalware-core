@@ -80,6 +80,13 @@ module Renalware
     # a dump of historical pathology.
     config_accessor(:ukrdc_pathology_start_date) { ENV["UKRDC_PATHOLOGY_START_DATE"] }
 
+    config_accessor(:ukrdc_send_rpv_patients) {
+      ENV.fetch("UKRDC_SKIP_RPV_PATIENTS", "true") == "true"
+    }
+    config_accessor(:ukrdc_send_rreg_patients) {
+      ENV.fetch("UKRDC_SKIP_RREG_PATIENTS", "true") == "true"
+    }
+
     # We override this in some tests as a means of getting wicked_pdf to generate an HTML version
     # of the PDF so we can examine its content
     config_accessor(:render_pdf_as_html_for_debugging) { false }
