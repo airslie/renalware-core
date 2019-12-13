@@ -2,6 +2,7 @@
 
 require "rails_helper"
 
+# rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
 module Renalware
   module Pathology
     describe CreateObservationsGroupedByDateTable do
@@ -11,7 +12,7 @@ module Renalware
       let(:observation_descriptions) { [] }
 
       context "when the patient has had path results on several dates in the past" do
-        it "creates a paginated table object" do
+        it "creates a paginated table object and the current page only has <per_page> records" do
           Observation.delete_all
           ObservationRequest.delete_all
           RequestDescription.delete_all
@@ -45,6 +46,7 @@ module Renalware
             requested_at: dates[2]
           )
 
+          # This one will land on page 2 so will not be in out results
           create(
             :pathology_observation_request,
             :renal_live_urea_with_observations,
@@ -105,6 +107,57 @@ module Renalware
           )
         end
       end
+
+      context "when the patient has >1 of the same observation on the same but with different " \
+              "observed_on datretimes" do
+        it "groups observations by date but takes the most recently observed result" do
+          date = Time.zone.parse("2019-01-01 12:00:00")
+
+          # Note the OBR requested_at should not bmake a difference so we have set in the far past
+          request = create(
+            :pathology_observation_request,
+            patient: patient,
+            requested_at: 100.years.ago
+          )
+          hgb = create(:pathology_observation_description, :hgb)
+
+          # Create three observations to simulate them arriving at different times (e.g. via HL7)
+          # but there observed_on datetime (which is the significant attribute for sorting) is
+          # not in order.
+          dates = [date, date + 1.minute, date - 1.minute]
+          observations = dates.each_with_index.map do |observed_at, value|
+            create(
+              :pathology_observation,
+              request: request,
+              description: hgb,
+              observed_at: observed_at,
+              result: value
+            )
+          end
+          expected_observation = observations[1] # the one with the most recent observed_at
+
+          # There should be a certain number of observations over our chosen dates
+          expect(patient.reload.observations.count).to eq(3)
+
+          descriptions = ObservationDescription.select(:id, :code).all
+          expect(descriptions.map(&:code).sort).to eq(["HGB"])
+
+          service = described_class.new(
+            patient: patient,
+            observation_descriptions: descriptions,
+            per_page: 3,
+            page: 1
+          )
+
+          table = service.call
+
+          expect(table.rows.count).to eq(1)
+          row = table.rows.first
+          expect(row.observed_on).to eq(Time.zone.parse("2019-01-01"))
+          expect(row.result_for("HGB")).to eq(expected_observation.result)
+        end
+      end
     end
   end
 end
+# rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
