@@ -9,7 +9,9 @@ en:
           dialysis_planned_on: Dialysis plan date
           predicted_esrf_date: Predicted ESRF date
           referral_creatinine: Referral CRE
-          referred_by: Referred by
+          referrer: Referred by
+          referrer_id: Referred by
+          referred_by: Referred by notes
           education_status: Education status
           referral_egfr: Referral eGFR
           education_type: Education type
@@ -30,7 +32,7 @@ en:
         predicted_esrf_date: Predicted ESRF date
         referral_creatinine: Referral CRE
         referral_egfr: Referral eGFR
-        referred_by: Referred by
+        referred_by: Referred by notes
         education_status: Education status
         education_type: Education type
         attended_on: Date attended educ.

@@ -33,7 +33,7 @@ module Renalware
       end
 
       def profile_params
-        params.require(:low_clearance_profile).permit(document: {})
+        params.require(:low_clearance_profile).permit(:referrer_id, document: {})
       end
     end
   end

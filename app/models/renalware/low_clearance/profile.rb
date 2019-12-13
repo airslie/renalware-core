@@ -10,6 +10,7 @@ module Renalware
       include Document::Base
       validates :patient, presence: true
       belongs_to :patient, touch: true
+      belongs_to :referrer
       has_document class_name: "Renalware::LowClearance::ProfileDocument"
       has_paper_trail class_name: "Renalware::LowClearance::Version",
                       on: [:create, :update, :destroy]
