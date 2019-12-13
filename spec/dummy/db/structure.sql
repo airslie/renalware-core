@@ -3652,7 +3652,8 @@ CREATE TABLE renalware.low_clearance_profiles (
     updated_by_id bigint NOT NULL,
     created_by_id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    referrer_id bigint
 );
 
 
@@ -3673,6 +3674,38 @@ CREATE SEQUENCE renalware.low_clearance_profiles_id_seq
 --
 
 ALTER SEQUENCE renalware.low_clearance_profiles_id_seq OWNED BY renalware.low_clearance_profiles.id;
+
+
+--
+-- Name: low_clearance_referrers; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.low_clearance_referrers (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    hidden boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: low_clearance_referrers_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.low_clearance_referrers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: low_clearance_referrers_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.low_clearance_referrers_id_seq OWNED BY renalware.low_clearance_referrers.id;
 
 
 --
@@ -8951,6 +8984,13 @@ ALTER TABLE ONLY renalware.low_clearance_profiles ALTER COLUMN id SET DEFAULT ne
 
 
 --
+-- Name: low_clearance_referrers id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.low_clearance_referrers ALTER COLUMN id SET DEFAULT nextval('renalware.low_clearance_referrers_id_seq'::regclass);
+
+
+--
 -- Name: low_clearance_versions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -10319,6 +10359,14 @@ ALTER TABLE ONLY renalware.letter_signatures
 
 ALTER TABLE ONLY renalware.low_clearance_profiles
     ADD CONSTRAINT low_clearance_profiles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: low_clearance_referrers low_clearance_referrers_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.low_clearance_referrers
+    ADD CONSTRAINT low_clearance_referrers_pkey PRIMARY KEY (id);
 
 
 --
@@ -12965,10 +13013,24 @@ CREATE UNIQUE INDEX index_low_clearance_profiles_on_patient_id ON renalware.low_
 
 
 --
+-- Name: index_low_clearance_profiles_on_referrer_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_low_clearance_profiles_on_referrer_id ON renalware.low_clearance_profiles USING btree (referrer_id);
+
+
+--
 -- Name: index_low_clearance_profiles_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_low_clearance_profiles_on_updated_by_id ON renalware.low_clearance_profiles USING btree (updated_by_id);
+
+
+--
+-- Name: index_low_clearance_referrers_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_low_clearance_referrers_on_name ON renalware.low_clearance_referrers USING btree (name);
 
 
 --
@@ -16029,6 +16091,14 @@ ALTER TABLE ONLY renalware.patient_practice_memberships
 
 
 --
+-- Name: low_clearance_profiles fk_rails_5e7ea491eb; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.low_clearance_profiles
+    ADD CONSTRAINT fk_rails_5e7ea491eb FOREIGN KEY (referrer_id) REFERENCES renalware.low_clearance_referrers(id);
+
+
+--
 -- Name: transplant_rejection_episodes fk_rails_5eed551513; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -18137,6 +18207,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191203112310'),
 ('20191205185835'),
 ('20191209160151'),
-('20191209163151');
+('20191209163151'),
+('20191213094611');
 
 

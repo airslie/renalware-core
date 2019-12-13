@@ -13,6 +13,7 @@
                     method: :put,
                     wrapper: "horizontal_form" do |f|
 
+
     = f.simple_fields_for :document, profile.document do |flc|
       = flc.input :first_seen_on, as: :date_picker, wrapper: :horizontal_datepicker
       = flc.input :dialysis_plan, wrapper: :horizontal_medium
@@ -20,6 +21,13 @@
       = flc.input :predicted_esrf_date, as: :date_picker, wrapper: :horizontal_datepicker
       = flc.input :referral_creatinine, wrapper: :horizontal_tiny
       = flc.input :referral_egfr, wrapper: :horizontal_tiny
+
+    = f.input :referrer_id,
+              wrapper: :horizontal_medium,
+              collection: Renalware::LowClearance::Referrer.ordered,
+              label: "Referred by"
+
+    = f.simple_fields_for :document, profile.document do |flc|
       = flc.input :referred_by, wrapper: :horizontal_medium
       = flc.input :education_status, wrapper: :horizontal_tiny
       = flc.input :education_type, wrapper: :horizontal_tiny
