@@ -33,9 +33,19 @@ module Renalware
       private
 
       def sendable_patients
-        Renalware::Patient.where(send_to_rpv: true).or(
-          Renalware::Patient.where(send_to_renalreg: true)
-        ).order(family_name: :asc, given_name: :asc)
+        Renalware::Patient.where(send_to__where_sql).order(family_name: :asc, given_name: :asc)
+      end
+
+      def send_to__where_sql
+        where = []
+        where << "send_to_rpv = true" if Renalware.config.ukrdc_send_rpv_patients
+        where << "send_to_renalreg = true" if Renalware.config.ukrdc_send_rreg_patients
+
+        if where.empty?
+          raise ArgumentError, "#{self.class.name}.sendable_patients would send all patients!"
+        end
+
+        where.join(" or ")
       end
     end
   end

@@ -33,7 +33,7 @@ module Renalware
       end
 
       context "when the optional :changed_since argument is not specified" do
-        subject { described_class.new.call }
+        subject(:query_results) { described_class.new.call }
 
         context "when there no patients with send_to_rpv or send_to_renalreg set" do
           it { is_expected.to be_empty }
@@ -46,6 +46,16 @@ module Renalware
             before { patient.update(sent_to_ukrdc_at: nil, by: user) }
 
             it { is_expected.to eq([patient]) }
+          end
+
+          context "when they would otherwise be sent but config.ukrdc_skip_rpv_patients is true" do
+            before { patient.update(sent_to_ukrdc_at: nil, by: user) }
+
+            it "does not send them" do
+              allow(Renalware.config).to receive(:ukrdc_send_rpv_patients).and_return(false)
+
+              expect(query_results).to be_empty
+            end
           end
 
           context "when they also have changed since the last export date" do
@@ -61,13 +71,25 @@ module Renalware
           end
         end
 
-        context "when a patient has the RenalRef flag" do
-          before { patient.update(send_to_renalreg: true, send_to_rpv: false) }
+        context "when a patient has the RenalReg flag" do
+          before {
+            patient.update(send_to_renalreg: true, send_to_rpv: false)
+          }
 
           context "when they have never been sent to ukrdc" do
             before { patient.update(sent_to_ukrdc_at: nil, by: user) }
 
             it { is_expected.to eq([patient]) }
+          end
+
+          context "when they would otherwise be sent but config.ukrdc_skip_rreg_patients is true" do
+            before { patient.update(sent_to_ukrdc_at: nil, by: user) }
+
+            it "does not send them" do
+              allow(Renalware.config).to receive(:ukrdc_send_rreg_patients).and_return(false)
+
+              is_expected.to be_empty
+            end
           end
 
           context "when they also have changed since the last export date" do
