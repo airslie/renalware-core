@@ -81,10 +81,10 @@ module Renalware
     config_accessor(:ukrdc_pathology_start_date) { ENV["UKRDC_PATHOLOGY_START_DATE"] }
 
     config_accessor(:ukrdc_send_rpv_patients) {
-      ENV.fetch("UKRDC_SKIP_RPV_PATIENTS", "true") == "true"
+      ENV.fetch("UKRDC_SEND_RPV_PATIENTS", "true") == "true"
     }
     config_accessor(:ukrdc_send_rreg_patients) {
-      ENV.fetch("UKRDC_SKIP_RREG_PATIENTS", "true") == "true"
+      ENV.fetch("UKRDC_SEND_RREG_PATIENTS", "true") == "true"
     }
 
     # We override this in some tests as a means of getting wicked_pdf to generate an HTML version
