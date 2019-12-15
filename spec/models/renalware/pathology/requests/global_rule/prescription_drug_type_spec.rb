@@ -6,7 +6,7 @@ describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugType do
   let(:drug_type) { create(:drug_type) }
 
   describe "#drug_type_present" do
-    include_context "a global_rule_set"
+    include_context "with a global_rule_set"
 
     context "with a valid drug_type" do
       subject do
@@ -36,7 +36,7 @@ describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugType do
   end
 
   describe "#observation_required_for_patient?" do
-    include_context "a global_rule_set"
+    include_context "with a global_rule_set"
     subject do
       described_class.new(
         rule_set: global_rule_set,

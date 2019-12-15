@@ -28,11 +28,19 @@ module Renalware
       end
 
       # For a ModalityDescription with type Renalware::HD::ModalityDescription
-      # this will return "HD"
+      # this will return "hd"
       def namespace
         return if type.blank?
 
-        type.gsub("::", "").gsub(/^Renalware/, "").gsub(/ModalityDescription$/, "").underscore
+        namespace_raw.underscore
+      end
+
+      # For a ModalityDescription with type Renalware::HD::ModalityDescription
+      # this will return "HD"
+      def namespace_raw
+        return if type.blank?
+
+        type.gsub("::", "").gsub(/^Renalware/, "").gsub(/ModalityDescription$/, "")
       end
     end
   end

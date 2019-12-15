@@ -16,15 +16,11 @@ xml.ukrdc(:PatientRecord, namespace_and_schema) do
   render "patient", builder: xml, patient: patient
   render "lab_orders", builder: xml, patient: patient
   # render "social_histories", builder: xml, patient: patient
-  render "family_histories", builder: xml, patient: patient
   render "observations", builder: xml, patient: patient
-  # render "allergies", builder: xml, patient: patient
   render "diagnoses", builder: xml, patient: patient
   render "medications", builder: xml, patient: patient
   render "procedures", builder: xml, patient: patient
   render "documents", builder: xml, patient: patient
   render "encounters", builder: xml, patient: patient
-  render "program_memberships", builder: xml, patient: patient
-  render "clinical_relationships", builder: xml, patient: patient
-  render "surveys", builder: xml, patient: patient
+  # render "surveys", builder: xml, patient: patient
 end

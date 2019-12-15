@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
 module LettersSpecHelper
   def build_letter(state: :draft, to:, patient:, **args)
     trait = "#{state}_letter".to_sym
@@ -117,4 +117,4 @@ module LettersSpecHelper
     Renalware::Letters::Letter.find(letter.id)
   end
 end
-# rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+# rubocop:enable Metrics/MethodLength

@@ -7,11 +7,13 @@ module Renalware
   module System
     describe RenderLiquidTemplate do
       describe "#call" do
+        # rubocop:disable RSpec/LeakyConstantDeclaration
         class TestPatientDrop < Liquid::Drop
           def name
             "John Smith"
           end
         end
+        # rubocop:enable RSpec/LeakyConstantDeclaration
 
         def template
           Template.new(name: "test",
@@ -20,20 +22,22 @@ module Renalware
         end
 
         it "finds and renders a liquid template" do
-          expect(Template).to receive(:find_by!).and_return(template)
+          allow(Template).to receive(:find_by!).and_return(template)
 
           output = RenderLiquidTemplate.call(template_name: "test",
                                              variables: { "patient" => TestPatientDrop.new })
 
+          expect(Template).to have_received(:find_by!)
           expect(output).to eq("<h1>John Smith</hi>")
         end
 
         it "raises an error if the correct variable was not passed" do
-          expect(Template).to receive(:find_by!).and_return(template)
+          allow(Template).to receive(:find_by!).and_return(template)
 
           expect {
             RenderLiquidTemplate.call(template_name: "test")
           }.to raise_error(Liquid::UndefinedVariable)
+          expect(Template).to have_received(:find_by!)
         end
 
         it "raises an error if the template is not found" do

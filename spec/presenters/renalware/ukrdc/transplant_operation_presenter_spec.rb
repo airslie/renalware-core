@@ -7,6 +7,16 @@ module Renalware
     let(:presenter) { described_class.new(operation) }
     let(:operation_type) { :kidney }
 
+    describe "#performed_at" do
+      it "adds time to performed_on so it can be written to XML as as time" do
+        operation = build(:transplant_recipient_operation, performed_on: "2019-01-01")
+
+        performed_at = described_class.new(operation).performed_at
+
+        expect(performed_at.to_s).to eq("2019-01-01 00:00:00 +0000")
+      end
+    end
+
     # operation_type in %i(kidney kidney_dual kidney_pancreas pancreas kidney_liver liver)
     describe "#procedure_type_snomed_code" do
       subject { presenter.procedure_type_snomed_code }

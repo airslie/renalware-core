@@ -199,7 +199,7 @@ module Renalware
         end
       end
 
-      context "the letter has a clinic visit event" do
+      context "when the letter has a clinic visit event" do
         it "outputs the clinic visit date" do
           allow(letter).to receive(:id).and_return(111)
 

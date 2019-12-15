@@ -81,7 +81,6 @@ module Renalware
           expect_model_to_be_invalid_with_messages(model, out_of_range_message)
         end
 
-        # rubocop:disable Metrics/AbcSize
         def expect_model_to_be_invalid_with_messages(model, *expected_messages)
           errors = model.errors
           expect(model).not_to be_valid
@@ -89,7 +88,6 @@ module Renalware
           messages = errors.messages[:height]
           expect(messages & expected_messages).to eq(messages)
         end
-        # rubocop:enable Metrics/AbcSize
       end
     end
   end

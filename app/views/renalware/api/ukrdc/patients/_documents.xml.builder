@@ -2,33 +2,37 @@
 
 xml = builder
 
-xml.Documents do
-  patient.letters.each do |letter|
-    xml.Document do
-      xml.DocumentTime letter.issued_on.to_time.iso8601
-      xml.Clinician do
-        xml.CodingStandard "LOCAL"
-        xml.Code letter.author.username
-        xml.Description letter.author.to_s
-      end
-      xml.DocumentName letter.title
-      xml.Status do
-        xml.Code "ACTIVE"
-      end
-      xml.EnteredBy do
-        xml.CodingStandard "LOCAL"
-        xml.Code letter.updated_by&.username
-        xml.Description letter.updated_by
-      end
-      if letter.hospital_unit_renal_registry_code.present?
-        xml.EnteredAt do
+if patient.letters.size == 0
+  xml.Documents
+else
+  xml.Documents do
+    patient.letters.each do |letter|
+      xml.Document do
+        xml.DocumentTime letter.issued_on.to_time.iso8601
+        xml.Clinician do
           xml.CodingStandard "LOCAL"
-          xml.Code letter.hospital_unit_renal_registry_code
+          xml.Code letter.author.username
+          xml.Description letter.author.to_s
         end
+        xml.DocumentName letter.title
+        xml.Status do
+          xml.Code "ACTIVE"
+        end
+        xml.EnteredBy do
+          xml.CodingStandard "LOCAL"
+          xml.Code letter.updated_by&.username
+          xml.Description letter.updated_by
+        end
+        if letter.hospital_unit_renal_registry_code.present?
+          xml.EnteredAt do
+            xml.CodingStandard "LOCAL"
+            xml.Code letter.hospital_unit_renal_registry_code
+          end
+        end
+        xml.FileType "application/pdf"
+        xml.FileName letter.pdf_stateless_filename
+        xml.Stream Base64.encode64(Renalware::Letters::PdfRenderer.call(letter))
       end
-      xml.FileType "application/pdf"
-      xml.FileName letter.pdf_stateless_filename
-      xml.Stream Base64.encode64(Renalware::Letters::PdfRenderer.call(letter))
     end
   end
 end

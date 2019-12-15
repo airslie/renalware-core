@@ -21,8 +21,8 @@ if measurement.present? && measurement.to_f.nonzero?
     xml.ObservationValue measurement.to_s[0, 19].strip
     xml.ObservationUnits I18n.t("loinc.#{i18n_key}.units")
 
-    xml.Clinician do
-      xml.Description visit.updated_by&.to_s
-    end
+    # xml.Clinician do
+    #   xml.Description visit.updated_by&.to_s
+    # end
   end
 end

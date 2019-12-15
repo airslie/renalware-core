@@ -23,6 +23,7 @@ module Renalware
             :description,
             observations: { description: :measurement_unit }
           )
+          .order(observed_at: :asc)
       end
 
       # If there is a pathology_start_date configured in an ENV var, use this

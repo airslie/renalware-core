@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :transplant_registration, class: Renalware::Transplants::Registration do
+  factory :transplant_registration, class: "Renalware::Transplants::Registration" do
     patient { build(:transplant_patient) }
 
     trait :with_statuses do

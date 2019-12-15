@@ -6,7 +6,7 @@ describe Renalware::Pathology::Requests::GlobalRule::RequestResult do
   let(:klass) { described_class }
 
   describe "#request_description_present" do
-    include_context "a global_rule_set"
+    include_context "with a global_rule_set"
 
     context "with a valid request_description" do
       subject(:global_rule) do

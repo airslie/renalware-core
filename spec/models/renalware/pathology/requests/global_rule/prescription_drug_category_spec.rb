@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugCategory do
   describe "#drug_category_present" do
-    include_context "a global_rule_set"
+    include_context "with a global_rule_set"
     let(:drug_category) { create(:pathology_requests_drug_category) }
 
     context "with a valid drug_category" do
@@ -35,7 +35,7 @@ describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugCategory do
   end
 
   describe "#observation_required_for_patient?" do
-    include_context "a global_rule_set"
+    include_context "with a global_rule_set"
     subject do
       described_class.new(
         rule_set: global_rule_set,

@@ -10,7 +10,7 @@ module Renalware
     # about them. Encrypt the xml files and copy to an outgoing folder
     # which might for example be a symlink to an outgoing folder in /media/ukrdc which in turn
     # is mount on a remote share for example on an SFTP server.
-    #
+    # rubocop:disable Metrics/ClassLength:
     class CreateEncryptedPatientXMLFiles
       attr_reader(
         :patient_ids,
@@ -34,6 +34,7 @@ module Renalware
         @force_send = force_send
       end
 
+      # rubocop:disable Metrics/MethodLength
       def call
         logger.tagged(request_uuid) do
           summary.milliseconds_taken = Benchmark.ms do
@@ -51,6 +52,7 @@ module Renalware
         Engine.exception_notifier.notify(e)
         raise e
       end
+      # rubocop:enable Metrics/MethodLength
 
       private
 
@@ -64,12 +66,20 @@ module Renalware
         end
       end
 
+      def schema
+        xsd_path = File.join(Renalware::Engine.root, "vendor/xsd/ukrdc/Schema/UKRDC.xsd")
+        xsddoc = Nokogiri::XML(File.read(xsd_path), xsd_path)
+        Nokogiri::XML::Schema.from_document(xsddoc)
+      end
+
+      # rubocop:disable Metrics/MethodLength
       def create_patient_xml_files
         count = 0
         patients = ukrdc_patients_who_have_changed_since_last_send
         summary.num_changed_patients = patients.count
         patients.find_each do |patient|
           count += 1
+          Rails.logger.info count
           CreatePatientXMLFile.new(
             patient: patient,
             dir: paths.timestamped_xml_folder,
@@ -77,13 +87,15 @@ module Renalware
             request_uuid: request_uuid,
             batch_number: batch_number,
             logger: logger,
-            force_send: force_send
+            force_send: force_send,
+            schema: schema
           ).call
 
           # Every n patients, force the garbage collector to kick in
           GC.start if (count % 10).zero?
         end
       end
+      # rubocop:enable Metrics/MethodLength
 
       def build_summary
         summary.count_of_files_in_outgoing_folder = count_of_files_in_outgoing_folder
@@ -115,14 +127,12 @@ module Renalware
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-      # rubocop:disable Metrics/AbcSize
       def print_summary
         logger.info("Files saved to #{summary.archive_folder}")
         logger.info "*** Summary ***"
         logger.info "Took #{summary.milliseconds_taken.to_i / 1000} seconds"
         summary.results.map { |key, value| logger.info("#{key}: #{value}") }
       end
-      # rubocop:enable Metrics/AbcSize
 
       def email_summary
         UKRDC::SummaryMailer.export_summary(
@@ -166,5 +176,6 @@ module Renalware
         )
       end
     end
+    # rubocop:enable Metrics/ClassLength:
   end
 end
