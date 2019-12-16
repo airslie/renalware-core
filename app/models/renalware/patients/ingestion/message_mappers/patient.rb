@@ -55,7 +55,7 @@ module Renalware
               street_3: nil,
               town: address[2],
               county: address[3],
-              postcode: address.last
+              postcode: address[4]
             }
           end
           # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
