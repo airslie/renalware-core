@@ -28,7 +28,7 @@ module Renalware
     scope :inactive, lambda {
       where("last_activity_at IS NOT NULL AND last_activity_at < ?", expire_after.ago)
     }
-    scope :excludable, -> { unapproved.or(inactive).or(expired) }
+    scope :excludable, -> { unapproved.or(inactive).or(expired).or(hidden) }
     scope :author, -> { where.not(signature: nil) }
     scope :ordered, -> { order(:family_name, :given_name) }
     scope :excluding_system_user, -> { where.not(username: SystemUser.username) }
@@ -38,6 +38,9 @@ module Renalware
         .where("roles_users.user_id is null")
     }
     scope :consultants, -> { where(consultant: true).excluding_system_user.ordered }
+    scope :visible, -> { where(hidden: false) }
+    scope :hidden, -> { where(hidden: true) }
+    scope :picklist, -> { visible.ordered }
 
     # Non-persistent attribute to signify we want to use extended validation.
     # We need to refactor this by ising a form object for updating a user.

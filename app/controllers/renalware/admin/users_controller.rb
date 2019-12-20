@@ -50,6 +50,7 @@ module Renalware
           :unexpire,
           :telephone,
           :consultant,
+          :hidden,
           role_ids: []
         )
     end

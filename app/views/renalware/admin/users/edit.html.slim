@@ -46,6 +46,12 @@
               unchecked_value: "false",
               wrapper: :horizontal_small
 
+    = f.input :hidden,
+              as: :boolean,
+              hint: "&nbsp;User will not be visible for selection in dropdowns".html_safe,
+              checked_value: "true",
+              unchecked_value: "false",
+              wrapper: :horizontal_small
     - msg = user.approved? ? "Update" : "Approve"
     = f.submit msg, class: "button"
     span= " or "

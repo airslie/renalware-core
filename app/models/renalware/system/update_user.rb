@@ -20,11 +20,13 @@ module Renalware
 
       private
 
+      # rubocop:disable Metrics/AbcSize
       def update!(params)
         User.transaction do
           approve if can_approve?(params)
           unexpire if can_unexpire?(params)
           user.consultant = true?(params[:consultant])
+          user.hidden = true?(params[:hidden])
           authorise(params)
           user.telephone = params[:telephone]
           user.save!
@@ -32,6 +34,7 @@ module Renalware
       rescue ActiveRecord::RecordInvalid
         false
       end
+      # rubocop:enable Metrics/AbcSize
 
       def notify!
         notifications.each { |n| n.public_send(delivery_method) } if notifications.any?

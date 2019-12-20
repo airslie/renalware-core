@@ -19,7 +19,7 @@ module Renalware
       end
 
       def users
-        @users ||= Renalware::User.select(:id, :family_name, :given_name).ordered.to_a
+        @users ||= Renalware::User.visible.select(:id, :family_name, :given_name).ordered.to_a
       end
     end
   end
