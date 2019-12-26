@@ -14,7 +14,7 @@ module Renalware
 
       def definition(attribute, label = nil)
         text = label || @model_klass.human_attribute_name(attribute)
-        value = public_send(attribute)
+        value = __getobj__.public_send(attribute)
         value = yield(value) if value.present? && block_given?
         capture do
           concat content_tag(:dt, text)

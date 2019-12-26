@@ -218,7 +218,7 @@ GEM
     capybara-select-2 (0.4.3)
     character_set (1.4.0)
     chartkick (3.3.1)
-    childprocess (1.0.0)
+    childprocess (3.0.0)
     chronic (0.10.2)
     client_side_validations (16.1.0)
       jquery-rails (~> 4.3)
@@ -563,9 +563,9 @@ GEM
     scenic (1.5.1)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
-    selenium-webdriver (3.142.4)
-      childprocess (>= 0.5, < 3.0)
-      rubyzip (~> 1.2, >= 1.2.2)
+    selenium-webdriver (3.142.6)
+      childprocess (>= 0.5, < 4.0)
+      rubyzip (>= 1.2.2)
     shoulda-matchers (4.2.0)
       activesupport (>= 4.2.0)
     simple_form (5.0.1)
@@ -691,7 +691,7 @@ DEPENDENCIES
   wkhtmltopdf-heroku (~> 2.12.3)
 
 RUBY VERSION
-   ruby 2.6.3p62
+   ruby 2.7.0p0
 
 BUNDLED WITH
-   2.0.2
+   2.1.2
