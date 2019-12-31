@@ -140,6 +140,14 @@ module Renalware
           expect(consultants).to eq([consultant])
         end
       end
+
+      describe "#picklist scope" do
+        it "omits hidden users" do
+          create(:user, hidden: true)
+          user = create(:user, hidden: false)
+          expect(User.picklist).to eq([user])
+        end
+      end
     end
   end
 end

@@ -41,6 +41,10 @@ module Renalware::Messaging::Internal
       ActiveType.cast(user, ::Renalware::User).update_column(:last_activity_at, 10.years.ago)
     end
 
+    def hide_user(user)
+      ActiveType.cast(user, ::Renalware::User).update_column(:hidden, true)
+    end
+
     describe "#to_h" do
       before do
         send_message_about(patient: patient_a, to: recipient_for_message_re_patient_a)
@@ -48,6 +52,7 @@ module Renalware::Messaging::Internal
         another_user # create this user
       end
 
+      # rubocop:disable RSpec/MultipleExpectations
       it "returns a hash of 3 recipient groups" do
         # Lets get grouped dropdown options as if we again want to send a message about patient_a
         recipient_options = described_class.new(patient_a, author)
@@ -86,6 +91,7 @@ module Renalware::Messaging::Internal
         expect(all_other_users).not_to include(author)
         expect(all_other_users).to include(another_user)
       end
+      # rubocop:enable RSpec/MultipleExpectations
 
       context "when a user as become unapproved, expired or inactive then they should "\
               "not appear in recipient options, even if they are a previous recipient for "\
@@ -93,7 +99,8 @@ module Renalware::Messaging::Internal
         it "returns a hash of 3 recipient groups with expired/unapproved/inactive users removed" do
           # Unapproved our users so they are excluded from returned results
           unapprove_user(recipient_for_message_re_patient_a)
-          expire_user(recipient_for_message_re_patient_b)
+          # expire_user(recipient_for_message_re_patient_b)
+          hide_user(recipient_for_message_re_patient_b)
           make_user_inactive(another_user)
 
           # Get grouped dropdown options as if we want to send another message about patient_a

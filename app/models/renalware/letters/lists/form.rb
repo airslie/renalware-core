@@ -43,11 +43,11 @@ module Renalware
           end
 
           def author_options
-            @author_options ||= User.author.ordered
+            @author_options ||= User.author.picklist
           end
 
           def typist_options
-            @typist_options ||= User.ordered
+            @typist_options ||= User.picklist
           end
 
           def letterhead_options

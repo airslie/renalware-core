@@ -17,6 +17,10 @@ module Renalware
         user.update!(approved: false)
       end
 
+      def hide_user(user)
+        user.update_column(:hidden, true)
+      end
+
       def expire_user(user)
         ActiveType.cast(user, ::Renalware::User).update_column(:expired_at, 1.day.ago)
       end
@@ -57,6 +61,17 @@ module Renalware
           context "when the previous e-cc recipient subsequently becomes unapproved" do
             it "they do not appear in the first group" do
               unapprove_user(recipient1)
+
+              options = described_class.new(patient, author)
+
+              users = options.to_a[0].users
+              expect(users).not_to include(recipient1)
+            end
+          end
+
+          context "when the previous e-cc recipient subsequently becomes hidden" do
+            it "they do not appear in the first group" do
+              hide_user(recipient1)
 
               options = described_class.new(patient, author)
 
@@ -117,6 +132,19 @@ module Renalware
             end
           end
 
+          context "when the user subsequently becomes hidden" do
+            it "they do not appear in the second group" do
+              hide_user(recipient1)
+
+              options = described_class.new(patient, author)
+              groups = options.to_a
+
+              expect(groups[0].users).to be_empty
+              expect(groups[1].users).not_to include(recipient1)
+              expect(groups[2].users).not_to include(recipient1)
+            end
+          end
+
           context "when the user subsequently becomes inactive" do
             it "they do not appear in the second group" do
               make_user_inactive(recipient1)
@@ -131,9 +159,22 @@ module Renalware
           end
         end
 
-        context "when a disinterested user becomes approved" do
+        context "when a disinterested user becomes unapproved" do
           it "they do not appear in any list" do
             unapprove_user(disinterested_user)
+
+            options = described_class.new(patient, author)
+            groups = options.to_a
+
+            expect(groups[0].users).to be_empty
+            expect(groups[1].users).to be_empty
+            expect(groups[2].users).not_to include(disinterested_user)
+          end
+        end
+
+        context "when a disinterested user becomes hidden" do
+          it "they do not appear in any list" do
+            hide_user(disinterested_user)
 
             options = described_class.new(patient, author)
             groups = options.to_a

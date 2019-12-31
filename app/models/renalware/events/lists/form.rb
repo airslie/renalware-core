@@ -32,7 +32,7 @@ module Renalware
           end
 
           def created_by_options
-            User.excluding_system_user.ordered
+            User.excluding_system_user.picklist
           end
         end
       end
