@@ -39,7 +39,6 @@ describe "Add person to directory and assign as a contact for a patient",
       end
     end
 
-    # rubocop:disable Metrics/AbcSize
     def try_create_contact_with_valid_params(contact_description)
       click_on "Add"
 
@@ -55,7 +54,6 @@ describe "Add person to directory and assign as a contact for a patient",
 
         click_on "Save"
       end
-      # rubocop:enable Metrics/AbcSize
 
       wait_for_ajax
     end

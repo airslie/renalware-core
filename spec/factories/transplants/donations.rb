@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :transplant_donation, class: Renalware::Transplants::Donation do
+  factory :transplant_donation, class: "Renalware::Transplants::Donation" do
     patient
 
     state { :volunteered }

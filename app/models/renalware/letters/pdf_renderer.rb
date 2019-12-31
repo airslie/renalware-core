@@ -22,6 +22,7 @@ module Renalware
           letter = LetterPresenterFactory.new(letter)
         end
         PdfLetterCache.fetch(letter, **options) do
+          Rails.logger.info "    Rendering PDF for letter #{letter.id}"
           WickedPdf.new.pdf_from_string(letter.to_html(**options), OPTIONS)
         end
       end

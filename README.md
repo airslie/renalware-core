@@ -54,8 +54,9 @@ psql template1
 At the psql prompt run the following (replacing `<username>` and `<password>` accordingly):
 
 ```sql
-CREATE USER <username> WITH PASSWORD '<password>';
-ALTER USER <username> SUPERUSER;
+CREATE USER renalware WITH PASSWORD 'renalware';
+ALTER USER renalware WITH SUPERUSER;
+ALTER USER renalware WITH LOGIN;
 ```
 
 ### Configure Ruby

@@ -10,6 +10,7 @@ module Renalware
         :patient!,
         :dir!,
         :request_uuid!,
+        :schema,
         :changes_since,
         :logger,
         :batch_number,
@@ -18,7 +19,7 @@ module Renalware
         :force_send
       ]
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       # If force_send is true then send all files even if they have not changed since the last
       # send. This is primarily for debugging and testing phases with UKRDC
       def call
@@ -39,7 +40,7 @@ module Renalware
           logger.info "    Status: #{log.status}"
         end
       end
-      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       private
 
@@ -101,8 +102,20 @@ module Renalware
         nil
       end
 
+      def schema
+        @schema ||= begin
+          Rails.logger.info "Creating Nokogiri::XML::Schema"
+          xsd_path = File.join(Renalware::Engine.root, "vendor/xsd/ukrdc/Schema/UKRDC.xsd")
+          xsddoc = Nokogiri::XML(File.read(xsd_path), xsd_path)
+          Nokogiri::XML::Schema.from_document(xsddoc)
+        end
+      end
+
       def default_renderer
-        Renalware::UKRDC::XmlRenderer.new(locals: { patient: presenter_for(patient) })
+        Renalware::UKRDC::XmlRenderer.new(
+          schema: schema,
+          locals: { patient: presenter_for(patient) }
+        )
       end
 
       def presenter_for(patient)

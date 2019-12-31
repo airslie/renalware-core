@@ -16,12 +16,12 @@
 # The support/factory_bot.rb for the definition of MarshalDumpStrategy
 #
 FactoryBot.define do
-  factory :blood_pressure, class: OpenStruct do
+  factory :blood_pressure, class: "OpenStruct" do
     systolic { 100 }
     diastolic { 80 }
   end
 
-  factory :hd_session_document_info, class: OpenStruct do
+  factory :hd_session_document_info, class: "OpenStruct" do
     hd_type { "hd" }
     machine_no { 222 }
     access_side { "right" }
@@ -34,11 +34,11 @@ FactoryBot.define do
     is_access_first_use { "no" }
   end
 
-  factory :hd_session_document_avf_avg_assessment, class: OpenStruct do
+  factory :hd_session_document_avf_avg_assessment, class: "OpenStruct" do
     score { 1 }
   end
 
-  factory :hd_session_document_dialysis, class: OpenStruct do
+  factory :hd_session_document_dialysis, class: "OpenStruct" do
     flow_rate { 200 }
     blood_flow { 150 }
     machine_ktv { 1.0 }
@@ -49,7 +49,7 @@ FactoryBot.define do
     arterial_pressure { 1 }
   end
 
-  factory :hd_session_document_observations_before, class: OpenStruct do
+  factory :hd_session_document_observations_before, class: "OpenStruct" do
     pulse { 37 }
     weight { 100.0 }
     bm_stix { 1.0 }
@@ -58,7 +58,7 @@ FactoryBot.define do
     blood_pressure factory: :blood_pressure, strategy: :marshal_dump
   end
 
-  factory :hd_session_document_observations_after, class: OpenStruct do
+  factory :hd_session_document_observations_after, class: "OpenStruct" do
     pulse { 36 }
     weight { 99.0 }
     bm_stix { 0.9 }
@@ -67,11 +67,11 @@ FactoryBot.define do
     blood_pressure factory: :blood_pressure, strategy: :marshal_dump
   end
 
-  factory :hd_session_document_complications, class: OpenStruct do
+  factory :hd_session_document_complications, class: "OpenStruct" do
     line_exit_site_status { "0" }
   end
 
-  factory :hd_session_document, class: OpenStruct do
+  factory :hd_session_document, class: "OpenStruct" do
     info factory: :hd_session_document_info, strategy: :marshal_dump
     dialysis factory: :hd_session_document_dialysis, strategy: :marshal_dump
     avf_avg_assessment factory: :hd_session_document_avf_avg_assessment, strategy: :marshal_dump

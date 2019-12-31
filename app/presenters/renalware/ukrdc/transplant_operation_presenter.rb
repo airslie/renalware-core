@@ -58,6 +58,10 @@ module Renalware
         NHSBT_TYPE_MAP[document.donor.type&.to_sym]
       end
 
+      def performed_at
+        performed_on && Time.zone.parse(performed_on.to_s)
+      end
+
       # TRA76 is the type of donor. For us it is a combination of donor type and donor relationship
       # (if live related).
       # Unhandled options:

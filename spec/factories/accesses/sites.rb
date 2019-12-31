@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :access_site, class: Renalware::Accesses::Site do
+  factory :access_site, class: "Renalware::Accesses::Site" do
     name { "Femoral vein line" }
     code { "12" }
   end

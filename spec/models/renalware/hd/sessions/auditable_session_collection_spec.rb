@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/AbcSize
 require "rails_helper"
 
 module Renalware
@@ -406,4 +405,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/AbcSize
