@@ -16,7 +16,9 @@ module Renalware
           milligram
           millilitre
           nanogram
+          patch
           puff
+          sachet
           tab
           tablet
           unit
