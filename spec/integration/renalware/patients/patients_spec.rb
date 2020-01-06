@@ -32,13 +32,14 @@ describe "Managing patients", type: :request do
         created_patient = Renalware::Patient.find_by(nhs_number: attributes[:nhs_number])
         expect(created_patient).to be_present
 
-        expect(created_patient.country_of_birth).to eq(algeria)
         expect(created_patient.document).to match_document(document)
-        expect(created_patient.created_by).to eq(@current_user)
-        expect(created_patient.updated_by).to eq(@current_user)
-
-        expect(created_patient.local_patient_id).to eq("ABC123")
-        expect(created_patient.local_patient_id_2).to eq("XYZ123")
+        expect(created_patient).to have_attributes(
+          country_of_birth: algeria,
+          created_by: @current_user,
+          updated_by: @current_user,
+          local_patient_id: "ABC123",
+          local_patient_id_2: "XYZ123"
+        )
 
         follow_redirect!
 
@@ -67,7 +68,7 @@ describe "Managing patients", type: :request do
   describe "PATCH update" do
     context "with valid attributes" do
       it "updates a record" do
-        attributes = { given_name: "My Edited Patient" }
+        attributes = { given_name: "My Edited Patient", next_of_kin: "ABC" }
         patch patient_path(patient), params: { patient: attributes }
 
         expect(response).to have_http_status(:redirect)
@@ -79,7 +80,10 @@ describe "Managing patients", type: :request do
         follow_redirect!
 
         updated_patient = Renalware::Patient.find_by(attributes)
-        expect(updated_patient.updated_by).to eq(@current_user)
+        expect(updated_patient).to have_attributes(
+          updated_by: @current_user,
+          next_of_kin: "ABC"
+        )
 
         expect(response).to be_successful
       end

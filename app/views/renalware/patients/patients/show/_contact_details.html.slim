@@ -9,7 +9,6 @@ article
     - if patient.current_address&.email.present?
       dt Email
       dd= patient.current_address&.email
-
     - if patient.telephone1.present?
       dt Telephone
       dd= patient.telephone1
@@ -19,3 +18,5 @@ article
     - if patient.current_address&.telephone.present?
       dt Telephone
       dd= patient.current_address&.telephone
+    dt Next of kin
+    dd= patient.next_of_kin
