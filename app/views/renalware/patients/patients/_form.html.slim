@@ -68,6 +68,7 @@
     = f.input :telephone1, wrapper: :horizontal_small, input_html: controlled_by_demographics_feed
     = f.input :telephone2, wrapper: :horizontal_small, input_html: controlled_by_demographics_feed
     = f.input :email, wrapper: :horizontal_small, input_html: controlled_by_demographics_feed
+    = f.input :next_of_kin, as: :text, wrapper: :horizontal_large
 
     - if patient.persisted?
       .row
