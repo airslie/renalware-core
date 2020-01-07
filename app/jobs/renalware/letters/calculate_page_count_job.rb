@@ -29,6 +29,11 @@ module Renalware
 
       def call
         letter.update_column(:page_count, pdf_reader.page_count)
+      rescue StandardError => e
+        # In Wisper async jobs, rescue_from blocks defined on the ApplicationJob class
+        # do not seem to be called, so we need to invoke them ourselves with this call to a fn on
+        # ActiveSupport::Rescuable which is already mixed into ActiveJob::Base.
+        rescue_with_handler(e) || raise
       end
 
       private
