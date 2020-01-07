@@ -38,7 +38,7 @@ module Renalware
       it "broadcasts a letter_approved event when the letter is approved successfully" do
         expect {
           service.call(by: user)
-        }.to broadcast(:letter_approved, approved_letter)
+        }.to broadcast(:letter_approved, approved_letter.becomes(Renalware::Letters::Letter))
       end
 
       describe "async listeners" do

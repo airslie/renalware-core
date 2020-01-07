@@ -80,7 +80,7 @@ module Renalware
             to: "practice@example.com"
           )
 
-          described_class.new(letter: letter).call
+          described_class.new(letter: letter.becomes(Renalware::Letters::Letter)).call
 
           expect(message_delivery).to have_received(:deliver_later)
         end

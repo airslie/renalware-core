@@ -12,9 +12,9 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 
-fail_fast:
-  stop:
-    when: "branch != 'master'"
+# fail_fast:
+#   stop:
+#     when: "branch != 'master'"
 
 auto_cancel:
   running:
