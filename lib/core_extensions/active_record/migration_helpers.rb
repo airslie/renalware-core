@@ -45,6 +45,13 @@ module CoreExtensions
         connection.schema_search_path = original_schema_search_path
       end
 
+      def within_public_schema
+        original_schema_search_path = connection.schema_search_path
+        connection.schema_search_path = "public"
+        yield if block_given?
+        connection.schema_search_path = original_schema_search_path
+      end
+
       # Can be called from a migration to load in a function from a sql file
       # at e.g. db/functions/my_function_v01.sql
       #

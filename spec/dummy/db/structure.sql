@@ -15017,13 +15017,6 @@ CREATE INDEX index_users_on_approved ON renalware.users USING btree (approved);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_email ON renalware.users USING btree (email);
-
-
---
 -- Name: index_users_on_expired_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -15059,6 +15052,20 @@ CREATE INDEX index_users_on_last_activity_at ON renalware.users USING btree (las
 
 
 --
+-- Name: index_users_on_lower_email; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_on_lower_email ON renalware.users USING btree (lower((email)::text));
+
+
+--
+-- Name: index_users_on_lower_username; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_on_lower_username ON renalware.users USING btree (lower((username)::text));
+
+
+--
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -15070,13 +15077,6 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON renalware.users USING
 --
 
 CREATE INDEX index_users_on_signature ON renalware.users USING btree (signature);
-
-
---
--- Name: index_users_on_username; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_username ON renalware.users USING btree (username);
 
 
 --
@@ -18233,6 +18233,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191209163151'),
 ('20191213094611'),
 ('20191219145651'),
-('20200106073329');
+('20200106073329'),
+('20200106210851');
 
 
