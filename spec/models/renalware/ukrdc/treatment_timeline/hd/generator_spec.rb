@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-# rubocop:disable RSpec/ExampleLength, Metrics/LineLength, Style/WordArray
+# rubocop:disable RSpec/ExampleLength, Layout/LineLength, Style/WordArray
 module Renalware
   module UKRDC
     describe TreatmentTimeline::HD::Generator do
@@ -286,4 +286,4 @@ module Renalware
     end
   end
 end
-# rubocop:enable RSpec/ExampleLength, Metrics/LineLength, Style/WordArray
+# rubocop:enable RSpec/ExampleLength, Layout/LineLength, Style/WordArray

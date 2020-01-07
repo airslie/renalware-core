@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-# rubocop:disable Metrics/LineLength
+# rubocop:disable Layout/LineLength
 module Renalware
   module UKRDC
     describe TreatmentTimeline::Transplant::Generator do
@@ -171,4 +171,4 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/LineLength
+# rubocop:enable Layout/LineLength
