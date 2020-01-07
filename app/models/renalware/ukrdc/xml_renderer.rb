@@ -72,7 +72,7 @@ module Renalware
   end
 end
 
-# rubocop:disable Metrics/LineLength
+# rubocop:disable Layout/LineLength
 # For reference this is the code used to compare old and new methods of exporting the XML
 # in the #call method:
 #
@@ -102,4 +102,4 @@ end
 #     )
 #   end
 # end
-# rubocop:enable Metrics/LineLength
+# rubocop:enable Layout/LineLength

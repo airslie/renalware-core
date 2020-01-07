@@ -73,7 +73,7 @@ module Renalware
         render :index, locals: locals
       end
 
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       def render_prescriptions_list_to_hand_to_patient
         render(
           pdf_options.merge(
@@ -89,7 +89,7 @@ module Renalware
           )
         )
       end
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
 
       def pdf_filename
         "#{patient.family_name}_#{patient.hospital_identifier&.id}" \

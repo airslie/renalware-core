@@ -22,7 +22,7 @@ module Renalware
       end
     end
 
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     def shell_to_ghostscript_to_combine_files(filenames, dir, outputfile)
       outputfile = Pathname(outputfile)
       cmd = "gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=#{outputfile} -dBATCH #{filenames.join(' ')}"
@@ -35,7 +35,7 @@ module Renalware
         raise "Error combining PDFs: #{[err, msg].join(' ')} command: #{cmd}"
       end
     end
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
 
     def move_tempfile_to_output_file(tmp_outfile, output_file)
       FileUtils.mv tmp_outfile.path, output_file
