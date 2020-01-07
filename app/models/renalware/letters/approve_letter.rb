@@ -19,7 +19,9 @@ module Renalware
           archive_recipients
           sign(by: by)
           archive_content(by: by)
-          broadcast(:letter_approved, letter)
+          # Cast the letter to the base Letter class in case it becomes a Letters::Completed
+          # before any async listeners have time to process it.
+          broadcast(:letter_approved, letter.becomes(Letters::Letter))
         end
       end
 
