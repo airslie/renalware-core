@@ -9,6 +9,22 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.131
+07-01-2019
+### Added
+- Add next of kin text field to demographics #3098
+- Add 'patch' and 'sachet' units for medications to default seeds #3100
+- Add a hidden column to users #3079
+### Changed
+- Rename Metrics/LineLength as Layout/LineLength #3105
+- Add case insensitive unique index to email and username on users table #3104
+- Update actionview component and other dependencies #3103
+- Sort ESA prescriptions by modality #3097
+- Speed up UKRDC XML rendering using Ox #3091
+- Update rails to 5.2.4 #3090
+- Add UKRDC configuration to support sending RPV only #3088
+### Fixed
+
 ### 2.0.130
 16-12-2019
 ### Added
