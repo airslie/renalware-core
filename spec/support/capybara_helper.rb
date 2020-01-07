@@ -8,4 +8,10 @@ module CapybaraHelper
   def select_first_option_from(selector)
     select_nth_option_from(selector)
   end
+
+  def within_article(title)
+    within(:css, "article", text: title) do
+      yield
+    end
+  end
 end

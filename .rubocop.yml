@@ -49,6 +49,14 @@ AllCops:
     - "vendor/bundle/**/*"
     - "config/initializers/devise.rb"
 
+Metrics/LineLength:
+  Exclude:
+    - "spec/acceptance/renalware/steps/**/*"
+
+Metrics/AbcSize:
+  Exclude:
+    - "spec/acceptance/renalware/steps/**/*"
+
 RSpec/ExampleLength:
   Max: 40
 RSpec/NestedGroups:

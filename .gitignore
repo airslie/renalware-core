@@ -12,7 +12,6 @@
 # Ignore bundler config.
 *.rbc
 capybara-*.html
-.rspec
 /public/system
 /coverage/
 /spec/tmp
