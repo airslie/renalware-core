@@ -8,14 +8,15 @@ ruby:
   td(class="sortable-position-for-model-id-#{request.id}")= request.position
   td.priority
     span= request.priority.text
-  td= request.reason.description
+  td.col-width-medium-with-ellipsis= request.reason.description
   td= default_patient_link(patient)
   td= patient.nhs_number
   td= patient.hospital_identifiers
-  td= request.hospital_unit&.name
+  td.col-width-medium-with-ellipsis= request.hospital_unit&.name
   td.col-width-medium-with-ellipsis(title=request.notes)
     = request.notes
   td(title=editing_history)= l(request.created_at)
+  td.col-width-medium-with-ellipsis=request.created_by
   td
     = link_to admissions_request_path(request),
               remote: true,
