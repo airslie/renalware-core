@@ -68,7 +68,10 @@ module Renalware
     end
     config_accessor(:ukrdc_site_code) { ENV.fetch("UKRDC_PREFIX", "RJZ") }
     config_accessor(:ukrdc_number_of_archived_folders_to_keep) do
-      ENV.fetch("UKRDC_NUMBER_OF_ARCHIVED_FOLDERS_TO_KEEP", "3")
+      ENV.fetch("UKRDC_NUMBER_OF_ARCHIVED_FOLDERS_TO_KEEP", "7")
+    end
+    config_accessor(:ukrdc_remove_stale_outgoing_files) do
+      ENV.fetch("UKRDC_REMOVE_STALE_OUTGOING_FILES", "true") == "true"
     end
 
     # To use a date other that the default changes_since date when

@@ -54,6 +54,7 @@ namespace :ukrdc do
     Rails.logger     = logger
     logger.info "UKRDC housekeeping"
     Renalware::UKRDC::Housekeeping::RemoveOldExportArchiveFolders.call
+    Renalware::UKRDC::Housekeeping::RemoveStaleFiles.call
   end
 
   task import: :environment do
