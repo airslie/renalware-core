@@ -9,7 +9,7 @@ module Renalware
     class MDMPatientsQuery
       include ModalityScopes
       include PatientPathologyScopes
-      DEFAULT_SEARCH_PREDICATE = "hgb_date DESC"
+      DEFAULT_SEARCH_PREDICATE = "cre_date DESC"
       attr_reader :q, :relation, :named_filter
 
       def initialize(relation: Transplants::Patient.all, named_filter: nil, q: nil)
