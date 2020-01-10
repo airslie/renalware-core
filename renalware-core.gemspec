@@ -72,10 +72,11 @@ Gem::Specification.new do |s|
   s.add_dependency "paper_trail", "~> 9.0.1"
   s.add_dependency "paranoia", "~> 2.4.0"
   s.add_dependency "pdf-reader", "~> 2.4.0"
-  s.add_dependency "pg", "~> 1.1.3"
+  s.add_dependency "pg", "~> 1.1"
   s.add_dependency "prawn", "~> 2.2.2"
   s.add_dependency "puma", "~> 4.3.0"
   s.add_dependency "pundit", "~> 2.1.0"
+  s.add_dependency "rack", "~> 2.0.8"
   s.add_dependency "rack-attack"
   s.add_dependency "rails", "~> 5.2"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
