@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require "rspec/core/rake_task"
-
 #
 # These tasks run the turnip (migrated from cucumber) features.
 #
 namespace :spec do
   namespace :acceptance do
-    pattern = "spec/acceptance/features/**/*.feature"
+    ENV["RACK_ENV"] = ENV["RAILS_ENV"] = "test"
+    require "rspec/core/rake_task"
+    pattern = "./spec/acceptance/renalware/features/**/*.feature"
 
     # domain features are those that do not exercise the UI
     # Usage:
@@ -20,8 +20,8 @@ namespace :spec do
     # Usage:
     #   bundle exec rake spec:acceptance:web
     RSpec::Core::RakeTask.new(:web) do |t|
-      t.pattern = "spec/acceptance/features/**/*.feature"
-      t.rspec_opts = "--tag web" # targets features with the @web tag only
+      t.pattern = "./spec/acceptance/renalware/features/**/*.feature"
+      t.rspec_opts = "--tag web --require spec_helper" # targets features with the @web tag only
       ENV["TURNIP_WEB"] = "1" # triggers inclusion of web_steps
     end
 
