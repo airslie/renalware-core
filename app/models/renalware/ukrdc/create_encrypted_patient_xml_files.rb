@@ -66,17 +66,12 @@ module Renalware
         end
       end
 
-      def schema
-        xsd_path = File.join(Renalware::Engine.root, "vendor/xsd/ukrdc/Schema/UKRDC.xsd")
-        xsddoc = Nokogiri::XML(File.read(xsd_path), xsd_path)
-        Nokogiri::XML::Schema.from_document(xsddoc)
-      end
-
       # rubocop:disable Metrics/MethodLength
       def create_patient_xml_files
         count = 0
         patients = ukrdc_patients_who_have_changed_since_last_send
         summary.num_changed_patients = patients.count
+        schema = UKRDC::XsdSchema.new
         patients.find_each do |patient|
           count += 1
           Rails.logger.info count
@@ -92,7 +87,7 @@ module Renalware
           ).call
 
           # Every n patients, force the garbage collector to kick in
-          GC.start if (count % 10).zero?
+          # GC.start if (count % 10).zero?
         end
       end
       # rubocop:enable Metrics/MethodLength

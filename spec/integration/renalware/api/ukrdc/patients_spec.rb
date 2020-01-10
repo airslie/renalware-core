@@ -28,11 +28,7 @@ describe "API request for a single UKRDC patient XML document", type: :request d
   end
 
   def validate(xml)
-    document = Nokogiri::XML(xml)
-    xsd_path = File.join(Renalware::Engine.root, "vendor", "xsd", "ukrdc/Schema/UKRDC.xsd")
-    xsddoc = Nokogiri::XML(File.read(xsd_path), xsd_path)
-    schema = Nokogiri::XML::Schema.from_document(xsddoc)
-    schema.validate(document)
+    Renalware::UKRDC::XsdSchema.new.validate(xml)
   end
 
   def clinic_patient(patient)
@@ -44,7 +40,7 @@ describe "API request for a single UKRDC patient XML document", type: :request d
   end
 
   describe "GET #show" do
-    it "renders the correct UK RDC XML" do
+    it "renders the correct UKRDC XML" do
       patient.document.history.smoking = :ex
       patient.update!(by: user)
       create(:clinic_visit, patient: clinic_patient(patient), by: user)

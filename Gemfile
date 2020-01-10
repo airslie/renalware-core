@@ -16,6 +16,7 @@ gem "daemons", require: false # to use cmds like `bin/delayed_job start`
 gem "faker"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
 gem "redis"
+gem "ruby-prof", require: false
 
 gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 # The main trix gem at https://github.com/maclover7/trix is not yet Rails 5.2 compatible; it give

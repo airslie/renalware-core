@@ -10,7 +10,7 @@ module Renalware
         :patient!,
         :dir!,
         :request_uuid!,
-        :schema,
+        :schema!,
         :changes_since,
         :logger,
         :batch_number,
@@ -100,15 +100,6 @@ module Renalware
         log.error = result.validation_errors
         log.status = :error
         nil
-      end
-
-      def schema
-        @schema ||= begin
-          Rails.logger.info "Creating Nokogiri::XML::Schema"
-          xsd_path = File.join(Renalware::Engine.root, "vendor/xsd/ukrdc/Schema/UKRDC.xsd")
-          xsddoc = Nokogiri::XML(File.read(xsd_path), xsd_path)
-          Nokogiri::XML::Schema.from_document(xsddoc)
-        end
       end
 
       def default_renderer
