@@ -12,9 +12,6 @@ module Renalware
       validates :patient_id, presence: true
       validates :started_on, presence: true
       validates :description, presence: true
-      # Currently #consult_type is a string and we are not sure what should be in there
-      # Migrated consults may not have a type so only enforce it creation of new ones.
-      validates :consult_type, presence: true, on: :create
       validates :priority,
                 numericality: {
                   only_integer: true,
@@ -29,6 +26,7 @@ module Renalware
       belongs_to :patient, touch: true
       belongs_to :consult_site, class_name: "Admissions::ConsultSite"
       belongs_to :hospital_ward, class_name: "Hospitals::Ward"
+      belongs_to :specialty, class_name: "Admissions::Specialty"
       belongs_to :seen_by, class_name: "User"
 
       enumerize :transfer_priority, in: %i(unknown necessary desirable potential unnecessary)
