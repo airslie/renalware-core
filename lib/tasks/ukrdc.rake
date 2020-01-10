@@ -32,12 +32,28 @@ namespace :ukrdc do
     logger           = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
     logger.level     = Logger::INFO
     Rails.logger     = logger
+
+    PROFILE = nil
+    if PROFILE
+      require "ruby-prof"
+      RubyProf.start
+    end
     # Renalware::UKRDC::TreatmentTimeline::GenerateTreatments.call
     Renalware::UKRDC::CreateEncryptedPatientXMLFiles.new(
       changed_since: ENV["changed_since"],
       patient_ids: ENV.fetch("patient_ids", "").split(",").map(&:to_i),
       force_send: ENV["force_send"] == "true"
     ).call
+
+    if PROFILE
+      result = RubyProf.stop
+      pretty = RubyProf::FlatPrinter.new(result)
+      pretty.print(STDOUT)
+      # printer.print(STDOUT, {})
+      # printer = RubyProf::GraphPrinter.new(result)
+      # printer = RubyProf::GraphHtmlPrinter.new(result)
+      # printer.print(STDOUT, min_percent: 5)
+    end
   end
 
   desc "Regenerates the ukrdc_treatments table ready for exporting to UKRDC in another task"

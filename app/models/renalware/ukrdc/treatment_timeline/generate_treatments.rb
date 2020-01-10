@@ -28,7 +28,7 @@ module Renalware
             .where("send_to_renalreg = true or send_to_rpv = true")
         end
 
-        # rubocop:disable Rails/Output, Metrics/AbcSize
+        # rubocop:disable Rails/Output
         def generate_treatments
           PrepareTables.call
           Rails.logger.info "#{patient_scope.count} patients"
@@ -36,10 +36,10 @@ module Renalware
             print "\n#{patient.id}: "
             GenerateTimeline.new(patient).call
             # Start gargbage collection periodically to prevent server ram issues.
-            GC.start if (index % 50).zero?
+            # GC.start if (index % 50).zero?
           end
         end
-        # rubocop:enable Rails/Output, Metrics/AbcSize
+        # rubocop:enable Rails/Output
 
         def log(msg)
           Rails.logger.info(msg)

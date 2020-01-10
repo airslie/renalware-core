@@ -26,7 +26,10 @@ module Renalware
         end
 
         def attempt_to_generate_patient_ukrdc_xml
-          Renalware::UKRDC::XmlRenderer.new(locals: { patient: patient_presenter }).call
+          Renalware::UKRDC::XmlRenderer.new(
+            schema: Renalware::UKRDC::XsdSchema.new,
+            locals: { patient: patient_presenter }
+          ).call
         end
 
         def patient_presenter

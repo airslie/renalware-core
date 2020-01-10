@@ -67,6 +67,7 @@ module Renalware
             batch_number: 1,
             dir: dir,
             renderer: success_renderer,
+            schema: UKRDC::XsdSchema.new,
             changes_since: "2017-01-01" # required if sent_to_ukrdc_at is nil!
           )
 
@@ -102,6 +103,7 @@ module Renalware
           service = described_class.new(
             request_uuid: request_uuid,
             renderer: success_renderer,
+            schema: UKRDC::XsdSchema.new,
             patient: patient,
             batch_number: 1,
             dir: dir
@@ -140,6 +142,7 @@ module Renalware
             request_uuid: request_uuid,
             renderer: success_renderer,
             patient: patient,
+            schema: UKRDC::XsdSchema.new,
             batch_number: 1,
             dir: dir
           )
@@ -161,6 +164,7 @@ module Renalware
           service = described_class.new(
             request_uuid: request_uuid,
             renderer: failure_renderer,
+            schema: UKRDC::XsdSchema.new,
             patient: patient,
             batch_number: 1,
             dir: dir

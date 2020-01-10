@@ -10,7 +10,10 @@ module Renalware
         gp = build_stubbed(:primary_care_physician, code: "G1111111")
         patient = build_stubbed(:patient, practice: practice, primary_care_physician: gp)
         patient_presenter = UKRDC::PatientPresenter.new(patient)
-        renderer = described_class.new(locals: { patient: patient_presenter })
+        renderer = described_class.new(
+          schema: UKRDC::XsdSchema.new,
+          locals: { patient: patient_presenter }
+        )
 
         result = renderer.call
 
@@ -27,7 +30,10 @@ module Renalware
         gp = build_stubbed(:primary_care_physician, code: "invalid_gp_code")
         patient = build_stubbed(:patient, practice: practice, primary_care_physician: gp)
         patient_presenter = UKRDC::PatientPresenter.new(patient)
-        renderer = described_class.new(locals: { patient: patient_presenter })
+        renderer = described_class.new(
+          schema: UKRDC::XsdSchema.new,
+          locals: { patient: patient_presenter }
+        )
 
         # Should return a Failure object
         result = renderer.call

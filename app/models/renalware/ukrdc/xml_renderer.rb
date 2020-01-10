@@ -7,7 +7,7 @@ module Renalware
   module UKRDC
     class XmlRenderer
       DEFAULT_TEMPLATE = "/renalware/api/ukrdc/patients/show"
-      attr_reader :template, :errors, :locals
+      attr_reader :template, :errors, :locals, :schema
 
       class Success < Renalware::Success
         alias xml object
@@ -19,7 +19,7 @@ module Renalware
 
       # Schema is an instance of Nokogiri::XML::Schema passed in for optimisation reasons.
       # If it is not passed in we create it.
-      def initialize(schema: nil, template: nil, locals: {})
+      def initialize(schema:, template: nil, locals: {})
         @template = template || DEFAULT_TEMPLATE
         @schema = schema
         @locals = locals
@@ -47,7 +47,7 @@ module Renalware
 
       # Returns an array of SchemaValidation errors
       def validation_errors
-        @validation_errors ||= schema.validate(Nokogiri::XML(xml))
+        @validation_errors ||= schema.validate(xml)
       end
 
       private
@@ -56,16 +56,6 @@ module Renalware
         Ox::Instruct.new(:xml).tap do |instruct|
           instruct[:version] = "1.0"
           instruct[:encoding] = "UTF-8"
-        end
-      end
-
-      # It is more performant if schema is passed in in the ctor - but if it isn't we create it.
-      def schema
-        @schema ||= begin
-          Rails.logger.warn "Creating JIT Nokogiri::XML::Schema!"
-          xsd_path = File.join(Renalware::Engine.root, "vendor/xsd/ukrdc/Schema/UKRDC.xsd")
-          xsddoc = Nokogiri::XML(File.read(xsd_path), xsd_path)
-          Nokogiri::XML::Schema.from_document(xsddoc)
         end
       end
     end
