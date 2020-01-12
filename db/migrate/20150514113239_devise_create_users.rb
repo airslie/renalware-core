@@ -37,8 +37,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[4.2]
       t.string :signature
 
       ## Non-devise - account expiry
-      t.datetime :last_activity_at, :datetime
-      t.datetime :expired_at, :datetime
+      t.datetime :last_activity_at
+      t.datetime :expired_at
+      t.datetime :datetime # will be removed later
 
       ## Non-devise - job title
       t.string :professional_position
@@ -51,15 +52,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[4.2]
 
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
-    # add_index :users, :confirmation_token,   unique: true
-    # add_index :users, :unlock_token,         unique: true
-
     add_index :users, :username, unique: true
-
-    add_index   :users, :last_activity_at
-    add_index   :users, :expired_at
-
-    add_index  :users, :approved
-
+    add_index :users, :last_activity_at
+    add_index :users, :expired_at
+    add_index :users, :approved
   end
 end

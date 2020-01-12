@@ -2,7 +2,6 @@ class CreatePatientsMasterIndex < ActiveRecord::Migration[5.2]
   def change
     create_table :patient_master_index do |t|
       t.references :patient, null: true, foreign_key: true
-      t.timestamps null: false
       t.string :nhs_number, index: true
       t.string :hospital_number, index: true
       t.string :title
