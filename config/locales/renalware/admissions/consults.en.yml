@@ -8,7 +8,8 @@ en:
         referred_on: Referal date
         hospital_unit: Unit
         hospital_ward: Ward
-        consult_type: Type
+        e_alert: E-Alert
+        consult_type: Specialty notes
         contact_number: Bleep/Ext
         other_site_or_ward: Other site or ward
         rrt: RRT?

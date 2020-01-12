@@ -8,6 +8,7 @@ module Renalware
     let(:consult_site) { create(:admissions_consult_site, name: "Site1") }
     let(:hospital_unit) { create(:hospital_unit, unit_code: "HospUnit1") }
     let(:hospital_ward) { create(:hospital_ward, name: "Ward1", hospital_unit: hospital_unit) }
+    let(:specialty) { create(:admissions_specialty, name: "Other") }
 
     def convert_hash_dates_to_string_using_locale(hash)
       hash.each { |key, val| hash[key] = I18n.l(val) if val.is_a?(Date) }
@@ -22,6 +23,8 @@ module Renalware
              hospital_ward: hospital_ward,
              priority: 13,
              consult_type: "TBC",
+             e_alert: false,
+             specialty_id: specialty.id,
              description: "Lorem ipsum dolor")
     end
 
@@ -77,6 +80,8 @@ module Renalware
             decided_on: date,
             transferred_on: date,
             rrt: true,
+            e_alert: true,
+            specialty_id: specialty.id,
             consult_type: "TBC",
             transfer_priority: Renalware::Admissions::Consult.transfer_priority.values.first,
             priority: 13,

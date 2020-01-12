@@ -123,6 +123,12 @@
                 dd= consult.patient_current_modality
                 dt Description
                 dd= simple_format consult.description
+                dt E-Alert
+                dd= yes_no consult.e_alert
+                dt Specialty
+                dd= consult.specialty
+                dt Specialty notes
+                dd= consult.consult_type
 
         / When printing we just show the notes on the second row
         tr.print-only.child-row

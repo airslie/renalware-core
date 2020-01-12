@@ -1295,7 +1295,9 @@ CREATE TABLE renalware.admission_consults (
     other_site_or_ward character varying,
     consult_site_id bigint,
     rrt boolean DEFAULT false NOT NULL,
-    priority integer
+    priority integer,
+    e_alert boolean DEFAULT false NOT NULL,
+    specialty_id bigint
 );
 
 
@@ -1387,6 +1389,38 @@ CREATE SEQUENCE renalware.admission_requests_id_seq
 --
 
 ALTER SEQUENCE renalware.admission_requests_id_seq OWNED BY renalware.admission_requests.id;
+
+
+--
+-- Name: admission_specialties; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.admission_specialties (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: admission_specialties_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.admission_specialties_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admission_specialties_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.admission_specialties_id_seq OWNED BY renalware.admission_specialties.id;
 
 
 --
@@ -8608,6 +8642,13 @@ ALTER TABLE ONLY renalware.admission_requests ALTER COLUMN id SET DEFAULT nextva
 
 
 --
+-- Name: admission_specialties id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.admission_specialties ALTER COLUMN id SET DEFAULT nextval('renalware.admission_specialties_id_seq'::regclass);
+
+
+--
 -- Name: clinic_appointments id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -9919,6 +9960,14 @@ ALTER TABLE ONLY renalware.admission_request_reasons
 
 ALTER TABLE ONLY renalware.admission_requests
     ADD CONSTRAINT admission_requests_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admission_specialties admission_specialties_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.admission_specialties
+    ADD CONSTRAINT admission_specialties_pkey PRIMARY KEY (id);
 
 
 --
@@ -11692,6 +11741,13 @@ CREATE INDEX index_admission_consults_on_seen_by_id ON renalware.admission_consu
 
 
 --
+-- Name: index_admission_consults_on_specialty_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_consults_on_specialty_id ON renalware.admission_consults USING btree (specialty_id);
+
+
+--
 -- Name: index_admission_consults_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -11759,6 +11815,13 @@ CREATE INDEX index_admission_requests_on_reason_id ON renalware.admission_reques
 --
 
 CREATE INDEX index_admission_requests_on_updated_by_id ON renalware.admission_requests USING btree (updated_by_id);
+
+
+--
+-- Name: index_admission_specialties_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_admission_specialties_on_name ON renalware.admission_specialties USING btree (name);
 
 
 --
@@ -16282,6 +16345,14 @@ ALTER TABLE ONLY renalware.transplant_recipient_followups
 
 
 --
+-- Name: admission_consults fk_rails_7906df81db; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.admission_consults
+    ADD CONSTRAINT fk_rails_7906df81db FOREIGN KEY (specialty_id) REFERENCES renalware.admission_specialties(id);
+
+
+--
 -- Name: hd_profiles fk_rails_7d0453a2e8; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -18234,6 +18305,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191213094611'),
 ('20191219145651'),
 ('20200106073329'),
-('20200106210851');
+('20200106210851'),
+('20200110153522'),
+('20200110160241');
 
 

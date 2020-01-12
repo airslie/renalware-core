@@ -7,11 +7,11 @@ describe Renalware::Admissions::Consult, type: :model do
   it { is_expected.to validate_presence_of :patient_id }
   it { is_expected.to validate_presence_of :started_on }
   it { is_expected.to validate_presence_of :description }
-  it { is_expected.to validate_presence_of :consult_type }
   it { is_expected.to validate_numericality_of :priority }
   it { is_expected.to belong_to(:patient).touch(true) }
   it { is_expected.to belong_to(:consult_site) }
   it { is_expected.to belong_to(:hospital_ward) }
+  it { is_expected.to belong_to(:specialty) }
   it { is_expected.to respond_to(:rrt) }
 
   describe "validation" do

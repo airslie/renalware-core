@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+describe Renalware::Admissions::Specialty, type: :model do
+  it { is_expected.to validate_presence_of :name }
+
+  describe "uniqueness" do
+    subject { described_class.new(name: "Other") }
+
+    it { is_expected.to validate_uniqueness_of :name }
+  end
+end

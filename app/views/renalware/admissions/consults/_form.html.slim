@@ -29,6 +29,10 @@
 
   = f.input :other_site_or_ward, wrapper: :horizontal_medium
   = f.input :started_on, as: :date_picker, wrapper: :horizontal_datepicker
+  = f.input :e_alert
+  = f.association(:specialty,
+                  wrapper: :horizontal_medium,
+                  collection: Renalware::Admissions::Specialty.ordered)
   = f.input :consult_type, wrapper: :horizontal_medium
   = f.input :decided_on, as: :date_picker, wrapper: :horizontal_datepicker
   = f.input :transfer_priority, include_blank: false, wrapper: :horizontal_small
