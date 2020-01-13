@@ -15,6 +15,14 @@ module Renalware
             end
           end
 
+          context "with filter 'all'" do
+            let(:filter) { :all }
+
+            it "returns all registrations" do
+              expect(query.call.count).to eq(4)
+            end
+          end
+
           context "with filter 'active'" do
             let(:filter) { :active }
 

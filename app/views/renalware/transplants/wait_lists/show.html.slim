@@ -1,6 +1,13 @@
+/ = content_for(:filters) do
+/   - options = path_params.to_h.symbolize_keys
+/   = search_form_for q, url: Renalware::Engine.routes.url_for(options.merge!(only_path: true)) do |f|
+/     = f.label "UKT recipient number"
+/     = f.search_field :patient_family_name_cont
+
 = content_for(:tabs) do
   ruby:
     filters = {
+      all: "All",
       active: "Active",
       suspended: "Suspended",
       active_and_suspended: "Active & Suspended",
@@ -17,7 +24,7 @@
       = sub_nav_item(label, path)
 
 = within_admin_layout(title: "Transplant Wait List Registrations") do
-  table.report
+  table.report.wait-list-registrations-table
     thead
       tr
         th.noprint

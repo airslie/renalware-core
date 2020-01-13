@@ -5,5 +5,10 @@ FactoryBot.define do
           class: "Renalware::Transplants::RegistrationStatusDescription" do
     code { "active" }
     name { "Active" }
+
+    trait :active do
+      code { "active" }
+      name { "Active" }
+    end
   end
 end

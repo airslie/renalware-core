@@ -73,8 +73,11 @@ module Renalware
 
         attr_reader :q, :named_filter
 
+        # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
         def query_for_filter(filter)
           case filter
+          when :all
+            {}
           when :active
             { current_status_in: :active }
           when :suspended
@@ -89,6 +92,7 @@ module Renalware
             {} # See Scopes
           end
         end
+        # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength
 
         class QueryableRegistration < ActiveType::Record[Registration]
           scope :current_status_in, lambda { |codes|

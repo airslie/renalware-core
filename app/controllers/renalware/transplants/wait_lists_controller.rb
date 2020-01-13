@@ -7,6 +7,9 @@ module Renalware
     class WaitListsController < BaseController
       include Renalware::Concerns::Pageable
 
+      # Here we display a named filter eg Active and query for patients based on registration
+      # status and also any search criteria entered in the search form which is backed by our
+      # ransack #search object.
       def show
         registrations = query.call.page(page).per(per_page || 50)
         authorize registrations
