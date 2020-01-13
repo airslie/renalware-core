@@ -69,7 +69,7 @@ Gem::Specification.new do |s|
   s.add_dependency "nokogiri", "~> 1.9"
   s.add_dependency "ox", "~> 2.11"
   s.add_dependency "pandoc-ruby", "~> 2.0.2"
-  s.add_dependency "paper_trail", "~> 9.0.1"
+  s.add_dependency "paper_trail"
   s.add_dependency "paranoia", "~> 2.4.0"
   s.add_dependency "pdf-reader", "~> 2.4.0"
   s.add_dependency "pg", "~> 1.1"
@@ -78,7 +78,7 @@ Gem::Specification.new do |s|
   s.add_dependency "pundit", "~> 2.1.0"
   s.add_dependency "rack", "~> 2.0.8"
   s.add_dependency "rack-attack"
-  s.add_dependency "rails", "~> 5.2"
+  s.add_dependency "rails", ">= 5.2"
   s.add_dependency "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
   s.add_dependency "ransack", "~> 2.3.0"
   s.add_dependency "record_tag_helper", "~> 1.0.0"
