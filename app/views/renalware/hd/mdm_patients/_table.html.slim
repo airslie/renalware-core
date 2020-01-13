@@ -2,6 +2,7 @@
 table#patients.mdm-patients.columns
   thead
     tr
+      th.col-width-tiny
       th.col-width-large= sort_link(path, :family_name, t(".name"))
       th.col-width-nhs-no= t(".nhs_no")
       th.col-width-reference-no= t(".hosp_no")
@@ -25,7 +26,7 @@ table#patients.mdm-patients.columns
       th.show-for-xlarge-up.col-width-date= sort_link(path, :pthi_date, t(".pthi_date"))
       th.show-for-xlarge-up.col-width-tiny= sort_link(path, :urr, t(".urr"))
       th.show-for-xlarge-up.col-width-date= sort_link(path, :urr_date, t(".urr_date"))
-      th.col-width-tiny
+
   tbody
     = render partial: "patient",
              collection: presenter.patients,

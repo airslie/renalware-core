@@ -3,6 +3,11 @@
 - transplant_patient = Renalware::Transplants::PatientPresenter.new(patient)
 
 tr
+  td.actions
+    = link_to view_proc.call(patient), target: "_blank" do
+      i.fa.fa-external-link-square-alt
+      | &nbsp;&nbsp;
+      = t(".view")
   td.full-name= link_to patient, view_proc.call(patient)
   td.nowrap= patient.nhs_number
   td.nowrap= patient.hospital_identifier
@@ -26,4 +31,3 @@ tr
   td.show-for-xlarge-up= l(patient.current_observation_set.pthi_observed_at)
   td.show-for-xlarge-up= patient.current_observation_set.urr_result
   td.show-for-xlarge-up= l(patient.current_observation_set.urr_observed_at)
-  td.actions= link_to t(".view"), view_proc.call(patient)
