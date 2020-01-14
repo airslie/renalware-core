@@ -42,18 +42,30 @@ describe "Search wait list registrations by UKT number", type: :system do
     context "when I search with a string that only partially matches their UKT number" do
       it "doesn't find them" do
         user = login_as_clinical
-        create_tx_patient_with_active_status_and_ukt_number("X123", user)
+        patient = create_tx_patient_with_active_status_and_ukt_number("X123", user)
 
         visit transplants_wait_list_path(named_filter: "all")
 
-        # RegistrationDocument
-        # fill_in "Search", with: "X12"
-        # click_on "Search"
+        within ".main-content" do
+          fill_in "UKT recipient number", with: "X12"
+          page.find(".search-registrations").click
+          expect(page).not_to have_content(patient.to_s)
+        end
       end
     end
 
-    context "when I search with a string matching the UKT number exactlty" do
-      it "doesn't find them" do
+    context "when I search with a string that exactly matches their UKT number" do
+      it "finds them" do
+        user = login_as_clinical
+        patient = create_tx_patient_with_active_status_and_ukt_number("X123", user)
+
+        visit transplants_wait_list_path(named_filter: "all")
+
+        within ".main-content" do
+          fill_in "UKT recipient number", with: "X123"
+          page.find(".search-registrations").click
+          expect(page).to have_content(patient.to_s)
+        end
       end
     end
   end

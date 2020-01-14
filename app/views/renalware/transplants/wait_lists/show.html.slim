@@ -1,8 +1,23 @@
-/ = content_for(:filters) do
-/   - options = path_params.to_h.symbolize_keys
-/   = search_form_for q, url: Renalware::Engine.routes.url_for(options.merge!(only_path: true)) do |f|
-/     = f.label "UKT recipient number"
-/     = f.search_field :patient_family_name_cont
+= content_for(:filters) do
+  - options = path_params.to_h.symbolize_keys
+  = simple_form_for form,
+            as: :form,
+            url: Renalware::Engine.routes.url_for(options.merge!(only_path: true)),
+            method: :get do |f|
+
+    .row.collapse
+      .columns.small-6
+        .row.collapse
+          .small-10.columns
+            = f.input :ukt_recipient_number,
+                      class: "radius",
+                      wrapper: :hz_large,
+                      label: "UKT recipient number"
+          .small-2.columns
+            = button_tag(type: "submit",
+                        class: "search-registrations button tiny postfix radius radius-right secondary",
+                        style: "width: 3rem") do
+              i.fas.fa-search
 
 = content_for(:tabs) do
   ruby:
