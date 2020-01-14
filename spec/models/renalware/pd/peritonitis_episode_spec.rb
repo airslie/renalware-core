@@ -6,10 +6,12 @@ module Renalware
   describe PD::PeritonitisEpisode, type: :model do
     include DrugsSpecHelper
 
-    it { is_expected.to validate_presence_of :patient }
-    it { is_expected.to validate_presence_of :diagnosis_date }
-    it { is_expected.to have_many(:episode_types) }
-    it { is_expected.to belong_to(:patient).touch(true) }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of :patient
+      is_expected.to validate_presence_of :diagnosis_date
+      is_expected.to have_many(:episode_types)
+      is_expected.to belong_to(:patient).touch(true)
+    end
 
     describe "peritonitis episode" do
       let(:patient) { create(:patient) }

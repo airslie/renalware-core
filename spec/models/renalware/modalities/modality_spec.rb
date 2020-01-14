@@ -5,11 +5,13 @@ require "rails_helper"
 module Renalware
   describe Modalities::Modality, type: :model do
     it_behaves_like "an Accountable model"
-    it { is_expected.to validate_presence_of :patient }
-    it { is_expected.to validate_presence_of :started_on }
-    it { is_expected.to validate_presence_of :description }
-    it { is_expected.to belong_to(:patient).touch(true) }
-    it { is_expected.to validate_timeliness_of(:started_on) }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of :patient
+      is_expected.to validate_presence_of :started_on
+      is_expected.to validate_presence_of :description
+      is_expected.to belong_to(:patient).touch(true)
+      is_expected.to validate_timeliness_of(:started_on)
+    end
 
     describe "validate start date based on previous modalities" do
       before do

@@ -7,15 +7,17 @@ module Renalware
   module PD
     describe Regime, type: :model do
       describe "validations" do
-        it { is_expected.to validate_presence_of :patient }
-        it { is_expected.to validate_presence_of :start_date }
-        it { is_expected.to validate_timeliness_of(:start_date) }
-        it { is_expected.to validate_timeliness_of(:end_date) }
-        it { is_expected.to validate_presence_of :treatment }
-        it { is_expected.to belong_to(:system) }
-        it { is_expected.to belong_to(:patient).touch(true) }
-        it { is_expected.to have_one(:termination) }
-        it { is_expected.to respond_to(:assistance_type) }
+        it :aggregate_failures do
+          is_expected.to validate_presence_of :patient
+          is_expected.to validate_presence_of :start_date
+          is_expected.to validate_timeliness_of(:start_date)
+          is_expected.to validate_timeliness_of(:end_date)
+          is_expected.to validate_presence_of :treatment
+          is_expected.to belong_to(:system)
+          is_expected.to belong_to(:patient).touch(true)
+          is_expected.to have_one(:termination)
+          is_expected.to respond_to(:assistance_type)
+        end
 
         it "end_date must be after start_date" do
           regime = described_class.new(start_date: "2015-12-01", end_date: "2014-01-01")

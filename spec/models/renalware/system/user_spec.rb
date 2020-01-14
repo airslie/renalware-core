@@ -7,9 +7,11 @@ module Renalware
   describe User, type: :model do
     it_behaves_like "Personable"
 
-    it { is_expected.to validate_presence_of(:given_name) }
-    it { is_expected.to validate_presence_of(:family_name) }
-    it { is_expected.to respond_to(:authentication_token) }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of(:given_name)
+      is_expected.to validate_presence_of(:family_name)
+      is_expected.to respond_to(:authentication_token)
+    end
 
     describe "#generate_new_authentication_token" do
       it "creates a new token and saves it to the user" do
@@ -21,21 +23,27 @@ module Renalware
     end
 
     describe "validation" do
-      it { is_expected.to validate_presence_of(:given_name) }
-      it { is_expected.to validate_presence_of(:family_name) }
+      it :aggregate_failures do
+        is_expected.to validate_presence_of(:given_name)
+        is_expected.to validate_presence_of(:family_name)
+      end
 
       context "when #with_extended_validation is true" do
         subject { described_class.new(with_extended_validation: true) }
 
-        it { is_expected.to validate_presence_of(:professional_position).on(:update) }
-        it { is_expected.to validate_presence_of(:signature).on(:update) }
+        it :aggregate_failures do
+          is_expected.to validate_presence_of(:professional_position).on(:update)
+          is_expected.to validate_presence_of(:signature).on(:update)
+        end
       end
 
       context "when #with_extended_validation is false" do
         subject { described_class.new(with_extended_validation: false) }
 
-        it { is_expected.not_to validate_presence_of(:professional_position).on(:update) }
-        it { is_expected.not_to validate_presence_of(:signature).on(:update) }
+        it :aggregate_failures do
+          is_expected.not_to validate_presence_of(:professional_position).on(:update)
+          is_expected.not_to validate_presence_of(:signature).on(:update)
+        end
       end
     end
 

@@ -14,6 +14,7 @@ gem "babel-transpiler"
 gem "bootsnap", require: false # speeds up rspec and rails server boot time in development
 gem "daemons", require: false # to use cmds like `bin/delayed_job start`
 gem "faker"
+gem "paper_trail", "9.0.2"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
 gem "redis"
 gem "ruby-prof", require: false
@@ -40,6 +41,7 @@ group :test do
   gem "selenium-webdriver", "~> 3.142.0"
   gem "shoulda-matchers", "~> 4.1"
   gem "simplecov", require: false # only loaded if required
+  gem "test-prof"
   gem "webmock", "~> 3.7", require: false
   gem "wisper-rspec", "~> 1.1.0"
 end

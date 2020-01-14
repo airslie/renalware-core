@@ -6,10 +6,12 @@ module Renalware
   describe Pathology::ObservationRequest, type: :model do
     include PathologySpecHelper
 
-    it { is_expected.to validate_presence_of(:patient) }
-    it { is_expected.to validate_presence_of(:requested_at) }
-    it { is_expected.to validate_presence_of(:requestor_name) }
-    it { is_expected.to belong_to(:patient).touch(true) }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of(:patient)
+      is_expected.to validate_presence_of(:requested_at)
+      is_expected.to validate_presence_of(:requestor_name)
+      is_expected.to belong_to(:patient).touch(true)
+    end
 
     describe "distinct_for_patient_id" do
       it "returns the most recently processed OBR for a given "\

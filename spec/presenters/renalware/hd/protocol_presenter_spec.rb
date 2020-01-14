@@ -10,13 +10,15 @@ describe Renalware::HD::ProtocolPresenter do
     let(:patient) { nil }
     let(:user) { create(:user) }
 
-    it { is_expected.to respond_to(:preference_set) }
-    it { is_expected.to respond_to(:access) }
-    it { is_expected.to respond_to(:sessions) }
-    it { is_expected.to respond_to(:patient_title) }
-    it { is_expected.to respond_to(:prescriptions) }
-    it { is_expected.to respond_to(:recent_pathology) }
-    it { is_expected.to respond_to(:latest_dry_weight) }
+    it :aggregate_failures do
+      is_expected.to respond_to(:preference_set)
+      is_expected.to respond_to(:access)
+      is_expected.to respond_to(:sessions)
+      is_expected.to respond_to(:patient_title)
+      is_expected.to respond_to(:prescriptions)
+      is_expected.to respond_to(:recent_pathology)
+      is_expected.to respond_to(:latest_dry_weight)
+    end
   end
 
   describe "#prescriptions" do

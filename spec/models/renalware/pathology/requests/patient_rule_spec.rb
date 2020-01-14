@@ -15,10 +15,12 @@ describe Renalware::Pathology::Requests::PatientRule do
 
   let(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
 
-  it { is_expected.to validate_presence_of(:lab) }
-  it { is_expected.to validate_presence_of(:test_description) }
-  it { is_expected.to validate_presence_of(:frequency_type) }
-  it { is_expected.to validate_presence_of(:patient_id) }
+  it :aggregate_failures do
+    is_expected.to validate_presence_of(:lab)
+    is_expected.to validate_presence_of(:test_description)
+    is_expected.to validate_presence_of(:frequency_type)
+    is_expected.to validate_presence_of(:patient_id)
+  end
 
   it do
     expect(subject).to validate_inclusion_of(:frequency_type)

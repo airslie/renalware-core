@@ -6,8 +6,10 @@ module Renalware
   describe PD::System, type: :model do
     it_behaves_like "a Paranoid model"
 
-    it { is_expected.to validate_presence_of :name }
-    it { is_expected.to validate_presence_of :pd_type }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of :name
+      is_expected.to validate_presence_of :pd_type
+    end
 
     describe "#for_apd" do
       it "only returns apd systems" do

@@ -6,10 +6,12 @@ module Renalware
   module Surveys
     describe Survey do
       it_behaves_like "a Paranoid model"
-      it { is_expected.to have_many(:questions) }
-      it { is_expected.to validate_presence_of :name }
-      it { is_expected.to have_db_index(:name) }
-      it { is_expected.to have_db_index(:deleted_at) }
+      it :aggregate_failures do
+        is_expected.to have_many(:questions)
+        is_expected.to validate_presence_of :name
+        is_expected.to have_db_index(:name)
+        is_expected.to have_db_index(:deleted_at)
+      end
 
       describe "#uniqueness" do
         subject { Survey.new(name: "x", code: "x") }

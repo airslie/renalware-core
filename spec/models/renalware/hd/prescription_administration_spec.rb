@@ -19,10 +19,12 @@ module Renalware
       it_behaves_like "a Paranoid model"
 
       it_behaves_like "an Accountable model"
-      it { is_expected.to belong_to(:prescription) }
-      it { is_expected.to belong_to(:hd_session).touch(true) }
-      it { is_expected.to belong_to(:reason) }
-      it { is_expected.to validate_presence_of(:prescription) }
+      it :aggregate_failures do
+        is_expected.to belong_to(:prescription)
+        is_expected.to belong_to(:hd_session).touch(true)
+        is_expected.to belong_to(:reason)
+        is_expected.to validate_presence_of(:prescription)
+      end
 
       shared_examples_for "no validation on administrator or witness" do
         it "does not validate the presence of administered_by" do

@@ -4,7 +4,9 @@ require "rails_helper"
 
 module Renalware::Messaging::Internal
   describe MessageForm, type: :model do
-    it { is_expected.to validate_presence_of(:subject) }
-    it { is_expected.to validate_presence_of(:body) }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of(:subject)
+      is_expected.to validate_presence_of(:body)
+    end
   end
 end

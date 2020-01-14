@@ -4,12 +4,13 @@ require "rails_helper"
 
 module Renalware
   describe Renal::Profile, type: :model do
-    it { is_expected.to belong_to(:patient).touch(true) }
-    it { is_expected.to validate_presence_of :patient }
-
-    it { is_expected.to validate_timeliness_of(:esrf_on) }
-    it { is_expected.to validate_timeliness_of(:first_seen_on) }
-    it { is_expected.to validate_timeliness_of(:comorbidities_updated_on) }
-    it { is_expected.to be_versioned }
+    it :aggregate_failures do
+      is_expected.to belong_to(:patient).touch(true)
+      is_expected.to validate_presence_of :patient
+      is_expected.to validate_timeliness_of(:esrf_on)
+      is_expected.to validate_timeliness_of(:first_seen_on)
+      is_expected.to validate_timeliness_of(:comorbidities_updated_on)
+      is_expected.to be_versioned
+    end
   end
 end

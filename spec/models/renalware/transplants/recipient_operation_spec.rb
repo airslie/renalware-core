@@ -5,15 +5,15 @@ require "rails_helper"
 module Renalware
   module Transplants
     describe RecipientOperation do
-      it { is_expected.to belong_to(:patient).touch(true) }
-
-      it { is_expected.to validate_presence_of(:performed_on) }
-      it { is_expected.to validate_presence_of(:operation_type) }
-      it { is_expected.to validate_presence_of(:hospital_centre) }
-
-      it { is_expected.to validate_timeliness_of(:donor_kidney_removed_from_ice_at) }
-      it { is_expected.to validate_timeliness_of(:kidney_perfused_with_blood_at) }
-      it { is_expected.to validate_timeliness_of(:theatre_case_start_time) }
+      it :aggregate_failures do
+        is_expected.to belong_to(:patient).touch(true)
+        is_expected.to validate_presence_of(:performed_on)
+        is_expected.to validate_presence_of(:operation_type)
+        is_expected.to validate_presence_of(:hospital_centre)
+        is_expected.to validate_timeliness_of(:donor_kidney_removed_from_ice_at)
+        is_expected.to validate_timeliness_of(:kidney_perfused_with_blood_at)
+        is_expected.to validate_timeliness_of(:theatre_case_start_time)
+      end
 
       describe "#cold_ischaemic_time_formatted=" do
         it "stores duration in seconds" do

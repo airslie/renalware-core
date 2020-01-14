@@ -6,8 +6,10 @@ module Renalware
   module Patients
     describe Worry do
       it_behaves_like "an Accountable model"
-      it { is_expected.to respond_to(:notes) }
-      it { is_expected.to belong_to(:patient).touch(true) }
+      it :aggregate_failures do
+        is_expected.to respond_to(:notes)
+        is_expected.to belong_to(:patient).touch(true)
+      end
 
       describe "validation" do
         it "validates uniqueness of patient" do

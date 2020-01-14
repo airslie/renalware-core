@@ -6,13 +6,14 @@ module Renalware
   module HD
     describe "Closed Session" do
       describe Session::Closed, type: :model do
-        it { is_expected.to validate_presence_of(:signed_off_by) }
-        it { is_expected.to validate_presence_of(:end_time) }
-        it { is_expected.to validate_presence_of(:signed_off_at) }
-        it { is_expected.to validate_presence_of(:dialysate) }
-
-        it { is_expected.to belong_to(:profile) }
-        it { is_expected.to belong_to(:dry_weight) }
+        it :aggregate_failures do
+          is_expected.to validate_presence_of(:signed_off_by)
+          is_expected.to validate_presence_of(:end_time)
+          is_expected.to validate_presence_of(:signed_off_at)
+          is_expected.to validate_presence_of(:dialysate)
+          is_expected.to belong_to(:profile)
+          is_expected.to belong_to(:dry_weight)
+        end
 
         it "defines a policy class" do
           expect(Session::Closed.policy_class).to eq(ClosedSessionPolicy)
@@ -64,19 +65,23 @@ module Renalware
       end
 
       describe Session::Closed::SessionDocument::Info do
-        it { is_expected.to validate_presence_of(:hd_type) }
-        it { is_expected.to validate_presence_of(:access_confirmed) }
+        it :aggregate_failures do
+          is_expected.to validate_presence_of(:hd_type)
+          is_expected.to validate_presence_of(:access_confirmed)
+        end
       end
 
       describe Session::Closed::SessionDocument::Dialysis do
-        it { is_expected.to validate_presence_of(:arterial_pressure) }
-        it { is_expected.to validate_presence_of(:venous_pressure) }
-        it { is_expected.to validate_presence_of(:fluid_removed) }
-        it { is_expected.to validate_presence_of(:blood_flow) }
-        it { is_expected.to validate_presence_of(:flow_rate) }
-        it { is_expected.not_to validate_presence_of(:machine_urr) }
-        it { is_expected.not_to validate_presence_of(:machine_ktv) }
-        it { is_expected.to validate_presence_of(:litres_processed) }
+        it :aggregate_failures do
+          is_expected.to validate_presence_of(:arterial_pressure)
+          is_expected.to validate_presence_of(:venous_pressure)
+          is_expected.to validate_presence_of(:fluid_removed)
+          is_expected.to validate_presence_of(:blood_flow)
+          is_expected.to validate_presence_of(:flow_rate)
+          is_expected.not_to validate_presence_of(:machine_urr)
+          is_expected.not_to validate_presence_of(:machine_ktv)
+          is_expected.to validate_presence_of(:litres_processed)
+        end
       end
 
       describe Session::Closed::SessionDocument::AvfAvgAssessment do
@@ -89,12 +94,13 @@ module Renalware
         }
 
         describe "validation" do
-          it { is_expected.to validate_presence_of(:pulse) }
-
-          it { is_expected.not_to validate_presence_of(:bm_stix) }
-          it { is_expected.to validate_presence_of(:weight_measured) }
-          it { is_expected.to validate_presence_of(:temperature_measured) }
-          it { is_expected.to validate_presence_of(:respiratory_rate_measured) }
+          it :aggregate_failures do
+            is_expected.to validate_presence_of(:pulse)
+            is_expected.not_to validate_presence_of(:bm_stix)
+            is_expected.to validate_presence_of(:weight_measured)
+            is_expected.to validate_presence_of(:temperature_measured)
+            is_expected.to validate_presence_of(:respiratory_rate_measured)
+          end
 
           it "validates presence of blood_pressure" do
             expect(observations).not_to be_valid

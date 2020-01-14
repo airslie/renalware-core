@@ -5,13 +5,15 @@ require "rails_helper"
 module Renalware
   module Surveys
     describe Response do
-      it { is_expected.to belong_to :question }
-      it { is_expected.to validate_presence_of(:patient_id) }
-      it { is_expected.to validate_presence_of(:answered_on) }
-      it { is_expected.to validate_presence_of(:question) }
-      it { is_expected.to have_db_index(:patient_id) }
-      it { is_expected.to have_db_index(:question_id) }
-      it { is_expected.to have_db_index(:answered_on) }
+      it :aggregate_failures do
+        is_expected.to belong_to :question
+        is_expected.to validate_presence_of(:patient_id)
+        is_expected.to validate_presence_of(:answered_on)
+        is_expected.to validate_presence_of(:question)
+        is_expected.to have_db_index(:patient_id)
+        is_expected.to have_db_index(:question_id)
+        is_expected.to have_db_index(:answered_on)
+      end
 
       describe "validation" do
         subject(:response) do

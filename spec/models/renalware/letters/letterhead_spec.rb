@@ -5,11 +5,13 @@ require "rails_helper"
 module Renalware
   module Letters
     describe Letterhead, type: :model do
-      it { is_expected.to validate_presence_of(:name) }
-      it { is_expected.to validate_presence_of(:unit_info) }
-      it { is_expected.to validate_presence_of(:trust_name) }
-      it { is_expected.to validate_presence_of(:trust_caption) }
-      it { is_expected.to respond_to(:include_pathology_in_letter_body?) }
+      it :aggregate_failures do
+        is_expected.to validate_presence_of(:name)
+        is_expected.to validate_presence_of(:unit_info)
+        is_expected.to validate_presence_of(:trust_name)
+        is_expected.to validate_presence_of(:trust_caption)
+        is_expected.to respond_to(:include_pathology_in_letter_body?)
+      end
     end
   end
 end

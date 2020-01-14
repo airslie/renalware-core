@@ -6,12 +6,14 @@ module Renalware
   module Snippets
     describe Snippet, type: :model do
       describe "validation" do
-        it { is_expected.to belong_to(:author) }
-        it { is_expected.to validate_presence_of(:title) }
-        it { is_expected.to validate_presence_of(:body) }
-        it { is_expected.to validate_presence_of(:author) }
-        it { is_expected.to validate_presence_of(:times_used) }
-        it { is_expected.to validate_numericality_of(:times_used) }
+        it :aggregate_failures do
+          is_expected.to belong_to(:author)
+          is_expected.to validate_presence_of(:title)
+          is_expected.to validate_presence_of(:body)
+          is_expected.to validate_presence_of(:author)
+          is_expected.to validate_presence_of(:times_used)
+          is_expected.to validate_numericality_of(:times_used)
+        end
       end
 
       describe "uniqueness" do

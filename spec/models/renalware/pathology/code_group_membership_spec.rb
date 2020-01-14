@@ -4,9 +4,11 @@ require "rails_helper"
 
 module Renalware
   describe Pathology::CodeGroupMembership, type: :model do
-    it { is_expected.to validate_presence_of(:subgroup) }
-    it { is_expected.to validate_presence_of(:position_within_subgroup) }
-    it { is_expected.to belong_to(:code_group) }
-    it { is_expected.to belong_to(:observation_description) }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of(:subgroup)
+      is_expected.to validate_presence_of(:position_within_subgroup)
+      is_expected.to belong_to(:code_group)
+      is_expected.to belong_to(:observation_description)
+    end
   end
 end

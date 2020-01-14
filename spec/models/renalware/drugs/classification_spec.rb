@@ -4,7 +4,9 @@ require "rails_helper"
 
 module Renalware::Drugs
   describe Classification, type: :model do
-    it { is_expected.to belong_to(:drug).touch(true) }
-    it { is_expected.to belong_to(:drug_type) }
+    it :aggregate_failures do
+      is_expected.to belong_to(:drug).touch(true)
+      is_expected.to belong_to(:drug_type)
+    end
   end
 end
