@@ -9,6 +9,20 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.132
+14-01-2019
+### Added
+- Add rails 6 support #3114
+- Support Ruby 2.7.0 #3102
+- Remove stale outgoing XML UKRDC files #3111
+- Make consults type a specialty dropdown #3050
+### Changed
+- UKRDC export performance improvements #3112
+- POS-S survey column changes #3075
+### Fixed
+- Fix spec.rake issue in production #3110
+- Handle errors in CalculatePageCountJob #3108
+
 ### 2.0.131
 07-01-2019
 ### Added
