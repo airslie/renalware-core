@@ -16,8 +16,8 @@
 "YSQ15",15,"Feeling depressed","^[0-4]$"
 "YSQ16",16,"Changes in skin","^[0-4]$"
 "YSQ17",17,"Diarrhoea","^[0-4]$"
-"YSQ18",18,"<Question text> as entered by user","^[0-4]$"
-"YSQ19",19,"<Question text> as entered by user","^[0-4]$"
-"YSQ20",20,"<Question text> as entered by user","^[0-4]$"
+"YSQ18",18,"Symptom as entered by user","^[0-4]$"
+"YSQ19",19,"Symptom as entered by user","^[0-4]$"
+"YSQ20",20,"Symptom as entered by user","^[0-4]$"
 "YSQ21",21,"Symptom that has affected the patient most",
 "YSQ22",22,"Symptom that has improved the most",
