@@ -89,7 +89,7 @@ module Renalware
           :assessed_on, :overhydration, :volume_of_distribution, :total_body_water,
           :extracellular_water, :intracellular_water, :lean_tissue_index,
           :fat_tissue_index, :lean_tissue_mass, :fat_tissue_mass, :adipose_tissue_mass,
-          :body_cell_mass, :quality_of_reading, :assessor_id, :notes
+          :body_cell_mass, :quality_of_reading, :assessor_id, :notes, :weight, :pre_post_hd
         ]
       end
     end

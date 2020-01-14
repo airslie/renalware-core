@@ -101,6 +101,16 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 
 
 --
+-- Name: clinical_body_composition_pre_post_hd; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.clinical_body_composition_pre_post_hd AS ENUM (
+    'pre',
+    'post'
+);
+
+
+--
 -- Name: audit_view_as_json(text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -1643,7 +1653,9 @@ CREATE TABLE renalware.clinical_body_compositions (
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    assessor_id integer NOT NULL
+    assessor_id integer NOT NULL,
+    pre_post_hd renalware.clinical_body_composition_pre_post_hd,
+    weight double precision
 );
 
 
@@ -18307,6 +18319,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200106073329'),
 ('20200106210851'),
 ('20200110153522'),
-('20200110160241');
+('20200110160241'),
+('20200114151225');
 
 

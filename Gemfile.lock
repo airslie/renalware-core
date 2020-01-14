@@ -27,6 +27,7 @@ PATH
       actionview-component (~> 1.6.1)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.28.0)
+      activerecord-postgres_enum (~> 0.6.0)
       ahoy_matey (~> 2.1)
       attr_extras (~> 6.2)
       autoprefixer-rails (~> 9.6)
@@ -137,6 +138,9 @@ GEM
       arel (>= 9.0)
     activerecord-import (0.28.2)
       activerecord (>= 3.2)
+    activerecord-postgres_enum (0.6.0)
+      activerecord (>= 4.2.0)
+      pg
     activestorage (5.2.4)
       actionpack (= 5.2.4)
       activerecord (= 5.2.4)

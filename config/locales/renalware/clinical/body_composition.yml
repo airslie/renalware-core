@@ -16,6 +16,8 @@ en:
         body_cell_mass: Body Cell Mass (BCM)
         quality_of_reading: Quality of Reading (Q)
         notes: Notes
+        weight: Weight
+        pre_post_hd: Pre or Post HD
   renalware:
     clinical:
       body_compositions:
@@ -46,3 +48,5 @@ en:
           body_cell_mass: BCM
           quality_of_reading: Q
           assessor: Assessor
+          weight: Weight
+          pre_post_hd: PrePost
