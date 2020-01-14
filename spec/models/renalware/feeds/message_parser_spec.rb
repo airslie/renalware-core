@@ -35,8 +35,10 @@ module Renalware::Feeds
           RAW
         end
 
-        it { is_expected.to be_a(HL7Message) }
-        it { is_expected.to have_attributes(type: "ORU^R01", header_id: "1258271") }
+        it :aggregate_failures do
+          is_expected.to be_a(HL7Message)
+          is_expected.to have_attributes(type: "ORU^R01", header_id: "1258271")
+        end
 
         describe "#patient_identification" do
           subject { message.patient_identification }

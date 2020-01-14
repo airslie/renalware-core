@@ -4,9 +4,11 @@ require "rails_helper"
 
 module Renalware
   describe UKRDC::TransmissionLog do
-    it { is_expected.to validate_presence_of(:sent_at) }
-    it { is_expected.to validate_presence_of(:status) }
-    it { is_expected.to belong_to(:patient).touch(false) }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of(:sent_at)
+      is_expected.to validate_presence_of(:status)
+      is_expected.to belong_to(:patient).touch(false)
+    end
 
     describe ".with_logging" do
       let(:uuid) { SecureRandom.uuid }

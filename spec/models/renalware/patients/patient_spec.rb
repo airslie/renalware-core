@@ -7,8 +7,10 @@ module Renalware
   describe Patient, type: :model do
     subject(:patient) { create(:patient, nhs_number: "1234567890") }
 
-    it { is_expected.to be_versioned }
-    it { is_expected.to have_db_index(:ukrdc_external_id) }
+    it :aggregate_failures do
+      is_expected.to be_versioned
+      is_expected.to have_db_index(:ukrdc_external_id)
+    end
 
     it_behaves_like "Personable"
     it_behaves_like "an Accountable model"
@@ -26,30 +28,29 @@ module Renalware
         )
       }
 
-      it { is_expected.to validate_uniqueness_of(:nhs_number).case_insensitive }
-      it { is_expected.to validate_uniqueness_of(:local_patient_id).case_insensitive }
+      it :aggregate_failures do
+        is_expected.to validate_uniqueness_of(:nhs_number).case_insensitive
+        is_expected.to validate_uniqueness_of(:local_patient_id).case_insensitive
+      end
 
       (2..5).each do |idx|
         it { is_expected.to validate_uniqueness_of(:"local_patient_id_#{idx}").case_insensitive }
       end
     end
 
-    it { is_expected.to validate_length_of(:nhs_number).is_at_least(10) }
-    it { is_expected.to validate_length_of(:nhs_number).is_at_most(10) }
-
-    it { is_expected.to validate_presence_of :family_name }
-    it { is_expected.to validate_presence_of :given_name }
-
-    it { is_expected.to validate_presence_of :born_on }
-
-    it { is_expected.to validate_timeliness_of(:born_on) }
-    it { is_expected.to validate_timeliness_of(:died_on) }
-
-    it { is_expected.to have_many(:alerts) }
-    it { is_expected.to belong_to(:country_of_birth) }
-    it { is_expected.to belong_to(:named_consultant) }
-
-    it { is_expected.to respond_to(:patient_at?) }
+    it :aggregate_failures do
+      is_expected.to validate_length_of(:nhs_number).is_at_least(10)
+      is_expected.to validate_length_of(:nhs_number).is_at_most(10)
+      is_expected.to validate_presence_of :family_name
+      is_expected.to validate_presence_of :given_name
+      is_expected.to validate_presence_of :born_on
+      is_expected.to validate_timeliness_of(:born_on)
+      is_expected.to validate_timeliness_of(:died_on)
+      is_expected.to have_many(:alerts)
+      is_expected.to belong_to(:country_of_birth)
+      is_expected.to belong_to(:named_consultant)
+      is_expected.to respond_to(:patient_at?)
+    end
 
     describe "diabetic? delegates to document.diabetes.diagnosis" do
       context "when the patient is diabetic" do
@@ -69,22 +70,28 @@ module Renalware
       context "when the current modality is death" do
         before { allow(patient).to receive(:current_modality_death?).and_return(true) }
 
-        it { expect(patient).to validate_presence_of(:died_on) }
-        it { expect(patient).to validate_presence_of(:first_cause_id) }
+        it :aggregate_failures do
+          expect(patient).to validate_presence_of(:died_on)
+          expect(patient).to validate_presence_of(:first_cause_id)
+        end
 
         context "when #skip_death_validations is true (for updating non-interactively)" do
           before { patient.skip_death_validations = true }
 
-          it { expect(patient).not_to validate_presence_of(:died_on) }
-          it { expect(patient).not_to validate_presence_of(:first_cause_id) }
+          it :aggregate_failures do
+            expect(patient).not_to validate_presence_of(:died_on)
+            expect(patient).not_to validate_presence_of(:first_cause_id)
+          end
         end
       end
 
       context "when the current modality is not death" do
         before { allow(patient).to receive(:current_modality_death?).and_return(false) }
 
-        it { expect(patient).not_to validate_presence_of(:died_on) }
-        it { expect(patient).not_to validate_presence_of(:first_cause_id) }
+        it :aggregate_failures do
+          expect(patient).not_to validate_presence_of(:died_on)
+          expect(patient).not_to validate_presence_of(:first_cause_id)
+        end
       end
 
       it "validates sex" do

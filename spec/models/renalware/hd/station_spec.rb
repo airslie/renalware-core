@@ -6,8 +6,10 @@ module Renalware
   module HD
     describe Station, type: :model do
       it_behaves_like "an Accountable model"
-      it { is_expected.to validate_presence_of(:hospital_unit_id) }
-      it { is_expected.to belong_to(:location) }
+      it :aggregate_failures do
+        is_expected.to validate_presence_of(:hospital_unit_id)
+        is_expected.to belong_to(:location)
+      end
 
       describe "#name is unique in the scope of the unit" do
         subject do

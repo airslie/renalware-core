@@ -5002,8 +5002,6 @@ ALTER SEQUENCE renalware.patient_languages_id_seq OWNED BY renalware.patient_lan
 CREATE TABLE renalware.patient_master_index (
     id bigint NOT NULL,
     patient_id bigint,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
     nhs_number character varying,
     hospital_number character varying,
     title character varying,
@@ -5016,7 +5014,9 @@ CREATE TABLE renalware.patient_master_index (
     died_at timestamp without time zone,
     ethnicity character varying,
     practice_code character varying,
-    gp_code character varying
+    gp_code character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 

@@ -7,11 +7,13 @@ module Renalware
     describe RecipientFollowup do
       require "rails_helper"
 
-      it { is_expected.to belong_to(:operation).touch(true) }
-      it { is_expected.to have_many(:rejection_episodes) }
-      it { is_expected.to validate_timeliness_of(:stent_removed_on) }
-      it { is_expected.to validate_timeliness_of(:transplant_failed_on) }
-      it { is_expected.to validate_timeliness_of(:graft_nephrectomy_on) }
+      it :aggregate_failures do
+        is_expected.to belong_to(:operation).touch(true)
+        is_expected.to have_many(:rejection_episodes)
+        is_expected.to validate_timeliness_of(:stent_removed_on)
+        is_expected.to validate_timeliness_of(:transplant_failed_on)
+        is_expected.to validate_timeliness_of(:graft_nephrectomy_on)
+      end
 
       describe "#valid?" do
         subject do
@@ -27,8 +29,10 @@ module Renalware
         context "when transplant failed" do
           let(:attributes) { { transplant_failed: true } }
 
-          it { is_expected.to validate_presence_of(:transplant_failed_on) }
-          it { is_expected.to validate_presence_of(:transplant_failure_cause_description_id) }
+          it :aggregate_failures do
+            is_expected.to validate_presence_of(:transplant_failed_on)
+            is_expected.to validate_presence_of(:transplant_failure_cause_description_id)
+          end
         end
 
         context "with a transplant failure cause" do

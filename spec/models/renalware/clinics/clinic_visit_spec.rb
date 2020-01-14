@@ -4,16 +4,18 @@ require "rails_helper"
 
 describe Renalware::Clinics::ClinicVisit, type: :model do
   it_behaves_like "an Accountable model"
-  it { is_expected.to be_versioned }
-  it { is_expected.to belong_to(:patient).touch(true) }
-  it { is_expected.to validate_presence_of :date }
-  it { is_expected.to validate_presence_of :clinic }
-  it { is_expected.to validate_timeliness_of(:date) }
-  it { is_expected.to validate_timeliness_of(:time) }
-  it { is_expected.not_to validate_presence_of :time }
-  it { is_expected.not_to validate_presence_of :pulse }
-  it { is_expected.not_to validate_presence_of :temperature }
-  it { is_expected.not_to validate_presence_of(:admin_notes) }
+  it :aggregate_failures do
+    is_expected.to be_versioned
+    is_expected.to belong_to(:patient).touch(true)
+    is_expected.to validate_presence_of :date
+    is_expected.to validate_presence_of :clinic
+    is_expected.to validate_timeliness_of(:date)
+    is_expected.to validate_timeliness_of(:time)
+    is_expected.not_to validate_presence_of :time
+    is_expected.not_to validate_presence_of :pulse
+    is_expected.not_to validate_presence_of :temperature
+    is_expected.not_to validate_presence_of(:admin_notes)
+  end
 
   describe "bmi" do
     subject(:visit) { build_stubbed(:clinic_visit, height: 1.7, weight: 82.5, patient: patient) }

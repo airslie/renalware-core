@@ -6,10 +6,12 @@ module Renalware
   describe PD::BagType, type: :model do
     it_behaves_like "a Paranoid model"
 
-    it { is_expected.to respond_to(:glucose_strength) }
-    it { is_expected.to validate_presence_of :manufacturer }
-    it { is_expected.to validate_presence_of :description }
-    it { is_expected.to validate_presence_of :glucose_strength }
+    it :aggregate_failures do
+      is_expected.to respond_to(:glucose_strength)
+      is_expected.to validate_presence_of :manufacturer
+      is_expected.to validate_presence_of :description
+      is_expected.to validate_presence_of :glucose_strength
+    end
 
     it do
       expect(subject)

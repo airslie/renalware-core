@@ -7,9 +7,11 @@ module Renalware
     describe MedicationRoute, type: :model do
       subject(:route) { described_class.new }
 
-      it { is_expected.to validate_presence_of :code }
-      it { is_expected.to validate_presence_of :name }
-      it { is_expected.to have_db_index(:code).unique(true) }
+      it :aggregate_failures do
+        is_expected.to validate_presence_of :code
+        is_expected.to validate_presence_of :name
+        is_expected.to have_db_index(:code).unique(true)
+      end
 
       describe "#other?" do
         it "case-insenstively matches the code 'other'" do

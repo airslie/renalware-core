@@ -3,6 +3,8 @@
 require "rails_helper"
 
 describe Renalware::Pathology::Requests::SampleType do
-  it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_presence_of(:code) }
+  it :aggregate_failures do
+    is_expected.to validate_presence_of(:name)
+    is_expected.to validate_presence_of(:code)
+  end
 end

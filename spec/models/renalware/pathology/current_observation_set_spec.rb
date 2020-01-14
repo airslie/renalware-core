@@ -6,8 +6,10 @@ module Renalware
   module Pathology
     describe CurrentObservationSet do
       include PathologySpecHelper
-      it { is_expected.to belong_to(:patient) }
-      it { is_expected.to validate_presence_of(:patient) }
+      it :aggregate_failures do
+        is_expected.to belong_to(:patient)
+        is_expected.to validate_presence_of(:patient)
+      end
 
       describe "values" do
         it "defaults to an empty hash" do

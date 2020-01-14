@@ -4,7 +4,9 @@ require "rails_helper"
 
 module Renalware::Hospitals
   describe Centre, type: :model do
-    it { is_expected.to validate_presence_of(:code) }
-    it { is_expected.to validate_presence_of(:name) }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of(:code)
+      is_expected.to validate_presence_of(:name)
+    end
   end
 end

@@ -6,9 +6,11 @@ module Renalware
   describe PD::ExitSiteInfection, type: :model do
     include DrugsSpecHelper
 
-    it { is_expected.to validate_presence_of :patient }
-    it { is_expected.to belong_to(:patient).touch(true) }
-    it { is_expected.to validate_presence_of :diagnosis_date }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of :patient
+      is_expected.to belong_to(:patient).touch(true)
+      is_expected.to validate_presence_of :diagnosis_date
+    end
 
     describe "exit site infection" do
       let(:patient) { create(:patient) }

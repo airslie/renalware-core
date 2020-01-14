@@ -6,11 +6,13 @@ module Renalware
   module Transplants
     describe RegistrationStatus do
       it_behaves_like "an Accountable model"
-      it { is_expected.to belong_to(:registration).touch(true) }
-      it { is_expected.to respond_to(:notes) }
-      it { is_expected.to validate_presence_of(:description_id) }
-      it { is_expected.to validate_timeliness_of(:started_on) }
-      it { is_expected.to validate_timeliness_of(:terminated_on) }
+      it :aggregate_failures do
+        is_expected.to belong_to(:registration).touch(true)
+        is_expected.to respond_to(:notes)
+        is_expected.to validate_presence_of(:description_id)
+        is_expected.to validate_timeliness_of(:started_on)
+        is_expected.to validate_timeliness_of(:terminated_on)
+      end
 
       describe "#valid?" do
         subject {

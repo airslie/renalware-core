@@ -19,10 +19,12 @@ module Renalware
                               )
     end
 
-    it { is_expected.to belong_to(:regime).touch(true) }
-    it { is_expected.to validate_presence_of :bag_type }
-    it { is_expected.to validate_presence_of :volume }
-    it { is_expected.to enumerize(:role).in(:ordinary, :additional_manual_exchange, :last_fill) }
+    it :aggregate_failures do
+      is_expected.to belong_to(:regime).touch(true)
+      is_expected.to validate_presence_of :bag_type
+      is_expected.to validate_presence_of :volume
+      is_expected.to enumerize(:role).in(:ordinary, :additional_manual_exchange, :last_fill)
+    end
 
     it do
       expect(subject)

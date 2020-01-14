@@ -10,17 +10,19 @@ module Renalware
       it_behaves_like "an Accountable model"
 
       describe "validations" do
-        it { is_expected.to validate_presence_of :patient }
-        it { is_expected.to validate_presence_of :treatable }
-        it { is_expected.to validate_presence_of(:drug) }
-        it { is_expected.to validate_presence_of(:dose_amount) }
-        it { is_expected.to validate_presence_of(:dose_unit) }
-        it { is_expected.to validate_presence_of(:medication_route) }
-        it { is_expected.to validate_presence_of(:frequency) }
-        it { is_expected.to validate_presence_of(:prescribed_on) }
-        it { is_expected.to validate_presence_of(:provider) }
-        it { is_expected.to belong_to(:patient).touch(true) }
-        it { is_expected.to respond_to(:last_delivery_date) }
+        it :aggregate_failures do
+          is_expected.to validate_presence_of :patient
+          is_expected.to validate_presence_of :treatable
+          is_expected.to validate_presence_of(:drug)
+          is_expected.to validate_presence_of(:dose_amount)
+          is_expected.to validate_presence_of(:dose_unit)
+          is_expected.to validate_presence_of(:medication_route)
+          is_expected.to validate_presence_of(:frequency)
+          is_expected.to validate_presence_of(:prescribed_on)
+          is_expected.to validate_presence_of(:provider)
+          is_expected.to belong_to(:patient).touch(true)
+          is_expected.to respond_to(:last_delivery_date)
+        end
 
         describe "#valid?" do
           describe "route description" do

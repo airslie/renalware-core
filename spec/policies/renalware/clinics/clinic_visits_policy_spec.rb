@@ -41,24 +41,30 @@ module Renalware
           context "when the creation date is outside the deletion window" do
             let(:created_at) { Time.zone.now - 25.hours }
 
-            it { is_expected.not_to permit(user, clinic_visit) }
-            it { is_expected.not_to permit(other_user, clinic_visit) }
+            it :aggregate_failures do
+              is_expected.not_to permit(user, clinic_visit)
+              is_expected.not_to permit(other_user, clinic_visit)
+            end
           end
 
           context "when the creation date is within the deletion window" do
             let(:created_at) { Time.zone.now - 23.hours }
 
-            it { is_expected.to permit(user, clinic_visit) }
-            it { is_expected.to permit(super_admin, clinic_visit) }
-            it { is_expected.not_to permit(other_user, clinic_visit) }
+            it :aggregate_failures do
+              is_expected.to permit(user, clinic_visit)
+              is_expected.to permit(super_admin, clinic_visit)
+              is_expected.not_to permit(other_user, clinic_visit)
+            end
           end
         end
       end
 
       permissions :edit? do
         context "with an unsaved clinic visit" do
-          it { is_expected.not_to permit(user, clinic_visit) }
-          it { is_expected.not_to permit(other_user, clinic_visit) }
+          it :aggregate_failures do
+            is_expected.not_to permit(user, clinic_visit)
+            is_expected.not_to permit(other_user, clinic_visit)
+          end
         end
 
         context "with a saved clinic visit" do
@@ -67,15 +73,19 @@ module Renalware
           context "when the visit was created within 7 days" do
             let(:created_at) { Time.zone.now - 7.days + 1.hour }
 
-            it { is_expected.to permit(user, clinic_visit) }
-            it { is_expected.not_to permit(other_user, clinic_visit) }
+            it :aggregate_failures do
+              is_expected.to permit(user, clinic_visit)
+              is_expected.not_to permit(other_user, clinic_visit)
+            end
           end
 
           context "when the visit was created more than 7 days ago" do
             let(:created_at) { Time.zone.now - 7.days - 1.hour }
 
-            it { is_expected.not_to permit(user, clinic_visit) }
-            it { is_expected.not_to permit(other_user, clinic_visit) }
+            it :aggregate_failures do
+              is_expected.not_to permit(user, clinic_visit)
+              is_expected.not_to permit(other_user, clinic_visit)
+            end
           end
         end
       end

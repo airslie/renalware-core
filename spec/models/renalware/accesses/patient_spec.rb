@@ -4,10 +4,12 @@ require "rails_helper"
 
 module Renalware::Accesses
   describe Patient, type: :model do
-    it { is_expected.to have_many(:profiles) }
-    it { is_expected.to have_many(:plans) }
-    it { is_expected.to have_many(:procedures) }
-    it { is_expected.to have_many(:assessments) }
+    it :aggregate_failures do
+      is_expected.to have_many(:profiles)
+      is_expected.to have_many(:plans)
+      is_expected.to have_many(:procedures)
+      is_expected.to have_many(:assessments)
+    end
 
     describe "current_plan" do
       it "returns the current plan" do

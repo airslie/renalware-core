@@ -11,9 +11,11 @@ module Renalware
     end
 
     describe "#rr_smoking_history which converts RW enums to RRSMOKING codes" do
-      it { expect(rr_smoker(:yes)).to eq("YES") }
-      it { expect(rr_smoker(:no)).to eq("NO") }
-      it { expect(rr_smoker(:ex)).to eq("EX") }
+      it :aggregate_failures do
+        expect(rr_smoker(:yes)).to eq("YES")
+        expect(rr_smoker(:no)).to eq("NO")
+        expect(rr_smoker(:ex)).to eq("EX")
+      end
     end
 
     describe "#langauge" do

@@ -4,10 +4,12 @@ require "rails_helper"
 
 module Renalware
   describe Pathology::ObservationDescription, type: :model do
-    it { is_expected.to belong_to(:measurement_unit) }
-    it { is_expected.to have_db_index(:code).unique(true) }
-    it { is_expected.to have_many(:code_group_memberships) }
-    it { is_expected.to have_many(:code_groups).through(:code_group_memberships) }
+    it :aggregate_failures do
+      is_expected.to belong_to(:measurement_unit)
+      is_expected.to have_db_index(:code).unique(true)
+      is_expected.to have_many(:code_group_memberships)
+      is_expected.to have_many(:code_groups).through(:code_group_memberships)
+    end
 
     describe "#rr_type enum" do
       it "defaults to 0 (simple)" do

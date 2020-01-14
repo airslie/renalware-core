@@ -4,7 +4,9 @@ require "rails_helper"
 
 module Renalware
   describe UKRDC::Treatment do
-    it { is_expected.to validate_presence_of(:patient) }
-    it { is_expected.to validate_presence_of(:modality_code) }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of(:patient)
+      is_expected.to validate_presence_of(:modality_code)
+    end
   end
 end

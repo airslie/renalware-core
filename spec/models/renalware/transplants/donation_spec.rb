@@ -5,14 +5,15 @@ require "rails_helper"
 module Renalware
   module Transplants
     describe Donation do
-      it { is_expected.to validate_presence_of(:state) }
-      it { is_expected.to validate_presence_of(:relationship_with_recipient) }
-      it { is_expected.to validate_timeliness_of(:volunteered_on) }
-      it { is_expected.to validate_timeliness_of(:first_seen_on) }
-      it { is_expected.to validate_timeliness_of(:workup_completed_on) }
-      it { is_expected.to validate_timeliness_of(:donated_on) }
-
-      it { is_expected.to belong_to(:patient).touch(true) }
+      it :aggregate_failures do
+        is_expected.to validate_presence_of(:state)
+        is_expected.to validate_presence_of(:relationship_with_recipient)
+        is_expected.to validate_timeliness_of(:volunteered_on)
+        is_expected.to validate_timeliness_of(:first_seen_on)
+        is_expected.to validate_timeliness_of(:workup_completed_on)
+        is_expected.to validate_timeliness_of(:donated_on)
+        is_expected.to belong_to(:patient).touch(true)
+      end
 
       describe "#valid?" do
         subject {

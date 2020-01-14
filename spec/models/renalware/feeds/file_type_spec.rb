@@ -4,9 +4,11 @@ require "rails_helper"
 
 module Renalware::Feeds
   describe FileType do
-    it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_presence_of(:description) }
-    it { is_expected.to validate_presence_of(:prompt) }
-    it { is_expected.to have_many(:files) }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of(:name)
+      is_expected.to validate_presence_of(:description)
+      is_expected.to validate_presence_of(:prompt)
+      is_expected.to have_many(:files)
+    end
   end
 end

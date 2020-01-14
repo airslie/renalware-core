@@ -17,8 +17,10 @@ module Renalware
         create(:transplant_registration_status_description, name: "Status2", code: "Status2")
       end
 
-      it { is_expected.to accept_nested_attributes_for(:statuses) }
-      it { is_expected.to belong_to(:patient).touch(true) }
+      it :aggregate_failures do
+        is_expected.to accept_nested_attributes_for(:statuses)
+        is_expected.to belong_to(:patient).touch(true)
+      end
 
       describe "#update_attributes" do
         context "when creating the registration" do

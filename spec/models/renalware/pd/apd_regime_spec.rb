@@ -8,23 +8,26 @@ module Renalware
       subject(:regime) { described_class.new }
 
       describe "validations" do
-        it { is_expected.to validate_numericality_of(:last_fill_volume) }
-        it { is_expected.to validate_numericality_of(:dwell_time) }
-        it { is_expected.to validate_numericality_of(:additional_manual_exchange_volume) }
+        it :aggregate_failures do
+          is_expected.to validate_numericality_of(:last_fill_volume)
+          is_expected.to validate_numericality_of(:dwell_time)
+          is_expected.to validate_numericality_of(:additional_manual_exchange_volume)
+        end
 
         it do
           regime.tidal_indicator = true
           expect(regime).to validate_numericality_of(:tidal_percentage)
         end
 
-        it { is_expected.to validate_numericality_of(:no_cycles_per_apd) }
-        it { is_expected.to validate_numericality_of(:overnight_volume) }
-        it { is_expected.to validate_numericality_of(:daily_volume) }
-        it { is_expected.to validate_numericality_of(:therapy_time) }
-        it { is_expected.to validate_numericality_of(:fill_volume) }
-
-        it { is_expected.to validate_presence_of(:fill_volume) }
-        it { is_expected.to validate_presence_of(:no_cycles_per_apd) }
+        it :aggregate_failures do
+          is_expected.to validate_numericality_of(:no_cycles_per_apd)
+          is_expected.to validate_numericality_of(:overnight_volume)
+          is_expected.to validate_numericality_of(:daily_volume)
+          is_expected.to validate_numericality_of(:therapy_time)
+          is_expected.to validate_numericality_of(:fill_volume)
+          is_expected.to validate_presence_of(:fill_volume)
+          is_expected.to validate_presence_of(:no_cycles_per_apd)
+        end
 
         describe "#additional_manual_exchange_volume" do
           context "when regime has an additional_manual_exchange bag" do

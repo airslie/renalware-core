@@ -7,8 +7,10 @@ module Renalware
     describe Batch, type: :model do
       include LettersSpecHelper
       it_behaves_like "an Accountable model"
-      it { is_expected.to have_many :items }
-      it { is_expected.to have_many(:letters).through(:items) }
+      it :aggregate_failures do
+        is_expected.to have_many :items
+        is_expected.to have_many(:letters).through(:items)
+      end
 
       describe "#status" do
         it "defaults to queued" do

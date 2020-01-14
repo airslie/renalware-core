@@ -12,18 +12,18 @@ module Renalware
       let(:nurse) { create(:user) }
       let(:patient) { create(:hd_patient) }
 
-      it { is_expected.to validate_presence_of(:patient) }
-      it { is_expected.to validate_presence_of(:signed_on_by) }
-      it { is_expected.to validate_presence_of(:performed_on) }
-      it { is_expected.to validate_presence_of(:hospital_unit) }
-      it { is_expected.to validate_presence_of(:start_time) }
-
-      it { is_expected.not_to validate_presence_of(:signed_off_by) }
-      it { is_expected.not_to validate_presence_of(:end_time) }
-
-      it { is_expected.to validate_timeliness_of(:performed_on) }
-      it { is_expected.to validate_timeliness_of(:start_time) }
-      it { is_expected.to validate_timeliness_of(:end_time) }
+      it :aggregate_failures do
+        is_expected.to validate_presence_of(:patient)
+        is_expected.to validate_presence_of(:signed_on_by)
+        is_expected.to validate_presence_of(:performed_on)
+        is_expected.to validate_presence_of(:hospital_unit)
+        is_expected.to validate_presence_of(:start_time)
+        is_expected.not_to validate_presence_of(:signed_off_by)
+        is_expected.not_to validate_presence_of(:end_time)
+        is_expected.to validate_timeliness_of(:performed_on)
+        is_expected.to validate_timeliness_of(:start_time)
+        is_expected.to validate_timeliness_of(:end_time)
+      end
 
       it "is not immutable" do
         expect(described_class.new.immutable?).to be(false)

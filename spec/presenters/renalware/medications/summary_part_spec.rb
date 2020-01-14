@@ -9,9 +9,11 @@ module Renalware
     let(:patient) { Patient.new }
     let(:user) { User.new }
 
-    it { is_expected.to respond_to(:current_prescriptions) }
-    it { is_expected.to respond_to(:to_partial_path) }
-    it { is_expected.to respond_to(:cache_key) }
+    it :aggregate_failures do
+      is_expected.to respond_to(:current_prescriptions)
+      is_expected.to respond_to(:to_partial_path)
+      is_expected.to respond_to(:cache_key)
+    end
 
     describe ".cache_key" do
       let(:patient) { create(:patient, by: user) }

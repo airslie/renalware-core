@@ -6,11 +6,13 @@ module Renalware
   module Surveys
     describe Question do
       it_behaves_like "a Paranoid model"
-      it { is_expected.to belong_to :survey }
-      it { is_expected.to have_many :responses }
-      it { is_expected.to validate_presence_of :code }
-      it { is_expected.to validate_presence_of :label }
-      it { is_expected.to validate_presence_of :position }
+      it :aggregate_failures do
+        is_expected.to belong_to :survey
+        is_expected.to have_many :responses
+        is_expected.to validate_presence_of :code
+        is_expected.to validate_presence_of :label
+        is_expected.to validate_presence_of :position
+      end
 
       describe "uniqueness scoped to survey" do
         subject { Question.new(code: "x", survey: survey) }

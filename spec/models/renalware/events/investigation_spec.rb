@@ -8,9 +8,11 @@ module Renalware
       describe "#document" do
         subject { described_class.new.document }
 
-        it { is_expected.to validate_presence_of(:modality) }
-        it { is_expected.to validate_presence_of(:type) }
-        it { is_expected.to validate_presence_of(:result) }
+        it :aggregate_failures do
+          is_expected.to validate_presence_of(:modality)
+          is_expected.to validate_presence_of(:type)
+          is_expected.to validate_presence_of(:result)
+        end
       end
 
       describe "scopes" do

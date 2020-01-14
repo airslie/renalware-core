@@ -7,6 +7,8 @@ describe Renalware::Clinical::ProfilePresenter do
 
   let(:patient) { build(:patient) }
 
-  it { is_expected.to respond_to(:allergies) }
-  it { is_expected.to respond_to(:swabs) }
+  it :aggregate_failures do
+    is_expected.to respond_to(:allergies)
+    is_expected.to respond_to(:swabs)
+  end
 end

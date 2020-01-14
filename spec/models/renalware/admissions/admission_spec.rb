@@ -16,14 +16,16 @@ describe Renalware::Admissions::Admission, type: :model do
   let(:user) { create(:user) }
   let(:modality_desc) { create(:hd_modality_description) }
 
-  it { is_expected.to validate_presence_of :patient_id }
-  it { is_expected.to validate_presence_of :hospital_ward_id }
-  it { is_expected.to validate_presence_of :admitted_on }
-  it { is_expected.to validate_presence_of :reason_for_admission }
-  it { is_expected.to validate_presence_of :admission_type }
-  it { is_expected.to belong_to(:patient).touch(true) }
-  it { is_expected.to belong_to(:hospital_ward) }
-  it { is_expected.to belong_to(:modality_at_admission) }
+  it :aggregate_failures do
+    is_expected.to validate_presence_of :patient_id
+    is_expected.to validate_presence_of :hospital_ward_id
+    is_expected.to validate_presence_of :admitted_on
+    is_expected.to validate_presence_of :reason_for_admission
+    is_expected.to validate_presence_of :admission_type
+    is_expected.to belong_to(:patient).touch(true)
+    is_expected.to belong_to(:hospital_ward)
+    is_expected.to belong_to(:modality_at_admission)
+  end
 
   it_behaves_like "an Accountable model"
   it_behaves_like "a Paranoid model"

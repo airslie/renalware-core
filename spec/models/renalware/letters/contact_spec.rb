@@ -8,8 +8,10 @@ module Renalware
       it { is_expected.to belong_to(:patient).touch(true) }
 
       describe "validation" do
-        it { is_expected.to validate_presence_of(:person) }
-        it { is_expected.to validate_presence_of(:description) }
+        it :aggregate_failures do
+          is_expected.to validate_presence_of(:person)
+          is_expected.to validate_presence_of(:description)
+        end
 
         context "when a contact has a specific description" do
           subject { Contact.new(description: specific_contact_description) }

@@ -5,8 +5,10 @@ require "rails_helper"
 module Renalware
   module Letters
     describe Recipient, type: :model do
-      it { is_expected.to respond_to(:emailed_at) }
-      it { is_expected.to respond_to(:printed_at) }
+      it :aggregate_failures do
+        is_expected.to respond_to(:emailed_at)
+        is_expected.to respond_to(:printed_at)
+      end
 
       describe "#addressee_id" do
         describe "validation" do

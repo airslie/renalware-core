@@ -4,11 +4,13 @@ require "rails_helper"
 
 module Renalware::HD::Scheduling
   describe WeeklyDiary, type: :model do
-    it { is_expected.to validate_presence_of(:week_number) }
-    it { is_expected.to validate_presence_of(:year) }
-    it { is_expected.to validate_inclusion_of(:week_number).in_range(1..53) }
-    it { is_expected.to belong_to(:master_diary) }
-    it { is_expected.to validate_presence_of(:master_diary) }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of(:week_number)
+      is_expected.to validate_presence_of(:year)
+      is_expected.to validate_inclusion_of(:week_number).in_range(1..53)
+      is_expected.to belong_to(:master_diary)
+      is_expected.to validate_presence_of(:master_diary)
+    end
 
     describe "#master" do
       it "defaults to false" do

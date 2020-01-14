@@ -4,8 +4,10 @@ require "rails_helper"
 
 module Renalware
   describe System::APILog, type: :model do
-    it { is_expected.to validate_presence_of(:identifier) }
-    it { is_expected.to validate_presence_of(:status) }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of(:identifier)
+      is_expected.to validate_presence_of(:status)
+    end
 
     describe ".with_log" do
       it "creates a new log with a working status, yields it, then updates the status to success" do

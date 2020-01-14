@@ -7,13 +7,15 @@ module Renalware::Events
     subject(:event) { described_class.new }
 
     it_behaves_like "an Accountable model"
-    it { is_expected.to validate_presence_of(:patient) }
-    it { is_expected.to validate_presence_of(:date_time) }
-    it { is_expected.to validate_presence_of(:event_type_id) }
-    it { is_expected.to respond_to(:type) }
-    it { is_expected.to belong_to(:patient).touch(true) }
 
-    it { is_expected.to validate_timeliness_of(:date_time) }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of(:patient)
+      is_expected.to validate_presence_of(:date_time)
+      is_expected.to validate_presence_of(:event_type_id)
+      is_expected.to respond_to(:type)
+      is_expected.to belong_to(:patient).touch(true)
+      is_expected.to validate_timeliness_of(:date_time)
+    end
 
     describe "#document jsonb" do
       subject { event.document }

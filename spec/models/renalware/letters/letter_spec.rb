@@ -5,16 +5,18 @@ require "rails_helper"
 module Renalware
   module Letters
     describe Letter, type: :model do
-      it { is_expected.to validate_presence_of(:letterhead) }
-      it { is_expected.to validate_presence_of(:issued_on) }
-      it { is_expected.to validate_presence_of(:patient) }
-      it { is_expected.to validate_presence_of(:author) }
-      it { is_expected.to validate_presence_of(:main_recipient) }
-      it { is_expected.to validate_presence_of(:description) }
-      it { is_expected.to belong_to(:patient).touch(true) }
-      it { is_expected.to have_many(:electronic_receipts).dependent(:destroy) }
-      it { is_expected.to respond_to(:pathology_timestamp) }
-      it { is_expected.to respond_to(:pathology_snapshot) }
+      it :aggregate_failures do
+        is_expected.to validate_presence_of(:letterhead)
+        is_expected.to validate_presence_of(:issued_on)
+        is_expected.to validate_presence_of(:patient)
+        is_expected.to validate_presence_of(:author)
+        is_expected.to validate_presence_of(:main_recipient)
+        is_expected.to validate_presence_of(:description)
+        is_expected.to belong_to(:patient).touch(true)
+        is_expected.to have_many(:electronic_receipts).dependent(:destroy)
+        is_expected.to respond_to(:pathology_timestamp)
+        is_expected.to respond_to(:pathology_snapshot)
+      end
 
       describe "#include_pathology_in_letter_body?" do
         subject { described_class.new(letterhead: letterhead).include_pathology_in_letter_body? }

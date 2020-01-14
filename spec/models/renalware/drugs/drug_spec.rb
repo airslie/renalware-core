@@ -6,8 +6,10 @@ module Renalware::Drugs
   describe Drug, type: :model do
     subject(:drug) { build(:drug) }
 
-    it { is_expected.to have_many(:classifications) }
-    it { is_expected.to have_many(:drug_types).through(:classifications) }
+    it :aggregate_failures do
+      is_expected.to have_many(:classifications)
+      is_expected.to have_many(:drug_types).through(:classifications)
+    end
 
     it_behaves_like "a Paranoid model"
 

@@ -5,12 +5,14 @@ require "rails_helper"
 module Renalware
   describe Renal::AKIAlert, type: :model do
     it_behaves_like "an Accountable model"
-    it { is_expected.to validate_presence_of(:patient) }
-    it { is_expected.to have_db_index(:hotlist) }
-    it { is_expected.to have_db_index(:action) }
-    it { is_expected.to belong_to(:action).class_name("AKIAlertAction") }
-    it { is_expected.to belong_to(:hospital_ward) }
-    it { is_expected.to belong_to(:patient).touch(true) }
-    it { is_expected.to be_versioned }
+    it :aggregate_failures do
+      is_expected.to validate_presence_of(:patient)
+      is_expected.to have_db_index(:hotlist)
+      is_expected.to have_db_index(:action)
+      is_expected.to belong_to(:action).class_name("AKIAlertAction")
+      is_expected.to belong_to(:hospital_ward)
+      is_expected.to belong_to(:patient).touch(true)
+      is_expected.to be_versioned
+    end
   end
 end

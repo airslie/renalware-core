@@ -7,8 +7,10 @@ module Renalware::Events
     it_behaves_like "a Paranoid model"
 
     describe "validation" do
-      it { is_expected.to validate_presence_of :name }
-      it { is_expected.to respond_to(:event_class_name) }
+      it :aggregate_failures do
+        is_expected.to validate_presence_of :name
+        is_expected.to respond_to(:event_class_name)
+      end
 
       describe "uniqueness" do
         subject { Type.new(name: "X") }
