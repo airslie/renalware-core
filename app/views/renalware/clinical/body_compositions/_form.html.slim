@@ -6,6 +6,12 @@
             as: :user_picker,
             collection: Renalware::User.ordered,
             wrapper: :horizontal_medium
+  = f.input :pre_post_hd,
+            collection: Renalware::Clinical::BodyComposition.pre_post_hds.collect{ |c| [c[0].titleize, c[0]] },
+            include_blank: "Not Applicable",
+            wrapper: :horizontal_small
+  = f.input :weight,
+            wrapper: :horizontal_tiny
   = f.input :overhydration,
             wrapper: :horizontal_small
   = f.input :volume_of_distribution,

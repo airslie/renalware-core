@@ -6,6 +6,8 @@ table
       th.col-width-date= t(".assessed_on")
       th= t(".modality_description")
       th= t(".assessor")
+      th.col-width-tiny= t(".pre_post_hd")
+      th.col-width-tiny= t(".weight")
       th.col-width-tiny= t(".overhydration")
       th.col-width-tiny= t(".volume_of_distribution")
       th.col-width-tiny= t(".total_body_water")
@@ -29,6 +31,8 @@ table
         td= body_composition.assessed_on
         td= body_composition.modality_description&.name
         td= body_composition.assessor
+        td= body_composition.pre_post_hd&.titleize
+        td= body_composition.weight
         td= body_composition.overhydration
         td= body_composition.volume_of_distribution
         td= body_composition.total_body_water

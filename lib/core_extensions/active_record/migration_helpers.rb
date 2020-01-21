@@ -3,6 +3,7 @@
 module CoreExtensions
   module ActiveRecord
     module MigrationHelpers
+      require "activerecord/postgres_enum"
       # Used in migrations to ensure the objects created/updated/found are in the correct schema.
       # We ensure that the original schema_search_path defined in the database.yml in the host app
       # is restored - this particularyl important for migations in an engine.
@@ -89,14 +90,14 @@ module CoreExtensions
         class << self
           def triggers
             [
-              Rails.root.join("db", "triggers"),
+              Rails.root.join("db/triggers"),
               Renalware::Engine.root.join("db", "triggers")
             ]
           end
 
           def functions
             [
-              Rails.root.join("db", "functions"),
+              Rails.root.join("db/functions"),
               Renalware::Engine.root.join("db", "functions")
             ]
           end

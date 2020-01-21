@@ -16,7 +16,9 @@ FactoryBot.define do
     fat_tissue_mass { "42.1" }
     adipose_tissue_mass { "15.1" }
     body_cell_mass { "53.1" }
-    quality_of_reading { "65.123" }
+    quality_of_reading { 65.123 }
+    weight { 23.1 }
+    pre_post_hd { "post" }
     assessor { accountable_actor }
   end
 end
