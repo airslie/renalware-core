@@ -53,6 +53,11 @@ fizzy-ui-utils@^2.0.0:
   dependencies:
     desandro-matches-selector "^2.0.0"
 
+foundation-datepicker@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/foundation-datepicker/-/foundation-datepicker-1.5.0.tgz#abbccde1c1f9b0c4f640f9d0da244871b84b2b47"
+  integrity sha1-q7zN4cH5sMT2QPnQ2iRIcbhLK0c=
+
 get-size@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/get-size/-/get-size-2.0.3.tgz#54a1d0256b20ea7ac646516756202769941ad2ef"
