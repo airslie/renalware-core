@@ -5,6 +5,7 @@ namespace :system do
   resources :user_feedback, except: :destroy, controller: "user_feedback"
   resources :messages
   resources :downloads
+  resources :view_metadata, only: [:edit, :update]
 end
 
 match "/404", to: "system/errors#not_found", via: :all

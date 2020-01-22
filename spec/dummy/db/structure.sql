@@ -31,6 +31,20 @@ COMMENT ON EXTENSION btree_gist IS 'support for indexing common datatypes in GiS
 
 
 --
+-- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA renalware;
+
+
+--
+-- Name: EXTENSION hstore; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
+
+
+--
 -- Name: intarray; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -129,6 +143,25 @@ CREATE TYPE renalware.duration AS ENUM (
 CREATE TYPE renalware.pd_pet_type AS ENUM (
     'full',
     'fast'
+);
+
+
+--
+-- Name: system_view_category; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.system_view_category AS ENUM (
+    'mdm',
+    'report'
+);
+
+
+--
+-- Name: system_view_display_type; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.system_view_display_type AS ENUM (
+    'tabular'
 );
 
 
@@ -2784,6 +2817,464 @@ CREATE VIEW renalware.hd_grouped_transmission_logs AS
 
 
 --
+-- Name: hd_profiles; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.hd_profiles (
+    id integer NOT NULL,
+    patient_id integer,
+    hospital_unit_id integer,
+    other_schedule character varying,
+    prescribed_time integer,
+    prescribed_on date,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    document jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    prescriber_id integer,
+    named_nurse_id integer,
+    transport_decider_id integer,
+    deactivated_at timestamp without time zone,
+    active boolean DEFAULT true,
+    schedule_definition_id integer,
+    dialysate_id bigint
+);
+
+
+--
+-- Name: hd_schedule_definitions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.hd_schedule_definitions (
+    id bigint NOT NULL,
+    days integer[] DEFAULT '{}'::integer[] NOT NULL,
+    diurnal_period_id integer NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    days_text text,
+    sort_order integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: modality_descriptions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.modality_descriptions (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    type character varying,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    hidden boolean DEFAULT false NOT NULL,
+    ukrdc_modality_code_id bigint,
+    code character varying
+);
+
+
+--
+-- Name: modality_modalities; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.modality_modalities (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    description_id integer NOT NULL,
+    reason_id integer,
+    modal_change_type character varying,
+    notes text,
+    started_on date NOT NULL,
+    ended_on date,
+    state character varying DEFAULT 'current'::character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL
+);
+
+
+--
+-- Name: pathology_current_observation_sets; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pathology_current_observation_sets (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    "values" jsonb DEFAULT '{}'::jsonb,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: patients; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.patients (
+    id integer NOT NULL,
+    nhs_number character varying,
+    local_patient_id character varying,
+    family_name character varying NOT NULL,
+    given_name character varying NOT NULL,
+    born_on date NOT NULL,
+    paediatric_patient_indicator boolean,
+    sex character varying,
+    ethnicity_id integer,
+    hospital_centre_code character varying,
+    primary_esrf_centre character varying,
+    died_on date,
+    first_cause_id integer,
+    second_cause_id integer,
+    death_notes text,
+    cc_on_all_letters boolean DEFAULT true,
+    cc_decision_on date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    practice_id integer,
+    primary_care_physician_id integer,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    title character varying,
+    suffix character varying,
+    marital_status character varying,
+    telephone1 character varying,
+    telephone2 character varying,
+    email character varying,
+    document jsonb,
+    religion_id integer,
+    language_id integer,
+    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
+    allergy_status_updated_at timestamp without time zone,
+    local_patient_id_2 character varying,
+    local_patient_id_3 character varying,
+    local_patient_id_4 character varying,
+    local_patient_id_5 character varying,
+    external_patient_id character varying,
+    send_to_renalreg boolean DEFAULT false NOT NULL,
+    send_to_rpv boolean DEFAULT false NOT NULL,
+    renalreg_decision_on date,
+    rpv_decision_on date,
+    renalreg_recorded_by character varying,
+    rpv_recorded_by character varying,
+    ukrdc_external_id text DEFAULT public.uuid_generate_v4(),
+    country_of_birth_id integer,
+    legacy_patient_id integer,
+    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    sent_to_ukrdc_at timestamp without time zone,
+    checked_for_ukrdc_changes_at timestamp without time zone,
+    named_consultant_id bigint,
+    next_of_kin text
+);
+
+
+--
+-- Name: patient_current_modalities; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.patient_current_modalities AS
+ SELECT patients.id AS patient_id,
+    patients.secure_id AS patient_secure_id,
+    current_modality.id AS modality_id,
+    modality_descriptions.id AS modality_description_id,
+    modality_descriptions.name AS modality_name,
+    current_modality.started_on,
+    modality_descriptions.code AS modality_code
+   FROM ((renalware.patients
+     LEFT JOIN ( SELECT DISTINCT ON (modality_modalities.patient_id) modality_modalities.id,
+            modality_modalities.patient_id,
+            modality_modalities.description_id,
+            modality_modalities.reason_id,
+            modality_modalities.modal_change_type,
+            modality_modalities.notes,
+            modality_modalities.started_on,
+            modality_modalities.ended_on,
+            modality_modalities.state,
+            modality_modalities.created_at,
+            modality_modalities.updated_at,
+            modality_modalities.created_by_id,
+            modality_modalities.updated_by_id
+           FROM renalware.modality_modalities
+          WHERE (modality_modalities.ended_on IS NULL)
+          ORDER BY modality_modalities.patient_id, modality_modalities.started_on DESC, modality_modalities.created_at DESC) current_modality ON ((patients.id = current_modality.patient_id)))
+     LEFT JOIN renalware.modality_descriptions ON ((modality_descriptions.id = current_modality.description_id)));
+
+
+--
+-- Name: renal_profiles; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.renal_profiles (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    esrf_on date,
+    first_seen_on date,
+    weight_at_esrf double precision,
+    modality_at_esrf character varying,
+    prd_description_id integer,
+    comorbidities_updated_on date,
+    document jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: transplant_recipient_operations; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.transplant_recipient_operations (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    performed_on date NOT NULL,
+    theatre_case_start_time time without time zone,
+    donor_kidney_removed_from_ice_at timestamp without time zone,
+    operation_type character varying NOT NULL,
+    hospital_centre_id integer NOT NULL,
+    kidney_perfused_with_blood_at timestamp without time zone,
+    cold_ischaemic_time integer,
+    warm_ischaemic_time integer,
+    notes text,
+    document jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: transplant_registration_status_descriptions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.transplant_registration_status_descriptions (
+    id integer NOT NULL,
+    code character varying NOT NULL,
+    name character varying,
+    "position" integer DEFAULT 0,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    rr_code integer,
+    rr_comment text
+);
+
+
+--
+-- Name: transplant_registration_statuses; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.transplant_registration_statuses (
+    id integer NOT NULL,
+    registration_id integer,
+    description_id integer,
+    started_on date NOT NULL,
+    terminated_on date,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    notes text
+);
+
+
+--
+-- Name: transplant_registrations; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.transplant_registrations (
+    id integer NOT NULL,
+    patient_id integer,
+    referred_on date,
+    assessed_on date,
+    entered_on date,
+    contact text,
+    notes text,
+    document jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_mdm_patients; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.hd_mdm_patients AS
+ SELECT p.id,
+    p.secure_id,
+    ((upper((p.family_name)::text) || ', '::text) || (p.given_name)::text) AS patient_name,
+    p.nhs_number,
+    p.local_patient_id AS hospital_numbers,
+    p.sex,
+    p.born_on,
+    rprof.esrf_on,
+    latest_op.performed_on AS last_operation_date,
+    (date_part('year'::text, age((p.born_on)::timestamp with time zone)))::integer AS age,
+    mx.modality_name,
+    at.name AS access,
+    ap.started_on AS access_date,
+    aplantype.name AS access_plan,
+    (aplan.created_at)::date AS plan_date,
+    txrsd.name AS tx_status,
+    unit.name AS hospital_unit,
+    unit.unit_code AS dialysing_at,
+    ((((hdp.document -> 'transport'::text) ->> 'has_transport'::text) || ': '::text) || ((hdp.document -> 'transport'::text) ->> 'type'::text)) AS transport,
+    ((sched.days_text || ' '::text) || upper((diurnal.code)::text)) AS schedule,
+    ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
+    (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
+    ((pa."values" -> 'PHOS'::text) ->> 'result'::text) AS phos,
+    (((pa."values" -> 'PHOS'::text) ->> 'observed_at'::text))::date AS phos_date,
+    ((pa."values" -> 'POT'::text) ->> 'result'::text) AS pot,
+    (((pa."values" -> 'POT'::text) ->> 'observed_at'::text))::date AS pot_date,
+    ((pa."values" -> 'PTHI'::text) ->> 'result'::text) AS pthi,
+    (((pa."values" -> 'PTHI'::text) ->> 'observed_at'::text))::date AS pthi_date,
+    ((pa."values" -> 'URR'::text) ->> 'result'::text) AS urr,
+    (((pa."values" -> 'URR'::text) ->> 'observed_at'::text))::date AS urr_date
+   FROM (((((((((((((((renalware.patients p
+     JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'hd'::text))))
+     LEFT JOIN renalware.hd_profiles hdp ON (((hdp.patient_id = p.id) AND (hdp.deactivated_at IS NULL))))
+     LEFT JOIN renalware.hospital_units unit ON ((unit.id = hdp.hospital_unit_id)))
+     LEFT JOIN renalware.hd_schedule_definitions sched ON ((sched.id = hdp.schedule_definition_id)))
+     LEFT JOIN renalware.hd_diurnal_period_codes diurnal ON ((diurnal.id = sched.diurnal_period_id)))
+     LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
+     LEFT JOIN ( SELECT DISTINCT ON (access_profiles.patient_id) access_profiles.id,
+            access_profiles.patient_id,
+            access_profiles.formed_on,
+            access_profiles.started_on,
+            access_profiles.terminated_on,
+            access_profiles.type_id,
+            access_profiles.side,
+            access_profiles.notes,
+            access_profiles.created_by_id,
+            access_profiles.updated_by_id,
+            access_profiles.created_at,
+            access_profiles.updated_at,
+            access_profiles.decided_by_id
+           FROM renalware.access_profiles
+          WHERE (access_profiles.terminated_on IS NULL)
+          ORDER BY access_profiles.patient_id, access_profiles.created_at DESC) ap ON ((ap.patient_id = p.id)))
+     LEFT JOIN renalware.access_types at ON ((at.id = ap.type_id)))
+     LEFT JOIN renalware.access_plans aplan ON (((aplan.patient_id = p.id) AND (aplan.terminated_at IS NULL))))
+     LEFT JOIN renalware.access_plan_types aplantype ON ((aplantype.id = aplan.plan_type_id)))
+     LEFT JOIN renalware.transplant_registrations txr ON ((txr.patient_id = p.id)))
+     LEFT JOIN renalware.transplant_registration_statuses txrs ON (((txrs.registration_id = txr.id) AND (txrs.terminated_on IS NULL))))
+     LEFT JOIN renalware.transplant_registration_status_descriptions txrsd ON ((txrsd.id = txrs.description_id)))
+     LEFT JOIN renalware.renal_profiles rprof ON ((rprof.patient_id = p.id)))
+     LEFT JOIN ( SELECT DISTINCT ON (transplant_recipient_operations.patient_id) transplant_recipient_operations.patient_id,
+            transplant_recipient_operations.performed_on
+           FROM renalware.transplant_recipient_operations
+          ORDER BY transplant_recipient_operations.patient_id, transplant_recipient_operations.performed_on DESC) latest_op ON ((latest_op.patient_id = p.id)));
+
+
+--
+-- Name: patient_worries; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.patient_worries (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    notes text
+);
+
+
+--
+-- Name: users; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.users (
+    id integer NOT NULL,
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip inet,
+    last_sign_in_ip inet,
+    username character varying NOT NULL,
+    given_name character varying NOT NULL,
+    family_name character varying NOT NULL,
+    signature character varying,
+    last_activity_at timestamp without time zone,
+    expired_at timestamp without time zone,
+    professional_position character varying,
+    approved boolean DEFAULT false,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    telephone character varying,
+    authentication_token character varying,
+    asked_for_write_access boolean DEFAULT false NOT NULL,
+    consultant boolean DEFAULT false NOT NULL,
+    hidden boolean DEFAULT false NOT NULL,
+    feature_flags integer DEFAULT 0 NOT NULL,
+    prescriber boolean DEFAULT false NOT NULL
+);
+
+
+--
+-- Name: COLUMN users.feature_flags; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.users.feature_flags IS 'OR''ed feature flag bits to enable experimental features for certain users';
+
+
+--
+-- Name: COLUMN users.prescriber; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.users.prescriber IS 'A user can only add or terminate a prescription if this is set to true';
+
+
+--
+-- Name: hd_mdm_patients_on_worryboard; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.hd_mdm_patients_on_worryboard AS
+ SELECT hdp.id,
+    hdp.secure_id,
+    hdp.patient_name,
+    hdp.nhs_number,
+    hdp.hospital_numbers,
+    hdp.sex,
+    hdp.born_on,
+    hdp.esrf_on,
+    hdp.last_operation_date,
+    hdp.age,
+    hdp.modality_name,
+    hdp.access,
+    hdp.access_date,
+    hdp.access_plan,
+    hdp.plan_date,
+    hdp.tx_status,
+    hdp.hospital_unit,
+    hdp.dialysing_at,
+    hdp.transport,
+    hdp.schedule,
+    hdp.hgb,
+    hdp.hgb_date,
+    hdp.phos,
+    hdp.phos_date,
+    hdp.pot,
+    hdp.pot_date,
+    hdp.pthi,
+    hdp.pthi_date,
+    hdp.urr,
+    hdp.urr_date,
+    (w.created_at)::date AS added_to_worryboard_on,
+    u.username AS added_to_worryboard_by
+   FROM (((renalware.hd_mdm_patients hdp
+     JOIN renalware.patients p ON ((p.id = hdp.id)))
+     JOIN renalware.patient_worries w ON ((w.patient_id = p.id)))
+     JOIN renalware.users u ON ((u.id = w.created_by_id)));
+
+
+--
 -- Name: hd_patient_statistics; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -2954,70 +3445,6 @@ ALTER SEQUENCE renalware.hd_prescription_administrations_id_seq OWNED BY renalwa
 
 
 --
--- Name: hd_profiles; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.hd_profiles (
-    id integer NOT NULL,
-    patient_id integer,
-    hospital_unit_id integer,
-    other_schedule character varying,
-    prescribed_time integer,
-    prescribed_on date,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    document jsonb,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    prescriber_id integer,
-    named_nurse_id integer,
-    transport_decider_id integer,
-    deactivated_at timestamp without time zone,
-    active boolean DEFAULT true,
-    schedule_definition_id integer,
-    dialysate_id bigint
-);
-
-
---
--- Name: modality_descriptions; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.modality_descriptions (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    type character varying,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    hidden boolean DEFAULT false NOT NULL,
-    ukrdc_modality_code_id bigint,
-    code character varying
-);
-
-
---
--- Name: modality_modalities; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.modality_modalities (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    description_id integer NOT NULL,
-    reason_id integer,
-    modal_change_type character varying,
-    notes text,
-    started_on date NOT NULL,
-    ended_on date,
-    state character varying DEFAULT 'current'::character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL
-);
-
-
---
 -- Name: hd_profile_for_modalities; Type: VIEW; Schema: renalware; Owner: -
 --
 
@@ -3136,22 +3563,6 @@ CREATE SEQUENCE renalware.hd_providers_id_seq
 --
 
 ALTER SEQUENCE renalware.hd_providers_id_seq OWNED BY renalware.hd_providers.id;
-
-
---
--- Name: hd_schedule_definitions; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.hd_schedule_definitions (
-    id bigint NOT NULL,
-    days integer[] DEFAULT '{}'::integer[] NOT NULL,
-    diurnal_period_id integer NOT NULL,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    days_text text,
-    sort_order integer DEFAULT 0 NOT NULL
-);
 
 
 --
@@ -4634,19 +5045,6 @@ ALTER SEQUENCE renalware.pathology_code_groups_id_seq OWNED BY renalware.patholo
 
 
 --
--- Name: pathology_current_observation_sets; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.pathology_current_observation_sets (
-    id bigint NOT NULL,
-    patient_id bigint NOT NULL,
-    "values" jsonb DEFAULT '{}'::jsonb,
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
-);
-
-
---
 -- Name: pathology_current_observation_sets_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -5344,97 +5742,6 @@ ALTER SEQUENCE renalware.patient_bookmarks_id_seq OWNED BY renalware.patient_boo
 
 
 --
--- Name: patients; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.patients (
-    id integer NOT NULL,
-    nhs_number character varying,
-    local_patient_id character varying,
-    family_name character varying NOT NULL,
-    given_name character varying NOT NULL,
-    born_on date NOT NULL,
-    paediatric_patient_indicator boolean,
-    sex character varying,
-    ethnicity_id integer,
-    hospital_centre_code character varying,
-    primary_esrf_centre character varying,
-    died_on date,
-    first_cause_id integer,
-    second_cause_id integer,
-    death_notes text,
-    cc_on_all_letters boolean DEFAULT true,
-    cc_decision_on date,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    practice_id integer,
-    primary_care_physician_id integer,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    title character varying,
-    suffix character varying,
-    marital_status character varying,
-    telephone1 character varying,
-    telephone2 character varying,
-    email character varying,
-    document jsonb,
-    religion_id integer,
-    language_id integer,
-    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
-    allergy_status_updated_at timestamp without time zone,
-    local_patient_id_2 character varying,
-    local_patient_id_3 character varying,
-    local_patient_id_4 character varying,
-    local_patient_id_5 character varying,
-    external_patient_id character varying,
-    send_to_renalreg boolean DEFAULT false NOT NULL,
-    send_to_rpv boolean DEFAULT false NOT NULL,
-    renalreg_decision_on date,
-    rpv_decision_on date,
-    renalreg_recorded_by character varying,
-    rpv_recorded_by character varying,
-    ukrdc_external_id text DEFAULT public.uuid_generate_v4(),
-    country_of_birth_id integer,
-    legacy_patient_id integer,
-    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    sent_to_ukrdc_at timestamp without time zone,
-    checked_for_ukrdc_changes_at timestamp without time zone,
-    named_consultant_id bigint,
-    next_of_kin text
-);
-
-
---
--- Name: patient_current_modalities; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.patient_current_modalities AS
- SELECT patients.id AS patient_id,
-    patients.secure_id AS patient_secure_id,
-    current_modality.id AS modality_id,
-    modality_descriptions.id AS modality_description_id,
-    modality_descriptions.name AS modality_name,
-    current_modality.started_on
-   FROM ((renalware.patients
-     LEFT JOIN ( SELECT DISTINCT ON (modality_modalities.patient_id) modality_modalities.id,
-            modality_modalities.patient_id,
-            modality_modalities.description_id,
-            modality_modalities.reason_id,
-            modality_modalities.modal_change_type,
-            modality_modalities.notes,
-            modality_modalities.started_on,
-            modality_modalities.ended_on,
-            modality_modalities.state,
-            modality_modalities.created_at,
-            modality_modalities.updated_at,
-            modality_modalities.created_by_id,
-            modality_modalities.updated_by_id
-           FROM renalware.modality_modalities
-          ORDER BY modality_modalities.patient_id, modality_modalities.started_on DESC) current_modality ON ((patients.id = current_modality.patient_id)))
-     LEFT JOIN renalware.modality_descriptions ON ((modality_descriptions.id = current_modality.description_id)));
-
-
---
 -- Name: patient_ethnicities; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -5705,28 +6012,6 @@ CREATE TABLE renalware.problem_problems (
 
 
 --
--- Name: transplant_recipient_operations; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.transplant_recipient_operations (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    performed_on date NOT NULL,
-    theatre_case_start_time time without time zone,
-    donor_kidney_removed_from_ice_at timestamp without time zone,
-    operation_type character varying NOT NULL,
-    hospital_centre_id integer NOT NULL,
-    kidney_perfused_with_blood_at timestamp without time zone,
-    cold_ischaemic_time integer,
-    warm_ischaemic_time integer,
-    notes text,
-    document jsonb,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
 -- Name: patient_summaries; Type: VIEW; Schema: renalware; Owner: -
 --
 
@@ -5800,21 +6085,6 @@ CREATE SEQUENCE renalware.patient_versions_id_seq
 --
 
 ALTER SEQUENCE renalware.patient_versions_id_seq OWNED BY renalware.patient_versions.id;
-
-
---
--- Name: patient_worries; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.patient_worries (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    created_by_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    notes text
-);
 
 
 --
@@ -6969,25 +7239,6 @@ ALTER SEQUENCE renalware.renal_prd_descriptions_id_seq OWNED BY renalware.renal_
 
 
 --
--- Name: renal_profiles; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.renal_profiles (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    esrf_on date,
-    first_seen_on date,
-    weight_at_esrf double precision,
-    modality_at_esrf character varying,
-    prd_description_id integer,
-    comorbidities_updated_on date,
-    document jsonb,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
 -- Name: renal_profiles_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -7332,56 +7583,6 @@ CREATE MATERIALIZED VIEW renalware.reporting_hd_overall_audit AS
   GROUP BY hu.name, stats.year, stats.month
   ORDER BY hu.name, stats.year, stats.month
   WITH NO DATA;
-
-
---
--- Name: users; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.users (
-    id integer NOT NULL,
-    email character varying DEFAULT ''::character varying NOT NULL,
-    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying,
-    reset_password_sent_at timestamp without time zone,
-    remember_created_at timestamp without time zone,
-    sign_in_count integer DEFAULT 0 NOT NULL,
-    current_sign_in_at timestamp without time zone,
-    last_sign_in_at timestamp without time zone,
-    current_sign_in_ip inet,
-    last_sign_in_ip inet,
-    username character varying NOT NULL,
-    given_name character varying NOT NULL,
-    family_name character varying NOT NULL,
-    signature character varying,
-    last_activity_at timestamp without time zone,
-    expired_at timestamp without time zone,
-    professional_position character varying,
-    approved boolean DEFAULT false,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    telephone character varying,
-    authentication_token character varying,
-    asked_for_write_access boolean DEFAULT false NOT NULL,
-    consultant boolean DEFAULT false NOT NULL,
-    hidden boolean DEFAULT false NOT NULL,
-    feature_flags integer DEFAULT 0 NOT NULL,
-    prescriber boolean DEFAULT false NOT NULL
-);
-
-
---
--- Name: COLUMN users.feature_flags; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.users.feature_flags IS 'OR''ed feature flag bits to enable experimental features for certain users';
-
-
---
--- Name: COLUMN users.prescriber; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.users.prescriber IS 'A user can only add or terminate a prescription if this is set to true';
 
 
 --
@@ -8439,6 +8640,105 @@ ALTER SEQUENCE renalware.system_user_feedback_id_seq OWNED BY renalware.system_u
 
 
 --
+-- Name: system_view_metadata; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.system_view_metadata (
+    id bigint NOT NULL,
+    schema_name text NOT NULL,
+    view_name text NOT NULL,
+    slug text,
+    scope text,
+    parent_name text,
+    parent_id bigint,
+    title text,
+    columns jsonb DEFAULT '[]'::jsonb NOT NULL,
+    filters renalware.hstore DEFAULT ''::renalware.hstore NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
+    description text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    display_type renalware.system_view_display_type DEFAULT 'tabular'::renalware.system_view_display_type NOT NULL,
+    category renalware.system_view_category DEFAULT 'mdm'::renalware.system_view_category NOT NULL
+);
+
+
+--
+-- Name: TABLE system_view_metadata; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.system_view_metadata IS 'Holds descriptive and layout data to help us construct data-driven parts of the Renalware UI e.g. MDMs';
+
+
+--
+-- Name: COLUMN system_view_metadata.slug; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_view_metadata.slug IS 'May be used in urls - must be lower case with no spaces';
+
+
+--
+-- Name: COLUMN system_view_metadata.scope; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_view_metadata.scope IS 'e.g. PD';
+
+
+--
+-- Name: COLUMN system_view_metadata.parent_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_view_metadata.parent_id IS 'Self-join in case a view should have children';
+
+
+--
+-- Name: COLUMN system_view_metadata.title; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_view_metadata.title IS 'A label that may appear in the UI';
+
+
+--
+-- Name: COLUMN system_view_metadata.columns; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_view_metadata.columns IS 'Array of column_names. If empty, all cols displayed. Array order is the display order';
+
+
+--
+-- Name: COLUMN system_view_metadata.filters; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_view_metadata.filters IS 'Hash of column names => ransack predicate to be used for generating filters.Must be the name of a column in the SQL view. Example ''sex'' => ''sex_eq'' ';
+
+
+--
+-- Name: COLUMN system_view_metadata.description; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_view_metadata.description IS 'A description of the SQL view''s function';
+
+
+--
+-- Name: system_view_metadata_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.system_view_metadata_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_view_metadata_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.system_view_metadata_id_seq OWNED BY renalware.system_view_metadata.id;
+
+
+--
 -- Name: system_visits; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8808,6 +9108,143 @@ ALTER SEQUENCE renalware.transplant_failure_cause_descriptions_id_seq OWNED BY r
 
 
 --
+-- Name: transplant_mdm_patients; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.transplant_mdm_patients AS
+ SELECT p.id,
+    p.secure_id,
+    ((upper((p.family_name)::text) || ', '::text) || (p.given_name)::text) AS patient_name,
+    p.nhs_number,
+    p.local_patient_id AS hospital_numbers,
+    p.sex,
+    p.born_on,
+    rprof.esrf_on,
+    latest_op.performed_on AS last_operation_date,
+    (date_part('year'::text, age((p.born_on)::timestamp with time zone)))::integer AS age,
+    mx.modality_name,
+    txrsd.name AS tx_status,
+    ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
+    (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
+    ((pa."values" -> 'URE'::text) ->> 'result'::text) AS ure,
+    (((pa."values" -> 'URE'::text) ->> 'observed_at'::text))::date AS ure_date,
+    ((pa."values" -> 'CRE'::text) ->> 'result'::text) AS cre,
+    (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
+    ((pa."values" -> 'EGFR'::text) ->> 'result'::text) AS egfr_on
+   FROM (((((((renalware.patients p
+     JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'transplant'::text))))
+     LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
+     LEFT JOIN renalware.transplant_registrations txr ON ((txr.patient_id = p.id)))
+     LEFT JOIN renalware.transplant_registration_statuses txrs ON (((txrs.registration_id = txr.id) AND (txrs.terminated_on IS NULL))))
+     LEFT JOIN renalware.transplant_registration_status_descriptions txrsd ON ((txrsd.id = txrs.description_id)))
+     LEFT JOIN renalware.renal_profiles rprof ON ((rprof.patient_id = p.id)))
+     LEFT JOIN ( SELECT DISTINCT ON (transplant_recipient_operations.patient_id) transplant_recipient_operations.id,
+            transplant_recipient_operations.patient_id,
+            transplant_recipient_operations.performed_on,
+            transplant_recipient_operations.theatre_case_start_time,
+            transplant_recipient_operations.donor_kidney_removed_from_ice_at,
+            transplant_recipient_operations.operation_type,
+            transplant_recipient_operations.hospital_centre_id,
+            transplant_recipient_operations.kidney_perfused_with_blood_at,
+            transplant_recipient_operations.cold_ischaemic_time,
+            transplant_recipient_operations.warm_ischaemic_time,
+            transplant_recipient_operations.notes,
+            transplant_recipient_operations.document,
+            transplant_recipient_operations.created_at,
+            transplant_recipient_operations.updated_at
+           FROM renalware.transplant_recipient_operations
+          ORDER BY transplant_recipient_operations.patient_id, transplant_recipient_operations.performed_on DESC) latest_op ON ((latest_op.patient_id = p.id)));
+
+
+--
+-- Name: transplant_mdm_patients_on_worryboard; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.transplant_mdm_patients_on_worryboard AS
+ SELECT tp.id,
+    tp.secure_id,
+    tp.patient_name,
+    tp.nhs_number,
+    tp.hospital_numbers,
+    tp.sex,
+    tp.born_on,
+    tp.esrf_on,
+    tp.last_operation_date,
+    tp.age,
+    tp.modality_name,
+    tp.tx_status,
+    tp.hgb,
+    tp.hgb_date,
+    tp.ure,
+    tp.ure_date,
+    tp.cre,
+    tp.cre_date,
+    tp.egfr_on,
+    (w.created_at)::date AS added_to_worryboard_on,
+    u.username AS added_to_worryboard_by
+   FROM (((renalware.transplant_mdm_patients tp
+     JOIN renalware.patients p ON ((p.id = tp.id)))
+     JOIN renalware.patient_worries w ON ((w.patient_id = p.id)))
+     JOIN renalware.users u ON ((u.id = w.created_by_id)));
+
+
+--
+-- Name: transplant_mdm_patients_op_in_past_3m; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.transplant_mdm_patients_op_in_past_3m AS
+ SELECT tp.id,
+    tp.secure_id,
+    tp.patient_name,
+    tp.nhs_number,
+    tp.hospital_numbers,
+    tp.sex,
+    tp.born_on,
+    tp.esrf_on,
+    tp.last_operation_date,
+    tp.age,
+    tp.modality_name,
+    tp.tx_status,
+    tp.hgb,
+    tp.hgb_date,
+    tp.ure,
+    tp.ure_date,
+    tp.cre,
+    tp.cre_date,
+    tp.egfr_on
+   FROM renalware.transplant_mdm_patients tp
+  WHERE (tp.last_operation_date >= (now() - '3 mons'::interval));
+
+
+--
+-- Name: transplant_mdm_patients_op_in_past_year; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.transplant_mdm_patients_op_in_past_year AS
+ SELECT tp.id,
+    tp.secure_id,
+    tp.patient_name,
+    tp.nhs_number,
+    tp.hospital_numbers,
+    tp.sex,
+    tp.born_on,
+    tp.esrf_on,
+    tp.last_operation_date,
+    tp.age,
+    tp.modality_name,
+    tp.tx_status,
+    tp.hgb,
+    tp.hgb_date,
+    tp.ure,
+    tp.ure_date,
+    tp.cre,
+    tp.cre_date,
+    tp.egfr_on
+   FROM renalware.transplant_mdm_patients tp
+  WHERE (tp.last_operation_date >= (now() - '1 year'::interval));
+
+
+--
 -- Name: transplant_recipient_followups; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8907,22 +9344,6 @@ ALTER SEQUENCE renalware.transplant_recipient_workups_id_seq OWNED BY renalware.
 
 
 --
--- Name: transplant_registration_status_descriptions; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.transplant_registration_status_descriptions (
-    id integer NOT NULL,
-    code character varying NOT NULL,
-    name character varying,
-    "position" integer DEFAULT 0,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    rr_code integer,
-    rr_comment text
-);
-
-
---
 -- Name: transplant_registration_status_descriptions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -8943,24 +9364,6 @@ ALTER SEQUENCE renalware.transplant_registration_status_descriptions_id_seq OWNE
 
 
 --
--- Name: transplant_registration_statuses; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.transplant_registration_statuses (
-    id integer NOT NULL,
-    registration_id integer,
-    description_id integer,
-    started_on date NOT NULL,
-    terminated_on date,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    notes text
-);
-
-
---
 -- Name: transplant_registration_statuses_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -8978,24 +9381,6 @@ CREATE SEQUENCE renalware.transplant_registration_statuses_id_seq
 --
 
 ALTER SEQUENCE renalware.transplant_registration_statuses_id_seq OWNED BY renalware.transplant_registration_statuses.id;
-
-
---
--- Name: transplant_registrations; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.transplant_registrations (
-    id integer NOT NULL,
-    patient_id integer,
-    referred_on date,
-    assessed_on date,
-    entered_on date,
-    contact text,
-    notes text,
-    document jsonb,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
 
 
 --
@@ -10581,6 +10966,13 @@ ALTER TABLE ONLY renalware.system_user_feedback ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: system_view_metadata id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_view_metadata ALTER COLUMN id SET DEFAULT nextval('renalware.system_view_metadata_id_seq'::regclass);
+
+
+--
 -- Name: system_visits id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -12151,6 +12543,14 @@ ALTER TABLE ONLY renalware.system_templates
 
 ALTER TABLE ONLY renalware.system_user_feedback
     ADD CONSTRAINT system_user_feedback_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_view_metadata system_view_metadata_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_view_metadata
+    ADD CONSTRAINT system_view_metadata_pkey PRIMARY KEY (id);
 
 
 --
@@ -16080,6 +16480,13 @@ CREATE INDEX index_system_user_feedback_on_category ON renalware.system_user_fee
 
 
 --
+-- Name: index_system_view_metadata_on_parent_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_view_metadata_on_parent_id ON renalware.system_view_metadata USING btree (parent_id);
+
+
+--
 -- Name: index_system_visits_on_user_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -18493,6 +18900,14 @@ ALTER TABLE ONLY renalware.clinical_body_compositions
 
 
 --
+-- Name: system_view_metadata fk_rails_b499d6a5de; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_view_metadata
+    ADD CONSTRAINT fk_rails_b499d6a5de FOREIGN KEY (parent_id) REFERENCES renalware.system_view_metadata(id);
+
+
+--
 -- Name: pathology_observation_descriptions fk_rails_b4b10c7e86; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -19977,11 +20392,20 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200110153522'),
 ('20200110160241'),
 ('20200114151225'),
+('20200122182018'),
+('20200122182036'),
+('20200122190909'),
+('20200122194052'),
 ('20200127165951'),
 ('20200127170711'),
 ('20200129093835'),
+('20200131130729'),
+('20200131131652'),
+('20200131133223'),
+('20200131180109'),
 ('20200204153231'),
 ('20200205121805'),
+('20200205185151'),
 ('20200226145010'),
 ('20200301113102'),
 ('20200301124200'),

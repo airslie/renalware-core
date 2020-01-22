@@ -234,6 +234,15 @@ table {
       white-space: nowrap;
       max-width: 0;
     }
+
+    &.col-width-small-with-ellipsis {
+      min-width: 5.1rem;
+      max-width: 5.1rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     &.col-width-medium-with-ellipsis {
       max-width: 7rem;
       min-width: 5rem;

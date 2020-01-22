@@ -41,6 +41,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "HIV"
   inflect.acronym "HL7"
   inflect.acronym "MDM"
+  inflect.acronym "MDMs"
   inflect.acronym "NHS"
   inflect.acronym "NHS"
   inflect.acronym "ODS"

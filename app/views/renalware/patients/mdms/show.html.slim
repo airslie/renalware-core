@@ -1,0 +1,23 @@
+= content_for(:tabs) do
+  = render "tabs", options: options
+
+= content_for(:filters) do
+  = render "filters", options: options
+
+= within_admin_layout(title: "#{options.current_view.scope.humanize} MDMS") do
+  - if options.patients.size.zero?
+    p "No matching patients"
+  - else
+
+    - if current_user_is_super_admin?
+      = link_to "Configure this table",
+                edit_system_view_metadatum_path(options.current_view, format: :html),
+                remote: true,
+                method: :get,
+                data: { "reveal-id" => "system-view-metadata-modal", "reveal-ajax" => "true" },
+                class: "button secondary compact right"
+
+    = render "table", options: options
+
+/ The modal dialog container for internal message sending
+#system-view-metadata-modal.reveal-modal.medium(data-reveal)
