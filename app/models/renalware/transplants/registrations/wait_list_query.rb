@@ -6,9 +6,10 @@ module Renalware
   module Transplants
     module Registrations
       class WaitListQuery
-        def initialize(named_filter:, q: nil)
+        def initialize(named_filter:, ukt_recipient_number: nil, q: nil)
           @named_filter = named_filter&.to_sym || :active
           @q = (q || ActionController::Parameters.new).permit(:s, :q)
+          @ukt_recipient_number = ukt_recipient_number
         end
 
         def call
@@ -16,6 +17,7 @@ module Renalware
             .result
             .extending(Scopes)
             .apply_filter(named_filter)
+            .having_ukt_recipient_number(ukt_recipient_number)
         end
 
         def search
@@ -37,6 +39,14 @@ module Renalware
         # At some point we will have turn this into a mapping object or hash because there will
         # probably not be a 1 to 1 mapping from wait list to UKT status.
         module Scopes
+          def having_ukt_recipient_number(number)
+            return all if number.blank?
+
+            where(<<-SQL, number)
+              transplant_registrations.document -> 'codes' ->> 'uk_transplant_patient_recipient_number' = ?
+            SQL
+          end
+
           # rubocop:disable Metrics/MethodLength
           def apply_filter(filter)
             case filter
@@ -71,10 +81,13 @@ module Renalware
 
         private
 
-        attr_reader :q, :named_filter
+        attr_reader :q, :named_filter, :ukt_recipient_number
 
+        # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
         def query_for_filter(filter)
           case filter
+          when :all
+            {}
           when :active
             { current_status_in: :active }
           when :suspended
@@ -89,6 +102,7 @@ module Renalware
             {} # See Scopes
           end
         end
+        # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength
 
         class QueryableRegistration < ActiveType::Record[Registration]
           scope :current_status_in, lambda { |codes|
@@ -133,7 +147,7 @@ module Renalware
           private_class_method :ransackable_scopes
 
           def self.ransackable_scopes(_auth_object = nil)
-            %i(current_status_in)
+            %i(current_status_in ukt_recipient_number_eq)
           end
         end
       end

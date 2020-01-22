@@ -1,6 +1,28 @@
+= content_for(:filters) do
+  - options = path_params.to_h.symbolize_keys
+  = simple_form_for form,
+            as: :form,
+            url: Renalware::Engine.routes.url_for(options.merge!(only_path: true)),
+            method: :get do |f|
+
+    .row.collapse
+      .columns.small-6
+        .row.collapse
+          .small-10.columns
+            = f.input :ukt_recipient_number,
+                      class: "radius",
+                      wrapper: :hz_large,
+                      label: "UKT recipient number"
+          .small-2.columns
+            = button_tag(type: "submit",
+                        class: "search-registrations button tiny postfix radius radius-right secondary",
+                        style: "width: 3rem") do
+              i.fas.fa-search
+
 = content_for(:tabs) do
   ruby:
     filters = {
+      all: "All",
       active: "Active",
       suspended: "Suspended",
       active_and_suspended: "Active & Suspended",
@@ -17,7 +39,7 @@
       = sub_nav_item(label, path)
 
 = within_admin_layout(title: "Transplant Wait List Registrations") do
-  table.report
+  table.report.wait-list-registrations-table
     thead
       tr
         th.noprint
@@ -29,6 +51,7 @@
         th= sort_link([:renalware, q], :hd_site, "HD Site")
         th= sort_link([:renalware, q], :patient_current_status_description_name, "Status")
         th= sort_link([:renalware, q], :ukt_status, "UKT Status")
+        th.col-width-tiny UKT No
         th.col-width-date= sort_link([:renalware, q], :esrf_on, "ESRF Date")
         th.col-width-date= sort_link([:renalware, q], :entered_on, "Entry Date")
         th DOL

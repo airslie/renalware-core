@@ -58,4 +58,6 @@ RSpec.configure do |config|
   config.include Renalware::Accesses::AccessProcedureSteps
   config.include Renalware::Accesses::AccessProfileSteps
   config.include Renalware::Clinical::AllergySteps
+  config.include Renalware::Transplants::TransplantSteps
+  config.include Renalware::Transplants::WaitListRegistrationSteps
 end
