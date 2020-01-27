@@ -54,6 +54,16 @@ describe Renalware::HD::ProtocolPresenter do
         descriptions = create_descriptions(%w(HGB PLT CRP))
         patient = create(:pathology_patient)
 
+        # For this test to pass we need to have created a Pathology::CodeGroup called
+        # hd_session_form_recent which has the required OBX members.
+        # This code group is the standard one used in the HD Protocol for recent path.
+        # A hospital can add whatever codes they like into it.
+        user = create(:user)
+        group = create(:pathology_code_group, :hd_session_form_recent, by: user)
+        descriptions.each do |desc|
+          create(:pathology_code_group_membership, code_group: group, observation_description: desc, by: user)
+        end
+
         time = Time.zone.parse("2017-12-12 01:01:01")
 
         # This creates two observations and a pg trigger will update patient.current_observation_set

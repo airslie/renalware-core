@@ -27,9 +27,7 @@ module Renalware::Pathology
     describe "viewing a code group" do
       it do
         group = create(:pathology_code_group, name: "Group1", description: "TheDesc")
-        group_membership = create(
-          :pathology_code_group_membership
-        )
+        
         login_as_super_admin
 
         visit pathology_code_group_path(group)

@@ -47,8 +47,10 @@ module Renalware
       )
 
       def self.descriptions_for_group(name)
-        CodeGroup
-          .find_by!(name: name)
+        group = CodeGroup.find_by(name: name)
+        return [] if group.nil?
+
+        group 
           .observation_descriptions
           .order(subgroup: :asc, position_within_subgroup: :asc)
       end

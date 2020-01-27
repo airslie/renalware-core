@@ -7,6 +7,9 @@ module Renalware
       group.description = "Recent pathology shown on the HD Sessions printable form"
       group.created_by = user
       group.updated_by = user
+
+      # We could add observation_descriptions to the group here but none are seeded in the
+      # default seeds.
     end
   end
 end

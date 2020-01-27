@@ -5,5 +5,9 @@ FactoryBot.define do
     accountable
     name { "Group1" }
     description { "Group1Description" }
+
+    trait :hd_session_form_recent do 
+      name { "hd_session_form_recent" }
+    end
   end
 end

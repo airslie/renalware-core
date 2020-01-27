@@ -9,6 +9,14 @@ describe "Patient's Protocol PDF", type: :request do
     create(:hd_patient, family_name: "Rabbit", local_patient_id: "KCH12345", by: user)
   end
 
+  def create_recent_pathology_code_group
+    descriptions = create_descriptions(%w(HGB PLT CRP))
+    group = create(:pathology_code_group, :hd_session_form_recent, by: user)
+    descriptions.each do |desc|
+      create(:pathology_code_group_membership, code_group: group, observation_description: desc, by: user)
+    end
+  end
+
   describe "GET show" do
     it "responds with an inlined PDF by default" do
       get patient_hd_protocol_path(patient_id: patient)
@@ -22,13 +30,15 @@ describe "Patient's Protocol PDF", type: :request do
 
     describe "Recent pathology" do
       it "displays latest HGB PLT CRP values" do
+        create_recent_pathology_code_group
         # Pass debug=1 so we get back html rather than pdf (see pdf options in protocols controller)
         get patient_hd_protocol_path(patient_id: patient, debug: 1)
 
         expect(response).to be_successful
+        expect(response.body).to include("HGB")
         expect(response.body).to include("PLT")
         expect(response.body).to include("CRP")
-        expect(response.body).to include("HGB")
+        
 
         # TODO: To test the actual values we would need to parse the template.
         # We could make this test a type: :system

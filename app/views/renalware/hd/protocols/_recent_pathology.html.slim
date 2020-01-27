@@ -1,14 +1,7 @@
 table.recent-pathology
   tbody
-    tr
-      th.code HGB
-      td.result= recent_pathology.hgb_result
-      td.nowrap.observed_at= (l(recent_pathology.hgb_observed_at))
-    tr
-      th.code PLT
-      td.result= recent_pathology.plt_result
-      td.nowrap.observed_at= (l(recent_pathology.plt_observed_at))
-    tr
-      th.code CRP
-      td.result= recent_pathology.crp_result
-      td.nowrap.observed_at= (l(recent_pathology.crp_observed_at))
+    - recent_pathology.each do |code, value|
+      tr
+        th.code= code
+        td.result= value[:result]
+        td.nowrap.observed_at= (value[:observed_at] && l(Date.parse(value[:observed_at])))
