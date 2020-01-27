@@ -10,6 +10,8 @@ module Renalware
     # together in groups on the page for clarity) and within that group might have a position wich
     # determines its order in the subgroup.
     class CodeGroupMembership < ApplicationRecord
+      include Accountable
+      has_paper_trail class_name: "Renalware::Pathology::Version", on: [:create, :update, :destroy]
       validates :position_within_subgroup, presence: true
       validates :subgroup, presence: true
       belongs_to :code_group

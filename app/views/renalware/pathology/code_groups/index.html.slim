@@ -1,0 +1,16 @@
+= within_admin_layout(title: "Pathology Code Groups") do
+  
+  table.code-groups-table
+    thead 
+      tr  
+        th Group name
+        th Description
+    tbody
+      - groups.each do |group|
+        tr
+          td.actions
+            - if policy(group).edit?
+              = link_to "View", pathology_code_group_path(group)
+          td= group.name
+          td= group.description
+

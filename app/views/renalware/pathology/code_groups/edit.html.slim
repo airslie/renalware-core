@@ -1,0 +1,8 @@
+= within_admin_layout(title: "Pathology Code Group") do
+  h3= group.name
+  = simple_form_for(group, 
+                    url: renalware.pathology_code_group_path(group), 
+                    method: :patch,
+                    as: :code_group) do |f|
+    = f.input :description
+    = f.submit "Save", class: :button

@@ -21,6 +21,7 @@ resources :patients, only: [] do
 end
 
 namespace :pathology do
+  resources :code_groups
   namespace :requests do
     # NOTE: This needs to be POST since the params may exceed url char limit in GET
     post "requests/new", to: "requests#new", as: "new_request"
