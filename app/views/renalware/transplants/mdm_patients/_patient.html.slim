@@ -1,5 +1,10 @@
 - observation_set = patient.current_observation_set
 tr
+  td.actions
+    = link_to view_proc.call(patient), target: "_blank" do
+      i.fa.fa-external-link-square-alt
+      | &nbsp;&nbsp;
+      = t(".view")
   td.full-name= link_to patient.to_s(:default), view_proc.call(patient)
   td.nowrap= patient.nhs_number
   td.nowrap= patient.hospital_identifier
@@ -15,4 +20,3 @@ tr
   td= l(observation_set.cre_observed_at)
   td= observation_set.egfr_result
   td= l(patient.esrf_date)
-  td.actions= link_to t(".view"), view_proc.call(patient)
