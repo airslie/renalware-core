@@ -3,9 +3,6 @@
 require "rails_helper"
 
 describe Renalware::Patients::BookmarksComponent, type: :component do
-  subject { described_class.new(owner: user) }
-  let(:user) { build_stubbed(:user) }
-
   context "when a user has bookmarks" do
     it "displays the user's bookmarks" do 
       user = create(:patients_user)

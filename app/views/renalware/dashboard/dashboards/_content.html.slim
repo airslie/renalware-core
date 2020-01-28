@@ -9,18 +9,7 @@
       p.empty-section= t(".letters.in_progress.none").html_safe
 
   = render(Renalware::Patients::BookmarksComponent, owner: current_user)
-
-  article.messages
-    header
-      h2 Messages
-      ul
-        li= render "renalware/messaging/shared/key"
-    - if dashboard.unread_messages_receipts.any?
-      .unread-messages
-        = render "renalware/messaging/internal/receipts/table",
-                 receipts: dashboard.unread_messages_receipts
-    - else
-      p.empty-section= t(".messages.none")
+  = render(Renalware::Messaging::UnreadMessagesComponent, user: current_user)
 
   article.electonic_ccs
     header
