@@ -1,0 +1,11 @@
+article.bookmarks
+  header
+    h2.title= "Bookmarked Patients"
+    ul
+      li= link_to "View All", renalware.bookmarks_path, class: "button"
+
+  - if bookmarks.any?
+    #bookmarks
+      = render "renalware/dashboard/bookmarks/table", bookmarks: bookmarks
+  - else
+    p.empty-section= t(".bookmarks.none")

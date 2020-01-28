@@ -5,7 +5,7 @@ article.events
       span= "#{biopsies.length} of #{total_biopsies}"
       span.noprint
         = link_to "View All",
-                  patient_events_path(patient),
+                  renalware.patient_events_path(patient),
                   class: "button secondary"
 
   = render "renalware/events/events/table",

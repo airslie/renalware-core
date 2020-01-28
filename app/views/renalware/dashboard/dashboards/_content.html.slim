@@ -8,17 +8,7 @@
     - else
       p.empty-section= t(".letters.in_progress.none").html_safe
 
-  article.bookmarks
-    header
-      h2.title= "Bookmarked Patients"
-      ul
-        li= link_to "View All", bookmarks_path, class: "button"
-
-    - if dashboard.bookmarks.any?
-      #bookmarks
-        = render "renalware/dashboard/bookmarks/table", bookmarks: dashboard.bookmarks
-    - else
-      p.empty-section= t(".bookmarks.none")
+  = render(Renalware::Patients::BookmarksComponent, owner: current_user)
 
   article.messages
     header
