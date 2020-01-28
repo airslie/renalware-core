@@ -10,15 +10,7 @@
 
   = render(Renalware::Patients::BookmarksComponent, owner: current_user)
   = render(Renalware::Messaging::UnreadMessagesComponent, user: current_user)
-
-  article.electonic_ccs
-    header
-      h2 Electronic CCs
-    - if dashboard.unread_electronic_ccs.any?
-      = render "renalware/letters/electronic_receipts/table",
-               receipts: dashboard.unread_electronic_ccs
-    - else
-      p.empty-section= t(".electronic_ccs.none")
+  = render(Renalware::Letters::UnreadElectronicCCsComponent, user: current_user)  
 
   - if current_user_is_admin?
     = render Renalware::Admin::Users::SummaryPart.new(nil, current_user)
