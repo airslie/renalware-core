@@ -65,3 +65,4 @@ spec/dummy/storage/**/*
 /public/renalware/renalware-core-packs
 /public/packs-test
 /spec/dummy/public/renalware-core-packs
+log/.bash_history
