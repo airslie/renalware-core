@@ -5,15 +5,16 @@ require_relative "./login_macros"
 
 RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
-  config.include LoginMacros, type: :controller
-
+  
   config.include Warden::Test::Helpers, type: :feature
   config.include Warden::Test::Helpers, type: :system
+  config.include Warden::Test::Helpers, type: :request
+  config.include Warden::Test::Helpers, type: :component
   config.include Devise::Test::IntegrationHelpers, type: :system
+
+  config.include LoginMacros, type: :controller
   config.include LoginMacros, type: :system
   config.include LoginMacros, type: :feature
-
-  config.include Warden::Test::Helpers, type: :request
   config.include LoginMacros, type: :request
 
   config.before(:each, type: :controller) do

@@ -18,6 +18,12 @@ module Renalware
         end
       end
 
+      # Added this helper as I can't seem to get the Pundit #policy helper to be included
+      # in the context when renderingt a component template.
+      def policy(record)
+        Pundit.policy(user, record)
+      end
+
       private 
       
       attr_reader :user
