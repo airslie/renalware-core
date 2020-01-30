@@ -19,6 +19,7 @@ require "shoulda/matchers"
 require "pundit/rspec"
 require "paper_trail/frameworks/rspec"
 require "wisper/rspec/matchers"
+require "action_view/component/test_helpers"
 
 require_relative "../lib/test_support/text_editor_helpers"
 
@@ -118,8 +119,9 @@ RSpec.configure do |config|
   config.include TextEditorHelpers, type: :system
   config.include CapybaraSelect2, type: :system
   config.include ActiveSupport::Testing::TimeHelpers
-  config.include(Shoulda::Matchers::ActiveModel, type: :model)
-  config.include(Shoulda::Matchers::ActiveRecord, type: :model)
+  config.include Shoulda::Matchers::ActiveModel, type: :model
+  config.include Shoulda::Matchers::ActiveRecord, type: :model
+  config.include ActionView::Component::TestHelpers, type: :component
 
   config.fuubar_progress_bar_options = { progress_mark: "≈" }
 

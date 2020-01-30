@@ -1,0 +1,11 @@
+article.messages
+  header
+    h2 Messages
+    ul
+      li= render "renalware/messaging/shared/key"
+  - if unread_message_receipts.any?
+    .unread-messages
+      = render "renalware/messaging/internal/receipts/table",
+                receipts: unread_message_receipts
+  - else
+    p.empty-section You have no messages.

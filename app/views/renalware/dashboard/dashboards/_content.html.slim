@@ -1,45 +1,8 @@
 .dashboard-content
-  article.letters
-    header
-      h2 Letters in Progress
-    - if dashboard.letters_in_progress.any?
-      #letters-in-progress
-        = render "renalware/dashboard/letters/table", letters: dashboard.letters_in_progress
-    - else
-      p.empty-section= t(".letters.in_progress.none").html_safe
-
-  article.bookmarks
-    header
-      h2.title= "Bookmarked Patients"
-      ul
-        li= link_to "View All", bookmarks_path, class: "button"
-
-    - if dashboard.bookmarks.any?
-      #bookmarks
-        = render "renalware/dashboard/bookmarks/table", bookmarks: dashboard.bookmarks
-    - else
-      p.empty-section= t(".bookmarks.none")
-
-  article.messages
-    header
-      h2 Messages
-      ul
-        li= render "renalware/messaging/shared/key"
-    - if dashboard.unread_messages_receipts.any?
-      .unread-messages
-        = render "renalware/messaging/internal/receipts/table",
-                 receipts: dashboard.unread_messages_receipts
-    - else
-      p.empty-section= t(".messages.none")
-
-  article.electonic_ccs
-    header
-      h2 Electronic CCs
-    - if dashboard.unread_electronic_ccs.any?
-      = render "renalware/letters/electronic_receipts/table",
-               receipts: dashboard.unread_electronic_ccs
-    - else
-      p.empty-section= t(".electronic_ccs.none")
+  = render(Renalware::Letters::LettersInProgressComponent, current_user: current_user)
+  = render(Renalware::Patients::BookmarksComponent, current_user: current_user)
+  = render(Renalware::Messaging::UnreadMessagesComponent, current_user: current_user)
+  = render(Renalware::Letters::UnreadElectronicCCsComponent, current_user: current_user)  
 
   - if current_user_is_admin?
     = render Renalware::Admin::Users::SummaryPart.new(nil, current_user)

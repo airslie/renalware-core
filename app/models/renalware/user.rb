@@ -92,6 +92,15 @@ module Renalware
       OpenSSL::HMAC.hexdigest(digest, key, id.to_s)
     end
 
+
+    # We implement a simple can? method ion the use because in places we pass a current user
+    # from an ActionView::Component to a partial, and in the specs the partial says it cannot
+    # Example usage user.can?(:edit, letter)
+    # def can?(method, record)
+    #   method = :"#{method}?" unless method.to_s.ends_with("?")
+    #   Pundit.policy(self, record).public_send(method.to_sym)
+    # end
+
     private
 
     def build_authentication_token

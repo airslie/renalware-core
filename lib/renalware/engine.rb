@@ -78,6 +78,7 @@ module Renalware
       end
     end
 
+    config.action_view_component.test_controller = "Renalware::BaseController"
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
     config.autoload_paths += %W(#{config.root}/app/validators/concerns)
 
