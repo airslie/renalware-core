@@ -9,10 +9,9 @@ describe "Managing Dialysates", type: :system do
     it do
       login_as_super_admin
 
-      visit root_path
+      visit admin_dashboard_path
 
-      within ".top-bar" do
-        click_on "Super Admin"
+      within ".side-nav--admin" do
         click_on "HD Dialysates"
       end
 

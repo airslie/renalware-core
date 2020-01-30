@@ -1,7 +1,7 @@
 = content_for(:actions) do
   = link_to "Add", new_system_message_path, class: :button
 
-= within_admin_layout(title: "System Messages") do
+= within_new_admin_layout(title: "System Messages") do
   .system-messages
     table
       thead

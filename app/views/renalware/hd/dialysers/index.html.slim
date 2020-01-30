@@ -1,9 +1,8 @@
-= content_for(:tabs) do
-  dl.sub-nav
-    dd= link_to "List", hd_dialysers_path
-    dd= link_to "Add dialyser", new_hd_dialyser_path
 
-= within_admin_layout(title: "HD Dialysers") do
+= content_for(:actions) do
+  = link_to "Add", new_hd_dialyser_path, class: "button"
+
+= within_new_admin_layout(title: "HD Dialysers") do
   table.auto-layout
     thead
       tr
