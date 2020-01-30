@@ -6,7 +6,7 @@ module Renalware
   module UKRDC
     module Incoming
       class FileList
-        pattr_initialize [pattern: "*.xml", paths: Paths.new]
+        pattr_initialize [pattern: "survey*.xml", paths: Paths.new]
 
         # Helper which yields each file in the incoming folder.
         def each_file

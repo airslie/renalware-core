@@ -12,7 +12,7 @@ module Renalware
       let(:logger) do
         Class.new do
           define_method :info, ->(mgs) {}
-        end
+        end.new
       end
 
       # For testing, we will keep the files in the rails tmp folder ./spec/dummy/tmp/ukrdc
@@ -65,7 +65,7 @@ module Renalware
             expect(log).to have_attributes(
               status: "imported",
               patient_id: patient.id,
-              file_path: paths.incoming.join("0.xml").to_s,
+              file_path: paths.incoming.join("survey_0.xml").to_s,
               direction: "in"
             )
             expect(log.payload).not_to be(nil)
@@ -90,7 +90,7 @@ module Renalware
               expect(log).to have_attributes(
                 status: "error",
                 patient_id: nil,
-                file_path: paths.incoming.join("0.xml").to_s,
+                file_path: paths.incoming.join("survey_0.xml").to_s,
                 direction: "in"
               )
               expect(log.error.first).to match("Couldn't find Renalware::Patient")
@@ -115,7 +115,7 @@ module Renalware
               expect(log).to have_attributes(
                 status: "error",
                 patient_id: patient.id,
-                file_path: paths.incoming.join("0.xml").to_s,
+                file_path: paths.incoming.join("survey_0.xml").to_s,
                 direction: "in"
               )
               expect(log.error.first).to match("Survey with name PROM not found")
@@ -142,7 +142,7 @@ module Renalware
               expect(log).to have_attributes(
                 status: "error",
                 patient_id: patient.id,
-                file_path: paths.incoming.join("0.xml").to_s,
+                file_path: paths.incoming.join("survey_0.xml").to_s,
                 direction: "in"
               )
               expect(log.error.first).to match("Question with code YSQ1 not found in survey PROM")
