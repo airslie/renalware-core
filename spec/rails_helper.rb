@@ -122,8 +122,6 @@ RSpec.configure do |config|
   config.include Shoulda::Matchers::ActiveModel, type: :model
   config.include Shoulda::Matchers::ActiveRecord, type: :model
   config.include ActionView::Component::TestHelpers, type: :component
-  # config.include Devise::Test::ControllerHelpers, type: :component
-  # config.include Warden::Test::Helpers, type: :component
 
   config.fuubar_progress_bar_options = { progress_mark: "≈" }
 
