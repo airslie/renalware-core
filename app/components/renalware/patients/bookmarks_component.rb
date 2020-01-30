@@ -3,22 +3,20 @@
 module Renalware
   module Patients
     class BookmarksComponent < ApplicationComponent
-      def initialize(owner:)
-        @owner = owner
+      attr_reader :current_user
+
+      def initialize(current_user:)
+        @current_user = current_user
       end
 
       def bookmarks
         @bookmarks ||= begin
-          Patients.cast_user(owner)
+          Patients.cast_user(current_user)
             .bookmarks
             .ordered
             .includes(patient: [current_modality: :description])
         end
       end
-
-      private 
-      
-      attr_reader :owner
     end
   end
 end

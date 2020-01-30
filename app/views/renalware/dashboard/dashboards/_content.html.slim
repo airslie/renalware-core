@@ -1,17 +1,8 @@
 .dashboard-content
-  article.letters
-    header
-      h2 Letters in Progress
-    - if dashboard.letters_in_progress.any?
-      #letters-in-progress
-        = render "renalware/dashboard/letters/table", letters: dashboard.letters_in_progress
-    - else
-      p.empty-section= t(".letters.in_progress.none").html_safe
-
-  = render(Renalware::Letters::LettersInProgress, user: current_user)
-  = render(Renalware::Patients::BookmarksComponent, owner: current_user)
-  = render(Renalware::Messaging::UnreadMessagesComponent, user: current_user)
-  = render(Renalware::Letters::UnreadElectronicCCsComponent, user: current_user)  
+  = render(Renalware::Letters::LettersInProgressComponent, current_user: current_user)
+  = render(Renalware::Patients::BookmarksComponent, current_user: current_user)
+  = render(Renalware::Messaging::UnreadMessagesComponent, current_user: current_user)
+  = render(Renalware::Letters::UnreadElectronicCCsComponent, current_user: current_user)  
 
   - if current_user_is_admin?
     = render Renalware::Admin::Users::SummaryPart.new(nil, current_user)

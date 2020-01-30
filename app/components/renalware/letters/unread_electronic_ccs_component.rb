@@ -3,8 +3,10 @@
 module Renalware
   module Letters
     class UnreadElectronicCCsComponent < ApplicationComponent
-      def initialize(user:)
-        @user = user
+      attr_reader :current_user
+
+      def initialize(current_user:)
+        @current_user = current_user
       end
 
       def unread_electronic_ccs
@@ -12,21 +14,11 @@ module Renalware
           receipts = Letters::ElectronicReceipt
             .includes(letter: [:patient, :author, :letterhead])
             .unread
-            .for_recipient(user.id)
+            .for_recipient(current_user.id)
             .order(created_at: :asc)
           CollectionPresenter.new(receipts, Letters::ElectronicReceiptPresenter)
         end
       end
-
-      # Added this helper as I can't seem to get the Pundit #policy helper to be included
-      # in the context when renderingt a component template.
-      def policy(record)
-        Pundit.policy(user, record)
-      end
-
-      private 
-      
-      attr_reader :user
     end
   end
 end

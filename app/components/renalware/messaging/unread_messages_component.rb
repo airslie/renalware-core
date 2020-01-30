@@ -3,13 +3,15 @@
 module Renalware
   module Messaging
     class UnreadMessagesComponent < ApplicationComponent
-      def initialize(user:)
-        @user = Messaging::Internal.cast_recipient(user)
+      attr_reader :current_user
+
+      def initialize(current_user:)
+        @current_user = Messaging::Internal.cast_recipient(current_user)
       end
 
       def unread_message_receipts
         @unread_message_receipts ||= begin
-          receipts = user
+          receipts = current_user
             .receipts
             .includes(message: [:author, :patient])
             .order("messaging_messages.sent_at asc")
@@ -17,10 +19,6 @@ module Renalware
           CollectionPresenter.new(receipts, Messaging::Internal::ReceiptPresenter)
         end
       end
-
-      private 
-      
-      attr_reader :user
     end
   end
 end
