@@ -23,7 +23,7 @@ html lang="en"
     meta(name="theme-color" content="#ffffff")
     meta(name="google" content="notranslate")
 
-  body(class="#{ content_for?(:body_class) ? yield(:body_class) : 'page--' + controller_name } #{Rails.env}")
+  body(class="#{ content_for?(:body_class) ? yield(:body_class) : "page--" + controller_path&.tr("/", "-")&.sub("renalware-","")} #{Rails.env}")
     #modals-wrapper
     header
       - if Renalware.config.display_feedback_banner

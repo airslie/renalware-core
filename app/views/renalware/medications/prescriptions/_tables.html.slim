@@ -1,25 +1,29 @@
-h2 Current
-= render "renalware/medications/prescriptions/table",
-      id: "current-prescriptions",
-      patient: patient,
-      treatable: treatable,
-      prescriptions: current_prescriptions,
-      search: current_search,
-      current_scope: true
-.row
-  .large-12.columns
-    .right
-      = link_to "Add Prescription",
-                new_patient_prescription_path(patient, treatable),
-                remote: true,
-                class: %i(button tiny add_prescription)
+article
+  header
+    h2 Current
+    ul
+      li
+        = link_to "Add Prescription",
+            new_patient_prescription_path(patient, treatable),
+            remote: true,
+            class: %i(button add_prescription)
+
+  = render "renalware/medications/prescriptions/table",
+        id: "current-prescriptions",
+        patient: patient,
+        treatable: treatable,
+        prescriptions: current_prescriptions,
+        search: current_search,
+        current_scope: true
 
 - if defined? historical_prescriptions
-  h2 Historical
-  = render "renalware/medications/prescriptions/table",
-      id: "historical-prescriptions",
-      patient: patient,
-      treatable: treatable,
-      prescriptions: historical_prescriptions,
-      search: historical_prescriptions_search,
-      current_scope: false
+  article
+    header
+      h2 Historical
+    = render "renalware/medications/prescriptions/table",
+        id: "historical-prescriptions",
+        patient: patient,
+        treatable: treatable,
+        prescriptions: historical_prescriptions,
+        search: historical_prescriptions_search,
+        current_scope: false
