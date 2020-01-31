@@ -23,6 +23,15 @@ module Renalware
       # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def search
         @search ||= begin
+          nasty_join_sql_to_get_around_a_kaminari_count_issue = <<-SQL
+            inner join modality_modalities X1 
+              on patients.id = X1.patient_id 
+              and X1.state = 'current' 
+              and X1.ended_on IS NULL 
+            inner join modality_descriptions MD1 
+              on MD1.id = X1.description_id 
+              and MD1.code = 'hd'
+          SQL
           HD::Patient
             .include(QueryablePatient)
             .extending(PatientTransplantScopes)
@@ -34,7 +43,7 @@ module Renalware
             .extending(NamedFilterScopes)
             .with_current_pathology
             .with_registration_statuses
-            .with_current_modality_of_class(Renalware::HD::ModalityDescription)
+            .joins(nasty_join_sql_to_get_around_a_kaminari_count_issue)
             .public_send(named_filter.to_s)
             .ransack(params)
         end
