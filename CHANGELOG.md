@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.134
+### Added
+### Changed
+### Fixed
+- Revert HD pagination fix - to fix later in data + indexes #3136
+
 ### 2.0.133
 ### Added
 - Add support for data-driven dashboards #3131
