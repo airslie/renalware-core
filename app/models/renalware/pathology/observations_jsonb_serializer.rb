@@ -34,7 +34,7 @@ module Renalware
 
       def observation_hash_or_hash_element_for(code, suffix)
         obs_hash = self[code]
-        return nil if obs_hash.nil? # the patient may not have this observation in the set
+        return nil if obs_hash.blank? # the patient may not have this code in the set, or it might be {}
         return obs_hash[:result] if suffix == "_result"
         return Date.parse(obs_hash[:observed_at]) if suffix == "_observed_at"
 

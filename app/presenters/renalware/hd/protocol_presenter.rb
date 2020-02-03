@@ -56,8 +56,14 @@ module Renalware
       end
 
       def recent_pathology
-        current_observation_set = Pathology.cast_patient(patient).current_observation_set
-        current_observation_set&.values || Pathology::CurrentObservationSet.null_values_hash
+        current_observation_set = Pathology.cast_patient(patient).fetch_current_observation_set 
+        current_observation_set ||= Pathology::NullObservationSet.new
+        current_observation_set.values_for_codes(codes_to_show)
+      end
+
+      def codes_to_show
+        code_group_name = "hd_session_form_recent"
+        @codes_to_show ||= Pathology::CodeGroup.descriptions_for_group(code_group_name).pluck(:code)
       end
 
       def patient_title

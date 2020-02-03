@@ -28,9 +28,14 @@ module Renalware
     #         G.name,
     #         M.subgroup,
     #         M.position_within_subgroup;
-
     class CodeGroup < ApplicationRecord
+      include Accountable
+      has_paper_trail(
+        class_name: "Renalware::Pathology::Version", 
+        on: [:create, :update, :destroy]
+      )
       validates :name, presence: true, uniqueness: true
+      validates :description, presence: true
       has_many(
         :memberships,
         class_name: "CodeGroupMembership",
@@ -42,8 +47,10 @@ module Renalware
       )
 
       def self.descriptions_for_group(name)
-        CodeGroup
-          .find_by!(name: name)
+        group = CodeGroup.find_by(name: name)
+        return [] if group.nil?
+
+        group 
           .observation_descriptions
           .order(subgroup: :asc, position_within_subgroup: :asc)
       end

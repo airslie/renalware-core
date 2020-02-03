@@ -11,6 +11,7 @@ require_relative "./request_algorithm_patient_rules"
 require_relative "./request_algorithm_sample_types"
 require_relative "./observation_requests"
 require_relative "./pathology_seeder"
+require_relative "./code_groups"
 
 module Renalware
   PathologySeeder.new.seed_pathology_for(local_patient_id: "Z100001") # Roger

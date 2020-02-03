@@ -31,20 +31,6 @@ COMMENT ON EXTENSION btree_gist IS 'support for indexing common datatypes in GiS
 
 
 --
--- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
-
-
---
--- Name: EXTENSION hstore; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
-
-
---
 -- Name: intarray; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -4146,7 +4132,9 @@ CREATE TABLE renalware.pathology_code_group_memberships (
     subgroup integer DEFAULT 1 NOT NULL,
     position_within_subgroup integer DEFAULT 1 NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL
 );
 
 
@@ -4178,7 +4166,9 @@ CREATE TABLE renalware.pathology_code_groups (
     name character varying NOT NULL,
     description text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL
 );
 
 
@@ -4776,6 +4766,41 @@ CREATE SEQUENCE renalware.pathology_requests_sample_types_id_seq
 --
 
 ALTER SEQUENCE renalware.pathology_requests_sample_types_id_seq OWNED BY renalware.pathology_requests_sample_types.id;
+
+
+--
+-- Name: pathology_versions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pathology_versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: pathology_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.pathology_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.pathology_versions_id_seq OWNED BY renalware.pathology_versions.id;
 
 
 --
@@ -9420,6 +9445,13 @@ ALTER TABLE ONLY renalware.pathology_requests_sample_types ALTER COLUMN id SET D
 
 
 --
+-- Name: pathology_versions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_versions ALTER COLUMN id SET DEFAULT nextval('renalware.pathology_versions_id_seq'::regclass);
+
+
+--
 -- Name: patient_alerts id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -10853,6 +10885,14 @@ ALTER TABLE ONLY renalware.pathology_requests_requests
 
 ALTER TABLE ONLY renalware.pathology_requests_sample_types
     ADD CONSTRAINT pathology_requests_sample_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_versions pathology_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_versions
+    ADD CONSTRAINT pathology_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -13621,6 +13661,20 @@ CREATE INDEX index_pathology_code_group_memberships_on_code_group_id ON renalwar
 
 
 --
+-- Name: index_pathology_code_group_memberships_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_code_group_memberships_on_created_by_id ON renalware.pathology_code_group_memberships USING btree (created_by_id);
+
+
+--
+-- Name: index_pathology_code_group_memberships_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_code_group_memberships_on_updated_by_id ON renalware.pathology_code_group_memberships USING btree (updated_by_id);
+
+
+--
 -- Name: index_pathology_code_group_memberships_uniq; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -13628,10 +13682,24 @@ CREATE UNIQUE INDEX index_pathology_code_group_memberships_uniq ON renalware.pat
 
 
 --
+-- Name: index_pathology_code_groups_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_code_groups_on_created_by_id ON renalware.pathology_code_groups USING btree (created_by_id);
+
+
+--
 -- Name: index_pathology_code_groups_on_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE UNIQUE INDEX index_pathology_code_groups_on_name ON renalware.pathology_code_groups USING btree (name);
+
+
+--
+-- Name: index_pathology_code_groups_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_code_groups_on_updated_by_id ON renalware.pathology_code_groups USING btree (updated_by_id);
 
 
 --
@@ -13835,6 +13903,13 @@ CREATE UNIQUE INDEX index_pathology_requests_sample_types_on_code ON renalware.p
 --
 
 CREATE UNIQUE INDEX index_pathology_requests_sample_types_on_name ON renalware.pathology_requests_sample_types USING btree (name);
+
+
+--
+-- Name: index_pathology_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_versions_on_item_type_and_item_id ON renalware.pathology_versions USING btree (item_type, item_id);
 
 
 --
@@ -16074,6 +16149,14 @@ ALTER TABLE ONLY renalware.hd_profiles
 
 
 --
+-- Name: pathology_code_groups fk_rails_2d8bebdd35; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_code_groups
+    ADD CONSTRAINT fk_rails_2d8bebdd35 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: clinic_appointments fk_rails_2eaec177ff; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16506,6 +16589,14 @@ ALTER TABLE ONLY renalware.transplant_rejection_episodes
 
 
 --
+-- Name: pathology_code_group_memberships fk_rails_5fd19b0f12; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_code_group_memberships
+    ADD CONSTRAINT fk_rails_5fd19b0f12 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: pd_regime_terminations fk_rails_6021bed852; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16599,6 +16690,14 @@ ALTER TABLE ONLY renalware.hd_preference_sets
 
 ALTER TABLE ONLY renalware.problem_notes
     ADD CONSTRAINT fk_rails_6a44f3907b FOREIGN KEY (problem_id) REFERENCES renalware.problem_problems(id);
+
+
+--
+-- Name: pathology_code_group_memberships fk_rails_6ff53028fa; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_code_group_memberships
+    ADD CONSTRAINT fk_rails_6ff53028fa FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -17650,6 +17749,14 @@ ALTER TABLE ONLY renalware.pathology_requests_global_rule_sets
 
 
 --
+-- Name: pathology_code_groups fk_rails_e70dca7225; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_code_groups
+    ADD CONSTRAINT fk_rails_e70dca7225 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: pd_assessments fk_rails_e8c15c8c13; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -18638,6 +18745,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200110153522'),
 ('20200110160241'),
 ('20200114151225'),
+('20200127165951'),
+('20200127170711'),
 ('20200129093835');
 
 
