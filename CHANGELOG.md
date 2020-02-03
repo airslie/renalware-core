@@ -6,6 +6,22 @@ This project adheres to Semantic Versioning.
 
 ## Unreleased
 ### Added
+- Add support for data-driven dashboards #3131
+- Add ability to search by UKT recipient number #3043
+- Add pre HD, post HD, n/a options and weight to BCM #3066
+### Changed
+- User dashboard style change #3037
+- Refactor dashboard content into components #3129
+- Update UKRDC XSD Schema git submodule #3133
+- Allow admins to delete an HD Session #3124
+- Improve MDM navigation - MDM links open a new tab #3041
+- Coerce HD session blood_flow to int in UKRDC XML #3122
+### Fixed
+- Fix confusing kaminari pagination issue in HD MDM list #3136
+- UKRDC only import a survey file once #3132
+
+### 2.0.133
+### Added
 ### Changed
 ### Fixed
 
