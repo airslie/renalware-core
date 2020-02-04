@@ -1,0 +1,24 @@
+tbody(class=(administration.authorised? ? "authorised" : "unauthorised"))
+  tr(class="administered-#{administration.administered?}")
+    td= row_toggler
+    td= I18n.l(administration.recorded_on)
+    td= Renalware::Medications::PrescriptionPresenter.new(administration.prescription).to_s
+    td
+      span.given= yes_no administration.administered?
+    td.col-width-medium-with-ellipsis.show-for-large-up= administration.reason&.name
+    td.col-width-medium-with-ellipsis= administration.administered_by
+    td.col-width-medium-with-ellipsis
+      = administration.witnessed_by
+    td.no-wrap.g-center
+      - if administration.authorised?
+        i.fa.fa-check-circle
+      - else
+        = link_to "Sign-off",
+                  edit_hd_prescription_administration_witness_path(administration),
+                  data: { "reveal-id" => "hd-prescription-administration-modal", "reveal-ajax" => "true" }
+    td.col-width-medium-with-ellipsis.show-for-large-up= administration.notes
+  tr
+    td(colspan=9)
+      .quick-preview
+        = definition_list_for(administration, size: :large) do |list|
+          = list.definition(:notes) { |value| simple_format(value) }

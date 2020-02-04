@@ -59,11 +59,9 @@
               - { administrator: :administered, witness: :witnessed }.each do |user_role, prefix|
 
                 - authorised = administration.public_send(:"#{user_role}_authorised?")
-                - token_symbol = :"#{user_role}_authorisation_token"
                 .user-and-password(
                   class="user-and-password--#{user_role} #{'authorised' if authorised} #{'error' if fpa.object.errors[token_symbol].any?}"
                 )
-                  = fpa.hidden_field token_symbol, class: "authentication-token"
                   = fpa.label :"#{prefix}_by"
                   = fpa.association :"#{prefix}_by",
                                     as: :user_picker,

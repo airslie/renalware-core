@@ -1,0 +1,49 @@
+= simple_form_for(form,
+                 remote: true,
+                 as: :form,
+                 html: { autocomplete: "off" },
+                 method: :patch,
+                 url: hd_prescription_administration_witness_path(form.prescription_administration_id)) do |f|
+  .modal
+    .modal__header
+      h2= "Witness HD Drug"
+      = render "renalware/shared/modal_close_link"
+
+    .modal__body
+
+      - prescription = Renalware::Medications::PrescriptionPresenter.new(administration.prescription)
+      .hd-drug-administration.panel
+        .summary
+          .hd-drug
+            .hd-drug--name= prescription.drug_name
+            .hd-drug--dose= prescription.dose
+            .hd-drug--route= prescription.route_code
+            .hd-drug--frequency= prescription.frequency
+            .hd-drug--prescribed-on= l(prescription.prescribed_on)
+            .hd-drug--prescriber-name= prescription.updated_by
+
+            - if prescription.terminated_on.present?
+              .hd-drug--termination
+                | Terminates
+                .hd-drug--termination-date= l(prescription.terminated_on)
+        br
+        span= "Recorded #{l(administration.recorded_on)} by #{administration.administered_by}"
+
+      = f.input :user_id,
+                as: :user_picker,
+                collection: Renalware::User.ordered,
+                wrapper: :hz_small
+      = f.input :password,
+                as: :password,
+                wrapper: :hz_small
+
+    .modal__footer
+      .right
+        = f.submit "Update User Only", name: "form[update_user_only]", class: "button secondary"
+        | &nbsp;&nbsp;
+        = f.submit "Witness", class: "button"
+        span= " or "
+        = link_to "Cancel",
+                "#",
+                "aria-label" => "Close",
+                  class: "reveal-modal-close"

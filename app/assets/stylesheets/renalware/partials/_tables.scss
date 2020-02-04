@@ -221,6 +221,10 @@ table {
         white-space: nowrap;
       }
     }
+
+    &.no-wrap {
+      white-space: nowrap;
+    }
   }
 
   tr td {
@@ -339,6 +343,11 @@ table {
     &.col-width-large {
       min-width: 17rem;
       width: 20rem;
+    }
+
+    &.col-width-xlarge {
+      min-width: 25rem;
+      width: 30rem;
     }
 
     &.column-6-width {

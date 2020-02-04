@@ -36,5 +36,9 @@
     "prebuild": "yarn lint",
     "build": "rollup --config rollup.config.js",
     "lint": "eslint app/javascript"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "IE 11"
+  ]
 }

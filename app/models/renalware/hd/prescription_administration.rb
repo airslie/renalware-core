@@ -7,63 +7,75 @@ module Renalware
     class PrescriptionAdministration < ApplicationRecord
       include Accountable
       acts_as_paranoid
-      attr_accessor :administrator_authorisation_token
-      attr_accessor :witness_authorisation_token
 
       # Set to true by the parent hd_session if we are not signing off at this stage
-      attr_accessor :skip_validation
+      attr_accessor :skip_witness_validation
+      attr_accessor :skip_administrator_validation
+      attr_accessor :administered_by_password
+      attr_accessor :witnessed_by_password
 
       belongs_to :hd_session, class_name: "HD::Session", touch: true
       belongs_to :prescription, class_name: "Medications::Prescription"
       belongs_to :administered_by, class_name: "User"
       belongs_to :witnessed_by, class_name: "User"
       belongs_to :reason, class_name: "PrescriptionAdministrationReason"
-      validates :administered, inclusion: { in: [true, false] }, unless: :skip_validation
+      validates :recorded_on, presence: true
+      validates :administered, inclusion: { in: [true, false] }
       validates :prescription, presence: true
-      validates :administered_by, presence: true, if: :validate_administrator_and_witness?
-      validates :witnessed_by, presence: true, if: :validate_administrator_and_witness?
-      validate :check_administrator_authorisation_token
-      validate :check_witness_authorisation_token
-      scope :ordered, -> { order(created_at: :desc) }
+      validates :administered_by, presence: true, if: :validate_administrator?
+      validates :witnessed_by, presence: true, if: :validate_witness?
+      validate :check_administered_by_password, if: :validate_administrator?
+      validate :check_witnessed_by_password, if: :validate_witness?
+
+      scope :ordered, -> { order(recorded_on: :desc, created_at: :desc) }
+
+      def authorised?
+        return true unless administered?
+
+        administrator_authorised? && witness_authorised?
+      end
 
       private
 
-      def validate_administrator_and_witness?
-        return false if skip_validation || not_administered?
+      def validate_witness?
+        return false if not_administered?
+        return false if skip_witness_validation
         return false unless Renalware.config.hd_session_prescriptions_require_signoff
 
         true
       end
 
-      def check_administrator_authorisation_token
-        verify_submitted_user_token(
-          administered_by,
-          administrator_authorisation_token,
-          :administrator_authorisation_token
-        )
-      end
+      def validate_administrator?
+        return false if not_administered?
+        return false if skip_administrator_validation
 
-      def check_witness_authorisation_token
-        verify_submitted_user_token(
-          witnessed_by,
-          witness_authorisation_token,
-          :witness_authorisation_token
-        )
-      end
-
-      def verify_submitted_user_token(user, token, error_key)
-        return if skip_validation
-        return if user.blank? || not_administered?
-
-        if token.blank?
-          errors[error_key] << "can't be blank"
-        elsif user.auth_token != token
-          errors[error_key] << "invalid token"
-        end
+        true
       end
 
       def not_administered?
         administered.nil? || administered == false
+      end
+
+      def check_administered_by_password
+        return if administered_by.blank?
+
+        self.administrator_authorised = false
+        if administered_by.valid_password?(administered_by_password)
+          self.administrator_authorised = true
+        else
+          errors.add(:administered_by_password, "Invalid password")
+        end
+      end
+
+      def check_witnessed_by_password
+        return if witnessed_by.blank?
+
+        self.witness_authorised = false
+        if witnessed_by.valid_password?(witnessed_by_password)
+          self.witness_authorised = true
+        else
+          errors.add(:witnessed_by_password, "Invalid password")
+        end
       end
     end
   end

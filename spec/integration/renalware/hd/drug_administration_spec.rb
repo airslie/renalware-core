@@ -2,180 +2,166 @@
 
 require "rails_helper"
 
-# When adding an HD session, if there are any drugs to be given
-# then these can be marked as administered and the nurse and a witness must
-# sign then for them to be valid.
-
-# rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
-describe "Administering drugs while creating an HD Session", type: :system do
+describe "Administering drugs from HD Dashboard, independent of HD Session", type: :system do
+  include AjaxHelpers
   let(:patient) { create(:hd_patient) }
 
-  context "when the patient has no drugs to be given on HD" do
-    it "the HD Drugs section is empty on the HD form" do
-      create(:prescription, patient: patient, administer_on_hd: false)
-      login_as_clinical
-
-      visit renalware.new_patient_hd_session_path(patient)
-
-      within ".hd-drug-administrations" do
-        expect(page).to have_css(".hd-drug-administration", count: 0)
-      end
-    end
+  def create_prescription_for(patient, drug_name: "Drug1")
+    create(
+      :prescription,
+      patient: patient,
+      administer_on_hd: true,
+      drug: create(:drug, name: drug_name)
+    )
   end
 
-  context "when the patient drugs to be given on HD", js: false do
-    it "the HD Drugs section lists these" do
-      create(:prescription, patient: patient, administer_on_hd: true)
-      create(:prescription, patient: patient, administer_on_hd: true)
-      login_as_clinical
-
-      visit renalware.new_patient_hd_session_path(patient)
-
-      within ".hd-drug-administrations" do
-        expect(page).to have_css(".hd-drug-administration", count: 2)
-      end
-    end
-  end
-
-  describe "Marking an HD drug as administered", js: true do
-    context "when checking Administered on an HD Drug" do
-      it "changes the classes on .hd-drug-administration to indicate the choice" do
-        create(:prescription, patient: patient, administer_on_hd: true)
+  context "when the patient has a drug to be given on HD", js: true do
+    context "when I click on the HD Drugs button and choose the drug" do
+      it "displays a modal dialog asking for input, which I can cancel" do
+        prescription = create_prescription_for patient
+        dialog = Pages::HD::PrescriptionAdministrationDialog.new(prescription: prescription)
         login_as_clinical
 
-        visit renalware.new_patient_hd_session_path(patient)
-
-        expect(page).to have_css(".hd-drug-administration.undecided", count: 1)
-
-        within(".hd-drug-administration .hd-drug-administered") { choose "Yes" }
-        expect(page).to have_css(".hd-drug-administration.administered", count: 1)
-        expect(page).to have_css(".hd-drug-administration.not-administered", count: 0)
-        expect(page).to have_css(".hd-drug-administration.undecided", count: 0)
-
-        within(".hd-drug-administration") { choose "No" }
-        expect(page).to have_css(".hd-drug-administration.not-administered", count: 1)
-        expect(page).to have_css(".hd-drug-administration.administered", count: 0)
-        expect(page).to have_css(".hd-drug-administration.undecided", count: 0)
+        dialog.open_by_clicking_on_drug_name
+        expect(dialog).to be_visible
+        expect(dialog).to be_displaying_prescription
+        dialog.cancel
+        expect(dialog).not_to be_visible
       end
-    end
-  end
 
-  describe "default nurse" do
-    context "when displaying an HD form containing HD drugs" do
-      it "defaults the Nurse to the currently logged-in user" do
-        create(:prescription, patient: patient, administer_on_hd: true)
-        user = login_as_clinical
+      context "when I indicate the drug was not given, and supply a reason", js: true do
+        it "saves the prescription administration and updates the drugs table" do
+          prescription = create_prescription_for patient
+          reason = Renalware::HD::PrescriptionAdministrationReason.find_or_create_by!(name: "Cos")
+          dialog = Pages::HD::PrescriptionAdministrationDialog.new(prescription: prescription)
+          user = login_as_clinical
+          visit renalware.patient_hd_dashboard_path(patient)
 
-        visit renalware.new_patient_hd_session_path(patient)
+          dialog.open_by_clicking_on_drug_name
+          expect(dialog).to be_visible
+          dialog.administered = false
+          dialog.recorded_on = "12-Apr-2020"
+          dialog.not_administered_reason = reason.name
+          dialog.notes = "abc"
 
-        within(".hd-drug-administration") do
-          expect(page).to have_css(
-            ".user-and-password--administrator " \
-            "select option[selected='selected'][value='#{user.id}']",
-            count: 1
+          # Choosing Administered = No should have changed the save button text to Save
+          # and hidden the 'Save and witness later' button
+          expect(dialog.save_button_captions).to eq ["Save"]
+          dialog.save
+
+          expect(page).not_to have_css(dialog.container_css)
+
+          # A not-administered drug has been recorded
+          expect(patient.prescription_administrations.reload.last).to have_attributes(
+            administered: false,
+            reason: reason,
+            prescription: prescription,
+            notes: "abc",
+            created_by_id: user.id,
+            updated_by_id: user.id,
+            recorded_on: Date.parse("12-Apr-2020"),
+            administered_by: nil,
+            witnessed_by: nil,
+            administrator_authorised: false,
+            witness_authorised: false
+          )
+        end
+      end
+
+      context "when drug WAS given, but user elects to witness later", js: true do
+        it "saves the prescription administration and updates the drugs table" do
+          password = "renalware"
+          nurse = create(:user, password: password)
+          prescription = create_prescription_for patient
+          dialog = Pages::HD::PrescriptionAdministrationDialog.new(prescription: prescription)
+          user = login_as_clinical
+
+          dialog.open_by_clicking_on_drug_name
+          expect(dialog).to be_visible
+          dialog.administered = true
+          dialog.notes = "abc"
+          dialog.administered_by = nurse
+          dialog.administered_by_password = password
+
+          expect(dialog.save_button_captions).to eq(["Save and Witness Later", "Save"])
+
+          dialog.save_and_witness_later
+
+          # dialog gone - need to test this way
+          expect(page).not_to have_css(dialog.container_css)
+
+          # An administered drug is recorded
+          expect(patient.prescription_administrations.reload.first).to have_attributes(
+            administered: true,
+            reason: nil,
+            prescription: prescription,
+            notes: "abc",
+            created_by_id: user.id,
+            updated_by_id: user.id,
+            administered_by: nurse,
+            recorded_on: Date.current, # the default dorm value defaults to today
+            witnessed_by: nil,
+            administrator_authorised: true,
+            witness_authorised: false
+          )
+        end
+      end
+
+      context "when drug WAS given, AND witness is present to enter their credentials", js: true do
+        it "saves the prescription administration and updates the drugs table" do
+          password = "renalware"
+          nurse = create(:user, password: password)
+          witness = create(:user, password: password)
+          prescription = create_prescription_for patient
+          dialog = Pages::HD::PrescriptionAdministrationDialog.new(prescription: prescription)
+          user = login_as_clinical
+
+          dialog.open_by_clicking_on_drug_name
+
+          expect(dialog).to be_visible
+          dialog.administered = true
+          dialog.notes = "abc"
+          dialog.administered_by = nurse
+          dialog.administered_by_password = password
+          dialog.witnessed_by = witness
+          dialog.witnessed_by_password = password
+
+          expect(dialog.save_button_captions).to eq(["Save and Witness Later", "Save"])
+
+          dialog.save
+
+          # dialog gone - need to test this way
+          expect(page).not_to have_css(dialog.container_css)
+
+          # An administered drug is recorded
+          expect(patient.prescription_administrations.reload.first).to have_attributes(
+            administered: true,
+            reason: nil,
+            prescription: prescription,
+            notes: "abc",
+            created_by_id: user.id,
+            updated_by_id: user.id,
+            administered_by: nurse,
+            witnessed_by: witness,
+            administrator_authorised: true,
+            witness_authorised: true
           )
         end
       end
     end
   end
 
-  describe "authorising and saving (but not signing-off) a prescription administration", js: true do
-    context "when indicating the prescriptions was administered" do
-      it "the happy path" do
-        create(:prescription, patient: patient, administer_on_hd: true)
-        unit = create(:hospital_unit, name: "X", unit_code: "Y", is_hd_site: true)
-        password = "renalware"
-        login_as_clinical
-        nurse = create(:user, password: password)
-        witness = create(:user, password: password)
+  describe "default nurse" do
+    context "when displaying the dialog for recoding an HD prescription was given" do
+      it "defaults the Nurse to the currently logged-in user" do
+        prescription = create_prescription_for patient
+        dialog = Pages::HD::PrescriptionAdministrationDialog.new(prescription: prescription)
+        user = login_as_clinical
 
-        visit renalware.new_patient_hd_session_path(patient)
+        dialog.open_by_clicking_on_drug_name
 
-        select unit.to_s, from: "Hospital Unit"
-
-        # There will be one .hd-drug-administration div. Select Administered: Yes
-        within ".hd-drug-administration" do
-          within(".hd-drug-administered") { choose "Yes" }
-          fill_in "Notes", with: "Notes test"
-        end
-
-        # Fill in user and password fields
-        # Note nurse == administrator here
-        within ".user-and-password--administrator" do
-          select2 nurse.given_name, from: "Nurse"
-          fill_in "Password", with: "wrong_password"
-          # Simulate a tab which will cause a blur and the handler will authenticate the password
-          page.find(".user-password").send_keys :tab
-          # we should now have a validation error as the password is invalid
-          expect(page).to have_css(".invalid-password", visible: true)
-          # Now enter the right password
-          fill_in "Password", with: password
-          page.find(".user-password").send_keys :tab
-          expect(page).not_to have_css(".invalid-password", visible: true)
-        end
-
-        within ".user-and-password--witness" do
-          select2 witness.given_name, from: "Witness"
-          fill_in "Password", with: "wrong_password"
-          page.find(".user-password").send_keys :tab
-          # we should now have a validation error as the password is invalid
-          expect(page).to have_css(".invalid-password", visible: true)
-          # Now enter the right password
-          fill_in "Password", with: password
-          page.find(".user-password").send_keys :tab
-          expect(page).not_to have_css(".invalid-password", visible: true)
-        end
-
-        within page.first(".hd-session-form-actions") do
-          click_on "Save"
-        end
-
-        expect(Renalware::HD::Session.count).to eq(1)
-
-        session = Renalware::HD::Session.first
-        expect(session.prescription_administrations.count).to eq(1)
-
-        pa = session.prescription_administrations.first
-        expect(pa.notes).to eq("Notes test")
-        expect(pa.administered).to eq(true) # ie we clicked on Administered: Yes
-        expect(pa.administered_by_id).to eq(nurse.id)
-        expect(pa.witnessed_by_id).to eq(witness.id)
-        expect(pa.administrator_authorised).to eq(true)
-        expect(pa.witness_authorised).to eq(true)
-      end
-    end
-
-    context "when indicating the drug was NOT administered" do
-      it "happy path" do
-        create(:prescription, patient: patient, administer_on_hd: true)
-        reason = Renalware::HD::PrescriptionAdministrationReason.create(name: "The reason")
-        unit = create(:hospital_unit, name: "X", unit_code: "Y", is_hd_site: true)
-        login_as_clinical
-
-        visit renalware.new_patient_hd_session_path(patient)
-
-        select unit.to_s, from: "Hospital Unit"
-
-        within ".hd-drug-administration" do
-          within(".hd-drug-administered") { choose "No" }
-          fill_in "Notes", with: "Notes test"
-          select "The reason", from: "Reason"
-        end
-
-        within page.first(".hd-session-form-actions") do
-          click_on "Save"
-        end
-
-        expect(Renalware::HD::Session.count).to eq(1)
-
-        session = Renalware::HD::Session.first
-        expect(session.prescription_administrations.count).to eq(1)
-
-        pa = session.prescription_administrations.first
-        expect(pa.notes).to eq("Notes test")
-        expect(pa.reason).to eq(reason)
+        expect(dialog.administered_by_id).to eq(user.id)
       end
     end
   end
 end
-# rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength

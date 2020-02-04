@@ -1,0 +1,88 @@
+= simple_form_for(prescription_administration,
+                 remote: true,
+                 html: { autocomplete: "off" },
+                 url: url) do |fpa|
+  .modal
+    .modal__header
+      h2= "Record HD Drug"
+      = render "renalware/shared/modal_close_link"
+
+    .modal__body
+      /= render "renalware/shared/errors", model: prescription_administration
+
+      - prescription = Renalware::Medications::PrescriptionPresenter.new(prescription_administration.prescription)
+      - administration = prescription_administration
+      = fpa.input :prescription_id, as: :hidden
+
+      .hd-drug-administration
+        .summary
+          .hd-drug
+            .hd-drug--name= prescription.drug_name
+            .hd-drug--dose= prescription.dose
+            .hd-drug--route= prescription.route_code
+            .hd-drug--frequency= prescription.frequency
+            .hd-drug--prescribed-on= l(prescription.prescribed_on)
+            .hd-drug--prescriber-name= prescription.updated_by
+
+            - if prescription.terminated_on.present?
+              .hd-drug--termination
+                | Terminates
+                .hd-drug--termination-date= l(prescription.terminated_on)
+
+        .hd-drug-administered
+          label(for="hd_prescription_administration_administered") Administered
+          = fpa.input :administered, as: :inline_radio_buttons, label: false
+
+        .recorded-on
+          = fpa.input :recorded_on, as: :date_picker, wrapper: :hz_tiny, input_html: { autocomplete: "off" }
+
+        .notes
+          = fpa.label :notes
+          = fpa.input :notes, label: false, wrapper: :zilch, input_html: { rows: 2 }
+
+        .reason-why-not-administered
+          = fpa.label :reason_id
+
+          = fpa.association :reason, wrapper: :zilch, label: "x"
+
+        - if Renalware.config.hd_session_prescriptions_require_signoff
+          .authentication(
+            class="#{'disabled-with-faded-overlay' unless administration.administered?}"
+            data-authentication-url=renalware.hd_prescription_administration_authorisations_path
+          )
+            / Output username and password fields for administrator and witness
+            - { administrator: :administered, witness: :witnessed }.each do |user_role, prefix|
+
+              - authorised = administration.public_send(:"#{user_role}_authorised?")
+              .user-and-password(
+                class="user-and-password--#{user_role} #{'authorised' if authorised} #{'error' if fpa.object.errors[:password].any?}"
+              )
+                = fpa.label :"#{prefix}_by"
+                = fpa.association :"#{prefix}_by",
+                                  as: :user_picker,
+                                  collection: Renalware::User.ordered,
+                                  wrapper: :zilch,
+                                  label: false,
+                                  input_html: { class: "authentication-user-id" }
+
+                / Password is only visible as long as the user has not been authenticated
+                = fpa.input :"#{prefix}_by_password",
+                            as: :password,
+                            placeholder: "Password",
+                            class: "user-password",
+                            autocomplete: :off
+
+      .modal__footer
+        .right
+          = fpa.submit "Save and Witness Later",
+                       name: "hd_prescription_administration[skip_witness_validation]",
+                       id: "btn_save_and_witness_later",
+                       class: "button secondary"
+          | &nbsp;&nbsp;
+          = fpa.submit "Save",
+                       class: "button"
+          span= " or "
+          = link_to "Cancel",
+                  "#",
+                  "aria-label" => "Close",
+                    class: "reveal-modal-close"

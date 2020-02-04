@@ -1,26 +1,10 @@
 
-.sub-nav.with-tabs
-  dl
-    dd.active
-      = link_to "Details", "#hd-sessions", data: { "trigger-masonry-refresh" => true }
-    dd
-      = link_to "Drugs given", "#hd-session-drugs", data: { "trigger-masonry-refresh" => true }
-  hr.tab-bottom-border
-
+/ .column_hover
 table.toggleable.auto-layout.hd-sessions#hd-sessions(data-controller="toggle")
   = render "renalware/hd/sessions/thead"
 
   - sessions.each_with_index do |session, index|
     - stripe_class = index % 2 == 0 ? "even" : "odd"
     = render "renalware/hd/sessions/#{session.state}/row",
-            session: session,
-            stripe_class: stripe_class
-
-table.toggleable.auto-layout.hd-sessions.hd-session-drugs#hd-session-drugs(style="display: none" data-controller="toggle")
-  = render "renalware/hd/sessions/administered_drugs_thead"
-
-  - sessions.each_with_index do |session, index|
-    - stripe_class = index % 2 == 0 ? "even" : "odd"
-    = render "renalware/hd/sessions/#{session.state}/administered_drugs_row",
             session: session,
             stripe_class: stripe_class

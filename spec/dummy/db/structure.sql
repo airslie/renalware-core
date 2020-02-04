@@ -2684,7 +2684,7 @@ ALTER SEQUENCE renalware.hd_prescription_administration_reasons_id_seq OWNED BY 
 
 CREATE TABLE renalware.hd_prescription_administrations (
     id integer NOT NULL,
-    hd_session_id integer NOT NULL,
+    hd_session_id integer,
     prescription_id integer NOT NULL,
     administered boolean,
     notes text,
@@ -2697,7 +2697,9 @@ CREATE TABLE renalware.hd_prescription_administrations (
     administrator_authorised boolean DEFAULT false NOT NULL,
     witness_authorised boolean DEFAULT false NOT NULL,
     reason_id bigint,
-    deleted_at timestamp without time zone
+    deleted_at timestamp without time zone,
+    patient_id bigint,
+    recorded_on date
 );
 
 
@@ -12688,6 +12690,13 @@ CREATE INDEX index_hd_prescription_administrations_on_hd_session_id ON renalware
 
 
 --
+-- Name: index_hd_prescription_administrations_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_prescription_administrations_on_patient_id ON renalware.hd_prescription_administrations USING btree (patient_id);
+
+
+--
 -- Name: index_hd_prescription_administrations_on_prescription_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -17317,6 +17326,14 @@ ALTER TABLE ONLY renalware.admission_admissions
 
 
 --
+-- Name: hd_prescription_administrations fk_rails_b56a7920ec; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_prescription_administrations
+    ADD CONSTRAINT fk_rails_b56a7920ec FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
 -- Name: transplant_donor_operations fk_rails_b6ee03185c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -18748,6 +18765,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200127165951'),
 ('20200127170711'),
 ('20200129093835'),
+('20200204153231'),
 ('20200205121805');
 
 

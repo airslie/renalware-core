@@ -16,6 +16,7 @@ resources :patients, only: [] do
               only: [:index, :show],
               path: "/profiles/historical"
     resources :sessions
+    resources :prescription_administrations, only: :index
   end
 end
 
@@ -25,6 +26,14 @@ namespace :hd do
     get "patients_dialysing_at_hospital" => "patients#dialysing_at_hospital"
   end
 
+  resources :prescriptions, only: [] do
+    resources :administrations,
+              only: %i(new create edit update),
+              controller: "prescription_administrations"
+  end
+  resources :prescription_administration, only: [] do
+    resource :witness, only: [:edit, :update]
+  end
   resources :prescription_administration_authorisations, only: :create
   resources :transmission_logs, only: [:show, :index]
   resources :cannulation_types, except: :show

@@ -354,13 +354,6 @@ module World
 
         post_observations = new_session.document.observations_after
         expect(post_observations.respiratory_rate).to eq(12)
-
-        # TODO: We have not populated the prescription_administrations yet in this test, so
-        # we _should_ have had a validation error because neither Yes nor Nor were selected
-        # in the HD Drugs section for the drug that is administrable on HD.
-        # However no validation error.
-        expect(new_session.prescription_administrations.length).to eq(1)
-        # expect(new_session.prescription_administrations.first.administered).to eq(true)
       end
 
       def view_ongoing_hd_sessions(user:)

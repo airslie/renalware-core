@@ -1,0 +1,4 @@
+<%# We render this on successful creation %>
+<%= refresh(".flash-message", partial: "renalware/shared/flash_messages", locals: local_assigns) %>
+$('#hd-prescription-administration-modal').foundation('reveal', 'close');
+window.location.reload();

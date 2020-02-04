@@ -1,0 +1,8 @@
+- initially_visible = local_assigns.fetch(:initially_visible, true)
+
+table.toggleable#hd-session-drugs.auto-layout(style="display: #{initially_visible ? 'block' : 'none'}" data-controller="toggle")
+  = render "renalware/hd/prescription_administrations/thead"
+
+  - prescription_administrations.each_with_index do |administration, index|
+    = render "renalware/hd/prescription_administrations/row", administration: administration
+

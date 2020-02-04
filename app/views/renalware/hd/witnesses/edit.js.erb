@@ -1,0 +1,4 @@
+// Render this to re-display the form with errors after an unsuccessful save
+var modal = $("#hd-prescription-administration-modal")
+$(modal).html("<%= j(render 'form', form: form, administration: administration) %>");
+Renalware.HDPrescriptionAdministration.init();
