@@ -9,13 +9,23 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.135
+04-02-2020
+### Added
+- Add date of death sort on deceased patients table #3080 
+### Changed
+- Limit current access profile query to 1 result #3139
+### Fixed
+
 ### 2.0.134
+04-02-2020
 ### Added
 ### Changed
 ### Fixed
 - Revert HD pagination fix - to fix later in data + indexes #3136
 
 ### 2.0.133
+03-02-2030
 ### Added
 - Add support for data-driven dashboards #3131
 - Add ability to search by UKT recipient number #3043
