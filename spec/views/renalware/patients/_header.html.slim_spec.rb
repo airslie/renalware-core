@@ -7,6 +7,7 @@ require "rails_helper"
 #  include PatientsSpecHelper
 # Nothing else has changed to provoke this. All PRs seemd to start failing together on this test.
 describe "renalware/patients/_header" do
+  include PatientsSpecHelper
   helper(Renalware::ApplicationHelper, Renalware::PatientHelper)
 
   it "includes the correctly formatted NHS number" do
