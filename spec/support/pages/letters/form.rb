@@ -3,8 +3,6 @@
 require "rails_helper"
 require_relative "../page_object"
 require "capybara-select-2"
-
-# rubocop:disable Layout/LineLength
 module Pages
   module Letters
     class Form < PageObject
@@ -63,4 +61,3 @@ module Pages
     end
   end
 end
-# rubocop:enable Layout/LineLength

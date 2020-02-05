@@ -129,8 +129,6 @@ module Renalware
         attribute :safe_to_use, Document::Enum, default: :Y
       end
       attribute :avf_avg_assessment, AvfAvgAssessment
-
-      # rubocop:disable Metrics/AbcSize
       def error_messages
         [
           observations_before.errors.full_messages,
@@ -141,7 +139,6 @@ module Renalware
           hdf.errors.full_messages
         ].flatten.compact
       end
-      # rubocop:enable Metrics/AbcSize
     end
   end
 end

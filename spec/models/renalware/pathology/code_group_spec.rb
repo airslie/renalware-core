@@ -12,20 +12,21 @@ module Renalware
       is_expected.to have_many(:memberships)
       is_expected.to have_many(:observation_descriptions).through(:memberships)
     end
-  
+
     describe "uniqueness" do
       subject { described_class.new(name: "A", created_by: user, updated_by: user) }
+
       let(:user) { create(:user) }
 
       it { is_expected.to validate_uniqueness_of(:name) }
     end
 
-    describe "#descriptions_for_group" do 
-      context "when supplied group name does not exist" do 
+    describe "#descriptions_for_group" do
+      context "when supplied group name does not exist" do
         it "returns an empty array" do
           expect(described_class.descriptions_for_group("xyx")).to eq []
         end
-      end 
+      end
     end
   end
 end

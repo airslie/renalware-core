@@ -50,8 +50,8 @@ module Renalware
           end
         end
 
-        context "when hash has no HGB" do 
-          it "returns nil for hgb_* methods" do 
+        context "when hash has no HGB" do
+          it "returns nil for hgb_* methods" do
             hash = ObservationsJsonbSerializer.load({})
 
             expect(hash.hgb_observed_at).to be_nil

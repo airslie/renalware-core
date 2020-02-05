@@ -17,9 +17,9 @@ module Renalware
       let(:clinician) { create(:user, :clinical) }
       let(:admin) { create(:user, :admin) }
       let(:super_admin) { create(:user, :super_admin) }
-      
+
       permissions :index? do
-        it :aggregate_failures do 
+        it :aggregate_failures do
           is_expected.to permit(clinician, code_group)
           is_expected.to permit(admin, code_group)
           is_expected.to permit(super_admin, code_group)
@@ -28,7 +28,7 @@ module Renalware
 
       [:create?, :edit?, :update?, :destroy?].each do |permission|
         permissions permission do
-          it :aggregate_failures do 
+          it :aggregate_failures do
             is_expected.not_to permit(clinician, code_group)
             is_expected.not_to permit(admin, code_group)
             is_expected.to permit(super_admin, code_group)

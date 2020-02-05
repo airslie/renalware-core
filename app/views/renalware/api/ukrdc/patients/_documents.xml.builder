@@ -2,7 +2,7 @@
 
 xml = builder
 
-if patient.letters.size == 0
+if patient.letters.empty?
   xml.Documents
 else
   xml.Documents do

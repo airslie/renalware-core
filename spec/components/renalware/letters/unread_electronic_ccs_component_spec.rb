@@ -15,10 +15,10 @@ describe Renalware::Letters::UnreadElectronicCCsComponent, type: :component do
   end
 
   context "when a user has unread eCCs" do
-    it "displays the user's eCCs" do 
+    it "displays the user's eCCs" do
       user = create(:user)
       letter = send_letter_ecc_to(user)
-      
+
       html = render_inline(described_class, current_user: user).to_html
 
       expect(html).to match("Electronic CCs")

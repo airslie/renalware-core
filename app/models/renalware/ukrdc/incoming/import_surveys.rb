@@ -23,7 +23,7 @@ module Renalware
               FileUtils.mv filepath, paths.archive.join(filepath.basename)
               next
             end
-            
+
             logger.info "Processing: #{filepath}"
             import_surveys_from_file(filepath)
           end
@@ -38,7 +38,7 @@ module Renalware
         # This assumes filenames are unique across time, which they should be.
         # Note we match on the whole file path, so if the location of the folder changes
         # and we are presented with familiar files, then they will be imported again. Its unlikely
-        # those two things will happen together though. 
+        # those two things will happen together though.
         def already_imported?(filepath)
           TransmissionLog.exists?(file_path: filepath.to_s, status: :imported)
         end
@@ -46,7 +46,6 @@ module Renalware
         # Import all surverys (they will be for the same patient) in the XML file.
         # Note that #with_logging yields a block that will catch and save any error to
         # ukrdc_transmission_logs
-        # rubocop:disable Metrics/AbcSize
         def import_surveys_from_file(file)
           # Important to create the log before we do anything that might cause an error
           # eg parse the xml etc.
@@ -64,7 +63,6 @@ module Renalware
         ensure
           FileUtils.mv file, paths.archive.join(file.basename)
         end
-        # rubocop:enable Metrics/AbcSize
 
         def import_survey(survey_hash, patient)
           ImportSurvey.new(

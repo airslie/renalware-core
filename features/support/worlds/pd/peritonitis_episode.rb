@@ -39,7 +39,6 @@ module World
         expect(prescription).to be_present
       end
 
-      # rubocop:disable Metrics/AbcSize
       def expect_peritonitis_episodes_revisions_recorded(patient:)
         exit_site_infection = patient.peritonitis_episodes.last!
         organism = exit_site_infection.infection_organisms.last!
@@ -49,7 +48,6 @@ module World
 
         expect_exit_site_prescriptions_to_be_revised(patient, exit_site_infection)
       end
-      # rubocop:enable Metrics/AbcSize
     end
 
     module Web

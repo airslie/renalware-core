@@ -14,7 +14,6 @@ module Renalware
         render locals: { pet_adequacy_result: result, patient: patient }
       end
 
-      # rubocop:disable Metrics/AbcSize
       def create
         result = patient.pet_adequacy_results.new(pet_adequacy_result_params)
         authorize result
@@ -25,13 +24,11 @@ module Renalware
           render :new, locals: { pet_adequacy_result: result, patient: patient }
         end
       end
-      # rubocop:enable Metrics/AbcSize
 
       def edit
         render locals: { pet_adequacy_result: pet_adequacy_result, patient: patient }
       end
 
-      # rubocop:disable Metrics/AbcSize
       def update
         pet_adequacy_result.assign_attributes(pet_adequacy_result_params)
         if pet_adequacy_result.save
@@ -41,7 +38,6 @@ module Renalware
           render :edit, locals: { pet_adequacy_result: pet_adequacy_result, patient: patient }
         end
       end
-      # rubocop:enable Metrics/AbcSize
 
       def show
         render locals: { pet_adequacy_result: pet_adequacy_result, patient: patient }

@@ -56,7 +56,7 @@ module Renalware
       end
 
       def recent_pathology
-        current_observation_set = Pathology.cast_patient(patient).fetch_current_observation_set 
+        current_observation_set = Pathology.cast_patient(patient).fetch_current_observation_set
         current_observation_set ||= Pathology::NullObservationSet.new
         current_observation_set.values_for_codes(codes_to_show)
       end

@@ -13,7 +13,6 @@ module Renalware
           @regime = decorate(regime)
         end
 
-        # rubocop:disable Metrics/AbcSize
         def call
           regime.overnight_volume = regime.calculated_overnight_volume
           regime.daily_volume = regime.calculated_daily_volume
@@ -21,7 +20,6 @@ module Renalware
           regime.glucose_volume_medium_strength = regime.volume_of_glucose_at_strength(:medium)
           regime.glucose_volume_high_strength = regime.volume_of_glucose_at_strength(:high)
         end
-        # rubocop:enable Metrics/AbcSize
 
         private
 

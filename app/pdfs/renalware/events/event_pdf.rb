@@ -2,7 +2,7 @@
 
 require_dependency "renalware/events"
 
-# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+# rubocop:disable Metrics/MethodLength
 module Renalware
   module Events
     # We have used wicked_pdf (which shells out to wkhtmltopdf) up to know, but using prawn here
@@ -121,4 +121,4 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+# rubocop:enable Metrics/MethodLength

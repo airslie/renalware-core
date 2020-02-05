@@ -28,7 +28,6 @@ module Renalware
       end
 
       # idempotent
-      # rubocop:disable Metrics/AbcSize
       def destroy
         bookmark = user.bookmarks.find_by(id: params[:id])
         patient = bookmark&.patient
@@ -42,7 +41,6 @@ module Renalware
         redirect_back(fallback_location: patient_path(fallback_location),
                       notice: success_msg_for("bookmark"))
       end
-      # rubocop:enable Metrics/AbcSize
 
       private
 
