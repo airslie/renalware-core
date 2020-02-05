@@ -4133,8 +4133,8 @@ CREATE TABLE renalware.pathology_code_group_memberships (
     position_within_subgroup integer DEFAULT 1 NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    created_by_id bigint NOT NULL,
-    updated_by_id bigint NOT NULL
+    created_by_id bigint,
+    updated_by_id bigint
 );
 
 
@@ -4167,8 +4167,8 @@ CREATE TABLE renalware.pathology_code_groups (
     description text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    created_by_id bigint NOT NULL,
-    updated_by_id bigint NOT NULL
+    created_by_id bigint,
+    updated_by_id bigint
 );
 
 
@@ -18747,6 +18747,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200114151225'),
 ('20200127165951'),
 ('20200127170711'),
-('20200129093835');
+('20200129093835'),
+('20200205121805');
 
 
