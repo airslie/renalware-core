@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/GlobalVars
-Dir[Renalware::Engine.root.join("features/support/worlds/*.rb")].each { |f| require f }
+Dir[Renalware::Engine.root.join("features/support/worlds/*.rb")].sort.each { |f| require f }
 
 $world_methods = []
 
-# rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
 def add_class_to_world(klass_name)
   exclusions = ENV["TEST_DEPTH"] == "web" ? [:Domain] : [:Web]
 
@@ -29,7 +29,7 @@ def add_class_to_world(klass_name)
     add_class_to_world("#{klass.name}::#{constant}")
   end
 end
-# rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+# rubocop:enable Metrics/MethodLength
 
 add_class_to_world("World")
 

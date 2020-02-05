@@ -32,7 +32,7 @@ module Renalware
         def generate_treatments
           PrepareTables.call
           Rails.logger.info "#{patient_scope.count} patients"
-          patient_scope.find_each.with_index do |patient, index|
+          patient_scope.find_each.with_index do |patient, _index|
             print "\n#{patient.id}: "
             GenerateTimeline.new(patient).call
             # Start gargbage collection periodically to prevent server ram issues.

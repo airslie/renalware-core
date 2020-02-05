@@ -43,14 +43,13 @@ module Renalware
           expect(set.values_for_codes("XXX")).to eq("XXX" => {})
         end
 
-
-        context "when the patient has nothing in their current_observation_set" do 
-          it "returns an empty hash for each requested code" do 
+        context "when the patient has nothing in their current_observation_set" do
+          it "returns an empty hash for each requested code" do
             patient = create(:pathology_patient)
             set = patient.fetch_current_observation_set
-            
+
             expect(set).not_to be_nil # we build one if missing
-            values = set.values_for_codes(["HGB", "XXX"])
+            values = set.values_for_codes(%w(HGB XXX))
             expect(values).to eq("HGB" => {}, "XXX" => {})
             expect(values.hgb_result).to be_nil
             expect(values.hgb_observed_at).to be_nil

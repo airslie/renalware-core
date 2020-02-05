@@ -3,7 +3,7 @@
 require "rails_helper"
 require "test_support/ajax_helpers"
 
-# rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
+# rubocop:disable RSpec/MultipleExpectations
 describe "Remembering last used letter choices in the user's session", type: :system, js: true do
   it "once a letter is created, subsequent new letters remember letterhead, author, " \
      "date and description" do
@@ -59,4 +59,4 @@ describe "Remembering last used letter choices in the user's session", type: :sy
       .to eq(users[1].id.to_s)
   end
 end
-# rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
+# rubocop:enable RSpec/MultipleExpectations

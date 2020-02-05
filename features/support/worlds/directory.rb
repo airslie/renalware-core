@@ -5,4 +5,5 @@ module World
   end
 end
 
-Dir[Renalware::Engine.root.join("features/support/worlds/directory/*.rb")].each { |f| require f }
+Dir[Renalware::Engine.root.join("features/support/worlds/directory/*.rb")]
+  .sort.each { |f| require f }

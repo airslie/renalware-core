@@ -11,7 +11,7 @@ module Renalware
         render locals: { form: HL7TestForm.new, test_messages: test_messages }
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/MethodLength
       def create
         authorize [:renalware, :admin, :devops], :create?
         body = replace_placeholders_in_hl7_message(form_params[:body])
@@ -29,7 +29,7 @@ module Renalware
             }
           end
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:enable Metrics/MethodLength
 
         # # Delayed::Job.enqueue job
         # redirect_to(

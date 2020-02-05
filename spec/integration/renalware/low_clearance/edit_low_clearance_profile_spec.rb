@@ -18,7 +18,6 @@ describe "Edit Low Clearance", type: :system do
 
   describe "edit low clearance data for a patient" do
     context "with valid attributes" do
-      # rubocop:disable RSpec/ExampleLength
       it "saves" do
         referrer = Renalware::LowClearance::Referrer.create(name: "TestReferrer")
         login_as_clinical
@@ -57,7 +56,6 @@ describe "Edit Low Clearance", type: :system do
           education_type: "day"
         )
       end
-      # rubocop:enable RSpec/ExampleLength
     end
   end
 end

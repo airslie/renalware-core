@@ -25,7 +25,6 @@ module Renalware
           Rails.logger.info "Compiling letter PDFs for batch #{batch.id} in folder #{dir}"
         end
 
-        # rubocop:disable Metrics/AbcSize
         def call
           batch.status = :processing
           batch.save_by!(user)
@@ -38,7 +37,6 @@ module Renalware
           batch.status = :awaiting_printing
           batch.save_by!(user)
         end
-        # rubocop:enable Metrics/AbcSize
 
         private
 

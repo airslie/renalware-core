@@ -16,7 +16,6 @@ class DatePickerInput < SimpleForm::Inputs::StringInput
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
   def input_column(_wrapper_options = {})
     html_options = input_html_options
     html_options[:class] ||= []
@@ -27,7 +26,6 @@ class DatePickerInput < SimpleForm::Inputs::StringInput
       template.concat @builder.text_field(attribute_name, html_options.merge(value: value))
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def icon_calendar
     "<span class='prefix'><i class='far fa-calendar'></i></span>".html_safe

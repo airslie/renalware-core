@@ -2,8 +2,6 @@
 
 require "rails_helper"
 require_dependency "renalware/renal"
-
-# rubocop:disable RSpec/ExampleLength
 describe "Renal Profile", type: :system, js: true do
   describe "GET #show" do
     it "updating the renal profile" do
@@ -77,4 +75,3 @@ describe "Renal Profile", type: :system, js: true do
     end
   end
 end
-# rubocop:enable RSpec/ExampleLength

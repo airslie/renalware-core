@@ -28,12 +28,12 @@ module Renalware
       }
 
       # Because the database allows multiple current access profiles, this scope
-      # needs to choose just one, otherwise queries that merge in this scope 
+      # needs to choose just one, otherwise queries that merge in this scope
       # can have duplicates, or worse, broken pagination.
       scope :with_profile, lambda {
         joins(<<-SQL)
           left outer join (
-            select distinct on (patient_id) * from access_profiles 
+            select distinct on (patient_id) * from access_profiles
               where
                 access_profiles.terminated_on is null
                 and access_profiles.started_on <= current_date

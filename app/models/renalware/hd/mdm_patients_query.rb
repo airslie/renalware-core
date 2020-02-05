@@ -20,7 +20,7 @@ module Renalware
         search.result
       end
 
-      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      # rubocop:disable Metrics/MethodLength
       def search
         @search ||= begin
           HD::Patient
@@ -39,7 +39,7 @@ module Renalware
             .ransack(params)
         end
       end
-      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+      # rubocop:enable Metrics/MethodLength
 
       # Module to allow us to mixin ransackers
       module QueryablePatient

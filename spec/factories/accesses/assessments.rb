@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :access_assessment, class: Renalware::Accesses::Assessment do
+  factory :access_assessment, class: "Renalware::Accesses::Assessment" do
     accountable
     association :patient, factory: :accesses_patient
     association :type, factory: :access_type

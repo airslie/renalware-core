@@ -2,7 +2,6 @@
 
 require "rails_helper"
 
-# rubocop:disable RSpec/MultipleExpectations
 module Renalware::Pathology
   describe "Design pathology code groups", type: :system do
     describe "listing code groups" do
@@ -14,7 +13,7 @@ module Renalware::Pathology
 
         expect(page).to have_content "Pathology Code Groups"
 
-        within ".code-groups-table" do 
+        within ".code-groups-table" do
           expect(page).to have_content "Group name"
 
           expect(page).to have_content group.name
@@ -27,7 +26,7 @@ module Renalware::Pathology
     describe "viewing a code group" do
       it do
         group = create(:pathology_code_group, name: "Group1", description: "TheDesc")
-        
+
         login_as_super_admin
 
         visit pathology_code_group_path(group)

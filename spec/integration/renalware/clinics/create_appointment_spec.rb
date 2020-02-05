@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-
-# rubocop:disable RSpec/ExampleLength
 describe "Create new appointment manually (not via HL7 message)", type: :system, js: true do
   context "with valid inputs" do
     it "creates a new clinic appointment" do
@@ -48,4 +46,3 @@ describe "Create new appointment manually (not via HL7 message)", type: :system,
     end
   end
 end
-# rubocop:enable RSpec/ExampleLength

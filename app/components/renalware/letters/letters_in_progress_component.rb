@@ -4,7 +4,7 @@ module Renalware
   module Letters
     class LettersInProgressComponent < ApplicationComponent
       attr_reader :current_user
-      
+
       def initialize(current_user:)
         @current_user = current_user
       end
@@ -22,8 +22,8 @@ module Renalware
         end
       end
 
-      private 
-      
+      private
+
       def present_letters(letters)
         CollectionPresenter.new(letters, Letters::LetterPresenterFactory)
       end

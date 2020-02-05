@@ -73,7 +73,6 @@ module Renalware
 
           # Putting this here for now so all incomplete data criteria is all in one place.
           # Build an array of symbols for all missing data identified by the above query
-          # rubocop:disable Metrics/AbcSize
           def self.missing_data_for(patient)
             renal_profile = Renal.cast_patient(patient).profile
             missing = []
@@ -85,7 +84,6 @@ module Renalware
             end
             missing
           end
-          # rubocop:enable Metrics/AbcSize
 
           module QueryablePatient
             extend ActiveSupport::Concern
