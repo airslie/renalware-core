@@ -16,6 +16,7 @@ module Renalware
         patient.send_to_rpv = false
         patient.rpv_decision_on = Time.zone.today
         patient.rpv_recorded_by = by.to_s
+        patient.skip_death_validations = true
         patient.save_by!(by)
       end
     end
