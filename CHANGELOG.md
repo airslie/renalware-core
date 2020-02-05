@@ -9,10 +9,18 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.136
+05-02-2020
+### Added
+### Changed
+- Remove user null constraint on pathology group tables #?
+- Install pg client 12.1 on CI #3142
+### Fixed
+
 ### 2.0.135
 04-02-2020
 ### Added
-- Add date of death sort on deceased patients table #3080 
+- Add date of death sort on deceased patients table #3080
 ### Changed
 - Limit current access profile query to 1 result #3139
 ### Fixed
