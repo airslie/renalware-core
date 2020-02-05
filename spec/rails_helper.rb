@@ -41,7 +41,7 @@ require "capybara-screenshot/rspec"
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-Dir[Renalware::Engine.root.join("spec/support/**/*.rb")].each { |f| require f }
+Dir[Renalware::Engine.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 # Checks for pending migrations before tests are run.
@@ -114,7 +114,7 @@ RSpec.configure do |config|
 
   config.include Renalware::Engine.routes.url_helpers
   config.include Wisper::RSpec::BroadcastMatcher
-  config.include CapybaraHelper, type: :system
+  config.include CapybaraHelper, type: %i(system feature)
   config.include SelectDateSpecHelper, type: %i(system feature)
   config.include TextEditorHelpers, type: :system
   config.include CapybaraSelect2, type: :system
