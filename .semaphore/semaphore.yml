@@ -73,8 +73,15 @@ blocks:
 
           # Start Postgres database service.
           # See https://docs.semaphoreci.com/article/54-toolbox-reference#sem-service
-          - sem-service start postgres 10.10
+          - sem-service start postgres 12.1
           - sem-version ruby 2.6.3
+
+          # postgres client update so pg_dump resolves to 12.x
+          - wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+          - echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+          - sudo apt update
+          - sudo apt-get install -qq -y postgresql-client-12
+
           - bundle install --deployment --path vendor/bundle
           - bundle exec rails app:yarn:install
 
