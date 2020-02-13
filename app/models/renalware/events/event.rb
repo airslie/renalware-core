@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_dependency "renalware/pdf_friendly_validator"
 require_dependency "renalware/events"
 
 module Renalware
@@ -22,6 +23,8 @@ module Renalware
       validates :date_time, presence: true
       validates :event_type_id, presence: true
       validates :date_time, timeliness: { type: :datetime }
+      validates :notes, "renalware/pdf_friendly": true
+      validates :description, "renalware/pdf_friendly": true
 
       scope :ordered, -> { order(date_time: :desc, updated_at: :desc) }
 
