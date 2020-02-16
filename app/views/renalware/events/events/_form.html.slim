@@ -29,6 +29,7 @@
   = f.label :notes
   = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: ".event-notes")
   = f.trix_editor :notes, class: "event-notes"
+  = f.error :notes
   br
 
   = submit_tag "Save", class: "button"
