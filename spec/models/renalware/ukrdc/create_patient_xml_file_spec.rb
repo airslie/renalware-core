@@ -32,18 +32,20 @@ module Renalware
       XML
     }
 
-    let(:success_result) { double(:success, xml: xml, success?: true, failure?: false) }
-    let(:success_renderer) { double(:renderer, call: success_result) }
+    let(:success_result) do
+      instance_double(UKRDC::XmlRenderer::Success, xml: xml, success?: true, failure?: false)
+    end
+    let(:success_renderer) { instance_double(UKRDC::XmlRenderer, call: success_result) }
 
     let(:failure_result) do
-      double(
-        :success,
+      instance_double(
+        UKRDC::XmlRenderer::Failure,
         validation_errors: %i(error1 error2),
         success?: false,
         failure?: true
       )
     end
-    let(:failure_renderer) { double(:renderer, call: failure_result) }
+    let(:failure_renderer) { instance_double(UKRDC::XmlRenderer, call: failure_result) }
 
     let(:xml_md5_hash) { Digest::MD5.hexdigest(xml_with_sending_facility_time_removed) }
     let(:patient) do

@@ -13,14 +13,14 @@ module Renalware
 
       describe "#summarised_access_used" do
         it "delegates to SessionAccessPresenter" do
-          expect_any_instance_of(SessionAccessPresenter).to receive(:to_html)
+          allow_any_instance_of(SessionAccessPresenter).to receive(:to_html)
           presenter.summarised_access_used
         end
       end
 
       describe "#access_used" do
         it "delegates to SessionAccessPresenter" do
-          expect_any_instance_of(SessionAccessPresenter).to receive(:to_s)
+          allow_any_instance_of(SessionAccessPresenter).to receive(:to_s)
           presenter.access_used
         end
       end
