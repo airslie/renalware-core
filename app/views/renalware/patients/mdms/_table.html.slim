@@ -32,6 +32,8 @@ table
         - next if col.hidden
         th(class=klasses.join(" "))
           = sort_link(options.search, col.code, col.title)
+      th
+        / empty to allow tabl;e to expand to the right
   tbody
     - options.patients.each do |patient|
       tr
@@ -55,5 +57,7 @@ table
             / entire content if you hover
             - title = value if col.truncate
             td(class=klass title=title)=value
+        td
+          / empty to allow tabl;e to expand to the right
 
 = paginate options.patients

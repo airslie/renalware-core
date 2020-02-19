@@ -7934,6 +7934,38 @@ ALTER SEQUENCE renalware.snippets_snippets_id_seq OWNED BY renalware.snippets_sn
 
 
 --
+-- Name: supportive_care_mdm_patients; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.supportive_care_mdm_patients AS
+ SELECT p.id,
+    p.secure_id,
+    ((upper((p.family_name)::text) || ', '::text) || (p.given_name)::text) AS patient_name,
+    p.nhs_number,
+    p.local_patient_id AS hospital_numbers,
+    p.sex,
+    p.born_on,
+    date_part('year'::text, age((p.born_on)::timestamp with time zone)) AS age,
+    rprof.esrf_on,
+    mx.modality_name,
+    txrsd.name AS tx_status,
+    ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
+    (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
+    ((pa."values" -> 'URE'::text) ->> 'result'::text) AS ure,
+    (((pa."values" -> 'URE'::text) ->> 'observed_at'::text))::date AS ure_date,
+    ((pa."values" -> 'CRE'::text) ->> 'result'::text) AS cre,
+    (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
+    ((pa."values" -> 'EGFR'::text) ->> 'result'::text) AS egfr
+   FROM ((((((renalware.patients p
+     LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
+     LEFT JOIN renalware.renal_profiles rprof ON ((rprof.patient_id = p.id)))
+     LEFT JOIN renalware.transplant_registrations txr ON ((txr.patient_id = p.id)))
+     LEFT JOIN renalware.transplant_registration_statuses txrs ON (((txrs.registration_id = txr.id) AND (txrs.terminated_on IS NULL))))
+     LEFT JOIN renalware.transplant_registration_status_descriptions txrsd ON ((txrsd.id = txrs.description_id)))
+     JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'supportive_care'::text))));
+
+
+--
 -- Name: survey_questions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -20406,6 +20438,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200204153231'),
 ('20200205121805'),
 ('20200205185151'),
+('20200219113324'),
 ('20200226145010'),
 ('20200301113102'),
 ('20200301124200'),

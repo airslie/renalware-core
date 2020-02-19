@@ -79,5 +79,18 @@ module Renalware
       view.filters = { "schedule" => "list", "hospital_unit" => "list" }
       view.columns = [].to_json # empty will display all
     end
+
+    Renalware::System::ViewMetadata.find_or_create_by!(
+      view_name: "supportive_care_mdm_patients",
+      scope: "supportive_care",
+      category: "mdm",
+      slug: "all",
+      schema_name: "renalware"
+    ) do |view|
+      view.title = "All"
+      view.position = 1
+      view.filters = {}
+      view.columns = [].to_json
+    end
   end
 end

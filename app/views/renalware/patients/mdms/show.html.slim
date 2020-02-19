@@ -6,7 +6,7 @@
 
 = within_admin_layout(title: "#{options.current_view.scope.humanize} MDMS") do
   - if options.patients.size.zero?
-    p "No matching patients"
+    p No matching patients
   - else
 
     - if current_user_is_super_admin?
