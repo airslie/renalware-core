@@ -9,7 +9,7 @@ describe "renalware/clinical/header" do
     I18n.translate(key, scope: "renalware.clinical.header")
   end
 
-  it "displays the correct latest clinical observations" do
+  it "displays the correct latest clinical observations", :aggregate_failures do
     create(
       :clinic_visit,
       patient_id: patient.id,
@@ -37,7 +37,10 @@ describe "renalware/clinical/header" do
       hash[:"#{code}_observed_at"] = date
     end
 
-    current_pathology = double(:current_pathology, path)
+    # rubocop:disable RSpec/VerifiedDoubles
+    # We can't use instance_double here as methods we need like #hgb_result are meta-programmed.
+    current_pathology = double(current_pathology, path)
+    # rubocop:enable RSpec/VerifiedDoubles
 
     presenter = Renalware::Clinical::HeaderPresenter.new(patient)
     allow(presenter).to receive(:current_pathology).and_return(current_pathology)

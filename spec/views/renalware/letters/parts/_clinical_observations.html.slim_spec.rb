@@ -7,6 +7,8 @@ module Renalware
     helper(Renalware::LettersHelper)
     helper(Renalware::AttributeNameHelper)
 
+    subject { render partial: partial, locals: { clinical_observations: part } }
+
     let(:partial) { "renalware/letters/parts/clinical_observations" }
     let(:part) { Letters::Part::ClinicalObservations.new(nil, nil, clinic_visit) }
     let(:clinic_visit) {
@@ -19,21 +21,21 @@ module Renalware
       )
     }
 
-    it "renders the visit observations" do
-      render partial: partial, locals: { clinical_observations: part }
+    it "renders the visit observations", :aggregate_failures do
+      # render partial: partial, locals: { clinical_observations: part }
 
-      expect(rendered).to include("BMI")
-      expect(rendered).to include("27.8")
-      expect(rendered).to include("Height")
-      expect(rendered).to include("1.8 m")
-      expect(rendered).to include("Weight")
-      expect(rendered).to include("90.0 kg")
-      expect(rendered).to include("BP")
-      expect(rendered).to include("110/70")
-      expect(rendered).to include("Urine Blood")
-      expect(rendered).to include("+")
-      expect(rendered).to include("Urine Protein")
-      expect(rendered).to include("Trace")
+      is_expected.to include("BMI")
+      is_expected.to include("27.8")
+      is_expected.to include("Height")
+      is_expected.to include("1.8 m")
+      is_expected.to include("Weight")
+      is_expected.to include("90.0 kg")
+      is_expected.to include("BP")
+      is_expected.to include("110/70")
+      is_expected.to include("Urine Blood")
+      is_expected.to include("+")
+      is_expected.to include("Urine Protein")
+      is_expected.to include("Trace")
     end
 
     context "when some observations are missing" do
@@ -44,18 +46,16 @@ module Renalware
         )
       }
 
-      it "does not render them at all" do
-        render partial: partial, locals: { clinical_observations: part }
-
-        expect(rendered).to include("Height")
-        expect(rendered).to include("1.81 m")
-        expect(rendered).not_to include("Weight")
-        expect(rendered).not_to include("BMI") # can't calculate with weight so will be omitted
-        expect(rendered).not_to include("BP")
-        expect(rendered).not_to include("110/70")
-        expect(rendered).not_to include("Urine blood")
-        expect(rendered).to include("Urine Protein")
-        expect(rendered).to include("Trace")
+      it "does not render them at all", :aggregate_failures do
+        is_expected.to include("Height")
+        is_expected.to include("1.81 m")
+        is_expected.not_to include("Weight")
+        is_expected.not_to include("BMI") # can't calculate with weight so will be omitted
+        is_expected.not_to include("BP")
+        is_expected.not_to include("110/70")
+        is_expected.not_to include("Urine blood")
+        is_expected.to include("Urine Protein")
+        is_expected.to include("Trace")
       end
     end
   end

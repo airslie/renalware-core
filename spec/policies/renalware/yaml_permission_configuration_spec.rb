@@ -2,6 +2,12 @@
 
 require "rails_helper"
 
+class ::FakeModel
+  def name
+    "FakeModel"
+  end
+end
+
 module Renalware
   describe YAMLPermissionConfiguration, type: :policy do
     subject(:policy) do
@@ -11,13 +17,11 @@ module Renalware
       )
     end
 
-    class ::FakeModel; end
-
-    let(:model) { FakeModel }
+    let(:model) { FakeModel.new }
 
     describe "#restricted?" do
       context "when a model has not been specified in the configuration" do
-        let(:model) { ::FakeUnspecifiedModel = Class.new }
+        let(:model) { Class.new }
 
         it "returns false" do
           expect(policy.restricted?).to be false

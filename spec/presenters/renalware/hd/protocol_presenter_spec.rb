@@ -61,7 +61,12 @@ describe Renalware::HD::ProtocolPresenter do
         user = create(:user)
         group = create(:pathology_code_group, :hd_session_form_recent, by: user)
         descriptions.each do |desc|
-          create(:pathology_code_group_membership, code_group: group, observation_description: desc, by: user)
+          create(
+            :pathology_code_group_membership,
+            code_group: group,
+            observation_description: desc,
+            by: user
+          )
         end
 
         time = Time.zone.parse("2017-12-12 01:01:01")

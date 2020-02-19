@@ -19,6 +19,7 @@ module Renalware
       end
 
       describe ".to_h" do
+        # rubocop:disable RSpec/MultipleExpectations
         it "returns a hash of differences" do
           hgb_old = { result: 2.1, observed_at: "2017-12-12 00:01:01" }
           hgb_new = { result: 1.0, observed_at: "2018-12-12 00:01:01" }
@@ -29,7 +30,7 @@ module Renalware
             patient: patient,
             observation_set_a: { HGB: hgb_old, CRE: cre_old },
             observation_set_b: { HGB: hgb_new, PTHI: pthi_new, CRE: cre_new },
-            descriptions: %w(HGB CRE PTHI).map { |code| OpenStruct.new(code: code) } # mock obs descs
+            descriptions: %w(HGB CRE PTHI).map { |code| OpenStruct.new(code: code) } # mock ob descs
           )
 
           diff_hash = obj.to_h
@@ -60,6 +61,7 @@ module Renalware
           expect(diff_hash[:CRE][1]).to be_nil # no change so no new observation here
           expect(diff_hash[:CRE][2]).to be_nil # no change so no difference value here
         end
+        # rubocop:enable RSpec/MultipleExpectations
       end
 
       describe "#to_html" do
