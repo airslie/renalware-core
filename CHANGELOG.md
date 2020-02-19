@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.137
+19-02-2020
+### Added
+### Changed
+### Fixed
+- Fixed migration
+
 ### 2.0.136
 05-02-2020
 ### Added
