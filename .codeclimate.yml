@@ -1,7 +1,7 @@
 version: "2"
 prepare:
   fetch:
-    - url: "https://raw.githubusercontent.com/airslie/airslie-styleguide/master/rubocop.yml"
+    - url: "https://raw.githubusercontent.com/airslie/styleguide/master/rubocop.yml"
       path: "default.yml"
 checks:
   similar-code:
