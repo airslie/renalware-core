@@ -7,9 +7,11 @@ module Renalware
   describe Patient, type: :model do
     subject(:patient) { create(:patient, nhs_number: "1234567890") }
 
-    it :aggregate_failures do
-      is_expected.to be_versioned
-      is_expected.to have_db_index(:ukrdc_external_id)
+    it do
+      aggregate_failures do
+        is_expected.to be_versioned
+        is_expected.to have_db_index(:ukrdc_external_id)
+      end
     end
 
     it_behaves_like "Personable"
@@ -28,9 +30,11 @@ module Renalware
         )
       }
 
-      it :aggregate_failures do
-        is_expected.to validate_uniqueness_of(:nhs_number).case_insensitive
-        is_expected.to validate_uniqueness_of(:local_patient_id).case_insensitive
+      it do
+        aggregate_failures do
+          is_expected.to validate_uniqueness_of(:nhs_number).case_insensitive
+          is_expected.to validate_uniqueness_of(:local_patient_id).case_insensitive
+        end
       end
 
       (2..5).each do |idx|

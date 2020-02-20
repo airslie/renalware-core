@@ -40,6 +40,7 @@ RSpec.configure do |config|
     end
   end
 
+  # rubocop:disable Style/HashTransformValues
   config.after(:suite) do
     results = factory_bot_results
       .to_a
@@ -47,6 +48,7 @@ RSpec.configure do |config|
       .sort { |a, b| (b.flatten.last || 0) <=> (a.flatten.last || 0) }
     warn "FactoryBot creates: #{results}"
   end
+  # rubocop:enable Style/HashTransformValues
 end
 
 # Use this strategy to get Hash output from factories defined using class: OpenStruct.

@@ -2,6 +2,7 @@
 
 require "rails_helper"
 
+# rubocop:disable RSpec/ExampleLength
 module Renalware
   # HD Overall Audit is currently a materialized view
   describe "HD Overall Audit", type: :model do
@@ -71,7 +72,7 @@ module Renalware
           end
 
           it do
-            expect(subject).to eq(
+            expect(data).to eq(
               [
                 {
                   name: "Unit1",
@@ -191,3 +192,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable RSpec/ExampleLength

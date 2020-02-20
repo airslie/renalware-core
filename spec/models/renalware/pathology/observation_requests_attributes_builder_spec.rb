@@ -90,12 +90,13 @@ module Renalware::Pathology
             )
           )
           logger = instance_double("Rails.logger").as_null_object
-          expect(logger).to receive(:debug).once
+          allow(logger).to receive(:debug)
 
           parser = described_class.new(hl7_message, logger)
 
           expect(parser).not_to be_renalware_patient
           expect(parser.parse).to be_nil
+          expect(logger).to have_received(:debug).once
         end
       end
 

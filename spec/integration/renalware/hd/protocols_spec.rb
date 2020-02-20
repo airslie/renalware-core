@@ -13,7 +13,12 @@ describe "Patient's Protocol PDF", type: :request do
     descriptions = create_descriptions(%w(HGB PLT CRP))
     group = create(:pathology_code_group, :hd_session_form_recent, by: user)
     descriptions.each do |desc|
-      create(:pathology_code_group_membership, code_group: group, observation_description: desc, by: user)
+      create(
+        :pathology_code_group_membership,
+        code_group: group,
+        observation_description: desc,
+        by: user
+      )
     end
   end
 

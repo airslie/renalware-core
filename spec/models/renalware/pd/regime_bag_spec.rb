@@ -26,13 +26,14 @@ module Renalware
       is_expected.to enumerize(:role).in(:ordinary, :additional_manual_exchange, :last_fill)
     end
 
-    it do
-      expect(subject)
-        .to validate_numericality_of(:volume)
+    it {
+      is_expected.to(
+        validate_numericality_of(:volume)
         .is_greater_than_or_equal_to(100)
         .is_less_than_or_equal_to(10000)
         .allow_nil
-    end
+      )
+    }
 
     describe "days" do
       it "returns days of the week which have been checked as true or false" do

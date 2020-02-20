@@ -82,14 +82,15 @@ module Renalware
 
       context "when the patient has a current modality" do
         context "when the modality is valid" do
+          # rubocop:disable RSpec/MultipleExpectations
           it "returns a Success result object" do
             modality = build_modality(death)
             old_modality = build_stubbed_modality(pd_modality_description)
             allow(patient).to receive(:current_modality).and_return(old_modality)
             expect(patient.current_modality).to eq(old_modality)
 
-            expect(old_modality).to receive(:save!).and_return(true)
-            expect(modality).to receive(:save!).and_return(true)
+            allow(old_modality).to receive(:save!).and_return(true)
+            allow(modality).to receive(:save!).and_return(true)
 
             result = command.call(modality: modality)
 
@@ -97,7 +98,10 @@ module Renalware
             expect(result.object).to be_a(Modalities::Modality)
             expect(result.object.started_on).not_to be_nil
             expect(result.object.started_on).to eq(old_modality.ended_on)
+            expect(old_modality).to have_received(:save!)
+            expect(modality).to have_received(:save!)
           end
+          # rubocop:enable RSpec/MultipleExpectations
 
           it "broadcasts a patient_modality_changed event with the new modality as an argument" do
             modality = build_modality(death)
@@ -108,17 +112,20 @@ module Renalware
             listener = double("Listener")
             command.subscribe(listener)
 
-            expect(old_modality).to receive(:save!).and_return(true)
-            expect(modality).to receive(:save!).and_return(true)
-            expect(listener).to receive(:patient_modality_changed_to_death).with(
-              patient: patient,
-              modality: modality,
-              actor: user
-            )
+            allow(old_modality).to receive(:save!).and_return(true)
+            allow(modality).to receive(:save!).and_return(true)
+            allow(listener).to receive(:patient_modality_changed_to_death)
 
             result = command.call(modality: modality)
 
             expect(result).to be_a(Success)
+            expect(modality).to have_received(:save!)
+            expect(old_modality).to have_received(:save!)
+            expect(listener).to have_received(:patient_modality_changed_to_death).with(
+              patient: patient,
+              modality: modality,
+              actor: user
+            )
           end
         end
 
@@ -136,9 +143,11 @@ module Renalware
             modality = build_modality(nil)
             listener = double("Listener")
             command.subscribe(listener)
-            expect(listener).not_to receive(:patient_modality_changed)
+            allow(listener).to receive(:patient_modality_changed)
 
             command.call(modality: modality)
+
+            expect(listener).not_to have_received(:patient_modality_changed)
           end
         end
       end

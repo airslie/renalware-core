@@ -37,7 +37,7 @@ describe "Managing audits", type: :system do
   end
 
   def stub_the_list_of_data_sources
-    expect(Renalware::Reporting::Audit)
+    allow(Renalware::Reporting::Audit)
       .to receive(:available_audit_materialized_views)
       .and_return(%w(reporting_test_view1 reporting_test_view2))
   end
