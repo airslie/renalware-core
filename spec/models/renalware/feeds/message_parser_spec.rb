@@ -44,7 +44,7 @@ module Renalware::Feeds
           subject { message.patient_identification }
 
           it do
-            expect(subject).to have_attributes(
+            is_expected.to have_attributes(
               internal_id: "Z999990",
               external_id: "",
               family_name: "RABBIT",

@@ -7,6 +7,7 @@ require "rails_helper"
 # - Refactor helpers into an AuditHelper mixin as some duplication here with other audit tests.
 # - Remove rubocop disable above
 # - Rename bone audit describe block
+# rubocop:disable RSpec/ExampleLength
 module Renalware
   describe "Anaemia Audit", type: :model do
     include PatientsSpecHelper
@@ -142,3 +143,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable RSpec/ExampleLength

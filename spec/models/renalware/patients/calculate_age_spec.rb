@@ -75,7 +75,7 @@ module Renalware
             it { is_expected.to eq(100) }
           end
 
-          context "when the patient has born 100 years ago and died 1 day short of 10 years later" do
+          context "when patient born 100 years ago and died 1 day short of 10 years later" do
             let(:born_on) { Date.parse("1900-02-01") }
             let(:died_on) { Date.parse("2000-01-31") }
 

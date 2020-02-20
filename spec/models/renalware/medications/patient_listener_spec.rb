@@ -12,14 +12,16 @@ module Renalware
           patient = build_stubbed(:patient)
           user = build_stubbed(:user)
 
-          expect(TerminateAllPatientPrescriptions)
-            .to receive(:call)
-            .with(patient: patient, by: user)
+          allow(TerminateAllPatientPrescriptions).to receive(:call)
 
           listener.patient_modality_changed_to_death(
             patient: patient,
             modality: Object.new,
             actor: user)
+
+          expect(TerminateAllPatientPrescriptions)
+            .to have_received(:call)
+            .with(patient: patient, by: user)
         end
       end
     end

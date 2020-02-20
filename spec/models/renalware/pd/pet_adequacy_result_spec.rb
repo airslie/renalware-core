@@ -21,10 +21,9 @@ module Renalware
         end
 
         PETAdequacyResult::MAXIMUMS.each do |attr_name, max_value|
-          it do
-            expect(subject)
-              .to validate_numericality_of(attr_name).is_less_than_or_equal_to(max_value)
-          end
+          it {
+            is_expected.to validate_numericality_of(attr_name).is_less_than_or_equal_to(max_value)
+          }
         end
       end
 

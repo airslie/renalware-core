@@ -173,18 +173,6 @@ module Renalware
               expect(UKRDC::Treatment.count).to eq(2)
             end
           end
-
-          context "when another profile is created a non-triggering change " do
-            it "triggers a new Treatment" do
-              other_unit = create(:hospital_unit, name: "X")
-              svc = HD::ReviseHDProfile.new(initial_profile)
-              svc.call(hospital_unit: other_unit, by: user)
-
-              service.call
-
-              expect(UKRDC::Treatment.count).to eq(2)
-            end
-          end
         end
       end
     end

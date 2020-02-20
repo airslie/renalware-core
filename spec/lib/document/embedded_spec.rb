@@ -72,8 +72,11 @@ module Document
         let(:instance) { @klass.new }
 
         it "adds validation on the nested model" do
-          expect(instance).to receive(:nested_valid)
+          allow(instance).to receive(:nested_valid)
+
           instance.valid?
+
+          expect(instance).to have_received(:nested_valid)
         end
 
         it "adds a default value" do

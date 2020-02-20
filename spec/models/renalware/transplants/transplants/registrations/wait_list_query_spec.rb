@@ -54,16 +54,7 @@ module Renalware
               expect(query.call.count).to eq(2)
             end
           end
-        end
 
-        def create_registration(status:, ukt_status:)
-          registration = create(:transplant_registration, :in_status, status: status)
-          registration.document.uk_transplant_centre.status = ukt_status
-          registration.save!
-          registration
-        end
-
-        describe "#call" do
           context "with filter 'status_mismatch'" do
             subject(:query) { WaitListQuery.new(named_filter: :status_mismatch) }
 
@@ -116,6 +107,13 @@ module Renalware
               end
             end
           end
+        end
+
+        def create_registration(status:, ukt_status:)
+          registration = create(:transplant_registration, :in_status, status: status)
+          registration.document.uk_transplant_centre.status = ukt_status
+          registration.save!
+          registration
         end
       end
     end

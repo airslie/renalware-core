@@ -126,9 +126,11 @@ module Renalware
         end
 
         it "recomputes the termination dates" do
-          expect(registration).to receive(:recompute_termination_dates!)
+          allow(registration).to receive(:recompute_termination_dates!)
 
           registration.delete_status!(earliest_status)
+
+          expect(registration).to have_received(:recompute_termination_dates!)
         end
       end
     end

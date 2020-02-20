@@ -35,7 +35,7 @@ module Renalware
         end
       end
 
-      context "when the patient has OBRs outside of the requested date range" do
+      context "when the patient has oher OBRs outside of the requested date range" do
         let(:changes_since) { 1.day.ago }
 
         it "ignores these" do

@@ -22,10 +22,12 @@ describe Renalware::Pathology::Requests::PatientRule do
     is_expected.to validate_presence_of(:patient_id)
   end
 
-  it do
-    expect(subject).to validate_inclusion_of(:frequency_type)
+  it {
+    is_expected.to(
+      validate_inclusion_of(:frequency_type)
       .in_array(Renalware::Pathology::Requests::Frequency.all_names)
-  end
+    )
+  }
 
   describe "#required?" do
     context "when the specified date is not within the patient_rule's start/end date range" do
