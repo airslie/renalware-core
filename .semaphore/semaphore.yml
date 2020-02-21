@@ -46,6 +46,11 @@ blocks:
           # to be used in next blocks and future workflows:
           - cache store gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock) vendor/bundle
 
+          # - cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock)
+          - yarn install --checkfiles
+          - bin/check_rollup_has_compiled_assets
+          # - cache store node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock)
+
   - name: Tests
     task:
       # This block runs two jobs in parallel and they both share common
@@ -85,7 +90,6 @@ blocks:
           - bundle install --deployment --path vendor/bundle
           # - bundle exec rails app:yarn:install
           - yarn install --checkfiles
-          - bin/check_rollup_has_compiled_assets
 
           # Use CI's database.yml
           - cp ./.semaphore/database.yml ./spec/dummy/config/database.yml

@@ -3777,7 +3777,7 @@ var _default = function(_Controller) {
   _createClass(_default, [ {
     key: "connect",
     value: function connect() {
-      this.element.textContent = "TestController connected";
+      this.element.textContent = "TestController connected.";
     }
   } ]);
   return _default;
