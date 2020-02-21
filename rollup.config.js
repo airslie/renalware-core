@@ -1,8 +1,8 @@
+// rollupjs setup adapted from the approach used by ActiveStorage
+
 import resolve from "@rollup/plugin-node-resolve"
 import commonjs from "@rollup/plugin-commonjs" // required for uglify
 import babel from "rollup-plugin-babel"
-// rollup-plugin-stimulus helps us include stimulus controllers as webpack helpers unavaialable
-import stimulus from "rollup-plugin-stimulus"
 import uglify from "rollup-plugin-uglify" // beautify the js output
 
 const uglifyOptions = {
@@ -32,7 +32,6 @@ export default {
     sourcemap: false,
   },
   plugins: [
-    stimulus(),
     babel(),
     resolve(),
     commonjs(),

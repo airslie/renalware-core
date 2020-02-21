@@ -3783,11 +3783,23 @@ var _default = function(_Controller) {
   return _default;
 }(Controller);
 
-var controllers = [ {
-  identifier: "test",
-  controllerConstructor: _default
-} ];
+var _default$1 = function(_Controller) {
+  _inherits(_default, _Controller);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+  _createClass(_default, [ {
+    key: "connect",
+    value: function connect() {
+      this.element.textContent = "AnotherTestController connected";
+    }
+  } ]);
+  return _default;
+}(Controller);
 
 var application = Application.start();
 
-application.load(controllers);
+application.register("test", _default);
+
+application.register("another_test", _default$1);
