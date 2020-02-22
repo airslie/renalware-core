@@ -21,12 +21,13 @@ module Renalware
       end
     end
 
-    before { ActiveJob::Base.queue_adapter = :test }
-    # Make sure we allow external email in these tests (though none will actually be sent)!
-    # Otherwise some tests will fail because PracticeEmail.address will reslove the letter
-    # updating user's address or fall-back test address used during testing.
-
-    before { Renalware.configure { |config| config.allow_external_mail = true } }
+    before do
+      ActiveJob::Base.queue_adapter = :test
+      # Make sure we allow external email in these tests (though none will actually be sent)!
+      # Otherwise some tests will fail because PracticeEmail.address will reslove the letter
+      # updating user's address or fall-back test address used during testing.
+      Renalware.configure { |config| config.allow_external_mail = true }
+    end
 
     def make_gp_the_main_recipient
       gp_recipient = letter.build_main_recipient(person_role: :primary_care_physician)

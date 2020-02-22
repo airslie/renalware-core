@@ -10,9 +10,7 @@ describe "Managing an HD DNA Session", type: :request do
 
       expect(response).to be_successful
     end
-  end
 
-  describe "GET show" do
     context "when the session is still mutable" do
       it "renders successfully" do
         dna_session = create(:hd_dna_session)

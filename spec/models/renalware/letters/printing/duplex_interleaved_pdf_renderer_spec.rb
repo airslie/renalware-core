@@ -7,11 +7,11 @@ module Renalware
   module Letters
     module Printing
       describe DuplexInterleavedPdfRenderer, type: :model do
-        DEBUG = false
         include LettersSpecHelper
 
         def open_pdf_in_preview(pdf_file)
-          if DEBUG
+          debug = false
+          if debug
             FileUtils.cp pdf_file.path, "/Users/tim/Desktop/x.pdf"
             `open /Users/tim/Desktop/x.pdf`
           end

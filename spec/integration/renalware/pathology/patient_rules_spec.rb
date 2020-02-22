@@ -3,12 +3,12 @@
 require "rails_helper"
 
 describe "patient_rules Requests", type: :request do
-  let!(:patient) { create(:pathology_patient) }
-  let!(:lab) { create(:pathology_lab) }
-  let!(:patient_rule) do
+  let(:patient) { create(:pathology_patient) }
+  let(:lab) { create(:pathology_lab) }
+  let(:patient_rule) do
     create(:pathology_requests_patient_rule, patient: patient, lab: lab)
   end
-  let!(:clinic) { create(:clinic) }
+  let(:clinic) { create(:clinic) }
 
   describe "GET new" do
     it "responds with a form" do
