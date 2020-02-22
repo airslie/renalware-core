@@ -4,11 +4,10 @@ require "rails_helper"
 
 describe "Updating a Event triggers an event_updated broadcast", type: :request do
   context "when updating a simple event" do
-    class MyEventListener
-      def event_updated(event) end
-    end
-
     it "broadcasts a Wisper 'event_updated' message" do
+      Object.send(:remove_const, "MyEventListener") if Object.constants.include?("MyEventListener")
+      Object.const_set("MyEventListener", Class.new { def event_updated(event) end })
+
       map = Renalware.config.broadcast_subscription_map
       map["Renalware::Events::UpdateEvent"] << "MyEventListener"
 
