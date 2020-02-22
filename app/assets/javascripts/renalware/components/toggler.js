@@ -57,35 +57,6 @@ function initTogglers() {
       triggerMasonryLayoutRefresh();
     })
   }
-
-  // These two handlers mimic the row-toggler stimulus stimulus controller methods which
-  // are not ywt wired up because of lack of stimulus polyfill support in the asset pipline
-  // which means stimulus will not work with IE11. Hence the use of data-action etc here so
-  // once stimulus is working we can remove these 2 handlers without changing any markup.
-
-  // This handler toggles the last tr in the current tbody. We use multiple tbodys in each table
-  // to make toggling like this simpler, and to group the related (visible and toggleable) rows
-  // together.
-  // Note table must have the .toggleable class
-  $("a[data-action='row-toggler#toggleRow']").on("click", function(event) {
-    event.preventDefault();
-    $(event.target).closest("tbody").toggleClass("toggleable--open");
-    triggerMasonryLayoutRefresh();
-  });
-
-  // This handler toggles the last tr in each tbody in the current table.
-  // The link will probably sit in a thead < th
-  $("a[data-action='row-toggler#toggleTable']").on("click", function(event) {
-    event.preventDefault();
-    var link = event.target;
-    var table = $(link).closest("table");
-    var thead = $(link).closest("thead");
-    var tbodies = $("tbody", table);
-    var hide = thead.hasClass("toggleable--open");
-    thead.toggleClass("toggleable--open");
-    $(tbodies).toggleClass("toggleable--open", !hide);
-    triggerMasonryLayoutRefresh();
-  });
 }
 
 $(function() {

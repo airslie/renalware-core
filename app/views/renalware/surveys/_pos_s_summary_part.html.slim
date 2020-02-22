@@ -19,7 +19,7 @@
     br
     br
     .xsss
-      table.table-header-rotated.toggleable
+      table.table-header-rotated.toggleable(data-controller="toggle")
         thead
           tr
             th.togglers= rows_toggler
@@ -49,6 +49,7 @@
                     = value
             tr
               td
+                | &nbsp;
               td
               td
               td(class="summary-part--pos_s-patient-question-text" colspan=(pos_s_summary_part.question_labels.count ))

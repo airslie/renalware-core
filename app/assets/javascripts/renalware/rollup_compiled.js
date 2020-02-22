@@ -3798,8 +3798,42 @@ var _default$1 = function(_Controller) {
   return _default;
 }(Controller);
 
+var _default$2 = function(_Controller) {
+  _inherits(_default, _Controller);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+  _createClass(_default, [ {
+    key: "row",
+    value: function row(event) {
+      event.preventDefault;
+      var tbody = event.target.closest("tbody");
+      tbody.classList.toggle("toggleable--open");
+      $(".grid > .row").masonry("layout");
+    }
+  }, {
+    key: "table",
+    value: function table(event) {
+      event.preventDefault;
+      var table = event.target.closest("table");
+      var thead = event.target.closest("thead");
+      var tbodies = Array.prototype.slice.call(table.querySelectorAll("tbody"));
+      var hide = thead.classList.contains("toggleable--open");
+      thead.classList.toggle("toggleable--open");
+      tbodies.forEach(function(tbody) {
+        tbody.classList.toggle("toggleable--open", !hide);
+      });
+      $(".grid > .row").masonry("layout");
+    }
+  } ]);
+  return _default;
+}(Controller);
+
 var application = Application.start();
 
 application.register("test", _default);
 
 application.register("another_test", _default$1);
+
+application.register("toggle", _default$2);

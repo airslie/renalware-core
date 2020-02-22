@@ -20,7 +20,7 @@
         = link_to patient_problems_path(summary_part.patient), class: "button" do
           | Add
 
-      table#problems.toggleable.toggleable--without-border-between-toggled-and-non-toggled-tr
+      table#problems.toggleable.toggleable--without-border-between-toggled-and-non-toggled-tr(data-controller="toggle")
         thead.toggleable--open
           th.togglers.noprint =rows_toggler
           th Description

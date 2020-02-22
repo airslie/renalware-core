@@ -9,6 +9,7 @@ module Renalware
               data: { behaviour: "css-toggler" }
     end
 
+    # Non-stimulus implemention for adding a link to toggle open all an adjacent row
     def toggler(row_selector, link_title: "Toggle")
       link_to(
         row_selector,
@@ -20,6 +21,7 @@ module Renalware
       end
     end
 
+    # Non-stimulus implemention for adding a link to toggle open all togglebale rows in the table
     def table_toggler(link_title: "Toggle all rows")
       link_to(
         "#",
@@ -43,11 +45,15 @@ module Renalware
       end
     end
 
-    # Create a link in a thead > tr > th that will toggle the last row in all tbodies in the table.
+    # Create a link in a thead > tr > th that will toggle the last row in all tbodies in the table,
+    # where the table contains multiple tbodies and the last row in each is the one that
+    # a user can toggle open/closed (to see extended detail for instance).
+    # Works in conjunction with the stimulus ToggleController.
+    # The enclosing html table must have data-controller="toggle" attribute.
     def rows_toggler(link_title: "Toggle all rows")
       link_to(
         "#",
-        data: { action: "row-toggler#toggleTable" },
+        data: { action: "toggle#table" },
         class: "toggler",
         title: link_title
       ) do
@@ -56,11 +62,14 @@ module Renalware
     end
 
     # Create a link to be used in a tbody > tr > td that will toggle the last row in the current
-    # tbody.
+    # tbody, where the table contains multiple tbodies and the last row in each is the one that
+    # a user can toggle open/closed (to see extended detail for instance).
+    # Works in conjunction with the stimulus ToggleController.
+    # The enclosing html table must have data-controller="toggle" attribute.
     def row_toggler(link_title: "Toggle")
       link_to(
         "#",
-        data: { action: "row-toggler#toggleRow" },
+        data: { action: "click->toggle#row" },
         class: "toggler",
         title: link_title
       ) do
