@@ -1,6 +1,6 @@
 - columns = local_assigns[:columns] || []
 - cache([letter, columns.join("-")]) do
-  tr(class=letter.state.dasherize)
+  tr(class=letter.state.dasherize data-controller="toggle")
     td.noprint= toggler("#letter-quick-preview-#{letter.id}")
     td.noprint.actions
       = link_to letter.view_label, patient_letters_letter_path(letter.patient, letter)

@@ -6,8 +6,8 @@
     dd
       = link_to "Drugs given", "#hd-session-drugs", data: { "trigger-masonry-refresh" => true }
   hr.tab-bottom-border
-/ .column_hover
-table.toggleable.auto-layout.hd-sessions#hd-sessions
+
+table.toggleable.auto-layout.hd-sessions#hd-sessions(data-controller="toggle")
   = render "renalware/hd/sessions/thead"
 
   - sessions.each_with_index do |session, index|
@@ -16,8 +16,7 @@ table.toggleable.auto-layout.hd-sessions#hd-sessions
             session: session,
             stripe_class: stripe_class
 
-/.column_hover
-table.toggleable.auto-layout.hd-sessions.hd-session-drugs#hd-session-drugs(style="display: none")
+table.toggleable.auto-layout.hd-sessions.hd-session-drugs#hd-session-drugs(style="display: none" data-controller="toggle")
   = render "renalware/hd/sessions/administered_drugs_thead"
 
   - sessions.each_with_index do |session, index|

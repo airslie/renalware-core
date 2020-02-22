@@ -15,7 +15,9 @@ import { Application } from "stimulus"
 // The rollupjs setup from adapted from the approach used by ActiveStorage
 import TestController from "./controllers/test_controller"
 import AnotherTestController from "./controllers/another_test_controller"
+import ToggleController from "./controllers/toggle_controller"
 
 const application = Application.start()
 application.register("test", TestController)
 application.register("another_test", AnotherTestController)
+application.register("toggle", ToggleController)
