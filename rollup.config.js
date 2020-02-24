@@ -4,6 +4,7 @@ import resolve from "@rollup/plugin-node-resolve"
 import commonjs from "@rollup/plugin-commonjs" // required for uglify
 import babel from "rollup-plugin-babel"
 import uglify from "rollup-plugin-uglify" // beautify the js output
+import inject from "@rollup/plugin-inject" // allow referencing jquery in stimulus controllers
 
 const uglifyOptions = {
   mangle: false,
@@ -28,6 +29,7 @@ export default {
   output: {
     file: "app/assets/javascripts/renalware/rollup_compiled.js",
     format: "esm",
+    external: [ "jquery" ],
     name: "renalwarec-core",
     sourcemap: false,
   },
@@ -35,6 +37,9 @@ export default {
     babel(),
     resolve(),
     commonjs(),
-    uglify(uglifyOptions)
+    uglify(uglifyOptions),
+    inject({
+      jQuery: "jquery"
+    })
   ]
 }
