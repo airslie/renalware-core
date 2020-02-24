@@ -26,6 +26,7 @@ module Renalware
       validates :witnessed_by, presence: true, if: :validate_witness?
       validate :check_administered_by_password, if: :validate_administrator?
       validate :check_witnessed_by_password, if: :validate_witness?
+      validate :witness_cannot_be_administrator
 
       scope :ordered, -> { order(recorded_on: :desc, created_at: :desc) }
 
@@ -35,7 +36,19 @@ module Renalware
         administrator_authorised? && witness_authorised?
       end
 
+      def witnessed?
+        administered? && witness_authorised?
+      end
+
       private
+
+      def witness_cannot_be_administrator
+        return unless authorised?
+
+        if administered_by_id.present? && administered_by_id == witnessed_by_id
+          errors.add(:witnessed_by_id, "Must be a different user")
+        end
+      end
 
       def validate_witness?
         return false if not_administered?

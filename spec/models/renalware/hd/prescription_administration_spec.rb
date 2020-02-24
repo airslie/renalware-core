@@ -98,6 +98,22 @@ module Renalware
             end
           end
         end
+
+        context "when administrator and witness is are the same" do
+          it "does not allo this" do
+            pwd = "password"
+            user = create(:user, password: "password")
+            errors = PrescriptionAdministration.new(
+              administered: true,
+              administered_by: user,
+              witnessed_by: user,
+              administered_by_password: pwd,
+              witnessed_by_password: pwd
+            ).tap(&:valid?).errors
+
+            expect(errors[:witnessed_by_id]).to eq(["Must be a different user"])
+          end
+        end
       end
     end
   end
