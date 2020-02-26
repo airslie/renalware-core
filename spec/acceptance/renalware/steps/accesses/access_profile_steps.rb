@@ -21,6 +21,7 @@ module Renalware
           type: FactoryBot.create(:access_type),
           side: side,
           formed_on: Time.zone.today,
+          started_on: Time.zone.today,
           by: user
         )
         accesses_patient.profiles.create(attrs)

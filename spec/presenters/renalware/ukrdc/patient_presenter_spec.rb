@@ -57,8 +57,16 @@ module Renalware
 
         # Create 3 modalities in this chronological order: PD, HD, Transplant
         svc = Modalities::ChangePatientModality.new(patient: patient, user: user)
-        pd = svc.call(description: pd_modality_description, started_on: 3.days.ago).object
-        hd = svc.call(description: hd_modality_description, started_on: 2.days.ago).object
+        pd = svc.call(
+          description: pd_modality_description,
+          started_on: 3.days.ago,
+          ended_on: 2.days.ago
+        ).object
+        hd = svc.call(
+          description: hd_modality_description,
+          started_on: 2.days.ago,
+          ended_on: 1.day.ago
+        ).object
         tx = svc.call(description: tx_modality_description, started_on: 1.day.ago).object
 
         expect(presenter.modalities).to eq([pd, hd, tx])

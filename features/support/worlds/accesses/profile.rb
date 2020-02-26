@@ -77,16 +77,21 @@ module World
 
         fill_in "Formed On", with: I18n.l(Time.zone.today)
         select "Tunnelled subcl", from: "Access Type"
-        select(side, from: "Access Side") if side.present?
+        select(side.to_s.camelcase, from: "Access Side") if side.present?
 
         within ".top" do
           click_on "Create"
         end
       end
 
+      # Note that if the profile has a start date <= today if will appear in the
+      # article called Current Access Profile. Otherwise it will be inside an
+      # article calle Acc Profile History
       def update_access_profile(patient:, user:)
         login_as user
         visit patient_accesses_dashboard_path(patient)
+        Capybara::Screenshot.screenshot_and_save_page
+
         within_article "Access Profile History" do
           click_on "Edit"
         end

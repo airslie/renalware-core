@@ -14236,6 +14236,13 @@ CREATE INDEX index_modality_modalities_on_patient_id_and_description_id ON renal
 
 
 --
+-- Name: index_modality_modalities_on_patient_id_current; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_modality_modalities_on_patient_id_current ON renalware.modality_modalities USING btree (patient_id) WHERE (ended_on IS NULL);
+
+
+--
 -- Name: index_modality_modalities_on_reason_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -15198,7 +15205,7 @@ CREATE INDEX index_renal_profiles_on_document ON renalware.renal_profiles USING 
 -- Name: index_renal_profiles_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_renal_profiles_on_patient_id ON renalware.renal_profiles USING btree (patient_id);
+CREATE UNIQUE INDEX index_renal_profiles_on_patient_id ON renalware.renal_profiles USING btree (patient_id);
 
 
 --
@@ -15919,7 +15926,7 @@ CREATE INDEX index_transplant_registrations_on_document ON renalware.transplant_
 -- Name: index_transplant_registrations_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_transplant_registrations_on_patient_id ON renalware.transplant_registrations USING btree (patient_id);
+CREATE UNIQUE INDEX index_transplant_registrations_on_patient_id ON renalware.transplant_registrations USING btree (patient_id);
 
 
 --
@@ -19487,6 +19494,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200129093835'),
 ('20200204153231'),
 ('20200205121805'),
+('20200226145010'),
 ('20200301113102'),
 ('20200301124200'),
 ('20200301124300'),
