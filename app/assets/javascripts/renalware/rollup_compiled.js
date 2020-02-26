@@ -3798,6 +3798,8 @@ var _default$1 = function(_Controller) {
   return _default;
 }(Controller);
 
+var $ = window.$;
+
 var _default$2 = function(_Controller) {
   _inherits(_default, _Controller);
   function _default() {

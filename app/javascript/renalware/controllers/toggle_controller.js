@@ -1,3 +1,4 @@
+const $ = window.$
 import { Controller } from "stimulus"
 
 // Used when a table has toggleable rows (initially hidden rows that can be toggled open

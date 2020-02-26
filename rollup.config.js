@@ -15,13 +15,6 @@ const uglifyOptions = {
   }
 }
 
-const resolveOption = {
-  browser: true,
-  preferBuiltins: false,
-  jsnext: true,
-  main: true
-}
-
 // Had to add context window to avoid rollup converting self to undefined in stimulus
 export default {
   context: "window",

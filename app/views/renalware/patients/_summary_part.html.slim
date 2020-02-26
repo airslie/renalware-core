@@ -24,7 +24,7 @@
       header
         h2 Worryboard notes
         = link_to("Remove",
-                  patient_worry_path( summary_part.patient, summary_part.worry),
+                  patient_worry_path(summary_part.patient, summary_part.worry),
                   method: :delete,
                   data: { confirm: "Are you sure you want to remove the patient from the worryboard?" },
                   class: :button)
