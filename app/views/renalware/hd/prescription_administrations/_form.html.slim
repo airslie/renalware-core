@@ -8,10 +8,12 @@
       = render "renalware/shared/modal_close_link"
 
     .modal__body
-      /= render "renalware/shared/errors", model: prescription_administration
 
       - prescription = Renalware::Medications::PrescriptionPresenter.new(prescription_administration.prescription)
       - administration = prescription_administration
+
+      = render(Renalware::HD::PrescriptionLastAdministrationComponent.new(prescription: prescription))
+
       = fpa.input :prescription_id, as: :hidden
 
       .hd-drug-administration
