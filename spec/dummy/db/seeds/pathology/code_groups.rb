@@ -11,10 +11,10 @@ module Renalware
 
     %w(HGB PLT CRP).each_with_index do |code, index|
       membership = group.memberships.build
-      membership.observation_description = Pathology::ObservationDescription.find_by_code(code)
+      membership.observation_description = Pathology::ObservationDescription.find_by(code: code)
       membership.subgroup = 1
       membership.position_within_subgroup = index + 1
       membership.save_by! user
-    end 
+    end
   end
 end

@@ -2,7 +2,6 @@
 
 module Renalware
   log "Adding People" do
-
     user = User.first
     uk = System::Country.find_by(alpha3: "GBR")
 

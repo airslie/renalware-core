@@ -2,7 +2,6 @@
 
 module Renalware
   log "Assign contacts to Roger RABBIT" do
-
     patient = Letters.cast_patient(Patient.find_by(local_patient_id: "Z100001"))
 
     people = Directory::Person.limit(5)
@@ -11,13 +10,13 @@ module Renalware
     default_contact_description = Letters::ContactDescription[:sibling]
 
     people.zip(contact_descriptions).each do |person, contact_description|
-      unless patient.contacts.map(&:person_id).include?(person.id)
-        patient
-          .assign_contact(
-            person: person,
-            description: contact_description || default_contact_description
-          ).save!
-      end
+      next if patient.contacts.map(&:person_id).include?(person.id)
+
+      patient
+        .assign_contact(
+          person: person,
+          description: contact_description || default_contact_description
+        ).save!
     end
   end
 end

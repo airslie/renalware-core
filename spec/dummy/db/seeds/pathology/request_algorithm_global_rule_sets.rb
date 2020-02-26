@@ -2,11 +2,9 @@
 
 module Renalware
   log "Adding Pathology Request Algorithm Global Rule Sets" do
-
     file_path = File.join(File.dirname(__FILE__), "request_algorithm_global_rule_sets.csv")
 
     CSV.foreach(file_path, headers: true) do |row|
-
       clinic = ::Renalware::Clinics::Clinic.find_by(name: row["clinic"])
       request_description = Pathology::RequestDescription.find_by(
         code: row["request_description_code"]

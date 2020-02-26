@@ -3,6 +3,7 @@
 module Renalware
   log "Adding Sample System Messages" do
     return if System::Message.count > 0
+
     # An active message - it will displayed on the login page
     System::Message.create!(
       title: "Scheduled Maintenance",

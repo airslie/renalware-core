@@ -7,12 +7,11 @@ def create_observation(patient, request_description)
         "with request description code: #{request_description.code}"
 
   log msg do
-
     request = pathology_patient.observation_requests.create!(
       description: request_description,
       requestor_order_number: rand(100000),
       requested_at: Time.zone.now,
-      requestor_name: "Dr Stanley Fan",
+      requestor_name: "Dr Stanley Fan"
     )
 
     request.observations.create!(
@@ -20,7 +19,6 @@ def create_observation(patient, request_description)
       result: rand(120),
       observed_at: request.requested_at - 9.hours
     )
-
   end
 end
 
@@ -34,8 +32,8 @@ module Renalware
     .shuffle
 
   patients.each_with_index do |patient, i|
-    request_description = request_descriptions[i % request_descriptions.length-1]
-    next unless request_description.required_observation_description.present?
+    request_description = request_descriptions[i % request_descriptions.length - 1]
+    next if request_description.required_observation_description.blank?
 
     create_observation(patient, request_description)
   end

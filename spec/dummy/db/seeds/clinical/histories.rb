@@ -10,4 +10,3 @@ module Renalware
     rabbit.save!
   end
 end
-

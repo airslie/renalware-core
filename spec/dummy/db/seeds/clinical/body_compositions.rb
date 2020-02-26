@@ -2,7 +2,6 @@
 
 module Renalware
   log "Adding Body Composition Measurements for Roger RABBIT" do
-
     class CreateBodyComposition
       def initialize
         @rabbit = Patient.find_by(family_name: "RABBIT", given_name: "Roger")
@@ -30,7 +29,7 @@ module Renalware
           fat_tissue_mass: rand(50.0..70.0).round(1),
           adipose_tissue_mass: rand(50.0..70.0).round(1),
           body_cell_mass: rand(50.0..70.0).round(1),
-          quality_of_reading: rand(50.000..100.000).round(3),
+          quality_of_reading: rand(50.000..100.000).round(3)
         ).save!
       end
     end

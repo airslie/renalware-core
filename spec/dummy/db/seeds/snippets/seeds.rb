@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 module Renalware
-
   log "Adding Sample Snippets" do
-
     x = User.count
     # For DNA snippets -- so not every user has one
-    y = x/2
+    y = x / 2
 
     modals = %w(Nephrology Transplant HD PD Access)
 
@@ -37,7 +35,7 @@ module Renalware
         title: "#{mdm} MDM snippet",
         last_used_on: i.days.ago,
         times_used: 1,
-        body: "#{body_text_2}")
+        body: body_text_2.to_s)
     end
 
     y.times do |i|

@@ -4,7 +4,6 @@ module Renalware
   patient = Patient.find_by(family_name: "RABBIT", given_name: "Roger")
 
   log "Adding Prescriptions for #{patient}" do
-
     barts_doc = User.find_by!(username: "bartsdoc")
 
     patient.prescriptions.create!(

@@ -2,7 +2,6 @@
 
 module Renalware
   log "Adding Pathology Labs" do
-
     file_path = File.join(File.dirname(__FILE__), "pathology_labs.csv")
 
     Pathology::Lab.transaction do

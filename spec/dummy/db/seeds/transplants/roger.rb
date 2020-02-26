@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Renalware
-
   # Set the current DB connection
-  connection = ActiveRecord::Base.connection();
+  connection = ActiveRecord::Base.connection()
 
   # transplant_recipient_operations
   # transplant_recipient_workups
@@ -11,7 +10,6 @@ module Renalware
   # transplant_registration_statuses
 
   log "SQL INSERT Transplant Registration for Roger RABBIT" do
-
     connection.execute(<<-SQL)
       INSERT INTO transplant_registrations
       (patient_id, referred_on, assessed_on, entered_on,
@@ -60,7 +58,6 @@ module Renalware
   # end
 
   log "SQL INSERT Transplant Recipient Workup for Roger RABBIT" do
-
     # Execute a sql statement
     connection.execute(<<-SQL)
       INSERT INTO transplant_recipient_workups
@@ -92,8 +89,7 @@ module Renalware
     SQL
   end
 
-log "SQL INSERT Transplant Recipient Operation for Roger RABBIT" do
-
+  log "SQL INSERT Transplant Recipient Operation for Roger RABBIT" do
     connection.execute(<<-SQL)
       INSERT INTO transplant_recipient_operations
       (patient_id, performed_on, theatre_case_start_time, donor_kidney_removed_from_ice_at,
@@ -120,6 +116,5 @@ log "SQL INSERT Transplant Recipient Operation for Roger RABBIT" do
       "tested_on": "2017-02-22"}}', '2017-02-23 13:41:34.499713',
       '2017-02-23 13:41:34.499713');
     SQL
-
   end
 end

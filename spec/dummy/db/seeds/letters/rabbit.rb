@@ -4,7 +4,7 @@ module Renalware
   log "Assign Letters to Roger RABBIT" do
     patient = Letters.cast_patient(Patient.find_by(local_patient_id: "Z100001"))
     clinics_patient = Renalware::Clinics.cast_patient(patient)
-    patient.letters.each { |letter| letter.archive && letter.archive.destroy! }
+    patient.letters.each { |letter| letter.archive&.destroy! }
     patient.letters.destroy_all
     users = User.limit(3).to_a
 
@@ -16,7 +16,7 @@ module Renalware
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Etiam porta sem malesuada magna mollis euismod. Donec ullamcorper nulla non metus auctor fringilla.
 
       Yours sincerely
-      TEXT
+    TEXT
 
     contacts = patient.contacts.limit(2).to_a
     Letters::Letter::Draft.create!(
@@ -28,9 +28,9 @@ module Renalware
         person_role: "primary_care_physician"
       },
       cc_recipients_attributes: [
-          { person_role: "contact", addressee: contacts.first },
-          { person_role: "contact", addressee: contacts.last },
-        ],
+        { person_role: "contact", addressee: contacts.first },
+        { person_role: "contact", addressee: contacts.last }
+      ],
       body: letter_body,
       notes: "Waiting on lab results.",
       letterhead: Renalware::Letters::Letterhead.first,
