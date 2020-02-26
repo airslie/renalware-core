@@ -7,8 +7,7 @@
 = content_for(:tabs) do
   = render "renalware/research/studies/tabs", study: study
 
-= within_admin_layout(\
-  title: study.code,
-  breadcrumbs: breadcrumb_for("Clinical Studies", research_studies_path)) do
+= within_admin_layout(title: study.code,
+                      breadcrumbs: breadcrumb_for("Clinical Studies", research_studies_path)) do
 
   = render "table", study: study, participants: participants, query: query

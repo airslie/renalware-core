@@ -6,7 +6,7 @@
 = content_for(:filters) do
   = render "filters", drugs_search: @drugs_search
 
-= within_admin_layout(title: "Drugs") do
+= within_new_admin_layout(title: "Drugs") do
   table.drugs
     thead
       tr

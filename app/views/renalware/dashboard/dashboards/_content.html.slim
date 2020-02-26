@@ -5,4 +5,4 @@
   = render(Renalware::Letters::UnreadElectronicCCsComponent, current_user: current_user)  
 
   - if current_user_is_admin?
-    = render Renalware::Admin::Users::SummaryPart.new(nil, current_user)
+    = render(Renalware::System::UsersAwaitingApprovalComponent, current_user: current_user)  

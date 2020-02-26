@@ -13,9 +13,9 @@ describe "Managing system messages that are displayed on the login page", type: 
     )
     login_as_super_admin
 
-    visit root_path
-    within "nav.top-bar" do
-      click_on "Super Admin"
+    visit admin_dashboard_path
+
+    within ".side-nav--admin" do
       click_on "System Messages"
     end
 

@@ -5,10 +5,9 @@ require "rails_helper"
 describe "Clearing the Rails cache", type: :system do
   it "A super admin clears the Redis cache" do
     login_as_super_admin
-    visit dashboard_path
+    visit admin_dashboard_path
 
-    within "#top-menu-bar" do
-      click_on "Admin"
+    within ".side-nav--admin" do
       click_on "Cache"
     end
 

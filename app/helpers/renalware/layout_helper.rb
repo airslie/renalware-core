@@ -16,6 +16,18 @@ module Renalware
                     **opts) { yield }
     end
 
+    def within_non_patient_layout
+      within_layout(layout: "renalware/layouts/non_patient",
+                    title: opts.fetch(:page_title, title),
+                    **opts) { yield }
+    end
+
+    def within_new_admin_layout(title: nil, **opts)
+      within_layout(layout: "renalware/layouts/admin",
+                    title: opts.fetch(:page_title, title),
+                    **opts) { yield }
+    end
+
     def within_layout(layout:, title: nil, **opts)
       title ||= t?(".page_title") ? t(".page_title") : t(".title", cascade: false)
       opts[:title] = title

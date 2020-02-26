@@ -2,11 +2,10 @@
   li.show-for-medium-up= link_to("Feedback",
               new_system_user_feedback_path,
               class: "button secondary")
-li.has-dropdown
+li.has-dropdown.menu-item.menu-item--home
   = link_to dashboard_path do
-    i.fas.fa-home
-    | &nbsp;
-    = current_user.username
+    i
+    =current_user.username
   ul.dropdown
     li= link_to "My Dashboard", dashboard_path
     li= link_to "Update Profile", edit_user_registration_path

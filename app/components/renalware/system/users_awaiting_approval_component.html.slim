@@ -1,0 +1,6 @@
+.row
+  .columns.small-12.medium-6.large-4
+    article.admin--users
+      header
+        h2 User Admin
+      = link_to users_needing_approval_title, renalware.admin_users_path(q: { unapproved: true })

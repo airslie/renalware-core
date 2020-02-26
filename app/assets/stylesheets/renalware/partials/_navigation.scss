@@ -66,12 +66,14 @@ dd.patient-name {
   left: -$patient-side-nav-width;
 }
 
-.patient-side-nav {
+.patient-side-nav,
+.admin-side-nav {
   @media print {
     display: none;
   }
 
   background-color: $patient-menu-background-colour;
+
   min-width: $patient-side-nav-width;
   padding: 0.3rem 0 2rem 0.4rem;
   width: $patient-side-nav-width;
@@ -127,6 +129,23 @@ dd.patient-name {
       &.actions-heading {
         margin-bottom: 0.3rem;
       }
+    }
+  }
+}
+
+.admin-side-nav {
+  background-color: $muted-dark-grey;
+  color: #fff;
+
+  .side-nav--admin {
+    li a,
+    li.heading {
+      color: #fff !important;
+      text-decoration: none !important;
+    }
+
+    li.active a {
+      color: $dark-grey !important;
     }
   }
 }
@@ -189,7 +208,7 @@ dd.patient-name {
   }
 }
 
-.top-bar-section  .dropdown li.info {
+.top-bar-section .dropdown li.info {
   color: rgba(255, 255, 255, 0.5);
   font-size: 0.8em;
   line-height: 45px;
@@ -201,6 +220,30 @@ dd.patient-name {
 
   &::after {
     right: 1rem;
+  }
+}
+
+#top-menu-bar {
+  li.menu-item a i{
+    font-weight: 600;
+    pointer-events: none;
+    text-align: center;
+    width: 1.2rem;
+    vertical-align: text-bottom;
+    margin-right: .3rem;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+  }
+
+  li.menu-item--home a i:before {
+    content: asset-data-url("renalware/icons/home.svg");
+  }
+
+  li.menu-item--admin a i:before {
+    content: asset-data-url("renalware/icons/settings.svg");
   }
 }
 

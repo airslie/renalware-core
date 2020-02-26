@@ -1,0 +1,4 @@
+= within_new_admin_layout(title: "Admin Dashboard") do
+  .row
+    .columns
+      = render(Renalware::System::UsersAwaitingApprovalComponent, current_user: current_user)
