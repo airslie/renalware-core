@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 module Renalware
-
   log "Adding Exit Site Infection for Roger RABBIT" do
     PD::ExitSiteInfection.create!({
-      patient_id: 1,
-      diagnosis_date: "2015-06-09",
-      treatment: "liquid and electrolyte replacement ",
-      outcome: "Recovered well. Scheduled another training review session.", notes: ""
-    })
+                                    patient_id: 1,
+                                    diagnosis_date: "2015-06-09",
+                                    treatment: "liquid and electrolyte replacement ",
+                                    outcome: "Recovered well. Scheduled another training review session.", notes: ""
+                                  })
   end
 
   log "Adding Peritonitis Episode for Roger RABBIT" do

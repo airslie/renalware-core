@@ -6,7 +6,6 @@ module Renalware
 
     log "Adding Drug Types" do
       Drugs::Drug.transaction do
-
         %w(Antibiotic ESA Immunosuppressant Peritonitis Controlled).each_with_index do |drug_type, index|
           Drugs::Type.find_or_create_by!(code: drug_type.downcase) do |type|
             type.id = index + 1

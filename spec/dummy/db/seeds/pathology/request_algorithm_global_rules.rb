@@ -2,22 +2,21 @@
 
 def find_param_id(row)
   case row["type"].demodulize
-    when "ObservationResult" then
-      Renalware::Pathology::ObservationDescription.find_by!(code: row["param_id"]).id
-    when "RequestResult" then
-      Renalware::Pathology::RequestDescription.find_by!(code: row["param_id"]).id
-    when "PrescriptionDrug" then
-      Renalware::Drugs::Drug.find_by!(name: row["param_id"]).id
-    when "PrescriptionDrugType" then
-      Renalware::Drugs::Type.find_by!(name: row["param_id"]).id
-    when "PrescriptionDrugCategory" then
-      Renalware::Pathology::Requests::DrugCategory.find_by(name: row["param_id"]).id
+  when "ObservationResult"
+    Renalware::Pathology::ObservationDescription.find_by!(code: row["param_id"]).id
+  when "RequestResult"
+    Renalware::Pathology::RequestDescription.find_by!(code: row["param_id"]).id
+  when "PrescriptionDrug"
+    Renalware::Drugs::Drug.find_by!(name: row["param_id"]).id
+  when "PrescriptionDrugType"
+    Renalware::Drugs::Type.find_by!(name: row["param_id"]).id
+  when "PrescriptionDrugCategory"
+    Renalware::Pathology::Requests::DrugCategory.find_by(name: row["param_id"]).id
   end
 end
 
 module Renalware
   log "Adding Pathology Request Algorithm Global Rules" do
-
     file_path = File.join(File.dirname(__FILE__), "request_algorithm_global_rules.csv")
 
     CSV.foreach(file_path, headers: true) do |row|

@@ -2,14 +2,13 @@
 
 module Renalware
   log "Assigning ESA Prescriptions to Random Patients" do
-
-# Reference: ESA type drug_ids
-# 296,2
-# 693,2
-# 883,2
-# 884,2
-# 885,2
-# 1635,2
+    # Reference: ESA type drug_ids
+    # 296,2
+    # 693,2
+    # 883,2
+    # 884,2
+    # 885,2
+    # 1635,2
 
     kch_doc = User.find_by!(username: "kchdoc")
     barts_doc = User.find_by!(username: "bartsdoc")
@@ -23,7 +22,7 @@ module Renalware
       i = 0
       patients.each do |patient|
         i += 1
-        if i % 10 == 0 or patient.family_name == "RABBIT"
+        if (i % 10 == 0) || (patient.family_name == "RABBIT")
           patient.prescriptions.create!(
             drug_id: esa_drug_ids.sample,
             treatable: patient,
@@ -37,23 +36,23 @@ module Renalware
           )
         end
         # add some terminated
-        if i % 15 == 0
-          patient.prescriptions.create!(
-            drug_id: esa_drug_ids.sample,
-            treatable: patient,
-            dose_amount: doses.sample,
-            dose_unit: "unit",
-            medication_route_id: 3,
-            frequency: "weekly",
-            prescribed_on: start_dates.sample.days.ago,
-            provider: 0,
-            by: barts_doc,
-            termination: Medications::PrescriptionTermination.new(
-              terminated_on: term_dates.sample.days.ago,
-              by: kch_doc
-            )
+        next unless i % 15 == 0
+
+        patient.prescriptions.create!(
+          drug_id: esa_drug_ids.sample,
+          treatable: patient,
+          dose_amount: doses.sample,
+          dose_unit: "unit",
+          medication_route_id: 3,
+          frequency: "weekly",
+          prescribed_on: start_dates.sample.days.ago,
+          provider: 0,
+          by: barts_doc,
+          termination: Medications::PrescriptionTermination.new(
+            terminated_on: term_dates.sample.days.ago,
+            by: kch_doc
           )
-        end
+        )
       end
     end
   end

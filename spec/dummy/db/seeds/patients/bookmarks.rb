@@ -14,6 +14,7 @@ module Renalware
           next if current_bookmarks.find do |bookmark|
             bookmark.patient_id = patient.id && bookmark.user_id = user_id
           end
+
           new_bookmarks << Patients::Bookmark.new(user_id: user_id, patient_id: patient.id)
         end
       end

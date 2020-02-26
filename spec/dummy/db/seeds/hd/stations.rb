@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware
-
   log "Adding HD Stations" do
-
     class CreateStation
       attr_reader :units, :user
 
@@ -13,8 +11,9 @@ module Renalware
       end
 
       def find_hd_unit_by_code(code)
-        unit = units.detect{ |un| un.unit_code == code }
+        unit = units.detect { |un| un.unit_code == code }
         fail "Unit '#{code}' not found" if unit.nil?
+
         unit
       end
 
@@ -30,6 +29,7 @@ module Renalware
 
       def station_location_id_for(location)
         return nil if location.blank?
+
         HD::StationLocation.find_by!(name: location).id
       end
     end

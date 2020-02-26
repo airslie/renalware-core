@@ -2,7 +2,6 @@
 
 module Renalware
   log "Adding Pathology Measurement Units" do
-
     file_path = File.join(File.dirname(__FILE__), "measurement_units.csv")
 
     CSV.foreach(file_path, headers: true) do |row|

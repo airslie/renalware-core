@@ -6,7 +6,7 @@ module Renalware
     descriptions = []
     current_description_codes = Pathology::ObservationDescription.pluck(:code)
     units_of_measurement_map = Renalware::Pathology::MeasurementUnit.select(:id, :name)
-      .each_with_object({}){ |uom, hash| hash[uom.name] = uom.id }
+      .each_with_object({}) { |uom, hash| hash[uom.name] = uom.id }
 
     Pathology::ObservationDescription.transaction do
       CSV.foreach(file_path, headers: true) do |row|

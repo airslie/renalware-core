@@ -2,7 +2,6 @@
 
 module Renalware
   log "Adding Biopsy events for Roger RABBIT" do
-
     class CreateBiopsy
       def initialize
         @rabbit = Patient.find_by(family_name: "RABBIT", given_name: "Roger")

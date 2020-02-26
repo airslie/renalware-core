@@ -4,7 +4,6 @@ module Renalware
   rabbit = Patient.find_by(family_name: "RABBIT", given_name: "Roger")
 
   log "Adding Problems for Roger RABBIT" do
-
     file_path = File.join(File.dirname(__FILE__), "rabbit_problems.csv")
 
     rabbit.problems.destroy_all
@@ -27,7 +26,6 @@ module Renalware
   end
 
   log "Adding Problem Notes for Roger RABBIT" do
-
     file_path = File.join(File.dirname(__FILE__), "rabbit_problem_notes.csv")
 
     problem_ids = rabbit.problem_ids
