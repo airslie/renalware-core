@@ -7,6 +7,7 @@ require "breadcrumb"
 module Renalware
   module ApplicationHelper
     include Renalware::Engine.routes.url_helpers
+    include Pagy::Frontend
 
     def default_patient_link(patient)
       link_to(patient.to_s(:default), patient_clinical_summary_path(patient))

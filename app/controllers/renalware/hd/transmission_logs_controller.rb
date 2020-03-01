@@ -7,17 +7,18 @@ module Renalware
   module HD
     class TransmissionLogsController < BaseController
       include PresenterHelper
-      include Renalware::Concerns::Pageable
+      include Pagy::Backend
 
       # NB be sure not to select the payload as this will slow things down.
       # The payload is loaded by clicking on a link in the table
       def index
-        logs = TransmissionLog
-          .order(created_at: :desc)
-          .select(TransmissionLog.attribute_names - [:payload])
-          .page(page).per(per_page)
+        pagy, logs = pagy(
+          TransmissionLog
+            .order(created_at: :desc)
+            .select(TransmissionLog.attribute_names - [:payload])
+        )
         authorize logs
-        render locals: { logs: logs }
+        render locals: { logs: logs, pagy: pagy }
       end
 
       def show

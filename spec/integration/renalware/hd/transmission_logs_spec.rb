@@ -9,7 +9,7 @@ describe "View transmission logs", type: :system do
       create(:hd_transmission_log, :incoming_xml, filepath: "log_1.txt")
       log_2 = create(:hd_transmission_log, :outgoing_hl7, filepath: "log_2.txt")
 
-      visit hd_transmission_logs_path(per_page: 1)
+      visit hd_transmission_logs_path
 
       expect(page).to have_content("HD Transmission Logs")
 
@@ -17,7 +17,7 @@ describe "View transmission logs", type: :system do
         expect(page).to have_content("log_2")
         expect(page).to have_content(log_2.direction)
         expect(page).to have_content(log_2.format)
-        expect(page).not_to have_content("log_1")
+        expect(page).to have_content("log_1")
         expect(page).to have_content("Next ")
       end
     end
