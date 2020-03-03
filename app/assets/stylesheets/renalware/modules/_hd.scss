@@ -404,7 +404,7 @@ use flexbox to layout items inside each prescription.
     display: flex; /* also a flex for items within it */
 
     .hd-drug {
-      flex: 1;
+      flex: 1 1 auto;
       padding-bottom: .5rem;
       color: $mid-grey;
 
@@ -447,7 +447,6 @@ use flexbox to layout items inside each prescription.
     display: flex;
     margin-top: .3rem;
 
-
     label, .radio_buttons {
       display: flex;
       flex: 0 1 9rem;
@@ -455,6 +454,10 @@ use flexbox to layout items inside each prescription.
 
     .radio {
       display: inline-block !important;
+
+      label {
+        width: 5rem;
+      }
     }
   }
 
@@ -500,7 +503,7 @@ use flexbox to layout items inside each prescription.
   }
 
   .notes {
-    flex: 1;
+    flex: 1 1 auto;
     margin-right: 1rem;
 
     textarea {

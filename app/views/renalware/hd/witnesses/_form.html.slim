@@ -39,9 +39,9 @@
 
     .modal__footer
       .right
-        = f.submit "Update User Only", name: "form[update_user_only]", class: "button secondary"
-        | &nbsp;&nbsp;
         = f.submit "Witness", class: "button"
+        | &nbsp;&nbsp;
+        = f.submit "Update User Only", name: "form[update_user_only]", class: "button secondary"
         span= " or "
         = link_to "Cancel",
                 "#",

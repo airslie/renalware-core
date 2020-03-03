@@ -3,7 +3,11 @@
 require "rails_helper"
 
 # rubocop:disable all
-describe "Administering drugs from HD Dashboard, independent of HD Session", type: :system, js: true do
+describe(
+  "Administering drugs from HD Dashboard, independent of HD Session",
+  type: :system,
+  js: true
+) do
   include AjaxHelpers
   let(:patient) { create(:hd_patient) }
 
@@ -180,7 +184,7 @@ describe "Administering drugs from HD Dashboard, independent of HD Session", typ
           dialog.administered_by = nurse
           dialog.administered_by_password = password
 
-          expect(dialog.save_button_captions).to eq(["Save and Witness Later", "Save"])
+          expect(dialog.save_button_captions).to eq(["Save", "Save and Witness Later"])
 
           dialog.save_and_witness_later
 
@@ -223,7 +227,7 @@ describe "Administering drugs from HD Dashboard, independent of HD Session", typ
           dialog.witnessed_by = witness
           dialog.witnessed_by_password = password
 
-          expect(dialog.save_button_captions).to eq(["Save and Witness Later", "Save"])
+          expect(dialog.save_button_captions).to eq(["Save", "Save and Witness Later"])
 
           dialog.save
 

@@ -2,7 +2,7 @@
                  remote: true,
                  html: { autocomplete: "off" },
                  url: url) do |fpa|
-  .modal
+  .modal(data-controller="hd-prescription-administration")
     .modal__header
       h2= "Record HD Drug"
       = render "renalware/shared/modal_close_link"
@@ -16,7 +16,7 @@
 
       = fpa.input :prescription_id, as: :hidden
 
-      .hd-drug-administration
+      .hd-drug-administration(data-target="hd-prescription-administration.container")
         .summary
           .hd-drug
             .hd-drug--name= prescription.drug_name
@@ -33,12 +33,20 @@
 
         .hd-drug-administered
           label(for="hd_prescription_administration_administered") Administered
-          = fpa.input :administered, as: :inline_radio_buttons, label: false
+          = fpa.input :administered,
+                      as: :inline_radio_buttons,
+                      label: false,
+                      input_html: { \
+                        data: { \
+                          target: "hd-prescription-administration.radio",
+                          action: "change->hd-prescription-administration#toggleAdministered",
+                        } \
+                      }
 
         .recorded-on
           = fpa.input :recorded_on, as: :date_picker, wrapper: :hz_tiny, input_html: { autocomplete: "off" }
 
-        .notes
+        .notes(style="display: block")
           = fpa.label :notes
           = fpa.input :notes, label: false, wrapper: :zilch, input_html: { rows: 2 }
 
@@ -76,13 +84,13 @@
 
       .modal__footer
         .right
+          = fpa.submit "Save", class: "button"
+          | &nbsp;&nbsp;
           = fpa.submit "Save and Witness Later",
                        name: "hd_prescription_administration[skip_witness_validation]",
                        id: "btn_save_and_witness_later",
                        class: "button secondary"
-          | &nbsp;&nbsp;
-          = fpa.submit "Save",
-                       class: "button"
+
           span= " or "
           = link_to "Cancel",
                   "#",
