@@ -53,7 +53,6 @@ module Renalware
       def validate_witness?
         return false if not_administered?
         return false if skip_witness_validation
-        return false unless Renalware.config.hd_session_prescriptions_require_signoff
 
         true
       end

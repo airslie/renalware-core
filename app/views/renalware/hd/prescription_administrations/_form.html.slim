@@ -52,35 +52,33 @@
 
         .reason-why-not-administered
           = fpa.label :reason_id
-
           = fpa.association :reason, wrapper: :zilch, label: "x"
 
-        - if Renalware.config.hd_session_prescriptions_require_signoff
-          .authentication(
-            class="#{'disabled-with-faded-overlay' unless administration.administered?}"
-            data-authentication-url=renalware.hd_prescription_administration_authorisations_path
-          )
-            / Output username and password fields for administrator and witness
-            - { administrator: :administered, witness: :witnessed }.each do |user_role, prefix|
+        .authentication(
+          class="#{'disabled-with-faded-overlay' unless administration.administered?}"
+          data-authentication-url=renalware.hd_prescription_administration_authorisations_path
+        )
+          / Output username and password fields for administrator and witness
+          - { administrator: :administered, witness: :witnessed }.each do |user_role, prefix|
 
-              - authorised = administration.public_send(:"#{user_role}_authorised?")
-              .user-and-password(
-                class="user-and-password--#{user_role} #{'authorised' if authorised} #{'error' if fpa.object.errors[:password].any?}"
-              )
-                = fpa.label :"#{prefix}_by"
-                = fpa.association :"#{prefix}_by",
-                                  as: :user_picker,
-                                  collection: Renalware::User.ordered,
-                                  wrapper: :zilch,
-                                  label: false,
-                                  input_html: { class: "authentication-user-id" }
+            - authorised = administration.public_send(:"#{user_role}_authorised?")
+            .user-and-password(
+              class="user-and-password--#{user_role} #{'authorised' if authorised} #{'error' if fpa.object.errors[:password].any?}"
+            )
+              = fpa.label :"#{prefix}_by"
+              = fpa.association :"#{prefix}_by",
+                                as: :user_picker,
+                                collection: Renalware::User.ordered,
+                                wrapper: :zilch,
+                                label: false,
+                                input_html: { class: "authentication-user-id" }
 
-                / Password is only visible as long as the user has not been authenticated
-                = fpa.input :"#{prefix}_by_password",
-                            as: :password,
-                            placeholder: "Password",
-                            class: "user-password",
-                            autocomplete: :off
+              / Password is only visible as long as the user has not been authenticated
+              = fpa.input :"#{prefix}_by_password",
+                          as: :password,
+                          placeholder: "Password",
+                          class: "user-password",
+                          autocomplete: :off
 
       .modal__footer
         .right
