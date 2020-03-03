@@ -41,4 +41,4 @@ ul.f-dropdown#pd-options(data-dropdown-content aria-hidden="true")
 - unless dashboard.has_ever_been_on_hd?
   = render "modality_missing_warning", message: t(".missing_modality_warning")
 
-= render(Renalware::HD::AdministerPrescriptionDropdownComponent, patient: patient)
+= render Renalware::HD::AdministerPrescriptionDropdownComponent.new(patient: patient)

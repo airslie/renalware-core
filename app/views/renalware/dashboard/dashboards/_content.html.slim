@@ -1,8 +1,8 @@
 .dashboard-content
-  = render(Renalware::Letters::LettersInProgressComponent, current_user: current_user)
-  = render(Renalware::Patients::BookmarksComponent, current_user: current_user)
-  = render(Renalware::Messaging::UnreadMessagesComponent, current_user: current_user)
-  = render(Renalware::Letters::UnreadElectronicCCsComponent, current_user: current_user)  
+  = render Renalware::Letters::LettersInProgressComponent.new(current_user: current_user)
+  = render Renalware::Patients::BookmarksComponent.new(current_user: current_user)
+  = render Renalware::Messaging::UnreadMessagesComponent.new(current_user: current_user)
+  = render Renalware::Letters::UnreadElectronicCCsComponent.new(current_user: current_user)
 
   - if current_user_is_admin?
-    = render(Renalware::System::UsersAwaitingApprovalComponent, current_user: current_user)  
+    = render Renalware::System::UsersAwaitingApprovalComponent.new(current_user: current_user)

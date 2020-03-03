@@ -9,4 +9,4 @@
     = render "measurements", mdm: mdm
 
   .columns.medium-12.large-4
-    = render(Renalware::Events::BiopsiesComponent, patient: current_patient)
+    = render Renalware::Events::BiopsiesComponent.new(patient: current_patient)

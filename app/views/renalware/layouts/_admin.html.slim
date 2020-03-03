@@ -2,7 +2,7 @@
 
 nav.patient-side-nav.admin-side-nav.full-screenable
   .layout-wrapper
-    = render Renalware::System::AdminMenuComponent, current_user: current_user
+    = render Renalware::System::AdminMenuComponent.new(current_user: current_user)
 
 .non-patient-page.main-content
   .layout-wrapper

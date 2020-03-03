@@ -10,7 +10,7 @@
 - patient_page_title(title: title, patient: current_patient)
 
 nav.patient-side-nav
-  / = render Renalware::Patients::SideMenuComponent, patient: current_patient
+  / = render Renalware::Patients::SideMenuComponent.new(patient: current_patient)
   = render "renalware/patients/side_menu", patient: current_patient
 
 .patient-content
