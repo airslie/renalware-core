@@ -4,7 +4,8 @@ require "rails_helper"
 
 describe "Patient's Protocol PDF", type: :request do
   include PathologySpecHelper
-  let(:user) { create(:user) }
+  let(:password) { "(&*G986111" }
+  let(:user) { create(:user, password: password) }
   let(:patient) do
     create(:hd_patient, family_name: "Rabbit", local_patient_id: "KCH12345", by: user)
   end
@@ -80,6 +81,53 @@ describe "Patient's Protocol PDF", type: :request do
           expect(response.body).not_to include("Hepatitis B")
           expect(response.body).not_to include("Hepatitis C")
         end
+      end
+    end
+
+    context "when the patient has prescriptions" do
+      it "displays only 'give on hd' prescription" do
+        drug1 = create(:drug, name: "Drug1")
+        drug2 = create(:drug, name: "Drug2")
+        create(:prescription, drug: drug1, administer_on_hd: true, patient: patient)
+        create(:prescription, drug: drug2, administer_on_hd: false, patient: patient)
+
+        get patient_hd_protocol_path(patient_id: patient, disposition: :attachment, debug: 1)
+
+        expect(response).to be_successful
+        expect(response.body).to include("Drug1")
+        expect(response.body).not_to include("Drug2")
+      end
+
+      it "displays the 'last given' date for a drug, if present" do
+        given_prescription = create(
+          :prescription,
+          administer_on_hd: true,
+          patient: patient
+        )
+        create(
+          :hd_prescription_administration,
+          prescription: given_prescription,
+          recorded_on: "2020-02-20",
+          patient_id: patient.id,
+          administered_by_password: password,
+          administered_by: user,
+          skip_witness_validation: true
+        )
+        create(
+          :hd_prescription_administration,
+          prescription: given_prescription,
+          recorded_on: "2020-02-19",
+          patient_id: patient.id,
+          administered_by_password: password,
+          administered_by: user,
+          skip_witness_validation: true
+        )
+
+        get patient_hd_protocol_path(patient_id: patient, disposition: :attachment, debug: 1)
+
+        expect(response).to be_successful
+        expect(response.body).to include(given_prescription.drug.name)
+        expect(response.body).to include("20-Feb-2020")
       end
     end
   end

@@ -1,7 +1,15 @@
-dl.prescriptions
-  - prescriptions.each do |prescription|
-    dt= prescription.drug.name
-    dd
-      = prescription.dose
-      = blank_separator
-      = prescription.frequency
+table.prescriptions
+  thead
+    tr
+      th Drug
+      th Dose
+      th Freq
+      th.col-width-date Last Given
+  tbody
+    - prescriptions.each do |prescription|
+      - last_administration = Renalware::HD::PrescriptionLastAdministrationQuery.new(prescription: prescription).call
+      tr
+        td= prescription.drug.name
+        td= prescription.dose
+        td= prescription.frequency
+        td= l(last_administration&.recorded_on)
