@@ -3857,7 +3857,7 @@ var _default$3 = function(_Controller) {
   _createClass(_default, [ {
     key: "connect",
     value: function connect() {
-      initDatepickersIn(".hd-drug-administration");
+      window.initDatepickersIn(".hd-drug-administration");
     }
   }, {
     key: "toggleAdministered",
