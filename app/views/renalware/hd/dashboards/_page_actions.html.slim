@@ -4,13 +4,14 @@
 = link_to(patient_hd_protocol_path(patient), class: "button with-icon secondary", target: "_blank") do
   i.fas.fa-print
   = t(".protocol")
+
 a.button.dropdown.with-icon(href="#"
                             data-dropdown="pd-options"
                             aria-controls="pd-options"
                             aria-expanded="false")
   i.fas.fa-plus
   | Add
-br
+
 ul.f-dropdown#pd-options(data-dropdown-content aria-hidden="true")
 
   = dropdown_btn_item enabled: dashboard.can_add_hd_profile?,
@@ -39,3 +40,5 @@ ul.f-dropdown#pd-options(data-dropdown-content aria-hidden="true")
 
 - unless dashboard.has_ever_been_on_hd?
   = render "modality_missing_warning", message: t(".missing_modality_warning")
+
+= render Renalware::HD::AdministerPrescriptionDropdownComponent.new(patient: patient)

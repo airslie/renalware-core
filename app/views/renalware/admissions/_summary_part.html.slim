@@ -1,11 +1,12 @@
+- view_all_url = admissions_admissions_path(query: { term: summary_part.patient_nhs_number })
+
 #admissions.summary-part--admissions
   article
     header
-      h2= "Admissions (#{summary_part.admissions_count})"
+      h2
+        = link_to "Admissions (#{summary_part.admissions_count})", view_all_url
       ul
-        li= link_to admissions_admissions_path(query: { term: summary_part.patient_nhs_number }),
-                    class: "button" do
-          | View All
+        li= link_to "View All", view_all_url, class: "button"
 
     - if summary_part.admissions.any?
       = render "renalware/admissions/admissions/table",

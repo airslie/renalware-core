@@ -19,19 +19,11 @@ module Renalware
         # Closed (sign-off) but next time they want to save as Open (not signed off)
         # - so we need make sure the hidden :type form value is not rendered as :closed
         # This is getting a bit confusing and might need some refactoring, for example by
-        # driving the :type to save as using the button on the form (which we already do using
-        # the sign-off name of the SignOff button - see signed_off?
+        # driving the :type to save using the button name on the form
         def call(params:, id: nil, signing_off: false)
           @params = parse_params(params)
           session = find_or_build_session(id)
           session = update_session_attributes(session, signing_off)
-
-          session.prescription_administrations.each do |pa|
-            pa.administrator_authorised =
-              (pa.administrator_authorisation_token == pa.administered_by&.auth_token)
-            pa.witness_authorised =
-              (pa.witness_authorisation_token == pa.witnessed_by&.auth_token)
-          end
 
           if session.save
             # Might be cleaner if something listened for this event and created this job there?
@@ -59,19 +51,9 @@ module Renalware
         def update_session_attributes(session, signing_off)
           session = signed_off(session) if signing_off
           session.attributes = params
-          force_validation_of_nested_prescription_administrations(session)
-          skip_validation_on_prescription_administrations(session) unless signing_off
           session.by = current_user
           lookup_access_type_abbreviation(session)
           session
-        end
-
-        def force_validation_of_nested_prescription_administrations(session)
-          # These valid? calls required because while accepts_nested_attributes yields validation
-          # errors on create, no errors are raise when updating existing records.
-          # It might be something I don't understand about how accepts_nested_attributes works in
-          # this scenario. Anyway calling valid? causes the errors collection to be updated.
-          session.prescription_administrations.each(&:valid?)
         end
 
         def find_or_build_session(id)
@@ -109,12 +91,6 @@ module Renalware
           return unless access_type
 
           session.document.info.access_type_abbreviation = access_type.abbreviation
-        end
-
-        def skip_validation_on_prescription_administrations(session)
-          session.prescription_administrations.each do |pa|
-            pa.skip_validation = true
-          end
         end
       end
     end

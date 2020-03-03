@@ -14,7 +14,7 @@ module Renalware
     end
 
     # Added this helper as I can't seem to get the Pundit #policy helper to be included
-    # in the context when renderingt a component template.
+    # in the context when rendering a component template.
     def policy(record)
       current_user && Pundit.policy(current_user, record)
     end

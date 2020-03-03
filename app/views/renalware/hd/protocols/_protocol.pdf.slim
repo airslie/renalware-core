@@ -11,11 +11,10 @@
         tr
           th.protocol-hd-profile HD Profile
           th.protocol-allergies
-            = clinical_patient.allergy_status&.text
+            | Allergies
             - if clinical_patient.allergy_status_updated_at
               span.allergy_status_updated_at
-                = "#{l(clinical_patient.allergy_status_updated_at&.to_date)}"
-
+                = " #{l(clinical_patient.allergy_status_updated_at&.to_date)}"
           th.protocol-prescriptions Prescriptions on HD
           th.protocol-recent-pathology Recent Pathology
       tbody

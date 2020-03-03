@@ -9,7 +9,7 @@ describe Renalware::Patients::BookmarksComponent, type: :component do
       patient = create(:patient, by: user)
       bookmark = create(:patients_bookmark, user: user, patient: patient)
 
-      html = render_inline(described_class, current_user: user).to_html
+      html = render_inline(described_class.new(current_user: user)).to_html
 
       expect(html).to match("Bookmarked Patients")
       expect(html).to match(patient.to_s)
@@ -20,7 +20,7 @@ describe Renalware::Patients::BookmarksComponent, type: :component do
     it "displays a no bookmarks message" do
       user = create(:patients_user)
 
-      html = render_inline(described_class, current_user: user).to_html
+      html = render_inline(described_class.new(current_user: user)).to_html
 
       expect(html).to match("Bookmarked Patients")
       expect(html).to match("There are no patients bookmarked.")

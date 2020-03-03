@@ -11,6 +11,10 @@ module Renalware
         super
         @patient = Renalware::HD.cast_patient(patient)
       end
+
+      def hd_patient
+        @hd_patient ||= Renalware::HD.cast_patient(patient)
+      end
     end
   end
 end

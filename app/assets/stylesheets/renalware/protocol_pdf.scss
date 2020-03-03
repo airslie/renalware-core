@@ -24,7 +24,6 @@ h1 {
 }
 
 .protocol {
-
   .patient-header {
     clear: right;
     float: left;
@@ -74,14 +73,13 @@ h1 {
       th {
         font-size: 1.1rem;
         padding: 0;
-        padding-bottom: 0.4rem ;
 
         &.protocol-hd-profile {
           width: 42%;
         }
 
         &.protocol-allergies {
-          width: 18%;
+          width: 15%;
 
           .allergy_status_updated_at {
             font-weight: normal;
@@ -90,7 +88,8 @@ h1 {
         }
 
         &.protocol-prescriptions {
-          width: 25%;
+          width: 30%;
+          padding: 0;
         }
 
         &.protocol-recent-pathology {
@@ -103,7 +102,7 @@ h1 {
 
     td {
       margin: 0;
-      padding: 0 0.1rem;
+      // padding: 0 0.1rem;
       vertical-align: top;
     }
   }
@@ -218,10 +217,14 @@ h1 {
 
   table.recent-pathology {
     text-align: left;
+    border: none;
+    border-spacing: 0;
+    border-collapse: collapse;
 
     td,
     th {
-      padding-right: 0.2rem;
+      padding: 0 0.2rem !important;
+      border-bottom: solid 1px #ddd;
     }
 
     .result {
@@ -296,4 +299,40 @@ h1 {
 
 .nowrap {
   white-space: nowrap;
+}
+
+table.prescriptions {
+  border: none;
+  border-spacing: 0;
+  border-collapse: collapse;
+
+  thead tr th {
+    padding: 0 !important;
+  }
+  th, td {
+    padding: 0 .5rem 0 0;
+
+    &.col-width-date {
+      min-width: 7rem;
+      width: 7rem;
+    }
+  }
+  td {
+    border-top: solid 1px #ddd;
+  }
+}
+
+table.latest_dry_weight {
+  border: none;
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin-top: .5rem;
+
+  thead tr th {
+    padding: 0 !important;
+  }
+
+  th, td {
+    padding: 0 .5rem 0 0;
+  }
 }

@@ -9,6 +9,17 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.138
+03-03-2020
+### Added
+- Introduce an admin dashboard and LH menu #3135
+- Enable switch to es6 using rollup.js #3158
+- Introduce pagy gem #3163
+### Changed
+- Move table/tbody toggling to a stimulus controller #3159
+### Fixed
+- Drugs given on HD - sign off separate from rest of HD session #3096
+
 ### 2.0.137
 19-02-2020
 ### Added

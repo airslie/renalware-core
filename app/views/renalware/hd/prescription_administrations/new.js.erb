@@ -1,0 +1,5 @@
+// Render this to re-display the form with errors after an unsuccessful save
+var modal = $("#hd-prescription-administration-modal")
+$(modal).html("<%=
+  j(render 'form', prescription_administration: prescription_administration, url: hd_prescription_administrations_path)
+%>");

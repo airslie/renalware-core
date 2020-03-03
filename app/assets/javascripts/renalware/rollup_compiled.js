@@ -3725,6 +3725,20 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
@@ -3832,6 +3846,37 @@ var _default$2 = function(_Controller) {
   return _default;
 }(Controller);
 
+var $$1 = window.$;
+
+var _default$3 = function(_Controller) {
+  _inherits(_default, _Controller);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+  _createClass(_default, [ {
+    key: "connect",
+    value: function connect() {
+      window.initDatepickersIn(".hd-drug-administration");
+    }
+  }, {
+    key: "toggleAdministered",
+    value: function toggleAdministered() {
+      var checked = event.target.value == "true";
+      this.containerTarget.classList.toggle("administered", checked);
+      this.containerTarget.classList.toggle("not-administered", !checked);
+      this.containerTarget.classList.remove("undecided");
+      $$1(".authentication", this.containerTarget).toggle(checked);
+      $$1(".authentication", this.containerTarget).toggleClass("disabled-with-faded-overlay", !checked);
+      $$1(".reason-why-not-administered", this.containerTarget).toggle(!checked);
+      $$1("#btn_save_and_witness_later").toggle(checked);
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$3, "targets", [ "container", "radio" ]);
+
 var application = Application.start();
 
 application.register("test", _default);
@@ -3839,3 +3884,5 @@ application.register("test", _default);
 application.register("another_test", _default$1);
 
 application.register("toggle", _default$2);
+
+application.register("hd-prescription-administration", _default$3);

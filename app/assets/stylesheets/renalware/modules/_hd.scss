@@ -32,7 +32,7 @@
     }
     &.session_import_error {
       td.result {
-        background-color:lighten($nhs-pink, 50);
+        background-color: lighten($nhs-pink, 50);
       }
     }
   }
@@ -397,10 +397,6 @@ use flexbox to layout items inside each prescription.
 */
 .hd-drug-administration {
   display: flex;
-  border: solid 1px $light-grey;
-  margin: .7rem 0;
-  padding: .3rem .6rem;
-  border-right-width: 15px;
   flex-wrap: wrap;
 
   .summary {
@@ -408,7 +404,7 @@ use flexbox to layout items inside each prescription.
     display: flex; /* also a flex for items within it */
 
     .hd-drug {
-      flex: 1;
+      flex: 1 1 auto;
       padding-bottom: .5rem;
       color: $mid-grey;
 
@@ -439,18 +435,37 @@ use flexbox to layout items inside each prescription.
         }
       }
     }
+  }
 
-    /*
-    This is the checkox to indicate the drug was administered.
-    We fix its width as we never want it to shrink.
-    */
-    .hd-drug-administered {
-      flex-basis: 220px;
-      text-align: right;
+  /*
+  This is the checkox to indicate the drug was administered.
+  We fix its width as we never want it to shrink.
+  */
+  .hd-drug-administered {
+    width: 98%;
+    text-align: right;
+    display: flex;
+    margin-top: .3rem;
 
-      .radio {
-        display: inline-block !important;
+    label, .radio_buttons {
+      display: flex;
+      flex: 0 1 9rem;
+    }
+
+    .radio {
+      display: inline-block !important;
+
+      label {
+        width: 5rem;
       }
+    }
+  }
+
+  .recorded-on {
+    width: 98%;
+
+    .datepicker {
+      width: 140px !important;
     }
   }
 
@@ -488,7 +503,7 @@ use flexbox to layout items inside each prescription.
   }
 
   .notes {
-    flex: 1;
+    flex: 1 1 auto;
     margin-right: 1rem;
 
     textarea {
@@ -595,9 +610,17 @@ use flexbox to layout items inside each prescription.
   }
 }
 
-table.hd-session-drugs {
+table#hd-session-drugs {
   thead {
     border-bottom: solid 1px #222;
+  }
+
+  .unauthorised tr {
+    background-color: lighten($nhs-pink, 55);
+
+    td {
+      border-color: lighten($nhs-pink, 55);;
+    }
   }
 
   tr {

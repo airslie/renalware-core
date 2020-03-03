@@ -19,7 +19,7 @@ describe Renalware::Letters::UnreadElectronicCCsComponent, type: :component do
       user = create(:user)
       letter = send_letter_ecc_to(user)
 
-      html = render_inline(described_class, current_user: user).to_html
+      html = render_inline(described_class.new(current_user: user)).to_html
 
       expect(html).to match("Electronic CCs")
       expect(html).to match(letter.description)
@@ -30,7 +30,7 @@ describe Renalware::Letters::UnreadElectronicCCsComponent, type: :component do
     it "displays a no messages message" do
       user = create(:user)
 
-      html = render_inline(described_class, current_user: user).to_html
+      html = render_inline(described_class.new(current_user: user)).to_html
 
       expect(html).to match("Electronic CCs")
       expect(html).to match("You have no electronic CCs")

@@ -7,44 +7,44 @@ dl
   dd= profile.formatted_prescribed_time
   dt= t(".hd_type")
   dd= profile.hd_type
-  dt= t(".named_nurse")
-  dd= profile.named_nurse
 
-  dt.new_line= t(".needle_size")
+  dt.new_line= t(".named_nurse")
+  dd= profile.named_nurse
+  dt= t(".needle_size")
   dd= profile.needle_size
   dt= t(".single_needle")
   dd= profile.single_needle&.text
-  dt= t(".dialyser")
+  dt.new_line= t(".dialyser")
   dd= profile.dialyser
   dt= t(".dialysate")
   dd= profile.dialysate
 
-  dt.new_line= t(".has_sodium_profiling")
+  dt= t(".has_sodium_profiling")
   dd= profile.has_sodium_profiling&.text
-  dt= t(".sodium_first_half")
+  dt.new_line= t(".sodium_first_half")
   dd= profile.sodium_first_half
   dt= t(".sodium_second_half")
   dd= profile.sodium_second_half
 
-  dt.new_line= t(".anticoagulant.type")
+  dt= t(".anticoagulant.type")
   dd= profile.anticoagulant_type
   dt= t(".anticoagulant.loading_dose")
   dd= profile.anticoagulant_loading_dose
-  dt= t(".anticoagulant.hourly_dose")
+  dt.new_line= t(".anticoagulant.hourly_dose")
   dd= profile.anticoagulant_hourly_dose
   dt= t(".anticoagulant.stop_time")
   dd= profile.anticoagulant_stop_time
 
-  dt.new_line= t(".cannulation_type")
+  dt= t(".cannulation_type")
   dd= profile.cannulation_type
-  dt= t(".last_update")
+  dt.new_line= t(".last_update")
   dd= profile.last_update
 
-  dt.new_line= t(".transport.has_transport")
+  dt= t(".transport.has_transport")
   dd= profile.transport_has_transport&.text
   dt= t(".transport.type")
   dd= profile.transport_type&.text
-  dt= t(".transport.decided_on")
+  dt.new_line= t(".transport.decided_on")
   dd= profile.transport_decided_on
   dt= t(".on_worryboard")
   dd= yes_no(profile.patient.worry.present?)

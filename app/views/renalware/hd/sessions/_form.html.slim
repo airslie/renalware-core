@@ -124,10 +124,6 @@ ruby:
         = fcm.input :subs_goal, wrapper: :horizontal_tiny
         = fcm.input :subs_volume, wrapper: :horizontal_tiny
 
-    = render "renalware/hd/sessions/form/drugs_to_be_administered",
-             f: f,
-             prescription_administrations: f.object.prescription_administrations
-
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Notes/Complications", name: "complications" } do
       = fd.simple_fields_for :complications, fd.object.complications do |fcm|

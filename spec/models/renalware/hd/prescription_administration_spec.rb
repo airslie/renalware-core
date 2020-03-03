@@ -5,8 +5,6 @@ require "rails_helper"
 module Renalware
   module HD
     describe PrescriptionAdministration, type: :model do
-      let(:witness_authorisation_token) { nil }
-      let(:administrator_authorisation_token) { nil }
       let(:witnessed_by) { User.new }
       let(:administered_by) { User.new }
 
@@ -17,13 +15,14 @@ module Renalware
       end
 
       it_behaves_like "a Paranoid model"
-
       it_behaves_like "an Accountable model"
+
       it :aggregate_failures do
         is_expected.to belong_to(:prescription)
         is_expected.to belong_to(:hd_session).touch(true)
         is_expected.to belong_to(:reason)
         is_expected.to validate_presence_of(:prescription)
+        is_expected.to validate_presence_of(:recorded_on)
       end
 
       shared_examples_for "no validation on administrator or witness" do
@@ -34,55 +33,14 @@ module Renalware
         it "does not validate the presence of witnessed_by" do
           expect(errors[:witnessed_by]).to be_empty
         end
-
-        it "does not validate the presence of administrator_authorisation_token" do
-          expect(errors[:administrator_authorisation_token]).to be_empty
-        end
-
-        it "does not validate the presence of witness_authorisation_token" do
-          expect(errors[:witness_authorisation_token]).to be_empty
-        end
       end
 
       context "when administered is false" do
         describe "validation errors" do
           subject(:errors) do
             PrescriptionAdministration.new(
-              administered: false,
-              skip_validation: false
+              administered: false
             ).tap(&:valid?).errors
-          end
-
-          it_behaves_like "no validation on administrator or witness"
-        end
-      end
-
-      context "when skip_validation is true" do
-        describe "validation errors" do
-          subject(:errors) do
-            PrescriptionAdministration.new(
-              administered: true,
-              skip_validation: true
-            ).tap(&:valid?).errors
-          end
-
-          it_behaves_like "no validation on administrator or witness"
-        end
-      end
-
-      context "when config.hd_session_prescriptions_require_signoff = false" do
-        describe "validation errors" do
-          subject(:errors) do
-            PrescriptionAdministration.new(
-              administered: true,
-              skip_validation: false
-            ).tap(&:valid?).errors
-          end
-
-          before do
-            allow(Renalware.config)
-              .to receive(:hd_session_prescriptions_require_signoff)
-              .and_return(false)
           end
 
           it_behaves_like "no validation on administrator or witness"
@@ -95,56 +53,65 @@ module Renalware
             administered: true,
             administered_by: administered_by,
             witnessed_by: witnessed_by,
-            skip_validation: false,
-            administrator_authorisation_token: administrator_authorisation_token,
-            witness_authorisation_token: witness_authorisation_token
+            administered_by_password: administered_by_password,
+            witnessed_by_password: witnessed_by_password
           ).tap(&:valid?).errors
         end
 
-        {
-          administered_by: :administrator,
-          witnessed_by: :witness
-        }.each do |user, user_prefix|
-          token_name = :"#{user_prefix}_authorisation_token"
-          error_key = :"#{user_prefix}_authorisation_token"
+        let(:administered_by) { User.new(password: administered_by_password) }
+        let(:witnessed_by) { User.new(password: witnessed_by_password) }
+        let(:administered_by_password) { "123" }
+        let(:witnessed_by_password) { "456" }
 
-          describe "#{user_prefix}_authorisation_token" do
+        %i(administered_by witnessed_by).each do |user|
+          password_attr_name = :"#{user}_password"
+
+          describe password_attr_name do
             context "when #{user} is missing" do
               let(:"#{user}") { nil }
 
-              it "does not validate the token" do
-                expect(errors[error_key]).to be_empty
+              it "does not validate the password" do
+                expect(errors[password_attr_name]).to be_empty
               end
             end
 
-            context "when no token is present" do
-              let(:"#{token_name}") { nil }
+            context "when no password is present" do
+              let(:"#{password_attr_name}") { nil }
 
               it "is not valid" do
-                expect(errors[error_key]).to eq(["can't be blank"])
+                expect(errors[password_attr_name]).to eq(["Invalid password"])
               end
             end
 
-            context "when the token matches the users auth_token" do
-              let(:"#{user}") { create(:user, password: "MontyDon") }
-              let(:"#{token_name}") { public_send(user).auth_token }
-
+            context "when the #{user} passwords match" do
               it "is valid" do
-                expect(errors[error_key]).to be_empty
+                expect(errors[password_attr_name]).to be_empty
               end
             end
 
-            context "when the token doesn't match the users auth_token" do
-              let(:"#{user}") { create(:user, password: "MontyDon") }
-              let(:"#{user_prefix}_authorisation_token") { "badtoken" }
+            context "when the actual and submitted #{user} passwords don't match" do
+              let(:"#{user}") { User.new(password: "MontyDon") }
 
               it "is not valid" do
-                # Expected token is administered_by.auth_token e.g.
-                # 66dfe23be214d4cceafd62e3caef3c2650ae975fdc50a4bcc1f47cdba0e8bcc8
-                # but we are sinmulating the token from another user or a hacked token
-                expect(errors[error_key]).to eq(["invalid token"])
+                expect(errors[password_attr_name]).to eq(["Invalid password"])
               end
             end
+          end
+        end
+
+        context "when administrator and witness is are the same" do
+          it "does not allo this" do
+            pwd = "password"
+            user = create(:user, password: "password")
+            errors = PrescriptionAdministration.new(
+              administered: true,
+              administered_by: user,
+              witnessed_by: user,
+              administered_by_password: pwd,
+              witnessed_by_password: pwd
+            ).tap(&:valid?).errors
+
+            expect(errors[:witnessed_by_id]).to eq(["Must be a different user"])
           end
         end
       end

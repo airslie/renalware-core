@@ -1,0 +1,22 @@
+a.button.dropdown.with-icon(href="#"
+                            data-dropdown="hd-prescription-options"
+                            aria-controls="hd-prescription-options"
+                            aria-expanded="false")
+  i.fas.fa-capsules
+  | Record HD Drugs
+
+ul.f-dropdown#hd-prescription-options(data-dropdown-content aria-hidden="true")
+
+  - if prescriptions_to_give_on_hd.empty?
+    = dropdown_btn_item enabled: false,
+                        title: "Patient has no drugs to be given on HD",
+                        url: nil
+  - else
+    - prescriptions_to_give_on_hd.each do |prescription|
+      = dropdown_btn_item title: prescription.drug_name,
+                          url: renalware.new_hd_prescription_administration_path(prescription),
+                          data: { "reveal-id" => "hd-prescription-administration-modal",
+                          "reveal-ajax" => "true" }
+
+/ The modal dialog container for HD Prescription Administration
+#hd-prescription-administration-modal.reveal-modal.medium(data-reveal)

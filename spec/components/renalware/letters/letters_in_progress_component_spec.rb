@@ -8,7 +8,7 @@ describe Renalware::Letters::LettersInProgressComponent, type: :component do
   context "when the user has no letters in progress" do
     it "displays a message saying as much" do
       user = login_as_clinical
-      html = render_inline(described_class, current_user: user).to_html
+      html = render_inline(described_class.new(current_user: user)).to_html
 
       expect(html).to match("Letters in Progress")
     end
@@ -20,7 +20,7 @@ describe Renalware::Letters::LettersInProgressComponent, type: :component do
       patient = create(:letter_patient, by: user)
       letter = create_letter(state: :draft, to: :patient, patient: patient, by: user)
 
-      html = render_inline(described_class, current_user: user).to_html
+      html = render_inline(described_class.new(current_user: user)).to_html
 
       expect(html).to match("Letters in Progress")
     end
