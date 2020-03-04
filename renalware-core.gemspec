@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
     "README.md",
     "MIT-LICENSE"
   ]
-  s.add_dependency "actionview-component", "~> 1.7"
+  s.add_dependency "actionview-component", "1.12.0"
   s.add_dependency "active_type", "~> 0.7.1"
   s.add_dependency "activerecord-import", "~> 0.28.0"
   s.add_dependency "activerecord-postgres_enum", "~> 0.6.0"

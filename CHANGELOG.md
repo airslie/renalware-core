@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.139
+04-03-2020
+### Added
+### Changed
+### Fixed
+- Fix an error viewing an HD Session
+
 ### 2.0.138
 03-03-2020
 ### Added
