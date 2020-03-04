@@ -23,8 +23,8 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.138)
-      actionview-component (~> 1.7)
+    renalware-core (2.0.139)
+      actionview-component (= 1.12.0)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.28.0)
       activerecord-postgres_enum (~> 0.6.0)
