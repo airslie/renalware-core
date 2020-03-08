@@ -27,8 +27,6 @@ ruby:
       | &nbsp;|&nbsp;&nbsp;
       = link_to "Edit",
                 edit_admissions_request_path(request, format: :html),
-                remote: true,
-                method: :get,
                 data: { "reveal-id" => "admissions-request-modal", "reveal-ajax" => "true" }
   td.handle
     i.fas.fa-bars

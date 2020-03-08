@@ -16,7 +16,7 @@ describe "Remove Admission Request", type: :system, js: true do
     within "#admissions_request_#{request.id}" do
       find(:css, ".remove").click
     end
-    wait_for_ajax
-    expect(all(:css, "table.admissions_requests tbody tr").count).to eq(0)
+
+    expect(page).to have_css("table.admissions_requests tbody tr", count: 0)
   end
 end

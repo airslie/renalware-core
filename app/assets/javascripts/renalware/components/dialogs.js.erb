@@ -18,7 +18,7 @@ $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
   $('form[data-client-side-validations]').enableClientSideValidations();
   $('.searchable_select', modal).select2();
   // If a modal is launched again, ensure the submit button is re-enabled.
-  $.rails.enableFormElement($('input[data-disable-with]'));
+  Rails.enableElement($('input[data-disable-with]')[0]);
   // Refresh layout of foundation widgets
   $(document).foundation('reflow');
 
@@ -29,5 +29,5 @@ $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
 
 // If there was an error submitting a modal form, be sure to re-enable the submit button
 $(document).on('ajaxError', function(event, xhr, status, error) {
-  $.rails.enableFormElement($('input[data-disable-with]'));
+  Rails.enableElement($('input[data-disable-with]'))[0];
 });

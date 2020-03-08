@@ -75,7 +75,8 @@ module World
                                   patient:,
                                   user:,
                                   drug_selector: default_medication_drug_selector,
-                                  prescription_params: {})
+                                  prescription_params: {},
+                                  expect_success: true)
         update_params = { by: Renalware::SystemUser.find }
         prescription_params.each do |key, value|
           case key.to_sym
@@ -98,7 +99,12 @@ module World
         Renalware::Medications::RevisePrescription.new(prescription).call(update_params)
       end
 
-      def terminate_prescription_for(patient:, user:, terminated_on: Date.current)
+      def terminate_prescription_for(
+        patient:,
+        user:,
+        terminated_on: Date.current,
+        expect_success: true
+      )
         prescription = patient.prescriptions.last!
 
         prescription.terminate(by: user, terminated_on: terminated_on).save
@@ -234,7 +240,7 @@ module World
         drug_selector = options.fetch(:drug_selector, default_medication_drug_selector)
 
         click_link "Add Prescription"
-        wait_for_ajax
+        expect(page).to have_css("#new_medications_prescription")
 
         within "#new_medications_prescription" do
           drug_selector.call(drug_name)
@@ -246,8 +252,8 @@ module World
           fill_in "Terminated on", with: terminated_on
           fill_in "Last delivery date", with: last_delivery_date
           click_on "Save"
-          wait_for_ajax
         end
+        expect(page).to have_css("#new_medications_prescription", count: 0)
       end
 
       def record_prescription_for_patient(user:, patient:, **args)
@@ -262,7 +268,8 @@ module World
                                   patient:,
                                   user:,
                                   drug_selector: default_medication_drug_selector,
-                                  prescription_params: {})
+                                  prescription_params: {},
+                                  expect_success: true)
         login_as user
 
         visit patient_prescriptions_path(patient)
@@ -271,7 +278,7 @@ module World
           click_on "Edit"
         end
 
-        within "#prescriptions" do
+        within ".prescription-form" do
           prescription_params.each do |key, value|
             case key.to_sym
             when :drug_name
@@ -288,24 +295,30 @@ module World
             end
           end
           click_on "Save"
-          wait_for_ajax
         end
+        expect(page).to have_css(".prescription-form", count: expect_success ? 0 : 1)
       end
 
-      def terminate_prescription_for(patient:, user:, terminated_on: Date.current)
+      def terminate_prescription_for(
+        patient:,
+        user:,
+        terminated_on: Date.current,
+        expect_success: true
+      )
         login_as user
 
         visit patient_prescriptions_path(patient)
 
         within "#current-prescriptions" do
           click_on "Terminate"
-          wait_for_ajax
         end
 
         fill_in "Terminated on", with: I18n.l(terminated_on)
         fill_in "Notes", with: "This is completed."
         click_on "Save"
-        wait_for_ajax
+
+        expect(page)
+          .to have_css("#new_medications_prescription_termination", count: expect_success ? 0 : 1)
       end
 
       def view_prescriptions_for(clinician, patient)

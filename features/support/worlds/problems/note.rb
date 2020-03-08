@@ -38,11 +38,10 @@ module World
         visit patient_problem_path(problem.patient, problem)
         within_article "Notes" do
           find("a", text: "Add").click
-          wait_for_ajax
-
           fill_in "Text", with: "this is something"
           click_on "Save"
-          wait_for_ajax
+
+          expect(page).to have_no_css("form#new_problems_note")
         end
       end
     end

@@ -25,7 +25,7 @@ describe "Assign a contact to a patient", type: :system, js: true do
       end
     end
 
-    context "with valid attributes" do
+    context "with invalid attributes" do
       it "responds with errors" do
         visit patient_letters_contacts_path(patient)
 
@@ -57,8 +57,6 @@ describe "Assign a contact to a patient", type: :system, js: true do
       within("#add-patient-contact-modal") do
         click_on "Save"
       end
-
-      wait_for_ajax
     end
 
     def expect_new_contact_for_patient

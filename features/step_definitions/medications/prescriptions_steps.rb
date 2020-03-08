@@ -119,7 +119,8 @@ When(/^Clyde makes an invalid revision to Patty's prescription$/) do
     prescription: @prescription,
     patient: @patty,
     user: @clyde,
-    prescription_params: { dose_amount: nil }
+    prescription_params: { dose_amount: nil },
+    expect_success: false
   )
 end
 
@@ -142,7 +143,8 @@ When(/^Clyde records an invalid termination for a prescription$/) do
   terminate_prescription_for(
     patient: @patty,
     user: @clyde,
-    terminated_on: nil
+    terminated_on: nil,
+    expect_success: false
   )
 end
 
