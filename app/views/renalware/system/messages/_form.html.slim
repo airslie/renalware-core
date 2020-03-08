@@ -6,7 +6,8 @@
   = render "renalware/shared/errors", model: f.object
 
   = f.input :title, placeholder: "An optional title"
-  = f.trix_editor :body, wrapper: :horizontal_large
+  = f.label :body
+  = f.input :body, as: :trix_editor, wrapper: :zilch
   br
   = f.input :severity,
             collection: severities,

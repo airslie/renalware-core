@@ -27,7 +27,7 @@ ruby:
     - target = "procedure-notes-editor"
     = f.label :notes
     = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: ".#{target}")
-    = f.trix_editor :notes, class: target
+    = f.input :notes, as: :trix_editor, class: target, wrapper: :zilch
     br
     = f.input :catheter_make, wrapper: :horizontal_small
     = f.input :catheter_lot_no, wrapper: :horizontal_small

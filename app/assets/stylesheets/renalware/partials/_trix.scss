@@ -1,0 +1,11 @@
+trix-toolbar {
+  display: inline-block;
+
+  .trix-button-group--file-tools,
+  .trix-button--icon-heading-1,
+  .trix-button--icon-code,
+  .trix-button--icon-quote
+   {
+    display: none;
+  }
+}
