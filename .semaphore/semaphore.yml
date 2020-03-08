@@ -41,6 +41,7 @@ blocks:
           - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
           # Set Ruby version:
           - sem-version ruby 2.6.3
+          - sem-version node 10.13.0
           - bundle install --deployment -j 4 --path vendor/bundle
           # Store the latest version of dependencies in cache,
           # to be used in next blocks and future workflows:
@@ -80,6 +81,7 @@ blocks:
           # See https://docs.semaphoreci.com/article/54-toolbox-reference#sem-service
           - sem-service start postgres 12.1
           - sem-version ruby 2.6.3
+          - sem-version node 10.13.0
 
           # postgres client update so pg_dump resolves to 12.x
           - wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
