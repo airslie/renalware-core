@@ -7,19 +7,19 @@ module Renalware
     barts_doc = User.find_by!(username: "bartsdoc")
 
     patient.prescriptions.create!(
-      drug_id: 183,
+      drug_id: 296, # ESA
       treatable: patient,
       dose_amount: "25",
       dose_unit: "milligram",
       medication_route_id: 1,
       frequency: "nocte",
       prescribed_on: "2014-10-10",
-      provider: 0,
+      provider: 2,
       by: barts_doc
     )
 
     patient.prescriptions.create!(
-      drug_id: 269,
+      drug_id: 208, # Immunossuppressant
       treatable: patient,
       dose_amount: "100",
       dose_unit: "milligram",
@@ -43,7 +43,7 @@ module Renalware
     )
 
     patient.prescriptions.create!(
-      drug_id: 986,
+      drug_id: 208, # Immunossuppressant
       treatable: patient,
       dose_amount: "50",
       dose_unit: "milligram",

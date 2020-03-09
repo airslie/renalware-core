@@ -97,6 +97,20 @@ CREATE TYPE renalware.clinical_body_composition_pre_post_hd AS ENUM (
 
 
 --
+-- Name: duration; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.duration AS ENUM (
+    'minute',
+    'hour',
+    'day',
+    'week',
+    'month',
+    'year'
+);
+
+
+--
 -- Name: audit_view_as_json(text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -1846,6 +1860,130 @@ CREATE SEQUENCE renalware.directory_people_id_seq
 --
 
 ALTER SEQUENCE renalware.directory_people_id_seq OWNED BY renalware.directory_people.id;
+
+
+--
+-- Name: drug_homecare_forms; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.drug_homecare_forms (
+    id bigint NOT NULL,
+    drug_type_id bigint NOT NULL,
+    supplier_id bigint NOT NULL,
+    form_name character varying NOT NULL,
+    form_version character varying NOT NULL,
+    prescription_durations character varying[] DEFAULT '{}'::character varying[] NOT NULL,
+    prescription_duration_default integer,
+    prescription_duration_unit renalware.duration NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE drug_homecare_forms; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.drug_homecare_forms IS 'X-ref table that says which drug_type is supplied by which (homecare) supplier and the data required (see form_name and form_version) to programmatically select and create the right PDF Homecare Supply form for them (using the renalware-forms gem) so this can be printed out and signed.';
+
+
+--
+-- Name: COLUMN drug_homecare_forms.form_name; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_homecare_forms.form_name IS 'The lower-case programmatic name used for this provider, eg ''fresenius''';
+
+
+--
+-- Name: COLUMN drug_homecare_forms.form_version; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_homecare_forms.form_version IS 'A number e.g. ''1'' that specified what version of the homecare supply formshould be created';
+
+
+--
+-- Name: COLUMN drug_homecare_forms.prescription_durations; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_homecare_forms.prescription_durations IS 'An array of options where each integer is a number of units - these will be displayed as dropdown options presented to the user, and checkboxes on the homecare delivery form PDF. E.g [3,6] will be displayed as options ''3 months'' and ''6 months'' (see also prescription_duration_unit)';
+
+
+--
+-- Name: COLUMN drug_homecare_forms.prescription_duration_default; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_homecare_forms.prescription_duration_default IS 'The default option to pre-select when displaying prescription_duration_options';
+
+
+--
+-- Name: COLUMN drug_homecare_forms.prescription_duration_unit; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_homecare_forms.prescription_duration_unit IS 'E.g. ''week'' or ''month''';
+
+
+--
+-- Name: drug_homecare_forms_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.drug_homecare_forms_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: drug_homecare_forms_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.drug_homecare_forms_id_seq OWNED BY renalware.drug_homecare_forms.id;
+
+
+--
+-- Name: drug_suppliers; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.drug_suppliers (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE drug_suppliers; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.drug_suppliers IS 'A list of suppliers who deliver drugs eg for homecare';
+
+
+--
+-- Name: COLUMN drug_suppliers.name; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_suppliers.name IS 'The providers display name e.g. ''Fresenius''';
+
+
+--
+-- Name: drug_suppliers_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.drug_suppliers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: drug_suppliers_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.drug_suppliers_id_seq OWNED BY renalware.drug_suppliers.id;
 
 
 --
@@ -3830,7 +3968,8 @@ CREATE TABLE renalware.medication_prescriptions (
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     administer_on_hd boolean DEFAULT false NOT NULL,
-    last_delivery_date date
+    last_delivery_date date,
+    next_delivery_date date
 );
 
 
@@ -3866,6 +4005,95 @@ CREATE VIEW renalware.medication_current_prescriptions AS
      JOIN renalware.drugs ON ((drugs.id = mp.drug_id)))
      FULL JOIN renalware.drug_types_drugs ON ((drug_types_drugs.drug_id = drugs.id)))
      FULL JOIN renalware.drug_types ON (((drug_types_drugs.drug_type_id = drug_types.id) AND ((mpt.terminated_on IS NULL) OR (mpt.terminated_on > now())))));
+
+
+--
+-- Name: medication_delivery_event_prescriptions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.medication_delivery_event_prescriptions (
+    id bigint NOT NULL,
+    event_id bigint NOT NULL,
+    prescription_id bigint NOT NULL
+);
+
+
+--
+-- Name: TABLE medication_delivery_event_prescriptions; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.medication_delivery_event_prescriptions IS 'A cross reference table between delivery_events and prescriptions';
+
+
+--
+-- Name: medication_delivery_event_prescriptions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.medication_delivery_event_prescriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: medication_delivery_event_prescriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.medication_delivery_event_prescriptions_id_seq OWNED BY renalware.medication_delivery_event_prescriptions.id;
+
+
+--
+-- Name: medication_delivery_events; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.medication_delivery_events (
+    id bigint NOT NULL,
+    homecare_form_id bigint NOT NULL,
+    drug_type_id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    reference_number character varying,
+    prescription_duration integer,
+    printed boolean DEFAULT false NOT NULL,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: medication_delivery_events_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.medication_delivery_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: medication_delivery_events_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.medication_delivery_events_id_seq OWNED BY renalware.medication_delivery_events.id;
+
+
+--
+-- Name: medication_delivery_purchase_order_number_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.medication_delivery_purchase_order_number_seq
+    AS integer
+    START WITH 100
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 
 --
@@ -8929,6 +9157,20 @@ ALTER TABLE ONLY renalware.directory_people ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: drug_homecare_forms id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.drug_homecare_forms ALTER COLUMN id SET DEFAULT nextval('renalware.drug_homecare_forms_id_seq'::regclass);
+
+
+--
+-- Name: drug_suppliers id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.drug_suppliers ALTER COLUMN id SET DEFAULT nextval('renalware.drug_suppliers_id_seq'::regclass);
+
+
+--
 -- Name: drug_types id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -9255,6 +9497,20 @@ ALTER TABLE ONLY renalware.low_clearance_referrers ALTER COLUMN id SET DEFAULT n
 --
 
 ALTER TABLE ONLY renalware.low_clearance_versions ALTER COLUMN id SET DEFAULT nextval('renalware.low_clearance_versions_id_seq'::regclass);
+
+
+--
+-- Name: medication_delivery_event_prescriptions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_delivery_event_prescriptions ALTER COLUMN id SET DEFAULT nextval('renalware.medication_delivery_event_prescriptions_id_seq'::regclass);
+
+
+--
+-- Name: medication_delivery_events id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_delivery_events ALTER COLUMN id SET DEFAULT nextval('renalware.medication_delivery_events_id_seq'::regclass);
 
 
 --
@@ -10298,6 +10554,22 @@ ALTER TABLE ONLY renalware.directory_people
 
 
 --
+-- Name: drug_homecare_forms drug_homecare_forms_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.drug_homecare_forms
+    ADD CONSTRAINT drug_homecare_forms_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: drug_suppliers drug_suppliers_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.drug_suppliers
+    ADD CONSTRAINT drug_suppliers_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: drug_types_drugs drug_types_drugs_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -10671,6 +10943,22 @@ ALTER TABLE ONLY renalware.low_clearance_referrers
 
 ALTER TABLE ONLY renalware.low_clearance_versions
     ADD CONSTRAINT low_clearance_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: medication_delivery_event_prescriptions medication_delivery_event_prescriptions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_delivery_event_prescriptions
+    ADD CONSTRAINT medication_delivery_event_prescriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: medication_delivery_events medication_delivery_events_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_delivery_events
+    ADD CONSTRAINT medication_delivery_events_pkey PRIMARY KEY (id);
 
 
 --
@@ -11675,6 +11963,13 @@ CREATE INDEX idx_infection_organisms_type ON renalware.pd_infection_organisms US
 
 
 --
+-- Name: idx_medication_delivery_event_prescriptions; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_medication_delivery_event_prescriptions ON renalware.medication_delivery_event_prescriptions USING btree (event_id, prescription_id);
+
+
+--
 -- Name: idx_medication_prescriptions_type; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -12295,6 +12590,34 @@ CREATE INDEX index_directory_people_on_created_by_id ON renalware.directory_peop
 --
 
 CREATE INDEX index_directory_people_on_updated_by_id ON renalware.directory_people USING btree (updated_by_id);
+
+
+--
+-- Name: index_drug_homecare_forms_on_drug_type_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_drug_homecare_forms_on_drug_type_id ON renalware.drug_homecare_forms USING btree (drug_type_id);
+
+
+--
+-- Name: index_drug_homecare_forms_on_drug_type_id_and_supplier_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_drug_homecare_forms_on_drug_type_id_and_supplier_id ON renalware.drug_homecare_forms USING btree (drug_type_id, supplier_id);
+
+
+--
+-- Name: INDEX index_drug_homecare_forms_on_drug_type_id_and_supplier_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON INDEX renalware.index_drug_homecare_forms_on_drug_type_id_and_supplier_id IS 'A supplier can only have one form active for any drug type';
+
+
+--
+-- Name: index_drug_homecare_forms_on_supplier_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_drug_homecare_forms_on_supplier_id ON renalware.drug_homecare_forms USING btree (supplier_id);
 
 
 --
@@ -13415,6 +13738,48 @@ CREATE UNIQUE INDEX index_low_clearance_referrers_on_name ON renalware.low_clear
 --
 
 CREATE INDEX index_low_clearance_versions_on_item_type_and_item_id ON renalware.low_clearance_versions USING btree (item_type, item_id);
+
+
+--
+-- Name: index_medication_delivery_events_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_medication_delivery_events_on_created_by_id ON renalware.medication_delivery_events USING btree (created_by_id);
+
+
+--
+-- Name: index_medication_delivery_events_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_medication_delivery_events_on_deleted_at ON renalware.medication_delivery_events USING btree (deleted_at);
+
+
+--
+-- Name: index_medication_delivery_events_on_drug_type_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_medication_delivery_events_on_drug_type_id ON renalware.medication_delivery_events USING btree (drug_type_id);
+
+
+--
+-- Name: index_medication_delivery_events_on_homecare_form_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_medication_delivery_events_on_homecare_form_id ON renalware.medication_delivery_events USING btree (homecare_form_id);
+
+
+--
+-- Name: index_medication_delivery_events_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_medication_delivery_events_on_patient_id ON renalware.medication_delivery_events USING btree (patient_id);
+
+
+--
+-- Name: index_medication_delivery_events_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_medication_delivery_events_on_updated_by_id ON renalware.medication_delivery_events USING btree (updated_by_id);
 
 
 --
@@ -15966,6 +16331,14 @@ ALTER TABLE ONLY renalware.clinical_allergies
 
 
 --
+-- Name: medication_delivery_events fk_rails_0e10e5038b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_delivery_events
+    ADD CONSTRAINT fk_rails_0e10e5038b FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: access_procedures fk_rails_11c7f6fec3; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16614,6 +16987,14 @@ ALTER TABLE ONLY renalware.pd_regime_terminations
 
 
 --
+-- Name: medication_delivery_events fk_rails_603a7f7a1f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_delivery_events
+    ADD CONSTRAINT fk_rails_603a7f7a1f FOREIGN KEY (homecare_form_id) REFERENCES renalware.drug_homecare_forms(id);
+
+
+--
 -- Name: access_assessments fk_rails_604fdf3a9e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16702,6 +17083,14 @@ ALTER TABLE ONLY renalware.problem_notes
 
 
 --
+-- Name: medication_delivery_events fk_rails_6b50df295a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_delivery_events
+    ADD CONSTRAINT fk_rails_6b50df295a FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: pathology_code_group_memberships fk_rails_6ff53028fa; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16755,6 +17144,14 @@ ALTER TABLE ONLY renalware.patients
 
 ALTER TABLE ONLY renalware.letter_letters
     ADD CONSTRAINT fk_rails_774d7e4879 FOREIGN KEY (completed_by_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: medication_delivery_event_prescriptions fk_rails_779cfa5f0f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_delivery_event_prescriptions
+    ADD CONSTRAINT fk_rails_779cfa5f0f FOREIGN KEY (prescription_id) REFERENCES renalware.medication_prescriptions(id);
 
 
 --
@@ -17366,6 +17763,14 @@ ALTER TABLE ONLY renalware.hospital_wards
 
 
 --
+-- Name: drug_homecare_forms fk_rails_b7b0cfbbfa; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.drug_homecare_forms
+    ADD CONSTRAINT fk_rails_b7b0cfbbfa FOREIGN KEY (supplier_id) REFERENCES renalware.drug_suppliers(id);
+
+
+--
 -- Name: clinic_appointments fk_rails_b7cc8fd5dd; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -17419,6 +17824,14 @@ ALTER TABLE ONLY renalware.patient_alerts
 
 ALTER TABLE ONLY renalware.patient_bookmarks
     ADD CONSTRAINT fk_rails_c12b863727 FOREIGN KEY (user_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: medication_delivery_events fk_rails_c12f333218; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_delivery_events
+    ADD CONSTRAINT fk_rails_c12f333218 FOREIGN KEY (drug_type_id) REFERENCES renalware.drug_types(id);
 
 
 --
@@ -17739,6 +18152,14 @@ ALTER TABLE ONLY renalware.hd_diary_slots
 
 ALTER TABLE ONLY renalware.hd_sessions
     ADD CONSTRAINT fk_rails_e32b0e0494 FOREIGN KEY (signed_off_by_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: medication_delivery_event_prescriptions fk_rails_e3558e7c0a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_delivery_event_prescriptions
+    ADD CONSTRAINT fk_rails_e3558e7c0a FOREIGN KEY (event_id) REFERENCES renalware.medication_delivery_events(id);
 
 
 --
@@ -18766,6 +19187,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200127170711'),
 ('20200129093835'),
 ('20200204153231'),
-('20200205121805');
+('20200205121805'),
+('20200301113102'),
+('20200301124200'),
+('20200301124300'),
+('20200306183423');
 
 

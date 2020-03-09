@@ -99,6 +99,13 @@ module Renalware
     config_accessor(:generate_pathology_request_forms_from_hd_mdm_listing) { true }
     config_accessor(:disable_inputs_controlled_by_tissue_typing_feed) { false }
     config_accessor(:disable_inputs_controlled_by_demographics_feed) { false }
+    config_accessor(:medication_delivery_purchase_order_prefix) { "R" }
+    config_accessor(:medication_homecare_pdf_forms) do
+      # esa: { provider: :generic, version: 1 },
+      {
+        immunosuppressant: { provider: :generic, version: 1 }
+      }
+    end
 
     # A host app can override this to add/remove/re-order the clinical summary display
     # Note these have to be strings - they mapped to constants in ClinicalSummaryPresenter.

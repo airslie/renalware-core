@@ -123,3 +123,20 @@ dl.medication-history {
     width: 5rem;
   }
 }
+
+#print-home-delivery-drugs-modal .modal {
+  .modal__header h2 span {
+    color: $dark-grey;
+    font-weight: normal;
+  }
+
+  .show-after-printing {
+    a {
+      margin-right: 1rem;
+    }
+  }
+
+  .panel {
+    padding: 0.5rem 1rem;
+  }
+}

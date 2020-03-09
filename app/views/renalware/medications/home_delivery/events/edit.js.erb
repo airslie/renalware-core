@@ -1,0 +1,4 @@
+// Something about the form changed (eg drugtype dropdown changed) causing a submission
+// so we re re-display the form here.
+var modal = $("#print-home-delivery-drugs-modal")
+$(modal).html("<%= j(render 'edit', event: event, format: :html) %>");

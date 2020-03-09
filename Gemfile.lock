@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/airslie/nhs_api_client.git
-  revision: 991855fb540d10498c39c09a7f5f0815bc03d9b7
+  revision: 11c42f91f6edfa19d1173b4107f47867b5930058
   specs:
     nhs_api_client (0.1.0)
       httparty (~> 0.16.4)
@@ -23,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.139)
+    renalware-core (2.0.140)
       actionview-component (= 1.12.0)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.28.0)
@@ -78,6 +78,7 @@ PATH
       rails (>= 5.2)
       ransack (~> 2.3.0)
       record_tag_helper (~> 1.0.0)
+      renalware-forms (>= 0.1.3)
       ruby-hl7 (~> 1.2.0)
       rubyzip (~> 1.3.0)
       sassc-rails (~> 2.1.0)
@@ -331,7 +332,7 @@ GEM
       activesupport (>= 4.2.0)
     groupdate (4.3.0)
       activesupport (>= 5)
-    hashdiff (1.0.0)
+    hashdiff (1.0.1)
     hashery (2.1.2)
     httparty (0.16.4)
       mime-types (~> 3.0)
@@ -404,7 +405,7 @@ GEM
     naught (1.1.0)
     nested_form (0.3.2)
     nio4r (2.5.2)
-    nokogiri (1.10.8)
+    nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     octokit (4.14.0)
       sawyer (~> 0.8.0, >= 0.5.3)
@@ -433,6 +434,8 @@ GEM
     prawn (2.2.2)
       pdf-core (~> 0.7.0)
       ttfunk (~> 1.5)
+    prawn-table (0.2.2)
+      prawn (>= 1.3.0, < 3.0.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -494,6 +497,14 @@ GEM
     referer-parser (0.3.0)
     regexp_parser (1.6.0)
     regexp_property_values (1.0.0)
+    renalware-forms (0.1.3)
+      activemodel
+      attr_extras (~> 6.2)
+      prawn (~> 2.2)
+      prawn-table (~> 0.2)
+      rake
+      virtus (~> 1.0)
+      zeitwerk
     request_store (1.5.0)
       rack (>= 1.4)
     responders (3.0.0)
@@ -617,7 +628,7 @@ GEM
     unicode (0.4.4.4)
     unicode-display_width (1.6.1)
     uniform_notifier (1.13.0)
-    user_agent_parser (2.5.3)
+    user_agent_parser (2.6.0)
     validates_timeliness (4.1.1)
       timeliness (>= 0.3.10, < 1)
     virtus (1.0.5)
@@ -627,7 +638,7 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.8)
       rack (>= 2.0.6)
-    webmock (3.7.6)
+    webmock (3.8.2)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -648,6 +659,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.24)
+    zeitwerk (2.3.0)
 
 PLATFORMS
   ruby

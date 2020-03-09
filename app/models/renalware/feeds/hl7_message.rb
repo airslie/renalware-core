@@ -19,8 +19,8 @@ module Renalware
         "ADT^A02" => :transfer_patient,
         "ADT^A03" => :discharge_patient,
         "ADT^A11" => :cancel_admission,
-        "MFN^M02" => :add_consultant,
-        "ADT^A34" => :merge_patient,
+        "MFN^M02" => :add_consultant, # no
+        "ADT^A34" => :merge_patient, # no
         "ADT^A13" => :cancel_discharge,
         "ORU^R01" => :add_pathology_observations
       }.freeze

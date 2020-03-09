@@ -3877,6 +3877,52 @@ var _default$3 = function(_Controller) {
 
 _defineProperty(_default$3, "targets", [ "container", "radio" ]);
 
+var $$2 = window.$;
+
+var _default$4 = function(_Controller) {
+  _inherits(_default, _Controller);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+  _createClass(_default, [ {
+    key: "refreshForm",
+    value: function refreshForm() {
+      $$2(this.formTarget[0]).trigger("submit.rails");
+    }
+  }, {
+    key: "askForPrintFeedback",
+    value: function askForPrintFeedback() {
+      this.printOptionsTarget.classList.toggle("visuallyhidden");
+      this.printFeedbackTarget.classList.toggle("visuallyhidden");
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$4, "targets", [ "form", "printOptions", "printFeedback" ]);
+
+var $$3 = window.$;
+
+var _default$5 = function(_Controller) {
+  _inherits(_default, _Controller);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+  _createClass(_default, [ {
+    key: "openRemotePartial",
+    value: function openRemotePartial() {
+      $$3(this.containerTarget).html("");
+      url = this.data.get("url");
+      $$3(this.containerTarget).load(url).foundation("reveal", "open");
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$5, "targets", [ "container" ]);
+
 var application = Application.start();
 
 application.register("test", _default);
@@ -3885,4 +3931,8 @@ application.register("another_test", _default$1);
 
 application.register("toggle", _default$2);
 
+application.register("foundation-modal", _default$5);
+
 application.register("hd-prescription-administration", _default$3);
+
+application.register("home-delivery-modal", _default$4);

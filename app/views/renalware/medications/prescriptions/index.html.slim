@@ -12,11 +12,21 @@
     i.fas.fa-print
     | Print
   |&nbsp;
-  = link_to patient_medications_home_delivery_prescriptions_path(@patient),
-            class: "button secondary with-icon",
-            target: :blank do
-    i.fa.fa-print
-    | Print home delivery drugs
+
+  span(data-controller="foundation-modal",
+       data-foundation-modal-url=new_patient_medications_home_delivery_event_path(patient))
+    = link_to "#",
+              class: "button secondary with-icon",
+              target: :blank,
+              id: "show-home-delivery-modal",
+              data: { action: "click->foundation-modal#openRemotePartial" } do
+      i.fa.fa-print
+      | Print home delivery drugs
+    #print-home-delivery-drugs-modal.reveal-modal.small(data-reveal
+                                                        data-refresh-url=request.original_fullpath
+                                                        data-target="foundation-modal.container"
+                                                        data-controller="home-delivery-modal"
+                                                        data-home-delivery-url1=new_patient_medications_home_delivery_event_url(@patient))
 
 = within_patient_layout(title: "Prescriptions") do
   = render "filter_form", search: current_search, drug_types: drug_types, treatable: treatable
