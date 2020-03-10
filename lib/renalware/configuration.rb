@@ -24,6 +24,10 @@ module Renalware
     config_accessor(:site_name) { "Renalware" }
     config_accessor(:hospital_name) { ENV.fetch("HOSPITAL_NAME", "KINGS COLLEGE HOSPITAL") }
     config_accessor(:hospital_address) { ENV.fetch("HOSPITAL_ADDRESS", "") } # comma-delimited
+    config_accessor(:telephone_on_homecare_delivery_forms) {
+      ENV.fetch("TELEPHONE_ON_HOMECARE_DELIVERY_FORMS", "")
+    }
+    config_accessor(:hospital_department) { ENV.fetch("HOSPITAL_DEPARTMENT", "Renal") }
     config_accessor(:delay_after_which_a_finished_session_becomes_immutable) { 6.hours }
     config_accessor(:new_clinic_visit_deletion_window) { 24.hours }
     config_accessor(:new_clinic_visit_edit_window) { 7.days }
