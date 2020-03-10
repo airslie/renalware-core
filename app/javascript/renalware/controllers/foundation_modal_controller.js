@@ -13,7 +13,7 @@ export default class extends Controller {
   // Open a dialog using a url to load a partial via ajax.
   openRemotePartial() {
     $(this.containerTarget).html("") // prevent old content from being initially re-displayed
-    url = this.data.get("url")
-    $(this.containerTarget).load(url).foundation('reveal', 'open');
+    const url = this.data.get("url")
+    $(this.containerTarget).load(url).foundation("reveal", "open")
   }
 }
