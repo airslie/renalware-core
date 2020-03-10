@@ -9,7 +9,7 @@ export default class extends Controller {
   // Submit and re-display the form when 'drug type' or 'prescription duration'
   // dropdowns are changed
   refreshForm() {
-    $(this.formTarget[0]).trigger('submit.rails');
+    $(this.formTarget[0]).trigger("submit.rails")
   }
 
   // When the user has clicked Print (launching the PDF in a new tab), hide
