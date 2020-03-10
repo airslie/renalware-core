@@ -9,6 +9,21 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.141
+10-03-2020
+### Added
+### Changed
+- Update yarn dependencies #3169
+### Fixed
+- Minor bug - HD drug prescription #3170
+
+### 2.0.140
+09-03-2020
+### Added
+### Changed
+- Home delivery printing refinements #2934
+### Fixed
+
 ### 2.0.139
 04-03-2020
 ### Added

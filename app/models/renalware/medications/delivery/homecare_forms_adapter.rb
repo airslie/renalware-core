@@ -41,7 +41,9 @@ module Renalware
             consultant: patient.named_consultant&.to_s,
             generated_at: Time.zone.now,
             hospital_name: Renalware.config.hospital_name,
-            hospital_address: hospital_address
+            hospital_address: hospital_address,
+            hospital_department: Renalware.config.hospital_department,
+            hospital_telephone: Renalware.config.telephone_on_homecare_delivery_forms
           )
 
           if patient.current_address
