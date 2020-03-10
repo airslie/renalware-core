@@ -22,7 +22,7 @@ export default {
   output: {
     file: "app/assets/javascripts/renalware/rollup_compiled.js",
     format: "esm",
-    external: [ "jquery" ],
+    globals: [ "jquery" ],
     name: "renalwarec-core",
     sourcemap: false,
   },

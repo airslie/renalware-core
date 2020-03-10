@@ -3914,7 +3914,7 @@ var _default$5 = function(_Controller) {
     key: "openRemotePartial",
     value: function openRemotePartial() {
       $$3(this.containerTarget).html("");
-      url = this.data.get("url");
+      var url = this.data.get("url");
       $$3(this.containerTarget).load(url).foundation("reveal", "open");
     }
   } ]);
