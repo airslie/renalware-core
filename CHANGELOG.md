@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.142
+10-03-2020
+### Added
+### Changed
+### Fixed
+- Stop HD prescriptions opening in new tab
+
 ### 2.0.141
 10-03-2020
 ### Added
