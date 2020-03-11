@@ -11,6 +11,24 @@ module Renalware
         let(:patient) { build_stubbed(:hd_patient) }
         let(:user) { build_stubbed(:user) }
 
+        def test_listener
+          Class.new do
+            # We add a saved_session attribute to the class so we can store the
+            # session that was passed in the callback
+            attr_reader :saved_session, :success
+
+            def save_success(session)
+              @saved_session = session
+              @success = true
+            end
+
+            def save_failure(session)
+              @saved_session = session
+              @success = false
+            end
+          end
+        end
+
         it "expects session params to contain type" do
           obj = SaveSession.new(patient: patient, current_user: user)
           expect { obj.call(params: {}, signing_off: false, id: nil) }.to raise_error(ArgumentError)
@@ -81,15 +99,9 @@ module Renalware
 
           obj = SaveSession.new(patient: patient, current_user: user)
 
-          # We'll assign something to this in the save_success method below
-          saved_session = nil
-
           # Create a listener to receive broadcast success or failure from SaveSession
-          MyListener = Class.new do
-            define_method :save_success, ->(session) { saved_session = session }
-            define_method :save_failure, ->(_session) { fail("should not get here") }
-          end
-          obj.subscribe MyListener.new
+          listener = test_listener.new
+          obj.subscribe listener
 
           # Do the save
           obj.call(
@@ -97,7 +109,8 @@ module Renalware
             signing_off: true
           )
 
-          expect(saved_session.dry_weight).to eq(latest_dw)
+          expect(listener.success).to eq(true)
+          expect(listener.saved_session.dry_weight).to eq(latest_dw)
         end
       end
     end
