@@ -3872,32 +3872,9 @@ var _default$2 = function(_Controller) {
 
 _defineProperty(_default$2, "targets", [ "form", "printOptions", "printFeedback" ]);
 
-var $$2 = window.$;
-
-var _default$3 = function(_Controller) {
-  _inherits(_default, _Controller);
-  function _default() {
-    _classCallCheck(this, _default);
-    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
-  }
-  _createClass(_default, [ {
-    key: "openRemotePartial",
-    value: function openRemotePartial() {
-      $$2(this.containerTarget).html("");
-      var url = this.data.get("url");
-      $$2(this.containerTarget).load(url).foundation("reveal", "open");
-    }
-  } ]);
-  return _default;
-}(Controller);
-
-_defineProperty(_default$3, "targets", [ "container" ]);
-
 var application = Application.start();
 
 application.register("toggle", _default);
-
-application.register("foundation-modal", _default$3);
 
 application.register("hd-prescription-administration", _default$1);
 
