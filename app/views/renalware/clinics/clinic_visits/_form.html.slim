@@ -43,7 +43,7 @@
           .columns.large-12
             - target = ".clinic-visit-notes-editor"
             = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: target)
-            = f.trix_editor :notes, class: "clinic-visit-notes-editor"
+            = f.input :notes, as: :trix_editor, class: "clinic-visit-notes-editor", wrapper: :zilch
 
       fieldset
         legend Admin Notes

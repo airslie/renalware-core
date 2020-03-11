@@ -9,22 +9,16 @@ gemspec
 
 # These are visible to dummy app only
 gem "aws-sdk-s3", require: false # for active storage when using Heroku for test environments
-gem "babel-transpiler"
+gem "babel-transpiler" # not sure this is need now that we user rollupjs + babel npmm packages?
 gem "bootsnap", require: false # speeds up rspec and rails server boot time in development
 gem "daemons", require: false # to use cmds like `bin/delayed_job start`
 gem "faker"
+gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 gem "paper_trail", "9.0.2"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
 gem "redis"
 gem "ruby-prof", require: false
 # gem "renalware-forms", path: "../renalware-forms"
-
-gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
-# The main trix gem at https://github.com/maclover7/trix is not yet Rails 5.2 compatible; it give
-# an argument error when calling f.trix_editor due to a Rails 5.2 ActionView change.
-# For now use this fork until the upstream has been fixed (this line will also need to appear in
-# each hospital's Gemfile for now)
-gem "trix", github: "airslie/trix"
 
 group :test do
   gem "capybara", "~> 3.24"
