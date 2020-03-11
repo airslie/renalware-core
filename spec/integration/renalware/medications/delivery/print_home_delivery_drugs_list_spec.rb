@@ -27,11 +27,11 @@ describe "Print a patient's ESA drug list", type: :system, js: true do
     )
   end
 
-  def create_homecare_form_definintion_for(drug_type, **options)
+  def create_homecare_form_definintion_for(drug_type, prescription_durations: [3, 6, 9], **options)
     create(
       :homecare_form,
       drug_type: drug_type,
-      prescription_durations: [3, 6, 9],
+      prescription_durations: prescription_durations,
       prescription_duration_default: 6,
       prescription_duration_unit: "week",
       form_name: "generic",
@@ -83,7 +83,8 @@ describe "Print a patient's ESA drug list", type: :system, js: true do
       )
       immuno_homecare_form_definition = create_homecare_form_definintion_for(
         immuno_drug_type,
-        prescription_duration_default: 9
+        prescription_duration_default: 9,
+        prescription_durations: [2, 9, 111]
       )
 
       dialog = Pages::Medications::HomeDeliveryDialog.new(patient: patient)
@@ -95,7 +96,11 @@ describe "Print a patient's ESA drug list", type: :system, js: true do
       # selecting immunosuppressant should update the prescription duration
       # options and select the default one for that drug type
       select "Immunosuppressant", from: "Drug type"
-      wait_for_ajax
+
+      # refreshes the page.. so weill get a different set of durations, letting us
+      # check they have appeared before we continue
+      expect(page).to have_selector("#event_prescription_duration option[value='111']")
+
       expect(dialog.prescription_duration).to eq("9 weeks") # immuno default
 
       # Click on Print
@@ -103,13 +108,12 @@ describe "Print a patient's ESA drug list", type: :system, js: true do
       dialog.print
 
       # We have opened a PDF in a new tab but stayed on this one in the current tab
-      wait_for_ajax
 
       expect(page).to have_content("Was printing successful?")
 
       dialog.indicate_printing_was_succesful
-      wait_for_ajax
-      expect(dialog).not_to be_visible
+
+      expect(dialog).to be_invisible
 
       # Should have updated delivery dates
       expect(prescription.reload).to have_attributes(

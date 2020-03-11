@@ -3782,39 +3782,9 @@ function _possibleConstructorReturn(self, call) {
   return _assertThisInitialized(self);
 }
 
-var _default = function(_Controller) {
-  _inherits(_default, _Controller);
-  function _default() {
-    _classCallCheck(this, _default);
-    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
-  }
-  _createClass(_default, [ {
-    key: "connect",
-    value: function connect() {
-      this.element.textContent = "TestController connected.";
-    }
-  } ]);
-  return _default;
-}(Controller);
-
-var _default$1 = function(_Controller) {
-  _inherits(_default, _Controller);
-  function _default() {
-    _classCallCheck(this, _default);
-    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
-  }
-  _createClass(_default, [ {
-    key: "connect",
-    value: function connect() {
-      this.element.textContent = "AnotherTestController connected";
-    }
-  } ]);
-  return _default;
-}(Controller);
-
 var $ = window.$;
 
-var _default$2 = function(_Controller) {
+var _default = function(_Controller) {
   _inherits(_default, _Controller);
   function _default() {
     _classCallCheck(this, _default);
@@ -3848,7 +3818,7 @@ var _default$2 = function(_Controller) {
 
 var $$1 = window.$;
 
-var _default$3 = function(_Controller) {
+var _default$1 = function(_Controller) {
   _inherits(_default, _Controller);
   function _default() {
     _classCallCheck(this, _default);
@@ -3875,11 +3845,11 @@ var _default$3 = function(_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty(_default$3, "targets", [ "container", "radio" ]);
+_defineProperty(_default$1, "targets", [ "container", "radio" ]);
 
-var $$2 = window.$;
+var Rails = window.Rails;
 
-var _default$4 = function(_Controller) {
+var _default$2 = function(_Controller) {
   _inherits(_default, _Controller);
   function _default() {
     _classCallCheck(this, _default);
@@ -3888,7 +3858,7 @@ var _default$4 = function(_Controller) {
   _createClass(_default, [ {
     key: "refreshForm",
     value: function refreshForm() {
-      $$2(this.formTarget[0]).trigger("submit.rails");
+      Rails.fire(this.formTarget, "submit");
     }
   }, {
     key: "askForPrintFeedback",
@@ -3900,11 +3870,11 @@ var _default$4 = function(_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty(_default$4, "targets", [ "form", "printOptions", "printFeedback" ]);
+_defineProperty(_default$2, "targets", [ "form", "printOptions", "printFeedback" ]);
 
-var $$3 = window.$;
+var $$2 = window.$;
 
-var _default$5 = function(_Controller) {
+var _default$3 = function(_Controller) {
   _inherits(_default, _Controller);
   function _default() {
     _classCallCheck(this, _default);
@@ -3913,26 +3883,22 @@ var _default$5 = function(_Controller) {
   _createClass(_default, [ {
     key: "openRemotePartial",
     value: function openRemotePartial() {
-      $$3(this.containerTarget).html("");
+      $$2(this.containerTarget).html("");
       var url = this.data.get("url");
-      $$3(this.containerTarget).load(url).foundation("reveal", "open");
+      $$2(this.containerTarget).load(url).foundation("reveal", "open");
     }
   } ]);
   return _default;
 }(Controller);
 
-_defineProperty(_default$5, "targets", [ "container" ]);
+_defineProperty(_default$3, "targets", [ "container" ]);
 
 var application = Application.start();
 
-application.register("test", _default);
+application.register("toggle", _default);
 
-application.register("another_test", _default$1);
+application.register("foundation-modal", _default$3);
 
-application.register("toggle", _default$2);
+application.register("hd-prescription-administration", _default$1);
 
-application.register("foundation-modal", _default$5);
-
-application.register("hd-prescription-administration", _default$3);
-
-application.register("home-delivery-modal", _default$4);
+application.register("home-delivery-modal", _default$2);

@@ -13,16 +13,12 @@ import { Application } from "stimulus"
 // (via the polyfill) for new js development, and the remaining js can be ported or moved at some
 // point in the future.
 // The rollupjs setup from adapted from the approach used by ActiveStorage
-import TestController from "./controllers/test_controller"
-import AnotherTestController from "./controllers/another_test_controller"
 import ToggleController from "./controllers/toggle_controller"
 import HDPrescriptionController from "./controllers/hd/prescription_administration_controller"
 import MedicationsHomeDeliveryModalController from "./controllers/medications/home_delivery_modal_controller"
 import FoundationModalController from "./controllers/foundation_modal_controller"
 
 const application = Application.start()
-application.register("test", TestController)
-application.register("another_test", AnotherTestController)
 application.register("toggle", ToggleController)
 application.register("foundation-modal", FoundationModalController)
 application.register("hd-prescription-administration", HDPrescriptionController)
