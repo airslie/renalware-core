@@ -1,4 +1,4 @@
-const $ = window.$
+const Rails = window.Rails
 import { Controller } from "stimulus"
 
 // Handles the modal dialog used for presenting Home Delivery print options to
@@ -9,7 +9,7 @@ export default class extends Controller {
   // Submit and re-display the form when 'drug type' or 'prescription duration'
   // dropdowns are changed
   refreshForm() {
-    $(this.formTarget[0]).trigger("submit.rails")
+    Rails.fire(this.formTarget, "submit")
   }
 
   // When the user has clicked Print (launching the PDF in a new tab), hide
