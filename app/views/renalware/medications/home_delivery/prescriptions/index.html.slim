@@ -1,0 +1,38 @@
+- content_for(:filters) do
+  .panel
+    Prescriptions with a next delivery date within the last 4 weeks or the next 2 weeks.
+
+- content_for(:tabs) do
+ dl.sub-nav
+    dd
+      = link_to "ESA",
+                renalware.medications_home_delivery_prescriptions_path(named_filter: "esa")
+    dd
+      = link_to "Immunosuppressant",
+                renalware.medications_home_delivery_prescriptions_path(named_filter: "immunosuppressant")
+
+= within_admin_layout(title: "Home Delivery Prescriptions") do
+  table
+    thead
+      tr
+        th.col-width-large Patient
+        th.col-width-nhs-no NHS number
+        th.col-width-medium Drug Type
+        th.col-width-large Drug
+        th.col-width-date Prescribed on
+        th.col-width-date-time Last delivery date
+        th.col-width-date-time Next delivery date
+        th
+    tbody
+      - prescriptions.each do |prescription|
+        tr
+          td= default_patient_link(prescription.patient)
+          td= prescription.patient.nhs_number
+          td= prescription.drug.drug_types.first&.name
+          td= prescription.drug.name
+          td= l(prescription.prescribed_on)
+          td= l(prescription.last_delivery_date)
+          td= l(prescription.next_delivery_date)
+          td
+
+  == pagy_foundation_nav pagy

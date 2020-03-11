@@ -31,9 +31,7 @@ module Renalware
           authorize event
 
           event.prescriptions = prescriptions_for(event)
-
           event.valid?
-          # byebug
           render(:edit, layout: false, locals: { event: event })
         end
 

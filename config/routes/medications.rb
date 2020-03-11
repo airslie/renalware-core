@@ -22,4 +22,9 @@ namespace :medications do
             only: :index,
             drug_type_name: :esa,
             controller: "drug_types/prescriptions"
+  namespace :home_delivery do
+    constraints(named_filter: /#{Renalware::Medications::Delivery::DRUG_TYPE_FILTERS.join("|")}/) do
+      get "prescriptions/:named_filter", to: "prescriptions#index", as: :prescriptions
+    end
+  end
 end

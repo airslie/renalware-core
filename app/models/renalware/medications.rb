@@ -9,6 +9,8 @@ module Renalware
     end
 
     module Delivery
+      DRUG_TYPE_FILTERS = %i(esa immunosuppressant).freeze
+
       def self.table_name_prefix
         "medication_delivery_"
       end

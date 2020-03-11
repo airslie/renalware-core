@@ -72,7 +72,7 @@ describe "Print a patient's ESA drug list", type: :system, js: true do
     end
   end
 
-  context "when the patient has immunossupressant home_delivery prescriptions" do
+  context "when the patient has immunosuppressant home_delivery prescriptions" do
     it "allows the user to print them" do
       user = login_as_clinical
       patient = create(:patient, by: user)
