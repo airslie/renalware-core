@@ -33,7 +33,6 @@ describe "Add person to directory and assign as a contact for a patient",
         visit patient_letters_contacts_path(patient)
 
         try_create_contact_with_invalid_params
-        wait_for_ajax
 
         expect_to_display_errors
       end
@@ -44,18 +43,13 @@ describe "Add person to directory and assign as a contact for a patient",
 
       within("#add-patient-contact-modal") do
         click_on "Person not found in directory"
-        wait_for_ajax
-
         fill_in "Family Name", with: person.family_name
         fill_in "Given Name", with: person.given_name
         fill_in "Line 1", with: person.address.street_1
         select contact_description.name, from: "Description"
         fill_in "Notes", with: "some contact notes"
-
         click_on "Save"
       end
-
-      wait_for_ajax
     end
 
     def try_create_contact_with_invalid_params
@@ -63,12 +57,8 @@ describe "Add person to directory and assign as a contact for a patient",
 
       within("#add-patient-contact-modal") do
         click_on "Person not found in directory"
-        wait_for_ajax
-
         click_on "Save"
       end
-
-      wait_for_ajax
     end
 
     def expect_new_contact_for_patient

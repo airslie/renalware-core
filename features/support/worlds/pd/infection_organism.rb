@@ -49,8 +49,11 @@ module World
 
           fill_in "Sensitivity", with: sensitivity
           fill_in "Resistance", with: resistance
+
           click_on "Save"
-          wait_for_ajax
+
+          expect(find("tbody")).to have_content(sensitivity)
+          expect(find("tbody")).to have_content(resistance)
         end
       end
 
@@ -58,7 +61,7 @@ module World
         within "#infection-organisms" do
           click_on "Terminate"
           page.driver.browser.switch_to.alert.accept
-          wait_for_ajax
+          expect(page).to have_no_css("tbody tr")
         end
 
         expect(infectable.infection_organisms).to be_empty

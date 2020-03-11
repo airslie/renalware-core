@@ -75,13 +75,12 @@ module World
 
         episode = episode_for(patient)
         visit patient_pd_peritonitis_episode_path(patient, episode)
+
         within "#" + dom_id(episode) do
           click_on "Edit"
-          # select_from_chosen("Relapsing", from: "Episode type")
-          select2(
-            "Relapsing",
-            css: "#peritonitis_episode_types"
-          )
+
+          expect(page).to have_css(".select2-container")
+          select2("Relapsing", css: "#peritonitis_episode_types")
           fill_in "Diagnosed on", with: diagnosed_on
           click_on "Save"
           wait_for_ajax
