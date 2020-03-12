@@ -38,6 +38,14 @@ module Pages
         fill_in "Prescribed on", with: value
       end
 
+      def last_delivery_date=(date)
+        fill_in "Last delivery date", with: date
+      end
+
+      def next_delivery_date=(date)
+        fill_in "Next delivery date", with: date
+      end
+
       def provider=(value)
         within(".medications_prescription_provider") do
           choose value
