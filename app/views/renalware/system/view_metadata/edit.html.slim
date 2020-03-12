@@ -23,7 +23,6 @@ ruby:
     view.columns.detect{ |col| col.code == attr } || Renalware::System::ColumnDefinition.new(code: attr)
   end
 
-
 = simple_form_for(view, as: "view_metadata", method: :patch) do |f|
   = f.input :id, as: :hidden
   .modal
@@ -42,8 +41,7 @@ ruby:
           th.col-width-tiny Truncate
 
         tbody
-          - view.columns.each_with_index do |col, idx|
-
+          - view.columns.each_with_index do |col, _idx|
             tr.sortable
                 td.handle
                   i.fas.fa-bars
@@ -74,8 +72,6 @@ ruby:
                 "#",
                 "aria-label" => "Close",
                   class: "reveal-modal-close"
-
-
 
 javascript:
   initSortables();

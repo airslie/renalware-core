@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/snippets"
+require_dependency "renalware/system"
 
 module Renalware
   module System

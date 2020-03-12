@@ -12,12 +12,10 @@
     - if current_user_is_super_admin?
       = link_to "Configure this table",
                 edit_system_view_metadatum_path(options.current_view, format: :html),
-                remote: true,
-                method: :get,
                 data: { "reveal-id" => "system-view-metadata-modal", "reveal-ajax" => "true" },
                 class: "button secondary compact right"
 
-    = render "table", options: options
+      / The modal dialog container for internal message sending
+      #system-view-metadata-modal.reveal-modal.medium(data-reveal)
 
-/ The modal dialog container for internal message sending
-#system-view-metadata-modal.reveal-modal.medium(data-reveal)
+    = render "table", options: options
