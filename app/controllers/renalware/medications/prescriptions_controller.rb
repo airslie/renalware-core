@@ -2,6 +2,7 @@
 
 require_dependency "renalware/medications"
 
+# rubocop:disable Metrics/ClassLength
 module Renalware
   module Medications
     class PrescriptionsController < BaseController
@@ -73,7 +74,7 @@ module Renalware
         render :index, locals: locals
       end
 
-      # rubocop:disable Layout/LineLength
+      # rubocop:disable Layout/LineLength, Metrics/MethodLength
       def render_prescriptions_list_to_hand_to_patient
         render(
           pdf_options.merge(
@@ -89,7 +90,7 @@ module Renalware
           )
         )
       end
-      # rubocop:enable Layout/LineLength
+      # rubocop:enable Layout/LineLength, Metrics/MethodLength
 
       def pdf_filename
         "#{patient.family_name}_#{patient.hospital_identifier&.id}" \
@@ -147,7 +148,7 @@ module Renalware
         [
           :drug_id, :dose_amount, :dose_unit, :medication_route_id, :frequency,
           :administer_on_hd, :route_description, :notes, :prescribed_on, :provider,
-          :last_delivery_date, { termination_attributes: :terminated_on }
+          :last_delivery_date, :next_delivery_date, { termination_attributes: :terminated_on }
         ]
       end
 
@@ -222,3 +223,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
