@@ -479,6 +479,21 @@ $$;
 
 
 --
+-- Name: pathology_chart_data(integer, text, date); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.pathology_chart_data(patient_id integer, code text, start_date date) RETURNS TABLE(observed_on date, result double precision)
+    LANGUAGE sql
+    AS $_$
+   SELECT observed_at::date, convert_to_float(result) from pathology_observations po
+   inner join pathology_observation_requests por on por.id = po.request_id
+   inner join pathology_observation_descriptions pod on pod.id = po.description_id
+   where pod.code = $2 and observed_at >= start_date
+and por.patient_id = $1;
+$_$;
+
+
+--
 -- Name: preprocess_hl7_message(); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -19451,6 +19466,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200301124200'),
 ('20200301124300'),
 ('20200306183423'),
+('20200313120655'),
 ('20200316131136'),
 ('20200318134807'),
 ('20200320103052');

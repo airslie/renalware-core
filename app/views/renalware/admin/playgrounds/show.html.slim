@@ -1,0 +1,55 @@
+css:
+  .chart {
+    width: 500px;
+    height: 200px;
+  }
+  #patient_id {
+    width:300px;
+    display: block
+  }
+  #patient_id input {
+    width:200px;
+    display:inline;
+  }
+
+  #patient_id a {
+    width: 90px;
+    display:inline;
+    padding: 5px;
+    margin-left: 5px;
+  }
+
+= within_new_admin_layout(title: "Admin Playground") do
+
+  article
+    header
+      h2 Pathology Chart
+    .chart-container(data-controller="charts"
+                    data-charts-url=pathology_chart_data_admin_playground_path)
+
+      #patient_id
+        label Patient ID
+        input(type="text"
+              name="patient_id"
+              data-target="charts.patientId"
+              value="111606")
+        a.button(href="#" data-action="click->charts#refresh") Change
+
+      select(data-action="change->charts#refresh"
+            data-target="charts.obx"
+            style="width:300px;display: block")
+        option(value="POT") POT
+        option(value="HGB" ) HGB
+        option(value="CRE" selected) CRE
+
+      #chart1.chart data-target="charts.chart")
+
+      select(data-action="change->charts#refresh"
+            data-target="charts.period"
+            style="width:150px")
+        option(value="all") all
+        option(value="yr" selected) yr
+        option(value="6m") 6m
+        option(value="3m") 3m
+        option(value="1m") 1m
+        option(value="1wk") 1wk
