@@ -15,6 +15,8 @@ module Renalware
       # POST js
       def create
         alert = Alert.new(alert_params.merge!(by: user, patient: patient))
+        alert.urgent = alert_params[:urgency] == "urgent"
+        alert.covid_19 = alert_params[:urgency] == "covid_19"
         authorize alert
         if alert.save
           render locals: { patient: patient, alert: alert }
@@ -55,7 +57,7 @@ module Renalware
       end
 
       def alert_params
-        params.require(:patients_alert).permit(:notes, :urgent)
+        params.require(:patients_alert).permit(:notes, :urgency)
       end
     end
   end

@@ -7,7 +7,7 @@ describe "Managing alerts", type: :request do
   let(:patient) { create(:patient, by: user) }
 
   describe "POST create" do
-    context "with valid attributes" do
+    context "with valid attributes and no urgency" do
       it "creates a new alert" do
         headers = {
           "HTTP_REFERER" => "/",
@@ -15,7 +15,6 @@ describe "Managing alerts", type: :request do
         }
         params = {
           patients_alert: {
-            urgent: true,
             notes: "An alert"
           }
         }
@@ -26,8 +25,55 @@ describe "Managing alerts", type: :request do
         alert = Renalware::Patients::Alert.find_by(patient_id: patient.id)
 
         expect(alert).not_to be_nil
-        expect(alert.urgent).to eq(true)
+        expect(alert.urgent).to eq(false)
+        expect(alert.covid_19).to eq(false)
         expect(alert.notes).to eq("An alert")
+      end
+    end
+
+    context "when an urgency of 'Urgent' is selected" do
+      it "creates a new alert marked as urgent = true" do
+        headers = {
+          "HTTP_REFERER" => "/",
+          "ACCEPT" => "application/javascript"
+        }
+        params = {
+          patients_alert: {
+            urgency: "urgent",
+            notes: "An alert"
+          }
+        }
+
+        post(patient_alerts_path(patient), params: params, headers: headers)
+        expect(response).to be_successful
+
+        alert = Renalware::Patients::Alert.find_by(patient_id: patient.id)
+
+        expect(alert.covid_19).to eq(false)
+        expect(alert.urgent).to eq(true)
+      end
+    end
+
+    context "when an urgency of COVID-19 is selected" do
+      it "creates a new alert marked as covid_19 = true" do
+        headers = {
+          "HTTP_REFERER" => "/",
+          "ACCEPT" => "application/javascript"
+        }
+        params = {
+          patients_alert: {
+            urgency: "covid_19",
+            notes: "An alert"
+          }
+        }
+
+        post(patient_alerts_path(patient), params: params, headers: headers)
+        expect(response).to be_successful
+
+        alert = Renalware::Patients::Alert.find_by(patient_id: patient.id)
+
+        expect(alert.covid_19).to eq(true)
+        expect(alert.urgent).to eq(false)
       end
     end
 
