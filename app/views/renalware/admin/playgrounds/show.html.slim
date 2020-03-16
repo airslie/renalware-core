@@ -32,7 +32,7 @@ css:
         input(type="text"
               name="patient_id"
               data-target="charts.patientId"
-              value="111606")
+              value="1")
         a.button(href="#" data-action="click->charts#refresh") Change
 
       select(data-action="change->charts#refresh"
@@ -47,8 +47,8 @@ css:
       select(data-action="change->charts#refresh"
             data-target="charts.period"
             style="width:150px")
-        option(value="all") all
-        option(value="yr" selected) yr
+        option(value="all" selected) all
+        option(value="yr") yr
         option(value="6m") 6m
         option(value="3m") 3m
         option(value="1m") 1m

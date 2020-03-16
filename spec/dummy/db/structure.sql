@@ -488,8 +488,9 @@ CREATE FUNCTION renalware.pathology_chart_data(patient_id integer, code text, st
    SELECT observed_at::date, convert_to_float(result) from pathology_observations po
    inner join pathology_observation_requests por on por.id = po.request_id
    inner join pathology_observation_descriptions pod on pod.id = po.description_id
-   where pod.code = $2 and observed_at >= start_date
-and por.patient_id = $1;
+   where pod.code = $2 and observed_at >= start_date and por.patient_id = $1
+   order by po.observed_at asc, po.created_at desc;
+
 $_$;
 
 
