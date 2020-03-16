@@ -45,7 +45,7 @@ describe "Managing an existing letter contact", type: :system, js: true do
 
       click_on "Save"
 
-      wait_for_ajax
+      expect(page).to have_no_css("#add-patient-contact-as-cc-modal")
 
       contact.reload
 
