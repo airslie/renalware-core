@@ -1,6 +1,12 @@
-li.patient-alert(class=("urgent" if alert.urgent) id="alert-#{alert.id}")
+ruby:
+  klasses = []
+  klasses << "covid_19" if alert.covid_19?
+  klasses << "urgent" if alert.urgent?
+  title = "Alert:"
+  title = "COVID-19 Alert:" if alert.covid_19?
+li.patient-alert(class=(klasses.join(" ")) id="alert-#{alert.id}")
   i.fas.fa-exclamation-triangle
-  span.title Alert:
+  span.title= title
   span.body= alert.notes
   span.author= alert.created_by.username
   span.date= l(alert.created_at.to_date)

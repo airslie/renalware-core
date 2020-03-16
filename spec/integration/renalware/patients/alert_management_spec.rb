@@ -15,7 +15,7 @@ describe "Alert management", type: :system do
 
     within "#create-alert-modal" do
       fill_in "Notes", with: "Some note"
-      check "Urgent"
+      choose "URGENT"
       click_on "Create alert"
     end
 

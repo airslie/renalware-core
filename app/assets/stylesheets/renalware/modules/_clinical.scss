@@ -173,6 +173,19 @@ article.clinical-allergies {
           }
         }
 
+        &.covid_19 {
+          background-color: $nhs-yellow;
+          color: $dark-grey;
+
+          &:hover {
+            background-color: darken($nhs-yellow, 7);
+          }
+
+          .actions i:before {
+            color: $dark-grey;
+          }
+        }
+
         &.research-study-participant {
           background-color: darken($nhs-green, 3);
           color: $white;

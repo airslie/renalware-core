@@ -5046,7 +5046,8 @@ CREATE TABLE renalware.patient_alerts (
     updated_by_id integer NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    covid_19 boolean DEFAULT false NOT NULL
 );
 
 
@@ -19191,6 +19192,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200301113102'),
 ('20200301124200'),
 ('20200301124300'),
-('20200306183423');
+('20200306183423'),
+('20200316131136');
 
 

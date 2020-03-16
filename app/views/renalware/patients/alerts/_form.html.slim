@@ -4,7 +4,10 @@
                   remote: true,
                   url: patient_alerts_path(patient_id: patient) do |f|
     h2= t(".title")
-    = f.input :urgent, as: :boolean, boolean_style: :inline
+    = f.input :urgency,
+              as: :radio_buttons,
+              collection: [[" URGENT","urgent"], [" COVID-19", "covid_19"]],
+              label: false
     = f.input :notes, autofocus: true
     = f.submit "Create alert", class: :button
     span= " or "
