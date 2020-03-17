@@ -9,8 +9,15 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.144
+17-03-2020
+### Added
+### Changed
+### Fixed
+- Fixed bug inserting snippets into trix editor
+
 ### 2.0.143
-10-03-2020
+16-03-2020
 ### Added
 - Add CORVID-19 option when creating a patient alert
 ### Changed

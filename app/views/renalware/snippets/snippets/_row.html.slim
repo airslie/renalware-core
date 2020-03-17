@@ -16,7 +16,8 @@ tr(data={ "snippet-id" => snippet.id, invocation_url: snippet_invocations_path(s
       = link_to "Insert",
                  "#",
                  title: "Insert this snippet into the letter",
-                 class: "insert-snippet button compact alternative"
+                 class: "insert-snippet button compact alternative",
+                 data: { action: "click->snippets#insert"}
   - unless author == :me
     td.col-width-medium.author= snippet.author
   td.css-toggle-container.title

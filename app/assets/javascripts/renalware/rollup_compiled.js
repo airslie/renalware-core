@@ -3872,6 +3872,28 @@ var _default$2 = function(_Controller) {
 
 _defineProperty(_default$2, "targets", [ "form", "printOptions", "printFeedback" ]);
 
+var $$2 = window.$;
+
+var _default$3 = function(_Controller) {
+  _inherits(_default, _Controller);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+  _createClass(_default, [ {
+    key: "insert",
+    value: function insert(event) {
+      var modal = $$2("#snippets-modal");
+      var snippetBody = $$2(event.target).parent().closest("tr").find(".body").html();
+      var targetInputSelector = $$2(modal).data("target");
+      trix = document.querySelector("trix-editor");
+      trix.editor.insertHTML(snippetBody);
+      $$2(modal).foundation("reveal", "close");
+    }
+  } ]);
+  return _default;
+}(Controller);
+
 var application = Application.start();
 
 application.register("toggle", _default);
@@ -3879,3 +3901,5 @@ application.register("toggle", _default);
 application.register("hd-prescription-administration", _default$1);
 
 application.register("home-delivery-modal", _default$2);
+
+application.register("snippets", _default$3);

@@ -14,14 +14,3 @@ $('.snippets').on('click', 'th a, .pagination a', function () {
 );
 
 initTogglers();
-
-$('.insert-snippet').on('click', function (e) {
-    var modal = $("#snippets-modal");
-    var snippetBody = $(this).parent().closest("tr").find(".body").html();
-    var targetInputSelector = $(modal).data("target");
-    var targetInputSelector = $(targetInputSelector)[0];
-
-    targetInputSelector.editor.insertHTML(snippetBody)
-    $(modal).foundation('reveal', 'close');
-  }
-);
