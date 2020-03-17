@@ -8,7 +8,7 @@ ruby:
     span= " or "
     = link_to "cancel", back_path
 
-.form-content
+.form-content data-controller="letters-form"
   = render event if event.present?
 
   article
@@ -46,12 +46,17 @@ ruby:
     = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: ".letter-body-editor")
 
     - if event&.respond_to?(:notes)
+
       = link_to "Insert #{event.class.name.demodulize.underscore.humanize.downcase} notes",
                 "/",
-                data: { notes: event.notes || "", target: ".letter-body-editor" },
+                data: { action: "click->letters-form#initInsertEventNotesIntoTrixEditor",
+                        notes: event.notes || "" },
                 class: "insert-data-notes button alternative right editor-toolbar-button"
 
-    = f.input :body, as: :trix_editor, class: "letter-body-editor", wrapper: :zilch
+    = f.input :body,
+              as: :trix_editor,
+              wrapper: :zilch,
+              data: { target: "letters-form.trix" }
 
   article
     header

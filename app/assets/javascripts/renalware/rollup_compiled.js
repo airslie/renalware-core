@@ -3885,14 +3885,43 @@ var _default$3 = function(_Controller) {
     value: function insert(event) {
       var modal = $$2("#snippets-modal");
       var snippetBody = $$2(event.target).parent().closest("tr").find(".body").html();
-      var targetInputSelector = $$2(modal).data("target");
-      trix = document.querySelector("trix-editor");
+      var trix = document.querySelector("trix-editor");
       trix.editor.insertHTML(snippetBody);
       $$2(modal).foundation("reveal", "close");
     }
   } ]);
   return _default;
 }(Controller);
+
+var $$3 = window.$;
+
+var _default$4 = function(_Controller) {
+  _inherits(_default, _Controller);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+  _createClass(_default, [ {
+    key: "initInsertEventNotesIntoTrixEditor",
+    value: function initInsertEventNotesIntoTrixEditor(event) {
+      event.preventDefault();
+      var notes = $$3(event.target).data("notes");
+      if (notes && this.trix) {
+        this.trix.insertHTML(notes);
+      } else {
+        alert("There are no notes to insert");
+      }
+    }
+  }, {
+    key: "trix",
+    get: function get() {
+      return this.trixTarget.editor;
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$4, "targets", [ "trix" ]);
 
 var application = Application.start();
 
@@ -3903,3 +3932,5 @@ application.register("hd-prescription-administration", _default$1);
 application.register("home-delivery-modal", _default$2);
 
 application.register("snippets", _default$3);
+
+application.register("letters-form", _default$4);

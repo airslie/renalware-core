@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.145
+17-03-2020
+### Added
+### Changed
+### Fixed
+- Fixed bug inserting clinic visit notes into letter body
+
 ### 2.0.144
 17-03-2020
 ### Added
