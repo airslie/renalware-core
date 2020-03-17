@@ -3,7 +3,7 @@
 # See https://github.com/kylefox/trix/blob/master/lib/trix/simple_form/trix_editor_input.rb
 class TrixEditorInput < SimpleForm::Inputs::Base
   def input(_wrapper_options)
-    trix_options = options.slice(:spellcheck, :toolbar, :tabindex, :input, :class)
+    trix_options = options.slice(:spellcheck, :toolbar, :tabindex, :input, :class, :data)
     editor_options = { input: input_class, class: "trix-content" }.merge(trix_options)
 
     editor_tag = template.content_tag("trix-editor", "", editor_options)

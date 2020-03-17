@@ -17,9 +17,11 @@ import ToggleController from "./controllers/toggle_controller"
 import HDPrescriptionController from "./controllers/hd/prescription_administration_controller"
 import MedicationsHomeDeliveryModalController from "./controllers/medications/home_delivery_modal_controller"
 import SnippetsController from "./controllers/snippets_controller"
+import LettersFormController from "./controllers/letters/form_controller"
 
 const application = Application.start()
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
 application.register("home-delivery-modal", MedicationsHomeDeliveryModalController)
 application.register("snippets", SnippetsController)
+application.register("letters-form", LettersFormController)

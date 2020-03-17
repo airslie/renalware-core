@@ -88,19 +88,19 @@ Renalware.Letters = (function() {
     })
   };
 
-  var initInsertEventNotesIntoTextEditor = function() {
-    $(".insert-data-notes").on("click", function(e) {
-      e.preventDefault();
-      var notes = $(this).data("notes");
-      var targetEditorSelector = $(this).data("target");
-      if (notes && targetEditorSelector) {
-         var targetInput = $(targetEditorSelector)[0];
-         targetInput.editor.insertHTML(notes);
-      } else {
-        alert("There are no notes to insert");
-      }
-    });
-  };
+  // var initInsertEventNotesIntoTextEditor = function() {
+  //   $(".insert-data-notes").on("click", function(e) {
+  //     e.preventDefault();
+  //     var notes = $(this).data("notes");
+  //     var targetEditorSelector = $(this).data("target");
+  //     if (notes && targetEditorSelector) {
+  //        var targetInput = $(targetEditorSelector)[0];
+  //        targetInput.editor.insertHTML(notes);
+  //     } else {
+  //       alert("There are no notes to insert");
+  //     }
+  //   });
+  // };
 
   var pollBatchStatus = function(url) {
     var POLL_INTERVAL = 2000; // ms
@@ -143,7 +143,7 @@ Renalware.Letters = (function() {
       bindOnSalutationChange();
       initNewContactAsMainRecipient();
       initNewContactAsCC();
-      initInsertEventNotesIntoTextEditor();
+      //initInsertEventNotesIntoTextEditor();
       bindOnLetterAboutToBatchPrint();
       bindOnLetterAboutToPrint();
     },
