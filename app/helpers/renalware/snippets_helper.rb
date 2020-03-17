@@ -15,6 +15,8 @@ module Renalware
                            class: "reveal-modal",
                            data: {
                              reveal: "data-reveal",
+                             controller: "snippets",
+                             "snippets-target-input" => target_input_for_seleted_snippet,
                              target: target_input_for_seleted_snippet
                            })
         concat link_to t("snippets.insert"),
