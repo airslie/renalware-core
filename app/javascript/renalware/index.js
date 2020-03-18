@@ -29,3 +29,5 @@ application.register("snippets", SnippetsController)
 application.register("letters-form", LettersFormController)
 application.register("prescriptions", PrescriptionsController)
 application.register("charts", ChartsController)
+
+window.Chartkick.use(window.Highcharts)

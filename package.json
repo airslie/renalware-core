@@ -10,10 +10,11 @@
     "IE 11"
   ],
   "dependencies": {
-    "apexcharts": "^3.16.1",
     "balloon-css": "^1.0.3",
+    "chartkick": "^3.2.0",
     "classlist.js": "^1.1.20150312",
     "foundation-datepicker": "1.5.0",
+    "highcharts": "^8.0.4",
     "masonry-layout": "^4.2.2",
     "moment": "2.24.0",
     "mousetrap": "1.6.3",

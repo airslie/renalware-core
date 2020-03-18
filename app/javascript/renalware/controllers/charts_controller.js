@@ -1,29 +1,32 @@
 const $ = window.$
+const Chartkick = window.Chartkick
 
-import "promise-polyfill/src/polyfill"
-import "classlist.js/classList.js"
+// import "promise-polyfill/src/polyfill"
+// import "classlist.js/classList.js"
 
 import { Controller } from "stimulus"
-import ApexCharts from "apexcharts"
+
+// import Chartkick from "chartkick" - now a global
+// import Highcharts from "highcharts" - now a global
 
 export default class extends Controller {
   static targets = [ "chart", "obx", "period", "patientId" ]
 
   connect() {
-    new ApexCharts(this.chartTarget, this.chartOptions).render()
+    // Display the first time the page is loaded. Uses whatever the default
+    // selected options are in selects etc.
     this.refresh()
   }
 
-  // Note that the chart if eg #chart1 needs to be in the chart options in connect()
+  // Get JSON from the server and display it in the graph
   refresh() {
-    console.log(this.obx)
-    this.clearChart()
     let params = { obx: this.obx, period: this.period, patient_id: this.patientId }
     $.getJSON(this.url, params, (response) => {
-      ApexCharts.exec(this.chartTarget.id, "updateSeries", [{
-        name: this.obx,
-        data: response
-      }])
+      if (this.chartCreated()) {
+        this.chartTarget.getChartObject().updateData(response)
+      } else {
+        new Chartkick.LineChart("chart1", response, this.chartOptions)
+      }
     })
   }
 
@@ -45,36 +48,19 @@ export default class extends Controller {
     return this.data.get("url")
   }
 
-  get chartOptions() {
-    return {
-      chart: {
-        id: this.chartTarget.id,
-        type: "area"
-      },
-      animations: {
-        enabled: false
-      },
-      stroke: {
-        width: 1
-      },
-      dataLabels: {
-        enabled: false
-      },
-      series: [],
-      xaxis: {
-        categories: []
-      }
-    }
+  // Returns true if the chart target has already been initialised
+  chartCreated() {
+    return Object.prototype.hasOwnProperty.call(this.chartTarget, "getChartObject")
   }
 
-  clearChart() {
-    ApexCharts.exec(this.chartTarget.id, "updateOptions", [{
-      series: [
-        {
-          name: this.obx,
-          data: []
+  get chartOptions() {
+    return {
+      curve: false,
+      library: {
+        chart: {
+          zoomType: "x"
         }
-      ]
-    }])
+      }
+    }
   }
 }

@@ -42,7 +42,7 @@ css:
         option(value="HGB" ) HGB
         option(value="CRE" selected) CRE
 
-      #chart1.chart data-target="charts.chart")
+      /#chart1.chart data-target="charts.chart")
 
       select(data-action="change->charts#refresh"
             data-target="charts.period"
@@ -53,3 +53,16 @@ css:
         option(value="3m") 3m
         option(value="1m") 1m
         option(value="1wk") 1wk
+
+      #chart1 style="height: 300px; width: 500px" data-target="charts.chart"
+
+  / = line_chart pathology_chart_data_admin_playground_path(obx: 'HGB',period: 'all', patient_id: 1), \
+  /   id: "chart2",
+  /   spanGaps: true,
+  /   width: "800px",
+  /   height: "300px",
+  /   curve: false,
+  /   library: { chart: { zoomType: 'x'} }
+  / / = line_chart(\
+  / /   Renalware::Pathology::ObservationRequest.group_by_day(:requested_at, series: false).where("requested_at > '2020-02-20'").where('requested_at < now()').count,
+  / /   spanGaps: false)

@@ -27,7 +27,7 @@ module Renalware
                 '#{chart_params.obx_code}',
                 '#{chart_params.start_date}')
           SQL
-        ).to_a
+        ).to_a.each_with_object({}) { |h, hash| hash[Date.parse(h["x"])] = h["y"] }
       end
     end
 
