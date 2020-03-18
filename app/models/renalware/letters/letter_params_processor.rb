@@ -23,7 +23,7 @@ module Renalware
         return params unless params.key?(:main_recipient_attributes)
 
         params.merge(
-          main_recipient_attributes: main_recipient_attributes(params)
+          main_recipient_attributes: main_recipient_attributes(params).permit!
         )
       end
 

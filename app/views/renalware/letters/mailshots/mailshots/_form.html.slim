@@ -1,0 +1,60 @@
+.row
+  = simple_form_for(mailshot,
+                    as: :mailshot,
+                    url: letters_mailshots_path,
+                    html: { id: "mailshot-form" }) do |form|
+    .columns.small-12
+      = form.input :description, placeholder: "A description of the mailshot purpose."
+    .columns.small-12
+      = form.input(:sql_view_name,
+        collection: Renalware::Letters::Mailshots::DataSource.all.map(&:viewname),
+        input_html: { data: { remote:"true", url: renalware.letters_mailshots_patient_previews_path }})
+
+    .columns.medium-6
+      = form.association :letterhead
+    .columns.medium-6
+      = form.association :author,
+            as: :user_picker,
+            collection: Renalware::System::UsersPresenter.new.list_for_dropdown( \
+              user_to_promote_to_top: current_user \
+            )
+    .columns.small-12
+      = form.input :body, as: :trix_editor
+      br
+      = form.submit "Send",
+                    class: :button,
+                    data: { confirm: "Are you sure you want to this mailshot?",
+                    disable_with: "Creating letters..." }
+  .columns.small-12
+    / When the SQL view name dropdown changes we will populate this div with a
+    / table containing name of the patients to whom the mailshot will be sent.
+    / See data-url on the sql_view_name dropdown for the rails route that will be
+    / called. It will render a ujs template eg index.js.erb to insert the list of
+    / patients into this view.
+    #mailshot-patients-preview
+
+  .columns.small-12
+    br
+    .panel
+      h2
+        i.fas.fa-info-circle style="color: #00a499"
+        span(style="padding-left: 5px") Tips
+      p
+        | The list of patients to include in a mailshot it determined by the SQL View chosen above.
+        | &nbsp;It is intended that a systems or database administrator create this view for you in the
+        | &nbsp;renalware database. The view should have one column called 'patient_id' and return the ids
+        | &nbsp;of all the patients you want to send this letter to.
+        | &nbsp;You should ideally create the view in the hospital's
+        | &nbsp;own postgres schema eg 'renalware_kch' in the case of Kings College Hospital.
+      p Here is a (somewhat pointless) example of a compatible SQL view definition:
+      p
+        code
+          | CREATE OR REPLACE VIEW
+          br
+          |  renalware_kch.letter_mailshot_patients_where_surname_starts_with_r AS
+          br
+          |  SELECT id as patient_id
+          br
+          |  FROM patients
+          br
+          |  WHERE family_name like 'R%';
