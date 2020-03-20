@@ -9,7 +9,7 @@
   .edit_timestamp= render "renalware/shared/last_update", record: registration
 
   .document-view
-    .grid
+    .mgrid
       .row
           - ["Codes", "CRF", "HLA", "Transplant", "Organs"].each do |group|
             = render "renalware/shared/documents/attributes_group",

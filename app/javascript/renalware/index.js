@@ -1,3 +1,5 @@
+import "../../assets/stylesheets/tailwind/tailwind.css"
+
 import "@stimulus/polyfills" // required for IE11 support
 import { Application } from "stimulus"
 

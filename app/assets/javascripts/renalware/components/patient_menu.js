@@ -11,7 +11,7 @@ $(document).ready(function() {
   })
 
   function triggerMasonryLayoutRefresh() {
-    $('.grid > .row').masonry('layout');
+    $('.mgrid > .row').masonry('layout');
   }
 
   function showHidePatientMenuAccordingToScreenSize() {

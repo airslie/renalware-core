@@ -2,11 +2,11 @@ var Renalware = typeof Renalware === 'undefined' ? {} : Renalware;
 
 Renalware.MasonryHelper = (function() {
   var setupMasonry = function() {
-    $('.grid > .row').masonry({ itemSelector: '.columns' });
+    $('.mgrid > .row').masonry({ itemSelector: '.columns' });
   }
 
   var refreshMasonry = function() {
-    $('.grid > .row').masonry('layout');
+    $('.mgrid > .row').masonry('layout');
   }
 
   var triggerMasonryRefresh = function() {

@@ -3795,9 +3795,10 @@ function _possibleConstructorReturn(self, call) {
 }
 
 function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
   return function() {
     var Super = _getPrototypeOf(Derived), result;
-    if (_isNativeReflectConstruct()) {
+    if (hasNativeReflectConstruct) {
       var NewTarget = _getPrototypeOf(this).constructor;
       result = Reflect.construct(Super, arguments, NewTarget);
     } else {
@@ -3822,7 +3823,7 @@ var _default = function(_Controller) {
       event.preventDefault;
       var tbody = event.target.closest("tbody");
       tbody.classList.toggle("toggleable--open");
-      $(".grid > .row").masonry("layout");
+      $(".mgrid > .row").masonry("layout");
     }
   }, {
     key: "table",
@@ -3836,7 +3837,7 @@ var _default = function(_Controller) {
       tbodies.forEach(function(tbody) {
         tbody.classList.toggle("toggleable--open", !hide);
       });
-      $(".grid > .row").masonry("layout");
+      $(".mgrid > .row").masonry("layout");
     }
   } ]);
   return _default;

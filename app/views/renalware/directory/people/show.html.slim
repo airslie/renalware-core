@@ -6,7 +6,7 @@
 = within_admin_layout(title: "Person",
                       breadcrumbs: breadcrumb_for("Directory", directory_people_path))
 
-  .grid
+  .mgrid
     = article_tag "Person" do
       = definition_list_for(person, size: :large) do |list|
         = list.definition(:title)

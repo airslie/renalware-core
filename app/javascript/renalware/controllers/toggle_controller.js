@@ -15,7 +15,7 @@ export default class extends Controller {
     const tbody = event.target.closest("tbody")
     tbody.classList.toggle("toggleable--open")
     // Update masonry - TODO: move to a module
-    $(".grid > .row").masonry("layout")
+    $(".mgrid > .row").masonry("layout")
   }
 
   // Toggle the last tr in each tbody in the current table.
@@ -31,6 +31,6 @@ export default class extends Controller {
     thead.classList.toggle("toggleable--open")
     tbodies.forEach(function(tbody) { tbody.classList.toggle("toggleable--open", !hide) })
     // Update masonry - TODO: move to a module
-    $(".grid > .row").masonry("layout")
+    $(".mgrid > .row").masonry("layout")
   }
 }
