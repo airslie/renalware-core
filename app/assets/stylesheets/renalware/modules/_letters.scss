@@ -158,3 +158,20 @@ table.letters {
     }
   }
 }
+
+.mailshot-status {
+  text-align: center;
+  text-transform: uppercase;
+
+  &.mailshot-status--failure,
+  &.mailshot-status--failure:hover {
+    background-color: red;
+    color: $white;
+  }
+
+  &.mailshot-status--success,
+  &.mailshot-status--success:hover {
+    background-color: $nhs-green;
+    color: $white;
+  }
+}
