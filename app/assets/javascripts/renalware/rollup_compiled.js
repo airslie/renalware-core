@@ -4022,7 +4022,15 @@ var _default$6 = function(_Controller) {
         library: {
           chart: {
             zoomType: "x"
-          }
+          },
+          plotOptions: {
+            series: {
+              animation: {
+                duration: 300
+              }
+            }
+          },
+          colors: [ "#005eb8", "#009639", "#434348", "#90ed7d", "#f7a35c", "#8085e9", "#f15c80", "#e4d354" ]
         }
       };
     }
