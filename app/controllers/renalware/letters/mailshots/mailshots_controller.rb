@@ -9,7 +9,7 @@ module Renalware
         include Pagy::Backend
 
         def index
-          pagy, mailshots = pagy(Mailshot.order(created_at: :desc))
+          pagy, mailshots = pagy(Mailshot.includes(:author).order(created_at: :desc))
           authorize mailshots
           render locals: { mailshots: mailshots, pagy: pagy }
         end

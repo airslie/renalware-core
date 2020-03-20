@@ -4,7 +4,7 @@
 - else
   .panel
     p
-      b The #{patients.length} patients below will be included in the mailshot
+      b #{pagy.count} patients will be included in the mailshot
     p
       | The SQL for
       i= " #{datasource&.viewname}:"
@@ -23,3 +23,4 @@
           td= patient.nhs_number
           td= patient.hospital_identifiers
           td
+  == pagy_foundation_nav pagy

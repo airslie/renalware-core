@@ -13,7 +13,7 @@ module Renalware
         def perform(mailshot)
           mailshot.update_column(:status, :processing)
           mailshot.create_letters
-          mailshot.update_column(:status, :success)
+          mailshot.update_columns(status: :success, last_error: nil)
         rescue StandardError => e
           mailshot.update_columns(
             last_error: "#{$ERROR_INFO}\nBacktrace:\n\t#{e.backtrace.join("\n\t")}",

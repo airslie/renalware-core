@@ -32,7 +32,9 @@ module Renalware
           @recipient_patients ||= begin
             return Patient.none if sql_view_name.blank?
 
-            Patient.where(Arel.sql("id in (select distinct patient_id from #{sql_view_name})"))
+            Patient
+              .where(Arel.sql("id in (select distinct patient_id from #{sql_view_name})"))
+              .order(:family_name, :given_name)
           end
         end
 
