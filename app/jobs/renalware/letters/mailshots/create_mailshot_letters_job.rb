@@ -6,6 +6,9 @@ require "attr_extras"
 module Renalware
   module Letters
     module Mailshots
+      # A background job to create letter records for a mailshot.
+      # More than 1000 letters in a mailshot could cause a timeout if executed
+      # while the user waits, which is why processing is done in the background.
       class CreateMailshotLettersJob < ApplicationJob
         def perform(mailshot)
           mailshot.update_column(:status, :processing)
