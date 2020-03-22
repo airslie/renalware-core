@@ -1,0 +1,26 @@
+- if patients.none?
+  .panel
+    b No patients
+- else
+  .panel
+    p
+      b #{pagy.count} patients will be included in the mailshot
+    p
+      | The SQL for
+      i= " #{datasource&.viewname}:"
+    p
+      code= datasource&.definition
+  table.mailshot-patient-previews
+    thead
+      th.col-width-large Patient name
+      th.col-width-nhs-no NHS number
+      th.col-width-reference-no Hospital nos
+      th
+    tbody
+      - patients.each do |patient|
+        tr
+          td= patient
+          td= patient.nhs_number
+          td= patient.hospital_identifiers
+          td
+  == pagy_foundation_nav pagy

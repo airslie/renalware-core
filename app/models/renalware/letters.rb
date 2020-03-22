@@ -27,5 +27,11 @@ module Renalware
 
     module Delivery
     end
+
+    module Mailshots
+      def self.table_name_prefix
+        "letter_mailshot_"
+      end
+    end
   end
 end

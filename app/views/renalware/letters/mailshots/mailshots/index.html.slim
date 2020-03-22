@@ -1,0 +1,31 @@
+- content_for(:actions) do
+  - if policy(Renalware::Letters::Mailshots::Mailshot).new?
+    = link_to "Add", new_letters_mailshot_path, class: :button
+
+= within_new_admin_layout(title: "Mailshots") do
+  table.toggleable.mailshots data-controller="toggle"
+    thead
+      th.togglers.noprint= rows_toggler
+      th.col-width-date-time Created
+      th.col-width-medium Description
+      th.col-width-medium Author
+      th.col-width-tiny Letter Count
+      th Status
+      th Last Error
+    - mailshots.each do |mailshot|
+      tbody
+        tr
+          td= row_toggler
+          td= l(mailshot.created_at)
+          td= mailshot.description
+          td= mailshot.author
+          td= mailshot.letters_count
+          td class="mailshot-status mailshot-status--#{mailshot.status}"
+            = mailshot.status
+          td
+            - if mailshot.last_error
+              = mailshot.last_error&.gsub("\n", "<br>").truncate(1000).html_safe
+        tr
+          td(colspan=7)
+            | Body:
+            = mailshot.body.html_safe

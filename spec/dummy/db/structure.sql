@@ -87,6 +87,18 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 
 
 --
+-- Name: background_job_status; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.background_job_status AS ENUM (
+    'queued',
+    'processing',
+    'success',
+    'failure'
+);
+
+
+--
 -- Name: clinical_body_composition_pre_post_hd; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -3756,6 +3768,118 @@ ALTER SEQUENCE renalware.letter_letters_id_seq OWNED BY renalware.letter_letters
 
 
 --
+-- Name: letter_mailshot_items; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.letter_mailshot_items (
+    id bigint NOT NULL,
+    mailshot_id bigint NOT NULL,
+    letter_id bigint NOT NULL
+);
+
+
+--
+-- Name: TABLE letter_mailshot_items; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.letter_mailshot_items IS 'A record of the letters sent in a mailshot';
+
+
+--
+-- Name: letter_mailshot_items_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.letter_mailshot_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_mailshot_items_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.letter_mailshot_items_id_seq OWNED BY renalware.letter_mailshot_items.id;
+
+
+--
+-- Name: letter_mailshot_mailshots; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.letter_mailshot_mailshots (
+    id bigint NOT NULL,
+    description character varying NOT NULL,
+    sql_view_name character varying NOT NULL,
+    body text NOT NULL,
+    letterhead_id bigint NOT NULL,
+    author_id bigint NOT NULL,
+    letters_count integer,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    status renalware.background_job_status,
+    last_error text
+);
+
+
+--
+-- Name: TABLE letter_mailshot_mailshots; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.letter_mailshot_mailshots IS 'A mailshot is an adhoc letter sent to a group of patients';
+
+
+--
+-- Name: COLUMN letter_mailshot_mailshots.description; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_mailshot_mailshots.description IS 'Some text to identify the mailshot purpose. Will be written to letter_letters.description column when letter created';
+
+
+--
+-- Name: COLUMN letter_mailshot_mailshots.sql_view_name; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_mailshot_mailshots.sql_view_name IS 'The name of the SQL view chosen as the data source';
+
+
+--
+-- Name: COLUMN letter_mailshot_mailshots.body; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_mailshot_mailshots.body IS 'The body text that will be inserted into each letter';
+
+
+--
+-- Name: COLUMN letter_mailshot_mailshots.letters_count; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_mailshot_mailshots.letters_count IS 'Counter cache column which Rails will update';
+
+
+--
+-- Name: letter_mailshot_mailshots_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_mailshot_mailshots_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
 -- Name: letter_recipients; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -6688,7 +6812,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -6767,7 +6891,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -9466,6 +9590,20 @@ ALTER TABLE ONLY renalware.letter_letters ALTER COLUMN id SET DEFAULT nextval('r
 
 
 --
+-- Name: letter_mailshot_items id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_mailshot_items ALTER COLUMN id SET DEFAULT nextval('renalware.letter_mailshot_items_id_seq'::regclass);
+
+
+--
+-- Name: letter_mailshot_mailshots id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_mailshot_mailshots ALTER COLUMN id SET DEFAULT nextval('renalware.letter_mailshot_mailshots_id_seq'::regclass);
+
+
+--
 -- Name: letter_recipients id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -10904,6 +11042,22 @@ ALTER TABLE ONLY renalware.letter_letterheads
 
 ALTER TABLE ONLY renalware.letter_letters
     ADD CONSTRAINT letter_letters_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: letter_mailshot_items letter_mailshot_items_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_mailshot_items
+    ADD CONSTRAINT letter_mailshot_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: letter_mailshot_mailshots letter_mailshot_mailshots_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_mailshot_mailshots
+    ADD CONSTRAINT letter_mailshot_mailshots_pkey PRIMARY KEY (id);
 
 
 --
@@ -13641,6 +13795,62 @@ CREATE INDEX index_letter_letters_on_updated_by_id ON renalware.letter_letters U
 --
 
 CREATE INDEX index_letter_letters_on_uuid ON renalware.letter_letters USING btree (uuid);
+
+
+--
+-- Name: index_letter_mailshot_items_on_letter_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_mailshot_items_on_letter_id ON renalware.letter_mailshot_items USING btree (letter_id);
+
+
+--
+-- Name: index_letter_mailshot_items_on_mailshot_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_mailshot_items_on_mailshot_id ON renalware.letter_mailshot_items USING btree (mailshot_id);
+
+
+--
+-- Name: index_letter_mailshot_items_on_mailshot_id_and_letter_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_letter_mailshot_items_on_mailshot_id_and_letter_id ON renalware.letter_mailshot_items USING btree (mailshot_id, letter_id);
+
+
+--
+-- Name: INDEX index_letter_mailshot_items_on_mailshot_id_and_letter_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON INDEX renalware.index_letter_mailshot_items_on_mailshot_id_and_letter_id IS 'A sanity check that a letter appears only once in a mailshot';
+
+
+--
+-- Name: index_letter_mailshot_mailshots_on_author_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_mailshot_mailshots_on_author_id ON renalware.letter_mailshot_mailshots USING btree (author_id);
+
+
+--
+-- Name: index_letter_mailshot_mailshots_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_mailshot_mailshots_on_created_by_id ON renalware.letter_mailshot_mailshots USING btree (created_by_id);
+
+
+--
+-- Name: index_letter_mailshot_mailshots_on_letterhead_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_mailshot_mailshots_on_letterhead_id ON renalware.letter_mailshot_mailshots USING btree (letterhead_id);
+
+
+--
+-- Name: index_letter_mailshot_mailshots_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_mailshot_mailshots_on_updated_by_id ON renalware.letter_mailshot_mailshots USING btree (updated_by_id);
 
 
 --
@@ -16668,6 +16878,14 @@ ALTER TABLE ONLY renalware.pathology_request_descriptions_requests_requests
 
 
 --
+-- Name: letter_mailshot_mailshots fk_rails_393db6be40; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_mailshot_mailshots
+    ADD CONSTRAINT fk_rails_393db6be40 FOREIGN KEY (letterhead_id) REFERENCES renalware.letter_letterheads(id);
+
+
+--
 -- Name: letter_letters fk_rails_39983ddc03; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16721,6 +16939,14 @@ ALTER TABLE ONLY renalware.drug_types_drugs
 
 ALTER TABLE ONLY renalware.clinical_body_compositions
     ADD CONSTRAINT fk_rails_3cab0126da FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
+-- Name: letter_mailshot_mailshots fk_rails_3db22bcf9b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_mailshot_mailshots
+    ADD CONSTRAINT fk_rails_3db22bcf9b FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -17156,6 +17382,14 @@ ALTER TABLE ONLY renalware.medication_delivery_event_prescriptions
 
 
 --
+-- Name: letter_mailshot_items fk_rails_77f8eb75d1; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_mailshot_items
+    ADD CONSTRAINT fk_rails_77f8eb75d1 FOREIGN KEY (letter_id) REFERENCES renalware.letter_letters(id);
+
+
+--
 -- Name: transplant_recipient_followups fk_rails_78dc63040c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -17281,6 +17515,14 @@ ALTER TABLE ONLY renalware.hd_profiles
 
 ALTER TABLE ONLY renalware.clinical_body_compositions
     ADD CONSTRAINT fk_rails_8acc26446b FOREIGN KEY (modality_description_id) REFERENCES renalware.modality_descriptions(id);
+
+
+--
+-- Name: letter_mailshot_mailshots fk_rails_8b04a892b0; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_mailshot_mailshots
+    ADD CONSTRAINT fk_rails_8b04a892b0 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -17433,6 +17675,14 @@ ALTER TABLE ONLY renalware.pd_exit_site_infections
 
 ALTER TABLE ONLY renalware.patients
     ADD CONSTRAINT fk_rails_9739853ad1 FOREIGN KEY (primary_care_physician_id) REFERENCES renalware.patient_primary_care_physicians(id);
+
+
+--
+-- Name: letter_mailshot_mailshots fk_rails_973e755ca1; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_mailshot_mailshots
+    ADD CONSTRAINT fk_rails_973e755ca1 FOREIGN KEY (author_id) REFERENCES renalware.users(id);
 
 
 --
@@ -18097,6 +18347,14 @@ ALTER TABLE ONLY renalware.pd_regime_bags
 
 ALTER TABLE ONLY renalware.patients
     ADD CONSTRAINT fk_rails_de32a1820e FOREIGN KEY (first_cause_id) REFERENCES renalware.death_causes(id);
+
+
+--
+-- Name: letter_mailshot_items fk_rails_df39443cf5; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_mailshot_items
+    ADD CONSTRAINT fk_rails_df39443cf5 FOREIGN KEY (mailshot_id) REFERENCES renalware.letter_mailshot_mailshots(id);
 
 
 --
@@ -19193,6 +19451,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200301124200'),
 ('20200301124300'),
 ('20200306183423'),
-('20200316131136');
+('20200316131136'),
+('20200318134807'),
+('20200320103052');
 
 

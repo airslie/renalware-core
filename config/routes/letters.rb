@@ -22,6 +22,11 @@ resources :patients, only: [] do
 end
 
 namespace :letters do
+  resources :mailshots, only: [:create, :new, :index], controller: "mailshots/mailshots"
+  namespace :mailshots do
+    resources :patient_previews, only: :index
+  end
+
   resources :batches, only: [:create, :index, :show] do
     get :status, constraints: { format: :json }, defaults: { format: :json }
     resources :completions, only: [:new, :create], controller: "completed_batches"

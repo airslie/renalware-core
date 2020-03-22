@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+### 2.0.146
+22-03-2020
+### Added
+### Changed
+### Fixed
+- Support mailshots #3183
+
 ### 2.0.145
 17-03-2020
 ### Added

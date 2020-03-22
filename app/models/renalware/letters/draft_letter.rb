@@ -18,6 +18,7 @@ module Renalware
         letter.save!
         letter.reload
         broadcast(:draft_letter_successful, letter)
+        letter
       rescue ActiveRecord::RecordInvalid
         broadcast(:draft_letter_failed, letter)
       end
