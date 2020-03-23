@@ -7,6 +7,8 @@ module Renalware
   module HD
     # PrescriptionAdministration witnesses
     class WitnessesController < BaseController
+      skip_after_action :verify_policy_scoped
+
       # GET HTML
       def edit
         form = WitnessForm.new(

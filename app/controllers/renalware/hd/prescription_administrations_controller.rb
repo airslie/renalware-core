@@ -7,6 +7,7 @@ module Renalware
   module HD
     class PrescriptionAdministrationsController < BaseController
       include Renalware::Concerns::Pageable
+      skip_after_action :verify_policy_scoped
 
       def index
         hd_patient = HD.cast_patient(patient)

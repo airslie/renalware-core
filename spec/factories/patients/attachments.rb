@@ -7,7 +7,7 @@ FactoryBot.define do
     association :attachment_type, factory: :patient_attachment_type
     name { Faker::File.file_name }
     description { Faker::Lorem.sentence }
-    document_date { Faker::Date.between(1.year.ago, Time.zone.today) }
+    document_date { Faker::Date.between(from: 1.year.ago, to: Time.zone.today) }
 
     trait :with_file do
       after(:build) do |attachment|
