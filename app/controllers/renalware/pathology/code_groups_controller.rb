@@ -5,6 +5,8 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class CodeGroupsController < Pathology::BaseController
+      skip_after_action :verify_policy_scoped
+
       def index
         groups = CodeGroup.order(:name)
         authorize groups, :index?

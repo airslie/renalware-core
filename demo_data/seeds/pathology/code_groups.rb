@@ -3,10 +3,10 @@
 module Renalware
   log "Adding Pathology Code Groups" do
     user = User.first
-    group = Pathology::CodeGroup.find_or_create_by!(name: "hd_session_form_recent") do |group|
-      group.description = "Recent pathology shown on the HD Sessions PDF print-out"
-      group.created_by = user
-      group.updated_by = user
+    group = Pathology::CodeGroup.find_or_create_by!(name: "hd_session_form_recent") do |grp|
+      grp.description = "Recent pathology shown on the HD Sessions PDF print-out"
+      grp.created_by = user
+      grp.updated_by = user
     end
 
     %w(HGB PLT CRP).each_with_index do |code, index|
