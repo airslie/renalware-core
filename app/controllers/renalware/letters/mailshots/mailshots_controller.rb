@@ -7,6 +7,7 @@ module Renalware
     module Mailshots
       class MailshotsController < BaseController
         include Pagy::Backend
+        skip_after_action :verify_policy_scoped
 
         def index
           pagy, mailshots = pagy(Mailshot.includes(:author).order(created_at: :desc))
