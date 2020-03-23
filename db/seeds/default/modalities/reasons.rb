@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Layout/LineLength
 module Renalware
   log "Adding PD To Haemodialysis (Reasons for Change)" do
     module Modalities
@@ -30,3 +31,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Layout/LineLength

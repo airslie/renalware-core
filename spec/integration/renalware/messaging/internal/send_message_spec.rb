@@ -11,10 +11,8 @@ describe "Sending a private message", type: :system do
     create(:internal_recipient, family_name: "X", given_name: "Y")
 
     visit patient_path(patient)
-
     click_on "Send message"
-
-    wait_for_ajax
+    expect(page).to have_css("#new_internal_message")
 
     fill_in "Body", with: "Test"
 
@@ -22,10 +20,14 @@ describe "Sending a private message", type: :system do
     select2 "X, Y", from: "Recipients"
     click_on "Send"
 
+    expect(page).to have_no_css("#new_internal_message")
     # Message should be marked as public= true by default
     message = Renalware::Messaging::Internal::Message.find_by(body: "Test")
     expect(message.public).to eq(true)
-    expect(page).to have_content("Message sent")
+    expect(patient.messages.first).to have_attributes(
+      body: "Test"
+    )
+
   end
 
   # scenario "A clinician replies to a message", js: true do
