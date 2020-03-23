@@ -7,6 +7,8 @@ module Renalware
     module HomeDelivery
       # Works with a modal.
       class EventsController < BaseController
+        skip_after_action :verify_policy_scoped
+
         # A major REST faux pas, our #new action actually creates something - an instance of a
         # HomeDelivery::Event. We use this to render a modal form where the user can choose which
         # drug types they want to print a PDF for, and what some parameters are for the PDF
