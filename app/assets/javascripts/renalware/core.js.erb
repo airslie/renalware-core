@@ -17,7 +17,7 @@
 //= require jquery-ui/core
 //= require jquery-ui/widgets/sortable
 //= require jquery-ui/effects/effect-highlight
-//= require toastr
+//= require toastr/toastr
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.foundation
 //= require foundation/foundation
