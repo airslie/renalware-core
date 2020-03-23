@@ -52,6 +52,7 @@ module World
           fill_in "Resistance", with: resistance
 
           click_on t("btn.save")
+          expect(page).to have_no_css("form")
 
           expect(page).to have_selector("#infection-organisms tbody tr", count: 1)
           expect(find("tbody")).to have_content(sensitivity)
