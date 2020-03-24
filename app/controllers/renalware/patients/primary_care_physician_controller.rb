@@ -26,6 +26,12 @@ module Renalware
         end
       end
 
+      def destroy
+        authorize patient
+        patient.update_by(current_user, primary_care_physician_id: nil, practice_id: nil)
+        render locals: { patient: patient }
+      end
+
       private
 
       # There maybe times (for instance after migration from a previous system) where the

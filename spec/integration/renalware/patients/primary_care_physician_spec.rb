@@ -30,4 +30,15 @@ describe "Changing a patient's GP (primary care physician)", type: :request do
       end
     end
   end
+
+  describe "DELETE destroy" do
+    it "remove a record" do
+      attributes = { patient: { primary_care_physician_id: primary_care_physician.id } }
+
+      delete patient_primary_care_physician_path(patient, format: :js), params: attributes
+
+      expect(response).to be_successful
+      expect(patient.reload.primary_care_physician).to be_nil
+    end
+  end
 end
