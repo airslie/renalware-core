@@ -4,7 +4,8 @@
                     url: letters_mailshots_path,
                     html: { id: "mailshot-form" }) do |form|
     .columns.small-12
-      = form.input :description, placeholder: "A description of the mailshot purpose."
+      = form.input(:description,
+        placeholder: "The patient will see this at the top of letter. A description of the letter's purpose.")
     .columns.small-12
       = form.input(:sql_view_name,
         collection: Renalware::Letters::Mailshots::DataSource.all.map(&:viewname),
