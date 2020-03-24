@@ -1,6 +1,17 @@
 - content_for(:filters) do
   .panel
-    Prescriptions with a next delivery date within the last 4 weeks or the next 2 weeks.
+    | Prescriptions with a next delivery date within the last 4 weeks or the next 2 weeks.
+
+  .row
+    .columns.small-12.medium-6
+      = simple_form_for(form,
+                        as: :search,
+                        url: renalware.medications_home_delivery_prescriptions_path(named_filter: params[:named_filter]),
+                        method: :get) do |f|
+        = f.input :modality_description_id,
+                  collection: Renalware::Modalities::Description.order(:name),
+                  input_html: { onchange: "this.form.submit();" }
+  br
 
 - content_for(:tabs) do
  dl.sub-nav
@@ -15,13 +26,14 @@
   table
     thead
       tr
-        th.col-width-large Patient
+        th.col-width-large= sort_link(query, :patient_family_name, "Patient")
         th.col-width-nhs-no NHS number
         th.col-width-medium Drug Type
-        th.col-width-large Drug
-        th.col-width-date Prescribed on
-        th.col-width-date-time Last delivery date
-        th.col-width-date-time Next delivery date
+        th.col-width-large= sort_link(query, :drug_name, "Drug")
+        th.col-width-date= sort_link(query, :prescribed_on, "Prescribed on")
+        th.col-width-date-time= sort_link(query, :last_delivery_date, "Last delivery date")
+        th.col-width-date-time= sort_link(query, :next_delivery_date, "Next delivery date")
+        th.col-width-medium Modality
         th
     tbody
       - prescriptions.each do |prescription|
@@ -33,6 +45,7 @@
           td= l(prescription.prescribed_on)
           td= l(prescription.last_delivery_date)
           td= l(prescription.next_delivery_date)
+          td= prescription.patient.current_modality
           td
 
   == pagy_foundation_nav pagy
