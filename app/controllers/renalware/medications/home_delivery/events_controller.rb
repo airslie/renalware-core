@@ -62,7 +62,6 @@ module Renalware
                   last_delivery_date: last_delivery_date,
                   next_delivery_date: next_delivery_date
                 )
-
               end
               render :update, locals: { event: event }
             else
