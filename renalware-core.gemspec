@@ -72,7 +72,7 @@ Gem::Specification.new do |s|
   s.add_dependency "nokogiri", "~> 1.9"
   s.add_dependency "ox", "~> 2.11"
   s.add_dependency "pagy", "~> 3.7.3"
-  s.add_dependency "pandoc-ruby", "~> 2.0.2"
+  s.add_dependency "pandoc-ruby", "~> 2.1.4"
   s.add_dependency "paper_trail"
   s.add_dependency "paranoia", "~> 2.4.0"
   s.add_dependency "pdf-reader", "~> 2.4.0"
