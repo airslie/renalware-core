@@ -12,6 +12,7 @@ en:
         hd_patients_with_unmet_preferences: HD Patients with un-met preferences
         letters: Letters
         esa_prescriptions: ESA Patients
+        home_delivery_prescriptions: Home Delivery Prescriptions
         audits: Audits
         aki_alerts: AKI Alerts
         studies: Clinical Studies

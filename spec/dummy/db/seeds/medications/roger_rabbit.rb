@@ -19,7 +19,7 @@ module Renalware
     )
 
     patient.prescriptions.create!(
-      drug_id: 208, # Immunossuppressant
+      drug_id: 208, # Immunosuppressant
       treatable: patient,
       dose_amount: "100",
       dose_unit: "milligram",
@@ -43,7 +43,7 @@ module Renalware
     )
 
     patient.prescriptions.create!(
-      drug_id: 208, # Immunossuppressant
+      drug_id: 208, # Immunosuppressant
       treatable: patient,
       dose_amount: "50",
       dose_unit: "milligram",
