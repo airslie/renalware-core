@@ -70,7 +70,7 @@ blocks:
           - checkout
           - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
           - git submodule sync ; git submodule update --init
-          - sudo apt install -qq -y pandoc
+          - sudo apt install -qq -y pandoc ghostscript
 
           # codeclimate setup - see https://docs.semaphoreci.com/article/148-configuring-parallel-tests-with-code-climate
           - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter

@@ -66,31 +66,59 @@ module Renalware
         end
       end
 
-      # rubocop:disable Metrics/MethodLength
+      # If UKRDC_THREADS is set to a nonzero value (eg 4 but depending on CPUs/cores),
+      # a threadpool containing that number of threads is created and XML creation
+      # (including PDF letter rendering) for that patient happens in a separate thread.
+      # The performance increase in doing it this way is marginal unless there are
+      # PDFs to be rendered, which can introduce significant IO wait. As PDFs are cached
+      # by the PDFLetterCache, using threads may have limited benefit but
+      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def create_patient_xml_files
         count = 0
         patients = ukrdc_patients_who_have_changed_since_last_send
         summary.num_changed_patients = patients.count
         schema = UKRDC::XsdSchema.new
-        patients.find_each do |patient|
+        thread_count = ENV["UKRDC_THREADS"].to_i
+        use_threads = thread_count.nonzero?
+
+        if use_threads
+          thread_pool = Concurrent::ThreadPoolExecutor.new(max_threads: thread_count)
+        end
+
+        patients.map do |patient|
           count += 1
           Rails.logger.info count
-          CreatePatientXMLFile.new(
-            patient: patient,
-            dir: paths.timestamped_xml_folder,
-            changes_since: changed_since,
-            request_uuid: request_uuid,
-            batch_number: batch_number,
-            logger: logger,
-            force_send: force_send,
-            schema: schema
-          ).call
-
-          # Every n patients, force the garbage collector to kick in
-          # GC.start if (count % 10).zero?
+          if use_threads
+            thread_pool.post do
+              Rails.logger.info "Thread #{Thread.current.object_id}"
+              ActiveRecord::Base.connection_pool.with_connection do
+                create_xml_file(patient: patient, schema: schema)
+              end
+            end
+          else
+            create_xml_file(patient: patient, schema: schema)
+          end
+        end
+      ensure
+        if use_threads
+          thread_pool.shutdown
+          thread_pool.wait_for_termination
         end
       end
-      # rubocop:enable Metrics/MethodLength
+      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+      def create_xml_file(patient:, schema:)
+        CreatePatientXMLFile.new(
+          patient: patient,
+          dir: paths.timestamped_xml_folder,
+          changes_since: changed_since,
+          request_uuid: request_uuid,
+          batch_number: batch_number,
+          logger: logger,
+          force_send: force_send,
+          schema: schema
+        ).call
+      end
 
       def build_summary
         summary.count_of_files_in_outgoing_folder = count_of_files_in_outgoing_folder

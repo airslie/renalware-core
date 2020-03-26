@@ -240,7 +240,7 @@ module World
         drug_selector = options.fetch(:drug_selector, default_medication_drug_selector)
 
         click_link "Add Prescription"
-        expect(page).to have_css("#new_medications_prescription")
+        expect(page).to have_selector("#new_medications_prescription", visible: true)
 
         within "#new_medications_prescription" do
           drug_selector.call(drug_name)

@@ -77,7 +77,6 @@ module Renalware
 
           log = UKRDC::TransmissionLog.where(patient: patient).last
           expect(log.error).to eq([])
-          expect(log.payload).to eq(xml)
           expect(log.payload_hash).to eq(xml_md5_hash)
           expect(log.file_path).to eq(File.join(dir, "RJZ_1_#{patient.nhs_number}.xml"))
           expect(File.read(log.file_path)).to eq(xml) # Check the correct content was written
@@ -115,7 +114,6 @@ module Renalware
 
           log = UKRDC::TransmissionLog.where(patient: patient).last
           expect(log.error).to eq([])
-          expect(log.payload).to eq(xml)
           expect(log.payload_hash).to eq(xml_md5_hash)
           expect(log.file_path).to eq(File.join(dir, "RJZ_1_#{patient.nhs_number}.xml"))
           expect(File.read(log.file_path)).to eq(xml) # Check the correct content was written
@@ -153,7 +151,6 @@ module Renalware
 
           log = UKRDC::TransmissionLog.where(patient: patient).last
           expect(log.error).to eq([])
-          expect(log.payload).to eq(xml)
           expect(log.payload_hash).to eq(xml_md5_hash)
           expect(log.file_path).to be_nil
         end
