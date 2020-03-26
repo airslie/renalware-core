@@ -69,7 +69,6 @@ module World
         click_on "Save"
       end
 
-      # rubocop:disable Metrics/MethodLength
       def revise_peritonitis_episode_for(patient:, user:, diagnosed_on:)
         login_as user
 
@@ -86,7 +85,6 @@ module World
           wait_for_ajax
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       def peritonitis_episode_drug_selector
         lambda do |drug_name|
