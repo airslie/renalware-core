@@ -73,6 +73,10 @@ module Renalware
             -> { order(started_on: :desc).where(state: "current") },
             class_name: "Modalities::Modality"
 
+    has_one :previous_modality,
+            -> { order(ended_on: :desc, created_at: :desc).where.not(ended_on: nil) },
+            class_name: "Modalities::Modality"
+
     has_one :modality_description,
             through: :current_modality,
             class_name: "Modalities::Description",

@@ -7,7 +7,7 @@ module Renalware
 
     def index
       query = Patients::DeceasedPatientsQuery.new(params[:q])
-      pagy, patients = pagy(query.call)
+      pagy, patients = pagy(query.call.includes(previous_modality: :description))
       authorize patients
       render locals: {
         patients: present(patients, PatientPresenter),

@@ -9,8 +9,8 @@
   table#patients-deceased
     thead
       tr
-        th.col-width-medium
-        th= sort_link([:renalware, q], :family_name, "Name")
+        th
+        th.col-width-mediumish= sort_link([:renalware, q], :family_name, "Name")
         th.col-width-nhs-no NHS No.
         th.col-width-reference-no Hosp No.
         th.col-width-tiny Sex
@@ -18,16 +18,18 @@
         th.col-width-date= sort_link([:renalware, q], :born_on, "Date of Birth")
         th.col-width-date= sort_link([:renalware, q], :died_on, "Date of Death")
         th First cause
-        th Modality
-
+        th Current Modality
+        th Previous Modality
 
     tbody
       - patients.each do |patient|
         tr
           td.actions
-            = link_to "Edit death details",
-                      edit_patient_death_path(patient),
-                      title: "Edit death details"
+            = link_to edit_patient_death_path(patient),
+                      title: "Edit death details" do
+              i.fas.fa-edit
+              span.show-for-large-up
+                | &nbsp;Death details
           td= default_patient_link(patient)
           td= patient.nhs_number
           td= patient.hospital_identifier
@@ -37,6 +39,6 @@
           td= l patient.died_on
           td= patient.first_cause&.description
           td= patient.current_modality
-
+          td= patient.previous_modality
 
   == pagy_foundation_nav pagy
