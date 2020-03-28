@@ -3,15 +3,16 @@
 module Renalware
   class DeathsController < BaseController
     include PresenterHelper
-    include Renalware::Concerns::Pageable
+    include Pagy::Backend
 
     def index
-      patients = Patient.dead.page(page).per(per_page)
-      search = patients.ransack(params[:q])
+      query = Patients::DeceasedPatientsQuery.new(params[:q])
+      pagy, patients = pagy(query.call.includes(previous_modality: :description))
       authorize patients
       render locals: {
-        patients: present(search.result, PatientPresenter),
-        q: search
+        patients: present(patients, PatientPresenter),
+        q: query.search,
+        pagy: pagy
       }
     end
 

@@ -5,6 +5,7 @@ require_dependency "models/renalware/concerns/personable"
 
 module Renalware
   describe Patient, type: :model do
+    include PatientsSpecHelper
     subject(:patient) { create(:patient, nhs_number: "1234567890") }
 
     it do
@@ -183,6 +184,22 @@ module Renalware
         create(:modality, :terminated, patient: patient, started_on: "2015-04-21")
 
         expect(patient.current_modality.started_on).to eq(Date.parse("2015-04-20"))
+      end
+    end
+
+    describe "#previous_modality" do
+      it "returns last modality after the current one" do
+        user = create(:user)
+        hd = create(:hd_modality_description)
+        death = create(:death_modality_description)
+        args = { patient: patient, by: user }
+        set_modality(started_on: "2015-04-19", modality_description: hd, **args)
+        set_modality(started_on: "2015-04-20", modality_description: hd, **args)
+        prev = set_modality(started_on: "2015-04-21", modality_description: hd, **args)
+        curr = set_modality(started_on: "2015-04-21", modality_description: death, **args)
+
+        expect(patient.current_modality.started_on).to eq(curr.started_on)
+        expect(patient.previous_modality.started_on).to eq(prev.started_on)
       end
     end
 
