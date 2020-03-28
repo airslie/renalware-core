@@ -6,9 +6,9 @@
 
 = within_admin_layout(title: "Inpatient Admissions") do
   .panel.radius.compact
-    | If the patient is not on Renalware yet, please&nbsp;
+    ' If the patient is not on Renalware yet, please
     = link_to("add them", new_patient_path)
-    | &nbsp;first
+    |  first
 
   = render "table", admissions: admissions
   = paginate admissions

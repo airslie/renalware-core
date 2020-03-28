@@ -12,5 +12,5 @@
                  include_blank: "All drug types")
 
     = f.button t("helpers.submit.filter"), class: "button secondary"
-    = " or "
+    '  or
     = link_to "reset", patient_prescriptions_path(@patient)

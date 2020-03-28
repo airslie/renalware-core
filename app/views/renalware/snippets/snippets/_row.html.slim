@@ -3,16 +3,15 @@
 
 tr(data={ "snippet-id" => snippet.id, invocation_url: snippet_invocations_path(snippet) })
   td
-    = link_to "Toggle",
+    => link_to "Toggle",
               "#{row_selector} .css-toggle-container",
               class: "button compact low-key",
               title: "Toggle the visibility of the entire content and body",
               data: { behaviour: "css-toggler" }
-    | &nbsp;
-    = tooltip_with_block(label: t(".copy_to_clipboard")) do
+
+    => tooltip_with_block(label: t(".copy_to_clipboard")) do
       = clipboard_button_for("#{row_selector} .body")
     - if remote
-      | &nbsp;
       = link_to "Insert",
                  "#",
                  title: "Insert this snippet into the letter",
