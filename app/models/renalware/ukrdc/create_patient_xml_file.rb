@@ -86,7 +86,7 @@ module Renalware
           nil
         else
           Payload.new(result.xml).tap do |payload|
-            log.payload = payload.to_s
+            # log.payload = payload.to_s
             log.payload_hash = payload.to_md5_hash
           end
         end

@@ -52,6 +52,7 @@ module World
 
           click_on "Save"
 
+          expect(page).to have_selector("#infection-organisms tbody tr")
           expect(find("tbody")).to have_content(sensitivity)
           expect(find("tbody")).to have_content(resistance)
         end
