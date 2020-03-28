@@ -18,8 +18,6 @@
                 label: "Provider"
     .small-3.columns.actions.end
       = f.submit "Search", class: "button"
-      | &nbsp;
-      span or
-      | &nbsp;
+      '  or
       = link_to "Reset", medications_esa_prescriptions_path
       /class: "cancel-link #{'disabled' unless searching}"

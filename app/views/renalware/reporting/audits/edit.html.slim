@@ -20,7 +20,5 @@
               input_html: { rows: 20, class: "monospace" }
     = f.input :refresh_schedule, wrapper: :horizontal_small
     = f.submit class: :button
-    = blank_separator
-    | or
-    = blank_separator
+    '  or
     = link_to "cancel", reporting_audits_path

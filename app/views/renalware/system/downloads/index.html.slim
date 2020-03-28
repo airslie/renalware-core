@@ -28,9 +28,8 @@
           h3= link_to(item.name, system_download_path(item), target: "_blank")
           p= item.description
           .updated_at
-            = "Viewed #{item.view_count} times."
-            | &nbsp;&nbsp;
-            = "Updated #{l(item.updated_at)} by #{item.updated_by}"
+            => "Viewed #{item.view_count} times."
+            =< "Updated #{l(item.updated_at)} by #{item.updated_by}"
 
           - if policy(Renalware::System::Download).edit? || policy(Renalware::System::Download).destroy?
             .actions

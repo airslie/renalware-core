@@ -4,8 +4,7 @@ tr
   td.actions
     = link_to view_proc.call(patient), target: "_blank" do
       i.fa.fa-external-link-square-alt
-      | &nbsp;&nbsp;
-      = t(".view")
+      =< t(".view")
   td.full-name= link_to patient.to_s(:default), view_proc.call(patient)
   td.nowrap= patient.nhs_number
   td.nowrap= patient.hospital_identifier
