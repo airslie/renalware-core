@@ -5,20 +5,27 @@
   "repository": "https://github.com/airslie/renalware-core.git",
   "author": "Airslie Ltd",
   "license": "MIT",
-  "browserslist": "> 0.25%, not dead",
+  "browserslist": [
+    "defaults",
+    "IE 11"
+  ],
   "dependencies": {
     "balloon-css": "^1.0.3",
+    "chartkick": "^3.2.0",
+    "classlist.js": "^1.1.20150312",
     "foundation-datepicker": "1.5.0",
+    "highcharts": "^8.0.4",
     "masonry-layout": "^4.2.2",
     "moment": "2.24.0",
     "mousetrap": "1.6.3",
     "print-js": "^1.0.61",
+    "promise-polyfill": "^8.1.3",
     "select2": "4.0.5",
     "stimulus": "^1.1.1",
+    "trix": "^1.2.2",
     "underscore": "1.8.3",
     "url-polyfill": "^1.1.8",
-    "whatwg-fetch": "^3.0.0",
-    "trix": "^1.2.2"
+    "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -41,9 +48,5 @@
     "prebuild": "yarn lint",
     "build": "rollup --config rollup.config.js",
     "lint": "eslint app/javascript"
-  },
-  "browserslist": [
-    "defaults",
-    "IE 11"
-  ]
+  }
 }

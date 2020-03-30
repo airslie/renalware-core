@@ -22,7 +22,11 @@ export default {
   output: {
     file: "app/assets/javascripts/renalware/rollup_compiled.js",
     format: "esm",
-    globals: [ "jquery" ],
+    globals: {
+      "jquery": "jQuery",
+      "chartkick": "Chartkick",
+      "highcharts": "Highcharts"
+    },
     name: "renalwarec-core",
     sourcemap: false,
   },
@@ -34,5 +38,6 @@ export default {
     inject({
       jQuery: "jquery"
     })
-  ]
+  ],
+  external: [ "chartkick", "highcharts" ]
 }

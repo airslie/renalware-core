@@ -47,6 +47,7 @@ module World
         within "#infection-organisms" do
           click_on "Edit"
 
+          expect(page).to have_selector("#infection-organisms form")
           fill_in "Sensitivity", with: sensitivity
           fill_in "Resistance", with: resistance
 

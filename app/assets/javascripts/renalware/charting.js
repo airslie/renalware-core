@@ -1,2 +1,2 @@
 //= require chartkick
-//= require Chart.bundle
+//= require highcharts

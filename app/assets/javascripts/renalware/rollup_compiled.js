@@ -3955,6 +3955,55 @@ var _default$5 = function(_Controller) {
 
 _defineProperty(_default$5, "targets", [ "homeDeliveryDates", "providers" ]);
 
+var Chartkick = window.Chartkick;
+
+var _default$6 = function(_Controller) {
+  _inherits(_default, _Controller);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+  _createClass(_default, [ {
+    key: "redisplay",
+    value: function redisplay(event) {
+      var json = event.detail[0];
+      if (this.chartCreated()) {
+        this.chartTarget.getChartObject().updateData(json);
+      } else {
+        new Chartkick.LineChart("chart1", json, this.chartOptions);
+      }
+    }
+  }, {
+    key: "chartCreated",
+    value: function chartCreated() {
+      return Object.prototype.hasOwnProperty.call(this.chartTarget, "getChartObject");
+    }
+  }, {
+    key: "chartOptions",
+    get: function get() {
+      return {
+        curve: false,
+        library: {
+          chart: {
+            zoomType: "x"
+          },
+          plotOptions: {
+            series: {
+              animation: {
+                duration: 400
+              }
+            }
+          },
+          colors: [ "#005eb8", "#009639", "#434348", "#90ed7d", "#f7a35c", "#8085e9", "#f15c80", "#e4d354" ]
+        }
+      };
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$6, "targets", [ "chart" ]);
+
 var application = Application.start();
 
 application.register("toggle", _default);
@@ -3968,3 +4017,7 @@ application.register("snippets", _default$3);
 application.register("letters-form", _default$4);
 
 application.register("prescriptions", _default$5);
+
+application.register("charts", _default$6);
+
+window.Chartkick.use(window.Highcharts);
