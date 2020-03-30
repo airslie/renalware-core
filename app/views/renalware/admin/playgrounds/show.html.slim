@@ -23,46 +23,37 @@ css:
 
   article
     header
-      h2 Pathology Chart
+      h2 Pathology Charts
+    span A testbed for trying out highchart linecharts
+    br
+    br
+
     .chart-container(data-controller="charts"
                     data-charts-url=pathology_chart_data_admin_playground_path)
+      .row
+        .columns.small-12.medium-6.large-4
+          = simple_form_for(form,
+                            remote: true,
+                            as: :chart,
+                            url: pathology_chart_data_admin_playground_path,
+                            wrapper: nil,
+                            method: :get,
+                            data: { target: "charts.form", action: "ajax:success->charts#redisplay" }) do |f|
 
-      #patient_id
-        label Patient ID
-        input(type="text"
-              name="patient_id"
-              data-target="charts.patientId"
-              value="1")
-        a.button(href="#" data-action="click->charts#refresh") Change
-
-      select(data-action="change->charts#refresh"
-            data-target="charts.obx"
-            style="width:300px;display: block")
-        option(value="POT") POT
-        option(value="HGB" ) HGB
-        option(value="CRE" selected) CRE
-
-      /#chart1.chart data-target="charts.chart")
-
-      select(data-action="change->charts#refresh"
-            data-target="charts.period"
-            style="width:150px")
-        option(value="all" selected) all
-        option(value="yr") yr
-        option(value="6m") 6m
-        option(value="3m") 3m
-        option(value="1m") 1m
-        option(value="1wk") 1wk
+            = f.input :patient_id,
+                      collection: [[form.patient_id, form.patient_id]],
+                      selected: 1,
+                      input_html: { \
+                        class: "patient-id-select2 patient-ajax-search",
+                        data: { "ajax--url" => search_patients_path(format: :json),
+                                placeholder: "Search by patient name or hospital/NHS no." } \
+                      }
+            = f.input :obx_code,
+                      collection: Renalware::Pathology::ObservationDescription.order(:code).pluck(:code),
+                      input_html: {  class: "searchable_select" }
+            = f.input :period,
+                      collection: %w(all yr 6m 3m 1m wk),
+                      include_blank: false
+            = f.submit "Refresh", class: :button
 
       #chart1 style="height: 300px; width: 500px" data-target="charts.chart"
-
-  / = line_chart pathology_chart_data_admin_playground_path(obx: 'HGB',period: 'all', patient_id: 1), \
-  /   id: "chart2",
-  /   spanGaps: true,
-  /   width: "800px",
-  /   height: "300px",
-  /   curve: false,
-  /   library: { chart: { zoomType: 'x'} }
-  / / = line_chart(\
-  / /   Renalware::Pathology::ObservationRequest.group_by_day(:requested_at, series: false).where("requested_at > '2020-02-20'").where('requested_at < now()').count,
-  / /   spanGaps: false)

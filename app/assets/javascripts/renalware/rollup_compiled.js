@@ -3955,8 +3955,6 @@ var _default$5 = function(_Controller) {
 
 _defineProperty(_default$5, "targets", [ "homeDeliveryDates", "providers" ]);
 
-var $$4 = window.$;
-
 var Chartkick = window.Chartkick;
 
 var _default$6 = function(_Controller) {
@@ -3966,53 +3964,19 @@ var _default$6 = function(_Controller) {
     return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
   }
   _createClass(_default, [ {
-    key: "connect",
-    value: function connect() {
-      this.refresh();
-    }
-  }, {
-    key: "refresh",
-    value: function refresh() {
-      var _this = this;
-      var params = {
-        obx: this.obx,
-        period: this.period,
-        patient_id: this.patientId
-      };
-      $$4.getJSON(this.url, params, function(response) {
-        if (_this.chartCreated()) {
-          _this.chartTarget.getChartObject().updateData(response);
-        } else {
-          new Chartkick.LineChart("chart1", response, _this.chartOptions);
-        }
-      });
+    key: "redisplay",
+    value: function redisplay(event) {
+      var json = event.detail[0];
+      if (this.chartCreated()) {
+        this.chartTarget.getChartObject().updateData(json);
+      } else {
+        new Chartkick.LineChart("chart1", json, this.chartOptions);
+      }
     }
   }, {
     key: "chartCreated",
     value: function chartCreated() {
       return Object.prototype.hasOwnProperty.call(this.chartTarget, "getChartObject");
-    }
-  }, {
-    key: "obx",
-    get: function get() {
-      var select = this.obxTarget;
-      return select.options[select.selectedIndex].value;
-    }
-  }, {
-    key: "period",
-    get: function get() {
-      var select = this.periodTarget;
-      return select.options[select.selectedIndex].value;
-    }
-  }, {
-    key: "patientId",
-    get: function get() {
-      return this.patientIdTarget.value;
-    }
-  }, {
-    key: "url",
-    get: function get() {
-      return this.data.get("url");
     }
   }, {
     key: "chartOptions",
@@ -4026,7 +3990,7 @@ var _default$6 = function(_Controller) {
           plotOptions: {
             series: {
               animation: {
-                duration: 300
+                duration: 400
               }
             }
           },
@@ -4038,7 +4002,7 @@ var _default$6 = function(_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty(_default$6, "targets", [ "chart", "obx", "period", "patientId" ]);
+_defineProperty(_default$6, "targets", [ "chart" ]);
 
 var application = Application.start();
 

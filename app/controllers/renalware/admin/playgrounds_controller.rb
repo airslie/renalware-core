@@ -4,47 +4,24 @@ module Renalware
   class Admin::PlaygroundsController < BaseController
     def show
       authorize User, :index?
+      render locals: { form: ChartForm.new(obx_code: "CRE", period: "all") }
     end
 
     # Returns test json to display a chart of one obx code over time for a patient
     def pathology_chart_data
       authorize User, :index?
-      chart_params = ChartParams.new(params)
-      chart = Chart.new(chart_params)
+      form = ChartForm.new(chart_params)
+      chart = Chart.new(form)
       render json: chart.json
     end
 
-    class Chart
-      pattr_initialize :chart_params
+    class ChartForm
+      include ActiveModel::Model
+      include Virtus::Model
 
-      def json
-        ActiveRecord::Base.connection.execute(
-          Arel.sql(<<-SQL)
-            select
-              observed_on as x,
-              result as y
-              from renalware.pathology_chart_data(#{chart_params.patient_id},
-                '#{chart_params.obx_code}',
-                '#{chart_params.start_date}')
-          SQL
-        ).to_a.each_with_object({}) { |h, hash| hash[Date.parse(h["x"])] = h["y"] }
-      end
-    end
-
-    class ChartParams
-      pattr_initialize :params
-
-      def patient_id
-        params.fetch("patient_id", "111606")
-      end
-
-      def obx_code
-        params.fetch("obx", "?")
-      end
-
-      def period
-        params.fetch("period", "all")
-      end
+      attribute :patient_id, Integer
+      attribute :obx_code, String
+      attribute :period, String
 
       # Map a period string to a date, eg 6m = 6 months ago
       def start_date
@@ -57,6 +34,31 @@ module Renalware
                else 100.years.ago
                end
         time.to_date.to_s
+      end
+    end
+
+    def chart_params
+      return {} unless params.key?(:chart)
+
+      params.require(:chart).permit!
+    end
+
+    class Chart
+      pattr_initialize :form
+
+      def json
+        return {} if form.patient_id.blank?
+
+        ActiveRecord::Base.connection.execute(
+          Arel.sql(<<-SQL)
+            select
+              observed_on as x,
+              result as y
+              from renalware.pathology_chart_data(#{form.patient_id},
+                '#{form.obx_code}',
+                '#{form.start_date}')
+          SQL
+        ).to_a.each_with_object({}) { |h, hash| hash[Date.parse(h["x"])] = h["y"] }
       end
     end
   end
