@@ -30,8 +30,6 @@ describe "Add a prescription using drug chosen from a category", type: :system, 
     form.route = "PO"
     form.frequency = "abc"
     form.provider = "GP"
-    form.last_delivery_date = "2020-01-01"
-    form.next_delivery_date = "2050-01-01"
     form.save
 
     within "#prescriptions" do
@@ -42,10 +40,7 @@ describe "Add a prescription using drug chosen from a category", type: :system, 
     expect(page).not_to have_content("Drug can't be blank")
 
     # Test for content not displayed in the prescriptions table
-    prescription = patient.prescriptions.last
-    expect(prescription).to have_attributes(
-      last_delivery_date: Date.parse("2020-01-01"),
-      next_delivery_date: Date.parse("2050-01-01")
-    )
+    # prescription = patient.prescriptions.last
+    # expect(prescription).to have_attributes()
   end
 end

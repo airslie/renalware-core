@@ -39,11 +39,11 @@ module Pages
       end
 
       def last_delivery_date=(date)
-        fill_in "Last delivery date", with: date
+        fill_in "Last home prescription date", with: date
       end
 
       def next_delivery_date=(date)
-        fill_in "Next delivery date", with: date
+        fill_in "Next home prescription date", with: date
       end
 
       def provider=(value)
