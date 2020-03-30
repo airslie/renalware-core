@@ -3923,6 +3923,38 @@ var _default$4 = function(_Controller) {
 
 _defineProperty(_default$4, "targets", [ "trix" ]);
 
+var _default$5 = function(_Controller) {
+  _inherits(_default, _Controller);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+  _createClass(_default, [ {
+    key: "connect",
+    value: function connect() {
+      var radio_value = this.providersTarget.querySelector("input:checked").value;
+      this.toggleDeliveryDatesVisibility(radio_value);
+    }
+  }, {
+    key: "toggleDeliveryDates",
+    value: function toggleDeliveryDates(event) {
+      this.toggleDeliveryDatesVisibility(event.target.value);
+    }
+  }, {
+    key: "toggleDeliveryDatesVisibility",
+    value: function toggleDeliveryDatesVisibility(radio_value) {
+      if (radio_value == "home_delivery") {
+        this.homeDeliveryDatesTarget.style.display = "block";
+      } else {
+        this.homeDeliveryDatesTarget.style.display = "none";
+      }
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$5, "targets", [ "homeDeliveryDates", "providers" ]);
+
 var application = Application.start();
 
 application.register("toggle", _default);
@@ -3934,3 +3966,5 @@ application.register("home-delivery-modal", _default$2);
 application.register("snippets", _default$3);
 
 application.register("letters-form", _default$4);
+
+application.register("prescriptions", _default$5);

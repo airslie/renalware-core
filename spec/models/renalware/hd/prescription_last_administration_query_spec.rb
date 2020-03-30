@@ -7,7 +7,7 @@ describe Renalware::HD::PrescriptionLastAdministrationQuery do
   let(:witness) { create(:user, password: "password") }
 
   describe "validation" do
-    it "raises an error if prescrioption is nil" do
+    it "raises an error if prescription is nil" do
       expect {
         described_class.new(prescription: nil).call
       }.to raise_error(ArgumentError)

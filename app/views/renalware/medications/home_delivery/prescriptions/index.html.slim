@@ -1,6 +1,6 @@
 - content_for(:filters) do
   .panel
-    | Prescriptions with a next delivery date within the last 4 weeks or the next 2 weeks.
+    | Prescriptions with a next home prescription date within the last 4 weeks or the next 2 weeks.
 
   .row
     .columns.small-12.medium-6
@@ -31,8 +31,8 @@
         th.col-width-medium Drug Type
         th.col-width-large= sort_link(query, :drug_name, "Drug")
         th.col-width-date= sort_link(query, :prescribed_on, "Prescribed on")
-        th.col-width-date-time= sort_link(query, :last_delivery_date, "Last delivery date")
-        th.col-width-date-time= sort_link(query, :next_delivery_date, "Next delivery date")
+        th.col-width-date-time= sort_link(query, :last_delivery_date, "Last home prescription date")
+        th.col-width-date-time= sort_link(query, :next_delivery_date, "Next home prescription date")
         th.col-width-medium Modality
         th
     tbody

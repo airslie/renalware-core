@@ -116,7 +116,6 @@ module World
         prescription = patient.prescriptions.last!
         expect(prescription).to be_present
         expect(prescription.administer_on_hd).to eq(administer_on_hd)
-        expect(prescription.last_delivery_date).to be_present
       end
 
       def expect_prescription_to_be_revised(patient:)
@@ -235,7 +234,6 @@ module World
         frequency = options.fetch(:frequency)
         prescribed_on = options.fetch(:prescribed_on)
         terminated_on = options.fetch(:terminated_on, "")
-        last_delivery_date = options.fetch(:last_delivery_date, "")
         administer_on_hd = options.fetch(:administer_on_hd, false)
         drug_selector = options.fetch(:drug_selector, default_medication_drug_selector)
 
@@ -250,7 +248,6 @@ module World
           check "Give on HD" if administer_on_hd
           fill_in "Prescribed on", with: prescribed_on
           fill_in "Terminated on", with: terminated_on
-          fill_in "Last delivery date", with: last_delivery_date
           click_on "Save"
         end
         expect(page).to have_css("#new_medications_prescription", count: 0)
