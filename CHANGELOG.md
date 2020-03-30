@@ -9,42 +9,52 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
-### 2.0.146
+## 2.0.147
+30-03-2020
+### Added
+- List home delivery prescriptions with next delivery date #3174
+### Changed
+- COVID-19 alert text change #3194
+- Display previous modality before death on deceased patients list #3190
+- Warn on mailshot form that the entered 'description' will appear on the letter #3187
+### Fixed
+
+## 2.0.146
 22-03-2020
 ### Added
 ### Changed
 ### Fixed
 - Support mailshots #3183
 
-### 2.0.145
+## 2.0.145
 17-03-2020
 ### Added
 ### Changed
 ### Fixed
 - Fixed bug inserting clinic visit notes into letter body
 
-### 2.0.144
+## 2.0.144
 17-03-2020
 ### Added
 ### Changed
 ### Fixed
 - Fixed bug inserting snippets into trix editor
 
-### 2.0.143
+## 2.0.143
 16-03-2020
 ### Added
 - Add CORVID-19 option when creating a patient alert
 ### Changed
 ### Fixed
 
-### 2.0.142
+## 2.0.142
 10-03-2020
 ### Added
 ### Changed
 ### Fixed
 - Stop HD prescriptions opening in new tab
 
-### 2.0.141
+## 2.0.141
 10-03-2020
 ### Added
 ### Changed
@@ -52,21 +62,21 @@ This project adheres to Semantic Versioning.
 ### Fixed
 - Minor bug - HD drug prescription #3170
 
-### 2.0.140
+## 2.0.140
 09-03-2020
 ### Added
 ### Changed
 - Home delivery printing refinements #2934
 ### Fixed
 
-### 2.0.139
+## 2.0.139
 04-03-2020
 ### Added
 ### Changed
 ### Fixed
 - Fix an error viewing an HD Session
 
-### 2.0.138
+## 2.0.138
 03-03-2020
 ### Added
 - Introduce an admin dashboard and LH menu #3135
@@ -77,14 +87,14 @@ This project adheres to Semantic Versioning.
 ### Fixed
 - Drugs given on HD - sign off separate from rest of HD session #3096
 
-### 2.0.137
+## 2.0.137
 19-02-2020
 ### Added
 ### Changed
 ### Fixed
 - Fixed migration
 
-### 2.0.136
+## 2.0.136
 05-02-2020
 ### Added
 ### Changed
@@ -92,7 +102,7 @@ This project adheres to Semantic Versioning.
 - Install pg client 12.1 on CI #3142
 ### Fixed
 
-### 2.0.135
+## 2.0.135
 04-02-2020
 ### Added
 - Add date of death sort on deceased patients table #3080
@@ -100,14 +110,14 @@ This project adheres to Semantic Versioning.
 - Limit current access profile query to 1 result #3139
 ### Fixed
 
-### 2.0.134
+## 2.0.134
 04-02-2020
 ### Added
 ### Changed
 ### Fixed
 - Revert HD pagination fix - to fix later in data + indexes #3136
 
-### 2.0.133
+## 2.0.133
 03-02-2030
 ### Added
 - Add support for data-driven dashboards #3131
@@ -125,7 +135,7 @@ This project adheres to Semantic Versioning.
 - Fix confusing kaminari pagination issue in HD MDM list #3136
 - UKRDC only import a survey file once #3132
 
-### 2.0.132
+## 2.0.132
 14-01-2019
 ### Added
 - Add rails 6 support #3114
@@ -139,7 +149,7 @@ This project adheres to Semantic Versioning.
 - Fix spec.rake issue in production #3110
 - Handle errors in CalculatePageCountJob #3108
 
-### 2.0.131
+## 2.0.131
 07-01-2019
 ### Added
 - Add next of kin text field to demographics #3098
@@ -155,14 +165,14 @@ This project adheres to Semantic Versioning.
 - Add UKRDC configuration to support sending RPV only #3088
 ### Fixed
 
-### 2.0.130
+## 2.0.130
 16-12-2019
 ### Added
 ### Changed
 ### Fixed
 - Patient postcode bug - ADT feed #3093
 
-### 2.0.129
+## 2.0.129
 13-12-2019
 ### Added
 ### Changed
@@ -171,14 +181,14 @@ This project adheres to Semantic Versioning.
 - Fix pathology sorting issue on for tests on the same day #3086
 - Fix HD protocol table formatting #3085
 
-### 2.0.128
+## 2.0.128
 11-12-2019
 ### Added
 ### Changed
 ### Fixed
 - Fix HD Session pagation bug #3063
 
-### 2.0.127
+## 2.0.127
 10-12-2019
 ### Added
 - Add last 5 dry weights to HD MDM #3045
@@ -190,14 +200,14 @@ This project adheres to Semantic Versioning.
 ### Fixed
 - Fix survey import issues for POS-S #3059
 
-### 2.0.126
+## 2.0.126
 ### Added
 ### Changed
 - Display HD drugs administered as a table #2604
 - List all patient events and allow them be filtered #2987
 ### Fixed
 
-### 2.0.125
+## 2.0.125
 ### Added
 ### Changed
 - Reintroduce ActionView::Component #3052
@@ -206,7 +216,7 @@ This project adheres to Semantic Versioning.
 ### Fixed
 - Hide togglers when printing consults list #3035
 
-### 2.0.124
+## 2.0.124
 ### Added
 - Add button to create new clinic visit from MDM #3029
 - Allow deletion of problem notes #3004
@@ -221,14 +231,14 @@ This project adheres to Semantic Versioning.
 - Skip validation of deceased fields when updating via ADT #3014
 - Fix display of erorr pages #3013
 
-### 2.0.123
+## 2.0.123
 ### Added
 ### Changed
 - Rename ‘Prescribed by’ to ‘Recorded by’ in prescriptions list #3002
 ### Fixed
 - Update nhs_number from ADT messages #3000
 
-### 2.0.122
+## 2.0.122
 ### Added
 - Assign the consultant boolean flag to a user #2997
 - Add named consultant in Demographics and in home delivery form #147
@@ -239,19 +249,19 @@ This project adheres to Semantic Versioning.
 ### Fixed
 -  Archiving a problem should soft delete its notes #2978
 
-### 2.0.121
+## 2.0.121
 ### Added
 ### Changed
 ### Fixed
 - Translate HL7 PID administrative sex to Renalware sex #2992
 
-### 2.0.120
+## 2.0.120
 ### Added
 ### Changed
 ### Fixed
 - Fix ADT sex issues
 
-### 2.0.119
+## 2.0.119
 ### Added
 ### Changed
 ### Fixed
