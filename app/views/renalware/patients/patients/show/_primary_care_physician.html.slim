@@ -1,7 +1,15 @@
 article
   header
     h2 GP
-    = link_to "Edit",
+    - if patient.primary_care_physician.present?
+      = link_to "Remove",
+                patient_primary_care_physician_path(patient, patient.primary_care_physician),
+                class: "button button-danger remove-gp",
+                data: { remote: true,
+                        method: :delete,
+                        confirm: "Are you sure you want to remove the patient's GP and practice?" }
+
+    = link_to "Change",
               edit_patient_primary_care_physician_path(patient),
               class: "button change-gp",
               data: { "reveal-id" => "change-gp-modal", "reveal-ajax" => "true" }

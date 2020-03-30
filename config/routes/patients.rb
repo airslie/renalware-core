@@ -27,7 +27,7 @@ resources :patients, except: [:destroy], controller: "patients/patients" do
   resource :death, only: [:edit, :update]
   resource :primary_care_physician,
            controller: "patients/primary_care_physician",
-           only: [:edit, :update]
+           only: [:edit, :update, :destroy]
 
   resources :bookmarks, only: :create, controller: "patients/bookmarks"
   resources :alerts, only: [:new, :create, :destroy], controller: "patients/alerts"
