@@ -54,5 +54,5 @@
               wrapper: :horizontal_small
     - msg = user.approved? ? "Update" : "Approve"
     = f.submit msg, class: "button"
-    span= " or "
+    '  or
     = link_to "cancel", admin_users_path

@@ -5,5 +5,5 @@
         = f.input :name_cont, label: "Name contains"
       .small-4.end.columns.actions
         = f.submit t("helpers.submit.filter"), class: "button"
-        span= " or "
+        '  or
         = link_to t("helpers.reset"), directory_people_path

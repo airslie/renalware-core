@@ -37,5 +37,5 @@
                   label: "Modality"
       .columns.medium-2.large-2.actions.end
         = f.submit "Filter", class: "button"
-        span= " or "
+        '  or
         = link_to t("helpers.reset"), admissions_consults_path(reset: 1)

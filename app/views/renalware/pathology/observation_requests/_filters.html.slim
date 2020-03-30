@@ -13,5 +13,5 @@
 
       .columns.medium-2.large-2.actions.end
         = f.submit t("helpers.submit.filter"), class: "button"
-        span= " or "
+        '  or
         = link_to t("helpers.reset"), renalware.patient_pathology_observation_requests_path(patient)

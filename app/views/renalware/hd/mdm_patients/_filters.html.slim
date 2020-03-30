@@ -26,5 +26,5 @@
 
     .medium-2.columns.actions
       = f.submit t("helpers.submit.filter"), class: "button", name: nil
-      span= " or "
+      '  or
       = link_to t("helpers.reset"), filter_form.url

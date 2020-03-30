@@ -11,5 +11,5 @@
       = f.collection_check_boxes :drug_type_ids, Renalware::Drugs::Type.all, :id, :name
 
       = f.button :submit
-      span= " or "
+      '  or
       = link_to "cancel", drugs_drugs_path

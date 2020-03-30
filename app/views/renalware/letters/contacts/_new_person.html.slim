@@ -11,7 +11,7 @@
                   data: { behaviour: "toggle-section" }
       .right
         = f.submit t(".save"), class: "button"
-        span= " or "
+        '  or
         = link_to t(".cancel"),
                "#",
                "aria-label" => "Close",
