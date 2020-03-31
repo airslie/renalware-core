@@ -66,7 +66,7 @@ describe "Add person to directory and assign as a contact for a patient",
     end
 
     def expect_to_display_errors
-      expect(page).to have_css(".error-messages")
+      expect(page).to have_selector(".error-messages", count: 1)
     end
   end
 end

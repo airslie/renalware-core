@@ -239,7 +239,7 @@ module World
 
         click_link "Add Prescription"
         sleep 1 # TODO: Remove this hack to get resolve intermittently failing test
-        expect(page).to have_selector("#new_medications_prescription", count: 1)
+        expect(page).to have_selector(".select-peritonitis-drug")
 
         within "#new_medications_prescription" do
           drug_selector.call(drug_name)
@@ -251,7 +251,7 @@ module World
           fill_in "Terminated on", with: terminated_on
           click_on "Save"
         end
-        expect(page).to have_css("#new_medications_prescription", count: 0)
+        expect(page).to have_no_css("#new_medications_prescription")
       end
 
       def record_prescription_for_patient(user:, patient:, **args)
