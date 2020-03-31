@@ -21,7 +21,8 @@ include Renalware::Engine.routes.url_helpers
 # files.
 
 require "cucumber/rails"
-require "capybara-screenshot/cucumber" if RUBY_PLATFORM =~ /darwin/
+# require "capybara-screenshot/cucumber" if RUBY_PLATFORM =~ /darwin/
+require "capybara-screenshot/cucumber"
 require "rspec/rails"
 require "webmock"
 
