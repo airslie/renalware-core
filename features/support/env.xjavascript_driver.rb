@@ -29,10 +29,9 @@ Capybara.register_driver(:rw_headless_chrome) do |app|
   )
 end
 
-if RUBY_PLATFORM.match?(/darwin/)
-  Capybara::Screenshot.register_driver(:rw_headless_chrome) do |driver, path|
-    driver.browser.save_screenshot(path)
-  end
+# if RUBY_PLATFORM.match?(/darwin/)
+Capybara::Screenshot.register_driver(:rw_headless_chrome) do |driver, path|
+  driver.browser.save_screenshot(path)
 end
 
 Capybara.javascript_driver = :rw_headless_chrome
