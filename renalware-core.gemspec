@@ -50,7 +50,7 @@ Gem::Specification.new do |s|
   s.add_dependency "devise-security", "~> 0.14.3"
   s.add_dependency "dotenv-rails", "~> 2.5"
   s.add_dependency "dumb_delegator", "~> 0.8.0"
-  s.add_dependency "email_validator", "~> 1.6.0"
+  s.add_dependency "email_validator", "> 1.6.0"
   s.add_dependency "enumerize", "~> 2.3.1"
   s.add_dependency "font-awesome-sass", "~> 5.6" # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
   s.add_dependency "foundation-rails", "~> 5.5.3.2"

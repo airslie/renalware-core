@@ -30,7 +30,7 @@ group :test do
   gem "fuubar", require: false
   gem "rails-controller-testing", "~> 1.0.4"
   gem "rspec-html-matchers", "~> 0.9.1", require: false
-  gem "rspec-rails", "~> 3.9"
+  gem "rspec-rails"
   gem "rspec_junit_formatter", "~> 0.4.1"
   gem "selenium-webdriver", "~> 3.142.0"
   gem "shoulda-matchers", "~> 4.1"
