@@ -9,5 +9,5 @@
   = f.input :end_date, as: :date_picker, input_html: { class: "small-input" }
 
   = submit_tag "Save", class: "button"
-  span= " or "
+  '  or
   = link_to "Cancel", patient_pathology_required_observations_path(@patient)

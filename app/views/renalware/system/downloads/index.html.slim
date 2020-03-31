@@ -15,7 +15,7 @@
             = f.search_field :name_or_description_cont
           .small-5.large-4.columns.actions.end
             = f.submit "Search", class: "button secondary"
-            span= " or "
+            '  or
             = link_to t("helpers.reset"), system_downloads_path
 
   .downloads

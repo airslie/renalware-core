@@ -7,5 +7,5 @@
           = f.search_field :name_or_drug_types_name_start
         .small-3.large-4.columns.actions.end
           = f.submit t("helpers.submit.filter"), class: "button"
-          span= " or "
+          '  or
           = link_to t("helpers.reset"), drugs_drugs_path

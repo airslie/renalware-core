@@ -8,5 +8,5 @@
     = render "renalware/pd/peritonitis_episodes/fields", local_assigns.merge!(f: f)
 
     = submit_tag "Save", class: "button"
-    span= " or "
+    '  or
     = link_to "cancel", patient_pd_dashboard_path(patient)

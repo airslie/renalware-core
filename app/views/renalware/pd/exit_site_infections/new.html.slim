@@ -7,5 +7,5 @@
     = render "renalware/pd/exit_site_infections/fields", f: f
 
     = submit_tag "Save", class: "button"
-    span= " or "
+    '  or
     = link_to "cancel", patient_pd_dashboard_path(patient)

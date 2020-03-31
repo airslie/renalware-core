@@ -25,7 +25,7 @@
     = f.input :urgent, as: :boolean, boolean_style: :inline
     = f.input :body, as: :text, input_html: { rows: 7 }
     = f.submit "Send", class: :button
-    span= " or "
+    '  or
     = link_to t(".cancel"),
              "#",
              "aria-label" => "Close",

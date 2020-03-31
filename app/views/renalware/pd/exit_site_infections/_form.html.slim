@@ -6,7 +6,7 @@
   = render "fields", f: f
 
   = f.button :submit, "Save"
-  span= " or "
+  '  or
   = link_to "cancel",
             patient_pd_exit_site_infection_path(patient, exit_site_infection),
             remote: true

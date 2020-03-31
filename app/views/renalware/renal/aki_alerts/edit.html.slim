@@ -11,5 +11,5 @@
     = f.input :aki_date, as: :date_picker, wrapper: :horizontal_datepicker
     = f.input :notes, wrapper: :horizontal_large, input_html: { rows: 5 }
     = f.submit class: "button"
-    span= " or "
+    '  or
     = link_to "cancel", renal_aki_alerts_path

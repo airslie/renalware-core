@@ -44,7 +44,7 @@
                     include_blank: form.allow_blank_inputs.include?(:page_count_in_array)
         .small-12.medium-2.large-2.columns.actions.end
           = f.submit t("helpers.submit.filter"), class: "button secondary"
-          span= " or "
+          '  or
           = link_to t("helpers.reset"), renalware.letters_filtered_letters_list_path(named_filter: named_filter)
 
   - if named_filter == :batch_printable

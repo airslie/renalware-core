@@ -6,5 +6,5 @@
     = simple_form_for event_type, html: { autocomplete: "off" } do |f|
       = f.input :name, label: "Event Type"
       = f.button :submit
-      span= " or "
+      '  or
       = link_to "cancel", events_types_path

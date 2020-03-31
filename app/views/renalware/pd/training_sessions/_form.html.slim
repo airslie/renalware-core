@@ -26,5 +26,5 @@
     = fdoc.input :training_comments, as: :text, input_html: { rows: 5 }
 
   = f.submit "Save", class: "button"
-  span= " or "
+  '  or
   = link_to "cancel", patient_pd_dashboard_path(patient)

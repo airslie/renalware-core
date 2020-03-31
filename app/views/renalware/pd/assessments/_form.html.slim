@@ -49,5 +49,5 @@
     = fdoc.input :added_comments, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
 
   = f.submit "Save", class: "button"
-  span= " or "
+  '  or
   = link_to "cancel", patient_pd_dashboard_path(patient)

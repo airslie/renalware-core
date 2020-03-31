@@ -9,5 +9,5 @@
 
       .columns.medium-4.actions.end
         = f.submit t("helpers.submit.filter"), class: "button secondary", name: nil
-        span= " or "
+        '  or
         = link_to t("helpers.reset"), research_study_participants_path(study)

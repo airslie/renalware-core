@@ -25,5 +25,5 @@
                   label: "To"
       .small-12.medium-2.large-2.columns.actions.end
         = f.submit t("helpers.submit.filter"), class: "button secondary"
-        span= " or "
+        '  or
         = link_to t("helpers.reset"), renalware.events_filtered_list_path(named_filter: :all)
