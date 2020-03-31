@@ -7,7 +7,9 @@ module Renalware
     module HomeDelivery
       class PrescriptionsController < BaseController
         include Pagy::Backend
+        skip_after_action :verify_policy_scoped
 
+        # rubocop:disable Metrics/MethodLength
         def index
           form = SearchForm.new(search_params)
           query = Medications::Delivery::PrescriptionsDueForDeliveryQuery.new(
@@ -24,6 +26,7 @@ module Renalware
             form: form
           }
         end
+        # rubocop:enable Metrics/MethodLength
 
         class SearchForm
           include ActiveModel::Model
