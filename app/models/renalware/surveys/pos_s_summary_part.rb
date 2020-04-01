@@ -15,8 +15,8 @@ module Renalware
           survey
             .questions
             .order(:position)
-            .select(:code, :label)
-            .each_with_object({}) { |q, hash| hash[q.code] = q.label }
+            .select(:code, :label, :label_abbrv)
+            .each_with_object({}) { |q, hash| hash[q.code] = q.admin_label }
         end
       end
 

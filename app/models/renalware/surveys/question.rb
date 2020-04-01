@@ -17,6 +17,10 @@ module Renalware
       validates :code, presence: true, uniqueness: { scope: :survey_id }
       validates :label, presence: true
       validates :position, presence: true
+
+      def admin_label
+        label_abbrv.presence || label
+      end
     end
   end
 end
