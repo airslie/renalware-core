@@ -47,13 +47,13 @@ module World
         within "#infection-organisms" do
           click_on "Edit"
 
-          expect(page).to have_selector("#infection-organisms form")
+          expect(page).to have_selector("#infection-organisms form", count: 1)
           fill_in "Sensitivity", with: sensitivity
           fill_in "Resistance", with: resistance
 
           click_on "Save"
 
-          expect(page).to have_selector("#infection-organisms tbody tr")
+          expect(page).to have_selector("#infection-organisms tbody tr", count: 1)
           expect(find("tbody")).to have_content(sensitivity)
           expect(find("tbody")).to have_content(resistance)
         end
