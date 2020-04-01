@@ -21,6 +21,17 @@ module Renalware
 
         it { is_expected.to validate_uniqueness_of(:code).scoped_to(:survey_id) }
       end
+
+      describe "#admin_label" do
+        it "uses label_abbrv if present" do
+          expect(described_class.new(label: "x", label_abbrv: "y").admin_label).to eq("y")
+        end
+
+        it "uses label if label_abbrv missing" do
+          expect(described_class.new(label: "x", label_abbrv: "").admin_label).to eq("x")
+          expect(described_class.new(label: "x", label_abbrv: nil).admin_label).to eq("x")
+        end
+      end
     end
   end
 end
