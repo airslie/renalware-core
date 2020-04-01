@@ -239,7 +239,7 @@ module World
 
         click_link "Add Prescription"
         sleep 1 # TODO: Remove this hack to get resolve intermittently failing test
-        expect(page).to have_selector("#new_medications_prescription")
+        expect(page).to have_selector("#new_medications_prescription", count: 1)
 
         within "#new_medications_prescription" do
           drug_selector.call(drug_name)
