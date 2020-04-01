@@ -23,7 +23,14 @@ html lang="en"
     meta(name="theme-color" content="#ffffff")
     meta(name="google" content="notranslate")
 
-  body(class="#{ content_for?(:body_class) ? yield(:body_class) : "page--" + controller_path&.tr("/", "-")&.sub("renalware-","")} #{Rails.env}")
+  body(class="#{ content_for?(:body_class) ? yield(:body_class) : "page--" + controller_path&.tr("/", "-")&.sub("renalware-","")} #{Rails.env}"
+       data-controller="session"
+       data-session-login-path= Renalware::Engine.routes.url_helpers.new_user_session_path
+       data-session-check-alive-path= Renalware::Engine.routes.url_helpers.check_session_expired_path
+       data-session-keep-alive-path= Renalware::Engine.routes.url_helpers.keep_session_alive_path
+       data-session-debug="#{Rails.env.development?}"
+       data-session-polling-interval=Renalware.config.session_timeout_polling_frequency.to_i
+       data-session-timeout=Devise.timeout_in)
     #modals-wrapper
     header
       - if Renalware.config.display_feedback_banner

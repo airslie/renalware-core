@@ -4036,6 +4036,208 @@ var _default$6 = function(_Controller) {
 
 _defineProperty(_default$6, "targets", [ "chart" ]);
 
+var Rails$1 = window.Rails;
+
+var _default$7 = function(_Controller) {
+  _inherits(_default, _Controller);
+  function _default() {
+    var _getPrototypeOf2;
+    var _this;
+    _classCallCheck(this, _default);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(_default)).call.apply(_getPrototypeOf2, [ this ].concat(args)));
+    _defineProperty(_assertThisInitialized(_this), "sessionTimeoutSeconds", 0);
+    _defineProperty(_assertThisInitialized(_this), "secondsAtPageLoad", 0);
+    _defineProperty(_assertThisInitialized(_this), "secondsAtLastActivity", 0);
+    _defineProperty(_assertThisInitialized(_this), "pollingIntervalSeconds", 0);
+    _defineProperty(_assertThisInitialized(_this), "checkUserActivityTimeout", null);
+    _defineProperty(_assertThisInitialized(_this), "userActivityDetected", false);
+    return _this;
+  }
+  _createClass(_default, [ {
+    key: "connect",
+    value: function connect() {
+      this.secondsAtPageLoad = this.secondsAtLastActivity = this.secondsSinceEpoch;
+      if (!this.onLoginPage) {
+        this.sessionTimeoutSeconds = parseInt(this.data.get("timeout") || this.DEFAULT_SESSION_TIMEOUT);
+        this.pollingIntervalSeconds = parseInt(this.data.get("polling-interval") || this.DEFAULT_POLLING_INTERVAL);
+        this.logSettings();
+        this.addHandlersToMonitorUserActivity();
+        this.resetCheckUserActivityTimeout();
+      } else {
+        this.log("connect: onLoginPage - skipping session time");
+      }
+    }
+  }, {
+    key: "disconnect",
+    value: function disconnect() {
+      this.log("disconnect onLoginPage: ".concat(this.onLoginPage));
+      if (!this.onLoginPage) {
+        this.removeUserActivityHandlers();
+      }
+    }
+  }, {
+    key: "sendLogoutMessageToAnyOpenTabs",
+    value: function sendLogoutMessageToAnyOpenTabs() {
+      window.localStorage.setItem("logout-event", "logout" + Math.random());
+    }
+  }, {
+    key: "registerUserActivity",
+    value: function registerUserActivity() {
+      this.secondsAtLastActivity = this.secondsSinceEpoch;
+      this.userActivityDetected = true;
+    }
+  }, {
+    key: "resetCheckUserActivityTimeout",
+    value: function resetCheckUserActivityTimeout() {
+      clearTimeout(this.checkUserActivityTimeout);
+      this.checkUserActivityTimeout = setTimeout(this.checkUserActivity.bind(this), this.pollingIntervalSeconds * 1e3);
+    }
+  }, {
+    key: "checkUserActivity",
+    value: function checkUserActivity() {
+      this.logAnyUserActivity();
+      if (this.userActivityDetected == true) {
+        this.sendRequestToKeepSessionAlive();
+      } else {
+        if (this.timeToAskServerToLogUserOut()) {
+          this.log("sendRequestToTestForSessionExpiry");
+          this.sendRequestToTestForSessionExpiry();
+        }
+      }
+      this.userActivityDetected = false;
+      this.resetCheckUserActivityTimeout(this.pollingIntervalSeconds);
+    }
+  }, {
+    key: "sendRequestToKeepSessionAlive",
+    value: function sendRequestToKeepSessionAlive() {
+      this.ajaxGet(this.keepAlivePath);
+    }
+  }, {
+    key: "sendRequestToTestForSessionExpiry",
+    value: function sendRequestToTestForSessionExpiry() {
+      this.ajaxGet(this.checkAlivePath);
+    }
+  }, {
+    key: "ajaxGet",
+    value: function ajaxGet(path) {
+      Rails$1.ajax({
+        type: "GET",
+        url: path,
+        dataType: "text",
+        error: this.reloadPageIfAjaxRequestWasUnauthorised.bind(this)
+      });
+    }
+  }, {
+    key: "reloadPageIfAjaxRequestWasUnauthorised",
+    value: function reloadPageIfAjaxRequestWasUnauthorised(responseText, status, xhr) {
+      if (xhr.status == 401) {
+        window.location.reload();
+        this.sendLogoutMessageToAnyOpenTabs();
+      }
+    }
+  }, {
+    key: "timeToAskServerToLogUserOut",
+    value: function timeToAskServerToLogUserOut() {
+      return this.secondsSinceLastActivity >= this.secondsAfterWhichWeStartAskingServerToLogUserOut;
+    }
+  }, {
+    key: "addHandlersToMonitorUserActivity",
+    value: function addHandlersToMonitorUserActivity() {
+      document.addEventListener("click", this.registerUserActivity.bind(this));
+      document.addEventListener("keydown", this.registerUserActivity.bind(this));
+      window.addEventListener("storage", this.storageChange.bind(this));
+    }
+  }, {
+    key: "removeUserActivityHandlers",
+    value: function removeUserActivityHandlers() {
+      document.removeEventListener("click", this.registerUserActivity.bind(this));
+      document.removeEventListener("keydown", this.registerUserActivity.bind(this));
+      window.removeEventListener("storage", this.storageChange.bind(this));
+    }
+  }, {
+    key: "logSettings",
+    value: function logSettings() {
+      if (this.debug) {
+        this.log("keepAlivePath ".concat(this.keepAlivePath));
+        this.log("checkAlivePath ".concat(this.checkAlivePath));
+        this.log("loginPath".concat(this.loginPath));
+        this.log("sessionTimeoutSeconds ".concat(this.sessionTimeoutSeconds));
+        this.log("pollingIntervalSeconds ".concat(this.pollingIntervalSeconds));
+      }
+    }
+  }, {
+    key: "logAnyUserActivity",
+    value: function logAnyUserActivity() {
+      this.log("************************");
+      this.log("Activity detected: ".concat(this.userActivityDetected));
+      this.log("secondsSinceLastActivity ".concat(this.secondsSinceLastActivity));
+      this.log("secondsAfterWhichWeStartAskingServerToLogUserOut ".concat(this.secondsAfterWhichWeStartAskingServerToLogUserOut));
+    }
+  }, {
+    key: "log",
+    value: function log(msg) {
+      if (this.debug) {
+        console.log(msg);
+      }
+    }
+  }, {
+    key: "storageChange",
+    value: function storageChange(event) {
+      if (event.key == "logout-event") {
+        setTimeout(this.sendRequestToTestForSessionExpiry.bind(this), 2e3);
+      }
+    }
+  }, {
+    key: "secondsSinceEpoch",
+    get: function get() {
+      return Math.floor(Date.now() / 1e3);
+    }
+  }, {
+    key: "onLoginPage",
+    get: function get() {
+      return window.location.pathname == this.loginPath;
+    }
+  }, {
+    key: "checkAlivePath",
+    get: function get() {
+      return this.data.get("check-alive-path");
+    }
+  }, {
+    key: "loginPath",
+    get: function get() {
+      return this.data.get("login-path");
+    }
+  }, {
+    key: "keepAlivePath",
+    get: function get() {
+      return this.data.get("keep-alive-path");
+    }
+  }, {
+    key: "debug",
+    get: function get() {
+      return this.data.get("debug");
+    }
+  }, {
+    key: "secondsSinceLastActivity",
+    get: function get() {
+      return this.secondsSinceEpoch - this.secondsAtLastActivity;
+    }
+  }, {
+    key: "secondsAfterWhichWeStartAskingServerToLogUserOut",
+    get: function get() {
+      return this.sessionTimeoutSeconds - this.pollingIntervalSeconds;
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$7, "DEFAULT_SESSION_TIMEOUT", 20 * 60);
+
+_defineProperty(_default$7, "DEFAULT_POLLING_INTERVAL", 3 * 60);
+
 var application = Application.start();
 
 application.register("toggle", _default);
@@ -4051,5 +4253,7 @@ application.register("letters-form", _default$4);
 application.register("prescriptions", _default$5);
 
 application.register("charts", _default$6);
+
+application.register("session", _default$7);
 
 window.Chartkick.use(window.Highcharts);
