@@ -4036,6 +4036,27 @@ var _default$6 = function(_Controller) {
 
 _defineProperty(_default$6, "targets", [ "chart" ]);
 
+var _default$7 = function(_Controller) {
+  _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass(_default, [ {
+    key: "toggleFileInputs",
+    value: function toggleFileInputs(event) {
+      var selectedOption = event.target.querySelector("option:checked");
+      var storeFileExternally = "true" == selectedOption.getAttribute("data-store-file-externally");
+      this.fileBrowserTarget.style.display = storeFileExternally ? "none" : "block";
+      this.externalLocationTarget.style.display = storeFileExternally ? "block" : "none";
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$7, "targets", [ "fileBrowser", "externalLocation" ]);
+
 var application = Application.start();
 
 application.register("toggle", _default);
@@ -4051,5 +4072,7 @@ application.register("letters-form", _default$4);
 application.register("prescriptions", _default$5);
 
 application.register("charts", _default$6);
+
+application.register("patient-attachments", _default$7);
 
 window.Chartkick.use(window.Highcharts);

@@ -20,6 +20,7 @@ import SnippetsController from "./controllers/snippets_controller"
 import LettersFormController from "./controllers/letters/form_controller"
 import PrescriptionsController from "./controllers/medications/prescriptions_controller"
 import ChartsController from "./controllers/charts_controller"
+import PatientAttachmentsController from "./controllers/patients/attachments_controller"
 
 const application = Application.start()
 application.register("toggle", ToggleController)
@@ -29,5 +30,6 @@ application.register("snippets", SnippetsController)
 application.register("letters-form", LettersFormController)
 application.register("prescriptions", PrescriptionsController)
 application.register("charts", ChartsController)
+application.register("patient-attachments", PatientAttachmentsController)
 
 window.Chartkick.use(window.Highcharts)
