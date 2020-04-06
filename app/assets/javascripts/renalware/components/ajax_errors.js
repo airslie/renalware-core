@@ -1,4 +1,5 @@
-$(document).ajaxError(function (e, xhr, settings) {
+$(document).on("ajax:error", function(event) {
+  var xhr = event.detail[2];
   switch(xhr.status) {
     // For 401 Unathorised responses, for example trying to making a
     // js request after a session timeout, reloading the current page
@@ -7,6 +8,6 @@ $(document).ajaxError(function (e, xhr, settings) {
       location.reload();
       break;
     case 500:
-      alert("Your request has unexpectedly failed (" + xhr.statusText + ").  Please try again.");
+      alert("Your request has unexpectedly failed (" + xhr.statusText + "). Please try again.");
   }
 });
