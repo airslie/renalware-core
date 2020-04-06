@@ -28,6 +28,6 @@ $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
 });
 
 // If there was an error submitting a modal form, be sure to re-enable the submit button
-$(document).on('ajaxError', function(event, xhr, status, error) {
-  Rails.enableElement($('input[data-disable-with]'))[0];
+$(document).on('ajax:error', function(event) {
+  Rails.enableElement($('input[data-disable-with]')[0]);
 });

@@ -3768,6 +3768,18 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+  try {
+    Date.prototype.toString.call(Reflect.construct(Date, [], function() {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
@@ -3782,13 +3794,27 @@ function _possibleConstructorReturn(self, call) {
   return _assertThisInitialized(self);
 }
 
+function _createSuper(Derived) {
+  return function() {
+    var Super = _getPrototypeOf(Derived), result;
+    if (_isNativeReflectConstruct()) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+    return _possibleConstructorReturn(this, result);
+  };
+}
+
 var $ = window.$;
 
 var _default = function(_Controller) {
   _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
   function _default() {
     _classCallCheck(this, _default);
-    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
   _createClass(_default, [ {
     key: "row",
@@ -3820,9 +3846,10 @@ var $$1 = window.$;
 
 var _default$1 = function(_Controller) {
   _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
   function _default() {
     _classCallCheck(this, _default);
-    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
   _createClass(_default, [ {
     key: "connect",
@@ -3851,9 +3878,10 @@ var Rails = window.Rails;
 
 var _default$2 = function(_Controller) {
   _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
   function _default() {
     _classCallCheck(this, _default);
-    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
   _createClass(_default, [ {
     key: "refreshForm",
@@ -3876,9 +3904,10 @@ var $$2 = window.$;
 
 var _default$3 = function(_Controller) {
   _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
   function _default() {
     _classCallCheck(this, _default);
-    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
   _createClass(_default, [ {
     key: "insert",
@@ -3897,9 +3926,10 @@ var $$3 = window.$;
 
 var _default$4 = function(_Controller) {
   _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
   function _default() {
     _classCallCheck(this, _default);
-    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
   _createClass(_default, [ {
     key: "initInsertEventNotesIntoTrixEditor",
@@ -3925,9 +3955,10 @@ _defineProperty(_default$4, "targets", [ "trix" ]);
 
 var _default$5 = function(_Controller) {
   _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
   function _default() {
     _classCallCheck(this, _default);
-    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
   _createClass(_default, [ {
     key: "connect",
@@ -3959,9 +3990,10 @@ var Chartkick = window.Chartkick;
 
 var _default$6 = function(_Controller) {
   _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
   function _default() {
     _classCallCheck(this, _default);
-    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
   _createClass(_default, [ {
     key: "redisplay",

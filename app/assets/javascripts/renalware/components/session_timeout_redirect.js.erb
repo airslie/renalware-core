@@ -7,7 +7,6 @@
 // would prevent a dyno sleeping, but its also a waste of resources.
 //
 $(document).ready(function() {
-
   var login_path ="<%= Renalware::Engine.routes.url_helpers.new_user_session_path %>";
   var defaultPollFreq = <%= Renalware.config.session_timeout_polling_frequency.to_i %>;
   var frequency_s = defaultPollFreq;
@@ -16,12 +15,16 @@ $(document).ready(function() {
   // bypass having to wait for the session polling interval to tick over.
   window.sessionTimeoutCheck = function(){
     if(window.location.pathname != login_path) {
-      $.getScript("<%= Renalware::Engine.routes.url_helpers.session_timed_out_path %>")
-       .fail(function(jqxhr, settings, exception) {
-         <% unless Rails.env.test? %>
-           console.log("Failed to query for session timeout");
-         <% end %>
-       });
+      Rails.ajax({
+        type: "GET",
+        url: "<%= Renalware::Engine.routes.url_helpers.session_timed_out_path %>",
+        dataType: "html",
+        error: function(responseText, status, xhr) {
+          if (xhr.status == 401) {
+            window.location.reload()
+          }
+        }
+      });
     }
   };
 
