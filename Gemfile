@@ -25,7 +25,7 @@ group :test do
   gem "capybara-screenshot", "~> 1.0"
   gem "capybara-select-2"
   gem "cucumber-rails", "~> 2.0", require: false # must be loaded in env.rb
-  gem "database_cleaner", "~> 1.8.0", require: false # for cucumber (now not needed for rspec)
+  gem "database_cleaner", require: false # for cucumber (now not needed for rspec)
   gem "factory_bot_rails", "~> 5.1"
   gem "fuubar", require: false
   gem "rails-controller-testing", "~> 1.0.4"
@@ -34,7 +34,7 @@ group :test do
   gem "rspec_junit_formatter", "~> 0.4.1"
   gem "selenium-webdriver", "~> 3.142.0"
   gem "shoulda-matchers", "~> 4.1"
-  gem "simplecov", "~> 0.17.1", require: false # only loaded if required
+  gem "simplecov", "~> 0.18.5", require: false # only loaded if required
   gem "test-prof"
   gem "webmock", "~> 3.7", require: false
   gem "wisper-rspec", "~> 1.1.0"
