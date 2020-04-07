@@ -1,77 +1,108 @@
 
 const Rails = window.Rails
+const _ = window._
 import { Controller } from "stimulus"
 
-// Test for session timeout after a period of idleness.
-// Concept:
-// - Click/keydown events will reset the session timeout window.
-//   For example if the server session timeout is 20 minutes and is reset
-//   whenever there is a navigation, then lets assume the user has not
-//   navigated or used the UI for say 3 minutes (the userActivityTimeout
-//   interval), so the userActivityTimeout handler is called. Here
-//   we make an ajax request to the server to reset the start of the session
-//   so the user now has 20 minutes to navigate or interact with the page
-//   or else we will redirect them to the login page. To allow this happen we
-//   must keep track of the number of times our userActivityTimeout has fired
-//   with no intervening user activity. Each time one of these congiguous idle
-//   events occur we send an ajax request which does not reset the session
-//   window but will cause the user to be logged off when the session has
-//   eventually expired.
+// This controller has 3 related functions
+// - Keep a users session alive
+//   Keep the user's session alive if they are 'active' (there are keypresses,
+//   clicks or resize events on the same page) by sending a throttled ajax
+//   request to reset the session window which will prevent their session
+//   expiring and throwing them out when they are for example writing a long
+//   letter (which they would otherwise not finish before their session expires)
+// - Auto logging-out a user after a period of inactivity
+//   Check after a period of intactivity to see if their session has expired.
+//   If it has then refresh the page which will redirect them to the login page.
+// - Signalling to other open tabs when the user's session has expired or they
+//   have manually logged out - so that all tabs go to the login page at around
+//   the same time.
+//
 // Goals:
-// - Preformance and code clarity more important than having an accurate session
+// - Performance and code clarity more important than having an accurate session
 //   window - if it is extended for a minute or two that is OK.
 // - The server should always be the judge of whether the session has timed out
-// - Query the server as little as possible
-// - Keep event handler activity minimal to preserve CPU cycles
-// - Tidyup all event listeners
-// Nice to have:
+// - Query the server as little as possible - partly for performance and partly
+//   to avoid noise in the server logs
+// - Keep event handler activity minimal to preserve CPU cycles - ie use
+//   throttle or debounce
+//
+// Possible enhancements:
 // - After a period of inactivity, show a dialog asking if user wants to extend
 //   the session - this would involve starting a separate timer and displaying
 //   the countdown
+//
 // Scenarios to test:
-// - Keypresses - Typing past the server session timeout does not cause a redirect
-// - Mouse move - not sure perhaps we do not need to monitor these. As user is
-//   likely to click on something (or type) within the session timeout period
-//   so monitoring those 2 events may be enough, perhaps with scroll.
-// - User closes lid on laptop overnight
+// - Keypresses, clicks and window resizing - any of these should reset session
+//   and thus the user remains logged in as long as one of these events ocurrs
+//   within sessionTimeoutSeconds
+// - User closes lid on laptop overnight and reopens in the morning - what is
+//   expected?
 // - Network disconnected - what do we do?
-// - user gets withing 30 seconds of session timeout and starts typing - session
+// - user gets withing 10 seconds of session timeout and starts typing - session
 //   window shoud be reset
-// - user types constantly for entire session timeout period - should
-//   continually reset session window.
 // - user has > 1 tab open and logs out of one - ideally it should log out of
-//   other tabs before too long. We do by setting a localStorage value to signal to other tabs
-// TODO:
-// - user sitting on rtegister page will keep polling checkAlivePath
-// - read urls etc in initialize() to be safe - rather than lazy getter or connect
-// - move HTML element definition (ie where data controller is declared) into helper or component
+//   other tabs before too long. We do by setting a localStorage value to signal
+//   to other tabs
+//
+// Known issues:
+// - user sitting on register page will keep polling checkAlivePath
+// - if a user becomes active on a page within throttlePeriodSeconds of
+//   sessionTimeoutSeconds then there is no currently opportunity for
+//   throttledRegisterUserActivity to reset kick in a trump
+//   checkForSessionExpiryTimeout - so the session will log out. We might need
+//   an extra step before calling checkForSessionExpiry - a final chance to
+//   check if the user was
+//   active
+// - Not quite sure if putting the data attribute config settings in the body
+//   tag is the right thing to do - perhaps should be in a config .js.erb
 export default class extends Controller {
-  sessionTimeoutSeconds = 0
-  secondsAtPageLoad = 0
-  secondsAtLastActivity = 0
-  pollingIntervalSeconds = 0
-  checkUserActivityTimeout = null
+  checkForSessionExpiryTimeout = null
   userActivityDetected = false
-  static DEFAULT_SESSION_TIMEOUT = 20 * 60 // 20 mins
-  static DEFAULT_POLLING_INTERVAL = 3 * 60 // 3 mins
+  checkAlivePath = null
+  keepAlivePath = null
+  loginPath = null
+  throttledRegisterUserActivity = null
+  sessionTimeoutSeconds = 0
+  defaultSessionTimeoutSeconds = 20 * 60 // 20 mins
+  throttlePeriodSeconds = 0
+  defaultThrottlePeriodSeconds = 20
+
+  initialize() {
+    this.throttlePeriodSeconds = parseInt(this.data.get("register-user-activity-after") || this.defaultThrottlePeriodSeconds)
+    this.sessionTimeoutSeconds = parseInt(this.data.get("timeout") || this.defaultSessionTimeoutSeconds)
+    this.sessionTimeoutSeconds += 10 // To allow for network roundtrips etc
+    this.checkAlivePath = this.data.get("check-alive-path")
+    this.loginPath = this.data.get("login-path")
+    this.keepAlivePath = this.data.get("keep-alive-path")
+    this.logSettings()
+
+    // Throttle the user activity callback because we only need to know about user activity
+    // only very occasionally, so that we can periodically tell there server the user was active.
+    // Here, even if there are hundreds of events (click, keypress etc) within throttlePeriodSeconds,
+    // our function is only called at most once in that period, when throttlePeriodSeconds has
+    // passed (since trailing = true). This suits is as we want to avoid making any call to the
+    // server unless the user has been on the page for at least throttlePeriodSeconds.
+    // See https://lodash.com/docs/#trottle
+    this.throttledRegisterUserActivity = _.throttle(
+      this.registerUserActivity.bind(this),
+      this.throttlePeriodSeconds * 1000,
+      { "leading": false, "trailing": true }
+    )
+  }
 
   connect() {
-    this.secondsAtPageLoad = this.secondsAtLastActivity = this.secondsSinceEpoch
-    if (!this.onLoginPage) {
-      this.sessionTimeoutSeconds = parseInt(this.data.get("timeout") || this.DEFAULT_SESSION_TIMEOUT)
-      this.pollingIntervalSeconds = parseInt(this.data.get("polling-interval") || this.DEFAULT_POLLING_INTERVAL)
-      this.logSettings()
-      this.addHandlersToMonitorUserActivity()
-      this.resetCheckUserActivityTimeout()
-    } else {
+    if (this.onLoginPage) {
       this.log("connect: onLoginPage - skipping session time")
+    } else {
+      this.addHandlersToMonitorUserActivity()
+      this.resetCheckForSessionExpiryTimeout(this.sessionTimeoutSeconds)
     }
   }
 
   disconnect() {
-    this.log(`disconnect onLoginPage: ${this.onLoginPage}`)
     if (!this.onLoginPage) {
       this.removeUserActivityHandlers()
+      clearTimeout(this.checkForSessionExpiryTimeout)
     }
   }
 
@@ -79,34 +110,35 @@ export default class extends Controller {
     window.localStorage.setItem("logout-event", "logout" + Math.random())
   }
 
-  // Event handler for key/click/resize
+  // Debounced event handler for key/click/resize
+  // If we come in there then the user has interacted with the page
+  // within throttlePeriodSeconds
   registerUserActivity() {
-    this.secondsAtLastActivity = this.secondsSinceEpoch
-    this.userActivityDetected = true
+    this.sendRequestToKeepSessionAlive()
+    this.resetCheckForSessionExpiryTimeout(this.sessionTimeoutSeconds)
   }
 
-  // Timer handler
-  resetCheckUserActivityTimeout() {
-    clearTimeout(this.checkUserActivityTimeout)
-    this.checkUserActivityTimeout = setTimeout(
-      this.checkUserActivity.bind(this),
-      this.pollingIntervalSeconds * 1000
+  // Timeout handler for checking if the sesison has expired
+  resetCheckForSessionExpiryTimeout(intervalSeconds) {
+    this.log(`resetting session expiry timeout ${intervalSeconds}`)
+    clearTimeout(this.checkForSessionExpiryTimeout)
+    this.checkForSessionExpiryTimeout = setTimeout(
+      this.checkForSessionExpiry.bind(this),
+      intervalSeconds * 1000
     )
   }
 
-  checkUserActivity() {
-    this.logAnyUserActivity()
-
-    if (this.userActivityDetected == true) {
-      this.sendRequestToKeepSessionAlive()
-    } else {
-      if (this.timeToAskServerToLogUserOut()) {
-        this.log("sendRequestToTestForSessionExpiry")
-        this.sendRequestToTestForSessionExpiry()
-      }
-    }
-    this.userActivityDetected = false
-    this.resetCheckUserActivityTimeout(this.pollingIntervalSeconds)
+  // Here we really expect the session to have expired. In case it hasn't
+  // we reset the timeout to check again. We could reset the timeout to be
+  // sessionTimeoutSeconds, but if when we checked for expiry we had only just
+  // missed it, we will end up staying on this page (assuming the user is
+  // inactive) for nearly twice as long as we need to. So we set the timeout
+  // to be throttlePeriodSeconds * 2, which gives time for the
+  // throttledRegisterUserActivity handler to reset the session again if it
+  // fires.
+  checkForSessionExpiry() {
+    this.sendRequestToTestForSessionExpiry()
+    this.resetCheckForSessionExpiryTimeout(this.throttlePeriodSeconds * 2)
   }
 
   sendRequestToKeepSessionAlive() {
@@ -114,6 +146,7 @@ export default class extends Controller {
   }
 
   sendRequestToTestForSessionExpiry() {
+    this.log("checking for session expiry")
     this.ajaxGet(this.checkAlivePath)
   }
 
@@ -133,38 +166,28 @@ export default class extends Controller {
     }
   }
 
-  timeToAskServerToLogUserOut() {
-    return (this.secondsSinceLastActivity >= this.secondsAfterWhichWeStartAskingServerToLogUserOut)
-  }
-
   addHandlersToMonitorUserActivity() {
-    document.addEventListener("click", this.registerUserActivity.bind(this))
-    document.addEventListener("keydown", this.registerUserActivity.bind(this))
+    document.addEventListener("click", this.throttledRegisterUserActivity.bind(this))
+    document.addEventListener("keydown", this.throttledRegisterUserActivity.bind(this))
+    window.addEventListener("resize", this.throttledRegisterUserActivity.bind(this))
     window.addEventListener("storage", this.storageChange.bind(this))
   }
 
   removeUserActivityHandlers() {
-    document.removeEventListener("click", this.registerUserActivity.bind(this))
-    document.removeEventListener("keydown", this.registerUserActivity.bind(this))
+    document.removeEventListener("click", this.throttledRegisterUserActivity.bind(this))
+    document.removeEventListener("keydown", this.throttledRegisterUserActivity.bind(this))
+    window.removeEventListener("resize", this.throttledRegisterUserActivity.bind(this))
     window.removeEventListener("storage", this.storageChange.bind(this))
   }
 
   logSettings() {
     if (this.debug) {
-      // this.log(`secondsAtPageLoad ${this.secondsAtPageLoad}`)
       this.log(`keepAlivePath ${this.keepAlivePath}`)
       this.log(`checkAlivePath ${this.checkAlivePath}`)
-      this.log(`loginPath${this.loginPath}`)
+      this.log(`loginPath ${this.loginPath}`)
       this.log(`sessionTimeoutSeconds ${this.sessionTimeoutSeconds}`)
-      this.log(`pollingIntervalSeconds ${this.pollingIntervalSeconds}`)
+      this.log(`throttlePeriodSeconds ${this.throttlePeriodSeconds}`)
     }
-  }
-
-  logAnyUserActivity() {
-    this.log("************************")
-    this.log(`Activity detected: ${this.userActivityDetected}`)
-    this.log(`secondsSinceLastActivity ${this.secondsSinceLastActivity}`)
-    this.log(`secondsAfterWhichWeStartAskingServerToLogUserOut ${this.secondsAfterWhichWeStartAskingServerToLogUserOut}`)
   }
 
   log(msg) {
@@ -188,41 +211,13 @@ export default class extends Controller {
     }
   }
 
-  get secondsSinceEpoch() {
-    return Math.floor(Date.now() / 1000)
-  }
-
   get onLoginPage() {
     return window.location.pathname == this.loginPath
   }
 
-  get checkAlivePath() {
-    return this.data.get("check-alive-path")
-  }
-
-  get loginPath() {
-    return this.data.get("login-path")
-  }
-
-  get keepAlivePath() {
-    return this.data.get("keep-alive-path")
-  }
-
   // If you add data-session-debug=1 then logging will be enabled
+  // This is evaluated each time we can add debugging into a running page
   get debug() {
     return this.data.get("debug")
-  }
-
-  get secondsSinceLastActivity() {
-    return this.secondsSinceEpoch - this.secondsAtLastActivity
-  }
-
-  // This is the Devise session timeout less the duration of a polling interval.
-  // What this means is that when this is only one polling interval before the
-  // expected end of the session, at this point we should start sending a message
-  // to the server (at each of the remaning polling intervals) to give the server
-  // a chance to log us out.
-  get secondsAfterWhichWeStartAskingServerToLogUserOut() {
-    return this.sessionTimeoutSeconds - this.pollingIntervalSeconds
   }
 }

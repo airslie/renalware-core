@@ -5,7 +5,9 @@ require "rails_helper"
 describe "Session timeout", type: :system, js: true do
   around do |example|
     original_session_timeout = Devise.timeout_in
-    Devise.timeout_in = 0.5.seconds
+    # see sessions_controller.js - we set the session timeout to be in the past
+    # because we add an X second buffer in that file.
+    Devise.timeout_in = -20.seconds
 
     example.run
 
@@ -14,6 +16,7 @@ describe "Session timeout", type: :system, js: true do
 
   it "A user is redirected by JS to the login page when their session expires" do
     Renalware.config.session_timeout_polling_frequency = 1.second
+    Renalware.config.session_register_user_user_activity_after = 2.seconds
     login_as_clinical
 
     visit root_path
