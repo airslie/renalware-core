@@ -23,7 +23,6 @@ module Renalware
               FileUtils.mv filepath, paths.archive.join(filepath.basename)
               next
             end
-
             logger.info "Processing: #{filepath}"
             import_surveys_from_file(filepath)
           end
@@ -49,7 +48,7 @@ module Renalware
         def import_surveys_from_file(file)
           # Important to create the log before we do anything that might cause an error
           # eg parse the xml etc.
-          TransmissionLog.with_logging(nil, batch_uuid, log_options(file)) do |log|
+          TransmissionLog.with_logging(request_uuid: batch_uuid, **log_options(file)) do |log|
             doc = XmlDocument.new(file)
             patient = find_patient(doc.nhs_number)
             log.update!(patient_id: patient.id)

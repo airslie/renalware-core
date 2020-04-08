@@ -3,9 +3,9 @@
 require "rails_helper"
 
 module Renalware
-  describe UKRDC::BatchNumber do
+  describe UKRDC::Batch do
     describe "#next" do
-      it "creates a new BatchNumber and returns it" do
+      it "creates a new Batch and returns it" do
         batch_number = described_class.next
 
         expect(batch_number).to be_a(described_class)

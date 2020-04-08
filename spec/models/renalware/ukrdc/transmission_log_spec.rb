@@ -8,6 +8,7 @@ module Renalware
       is_expected.to validate_presence_of(:sent_at)
       is_expected.to validate_presence_of(:status)
       is_expected.to belong_to(:patient).touch(false)
+      is_expected.to belong_to(:batch).touch(false)
     end
 
     describe ".with_logging" do
@@ -19,7 +20,11 @@ module Renalware
             patient = create(:patient)
 
             expect {
-              UKRDC::TransmissionLog.with_logging(patient, uuid) do
+              UKRDC::TransmissionLog.with_logging(
+                patient: patient,
+                request_uuid: uuid,
+                status: :undefined
+              ) do
                 raise ArgumentError
               end
             }.to raise_error(ArgumentError)
@@ -34,7 +39,7 @@ module Renalware
         context "when processing succeeds" do
           it "saves the log" do
             patient = create(:patient)
-            described_class.with_logging(patient, uuid) do |log|
+            described_class.with_logging(patient: patient, request_uuid: uuid) do |log|
               log.payload = "XYZ"
               log.payload_hash = "123"
               log.sent!
@@ -53,7 +58,7 @@ module Renalware
         context "when unsent because no changes in the xml are found since the last sent" do
           it "saves the log" do
             patient = create(:patient)
-            described_class.with_logging(patient, uuid) do |log|
+            described_class.with_logging(patient: patient, request_uuid: uuid) do |log|
               log.payload = "XYZ"
               log.payload_hash = "123"
               log.unsent_no_change_since_last_send!

@@ -9,11 +9,10 @@ module Renalware
       pattr_initialize [
         :patient!,
         :dir!,
-        :request_uuid!,
         :schema!,
         :changes_since,
         :logger,
-        :batch_number,
+        :batch,
         :renderer, # so we can pass a test renderer to bypass real rendering
         :log,
         :force_send
@@ -24,7 +23,7 @@ module Renalware
       # send. This is primarily for debugging and testing phases with UKRDC
       def call
         update_patient_to_indicated_we_checked_them_for_any_relevant_changes
-        UKRDC::TransmissionLog.with_logging(patient, request_uuid) do |log|
+        UKRDC::TransmissionLog.with_logging(patient: patient, batch: batch) do |log|
           @log = log
           logger.info "  Patient #{patient.ukrdc_external_id}"
           xml_payload = build_payload(log)
@@ -117,7 +116,7 @@ module Renalware
       end
 
       def xml_filepath
-        xml_filename = Filename.new(patient: patient, batch_number: batch_number).to_s
+        xml_filename = Filename.new(patient: patient, batch_number: batch.number).to_s
         File.join(dir, xml_filename)
       end
 

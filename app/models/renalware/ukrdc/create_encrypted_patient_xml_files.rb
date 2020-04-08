@@ -16,9 +16,8 @@ module Renalware
         :patient_ids,
         :changed_since,
         :logger,
-        :request_uuid,
         :timestamp,
-        :batch_number,
+        :batch,
         :summary,
         :force_send
       )
@@ -27,16 +26,15 @@ module Renalware
         @changed_since = Time.zone.parse(changed_since) if changed_since.present?
         @patient_ids = Array(patient_ids)
         @logger = logger || Rails.logger
-        @request_uuid = SecureRandom.uuid # helps group logs together
         @timestamp = Time.zone.now.strftime("%Y%m%d%H%M%S%L")
-        @batch_number ||= BatchNumber.next.number
+        @batch ||= Batch.next
         @summary = ExportSummary.new
         @force_send = force_send
       end
 
       # rubocop:disable Metrics/MethodLength
       def call
-        logger.tagged(request_uuid) do
+        logger.tagged(batch.number) do
           summary.milliseconds_taken = Benchmark.ms do
             create_patient_xml_files
             encrypt_patient_xml_files
@@ -48,7 +46,7 @@ module Renalware
           email_summary
         end
       rescue StandardError => e
-        # TODO: if fails before copying to outgoing then we should roll back BatchNumber
+        # TODO: if fails before copying to outgoing then we should roll back Batch
         Engine.exception_notifier.notify(e)
         raise e
       end
@@ -60,7 +58,7 @@ module Renalware
         @paths ||= begin
           Paths.new(
             timestamp: timestamp,
-            batch_number: batch_number,
+            batch_number: batch.number,
             working_path: config.ukrdc_working_path
           )
         end
@@ -112,8 +110,7 @@ module Renalware
           patient: patient,
           dir: paths.timestamped_xml_folder,
           changes_since: changed_since,
-          request_uuid: request_uuid,
-          batch_number: batch_number,
+          batch: batch,
           logger: logger,
           force_send: force_send,
           schema: schema
@@ -169,7 +166,7 @@ module Renalware
       end
 
       def export_results
-        TransmissionLog.where(request_uuid: request_uuid).group(:status).count(:status).to_h
+        TransmissionLog.where(batch_id: batch.id).group(:status).count(:status).to_h
       end
 
       def encrypt_patient_xml_files

@@ -6838,7 +6838,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -6917,7 +6917,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
+  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -8846,10 +8846,10 @@ ALTER SEQUENCE renalware.transplant_versions_id_seq OWNED BY renalware.transplan
 
 
 --
--- Name: ukrdc_batch_numbers; Type: TABLE; Schema: renalware; Owner: -
+-- Name: ukrdc_batches; Type: TABLE; Schema: renalware; Owner: -
 --
 
-CREATE TABLE renalware.ukrdc_batch_numbers (
+CREATE TABLE renalware.ukrdc_batches (
     id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -8857,10 +8857,10 @@ CREATE TABLE renalware.ukrdc_batch_numbers (
 
 
 --
--- Name: ukrdc_batch_numbers_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+-- Name: ukrdc_batches_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
-CREATE SEQUENCE renalware.ukrdc_batch_numbers_id_seq
+CREATE SEQUENCE renalware.ukrdc_batches_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8869,10 +8869,10 @@ CREATE SEQUENCE renalware.ukrdc_batch_numbers_id_seq
 
 
 --
--- Name: ukrdc_batch_numbers_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+-- Name: ukrdc_batches_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
 --
 
-ALTER SEQUENCE renalware.ukrdc_batch_numbers_id_seq OWNED BY renalware.ukrdc_batch_numbers.id;
+ALTER SEQUENCE renalware.ukrdc_batches_id_seq OWNED BY renalware.ukrdc_batches.id;
 
 
 --
@@ -8917,14 +8917,15 @@ CREATE TABLE renalware.ukrdc_transmission_logs (
     patient_id bigint,
     sent_at timestamp without time zone NOT NULL,
     status integer NOT NULL,
-    request_uuid uuid NOT NULL,
+    request_uuid uuid,
     payload_hash text,
     payload xml,
     error text[] DEFAULT '{}'::text[],
     file_path character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    direction integer DEFAULT 0 NOT NULL
+    direction integer DEFAULT 0 NOT NULL,
+    batch_id bigint
 );
 
 
@@ -10415,10 +10416,10 @@ ALTER TABLE ONLY renalware.transplant_versions ALTER COLUMN id SET DEFAULT nextv
 
 
 --
--- Name: ukrdc_batch_numbers id; Type: DEFAULT; Schema: renalware; Owner: -
+-- Name: ukrdc_batches id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
-ALTER TABLE ONLY renalware.ukrdc_batch_numbers ALTER COLUMN id SET DEFAULT nextval('renalware.ukrdc_batch_numbers_id_seq'::regclass);
+ALTER TABLE ONLY renalware.ukrdc_batches ALTER COLUMN id SET DEFAULT nextval('renalware.ukrdc_batches_id_seq'::regclass);
 
 
 --
@@ -11983,11 +11984,11 @@ ALTER TABLE ONLY renalware.transplant_versions
 
 
 --
--- Name: ukrdc_batch_numbers ukrdc_batch_numbers_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+-- Name: ukrdc_batches ukrdc_batches_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
-ALTER TABLE ONLY renalware.ukrdc_batch_numbers
-    ADD CONSTRAINT ukrdc_batch_numbers_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY renalware.ukrdc_batches
+    ADD CONSTRAINT ukrdc_batches_pkey PRIMARY KEY (id);
 
 
 --
@@ -15995,6 +15996,13 @@ CREATE INDEX index_ukrdc_modality_codes_on_txt_code ON renalware.ukrdc_modality_
 
 
 --
+-- Name: index_ukrdc_transmission_logs_on_batch_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_transmission_logs_on_batch_id ON renalware.ukrdc_transmission_logs USING btree (batch_id);
+
+
+--
 -- Name: index_ukrdc_transmission_logs_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -17661,6 +17669,14 @@ ALTER TABLE ONLY renalware.transplant_failure_cause_descriptions
 
 ALTER TABLE ONLY renalware.clinical_allergies
     ADD CONSTRAINT fk_rails_9193bda748 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: ukrdc_transmission_logs fk_rails_91c2e398c1; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.ukrdc_transmission_logs
+    ADD CONSTRAINT fk_rails_91c2e398c1 FOREIGN KEY (batch_id) REFERENCES renalware.ukrdc_batches(id);
 
 
 --
@@ -19489,6 +19505,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200316131136'),
 ('20200318134807'),
 ('20200320103052'),
-('20200401115705');
+('20200401115705'),
+('20200408131217');
 
 
