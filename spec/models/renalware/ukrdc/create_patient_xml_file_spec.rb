@@ -5,7 +5,6 @@ require "rails_helper"
 module Renalware
   describe UKRDC::CreatePatientXMLFile do
     let(:user) { create(:user) }
-    let(:request_uuid) { SecureRandom.uuid }
     let(:xml) {
       # This the XML our mock renderer will always render!
       <<-XML
@@ -61,12 +60,12 @@ module Renalware
     context "when the patient has never been sent to the UKRDC before" do
       it "'sends' a new XML file and updates the log entry correctly" do
         patient.update_by(user, sent_to_ukrdc_at: nil)
+        batch = UKRDC::Batch.next
 
         Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
           service = described_class.new(
-            request_uuid: request_uuid,
             patient: patient,
-            batch_number: 1,
+            batch: batch,
             dir: dir,
             renderer: success_renderer,
             schema: UKRDC::XsdSchema.new,
@@ -78,7 +77,9 @@ module Renalware
           log = UKRDC::TransmissionLog.where(patient: patient).last
           expect(log.error).to eq([])
           expect(log.payload_hash).to eq(xml_md5_hash)
-          expect(log.file_path).to eq(File.join(dir, "RJZ_1_#{patient.nhs_number}.xml"))
+          expect(log.file_path).to eq(
+            File.join(dir, "RJZ_#{batch.number}_#{patient.nhs_number}.xml")
+          )
           expect(File.read(log.file_path)).to eq(xml) # Check the correct content was written
         end
       end
@@ -88,8 +89,8 @@ module Renalware
             " has cause the XML content to differ" do
       let(:prevous_transmission_log) {
         UKRDC::TransmissionLog.create!(
-          request_uuid: request_uuid,
           patient: patient,
+          batch: UKRDC::Batch.next,
           status: :sent,
           sent_at: 1.week.ago,
           payload: "<xml>out of date</xml>",
@@ -99,14 +100,14 @@ module Renalware
 
       it "'sends' a new XML file and updates the log entry correctly" do
         prevous_transmission_log
+        batch = UKRDC::Batch.next
 
         Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
           service = described_class.new(
-            request_uuid: request_uuid,
+            batch: batch,
             renderer: success_renderer,
             schema: UKRDC::XsdSchema.new,
             patient: patient,
-            batch_number: 1,
             dir: dir
           )
 
@@ -115,7 +116,9 @@ module Renalware
           log = UKRDC::TransmissionLog.where(patient: patient).last
           expect(log.error).to eq([])
           expect(log.payload_hash).to eq(xml_md5_hash)
-          expect(log.file_path).to eq(File.join(dir, "RJZ_1_#{patient.nhs_number}.xml"))
+          expect(log.file_path).to eq(
+            File.join(dir, "RJZ_#{batch.number}_#{patient.nhs_number}.xml")
+          )
           expect(File.read(log.file_path)).to eq(xml) # Check the correct content was written
         end
       end
@@ -125,7 +128,7 @@ module Renalware
             " changes so the payload_hash is the same" do
       let(:prevous_transmission_log) {
         UKRDC::TransmissionLog.create!(
-          request_uuid: request_uuid,
+          batch: UKRDC::Batch.next,
           patient: patient,
           status: :sent,
           sent_at: 1.week.ago,
@@ -139,11 +142,10 @@ module Renalware
 
         Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
           service = described_class.new(
-            request_uuid: request_uuid,
+            batch: UKRDC::Batch.next,
             renderer: success_renderer,
             patient: patient,
             schema: UKRDC::XsdSchema.new,
-            batch_number: 1,
             dir: dir
           )
 
@@ -161,11 +163,10 @@ module Renalware
       it "does *not* send a new XML file but updates the log entry as unsent" do
         Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
           service = described_class.new(
-            request_uuid: request_uuid,
+            batch: UKRDC::Batch.next,
             renderer: failure_renderer,
             schema: UKRDC::XsdSchema.new,
             patient: patient,
-            batch_number: 1,
             dir: dir
           )
 

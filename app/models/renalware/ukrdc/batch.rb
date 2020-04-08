@@ -4,7 +4,7 @@ require_dependency "renalware/ukrdc"
 
 module Renalware
   module UKRDC
-    class BatchNumber < ApplicationRecord
+    class Batch < ApplicationRecord
       def self.next
         create!
       end

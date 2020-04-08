@@ -17,12 +17,13 @@ module Renalware
       }
       enum direction: { out: 0, in: 1 }
       scope :ordered, -> { order(sent_at: :asc) }
+      belongs_to :batch
 
-      def self.with_logging(patient, request_uuid, **options)
+      def self.with_logging(patient: nil, batch: nil, **options)
         log = new(
           patient: patient,
           sent_at: Time.zone.now,
-          request_uuid: request_uuid,
+          batch: batch,
           **options)
         yield log if block_given?
         log.save!

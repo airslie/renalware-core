@@ -8,7 +8,7 @@ module Renalware
     describe "#to_s" do
       subject { UKRDC::Filename.new(patient: patient, batch_number: batch_number).to_s }
 
-      let(:batch_number) { instance_double(UKRDC::BatchNumber, to_s: "000001") }
+      let(:batch_number) { instance_double(UKRDC::Batch, to_s: "000001") }
       let(:ukrdc_external_id) { nil }
       let(:nhs_number) { "" }
       let(:local_patient_id) { "" }

@@ -53,11 +53,11 @@ module Renalware
           Renalware.config.ukrdc_number_of_archived_folders_to_keep.to_i
         end
 
-        # Returns the ids of a few of the most recent BatchNumbers rows (ie the batch number) that
+        # Returns the ids of a few of the most recent Batch rows (ie the batch number) that
         # we should not delete - these being the most recent ones
         def batch_numbers_to_keep
           @batch_numbers_to_keep ||= begin
-            BatchNumber
+            Batch
               .limit(number_of_batches_to_keep)
               .order(created_at: :desc)
               .pluck(:id)
