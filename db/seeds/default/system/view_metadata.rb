@@ -63,7 +63,7 @@ module Renalware
     ) do |view|
       view.title = "All"
       view.position = 1
-      view.filters = { "schedule" => "list", "hospital_unit" => "list" }
+      view.filters = { "schedule" => "list", "hospital_unit" => "list", "named_nurse" => "list" }
       view.columns = [].to_json # empty will display all
     end
 

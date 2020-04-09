@@ -19,7 +19,9 @@ module Renalware
 
       def show
         authorize Patient, :index?
-        search = SqlView.new(view_name).klass.ransack(params[:q])
+        sql_view_klass = SqlView.new(view_name).klass
+        sql_view_klass.reset_column_information
+        search = sql_view_klass.ransack(params[:q])
         view_proc = ->(patient) { patient_transplants_mdm_path(patient_id: patient.secure_id) }
         options = MDMListOptions.new(
           search: search,

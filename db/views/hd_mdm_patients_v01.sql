@@ -17,6 +17,7 @@ select
   TXRSD."name" tx_status,
   UNIT.name as hospital_unit,
   UNIT.unit_code as dialysing_at,
+  (named_nurses.family_name::text || ', '::text) || named_nurses.given_name::text AS named_nurse,
   (HDP.document -> 'transport' ->> 'has_transport'::text) || ': ' || (HDP.document -> 'transport' ->> 'type'::text) as transport,
   (SCHED.days_text || ' ' || UPPER(DIURNAL.code)) as schedule,
   PA.values -> 'HGB' ->> 'result' as hgb,
@@ -33,6 +34,7 @@ from renalware.patients P
 inner join renalware.patient_current_modalities Mx on Mx.patient_id = P.id and Mx.modality_code = 'hd'
 left outer join renalware.hd_profiles HDP on HDP.patient_id = P.id and HDP.deactivated_at is null
 left outer join renalware.hospital_units UNIT on UNIT.id = HDP.hospital_unit_id
+LEFT JOIN users as named_nurses ON named_nurses.id = hdp.named_nurse_id
 left outer join renalware.hd_schedule_definitions SCHED on SCHED.id = HDP.schedule_definition_id
 left outer join renalware.hd_diurnal_period_codes DIURNAL on DIURNAL.id = SCHED.diurnal_period_id
 left outer join renalware.pathology_current_observation_sets PA on PA.patient_id = P.id

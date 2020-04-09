@@ -3096,92 +3096,6 @@ CREATE TABLE renalware.transplant_registrations (
 
 
 --
--- Name: hd_mdm_patients; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.hd_mdm_patients AS
- SELECT p.id,
-    p.secure_id,
-    ((upper((p.family_name)::text) || ', '::text) || (p.given_name)::text) AS patient_name,
-    p.nhs_number,
-    p.local_patient_id AS hospital_numbers,
-    p.sex,
-    p.born_on,
-    rprof.esrf_on,
-    latest_op.performed_on AS last_operation_date,
-    (date_part('year'::text, age((p.born_on)::timestamp with time zone)))::integer AS age,
-    mx.modality_name,
-    at.name AS access,
-    ap.started_on AS access_date,
-    aplantype.name AS access_plan,
-    (aplan.created_at)::date AS plan_date,
-    txrsd.name AS tx_status,
-    unit.name AS hospital_unit,
-    unit.unit_code AS dialysing_at,
-    ((((hdp.document -> 'transport'::text) ->> 'has_transport'::text) || ': '::text) || ((hdp.document -> 'transport'::text) ->> 'type'::text)) AS transport,
-    ((sched.days_text || ' '::text) || upper((diurnal.code)::text)) AS schedule,
-    ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
-    (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
-    ((pa."values" -> 'PHOS'::text) ->> 'result'::text) AS phos,
-    (((pa."values" -> 'PHOS'::text) ->> 'observed_at'::text))::date AS phos_date,
-    ((pa."values" -> 'POT'::text) ->> 'result'::text) AS pot,
-    (((pa."values" -> 'POT'::text) ->> 'observed_at'::text))::date AS pot_date,
-    ((pa."values" -> 'PTHI'::text) ->> 'result'::text) AS pthi,
-    (((pa."values" -> 'PTHI'::text) ->> 'observed_at'::text))::date AS pthi_date,
-    ((pa."values" -> 'URR'::text) ->> 'result'::text) AS urr,
-    (((pa."values" -> 'URR'::text) ->> 'observed_at'::text))::date AS urr_date
-   FROM (((((((((((((((renalware.patients p
-     JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'hd'::text))))
-     LEFT JOIN renalware.hd_profiles hdp ON (((hdp.patient_id = p.id) AND (hdp.deactivated_at IS NULL))))
-     LEFT JOIN renalware.hospital_units unit ON ((unit.id = hdp.hospital_unit_id)))
-     LEFT JOIN renalware.hd_schedule_definitions sched ON ((sched.id = hdp.schedule_definition_id)))
-     LEFT JOIN renalware.hd_diurnal_period_codes diurnal ON ((diurnal.id = sched.diurnal_period_id)))
-     LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
-     LEFT JOIN ( SELECT DISTINCT ON (access_profiles.patient_id) access_profiles.id,
-            access_profiles.patient_id,
-            access_profiles.formed_on,
-            access_profiles.started_on,
-            access_profiles.terminated_on,
-            access_profiles.type_id,
-            access_profiles.side,
-            access_profiles.notes,
-            access_profiles.created_by_id,
-            access_profiles.updated_by_id,
-            access_profiles.created_at,
-            access_profiles.updated_at,
-            access_profiles.decided_by_id
-           FROM renalware.access_profiles
-          WHERE (access_profiles.terminated_on IS NULL)
-          ORDER BY access_profiles.patient_id, access_profiles.created_at DESC) ap ON ((ap.patient_id = p.id)))
-     LEFT JOIN renalware.access_types at ON ((at.id = ap.type_id)))
-     LEFT JOIN renalware.access_plans aplan ON (((aplan.patient_id = p.id) AND (aplan.terminated_at IS NULL))))
-     LEFT JOIN renalware.access_plan_types aplantype ON ((aplantype.id = aplan.plan_type_id)))
-     LEFT JOIN renalware.transplant_registrations txr ON ((txr.patient_id = p.id)))
-     LEFT JOIN renalware.transplant_registration_statuses txrs ON (((txrs.registration_id = txr.id) AND (txrs.terminated_on IS NULL))))
-     LEFT JOIN renalware.transplant_registration_status_descriptions txrsd ON ((txrsd.id = txrs.description_id)))
-     LEFT JOIN renalware.renal_profiles rprof ON ((rprof.patient_id = p.id)))
-     LEFT JOIN ( SELECT DISTINCT ON (transplant_recipient_operations.patient_id) transplant_recipient_operations.patient_id,
-            transplant_recipient_operations.performed_on
-           FROM renalware.transplant_recipient_operations
-          ORDER BY transplant_recipient_operations.patient_id, transplant_recipient_operations.performed_on DESC) latest_op ON ((latest_op.patient_id = p.id)));
-
-
---
--- Name: patient_worries; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.patient_worries (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    created_by_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    notes text
-);
-
-
---
 -- Name: users; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -3232,6 +3146,94 @@ COMMENT ON COLUMN renalware.users.prescriber IS 'A user can only add or terminat
 
 
 --
+-- Name: hd_mdm_patients; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.hd_mdm_patients AS
+ SELECT p.id,
+    p.secure_id,
+    ((upper((p.family_name)::text) || ', '::text) || (p.given_name)::text) AS patient_name,
+    p.nhs_number,
+    p.local_patient_id AS hospital_numbers,
+    p.sex,
+    p.born_on,
+    rprof.esrf_on,
+    latest_op.performed_on AS last_operation_date,
+    (date_part('year'::text, age((p.born_on)::timestamp with time zone)))::integer AS age,
+    mx.modality_name,
+    at.name AS access,
+    ap.started_on AS access_date,
+    aplantype.name AS access_plan,
+    (aplan.created_at)::date AS plan_date,
+    txrsd.name AS tx_status,
+    unit.name AS hospital_unit,
+    unit.unit_code AS dialysing_at,
+    (((named_nurses.family_name)::text || ', '::text) || (named_nurses.given_name)::text) AS named_nurse,
+    ((((hdp.document -> 'transport'::text) ->> 'has_transport'::text) || ': '::text) || ((hdp.document -> 'transport'::text) ->> 'type'::text)) AS transport,
+    ((sched.days_text || ' '::text) || upper((diurnal.code)::text)) AS schedule,
+    ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
+    (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
+    ((pa."values" -> 'PHOS'::text) ->> 'result'::text) AS phos,
+    (((pa."values" -> 'PHOS'::text) ->> 'observed_at'::text))::date AS phos_date,
+    ((pa."values" -> 'POT'::text) ->> 'result'::text) AS pot,
+    (((pa."values" -> 'POT'::text) ->> 'observed_at'::text))::date AS pot_date,
+    ((pa."values" -> 'PTHI'::text) ->> 'result'::text) AS pthi,
+    (((pa."values" -> 'PTHI'::text) ->> 'observed_at'::text))::date AS pthi_date,
+    ((pa."values" -> 'URR'::text) ->> 'result'::text) AS urr,
+    (((pa."values" -> 'URR'::text) ->> 'observed_at'::text))::date AS urr_date
+   FROM ((((((((((((((((renalware.patients p
+     JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'hd'::text))))
+     LEFT JOIN renalware.hd_profiles hdp ON (((hdp.patient_id = p.id) AND (hdp.deactivated_at IS NULL))))
+     LEFT JOIN renalware.hospital_units unit ON ((unit.id = hdp.hospital_unit_id)))
+     LEFT JOIN renalware.users named_nurses ON ((named_nurses.id = hdp.named_nurse_id)))
+     LEFT JOIN renalware.hd_schedule_definitions sched ON ((sched.id = hdp.schedule_definition_id)))
+     LEFT JOIN renalware.hd_diurnal_period_codes diurnal ON ((diurnal.id = sched.diurnal_period_id)))
+     LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
+     LEFT JOIN ( SELECT DISTINCT ON (access_profiles.patient_id) access_profiles.id,
+            access_profiles.patient_id,
+            access_profiles.formed_on,
+            access_profiles.started_on,
+            access_profiles.terminated_on,
+            access_profiles.type_id,
+            access_profiles.side,
+            access_profiles.notes,
+            access_profiles.created_by_id,
+            access_profiles.updated_by_id,
+            access_profiles.created_at,
+            access_profiles.updated_at,
+            access_profiles.decided_by_id
+           FROM renalware.access_profiles
+          WHERE (access_profiles.terminated_on IS NULL)
+          ORDER BY access_profiles.patient_id, access_profiles.created_at DESC) ap ON ((ap.patient_id = p.id)))
+     LEFT JOIN renalware.access_types at ON ((at.id = ap.type_id)))
+     LEFT JOIN renalware.access_plans aplan ON (((aplan.patient_id = p.id) AND (aplan.terminated_at IS NULL))))
+     LEFT JOIN renalware.access_plan_types aplantype ON ((aplantype.id = aplan.plan_type_id)))
+     LEFT JOIN renalware.transplant_registrations txr ON ((txr.patient_id = p.id)))
+     LEFT JOIN renalware.transplant_registration_statuses txrs ON (((txrs.registration_id = txr.id) AND (txrs.terminated_on IS NULL))))
+     LEFT JOIN renalware.transplant_registration_status_descriptions txrsd ON ((txrsd.id = txrs.description_id)))
+     LEFT JOIN renalware.renal_profiles rprof ON ((rprof.patient_id = p.id)))
+     LEFT JOIN ( SELECT DISTINCT ON (transplant_recipient_operations.patient_id) transplant_recipient_operations.patient_id,
+            transplant_recipient_operations.performed_on
+           FROM renalware.transplant_recipient_operations
+          ORDER BY transplant_recipient_operations.patient_id, transplant_recipient_operations.performed_on DESC) latest_op ON ((latest_op.patient_id = p.id)));
+
+
+--
+-- Name: patient_worries; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.patient_worries (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    notes text
+);
+
+
+--
 -- Name: hd_mdm_patients_on_worryboard; Type: VIEW; Schema: renalware; Owner: -
 --
 
@@ -3254,6 +3256,7 @@ CREATE VIEW renalware.hd_mdm_patients_on_worryboard AS
     hdp.tx_status,
     hdp.hospital_unit,
     hdp.dialysing_at,
+    hdp.named_nurse,
     hdp.transport,
     hdp.schedule,
     hdp.hgb,
