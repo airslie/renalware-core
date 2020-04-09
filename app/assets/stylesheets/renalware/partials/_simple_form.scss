@@ -122,7 +122,7 @@
       }
     }
 
-    &.wrapper_size_large {
+    &.wrapper_size_lg {
       > .wrapper__input {
         @media #{$medium-only} {
           @include grid-column(8, $last-column: false);
@@ -133,7 +133,7 @@
       }
     }
 
-    &.wrapper_size_small {
+    &.wrapper_size_sm {
       > .wrapper__input {
         @media #{$medium-up} {
           @include grid-column(4, $last-column: false);
