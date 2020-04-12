@@ -8,7 +8,8 @@ module Renalware
       module PrimaryCarePhysicians
         describe ImportJob do
           it "imports gps" do
-            pending("PG COPY not avail on CircleCI docker setup yet") if ENV.key?("CI")
+            pending("PG COPY not avail on CI") if ENV.key?("CI")
+
             file = create(
               :feed_file,
               :primary_care_physicians,

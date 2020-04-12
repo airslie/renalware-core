@@ -12,8 +12,11 @@ module Renalware
       belongs_to :patient, touch: true
       belongs_to :referrer
       has_document class_name: "Renalware::LowClearance::ProfileDocument"
-      has_paper_trail class_name: "Renalware::LowClearance::Version",
-                      on: [:create, :update, :destroy]
+
+      has_paper_trail(
+        versions: { class_name: "Renalware::LowClearance::Version" },
+        on: [:create, :update, :destroy]
+      )
     end
   end
 end

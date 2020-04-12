@@ -14,6 +14,7 @@ module Renalware
             tmpfile = Tempfile.new("test_csv")
             tmpfile.write(content)
             tmpfile.rewind
+            ::File.chmod(0604, tmpfile)
             yield Pathname(tmpfile)
           ensure
             tmpfile.close
@@ -21,7 +22,7 @@ module Renalware
           end
 
           it "imports the GP correctly creating one active and inactive GP" do
-            pending("PG COPY not avail on CircleCI docker setup yet") if ENV.key?("CI")
+            pending("PG COPY not avail on CI") if ENV.key?("CI")
 
             # Note JONES AA is active so deleted_at will be nil
             # SMITH BB is inactive so deleted_at will be set
@@ -47,7 +48,8 @@ module Renalware
 
           context "when a GP was previously active but becomes inactive" do
             it "soft deletes it" do
-              pending("PG COPY not avail on CircleCI docker setup yet") if ENV.key?("CI")
+              pending("PG COPY not avail on CI") if ENV.key?("CI")
+
               previously_active_gp = create(
                 :primary_care_physician,
                 code: "G0102926",
@@ -72,7 +74,7 @@ module Renalware
 
           context "when a GP was previously inactive but becomes active" do
             it "removes the soft delete" do
-              pending("PG COPY not avail on CircleCI docker setup yet") if ENV.key?("CI")
+              pending("PG COPY not avail on CI") if ENV.key?("CI")
 
               previously_inactive_gp = create(
                 :primary_care_physician,
@@ -100,7 +102,8 @@ module Renalware
 
           context "when GP exists but their properties have changed" do
             it "updates appropriate properties" do
-              pending("PG COPY not avail on CircleCI docker setup yet") if ENV.key?("CI")
+              pending("PG COPY not avail on CI") if ENV.key?("CI")
+
               gp = create(
                 :primary_care_physician,
                 code: "G0102005",

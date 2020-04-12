@@ -9,7 +9,11 @@ module Renalware
       include Accountable
 
       acts_as_paranoid
-      has_paper_trail class_name: "Renalware::Problems::Version", on: [:create, :update, :destroy]
+
+      has_paper_trail(
+        versions: { class_name: "Renalware::Problems::Version" },
+        on: [:create, :update, :destroy]
+      )
 
       belongs_to :patient, touch: true
       has_many :notes, -> { ordered }, dependent: :destroy

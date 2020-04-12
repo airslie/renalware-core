@@ -32,7 +32,10 @@ module Renalware
                dependent: :destroy
       accepts_nested_attributes_for :prescription_administrations
 
-      has_paper_trail class_name: "Renalware::HD::Version", on: [:create, :update, :destroy]
+      has_paper_trail(
+        versions: { class_name: "Renalware::HD::Version" },
+        on: [:create, :update, :destroy]
+      )
 
       before_create :assign_modality
       before_save :compute_duration

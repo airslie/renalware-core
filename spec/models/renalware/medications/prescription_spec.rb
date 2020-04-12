@@ -22,6 +22,7 @@ module Renalware
           is_expected.to validate_presence_of(:provider)
           is_expected.to belong_to(:patient).touch(true)
           is_expected.to respond_to(:last_delivery_date)
+          is_expected.to be_versioned
         end
 
         describe "#valid?" do

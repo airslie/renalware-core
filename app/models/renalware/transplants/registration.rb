@@ -18,8 +18,11 @@ module Renalware
               class_name: "RegistrationStatus",
               foreign_key: "registration_id"
 
-      has_paper_trail class_name: "Renalware::Transplants::Version",
-                      on: [:create, :update, :destroy]
+      has_paper_trail(
+        versions: { class_name: "Renalware::Transplants::Version" },
+        on: [:create, :update, :destroy]
+      )
+
       has_document class_name: "Renalware::Transplants::RegistrationDocument"
 
       accepts_nested_attributes_for :statuses

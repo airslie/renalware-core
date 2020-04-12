@@ -34,7 +34,10 @@ module Renalware
 
     enumerize :marital_status, in: %i(married single divorced widowed)
 
-    has_paper_trail class_name: "Renalware::Patients::Version", on: [:create, :update, :destroy]
+    has_paper_trail(
+      versions: { class_name: "Renalware::Patients::Version" },
+      on: [:create, :update, :destroy]
+    )
 
     serialize :sex, Gender
 

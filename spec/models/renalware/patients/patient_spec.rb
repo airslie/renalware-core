@@ -266,5 +266,40 @@ module Renalware
         end
       end
     end
+
+    describe "has_paper_trail declaration" do
+      it "#create creates a new version" do
+        with_versioning do
+          expect {
+            patient = create(:patient)
+          }.to change(Patients::Version, :count).by(1)
+        end
+      end
+
+      it "#update creates a new version" do
+        patient = create(:patient)
+        with_versioning do
+          expect {
+            patient.update(family_name: "X", by: patient.created_by)
+          }.to change(Patients::Version, :count).by(1)
+        end
+      end
+
+      it "#touch does not create a new version" do
+        patient = create(:patient)
+        expect {
+          patient.touch
+        }.to change(Patients::Version, :count).by(0)
+      end
+
+      it "#destroy" do
+        patient = create(:patient)
+        with_versioning do
+          expect {
+            patient.destroy!
+          }.to change(Patients::Version, :count).by(1)
+        end
+      end
+    end
   end
 end

@@ -28,8 +28,11 @@ module Renalware
                                     reject_if: :all_blank,
                                     allow_destroy: true
 
-      has_paper_trail class_name: "Renalware::Transplants::Version",
-                      on: [:create, :update, :destroy]
+      has_paper_trail(
+        versions: { class_name: "Renalware::Transplants::Version" },
+        on: [:create, :update, :destroy]
+      )
+
       has_document class_name: "Renalware::Transplants::RecipientFollowupDocument"
 
       validates :stent_removed_on, timeliness: { type: :date, allow_blank: true }

@@ -13,6 +13,7 @@ module Renalware
         is_expected.to validate_timeliness_of(:stent_removed_on)
         is_expected.to validate_timeliness_of(:transplant_failed_on)
         is_expected.to validate_timeliness_of(:graft_nephrectomy_on)
+        is_expected.to be_versioned
       end
 
       describe "#valid?" do

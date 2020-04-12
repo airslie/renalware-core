@@ -15,6 +15,7 @@ module Renalware
         is_expected.to validate_timeliness_of(:failed_on)
         is_expected.to belong_to(:pd_catheter_insertion_technique)
         is_expected.to belong_to(:patient).touch(true)
+        is_expected.to be_versioned
       end
     end
   end
