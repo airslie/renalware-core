@@ -15,7 +15,7 @@ module Renalware
     end
 
     describe "#file via ActiveStorage" do
-      subject(:download) { create(:system_download, :with_file) }
+      subject(:download) { create(:system_download, :with_file, by: create(:user)) }
 
       let(:user) { download.updated_by }
 
@@ -34,7 +34,8 @@ module Renalware
         download = build(:system_download, file: nil)
 
         expect(download).not_to be_valid
-        expect(download.errors.first).to eq([:file, "Please specify a file to upload"])
+        expect(download.errors[:file]).to include("can't be blank")
+        expect(download.errors[:file]).to include("Please specify a file to upload")
       end
     end
   end

@@ -17,8 +17,8 @@ gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 gem "paper_trail"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
 gem "redis"
+gem "renalware-forms", "0.1.10"
 gem "ruby-prof", require: false
-# gem "renalware-forms", path: "../renalware-forms"
 
 group :test do
   gem "capybara", "~> 3.24"

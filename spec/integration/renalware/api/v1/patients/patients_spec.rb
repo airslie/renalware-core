@@ -77,8 +77,10 @@ describe "API request for a single patient JSON document", type: :system do
           "telephone" => "118118",
           "email" => "email@example.com"
         },
-        "prescriptions_url" => renalware.api_v1_patient_prescriptions_url(patient_id: patient),
-        "hd_profile_url" => renalware.api_v1_patient_hd_current_profile_url(patient_id: patient)
+        "prescriptions_url" =>
+          renalware.api_v1_patient_prescriptions_url(patient_id: patient, host: "127.0.0.1"),
+        "hd_profile_url" =>
+          renalware.api_v1_patient_hd_current_profile_url(patient_id: patient, host: "127.0.0.1")
       )
     end
   end
