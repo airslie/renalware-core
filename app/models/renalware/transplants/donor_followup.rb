@@ -11,8 +11,10 @@ module Renalware
                  foreign_key: "operation_id",
                  touch: true
 
-      has_paper_trail class_name: "Renalware::Transplants::Version",
-                      on: [:create, :update, :destroy]
+      has_paper_trail(
+        versions: { class_name: "Renalware::Transplants::Version" },
+        on: [:create, :update, :destroy]
+      )
 
       validates :last_seen_on, timeliness: { type: :date, allow_blank: true }
       validates :dead_on, timeliness: { type: :date, allow_blank: true }

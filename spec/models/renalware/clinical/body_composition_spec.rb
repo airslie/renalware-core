@@ -15,6 +15,7 @@ module Renalware
         is_expected.to validate_presence_of(:total_body_water)
         is_expected.to validate_presence_of(:assessed_on)
         is_expected.to validate_timeliness_of(:assessed_on)
+        is_expected.to be_versioned
       end
     end
   end

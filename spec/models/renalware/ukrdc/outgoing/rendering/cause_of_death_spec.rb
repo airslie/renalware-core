@@ -11,7 +11,7 @@ module Renalware
         def patient_presenter(deceased:, add_cause:)
           cause = Deaths::Cause.new(code: 1, created_at: Time.zone.parse("2019-01-01")) if add_cause
           patient = instance_double(Renalware::Patient, first_cause: cause, sent_to_ukrdc_at: nil)
-          presenter = PatientPresenter.new(patient)
+          presenter = UKRDC::PatientPresenter.new(patient)
           allow(presenter).to receive(:dead?).and_return(deceased)
           presenter
         end

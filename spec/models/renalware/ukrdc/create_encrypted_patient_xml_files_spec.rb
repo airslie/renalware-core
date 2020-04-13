@@ -37,7 +37,7 @@ module Renalware
   #       travel_to(Time.zone.now) do
   #         patient
 
-  #         expect{
+  #         expect {
   #           described_class.new.call
   #         }.to change{ patient.reload.sent_to_ukrdc_at }.to(Time.zone.now)
   #       end
@@ -54,7 +54,7 @@ module Renalware
   #       travel_to(Time.zone.now) do
   #         patient
 
-  #         expect{
+  #         expect {
   #           described_class.new.call
   #         }.to raise_error(RuntimeError)
   #         expect(patient.reload.sent_to_ukrdc_at).to be_nil # unchanged

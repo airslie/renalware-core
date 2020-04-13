@@ -30,10 +30,12 @@ module Renalware
     #         M.position_within_subgroup;
     class CodeGroup < ApplicationRecord
       include Accountable
+
       has_paper_trail(
-        class_name: "Renalware::Pathology::Version",
+        versions: { class_name: "Renalware::Pathology::Version" },
         on: [:create, :update, :destroy]
       )
+
       validates :name, presence: true, uniqueness: true
       validates :description, presence: true
       has_many(

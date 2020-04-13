@@ -11,8 +11,10 @@ module Renalware
 
       belongs_to :patient, touch: true
 
-      has_paper_trail class_name: "Renalware::Transplants::Version",
-                      on: [:create, :update, :destroy]
+      has_paper_trail(
+        versions: { class_name: "Renalware::Transplants::Version" },
+        on: [:create, :update, :destroy]
+      )
       has_document class_name: "Renalware::Transplants::DonorWorkupDocument"
     end
   end

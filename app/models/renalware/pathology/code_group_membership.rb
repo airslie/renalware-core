@@ -11,7 +11,10 @@ module Renalware
     # determines its order in the subgroup.
     class CodeGroupMembership < ApplicationRecord
       include Accountable
-      has_paper_trail class_name: "Renalware::Pathology::Version", on: [:create, :update, :destroy]
+      has_paper_trail(
+        versions: { class_name: "Renalware::Pathology::Version" },
+        on: [:create, :update, :destroy]
+      )
       validates :position_within_subgroup, presence: true
       validates :subgroup, presence: true
       belongs_to :code_group

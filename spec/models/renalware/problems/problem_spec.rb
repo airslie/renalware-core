@@ -10,6 +10,7 @@ module Renalware::Problems
       is_expected.to belong_to(:patient).touch(true)
       is_expected.to validate_presence_of :patient
       is_expected.to validate_presence_of :description
+      is_expected.to be_versioned
     end
   end
 end

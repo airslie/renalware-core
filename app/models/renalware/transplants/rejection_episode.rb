@@ -7,7 +7,7 @@ module Renalware
     class RejectionEpisode < ApplicationRecord
       include Accountable
       has_paper_trail(
-        class_name: "Renalware::Transplants::Version",
+        versions: { class_name: "Renalware::Transplants::Version" },
         on: [:create, :update, :destroy]
       )
       belongs_to :followup, class_name: "RecipientFollowup", touch: true

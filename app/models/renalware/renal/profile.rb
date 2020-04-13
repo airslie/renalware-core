@@ -9,7 +9,10 @@ module Renalware
       include Document::Base
       extend Enumerize
 
-      has_paper_trail class_name: "Renalware::Renal::Version", on: [:create, :update, :destroy]
+      has_paper_trail(
+        versions: { class_name: "Renalware::Renal::Version" },
+        on: [:create, :update, :destroy]
+      )
 
       belongs_to :patient, touch: true
       belongs_to :prd_description

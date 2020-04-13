@@ -10,9 +10,10 @@ module Renalware
           let(:uk) { create(:united_kingdom) }
 
           def with_tmpfile(content)
-            tmpfile = Tempfile.new("test_csv")
+            tmpfile = Tempfile.new("test_csv", Rails.root.join("tmp"))
             tmpfile.write(content)
             tmpfile.rewind
+            ::File.chmod(0604, tmpfile)
             yield Pathname(tmpfile)
           ensure
             tmpfile.close
@@ -21,7 +22,8 @@ module Renalware
 
           context "when there are new memberships" do
             it "imports the GP memberships" do
-              pending("PG COPY not avail on CircleCI docker setup yet") if ENV.key?("CI")
+              pending("PG COPY not avail on CI") if ENV.key?("CI")
+
               create(:practice, code: "PRAC_1")
               create(:practice, code: "PRAC_2")
               gp1 = create(:primary_care_physician, code: "GP111111")
@@ -55,7 +57,8 @@ module Renalware
 
           context "when a gp is no longer in a practice" do
             it "they are soft deleted" do
-              pending("PG COPY not avail on CircleCI docker setup yet") if ENV.key?("CI")
+              pending("PG COPY not avail on CI") if ENV.key?("CI")
+
               practice = create(:practice, code: "PRAC1")
               gp1 = create(:primary_care_physician, code: "GP1")
               gp2 = create(:primary_care_physician, code: "GP2")

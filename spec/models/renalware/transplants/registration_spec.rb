@@ -20,6 +20,7 @@ module Renalware
       it :aggregate_failures do
         is_expected.to accept_nested_attributes_for(:statuses)
         is_expected.to belong_to(:patient).touch(true)
+        is_expected.to be_versioned
       end
 
       describe "#update_attributes" do

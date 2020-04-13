@@ -18,9 +18,12 @@ module Renalware
       belongs_to :named_nurse, class_name: "User", foreign_key: "named_nurse_id"
       belongs_to :transport_decider, class_name: "User", foreign_key: "transport_decider_id"
       belongs_to :schedule_definition, foreign_key: "schedule_definition_id"
-
       has_document class_name: "Renalware::HD::ProfileDocument"
-      has_paper_trail class_name: "Renalware::HD::Version", on: [:create, :update, :destroy]
+
+      has_paper_trail(
+        versions: { class_name: "Renalware::HD::Version" },
+        on: [:create, :update, :destroy]
+      )
 
       validates :patient, presence: true
       validates :prescriber, presence: true

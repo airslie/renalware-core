@@ -13,6 +13,7 @@ module Renalware
         is_expected.to validate_timeliness_of(:donor_kidney_removed_from_ice_at)
         is_expected.to validate_timeliness_of(:kidney_perfused_with_blood_at)
         is_expected.to validate_timeliness_of(:theatre_case_start_time)
+        is_expected.to be_versioned
       end
 
       describe "#cold_ischaemic_time_formatted=" do

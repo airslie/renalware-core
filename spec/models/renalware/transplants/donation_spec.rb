@@ -13,6 +13,7 @@ module Renalware
         is_expected.to validate_timeliness_of(:workup_completed_on)
         is_expected.to validate_timeliness_of(:donated_on)
         is_expected.to belong_to(:patient).touch(true)
+        is_expected.to be_versioned
       end
 
       describe "#valid?" do
