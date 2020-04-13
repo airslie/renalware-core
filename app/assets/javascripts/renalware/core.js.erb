@@ -57,3 +57,5 @@ window.console = window.console || { log: function() {} };
 <% if Rails.env.test? %>
   $.fx.off = true;
 <% end %>
+
+$.fn.select2.defaults.set( "width", "100%" );

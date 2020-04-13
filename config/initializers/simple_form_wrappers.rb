@@ -2,13 +2,6 @@
 
 SimpleForm.setup do |config|
   def configure_label(b)
-    b.use :html5
-    b.use :placeholder
-    b.optional :maxlength
-    b.optional :pattern
-    b.optional :min_max
-    b.optional :readonly
-
     b.wrapper :label_wrapper, tag: :div, class: "wrapper__label" do |ba|
       ba.use :label
     end
@@ -24,14 +17,20 @@ SimpleForm.setup do |config|
 
   # Configure various sized wrappers. We use CSS to style the label and inputs within the top div
   # with classes of e.g. "row wrapper-medium"
-  %i(tiny small medium large).each do |size|
+  %i(xs sm md lg).each do |size|
     config.wrappers(
-      :"hz_#{size}", # eg hz_medium
+      :"hz_#{size}", # eg hz_md
       tag: "div",
       class: "row wrapper wrapper_style_horizontal wrapper_size_#{size}",
       hint_class: :field_with_hint,
       error_class: :error
     ) do |b|
+      b.use :html5
+      b.use :placeholder
+      b.optional :maxlength
+      b.optional :pattern
+      b.optional :min_max
+      b.optional :readonly
       configure_label(b)
       configure_input(b)
     end
@@ -44,6 +43,12 @@ SimpleForm.setup do |config|
     hint_class: :field_with_hint,
     error_class: :error
   ) do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
     configure_label(b)
 
     b.wrapper :right_input_wrapper, tag: :div, class: "wrapper__input" do |ba|
