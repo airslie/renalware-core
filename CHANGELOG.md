@@ -9,6 +9,15 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.149
+14-04-2020
+### Added
+### Changed
+- Changes to support Rails 6 #3210
+- Update paper_trail gem and remove deprecation warnings #3209
+- Associate UKRDC log entries with a batch #3207
+### Fixed
+
 ## 2.0.147
 30-03-2020
 ### Added
