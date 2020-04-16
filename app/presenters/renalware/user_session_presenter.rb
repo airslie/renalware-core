@@ -31,7 +31,7 @@ module Renalware
             "login-path": urls.new_user_session_path,
             "check-alive-path": urls.check_session_expired_path,
             "keep-alive-path": urls.keep_session_alive_path,
-            debug: Rails.env.development?.to_s,
+            debug: Rails.env.development?.to_s, # eg "true" or "false"
             "register-user-activity-after":
               Renalware.config.session_register_user_user_activity_after.to_i,
             timeout: ::Devise.timeout_in
