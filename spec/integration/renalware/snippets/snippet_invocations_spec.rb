@@ -12,7 +12,7 @@ describe "Invoking a snippet (indicating it has been used)", type: :request do
 
       expect(response).to be_successful
       expect(snippet.reload.times_used).to eq(1)
-      expect(response.content_type).to eq("text/javascript")
+      expect(response.media_type).to eq("text/javascript")
     end
   end
 end

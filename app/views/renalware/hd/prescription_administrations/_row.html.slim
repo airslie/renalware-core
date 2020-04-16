@@ -15,7 +15,7 @@ tbody(class=(administration.authorised? ? "authorised" : "unauthorised"))
           i.fa.fa-check-circle
         - else
           = link_to "Sign-off",
-                    edit_hd_prescription_administration_witness_path(administration),
+                    edit_hd_prescription_administration_witness_path(administration, format: :html),
                     data: { "reveal-id" => "hd-prescription-administration-modal", "reveal-ajax" => "true" }
     td.col-width-medium-with-ellipsis.show-for-large-up= administration.notes
   tr

@@ -10,7 +10,7 @@ article
                         confirm: "Are you sure you want to remove the patient's GP and practice?" }
 
     = link_to "Change",
-              edit_patient_primary_care_physician_path(patient),
+              edit_patient_primary_care_physician_path(patient, format: :html),
               class: "button change-gp",
               data: { "reveal-id" => "change-gp-modal", "reveal-ajax" => "true" }
 
