@@ -14,6 +14,7 @@
 # To access configuration settings use e.g.
 #   Renalware.config.x
 #
+# rubocop:disable Metrics/ClassLength
 module Renalware
   class Configuration
     include ActiveSupport::Configurable
@@ -35,6 +36,10 @@ module Renalware
     config_accessor(:page_title_spearator) { " : " }
     config_accessor(:patient_hospital_identifiers) { {} }
     config_accessor(:session_timeout_polling_frequency) { 1.minute }
+    config_accessor(:session_register_user_user_activity_after) { 2.minutes }
+    config_accessor(:session_expiry_use_previous_mechansim) {
+      ENV["SESSION_EXPIRY_USE_PREVIOUS_MECHANSIM"] == "true"
+    }
     config_accessor(:duration_of_last_url_memory_after_session_expiry) { 30.minutes }
     config_accessor(:broadcast_subscription_map) { {} }
     config_accessor(:include_sunday_on_hd_diaries) { false }
@@ -154,3 +159,4 @@ module Renalware
     yield config
   end
 end
+# rubocop:enable Metrics/ClassLength

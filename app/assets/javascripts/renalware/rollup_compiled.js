@@ -4036,6 +4036,173 @@ var _default$6 = function(_Controller) {
 
 _defineProperty(_default$6, "targets", [ "chart" ]);
 
+var Rails$1 = window.Rails;
+
+var _ = window._;
+
+var _default$7 = function(_Controller) {
+  _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
+  function _default() {
+    var _this;
+    _classCallCheck(this, _default);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [ this ].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "checkForSessionExpiryTimeout", null);
+    _defineProperty(_assertThisInitialized(_this), "userActivityDetected", false);
+    _defineProperty(_assertThisInitialized(_this), "checkAlivePath", null);
+    _defineProperty(_assertThisInitialized(_this), "keepAlivePath", null);
+    _defineProperty(_assertThisInitialized(_this), "loginPath", null);
+    _defineProperty(_assertThisInitialized(_this), "throttledRegisterUserActivity", null);
+    _defineProperty(_assertThisInitialized(_this), "sessionTimeoutSeconds", 0);
+    _defineProperty(_assertThisInitialized(_this), "defaultSessionTimeoutSeconds", 20 * 60);
+    _defineProperty(_assertThisInitialized(_this), "throttlePeriodSeconds", 0);
+    _defineProperty(_assertThisInitialized(_this), "defaultThrottlePeriodSeconds", 20);
+    return _this;
+  }
+  _createClass(_default, [ {
+    key: "initialize",
+    value: function initialize() {
+      this.throttlePeriodSeconds = parseInt(this.data.get("register-user-activity-after") || this.defaultThrottlePeriodSeconds);
+      this.sessionTimeoutSeconds = parseInt(this.data.get("timeout") || this.defaultSessionTimeoutSeconds);
+      this.sessionTimeoutSeconds += 10;
+      this.checkAlivePath = this.data.get("check-alive-path");
+      this.loginPath = this.data.get("login-path");
+      this.keepAlivePath = this.data.get("keep-alive-path");
+      this.logSettings();
+      this.throttledRegisterUserActivity = _.throttle(this.registerUserActivity.bind(this), this.throttlePeriodSeconds * 1e3, {
+        leading: false,
+        trailing: true
+      });
+    }
+  }, {
+    key: "connect",
+    value: function connect() {
+      if (this.onLoginPage) {
+        this.log("connect: onLoginPage - skipping session time");
+      } else {
+        this.addHandlersToMonitorUserActivity();
+        this.resetCheckForSessionExpiryTimeout(this.sessionTimeoutSeconds);
+      }
+    }
+  }, {
+    key: "disconnect",
+    value: function disconnect() {
+      if (!this.onLoginPage) {
+        this.removeUserActivityHandlers();
+        clearTimeout(this.checkForSessionExpiryTimeout);
+      }
+    }
+  }, {
+    key: "sendLogoutMessageToAnyOpenTabs",
+    value: function sendLogoutMessageToAnyOpenTabs() {
+      window.localStorage.setItem("logout-event", "logout" + Math.random());
+    }
+  }, {
+    key: "registerUserActivity",
+    value: function registerUserActivity() {
+      this.sendRequestToKeepSessionAlive();
+      this.resetCheckForSessionExpiryTimeout(this.sessionTimeoutSeconds);
+    }
+  }, {
+    key: "resetCheckForSessionExpiryTimeout",
+    value: function resetCheckForSessionExpiryTimeout(intervalSeconds) {
+      this.log("resetting session expiry timeout ".concat(intervalSeconds));
+      clearTimeout(this.checkForSessionExpiryTimeout);
+      this.checkForSessionExpiryTimeout = setTimeout(this.checkForSessionExpiry.bind(this), intervalSeconds * 1e3);
+    }
+  }, {
+    key: "checkForSessionExpiry",
+    value: function checkForSessionExpiry() {
+      this.sendRequestToTestForSessionExpiry();
+      this.resetCheckForSessionExpiryTimeout(this.throttlePeriodSeconds * 2);
+    }
+  }, {
+    key: "sendRequestToKeepSessionAlive",
+    value: function sendRequestToKeepSessionAlive() {
+      this.ajaxGet(this.keepAlivePath);
+    }
+  }, {
+    key: "sendRequestToTestForSessionExpiry",
+    value: function sendRequestToTestForSessionExpiry() {
+      this.log("checking for session expiry");
+      this.ajaxGet(this.checkAlivePath);
+    }
+  }, {
+    key: "ajaxGet",
+    value: function ajaxGet(path) {
+      Rails$1.ajax({
+        type: "GET",
+        url: path,
+        dataType: "text",
+        error: this.reloadPageIfAjaxRequestWasUnauthorised.bind(this)
+      });
+    }
+  }, {
+    key: "reloadPageIfAjaxRequestWasUnauthorised",
+    value: function reloadPageIfAjaxRequestWasUnauthorised(responseText, status, xhr) {
+      if (xhr.status == 401) {
+        window.location.reload();
+        this.sendLogoutMessageToAnyOpenTabs();
+      }
+    }
+  }, {
+    key: "addHandlersToMonitorUserActivity",
+    value: function addHandlersToMonitorUserActivity() {
+      document.addEventListener("click", this.throttledRegisterUserActivity.bind(this));
+      document.addEventListener("keydown", this.throttledRegisterUserActivity.bind(this));
+      window.addEventListener("resize", this.throttledRegisterUserActivity.bind(this));
+      window.addEventListener("storage", this.storageChange.bind(this));
+    }
+  }, {
+    key: "removeUserActivityHandlers",
+    value: function removeUserActivityHandlers() {
+      document.removeEventListener("click", this.throttledRegisterUserActivity.bind(this));
+      document.removeEventListener("keydown", this.throttledRegisterUserActivity.bind(this));
+      window.removeEventListener("resize", this.throttledRegisterUserActivity.bind(this));
+      window.removeEventListener("storage", this.storageChange.bind(this));
+    }
+  }, {
+    key: "logSettings",
+    value: function logSettings() {
+      if (this.debug) {
+        this.log("keepAlivePath ".concat(this.keepAlivePath));
+        this.log("checkAlivePath ".concat(this.checkAlivePath));
+        this.log("loginPath ".concat(this.loginPath));
+        this.log("sessionTimeoutSeconds ".concat(this.sessionTimeoutSeconds));
+        this.log("throttlePeriodSeconds ".concat(this.throttlePeriodSeconds));
+      }
+    }
+  }, {
+    key: "log",
+    value: function log(msg) {
+      if (this.debug) {
+        console.log(msg);
+      }
+    }
+  }, {
+    key: "storageChange",
+    value: function storageChange(event) {
+      if (event.key == "logout-event") {
+        setTimeout(this.sendRequestToTestForSessionExpiry.bind(this), 2e3);
+      }
+    }
+  }, {
+    key: "onLoginPage",
+    get: function get() {
+      return window.location.pathname == this.loginPath;
+    }
+  }, {
+    key: "debug",
+    get: function get() {
+      return this.data.get("debug");
+    }
+  } ]);
+  return _default;
+}(Controller);
+
 var application = Application.start();
 
 application.register("toggle", _default);
@@ -4051,5 +4218,7 @@ application.register("letters-form", _default$4);
 application.register("prescriptions", _default$5);
 
 application.register("charts", _default$6);
+
+application.register("session", _default$7);
 
 window.Chartkick.use(window.Highcharts);

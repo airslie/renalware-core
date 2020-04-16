@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "test_support/ajax_helpers"
 
 describe "Session timeout", type: :system, js: true do
-  include AjaxHelpers
-
   around do |example|
     original_session_timeout = Devise.timeout_in
-    Devise.timeout_in = 0.5.seconds
+    # see sessions_controller.js - we set the session timeout to be in the past
+    # because we add an X second buffer in that file.
+    Devise.timeout_in = -20.seconds
 
     example.run
 
@@ -16,26 +15,16 @@ describe "Session timeout", type: :system, js: true do
   end
 
   it "A user is redirected by JS to the login page when their session expires" do
+    Renalware.config.session_timeout_polling_frequency = 1.second
+    Renalware.config.session_register_user_user_activity_after = 2.seconds
     login_as_clinical
 
     visit root_path
 
-    # Expect to be on the user's dashboard
     expect(page).to have_current_path(root_path)
 
-    100.times do
-      sleep 0.3
-      # Because we don't want to wait for the default session timeout polling freq
-      # to pass (could be 20 seconds), manually invoke the global sessionTimeoutCheck
-      # JavaScript function to force a check (and redirect if the session has expired).
-      # However we can expect an exception on the first and possibly second attempts
-      # as the JS has not loaded yet, with
-      #  TypeError: undefined is not a constructor (evaluating 'window.sessionTimeoutCheck()')
-      begin
-        page.execute_script("window.sessionTimeoutCheck()")
-      rescue Capybara::Poltergeist::JavascriptError
-        # noop
-      end
+    10.times do
+      sleep 0.5
       break if page.current_path == new_user_session_path
     end
 
@@ -43,4 +32,7 @@ describe "Session timeout", type: :system, js: true do
     # to the login page
     expect(page).to have_current_path(new_user_session_path)
   end
+
+  it "restarts the session window when the user clicks the page"
+  it "restarts the session window when the user presses a key"
 end

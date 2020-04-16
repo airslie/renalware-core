@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This controller exposes a has_user_timed_out action which is invoked via Ajax on a JavaScript
+# This controller exposes a check_session_expired action which is invoked via Ajax on a JavaScript
 # timer and will cause the user to be redirected to the login page if their session has expired
 # due to a period of activity. The redirect happens because of a generic Ajax error handling
 # JavaScript - see ajax_errors.js - which causes the page to reload after any Ajax 401 error
@@ -11,35 +11,38 @@
 #
 module Renalware
   class SessionTimeoutController < BaseController
-    prepend_before_action :skip_timeout, only: :has_user_timed_out
-    skip_before_action :authenticate_user!, only: :has_user_timed_out
-    skip_before_action :track_ahoy_visit, only: :has_user_timed_out
-    protect_from_forgery except: [:has_user_timed_out, :reset_user_clock]
+    prepend_before_action :skip_timeout, only: :check_session_expired
+    skip_before_action :authenticate_user!, only: :check_session_expired
+    skip_before_action :track_ahoy_visit
+    protect_from_forgery only: []
+    after_action :track_action, only: []
 
     # Note this action will NOT update the session activity (thus keeping the session alive)
     # because we invoke #skip_timeout at the beginning of the filter chain.
     # We could return the amount of time remaining before the session expires like so
     #   time_left = Devise.timeout_in - (Time.now - user_session["last_request_at"]).round
     # and display this to the user if required.
-    # rubocop :disable Naming/PredicateName
-    def has_user_timed_out
-      skip_authorization
+    def check_session_expired
+      skip_authorization # pundit
       if referrer_is_a_devise_url? || !current_users_session_has_timed_out?
-        head(:ok)
+        head :ok
       else
-        flash[:notice] = "Your session timed due to inactivity. Please log in again."
         head :unauthorized
       end
     end
-    # rubocop :enable Naming/PredicateName
 
-    # A user could invoke this action to keep their session alive, by for example
-    # clicking on a "Keep my session active" button which makes an ajax call to this action.
-    # Note this will keep the session alive because we have not invoked skip_timeout before
-    # action, so, like all actions on all controllers, the user's last_request_at time stamp is
+    # session_controller.js invoked this action to when there is user activity on the page
+    # to update the session window.
+    # Note this will keep the session alive because we have NOT invoked skip_timeout before the
+    # action, so, like all controller actions, the user's last_request_at time stamp is
     # updated in their session cookie.
-    def reset_user_clock
-      head :ok
+    def keep_session_alive
+      skip_authorization # pundit
+      if referrer_is_a_devise_url? || !current_users_session_has_timed_out?
+        head :ok
+      else
+        head :unauthorized
+      end
     end
 
     private

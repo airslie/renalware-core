@@ -25,7 +25,8 @@ devise_for :users,
 
 # An ajax-polled route which will cause the users browser to redirect to the login page
 #  when their session expires
-get "/session_timed_out" => "session_timeout#has_user_timed_out", as: "session_timed_out"
+get "/check_session_expired" => "session_timeout#check_session_expired", as: "check_session_expired"
+get "/keep_session_alive" => "session_timeout#keep_session_alive", as: "keep_session_alive"
 
 super_admin_constraint = lambda do |request|
   current_user = request.env["warden"].user || Renalware::NullUser.new

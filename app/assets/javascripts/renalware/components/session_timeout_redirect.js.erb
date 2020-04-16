@@ -6,27 +6,32 @@
 // Note we don't want to poll if we are sat on the login page anyway. For one thing on Heroku it
 // would prevent a dyno sleeping, but its also a waste of resources.
 //
-$(document).ready(function() {
-  var login_path ="<%= Renalware::Engine.routes.url_helpers.new_user_session_path %>";
-  var defaultPollFreq = <%= Renalware.config.session_timeout_polling_frequency.to_i %>;
-  var frequency_s = defaultPollFreq;
+// Note this mechanism has been superceded by the session_timeout.js stimulus controller.
+//
 
-  // This is a global window function so that we can call it directly from capybara tests to
-  // bypass having to wait for the session polling interval to tick over.
-  window.sessionTimeoutCheck = function(){
-    if(window.location.pathname != login_path) {
-      Rails.ajax({
-        type: "GET",
-        url: "<%= Renalware::Engine.routes.url_helpers.session_timed_out_path %>",
-        dataType: "html",
-        error: function(responseText, status, xhr) {
-          if (xhr.status == 401) {
-            window.location.reload()
+<% if Renalware.config.session_expiry_use_previous_mechansim %>
+  $(document).ready(function() {
+    var login_path ="<%= Renalware::Engine.routes.url_helpers.new_user_session_path %>";
+    var defaultPollFreq = <%= Renalware.config.session_timeout_polling_frequency.to_i %>;
+    var frequency_s = defaultPollFreq;
+
+    // This is a global window function so that we can call it directly from capybara tests to
+    // bypass having to wait for the session polling interval to tick over.
+    window.sessionTimeoutCheck = function(){
+      if(window.location.pathname != login_path) {
+        Rails.ajax({
+          type: "GET",
+          url: "<%= Renalware::Engine.routes.url_helpers.check_session_expired_path %>",
+          dataType: "html",
+          error: function(responseText, status, xhr) {
+            if (xhr.status == 401) {
+              window.location.reload()
+            }
           }
-        }
-      });
-    }
-  };
+        });
+      }
+    };
 
-  setInterval(window.sessionTimeoutCheck, (frequency_s * 1000));
-});
+    setInterval(window.sessionTimeoutCheck, (frequency_s * 1000));
+  });
+<% end %>

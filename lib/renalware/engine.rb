@@ -110,7 +110,8 @@ module Renalware
         # need to see them. 100 users with an active session polling every minute will add
         # up to fair number of log entries.
         app.config.lograge.ignore_actions = [
-          "Renalware::SessionTimeoutController#has_user_timed_out"
+          "Renalware::SessionTimeoutController#check_session_expired",
+          "Renalware::SessionTimeoutController#keep_session_alive"
         ]
       end
     end
