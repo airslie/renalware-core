@@ -1,5 +1,0 @@
-/ Render as tabs all the views in the views array
-dl.sub-nav
-  - options.views.each do |view|
-    dd
-      = link_to view.title, patients_mdms_path(scope: view.scope, filter: view.slug)

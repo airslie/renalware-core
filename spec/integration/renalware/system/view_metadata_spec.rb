@@ -9,7 +9,7 @@ describe Renalware::System::ViewMetadata, type: :request do
 
       get edit_system_view_metadatum_path(view)
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response.body).to match("Edit")
     end
   end

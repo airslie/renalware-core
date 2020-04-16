@@ -11,7 +11,6 @@ module Renalware
         attr_reader_initialize [
           :search!,
           :patients!,
-          :views!,
           :current_view!,
           :view_proc!
         ]
@@ -26,7 +25,6 @@ module Renalware
         options = MDMListOptions.new(
           search: search,
           patients: search.result.page(page).per(per_page).load,
-          views: views,
           current_view: current_view,
           view_proc: view_proc
         )

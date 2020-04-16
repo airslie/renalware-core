@@ -3003,6 +3003,21 @@ CREATE VIEW renalware.patient_current_modalities AS
 
 
 --
+-- Name: patient_worries; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.patient_worries (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    notes text
+);
+
+
+--
 -- Name: renal_profiles; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -3161,6 +3176,10 @@ CREATE VIEW renalware.hd_mdm_patients AS
     latest_op.performed_on AS last_operation_date,
     (date_part('year'::text, age((p.born_on)::timestamp with time zone)))::integer AS age,
     mx.modality_name,
+        CASE
+            WHEN (pw.id > 0) THEN true
+            ELSE false
+        END AS on_worryboard,
     at.name AS access,
     ap.started_on AS access_date,
     aplantype.name AS access_plan,
@@ -3181,11 +3200,12 @@ CREATE VIEW renalware.hd_mdm_patients AS
     (((pa."values" -> 'PTHI'::text) ->> 'observed_at'::text))::date AS pthi_date,
     ((pa."values" -> 'URR'::text) ->> 'result'::text) AS urr,
     (((pa."values" -> 'URR'::text) ->> 'observed_at'::text))::date AS urr_date
-   FROM ((((((((((((((((renalware.patients p
+   FROM (((((((((((((((((renalware.patients p
      JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'hd'::text))))
      LEFT JOIN renalware.hd_profiles hdp ON (((hdp.patient_id = p.id) AND (hdp.deactivated_at IS NULL))))
      LEFT JOIN renalware.hospital_units unit ON ((unit.id = hdp.hospital_unit_id)))
      LEFT JOIN renalware.users named_nurses ON ((named_nurses.id = hdp.named_nurse_id)))
+     LEFT JOIN renalware.patient_worries pw ON ((pw.patient_id = p.id)))
      LEFT JOIN renalware.hd_schedule_definitions sched ON ((sched.id = hdp.schedule_definition_id)))
      LEFT JOIN renalware.hd_diurnal_period_codes diurnal ON ((diurnal.id = sched.diurnal_period_id)))
      LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
@@ -3216,65 +3236,6 @@ CREATE VIEW renalware.hd_mdm_patients AS
             transplant_recipient_operations.performed_on
            FROM renalware.transplant_recipient_operations
           ORDER BY transplant_recipient_operations.patient_id, transplant_recipient_operations.performed_on DESC) latest_op ON ((latest_op.patient_id = p.id)));
-
-
---
--- Name: patient_worries; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.patient_worries (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    created_by_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    notes text
-);
-
-
---
--- Name: hd_mdm_patients_on_worryboard; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.hd_mdm_patients_on_worryboard AS
- SELECT hdp.id,
-    hdp.secure_id,
-    hdp.patient_name,
-    hdp.nhs_number,
-    hdp.hospital_numbers,
-    hdp.sex,
-    hdp.born_on,
-    hdp.esrf_on,
-    hdp.last_operation_date,
-    hdp.age,
-    hdp.modality_name,
-    hdp.access,
-    hdp.access_date,
-    hdp.access_plan,
-    hdp.plan_date,
-    hdp.tx_status,
-    hdp.hospital_unit,
-    hdp.dialysing_at,
-    hdp.named_nurse,
-    hdp.transport,
-    hdp.schedule,
-    hdp.hgb,
-    hdp.hgb_date,
-    hdp.phos,
-    hdp.phos_date,
-    hdp.pot,
-    hdp.pot_date,
-    hdp.pthi,
-    hdp.pthi_date,
-    hdp.urr,
-    hdp.urr_date,
-    (w.created_at)::date AS added_to_worryboard_on,
-    u.username AS added_to_worryboard_by
-   FROM (((renalware.hd_mdm_patients hdp
-     JOIN renalware.patients p ON ((p.id = hdp.id)))
-     JOIN renalware.patient_worries w ON ((w.patient_id = p.id)))
-     JOIN renalware.users u ON ((u.id = w.created_by_id)));
 
 
 --
@@ -9158,6 +9119,18 @@ CREATE VIEW renalware.transplant_mdm_patients AS
     latest_op.performed_on AS last_operation_date,
     (date_part('year'::text, age((p.born_on)::timestamp with time zone)))::integer AS age,
     mx.modality_name,
+        CASE
+            WHEN (pw.id > 0) THEN true
+            ELSE false
+        END AS on_worryboard,
+        CASE
+            WHEN (latest_op.performed_on >= (now() - '3 mons'::interval)) THEN true
+            ELSE false
+        END AS tx_in_past_3m,
+        CASE
+            WHEN (latest_op.performed_on >= (now() - '1 year'::interval)) THEN true
+            ELSE false
+        END AS tx_in_past_12m,
     txrsd.name AS tx_status,
     ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
     (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
@@ -9166,9 +9139,10 @@ CREATE VIEW renalware.transplant_mdm_patients AS
     ((pa."values" -> 'CRE'::text) ->> 'result'::text) AS cre,
     (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
     ((pa."values" -> 'EGFR'::text) ->> 'result'::text) AS egfr_on
-   FROM (((((((renalware.patients p
+   FROM ((((((((renalware.patients p
      JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'transplant'::text))))
      LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
+     LEFT JOIN renalware.patient_worries pw ON ((pw.patient_id = p.id)))
      LEFT JOIN renalware.transplant_registrations txr ON ((txr.patient_id = p.id)))
      LEFT JOIN renalware.transplant_registration_statuses txrs ON (((txrs.registration_id = txr.id) AND (txrs.terminated_on IS NULL))))
      LEFT JOIN renalware.transplant_registration_status_descriptions txrsd ON ((txrsd.id = txrs.description_id)))
@@ -9189,94 +9163,6 @@ CREATE VIEW renalware.transplant_mdm_patients AS
             transplant_recipient_operations.updated_at
            FROM renalware.transplant_recipient_operations
           ORDER BY transplant_recipient_operations.patient_id, transplant_recipient_operations.performed_on DESC) latest_op ON ((latest_op.patient_id = p.id)));
-
-
---
--- Name: transplant_mdm_patients_on_worryboard; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.transplant_mdm_patients_on_worryboard AS
- SELECT tp.id,
-    tp.secure_id,
-    tp.patient_name,
-    tp.nhs_number,
-    tp.hospital_numbers,
-    tp.sex,
-    tp.born_on,
-    tp.esrf_on,
-    tp.last_operation_date,
-    tp.age,
-    tp.modality_name,
-    tp.tx_status,
-    tp.hgb,
-    tp.hgb_date,
-    tp.ure,
-    tp.ure_date,
-    tp.cre,
-    tp.cre_date,
-    tp.egfr_on,
-    (w.created_at)::date AS added_to_worryboard_on,
-    u.username AS added_to_worryboard_by
-   FROM (((renalware.transplant_mdm_patients tp
-     JOIN renalware.patients p ON ((p.id = tp.id)))
-     JOIN renalware.patient_worries w ON ((w.patient_id = p.id)))
-     JOIN renalware.users u ON ((u.id = w.created_by_id)));
-
-
---
--- Name: transplant_mdm_patients_op_in_past_3m; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.transplant_mdm_patients_op_in_past_3m AS
- SELECT tp.id,
-    tp.secure_id,
-    tp.patient_name,
-    tp.nhs_number,
-    tp.hospital_numbers,
-    tp.sex,
-    tp.born_on,
-    tp.esrf_on,
-    tp.last_operation_date,
-    tp.age,
-    tp.modality_name,
-    tp.tx_status,
-    tp.hgb,
-    tp.hgb_date,
-    tp.ure,
-    tp.ure_date,
-    tp.cre,
-    tp.cre_date,
-    tp.egfr_on
-   FROM renalware.transplant_mdm_patients tp
-  WHERE (tp.last_operation_date >= (now() - '3 mons'::interval));
-
-
---
--- Name: transplant_mdm_patients_op_in_past_year; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.transplant_mdm_patients_op_in_past_year AS
- SELECT tp.id,
-    tp.secure_id,
-    tp.patient_name,
-    tp.nhs_number,
-    tp.hospital_numbers,
-    tp.sex,
-    tp.born_on,
-    tp.esrf_on,
-    tp.last_operation_date,
-    tp.age,
-    tp.modality_name,
-    tp.tx_status,
-    tp.hgb,
-    tp.hgb_date,
-    tp.ure,
-    tp.ure_date,
-    tp.cre,
-    tp.cre_date,
-    tp.egfr_on
-   FROM renalware.transplant_mdm_patients tp
-  WHERE (tp.last_operation_date >= (now() - '1 year'::interval));
 
 
 --
@@ -20430,14 +20316,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200122182018'),
 ('20200122182036'),
 ('20200122190909'),
-('20200122194052'),
 ('20200127165951'),
 ('20200127170711'),
 ('20200129093835'),
-('20200131130729'),
-('20200131131652'),
 ('20200131133223'),
-('20200131180109'),
 ('20200204153231'),
 ('20200205121805'),
 ('20200205185151'),
