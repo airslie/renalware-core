@@ -4197,7 +4197,7 @@ var _default$7 = function(_Controller) {
   }, {
     key: "debug",
     get: function get() {
-      return this.data.get("debug");
+      return this.data.get("debug") === "true";
     }
   } ]);
   return _default;

@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.150
+16-04-2020
+### Added
+### Changed
+### Fixed
+- Session timeout debugging was always on and logging to console
+
 ## 2.0.149
 14-04-2020
 ### Added

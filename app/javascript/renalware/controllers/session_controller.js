@@ -218,6 +218,6 @@ export default class extends Controller {
   // If you add data-session-debug=1 then logging will be enabled
   // This is evaluated each time we can add debugging into a running page
   get debug() {
-    return this.data.get("debug")
+    return this.data.get("debug") === "true"
   }
 }
