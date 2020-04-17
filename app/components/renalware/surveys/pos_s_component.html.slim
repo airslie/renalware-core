@@ -1,6 +1,3 @@
-/
-/ TODO: this could do with refactoring to move the formatting code into a helper or presenter.
-/
 .summary-part--pos_s
   article
     header
@@ -12,7 +9,7 @@
     / br
     / br
 
-    - return if pos_s_summary_part.rows.blank?
+    - return if rows.blank?
 
     br
     br
@@ -25,19 +22,19 @@
             th.togglers= rows_toggler
             th.col-width-date.valign-bottom Date
             th.col-width-tiny.valign-bottom Total
-            - pos_s_summary_part.question_labels.each do |code, label|
+            - question_labels.each do |code, label|
               th.rotate
                 div
                   span= label
 
         - superscript_char = 97
-        - pos_s_summary_part.rows.each do |row|
+        - rows.each do |row|
           tbody
             tr
               td= row_toggler
               td= row.answered_on
               td= row.total_score
-              - pos_s_summary_part.question_labels.each do |code, label|
+              - question_labels.each do |code, label|
                 - value = row.send(code.to_sym)
                 - patient_question_text = row.try(:"#{code}_patient_question_text")
                 td(class="pos-s--#{value}")
@@ -52,9 +49,9 @@
                 | &nbsp;
               td
               td
-              td(class="summary-part--pos_s-patient-question-text" colspan=(pos_s_summary_part.question_labels.count ))
+              td(class="summary-part--pos_s-patient-question-text" colspan=(question_labels.count ))
                 - superscript_char = 97
-                - pos_s_summary_part.question_labels.each do |code, label|
+                - question_labels.each do |code, label|
                   - patient_question_text = row.try(:"#{code}_patient_question_text")
                   - if patient_question_text
                     sup= superscript_char.chr

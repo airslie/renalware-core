@@ -1,8 +1,8 @@
 = within_patient_layout(title: "PROMS") do
 
-  = render Renalware::Surveys::EQ5DSummaryPart.new(patient, current_user)
+  = render Renalware::Surveys::EQ5DComponent.new(patient: patient)
   br
-  = render Renalware::Surveys::POSSSummaryPart.new(patient, current_user)
+  = render Renalware::Surveys::POSSComponent.new(patient: patient)
 
   / .summary-part--eq5d
   /   article
