@@ -17,6 +17,8 @@ module Renalware
     end
 
     def self.new_from(years:, months:, **)
+      years = years&.to_i
+      months = months&.to_i
       new.tap do |age|
         if years && months
           if years < age_in_months_threshold
@@ -39,7 +41,7 @@ module Renalware
     def validate_unit
       return if amount.blank?
 
-      if amount < Age.age_in_months_threshold && unit.to_sym != :months
+      if amount.to_i < Age.age_in_months_threshold && unit.to_sym != :months
         errors.add(:unit, :invalid_unit)
       end
     end

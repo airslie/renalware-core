@@ -10,6 +10,18 @@ module Renalware
 
         it { is_expected.not_to be_valid }
       end
+
+      context "when amount is a string starting with a number" do
+        subject { Age.new(amount: "10s", unit: :years) }
+
+        it { is_expected.to be_valid }
+      end
+
+      context "when amount is a string and it is coerced to 0" do
+        subject { Age.new(amount: "s10", unit: :years) }
+
+        it { is_expected.not_to be_valid }
+      end
     end
 
     describe ".new_from" do
@@ -31,6 +43,18 @@ module Renalware
         let(:parts) { { years: 2, months: 11, days: 27 } }
 
         it { is_expected.to have_attributes(amount: 35, unit: "months") }
+      end
+
+      context "when values are numeric strings" do
+        let(:parts) { { years: "2", months: "11", days: "27" } }
+
+        it { is_expected.to have_attributes(amount: 35, unit: "months") }
+      end
+
+      context "when values are non numeric strings" do
+        let(:parts) { { years: "s2", months: "s11", days: "s27" } }
+
+        it { is_expected.to have_attributes(amount: 0, unit: "months") }
       end
     end
   end
