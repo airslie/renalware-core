@@ -4,23 +4,23 @@
       h2 EQ5D
 
     / b Example WIP for charting one question over time
-    / = line_chart(eq5d_summary_part.data_for_question_code(1), curve: false)
+    / = line_chart(data_for_question_code(1), curve: false)
     / br
     / br
     / br
 
-    - return if eq5d_summary_part.rows.blank?
+    - return if rows.blank?
 
     .xsss
       table
         thead
           tr
             th.col-width-date Date
-            - eq5d_summary_part.question_labels.each do |code, label|
+            - question_labels.each do |code, label|
               th= label
         tbody
-          - eq5d_summary_part.rows.each do |row|
+          - rows.each do |row|
             tr
               td= row.answered_on
-              - eq5d_summary_part.question_labels.each do |code, label|
+              - question_labels.each do |code, label|
                 td= row.send(code.to_sym)

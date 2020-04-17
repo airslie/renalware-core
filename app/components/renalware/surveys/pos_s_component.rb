@@ -4,19 +4,31 @@ require_dependency "renalware/surveys"
 
 module Renalware
   module Surveys
-    class EQ5DSummaryPart < Renalware::SummaryPart
+    class POSSComponent < ApplicationComponent
+      include ToggleHelper
+
+      attr_reader :patient
+
+      def initialize(patient:)
+        @patient = patient
+      end
+
+      # Backed by a SQL view
       def rows
-        @rows ||= EQ5DPivotedResponse.where(patient_id: patient.id)
+        @rows ||= POSSPivotedResponse.where(patient_id: patient.id)
       end
 
       def question_labels
-        survey
-          .questions
-          .order(:position)
-          .select(:code, :label)
-          .each_with_object({}) { |q, hash| hash[q.code] = q.label }
+        @question_labels ||= begin
+          survey
+            .questions
+            .order(:position)
+            .select(:code, :label, :label_abbrv)
+            .each_with_object({}) { |q, hash| hash[q.code] = q.admin_label }
+        end
       end
 
+      # Return data for charting
       def data_for_question_code(_code)
         Renalware::Surveys::Response
           .where(patient_id: patient.id, question_id: 1)
@@ -30,7 +42,7 @@ module Renalware
 
           headings.concat(
             Renalware::Survey
-            .find_by!(code: "eq5d")
+            .find_by!(code: "prom")
             .questions
             .order(:position)
             .pluck(:label)
@@ -39,12 +51,8 @@ module Renalware
         end
       end
 
-      def to_partial_path
-        "renalware/surveys/eq5d_summary_part"
-      end
-
       def survey
-        @survey ||= Renalware::Surveys::Survey.find_by!(code: "eq5d")
+        @survey ||= Renalware::Surveys::Survey.find_by!(code: "prom")
       end
     end
   end
