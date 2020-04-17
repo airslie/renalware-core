@@ -5,9 +5,9 @@ require "rails_helper"
 describe "Session timeout", type: :system, js: true do
   around do |example|
     original_session_timeout = Devise.timeout_in
-    # see sessions_controller.js - we set the session timeout to be in the past
-    # because we add an X second buffer in that file.
-    Devise.timeout_in = -20.seconds
+    # see sessions_controller.js - we set the session timeout to be almost in the past
+    # because we add an 10 second buffer in that file.
+    Devise.timeout_in = -8.seconds
 
     example.run
 
