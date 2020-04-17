@@ -14,7 +14,7 @@ module Renalware
       scope :reversed, -> { order(started_on: :desc, created_at: :desc) }
 
       validates :description_id, presence: true
-      validates :started_on, timeliness: { type: :date, allow_blank: false }
+      validates :started_on, presence: true, timeliness: { type: :date, allow_blank: false }
       validates :terminated_on, timeliness: { type: :date, allow_blank: true }
 
       validate :constraint_started_on_today_or_before, if: :started_on

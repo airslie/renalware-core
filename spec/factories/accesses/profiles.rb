@@ -7,6 +7,7 @@ FactoryBot.define do
     type { create(:access_type) }
     side { :right }
     formed_on { Time.zone.today }
+    started_on { Time.zone.today }
 
     trait :current do
       started_on { 1.day.ago }
