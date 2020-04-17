@@ -44,7 +44,7 @@ describe "AKI alert management", type: :request do
 
         expect(response.body).to match("yesterday")
         expect(response.body).to match("Patient1")
-        expect(response.body).to match(I18n.l(Time.zone.today - 1 .day))
+        expect(response.body).to match(I18n.l(Time.zone.today - 1.day))
         expect(response.body).to match(hospital_ward.name)
       end
     end

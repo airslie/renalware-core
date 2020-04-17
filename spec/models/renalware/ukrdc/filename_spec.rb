@@ -24,7 +24,7 @@ module Renalware
         )
       end
 
-      before { allow(Renalware.config).to receive(:ukrdc_site_code). and_return("XYZ") }
+      before { allow(Renalware.config).to receive(:ukrdc_site_code).and_return("XYZ") }
 
       context "when the patient has an NHS number" do
         let(:nhs_number) { "0123456789" }

@@ -43,7 +43,7 @@ describe Renalware::Admissions::Admission, type: :model do
         discharged_on: nil
       )
 
-      expect(described_class.currently_admitted). to eq [current_admission]
+      expect(described_class.currently_admitted).to eq [current_admission]
     end
   end
 

@@ -11,7 +11,7 @@ module Renalware
       def index
         observation_requests = find_observation_requests
         render locals: {
-          observation_requests: observation_requests.result .page(page).per(per_page),
+          observation_requests: observation_requests.result.page(page).per(per_page),
           search: observation_requests,
           obr_filter_options: obr_filter_options,
           patient: @patient
