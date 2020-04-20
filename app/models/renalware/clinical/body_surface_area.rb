@@ -12,33 +12,31 @@ require "document/base"
 module Renalware
   module Clinical
     class BodySurfaceArea
-      pattr_initialize [:patient!, dp: 3]
+      pattr_initialize [:patient!]
 
-      def calculate
-        return 0 if most_recent_height.zero?
-        return 0 if most_recent_weight.zero?
+      def calculate(dp: 2)
+        return 0 if most_recent_height_cm.zero?
+        return 0 if most_recent_weight_kg.zero?
 
         # NB ** is ruby syntax for power of (^)
-        result = 0.007184 * (most_recent_weight**0.425) * (most_recent_height**0.725)
+        result = 0.007184 * (most_recent_weight_kg**0.425) * (most_recent_height_cm**0.725)
         result.round(dp)
       end
 
-      def most_recent_height
-        most_recent_visit_where_weight_was_measured&.height.to_f
+      def most_recent_height_cm
+        most_recent_visit_where_weight_was_measured&.height.to_f * 100
       end
 
-      def most_recent_weight
+      def most_recent_weight_kg
         most_recent_visit_where_weight_was_measured&.weight.to_f
       end
 
       def most_recent_visit_where_weight_was_measured
         @most_recent_visit_where_weight_was_measured ||= begin
           Clinics::ClinicVisit
-            .for_patient(patient)
+            .most_recent_for_patient(patient)
+            .where_weight_was_measured
             .select(:weight, :height)
-            .where("weight > 0")
-            .order(date: :desc, created_at: :desc)
-            .limit(1)
             .first
         end
       end

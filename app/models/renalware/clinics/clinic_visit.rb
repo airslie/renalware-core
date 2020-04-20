@@ -35,6 +35,7 @@ module Renalware
 
       scope :ordered, -> { order(date: :desc, created_at: :desc) }
       scope :most_recent_for_patient, ->(patient) { for_patient(patient).ordered.limit(1) }
+      scope :where_weight_was_measured, -> { where("weight > 0") }
 
       def bmi
         BMI.new(weight: weight, height: height).to_f
