@@ -7,7 +7,7 @@ describe Renalware::Clinical::HeaderPresenter do
   subject(:presenter) { described_class.new(patient) }
 
   let(:clinic) { create(:clinic) }
-  let(:patient) { build(:patient, by: user) }
+  let(:patient) { create(:patient, by: user) }
   let(:user) { create(:user) }
 
   describe "current_pathology" do

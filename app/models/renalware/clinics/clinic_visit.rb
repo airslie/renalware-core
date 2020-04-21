@@ -19,7 +19,7 @@ module Renalware
 
       belongs_to :patient, touch: true
       belongs_to :clinic
-      has_many :clinic_letters
+      has_many :clinic_letters # TODO: remove as possibly redundant
 
       validates :date, presence: true
       validates :clinic, presence: true
@@ -36,6 +36,9 @@ module Renalware
       scope :ordered, -> { order(date: :desc, created_at: :desc) }
       scope :most_recent_for_patient, ->(patient) { for_patient(patient).ordered.limit(1) }
       scope :where_weight_was_measured, -> { where("weight > 0") }
+
+      before_save :calculate_body_surface_area
+      before_save :calculate_total_body_water
 
       def bmi
         BMI.new(weight: weight, height: height).to_f
@@ -72,6 +75,14 @@ module Renalware
 
       def datetime_from_date_and_time
         DateTime.new(date.year, date.month, date.day, time.hour, time.min, 0, time.zone)
+      end
+
+      def calculate_body_surface_area
+        self.body_surface_area = BodySurfaceArea.calculate(visit: self)
+      end
+
+      def calculate_total_body_water
+        self.total_body_water = TotalBodyWater.calculate(visit: self)
       end
     end
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/clinical"
+require_dependency "renalware/clinics"
 
 # Total Body Water (TBW) calcuated using WATSON
 # References:
@@ -14,32 +14,35 @@ require_dependency "renalware/clinical"
 # Age in years
 # Height in cm
 # Weight in kg
-# rubocop:disable Lint/AssignmentInCondition
 module Renalware
-  module Clinical
+  module Clinics
     class TotalBodyWater
-      pattr_initialize [:patient!]
+      pattr_initialize [:visit!]
+      delegate :patient, to: :visit
       delegate :age, to: :patient
 
-      NOTHING = 0
+      NOTHING = nil
       SEX_PROC_MAP = {
         M: ->(age:, height:, weight:) { 2.447 - 0.09156 * age + 0.1074 * height + 0.3362 * weight },
         F: ->(height:, weight:, **) { -2.097 + 0.1069 * height + 0.2466 * weight }
       }.freeze
-      NOOP = ->(**) { NOTHING }
+      NOOP = ->(**) { NullObject.instance }
+
+      def self.calculate(visit:, dp: 2)
+        new(visit: visit).calculate(dp: dp)
+      end
 
       def calculate(dp: 2)
-        return NOTHING if most_recent_height_cm.zero?
-        return NOTHING if most_recent_weight_kg.zero?
+        return NOTHING if height_cm.zero?
+        return NOTHING if weight_kg.zero?
         return NOTHING if age.to_i.zero?
-        return NOTHING unless
 
         proc_for_sex = SEX_PROC_MAP.fetch(sex, NOOP)
 
         proc_for_sex.call(
           age: age,
-          height: most_recent_height_cm,
-          weight: most_recent_weight_kg
+          height: height_cm,
+          weight: weight_kg
         ).round(dp)
       end
 
@@ -50,24 +53,13 @@ module Renalware
         patient.sex.to_s&.to_sym
       end
 
-      def most_recent_height_cm
-        most_recent_visit_where_weight_was_measured&.height.to_f * 100
+      def height_cm
+        visit&.height.to_f * 100
       end
 
-      def most_recent_weight_kg
-        most_recent_visit_where_weight_was_measured&.weight.to_f
-      end
-
-      def most_recent_visit_where_weight_was_measured
-        @most_recent_visit_where_weight_was_measured ||= begin
-          Clinics::ClinicVisit
-            .most_recent_for_patient(patient)
-            .where_weight_was_measured
-            .select(:weight, :height)
-            .first
-        end
+      def weight_kg
+        visit&.weight.to_f
       end
     end
   end
 end
-# rubocop:enable Lint/AssignmentInCondition
