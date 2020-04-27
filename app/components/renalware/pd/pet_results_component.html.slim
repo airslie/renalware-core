@@ -1,0 +1,43 @@
+- if results.any?
+  article
+    header
+      h2= title
+
+    table
+      thead
+        tr
+          th.col-width-tiny
+          th.col-width-date Date
+          th Type
+          th Dextrose
+          th Volume in
+          th Volume out
+          th Infusion time
+          th Drain time
+          th Overnight dextrose
+          th Overnight volume in
+          th Overnight volume out
+          th Overnight dwell time
+          th.col-width-date=t("updated_at")
+
+      tbody
+
+        - results.each do |result|
+          tr
+            td.actions
+              / = link_to "View", patient_pd_pet_result_path(patient, pet.id)
+              = link_to "Edit", renalware.edit_patient_pd_pet_result_path(patient, result)
+            td= l(result.performed_on)
+            td= result.test_type
+            td= result.dextrose
+            td= result.volume_in
+            td= result.volume_out
+            td= result.infusion_time
+            td= result.drain_time
+            td= result.overnight_dextrose
+            td= result.overnight_volume_in
+            td= result.overnight_volume_out
+            td= result.overnight_dwell_time
+            td= l(result.updated_at.to_date)
+
+    /== pagy_foundation_nav pagination

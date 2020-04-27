@@ -15,6 +15,9 @@ resources :patients, only: [] do
     resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
     resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
     resources :pet_adequacy_results, except: [:destroy]
+    resources :unified_pet_adequacies, only: [:new, :create]
+    resources :pet_results
+    resources :adequacy_results
     resources :assessments, except: [:index, :destroy]
     resources :training_sessions, except: [:index, :destroy]
     resource :mdm, only: :show, controller: "mdm"

@@ -1,0 +1,22 @@
+= simple_form_for(form,  wrapper: :horizontal_form) do |f|
+  article.pet
+    header
+      h2 PET
+
+    = f.input :pet_missing, as: :boolean, label: "Test missing"
+
+    = f.simple_fields_for(:pet, form.pet) do |fp|
+      = render "renalware/pd/pet_results/form_fields", form: fp
+
+  article.adequacy
+    header
+      h2 Adequacy
+
+    = f.input :adequacy_missing, as: :boolean, label: "Test missing"
+
+    = f.simple_fields_for(:adequacy, form.adequacy) do |fa|
+      = render "renalware/pd/adequacy_results/form_fields", form: fa
+
+  = f.submit class: :button
+  '  or
+  = link_to "cancel", patient_pd_dashboard_path(form.patient)

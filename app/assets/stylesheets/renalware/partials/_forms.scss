@@ -182,6 +182,10 @@ article {
         display: inline-block;
         margin-right: .5rem;
       }
+
+      &.right {
+        text-align: right;
+      }
     }
 
     h3 {

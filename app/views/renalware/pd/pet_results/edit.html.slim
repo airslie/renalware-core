@@ -1,0 +1,6 @@
+= within_patient_layout(title: "Edit PET result") do
+  = simple_form_for(pet, url: renalware.patient_pd_pet_result_path(pet.patient, pet), wrapper: :horizontal_form) do |f|
+    = render "form_fields", form: f
+    = f.submit "Save", class: :button
+    '  or
+    = link_to "cancel", patient_pd_dashboard_path(pet.patient)

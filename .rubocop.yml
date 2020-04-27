@@ -56,6 +56,7 @@ Layout/LineLength:
 Metrics/AbcSize:
   Exclude:
     - "spec/acceptance/renalware/steps/**/*"
+    - "db/**/*"
   Max: 21
 RSpec/ExampleLength:
   Max: 40

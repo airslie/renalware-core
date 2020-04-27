@@ -123,6 +123,16 @@ CREATE TYPE renalware.duration AS ENUM (
 
 
 --
+-- Name: pd_pet_type; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.pd_pet_type AS ENUM (
+    'full',
+    'fast'
+);
+
+
+--
 -- Name: audit_view_as_json(text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -5764,6 +5774,45 @@ ALTER SEQUENCE renalware.patients_id_seq OWNED BY renalware.patients.id;
 
 
 --
+-- Name: pd_adequacy_results; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pd_adequacy_results (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    performed_on date NOT NULL,
+    dial_24_vol_in numeric(15,2),
+    dial_24_vol_out numeric(15,2),
+    dial_24_missing boolean DEFAULT false NOT NULL,
+    urine_24_vol numeric(15,2),
+    urine_24_missing boolean DEFAULT false NOT NULL,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_adequacy_results_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.pd_adequacy_results_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_adequacy_results_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.pd_adequacy_results_id_seq OWNED BY renalware.pd_adequacy_results.id;
+
+
+--
 -- Name: pd_assessments; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -6155,6 +6204,76 @@ CREATE SEQUENCE renalware.pd_pet_adequacy_results_id_seq
 --
 
 ALTER SEQUENCE renalware.pd_pet_adequacy_results_id_seq OWNED BY renalware.pd_pet_adequacy_results.id;
+
+
+--
+-- Name: pd_pet_results; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pd_pet_results (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    performed_on date NOT NULL,
+    test_type renalware.pd_pet_type NOT NULL,
+    volume_in integer,
+    volume_out integer,
+    dextrose numeric(15,2),
+    infusion_time integer,
+    drain_time integer,
+    overnight_volume_in numeric(15,2),
+    overnight_volume_out numeric(15,2),
+    overnight_dextrose numeric(15,2),
+    overnight_dwell_time integer,
+    sample_0hr_time numeric(6,2),
+    sample_0hr_urea numeric(15,2),
+    sample_0hr_creatinine numeric(15,2),
+    sample_0hr_glc numeric(15,2),
+    sample_0hr_sodium numeric(15,2),
+    sample_0hr_protein numeric(15,2),
+    sample_2hr_time numeric(6,2),
+    sample_2hr_urea numeric(15,2),
+    sample_2hr_creatinine numeric(15,2),
+    sample_2hr_glc numeric(15,2),
+    sample_2hr_sodium numeric(15,2),
+    sample_2hr_protein numeric(15,2),
+    sample_3hr_time numeric(6,2),
+    sample_3hr_urea numeric(15,2),
+    sample_3hr_creatinine numeric(15,2),
+    sample_3hr_glc numeric(15,2),
+    sample_3hr_sodium numeric(15,2),
+    sample_3hr_protein numeric(15,2),
+    sample_6hr_time numeric(6,2),
+    sample_6hr_urea numeric(15,2),
+    sample_6hr_creatinine numeric(15,2),
+    sample_6hr_glc numeric(15,2),
+    sample_6hr_sodium numeric(15,2),
+    sample_6hr_protein numeric(15,2),
+    "netUF" numeric(8,2),
+    "D_Pcr" numeric(8,2),
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_pet_results_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.pd_pet_results_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_pet_results_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.pd_pet_results_id_seq OWNED BY renalware.pd_pet_results.id;
 
 
 --
@@ -9960,6 +10079,13 @@ ALTER TABLE ONLY renalware.patients ALTER COLUMN id SET DEFAULT nextval('renalwa
 
 
 --
+-- Name: pd_adequacy_results id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pd_adequacy_results ALTER COLUMN id SET DEFAULT nextval('renalware.pd_adequacy_results_id_seq'::regclass);
+
+
+--
 -- Name: pd_assessments id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -10027,6 +10153,13 @@ ALTER TABLE ONLY renalware.pd_peritonitis_episodes ALTER COLUMN id SET DEFAULT n
 --
 
 ALTER TABLE ONLY renalware.pd_pet_adequacy_results ALTER COLUMN id SET DEFAULT nextval('renalware.pd_pet_adequacy_results_id_seq'::regclass);
+
+
+--
+-- Name: pd_pet_results id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pd_pet_results ALTER COLUMN id SET DEFAULT nextval('renalware.pd_pet_results_id_seq'::regclass);
 
 
 --
@@ -11464,6 +11597,14 @@ ALTER TABLE ONLY renalware.patients
 
 
 --
+-- Name: pd_adequacy_results pd_adequacy_results_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pd_adequacy_results
+    ADD CONSTRAINT pd_adequacy_results_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: pd_assessments pd_assessments_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -11541,6 +11682,14 @@ ALTER TABLE ONLY renalware.pd_peritonitis_episodes
 
 ALTER TABLE ONLY renalware.pd_pet_adequacy_results
     ADD CONSTRAINT pd_pet_adequacy_results_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_pet_results pd_pet_results_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pd_pet_results
+    ADD CONSTRAINT pd_pet_results_pkey PRIMARY KEY (id);
 
 
 --
@@ -14868,6 +15017,27 @@ CREATE INDEX index_patients_on_updated_by_id ON renalware.patients USING btree (
 
 
 --
+-- Name: index_pd_adequacy_results_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_adequacy_results_on_created_by_id ON renalware.pd_adequacy_results USING btree (created_by_id);
+
+
+--
+-- Name: index_pd_adequacy_results_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_adequacy_results_on_patient_id ON renalware.pd_adequacy_results USING btree (patient_id);
+
+
+--
+-- Name: index_pd_adequacy_results_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_adequacy_results_on_updated_by_id ON renalware.pd_adequacy_results USING btree (updated_by_id);
+
+
+--
 -- Name: index_pd_assessments_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -14956,6 +15126,27 @@ CREATE INDEX index_pd_pet_adequacy_results_on_patient_id ON renalware.pd_pet_ade
 --
 
 CREATE INDEX index_pd_pet_adequacy_results_on_updated_by_id ON renalware.pd_pet_adequacy_results USING btree (updated_by_id);
+
+
+--
+-- Name: index_pd_pet_results_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_pet_results_on_created_by_id ON renalware.pd_pet_results USING btree (created_by_id);
+
+
+--
+-- Name: index_pd_pet_results_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_pet_results_on_patient_id ON renalware.pd_pet_results USING btree (patient_id);
+
+
+--
+-- Name: index_pd_pet_results_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_pet_results_on_updated_by_id ON renalware.pd_pet_results USING btree (updated_by_id);
 
 
 --
@@ -16615,6 +16806,14 @@ ALTER TABLE ONLY renalware.pathology_requests_patient_rules
 
 
 --
+-- Name: pd_adequacy_results fk_rails_16cf8add93; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pd_adequacy_results
+    ADD CONSTRAINT fk_rails_16cf8add93 FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
 -- Name: medication_prescriptions fk_rails_17327d4301; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16740,6 +16939,14 @@ ALTER TABLE ONLY renalware.admission_consults
 
 ALTER TABLE ONLY renalware.hd_session_form_batch_items
     ADD CONSTRAINT fk_rails_282567e56b FOREIGN KEY (batch_id) REFERENCES renalware.hd_session_form_batches(id);
+
+
+--
+-- Name: pd_pet_results fk_rails_2929069647; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pd_pet_results
+    ADD CONSTRAINT fk_rails_2929069647 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -17295,6 +17502,14 @@ ALTER TABLE ONLY renalware.letter_letters
 
 
 --
+-- Name: pd_pet_results fk_rails_6233b2801e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pd_pet_results
+    ADD CONSTRAINT fk_rails_6233b2801e FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
 -- Name: ukrdc_treatments fk_rails_63f35ffdfe; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -17364,6 +17579,14 @@ ALTER TABLE ONLY renalware.medication_delivery_events
 
 ALTER TABLE ONLY renalware.pathology_code_group_memberships
     ADD CONSTRAINT fk_rails_6ff53028fa FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: pd_pet_results fk_rails_70a2d2908f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pd_pet_results
+    ADD CONSTRAINT fk_rails_70a2d2908f FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -17500,6 +17723,14 @@ ALTER TABLE ONLY renalware.letter_archives
 
 ALTER TABLE ONLY renalware.research_study_participants
     ADD CONSTRAINT fk_rails_8039d07f46 FOREIGN KEY (study_id) REFERENCES renalware.research_studies(id);
+
+
+--
+-- Name: pd_adequacy_results fk_rails_81e87b4414; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pd_adequacy_results
+    ADD CONSTRAINT fk_rails_81e87b4414 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -17692,6 +17923,14 @@ ALTER TABLE ONLY renalware.transplant_rejection_episodes
 
 ALTER TABLE ONLY renalware.transplant_donor_workups
     ADD CONSTRAINT fk_rails_93dc1108f3 FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
+-- Name: pd_adequacy_results fk_rails_93e753133f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pd_adequacy_results
+    ADD CONSTRAINT fk_rails_93e753133f FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -19507,6 +19746,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200320103052'),
 ('20200401115705'),
 ('20200408131217'),
-('20200421082715');
+('20200421082715'),
+('20200421143546'),
+('20200427123229');
 
 
