@@ -7,6 +7,8 @@ module Renalware
     class PETResultsComponent < ApplicationComponent
       include Pagy::Backend
       include Pagy::Frontend
+      include ToggleHelper
+      include DropdownButtonHelper
       attr_reader :patient, :pagination
 
       TITLE = "PET Results"

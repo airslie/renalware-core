@@ -3,10 +3,16 @@
   article
     header
       h2= title
+      = link_to "Add", renalware.new_patient_pd_adequacy_result_path(patient), class: :button
 
-    table
+    table.toggleable(data-controller="toggle")
       thead
         tr
+          th style="border-bottom: none" colspan==8
+          th style=" text-align:center; font-style:italic" colspan=3 Creatinine Clearance
+          th style="text-align:center; font-style:italic" colspan=3 kt/V
+        tr
+          th.togglers= rows_toggler
           th.col-width-tiny
           th.col-width-date Date
           th Dial 24 vol in
@@ -14,12 +20,19 @@
           th Dial 24 missing
           th Urine 24 vol
           th Urine 24 missing
-
+          th Total
+          th Perti
+          th Renal
+          th Total
+          th Perti
+          th Renal
+          th
           th.col-width-date=t("updated_at")
 
-      tbody
-        - results.each do |result|
+      - results.each do |result|
+        tbody
           tr
+            td= row_toggler
             td.actions
               = link_to "Edit", renalware.edit_patient_pd_adequacy_result_path(patient, result)
               = link_to "Delete",
@@ -31,5 +44,14 @@
             td= yes_no result.dial_24_missing
             td= result.urine_24_vol
             td= yes_no result.urine_24_missing
+            td= result.total_creatinine_clearance
+            td= result.pertitoneal_creatinine_clearance
+            td= result.renal_creatinine_clearance
+            td= result.total_ktv
+            td= result.pertitoneal_ktv
+            td= result.renal_ktv
+            td= result.dietry_protein_intake
             td= l(result.updated_at.to_date)
+          tr
+            td(colspan=9) &nbsp;
     /== pagy_foundation_nav pagination

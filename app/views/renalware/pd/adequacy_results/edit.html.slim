@@ -1,6 +1,9 @@
-= within_patient_layout(title: "Edit Adequacy result") do
-  = simple_form_for(pet, url: renalware.patient_pd_adequacy_result_path(pet.patient, pet), wrapper: :horizontal_form) do |f|
+- patient = adequacy.patient
+= within_patient_layout(breadcrumbs: pd_summary_breadcrumb(patient),
+                        title: "Edit Adequacy result") do
+
+  = simple_form_for(adequacy, url: renalware.patient_pd_adequacy_result_path(patient, adequacy), wrapper: :horizontal_form) do |f|
     = render "form_fields", form: f
     = f.submit "Save", class: :button
     '  or
-    = link_to "cancel", patient_pd_dashboard_path(pet.patient)
+    = link_to "cancel", patient_pd_dashboard_path(patient)

@@ -1,3 +1,31 @@
+.pet-results--samples-table {
+  max-width: 640px;
+
+  th {
+    width: 14.3%;
+  }
+
+  thead, tbody, th, td {
+    border: none;
+  }
+
+  input {
+    margin: 0;
+  }
+
+  // tr:last-child td {
+  //   border-bottom: 0;
+  // }
+
+  // tbody tr:first-child td:first-child {
+  //   border-top-width: 0;
+  // }
+
+  // thead tr th:first-child {
+  //   border-bottom-width: 0;
+  // }
+}
+
 .current-regime {
   h3 {
     font-size: 1rem;

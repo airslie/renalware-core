@@ -1,0 +1,32 @@
+/ These fields are only needed when editing the PET down the line
+article(style="max-width: 600px; display: block; float: none; clear: both")
+  header
+    h2 Pathology results
+
+  table.pet-results--samples-table
+    thead
+      th
+      th Time
+      th Urea
+      th Creatinine
+      th Glc
+      th Sodium
+      th Protein
+    tbody
+      tr
+        td.col-width-small Serum
+        td= form.text_field :serum_time
+        td= form.text_field :serum_urea
+        td= form.text_field :serum_creatinine
+        td= form.text_field :plasma_glc
+        td= form.text_field :serum_na
+        td= form.text_field :serum_ab
+      - [0, 2, 4, 6].each do |hr|
+        tr
+          td= "Sample #{hr}"
+          td= form.text_field :"sample_#{hr}hr_time"
+          td= form.text_field :"sample_#{hr}hr_urea"
+          td= form.text_field :"sample_#{hr}hr_creatinine"
+          td= form.text_field :"sample_#{hr}hr_glc"
+          td= form.text_field :"sample_#{hr}hr_sodium"
+          td= form.text_field :"sample_#{hr}hr_protein"

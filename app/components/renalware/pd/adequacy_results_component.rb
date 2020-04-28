@@ -8,6 +8,7 @@ module Renalware
       include BooleanHelper
       include Pagy::Backend
       include Pagy::Frontend
+      include ToggleHelper
       attr_reader :patient, :pagination
 
       TITLE = "Adequacy Results"

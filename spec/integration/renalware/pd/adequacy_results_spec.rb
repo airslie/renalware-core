@@ -11,6 +11,19 @@ describe "Managing PD Adequacy Results", type: :request do
       get new_patient_pd_adequacy_result_path(patient)
 
       expect(response).to be_successful
+      expect(response.body).to match("PD Summary")
+      expect(response.body).to match("New Adequacy")
+    end
+  end
+
+  describe "GET edit" do
+    it "responds with a form" do
+      result = create(:pd_adequacy_result, patient: patient)
+      get edit_patient_pd_adequacy_result_path(patient, result)
+
+      expect(response).to be_successful
+      expect(response.body).to match("PD Summary")
+      expect(response.body).to match("Edit Adequacy")
     end
   end
 

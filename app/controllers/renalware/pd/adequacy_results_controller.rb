@@ -23,7 +23,7 @@ module Renalware
       end
 
       def edit
-        render locals: { pet: find_and_authorize_result }
+        render locals: { adequacy: find_and_authorize_result }
       end
 
       def update

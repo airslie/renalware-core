@@ -1,0 +1,12 @@
+en:
+  activerecord:
+    attributes:
+      renalware/pd/pet_result:
+        net_uf: PET_netUF
+        d_pcr: PET_D_Pcr
+
+  enumerize:
+    renalware/pd/pet_result:
+      pet_type:
+        fast: Fast
+        full: Full

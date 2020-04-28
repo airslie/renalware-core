@@ -6,7 +6,10 @@ module Renalware
   module PD
     class PETResultsController < BaseController
       def new
-        pet = PETResult.new(patient: patient, performed_on: Date.current)
+        pet = PETResult.new(
+          patient: patient,
+          performed_on: Date.current
+        )
         authorize pet
         render_new(pet)
       end
@@ -58,6 +61,15 @@ module Renalware
 
       # rubocop:disable Metrics/MethodLength
       def pet_result_params
+        dialysate_sample_params = [0, 2, 4, 6].each_with_object([]) do |hr, arr|
+          arr << :"sample_#{hr}hr_time"
+          arr << :"sample_#{hr}hr_urea"
+          arr << :"sample_#{hr}hr_creatinine"
+          arr << :"sample_#{hr}hr_glc"
+          arr << :"sample_#{hr}hr_sodium"
+          arr << :"sample_#{hr}hr_protein"
+        end
+
         params
           .require(:pd_pet_result)
           .permit(
@@ -72,7 +84,14 @@ module Renalware
             :overnight_volume_in,
             :overnight_volume_out,
             :overnight_dextrose,
-            :overnight_dwell_time
+            :overnight_dwell_time,
+            :serum_time,
+            :serum_urea,
+            :serum_creatinine,
+            :plasma_glc,
+            :serum_ab,
+            :serum_na,
+            *dialysate_sample_params
           )
       end
       # rubocop:enable Metrics/MethodLength
