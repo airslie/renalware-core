@@ -5,6 +5,23 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class AdequacyResultsController < BaseController
+      def new
+        adequacy = AdequacyResult.new(patient: patient, performed_on: Date.current)
+        authorize adequacy
+        render locals: { adequacy: adequacy }
+      end
+
+      def create
+        adequacy = AdequacyResult.new(result_params)
+        authorize adequacy
+
+        if adequacy.save_by(current_user)
+          redirect_to patient_pd_dashboard_path(patient), notice: success_msg_for("Adequacy result")
+        else
+          render :new, locals: { adequacy: adequacy }
+        end
+      end
+
       def edit
         render locals: { pet: find_authorize_result }
       end

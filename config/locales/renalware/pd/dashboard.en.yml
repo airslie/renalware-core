@@ -8,7 +8,9 @@ en:
             add_capd_regime: CAPD Regime
             add_apd_regime: APD Regime
             add_pet_adequacy: PET Adequacy
-            add_new_pet_adequacy: PET/Adequacy (experimental)
+            add_unified_pet_adequacy: PET & Adequacy
+            add_pet: PET
+            add_adequacy: Adequacy
             add_exit_site_infection: Exit Site Infection
             add_peritonitis_episode: Peritonitis Episode
             add_pd_assessment: PD Assessment

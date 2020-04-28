@@ -5,6 +5,23 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class PETResultsController < BaseController
+      def new
+        pet = PETResult.new(patient: patient, performed_on: Date.current)
+        authorize pet
+        render_new(pet)
+      end
+
+      def create
+        pet = PETResult.new(pet_result_params)
+        authorize pet
+
+        if pet.save_by(current_user)
+          redirect_to patient_pd_dashboard_path(patient), notice: success_msg_for("PET result")
+        else
+          render_new(pet)
+        end
+      end
+
       def edit
         render locals: { pet: find_authorize_pet_result }
       end
@@ -28,6 +45,10 @@ module Renalware
 
       def render_edit(pet)
         render :edit, locals: { pet: pet }
+      end
+
+      def render_new(pet)
+        render :new, locals: { pet: pet }
       end
 
       # rubocop:disable Metrics/MethodLength
