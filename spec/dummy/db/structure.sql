@@ -5786,6 +5786,7 @@ CREATE TABLE renalware.pd_adequacy_results (
     dial_24_missing boolean DEFAULT false NOT NULL,
     urine_24_vol numeric(15,2),
     urine_24_missing boolean DEFAULT false NOT NULL,
+    deleted_at timestamp without time zone,
     created_by_id bigint NOT NULL,
     updated_by_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -6250,6 +6251,7 @@ CREATE TABLE renalware.pd_pet_results (
     sample_6hr_protein numeric(15,2),
     "netUF" numeric(8,2),
     "D_Pcr" numeric(8,2),
+    deleted_at timestamp without time zone,
     created_by_id bigint NOT NULL,
     updated_by_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -15024,6 +15026,13 @@ CREATE INDEX index_pd_adequacy_results_on_created_by_id ON renalware.pd_adequacy
 
 
 --
+-- Name: index_pd_adequacy_results_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_adequacy_results_on_deleted_at ON renalware.pd_adequacy_results USING btree (deleted_at);
+
+
+--
 -- Name: index_pd_adequacy_results_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -15133,6 +15142,13 @@ CREATE INDEX index_pd_pet_adequacy_results_on_updated_by_id ON renalware.pd_pet_
 --
 
 CREATE INDEX index_pd_pet_results_on_created_by_id ON renalware.pd_pet_results USING btree (created_by_id);
+
+
+--
+-- Name: index_pd_pet_results_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_pet_results_on_deleted_at ON renalware.pd_pet_results USING btree (deleted_at);
 
 
 --

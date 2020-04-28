@@ -35,6 +35,11 @@ module Renalware
         end
       end
 
+      def destroy
+        find_authorize_pet_result.destroy!
+        redirect_to patient_pd_dashboard_path(patient), notice: success_msg_for("Result")
+      end
+
       private
 
       def find_authorize_pet_result

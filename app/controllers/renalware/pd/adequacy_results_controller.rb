@@ -23,11 +23,11 @@ module Renalware
       end
 
       def edit
-        render locals: { pet: find_authorize_result }
+        render locals: { pet: find_and_authorize_result }
       end
 
       def update
-        result = find_authorize_result
+        result = find_and_authorize_result
         if result.update_by(current_user, result_params)
           redirect_to patient_pd_dashboard_path(patient), notice: success_msg_for("Result")
         else
@@ -35,9 +35,15 @@ module Renalware
         end
       end
 
+      def destroy
+        result = find_and_authorize_result
+        result.destroy!
+        redirect_to patient_pd_dashboard_path(patient), notice: success_msg_for("Result")
+      end
+
       private
 
-      def find_authorize_result
+      def find_and_authorize_result
         PD::AdequacyResult.for_patient(patient).find(params[:id]).tap do |adequacy|
           authorize adequacy
         end

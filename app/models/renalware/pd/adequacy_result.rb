@@ -7,6 +7,7 @@ module Renalware
     class AdequacyResult < ApplicationRecord
       include PatientScope
       include Accountable
+      acts_as_paranoid
 
       belongs_to :patient, class_name: "Renalware::PD::Patient", touch: true
       scope :ordered, -> { order(created_at: :desc) }

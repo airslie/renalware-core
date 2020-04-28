@@ -1,4 +1,5 @@
 - if results.any?
+
   article
     header
       h2= title
@@ -21,14 +22,15 @@
           th.col-width-date=t("updated_at")
 
       tbody
-
         - results.each do |result|
           tr
             td.actions
-              / = link_to "View", patient_pd_pet_result_path(patient, pet.id)
               = link_to "Edit", renalware.edit_patient_pd_pet_result_path(patient, result)
+              = link_to "Delete",
+                        renalware.patient_pd_pet_result_path(patient, result),
+                        data: { method: :delete, confirm: "Are you sure?" }
             td= l(result.performed_on)
-            td= result.test_type
+            td= result.test_type&.text
             td= result.dextrose
             td= result.volume_in
             td= result.volume_out

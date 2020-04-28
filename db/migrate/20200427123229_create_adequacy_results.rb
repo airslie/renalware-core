@@ -12,6 +12,7 @@ class CreateAdequacyResults < ActiveRecord::Migration[6.0]
         t.decimal :urine_24_vol, scale: 2, precision: 15
         t.boolean :urine_24_missing, null: false, default: false
 
+        t.datetime :deleted_at, index: true
         t.references :created_by, index: true, null: false
         t.references :updated_by, index: true, null: false
         t.timestamps null: false

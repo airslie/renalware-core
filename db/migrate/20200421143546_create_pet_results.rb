@@ -33,9 +33,9 @@ class CreatePETResults < ActiveRecord::Migration[6.0]
         t.decimal :netUF, scale: 2, precision: 8
         t.decimal :D_Pcr, scale: 2, precision: 8
 
+        t.datetime :deleted_at, index: true
         t.references :created_by, index: true, null: false
         t.references :updated_by, index: true, null: false
-
         t.timestamps null: false
       end
 
