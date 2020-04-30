@@ -1,4 +1,5 @@
-.pet-results--samples-table {
+.pet-results--samples-table,
+.adequacy-results--samples-table {
   max-width: 640px;
 
   th {
@@ -7,23 +8,29 @@
 
   thead, tbody, th, td {
     border: none;
+    text-align: center;
   }
 
   input {
     margin: 0;
   }
+}
 
-  // tr:last-child td {
-  //   border-bottom: 0;
-  // }
+.adequacy-path-table {
+  background-color: transparent;
+  thead, tbody, th, td {
+    border: none;
+    text-align: center;
+  }
 
-  // tbody tr:first-child td:first-child {
-  //   border-top-width: 0;
-  // }
+  thead tr:first-child th {
+    font-style: italic;
+    text-align: center;
+  }
 
-  // thead tr th:first-child {
-  //   border-bottom-width: 0;
-  // }
+  .bottom-border {
+    border-bottom: 1px solid #ccc;
+  }
 }
 
 .current-regime {
