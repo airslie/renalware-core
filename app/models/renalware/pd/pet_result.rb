@@ -15,6 +15,20 @@ module Renalware
       belongs_to :patient, class_name: "Renalware::PD::Patient", touch: true
       scope :ordered, -> { order(created_at: :desc) }
 
+      def calculated_d_pcr
+        return if sample_4hr_creatinine.to_f == 0.0
+        return if serum_creatinine.to_f == 0.0
+
+        (sample_4hr_creatinine / serum_creatinine).round(2)
+      end
+
+      def calculated_net_uf
+        return if volume_in.to_f == 0.0
+        return if volume_out.to_f == 0.0
+
+        (volume_out - volume_in).round(2)
+      end
+
       # MAXIMUMS = {
       #   pet_duration: 6,
       #   pet_net_uf: 2000,
