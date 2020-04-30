@@ -45,4 +45,30 @@ describe Renalware::Clinics::ClinicVisit, type: :model do
       )
     end
   end
+
+  describe "#body_surface_area" do
+    it "calculates BSA when visit saved" do
+      visit = create(
+        :clinic_visit,
+        weight: 100.0,
+        height: 1.23,
+        patient: Renalware::Clinics.cast_patient(create(:patient))
+      )
+
+      expect(visit.reload.body_surface_area).to satisfy("be greater than 0") { |val| val.to_i > 0 }
+    end
+  end
+
+  describe "#total_body_water" do
+    it "calculates TBW when visit saved" do
+      visit = create(
+        :clinic_visit,
+        weight: 100.0,
+        height: 1.23,
+        patient: Renalware::Clinics.cast_patient(create(:patient))
+      )
+
+      expect(visit.reload.total_body_water).to satisfy("be greater than 0") { |val| val.to_i > 0 }
+    end
+  end
 end

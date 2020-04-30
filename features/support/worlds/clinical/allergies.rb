@@ -21,7 +21,7 @@ module World
           patient = clinical_patient(patient)
           expect {
             patient.allergies.where(description: allergy_description).first.destroy
-          }.to change { patient.allergies.count } .by(-1)
+          }.to change { patient.allergies.count }.by(-1)
         end
 
         def expect_allergies_to_be(expected_allergies:, patient:)

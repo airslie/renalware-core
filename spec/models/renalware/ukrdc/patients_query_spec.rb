@@ -24,6 +24,14 @@ module Renalware
             sent_to_ukrdc_at: 1.minute.ago,
             send_to_renalreg: true
           )
+          create(
+            :patient,
+            family_name: "Smith",
+            updated_at: 1.year.ago,
+            sent_to_ukrdc_at: 1.minute.ago,
+            send_to_renalreg: false,
+            send_to_rpv: false
+          )
           create(:patient, send_to_rpv: false, send_to_renalreg: false)
 
           expect(

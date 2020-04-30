@@ -1596,7 +1596,9 @@ CREATE TABLE renalware.clinic_visits (
     did_not_attend boolean DEFAULT false NOT NULL,
     temperature numeric(3,1),
     standing_systolic_bp integer,
-    standing_diastolic_bp integer
+    standing_diastolic_bp integer,
+    body_surface_area numeric(8,2),
+    total_body_water numeric(8,2)
 );
 
 
@@ -19504,6 +19506,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200318134807'),
 ('20200320103052'),
 ('20200401115705'),
-('20200408131217');
+('20200408131217'),
+('20200421082715');
 
 

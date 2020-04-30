@@ -46,7 +46,7 @@ module World
       def revise_organism_for(infectable:, sensitivity:, resistance:)
         within "#infection-organisms" do
           click_on "Edit"
-
+          sleep 0.5
           expect(page).to have_selector("#infection-organisms form", count: 1)
           fill_in "Sensitivity", with: sensitivity
           fill_in "Resistance", with: resistance
