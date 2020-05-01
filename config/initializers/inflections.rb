@@ -14,6 +14,14 @@
 
 # These inflection rules are supported but not enabled by default:
 ActiveSupport::Inflector.inflections(:en) do |inflect|
+  # For zeitwerk, handle the gem convention where the file version.rb
+  # does not define a constant Version. Alternatively we could move
+  # the version number someone else.
+  # (untested!)
+  # def camelize(basename, abspath)
+  #   abspath == app_version ? "VERSION" : basename.camelize
+  # end
+
   inflect.acronym "AKI"
   inflect.acronym "APD"
   inflect.acronym "API"
