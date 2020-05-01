@@ -7,7 +7,7 @@ describe Renalware::PD::AdequacyResultsComponent, type: :component do
     it "renders nothing" do
       patient = build_stubbed(:pd_patient)
       component = described_class.new(patient: patient)
-      allow(component).to receive(:count).and_return(0)
+      allow(component).to receive(:results).and_return([])
 
       html = render_inline(component).to_html
 
@@ -21,7 +21,7 @@ describe Renalware::PD::AdequacyResultsComponent, type: :component do
       component = described_class.new(patient: patient)
       result = build_stubbed(:pd_adequacy_result, patient: patient, performed_on: "2020-01-01")
       allow(component).to receive(:results).and_return([result])
-      allow(component).to receive(:count).and_return(1)
+      allow(component).to receive(:pagination).and_return(Renalware::NullObject.instance)
 
       html = render_inline(component).to_html
 

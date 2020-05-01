@@ -4,7 +4,7 @@ require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class AdequacyResultsController < BaseController
+    class AdequacyResultsController < PD::BaseController
       def new
         adequacy = AdequacyResult.new(patient: patient, performed_on: Date.current)
         authorize adequacy

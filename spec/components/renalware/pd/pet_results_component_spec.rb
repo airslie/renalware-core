@@ -6,7 +6,7 @@ describe Renalware::PD::PETResultsComponent, type: :component do
   context "when there are no results" do
     it "renders nothing" do
       component = described_class.new(patient: build_stubbed(:pd_patient))
-      allow(component).to receive(:count).and_return(0)
+      allow(component).to receive(:results).and_return([])
 
       html = render_inline(component).to_html
       expect(html).to be_blank
@@ -19,7 +19,7 @@ describe Renalware::PD::PETResultsComponent, type: :component do
       component = described_class.new(patient: patient)
       result = build_stubbed(:pd_pet_result, patient: patient, performed_on: "2020-01-01")
       allow(component).to receive(:results).and_return([result])
-      allow(component).to receive(:count).and_return(1)
+      allow(component).to receive(:pagination).and_return(Renalware::NullObject.instance)
 
       html = render_inline(component).to_html
 
