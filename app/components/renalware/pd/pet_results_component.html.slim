@@ -1,11 +1,26 @@
 - if results.any?
 
-  article
+  article(data-controller="tabs" data-tabs-active-tab="opacity-100" data-tabs-index="0")
     header
       h2= title
-      = link_to "Add", renalware.new_patient_pd_pet_result_path(patient), class: :button
 
-    table.toggleable(data-controller="toggle")
+      /.flex.flex-row-reverse
+      .flex.justify-end
+        .inline-flex
+          a.reset.opacity-50.bg-white.m-05.pt-px.pb-0.px-1(href="#" data-target="tabs.tab"
+            data-action="click->tabs#change")
+            svg.h-6.w-6.fill-current.text-gray-700 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+              path d="M1 4h2v2H1V4zm4 0h14v2H5V4zM1 9h2v2H1V9zm4 0h14v2H5V9zm-4 5h2v2H1v-2zm4 0h14v2H5v-2z"
+
+          a.reset.opacity-50.bg-white.m-0.pt-px.px-2(data-target="tabs.tab" href="#"
+            data-action="click->tabs#change")
+            svg.h-6.w-6.stroke-current.text-gray-800 viewBox="0 0 24 26"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              path d="M12 20V10M18 20V4M6 20v-4"
+
+
+        = link_to "Add", renalware.new_patient_pd_pet_result_path(patient), class: "float-none button flex-initial"
+
+    table.toggleable(data-controller="toggle" data-target="tabs.panel")
       thead
         tr
           th.togglers= rows_toggler
@@ -55,5 +70,9 @@
               td= l(result.updated_at.to_date)
             tr
               td(colspan=14) &nbsp;
+    /== pagy_nav pagination
 
-    /== pagy_foundation_nav pagination
+
+    .chart.hidden data-target="tabs.panel"
+      = line_chart(patient.pet_results.where("d_pcr is not null and net_uf is not null").order(performed_on: :asc).pluck(:d_pcr, :net_uf),
+                   xtitle: "D/Pcr", ytitle: "net UF", curve: false)

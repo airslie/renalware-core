@@ -3808,6 +3808,37 @@ function _createSuper(Derived) {
   };
 }
 
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
 var $ = window.$;
 
 var _default = function(_Controller) {
@@ -4204,6 +4235,90 @@ var _default$7 = function(_Controller) {
   return _default;
 }(Controller);
 
+var _default$8 = function(_Controller) {
+  _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass(_default, [ {
+    key: "connect",
+    value: function connect() {
+      this.toggleClass = this.data.get("class") || "hidden";
+    }
+  }, {
+    key: "toggle",
+    value: function toggle(event) {
+      var _this = this;
+      event.preventDefault();
+      this.toggleableTargets.forEach(function(target) {
+        target.classList.toggle(_this.toggleClass);
+      });
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$8, "targets", [ "toggleable" ]);
+
+var _default$9 = function(_Controller) {
+  _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass(_default, [ {
+    key: "connect",
+    value: function connect() {
+      console.log("Jss");
+    }
+  }, {
+    key: "initialize",
+    value: function initialize() {
+      console.log("J");
+      this.activeTabClasses = (this.data.get("activeTab") || "active").split(" ");
+      this.showTab();
+    }
+  }, {
+    key: "change",
+    value: function change(event) {
+      event.preventDefault();
+      this.index = this.tabTargets.indexOf(event.currentTarget);
+    }
+  }, {
+    key: "showTab",
+    value: function showTab() {
+      var _this = this;
+      this.tabTargets.forEach(function(tab, index) {
+        var panel = _this.panelTargets[index];
+        if (index === _this.index) {
+          var _tab$classList;
+          panel.classList.remove("hidden");
+          (_tab$classList = tab.classList).add.apply(_tab$classList, _toConsumableArray(_this.activeTabClasses));
+        } else {
+          var _tab$classList2;
+          panel.classList.add("hidden");
+          (_tab$classList2 = tab.classList).remove.apply(_tab$classList2, _toConsumableArray(_this.activeTabClasses));
+        }
+      });
+    }
+  }, {
+    key: "index",
+    get: function get() {
+      return parseInt(this.data.get("index") || 0);
+    },
+    set: function set(value) {
+      this.data.set("index", value);
+      this.showTab();
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$9, "targets", [ "tab", "panel" ]);
+
 var application = Application.start();
 
 application.register("toggle", _default);
@@ -4221,5 +4336,9 @@ application.register("prescriptions", _default$5);
 application.register("charts", _default$6);
 
 application.register("session", _default$7);
+
+application.register("simple-toggle", _default$8);
+
+application.register("tabs", _default$9);
 
 window.Chartkick.use(window.Highcharts);

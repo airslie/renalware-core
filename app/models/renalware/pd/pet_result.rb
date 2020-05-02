@@ -14,6 +14,12 @@ module Renalware
 
       belongs_to :patient, class_name: "Renalware::PD::Patient", touch: true
       scope :ordered, -> { order(created_at: :desc) }
+      before_save :derive_calculated_attributes
+
+      def derive_calculated_attributes
+        self.d_pcr = calculated_d_pcr
+        self.net_uf = calculated_net_uf
+      end
 
       def calculated_d_pcr
         return if sample_4hr_creatinine.to_f == 0.0

@@ -5,3 +5,4 @@ vendor/assets/javascripts/**/*
 **/*{.,-}min.js
 coverage/**/*
 postcss.config.js
+tailwind.config.js

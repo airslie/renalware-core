@@ -31,3 +31,15 @@
   height: 1px; width: 1px;
   margin: -1px; padding: 0; border: 0;
 }
+
+a.reset {
+  &:hover,
+  &:visited,
+  &:focus,
+  &:active,
+  &:link
+  {
+    color: unset;
+    background-color: unset;
+  }
+}
