@@ -1,3 +1,6 @@
+//
+// Adapted from https://github.com/excid3/tailwindcss-stimulus-components#tabs
+//
 import { Controller } from "stimulus"
 
 export default class extends Controller {

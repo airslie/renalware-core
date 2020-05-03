@@ -20,58 +20,8 @@
 
         = link_to "Add", renalware.new_patient_pd_pet_result_path(patient), class: "float-none button flex-initial"
 
-    table.toggleable(data-controller="toggle" data-target="tabs.panel")
-      thead
-        tr
-          th.togglers= rows_toggler
-          th.col-width-tiny
-          th.col-width-date Date
-          th Type
-          th Dextrose
-          th Volume in
-          th Volume out
-          th Infusion time
-          th Drain time
-          th O/N dextrose
-          th O/N vol in
-          th O/N vol out
-          th O/N dwell time
-          th D_Pcr
-          th netUF
-          th.col-width-date=t("updated_at")
-
-        - results.each do |result|
-          tbody
-            tr
-              td= row_toggler
-              td.actions
-                /.button.dropdown.actions
-
-                = link_to "Edit", renalware.edit_patient_pd_pet_result_path(patient, result)
-                / = link_to "Update pathology",
-                /           renalware.patient_pd_pet_result_path(patient, result),
-                /           data: { method: :delete, confirm: "Are you sure?" }
-                = link_to "Delete",
-                          renalware.patient_pd_pet_result_path(patient, result),
-                          data: { method: :delete, confirm: "Are you sure?" }
-              td= l(result.performed_on)
-              td= result.test_type&.text
-              td= result.dextrose
-              td= result.volume_in
-              td= result.volume_out
-              td= result.infusion_time
-              td= result.drain_time
-              td= result.overnight_dextrose
-              td= result.overnight_volume_in
-              td= result.overnight_volume_out
-              td= result.overnight_dwell_time
-              td= result.d_pcr
-              td= result.net_uf
-              td= l(result.updated_at.to_date)
-            tr
-              td(colspan=14) &nbsp;
-    /== pagy_nav pagination
-
+    div data-target="tabs.panel"
+      = render "renalware/pd/pet_results/table", patient: patient, results: results, pagination: pagination
 
     .chart.hidden data-target="tabs.panel"
       = line_chart(patient.pet_results.where("d_pcr is not null and net_uf is not null").order(performed_on: :asc).pluck(:d_pcr, :net_uf),
