@@ -2,3 +2,4 @@
 
 require_relative "./rabbit"
 require_relative "./pet_results"
+require_relative "./adequacy_results"

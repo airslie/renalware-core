@@ -1,0 +1,7 @@
+patient_id,days_ago,serum_time,serum_urea,serum_creatinine,serum_ab,serum_na,plasma_glc,dial_24_vol_in,dial_24_vol_out,dial_24_missing,urine_24_vol,urine_24_missing,dialysate_urea,dialysate_creatinine,dialysate_glu,dialysate_na,dialysate_protein,urine_urea,urine_creatinine,urine_na,urine_k,total_creatinine_clearance,pertitoneal_creatinine_clearance,renal_creatinine_clearance,total_ktv,pertitoneal_ktv,renal_ktv,dietry_protein_intake,expected_total_creatinine_clearance,expected_pertitoneal_creatinine_clearance,expected_renal_creatinine_clearance,expected_total_ktv,expected_pertitoneal_ktv,expected_renal_ktv,expected_dietry_protein_intake,expected_rrf,expected_RenalUrCl_calculated
+1,250,,16.1,677,29,,4.7,8000,8991,No,1700,No,9.7,266,45.8,131,0.3,69,5.5,40,17,,,,,,,,,22,96.67651403,,1.03,1.39,0.89,65,51
+1,200,,17,533,36,,7.1,8000,7100,No,1620,No,14.2,260,26.5,137,0.3,67.7,3.5,111,16,,,,,,,,,21,74.46529081,,0.96,1.04,0.89,51,45.15988235
+1,150,,10.6,1060,38,,6.6,10500,10741,No,0,Yes,6.1,359,51.4,131,0.2,,,,,,,,,,,,,22,,,0.97,,,,
+1,100,,21,775,32,,13.9,8000,8405,No,0,Yes,14,386,42.8,127,0.4,81.4,5.2,0,48,,,,,,,,,30,,,1.13,,,,
+1,50,,15.2,1362,42,,5.8,17200,19318,No,550,No,9.8,541,53.5,130,0.4,43.2,4.8,88,16,,,,,,,,,43,13.56828194,,1.78,0.22,0.8,10,10.94210526
+1,1,,23.9,514,43,,11,8000,7876,No,800,No,15.9,146,81.6,124,0.4,194.1,6.6,77,50,,,,,,,,,14,71.90661479,,0.92,1.14,1.21,52,45.47949791
