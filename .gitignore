@@ -68,3 +68,4 @@ spec/dummy/storage/**/*
 log/.bash_history
 /*.pdf
 app/assets/javascripts/renalware/rollup_compiled.css
+*.csv#
