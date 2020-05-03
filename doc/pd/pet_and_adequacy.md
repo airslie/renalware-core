@@ -66,6 +66,38 @@ worsens.
 - Dialysate Na
 - Dialysate Protein
 
+### Calculations
+
+These predefined pre-calculated values will have been stored against a clinic visit
+when it is saved:
+
+* BSA = Body Surface Area (using DuBois)
+  * `0.007184*Weight^0.425*(Height)^0.725`
+* TBW = Total Body Water (using Watson)
+  * Male `2.447 - (0.09156*Age) + (0.1074*Height) + (0.3362*Weight)`
+  * Female `-2.097 + (0.1069*Height) + (0.2466*Weight))`
+
+#### Dietry Protein Intake (DPI)
+
+Using Bergstrom I
+
+```
+Round((19+0.272*((Dial24_Urea*Dial24_VolOut/1000) + (Urine24_Urea*Urine24_Vol/1000)))/Weight,2))
+```
+
+#### Creatinine Clearances
+
+```
+Total Creatinine Clearance = Residual Renal Function (RRF) + Peritoneal Creatinine Clearance (PeritonealCrCl)
+
+PeritonealCrCl = Round( (Dial24_Creat*Dial24_VolOut/1000) / SerumCreatinine *7 *1.72/ BSA,0)
+
+RRF = Round((RenalCrCl_calculated + RenalUrCl_calculated)/(2*BSA)*1.72,0)
+
+RenalCrCl_calculated = (Urine24_Creat *Urine24_Vol)/SerumCreatinine*7
+RenalUrCl_calculated =  (Urine24_Urea*Urine24_Vol/1000)/SerumUrea*7
+```
+
 ## UI Workflow
 
 Both tests happen in phases
