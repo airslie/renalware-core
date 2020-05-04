@@ -23,7 +23,9 @@ module Renalware
       end
 
       def edit
-        render locals: { adequacy: find_and_authorize_result }
+        adequacy = find_and_authorize_result
+        # adequacy.derive_calculated_attributes
+        render locals: { adequacy: adequacy }
       end
 
       def update
