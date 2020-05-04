@@ -5,7 +5,6 @@
   = simple_form_for(adequacy, url: renalware.patient_pd_adequacy_result_path(patient, adequacy), wrapper: :horizontal_form) do |f|
 
     .panel style="max-width: 600px; padding: 1rem 1.2rem 0"
-      h2 Calculated Results
       table.adequacy-path-table(style="max-width: 600px;")
         thead
           tr
@@ -25,15 +24,15 @@
             th(title="Dietry Protein Intake") DPI
         tbody
           tr
-            td= f.text_field :total_creatinine_clearance
-            td= f.text_field :pertitoneal_creatinine_clearance
-            td= f.text_field :renal_creatinine_clearance
+            td= adequacy.total_creatinine_clearance
+            td= adequacy.pertitoneal_creatinine_clearance
+            td= adequacy.renal_creatinine_clearance
             td
-            td= f.text_field :total_ktv
-            td= f.text_field :pertitoneal_ktv
-            td= f.text_field :renal_ktv
+            td= adequacy.total_ktv
+            td= adequacy.pertitoneal_ktv
+            td= adequacy.renal_ktv
             td
-            td= f.text_field :dietry_protein_intake
+            td= adequacy.dietry_protein_intake
 
 
     article(style="max-width: 600px; display: block; float: none; clear: both")
