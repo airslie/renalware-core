@@ -1,0 +1,4 @@
+# Development procfile. Run with eg `hivemind Procfile.dev`
+web: bin/web -p 3000
+worker: bundle exec rake app:jobs:work
+assets: rollup --config rollup.config.js -w
