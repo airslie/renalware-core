@@ -5,17 +5,17 @@ table.toggleable(data-controller="toggle" )
       th.col-width-tiny
       th.col-width-date Date
       th Type
-      th Dextrose
+      / th Dextrose
       th Volume in
-      th Volume out
+      / th Volume out
       th Infusion time
       th Drain time
       th O/N dextrose
       th O/N vol in
       th O/N vol out
       th O/N dwell time
-      th D_Pcr
-      th netUF
+      th.bg-gray-100 D_Pcr
+      th.bg-gray-100 netUF
       th.col-width-date=t("updated_at")
 
     - results.each do |result|
@@ -34,17 +34,17 @@ table.toggleable(data-controller="toggle" )
                       data: { method: :delete, confirm: "Are you sure?" }
           td= l(result.performed_on)
           td= result.test_type&.text
-          td= result.dextrose
-          td= result.volume_in
-          td= result.volume_out
+          / td= result.dextrose&.to_i
+          td= result.volume_in&.to_i
+          / td= result.volume_out&.to_i
           td= result.infusion_time
           td= result.drain_time
           td= result.overnight_dextrose
-          td= result.overnight_volume_in
-          td= result.overnight_volume_out
+          td= result.overnight_volume_in&.to_i
+          td= result.overnight_volume_out&.to_i
           td= result.overnight_dwell_time
-          td= result.d_pcr
-          td= result.net_uf
+          th.bg-gray-100= result.d_pcr
+          th.bg-gray-100= result.net_uf&.to_i
           td= l(result.updated_at.to_date)
         tr
           td(colspan=14) &nbsp;

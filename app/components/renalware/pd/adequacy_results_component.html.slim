@@ -8,24 +8,24 @@
     table.toggleable(data-controller="toggle")
       thead
         tr
-          th style="border-bottom: none" colspan==8
-          th style=" text-align:center; font-style:italic" colspan=3 Creatinine Clearance
-          th style="text-align:center; font-style:italic" colspan=3 kt/V
+          th style="border-bottom: none" colspan==6
+          th.bg-gray-100 style=" text-align:center; font-style:italic" colspan=3 Creatinine Clearance
+          th.bg-gray-200 style="text-align:center; font-style:italic" colspan=3 kt/V
         tr
           th.togglers= rows_toggler
           th.col-width-tiny
           th.col-width-date Date
           th Dial 24 vol in
-          th Dial 24 vol out
-          th Dial 24 missing
+          th Dial24UF
+          / th Dial 24 missing
           th Urine 24 vol
-          th Urine 24 missing
-          th Total
-          th Perti
-          th Renal
-          th Total
-          th Perti
-          th Renal
+          / th Urine 24 missing
+          th.bg-gray-100 Total
+          th.bg-gray-100 Perti
+          th.bg-gray-100 Renal
+          th.bg-gray-200 Total
+          th.bg-gray-200 Perti
+          th.bg-gray-200 Renal
           th DPI
           th.col-width-date=t("updated_at")
 
@@ -39,17 +39,17 @@
                         renalware.patient_pd_adequacy_result_path(patient, result),
                         data: { method: :delete, confirm: "Are you sure?" }
             td= l(result.performed_on)
-            td= result.dial_24_vol_in
-            td= result.dial_24_vol_out
-            td= yes_no result.dial_24_missing
+            td= result.dial_24_vol_in&.to_i
+            td= result.dial_24_vol_out&.to_i - result.dial_24_vol_in&.to_i
+            / td= yes_no result.dial_24_missing
             td= result.urine_24_vol
-            td= yes_no result.urine_24_missing
-            td= result.total_creatinine_clearance
-            td= result.pertitoneal_creatinine_clearance
-            td= result.renal_creatinine_clearance
-            td= result.total_ktv
-            td= result.pertitoneal_ktv
-            td= result.renal_ktv
+            / td= yes_no result.urine_24_missing
+            th.bg-gray-100= result.total_creatinine_clearance&.to_i
+            td.bg-gray-100= result.pertitoneal_creatinine_clearance&.to_i
+            td.bg-gray-100= result.renal_creatinine_clearance&.to_i
+            th.bg-gray-200= result.total_ktv
+            td.bg-gray-200= result.pertitoneal_ktv
+            td.bg-gray-200= result.renal_ktv
             td= result.dietry_protein_intake
             td= l(result.updated_at.to_date)
           tr

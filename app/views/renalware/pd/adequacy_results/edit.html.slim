@@ -55,8 +55,6 @@
             th Na
             th K
             th Protein
-            th Vol In
-            th Vol Out
         tbody
           tr
             td Dialysate
@@ -66,8 +64,6 @@
             td
             td= f.text_field :dialysate_na
             td= f.text_field :dialysate_protein
-            td ?
-            td ?
           tr
             td Urine
             td= f.text_field :urine_urea
@@ -75,8 +71,6 @@
             td
             td= f.text_field :urine_na
             td= f.text_field :urine_k
-            td
-            td
 
     br
     = f.submit "Save", class: :button

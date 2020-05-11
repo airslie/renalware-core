@@ -6,11 +6,9 @@ import { Controller } from "stimulus"
 export default class extends Controller {
   static targets = ["tab", "panel"]
   connect() {
-    console.log("Jss")
   }
 
   initialize() {
-    console.log("J")
     this.activeTabClasses = (this.data.get("activeTab") || "active").split(" ")
     this.showTab()
   }

@@ -17,12 +17,13 @@
             svg.h-6.w-6.stroke-current.text-gray-800 viewBox="0 0 24 26"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               path d="M12 20V10M18 20V4M6 20v-4"
 
-
         = link_to "Add", renalware.new_patient_pd_pet_result_path(patient), class: "float-none button flex-initial"
 
     div data-target="tabs.panel"
       = render "renalware/pd/pet_results/table", patient: patient, results: results, pagination: pagination
 
-    .chart.hidden data-target="tabs.panel"
-      = line_chart(patient.pet_results.where("d_pcr is not null and net_uf is not null").order(performed_on: :asc).pluck(:d_pcr, :net_uf),
-                   xtitle: "D/Pcr", ytitle: "net UF", curve: false)
+    .chart.hidden.mt-5 data-target="tabs.panel"
+      div(style="display:block; position:relative; height: 400px; width: 100%; text-align: center; margin-bottom: 20px")
+        #containerx(data-controller="pd-pet-chart"
+                    data-pd-pet-chart-url=renalware.patient_pd_pet_results_path(patient, format: :json)
+                    style="position: absolute; left: 0; top: 30px; max-width: 700px")

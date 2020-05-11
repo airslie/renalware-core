@@ -25,6 +25,18 @@ module Renalware
         end
       end
 
+      def index
+        # Graphing data
+        results = patient
+          .pet_results
+          .where("d_pcr is not null and net_uf is not null")
+          .order(performed_on: :asc)
+          .pluck(:d_pcr, :net_uf)
+
+        authorize PETResult, :index?
+        render json: results
+      end
+
       def edit
         render locals: { pet: find_authorize_pet_result }
       end

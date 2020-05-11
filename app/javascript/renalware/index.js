@@ -25,6 +25,7 @@ import ChartsController from "./controllers/charts_controller"
 import SessionController from "./controllers/session_controller"
 import SimpleToggleController from "./controllers/simple_toggle_controller"
 import TabsController from "./controllers/tabs_controller"
+import PDPetChartsController from "./controllers/pd/pet_charts_controller"
 
 const application = Application.start()
 application.register("toggle", ToggleController)
@@ -37,5 +38,6 @@ application.register("charts", ChartsController)
 application.register("session", SessionController)
 application.register("simple-toggle", SimpleToggleController)
 application.register("tabs", TabsController)
+application.register("pd-pet-chart", PDPetChartsController)
 
 window.Chartkick.use(window.Highcharts)

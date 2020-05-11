@@ -15,16 +15,19 @@ article(style="max-width: 600px; display: block; float: none; clear: both")
       th Protein
     tbody
       tr
-        td.col-width-small Serum
+        th.col-width-small Serum
         td= form.text_field :serum_time
         td= form.text_field :serum_urea
         td= form.text_field :serum_creatinine
         td= form.text_field :plasma_glc
         td= form.text_field :serum_na
         td= form.text_field :serum_ab
-      - [0, 2, 4, 6].each do |hr|
+      - [4, 2, 0, 6].each do |hr|
         tr
-          td= "Sample #{hr}"
+          - if hr == 4
+            th= "Sample #{hr}"
+          - else
+            th= "Sample #{hr}"
           td= form.text_field :"sample_#{hr}hr_time"
           td= form.text_field :"sample_#{hr}hr_urea"
           td= form.text_field :"sample_#{hr}hr_creatinine"
