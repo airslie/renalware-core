@@ -1,4 +1,7 @@
 code,name,location,is_transplant_site,trust_name,trust_caption,info
+995,Unknown,Unknown,1,,,
+999,Other,Other,1,,,
+ABROAD,Non-UK,Non-UK,1,,,
 QC001,Mount Royal Hospital,Montreal,1,,,
 SNC01,Aberdeen Royal Infirmary,Aberdeen,0,,,
 SLC01,Monklands Hospital,Airdrie,0,,,
