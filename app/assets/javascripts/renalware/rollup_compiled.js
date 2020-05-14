@@ -7294,13 +7294,13 @@ var _default$a = function(_Controller) {
           },
           series: [ {
             name: "Expected",
-            color: "#D9A3D9",
+            color: "#00a499",
             showInLegend: true,
             type: "polygon",
             data: [ [ .36, 400 ], [ .36, 1e3 ], [ .5, 1e3 ], [ .9, 600 ], [ .9, 300 ], [ .6, 100 ], [ .36, 400 ] ]
           }, {
             name: "Warning",
-            color: "#E3E38D",
+            color: "#fff495",
             showInLegend: true,
             type: "polygon",
             data: [ [ .6, 100 ], [ .9, 300 ], [ 1, 200 ], [ 1, -600 ], [ .75, -600 ], [ .6, 100 ] ]
