@@ -100,7 +100,7 @@ module Renalware
             :test_type,
             :volume_in,
             :volume_out,
-            :dextrose,
+            :dextrose_concentration_id,
             :infusion_time,
             :drain_time,
             :overnight_volume_in,

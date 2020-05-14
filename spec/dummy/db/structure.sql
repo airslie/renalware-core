@@ -6271,7 +6271,6 @@ CREATE TABLE renalware.pd_pet_results (
     test_type renalware.pd_pet_type NOT NULL,
     volume_in integer,
     volume_out integer,
-    dextrose double precision,
     infusion_time integer,
     drain_time integer,
     overnight_volume_in integer,
@@ -6314,7 +6313,8 @@ CREATE TABLE renalware.pd_pet_results (
     created_by_id bigint NOT NULL,
     updated_by_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    dextrose_concentration_id bigint
 );
 
 
@@ -15233,6 +15233,13 @@ CREATE INDEX index_pd_pet_results_on_deleted_at ON renalware.pd_pet_results USIN
 
 
 --
+-- Name: index_pd_pet_results_on_dextrose_concentration_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_pet_results_on_dextrose_concentration_id ON renalware.pd_pet_results USING btree (dextrose_concentration_id);
+
+
+--
 -- Name: index_pd_pet_results_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -17380,6 +17387,14 @@ ALTER TABLE ONLY renalware.admission_admissions
 
 ALTER TABLE ONLY renalware.system_downloads
     ADD CONSTRAINT fk_rails_42cdf8956b FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: pd_pet_results fk_rails_44d212ba62; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pd_pet_results
+    ADD CONSTRAINT fk_rails_44d212ba62 FOREIGN KEY (dextrose_concentration_id) REFERENCES renalware.pd_pet_dextrose_concentrations(id);
 
 
 --
@@ -19846,6 +19861,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200421082715'),
 ('20200421143546'),
 ('20200427123229'),
-('20200514162911');
+('20200514162911'),
+('20200514165238');
 
 
