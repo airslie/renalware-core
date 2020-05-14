@@ -19,7 +19,7 @@ module Renalware
 
       def results
         @results ||= begin
-          @pagination, @results = pagy(scope)
+          @pagination, @results = pagy(scope, items: 6)
           @results
         end
       end

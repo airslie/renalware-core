@@ -14,7 +14,7 @@ module Renalware
       acts_as_paranoid
 
       belongs_to :patient, class_name: "Renalware::PD::Patient", touch: true
-      scope :ordered, -> { order(created_at: :desc) }
+      scope :ordered, -> { order(performed_on: :desc, created_at: :desc) }
       before_save :derive_calculated_attributes
 
       def derive_calculated_attributes

@@ -43,6 +43,16 @@ module Renalware
         redirect_to patient_pd_dashboard_path(patient), notice: success_msg_for("Result")
       end
 
+      def index
+        respond_to do |format|
+          format.js do
+            results = patient.adequacy_results.ordered
+            authorize results
+            render locals: { results: results }
+          end
+        end
+      end
+
       private
 
       def find_and_authorize_result

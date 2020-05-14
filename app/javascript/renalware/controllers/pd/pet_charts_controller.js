@@ -122,7 +122,7 @@ export default class extends Controller {
           series: [
           {
             name: "Expected",
-            color: "#D9A3D9", //"#D970D9",
+            color: "#00a499", //"#D970D9",
             showInLegend: true,
             type: "polygon",
             data: [
@@ -137,7 +137,7 @@ export default class extends Controller {
           },
           {
             name: "Warning",
-            color: "#E3E38D", //#E3E355",
+            color: "#fff495",
             showInLegend: true,
             type: "polygon",
             data: [
