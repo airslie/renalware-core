@@ -6,10 +6,10 @@ class CreateAdequacyResults < ActiveRecord::Migration[6.0]
 
         # The first set are inputs after seeing the patient
         t.date :performed_on, null: false
-        t.float :dial_24_vol_in
-        t.float :dial_24_vol_out
+        t.integer :dial_24_vol_in
+        t.integer :dial_24_vol_out
         t.boolean :dial_24_missing, null: false, default: false
-        t.float :urine_24_vol
+        t.integer :urine_24_vol
         t.boolean :urine_24_missing, null: false, default: false
 
         # Blood results back from the lab

@@ -9,13 +9,13 @@ class CreatePETResults < ActiveRecord::Migration[6.0]
         # The first set are inputs when seeing the patient
         t.date :performed_on, null: false
         t.enum :test_type, enum_name: :pd_pet_type, null: false
-        t.float :volume_in
-        t.float :volume_out
+        t.integer :volume_in
+        t.integer :volume_out
         t.float :dextrose
         t.integer :infusion_time
         t.integer :drain_time
-        t.float :overnight_volume_in
-        t.float :overnight_volume_out
+        t.integer :overnight_volume_in
+        t.integer :overnight_volume_out
         t.float :overnight_dextrose
         t.integer :overnight_dwell_time
 
@@ -39,7 +39,7 @@ class CreatePETResults < ActiveRecord::Migration[6.0]
         t.float :serum_na
 
         # This set is for calculated fields
-        t.float :net_uf
+        t.integer :net_uf
         t.float :d_pcr
 
         t.datetime :deleted_at, index: true
