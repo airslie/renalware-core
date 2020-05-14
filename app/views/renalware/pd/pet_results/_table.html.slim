@@ -3,6 +3,8 @@ table.toggleable(data-controller="toggle" )
     tr
       th.togglers= rows_toggler
       th.col-width-tiny
+      - if local_assigns.fetch(:display_patient, false)
+        th.col-width-medium Patient
       th.col-width-date Date
       th Type
       / th Dextrose
@@ -25,13 +27,15 @@ table.toggleable(data-controller="toggle" )
           td.actions
             /.button.dropdown.actions
 
-            = link_to "Edit", renalware.edit_patient_pd_pet_result_path(patient, result)
+            = link_to "Edit", renalware.edit_patient_pd_pet_result_path(result.patient, result)
             / = link_to "Update pathology",
             /           renalware.patient_pd_pet_result_path(patient, result),
             /           data: { method: :delete, confirm: "Are you sure?" }
             = link_to "Delete",
-                      renalware.patient_pd_pet_result_path(patient, result),
+                      renalware.patient_pd_pet_result_path(result.patient, result),
                       data: { method: :delete, confirm: "Are you sure?" }
+          - if local_assigns.fetch(:display_patient, false)
+            td= result.patient
           td= l(result.performed_on)
           td= result.test_type&.text
           / td= result.dextrose&.to_i

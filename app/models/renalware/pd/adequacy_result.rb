@@ -7,6 +7,7 @@ module Renalware
     class AdequacyResult < ApplicationRecord
       include PatientScope
       include Accountable
+      include PatientsRansackHelper
       acts_as_paranoid
 
       belongs_to :patient, class_name: "Renalware::PD::Patient", touch: true

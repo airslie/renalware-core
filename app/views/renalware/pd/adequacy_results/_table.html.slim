@@ -1,0 +1,53 @@
+table.toggleable(data-controller="toggle")
+  thead
+    tr
+      th style="border-bottom: none" colspan==6
+      th.bg-gray-100 style=" text-align:center; font-style:italic" colspan=3 Creatinine Clearance
+      th.bg-gray-200 style="text-align:center; font-style:italic" colspan=3 kt/V
+    tr
+      th.togglers= rows_toggler
+      th.col-width-tiny
+      - if local_assigns.fetch(:display_patient, false)
+        th.col-width-medium Patient
+      th.col-width-date Date
+      th Dial 24 vol in
+      th Dial24UF
+      / th Dial 24 missing
+      th Urine 24 vol
+      / th Urine 24 missing
+      th.bg-gray-100 Total
+      th.bg-gray-100 Perti
+      th.bg-gray-100 Renal
+      th.bg-gray-200 Total
+      th.bg-gray-200 Perti
+      th.bg-gray-200 Renal
+      th DPI
+      th.col-width-date=t("updated_at")
+
+  - results.each do |result|
+    tbody
+      tr
+        td= row_toggler
+        td.actions
+          = link_to "Edit", renalware.edit_patient_pd_adequacy_result_path(result.patient, result)
+          = link_to "Delete",
+                    renalware.patient_pd_adequacy_result_path(result.patient, result),
+                    data: { method: :delete, confirm: "Are you sure?" }
+        - if local_assigns.fetch(:display_patient, false)
+          td= result.patient
+        td= l(result.performed_on)
+        td= result.dial_24_vol_in&.to_i
+        td= result.dial_24_vol_out&.to_i - result.dial_24_vol_in&.to_i
+        / td= yes_no result.dial_24_missing
+        td= result.urine_24_vol
+        / td= yes_no result.urine_24_missing
+        th.bg-gray-100= result.total_creatinine_clearance&.to_i
+        td.bg-gray-100= result.pertitoneal_creatinine_clearance&.to_i
+        td.bg-gray-100= result.renal_creatinine_clearance&.to_i
+        th.bg-gray-200= result.total_ktv
+        td.bg-gray-200= result.pertitoneal_ktv
+        td.bg-gray-200= result.renal_ktv
+        td= result.dietry_protein_intake
+        td= l(result.updated_at.to_date)
+      tr
+        td(colspan=9) &nbsp;

@@ -9,6 +9,7 @@ module Renalware
     class PETResult < ApplicationRecord
       include PatientScope
       include Accountable
+      include PatientsRansackHelper
       extend Enumerize
       acts_as_paranoid
 

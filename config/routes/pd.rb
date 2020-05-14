@@ -25,6 +25,8 @@ resources :patients, only: [] do
 end
 
 namespace :pd do
+  resources :pet_completions, only: :index
+  resources :adequacy_completions, only: :index
   resources :bag_types, except: [:show]
   resources :infection_organisms
   resources :mdm_patients, only: :index
