@@ -1,11 +1,4 @@
 = within_admin_layout(title: "PET Results") do
-  .panel
-    | TODO:
-    ul
-      li Decide on how to determine status
-      li what cols to display
-      li what sorting required
-      li what filters required
   = render "filters", query: query
   = render "renalware/pd/pet_results/table", results: results, display_patient: true
   == pagy_foundation_nav pagination

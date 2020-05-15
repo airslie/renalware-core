@@ -22,6 +22,7 @@ module Renalware
       def derive_calculated_attributes
         self.d_pcr = calculated_d_pcr
         self.net_uf = calculated_net_uf
+        self.complete = d_pcr.present? && net_uf.present?
       end
 
       def calculated_d_pcr

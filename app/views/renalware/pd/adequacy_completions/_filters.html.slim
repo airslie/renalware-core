@@ -9,8 +9,8 @@
         = f.input :identity_match, label: "Hosp/NHS no or name"
 
       .columns.medium-2.large-2
-        = f.input :performed_on_eq,
-                  collection: [],
+        = f.input :complete_eq,
+                  collection: [["Yes", true], ["No", false]],
                   label: "Status"
 
       .columns.medium-2.large-2.actions.end

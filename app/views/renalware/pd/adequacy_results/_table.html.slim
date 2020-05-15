@@ -1,8 +1,12 @@
+
 table.toggleable(data-controller="toggle")
   thead
     tr
-      th style="border-bottom: none" colspan=3
-      th.bg-gray-100 style=" text-align:center; font-style:italic" colspan=3 Creatinine Clearance
+      - if local_assigns.fetch(:display_patient, false)
+        th style="border-bottom: none" colspan=5
+      - else
+        th style="border-bottom: none" colspan=4
+      th.bg-gray-100 style="text-align:center; font-style:italic" colspan=3 Creatinine Clearance
       th.bg-gray-200 style="text-align:center; font-style:italic" colspan=3 kt/V
 
     tr
@@ -12,6 +16,8 @@ table.toggleable(data-controller="toggle")
       - if local_assigns.fetch(:display_patient, false)
         th.col-width-medium Patient
       th.col-width-date Date
+      th.col-width-tiny
+        i.far.fa-check-circle
       th.bg-gray-100 Total
       th.bg-gray-100 Perit
       th.bg-gray-100 Renal
@@ -31,8 +37,14 @@ table.toggleable(data-controller="toggle")
         - if policy(Renalware::PD::AdequacyResult).edit?
           td.actions
             - if policy(result).edit?
-              = link_to "Edit",
-                        renalware.edit_patient_pd_adequacy_result_path(result.patient, result)
+              - if local_assigns.fetch(:display_patient, false)
+                = link_to renalware.edit_patient_pd_adequacy_result_path(result.patient, result), target: :blank do
+                  i.fas.fa-external-link-alt
+                  |  Edit
+              - else
+                = link_to "Edit",
+                          renalware.edit_patient_pd_adequacy_result_path(result.patient, result)
+
             - if policy(result).destroy?
               = link_to "Delete",
                         renalware.patient_pd_adequacy_result_path(result.patient, result),
@@ -40,6 +52,12 @@ table.toggleable(data-controller="toggle")
         - if local_assigns.fetch(:display_patient, false)
           td= result.patient
         td.col-width-date= l(result.performed_on)
+        -if result.complete?
+          td.text-green-500
+            i.fas.fa-check-circle
+        - else
+          td.text-red-600
+            i.far.fa-circle
         th.bg-gray-100= result.total_creatinine_clearance&.to_i
         td.bg-gray-100= result.pertitoneal_creatinine_clearance&.to_i
         td.bg-gray-100= result.renal_creatinine_clearance&.to_i

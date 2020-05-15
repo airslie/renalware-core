@@ -39,6 +39,7 @@ class CreateAdequacyResults < ActiveRecord::Migration[6.0]
         t.float :pertitoneal_ktv
         t.float :renal_ktv
         t.float :dietry_protein_intake
+        t.boolean :complete, default: false, null: false, indeex: true
 
         t.datetime :deleted_at, index: true
         t.references :created_by, index: true, null: false

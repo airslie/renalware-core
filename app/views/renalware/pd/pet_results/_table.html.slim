@@ -7,7 +7,9 @@ table.toggleable(data-controller="toggle" )
       - if local_assigns.fetch(:display_patient, false)
         th.col-width-medium Patient
       th.col-width-date Date
-      th Type
+      th.col-width-tiny
+        i.far.fa-check-circle
+      th.col-width-tiny Type
       th.bg-gray-100 D_Pcr
       th.bg-gray-100 netUF
       th Volume in
@@ -34,6 +36,12 @@ table.toggleable(data-controller="toggle" )
           - if local_assigns.fetch(:display_patient, false)
             td= result.patient
           td= l(result.performed_on)
+          -if result.complete?
+            td.text-green-500
+              i.fas.fa-check-circle
+          - else
+            td.text-red-600
+              i.far.fa-circle
           th= result.test_type&.text
           th.bg-gray-100= result.d_pcr
           th.bg-gray-100= result.net_uf

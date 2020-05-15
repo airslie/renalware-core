@@ -51,6 +51,7 @@ class CreatePETResults < ActiveRecord::Migration[6.0]
         # This set is for calculated fields
         t.integer :net_uf
         t.float :d_pcr
+        t.boolean :complete, default: false, null: false, indeex: true
 
         t.datetime :deleted_at, index: true
         t.references :created_by, index: true, null: false
