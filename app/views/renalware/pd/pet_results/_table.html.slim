@@ -28,7 +28,12 @@ table.toggleable(data-controller="toggle" )
           - if policy(Renalware::PD::PETResult).edit?
             td.actions
               - if policy(result).edit?
-                = link_to "Edit", renalware.edit_patient_pd_pet_result_path(result.patient, result)
+                - if local_assigns.fetch(:display_patient, false)
+                  = link_to renalware.edit_patient_pd_pet_result_path(result.patient, result)
+                    i.fas.fa-external-link-alt
+                    |  Edit
+                - else
+                  = link_to "Edit", renalware.edit_patient_pd_pet_result_path(result.patient, result)
               - if policy(result).destroy?
                 = link_to "Delete",
                           renalware.patient_pd_pet_result_path(result.patient, result),
