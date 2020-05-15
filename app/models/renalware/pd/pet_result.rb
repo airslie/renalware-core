@@ -39,8 +39,30 @@ module Renalware
       end
 
       enumerize :test_type, in: %i(fast full), predicate: true
+
       validates :performed_on, presence: true
       validates :test_type, presence: true
+      validates :volume_in,
+                numericality: { greater_than_or_equal_to: 1000, less_than_or_equal_to: 3000 },
+                allow_nil: true
+      validates :volume_out,
+                numericality: { greater_than_or_equal_to: 500, less_than_or_equal_to: 4000 },
+                allow_nil: true
+      validates :infusion_time,
+                numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 30 },
+                allow_nil: true
+      validates :drain_time,
+                numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 45 },
+                allow_nil: true
+      validates :overnight_volume_in,
+                numericality: { greater_than_or_equal_to: 1000, less_than_or_equal_to: 3000 },
+                allow_nil: true
+      validates :overnight_volume_out,
+                numericality: { greater_than_or_equal_to: 500, less_than_or_equal_to: 4000 },
+                allow_nil: true
+      validates :overnight_dwell_time,
+                numericality: { greater_than_or_equal_to: 180, less_than_or_equal_to: 720 },
+                allow_nil: true
 
       # This map is currently for documentation purposes but may be useful when exporting
       # National Renal Database data
