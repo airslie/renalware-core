@@ -11,12 +11,22 @@ class CreatePETResults < ActiveRecord::Migration[6.0]
         t.enum :test_type, enum_name: :pd_pet_type, null: false
         t.integer :volume_in
         t.integer :volume_out
-        t.float :dextrose
+        t.references(
+          :dextrose_concentration,
+          foreign_key: { to_table: :pd_pet_dextrose_concentrations },
+          index: true,
+          null: true
+        )
         t.integer :infusion_time
         t.integer :drain_time
         t.integer :overnight_volume_in
         t.integer :overnight_volume_out
-        t.float :overnight_dextrose
+        t.references(
+          :overnight_dextrose_concentration,
+          foreign_key: { to_table: :pd_pet_dextrose_concentrations },
+          index: true,
+          null: true
+        )
         t.integer :overnight_dwell_time
 
         # This set is manually or automatically added pathology after the fact

@@ -6234,6 +6234,7 @@ ALTER SEQUENCE renalware.pd_pet_adequacy_results_id_seq OWNED BY renalware.pd_pe
 CREATE TABLE renalware.pd_pet_dextrose_concentrations (
     id bigint NOT NULL,
     name character varying NOT NULL,
+    value double precision NOT NULL,
     hidden boolean DEFAULT false NOT NULL,
     "position" integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -6271,11 +6272,12 @@ CREATE TABLE renalware.pd_pet_results (
     test_type renalware.pd_pet_type NOT NULL,
     volume_in integer,
     volume_out integer,
+    dextrose_concentration_id bigint,
     infusion_time integer,
     drain_time integer,
     overnight_volume_in integer,
     overnight_volume_out integer,
-    overnight_dextrose double precision,
+    overnight_dextrose_concentration_id bigint,
     overnight_dwell_time integer,
     sample_0hr_time double precision,
     sample_0hr_urea double precision,
@@ -6313,8 +6315,7 @@ CREATE TABLE renalware.pd_pet_results (
     created_by_id bigint NOT NULL,
     updated_by_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    dextrose_concentration_id bigint
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -15219,6 +15220,13 @@ CREATE UNIQUE INDEX index_pd_pet_dextrose_concentrations_on_name ON renalware.pd
 
 
 --
+-- Name: index_pd_pet_dextrose_concentrations_on_value; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pd_pet_dextrose_concentrations_on_value ON renalware.pd_pet_dextrose_concentrations USING btree (value);
+
+
+--
 -- Name: index_pd_pet_results_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -15237,6 +15245,13 @@ CREATE INDEX index_pd_pet_results_on_deleted_at ON renalware.pd_pet_results USIN
 --
 
 CREATE INDEX index_pd_pet_results_on_dextrose_concentration_id ON renalware.pd_pet_results USING btree (dextrose_concentration_id);
+
+
+--
+-- Name: index_pd_pet_results_on_overnight_dextrose_concentration_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_pet_results_on_overnight_dextrose_concentration_id ON renalware.pd_pet_results USING btree (overnight_dextrose_concentration_id);
 
 
 --
@@ -17934,6 +17949,14 @@ ALTER TABLE ONLY renalware.hd_provider_units
 
 
 --
+-- Name: pd_pet_results fk_rails_8d6b2f0082; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pd_pet_results
+    ADD CONSTRAINT fk_rails_8d6b2f0082 FOREIGN KEY (overnight_dextrose_concentration_id) REFERENCES renalware.pd_pet_dextrose_concentrations(id);
+
+
+--
 -- Name: access_profiles fk_rails_8d75e5423f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -19859,9 +19882,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200401115705'),
 ('20200408131217'),
 ('20200421082715'),
+('20200421132911'),
 ('20200421143546'),
-('20200427123229'),
-('20200514162911'),
-('20200514165238');
+('20200427123229');
 
 

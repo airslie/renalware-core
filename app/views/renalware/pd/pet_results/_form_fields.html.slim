@@ -6,7 +6,7 @@
 = form.input :volume_out, wrapper: :hz_sm
 = form.input :infusion_time, wrapper: :hz_sm
 = form.input :drain_time, wrapper: :hz_sm
-= form.input :overnight_dextrose, wrapper: :hz_sm
+= form.input :overnight_dextrose_concentration_id, collection: Renalware::PD::PETDextroseConcentration.order(position: :asc), wrapper: :hz_sm
 = form.input :overnight_volume_in, wrapper: :hz_sm
 = form.input :overnight_volume_out, wrapper: :hz_sm
 = form.input :overnight_dwell_time, wrapper: :hz_sm

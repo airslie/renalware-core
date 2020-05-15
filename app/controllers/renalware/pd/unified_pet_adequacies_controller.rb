@@ -69,7 +69,7 @@ module Renalware
             :drain_time,
             :overnight_volume_in,
             :overnight_volume_out,
-            :overnight_dextrose,
+            :overnight_dextrose_concentration_id,
             :overnight_dwell_time
           )
       end

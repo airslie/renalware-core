@@ -17,6 +17,7 @@ module Renalware
       scope :ordered, -> { order(performed_on: :desc, created_at: :desc) }
       before_save :derive_calculated_attributes
       belongs_to :dextrose_concentration, class_name: "PETDextroseConcentration"
+      belongs_to :overnight_dextrose_concentration, class_name: "PETDextroseConcentration"
 
       def derive_calculated_attributes
         self.d_pcr = calculated_d_pcr
