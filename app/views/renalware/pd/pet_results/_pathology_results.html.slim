@@ -2,7 +2,6 @@
 article(style="max-width: 600px; display: block; float: none; clear: both")
   header
     h2 Pathology results
-    = link_to "Refresh...", "#", class: :button
 
   table.pet-results--samples-table
     thead
@@ -13,6 +12,7 @@ article(style="max-width: 600px; display: block; float: none; clear: both")
       th Glc
       th Sodium
       th Protein
+      th
     tbody
       tr
         th.col-width-small Serum
@@ -22,6 +22,7 @@ article(style="max-width: 600px; display: block; float: none; clear: both")
         td= form.text_field :plasma_glc
         td= form.text_field :serum_na
         td= form.text_field :serum_ab
+        td= link_to "Refresh...", "#", class: "button secondary"
       - [4, 2, 0, 6].each do |hr|
         tr
           - if hr == 4
@@ -34,3 +35,4 @@ article(style="max-width: 600px; display: block; float: none; clear: both")
           td= form.text_field :"sample_#{hr}hr_glc"
           td= form.text_field :"sample_#{hr}hr_sodium"
           td= form.text_field :"sample_#{hr}hr_protein"
+          th

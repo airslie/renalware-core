@@ -49,6 +49,7 @@
         thead
           tr
             th
+            th Date
             th Urea
             th Creatinine
             th Glu
@@ -58,6 +59,7 @@
         tbody
           tr
             td Dialysate
+            td
             td= f.text_field :dialysate_urea
             td= f.text_field :dialysate_creatinine
             td= f.text_field :dialysate_glu
@@ -66,6 +68,7 @@
             td= f.text_field :dialysate_protein
           tr
             td Urine
+            td
             td= f.text_field :urine_urea
             td= f.text_field :urine_creatinine
             td
