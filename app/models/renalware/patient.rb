@@ -18,6 +18,7 @@ module Renalware
     # is a default new uuid value on the secure_id column
     before_create { self.secure_id ||= SecureRandom.uuid }
     before_save :upcase_local_patient_ids
+    before_validation :strip_spaces_from_nhs_number
     friendly_id :secure_id, use: [:finders]
 
     # For compactness in urls, remove the dashes, so that
@@ -164,6 +165,12 @@ module Renalware
     end
 
     private
+
+    def strip_spaces_from_nhs_number
+      return if nhs_number.blank?
+
+      self.nhs_number = nhs_number.delete(" ")
+    end
 
     # Before saving, convert all the local patient ids to upper case
     # TODO: Use a constant for the max number of local patient ids

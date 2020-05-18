@@ -301,5 +301,39 @@ module Renalware
         end
       end
     end
+
+    describe "#nhs_number" do
+      context "when it contains spaces but 10 actual digits" do
+        it "spaces are stripped and the number is save successfully without any spaces" do
+          patient = build(:patient, nhs_number: "123 456 7890")
+
+          patient.save!
+
+          expect(patient.reload.nhs_number).to eq("1234567890")
+        end
+      end
+
+      context "when it contains spaces but less than 10 actual digits" do
+        it "spaces are stripped and save is successful" do
+          patient = build(:patient, nhs_number: "123 456 78")
+
+          patient.save
+
+          expect(patient.errors[:nhs_number].first).to match(/too short/)
+          expect(patient.nhs_number).to eq("12345678")
+        end
+      end
+    end
+
+    context "when it contains spaces but more than 10 actual digits" do
+      it "spaces are stripped and save is successful" do
+        patient = build(:patient, nhs_number: "123 456 78901")
+
+        patient.save
+
+        expect(patient.errors[:nhs_number].first).to match(/too long/)
+        expect(patient.nhs_number).to eq("12345678901")
+      end
+    end
   end
 end
