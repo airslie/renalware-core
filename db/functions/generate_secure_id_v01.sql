@@ -9,7 +9,7 @@ CREATE OR REPLACE FUNCTION generate_secure_id(length integer default 24)
   */
   RETURNS text AS
   $body$
-  SELECT string_agg (substr('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+  SELECT string_agg (substr('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ9999999999',
                      ceil (random() * 62)::integer,
                      1), '')
   FROM   generate_series(1, length)

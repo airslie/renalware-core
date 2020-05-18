@@ -7,8 +7,8 @@ end
 Given(/^some patients who need renal treatment$/) do
   @patient_1 = FactoryBot.create(
     :patient,
-    nhs_number: "1000124501",
-    local_patient_id: "Z999991",
+    nhs_number: FactoryBot.generate(:nhs_number),
+    local_patient_id: FactoryBot.generate(:local_patient_id),
     family_name: "RABBIT",
     given_name: "Roger",
     born_on: "01/01/1947",
@@ -20,8 +20,8 @@ Given(/^some patients who need renal treatment$/) do
 
   @patient_2 = FactoryBot.create(
     :patient,
-    nhs_number: "1000124502",
-    local_patient_id: "Z999992",
+    nhs_number: FactoryBot.generate(:nhs_number),
+    local_patient_id: FactoryBot.generate(:local_patient_id),
     family_name: "DAY",
     given_name: "Doris",
     born_on: "24/06/1970",
@@ -33,8 +33,8 @@ Given(/^some patients who need renal treatment$/) do
 
   @patient_3 = FactoryBot.create(
     :patient,
-    nhs_number: "1000124503",
-    local_patient_id: "Z999993",
+    nhs_number: FactoryBot.generate(:nhs_number),
+    local_patient_id: FactoryBot.generate(:local_patient_id),
     family_name: "CASPER",
     given_name: "Ghost",
     born_on: "28/02/1930",

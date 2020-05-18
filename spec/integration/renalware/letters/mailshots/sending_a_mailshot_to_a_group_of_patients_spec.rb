@@ -24,7 +24,7 @@ describe "Creating a mailshot", type: :system, js: true do
       :patient,
       family_name: "JONES",
       given_name: "Jack",
-      nhs_number: "0123456789",
+      nhs_number: "9999999999",
       sex: "M"
     )
     create_test_sql_view
@@ -44,7 +44,7 @@ describe "Creating a mailshot", type: :system, js: true do
     expect(page).to have_css("#mailshot-patients-preview tbody tr")
     within(po.patient_preview_table) do
       expect(page).to have_content("JONES, Jack")
-      expect(page).to have_content("0123456789")
+      expect(page).to have_content("9999999999")
     end
 
     # In this end-to-end test we are going to force the enqueud CreateMailshotLettersJob

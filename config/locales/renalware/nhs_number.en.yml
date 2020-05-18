@@ -1,0 +1,5 @@
+en:
+  activerecord:
+    errors:
+      messages:
+        invalid_nhs_number: "is invalid"

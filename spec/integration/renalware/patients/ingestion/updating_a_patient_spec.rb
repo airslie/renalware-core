@@ -11,7 +11,7 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
   let(:dob) { "19720822000000" }
   let(:died_on) { "20150122154801" }
   let(:sex) { "F" }
-  let(:nhs_number) { "1234567890" }
+  let(:nhs_number) { "9999999999" }
   let(:gp_code) { "G1234567" }
   let(:practice_code) { "P123456" }
   let(:practice) { create(:practice, code: practice_code) }
@@ -21,7 +21,7 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
     hl7 = <<-HL7
       MSH|^~\&|ADT|iSOFT Engine|eGate|Kings|20150122154918||ADT^A31|897847653|P|2.3
       EVN|A31|20150122154918
-      PID|1|#{nhs_number}|#{local_patient_id}||#{family_name}^#{given_name}^#{middle_name}^^#{title}||#{dob}|#{sex}||Not Specified|34 Florence Road^SOUTH CROYDON^Surrey^^CR2 0PP^ZZ993CZ^HOME^QAD||0123456789|5554443333|NSP||NSP|||||Not Specified|.|DNU||8||NSP|#{died_on}|Y
+      PID|1|#{nhs_number}|#{local_patient_id}||#{family_name}^#{given_name}^#{middle_name}^^#{title}||#{dob}|#{sex}||Not Specified|34 Florence Road^SOUTH CROYDON^Surrey^^CR2 0PP^ZZ993CZ^HOME^QAD||9999999999|5554443333|NSP||NSP|||||Not Specified|.|DNU||8||NSP|#{died_on}|Y
       PD1|||DR WHM SUMISU PRACTICE, Nowhere Surgery, 22 Raccoon Road, Erewhon, Erewhonshire^GPPRC^#{practice_code}|#{gp_code}^Deeley^DP^^^DR
       PV1|1|I|FISK^1^^LD^^^^^Fiske Ward|22||||#{gp_code}^Deeley^DP^^^DR|#{practice_code}^Hoskin^P^^^P^370|370||||19|||C2458519^Hoskin^P^^^P^370|01|877511|||||||||||||||||||||NORMC||||20110412095300
     HL7

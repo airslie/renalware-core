@@ -9,11 +9,11 @@ module Renalware
         include XmlSpecHelper
 
         it "renders the NHS number if present" do
-          patient = Patient.new(nhs_number: "1234567890")
+          patient = Patient.new(nhs_number: "9999999999")
           expected_xml = <<~XML.squish.gsub("> <", "><")
             <PatientNumbers>
               <PatientNumber>
-                <Number>1234567890</Number>
+                <Number>9999999999</Number>
                 <Organization>NHS</Organization>
                 <NumberType>NI</NumberType>
               </PatientNumber>

@@ -15,7 +15,7 @@ module Renalware
       describe "#nhs_number" do
         subject { doc.nhs_number }
 
-        it { is_expected.to eq("1234567891") }
+        it { is_expected.to eq("9999999999") }
       end
 
       describe "#dob" do

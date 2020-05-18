@@ -76,15 +76,15 @@ describe "Searching patients", type: :request do
 
     context "with a NHS number filter" do
       before do
-        create(:patient, nhs_number: "1234567890")
         create(:patient, nhs_number: "9999999999")
+        create(:patient, nhs_number: "6393739592")
       end
 
       it "responds with a filtered list of records matching the NHS number" do
-        get patients_path(patient_search: { identity_match: "1234567890" })
+        get patients_path(patient_search: { identity_match: "9999999999" })
 
         expect(response).to be_successful
-        expect(response.body).to match("1234567890")
+        expect(response.body).to match("9999999999")
       end
 
       context "when the NHS number is entered in the 3-groups-separated-with-spaces format" do

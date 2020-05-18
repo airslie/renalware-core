@@ -6,7 +6,7 @@ require_dependency "models/renalware/concerns/personable"
 module Renalware
   describe Patient, type: :model do
     include PatientsSpecHelper
-    subject(:patient) { create(:patient, nhs_number: "1234567890") }
+    subject(:patient) { create(:patient, nhs_number: "9999999999") }
 
     it do
       aggregate_failures do
@@ -22,7 +22,7 @@ module Renalware
       subject(:patient) {
         build(
           :patient,
-          nhs_number: "1234567890",
+          nhs_number: "9999999999",
           local_patient_id: "1",
           local_patient_id_2: "2",
           local_patient_id_3: "3",
@@ -44,8 +44,7 @@ module Renalware
     end
 
     it :aggregate_failures do
-      is_expected.to validate_length_of(:nhs_number).is_at_least(10)
-      is_expected.to validate_length_of(:nhs_number).is_at_most(10)
+      is_expected.to validate_length_of(:nhs_number).is_equal_to(10)
       is_expected.to validate_presence_of :family_name
       is_expected.to validate_presence_of :given_name
       is_expected.to validate_presence_of :born_on
@@ -271,7 +270,7 @@ module Renalware
       it "#create creates a new version" do
         with_versioning do
           expect {
-            patient = create(:patient)
+            create(:patient)
           }.to change(Patients::Version, :count).by(1)
         end
       end
@@ -299,40 +298,6 @@ module Renalware
             patient.destroy!
           }.to change(Patients::Version, :count).by(1)
         end
-      end
-    end
-
-    describe "#nhs_number" do
-      context "when it contains spaces but 10 actual digits" do
-        it "spaces are stripped and the number is save successfully without any spaces" do
-          patient = build(:patient, nhs_number: "123 456 7890")
-
-          patient.save!
-
-          expect(patient.reload.nhs_number).to eq("1234567890")
-        end
-      end
-
-      context "when it contains spaces but less than 10 actual digits" do
-        it "spaces are stripped and save is successful" do
-          patient = build(:patient, nhs_number: "123 456 78")
-
-          patient.save
-
-          expect(patient.errors[:nhs_number].first).to match(/too short/)
-          expect(patient.nhs_number).to eq("12345678")
-        end
-      end
-    end
-
-    context "when it contains spaces but more than 10 actual digits" do
-      it "spaces are stripped and save is successful" do
-        patient = build(:patient, nhs_number: "123 456 78901")
-
-        patient.save
-
-        expect(patient.errors[:nhs_number].first).to match(/too long/)
-        expect(patient.nhs_number).to eq("12345678901")
       end
     end
   end

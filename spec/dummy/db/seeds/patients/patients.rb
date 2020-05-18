@@ -7,21 +7,19 @@ module Renalware
     without_papertrail_versioning_for(Patient) do
       file_path = Rails.root.join(File.dirname(__FILE__), "patients.csv")
       system_user = SystemUser.find
-      demo_nhsno = 1234567890
       countries = System::Country.all
       patients = []
 
       Patient.transaction do
         CSV.foreach(file_path, headers: true) do |row|
           local_patient_id = row["local_patient_id"]
-          demo_nhsno += 1
 
           pat = Patient.find_or_initialize_by(local_patient_id: local_patient_id) do |patient|
             patient.family_name = row["family_name"]
             patient.given_name = row["given_name"]
             patient.sex = row["sex"]
             patient.born_on = row["born_on"]
-            patient.nhs_number = demo_nhsno
+            patient.nhs_number = row["nhs_number"]
             patient.created_at = row["created_at"]
             patient.send_to_rpv = row["send_to_rpv"]
             patient.created_by_id = system_user.id

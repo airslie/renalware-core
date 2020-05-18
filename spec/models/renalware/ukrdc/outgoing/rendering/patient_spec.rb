@@ -21,7 +21,7 @@ end
 #   patient = Renalware::UKRDC::PatientPresenter.new(
 #     build(
 #       :patient,
-#       nhs_number: "1234567890",
+#       nhs_number: "9999999999",
 #       sent_to_ukrdc_at: 1.year.ago
 #     )
 #   )
@@ -31,7 +31,7 @@ end
 #            builder: Builder::XmlMarkup.new
 #          }
 
-#   expect(rendered).to include("<Number>1234567890</Number>")
+#   expect(rendered).to include("<Number>9999999999</Number>")
 # end
 
 # it "includes omits NHS number if patient has none" do
