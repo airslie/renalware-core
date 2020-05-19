@@ -25,7 +25,8 @@ module Renalware
           yaml = <<-YAML
             errors:
               messages:
-                invalid_nhs_number: "is invalid"
+                nhs_number_invalid_checkdigit: "is invalid"
+                nhs_number_not_numeric: "is not numeric"
           YAML
           I18n.backend.store_translations(:en, YAML.safe_load(yaml))
         end
@@ -63,6 +64,20 @@ module Renalware
             model,
             "is the wrong length (should be 10 characters)"
           )
+        end
+
+        it "rejects numbers that contain non-digits" do
+          [
+            "Xxxxxxxxxx",
+            "Xxx xxx xxxx",
+            "X123456789",
+            "X123    456789",
+            "012345678x"
+          ].each do |num|
+            model = model_class.new(nhs_number: num)
+
+            expect_model_to_be_invalid_with_messages(model, "is not numeric")
+          end
         end
 
         def expect_model_to_be_invalid_with_messages(model, *expected_messages)

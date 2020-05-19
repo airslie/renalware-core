@@ -18,6 +18,7 @@ module Renalware
         def validate
           strip_spaces_from_nhs_number
           validate_length
+          validate_numeric
           validate_using_modulus_11
         end
 
@@ -32,6 +33,14 @@ module Renalware
             is: LENGTH,
             attributes: [attribute]
           ).validate(record)
+        end
+
+        def validate_numeric
+          return if record.errors[attribute].any?
+
+          unless number =~ /\d{10}/
+            record.errors.add(attribute, :nhs_number_not_numeric)
+          end
         end
 
         # See https://www.datadictionary.nhs.uk/data_dictionary/attributes/n/nhs/nhs_number_de.asp
@@ -68,7 +77,7 @@ module Renalware
           # Step 5 Check the remainder matches the check digit. Otherwise the NHS NUMBER is invalid.
           if checkdigit == 10 || number[9].to_i != checkdigit
             # record.errors[attribute] << "Invalid NHS number (checkdigit mismatch)"
-            record.errors.add(attribute, :invalid_nhs_number)
+            record.errors.add(attribute, :nhs_number_invalid_checkdigit)
           end
         end
         # rubocop:enable Metrics/AbcSize
