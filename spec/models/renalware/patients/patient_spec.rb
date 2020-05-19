@@ -56,6 +56,25 @@ module Renalware
       is_expected.to respond_to(:patient_at?)
     end
 
+    describe "#nhs_number_formatted" do
+      it "inserts spaces as per the NHS spec if the number is 10 digits" do
+        {
+          nil => nil,
+          "0000000000" => "000 000 0000",
+          "9999999999" => "999 999 9999",
+          "999999999" => "999999999", # (only 9 digits so will not format it)
+          "" => "",
+          "0123456789" => "012 345 6789",
+          "  " => "  ",
+          "111" => "111",
+          "test" => "test",
+          "012 345 6789" => "012 345 6789"
+        }.each do |real, formatted|
+          expect(Patient.new(nhs_number: real).nhs_number_formatted).to eq(formatted)
+        end
+      end
+    end
+
     describe "diabetic? delegates to document.diabetes.diagnosis" do
       context "when the patient is diabetic" do
         before { allow(patient.document.diabetes).to receive(:diagnosis).and_return(true) }

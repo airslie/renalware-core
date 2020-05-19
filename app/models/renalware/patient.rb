@@ -127,6 +127,12 @@ module Renalware
       document&.diabetes&.diagnosis == true
     end
 
+    # Add spacing to an NHS number e.g. "7465613493" => "746 561 3493"
+    # Although this is arguably a view concern, formati
+    def nhs_number_formatted
+      nhs_number&.gsub(/(\d{3})(\d{3})(\d{4})/, '\1 \2 \3')
+    end
+
     # Overrides Personable mixin
     def to_s(format = :default)
       title_suffix = " (#{title})" if has_title?
