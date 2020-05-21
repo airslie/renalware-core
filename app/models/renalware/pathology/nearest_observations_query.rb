@@ -1,0 +1,48 @@
+# frozen_string_literal: true
+
+require_dependency "renalware/pathology"
+
+#
+# When subscribed to HL7 `oru_message_arrived` messages, gets notified of incoming HL7 messages
+# and creates the observations contained therein provided the patient exists.
+#
+module Renalware
+  module Pathology
+    class NearestObservationsQuery
+      pattr_initialize [:patient!, :date!, :code_group!, look_behind_days!: 2]
+
+      # rubocop:disable Metrics/MethodLength
+      def call
+        pathology_patient
+          .observations
+          .joins(:description)
+          .where(description_id: observation_description_ids)
+          .where("observed_at::date >= ?", date - look_behind_days.days)
+          .select(
+            :observed_at,
+            :result,
+            :description_id,
+            "pathology_observation_descriptions.code as code"
+          )
+          .map do |row|
+            {
+              code: row.code,
+              observed_on: row.observed_at.to_date,
+              result: row.result
+            }
+          end
+      end
+      # rubocop:enable Metrics/MethodLength
+
+      private
+
+      def pathology_patient
+        Pathology.cast_patient(patient)
+      end
+
+      def observation_description_ids
+        @observation_description_ids ||= code_group.memberships.pluck(:observation_description_id)
+      end
+    end
+  end
+end
