@@ -65,6 +65,7 @@ module Renalware
         render :edit, locals: { adequacy: adequacy }
       end
 
+      # rubocop:disable Metrics/MethodLength
       def result_params
         params
           .require(:pd_adequacy_result)
@@ -75,9 +76,19 @@ module Renalware
             :dial_24_vol_out,
             :dial_24_missing,
             :urine_24_vol,
-            :urine_24_missing
+            :urine_24_missing,
+            :dialysate_urea,
+            :dialysate_creatinine,
+            :dialysate_glu,
+            :dialysate_na,
+            :dialysate_protein,
+            :urine_urea,
+            :urine_creatinine,
+            :urine_na,
+            :urine_k
           )
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end
