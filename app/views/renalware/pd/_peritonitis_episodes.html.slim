@@ -5,8 +5,8 @@ table
       th.col-width-date Diagnosed on
       th.col-width-date Treatment Started on
       th Episode Type
-      th Outcome
       th Organisms
+      th Outcome
       th.col-width-date= t("updated_at")
 
   tbody
@@ -24,8 +24,8 @@ table
         td valign="top"
           = episode.episode_types_summary
         td valign="top"
-          = "Catheter Removed: #{yes_no(episode.catheter_removed)}"
-        td valign="top"
           = episode.infection_organisms.map { |io| io.organism_code&.name }.join(" + ")
+        td valign="top"
+          = "Catheter Removed: #{yes_no(episode.catheter_removed)}"
         td valign="top"
           = episode.updated_at.to_date
