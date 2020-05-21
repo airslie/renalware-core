@@ -11,6 +11,11 @@ resources :patients, only: [] do
     get "observations/historical",
         to: "historical_observation_results#index",
         as: "historical_observations"
+    scope constraints: { format: :json, date: /\d{4}-\d{2}-\d{2}/ } do
+      get "observations/nearest/code_group/:code_group_id/date/:date",
+          to: "nearest_observation_results#index",
+          as: "nearest_observations"
+    end
     resources :observation_requests, only: [:index, :show]
     resources :patient_rules
     get "descriptions/:description_id/observations",

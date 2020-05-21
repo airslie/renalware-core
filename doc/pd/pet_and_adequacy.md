@@ -17,14 +17,14 @@ In a *full* PET the process is for example
 - an (e.g.) 2.27% dextrose bag is attached
 - during a 4 hour dwell period, dialysate samples are taken at 0, 2 and 4 hours
 - the fluid is drained at 4hr (volume out)
-- the dialysate samples (serum) (including an overnight - usually 6hrs - sample) are sent for the
+- the dialysate samples  (including an overnight - usually 6hrs - sample) are sent for the
   following tests
   - Ur
   - Cr
   - glc
   - Na
   - protein
-- bloods are taken
+- bloods are taken (serum)
 
 In a *fast* PET, patients may put in the 2.27% bag at home and come to clinic at the correct time
 for a 4hr drain to be done, allowing `volume out` and the `4hr sample` concentration to be measured;
@@ -104,6 +104,16 @@ Both tests happen in phases
 - collect patient samples
 - enter pathology (manually or automatically) when it returns from the lab
 - store calculated data
+
+### Refreshing pathology
+
+#### PET
+
+After a PET, serum (blood) and dialysis samples are sent to the lab. When they come back
+the user needs to edit the PET and enter the values. We try to make this a bit easier by
+finding the serum test results when the user click 'Refresh', and inserting them into the
+table along with some metadata to idenfity the OBX code and test time, so a user can check these
+are the correct results.
 
 ### When is a test finished?
 
