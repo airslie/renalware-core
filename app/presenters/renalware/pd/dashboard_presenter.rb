@@ -29,7 +29,10 @@ module Renalware
 
       def peritonitis_episodes
         @peritonitis_episodes ||= begin
-          episodes = PeritonitisEpisode.for_patient(patient).ordered.includes(:episode_types)
+          episodes = PeritonitisEpisode
+            .for_patient(patient)
+            .ordered
+            .includes(:episode_types, infection_organisms: :organism_code)
           present(episodes, PeritonitisEpisodePresenter)
         end
       end
