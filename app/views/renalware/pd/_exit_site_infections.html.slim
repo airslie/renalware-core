@@ -2,6 +2,7 @@ table
   thead
     th.col-width-tiny
     th.col-width-date Diagnosed on
+    th Organisms
     th Outcome
     th Treatment
     th.col-width-date= t("updated_at")
@@ -17,6 +18,9 @@ table
                     id: "view-es-infection-#{e.id}"
         td valign="top"
           = l e.diagnosis_date
+
+        td valign="top"
+          = e.infection_organisms.map { |io| io.organism_code&.name }.join(" + ")
 
         td valign="top"
           = e.outcome
