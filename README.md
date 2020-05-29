@@ -119,9 +119,10 @@ delayed_job logs to its own log. To see the output:
 
 ### Install chromedriver
 
-On a Mac:
+#### MacOS
 
-- Download chromedriver from eg [here](https://chromedriver.storage.googleapis.com/index.html?path=2.38/)
+- Install Chrome
+- Download chromedriver from eg [here](https://chromedriver.storage.googleapis.com/index.html)
 - Unzip and place in location in your PATH eh `/usr/local/bin`
 - If you have chromedriver errors it maybe your installed version of Chrome is not
 compatible your chromedriver version. In this case check your versions with:
@@ -132,6 +133,26 @@ chrome -v
 ```
 and consult the driver release notee eg for [2.38](https://chromedriver.storage.googleapis.com/2.38/notes.txt)
 to check compatibility
+
+#### Ubuntu
+
+```
+sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
+sudo echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+sudo apt-get -y update
+sudo apt-get -y install google-chrome-stable
+```
+
+Download latest chromedriver from wget https://chromedriver.storage.googleapis.com/index.html e.g.
+
+```
+wget https://chromedriver.storage.googleapis.com/81.0.4044.69/chromedriver_linux64.zip
+unzip chromedriver_linux64.zip
+sudo mv chromedriver /usr/bin/chromedriver
+sudo chown root:root /usr/bin/chromedriver
+sudo chmod +x /usr/bin/chromedriver
+```
+
 
 ### RSpec unit and integration tests
 
