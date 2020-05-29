@@ -38,8 +38,8 @@ module World
       Renalware::Patient.create!(
         family_name: full_name.split(",").first.strip,
         given_name: full_name.split(",").last.strip,
-        nhs_number: rand(10000000).to_s.rjust(10, "1234567890"),
-        local_patient_id: rand(10000).to_s.rjust(6, "Z99999"),
+        nhs_number: FactoryBot.generate(:nhs_number),
+        local_patient_id: FactoryBot.generate(:local_patient_id),
         sex: "M",
         born_on: Time.zone.today,
         by: Renalware::SystemUser.find

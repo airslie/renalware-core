@@ -24,7 +24,7 @@ module Renalware
         family_name: "Jones",
         given_name: "Tom",
         local_patient_id: "Z123",
-        nhs_number: "0123456789",
+        nhs_number: "9999999999",
         born_on: "01-Feb-1967",
         by: user
       )
@@ -68,7 +68,7 @@ module Renalware
             "Jones|"\
             "Tom|"\
             "Z123|"\
-            "0123456789|"\
+            "9999999999|"\
             "01/02/1967|"\
             "ConfiguredHospitalName|"\
             "ConfiguredSystem|"\
@@ -106,7 +106,7 @@ module Renalware
             "Jones|"\
             "Tom|"\
             "Z123|"\
-            "0123456789|"\
+            "9999999999|"\
             "01/02/1967|"\
             "MyHospital|"\
             "MySystem|"\
@@ -144,7 +144,7 @@ module Renalware
             "Jones|"\
             "Tom|"\
             "Z123|"\
-            "0123456789|"\
+            "9999999999|"\
             "01/02/1967|"\
             "MyHospital|"\
             "MySystem|"\
@@ -182,7 +182,7 @@ module Renalware
             "Jones|"\
             "Tom|"\
             "Z123|"\
-            "0123456789|"\
+            "9999999999|"\
             "01/02/1967|"\
             "MyHospital|"\
             "MySystem|"\
@@ -225,7 +225,7 @@ module Renalware
             "Jones|"\
             "Tom|"\
             "Z123|"\
-            "0123456789|"\
+            "9999999999|"\
             "01/02/1967|"\
             "ConfiguredHospitalName|"\
             "ConfiguredSystem|"\

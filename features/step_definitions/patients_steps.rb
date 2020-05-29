@@ -2,7 +2,7 @@
 
 Given(/^Patty is a patient$/) do
   @patty = Renalware::Patient.create!(
-    nhs_number: "1234567890",
+    nhs_number: FactoryBot.generate(:nhs_number),
     given_name: "Patty",
     family_name: "ThePatient",
     local_patient_id: "123456",
@@ -25,7 +25,7 @@ end
 
 Given(/^Don is a patient$/) do
   @don = Renalware::Patient.create!(
-    nhs_number: "1234567891",
+    nhs_number: FactoryBot.generate(:nhs_number),
     given_name: "Don",
     family_name: "TheDonor",
     local_patient_id: "123457",

@@ -6,7 +6,7 @@ require_dependency "models/renalware/concerns/personable"
 module Renalware
   describe Patient, type: :model do
     include PatientsSpecHelper
-    subject(:patient) { create(:patient, nhs_number: "1234567890") }
+    subject(:patient) { create(:patient, nhs_number: "9999999999") }
 
     it do
       aggregate_failures do
@@ -22,7 +22,7 @@ module Renalware
       subject(:patient) {
         build(
           :patient,
-          nhs_number: "1234567890",
+          nhs_number: "9999999999",
           local_patient_id: "1",
           local_patient_id_2: "2",
           local_patient_id_3: "3",
@@ -44,8 +44,7 @@ module Renalware
     end
 
     it :aggregate_failures do
-      is_expected.to validate_length_of(:nhs_number).is_at_least(10)
-      is_expected.to validate_length_of(:nhs_number).is_at_most(10)
+      is_expected.to validate_length_of(:nhs_number).is_equal_to(10)
       is_expected.to validate_presence_of :family_name
       is_expected.to validate_presence_of :given_name
       is_expected.to validate_presence_of :born_on
@@ -55,6 +54,25 @@ module Renalware
       is_expected.to belong_to(:country_of_birth)
       is_expected.to belong_to(:named_consultant)
       is_expected.to respond_to(:patient_at?)
+    end
+
+    describe "#nhs_number_formatted" do
+      it "inserts spaces as per the NHS spec if the number is 10 digits" do
+        {
+          nil => nil,
+          "0000000000" => "000 000 0000",
+          "9999999999" => "999 999 9999",
+          "999999999" => "999999999", # (only 9 digits so will not format it)
+          "" => "",
+          "0123456789" => "012 345 6789",
+          "  " => "  ",
+          "111" => "111",
+          "test" => "test",
+          "012 345 6789" => "012 345 6789"
+        }.each do |real, formatted|
+          expect(Patient.new(nhs_number: real).nhs_number_formatted).to eq(formatted)
+        end
+      end
     end
 
     describe "diabetic? delegates to document.diabetes.diagnosis" do
@@ -271,7 +289,7 @@ module Renalware
       it "#create creates a new version" do
         with_versioning do
           expect {
-            patient = create(:patient)
+            create(:patient)
           }.to change(Patients::Version, :count).by(1)
         end
       end

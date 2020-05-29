@@ -51,6 +51,7 @@ module Renalware
       create(
         :patient,
         ukrdc_external_id: SecureRandom.uuid,
+        nhs_number: "9999999999",
         sent_to_ukrdc_at: 1.week.ago,
         practice: create(:practice),
         primary_care_physician: create(:primary_care_physician)
@@ -77,6 +78,8 @@ module Renalware
           log = UKRDC::TransmissionLog.where(patient: patient).last
           expect(log.error).to eq([])
           expect(log.payload_hash).to eq(xml_md5_hash)
+
+          puts patient.nhs_number
           expect(log.file_path).to eq(
             File.join(dir, "RJZ_#{batch.number}_#{patient.nhs_number}.xml")
           )
@@ -116,6 +119,7 @@ module Renalware
           log = UKRDC::TransmissionLog.where(patient: patient).last
           expect(log.error).to eq([])
           expect(log.payload_hash).to eq(xml_md5_hash)
+
           expect(log.file_path).to eq(
             File.join(dir, "RJZ_#{batch.number}_#{patient.nhs_number}.xml")
           )

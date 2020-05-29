@@ -44,7 +44,7 @@ module Renalware
       describe "#call" do
         context "when there are no errors - the happy path" do
           it "imports an xml file containing 2 surveys and checks all responses are persisted" do
-            patient = create(:patient, nhs_number: "1234567891")
+            patient = create(:patient, nhs_number: "9999999999")
             # Create the two surveys and their questions
             create_pos_s_survey_with_questions
             create_eq5d_survey_with_questions
@@ -99,7 +99,7 @@ module Renalware
 
           context "when the survey is not found" do
             it "logs the error to the transmission logs" do
-              patient = create(:patient, nhs_number: "1234567891")
+              patient = create(:patient, nhs_number: "9999999999")
               copy_test_files_into_incoming_folder(paths: paths)
 
               expect {
@@ -124,7 +124,7 @@ module Renalware
 
           context "when a question is not found" do
             it "logs the error to the transmission logs" do
-              patient = create(:patient, nhs_number: "1234567891")
+              patient = create(:patient, nhs_number: "9999999999")
               copy_test_files_into_incoming_folder(paths: paths)
               create(:pos_s_survey) # no questions
               create(:eq5d_survey) # no questions

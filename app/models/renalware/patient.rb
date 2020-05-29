@@ -18,6 +18,7 @@ module Renalware
     # is a default new uuid value on the secure_id column
     before_create { self.secure_id ||= SecureRandom.uuid }
     before_save :upcase_local_patient_ids
+    # before_validation :strip_spaces_from_nhs_number
     friendly_id :secure_id, use: [:finders]
 
     # For compactness in urls, remove the dashes, so that
@@ -90,9 +91,10 @@ module Renalware
     accepts_nested_attributes_for :current_address
 
     validates :nhs_number,
-              length: { minimum: 10, maximum: 10 },
+              "renalware/patients/nhs_number" => true,
               uniqueness: { case_sensitive: false },
               allow_blank: true
+
     validates :local_patient_id, uniqueness: { case_sensitive: false }, allow_blank: true
     validates :local_patient_id_2, uniqueness: { case_sensitive: false }, allow_blank: true
     validates :local_patient_id_3, uniqueness: { case_sensitive: false }, allow_blank: true
@@ -123,6 +125,12 @@ module Renalware
 
     def diabetic?
       document&.diabetes&.diagnosis == true
+    end
+
+    # Add spacing to an NHS number e.g. "7465613493" => "746 561 3493"
+    # Although this is arguably a view concern, formati
+    def nhs_number_formatted
+      nhs_number&.gsub(/(\d{3})(\d{3})(\d{4})/, '\1 \2 \3')
     end
 
     # Overrides Personable mixin
@@ -164,6 +172,12 @@ module Renalware
     end
 
     private
+
+    def strip_spaces_from_nhs_number
+      return if nhs_number.blank?
+
+      self.nhs_number = nhs_number.delete(" ")
+    end
 
     # Before saving, convert all the local patient ids to upper case
     # TODO: Use a constant for the max number of local patient ids

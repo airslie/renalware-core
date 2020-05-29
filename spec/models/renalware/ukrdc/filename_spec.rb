@@ -27,9 +27,9 @@ module Renalware
       before { allow(Renalware.config).to receive(:ukrdc_site_code).and_return("XYZ") }
 
       context "when the patient has an NHS number" do
-        let(:nhs_number) { "0123456789" }
+        let(:nhs_number) { "9999999999" }
 
-        it { is_expected.to eq("XYZ_000001_0123456789.xml") }
+        it { is_expected.to eq("XYZ_000001_9999999999.xml") }
       end
 
       context "when the patient only has a local_patient_id_2 and no other patient identifier" do
