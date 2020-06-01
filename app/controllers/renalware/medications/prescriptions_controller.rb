@@ -76,7 +76,7 @@ module Renalware
 
       # rubocop:disable Layout/LineLength, Metrics/MethodLength
       def render_prescriptions_list_to_hand_to_patient
-        render(
+        render_with_wicked_pdf(
           pdf_options.merge(
             pdf: pdf_filename,
             disposition: "inline",

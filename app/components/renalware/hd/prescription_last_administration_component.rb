@@ -3,16 +3,17 @@
 module Renalware
   module HD
     class PrescriptionLastAdministrationComponent < ApplicationComponent
-      attr_reader :prescription
-      validates :prescription, presence: true
-
-      def initialize(prescription:)
-        @prescription = prescription
-      end
+      pattr_initialize [:prescription!]
 
       def last_administration
+        return if prescription.blank?
+
         @last_administration ||=
-          PrescriptionLastAdministrationQuery.new(prescription: prescription).call
+          PrescriptionLastAdministrationQuery.call(prescription: prescription)
+      end
+
+      def render?
+        last_administration.present?
       end
     end
   end

@@ -20,3 +20,15 @@ WickedPdf.config = {
   # (but can be overridden in `render :pdf` calls)
   # layout: 'pdf.html',
 }
+
+# This is a hack to get ViewComponent and WickedPDF to work together.
+# See https://github.com/github/view_component/issues/288
+# Basically in Rails 5.x, both gems monkey patch ActionView render_to_string
+# and we can get an infinite loop when rendering PDFs.
+# Once we move to Rails 6 I think think this can be removed
+class WickedPdf
+  module PdfHelper
+    remove_method(:render_to_string)
+    remove_method(:render)
+  end
+end

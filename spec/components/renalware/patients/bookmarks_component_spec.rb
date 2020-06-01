@@ -7,23 +7,23 @@ describe Renalware::Patients::BookmarksComponent, type: :component do
     it "displays the user's bookmarks" do
       user = create(:patients_user)
       patient = create(:patient, by: user)
-      bookmark = create(:patients_bookmark, user: user, patient: patient)
+      create(:patients_bookmark, user: user, patient: patient)
 
-      html = render_inline(described_class.new(current_user: user)).to_html
+      render_inline(described_class.new(current_user: user))
 
-      expect(html).to match("Bookmarked Patients")
-      expect(html).to match(patient.to_s)
+      expect(page).to have_content("Bookmarked Patients")
+      expect(page).to have_content(patient.to_s)
     end
   end
 
   context "when a user has no bookmarks" do
     it "displays a no bookmarks message" do
-      user = create(:patients_user)
+      user = build_stubbed(:patients_user)
 
-      html = render_inline(described_class.new(current_user: user)).to_html
+      render_inline(described_class.new(current_user: user))
 
-      expect(html).to match("Bookmarked Patients")
-      expect(html).to match("There are no patients bookmarked.")
+      expect(page).to have_content("Bookmarked Patients")
+      expect(page).to have_content("There are no patients bookmarked.")
     end
   end
 end

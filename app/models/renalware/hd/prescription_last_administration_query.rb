@@ -8,6 +8,10 @@ module Renalware
       pattr_initialize [:prescription!]
       delegate :patient, to: :prescription
 
+      def self.call(prescription:)
+        new(prescription: prescription).call
+      end
+
       def call
         raise ArgumentError if prescription.blank?
         raise ArgumentError if patient.blank?

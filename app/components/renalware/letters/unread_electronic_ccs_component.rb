@@ -3,6 +3,7 @@
 module Renalware
   module Letters
     class UnreadElectronicCCsComponent < ApplicationComponent
+      include Pundit::Helper
       attr_reader :current_user
 
       def initialize(current_user:)

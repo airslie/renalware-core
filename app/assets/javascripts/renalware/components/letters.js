@@ -111,7 +111,7 @@ Renalware.Letters = (function() {
       $.ajax({
         method: 'GET',
         url: url,
-        contentType: 'json'
+        dataType: "JSON"
       }).fail(function(e, x, a) {
         // Possible network glitch or perhaps a re-deploy causing the site to be down momentarily.
         // Anyway, not enough for us to give up polling.

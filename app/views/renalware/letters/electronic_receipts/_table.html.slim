@@ -38,7 +38,7 @@ table.letters.electronic-ccs.has-togglable-rows
             = simple_format letter.body
 
         td.nowrap
-          - if policy(receipt).mark_as_read?
+          - if Pundit.policy!(current_user, receipt).mark_as_read?
             ul.actions
               li= link_to "Keep as unread",
                           "##{receipt.html_preview_identifier}",

@@ -8,7 +8,7 @@ module Renalware
     class HTMLRenderer
       def call(letter)
         context = LettersController.new
-        context.render_to_string(
+        context.render_to_string_with_wicked_pdf(
           partial: "/renalware/letters/formatted_letters/letter",
           locals: { letter: letter },
           encoding: "UTF-8"

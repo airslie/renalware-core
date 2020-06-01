@@ -24,7 +24,7 @@ module Renalware
           # using a hex digest of the interleaved letter but currently would not be.
           # PdfLetterCache.fetch(letter) do
           WickedPdf.new.pdf_from_string(
-            LettersController.new.render_to_string(
+            LettersController.new.render_to_string_with_wicked_pdf(
               template: "/renalware/letters/printable_letters/show",
               locals: { letter: letter, recipients: PrintableRecipients.for(letter) },
               encoding: "UTF-8"

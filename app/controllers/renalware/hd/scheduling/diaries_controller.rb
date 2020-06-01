@@ -36,7 +36,7 @@ module Renalware
                 pdf: pdf_filename,
                 locals: { unit: unit, diary: DiaryPresenter.new(current_user, diary) }
               )
-              render options
+              render_with_wicked_pdf options
             end
           end
         end

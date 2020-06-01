@@ -36,7 +36,7 @@ module Renalware
           body = System::RenderLiquidTemplate.call(template_name: template_name,
                                                    variables: variables)
           options = default_pdf_options.merge!(pdf: filename, locals: { body: body })
-          render options
+          render_with_wicked_pdf options
         end
 
         private

@@ -23,11 +23,10 @@ describe Renalware::Messaging::UnreadMessagesComponent, type: :component do
       user = create(:user)
       message = send_message_to(user)
 
-      html = render_inline(described_class.new(current_user: user)).to_html
+      render_inline(described_class.new(current_user: user))
 
-      expect(html).to match("Messages")
-
-      expect(html).to match(message.subject)
+      expect(page).to have_content("Messages")
+      expect(page).to have_content(message.subject)
     end
   end
 
@@ -35,10 +34,10 @@ describe Renalware::Messaging::UnreadMessagesComponent, type: :component do
     it "displays a no messages message" do
       user = create(:user)
 
-      html = render_inline(described_class.new(current_user: user)).to_html
+      render_inline(described_class.new(current_user: user))
 
-      expect(html).to match("Messages")
-      expect(html).to match("You have no messages")
+      expect(page).to have_content("Messages")
+      expect(page).to have_content("You have no messages")
     end
   end
 end

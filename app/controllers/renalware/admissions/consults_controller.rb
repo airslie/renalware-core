@@ -25,7 +25,7 @@ module Renalware
                 query: query.search
               }
             )
-            render options
+            render_with_wicked_pdf options
           end
           format.html do
             consults = query.call.page(page).per(per_page)
