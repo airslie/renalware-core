@@ -1,4 +1,3 @@
-- return unless last_administration
 .panel
   b= "Last given on #{l(last_administration.recorded_on, format: :long)} by #{last_administration.administered_by}"
   - if last_administration.notes.present?

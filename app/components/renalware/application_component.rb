@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware
-  class ApplicationComponent < ActionView::Component::Base
+  class ApplicationComponent < ViewComponent::Base
     include Renalware::Engine.routes.url_helpers
     include Pundit::Helper
 

@@ -8,7 +8,7 @@ tr(class=letter.state.dasherize)
   td.actions
     = link_to "Toggle", "#quick-preview-#{letter.id}", data: { behaviour: "toggler" }
     = link_to letter.view_label, patient_letters_letter_path(letter.patient, letter)
-    - if policy(letter).update?
+    - if Pundit.policy!(current_user, letter).update?
       = link_to "Edit", edit_patient_letters_letter_path(letter.patient, letter)
 = content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
   td

@@ -11,8 +11,8 @@ describe "Printing a letter",
 
   def stub_out_pdf_generation
     allow(Renalware::Letters::PdfLetterCache)
-        .to receive(:fetch)
-          .and_return("dummy pdf content")
+      .to receive(:fetch)
+      .and_return("dummy pdf content")
   end
 
   def expect_a_pdf_to_have_been_generated_in_another_tab

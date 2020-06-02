@@ -2,17 +2,8 @@
 
 module Renalware
   module Patients
-    # Experimental ActionView component
-    class SideMenuComponent < ActionView::Component::Base
-      validates :patient, presence: true
-
-      def initialize(patient:)
-        @patient = patient
-      end
-
-      private
-
-      attr_reader :patient
+    class SideMenuComponent < ApplicationComponent
+      pattr_initialize [:patient!]
     end
   end
 end

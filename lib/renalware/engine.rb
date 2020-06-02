@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "rubygems"
-require "action_view/component/railtie"
+require "view_component/engine"
 require "active_type"
 require "activerecord-import"
 require "ahoy"
@@ -75,12 +75,14 @@ module Renalware
     # Errors in the UI are bubbled up and handled in the host app in the usual way.
     class << self
       attr_writer :exception_notifier
+
       def exception_notifier
         @exception_notifier ||= NullExceptionNotifier.new
       end
     end
 
-    config.action_view_component.test_controller = "Renalware::BaseController"
+    # config.view_component.test_controller = "Renalware::BaseController"
+
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
     config.autoload_paths += %W(#{config.root}/app/validators/concerns)
 

@@ -3,6 +3,7 @@
 module Renalware
   module Events
     class BiopsiesComponent < ApplicationComponent
+      include ActiveModel::Validations
       validates :patient, presence: true
 
       def initialize(patient:, limit: 6)

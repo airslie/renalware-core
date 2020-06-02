@@ -45,7 +45,7 @@ module Renalware
             path_params: path_params
           }
         )
-        render options
+        render_with_wicked_pdf options
       end
 
       def render_index_html(query, alerts)

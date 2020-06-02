@@ -5,11 +5,7 @@ module Renalware
     class AdministerPrescriptionDropdownComponent < ApplicationComponent
       include DropdownButtonHelper
       include PresenterHelper
-      attr_reader :patient
-
-      def initialize(patient:)
-        @patient = patient
-      end
+      pattr_initialize [:patient!]
 
       def prescriptions_to_give_on_hd
         @prescriptions_to_give_on_hd ||= begin

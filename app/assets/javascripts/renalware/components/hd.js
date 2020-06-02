@@ -5,13 +5,13 @@ Renalware.HD = (function() {
   var pollBatchStatus = function(url) {
     var POLL_INTERVAL = 2000; // ms
     var batch = {};
-
+console.log("asas")
     // Check the current status of the TaskStatus object.
     var updateStatus = function() {
       $.ajax({
         method: 'GET',
         url: url,
-        contentType: 'json'
+        dataType: "JSON"
       }).fail(function(e, x, a) {
         // Possible network glitch or perhaps a re-deploy causing the site to be down momentarily.
         // Anyway, not enough for us to give up polling.

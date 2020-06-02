@@ -24,7 +24,7 @@ module Renalware
             Request.find(params[:id])
           )
           authorize request
-          render(
+          render_with_wicked_pdf(
             pdf: "show",
             page_size: "A4",
             layout: "renalware/layouts/pdf",
@@ -52,7 +52,7 @@ module Renalware
         def create
           requests.each(&:print_form)
 
-          render(
+          render_with_wicked_pdf(
             pdf: "create",
             page_size: "A4",
             layout: "renalware/layouts/pdf",

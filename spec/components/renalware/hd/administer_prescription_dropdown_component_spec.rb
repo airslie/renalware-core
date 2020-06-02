@@ -6,18 +6,18 @@ describe Renalware::HD::AdministerPrescriptionDropdownComponent, type: :componen
   it "renders the button title" do
     patient = Renalware::Patient.new
 
-    html = render_inline(described_class.new(patient: patient)).to_html
+    render_inline(described_class.new(patient: patient))
 
-    expect(html).to match "Record HD Drugs"
+    expect(page).to have_content("Record HD Drugs")
   end
 
   context "when the patient has no drugs to be given on HD" do
     it "indicates no drugs are available" do
       patient = Renalware::Patient.new
 
-      html = render_inline(described_class.new(patient: patient)).to_html
+      render_inline(described_class.new(patient: patient))
 
-      expect(html).to match "Patient has no drugs to be given on HD"
+      expect(page).to have_content("Patient has no drugs to be given on HD")
     end
   end
 
@@ -34,17 +34,24 @@ describe Renalware::HD::AdministerPrescriptionDropdownComponent, type: :componen
         )
       end
 
-      html = render_inline(described_class.new(patient: patient)).to_html
+      render_inline(described_class.new(patient: patient))
 
-      expect(html).not_to match("Patient has no drugs to be given on HD")
+      expect(page).not_to have_content("Patient has no drugs to be given on HD")
 
-      expect(html).to match("Drug1")
-      expect(html).to match("Drug2")
-      expect(html).not_to match("Drug3")
+      expect(page).to have_content("Drug1")
+      expect(page).to have_content("Drug2")
+      expect(page).not_to have_content("Drug3")
 
-      expect(html).to match(new_hd_prescription_administration_path(prescriptions[0]))
-      expect(html).to match(new_hd_prescription_administration_path(prescriptions[1]))
-      expect(html).not_to match(new_hd_prescription_administration_path(prescriptions[2]))
+      # Using the view_component built-in rendered_component method here
+      # to inspect the html; since we are looking for data attributes,
+      # its easier than digging around with page (capybara) or the return result
+      # fronm render_inline (nokogiri).
+      expect(rendered_component)
+        .to match(new_hd_prescription_administration_path(prescriptions[0]))
+      expect(rendered_component)
+        .to match(new_hd_prescription_administration_path(prescriptions[1]))
+      expect(rendered_component)
+        .not_to match(new_hd_prescription_administration_path(prescriptions[2]))
     end
   end
   # rubocop:enable RSpec/MultipleExpectations
