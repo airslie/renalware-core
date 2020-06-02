@@ -6,7 +6,6 @@ module Renalware
   module Pathology
     class NearestObservationResultsController < Pathology::BaseController
       def index
-        code_group
         near_date
         authorize Patient, :index?
         render json: nearest_results

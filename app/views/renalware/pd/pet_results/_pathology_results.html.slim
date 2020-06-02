@@ -22,7 +22,8 @@ article(style="max-width: 600px; display: block; float: none; clear: both")
         td= form.text_field :plasma_glc
         td= form.text_field :serum_na
         td= form.text_field :serum_ab
-        td= link_to "Refresh...", "#", class: "button secondary"
+        td
+          /= link_to "Refresh...", "#", class: "button secondary"
       - [4, 2, 0, 6].each do |hr|
         tr
           - if hr == 4

@@ -11,15 +11,16 @@ describe "Patient's closest pathology to a date, filtered by code group", type: 
   describe "GET index JSON" do
     it "responds with json list of observations results" do
       user = create(:user)
-      group = create(:pathology_code_group, name: "Group1", description: "TheDesc")
 
-      # This creates a FBC OBR and WBC, HGB + PLT OBXs
+      # This creates an obr called FBC and obxes called WBC, HGB, PLT
       create(
         :pathology_observation_request,
         :full_blood_count_with_observations,
         patient: patient
       )
 
+      # Create the code group and its member OBX codes
+      group = create(:pathology_code_group, name: "Group1", description: "TheDesc")
       %w(WBC HGB PLT).each do |obx|
         create(
           :pathology_code_group_membership,
@@ -41,8 +42,26 @@ describe "Patient's closest pathology to a date, filtered by code group", type: 
         format: :json
       )
 
-      # expect(response).to be_successful
-      expect(response.body).to eq "{}"
+      expect(response).to be_successful
+      expect(JSON.parse(response.body)).to eq [
+        { "code" => "WBC", "observed_on" => "2019-06-02", "result" => "6.0" },
+        { "code" => "HGB", "observed_on" => "2019-06-02", "result" => "6.0" },
+        { "code" => "PLT", "observed_on" => "2019-06-02", "result" => "6.0" }
+      ]
+    end
+  end
+
+  context "when there are no nearest observation matches" do
+    it "returns an empty array" do
+      pending "TODO test a date outside of the range to ensure it only returns nearest values"
+      raise NotImplementedError
+    end
+  end
+
+  context "when TODO" do
+    it "TODO" do
+      pending "TODO"
+      raise NotImplementedError
     end
   end
 end
