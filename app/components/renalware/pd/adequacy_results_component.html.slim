@@ -6,4 +6,4 @@
       = link_to "Add", renalware.new_patient_pd_adequacy_result_path(patient), class: :button
       = link_to "Show all", renalware.patient_pd_adequacy_results_path(patient), remote: true, class: "float-none button flex-initial secondary"
     #adequacy-results-table
-      = render "renalware/pd/adequacy_results/table", results: results
+      = render "renalware/pd/adequacy_results/table", results: results, current_user: current_user

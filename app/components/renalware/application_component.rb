@@ -4,6 +4,7 @@ module Renalware
   class ApplicationComponent < ViewComponent::Base
     include Renalware::Engine.routes.url_helpers
     include Pundit::Helper
+    delegate :current_user, :policy, to: :helpers
 
     # Not sure why include Renalware::Engine.routes.url_helpers does not make the
     # engine urls visible in the views (seems to resolve alwatys to /assets?..)

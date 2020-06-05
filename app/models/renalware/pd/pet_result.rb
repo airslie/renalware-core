@@ -33,10 +33,10 @@ module Renalware
       end
 
       def calculated_net_uf
-        return if volume_in.to_f == 0.0
-        return if volume_out.to_f == 0.0
+        return if volume_in.to_i.zero?
+        return if volume_out.to_i.zero?
 
-        (volume_out - volume_in).round(2)
+        volume_out - volume_in
       end
 
       enumerize :test_type, in: %i(fast full), predicate: true

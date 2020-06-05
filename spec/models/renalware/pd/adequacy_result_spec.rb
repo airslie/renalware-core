@@ -34,6 +34,7 @@ module Renalware
         context "when the last visit has a weight" do
           it "updates the calculated columns" do
             create(:clinic_visit, patient_id: patient.id, weight: 100)
+
             result = create(:pd_adequacy_result, patient: patient)
 
             expect(result.dietry_protein_intake).to be > 0

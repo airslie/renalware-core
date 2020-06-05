@@ -9,13 +9,10 @@ module Renalware
       include Pagy::Backend
       include Pagy::Frontend
       include ToggleHelper
-      attr_reader :patient, :pagination
+      pattr_initialize [:patient!, :current_user!]
+      attr_reader :pagination
 
       TITLE = "Adequacy Results"
-
-      def initialize(patient:)
-        @patient = patient
-      end
 
       def results
         @results ||= begin

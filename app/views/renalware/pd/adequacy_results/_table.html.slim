@@ -11,7 +11,7 @@ table.toggleable(data-controller="toggle")
 
     tr
       th.togglers= rows_toggler
-      - if policy(Renalware::PD::AdequacyResult).edit? # only eg admin can edit or delete
+      - if Pundit.policy(current_user, Renalware::PD::AdequacyResult).edit? # only eg admin can edit or delete
         th.col-width-tiny
       - if local_assigns.fetch(:display_patient, false)
         th.col-width-medium Patient
@@ -34,9 +34,9 @@ table.toggleable(data-controller="toggle")
     tbody
       tr
         td= row_toggler
-        - if policy(Renalware::PD::AdequacyResult).edit?
+        - if Pundit.policy(current_user, Renalware::PD::AdequacyResult).edit?
           td.actions
-            - if policy(result).edit?
+            - if Pundit.policy(current_user, result).edit?
               - if local_assigns.fetch(:display_patient, false)
                 = link_to renalware.edit_patient_pd_adequacy_result_path(result.patient, result), target: :blank do
                   i.fas.fa-external-link-alt
@@ -45,7 +45,7 @@ table.toggleable(data-controller="toggle")
                 = link_to "Edit",
                           renalware.edit_patient_pd_adequacy_result_path(result.patient, result)
 
-            - if policy(result).destroy?
+            - if Pundit.policy(current_user, result).destroy?
               = link_to "Delete",
                         renalware.patient_pd_adequacy_result_path(result.patient, result),
                         data: { method: :delete, confirm: "Are you sure?" }

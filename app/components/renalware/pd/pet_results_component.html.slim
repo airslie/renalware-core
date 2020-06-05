@@ -24,7 +24,11 @@
         = link_to "Add", renalware.new_patient_pd_pet_result_path(patient), class: "float-none button flex-initial"
     div#pet-results-table data-target="tabs.panel"
 
-      = render "renalware/pd/pet_results/table", patient: patient, results: results, pagination: pagination
+      = render "renalware/pd/pet_results/table",
+               patient: patient,
+               results: results,
+               pagination: pagination,
+               current_user: current_user
 
     .chart.hidden.mt-5 data-target="tabs.panel"
       div(style="display:block; position:relative; height: 400px; width: 100%; text-align: center; margin-bottom: 20px")

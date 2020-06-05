@@ -9,12 +9,13 @@ module Renalware
       include Pagy::Frontend
       include ToggleHelper
       include DropdownButtonHelper
-      attr_reader :patient, :pagination
+      attr_reader :patient, :pagination, :current_user
 
       TITLE = "PET Results"
 
-      def initialize(patient:)
+      def initialize(patient:, current_user:)
         @patient = PD.cast_patient(patient)
+        @current_user = current_user
       end
 
       def results

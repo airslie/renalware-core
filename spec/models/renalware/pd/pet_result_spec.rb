@@ -94,10 +94,10 @@ module Renalware
         end
 
         context "when both inputs are present" do
-          let(:volume_in) { 100.555 }
-          let(:volume_out) { 110.0 }
+          let(:volume_in) { 100 }
+          let(:volume_out) { 111 }
 
-          it { is_expected.to eq(9.44) }
+          it { is_expected.to eq(11) }
         end
       end
     end
