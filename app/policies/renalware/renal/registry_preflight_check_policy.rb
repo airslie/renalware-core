@@ -12,6 +12,10 @@ module Renalware
       def patients?
         index?
       end
+
+      def missing_esrf?
+        index?
+      end
     end
   end
 end

@@ -36,6 +36,18 @@ module Renalware
         end
       end
 
+      class MissingESRFPatientPresenter < SimpleDelegator
+        def missing_data
+          Registry::PreflightChecks::DeathsQuery.missing_data_for(__getobj__)
+        end
+
+        def hd_unit; end
+
+        def renal_profile
+          Renalware::Renal.cast_patient(__getobj__).profile
+        end
+      end
+
       def patients
         authorize [:renalware, :renal, :registry_preflight_check], :patients?
         query = Registry::PreflightChecks::PatientsQuery.new(query_params: query_params)
@@ -49,6 +61,14 @@ module Renalware
         query = Registry::PreflightChecks::DeathsQuery.new(query_params: query_params)
         patients = query.call.page(page).per(per_page)
         patients = CollectionPresenter.new(patients, DeceasedPatientPresenter)
+        render locals: { patients: patients, query: query.search }
+      end
+
+      def missing_esrf
+        authorize [:renalware, :renal, :registry_preflight_check], :missing_esrf?
+        query = Registry::PreflightChecks::MissingESRFQuery.new(query_params: query_params)
+        patients = query.call.page(page).per(per_page)
+        patients = CollectionPresenter.new(patients, MissingESRFPatientPresenter)
         render locals: { patients: patients, query: query.search }
       end
 

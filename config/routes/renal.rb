@@ -12,6 +12,7 @@ namespace :renal do
     collection do
       get :patients
       get :deaths
+      get :missing_esrf
     end
   end
 end
