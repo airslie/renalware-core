@@ -21,4 +21,12 @@ describe "Renal Registry Preflight checks", type: :request do
       expect(response.body).to include("Renal Registry")
     end
   end
+
+  describe "GET missing_esrf" do
+    it "renders a list of patients with missing esrf date" do
+      get missing_esrf_renal_registry_preflight_checks_path
+
+      expect(response.body).to include("Renal Registry")
+    end
+  end
 end

@@ -6,8 +6,10 @@ module Renalware
   module Renal
     module Registry
       module PreflightChecks
+        # Finds patients with a current modality of HD, PD or Transplant, who have no ESRF date
         class MissingESRFQuery
           include ModalityScopes
+          MODALITY_NAMES = %w(HD PD Transplant).freeze
 
           attr_reader :relation, :query_params
 
@@ -26,6 +28,8 @@ module Renalware
               .result
               .extending(ModalityScopes)
               .preload(current_modality: [:description])
+              .with_current_modality_matching(MODALITY_NAMES)
+              .where("renal_profiles.esrf_on IS NULL")
           end
 
           def search
