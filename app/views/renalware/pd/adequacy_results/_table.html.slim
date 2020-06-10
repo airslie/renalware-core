@@ -1,11 +1,10 @@
-
 table.toggleable(data-controller="toggle")
   thead
     tr
       - if local_assigns.fetch(:display_patient, false)
-        th style="border-bottom: none" colspan=5
-      - else
         th style="border-bottom: none" colspan=4
+      - else
+        th style="border-bottom: none" colspan=3
       th.bg-gray-100 style="text-align:center; font-style:italic" colspan=3 Creatinine Clearance
       th.bg-gray-200 style="text-align:center; font-style:italic" colspan=3 kt/V
 
@@ -54,7 +53,7 @@ table.toggleable(data-controller="toggle")
         td.col-width-date= l(result.performed_on)
         -if result.complete?
           td.text-green-500
-            i.fas.fa-check-circle
+            i.fas.fa-check-circle(title="Complete")
         - else
           td.text-red-600
             i.far.fa-circle

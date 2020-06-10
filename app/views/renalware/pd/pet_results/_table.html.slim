@@ -43,7 +43,7 @@ table.toggleable(data-controller="toggle" )
           td= l(result.performed_on)
           -if result.complete?
             td.text-green-500
-              i.fas.fa-check-circle
+              i.fas.fa-check-circle(title="Complete")
           - else
             td.text-red-600
               i.far.fa-circle
