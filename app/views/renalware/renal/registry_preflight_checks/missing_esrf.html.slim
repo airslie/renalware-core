@@ -1,6 +1,12 @@
 = content_for(:tabs) do
   = render "navigation"
 
+= content_for(:filters) do
+  = render "filters",
+           query: query,
+           url: missing_esrf_renal_registry_preflight_checks_path,
+           display_esrf_date_filter: false
+
 = within_admin_layout(title: "Renal Registry Return: Preflight Checks") do
   = render "table", patients: patients, query: query, death_configuration: true
   = paginate patients

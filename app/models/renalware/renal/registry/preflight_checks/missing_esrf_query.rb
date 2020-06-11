@@ -28,6 +28,8 @@ module Renalware
               .result
               .extending(ModalityScopes)
               .preload(current_modality: [:description])
+              .merge(HD::Patient.with_profile)
+              .eager_load(:profile)
               .with_current_modality_matching(MODALITY_NAMES)
               .where("renal_profiles.esrf_on IS NULL")
           end
