@@ -81,9 +81,11 @@ module Renalware
         end
 
         def requests
-          RequestPresenter.present(
-            Requests::RequestsFactory.new(@patients, request_params).build
-          )
+          @requests ||= begin
+            RequestPresenter.present(
+              Requests::RequestsFactory.new(@patients, request_params).build
+            )
+          end
         end
 
         def request_params

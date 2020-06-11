@@ -8,6 +8,7 @@ This project adheres to Semantic Versioning.
 ### Added
 ### Changed
 ### Fixed
+- Fix missing patient 'Once' rules when printing one form at a time #3242
 
 ## 2.0.150
 16-04-2020
