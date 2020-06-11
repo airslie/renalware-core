@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 module Renalware
   module Pathology
     # Renders a pathology sparkline - a small graph of patient results for a particular
     # OBX (observation_description) over time.
+    # TODO: Move the graph config into JS. Possibly use a stimulus controller
     class SparklineComponent < ApplicationComponent
       pattr_initialize [:current_user!, :patient!, :observation_description!]
 
@@ -57,6 +59,20 @@ module Renalware
             xDateFormat: "%d-%b-%Y"
           },
           plotOptions: {
+            area: {
+              fillColor: {
+                linearGradient: {
+                  x1: 0,
+                  y1: 0,
+                  x2: 0,
+                  y2: 1
+                },
+                stops: [
+                  [0, "#eee"],
+                  [0.5, "#fff"]
+                ]
+              }
+            },
             series: {
               animation: false,
               lineWidth: 1,
@@ -116,3 +132,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
