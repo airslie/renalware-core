@@ -5,6 +5,7 @@ module Renalware
   class MDMPatientsPresenter
     include PresenterHelper
     attr_reader :patients, :view_proc, :page_title, :q
+
     def initialize(patients:,
                    view_proc:,
                    page_title:,

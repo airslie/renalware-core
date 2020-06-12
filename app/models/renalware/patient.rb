@@ -109,6 +109,7 @@ module Renalware
     validates :email, email: true, allow_blank: true
 
     attr_accessor :skip_death_validations
+
     with_options if: :validate_death_attributes?, on: :update do
       validates :died_on, presence: true
       validates :died_on, timeliness: { type: :date }

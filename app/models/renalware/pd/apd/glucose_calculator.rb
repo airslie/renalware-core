@@ -7,6 +7,7 @@ module Renalware
     module APD
       class GlucoseCalculator
         attr_reader :regime, :bags
+
         delegate :overnight_volume, to: :regime
 
         def initialize(regime:, strength:)

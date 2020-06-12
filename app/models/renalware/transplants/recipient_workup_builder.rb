@@ -20,6 +20,7 @@ module Renalware
       private
 
       attr_reader :workup, :default_consenter_name
+
       delegate :document, to: :workup
 
       def assign_default_consenter

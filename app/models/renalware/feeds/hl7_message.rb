@@ -67,6 +67,7 @@ module Renalware
 
       class Observation < SimpleDelegator
         attr_reader :cancelled
+
         alias_attribute :date_time, :observation_date
         alias_attribute :value, :observation_value
 

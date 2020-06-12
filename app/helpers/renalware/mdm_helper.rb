@@ -37,6 +37,7 @@ module Renalware
       private
 
       attr_reader :patient
+
       delegate :name, to: :modality_description, prefix: true, allow_nil: true
 
       def modality_description

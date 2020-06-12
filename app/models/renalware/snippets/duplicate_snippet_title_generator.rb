@@ -8,6 +8,7 @@ module Renalware
       MAX_ATTEMPTS = 100
 
       attr_reader :snippet, :title_suffix
+
       delegate :valid?, to: :snippet
 
       def initialize(snippet, title_suffix: "[CLONED]")

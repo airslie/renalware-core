@@ -6,6 +6,7 @@ module Renalware
   module HD
     class DashboardPresenter
       attr_accessor :patient
+
       delegate :has_ever_been_on_hd?, to: :patient
 
       def initialize(patient, view_context, current_user)
