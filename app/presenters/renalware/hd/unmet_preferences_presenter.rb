@@ -28,7 +28,7 @@ module Renalware
         value = yield(value) if block_given?
         return value if preference_satisfied?(attribute)
 
-        content_tag(:b, value)
+        tag.b(value)
       end
 
       def preference_satisfied?(attribute)

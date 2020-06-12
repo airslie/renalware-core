@@ -17,7 +17,7 @@ module Renalware
         class: "toggler",
         title: link_title
       ) do
-        content_tag(:i)
+        tag.i
       end
     end
 
@@ -29,18 +29,18 @@ module Renalware
         class: "toggler",
         title: link_title
       ) do
-        content_tag(:i)
+        tag.i
       end
     end
 
     def th_toggle_all_rows
-      content_tag(:th, class: "noprint togglers") do
+      tag.th(class: "noprint togglers") do
         table_toggler(link_title: "Toggle all rows")
       end
     end
 
     def td_toggle_row(row_selector)
-      content_tag(:td, class: "noprint") do
+      tag.td(class: "noprint") do
         toggler(row_selector)
       end
     end
@@ -57,7 +57,7 @@ module Renalware
         class: "toggler",
         title: link_title
       ) do
-        content_tag(:i)
+        tag.i
       end
     end
 
@@ -73,7 +73,7 @@ module Renalware
         class: "toggler",
         title: link_title
       ) do
-        content_tag(:i)
+        tag.i
       end
     end
   end

@@ -5,11 +5,11 @@ module Renalware
     def patient_menu_item(title:, path:, active_when_controller_matches:, enabled: true)
       klasses = %w(link)
       klasses << "active" if current_controller_matches(active_when_controller_matches)
-      content_tag :li, class: klasses.join(" ") do
+      tag.li(class: klasses.join(" ")) do
         if enabled
           link_to(title, path)
         else
-          content_tag :span, title
+          tag.span title
         end
       end
     end

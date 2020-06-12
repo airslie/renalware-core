@@ -4,14 +4,14 @@ class DatePickerInput < SimpleForm::Inputs::StringInput
   # Note that where we use `wrapper: :clockpicker` or `wrapper: horizontal_clockpicker`,
   # #input is not called and we call #prefix_column and #input_column directly.
   def input(_wrapper_options)
-    template.content_tag(:div, class: "row collapse #{class_name}-wrapper") do
+    template.tag.div(class: "row collapse #{class_name}-wrapper") do
       template.concat prefix_column
       template.concat input_column
     end
   end
 
   def prefix_column(_wrapper_options = {})
-    template.content_tag(:div, class: "small-2 columns") do
+    template.tag.div(class: "small-2 columns") do
       template.concat icon_calendar
     end
   end
@@ -20,7 +20,7 @@ class DatePickerInput < SimpleForm::Inputs::StringInput
     html_options = input_html_options
     html_options[:class] ||= []
     html_options[:class] << class_name
-    template.content_tag(:div, class: "small-10 columns") do
+    template.tag.div(class: "small-10 columns") do
       datestamp = @builder.object.public_send(attribute_name)
       value = format_date(datestamp)
       template.concat @builder.text_field(attribute_name, html_options.merge(value: value))

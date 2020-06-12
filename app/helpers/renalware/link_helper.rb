@@ -6,7 +6,7 @@ module Renalware
     # not permitted if condition is falsey.
     def link_to_if_allowed(condition, name, options = {}, html_options = {})
       link_to_if(condition, name, options, html_options) do
-        content_tag(:span, class: "no-permission") { name }
+        tag.span(class: "no-permission") { name }
       end
     end
   end

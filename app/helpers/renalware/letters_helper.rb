@@ -16,7 +16,7 @@ module Renalware
 
     def inline_value(label, value, unit = nil)
       [
-        content_tag(:strong, "#{label}: "),
+        tag.strong("#{label}: "),
         value,
         unit
       ].flatten.join(" ").html_safe
