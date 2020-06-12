@@ -15,6 +15,7 @@ module Renalware
   module Patients
     class PatientHospitalIdentifiers
       attr_reader :patient, :name, :value, :first
+
       delegate :present?, to: :name
       delegate :name, :id, to: :first
       delegate :to_s, to: :first

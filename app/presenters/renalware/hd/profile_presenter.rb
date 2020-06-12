@@ -4,6 +4,7 @@ module Renalware
   module HD
     class ProfilePresenter < DumbDelegator
       attr_reader :preference_set
+
       delegate :dialysis,
                :anticoagulant,
                :transport,

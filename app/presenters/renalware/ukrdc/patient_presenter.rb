@@ -9,6 +9,7 @@ module Renalware
       UKRDC_MAX_PHONE_LEN = 80
 
       attr_reader :changes_since, :changes_up_until
+
       delegate :prd_description, to: :profile, allow_nil: true
       delegate :code, :term, to: :prd_description, allow_nil: true, prefix: true
 

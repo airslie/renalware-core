@@ -9,6 +9,7 @@ module Renalware
       class UpdateMasterPatientIndex
         pattr_initialize :hl7_message
         attr_reader :rw_patient
+
         delegate :patient_identification, to: :hl7_message
 
         def self.call(hl7_message)

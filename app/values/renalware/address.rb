@@ -11,6 +11,7 @@ module Renalware
     # Set to true to avoid address validation - useful when archiving a letter with a migrated
     # address that might not have a postcode for instance
     attr_accessor :skip_validation
+
     validates_with AddressValidator, unless: :skip_validation
 
     def self.reject_if_blank

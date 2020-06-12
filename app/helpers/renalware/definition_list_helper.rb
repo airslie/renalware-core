@@ -17,14 +17,14 @@ module Renalware
         value = __getobj__.public_send(attribute)
         value = yield(value) if value.present? && block_given?
         capture do
-          concat content_tag(:dt, text)
-          concat content_tag(:dd, value)
+          concat tag.dt(text)
+          concat tag.dd(value)
         end
       end
     end
 
     def definition_list_for(model, size: :large)
-      content_tag(:dl, class: "dl-horizontal #{size}") do
+      tag.dl(class: "dl-horizontal #{size}") do
         yield DefinitionList.new(model)
       end
     end

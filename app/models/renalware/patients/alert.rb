@@ -9,6 +9,7 @@ module Renalware
       acts_as_paranoid
 
       attr_accessor :urgency # for use in forms
+
       validates :patient, presence: true
       validates :notes, presence: true
 

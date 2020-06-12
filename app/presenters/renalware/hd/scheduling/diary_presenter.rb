@@ -8,6 +8,7 @@ module Renalware
     module Scheduling
       class DiaryPresenter
         attr_reader :user, :weekly_diary, :master_diary, :null_diary
+
         delegate :id, :hospital_unit_id, :to_s, :week, :created_at, to: :weekly_diary
 
         # https://github.com/avdi/naught

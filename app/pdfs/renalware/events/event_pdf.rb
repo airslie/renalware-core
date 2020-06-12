@@ -12,6 +12,7 @@ module Renalware
     class EventPdf
       include Prawn::View
       attr_reader :event
+
       delegate :patient, :event_type, to: :event
 
       def initialize(event)

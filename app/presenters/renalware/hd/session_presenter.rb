@@ -10,6 +10,7 @@ module Renalware
       }.freeze
 
       attr_reader :preference_set
+
       delegate :info,
                :observations_before,
                :observations_after,

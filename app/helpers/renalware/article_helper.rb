@@ -13,8 +13,8 @@ module Renalware
       output = tag(:article, options, true)
       if title.present?
         output.safe_concat(
-          content_tag("header") do
-            content_tag("h1", title)
+          tag.header do
+            tag.h1(title)
           end
         )
       end
@@ -37,7 +37,7 @@ module Renalware
         end
       end
       parts.append(")")
-      content_tag("span", parts.join(""))
+      tag.span(parts.join(""))
     end
   end
 end

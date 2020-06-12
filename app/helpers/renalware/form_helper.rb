@@ -30,7 +30,7 @@ module Renalware
     end
 
     def monospace(value, width = 5)
-      content_tag(:span, class: "monospaced") do
+      tag.span(class: "monospaced") do
         concat("%#{width}s" % value).gsub(/ /, "&nbsp;").html_safe
       end
     end
@@ -38,7 +38,7 @@ module Renalware
     def save_or_cancel(form:, back_path:, submit_title: "Save", cancel_title: "cancel")
       capture do
         concat(form.submit(submit_title, class: "button"))
-        concat(content_tag(:span) { " or " })
+        concat(tag.span { " or " })
         concat(link_to(cancel_title, back_path))
       end
     end

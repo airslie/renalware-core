@@ -21,7 +21,7 @@ gem "renalware-forms", "0.1.10"
 gem "ruby-prof", require: false
 
 group :test do
-  gem "capybara", "~> 3.24"
+  gem "capybara", "~> 3.32"
   gem "capybara-screenshot", "~> 1.0"
   gem "capybara-select-2"
   gem "cucumber-rails", "~> 2.0", require: false # must be loaded in env.rb

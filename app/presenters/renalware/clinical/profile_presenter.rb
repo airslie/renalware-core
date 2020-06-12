@@ -6,6 +6,7 @@ module Renalware
   module Clinical
     class ProfilePresenter
       attr_reader :patient, :params
+
       delegate :allergies, :document, to: :patient
 
       def initialize(patient:, params:)
