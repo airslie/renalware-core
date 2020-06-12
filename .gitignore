@@ -66,3 +66,4 @@ spec/dummy/storage/**/*
 /public/packs-test
 /spec/dummy/public/renalware-core-packs
 log/.bash_history
+/*.pdf
