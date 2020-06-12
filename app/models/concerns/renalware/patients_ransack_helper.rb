@@ -6,7 +6,9 @@ module Renalware
   module PatientsRansackHelper
     extend ActiveSupport::Concern
 
+    # rubocop:disable Layout/LineLength
     UUID_REGEXP = /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/.freeze
+    # rubocop:enable Layout/LineLength
 
     included do
       class_eval do

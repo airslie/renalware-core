@@ -146,7 +146,10 @@ module Renalware
           # Any values like "## TEST CANCELLED" etc are thus excluded from the calculation
           def values
             @values ||= begin
-              sessions.map { |session| selector.call(session) }.compact.select { |val| number?(val) }
+              sessions
+                .map { |session| selector.call(session) }
+                .compact
+                .select { |val| number?(val) }
             end
           end
 
