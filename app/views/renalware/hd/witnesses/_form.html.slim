@@ -21,6 +21,8 @@
             .hd-drug--frequency= prescription.frequency
             .hd-drug--prescribed-on= l(prescription.prescribed_on)
             .hd-drug--prescriber-name= prescription.updated_by
+            - position = prescription.updated_by&.professional_position
+            .hd-drug--prescriber-position= position && "(#{position})"
 
             - if prescription.terminated_on.present?
               .hd-drug--termination
