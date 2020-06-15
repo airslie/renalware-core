@@ -2437,15 +2437,15 @@ var AttributeObserver = function() {
 }();
 
 function add(map, key, value) {
-  fetch(map, key).add(value);
+  fetch$1(map, key).add(value);
 }
 
 function del(map, key, value) {
-  fetch(map, key).delete(value);
+  fetch$1(map, key).delete(value);
   prune(map, key);
 }
 
-function fetch(map, key) {
+function fetch$1(map, key) {
   var values = map.get(key);
   if (!values) {
     values = new Set();
@@ -7340,6 +7340,56 @@ var _default$b = function(_Controller) {
 
 _defineProperty(_default$b, "targets", [ "chart" ]);
 
+var Highcharts = window.Highcharts;
+
+var _default$9 = function(_Controller) {
+  _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass(_default, [ {
+    key: "show",
+    value: function show(e) {
+      var _this = this;
+      e.preventDefault();
+      fetch(e.currentTarget.href).then(function(response) {
+        return response.json();
+      }).then(function(data) {
+        return _this.refreshChart(data);
+      });
+    }
+  }, {
+    key: "refreshChart",
+    value: function refreshChart(seriesData) {
+      this.titleTarget.innerHTML = "".concat(seriesData.code, " (").concat(seriesData.name, ")");
+      var options = this.chartOptions;
+      options["series"] = [ {
+        name: seriesData.code,
+        data: seriesData.results
+      } ];
+      Highcharts.chart(this.chartTarget.id, options);
+    }
+  }, {
+    key: "chartOptions",
+    get: function get() {
+      return {
+        chart: {
+          type: "line"
+        },
+        xAxis: {
+          type: "date"
+        },
+        series: []
+      };
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$9, "targets", [ "chart", "title" ]);
+
 var application = Application.start();
 
 application.register("toggle", _default);
@@ -7365,5 +7415,7 @@ application.register("tabs", _default$9);
 application.register("pd-pet-chart", _default$a);
 
 application.register("pathology-sparklines", _default$b);
+
+application.register("blas", _default$9);
 
 window.Chartkick.use(window.Highcharts);

@@ -1,16 +1,41 @@
-table#observations.column_hover
-  / colgroups are required for js highlighting of column on hover - see table.js
-  - (table.observation_descriptions.size + 1).times do
-    <colgroup></colgroup>
-  thead
-    tr
-      th Date
-      - table.observation_descriptions.each do |desc|
-         th(title=desc.name)= desc.code
-  tbody
-    - table.rows.each do |row|
+
+/ div data-controller="modal" data-modal-allow-background-close="true"
+/   <a href="#" data-action="click->modal#open" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded">
+/   <span>Open Modal</span>
+/   </a>
+
+/   h1 bbb
+/   div(data-target="modal.container"
+/       data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+/       class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center"
+/       style="z-index: 9999;")
+
+/    .max-h-screen.w-full.max-w-lg.relative
+/      .m-1.bg-white.rounded.shadow
+/        .p-8
+/          h2.text-xl.mb-4 Large Modal Content
+/          p.mb-4 This is an example modal dialog box.
+/          div.flex.justify-end.items-center.flex-wrap.mt-6
+/            button.bg-blue-500.text-white.font-bold.py-2.px-4.rounded(data-action="click->modal#close") Close
+
+
+div(data-controller="blas" data-blas-chart-options="{ width: '100px'}")
+  /#chartmodal.reveal-modal.small(data-reveal data-controller="blas")
+
+  .modal
+    .modal--header
+      h1(data-target="blas.title") XXXXX
+    .modal--body
+      #chart(data-target="blas.chart")
+    .modal--footer
+
+  table#observations.column_hover
+    / colgroups are required for js highlighting of column on hover - see table.js
+    - (table.observation_descriptions.size + 1).times do
+      <colgroup></colgroup>
+    thead
       tr
-        th.date= l(row.observed_on)
+        th Date
         - table.observation_descriptions.each do |desc|
           - code = desc.code
           - if row.comment_for(code).present?
@@ -19,3 +44,26 @@ table#observations.column_hover
               = row.result_for(code)
           - else
             td(class=code.downcase title=row.result_for(code))= row.result_for(code)
+
+
+
+    /       th(title=desc.name style="text-align: center")
+    /         = link_to(patient_pathology_observations_path(patient_id: patient, description_id: desc.id, format: :json),
+    /             data: { "revealx-id" => "chartmodal", "reveal-ajaxx" => "true",
+    /             action: "click->blas#show"}) do
+    /           i.fas.fa-chart-line(style="color: #ddd; font-size: 1.2rem")
+    /           br
+    /           = desc.code
+
+    / tbody
+    /   - table.rows.each do |row|
+    /     tr
+    /       th.date= l(row.observed_on)
+    /       - table.observation_descriptions.each do |desc|
+    /         - code = desc.code
+    /         - if row.comment_for(code).present?
+    /           td(class=code.downcase aria-label=row.comment_for(code) data-balloon-pos="up")
+    /             .triangle-top-right
+    /             = row.result_for(code)
+    /         - else
+    /           td(class=code.downcase)= row.result_for(code)

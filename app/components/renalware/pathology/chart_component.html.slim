@@ -1,0 +1,6 @@
+- cache(self, expires_in: 1.second) do
+  - if chart_data.any?
+    = area_chart chart_data, options.merge(id: dom_id,  width: 350)
+    /= area_chart chart_data, options.merge(height: 200, width: 300, id: dom_id)
+  - else
+    h4 No data

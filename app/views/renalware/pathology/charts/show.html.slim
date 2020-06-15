@@ -1,0 +1,11 @@
+.modal
+  .modal__header
+    h2= "#{observation_description.code} (#{observation_description.name})"
+    br
+    h3= patient
+    = render "renalware/shared/modal_close_link"
+  .modal__body
+    = render Renalware::Pathology::ChartComponent.new(current_user: current_user,
+             patient: patient,
+             observation_description: observation_description)
+  .modal__footer
