@@ -36,5 +36,11 @@ FactoryBot.define do
       slug { "vaccinations" }
       event_class_name { "Renalware::Virology::Vaccination" }
     end
+
+    factory :advanced_care_plan do
+      name { "AdvancedCarePlan" }
+      slug { "advanced_care_plans" }
+      event_class_name { "Renalware::LowClearance::AdvancedCarePlan" }
+    end
   end
 end

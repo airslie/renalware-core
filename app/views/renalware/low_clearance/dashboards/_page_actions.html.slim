@@ -14,6 +14,9 @@ ul.f-dropdown#pd-options(data-dropdown-content aria-hidden="true")
   = dropdown_btn_item enabled: dashboard.profile.new_record? && dashboard.profile_policy_edit?,
                       title: t(".add_profile"),
                       url: edit_patient_low_clearance_profile_path(patient)
+  = dropdown_btn_item enabled: true,
+                      title: t(".add_advanced_care_plan"),
+                      url: new_patient_low_clearance_advanced_care_plan_path(patient)
 
 - unless patient.ever_been_on_low_clearance?
   = render "modality_missing_warning", message: t(".missing_modality_warning")

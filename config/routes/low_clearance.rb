@@ -5,6 +5,11 @@ resources :patients, only: [] do
     resource :dashboard, only: :show
     resource :profile, only: [:edit, :update]
     resource :mdm, only: :show, controller: "mdm"
+    resources(
+      :advanced_care_plans,
+      only: [:new, :create, :edit, :update],
+      defaults: { slug: :lcc_advanced_care_plans }
+    )
   end
 end
 
