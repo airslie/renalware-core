@@ -14,8 +14,8 @@ table#observations.column_hover
         - table.observation_descriptions.each do |desc|
           - code = desc.code
           - if row.comment_for(code).present?
-            td(class=code.downcase aria-label=row.comment_for(code) data-balloon-pos="up")
+            td.triangle_in_corner(class=code.downcase aria-label=row.comment_for(code) data-balloon-pos="up")
               .triangle-top-right
               = row.result_for(code)
           - else
-            td(class=code.downcase)= row.result_for(code)
+            td(class=code.downcase title=row.result_for(code))= row.result_for(code)
