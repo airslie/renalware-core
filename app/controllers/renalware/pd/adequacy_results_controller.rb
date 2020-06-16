@@ -72,6 +72,8 @@ module Renalware
           .permit(
             :patient_id,
             :performed_on,
+            :height,
+            :weight,
             :dial_24_vol_in,
             :dial_24_vol_out,
             :dial_24_missing,

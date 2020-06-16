@@ -5811,7 +5811,9 @@ CREATE TABLE renalware.pd_adequacy_results (
     created_by_id bigint NOT NULL,
     updated_by_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    height double precision,
+    weight double precision
 );
 
 
@@ -19886,6 +19888,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200421082715'),
 ('20200421132911'),
 ('20200421143546'),
-('20200427123229');
+('20200427123229'),
+('20200616115709');
 
 
