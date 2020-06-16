@@ -42,5 +42,11 @@ FactoryBot.define do
       slug { "advanced_care_plans" }
       event_class_name { "Renalware::LowClearance::AdvancedCarePlan" }
     end
+
+    factory :clinical_frailty_score do
+      name { "Clinical Frailty Score" }
+      slug { "clinical_frailty_scores" }
+      event_class_name { "Renalware::Clinical::FrailtyScore" }
+    end
   end
 end
