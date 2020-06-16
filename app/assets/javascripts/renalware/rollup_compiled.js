@@ -7340,9 +7340,103 @@ var _default$b = function(_Controller) {
 
 _defineProperty(_default$b, "targets", [ "chart" ]);
 
-var Highcharts = window.Highcharts;
+var _default$c = function(_Controller) {
+  _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass(_default, [ {
+    key: "connect",
+    value: function connect() {
+      this.toggleClass = this.data.get("class") || "hidden";
+      this.backgroundHtml = this.data.get("backgroundHtml") || this._backgroundHTML();
+      this.backgroundId = this.data.get("backgroundId") || "modal-background";
+      this.allowBackgroundClose = (this.data.get("allowBackgroundClose") || "true") === "true";
+    }
+  }, {
+    key: "disconnect",
+    value: function disconnect() {
+      this.close();
+    }
+  }, {
+    key: "open",
+    value: function open(e) {
+      e.preventDefault();
+      e.target.blur();
+      this.lockScroll();
+      this.containerTarget.classList.remove(this.toggleClass);
+      if (!this.data.get("disable-backdrop")) {
+        document.body.insertAdjacentHTML("beforeend", this.backgroundHtml);
+        this.background = document.querySelector("#".concat(this.backgroundId));
+      }
+    }
+  }, {
+    key: "close",
+    value: function close(e) {
+      if (e) e.preventDefault();
+      this.unlockScroll();
+      this.containerTarget.classList.add(this.toggleClass);
+      if (this.background) {
+        this.background.remove();
+      }
+    }
+  }, {
+    key: "closeBackground",
+    value: function closeBackground(e) {
+      if (this.allowBackgroundClose && e.target === this.containerTarget) {
+        this.close(e);
+      }
+    }
+  }, {
+    key: "closeWithKeyboard",
+    value: function closeWithKeyboard(e) {
+      if (e.keyCode === 27 && !this.containerTarget.classList.contains(this.toggleClass)) {
+        this.close(e);
+      }
+    }
+  }, {
+    key: "_backgroundHTML",
+    value: function _backgroundHTML() {
+      return '<div id="modal-background" class="fixed top-0 left-0 w-full h-full" style="background-color: rgba(0, 0, 0, 0.8); z-index: 9998;"></div>';
+    }
+  }, {
+    key: "lockScroll",
+    value: function lockScroll() {
+      var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.paddingRight = "".concat(scrollbarWidth, "px");
+      this.saveScrollPosition();
+      document.body.classList.add("fixed", "inset-x-0", "overflow-hidden");
+      document.body.style.top = "-".concat(this.scrollPosition, "px");
+    }
+  }, {
+    key: "unlockScroll",
+    value: function unlockScroll() {
+      document.body.style.paddingRight = null;
+      document.body.classList.remove("fixed", "inset-x-0", "overflow-hidden");
+      this.restoreScrollPosition();
+      document.body.style.top = null;
+    }
+  }, {
+    key: "saveScrollPosition",
+    value: function saveScrollPosition() {
+      this.scrollPosition = window.pageYOffset || document.body.scrollTop;
+    }
+  }, {
+    key: "restoreScrollPosition",
+    value: function restoreScrollPosition() {
+      document.documentElement.scrollTop = this.scrollPosition;
+    }
+  } ]);
+  return _default;
+}(Controller);
 
-var _default$9 = function(_Controller) {
+_defineProperty(_default$c, "targets", [ "container" ]);
+
+var Highcharts$2 = window.Highcharts;
+
+var _default$d = function(_Controller) {
   _inherits(_default, _Controller);
   var _super = _createSuper(_default);
   function _default() {
@@ -7369,7 +7463,7 @@ var _default$9 = function(_Controller) {
         name: seriesData.code,
         data: seriesData.results
       } ];
-      Highcharts.chart(this.chartTarget.id, options);
+      Highcharts$2.chart(this.chartTarget.id, options);
     }
   }, {
     key: "chartOptions",
@@ -7388,7 +7482,7 @@ var _default$9 = function(_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty(_default$9, "targets", [ "chart", "title" ]);
+_defineProperty(_default$d, "targets", [ "chart", "title" ]);
 
 var application = Application.start();
 
@@ -7416,6 +7510,8 @@ application.register("pd-pet-chart", _default$a);
 
 application.register("pathology-sparklines", _default$b);
 
-application.register("blas", _default$9);
+application.register("modal", _default$c);
+
+application.register("blas", _default$d);
 
 window.Chartkick.use(window.Highcharts);

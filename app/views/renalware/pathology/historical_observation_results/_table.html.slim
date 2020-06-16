@@ -19,15 +19,15 @@
 /            button.bg-blue-500.text-white.font-bold.py-2.px-4.rounded(data-action="click->modal#close") Close
 
 
-div(data-controller="blas" data-blas-chart-options="{ width: '100px'}")
-  /#chartmodal.reveal-modal.small(data-reveal data-controller="blas")
-
-  .modal
-    .modal--header
-      h1(data-target="blas.title") XXXXX
-    .modal--body
-      #chart(data-target="blas.chart")
-    .modal--footer
+/ div(data-controller="blas" data-blas-chart-options="{ width: '100px'}")
+  #chartmodal.reveal-modal.small(data-reveal data-controller="blas")
+    .modal
+      .modal--header
+        h1(data-target="blas.title") XXXXX
+      .modal--body
+        div(data-controller="blas" data-blas-chart-options="{ width: '100px'}")
+          #chart(data-target="blas.chart")
+      .modal--footer
 
   table#observations.column_hover
     / colgroups are required for js highlighting of column on hover - see table.js
@@ -37,33 +37,24 @@ div(data-controller="blas" data-blas-chart-options="{ width: '100px'}")
       tr
         th Date
         - table.observation_descriptions.each do |desc|
-          - code = desc.code
-          - if row.comment_for(code).present?
-            td.triangle_in_corner(class=code.downcase aria-label=row.comment_for(code) data-balloon-pos="up")
-              .triangle-top-right
-              = row.result_for(code)
-          - else
-            td(class=code.downcase title=row.result_for(code))= row.result_for(code)
+          / th(title=desc.name)= desc.code
+          th(title=desc.name style="text-align: center")
+            = link_to(patient_pathology_observations_path(patient_id: patient, description_id: desc.id, format: :json),
+                data: { "reveal-id" => "chartmodal", "reveal-ajaxx" => "true",
+                action: "click->blas#show"}) do
+              i.fas.fa-chart-line(style="color: #ddd; font-size: 1.2rem")
+              br
+              = desc.code
 
-
-
-    /       th(title=desc.name style="text-align: center")
-    /         = link_to(patient_pathology_observations_path(patient_id: patient, description_id: desc.id, format: :json),
-    /             data: { "revealx-id" => "chartmodal", "reveal-ajaxx" => "true",
-    /             action: "click->blas#show"}) do
-    /           i.fas.fa-chart-line(style="color: #ddd; font-size: 1.2rem")
-    /           br
-    /           = desc.code
-
-    / tbody
-    /   - table.rows.each do |row|
-    /     tr
-    /       th.date= l(row.observed_on)
-    /       - table.observation_descriptions.each do |desc|
-    /         - code = desc.code
-    /         - if row.comment_for(code).present?
-    /           td(class=code.downcase aria-label=row.comment_for(code) data-balloon-pos="up")
-    /             .triangle-top-right
-    /             = row.result_for(code)
-    /         - else
-    /           td(class=code.downcase)= row.result_for(code)
+    tbody
+      - table.rows.each do |row|
+        tr
+          th.date= l(row.observed_on)
+          - table.observation_descriptions.each do |desc|
+            - code = desc.code
+            - if row.comment_for(code).present?
+              td.triangle_in_corner(class=code.downcase aria-label=row.comment_for(code) data-balloon-pos="up")
+                .triangle-top-right
+                = row.result_for(code)
+            - else
+              td(class=code.downcase title=row.result_for(code))= row.result_for(code)
