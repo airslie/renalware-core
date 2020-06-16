@@ -411,19 +411,23 @@ use flexbox to layout items inside each prescription.
       .hd-drug--name {
         font-weight: bold;
       }
+
       .hd-drug--name,
       .hd-drug--dose,
       .hd-drug--route,
       .hd-drug--prescribed-on,
-      .hd-drug--frequency {
+      .hd-drug--frequency,
+      .hd-drug--prescriber-name,
+      .hd-drug--prescriber-position {
         display: inline-block;
         padding-right: .5rem;
         color: $dark-grey;
       }
 
-      .hd-drug--prescriber-name {
-        display: inline-block;
-        color: $mid-grey;
+      .hd-drug--prescriber-name,
+      .hd-drug--prescriber-position {
+        color: $muted-dark-grey;
+        padding-right: .3rem;
       }
 
       .hd-drug--termination {
