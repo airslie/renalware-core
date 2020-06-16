@@ -85,7 +85,12 @@ module Renalware
       end
 
       def calculate_total_body_water
-        self.total_body_water = TotalBodyWater.calculate(visit: self)
+        self.total_body_water = TotalBodyWater.calculate(
+          height: height,
+          weight: weight,
+          age: patient.age,
+          sex: patient.sex
+        )
       end
     end
   end
