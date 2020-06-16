@@ -4,13 +4,11 @@
 module Renalware
   module PD
     class AdequacyCalculatedAttributes
-      pattr_initialize [:adequacy!, :clinic_visit!]
-      delegate :body_surface_area,
-               :total_body_water,
-               :weight,
-               :height,
-               to: :clinic_visit
+      pattr_initialize [:adequacy!, :age!, :sex!]
+
       delegate :urine_urea,
+               :height,
+               :weight,
                :urine_creatinine,
                :urine_24_vol,
                :dialysate_urea,
@@ -25,7 +23,6 @@ module Renalware
 
       def to_h
         return {} unless adequacy
-        return {} unless clinic_visit
 
         {
           total_creatinine_clearance: total_creatinine_clearance,
@@ -141,6 +138,14 @@ module Renalware
         return if any_are_nil_or_zero?(renal_ktv, pertitoneal_ktv)
 
         (renal_ktv + pertitoneal_ktv).round(2)
+      end
+
+      def body_surface_area
+        Clinics::BodySurfaceArea.calculate(weight: weight, height: height)
+      end
+
+      def total_body_water
+        Clinics::TotalBodyWater.calculate(height: height, weight: weight, age: age, sex: sex)
       end
 
       private

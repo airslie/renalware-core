@@ -83,8 +83,8 @@ module Renalware::Pathology
         it do
           is_expected.to eq(
             [
-              { code: "HGB", observed_on: date, result: "1" },
-              { code: "PLT", observed_on: date, result: "1" }
+              { code: "HGB", observed_on: date - look_behind_days.days, result: "1" },
+              { code: "PLT", observed_on: date - look_behind_days.days, result: "1" }
             ]
           )
         end

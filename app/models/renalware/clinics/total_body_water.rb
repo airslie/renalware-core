@@ -18,8 +18,6 @@ module Renalware
   module Clinics
     class TotalBodyWater
       pattr_initialize [:height!, :weight!, :age, :sex]
-      # delegate :patient, to: :visit
-      # delegate :age, to: :patient
 
       NOTHING = nil
       SEX_PROC_MAP = {

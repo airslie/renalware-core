@@ -16,7 +16,8 @@ describe "Patient's closest pathology to a date, filtered by code group", type: 
       create(
         :pathology_observation_request,
         :full_blood_count_with_observations,
-        patient: patient
+        patient: patient,
+        requested_at: "2019-01-01"
       )
 
       # Create the code group and its member OBX codes
@@ -44,9 +45,9 @@ describe "Patient's closest pathology to a date, filtered by code group", type: 
 
       expect(response).to be_successful
       expect(JSON.parse(response.body)).to eq [
-        { "code" => "WBC", "observed_on" => "2019-06-02", "result" => "6.0" },
-        { "code" => "HGB", "observed_on" => "2019-06-02", "result" => "6.0" },
-        { "code" => "PLT", "observed_on" => "2019-06-02", "result" => "6.0" }
+        { "code" => "WBC", "observed_on" => "2019-01-01", "result" => "6.0" },
+        { "code" => "HGB", "observed_on" => "2019-01-01", "result" => "6.0" },
+        { "code" => "PLT", "observed_on" => "2019-01-01", "result" => "6.0" }
       ]
     end
   end

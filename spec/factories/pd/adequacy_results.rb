@@ -12,6 +12,5 @@ FactoryBot.define do
     dial_24_vol_out { 1500 }
     serum_urea { 10 }
     serum_creatinine { 10 }
-    urine_24_missing { 10 }
   end
 end

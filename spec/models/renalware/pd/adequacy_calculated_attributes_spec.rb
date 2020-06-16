@@ -6,16 +6,9 @@ module Renalware
   module PD
     describe AdequacyCalculatedAttributes do
       describe "#to_h" do
-        subject(:hash) { described_class.new(adequacy: adequacy, clinic_visit: visit).to_h }
+        subject(:hash) { described_class.new(adequacy: adequacy, age: 50, sex: "F").to_h }
 
-        let(:visit) { Clinics::ClinicVisit.new }
         let(:adequacy) { AdequacyResult.new }
-
-        context "when no visit is passed" do
-          let(:visit) { nil }
-
-          it { is_expected.to eq({}) }
-        end
 
         context "when no adequacy is passed" do
           let(:adequacy) { nil }
@@ -23,7 +16,7 @@ module Renalware
           it { is_expected.to eq({}) }
         end
 
-        context "when visit and adequacy are present but there is nothing to calculate" do
+        context "when adequacy is supplied but there is nothing to calculate" do
           it "returns a hash with nil for each key" do
             is_expected.to eq(
               {
@@ -42,7 +35,7 @@ module Renalware
 
       describe "#renal_urine_clearance" do
         subject do
-          described_class.new(adequacy: adequacy, clinic_visit: nil).renal_urine_clearance
+          described_class.new(adequacy: adequacy, age: 50, sex: "F").renal_urine_clearance
         end
 
         let(:adequacy) { AdequacyResult.new(urine_urea: 10, serum_urea: 20, urine_24_vol: 3000) }
@@ -73,7 +66,7 @@ module Renalware
 
       describe "#renal_creatinine_clearance" do
         subject do
-          described_class.new(adequacy: adequacy, clinic_visit: nil).renal_creatinine_clearance
+          described_class.new(adequacy: adequacy, age: 50, sex: "F").renal_creatinine_clearance
         end
 
         let(:adequacy) do
@@ -106,35 +99,34 @@ module Renalware
 
       describe "#residual_renal_function" do
         subject do
-          described_class.new(adequacy: adequacy, clinic_visit: visit).residual_renal_function
+          described_class.new(adequacy: adequacy, age: 50, sex: "F").residual_renal_function
         end
 
+        let(:height) { 1.23 }
         let(:adequacy) do
           AdequacyResult.new(
             urine_urea: 10,
             serum_urea: 20,
             urine_creatinine: 30,
             serum_creatinine: 40,
-            urine_24_vol: 3000
+            urine_24_vol: 3000,
+            height: height,
+            weight: 100.99 # body_surface_area will eq 47.14
           )
         end
 
-        let(:visit) do
-          Clinics::ClinicVisit.new(body_surface_area: 100)
-        end
-
         context "when all values are present" do
-          it { is_expected.to eq(135) }
+          it { is_expected.to eq(8116) }
         end
 
-        context "when body_surface_area is nil" do
-          before { visit.body_surface_area = nil }
+        context "when height is nil" do
+          let(:height) { nil }
 
           it { is_expected.to be_nil }
         end
 
-        context "when body_surface_area is 0" do
-          before { visit.body_surface_area = 0 }
+        context "when height is 0" do
+          let(:height) { 0 }
 
           it { is_expected.to be_nil }
         end
@@ -148,10 +140,14 @@ module Renalware
 
       describe "#pertitoneal_creatinine_clearance" do
         subject do
-          described_class.new(adequacy: adequacy, clinic_visit: visit)
-            .pertitoneal_creatinine_clearance
+          described_class.new(
+            adequacy: adequacy,
+            age: 50,
+            sex: "F"
+          ).pertitoneal_creatinine_clearance
         end
 
+        let(:height) { 1.23 }
         let(:adequacy) do
           AdequacyResult.new(
             urine_urea: 10,
@@ -160,26 +156,24 @@ module Renalware
             serum_creatinine: 40,
             urine_24_vol: 3000,
             dialysate_creatinine: 200,
-            dial_24_vol_out: 2000
+            dial_24_vol_out: 2000,
+            height: height,
+            weight: 100.99
           )
         end
 
-        let(:visit) do
-          Clinics::ClinicVisit.new(body_surface_area: 10)
-        end
-
         context "when all values are present" do
-          it { is_expected.to eq(12) }
+          it { is_expected.to eq(72) }
         end
 
-        context "when body_surface_area is nil" do
-          before { visit.body_surface_area = nil }
+        context "when height is nil" do
+          let(:height) { nil }
 
           it { is_expected.to be_nil }
         end
 
         context "when body_surface_area is 0" do
-          before { visit.body_surface_area = 0 }
+          let(:height) { 0 }
 
           it { is_expected.to be_nil }
         end
@@ -201,7 +195,7 @@ module Renalware
       describe "#total_creatinine_clearance" do
         context "when residual_renal_function and pertitoneal_creatinine_clearance are present" do
           it "sums them" do
-            calcs = described_class.new(adequacy: nil, clinic_visit: nil)
+            calcs = described_class.new(adequacy: nil, age: 50, sex: "F")
             allow(calcs).to receive(:residual_renal_function).and_return(1)
             allow(calcs).to receive(:pertitoneal_creatinine_clearance).and_return(2)
 
@@ -211,7 +205,7 @@ module Renalware
 
         context "when residual_renal_function is nil" do
           it "returns nil" do
-            calcs = described_class.new(adequacy: nil, clinic_visit: nil)
+            calcs = described_class.new(adequacy: nil, age: 50, sex: "F")
             allow(calcs).to receive(:residual_renal_function).and_return(nil)
             allow(calcs).to receive(:pertitoneal_creatinine_clearance).and_return(2)
 
@@ -221,7 +215,7 @@ module Renalware
 
         context "when pertitoneal_creatinine_clearance is nil" do
           it "returns nil" do
-            calcs = described_class.new(adequacy: nil, clinic_visit: nil)
+            calcs = described_class.new(adequacy: nil, age: 50, sex: "F")
             allow(calcs).to receive(:residual_renal_function).and_return(1)
             allow(calcs).to receive(:pertitoneal_creatinine_clearance).and_return(nil)
 
@@ -232,34 +226,33 @@ module Renalware
 
       describe "#dietry_protein_intake" do
         subject do
-          described_class.new(adequacy: adequacy, clinic_visit: visit).dietry_protein_intake
+          described_class.new(adequacy: adequacy, age: 50, sex: "F").dietry_protein_intake
         end
 
+        let(:weight) { 100.99 }
         let(:adequacy) do
           AdequacyResult.new(
             urine_urea: 10,
             urine_24_vol: 3000,
             dialysate_urea: 200,
-            dial_24_vol_out: 2000
+            dial_24_vol_out: 2000,
+            height: 1.23,
+            weight: weight
           )
         end
 
-        let(:visit) do
-          Clinics::ClinicVisit.new(body_surface_area: 10, weight: 100.0)
-        end
-
         context "when required adequacy attributes are present" do
-          it { is_expected.to eq(1.36) }
+          it { is_expected.to eq(1.35) }
         end
 
         context "when visit weight is nil" do
-          before { visit.weight = nil }
+          let(:weight) { nil }
 
           it { is_expected.to be_nil }
         end
 
         context "when visit weight is 0" do
-          before { visit.weight = 0 }
+          let(:weight) { 0 }
 
           it { is_expected.to be_nil }
         end
@@ -279,20 +272,21 @@ module Renalware
       end
 
       describe "#renal_ktv" do
-        subject { described_class.new(adequacy: adequacy, clinic_visit: visit).renal_ktv }
+        subject { described_class.new(adequacy: adequacy, age: 50, sex: "F").renal_ktv }
 
+        let(:weight) { 100.99 }
         let(:adequacy) do
           AdequacyResult.new(
             urine_urea: 69,
             urine_24_vol: 1700,
-            serum_urea: 16.1
+            serum_urea: 16.1,
+            height: 1.23,
+            weight: weight
           )
         end
 
-        let(:visit) { Clinics::ClinicVisit.new(total_body_water: 27.0) }
-
         context "when required values are present" do
-          it { is_expected.to eq(1.89) }
+          it { is_expected.to eq(1.42) }
         end
 
         context "when required adequacy values are nil or 0" do
@@ -309,33 +303,34 @@ module Renalware
         end
 
         context "when total_body_water is nil" do
-          before { visit.total_body_water = nil }
+          let(:weight) { nil }
 
           it { is_expected.to be_nil }
         end
 
         context "when total_body_water is 0" do
-          before { visit.total_body_water = 0 }
+          let(:weight) { 0 }
 
           it { is_expected.to be_nil }
         end
       end
 
       describe "#pertitoneal_ktv" do
-        subject { described_class.new(adequacy: adequacy, clinic_visit: visit).pertitoneal_ktv }
+        subject { described_class.new(adequacy: adequacy, age: 50, sex: "F").pertitoneal_ktv }
 
+        let(:weight) { 100.99 }
         let(:adequacy) do
           AdequacyResult.new(
             serum_urea: 16.1,
             dialysate_urea: 9.7,
-            dial_24_vol_out: 8991
+            dial_24_vol_out: 8991,
+            weight: weight,
+            height: 1.23
           )
         end
 
-        let(:visit) { Clinics::ClinicVisit.new(total_body_water: 27.0) }
-
         context "when required values are present" do
-          it { is_expected.to eq(1.4) }
+          it { is_expected.to eq(1.05) }
         end
 
         context "when required adequacy values are nil or 0" do
@@ -352,13 +347,13 @@ module Renalware
         end
 
         context "when total_body_water is nil" do
-          before { visit.total_body_water = nil }
+          let(:weight) { nil }
 
           it { is_expected.to be_nil }
         end
 
         context "when total_body_water is 0" do
-          before { visit.total_body_water = 0 }
+          let(:weight) { 0 }
 
           it { is_expected.to be_nil }
         end
@@ -367,7 +362,7 @@ module Renalware
       describe "#total_ktv" do
         context "when renal_ktv and pertitoneal_ktv are present" do
           it "sums them" do
-            calcs = described_class.new(clinic_visit: nil, adequacy: nil)
+            calcs = described_class.new(adequacy: nil, age: 50, sex: "F")
             allow(calcs).to receive(:renal_ktv).and_return(1.1)
             allow(calcs).to receive(:pertitoneal_ktv).and_return(2.2)
 
@@ -377,7 +372,7 @@ module Renalware
 
         context "when renal_ktv is nil" do
           it "returns nil" do
-            calcs = described_class.new(clinic_visit: nil, adequacy: nil)
+            calcs = described_class.new(adequacy: nil, age: 50, sex: "F")
             allow(calcs).to receive(:renal_ktv).and_return(nil)
             allow(calcs).to receive(:pertitoneal_ktv).and_return(2.2)
 
@@ -387,7 +382,7 @@ module Renalware
 
         context "when pertitoneal_ktv is nil" do
           it "returns nil" do
-            calcs = described_class.new(clinic_visit: nil, adequacy: nil)
+            calcs = described_class.new(adequacy: nil, age: 50, sex: "F")
             allow(calcs).to receive(:renal_ktv).and_return(1.1)
             allow(calcs).to receive(:pertitoneal_ktv).and_return(nil)
 
