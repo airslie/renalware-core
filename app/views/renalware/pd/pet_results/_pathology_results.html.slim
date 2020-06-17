@@ -15,7 +15,7 @@ article(style="max-width: 600px; display: block; float: none; clear: both")
       th
     tbody
       tr
-        th.col-width-small Serum
+        th.col-width-small.text-right Serum
         td= form.text_field :serum_time
         td= form.text_field :serum_urea
         td= form.text_field :serum_creatinine
@@ -26,10 +26,7 @@ article(style="max-width: 600px; display: block; float: none; clear: both")
           /= link_to "Refresh...", "#", class: "button secondary"
       - [4, 2, 0, 6].each do |hr|
         tr
-          - if hr == 4
-            th= "Sample #{hr}"
-          - else
-            th= "Sample #{hr}"
+          th.text-right= "Sample #{hr}"
           td= form.text_field :"sample_#{hr}hr_time"
           td= form.text_field :"sample_#{hr}hr_urea"
           td= form.text_field :"sample_#{hr}hr_creatinine"

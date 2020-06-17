@@ -58,7 +58,15 @@
             th Protein
         tbody
           tr
-            td Dialysate
+            th.text-right Serum
+            td
+            td= f.text_field :serum_urea
+            td= f.text_field :serum_creatinine
+            td
+            td
+            td
+          tr
+            th.text-right Dialysate
             td
             td= f.text_field :dialysate_urea
             td= f.text_field :dialysate_creatinine
@@ -67,7 +75,7 @@
             td= f.text_field :dialysate_na
             td= f.text_field :dialysate_protein
           tr
-            td Urine
+            th.text-right Urine
             td
             td= f.text_field :urine_urea
             td= f.text_field :urine_creatinine

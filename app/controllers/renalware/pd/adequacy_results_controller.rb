@@ -87,7 +87,9 @@ module Renalware
             :urine_urea,
             :urine_creatinine,
             :urine_na,
-            :urine_k
+            :urine_k,
+            :serum_urea,
+            :serum_creatinine
           )
       end
       # rubocop:enable Metrics/MethodLength
