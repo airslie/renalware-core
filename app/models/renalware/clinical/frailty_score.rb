@@ -17,10 +17,9 @@ module Renalware
       end
       has_document
 
-      # Return e.g. "renalware/low_clearance/advanced_care_plans/toggled_cell
-      def partial_for(partial_type)
-        File.join("renalware/clinical/frailty_score", partial_type)
-      end
+      # def partial_for(partial_type)
+      #   File.join("renalware/clinical/frailty_score", partial_type)
+      # end
     end
   end
 end

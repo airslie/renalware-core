@@ -3,7 +3,7 @@
 require_dependency "renalware/messaging"
 
 module Renalware
-  module LowClearance
+  module Events
     class AdvancedCarePlanPolicy < BasePolicy
     end
   end
