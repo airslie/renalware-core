@@ -8,6 +8,14 @@ module Renalware
     class RegistryPreflightChecksController < BaseController
       include Renalware::Concerns::Pageable
 
+      module WithHDUnit
+        def hd_unit
+          if current_modality.description.name == "HD"
+            Renalware::HD.cast_patient(__getobj__)&.hd_profile&.hospital_unit&.unit_code
+          end
+        end
+      end
+
       class BasePresenter < SimpleDelegator
         def hd_unit; end
 
@@ -17,14 +25,10 @@ module Renalware
       end
 
       class PatientsPresenter < BasePresenter
+        include WithHDUnit
+
         def missing_data
           Registry::PreflightChecks::PatientsQuery.missing_data_for(__getobj__)
-        end
-
-        def hd_unit
-          if current_modality.description.name == "HD"
-            Renalware::HD.cast_patient(__getobj__)&.hd_profile&.hospital_unit&.unit_code
-          end
         end
       end
 
@@ -35,6 +39,8 @@ module Renalware
       end
 
       class MissingESRFPresenter < BasePresenter
+        include WithHDUnit
+
         def missing_data
           Registry::PreflightChecks::MissingESRFQuery.missing_data_for(__getobj__)
         end
