@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Renalware::Clinical::FrailtyScore, type: :model do # an event
+describe Renalware::Events::ClinicalFrailtyScore, type: :model do # an event
   describe "#document" do
     subject { described_class.new.document }
 

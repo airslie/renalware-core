@@ -1,4 +1,6 @@
 en:
+  renalware/events/biopsy:
+    title: "Biopsies"
   activemodel:
     attributes:
       renalware/events/biopsy/document:

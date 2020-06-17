@@ -3,8 +3,8 @@
 require_dependency "renalware/messaging"
 
 module Renalware
-  module Clinical
-    class FrailtyScorePolicy < BasePolicy
+  module Events
+    class ClinicalFrailtyScorePolicy < BasePolicy
     end
   end
 end

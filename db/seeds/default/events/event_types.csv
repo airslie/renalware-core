@@ -7,4 +7,4 @@
 "Investigation","Renalware::Events::Investigation","investigations"
 "Vaccination","Renalware::Virology::Vaccination","vaccinations"
 "Advanced Care Plan","Renalware::Events::AdvancedCarePlan","advanced_care_plans"
-"Clinical Frailty Score","Renalware::Clinical::FrailtyScore","clinical_frailty_score"
+"Clinical Frailty Score","Renalware::Events::ClinicalFrailtyScore","clinical_frailty_score"
