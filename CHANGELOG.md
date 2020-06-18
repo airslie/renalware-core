@@ -12,6 +12,7 @@ This project adheres to Semantic Versioning.
 ## 2.0.151
 18-06-2020
 ### Added
+- Add per-user mechanism to enable experimental features #3250
 - Add Clinical Frailty Score event #3247
 - Add Low Clearance Advanced Care Plan event #3247
 - Calculate body surface area #3216

@@ -6,10 +6,11 @@
         - observations.each do |observation|
           tr
             th= observation.description
-            td
-              = render Renalware::Pathology::SparklineComponent.new(current_user: current_user,
-                patient: patient,
-                observation_description: observation.description)
+            - if current_user.wants_feature?(2)
+              td
+                = render Renalware::Pathology::SparklineComponent.new(current_user: current_user,
+                  patient: patient,
+                  observation_description: observation.description)
 
             td= observation.result
             td= l(observation.observed_at&.to_date)

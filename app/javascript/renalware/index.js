@@ -27,8 +27,6 @@ import SimpleToggleController from "./controllers/simple_toggle_controller"
 import TabsController from "./controllers/tabs_controller"
 import PDPetChartsController from "./controllers/pd/pet_charts_controller"
 import PathologySparklinesController from "./controllers/pathology/sparklines_controller"
-import ModalController from "./controllers/modal_controller"
-import BlasController from "./controllers/blas_controller"
 
 const application = Application.start()
 application.register("toggle", ToggleController)
@@ -43,7 +41,5 @@ application.register("simple-toggle", SimpleToggleController)
 application.register("tabs", TabsController)
 application.register("pd-pet-chart", PDPetChartsController)
 application.register("pathology-sparklines", PathologySparklinesController)
-application.register("modal", ModalController)
-application.register("blas", BlasController)
 
 window.Chartkick.use(window.Highcharts)

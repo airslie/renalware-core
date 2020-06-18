@@ -42,6 +42,8 @@ module Renalware
     scope :hidden, -> { where(hidden: true) }
     scope :picklist, -> { visible.ordered }
 
+    store_accessor :preferences, :experimental_features
+
     # Non-persistent attribute to signify we want to use extended validation.
     # We need to refactor this by ising a form object for updating a user.
     attr_accessor :with_extended_validation
@@ -99,6 +101,14 @@ module Renalware
     #   method = :"#{method}?" unless method.to_s.ends_with("?")
     #   Pundit.policy(self, record).public_send(method.to_sym)
     # end
+
+    # We can enable experiment features for particular users using the bitmask user#feature_flags
+    # property and bitwise operators.
+    # For example given the the feature flag FANCY_GRAPHS = 2, we if they user should see these with
+    #   FANCY_GRAPHS & feature_flags == FANCY_GRAPHS
+    def wants_feature?(flag)
+      (flag & feature_flags) == flag
+    end
 
     private
 
