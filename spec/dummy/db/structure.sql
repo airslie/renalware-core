@@ -7280,8 +7280,16 @@ CREATE TABLE renalware.users (
     authentication_token character varying,
     asked_for_write_access boolean DEFAULT false NOT NULL,
     consultant boolean DEFAULT false NOT NULL,
-    hidden boolean DEFAULT false NOT NULL
+    hidden boolean DEFAULT false NOT NULL,
+    feature_flags integer DEFAULT 0 NOT NULL
 );
+
+
+--
+-- Name: COLUMN users.feature_flags; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.users.feature_flags IS 'OR''ed feature flag bits to enable experimental features for certain users';
 
 
 --
@@ -19889,6 +19897,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200421132911'),
 ('20200421143546'),
 ('20200427123229'),
-('20200616115709');
+('20200616115709'),
+('20200618144228');
 
 

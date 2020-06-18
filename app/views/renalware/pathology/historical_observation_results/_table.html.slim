@@ -6,7 +6,8 @@ table#observations.column_hover
     tr
       th Date
       - table.observation_descriptions.each do |desc|
-         th(title=desc.name)= desc.code
+        th(title=desc.name style="text-align: center")= desc.code
+
   tbody
     - table.rows.each do |row|
       tr

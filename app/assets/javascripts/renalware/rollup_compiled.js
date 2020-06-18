@@ -7322,6 +7322,24 @@ var _default$a = function(_Controller) {
   return _default;
 }(Controller);
 
+var _default$b = function(_Controller) {
+  _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass(_default, [ {
+    key: "connect",
+    value: function connect() {
+      console.log("Not implemented");
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$b, "targets", [ "chart" ]);
+
 var application = Application.start();
 
 application.register("toggle", _default);
@@ -7345,5 +7363,7 @@ application.register("simple-toggle", _default$8);
 application.register("tabs", _default$9);
 
 application.register("pd-pet-chart", _default$a);
+
+application.register("pathology-sparklines", _default$b);
 
 window.Chartkick.use(window.Highcharts);

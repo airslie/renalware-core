@@ -5,6 +5,6 @@
   - else
     p.hint Hover over table then scroll horizontally to view more results.
     .double-scroll.embedded-scroll.pathology
-      = render "table", table: table
+      = render "table", table: table, patient: patient
 
     = paginate(table)

@@ -10,7 +10,7 @@ module Renalware
         observation_set = ObservationSetPresenter.new(
           patient.fetch_current_observation_set
         )
-        render :index, locals: { observation_set: observation_set }
+        render :index, locals: { observation_set: observation_set, patient: patient }
       end
     end
   end
