@@ -6,16 +6,26 @@ This project adheres to Semantic Versioning.
 
 ## Unreleased
 ### Added
+- Add Clinical Frailty Score event #3247
+- Add Low Clearance Advanced Care Plan event #3247
+- Calculate body surface area #3216
 ### Changed
+- NHS number validation checks - spaces and modulus 11 #3224
+- Hide wide results in historical path table #3241
+- Remove NHS number spaces when sending to UKRDC #3221
+- Migrate EQ5D and POS-S surveys to view components #3215
+- Enforce one row per patient #3121
+- Add organisms to PD dashboard #3226
 ### Fixed
 - Fix missing patient 'Once' rules when printing one form at a time #3242
+- Fix string < numeric operator error in Age #3214
 
 ## 2.0.150
 16-04-2020
 ### Added
 ### Changed
 ### Fixed
-- Session timeout debugging was always on and logging to console
+- Session timeout debugging was always on and logging to console #3211
 
 ## 2.0.149
 14-04-2020

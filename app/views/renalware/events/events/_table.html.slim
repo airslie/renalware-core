@@ -11,7 +11,7 @@ table.has-togglable-rows.events-table
         th.col-width-large= t(".type")
       - if local_assigns.fetch(:include_patient_column, false)
         th.col-width-large= t(".patient")
-      th= t(".description")
+      th= local_assigns.fetch(:description_column_title, t(".description"))
       th.created_at.col-width-date-time= t(".date_time")
       th.created_by.col-width-medium= t(".created_by")
   tbody

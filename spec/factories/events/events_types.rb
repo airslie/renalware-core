@@ -36,5 +36,17 @@ FactoryBot.define do
       slug { "vaccinations" }
       event_class_name { "Renalware::Virology::Vaccination" }
     end
+
+    factory :advanced_care_plan do
+      name { "AdvancedCarePlan" }
+      slug { "advanced_care_plans" }
+      event_class_name { "Renalware::Events::AdvancedCarePlan" }
+    end
+
+    factory :clinical_frailty_score do
+      name { "Clinical Frailty Score" }
+      slug { "clinical_frailty_scores" }
+      event_class_name { "Renalware::Events::ClinicalFrailtyScore" }
+    end
   end
 end

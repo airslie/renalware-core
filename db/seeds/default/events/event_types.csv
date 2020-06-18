@@ -6,3 +6,5 @@
 "PD Line Change",,"pd_line_changes"
 "Investigation","Renalware::Events::Investigation","investigations"
 "Vaccination","Renalware::Virology::Vaccination","vaccinations"
+"Advanced Care Plan","Renalware::Events::AdvancedCarePlan","advanced_care_plans"
+"Clinical Frailty Score","Renalware::Events::ClinicalFrailtyScore","clinical_frailty_score"
