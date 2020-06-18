@@ -3,18 +3,10 @@
 require "rails_helper"
 
 describe Renalware::Clinics::BodySurfaceArea, type: :model do
-  let(:patient) { Renalware::Clinics.cast_patient(create(:patient)) }
-
-  def create_clinic_visit(height: 1.23, weight: 100.99)
-    create(:clinic_visit, patient: patient, height: height, weight: weight)
-  end
-
   describe "#calculate" do
-    context "when the visit has no weight" do
-      it "returns null" do
-        visit = create_clinic_visit(weight: nil)
-
-        result = described_class.new(visit: visit).calculate
+    context "when no weight supplied" do
+      it "returns nil" do
+        result = described_class.new(weight: nil, height: 1.23).calculate
 
         expect(result).to be_nil
       end
@@ -22,9 +14,7 @@ describe Renalware::Clinics::BodySurfaceArea, type: :model do
 
     context "when a visit has height and weight" do
       it "returns the correct calculated BSA rounded to default 2 dp" do
-        visit = create_clinic_visit(height: 1.23, weight: 100.99)
-
-        result = described_class.new(visit: visit).calculate
+        result = described_class.new(height: 1.23, weight: 100.99).calculate
 
         # BSA = 0.007184 * Weight (kg) ^0.425 * Height (cm) ^0.725
         # To calculate see e.g.
@@ -33,9 +23,7 @@ describe Renalware::Clinics::BodySurfaceArea, type: :model do
       end
 
       it "returns the correct calculated BSA rounded to the requested dp" do
-        visit = create_clinic_visit(height: 1.23, weight: 100.99)
-
-        result = described_class.new(visit: visit).calculate(dp: 3)
+        result = described_class.new(height: 1.23, weight: 100.99).calculate(dp: 3)
 
         expect(result).to eq(1.672)
       end
@@ -44,9 +32,7 @@ describe Renalware::Clinics::BodySurfaceArea, type: :model do
 
   describe "self.calculate convenience class method" do
     it do
-      visit = create_clinic_visit(height: 1.23, weight: 100.99)
-
-      result = described_class.calculate(visit: visit, dp: 3)
+      result = described_class.calculate(height: 1.23, weight: 100.99, dp: 3)
 
       expect(result).to eq(1.672)
     end

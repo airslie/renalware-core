@@ -1,0 +1,37 @@
+- if results.any?
+
+  article(data-controller="tabs" data-tabs-active-tab="opacity-100" data-tabs-index="0")
+    header
+      h2= title
+
+
+
+      /.flex.flex-row-reverse
+      .flex.justify-end
+
+        .inline-flex
+          a.reset.opacity-50.bg-white.m-05.pt-px.pb-0.px-1(href="#" data-target="tabs.tab"
+            data-action="click->tabs#change")
+            svg.h-6.w-6.fill-current.text-black xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+              path d="M1 4h2v2H1V4zm4 0h14v2H5V4zM1 9h2v2H1V9zm4 0h14v2H5V9zm-4 5h2v2H1v-2zm4 0h14v2H5v-2z"
+
+          a.reset.opacity-50.bg-white.m-0.pt-px.px-2(data-target="tabs.tab" href="#"
+            data-action="click->tabs#change")
+            svg.h-6.w-6.stroke-current.text-black viewBox="0 0 24 26"  stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+              path d="M12 20V10M18 20V4M6 20v-4"
+
+        = link_to "Show all", renalware.patient_pd_pet_results_path(patient), remote: true, class: "float-none button flex-initial secondary"
+        = link_to "Add", renalware.new_patient_pd_pet_result_path(patient), class: "float-none button flex-initial"
+    div#pet-results-table data-target="tabs.panel"
+
+      = render "renalware/pd/pet_results/table",
+               patient: patient,
+               results: results,
+               pagination: pagination,
+               current_user: current_user
+
+    .chart.hidden.mt-5 data-target="tabs.panel"
+      div(style="display:block; position:relative; height: 400px; width: 100%; text-align: center; margin-bottom: 20px")
+        #containerx(data-controller="pd-pet-chart"
+                    data-pd-pet-chart-url=renalware.patient_pd_pet_results_path(patient, format: :json)
+                    style="position: absolute; left: 0; top: 30px; max-width: 700px")

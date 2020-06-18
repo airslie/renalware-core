@@ -140,5 +140,13 @@
         }
       }
     }
+
+    &.wrapper_size_xs {
+      > .wrapper__input {
+        @media #{$small-up} {
+          @include grid-column(2, $last-column: false);
+        }
+      }
+    }
   }
 }

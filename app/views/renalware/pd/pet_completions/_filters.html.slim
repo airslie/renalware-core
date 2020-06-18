@@ -1,0 +1,24 @@
+
+.search-form.filters
+  = simple_form_for query,
+      as: :q,
+      url: pd_pet_completions_path,
+      method: :get do |f|
+    .row
+      .columns.medium-2.large-2
+        = f.input :identity_match, label: "Hosp/NHS no or name"
+
+      .columns.medium-2.large-2
+        = f.input :complete_eq,
+                  collection: [["Yes", true], ["No", false]],
+                  label: "Complete"
+
+      .columns.medium-2.large-2
+        = f.input :test_type_eq,
+                  collection: Renalware::PD::PETResult.test_type.values.map{ |val| [val.text, val] },
+                  label: "Test type"
+
+      .columns.medium-2.large-2.actions.end
+        = f.submit "Filter", class: "button"
+        '  or
+        = link_to t("helpers.reset"), pd_pet_completions_path

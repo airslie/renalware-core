@@ -40,5 +40,19 @@ ul.f-dropdown#pd-options(data-dropdown-content aria-hidden="true")
                       title: t(".add_pet_adequacy"),
                       url: new_patient_pd_pet_adequacy_result_path(patient)
 
+  - if current_user_is_super_admin?
+    li.separator
+
+    = dropdown_btn_item enabled: patient_on_pd,
+                        title: t(".add_unified_pet_adequacy"),
+                        url: new_patient_pd_unified_pet_adequacy_path(patient)
+
+    = dropdown_btn_item enabled: patient_on_pd,
+                        title: t(".add_pet"),
+                        url: new_patient_pd_pet_result_path(patient)
+
+    = dropdown_btn_item enabled: patient_on_pd,
+                        title: t(".add_adequacy"),
+                        url: new_patient_pd_adequacy_result_path(patient)
 - unless patient_on_pd
   = render "modality_missing_warning", message: t(".missing_modality_warning")

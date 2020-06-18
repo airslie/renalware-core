@@ -5,6 +5,7 @@ import commonjs from "@rollup/plugin-commonjs" // required for uglify
 import babel from "rollup-plugin-babel"
 import { uglify } from "rollup-plugin-uglify" // beautify the js output
 import inject from "@rollup/plugin-inject" // allow referencing jquery in stimulus controllers
+import postcss from "rollup-plugin-postcss"
 
 const uglifyOptions = {
   mangle: false,
@@ -27,7 +28,7 @@ export default {
       "chartkick": "Chartkick",
       "highcharts": "Highcharts"
     },
-    name: "renalwarec-core",
+    name: "renalware-core",
     sourcemap: false,
   },
   plugins: [
@@ -37,6 +38,13 @@ export default {
     uglify(uglifyOptions),
     inject({
       jQuery: "jquery"
+    }),
+    postcss({
+      extensions: [".css"],
+      extract: true,
+      config: {
+        path: "./postcss.config.js"
+      }
     })
   ],
   external: [ "chartkick", "highcharts" ]

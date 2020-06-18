@@ -1,0 +1,35 @@
+= within_patient_layout(breadcrumbs: pd_summary_breadcrumb(pet.patient),
+                        title: "Edit PET result") do
+
+  = simple_form_for(pet, url: renalware.patient_pd_pet_result_path(pet.patient, pet), wrapper: :horizontal_form) do |f|
+
+    / article(style="max-width: 600px; display: block; float: none; clear: both")
+    /   header
+    /     h2 Calculated output
+
+    .panel style="max-width:200px"
+      h2 Calculated output
+      /= f.input :net_uf, wrapper: :hz_sm
+      /= f.input :d_pcr, wrapper: :hz_sm
+      dl.dl-horizontal
+        dt
+          b netUF
+        dd
+          b= pet.calculated_net_uf
+        dt
+          b D_Pcr
+        dd
+          b= pet.calculated_d_pcr
+
+
+    / The same fields as used in #new
+    article(style="max-width: 600px; display: block; float: none; clear: both")
+      header
+        h2 Inputs
+      = render "form_fields", form: f
+
+    = render "pathology_results", form: f
+
+    = f.submit "Save", class: :button
+    '  or
+    = link_to "cancel", patient_pd_dashboard_path(pet.patient)

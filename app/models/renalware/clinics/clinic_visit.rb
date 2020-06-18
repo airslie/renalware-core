@@ -78,11 +78,19 @@ module Renalware
       end
 
       def calculate_body_surface_area
-        self.body_surface_area = BodySurfaceArea.calculate(visit: self)
+        self.body_surface_area = BodySurfaceArea.calculate(
+          height: height,
+          weight: weight
+        )
       end
 
       def calculate_total_body_water
-        self.total_body_water = TotalBodyWater.calculate(visit: self)
+        self.total_body_water = TotalBodyWater.calculate(
+          height: height,
+          weight: weight,
+          age: patient.age,
+          sex: patient.sex
+        )
       end
     end
   end

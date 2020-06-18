@@ -1,0 +1,17 @@
+.bart-chart-icon {
+  position: relative; // required for safari otherwise user cannot click on :before content
+  display: inline-block; // required otherwise IE11 will not be able to click on it
+
+  i {
+    @extend %fa-icon;
+    @extend .fas;
+    font-weight: 600;
+    pointer-events: none;
+    text-align: center;
+    width: 1.2rem;
+
+    &:before {
+      content: asset-data-url("renalware/icons/bar-chart.svg");
+    }
+  }
+}

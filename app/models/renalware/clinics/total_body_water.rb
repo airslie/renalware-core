@@ -17,9 +17,7 @@ require_dependency "renalware/clinics"
 module Renalware
   module Clinics
     class TotalBodyWater
-      pattr_initialize [:visit!]
-      delegate :patient, to: :visit
-      delegate :age, to: :patient
+      pattr_initialize [:height!, :weight!, :age, :sex]
 
       NOTHING = nil
       SEX_PROC_MAP = {
@@ -28,8 +26,8 @@ module Renalware
       }.freeze
       NOOP = ->(**) { NullObject.instance }
 
-      def self.calculate(visit:, dp: 2)
-        new(visit: visit).calculate(dp: dp)
+      def self.calculate(dp: 2, **args)
+        new(**args).calculate(dp: dp)
       end
 
       def calculate(dp: 2)
@@ -37,7 +35,7 @@ module Renalware
         return NOTHING if weight_kg.zero?
         return NOTHING if age.to_i.zero?
 
-        proc_for_sex = SEX_PROC_MAP.fetch(sex, NOOP)
+        proc_for_sex = SEX_PROC_MAP.fetch(sex_sym, NOOP)
 
         proc_for_sex.call(
           age: age,
@@ -49,16 +47,16 @@ module Renalware
       private
 
       # Note sex can be nil but here that would evaluate to :""
-      def sex
-        patient.sex.to_s&.to_sym
+      def sex_sym
+        sex.to_s&.to_sym
       end
 
       def height_cm
-        visit&.height.to_f * 100
+        height.to_f * 100
       end
 
       def weight_kg
-        visit&.weight.to_f
+        weight.to_f
       end
     end
   end

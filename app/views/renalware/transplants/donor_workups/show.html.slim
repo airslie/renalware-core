@@ -6,7 +6,7 @@
 = within_patient_layout(title: "Workup", breadcrumbs: donor_summary_breadcrumb(patient)) do
   - return unless workup
   .document-view
-    .grid
+    .mgrid
         .row
             = render "renalware/shared/documents/attributes_group",
                 group: workup.document.comorbidities,

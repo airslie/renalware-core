@@ -1,7 +1,7 @@
 function initTogglers() {
 
   function triggerMasonryLayoutRefresh() {
-    $('.grid > .row').masonry('layout');
+    $('.mgrid > .row').masonry('layout');
   }
 
   function toggleTarget(elem, open) {

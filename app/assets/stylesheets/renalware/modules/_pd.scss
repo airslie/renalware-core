@@ -1,3 +1,38 @@
+.pet-results--samples-table,
+.adequacy-results--samples-table {
+  max-width: 640px;
+
+  th {
+    width: 14.3%;
+  }
+
+  thead, tbody, th, td {
+    border: none;
+    text-align: center;
+  }
+
+  input {
+    margin: 0;
+  }
+}
+
+.adequacy-path-table {
+  background-color: transparent;
+  thead, tbody, th, td {
+    border: none;
+    text-align: center;
+  }
+
+  thead tr:first-child th {
+    font-style: italic;
+    text-align: center;
+  }
+
+  .bottom-border {
+    border-bottom: 1px solid #ccc;
+  }
+}
+
 .current-regime {
   h3 {
     font-size: 1rem;

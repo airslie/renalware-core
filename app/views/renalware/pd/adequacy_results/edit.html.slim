@@ -1,0 +1,89 @@
+- patient = adequacy.patient
+= within_patient_layout(breadcrumbs: pd_summary_breadcrumb(patient),
+                        title: "Edit Adequacy result") do
+
+  = simple_form_for(adequacy, url: renalware.patient_pd_adequacy_result_path(patient, adequacy), wrapper: :horizontal_form) do |f|
+
+    .panel style="max-width: 600px; padding: 1rem 1.2rem 0"
+      table.adequacy-path-table(style="max-width: 600px;")
+        thead
+          tr
+            th.bottom-border colspan=3 Creatinine Clearance
+            th style="width:20px"
+            th.bottom-border colspan=3 kt/V
+            th colspan=2 style="width:20px;"
+          tr
+            th Total
+            th Peritoneal
+            th Renal
+            th
+            th Total
+            th Peritoneal
+            th Renal
+            th
+            th(title="Dietry Protein Intake") DPI
+        tbody
+          tr
+            td= adequacy.total_creatinine_clearance
+            td= adequacy.pertitoneal_creatinine_clearance
+            td= adequacy.renal_creatinine_clearance
+            td
+            td= adequacy.total_ktv
+            td= adequacy.pertitoneal_ktv
+            td= adequacy.renal_ktv
+            td
+            td= adequacy.dietry_protein_intake
+
+
+    article(style="max-width: 600px; display: block; float: none; clear: both")
+      header
+        h2 Inputs
+      = render "form_fields", form: f
+
+    article(style="max-width: 600px; display: block; float: none; clear: both")
+      header
+        h2 Pathology
+        /= link_to "Refresh...", "#", class: :button
+
+      table.pet-results--samples-table(style="max-width: 600px")
+        thead
+          tr
+            th
+            th Date
+            th Urea
+            th Creatinine
+            th Glu
+            th Na
+            th K
+            th Protein
+        tbody
+          tr
+            th.text-right Serum
+            td
+            td= f.text_field :serum_urea
+            td= f.text_field :serum_creatinine
+            td
+            td
+            td
+          tr
+            th.text-right Dialysate
+            td
+            td= f.text_field :dialysate_urea
+            td= f.text_field :dialysate_creatinine
+            td= f.text_field :dialysate_glu
+            td
+            td= f.text_field :dialysate_na
+            td= f.text_field :dialysate_protein
+          tr
+            th.text-right Urine
+            td
+            td= f.text_field :urine_urea
+            td= f.text_field :urine_creatinine
+            td
+            td= f.text_field :urine_na
+            td= f.text_field :urine_k
+
+    br
+    = f.submit "Save", class: :button
+    '  or
+    = link_to "cancel", patient_pd_dashboard_path(patient)

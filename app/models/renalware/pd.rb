@@ -9,6 +9,8 @@ module Renalware
     end
 
     def self.cast_patient(patient)
+      return patient if patient.is_a?(::Renalware::PD::Patient)
+
       ActiveType.cast(patient, ::Renalware::PD::Patient)
     end
 

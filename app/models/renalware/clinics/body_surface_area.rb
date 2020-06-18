@@ -11,10 +11,10 @@ require_dependency "renalware/clinics"
 module Renalware
   module Clinics
     class BodySurfaceArea
-      pattr_initialize [:visit!]
+      pattr_initialize [:weight!, :height!]
 
-      def self.calculate(visit:, dp: 2)
-        new(visit: visit).calculate(dp: dp)
+      def self.calculate(weight:, height:, dp: 2)
+        new(weight: weight, height: height).calculate(dp: dp)
       end
 
       def calculate(dp: 2)
@@ -29,11 +29,11 @@ module Renalware
       private
 
       def height_cm
-        visit&.height.to_f * 100
+        height.to_f * 100
       end
 
       def weight_kg
-        visit&.weight.to_f
+        weight.to_f
       end
     end
   end

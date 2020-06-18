@@ -61,15 +61,15 @@ module Renalware
       " field_with_errors" if model.errors.key?(attr)
     end
 
-    def yes_no(bool)
-      bool ? "Yes" : "No"
-    end
+    # def yes_no(bool)
+    #   bool ? "Yes" : "No"
+    # end
 
-    def yes_no_if_set(bool)
-      return if bool.nil?
+    # def yes_no_if_set(bool)
+    #   return if bool.nil?
 
-      yes_no(bool)
-    end
+    #   yes_no(bool)
+    # end
 
     def default_for_associated(assoc, method, msg)
       assoc.present? ? assoc.public_send(method) : msg
