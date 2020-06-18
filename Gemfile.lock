@@ -16,7 +16,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.150)
+    renalware-core (2.0.151)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.28.0)
       activerecord-postgres_enum (~> 0.6.0)
@@ -660,7 +660,7 @@ GEM
     websocket-extensions (0.1.5)
     whenever (1.0.0)
       chronic (>= 0.6.3)
-    wicked_pdf (2.0.2)
+    wicked_pdf (2.1.0)
       activesupport
     wisper (2.0.1)
     wisper-activejob (1.0.0)
