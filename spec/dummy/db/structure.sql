@@ -5810,8 +5810,8 @@ CREATE TABLE renalware.pd_adequacy_results (
     deleted_at timestamp without time zone,
     created_by_id bigint NOT NULL,
     updated_by_id bigint NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     height double precision,
     weight double precision
 );
@@ -6240,8 +6240,8 @@ CREATE TABLE renalware.pd_pet_dextrose_concentrations (
     value double precision NOT NULL,
     hidden boolean DEFAULT false NOT NULL,
     "position" integer DEFAULT 0 NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -6318,8 +6318,8 @@ CREATE TABLE renalware.pd_pet_results (
     deleted_at timestamp without time zone,
     created_by_id bigint NOT NULL,
     updated_by_id bigint NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
