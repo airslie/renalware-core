@@ -1,4 +1,4 @@
-class AddFeatureFlagsToUsers < ActiveRecord::Migration[6.0]
+class AddFeatureFlagsToUsers < ActiveRecord::Migration[5.2]
   def change
     within_renalware_schema do
       add_column(
