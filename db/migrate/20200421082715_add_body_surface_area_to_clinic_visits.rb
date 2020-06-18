@@ -1,4 +1,4 @@
-class AddBodySurfaceAreaToClinicVisits < ActiveRecord::Migration[6.0]
+class AddBodySurfaceAreaToClinicVisits < ActiveRecord::Migration[5.2]
   def change
     within_renalware_schema do
       add_column :clinic_visits, :body_surface_area, :decimal, precision: 8, scale: 2

@@ -6,9 +6,16 @@ This project adheres to Semantic Versioning.
 
 ## Unreleased
 ### Added
+### Changed
+### Fixed
+
+## 2.0.151
+18-06-2020
+### Added
 - Add Clinical Frailty Score event #3247
 - Add Low Clearance Advanced Care Plan event #3247
 - Calculate body surface area #3216
+- Add Missing ESRF tab to RR preflight checks #3238
 ### Changed
 - NHS number validation checks - spaces and modulus 11 #3224
 - Hide wide results in historical path table #3241
@@ -16,9 +23,13 @@ This project adheres to Semantic Versioning.
 - Migrate EQ5D and POS-S surveys to view components #3215
 - Enforce one row per patient #3121
 - Add organisms to PD dashboard #3226
+- Add professional position by prescriber name for HD drugs #3245
+- Handle PET and Adequacy separately #3164
+- Enforce one unterminated row per patient in renal_profiles, access_profiles, transplant_registrations, modality_modalities #3121
 ### Fixed
 - Fix missing patient 'Once' rules when printing one form at a time #3242
 - Fix string < numeric operator error in Age #3214
+- Patient-specific results not appearing in on adhoc path req forms #3243
 
 ## 2.0.150
 16-04-2020
@@ -35,6 +46,7 @@ This project adheres to Semantic Versioning.
 - Update paper_trail gem and remove deprecation warnings #3209
 - Associate UKRDC log entries with a batch #3207
 ### Fixed
+- Ignore validation errors when clearing RPV data at Death #3201
 
 ## 2.0.147
 30-03-2020
