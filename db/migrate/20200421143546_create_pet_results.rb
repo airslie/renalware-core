@@ -1,4 +1,4 @@
-class CreatePETResults < ActiveRecord::Migration[6.0]
+class CreatePETResults < ActiveRecord::Migration[5.2]
   def change
     within_renalware_schema do
       create_enum :pd_pet_type, %w(full fast)

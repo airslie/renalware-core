@@ -1,4 +1,4 @@
-class CreateAdequacyResults < ActiveRecord::Migration[6.0]
+class CreateAdequacyResults < ActiveRecord::Migration[5.2]
   def change
     within_renalware_schema do
       create_table :pd_adequacy_results do |t|
