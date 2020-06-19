@@ -3,6 +3,7 @@
 require "inline_image"
 require "git_commit_sha"
 require "breadcrumb"
+require "renalware/version_number"
 
 module Renalware
   module ApplicationHelper
@@ -113,7 +114,7 @@ module Renalware
     end
 
     def semantic_app_version
-      "#{Renalware::VERSION}+sha.#{GitCommitSha.current}"
+      "#{Renalware::VersionNumber::VERSION}+sha.#{GitCommitSha.current}"
     end
   end
 end

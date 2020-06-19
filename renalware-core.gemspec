@@ -9,7 +9,7 @@ require "renalware/version_number"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "renalware-core"
-  s.version     = Renalware::VERSION
+  s.version     = Renalware::VersionNumber::VERSION
   s.authors     = ["Airslie"]
   s.email       = ["dev@airslie.com"]
   s.homepage    = "https://github.com/airslie/renalware-core"
