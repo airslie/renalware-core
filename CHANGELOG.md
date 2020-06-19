@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.152
+19-06-2020
+### Added
+### Changed
+### Fixed
+- Move VERSION constant into a VersionNumber module to resolve loading issues #3250
+
 ## 2.0.151
 18-06-2020
 ### Added
