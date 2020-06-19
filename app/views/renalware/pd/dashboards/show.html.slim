@@ -26,13 +26,13 @@
            exit_site_infections: dashboard.exit_site_infections,
            patient: patient
 
+  = render Renalware::PD::PETResultsComponent.new(patient: patient, current_user: current_user)
+  = render Renalware::PD::AdequacyResultsComponent.new(patient: patient, current_user: current_user)
+
   - if dashboard.pet_adequacies.any?
     = render "renalware/pd/dashboards/show/pet_adequacies",
            pet_adequacies: dashboard.pet_adequacies,
            patient: patient
-
-  = render Renalware::PD::PETResultsComponent.new(patient: patient, current_user: current_user)
-  = render Renalware::PD::AdequacyResultsComponent.new(patient: patient, current_user: current_user)
 
   - if dashboard.assessments.any?
     = render "renalware/pd/assessments/list",
