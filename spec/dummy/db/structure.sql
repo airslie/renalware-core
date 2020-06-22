@@ -14476,13 +14476,6 @@ CREATE INDEX index_modality_modalities_on_patient_id_and_description_id ON renal
 
 
 --
--- Name: index_modality_modalities_on_patient_id_current; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_modality_modalities_on_patient_id_current ON renalware.modality_modalities USING btree (patient_id) WHERE (ended_on IS NULL);
-
-
---
 -- Name: index_modality_modalities_on_reason_id; Type: INDEX; Schema: renalware; Owner: -
 --
 

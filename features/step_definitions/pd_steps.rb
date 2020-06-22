@@ -28,20 +28,12 @@ When(/^adds the following bags$/) do |table|
   add_bags_to_regime(regime: @regime, user: @clyde, data: table.hashes)
 end
 
-When(/^Clyde creates a PET Adequacy for Patty$/) do
-  @pet_adequacy = record_pet_adequacy_for(patient: @patty, user: @clyde)
-end
-
 Then(/^the CAPD becomes the current one$/) do
   regime_for_patient_is_current(patient: @patty, regime: @capd_regime)
 end
 
 Then(/^the calculated regime volumes are$/) do |table|
   expect_calculated_regime_volumes_to_be(data: table.rows, regime: @regime)
-end
-
-Then(/^Patty has a PET Adequacy$/) do
-  expect_patient_to_have_pet_adequacy pet_adequacy: @pet_adequacy, patient: @patty
 end
 
 Given(/^Patty has an existing CAPD regime$/) do

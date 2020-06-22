@@ -48,6 +48,7 @@ module World
       end
 
       module Web
+        # rubocop:disable Metrics/MethodLength
         def create_allergies_for(patient:, user:, allergies:)
           login_as user
           visit patient_clinical_profile_path(patient)
@@ -66,6 +67,7 @@ module World
             expect(page).to have_css(".allergy-status-form .disabled")
           end
         end
+        # rubocop:enable Metrics/MethodLength
 
         def remove_allergy_from_patient(patient:, allergy_description:, user:)
           login_as user
@@ -84,7 +86,7 @@ module World
         def expect_allergies_to_be(expected_allergies:, patient:)
           visit patient_clinical_profile_path(patient)
           within ".clinical-allergies table" do
-            expect(page.all("tbody tr").count).to eq(expected_allergies.count)
+            expect(page).to have_css("tbody tr", count: expected_allergies.count)
             expected_allergies.each do |allergy|
               expect(page).to have_content(allergy["description"])
             end
