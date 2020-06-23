@@ -1,0 +1,11 @@
+= within_admin_layout(title: "Editing #{description.code}") do
+  = simple_form_for(description) do |f|
+    .w-full.max-w-lg
+      = f.input :code, input_html: { disabled: :disabled }
+      = f.input :name
+      = f.association :measurement_unit
+      = f.input :lower_threshold, hint: "Value below which a result can be deemed abnormal"
+      = f.input :upper_threshold, hint: "Value above which a result can be deemed abnormal"
+      = f.submit class: :button
+      '  or
+      = link_to "Cancel", pathology_observation_descriptions_path

@@ -1,0 +1,24 @@
+= content_for :filters do
+  = render "filters", query: query, url: renalware.pathology_observation_descriptions_path
+
+= within_admin_layout(title: "Observation descriptions (OBX)") do
+  table
+    thead
+      th.col-width-tiny
+      th.col-width-small= sort_link(query, :code, "Code")
+      th.col-width-large= sort_link(query, :name, "Name")
+      th.col-width-small RR Type
+      th.col-width-medium RR Coding Standard
+      th= sort_link(query, :measurement_unit_name, " Unit of measurement")
+      th
+    tbody
+      - descriptions.each do |description|
+        tr
+          td.actions= link_to_if(policy(description).edit?, "Edit", [:edit, description])
+          td= description.code
+          td= description.name
+          td= description.rr_type
+          td= description.rr_coding_standard
+          td= description.measurement_unit&.name
+          td
+  == pagy_foundation_nav pagy

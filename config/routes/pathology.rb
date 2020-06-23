@@ -28,6 +28,7 @@ end
 
 namespace :pathology do
   resources :code_groups
+  resources :observation_descriptions, except: :destroy
   namespace :requests do
     # NOTE: This needs to be POST since the params may exceed url char limit in GET
     post "requests/new", to: "requests#new", as: "new_request"

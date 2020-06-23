@@ -7,6 +7,7 @@ super_admin:
   - Renalware::HD::Dialyser
   - Renalware::HD::CannulationType
   - Renalware::System::Download
+  - Renalware::Pathology::ObservationDescription
 admin:
   - Renalware::User
   - Renalware::BagType
