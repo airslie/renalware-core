@@ -8,15 +8,12 @@
 
 ### Adding diagrams to documentation
 
-Use [draw.io](https://app.diagrams.net/) to create a diagram and save it as a .drawio file in our ./doc folder.
+Add the [drawio integration extension](https://github.com/hediet/vscode-drawio)
+to VS Code (or use [draw.io](https://app.diagrams.net/)
+directly) to create a diagram and save it as a `.drawio.svg` file in our ./doc folder.
 
-Until we can happily embed the existing .drawio file in a markdown file, please
-also `Save as..` (in draw.io) an SVG file alongside the .drawio one so you can include in
-a markdown file eg
+You can them embed the file as if it were a native svg:
 
 ```
-![Alt text](./my-diagram.svg)
+![Alt text](./my-diagram.drawio.svg)
 ```
-
-Note you can download the drawio app, or edit drawio files directly in
-vscode with the right extension.
