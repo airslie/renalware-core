@@ -43,7 +43,7 @@ module Renalware
         attr_reader :batch, :dir, :user
 
         def append_files
-          folder = Rails.root.join("tmp", "batched_letters")
+          folder = Rails.root.join("tmp/batched_letters")
           FileUtils.mkdir_p folder
           pdf_file = folder.join("#{batch.id}.pdf")
           glob = Dir.glob(dir.join("*.pdf"))

@@ -14,7 +14,6 @@ module Renalware
 
       belongs_to :patient,
                  class_name: "Renalware::Patient",
-                 foreign_key: :patient_id,
                  touch: true
 
       validates :patient, presence: true, uniqueness: true

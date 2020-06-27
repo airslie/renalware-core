@@ -13,11 +13,9 @@ module Renalware
 
       belongs_to :operation,
                  class_name: "RecipientOperation",
-                 foreign_key: "operation_id",
                  touch: true
       belongs_to :transplant_failure_cause_description,
-                 class_name: "Transplants::FailureCauseDescription",
-                 foreign_key: "transplant_failure_cause_description_id"
+                 class_name: "Transplants::FailureCauseDescription"
       has_many :rejection_episodes,
                class_name: "RejectionEpisode",
                dependent: :restrict_with_exception,

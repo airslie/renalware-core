@@ -8,7 +8,6 @@ module Renalware
     class DonorFollowup < ApplicationRecord
       belongs_to :operation,
                  class_name: "DonorOperation",
-                 foreign_key: "operation_id",
                  touch: true
 
       has_paper_trail(

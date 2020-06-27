@@ -96,7 +96,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sprockets", "~> 4.0.0"
   s.add_dependency "uglifier", "~> 4.2"
   s.add_dependency "validates_timeliness", "~> 4.1.0"
-  s.add_dependency "view_component", "~> 2.7.0"
+  s.add_dependency "view_component", "~> 2.11.0"
   s.add_dependency "virtus", "~> 1.0.5"
   s.add_dependency "whenever" # For managing/deploying cron jobs see config/schedule.rb
   s.add_dependency "wicked_pdf"

@@ -16,7 +16,7 @@ module Renalware
       }
 
       belongs_to :patient, class_name: "Renalware::Clinical::Patient", touch: true
-      belongs_to :assessor, class_name: "User", foreign_key: "assessor_id"
+      belongs_to :assessor, class_name: "User"
       belongs_to :modality_description, class_name: "Modalities::Description"
 
       has_paper_trail(

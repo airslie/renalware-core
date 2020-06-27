@@ -3,7 +3,7 @@
 module ExceptionNotification
   class NotifierFactory
     def initialize(filename: nil, environment: nil)
-      @filename = filename || Rails.root.join("config", "exception_notification.yml")
+      @filename = filename || Rails.root.join("config/exception_notification.yml")
       @environment = environment || Rails.env
     end
 

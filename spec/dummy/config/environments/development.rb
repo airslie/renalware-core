@@ -30,7 +30,7 @@ Rails.application.configure do
   config.action_view.raise_on_missing_translations = true
 
   # Enable/disable caching. By default caching is disabled.
-  if Rails.root.join("tmp", "caching-dev.txt").exist?
+  if Rails.root.join("tmp/caching-dev.txt").exist?
     config.action_controller.perform_caching = true
     config.public_file_server.headers = {
       "Cache-Control" => "public, max-age=172800"

@@ -56,7 +56,7 @@ module Renalware
         end
 
         def cache_path
-          Rails.root.join("tmp", "pdf_letter_cache")
+          Rails.root.join("tmp/pdf_letter_cache")
         end
 
         def store

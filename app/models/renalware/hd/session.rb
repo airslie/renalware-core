@@ -24,8 +24,8 @@ module Renalware
       belongs_to :modality_description, class_name: "Modalities::Description"
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"
       belongs_to :dialysate
-      belongs_to :signed_on_by, class_name: "User", foreign_key: "signed_on_by_id"
-      belongs_to :signed_off_by, class_name: "User", foreign_key: "signed_off_by_id"
+      belongs_to :signed_on_by, class_name: "User"
+      belongs_to :signed_off_by, class_name: "User"
       has_many :prescription_administrations,
                class_name: "PrescriptionAdministration",
                foreign_key: "hd_session_id",
