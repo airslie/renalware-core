@@ -29,7 +29,7 @@
     "eslint": "^7.3.1",
     "eslint-plugin-import": "^2.7.0",
     "foundation-datepicker": "1.5.0",
-    "highcharts": "^8.0.4",
+    "highcharts": "8.0.4",
     "masonry-layout": "^4.2.2",
     "moment": "2.24.0",
     "mousetrap": "^1.6.3",
