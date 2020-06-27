@@ -72,7 +72,7 @@ module Renalware
         end
 
         def working_folder
-          Rails.root.join("tmp", "batched_hd_session_forms").tap do |folder|
+          Rails.root.join("tmp/batched_hd_session_forms").tap do |folder|
             FileUtils.mkdir_p folder
           end
         end

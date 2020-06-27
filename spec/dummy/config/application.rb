@@ -9,7 +9,7 @@ require "view_component/engine"
 
 module Dummy
   class Application < Rails::Application
-    config.cache_store = :file_store, Rails.root.join("tmp", "cache") # capistrano symmlinked
+    config.cache_store = :file_store, Rails.root.join("tmp/cache") # capistrano symmlinked
     config.active_record.time_zone_aware_types = [:datetime]
     config.active_storage.service = :local
     config.autoloader = :classic
@@ -30,7 +30,7 @@ module Dummy
     config.active_support.escape_html_entities_in_json = false
 
     initializer :add_locales do
-      config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
+      config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*.{rb,yml}")]
     end
   end
 end

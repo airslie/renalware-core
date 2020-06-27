@@ -34,7 +34,7 @@ module Renalware
         end
 
         def uploads_dir
-          Rails.root.join("tmp", "uploads").tap do |uploads_path|
+          Rails.root.join("tmp/uploads").tap do |uploads_path|
             warn "using upload path #{uploads_path}"
             Dir.mkdir(uploads_path) unless Dir.exist?(uploads_path)
           end
