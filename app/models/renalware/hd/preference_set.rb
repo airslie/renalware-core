@@ -10,7 +10,7 @@ module Renalware
 
       belongs_to :patient, touch: true
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"
-      belongs_to :schedule_definition, foreign_key: "schedule_definition_id"
+      belongs_to :schedule_definition
 
       has_paper_trail(
         versions: { class_name: "Renalware::HD::Version" },

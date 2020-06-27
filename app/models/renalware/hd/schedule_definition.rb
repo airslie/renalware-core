@@ -23,7 +23,7 @@ module Renalware
       ABBREV_DAY_NAMES = %w(Mon Tue Wed Thu Fri Sat Sun).freeze
       validates :days, presence: true
       validates :diurnal_period_id, presence: true
-      belongs_to :diurnal_period, class_name: "DiurnalPeriodCode", foreign_key: :diurnal_period_id
+      belongs_to :diurnal_period, class_name: "DiurnalPeriodCode"
       scope :ordered, -> { order(days: :asc) }
 
       # Render the schedule definition to a human friendly format e.g. "Mon, Wed, Fri AM"

@@ -35,7 +35,7 @@ module Renalware
                through: :electronic_receipts,
                source: :recipient
       has_one :signature, dependent: :destroy
-      has_one :archive, foreign_key: "letter_id", inverse_of: :letter
+      has_one :archive, inverse_of: :letter
       serialize :pathology_snapshot, Pathology::ObservationsJsonbSerializer
 
       accepts_nested_attributes_for :main_recipient

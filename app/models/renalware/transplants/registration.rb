@@ -10,9 +10,7 @@ module Renalware
       include PatientScope
 
       belongs_to :patient, touch: true
-      has_many :statuses,
-               class_name: "RegistrationStatus",
-               foreign_key: "registration_id"
+      has_many :statuses, class_name: "RegistrationStatus"
       has_one :current_status,
               -> { where(terminated_on: nil).order([:started_on, :created_at]) },
               class_name: "RegistrationStatus",

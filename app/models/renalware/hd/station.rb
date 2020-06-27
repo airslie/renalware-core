@@ -6,7 +6,7 @@ module Renalware
   module HD
     class Station < ApplicationRecord
       include Accountable
-      belongs_to :location, class_name: "HD::StationLocation", foreign_key: :location_id
+      belongs_to :location, class_name: "HD::StationLocation"
       validates :hospital_unit_id, presence: true
       validates :name, uniqueness: { scope: :hospital_unit_id }
 

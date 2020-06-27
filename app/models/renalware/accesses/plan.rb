@@ -9,7 +9,7 @@ module Renalware
 
       belongs_to :patient, touch: true
       belongs_to :plan_type
-      belongs_to :decided_by, class_name: "User", foreign_key: "decided_by_id"
+      belongs_to :decided_by, class_name: "User"
 
       validates :plan_type, presence: true
       validates :decided_by, presence: true
