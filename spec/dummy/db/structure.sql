@@ -177,6 +177,33 @@ $$;
 
 
 --
+-- Name: convert_to_float(text, double precision); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.convert_to_float(v_input text, default_value_if_cannot_be_coerced double precision) RETURNS double precision
+    LANGUAGE plpgsql
+    AS $$
+DECLARE v_float_value float DEFAULT NULL;
+BEGIN
+    BEGIN
+        v_float_value := v_input::float;
+    EXCEPTION WHEN OTHERS THEN
+        RETURN default_value_if_cannot_be_coerced;
+    END;
+RETURN v_float_value;
+END;
+$$;
+
+
+--
+-- Name: FUNCTION convert_to_float(v_input text, default_value_if_cannot_be_coerced double precision); Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON FUNCTION renalware.convert_to_float(v_input text, default_value_if_cannot_be_coerced double precision) IS 'Tries to coerce v_input into a float (double precision) and it it cannot,
+returns default_value_if_cannot_be_coerced';
+
+
+--
 -- Name: count_estimate(text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -734,6 +761,31 @@ BEGIN
   END IF;
   RETURN NULL ;
 END $$;
+
+
+--
+-- Name: update_pathology_observations_nresult_from_trigger(); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.update_pathology_observations_nresult_from_trigger() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+BEGIN
+  IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') THEN
+    NEW.nresult = convert_to_float(NEW.result, NULL);
+  END IF;
+  RETURN NEW ;
+END $$;
+
+
+--
+-- Name: FUNCTION update_pathology_observations_nresult_from_trigger(); Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON FUNCTION renalware.update_pathology_observations_nresult_from_trigger() IS 'Tries to coerce the result column into the nresult column as a float.
+Sets nresult to NULL if result is eg text and cannot be coerced.
+nresult is a performance optimisation useful for instance in graphing';
 
 
 --
@@ -4672,8 +4724,16 @@ CREATE TABLE renalware.pathology_observations (
     updated_at timestamp without time zone NOT NULL,
     description_id integer NOT NULL,
     request_id integer NOT NULL,
-    cancelled boolean
+    cancelled boolean,
+    nresult double precision
 );
+
+
+--
+-- Name: COLUMN pathology_observations.nresult; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_observations.nresult IS 'The result column cast to a float, for ease of using graphing and claculations.Will be null if the result has a text value that cannot be coreced into a number';
 
 
 --
@@ -16691,6 +16751,21 @@ CREATE TRIGGER update_current_observation_set_trigger AFTER INSERT OR UPDATE ON 
 
 
 --
+-- Name: pathology_observations update_pathology_observations_nresult_trigger; Type: TRIGGER; Schema: renalware; Owner: -
+--
+
+CREATE TRIGGER update_pathology_observations_nresult_trigger BEFORE INSERT OR UPDATE ON renalware.pathology_observations FOR EACH ROW EXECUTE FUNCTION renalware.update_pathology_observations_nresult_from_trigger();
+
+
+--
+-- Name: TRIGGER update_pathology_observations_nresult_trigger ON pathology_observations; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TRIGGER update_pathology_observations_nresult_trigger ON renalware.pathology_observations IS 'When a row is updated or inserted into pathology_observations, call a function to try and
+coerce the result into a new float column which can be more easily consumed for graphing etc';
+
+
+--
 -- Name: research_study_participants update_research_study_participants_trigger; Type: TRIGGER; Schema: renalware; Owner: -
 --
 
@@ -19917,6 +19992,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200616115709'),
 ('20200618144228'),
 ('20200622120232'),
+('20200626081248'),
+('20200626090256'),
 ('20200628094228');
 
 
