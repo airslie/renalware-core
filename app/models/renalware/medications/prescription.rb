@@ -89,10 +89,6 @@ module Renalware
         ["drug_name asc", "prescribed_on desc"]
       end
 
-      def self.policy_class
-        BasePolicy
-      end
-
       # @section attributes
       #
       def terminated_by

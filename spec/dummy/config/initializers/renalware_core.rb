@@ -23,6 +23,7 @@ Renalware.configure do |config|
   config.batch_printing_enabled = true
   config.disable_inputs_controlled_by_tissue_typing_feed = false
   config.disable_inputs_controlled_by_demographics_feed = false
+  config.enforce_user_prescriber_flag = true
 end
 
 # Renalware::Patients.configure

@@ -51,6 +51,7 @@ module Renalware
           :telephone,
           :consultant,
           :hidden,
+          :prescriber,
           role_ids: []
         )
     end

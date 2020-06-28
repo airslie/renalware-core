@@ -5,9 +5,10 @@ require "rails_helper"
 module Renalware
   module PD
     describe RegimePolicy, type: :policy do
+      include PolicySpecHelper
       subject(:policy) { described_class }
 
-      let(:admin) { create(:user, :admin) }
+      let(:admin) { user_double_with_role(:admin) }
 
       permissions :edit? do
         it "is permitted if the regime is current" do

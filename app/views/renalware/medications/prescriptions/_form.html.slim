@@ -62,6 +62,7 @@ ruby:
 
     .row.actions
       .small-9.columns
-        = f.button :submit, "Save"
-        '  or
+        - if policy(prescription).create?
+          = f.button :submit, "Save"
+          '  or
         = link_to "cancel", patient_prescriptions_path(patient, treatable), remote: true

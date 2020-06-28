@@ -6,9 +6,10 @@ module Renalware
   module LowClearance
     describe ProfilePolicy, type: :policy do
       include PatientsSpecHelper
+      include PolicySpecHelper
       subject { described_class }
 
-      let(:clinician) { create(:user, :clinical) }
+      let(:clinician) { user_double_with_role(:clinical) }
       let(:user) { create(:user) }
       let(:patient) { create(:low_clearance_patient) }
       let(:profile) { create(:low_clearance_profile, patient: patient, by: user) }

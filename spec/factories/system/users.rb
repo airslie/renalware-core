@@ -18,6 +18,7 @@ FactoryBot.define do
     approved { true }
     professional_position { "Health Minister" }
     signature { Faker::Name.name }
+    prescriber { true }
 
     # By default a user has no roles.
     # If you want a use with a role, use a trait, e.g. create(:user, :clinical)

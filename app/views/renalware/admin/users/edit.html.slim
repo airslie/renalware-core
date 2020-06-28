@@ -52,6 +52,15 @@
               checked_value: "true",
               unchecked_value: "false",
               wrapper: :horizontal_small
+
+    - if current_user.has_role?(:super_admin)
+      = f.input :prescriber,
+                as: :boolean,
+                hint: "&nbsp;User will able to add/edit/terminate prescriptions".html_safe,
+                checked_value: "true",
+                unchecked_value: "false",
+                wrapper: :horizontal_small
+
     - msg = user.approved? ? "Update" : "Approve"
     = f.submit msg, class: "button"
     '  or

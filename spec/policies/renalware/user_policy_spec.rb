@@ -4,11 +4,12 @@ require "rails_helper"
 
 module Renalware
   describe UserPolicy, type: :policy do
+    include PolicySpecHelper
     subject(:policy) { described_class }
 
-    let(:admin) { create(:user, :admin) }
-    let(:super_admin) { create(:user, :super_admin) }
-    let(:clinician) { create(:user, :clinical) }
+    let(:admin) { user_double_with_role(:admin) }
+    let(:super_admin) { user_double_with_role(:super_admin) }
+    let(:clinician) { user_double_with_role(:clinical) }
     let(:other_clinician) { create(:user, :clinical) }
 
     permissions :update? do
