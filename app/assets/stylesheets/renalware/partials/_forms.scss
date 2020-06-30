@@ -29,6 +29,17 @@ textarea.monospace {
     display: none;
   }
 }
+.filters--flex {
+  .flex {
+    input, select, .select2 {
+      margin: 0;
+    }
+
+    .button {
+      padding: .5rem 1rem
+    }
+  }
+}
 
 // Hide up down arrows on number inputs
 input[type="number"]::-webkit-inner-spin-button,
