@@ -1,23 +1,15 @@
-.search-form.filters
+.search-form.filters.filters--flex.max-w-screen-md
   = simple_form_for form,
       as: :query,
       url: admissions_admissions_path,
       method: :get do |f|
 
-    .row
-      .columns.medium-2.large-3
-        = f.input :term
-
-      .columns.medium-3.large-2
-        = f.input :hospital_unit_id,
-                  collection: Renalware::Hospitals::Unit.pluck(:name, :id)
-      .columns.medium-2.large-2
-        = ward_dropdown_grouped_by_hospital_unit(f, :hospital_ward_id, label: "Ward", wrapper: nil)
-      .columns.medium-3.large-3
-        = f.input :status,
-                  collection: form.status_dropdown_options,
-                  include_blank: "Any"
-      .columns.medium-2.large-2.actions.end
-        = f.submit "Filter", class: "button"
+    .flex.flex-col.sm:flex-row.items-end.pb-4
+      .w-full.sm:max-w-xs.pr-2= f.input :term
+      .w-full.pr-2= f.input :hospital_unit_id, collection: Renalware::Hospitals::Unit.pluck(:name, :id)
+      .w-full.sm:min-w-md.pr-2= ward_dropdown_grouped_by_hospital_unit(f, :hospital_ward_id, label: "Ward", wrapper: nil)
+      .w-full.sm:min-w-xs.pr-2= f.input :status, collection: form.status_dropdown_options, include_blank: "Any"
+      .flex-shrink-0.pt-4.filters--actions
+        = f.submit "Filter", class: "button", style: "margin: 0"
         '  or
         = link_to t("helpers.reset"), admissions_admissions_path

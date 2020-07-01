@@ -21,12 +21,8 @@ css:
 
 = within_new_admin_layout(title: "Admin Playground") do
 
-  article
-    header
-      h2 Pathology Charts
-    span A testbed for trying out highchart linecharts
-    br
-    br
+  = render(Renalware::ArticleComponent.new(title: "Pathology Charts")) do
+    p A testbed for trying out highchart linecharts
 
     .chart-container(data-controller="charts"
                     data-charts-url=pathology_chart_data_admin_playground_path)
