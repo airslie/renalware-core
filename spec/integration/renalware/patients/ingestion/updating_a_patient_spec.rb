@@ -25,7 +25,7 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
       PD1|||DR WHM SUMISU PRACTICE, Nowhere Surgery, 22 Raccoon Road, Erewhon, Erewhonshire^GPPRC^#{practice_code}|#{gp_code}^Deeley^DP^^^DR
       PV1|1|I|FISK^1^^LD^^^^^Fiske Ward|22||||#{gp_code}^Deeley^DP^^^DR|#{practice_code}^Hoskin^P^^^P^370|370||||19|||C2458519^Hoskin^P^^^P^370|01|877511|||||||||||||||||||||NORMC||||20110412095300
     HL7
-    hl7.gsub(/^[ ]*/, "")
+    hl7.gsub(/^ */, "")
   end
 
   def create_dependencies
