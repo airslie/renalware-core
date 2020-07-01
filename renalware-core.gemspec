@@ -62,7 +62,7 @@ Gem::Specification.new do |s|
   s.add_dependency "i18n", "1.5.3"
   s.add_dependency "jbuilder", "~> 2.8"
   s.add_dependency "jquery-datatables-rails", "~> 3.4.0"
-  s.add_dependency "jquery-rails", "~> 4.3.1"
+  s.add_dependency "jquery-rails", "~> 4.4.0"
   s.add_dependency "jquery-ui-rails", "~> 6.0.1"
   s.add_dependency "kaminari", "~> 1.1"
   s.add_dependency "liquid", "~> 4.0.0"
@@ -96,7 +96,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sprockets", "~> 4.0.0"
   s.add_dependency "uglifier", "~> 4.2"
   s.add_dependency "validates_timeliness", "~> 4.1.0"
-  s.add_dependency "view_component", "~> 2.11.0"
+  s.add_dependency "view_component", "~> 2.12.0"
   s.add_dependency "virtus", "~> 1.0.5"
   s.add_dependency "whenever" # For managing/deploying cron jobs see config/schedule.rb
   s.add_dependency "wicked_pdf"

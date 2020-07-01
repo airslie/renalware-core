@@ -30,7 +30,7 @@ describe "HL7 ADT~A28 message handling: 'Add person information'" do
       PV1|1|R
       Z01|07921 222222|07921 222222|||N|Nowhere Surgery^22 Raccoon Road^Erewhon^Erewhonshire^ER9 9QZ^01582 572817
     HL7
-    hl7.gsub(/^[ ]*/, "")
+    hl7.gsub(/^ */, "")
   end
 
   before do
