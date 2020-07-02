@@ -2,7 +2,6 @@
 
 module Renalware
   # log "Adding HD Diaries" do
-
   class CreateDiary
     attr_reader :unit, :user
 
@@ -11,12 +10,15 @@ module Renalware
       @user = user
     end
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def call
       HD::Scheduling::DiarySlot.delete_all
       HD::Scheduling::Diary.delete_all
 
       # Build master diary
-      master = HD::Scheduling::MasterDiary.find_or_initialize_by(hospital_unit_id: unit.id) do |diary|
+      master = HD::Scheduling::MasterDiary.find_or_initialize_by(
+        hospital_unit_id: unit.id
+      ) do |diary|
         diary.save_by!(user)
       end
 
@@ -106,7 +108,13 @@ module Renalware
       #       next if patient.nil?
       #       used_patient_ids << patient.id
 
-      #       ok = master.slots.create(patient_id: patient.id, station: station, day_of_week: day_of_week, diurnal_period_code: code, by: user)
+      #       ok = master.slots.create(
+      #             patient_id: patient.id,
+      #             station: station,
+      #             day_of_week: day_of_week,
+      #             diurnal_period_code: code,
+      #             by: user
+      #       )
       #       if ok == false
       #       end
       #     end
@@ -132,7 +140,8 @@ module Renalware
       # end
 
       # HD::DiurnalPeriodCode.all.each do |code|
-      #   period = HD::DiaryPeriod.find_or_initialize_by(diurnal_period_code: code, diary: master) do |per|
+      #   period = HD::DiaryPeriod
+      #     .find_or_initialize_by(diurnal_period_code: code, diary: master) do |per|
       #     per.save_by!(user)
       #   end
       #   if period.slots.empty?
@@ -156,6 +165,7 @@ module Renalware
       #   position: row["position"]
       # ).save_by!(user)
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   end
 
   CreateDiary.new(Renalware::Hospitals::Unit.first, User.first).call

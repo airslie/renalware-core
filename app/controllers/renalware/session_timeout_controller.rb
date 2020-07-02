@@ -13,7 +13,7 @@ module Renalware
   class SessionTimeoutController < BaseController
     prepend_before_action :skip_timeout, only: :check_session_expired
     skip_before_action :authenticate_user!, only: :check_session_expired
-    skip_after_action :verify_policy_scoped, only: :has_user_timed_out
+    skip_after_action :verify_policy_scoped, only: [:check_session_expired, :keep_session_alive]
     skip_before_action :track_ahoy_visit
     protect_from_forgery only: []
     after_action :track_action, only: []
