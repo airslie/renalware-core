@@ -29,6 +29,7 @@ module Renalware
       validates :attachment_type, presence: true
       # validates :attachment_type_id, presence: true
       validates :file, presence: true
+      #validates :attachment_type_id, presence: true
       validates :name, presence: true
       validates :external_location, presence: { if: -> { attachment_type&.store_file_externally } }
       validate :validate_uploaded_file_size
