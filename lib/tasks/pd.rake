@@ -29,4 +29,32 @@ namespace :pd do
       end
     end
   end
+
+  desc "Useful to call this after migrating PET and Adequacy results from the legacy "\
+       "pd_pet_adequacies table. It simulates eding a result and saving it in the UI, which "\
+       "triggers the calculations to be redone"
+  task apply_pet_adequacy_calculations: :environment do
+    Rails.logger = Logger.new(STDOUT)
+    Rails.logger.info "Regenerate all PET calcs"
+    count = 0
+    Renalware::PD::PETResult.find_in_batches(batch_size: 500) do |group|
+      count += group.length
+      group.each do |pet|
+        pet.by = pet.updated_by
+        pet.save(validate: false)
+      end
+    end
+    Rails.logger.info "Total PETResults = #{count}"
+
+    Rails.logger.info "Regenerate all Adequacy calcs"
+    count = 0
+    Renalware::PD::AdequacyResult.find_in_batches(batch_size: 500) do |group|
+      count += group.length
+      group.each do |adequacy|
+        adequacy.by = adequacy.updated_by
+        adequacy.save(validate: false)
+      end
+    end
+    Rails.logger.info "Total AdequacyResults = #{count}"
+  end
 end
