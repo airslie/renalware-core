@@ -9,9 +9,9 @@ html lang="en"
 
     = stylesheet_link_tag "renalware/core", media: :all
     = stylesheet_link_tag "application", media: :all
+    = yield :css
     = javascript_include_tag "renalware/modernizr"
     = javascript_include_tag "renalware/charting"
-    = yield :css
 
     = csrf_meta_tag
     link(rel="apple-touch-icon" sizes="180x180" href="#{image_path('renalware/favicon/apple-touch-icon.png')}")
