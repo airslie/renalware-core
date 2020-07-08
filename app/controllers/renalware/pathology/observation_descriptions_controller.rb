@@ -6,6 +6,7 @@ module Renalware
   module Pathology
     class ObservationDescriptionsController < BaseController
       include Pagy::Backend
+      skip_after_action :verify_policy_scoped
 
       def index
         query = ObservationDescription
