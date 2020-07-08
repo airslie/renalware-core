@@ -29,7 +29,7 @@ module World
           email: "#{email_name}@renalware.com",
           password: "supersecret",
           approved: true,
-          prescriber: true
+          prescriber: true,
           hospital_centre: Renalware::Hospitals::Centre.first
         )
       end
