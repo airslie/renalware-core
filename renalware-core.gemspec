@@ -29,8 +29,8 @@ Gem::Specification.new do |s|
     "README.md",
     "MIT-LICENSE"
   ]
-  s.add_dependency "activerecord-import", "~> 1.0"
   s.add_dependency "active_type", "~> 0.7.1"
+  s.add_dependency "activerecord-import", "~> 1.0"
   s.add_dependency "activerecord-postgres_enum", "~> 0.6.0"
   s.add_dependency "ahoy_matey", "~> 2.2.0"
   s.add_dependency "airslie-engineer", "~> 1.0.0"
