@@ -10,6 +10,15 @@ This project adheres to Semantic Versioning.
 ### Fixed
 
 ## 2.0.153
+08-07-2020
+### Added
+- Add a rake task to update pd pet/adequacy calcs #3266
+- A superadmin can view/edit a list of observation descriptions #3257
+- Add 'prescriber' flag to user #3258
+### Changed
+### Fixed
+
+## 2.0.153
 19-06-2020
 ### Added
 ### Changed
