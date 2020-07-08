@@ -51,7 +51,7 @@ describe "Managing Users", type: :request do
           hidden: true,
           hospital_centre: hospital_centre,
           consultant: true,
-          prescriber: true,
+          prescriber: true
         )
 
         follow_redirect!
