@@ -43,6 +43,7 @@ require "capybara-screenshot/rspec"
 #
 Dir[Renalware::Engine.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].sort.each { |f| require f }
+Dir[Renalware::Engine.root.join("spec/pages/**/*.rb")].sort.each { |f| require f }
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
