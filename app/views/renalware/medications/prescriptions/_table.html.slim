@@ -29,8 +29,8 @@
               - if current_scope
                 td
                   input.discardable-checkbox-used-when-reviewing-drugs-with-patient(type="checkbox")
-                td= render partial: "renalware/medications/prescriptions/options",
-                  locals: { patient: patient, prescription: prescription }
+                td.actions= render partial: "renalware/medications/prescriptions/options",
+                              locals: { patient: patient, prescription: prescription }
               td= prescription.drug.name
               td= prescription.drug_type_names
               td= prescription.dose

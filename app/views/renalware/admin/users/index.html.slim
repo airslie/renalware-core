@@ -20,6 +20,7 @@
       th.col-width-tiny= sort_link(user_search, :approved, "Approved")
       th.col-width-tiny= sort_link(user_search, :hidden, "Hidden")
       th.col-width-tiny= sort_link(user_search, :consultant, "Consultant")
+      th.col-width-tiny= sort_link(user_search, :prescriber, "Prescriber")
       th.col-width-date= sort_link(user_search, :expired_at, "Expired On")
       th.col-width-date-time.show-for-large-up= sort_link(user_search, :current_sign_in_at, "Current sign in")
       th.col-width-date-time.show-for-large-up= sort_link(user_search, :last_sign_in_at, "Last sign in")
@@ -55,6 +56,11 @@
               i.muted.unapproved.far.fa-square
           td
             - if user.consultant?
+              i.far.fa-check-square
+            - else
+              i.muted.unapproved.far.fa-square
+          td
+            - if user.prescriber?
               i.far.fa-check-square
             - else
               i.muted.unapproved.far.fa-square

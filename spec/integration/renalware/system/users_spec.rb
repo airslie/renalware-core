@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Managing Users", type: :request do
-  let(:user) { create(:user, :unapproved, :clinical) }
+  let(:user) { create(:user, :unapproved, :clinical, prescriber: false) }
 
   describe "GET index" do
     it "responds with a list" do
@@ -33,18 +33,21 @@ describe "Managing Users", type: :request do
     context "with valid attributes" do
       it "updates a record" do
         attributes = {
-          approved: !user.approved,
+          approved: true,
           role_ids: user.role_ids,
           consultant: "true",
-          hidden: true
+          hidden: true,
+          prescriber: true
         }
+
         patch admin_user_path(user), params: { user: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::User).to exist(
           id: user.id,
-          approved: !user.approved,
+          approved: true,
           consultant: true,
+          prescriber: true,
           hidden: true
         )
 

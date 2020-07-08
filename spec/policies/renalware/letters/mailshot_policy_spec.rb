@@ -6,12 +6,13 @@ module Renalware
   module Letters
     module Mailshots
       describe MailshotPolicy, type: :policy do
+        include PolicySpecHelper
         include PatientsSpecHelper
         subject { described_class }
 
-        let(:clinician) { create(:user, :clinical) }
-        let(:admin) { create(:user, :admin) }
-        let(:super_admin) { create(:user, :super_admin) }
+        let(:clinician) { user_double_with_role(:clinical) }
+        let(:admin) { user_double_with_role(:admin) }
+        let(:super_admin) { user_double_with_role(:super_admin) }
         let(:mailshot) { Mailshot.new }
 
         [:new?, :create?].each do |permission|

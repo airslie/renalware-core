@@ -6,6 +6,7 @@ module Renalware
   module Pathology
     describe CodeGroupPolicy, type: :policy do
       include PatientsSpecHelper
+      include PolicySpecHelper
       subject { described_class }
 
       let(:code_group) do
@@ -14,9 +15,9 @@ module Renalware
         )
       end
 
-      let(:clinician) { create(:user, :clinical) }
-      let(:admin) { create(:user, :admin) }
-      let(:super_admin) { create(:user, :super_admin) }
+      let(:clinician) { user_double_with_role(:clinical) }
+      let(:admin) { user_double_with_role(:admin) }
+      let(:super_admin) { user_double_with_role(:super_admin) }
 
       permissions :index? do
         it "applies correctly.", :aggregate_failures do

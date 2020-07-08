@@ -3,10 +3,11 @@ article
     h2 Current
     ul
       li
-        = link_to "Add Prescription",
-            new_patient_prescription_path(patient, treatable),
-            remote: true,
-            class: %i(button add_prescription)
+        - if policy(Renalware::Medications::Prescription).new?
+          = link_to "Add Prescription",
+              new_patient_prescription_path(patient, treatable),
+              remote: true,
+              class: %i(button add_prescription)
 
   = render "renalware/medications/prescriptions/table",
         id: "current-prescriptions",

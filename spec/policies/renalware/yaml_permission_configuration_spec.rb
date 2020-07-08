@@ -10,6 +10,8 @@ end
 
 module Renalware
   describe YAMLPermissionConfiguration, type: :policy do
+    include PolicySpecHelper
+
     subject(:policy) do
       YAMLPermissionConfiguration.new(
         model,
@@ -37,7 +39,7 @@ module Renalware
 
     describe "#has_permission?" do
       context "when a user has not been assigned the role to manage the model" do
-        let(:admin) { instance_double(User, role_names: [:admin]) }
+        let(:admin) { user_double_with_role(:admin) }
 
         it "returns false" do
           expect(policy.has_permission?(admin)).to be false
@@ -45,7 +47,7 @@ module Renalware
       end
 
       context "when a user has been assigned the role to manage the model" do
-        let(:super_admin) { instance_double(User, role_names: [:super_admin]) }
+        let(:super_admin) { user_double_with_role(:super_admin) }
 
         it "returns false" do
           expect(policy.has_permission?(super_admin)).to be true

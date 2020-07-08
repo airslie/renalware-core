@@ -1,8 +1,9 @@
 = content_for(:actions) do
-  = link_to "Add",
-            new_patient_prescription_path(@patient),
-            remote: true,
-            class: "button"
+  - if policy(Renalware::Medications::Prescription).new?
+    = link_to "Add",
+              new_patient_prescription_path(@patient),
+              remote: true,
+              class: "button"
   |&nbsp;
   = link_to patient_prescriptions_path(@patient,
                                        treatable,

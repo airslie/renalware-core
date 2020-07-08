@@ -9,9 +9,8 @@ module Renalware
       include PrescriptionsHelper
       include PresenterHelper
 
-      before_action :load_patient
-
       def index
+        authorize Prescription, :index?
         @treatable = treatable_class.find(treatable_id)
         respond_to do |format|
           format.html { render_index }
@@ -23,6 +22,7 @@ module Renalware
       def new
         @treatable = treatable_class.find(treatable_id)
         prescription = build_new_prescription_for(@treatable)
+        authorize prescription
         render_form(prescription, url: patient_prescriptions_path(patient, @treatable))
       end
 
@@ -32,6 +32,7 @@ module Renalware
         prescription = patient.prescriptions.new(
           prescription_params.merge(treatable: @treatable)
         )
+        authorize prescription
 
         if prescription.save
           render_index
@@ -42,6 +43,7 @@ module Renalware
 
       def edit
         prescription = patient.prescriptions.find(params[:id])
+        authorize prescription
         @treatable = prescription.treatable
 
         render_form(prescription, url: patient_prescription_path(patient, prescription))
@@ -49,6 +51,7 @@ module Renalware
 
       def update
         prescription = patient.prescriptions.find(params[:id])
+        authorize prescription
         @treatable = prescription.treatable
 
         updated = RevisePrescription.new(prescription).call(prescription_params)

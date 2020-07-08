@@ -1,7 +1,7 @@
-- if prescription.current?
-    = link_to "Edit", edit_patient_prescription_path(patient, prescription), remote: true
+- if prescription.current? && policy(prescription).edit?
+  = link_to "Edit", edit_patient_prescription_path(patient, prescription), remote: true
 - unless prescription.terminated_or_marked_for_termination?
-    = pipe_separator
+  - if policy(prescription).destroy?
     = link_to "Terminate",
               new_patient_medications_prescription_termination_path(patient,
                                                                     prescription,
