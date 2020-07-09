@@ -5,6 +5,8 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class PETResultsController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def new
         pet = PETResult.new(
           patient: patient,
