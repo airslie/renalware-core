@@ -17,6 +17,7 @@ module Renalware
     # See pet.rb and adequacy.rb for more detail.
     class UnifiedPETAdequaciesController < BaseController
       include PresenterHelper
+      skip_after_action :verify_policy_scoped
 
       # We use an activbe model form to present a unified model api for the view
       # to display and submit in the #new template.

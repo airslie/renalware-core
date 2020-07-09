@@ -5,6 +5,7 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class AdequacyResultsController < PD::BaseController
+      skip_after_action :verify_policy_scoped
       def new
         adequacy = AdequacyResult.new(patient: patient, performed_on: Date.current)
         authorize adequacy
