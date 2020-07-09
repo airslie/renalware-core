@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+
 module Renalware
   describe "Admission management", type: :request do
     include PatientsSpecHelper
