@@ -6,6 +6,7 @@ module Renalware
   module PD
     class PETAdequacyResultsController < BaseController
       include PresenterHelper
+      skip_after_action :verify_policy_scoped
 
       def new
         result = patient.pet_adequacy_results.new
