@@ -6,6 +6,7 @@ module Renalware
   module PD
     class PETCompletionsController < BaseController
       include Pagy::Backend
+      skip_after_action :verify_policy_scoped
 
       def index
         query = PETResult.joins(:patient).order(performed_on: :desc).ransack(params[:q])
