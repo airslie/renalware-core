@@ -79,7 +79,7 @@ PATH
       simple_form (~> 5.0)
       sinatra (~> 2.0.5)
       slim-rails (~> 3.2.0)
-      sprockets-rails (~> 2.3.3)
+      sprockets-rails
       uglifier (~> 4.2)
       validates_timeliness (~> 4.1.0)
       view_component (~> 2.14.0)
@@ -717,6 +717,7 @@ DEPENDENCIES
   selenium-webdriver (~> 3.142.0)
   shoulda-matchers (~> 4.1)
   simplecov (~> 0.17.1)
+  sprockets-rails (~> 2.3.3)
   test-prof
   turnip (~> 3.1)
   webmock (~> 3.7)

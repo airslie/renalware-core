@@ -19,6 +19,7 @@ gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
 gem "redis"
 gem "renalware-forms", "0.1.10"
 gem "ruby-prof", require: false
+gem "sprockets-rails", "~> 2.3.3" # in the dummy app, fix to this version to avoid manifest errors
 
 group :test do
   gem "capybara", "~> 3.32"
@@ -30,8 +31,8 @@ group :test do
   gem "fuubar", require: false
   gem "rails-controller-testing", "~> 1.0.4"
   gem "rspec-html-matchers", "~> 0.9.1", require: false
-  gem "rspec-rails"
   gem "rspec_junit_formatter", "~> 0.4.1"
+  gem "rspec-rails"
   gem "selenium-webdriver", "~> 3.142.0"
   gem "shoulda-matchers", "~> 4.1"
   gem "simplecov", "~> 0.17.1", require: false # only loaded if required
