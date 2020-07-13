@@ -1,15 +1,20 @@
-.row.search-form.filters
-  = simple_form_for query,
-      as: :q,
-      url: worryboard_path,
-      method: :get do |f|
+/ This is required for now - its to do with the page title being a float and perhaps not clearing
+.clear-both
 
-    .small-6.medium-2.large-2.columns
-      = f.input :patient_current_modality_description_id_eq,
-                collection: modalities,
-                label: "Modality"
+.search-form.filters.filters--flex.max-w-screen-md
+  = simple_form_for query, as: :q, url: worryboard_path, method: :get do |f|
 
-    .medium-2.large-3.columns.actions.end
-      = f.submit "Filter", class: "button"
-      '  or
-      = link_to t("helpers.reset"), worryboard_path
+    .flex.flex-col.sm:flex-row.items-end.pb-4
+      .w-full.sm:max-w-xs.pr-2
+        = f.input :patient_current_modality_description_id_eq,
+                  collection: modalities,
+                  label: "Modality"
+      .w-full.sm:max-w-xs.pr-2
+        = f.input :created_by_id_eq,
+                  collection: Renalware::User.where("id in (select distinct created_by_id from patient_worries)"),
+                  label: "Added by"
+
+      .flex-shrink-0.pt-4.filters--actions
+        = f.submit "Filter", class: "button", style: "margin: 0"
+        '  or
+        = link_to t("helpers.reset"), worryboard_path
