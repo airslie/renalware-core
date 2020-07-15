@@ -36,7 +36,12 @@ module Renalware
 
       # This assumes the event class has a scope called #ordered
       def events
-        @events ||= relation.includes(:created_by).ordered.limit(limit)
+        @events ||= begin
+          CollectionPresenter.new(
+            relation.includes(:created_by).ordered.limit(limit),
+            Events::EventPresenter
+          )
+        end
       end
 
       def event_count
