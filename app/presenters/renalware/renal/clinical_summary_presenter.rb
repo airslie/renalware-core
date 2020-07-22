@@ -10,12 +10,15 @@ module Renalware
 
       # Host application may override the order or add other summary presenters
       def summary_parts(current_user)
-        Renalware
-          .config
-          .page_layouts[:clinical_summary]
-          .map(&:constantize)
-          .map { |klass| klass.new(patient, current_user) }
-          .select(&:render?)
+        part_class_names = Renalware.config.page_layouts[:clinical_summary]
+        part_class_names.each_with_object([]) do |class_name, arr|
+          klass = class_name.constantize
+          if class_name.end_with?("Component")
+            arr << klass.new(patient: patient, current_user: current_user)
+          else
+            arr << klass.new(patient, current_user)
+          end
+        end.select(&:render?)
       end
     end
   end

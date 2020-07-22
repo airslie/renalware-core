@@ -228,6 +228,12 @@ table {
   }
 
   tr td {
+    &.with-ellipsis {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 0;
+    }
     &.col-width-medium-with-ellipsis {
       max-width: 7rem;
       min-width: 5rem;

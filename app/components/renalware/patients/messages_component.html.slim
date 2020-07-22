@@ -1,0 +1,37 @@
+.summary-part--messages
+  article.messages
+    header
+      h2.title Messages
+
+    - if messages.any?
+      table.toggleable data-controller="toggle"
+        thead
+          tr
+            th.togglers.noprint= rows_toggler
+            th.col-width-tiny
+            th.col-width-date-time Date
+            th.col-width-medium Author
+            th
+        - messages.each do |message|
+          tbody
+            tr
+              td= row_toggler
+              - if message.urgent?
+                td
+                  span.rounded.bg-orange-300.px-2 urgent
+              - else
+                td
+              td= l(message.created_at)
+              td= message.author
+              td.with-ellipsis= message.body
+            tr
+              td
+              td
+              td(colspan=3)
+                p= message.body
+                p
+                  ' Sent to:
+                  = message.recipients.map(&:to_s).join(" - ")
+
+    - else
+      p.empty-section No messages
