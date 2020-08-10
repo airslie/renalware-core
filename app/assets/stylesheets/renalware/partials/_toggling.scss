@@ -66,6 +66,24 @@ th.togglers {
     }
   }
 
+  &.easy-read {
+    .toggleable--open {
+      tr,
+      tr:hover {
+        background-color: #fffeee;
+
+        td {
+          border-bottom-color: #eee;
+        }
+
+        p {
+          margin-left: 0;
+          padding-left: 0;
+        }
+      }
+    }
+  }
+
   tbody {
     tr:last-child {
       display: none

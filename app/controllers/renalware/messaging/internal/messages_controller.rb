@@ -8,6 +8,7 @@ module Renalware
       class MessagesController < BaseController
         include Renalware::Concerns::Pageable
         include PresenterHelper
+        include Pagy::Backend
 
         def new
           authorize Message, :new?
@@ -28,7 +29,18 @@ module Renalware
           end
         end
 
+        def index
+          authorize Message, :index?
+          scope = patient.messages.order(created_at: :desc)
+          pagination, messages = pagy(scope, items: 20)
+          render locals: { patient: patient, messages: messages, pagination: pagination }
+        end
+
         private
+
+        def patient
+          Messaging.cast_patient(Patient.find(params[:patient_id]))
+        end
 
         def message_we_are_replying_to(message)
           return if message.replying_to_message_id.blank?
@@ -55,10 +67,6 @@ module Renalware
 
         def author
           Messaging::Internal.cast_author(current_user)
-        end
-
-        def patient
-          Messaging.cast_patient(Patient.find(params[:patient_id]))
         end
 
         def message_params
