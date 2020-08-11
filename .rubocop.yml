@@ -76,3 +76,5 @@ Style/NumericPredicate:
   Enabled: false
 RSpec/InstanceVariable:
   Enabled: false
+Gemspec/RequiredRubyVersion:
+  Enabled: false

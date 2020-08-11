@@ -78,7 +78,7 @@ Gem::Specification.new do |s|
   s.add_dependency "paranoia", "~> 2.4.0"
   s.add_dependency "pdf-reader", "~> 2.4.0"
   s.add_dependency "pg", "~> 1.1"
-  s.add_dependency "prawn", "~> 2.2.2"
+  s.add_dependency "prawn", "~> 2.2"
   s.add_dependency "puma", "~> 4.3.0"
   s.add_dependency "pundit", "~> 2.1.0"
   s.add_dependency "rack", "~> 2.0"
@@ -97,7 +97,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sprockets-rails"
   s.add_dependency "uglifier", "~> 4.2"
   s.add_dependency "validates_timeliness", "~> 4.1.0"
-  s.add_dependency "view_component", "~> 2.15.0"
+  s.add_dependency "view_component", "~> 2.15"
   s.add_dependency "virtus", "~> 1.0.5"
   s.add_dependency "whenever" # For managing/deploying cron jobs see config/schedule.rb
   s.add_dependency "wicked_pdf"
