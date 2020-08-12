@@ -29,9 +29,10 @@ module Renalware
           end
         end
 
+        # Display all public message for a patient
         def index
           authorize Message, :index?
-          scope = patient.messages.order(created_at: :desc)
+          scope = patient.messages.where(public: true).order(created_at: :desc)
           pagination, messages = pagy(scope, items: 20)
           render locals: { patient: patient, messages: messages, pagination: pagination }
         end
@@ -72,7 +73,7 @@ module Renalware
         def message_params
           params
             .require(:internal_message)
-            .permit(:subject, :body, :urgent, :replying_to_message_id, recipient_ids: [])
+            .permit(:subject, :body, :urgent, :replying_to_message_id, :public, recipient_ids: [])
         end
       end
     end

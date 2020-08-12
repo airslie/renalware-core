@@ -13,6 +13,7 @@ module Renalware
       def initialize(patient:, current_user:)
         @patient = patient
         @current_user = current_user
+        super
       end
 
       def pagination
@@ -44,7 +45,7 @@ module Renalware
       end
 
       def scope
-        messaging_patient.messages.order(created_at: :desc)
+        messaging_patient.messages.where(public: true).order(created_at: :desc)
       end
     end
   end

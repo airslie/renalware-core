@@ -22,7 +22,8 @@ module Renalware
           MessageForm.new(
             subject: build_subject,
             recipient_ids: build_recipient_ids,
-            replying_to_message_id: replying_to_message_id
+            replying_to_message_id: replying_to_message_id,
+            public: true
           )
         end
 

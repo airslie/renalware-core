@@ -17,6 +17,7 @@ module Renalware
         attribute :urgent, Boolean, default: false
         attribute :recipient_ids, Array, default: []
         attribute :replying_to_message_id
+        attribute :public, Boolean, default: true
 
         validates :body, presence: true
         validates :subject, presence: true
