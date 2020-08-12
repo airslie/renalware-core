@@ -203,7 +203,7 @@ GEM
     bcrypt (3.1.13)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    bootsnap (1.4.7)
+    bootsnap (1.4.8)
       msgpack (~> 1.0)
     browser (2.7.1)
     builder (3.2.4)
@@ -227,7 +227,7 @@ GEM
       launchy
     capybara-select-2 (0.5.1)
     character_set (1.4.0)
-    chartkick (3.3.1)
+    chartkick (3.4.0)
     childprocess (3.0.0)
     chronic (0.10.2)
     client_side_validations (16.2.0)
