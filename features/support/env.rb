@@ -52,3 +52,5 @@ Capybara.default_max_wait_time = 7 # in seconds
 # recommended as it will mask a lot of errors for you!
 #
 ActionController::Base.allow_rescue = false
+
+require_relative "./world"

@@ -13,7 +13,7 @@ module Renalware
       },
       hd_session_form_recent: {
         description: "Recent pathology shown on the HD Sessions PDF print-out",
-        codes: %w(HGB PLT CRP)
+        codes: %w(HGB PLT CRP POT CCA FER)
       }
     }
 
