@@ -1,16 +1,29 @@
 .medications-filter
-  = search_form_for search, url: patient_prescriptions_path(@patient) do |f|
-    = hidden_field_tag :treatable_id, treatable.id
-    = hidden_field_tag :treatable_type, treatable.class.to_s
-    = hidden_field_tag :filter, 1
+  .search-form.filters.filters--flex.max-w-screen-md
+    = simple_form_for search, as: :q, url: patient_prescriptions_path(@patient), method: :get do |f|
+      = hidden_field_tag :treatable_id, treatable.id
+      = hidden_field_tag :treatable_type, treatable.class.to_s
+      = hidden_field_tag :filter, 1
 
-    = f.select(:drug_drug_types_id_eq,
-                options_from_collection_for_select(drug_types,
-                                                   "id",
-                                                   "name",
-                                                   search.drug_drug_types_id_eq),
-                 include_blank: "All drug types")
+      .flex.flex-col.sm:flex-row.items-end.pb-4
+        .w-full.sm:max-w-xs.pr-3
+          = f.input :drug_drug_types_id_in,
+                    collection: drug_types,
+                    include_blank: "All",
+                    label_method: :name,
+                    label: "Drug type"
+        .w-full.sm:min-w-md.pr-3
+          = f.input :provider_eq,
+                    collection: Renalware::Medications::Provider.codes.map.each_with_index { |z, i| [Renalware::Medications::ProviderCodePresenter.new(z).to_label, i]},
+                    include_blank: "Any",
+                    label: "Provider"
+        .w-full.pr-3
+          = f.input :administer_on_hd_eq,
+                    collection: [["Yes", true], ["No", false]],
+                    include_blank: "Any",
+                    label: "Give on HD"
 
-    = f.button t("helpers.submit.filter"), class: "button secondary"
-    '  or
-    = link_to "reset", patient_prescriptions_path(@patient)
+        .flex-shrink-0.pt-4.filters--actions
+          = f.submit t("helpers.submit.filter"), class: "button secondary"
+          '  or
+          = link_to "reset", patient_prescriptions_path(@patient)
