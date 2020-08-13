@@ -52,14 +52,14 @@ describe "Patient's Protocol PDF", type: :request do
 
     describe "Virology" do
       context "when the patient has no HIV, HepB or HepC" do
-        it "displays no Virology info" do
+        it "displays blank Virology info" do
           # Pass debug=1 in order to render html not pdf
           get patient_hd_protocol_path(patient_id: patient, disposition: :attachment, debug: 1)
 
           expect(response).to be_successful
-          expect(response.body).not_to include("HIV")
-          expect(response.body).not_to include("Hepatitis B")
-          expect(response.body).not_to include("Hepatitis C")
+          expect(response.body).to include("HIV")
+          expect(response.body).to include("Hepatitis B")
+          expect(response.body).to include("Hepatitis C")
         end
       end
 

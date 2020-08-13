@@ -1,9 +1,8 @@
-- document = Renalware::Virology.cast_patient(protocol.patient).profile&.document || Renalware::NullObject.instance
+- document = Renalware::Virology.cast_patient(protocol.patient).profile&.document || Renalware::Virology::ProfileDocument.new
 table(style="text-align: left;")
   / Do not display hepatitis_b_core_anti_body in the HD protocol as that does not
   / imply the patient is infectious
   - %i(hiv hepatitis_b hepatitis_c htlv).each do |attr|
-    - if document.public_send(attr).status&.yes?
-      tr
-        th= attr_name(document, attr)
-        td= document.public_send(attr).to_s
+    tr
+      th= attr_name(document, attr)
+      td= document.public_send(attr).to_s
