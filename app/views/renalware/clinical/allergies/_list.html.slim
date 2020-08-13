@@ -16,6 +16,7 @@ article.clinical-allergies
       tr
         th.col-width-large= t(".description")
         th.col-width-date-time= t(".recorded_at")
+        th.col-width-medium= t(".recorded_by")
         th.col-width-tiny
     tbody
       - delete_confirmation_msg = I18n.t("prompts.confirm_delete_with_model", model: "allergy")
@@ -23,7 +24,8 @@ article.clinical-allergies
         tr data-allergy-id=allergy.id
           td= allergy.description
           td = l(allergy.recorded_at)
-          td.right
+          td = allergy.created_by
+          td.actions
             = link_to t(".delete"),
                       patient_clinical_allergy_path(patient_id: patient, id: allergy),
                       method: :delete,
