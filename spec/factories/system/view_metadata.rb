@@ -9,7 +9,12 @@ FactoryBot.define do
     category { "mdm" }
     scope { "transplant" }
     columns { [] }
-    filters { { sex: :list, age: :search } }
+    filters {
+      [
+        Renalware::System::FilterDefinition.new(code: :sex, type: :list),
+        Renalware::System::FilterDefinition.new(code: :age, type: :search)
+      ]
+    }
     position { 1 }
   end
 end

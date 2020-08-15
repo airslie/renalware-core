@@ -16,6 +16,14 @@ module Renalware
         end
       end
 
+      # Restore the view to previous version at a specific datetime
+      def restore
+        view = find_and_authorize_view
+        datetime_version_to_restore = params[:version_at]
+        view.paper_trail.version_at(datetime_version_to_restore).save!
+        redirect_back(fallback_location: root_url)
+      end
+
       private
 
       def view

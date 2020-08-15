@@ -8,6 +8,10 @@ module Renalware
       def edit?
         user_is_super_admin?
       end
+
+      def restore?
+        edit?
+      end
     end
   end
 end

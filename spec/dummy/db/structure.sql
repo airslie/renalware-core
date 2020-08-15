@@ -8636,6 +8636,41 @@ ALTER SEQUENCE renalware.system_user_feedback_id_seq OWNED BY renalware.system_u
 
 
 --
+-- Name: system_versions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.system_versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: system_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.system_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.system_versions_id_seq OWNED BY renalware.system_versions.id;
+
+
+--
 -- Name: system_view_metadata; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8705,7 +8740,7 @@ COMMENT ON COLUMN renalware.system_view_metadata.columns IS 'Array of column_nam
 -- Name: COLUMN system_view_metadata.filters; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.system_view_metadata.filters IS 'Array of filter definitions => ransack predicate to be used for generating filters.Must be the name of a column in the SQL view. Example ''sex'' => ''sex_eq'' ';
+COMMENT ON COLUMN renalware.system_view_metadata.filters IS 'Array of filter definition for generating filters. Must be the name of a column in the SQL view. ';
 
 
 --
@@ -10887,6 +10922,13 @@ ALTER TABLE ONLY renalware.system_user_feedback ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: system_versions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_versions ALTER COLUMN id SET DEFAULT nextval('renalware.system_versions_id_seq'::regclass);
+
+
+--
 -- Name: system_view_metadata id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -12464,6 +12506,14 @@ ALTER TABLE ONLY renalware.system_templates
 
 ALTER TABLE ONLY renalware.system_user_feedback
     ADD CONSTRAINT system_user_feedback_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_versions system_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_versions
+    ADD CONSTRAINT system_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -16398,6 +16448,13 @@ CREATE INDEX index_system_user_feedback_on_author_id ON renalware.system_user_fe
 --
 
 CREATE INDEX index_system_user_feedback_on_category ON renalware.system_user_feedback USING btree (category);
+
+
+--
+-- Name: index_system_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_versions_on_item_type_and_item_id ON renalware.system_versions USING btree (item_type, item_id);
 
 
 --
@@ -20345,6 +20402,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200626081248'),
 ('20200626090256'),
 ('20200628094228'),
-('20200812074223');
+('20200812074223'),
+('20200815150303');
 
 
