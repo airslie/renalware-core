@@ -9120,8 +9120,8 @@ CREATE VIEW renalware.transplant_mdm_patients AS
     (date_part('year'::text, age((p.born_on)::timestamp with time zone)))::integer AS age,
     mx.modality_name,
         CASE
-            WHEN (pw.id > 0) THEN true
-            ELSE false
+            WHEN (pw.id > 0) THEN 'Y'::text
+            ELSE 'N'::text
         END AS on_worryboard,
         CASE
             WHEN (latest_op.performed_on >= (now() - '3 mons'::interval)) THEN true

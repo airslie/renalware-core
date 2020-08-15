@@ -13,22 +13,23 @@
                     url: patients_mdms_path(scope: params[:scope], filter: params[:filter]),
                     method: :get do |f|
 
+  .flex.flex-col.sm:flex-row.items-end.pb-4
     - options.current_view.filters.each do |column, type|
       - filter_type = ActiveSupport::StringInquirer.new(type)
 
       - if filter_type.list?
         / Unique values selected from a dropdown
-        = f.input "#{column}_eq",
-                  include_blank: true,
-                  collection: options.search.klass.distinct(column.to_sym).pluck(column.to_sym).compact,
-                  label: column.humanize,
-                  wrapper: :horizontal_medium
+        .w-full.sm:max-w-xs.pr-2
+          = f.input "#{column}_eq",
+                    include_blank: true,
+                    collection: options.search.klass.distinct(column.to_sym).pluck(column.to_sym).compact,
+                    label: column.humanize
       - elsif filter_type.search?
         / Free text inputs
-        = f.input "#{column}_cont",
-                  label: column.humanize,
-                  wrapper: :horizontal_medium
+        .w-full.sm:max-w-xs.pr-2
+          = f.input "#{column}_cont", label: column.humanize
 
-    = f.submit "Search", class: "button secondary"
-    | &nbsp;
-    = link_to "Clear", url
+    .w-full.sm:max-w-xs.pr-2
+      = f.submit "Search", class: "button secondary", style: "margin-bottom: 10px"
+      | &nbsp;
+      = link_to "Clear", url

@@ -53,11 +53,20 @@ table
             - if value.respond_to?(:strftime)
               - value = l(value)
 
-            / Add title attrribute if the cell content is truncated, so its possible to see the
+            / Add title attribute if the cell content is truncated, so its possible to see the
             / entire content if you hover
             - title = value if col.truncate
-            td(class=klass title=title)=value
-        td
-          / empty to allow tabl;e to expand to the right
 
-= paginate options.patients
+            / Boolean values we will show as a tick icon
+            td(class=klass title=title)
+              - if value == true || value == "Y"
+                i.far.fa-check-circle.text-green-700
+              - elsif value == false || value == "N"
+                i.far.fa-circle.text-gray-400
+              - else
+                = value
+        td
+          / empty to allow table to expand to the right
+
+/= paginate options.patients
+== pagy_foundation_nav options.pagination

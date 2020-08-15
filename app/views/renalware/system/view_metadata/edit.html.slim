@@ -31,37 +31,22 @@ ruby:
       - title = [view.category&.humanize, view.scope&.humanize, view.title&.humanize].join(" / ")
       h2= "Edit columns for #{title}"
     .modal__body(style="max-height: 400px")
-      table.sortables(style="list-style-type: none;")
-        thead(style="position: sticky; top: 0; background-color:#fff;")
-          th.col-width-tiny
-          th.col-width-medium SQL column name
-          th.col-width-tiny Hide
-          th Display name
-          th.col-width-medium Width
-          th.col-width-tiny Truncate
+      .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mx-1.mb-5
+        i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+        | Please bear in mind that changes you make will be visible by all users.
 
-        tbody
-          - view.columns.each_with_index do |col, _idx|
-            tr.sortable
-                td.handle
-                  i.fas.fa-bars
-                  input(type="hidden" name="view_metadata[columns][][code]" value=col.code)
-                td= col.code
-                td
-                  input(type="checkbox" name="view_metadata[columns][][hidden]" checked=col.hidden)
-                td
-                  input(type="text" name="view_metadata[columns][][name]" value=col.name)
-                td
-                  select(name="view_metadata[columns][][width]")
-                    option(value="")
-                    - Renalware::System::ColumnDefinition.new.width_values.each do |val, x|
-                      option(value=val selected=(col.width == val.to_s))=val.to_s.humanize
-                td
-                  input(type="checkbox" name="view_metadata[columns][][truncate]" checked=col.truncate)
+      / Tabs - see also js stimulus tabs-controller
+      div(data-controller="tabs" data-tabs-active-tab="-mb-px border-l border-t border-r rounded-t")
+        ul.list-reset.flex.border-b.ml-0
+          li.-mb-px.mr-1(data-target="tabs.tab" data-action="click->tabs#change")
+            a.bg-white.inline-block.py-2.px-4.text-blue-500.hover:text-blue-700.font-semibold.no-underline(href="#") Columns
+          li.-mb-px.mr-1(data-target="tabs.tab" data-action="click->tabs#change")
+            a.bg-white.inline-block.py-2.px-4.text-blue-500.hover:text-blue-700.font-semibold.no-underline(href="#") Filters
 
-                  / fc.input(type="checkbox" value=col checked=view.columns.include?(col) name="view_metadata[columns][visible]")
-                  / input(bestchecked=view.columns.include?(col) name="view_metadata[columns][title]")
-                  / label(class="" for="view_metadata_columns_#{col}" style="display: inline-block; width: auto")= col.humanize
+        .hidden.py-4.px-4.border-l.border-b.border-r(data-target="tabs.panel")
+          = render "columns_table", view: view
+        .hidden.py-4.px-4.border-l.border-b.border-r(data-target="tabs.panel")
+          = render "filters_form", view: view
 
     .modal__footer
       br

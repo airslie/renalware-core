@@ -1,0 +1,19 @@
+.rounded-md.bg-orange-200.px-3.py-2.flex.items-start.shadow.mx-1.mb-5
+  i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+  | Editing filters not yet enabled
+
+table
+  thead
+    th SQL column name
+    th Filter type
+  tbody
+    - view.filters.each do |filter|
+      tr
+        td.border-0
+          code= filter[0]
+        td.border-0
+          = filter[1]
+          / select.m-0(name="view_metadata[filters][][1]")
+          /   option(value="")
+          /   - Renalware::System::ColumnDefinition.new.width_values.each do |val, x|
+          /     option(value=val selected=(col.width == val.to_s))=val.to_s.humanize filter[1]

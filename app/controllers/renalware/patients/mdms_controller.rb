@@ -6,30 +6,36 @@ module Renalware
   module Patients
     class MDMsController < BaseController
       include Renalware::Concerns::Pageable
+      include Pagy::Backend
 
       class MDMListOptions
         attr_reader_initialize [
           :search!,
           :patients!,
           :current_view!,
-          :view_proc!
+          :view_proc!,
+          :pagination!
         ]
       end
 
+      # rubocop:disable Metrics/MethodLength
       def show
         authorize Patient, :index?
         sql_view_klass = SqlView.new(view_name).klass
         sql_view_klass.reset_column_information
         search = sql_view_klass.ransack(params[:q])
         view_proc = ->(patient) { patient_transplants_mdm_path(patient_id: patient.secure_id) }
+        pagy, patients = pagy(search.result)
         options = MDMListOptions.new(
           search: search,
-          patients: search.result.page(page).per(per_page).load,
+          patients: patients.load, # search.result.page(page).per(5).load,
           current_view: current_view,
-          view_proc: view_proc
+          view_proc: view_proc,
+          pagination: pagy
         )
         render locals: { options: options }
       end
+      # rubocop:enable Metrics/MethodLength
 
       private
 
@@ -83,7 +89,7 @@ module Renalware
               raise ArgumentError, "Invalid view name '#{view_name}'"
             end
 
-            "AnonymousView" + view_name.split(".").last.camelcase
+            "AnonymousView#{view_name.split('.').last.camelcase}"
           end
         end
 
