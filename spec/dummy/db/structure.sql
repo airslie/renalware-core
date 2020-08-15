@@ -8649,7 +8649,7 @@ CREATE TABLE renalware.system_view_metadata (
     parent_id bigint,
     title text,
     columns jsonb DEFAULT '[]'::jsonb NOT NULL,
-    filters renalware.hstore DEFAULT ''::renalware.hstore NOT NULL,
+    filters jsonb DEFAULT '[]'::jsonb NOT NULL,
     "position" integer DEFAULT 0 NOT NULL,
     description text,
     created_at timestamp without time zone NOT NULL,
@@ -8705,7 +8705,7 @@ COMMENT ON COLUMN renalware.system_view_metadata.columns IS 'Array of column_nam
 -- Name: COLUMN system_view_metadata.filters; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.system_view_metadata.filters IS 'Hash of column names => ransack predicate to be used for generating filters.Must be the name of a column in the SQL view. Example ''sex'' => ''sex_eq'' ';
+COMMENT ON COLUMN renalware.system_view_metadata.filters IS 'Array of filter definitions => ransack predicate to be used for generating filters.Must be the name of a column in the SQL view. Example ''sex'' => ''sex_eq'' ';
 
 
 --

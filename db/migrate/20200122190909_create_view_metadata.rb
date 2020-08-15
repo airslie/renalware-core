@@ -27,12 +27,12 @@ class CreateViewMetadata < ActiveRecord::Migration[5.2]
           null: false,
           default: []
         )
-        t.hstore(
+        t.jsonb(
           :filters,
           null: false,
-          default: {},
-          comment: "Hash of column names => ransack predicate to be used for generating filters." \
-                   "Must be the name of a column in the SQL view. Example 'sex' => 'sex_eq' "
+          default: [],
+          comment: "Array of filter definition for generating filters. " \
+                   "Must be the name of a column in the SQL view. "
         )
         t.integer :position, null: false, default: 0
         t.text :description, comment: "A description of the SQL view's function"

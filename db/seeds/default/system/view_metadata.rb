@@ -11,14 +11,19 @@ module Renalware
       view.slug = "all"
       view.title = "All"
       view.position = 1
-      view.filters = {
-        sex: :list,
-        tx_status: :list,
-        on_worryboard: :list,
-        tx_in_past_3m: :list,
-        tx_in_past_12m: :list,
-        patient_name: :search
-      }
+      view.filters = [
+        { code: "sex", type: "list" },
+        { code: "tx_status", type: "list" },
+        { code: "on_worryboard", type: "list" },
+        { code: "tx_in_past_3m", type: "list" },
+        { code: "tx_in_past_12m", type: "list" },
+        { code: "patient_name", type: "search" }
+      ]
+      # tx_status: :list,
+      # on_worryboard: :list,
+      # tx_in_past_3m: :list,
+      # tx_in_past_12m: :list,
+      # patient_name: :search
       view.columns = [].to_json # empty will display all
     end
 
@@ -31,12 +36,16 @@ module Renalware
     ) do |view|
       view.title = "All"
       view.position = 1
-      view.filters = {
-        schedule: :list,
-        hospital_unit: :list,
-        named_nurse: :list,
-        on_worryboard: :list
-      }
+      view.filters = [
+        { code: :schedule, type: :list },
+        { code: :hospital_unit, type: :list },
+        { code: :named_nurse, type: :list },
+        { code: :on_worryboard, type: :list }
+      ]
+      # schedule: :list,
+      # hospital_unit: :list,
+      # named_nurse: :list,
+      # on_worryboard: :list
       view.columns = [].to_json # empty will display all
     end
 
@@ -49,7 +58,7 @@ module Renalware
     ) do |view|
       view.title = "All"
       view.position = 1
-      view.filters = {}
+      view.filters = [].to_json
       view.columns = [].to_json
     end
   end

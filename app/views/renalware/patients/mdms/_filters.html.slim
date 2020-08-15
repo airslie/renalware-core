@@ -14,7 +14,9 @@
                     method: :get do |f|
 
   .flex.flex-col.sm:flex-row.items-end.pb-4
-    - options.current_view.filters.each do |column, type|
+    - options.current_view.filters.each do |filter|
+      - column = filter.code
+      - type = filter.type
       - filter_type = ActiveSupport::StringInquirer.new(type)
 
       - if filter_type.list?
