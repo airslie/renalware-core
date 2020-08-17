@@ -19,11 +19,6 @@ module Renalware
         { code: "tx_in_past_12m", type: "list" },
         { code: "patient_name", type: "search" }
       ]
-      # tx_status: :list,
-      # on_worryboard: :list,
-      # tx_in_past_3m: :list,
-      # tx_in_past_12m: :list,
-      # patient_name: :search
       view.columns = [].to_json # empty will display all
     end
 
@@ -58,7 +53,38 @@ module Renalware
     ) do |view|
       view.title = "All"
       view.position = 1
-      view.filters = [].to_json
+      view.filters = [{ code: :on_worryboard, type: :list }].to_json
+      view.columns = [].to_json
+    end
+
+    Renalware::System::ViewMetadata.find_or_create_by!(
+      view_name: "pd_mdm_patients",
+      scope: "pd",
+      category: "mdm",
+      slug: "all",
+      schema_name: "renalware"
+    ) do |view|
+      view.title = "All"
+      view.position = 1
+      view.filters = [{ code: :on_worryboard, type: :list }]
+      view.columns = [].to_json
+    end
+
+    Renalware::System::ViewMetadata.find_or_create_by!(
+      view_name: "low_clearance_mdm_patients",
+      scope: "low_clearance",
+      category: "mdm",
+      slug: "all",
+      schema_name: "renalware"
+    ) do |view|
+      view.title = "All"
+      view.position = 1
+      view.filters = [
+        { code: :on_worryboard, type: :list },
+        { code: :tx_candidate, type: :list },
+        { code: :hgb_range, type: :list },
+        { code: :urea_range, type: :list }
+      ]
       view.columns = [].to_json
     end
   end

@@ -25,4 +25,4 @@ left outer join renalware.renal_profiles RPROF on RPROF.patient_id = P.id
 left outer join renalware.transplant_registrations TXR on TXR.patient_id = P.id
 left outer join renalware.transplant_registration_statuses TXRS on TXRS.registration_id = TXR.id AND TXRS.terminated_on IS NULL
 left outer join renalware.transplant_registration_status_descriptions TXRSD on TXRSD.id = TXRS.description_id
-inner join renalware.patient_current_modalities Mx on Mx.patient_id = P.id and Mx.modality_code = 'supportive_care'
+inner join renalware.patient_current_modalities Mx on Mx.patient_id = P.id and Mx.modality_code = 'pd'

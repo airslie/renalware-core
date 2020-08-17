@@ -4407,6 +4407,56 @@ ALTER SEQUENCE renalware.letter_signatures_id_seq OWNED BY renalware.letter_sign
 
 
 --
+-- Name: low_clearance_mdm_patients; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.low_clearance_mdm_patients AS
+ SELECT p.id,
+    p.secure_id,
+    ((upper((p.family_name)::text) || ', '::text) || (p.given_name)::text) AS patient_name,
+    p.nhs_number,
+    p.local_patient_id AS hospital_numbers,
+    p.sex,
+    p.born_on,
+    date_part('year'::text, age((p.born_on)::timestamp with time zone)) AS age,
+    rprof.esrf_on,
+    mx.modality_name,
+        CASE
+            WHEN (pw.id > 0) THEN true
+            ELSE false
+        END AS on_worryboard,
+    txrsd.name AS tx_status,
+    ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
+    (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
+    ((pa."values" -> 'URE'::text) ->> 'result'::text) AS ure,
+    (((pa."values" -> 'URE'::text) ->> 'observed_at'::text))::date AS ure_date,
+    ((pa."values" -> 'CRE'::text) ->> 'result'::text) AS cre,
+    (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
+    ((pa."values" -> 'EGFR'::text) ->> 'result'::text) AS egfr,
+        CASE
+            WHEN ((txrsd.code)::text !~~* '%permanent'::text) THEN true
+            ELSE false
+        END AS tx_candidate,
+        CASE
+            WHEN (renalware.convert_to_float(((pa."values" -> 'HGB'::text) ->> 'result'::text)) < (100.0)::double precision) THEN '< 100'::text
+            WHEN (renalware.convert_to_float(((pa."values" -> 'HGB'::text) ->> 'result'::text)) > (130.0)::double precision) THEN '> 130'::text
+            ELSE NULL::text
+        END AS hgb_range,
+        CASE
+            WHEN (renalware.convert_to_float(((pa."values" -> 'URE'::text) ->> 'result'::text)) >= (30.0)::double precision) THEN '>= 30'::text
+            ELSE NULL::text
+        END AS urea_range
+   FROM (((((((renalware.patients p
+     LEFT JOIN renalware.patient_worries pw ON ((pw.patient_id = p.id)))
+     LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
+     LEFT JOIN renalware.renal_profiles rprof ON ((rprof.patient_id = p.id)))
+     LEFT JOIN renalware.transplant_registrations txr ON ((txr.patient_id = p.id)))
+     LEFT JOIN renalware.transplant_registration_statuses txrs ON (((txrs.registration_id = txr.id) AND (txrs.terminated_on IS NULL) AND (txrs.started_on <= CURRENT_DATE))))
+     LEFT JOIN renalware.transplant_registration_status_descriptions txrsd ON ((txrsd.id = txrs.description_id)))
+     JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'low_clearance'::text))));
+
+
+--
 -- Name: low_clearance_profiles; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -6344,6 +6394,43 @@ ALTER SEQUENCE renalware.pd_infection_organisms_id_seq OWNED BY renalware.pd_inf
 
 
 --
+-- Name: pd_mdm_patients; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.pd_mdm_patients AS
+ SELECT p.id,
+    p.secure_id,
+    ((upper((p.family_name)::text) || ', '::text) || (p.given_name)::text) AS patient_name,
+    p.nhs_number,
+    p.local_patient_id AS hospital_numbers,
+    p.sex,
+    p.born_on,
+    date_part('year'::text, age((p.born_on)::timestamp with time zone)) AS age,
+    rprof.esrf_on,
+    mx.modality_name,
+        CASE
+            WHEN (pw.id > 0) THEN true
+            ELSE false
+        END AS on_worryboard,
+    txrsd.name AS tx_status,
+    ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
+    (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
+    ((pa."values" -> 'URE'::text) ->> 'result'::text) AS ure,
+    (((pa."values" -> 'URE'::text) ->> 'observed_at'::text))::date AS ure_date,
+    ((pa."values" -> 'CRE'::text) ->> 'result'::text) AS cre,
+    (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
+    ((pa."values" -> 'EGFR'::text) ->> 'result'::text) AS egfr
+   FROM (((((((renalware.patients p
+     LEFT JOIN renalware.patient_worries pw ON ((pw.patient_id = p.id)))
+     LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
+     LEFT JOIN renalware.renal_profiles rprof ON ((rprof.patient_id = p.id)))
+     LEFT JOIN renalware.transplant_registrations txr ON ((txr.patient_id = p.id)))
+     LEFT JOIN renalware.transplant_registration_statuses txrs ON (((txrs.registration_id = txr.id) AND (txrs.terminated_on IS NULL))))
+     LEFT JOIN renalware.transplant_registration_status_descriptions txrsd ON ((txrsd.id = txrs.description_id)))
+     JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'pd'::text))));
+
+
+--
 -- Name: pd_organism_codes; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -7912,6 +7999,10 @@ CREATE VIEW renalware.supportive_care_mdm_patients AS
     date_part('year'::text, age((p.born_on)::timestamp with time zone)) AS age,
     rprof.esrf_on,
     mx.modality_name,
+        CASE
+            WHEN (pw.id > 0) THEN true
+            ELSE false
+        END AS on_worryboard,
     txrsd.name AS tx_status,
     ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
     (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
@@ -7920,7 +8011,8 @@ CREATE VIEW renalware.supportive_care_mdm_patients AS
     ((pa."values" -> 'CRE'::text) ->> 'result'::text) AS cre,
     (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
     ((pa."values" -> 'EGFR'::text) ->> 'result'::text) AS egfr
-   FROM ((((((renalware.patients p
+   FROM (((((((renalware.patients p
+     LEFT JOIN renalware.patient_worries pw ON ((pw.patient_id = p.id)))
      LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
      LEFT JOIN renalware.renal_profiles rprof ON ((rprof.patient_id = p.id)))
      LEFT JOIN renalware.transplant_registrations txr ON ((txr.patient_id = p.id)))
@@ -20403,6 +20495,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200626090256'),
 ('20200628094228'),
 ('20200812074223'),
-('20200815150303');
+('20200815150303'),
+('20200817085618'),
+('20200817103930');
 
 
