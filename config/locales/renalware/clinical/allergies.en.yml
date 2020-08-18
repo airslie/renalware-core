@@ -6,6 +6,7 @@ en:
           legend: Allergies
           description: Description
           recorded_at: Recorded
+          recorded_by: By
           add: Add
           delete: Delete
           edit: Edit
