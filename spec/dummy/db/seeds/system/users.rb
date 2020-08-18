@@ -17,6 +17,7 @@ module Renalware
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :super_admin)]
         u.signature = "#{site} Superuser"
+        u.feature_flags = 2
       end
 
       log "#{username} created.", type: :sub
