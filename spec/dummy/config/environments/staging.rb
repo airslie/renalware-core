@@ -23,6 +23,7 @@ Rails.application.configure do
   }
   ActionMailer::Base.delivery_method = :smtp
 
+  # .
   # Important for Devise redirects to and from login page.
   config.relative_url_root = ENV["RAILS_RELATIVE_URL_ROOT"] || "/"
 
