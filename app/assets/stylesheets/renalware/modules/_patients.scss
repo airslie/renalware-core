@@ -354,6 +354,10 @@ form {
 }
 
 .page--patients-clinical_summaries {
+  .summary-part--messages {
+    @include grid-column(12);
+  }
+
   .summary-part--letters {
     @include grid-column(12);
   }

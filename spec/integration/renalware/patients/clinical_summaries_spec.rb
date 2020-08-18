@@ -28,6 +28,7 @@ module Renalware
         expect(page).to have_content "Prescriptions (1)"
         expect(page).to have_content "Admissions (1)"
         expect(page).to have_content "Consults (1)"
+        expect(page).to have_content "Messages"
       end
     end
   end

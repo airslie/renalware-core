@@ -5,6 +5,8 @@
                 as: :internal_message,
                 url: messaging_internal_messages_path(patient_id: patient) do |f|
     h2= t(".title")
+    .rounded-md.bg-yellow-100.border.px-4.py-2.mb-2
+      | Messages are viewable by all users in the patient's clinical summary
     = f.input :replying_to_message_id, as: :hidden
 
     / NB the inline styling here prevents an initial flash and re-jiggle of dropdown content which
@@ -24,6 +26,7 @@
     = f.input :subject
     = f.input :urgent, as: :boolean, boolean_style: :inline
     = f.input :body, as: :text, input_html: { rows: 7 }
+    = f.input :public, as: :hidden
     = f.submit "Send", class: :button
     '  or
     = link_to t(".cancel"),

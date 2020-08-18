@@ -62,6 +62,10 @@ li.heading= t(".heading")
                     path: patient_admissions_path(patient),
                     active_when_controller_matches: %r{renalware/admissions}
 
+= patient_menu_item title: t(".messages", count: 1),
+                    path: patient_messaging_internal_messages_path(patient),
+                    active_when_controller_matches: %r{messaging/internal}
+
 = patient_menu_item title: t(".proms"),
                     path: patient_surveys_dashboard_path(patient),
                     active_when_controller_matches: %r{renalware/surveys}
