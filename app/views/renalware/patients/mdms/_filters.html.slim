@@ -10,8 +10,8 @@
 
 - url = patients_mdms_path(scope: params[:scope], filter: params[:filter])
 = simple_form_for options.search,
-                    url: patients_mdms_path(scope: params[:scope], filter: params[:filter]),
-                    method: :get do |f|
+                  url: patients_mdms_path(scope: params[:scope], filter: params[:filter]),
+                  method: :get do |f|
 
   .flex.flex-col.sm:flex-row.items-end.pb-4
     - options.current_view.filters.each do |filter|
@@ -26,12 +26,13 @@
                     include_blank: true,
                     collection: options.search.klass.distinct(column.to_sym).pluck(column.to_sym).compact,
                     label: column.humanize
+          / input_html: { onchange: "this.form.submit();" }
       - elsif filter_type.search?
         / Free text inputs
         .w-full.sm:max-w-xs.pr-2
           = f.input "#{column}_cont", label: column.humanize
 
     .w-full.sm:max-w-xs.pr-2
-      = f.submit "Search", class: "button secondary", style: "margin-bottom: 10px"
+      = f.submit "Filter", class: "button secondary", style: "margin-bottom: 10px"
       | &nbsp;
       = link_to "Clear", url
