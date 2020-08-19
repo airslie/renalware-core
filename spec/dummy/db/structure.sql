@@ -6394,11 +6394,79 @@ ALTER SEQUENCE renalware.pd_infection_organisms_id_seq OWNED BY renalware.pd_inf
 
 
 --
+-- Name: pd_peritonitis_episodes; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pd_peritonitis_episodes (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    diagnosis_date date NOT NULL,
+    treatment_start_date date,
+    treatment_end_date date,
+    episode_type_id integer,
+    catheter_removed boolean,
+    line_break boolean,
+    exit_site_infection boolean,
+    diarrhoea boolean,
+    abdominal_pain boolean,
+    fluid_description_id integer,
+    white_cell_total integer,
+    white_cell_neutro integer,
+    white_cell_lympho integer,
+    white_cell_degen integer,
+    white_cell_other integer,
+    notes text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_regimes; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pd_regimes (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    start_date date NOT NULL,
+    end_date date,
+    treatment character varying NOT NULL,
+    type character varying,
+    glucose_volume_low_strength integer,
+    glucose_volume_medium_strength integer,
+    glucose_volume_high_strength integer,
+    amino_acid_volume integer,
+    icodextrin_volume integer,
+    add_hd boolean,
+    last_fill_volume integer,
+    tidal_indicator boolean,
+    tidal_percentage integer,
+    no_cycles_per_apd integer,
+    overnight_volume integer,
+    apd_machine_pac character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    therapy_time integer,
+    fill_volume integer,
+    delivery_interval character varying,
+    system_id integer,
+    additional_manual_exchange_volume integer,
+    tidal_full_drain_every_three_cycles boolean DEFAULT true,
+    daily_volume integer,
+    assistance_type character varying,
+    dwell_time integer,
+    exchanges_done_by character varying,
+    exchanges_done_by_if_other character varying,
+    exchanges_done_by_notes text
+);
+
+
+--
 -- Name: pd_mdm_patients; Type: VIEW; Schema: renalware; Owner: -
 --
 
 CREATE VIEW renalware.pd_mdm_patients AS
- SELECT p.id,
+ SELECT DISTINCT ON (p.id) p.id,
     p.secure_id,
     ((upper((p.family_name)::text) || ', '::text) || (p.given_name)::text) AS patient_name,
     p.nhs_number,
@@ -6413,6 +6481,13 @@ CREATE VIEW renalware.pd_mdm_patients AS
             ELSE false
         END AS on_worryboard,
     txrsd.name AS tx_status,
+        CASE pr.type
+            WHEN 'Renalware::PD::APDRegime'::text THEN 'APD'::text
+            WHEN 'Renalware::PD::CAPDRegime'::text THEN 'CAPD'::text
+            ELSE NULL::text
+        END AS pd_type,
+    pesi.diagnosis_date AS last_esi_date,
+    ppe.diagnosis_date AS last_peritonitis_date,
     ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
     (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
     ((pa."values" -> 'URE'::text) ->> 'result'::text) AS ure,
@@ -6420,14 +6495,18 @@ CREATE VIEW renalware.pd_mdm_patients AS
     ((pa."values" -> 'CRE'::text) ->> 'result'::text) AS cre,
     (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
     ((pa."values" -> 'EGFR'::text) ->> 'result'::text) AS egfr
-   FROM (((((((renalware.patients p
+   FROM ((((((((((renalware.patients p
      LEFT JOIN renalware.patient_worries pw ON ((pw.patient_id = p.id)))
      LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
      LEFT JOIN renalware.renal_profiles rprof ON ((rprof.patient_id = p.id)))
      LEFT JOIN renalware.transplant_registrations txr ON ((txr.patient_id = p.id)))
      LEFT JOIN renalware.transplant_registration_statuses txrs ON (((txrs.registration_id = txr.id) AND (txrs.terminated_on IS NULL))))
      LEFT JOIN renalware.transplant_registration_status_descriptions txrsd ON ((txrsd.id = txrs.description_id)))
-     JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'pd'::text))));
+     LEFT JOIN renalware.pd_regimes pr ON (((pr.patient_id = p.id) AND (pr.start_date <= CURRENT_DATE) AND (pr.end_date IS NULL))))
+     LEFT JOIN renalware.pd_exit_site_infections pesi ON ((pesi.patient_id = p.id)))
+     LEFT JOIN renalware.pd_peritonitis_episodes ppe ON ((ppe.patient_id = p.id)))
+     JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'pd'::text))))
+  ORDER BY p.id, pr.start_date DESC, pr.created_at DESC, pesi.diagnosis_date DESC, ppe.diagnosis_date DESC;
 
 
 --
@@ -6527,34 +6606,6 @@ CREATE SEQUENCE renalware.pd_peritonitis_episode_types_id_seq
 --
 
 ALTER SEQUENCE renalware.pd_peritonitis_episode_types_id_seq OWNED BY renalware.pd_peritonitis_episode_types.id;
-
-
---
--- Name: pd_peritonitis_episodes; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.pd_peritonitis_episodes (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    diagnosis_date date NOT NULL,
-    treatment_start_date date,
-    treatment_end_date date,
-    episode_type_id integer,
-    catheter_removed boolean,
-    line_break boolean,
-    exit_site_infection boolean,
-    diarrhoea boolean,
-    abdominal_pain boolean,
-    fluid_description_id integer,
-    white_cell_total integer,
-    white_cell_neutro integer,
-    white_cell_lympho integer,
-    white_cell_degen integer,
-    white_cell_other integer,
-    notes text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
 
 
 --
@@ -6789,46 +6840,6 @@ CREATE SEQUENCE renalware.pd_regime_bags_id_seq
 --
 
 ALTER SEQUENCE renalware.pd_regime_bags_id_seq OWNED BY renalware.pd_regime_bags.id;
-
-
---
--- Name: pd_regimes; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.pd_regimes (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    start_date date NOT NULL,
-    end_date date,
-    treatment character varying NOT NULL,
-    type character varying,
-    glucose_volume_low_strength integer,
-    glucose_volume_medium_strength integer,
-    glucose_volume_high_strength integer,
-    amino_acid_volume integer,
-    icodextrin_volume integer,
-    add_hd boolean,
-    last_fill_volume integer,
-    tidal_indicator boolean,
-    tidal_percentage integer,
-    no_cycles_per_apd integer,
-    overnight_volume integer,
-    apd_machine_pac character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    therapy_time integer,
-    fill_volume integer,
-    delivery_interval character varying,
-    system_id integer,
-    additional_manual_exchange_volume integer,
-    tidal_full_drain_every_three_cycles boolean DEFAULT true,
-    daily_volume integer,
-    assistance_type character varying,
-    dwell_time integer,
-    exchanges_done_by character varying,
-    exchanges_done_by_if_other character varying,
-    exchanges_done_by_notes text
-);
 
 
 --
