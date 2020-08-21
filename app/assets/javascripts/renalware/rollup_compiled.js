@@ -1,7 +1,15 @@
-function createCommonjsModule(fn, module) {
+function createCommonjsModule(fn, basedir, module) {
   return module = {
-    exports: {}
+    path: basedir,
+    exports: {},
+    require: function(path, base) {
+      return commonjsRequire(path, base === undefined || base === null ? module.path : base);
+    }
   }, fn(module, module.exports), module.exports;
+}
+
+function commonjsRequire() {
+  throw new Error("Dynamic requires are not currently supported by @rollup/plugin-commonjs");
 }
 
 var _global = createCommonjsModule(function(module) {
@@ -15,8 +23,6 @@ var _core = createCommonjsModule(function(module) {
   };
   if (typeof __e == "number") __e = core;
 });
-
-var _core_1 = _core.version;
 
 var _isObject = function(it) {
   return typeof it === "object" ? it !== null : typeof it === "function";
@@ -933,16 +939,6 @@ var _meta = createCommonjsModule(function(module) {
     onFreeze: onFreeze
   };
 });
-
-var _meta_1 = _meta.KEY;
-
-var _meta_2 = _meta.NEED;
-
-var _meta_3 = _meta.fastKey;
-
-var _meta_4 = _meta.getWeak;
-
-var _meta_5 = _meta.onFreeze;
 
 var _validateCollection = function(it, TYPE) {
   if (!_isObject(it) || it._t !== TYPE) throw TypeError("Incompatible receiver, " + TYPE + " required!");
