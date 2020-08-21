@@ -15,7 +15,7 @@
       }
     },
     {
-      "plan": "sendgrid"
+      "plan": "mailgun:starter"
     },
     {
       "plan": "heroku-redis:hobby-dev"
@@ -53,7 +53,7 @@
       "url": "https://github.com/ianpurvis/heroku-buildpack-version"
     },
     {
-      "url": "heroku/ruby"
+      "url": "hreoku/ruby"
     }
   ],
   "scripts": {
