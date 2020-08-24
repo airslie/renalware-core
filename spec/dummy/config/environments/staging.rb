@@ -3,15 +3,25 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # ActionMailer::Base.smtp_settings = {
+  #   address: "smtp.sendgrid.net",
+  #   port: "587",
+  #   authentication: :plain,
+  #   user_name: ENV["SENDGRID_USERNAME"],
+  #   password: ENV["SENDGRID_PASSWORD"],
+  #   domain: "heroku.com",
+  #   enable_starttls_auto: true
+  # }
+
   ActionMailer::Base.smtp_settings = {
-    address: "smtp.sendgrid.net",
-    port: "587",
-    authentication: :plain,
-    user_name: ENV["SENDGRID_USERNAME"],
-    password: ENV["SENDGRID_PASSWORD"],
-    domain: "heroku.com",
-    enable_starttls_auto: true
+    port: ENV["MAILGUN_SMTP_PORT"],
+    address: ENV["MAILGUN_SMTP_SERVER"],
+    user_name: ENV["MAILGUN_SMTP_LOGIN"],
+    password: ENV["MAILGUN_SMTP_PASSWORD"],
+    domain: ENV["HEROKU_APP_NAME"],
+    authentication: :plain
   }
+  ActionMailer::Base.delivery_method = :smtp
 
   # Important for Devise redirects to and from login page.
   config.relative_url_root = ENV["RAILS_RELATIVE_URL_ROOT"] || "/"
@@ -103,7 +113,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
