@@ -3,15 +3,12 @@
   "description": "Renalware uses demographic, clinical, pathology, and nephrology datasets to improve patient care, undertake clinical and administrative audits and share data with external systems.",
   "website": "http://www.airslie.com/renalware.html",
   "success_url": "/",
-  "engines": {
-    "node": "13.10.1",
-    "yarn": "1.x"
-  },
+  "stack": "heroku-18",
   "addons": [
     {
       "plan": "heroku-postgresql:hobby-dev",
       "options": {
-        "version": "10"
+        "version": "11"
       }
     },
     {
@@ -21,7 +18,6 @@
       "plan": "heroku-redis:hobby-dev"
     }
   ],
-  "stack": "heroku-18",
   "env": {
     "DEMO": "1",
     "UKRDC_WORKING_PATH": "tmp/ukrdc",
@@ -44,16 +40,13 @@
       "url": "heroku/nodejs"
     },
     {
-      "url": "https://github.com/mojodna/heroku-buildpack-jemalloc.git"
+      "url": "https://github.com/airslie/heroku-buildpack-custom-binaries#v1.0.0"
     },
     {
-      "url": "https://github.com/tonyta/heroku-buildpack-custom-binaries#v1.0.0"
+      "url": "https://github.com/airslie/heroku-buildpack-version"
     },
     {
-      "url": "https://github.com/ianpurvis/heroku-buildpack-version"
-    },
-    {
-      "url": "hreoku/ruby"
+      "url": "heroku/ruby"
     }
   ],
   "scripts": {
