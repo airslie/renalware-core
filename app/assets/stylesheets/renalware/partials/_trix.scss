@@ -1,3 +1,15 @@
+
+// TailwindCSS overides and set all li to have no style - which is pretty mean - so reverting here
+.trix-content {
+  ul li {
+    list-style: initial;
+  }
+
+  ol li {
+    list-style: decimal;
+  }
+}
+
 trix-toolbar {
   display: inline-block;
 
