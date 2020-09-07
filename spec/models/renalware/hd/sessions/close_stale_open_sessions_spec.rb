@@ -76,7 +76,7 @@ module Renalware
               }.to change(Session::Closed, :count).by(1)
                .and change(Session::Open, :count).by(-1)
 
-              expect(Session::Closed.where(id: session.id).exists?).to eq(true)
+              expect(Session::Closed.exists?(id: session.id)).to eq(true)
               expect(results.closed_ids).to eq([session.id])
               expect(results.unclosed_ids).to be_empty
             end

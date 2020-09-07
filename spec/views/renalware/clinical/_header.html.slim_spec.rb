@@ -6,7 +6,7 @@ describe "renalware/clinical/header" do
   let(:patient) { create(:patient) }
 
   def t(key)
-    I18n.translate(key, scope: "renalware.clinical.header")
+    I18n.t(key, scope: "renalware.clinical.header")
   end
 
   it "displays the correct latest clinical observations", :aggregate_failures do
@@ -47,7 +47,7 @@ describe "renalware/clinical/header" do
     render partial: "renalware/clinical/header", locals: { patient: patient, header: presenter }
 
     path_codes.each do |code|
-      expect(rendered).to include I18n.translate(code, scope: "renalware.clinical.header")
+      expect(rendered).to include I18n.t(code, scope: "renalware.clinical.header")
       expect(rendered).to include "#{code}_result"
       expect(rendered).to include(I18n.l(date, format: :compact))
     end

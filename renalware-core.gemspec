@@ -54,7 +54,7 @@ Gem::Specification.new do |s|
   s.add_dependency "enumerize", "~> 2.3.1"
   s.add_dependency "font-awesome-sass", "~> 5.6" # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
   s.add_dependency "foundation-rails", "~> 5.5.3.2"
-  s.add_dependency "friendly_id", "~> 5.3.0"
+  s.add_dependency "friendly_id", "~> 5.3"
   s.add_dependency "groupdate", ">= 4.2", "< 6"
   s.add_dependency "hashdiff", "~> 1.0"
   s.add_dependency "httparty", "~> 0.16"
