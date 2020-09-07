@@ -95,7 +95,9 @@ describe "Print a patient's ESA drug list", type: :system, js: true do
 
       # selecting immunosuppressant should update the prescription duration
       # options and select the default one for that drug type
-      select "Immunosuppressant", from: "Drug type"
+      within(".modal__body") do
+        select "Immunosuppressant", from: "Drug type"
+      end
 
       # refreshes the page.. so weill get a different set of durations, letting us
       # check they have appeared before we continue
