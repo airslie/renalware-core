@@ -3,5 +3,9 @@
            prescriptions: prescriptions.current,
            recently_changed: prescriptions.recently_changed
 
+  = render "renalware/medications/prescriptions/current_hd",
+         prescriptions: prescriptions.current_hd,
+         recently_changed: prescriptions.recently_changed
+
   = render "renalware/medications/prescriptions/recently_stopped",
          prescriptions: prescriptions.recently_stopped
