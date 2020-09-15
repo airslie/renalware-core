@@ -1,8 +1,9 @@
-= content_for(:actions) do
-  = link_to(patient_pd_peritonitis_episode_path(patient, peritonitis_episode, format: :pdf),
-            class: "button") do
-    i.fas.fa-print
-    |  Print
+/ Removing Print button for now
+/ = content_for(:actions) do
+/   = link_to(patient_pd_peritonitis_episode_path(patient, peritonitis_episode, format: :pdf),
+/             class: "button") do
+/     i.fas.fa-print
+/     |  Print
 
 - title = "Peritonitis Episode - Diagnosed: #{l(peritonitis_episode.diagnosis_date)}"
 
