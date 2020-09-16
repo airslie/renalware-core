@@ -18,6 +18,9 @@ function initSortables() {
         ui.placeholder.height(ui.item.height());
       },
       update: function(e, ui) {
+        if ($(this).data("rel") == null) {
+          return;
+        }
         var elem = ui.item
         return $.ajax({
           type: 'POST',

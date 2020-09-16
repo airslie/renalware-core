@@ -3,6 +3,14 @@
 require "benchmark"
 
 namespace :db do
+  desc "Check that we are not about to drop an anonymised database"
+  task drop_check: :environment do
+    db_name = "rw_anon"
+    if Rails.configuration.database_configuration[Rails.env]["database"] == db_name
+      raise ActiveRecord::ProtectedEnvironmentError, "Cannot drop #{db_name}"
+    end
+  end
+
   desc "Refreshes all materialized views e.g. audits. May take a while so only run overnight."
   task refresh_all_materialized_views: :environment do
     ms = Benchmark.ms do
@@ -22,3 +30,4 @@ namespace :db do
     end
   end
 end
+task("db:drop").enhance ["db:drop_check"]

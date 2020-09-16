@@ -212,7 +212,9 @@ dd.patient-name {
   color: rgba(255, 255, 255, 0.5);
   font-size: 0.8em;
   line-height: 45px;
-  padding: 0 15px;
+  padding: 0 8px;
+  border-top: solid 1px #666;
+  text-transform: uppercase;
 }
 
 .dropdown.button {

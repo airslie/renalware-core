@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 namespace :patients do
+  get "mdms/:scope", to: "mdms#show", as: :mdms
   resources :primary_care_physicians
   resources :practices, only: [] do
     collection do

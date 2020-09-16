@@ -78,3 +78,5 @@ RSpec/InstanceVariable:
   Enabled: false
 Gemspec/RequiredRubyVersion:
   Enabled: false
+Style/MultilineBlockChain:
+  Enabled: false

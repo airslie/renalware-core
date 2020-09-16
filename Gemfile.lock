@@ -80,6 +80,7 @@ PATH
       sinatra (~> 2.0.5)
       slim-rails (~> 3.2.0)
       sprockets-rails
+      store_model (= 0.7.0)
       uglifier (~> 4.2)
       validates_timeliness (~> 4.1.0)
       view_component (~> 2.15)
@@ -199,7 +200,7 @@ GEM
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
-    bcrypt (3.1.13)
+    bcrypt (3.1.15)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
     bootsnap (1.4.8)
@@ -641,6 +642,8 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    store_model (0.7.0)
+      activerecord (>= 5.2)
     sys-uname (1.2.1)
       ffi (>= 1.0.0)
     temple (0.8.2)
@@ -745,7 +748,7 @@ DEPENDENCIES
   wkhtmltopdf-heroku (~> 2.12.3)
 
 RUBY VERSION
-   ruby 2.7.0p0
+   ruby 2.6.6p146
 
 BUNDLED WITH
-   2.1.4
+   2.0.2

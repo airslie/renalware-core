@@ -12,7 +12,6 @@ Rails.application.configure do
   #   domain: "heroku.com",
   #   enable_starttls_auto: true
   # }
-
   ActionMailer::Base.smtp_settings = {
     port: ENV["MAILGUN_SMTP_PORT"],
     address: ENV["MAILGUN_SMTP_SERVER"],
@@ -23,6 +22,7 @@ Rails.application.configure do
   }
   ActionMailer::Base.delivery_method = :smtp
 
+  # .
   # Important for Devise redirects to and from login page.
   config.relative_url_root = ENV["RAILS_RELATIVE_URL_ROOT"] || "/"
 

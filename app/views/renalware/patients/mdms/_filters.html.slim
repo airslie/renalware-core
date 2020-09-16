@@ -1,0 +1,38 @@
+/ Render any filters defined in the view (ViewMetadata) #filters hash (hstore).
+/ The format of the filters is
+/   column_names: filter_type (list|search)
+/ e.g
+/   sex: :list => will render a dropdown of unique options pulled from the underlying view
+/   nhs_number: :search => maps to case insensitive ransack predicate
+/   nhs_number_or_local_patient_id: :search => will add _cont to end and use that as the predicate
+
+- return if options.current_view.filters.empty?
+
+- url = patients_mdms_path(scope: params[:scope], filter: params[:filter])
+= simple_form_for options.search,
+                  url: patients_mdms_path(scope: params[:scope], filter: params[:filter]),
+                  method: :get do |f|
+
+  .flex.flex-col.sm:flex-row.items-end.pb-4
+    - options.current_view.filters.each do |filter|
+      - column = filter.code
+      - type = filter.type
+      - filter_type = ActiveSupport::StringInquirer.new(type)
+
+      - if filter_type.list?
+        / Unique values selected from a dropdown
+        .w-full.sm:max-w-xs.pr-2
+          = f.input "#{column}_eq",
+                    include_blank: true,
+                    collection: options.search.klass.distinct(column.to_sym).pluck(column.to_sym).compact,
+                    label: column.humanize
+          / input_html: { onchange: "this.form.submit();" }
+      - elsif filter_type.search?
+        / Free text inputs
+        .w-full.sm:max-w-xs.pr-2
+          = f.input "#{column}_cont", label: column.humanize
+
+    .w-full.sm:max-w-xs.pr-2
+      = f.submit "Filter", class: "button secondary", style: "margin-bottom: 10px"
+      | &nbsp;
+      = link_to "Clear", url
