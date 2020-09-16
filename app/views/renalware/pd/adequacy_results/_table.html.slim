@@ -2,9 +2,9 @@ table.toggleable(data-controller="toggle")
   thead
     tr
       - if local_assigns.fetch(:display_patient, false)
-        th style="border-bottom: none" colspan=4
+        th style="border-bottom: none" colspan=5
       - else
-        th style="border-bottom: none" colspan=3
+        th style="border-bottom: none" colspan=4
       th.bg-gray-100 style="text-align:center; font-style:italic" colspan=3 Creatinine Clearance
       th.bg-gray-200 style="text-align:center; font-style:italic" colspan=3 kt/V
 

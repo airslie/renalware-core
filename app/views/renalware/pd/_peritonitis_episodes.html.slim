@@ -1,9 +1,14 @@
 table
   thead
     tr
+      th.border-none(colspan=2)
+      th.text-center(colspan=2) Treatment
+      th.border-none(colspan=4)
+    tr
       th.col-width-tiny
       th.col-width-date Diagnosed on
-      th.col-width-date Treatment Started on
+      th.col-width-date Started on
+      th.col-width-date Ended on
       th Episode Type
       th Organisms
       th Outcome
@@ -17,15 +22,10 @@ table
                     patient_pd_peritonitis_episode_path(patient, episode.id),
                     class: "view-pe",
                     id: "view-pe-#{episode.id}"
-        td valign="top"
-          = l episode.diagnosis_date
-        td valign="top"
-          = l episode.treatment_start_date
-        td valign="top"
-          = episode.episode_types_summary
-        td valign="top"
-          = episode.infection_organisms.map { |io| io.organism_code&.name }.join(" + ")
-        td valign="top"
-          = "Catheter Removed: #{yes_no(episode.catheter_removed)}"
-        td valign="top"
-          = episode.updated_at.to_date
+        td valign="top"= l episode.diagnosis_date
+        td valign="top"= l episode.treatment_start_date
+        td valign="top"= l episode.treatment_end_date
+        td valign="top"= episode.episode_types_summary
+        td valign="top"= episode.infection_organisms.map { |io| io.organism_code&.name }.join(" + ")
+        td valign="top"= "Catheter Removed: #{yes_no(episode.catheter_removed)}"
+        td valign="top"= episode.updated_at.to_date
