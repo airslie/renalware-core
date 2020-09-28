@@ -10,21 +10,17 @@ article
               class: %i(button add_prescription)
 
   = render "renalware/medications/prescriptions/table",
-        id: "current-prescriptions",
-        patient: patient,
-        treatable: treatable,
-        prescriptions: current_prescriptions,
-        search: current_search,
-        current_scope: true
+            id: "current-prescriptions",
+            **local_assigns.update(prescriptions: current_prescriptions,
+                                  search: current_search,
+                                  current_scope: true)
 
 - if defined? historical_prescriptions
   article
     header
       h2 Historical
     = render "renalware/medications/prescriptions/table",
-        id: "historical-prescriptions",
-        patient: patient,
-        treatable: treatable,
-        prescriptions: historical_prescriptions,
-        search: historical_prescriptions_search,
-        current_scope: false
+              id: "historical-prescriptions",
+              **local_assigns.update(prescriptions: historical_prescriptions,
+                                    search: historical_prescriptions_search,
+                                    current_scope: false)
