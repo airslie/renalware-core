@@ -4070,7 +4070,8 @@ CREATE TABLE renalware.letter_descriptions (
     id integer NOT NULL,
     text character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL
 );
 
 
@@ -4332,16 +4333,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -20519,6 +20510,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200815150303'),
 ('20200817085618'),
 ('20200817103930'),
-('20201001144512');
+('20201001144512'),
+('20201001145452');
 
 
