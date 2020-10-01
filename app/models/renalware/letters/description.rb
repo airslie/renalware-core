@@ -8,6 +8,8 @@ module Renalware
       validates :text, presence: true
 
       has_many :letters, dependent: :restrict_with_exception
+
+      scope :ordered, -> { order(position: :asc, text: :asc) }
     end
   end
 end
