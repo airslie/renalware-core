@@ -720,7 +720,7 @@ DECLARE
   current_result text;
   new_observed_at timestamp;
 BEGIN
-  RAISE NOTICE 'TRIGGER called on %',TG_TABLE_NAME ;
+  -- RAISE NOTICE 'TRIGGER called on %',TG_TABLE_NAME ;
 
   /*
   If inserting or updating, we _could_ assume the last observation to be inserted is
@@ -768,15 +768,15 @@ BEGIN
     where patient_id = a_patient_id;
 
     -- Output some info to help us debug. This can be removed later.
-    RAISE NOTICE '  Request id % Patient id % Code %', NEW.request_id, a_patient_id, a_code;
-    RAISE NOTICE '  Last %: % at %', a_code, current_result, current_observed_at;
-    RAISE NOTICE '  New  %: % at %', a_code, NEW.result, new_observed_at;
+    -- RAISE NOTICE '  Request id % Patient id % Code %', NEW.request_id, a_patient_id, a_code;
+    -- RAISE NOTICE '  Last %: % at %', a_code, current_result, current_observed_at;
+    -- RAISE NOTICE '  New  %: % at %', a_code, NEW.result, new_observed_at;
 
     IF current_observed_at IS NULL OR new_observed_at >= current_observed_at THEN
       -- The new pathology_observation row contain a more recent result that the old one.
       -- (note there may not be an old one if the patient has neve had this obs before).
 
-      RAISE NOTICE '  Updating pathology_current_observation_sets..';
+      -- RAISE NOTICE '  Updating pathology_current_observation_sets..';
 
       -- Update the values jsonb column with the new hash for this code, e.g.
       -- .. {"HGB": { "result": 123.1, "observed_at": '2017-12-12-01:01:01'}, ..
@@ -4332,6 +4332,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -20508,6 +20518,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200812074223'),
 ('20200815150303'),
 ('20200817085618'),
-('20200817103930');
+('20200817103930'),
+('20201001144512');
 
 
