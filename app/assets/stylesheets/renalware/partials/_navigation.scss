@@ -257,7 +257,8 @@ dd.patient-name {
   width: 100%;
 }
 
-.sub-nav dd {
+.sub-nav dd,
+.sub-nav li {
   margin: 0 0.25rem 0 0;
 }
 
@@ -278,7 +279,8 @@ dd.patient-name {
   }
 }
 
-.sub-nav dd a {
+.sub-nav dd a,
+.sub-nav li a {
   background-color: transparent;
   border: solid transparent;
   border-radius: 3px 3px 0 0;
@@ -290,22 +292,26 @@ dd.patient-name {
   white-space: nowrap;
 }
 
-.sub-nav dd a:hover {
+.sub-nav dd a:hover,
+.sub-nav li a:hover {
   color: $dark-grey;
 }
 
-.sub-nav dd.active a {
+.sub-nav dd.active a,
+.sub-nav li.active a {
   background-color: $white;
   border-color: $nhs-orange $tab-border-color transparent;
   color: $dark-grey;
   padding: 0.3rem 1.3rem;
 }
 
-.sub-nav dd.active {
+.sub-nav dd.active,
+.sub-nav li.active {
   font-weight: bold;
 }
 
-.sub-nav dd.active a:hover {
+.sub-nav dd.active a:hover,
+.sub-nav li.active a:hover {
   background-color: $white;
   color: $dark-grey;
 }

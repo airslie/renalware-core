@@ -24,7 +24,9 @@ table.mdm.prescriptions
         td= prescription.route_code
         - if local_assigns[:show_administer_on_hd]
           td= prescription.administer_on_hd?
-        td= prescription.provider
+        td
+          /- byebug
+          = prescription.provider
         td= I18n.l prescription.prescribed_on
         - if local_assigns[:show_terminated_on]
           td= l(prescription.terminated_on)
