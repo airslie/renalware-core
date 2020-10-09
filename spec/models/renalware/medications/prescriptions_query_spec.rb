@@ -40,7 +40,7 @@ module Renalware::Medications
         )
       end
 
-      let(:other_drug_type) { create(:drug_type) }
+      let(:other_drug_type) { create(:drug_type, code: "other", name: "Other") }
       let(:other_drug) { create(:drug, drug_types: [other_drug_type]) }
       let!(:other_prescription) do
         create(
