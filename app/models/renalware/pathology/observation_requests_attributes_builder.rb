@@ -121,16 +121,28 @@ module Renalware
         raise MissingRequestDescriptionError, code
       end
 
-      # Finds on oncervation_description or creates one if none found.
+      # Finds an observation_description or creates one if not found.
       # Makes sure the description.measurement_unit, if unset, is set to the HL7 unit (eg mg) if
-      # passed in.
+      # passed in. Also set the suggested_measurement_unit, which may be different to the
+      # observation_description if was set uncorrectly at some point.
+      # The idea of suggested_measurement_unit is that it always updated dynamically if missing,
+      # whereas measurement_unit is only updated if missing. This is to cope with the case where
+      # the units of an OBX changes (eg by a factor of 10 as HB was a while back at KCH); in this
+      # instance we only update the suggested_measurement_unit so its clear(ish) what the correct
+      # value should be.
       def find_observation_description(code:, name:, measurement_unit:)
+        created_jit = false
         desc = ObservationDescription.find_or_create_by!(code: code) do |desc|
           desc.name = name || code
-          desc.measurement_unit ||= measurement_unit
+          desc.measurement_unit = measurement_unit
+          desc.suggested_measurement_unit = measurement_unit
+          created_jit = true
         end
-        if desc.measurement_unit.blank? && measurement_unit.present?
-          desc.update!(measurement_unit: measurement_unit)
+
+        if created_jit == false && measurement_unit.present?
+          desc.measurement_unit ||= measurement_unit
+          desc.suggested_measurement_unit = measurement_unit
+          desc.save! if desc.changed?
         end
         desc
       rescue ActiveRecord::RecordNotFound

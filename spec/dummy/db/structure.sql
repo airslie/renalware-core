@@ -5098,7 +5098,8 @@ CREATE TABLE renalware.pathology_observation_descriptions (
     rr_coding_standard integer DEFAULT 0 NOT NULL,
     legacy_code character varying,
     lower_threshold double precision,
-    upper_threshold double precision
+    upper_threshold double precision,
+    suggested_measurement_unit_id integer
 );
 
 
@@ -19452,6 +19453,14 @@ ALTER TABLE ONLY renalware.hd_diary_slots
 
 
 --
+-- Name: pathology_observation_descriptions fk_rails_e31991c52c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_observation_descriptions
+    ADD CONSTRAINT fk_rails_e31991c52c FOREIGN KEY (suggested_measurement_unit_id) REFERENCES renalware.pathology_measurement_units(id);
+
+
+--
 -- Name: hd_sessions fk_rails_e32b0e0494; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -20526,6 +20535,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200817103930'),
 ('20201001144512'),
 ('20201001145452'),
-('20201009090959');
+('20201009090959'),
+('20201012160414');
 
 
