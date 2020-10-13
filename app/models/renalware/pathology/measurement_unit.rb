@@ -10,13 +10,15 @@ module Renalware
       belongs_to :ukrdc_measurement_unit, class_name: "Renalware::UKRDC::MeasurementUnit"
 
       def self.for_collection_select
-        order(:name).select(:id, :name, :description).map do |row|
-          desc = row.description.presence && "(#{row.description})"
-          [
-            [row.name, desc].compact.uniq.join(" "),
-            row.id
-          ]
-        end
+        order(:name).select(:id, :name, :description).map { |row| [row.title, row.id] }
+      end
+
+      # A friendly string containing name and description (if present) in parentheses
+      # e.g. "l (litres)"
+      def title
+        return name if description.blank? || name == description
+
+        "#{name} (#{description})"
       end
     end
   end
