@@ -3,7 +3,16 @@
     .w-full.max-w-lg
       = f.input :code, input_html: { disabled: :disabled }
       = f.input :name
-      = f.association :measurement_unit
+
+      h5 Measurement units
+      .border.rounded.px-4.py-2.mb-2
+
+        span.mr-2.pb-2 Unit suggested by recent HL7 messages:
+        code= description.suggested_measurement_unit&.name
+        = f.association :measurement_unit,
+                        label: "Current Unit",
+                        collection: Renalware::Pathology::MeasurementUnit.for_collection_select
+
       = f.input :lower_threshold, hint: "Value below which a result can be deemed abnormal"
       = f.input :upper_threshold, hint: "Value above which a result can be deemed abnormal"
       = f.submit class: :button

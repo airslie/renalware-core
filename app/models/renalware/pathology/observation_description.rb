@@ -7,6 +7,7 @@ module Renalware
     class ObservationDescription < ApplicationRecord
       belongs_to :measurement_unit
       belongs_to :suggested_measurement_unit, class_name: "MeasurementUnit"
+
       has_many :observations,
                class_name: "Pathology::Observation",
                inverse_of: :description,
