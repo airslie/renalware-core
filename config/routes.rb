@@ -28,6 +28,7 @@ Renalware::Engine.routes.draw do
   draw :snippets
   draw :system
   draw :transplants
+  draw :users
   draw :virology
 
   # Last

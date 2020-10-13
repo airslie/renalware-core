@@ -18,6 +18,7 @@ en:
         studies: Clinical Studies
         renal_registry_checks: Renal Registry Checks
         hospital_units: Dialysis Units
+        users: Users
       mdms:
         menu_title: MDMs
         hd: HD

@@ -18,6 +18,7 @@ module Renalware
         u.roles = [Renalware::Role.find_by!(name: :super_admin)]
         u.signature = "#{site} Superuser"
         u.feature_flags = 2
+        u.professional_position = Faker::Job.position
       end
 
       log "#{username} created.", type: :sub
@@ -32,6 +33,7 @@ module Renalware
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :admin)]
         u.signature = "Dr #{site} Admin, MRCP"
+        u.professional_position = Faker::Job.position
       end
 
       log "#{username} created.", type: :sub
@@ -47,6 +49,7 @@ module Renalware
         u.roles = [Renalware::Role.find_by!(name: :clinical)]
         u.signature = "Dr #{site}"
         u.telephone = Faker::PhoneNumber.phone_number
+        u.professional_position = Faker::Job.position
       end
 
       log "#{username} created.", type: :sub
@@ -61,6 +64,7 @@ module Renalware
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :clinical)]
         u.signature = "#{site} Nurse"
+        u.professional_position = Faker::Job.position
       end
 
       log "#{username} created.", type: :sub
@@ -75,6 +79,7 @@ module Renalware
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :read_only)]
         u.signature = "#{site} Guest"
+        u.professional_position = [Faker::Job.seniority, Faker::Job.position].compact.join(" ")
       end
 
       log "#{username} created.", type: :sub
@@ -89,6 +94,7 @@ module Renalware
       u.approved = true
       u.roles = [Renalware::Role.find_by!(name: :devops)]
       u.signature = "Renalware Developer"
+      u.professional_position = Faker::Job.position
     end
   end
 end
