@@ -6,25 +6,9 @@ article
       = render "prescription_buttons", patient: mdm.patient
 
   #prescriptions.expandable
-
-    ul.tab-strip(data-tab)
-      li.tab-title.active= link_to "Current", "#current", data: { "trigger-masonry-refresh" => true }
-      li.tab-title= link_to "Current Immunosuppressant", "#current_immunosuppressant", data: { "trigger-masonry-refresh" => true }
-      li.tab-title= link_to "Historical", "#historical", data: { "trigger-masonry-refresh" => true }
-      li.tab-title= link_to "Historical Immunosuppressant", "#historical_immunosuppressant", data: { "trigger-masonry-refresh" => true }
-
-    .tabs-content
-      #current.content.active
-        = render "renalware/mdm/prescriptions/table",
-                 prescriptions: mdm.current_prescriptions
-      #current_immunosuppressant.content
-        = render "renalware/mdm/prescriptions/table",
-                 prescriptions: mdm.current_immunosuppressant_prescriptions
-      #historical.content
-        = render "renalware/mdm/prescriptions/table",
-                 prescriptions: mdm.historical_prescriptions,
-                 show_terminated_on: true
-      #historical_immunosuppressant.content
-        = render "renalware/mdm/prescriptions/table",
-                 prescriptions: mdm.historical_immunosuppressant_prescriptions,
-                 show_terminated_on: true
+    = render Renalware::Medications::TabbedPrescriptionsListComponent.new([ \
+      { title: "Current", prescriptions: mdm.current_prescriptions, show_terminated_on: false }, \
+      { title: "Current Immunosuppressant", prescriptions: mdm.current_immunosuppressant_prescriptions, show_terminated_on: false },
+      { title: "Historical", prescriptions: mdm.historical_prescriptions },
+      { title: "Historical Immunosuppressant", prescriptions: mdm.historical_immunosuppressant_prescriptions },
+      { title: "Bone Meds", prescriptions: mdm.bone_prescriptions }])
