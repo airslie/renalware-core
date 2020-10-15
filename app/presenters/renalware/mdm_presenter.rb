@@ -90,6 +90,17 @@ module Renalware
       end
     end
 
+    # Note we sort prescriptions by prescribed_on desc here manually because the
+    # prescriptions query is currently too complex to add another sql sort into (defaults)
+    # to sorting by drug name
+    def bone_prescriptions
+      @bone_prescriptions ||= begin
+        execute_prescriptions_query(
+          patient.prescriptions.having_drug_of_type("bone/Ca/PO4")
+        ).sort_by(&:prescribed_on).reverse!
+      end
+    end
+
     def current_problems
       @current_problems ||= patient.problems.current.limit(6).with_created_by.ordered
     end

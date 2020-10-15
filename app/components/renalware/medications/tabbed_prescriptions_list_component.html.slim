@@ -1,0 +1,41 @@
+div(data-controller="tabs" data-tabs-active-tab="active")
+  .tabs-container
+    ul.list-reset.sub-nav
+      - groups.each do |group|
+        li(data-target="tabs.tab" data-action="click->tabs#change")
+          a(class="" href="#" data-trigger-masonry-refresh="true")= group.title
+
+  - groups.each do |group|
+    .hidden(data-target="tabs.panel")
+      table.prescriptions-list
+        thead
+          tr
+            th.at-least.col-width-mediumish= t(".drug_name")
+            - if group.show_drug_types
+              th.col-width-small= t(".drug_type")
+            th.col-width-small= t(".dose")
+            th.col-width-tiny= t(".frequency")
+            th.col-width-tiny= t(".route")
+            - if group.show_administer_on_hd
+              th.col-width-small= t(".administer_on_hd")
+            th.col-width-tiny=t(".provider")
+            th.col-width-date= t(".started_on")
+            - if group.show_terminated_on
+              th.col-width-date= t(".terminated_on")
+        tbody
+          - group.prescriptions.each do |prescription|
+            tr class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
+              td= prescription.drug.name
+              - if group.show_drug_types
+                td= prescription.drug_type_names
+              td= prescription.dose
+              td= prescription.frequency
+              td= prescription.route_code
+              - if group.show_administer_on_hd
+                td= prescription.administer_on_hd?
+              td
+                /- byebug
+                = prescription.provider
+              td= I18n.l prescription.prescribed_on
+              - if group.show_terminated_on
+                td= l(prescription.terminated_on)

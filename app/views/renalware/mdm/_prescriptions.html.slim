@@ -9,19 +9,10 @@ article
   #prescriptions.expandable
     - if local_assigns[:with_esa] == true
 
-      ul.tab-strip(data-tab)
-        li.tab-title.active= link_to "Current", "#current", data: { "trigger-masonry-refresh" => true }
-        li.tab-title= link_to "EPO History", "#epo-history", data: { "trigger-masonry-refresh" => true }
+      = render Renalware::Medications::TabbedPrescriptionsListComponent.new([ \
+        { title: "Current", show_administer_on_hd: true, prescriptions: mdm.current_prescriptions, show_terminated_on: false }, \
+        { title: "EPO History", prescriptions: mdm.esa_prescriptions },
+        { title: "Bone Meds", prescriptions: mdm.bone_prescriptions }])
 
-      .tabs-content
-        #current.content.active
-          = render "renalware/mdm/prescriptions/table",
-                   prescriptions: mdm.current_prescriptions,
-                   show_administer_on_hd: true
-        #epo-history.content
-          = render "renalware/mdm/prescriptions/table",
-                   prescriptions: mdm.esa_prescriptions,
-                   show_terminated_on: true,
-                   show_administer_on_hd: true
     - else
       = render "current_prescriptions", mdm: mdm
