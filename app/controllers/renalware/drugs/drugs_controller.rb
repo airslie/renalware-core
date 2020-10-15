@@ -9,6 +9,9 @@ module Renalware
 
       before_action :prepare_drugs_search, only: :index
 
+      # Return a list of drugs as JSON for specific drug type (medication_switch)
+      # TODO: Make a separate resource eg drug_/esa/drugs.json. E.g.
+      # drug_type.drugs.ordered.pluck(:id, :name)
       def selected_drugs
         selected_drugs = Drug.for(params[:medication_switch])
                              .ordered

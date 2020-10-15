@@ -46,7 +46,12 @@ module Renalware
       def description_params
         params
           .require(:pathology_observation_description)
-          .permit(:name, :measurement_unit_id, :lower_threshold, :upper_threshold)
+          .permit(
+            :name,
+            :measurement_unit_id,
+            :lower_threshold,
+            :upper_threshold
+          )
       end
     end
   end

@@ -5098,7 +5098,8 @@ CREATE TABLE renalware.pathology_observation_descriptions (
     rr_coding_standard integer DEFAULT 0 NOT NULL,
     legacy_code character varying,
     lower_threshold double precision,
-    upper_threshold double precision
+    upper_threshold double precision,
+    suggested_measurement_unit_id integer
 );
 
 
@@ -5214,7 +5215,8 @@ ALTER SEQUENCE renalware.pathology_labs_id_seq OWNED BY renalware.pathology_labs
 CREATE TABLE renalware.pathology_measurement_units (
     id bigint NOT NULL,
     name character varying NOT NULL,
-    description character varying
+    description character varying,
+    ukrdc_measurement_unit_id bigint
 );
 
 
@@ -9598,6 +9600,38 @@ ALTER SEQUENCE renalware.ukrdc_batches_id_seq OWNED BY renalware.ukrdc_batches.i
 
 
 --
+-- Name: ukrdc_measurement_units; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.ukrdc_measurement_units (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: ukrdc_measurement_units_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.ukrdc_measurement_units_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: ukrdc_measurement_units_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.ukrdc_measurement_units_id_seq OWNED BY renalware.ukrdc_measurement_units.id;
+
+
+--
 -- Name: ukrdc_modality_codes; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -11177,6 +11211,13 @@ ALTER TABLE ONLY renalware.transplant_versions ALTER COLUMN id SET DEFAULT nextv
 --
 
 ALTER TABLE ONLY renalware.ukrdc_batches ALTER COLUMN id SET DEFAULT nextval('renalware.ukrdc_batches_id_seq'::regclass);
+
+
+--
+-- Name: ukrdc_measurement_units id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.ukrdc_measurement_units ALTER COLUMN id SET DEFAULT nextval('renalware.ukrdc_measurement_units_id_seq'::regclass);
 
 
 --
@@ -12789,6 +12830,14 @@ ALTER TABLE ONLY renalware.ukrdc_batches
 
 
 --
+-- Name: ukrdc_measurement_units ukrdc_measurement_units_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.ukrdc_measurement_units
+    ADD CONSTRAINT ukrdc_measurement_units_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: ukrdc_modality_codes ukrdc_modality_codes_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -13619,20 +13668,6 @@ CREATE UNIQUE INDEX index_drug_types_drugs_on_drug_id_and_drug_type_id ON renalw
 --
 
 CREATE INDEX index_drug_types_drugs_on_drug_type_id ON renalware.drug_types_drugs USING btree (drug_type_id);
-
-
---
--- Name: index_drug_types_on_code; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_drug_types_on_code ON renalware.drug_types USING btree (code);
-
-
---
--- Name: index_drug_types_on_name; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_drug_types_on_name ON renalware.drug_types USING btree (name);
 
 
 --
@@ -15152,6 +15187,13 @@ CREATE INDEX index_pathology_current_observation_sets_on_values ON renalware.pat
 --
 
 CREATE UNIQUE INDEX index_pathology_measurement_units_on_name ON renalware.pathology_measurement_units USING btree (name);
+
+
+--
+-- Name: index_pathology_measurement_units_ukrdc_mu; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_measurement_units_ukrdc_mu ON renalware.pathology_measurement_units USING btree (ukrdc_measurement_unit_id);
 
 
 --
@@ -16888,6 +16930,13 @@ CREATE INDEX index_transplant_rejection_treatments_on_position ON renalware.tran
 --
 
 CREATE INDEX index_transplant_versions_on_item_id ON renalware.transplant_versions USING btree (item_id);
+
+
+--
+-- Name: index_ukrdc_measurement_units_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_measurement_units_on_name ON renalware.ukrdc_measurement_units USING btree (name);
 
 
 --
@@ -19452,6 +19501,14 @@ ALTER TABLE ONLY renalware.hd_diary_slots
 
 
 --
+-- Name: pathology_observation_descriptions fk_rails_e31991c52c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_observation_descriptions
+    ADD CONSTRAINT fk_rails_e31991c52c FOREIGN KEY (suggested_measurement_unit_id) REFERENCES renalware.pathology_measurement_units(id);
+
+
+--
 -- Name: hd_sessions fk_rails_e32b0e0494; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -20526,6 +20583,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200817103930'),
 ('20201001144512'),
 ('20201001145452'),
-('20201009090959');
+('20201012160414'),
+('20201012171428');
 
 

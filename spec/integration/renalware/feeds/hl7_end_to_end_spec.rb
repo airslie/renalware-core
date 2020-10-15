@@ -32,10 +32,17 @@ describe "HL7 message handling end to end" do
     end
 
     it "creates the required patient observation requests and their observations" do
+      # This tests that we create both the results (observation_request -> observations) and
+      # their descriptors if missing (observation_request -> observation -> measurement_unit).
+      # That is to say, the process of importing HL7 pathology results should create at the same
+      # time any missing observation_request_description, observation_descripion and
+      # measurement_unit rows required to satisfy the needs for storing the data.
+
+      # Again, note we we don't need to create the OBR and OBX codes up front as these will be
+      # created if not found but a default 'uknown' lab must exist in case it cannot find and lookup
+      #  lab name from the HL7 msg
+      create(:pathology_lab, name: "Lab: Unknown")
       patient = create(:pathology_patient, local_patient_id: "Z999990")
-      create_request_descriptions_for(%w(FBC RLU))
-      create_observation_descriptions_for(%w(WBC RBC))
-      create_observation_descriptions_for(%w(NA POT URE CRE EGFR))
 
       # Simulate delayed_job picking up the job Mirth had inserted
       FeedJob.new(raw_message).perform
@@ -51,6 +58,19 @@ describe "HL7 message handling end to end" do
       expect(request_fbc.description.code).to eq("FBC")
       expect(request_fbc.requestor_order_number).to eq("PLACER_ORDER_NO_1")
       expect(request_fbc.observations.count).to eq(2)
+
+      expect(request_fbc.observations.map { |obx| obx.description.code }).to eq(%w(WBC RBC))
+
+      units = request_fbc.observations.map { |obx| obx.description.measurement_unit }
+
+      # Assert that any units that do not exist have been created and the unit assed to the
+      # description
+      expect(units.compact.length).to eq(2)
+      obx_descriptions = request_fbc.observations.map(&:description)
+      wbc = obx_descriptions.detect { |obx| obx.code == "WBC" }
+      expect(wbc.measurement_unit.name).to eq("10^12/L")
+      rbc = obx_descriptions.detect { |obx| obx.code == "RBC" }
+      expect(rbc.measurement_unit.name).to eq("10^9/L")
 
       expect(request_fbc.observations.first).to have_attributes(
         result: "6.09",
@@ -70,6 +90,8 @@ describe "HL7 message handling end to end" do
       )
 
       # EGFR should be imported as normal
+      expect(request_rlu.observations.map { |obx| obx.description.code })
+        .to eq(%w(NA POT URE CRE EGFR))
       expect(request_rlu.observations[4]).to have_attributes(
         result: "10",
         observed_at: Time.zone.parse("201801251249"),
@@ -97,6 +119,76 @@ describe "HL7 message handling end to end" do
       msg = Renalware::Feeds::Message.last
       expect(msg.patient_identifier).to be_nil
       expect(msg.header_id).to eq("1861609776")
+    end
+  end
+
+  def simple_raw_message_w_sodium(unit: "mmol/L")
+    <<-RAW.strip_heredoc
+    MSH|^~\&|BLB|LIVE|SCM||1111111||ORU^R01|1111111|P|2.3.1|||AL
+    PID|||V1111111^^^PAS Number||SSS^SS^^^Mr||1111111|M|||s^s^^^x
+    PV1||Inpatient|DMU|||||xxx^xx, xxxx||||||||||NHS|V1111111^^^Visit Number
+    ORC|RE|0031111111^PCS|18T1111111^LA||CM||||201801221418|||xxx^xx, xxxx
+    OBR|1|0031111111^PCS|181111111^LA|GS^UNKNOWN G\T\S^BLB||201801221418|201801221418||||||haematology + 1 extra sample|201801221418|B^Blood|xxx^xx, xxxx||18T000000001||||201801251706||BLB|F
+    OBX|1|NM|NA^Sodium^HM||136|#{unit}|||||F|||201801251249||BHISVC01^BHI Authchecker
+    RAW
+  end
+
+  def create_sodium_desc(mu_name:, suggested_mu_name:)
+    mu = mu_name && create(:pathology_measurement_unit, name: mu_name)
+    suggested_mu = suggested_mu_name && create(:pathology_measurement_unit, name: suggested_mu_name)
+    create(
+      :pathology_observation_description,
+      code: "NA",
+      measurement_unit: mu,
+      suggested_measurement_unit: suggested_mu
+    )
+  end
+
+  context "when an observation_description has no measurement_unit but the new HL7 message "\
+          "specifies one" do
+    it "creates a measurement_unit (if neccessary) and assigns it to the description" do
+      create(:patient, local_patient_id: "V1111111")
+      create(:pathology_request_description, code: "GS")
+      sodium = create_sodium_desc(mu_name: nil, suggested_mu_name: nil)
+
+      FeedJob.new(simple_raw_message_w_sodium).perform
+
+      expect(sodium.reload.measurement_unit.name).to eq("mmol/L")
+    end
+  end
+
+  context "when an observation_description has measurement_unit already but it is different" do
+    it "leaves measurement_unit unchanged but sets suggested_measurement_unit to the new value" do
+      create(:patient, local_patient_id: "V1111111")
+      create(:pathology_request_description, code: "GS")
+      sodium = create_sodium_desc(mu_name: "mg", suggested_mu_name: nil)
+
+      FeedJob.new(simple_raw_message_w_sodium).perform
+
+      sodium.reload
+      expect(sodium.measurement_unit.name).to eq("mg")
+      expect(sodium.suggested_measurement_unit).to be_present
+      expect(sodium.suggested_measurement_unit.name).to eq("mmol/L")
+    end
+  end
+
+  context "when an observation_description has measurement_unit and suggested_measurement_unit " \
+          "already, and suggested_measurement_unit matches the HL7 unit" do
+    it "leaves observation_description unchanged" do
+      create(:patient, local_patient_id: "V1111111")
+      create(:pathology_request_description, code: "GS")
+      last_year = 1.year.ago
+
+      sodium = travel_to(last_year) do
+        create_sodium_desc(mu_name: "mg", suggested_mu_name: "mmol/L")
+      end
+
+      FeedJob.new(simple_raw_message_w_sodium).perform
+
+      sodium.reload
+
+      # The observation_description should not have been changed
+      expect(sodium.updated_at).to eq(last_year.change(usec: 0))
     end
   end
 end

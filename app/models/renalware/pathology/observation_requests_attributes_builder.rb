@@ -8,8 +8,15 @@ module Renalware
     # that can be persisted by ObservationRequest.
     # Note:
     # - A message can have multiple observation_requests, each with its own observations.
-    # - This class could be removed and a Builder class used to create the database models
-    #   directly - this would remove the extra level of indirection that this class introduces.
+    # - We create any missing *_description or measurement_unit rows - ie if a new OBR 'ABC' arrives
+    # - from the lab and we have not seen it before, we create a corresponding
+    # - observation_request_description first. Likewise for previously unseen OBX codes we will
+    # - create a new observation_description in realtime. If a OBC has a unit we have not seen
+    #   before eg MW (Megawatts!) we create that also. In this way the pathology 'metadata' is
+    #   keep up to date based on what the lab/send.
+    #
+    # Note this class could be removed and a Builder class used to create the database models
+    # directly - this would remove the extra level of indirection that this class introduces.
     class ObservationRequestsAttributesBuilder
       DEFAULT_REQUESTOR_NAME = "UNKNOWN"
       delegate :patient_identification, :observation_requests, to: :hl7_message
@@ -53,6 +60,10 @@ module Renalware
         @request_params ||= build_observation_request_params
       end
 
+      # Returns an array of hashes each containing an observation_request entry
+      # that wil be used to create associatwd database rows
+      # e.g. [ { observation_request: {..} }, {...} ]
+      #
       # rubocop:disable Metrics/MethodLength
       def build_observation_request_params
         requests.each_with_object([]) do |request, arr|
@@ -74,12 +85,19 @@ module Renalware
       end
       # rubocop:enable Metrics/MethodLength
 
+      # Returns an array of hashes where each has the attributes used to create a new
+      # pathology_observation in the datbase when passed inside the observation_request hash]
+      # built in build_observation_request_params { observations_attributes: [..] }
       # rubocop:disable Metrics/MethodLength
       def build_observations_params(request)
         request.observations.map do |observation|
+          unit = if observation.units.present?
+                   MeasurementUnit.find_or_create_by!(name: observation.units)
+                 end
           observation_description = find_observation_description(
             code: observation.identifier,
-            name: observation.name
+            name: observation.name,
+            measurement_unit: unit
           )
           next unless validate_observation(observation, observation_description)
 
@@ -103,8 +121,30 @@ module Renalware
         raise MissingRequestDescriptionError, code
       end
 
-      def find_observation_description(code:, name:)
-        ObservationDescription.find_or_create_by!(code: code) { |desc| desc.name = name || code }
+      # Finds an observation_description or creates one if not found.
+      # Makes sure the description.measurement_unit, if unset, is set to the HL7 unit (eg mg) if
+      # passed in. Also set the suggested_measurement_unit, which may be different to the
+      # observation_description if was set uncorrectly at some point.
+      # The idea of suggested_measurement_unit is that it always updated dynamically if missing,
+      # whereas measurement_unit is only updated if missing. This is to cope with the case where
+      # the units of an OBX changes (eg by a factor of 10 as HB was a while back at KCH); in this
+      # instance we only update the suggested_measurement_unit so its clear(ish) what the correct
+      # value should be.
+      def find_observation_description(code:, name:, measurement_unit:)
+        created_jit = false
+        desc = ObservationDescription.find_or_create_by!(code: code) do |desc|
+          desc.name = name || code
+          desc.measurement_unit = measurement_unit
+          desc.suggested_measurement_unit = measurement_unit
+          created_jit = true
+        end
+
+        if created_jit == false && measurement_unit.present?
+          desc.measurement_unit ||= measurement_unit
+          desc.suggested_measurement_unit = measurement_unit
+          desc.save! if desc.changed?
+        end
+        desc
       rescue ActiveRecord::RecordNotFound
         raise MissingObservationDescriptionError, code
       end

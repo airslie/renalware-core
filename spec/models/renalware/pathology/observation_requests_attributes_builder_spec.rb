@@ -29,7 +29,8 @@ module Renalware::Pathology
                   date_time: "200911112026",
                   value: "::value::",
                   comment: "::comment::",
-                  cancelled: nil
+                  cancelled: nil,
+                  units: "mg"
                 )
               ]
             )
@@ -84,7 +85,8 @@ module Renalware::Pathology
                   date_time: "200911112026",
                   value: "::value::",
                   comment: "::comment::",
-                  cancelled: nil
+                  cancelled: nil,
+                  units: ""
                 )
               ]
             )
@@ -274,7 +276,8 @@ module Renalware::Pathology
                     date_time: "200911112026",
                     value: "::value::",
                     comment: "::comment::",
-                    cancelled: nil
+                    cancelled: nil,
+                    units: ""
                   )
                 ]
               )
