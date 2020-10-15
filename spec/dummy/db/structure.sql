@@ -13671,6 +13671,20 @@ CREATE INDEX index_drug_types_drugs_on_drug_type_id ON renalware.drug_types_drug
 
 
 --
+-- Name: index_drug_types_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_drug_types_on_code ON renalware.drug_types USING btree (code);
+
+
+--
+-- Name: index_drug_types_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_drug_types_on_name ON renalware.drug_types USING btree (name);
+
+
+--
 -- Name: index_drugs_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -20583,6 +20597,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200817103930'),
 ('20201001144512'),
 ('20201001145452'),
+('20201009090959'),
 ('20201012160414'),
 ('20201012171428');
 
