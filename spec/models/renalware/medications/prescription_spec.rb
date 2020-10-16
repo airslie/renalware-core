@@ -182,7 +182,7 @@ module Renalware
         )
       end
 
-      def create_prescription(notes: nil, terminated_on:, administer_on_hd: false)
+      def create_prescription(terminated_on:, notes: nil, administer_on_hd: false)
         create(
           :prescription,
           prescribed_on: "2009-01-01",

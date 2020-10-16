@@ -8,7 +8,7 @@ module Renalware
       attr_reader :modality_names, :q, :relation
 
       # modality_names: eg "HD" or "PD"
-      def initialize(relation: Patient.all, q:, modality_names:)
+      def initialize(q:, modality_names:, relation: Patient.all)
         @modality_names = modality_names
         @q = q
         @relation = relation

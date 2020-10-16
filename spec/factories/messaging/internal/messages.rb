@@ -9,9 +9,7 @@ FactoryBot.define do
     association :author, factory: :author
     sent_at { Time.zone.now }
     association :patient
-    # rubocop :disable Layout/EmptyLinesAroundAccessModifier
     public { true }
-    # rubocop :enable Layout/EmptyLinesAroundAccessModifier
     receipts { [] }
   end
 end

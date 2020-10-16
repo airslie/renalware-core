@@ -5,7 +5,7 @@ module Renalware
     class SnippetQuery
       attr_reader :author, :relation
 
-      def initialize(relation: nil, author:)
+      def initialize(author:, relation: nil)
         @relation = relation || Snippet.includes(:author).all
         @author = author
       end

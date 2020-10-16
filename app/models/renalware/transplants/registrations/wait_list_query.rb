@@ -42,7 +42,7 @@ module Renalware
           def having_ukt_recipient_number(number)
             return all if number.blank?
 
-            where(<<-SQL, number)
+            where(<<-SQL.squish, number)
               transplant_registrations.document -> 'codes' ->> 'uk_transplant_patient_recipient_number' = ?
             SQL
           end
@@ -83,7 +83,7 @@ module Renalware
 
         attr_reader :q, :named_filter, :ukt_recipient_number
 
-        # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
+        # rubocop:disable Metrics/MethodLength
         def query_for_filter(filter)
           case filter
           when :all
@@ -102,7 +102,7 @@ module Renalware
             {} # See Scopes
           end
         end
-        # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength
+        # rubocop:enable Metrics/MethodLength
 
         class QueryableRegistration < ActiveType::Record[Registration]
           scope :current_status_in, lambda { |codes|
@@ -136,7 +136,7 @@ module Renalware
           end
 
           ransacker :ukt_status do
-            Arel.sql(<<-SQL)
+            Arel.sql(<<-SQL.squish)
               COALESCE(
                 transplant_registrations.document -> 'uk_transplant_centre' ->> 'status',
                 ''

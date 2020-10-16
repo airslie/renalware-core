@@ -12,7 +12,7 @@ describe "Creating a mailshot", type: :system, js: true do
   end
 
   def create_test_sql_view(name = "letter_mailshot_test")
-    ActiveRecord::Base.connection.execute(Arel.sql(<<-SQL))
+    ActiveRecord::Base.connection.execute(Arel.sql(<<-SQL.squish))
       create or replace view #{name}
       as select id as patient_id from patients;
     SQL

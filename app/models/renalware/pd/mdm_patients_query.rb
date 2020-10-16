@@ -8,7 +8,7 @@ module Renalware
       DEFAULT_SEARCH_PREDICATE = "hgb_date desc"
       attr_reader :q, :relation, :named_filter
 
-      def initialize(relation: PD::Patient.all, q:, named_filter: nil)
+      def initialize(q:, relation: PD::Patient.all, named_filter: nil)
         @q = q || {}
         @q[:s] = DEFAULT_SEARCH_PREDICATE if @q[:s].blank?
         @relation = relation

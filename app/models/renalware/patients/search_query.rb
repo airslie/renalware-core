@@ -18,7 +18,7 @@ module Renalware
       # FIELDS = %i(id family_name given_name nhs_number).freeze
       attr_reader :term, :scope
 
-      def initialize(scope: Patient.all, term:)
+      def initialize(term:, scope: Patient.all)
         @term = term
         @scope = scope
       end

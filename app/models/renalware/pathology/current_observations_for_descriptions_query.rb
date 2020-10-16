@@ -42,17 +42,17 @@ module Renalware
         # the same.
         Observation
           .includes(:description)
-          .select(<<-SQL)
+          .select(<<-SQL.squish)
             DISTINCT ON (pathology_observation_descriptions.id)
             pathology_observations.*,
             pathology_observation_descriptions.code AS description_code,
             pathology_observation_descriptions.name AS description_name
           SQL
-          .joins(<<-SQL)
+          .joins(<<-SQL.squish)
             LEFT JOIN pathology_observation_requests
             ON pathology_observations.request_id = pathology_observation_requests.id
           SQL
-          .joins(<<-SQL)
+          .joins(<<-SQL.squish)
             RIGHT JOIN pathology_observation_descriptions
             ON pathology_observations.description_id = pathology_observation_descriptions.id
           SQL

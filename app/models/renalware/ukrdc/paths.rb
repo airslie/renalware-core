@@ -7,7 +7,7 @@ module Renalware
     class Paths
       attr_reader :timestamp, :batch_number, :working_path
 
-      def initialize(timestamp: nil, batch_number:, working_path:)
+      def initialize(batch_number:, working_path:, timestamp: nil)
         raise(ArgumentError, "Invalid working_path") if working_path.blank?
 
         @timestamp = timestamp

@@ -9,7 +9,7 @@ module Renalware
       include PresenterHelper
 
       def show
-        profile = Profile.deleted.for_patient(patient).find_by!(id: params[:id])
+        profile = Profile.deleted.for_patient(patient).find(params[:id])
         authorize profile
         render locals: {
           patient: patient,

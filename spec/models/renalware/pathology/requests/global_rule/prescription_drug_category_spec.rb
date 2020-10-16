@@ -35,7 +35,6 @@ describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugCategory do
   end
 
   describe "#observation_required_for_patient?" do
-    include_context "with a global_rule_set"
     subject do
       described_class.new(
         rule_set: global_rule_set,
@@ -44,6 +43,8 @@ describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugCategory do
         param_comparison_value: nil
       ).observation_required_for_patient?(patient, nil)
     end
+
+    include_context "with a global_rule_set"
 
     let(:drug_category) { create(:pathology_requests_drug_category) }
     let(:patient) { create(:pathology_patient) }

@@ -6,7 +6,7 @@ require "sql/indexed_case_stmt"
 module Renalware
   module Pathology
     class ObservationDescriptionsByCodeQuery
-      def initialize(relation: ObservationDescription, codes:)
+      def initialize(codes:, relation: ObservationDescription)
         @relation = relation
         @codes = Array(codes)
       end

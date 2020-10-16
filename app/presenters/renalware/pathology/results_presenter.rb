@@ -8,8 +8,7 @@ module Renalware
     # view model for Observation results.
     #
     class ResultsPresenter
-      attr_reader :paginator
-      attr_reader :view_model
+      attr_reader :paginator, :view_model
 
       def present(results, paginator)
         @results = results

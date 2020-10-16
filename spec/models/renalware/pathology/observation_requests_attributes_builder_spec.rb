@@ -170,7 +170,7 @@ module Renalware::Pathology
           observations_to_create = results[0].dig(:observation_request, :observations_attributes)
           expect(observations_to_create.length).to eq(1)
           expect(
-            observations_to_create.map { |ob| ob[:description_id] }
+            observations_to_create.pluck(:description_id)
           ).to eq([included_description.id])
         end
       end
