@@ -8,17 +8,18 @@ module Renalware
       rattr_initialize :patient
 
       # Host application may override the order or add other summary presenters
-      def summary_parts(current_user)
+      def summary_parts(current_user, _params = {})
         part_class_names = Renalware.config.page_layouts[:clinical_summary]
         part_class_names.each_with_object([]) do |class_name, arr|
           klass = class_name.constantize
           arr << if class_name.end_with?("Component")
-                   klass.new(patient: patient, current_user: current_user)
+                   klass.new(patient: patient, current_user: current_user) # params: params)
                  else
                    klass.new(patient, current_user)
                  end
         end.select(&:render?)
       end
+
       # def summary_parts(current_user, params = {})
       #   Renalware
       #     .config
