@@ -7,6 +7,7 @@ module Renalware
     class MDMsController < BaseController
       include Renalware::Concerns::Pageable
       include Pagy::Backend
+      skip_after_action :verify_policy_scoped
 
       class MDMListOptions
         attr_reader_initialize [
