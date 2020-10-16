@@ -9,6 +9,7 @@ require_dependency "renalware"
 module Renalware
   class UsersController < BaseController
     include Pagy::Backend
+    skip_after_action :verify_policy_scoped
 
     def index
       query = params.fetch(:q, {})

@@ -3,6 +3,8 @@
 module Renalware
   module System
     class ViewMetadataController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def edit
         klass = klass_for_view(view_name)
         render locals: { view: view, klass: klass }, layout: false
