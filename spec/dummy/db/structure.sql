@@ -2120,8 +2120,32 @@ CREATE TABLE renalware.drug_types (
     name character varying NOT NULL,
     code character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
+    weighting integer DEFAULT 0 NOT NULL,
+    colour character varying
 );
+
+
+--
+-- Name: COLUMN drug_types."position"; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_types."position" IS 'Controls display order';
+
+
+--
+-- Name: COLUMN drug_types.weighting; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_types.weighting IS 'More important drug types have a higher value so their colour trumps other types a drug might have.';
+
+
+--
+-- Name: COLUMN drug_types.colour; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_types.colour IS 'A CSS colour e.f. ''#A12A12''';
 
 
 --
@@ -20599,6 +20623,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201001145452'),
 ('20201009090959'),
 ('20201012160414'),
-('20201012171428');
+('20201012171428'),
+('20201015160542');
 
 
