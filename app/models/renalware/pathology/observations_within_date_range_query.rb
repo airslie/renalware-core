@@ -8,7 +8,7 @@ module Renalware
     # the specified date range.
     #
     class ObservationsWithinDateRangeQuery
-      def initialize(relation: Observation.all, date_range:)
+      def initialize(date_range:, relation: Observation.all)
         @relation = relation
         @date_range = date_range
       end

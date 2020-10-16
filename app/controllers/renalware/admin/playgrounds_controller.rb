@@ -50,7 +50,7 @@ module Renalware
         return {} if form.patient_id.blank?
 
         ActiveRecord::Base.connection.execute(
-          Arel.sql(<<-SQL)
+          Arel.sql(<<-SQL.squish)
             select
               observed_on as x,
               result as y

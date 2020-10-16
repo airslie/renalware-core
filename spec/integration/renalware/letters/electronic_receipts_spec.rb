@@ -49,7 +49,7 @@ describe "View a user's read/unread electronic ccs", type: :system do
     )
   end
 
-  def create_receipt(read: false, to: @current_user, letter:)
+  def create_receipt(letter:, read: false, to: @current_user)
     create(
       :letter_electronic_receipt,
       letter: letter,

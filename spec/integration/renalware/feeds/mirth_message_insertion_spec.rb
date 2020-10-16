@@ -19,7 +19,7 @@ describe "Simulation of Mirth inserting an HL7 message into delayed_jobs" do
 
   def simulate_mirth_inserting_a_new_hl7_message_into_delayed_jobs
     hl7_msg = hl7_with_uom_caret_encoded_as_slash_s_slash
-    sql = <<-SQL
+    sql = <<-SQL.squish
     insert into renalware.delayed_jobs (handler, run_at)
     values('--- !ruby/struct:FeedJob\nraw_message: |\n  ' || REPLACE('#{hl7_msg}',E'\r',E'\n  '), NOW());
     SQL

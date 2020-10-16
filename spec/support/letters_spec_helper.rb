@@ -2,7 +2,7 @@
 
 # rubocop:disable Metrics/MethodLength
 module LettersSpecHelper
-  def build_letter(state: :draft, to:, patient:, **args)
+  def build_letter(to:, patient:, state: :draft, **args)
     trait = "#{state}_letter".to_sym
     letter = build(trait, **args)
     letter.patient = patient

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   sequence :practice_code do |n|
-    "M" + n.to_s.rjust(5, "0")
+    "M#{n.to_s.rjust(5, '0')}"
   end
 
   factory :practice, class: "Renalware::Patients::Practice" do

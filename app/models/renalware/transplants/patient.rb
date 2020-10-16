@@ -8,7 +8,7 @@ module Renalware
       has_one :current_donor_stage, -> { current }, class_name: "DonorStage"
 
       scope :with_registration_statuses, lambda {
-        joins(<<-SQL)
+        joins(<<-SQL.squish)
           left outer join transplant_registrations
             on transplant_registrations.patient_id = patients.id
           left outer join transplant_registration_statuses

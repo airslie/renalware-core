@@ -44,7 +44,7 @@ module Renalware
         end
 
         def patients_with_a_transplant_date_in_the_past_3_months
-          joins(<<-SQL)
+          joins(<<-SQL.squish)
             LEFT JOIN transplant_recipient_operations
             ON patients.id = transplant_recipient_operations.patient_id
           SQL
@@ -58,7 +58,7 @@ module Renalware
         alias_method :on_worryboard, :patients_on_the_worry_board
 
         def patients_with_a_transplant_operation_in_the_past_year
-          joins(<<-SQL)
+          joins(<<-SQL.squish)
             LEFT JOIN transplant_recipient_operations
             ON patients.id = transplant_recipient_operations.patient_id
           SQL
