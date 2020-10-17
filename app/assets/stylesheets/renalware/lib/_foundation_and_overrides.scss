@@ -536,14 +536,6 @@ $form-spacing: rem-calc(12);
 // $label-font-color-alt: $white;
 // $label-font-family: $body-font-family;
 
-// 17. Magellan
-// - - - - - - - - - - - - - - - - - - - - - - - - -
-
-// $include-html-magellan-classes: $include-html-classes;
-
-// $magellan-bg: $white;
-// $magellan-padding: 0 !important;
-
 // 20. Pagination
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -877,7 +869,6 @@ $topbar-breakpoint: unquote("#{lower-bound(830px)}"); // Change to 9999px for al
 @import 'foundation/components/dropdown';
 @import 'foundation/components/forms';
 @import 'foundation/components/labels';
-@import 'foundation/components/magellan';
 @import 'foundation/components/pagination';
 @import 'foundation/components/panels';
 @import 'foundation/components/reveal';

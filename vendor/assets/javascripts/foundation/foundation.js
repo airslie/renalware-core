@@ -346,7 +346,6 @@
         S(window)
           .trigger('resize.fndtn.clearing')
           .trigger('resize.fndtn.dropdown')
-          .trigger('resize.fndtn.magellan')
           .trigger('resize.fndtn.topbar');
       });
 
