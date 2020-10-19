@@ -8,6 +8,7 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       before_action :prepare_drugs_search, only: :index
+      after_action :track_action, except: :selected_drugs
 
       # Return a list of drugs as JSON for specific drug type (medication_switch)
       # TODO: Make a separate resource eg drug_/esa/drugs.json. E.g.
