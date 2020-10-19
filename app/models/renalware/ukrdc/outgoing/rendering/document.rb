@@ -16,7 +16,7 @@ module Renalware
           # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           def document_element
             create_node("Document") do |elem|
-              elem << create_node("DocumentTime", letter.issued_on.to_time.iso8601)
+              elem << create_node("DocumentTime", letter.datetime.iso8601)
               elem << Clinician.new(user: letter.author).xml
               elem << create_node("DocumentName", letter.title)
               elem << create_node("Status") do |status|

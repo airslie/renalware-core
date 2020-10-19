@@ -4,6 +4,7 @@ en:
     attributes:
       renalware/letters/letter:
         issued_on: Date
+        date: Date
         letterhead: Letterhead
         author: Author
         description: Description

@@ -46,7 +46,6 @@ describe "Assign electronic CCs" do
 
     def fill_out_letter
       within "#letter-form" do
-        fill_in "Date", with: l(Time.zone.today)
         select Renalware::Letters::Letterhead.first.name, from: "Letterhead"
         select Renalware::User.first.to_s, from: "Author"
         select2 "::description::", css: ".letter_description"

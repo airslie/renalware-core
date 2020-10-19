@@ -57,7 +57,7 @@ module Renalware
           letter_description,
           letter_id,
           author,
-          letter_issued_on,
+          letter_date,
           primary_care_physician.code,
           care_group_name || config_letter_default_care_group_name,
           author.signature
@@ -65,8 +65,8 @@ module Renalware
       end
       # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-      def letter_issued_on
-        format_date(letter.issued_on)
+      def letter_date
+        format_date(letter.date)
       end
 
       def format_date(date)
@@ -74,7 +74,7 @@ module Renalware
       end
 
       def visit_or_letter_date
-        date = letter_event&.send(:date) || letter.issued_on
+        date = letter_event&.send(:date) || letter.date
         format_date(date)
       end
 

@@ -44,7 +44,6 @@ module Renalware
       validates :letterhead, presence: true
       validates :author, presence: true
       validates :patient, presence: true
-      validates :issued_on, presence: true
       validates :description, presence: true
       validates :main_recipient, presence: true
 
@@ -132,6 +131,16 @@ module Renalware
 
       def effective_date
         completed_at || approved_at || submitted_for_approval_at || created_at
+      end
+
+      # The date to display on the letter.
+      # Once the letter is approved it can be emailed out, hence this is the real date of issue.
+      def date
+        datetime.to_date
+      end
+
+      def datetime
+        approved_at || submitted_for_approval_at || created_at
       end
     end
   end

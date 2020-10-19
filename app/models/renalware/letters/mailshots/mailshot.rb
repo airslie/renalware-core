@@ -64,7 +64,6 @@ module Renalware
               description: description,
               body: body,
               author_id: author_id,
-              issued_on: Time.zone.now,
               main_recipient_attributes: {
                 person_role: :patient,
                 id: nil,

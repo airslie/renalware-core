@@ -29,7 +29,7 @@ module World
         {
           letterhead: Renalware::Letters::Letterhead.first,
           patient: patient,
-          issued_on: Time.zone.today,
+          created_at: Time.zone.today,
           description: "Foo bar"
         }
       end
@@ -76,7 +76,7 @@ module World
       def draft_simple_letter(options)
         patient = options.fetch(:patient)
         user = options.fetch(:user)
-        issued_on = options.fetch(:issued_on)
+        created_at = options.fetch(:created_at)
         recipient = options.fetch(:recipient)
         author = options.fetch(:author, user)
         ccs = options.fetch(:ccs, nil)
@@ -85,7 +85,7 @@ module World
         patient = letters_patient(patient)
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
-          issued_on: issued_on,
+          created_at: created_at,
           author: author,
           by: user,
           main_recipient_attributes: build_main_recipient_attributes(recipient),
@@ -312,7 +312,7 @@ module World
     module Web
       include Domain
 
-      def draft_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
+      def draft_simple_letter(patient:, user:, created_at:, recipient:, ccs: nil)
         login_as user
         FactoryBot.create(:letter_description, text: "Foo bar")
         visit patient_letters_letters_path(patient)
@@ -320,7 +320,6 @@ module World
         click_on "Simple Letter"
 
         attributes = valid_simple_letter_attributes(patient)
-        fill_in "Date", with: l(attributes[:issued_on]) if issued_on.present?
         select attributes[:letterhead].name, from: "Letterhead"
         select user.to_s, from: "Author"
         select2 attributes[:description], css: ".letter_description"

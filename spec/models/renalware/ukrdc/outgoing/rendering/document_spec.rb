@@ -36,7 +36,7 @@ module Renalware
               by: user,
               patient: Renalware::Letters.cast_patient(patient),
               description: "xxx",
-              issued_on: Date.parse("2019-01-01")
+              approved_at: Date.parse("2019-01-01")
             )
           )
         end

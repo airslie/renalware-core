@@ -34,7 +34,7 @@ module Renalware
       build_letter(
         patient: patient,
         to: primary_care_physician,
-        issued_on: "01-Jan-2018",
+        approved_at: "01-Jan-2018 11:00:01",
         author: user,
         description: "LetterDescription",
         by: user
@@ -60,7 +60,7 @@ module Renalware
             config.hospital_name = "ConfiguredHospitalName"
           end
 
-          visit_or_letter_date = "01/01/2018" # letter.issued_on
+          visit_or_letter_date = "01/01/2018" # letter.approved_at
 
           expect(metadata.to_s).to eq(
             "<IDENT>"\
@@ -98,7 +98,7 @@ module Renalware
             letter_system_name: "MySystem"
           )
 
-          visit_or_letter_date = "01/01/2018" # letter.issued_on
+          visit_or_letter_date = "01/01/2018" # letter.approved_at
 
           expect(metadata.to_s).to eq(
             "<IDENT>"\

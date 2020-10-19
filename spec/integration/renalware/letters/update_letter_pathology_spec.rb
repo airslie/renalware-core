@@ -101,7 +101,6 @@ module Renalware
     def create_letter(patient)
       Letters::LetterFactory.new(patient, clinical: true).build.tap do |letter|
         letter.description = create(:letter_description).text
-        letter.issued_on = Time.zone.today
         letter.letterhead = create(:letter_letterhead)
         letter.author = User.first
         letter.by = User.first

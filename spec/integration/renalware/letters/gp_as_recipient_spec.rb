@@ -19,7 +19,6 @@ describe("Persisting the correct recipients when a letter is saved", type: :syst
 
   def draft_new_letter(user, main_recipient_person_role:)
     form_page = Pages::Letters::PatientLetters.new.go(patient).create_simple_letter
-    form_page.issued_on = Time.zone.today
     form_page.letterhead = Renalware::Letters::Letterhead.first.name
     form_page.author = user
     form_page.description = "::description::"

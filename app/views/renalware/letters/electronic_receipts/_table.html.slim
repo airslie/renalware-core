@@ -19,7 +19,7 @@ table.letters.electronic-ccs.has-togglable-rows
       tr(id=receipt.html_identifier class=letter.state.dasherize)
         td.state
           span= letter.state_description
-        td= l(letter.issued_on)
+        td= l(letter.date)
         td= l(receipt.read_at)
         td= letter.author
         td= default_patient_link(patient)

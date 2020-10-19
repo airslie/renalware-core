@@ -19,7 +19,6 @@ describe Renalware::Letters::SavePdfLetterToFileJob do
     create_letter(
       state: :approved,
       to: :patient,
-      issued_on: Date.parse("2017-12-01"),
       patient: patient
     )
   end
