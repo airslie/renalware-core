@@ -9,7 +9,32 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
-## 2.0.153
+## 2.0.155
+### Added
+- Add Bone Meds tab to prescriptions on MDM screens #3314
+- Store units of measurement supplied in HL7 feed #1881
+- Add new (non-admin) Users page #3317
+- Make drug type codes unique in database
+- Display last signin datetime on user's dashboard #3311
+- Add pilot configurable SQL-view-based alternative MDM screens #3127
+- Add 'Give on HD' filter to prescriptions screen #3283
+- A superadmin can view/edit a list of observation descriptions #3257
+- Add messages about a patient to clinical summary #3282
+- Add a numeric nresult to pathology_observations table #3260
+### Changed
+- PD Adequacy urine changes - add hint to indicate that 0 urine means anuric #3296
+- Sort letter descriptions by a new position column, then by name #3309
+- Remove 'raise notice' calls from pathology triggers #3281
+- Medication list in letters - separate out Give on HD drugs #3284
+- Display peritonitis episodes ended_on dates in PD summary #3303
+- Display all virology statuses on HD protocol even if Unknown #3289
+- Display user name by Allergies in Clinical Profile screen #3278
+- Add more blood values to HD protocol #3290
+- Add the creating user to the worryboard filter #3273
+### Fixed
+- List bullet points not displaying when editing letter in Trix editor #3304
+
+## 2.0.154
 08-07-2020
 ### Added
 - Add a rake task to update pd pet/adequacy calcs #3266
