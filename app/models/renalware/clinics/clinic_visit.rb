@@ -39,10 +39,7 @@ module Renalware
 
       before_save :calculate_body_surface_area
       before_save :calculate_total_body_water
-
-      def bmi
-        BMI.new(weight: weight, height: height).to_f
-      end
+      before_save :calculate_bmi
 
       def bp
         return unless systolic_bp.present? && diastolic_bp.present?
@@ -91,6 +88,10 @@ module Renalware
           age: patient.age,
           sex: patient.sex
         )
+      end
+
+      def calculate_bmi
+        self.bmi = BMI.new(weight: weight, height: height).to_f
       end
     end
   end
