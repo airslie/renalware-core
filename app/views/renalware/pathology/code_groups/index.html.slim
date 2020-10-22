@@ -1,8 +1,8 @@
-= within_admin_layout(title: "Pathology Code Groups") do
-  
+= within_new_admin_layout(title: "Pathology Code Groups") do
+
   table.code-groups-table
-    thead 
-      tr  
+    thead
+      tr
         th Group name
         th Description
     tbody
@@ -13,4 +13,3 @@
               = link_to "View", pathology_code_group_path(group)
           td= group.name
           td= group.description
-

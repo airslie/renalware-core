@@ -1,34 +1,33 @@
-= within_admin_layout(title: group.name) do
+= within_new_admin_layout(title: "Code group <code>#{group.name}</code>".html_safe) do
 
   .panel.info.radius.columns
-    | Editing code groups here is not currently support, sorry. 
+    | Editing code groups here is not currently supported, sorry.
     | You'll need to update the database directly for now.
 
-  h5= group.description
-  = link_to "Edit group", edit_pathology_code_group_path(group)
+  span
+    .text-lg.font-bold Description
+    .mr-2.inline = group.description
+    = link_to "Edit", edit_pathology_code_group_path(group)
 
   br
   br
-  
-  article 
-    header 
-      h2 Codes
 
-    table.pathology-code-group-memberships.sortables
-      thead
-        /th.col-width-tiny
-        th.col-width-tiny Subgroup 
-        th.col-width-small Position inside sub group
-        th.col-width-small Code
-        th Name
-        
-      tbody
-        - group.memberships.order(:subgroup, :position_within_subgroup ).each do |membership|
-          tr.sortable
-            /td
-              i.fas.fa-bars
-            td= membership.subgroup
-            td= membership.position_within_subgroup
-            td= membership.observation_description.code
-            td= membership.observation_description.name
-            
+  .text-lg.font-bold Codes
+
+  table.pathology-code-group-memberships.sortables
+    thead
+      /th.col-width-tiny
+      th.col-width-tiny Subgroup
+      th.col-width-small Pos. within sub group
+      th.col-width-small Code
+      th Name
+
+    tbody
+      - group.memberships.order(:subgroup, :position_within_subgroup ).each do |membership|
+        tr.sortable
+          /td
+            i.fas.fa-bars
+          td= membership.subgroup
+          td= membership.position_within_subgroup
+          td= membership.observation_description.code
+          td= membership.observation_description.name
