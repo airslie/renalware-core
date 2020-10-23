@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/MethodLength, RSpec/ExampleLength
 module Renalware
   module UKRDC
     module Outgoing
@@ -41,6 +41,11 @@ module Renalware
           placer_id = "1-20190101000000000-#{request.description_id}"
           expected_xml = <<~XML.squish.gsub("> <", "><")
             <LabOrder>
+              <ReceivingLocation>
+                <CodingStandard>RR1+</CodingStandard>
+                <Code>Test</Code>
+                <Description>Test</Description>
+              </ReceivingLocation>
               <PlacerId>#{placer_id}</PlacerId>
               <OrderCategory>
                 <Code>FBC</Code>
@@ -84,4 +89,4 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/MethodLength, RSpec/ExampleLength

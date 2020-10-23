@@ -16,6 +16,7 @@ module Renalware
 
           def lab_order_element
             Ox::Element.new("LabOrder").tap do |lab_order|
+              lab_order << receiving_location_element
               lab_order << create_node("PlacerId", request.placer_id)
               lab_order << order_category_element
               lab_order << create_node("SpecimenCollectedTime", request.requested_at&.iso8601)
@@ -77,6 +78,14 @@ module Renalware
 
           def entered_at_element
             create_node("EnteredAt").tap do |elem|
+              elem << create_node("CodingStandard", "RR1+")
+              elem << create_node("Code", Renalware.config.ukrdc_sending_facility_name)
+              elem << create_node("Description", Renalware.config.ukrdc_sending_facility_name)
+            end
+          end
+
+          def receiving_location_element
+            create_node("ReceivingLocation").tap do |elem|
               elem << create_node("CodingStandard", "RR1+")
               elem << create_node("Code", Renalware.config.ukrdc_sending_facility_name)
               elem << create_node("Description", Renalware.config.ukrdc_sending_facility_name)
