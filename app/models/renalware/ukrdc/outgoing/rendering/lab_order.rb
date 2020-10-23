@@ -24,6 +24,7 @@ module Renalware
               lab_order << result_items_element
               lab_order << create_node("EnteredOn", request.requested_at.iso8601)
               lab_order << entered_at_element
+              lab_order << entering_organisation_element
               lab_order << create_node("ExternalId", request.placer_id)
             end
           end
@@ -78,6 +79,14 @@ module Renalware
 
           def entered_at_element
             create_node("EnteredAt").tap do |elem|
+              elem << create_node("CodingStandard", "RR1+")
+              elem << create_node("Code", Renalware.config.ukrdc_sending_facility_name)
+              elem << create_node("Description", Renalware.config.ukrdc_sending_facility_name)
+            end
+          end
+
+          def entering_organisation_element
+            create_node("EnteringOrganization").tap do |elem|
               elem << create_node("CodingStandard", "RR1+")
               elem << create_node("Code", Renalware.config.ukrdc_sending_facility_name)
               elem << create_node("Description", Renalware.config.ukrdc_sending_facility_name)

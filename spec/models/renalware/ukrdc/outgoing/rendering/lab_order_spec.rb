@@ -9,6 +9,8 @@ module Renalware
       describe Rendering::LabOrder do
         include XmlSpecHelper
 
+        before { Renalware.config.ukrdc_sending_facility_name = "Test" }
+
         let(:patient) { instance_double(UKRDC::PatientPresenter, current_modality_hd?: true) }
 
         def build_pathology_request_with_an_hgb_observation
@@ -72,6 +74,11 @@ module Renalware
                 <Code>Test</Code>
                 <Description>Test</Description>
               </EnteredAt>
+              <EnteringOrganization>
+                <CodingStandard>RR1+</CodingStandard>
+                <Code>Test</Code>
+                <Description>Test</Description>
+              </EnteringOrganization>
               <ExternalId>#{placer_id}</ExternalId>
             </LabOrder>
           XML
