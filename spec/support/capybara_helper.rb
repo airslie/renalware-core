@@ -9,9 +9,7 @@ module CapybaraHelper
     select_nth_option_from(selector)
   end
 
-  def within_article(title)
-    within(:css, "article", text: title) do
-      yield
-    end
+  def within_article(title, &block)
+    within(:css, "article", text: title, &block)
   end
 end
