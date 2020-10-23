@@ -38,9 +38,10 @@ module Renalware
 
         it do
           request = build_pathology_request_with_an_hgb_observation
+          placer_id = "1-20190101000000000-#{request.description_id}"
           expected_xml = <<~XML.squish.gsub("> <", "><")
             <LabOrder>
-              <PlacerId>1-20190101000000000-#{request.description_id}</PlacerId>
+              <PlacerId>#{placer_id}</PlacerId>
               <OrderCategory>
                 <Code>FBC</Code>
               </OrderCategory>
@@ -61,6 +62,7 @@ module Renalware
                 </ResultItem>
               </ResultItems>
               <EnteredOn>2019-01-01T00:00:00+00:00</EnteredOn>
+              <ExternalId>#{placer_id}</ExternalId>
             </LabOrder>
           XML
 

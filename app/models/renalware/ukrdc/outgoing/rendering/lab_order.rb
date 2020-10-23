@@ -22,6 +22,7 @@ module Renalware
               lab_order << create_node("SpecimenSource", request.description.bottle_type)
               lab_order << result_items_element
               lab_order << create_node("EnteredOn", request.requested_at.iso8601)
+              lab_order << create_node("ExternalId", request.placer_id)
             end
           end
 
@@ -63,7 +64,7 @@ module Renalware
           end
 
           # If the rr_type of the observation_description is interpretation (ie an interpretted
-          # result like POS NEG the out
+          # result like POS NEG then output the interpretation_code
           def rr_type_value_elements_for(observation, append_to:)
             if observation.rr_type_interpretation?
               append_to << create_node("InterpretationCodes", observation.interpretation_code)
