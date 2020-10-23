@@ -68,7 +68,7 @@ module Renalware
             if observation.rr_type_interpretation?
               append_to << create_node("InterpretationCodes", observation.interpretation_code)
             else
-              append_to << create_node("ResultValue", observation.result)
+              append_to << create_node("ResultValue", observation.result.strip)
               append_to << create_node("ResultValueUnits", observation.measurement_unit_name)
             end
           end

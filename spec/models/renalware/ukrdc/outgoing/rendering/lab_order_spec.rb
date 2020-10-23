@@ -30,7 +30,7 @@ module Renalware
             description: desc,
             observed_at: request.requested_at,
             updated_at: request.requested_at,
-            result: "6.1"
+            result: "  6.1"
           )
           allow(request).to receive(:observations).and_return [observation]
           UKRDC::PathologyObservationRequestPresenter.new(request)
