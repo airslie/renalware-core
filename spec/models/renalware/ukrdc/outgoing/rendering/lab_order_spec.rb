@@ -62,6 +62,11 @@ module Renalware
                 </ResultItem>
               </ResultItems>
               <EnteredOn>2019-01-01T00:00:00+00:00</EnteredOn>
+              <EnteredAt>
+                <CodingStandard>RR1+</CodingStandard>
+                <Code>Test</Code>
+                <Description>Test</Description>
+              </EnteredAt>
               <ExternalId>#{placer_id}</ExternalId>
             </LabOrder>
           XML

@@ -15,8 +15,9 @@ module Renalware
 
           def element
             Ox::Element.new("EnteredAt").tap do |elem|
-              elem << create_node("CodingStandard", "LOCAL")
-              elem << create_node("Code", hospital_unit&.unit_code)
+              elem << create_node("CodingStandard", "RR1+")
+              elem << create_node("Code", hospital_unit&.renal_registry_code)
+              elem << create_node("Description", hospital_unit&.name)
             end
           end
         end

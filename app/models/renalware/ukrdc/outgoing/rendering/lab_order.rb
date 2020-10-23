@@ -22,6 +22,7 @@ module Renalware
               lab_order << create_node("SpecimenSource", request.description.bottle_type)
               lab_order << result_items_element
               lab_order << create_node("EnteredOn", request.requested_at.iso8601)
+              lab_order << entered_at_element
               lab_order << create_node("ExternalId", request.placer_id)
             end
           end
@@ -71,6 +72,14 @@ module Renalware
             else
               append_to << create_node("ResultValue", observation.result.strip)
               append_to << create_node("ResultValueUnits", observation.measurement_unit_name)
+            end
+          end
+
+          def entered_at_element
+            create_node("EnteredAt").tap do |elem|
+              elem << create_node("CodingStandard", "RR1+")
+              elem << create_node("Code", Renalware.config.ukrdc_sending_facility_name)
+              elem << create_node("Description", Renalware.config.ukrdc_sending_facility_name)
             end
           end
         end
