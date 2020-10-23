@@ -17,20 +17,6 @@ CREATE SCHEMA renalware;
 
 
 --
--- Name: renalware_diaverum; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA renalware_diaverum;
-
-
---
--- Name: renalware_kch; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA renalware_kch;
-
-
---
 -- Name: btree_gist; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -318,51 +304,6 @@ $$;
 
 
 --
--- Name: histogram(text, text); Type: FUNCTION; Schema: renalware; Owner: -
---
-
-CREATE FUNCTION renalware.histogram(table_name_or_subquery text, column_name text) RETURNS TABLE(bucket integer, range numrange, freq bigint, bar text)
-    LANGUAGE plpgsql
-    AS $$
-BEGIN
-RETURN QUERY EXECUTE format('
-  WITH
-  source AS (
-    SELECT * FROM %s
-  ),
-  min_max AS (
-    SELECT min(%s) AS min, max(%s) AS max FROM source
-  ),
-  histogram AS (
-    SELECT
-      width_bucket(%s, min_max.min, min_max.max, 499) AS bucket,
-      numrange(min(%s)::numeric, max(%s)::numeric, ''[]'') AS "range",
-      count(%s) AS freq
-    FROM source, min_max
-    WHERE %s IS NOT NULL
-    GROUP BY bucket
-    ORDER BY bucket
-  )
-  SELECT
-    bucket,
-    "range",
-    freq::bigint,
-    repeat(''*'', (freq::float / (max(freq) over() + 1) * 50)::int) AS bar
-  FROM histogram',
-  table_name_or_subquery,
-  column_name,
-  column_name,
-  column_name,
-  column_name,
-  column_name,
-  column_name,
-  column_name
-  );
-END
-$$;
-
-
---
 -- Name: import_gps_csv(text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -617,23 +558,9 @@ CREATE FUNCTION renalware.pathology_chart_data(patient_id integer, code text, st
    SELECT observed_at::date, convert_to_float(result) from pathology_observations po
    inner join pathology_observation_requests por on por.id = po.request_id
    inner join pathology_observation_descriptions pod on pod.id = po.description_id
-   where pod.code = $2 and observed_at >= start_date
-and por.patient_id = $1;
-$_$;
+   where pod.code = $2 and observed_at >= start_date and por.patient_id = $1
+   order by po.observed_at asc, po.created_at desc;
 
-
---
--- Name: pathology_x(integer, text, date); Type: FUNCTION; Schema: renalware; Owner: -
---
-
-CREATE FUNCTION renalware.pathology_x(patient_id integer, code text, start_date date) RETURNS TABLE(observed_on date, result double precision)
-    LANGUAGE sql
-    AS $_$
-   SELECT observed_at::date, convert_to_float(result)  from pathology_observations po
-   inner join pathology_observation_requests por on por.id = po.request_id
-   inner join pathology_observation_descriptions pod on pod.id = po.description_id
-   where pod.code = $2 
-and por.patient_id = $1;
 $_$;
 
 
@@ -934,40 +861,9 @@ SET default_table_access_method = heap;
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
 );
-
-
---
--- Name: data_migrations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.data_migrations (
-    id bigint NOT NULL,
-    version character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: data_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.data_migrations_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: data_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.data_migrations_id_seq OWNED BY public.data_migrations.id;
 
 
 --
@@ -1798,7 +1694,7 @@ CREATE TABLE renalware.clinic_visits (
     standing_diastolic_bp integer,
     body_surface_area numeric(8,2),
     total_body_water numeric(8,2),
-    bmi double precision
+    bmi numeric(4,1)
 );
 
 
@@ -3319,7 +3215,7 @@ CREATE VIEW renalware.hd_mdm_patients AS
     at.name AS access,
     ( SELECT cv2.bmi
            FROM renalware.clinic_visits cv2
-          WHERE ((cv2.patient_id = p.id) AND (cv2.bmi > (0)::double precision))
+          WHERE ((cv2.patient_id = p.id) AND (cv2.bmi > (0)::numeric))
           ORDER BY cv2.date DESC
          LIMIT 1) AS bmi,
     ap.started_on AS access_date,
@@ -4490,8 +4386,7 @@ CREATE TABLE renalware.letter_recipients (
     addressee_type character varying,
     addressee_id integer,
     emailed_at timestamp without time zone,
-    printed_at timestamp without time zone,
-    email_later boolean DEFAULT false NOT NULL
+    printed_at timestamp without time zone
 );
 
 
@@ -4570,7 +4465,7 @@ CREATE VIEW renalware.low_clearance_mdm_patients AS
         END AS on_worryboard,
     ( SELECT clinic_visits.bmi
            FROM renalware.clinic_visits
-          WHERE ((clinic_visits.patient_id = p.id) AND (clinic_visits.bmi > (0)::double precision))
+          WHERE ((clinic_visits.patient_id = p.id) AND (clinic_visits.bmi > (0)::numeric))
           ORDER BY clinic_visits.date DESC
          LIMIT 1) AS bmi,
     txrsd.name AS tx_status,
@@ -5294,9 +5189,7 @@ CREATE TABLE renalware.pathology_observations (
     description_id integer NOT NULL,
     request_id integer NOT NULL,
     cancelled boolean,
-    current boolean,
-    nresult double precision,
-    nresult_updated boolean DEFAULT false NOT NULL
+    nresult double precision
 );
 
 
@@ -5355,39 +5248,6 @@ CREATE SEQUENCE renalware.pathology_labs_id_seq
 --
 
 ALTER SEQUENCE renalware.pathology_labs_id_seq OWNED BY renalware.pathology_labs.id;
-
-
---
--- Name: pathology_lates_observations; Type: MATERIALIZED VIEW; Schema: renalware; Owner: -
---
-
-CREATE MATERIALIZED VIEW renalware.pathology_lates_observations AS
- SELECT DISTINCT ON (pathology_observation_requests.patient_id, pathology_observation_descriptions.id) pathology_observations.id,
-    pathology_observations.result,
-    pathology_observations.comment,
-    pathology_observations.observed_at,
-    pathology_observations.description_id,
-    pathology_observations.request_id,
-    pathology_observation_descriptions.code AS description_code,
-    pathology_observation_requests.patient_id
-   FROM ((renalware.pathology_observations
-     LEFT JOIN renalware.pathology_observation_requests ON ((pathology_observations.request_id = pathology_observation_requests.id)))
-     LEFT JOIN renalware.pathology_observation_descriptions ON ((pathology_observations.description_id = pathology_observation_descriptions.id)))
-  ORDER BY pathology_observation_requests.patient_id, pathology_observation_descriptions.id, pathology_observations.observed_at DESC
-  WITH NO DATA;
-
-
---
--- Name: pathology_latest_observations1; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.pathology_latest_observations1 AS
- SELECT DISTINCT ON (pathology_observation_requests.patient_id, pathology_observations.description_id) pathology_observations.id,
-    pathology_observations.description_id,
-    pathology_observation_requests.patient_id
-   FROM (renalware.pathology_observations
-     LEFT JOIN renalware.pathology_observation_requests ON ((pathology_observations.request_id = pathology_observation_requests.id)))
-  ORDER BY pathology_observation_requests.patient_id, pathology_observations.description_id, pathology_observations.observed_at DESC;
 
 
 --
@@ -6675,7 +6535,7 @@ CREATE VIEW renalware.pd_mdm_patients AS
     ppe.diagnosis_date AS last_peritonitis_date,
     ( SELECT cv2.bmi
            FROM renalware.clinic_visits cv2
-          WHERE ((cv2.patient_id = p.id) AND (cv2.bmi > (0)::double precision))
+          WHERE ((cv2.patient_id = p.id) AND (cv2.bmi > (0)::numeric))
           ORDER BY cv2.date DESC
          LIMIT 1) AS bmi,
     ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
@@ -7602,7 +7462,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text, ('Nephrology'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -7666,7 +7526,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
              JOIN renalware.modality_descriptions md ON ((m.description_id = md.id)))) e1
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS pth
            FROM renalware.pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'PTH'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
+          WHERE (((pathology_current_observations.description_code)::text = 'PTHI'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS phos
            FROM renalware.pathology_current_observations
           WHERE (((pathology_current_observations.description_code)::text = 'PHOS'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e3 ON (true))
@@ -7681,7 +7541,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY (ARRAY[('HD'::character varying)::text, ('PD'::character varying)::text, ('Transplant'::character varying)::text, ('Low Clearance'::character varying)::text]))
+  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -8206,7 +8066,7 @@ CREATE VIEW renalware.supportive_care_mdm_patients AS
         END AS on_worryboard,
     ( SELECT cv2.bmi
            FROM renalware.clinic_visits cv2
-          WHERE ((cv2.patient_id = p.id) AND (cv2.bmi > (0)::double precision))
+          WHERE ((cv2.patient_id = p.id) AND (cv2.bmi > (0)::numeric))
           ORDER BY cv2.date DESC
          LIMIT 1) AS bmi,
     txrsd.name AS tx_status,
@@ -9109,18 +8969,6 @@ ALTER SEQUENCE renalware.system_visits_id_seq OWNED BY renalware.system_visits.i
 
 
 --
--- Name: tmp_problems_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE renalware.tmp_problems_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
 -- Name: transplant_donations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -9470,7 +9318,7 @@ CREATE VIEW renalware.transplant_mdm_patients AS
         END AS on_worryboard,
     ( SELECT cv2.bmi
            FROM renalware.clinic_visits cv2
-          WHERE ((cv2.patient_id = p.id) AND (cv2.bmi > (0)::double precision))
+          WHERE ((cv2.patient_id = p.id) AND (cv2.bmi > (0)::numeric))
           ORDER BY cv2.date DESC
          LIMIT 1) AS bmi,
         CASE
@@ -10076,87 +9924,6 @@ CREATE SEQUENCE renalware.virology_versions_id_seq
 --
 
 ALTER SEQUENCE renalware.virology_versions_id_seq OWNED BY renalware.virology_versions.id;
-
-
---
--- Name: access_maps; Type: TABLE; Schema: renalware_diaverum; Owner: -
---
-
-CREATE TABLE renalware_diaverum.access_maps (
-    id bigint NOT NULL,
-    diaverum_location_id character varying NOT NULL,
-    diaverum_type_id character varying NOT NULL,
-    side character varying,
-    access_type_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: access_maps_id_seq; Type: SEQUENCE; Schema: renalware_diaverum; Owner: -
---
-
-CREATE SEQUENCE renalware_diaverum.access_maps_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: access_maps_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware_diaverum; Owner: -
---
-
-ALTER SEQUENCE renalware_diaverum.access_maps_id_seq OWNED BY renalware_diaverum.access_maps.id;
-
-
---
--- Name: hd_type_maps; Type: TABLE; Schema: renalware_diaverum; Owner: -
---
-
-CREATE TABLE renalware_diaverum.hd_type_maps (
-    id bigint NOT NULL,
-    diaverum_type_id character varying NOT NULL,
-    hd_type character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: hd_type_maps_id_seq; Type: SEQUENCE; Schema: renalware_diaverum; Owner: -
---
-
-CREATE SEQUENCE renalware_diaverum.hd_type_maps_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: hd_type_maps_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware_diaverum; Owner: -
---
-
-ALTER SEQUENCE renalware_diaverum.hd_type_maps_id_seq OWNED BY renalware_diaverum.hd_type_maps.id;
-
-
---
--- Name: letters_to_the_patient_with_unsent_gp_cc; Type: VIEW; Schema: renalware_kch; Owner: -
---
-
-CREATE VIEW renalware_kch.letters_to_the_patient_with_unsent_gp_cc AS
- SELECT 1;
-
-
---
--- Name: data_migrations id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.data_migrations ALTER COLUMN id SET DEFAULT nextval('public.data_migrations_id_seq'::regclass);
 
 
 --
@@ -11560,33 +11327,11 @@ ALTER TABLE ONLY renalware.virology_versions ALTER COLUMN id SET DEFAULT nextval
 
 
 --
--- Name: access_maps id; Type: DEFAULT; Schema: renalware_diaverum; Owner: -
---
-
-ALTER TABLE ONLY renalware_diaverum.access_maps ALTER COLUMN id SET DEFAULT nextval('renalware_diaverum.access_maps_id_seq'::regclass);
-
-
---
--- Name: hd_type_maps id; Type: DEFAULT; Schema: renalware_diaverum; Owner: -
---
-
-ALTER TABLE ONLY renalware_diaverum.hd_type_maps ALTER COLUMN id SET DEFAULT nextval('renalware_diaverum.hd_type_maps_id_seq'::regclass);
-
-
---
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
-
-
---
--- Name: data_migrations data_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.data_migrations
-    ADD CONSTRAINT data_migrations_pkey PRIMARY KEY (id);
 
 
 --
@@ -13206,22 +12951,6 @@ ALTER TABLE ONLY renalware.virology_versions
 
 
 --
--- Name: access_maps access_maps_pkey; Type: CONSTRAINT; Schema: renalware_diaverum; Owner: -
---
-
-ALTER TABLE ONLY renalware_diaverum.access_maps
-    ADD CONSTRAINT access_maps_pkey PRIMARY KEY (id);
-
-
---
--- Name: hd_type_maps hd_type_maps_pkey; Type: CONSTRAINT; Schema: renalware_diaverum; Owner: -
---
-
-ALTER TABLE ONLY renalware_diaverum.hd_type_maps
-    ADD CONSTRAINT hd_type_maps_pkey PRIMARY KEY (id);
-
-
---
 -- Name: access_plan_uniqueness; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -13733,13 +13462,6 @@ CREATE INDEX index_admission_requests_on_hospital_unit_id ON renalware.admission
 
 
 --
--- Name: index_admission_requests_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_admission_requests_on_patient_id ON renalware.admission_requests USING btree (patient_id);
-
-
---
 -- Name: index_admission_requests_on_patient_id_and_deleted_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -13954,13 +13676,6 @@ CREATE INDEX index_directory_people_on_created_by_id ON renalware.directory_peop
 --
 
 CREATE INDEX index_directory_people_on_updated_by_id ON renalware.directory_people USING btree (updated_by_id);
-
-
---
--- Name: index_drug_homecare_forms_on_drug_type_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_drug_homecare_forms_on_drug_type_id ON renalware.drug_homecare_forms USING btree (drug_type_id);
 
 
 --
@@ -15028,13 +14743,6 @@ CREATE INDEX index_letter_mailshot_items_on_letter_id ON renalware.letter_mailsh
 
 
 --
--- Name: index_letter_mailshot_items_on_mailshot_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_letter_mailshot_items_on_mailshot_id ON renalware.letter_mailshot_items USING btree (mailshot_id);
-
-
---
 -- Name: index_letter_mailshot_items_on_mailshot_id_and_letter_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -15431,13 +15139,6 @@ CREATE INDEX index_modality_modalities_on_patient_id ON renalware.modality_modal
 --
 
 CREATE INDEX index_modality_modalities_on_patient_id_and_description_id ON renalware.modality_modalities USING btree (patient_id, description_id);
-
-
---
--- Name: index_modality_modalities_on_patient_id_current; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_modality_modalities_on_patient_id_current ON renalware.modality_modalities USING btree (patient_id) WHERE (ended_on IS NULL);
 
 
 --
@@ -16743,13 +16444,6 @@ CREATE INDEX index_survey_questions_on_survey_id ON renalware.survey_questions U
 
 
 --
--- Name: index_survey_responses_on_answered_on; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_survey_responses_on_answered_on ON renalware.survey_responses USING btree (answered_on);
-
-
---
 -- Name: index_survey_responses_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -16852,13 +16546,6 @@ CREATE INDEX index_system_countries_on_position ON renalware.system_countries US
 --
 
 CREATE INDEX index_system_dashboard_components_on_component_id ON renalware.system_dashboard_components USING btree (component_id);
-
-
---
--- Name: index_system_dashboard_components_on_dashboard_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_system_dashboard_components_on_dashboard_id ON renalware.system_dashboard_components USING btree (dashboard_id);
 
 
 --
@@ -17534,20 +17221,6 @@ CREATE INDEX pathology_code_group_membership_obx ON renalware.pathology_code_gro
 
 
 --
--- Name: pathology_observations_123; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX pathology_observations_123 ON renalware.pathology_observations USING btree (request_id, description_id) WHERE (observed_at > '2018-07-09 22:00:00'::timestamp without time zone);
-
-
---
--- Name: pathology_observations_curr_tim; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX pathology_observations_curr_tim ON renalware.pathology_observations USING btree (request_id, description_id, observed_at DESC);
-
-
---
 -- Name: patient_bookmarks_uniqueness; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -17657,34 +17330,6 @@ CREATE INDEX tx_versions_type_id ON renalware.transplant_versions USING btree (i
 --
 
 CREATE UNIQUE INDEX unique_study_participants ON renalware.research_study_participants USING btree (participant_id, study_id) WHERE (deleted_at IS NULL);
-
-
---
--- Name: vfastpathsorted; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX vfastpathsorted ON renalware.pathology_observations USING btree (observed_at DESC);
-
-
---
--- Name: yay_idx; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX yay_idx ON renalware.pathology_lates_observations USING btree (patient_id, description_id, request_id);
-
-
---
--- Name: index_renalware_diaverum.hd_type_maps_on_diaverum_type_id; Type: INDEX; Schema: renalware_diaverum; Owner: -
---
-
-CREATE UNIQUE INDEX "index_renalware_diaverum.hd_type_maps_on_diaverum_type_id" ON renalware_diaverum.hd_type_maps USING btree (diaverum_type_id);
-
-
---
--- Name: renalware_diaverum_access_maps_idx; Type: INDEX; Schema: renalware_diaverum; Owner: -
---
-
-CREATE UNIQUE INDEX renalware_diaverum_access_maps_idx ON renalware_diaverum.access_maps USING btree (diaverum_location_id, diaverum_type_id);
 
 
 --
@@ -20775,24 +20420,19 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180119121243'),
 ('20180121115246'),
 ('20180122173922'),
-('20180124190235'),
 ('20180125201356'),
 ('20180126142314'),
-('20180129080544'),
 ('20180130165803'),
 ('20180201090444'),
 ('20180202184954'),
 ('20180206225525'),
 ('20180207082540'),
 ('20180208150629'),
-('20180209095614'),
-('20180209115743'),
 ('20180213124203'),
 ('20180213125734'),
 ('20180213171805'),
 ('20180214124317'),
 ('20180216132741'),
-('20180220110945'),
 ('20180221210458'),
 ('20180222090501'),
 ('20180223100420'),
@@ -20800,7 +20440,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180226132410'),
 ('20180301095040'),
 ('20180305134959'),
-('20180305154250'),
 ('20180306071308'),
 ('20180306080518'),
 ('20180307191650'),
@@ -20810,13 +20449,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180311104609'),
 ('20180313114927'),
 ('20180313124819'),
-('20180319182238'),
 ('20180319191942'),
 ('20180323150241'),
 ('20180326155400'),
 ('20180327100423'),
 ('20180328210434'),
-('20180404092241'),
 ('20180419141524'),
 ('20180422090043'),
 ('20180427133558'),
@@ -20828,18 +20465,13 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180511171835'),
 ('20180514151627'),
 ('20180516111411'),
-('20180523162018'),
 ('20180524072633'),
 ('20180524074320'),
 ('20180605114332'),
 ('20180605141806'),
 ('20180605175211'),
-('20180606154103'),
-('20180608084826'),
 ('20180622130552'),
-('20180625105333'),
 ('20180625124431'),
-('20180627155720'),
 ('20180628132323'),
 ('20180702091222'),
 ('20180702091237'),
@@ -20854,31 +20486,23 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180802144507'),
 ('20180803131157'),
 ('20180814103916'),
-('20180815124429'),
 ('20180815144429'),
-('20180830140422'),
 ('20180831134606'),
 ('20180831134926'),
 ('20180907100545'),
 ('20181001162513'),
 ('20181008144324'),
 ('20181008145159'),
-('20181010123132'),
 ('20181013115138'),
 ('20181025170410'),
 ('20181026145459'),
-('20181106133400'),
 ('20181106133500'),
 ('20181109110616'),
-('20181120110340'),
-('20181120110757'),
-('20181121150007'),
 ('20181126090401'),
 ('20181126123745'),
 ('20181217124025'),
 ('20190104095254'),
 ('20190218142207'),
-('20190225093926'),
 ('20190225103005'),
 ('20190315125638'),
 ('20190322120025'),
@@ -20887,14 +20511,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190401105149'),
 ('20190422095620'),
 ('20190424101709'),
-('20190509160058'),
 ('20190511164137'),
 ('20190512155900'),
 ('20190513131826'),
 ('20190513135312'),
 ('20190516093707'),
 ('20190520091324'),
-('20190531172819'),
 ('20190531172829'),
 ('20190602114659'),
 ('20190603084428'),
@@ -20949,7 +20571,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191105095304'),
 ('20191108105923'),
 ('20191203112310'),
-('20191204103749'),
 ('20191205185835'),
 ('20191209160151'),
 ('20191209163151'),
@@ -21007,6 +20628,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201020170921'),
 ('20201020171139'),
 ('20201021153832'),
-('20201021154809');
+('20201021154809'),
+('20201023092859');
 
 
