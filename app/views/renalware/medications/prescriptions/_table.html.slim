@@ -1,4 +1,5 @@
 - if prescriptions.any?
+  - display_termination_date = !current_scope || local_assigns.fetch(:display_termination_date, false)
   .row
     .large-12.columns
       table[class="auto-layout" id="#{id}"]
@@ -20,7 +21,7 @@
             th.col-width-date.wide
               = sort_link_if(treatable.sortable?, search, :prescribed_on, "Prescribed on")
             th Recorded By
-            - unless current_scope
+            - if display_termination_date
               th.col-width-date Terminated On
               th Terminated By
         tbody
@@ -42,7 +43,7 @@
               td= prescription.notes
               td= I18n.l prescription.prescribed_on
               td= prescription.created_by.full_name
-              - unless current_scope
+              - if display_termination_date
                 td= I18n.l prescription.terminated_on
                 td= prescription.terminated_by&.full_name
 - else
