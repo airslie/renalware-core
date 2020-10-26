@@ -1,4 +1,4 @@
-class RemoveUnusedIndexes < ActiveRecord::Migration[6.0]
+class RemoveUnusedIndexes < ActiveRecord::Migration[5.2]
   def change
     within_renalware_schema do
       # Covered by index_admission_requests_on_patient_id_and_deleted_at
