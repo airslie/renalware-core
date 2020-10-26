@@ -55,7 +55,7 @@ group :development do
   gem "rubocop-performance"
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
-  gem "turnip", "~> 3.1", require: false
+  gem "turnip", "~> 4.0", require: false
 end
 
 group :development, :test do
