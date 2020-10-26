@@ -21,6 +21,10 @@ This project adheres to Semantic Versioning.
 - A superadmin can view/edit a list of observation descriptions #3257
 - Add messages about a patient to clinical summary #3282
 - Add a numeric nresult to pathology_observations table #3260
+- Add Active Consult flag to alerts #3069
+- Add BMI to all dynamic MDMs #3315
+- Prepare to use pathology code groups on letters #3330
+- Document how groups of pathology results are configured for display #3331
 ### Changed
 - PD Adequacy urine changes - add hint to indicate that 0 urine means anuric #3296
 - Sort letter descriptions by a new position column, then by name #3309
@@ -31,8 +35,14 @@ This project adheres to Semantic Versioning.
 - Display user name by Allergies in Clinical Profile screen #3278
 - Add more blood values to HD protocol #3290
 - Add the creating user to the worryboard filter #3273
+- Display prescription end date in PD Peritonitis episodes #3310
+- UKRDC LabOrder changes in exported XML #3333
+- Update tailwindcss & remove foundation-rails gem #3326
+- Move Sort AR extension into Sortable concern #3336
+- Make drug type codes unique in database #3320
 ### Fixed
 - List bullet points not displaying when editing letter in Trix editor #3304
+- Don't track visits to drug lookup json api #3322
 
 ## 2.0.154
 08-07-2020
