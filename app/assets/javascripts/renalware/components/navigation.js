@@ -16,11 +16,4 @@ $(document).ready(function(){
       $(this).addClass('active');
     }
   });
-
-  $(document).foundation({
-    "magellan-expedition": {
-      destination_threshold: 30,
-      fixed_top: 49
-    }
-  });
 });
