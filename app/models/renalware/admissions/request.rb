@@ -7,6 +7,7 @@ module Renalware
     class Request < ApplicationRecord
       include Accountable
       extend Enumerize
+      include Sortable
 
       acts_as_paranoid
 
