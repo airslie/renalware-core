@@ -15,6 +15,7 @@ module Renalware
       Clinics::ClinicVisit.new(
         height: 1.8,
         weight: 90.0,
+        bmi: 27.8,
         bp: "110/70",
         urine_blood: :low,
         urine_protein: :trace
@@ -22,8 +23,6 @@ module Renalware
     }
 
     it "renders the visit observations", :aggregate_failures do
-      # render partial: partial, locals: { clinical_observations: part }
-
       is_expected.to include("BMI")
       is_expected.to include("27.8")
       is_expected.to include("Height")

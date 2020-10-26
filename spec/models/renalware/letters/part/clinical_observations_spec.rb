@@ -4,11 +4,12 @@ require "rails_helper"
 
 module Renalware::Letters
   describe Part::ClinicalObservations do
-    subject(:part) { Part::ClinicalObservations.new(patient, Letter.new, clinic_visit_event) }
+    subject(:part) { Part::ClinicalObservations.new(patient, Letter.new, visit) }
 
-    let(:clinic_visit_event) {
+    let(:visit) {
       Renalware::Clinics::ClinicVisit.new(
-        height: 1.80, weight: 90.0, bp: "110/70", urine_blood: :very_low, urine_protein: :trace
+        height: 1.80, weight: 90.0, bp: "110/70", bmi: 27.8,
+        urine_blood: :very_low, urine_protein: :trace
       )
     }
     let(:patient) { instance_double(Patient) }

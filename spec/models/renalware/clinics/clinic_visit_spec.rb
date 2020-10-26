@@ -18,7 +18,7 @@ describe Renalware::Clinics::ClinicVisit, type: :model do
   end
 
   describe "bmi" do
-    subject(:visit) { build_stubbed(:clinic_visit, height: 1.7, weight: 82.5, patient: patient) }
+    subject(:visit) { create(:clinic_visit, height: 1.7, weight: 82.5, patient: patient) }
 
     let(:patient) { Renalware::Clinics.cast_patient(create(:patient)) }
 
