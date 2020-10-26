@@ -1,1 +1,2 @@
 = render partial: "/renalware/patients/alerts/alert", collection: patient.alerts
+= render Renalware::Admissions::ActiveConsultAlertComponent.new(patient: patient, current_user: current_user)
