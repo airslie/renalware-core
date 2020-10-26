@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.157
+### Added
+### Changed
+### Fixed
+- Resolve clinic_visit bmi overflow issues due to invalid height/weight data
+
 ## 2.0.156
 ### Added
 ### Changed
