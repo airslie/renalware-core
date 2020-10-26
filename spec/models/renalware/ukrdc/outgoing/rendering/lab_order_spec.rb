@@ -2,12 +2,14 @@
 
 require "rails_helper"
 
-# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/MethodLength, RSpec/ExampleLength
 module Renalware
   module UKRDC
     module Outgoing
       describe Rendering::LabOrder do
         include XmlSpecHelper
+
+        before { Renalware.config.ukrdc_sending_facility_name = "Test" }
 
         let(:patient) { instance_double(UKRDC::PatientPresenter, current_modality_hd?: true) }
 
@@ -30,7 +32,7 @@ module Renalware
             description: desc,
             observed_at: request.requested_at,
             updated_at: request.requested_at,
-            result: "6.1"
+            result: "  6.1"
           )
           allow(request).to receive(:observations).and_return [observation]
           UKRDC::PathologyObservationRequestPresenter.new(request)
@@ -38,9 +40,15 @@ module Renalware
 
         it do
           request = build_pathology_request_with_an_hgb_observation
+          placer_id = "1-20190101000000000-#{request.description_id}"
           expected_xml = <<~XML.squish.gsub("> <", "><")
             <LabOrder>
-              <PlacerId>1-20190101000000000-#{request.description_id}</PlacerId>
+              <ReceivingLocation>
+                <CodingStandard>RR1+</CodingStandard>
+                <Code>Test</Code>
+                <Description>Test</Description>
+              </ReceivingLocation>
+              <PlacerId>#{placer_id}</PlacerId>
               <OrderCategory>
                 <Code>FBC</Code>
               </OrderCategory>
@@ -61,6 +69,17 @@ module Renalware
                 </ResultItem>
               </ResultItems>
               <EnteredOn>2019-01-01T00:00:00+00:00</EnteredOn>
+              <EnteredAt>
+                <CodingStandard>RR1+</CodingStandard>
+                <Code>Test</Code>
+                <Description>Test</Description>
+              </EnteredAt>
+              <EnteringOrganization>
+                <CodingStandard>RR1+</CodingStandard>
+                <Code>Test</Code>
+                <Description>Test</Description>
+              </EnteringOrganization>
+              <ExternalId>#{placer_id}</ExternalId>
             </LabOrder>
           XML
 
@@ -77,4 +96,4 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/MethodLength, RSpec/ExampleLength
