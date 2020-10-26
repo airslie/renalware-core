@@ -7,6 +7,7 @@ module Renalware
     class Problem < ApplicationRecord
       include PatientScope
       include Accountable
+      include Sortable
 
       acts_as_paranoid
 
@@ -23,7 +24,7 @@ module Renalware
       scope :with_patient, -> { includes(:patient) }
       scope :with_versions, -> { includes(versions: :item) }
 
-      # This scope is called by CoreExtensions::ActiveRecord::Sort
+      # This scope is called by Sortable concern
       scope :position_sorting_scope, ->(problem) { where(patient_id: problem.patient.id) }
 
       validates :patient, presence: true
