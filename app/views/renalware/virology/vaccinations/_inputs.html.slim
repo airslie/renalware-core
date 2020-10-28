@@ -2,3 +2,4 @@
 / Pulled into the New Event form via a js get to EventsController#new
 = f.simple_fields_for :document, event.document do |fd|
   = fd.input :type, wrapper: :horizontal_medium
+  = fd.input :drug, wrapper: :horizontal_medium, collection: Renalware::Drugs::Drug.for(:vaccine).pluck(:name, :name)

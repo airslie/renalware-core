@@ -16,7 +16,14 @@ module Renalware
     end
   end
 
-  # log "Adding Blood Transfusion drug" do
-  #   Drugs::Drug.find_or_create_by!(name: "Blood Transfusion")
-  # end
+  log "Adding Vaccination drugs" do
+    vaccination_drug_type = Drugs::Type.find_by!(code: "vaccine")
+    [
+      "HBVAXPRO 40 micrograms (hepatitis B vaccine)"
+    ].each do |name|
+      drug = Drugs::Drug.find_or_create_by!(name: name)
+      drug.drug_types << vaccination_drug_type
+      drug.save!
+    end
+  end
 end

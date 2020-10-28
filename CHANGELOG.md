@@ -7,6 +7,7 @@ This project adheres to Semantic Versioning.
 ## Unreleased
 ### Added
 ### Changed
+- Add an optional drug when creating a vaccination event #3342
 ### Fixed
 
 ## 2.0.157

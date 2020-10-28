@@ -10,7 +10,8 @@ module Renalware
         ["Immunosuppressant", "immunosuppressant", "#ccfeff", 100],
         ["Peritonitis", "peritonitis"],
         ["Controlled", "controlled"],
-        ["Bone/Calcium/Phosphate", "bone/Ca/PO4"]
+        ["Bone/Calcium/Phosphate", "bone/Ca/PO4"],
+        ["Vaccine", "vaccine"]
       ].each_with_index do |drug_type, idx|
         Drugs::Type.find_or_create_by!(code: drug_type[1]) do |type|
           type.name = drug_type[0]

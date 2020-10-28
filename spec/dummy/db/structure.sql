@@ -1694,7 +1694,7 @@ CREATE TABLE renalware.clinic_visits (
     standing_diastolic_bp integer,
     body_surface_area numeric(8,2),
     total_body_water numeric(8,2),
-    bmi numeric(4,1)
+    bmi numeric(10,1)
 );
 
 
