@@ -16,7 +16,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.157)
+    renalware-core (2.0.158)
       active_type (~> 0.7.1)
       activerecord-import (~> 0.28.0)
       activerecord-postgres_enum (~> 0.6.0)
@@ -662,7 +662,7 @@ GEM
     user_agent_parser (2.7.0)
     validates_timeliness (4.1.1)
       timeliness (>= 0.3.10, < 1)
-    view_component (2.20.0)
+    view_component (2.21.0)
       activesupport (>= 5.0.0, < 7.0)
     virtus (1.0.5)
       axiom-types (~> 0.1)

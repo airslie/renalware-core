@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.158
+### Added
+### Changed
+### Fixed
+- Incorrect messages count on clinical summary #3340
+
 ## 2.0.157
 ### Added
 ### Changed

@@ -30,7 +30,7 @@ module Renalware
         if pagination.items < pagination.count
           "#{TITLE} (#{pagination.items} of #{pagination.count})"
         else
-          "#{TITLE} (#{pagination.items})"
+          "#{TITLE} (#{pagination.count})"
         end
       end
 
