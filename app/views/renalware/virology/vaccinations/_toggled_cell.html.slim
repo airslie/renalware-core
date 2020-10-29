@@ -4,5 +4,7 @@
 dl.dl-horizontal
   dt= attr_name(document, :type, suffix: ":")
   dd= document.type&.text || t("unspecified")
+  dt= attr_name(document, :drug, suffix: ":")
+  dd= document.drug.presence || t("unspecified")
   dt= attr_name(event, :notes, suffix: ":")
   dd= event.notes&.html_safe || t("unspecified")

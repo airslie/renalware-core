@@ -18,7 +18,7 @@ PATH
   specs:
     renalware-core (2.0.158)
       active_type (~> 0.7.1)
-      activerecord-import (~> 0.28.0)
+      activerecord-import (~> 1.0)
       activerecord-postgres_enum (~> 0.6.0)
       ahoy_matey (~> 2.1)
       attr_extras (~> 6.2)
@@ -141,7 +141,7 @@ GEM
     activerecord (6.0.3.4)
       activemodel (= 6.0.3.4)
       activesupport (= 6.0.3.4)
-    activerecord-import (0.28.2)
+    activerecord-import (1.0.7)
       activerecord (>= 3.2)
     activerecord-postgres_enum (0.6.0)
       activerecord (>= 4.2.0)

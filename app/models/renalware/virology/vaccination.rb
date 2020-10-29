@@ -18,7 +18,12 @@ module Renalware
 
       class Document < Document::Embedded
         attribute :type, ::Document::Enum # See i18n for options
+        attribute :drug, String
         validates :type, presence: true
+
+        def to_s
+          [type&.text, drug].reject(&:blank?).join(" - ")
+        end
       end
       has_document
     end
