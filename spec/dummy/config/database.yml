@@ -34,7 +34,7 @@ staging:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
 
-# production:
-#   <<: *default
-#   username: renalware
-#   database: renalware_production
+# Used by renalware-demo Heroku site
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
