@@ -4,7 +4,7 @@ require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class PETResultsController < BaseController
+    class PETResultsController < PD::BaseController
       def new
         pet = PETResult.new(
           patient: patient,
