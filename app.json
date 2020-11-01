@@ -27,6 +27,7 @@
     "PHONE_NUMBER_ON_LETTERS": "020 000 0000",
     "RENAL_UNIT_ON_LETTERS": "Test Renal Unit",
     "FALLBACK_EMAIL_ADDRESS_FOR_TEST_MESSAGES": "test1@example.com",
+    "HEROKU": true,
     "COOKIE_SECRET": {
       "generator": "secret"
     },
