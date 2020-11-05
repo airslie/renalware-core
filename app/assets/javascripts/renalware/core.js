@@ -51,9 +51,4 @@
 // Define a console.log if one does not yet exist - e.g. we in IE11
 window.console = window.console || { log: function() {} };
 
-// Disabled jQuery animations during tests to speed things up a little
-<% if Rails.env.test? %>
-  $.fx.off = true;
-<% end %>
-
 $.fn.select2.defaults.set( "width", "100%" );

@@ -1,10 +1,7 @@
-// Disable animations during tests to increase stability
-<% reveal_animation = Rails.env.test? ? 'none' : 'fadeAndPop' %>
-
 $(document).foundation({
     reveal: {
-        animation: '<%= reveal_animation %>',
-        animation_speed: 200,
+        animation: '',
+        animation_speed: 0,
         close_on_background_click: false,
         close_on_esc: true,
         dismiss_modal_class: "reveal-modal-close"
