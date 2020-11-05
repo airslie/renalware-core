@@ -1,5 +1,3 @@
-
---explain analyze
 select
   modality_desc       modality,
   count(e1.patient_id)  patient_count,

@@ -9,6 +9,7 @@ This project adheres to Semantic Versioning.
 ### Changed
 - Add an optional drug when creating a vaccination event #3342
 ### Fixed
+- Removed duplicates in medication_current_prescriptions SQL view #3334
 
 ## 2.0.158
 ### Added

@@ -4650,7 +4650,7 @@ CREATE TABLE renalware.medication_prescriptions (
 --
 
 CREATE VIEW renalware.medication_current_prescriptions AS
- SELECT mp.id,
+ SELECT DISTINCT ON (mp.patient_id, mp.id) mp.id,
     mp.patient_id,
     mp.drug_id,
     mp.treatable_type,
@@ -4673,10 +4673,12 @@ CREATE VIEW renalware.medication_current_prescriptions AS
     drug_types.code AS drug_type_code,
     drug_types.name AS drug_type_name
    FROM ((((renalware.medication_prescriptions mp
-     FULL JOIN renalware.medication_prescription_terminations mpt ON ((mpt.prescription_id = mp.id)))
+     LEFT JOIN renalware.medication_prescription_terminations mpt ON ((mpt.prescription_id = mp.id)))
      JOIN renalware.drugs ON ((drugs.id = mp.drug_id)))
-     FULL JOIN renalware.drug_types_drugs ON ((drug_types_drugs.drug_id = drugs.id)))
-     FULL JOIN renalware.drug_types ON (((drug_types_drugs.drug_type_id = drug_types.id) AND ((mpt.terminated_on IS NULL) OR (mpt.terminated_on > now())))));
+     LEFT JOIN renalware.drug_types_drugs ON ((drug_types_drugs.drug_id = drugs.id)))
+     LEFT JOIN renalware.drug_types ON ((drug_types_drugs.drug_type_id = drug_types.id)))
+  WHERE ((mpt.terminated_on IS NULL) OR (mpt.terminated_on > CURRENT_DATE))
+  ORDER BY mp.patient_id, mp.id;
 
 
 --
@@ -20629,6 +20631,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201020171139'),
 ('20201021153832'),
 ('20201021154809'),
-('20201023092859');
+('20201023092859'),
+('20201105153422');
 
 

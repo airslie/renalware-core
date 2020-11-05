@@ -1,4 +1,5 @@
- SELECT mp.id,
+ SELECT
+    mp.id,
     mp.patient_id,
     mp.drug_id,
     mp.treatable_type,
