@@ -8,12 +8,12 @@ Renalware.FeedOnlyInputs = (function() {
   // e.g. disable_inputs_controlled_by_tissue_typing_feed in an initializer, it will not
   // take affect until you clear the assets, or make a change to this file etc.
   var disableFeedOnlyInputs = function() {
-    <% if Renalware.config.disable_inputs_controlled_by_tissue_typing_feed %>
+    if (Renalware.Configuration.config.disable_inputs_controlled_by_tissue_typing_feed) {
       $("input,textarea,select").filter("[data-controlled-by-tissue-typing-feed]").prop("disabled", true);
-    <% end %>
-    <% if Renalware.config.disable_inputs_controlled_by_demographics_feed %>
+    }
+    if (Renalware.Configuration.config.disable_inputs_controlled_by_demographics_feed) {
       $("input,textarea,select").filter("[data-controlled-by-demographics-feed]").prop("disabled", true);
-    <% end %>
+    }
   };
 
   return {
