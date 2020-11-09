@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Patients
-    describe SyncPracticesViaApi do
+    describe SyncPracticesViaAPI do
       include ActiveJob::TestHelper
 
       describe "#call" do

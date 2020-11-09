@@ -2,7 +2,6 @@
 
 # rubocop:disable Metrics/ClassLength
 require_dependency "renalware/events"
-require "attr_extras"
 
 module Renalware
   module Events

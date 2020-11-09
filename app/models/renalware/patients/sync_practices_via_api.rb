@@ -7,7 +7,7 @@ module Renalware
     # Fetches pratice changes and additions from the NHS ODS API.
     # Called from a rake task.
     # See doc/ods.md
-    class SyncPracticesViaApi
+    class SyncPracticesViaAPI
       def self.call(**args)
         new(**args).call
       end

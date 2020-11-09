@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  describe UKRDC::CreatePatientXMLFile do
+  describe UKRDC::CreatePatientXmlFile do
     let(:user) { create(:user) }
     let(:xml) {
       # This the XML our mock renderer will always render!

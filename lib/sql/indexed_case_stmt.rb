@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require "attr_extras"
-
-module SQL
+module Sql
   # Example:
   #
   #     indexed_case_stmt(:code, "DT", "AC", "XY")

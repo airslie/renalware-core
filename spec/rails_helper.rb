@@ -21,8 +21,6 @@ require "paper_trail/frameworks/rspec"
 require "wisper/rspec/matchers"
 require "view_component/test_helpers"
 
-require_relative "../lib/test_support/text_editor_helpers"
-
 require "capybara/rspec"
 require "capybara-screenshot/rspec"
 

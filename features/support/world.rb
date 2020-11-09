@@ -33,10 +33,10 @@ end
 
 add_class_to_world("World")
 
-require_relative "../../lib/test_support/ajax_helpers"
+require_relative "../../spec/support/ajax_helpers"
 World(AjaxHelpers)
 
-require_relative "../../lib/test_support/text_editor_helpers"
+require_relative "../../spec/support/text_editor_helpers"
 World(TextEditorHelpers)
 # rubocop:enable Style/GlobalVars
 

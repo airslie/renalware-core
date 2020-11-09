@@ -2,7 +2,7 @@
 
 #
 # Render a Letter to PDF. Try and get it from the cachefirst
-# Lean on Letters::HTMLRenderer which already renders the letter to html via
+# Lean on Letters::HtmlRenderer which already renders the letter to html via
 # LetterPresenter#content.
 #
 module Renalware

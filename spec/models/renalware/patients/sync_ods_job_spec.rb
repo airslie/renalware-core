@@ -9,12 +9,12 @@ module Renalware
 
       describe "#perform" do
         it "delegates to other API and download service object" do
-          allow(Renalware::Patients::SyncPracticesViaApi).to receive(:call)
+          allow(Renalware::Patients::SyncPracticesViaAPI).to receive(:call)
           allow(Renalware::Patients::SyncGpsViaFileDownloadJob).to receive(:perform_later)
 
           described_class.perform_now(dry_run: false)
 
-          expect(Renalware::Patients::SyncPracticesViaApi).to have_received(:call)
+          expect(Renalware::Patients::SyncPracticesViaAPI).to have_received(:call)
           expect(Renalware::Patients::SyncGpsViaFileDownloadJob).to have_received(:perform_later)
         end
       end

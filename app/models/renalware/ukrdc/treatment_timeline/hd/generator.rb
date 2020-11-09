@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/ukrdc"
-require "attr_extras"
+
 # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 module Renalware
   module UKRDC

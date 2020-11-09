@@ -39,5 +39,10 @@ module Renalware
     def self.configure
       yield config
     end
+
+    module APD
+      class NonUniqueOvernightVolumeError < StandardError
+      end
+    end
   end
 end

@@ -7,7 +7,7 @@ module Renalware
   module API
     module V1
       module Patients
-        class PatientsController < TokenAuthenticatedApiController
+        class PatientsController < TokenAuthenticatedAPIController
           include Concerns::Pageable
 
           def show

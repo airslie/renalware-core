@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "test_support/ajax_helpers"
 
 describe "Editing a swab", type: :system, js: true do
   include AjaxHelpers

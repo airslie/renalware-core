@@ -32,6 +32,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "CCs"
   inflect.acronym "CM"
   inflect.acronym "CSV"
+  inflect.acronym "CRF"
   inflect.acronym "DNA"
   inflect.acronym "EDTA"
   inflect.acronym "ESRF"

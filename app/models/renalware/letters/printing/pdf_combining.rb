@@ -2,8 +2,6 @@
 
 require_dependency "renalware/letters"
 
-require "attr_extras"
-
 module Renalware
   module Letters
     module Printing

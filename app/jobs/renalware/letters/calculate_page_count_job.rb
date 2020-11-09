@@ -2,7 +2,6 @@
 
 require_dependency "renalware/letters"
 require "pdf/reader"
-require "attr_extras"
 
 module Renalware
   module Letters

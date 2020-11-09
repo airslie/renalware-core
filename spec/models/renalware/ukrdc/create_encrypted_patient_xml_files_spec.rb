@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  # describe UKRDC::CreateEncryptedPatientXMLFiles do
+  # describe UKRDC::CreateEncryptedPatientXmlFiles do
   #   let(:patient) do
   #     create(
   #       :patient,

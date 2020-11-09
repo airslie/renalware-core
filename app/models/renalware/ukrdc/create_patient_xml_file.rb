@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/ukrdc"
-require "attr_extras"
 
 module Renalware
   module UKRDC
-    class CreatePatientXMLFile
+    class CreatePatientXmlFile
       pattr_initialize [
         :patient!,
         :dir!,
