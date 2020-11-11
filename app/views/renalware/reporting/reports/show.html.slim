@@ -1,0 +1,23 @@
+= content_for(:filters) do
+  = render "filters", options: options
+
+= within_admin_layout(title: options.current_view.title,
+  breadcrumbs: breadcrumb_for("Reports", reporting_reports_path)) do
+
+  - if options.current_view.description.present?
+    p.border.rounded.px-3.py-2.mb-10.shadow= options.current_view.description
+
+  - if options.rows.size.zero?
+    p No matching data
+  - else
+    = render "table", options: options
+
+    - if current_user_is_super_admin?
+      = link_to edit_system_view_metadatum_path(options.current_view, format: :html),
+                data: { "reveal-id" => "system-view-metadata-modal", "reveal-ajax" => "true" },
+                class: "right rounded px-2 py-1 bg-orange-300 text-gray-800 text-sm" do
+          i.fas.fa-cogs.pr-2
+          | Configure this table for everyone
+
+      / The modal dialog container
+      #system-view-metadata-modal.reveal-modal.medium(data-reveal)

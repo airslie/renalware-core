@@ -5,7 +5,7 @@
   = render "filters", options: options
 
 = within_admin_layout(title: "#{options.current_view.scope.humanize} MDMS") do
-  - if options.patients.size.zero?
-    p No matching patients
+  - if options.rows.size.zero?
+    p No matching data
   - else
     = render "table", options: options

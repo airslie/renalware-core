@@ -8,3 +8,9 @@ en:
         name: Name
         description: Description
         view_name: Name of materialized view (the data source)
+  renalware:
+    navigation:
+      reports:
+        title: "Reporting"
+        audits: "Audits"
+        reports: "Reports"

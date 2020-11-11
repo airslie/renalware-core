@@ -88,5 +88,23 @@ module Renalware
       ]
       view.columns = [].to_json
     end
+
+    Renalware::System::ViewMetadata.find_or_create_by!(
+      view_name: "reporting_unit_patients",
+      scope: "patients",
+      category: "report",
+      description: "Number of patients in each unit each month over the last 10 years",
+      slug: "unit_patients",
+      schema_name: "renalware"
+    ) do |view|
+      view.title = "Number of patients per unit"
+      view.position = 1
+      view.filters = [
+        { code: :hospital, type: :list },
+        { code: :unit, type: :list },
+        { code: :year, type: :list }
+      ]
+      view.columns = [].to_json
+    end
   end
 end

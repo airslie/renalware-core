@@ -1,0 +1,15 @@
+= within_admin_layout(title: "Reports") do
+  table
+    thead
+      tr
+        th.col-width-tiny
+        th Title
+        th View name
+
+
+    tbody
+      - reports.each do |report|
+        tr
+          td= link_to "View", reporting_report_path(report)
+          td= report.title
+          td.code= [report.schema_name, report.view_name].compact.join(".")
