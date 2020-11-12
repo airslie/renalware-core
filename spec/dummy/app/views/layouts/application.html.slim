@@ -7,8 +7,8 @@ html lang="en"
     - if defined?(page_title)
       title= page_title
 
-    = stylesheet_link_tag "application", media: :all
     = stylesheet_link_tag "renalware/core", media: :all
+    = stylesheet_link_tag "application", media: :all
     = yield :css
 
     = javascript_include_tag "renalware/modernizr"
@@ -44,6 +44,6 @@ html lang="en"
 
     - unless user_signed_in?
       = render "renalware/navigation/footer"
-    = javascript_include_tag "application"
     = javascript_include_tag "renalware/core"
+    = javascript_include_tag "application"
     = yield(:javascript)

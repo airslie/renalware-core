@@ -21,8 +21,6 @@ module Renalware
     #       data-session-timeout="3600">
     # rubocop:disable Metrics/MethodLength
     def self.session_controller_data_attributes
-      return {} if Renalware.config.session_expiry_use_previous_mechansim
-
       urls = Renalware::Engine.routes.url_helpers
       {
         data: {
@@ -39,6 +37,6 @@ module Renalware
         }
       }
     end
+    # rubocop:enable Metrics/MethodLength
   end
-  # rubocop:enable Metrics/MethodLength
 end

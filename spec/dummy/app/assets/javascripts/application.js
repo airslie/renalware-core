@@ -11,3 +11,8 @@
 // about supported directives.
 //
 //= require_tree .
+
+Renalware.Configuration.init({
+  disable_inputs_controlled_by_tissue_typing_feed: true,
+  disable_inputs_controlled_by_demographics_feed: true
+});
