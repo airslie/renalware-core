@@ -6533,6 +6533,12 @@ CREATE VIEW renalware.pd_mdm_patients AS
             WHEN 'Renalware::PD::CAPDRegime'::text THEN 'CAPD'::text
             ELSE NULL::text
         END AS pd_type,
+    ( SELECT date(e.date_time) AS date
+           FROM (renalware.events e
+             JOIN renalware.event_types et ON ((et.id = e.event_type_id)))
+          WHERE (((et.slug)::text = 'pd_line_changes'::text) AND (e.patient_id = p.id))
+          ORDER BY e.date_time DESC
+         LIMIT 1) AS last_line_change_date,
     pesi.diagnosis_date AS last_esi_date,
     ppe.diagnosis_date AS last_peritonitis_date,
     ( SELECT cv2.bmi
@@ -20632,6 +20638,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201021153832'),
 ('20201021154809'),
 ('20201023092859'),
-('20201105153422');
+('20201105153422'),
+('20201112152752');
 
 
