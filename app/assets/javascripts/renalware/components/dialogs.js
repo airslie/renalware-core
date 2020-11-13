@@ -1,6 +1,6 @@
 $(document).foundation({
     reveal: {
-        animation: '',
+        animation:  'none' ,
         animation_speed: 0,
         close_on_background_click: false,
         close_on_esc: true,
