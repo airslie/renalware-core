@@ -13,7 +13,6 @@ module Renalware
       is_expected.to have_many(:participations)
       is_expected.to have_many(:patients).through(:participations)
       is_expected.to have_many(:investigatorships)
-      is_expected.to have_many(:investigators).through(:investigatorships)
       is_expected.to respond_to(:namespace)
     end
 
