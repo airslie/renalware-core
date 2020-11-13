@@ -12,13 +12,13 @@ module Renalware
         skip_after_action :verify_policy_scoped
 
         def new
-          authorize Message, :new?
+          authorize Messaging::Internal::Message, :new?
           form = MessageFormBuilder.new(patient: patient, params: params).call
           render_new(form)
         end
 
         def create
-          authorize Message, :create?
+          authorize Messaging::Internal::Message, :create?
           form = MessageForm.new(message_params)
 
           if form.valid?
@@ -32,7 +32,7 @@ module Renalware
 
         # Display all public message for a patient
         def index
-          authorize Message, :index?
+          authorize Messaging::Internal::Message, :index?
           scope = patient.messages.where(public: true).order(created_at: :desc)
           pagination, messages = pagy(scope, items: 20)
           render locals: { patient: patient, messages: messages, pagination: pagination }
