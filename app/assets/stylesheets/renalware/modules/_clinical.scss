@@ -186,6 +186,19 @@ article.clinical-allergies {
           }
         }
 
+        &.active-consult {
+          background-color: $nhs-pink;
+
+          &:hover {
+            background-color: darken($nhs-pink, 7);
+          }
+
+          .title a,
+          i:before {
+            color: $white;
+          }
+        }
+
         &.research-study-participant {
           background-color: darken($nhs-green, 3);
           color: $white;

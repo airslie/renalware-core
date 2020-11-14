@@ -38,24 +38,28 @@
     br
     .panel
       h2
-        i.fas.fa-info-circle style="color: #00a499"
-        span(style="padding-left: 5px") Tips
-      p
-        | The list of patients to include in a mailshot it determined by the SQL View chosen above.
-        | &nbsp;It is intended that a systems or database administrator create this view for you in the
-        | &nbsp;renalware database. The view should have one column called 'patient_id' and return the ids
-        | &nbsp;of all the patients you want to send this letter to.
-        | &nbsp;You should ideally create the view in the hospital's
-        | &nbsp;own postgres schema eg 'renalware_kch' in the case of Kings College Hospital.
-      p Here is a (somewhat pointless) example of a compatible SQL view definition:
-      p
-        code
-          | CREATE OR REPLACE VIEW
-          br
-          |  renalware_kch.letter_mailshot_patients_where_surname_starts_with_r AS
-          br
-          |  SELECT id as patient_id
-          br
-          |  FROM patients
-          br
-          |  WHERE family_name like 'R%';
+        i.fas.fa-info-circle
+        span.pl-3 Help
+
+      markdown:
+        The list of patients to include in a mailshot it determined by the SQL View chosen above.
+        It is intended that a systems or database administrator create this view for you in the
+        renalware database. The view should have one column called 'patient_id' and return the ids
+        of all the patients you want to send this letter to.
+
+        You should ideally create the view in the hospital's
+        own postgres schema (eg 'renalware_kch' in the case of Kings College Hospital) in order to
+        indicate your view is hospital-specific.
+
+        **Note that in order for your view to appear in the dropdown above, its name must start
+        with `letter_mailshot_`**
+
+        Here is a (somewhat pointless) example of a compatible SQL view definition:
+
+        ```
+          CREATE OR REPLACE VIEW
+          renalware_kch.letter_mailshot_patients_where_surname_starts_with_r AS
+          SELECT id as patient_id
+          FROM patients
+          WHERE family_name like 'R%';
+        ```
