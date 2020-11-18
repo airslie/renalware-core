@@ -7,9 +7,20 @@ This project adheres to Semantic Versioning.
 ## Unreleased
 ### Added
 ### Changed
-- Add an optional drug when creating a vaccination event #3342
 ### Fixed
-- Removed duplicates in medication_current_prescriptions SQL view #3334
+
+## 2.0.159
+### Added
+### Changed
+- Add an optional drug when creating a vaccination event #3342
+- Javascript enhancements #3355
+- Force HTTPS on Heroku #3344
+### Fixed
+- Removed duplicates in medication_current_prescriptions SQLview #3334
+- Active consult alert colour incorrect in dev #3364
+- Add latest pd line change event to dynamic pd mdm #3361
+- Fix medication_current_prescriptions view #3334
+- Remove 'important' tailwind setting #3345
 
 ## 2.0.158
 ### Added
