@@ -10,7 +10,7 @@
                   class: "button secondary",
                   data: { behaviour: "toggle-section" }
       .right
-        = f.submit t(".save"), class: "button"
+        = f.submit t(".save"), class: "button", data: { disable_with: false }
         '  or
         = link_to t(".cancel"),
                "#",

@@ -33,6 +33,7 @@ group :test do
   gem "rspec-html-matchers", "~> 0.9.1", require: false
   gem "rspec_junit_formatter", "~> 0.4.1"
   gem "rspec-rails"
+  gem "rspec-retry"
   gem "selenium-webdriver", "~> 3.142.0"
   gem "shoulda-matchers", "~> 4.1"
   gem "simplecov", "~> 0.17.1", require: false # only loaded if required
