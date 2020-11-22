@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "renalware/feeds"
-require "attr_extras"
 
 module Renalware
   module Patients

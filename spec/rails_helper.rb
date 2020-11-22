@@ -20,9 +20,6 @@ require "pundit/rspec"
 require "paper_trail/frameworks/rspec"
 require "wisper/rspec/matchers"
 require "view_component/test_helpers"
-
-require_relative "../lib/test_support/text_editor_helpers"
-
 require "capybara/rspec"
 require "capybara-screenshot/rspec"
 
@@ -57,6 +54,10 @@ RSpec.configure do |config|
     driven_by :rack_test
   end
 
+  Capybara::Screenshot.register_driver(:rw_headless_chrome) do |driver, path|
+    driver.browser.save_screenshot(path)
+  end
+
   Capybara.register_driver(:rw_headless_chrome) do |app|
     capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
       # This makes logs available, but doesn't cause them to appear
@@ -88,6 +89,21 @@ RSpec.configure do |config|
 
   config.before(:each, type: :system, js: true) do
     driven_by :rw_headless_chrome
+  end
+
+  # show retry status in spec process
+  config.verbose_retry = true
+
+  # show exception that triggers a retry if verbose_retry is set to true
+  config.display_try_failure_messages = true
+
+  config.retry_callback = proc do |ex|
+    Capybara.reset! if ex.metadata[:js]
+  end
+
+  # run retry only on features
+  config.around :each, :js do |ex|
+    ex.run_with_retry retry: 3
   end
 
   config.example_status_persistence_file_path = "#{::Rails.root}/tmp/examples.txt"

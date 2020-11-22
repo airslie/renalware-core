@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/letters"
-require "attr_extras"
-require_relative "./errors"
 
 module Renalware
   module Letters
     module Delivery
+      class LetterIsNotApprovedOrCompletedError < StandardError; end
+
       # Note PracticeMailer not the best name as we use this mailer to send a letter to any
       # recipient (practices, hospital secretaries etc)
       class PracticeMailer < ApplicationMailer

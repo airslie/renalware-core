@@ -5,7 +5,8 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     module Delivery
-      class LetterIsNotApprovedOrCompletedError < StandardError; end
+      # Test fail with the error class definition here
+      # class LetterIsNotApprovedOrCompletedError < StandardError; end
     end
   end
 end

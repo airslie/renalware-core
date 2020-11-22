@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/admissions"
-require "attr_extras"
 
 module Renalware
   module Admissions

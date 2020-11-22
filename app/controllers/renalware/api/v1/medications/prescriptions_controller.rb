@@ -7,7 +7,7 @@ module Renalware
   module API
     module V1
       module Medications
-        class PrescriptionsController < TokenAuthenticatedApiController
+        class PrescriptionsController < TokenAuthenticatedAPIController
           def index
             render locals: {
               patient: patient,

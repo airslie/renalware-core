@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "test_support/ajax_helpers"
 
 describe "Manage electronic CCs", type: :system do
   include LettersSpecHelper

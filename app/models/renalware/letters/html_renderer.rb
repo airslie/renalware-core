@@ -5,7 +5,7 @@ module Renalware
     # Note we cannot use a partial layout with render_to_string as it will always expect
     # the location to be in views/layouts and its not possible in Rails 5.1 to specify
     # another or absolute path
-    class HTMLRenderer
+    class HtmlRenderer
       def call(letter)
         context = LettersController.new
         context.render_to_string_with_wicked_pdf(

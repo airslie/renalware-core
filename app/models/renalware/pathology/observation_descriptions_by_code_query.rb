@@ -28,7 +28,7 @@ module Renalware
       #     ...
       #   ]
       def call
-        stmt = SQL::IndexedCaseStmt.new(:code, @codes) # Generate a CASE statement for ordering
+        stmt = Sql::IndexedCaseStmt.new(:code, @codes) # Generate a CASE statement for ordering
         records = @relation.where(code: @codes).order(stmt.generate)
         verify_all_records_found(records)
         records

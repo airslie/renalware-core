@@ -83,7 +83,7 @@ module Renalware
         if archived?
           archive.content
         else
-          @content ||= HTMLRenderer.new.call(self)
+          @content ||= HtmlRenderer.new.call(self)
         end
       end
 

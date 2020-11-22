@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/pathology"
-require "attr_extras"
 
 module Renalware
   module Pathology

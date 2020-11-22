@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "attr_extras"
 require_dependency "renalware/pathology"
 
 # Compares two hashes of pathology observations (OBXs).

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/ukrdc"
-require "attr_extras"
 
 # QBL   TXT   Description
 # "20"  "20"  "Transplant ; Cadaver donor"

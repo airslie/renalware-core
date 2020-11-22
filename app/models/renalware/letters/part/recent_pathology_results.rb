@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "renalware/letters/part"
-require "attr_extras"
 
 # When rendered, the template in `to_partial_path` will be used, and our Part object here will be
 # available in the partial as `recent_pathology_results`.

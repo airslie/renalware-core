@@ -7,7 +7,7 @@ require "devise"
 
 module Renalware
   module API
-    class TokenAuthenticatedApiController < ApplicationController
+    class TokenAuthenticatedAPIController < ApplicationController
       before_action :authenticate_user_from_token!
       before_action :authenticate_user! # fallback
 

@@ -2,7 +2,6 @@
 
 require "renalware/hd"
 require "renalware/week_period"
-require "attr_extras"
 
 module Renalware
   module HD

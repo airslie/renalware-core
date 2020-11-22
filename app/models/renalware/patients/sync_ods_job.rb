@@ -33,7 +33,7 @@ module Renalware
       # practices. On successive runs it will just find changes since the last run.
       def sync_practices(dry_run)
         Renalware::System::APILog.with_log("nhs_data_api", dry_run: dry_run) do |api_log|
-          Renalware::Patients::SyncPracticesViaApi.call(
+          Renalware::Patients::SyncPracticesViaAPI.call(
             dry_run: dry_run,
             api_log: api_log
           )

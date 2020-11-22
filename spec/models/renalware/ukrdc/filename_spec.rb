@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "attr_extras"
 
 module Renalware
   describe UKRDC::Filename do

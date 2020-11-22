@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_dependency "renalware"
-require "attr_extras"
 
 module Renalware
   module Clinical

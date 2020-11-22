@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "test_support/ajax_helpers"
 
 # rubocop:disable RSpec/MultipleExpectations
 describe "Remembering last used letter choices in the user's session", type: :system, js: true do

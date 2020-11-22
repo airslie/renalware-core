@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "attr_extras"
-
 # Shell out to gpg with a a command like this
 # gpg --armor --no-default-keyring --keyring keyring.gpg
 #     --trust-model always -r 'renalware_test'

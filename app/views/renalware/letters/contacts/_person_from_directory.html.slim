@@ -16,7 +16,7 @@
   .row
     .large-12.columns
       br
-      = f.submit t(".save"), class: "button"
+      = f.submit t(".save"), class: "button", data: { disable_with: false }
       '  or
       = link_to t(".cancel"),
                "#",

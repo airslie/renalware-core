@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "attr_extras"
-
 module Renalware
   # A base class for Summary presenters in other name-spaces. SummaryParts can be composed into
   # reporting dashboards or summary pages. The Clinical Summary for instance comprises an array

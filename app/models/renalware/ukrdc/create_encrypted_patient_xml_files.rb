@@ -11,7 +11,7 @@ module Renalware
     # which might for example be a symlink to an outgoing folder in /media/ukrdc which in turn
     # is mount on a remote share for example on an SFTP server.
     # rubocop:disable Metrics/ClassLength:
-    class CreateEncryptedPatientXMLFiles
+    class CreateEncryptedPatientXmlFiles
       attr_reader(
         :patient_ids,
         :changed_since,
@@ -106,7 +106,7 @@ module Renalware
       # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
       def create_xml_file(patient:, schema:)
-        CreatePatientXMLFile.new(
+        CreatePatientXmlFile.new(
           patient: patient,
           dir: paths.timestamped_xml_folder,
           changes_since: changed_since,

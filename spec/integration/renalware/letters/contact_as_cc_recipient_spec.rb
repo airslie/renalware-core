@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "test_support/ajax_helpers"
 
 describe "Assign a person as a CC recipient", type: :system, js: true do
   include AjaxHelpers
