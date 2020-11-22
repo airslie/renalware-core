@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "renalware/week_period"
+require "week_period"
 
 module Renalware::HD::Scheduling
   describe DiaryHousekeepingJob do
@@ -68,7 +68,7 @@ module Renalware::HD::Scheduling
           # Travel to an arbitrary yesterday
           # Its week 5 and the day_of_week is 2 (Tuesday)
           travel_to Date.new(2019, 01, 31) do
-            week_period = Renalware::WeekPeriod.from_date(Time.zone.today)
+            week_period = WeekPeriod.from_date(Time.zone.today)
             day_of_week = Time.zone.today.cwday
 
             expect(week_period.week_number).to eq(5)
@@ -81,7 +81,7 @@ module Renalware::HD::Scheduling
           # now travel to the day after (Wednesday)
           # we'll create another slot here which should not be archived
           travel_to Date.new(2019, 02, 01) do
-            week_period = Renalware::WeekPeriod.from_date(Time.zone.today)
+            week_period = WeekPeriod.from_date(Time.zone.today)
             todays_day_of_week = Time.zone.today.cwday
 
             expect(week_period.week_number).to eq(5)
@@ -111,7 +111,7 @@ module Renalware::HD::Scheduling
       context "when past master slots are being inherited by weekly diaries" do
         it "copies the master slot to the weekly diaries" do
           day_of_week = Time.zone.today.cwday
-          week_period = Renalware::WeekPeriod.from_date(Time.zone.today)
+          week_period = WeekPeriod.from_date(Time.zone.today)
           weekly_diary = create_weekly_diary(week_period: week_period)
 
           create(

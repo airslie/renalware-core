@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/pd"
-require_dependency "renalware/success"
-require_dependency "renalware/failure"
+require "success"
+require "failure"
 
 module Renalware
   module PD
@@ -14,9 +14,9 @@ module Renalware
       def call(by:, params:)
         regime = patient.pd_regimes.new(params)
         if regime.valid? && save_regime(regime, by)
-          ::Renalware::Success.new(regime)
+          ::Success.new(regime)
         else
-          ::Renalware::Failure.new(regime)
+          ::Failure.new(regime)
         end
       end
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "renalware/week_period"
+require "week_period"
 
 module Renalware::HD::Scheduling
   describe ArchiveArguments do

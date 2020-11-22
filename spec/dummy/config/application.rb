@@ -13,6 +13,7 @@ module Dummy
     config.active_record.time_zone_aware_types = [:datetime]
     config.active_storage.service = :local
     config.autoloader = :classic
+    # config.autoloader = :zeitwerk
 
     # Important!!
     # Unless set to :all, pg extensions are not put into structure.sql so certain

@@ -16,7 +16,7 @@ module Renalware
       def initialize(month: nil, year: nil)
         validate_args(month: month, year: year)
 
-        @period = Renalware::MonthPeriod.new(
+        @period = MonthPeriod.new(
           month: (month || default_month).to_i,
           year: (year || default_year).to_i
         )

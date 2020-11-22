@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/modalities"
-require_dependency "renalware/success"
-require_dependency "renalware/failure"
+require "success"
+require "failure"
 
 module Renalware
   module Modalities
@@ -50,9 +50,9 @@ module Renalware
         if new_modality.valid?
           make_new_modality_the_current_one(new_modality)
           broadcast_modality_change_event_to_any_listeners(new_modality)
-          ::Renalware::Success.new(new_modality)
+          ::Success.new(new_modality)
         else
-          ::Renalware::Failure.new(new_modality)
+          ::Failure.new(new_modality)
         end
       end
 

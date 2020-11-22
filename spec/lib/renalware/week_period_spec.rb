@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Renalware::WeekPeriod do
+describe WeekPeriod do
   describe "#new" do
     it "raises an error if the week/year combination is not valid" do
       expect { described_class.new(week_number: 54, year: 2017) }.to raise_error(ArgumentError)

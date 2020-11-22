@@ -18,6 +18,7 @@ gem "paper_trail"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
 gem "redis"
 gem "renalware-forms", "0.1.10"
+# gem "renalware-forms", path: "../renalware-forms"
 gem "ruby-prof", require: false
 # gem "sprockets-rails", "~> 2.3.3" # in the dummy app, fix to this version to avoid manifest errors
 
