@@ -10,7 +10,7 @@ module Renalware
 
       # :reek:UtilityFunction
       def perform(patient:, month:, year:)
-        period = Renalware::MonthPeriod.new(month: month, year: year)
+        period = MonthPeriod.new(month: month, year: year)
         GenerateMonthlyStatisticsForPatient.new(patient: patient, period: period).call
       end
     end
