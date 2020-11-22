@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/transplants"
-require_dependency "renalware/success"
-require_dependency "renalware/failure"
+require "success"
+require "failure"
 
 # Service object responsible for creating a new DonorStage and terminated the previous one
 # if found.
@@ -19,9 +19,9 @@ module Renalware
           terminate_current_stage if current_stage.present?
           stage = build_new_stage
           if stage.save
-            ::Renalware::Success.new(stage)
+            ::Success.new(stage)
           else
-            ::Renalware::Failure.new(stage)
+            ::Failure.new(stage)
           end
         end
       end

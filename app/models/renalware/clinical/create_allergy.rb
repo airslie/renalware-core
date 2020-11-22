@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/clinical"
-require_dependency "renalware/success"
-require_dependency "renalware/failure"
+require "success"
+require "failure"
 
 module Renalware
   module Clinical
@@ -17,9 +17,9 @@ module Renalware
         yield allergy if block_given?
         if allergy.valid?
           save_allergy(allergy)
-          ::Renalware::Success.new(allergy)
+          ::Success.new(allergy)
         else
-          ::Renalware::Failure.new(allergy)
+          ::Failure.new(allergy)
         end
       end
 

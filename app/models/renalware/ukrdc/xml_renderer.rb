@@ -9,11 +9,11 @@ module Renalware
       DEFAULT_TEMPLATE = "/renalware/api/ukrdc/patients/show"
       attr_reader :template, :errors, :locals, :schema
 
-      class Success < Renalware::Success
+      class Success < ::Success
         alias xml object
       end
 
-      class Failure < Renalware::Failure
+      class Failure < ::Failure
         alias validation_errors object
       end
 

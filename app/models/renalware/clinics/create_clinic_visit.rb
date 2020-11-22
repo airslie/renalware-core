@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/clinics"
-require_dependency "renalware/success"
-require_dependency "renalware/failure"
+require "success"
+require "failure"
 
 module Renalware
   module Clinics
@@ -22,9 +22,9 @@ module Renalware
           visit = patient.clinic_visits.new(params)
           objects = OpenStruct.new(clinic_visit: visit, appointment: appointment)
           if visit.save && update_appointment_with(visit.id)
-            return ::Renalware::Success.new(objects)
+            return ::Success.new(objects)
           else
-            return ::Renalware::Failure.new(objects)
+            return ::Failure.new(objects)
           end
         end
       end
