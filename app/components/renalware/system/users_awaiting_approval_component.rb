@@ -3,11 +3,7 @@
 module Renalware
   module System
     class UsersAwaitingApprovalComponent < ApplicationComponent
-      attr_reader :current_user
-
-      def initialize(current_user:)
-        @current_user = current_user
-      end
+      rattr_initialize [:current_user!]
 
       def users_needing_approval_count
         @users_needing_approval_count ||= User.unapproved.count

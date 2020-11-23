@@ -5,11 +5,8 @@ module Renalware
     # Experimental ActionView component
     class AdminMenuComponent < ApplicationComponent
       include Renalware::UsersHelper
-      attr_reader :current_user
 
-      def initialize(current_user:)
-        @current_user = current_user
-      end
+      rattr_initialize [:current_user!]
 
       def admin_menu_item(*args)
         return unless

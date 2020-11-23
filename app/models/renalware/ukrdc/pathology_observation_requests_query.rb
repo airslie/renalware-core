@@ -17,7 +17,7 @@ module Renalware
         Pathology::ObservationRequest
           .where(id: Pathology::ObservationRequest.distinct_for_patient_id(patient_id))
           .where("requested_at >= ?", effective_changes_since)
-          .where.not(loinc_code: nil)
+          .where("loinc_code is not null") # NOTE: fails using where.not(loinc_code: nil)
           .eager_load(
             :description,
             observations: { description: :measurement_unit }

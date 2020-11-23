@@ -7,11 +7,7 @@ module Renalware
     class POSSComponent < ApplicationComponent
       include ToggleHelper
 
-      attr_reader :patient
-
-      def initialize(patient:)
-        @patient = patient
-      end
+      rattr_initialize [:patient!]
 
       # Backed by a SQL view
       def rows

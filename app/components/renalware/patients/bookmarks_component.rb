@@ -3,11 +3,7 @@
 module Renalware
   module Patients
     class BookmarksComponent < ApplicationComponent
-      attr_reader :current_user
-
-      def initialize(current_user:)
-        @current_user = current_user
-      end
+      pattr_initialize [:current_user!]
 
       def bookmarks
         @bookmarks ||= begin
