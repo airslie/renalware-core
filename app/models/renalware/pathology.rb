@@ -21,6 +21,7 @@ module Renalware
     end
 
     class MissingRequestDescriptionError < StandardError; end
+
     class MissingObservationDescriptionError < StandardError; end
   end
 end

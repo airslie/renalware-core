@@ -19,7 +19,7 @@ module Renalware
 
       scope :ordered, -> { order(observed_at: :desc) }
       scope :for_description, ->(description) { where(description: description) }
-      scope :having_a_loinc_code, -> { joins(:description).where("loinc_code is not null") }
+      scope :having_a_loinc_code, -> { joins(:description).where.not(loinc_code: nil) }
 
       def observed_on
         observed_at.to_date

@@ -22,10 +22,10 @@ module Renalware
       end
 
       def inactive_message
-        if !approved?
-          :not_approved
-        else
+        if approved?
           super
+        else
+          :not_approved
         end
       end
     end

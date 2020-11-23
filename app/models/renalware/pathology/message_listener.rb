@@ -9,7 +9,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class MessageListener
-      # Note: We are already inside a transaction here
+      # NOTE: We are already inside a transaction here
       def oru_message_arrived(hl7_message:, **)
         pathology_params = parse_pathology_params(hl7_message)
         create_observation_requests_and_their_child_observations_from(pathology_params)
