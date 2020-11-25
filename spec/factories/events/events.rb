@@ -9,8 +9,7 @@ FactoryBot.define do
     description { "Needs blood sample taken." }
     notes { "Would like son to accompany them on clinic visit." }
 
-    factory :simple_event, class: "Renalware::Events::Simple" do
-    end
+    factory :simple_event, class: "Renalware::Events::Simple"
 
     factory :swab, class: "Renalware::Events::Swab" do
       event_type factory: :swab_event_type

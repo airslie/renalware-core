@@ -57,6 +57,7 @@ module Renalware
       end
 
       class PrimaryCarePhysicianAddressAccessError < StandardError; end
+
       def current_address
         raise PrimaryCarePhysicianAddressAccessError,
               "primary_care_physician#current_address should not be called: "\

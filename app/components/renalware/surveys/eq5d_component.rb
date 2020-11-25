@@ -5,11 +5,7 @@ require_dependency "renalware/surveys"
 module Renalware
   module Surveys
     class EQ5DComponent < ApplicationComponent
-      attr_reader :patient
-
-      def initialize(patient:)
-        @patient = patient
-      end
+      rattr_initialize [:patient!]
 
       def rows
         @rows ||= EQ5DPivotedResponse.where(patient_id: patient.id)

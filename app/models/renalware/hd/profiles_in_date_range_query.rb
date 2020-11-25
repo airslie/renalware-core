@@ -11,9 +11,6 @@ module Renalware
       # so for the start date of the profile we always use created_at and ignore prescribed_on,
       # even if it is present.
       def call
-        # p "  from #{from}"
-        # p "  to #{to}"
-
         # If to is nil it is because modality we are targetting is a current one.
         # We need a date for the from..to range to work so use a far future one.
         @to ||= Date.parse("3000-01-01")
@@ -22,7 +19,7 @@ module Renalware
         # we will have duplicate Treatments with odd state/end date ordering
         used_profiles_ids = UKRDC::Treatment
                              .where(patient: patient)
-                             .where("hd_profile_id is not null")
+                             .where.not(hd_profile_id: nil)
                              .pluck(:hd_profile_id)
         HD::Profile
           .with_deactivated

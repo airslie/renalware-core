@@ -19,7 +19,7 @@ module Renalware
             calculated_overnight_volume,
             effective_last_fill_volume,
             effective_additional_manual_exchange_volume
-          ].compact.inject(0, :+)
+          ].compact.sum
           vol == 0 ? nil : vol
         end
 

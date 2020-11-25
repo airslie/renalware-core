@@ -11,7 +11,7 @@ module Renalware
       def each_group
         Pathology::ObservationDescription
           .select(:id, :code, :letter_group, :letter_order)
-          .where("letter_group is not null")
+          .where.not(letter_group: nil)
           .order("letter_group asc, letter_order asc")
           .group_by(&:letter_group)
           .each do |group_number, descriptions|

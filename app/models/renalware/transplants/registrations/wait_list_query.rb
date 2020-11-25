@@ -93,7 +93,7 @@ module Renalware
           when :suspended
             { current_status_in: :suspended }
           when :active_and_suspended
-            # note: array must be embedded in another array as mentioned here:
+            # NOTE: array must be embedded in another array as mentioned here:
             # https://github.com/activerecord-hackery/ransack#using-scopesclass-methods
             { current_status_in: [%w(active suspended)] }
           when :working_up

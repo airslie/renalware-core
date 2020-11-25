@@ -12,16 +12,9 @@ FactoryBot.define do
 
     author { accountable_actor }
 
-    factory :draft_letter, class: "Renalware::Letters::Letter::Draft" do
-    end
-
-    factory :pending_review_letter, class: "Renalware::Letters::Letter::PendingReview" do
-    end
-
-    factory :approved_letter, class: "Renalware::Letters::Letter::Approved" do
-    end
-
-    factory :completed_letter, class: "Renalware::Letters::Letter::Completed" do
-    end
+    factory :draft_letter, class: "Renalware::Letters::Letter::Draft"
+    factory :pending_review_letter, class: "Renalware::Letters::Letter::PendingReview"
+    factory :approved_letter, class: "Renalware::Letters::Letter::Approved"
+    factory :completed_letter, class: "Renalware::Letters::Letter::Completed"
   end
 end

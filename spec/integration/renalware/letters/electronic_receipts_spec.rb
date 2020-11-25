@@ -8,9 +8,9 @@ describe "View a user's read/unread electronic ccs", type: :system do
   let(:primary_care_physician) { create(:letter_primary_care_physician) }
   let(:user_who_is_not_me) { create(:user) }
 
-  let(:completed_letter) { crete_letter_with_state(:completed) }
-  let(:approved_letter) { crete_letter_with_state(:approved) }
-  let(:pending_review_letter) { crete_letter_with_state(:pending_review) }
+  let(:completed_letter) { create_letter_with_state(:completed) }
+  let(:approved_letter) { create_letter_with_state(:approved) }
+  let(:pending_review_letter) { create_letter_with_state(:pending_review) }
 
   let(:unread_rcpt_for_approved_letter_sent_to_me) do
     create_receipt(read: false, to: me, letter: approved_letter)
@@ -34,7 +34,7 @@ describe "View a user's read/unread electronic ccs", type: :system do
     create_receipt(read: true, to: user_who_is_not_me, letter: completed_letter)
   end
 
-  def crete_letter_with_state(state)
+  def create_letter_with_state(state)
     patient = create(
       :letter_patient,
       primary_care_physician: primary_care_physician,

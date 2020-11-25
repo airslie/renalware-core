@@ -4,11 +4,8 @@ module Renalware
   module Letters
     class UnreadElectronicCCsComponent < ApplicationComponent
       include Pundit::Helper
-      attr_reader :current_user
 
-      def initialize(current_user:)
-        @current_user = current_user
-      end
+      pattr_initialize [:current_user!]
 
       def unread_electronic_ccs
         @unread_electronic_ccs ||= begin

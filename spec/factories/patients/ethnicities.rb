@@ -5,7 +5,6 @@ FactoryBot.define do
     name { "White - British" }
     rr18_code { "A" }
 
-    trait :white_british do
-    end
+    trait :white_british
   end
 end

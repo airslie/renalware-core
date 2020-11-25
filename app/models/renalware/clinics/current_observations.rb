@@ -4,7 +4,7 @@ require_dependency "renalware/letters"
 
 module Renalware
   module Clinics
-    # TODO: Move this to a view?
+    # TODO: Unused?
     class CurrentObservations
       NULL_DATE = nil
       pattr_initialize :patient
@@ -16,7 +16,7 @@ module Renalware
         @weight ||= begin
           result = ClinicVisit
                     .most_recent_for_patient(patient)
-                    .where("weight is not null")
+                    .where.not(weight: nil)
                     .pluck(:date, :weight).first || []
 
           Observation.new(result.first, result.last)
@@ -28,7 +28,7 @@ module Renalware
         @height ||= begin
           result = ClinicVisit
                     .most_recent_for_patient(patient)
-                    .where("height is not null")
+                    .where.not(height: nil)
                     .pluck(:date, :height).first || []
 
           Observation.new(result.first, result.last)

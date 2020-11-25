@@ -6,7 +6,7 @@ module Renalware
   # build more and more useful components. Other components can use this component
   # in their markup.
   class ArticleComponent < ApplicationComponent
-    pattr_initialize [:title]
+    rattr_initialize [:title]
     with_content_areas :title_link, :actions
   end
 end

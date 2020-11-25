@@ -8,13 +8,7 @@ module Renalware
       include Pagy::Frontend
       TITLE = "Messages"
 
-      attr_reader :patient, :current_user
-
-      def initialize(patient:, current_user:)
-        @patient = patient
-        @current_user = current_user
-        super
-      end
+      rattr_initialize [:patient!, :current_user!]
 
       def pagination
         load_messages unless @pagination
