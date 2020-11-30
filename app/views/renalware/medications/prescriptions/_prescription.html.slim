@@ -1,5 +1,4 @@
 - recently_changed = defined?(recently_changed) && recently_changed
-
 li.prescription class=("recently_changed" if recently_changed)
   = prescription.drug.name
   = blank_separator
@@ -8,6 +7,9 @@ li.prescription class=("recently_changed" if recently_changed)
   = prescription.medication_route.code
   = blank_separator
   = prescription.frequency
+  = blank_separator
+  i
+    b= prescription.provider_suffix
 
   / We pass in date_changed if the prescription is recently_changed or recently_stopped
   / It could be the prescribed_on or terminated_on date

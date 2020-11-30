@@ -47,6 +47,13 @@ module Renalware
         ].compact.join(" - ")
       end
 
+      def provider_suffix
+        case __getobj__.provider&.to_s
+        when "gp" then "GP"
+        when "hospital", "home_delivery" then "HOSP"
+        end
+      end
+
       private
 
       def translated_dose_unit
