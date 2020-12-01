@@ -4,6 +4,10 @@ scss:
     font-family: Helvetica, Arial;
   }
 
+  .subtitle {
+    font-size: .9rem;
+  }
+
   .addressee {
     width: 50%;
     float: left;
@@ -153,12 +157,11 @@ scss:
     }
 
     .allergies {
-      margin-bottom: 1rem;
       float: left;
       clear: left;
       width: 50%;
 
-      h3 {
+      h3, b {
         padding-right: 1rem;
       }
 
@@ -221,10 +224,9 @@ scss:
     }
 
     .message {
-      margin-top: 30px;
-      margin-bottom: 20px;
+      margin-top: 20px;
+      margin-bottom: 0px;
       clear: both;
-
       p {
         margin-bottom: 15px;
       }
@@ -235,9 +237,6 @@ scss:
     }
 
     .author-signature {
-      .author-name {
-        font-weight: bold;
-      }
       margin-bottom: 20px;
     }
   }
@@ -320,10 +319,10 @@ scss:
       p= render "patient_summary", patient: letter.patient
 
     = render letter.parts, patient: letter.patient, letter: letter
-
-    .message
-      = letter.body&.html_safe
-
+    / empty small here is for RTF spacing
+    small &nbsp;
+    .message= letter.body&.html_safe
+    br
     p Yours sincerely
 
     .signature.nobreak
@@ -332,7 +331,7 @@ scss:
 
       .author-signature
         p
-          span.author-name= letter.author.signature
+          b= letter.author.signature
           br
           = letter.author.professional_position
 
@@ -340,7 +339,7 @@ scss:
 
   .footer
     .ccs
-      h3 cc:
+      b cc:
 
       ul.electronic
         - letter.electronic_cc_recipients.each do |user|
