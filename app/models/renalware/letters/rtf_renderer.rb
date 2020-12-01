@@ -35,10 +35,12 @@ module Renalware
         temp_html_file.unlink # allows garbage collection and temp file removal
       end
 
+      # Use windows line endings (CRLF) rather than linux (LF).
+      # This solves a problem at Barts exporting RTFs to send to GPs
       def rtf_content_converted_from(html_temp_file)
         rtf_template = File.join(Engine.root, "lib", "pandoc", "templates", "default.rtf")
         options = { template: rtf_template }
-        PandocRuby.html([html_temp_file.path], options, :standalone).to_rtf
+        PandocRuby.html([html_temp_file.path], options, :standalone).to_rtf("--eol=crlf")
       end
 
       def html_with_images_stripped
