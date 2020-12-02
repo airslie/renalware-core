@@ -72,7 +72,11 @@ blocks:
           - checkout
           - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
           - git submodule sync ; git submodule update --init
-          - sudo apt install -qq -y pandoc ghostscript
+          # Be sure to install a new-ish version of pandoc that supports the -eol arg
+          # so we can use CRLF/Windows endings
+          - curl -sLO https://github.com/jgm/pandoc/releases/download/2.11.2/pandoc-2.11.2-1-amd64.deb && sudo dpkg -i pandoc-2.11.2-1-amd64.deb
+          # We also need ghostscript
+          - sudo apt install -qq -y ghostscript
 
           # codeclimate setup - see https://docs.semaphoreci.com/article/148-configuring-parallel-tests-with-code-climate
           - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
