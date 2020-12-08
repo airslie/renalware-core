@@ -34,7 +34,7 @@ css:
                             url: pathology_chart_data_admin_playground_path,
                             wrapper: nil,
                             method: :get,
-                            data: { target: "charts.form", action: "ajax:success->charts#redisplay" }) do |f|
+                            data: { "charts-target" => "form", action: "ajax:success->charts#redisplay" }) do |f|
 
             = f.input :patient_id,
                       collection: [[form.patient_id, form.patient_id]],
@@ -52,7 +52,7 @@ css:
                       include_blank: false
             = f.submit "Refresh", class: :button
 
-      #chart1 style="height: 300px; width: 500px" data-target="charts.chart"
+      #chart1 style="height: 300px; width: 500px" data-charts-target="chart"
 
     / To test tailwindcss
     .max-w-sm.rounded.overflow-hidden.shadow-lg &nbsp;

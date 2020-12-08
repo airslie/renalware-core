@@ -44,7 +44,7 @@
     "rollup-plugin-uglify": "^6.0.0",
     "select2": "^4.0.5",
     "serialize-javascript": "^3.0.0",
-    "stimulus": "^1.1.1",
+    "stimulus": "^2.0.0",
     "tailwindcss": "^1.8.0",
     "trix": "^1.2.2",
     "underscore": "1.8.3",

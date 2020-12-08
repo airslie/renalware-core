@@ -2,11 +2,11 @@ div(data-controller="tabs" data-tabs-active-tab="active")
   .tabs-container
     ul.list-reset.sub-nav
       - groups.each do |group|
-        li(data-target="tabs.tab" data-action="click->tabs#change")
+        li(data-tabs-target="tab" data-action="click->tabs#change")
           a(class="" href="#" data-trigger-masonry-refresh="true")= group.title
 
   - groups.each do |group|
-    .hidden(data-target="tabs.panel")
+    .hidden(data-tabs-target="panel")
       table.prescriptions-list
         thead
           tr

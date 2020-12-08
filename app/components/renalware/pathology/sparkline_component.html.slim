@@ -6,7 +6,7 @@
       / This is the stimulusjs version. See sparklines_controller.js
       div(data-controller="pathology-sparklines"
           data-pathology-sparklines-chart-data='[["2010-06-03T16:37:00.000+01:00","106"], ["2011-06-03T16:37:00.000+01:00","110"]]')
-        div(data-target="pathology-sparklines.chart")
+        div(data-pathology-sparklines-target="chart")
     - else
       / This implementation uses ChartKick to insert the chart javascript into the
       / page. It works fine, but when there are 50 path results on screen, we are

@@ -38,18 +38,18 @@ ruby:
       / Tabs - see also js stimulus tabs-controller
       div(data-controller="tabs" data-tabs-active-tab="-mb-px border-l border-t border-r rounded-t")
         ul.list-reset.flex.border-b.ml-0
-          li.-mb-px.mr-1(data-target="tabs.tab" data-action="click->tabs#change")
+          li.-mb-px.mr-1(data-tabs-target="tab" data-action="click->tabs#change")
             a.bg-white.inline-block.py-2.px-4.text-blue-500.hover:text-blue-700.font-semibold.no-underline(href="#") Columns
-          li.-mb-px.mr-1(data-target="tabs.tab" data-action="click->tabs#change")
+          li.-mb-px.mr-1(data-tabs-target="tab" data-action="click->tabs#change")
             a.bg-white.inline-block.py-2.px-4.text-blue-500.hover:text-blue-700.font-semibold.no-underline(href="#") Filters
-          li.-mb-px.mr-1(data-target="tabs.tab" data-action="click->tabs#change")
+          li.-mb-px.mr-1(data-tabs-target="tab" data-action="click->tabs#change")
             a.bg-white.inline-block.py-2.px-4.text-blue-500.hover:text-blue-700.font-semibold.no-underline(href="#") Previous versions
 
-        .hidden.py-4.px-4.border-l.border-b.border-r(data-target="tabs.panel")
+        .hidden.py-4.px-4.border-l.border-b.border-r(data-tabs-target="panel")
           = render "columns_table", view: view
-        .hidden.py-4.px-4.border-l.border-b.border-r(data-target="tabs.panel")
+        .hidden.py-4.px-4.border-l.border-b.border-r(data-tabs-target="panel")
           = render "filters_form", view: view
-        .hidden.py-4.px-4.border-l.border-b.border-r(data-target="tabs.panel")
+        .hidden.py-4.px-4.border-l.border-b.border-r(data-tabs-target="panel")
           = render "versions", view: view
 
     .modal__footer
