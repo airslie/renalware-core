@@ -136,6 +136,9 @@ module Renalware
     # Note that the standard HL7 PID admin sex values are not adhered to here. For reference
     # they are:
     # F Female, M Male, O Other, U Unknown, A Ambiguous, N Not applicable
+    # Note
+    # - NS = Not Stated
+    # - NK = Not Known
     config_accessor(:hl7_pid_sex_map) do
       {
         "MALE" => "M",
@@ -144,7 +147,8 @@ module Renalware
         "UNKNOWN" => "NK",
         "NOTKNOWN" => "NK",
         "AMBIGUOUS" => "NS",
-        "NOT APPLICABLE" => "NS"
+        "NOT APPLICABLE" => "NS",
+        "BOTH" => "NS"
       }.freeze
     end
   end

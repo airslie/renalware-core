@@ -153,6 +153,7 @@ module Renalware::Feeds
           "Ambiguous" => "NS",
           "Not applicable" => "NS",
           "XyXy" => "XYXY",
+          "BOTH" => "NS",
           "" => ""
 
         }.each do |original, mapped|
