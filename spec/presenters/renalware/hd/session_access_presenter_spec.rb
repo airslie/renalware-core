@@ -29,16 +29,19 @@ describe Renalware::HD::SessionAccessPresenter do
 
     it "handles a nil session.document" do
       session = instance_double("Session", document: nil)
+
       expect(presenter.new(session).to_s).to eq("")
     end
 
     it "returns only the access_type is that's all there is" do
       session = mock_session(access_side: nil)
+
       expect(presenter.new(session).to_s).to eq("ABC")
     end
 
     it "returns only the access_side is that's all there is" do
       session = mock_session(access_type: nil)
+
       expect(presenter.new(session).to_s).to eq("Right")
     end
 
@@ -54,11 +57,13 @@ describe Renalware::HD::SessionAccessPresenter do
 
     it "handles a nil session.document" do
       session = instance_double("Session", document: nil)
+
       expect(presenter.new(session).to_html).to eq("")
     end
 
     it "uses the abbreviated access_type" do
       session = mock_session(access_side: nil)
+
       expect(presenter.new(session).to_html).to eq("A")
     end
 

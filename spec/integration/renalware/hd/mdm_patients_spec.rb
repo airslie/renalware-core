@@ -140,12 +140,9 @@ describe "HD MDM Patients", type: :system do
 
         # Ensure we are still at the on worryboard path
         # !! Do not use have_current_path here
-        # rubocop:disable Capybara/CurrentPathExpectation
-        expect(page.current_path).to eq(
-          hd_filtered_mdm_patients_path(named_filter: :on_worryboard)
+        expect(page).to have_current_path(
+          hd_filtered_mdm_patients_path(named_filter: :on_worryboard), ignore_query: true
         )
-        # rubocop:enable Capybara/CurrentPathExpectation
-
         # We should only see patients on the worryboard dialysing at unit1
         expect(page).to have_content(wb_patient_at_unit1.family_name)
         expect(page).to have_no_content(wb_patient_at_unit2.family_name)

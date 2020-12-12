@@ -75,10 +75,7 @@ describe "Printing a letter",
       # PDF generation above. But we don't need to worry about that,
       # just check later that a pdf was generated.
       # NOTE: don't change this to have_current_path - we need to use match here
-      # rubocop:disable Capybara/CurrentPathExpectation
       expect(page.current_path).to match(letters_list_path)
-      # rubocop:enable Capybara/CurrentPathExpectation
-
       within(".modal") do
         expect(page).to have_content("Was printing successful?")
         click_on "Yes - remove from the Print Queue"
@@ -129,10 +126,7 @@ describe "Printing a letter",
       end
 
       # NOTE: don't change this to have_current_path - we need to use match here
-      # rubocop:disable Capybara/CurrentPathExpectation
       expect(page.current_path).to match(letters_list_path)
-      # rubocop:enable Capybara/CurrentPathExpectation
-
       within(".modal") do
         expect(page).to have_content("Was printing successful?")
         click_on "No - leave in the Print Queue"
