@@ -4,16 +4,16 @@ require "rails_helper"
 
 module Renalware
   describe "PD Training Session management", js: true, type: :system do
-    ###
+    let(:patient) { create(:pd_patient) }
+
     it "Add a PD Training Session" do
-      patient = create(:pd_patient)
       create(:pd_training_site, name: "Home")
       create(:pd_training_type, name: "APD Baxter")
       login_as_clinical
 
       visit patient_pd_dashboard_path(patient)
 
-      # Summary
+      # PD Summary
       within ".page-actions" do
         click_link "Add"
         click_link "PD Training Session"
@@ -30,26 +30,20 @@ module Renalware
 
       expect(page).to have_current_path(patient_pd_dashboard_path(patient))
 
-      # Summary
+      # Back on PD Summary
       within ".pd_training_sessions table tbody" do
         expect(page).to have_content("Home")
         expect(page).to have_content(started_on)
       end
     end
 
-    def input_called(att)
-      PD::TrainingSession::Document.human_attribute_name(att)
-    end
-
-    ###
     it "Edit a PD Training Session" do
-      patient = create(:pd_patient)
       user = login_as_clinical
       create(:pd_training_session, patient: patient, by: user)
 
       visit patient_pd_dashboard_path(patient)
 
-      # Summary
+      # PD Summary
       within ".pd_training_sessions table tbody" do
         click_on "Edit"
       end
@@ -59,22 +53,20 @@ module Renalware
 
       click_on "Save"
 
-      # Summary
+      # Back on PD Summary
       within ".pd_training_sessions table tbody" do
         expect(page).to have_content("Successful")
         # We don't need to test all fields, just that the ones we changed have updated.
       end
     end
 
-    ###
     it "View a PD Training Session" do
-      patient = create(:pd_patient)
       user = login_as_clinical
       training_session = create(:pd_training_session, patient: patient, by: user)
 
       visit patient_pd_dashboard_path(patient)
 
-      # Summary
+      # PD Summary
       within ".pd_training_sessions table tbody" do
         click_on "View"
       end
@@ -86,6 +78,10 @@ module Renalware
         # No need to test presence of all items here - we just want to make
         # we are are in the right place and some is being displayed.
       end
+    end
+
+    def input_called(att)
+      PD::TrainingSession::Document.human_attribute_name(att)
     end
   end
 end

@@ -26,6 +26,18 @@ module Renalware
       is_expected.to enumerize(:role).in(:ordinary, :additional_manual_exchange, :last_fill)
     end
 
+    it "defaults all days of week to true" do
+      expect(described_class.new).to have_attributes(
+        monday: true,
+        tuesday: true,
+        wednesday: true,
+        thursday: true,
+        friday: true,
+        saturday: true,
+        sunday: true
+      )
+    end
+
     it {
       is_expected.to(
         validate_numericality_of(:volume)
