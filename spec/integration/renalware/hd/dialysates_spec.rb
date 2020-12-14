@@ -3,8 +3,6 @@
 require "rails_helper"
 
 describe "Managing Dialysates", type: :system do
-  let(:dialysate) { create(:hd_dialysate) }
-
   describe "creating a new dialysate" do
     it do
       login_as_super_admin
@@ -62,26 +60,4 @@ describe "Managing Dialysates", type: :system do
       end
     end
   end
-
-  # Temp removed this test as need to fix deletion - it currently allows deletion of
-  # in-use dialysates.
-  # There is also the problem that if you change the name the dialysate wont load
-  # up as the patents default in the hd_profile
-
-  # describe "deleting a dialysate" do
-  #   it do
-  #     dialysate = create(:hd_dialysate, name: "XYZ")
-
-  #     login_as_super_admin
-  #     visit hd_dialysates_path
-
-  #     within ".hd-dialysates tbody" do
-  #       click_on "Delete"
-  #     end
-
-  #     within ".hd-dialysates tbody" do
-  #       expect(page).not_to have_content("XYZ")
-  #     end
-  #   end
-  # end
 end

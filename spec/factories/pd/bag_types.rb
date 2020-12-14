@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :bag_type, class: "Renalware::PD::BagType" do
-    manufacturer { "Star Brand, Lucky Brand" }
-    description { "Green–2.34" }
+    manufacturer { "BagManufacturer" }
+    description { "BagDescription" }
     glucose_content { 2.8 }
     glucose_strength { :medium }
     amino_acid { true }

@@ -48,6 +48,7 @@ module Renalware
           it "returns nil if before or after measurement missing" do
             session.document.observations_before.pulse = 70
             session.document.observations_after.pulse = nil
+
             expect(presenter.change_in(:pulse)).to be_nil
           end
         end
@@ -56,6 +57,7 @@ module Renalware
           it "returns nil if before measurement is a number but post a string" do
             session.document.observations_before.pulse = 100
             session.document.observations_after.pulse = "100,90"
+
             expect(presenter.change_in(:pulse)).to be_nil
           end
         end
@@ -64,6 +66,7 @@ module Renalware
       describe "#before_measurement_for" do
         it "returns the pre-dialysis measurement" do
           session.document.observations_before.weight = 101.1
+
           expect(presenter.before_measurement_for(:weight)).to eq 101.1
         end
       end

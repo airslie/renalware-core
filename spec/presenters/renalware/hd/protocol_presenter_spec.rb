@@ -79,12 +79,13 @@ describe Renalware::HD::ProtocolPresenter do
 
         presenter = described_class.new(patient, nil)
 
-        expect(presenter.recent_pathology.hgb_result).to eq("1")
-        expect(presenter.recent_pathology.hgb_observed_at).to eq(time.to_date)
-        expect(presenter.recent_pathology.plt_result).to eq("1")
-        expect(presenter.recent_pathology.plt_observed_at).to eq(time.to_date)
-        expect(presenter.recent_pathology.crp_result).to eq("1")
-        expect(presenter.recent_pathology.crp_observed_at).to eq(time.to_date)
+        recent_path = presenter.recent_pathology
+        expect(recent_path.hgb_result).to eq("1")
+        expect(recent_path.hgb_observed_at).to eq(time.to_date)
+        expect(recent_path.plt_result).to eq("1")
+        expect(recent_path.plt_observed_at).to eq(time.to_date)
+        expect(recent_path.crp_result).to eq("1")
+        expect(recent_path.crp_observed_at).to eq(time.to_date)
       end
     end
   end
@@ -102,12 +103,13 @@ describe Renalware::HD::ProtocolPresenter do
       patient = create(:pathology_patient)
       presenter = described_class.new(patient, nil)
 
-      expect(presenter.recent_pathology.hgb_result).to eq(nil)
-      expect(presenter.recent_pathology.hgb_observed_at).to eq(nil)
-      expect(presenter.recent_pathology.plt_result).to eq(nil)
-      expect(presenter.recent_pathology.plt_observed_at).to eq(nil)
-      expect(presenter.recent_pathology.crp_result).to eq(nil)
-      expect(presenter.recent_pathology.crp_observed_at).to eq(nil)
+      recent_path = presenter.recent_pathology
+      expect(recent_path.hgb_result).to eq(nil)
+      expect(recent_path.hgb_observed_at).to eq(nil)
+      expect(recent_path.plt_result).to eq(nil)
+      expect(recent_path.plt_observed_at).to eq(nil)
+      expect(recent_path.crp_result).to eq(nil)
+      expect(recent_path.crp_observed_at).to eq(nil)
     end
   end
 end

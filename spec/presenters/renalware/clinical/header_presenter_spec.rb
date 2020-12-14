@@ -17,11 +17,12 @@ describe Renalware::Clinical::HeaderPresenter do
       descriptions = create_descriptions(%w(HGB PLT))
       create_observations(::Renalware::Pathology.cast_patient(patient), descriptions, result: value)
 
-      expect(presenter.current_pathology.hgb_result).to eq(value)
-      expect(presenter.current_pathology.hgb_observed_at).to eq(date)
+      current_path = presenter.current_pathology
+      expect(current_path.hgb_result).to eq(value)
+      expect(current_path.hgb_observed_at).to eq(date)
 
-      expect(presenter.current_pathology.plt_result).to eq(value)
-      expect(presenter.current_pathology.plt_observed_at).to eq(date)
+      expect(current_path.plt_result).to eq(value)
+      expect(current_path.plt_observed_at).to eq(date)
     end
   end
 

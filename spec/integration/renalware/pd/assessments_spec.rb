@@ -4,7 +4,6 @@ require "rails_helper"
 
 module Renalware
   describe "PD Assessment management", js: true, type: :system do
-    ###
     it "Add a PD Assessment" do
       patient = create(:pd_patient)
       login_as_clinical
@@ -42,11 +41,6 @@ module Renalware
       end
     end
 
-    def input_called(att)
-      PD::Assessment::Document.human_attribute_name(att)
-    end
-
-    ###
     it "Edit a PD Assessment" do
       patient = create(:pd_patient)
       user = login_as_clinical
@@ -74,7 +68,6 @@ module Renalware
       end
     end
 
-    ###
     it "View a PD Assessment" do
       patient = create(:pd_patient)
       user = login_as_clinical
@@ -95,6 +88,10 @@ module Renalware
         # No need to test presence of all items here - we just want to make
         # we are are in the right place and some is being displayed.
       end
+    end
+
+    def input_called(att)
+      PD::Assessment::Document.human_attribute_name(att)
     end
   end
 end
