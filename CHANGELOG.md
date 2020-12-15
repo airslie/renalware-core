@@ -9,6 +9,15 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.160
+### Added
+- Support COVID 19 (1 & 2) Vaccinations #3382
+- Add Hosp or GP at end of each prescription in clinical letters #3373
+- Support HL7 sex 'BOTH' and map to Not Specificed (NS) #3379
+- Use CRLF line endings when rendering letter RTFs with Pandoc #3378
+### Changed
+### Fixed
+
 ## 2.0.159
 ### Added
 ### Changed
