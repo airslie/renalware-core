@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Edit Low Clearance", type: :system do
+describe "Edit Advanced Kidney Care", type: :system do
   include PatientsSpecHelper
 
   let(:user) { @current_user }
@@ -16,7 +16,7 @@ describe "Edit Low Clearance", type: :system do
     end
   end
 
-  describe "edit low clearance data for a patient" do
+  describe "edit Advanced Kidney Care data for a patient" do
     context "with valid attributes" do
       it "saves" do
         referrer = Renalware::LowClearance::Referrer.create(name: "TestReferrer")

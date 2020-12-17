@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Low Clearance MDM", type: :system do
+describe "Advanced Kidney Care MDM", type: :system do
   it "view an MDM" do
     patient = create(:patient, family_name: "Rabbit", local_patient_id: "KCH12345")
     create(:pathology_observation_description, code: "HGB")
@@ -17,7 +17,7 @@ describe "Low Clearance MDM", type: :system do
     expect(page).to have_content("Events")
     expect(page).to have_content("Letters")
     expect(page).to have_content("Pathology")
-    expect(page).to have_content("Low Clearance")
+    expect(page).to have_content("Advanced Kidney Care")
     expect(page).to have_content("Date first seen")
   end
 end

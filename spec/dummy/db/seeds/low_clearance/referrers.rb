@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware
-  log "Adding Low Clearance Referrers" do
+  log "Adding Advanced Kidney Care Referrers" do
     file_path = File.join(File.dirname(__FILE__), "referrers.csv")
 
     CSV.foreach(file_path, headers: true) do |row|

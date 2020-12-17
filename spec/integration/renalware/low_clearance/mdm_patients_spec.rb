@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Low Clearance Patients", type: :system do
+describe "Advanced Kidney Care Patients", type: :system do
   include PatientsSpecHelper
   let(:user) { create(:user) }
 
@@ -22,7 +22,7 @@ describe "Low Clearance Patients", type: :system do
       login_as_clinical
       visit low_clearance_mdm_patients_path
 
-      expect(page).to have_content("Low Clearance MDM Patients")
+      expect(page).to have_content("Advanced Kidney Care MDM Patients")
     end
 
     it "clicking on filters works" do

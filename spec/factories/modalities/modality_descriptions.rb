@@ -30,7 +30,7 @@ FactoryBot.define do
     end
 
     trait :low_clearance do
-      name { "Low Clearance" }
+      name { "Advanced Kidney Care" }
       type { "Renalware::LowClearance::ModalityDescription" }
       code { "low_clearance" }
     end

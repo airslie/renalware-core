@@ -7507,7 +7507,8 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
     (COALESCE(sum(neo.ct), (0)::numeric))::integer AS count_neo,
     (COALESCE(sum(ara.ct), (0)::numeric))::integer AS count_ara
    FROM ((((((((((( SELECT p.id AS patient_id,
-            md.name AS modality_desc
+            md.name AS modality_desc,
+            md.code AS modality_code
            FROM ((renalware.patients p
              JOIN renalware.modality_modalities m ON ((m.patient_id = p.id)))
              JOIN renalware.modality_descriptions md ON ((m.description_id = md.id)))
@@ -7546,7 +7547,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying, 'Nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -7604,7 +7605,8 @@ CREATE VIEW renalware.reporting_bone_audit AS
     max(e3.phos) AS max_phos,
     round((((count(e5.phos_lt_1_8))::numeric / GREATEST((count(e3.phos))::numeric, 1.0)) * 100.0), 2) AS pct_phos_lt_1_8
    FROM (((((((( SELECT p.id AS patient_id,
-            md.name AS modality_desc
+            md.name AS modality_desc,
+            md.code AS modality_code
            FROM ((renalware.patients p
              JOIN renalware.modality_modalities m ON ((m.patient_id = p.id)))
              JOIN renalware.modality_descriptions md ON ((m.description_id = md.id)))) e1
@@ -7625,7 +7627,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_desc)::text = ANY ((ARRAY['HD'::character varying, 'PD'::character varying, 'Transplant'::character varying, 'Low Clearance'::character varying])::text[]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -20869,6 +20871,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201023092859'),
 ('20201105153422'),
 ('20201112152752'),
+('20201217154345'),
+('20201217155107'),
 ('20201229174653'),
 ('20210105163944'),
 ('20210115181817'),
