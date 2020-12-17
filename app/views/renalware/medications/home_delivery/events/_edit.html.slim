@@ -7,7 +7,7 @@
       remote: true,
       authenticity_token: true,
       method: :patch,
-      data: { target: "home-delivery-modal.form" },
+      data: { "home-delivery-modal-target" => "form" },
       as: :event) do |f|
 
     .modal__header
@@ -24,7 +24,7 @@
       / - the first is initially displayed and has the print options and a print button
       / - the second is displayed once Print has been clicked, and asked asks for feedback as to
       /   whether printing was successful or not. It it was successful we set
-      .form-fields data-target="home-delivery-modal.printOptions"
+      .form-fields data-home-delivery-modal-target="printOptions"
         - homecare_forms = Renalware::Drugs::HomecareForm.all
         = f.association :drug_type,
                   collection: Renalware::Drugs::Type.where(id: homecare_forms.map(&:drug_type_id)),
@@ -32,7 +32,7 @@
                   input_html: { \
                     data: { \
                       action: "change->home-delivery-modal#refreshForm", \
-                      target: "home-delivery-modal.drugtype" \
+                      "home-delivery-modal-target" => "drugtype" \
                     } \
                   },
                   wrapper: :horizontal_medium
@@ -59,7 +59,7 @@
                   data: { action: "click->home-delivery-modal#askForPrintFeedback" },
                   **disabled_args
 
-      .show-after-printing.visuallyhidden data-target="home-delivery-modal.printFeedback"
+      .show-after-printing.visuallyhidden data-home-delivery-modal-target="printFeedback"
 
         h2 Was printing successful?
         .right

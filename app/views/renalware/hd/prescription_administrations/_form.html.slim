@@ -16,7 +16,7 @@
 
       = fpa.input :prescription_id, as: :hidden
 
-      .hd-drug-administration(data-target="hd-prescription-administration.container")
+      .hd-drug-administration(data-hd-prescription-administration-target="container")
         .summary
           .hd-drug
             .hd-drug--name= prescription.drug_name
@@ -40,7 +40,7 @@
                       label: false,
                       input_html: { \
                         data: { \
-                          target: "hd-prescription-administration.radio",
+                          "hd-prescription-administration-target" => "radio",
                           action: "change->hd-prescription-administration#toggleAdministered",
                         } \
                       }
