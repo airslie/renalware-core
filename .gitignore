@@ -72,4 +72,8 @@ log/.bash_history
 app/assets/javascripts/renalware/rollup_compiled.css
 *.csv#
 /*.pdf
+spec/dummy/node_modules/
+spec/dummy/package-lock.json
+spec/dummy/public/packs-test/
+spec/dummy/public/packs/
 spec/dummy/yarn-error.log
