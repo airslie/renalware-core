@@ -58,7 +58,7 @@ module Pages
       end
 
       def t_allergies(key, scope: "renalware.clinical.allergies.list", required: false)
-        translation = I18n.t(key, scope: scope)
+        translation = t(key, scope: scope)
         required ? "* #{translation}" : translation
       end
 

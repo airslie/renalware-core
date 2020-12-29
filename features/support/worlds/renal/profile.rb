@@ -28,7 +28,7 @@ module World
         select2 "Cystinuria", css: ".renal_profile_prd_description"
         fill_in "ESRF Date", with: fake_date.to_s
         within page.first(".form-actions") do
-          click_on "Save"
+          click_on t("btn.save")
         end
 
         expect(page).to have_current_path(patient_renal_profile_path(patient))
@@ -45,7 +45,7 @@ module World
 
       def low_clearance_t(key)
         scope = "activemodel.attributes.renalware/renal/profile_document/low_clearance"
-        I18n.t(key, scope: scope)
+        t(key, scope: scope)
       end
     end
   end

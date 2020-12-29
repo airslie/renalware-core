@@ -5,14 +5,14 @@
       .supplemental
         span= "#{mdm.clinic_visits.length} of #{mdm.patient.summary.clinic_visits_count}"
         span.noprint
-          = link_to "View All",
+          = link_to t("btn.view_all"),
                       patient_clinic_visits_path(mdm.patient),
                       class: "button secondary"
           = link_to new_patient_clinic_visit_path(mdm.patient),
                     class: "button",
                     target: "_blank" do
               i.fa.fa-external-link-square-alt
-              | Add
+              = t("btn.add")
 
     = render "renalware/clinics/clinic_visits/table",
             clinic_visits: mdm.clinic_visits,

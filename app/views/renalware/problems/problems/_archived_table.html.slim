@@ -2,7 +2,7 @@ table#archived_problems.manual-stripes.auto-layout
   thead
     tr
       th.options.col-width-small
-      th Description
+      th= t("thead.description")
       th.col-width-date Archived on
       th.nowrap Archived by
       th.col-width-date Updated on
@@ -12,7 +12,7 @@ table#archived_problems.manual-stripes.auto-layout
     - problems.each do |problem|
       = content_tag_for(:tr, problem, class: "sortable") do
         td
-          = link_to "View", patient_problem_path(@patient, problem)
+          = link_to t("btn.view"), patient_problem_path(@patient, problem)
         td
           = problem.description
           ol

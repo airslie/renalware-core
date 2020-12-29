@@ -35,10 +35,15 @@ module Renalware
       end
     end
 
-    def save_or_cancel(form:, back_path:, submit_title: "Save", cancel_title: "cancel")
+    def save_or_cancel(
+      form:,
+      back_path:,
+      submit_title: I18n.t("btn.save"),
+      cancel_title: I18n.t("btn.cancel")&.downcase
+    )
       capture do
         concat(form.submit(submit_title, class: "button"))
-        concat(tag.span { " or " })
+        concat(tag.span { " #{I18n.t('btn.or')} " })
         concat(link_to(cancel_title, back_path))
       end
     end

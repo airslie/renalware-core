@@ -9,28 +9,28 @@ describe "Beta banner and capturing user feedback", type: :system do
     it "displays the beta banner if config setting is true" do
       Renalware.config.display_feedback_banner = true
       visit root_path
-      expect(page).to have_content(I18n.t("renalware.beta_message.title"))
-      expect(page).to have_content(I18n.t("renalware.beta_message.body"))
+      expect(page).to have_content(t("renalware.beta_message.title"))
+      expect(page).to have_content(t("renalware.beta_message.body"))
     end
 
     it "does not show the beta banner if config setting is false" do
       Renalware.config.display_feedback_banner = false
       visit root_path
-      expect(page).not_to have_content(I18n.t("renalware.beta_message.title"))
-      expect(page).not_to have_content(I18n.t("renalware.beta_message.body"))
+      expect(page).not_to have_content(t("renalware.beta_message.title"))
+      expect(page).not_to have_content(t("renalware.beta_message.body"))
     end
 
     it "does not show the feedback button on the login screen" do
       Renalware.config.display_feedback_banner = true
       visit root_path
-      expect(page).not_to have_content(I18n.t("renalware.beta_message.feedback_button"))
+      expect(page).not_to have_content(t("renalware.beta_message.feedback_button"))
     end
 
     it "shows the feedback button once logged in" do
       Renalware.config.display_feedback_banner = true
       login_as_clinical
       visit root_path
-      expect(page).to have_content(I18n.t("renalware.beta_message.feedback_button"))
+      expect(page).to have_content(t("renalware.beta_message.feedback_button"))
     end
   end
 
@@ -45,7 +45,7 @@ describe "Beta banner and capturing user feedback", type: :system do
 
         choose "Missing feature"
         fill_in "Comment", with: "My commment"
-        click_on "Submit"
+        click_on t("btn.save")
 
         expect(page.status_code).to eq(200)
         expect(page).to have_content("Feedback registered, thank you")

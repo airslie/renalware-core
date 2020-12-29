@@ -15,7 +15,7 @@ When(/^I complete the modality form$/) do
 
   fill_in "Notes", with: "Needs wheel chair access"
 
-  click_on "Save"
+  click_on t("btn.save")
 end
 
 Then(/^I should see a patient's modality on their clinical summary$/) do

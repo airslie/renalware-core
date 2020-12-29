@@ -22,13 +22,13 @@ describe "Editing an Access Plan", type: :system do
     expect(page).to have_no_css(".historical-access-plans")
 
     within ".access-plans header" do
-      click_on "Edit"
+      click_on t("btn.edit")
     end
 
     within "#new_accesses_plan" do
       fill_in "Notes", with: "Changed notes"
       # Other data should be pre-populated as per the plan we are cloning
-      click_on "Save"
+      click_on t("btn.save")
     end
 
     expect(page).to have_current_path(patient_accesses_dashboard_path(patient))
@@ -58,11 +58,11 @@ describe "Editing an Access Plan", type: :system do
     expect(page).to have_no_css(".historical-access-plans")
 
     within ".access-plans header" do
-      click_on "Edit"
+      click_on t("btn.edit")
     end
 
     within "#new_accesses_plan" do
-      click_on "Save"
+      click_on t("btn.save")
     end
 
     expect(page).to have_current_path(patient_accesses_dashboard_path(patient))

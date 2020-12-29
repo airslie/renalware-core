@@ -55,6 +55,7 @@ module Renalware
             :password_confirmation,
             :current_password,
             :professional_position,
+            :language,
             :signature,
             :with_extended_validation
           ]

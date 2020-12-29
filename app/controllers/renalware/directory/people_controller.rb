@@ -39,9 +39,9 @@ module Renalware
         authorize person
 
         if person.save
-          redirect_to directory_people_path, notice: t(".success", model_name: "Directory person")
+          redirect_to directory_people_path, notice: success_msg_for("Directory person")
         else
-          flash.now[:error] = t(".failed", model_name: "Directory person")
+          flash.now[:error] = failed_msg_for("Directory person")
           render_new(person)
         end
       end
@@ -56,9 +56,9 @@ module Renalware
         person = Person.find(params[:id])
         authorize person
         if person.update(person_params)
-          redirect_to directory_people_path, notice: t(".success", model_name: "Directory person")
+          redirect_to directory_people_path, notice: success_msg_for("Directory person")
         else
-          flash.now[:error] = t(".failed", model_name: "Directory person")
+          flash.now[:error] = failed_msg_for("Directory person")
           render_edit(person)
         end
       end

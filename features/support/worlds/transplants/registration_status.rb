@@ -68,9 +68,9 @@ module World
       def expect_transplant_registration_status_history_to_match(patient:, hashes:)
         statuses = transplant_registration_for(patient).reload.statuses.map do |s|
           { status: s.description.name,
-            start_date: I18n.l(s.started_on),
+            start_date: l(s.started_on),
             by: s.updated_by.given_name,
-            termination_date: (s.terminated_on ? I18n.l(s.terminated_on) : "")
+            termination_date: (s.terminated_on ? l(s.terminated_on) : "")
           }.with_indifferent_access
         end
         expect(statuses.size).to eq(hashes.size)
@@ -82,15 +82,15 @@ module World
       def expect_transplant_registration_current_status_to_be(patient:, name:, started_on:)
         status = transplant_registration_for(patient).current_status
         expect(status.to_s).to eq(name)
-        expect(I18n.l(status.started_on)).to eq(started_on)
+        expect(l(status.started_on)).to eq(started_on)
       end
 
       def expect_transplant_registration_status_history_to_include(patient:, hashes:)
         statuses = transplant_registration_for(patient).reload.statuses.map do |s|
           hash = {
             status: s.description.name,
-            start_date: I18n.l(s.started_on),
-            termination_date: (s.terminated_on ? I18n.l(s.terminated_on) : "")
+            start_date: l(s.started_on),
+            termination_date: (s.terminated_on ? l(s.terminated_on) : "")
           }
           if hashes.first[:by].present?
             hash[:by] = s.updated_by.given_name
@@ -121,7 +121,7 @@ module World
         fill_in "Started on", with: started_on
         select status, from: "Description"
         within ".document" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 
@@ -134,7 +134,7 @@ module World
 
         fill_in "transplants_registration_status[started_on]", with: started_on
         within ".document" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 

@@ -5,14 +5,14 @@ table.auto-layout.letters.has-togglable-rows
     tr
       th.noprint.togglers= table_toggler
       th.noprint.col-width-11
-      th.col-width-tiny State
-      th.col-width-date-time Date
+      th.col-width-tiny= t(".thead.state")
+      th.col-width-date-time= t(".thead.date_")
       - if columns.include?(:author)
-        th.col-width-medium Author
+        th.col-width-medium = t(".thead.author")
       - if columns.include?(:patient)
-        th.col-width-medium Patient
-      th.at-least.col-width-medium Recipient
-      th.col-width-medium Description
+        th.col-width-medium = t(".thead.patient")
+      th.at-least.col-width-medium= t(".thead.recipient")
+      th.col-width-medium= t(".thead.description")
 
   tbody
     = render partial: "renalware/letters/letters/letter",

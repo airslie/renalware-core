@@ -4,7 +4,7 @@ table
       th.togglers= table_toggler
       th.col-width-tiny
       th.col-width-date= t(".assessed_on")
-      th= t(".modality_description")
+      th= t(".thead.modality")
       th= t(".assessor")
       th.col-width-tiny= t(".pre_post_hd")
       th.col-width-tiny= t(".weight")
@@ -26,8 +26,8 @@ table
       tr
         td= toggler("#bcm-quick-preview-#{body_composition.id}")
         td.actions
-          = link_to "View", patient_clinical_body_composition_path(patient, body_composition)
-          = link_to "Edit", edit_patient_clinical_body_composition_path(patient, body_composition)
+          = link_to t("btn.view"), patient_clinical_body_composition_path(patient, body_composition)
+          = link_to t("btn.edit"), edit_patient_clinical_body_composition_path(patient, body_composition)
         td= body_composition.assessed_on
         td= body_composition.modality_description&.name
         td= body_composition.assessor

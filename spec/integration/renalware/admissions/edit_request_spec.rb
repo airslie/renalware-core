@@ -12,13 +12,13 @@ describe "Update Admission Request", type: :system, js: true do
     visit admissions_requests_path
 
     within "#admissions_request_#{request.id}" do
-      click_on "Edit"
+      click_on t("btn.edit")
     end
 
     wait_for_ajax
 
     fill_in "Notes", with: "more notes"
-    click_on "Save"
+    click_on t("btn.save")
 
     wait_for_ajax
 

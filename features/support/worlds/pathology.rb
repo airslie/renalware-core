@@ -80,8 +80,8 @@ module World
 
           expect(obs_set[:result]).to eq(row["result"])
           # Some fancy footwork to get dates to compare
-          expected_observed_at = I18n.l(Time.parse(row["observed_at"]))
-          actual_observed_at = I18n.l(Time.parse(obs_set[:observed_at]))
+          expected_observed_at = l(Time.parse(row["observed_at"]))
+          actual_observed_at = l(Time.parse(obs_set[:observed_at]))
           expect(actual_observed_at).to eq(expected_observed_at)
         end
       end
@@ -147,7 +147,7 @@ module World
         expected_rows[1..-1].each_with_index do |expected_row, idx|
           actual_row = table.rows[idx]
           actual_row_formatted = codes.map { |code| actual_row.row_hash[code]&.first || "" }
-          actual_row_formatted.prepend(I18n.l(actual_row.observed_on))
+          actual_row_formatted.prepend(l(actual_row.observed_on))
           expect(expected_row).to eq(actual_row_formatted)
         end
       end

@@ -58,7 +58,7 @@ describe "Creating a mailshot", type: :system, js: true do
     # The mailshot was created, and the job to create the letter has been
     # executed inline (see above).
     within("table.mailshots") do
-      expect(page).to have_content(I18n.l(Time.zone.today)) # the date part of created_at
+      expect(page).to have_content(l(Time.zone.today)) # the date part of created_at
       expect(page).to have_content("Test mailshot") # description
       expect(page).to have_content(user.to_s) # author
       expect(page).to have_content("SUCCESS") # status

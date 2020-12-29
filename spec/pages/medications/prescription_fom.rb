@@ -54,7 +54,7 @@ module Pages
 
       def save
         within ".actions" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
     end

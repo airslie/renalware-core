@@ -13,7 +13,7 @@ module Renalware
         profile = find_and_authorize_profile
         if profile.update_by(current_user, profile_params)
           redirect_to patient_low_clearance_dashboard_path,
-                      notice: t(".success", model_name: "profile")
+                      notice: success_msg_for("profile")
         else
           flash.now[:error] = failed_msg_for("profile")
           render_edit(profile)

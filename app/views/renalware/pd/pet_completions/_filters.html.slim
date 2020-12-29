@@ -19,6 +19,6 @@
                   label: "Test type"
 
       .columns.medium-2.large-2.actions.end
-        = f.submit "Filter", class: "button"
+        = f.submit t("btn.filter"), class: "button"
         '  or
-        = link_to t("helpers.reset"), pd_pet_completions_path
+        = link_to t("btn.reset"), pd_pet_completions_path

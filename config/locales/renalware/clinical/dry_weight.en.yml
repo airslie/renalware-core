@@ -1,3 +1,4 @@
+---
 en:
   activerecord:
     attributes:
@@ -17,11 +18,10 @@ en:
         list:
           title: Dry Weights
           add_dry_weight: Add a Dry Weight
-          view_all: View All
           recent:
             title: Recent Dry Weights
           add: Add
         table:
-          date: Date
-          weight: Weight (kg)
-          assessor: Assessor
+          thead:
+            weight: Weight (kg)
+            assessor: Assessor

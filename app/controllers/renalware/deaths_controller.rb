@@ -25,9 +25,9 @@ module Renalware
       authorize patient
       if patient.update(death_params)
         redirect_to patient_clinical_profile_path(patient),
-                    notice: t(".success", model_name: "patient")
+                    notice: success_msg_for("patient")
       else
-        flash.now[:error] = t(".failed", model_name: "patient")
+        flash.now[:error] = failed_msg_for("patient")
         render_edit
       end
     end

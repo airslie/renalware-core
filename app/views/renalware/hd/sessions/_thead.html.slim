@@ -4,9 +4,9 @@ thead
   tr
     th.noprint
     th.noprint.col-width-small(rowspan=3)
-    th.col-width-date(rowspan=3 valign="top")= t(".date")
+    th.col-width-date(rowspan=3 valign="top")= t(".thead.date_")
     th.col-width-small= t(".site")
-    th.col-width-time= t(".time")
+    th.col-width-time= t(".thead.time_")
     th.col-width-time(rowspan=3)= t(".duration")
     th.col-width-tiny= t(".weight")
     th.col-width-tiny= t(".pulse")
@@ -21,7 +21,7 @@ thead
     th.col-width-tiny(rowspan=3)= t(".fluid_removed")
     th.col-width-tiny.text-center(colspan=3)= t(".machine")
     th.col-width-drugs.text-center.print-only(rowspan=3)= t(".hd_drugs_administered")
-    th.col-width-notes.text-center.print-only(rowspan=3)= t(".notes")
+    th.col-width-notes.text-center.print-only(rowspan=3)= t(".thead.notes")
     th.col-width-user.text-center.print-only= t(".user")
 
   tr.row2

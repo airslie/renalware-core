@@ -1,11 +1,12 @@
+---
 en:
   renalware:
     patients:
       show:
         page_title: Demographics
-    clinical_summaries:
-      show:
-        page_title: Clinical Summary
+      clinical_summaries:
+        show:
+          page_title: Clinical Summary
     pd:
       dashboards:
         show:

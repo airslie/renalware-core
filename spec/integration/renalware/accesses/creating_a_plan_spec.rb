@@ -20,7 +20,7 @@ describe "Creating an Access Plan", type: :system do
     expect(page).to have_no_content("Plan History")
 
     within ".page-actions" do
-      click_on "Add"
+      click_on t("btn.add")
       click_on "Access Plan"
     end
 
@@ -28,7 +28,7 @@ describe "Creating an Access Plan", type: :system do
       select plan_type.name, from: "Plan"
       select user.to_s, from: "Decided by"
       fill_in "Notes", with: notes
-      click_on "Save"
+      click_on t("btn.save")
     end
 
     expect(page).to have_current_path(patient_accesses_dashboard_path(patient))
@@ -58,7 +58,7 @@ describe "Creating an Access Plan", type: :system do
       select plan_type2.name, from: "Plan"
       fill_in "Notes", with: notes
       select user.to_s, from: "Decided by"
-      click_on "Save"
+      click_on t("btn.save")
     end
 
     expect(page).to have_current_path(patient_accesses_dashboard_path(patient))
@@ -82,7 +82,7 @@ describe "Creating an Access Plan", type: :system do
     expect(page).to have_no_css(".error")
 
     within "#new_accesses_plan" do
-      click_on "Save"
+      click_on t("btn.save")
     end
 
     expect(page.status_code).to eq(200)

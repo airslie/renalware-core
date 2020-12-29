@@ -84,6 +84,6 @@
             td= f.text_field :urine_k
 
     br
-    = f.submit "Save", class: :button
+    = f.submit t("btn.save"), class: :button
     '  or
-    = link_to "cancel", patient_pd_dashboard_path(patient)
+    = link_to t("btn.cancel"), patient_pd_dashboard_path(patient)

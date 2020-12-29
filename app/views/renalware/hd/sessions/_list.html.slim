@@ -15,14 +15,14 @@ article.hd-sessions
                     new_patient_hd_session_path(@patient, type: :dna),
                     class: :button
       - if policy.can_add_session?
-        li= link_to t(".add"),
+        li= link_to t("btn.add"),
                     new_patient_hd_session_path(@patient),
                     class: "button"
 
   .sub-nav.with-tabs
     dl
       dd.active
-        = link_to "Details", "#hd-sessions", data: { "trigger-masonry-refresh" => true }
+        = link_to t("btn.details"), "#hd-sessions", data: { "trigger-masonry-refresh" => true }
       dd
         = link_to "Drugs given", "#hd-session-drugs", data: { "trigger-masonry-refresh" => true }
 

@@ -20,7 +20,7 @@ module Renalware
         result = CreateDonorStage.new(patient: patient, options: donor_stage_params).call
         if result.success?
           redirect_to patient_transplants_donor_dashboard_path(patient),
-                      notice: t(".success", model_name: "donor stage")
+                      notice: success_msg_for("donor stage")
         else
           render :new, locals: {
             patient: patient,

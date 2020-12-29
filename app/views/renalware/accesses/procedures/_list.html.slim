@@ -20,8 +20,8 @@ article.access-procedures
         tr
           td.toggler = toggler("#procedure-quick-preview-#{procedure.id}")
           td.actions
-            = link_to "View", patient_accesses_procedure_path(patient, procedure)
-            = link_to "Edit", edit_patient_accesses_procedure_path(patient, procedure)
+            = link_to t("btn.view"), patient_accesses_procedure_path(patient, procedure)
+            = link_to t("btn.edit"), edit_patient_accesses_procedure_path(patient, procedure)
           td= procedure.performed_on
           td= procedure.type&.long_name
           td= procedure.side

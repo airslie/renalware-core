@@ -12,7 +12,7 @@ describe "Edit a patient's participation in a study", type: :system, js: true do
     visit research_study_participants_path(participation.study)
 
     within ".study-participants-table" do
-      click_on "Edit"
+      click_on t("btn.edit")
     end
 
     expect(page).to have_current_path(
@@ -21,7 +21,7 @@ describe "Edit a patient's participation in a study", type: :system, js: true do
 
     # Add a left_on date
     fill_in "Left on", with: "2019-02-01"
-    click_on "Save"
+    click_on t("btn.save")
 
     expect(page).to have_current_path(research_study_participants_path(participation.study))
     expect(page).to have_content(participation.patient.to_s)

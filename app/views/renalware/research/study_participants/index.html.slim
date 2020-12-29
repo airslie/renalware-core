@@ -1,7 +1,7 @@
 = content_for(:filters) do
   = link_to(new_research_study_participant_path, class: :button) do
     i.fas.fa-plus
-    | Add
+    = t("btn.add")
   = render "filters", study: study, query: query
 
 = content_for(:tabs) do

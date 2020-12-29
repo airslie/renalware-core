@@ -41,6 +41,6 @@
       = flc.input :access_notes, as: :text, wrapper: :horizontal_large
 
     .form-actions
-      = f.submit "Save", class: "button"
+      = f.submit t("btn.save"), class: "button"
       '  or
-      = link_to "cancel", patient_low_clearance_dashboard_path(patient)
+      = link_to t("btn.cancel"), patient_low_clearance_dashboard_path(patient)

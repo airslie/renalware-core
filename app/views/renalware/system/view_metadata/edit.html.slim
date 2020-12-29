@@ -55,9 +55,9 @@ ruby:
     .modal__footer
       br
       .right
-        = f.submit "Save", class: "button"
+        = f.submit t("btn.save"), class: "button"
         span= " or "
-        = link_to "Cancel",
+        = link_to t("btn.cancel"),
                 "#",
                 "aria-label" => "Close",
                   class: "reveal-modal-close"

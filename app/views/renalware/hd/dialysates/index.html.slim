@@ -1,5 +1,5 @@
 = content_for(:actions) do
-  = link_to "Add",
+  = link_to t("btn.add"),
           new_hd_dialysate_path,
           class: "button"
 
@@ -17,12 +17,12 @@
         tr
           td
             - if policy(dialysate).edit?
-              = link_to "Edit", edit_hd_dialysate_path(dialysate)
+              = link_to t("btn.edit"), edit_hd_dialysate_path(dialysate)
             / Disabling destroy for now as it seems to let you delete a dialysate that is in use
             / Need to add a FK first
             / - if policy(dialysate).destroy?
             /   = pipe_separator
-            /   = link_to "Delete",
+            /   = link_to t("btn.delete"),
             /             hd_dialysate_path(dialysate),
             /             method: :delete,
             /             data: { confirm: "Are you sure?" }

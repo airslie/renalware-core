@@ -32,9 +32,9 @@ module Renalware
 
         if @drug.save
           redirect_to drugs_drugs_path,
-                      notice: t(".success", model_name: "drug")
+                      notice: success_msg_for("drug")
         else
-          flash.now[:error] = t(".failed", model_name: "drug")
+          flash.now[:error] = failed_msg_for("drug")
           render :new
         end
       end
@@ -60,16 +60,16 @@ module Renalware
         @drug = Drug.find(params[:id])
         authorize @drug
         if @drug.update(drug_params)
-          redirect_to drugs_drugs_path, notice: t(".success", model_name: "drug")
+          redirect_to drugs_drugs_path, notice: success_msg_for("drug")
         else
-          flash.now[:error] = t(".failed", model_name: "drug")
+          flash.now[:error] = failed_msg_for("drug")
           render :edit
         end
       end
 
       def destroy
         authorize Drug.destroy(params[:id])
-        redirect_to drugs_drugs_path, notice: t(".success", model_name: "drug")
+        redirect_to drugs_drugs_path, notice: success_msg_for("drug")
       end
 
       private

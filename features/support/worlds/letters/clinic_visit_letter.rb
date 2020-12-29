@@ -140,13 +140,13 @@ module World
         click_on "Draft Letter"
 
         attributes = valid_simple_letter_attributes(patient)
-        fill_in "Date", with: I18n.l(attributes[:issued_on]) if issued_on.present?
+        fill_in "Date", with: l(attributes[:issued_on]) if issued_on.present?
         select attributes[:letterhead].name, from: "Letterhead"
         select user.to_s, from: "Author"
         select2 attributes[:description], css: ".letter_description"
 
         within ".bottom" do
-          click_on "Create"
+          click_on t("btn.create")
         end
       end
 
@@ -154,12 +154,12 @@ module World
         login_as user
         visit patient_clinic_visits_path(patient)
         click_on "Preview Letter"
-        click_on "Edit"
+        click_on t("btn.edit")
 
         select user.to_s, from: "Author"
 
         within ".bottom" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 

@@ -75,25 +75,25 @@ module World
         fill_in t_address(:street_1), with: attr[:address_attributes][:street_1]
         fill_in t_address(:town), with: attr[:address_attributes][:town]
 
-        click_on "Create"
+        click_on t("btn.create")
       end
 
       def update_person(user:)
         login_as user
         visit directory_people_path
-        click_on "Edit"
+        click_on t("btn.edit")
 
         fill_in t_person(:title), with: "Monsieur"
 
-        click_on "Save"
+        click_on t("btn.save")
       end
 
       def t_person(key)
-        I18n.t(key, scope: "activerecord.attributes.renalware/directory/person")
+        t(key, scope: "activerecord.attributes.renalware/directory/person")
       end
 
       def t_address(key)
-        I18n.t(key, scope: "activerecord.attributes.renalware/address")
+        t(key, scope: "activerecord.attributes.renalware/address")
       end
     end
   end

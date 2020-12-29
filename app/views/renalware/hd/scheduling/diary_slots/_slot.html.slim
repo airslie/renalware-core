@@ -13,7 +13,7 @@ td*{ "data-slot-id" => slot.id.present? && slot.id,
               data: { "reveal-id" => "add-patient-to-diary-modal",
                       "reveal-ajax" => "true" }
   - else
-    = link_to "Add",
+    = link_to t("btn.add"),
               new_hd_scheduling_diary_slot_path(diary_id: slot.diary_id,
                                      station_id: slot.station_id,
                                      diurnal_period_code_id: slot.diurnal_period_code_id,

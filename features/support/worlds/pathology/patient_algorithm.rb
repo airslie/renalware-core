@@ -80,10 +80,10 @@ module World
             fill_in "Test description", with: params[:test_description]
             select params[:sample_number_bottles].to_s, from: "Sample number bottles"
             select params[:frequency_type], from: "Frequency"
-            fill_in "Start date", with: I18n.l(params[:start_date])
-            fill_in "End date", with: I18n.l(params[:end_date])
+            fill_in "Start date", with: l(params[:start_date])
+            fill_in "End date", with: l(params[:end_date])
 
-            click_on "Save"
+            click_on t("btn.save")
           end
         end
 

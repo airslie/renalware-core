@@ -23,13 +23,13 @@ describe "Editing a swab", type: :system, js: true do
       expect(page).to have_selector("tbody tr", count: 1)
       expect(page).to have_no_content(swab_site)
       expect(page).to have_no_content(swab_result)
-      click_on "Edit"
+      click_on t("btn.edit")
     end
 
     # Edit..
     fill_in "Site", with: swab_site
     choose swab_result
-    click_on "Save"
+    click_on t("btn.save")
 
     # Back on Clinical Profile..
     expect(page).to have_current_path(patient_clinical_profile_path(patient))
@@ -37,7 +37,7 @@ describe "Editing a swab", type: :system, js: true do
       expect(page).to have_selector("tbody tr", count: 1)
       expect(page).to have_content(swab_site)
       expect(page).to have_content(swab_result)
-      click_on "Edit"
+      click_on t("btn.edit")
     end
   end
 end

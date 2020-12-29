@@ -68,26 +68,26 @@ module World
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
         within ".page-heading" do
-          click_on "Add"
+          click_on t("btn.add_")
           click_on "Donor Workup"
         end
 
         fill_in "Oral GTT", with: "66"
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 
       def update_donor_workup(patient:, user:)
         login_as user
         visit patient_transplants_donor_workup_path(patient)
-        click_on "Edit"
+        click_on t("btn.edit")
 
         fill_in "Calculated Clearance", with: "193"
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
     end

@@ -1,3 +1,4 @@
+---
 en:
   activerecord:
     attributes:
@@ -194,12 +195,13 @@ en:
           title: Latest HD Sessions
           add_session: Add a Session
           add_dna_session: Add DNA Session
-          add: Add Session
           add_dna: Add DNA Session
           view_all: View All Sessions
           view_all_drugs_given: View All Drugs Given
           missing_profile_message: |
             Please enter the HD Profile before creating sessions
+          btn:
+            add: Add Session
         row:
           sign_on: Sign On
           sign_off: Sign Off

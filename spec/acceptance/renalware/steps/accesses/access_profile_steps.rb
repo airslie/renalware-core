@@ -57,7 +57,7 @@ module Renalware
           po.visit_add
           po.access_type = access_type.to_s
           po.side = side.to_s.capitalize
-          po.formed_on = I18n.l(Time.zone.today)
+          po.formed_on = l(Time.zone.today)
           po.save
         end
 

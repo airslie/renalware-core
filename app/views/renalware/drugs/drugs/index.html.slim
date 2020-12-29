@@ -1,5 +1,5 @@
 = content_for(:actions) do
-  = link_to t("new_record.link_title"),
+  = link_to t("btn.add"),
             new_drugs_drug_path,
             class: "button"
 
@@ -17,8 +17,8 @@
       - @drugs.each do |drug|
         tr
           td.actions
-            = link_to "Edit", edit_drugs_drug_path(drug)
-            = link_to "Delete", drugs_drug_path(drug),
+            = link_to t("btn.edit"), edit_drugs_drug_path(drug)
+            = link_to t("btn.delete"), drugs_drug_path(drug),
               id: "#{drug.id}-drug",
               method: :delete,
               data: { confirm: I18n.t("prompts.confirm_delete") }

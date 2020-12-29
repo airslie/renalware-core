@@ -4,10 +4,10 @@ article.access-plans
   header
     h2 Current Access Plan
     ul
-      li= link_to "Edit",
+      li= link_to t("btn.edit"),
                   edit_patient_accesses_plan_path(patient, current_plan),
                   class: "button"
-      li= link_to "View",
+      li= link_to t("btn.view"),
                   patient_accesses_plan_path(patient, current_plan),
                   class: "button secondary"
   .current-access-plan

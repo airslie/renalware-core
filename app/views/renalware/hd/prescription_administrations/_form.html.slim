@@ -84,7 +84,7 @@
 
       .modal__footer
         .right
-          = fpa.submit "Save", class: "button"
+          = fpa.submit t("btn.save"), class: "button"
           | &nbsp;&nbsp;
           = fpa.submit "Save and Witness Later",
                        name: "hd_prescription_administration[skip_witness_validation]",
@@ -92,7 +92,7 @@
                        class: "button secondary"
 
           '  or
-          = link_to "Cancel",
+          = link_to t("btn.cancel"),
                   "#",
                   "aria-label" => "Close",
                     class: "reveal-modal-close"

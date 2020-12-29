@@ -20,8 +20,8 @@ When("I select death modality") do
       wait_for_ajax
     end
 
-    fill_in "Started on", with: I18n.l(Time.zone.today)
-    click_on "Save"
+    fill_in "Started on", with: l(Time.zone.today)
+    click_on t("btn.save")
   end
 end
 
@@ -29,13 +29,13 @@ Then("I should see the patient's current modality set as death with start date")
   visit patient_modalities_path(@patty || @patient_1)
 
   expect(page).to have_content("Death")
-  expect(page).to have_content(I18n.l(Time.zone.today))
+  expect(page).to have_content(l(Time.zone.today))
 end
 
 Then("I should see the date of death and causes of death in the patient's clinical profile") do
   visit patient_clinical_profile_path(@patty || @patient_1)
 
-  expect(page).to have_content(I18n.l(Time.zone.today))
+  expect(page).to have_content(l(Time.zone.today))
   expect(page).to have_content("Dementia")
   expect(page).to have_content("Cachexia")
 end
@@ -50,14 +50,14 @@ end
 
 When("I complete the cause of death form") do
   within ".edit_patient" do
-    fill_in "Date of Death", with: I18n.l(Time.zone.today)
+    fill_in "Date of Death", with: l(Time.zone.today)
 
     select "Dementia", from: "Cause of Death (1)"
     select "Cachexia", from: "Cause of Death (2)"
 
     fill_in "Notes", with: "Heart stopped"
 
-    click_on "Save"
+    click_on t("btn.save")
   end
 end
 

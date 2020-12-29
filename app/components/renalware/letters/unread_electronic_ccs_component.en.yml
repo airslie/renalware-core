@@ -1,0 +1,7 @@
+---
+en:
+  renalware:
+    letters:
+      unread_electronic_ccs_component:
+        none: You have no electronic CCs
+        title: Electronic CCs

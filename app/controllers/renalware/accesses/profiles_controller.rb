@@ -21,9 +21,9 @@ module Renalware
 
         if profile.save
           redirect_to patient_accesses_dashboard_path(patient),
-                      notice: t(".success", model_name: "Access profile")
+                      notice: success_msg_for("Access profile")
         else
-          flash.now[:error] = t(".failed", model_name: "Access profile")
+          flash.now[:error] = failed_msg_for("Access profile")
           render :new, locals: { patient: patient, profile: profile }
         end
       end
@@ -38,9 +38,9 @@ module Renalware
 
         if profile.update(profile_params)
           redirect_to patient_accesses_dashboard_path(patient),
-                      notice: t(".success", model_name: "Access profile")
+                      notice: success_msg_for("Access profile")
         else
-          flash.now[:error] = t(".failed", model_name: "Access profile")
+          flash.now[:error] = failed_msg_for("Access profile")
           render :edit, locals: { patient: patient, profile: profile }
         end
       end

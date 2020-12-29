@@ -85,7 +85,7 @@ module World
         visit patient_hd_dashboard_path(patient)
 
         within ".page-actions" do
-          click_on "Add"
+          click_on t("btn.add")
           click_on "HD Profile"
         end
 
@@ -94,7 +94,7 @@ module World
         select "300", from: "Flow Rate"
 
         within ".top" do
-          click_on "Create"
+          click_on t("btn.create")
         end
       end
 
@@ -103,14 +103,14 @@ module World
         visit patient_hd_dashboard_path(patient)
 
         within ".hd-profile-summary" do
-          click_on "Edit"
+          click_on t("btn.edit")
         end
 
         select "Mon Wed Fri PM", from: "Schedule"
         select "400", from: "Flow Rate"
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
     end

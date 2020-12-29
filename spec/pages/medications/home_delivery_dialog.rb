@@ -39,7 +39,7 @@ module Pages
 
       def print
         within("#print-home-delivery-drugs-modal") do
-          click_on "Print"
+          click_on t("btn.print")
         end
       end
 

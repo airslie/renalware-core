@@ -11,7 +11,7 @@ module Pages
       end
 
       def create_simple_letter
-        click_on "Create"
+        click_on t("btn.create_")
         click_on "Simple Letter"
         Pages::Letters::Form.new
       end

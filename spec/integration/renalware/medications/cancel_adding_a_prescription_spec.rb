@@ -27,13 +27,13 @@ describe "Configuring Modality Descriptions", type: :system, js: true do
 
   def load_the_new_prescription_form_via_remote_js_call
     within ".page-actions" do
-      click_on "Add"
+      click_on t("btn.add")
     end
   end
 
   def cancel_the_add_prescription_form_via_remote_js_call
     within "form .actions" do
-      click_on "cancel"
+      click_on "Cancel"
     end
   end
 end

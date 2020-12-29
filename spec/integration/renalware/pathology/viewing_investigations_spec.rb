@@ -35,7 +35,7 @@ module Renalware::Pathology
         within("#observation-requests") do
           # Displays a list of investgations (OBRs)
           expect(page).to have_content(obr_desc.name)
-          expect(page).to have_content(I18n.l(obr.requested_at))
+          expect(page).to have_content(l(obr.requested_at))
         end
 
         # Click on the OBR to load up the OBXes withinit
@@ -52,7 +52,7 @@ module Renalware::Pathology
         # A list of all OBXes of this type (OBX description) for this patient
         expect(page).to have_current_path(patient_pathology_observations_path(patient, obx_desc))
         expect(page).to have_content(obx_desc.name)
-        expect(page).to have_content(I18n.l(obr.requested_at)) # TODO: should be obx.observed_at ?
+        expect(page).to have_content(l(obr.requested_at)) # TODO: should be obx.observed_at ?
         expect(page).to have_content(obx.result)
       end
 
@@ -76,7 +76,7 @@ module Renalware::Pathology
           select "OBR2 - MyOBR2", from: "Filter by Code"
 
           # Choose an option and click Filter
-          click_on "Filter"
+          click_on t("btn.filter")
 
           within("#observation-requests") do
             # It only displays the filtered OBRs

@@ -31,9 +31,9 @@ module Renalware
         event = new_event_for_patient(event_params)
 
         if CreateEvent.call(event: event, by: current_user)
-          redirect_to return_url, notice: t(".success", model_name: "event")
+          redirect_to return_url, notice: success_msg_for("event")
         else
-          flash.now[:error] = t(".failed", model_name: "event")
+          flash.now[:error] = failed_msg_for("event")
           render_new(event)
         end
       end
@@ -58,7 +58,7 @@ module Renalware
         event = load_and_authorize_event_for_edit_or_update
 
         if UpdateEvent.call(event: event, params: event_params, by: current_user)
-          redirect_to return_url, notice: t(".success", model_name: "event")
+          redirect_to return_url, notice: success_msg_for("event")
         else
           flash.now[:error] = failed_msg_for("event type")
           render_edit(event)

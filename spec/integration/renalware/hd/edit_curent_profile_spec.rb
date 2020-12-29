@@ -36,7 +36,7 @@ describe "Editing a patient's current HD profile", type: :system, js: false do
       user = login_as_clinical
       visit patient_hd_dashboard_path(patient)
       within ".page-actions" do
-        click_on "Add"
+        click_on t("btn.add")
         click_on "HD Profile"
       end
 
@@ -100,7 +100,7 @@ describe "Editing a patient's current HD profile", type: :system, js: false do
       end
 
       within ".form-actions" do
-        click_on "Create"
+        click_on t("btn.create")
       end
 
       expect(page).to have_current_path(patient_hd_dashboard_path(patient))
@@ -172,13 +172,13 @@ describe "Editing a patient's current HD profile", type: :system, js: false do
       visit patient_hd_dashboard_path(patient)
 
       within ".hd-profile-summary" do
-        click_on "Edit"
+        click_on t("btn.edit")
       end
 
       select "17", from: "Needle Size"
 
       within ".form-actions" do
-        click_on "Save"
+        click_on t("btn.save")
       end
 
       expect(page).to have_current_path(patient_hd_dashboard_path(patient))

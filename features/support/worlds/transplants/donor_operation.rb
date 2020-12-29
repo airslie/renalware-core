@@ -78,14 +78,14 @@ module World
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
         within ".page-heading" do
-          click_on "Add"
+          click_on t("btn.add_")
           click_on "Donor Transplant Operation"
         end
 
         fill_in "Operation Date", with: performed_on
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 
@@ -93,13 +93,13 @@ module World
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
         within_article "Donor Transplant Operations" do
-          click_on "Edit"
+          click_on t("btn.edit")
         end
 
         select "Both", from: "Kidney Side"
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
     end

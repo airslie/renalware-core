@@ -22,9 +22,9 @@ module Renalware
       def update
         if update_registration
           redirect_to patient_transplants_recipient_dashboard_path(patient),
-                      notice: t(".success", model_name: "registration")
+                      notice: success_msg_for("registration")
         else
-          flash.now[:error] = t(".failed", model_name: "registration")
+          flash.now[:error] = failed_msg_for("registration")
           render :edit, locals: { patient: patient, registration: registration }
         end
       end

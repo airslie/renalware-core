@@ -54,13 +54,13 @@ module World
         login_as user
         visit patient_hd_dashboard_path(patient)
         within ".page-actions" do
-          click_on "Add"
+          click_on t("btn.add")
           click_on "HD Preferences"
         end
 
         select "Mon Wed Fri AM", from: "Schedule"
 
-        click_on "Create"
+        click_on t("btn.create")
       end
 
       def update_hd_preferences(patient:, user:)
@@ -68,13 +68,13 @@ module World
         visit patient_hd_dashboard_path(patient)
 
         within ".hd-preference-sets" do
-          click_on "Edit"
+          click_on t("btn.edit")
         end
 
         within ".document" do
           select "Mon Wed Fri PM", from: "Schedule"
 
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
     end

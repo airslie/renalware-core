@@ -18,6 +18,6 @@
               input_html: { rows: 6 },
               wrapper: :horizontal_medium
 
-    = f.submit "Save", class: "button"
+    = f.submit t("btn.save"), class: "button"
     '  or
-    = link_to "cancel", patient_transplants_donor_dashboard_path(patient)
+    = link_to t("btn.cancel"), patient_transplants_donor_dashboard_path(patient)

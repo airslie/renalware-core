@@ -29,7 +29,7 @@ module Renalware
         appointment = Appointment.new(appointment_params)
         authorize appointment
         if appointment.save_by(current_user)
-          redirect_to appointments_path, notice: t(".success", model_name: "Appointment")
+          redirect_to appointments_path, notice: success_msg_for("Appointment")
         else
           render_new(appointment)
         end

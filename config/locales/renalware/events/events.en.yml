@@ -1,0 +1,18 @@
+---
+en:
+  renalware:
+    events:
+      events:
+        table:
+          thead:
+            created_at: Added
+  activerecord:
+    attributes:
+      renalware/events/event:
+        date_time: Date time
+        notes: Notes
+    errors:
+      models:
+        renalware/events/event:
+          event_type_id:
+            blank: please select an option

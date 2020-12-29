@@ -5,7 +5,7 @@ require "rails_helper"
 describe "renalware/clinical/header" do
   let(:patient) { create(:patient) }
 
-  def t(key)
+  def my_t(key)
     I18n.t(key, scope: "renalware.clinical.header")
   end
 
@@ -20,10 +20,10 @@ describe "renalware/clinical/header" do
     )
     render partial: "renalware/clinical/header", locals: { patient: patient }
 
-    expect(rendered).to include t("blood_pressure")
-    expect(rendered).to include t("weight")
-    expect(rendered).to include t("height")
-    expect(rendered).to include t("bmi")
+    expect(rendered).to include my_t("blood_pressure")
+    expect(rendered).to include my_t("weight")
+    expect(rendered).to include my_t("height")
+    expect(rendered).to include my_t("bmi")
     expect(rendered).to include("100.99")
     expect(rendered).to include("1.99")
     expect(rendered).to include("123/91")
@@ -47,9 +47,9 @@ describe "renalware/clinical/header" do
     render partial: "renalware/clinical/header", locals: { patient: patient, header: presenter }
 
     path_codes.each do |code|
-      expect(rendered).to include I18n.t(code, scope: "renalware.clinical.header")
+      expect(rendered).to include t(code, scope: "renalware.clinical.header")
       expect(rendered).to include "#{code}_result"
-      expect(rendered).to include(I18n.l(date, format: :compact))
+      expect(rendered).to include(l(date, format: :compact))
     end
   end
 end

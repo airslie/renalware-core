@@ -56,7 +56,7 @@ module Renalware
       end
 
       def save_failure(episode)
-        flash.now[:error] = t(".failed", model_name: "peritonitis episode")
+        flash.now[:error] = failed_msg_for("peritonitis episode")
         action = action_name.to_sym == :create ? :new : :edit
         render action, locals: {
           peritonitis_episode: episode,
@@ -98,7 +98,7 @@ module Renalware
 
       def redirect_after_successful_save(episode)
         url = patient_pd_peritonitis_episode_path(patient, episode)
-        message = t(".success", model_name: "peritonitis episode")
+        message = success_msg_for("peritonitis episode")
         redirect_to url, notice: message
       end
 

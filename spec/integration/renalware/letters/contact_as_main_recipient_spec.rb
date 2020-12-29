@@ -26,7 +26,7 @@ describe "Assign a person as a main recipient", type: :system do
     context "with valid attributes" do
       it "responds successfully" do
         visit patient_letters_letters_path(patient)
-        click_on "Create"
+        click_on t("btn.create_")
         click_on "Simple Letter"
 
         fill_out_letter
@@ -36,7 +36,7 @@ describe "Assign a person as a main recipient", type: :system do
         select person.to_s, from: "letter_main_recipient_attributes_addressee_id"
 
         within ".top" do
-          click_on "Create"
+          click_on t("btn.create")
         end
 
         visit patient_letters_letters_path(patient)
@@ -56,7 +56,7 @@ describe "Assign a person as a main recipient", type: :system do
         )
         select contact_description.name, from: "Description"
 
-        click_on "Save"
+        click_on t("btn.save")
       end
 
       wait_for_ajax
@@ -67,7 +67,7 @@ describe "Assign a person as a main recipient", type: :system do
     def fill_out_letter
       within "#letter-form" do
         select2 "::description::", css: ".letter_description"
-        fill_in "Date", with: I18n.l(Time.zone.today)
+        fill_in "Date", with: l(Time.zone.today)
         select Renalware::Letters::Letterhead.first.name, from: "Letterhead"
         select Renalware::User.first.to_s, from: "Author"
         choose("Patient's Contact")

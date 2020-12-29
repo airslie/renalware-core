@@ -55,7 +55,7 @@ module Renalware
         if patient.update_by(current_user, patient_params)
           redirect_to_patient_demographics(patient)
         else
-          flash.now[:error] = t(".failed", model_name: "patient")
+          flash.now[:error] = failed_msg_for("patient")
           render :edit, locals: { patient: patient }
         end
       end

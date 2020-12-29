@@ -25,6 +25,6 @@
                 collection: Renalware::User.ordered.select(:id, :given_name, :family_name)
 
     .medium-2.columns.actions
-      = f.submit t("helpers.submit.filter"), class: "button", name: nil
+      = f.submit t("btn.filter"), class: "button", name: nil
       '  or
-      = link_to t("helpers.reset"), filter_form.url
+      = link_to t("btn.reset"), filter_form.url

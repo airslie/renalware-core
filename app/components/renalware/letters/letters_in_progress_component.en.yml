@@ -1,0 +1,7 @@
+---
+en:
+  renalware:
+    letters:
+      letters_in_progress_component:
+        none: No letters in progress
+        title: Letters in progress

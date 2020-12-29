@@ -13,7 +13,7 @@ article.status-history
     tbody
       - donor_operations.each do |operation|
         tr
-          td= link_to "Edit", edit_patient_transplants_donor_operation_path(patient, operation)
+          td= link_to t("btn.edit"), edit_patient_transplants_donor_operation_path(patient, operation)
           td= link_to patient_transplants_donor_operation_path(patient, operation) do
               = l operation.performed_on
           td= operation.kidney_side.try(:text)
@@ -21,9 +21,9 @@ article.status-history
           - if operation.followup
             td= l operation.followup.last_seen_on
             td.actions.text-left
-              = link_to "View",
+              = link_to t("btn.view"),
                   patient_transplants_donor_operation_followup_path(patient, operation)
-              = link_to "Update",
+              = link_to t("btn.update"),
                   edit_patient_transplants_donor_operation_followup_path(patient, operation)
           - else
             td

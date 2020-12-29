@@ -3,6 +3,6 @@
 
   = simple_form_for(pet, url: renalware.patient_pd_pet_results_path(pet.patient), wrapper: :horizontal_form) do |f|
     = render "form_fields", form: f
-    = f.submit "Save", class: :button
+    = f.submit t("btn.save"), class: :button
     '  or
-    = link_to "cancel", patient_pd_dashboard_path(pet.patient)
+    = link_to t("btn.cancel"), patient_pd_dashboard_path(pet.patient)

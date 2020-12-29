@@ -18,9 +18,9 @@ article.pd_assessments
         tr
           td.actions
             - if policy(assessment).edit?
-              = link_to("Edit", edit_patient_pd_assessment_path(patient, assessment))
+              = link_to(t("btn.edit"), edit_patient_pd_assessment_path(patient, assessment))
             - if policy(assessment).show?
-              = link_to("View", [patient, assessment])
+              = link_to(t("btn.view"), [patient, assessment])
           td= l(assessment.created_at)
           td= document.assessed_on.is_a?(Date) ? l(document.assessed_on) : document.assessed_on
           td= document.assessor

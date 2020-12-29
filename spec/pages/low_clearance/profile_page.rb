@@ -11,7 +11,7 @@ module Pages
         visit patient_low_clearance_dashboard_path(patient)
 
         within ".page-actions" do
-          click_on "Add"
+          click_on t("btn.add")
           click_on "Profile"
         end
       end

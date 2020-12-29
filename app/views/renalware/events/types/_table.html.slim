@@ -7,8 +7,8 @@ table
     - event_types.each do |t|
       tr
         td.actions
-          = link_to "Edit", edit_events_type_path(t.id)
-          = link_to "Delete",
+          = link_to t("btn.edit"), edit_events_type_path(t.id)
+          = link_to t("btn.delete"),
                     events_type_path(t.id),
                     method: :delete,
                     data: { confirm: I18n.t("prompts.confirm_delete") }

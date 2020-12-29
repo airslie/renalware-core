@@ -8,6 +8,6 @@
 
 .row
   .large-12.columns
-    = f.submit "Save", class: "button"
+    = f.submit t("btn.save"), class: "button"
     '  or
-    = link_to "cancel", patient_transplants_recipient_dashboard_path(patient)
+    = link_to t("btn.cancel"), patient_transplants_recipient_dashboard_path(patient)

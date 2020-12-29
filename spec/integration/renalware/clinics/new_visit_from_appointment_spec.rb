@@ -28,12 +28,12 @@ describe "New Visit from existing Appointment", type: :system do
 
         visit new_patient_clinic_visit_path(patient, appointment_id: appointment.id)
 
-        expect(find_field("Date").value).to eq(I18n.l(appointment.starts_at.to_date))
+        expect(find_field("Date").value).to eq(l(appointment.starts_at.to_date))
         expect(find_field("Time").value).to eq(appointment.starts_at.strftime("%H:%M"))
         expect(find_field("Clinic").value).to eq(appointment.clinic.id.to_s)
 
         within ".document" do
-          click_on "Save"
+          click_on t("btn.save")
         end
 
         expect(patient.clinic_visits.length).to eq(1)

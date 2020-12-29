@@ -35,7 +35,7 @@ describe "Assign a contact to a patient", type: :system, js: true do
     end
 
     def try_create_contact_with_valid_params
-      click_on "Add"
+      click_on t("btn.add")
 
       within("#add-patient-contact-modal") do
         select2(
@@ -44,17 +44,17 @@ describe "Assign a contact to a patient", type: :system, js: true do
           search: true
         )
         select contact_description.to_s, from: "Description"
-        click_on "Save"
+        click_on t("btn.save")
       end
 
       wait_for_ajax
     end
 
     def try_create_contact_with_invalid_params
-      click_on "Add"
+      click_on t("btn.add")
 
       within("#add-patient-contact-modal") do
-        click_on "Save"
+        click_on t("btn.save")
       end
     end
 

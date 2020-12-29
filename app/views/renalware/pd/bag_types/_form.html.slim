@@ -5,7 +5,7 @@
   = f.input :id, as: :hidden unless f.object.new_record?
   = f.input :manufacturer,
             collection: manufacturer_options,
-            prompt: t(".collection.blank_option"),
+            prompt: t("collection.blank_option"),
             input_html: { class: "manufacturer-select" },
             wrapper: :horizontal_small
   = f.input :description, wrapper: :horizontal_medium
@@ -28,4 +28,4 @@
 
   = f.button :submit
   '  or
-  = link_to "Cancel", pd_bag_types_path
+  = link_to t("btn.cancel"), pd_bag_types_path

@@ -17,9 +17,9 @@ module Renalware
 
         if modality_description.save
           redirect_to modalities_descriptions_path,
-                      notice: t(".success", model_name: "modality description")
+                      notice: success_msg_for("modality description")
         else
-          flash.now[:error] = t(".failed", model_name: "modality description")
+          flash.now[:error] = failed_msg_for("modality description")
           render_new(modality_description)
         end
       end
@@ -38,9 +38,9 @@ module Renalware
         modality_description = find_and_authorize_modality_description
         if modality_description.update(modality_description_params)
           redirect_to modalities_descriptions_path,
-                      notice: t(".success", model_name: "modality description")
+                      notice: success_msg_for("modality description")
         else
-          flash.now[:error] = t(".failed", model_name: "modality description")
+          flash.now[:error] = failed_msg_for("modality description")
           render_edit(modality_description)
         end
       end
@@ -48,7 +48,7 @@ module Renalware
       def destroy
         authorize Description.destroy(params[:id])
         redirect_to modalities_descriptions_path,
-                    notice: t(".success", model_name: "modality description")
+                    notice: success_msg_for("modality description")
       end
 
       private

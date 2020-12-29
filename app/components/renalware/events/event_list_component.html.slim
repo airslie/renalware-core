@@ -4,7 +4,7 @@ article.events
     .supplemental
       span= "#{event_count} of #{total_event_count}"
       span.noprint
-        = link_to "View All",
+        = link_to t("btn.view_all"),
                   renalware.patient_events_path(patient),
                   class: "button secondary"
 

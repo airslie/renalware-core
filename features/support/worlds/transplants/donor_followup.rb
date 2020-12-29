@@ -70,7 +70,7 @@ module World
         fill_in "Last Seen Date", with: valid_donor_followup_attributes[:last_seen_on]
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 
@@ -78,7 +78,7 @@ module World
         login_as user
         visit patient_transplants_donor_dashboard_path(operation.patient)
         within_article "Donor Transplant Operations" do
-          click_on "Update"
+          click_on t("btn.update")
         end
 
         within ".transplants_donor_followup_lost_to_followup" do
@@ -86,7 +86,7 @@ module World
         end
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
     end

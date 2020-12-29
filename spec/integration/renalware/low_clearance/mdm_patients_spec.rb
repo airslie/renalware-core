@@ -9,7 +9,7 @@ describe "Low Clearance Patients", type: :system do
   describe "GET index" do
     def each_filter
       Renalware::LowClearance::MDM_FILTERS.each do |filter_name|
-        filter_label = I18n.t(
+        filter_label = t(
           filter_name,
           scope: "renalware.low_clearance.mdm_patients.tabs.tab"
         )

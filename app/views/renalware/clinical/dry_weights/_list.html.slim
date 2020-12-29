@@ -10,7 +10,7 @@ article.dry-weights.simple.simple-table
   header
     h2.title= defined?(limit) ? t(".recent.title") : t(".title")
     ul
-      li= link_to t(".add"), new_patient_clinical_dry_weight_path(patient), class: "button"
-      li= link_to t(".view_all"), patient_clinical_dry_weights_path(patient), class: "button secondary"
+      li= link_to t("btn.add"), new_patient_clinical_dry_weight_path(patient), class: "button"
+      li= link_to t("btn.view_all"), patient_clinical_dry_weights_path(patient), class: "button secondary"
 
   = render "renalware/clinical/dry_weights/table", dry_weights: presenter.dry_weights

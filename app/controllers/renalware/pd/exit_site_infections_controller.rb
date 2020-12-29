@@ -28,9 +28,9 @@ module Renalware
         authorize esi
         if esi.save
           redirect_to patient_pd_exit_site_infection_path(patient, esi),
-                      notice: t(".success", model_name: "exit site infection")
+                      notice: success_msg_for("exit site infection")
         else
-          flash.now[:error] = t(".failed", model_name: "exit site infection")
+          flash.now[:error] = failed_msg_for("exit site infection")
           render_new(esi)
         end
       end
@@ -44,9 +44,9 @@ module Renalware
         authorize exit_site_infection
         if exit_site_infection.update(exit_site_infection_params)
           redirect_to patient_pd_exit_site_infection_path(patient, exit_site_infection),
-                      notice: t(".success", model_name: "exit site infection")
+                      notice: success_msg_for("exit site infection")
         else
-          flash.now[:error] = t(".failed", model_name: "exit site infection")
+          flash.now[:error] = failed_msg_for("exit site infection")
           render_edit
         end
       end

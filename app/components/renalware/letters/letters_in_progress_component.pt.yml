@@ -1,0 +1,7 @@
+---
+pt:
+  renalware:
+    letters:
+      letters_in_progress_component:
+        none: No cartas em andamento
+        title: Cartas em andamento

@@ -27,7 +27,7 @@ describe "Managing an existing letter contact", type: :system, js: true do
       within "#letters_contact_#{contact.id}" do
         expect(page).to have_content("Yes")
         expect(page).to have_content("Parent")
-        click_on "Edit"
+        click_on t("btn.edit")
       end
 
       expect(page).to have_content("Edit Patient Contact")
@@ -43,7 +43,7 @@ describe "Managing an existing letter contact", type: :system, js: true do
 
       select description2.name, from: "Description"
 
-      click_on "Save"
+      click_on t("btn.save")
 
       expect(page).to have_no_css("#add-patient-contact-as-cc-modal")
 
@@ -78,7 +78,7 @@ describe "Managing an existing letter contact", type: :system, js: true do
       visit patient_letters_contacts_path(patient)
 
       within "#contacts table tbody tr:first-child" do
-        click_on "Edit"
+        click_on t("btn.edit")
       end
 
       wait_for_ajax
@@ -87,7 +87,7 @@ describe "Managing an existing letter contact", type: :system, js: true do
       select "", from: "Description"
       fill_in "", with: "Other description"
 
-      click_on "Save"
+      click_on t("btn.save")
 
       expect(page).to have_css(".modal__body .error-messages")
     end

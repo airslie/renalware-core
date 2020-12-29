@@ -54,6 +54,6 @@ scss:
 
         a.link_to_right_of_input_label(href="javascript:$('#q_hospital_ward_id').val(null).trigger('change');") Clear
       .columns.medium-2.large-2.actions.end
-        = f.submit "Filter", class: "button"
+        = f.submit t("btn.filter"), class: "button"
         '  or
-        = link_to t("helpers.reset"), renal_aki_alerts_path
+        = link_to t("btn.reset"), renal_aki_alerts_path

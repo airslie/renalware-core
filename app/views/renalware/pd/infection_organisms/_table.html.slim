@@ -9,9 +9,12 @@ table
     - infection_organisms.each do |infection_organism|
       tr
         td.noprint.actions
-          = link_to "Edit", edit_pd_infection_organism_path(infection_organism), remote: true
-          = link_to "Terminate", pd_infection_organism_path(infection_organism),
-              method: :delete, remote: true, data: { confirm: "Are you sure?" }
+          = link_to t("btn.edit"), edit_pd_infection_organism_path(infection_organism), remote: true
+          = link_to t("btn.terminate"),
+                    pd_infection_organism_path(infection_organism),
+                    method: :delete,
+                    remote: true,
+                    data: { confirm: "Are you sure?" }
         td= infection_organism
         td= infection_organism.sensitivity
         td= infection_organism.resistance

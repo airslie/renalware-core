@@ -36,17 +36,17 @@ module Renalware
         # Simulate going to Admission Consults, filtering and clicking Print
         visit admissions_consults_path
         select "Yes", from: "Active"
-        click_on "Filter"
+        click_on t("btn.filter")
         click_on "Print (PDF)"
 
         expect(page.status_code).to eq(200)
         expect(page).to have_content("Admission Consults")
-        expect(page).to have_content(I18n.l(Time.zone.today))
+        expect(page).to have_content(l(Time.zone.today))
         expect(page).to have_content("Filters")
         expect(page).to have_content("Active:Yes")
 
         expect(page).to have_content(active_consult.patient.to_s)
-        expect(page).to have_content(I18n.l(active_consult.patient.born_on))
+        expect(page).to have_content(l(active_consult.patient.born_on))
         expect(page).to have_content(active_consult.hospital_ward)
         expect(page).to have_content(active_consult.patient.hospital_identifiers)
         expect(page).to have_content(active_consult.patient.current_modality)

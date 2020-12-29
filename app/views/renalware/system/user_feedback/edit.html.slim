@@ -16,4 +16,4 @@
   = simple_form_for(feedback, as: :feedback) do |f|
     = f.input :admin_notes, input_html: { rows: 5 }
     = f.input :acknowledged, as: :boolean, boolean_style: :inline
-    = f.submit "Save", class: :button
+    = f.submit t("btn.save"), class: :button

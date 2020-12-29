@@ -1,0 +1,13 @@
+---
+en:
+  renalware:
+    navigation:
+      user:
+        my_dashboard: My Dashboard
+        update_profile: Update Profile
+      patients_admin:
+        patients: Patients
+      directory:
+        directory: Directory
+      sign_out:
+        log_out: Log out

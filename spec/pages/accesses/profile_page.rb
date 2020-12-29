@@ -11,7 +11,7 @@ module Pages
       def visit_add
         visit patient_accesses_dashboard_path(patient)
         within(".page-actions") do
-          click_on "Add"
+          click_on t("btn.add")
           click_on "Access Profile"
         end
       end
@@ -19,7 +19,7 @@ module Pages
       def visit_edit
         visit patient_accesses_dashboard_path(patient)
         within_article "Access Profile History" do
-          click_on "Edit"
+          click_on t("btn.edit")
         end
       end
 

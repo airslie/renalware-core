@@ -6,7 +6,7 @@
       .supplemental
         span= "#{events.length} of #{mdm.patient.summary.events_count}"
         span.noprint
-          = link_to "View All",
+          = link_to t("btn.view_all"),
                     patient_events_path(mdm.patient),
                     class: "button secondary"
 

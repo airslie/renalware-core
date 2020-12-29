@@ -22,8 +22,8 @@ describe "Managing system messages that are displayed on the login page", type: 
     within ".system-messages" do
       expect(page).to have_content(message.title)
       expect(page).to have_content(message.body)
-      expect(page).to have_content(I18n.l(message.display_from))
-      expect(page).to have_content(I18n.l(message.display_until))
+      expect(page).to have_content(l(message.display_from))
+      expect(page).to have_content(l(message.display_until))
       expect(page).to have_content("Yes") # active?
     end
   end
@@ -33,7 +33,7 @@ describe "Managing system messages that are displayed on the login page", type: 
     visit system_messages_path
 
     within ".page-actions" do
-      click_on "Add"
+      click_on t("btn.add")
     end
 
     fill_in "Title", with: "Test title"
@@ -41,7 +41,7 @@ describe "Managing system messages that are displayed on the login page", type: 
     fill_in "Display from", with: "2018-01-01 01:01:01"
     fill_in "Display until", with: "2018-02-02 02:02:02"
     select "Warning", from: "Severity"
-    click_on "Save"
+    click_on t("btn.save")
 
     expect(page).to have_current_path(system_messages_path)
 
@@ -60,13 +60,13 @@ describe "Managing system messages that are displayed on the login page", type: 
     visit system_messages_path
 
     within ".system-messages" do
-      click_on "Edit"
+      click_on t("btn.edit")
     end
 
     fill_in "Title", with: "Edited title"
     fill_trix_editor with: "Edited body"
 
-    click_on "Save"
+    click_on t("btn.save")
 
     expect(page).to have_current_path(system_messages_path)
 
@@ -83,7 +83,7 @@ describe "Managing system messages that are displayed on the login page", type: 
 
     within ".system-messages" do
       expect(page).to have_content("Test title")
-      click_on "Delete"
+      click_on t("btn.delete")
     end
 
     within ".system-messages" do

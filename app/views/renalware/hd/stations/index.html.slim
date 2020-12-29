@@ -5,7 +5,7 @@
 
 = content_for(:actions) do
   - if policy(Renalware::HD::Station.new).create?
-    = link_to t("new_record.link_title"),
+    = link_to t("btn.add"),
               new_hd_unit_station_path(unit_id: unit.id),
               class: "button"
 

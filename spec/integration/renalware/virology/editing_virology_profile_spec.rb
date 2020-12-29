@@ -40,7 +40,7 @@ describe "Editing the virology profile", type: :system do
     end
 
     within ".patient-content" do
-      click_on "Save"
+      click_on t("btn.save")
     end
 
     expect(page).to have_current_path(patient_virology_dashboard_path(patient))

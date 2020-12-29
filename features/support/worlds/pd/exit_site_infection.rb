@@ -76,12 +76,12 @@ module World
         fill_in "Outcome", with: outcome
 
         clinical_presentation&.each do |item|
-          label = I18n.t(item,
+          label = t(item,
                          scope: "enumerize.renalware/pd/exit_site_infection.clinical_presentation")
           check label
         end
 
-        click_on "Save"
+        click_on t("btn.save")
       end
 
       def revise_exit_site_infection_for(patient:, user:, diagnosed_on:)
@@ -89,9 +89,9 @@ module World
 
         visit patient_pd_exit_site_infection_path(patient, infection_for(patient))
         within "#infection" do
-          click_on "Edit"
+          click_on t("btn.edit")
           fill_in "Diagnosed on", with: diagnosed_on
-          click_on "Save"
+          click_on t("btn.save")
           wait_for_ajax
         end
       end

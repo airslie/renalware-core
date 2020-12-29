@@ -27,7 +27,7 @@ module Renalware
 
         if profile.update(profile_params)
           redirect_to patient_renal_profile_path(patient),
-                      notice: t(".success", model_name: "profile")
+                      notice: success_msg_for("profile")
         else
           render :edit, locals: {
             patient: patient,

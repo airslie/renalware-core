@@ -24,7 +24,7 @@ module Renalware
                 patient_elem << addresses_element
                 patient_elem << family_doctor_element
                 patient_elem << ethnic_group_element
-                patient_elem << primary_langauge_element # test
+                patient_elem << primary_language_element # test
                 patient_elem << death_element
                 patient_elem << create_node("UpdatedOn", patient.updated_at&.to_datetime)
                 patient_elem << create_node("ActionCode", "A")
@@ -100,7 +100,7 @@ module Renalware
             Rendering::FamilyDoctor.new(patient: patient).xml
           end
 
-          def primary_langauge_element
+          def primary_language_element
             Rendering::PrimaryLanguage.new(patient: patient).xml
           end
 

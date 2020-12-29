@@ -19,7 +19,7 @@ ul.f-dropdown#download-options(data-dropdown-content aria-hidden="true")
 
 = blank_separator
 - if policy(letter).update?
-  = link_to "Edit",
+  = link_to t("btn.edit"),
             edit_patient_letters_letter_path(letter.patient, letter),
             class: "button tiny"
   = blank_separator

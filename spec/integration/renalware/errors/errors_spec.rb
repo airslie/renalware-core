@@ -42,11 +42,11 @@ module Renalware
     end
 
     def t_404(key, scope: "renalware.system.errors.not_found")
-      I18n.t(key, scope: scope)
+      t(key, scope: scope)
     end
 
     def t_500(key, scope: "renalware.system.errors.internal_server_error")
-      I18n.t(key, scope: scope)
+      t(key, scope: scope)
     end
   end
 end

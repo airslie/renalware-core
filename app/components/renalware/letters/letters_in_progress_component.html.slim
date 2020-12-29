@@ -1,8 +1,8 @@
 article.letters
   header
-    h2 Letters in Progress
+    h2= t(".title")
   - if letters_in_progress.any?
     #letters-in-progress
       = render "renalware/dashboard/letters/table", letters: letters_in_progress
   - else
-    p.empty-section No letters in progress
+    p.empty-section=t(".none")

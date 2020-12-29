@@ -1,0 +1,20 @@
+---
+pt:
+  renalware:
+    patients:
+      show:
+        page_title: Demografia
+      clinical_summaries:
+        show:
+          page_title: Resumo Clínico
+    pd:
+      dashboards:
+        show:
+          page_title: Resumo PD
+      regimes:
+        show:
+          page_title: PD Regime
+    accesses:
+      dashboards:
+        show:
+          page_title: Resumo de acesso

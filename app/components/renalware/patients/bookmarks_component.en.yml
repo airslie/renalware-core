@@ -1,0 +1,7 @@
+---
+en:
+  renalware:
+    patients:
+      bookmarks_component:
+        none: There are no patients bookmarked
+        title: Bookmarked Patients

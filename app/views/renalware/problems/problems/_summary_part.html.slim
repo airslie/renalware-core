@@ -14,17 +14,17 @@
     article
       header
         h1
-          = link_to "Problems (#{summary_part.problems.length})",
+          = link_to "#{t('titles.problems')} (#{summary_part.problems.length})",
                     patient_problems_path(summary_part.patient)
 
-        = link_to patient_problems_path(summary_part.patient), class: "button" do
-          | Add
+        = link_to t("btn.add"), patient_problems_path(summary_part.patient), class: "button"
+
 
       table#problems.toggleable.toggleable--without-border-between-toggled-and-non-toggled-tr(data-controller="toggle")
         thead.toggleable--open
           th.togglers.noprint =rows_toggler
-          th Description
-          th.col-width-date Date
+          th= t("thead.description")
+          th.col-width-date= t("thead.date_")
 
         - summary_part.problems.each_with_index do |problem|
           tbody.toggleable--open(class=("toggleable--no-toggleable-content" if problem.notes.none?))

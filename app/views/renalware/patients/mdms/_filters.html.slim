@@ -33,6 +33,6 @@
           = f.input "#{column}_cont", label: column.humanize
 
     .w-full.sm:max-w-xs.pr-2
-      = f.submit "Filter", class: "button secondary", style: "margin-bottom: 10px"
+      = f.submit t("btn.filter"), class: "button secondary", style: "margin-bottom: 10px"
       | &nbsp;
-      = link_to "Clear", url
+      = link_to t("btn.clear"), url

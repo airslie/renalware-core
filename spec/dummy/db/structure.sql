@@ -3248,7 +3248,8 @@ CREATE TABLE renalware.users (
     consultant boolean DEFAULT false NOT NULL,
     hidden boolean DEFAULT false NOT NULL,
     feature_flags integer DEFAULT 0 NOT NULL,
-    prescriber boolean DEFAULT false NOT NULL
+    prescriber boolean DEFAULT false NOT NULL,
+    language character varying
 );
 
 
@@ -20862,6 +20863,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201023092859'),
 ('20201105153422'),
 ('20201112152752'),
+('20201229174653'),
 ('20210105163944'),
 ('20210115181817');
 

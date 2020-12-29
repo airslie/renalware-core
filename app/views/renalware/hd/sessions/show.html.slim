@@ -1,6 +1,6 @@
 = content_for :actions do
   - if policy(session).edit?
-    li= link_to "Edit",
+    li= link_to t("btn.edit"),
                 edit_patient_hd_session_path(session.patient, session),
                 class: :button
 

@@ -62,7 +62,7 @@ module World
         login_as user
         visit patient_transplants_recipient_dashboard_path(patient)
         within ".page-actions" do
-          click_on "Add"
+          click_on t("btn.add_")
           click_on "Recipient Workup"
         end
 
@@ -77,7 +77,7 @@ module World
         end
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
 
         expect(page).to have_current_path(patient_transplants_recipient_workup_path(patient))
@@ -86,11 +86,11 @@ module World
       def update_workup(patient:, user:)
         login_as user
         visit patient_transplants_recipient_workup_path(patient)
-        click_on "Edit"
+        click_on t("btn.edit")
         fill_in "Cervical smear result", with: "193"
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
     end

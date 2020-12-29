@@ -43,7 +43,7 @@ module World
       def seed_prescription_by_drug_type(patient, terminated, drug_type_name)
         terminated = ActiveRecord::Type::Boolean.new.cast(terminated)
         prescribed_on = Time.zone.now - 1.week
-        terminated_on = terminated ? I18n.l(Time.zone.now - 1.day) : nil
+        terminated_on = terminated ? l(Time.zone.now - 1.day) : nil
 
         drug_type = Renalware::Drugs::Type.find_by(name: drug_type_name)
         drug_name = drug_type.drugs.first.name

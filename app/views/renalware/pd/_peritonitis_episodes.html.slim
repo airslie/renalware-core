@@ -12,13 +12,13 @@ table
       th Episode Type
       th Organisms
       th Outcome
-      th.col-width-date= t("updated_at")
+      th.col-width-date= t(".thead.updated_at")
 
   tbody
     - peritonitis_episodes.each do |episode|
       tr valign="top"
         td valign="top"
-          = link_to "View",
+          = link_to t("btn.view"),
                     patient_pd_peritonitis_episode_path(patient, episode.id),
                     class: "view-pe",
                     id: "view-pe-#{episode.id}"

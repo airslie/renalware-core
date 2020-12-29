@@ -17,9 +17,9 @@ module Renalware
 
         if cannulation_type.save
           redirect_to hd_cannulation_types_path,
-                      notice: t(".success", model_name: "cannulation type")
+                      notice: success_msg_for("cannulation type")
         else
-          flash.now[:error] = t(".failed", model_name: "cannulation type")
+          flash.now[:error] = failed_msg_for("cannulation type")
           render_new(cannulation_type)
         end
       end
@@ -39,9 +39,9 @@ module Renalware
         cannulation_type = find_and_authorize_cannulation_type
         if cannulation_type.update(cannulation_type_params)
           redirect_to hd_cannulation_types_path,
-                      notice: t(".success", model_name: "cannulation type")
+                      notice: success_msg_for("cannulation type")
         else
-          flash.now[:error] = t(".failed", model_name: "cannulation type")
+          flash.now[:error] = failed_msg_for("cannulation type")
           render_edit(cannulation_type)
         end
       end
@@ -49,7 +49,7 @@ module Renalware
       def destroy
         authorize CannulationType.destroy(params[:id])
         redirect_to hd_cannulation_types_path,
-                    notice: t(".success", model_name: "cannulation type")
+                    notice: success_msg_for("cannulation type")
       end
 
       private

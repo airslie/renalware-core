@@ -1,6 +1,6 @@
 = content_for(:actions) do
   - if policy(Renalware::System::Download).new?
-    = link_to t("new_record.link_title"),
+    = link_to t("btn.add"),
               new_system_download_path,
               class: "button"
 
@@ -16,7 +16,7 @@
           .small-5.large-4.columns.actions.end
             = f.submit "Search", class: "button secondary"
             '  or
-            = link_to t("helpers.reset"), system_downloads_path
+            = link_to t("btn.reset"), system_downloads_path
 
   .downloads
     - items.each do |item|

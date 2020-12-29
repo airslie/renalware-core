@@ -13,7 +13,7 @@ describe "Managing Dialysates", type: :system do
         click_on "Dialysates"
       end
 
-      click_on "Add"
+      click_on t("btn.add")
 
       fill_in "Name", with: "a name"
       fill_in "Description", with: "a description"
@@ -26,7 +26,7 @@ describe "Managing Dialysates", type: :system do
       fill_in "dialysate[potassium_content]", with: "444.4"
       fill_in "Potassium content uom", with: "mmol/L"
 
-      click_on "Create"
+      click_on t("btn.create")
 
       within ".hd-dialysates tbody" do
         expect(page).to have_content("a name")
@@ -47,12 +47,12 @@ describe "Managing Dialysates", type: :system do
       visit hd_dialysates_path
 
       within ".hd-dialysates tbody" do
-        click_on "Edit"
+        click_on t("btn.edit")
       end
 
       fill_in "Name", with: "a new name"
       fill_in "Description", with: "a new description"
-      click_on "Save"
+      click_on t("btn.save")
 
       within ".hd-dialysates tbody" do
         expect(page).to have_content("a new name")

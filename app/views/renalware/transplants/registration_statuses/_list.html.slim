@@ -19,7 +19,7 @@ article.status-history.secondary
       - registration.statuses.reversed.each do |status|
         tr
           td
-            = link_to("Toggle",
+            = link_to(t("btn.toggle"),
                       "#status-quick-preview-#{status.id}",
                       data: { behaviour: "toggler" })
           td= l(status.started_on)

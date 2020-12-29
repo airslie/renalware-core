@@ -1,7 +1,7 @@
 tr(class=letter.state.dasherize)
   td.noprint= toggler("#letter-quick-preview-#{letter.id}")
   td.noprint
-    = link_to "View", patient_letters_letter_path(letter.patient, letter)
+    = link_to t("btn.view"), patient_letters_letter_path(letter.patient, letter)
     - if letter.approved?
       | &nbsp;
       / The Print link will:

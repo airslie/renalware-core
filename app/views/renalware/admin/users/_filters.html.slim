@@ -6,6 +6,6 @@
           = f.label "Name or username contains"
           = f.search_field :family_name_or_given_name_or_username_or_email_cont
         .small-3.large-4.columns.actions.end
-          = f.submit t("helpers.submit.filter"), class: "button"
+          = f.submit t("btn.filter"), class: "button"
           '  or
-          = link_to t("helpers.reset"), admin_users_path
+          = link_to t("btn.reset"), admin_users_path

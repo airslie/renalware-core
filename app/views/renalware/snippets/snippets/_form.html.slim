@@ -12,6 +12,6 @@
     .small-12.medium-8.large-9.columns
       = f.input :body, as: :trix_editor, wrapper: :zilch
 
-  = f.submit "Save", class: "button"
+  = f.submit t("btn.save"), class: "button"
   = " or "
-  = link_to "Cancel", :back, default: snippets_path
+  = link_to t("btn.cancel"), :back, default: snippets_path

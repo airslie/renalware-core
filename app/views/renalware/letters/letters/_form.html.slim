@@ -6,7 +6,7 @@ ruby:
   .medium-6.columns
     = f.button :submit
     '  or
-    = link_to "cancel", back_path
+    = link_to t("btn.cancel"), back_path
 
 .form-content data-controller="letters-form"
   = render event if event.present?
@@ -68,4 +68,4 @@ ruby:
   .large-12.columns
     = f.button :submit
     '  or
-    = link_to "cancel", back_path
+    = link_to t("btn.cancel"), back_path

@@ -4,7 +4,7 @@
 / content in this show template and are concerned about catching markup changes in
 / nested templates
 -# Template Dependency: renalware/**/summary_part
-= within_patient_layout(title: "Clinical Summary") do
+= within_patient_layout(title: t(".page_title")) do
   .row
     - summary_parts = clinical_summary.summary_parts(current_user).each do |summary_part|
       = render summary_part

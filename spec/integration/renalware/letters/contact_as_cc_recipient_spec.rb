@@ -32,7 +32,7 @@ describe "Assign a person as a CC recipient", type: :system, js: true do
     context "with valid attributes" do
       it "adds the new contact to the contacts list on the letters form so it can be selected" do
         visit patient_letters_letters_path(patient)
-        click_on "Create"
+        click_on t("btn.create_")
         click_on "Simple Letter"
 
         fill_out_letter
@@ -40,7 +40,7 @@ describe "Assign a person as a CC recipient", type: :system, js: true do
         try_adding_person_as_cc_recipient
 
         within ".top" do
-          click_on "Create"
+          click_on t("btn.create")
         end
 
         letter = patient.letters.last
@@ -64,7 +64,7 @@ describe "Assign a person as a CC recipient", type: :system, js: true do
         )
         select contact_description.name, from: "Description"
         fill_in "Notes", with: "some contact notes"
-        click_on "Save"
+        click_on t("btn.save")
       end
 
       wait_for_ajax
@@ -76,7 +76,7 @@ describe "Assign a person as a CC recipient", type: :system, js: true do
 
     def fill_out_letter
       within "#letter-form" do
-        fill_in "Date", with: I18n.l(Time.zone.today)
+        fill_in "Date", with: l(Time.zone.today)
         select Renalware::Letters::Letterhead.first.name, from: "Letterhead"
         select Renalware::User.first.to_s, from: "Author"
         select2 "::description::", css: ".letter_description"

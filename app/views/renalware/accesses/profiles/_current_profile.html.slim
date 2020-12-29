@@ -4,10 +4,10 @@ article
   header
     h2 Current Access Profile
     ul
-      li= link_to "Edit",
+      li= link_to t("btn.edit"),
                   edit_patient_accesses_profile_path(patient, current_profile),
                   class: "button"
-      li= link_to "View",
+      li= link_to t("btn.view"),
                   patient_accesses_profile_path(patient, current_profile),
                   class: "button secondary"
 

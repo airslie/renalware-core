@@ -1,10 +1,10 @@
+---
 en:
   renalware:
     virology:
       vaccinations:
         list:
           title: Vaccinations
-          add: Add
       dashboards:
         actions:
           add_vaccination: Vaccination

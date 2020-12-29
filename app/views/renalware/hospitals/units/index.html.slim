@@ -1,6 +1,6 @@
 = content_for(:actions) do
   - if pundit_policy_for(Renalware::Hospitals::Centre).create?
-    = link_to t("new_record.link_title"), new_hospitals_unit_path, class: "button"
+    = link_to t("btn.add"), new_hospitals_unit_path, class: "button"
 
 = within_admin_layout(title: "Hospital Units") do
 
@@ -21,9 +21,9 @@
         tr
           td.actions
             - if policy(unit).edit?
-              = link_to "Edit", edit_hospitals_unit_path(unit.id)
+              = link_to t("btn.edit"), edit_hospitals_unit_path(unit.id)
             - if policy(unit).destroy?
-              = link_to "Delete",
+              = link_to t("btn.delete"),
                         hospitals_unit_path(unit.id),
                         method: :delete,
                         data: { confirm: I18n.t("prompts.confirm_delete") }

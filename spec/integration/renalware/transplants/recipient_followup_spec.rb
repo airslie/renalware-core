@@ -26,13 +26,13 @@ describe "RecipientFollowup", type: :system, js: true do
       within ".rejection-episodes" do
         # Add an episode, remove it, then add again, to test the Remove button
         expect(page).to have_css(".rejection-episode", count: 0)
-        click_on "Add"
+        click_on t("btn.add")
         wait_for_ajax
         expect(page).to have_css(".rejection-episode", count: 1)
         click_on "Remove"
         wait_for_ajax
         expect(page).to have_css(".rejection_episode", count: 0)
-        click_on "Add"
+        click_on t("btn.add")
         wait_for_ajax
         expect(page).to have_css(".rejection-episode", count: 1)
 
@@ -94,7 +94,7 @@ describe "RecipientFollowup", type: :system, js: true do
       visit patient_transplants_recipient_dashboard_path(patient)
 
       within "article.recipient-operations" do
-        click_on "Update"
+        click_on t("btn.update")
       end
 
       # Update one followup field only as a sanity check

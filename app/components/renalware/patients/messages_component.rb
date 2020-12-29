@@ -6,7 +6,6 @@ module Renalware
       include ToggleHelper
       include Pagy::Backend
       include Pagy::Frontend
-      TITLE = "Messages"
 
       rattr_initialize [:patient!, :current_user!]
 
@@ -20,11 +19,11 @@ module Renalware
         @messages
       end
 
-      def title
+      def formatted_title(title)
         if pagination.items < pagination.count
-          "#{TITLE} (#{pagination.items} of #{pagination.count})"
+          "#{title} (#{pagination.items} of #{pagination.count})"
         else
-          "#{TITLE} (#{pagination.count})"
+          "#{title} (#{pagination.count})"
         end
       end
 

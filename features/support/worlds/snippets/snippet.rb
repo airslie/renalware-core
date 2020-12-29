@@ -29,7 +29,7 @@ module World
         click_on "Create new snippet"
         fill_in "Title", with: title
         fill_in "Body", with: body
-        click_on "Save"
+        click_on t("btn.save")
 
         expect(page).to have_current_path(snippets_path)
       end

@@ -1,3 +1,4 @@
+---
 en:
   activerecord:
     attributes:
@@ -31,3 +32,11 @@ en:
           tab:
             all: All
             batch_printable: Batch Printable
+
+      letters_in_progress_component:
+        title: Letters in Progress
+        none: No letters in progress
+
+      summary_part:
+        btn:
+          draft_letter: Draft Letter

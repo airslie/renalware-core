@@ -48,6 +48,6 @@
                   wrapper: :horizontal_large
     = fdoc.input :added_comments, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
 
-  = f.submit "Save", class: "button"
+  = f.submit t("btn.save"), class: "button"
   '  or
-  = link_to "cancel", patient_pd_dashboard_path(patient)
+  = link_to t("btn.cancel"), patient_pd_dashboard_path(patient)

@@ -10,7 +10,7 @@ module Renalware::PD
     let(:esi) { build(:exit_site_infection, patient: patient) }
 
     it "delegates to #date" do
-      expect(drop.date).to eq(I18n.l(esi.diagnosis_date))
+      expect(drop.date).to eq(l(esi.diagnosis_date))
     end
 
     describe "organisms" do

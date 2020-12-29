@@ -5,7 +5,7 @@ ruby:
   .medium-6.columns
     = f.button :submit
     '  or
-    = link_to "cancel", back_path
+    = link_to t("btn.cancel"), back_path
 
 .form-content
   = f.simple_fields_for :document, f.object.document do |fd|
@@ -40,4 +40,4 @@ ruby:
     .large-12.columns
       = f.button :submit
       '  or
-      = link_to "cancel", back_path
+      = link_to t("btn.cancel"), back_path

@@ -25,14 +25,14 @@ describe "Creating an vaccination", type: :system, js: true do
       select "Vac Type A", from: "Type"
       select "ABC", from: "Drug"
 
-      click_on "Save"
+      click_on t("btn.save")
 
       events = Renalware::Events::Event.for_patient(patient)
       expect(events.length).to eq(1)
       event = events.first
       expect(event.document.type_name).to eq("Vac Type A")
       expect(event.document.drug).to eq("ABC")
-      expect(I18n.l(event.date_time)).to eq(event_date_time)
+      expect(l(event.date_time)).to eq(event_date_time)
     end
   end
 
@@ -51,14 +51,14 @@ describe "Creating an vaccination", type: :system, js: true do
       fill_in "Date time", with: event_date_time
       select "HBV Booster", from: "Type"
       select "ABC", from: "Drug"
-      click_on "Save"
+      click_on t("btn.save")
 
       events = Renalware::Virology::Vaccination.for_patient(patient)
       expect(events.length).to eq(1)
       event = events.first
       expect(event.document.type_name).to eq("HBV Booster")
       expect(event.document.drug).to eq("ABC")
-      expect(I18n.l(event.date_time)).to eq(event_date_time)
+      expect(l(event.date_time)).to eq(event_date_time)
 
       # TODO: check we redirect back the virology dashboard
       #       (we don't atm, we go to events/)

@@ -31,7 +31,7 @@ module World
         visit dashboard_path
 
         within ".page-actions" do
-          click_on "Add"
+          click_on t("btn.add")
           click_on "CAPD Regime"
         end
 
@@ -56,7 +56,7 @@ module World
         uncheck "Sat"
 
         within ".patient-content" do
-          click_on "Save"
+          click_on t("btn.save")
         end
 
         expect(page).to have_current_path(dashboard_path)
