@@ -30,7 +30,8 @@
                 = link_to "...",
                         hd_transmission_log_path(log, format: :xml),
                         class: "button small_ellipsis_button",
-                        target: "_blank"
+                        target: "_blank",
+                        rel: "noopener"
             td
               span(title=log.filepath)
                 - filename = log.filepath && Pathname(log.filepath).basename
