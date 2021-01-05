@@ -8,6 +8,8 @@ module Renalware
       validates :name, presence: true, uniqueness: true
       validates :code, presence: true, uniqueness: true
 
+      acts_as_paranoid
+
       scope :ordered, -> { order(position: :asc, name: :asc) }
     end
   end

@@ -22,17 +22,15 @@ module Renalware
       it { is_expected.to validate_uniqueness_of(:code) }
     end
 
-    describe "scopes" do
-      describe "#ordered" do
-        it do
-          described_class.create!(name: "A", code: "A", position: 0)
-          described_class.create!(name: "C", code: "C", position: 2)
-          described_class.create!(name: "B", code: "B", position: 1)
-          described_class.create!(name: "D", code: "D", position: 1)
+    describe "#ordered" do
+      it do
+        described_class.create!(name: "A", code: "A", position: 0)
+        described_class.create!(name: "C", code: "C", position: 2)
+        described_class.create!(name: "B", code: "B", position: 1)
+        described_class.create!(name: "D", code: "D", position: 1)
 
-          codes = described_class.ordered.all.map(&:code)
-          expect(codes).to eq(%w(A B D C))
-        end
+        codes = described_class.ordered.all.map(&:code)
+        expect(codes).to eq(%w(A B D C))
       end
     end
   end

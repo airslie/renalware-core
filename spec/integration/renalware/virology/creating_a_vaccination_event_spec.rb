@@ -14,13 +14,15 @@ describe "Creating an vaccination", type: :system, js: true do
       create(:vaccination_event_type)
       vaccine_drug = create(:drug, name: "ABC")
       vaccine_drug.drug_types << create(:drug_type, code: :vaccine, name: "Vaccine")
+      create(:vaccination_type, code: "vacc_type_a", name: "Vac Type A")
+      create(:vaccination_type, code: "vacc_type_b", name: "Vac Type B")
 
       visit new_patient_event_path(patient)
 
       fill_in "Date time", with: event_date_time
       select "Vaccination", from: "Event type"
       wait_for_ajax
-      select "HBV Vaccination 1", from: "Type"
+      select "Vac Type A", from: "Type"
       select "ABC", from: "Drug"
 
       click_on "Save"
@@ -28,7 +30,7 @@ describe "Creating an vaccination", type: :system, js: true do
       events = Renalware::Events::Event.for_patient(patient)
       expect(events.length).to eq(1)
       event = events.first
-      expect(event.document.type.text).to eq("HBV Vaccination 1")
+      expect(event.document.type_name).to eq("Vac Type A")
       expect(event.document.drug).to eq("ABC")
       expect(I18n.l(event.date_time)).to eq(event_date_time)
     end
@@ -39,6 +41,7 @@ describe "Creating an vaccination", type: :system, js: true do
       user = login_as_clinical
       patient = create(:patient, by: user)
       create(:vaccination_event_type)
+      create(:vaccination_type, code: "hbv_booster", name: "HBV Booster")
       vaccine_drug = create(:drug, name: "ABC")
       vaccine_drug.drug_types << create(:drug_type, code: :vaccine, name: "Vaccine")
 
@@ -53,7 +56,7 @@ describe "Creating an vaccination", type: :system, js: true do
       events = Renalware::Virology::Vaccination.for_patient(patient)
       expect(events.length).to eq(1)
       event = events.first
-      expect(event.document.type.text).to eq("HBV Booster")
+      expect(event.document.type_name).to eq("HBV Booster")
       expect(event.document.drug).to eq("ABC")
       expect(I18n.l(event.date_time)).to eq(event_date_time)
 
