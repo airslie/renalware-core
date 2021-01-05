@@ -9904,6 +9904,40 @@ ALTER SEQUENCE renalware.virology_profiles_id_seq OWNED BY renalware.virology_pr
 
 
 --
+-- Name: virology_vaccination_types; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.virology_vaccination_types (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: virology_vaccination_types_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.virology_vaccination_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: virology_vaccination_types_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.virology_vaccination_types_id_seq OWNED BY renalware.virology_vaccination_types.id;
+
+
+--
 -- Name: virology_versions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -11325,6 +11359,13 @@ ALTER TABLE ONLY renalware.versions ALTER COLUMN id SET DEFAULT nextval('renalwa
 --
 
 ALTER TABLE ONLY renalware.virology_profiles ALTER COLUMN id SET DEFAULT nextval('renalware.virology_profiles_id_seq'::regclass);
+
+
+--
+-- Name: virology_vaccination_types id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.virology_vaccination_types ALTER COLUMN id SET DEFAULT nextval('renalware.virology_vaccination_types_id_seq'::regclass);
 
 
 --
@@ -12948,6 +12989,14 @@ ALTER TABLE ONLY renalware.versions
 
 ALTER TABLE ONLY renalware.virology_profiles
     ADD CONSTRAINT virology_profiles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: virology_vaccination_types virology_vaccination_types_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.virology_vaccination_types
+    ADD CONSTRAINT virology_vaccination_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -17187,6 +17236,20 @@ CREATE INDEX index_virology_profiles_on_updated_by_id ON renalware.virology_prof
 
 
 --
+-- Name: index_virology_vaccination_types_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_virology_vaccination_types_on_code ON renalware.virology_vaccination_types USING btree (code);
+
+
+--
+-- Name: index_virology_vaccination_types_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_virology_vaccination_types_on_name ON renalware.virology_vaccination_types USING btree (name);
+
+
+--
 -- Name: index_virology_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -20639,6 +20702,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201021154809'),
 ('20201023092859'),
 ('20201105153422'),
-('20201112152752');
+('20201112152752'),
+('20210105163944');
 
 
