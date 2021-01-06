@@ -40,7 +40,7 @@ module Renalware
         delegate :clear, to: :store
 
         def fetch(letter, **options)
-          store.fetch(cache_key_for(letter, **options)) { yield }
+          store.fetch(cache_key_for(letter, **options), expires_in: 4.weeks) { yield }
         end
 
         # Note the letter must be a LetterPresenter which has a #to_html method
