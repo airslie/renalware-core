@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.161
+### Added
+### Changed
+- Move vaccination types to a database table #3390
+### Fixed
+
 ## 2.0.160
 ### Added
 - Support COVID 19 (1 & 2) Vaccinations #3382
