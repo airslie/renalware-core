@@ -1,7 +1,10 @@
 = link_to(patient_hd_mdm_path(patient), class: "button with-icon secondary") do
   i.fas.fa-users
   = t(".mdm")
-= link_to(patient_hd_protocol_path(patient), class: "button with-icon secondary", target: "_blank") do
+= link_to(patient_hd_protocol_path(patient),
+         class: "button with-icon secondary",
+         target: "_blank",
+         rel: "noopener") do
   i.fas.fa-print
   = t(".protocol")
 

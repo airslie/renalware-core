@@ -22,7 +22,7 @@
     - items.each do |item|
       .download
         .file
-          = link_to(system_download_path(item), target: "_blank") do
+          = link_to(system_download_path(item), target: "_blank", rel: "noopener") do
             i.far.fa-file-alt
         .details
           h3= link_to(item.name, system_download_path(item), target: "_blank")

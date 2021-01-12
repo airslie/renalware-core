@@ -4,14 +4,14 @@
     .percent_complete
   .modal__body
     .content
-      .batch_results_container(data={"poll-url" => renalware.letters_batch_status_path(batch)})
+      .batch_results_container(data={ "poll-url" => renalware.letters_batch_status_path(batch) })
         .preparing
           = image_tag("renalware/loading-gears-animation.gif", height: "116")
-
 
         .generated-batch-print-pdf-container(style="display:none")
           = link_to letters_batch_path(batch, format: :pdf),
                     target: "_blank",
+                    rel: "noopener",
                     class: "print-batch-letter",
                     data: { "modal-url" => new_letters_batch_completion_path(batch) } do
             i.far.fa-check-circle

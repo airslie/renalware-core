@@ -4,7 +4,7 @@
 
 tr
   td.actions
-    = link_to view_proc.call(patient), target: "_blank" do
+    = link_to view_proc.call(patient), target: "_blank", rel: "noopener" do
       i.fa.fa-external-link-square-alt
       | &nbsp;&nbsp;
       = t(".view")
