@@ -141,13 +141,12 @@ module Renalware::HD::Scheduling
           job.perform
 
           # TODO: investigate periodic failure on line 149 eg on Jan 6 2021
-          pending
+          # pending
 
           # creates another 52 weekly diaries - we already have 1 master. Sot it is calculating
           # there are 53 weeks across the year (which is possible as they are commercial weeks)
           # and we already have 1 weekly diary so it is creating 52 more.
           expect(Diary.count).to be >= (num_weeks_in_year + 2)
-
 
           # We go back 3 months when archiving past slots.
           # There should now be x weekly slots (1 in each weekly diary, and 3 months from 'now'
