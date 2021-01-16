@@ -7,6 +7,7 @@ class CreateEventTypeAlertTriggers < ActiveRecord::Migration[6.0]
       ) do |t|
         t.references :event_type, foreign_key: true, null: false
         t.text :when_event_document_contains
+        t.text :when_event_description_contains
         t.timestamps null: false
       end
     end

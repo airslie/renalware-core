@@ -199,6 +199,33 @@ article.clinical-allergies {
           }
         }
 
+        &.vaccination {
+          background-color: $nhs-dark-green;
+
+          &:hover {
+            background-color: darken($nhs-dark-green, 4);
+          }
+
+          .title a,
+          i:before {
+            color: $white;
+          }
+        }
+
+        &.event {
+          background-color: $nhs-yellow;
+
+          &:hover {
+            background-color: darken($nhs-yellow, 7);
+          }
+
+          .title a,
+          .date,
+          i:before {
+            color: $dark-grey;
+          }
+        }
+
         &.research-study-participant {
           background-color: darken($nhs-green, 3);
           color: $white;
