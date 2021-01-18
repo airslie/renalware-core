@@ -16,7 +16,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.161)
+    renalware-core (2.0.162)
       active_type (~> 0.7.1)
       activerecord-import (~> 1.0)
       activerecord-postgres_enum (~> 0.6.0)
@@ -225,7 +225,8 @@ GEM
       capybara (>= 1.0, < 4)
       launchy
     capybara-select-2 (0.5.1)
-    character_set (1.4.0)
+    character_set (1.4.1)
+      sorted_set (~> 1.0)
     chartkick (3.4.2)
     childprocess (3.0.0)
     chronic (0.10.2)
@@ -518,6 +519,7 @@ GEM
       activesupport (>= 5.2.1)
       i18n
       polyamorous (= 2.3.2)
+    rbtree3 (0.6.0)
     record_tag_helper (1.0.1)
       actionview (>= 5)
     redis (4.2.5)
@@ -615,6 +617,7 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    set (1.0.1)
     shoulda-matchers (4.5.0)
       activesupport (>= 4.2.0)
     simple_form (5.0.3)
@@ -637,6 +640,9 @@ GEM
       actionpack (>= 3.1)
       railties (>= 3.1)
       slim (>= 3.0, < 5.0)
+    sorted_set (1.0.2)
+      rbtree3
+      set (~> 1.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
