@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.163
+### Added
+### Changed
+### Fixed
+- Fix migration version error
+
 ## 2.0.162
 ### Added
 - Display latest COVID vaccination as an alert on patient pages #3395
