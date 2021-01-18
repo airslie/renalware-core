@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.162
+### Added
+- Display latest COVID vaccination as an alert on patient pages #3395
+### Changed
+- Expire letters in the PDF cache after 4 weeks #3393
+### Fixed
+
 ## 2.0.161
 ### Added
 ### Changed

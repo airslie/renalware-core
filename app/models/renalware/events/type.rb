@@ -6,6 +6,13 @@ module Renalware
   module Events
     class Type < ApplicationRecord
       self.table_name = "event_types"
+      has_many(
+        :alert_triggers,
+        class_name: "EventTypeAlertTrigger",
+        foreign_key: :event_type_id,
+        dependent: :destroy
+      )
+
       DEFAULT_EVENT_CLASS_NAME = "Renalware::Events::Simple"
 
       acts_as_paranoid

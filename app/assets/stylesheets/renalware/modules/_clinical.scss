@@ -141,6 +141,7 @@ article.clinical-allergies {
 .patient-alerts {
   color: $white;
   background-color: transparent;
+  padding-top: .1rem;
 
   @media print {
     display: none;
@@ -196,6 +197,33 @@ article.clinical-allergies {
           .title a,
           i:before {
             color: $white;
+          }
+        }
+
+        &.vaccination {
+          background-color: $nhs-aqua-green;
+
+          &:hover {
+            background-color: darken($nhs-aqua-green, 4);
+          }
+
+          .title a,
+          i:before {
+            color: $white;
+          }
+        }
+
+        &.event {
+          background-color: $nhs-yellow;
+
+          &:hover {
+            background-color: darken($nhs-yellow, 7);
+          }
+
+          .title a,
+          .date,
+          i:before {
+            color: $dark-grey;
           }
         }
 

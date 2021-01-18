@@ -45,6 +45,10 @@ module Renalware
       end
       alias :to_input_partial_path :to_partial_path
 
+      def to_alert_partial_path
+        partial_for "alert"
+      end
+
       def to_cell_partial_path
         partial_for "cell"
       end

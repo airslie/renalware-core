@@ -24,6 +24,7 @@ require_relative "./snippets/seeds"
 require_relative "./admissions/seeds"
 require_relative "./surveys/seeds"
 require_relative "./low_clearance/seeds"
+require_relative "./virology/seeds"
 
 # This seed file must be run last
 require_relative "./housekeeping"

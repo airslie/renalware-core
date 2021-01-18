@@ -2244,6 +2244,46 @@ ALTER SEQUENCE renalware.drugs_id_seq OWNED BY renalware.drugs.id;
 
 
 --
+-- Name: event_type_alert_triggers; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.event_type_alert_triggers (
+    id bigint NOT NULL,
+    event_type_id bigint NOT NULL,
+    when_event_document_contains text,
+    when_event_description_contains text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE event_type_alert_triggers; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.event_type_alert_triggers IS 'Matching alerts are displayed on patient pages';
+
+
+--
+-- Name: event_type_alert_triggers_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.event_type_alert_triggers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: event_type_alert_triggers_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.event_type_alert_triggers_id_seq OWNED BY renalware.event_type_alert_triggers.id;
+
+
+--
 -- Name: event_types; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -10207,6 +10247,13 @@ ALTER TABLE ONLY renalware.drugs ALTER COLUMN id SET DEFAULT nextval('renalware.
 
 
 --
+-- Name: event_type_alert_triggers id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_type_alert_triggers ALTER COLUMN id SET DEFAULT nextval('renalware.event_type_alert_triggers_id_seq'::regclass);
+
+
+--
 -- Name: event_types id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -11669,6 +11716,14 @@ ALTER TABLE ONLY renalware.drug_types
 
 ALTER TABLE ONLY renalware.drugs
     ADD CONSTRAINT drugs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: event_type_alert_triggers event_type_alert_triggers_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_type_alert_triggers
+    ADD CONSTRAINT event_type_alert_triggers_pkey PRIMARY KEY (id);
 
 
 --
@@ -13789,6 +13844,13 @@ CREATE UNIQUE INDEX index_drug_types_on_name ON renalware.drug_types USING btree
 --
 
 CREATE INDEX index_drugs_on_deleted_at ON renalware.drugs USING btree (deleted_at);
+
+
+--
+-- Name: index_event_type_alert_triggers_on_event_type_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_event_type_alert_triggers_on_event_type_id ON renalware.event_type_alert_triggers USING btree (event_type_id);
 
 
 --
@@ -18272,6 +18334,14 @@ ALTER TABLE ONLY renalware.renal_profiles
 
 
 --
+-- Name: event_type_alert_triggers fk_rails_56eac5912d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_type_alert_triggers
+    ADD CONSTRAINT fk_rails_56eac5912d FOREIGN KEY (event_type_id) REFERENCES renalware.event_types(id);
+
+
+--
 -- Name: transplant_recipient_workups fk_rails_571a3cadda; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -20703,6 +20773,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201023092859'),
 ('20201105153422'),
 ('20201112152752'),
-('20210105163944');
+('20210105163944'),
+('20210115181817');
 
 
