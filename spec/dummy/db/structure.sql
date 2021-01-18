@@ -2252,8 +2252,8 @@ CREATE TABLE renalware.event_type_alert_triggers (
     event_type_id bigint NOT NULL,
     when_event_document_contains text,
     when_event_description_contains text,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
