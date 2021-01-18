@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.164
+### Added
+### Changed
+### Fixed
+- Fix virology dashboard url in vaccination alerts
+
 ## 2.0.163
 ### Added
 ### Changed
