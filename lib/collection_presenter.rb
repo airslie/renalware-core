@@ -49,7 +49,7 @@ class CollectionPresenter
     end
   end
 
-  def respond_to?(method)
+  def respond_to?(method, _arg = nil)
     @decorated_collection.respond_to?(method) || @original_collection.respond_to?(method)
   end
 
