@@ -409,6 +409,12 @@ table {
   }
 }
 
+tr.deleted {
+  td {
+    background-color: lighten($nhs-red, 53);
+  }
+}
+
 table.report {
   table-layout: auto;
 
