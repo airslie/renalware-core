@@ -8,6 +8,7 @@ super_admin:
   - Renalware::HD::CannulationType
   - Renalware::System::Download
   - Renalware::Pathology::ObservationDescription
+  - Renalware::Virology::VaccinationType
 admin:
   - Renalware::User
   - Renalware::BagType

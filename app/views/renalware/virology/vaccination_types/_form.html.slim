@@ -1,0 +1,10 @@
+= simple_form_for type do |f|
+  = f.input :name
+  - if type.new_record?
+    = f.input :code, hint: "Will be converted to lower case with underscores"
+  - else
+    p.px-0.mb-5
+      ' Code:
+      code= type.code
+
+  = f.submit class: :button

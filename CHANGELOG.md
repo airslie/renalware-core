@@ -6,6 +6,7 @@ This project adheres to Semantic Versioning.
 
 ## Unreleased
 ### Added
+- Add Vaccine Type admin page where a superadmin can add/edit/soft-delete/reorder vaccination types #3399
 ### Changed
 ### Fixed
 

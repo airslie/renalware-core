@@ -9,28 +9,28 @@ module Renalware
     it { is_expected.to have_db_index(:name).unique(true) }
     it { is_expected.to have_db_index(:code).unique(true) }
 
-    it "defaults position to 0" do
+    it "defaults position to 1 (by Sortable module)" do
       type = described_class.create!(name: "X", code: "X")
 
-      expect(type.position).to eq(0)
-    end
-
-    describe "uniqueness" do
-      subject { described_class.new(name: "X", code: "X") }
-
-      it { is_expected.to validate_uniqueness_of(:name) }
-      it { is_expected.to validate_uniqueness_of(:code) }
+      expect(type.position).to eq(1)
     end
 
     describe "#ordered" do
       it do
-        described_class.create!(name: "A", code: "A", position: 0)
-        described_class.create!(name: "C", code: "C", position: 2)
-        described_class.create!(name: "B", code: "B", position: 1)
-        described_class.create!(name: "D", code: "D", position: 1)
+        {
+          "A" => 1,
+          "B" => 3,
+          "D" => 2,
+          "C" => 2
+        }.each do |code, position|
+          # Sortable will initially assign the position with the next available value.
+          # We want to test position explictly hence the save and subsequent update.
+          type = described_class.create!(name: code, code: code)
+          type.update!(position: position)
+        end
 
-        codes = described_class.ordered.all.map(&:code)
-        expect(codes).to eq(%w(A B D C))
+        codes = described_class.ordered.map(&:code)
+        expect(codes).to eq(%w(a c d b))
       end
     end
   end

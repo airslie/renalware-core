@@ -10,3 +10,9 @@ resources :patients, only: [] do
               defaults: { slug: :vaccinations }
   end
 end
+
+namespace :virology do
+  resources :vaccination_types do
+    post :sort, on: :collection
+  end
+end
