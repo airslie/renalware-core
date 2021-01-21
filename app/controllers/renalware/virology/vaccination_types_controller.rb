@@ -5,6 +5,8 @@ require_dependency "renalware/virology"
 module Renalware
   module Virology
     class VaccinationTypesController < BaseController
+      skip_after_action :verify_policy_scoped
+
       def index
         types = VaccinationType.with_deleted.ordered
         authorize types
