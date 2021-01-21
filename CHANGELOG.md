@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.0.166
+### Added
+### Changed
+### Fixed
+- Vaccination alert not displaying correctly when its vaccination type is soft-deleted #3400
+
 ## 2.0.165
 ### Added
 - Add Vaccine Type admin page where a superadmin can add/edit/soft-delete/reorder vaccination types #3399

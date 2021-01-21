@@ -1,5 +1,11 @@
+ruby:
+  # Its possible the vaccination type has been soft-deleted so we need to use the
+  # #with_deleted scope. Its also possible the vaccination type row was hard deleted, so be
+  # sure to revert to just displaying the code from the document if this is the case.
+  code = event.document&.type
+  type = Renalware::Virology::VaccinationType.with_deleted.find_by(code: code)
+  title = type&.name || code&.titleize
 li.patient-alert.vaccination
     i.fas.fa-syringe
-    - title = Renalware::Virology::VaccinationType.find_by(code: event.document&.type)&.name
     span.title= link_to title, renalware.patient_virology_dashboard_path(event.patient)
     span.date= l(event.date_time.to_date)
