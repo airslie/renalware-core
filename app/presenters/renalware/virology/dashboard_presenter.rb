@@ -26,7 +26,7 @@ module Renalware
       end
 
       def vaccinations
-        Vaccination.for_patient(patient)
+        Vaccination.for_patient(patient).order(date_time: :desc)
       end
     end
   end
