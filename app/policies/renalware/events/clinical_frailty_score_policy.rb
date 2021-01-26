@@ -4,7 +4,7 @@ require_dependency "renalware/messaging"
 
 module Renalware
   module Events
-    class ClinicalFrailtyScorePolicy < BasePolicy
+    class ClinicalFrailtyScorePolicy < EventPolicy
     end
   end
 end
