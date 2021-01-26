@@ -4,7 +4,7 @@ require_dependency "renalware/messaging"
 
 module Renalware
   module Events
-    class AdvancedCarePlanPolicy < BasePolicy
+    class AdvancedCarePlanPolicy < EventPolicy
     end
   end
 end
