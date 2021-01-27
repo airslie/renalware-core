@@ -7,6 +7,7 @@ module Renalware::Events
     it_behaves_like "a Paranoid model"
 
     it { is_expected.to belong_to(:category) }
+    it { is_expected.to have_many(:subtypes) }
 
     describe "validation" do
       it :aggregate_failures do
@@ -38,6 +39,12 @@ module Renalware::Events
           types = described_class.visible
 
           expect(types).to eq([visible_event])
+        end
+      end
+
+      describe ".subtypes?" do
+        it "defaults to false" do
+          expect(described_class.new.subtypes?).to eq(false)
         end
       end
     end

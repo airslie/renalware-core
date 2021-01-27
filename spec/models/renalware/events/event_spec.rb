@@ -27,5 +27,11 @@ module Renalware::Events
       # or #is_a? methods but it responds to neigher of two methods.
       # it { is_expected.to be_a(Renalware::NullObject) }
     end
+
+    describe "class method .subtypes?" do
+      it "defaults to false" do
+        expect(described_class.subtypes?).to eq(false)
+      end
+    end
   end
 end

@@ -1,0 +1,30 @@
+# frozen_string_literal: true
+
+require_dependency "renalware/research"
+
+module Renalware
+  module Research
+    class StudyEvent < Events::Event
+      include Document::Base
+      validates :subtype_id, presence: true
+
+      class Document < Document::Embedded
+        (1..5).each do |idx|
+          attribute :"number#{idx}", Float
+          validates :"number#{idx}", numericality: true, allow_blank: true
+          attribute :"text#{idx}", String
+          attribute :"date#{idx}", Date
+        end
+      end
+      has_document
+
+      def partial_for(partial_type)
+        File.join("renalware/research/study_events", partial_type)
+      end
+
+      def self.subtypes?
+        true
+      end
+    end
+  end
+end

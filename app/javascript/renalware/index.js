@@ -32,6 +32,8 @@ import PathologySparklinesController from "./controllers/pathology/sparklines_co
 import CollapsibleController from "./controllers/collapsible_controller"
 import DependentSelectController from "./controllers/dependent_select_controller"
 import PatientAttachmentsController from "./controllers/patients/attachments_controller"
+import SortableController from "./controllers/sortable_controller"
+import SelectController from "./controllers/select_controller"
 
 const application = Application.start()
 application.register("toggle", ToggleController)
@@ -49,5 +51,7 @@ application.register("pathology-sparklines", PathologySparklinesController)
 application.register("collapsible", CollapsibleController)
 application.register("dependent-select", DependentSelectController)
 application.register("patient-attachments", PatientAttachmentsController)
+application.register("sortable", SortableController)
+application.register("select", SelectController)
 
 window.Chartkick.use(window.Highcharts)

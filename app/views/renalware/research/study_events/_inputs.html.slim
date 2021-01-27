@@ -1,0 +1,78 @@
+/ Pulled into the New Event form via a js get to EventsController#new
+ruby:
+  # TODO: explain why event_type_id could be in one of two locations in params
+  event_type_id = params[:event_type_id] || params.dig(:events_event, :event_type_id)
+  event_type = Renalware::Events::Type.find(event_type_id)
+  subtypes = event_type.subtypes.map do |subtype|
+      [
+        subtype.name,
+        subtype.id,
+        {
+          data: {
+            source: new_patient_event_path(
+              event.patient,
+              event_type_id: params[:event_type_id],
+              subtype_id: subtype.id,
+              format: :js)
+          }
+        }
+      ]
+    end
+
+= f.simple_fields_for :document, event.document do |fd|
+
+  / Subtypes dropdown.
+  / When the select is changed we can then trigger a change
+  - subtype = event_type.subtypes.find_by(id: params[:subtype_id]) || event_type.subtypes.first
+  = f.input :subtype_id,
+            collection: subtypes,
+            label: "Research event type",
+            selected: subtype&.id,
+            wrapper: :horizontal_medium,
+            input_html: { id: "event-type-layout-dropdown",
+                          data: { controller: "select", action: "change->select#refresh" }}
+
+  - if subtype.blank?
+    .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
+        i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+        | This event type must have sub-types, so please set them up first&nbsp;
+        = link_to 'here', renalware.events_type_subtypes_path(event_type)
+  - else
+    - definition = subtype.definition
+    - labels_hash = subtype.definition.each_with_object(ActiveSupport::OrderedHash.new) { |k, h| h[k.keys[0]] = k.values[0]["label"] }
+
+    - if subtype.description.present?
+      .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
+        i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+        = subtype.description
+
+    / .rounded-md.bg-green-100.px-3.py-2.flex.items-start.shadow.mb-5
+    /   | Superadmin functions
+    /   .mx-2
+    /     = link_to_if current_user_is_super_admin?,
+    /               "Edit this subtype",
+    /               renalware.edit_events_type_subtype_path(event_type, subtype),
+    /               target: "_blank",
+    /               rel: "noopener",
+    /               class: "bg-green-100 button compact"
+    /   .mx-2
+    /     = link_to_if current_user_is_super_admin?,
+    /               "Add a subtype",
+    /               renalware.events_type_subtypes_path(event_type),
+    /               target: "_blank",
+    /               rel: "noopener",
+    /               class: "bg-green-100 button compact"
+
+
+    / Here we want to output the fields in the order they are in the array in layout.definitions
+    / Because labels_hash is an OrderedHash, order is preserved.
+    - labels_hash.each do |field, label|
+      - next if label.blank?
+
+      / TODO: could make a number field smaller
+      - if field.include?("date")
+        = fd.input field.to_sym, as: :date_picker, wrapper: :horizontal_datepicker, label: label
+      - elsif field.include?("number")
+        = fd.input field.to_sym, wrapper: :horizontal_small, label: label, hint: "A number eg 1.2"
+      - else
+        = fd.input field.to_sym, wrapper: :horizontal_medium, label: label, hint: "A textual answer"

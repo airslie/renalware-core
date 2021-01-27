@@ -1,11 +1,11 @@
-"name","event_class_name","slug","category_id"
-"Renal Biopsy Native","Renalware::Events::Biopsy","native_biopsies",1
-"Renal Biopsy Transplant","Renalware::Events::Biopsy","transplant_biopsies",1
-"Swab","Renalware::Events::Swab","swabs",1
-"Plasma Exchange",,,1
-"PD Line Change",,"pd_line_changes",1
-"Investigation","Renalware::Events::Investigation","investigations",1
-"Vaccination","Renalware::Virology::Vaccination","vaccinations",1
-"Advanced Care Plan","Renalware::Events::AdvancedCarePlan","advanced_care_plans",1
-"Clinical Frailty Score","Renalware::Events::ClinicalFrailtyScore","clinical_frailty_score",1
-"Medication Review","Renalware::Medications::Review",,1
+"category","name","event_class_name","slug","category_id"
+"Biopsy","Renal Biopsy Native","Renalware::Events::Biopsy","native_biopsies"
+"Biopsy","Renal Biopsy Transplant","Renalware::Events::Biopsy","transplant_biopsies"
+"General","Swab","Renalware::Events::Swab","swabs"
+"General","Plasma Exchange"
+"PD","PD Line Change",,"pd_line_changes"
+"General","Investigation","Renalware::Events::Investigation","investigations"
+"General","Vaccination","Renalware::Virology::Vaccination","vaccinations"
+"General","Advanced Care Plan","Renalware::Events::AdvancedCarePlan","advanced_care_plans"
+"General","Clinical Frailty Score","Renalware::Events::ClinicalFrailtyScore","clinical_frailty_score"
+"General","Medication Review","Renalware::Medications::Review","medication_reviews"

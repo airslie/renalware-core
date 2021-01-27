@@ -4,4 +4,8 @@
             class: "button"
 
 = within_new_admin_layout(title: "Patient Event Types") do
+  h2 Active
   = render "table", event_types: event_types
+  br
+  h2 Deleted
+  = render "table", event_types: event_types.with_deleted.where.not(deleted_at: nil)
