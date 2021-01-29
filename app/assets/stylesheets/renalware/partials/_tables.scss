@@ -37,6 +37,15 @@ td.actions {
   padding-left: 0;
   white-space: nowrap;
 
+  /* If the action link is just an icon, make it quite subtle so it does not draw attention */
+  > a.icon-only {
+    color: $link-hover-colour;
+
+    &:hover {
+      color: $link-colour;
+    }
+  }
+
   > a, > span {
     &:after {
       color: $pipe-separator-colour;

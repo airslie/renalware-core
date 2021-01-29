@@ -4,7 +4,11 @@ require_dependency "renalware/virology"
 
 module Renalware
   module Virology
-    class VaccinationPolicy < BasePolicy
+    class VaccinationPolicy < Events::EventPolicy
+      def edit?
+        user_is_super_admin?
+      end
+      alias update? edit?
     end
   end
 end
