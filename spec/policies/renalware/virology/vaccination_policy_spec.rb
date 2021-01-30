@@ -11,7 +11,7 @@ module Renalware
       let(:admin) { user_double_with_role(:admin) }
       let(:superadmin) { user_double_with_role(:super_admin) }
 
-      %i(edit? update?).each do |permission|
+      %i(edit? update? destroy?).each do |permission|
         permissions permission do
           it "disallows admins" do
             expect(policy).not_to permit(admin, Vaccination.new)
@@ -20,12 +20,6 @@ module Renalware
           it "allows superadmins" do
             expect(policy).to permit(superadmin, Vaccination.new)
           end
-        end
-      end
-
-      permissions :destroy? do
-        it "disallows superadmins and thereby everyone" do
-          expect(policy).not_to permit(superadmin, Vaccination.new)
         end
       end
     end

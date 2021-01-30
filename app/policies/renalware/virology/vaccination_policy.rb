@@ -9,6 +9,7 @@ module Renalware
         user_is_super_admin?
       end
       alias update? edit?
+      alias destroy? edit?
     end
   end
 end
