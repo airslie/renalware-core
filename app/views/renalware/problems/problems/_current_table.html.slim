@@ -9,9 +9,8 @@ table#current_problems.manual-stripes.auto-layout
   = content_tag(:tbody, class: "sortables", data: { rel: sort_patient_problems_path(@patient) }) do
     - problems.each do |problem|
       = content_tag_for(:tr, problem, class: "sortable") do
-        td
+        td.actions
           = link_to "Edit", patient_problem_path(@patient, problem)
-          = pipe_separator
           = link_to "Archive",
                     patient_problem_path(@patient, problem),
                     method: :delete,

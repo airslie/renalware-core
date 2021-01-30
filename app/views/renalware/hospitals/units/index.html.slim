@@ -19,10 +19,9 @@
     tbody
       - hospital_units.each do |unit|
         tr
-          td
+          td.actions
             - if policy(unit).edit?
               = link_to "Edit", edit_hospitals_unit_path(unit.id)
-              = pipe_separator
             - if policy(unit).destroy?
               = link_to "Delete",
                         hospitals_unit_path(unit.id),

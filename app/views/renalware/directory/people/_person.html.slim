@@ -1,7 +1,6 @@
 tr
-  td
+  td.actions
     = link_to "View", directory_person_path(person)
-    = pipe_separator
     = link_to "Edit", edit_directory_person_path(person)
   td= person.title
   td= link_to person.family_name, directory_person_path(person)

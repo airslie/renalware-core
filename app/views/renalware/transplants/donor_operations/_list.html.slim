@@ -20,10 +20,9 @@ article.status-history
           td= operation.nephrectomy_type.try(:text)
           - if operation.followup
             td= l operation.followup.last_seen_on
-            td
+            td.actions.text-left
               = link_to "View",
                   patient_transplants_donor_operation_followup_path(patient, operation)
-              = pipe_separator
               = link_to "Update",
                   edit_patient_transplants_donor_operation_followup_path(patient, operation)
           - else
