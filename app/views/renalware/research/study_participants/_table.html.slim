@@ -22,13 +22,13 @@
           td= participant.patient.age
           td= participant.patient.sex
           td= participant.external_id
-          td
+          td.actions
             = link_to "Delete",
                       research_study_participant_path(study, participant),
                       method: :delete,
                       data: { confirm: "Are you sure?" }
-            = " | "
             = link_to("Edit",
                       edit_research_study_participant_path(study, participant),
                       data: { "reveal-id" => "study-participant-modal", "reveal-ajax" => "true" })
+
   = paginate participants
