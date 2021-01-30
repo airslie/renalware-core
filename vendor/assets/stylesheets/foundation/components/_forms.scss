@@ -381,221 +381,223 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
 
 @include exports("form") {
   @if $include-html-form-classes {
-    /* Standard Forms */
-    form { margin: 0 0 $form-spacing; }
+    .fn-form {
+      /* Standard Forms */
+      form { margin: 0 0 $form-spacing; }
 
-    /* Using forms within rows, we need to set some defaults */
-    form .row { @include form-row-base; }
+      /* Using forms within rows, we need to set some defaults */
+      form .row { @include form-row-base; }
 
-    /* Label Styles */
-    label { @include form-label;
-      &.right { @include form-label(right, false); }
-      &.inline { @include form-label(inline, false); }
-      /* Styles for required inputs */
-      small {
-        text-transform: $form-label-small-transform;
-        color: scale-color($form-label-font-color, $lightness: 15%);
-      }
-    }
-
-    /* Attach elements to the beginning or end of an input */
-    .prefix,
-    .postfix { @include prefix-postfix-base; }
-
-    /* Adjust padding, alignment and radius if pre/post element is a button */
-    .postfix.button { @include button-size(false, false); @include postfix(false, false, false, true); }
-    .prefix.button { @include button-size(false, false); @include prefix(false, false, true); }
-
-    .prefix.button.radius { @include radius(0); @include side-radius($default-float, $button-radius); }
-    .postfix.button.radius { @include radius(0); @include side-radius($opposite-direction, $button-radius); }
-    .prefix.button.round { @include radius(0); @include side-radius($default-float, $button-round); }
-    .postfix.button.round { @include radius(0); @include side-radius($opposite-direction, $button-round); }
-
-    /* Separate prefix and postfix styles when on span or label so buttons keep their own */
-    span.prefix, label.prefix { @include prefix(); }
-    span.postfix, label.postfix { @include postfix(); }
-
-    /* We use this to get basic styling on all basic form elements */
-    input:not([type]), #{text-inputs(all, 'input')} {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      border-radius: 0;
-      @include form-element;
-      @if $input-include-glowing-effect == false {
-        -webkit-transition: border-color $input-transition-fade-time $input-transition-fade-timing-function, background $input-transition-fade-time $input-transition-fade-timing-function;
-        -moz-transition: border-color $input-transition-fade-time $input-transition-fade-timing-function, background $input-transition-fade-time $input-transition-fade-timing-function;
-        -ms-transition: border-color $input-transition-fade-time $input-transition-fade-timing-function, background $input-transition-fade-time $input-transition-fade-timing-function;
-        -o-transition: border-color $input-transition-fade-time $input-transition-fade-timing-function, background $input-transition-fade-time $input-transition-fade-timing-function;
-        transition: border-color $input-transition-fade-time $input-transition-fade-timing-function, background $input-transition-fade-time $input-transition-fade-timing-function;
-      }
-      &.radius {
-        @include radius($input-border-radius);
-      }
-    }
-
-    form {
-      .row {
-        .prefix-radius.row.collapse {
-          input,
-          textarea,
-          select,
-          button { @include radius(0); @include side-radius($opposite-direction, $button-radius); }
-          .prefix { @include radius(0); @include side-radius($default-float, $button-radius); }
-        }
-        .postfix-radius.row.collapse {
-          input,
-          textarea,
-          select,
-          button { @include radius(0); @include side-radius($default-float, $button-radius); }
-          .postfix { @include radius(0); @include side-radius($opposite-direction, $button-radius); }
-        }
-        .prefix-round.row.collapse {
-          input,
-          textarea,
-          select,
-          button { @include radius(0); @include side-radius($opposite-direction, $button-round); }
-          .prefix { @include radius(0); @include side-radius($default-float, $button-round); }
-        }
-        .postfix-round.row.collapse {
-          input,
-          textarea,
-          select,
-          button { @include radius(0); @include side-radius($default-float, $button-round); }
-          .postfix { @include radius(0); @include side-radius($opposite-direction, $button-round); }
+      /* Label Styles */
+      label { @include form-label;
+        &.right { @include form-label(right, false); }
+        &.inline { @include form-label(inline, false); }
+        /* Styles for required inputs */
+        small {
+          text-transform: $form-label-small-transform;
+          color: scale-color($form-label-font-color, $lightness: 15%);
         }
       }
-    }
 
-    input[type="submit"] {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      border-radius: 0;
-    }
+      /* Attach elements to the beginning or end of an input */
+      .prefix,
+      .postfix { @include prefix-postfix-base; }
 
-    /* Respect enforced amount of rows for textarea */
-    textarea[rows] {
-      height: auto;
-    }
+      /* Adjust padding, alignment and radius if pre/post element is a button */
+      .postfix.button { @include button-size(false, false); @include postfix(false, false, false, true); }
+      .prefix.button { @include button-size(false, false); @include prefix(false, false, true); }
 
-    /* Not allow resize out of parent */
-    textarea {
-      max-width: 100%;
-    }
+      .prefix.button.radius { @include radius(0); @include side-radius($default-float, $button-radius); }
+      .postfix.button.radius { @include radius(0); @include side-radius($opposite-direction, $button-radius); }
+      .prefix.button.round { @include radius(0); @include side-radius($default-float, $button-round); }
+      .postfix.button.round { @include radius(0); @include side-radius($opposite-direction, $button-round); }
 
-    // style placeholder text cross browser
-    ::-webkit-input-placeholder {
-      color: $input-placeholder-font-color;
-    }
+      /* Separate prefix and postfix styles when on span or label so buttons keep their own */
+      span.prefix, label.prefix { @include prefix(); }
+      span.postfix, label.postfix { @include postfix(); }
 
-    :-moz-placeholder { /* Firefox 18- */
-       color: $input-placeholder-font-color;
-    }
+      /* We use this to get basic styling on all basic form elements */
+      input:not([type]), #{text-inputs(all, 'input')} {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border-radius: 0;
+        @include form-element;
+        @if $input-include-glowing-effect == false {
+          -webkit-transition: border-color $input-transition-fade-time $input-transition-fade-timing-function, background $input-transition-fade-time $input-transition-fade-timing-function;
+          -moz-transition: border-color $input-transition-fade-time $input-transition-fade-timing-function, background $input-transition-fade-time $input-transition-fade-timing-function;
+          -ms-transition: border-color $input-transition-fade-time $input-transition-fade-timing-function, background $input-transition-fade-time $input-transition-fade-timing-function;
+          -o-transition: border-color $input-transition-fade-time $input-transition-fade-timing-function, background $input-transition-fade-time $input-transition-fade-timing-function;
+          transition: border-color $input-transition-fade-time $input-transition-fade-timing-function, background $input-transition-fade-time $input-transition-fade-timing-function;
+        }
+        &.radius {
+          @include radius($input-border-radius);
+        }
+      }
 
-    ::-moz-placeholder {  /* Firefox 19+ */
-       color: $input-placeholder-font-color;
-    }
+      form {
+        .row {
+          .prefix-radius.row.collapse {
+            input,
+            textarea,
+            select,
+            button { @include radius(0); @include side-radius($opposite-direction, $button-radius); }
+            .prefix { @include radius(0); @include side-radius($default-float, $button-radius); }
+          }
+          .postfix-radius.row.collapse {
+            input,
+            textarea,
+            select,
+            button { @include radius(0); @include side-radius($default-float, $button-radius); }
+            .postfix { @include radius(0); @include side-radius($opposite-direction, $button-radius); }
+          }
+          .prefix-round.row.collapse {
+            input,
+            textarea,
+            select,
+            button { @include radius(0); @include side-radius($opposite-direction, $button-round); }
+            .prefix { @include radius(0); @include side-radius($default-float, $button-round); }
+          }
+          .postfix-round.row.collapse {
+            input,
+            textarea,
+            select,
+            button { @include radius(0); @include side-radius($default-float, $button-round); }
+            .postfix { @include radius(0); @include side-radius($opposite-direction, $button-round); }
+          }
+        }
+      }
 
-    :-ms-input-placeholder {
-       color: $input-placeholder-font-color;
-    }
+      input[type="submit"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border-radius: 0;
+      }
 
-
-    /* Add height value for select elements to match text input height */
-    select {
-      @include form-select;
-      height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1));
-      &[multiple] {
+      /* Respect enforced amount of rows for textarea */
+      textarea[rows] {
         height: auto;
       }
-    }
 
-    /* Adjust margin for form elements below */
-    input[type="file"],
-    input[type="checkbox"],
-    input[type="radio"],
-    select {
-      margin: 0 0 $form-spacing 0;
-    }
+      /* Not allow resize out of parent */
+      textarea {
+        max-width: 100%;
+      }
 
-    input[type="checkbox"] + label,
-    input[type="radio"] + label {
-      display: inline-block;
-      margin-#{$default-float}: $form-spacing * .5;
-      margin-#{$opposite-direction}: $form-spacing;
-      margin-bottom: 0;
-      vertical-align: baseline;
-    }
+      // style placeholder text cross browser
+      ::-webkit-input-placeholder {
+        color: $input-placeholder-font-color;
+      }
 
-    /* Normalize file input width */
-    input[type="file"] {
-      width:100%;
-    }
+      :-moz-placeholder { /* Firefox 18- */
+        color: $input-placeholder-font-color;
+      }
 
-    /* HTML5 Number spinners settings */
-    input[type=number] {
-      @include html5number(moz, $input-number-spinners)
-    }
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      @include html5number(webkit, $input-number-spinners);
-    }
+      ::-moz-placeholder {  /* Firefox 19+ */
+        color: $input-placeholder-font-color;
+      }
 
-    /* We add basic fieldset styling */
-    fieldset {
-      @include fieldset;
-    }
-
-    /* Error Handling */
+      :-ms-input-placeholder {
+        color: $input-placeholder-font-color;
+      }
 
 
-    span.error, small.error {
-      @include form-error-message;
-    }
-
-    .error {
-      input,
-      textarea,
+      /* Add height value for select elements to match text input height */
       select {
-        margin-bottom: 0;
+        @include form-select;
+        height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1));
+        &[multiple] {
+          height: auto;
+        }
       }
 
+      /* Adjust margin for form elements below */
+      input[type="file"],
       input[type="checkbox"],
-      input[type="radio"] {
-        margin-bottom: $form-spacing
+      input[type="radio"],
+      select {
+        margin: 0 0 $form-spacing 0;
       }
 
-      label,
-      label.error {
-        @include form-label-error-color;
+      input[type="checkbox"] + label,
+      input[type="radio"] + label {
+        display: inline-block;
+        margin-#{$default-float}: $form-spacing * .5;
+        margin-#{$opposite-direction}: $form-spacing;
+        margin-bottom: 0;
+        vertical-align: baseline;
       }
 
-      small.error {
+      /* Normalize file input width */
+      input[type="file"] {
+        width:100%;
+      }
+
+      /* HTML5 Number spinners settings */
+      input[type=number] {
+        @include html5number(moz, $input-number-spinners)
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        @include html5number(webkit, $input-number-spinners);
+      }
+
+      /* We add basic fieldset styling */
+      fieldset {
+        @include fieldset;
+      }
+
+      /* Error Handling */
+
+
+      span.error, small.error {
         @include form-error-message;
       }
 
-      > label {
-        > small {
-          background: transparent;
-          color: scale-color($form-label-font-color, $lightness: 15%);
-          display: inline;
-          font-size: 60%;
-          font-style: normal;
-          margin: 0;
-          padding: 0;
-          text-transform: $form-label-small-transform;
+      .error {
+        input,
+        textarea,
+        select {
+          margin-bottom: 0;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+          margin-bottom: $form-spacing
+        }
+
+        label,
+        label.error {
+          @include form-label-error-color;
+        }
+
+        small.error {
+          @include form-error-message;
+        }
+
+        > label {
+          > small {
+            background: transparent;
+            color: scale-color($form-label-font-color, $lightness: 15%);
+            display: inline;
+            font-size: 60%;
+            font-style: normal;
+            margin: 0;
+            padding: 0;
+            text-transform: $form-label-small-transform;
+          }
+        }
+
+        span.error-message {
+          display: block;
         }
       }
 
-      span.error-message {
-        display: block;
+      input.error,
+      textarea.error,
+      select.error {
+        margin-bottom: 0;
       }
+      label.error { @include form-label-error-color; }
     }
-
-    input.error,
-    textarea.error,
-    select.error {
-      margin-bottom: 0;
-    }
-    label.error { @include form-label-error-color; }
   }
 }

@@ -1,5 +1,5 @@
 = simple_form_for [patient, peritonitis_episode],
-                  html: { class: local_assigns[:form_class] },
+                  html: { class: [local_assigns[:form_class], "fn-form"].compact.join(" ") },
                   remote: true,
                   wrapper: :horizontal_form do |f|
 
