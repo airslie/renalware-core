@@ -11,7 +11,7 @@
       wrapper: "horizontal_form" do |f|
 
     = render "form",
-             event: event,
-             patient: patient,
-             event_types: event_types,
-             f: f
+            event: event,
+            patient: patient,
+            event_types: event_types,
+            url: patient_events_path(patient)
