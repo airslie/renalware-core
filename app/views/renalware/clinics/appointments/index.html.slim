@@ -73,11 +73,10 @@
         - appointments.each do |appointment|
           tr
             td= check_box_tag nil, appointment.patient.id, true, class: "patient_checkbox"
-            td.nowrap
+            td.nowrap.actions
               = link_to("Toggle",
                        "#appointment-quick-preview-#{appointment.id}",
                        data: { behaviour: "toggler" })
-              = " | "
               - if appointment.becomes_visit_id.present?
                 = link_to edit_patient_clinic_visit_path(appointment.patient,
                                                          id: appointment.becomes_visit_id) do

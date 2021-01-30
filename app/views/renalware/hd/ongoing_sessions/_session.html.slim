@@ -1,7 +1,6 @@
 tr
-  td.noprint
+  td.noprint.actions
     = link_to "Sign-Off", edit_patient_hd_session_path(session.patient, session)
-    = pipe_separator
     = link_to "HD Summary".html_safe, patient_hd_dashboard_path(session.patient)
   td.full-name
     = link_to session.patient.to_s, patient_clinical_summary_path(session.patient)
