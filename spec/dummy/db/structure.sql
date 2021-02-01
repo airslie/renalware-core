@@ -3674,8 +3674,16 @@ CREATE TABLE renalware.hd_cannulation_types (
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    qhd33_code character varying
 );
+
+
+--
+-- Name: COLUMN hd_cannulation_types.qhd33_code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_cannulation_types.qhd33_code IS 'Needling Method (RR50)';
 
 
 --
@@ -5285,16 +5293,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -23400,6 +23398,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210419161507'),
 ('20210531082528'),
 ('20210604070039'),
+('20210611152736'),
 ('20210701161843'),
 ('20210705082359'),
 ('20210709132605'),
