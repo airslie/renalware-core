@@ -45,9 +45,15 @@ describe "API request for a single UKRDC patient XML document", type: :request d
       patient.update!(by: user)
       create(:clinic_visit, patient: clinic_patient(patient), by: user)
       create(:allergy, patient: clinical_patient(patient), by: user)
-
       hd_patient = Renalware::HD.cast_patient(patient)
-      create(:hd_closed_session, patient: hd_patient, by: user)
+      sess = create(
+        :hd_closed_session,
+        patient: hd_patient,
+        by: user
+      )
+      sess.updated_by = Renalware::User.first
+      sess.document.info.access_type_abbreviation = "PDC UA"
+      sess.save!
 
       # So medications elements are triggered
       create(:prescription, patient: patient, by: user)

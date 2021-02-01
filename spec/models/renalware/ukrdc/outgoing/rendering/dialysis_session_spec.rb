@@ -57,10 +57,12 @@ module Renalware
           allow(session).to receive(:uuid).and_return("UUID")
           presenter = Renalware::HD::SessionPresenter.new(session)
           allow(presenter).to receive(:access_rr02_code).and_return("RR02")
-          allow(presenter).to receive(:access_rr41_code).and_return("RR41")
+          allow(presenter).to receive(:access_rr41_code).and_return("UA")
+
+          # start="2018-11-01" stop="2018-11-01"
 
           expected_xml = <<~XML.squish.gsub("> <", "><")
-            <DialysisSession start="2018-11-01" stop="2018-11-01">
+            <DialysisSession>
               <ProcedureType>
                 <CodingStandard>SNOMED</CodingStandard>
                 <Code>302497006</Code>
@@ -82,12 +84,12 @@ module Renalware
               <Attributes>
                 <QHD19>N</QHD19>
                 <QHD20>RR02</QHD20>
-                <QHD21>RR41</QHD21>
+                <QHD21>UA</QHD21>
                 <QHD22>N</QHD22>
                 <QHD30>99</QHD30>
                 <QHD31>123</QHD31>
                 <QHD32>100</QHD32>
-                <QHD33/>
+                <QHD33>U</QHD33>
               </Attributes>
             </DialysisSession>
           XML
