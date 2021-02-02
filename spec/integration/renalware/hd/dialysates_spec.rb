@@ -10,7 +10,7 @@ describe "Managing Dialysates", type: :system do
       visit admin_dashboard_path
 
       within ".side-nav--admin" do
-        click_on "HD Dialysates"
+        click_on "Dialysates"
       end
 
       click_on "Add"

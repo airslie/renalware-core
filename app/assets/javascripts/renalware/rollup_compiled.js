@@ -7903,6 +7903,36 @@ var _default$b = function(_Controller) {
 
 _defineProperty(_default$b, "targets", [ "chart" ]);
 
+var _default$c = function(_Controller) {
+  _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass(_default, [ {
+    key: "connect",
+    value: function connect() {}
+  }, {
+    key: "open",
+    value: function open(event) {
+      var _this = this;
+      var index = this.linkTargets.indexOf(event.currentTarget);
+      this.sectionTargets.forEach(function(elem, idx) {
+        elem.classList.remove(_this.openClass);
+        if (idx == index) {
+          elem.classList.add(_this.openClass);
+        }
+      });
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$c, "targets", [ "section", "link" ]);
+
+_defineProperty(_default$c, "classes", [ "open" ]);
+
 var application = Application.start();
 
 application.register("toggle", _default);
@@ -7928,5 +7958,7 @@ application.register("tabs", _default$9);
 application.register("pd-pet-chart", _default$a);
 
 application.register("pathology-sparklines", _default$b);
+
+application.register("collapsible", _default$c);
 
 window.Chartkick.use(window.Highcharts);

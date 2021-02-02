@@ -1,30 +1,42 @@
+/ To enable collapsible admin menu sections, remove -DISABLED below and uncomment
+/ the collapsible classes in _layout.scss
 
-ul.side-nav.side-nav--admin
+ul.side-nav.side-nav--admin(data-controller="collapsible-DISABLED" data-collapsible-open-class="open")
   li.heading Renalware Admin
+
   = admin_menu_item "Dashboard", renalware.admin_dashboard_path, %r{admin/dashboard}
   = admin_menu_item "Users", renalware.admin_users_path, %r{renalware/admin/users}
-  = admin_menu_item "Request Form Print History", renalware.pathology_requests_requests_path, %r{pathology/requests/requests}
-  = admin_menu_item "Pathology Request Config", renalware.pathology_requests_rules_path, %r{pathology/requests/rules}
-  = admin_menu_item "HD Transmission Logs", renalware.hd_transmission_logs_path, %r{hd/transmission_logs}
-
-  - unless Rails.env.production?
-    = super_admin_menu_item "Email Templates", renalware.system_email_templates_path, %r{system/email_templates}
   = super_admin_menu_item "Event Types", renalware.events_types_path, %r{events/types}
   = super_admin_menu_item "Drugs", renalware.drugs_drugs_path, %r{drugs/drugs}
   = super_admin_menu_item "Modalities", renalware.modalities_descriptions_path, %r{modalities/descriptions}
-  = super_admin_menu_item "PD Bags", renalware.pd_bag_types_path, %r{pd/bag_types}
+  li= link_to "PD", "#", data: { action: "collapsible#open", collapsible_target: "link" }
+  ul.collapsible(data-collapsible-target="section")
+    = super_admin_menu_item "Bags", renalware.pd_bag_types_path, %r{pd/bag_types}
   = super_admin_menu_item "Primary Care Physicians", renalware.patients_primary_care_physicians_path, %r{patients/primary_care_physicians}
   = super_admin_menu_item "Cache", renalware.admin_cache_path, %r{admin/cache}
   /li= link_to "File Imports", renalware.admin_feeds_files_path
   = super_admin_menu_item "User Feedback", renalware.system_user_feedback_index_path, %r{system/user_feedback}
   = super_admin_menu_item "System Messages", renalware.system_messages_path, %r{system/messages}
-  = super_admin_menu_item "HD Dialysates", renalware.hd_dialysates_path, %r{hd/dialysates}
-  = super_admin_menu_item "HD Dialysers", renalware.hd_dialysers_path, %r{hd/dialysers}
-  = super_admin_menu_item "HD Cannulation Types", renalware.hd_cannulation_types_path, %r{hd/cannulation_types}
+
+  li= link_to "HD", "#", data: { action: "collapsible#open", collapsible_target: "link" }
+  ul.collapsible(data-collapsible-target="section")
+    = admin_menu_item "Transmission Logs", renalware.hd_transmission_logs_path, %r{hd/transmission_logs}
+    = super_admin_menu_item "Dialysates", renalware.hd_dialysates_path, %r{hd/dialysates}
+    = super_admin_menu_item "Dialysers", renalware.hd_dialysers_path, %r{hd/dialysers}
+    = super_admin_menu_item "Cannulation Types", renalware.hd_cannulation_types_path, %r{hd/cannulation_types}
+
   = super_admin_menu_item "Print batches", renalware.letters_batches_path, %r{letters/batches}
-  = super_admin_menu_item "OBX", renalware.pathology_observation_descriptions_path, %r{admin/pathology_observation_descriptions}
-  = super_admin_menu_item "Pathology Code Groups", renalware.pathology_code_groups_path, %r{pathology/code_groups}
+  li= link_to "Pathology", "#", data: { action: "collapsible#open", collapsible_target: "link" }
+  ul.collapsible(data-collapsible-target="section")
+    = super_admin_menu_item "OBX", renalware.pathology_observation_descriptions_path, %r{admin/pathology_observation_descriptions}
+    = super_admin_menu_item " Code Groups", renalware.pathology_code_groups_path, %r{pathology/code_groups}
+    = developer_menu_item "HL7 Test", renalware.new_feeds_hl7_test_message_path, %r{admin/123}
+    = admin_menu_item "Request Form Print History", renalware.pathology_requests_requests_path, %r{pathology/requests/requests}
+    = admin_menu_item "Request Config", renalware.pathology_requests_rules_path, %r{pathology/requests/rules}
+
   = super_admin_menu_item "Virology Vaccination Types", renalware.virology_vaccination_types_path, %r{virology/vaccination_types}
   = admin_menu_item "Mailshots", renalware.letters_mailshots_path, %r{letters/mailshots}
   = super_admin_menu_item "Playground", renalware.admin_playground_path, %r{admin/playground}
-  = developer_menu_item "HL7 Test", renalware.new_feeds_hl7_test_message_path, %r{admin/123}
+
+  - unless Rails.env.production?
+    = super_admin_menu_item "Email Templates", renalware.system_email_templates_path, %r{system/email_templates}
