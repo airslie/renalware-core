@@ -8,7 +8,14 @@ This project adheres to Semantic Versioning.
 ### Added
 ### Changed
 ### Fixed
+
+## 2.0.167
+### Added
+### Changed
+- Allow superadmin to edit and delete a vaccine event #3408
+### Fixed
 - Sort Virology Vaccinations by date_time descending [#3405](https://github.com/airslie/renalwarev2/issues/3405)
+- Should not be able to edit Vaccine and Clinical Frailty scores #3351
 
 ## 2.0.166
 ### Added

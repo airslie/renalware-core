@@ -16,7 +16,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.0.166)
+    renalware-core (2.0.167)
       active_type (~> 0.7.1)
       activerecord-import (~> 1.0)
       activerecord-postgres_enum (~> 0.6.0)
@@ -93,7 +93,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    Ascii85 (1.0.3)
+    Ascii85 (1.1.0)
     actioncable (6.0.3.4)
       actionpack (= 6.0.3.4)
       nio4r (~> 2.0)
@@ -358,7 +358,7 @@ GEM
     i18n (1.5.3)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    jbuilder (2.10.1)
+    jbuilder (2.11.2)
       activesupport (>= 5.0.0)
     jmespath (1.4.0)
     jquery-datatables-rails (3.4.0)
@@ -441,8 +441,8 @@ GEM
     parser (3.0.0.0)
       ast (~> 2.4.1)
     pdf-core (0.9.0)
-    pdf-reader (2.4.1)
-      Ascii85 (~> 1.0.0)
+    pdf-reader (2.4.2)
+      Ascii85 (~> 1.0)
       afm (~> 0.2.1)
       hashery (~> 2.0)
       ruby-rc4
@@ -467,13 +467,13 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.6)
-    puma (5.1.1)
+    puma (5.2.0)
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
     racc (1.5.2)
     rack (2.2.3)
-    rack-attack (6.3.1)
+    rack-attack (6.4.0)
       rack (>= 1.0, < 3)
     rack-protection (2.1.0)
       rack
@@ -511,7 +511,7 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rainbow (3.0.0)
     rake (13.0.3)
-    ransack (2.4.1)
+    ransack (2.4.2)
       activerecord (>= 5.2.4)
       activesupport (>= 5.2.4)
       i18n
@@ -670,7 +670,7 @@ GEM
     user_agent_parser (2.7.0)
     validates_timeliness (4.1.1)
       timeliness (>= 0.3.10, < 1)
-    view_component (2.24.0)
+    view_component (2.25.1)
       activesupport (>= 5.0.0, < 7.0)
     virtus (1.0.5)
       axiom-types (~> 0.1)
