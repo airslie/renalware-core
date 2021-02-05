@@ -24,7 +24,7 @@ tr
 
   td.nowrap.created_at= l(event.date_time)
   - unless local_assigns[:exclude_type_column] == true
-    td.col-width-medium-with-ellipsis= event.event_type&.category
+    td.show-for-large-up.col-width-medium-with-ellipsis= event.event_type&.category
     td.col-width-medium-with-ellipsis= event.event_type
   - if local_assigns[:include_patient_column] == true
     td= default_patient_link(event.patient)
@@ -33,8 +33,8 @@ tr
                locals: { event: event }
   / td.nowrap= l event.created_at.to_date
   / td.created_by= event.created_by.full_name
-  td.updated_at= l(event.effective_updated_at_date)
-  td.updated_by.col-width-medium-with-ellipsis= event.effective_updated_by
+  td.show-for-medium-up.updated_at= l(event.effective_updated_at_date)
+  td.show-for-large-up.updated_by.col-width-medium-with-ellipsis= event.effective_updated_by
 = content_tag(:tr, id: "#{toggle_prefix}-quick-preview-#{event.id}", style: "display: none")
   td(colspan=9)
     .quick-preview
