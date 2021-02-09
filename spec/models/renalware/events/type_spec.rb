@@ -6,6 +6,8 @@ module Renalware::Events
   describe Type, type: :model do
     it_behaves_like "a Paranoid model"
 
+    it { is_expected.to belong_to(:category) }
+
     describe "validation" do
       it :aggregate_failures do
         is_expected.to validate_presence_of :name
@@ -13,7 +15,7 @@ module Renalware::Events
       end
 
       describe "uniqueness" do
-        subject { Type.new(name: "X") }
+        subject { Type.new(name: "X", category: create(:event_category)) }
 
         it { is_expected.to validate_uniqueness_of :name }
       end

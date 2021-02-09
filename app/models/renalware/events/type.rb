@@ -12,12 +12,14 @@ module Renalware
         foreign_key: :event_type_id,
         dependent: :destroy
       )
+      belongs_to :category, class_name: "Renalware::Events::Category"
 
       DEFAULT_EVENT_CLASS_NAME = "Renalware::Events::Simple"
 
       acts_as_paranoid
 
       validates :name, presence: true, uniqueness: true
+      validates :category_id, presence: true
       validates :slug,
                 format: {
                   with: /\A[0-9a-z\-\_]+\z/i,

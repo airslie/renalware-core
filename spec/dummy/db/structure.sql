@@ -2244,6 +2244,39 @@ ALTER SEQUENCE renalware.drugs_id_seq OWNED BY renalware.drugs.id;
 
 
 --
+-- Name: event_categories; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.event_categories (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    "position" integer DEFAULT 10 NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: event_categories_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.event_categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: event_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.event_categories_id_seq OWNED BY renalware.event_categories.id;
+
+
+--
 -- Name: event_type_alert_triggers; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -2295,6 +2328,7 @@ CREATE TABLE renalware.event_types (
     updated_at timestamp without time zone NOT NULL,
     event_class_name character varying,
     slug character varying,
+    category_id bigint NOT NULL,
     save_pdf_to_electronic_public_register boolean DEFAULT false NOT NULL,
     title character varying,
     hidden boolean DEFAULT false NOT NULL
@@ -4410,6 +4444,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -10247,6 +10291,13 @@ ALTER TABLE ONLY renalware.drugs ALTER COLUMN id SET DEFAULT nextval('renalware.
 
 
 --
+-- Name: event_categories id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_categories ALTER COLUMN id SET DEFAULT nextval('renalware.event_categories_id_seq'::regclass);
+
+
+--
 -- Name: event_type_alert_triggers id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -11716,6 +11767,14 @@ ALTER TABLE ONLY renalware.drug_types
 
 ALTER TABLE ONLY renalware.drugs
     ADD CONSTRAINT drugs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: event_categories event_categories_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_categories
+    ADD CONSTRAINT event_categories_pkey PRIMARY KEY (id);
 
 
 --
@@ -13847,10 +13906,31 @@ CREATE INDEX index_drugs_on_deleted_at ON renalware.drugs USING btree (deleted_a
 
 
 --
+-- Name: index_event_categories_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_event_categories_on_deleted_at ON renalware.event_categories USING btree (deleted_at);
+
+
+--
+-- Name: index_event_categories_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_event_categories_on_name ON renalware.event_categories USING btree (name);
+
+
+--
 -- Name: index_event_type_alert_triggers_on_event_type_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_event_type_alert_triggers_on_event_type_id ON renalware.event_type_alert_triggers USING btree (event_type_id);
+
+
+--
+-- Name: index_event_types_on_category_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_event_types_on_category_id ON renalware.event_types USING btree (category_id);
 
 
 --
@@ -17686,6 +17766,14 @@ ALTER TABLE ONLY renalware.hd_profiles
 
 
 --
+-- Name: event_types fk_rails_0af1b89c85; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_types
+    ADD CONSTRAINT fk_rails_0af1b89c85 FOREIGN KEY (category_id) REFERENCES renalware.event_categories(id);
+
+
+--
 -- Name: transplant_rejection_episodes fk_rails_0b121fa111; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -20643,6 +20731,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181126123745'),
 ('20181217124025'),
 ('20190104095254'),
+('20190131152758'),
 ('20190218142207'),
 ('20190225103005'),
 ('20190315125638'),
