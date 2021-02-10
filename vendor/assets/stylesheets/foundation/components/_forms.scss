@@ -381,13 +381,13 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
 
 @include exports("form") {
   @if $include-html-form-classes {
+    /* Standard Forms */
+    form.fn-form { margin: 0 0 $form-spacing; }
+
+    /* Using forms within rows, we need to set some defaults */
+    form.fn-form .row { @include form-row-base; }
+
     .fn-form {
-      /* Standard Forms */
-      form { margin: 0 0 $form-spacing; }
-
-      /* Using forms within rows, we need to set some defaults */
-      form .row { @include form-row-base; }
-
       /* Label Styles */
       label { @include form-label;
         &.right { @include form-label(right, false); }
@@ -433,39 +433,42 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
           @include radius($input-border-radius);
         }
       }
+    }
 
-      form {
-        .row {
-          .prefix-radius.row.collapse {
-            input,
-            textarea,
-            select,
-            button { @include radius(0); @include side-radius($opposite-direction, $button-radius); }
-            .prefix { @include radius(0); @include side-radius($default-float, $button-radius); }
-          }
-          .postfix-radius.row.collapse {
-            input,
-            textarea,
-            select,
-            button { @include radius(0); @include side-radius($default-float, $button-radius); }
-            .postfix { @include radius(0); @include side-radius($opposite-direction, $button-radius); }
-          }
-          .prefix-round.row.collapse {
-            input,
-            textarea,
-            select,
-            button { @include radius(0); @include side-radius($opposite-direction, $button-round); }
-            .prefix { @include radius(0); @include side-radius($default-float, $button-round); }
-          }
-          .postfix-round.row.collapse {
-            input,
-            textarea,
-            select,
-            button { @include radius(0); @include side-radius($default-float, $button-round); }
-            .postfix { @include radius(0); @include side-radius($opposite-direction, $button-round); }
-          }
+    form.fn-form {
+      .row {
+        .prefix-radius.row.collapse {
+          input,
+          textarea,
+          select,
+          button { @include radius(0); @include side-radius($opposite-direction, $button-radius); }
+          .prefix { @include radius(0); @include side-radius($default-float, $button-radius); }
+        }
+        .postfix-radius.row.collapse {
+          input,
+          textarea,
+          select,
+          button { @include radius(0); @include side-radius($default-float, $button-radius); }
+          .postfix { @include radius(0); @include side-radius($opposite-direction, $button-radius); }
+        }
+        .prefix-round.row.collapse {
+          input,
+          textarea,
+          select,
+          button { @include radius(0); @include side-radius($opposite-direction, $button-round); }
+          .prefix { @include radius(0); @include side-radius($default-float, $button-round); }
+        }
+        .postfix-round.row.collapse {
+          input,
+          textarea,
+          select,
+          button { @include radius(0); @include side-radius($default-float, $button-round); }
+          .postfix { @include radius(0); @include side-radius($opposite-direction, $button-round); }
         }
       }
+    }
+
+    .fn-form {
 
       input[type="submit"] {
         -webkit-appearance: none;
