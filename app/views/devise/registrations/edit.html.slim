@@ -24,7 +24,6 @@
         i = t("devise.registrations.edit.leave_blank_if_you_don_t_want_to_change_it")
         = f.password_field :password, autocomplete: "off"
 
-
       .field.large-8.small-6
         = f.label :password_confirmation
         = f.password_field :password_confirmation, autocomplete: "off"
@@ -43,9 +42,12 @@
         <i>(appears in letters, e.g. "Dr Jane Smith, MRCP")</i>
         = f.text_field :signature
 
-      .field.large-8.small-6
-        = f.label :language
-        = f.collection_select(:language, [["English", "en-GB"],["Portuguese", "pt"]], :last, :first, prompt: true)
+      / For now, disallow Portuguese as an option. While there are some Portuguese translations
+      / in the app, added as a proof-of-concept, these have not been sanity-checked!
+      / ["Portuguese", "pt"]
+      / .field.large-8.small-6
+      /   = f.label :language
+      /   = f.collection_select(:language, [["English", "en-GB"]], :last, :first, prompt: true)
 
       .actions
         = f.submit t("devise.registrations.edit.update"), class: "button save"
