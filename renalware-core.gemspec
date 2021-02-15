@@ -84,7 +84,6 @@ Gem::Specification.new do |s|
   s.add_dependency "rack-attack"
   s.add_dependency "rails", "> 5.2", "< 6.2"
   s.add_dependency "ransack", "~> 2.4.0"
-  s.add_dependency "rails-assets-toastr", "~> 2.1.3"
   s.add_dependency "record_tag_helper", "~> 1.0.0"
   s.add_dependency "renalware-forms", ">= 0.1.5"
   s.add_dependency "ruby-hl7", "~> 1.2.0"
