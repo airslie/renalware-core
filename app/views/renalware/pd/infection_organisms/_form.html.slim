@@ -1,4 +1,4 @@
-= simple_form_for infection_organism, url: url, html: { class: local_assigns[:form_class] },
+= simple_form_for infection_organism, url: url, html: { class: [local_assigns[:form_class], "fn-form"].compact.join(" ") },
     wrapper: :horizontal_form, remote: true do |f|
 
   = f.input :organism_code_id, collection: Renalware::PD::OrganismCode.all,

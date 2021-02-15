@@ -1,6 +1,6 @@
 .filters
   .filters__form
-    = search_form_for user_search, url: users_path do |f|
+    = search_form_for user_search, url: users_path, class: "fn-form" do |f|
       .row
         .small-9.large-4.columns
           = f.label "Name or username contains"

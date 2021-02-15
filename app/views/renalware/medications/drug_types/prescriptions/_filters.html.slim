@@ -8,7 +8,6 @@
   = simple_form_for search,
     url: medications_esa_prescriptions_path,
     method: :get do |f|
-    /= search_form_for(search, url: medications_esa_prescriptions_path) do |f|
     .small-6.columns
       = f.input search_scope, label: t(".search_prompt")
     .small-3.columns
@@ -20,4 +19,3 @@
       = f.submit "Search", class: "button"
       '  or
       = link_to "Reset", medications_esa_prescriptions_path
-      /class: "cancel-link #{'disabled' unless searching}"

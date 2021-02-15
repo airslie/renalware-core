@@ -1,6 +1,6 @@
 .filters
   .filters__form
-    = search_form_for drugs_search do |f|
+    = search_form_for drugs_search, html: { class: "fn-form" } do |f|
       .row
         .small-9.large-4.columns
           = f.label "Name or type"

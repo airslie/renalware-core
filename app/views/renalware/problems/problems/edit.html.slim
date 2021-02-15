@@ -4,7 +4,7 @@
 
   = simple_form_for problem,
                     url: patient_problem_path(patient, problem),
-                    html: { autocomplete: "off", class: "problem-form" } do |f|
+                    html: { autocomplete: "off", class: "problem-form fn-form" } do |f|
 
       = f.input :description, as: :text, autofocus: true
       = f.button :button, "Save"

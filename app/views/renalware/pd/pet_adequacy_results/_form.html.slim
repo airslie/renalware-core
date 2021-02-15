@@ -1,7 +1,7 @@
 = simple_form_for [patient, pet_adequacy_result],
                   as: "pet_adequacy",
                   wrapper: :horizontal_form,
-                  html: { class: "pet-adequacy-form" } do |f|
+                  html: { class: "fn-form pet-adequacy-form" } do |f|
 
   = f.input :pet_type, as: :inline_radio_buttons, wrapper: :horizontal_small
   = f.input :pet_date, as: :date_picker, wrapper: :horizontal_datepicker
