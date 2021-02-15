@@ -2,7 +2,15 @@
 
 FactoryBot.define do
   factory :event_type, class: "Renalware::Events::Type" do
-    initialize_with { Renalware::Events::Type.find_or_create_by(name: name) }
+    initialize_with do
+      Renalware::Events::Type.find_or_create_by(
+        name: name,
+        category: category
+      )
+    end
+
+    category factory: :event_category
+    name { "Test" }
 
     factory :access_clinic_event_type do
       name { "Access--Clinic" }
