@@ -42,7 +42,7 @@ module Renalware::Pathology
 
         visit edit_pathology_code_group_path(group)
 
-        expect(page).to have_content "Pathology Code Group"
+        expect(page).to have_content "Pathology Code"
         expect(page).to have_content "Group1"
 
         fill_in "Description", with: "Changed description"
