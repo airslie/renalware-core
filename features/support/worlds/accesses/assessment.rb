@@ -83,16 +83,16 @@ module World
         login_as user
         visit patient_accesses_dashboard_path(patient)
         within ".page-actions" do
-          click_on "Add"
+          click_on t("btn.add_")
           click_on "Access Assessment"
         end
 
-        fill_in "Performed", with: I18n.l(Time.zone.today)
+        fill_in "Performed", with: l(Time.zone.today)
         select(access_type.to_s, from: "Access Type") if access_type.present?
         select "Right", from: "Access Side"
 
         within ".top" do
-          click_on "Create"
+          click_on t("btn.create")
         end
       end
 
@@ -100,13 +100,13 @@ module World
         login_as user
         visit patient_accesses_dashboard_path(patient)
         within_article "Assessment History" do
-          click_on "Edit"
+          click_on t("btn.edit")
         end
 
         select "Left", from: "Access Side"
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
     end

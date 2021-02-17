@@ -24,7 +24,7 @@ module Renalware
           expect(page).not_to have_content(problem.description)
           expect(page).not_to have_content(prescription.drug.name)
 
-          click_on "Toggle"
+          click_on t("btn.toggle")
 
           expect(page).to have_content(problem.description)
           expect(page).to have_content(prescription.drug.name)

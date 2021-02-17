@@ -77,21 +77,21 @@ module World
         login_as user
 
         visit patient_problems_path(patient)
-        click_on "Add"
+        click_on t("btn.add")
         fill_in "Description", with: "major problem"
-        click_on "Create"
+        click_on t("btn.create")
       end
 
       def revise_problem_for(patient:, user:, description:)
         login_as user
 
         visit patient_problem_path(patient, problem_for(patient))
-        click_on "Edit"
+        click_on t("btn.edit")
         # actually now goes to #show
 
         within ".problem-form" do
           fill_in "Description", with: description
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 

@@ -18,7 +18,7 @@ describe "Creating an biopsy", type: :system, js: true do
       select "De Novo GN", from: "Rejection"
       select "26-50%", from: "IFTA"
 
-      click_on "Save"
+      click_on t("btn.save")
 
       events = Renalware::Events::Event.for_patient(patient)
       expect(events.length).to eq(1)

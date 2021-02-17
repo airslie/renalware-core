@@ -10,7 +10,7 @@ describe "Managing audits", type: :system do
     stub_the_list_of_data_sources
 
     within "table.audits" do
-      click_on "Edit"
+      click_on t("btn.edit")
     end
 
     expect(page).to have_current_path(edit_reporting_audit_path(audit))
@@ -20,7 +20,7 @@ describe "Managing audits", type: :system do
     select "reporting_test_view2", from: t_audit(:view_name)
     fill_in t_audit(:display_configuration), with: display_config
     fill_in t_audit(:refresh_schedule), with: "5 0 * * *"
-    click_on "Save"
+    click_on t("btn.save")
 
     expect(page).to have_current_path(reporting_audits_path)
 
@@ -33,7 +33,7 @@ describe "Managing audits", type: :system do
   end
 
   def t_audit(key, scope: "activerecord.attributes.renalware/reporting/audit")
-    I18n.t(key.to_s, scope: scope)
+    t(key.to_s, scope: scope)
   end
 
   def stub_the_list_of_data_sources

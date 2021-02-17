@@ -27,7 +27,7 @@ describe "Admission Request (TCI) management", type: :request do
 
       expect(response).to be_successful
       expect(response.body).to include("XYZ")
-      expect(response.body).to include(I18n.l(time))
+      expect(response.body).to include(l(time))
       expect(response.body).to include(patient.to_s)
       expect(response.body).to include("Urgent")
     end

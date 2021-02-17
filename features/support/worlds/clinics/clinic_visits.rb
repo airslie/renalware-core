@@ -97,7 +97,7 @@ module World
             find("trix-editor").set("Notes")
             find("textarea[name='clinic_visit[admin_notes]']").set("Admin notes")
 
-            click_on "Save"
+            click_on t("btn.save")
           end
         end
 
@@ -119,7 +119,7 @@ module World
           # find("textarea[name='clinic_visit[notes]']").set("Updated notes")
           find("textarea[name='clinic_visit[admin_notes]']").set("Updated admin notes")
 
-          click_on "Update"
+          click_on t("btn.update")
         end
       end
     end

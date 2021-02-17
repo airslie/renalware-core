@@ -19,7 +19,7 @@ table
     - historical_profiles.each do |profile|
       tbody
         tr
-          td= link_to("View", patient_hd_historical_profile_path(patient, profile))
+          td= link_to(t("btn.view"), patient_hd_historical_profile_path(patient, profile))
           - if compact
             td= l(profile.created_at&.to_date)
             td= l(profile.deactivated_at&.to_date)

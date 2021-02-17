@@ -5,6 +5,6 @@
   td= contact.address
   td= contact.notes
   td
-    = link_to("Edit",
+    = link_to(t("btn.edit"),
                 edit_patient_letters_contact_path(patient, contact, format: :html),
                 data: { "reveal-id" => "edit-patient-contact-modal", "reveal-ajax" => "true" })

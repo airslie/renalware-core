@@ -57,9 +57,7 @@ Gem::Specification.new do |s|
   s.add_dependency "groupdate", ">= 4.2", "< 6"
   s.add_dependency "hashdiff", "~> 1.0"
   s.add_dependency "httparty", "~> 0.16"
-  # Note that upgrading i18n 1.8+ requires altering arguments in HandleBlankValue.
-  # A previous attempt to do this however lead to segmentation faults.
-  s.add_dependency "i18n", "1.5.3"
+  s.add_dependency "i18n", "~> 1.8.5"
   s.add_dependency "jbuilder", "~> 2.8"
   s.add_dependency "jquery-datatables-rails", "~> 3.4.0"
   s.add_dependency "jquery-rails", "~> 4.4.0"

@@ -17,7 +17,7 @@ module Renalware
       end
 
       # New
-      home_visit_on = I18n.l(Time.zone.today)
+      home_visit_on = l(Time.zone.today)
       within(".assessment_document_had_home_visit") { choose("Yes") }
       within(".assessment_document_housing_type") { choose("Flat") }
       fill_in input_called(:assessor), with: "Flo Nightengale RN"
@@ -30,7 +30,7 @@ module Renalware
       fill_in input_called(:fluid_storage), with: "bag_warming"
       select "2 weeks", from: input_called(:delivery_interval)
 
-      click_on "Save"
+      click_on t("btn.save")
 
       expect(page).to have_current_path(patient_pd_dashboard_path(patient))
 
@@ -50,15 +50,15 @@ module Renalware
 
       # Summary
       within ".pd_assessments table tbody" do
-        click_on "Edit"
+        click_on t("btn.edit")
       end
 
       # Edit - change a couple of fields
-      home_visit_on = I18n.l(Time.zone.today - 1.day)
+      home_visit_on = l(Time.zone.today - 1.day)
       fill_in input_called(:home_visit_on), with: home_visit_on
       within(".assessment_document_had_home_visit") { choose("No") }
 
-      click_on "Save"
+      click_on t("btn.save")
 
       # Summary
       within ".pd_assessments table tbody" do
@@ -77,13 +77,13 @@ module Renalware
 
       # Summary
       within ".pd_assessments table tbody" do
-        click_on "View"
+        click_on t("btn.view")
       end
 
       # View
       doc = assessment.document
       within "article.pd_assessment_document" do
-        expect(page).to have_content(I18n.l(doc.home_visit_on))
+        expect(page).to have_content(l(doc.home_visit_on))
         expect(page).to have_content(doc.occupant_notes)
         # No need to test presence of all items here - we just want to make
         # we are are in the right place and some is being displayed.

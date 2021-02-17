@@ -25,7 +25,7 @@ describe "Batch printing letters", type: :system, js: true do
 
       select2 letter1.author.to_s, from: "Author"
 
-      click_on "Filter"
+      click_on t("btn.filter")
 
       within ".letters-table" do
         expect(page).to have_content(letter1.author.to_s)

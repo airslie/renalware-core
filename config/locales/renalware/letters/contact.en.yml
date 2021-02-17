@@ -1,3 +1,4 @@
+---
 en:
   activerecord:
     attributes:
@@ -29,10 +30,11 @@ en:
           cancel: Cancel
       navigation:
         list: List
-      main_recipient:
-        add_contact: Add a different recipient via the contacts Directory
-      additional_ccs:
-        add_contact_as_cc: Add new person to the list
-      electronic_ccs:
-        title: Electronic CCs
-        add: Add
+      letters:
+        main_recipient:
+          add_contact: Add a different recipient via the contacts Directory
+        additional_ccs:
+          add_contact_as_cc: Add new person to the list
+        electronic_ccs:
+          title: Electronic CCs
+          add: Add

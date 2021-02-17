@@ -94,7 +94,7 @@ module Pages
 
       def save
         within(MODAL_CONTAINER_ID) do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 
@@ -113,7 +113,7 @@ module Pages
 
       # def submit
       #   within ".top" do
-      #     click_on "Create"
+      #     click_on t("btn.create")
       #   end
       # end
 

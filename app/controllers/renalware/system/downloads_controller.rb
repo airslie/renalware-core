@@ -75,7 +75,7 @@ module Renalware
       end
 
       def notice
-        t(".success", model_name: "download")
+        success_msg_for("download")
       end
 
       def update_view_count_for(download)

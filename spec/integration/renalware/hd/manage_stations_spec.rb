@@ -30,12 +30,12 @@ describe "Managing HD Stations for a Hospital Unit", type: :system do
 
     visit hd_unit_stations_path(unit)
     within(".page-actions") do
-      click_on I18n.t("new_record.link_title")
+      click_on I18n.t("btn.add")
     end
 
     fill_in "Name", with: "Station-X"
     select "Side room", from: "Location"
-    click_on "Save"
+    click_on t("btn.save")
 
     expect(page).to have_current_path(hd_unit_stations_path(unit))
     expect(page).to have_content("Station-X")
@@ -49,11 +49,11 @@ describe "Managing HD Stations for a Hospital Unit", type: :system do
 
     visit hd_unit_stations_path(unit)
     within("#hd-station-#{station.id}") do
-      click_on "Edit"
+      click_on t("btn.edit")
     end
 
     fill_in "Name", with: "Station-XX"
-    click_on "Save"
+    click_on t("btn.save")
 
     expect(page).to have_current_path(hd_unit_stations_path(unit))
     expect(page).to have_content("Station-XX")

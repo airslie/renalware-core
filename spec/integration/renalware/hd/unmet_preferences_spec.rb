@@ -91,7 +91,7 @@ describe "Viewing patients whose HD preferences do not match their profile", typ
 
         # Select the hospital unit Y which patient_unit prefers
         select "Y", from: "q_hd_preference_set_hospital_unit_id_eq"
-        click_on "Filter"
+        click_on t("btn.filter")
 
         expect(page).to have_content(patient_unit.family_name.upcase)
         expect(page).to have_no_content(patient_met.family_name.upcase)

@@ -33,9 +33,9 @@ ruby:
       = f.button :submit, value: t(".save")
       - if policy(session).destroy?
         | &nbsp;
-        = link_to("Delete", patient_hd_session_path(patient, session),
+        = link_to(t("btn.delete"), patient_hd_session_path(patient, session),
                   data: { confirm: t(".delete_confirmation") },
                   method: :delete,
                   class: "button alert")
       | &nbsp;
-      = link_to "cancel", back_path
+      = link_to t("btn.cancel"), back_path

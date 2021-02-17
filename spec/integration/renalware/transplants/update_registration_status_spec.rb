@@ -33,7 +33,7 @@ describe "Update wait list registration status", type: :system do
         select "Active", from: "Description"
         fill_in "Started on", with: "28-Apr-2017"
         fill_in "Notes", with: "My notes"
-        click_on "Save"
+        click_on t("btn.save")
       end
 
       expect(page).to have_current_path(patient_transplants_recipient_dashboard_path(patient))

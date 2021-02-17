@@ -19,9 +19,9 @@ article.pd_training_sessions
         tr
           td.actions
             - if policy(training_session).edit?
-              = link_to("Edit", edit_patient_pd_training_session_path(patient, training_session))
+              = link_to(t("btn.edit"), edit_patient_pd_training_session_path(patient, training_session))
             - if policy(training_session).show?
-              = link_to("View", [patient, training_session])
+              = link_to(t("btn.view"), [patient, training_session])
           td= l(training_session.created_at)
           td= l(document.started_on)
           td= document.trainer

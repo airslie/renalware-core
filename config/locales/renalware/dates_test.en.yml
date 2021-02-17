@@ -1,0 +1,8 @@
+---
+en:
+  enumerize:
+    renalware/dated_test:
+      result:
+        negative: Neg
+        positive: Pos
+        not_done: Not Done

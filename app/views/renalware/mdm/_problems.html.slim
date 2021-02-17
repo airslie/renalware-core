@@ -5,10 +5,10 @@ article
       span= "#{mdm.current_problems.length} of #{mdm.patient.summary.problems_count}"
 
       span.noprint
-        = link_to t(".view_all"),
+        = link_to t("btn.view_all"),
                   patient_problems_path(mdm.patient),
                   class: "button secondary"
-        = link_to "Toggle",
+        = link_to t("btn.toggle"),
                   "#problems",
                   class: "button secondary",
                   data: { behaviour: "css-toggler" }

@@ -2,7 +2,7 @@ button.button.dropdown(href="#"
                        data-dropdown="access-options"
                        aria-controls="access-options"
                        aria-expanded="false")
-  | Add
+  = t("btn.add_")
 ul.f-dropdown#access-options(data-dropdown-content aria-hidden="true")
   li= link_to("Access Profile", new_patient_accesses_profile_path(patient))
   li= link_to("Access Plan", new_patient_accesses_plan_path(patient))

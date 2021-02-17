@@ -1,0 +1,45 @@
+---
+en:
+  simple_form:
+    hints:
+      prescription:
+        route_description: required only if above is "Other"
+    prompts:
+      prescription:
+        medication_route: Please select route of administration
+  activerecord:
+    attributes:
+      renalware/medications/prescription:
+        medication_route: Route
+        prescribed_on: Prescribed on
+        terminated_on: Terminated on
+        frequency: "Frequency & Duration"
+        administer_on_hd: Give on HD
+        last_delivery_date: Last home prescription date
+        next_delivery_date: Next home prescription date
+    errors:
+      models:
+        renalware/medications/prescription:
+          attributes:
+            route_description:
+              not_other: can't be present when a route has been selected
+  enumerize:
+    renalware:
+      medications:
+        prescription:
+          dose_unit:
+            ampoule: ampoule
+            capsule: capsule
+            drop: drop
+            gram: g
+            international_unit: iu
+            microgram: microgram
+            milligram: mg
+            millilitre: ml
+            nanogram: ng
+            patch: patch
+            puff: puff
+            sachet: sachet
+            tab: tab
+            tablet: tablet
+            unit: unit

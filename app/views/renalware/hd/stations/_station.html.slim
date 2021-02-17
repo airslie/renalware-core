@@ -1,7 +1,7 @@
 tr.sortable(id="hd-station-#{station.id}")
   td
     - if policy(station).update?
-      = link_to "Edit", edit_hd_unit_station_path(station.hospital_unit_id, station)
+      = link_to t("btn.edit"), edit_hd_unit_station_path(station.hospital_unit_id, station)
   td= station.name
   td= station.location&.name
   - if policy(station).sort?

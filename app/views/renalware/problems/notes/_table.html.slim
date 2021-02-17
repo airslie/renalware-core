@@ -7,7 +7,7 @@
     thead
       - unless problem.archived?
         th.col-width-tiny
-      th Description
+      th= t("thead.description")
       th.col-width-medium Recorded By
       th.col-width-date-time Recorded On
 
@@ -17,11 +17,11 @@
           - unless problem.archived?
             td.actions
               - if policy(note).edit?
-                = link_to "Edit",
+                = link_to t("btn.edit"),
                           edit_patient_problem_note_path(problem.patient, problem, note),
                           remote: true
               - if policy(note).destroy?
-                = link_to "Delete",
+                = link_to t("btn.delete"),
                           patient_problem_note_path(problem.patient, problem, note),
                           method: :delete,
                           remote: true,

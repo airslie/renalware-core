@@ -92,8 +92,10 @@ module Renalware
     end
 
     initializer :add_locales do |app|
-      app.config.i18n.load_path += Dir[config.root.join("config/locales/**/*.{rb,yml}")]
-      app.config.i18n.default_locale = "en-GB"
+      app.config.i18n.load_path += Dir[config.root.join("config/locales/**/*.yml")]
+      app.config.i18n.load_path += Dir[config.root.join("app/components/**/*.yml")]
+      app.config.available_locales = [:en] # [:en, :pt]
+      app.config.i18n.default_locale = :"en-GB"
       app.config.i18n.fallbacks = [:en]
     end
 

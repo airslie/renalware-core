@@ -1,6 +1,6 @@
 = content_for(:actions) do
   - if policy(Renalware::Hospitals::Ward.new).create?
-    = link_to "Add",
+    = link_to t("btn.add"),
             new_hospitals_unit_ward_path(unit),
             class: "button"
 
@@ -18,11 +18,11 @@
         tr
           td
             - if policy(ward).edit?
-              = link_to "Edit", edit_hospitals_unit_ward_path(unit, ward)
+              = link_to t("btn.edit"), edit_hospitals_unit_ward_path(unit, ward)
             / For now, no longer support deleting a ward
             / - if policy(ward).destroy?
             /   = pipe_separator
-            /   = link_to "Delete",
+            /   = link_to t("btn.delete"),
             /             hospitals_unit_ward_path(unit, ward),
             /             method: :delete,
             /             data: { confirm: "Are you sure?" }

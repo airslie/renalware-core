@@ -37,7 +37,7 @@ describe Renalware::Patients::MessagesComponent, type: :component do
 
       expect(page).to have_content("Messages")
       expect(page).to have_content("B1")
-      expect(page).to have_content(I18n.l(Date.current))
+      expect(page).to have_content(l(Date.current))
       expect(page).to have_content(user.to_s)
     end
   end

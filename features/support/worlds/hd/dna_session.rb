@@ -48,12 +48,12 @@ module World
         visit patient_hd_dashboard_path(patient)
 
         within ".page-actions" do
-          click_on "Add"
+          click_on t("btn.add")
           click_on "DNA Session"
         end
 
         select hd_unit.to_s, from: t_form(".hospital_unit")
-        fill_in t_form(".performed_on"), with: I18n.l(Time.zone.today)
+        fill_in t_form(".performed_on"), with: l(Time.zone.today)
 
         within ".hd_session_notes" do
           fill_in t_form(".notes"), with: options[:notes]

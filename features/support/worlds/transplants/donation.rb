@@ -88,7 +88,7 @@ module World
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
         within ".page-heading" do
-          click_on "Add"
+          click_on t("btn.add_")
           click_on "Donation"
         end
 
@@ -99,7 +99,7 @@ module World
         end
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 
@@ -107,13 +107,13 @@ module World
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
         within_article "Donation" do
-          click_on "Edit"
+          click_on t("btn.edit")
         end
 
         select "Seen in Clinic", from: "State"
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 
@@ -121,7 +121,7 @@ module World
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
         within_article "Donation" do
-          click_on "Edit"
+          click_on t("btn.edit")
         end
 
         # Until we work how to test a select2 ajax autocomplete, for now insert the
@@ -133,7 +133,7 @@ module World
         wait_for_ajax
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
         expect(page).to have_current_path(patient_transplants_donor_dashboard_path(patient))
       end

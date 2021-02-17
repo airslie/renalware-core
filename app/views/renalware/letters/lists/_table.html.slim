@@ -14,7 +14,7 @@
         th= sort_link([:renalware, q], :created_by_family_name, "Typist")
         th.col-width-tiny Pages
         th.col-width-small Recipient
-        th Description
+        th= t("thead.description")
     tbody
       = render partial: "letter", collection: letters
 

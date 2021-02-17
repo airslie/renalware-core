@@ -17,11 +17,11 @@ describe "Add a prescription using drug chosen from a category", type: :system, 
     )
 
     within ".page-actions" do
-      click_on "Add"
+      click_on t("btn.add")
     end
 
     # prescribed_on defaults to today
-    expect(page.find("#medications_prescription_prescribed_on").value).to eq(I18n.l(Date.current))
+    expect(page.find("#medications_prescription_prescribed_on").value).to eq(l(Date.current))
 
     form.drug_type = "ESA"
     form.drug = "Blue Pill"

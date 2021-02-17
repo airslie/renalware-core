@@ -32,14 +32,14 @@ describe "Editing an investigation", type: :system, js: true do
     within("article.investigations") do
       expect(page).to have_selector("tbody tr", count: 1)
       expect(page).to have_content("initial_result")
-      click_on "Edit"
+      click_on t("btn.edit")
     end
 
     expect(page).to have_current_path(edit_path)
 
     # Edit..
     fill_in "Result", with: "edited_result"
-    click_on "Save"
+    click_on t("btn.save")
 
     # Back on Tx Recip Dashboard path..
     # TODO: there is an issue raised to implement the redirect back to the correct dashboard.

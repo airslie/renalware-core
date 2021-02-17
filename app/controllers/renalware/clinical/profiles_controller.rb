@@ -23,7 +23,7 @@ module Renalware
         authorize patient
         if update_patient
           redirect_to patient_clinical_profile_path(patient),
-                      notice: t(".success", model_name: "clinical history")
+                      notice: success_msg_for("clinical history")
         else
           render :edit, locals: { patient: patient }
         end

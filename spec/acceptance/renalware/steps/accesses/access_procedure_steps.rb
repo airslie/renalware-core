@@ -51,7 +51,7 @@ module Renalware
 
           po = Pages::Accesses::ProcedurePage.new(accesses_patient)
           po.visit_add
-          po.performed_on = I18n.l(Time.zone.today)
+          po.performed_on = l(Time.zone.today)
           po.performed_by = user.to_s
           po.procedure_type = access_type.to_s
           po.side = "Right"

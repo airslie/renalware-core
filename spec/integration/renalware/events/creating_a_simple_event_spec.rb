@@ -18,7 +18,7 @@ describe "Creating an event", type: :system, js: true do
       expect(page).to have_content("Description")
 
       fill_in "Description", with: "Test"
-      click_on "Save"
+      click_on t("btn.save")
 
       events = Renalware::Events::Event.for_patient(patient)
       expect(events.length).to eq(1)

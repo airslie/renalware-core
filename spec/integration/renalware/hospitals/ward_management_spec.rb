@@ -24,12 +24,12 @@ describe "Ward Management", type: :system do
     visit hospitals_unit_wards_path(unit.id)
 
     within ".hospital-wards" do
-      click_on "Edit"
+      click_on t("btn.edit")
     end
 
     fill_in "Code", with: "NewCode"
     fill_in "Name", with: "NewName"
-    click_on "Save"
+    click_on t("btn.save")
 
     expect(page).to have_content("You have successfully updated")
 
@@ -46,12 +46,12 @@ describe "Ward Management", type: :system do
     visit hospitals_unit_wards_path(unit.id)
 
     within ".page-actions" do
-      click_on "Add"
+      click_on t("btn.add")
     end
 
     fill_in "Code", with: "NewCode"
     fill_in "Name", with: "NewName"
-    click_on "Create"
+    click_on t("btn.create")
 
     expect(page).to have_content("You have successfully added")
 

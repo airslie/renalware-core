@@ -1,22 +1,22 @@
 article.swabs
   header
     h2= t(".title")
-    = link_to t(".add"),
+    = link_to t("btn.add"),
               new_patient_swab_path(@patient),
               class: "button right"
   table
     thead
       tr
         th.col-width-tiny
-        th.col-width-date-time= t(".date_time")
-        th.col-width-tiny= t(".type")
-        th.col-width-tiny= t(".result")
-        th.col-width-tiny= t(".location")
-        th= t(".notes")
+        th.col-width-date-time= t(".thead.date_time")
+        th.col-width-tiny= t(".thead.type")
+        th.col-width-tiny= t(".thead.result")
+        th.col-width-tiny= t(".thead.location")
+        th= t(".thead.notes")
     tbody
       - swabs.each do |swab|
         tr
-          td= link_to("Edit", edit_patient_swab_path(patient, swab)) if policy(swab).edit?
+          td= link_to(t("btn.edit"), edit_patient_swab_path(patient, swab)) if policy(swab).edit?
           td= l(swab.date_time)
           td= swab.document.type&.text
           td= swab.document.result&.text

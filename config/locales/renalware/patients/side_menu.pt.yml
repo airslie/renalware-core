@@ -1,0 +1,40 @@
+---
+pt:
+  renalware:
+    patients:
+      side_menu:
+        actions:
+          heading: Ações
+          create_bookmark: Marca páginas
+          delete_bookmark: Remover favorito
+          send_message: Enviar mensagem
+          create_alert: Criar alerta
+          request_admission: Solicitar admissão
+        general:
+          heading: Geral
+          clinic_visits: Visitas clínicas (%{count})
+          letters: Cartas (%{count})
+          events: Eventos (%{count})
+          access_profiles: Resumo de acesso
+          prescriptions: Prescrições (%{count})
+          pathology: Patologia (%{count})
+          virology: Virologia
+          problems: Problemas (%{count})
+          modalities: Modalidades (%{count})
+          esrf: Perfil Renal
+          clinical_profile: Perfil Clínico
+          contacts: Contatos (%{count})
+          demographics: Demografia
+          clinical_summary: Resumo Clínico
+          inpatient_admissions: Inpatient Admissions (%{count})
+          messages: Mensagens
+          proms: PROMS
+        modalities:
+          heading: Modalidades
+          pd: PD
+          hd: HD
+          low_clearance: Low Clearance.
+        transplants:
+          heading: Transplantes
+          donor_summary: Resumo do doador
+          recipient_summary: Resumo do destinatário

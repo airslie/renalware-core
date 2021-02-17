@@ -74,23 +74,23 @@ module World
         login_as user
         FactoryBot.create(:letter_description, text: "Foo bar")
         visit patient_letters_letters_path(patient)
-        click_on "Create"
+        click_on t("btn.create_")
         click_on "Clinical Letter"
 
         attributes = valid_simple_letter_attributes(patient)
-        fill_in "Date", with: I18n.l(attributes[:issued_on]) if issued_on.present?
+        fill_in "Date", with: l(attributes[:issued_on]) if issued_on.present?
         select attributes[:letterhead].name, from: "Letterhead"
         select user.to_s, from: "Author"
         select2 attributes[:description], css: ".letter_description"
 
         within ".bottom" do
-          click_on "Create"
+          click_on t("btn.create")
         end
       end
 
       def expect_clinical_letter_to_list_current_prescriptions(patient:)
         visit patient_letters_letters_path(patient)
-        click_on "Preview"
+        click_on t("btn.preview")
 
         visit_iframe_content
 
@@ -101,7 +101,7 @@ module World
 
       def expect_clinical_letter_to_list_clinical_observations(patient:)
         visit patient_letters_letters_path(patient)
-        click_on "Preview"
+        click_on t("btn.preview")
 
         visit_iframe_content
 
@@ -113,7 +113,7 @@ module World
 
       def expect_clinical_letter_to_list_problems(patient:)
         visit patient_letters_letters_path(patient)
-        click_on "Preview"
+        click_on t("btn.preview")
 
         visit_iframe_content
 
@@ -125,7 +125,7 @@ module World
 
       def expect_clinical_letter_to_list_recent_pathology_results(patient:)
         visit patient_letters_letters_path(patient)
-        click_on "Preview"
+        click_on t("btn.preview")
 
         visit_iframe_content
 
@@ -140,7 +140,7 @@ module World
 
       def expect_clinical_letter_to_list_allergies(patient:)
         visit patient_letters_letters_path(patient)
-        click_on "Preview"
+        click_on t("btn.preview")
 
         visit_iframe_content
 

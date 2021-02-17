@@ -11,7 +11,7 @@ module Renalware
     let(:specialty) { create(:admissions_specialty, name: "Other") }
 
     def convert_hash_dates_to_string_using_locale(hash)
-      hash.each { |key, val| hash[key] = I18n.l(val) if val.is_a?(Date) }
+      hash.each { |key, val| hash[key] = l(val) if val.is_a?(Date) }
     end
 
     def create_consult
@@ -49,7 +49,7 @@ module Renalware
           expect(response).to be_successful
           expect(response["Content-Type"]).to eq("application/pdf")
           expect(response["Content-Disposition"]).to include("inline")
-          filename = "Admission Consults #{I18n.l(Time.zone.today)}.pdf"
+          filename = "Admission Consults #{l(Time.zone.today)}.pdf"
           expect(response["Content-Disposition"]).to include(filename)
         end
       end
@@ -69,7 +69,7 @@ module Renalware
         it "creates the consult" do
           patient = create(:patient, by: user)
           create(:hospital_ward, name: "Ward1", hospital_unit: hospital_unit)
-          date = I18n.l(Time.zone.today)
+          date = l(Time.zone.today)
 
           params = {
             patient_id: patient.id,

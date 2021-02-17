@@ -88,7 +88,7 @@ module Renalware
         def has_numeric_validation(attribute, range)
           regime.send("#{attribute}=".to_sym, range.first - 1)
           regime.valid?
-          expected_message = I18n.t(
+          expected_message = t(
             "errors.messages.numeric_inclusion",
             from: range.first,
             to: range.last

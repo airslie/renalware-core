@@ -2,7 +2,7 @@ table#current_problems.manual-stripes.auto-layout
   thead
     tr
       th.options.col-width-small
-      th Description
+      th= t("thead.description")
       th.col-width-date Updated on
       td.col-width-medium.nowrap Updated by
       th.col-width-tiny Reorder
@@ -10,8 +10,8 @@ table#current_problems.manual-stripes.auto-layout
     - problems.each do |problem|
       = content_tag_for(:tr, problem, class: "sortable") do
         td.actions
-          = link_to "Edit", patient_problem_path(@patient, problem)
-          = link_to "Archive",
+          = link_to t("btn.edit"), patient_problem_path(@patient, problem)
+          = link_to t("btn.archive"),
                     patient_problem_path(@patient, problem),
                     method: :delete,
                     data: { confirm: "Are you sure?" }

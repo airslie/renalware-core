@@ -87,7 +87,7 @@ module World
         login_as user
 
         visit patient_letters_contacts_path(patient)
-        click_on "Add"
+        click_on t("btn.add")
         wait_for_ajax
 
         within("#add-patient-contact-modal") do
@@ -106,7 +106,7 @@ module World
             fill_in t_contact(:other_description), with: description_name
           end
 
-          click_on "Save"
+          click_on t("btn.save")
         end
 
         wait_for_ajax
@@ -116,7 +116,7 @@ module World
         login_as user
 
         visit patient_letters_contacts_path(patient)
-        click_on "Add"
+        click_on t("btn.add")
 
         within("#add-patient-contact-modal") do
           click_on "Person not found in directory"
@@ -133,7 +133,7 @@ module World
             fill_in t_contact(:other_description), with: description_name
           end
 
-          click_on "Save"
+          click_on t("btn.save")
         end
 
         wait_for_ajax
@@ -146,7 +146,7 @@ module World
       end
 
       def t_contact_description_unspecified
-        ::I18n.t(:other, scope: :"renalware.letters.contacts.form.description")
+        t(:other, scope: :"renalware.letters.contacts.form.description")
       end
     end
   end

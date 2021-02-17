@@ -52,7 +52,7 @@ module Renalware
       expect(page).to have_current_path(edit_admin_user_path(@approved))
 
       uncheck "Clinical"
-      click_on "Update"
+      click_on t("btn.update")
 
       expect(page).to have_current_path(admin_user_path(@approved))
       expect(page).to have_content("You have failed to update this user.")
@@ -66,7 +66,7 @@ module Renalware
       expect(page).to have_current_path(edit_admin_user_path(@approved))
 
       check "Clinical"
-      click_on "Update"
+      click_on t("btn.update")
 
       expect(page).to have_current_path(admin_users_path)
       expect(page).to have_content("You have successfully updated this")
@@ -81,7 +81,7 @@ module Renalware
       expect(page).to have_current_path(edit_admin_user_path(@expired))
 
       check "Reactivate account"
-      click_on "Update"
+      click_on t("btn.update")
 
       expect(page).to have_current_path(admin_users_path)
       expect(page).to have_content("You have successfully updated this")
@@ -112,7 +112,7 @@ module Renalware
       # may be already unchecked, but just to be sure this person has no roles
       # other than the hidden superadmin role
       uncheck "Clinical"
-      click_on "Update"
+      click_on t("btn.update")
 
       # They are as super-admin so submit should succeed and the super-admin
       # role be preserved because that can only be changed on the command line.

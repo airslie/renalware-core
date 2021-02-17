@@ -19,9 +19,9 @@ module Renalware
 
         if status.valid?
           redirect_to patient_transplants_recipient_dashboard_path(patient),
-                      notice: t(".success", model_name: "registration status")
+                      notice: success_msg_for("registration status")
         else
-          flash.now[:error] = t(".failed", model_name: "registration status")
+          flash.now[:error] = failed_msg_for("registration status")
           render :new, locals: { patient: patient, status: status }
         end
       end
@@ -38,9 +38,9 @@ module Renalware
         status = update_status
         if status.valid?
           redirect_to patient_transplants_recipient_dashboard_path(patient),
-                      notice: t(".success", model_name: "registration status")
+                      notice: success_msg_for("registration status")
         else
-          flash.now[:error] = t(".failed", model_name: "registration status")
+          flash.now[:error] = failed_msg_for("registration status")
           render :edit, locals: { patient: patient, status: status }
         end
       end
@@ -50,7 +50,7 @@ module Renalware
         registration.delete_status!(status)
 
         redirect_to patient_transplants_recipient_dashboard_path(patient),
-                    notice: t(".success", model_name: "registration status")
+                    notice: success_msg_for("registration status")
       end
 
       protected

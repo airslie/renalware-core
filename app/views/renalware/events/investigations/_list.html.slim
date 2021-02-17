@@ -3,7 +3,7 @@
 article.investigations
   header
     h2= t(".title")
-    = link_to t(".add"),
+    = link_to t("btn.add"),
               new_patient_investigation_path(patient),
               class: "button right"
   = render "renalware/events/events/table",

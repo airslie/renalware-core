@@ -43,20 +43,20 @@ module Renalware
         # # Simulate going to AKI Alerts, filtering and clicking Print
         visit renal_aki_alerts_path
         select "Ward1", from: "Ward"
-        click_on "Filter"
+        click_on t("btn.filter")
         click_on "Print (PDF)"
 
         expect(page.status_code).to eq(200)
         expect(page).to have_content("AKI Alerts")
-        expect(page).to have_content(I18n.l(Time.zone.today))
+        expect(page).to have_content(l(Time.zone.today))
         expect(page).to have_content("Filters")
         expect(page).to have_content("Ward:Ward1")
         expect(page).to have_content(aki_akert_at_ward1.patient.to_s)
         expect(page).to have_content(aki_akert_at_ward1.patient.hospital_identifiers)
-        expect(page).to have_content(I18n.l(aki_akert_at_ward1.patient.born_on))
+        expect(page).to have_content(l(aki_akert_at_ward1.patient.born_on))
         expect(page).to have_content(aki_akert_at_ward1.patient.current_modality)
         expect(page).to have_content(aki_akert_at_ward1.max_cre)
-        expect(page).to have_content(I18n.l(aki_akert_at_ward1.cre_date))
+        expect(page).to have_content(l(aki_akert_at_ward1.cre_date))
         expect(page).not_to have_content(aki_akert_at_ward2.patient.to_s)
       end
     end

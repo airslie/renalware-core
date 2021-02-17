@@ -26,7 +26,7 @@ describe "Assign electronic CCs" do
         user = login_as_clinical
 
         visit patient_letters_letters_path(patient)
-        click_on "Create"
+        click_on t("btn.create_")
         click_on "Simple Letter"
 
         fill_out_letter
@@ -35,7 +35,7 @@ describe "Assign electronic CCs" do
         select2 user.given_name, css: "article.electonic_ccs"
 
         within ".top" do
-          click_on "Create"
+          click_on t("btn.create")
         end
 
         letter = patient.letters.last
@@ -46,7 +46,7 @@ describe "Assign electronic CCs" do
 
     def fill_out_letter
       within "#letter-form" do
-        fill_in "Date", with: I18n.l(Time.zone.today)
+        fill_in "Date", with: l(Time.zone.today)
         select Renalware::Letters::Letterhead.first.name, from: "Letterhead"
         select Renalware::User.first.to_s, from: "Author"
         select2 "::description::", css: ".letter_description"

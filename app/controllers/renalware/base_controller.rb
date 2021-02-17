@@ -48,11 +48,11 @@ module Renalware
     end
 
     def success_msg_for(model_name)
-      t(".success", model_name: model_name)
+      t("#{action_name}.success", model_name: model_name)
     end
 
     def failed_msg_for(model_name)
-      t(".failed", model_name: model_name)
+      t("#{action_name}.failed", model_name: model_name)
     end
 
     def paginate(collection, default_per_page: 25)

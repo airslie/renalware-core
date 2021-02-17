@@ -15,7 +15,7 @@ describe "Creating a swab", type: :system, js: true do
     find("div.radio_buttons", text: "Swab type").choose("MRSA")
     find("div.radio_buttons", text: "Swab result").choose("Positive")
 
-    click_on "Save"
+    click_on t("btn.save")
 
     events = Renalware::Events::Event.for_patient(patient)
     expect(events.length).to eq(1)

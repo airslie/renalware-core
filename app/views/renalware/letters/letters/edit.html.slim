@@ -1,5 +1,5 @@
 = content_for(:actions) do
-  = link_to "Preview", patient_letters_letter_path(patient, letter), class: "button secondary"
+  = link_to t("btn.preview"), patient_letters_letter_path(patient, letter), class: "button secondary"
 
 = within_patient_layout(title: "Edit Letter",
     breadcrumbs: [breadcrumb_for("Letters", patient_letters_letters_path(patient))]) do

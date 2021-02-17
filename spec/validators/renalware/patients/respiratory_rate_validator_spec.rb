@@ -30,9 +30,9 @@ module Renalware
                 models:
                   renalware/patients/respiratory_rate_validatable:
                     attributes:
-                    respiratory_rate:
-                        out_of_range: #{out_of_range_message}
-                        invalid_number: #{invalid_number_message}
+                      respiratory_rate:
+                          out_of_range: #{out_of_range_message}
+                          invalid_number: #{invalid_number_message}
           YAML
           I18n.backend.store_translations(:en, YAML.safe_load(yaml))
         end

@@ -17,7 +17,7 @@ module Pages
       }.freeze
 
       def issued_on=(date)
-        fill_in "Date", with: I18n.l(date)
+        fill_in "Date", with: l(date)
       end
 
       def letterhead=(letterhead)
@@ -47,7 +47,7 @@ module Pages
 
       def submit
         within ".top" do
-          click_on "Create"
+          click_on t("btn.create")
         end
       end
 

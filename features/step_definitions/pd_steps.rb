@@ -61,14 +61,14 @@ end
 
 Given(/^I choose to record a new CAPD regime$/) do
   within ".page-actions" do
-    click_on "Add"
+    click_on t("btn.add")
     click_on "CAPD Regime"
   end
 end
 
 Given(/^I choose to record a new APD regime$/) do
   within ".page-actions" do
-    click_on "Add"
+    click_on t("btn.add")
     click_on "APD Regime"
   end
 end
@@ -215,7 +215,7 @@ When(/^I complete the form for a CAPD regime$/) do
   uncheck "Sat"
 
   within ".patient-content" do
-    click_on "Save"
+    click_on t("btn.save")
   end
 end
 
@@ -266,7 +266,7 @@ When(/^I complete the form for a APD regime$/) do
   fill_in "Machine PAC", with: "123-4567-890"
 
   within ".patient-content" do
-    click_on "Save"
+    click_on t("btn.save")
   end
 end
 
@@ -279,7 +279,7 @@ When(/^I choose to edit and update the form for a CAPD regime$/) do
 
   fill_in "End date", with: "03/05/2015"
 
-  click_on "Update"
+  click_on t("btn.update")
 
   expect(page).to have_current_path(patient_pd_dashboard_path(@patient_1))
 end
@@ -296,7 +296,7 @@ When(/^I choose to edit and update the form for a APD regime$/) do
 
   # choose "Additional manual exchange"
 
-  click_on "Update"
+  click_on t("btn.update")
 end
 
 When(/^I choose to view a CAPD regime$/) do
@@ -317,8 +317,8 @@ end
 
 Then(/^I should see the new CAPD regime on the PD dashboard$/) do
   within("table.capd-regimes tbody tr:first-child") do
-    expect(page).to have_content(I18n.l(Date.parse("02-04-2015")))
-    expect(page).to have_content(I18n.l(Date.parse("01-06-2015")))
+    expect(page).to have_content(l(Date.parse("02-04-2015")))
+    expect(page).to have_content(l(Date.parse("01-06-2015")))
     expect(page).to have_content("CAPD 4 exchanges per day")
   end
 
@@ -338,8 +338,8 @@ end
 
 Then(/^I should see the new APD regime on the PD dashboard$/) do
   within("table.apd-regimes tbody tr:first-child") do
-    expect(page).to have_content(I18n.l(Date.parse("15-05-2015")))
-    expect(page).to have_content(I18n.l(Date.parse("16-07-2015")))
+    expect(page).to have_content(l(Date.parse("15-05-2015")))
+    expect(page).to have_content(l(Date.parse("16-07-2015")))
     expect(page).to have_content("APD Wet Day")
   end
 
@@ -359,8 +359,8 @@ end
 
 Then(/^the new CAPD regime should be current$/) do
   within(".current-regime") do
-    expect(page).to have_content(I18n.l(Date.parse("02-04-2015")))
-    expect(page).to have_content(I18n.l(Date.parse("01-06-2015")))
+    expect(page).to have_content(l(Date.parse("02-04-2015")))
+    expect(page).to have_content(l(Date.parse("01-06-2015")))
     expect(page).to have_content("CAPD 4 exchanges per day")
     expect(page).to have_content("On additional HD?")
     expect(page).to have_content("Yes")
@@ -369,8 +369,8 @@ end
 
 Then(/^the new APD regime should be current$/) do
   within(".current-regime") do
-    expect(page).to have_content(I18n.l(Date.parse("15-05-2015")))
-    expect(page).to have_content(I18n.l(Date.parse("16-07-2015")))
+    expect(page).to have_content(l(Date.parse("15-05-2015")))
+    expect(page).to have_content(l(Date.parse("16-07-2015")))
     expect(page).to have_content("APD Wet")
     expect(page).to have_content("On additional HD?")
     expect(page).to have_content("No")
@@ -395,19 +395,19 @@ end
 
 Then(/^I should see the updated CAPD regime on the PD dashboard$/) do
   within("table.capd-regimes tbody tr:first-child") do
-    expect(page).to have_content(I18n.l(Date.parse("03-05-2015")))
+    expect(page).to have_content(l(Date.parse("03-05-2015")))
   end
 end
 
 Then(/^I should see the updated APD regime on the PD dashboard$/) do
   within("table.apd-regimes tbody tr:first-child") do
-    expect(page).to have_content(I18n.l(Date.parse("30-08-2015")))
+    expect(page).to have_content(l(Date.parse("30-08-2015")))
   end
 end
 
 Then(/^I should see the chosen CAPD regime details$/) do
-  expect(page).to have_content(I18n.l(Date.parse("02-04-2015")))
-  expect(page).to have_content(I18n.l(Date.parse("21-May-2015")))
+  expect(page).to have_content(l(Date.parse("02-04-2015")))
+  expect(page).to have_content(l(Date.parse("21-May-2015")))
   expect(page).to have_content("Treatment:")
   expect(page).to have_content("CAPD 5 exchanges per day")
   expect(page).to have_content("On additional HD?")
@@ -416,9 +416,9 @@ end
 
 Then(/^I should see the chosen APD regime details$/) do
   expect(page).to have_content("Start")
-  expect(page).to have_content(I18n.l(Date.parse("20-03-2015")))
+  expect(page).to have_content(l(Date.parse("20-03-2015")))
   expect(page).to have_content("End")
-  expect(page).to have_content(I18n.l(Date.parse("28-05-2015")))
+  expect(page).to have_content(l(Date.parse("28-05-2015")))
   expect(page).to have_content("Treatment")
   expect(page).to have_content("APD Wet Day")
   expect(page).to have_content("On additional HD?")

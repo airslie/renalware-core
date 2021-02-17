@@ -5,7 +5,7 @@ Given("Clyde is on Patty's event index") do
 end
 
 When("Clyde chooses to add an event") do
-  click_on "Add"
+  click_on t("btn.add")
 end
 
 When("records Patty's event") do
@@ -17,26 +17,26 @@ When("records Patty's event") do
     wait_for_ajax
     fill_in "Description", with: "Discussed meeting to be set up with family."
     fill_trix_editor with: "Patty to speak to family before meeting set up."
-    click_on "Save"
+    click_on t("btn.save")
   end
 end
 
 Then("Clyde should see Patty's new event on the clinical summary") do
-  expect(page).to have_content(I18n.l(fake_date))
+  expect(page).to have_content(l(fake_date))
   expect(page).to have_content(fake_time)
   expect(page).to have_content("Email")
   expect(page).to have_content("Discussed meeting to be set up with family.")
-  click_on "Toggle"
+  click_on t("btn.toggle")
   expect(page).to have_content("Patty to speak to family before meeting set up.")
 end
 
 Then("see Patty's new event in her event index") do
   visit patient_events_path(@patty)
 
-  expect(page).to have_content(I18n.l(fake_date))
+  expect(page).to have_content(l(fake_date))
   expect(page).to have_content(fake_time)
   expect(page).to have_content("Email")
   expect(page).to have_content("Discussed meeting to be set up with family.")
-  click_on "Toggle"
+  click_on t("btn.toggle")
   expect(page).to have_content("Patty to speak to family before meeting set up.")
 end

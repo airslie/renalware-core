@@ -1,7 +1,7 @@
 article.electonic_ccs
   header
-    h2 Electronic CCs
+    h2= t(".title")
   - if unread_electronic_ccs.any?
     = render "renalware/letters/electronic_receipts/table", receipts: unread_electronic_ccs
   - else
-    p.empty-section You have no electronic CCs.
+    p.empty-section= t(".none")

@@ -91,6 +91,9 @@ RSpec.configure do |config|
     driven_by :rw_headless_chrome
   end
 
+  # Make I18n t() and l() helpers availble
+  config.include AbstractController::Translation
+
   # show retry status in spec process
   config.verbose_retry = true
 
@@ -103,7 +106,11 @@ RSpec.configure do |config|
 
   # run retry only on features
   config.around :each, :js do |ex|
-    ex.run_with_retry retry: 2
+    if ENV.key?("SEMAPHORECI")
+      ex.run_with_retry retry: 2
+    else
+      ex.run
+    end
   end
 
   config.example_status_persistence_file_path = "#{::Rails.root}/tmp/examples.txt"

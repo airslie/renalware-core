@@ -15,7 +15,7 @@ describe "Problem notes management", type: :system, js: true do
 
     within "#new-note-area" do
       fill_in "Text", with: "Z123"
-      click_on "Save"
+      click_on t("btn.save")
     end
 
     within "#problem-notes" do
@@ -34,9 +34,9 @@ describe "Problem notes management", type: :system, js: true do
 
     within "#problem-notes" do
       expect(page).to have_content(note.description)
-      click_on "Edit"
+      click_on t("btn.edit")
       fill_in "Text", with: "ACB321"
-      click_on "Save"
+      click_on t("btn.save")
       expect(page).to have_content(note.description)
       expect(note.reload.description).to eq("ACB321")
     end
@@ -53,7 +53,7 @@ describe "Problem notes management", type: :system, js: true do
     within "#problem-notes" do
       expect(page).to have_content(note.description)
       accept_alert do
-        click_on "Delete"
+        click_on t("btn.delete")
       end
       expect(page).not_to have_content(note.description)
     end

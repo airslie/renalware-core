@@ -66,7 +66,7 @@ module World
 
         fill_in "Diagnosed on", with: diagnosed_on
 
-        click_on "Save"
+        click_on t("btn.save")
       end
 
       def revise_peritonitis_episode_for(patient:, user:, diagnosed_on:)
@@ -76,12 +76,12 @@ module World
         visit patient_pd_peritonitis_episode_path(patient, episode)
 
         within "#" + dom_id(episode) do
-          click_on "Edit"
+          click_on t("btn.edit")
 
           expect(page).to have_css(".select2-container")
           select2("Relapsing", css: "#peritonitis_episode_types")
           fill_in "Diagnosed on", with: diagnosed_on
-          click_on "Save"
+          click_on t("btn.save")
           wait_for_ajax
         end
       end

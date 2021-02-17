@@ -1,0 +1,7 @@
+---
+en:
+  renalware:
+    system:
+      users_awaiting_approval_component:
+        title: User Admin
+        waiting_for_approval: "%{count} users awaiting approval"

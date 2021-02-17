@@ -15,6 +15,6 @@
                   label: "Added by"
 
       .flex-shrink-0.pt-4.filters--actions
-        = f.submit "Filter", class: "button", style: "margin: 0"
+        = f.submit t("btn.filter"), class: "button", style: "margin: 0"
         '  or
-        = link_to t("helpers.reset"), worryboard_path
+        = link_to t("btn.reset"), worryboard_path

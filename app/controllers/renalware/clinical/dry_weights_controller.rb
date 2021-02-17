@@ -40,10 +40,10 @@ module Renalware
         dry_weight.attributes = dry_weight_params
 
         if dry_weight.save
-          redirect_to return_url, notice: t(".success", model_name: "dry weight")
+          redirect_to return_url, notice: success_msg_for("dry weight")
           session.delete(:return_to)
         else
-          flash.now[:error] = t(".failed", model_name: "dry weight")
+          flash.now[:error] = failed_msg_for("dry weight")
           render_new(dry_weight)
         end
       end

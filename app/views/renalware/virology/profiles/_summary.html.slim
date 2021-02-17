@@ -7,7 +7,7 @@ article
   header
     h2 Virology
     ul.noprint
-      li= link_to "Edit", edit_patient_virology_profile_path(patient), class: "button"
+      li= link_to t("btn.edit"), edit_patient_virology_profile_path(patient), class: "button"
 
   dl.dl-horizontal.xlarge
     - %i(hiv hepatitis_b hepatitis_b_core_antibody hepatitis_c htlv).each do |attr_name|

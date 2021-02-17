@@ -6,10 +6,10 @@
 #consults.summary-part--consults
   article
     header
-      h2= link_to("Consults (#{summary_part.consults_count})", view_all_url)
+      h2= link_to("#{t('titles.consults')} (#{summary_part.consults_count})", view_all_url)
 
       ul
-        li= link_to("View All", view_all_url, class: "button")
+        li= link_to(t("btn.view_all"), view_all_url, class: "button")
 
     - if summary_part.consults.any?
       = render "renalware/admissions/consults/table",

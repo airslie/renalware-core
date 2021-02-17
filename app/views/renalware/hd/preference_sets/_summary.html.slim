@@ -2,7 +2,7 @@ article.hd-preference-sets
   header
     h2= t(".title")
     ul
-      li= link_to "Edit", edit_patient_hd_preference_set_path(patient), class: "button"
+      li= link_to t("btn.edit"), edit_patient_hd_preference_set_path(patient), class: "button"
 
   = definition_list_for(preference_set) do |list|
     = list.definition(:schedule_definition)

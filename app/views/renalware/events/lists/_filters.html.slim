@@ -24,6 +24,6 @@
                   as: :date_picker,
                   label: "To"
       .small-12.medium-2.large-2.columns.actions.end
-        = f.submit t("helpers.submit.filter"), class: "button secondary"
+        = f.submit t("btn.filter"), class: "button secondary"
         '  or
-        = link_to t("helpers.reset"), renalware.events_filtered_list_path(named_filter: :all)
+        = link_to t("btn.reset"), renalware.events_filtered_list_path(named_filter: :all)

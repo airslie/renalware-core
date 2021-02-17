@@ -2,7 +2,7 @@ article
   header
     h2 Details
     - unless problem.archived?
-      = link_to "Edit", edit_patient_problem_path(patient, problem), class: :button
+      = link_to t("btn.edit"), edit_patient_problem_path(patient, problem), class: :button
 
   dl.dl-horizontal
     dt Description:

@@ -1,15 +1,14 @@
+---
 en:
   renalware:
     events:
       swabs:
         list:
           title: Swabs
-          add: Add
-          date_time: Date taken
-          type: Type
-          result: Result
-          location: "Site"
-          notes: Notes
+          thead:
+            date_time: Date taken
+            result: Result
+            location: "Site"
   activerecord:
     attributes:
       renalware/events/swab:

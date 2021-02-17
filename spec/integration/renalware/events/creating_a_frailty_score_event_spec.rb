@@ -15,7 +15,7 @@ describe "Creating an clinical frailty score event", type: :system, js: true do
       select "Clinical Frailty Score", from: "Event type"
       select "9", from: "Score"
 
-      click_on "Save"
+      click_on t("btn.save")
 
       events = Renalware::Events::Event.for_patient(patient)
       expect(events.length).to eq(1)

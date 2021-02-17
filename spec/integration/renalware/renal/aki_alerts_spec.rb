@@ -40,18 +40,18 @@ describe "AKI alert management", type: :request do
         expect(response).to be_successful
         expect(response.body).to match("today")
         expect(response.body).to match("Patient1")
-        expect(response.body).to match(I18n.l(Time.zone.today))
+        expect(response.body).to match(l(Time.zone.today))
 
         expect(response.body).to match("yesterday")
         expect(response.body).to match("Patient1")
-        expect(response.body).to match(I18n.l(Time.zone.today - 1.day))
+        expect(response.body).to match(l(Time.zone.today - 1.day))
         expect(response.body).to match(hospital_ward.name)
       end
     end
 
     describe "filtering by date" do
       it "renders a list of just today's AKI Alerts" do
-        get renal_aki_alerts_path(q: { date: I18n.l(Time.zone.today) })
+        get renal_aki_alerts_path(q: { date: l(Time.zone.today) })
 
         expect(response).to be_successful
         expect(response.body).to match("Patient1")
@@ -104,7 +104,7 @@ describe "AKI alert management", type: :request do
           expect(response).to be_successful
           expect(response["Content-Type"]).to eq("application/pdf")
           expect(response["Content-Disposition"]).to include("inline")
-          filename = "AKI Alerts #{I18n.l(Time.zone.today)}.pdf"
+          filename = "AKI Alerts #{l(Time.zone.today)}.pdf"
           expect(response["Content-Disposition"]).to include(filename)
         end
       end

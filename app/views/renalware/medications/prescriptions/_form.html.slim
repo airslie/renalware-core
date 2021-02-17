@@ -65,4 +65,4 @@ ruby:
         - if policy(prescription).create?
           = f.button :submit, "Save"
           '  or
-        = link_to "cancel", patient_prescriptions_path(patient, treatable), remote: true
+        = link_to t("btn.cancel"), patient_prescriptions_path(patient, treatable), remote: true

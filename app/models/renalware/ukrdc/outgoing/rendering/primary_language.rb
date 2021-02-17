@@ -10,7 +10,7 @@ module Renalware
           def xml
             return unless render_primary_language?
 
-            primary_langauge_element
+            primary_language_element
           end
 
           private
@@ -21,7 +21,7 @@ module Renalware
           end
 
           # NB NHS_DATA_DICTIONARY_LANGUAGE_CODE is ISO 639-1 plus braille and sign
-          def primary_langauge_element
+          def primary_language_element
             create_node("PrimaryLanguage") do |lang|
               lang << create_node("CodingStandard", "NHS_DATA_DICTIONARY_LANGUAGE_CODE")
               lang << create_node("Code", patient.language&.code)

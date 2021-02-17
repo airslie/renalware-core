@@ -10,6 +10,6 @@
       .w-full.sm:min-w-md.pr-2= ward_dropdown_grouped_by_hospital_unit(f, :hospital_ward_id, label: "Ward", wrapper: nil)
       .w-full.sm:min-w-xs.pr-2= f.input :status, collection: form.status_dropdown_options, include_blank: "Any"
       .flex-shrink-0.pt-4.filters--actions
-        = f.submit "Filter", class: "button", style: "margin: 0"
+        = f.submit t("btn.filter"), class: "button", style: "margin: 0"
         '  or
-        = link_to t("helpers.reset"), admissions_admissions_path
+        = link_to t("btn.reset"), admissions_admissions_path

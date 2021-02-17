@@ -15,9 +15,9 @@
       - audits.each do |audit|
         tr
           td.actions
-            = link_to("View", reporting_audit_path(audit))
+            = link_to(t("btn.view"), reporting_audit_path(audit))
             - if policy(audit).edit?
-              = link_to("Edit", edit_reporting_audit_path(audit))
+              = link_to(t("btn.edit"), edit_reporting_audit_path(audit))
           td= audit.name
           td= audit.view_name
           td= yes_no audit.materialized?

@@ -25,7 +25,7 @@ module Renalware
         if result.success?
           handle_valid_modality
         else
-          flash.now[:error] = t(".failed", model_name: "modality")
+          flash.now[:error] = failed_msg_for("modality")
           render :new, locals: { patient: patient, modality: result.object }
         end
       end
@@ -62,7 +62,7 @@ module Renalware
           }
         else
           redirect_to patient_modalities_path(patient),
-                      notice: t(".success", model_name: "modality")
+                      notice: success_msg_for("modality")
         end
       end
       # rubocop:enable Metrics/MethodLength

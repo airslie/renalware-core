@@ -5,9 +5,9 @@
     td.noprint.actions
       = link_to letter.view_label, patient_letters_letter_path(letter.patient, letter)
       - if policy(letter).update?
-        = link_to "Edit", edit_patient_letters_letter_path(letter.patient, letter)
+        = link_to t("btn.edit"), edit_patient_letters_letter_path(letter.patient, letter)
       - if policy(letter).destroy?
-        = link_to "Delete",
+        = link_to t("btn.delete"),
                   patient_letters_letter_path(letter.patient, letter),
                   method: :delete,
                   data: { confirm: I18n.t("prompts.confirm_delete") }

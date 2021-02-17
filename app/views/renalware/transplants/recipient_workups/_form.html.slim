@@ -7,9 +7,9 @@ ruby:
 
 .row.top
   .medium-6.columns
-    = f.submit "Save", class: "button"
+    = f.submit t("btn.save"), class: "button"
     '  or
-    = link_to "cancel", back_path
+    = link_to t("btn.cancel"), back_path
 
 .form-content
   = f.simple_fields_for :document, f.object.document do |fd|
@@ -93,7 +93,7 @@ ruby:
 
 .row
   .large-12.columns
-    = f.submit "Save", class: "button"
+    = f.submit t("btn.save"), class: "button"
 
     '  or
-    = link_to "cancel", back_path
+    = link_to t("btn.cancel"), back_path

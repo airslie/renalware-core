@@ -22,7 +22,7 @@ module Renalware
 
         within ".filters" do
           fill_in "Hosp/NHS no or name", with: "rabbit r"
-          click_on "Filter"
+          click_on t("btn.filter")
         end
 
         within ".admissions-consults-table tbody" do

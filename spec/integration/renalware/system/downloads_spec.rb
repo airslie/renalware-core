@@ -11,7 +11,7 @@ describe "Managing downloads - files uploaded by super admins which can be acces
     fill_in "Description", with: "A description"
     attach_file "File", file_fixture("dog.jpg")
 
-    click_on "Save"
+    click_on t("btn.save")
 
     download = Renalware::System::Download.last
     expect(download).to have_attributes(
@@ -25,10 +25,10 @@ describe "Managing downloads - files uploaded by super admins which can be acces
     login_as_super_admin
     create(:system_download, :with_file, name: "Name1", description: "Description1")
     visit system_downloads_path
-    within(".download") { click_on "Edit" }
+    within(".download") { click_on t("btn.edit") }
 
     fill_in "Name", with: "Updated name"
-    click_on "Save"
+    click_on t("btn.save")
 
     within(".download") do
       expect(page).to have_content("Updated name")
@@ -39,7 +39,7 @@ describe "Managing downloads - files uploaded by super admins which can be acces
     login_as_super_admin
     create(:system_download, :with_file, name: "Name1", description: "Description1")
     visit system_downloads_path
-    within(".download") { click_on "Delete" }
+    within(".download") { click_on t("btn.delete") }
 
     expect(page).not_to have_css(".download")
   end

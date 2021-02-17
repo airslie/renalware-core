@@ -4,9 +4,9 @@
   article
     header
       h2
-        = link_to "Admissions (#{summary_part.admissions_count})", view_all_url
+        = link_to "#{t('titles.admissions')} (#{summary_part.admissions_count})", view_all_url
       ul
-        li= link_to "View All", view_all_url, class: "button"
+        li= link_to t("btn.view_all"), view_all_url, class: "button"
 
     - if summary_part.admissions.any?
       = render "renalware/admissions/admissions/table",

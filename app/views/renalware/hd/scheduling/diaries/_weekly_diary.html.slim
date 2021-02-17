@@ -1,5 +1,5 @@
 tr[class = "#{'current-week' if weekly_diary.applies_to_current_week?}"]
-  td= link_to "View",
+  td= link_to t("btn.view"),
               hd_scheduling_unit_edit_diary_path(week_number: weekly_diary.week.week_number,
                                       year: weekly_diary.week.year)
   td= weekly_diary.week_number

@@ -1,5 +1,5 @@
 tr
-  td= link_to("Toggle",
+  td= link_to(t("btn.toggle"),
               "##{toggle_prefix}-quick-preview-#{event.id}",
               data: { behaviour: "toggler" })
   td.created_at= l(event.date_time)

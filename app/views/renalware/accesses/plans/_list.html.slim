@@ -12,7 +12,7 @@ table.align-top
   tbody
     - plans.each do |plan|
       tr
-        td= link_to("View", [patient, plan])
+        td= link_to(t("btn.view"), [patient, plan])
         td= l(plan.created_at&.to_date)
         td= l(plan.terminated_at&.to_date)
         td= plan.plan_type.to_s

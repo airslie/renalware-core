@@ -47,7 +47,7 @@ module Renalware
             end
 
             within ".row.top" do
-              click_on "Save"
+              click_on t("btn.save")
             end
 
             letter.reload

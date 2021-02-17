@@ -71,16 +71,16 @@ module World
         login_as user
         visit patient_accesses_dashboard_path(patient)
         within ".page-actions" do
-          click_on "Add"
+          click_on t("btn.add_")
           click_on "Access Profile"
         end
 
-        fill_in "Formed On", with: I18n.l(Time.zone.today)
+        fill_in "Formed On", with: l(Time.zone.today)
         select "Tunnelled subcl", from: "Access Type"
         select(side.to_s.camelcase, from: "Access Side") if side.present?
 
         within ".top" do
-          click_on "Create"
+          click_on t("btn.create")
         end
       end
 
@@ -93,13 +93,13 @@ module World
         Capybara::Screenshot.screenshot_and_save_page
 
         within_article "Access Profile History" do
-          click_on "Edit"
+          click_on t("btn.edit")
         end
 
         select "Left", from: "Access Side"
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
     end

@@ -20,13 +20,13 @@ module Renalware
       end
 
       # New
-      started_on = I18n.l(Time.zone.today)
+      started_on = l(Time.zone.today)
       select "Home", from: "Training site"
       select "APD Baxter", from: "Training type"
       fill_in input_called(:trainer), with: "Flo Nightengale RN"
       fill_in input_called(:started_on), with: started_on
 
-      click_on "Save"
+      click_on t("btn.save")
 
       expect(page).to have_current_path(patient_pd_dashboard_path(patient))
 
@@ -45,13 +45,13 @@ module Renalware
 
       # PD Summary
       within ".pd_training_sessions table tbody" do
-        click_on "Edit"
+        click_on t("btn.edit")
       end
 
       # Edit - change a couple of fields
       within(".training_session_document_outcome") { choose("Successful") }
 
-      click_on "Save"
+      click_on t("btn.save")
 
       # Back on PD Summary
       within ".pd_training_sessions table tbody" do
@@ -68,13 +68,13 @@ module Renalware
 
       # PD Summary
       within ".pd_training_sessions table tbody" do
-        click_on "View"
+        click_on t("btn.view")
       end
 
       # View
       doc = training_session.document
       within "article.pd_training_session_document" do
-        expect(page).to have_content(I18n.l(doc.started_on))
+        expect(page).to have_content(l(doc.started_on))
         # No need to test presence of all items here - we just want to make
         # we are are in the right place and some is being displayed.
       end

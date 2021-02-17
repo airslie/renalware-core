@@ -25,7 +25,7 @@ describe "Renal Profile", type: :system, js: true do
       expect(page).to have_content(esrf_date)
 
       within ".page-actions" do
-        click_on "Edit"
+        click_on t("btn.edit")
       end
 
       # Renal profile #edit
@@ -45,7 +45,7 @@ describe "Renal Profile", type: :system, js: true do
       end
 
       within page.first(".form-actions") do
-        click_on "Save"
+        click_on t("btn.save")
       end
 
       # Renal profile #show

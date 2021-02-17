@@ -16,10 +16,10 @@ table(class=table_class)
         td.actions
           / TODO: Use a policy
           - if r.current? && !current_user.has_role?(:read_only)
-            = link_to "Update",
+            = link_to t("btn.update"),
                       edit_patient_pd_regime_path(patient, r.id),
                       class: "update-pd-regime"
-          = link_to "View",
+          = link_to t("btn.view"),
                     patient_pd_regime_path(patient, r.id),
                     class: "view-pd-regime"
         td= l r.start_date

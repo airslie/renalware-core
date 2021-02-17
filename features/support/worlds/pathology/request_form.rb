@@ -340,7 +340,7 @@ module World
         end
 
         def update_request_form_template(template)
-          template_translation = I18n.t(template, scope: "renalware.pathology.request.template")
+          template_translation = t(template, scope: "renalware.pathology.request.template")
           select template_translation, from: "Template"
           click_on "Update Forms"
         end

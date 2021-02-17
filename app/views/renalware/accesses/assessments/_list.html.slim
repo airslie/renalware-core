@@ -19,8 +19,8 @@ article.access-assessments
       - assessments.each do |assessment|
         tr
           td.actions
-            = link_to "View", patient_accesses_assessment_path(patient, assessment)
-            = link_to "Edit", edit_patient_accesses_assessment_path(patient, assessment)
+            = link_to t("btn.view"), patient_accesses_assessment_path(patient, assessment)
+            = link_to t("btn.edit"), edit_patient_accesses_assessment_path(patient, assessment)
           td= assessment.performed_on
           td= assessment.type
           td= assessment.side

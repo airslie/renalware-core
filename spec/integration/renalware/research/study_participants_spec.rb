@@ -76,8 +76,8 @@ describe "Managing clinical study participation", type: :request do
         expect(Renalware::Research::StudyParticipant.count).to eq(1)
         participant = Renalware::Research::StudyParticipant.first
         expect(participant.patient.id).to eq(patient.id)
-        expect(I18n.l(participant.joined_on)).to eq("01-Oct-2017")
-        expect(I18n.l(participant.left_on)).to eq("02-Oct-2017")
+        expect(l(participant.joined_on)).to eq("01-Oct-2017")
+        expect(l(participant.left_on)).to eq("02-Oct-2017")
       end
     end
 

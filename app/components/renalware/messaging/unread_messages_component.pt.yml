@@ -1,0 +1,7 @@
+---
+pt:
+  renalware:
+    messaging:
+      unread_messages_component:
+        none: Não tem mensagens
+        title: Mensagens

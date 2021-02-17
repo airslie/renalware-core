@@ -5,11 +5,10 @@
     article
       header
         h2
-          = link_to "Current Prescriptions (#{summary_part.current_prescriptions.length})",
+          = link_to "#{t('titles.current_prescriptions')} (#{summary_part.current_prescriptions.length})",
                     patient_prescriptions_path(summary_part.patient)
 
-        = link_to patient_prescriptions_path(summary_part.patient), class: "button" do
-          | Add
+        = link_to t("btn.add"), patient_prescriptions_path(summary_part.patient), class: "button"
 
       ul.no-bullet
         - summary_part.current_prescriptions.each do |prescription|

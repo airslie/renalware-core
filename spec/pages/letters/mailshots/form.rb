@@ -19,7 +19,7 @@ module Pages
           end
 
           within ".page-actions" do
-            click_on "Add"
+            click_on t("btn.add")
           end
         end
 

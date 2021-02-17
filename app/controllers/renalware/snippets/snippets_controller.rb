@@ -25,7 +25,7 @@ module Renalware
         authorize snippet
 
         if snippet.save
-          redirect_to snippets_path, notice: t(".success", model_name: "snippet")
+          redirect_to snippets_path, notice: success_msg_for("snippet")
         else
           render :new, locals: { snippet: snippet }
         end
@@ -39,7 +39,7 @@ module Renalware
       def update
         snippet = find_and_authorize_snippet
         if snippet.update(snippet_params)
-          redirect_to snippets_path, notice: t(".success", model_name: "snippet")
+          redirect_to snippets_path, notice: success_msg_for("snippet")
         else
           render :edit, locals: { snippet: snippet }
         end

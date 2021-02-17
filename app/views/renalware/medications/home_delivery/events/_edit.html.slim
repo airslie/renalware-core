@@ -52,7 +52,7 @@
           = "#{event.homecare_form&.supplier&.name} '#{event.homecare_form&.form_name} version #{event.homecare_form&.form_version}'"
 
         - disabled_args = event.errors.any? ? { disabled: "disabled" } : {}
-        = link_to "Print",
+        = link_to t("btn.print"),
                   renalware.patient_medications_home_delivery_event_path(id: event.id, format: :pdf),
                   target: "_blank",
                   class: "button primary right home-delivery--print",

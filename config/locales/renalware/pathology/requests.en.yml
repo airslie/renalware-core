@@ -1,0 +1,8 @@
+---
+en:
+  renalware:
+    pathology:
+      request:
+        template:
+          crs: CRS
+          manual: Manual

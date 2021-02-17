@@ -1,3 +1,4 @@
+---
 en:
   renalware:
     hd:
@@ -7,7 +8,7 @@ en:
           site: "Site:"
           schedule: "Schedule:"
           prescribed_time: "Prescribed time:"
-          hd_type:  "HD Type:"
+          hd_type: "HD Type:"
           named_nurse: "Named nurse:"
           needle_size: "Needle size:"
           single_needle: "Single needle:"

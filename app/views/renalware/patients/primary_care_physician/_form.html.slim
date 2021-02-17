@@ -11,11 +11,11 @@
             label: "Now choose a GP",
             input_html: { class: "searchable_select", required: :required, tabindex: 2001 }
   br
-  = f.submit "Save",
+  = f.submit t("btn.save"),
               class: "button",
               data: { disable_with: "Saving.." }
   | &nbsp;
-  = link_to "Cancel",
+  = link_to t("btn.cancel"),
             "#",
             "aria-label" => "Close",
             class: "reveal-modal-close"

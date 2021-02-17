@@ -61,7 +61,7 @@ module Renalware
         authorize session
         session.destroy!
         regenerate_rolling_hd_statistics
-        message = t(".success", model_name: "HD session")
+        message = success_msg_for("HD session")
         redirect_to patient_hd_dashboard_path(patient), notice: message
       end
 
@@ -75,12 +75,12 @@ module Renalware
 
       def save_success(_session)
         url = patient_hd_dashboard_path(patient)
-        message = t(".success", model_name: "HD session")
+        message = success_msg_for("HD session")
         redirect_to url, notice: message
       end
 
       def save_failure(session)
-        flash.now[:error] = t(".failed", model_name: "HD session")
+        flash.now[:error] = failed_msg_for("HD session")
         action = action_name.to_sym == :create ? :new : :edit
         render action, locals: locals(session)
       end

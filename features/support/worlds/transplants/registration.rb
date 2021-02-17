@@ -130,7 +130,7 @@ module World
         visit patient_transplants_recipient_dashboard_path(patient)
 
         within ".page-actions" do
-          click_on "Add"
+          click_on t("btn.add_")
           click_on "Wait List Registration"
         end
 
@@ -141,7 +141,7 @@ module World
         end
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 
@@ -149,13 +149,13 @@ module World
         login_as user
         visit patient_transplants_recipient_dashboard_path(patient)
         within_fieldset "Transplant Wait List Registration" do
-          click_on "Edit"
+          click_on t("btn.edit")
         end
 
         select "Pancreas only", from: "Transplant Type"
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
 
         have_content("Pancreas only")

@@ -69,19 +69,19 @@ describe "HD MDM Patients", type: :system do
 
       # Show only those patients dialysing in unit1
       select unit1.name, from: "Hosp. Unit"
-      click_on I18n.t("helpers.submit.filter")
+      click_on t("btn.filter")
 
       expect(page).to have_content(patient1.family_name)
       expect(page).to have_no_content(patient2.family_name)
 
       # Reset filters to see all
-      click_on I18n.t("helpers.reset")
+      click_on t("btn.reset")
       expect(page).to have_content(patient1.family_name)
       expect(page).to have_content(patient2.family_name)
 
       # Show only those patients scheduled at this time
       select "Mon Wed Fri PM", from: "Schedule"
-      click_on I18n.t("helpers.submit.filter")
+      click_on t("btn.filter")
 
       expect(page).to have_content(patient2.family_name)
       expect(page).to have_no_content(patient1.family_name)
@@ -96,7 +96,7 @@ describe "HD MDM Patients", type: :system do
         login_as_clinical
 
         visit hd_mdm_patients_path
-        click_on I18n.t("renalware.hd.mdm_patients.tabs.tab.all")
+        click_on t("renalware.hd.mdm_patients.tabs.tab.all")
 
         expect(page).to have_content(patient2.family_name)
         expect(page).to have_content(patient1.family_name)
@@ -110,7 +110,7 @@ describe "HD MDM Patients", type: :system do
         login_as_clinical
 
         visit hd_mdm_patients_path
-        click_on I18n.t("renalware.hd.mdm_patients.tabs.tab.on_worryboard")
+        click_on t("renalware.hd.mdm_patients.tabs.tab.on_worryboard")
 
         expect(page).to have_content(patient2.family_name)
         expect(page).to have_no_content(patient1.family_name)
@@ -127,7 +127,7 @@ describe "HD MDM Patients", type: :system do
         login_as_clinical
 
         visit hd_mdm_patients_path
-        click_on I18n.t("renalware.hd.mdm_patients.tabs.tab.on_worryboard")
+        click_on t("renalware.hd.mdm_patients.tabs.tab.on_worryboard")
 
         # Do not use have_current_path here
         expect(page).to have_current_path(
@@ -136,7 +136,7 @@ describe "HD MDM Patients", type: :system do
 
         # Show only those patients dialysing in unit1
         select unit1.name, from: "Hosp. Unit"
-        click_on I18n.t("helpers.submit.filter")
+        click_on t("btn.filter")
 
         # Ensure we are still at the on worryboard path
         # !! Do not use have_current_path here

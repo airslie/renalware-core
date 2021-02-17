@@ -1,7 +1,7 @@
 - toggleable_id = "aki-alert-quick-preview-#{aki_alert.id}"
 tr(class="#{'aki_alert--hotlist' if aki_alert.hotlist?}")
   td= toggler("##{toggleable_id}")
-  td= link_to("Edit", edit_renal_aki_alert_path(aki_alert))
+  td= link_to(t("btn.edit"), edit_renal_aki_alert_path(aki_alert))
   td= default_patient_link(aki_alert.patient)
   td= aki_alert.patient.hospital_identifiers
   td.show-for-large-up.col-width-medium-with-ellipsis= aki_alert.patient.current_modality

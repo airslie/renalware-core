@@ -2,7 +2,7 @@ article.clinical-allergies
   header
     h2= t(".legend")
     / Link to launch the modal dialog
-    = link_to t(".add"),
+    = link_to t("btn.add"),
               "#",
               class: "button right",
               data: { "reveal-id" => "add-allergy-modal" }
@@ -14,7 +14,7 @@ article.clinical-allergies
   table.natural-width
     thead
       tr
-        th.col-width-large= t(".description")
+        th.col-width-large= t(".thead.description")
         th.col-width-date-time= t(".recorded_at")
         th.col-width-medium= t(".recorded_by")
         th.col-width-tiny
@@ -32,7 +32,7 @@ article.clinical-allergies
                       data: { confirm: delete_confirmation_msg }
 
   = render "renalware/clinical/allergies/new",
-           link_text: t(".add"),
+           link_text: t("btn.add"),
            patient: patient
 
   = render "renalware/clinical/allergy_statuses/form", patient: patient

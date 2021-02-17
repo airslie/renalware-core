@@ -2,10 +2,10 @@ article.body_compositions
   header
     h2.title= defined?(limit) ? t(".recent.title") : t(".title")
     ul
-      li= link_to t(".add"),
+      li= link_to t("btn.add"),
               new_patient_clinical_body_composition_path(patient),
               class: "button right"
-      li= link_to t(".view_all"),
+      li= link_to t("btn.view_all"),
               patient_clinical_body_compositions_path(patient),
               class: "button"
 

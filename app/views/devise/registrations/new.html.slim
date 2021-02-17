@@ -1,0 +1,35 @@
+ = within_admin_layout(title: t("devise.registrations.new.sign_up")) do
+  = simple_form_for(resource,
+                    as: resource_name,
+                    url: registration_path(resource_name),
+                    wrapper: :horizontal_form) do |f|
+
+    = custom_devise_error_messages!
+
+    = f.input :given_name, input_html: { autofocus: true }, wrapper: :horizontal_medium
+    = f.input :family_name, wrapper: :horizontal_medium
+    = f.input :username, wrapper: :horizontal_small
+    = f.input :email, wrapper: :horizontal_small
+    = f.input :password,
+              as: :password,
+              input_html: { autocomplete: "off" },
+              hint: (t('devise.shared.minimum_password_length', count: @minimum_password_length) if @minimum_password_length),
+              wrapper: :horizontal_small
+    = f.input :password_confirmation,
+              as: :password,
+              input_html: { autocomplete: "off" },
+              wrapper: :horizontal_small
+
+    .panel
+      b
+        | Check this box if you feel you should have full access to the database.
+        br
+        | Leaving the box unchecked means you will have read-only access.
+      br
+      br
+
+      = f.input :asked_for_write_access, label: "Write access required"
+
+    = f.submit t("devise.registrations.new.sign_up"), class: "button save"
+
+  = render "devise/shared/links"

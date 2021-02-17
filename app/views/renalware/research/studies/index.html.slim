@@ -1,5 +1,5 @@
 = content_for(:actions) do
-  = link_to("Add", new_research_study_path, class: :button)
+  = link_to(t("btn.add"), new_research_study_path, class: :button)
 
 = content_for(:filters) do
   = render "filters", query: query
@@ -10,7 +10,7 @@
       tr
         th
         th.col-width-small= sort_link(query, :code, "Code")
-        th Description
+        th= t("thead.description")
         th= sort_link(query, :code, "Leader")
         th Participants
         th.col-width-date= sort_link(query, :started_on, "Started")
@@ -20,7 +20,7 @@
       - studies.each do |study|
         tr
           td.actions.left
-            = link_to "View", research_study_path(study)
+            = link_to t("btn.view"), research_study_path(study)
           td= study.code
           td= study.description.truncate(60)
           td= study.leader

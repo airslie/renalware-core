@@ -64,4 +64,4 @@
     - msg = user.approved? ? "Update" : "Approve"
     = f.submit msg, class: "button"
     '  or
-    = link_to "cancel", admin_users_path
+    = link_to t("btn.cancel"), admin_users_path

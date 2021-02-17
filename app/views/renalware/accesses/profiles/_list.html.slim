@@ -18,8 +18,8 @@ article.access-profiles
       - profiles.each do |profile|
         tr
           td.actions
-            = link_to "View", patient_accesses_profile_path(patient, profile)
-            = link_to "Edit", edit_patient_accesses_profile_path(patient, profile)
+            = link_to t("btn.view"), patient_accesses_profile_path(patient, profile)
+            = link_to t("btn.edit"), edit_patient_accesses_profile_path(patient, profile)
           td= profile.formed_on
           td= profile.started_on
           td= profile.terminated_on

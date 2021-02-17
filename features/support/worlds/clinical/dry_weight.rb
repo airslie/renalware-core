@@ -81,13 +81,13 @@ module World
         visit patient_hd_dashboard_path(patient)
 
         within "article.dry-weights" do
-          click_on "Add"
+          click_on t("btn.add")
         end
 
         fill_in "Dry Weight", with: 98
         fill_in "Assessment Date", with: assessed_on || ""
 
-        click_on "Create"
+        click_on t("btn.create")
       end
 
       def expect_dry_weight_to_exist(patient)

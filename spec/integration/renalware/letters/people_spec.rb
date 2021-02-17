@@ -38,7 +38,7 @@ describe "Add person to directory and assign as a contact for a patient",
     end
 
     def try_create_contact_with_valid_params(contact_description)
-      click_on "Add"
+      click_on t("btn.add")
 
       within("#add-patient-contact-modal") do
         click_on "Person not found in directory"
@@ -47,16 +47,16 @@ describe "Add person to directory and assign as a contact for a patient",
         fill_in "Line 1", with: person.address.street_1
         select contact_description.name, from: "Description"
         fill_in "Notes", with: "some contact notes"
-        click_on "Save"
+        click_on t("btn.save")
       end
     end
 
     def try_create_contact_with_invalid_params
-      click_on "Add"
+      click_on t("btn.add")
 
       within("#add-patient-contact-modal") do
         click_on "Person not found in directory"
-        click_on "Save"
+        click_on t("btn.save")
       end
     end
 

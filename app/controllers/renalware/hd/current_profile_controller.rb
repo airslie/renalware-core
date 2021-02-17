@@ -19,9 +19,9 @@ module Renalware
       def update
         if update_profile
           redirect_to patient_hd_dashboard_path(patient),
-                      notice: t(".success", model_name: "HD profile")
+                      notice: success_msg_for("HD profile")
         else
-          flash.now[:error] = t(".failed", model_name: "HD profile")
+          flash.now[:error] = failed_msg_for("HD profile")
           render :edit, locals: locals
         end
       end

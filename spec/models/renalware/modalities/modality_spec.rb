@@ -83,6 +83,7 @@ module Renalware
         modality = build(:modality, patient: nil, started_on: 1.day.from_now.to_date)
 
         expect(modality).not_to be_valid
+
         expect(modality.errors[:started_on]).to include("must be on or before #{Date.current}")
       end
     end

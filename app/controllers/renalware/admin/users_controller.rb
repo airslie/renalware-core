@@ -24,9 +24,9 @@ module Renalware
       user = find_and_authorize_user
       if System::UpdateUser.new(user).call(update_params)
         redirect_to admin_users_path,
-                    notice: t(".success", model_name: "user")
+                    notice: success_msg_for("user")
       else
-        flash.now[:error] = t(".failed", model_name: "user")
+        flash.now[:error] = failed_msg_for("user")
         render :edit, locals: { user: user }
       end
     end

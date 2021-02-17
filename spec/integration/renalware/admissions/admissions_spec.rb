@@ -20,7 +20,7 @@ module Renalware
     end
 
     def convert_hash_dates_to_string_using_locale(hash)
-      hash.each { |key, val| hash[key] = I18n.l(val) if val.is_a?(Date) }
+      hash.each { |key, val| hash[key] = l(val) if val.is_a?(Date) }
     end
 
     def create_admission

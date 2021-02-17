@@ -1,6 +1,6 @@
 - content_for(:actions) do
   - if policy(Renalware::Letters::Mailshots::Mailshot).new?
-    = link_to "Add", new_letters_mailshot_path, class: :button
+    = link_to t("btn.add"), new_letters_mailshot_path, class: :button
 
 = within_new_admin_layout(title: "Mailshots") do
   table.toggleable.mailshots data-controller="toggle"

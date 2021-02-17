@@ -15,7 +15,7 @@ describe "Searching people", type: :system do
     context "with a name filter" do
       it "responds with a filtered list of people" do
         fill_in "Name contains", with: "sam"
-        click_on "Filter"
+        click_on t("btn.filter")
 
         within("table.people") do
           expect(page).to have_content("Yosemite")

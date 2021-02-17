@@ -57,7 +57,7 @@ describe "Printing a letter",
       # filter so we only see approved letters
       within(".search-form.filters") do
         select "Approved (Ready to Print)", from: "State"
-        click_on "Filter"
+        click_on t("btn.filter")
       end
 
       within("table.letters") do
@@ -65,7 +65,7 @@ describe "Printing a letter",
         expect(page).to have_css("tbody tr", count: 1)
 
         # Print the letter
-        click_on "Print"
+        click_on t("btn.print")
       end
 
       # In 'real life' the browser launches a PDF in a new tab
@@ -114,7 +114,7 @@ describe "Printing a letter",
       # filter so we only see approved letters
       within(".search-form.filters") do
         select "Approved (Ready to Print)", from: "State"
-        click_on "Filter"
+        click_on t("btn.filter")
       end
 
       within("table.letters") do
@@ -122,7 +122,7 @@ describe "Printing a letter",
         expect(page).to have_css("tbody tr", count: 1)
 
         # Print the letter
-        click_on "Print"
+        click_on t("btn.print")
       end
 
       # NOTE: don't change this to have_current_path - we need to use match here

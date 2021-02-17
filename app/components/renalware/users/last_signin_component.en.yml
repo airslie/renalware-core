@@ -1,0 +1,6 @@
+---
+en:
+  renalware:
+    users:
+      last_signin_component:
+        title: You last signed in at %{time} on %{date}

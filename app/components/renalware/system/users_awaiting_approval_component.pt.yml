@@ -1,0 +1,7 @@
+---
+pt:
+  renalware:
+    system:
+      users_awaiting_approval_component:
+        title: Udministração do usuário
+        waiting_for_approval: "%{count} usuários à espera de aprovação"

@@ -18,7 +18,7 @@ module Renalware
       end
     end
 
-    describe "#langauge" do
+    describe "#language" do
       subject(:presenter) { described_class.new(patient).language }
 
       let(:patient) do

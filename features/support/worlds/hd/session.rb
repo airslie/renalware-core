@@ -225,16 +225,16 @@ module World
         visit patient_hd_dashboard_path(patient)
 
         within ".page-actions" do
-          click_on "Add"
+          click_on t("btn.add")
           click_on "HD Session"
         end
 
         fill_in "Session Start Time", with: "13:00"
         select hd_unit.to_s, from: "Hospital Unit"
-        fill_in "Session Date", with: I18n.l(performed_on)
+        fill_in "Session Date", with: l(performed_on)
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 
@@ -249,7 +249,7 @@ module World
         fill_in "Session End Time", with: "23:59"
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
 
         expect(page).to have_current_path(patient_hd_dashboard_path(patient))
@@ -382,7 +382,7 @@ module World
         login_as user
         visit edit_patient_hd_session_path(session.patient, session)
         within ".top" do
-          click_on "Delete"
+          click_on t("btn.delete")
         end
       end
 

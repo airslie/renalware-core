@@ -41,3 +41,9 @@ World(TextEditorHelpers)
 # rubocop:enable Style/GlobalVars
 
 World(CapybaraSelect2)
+
+module CucumberTranslation
+  include AbstractController::Translation
+end
+
+World(CucumberTranslation)

@@ -17,7 +17,7 @@
       dd= yes_no_if_set(exit_site_infection.public_send(option))
 
   .right
-    = link_to "Edit",
+    = link_to t("btn.edit"),
               edit_patient_pd_exit_site_infection_path(patient, exit_site_infection),
               remote: true,
               class: %i(button tiny)

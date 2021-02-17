@@ -46,7 +46,7 @@ module Renalware::Pathology
         expect(page).to have_content "Group1"
 
         fill_in "Description", with: "Changed description"
-        click_on "Save"
+        click_on t("btn.save")
 
         group.reload
         expect(group.description).to eq("Changed description")

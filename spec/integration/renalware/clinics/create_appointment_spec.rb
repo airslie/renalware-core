@@ -11,7 +11,7 @@ describe "Create new appointment manually (not via HL7 message)", type: :system,
       visit appointments_path
 
       within(".page-heading") do
-        click_on "Add"
+        click_on t("btn.add")
       end
 
       expect(page).to have_current_path(new_appointment_path)
@@ -28,7 +28,7 @@ describe "Create new appointment manually (not via HL7 message)", type: :system,
         fill_in "Starts at", with: "08-Aug-2018"
         fill_in "Outcome notes", with: "Outcome notes"
         fill_in "DNA notes", with: "DNA notes"
-        click_on "Create"
+        click_on t("btn.create")
       end
 
       expect(page).not_to have_content("Clinic Appointments / New")

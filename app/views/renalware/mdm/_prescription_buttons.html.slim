@@ -5,11 +5,11 @@
     | Update
     end
 
-= link_to "View all",
+= link_to t("btn.view_all"),
           patient_prescriptions_path(patient),
           class: "button secondary"
 
-= link_to "Toggle",
+= link_to t("btn.toggle"),
           "#prescriptions",
           class: "button secondary",
           data: { behaviour: "css-toggler" }

@@ -13,6 +13,7 @@ gem "babel-transpiler" # not sure this is need now that we user rollupjs + babel
 gem "bootsnap", require: false # speeds up rspec and rails server boot time in development
 gem "daemons", require: false # to use cmds like `bin/delayed_job start`
 gem "faker"
+gem "i18n-tasks", "~> 0.9.33"
 gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 gem "paper_trail"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"

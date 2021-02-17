@@ -13,7 +13,7 @@ describe "Viewing an Access Plan", type: :system do
     visit patient_accesses_dashboard_path(patient)
 
     within ".access-plans" do
-      click_on "View"
+      click_on t("btn.view")
     end
 
     visit patient_accesses_plan_path(patient, plan)

@@ -13,7 +13,7 @@ table.toggleable(data-controller="toggle")
       - if Pundit.policy(current_user, Renalware::PD::AdequacyResult).edit? # only eg admin can edit or delete
         th.col-width-tiny
       - if local_assigns.fetch(:display_patient, false)
-        th.col-width-medium Patient
+        th.col-width-medium= t("thead.patient")
       th.col-width-date Date
       th.col-width-tiny
         i.far.fa-check-circle(title="Complete")
@@ -27,7 +27,7 @@ table.toggleable(data-controller="toggle")
       th Dial 24 vol in
       th Dial24UF
       th DPI
-      th.col-width-date=t("updated_at")
+      th.col-width-date=t(".thead.updated_at")
 
   - results.each do |result|
     tbody
@@ -41,11 +41,11 @@ table.toggleable(data-controller="toggle")
                   i.fas.fa-external-link-alt
                   |  Edit
               - else
-                = link_to "Edit",
+                = link_to t("btn.edit"),
                           renalware.edit_patient_pd_adequacy_result_path(result.patient, result)
 
             - if Pundit.policy(current_user, result).destroy?
-              = link_to "Delete",
+              = link_to t("btn.delete"),
                         renalware.patient_pd_adequacy_result_path(result.patient, result),
                         data: { method: :delete, confirm: "Are you sure?" }
         - if local_assigns.fetch(:display_patient, false)

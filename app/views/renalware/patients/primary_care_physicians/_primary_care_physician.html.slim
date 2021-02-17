@@ -1,8 +1,8 @@
 tr
   td.actions
-    = link_to "Edit",
+    = link_to t("btn.edit"),
               edit_patients_primary_care_physician_path(primary_care_physician)
-    = link_to "Delete",
+    = link_to t("btn.delete"),
               patients_primary_care_physician_path(primary_care_physician),
               method: :delete
   td

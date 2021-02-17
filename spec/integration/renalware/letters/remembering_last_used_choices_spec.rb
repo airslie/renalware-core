@@ -37,14 +37,14 @@ describe "Remembering last used letter choices in the user's session", type: :sy
 
     # Now fill in some fields. These fields are in RememberedPreferences (saved to a cookie) so
     # should be remembered the next time we create a letter
-    fill_in "Date", with: I18n.l(letter_date)
+    fill_in "Date", with: l(letter_date)
     select letterheads[1].name, from: "Letterhead"
     select users[1], from: "Author"
     select2 descriptions[1].text, css: ".letter_description"
     choose("Primary Care Physician")
 
     within ".top" do
-      click_on "Create"
+      click_on t("btn.create")
     end
 
     # Now create another letter to test it has remebered our previous choices
@@ -53,7 +53,7 @@ describe "Remembering last used letter choices in the user's session", type: :sy
     expect(page.find("#letter_letterhead_id").value).to eq(letterheads[1].id.to_s)
     expect(page.find("#letter_description option[selected='selected']").value)
       .to eq(descriptions[1].text)
-    expect(page.find("#letter_issued_on").value).to eq(I18n.l(letter_date))
+    expect(page.find("#letter_issued_on").value).to eq(l(letter_date))
     expect(page.find("#letter_author_id option[selected='selected']").value)
       .to eq(users[1].id.to_s)
   end

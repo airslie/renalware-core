@@ -108,7 +108,7 @@ module World
         login_as user
         visit patient_transplants_recipient_dashboard_path(patient)
         within ".page-actions" do
-          click_on "Add"
+          click_on t("btn.add_")
           click_on "Recipient Operation"
         end
 
@@ -126,7 +126,7 @@ module World
         select "years", from: "transplants_recipient_operation_document_donor_age_unit"
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 
@@ -134,7 +134,7 @@ module World
         login_as user
         visit patient_transplants_recipient_dashboard_path(patient)
         within_article "Recipient Operations" do
-          click_on "Edit"
+          click_on t("btn.edit")
         end
 
         select "Pancreas only", from: "Operation Type"
@@ -142,7 +142,7 @@ module World
         select "years", from: "transplants_recipient_operation_document_donor_age_unit"
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
     end

@@ -217,7 +217,7 @@ module World
         fill_in "Dose amount", with: dose_amount
 
         if dose_unit.present?
-          dose_unit = ::I18n.t(
+          dose_unit = t(
             dose_unit, scope: "enumerize.renalware.medications.prescription.dose_unit"
           )
           select dose_unit, from: "Dose unit"
@@ -249,7 +249,7 @@ module World
           check "Give on HD" if administer_on_hd
           fill_in "Prescribed on", with: prescribed_on
           fill_in "Terminated on", with: terminated_on
-          click_on "Save"
+          click_on t("btn.save")
         end
         expect(page).to have_css("#new_medications_prescription", count: 0)
       end
@@ -273,7 +273,7 @@ module World
         visit patient_prescriptions_path(patient)
 
         within "#current-prescriptions" do
-          click_on "Edit"
+          click_on t("btn.edit")
         end
 
         within ".prescription-form" do
@@ -292,7 +292,7 @@ module World
               select value, from: "Medication route"
             end
           end
-          click_on "Save"
+          click_on t("btn.save")
         end
         expect(page).to have_css(".prescription-form", count: expect_success ? 0 : 1)
       end
@@ -308,12 +308,12 @@ module World
         visit patient_prescriptions_path(patient)
 
         within "#current-prescriptions" do
-          click_on "Terminate"
+          click_on t("btn.terminate")
         end
 
-        fill_in "Terminated on", with: I18n.l(terminated_on)
+        fill_in "Terminated on", with: l(terminated_on)
         fill_in "Notes", with: "This is completed."
-        click_on "Save"
+        click_on t("btn.save")
 
         expect(page)
           .to have_css("#new_medications_prescription_termination", count: expect_success ? 0 : 1)

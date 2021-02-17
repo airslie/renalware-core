@@ -1,21 +1,19 @@
+---
 en:
   :true: "Yes"
   :false: "No"
   disable_with:
     save: Saving...
   new_record:
-    link_title: Add
     page_title: New
   edit_record:
-    link_title: Edit
     page_title: Edit
-  links:
-    view_all: View All
   modal:
     close: Close
   collection:
     blank_option: Please select
     blank_option_for_multiple: Please select one or more
+
   enums:
     letter:
       state:
@@ -44,7 +42,6 @@ en:
       submit: Save
       update: Save
       filter: Filter
-    reset: Reset
   activerecord:
     attributes:
       renalware/event_type:
@@ -117,3 +114,80 @@ en:
       header:
         one: 1 error prohibited this %{model} from being saved
         other: "%{count} errors prohibited this %{model} from being saved"
+
+  # Common translation fallbacks which will be resolved in a cascading lookup from any view
+  thead:
+    patient_name: Patient
+    patient: Patient
+    name: Patient
+    nhs_number: NHS Number
+    hospital_number: Hosp No
+    hosp_no: Hosp No
+    date_of_birth: DOB
+    born_on: DOB
+    age: Age
+    sex: Sex
+    modality: Modality
+    notes: Notes
+    tags: Tags
+    bookmarked_on: Bookmarked
+    date_: Date
+    time_: Time
+    date_time: Date/Time
+    created_by: Created by
+    updated_by: Updated by
+    created_at: Created on
+    updated_at: Updated on
+    type: Type
+    description: Description
+    state: State
+    status: Status
+    author: Author
+    recipient: Recipient
+    subject: Subject
+    body: Body
+    sent_at: Sent at
+    read_at: Read at
+    sent_from: From
+
+  btn:
+    cancel: Cancel
+    remove: Remove
+    delete: Delete
+    edit: Edit
+    save: Save
+    submit: Save
+    add: Add
+    add_: Add...
+    create: Create
+    create_: Create...
+    update: Update
+    view: View
+    view_all: View All
+    show_all: Show all
+    show: Show
+    details: Details
+    toggle: Toggle
+    print: Print
+    all: All
+    clear: Clear
+    insert: Insert
+    terminate: Terminate
+    help: Help
+    archive: Archive
+    list: List
+    change: Change
+    reset: Reset
+    filter: Filter
+    preview: Preview
+    urgent: Urgent
+    or: or
+
+  titles:
+    problems: Problems
+    current_prescriptions: Current Prescriptions
+    letters: Letters
+    events: Events
+    admissions: Admissions
+    consults: Consults
+    bookmark: Bookmark

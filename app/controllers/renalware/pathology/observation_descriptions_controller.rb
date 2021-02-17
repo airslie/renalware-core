@@ -26,7 +26,7 @@ module Renalware
         if description.update(description_params)
           redirect_to(
             pathology_observation_descriptions_path,
-            notice: t(".success", model_name: "observation descrition")
+            notice: success_msg_for("observation descrition")
           )
         else
           render_edit(description)

@@ -30,6 +30,6 @@
 
     = render "pathology_results", form: f
 
-    = f.submit "Save", class: :button
+    = f.submit t("btn.save"), class: :button
     '  or
-    = link_to "cancel", patient_pd_dashboard_path(pet.patient)
+    = link_to t("btn.cancel"), patient_pd_dashboard_path(pet.patient)

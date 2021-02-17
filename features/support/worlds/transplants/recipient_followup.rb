@@ -79,7 +79,7 @@ module World
         fill_in "Date of Return to Regular Dialysis", with: "2019-02-01"
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 
@@ -87,7 +87,7 @@ module World
         login_as user
         visit patient_transplants_recipient_dashboard_path(operation.patient)
         within_article "Recipient Operations" do
-          click_on "Update"
+          click_on t("btn.update")
         end
 
         within ".transplants_recipient_followup_transplant_failed" do
@@ -95,7 +95,7 @@ module World
         end
 
         within ".top" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
     end

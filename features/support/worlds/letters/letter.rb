@@ -316,11 +316,11 @@ module World
         login_as user
         FactoryBot.create(:letter_description, text: "Foo bar")
         visit patient_letters_letters_path(patient)
-        click_on "Create"
+        click_on t("btn.create_")
         click_on "Simple Letter"
 
         attributes = valid_simple_letter_attributes(patient)
-        fill_in "Date", with: I18n.l(attributes[:issued_on]) if issued_on.present?
+        fill_in "Date", with: l(attributes[:issued_on]) if issued_on.present?
         select attributes[:letterhead].name, from: "Letterhead"
         select user.to_s, from: "Author"
         select2 attributes[:description], css: ".letter_description"
@@ -328,7 +328,7 @@ module World
         fill_ccs(ccs)
 
         within ".bottom" do
-          click_on "Create"
+          click_on t("btn.create")
         end
       end
 
@@ -357,19 +357,19 @@ module World
       def revise_simple_letter(patient:, user:)
         login_as user
         visit patient_letters_letters_path(patient)
-        click_on "Edit"
+        click_on t("btn.edit")
 
         select user.to_s, from: "Author"
 
         within ".bottom" do
-          click_on "Save"
+          click_on t("btn.save")
         end
       end
 
       def delete_simple_letter(patient:, user:)
         login_as user
         visit patient_letters_letters_path(patient)
-        click_on "Delete"
+        click_on t("btn.delete")
       end
 
       def expect_letter_to_be_immutable(patient:, user:)

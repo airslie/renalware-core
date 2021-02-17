@@ -7,7 +7,7 @@
           th.col-width-tiny(rowspan=2)
         th.col-width-medium(rowspan=2) Site/Ward
         - unless compact
-          th.at-least.col-width-medium(rowspan=2) Patient
+          th.at-least.col-width-medium(rowspan=2)= t("thead.patient")
           th.col-width-nhs-no(rowspan=2) NHS No.
           th.col-width-reference-no(rowspan=2) Hosp Nos.
           th.col-width-smal(rowspan=2) Modality
@@ -32,7 +32,7 @@
           - unless compact
             td
               - if policy(admission).edit?
-                = link_to "Edit", edit_admissions_admission_path(admission)
+                = link_to t("btn.edit"), edit_admissions_admission_path(admission)
           td= admission.unit_and_ward
           - unless compact
             td= default_patient_link(admission.patient)
@@ -49,7 +49,7 @@
           td= admission.summarised_on
           td
             - if admission.discharge_summary.present?
-             = link_to("Toggle",
+             = link_to(t("btn.toggle"),
                        "#admission-quick-preview-#{admission.id}",
                        data: { behaviour: "toggler" })
             - else

@@ -1,3 +1,3 @@
 - if effective_last_sign_in_at.present?
   p.last-login(style="position: absolute;top: -36px; right: 2px;")
-    = "You last signed in at #{effective_last_sign_in_at.strftime("%H:%M")} on #{effective_last_sign_in_at.strftime("%d-%b-%Y")}"
+    = t(".title", time: effective_last_sign_in_at.strftime("%H:%M"), date: effective_last_sign_in_at.strftime("%d-%b-%Y"))

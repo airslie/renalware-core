@@ -1,0 +1,14 @@
+---
+pt:
+  renalware:
+    navigation:
+      user:
+        my_dashboard: Meu Painel
+        update_profile: Atualizar perfil
+      patients_admin:
+        patients: Pacientes
+        directory: Diretório
+      directory:
+        directory: Diretório
+      sign_out:
+        log_out: Sair

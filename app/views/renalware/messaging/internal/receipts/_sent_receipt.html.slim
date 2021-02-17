@@ -10,7 +10,7 @@ tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
   td= message.patient.hospital_identifier
   td.col-width-medium-with-ellipsis= message.subject
   td
-    = link_to "View",
+    = link_to t("btn.view"),
               "##{message.html_preview_identifier}",
               data: { behaviour: "toggler" },
               class: :right

@@ -32,9 +32,9 @@ module Renalware
         body_composition = build_body_composition
         if body_composition.save
           redirect_to patient_clinical_profile_path(patient),
-                      notice: t(".success", model_name: "body composition")
+                      notice: success_msg_for("body composition")
         else
-          flash.now[:error] = t(".failed", model_name: "body composition")
+          flash.now[:error] = failed_msg_for("body composition")
           render_new(body_composition)
         end
       end

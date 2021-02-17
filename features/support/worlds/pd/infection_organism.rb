@@ -38,20 +38,20 @@ module World
 
         within "#new_pd_infection_organism" do
           select(organism_name, from: "Organism")
-          click_on "Save"
+          click_on t("btn.save")
           wait_for_ajax
         end
       end
 
       def revise_organism_for(infectable:, sensitivity:, resistance:)
         within "#infection-organisms" do
-          click_on "Edit"
+          click_on t("btn.edit")
           sleep 0.5
           expect(page).to have_selector("#infection-organisms form", count: 1)
           fill_in "Sensitivity", with: sensitivity
           fill_in "Resistance", with: resistance
 
-          click_on "Save"
+          click_on t("btn.save")
 
           expect(page).to have_selector("#infection-organisms tbody tr", count: 1)
           expect(find("tbody")).to have_content(sensitivity)
@@ -61,7 +61,7 @@ module World
 
       def terminate_organism_for(infectable:, user:)
         within "#infection-organisms" do
-          click_on "Terminate"
+          click_on t("btn.terminate")
           page.driver.browser.switch_to.alert.accept
           expect(page).to have_no_css("tbody tr")
         end

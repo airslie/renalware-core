@@ -10,7 +10,7 @@ module Pages
       def edit
         visit patient_clinical_profile_path(patient)
         within ".page-actions" do
-          click_on "Edit"
+          click_on t("btn.edit")
         end
       end
 
