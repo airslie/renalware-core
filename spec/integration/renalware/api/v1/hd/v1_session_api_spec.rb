@@ -9,7 +9,7 @@ require "rails_helper"
 # - update a session
 # - list them? no
 
-# TODO: copuld move validation error checks to form object spec and here
+# TODO: move validation error checks to form object spec and here
 # just check that the errors are returned in the json?
 
 describe "V1 HD Session API", type: :system do
@@ -62,7 +62,7 @@ describe "V1 HD Session API", type: :system do
       expect(JSON.parse(response.body)).to eq(
         {
           "errors" => [],
-          "session_id" => 123
+          "session_id" => patient.hd_sessions.last.id
         }
       )
     end
@@ -73,7 +73,6 @@ describe "V1 HD Session API", type: :system do
       provider_name: "Provider name can't be blank",
       mrn: "Mrn can't be blank",
       started_at: "Started at can't be blank",
-      ended_at: "Ended at can't be blank",
       machine_number: "Machine number can't be blank",
       hospital_unit_code: "Hospital unit code can't be blank"
     }.each do |key, error|
@@ -114,7 +113,7 @@ describe "V1 HD Session API", type: :system do
         put url_with_credentials, params: { session: params }
 
         expect(response).to be_bad_request
-        expect(response_errors).to include("Ended at must be on or after 2013-01-01 11:00:00")
+        expect(response_errors).to include("Ended at must be after 2013-01-01 11:00:00")
       end
     end
 
@@ -166,12 +165,21 @@ describe "V1 HD Session API", type: :system do
 
   describe "when the session already exists for the current mrn and date" do
     it "updates the existing session" do
-      create(:hd_session, patient: patient, performed_on: adate, start_time: "11:00")
+      session = create(:hd_session, patient: patient, performed_on: adate, start_time: "01:00")
 
-      put url_with_credentials, params: { session: valid_session_json }
+      put url_with_credentials,
+          params: { session: valid_session_json.update(started_at: "2021-03-01 22:22:00") }
 
-      expect(response).to be_bad_request
-      expect(response_errors).to include("Patient not found")
+      expect(response).to be_ok
+      expect(JSON.parse(response.body)).to eq(
+        {
+          "errors" => [],
+          "session_id" => session.id
+        }
+      )
+
+      session.reload
+      expect(session.start_time.strftime("%H:%M")).to eq("22:22")
     end
   end
 end
