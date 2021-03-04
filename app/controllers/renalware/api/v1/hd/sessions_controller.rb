@@ -3,18 +3,6 @@
 require "success"
 require "failure"
 
-# class OpenStruct
-#   def to_json
-#     to_hash.to_json
-#   end
-
-#   def to_hash
-#     to_h.map { |k, v|
-#       v.respond_to?(:to_hash) ? [k, v.to_hash] : [k, v]
-#     }.to_h
-#   end
-# end
-
 require_dependency "renalware/api"
 
 module Renalware
@@ -22,29 +10,47 @@ module Renalware
     module V1
       module HD
         class SessionsController < TokenAuthenticatedAPIController
-          # Authentication already done courtesy of TokenAuthenticatedAPIController
-          # 1. Validate json
-          # 2. Find existing session using params[:uuid]
-          # 3. Update if present else create
-          # 4. return ... what?
+          # JSON PUT
+          # FHIR HD Session resource session data from eg HD Hub (dialyser aggregation).
+          # The session may be ongoing or finished.
+          # The url for this route specifies sessions/:mrn/:date where
+          #   - mrn is the patient
+          #   - date is the date the session was started
+          # These params allow us to find or create a session unique to this patient and date (a
+          # patient cannot have > 1 session in the same day therefore).
+          # Is there is already a session with the specified date and patient we load this.
+          # We use a form object to parse and validate the JSON.
+          # If the session existed we update it, otherwise we create one.
+          #
+          # Outstanding issues:
+          # - if 2 patients have same mrn (eg on in local_patient_id and one in local_patient_id_2)
+          #   we could add the sessin to the wrong patient. We don't have DOB in the JSON so can't
+          #   use that. We should know the hospital unit - could use that perhaps?
           def update
-            form = Form.new(session_attributes.to_h.symbolize_keys.merge(patient: patient))
+            form = build_form_object_from_incoming_session_json
 
             if form.invalid?
               render(status: :bad_request, json: { error: form.errors.full_messages })
             else
-
-              result = if hd_session.present?
-                         UpdateSession.new(hd_session: hd_session, form: form).call
-                       else
-                         CreateSession.new(form).call
-                       end
+              result = create_or_update_hd_session(form)
               status = result.success? ? :ok : :bad_request
               render(status: status, json: result.object)
             end
           end
 
           private
+
+          def build_form_object_from_incoming_session_json
+            Form.new(session_attributes.to_h.symbolize_keys.merge(patient: patient))
+          end
+
+          def create_or_update_hd_session(form)
+            if hd_session.present?
+              UpdateSession.new(hd_session: hd_session, form: form).call
+            else
+              CreateSession.new(form: form, patient: patient).call
+            end
+          end
 
           def patient
             @patient ||= begin
@@ -65,51 +71,38 @@ module Renalware
             @hd_session ||= patient.hd_sessions.find_by(performed_on: params[:date])
           end
 
+          class Result
+            rattr_initialize [session_id: nil, errors: []]
+          end
+
           class UpdateSession
             pattr_initialize [:hd_session!, :form!]
 
-            class Result
-              rattr_initialize [session_id: nil, errors: []]
-            end
-
             def call
+              user = Renalware::User.first
+              hd_session.update!(
+                start_time: form.started_at.strftime("%H:%M"),
+                by: user
+              )
               ::Success.new(Result.new(session_id: hd_session.id))
             end
           end
 
           class CreateSession
-            pattr_initialize :form
-
-            class Result
-              rattr_initialize [session_id: nil, errors: []]
-            end
+            pattr_initialize [:form!, :patient!]
 
             def call
-              ::Success.new(Result.new(session_id: nil))
-            end
-          end
-
-          # Find and update or create a new session
-          # Return the session created successfully, or if found
-          # Return appropriate errors if could not save
-          # class CreateOrUpdateSession
-          #   class Result
-          #     rattr_initialize [session_id: nil, errors: []]
-          #   end
-
-          #   def call
-          #     # Renalware::HD::Session.create(options)
-          #     ::Success.new(Result.new(session_id: 123))
-          #     # or ::Failure.new({ errors: ["some error" })
-          #   end
-          # end
-
-          class SessionBuilder
-            pattr_initialize :form
-
-            # Return a new
-            def call
-              # noop
+              user = Renalware::User.first
+              session = Renalware::HD::Session::Open.new(
+                patient: patient,
+                hospital_unit: form.hospital_unit,
+                performed_on: form.started_at.to_date,
+                start_time: form.started_at.strftime("%H:%M"),
+                signed_on_by: user,
+                by: user
+              )
+              session.save!
+              ::Success.new(Result.new(session_id: session.id))
             end
           end
 
@@ -139,26 +132,25 @@ module Renalware
             validates :hospital_unit, presence: { message: "not found" } # the finder
             validates :started_at, presence: true, timeliness: { type: :datetime }
             validates :ended_at,
-                      presence: true,
                       timeliness: {
                         type: :datetime,
-                        on_or_after: ->(sess) { sess.started_at },
+                        after: :started_at,
                         before: ->(sess) { sess.started_at + MAX_SESSION_LENGTH }
                       }
 
-            # Return attributes in a way that can be assigned to an HD::Session?
-            def to_h
-              hash = attributes.with_indifferent_access
-              # ignore these attributes
-              hash = hash.slice!(:provider_name, :mrn, :hospital_unit_code)
-              # add these derived attributes
-              hash.merge!(
-                provider: provider,
-                patient: patient,
-                hospital_unit: hospital_unit
-              )
-              hash
-            end
+            # # Return attributes in a way that can be assigned to an HD::Session?
+            # def to_h
+            #   hash = attributes.with_indifferent_access
+            #   # ignore these attributes
+            #   hash = hash.slice!(:provider_name, :mrn, :hospital_unit_code)
+            #   # add these derived attributes
+            #   hash.merge!(
+            #     provider: provider,
+            #     patient: patient,
+            #     hospital_unit: hospital_unit
+            #   )
+            #   hash
+            # end
 
             def provider
               @provider ||= Renalware::HD::Provider.where(
