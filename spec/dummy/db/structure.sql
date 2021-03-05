@@ -2939,7 +2939,7 @@ CREATE TABLE renalware.hd_profiles (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     prescriber_id integer,
-    named_nurse_id integer,
+    named_nurse_id_legacy integer,
     transport_decider_id integer,
     deactivated_at timestamp without time zone,
     active boolean DEFAULT true,
@@ -3072,7 +3072,8 @@ CREATE TABLE renalware.patients (
     sent_to_ukrdc_at timestamp without time zone,
     checked_for_ukrdc_changes_at timestamp without time zone,
     named_consultant_id bigint,
-    next_of_kin text
+    next_of_kin text,
+    named_nurse_id bigint
 );
 
 
@@ -3316,7 +3317,7 @@ CREATE VIEW renalware.hd_mdm_patients AS
      JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'hd'::text))))
      LEFT JOIN renalware.hd_profiles hdp ON (((hdp.patient_id = p.id) AND (hdp.deactivated_at IS NULL))))
      LEFT JOIN renalware.hospital_units unit ON ((unit.id = hdp.hospital_unit_id)))
-     LEFT JOIN renalware.users named_nurses ON ((named_nurses.id = hdp.named_nurse_id)))
+     LEFT JOIN renalware.users named_nurses ON ((named_nurses.id = p.named_nurse_id)))
      LEFT JOIN renalware.patient_worries pw ON ((pw.patient_id = p.id)))
      LEFT JOIN renalware.hd_schedule_definitions sched ON ((sched.id = hdp.schedule_definition_id)))
      LEFT JOIN renalware.hd_diurnal_period_codes diurnal ON ((diurnal.id = sched.diurnal_period_id)))
@@ -4445,16 +4446,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -14383,10 +14374,10 @@ CREATE INDEX index_hd_profiles_on_hospital_unit_id ON renalware.hd_profiles USIN
 
 
 --
--- Name: index_hd_profiles_on_named_nurse_id; Type: INDEX; Schema: renalware; Owner: -
+-- Name: index_hd_profiles_on_named_nurse_id_legacy; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_hd_profiles_on_named_nurse_id ON renalware.hd_profiles USING btree (named_nurse_id);
+CREATE INDEX index_hd_profiles_on_named_nurse_id_legacy ON renalware.hd_profiles USING btree (named_nurse_id_legacy);
 
 
 --
@@ -15899,6 +15890,13 @@ CREATE INDEX index_patients_on_local_patient_id_5 ON renalware.patients USING bt
 --
 
 CREATE INDEX index_patients_on_named_consultant_id ON renalware.patients USING btree (named_consultant_id);
+
+
+--
+-- Name: index_patients_on_named_nurse_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patients_on_named_nurse_id ON renalware.patients USING btree (named_nurse_id);
 
 
 --
@@ -17763,7 +17761,7 @@ ALTER TABLE ONLY renalware.hd_prescription_administrations
 --
 
 ALTER TABLE ONLY renalware.hd_profiles
-    ADD CONSTRAINT fk_rails_0aab25a07c FOREIGN KEY (named_nurse_id) REFERENCES renalware.users(id);
+    ADD CONSTRAINT fk_rails_0aab25a07c FOREIGN KEY (named_nurse_id_legacy) REFERENCES renalware.users(id);
 
 
 --
@@ -19991,6 +19989,14 @@ ALTER TABLE ONLY renalware.clinical_allergies
 
 
 --
+-- Name: patients fk_rails_fa2fba60f1; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patients
+    ADD CONSTRAINT fk_rails_fa2fba60f1 FOREIGN KEY (named_nurse_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: pd_training_sessions fk_rails_fa412bd095; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -20865,6 +20871,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201112152752'),
 ('20201229174653'),
 ('20210105163944'),
-('20210115181817');
+('20210115181817'),
+('20210305100015'),
+('20210305105830');
 
 

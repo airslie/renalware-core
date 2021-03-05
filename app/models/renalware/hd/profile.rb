@@ -15,7 +15,6 @@ module Renalware
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"
       belongs_to :dialysate
       belongs_to :prescriber, class_name: "User"
-      belongs_to :named_nurse, class_name: "User"
       belongs_to :transport_decider, class_name: "User"
       belongs_to :schedule_definition
       has_document class_name: "Renalware::HD::ProfileDocument"

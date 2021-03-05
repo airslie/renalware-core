@@ -45,7 +45,6 @@ describe "Editing a patient's current HD profile", type: :system, js: false do
       select "Unit1", from: "Hospital Unit"
       select user.to_s, from: "Prescriber"
       select "Mon Wed Fri AM", from: "Schedule definition"
-      select nurse, from: "Named Nurse"
       select "2:00", from: "Prescribed Time on HD"
       fill_in "Prescription Date", with: "01 Feb 2018"
 
@@ -116,7 +115,6 @@ describe "Editing a patient's current HD profile", type: :system, js: false do
       profile = patient.hd_profile
 
       expect(profile).to have_attributes(
-        named_nurse: nurse,
         hospital_unit: hospital_unit,
         prescriber: user,
         schedule_definition: schedule_definition

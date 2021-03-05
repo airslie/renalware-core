@@ -3,7 +3,6 @@
 module Renalware
   log "Assigning HD Profiles to Random Patients" do
     kch_doc = User.find_by!(username: "kchdoc")
-    kch_nurse = User.find_by!(username: "kchnurse")
     kent_doc = User.find_by!(username: "kentdoc")
     modal_weeks = (30..50).to_a
     schedule_definitions = HD::ScheduleDefinition.all
@@ -49,7 +48,6 @@ module Renalware
           prescribed_time: times.sample,
           prescribed_on: hd_started_on,
           prescriber: kch_doc,
-          named_nurse: kch_nurse,
           transport_decider: User.last,
           document: {
             dialysis: {

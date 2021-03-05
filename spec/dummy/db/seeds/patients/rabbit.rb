@@ -24,7 +24,7 @@ module Renalware
       interpreter_notes: "Second language French",
       special_needs_notes: "Lorem ipsum dolor sit amet"
     }
-
+    rabbit.named_nurse = User.find_by!(username: "kentnurse")
     rabbit.save!
   end
 

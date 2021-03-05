@@ -10,7 +10,7 @@ module Renalware
       def request_default_electronic_cc_recipients_for_use_in_letters(patient:, array_of_user_ids:)
         patient = HD.cast_patient(patient)
         if patient.current_modality_hd?
-          named_nurse_id = patient.hd_profile&.named_nurse&.id
+          named_nurse_id = patient.named_nurse&.id
           array_of_user_ids.push(named_nurse_id) if named_nurse_id.present?
         end
       end

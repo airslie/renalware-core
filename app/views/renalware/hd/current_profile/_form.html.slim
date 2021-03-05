@@ -26,10 +26,6 @@ ruby:
                 hint: profile.schedule_hint
       = f.input :other_schedule,
                 wrapper: :horizontal_small
-      = f.association :named_nurse,
-                      as: :user_picker,
-                      collection: Renalware::User.ordered,
-                      wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",
              locals: { legend: "Prescription", name: "prescription" } do
