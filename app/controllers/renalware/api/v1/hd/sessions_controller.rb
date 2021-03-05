@@ -18,7 +18,7 @@ module Renalware
           #   - date is the date the session was started
           # These params allow us to find or create a session unique to this patient and date (a
           # patient cannot have > 1 session in the same day therefore).
-          # Is there is already a session with the specified date and patient we load this.
+          # If there is already a session with the specified date and patient we load this.
           # We use a form object to parse and validate the JSON.
           # If the session existed we update it, otherwise we create one.
           #
@@ -127,7 +127,7 @@ module Renalware
             validates :provider_name, presence: true # the param
             validates :provider, presence: { message: "not found" } # the finder
             validates :mrn, presence: true # param
-            validates :patient, presence: { message: "not found" } # the finder
+            validates :patient, presence: { message: "not found" }
             validates :hospital_unit_code, presence: true # the parma
             validates :hospital_unit, presence: { message: "not found" } # the finder
             validates :started_at, presence: true, timeliness: { type: :datetime }
@@ -137,20 +137,6 @@ module Renalware
                         after: :started_at,
                         before: ->(sess) { sess.started_at + MAX_SESSION_LENGTH }
                       }
-
-            # # Return attributes in a way that can be assigned to an HD::Session?
-            # def to_h
-            #   hash = attributes.with_indifferent_access
-            #   # ignore these attributes
-            #   hash = hash.slice!(:provider_name, :mrn, :hospital_unit_code)
-            #   # add these derived attributes
-            #   hash.merge!(
-            #     provider: provider,
-            #     patient: patient,
-            #     hospital_unit: hospital_unit
-            #   )
-            #   hash
-            # end
 
             def provider
               @provider ||= Renalware::HD::Provider.where(
