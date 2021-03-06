@@ -2,7 +2,7 @@
 
 module Renalware
   module Patients
-    class MyPatientsComponent < ApplicationComponent
+    class NamedPatientsComponent < ApplicationComponent
       include ApplicationHelper
       include Pagy::Backend
       include Pagy::Frontend
@@ -40,6 +40,10 @@ module Renalware
 
       def scope
         Patient
+          .merge(Accesses::Patient.with_current_plan)
+          .merge(Accesses::Patient.with_profile)
+          .merge(HD::Patient.with_profile)
+          .includes(current_modality: :description)
           .where(named_nurse: current_user)
           .order(updated_at: :desc)
       end

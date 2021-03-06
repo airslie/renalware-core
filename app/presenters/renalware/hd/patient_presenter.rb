@@ -17,7 +17,9 @@ module Renalware
       alias_method :dialysing_at_unit, :hospital_unit_unit_code
 
       def initialize(patient)
-        super(HD.cast_patient(patient.__getobj__))
+        # If patient is already a presenter then use __getobj__ to access the model
+        pat = patient.respond_to?(:__getobj__) ? patient.__getobj__ : patient
+        super(HD.cast_patient(pat))
       end
 
       def finished_hd_sessions

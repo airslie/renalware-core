@@ -4,5 +4,8 @@
 = content_for(:tabs) do
   = render "renalware/patients/index_header"
 
+= content_for(:filters) do
+  = render "filters", search: search
+
 = within_admin_layout(title: "Patients") do
   = render "table", patients: patients, search: search

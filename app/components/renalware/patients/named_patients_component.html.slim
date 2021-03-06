@@ -1,0 +1,34 @@
+article
+  header
+    h2= formatted_title(t(".title"))
+    ul.noprint
+      li= link_to t("btn.view_all"), renalware.patients_path("q[named_nurse_id_eq]" => 2), class: "button"
+
+  table
+    thead
+      row
+        th.at-least.col-width-medium= t(".thead.patient_name", cascade: false)
+        th.col-width-nhs-no= t(".thead.nhs_number")
+        th.col-width-reference-no= t("thead.hospital_number")
+        th.show-for-medium-up.col-width-date= t(".thead.date_of_birth")
+        th.col-width-tiny= t(".thead.age")
+        th.col-width-tiny= t(".thead.sex")
+        th= t(".thead.modality")
+        th.col-width-large Access
+        th.show-for-large-up.col-width-date Acess started
+        th Dialysing at
+    tbody
+      - patients.each do |patient|
+        - access_patient = Renalware::Accesses::PatientPresenter.new(patient)
+        - hd_patient = Renalware::HD::PatientPresenter.new(patient)
+        tr
+          td= default_patient_link(patient)
+          td= patient.nhs_number
+          td= patient.hospital_identifier
+          td.show-for-medium-up= I18n.l(patient.born_on)
+          td= patient.age
+          td= patient.sex
+          td.col-width-medium-with-ellipsis= patient.current_modality
+          td= access_patient.access_profile_type
+          td.show-for-large-up= l(access_patient.access_profile_started_on)
+          td= hd_patient.dialysing_at_unit
