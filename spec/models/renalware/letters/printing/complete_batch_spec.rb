@@ -11,8 +11,8 @@ module Renalware
 
       def create_batch
         batch = Letters::Batch.create!(by: user)
-        letter1 = create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact(page_count: 1)
-        letter2 = create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact(page_count: 1)
+        letter1 = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(page_count: 1)
+        letter2 = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(page_count: 1)
         batch.items.create(letter: letter1)
         batch.items.create(letter: letter2)
         batch
