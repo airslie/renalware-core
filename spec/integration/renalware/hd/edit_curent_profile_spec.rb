@@ -46,6 +46,7 @@ describe "Editing a patient's current HD profile", type: :system, js: false do
       select user.to_s, from: "Prescriber"
       select "Mon Wed Fri AM", from: "Schedule definition"
       select "2:00", from: "Prescribed Time on HD"
+      select nurse, from: "Named nurse"
       fill_in "Prescription Date", with: "01 Feb 2018"
 
       # Dialysis
@@ -112,7 +113,10 @@ describe "Editing a patient's current HD profile", type: :system, js: false do
       expect(Renalware::HD::Profile.for_patient(patient).count).to eq(1)
       expect(Renalware::HD::Profile.for_patient(patient).deleted.count).to eq(0)
 
+      patient.reload
       profile = patient.hd_profile
+
+      expect(patient.named_nurse).to eq(nurse)
 
       expect(profile).to have_attributes(
         hospital_unit: hospital_unit,

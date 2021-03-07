@@ -27,6 +27,11 @@ ruby:
       = f.input :other_schedule,
                 wrapper: :horizontal_small
 
+      = f.input :named_nurse_id,
+                as: :user_picker,
+                collection: Renalware::User.ordered,
+                wrapper: :horizontal_medium
+
     = render layout: "renalware/shared/fieldset",
              locals: { legend: "Prescription", name: "prescription" } do
 

@@ -35,11 +35,20 @@ module Renalware
       end
 
       def update_profile
+        update_named_nurse_on_patient
+
         if profile.persisted?
           ReviseHDProfile.new(profile).call(profile_params)
         else
           profile.update(profile_params.merge(active: true))
         end
+      end
+
+      def update_named_nurse_on_patient
+        patient.update!(
+          named_nurse_id: profile_params[:named_nurse_id],
+          by: current_user
+        )
       end
 
       def preference_set
@@ -51,7 +60,12 @@ module Renalware
       end
 
       def load_profile
-        @profile = Profile.for_patient(patient).first_or_initialize
+        @profile = begin
+          Profile
+            .for_patient(patient)
+            .first_or_initialize
+            .tap { |profile| profile.named_nurse_id = patient.named_nurse_id }
+        end
       end
 
       def profile_params
@@ -61,11 +75,13 @@ module Renalware
           .to_h.merge(by: current_user)
       end
 
+      # Note that named_nurse_id is a virtual attribute allowing us to update
+      # patient.named_nurse using the hd profile form.
       def attributes
         [
           :schedule_definition_id, :other_schedule, :hospital_unit_id, :dialysate_id,
           :prescribed_time, :prescribed_on, :prescriber_id,
-          :transport_decider_id,
+          :named_nurse_id, :transport_decider_id,
           document: {}
         ]
       end

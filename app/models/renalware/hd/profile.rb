@@ -19,6 +19,10 @@ module Renalware
       belongs_to :schedule_definition
       has_document class_name: "Renalware::HD::ProfileDocument"
 
+      # Virtual attr to allow us to accept this field in the profile form, but save it to
+      # the patient record rather than to hd_profile
+      attr_accessor :named_nurse_id
+
       has_paper_trail(
         versions: { class_name: "Renalware::HD::Version" },
         on: [:create, :update, :destroy]
