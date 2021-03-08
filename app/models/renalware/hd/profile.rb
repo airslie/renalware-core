@@ -15,10 +15,13 @@ module Renalware
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"
       belongs_to :dialysate
       belongs_to :prescriber, class_name: "User"
-      belongs_to :named_nurse, class_name: "User"
       belongs_to :transport_decider, class_name: "User"
       belongs_to :schedule_definition
       has_document class_name: "Renalware::HD::ProfileDocument"
+
+      # Virtual attr to allow us to accept this field in the profile form, but save it to
+      # the patient record rather than to hd_profile
+      attr_accessor :named_nurse_id
 
       has_paper_trail(
         versions: { class_name: "Renalware::HD::Version" },

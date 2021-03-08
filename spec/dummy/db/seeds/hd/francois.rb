@@ -6,7 +6,6 @@ module Renalware
   kch_doc = User.find_by!(username: "kchdoc")
   barts_doc = User.find_by!(username: "bartsdoc")
   kent_doc = User.find_by!(username: "kentdoc")
-  kent_nurse = User.find_by!(username: "kentnurse")
   schedule_definition = HD::ScheduleDefinition.first
 
   log "Assign HD modality to Francois RABBIT" do
@@ -40,7 +39,6 @@ module Renalware
       prescribed_time: 180,
       prescribed_on: 1.week.ago.to_date,
       prescriber: kch_doc,
-      named_nurse: kent_nurse,
       transport_decider: barts_doc,
       document: {
         dialysis: {

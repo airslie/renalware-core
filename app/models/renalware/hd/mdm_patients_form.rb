@@ -21,7 +21,7 @@ module Renalware
         {
           hd_profile_hospital_unit_id_eq: hospital_unit_id,
           hd_profile_schedule_definition_id_in: schedule_definition_ids_array,
-          hd_profile_named_nurse_id_eq: named_nurse_id
+          named_nurse_id_eq: named_nurse_id
         }
       end
 
