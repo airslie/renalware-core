@@ -9,11 +9,11 @@ describe "Batch printing letters", type: :system, js: true do
   context "when a user filters all letter by a particular author" do
     it "todo" do
       user = login_as_clinical
-      letter1 = create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact(
+      letter1 = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
         page_count: 1,
         user: user
       )
-      letter2 = create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact(
+      letter2 = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
         page_count: 1,
         user: user
       )

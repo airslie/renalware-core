@@ -8,7 +8,7 @@ module Renalware::Letters::Printing
 
     describe "#render" do
       it "generates a PDF" do
-        letter = create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact
+        letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact
 
         pdf = described_class.new(letter.main_recipient)
 

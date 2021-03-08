@@ -23,7 +23,7 @@ module Renalware
             it "renders a PDF containing an address cover sheet + letter for each recipient "\
               "including blank pages where necessary" do
               # practice_email: "x@y.com"
-              letter = create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact(
+              letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
                 page_count: 1,
                 practice_email: nil
               )
@@ -109,7 +109,7 @@ module Renalware
             it "renders a PDF containing an address cover sheet + letter for each recipient "\
               "including blank pages where necessary" do
               # update body to tip the page across 2 pages
-              letter = create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact(
+              letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
                 body: "xxxxxxxx " * 1100,
                 page_count: 2
               )
@@ -193,7 +193,7 @@ module Renalware
             it "renders a PDF containing an address cover sheet + letter for each recipient "\
               "including blank pages where necessary" do
               # practice_email: "x@y.com"
-              letter = create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact(
+              letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
                 page_count: 1,
                 practice_email: "x@y.com"
               )

@@ -9,7 +9,7 @@ describe "Rendering a letter for printing in an envelope stuffer", type: :reques
 
   describe "GET show" do
     it "renders a duplex interleaved address+letter PDF" do
-      letter = create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact
+      letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact
 
       get patient_letters_letter_printable_path(
         patient_id: letter.patient,

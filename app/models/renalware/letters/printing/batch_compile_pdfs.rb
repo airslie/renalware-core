@@ -5,10 +5,17 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     module Printing
-      # - takes a batch of letters
-      # - compiles each letter along with its recipient cover sheets
-      # - adds blank pages to make sure the letter always starts on an odd page
-      # - appends all PDF letters
+      # Given a Batch object that has many associated letters, it
+      # - compiles each letter with a cover sheet for each recipient, adding blank padding pages
+      #   if needed to ensure the envelop stuffer will work correctly (ie each letter starts on an
+      #   odd page)
+      # - combines all these letter PDFs into one batch PDF. The output filepath is stored on the
+      # batch model.
+      #
+      # Note that this class creates files and combines them using ghost script.
+      # These operations take place in the current working directory, so to use this class
+      # you might need to create a OS tmp folder first and cdhir into it. See the spec for an
+      # example.
       class BatchCompilePdfs
         include PdfCombining
         PAGE_COUNTS = %w(2 3 4 5 6 7 8 9 10).freeze
@@ -24,6 +31,7 @@ module Renalware
           Rails.logger.info "Compiling letter PDFs for batch #{batch.id} in folder #{dir}"
         end
 
+        # rubocop:disable Metrics/AbcSize
         def call
           batch.status = :processing
           batch.save_by!(user)
@@ -36,6 +44,7 @@ module Renalware
           batch.status = :awaiting_printing
           batch.save_by!(user)
         end
+        # rubocop:enable Metrics/AbcSize
 
         private
 
@@ -75,6 +84,8 @@ module Renalware
           Dir.chdir(working_folder) do
             letter_filename = write_letter_to_pdf_file(letter)
             letter.recipients.each do |recipient|
+              next if recipient.emailed_at.present?
+
               Rails.logger.info " Recipient #{recipient.id}"
               filenames << write_recipient_cover_sheet_pdf(letter, recipient)
               filenames << letter_filename

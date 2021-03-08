@@ -42,7 +42,7 @@ module LettersSpecHelper
     end
   end
 
-  def create_aproved_letter_to_patient_with_cc_to_gp_and_one_contact(
+  def create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
     user: nil,
     body: "test",
     page_count: 1,
