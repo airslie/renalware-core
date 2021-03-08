@@ -42,7 +42,6 @@ module Renalware
       10.times do
         letter = Letters::Letter::PendingReview.create!(
           patient: patient,
-          issued_on: 1.day.ago,
           pathology_timestamp: 1.day.ago,
           event: clinics_patient.clinic_visits.first,
           clinical: true,

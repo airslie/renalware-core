@@ -27,8 +27,3 @@ Feature: Writing a letter
       | Phylis    | Sam, Kate  | Patty, Sam, Kate |
       | Patty     |            | Phylis           |
       | Sam       |            | Patty, Phylis    |
-
-  @web @javascript
-  Scenario: A nurse drafted an erroneous letter
-    When Nathalie drafts an erroneous letter
-    Then the letter is not drafted

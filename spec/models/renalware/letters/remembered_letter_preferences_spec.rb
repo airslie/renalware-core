@@ -10,8 +10,7 @@ module Renalware
           letter = instance_double("Letter",
                                    letterhead_id: 1,
                                    description: "1",
-                                   author_id: 1,
-                                   issued_on: Time.zone.today)
+                                   author_id: 1)
           session = {}
 
           RememberedLetterPreferences.new(session).persist(letter)
@@ -28,14 +27,12 @@ module Renalware
             letter_preferences: {
               letterhead_id: 1,
               description: "1",
-              author_id: 1,
-              issued_on: Time.zone.today
+              author_id: 1
             }
           }
           letter = OpenStruct.new(letterhead_id: nil,
                                   description: nil,
-                                  author_id: nil,
-                                  issued_on: nil)
+                                  author_id: nil)
 
           RememberedLetterPreferences.new(session).apply_to(letter)
 

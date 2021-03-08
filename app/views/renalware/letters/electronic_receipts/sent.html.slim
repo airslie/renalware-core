@@ -22,7 +22,7 @@
         - letter = Renalware::Letters::LetterPresenter.new(receipt.letter)
         - patient = letter.patient
         tr
-          td= l(letter.issued_on)
+          td= l(letter.date)
           td.col-width-medium-with-ellipsis= receipt.recipient
           td= l(receipt.read_at)
           td= default_patient_link(patient)

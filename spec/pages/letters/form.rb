@@ -16,10 +16,6 @@ module Pages
         contact: :letter_main_recipient_attributes_person_role_contact
       }.freeze
 
-      def issued_on=(date)
-        fill_in "Date", with: l(date)
-      end
-
       def letterhead=(letterhead)
         select letterhead, from: "Letterhead"
       end

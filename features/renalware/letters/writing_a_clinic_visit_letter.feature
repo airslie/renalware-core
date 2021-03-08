@@ -31,8 +31,3 @@ Feature: Writing a clinic visit letter
   Scenario: A doctor revised a clinic visit letter
     Given a letter for Patty's clinical visit was drafted
     Then Doug can revise Patty's clinic visit letter
-
-  @web @javascript
-  Scenario: A doctor drafted an erroneous clinic visit letter
-    When Doug drafts an erroneous clinic visit letter
-    Then the letter is not drafted

@@ -3,10 +3,10 @@
 module World
   module Letters::ClinicalLetter
     module Domain
-      def build_clinical_letter_attributes(patient, issued_on, user)
+      def build_clinical_letter_attributes(patient, created_at, user)
         valid_simple_letter_attributes(patient).merge(
           clinical: true,
-          issued_on: issued_on,
+          created_at: created_at,
           author: user,
           by: user
         )
@@ -22,10 +22,10 @@ module World
 
       # @section commands
       #
-      def draft_clinical_letter(patient:, user:, issued_on:)
+      def draft_clinical_letter(patient:, user:, created_at:)
         patient = letters_patient(patient)
 
-        letter_attributes = build_clinical_letter_attributes(patient, issued_on, user)
+        letter_attributes = build_clinical_letter_attributes(patient, created_at, user)
 
         draft_letter(patient, letter_attributes)
       end
@@ -70,7 +70,7 @@ module World
     module Web
       include Domain
 
-      def draft_clinical_letter(patient:, user:, issued_on:)
+      def draft_clinical_letter(patient:, user:, created_at:)
         login_as user
         FactoryBot.create(:letter_description, text: "Foo bar")
         visit patient_letters_letters_path(patient)
@@ -78,7 +78,6 @@ module World
         click_on "Clinical Letter"
 
         attributes = valid_simple_letter_attributes(patient)
-        fill_in "Date", with: l(attributes[:issued_on]) if issued_on.present?
         select attributes[:letterhead].name, from: "Letterhead"
         select user.to_s, from: "Author"
         select2 attributes[:description], css: ".letter_description"

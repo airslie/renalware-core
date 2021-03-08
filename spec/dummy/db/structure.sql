@@ -4289,7 +4289,7 @@ CREATE TABLE renalware.letter_letters (
     event_id integer,
     patient_id integer,
     type character varying NOT NULL,
-    issued_on date NOT NULL,
+    legacy_issued_on date,
     description character varying,
     salutation character varying,
     body text,
@@ -7642,7 +7642,7 @@ CREATE VIEW renalware.reporting_daily_letters AS
           WHERE ((letter_letters.completed_at)::date = (now())::date)) AS letters_printed_today,
     ( SELECT count(*) AS count
            FROM renalware.letter_letters
-          WHERE (((letter_letters.type)::text = 'Renalware::Letters::Letter::Draft'::text) AND (letter_letters.issued_on < (CURRENT_DATE - '14 days'::interval)))) AS draft_letters_older_than_14_days;
+          WHERE (((letter_letters.type)::text = 'Renalware::Letters::Letter::Draft'::text) AND (letter_letters.created_at < (CURRENT_DATE - '14 days'::interval)))) AS draft_letters_older_than_14_days;
 
 
 --
@@ -20873,6 +20873,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210105163944'),
 ('20210115181817'),
 ('20210305100015'),
-('20210305105830');
+('20210305105830'),
+('20210305181345'),
+('20210305191214');
 
 

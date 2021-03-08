@@ -21,7 +21,7 @@ module Renalware
     contacts = patient.contacts.limit(2).to_a
     Letters::Letter::Draft.create!(
       patient: patient,
-      issued_on: 2.days.ago,
+      created_at: 2.days.ago,
       description: Renalware::Letters::Description.first.text,
       salutation: "Dear Dr Runner",
       main_recipient_attributes: {
@@ -42,7 +42,7 @@ module Renalware
       patient: patient,
       event: clinics_patient.clinic_visits.first,
       clinical: true,
-      issued_on: 1.day.ago,
+      created_at: 1.day.ago,
       description: Renalware::Letters::Description.first.text,
       salutation: "Dear Mr Rabbit",
       main_recipient_attributes: {
@@ -58,7 +58,8 @@ module Renalware
     contact = patient.contacts.first!
     Letters::Letter::PendingReview.create!(
       patient: patient,
-      issued_on: 3.days.ago,
+      created_at: 3.days.ago,
+      submitted_for_approval_at: 1.day.ago,
       pathology_timestamp: 1.day.ago,
       description: Renalware::Letters::Description.last.text,
       main_recipient_attributes: {
@@ -74,7 +75,8 @@ module Renalware
 
     letter = Letters::Letter::PendingReview.create!(
       patient: patient,
-      issued_on: 1.day.ago,
+      created_at: 1.day.ago,
+      submitted_for_approval_at: 1.day.ago,
       pathology_timestamp: 1.day.ago,
       event: clinics_patient.clinic_visits.first,
       clinical: true,

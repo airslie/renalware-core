@@ -78,18 +78,9 @@ When(/^Nathalie drafts a letter for Patty to "(.*?)" with "(.*?)"$/) do |rec, cc
   draft_simple_letter(
     patient: @patty,
     user: @nathalie,
-    issued_on: Time.zone.today,
+    created_at: Time.zone.today,
     recipient: recipient,
     ccs: cc_recipients
-  )
-end
-
-When(/^Nathalie drafts an erroneous letter$/) do
-  draft_simple_letter(
-    patient: @patty,
-    user: @nathalie,
-    issued_on: nil,
-    recipient: @patty
   )
 end
 
@@ -97,17 +88,13 @@ When(/^Nathalie drafts a letter for Patty$/) do
   draft_simple_letter(
     patient: @patty,
     user: @nathalie,
-    issued_on: Time.zone.today,
+    created_at: Time.zone.today,
     recipient: @patty
   )
 end
 
 When(/^Doug drafts a clinic visit letter for Patty$/) do
-  draft_clinic_visit_letter(patient: @patty, user: @doug, issued_on: Time.zone.today)
-end
-
-When(/^Doug drafts an erroneous clinic visit letter$/) do
-  draft_clinic_visit_letter(patient: @patty, user: @nathalie, issued_on: nil)
+  draft_clinic_visit_letter(patient: @patty, user: @doug, created_at: Time.zone.today)
 end
 
 When(/^Nathalie updates Patty's address$/) do
@@ -181,7 +168,7 @@ When(/^Clyde adds Diana Newton as a District Nurse contact for Patty$/) do
 end
 
 When(/^Doug drafts a clinical letter for Patty$/) do
-  draft_clinical_letter(patient: @patty, user: @doug, issued_on: Time.zone.today)
+  draft_clinical_letter(patient: @patty, user: @doug, created_at: Time.zone.today)
 end
 
 # THEN
