@@ -1,12 +1,16 @@
 ruby:
   back_path = patient_hd_dashboard_path(patient)
+
 = f.input :type, as: :hidden
 .form-content
   = render layout: "renalware/shared/fieldset",
            locals: { legend: "DNA details", name: "dna" } do
-    = f.input :performed_on,
-              as: :date_picker,
-              wrapper: :horizontal_datepicker
+    = f.fields_for :duration_form, f.object.duration_form do |fdur|
+        = fdur.input :start_date, as: :date_picker, wrapper: :horizontal_datepicker
+        /= fdur.input :start_time, as: :clock_picker, wrapper: :horizontal_clockpicker
+    / = f.input :started_at,
+    /           as: :date_picker,
+    /           wrapper: :horizontal_datepicker
     = f.association :hospital_unit,
         as: :grouped_select,
         group_method: :hd_sites,

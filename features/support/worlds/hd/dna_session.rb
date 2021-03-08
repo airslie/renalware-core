@@ -30,7 +30,7 @@ module World
         {
           notes: "none",
           hospital_unit: Renalware::Hospitals::Unit.hd_sites.first,
-          performed_on: Time.zone.today,
+          started_at: Time.zone.now,
           document: {
             patient_on_holiday: "yes"
           }

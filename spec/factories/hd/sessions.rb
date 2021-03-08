@@ -9,12 +9,12 @@ FactoryBot.define do
 
     signed_on_by { accountable_actor }
 
-    performed_on { 1.week.ago }
+    started_at { 4.hours.ago }
+    stopped_at { 1.hour.ago }
+
     notes { "Some notes" }
 
-    factory :hd_open_session do
-      start_time { "11:00" }
-    end
+    factory :hd_open_session
 
     factory :hd_dna_session, class: "Renalware::HD::Session::DNA" do
       document {
@@ -25,8 +25,8 @@ FactoryBot.define do
     end
 
     factory :hd_closed_session, class: "Renalware::HD::Session::Closed" do
-      start_time { "11:00" }
-      end_time { "16:00" }
+      # started_at { 1.week.ago }
+      # stopped_at { 1.week.ago + 3.hours }
       signed_off_at { 1.day.ago }
       signed_off_by { accountable_actor }
 

@@ -6,8 +6,8 @@ module Renalware
   module HD
     module Protocol
       class SessionPresenter < HD::SessionPresenter
-        def performed_on
-          ::I18n.l(session.performed_on)
+        def started_at
+          ::I18n.l(session.started_at)
         end
       end
     end

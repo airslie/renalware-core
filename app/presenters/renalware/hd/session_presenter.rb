@@ -58,20 +58,12 @@ module Renalware
 
       def performed_on
         url = view_context.patient_hd_session_path(session.patient, session)
-        text = ::I18n.l(super)
+        text = ::I18n.l(__getobj__.performed_on)
         view_context.link_to(text, url)
       end
 
       def performed_on_date
         __getobj__.performed_on
-      end
-
-      def start_time
-        ::I18n.l(super, format: :time)
-      end
-
-      def end_time
-        ::I18n.l(super, format: :time)
       end
 
       # Returns duration as e.g. "02:01"

@@ -97,8 +97,8 @@ module Renalware
   log "Assign HD sessions to Francois RABBIT" do
     units = Hospitals::Unit.hd_sites.limit(3).to_a
     users = User.limit(3).to_a
-    start_times = ["13:00", "13:15", "13:30"]
-    end_times = ["15:30", "15:45", "16:00"]
+    # start_times = ["13:00", "13:15", "13:30"]
+    # end_times = ["15:30", "15:45", "16:00"]
     dialysate_id = HD::Dialysate.first.id
 
     # rubocop:disable Metrics/AbcSize
@@ -163,8 +163,7 @@ module Renalware
     HD::Session::Open.create!(
       patient: patient,
       hospital_unit: units.sample,
-      performed_on: Time.zone.today,
-      start_time: "09:00",
+      started_at: Time.zone.today,
       signed_on_by: users.sample,
       by: users.sample
     )
@@ -178,8 +177,7 @@ module Renalware
         HD::Session::DNA.create!(
           patient: patient,
           hospital_unit: units.sample,
-          performed_on: date,
-          start_time: start_times.sample,
+          started_at: date,
           signed_on_by: users.sample,
           by: users.sample,
           notes: "",
@@ -192,9 +190,8 @@ module Renalware
         HD::Session::Closed.create!(
           patient: HD.cast_patient(patient),
           hospital_unit: units.sample,
-          performed_on: date,
-          start_time: start_times.sample,
-          end_time: end_times.sample,
+          started_at: date,
+          stopped_at: date + 3.hours,
           signed_on_by: users.sample,
           signed_off_at: date,
           signed_off_by: users.sample,

@@ -13,7 +13,7 @@ module Renalware
 
           def each
             Session::Open
-              .where("performed_on <= ?", performed_before)
+              .where("started_at <= ?", performed_before)
               .where.not(signed_off_by: nil)
               .find_each do |session|
               # Note the bang in becomes! is crucial in copying the session attributes
@@ -25,9 +25,11 @@ module Renalware
 
         class CloseableSession < SimpleDelegator
           include Renalware::Engine.routes.url_helpers
+
           def close
             self.profile = patient.hd_profile
             self.signed_off_at = Time.zone.now
+            self.stopped_at ||= self.started_at + 3.hours # assumed default if no stopped_at present
             self.dry_weight = Renalware::Clinical::DryWeight.for_patient(patient).first
             valid? && document.valid? && save_by(Renalware::SystemUser.find)
           end

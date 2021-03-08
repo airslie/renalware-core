@@ -55,7 +55,7 @@ module Renalware
           end
 
           def procedure_time_element
-            create_node("ProcedureTime", session.start_datetime.to_datetime)
+            create_node("ProcedureTime", session.started_at.iso8601)
           end
 
           # rubocop:disable Metrics/AbcSize

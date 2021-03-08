@@ -3,6 +3,7 @@
 require_dependency "renalware/hd/base_controller"
 require "collection_presenter"
 
+# rubocop:disable Metrics/ClassLength
 module Renalware
   module HD
     class SessionsController < BaseController
@@ -32,9 +33,12 @@ module Renalware
       end
 
       def new
-        session = SessionFactory.new(patient: patient,
-                                     user: current_user,
-                                     type: params[:type]).build
+        session = SessionFactory.new(
+          patient: patient,
+          user: current_user,
+          type: params[:type]
+        ).build
+
         authorize session
         render :new, locals: locals(session)
       end
@@ -45,6 +49,7 @@ module Renalware
 
       def edit
         session = Session.for_patient(patient).find(params[:id])
+        session.duration_form = Sessions::DurationForm.duration_form_for(session)
         authorize session
         render :edit, locals: locals(session)
       rescue Pundit::NotAuthorizedError
@@ -108,10 +113,12 @@ module Renalware
       end
 
       def attributes
-        [:performed_on, :start_time, :end_time,
-         :hospital_unit_id, :hd_station_id, :notes, :dialysate_id,
-         :signed_on_by_id, :signed_off_by_id, :type,
-         document: []]
+        [
+          :hospital_unit_id, :notes, :dialysate_id,
+          :signed_on_by_id, :signed_off_by_id, :type,
+          duration_form: [:start_date, :start_time, :end_time, :overnight_dialysis],
+          document: []
+        ]
       end
 
       def document_attributes
@@ -127,3 +134,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

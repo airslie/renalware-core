@@ -2,7 +2,7 @@ tbody(class=[session.state, stripe_class])
   tr
     td.toggleable--toggler-container.noprint= row_toggler
     td.noprint= session.edit_or_view_url
-    td= session.performed_on
+    td= l(session.started_at.to_date)
     td= session.hospital_unit_unit_code
     td(colspan=16) Did not attend
   tr

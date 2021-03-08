@@ -28,9 +28,11 @@ module Renalware
           end
 
           def within_period(starting_on, ending_on)
-            where("performed_on >= ? and performed_on <= ?",
-                  starting_on.beginning_of_day,
-                  ending_on.end_of_day)
+            where(
+              "started_at >= ? and started_at <= ?",
+              starting_on.beginning_of_day,
+              ending_on.end_of_day
+            )
           end
 
           def not_ongoing

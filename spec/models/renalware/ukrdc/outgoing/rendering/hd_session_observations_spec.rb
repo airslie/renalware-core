@@ -11,9 +11,8 @@ module Renalware
         describe "pre and post body weight measurements" do
           it "renders with with the correct pre/post indicator" do
             session = Renalware::HD::Session::Closed.new(
-              performed_on: "2018-01-01",
-              start_time: "12:01",
-              end_time: "16:01"
+              started_at: "2018-01-01 12:01",
+              stopped_at: "2018-01-01 16:01"
             )
             session.document.observations_before.weight = "60 approx"
             session.document.observations_after.weight = "61.1 kg"

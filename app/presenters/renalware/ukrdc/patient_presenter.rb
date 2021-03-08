@@ -70,9 +70,9 @@ module Renalware
         hd_patient
           .finished_hd_sessions
           .includes(:patient, :dialysate, :updated_by)
-          .select("distinct on (hd_sessions.performed_on) *")
+          .select("distinct on (hd_sessions.started_at::date) *")
           .where("hd_sessions.updated_at > ?", changes_since)
-          .order(performed_on: :desc)
+          .order("hd_sessions.started_at::date desc")
       end
 
       def current_registration_status_rr_code

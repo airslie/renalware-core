@@ -35,9 +35,14 @@ module Renalware
       end
 
       def build_session
-        session_klass.new(
-          performed_on: Time.zone.today,
-          signed_on_by: user,
+        session_klass.new(signed_on_by: user).tap do |ses|
+          ses.duration_form = build_duration_form_object
+        end
+      end
+
+      def build_duration_form_object
+        Sessions::DurationForm.new(
+          start_date: Time.zone.today,
           start_time: current_time_rounded_to_5_minutes
         )
       end

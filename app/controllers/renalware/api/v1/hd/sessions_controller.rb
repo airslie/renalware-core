@@ -70,7 +70,7 @@ module Renalware
           def hd_session
             return if patient.blank?
 
-            @hd_session ||= patient.hd_sessions.find_by(performed_on: params[:date])
+            @hd_session ||= patient.hd_sessions.find_by(started_at: params[:date])
           end
 
           class Result
@@ -168,9 +168,8 @@ module Renalware
                 by: system_user,
                 signed_on_by: system_user,
                 hospital_unit: hospital_unit,
-                performed_on: started_at.to_date,
-                start_time: started_at.strftime("%H:%M"),
-                end_time: ended_at&.strftime("%H:%M"),
+                started_at: started_at,
+                stopped_at: ended_at,
                 machine_ip_address: machine_ip_address,
                 provider: provider,
                 document: {

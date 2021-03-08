@@ -39,46 +39,46 @@ module Renalware
         on: [:create, :update, :destroy]
       )
 
-      before_create :assign_modality
       before_save :compute_duration
+      before_create :assign_modality
 
-      scope :ordered, -> { order(performed_on: :desc) }
+      scope :ordered, -> { order(started_at: :desc) }
 
       validates :patient, presence: true
       validates :hospital_unit, presence: true
       validates :signed_on_by, presence: true
-      validates :performed_on, presence: true
-      validates :performed_on, timeliness: { type: :date }
-      validates :start_time, timeliness: { type: :time, allow_blank: true }
-      validates :end_time, timeliness: { type: :time, allow_blank: true, after: :start_time }
+      validates :started_at, presence: true, timeliness: { type: :datetime }
+      validates :stopped_at, timeliness: { type: :datetime, allow_blank: true }
 
       delegate :hospital_centre, to: :hospital_unit, allow_nil: true
 
-      def start_datetime
-        datetime_at(start_time)
-      end
-
-      def stop_datetime
-        datetime_at(end_time)
-      end
+      # Virtual attr for the form object used to capture start and end of the session
+      attribute :duration_form
 
       def compute_duration
-        return unless start_time_changed? || end_time_changed?
+        return unless started_at_changed? || stopped_at_changed?
 
-        self.duration = DurationCalculator.in_minutes(start_time, end_time)
-      end
-
-      private
-
-      def datetime_at(time)
-        return if performed_on.blank?
-        return performed_on.to_time if start_time.blank?
-
-        Time.zone.parse("#{performed_on.strftime('%F')} #{time.strftime('%T')}")
+        self.duration = DurationCalculator.in_minutes(started_at, stopped_at)
       end
 
       def assign_modality
         self.modality_description = patient.modality_description
+      end
+
+      def started_at_date
+        started_at&.to_date
+      end
+
+      def performed_on
+        started_at_date
+      end
+
+      def start_time
+        started_at&.strftime("%H:%M")
+      end
+
+      def end_time
+        stopped_at&.strftime("%H:%M")
       end
     end
   end

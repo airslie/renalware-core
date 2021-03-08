@@ -5,7 +5,7 @@ module Renalware
     module Sessions
       class OngoingQuery
         def initialize(q: nil)
-          @q = q || { s: "performed_on desc" }
+          @q = q || { s: "started_at desc" }
         end
 
         def call

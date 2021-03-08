@@ -11,7 +11,7 @@ tr
 
   td= session.hospital_unit
   td= l session.performed_on
-  td= l(session.start_time, format: :time)
-  td= l(session.end_time, format: :time)
+  td= session.start_time
+  td= session.end_time
   td= session.signed_on_by
   td= session.signed_off_by

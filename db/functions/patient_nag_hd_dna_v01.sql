@@ -22,15 +22,15 @@ begin
       patient_id
       ,'medium' as severity
       ,null as value
-      ,performed_on
+      ,started_at
       from hd_sessions hds
       where type = 'Renalware::HD::Session::DNA'
-        and days_between(hds.performed_on, current_timestamp::timestamp) <= 31
-      order by patient_id, hds.performed_on desc
+        and days_between(hds.started_at, current_timestamp::timestamp) <= 31
+      order by patient_id, hds.started_at desc
   )
   select
     into out_severity, out_value, out_date
-    coalesce(dna.severity, 'none'), dna.value, dna.performed_on
+    coalesce(dna.severity, 'none'), dna.value, dna.started_at::date
   from patients p left outer join dna on dna.patient_id = p.id
   where p.id = p_id;
  end

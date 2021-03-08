@@ -1,7 +1,7 @@
 .document-view
   = render "renalware/shared/attributes_group",
         legend: "Session details", destination: "",
-        models: { session => [:performed_on,
+        models: { session => [:started_at_date,
                               :hospital_unit,
                               :notes,
                               :signed_on_by] }

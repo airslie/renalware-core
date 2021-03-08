@@ -23,7 +23,14 @@ module Renalware
         def call(params:, id: nil, signing_off: false)
           @params = parse_params(params)
           session = find_or_build_session(id)
+          # session.duration_form = Sessions::DurationForm.duration_form_for(session)
+
           session = update_session_attributes(session, signing_off)
+          duration_form = Sessions::DurationForm.new(params[:duration_form])
+          duration_form.require_all_fields = signing_off
+          session.duration_form = duration_form
+          session.started_at = session.duration_form.started_at
+          session.stopped_at = session.duration_form.stopped_at
 
           if session.save
             # Might be cleaner if something listened for this event and created this job there?

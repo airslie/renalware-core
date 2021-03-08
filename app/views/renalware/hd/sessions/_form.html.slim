@@ -11,7 +11,6 @@ ruby:
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Sign-In", name: "signin" } do
-      = f.input :performed_on, as: :date_picker, wrapper: :horizontal_datepicker
 
       / Cascading dropdowns hospital units -> hd stations
       div(data-controller="dependent-select"
@@ -37,9 +36,10 @@ ruby:
                         input_html: { "data-dependent-select-target" => "target" }
 
 
-      = f.input :start_time,
-                as: :clock_picker,
-                wrapper: :horizontal_clockpicker
+      = f.fields_for :duration_form, f.object.duration_form do |fdur|
+        = fdur.input :start_date, as: :date_picker, wrapper: :horizontal_datepicker
+        = fdur.input :start_time, as: :clock_picker, wrapper: :horizontal_clockpicker
+
       = f.association :signed_on_by,
                       as: :user_picker,
                       collection: Renalware::User.ordered,
@@ -48,7 +48,10 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Sign-Off", name: "signoff" } do
 
-      = f.input :end_time, as: :clock_picker, wrapper: :horizontal_clockpicker
+      = f.simple_fields_for :duration_form, f.object.duration_form do |fdur|
+        = fdur.input :end_time, as: :clock_picker, wrapper: :horizontal_clockpicker
+        = fdur.input :overnight_dialysis, as: :boolean
+
       = f.association :signed_off_by,
                       as: :user_picker,
                       collection: Renalware::User.ordered,

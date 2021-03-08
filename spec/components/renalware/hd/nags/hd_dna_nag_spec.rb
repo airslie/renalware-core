@@ -20,9 +20,9 @@ describe "HD DNA nag", type: :component, caching: true do
   context "when the patient has an HD DNA Session in the last 30 days" do
     it "has severity: medium and date: session date" do
       sessions = [
-        create(:hd_dna_session, patient: patient, performed_on: 30.days.ago.to_date),
-        create(:hd_dna_session, patient: patient, performed_on: 31.days.ago.to_date),
-        create(:hd_session, patient: patient, performed_on: 2.days.ago.to_date, start_time: "11:00")
+        create(:hd_dna_session, patient: patient, started_at: 30.days.ago),
+        create(:hd_dna_session, patient: patient, started_at: 31.days.ago),
+        create(:hd_session, patient: patient, started_at: 2.days.ago)
       ]
 
       nag = definition.execute_sql_function_for(patient)
@@ -30,7 +30,7 @@ describe "HD DNA nag", type: :component, caching: true do
       expect(nag).to have_attributes(
         severity: :medium,
         value: nil,
-        date: sessions.first.performed_on
+        date: sessions.first.started_at.to_date
       )
     end
   end
@@ -40,7 +40,7 @@ describe "HD DNA nag", type: :component, caching: true do
       create(
         :hd_dna_session,
         patient: patient,
-        performed_on: 33.days.ago.to_date
+        started_at: 33.days.ago
       )
       nag = definition.execute_sql_function_for(patient)
 

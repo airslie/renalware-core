@@ -18,8 +18,10 @@ module Renalware
             session = factory.build
 
             expect(session).to be_a Session::Open
-            expect(session.performed_on.to_s).to eq("2004-11-24")
-            expect(session.start_time.to_s(:time)).to eq("01:00")
+
+            expect(session.duration_form.start_date).to eq(Date.parse("2004-11-24"))
+            # start_time will be rounded to nearest 5 minutes
+            expect(session.duration_form.start_time.strftime("%H:%M")).to eq("01:00")
             expect(session.signed_on_by).to eq(user)
           end
 
@@ -58,8 +60,8 @@ module Renalware
             session = factory.build
 
             expect(session).to be_a Session::DNA
-            expect(session.performed_on.to_s).to eq("2004-11-24")
-            expect(session.start_time.to_s(:time)).to eq("01:00")
+            expect(session.duration_form.start_date.to_s).to eq("2004-11-24")
+            expect(session.duration_form.start_time.strftime("%H:%M")).to eq("01:00") # rounded
             expect(session.signed_on_by).to eq(user)
           end
 
