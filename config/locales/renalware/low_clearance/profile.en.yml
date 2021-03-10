@@ -23,7 +23,7 @@ en:
           transplant_referred_on: Referral date
           home_hd_possible: Home HD
           self_care_possible: Self Care
-          access_notes: Advanced Kidney Care access notes
+          access_notes: AKCC access notes
   activemodel:
     attributes:
       renalware/low_clearance/profile_document:
@@ -43,7 +43,7 @@ en:
         transplant_referred_on: Referral date
         home_hd_possible: Home HD
         self_care_possible: Self Care
-        access_notes: Advanced Kidney Care access notes
+        access_notes: AKCC access notes
   enumerize:
     renalware/low_clearance/profile_document:
       dialysis_plan:

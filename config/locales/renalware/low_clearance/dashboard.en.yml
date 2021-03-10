@@ -4,7 +4,7 @@ en:
     low_clearance:
       dashboards:
         show:
-          title: Advanced Kidney Care Summary
+          title: AKCC Summary
         page_actions:
           mdm: MDM
           add_profile: Profile

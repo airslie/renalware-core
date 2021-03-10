@@ -71,8 +71,8 @@ module Renalware
     end
 
     Renalware::System::ViewMetadata.find_or_create_by!(
-      view_name: "low_clearance_mdm_patients",
-      scope: "low_clearance",
+      view_name: "akcc_mdm_patients",
+      scope: "akcc",
       category: "mdm",
       slug: "all",
       schema_name: "renalware"

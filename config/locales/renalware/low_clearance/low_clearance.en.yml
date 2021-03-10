@@ -4,7 +4,7 @@ en:
     low_clearance:
       mdm_patients:
         index:
-          page_title: Advanced Kidney Care MDM Patients
+          page_title: AKCC MDM Patients
         tabs:
           tab:
             all: All

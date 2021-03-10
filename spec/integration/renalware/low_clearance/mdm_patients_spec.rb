@@ -22,7 +22,7 @@ describe "Advanced Kidney Care Patients", type: :system do
       login_as_clinical
       visit low_clearance_mdm_patients_path
 
-      expect(page).to have_content("Advanced Kidney Care MDM Patients")
+      expect(page).to have_content("AKCC MDM Patients")
     end
 
     it "clicking on filters works" do

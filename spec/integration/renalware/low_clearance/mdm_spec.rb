@@ -17,7 +17,7 @@ describe "Advanced Kidney Care MDM", type: :system do
     expect(page).to have_content("Events")
     expect(page).to have_content("Letters")
     expect(page).to have_content("Pathology")
-    expect(page).to have_content("Advanced Kidney Care")
+    expect(page).to have_content("AKCC")
     expect(page).to have_content("Date first seen")
   end
 end
