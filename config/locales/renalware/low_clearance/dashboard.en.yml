@@ -4,9 +4,9 @@ en:
     low_clearance:
       dashboards:
         show:
-          title: Low Clearance Summary
+          title: AKCC Summary
         page_actions:
           mdm: MDM
           add_profile: Profile
           missing_modality_warning: >
-              Some actions will be unavailable until you add the Low Clearance modality
+              Some actions will be unavailable until you add the Advanced Kidney Care modality

@@ -2,9 +2,16 @@
 en:
   renalware:
     low_clearance:
+      profiles:
+        edit:
+          akcc_summary:
+            title: AKCC Summary
+      mdm:
+        low_clearance_profile:
+          title: AKCC Profile
       mdm_patients:
         index:
-          page_title: Low Clearance MDM Patients
+          page_title: AKCC MDM Patients
         tabs:
           tab:
             all: All

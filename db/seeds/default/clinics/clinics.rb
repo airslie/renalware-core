@@ -16,7 +16,7 @@ module Renalware
       "Haemodialysis",
       "Home Haemodialysis",
       "Iron",
-      "Low Clearance",
+      "Advanced Kidney Care",
       "Transplant",
       "Walk-in",
       "Woolwich Outreach"

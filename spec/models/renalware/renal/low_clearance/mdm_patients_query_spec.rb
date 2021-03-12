@@ -34,7 +34,7 @@ module Renalware
       end
 
       context "when unfiltered" do
-        it "returns only Low Clearance patients" do
+        it "returns only AKCC patients" do
           lcc_patient = create_lcc_patient
           create(:patient)
 

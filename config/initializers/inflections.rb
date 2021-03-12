@@ -23,6 +23,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   # end
 
   inflect.acronym "AKI"
+  inflect.acronym "AKCC"
   inflect.acronym "APD"
   inflect.acronym "API"
   inflect.acronym "BLT"

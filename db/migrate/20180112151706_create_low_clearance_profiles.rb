@@ -13,7 +13,7 @@ class CreateLowClearanceProfiles < ActiveRecord::Migration[5.1]
       sql_for_modality_type = lambda { |mod_desc_type|
         <<-SQL.squish
           UPDATE modality_descriptions SET type = #{connection.quote(mod_desc_type)}
-          WHERE name = 'Low Clearance';
+          WHERE name = 'Low Clearance' or name = 'Advanced Kidney Care';
         SQL
       }
 
