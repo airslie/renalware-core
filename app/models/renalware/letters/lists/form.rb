@@ -29,6 +29,7 @@ module Renalware
 
           attribute :s, String # sort order, not really part of the form
           attribute :enclosures_present, Boolean
+          attribute :notes_present, Boolean
           attribute :state_eq, Integer
           attribute :author_id_eq, Integer
           attribute :created_by_id_eq, Integer
@@ -80,7 +81,7 @@ module Renalware
           end
 
           def disabled_inputs
-            [:enclosures_present, :state_eq]
+            [:enclosures_present, :notes_present, :state_eq]
           end
 
           def allow_blank_inputs
@@ -88,6 +89,10 @@ module Renalware
           end
 
           def enclosures_present
+            false
+          end
+
+          def notes_present
             false
           end
 

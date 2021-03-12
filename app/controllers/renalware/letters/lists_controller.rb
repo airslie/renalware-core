@@ -61,6 +61,7 @@ module Renalware
       end
 
       # These are used also when creating a batch.
+      # rubocop:disable Metrics/MethodLength
       def filter_parameters
         return {} unless params.key?(:q)
 
@@ -68,6 +69,7 @@ module Renalware
           .require(:q)
           .permit(
             :enclosures_present,
+            :notes_present,
             :state_eq,
             :author_id_eq,
             :created_by_id_eq,
@@ -76,6 +78,7 @@ module Renalware
             :s
           )
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

@@ -16,6 +16,11 @@
                       as: :select,
                       label: "Enclosure",
                       input_html: { disabled: form.disabled_inputs.include?(:enclosures_present) }
+        .small-6.medium-1.large-1.columns
+            = f.input :notes_present,
+                      as: :select,
+                      label: "Notes",
+                      input_html: { disabled: form.disabled_inputs.include?(:notes_present) }
         .small-6.medium-2.large-2.columns
           = f.input :state_eq,
                     collection: form.letter_state_options,
@@ -33,7 +38,7 @@
                     as: :user_picker,
                     collection: form.typist_options,
                     label: "Typist"
-        .small-6.medium-2.large-2.columns
+        .small-6.medium-2.large-1.columns
           = f.input :letterhead_id_eq,
                     collection: form.letterhead_options,
                     label: "Letterhead"
@@ -62,6 +67,7 @@
                       method: :post,
                       remote: true do |f|
       = f.input :enclosures_present, as: :hidden
+      = f.input :notes_present, as: :hidden
       = f.input :state_eq, as: :hidden
       = f.input :author_id_eq, as: :hidden
       = f.input :created_by_id_eq, as: :hidden
