@@ -9,6 +9,18 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.1.0
+### Added
+- Add event categories (already supported at Barts) #3419
+### Changed
+- Use approved_at date as date displayed on final letter #3313
+- Move named nurse into clinical profile #3424
+- Exclude already-emailed letter recipients from batch printed letters #3388
+- Improve support for other locales including proof-of-concept Portuguese support #3386
+- Rename Low Clearance to Advanced Kidney Care #3383
+- Use icon to indicate letters notes present, and exclude letters with notes from batch printing #3432
+### Fixed
+
 ## 2.0.167
 ### Added
 ### Changed
