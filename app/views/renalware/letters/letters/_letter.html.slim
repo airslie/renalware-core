@@ -12,6 +12,12 @@
                   method: :delete,
                   data: { confirm: I18n.t("prompts.confirm_delete") }
 
+    td.text-center
+      - if letter.notes.present?
+        i.fas.fa-comment.text-yellow-500.hover:text-yellow-600(title=letter.notes)
+    td.text-center
+      - if letter.enclosures.present?
+        i.fas.fa-paperclip.text-green-500.pr-1(title=letter.enclosures)
     td.state
       span= letter.state_description
     td= l(letter.effective_date)
@@ -26,8 +32,4 @@
     td
     td(colspan=9)
       .quick-preview
-        = simple_format letter.body
-        - if letter.notes.present?
-          .admin-notes
-            i Notes:&nbsp;&nbsp;
-            = letter.notes
+        = render "renalware/letters/letters/toggled_body", letter: letter

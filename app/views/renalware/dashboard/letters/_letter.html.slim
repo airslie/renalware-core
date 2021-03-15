@@ -14,9 +14,4 @@ tr(class=letter.state.dasherize)
   td
   td(colspan=7)
     .quick-preview
-      p
-        = simple_format letter.body
-      - if letter.notes.present?
-        .admin-notes
-          i Notes:&nbsp;&nbsp;
-          = letter.notes
+      = render "renalware/letters/letters/toggled_body", letter: letter

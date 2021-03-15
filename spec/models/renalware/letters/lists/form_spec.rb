@@ -29,6 +29,7 @@ module Renalware
           let(:params) do
             {
               enclosures_present: true,
+              notes_present: true,
               state_eq: 1,
               author_id_eq: 2,
               created_by_id_eq: 3,

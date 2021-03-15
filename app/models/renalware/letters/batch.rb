@@ -11,6 +11,7 @@ module Renalware
       attr_accessor(
         :url,
         :enclosures_present,
+        :notes_present,
         :state_eq,
         :author_id_eq,
         :created_by_id_eq,
