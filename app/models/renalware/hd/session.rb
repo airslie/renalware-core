@@ -19,6 +19,7 @@ module Renalware
       has_states :open, :closed, :dna
 
       belongs_to :patient, touch: true
+      belongs_to :provider, class_name: "HD::Provider"
       belongs_to :profile
       belongs_to :station, foreign_key: "hd_station_id"
       belongs_to :dry_weight, class_name: "Renalware::Clinical::DryWeight"
