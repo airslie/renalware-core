@@ -98,8 +98,16 @@ module Renalware
                 hospital_unit: form.hospital_unit,
                 performed_on: form.started_at.to_date,
                 start_time: form.started_at.strftime("%H:%M"),
+                end_time: form.ended_at&.strftime("%H:%M"),
+                machine_ip_address: form.machine_ip_address,
                 signed_on_by: user,
-                by: user
+                provider: form.provider,
+                by: user,
+                document: {
+                  info: {
+                    machine_no: form.machine_number
+                  }
+                }
               )
               session.save!
               ::Success.new(Result.new(session_id: session.id))

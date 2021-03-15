@@ -3871,7 +3871,9 @@ CREATE TABLE renalware.hd_sessions (
     dialysate_id bigint,
     uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     external_id bigint,
-    deleted_at timestamp without time zone
+    deleted_at timestamp without time zone,
+    provider_id bigint,
+    machine_ip_address character varying
 );
 
 
@@ -14671,6 +14673,13 @@ CREATE INDEX index_hd_sessions_on_profile_id ON renalware.hd_sessions USING btre
 
 
 --
+-- Name: index_hd_sessions_on_provider_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_provider_id ON renalware.hd_sessions USING btree (provider_id);
+
+
+--
 -- Name: index_hd_sessions_on_signed_off_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -19648,6 +19657,14 @@ ALTER TABLE ONLY renalware.pd_regime_bags
 
 
 --
+-- Name: hd_sessions fk_rails_cb86dc6d45; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_sessions
+    ADD CONSTRAINT fk_rails_cb86dc6d45 FOREIGN KEY (provider_id) REFERENCES renalware.hd_providers(id);
+
+
+--
 -- Name: renal_profiles fk_rails_cd10bc0ddf; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -20994,6 +21011,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210305181345'),
 ('20210305191214'),
 ('20210310154134'),
+('20210315151618'),
 ('20210329090650'),
 ('20210413180237');
 

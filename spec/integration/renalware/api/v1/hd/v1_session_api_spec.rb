@@ -33,8 +33,8 @@ describe "V1 HD Session API", type: :system do
     {
       provider_name: provider.name,
       mrn: patient.local_patient_id_2,
-      started_at: "2021-03-01 22:22:22",
-      ended_at: "2021-03-02 01:01:01",
+      started_at: "2021-03-01 10:22:22",
+      ended_at: "2021-03-01 13:01:01",
       machine_number: "123",
       machine_ip_address: "",
       hospital_unit_code: hospital_unit.unit_code,
@@ -53,7 +53,7 @@ describe "V1 HD Session API", type: :system do
   end
 
   context "when json payload is valid" do
-    it "succeeds" do
+    it "returns 200 OK with json containing the session id" do
       url = url_with_credentials
 
       put url, params: { session: valid_session_json }
@@ -64,6 +64,40 @@ describe "V1 HD Session API", type: :system do
           "errors" => [],
           "session_id" => patient.hd_sessions.last.id
         }
+      )
+    end
+
+    it "creates a session associated with the patient and provider" do
+      url = url_with_credentials
+
+      put url, params: { session: valid_session_json }
+
+      expect(response).to be_ok
+      session_id = JSON.parse(response.body)["session_id"]
+      session = Renalware::HD::Session.find(session_id)
+
+      expect(session).to have_attributes(
+        patient: patient,
+        provider: provider,
+        hospital_unit: hospital_unit,
+        performed_on: Date.parse(valid_session_json[:started_at]),
+        machine_ip_address: valid_session_json[:machine_ip_address],
+        signed_on_by: auser,
+        created_by: auser
+      )
+
+      # NOTE: performed_on + start_time + end_time is moving to
+      # started_at and stopped_at in a pending PR
+      expect(session.start_time.strftime("%H:%M")).to eq(
+        Time.zone.parse(valid_session_json[:started_at]).strftime("%H:%M")
+      )
+
+      expect(session.end_time.strftime("%H:%M")).to eq(
+        Time.zone.parse(valid_session_json[:ended_at]).strftime("%H:%M")
+      )
+
+      expect(session.document.info).to have_attributes(
+        machine_no: valid_session_json[:machine_number]
       )
     end
   end
