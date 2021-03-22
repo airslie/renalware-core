@@ -20,7 +20,10 @@ class CreateEventCategories < ActiveRecord::Migration[5.2]
       reversible do |direction|
         direction.up do
           category = Renalware::Events::Category.find_or_create_by!(name: "General")
-          Renalware::Events::Type.where(category_id: nil).update_all(category_id: category.id)
+          Renalware::Events::Type
+            .with_deleted
+            .where(category_id: nil)
+            .update_all(category_id: category.id)
         end
         direction.down do
           # noop

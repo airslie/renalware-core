@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.1.1
+### Added
+### Changed
+### Fixed
+- Fixed event category migration error
+
 ## 2.1.0
 ### Added
 - Add event categories (already supported at Barts) #3419
