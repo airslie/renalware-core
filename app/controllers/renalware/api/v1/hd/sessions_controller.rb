@@ -80,11 +80,32 @@ module Renalware
 
             def call
               user = Renalware::User.first
-              hd_session.update!(
+              params = {
                 start_time: form.started_at.strftime("%H:%M"),
                 by: user
-              )
-              ::Success.new(Result.new(session_id: hd_session.id))
+              }
+              # {
+              #   document: {
+              #     info: {
+              #       machine_no: form.machine_number
+              #     },
+              #     dialysis: {
+              #       arterial_pressure: form.arterial_pressure,
+              #       venous_pressure: form.venous_pressure,
+              #       fluid_removed: form.fluid_removed,
+              #       blood_flow: form.blood_flow_rate,
+              #       flow_rate: form.dialysate_flow_rate,
+              #       machine_urr: form.urr,
+              #       machine_ktv: form.ktv,
+              #       litres_processed: form.treated_blood_volume
+              #     }
+              #   }
+              # }
+              if hd_session.update(params)
+                ::Success.new(Result.new(session_id: hd_session.id))
+              else
+                ::Failure.new(Result.new(session_id: hd_session.id))
+              end
             end
           end
 
@@ -106,6 +127,16 @@ module Renalware
                 document: {
                   info: {
                     machine_no: form.machine_number
+                  },
+                  dialysis: {
+                    arterial_pressure: form.arterial_pressure,
+                    venous_pressure: form.venous_pressure,
+                    fluid_removed: form.fluid_removed,
+                    blood_flow: form.blood_flow_rate,
+                    flow_rate: form.dialysate_flow_rate,
+                    machine_urr: form.urr,
+                    machine_ktv: form.ktv,
+                    litres_processed: form.treated_blood_volume
                   }
                 }
               )
@@ -130,6 +161,14 @@ module Renalware
             attribute :hospital_unit_code, :string
             attribute :state, :string
             attribute :patient
+            attribute :dialysate_flow_rate, :integer
+            attribute :blood_flow_rate, :integer
+            attribute :ktv, :float
+            attribute :urr, :float
+            attribute :treated_blood_volume, :float
+            attribute :fluid_removed, :float # ?
+            attribute :arterial_pressure, :integer
+            attribute :venous_pressure, :integer
 
             validates :machine_number, presence: true
             validates :provider_name, presence: true # the param
