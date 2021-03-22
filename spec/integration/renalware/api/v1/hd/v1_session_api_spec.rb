@@ -38,7 +38,15 @@ describe "V1 HD Session API", type: :system do
       machine_number: "123",
       machine_ip_address: "",
       hospital_unit_code: hospital_unit.unit_code,
-      state: :open # or closed
+      state: :open, # or closed
+      dialysate_flow_rate: 160,
+      blood_flow_rate: 164,
+      ktv: 3,
+      urr: 6,
+      fluid_removed: 2.2,
+      venous_pressure: 182,
+      treated_blood_volume: 13,
+      arterial_pressure: 10
     }
   end
 
@@ -98,6 +106,17 @@ describe "V1 HD Session API", type: :system do
 
       expect(session.document.info).to have_attributes(
         machine_no: valid_session_json[:machine_number]
+      )
+
+      expect(session.document.dialysis).to have_attributes(
+        arterial_pressure: valid_session_json[:arterial_pressure],
+        venous_pressure: valid_session_json[:venous_pressure],
+        fluid_removed: valid_session_json[:fluid_removed],
+        blood_flow: valid_session_json[:blood_flow_rate],
+        flow_rate: valid_session_json[:dialysate_flow_rate],
+        machine_urr: valid_session_json[:urr],
+        machine_ktv: valid_session_json[:ktv],
+        litres_processed: valid_session_json[:treated_blood_volume]
       )
     end
   end
@@ -202,18 +221,19 @@ describe "V1 HD Session API", type: :system do
       session = create(:hd_session, patient: patient, performed_on: adate, start_time: "01:00")
 
       put url_with_credentials,
-          params: { session: valid_session_json.update(started_at: "2021-03-01 22:22:00") }
+          params: { session: valid_session_json.update(dialysate_flow_rate: 165) }
 
-      expect(response).to be_ok
       expect(JSON.parse(response.body)).to eq(
         {
           "errors" => [],
           "session_id" => session.id
         }
       )
+      expect(response).to be_ok
 
-      session.reload
-      expect(session.start_time.strftime("%H:%M")).to eq("22:22")
+      sess = session.reload
+
+      expect(sess.document.dialysis.flow_rate).to eq(165)
     end
   end
 end
