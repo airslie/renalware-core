@@ -9,6 +9,7 @@ module Renalware::Drugs
     it :aggregate_failures do
       is_expected.to have_many(:classifications)
       is_expected.to have_many(:drug_types).through(:classifications)
+      is_expected.to be_versioned
     end
 
     it_behaves_like "a Paranoid model"

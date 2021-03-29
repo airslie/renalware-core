@@ -14,6 +14,11 @@ module Renalware
 
       validates :name, presence: true
 
+      has_paper_trail(
+        versions: { class_name: "Renalware::Drugs::Version" },
+        on: [:create, :update, :destroy]
+      )
+
       def self.for(code)
         joins(:drug_types).where(drug_types: { code: code.to_s })
       end
