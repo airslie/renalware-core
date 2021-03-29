@@ -2495,6 +2495,41 @@ ALTER SEQUENCE renalware.drug_types_id_seq OWNED BY renalware.drug_types.id;
 
 
 --
+-- Name: drug_versions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.drug_versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: drug_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.drug_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: drug_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.drug_versions_id_seq OWNED BY renalware.drug_versions.id;
+
+
+--
 -- Name: drugs; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -10333,6 +10368,13 @@ ALTER TABLE ONLY renalware.drug_types_drugs ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: drug_versions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.drug_versions ALTER COLUMN id SET DEFAULT nextval('renalware.drug_versions_id_seq'::regclass);
+
+
+--
 -- Name: drugs id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -11808,6 +11850,14 @@ ALTER TABLE ONLY renalware.drug_types_drugs
 
 ALTER TABLE ONLY renalware.drug_types
     ADD CONSTRAINT drug_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: drug_versions drug_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.drug_versions
+    ADD CONSTRAINT drug_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -13945,6 +13995,13 @@ CREATE UNIQUE INDEX index_drug_types_on_code ON renalware.drug_types USING btree
 --
 
 CREATE UNIQUE INDEX index_drug_types_on_name ON renalware.drug_types USING btree (name);
+
+
+--
+-- Name: index_drug_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_drug_versions_on_item_type_and_item_id ON renalware.drug_versions USING btree (item_type, item_id);
 
 
 --
@@ -20935,6 +20992,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210305105830'),
 ('20210305181345'),
 ('20210305191214'),
-('20210310154134');
+('20210310154134'),
+('20210329090650');
 
 
