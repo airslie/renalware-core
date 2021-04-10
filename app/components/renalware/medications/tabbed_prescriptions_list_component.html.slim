@@ -34,7 +34,6 @@ div(data-controller="tabs" data-tabs-active-tab="active")
               - if group.show_administer_on_hd
                 td= prescription.administer_on_hd?
               td
-                /- byebug
                 = prescription.provider
               td= I18n.l prescription.prescribed_on
               - if group.show_terminated_on

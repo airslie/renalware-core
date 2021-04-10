@@ -1,0 +1,17 @@
+= within_new_admin_layout(title: "New",
+  breadcrumbs: breadcrumb_for("Nag Definitions", system_nag_definitions_path)) do
+  = simple_form_for definition, method: :post do |f|
+    = f.input :description, as: :string
+    = f.input :title, as: :string
+    = f.input :hint, as: :text
+    = f.input :importance, as: :string
+    = f.input :sql_function_name,
+              as: :grouped_select,
+              group_method: :last,
+              collection: scoped_nag_sql_function_names
+    = f.input :relative_link,
+              as: :string,
+              hint: "Use the :patient_id placholder in lieu of patient id"
+    = f.submit t("btn.save"), class: "button"
+    '  or
+    = link_to t("btn.cancel"), system_nag_definitions_path
