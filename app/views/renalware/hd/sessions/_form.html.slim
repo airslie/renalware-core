@@ -12,12 +12,30 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Sign-In", name: "signin" } do
       = f.input :performed_on, as: :date_picker, wrapper: :horizontal_datepicker
-      = f.association :hospital_unit,
-                      as: :grouped_select,
-                      group_method: :hd_sites,
-                      collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
-                      label_method: :to_s,
-                      wrapper: :horizontal_medium
+
+      / Cascading dropdowns hospital units -> hd stations
+      div(data-controller="dependent-select"
+          data-dependent-select-display-attribute="name"
+          data-dependent-select-source-route-part="hd/units"
+          data-dependent-select-target-route-part="stations")
+
+        / The pre-loaded unit here will be the one specified in their hd profile
+        = f.association :hospital_unit,
+                        as: :grouped_select,
+                        group_method: :hd_sites,
+                        collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
+                        label_method: :to_s,
+                        wrapper: :horizontal_medium,
+                        input_html: { data: { "dependent-select-target" => "source", action: "dependent-select#handleSelectChange" }}
+
+        / When the user changes the unit, the stations list is refreshed using a stimulus controller
+        / TODO: Need to also load in the initial list of stations for the current unit, and allow a blank option
+        = f.association :station,
+                        collection: Renalware::HD::Station.where(hospital_unit_id: session.hospital_unit_id),
+                        label_method: :name,
+                        wrapper: :horizontal_medium,
+                        input_html: { data: { target: "dependent-select.target" } }
+
       = f.input :start_time,
                 as: :clock_picker,
                 wrapper: :horizontal_clockpicker

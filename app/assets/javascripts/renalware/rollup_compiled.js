@@ -2567,15 +2567,15 @@ var StringMapObserver = function() {
 }();
 
 function add(map, key, value) {
-  fetch(map, key).add(value);
+  fetch$1(map, key).add(value);
 }
 
 function del(map, key, value) {
-  fetch(map, key).delete(value);
+  fetch$1(map, key).delete(value);
   prune(map, key);
 }
 
-function fetch(map, key) {
+function fetch$1(map, key) {
   var values = map.get(key);
   if (!values) {
     values = new Set();
@@ -7933,6 +7933,46 @@ _defineProperty(_default$c, "targets", [ "section", "link" ]);
 
 _defineProperty(_default$c, "classes", [ "open" ]);
 
+var _default$d = function(_Controller) {
+  _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass(_default, [ {
+    key: "handleSelectChange",
+    value: function handleSelectChange() {
+      this.populateSelect(this.sourceTarget.value);
+    }
+  }, {
+    key: "populateSelect",
+    value: function populateSelect(sourceId) {
+      var _this = this;
+      var targetId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      fetch("/".concat(this.data.get("sourceRoutePart"), "/").concat(sourceId, "/").concat(this.data.get("targetRoutePart"), ".json"), {
+        credentials: "same-origin"
+      }).then(function(response) {
+        return response.json();
+      }).then(function(data) {
+        var selectBox = _this.targetTarget;
+        selectBox.innerHTML = "";
+        selectBox.appendChild(document.createElement("option"));
+        data.forEach(function(item) {
+          var opt = document.createElement("option");
+          opt.value = item.id;
+          opt.innerHTML = item[_this.data.get("displayAttribute")];
+          opt.selected = parseInt(targetId) === item.id;
+          selectBox.appendChild(opt);
+        });
+      });
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$d, "targets", [ "source", "target" ]);
+
 var application = Application.start();
 
 application.register("toggle", _default);
@@ -7960,5 +8000,7 @@ application.register("pd-pet-chart", _default$a);
 application.register("pathology-sparklines", _default$b);
 
 application.register("collapsible", _default$c);
+
+application.register("dependent-select", _default$d);
 
 window.Chartkick.use(window.Highcharts);

@@ -221,6 +221,7 @@ module World
 
       def create_hd_session(user:, patient:, performed_on:)
         expect(hd_patient(patient).hd_sessions.count).to eq(0)
+        Renalware::HD::Station.create!(name: "Station1", hospital_unit_id: hd_unit.id, by: user)
         login_as user
         visit patient_hd_dashboard_path(patient)
 
@@ -231,6 +232,7 @@ module World
 
         fill_in "Session Start Time", with: "13:00"
         select hd_unit.to_s, from: "Hospital Unit"
+        select "Station1", from: "Station"
         fill_in "Session Date", with: l(performed_on)
 
         within ".top" do

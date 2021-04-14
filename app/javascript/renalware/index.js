@@ -28,6 +28,7 @@ import TabsController from "./controllers/tabs_controller"
 import PDPetChartsController from "./controllers/pd/pet_charts_controller"
 import PathologySparklinesController from "./controllers/pathology/sparklines_controller"
 import CollapsibleController from "./controllers/collapsible_controller"
+import DependentSelectController from "./controllers/dependent_select_controller"
 
 const application = Application.start()
 application.register("toggle", ToggleController)
@@ -43,5 +44,6 @@ application.register("tabs", TabsController)
 application.register("pd-pet-chart", PDPetChartsController)
 application.register("pathology-sparklines", PathologySparklinesController)
 application.register("collapsible", CollapsibleController)
+application.register("dependent-select", DependentSelectController)
 
 window.Chartkick.use(window.Highcharts)
