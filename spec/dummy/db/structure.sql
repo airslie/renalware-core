@@ -3871,8 +3871,16 @@ CREATE TABLE renalware.hd_sessions (
     dialysate_id bigint,
     uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     external_id bigint,
-    deleted_at timestamp without time zone
+    deleted_at timestamp without time zone,
+    hd_station_id bigint
 );
+
+
+--
+-- Name: COLUMN hd_sessions.hd_station_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_sessions.hd_station_id IS 'The HD Station (eg ''Bay 1 Bed 2'') where the patient was dialysed';
 
 
 --
@@ -19520,6 +19528,14 @@ ALTER TABLE ONLY renalware.access_plans
 
 
 --
+-- Name: hd_sessions fk_rails_b92ec653ce; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_sessions
+    ADD CONSTRAINT fk_rails_b92ec653ce FOREIGN KEY (hd_station_id) REFERENCES renalware.hd_stations(id);
+
+
+--
 -- Name: problem_problems fk_rails_bbae3e065d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -20995,6 +21011,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210305191214'),
 ('20210310154134'),
 ('20210329090650'),
-('20210413180237');
+('20210413180237'),
+('20210414103735');
 
 
