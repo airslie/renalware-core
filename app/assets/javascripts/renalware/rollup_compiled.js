@@ -1909,6 +1909,812 @@ if (window.MutationObserver) {
   element.innerHTML = "";
 }
 
+function finallyConstructor(callback) {
+  var constructor = this.constructor;
+  return this.then(function(value) {
+    return constructor.resolve(callback()).then(function() {
+      return value;
+    });
+  }, function(reason) {
+    return constructor.resolve(callback()).then(function() {
+      return constructor.reject(reason);
+    });
+  });
+}
+
+function allSettled(arr) {
+  var P = this;
+  return new P(function(resolve, reject) {
+    if (!(arr && typeof arr.length !== "undefined")) {
+      return reject(new TypeError(typeof arr + " " + arr + " is not iterable(cannot read property Symbol(Symbol.iterator))"));
+    }
+    var args = Array.prototype.slice.call(arr);
+    if (args.length === 0) return resolve([]);
+    var remaining = args.length;
+    function res(i, val) {
+      if (val && (typeof val === "object" || typeof val === "function")) {
+        var then = val.then;
+        if (typeof then === "function") {
+          then.call(val, function(val) {
+            res(i, val);
+          }, function(e) {
+            args[i] = {
+              status: "rejected",
+              reason: e
+            };
+            if (--remaining === 0) {
+              resolve(args);
+            }
+          });
+          return;
+        }
+      }
+      args[i] = {
+        status: "fulfilled",
+        value: val
+      };
+      if (--remaining === 0) {
+        resolve(args);
+      }
+    }
+    for (var i = 0; i < args.length; i++) {
+      res(i, args[i]);
+    }
+  });
+}
+
+var setTimeoutFunc = setTimeout;
+
+function isArray(x) {
+  return Boolean(x && typeof x.length !== "undefined");
+}
+
+function noop() {}
+
+function bind(fn, thisArg) {
+  return function() {
+    fn.apply(thisArg, arguments);
+  };
+}
+
+function Promise$2(fn) {
+  if (!(this instanceof Promise$2)) throw new TypeError("Promises must be constructed via new");
+  if (typeof fn !== "function") throw new TypeError("not a function");
+  this._state = 0;
+  this._handled = false;
+  this._value = undefined;
+  this._deferreds = [];
+  doResolve(fn, this);
+}
+
+function handle(self, deferred) {
+  while (self._state === 3) {
+    self = self._value;
+  }
+  if (self._state === 0) {
+    self._deferreds.push(deferred);
+    return;
+  }
+  self._handled = true;
+  Promise$2._immediateFn(function() {
+    var cb = self._state === 1 ? deferred.onFulfilled : deferred.onRejected;
+    if (cb === null) {
+      (self._state === 1 ? resolve : reject)(deferred.promise, self._value);
+      return;
+    }
+    var ret;
+    try {
+      ret = cb(self._value);
+    } catch (e) {
+      reject(deferred.promise, e);
+      return;
+    }
+    resolve(deferred.promise, ret);
+  });
+}
+
+function resolve(self, newValue) {
+  try {
+    if (newValue === self) throw new TypeError("A promise cannot be resolved with itself.");
+    if (newValue && (typeof newValue === "object" || typeof newValue === "function")) {
+      var then = newValue.then;
+      if (newValue instanceof Promise$2) {
+        self._state = 3;
+        self._value = newValue;
+        finale(self);
+        return;
+      } else if (typeof then === "function") {
+        doResolve(bind(then, newValue), self);
+        return;
+      }
+    }
+    self._state = 1;
+    self._value = newValue;
+    finale(self);
+  } catch (e) {
+    reject(self, e);
+  }
+}
+
+function reject(self, newValue) {
+  self._state = 2;
+  self._value = newValue;
+  finale(self);
+}
+
+function finale(self) {
+  if (self._state === 2 && self._deferreds.length === 0) {
+    Promise$2._immediateFn(function() {
+      if (!self._handled) {
+        Promise$2._unhandledRejectionFn(self._value);
+      }
+    });
+  }
+  for (var i = 0, len = self._deferreds.length; i < len; i++) {
+    handle(self, self._deferreds[i]);
+  }
+  self._deferreds = null;
+}
+
+function Handler(onFulfilled, onRejected, promise) {
+  this.onFulfilled = typeof onFulfilled === "function" ? onFulfilled : null;
+  this.onRejected = typeof onRejected === "function" ? onRejected : null;
+  this.promise = promise;
+}
+
+function doResolve(fn, self) {
+  var done = false;
+  try {
+    fn(function(value) {
+      if (done) return;
+      done = true;
+      resolve(self, value);
+    }, function(reason) {
+      if (done) return;
+      done = true;
+      reject(self, reason);
+    });
+  } catch (ex) {
+    if (done) return;
+    done = true;
+    reject(self, ex);
+  }
+}
+
+Promise$2.prototype["catch"] = function(onRejected) {
+  return this.then(null, onRejected);
+};
+
+Promise$2.prototype.then = function(onFulfilled, onRejected) {
+  var prom = new this.constructor(noop);
+  handle(this, new Handler(onFulfilled, onRejected, prom));
+  return prom;
+};
+
+Promise$2.prototype["finally"] = finallyConstructor;
+
+Promise$2.all = function(arr) {
+  return new Promise$2(function(resolve, reject) {
+    if (!isArray(arr)) {
+      return reject(new TypeError("Promise.all accepts an array"));
+    }
+    var args = Array.prototype.slice.call(arr);
+    if (args.length === 0) return resolve([]);
+    var remaining = args.length;
+    function res(i, val) {
+      try {
+        if (val && (typeof val === "object" || typeof val === "function")) {
+          var then = val.then;
+          if (typeof then === "function") {
+            then.call(val, function(val) {
+              res(i, val);
+            }, reject);
+            return;
+          }
+        }
+        args[i] = val;
+        if (--remaining === 0) {
+          resolve(args);
+        }
+      } catch (ex) {
+        reject(ex);
+      }
+    }
+    for (var i = 0; i < args.length; i++) {
+      res(i, args[i]);
+    }
+  });
+};
+
+Promise$2.allSettled = allSettled;
+
+Promise$2.resolve = function(value) {
+  if (value && typeof value === "object" && value.constructor === Promise$2) {
+    return value;
+  }
+  return new Promise$2(function(resolve) {
+    resolve(value);
+  });
+};
+
+Promise$2.reject = function(value) {
+  return new Promise$2(function(resolve, reject) {
+    reject(value);
+  });
+};
+
+Promise$2.race = function(arr) {
+  return new Promise$2(function(resolve, reject) {
+    if (!isArray(arr)) {
+      return reject(new TypeError("Promise.race accepts an array"));
+    }
+    for (var i = 0, len = arr.length; i < len; i++) {
+      Promise$2.resolve(arr[i]).then(resolve, reject);
+    }
+  });
+};
+
+Promise$2._immediateFn = typeof setImmediate === "function" && function(fn) {
+  setImmediate(fn);
+} || function(fn) {
+  setTimeoutFunc(fn, 0);
+};
+
+Promise$2._unhandledRejectionFn = function _unhandledRejectionFn(err) {
+  if (typeof console !== "undefined" && console) {
+    console.warn("Possible Unhandled Promise Rejection:", err);
+  }
+};
+
+var globalNS = function() {
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw new Error("unable to locate global object");
+}();
+
+if (typeof globalNS["Promise"] !== "function") {
+  globalNS["Promise"] = Promise$2;
+} else if (!globalNS.Promise.prototype["finally"]) {
+  globalNS.Promise.prototype["finally"] = finallyConstructor;
+} else if (!globalNS.Promise.allSettled) {
+  globalNS.Promise.allSettled = allSettled;
+}
+
+var global$1 = typeof globalThis !== "undefined" && globalThis || typeof self !== "undefined" && self || typeof global$1 !== "undefined" && global$1;
+
+var support = {
+  searchParams: "URLSearchParams" in global$1,
+  iterable: "Symbol" in global$1 && "iterator" in Symbol,
+  blob: "FileReader" in global$1 && "Blob" in global$1 && function() {
+    try {
+      new Blob();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }(),
+  formData: "FormData" in global$1,
+  arrayBuffer: "ArrayBuffer" in global$1
+};
+
+function isDataView(obj) {
+  return obj && DataView.prototype.isPrototypeOf(obj);
+}
+
+if (support.arrayBuffer) {
+  var viewClasses = [ "[object Int8Array]", "[object Uint8Array]", "[object Uint8ClampedArray]", "[object Int16Array]", "[object Uint16Array]", "[object Int32Array]", "[object Uint32Array]", "[object Float32Array]", "[object Float64Array]" ];
+  var isArrayBufferView = ArrayBuffer.isView || function(obj) {
+    return obj && viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1;
+  };
+}
+
+function normalizeName(name) {
+  if (typeof name !== "string") {
+    name = String(name);
+  }
+  if (/[^a-z0-9\-#$%&'*+.^_`|~!]/i.test(name) || name === "") {
+    throw new TypeError('Invalid character in header field name: "' + name + '"');
+  }
+  return name.toLowerCase();
+}
+
+function normalizeValue(value) {
+  if (typeof value !== "string") {
+    value = String(value);
+  }
+  return value;
+}
+
+function iteratorFor(items) {
+  var iterator = {
+    next: function() {
+      var value = items.shift();
+      return {
+        done: value === undefined,
+        value: value
+      };
+    }
+  };
+  if (support.iterable) {
+    iterator[Symbol.iterator] = function() {
+      return iterator;
+    };
+  }
+  return iterator;
+}
+
+function Headers(headers) {
+  this.map = {};
+  if (headers instanceof Headers) {
+    headers.forEach(function(value, name) {
+      this.append(name, value);
+    }, this);
+  } else if (Array.isArray(headers)) {
+    headers.forEach(function(header) {
+      this.append(header[0], header[1]);
+    }, this);
+  } else if (headers) {
+    Object.getOwnPropertyNames(headers).forEach(function(name) {
+      this.append(name, headers[name]);
+    }, this);
+  }
+}
+
+Headers.prototype.append = function(name, value) {
+  name = normalizeName(name);
+  value = normalizeValue(value);
+  var oldValue = this.map[name];
+  this.map[name] = oldValue ? oldValue + ", " + value : value;
+};
+
+Headers.prototype["delete"] = function(name) {
+  delete this.map[normalizeName(name)];
+};
+
+Headers.prototype.get = function(name) {
+  name = normalizeName(name);
+  return this.has(name) ? this.map[name] : null;
+};
+
+Headers.prototype.has = function(name) {
+  return this.map.hasOwnProperty(normalizeName(name));
+};
+
+Headers.prototype.set = function(name, value) {
+  this.map[normalizeName(name)] = normalizeValue(value);
+};
+
+Headers.prototype.forEach = function(callback, thisArg) {
+  for (var name in this.map) {
+    if (this.map.hasOwnProperty(name)) {
+      callback.call(thisArg, this.map[name], name, this);
+    }
+  }
+};
+
+Headers.prototype.keys = function() {
+  var items = [];
+  this.forEach(function(value, name) {
+    items.push(name);
+  });
+  return iteratorFor(items);
+};
+
+Headers.prototype.values = function() {
+  var items = [];
+  this.forEach(function(value) {
+    items.push(value);
+  });
+  return iteratorFor(items);
+};
+
+Headers.prototype.entries = function() {
+  var items = [];
+  this.forEach(function(value, name) {
+    items.push([ name, value ]);
+  });
+  return iteratorFor(items);
+};
+
+if (support.iterable) {
+  Headers.prototype[Symbol.iterator] = Headers.prototype.entries;
+}
+
+function consumed(body) {
+  if (body.bodyUsed) {
+    return Promise.reject(new TypeError("Already read"));
+  }
+  body.bodyUsed = true;
+}
+
+function fileReaderReady(reader) {
+  return new Promise(function(resolve, reject) {
+    reader.onload = function() {
+      resolve(reader.result);
+    };
+    reader.onerror = function() {
+      reject(reader.error);
+    };
+  });
+}
+
+function readBlobAsArrayBuffer(blob) {
+  var reader = new FileReader();
+  var promise = fileReaderReady(reader);
+  reader.readAsArrayBuffer(blob);
+  return promise;
+}
+
+function readBlobAsText(blob) {
+  var reader = new FileReader();
+  var promise = fileReaderReady(reader);
+  reader.readAsText(blob);
+  return promise;
+}
+
+function readArrayBufferAsText(buf) {
+  var view = new Uint8Array(buf);
+  var chars = new Array(view.length);
+  for (var i = 0; i < view.length; i++) {
+    chars[i] = String.fromCharCode(view[i]);
+  }
+  return chars.join("");
+}
+
+function bufferClone(buf) {
+  if (buf.slice) {
+    return buf.slice(0);
+  } else {
+    var view = new Uint8Array(buf.byteLength);
+    view.set(new Uint8Array(buf));
+    return view.buffer;
+  }
+}
+
+function Body() {
+  this.bodyUsed = false;
+  this._initBody = function(body) {
+    this.bodyUsed = this.bodyUsed;
+    this._bodyInit = body;
+    if (!body) {
+      this._bodyText = "";
+    } else if (typeof body === "string") {
+      this._bodyText = body;
+    } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+      this._bodyBlob = body;
+    } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+      this._bodyFormData = body;
+    } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+      this._bodyText = body.toString();
+    } else if (support.arrayBuffer && support.blob && isDataView(body)) {
+      this._bodyArrayBuffer = bufferClone(body.buffer);
+      this._bodyInit = new Blob([ this._bodyArrayBuffer ]);
+    } else if (support.arrayBuffer && (ArrayBuffer.prototype.isPrototypeOf(body) || isArrayBufferView(body))) {
+      this._bodyArrayBuffer = bufferClone(body);
+    } else {
+      this._bodyText = body = Object.prototype.toString.call(body);
+    }
+    if (!this.headers.get("content-type")) {
+      if (typeof body === "string") {
+        this.headers.set("content-type", "text/plain;charset=UTF-8");
+      } else if (this._bodyBlob && this._bodyBlob.type) {
+        this.headers.set("content-type", this._bodyBlob.type);
+      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+        this.headers.set("content-type", "application/x-www-form-urlencoded;charset=UTF-8");
+      }
+    }
+  };
+  if (support.blob) {
+    this.blob = function() {
+      var rejected = consumed(this);
+      if (rejected) {
+        return rejected;
+      }
+      if (this._bodyBlob) {
+        return Promise.resolve(this._bodyBlob);
+      } else if (this._bodyArrayBuffer) {
+        return Promise.resolve(new Blob([ this._bodyArrayBuffer ]));
+      } else if (this._bodyFormData) {
+        throw new Error("could not read FormData body as blob");
+      } else {
+        return Promise.resolve(new Blob([ this._bodyText ]));
+      }
+    };
+    this.arrayBuffer = function() {
+      if (this._bodyArrayBuffer) {
+        var isConsumed = consumed(this);
+        if (isConsumed) {
+          return isConsumed;
+        }
+        if (ArrayBuffer.isView(this._bodyArrayBuffer)) {
+          return Promise.resolve(this._bodyArrayBuffer.buffer.slice(this._bodyArrayBuffer.byteOffset, this._bodyArrayBuffer.byteOffset + this._bodyArrayBuffer.byteLength));
+        } else {
+          return Promise.resolve(this._bodyArrayBuffer);
+        }
+      } else {
+        return this.blob().then(readBlobAsArrayBuffer);
+      }
+    };
+  }
+  this.text = function() {
+    var rejected = consumed(this);
+    if (rejected) {
+      return rejected;
+    }
+    if (this._bodyBlob) {
+      return readBlobAsText(this._bodyBlob);
+    } else if (this._bodyArrayBuffer) {
+      return Promise.resolve(readArrayBufferAsText(this._bodyArrayBuffer));
+    } else if (this._bodyFormData) {
+      throw new Error("could not read FormData body as text");
+    } else {
+      return Promise.resolve(this._bodyText);
+    }
+  };
+  if (support.formData) {
+    this.formData = function() {
+      return this.text().then(decode);
+    };
+  }
+  this.json = function() {
+    return this.text().then(JSON.parse);
+  };
+  return this;
+}
+
+var methods = [ "DELETE", "GET", "HEAD", "OPTIONS", "POST", "PUT" ];
+
+function normalizeMethod(method) {
+  var upcased = method.toUpperCase();
+  return methods.indexOf(upcased) > -1 ? upcased : method;
+}
+
+function Request(input, options) {
+  if (!(this instanceof Request)) {
+    throw new TypeError('Please use the "new" operator, this DOM object constructor cannot be called as a function.');
+  }
+  options = options || {};
+  var body = options.body;
+  if (input instanceof Request) {
+    if (input.bodyUsed) {
+      throw new TypeError("Already read");
+    }
+    this.url = input.url;
+    this.credentials = input.credentials;
+    if (!options.headers) {
+      this.headers = new Headers(input.headers);
+    }
+    this.method = input.method;
+    this.mode = input.mode;
+    this.signal = input.signal;
+    if (!body && input._bodyInit != null) {
+      body = input._bodyInit;
+      input.bodyUsed = true;
+    }
+  } else {
+    this.url = String(input);
+  }
+  this.credentials = options.credentials || this.credentials || "same-origin";
+  if (options.headers || !this.headers) {
+    this.headers = new Headers(options.headers);
+  }
+  this.method = normalizeMethod(options.method || this.method || "GET");
+  this.mode = options.mode || this.mode || null;
+  this.signal = options.signal || this.signal;
+  this.referrer = null;
+  if ((this.method === "GET" || this.method === "HEAD") && body) {
+    throw new TypeError("Body not allowed for GET or HEAD requests");
+  }
+  this._initBody(body);
+  if (this.method === "GET" || this.method === "HEAD") {
+    if (options.cache === "no-store" || options.cache === "no-cache") {
+      var reParamSearch = /([?&])_=[^&]*/;
+      if (reParamSearch.test(this.url)) {
+        this.url = this.url.replace(reParamSearch, "$1_=" + new Date().getTime());
+      } else {
+        var reQueryString = /\?/;
+        this.url += (reQueryString.test(this.url) ? "&" : "?") + "_=" + new Date().getTime();
+      }
+    }
+  }
+}
+
+Request.prototype.clone = function() {
+  return new Request(this, {
+    body: this._bodyInit
+  });
+};
+
+function decode(body) {
+  var form = new FormData();
+  body.trim().split("&").forEach(function(bytes) {
+    if (bytes) {
+      var split = bytes.split("=");
+      var name = split.shift().replace(/\+/g, " ");
+      var value = split.join("=").replace(/\+/g, " ");
+      form.append(decodeURIComponent(name), decodeURIComponent(value));
+    }
+  });
+  return form;
+}
+
+function parseHeaders(rawHeaders) {
+  var headers = new Headers();
+  var preProcessedHeaders = rawHeaders.replace(/\r?\n[\t ]+/g, " ");
+  preProcessedHeaders.split("\r").map(function(header) {
+    return header.indexOf("\n") === 0 ? header.substr(1, header.length) : header;
+  }).forEach(function(line) {
+    var parts = line.split(":");
+    var key = parts.shift().trim();
+    if (key) {
+      var value = parts.join(":").trim();
+      headers.append(key, value);
+    }
+  });
+  return headers;
+}
+
+Body.call(Request.prototype);
+
+function Response(bodyInit, options) {
+  if (!(this instanceof Response)) {
+    throw new TypeError('Please use the "new" operator, this DOM object constructor cannot be called as a function.');
+  }
+  if (!options) {
+    options = {};
+  }
+  this.type = "default";
+  this.status = options.status === undefined ? 200 : options.status;
+  this.ok = this.status >= 200 && this.status < 300;
+  this.statusText = options.statusText === undefined ? "" : "" + options.statusText;
+  this.headers = new Headers(options.headers);
+  this.url = options.url || "";
+  this._initBody(bodyInit);
+}
+
+Body.call(Response.prototype);
+
+Response.prototype.clone = function() {
+  return new Response(this._bodyInit, {
+    status: this.status,
+    statusText: this.statusText,
+    headers: new Headers(this.headers),
+    url: this.url
+  });
+};
+
+Response.error = function() {
+  var response = new Response(null, {
+    status: 0,
+    statusText: ""
+  });
+  response.type = "error";
+  return response;
+};
+
+var redirectStatuses = [ 301, 302, 303, 307, 308 ];
+
+Response.redirect = function(url, status) {
+  if (redirectStatuses.indexOf(status) === -1) {
+    throw new RangeError("Invalid status code");
+  }
+  return new Response(null, {
+    status: status,
+    headers: {
+      location: url
+    }
+  });
+};
+
+var DOMException = global$1.DOMException;
+
+try {
+  new DOMException();
+} catch (err) {
+  DOMException = function(message, name) {
+    this.message = message;
+    this.name = name;
+    var error = Error(message);
+    this.stack = error.stack;
+  };
+  DOMException.prototype = Object.create(Error.prototype);
+  DOMException.prototype.constructor = DOMException;
+}
+
+function fetch$1(input, init) {
+  return new Promise(function(resolve, reject) {
+    var request = new Request(input, init);
+    if (request.signal && request.signal.aborted) {
+      return reject(new DOMException("Aborted", "AbortError"));
+    }
+    var xhr = new XMLHttpRequest();
+    function abortXhr() {
+      xhr.abort();
+    }
+    xhr.onload = function() {
+      var options = {
+        status: xhr.status,
+        statusText: xhr.statusText,
+        headers: parseHeaders(xhr.getAllResponseHeaders() || "")
+      };
+      options.url = "responseURL" in xhr ? xhr.responseURL : options.headers.get("X-Request-URL");
+      var body = "response" in xhr ? xhr.response : xhr.responseText;
+      setTimeout(function() {
+        resolve(new Response(body, options));
+      }, 0);
+    };
+    xhr.onerror = function() {
+      setTimeout(function() {
+        reject(new TypeError("Network request failed"));
+      }, 0);
+    };
+    xhr.ontimeout = function() {
+      setTimeout(function() {
+        reject(new TypeError("Network request failed"));
+      }, 0);
+    };
+    xhr.onabort = function() {
+      setTimeout(function() {
+        reject(new DOMException("Aborted", "AbortError"));
+      }, 0);
+    };
+    function fixUrl(url) {
+      try {
+        return url === "" && global$1.location.href ? global$1.location.href : url;
+      } catch (e) {
+        return url;
+      }
+    }
+    xhr.open(request.method, fixUrl(request.url), true);
+    if (request.credentials === "include") {
+      xhr.withCredentials = true;
+    } else if (request.credentials === "omit") {
+      xhr.withCredentials = false;
+    }
+    if ("responseType" in xhr) {
+      if (support.blob) {
+        xhr.responseType = "blob";
+      } else if (support.arrayBuffer && request.headers.get("Content-Type") && request.headers.get("Content-Type").indexOf("application/octet-stream") !== -1) {
+        xhr.responseType = "arraybuffer";
+      }
+    }
+    if (init && typeof init.headers === "object" && !(init.headers instanceof Headers)) {
+      Object.getOwnPropertyNames(init.headers).forEach(function(name) {
+        xhr.setRequestHeader(name, normalizeValue(init.headers[name]));
+      });
+    } else {
+      request.headers.forEach(function(value, name) {
+        xhr.setRequestHeader(name, value);
+      });
+    }
+    if (request.signal) {
+      request.signal.addEventListener("abort", abortXhr);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          request.signal.removeEventListener("abort", abortXhr);
+        }
+      };
+    }
+    xhr.send(typeof request._bodyInit === "undefined" ? null : request._bodyInit);
+  });
+}
+
+fetch$1.polyfill = true;
+
+if (!global$1.fetch) {
+  global$1.fetch = fetch$1;
+  global$1.Headers = Headers;
+  global$1.Request = Request;
+  global$1.Response = Response;
+}
+
 var EventListener = function() {
   function EventListener(eventTarget, eventName, eventOptions) {
     this.eventTarget = eventTarget;
@@ -2567,15 +3373,15 @@ var StringMapObserver = function() {
 }();
 
 function add(map, key, value) {
-  fetch$1(map, key).add(value);
+  fetch$2(map, key).add(value);
 }
 
 function del(map, key, value) {
-  fetch$1(map, key).delete(value);
+  fetch$2(map, key).delete(value);
   prune(map, key);
 }
 
-function fetch$1(map, key) {
+function fetch$2(map, key) {
   var values = map.get(key);
   if (!values) {
     values = new Set();

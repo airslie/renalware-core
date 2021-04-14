@@ -34,7 +34,8 @@ ruby:
                         collection: Renalware::HD::Station.where(hospital_unit_id: session.hospital_unit_id),
                         label_method: :name,
                         wrapper: :horizontal_medium,
-                        input_html: { data: { target: "dependent-select.target" } }
+                        input_html: { "data-dependent-select-target" => "target" }
+
 
       = f.input :start_time,
                 as: :clock_picker,

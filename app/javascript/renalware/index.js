@@ -1,6 +1,8 @@
 import "../../assets/stylesheets/tailwind/tailwind.css"
 
 import "@stimulus/polyfills" // required for IE11 support
+import "promise-polyfill/src/polyfill"
+import "whatwg-fetch"
 import { Application } from "stimulus"
 
 // Manually import stimulusjs controllers for now as we had problems with the stimulus-controllers
