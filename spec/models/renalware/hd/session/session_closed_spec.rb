@@ -60,7 +60,48 @@ module Renalware
         it "does not validate presence of hdf if hd_type is HD" do
           document.info.hd_type = :hd
           document.valid?
+
           expect(document.hdf.errors).not_to include(:subs_fluid_pct)
+        end
+
+        describe "validation of pre- and post- weight difference" do
+          subject(:document) { described_class.new }
+
+          it "accepts a post-weight up to 7kg over the pre weight" do
+            document.observations_before.weight = 13.1
+            document.observations_after.weight = 20.1
+
+            document.valid?
+
+            expect(document.observations_after.errors).not_to include(:weight)
+          end
+
+          it "accepts a post-weight up to 7kg below the pre-weight" do
+            document.observations_before.weight = 20.1
+            document.observations_after.weight = 13.1
+
+            document.valid?
+
+            expect(document.observations_after.errors).not_to include(:weight)
+          end
+
+          it "validates that post-weight cannot be >7kg more than pre weight" do
+            document.observations_before.weight = 100.1
+            document.observations_after.weight = 107.2
+
+            document.valid?
+
+            expect(document.observations_after.errors).to include(:weight)
+          end
+
+          it "validates that pre-weight cannot be >7kg more than post weight" do
+            document.observations_before.weight = 108
+            document.observations_after.weight = 100
+
+            document.valid?
+
+            expect(document.observations_after.errors).to include(:weight)
+          end
         end
       end
 

@@ -128,7 +128,9 @@ module Renalware
         attribute :feel, Document::Enum, default: :S
         attribute :safe_to_use, Document::Enum, default: :Y
       end
+
       attribute :avf_avg_assessment, AvfAvgAssessment
+
       def error_messages
         [
           observations_before.errors.full_messages,

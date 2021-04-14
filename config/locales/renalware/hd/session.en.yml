@@ -68,6 +68,10 @@ en:
 
     errors:
       models:
+        renalware/hd/session/closed/session_document/observations:
+          attributes:
+            weight:
+                  more_than_7kg_between_pre_post_weights: "More than 7kg difference in pre/post weights"
         renalware/hd/session/dna/document:
           patient_on_holiday:
             blank: Please choose an option
