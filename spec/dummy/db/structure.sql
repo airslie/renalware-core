@@ -2540,7 +2540,8 @@ CREATE TABLE renalware.drugs (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     vmpid bigint,
-    description character varying
+    description character varying,
+    read_code character varying
 );
 
 
@@ -20993,6 +20994,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210305181345'),
 ('20210305191214'),
 ('20210310154134'),
-('20210329090650');
+('20210329090650'),
+('20210413180237');
 
 
