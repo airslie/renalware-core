@@ -13,6 +13,10 @@ module Renalware
 
       scope :for_unit, ->(id) { where(hospital_unit_id: id) }
       scope :ordered, -> { order(position: :asc) }
+
+      def to_s
+        name
+      end
     end
   end
 end
