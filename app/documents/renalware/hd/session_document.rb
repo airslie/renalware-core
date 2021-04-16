@@ -63,6 +63,7 @@ module Renalware
         attribute :machine_urr, Integer
         attribute :machine_ktv, Float
         attribute :litres_processed, Float
+        attribute :washback_quality, Document::Enum, enums: %i(poor fair good very_good)
 
         def self.flow_rates
           (100..800).step(100)
