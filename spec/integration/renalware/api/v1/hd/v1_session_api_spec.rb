@@ -13,13 +13,19 @@ require "rails_helper"
 # just check that the errors are returned in the json?
 
 describe "V1 HD Session API", type: :system do
-  let(:auser) { create(:user, username: "aaaaa", authentication_token: "wWsSmmHywhYMWPM6e9ib") }
+  let(:system_user) do
+    create(
+      :user,
+      username: Renalware::SystemUser.username,
+      authentication_token: "wWsSmmHywhYMWPM6e9ib"
+    )
+  end
   let(:provider) { Renalware::HD::Provider.create!(name: "Nikkiso") }
   let(:hospital_unit) { create(:hospital_unit, unit_code: "XXX") }
   let(:patient) { create(:hd_patient, local_patient_id_2: "MRN123") }
   let(:adate) { "2021-03-01" }
 
-  def url_with_credentials(user: auser, mrn: patient.local_patient_id_2, date: adate)
+  def url_with_credentials(user: system_user, mrn: patient.local_patient_id_2, date: adate)
     renalware.api_v1_hd_session_path(
       mrn: mrn,
       date: date,
@@ -29,6 +35,7 @@ describe "V1 HD Session API", type: :system do
   end
 
   # This json when PUTted should always return success
+  # rubocop:disable Metrics/MethodLength
   def valid_session_json
     {
       provider_name: provider.name,
@@ -49,6 +56,7 @@ describe "V1 HD Session API", type: :system do
       arterial_pressure: 10
     }
   end
+  # rubocop:enable Metrics/MethodLength
 
   def response_errors
     JSON.parse(response.body)["error"]
@@ -90,8 +98,8 @@ describe "V1 HD Session API", type: :system do
         hospital_unit: hospital_unit,
         performed_on: Date.parse(valid_session_json[:started_at]),
         machine_ip_address: valid_session_json[:machine_ip_address],
-        signed_on_by: auser,
-        created_by: auser
+        signed_on_by: system_user,
+        created_by: system_user
       )
 
       # NOTE: performed_on + start_time + end_time is moving to
@@ -231,8 +239,7 @@ describe "V1 HD Session API", type: :system do
       )
       expect(response).to be_ok
 
-      sess = session.reload
-
+      sess = Renalware::HD::Session.find(session.id)
       expect(sess.document.dialysis.flow_rate).to eq(165)
     end
   end

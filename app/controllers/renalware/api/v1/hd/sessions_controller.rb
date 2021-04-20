@@ -79,28 +79,8 @@ module Renalware
             pattr_initialize [:hd_session!, :form!]
 
             def call
-              user = Renalware::User.first
-              params = {
-                start_time: form.started_at.strftime("%H:%M"),
-                by: user
-              }
-              # {
-              #   document: {
-              #     info: {
-              #       machine_no: form.machine_number
-              #     },
-              #     dialysis: {
-              #       arterial_pressure: form.arterial_pressure,
-              #       venous_pressure: form.venous_pressure,
-              #       fluid_removed: form.fluid_removed,
-              #       blood_flow: form.blood_flow_rate,
-              #       flow_rate: form.dialysate_flow_rate,
-              #       machine_urr: form.urr,
-              #       machine_ktv: form.ktv,
-              #       litres_processed: form.treated_blood_volume
-              #     }
-              #   }
-              # }
+              params = form.to_hd_session_params
+
               if hd_session.update(params)
                 ::Success.new(Result.new(session_id: hd_session.id))
               else
@@ -113,33 +93,9 @@ module Renalware
             pattr_initialize [:form!, :patient!]
 
             def call
-              user = Renalware::User.first
-              session = Renalware::HD::Session::Open.new(
-                patient: patient,
-                hospital_unit: form.hospital_unit,
-                performed_on: form.started_at.to_date,
-                start_time: form.started_at.strftime("%H:%M"),
-                end_time: form.ended_at&.strftime("%H:%M"),
-                machine_ip_address: form.machine_ip_address,
-                signed_on_by: user,
-                provider: form.provider,
-                by: user,
-                document: {
-                  info: {
-                    machine_no: form.machine_number
-                  },
-                  dialysis: {
-                    arterial_pressure: form.arterial_pressure,
-                    venous_pressure: form.venous_pressure,
-                    fluid_removed: form.fluid_removed,
-                    blood_flow: form.blood_flow_rate,
-                    flow_rate: form.dialysate_flow_rate,
-                    machine_urr: form.urr,
-                    machine_ktv: form.ktv,
-                    litres_processed: form.treated_blood_volume
-                  }
-                }
-              )
+              params = form.to_hd_session_params
+              params[:patient] = patient
+              session = Renalware::HD::Session::Open.new(params)
               session.save!
               ::Success.new(Result.new(session_id: session.id))
             end
@@ -196,6 +152,43 @@ module Renalware
                 "lower(unit_code) = ?", hospital_unit_code&.downcase
               ).first
             end
+
+            def system_user
+              @system_user ||= Renalware::SystemUser.find
+            end
+
+            # Converts our friendly form object attributes into the
+            # a Renalware HD:Session object graph/hash which can be used for
+            # creating/updating an HD:Session record.
+            # rubocop:disable Metrics/MethodLength
+            def to_hd_session_params
+              {
+                by: system_user,
+                signed_on_by: system_user,
+                hospital_unit: hospital_unit,
+                performed_on: started_at.to_date,
+                start_time: started_at.strftime("%H:%M"),
+                end_time: ended_at&.strftime("%H:%M"),
+                machine_ip_address: machine_ip_address,
+                provider: provider,
+                document: {
+                  info: {
+                    machine_no: machine_number
+                  },
+                  dialysis: {
+                    arterial_pressure: arterial_pressure,
+                    venous_pressure: venous_pressure,
+                    fluid_removed: fluid_removed,
+                    blood_flow: blood_flow_rate,
+                    flow_rate: dialysate_flow_rate,
+                    machine_urr: urr,
+                    machine_ktv: ktv,
+                    litres_processed: treated_blood_volume
+                  }
+                }
+              }
+            end
+            # rubocop:enable Metrics/MethodLength
           end
 
           def session_attributes
