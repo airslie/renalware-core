@@ -10,6 +10,8 @@ module Renalware
     module V1
       module HD
         class SessionsController < TokenAuthenticatedAPIController
+          skip_before_action :verify_authenticity_token
+
           # JSON PUT
           # FHIR HD Session resource session data from eg HD Hub (dialyser aggregation).
           # The session may be ongoing or finished.
