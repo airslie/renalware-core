@@ -53,7 +53,6 @@ module Renalware
         end
         attribute :observations_before, Observations
         attribute :observations_after, Observations
-        validate :pre_post_weight_difference
 
         class Dialysis < Renalware::HD::SessionDocument::Dialysis
           validates :arterial_pressure, presence: true
@@ -74,20 +73,6 @@ module Renalware
 
         def hd_type_is_hdf?
           %w(hdf_pre hdf_post).include?(info.hd_type.to_s)
-        end
-
-        # Validate that there is not more than 7kg difference in pre and post weights.
-        def pre_post_weight_difference
-          pre_weight = observations_before.weight
-          post_weight = observations_after.weight
-          return unless pre_weight.present? && post_weight.present?
-
-          weight_diff = (post_weight.to_f - pre_weight.to_f).round(1).abs
-
-          if weight_diff > 7
-            # "More than 7kg difference in pre/post weights"
-            observations_after.errors.add(:weight, :more_than_7kg_between_pre_post_weights)
-          end
         end
       end
 

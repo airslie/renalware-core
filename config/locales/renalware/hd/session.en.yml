@@ -68,10 +68,6 @@ en:
 
     errors:
       models:
-        renalware/hd/session/closed/session_document/observations:
-          attributes:
-            weight:
-                  more_than_7kg_between_pre_post_weights: "More than 7kg difference in pre/post weights"
         renalware/hd/session/dna/document:
           patient_on_holiday:
             blank: Please choose an option
@@ -91,6 +87,7 @@ en:
             weight:
               out_of_range: Please enter a weight between 5.0 and 300.0 kg
               invalid_number: Please enter a number with up to 2 decimal place, for example 100 or 100.11
+              more_than_7kg_between_pre_post_weights: "More than 7kg difference in pre/post weights"
             temperature:
               out_of_range: Please enter a temperature between 28.0 and 45.0°C
               invalid_number: Please enter a number with up to 1 decimal place, for example 37 or 37.1
