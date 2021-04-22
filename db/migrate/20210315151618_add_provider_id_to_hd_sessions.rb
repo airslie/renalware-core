@@ -1,4 +1,4 @@
-class AddProviderIdToHDSessions < ActiveRecord::Migration[6.0]
+class AddProviderIdToHDSessions < ActiveRecord::Migration[5.2]
   def change
     within_renalware_schema do
       add_reference(
