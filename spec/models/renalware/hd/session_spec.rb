@@ -12,6 +12,7 @@ module Renalware
         is_expected.to have_many(:prescription_administrations)
         is_expected.to belong_to(:patient).touch(true)
         is_expected.to belong_to(:dialysate)
+        is_expected.to belong_to(:station)
       end
     end
   end

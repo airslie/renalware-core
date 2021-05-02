@@ -11,10 +11,17 @@ module Renalware
       def index
         stations = Station.for_unit(unit_id).includes(:location).ordered
         authorize stations
-        render locals: {
-          unit_id: unit_id,
-          stations: present(stations, StationPresenter)
-        }
+        respond_to do |format|
+          format.html do
+            render locals: {
+              unit_id: unit_id,
+              stations: present(stations, StationPresenter)
+            }
+          end
+          format.json do
+            render json: stations
+          end
+        end
       end
 
       def new
