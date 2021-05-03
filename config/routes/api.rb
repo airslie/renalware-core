@@ -7,8 +7,20 @@ namespace :api do
               only: :show,
               constraints: { format: :xml }
   end
+
   # The JSON API
   namespace :v1, constraints: { format: :json }, defaults: { format: :json } do
+    namespace :hd do
+      # called by hd_hub on receipt of a session data fron a dialyser
+      put(
+        "sessions/:mrn/:date",
+        to: "sessions#update",
+        as: :session,
+        constraints: {
+          date: /\d\d\d\d-\d\d-\d\d/
+        }
+      )
+    end
     resources :patients, only: [:show, :index], controller: "patients/patients" do
       resources :prescriptions, controller: "medications/prescriptions", only: [:index]
       namespace :hd do

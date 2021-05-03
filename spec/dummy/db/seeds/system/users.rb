@@ -95,6 +95,7 @@ module Renalware
       u.roles = [Renalware::Role.find_by!(name: :devops)]
       u.signature = "Renalware Developer"
       u.professional_position = Faker::Job.position
+      u.authentication_token = "eZ4sswrWAtbx6hgfiGn8"
     end
   end
 end
