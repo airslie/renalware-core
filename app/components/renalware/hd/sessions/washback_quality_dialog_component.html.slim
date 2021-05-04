@@ -1,0 +1,18 @@
+.reveal-modal.medium(id= html_id data-reveal)
+  .modal
+    .modal__header
+      h2= t(".title")
+      = render "renalware/shared/modal_close_link"
+    .modal__body(style="text-align: center")
+      table.mb-10.mt-4
+        thead
+          tr
+            th= t(".table.grade")
+            th.col-width-small= t(".table.name")
+            th= t(".table.description")
+        tbody
+          - table_data.each do |grade, data|
+            tr
+              td= grade
+              td= data[:name]
+              td= data[:description]

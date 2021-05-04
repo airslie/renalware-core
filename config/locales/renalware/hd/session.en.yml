@@ -46,6 +46,7 @@ en:
         machine_urr: Machine URR
         machine_ktv: Machine KTV
         litres_processed: Litres Processed
+        washback_quality: Washback quality
       renalware/hd/session_document/hdf:
         subs_fluid_pct: Subs Fluid Percentage
         subs_goal: Subs Goal
@@ -141,6 +142,17 @@ en:
       safe_to_use:
         Y: "Yes"
         N: "No"
+    renalware/hd/session_document/dialysis:
+      washback_quality:
+        1: Very good
+        2: Good
+        3: Fair
+        4: Poor
+      washback_quality_description:
+        1: No clotting. Clean filter
+        2: Fibrinous ring in the bubble traps. Few blood stripes in the dialyser (<5% of fibres).
+        3: Clot formation in the bubble traps. Many blood stripes (>5% of fibres).
+        4: Clotted circuit. Clotted filter.
 
   simple_form:
     hints:

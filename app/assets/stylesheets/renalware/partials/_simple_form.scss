@@ -6,6 +6,7 @@
   .hint.hint-help-link {
     display: inline-block;
     margin-left: 1rem;
+    vertical-align: middle;
 
     a {
       font-size: 1.5rem;
@@ -54,6 +55,13 @@
   }
 
   .field_with_hint {
+    input,
+    select {
+      margin-bottom: 0;
+    }
+  }
+
+  .field_with_hint2 {
     input,
     select {
       margin-bottom: 0;

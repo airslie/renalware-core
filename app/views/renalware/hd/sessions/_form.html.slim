@@ -75,8 +75,9 @@ ruby:
             = fcm.input :access_site_status, wrapper: :horizontal_small
             = fcm.input :line_exit_site_status,
                         wrapper: :horizontal_tiny,
+                        wrapper_hint_class: "",
                         hint: link_to("", "#",
-                                      data: { "reveal-id" => "mr-vistor-help-modal" }),
+                                      data: { "reveal-id" => "mr-victor-help-modal" }),
                         hint_html: { class: "hint-help-link" }
 
     = render layout: "renalware/shared/fieldset",
@@ -84,6 +85,7 @@ ruby:
       = fd.simple_fields_for :avf_avg_assessment, fd.object.avf_avg_assessment do |favf|
         = favf.input :score,
                      wrapper: :horizontal_small,
+                     wrapper_hint_class: "",
                      hint: link_to("", "#",
                            data: { "reveal-id" => "avf-assessment-help-modal" }),
                      hint_html: { class: "hint-help-link" }
@@ -128,7 +130,12 @@ ruby:
         = fcm.input :fluid_removed, wrapper: :horizontal_tiny
         = fcm.input :flow_rate, collection: fcm.object.class.flow_rates, wrapper: :horizontal_tiny
         = fcm.input :blood_flow, wrapper: :horizontal_tiny
-        = fcm.input :washback_quality, wrapper: :horizontal_tiny
+        = fcm.input :washback_quality,
+                    wrapper: :horizontal_tiny,
+                    wrapper_hint_class: "",
+                    hint: link_to("", "#", data: { "reveal-id" => "washback-quality-modal" }),
+                    hint_html: { class: "hint-help-link" }
+
         = fcm.input :machine_urr, wrapper: :horizontal_tiny
         = fcm.input :litres_processed, wrapper: :horizontal_tiny
         = f.association :dialysate, wrapper: :horizontal_small
@@ -165,7 +172,7 @@ ruby:
   .large-12.columns
     = render "form_actions", f: f, back_path: back_path, session: session, patient: @patient
 
-#mr-vistor-help-modal.reveal-modal.medium(data-reveal style="width: 600px")
+#mr-victor-help-modal.reveal-modal.medium(data-reveal style="width: 600px")
   .modal
     .modal__header
       h2 MR VICTOR
@@ -182,3 +189,14 @@ ruby:
       = render "renalware/shared/modal_close_link"
     .modal__body(style="text-align: center")
       = image_tag(asset_path("renalware/hd/avf_avg_assessment.jpg"))
+
+= render(Renalware::HD::Sessions::WashbackQualityDialogComponent.new(html_id: "washback-quality-modal"))
+/ #washback-quality-modal.reveal-modal.medium(data-reveal style="width: 600px")
+/   .modal
+/     .modal__header
+/       h2 AVF/AVG Assessment
+/       .modal__header-subtitle Arteriovenous Fistula/Graft (AVF/AVG) Pre-Needling Assessment Tool
+/       = render "renalware/shared/modal_close_link"
+/     .modal__body(style="text-align: center")
+/       /= image_tag(asset_path("renalware/hd/avf_avg_assessment.jpg"))
+/       h1 OK
