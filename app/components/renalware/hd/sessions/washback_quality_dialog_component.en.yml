@@ -1,0 +1,11 @@
+---
+en:
+  renalware:
+    hd:
+      sessions:
+        washback_quality_dialog_component:
+          title: HD washback quality - Tubing / Dialyser clotting scale
+          table:
+            grade: Grade
+            name: Name
+            description: Description

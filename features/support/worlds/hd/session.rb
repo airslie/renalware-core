@@ -327,6 +327,7 @@ module World
           fill_in "Fluid Removed", with: "30"
           select "100", from: "Dialysate Flow Rate"
           fill_in "Blood Flow Rate", with: "100"
+          select "Very good", from: "Washback quality"
           fill_in "Machine URR", with: "1.0"
           fill_in "Machine KTV", with: "1.0"
           fill_in "Litres Processed", with: "10"
