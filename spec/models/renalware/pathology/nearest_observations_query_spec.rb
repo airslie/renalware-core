@@ -12,7 +12,7 @@ module Renalware::Pathology
         date: date,
         code_group: code_group,
         look_behind_days: look_behind_days
-      ).call
+      ).call.sort_by { |hsh| hsh[:code] }
     }
 
     let(:user) { create(:user) }

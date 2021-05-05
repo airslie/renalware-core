@@ -9,7 +9,7 @@ undertake clinical and administrative audits and share data with external system
 
 ## Technical Overview
 
-renalware-core is a Ruby On Rails [engine](http://guides.rubyonrails.org/engines.html) intended to encapsulate the majority of Renalware's
+renalware-core is a Ruby On Rails [engine](http://guides.rubyonrails.org/engines.html) encapsulating the majority of Renalware's
 features in a re-usable [gem](http://guides.rubygems.org/what-is-a-gem/). When a renal unit deploys Renalware, it will create its own _host_
 Rails application, and configure it to include the Renalware engine. The host application may be
 extremely thin, adding no custom features other than site-specific configuration, or it may include
@@ -24,12 +24,6 @@ it is in the `./spec` folder)
 There are other optional renalware gems which can also be included in the host application,
 for example `renalware-ukrdc` which enables sending data to the UKRDC.
 
-### Stack
-
-- Ruby 2.x
-- Ruby on Rails 5
-- Postgres 10.1+
-
 ## Get up and running locally
 
 > An alternative Docker approach will be available shortly
@@ -38,7 +32,7 @@ As a Rails developer we assume you are using OS X or Linux (natively or inside a
 and have the following installed:
 
 * Git
-* Postgres 9.6
+* Postgres 12+
 * a ruby version manager (e.g. [rbenv](https://github.com/rbenv/rbenv) or [RVM](https://rvm.io/))
 * NodeJS required by the [uglifier gem](https://github.com/lautis/uglifier#installation)
 
@@ -65,9 +59,9 @@ Check the `ruby` declaration at the top of the Gemfile to see which version of R
 using your preferred Ruby version manager.
 If using rbenv for example:
 ```bash
-rbenv install 2.4.1
+rbenv install <version>
 cd renalware-core
-rbenv local 2.4.1
+rbenv local <version>
 ```
 
 ### Install app dependencies and seed the database with demo data
@@ -225,25 +219,11 @@ Only 10 attempts per username as permitted in any one minute in an attempt to th
 RSpec is configured to silence backtrace from third-party gems. This can be
 configured in `.rspec` with `--backtrace` which will display the full backtrace.
 
-#### Debugging
-
-The [awesome_print](https://github.com/awesome-print/awesome_print) gem is available
-for improved inspection formatting, for example:
-
-    Rails.logger.ap @variable
-
-To make awesome_print the default formatter in irb, add the following to `~/.irbrc`
-
-    require "awesome_print"
-    AwesomePrint.irb!
-
-
-#### Docker -  WIP!
+#### Docker - WIP
 
 ```
-docker build -t renalware .
-docker-compose run web rake db:create
-docker-compose run web rake app:db:create
+docker-compose run web bundle exec rake db:setup
+docker-compose up -d
 ```
 
 #### Browser testing
