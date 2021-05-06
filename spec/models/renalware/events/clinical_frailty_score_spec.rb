@@ -14,7 +14,7 @@ describe Renalware::Events::ClinicalFrailtyScore, type: :model do # an event
       patient: create(:patient),
       date_time: Time.current,
       description: "desc",
-      event_type: create(:clinical_frailty_score),
+      event_type: create(:clinical_frailty_score_event_type),
       document: { score: 1 },
       by: create(:user)
     )

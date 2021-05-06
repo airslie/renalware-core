@@ -16,5 +16,18 @@ module Renalware
         $("#{el}").addClass("post-action-highlight");
       EOS
     end
+
+    def refresh_component(el, component:)
+      <<-EOS.squish.html_safe
+        $("#{el}").html("#{render(component)}");
+      EOS
+    end
+
+    def replace_component(el, component:)
+      <<-EOS.squish.html_safe
+        $("#{el}").replaceWith("#{escape_javascript(render(partial, locals))}");
+        $("#{el}").addClass("post-action-highlight");
+      EOS
+    end
   end
 end

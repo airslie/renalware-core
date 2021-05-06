@@ -1,0 +1,7 @@
+---
+en:
+  renalware:
+    medications:
+      latest_review_component:
+        title: Medications last confirmed by %{user} on %{date}
+        compact_title: last checked %{date} by %{user}

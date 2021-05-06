@@ -14,7 +14,7 @@ describe Renalware::Events::AdvancedCarePlan, type: :model do
       patient: create(:patient),
       date_time: Time.current,
       description: "desc",
-      event_type: create(:advanced_care_plan),
+      event_type: create(:advanced_care_plan_event_type),
       document: { state: :not_required },
       by: create(:user)
     )

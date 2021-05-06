@@ -1,13 +1,26 @@
 article
   header
     h2 Current
+    #medication-review
+      = render Renalware::Medications::LatestReviewComponent.new(patient: patient, compact: true)
     ul
       li
-        - if policy(Renalware::Medications::Prescription).new?
-          = link_to "Add Prescription",
-              new_patient_prescription_path(patient, treatable),
+        - if policy(Renalware::Medications::Review).new?
+          = link_to patient_medications_reviews_path(patient, format: :js),
+              method: :post,
               remote: true,
-              class: %i(button add_prescription)
+              class: %i(button add_prescription),
+              data: { confirm: "Create a new Medication Review event?" } do
+            i.fas.fa-check
+            | Medication Review
+
+        - if policy(Renalware::Medications::Prescription).new?
+          = link_to new_patient_prescription_path(patient, treatable),
+                    remote: true,
+                    class: %i(button add_prescription) do
+            i.fas.fa-plus
+            | Add Prescription
+
 
   = render "renalware/medications/prescriptions/table",
             id: "current-prescriptions",
