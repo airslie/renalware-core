@@ -53,6 +53,7 @@ module Renalware
       end
       attribute :observations_before, Observations
       attribute :observations_after, Observations
+      validate :pre_post_weight_difference
 
       class Dialysis < Document::Embedded
         attribute :arterial_pressure, Integer
@@ -130,7 +131,9 @@ module Renalware
         attribute :feel, Document::Enum, default: :S
         attribute :safe_to_use, Document::Enum, default: :Y
       end
+
       attribute :avf_avg_assessment, AvfAvgAssessment
+
       def error_messages
         [
           observations_before.errors.full_messages,
@@ -140,6 +143,30 @@ module Renalware
           complications.errors.full_messages,
           hdf.errors.full_messages
         ].flatten.compact
+      end
+
+      # Validate that there is not more than 7kg difference in pre and post weights.
+      def pre_post_weight_difference
+        pre_weight = observations_before.weight
+        post_weight = observations_after.weight
+        return unless pre_weight.present? && post_weight.present?
+
+        weight_diff = (post_weight.to_f - pre_weight.to_f).round(1).abs
+
+        if weight_diff > 7
+          # "More than 7kg difference in pre/post weights"
+          observations_after.errors.add(:weight, :more_than_7kg_between_pre_post_weights)
+          # This validation used to be in Session::Closed::Document where it worked ok - when
+          # doing a Save & Sign Off, the validation would trigger and prevent a save.
+          # However after moving the validation to this base SessionDocument, so that it should
+          # validate even the user just does a Save (not a sign off ie closing the session), the
+          # validation does fire but the fact that observations_after has an error added does not
+          # equate to document.valid? false. So to get around this I am adding an error to the
+          # session document itself to indicate that observations_after is invalid. This causes
+          # valid? to be false and the error in observations_after will be displayed OK.
+          # TODO: get to the bottom of this at some point.
+          errors.add(:observations_after, "invalid")
+        end
       end
     end
   end

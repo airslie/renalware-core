@@ -60,6 +60,7 @@ module Renalware
         it "does not validate presence of hdf if hd_type is HD" do
           document.info.hd_type = :hd
           document.valid?
+
           expect(document.hdf.errors).not_to include(:subs_fluid_pct)
         end
       end
