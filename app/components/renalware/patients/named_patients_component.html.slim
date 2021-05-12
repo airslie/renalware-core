@@ -17,10 +17,13 @@ article
         th.col-width-large Access
         th.show-for-large-up.col-width-date Acess started
         th Dialysing at
+        th HGB
+        th CRE
     tbody
       - patients.each do |patient|
         - access_patient = Renalware::Accesses::PatientPresenter.new(patient)
         - hd_patient = Renalware::HD::PatientPresenter.new(patient)
+        - current_observations = Renalware::Pathology::ObservationSetPresenter.new(patient.current_observation_set)
         tr
           td= default_patient_link(patient)
           td= patient.nhs_number
@@ -32,3 +35,5 @@ article
           td= access_patient.access_profile_type
           td.show-for-large-up= l(access_patient.access_profile_started_on)
           td= hd_patient.dialysing_at_unit
+          td= current_observations.hgb_result
+          td= current_observations.cre_result

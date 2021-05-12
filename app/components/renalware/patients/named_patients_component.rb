@@ -43,6 +43,8 @@ module Renalware
           .merge(Accesses::Patient.with_current_plan)
           .merge(Accesses::Patient.with_profile)
           .merge(HD::Patient.with_profile)
+          .extending(PatientPathologyScopes)
+          .with_current_pathology
           .includes(current_modality: :description)
           .where(named_nurse: current_user)
           .order(updated_at: :desc)
