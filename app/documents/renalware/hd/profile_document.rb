@@ -32,11 +32,13 @@ module Renalware
         }
         validates :substitution_percent, numericality: {
           greater_than_or_equal_to: 45,
-          less_than_or_equal_to: 60
+          less_than_or_equal_to: 60,
+          allow_blank: true
         }, if: -> { hd_type == "hdf_pre" }
         validates :substitution_percent, numericality: {
           greater_than_or_equal_to: 20,
-          less_than_or_equal_to: 30
+          less_than_or_equal_to: 30,
+          allow_blank: true
         }, if: -> { hd_type == "hdf_post" }
 
         def self.cannulation_types; CannulationType.ordered; end

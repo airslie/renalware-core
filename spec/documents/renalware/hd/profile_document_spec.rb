@@ -35,6 +35,7 @@ module Renalware
           before { dialysis.hd_type = "hdf_pre" }
 
           it :substitution_percent do
+            is_expected.to allow_value("", nil).for(:substitution_percent)
             is_expected.to validate_numericality_of(:substitution_percent)
               .is_greater_than_or_equal_to(45)
               .is_less_than_or_equal_to(60)
@@ -45,6 +46,7 @@ module Renalware
           before { dialysis.hd_type = "hdf_post" }
 
           it :substitution_percent do
+            is_expected.to allow_value("", nil).for(:substitution_percent)
             is_expected.to validate_numericality_of(:substitution_percent)
               .is_greater_than_or_equal_to(20)
               .is_less_than_or_equal_to(30)
