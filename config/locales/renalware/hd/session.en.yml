@@ -65,6 +65,10 @@ en:
         had_mssa_swab: Had MSSA swab?
         had_blood_transfusion: "Had blood transfusion?"
         circuit_loss: Circuit loss?
+        blown_fistula_venous: Blown Fistula / Graft - venous
+        blown_fistula_arterial: Blown Fistula / Graft - arterial
+        multiple_cannulation_attempts: Multiple Cannulation Attempts
+        prolonged_bleeding: "Prolonged bleeding > 30 mins"
       renalware/hd/session_document/avf_avg_assessment:
         score: "AVF score"
 
