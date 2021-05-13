@@ -14,12 +14,12 @@ article
         th.col-width-tiny= t(".thead.age")
         th.col-width-tiny= t(".thead.sex")
         th= t(".thead.modality")
-        th.show-for-large-up.col-width-large Access
-        th.show-for-large-up.col-width-date Acess started
-        th.show-for-large-up Dialysing at
-        th HGB
-        th CRE
-        th Last clinic visit
+        th.show-for-large-up.col-width-large= t(".access")
+        th.show-for-large-up.col-width-date= t(".access_started")
+        th.show-for-large-up= t(".dialysing_at")
+        th= t(".hgb")
+        th= t(".cre")
+        th= t(".last_clinic_visit")
     tbody
       - each_row do |patient|
         tr
