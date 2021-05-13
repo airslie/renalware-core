@@ -14,16 +14,14 @@ article
         th.col-width-tiny= t(".thead.age")
         th.col-width-tiny= t(".thead.sex")
         th= t(".thead.modality")
-        th.col-width-large Access
+        th.show-for-large-up.col-width-large Access
         th.show-for-large-up.col-width-date Acess started
-        th Dialysing at
+        th.show-for-large-up Dialysing at
         th HGB
         th CRE
+        th Last clinic visit
     tbody
-      - patients.each do |patient|
-        - access_patient = Renalware::Accesses::PatientPresenter.new(patient)
-        - hd_patient = Renalware::HD::PatientPresenter.new(patient)
-        - current_observations = Renalware::Pathology::ObservationSetPresenter.new(patient.current_observation_set)
+      - each_row do |patient|
         tr
           td= default_patient_link(patient)
           td= patient.nhs_number
@@ -32,8 +30,9 @@ article
           td= patient.age
           td= patient.sex
           td.col-width-medium-with-ellipsis= patient.current_modality
-          td= access_patient.access_profile_type
-          td.show-for-large-up= l(access_patient.access_profile_started_on)
-          td= hd_patient.dialysing_at_unit
-          td= current_observations.hgb_result
-          td= current_observations.cre_result
+          td.show-for-large-up= patient.access_profile_type
+          td.show-for-large-up= l(patient.access_profile_started_on)
+          td.show-for-large-up= patient.dialysing_at_unit
+          td= patient.hgb_result
+          td= patient.cre_result
+          td= patient.most_recent_clinic_visit&.date

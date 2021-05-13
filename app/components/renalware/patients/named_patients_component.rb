@@ -32,6 +32,35 @@ module Renalware
         end
       end
 
+      class RowPresenter
+        pattr_initialize :patient
+        delegate :hgb_result, :cre_result, to: :current_observations
+        delegate :access_profile_started_on, :access_profile_type, to: :access_patient
+        delegate :dialysing_at_unit, to: :hd_patient
+        delegate_missing_to :patient
+        delegate :to_s, to: :patient
+
+        def access_patient
+          Renalware::Accesses::PatientPresenter.new(patient)
+        end
+
+        def hd_patient
+          Renalware::HD::PatientPresenter.new(patient)
+        end
+
+        def current_observations
+          Renalware::Pathology::ObservationSetPresenter.new(patient.current_observation_set)
+        end
+
+        def most_recent_clinic_visit
+          Renalware::Clinics.cast_patient(patient).most_recent_clinic_visit
+        end
+      end
+
+      def each_row
+        patients.each { |patient| yield RowPresenter.new(patient) }
+      end
+
       private
 
       def load_patients
