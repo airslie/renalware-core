@@ -22,6 +22,7 @@ module Renalware
         class Generator
           pattr_initialize :modality
           delegate :patient, to: :modality
+          attr_reader :operation
 
           UKRR_TXT = {
             cadaver: 20,
@@ -30,7 +31,7 @@ module Renalware
             live_related_sibling: 21,
             live_related_father: 74,
             live_related_mother: 75,
-            live_related_child: 77,
+            live_related_child: 76,
             non_heart_beating: 28,
             live_unrelated: 24
           }.freeze
@@ -39,13 +40,13 @@ module Renalware
           # based on donor relationship.
           # Otherwise Default to 29 Transplant ; type unknown
           def call
+            @operation = first_operation_within_start_and_end_dates_of_modality
             create_treatment
           end
 
           private
 
           def create_treatment
-            operation
             Treatment.create!(
               patient: modality.patient,
               clinician: modality.created_by,
@@ -91,19 +92,16 @@ module Renalware
             UKRDC::ModalityCode.find_by(txt_code: txt_code)
           end
 
-          # Try and select an operation within the start and end dates of the modality
-          def operation
-            @operation ||= begin
-              Renalware::Transplants::RecipientOperation
-                .for_patient(patient)
-                .where(
-                  "performed_on >= ? and performed_on <= ?",
-                  modality.started_on,
-                  modality.ended_on || Time.zone.today
-                )
-                .order(performed_on: :desc)
-                .first
-            end
+          def first_operation_within_start_and_end_dates_of_modality
+            Renalware::Transplants::RecipientOperation
+              .for_patient(patient)
+              .where(
+                "performed_on >= ? and performed_on <= ?",
+                modality.started_on,
+                modality.ended_on || Time.zone.today
+              )
+              .order(performed_on: :desc)
+              .first
           end
         end
       end
