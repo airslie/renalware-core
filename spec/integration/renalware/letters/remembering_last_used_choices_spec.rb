@@ -2,7 +2,6 @@
 
 require "rails_helper"
 
-# rubocop:disable RSpec/MultipleExpectations
 describe "Remembering last used letter choices in the user's session", type: :system, js: true do
   it "once a letter is created, subsequent new letters remember letterhead, author, " \
      "date and description" do
@@ -23,7 +22,6 @@ describe "Remembering last used letter choices in the user's session", type: :sy
       login_as_clinical,
       create(:user, family_name: "Jones", given_name: "Jane")
     ]
-    letter_date = 1.month.ago.to_date
 
     visit new_patient_letters_letter_path(patient)
 
@@ -55,4 +53,3 @@ describe "Remembering last used letter choices in the user's session", type: :sy
       .to eq(users[1].id.to_s)
   end
 end
-# rubocop:enable RSpec/MultipleExpectations

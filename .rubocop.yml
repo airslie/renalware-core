@@ -81,3 +81,5 @@ Gemspec/RequiredRubyVersion:
   Enabled: false
 Style/MultilineBlockChain:
   Enabled: false
+Style/RedundantBegin:
+  Enabled: false

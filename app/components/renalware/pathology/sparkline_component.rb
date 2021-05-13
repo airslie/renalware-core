@@ -101,13 +101,11 @@ module Renalware
       }.freeze
 
       def chart_data
-        @chart_data ||= begin
-          patient
-            .observations
-            .where(description_id: observation_description.id)
-            .order(:observed_at)
-            .pluck([:observed_at, :result])
-        end
+        @chart_data ||= patient
+          .observations
+          .where(description_id: observation_description.id)
+          .order(:observed_at)
+          .pluck([:observed_at, :result])
       end
 
       def cache_key

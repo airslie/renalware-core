@@ -30,7 +30,6 @@ module Renalware
         #   2 => { name: "Name2", description: "Desc2" },
         #   ..
         # }
-        # rubocop:disable Style/RedundantBegin
         def table_data
           names = I18n.t("washback_quality", scope: I18N_KEY) # could be a string if tn missing
           descriptions = I18n.t("washback_quality_description", scope: I18N_KEY)
@@ -46,7 +45,6 @@ module Renalware
             end
           end
         end
-        # rubocop:enable Style/RedundantBegin
       end
     end
   end

@@ -15,13 +15,11 @@ module Renalware
       end
 
       def question_labels
-        @question_labels ||= begin
-          survey
-            .questions
-            .order(:position)
-            .select(:code, :label, :label_abbrv)
-            .each_with_object({}) { |q, hash| hash[q.code] = q.admin_label }
-        end
+        @question_labels ||= survey
+          .questions
+          .order(:position)
+          .select(:code, :label, :label_abbrv)
+          .each_with_object({}) { |q, hash| hash[q.code] = q.admin_label }
       end
 
       # Return data for charting
