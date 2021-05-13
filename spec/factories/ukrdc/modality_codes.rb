@@ -76,8 +76,8 @@ FactoryBot.define do
 
     trait :live_related_child do
       description { "Transplant ; Transplant; Live related - child" }
-      txt_code { 77 }
-      qbl_code { 77 }
+      txt_code { 76 }
+      qbl_code { 76 }
     end
 
     trait :live_related_other do
