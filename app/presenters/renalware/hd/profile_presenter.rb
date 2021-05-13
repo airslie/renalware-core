@@ -22,6 +22,7 @@ module Renalware
                :has_sodium_profiling,
                :sodium_first_half,
                :sodium_second_half,
+               :substitution_percent,
                to: :dialysis, allow_nil: true
 
       delegate :type,
