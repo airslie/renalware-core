@@ -26,18 +26,6 @@ describe "Manage a patient's attachments (linked files)", type: :system do
     end
   end
 
-  # TODO: Add a happy path test here.
-  # describe "adding an attachment" do
-  #   it "adds an attachment" do
-  #     login_as_clinical
-  #     visit patient_attachments_path(patient)
-
-  #     within(".page-actions") do
-  #       click_on "Add"
-  #     end
-  #   end
-  # end
-
   describe "viewing an attachment" do
     it "clicking on the attachment name views the attachment in a new window using "\
        "ActiveStorage::BlobsController#show" do

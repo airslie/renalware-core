@@ -70,6 +70,7 @@ li.heading= t(".heading")
                     path: patient_surveys_dashboard_path(patient),
                     active_when_controller_matches: %r{renalware/surveys}
 
-= patient_menu_item title: t(".attachments", count: summary.attachments_count),
-                    path: patient_attachments_path(patient),
-                    active_when_controller_matches: %r{renalware/patients/attachments}
+- if Renalware.config.allow_uploading_patient_attachments
+  = patient_menu_item title: t(".attachments", count: summary.attachments_count),
+                      path: patient_attachments_path(patient),
+                      active_when_controller_matches: %r{renalware/patients/attachments}
