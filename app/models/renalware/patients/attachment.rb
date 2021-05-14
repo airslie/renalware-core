@@ -27,26 +27,17 @@ module Renalware
 
       validates :patient, presence: true
       validates :attachment_type_id, presence: true
-      validates :file, presence: true
       validates :name, presence: true
       validates :external_location, presence: { if: -> { attachment_type&.store_file_externally } }
       validate :validate_uploaded_file_size
       validate :validate_presence_of_file_if_attachment_type_indicates_it_should_be_uploaded
-
-      # The user may have selected the file to upload, then changed the atachment_type to one that
-      # has store_file_externally = true, thus hiding the file input, but the file still gets sent.
-      def discard_uploaded_file_if_attachment_type_suggests_external_storage
-        if file.attached? && attachment_type&.store_file_externally?
-          file.purge
-        end
-      end
 
       private
 
       def validate_uploaded_file_size
         max = Renalware.config.max_file_upload_size
         if file.attached? && file.blob.byte_size > max
-          # file.purge # causes FrozenError in Rails 6
+          file.purge if file.persisted?
           errors[:file] << "Sorry, the file is too large. The maximum is #{max} bytes."
         end
       end

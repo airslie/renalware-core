@@ -1,7 +1,7 @@
 - url = patient_attachments_path(patient)
 .filters
   .filters__form
-    = search_form_for search, url: url do |f|
+    = search_form_for search, url: url, class: "fn-form" do |f|
       .row
         .small-5.large-3.columns
           = f.label "Name or description contains"
