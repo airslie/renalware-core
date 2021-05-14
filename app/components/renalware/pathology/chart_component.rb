@@ -6,13 +6,11 @@ module Renalware
       pattr_initialize [:current_user!, :patient!, :observation_description!]
 
       def chart_data
-        @chart_data ||= begin
-          Pathology.cast_patient(patient)
-            .observations
-            .where(description_id: observation_description.id)
-            .order(:observed_at)
-            .pluck([:observed_at, :result])
-        end
+        @chart_data ||= Pathology.cast_patient(patient)
+          .observations
+          .where(description_id: observation_description.id)
+          .order(:observed_at)
+          .pluck([:observed_at, :result])
       end
 
       # TODO: cache key should expire when a new observation arrives of this type
