@@ -46,7 +46,7 @@ module Renalware
       def validate_uploaded_file_size
         max = Renalware.config.max_file_upload_size
         if file.attached? && file.blob.byte_size > max
-          file.purge
+          # file.purge # causes FrozenError in Rails 6
           errors[:file] << "Sorry, the file is too large. The maximum is #{max} bytes."
         end
       end

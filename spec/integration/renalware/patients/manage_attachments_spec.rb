@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Manage a patient's attachments (linked files)" do
+describe "Manage a patient's attachments (linked files)", type: :system do
   # include PatientsSpecHelper
   let(:patient) { create(:patient) }
 

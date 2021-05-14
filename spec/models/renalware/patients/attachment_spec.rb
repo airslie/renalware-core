@@ -52,7 +52,7 @@ module Renalware
             attachment = build(:patient_attachment, attachment_type: attachment_type, file: nil)
 
             expect(attachment).not_to be_valid
-            expect(attachment.errors.first).to eq([:file, "Please specify a file to upload"])
+            expect(attachment.errors.full_messages).to include("File Please specify a file to upload")
           end
         end
 
@@ -68,7 +68,7 @@ module Renalware
             )
 
             expect(attachment).not_to be_valid
-            expect(attachment.errors.first).to eq([:external_location, "can't be blank"])
+            expect(attachment.errors.full_messages).to include("External location can't be blank")
           end
 
           it "does not validate the presence of #file" do
