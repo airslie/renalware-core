@@ -11,7 +11,7 @@ module Renalware
     flows = [300, 400, 500]
 
     Patient.transaction do
-      patients = Patient.all
+      patients = Patient.where("family_name != 'RABBIT'")
       i = 0
       patients.each do |patient|
         i += 1
