@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   ]
 
   s.add_dependency "activerecord-import", "~> 1.0"
-  s.add_dependency "activerecord-postgres_enum", "~> 0.6.0"
+  s.add_dependency "activerecord-postgres_enum", "~> 1.6.0"
   s.add_dependency "active_type", "~> 0.7.1"
   s.add_dependency "ahoy_matey", "~> 2.1"
   s.add_dependency "attr_extras", "~> 6.2"
