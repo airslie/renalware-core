@@ -11,7 +11,7 @@ module Renalware
       pattr_initialize [:current_user!]
 
       def render?
-        patients.count > 0
+        Renalware.config.user_dashboard_display_named_patients && patients.count > 0
       end
 
       def pagination
@@ -32,13 +32,13 @@ module Renalware
         end
       end
 
-      class RowPresenter
+      class RowPresenter < SimpleDelegator
         pattr_initialize :patient
         delegate :hgb_result, :cre_result, to: :current_observations
         delegate :access_profile_started_on, :access_profile_type, to: :access_patient
         delegate :dialysing_at_unit, to: :hd_patient
         delegate_missing_to :patient
-        delegate :to_s, to: :patient
+        delegate :to_s, :to_param, to: :patient
 
         def access_patient
           Renalware::Accesses::PatientPresenter.new(patient)
