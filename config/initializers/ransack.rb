@@ -38,4 +38,9 @@ Ransack.configure do |config|
     validator: proc { |val| val.present? },
     type: :array
   )
+
+  # Make NULLS always sink to the bottom when sorting eg by a date desc, so that
+  # and there are NULL dates, the NULLs will appear last, ie treated as far-past dates.
+  # While there is a nulls_last option, nulls_first is actually what we want here.
+  config.postgres_fields_sort_option = :nulls_first
 end
