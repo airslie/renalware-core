@@ -1,0 +1,44 @@
+ruby:
+  url = attachment.new_record? ?
+    patient_attachments_path(attachment.patient) :
+    patient_attachment_path(attachment.patient)
+
+  # Add a data attribute to the attachment type options so we can toggle visibility
+  # of the file upload and external_file_location inputs according to the selection.
+  attachment_types = Renalware::Patients::AttachmentType.select(:id, :name, :store_file_externally)
+  attachment_type_options = attachment_types.map do |at|
+    [
+      "#{at.name}#{at.store_file_externally? ? ' (store externally)' : ''}",
+      at.id,
+      { "data-store-file-externally" => at.store_file_externally? }
+    ]
+  end
+
+= simple_form_for(attachment,
+                  url: url,
+                  html: { autocomplete: "off" }) do |f|
+  = f.input :document_date, as: :date_picker, wrapper: :horizontal_datepicker
+  = f.input :name, wrapper: :horizontal_medium
+  = f.input :description, wrapper: :horizontal_large
+
+  span data-controller="patient-attachments"
+    = f.input :attachment_type_id,
+              collection: attachment_type_options,
+              wrapper: :horizontal_medium,
+              input_html: { \
+                disabled: !attachment.new_record?,
+                data: { action: "change->patient-attachments#toggleFileInputs" }}
+
+    span(data-target="patient-attachments.externalLocation")
+      = f.input(:external_location,
+                wrapper: :horizontal_medium,
+                placeholder: "The path to the file e.g. \\\\Server\\Folder\\Filename",
+                input_html: { disabled: !attachment.new_record? })
+
+    span(data-target="patient-attachments.fileBrowser")
+      - if attachment.new_record?
+        = f.input(:file,
+                  as: :file,
+                  wrapper: :horizontal_medium)
+
+  = save_or_cancel(form: f, back_path: patient_attachments_path(attachment.patient))

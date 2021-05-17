@@ -101,6 +101,7 @@ module Renalware
 
     config_accessor(:hd_session_prescriptions_require_signoff) { true }
     config_accessor(:batch_printing_enabled) { true }
+    config_accessor(:allow_uploading_patient_attachments) { true }
     config_accessor(:generate_pathology_request_forms_from_hd_mdm_listing) { true }
     config_accessor(:disable_inputs_controlled_by_tissue_typing_feed) { false }
     config_accessor(:disable_inputs_controlled_by_demographics_feed) { false }
@@ -151,6 +152,7 @@ module Renalware
         "BOTH" => "NS"
       }.freeze
     end
+    config_accessor(:max_file_upload_size) { ENV.fetch("MAX_FILE_UPLOAD_SIZE", "10_000_000").to_i }
   end
 
   def self.config

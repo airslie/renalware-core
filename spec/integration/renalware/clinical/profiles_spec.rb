@@ -23,7 +23,6 @@ describe "Viewing clinical profile", type: :request do
   describe "PUT update" do
     it "responds successfully" do
       url = patient_clinical_profile_path(patient_id: patient.to_param)
-      headers = { "HTTP_REFERER" => "/" }
       params = {
         clinical_profile: {
           document: {
@@ -33,7 +32,7 @@ describe "Viewing clinical profile", type: :request do
         }
       }
 
-      put(url, params: params, headers: headers)
+      put(url, params: params)
 
       expect(response).to have_http_status(:redirect)
       follow_redirect!
