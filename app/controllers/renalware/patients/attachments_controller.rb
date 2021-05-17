@@ -47,12 +47,8 @@ module Renalware
       def show
         attachment = find_and_authorize_attachment
         if attachment.file.attached?
-          file = attachment.file
-          url = Rails.application.routes.url_for(
-            controller: "active_storage/blobs",
-            action: :show,
-            signed_id: file.signed_id,
-            filename: file.filename,
+          url = Rails.application.routes.url_helpers.rails_blob_url(
+            attachment.file,
             only_path: true
           )
           redirect_to(url)
