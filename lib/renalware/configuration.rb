@@ -118,10 +118,11 @@ module Renalware
 
     # A host app can override this to add/remove/re-order the clinical summary display
     # Note these have to be strings - they mapped to constants in ClinicalSummaryPresenter.
+    # At some point we might make page layouts and dashboards data-driven.
     config_accessor(:page_layouts) {
       {
         clinical_summary: %w(
-          Renalware::Problems::SummaryPart
+          Renalware::Problems::SummaryComponent
           Renalware::Medications::SummaryPart
           Renalware::Letters::SummaryPart
           Renalware::Events::SummaryPart
