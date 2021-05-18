@@ -1,0 +1,17 @@
+.search-form.filters.filters--flex.max-w-screen-md
+    = search_form_for(search, class: "fn-form") do |f|
+      = f.label :named_nurse_id_eq, "Named nurse"
+      .row
+        .columns.small-12.medium-6
+          = f.select(:named_nurse_id_eq,
+              options_from_collection_for_select(Renalware::User.ordered,
+                                                :id,
+                                                :to_s,
+                                                search.named_nurse_id_eq),
+              { include_blank: "" },
+              { class: "searchable_select" } )
+
+        .small-6.large-4.columns.end
+          = f.submit t("btn.filter"), class: "button secondary"
+          '  or
+          = link_to t("btn.reset"), renalware.patients_path

@@ -9,12 +9,17 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       def index
-        sort = params.dig(:q, :s)
-        patient_search.sorts = sort if sort
-        patients = patient_search.result.page(page).per(per_page)
+        search = Renalware::Patient
+          .includes(current_modality: [:description])
+          .ransack(params[:q]).tap do |srch|
+            srch.sorts = %w(family_name_case_insensitive given_name)
+          end
+
+        patients = search.result
+        patients = patients.page(page).per(per_page)
         authorize patients
         render locals: {
-          search: patient_search,
+          search: search,
           patients: present(patients, PatientPresenter)
         }
       end

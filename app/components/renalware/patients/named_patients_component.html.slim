@@ -1,0 +1,38 @@
+article
+  header
+    h2= formatted_title(t(".title"))
+    ul.noprint
+      li= link_to t("btn.view_all"), renalware.patients_path("q[named_nurse_id_eq]" => 2), class: "button"
+
+  table
+    thead
+      row
+        th.at-least.col-width-medium= t(".thead.patient_name", cascade: false)
+        th.col-width-nhs-no= t(".thead.nhs_number")
+        th.col-width-reference-no= t("thead.hospital_number")
+        th.show-for-medium-up.col-width-date= t(".thead.date_of_birth")
+        th.col-width-tiny= t(".thead.age")
+        th.col-width-tiny= t(".thead.sex")
+        th= t(".thead.modality")
+        th.show-for-large-up.col-width-large= t(".access")
+        th.show-for-large-up.col-width-date= t(".access_started")
+        th.show-for-large-up= t(".dialysing_at")
+        th= t(".hgb")
+        th= t(".cre")
+        th= t(".last_clinic_visit")
+    tbody
+      - each_row do |patient|
+        tr
+          td= default_patient_link(patient)
+          td= patient.nhs_number
+          td= patient.hospital_identifier
+          td.show-for-medium-up= I18n.l(patient.born_on)
+          td= patient.age
+          td= patient.sex
+          td.col-width-medium-with-ellipsis= patient.current_modality
+          td.show-for-large-up= patient.access_profile_type
+          td.show-for-large-up= l(patient.access_profile_started_on)
+          td.show-for-large-up= patient.dialysing_at_unit
+          td= patient.hgb_result
+          td= patient.cre_result
+          td= patient.most_recent_clinic_visit&.date

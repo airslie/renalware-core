@@ -11,7 +11,9 @@ module Renalware
       delegate :type, :started_on, to: :access_profile, prefix: true
 
       def initialize(patient)
-        super(Accesses.cast_patient(patient.__getobj__))
+        # If patient is already a presenter then use __getobj__ to access the model
+        pat = patient.respond_to?(:__getobj__) ? patient.__getobj__ : patient
+        super(Accesses.cast_patient(pat))
       end
 
       private
