@@ -22,6 +22,9 @@ resources :patients, only: [] do
   #     to: "events/events#new",
   #     as: :new_specific_event
   # or we could hardwire routes as we do for swabs.
+  get "events/:slug/new",
+      to: "events/events#new",
+      as: :new_specific_event
 end
 
 namespace :events do

@@ -1,0 +1,8 @@
+---
+en:
+  renalware:
+    clinical:
+      profiles:
+        page_actions:
+          advanced_care_plan: Advanced Care Plan
+          clinical_frailty_score: Clinical Frailty Score
