@@ -4,7 +4,7 @@ module Renalware
   module Medications
     # Displays details about the last medication review the patient had.
     # Can be used in the UI and on letters.
-    # The text to display is loaded from the sidecar i18n yml sing interpolation
+    # The text to display is loaded from the sidecar i18n yml using interpolation
     # in order to give more freedom for a hospital to override how the text is
     # displayed.
     # If compact: true is passed then we load a shorter title.

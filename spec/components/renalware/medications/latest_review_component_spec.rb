@@ -41,6 +41,13 @@ describe Renalware::Medications::LatestReviewComponent, type: :component do
             date_time: "2021-01-01 11:01:01",
             by: user
           )
+
+          # Set the config value to lots of months ago so we don't have to worry about this
+          # test failing at some point
+          allow(Renalware.config)
+            .to receive(:medication_review_max_age_in_months)
+            .and_return(10000)
+
           render_inline(
             described_class.new(
               patient: patient,
