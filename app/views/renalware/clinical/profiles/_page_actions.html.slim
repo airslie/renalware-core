@@ -1,0 +1,12 @@
+= link_to t("btn.edit"), edit_patient_clinical_profile_path(patient), class: "button"
+
+a.button.dropdown(href="#"
+                  data-dropdown="new-event-shorcuts"
+                  aria-controls="new-event-shorcuts"
+                  aria-expanded="false")
+  = t("btn.add_")
+br
+
+ul.f-dropdown#new-event-shorcuts(data-dropdown-content aria-hidden="true")
+  = dropdown_btn_item title: t(".clinical_frailty_score"), url: patient_new_specific_event_path(patient, 'clinical_frailty_score')
+  = dropdown_btn_item title: t(".advanced_care_plan"), url: patient_new_specific_event_path(patient, 'advanced_care_plans')
