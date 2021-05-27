@@ -21,7 +21,7 @@ module LettersSpecHelper
   end
 
   def create_letter(**args)
-    letter = build_letter(args)
+    letter = build_letter(**args)
     letter.save!
     letter
   end
