@@ -8,7 +8,7 @@ describe "Creating an clinical frailty score event", type: :system, js: true do
       user = login_as_clinical
       patient = create(:patient, by: user)
 
-      event_type = create(:clinical_frailty_score)
+      event_type = create(:clinical_frailty_score_event_type)
 
       visit new_patient_event_path(patient)
 

@@ -25,7 +25,8 @@ module Renalware
           current: present(current_non_hd, presenter_klass),
           recently_changed: present(recently_changed_current_prescriptions, presenter_klass),
           recently_stopped: present(recently_stopped_prescriptions, presenter_klass),
-          current_hd: present(current_hd, presenter_klass)
+          current_hd: present(current_hd, presenter_klass),
+          patient: @patient
         )
       end
 
@@ -63,11 +64,11 @@ module Renalware
       def patient_prescriptions
         @patient_prescriptions ||= begin
           @patient.prescriptions
-                   .with_created_by
-                   .with_medication_route
-                   .with_drugs
-                   .with_termination
-                   .ordered
+                  .with_created_by
+                  .with_medication_route
+                  .with_drugs
+                  .with_termination
+                  .ordered
         end
       end
     end

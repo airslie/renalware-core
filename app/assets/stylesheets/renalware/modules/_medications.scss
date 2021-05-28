@@ -1,3 +1,13 @@
+.medication-review {
+  float: left;
+
+  .medication-review--content {
+    background-color: lighten($nhs-light-blue, 37);
+    border-radius: .8rem;
+    padding: .1rem .7rem;
+    box-shadow: 1px 1px 1px 0 #eee;
+  }
+}
 
 input[type="checkbox"].discardable-checkbox-used-when-reviewing-drugs-with-patient {
   margin: 0 0 2px 0;

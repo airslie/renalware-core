@@ -3,12 +3,9 @@
 resources :patients, only: [] do
   resources :prescriptions, controller: "medications/prescriptions", except: [:destroy]
   namespace :medications do
+    resources :reviews, only: :create, defaults: { format: :js }
     namespace :home_delivery do
       resources :events, only: [:new, :create, :edit, :update, :show]
-      # resources :prescriptions,
-      #           only: [:index],
-      #           constraints: { format: /(pdf)/ },
-      #           defaults: { format: :pdf }
     end
     resources :prescriptions, only: [] do
       resource :termination, only: [:new, :create]

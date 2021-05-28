@@ -8,7 +8,7 @@ describe "Creating an Advanced Care Plan event", type: :system, js: true do
       user = login_as_clinical
       patient = create(:patient, by: user)
 
-      event_type = create(:advanced_care_plan)
+      event_type = create(:advanced_care_plan_event_type)
 
       visit new_patient_event_path(patient)
 

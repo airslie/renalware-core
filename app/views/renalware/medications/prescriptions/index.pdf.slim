@@ -37,3 +37,5 @@ html
       - with_format(:html) do
         = render "recently_stopped",
                 prescriptions: recently_stopped_prescriptions
+
+  = render Renalware::Medications::LatestReviewComponent.new(patient: patient)

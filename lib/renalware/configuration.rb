@@ -115,6 +115,7 @@ module Renalware
     end
 
     config_accessor(:user_dashboard_display_named_patients) { true }
+    config_accessor(:medication_review_max_age_in_months) { 24 }
 
     # A host app can override this to add/remove/re-order the clinical summary display
     # Note these have to be strings - they mapped to constants in ClinicalSummaryPresenter.

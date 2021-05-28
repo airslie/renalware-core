@@ -1,0 +1,10 @@
+<% component = Renalware::Medications::LatestReviewComponent.new(
+     patient: patient,
+     compact: true
+   )
+%>
+
+$("#medication-review")
+  .html("<%= j(render(component)) %>")
+  .find(".medication-review--content")
+  .addClass("post-action-highlight");
