@@ -5,9 +5,7 @@
 .renal-profile
   .mini-renal-profile
     dl
-      - if profile&.esrf_on.present?
-        dt= link_to "ESRF:", edit_patient_renal_profile_path(patient)
-        dd= profile&.esrf_on
+      = render(Renalware::Renal::ESRFDateComponent.new(patient: patient))
 
       dt= link_to "PRD:", edit_patient_renal_profile_path(patient)
       dd= profile&.prd_description.present? ? profile : "Unrecorded"

@@ -1,3 +1,10 @@
+.patient-missing-data {
+  background-color: $nhs-red;
+  color: $white;
+  padding: 0 .2rem;
+  border-radius: .2rem;
+}
+
 .renal-registry-preflight-checks {
   .missing-data {
     span {
