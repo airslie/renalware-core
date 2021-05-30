@@ -1,5 +1,5 @@
 .search-form.filters.filters--flex.max-w-screen-md
-    = search_form_for(search, class: "fn-form") do |f|
+    = search_form_for(search, class: "fn-form", as: :patient_search) do |f|
       = f.label :named_nurse_id_eq, "Named nurse"
       .row
         .columns.small-12.medium-6

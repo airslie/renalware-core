@@ -4,22 +4,17 @@ require_dependency "renalware/patients"
 
 module Renalware
   module Patients
-    class PatientsController < BaseController
+    class PatientsController < Renalware::BaseController
       include PresenterHelper
       include Renalware::Concerns::Pageable
 
       def index
-        search = Renalware::Patient
-          .includes(current_modality: [:description])
-          .ransack(params[:q]).tap do |srch|
-            srch.sorts = %w(family_name_case_insensitive given_name)
-          end
-
-        patients = search.result
-        patients = patients.page(page).per(per_page)
+        sort = params.dig(:q, :s)
+        patient_search.sorts = sort if sort
+        patients = patient_search.result.page(page).per(per_page)
         authorize patients
         render locals: {
-          search: search,
+          search: patient_search,
           patients: present(patients, PatientPresenter)
         }
       end
