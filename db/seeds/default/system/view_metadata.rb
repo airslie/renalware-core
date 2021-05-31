@@ -35,6 +35,7 @@ module Renalware
         { code: :schedule, type: :list },
         { code: :hospital_unit, type: :list },
         { code: :named_nurse, type: :list },
+        { code: :named_consultant, type: :list },
         { code: :on_worryboard, type: :list }
       ]
       # schedule: :list,
