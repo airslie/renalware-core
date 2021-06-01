@@ -694,7 +694,7 @@ GEM
     user_agent_parser (2.7.0)
     validates_timeliness (4.1.1)
       timeliness (>= 0.3.10, < 1)
-    view_component (2.31.1)
+    view_component (2.32.0)
       activesupport (>= 5.0.0, < 7.0)
     virtus (1.0.5)
       axiom-types (~> 0.1)
