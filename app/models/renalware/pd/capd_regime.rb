@@ -8,6 +8,14 @@ module Renalware
       include OrderedScope
       include PatientScope
 
+      enumerize :assistance_type, in: %i(
+        none
+        1_visit_per_day
+        2_visits_per_day
+        3_visits_per_day
+        4_visits_per_day
+      )
+
       BAG_VOLUMES = [
         500, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2200, 2500
       ].freeze

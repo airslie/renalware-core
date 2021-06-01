@@ -9,6 +9,11 @@ en:
           - "CAPD 3 exchanges per day"
           - "CAPD 4 exchanges per day"
           - "CAPD 5 exchanges per day"
+          - "CAPD assisted 1 exchange per day"
+          - "CAPD assisted 2 exchanges per day"
+          - "CAPD assisted 3 exchanges per day"
+          - "CAPD assisted 4 exchanges per day"
+          - "CAPD assisted 5 exchanges per day"
         apd:
           - "APD Dry Day"
           - "APD Dry Day Assisted"

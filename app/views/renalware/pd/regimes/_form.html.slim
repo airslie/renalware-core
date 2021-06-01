@@ -8,8 +8,7 @@
             wrapper: :horizontal_medium,
             autofocus: true
 
-  - if f.object.apd?
-    = f.input :assistance_type, wrapper: :horizontal_small, default: :none
+  = f.input :assistance_type, wrapper: :horizontal_small, default: :none
 
   = f.association :system,
                   collection: system_options_for(f.object),
