@@ -9,6 +9,7 @@ en:
           schedule: "Schedule:"
           prescribed_time: "Prescribed time:"
           hd_type: "HD Type:"
+          substitution_percent: "Substitution %:"
           named_nurse: "Named nurse:"
           needle_size: "Needle size:"
           single_needle: "Single needle:"

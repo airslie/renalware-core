@@ -19,6 +19,7 @@ en:
     attributes:
       renalware/hd/profile_document/dialysis:
         hd_type: HD Type
+        substitution_percent: Substitution %
         cannulation_type: Cannulation Type
         needle_size: Needle Size
         single_needle: Single Needle?
@@ -90,6 +91,7 @@ en:
           hospital_unit: "Hospital unit:"
           prescribed_time: "Prescribed Time:"
           hd_type: "HD Type:"
+          substitution_percent: "Substitution %:"
           named_nurse: "Named Nurse:"
           dialyser: "Dialyser:"
           dialysate: "Dialysate:"

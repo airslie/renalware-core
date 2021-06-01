@@ -22,6 +22,7 @@ module Renalware
         attribute :has_sodium_profiling, Document::Enum, enums: %i(yes no)
         attribute :sodium_first_half, Integer
         attribute :sodium_second_half, Integer
+        attribute :substitution_percent, Integer
 
         validates_presence_of [:sodium_first_half, :sodium_second_half], if: :has_sodium_profiling?
         validates :blood_flow, numericality: {
@@ -29,6 +30,16 @@ module Renalware
           less_than_or_equal_to: 800,
           allow_blank: true
         }
+        validates :substitution_percent, numericality: {
+          greater_than_or_equal_to: 45,
+          less_than_or_equal_to: 60,
+          allow_blank: true
+        }, if: -> { hd_type == "hdf_pre" }
+        validates :substitution_percent, numericality: {
+          greater_than_or_equal_to: 20,
+          less_than_or_equal_to: 30,
+          allow_blank: true
+        }, if: -> { hd_type == "hdf_post" }
 
         def self.cannulation_types; CannulationType.ordered; end
         def self.needle_sizes; [14, 15, 16, 17]; end
