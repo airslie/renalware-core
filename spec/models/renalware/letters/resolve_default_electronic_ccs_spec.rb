@@ -10,8 +10,8 @@ module Renalware
       let(:patient) { build_stubbed(:letter_patient) }
 
       class Listener
-        def request_default_electronic_cc_recipients_for_use_in_letters(array_of_user_ids:, **)
-          array_of_user_ids.push "6"
+        def request_default_electronic_cc_recipients_for_use_in_letters(args)
+          args[:array_of_user_ids].push "6"
         end
       end
 
