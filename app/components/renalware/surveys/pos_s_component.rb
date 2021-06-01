@@ -9,6 +9,12 @@ module Renalware
 
       rattr_initialize [:patient!]
 
+      # If the survey is not found in the survey_surveys table then do not render the
+      # component at all
+      def render?
+        survey.present?
+      end
+
       # Backed by a SQL view
       def rows
         @rows ||= POSSPivotedResponse.where(patient_id: patient.id)
@@ -46,7 +52,7 @@ module Renalware
       end
 
       def survey
-        @survey ||= Renalware::Surveys::Survey.find_by!(code: "prom")
+        @survey ||= Renalware::Surveys::Survey.find_by(code: "prom")
       end
     end
   end

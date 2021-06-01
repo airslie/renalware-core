@@ -7,6 +7,12 @@ module Renalware
     class EQ5DComponent < ApplicationComponent
       rattr_initialize [:patient!]
 
+      # If the survey is not found in the survey_surveys table then do not render the
+      # component at all
+      def render?
+        survey.present?
+      end
+
       def rows
         @rows ||= EQ5DPivotedResponse.where(patient_id: patient.id)
       end
@@ -42,7 +48,7 @@ module Renalware
       end
 
       def survey
-        @survey ||= Renalware::Surveys::Survey.find_by!(code: "eq5d")
+        @survey ||= Renalware::Surveys::Survey.find_by(code: "eq5d")
       end
     end
   end
