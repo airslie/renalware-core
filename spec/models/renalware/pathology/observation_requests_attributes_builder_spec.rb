@@ -218,7 +218,7 @@ module Renalware::Pathology
         }
 
         it "uses the current data and time" do
-          travel_to("2018-01-01 01:01:01") do
+          travel_to Time.zone.local(2018, 01, 01, 01, 01, 01) do
             requests = described_class.new(hl7_message).parse
             expect(requests.first[:observation_request][:requested_at])
               .to eq("2018-01-01 01:01:01 +0000")
