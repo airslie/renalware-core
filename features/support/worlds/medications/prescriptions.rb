@@ -15,7 +15,7 @@ module World
         Date.parse(time_string)
       end
 
-      def seed_prescription_for(**options)
+      def seed_prescription_for(options)
         options.reverse_merge!(default_prescriptions_options)
 
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: options.delete(:drug_name))
@@ -63,11 +63,11 @@ module World
         [current_prescriptions, historical_prescriptions]
       end
 
-      def record_prescription_for(**args)
+      def record_prescription_for(args)
         seed_prescription_for(args.reverse_merge(terminated_on: nil))
       end
 
-      def record_prescription_for_patient(**args)
+      def record_prescription_for_patient(args)
         record_prescription_for(args)
       end
 
