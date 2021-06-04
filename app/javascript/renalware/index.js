@@ -34,6 +34,7 @@ import DependentSelectController from "./controllers/dependent_select_controller
 import PatientAttachmentsController from "./controllers/patients/attachments_controller"
 import SortableController from "./controllers/sortable_controller"
 import SelectController from "./controllers/select_controller"
+import RadioResetController from "./controllers/radio_reset_controller"
 
 const application = Application.start()
 application.register("toggle", ToggleController)
@@ -53,5 +54,6 @@ application.register("dependent-select", DependentSelectController)
 application.register("patient-attachments", PatientAttachmentsController)
 application.register("sortable", SortableController)
 application.register("select", SelectController)
+application.register("radio-reset", RadioResetController)
 
 window.Chartkick.use(window.Highcharts)

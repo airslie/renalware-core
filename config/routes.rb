@@ -21,6 +21,7 @@ Renalware::Engine.routes.draw do
   draw :modalities
   draw :pathology
   draw :patients
+  draw :problems
   draw :pd
   draw :renal
   draw :reporting

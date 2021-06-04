@@ -19,7 +19,7 @@ function initDatePicker(container, elem, pickerOptions) {
 }
 
 function initDatepickersIn(container) {
-  initDatePicker(container, '.datepicker', {format: "dd-M-yyyy"});
+  initDatePicker(container, '.datepicker, .datepicker2', {format: "dd-M-yyyy"});
 }
 
 function initDateTimepickersIn(container) {

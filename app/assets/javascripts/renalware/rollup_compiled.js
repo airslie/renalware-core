@@ -11362,6 +11362,32 @@ var _default$g = function(_Controller) {
   return _default;
 }(Controller);
 
+var _default$h = function(_Controller) {
+  _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass(_default, [ {
+    key: "reset_all",
+    value: function reset_all(event) {
+      var that = this;
+      var radioInputs = Array.prototype.slice.call(this.element.querySelectorAll("input[type='radio']"));
+      radioInputs.forEach(function(a) {
+        if (a.value == that.matchValue) {
+          a.checked = true;
+        }
+      });
+    }
+  } ]);
+  return _default;
+}(Controller);
+
+_defineProperty(_default$h, "values", {
+  match: String
+});
+
 var application = Application.start();
 
 application.register("toggle", _default);
@@ -11397,5 +11423,7 @@ application.register("patient-attachments", _default$e);
 application.register("sortable", _default$f);
 
 application.register("select", _default$g);
+
+application.register("radio-reset", _default$h);
 
 window.Chartkick.use(window.Highcharts);

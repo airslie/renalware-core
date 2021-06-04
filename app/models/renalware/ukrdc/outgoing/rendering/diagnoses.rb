@@ -15,7 +15,7 @@ module Renalware
 
           def diagnoses_element
             create_node("Diagnoses") do |elem|
-              create_comobitity_diagnoses_inside(elem)
+              create_comorbidity_diagnoses_inside(elem)
               elem << smoking_diagnosis_element
               elem << cause_of_death_element
               elem << renal_diagnosis_element
@@ -25,7 +25,7 @@ module Renalware
           # See email from GS to TC 23/5/18 regarding dates.
           # UKRDC would like to receive a date so if no onset date stored in RW for the
           # comorbidity, send the esrf date as the identification date
-          def create_comobitity_diagnoses_inside(elem)
+          def create_comorbidity_diagnoses_inside(elem)
             patient.yes_comorbidities.each do |comorb|
               options = { coding_standard: "SNOMED", code: comorb.code, description: comorb.name }
               if comorb.date.present?

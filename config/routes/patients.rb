@@ -44,12 +44,6 @@ resources :patients, except: [:destroy], controller: "patients/patients" do
   resource :worry, only: [:create, :destroy], controller: "patients/worry"
   resources :attachments, controller: "patients/attachments"
 
-  # Problems
-  resources :problems, controller: "problems/problems" do
-    post :sort, on: :collection
-    resources :notes, controller: "problems/notes"
-  end
-
   namespace :surveys do
     resource :dashboard, only: :show
   end

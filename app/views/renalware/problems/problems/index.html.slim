@@ -2,6 +2,7 @@
   = link_to t("btn.add"),
           new_patient_problem_path(patient),
           class: "button"
+  = link_to "Comorbidities", patient_comorbidities_path(patient)
 
 = within_patient_layout(title: "Problems") do
 
