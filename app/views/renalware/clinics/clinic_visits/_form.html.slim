@@ -19,6 +19,8 @@
                       boolean_style: :inline,
                       wrapper: :horizontal_small
 
+      = render "problems_prescriptions", patient: f.object.patient
+
       fieldset
         legend Observations
         = f.input :height, wrapper: :horizontal_small
