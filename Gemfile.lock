@@ -64,7 +64,7 @@ PATH
       nested_form (~> 0.3.2)
       nokogiri (~> 1.9)
       ox (~> 2.13)
-      pagy (~> 4.0)
+      pagy (~> 4.8)
       pandoc-ruby (~> 2.1.4)
       paper_trail
       paranoia (~> 2.4.0)
@@ -451,7 +451,7 @@ GEM
       sawyer (~> 0.8.0, >= 0.5.3)
     orm_adapter (0.5.0)
     ox (2.14.4)
-    pagy (4.7.1)
+    pagy (4.8.0)
     pandoc-ruby (2.1.4)
     paper_trail (10.3.1)
       activerecord (>= 4.2)
@@ -780,4 +780,4 @@ RUBY VERSION
    ruby 3.0.1p64
 
 BUNDLED WITH
-   2.2.17
+   2.2.19
