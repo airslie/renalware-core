@@ -10,8 +10,8 @@ module Renalware
   module Pathology
     class MessageListener
       # NOTE: We are already inside a transaction here
-      def oru_message_arrived(hl7_message:, **)
-        pathology_params = parse_pathology_params(hl7_message)
+      def oru_message_arrived(args)
+        pathology_params = parse_pathology_params(args[:hl7_message])
         create_observation_requests_and_their_child_observations_from(pathology_params)
         #
         # Note: The current_observation_set for the patient is updated by a trigger here!

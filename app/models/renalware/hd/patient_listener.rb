@@ -3,12 +3,13 @@
 module Renalware
   module HD
     class PatientListener
-      def patient_modality_changed_to_death(patient:, actor:, **)
-        nullify_significant_hd_profile_attributes(patient, by: actor)
+      def patient_modality_changed_to_death(args)
+        nullify_significant_hd_profile_attributes(args[:patient], by: args[:actor])
       end
 
-      def request_default_electronic_cc_recipients_for_use_in_letters(patient:, array_of_user_ids:)
-        patient = HD.cast_patient(patient)
+      def request_default_electronic_cc_recipients_for_use_in_letters(args)
+        array_of_user_ids = args[:array_of_user_ids]
+        patient = HD.cast_patient(args[:patient])
         if patient.current_modality_hd?
           named_nurse_id = patient.named_nurse&.id
           array_of_user_ids.push(named_nurse_id) if named_nurse_id.present?

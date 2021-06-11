@@ -27,13 +27,13 @@ PATH
     renalware-core (2.1.1)
       active_type (~> 0.7.1)
       activerecord-import (~> 1.0)
-      activerecord-postgres_enum (~> 0.6.0)
+      activerecord-postgres_enum (~> 1.6.0)
       ahoy_matey (~> 2.1)
       attr_extras (~> 6.2)
       autoprefixer-rails (~> 9.6)
       chartkick (~> 3.3)
-      client_side_validations (~> 16.0)
-      client_side_validations-simple_form (~> 9.0)
+      client_side_validations (~> 17.0)
+      client_side_validations-simple_form (~> 11.0)
       clipboard-rails (~> 1.7.1)
       cocoon (~> 1.2.11)
       concurrent-ruby (~> 1.1.6)
@@ -64,7 +64,7 @@ PATH
       nested_form (~> 0.3.2)
       nokogiri (~> 1.9)
       ox (~> 2.13)
-      pagy (~> 3.11)
+      pagy (~> 4.8)
       pandoc-ruby (~> 2.1.4)
       paper_trail
       paranoia (~> 2.4.0)
@@ -150,8 +150,8 @@ GEM
       activesupport (= 6.0.3.7)
     activerecord-import (1.0.8)
       activerecord (>= 3.2)
-    activerecord-postgres_enum (0.6.0)
-      activerecord (>= 4.2.0)
+    activerecord-postgres_enum (1.6.0)
+      activerecord (>= 5, < 6.2)
       pg
     activestorage (6.0.3.7)
       actionpack (= 6.0.3.7)
@@ -207,7 +207,7 @@ GEM
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
     bcrypt (3.1.16)
-    binding_of_caller (0.8.0)
+    binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
     bootsnap (1.7.5)
       msgpack (~> 1.0)
@@ -237,12 +237,11 @@ GEM
     chartkick (3.4.2)
     childprocess (3.0.0)
     chronic (0.10.2)
-    client_side_validations (16.2.0)
-      jquery-rails (~> 4.3)
+    client_side_validations (17.2.0)
       js_regex (~> 3.1)
-      rails (>= 5.0.0.1, < 6.1)
-    client_side_validations-simple_form (9.2.0)
-      client_side_validations (>= 15.0, < 17.0)
+      rails (>= 5.0.0.1, < 6.2)
+    client_side_validations-simple_form (11.2.0)
+      client_side_validations (>= 15.0, < 18.0)
       simple_form (~> 5.0)
     clipboard-rails (1.7.1)
     cocoon (1.2.15)
@@ -299,7 +298,7 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
-    debug_inspector (0.0.3)
+    debug_inspector (1.1.0)
     delayed_job (4.1.9)
       activesupport (>= 3.0, < 6.2)
     delayed_job_active_record (4.1.5)
@@ -452,7 +451,7 @@ GEM
       sawyer (~> 0.8.0, >= 0.5.3)
     orm_adapter (0.5.0)
     ox (2.14.4)
-    pagy (3.12.0)
+    pagy (4.8.0)
     pandoc-ruby (2.1.4)
     paper_trail (10.3.1)
       activerecord (>= 4.2)
@@ -778,7 +777,7 @@ DEPENDENCIES
   wkhtmltopdf-heroku (~> 2.12.3)
 
 RUBY VERSION
-   ruby 2.7.2p137
+   ruby 3.0.1p64
 
 BUNDLED WITH
-   2.1.4
+   2.2.19

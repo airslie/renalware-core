@@ -6,8 +6,8 @@ module Renalware
   module Messaging
     module Internal
       class SendMessage
-        def self.call(*args)
-          new.call(*args)
+        def self.call(**kwargs)
+          new.call(**kwargs)
         end
 
         def call(author:, patient:, form:)

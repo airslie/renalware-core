@@ -25,7 +25,7 @@ module Renalware
     end
 
     describe ".new_from" do
-      subject { Age.new_from(parts) }
+      subject { Age.new_from(**parts) }
 
       context "when params are blank" do
         let(:parts) { { years: nil, months: nil, days: nil } }

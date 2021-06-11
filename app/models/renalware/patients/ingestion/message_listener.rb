@@ -9,7 +9,8 @@ module Renalware
   module Patients
     module Ingestion
       class MessageListener
-        def adt_message_arrived(hl7_message:, **)
+        def adt_message_arrived(args)
+          hl7_message = args[:hl7_message]
           return unless hl7_message.adt?
 
           command = Command.for(hl7_message)

@@ -68,17 +68,6 @@ module Renalware
         joins(:termination)
           .where("terminated_on <= ?", date)
       }
-      scope :created_between, lambda { |from:, to:|
-        where("medication_prescriptions.created_at >= ? and "\
-              "medication_prescriptions.created_at <= ?", from, to)
-      }
-      scope :prescribed_between, lambda { |from:, to:|
-        where("medication_prescriptions.prescribed_on >= ? and "\
-              "medication_prescriptions.prescribed_on <= ?", from, to)
-      }
-      scope :terminated_between, lambda { |from:, to:|
-        where("terminated_on >= ? and terminated_on <= ?", from, to)
-      }
       scope :to_be_administered_on_hd, -> { current.where(administer_on_hd: true) }
       scope :having_drug_of_type, lambda { |drug_type_name|
         where("lower(drug_types.code) = lower(?)", drug_type_name)
@@ -87,6 +76,20 @@ module Renalware
       # This is a Ransack-compatible search predicate
       def self.default_search_order
         ["drug_name asc", "prescribed_on desc"]
+      end
+
+      def self.created_between(from:, to:)
+        where("medication_prescriptions.created_at >= ? and "\
+              "medication_prescriptions.created_at <= ?", from, to)
+      end
+
+      def self.prescribed_between(from:, to:)
+        where("medication_prescriptions.prescribed_on >= ? and "\
+              "medication_prescriptions.prescribed_on <= ?", from, to)
+      end
+
+      def self.terminated_between(from:, to:)
+        where("terminated_on >= ? and terminated_on <= ?", from, to)
       end
 
       # @section attributes

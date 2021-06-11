@@ -52,8 +52,8 @@ module Renalware
 
         it "generates 2 Treatments with the relevant UKRDC modality code" do
           options = { patient: patient, modality_description: hd_mod_desc, by: user }
-          modality1 = set_modality(options.merge(started_on: 1.month.ago))
-          modality2 = set_modality(options.merge(started_on: 1.day.ago))
+          modality1 = set_modality(**options.merge(started_on: 1.month.ago))
+          modality2 = set_modality(**options.merge(started_on: 1.day.ago))
           modality1.reload # gets the change to ended_on caused by adding a successor
 
           service.call
@@ -85,15 +85,15 @@ module Renalware
 
         it "generates 1 Treatment and assigns it the appropriate DischargeReason" do
           options = { patient: patient, modality_description: hd_mod_desc, by: user }
-          set_modality(options.merge(started_on: 1.year.ago))
-          hd_modality2 = set_modality(options.merge(started_on: 1.month.ago))
+          set_modality(**options.merge(started_on: 1.year.ago))
+          hd_modality2 = set_modality(**options.merge(started_on: 1.month.ago))
           transfer_out_mod = set_modality(
             patient: patient,
             modality_description: transfer_out_mod_desc,
             started_on: 1.week.ago
           )
           # Patient returns from from a transfer out!
-          set_modality(options.merge(started_on: 1.day.ago))
+          set_modality(**options.merge(started_on: 1.day.ago))
 
           service.call
 

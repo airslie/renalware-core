@@ -13,7 +13,7 @@ module Renalware
     def compute
       if @born_on.present?
         parts = AgeCalculator.new.compute(@born_on, @age_on_date)
-        Age.new_from(parts)
+        Age.new_from(**parts)
       else
         @age
       end

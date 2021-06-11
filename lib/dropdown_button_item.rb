@@ -12,7 +12,7 @@ class DropdownButtonItem < ActionView::Base
   attribute :url_options, Hash
   attribute :enabled, Boolean
 
-  def initialize(**options)
+  def initialize(options = {})
     @title = options.delete(:title)
     @url = options.delete(:url)
     @icon = options.delete(:icon)

@@ -38,7 +38,7 @@ module CoreExtensions
       # translation, leading to errors. Its not possible rename/reloacte these keys as they
       # are hard-coded eg in actionview/lib/action_view/helpers/date_helper.rb
       def translate(key, options = {})
-        super(key, options.merge(cascade: { offset: 2, skip_root: true }))
+        super(key, **options.merge(cascade: { offset: 2, skip_root: true }))
       end
       alias t translate
     end
