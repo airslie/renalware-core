@@ -22,6 +22,10 @@ This project adheres to Semantic Versioning.
 - Add named consultant as filter on HD MDM list #3436
 - Add substitution percent to HD profile #3487
 - New Research Event Type Category #3352
+- Add assistance options to CAPD regime #3508
+- Add toggle-able sections for Prescriptions and Problems to the Clinic Visit form #3510
+- Ruby 3.0 compatibility #3494
+- Add named nurse filter to ongoing hd sessions list #3513
 ### Changed
 - Add shortcuts to create ACP and CFS events on clinical profile page #3499
 - Use red to highlight missing ESRF date in patient header #3480
