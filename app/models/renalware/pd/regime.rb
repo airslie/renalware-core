@@ -7,7 +7,6 @@ module Renalware
     class Regime < ApplicationRecord
       extend Enumerize
 
-      enumerize :assistance_type, in: %i(none setup connect disconnect connect_and_disconnect)
       enumerize(
         :exchanges_done_by,
         in: %i(

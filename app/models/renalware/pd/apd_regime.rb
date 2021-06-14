@@ -11,6 +11,13 @@ module Renalware
 
       BAG_VOLUMES = [2000, 2500, 5000].freeze
 
+      enumerize :assistance_type, in: %i(
+        none
+        setup
+        connect
+        disconnect
+        connect_and_disconnect
+      )
       alias_attribute :tidal?, :tidal_indicator?
       alias_attribute :cycles, :no_cycles_per_apd
       alias_attribute :drain_every_three_cycles?, :tidal_full_drain_every_three_cycles?

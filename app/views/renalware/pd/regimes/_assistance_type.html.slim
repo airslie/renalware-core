@@ -1,4 +1,9 @@
 dt Assistance:
-dd= t(regime.assistance_type,
-      scope: "enumerize.renalware/pd/regime.assistance_type",
-      default: "None")
+- if regime.apd?
+  dd= t(regime.assistance_type,
+        scope: "enumerize.renalware/pd/apd_regime.assistance_type",
+        default: "None")
+- else
+  dd= t(regime.assistance_type,
+        scope: "enumerize.renalware/pd/capd_regime.assistance_type",
+        default: "None")
