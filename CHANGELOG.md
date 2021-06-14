@@ -9,6 +9,34 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.1.2
+### Added
+- Add named nurse and named consultant to dynamic MDM views #3503
+- Add patient attachments (backported from from feature/heroic) #3493
+- Add new items (Blown Fistula, Multiple Cannulation Attempts, Prolonged bleeding) to HD session complications list #3488
+- Allow a user to create a 'medication review' event #3479
+- Add Circuit Loss to HD Session form #3463
+- (MSE) Add column to store READ code for drugs #3459
+- Record HD Station in HD Session form #3453
+- Add HD Session 'washback quality' field #3440
+- Add named consultant as filter on HD MDM list #3436
+- Add substitution percent to HD profile #3487
+- New Research Event Type Category #3352
+- Add assistance options to CAPD regime #3508
+- Add toggle-able sections for Prescriptions and Problems to the Clinic Visit form #3510
+- Ruby 3.0 compatibility #3494
+- Add named nurse filter to ongoing hd sessions list #3513
+### Changed
+- Add shortcuts to create ACP and CFS events on clinical profile page #3499
+- Use red to highlight missing ESRF date in patient header #3480
+- HD Session: Disallow HD post-weight if >7kg different from pre-weight #3455
+- PD MDM change sort order so Nulls appear last #3452
+- Track changes to drugs table #3449
+### Fixed
+- Patient search not working correctly #3501
+- UKRDC export - Change UKRR TXT code for live related child #3486
+- (PD) Move Dialysate Na field into correct HTML table column #3474
+
 ## 2.1.1
 ### Added
 ### Changed

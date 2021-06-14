@@ -24,7 +24,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.1.1)
+    renalware-core (2.1.2)
       active_type (~> 0.7.1)
       activerecord-import (~> 1.0)
       activerecord-postgres_enum (~> 1.6.0)
@@ -148,7 +148,7 @@ GEM
     activerecord (6.0.3.7)
       activemodel (= 6.0.3.7)
       activesupport (= 6.0.3.7)
-    activerecord-import (1.0.8)
+    activerecord-import (1.1.0)
       activerecord (>= 3.2)
     activerecord-postgres_enum (1.6.0)
       activerecord (>= 5, < 6.2)
@@ -301,7 +301,7 @@ GEM
     debug_inspector (1.1.0)
     delayed_job (4.1.9)
       activesupport (>= 3.0, < 6.2)
-    delayed_job_active_record (4.1.5)
+    delayed_job_active_record (4.1.6)
       activerecord (>= 3.0, < 6.2)
       delayed_job (>= 3.0, < 5)
     delayed_job_web (1.4.4)
@@ -328,7 +328,7 @@ GEM
       dotenv (= 2.7.6)
       railties (>= 3.2)
     dumb_delegator (0.8.1)
-    email_validator (2.2.2)
+    email_validator (2.2.3)
       activemodel
     enumerize (2.4.0)
       activesupport (>= 3.2)
@@ -357,7 +357,7 @@ GEM
     fuubar (2.5.1)
       rspec-core (~> 3.0)
       ruby-progressbar (~> 1.4)
-    geocoder (1.6.6)
+    geocoder (1.6.7)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     groupdate (5.2.2)
@@ -488,7 +488,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.6)
-    puma (5.3.1)
+    puma (5.3.2)
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
