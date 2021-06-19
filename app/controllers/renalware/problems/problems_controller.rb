@@ -13,6 +13,19 @@ module Renalware
         }
       end
 
+      def search
+        authorize Problem, :search?
+
+        client = NHSClient.new
+        client.query(params[:term], count: 5)
+        data = client.problems.each do |p|
+          p[:id] = p["display"]
+          p[:text] = p["display"]
+        end
+
+        render json: data
+      end
+
       def show
         problem = patient.problems.with_archived.with_versions.find(params[:id])
         notes = problem.notes.with_updated_by.ordered

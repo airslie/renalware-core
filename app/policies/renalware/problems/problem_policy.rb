@@ -8,6 +8,10 @@ module Renalware
       def sort?
         edit?
       end
+
+      def search?
+        edit?
+      end
     end
   end
 end

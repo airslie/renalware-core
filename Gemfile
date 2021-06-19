@@ -22,6 +22,7 @@ gem "renalware-forms", "0.1.10"
 # gem "renalware-forms", path: "../renalware-forms"
 gem "ruby-prof", require: false
 # gem "sprockets-rails", "~> 2.3.3" # in the dummy app, fix to this version to avoid manifest errors
+gem "httparty", require: false
 
 group :test do
   gem "capybara", "~> 3.32"

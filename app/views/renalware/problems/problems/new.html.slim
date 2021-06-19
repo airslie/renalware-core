@@ -4,7 +4,14 @@
                     url: patient_problems_path(patient),
                     html: { autocomplete: "off" } do |f|
 
-    = f.input :description, as: :text, autofocus: true
+    = f.input :description,
+              collection: [],
+              input_html: { \
+                class: "patient-id-select2 patient-ajax-search",
+                data: { "ajax--url" => search_patient_problems_path(format: :json),
+                        placeholder: "Search by problem name." } \
+              }
+
 
     = f.button :submit
     '  or
