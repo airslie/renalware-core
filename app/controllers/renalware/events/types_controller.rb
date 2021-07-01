@@ -23,7 +23,7 @@ module Renalware
       end
 
       def index
-        event_types = Type.all
+        event_types = Type.includes(:category).order(:name).all
         authorize event_types
         render locals: { event_types: event_types }
       end

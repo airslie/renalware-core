@@ -2654,6 +2654,52 @@ ALTER SEQUENCE renalware.event_categories_id_seq OWNED BY renalware.event_catego
 
 
 --
+-- Name: event_subtypes; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.event_subtypes (
+    id bigint NOT NULL,
+    event_type_id bigint NOT NULL,
+    name character varying NOT NULL,
+    description text,
+    "position" integer DEFAULT 0 NOT NULL,
+    definition jsonb DEFAULT '"{}"'::jsonb NOT NULL,
+    updated_by_id bigint NOT NULL,
+    created_by_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    deactivated_at timestamp without time zone,
+    active boolean DEFAULT true
+);
+
+
+--
+-- Name: COLUMN event_subtypes."position"; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.event_subtypes."position" IS 'The order of the subtype within an event type, if >1 subtypes';
+
+
+--
+-- Name: event_subtypes_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.event_subtypes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: event_subtypes_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.event_subtypes_id_seq OWNED BY renalware.event_subtypes.id;
+
+
+--
 -- Name: event_type_alert_triggers; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -2708,8 +2754,16 @@ CREATE TABLE renalware.event_types (
     category_id bigint NOT NULL,
     save_pdf_to_electronic_public_register boolean DEFAULT false NOT NULL,
     title character varying,
-    hidden boolean DEFAULT false NOT NULL
+    hidden boolean DEFAULT false NOT NULL,
+    events_count integer DEFAULT 0 NOT NULL
 );
+
+
+--
+-- Name: COLUMN event_types.events_count; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.event_types.events_count IS 'Counter cache column which Rails will update and which stores the count of events created with this type';
 
 
 --
@@ -2733,6 +2787,41 @@ ALTER SEQUENCE renalware.event_types_id_seq OWNED BY renalware.event_types.id;
 
 
 --
+-- Name: event_versions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.event_versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: event_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.event_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: event_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.event_versions_id_seq OWNED BY renalware.event_versions.id;
+
+
+--
 -- Name: events; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -2748,7 +2837,8 @@ CREATE TABLE renalware.events (
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     type character varying NOT NULL,
-    document jsonb
+    document jsonb,
+    subtype_id bigint
 );
 
 
@@ -4553,16 +4643,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -10504,6 +10584,13 @@ ALTER TABLE ONLY renalware.event_categories ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: event_subtypes id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_subtypes ALTER COLUMN id SET DEFAULT nextval('renalware.event_subtypes_id_seq'::regclass);
+
+
+--
 -- Name: event_type_alert_triggers id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -10515,6 +10602,13 @@ ALTER TABLE ONLY renalware.event_type_alert_triggers ALTER COLUMN id SET DEFAULT
 --
 
 ALTER TABLE ONLY renalware.event_types ALTER COLUMN id SET DEFAULT nextval('renalware.event_types_id_seq'::regclass);
+
+
+--
+-- Name: event_versions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_versions ALTER COLUMN id SET DEFAULT nextval('renalware.event_versions_id_seq'::regclass);
 
 
 --
@@ -12006,6 +12100,14 @@ ALTER TABLE ONLY renalware.event_categories
 
 
 --
+-- Name: event_subtypes event_subtypes_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_subtypes
+    ADD CONSTRAINT event_subtypes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: event_type_alert_triggers event_type_alert_triggers_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -12019,6 +12121,14 @@ ALTER TABLE ONLY renalware.event_type_alert_triggers
 
 ALTER TABLE ONLY renalware.event_types
     ADD CONSTRAINT event_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: event_versions event_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_versions
+    ADD CONSTRAINT event_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -14171,6 +14281,34 @@ CREATE UNIQUE INDEX index_event_categories_on_name ON renalware.event_categories
 
 
 --
+-- Name: index_event_subtypes_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_event_subtypes_on_created_by_id ON renalware.event_subtypes USING btree (created_by_id);
+
+
+--
+-- Name: index_event_subtypes_on_deactivated_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_event_subtypes_on_deactivated_at ON renalware.event_subtypes USING btree (deactivated_at);
+
+
+--
+-- Name: index_event_subtypes_on_event_type_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_event_subtypes_on_event_type_id ON renalware.event_subtypes USING btree (event_type_id);
+
+
+--
+-- Name: index_event_subtypes_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_event_subtypes_on_updated_by_id ON renalware.event_subtypes USING btree (updated_by_id);
+
+
+--
 -- Name: index_event_type_alert_triggers_on_event_type_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -14206,6 +14344,13 @@ CREATE UNIQUE INDEX index_event_types_on_slug ON renalware.event_types USING btr
 
 
 --
+-- Name: index_event_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_event_versions_on_item_type_and_item_id ON renalware.event_versions USING btree (item_type, item_id);
+
+
+--
 -- Name: index_events_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -14224,6 +14369,13 @@ CREATE INDEX index_events_on_event_type_id ON renalware.events USING btree (even
 --
 
 CREATE INDEX index_events_on_patient_id ON renalware.events USING btree (patient_id);
+
+
+--
+-- Name: index_events_on_subtype_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_events_on_subtype_id ON renalware.events USING btree (subtype_id);
 
 
 --
@@ -18070,6 +18222,14 @@ ALTER TABLE ONLY renalware.pathology_requests_patient_rules_requests
 
 
 --
+-- Name: event_subtypes fk_rails_06e2a8feaf; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_subtypes
+    ADD CONSTRAINT fk_rails_06e2a8feaf FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: hd_diaries fk_rails_07d7a349f6; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -18982,6 +19142,14 @@ ALTER TABLE ONLY renalware.pathology_code_group_memberships
 
 
 --
+-- Name: event_subtypes fk_rails_6ff855f23f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_subtypes
+    ADD CONSTRAINT fk_rails_6ff855f23f FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: pd_pet_results fk_rails_70a2d2908f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -19403,6 +19571,14 @@ ALTER TABLE ONLY renalware.research_study_participants
 
 ALTER TABLE ONLY renalware.transplant_rejection_episodes
     ADD CONSTRAINT fk_rails_98de4be6aa FOREIGN KEY (treatment_id) REFERENCES renalware.transplant_rejection_treatments(id);
+
+
+--
+-- Name: event_subtypes fk_rails_9a3dea7f8e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.event_subtypes
+    ADD CONSTRAINT fk_rails_9a3dea7f8e FOREIGN KEY (event_type_id) REFERENCES renalware.event_types(id);
 
 
 --
@@ -19939,6 +20115,14 @@ ALTER TABLE ONLY renalware.transplant_donor_stages
 
 ALTER TABLE ONLY renalware.renal_aki_alerts
     ADD CONSTRAINT fk_rails_d15c835018 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: events fk_rails_d1c8dd0ee5; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.events
+    ADD CONSTRAINT fk_rails_d1c8dd0ee5 FOREIGN KEY (subtype_id) REFERENCES renalware.event_subtypes(id);
 
 
 --
@@ -21254,6 +21438,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201229174653'),
 ('20210105163944'),
 ('20210115181817'),
+('20210126175527'),
+('20210127122810'),
 ('20210305100015'),
 ('20210305105830'),
 ('20210305181345'),
@@ -21263,6 +21449,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210329090650'),
 ('20210413180237'),
 ('20210414103735'),
+('20210419110721'),
+('20210419111931'),
+('20210419161507'),
 ('20210531082528');
 
 

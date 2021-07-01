@@ -13,13 +13,19 @@
   - if event.disable_selection_of_event_type
     = f.input :event_type_id, as: :hidden
   - else
-    = f.input :event_type_id,
-              collection: event_types,
-              wrapper: :horizontal_medium,
-              input_html: { id: "event-type-dropdown",
-                            class: "searchable_select",
-                            required: :required,
-                            tabindex: 2001 }
+    #event-type-dropdown-container
+      = f.input :event_type_id,
+                as: :grouped_select,
+                group_method: :types,
+                group_label_method: :name,
+                collection: event_types,
+                wrapper: :horizontal_medium,
+                input_html: { \
+                  id: "event-type-dropdown",
+                  class: "searchable_select",
+                  required: :required,
+                  tabindex: 2001 \
+                }
 
   / The contents of this div will get replaced if a user selects an alternative
   / event type in the drop-down above. See events.js.

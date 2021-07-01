@@ -1,0 +1,19 @@
+= content_for(:actions) do
+  = link_to "Add", new_events_type_subtype_path(event_type), class: "button"
+
+= within_new_admin_layout(title: "Subtypes",
+    breadcrumbs: breadcrumb_for(event_type.name, new_events_type_path(event_type))) do
+
+  table
+    thead
+      th
+      th Name
+      th Description
+      th Last edited
+    tbody
+      - subtypes.each do |subtype|
+        tr
+          td.col-width-small= link_to "Edit", edit_events_type_subtype_path(event_type, subtype)
+          td= subtype.name
+          td= subtype.description
+          td= "#{l(subtype.updated_at)} by #{subtype.updated_by}"
