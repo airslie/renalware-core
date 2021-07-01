@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "Managing event subtypes", type: :system do
   def create_subtype
-    event_type = create(:event_type, name: "EventType1")
+    event_type = create(:research_study_event_type, name: "EventType1")
     create(
       :event_subtype,
       name: "Subtype1",

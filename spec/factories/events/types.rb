@@ -61,5 +61,10 @@ FactoryBot.define do
       name { "Medication Review" }
       event_class_name { "Renalware::Medications::Review" }
     end
+
+    factory :research_study_event_type do
+      name { "Research Study" }
+      event_class_name { "Renalware::Research::StudyEvent" }
+    end
   end
 end
