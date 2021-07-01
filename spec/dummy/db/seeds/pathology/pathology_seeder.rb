@@ -16,7 +16,7 @@ module Renalware
             patient.observation_requests.find_or_create_by!(id: row["id"].to_i) do |obr|
               obr.description = request_desc
               obr.requestor_order_number = row["order_no"]
-              obr.requested_at = Date.parse(row["requested_at"])
+              obr.requested_at = row["age_in_days"].to_i.days.ago
               obr.requestor_name = row["requestor_name"]
             end
           end
@@ -50,10 +50,6 @@ module Renalware
       pathology_patient = Pathology.cast_patient(patient)
       seed_pathology_requests_for(patient: pathology_patient)
       seed_pathology_observations_for(patient: pathology_patient)
-    end
-
-    def random_date_between(date1, date2)
-      Time.zone.at((date2.to_f - date1.to_f) * rand + date1.to_f)
     end
   end
 end
