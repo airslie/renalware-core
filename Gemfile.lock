@@ -785,7 +785,7 @@ DEPENDENCIES
   wkhtmltopdf-heroku (~> 2.12.3)
 
 RUBY VERSION
-   ruby 2.7.2p137
+   ruby 3.0.1p64
 
 BUNDLED WITH
    2.2.19
