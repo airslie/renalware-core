@@ -33,7 +33,7 @@ class NHSClient
         "Authorization" => "Bearer #{token}"
       },
       query: {
-        url: "http://snomed.info/sct?fhir_vs=isa/138875005",
+        url: "http://snomed.info/sct?fhir_vs=ecl/<404684003",
         filter: filter,
         count: count,
         includeDesignations: include_designations
