@@ -8,6 +8,7 @@ module Renalware
         authorize problems
         render locals: {
           patient: patient,
+          problem: patient.problems.build,
           current_problems: problems.current.with_updated_by.ordered,
           archived_problems: problems.archived.with_created_by.ordered
         }
@@ -60,21 +61,14 @@ module Renalware
         end
       end
 
-      def new
-        problem = patient.problems.build
-        authorize problem
-        render locals: { patient: patient, problem: problem }
-      end
-
       def create
         problem = patient.problems.new(problem_params)
         authorize problem
 
         if problem.save
-          redirect_to patient_problems_url(patient), notice: success_msg_for("problem")
+          render json: problem, status: :created
         else
-          flash.now[:error] = failed_msg_for("problem")
-          render :new, locals: { patient: patient, problem: problem }
+          render json: problem.errors.full_messages, status: :bad_request
         end
       end
 

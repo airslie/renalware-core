@@ -1,0 +1,8 @@
+.modal
+  .modal__header
+    h2 Add new problem
+    = render "renalware/shared/modal_close_link"
+
+  .modal__body
+    section.new-problem
+      = render "/renalware/problems/problems/new_problem", patient: patient, problem: problem

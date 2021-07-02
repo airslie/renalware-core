@@ -36,7 +36,7 @@ resources :patients, except: [:destroy], controller: "patients/patients" do
   resources :attachments, controller: "patients/attachments"
 
   # Problems
-  resources :problems, controller: "problems/problems" do
+  resources :problems, controller: "problems/problems", except: [:new] do
     get :search, on: :collection
     post :sort, on: :collection
     resources :notes, controller: "problems/notes"

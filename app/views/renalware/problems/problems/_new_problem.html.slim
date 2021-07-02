@@ -1,0 +1,23 @@
+= simple_form_for problem,
+          url: patient_problems_path(patient),
+          html: { autocomplete: "off" } do |f|
+
+  .row.errors-container
+    .large-12.columns
+      ul.error-messages
+
+  .row
+    .large-12.columns
+      = f.input :description,
+                collection: [],
+                input_html: { \
+                  class: "patient-id-select2 patient-ajax-search",
+                  data: { "ajax--url" => search_patient_problems_path(format: :json),
+                          placeholder: "Search by problem name." } \
+                }
+      = f.submit "Save", class: "button", data: { disable_with: false }
+      '  or
+      = link_to "cancel",
+             "#",
+             "aria-label" => "Close",
+             class: "reveal-modal-close"
