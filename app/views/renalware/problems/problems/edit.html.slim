@@ -6,13 +6,17 @@
                     url: patient_problem_path(patient, problem),
                     html: { autocomplete: "off", class: "problem-form fn-form" } do |f|
 
-      = f.input :description,
-                collection: [problem.description],
-                selected: problem.description,
-                input_html: { \
-                  class: "patient-id-select2 patient-ajax-search",
-                  data: { "ajax--url" => search_patient_problems_path(format: :json) } \
-                }
+      - if NHSClient.new.api_enabled?
+        = f.input :description,
+                  collection: [problem.description],
+                  selected: problem.description,
+                  input_html: { \
+                    class: "patient-id-select2 patient-ajax-search",
+                    data: { "ajax--url" => search_patient_problems_path(format: :json) } \
+                  }
+      - else
+        = f.input :description, as: :text, autofocus: true
+
       = f.button :button, "Save"
       '  or
       = link_to t("btn.cancel"), patient_problems_path(patient)

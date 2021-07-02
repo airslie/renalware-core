@@ -24,6 +24,10 @@ class NHSClient
     @problems = []
   end
 
+  def api_enabled?
+    (CLIENT_ID && CLIENT_SECRET).present?
+  end
+
   def query(filter, count: 20, include_designations: false)
     return false unless (token = bearer_token)
 

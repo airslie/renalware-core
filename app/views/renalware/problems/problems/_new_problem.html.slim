@@ -8,13 +8,17 @@
 
   .row
     .large-12.columns
-      = f.input :description,
-                collection: [],
-                input_html: { \
-                  class: "patient-id-select2 patient-ajax-search",
-                  data: { "ajax--url" => search_patient_problems_path(format: :json),
-                          placeholder: "Search by problem name." } \
-                }
+      - if NHSClient.new.api_enabled?
+        = f.input :description,
+                  collection: [],
+                  input_html: { \
+                    class: "patient-id-select2 patient-ajax-search",
+                    data: { "ajax--url" => search_patient_problems_path(format: :json),
+                            placeholder: "Search by problem name." } \
+                  }
+      - else
+        = f.input :description, as: :text, autofocus: true
+
       = f.submit "Save", class: "button", data: { disable_with: false }
       '  or
       = link_to "cancel",
