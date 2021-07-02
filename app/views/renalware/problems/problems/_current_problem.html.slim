@@ -1,0 +1,16 @@
+= content_tag_for(:tr, problem, class: "sortable") do
+  td.actions
+    = link_to t("btn.edit"), patient_problem_path(@patient, problem)
+    = link_to t("btn.archive"),
+              patient_problem_path(@patient, problem),
+              method: :delete,
+              data: { confirm: "Are you sure?" }
+  td
+    = problem.description
+    ol
+      - problem.notes.each do |note|
+        li= note.description
+  td= l problem.updated_on
+  td= problem.updated_by.full_name
+  td.handle
+    i.fas.fa-bars

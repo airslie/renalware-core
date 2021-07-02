@@ -66,7 +66,7 @@ module Renalware
         authorize problem
 
         if problem.save
-          render json: problem, status: :created
+          render partial: "current_problem", locals: { problem: problem }, status: :created
         else
           render json: problem.errors.full_messages, status: :bad_request
         end

@@ -131,6 +131,7 @@ Renalware.Problems = {
 
     this._onProblemAdded = function(problem) {
       this.el.foundation('reveal', 'close');
+      $('#current_problems tbody').append(problem.responseText);
       this.callback(problem);
     }
   }
