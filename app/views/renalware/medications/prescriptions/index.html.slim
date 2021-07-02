@@ -23,7 +23,8 @@
 
   / modal placeholder
   #print-home-delivery-drugs-modal.reveal-modal.small(data-reveal
-                                                      data-controller="home-delivery-modal")
+                                                      data-controller="home-delivery-modal"
+                                                      data-options="close_on_background_click:false")
 
 = within_patient_layout(title: "Prescriptions") do
   = render "filter_form", search: current_search, drug_types: drug_types, treatable: treatable

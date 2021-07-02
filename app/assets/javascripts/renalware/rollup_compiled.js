@@ -2250,9 +2250,9 @@ function iteratorFor(items) {
   return iterator;
 }
 
-function Headers(headers) {
+function Headers$1(headers) {
   this.map = {};
-  if (headers instanceof Headers) {
+  if (headers instanceof Headers$1) {
     headers.forEach(function(value, name) {
       this.append(name, value);
     }, this);
@@ -2267,31 +2267,31 @@ function Headers(headers) {
   }
 }
 
-Headers.prototype.append = function(name, value) {
+Headers$1.prototype.append = function(name, value) {
   name = normalizeName(name);
   value = normalizeValue(value);
   var oldValue = this.map[name];
   this.map[name] = oldValue ? oldValue + ", " + value : value;
 };
 
-Headers.prototype["delete"] = function(name) {
+Headers$1.prototype["delete"] = function(name) {
   delete this.map[normalizeName(name)];
 };
 
-Headers.prototype.get = function(name) {
+Headers$1.prototype.get = function(name) {
   name = normalizeName(name);
   return this.has(name) ? this.map[name] : null;
 };
 
-Headers.prototype.has = function(name) {
+Headers$1.prototype.has = function(name) {
   return this.map.hasOwnProperty(normalizeName(name));
 };
 
-Headers.prototype.set = function(name, value) {
+Headers$1.prototype.set = function(name, value) {
   this.map[normalizeName(name)] = normalizeValue(value);
 };
 
-Headers.prototype.forEach = function(callback, thisArg) {
+Headers$1.prototype.forEach = function(callback, thisArg) {
   for (var name in this.map) {
     if (this.map.hasOwnProperty(name)) {
       callback.call(thisArg, this.map[name], name, this);
@@ -2299,7 +2299,7 @@ Headers.prototype.forEach = function(callback, thisArg) {
   }
 };
 
-Headers.prototype.keys = function() {
+Headers$1.prototype.keys = function() {
   var items = [];
   this.forEach(function(value, name) {
     items.push(name);
@@ -2307,7 +2307,7 @@ Headers.prototype.keys = function() {
   return iteratorFor(items);
 };
 
-Headers.prototype.values = function() {
+Headers$1.prototype.values = function() {
   var items = [];
   this.forEach(function(value) {
     items.push(value);
@@ -2315,7 +2315,7 @@ Headers.prototype.values = function() {
   return iteratorFor(items);
 };
 
-Headers.prototype.entries = function() {
+Headers$1.prototype.entries = function() {
   var items = [];
   this.forEach(function(value, name) {
     items.push([ name, value ]);
@@ -2324,7 +2324,7 @@ Headers.prototype.entries = function() {
 };
 
 if (support.iterable) {
-  Headers.prototype[Symbol.iterator] = Headers.prototype.entries;
+  Headers$1.prototype[Symbol.iterator] = Headers$1.prototype.entries;
 }
 
 function consumed(body) {
@@ -2489,7 +2489,7 @@ function Request(input, options) {
     this.url = input.url;
     this.credentials = input.credentials;
     if (!options.headers) {
-      this.headers = new Headers(input.headers);
+      this.headers = new Headers$1(input.headers);
     }
     this.method = input.method;
     this.mode = input.mode;
@@ -2503,7 +2503,7 @@ function Request(input, options) {
   }
   this.credentials = options.credentials || this.credentials || "same-origin";
   if (options.headers || !this.headers) {
-    this.headers = new Headers(options.headers);
+    this.headers = new Headers$1(options.headers);
   }
   this.method = normalizeMethod(options.method || this.method || "GET");
   this.mode = options.mode || this.mode || null;
@@ -2546,7 +2546,7 @@ function decode(body) {
 }
 
 function parseHeaders(rawHeaders) {
-  var headers = new Headers();
+  var headers = new Headers$1();
   var preProcessedHeaders = rawHeaders.replace(/\r?\n[\t ]+/g, " ");
   preProcessedHeaders.split("\r").map(function(header) {
     return header.indexOf("\n") === 0 ? header.substr(1, header.length) : header;
@@ -2574,7 +2574,7 @@ function Response(bodyInit, options) {
   this.status = options.status === undefined ? 200 : options.status;
   this.ok = this.status >= 200 && this.status < 300;
   this.statusText = options.statusText === undefined ? "" : "" + options.statusText;
-  this.headers = new Headers(options.headers);
+  this.headers = new Headers$1(options.headers);
   this.url = options.url || "";
   this._initBody(bodyInit);
 }
@@ -2585,7 +2585,7 @@ Response.prototype.clone = function() {
   return new Response(this._bodyInit, {
     status: this.status,
     statusText: this.statusText,
-    headers: new Headers(this.headers),
+    headers: new Headers$1(this.headers),
     url: this.url
   });
 };
@@ -2685,7 +2685,7 @@ function fetch$1(input, init) {
         xhr.responseType = "arraybuffer";
       }
     }
-    if (init && typeof init.headers === "object" && !(init.headers instanceof Headers)) {
+    if (init && typeof init.headers === "object" && !(init.headers instanceof Headers$1)) {
       Object.getOwnPropertyNames(init.headers).forEach(function(name) {
         xhr.setRequestHeader(name, normalizeValue(init.headers[name]));
       });
@@ -2710,7 +2710,7 @@ fetch$1.polyfill = true;
 
 if (!global$1.fetch) {
   global$1.fetch = fetch$1;
-  global$1.Headers = Headers;
+  global$1.Headers = Headers$1;
   global$1.Request = Request;
   global$1.Response = Response;
 }
@@ -5386,7 +5386,308 @@ var _default$5 = function(_Controller) {
 
 _defineProperty(_default$5, "targets", [ "homeDeliveryDates", "providers" ]);
 
-var Chartkick = window.Chartkick;
+var self$1 = {};
+
+try {
+  (function(URLSearchParams, plus) {
+    if (new URLSearchParams("q=%2B").get("q") !== plus || new URLSearchParams({
+      q: plus
+    }).get("q") !== plus || new URLSearchParams([ [ "q", plus ] ]).get("q") !== plus || new URLSearchParams("q=\n").toString() !== "q=%0A" || new URLSearchParams({
+      q: " &"
+    }).toString() !== "q=+%26" || new URLSearchParams({
+      q: "%zx"
+    }).toString() !== "q=%25zx") throw URLSearchParams;
+    self$1.URLSearchParams = URLSearchParams;
+  })(URLSearchParams, "+");
+} catch (URLSearchParams) {
+  (function(Object, String, isArray) {
+    var create = Object.create;
+    var defineProperty = Object.defineProperty;
+    var find = /[!'\(\)~]|%20|%00/g;
+    var findPercentSign = /%(?![0-9a-fA-F]{2})/g;
+    var plus = /\+/g;
+    var replace = {
+      "!": "%21",
+      "'": "%27",
+      "(": "%28",
+      ")": "%29",
+      "~": "%7E",
+      "%20": "+",
+      "%00": "\0"
+    };
+    var proto = {
+      append: function(key, value) {
+        appendTo(this._ungap, key, value);
+      },
+      delete: function(key) {
+        delete this._ungap[key];
+      },
+      get: function(key) {
+        return this.has(key) ? this._ungap[key][0] : null;
+      },
+      getAll: function(key) {
+        return this.has(key) ? this._ungap[key].slice(0) : [];
+      },
+      has: function(key) {
+        return key in this._ungap;
+      },
+      set: function(key, value) {
+        this._ungap[key] = [ String(value) ];
+      },
+      forEach: function(callback, thisArg) {
+        var self = this;
+        for (var key in self._ungap) self._ungap[key].forEach(invoke, key);
+        function invoke(value) {
+          callback.call(thisArg, value, String(key), self);
+        }
+      },
+      toJSON: function() {
+        return {};
+      },
+      toString: function() {
+        var query = [];
+        for (var key in this._ungap) {
+          var encoded = encode(key);
+          for (var i = 0, value = this._ungap[key]; i < value.length; i++) {
+            query.push(encoded + "=" + encode(value[i]));
+          }
+        }
+        return query.join("&");
+      }
+    };
+    for (var key in proto) defineProperty(URLSearchParams.prototype, key, {
+      configurable: true,
+      writable: true,
+      value: proto[key]
+    });
+    self$1.URLSearchParams = URLSearchParams;
+    function URLSearchParams(query) {
+      var dict = create(null);
+      defineProperty(this, "_ungap", {
+        value: dict
+      });
+      switch (true) {
+       case !query:
+        break;
+
+       case typeof query === "string":
+        if (query.charAt(0) === "?") {
+          query = query.slice(1);
+        }
+        for (var pairs = query.split("&"), i = 0, length = pairs.length; i < length; i++) {
+          var value = pairs[i];
+          var index = value.indexOf("=");
+          if (-1 < index) {
+            appendTo(dict, decode(value.slice(0, index)), decode(value.slice(index + 1)));
+          } else if (value.length) {
+            appendTo(dict, decode(value), "");
+          }
+        }
+        break;
+
+       case isArray(query):
+        for (var i = 0, length = query.length; i < length; i++) {
+          var value = query[i];
+          appendTo(dict, value[0], value[1]);
+        }
+        break;
+
+       case "forEach" in query:
+        query.forEach(addEach, dict);
+        break;
+
+       default:
+        for (var key in query) appendTo(dict, key, query[key]);
+      }
+    }
+    function addEach(value, key) {
+      appendTo(this, key, value);
+    }
+    function appendTo(dict, key, value) {
+      var res = isArray(value) ? value.join(",") : value;
+      if (key in dict) dict[key].push(res); else dict[key] = [ res ];
+    }
+    function decode(str) {
+      return decodeURIComponent(str.replace(findPercentSign, "%25").replace(plus, " "));
+    }
+    function encode(str) {
+      return encodeURIComponent(str).replace(find, replacer);
+    }
+    function replacer(match) {
+      return replace[match];
+    }
+  })(Object, String, Array.isArray);
+}
+
+(function(URLSearchParamsProto) {
+  var iterable = false;
+  try {
+    iterable = !!Symbol.iterator;
+  } catch (o_O) {}
+  if (!("forEach" in URLSearchParamsProto)) {
+    URLSearchParamsProto.forEach = function forEach(callback, thisArg) {
+      var self = this;
+      var names = Object.create(null);
+      this.toString().replace(/=[\s\S]*?(?:&|$)/g, "=").split("=").forEach(function(name) {
+        if (!name.length || name in names) return;
+        (names[name] = self.getAll(name)).forEach(function(value) {
+          callback.call(thisArg, value, name, self);
+        });
+      });
+    };
+  }
+  if (!("keys" in URLSearchParamsProto)) {
+    URLSearchParamsProto.keys = function keys() {
+      return iterator(this, function(value, key) {
+        this.push(key);
+      });
+    };
+  }
+  if (!("values" in URLSearchParamsProto)) {
+    URLSearchParamsProto.values = function values() {
+      return iterator(this, function(value, key) {
+        this.push(value);
+      });
+    };
+  }
+  if (!("entries" in URLSearchParamsProto)) {
+    URLSearchParamsProto.entries = function entries() {
+      return iterator(this, function(value, key) {
+        this.push([ key, value ]);
+      });
+    };
+  }
+  if (iterable && !(Symbol.iterator in URLSearchParamsProto)) {
+    URLSearchParamsProto[Symbol.iterator] = URLSearchParamsProto.entries;
+  }
+  if (!("sort" in URLSearchParamsProto)) {
+    URLSearchParamsProto.sort = function sort() {
+      var entries = this.entries(), entry = entries.next(), done = entry.done, keys = [], values = Object.create(null), i, key, value;
+      while (!done) {
+        value = entry.value;
+        key = value[0];
+        keys.push(key);
+        if (!(key in values)) {
+          values[key] = [];
+        }
+        values[key].push(value[1]);
+        entry = entries.next();
+        done = entry.done;
+      }
+      keys.sort();
+      for (i = 0; i < keys.length; i++) {
+        this.delete(keys[i]);
+      }
+      for (i = 0; i < keys.length; i++) {
+        key = keys[i];
+        this.append(key, values[key].shift());
+      }
+    };
+  }
+  function iterator(self, callback) {
+    var items = [];
+    self.forEach(callback, items);
+    return iterable ? items[Symbol.iterator]() : {
+      next: function() {
+        var value = items.shift();
+        return {
+          done: value === void 0,
+          value: value
+        };
+      }
+    };
+  }
+  (function(Object) {
+    var dP = Object.defineProperty, gOPD = Object.getOwnPropertyDescriptor, createSearchParamsPollute = function(search) {
+      function append(name, value) {
+        URLSearchParamsProto.append.call(this, name, value);
+        name = this.toString();
+        search.set.call(this._usp, name ? "?" + name : "");
+      }
+      function del(name) {
+        URLSearchParamsProto.delete.call(this, name);
+        name = this.toString();
+        search.set.call(this._usp, name ? "?" + name : "");
+      }
+      function set(name, value) {
+        URLSearchParamsProto.set.call(this, name, value);
+        name = this.toString();
+        search.set.call(this._usp, name ? "?" + name : "");
+      }
+      return function(sp, value) {
+        sp.append = append;
+        sp.delete = del;
+        sp.set = set;
+        return dP(sp, "_usp", {
+          configurable: true,
+          writable: true,
+          value: value
+        });
+      };
+    }, createSearchParamsCreate = function(polluteSearchParams) {
+      return function(obj, sp) {
+        dP(obj, "_searchParams", {
+          configurable: true,
+          writable: true,
+          value: polluteSearchParams(sp, obj)
+        });
+        return sp;
+      };
+    }, updateSearchParams = function(sp) {
+      var append = sp.append;
+      sp.append = URLSearchParamsProto.append;
+      URLSearchParams.call(sp, sp._usp.search.slice(1));
+      sp.append = append;
+    }, verifySearchParams = function(obj, Class) {
+      if (!(obj instanceof Class)) throw new TypeError("'searchParams' accessed on an object that " + "does not implement interface " + Class.name);
+    }, upgradeClass = function(Class) {
+      var ClassProto = Class.prototype, searchParams = gOPD(ClassProto, "searchParams"), href = gOPD(ClassProto, "href"), search = gOPD(ClassProto, "search"), createSearchParams;
+      if (!searchParams && search && search.set) {
+        createSearchParams = createSearchParamsCreate(createSearchParamsPollute(search));
+        Object.defineProperties(ClassProto, {
+          href: {
+            get: function() {
+              return href.get.call(this);
+            },
+            set: function(value) {
+              var sp = this._searchParams;
+              href.set.call(this, value);
+              if (sp) updateSearchParams(sp);
+            }
+          },
+          search: {
+            get: function() {
+              return search.get.call(this);
+            },
+            set: function(value) {
+              var sp = this._searchParams;
+              search.set.call(this, value);
+              if (sp) updateSearchParams(sp);
+            }
+          },
+          searchParams: {
+            get: function() {
+              verifySearchParams(this, Class);
+              return this._searchParams || createSearchParams(this, new URLSearchParams(this.search.slice(1)));
+            },
+            set: function(sp) {
+              verifySearchParams(this, Class);
+              createSearchParams(this, sp);
+            }
+          }
+        });
+      }
+    };
+    try {
+      upgradeClass(HTMLAnchorElement);
+      if (/^function|object$/.test(typeof URL) && URL.prototype) upgradeClass(URL);
+    } catch (meh) {}
+  })(Object);
+})(self$1.URLSearchParams.prototype);
+
+var URLSearchParams$1 = self$1.URLSearchParams;
+
+var Highcharts$1 = window.Highcharts;
 
 var _default$6 = function(_Controller) {
   _inherits(_default, _Controller);
@@ -5396,45 +5697,129 @@ var _default$6 = function(_Controller) {
     return _super.apply(this, arguments);
   }
   _createClass(_default, [ {
-    key: "redisplay",
-    value: function redisplay(event) {
-      var json = event.detail[0];
-      if (this.chartCreated()) {
-        this.chartTarget.getChartObject().updateData(json);
-      } else {
-        new Chartkick.LineChart("chart1", json, this.chartOptions);
-      }
+    key: "initialize",
+    value: function initialize() {
+      this.getJson();
+      this.addCurrentPeriodClassToDefaultPeriod();
     }
   }, {
-    key: "chartCreated",
-    value: function chartCreated() {
-      return Object.prototype.hasOwnProperty.call(this.chartTarget, "getChartObject");
+    key: "periodChanged",
+    value: function periodChanged(event) {
+      this.periodValue = event.target.getAttribute("data-period");
+      this.removeCurrentClassFromAllPeriods();
+      this.addCurrentClassToSelectedPeriod(event.target);
+      this.getJson();
     }
   }, {
-    key: "chartOptions",
-    get: function get() {
-      return {
-        curve: false,
-        library: {
-          chart: {
-            zoomType: "x"
-          },
-          plotOptions: {
-            series: {
-              animation: {
-                duration: 400
+    key: "removeCurrentClassFromAllPeriods",
+    value: function removeCurrentClassFromAllPeriods() {
+      this.periodTargets.forEach(function(el) {
+        el.classList.remove("current-period");
+      });
+    }
+  }, {
+    key: "addCurrentPeriodClassToDefaultPeriod",
+    value: function addCurrentPeriodClassToDefaultPeriod() {
+      var _this = this;
+      this.periodTargets.forEach(function(el) {
+        if (el.getAttribute("data-period") == _this.periodValue) {
+          _this.addCurrentClassToSelectedPeriod(el);
+        }
+      });
+    }
+  }, {
+    key: "addCurrentClassToSelectedPeriod",
+    value: function addCurrentClassToSelectedPeriod(el) {
+      el.classList.add(this.currentPeriodClass);
+    }
+  }, {
+    key: "updateChart",
+    value: function updateChart(json) {
+      Highcharts$1.chart(this.chartTarget, {
+        chart: {
+          zoomType: "x"
+        },
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: this.titleValue,
+          align: "left"
+        },
+        xAxis: {
+          type: "datetime"
+        },
+        yAxis: {
+          type: this.yAxisTypeValue,
+          title: {
+            text: this.yAxisLabelValue
+          }
+        },
+        tooltip: {
+          headerFormat: "<b>{series.name}</b><br>",
+          pointFormat: "{point.x:%e-%b-%Y}: {point.y:.2f}"
+        },
+        plotOptions: {
+          series: {
+            animation: {
+              duration: 500
+            },
+            marker: {
+              enabled: true
+            }
+          }
+        },
+        series: json,
+        responsive: {
+          rules: [ {
+            condition: {
+              maxWidth: 500
+            },
+            chartOptions: {
+              plotOptions: {
+                series: {
+                  marker: {
+                    radius: 2.5
+                  }
+                }
               }
             }
-          },
-          colors: [ "#005eb8", "#009639", "#434348", "#90ed7d", "#f7a35c", "#8085e9", "#f15c80", "#e4d354" ]
+          } ]
         }
-      };
+      });
+    }
+  }, {
+    key: "getJson",
+    value: function getJson() {
+      var _this2 = this;
+      fetch(this.urlValue + "?" + new URLSearchParams$1({
+        period: this.periodValue
+      }), {
+        credentials: "same-origin",
+        headers: new Headers({
+          "content-type": "application/json"
+        })
+      }).then(function(response) {
+        return response.json();
+      }).then(function(json) {
+        _this2.updateChart(json);
+      });
     }
   } ]);
   return _default;
 }(Controller);
 
-_defineProperty(_default$6, "targets", [ "chart" ]);
+_defineProperty(_default$6, "targets", [ "chart", "period" ]);
+
+_defineProperty(_default$6, "values", {
+  url: String,
+  title: String,
+  period: String,
+  yAxisLabel: String,
+  yAxisType: String
+});
+
+_defineProperty(_default$6, "classes", [ "currentPeriod" ]);
 
 var Rails$1 = window.Rails;
 
@@ -8536,11 +8921,11 @@ var highchartsMore = createCommonjsModule(function(module) {
   });
 });
 
-var Highcharts$1 = window.Highcharts;
+var Highcharts$2 = window.Highcharts;
 
 var $$4 = window.$;
 
-highchartsMore(Highcharts$1);
+highchartsMore(Highcharts$2);
 
 var _default$a = function(_Controller) {
   _inherits(_default, _Controller);
@@ -8554,7 +8939,7 @@ var _default$a = function(_Controller) {
     value: function connect() {
       var _this = this;
       $$4.getJSON(this.data.get("url"), function(data) {
-        Highcharts$1.chart(_this.element, {
+        Highcharts$2.chart(_this.element, {
           chart: {
             scrollablePlotArea: {
               minWidth: 600,

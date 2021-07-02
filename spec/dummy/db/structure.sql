@@ -137,6 +137,16 @@ CREATE TYPE renalware.duration AS ENUM (
 
 
 --
+-- Name: pathology_chart_axis; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.pathology_chart_axis AS ENUM (
+    'y1',
+    'y2'
+);
+
+
+--
 -- Name: pd_pet_type; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -562,6 +572,70 @@ CREATE FUNCTION renalware.pathology_chart_data(patient_id integer, code text, st
    order by po.observed_at asc, po.created_at desc;
 
 $_$;
+
+
+--
+-- Name: pathology_chart_series(integer, integer, date); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.pathology_chart_series(patient_id integer, observation_description_id integer, start_date date) RETURNS TABLE(observed_on bigint, result double precision)
+    LANGUAGE sql
+    AS $_$
+   select
+    extract(epoch from observed_at)::bigint * 1000,
+    convert_to_float(result) from pathology_observations po
+   inner join pathology_observation_requests por on por.id = po.request_id
+   inner join pathology_observation_descriptions pod on pod.id = po.description_id
+   where pod.id = observation_description_id and observed_at >= start_date and por.patient_id = $1
+   order by po.observed_at asc, po.created_at desc
+$_$;
+
+
+--
+-- Name: pathology_chart_series_product_ca_phos(integer, date); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.pathology_chart_series_product_ca_phos(pat_id integer, start_date date) RETURNS TABLE(observed_on bigint, result double precision)
+    LANGUAGE sql
+    AS $$
+    /*
+     * Returns the product of calcium and phosphate for a patient where those tests appear on the same day.
+     * Only take rows on or after the start_date argument.
+     *  "2017-07-12" : 2.581,
+     *  "2017-07-10" : 2.551,
+     *  "2017-07-09" : 3.301,
+     */
+    with cal as (
+        select distinct on (po.observed_at::date)
+            po.observed_at observed_on,
+            convert_to_float(po.result) as result
+        from pathology_observations po
+        inner join pathology_observation_requests por on por.id = po.request_id
+        inner join pathology_observation_descriptions pod on pod.id = po.description_id
+        where por.patient_id = pat_id and pod.code = 'CAL'
+        order by po.observed_at::date desc
+    ),
+    phos as (
+        select distinct on (po2.observed_at::date)
+            po2.observed_at observed_on,
+            convert_to_float(po2.result) result
+        from pathology_observations po2
+        inner join pathology_observation_requests por2 on por2.id = po2.request_id
+        inner join pathology_observation_descriptions pod2 on pod2.id = po2.description_id
+        where por2.patient_id = pat_id and pod2.code = 'PHOS'
+        order by po2.observed_at::date desc
+    )
+    select
+        extract(epoch from phos.observed_on)::bigint * 1000,
+        round((phos.result * cal.result)::numeric, 3)::float
+    from phos
+    inner join cal on cal.observed_on = phos.observed_on
+    where
+        phos.result > 0
+        and cal.result > 0
+        and phos.observed_on >= start_date
+    order by phos.observed_on asc;;
+$$;
 
 
 --
@@ -5307,6 +5381,156 @@ ALTER SEQUENCE renalware.modality_reasons_id_seq OWNED BY renalware.modality_rea
 
 
 --
+-- Name: pathology_chart_series; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pathology_chart_series (
+    id bigint NOT NULL,
+    chart_id bigint NOT NULL,
+    observation_description_id bigint NOT NULL,
+    axis renalware.pathology_chart_axis DEFAULT 'y1'::renalware.pathology_chart_axis NOT NULL,
+    colour character varying,
+    options jsonb DEFAULT '{}'::jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE pathology_chart_series; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.pathology_chart_series IS 'Defines the series displayed on a predefined chart';
+
+
+--
+-- Name: COLUMN pathology_chart_series.colour; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_chart_series.colour IS 'Usually null, but can override the colour in the chartable row here';
+
+
+--
+-- Name: COLUMN pathology_chart_series.options; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_chart_series.options IS 'Optional hash to override default series settings';
+
+
+--
+-- Name: pathology_chart_series_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.pathology_chart_series_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_chart_series_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.pathology_chart_series_id_seq OWNED BY renalware.pathology_chart_series.id;
+
+
+--
+-- Name: pathology_charts; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pathology_charts (
+    id bigint NOT NULL,
+    title character varying NOT NULL,
+    description text,
+    display_group integer DEFAULT 1 NOT NULL,
+    display_order integer DEFAULT 1 NOT NULL,
+    scope character varying DEFAULT 'charts'::character varying NOT NULL,
+    enabled boolean DEFAULT true NOT NULL,
+    owner_id bigint,
+    options jsonb DEFAULT '{}'::jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE pathology_charts; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.pathology_charts IS 'Pre-defined charts that can appear in various places';
+
+
+--
+-- Name: COLUMN pathology_charts.title; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_charts.title IS 'Appears on the page next to the chart';
+
+
+--
+-- Name: COLUMN pathology_charts.description; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_charts.description IS 'For admin use only';
+
+
+--
+-- Name: COLUMN pathology_charts.display_group; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_charts.display_group IS 'For grouping charts';
+
+
+--
+-- Name: COLUMN pathology_charts.display_order; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_charts.display_order IS 'Position of chart in a group';
+
+
+--
+-- Name: COLUMN pathology_charts.scope; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_charts.scope IS 'E.g. page location for chart';
+
+
+--
+-- Name: COLUMN pathology_charts.owner_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_charts.owner_id IS 'If set, only this user sees this chart';
+
+
+--
+-- Name: COLUMN pathology_charts.options; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_charts.options IS 'Optional hash to override default chart settings';
+
+
+--
+-- Name: pathology_charts_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.pathology_charts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_charts_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.pathology_charts_id_seq OWNED BY renalware.pathology_charts.id;
+
+
+--
 -- Name: pathology_code_group_memberships; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -5416,7 +5640,11 @@ CREATE TABLE renalware.pathology_observation_descriptions (
     legacy_code character varying,
     lower_threshold double precision,
     upper_threshold double precision,
-    suggested_measurement_unit_id integer
+    suggested_measurement_unit_id integer,
+    virtual boolean DEFAULT false NOT NULL,
+    chart_colour character varying,
+    chart_logarithmic boolean DEFAULT false NOT NULL,
+    chart_sql_function_name character varying
 );
 
 
@@ -5432,6 +5660,13 @@ COMMENT ON COLUMN renalware.pathology_observation_descriptions.lower_threshold I
 --
 
 COMMENT ON COLUMN renalware.pathology_observation_descriptions.upper_threshold IS 'Value above which a result can be seen as abnormal';
+
+
+--
+-- Name: COLUMN pathology_observation_descriptions.chart_sql_function_name; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_observation_descriptions.chart_sql_function_name IS 'A custom json-returning SQL function returning a calculated/derived series. Must accept an integer (patient id) and date (start date to search from)';
 
 
 --
@@ -11004,6 +11239,20 @@ ALTER TABLE ONLY renalware.modality_reasons ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: pathology_chart_series id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_chart_series ALTER COLUMN id SET DEFAULT nextval('renalware.pathology_chart_series_id_seq'::regclass);
+
+
+--
+-- Name: pathology_charts id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_charts ALTER COLUMN id SET DEFAULT nextval('renalware.pathology_charts_id_seq'::regclass);
+
+
+--
 -- Name: pathology_code_group_memberships id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -12580,6 +12829,22 @@ ALTER TABLE ONLY renalware.modality_reasons
 
 
 --
+-- Name: pathology_chart_series pathology_chart_series_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_chart_series
+    ADD CONSTRAINT pathology_chart_series_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_charts pathology_charts_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_charts
+    ADD CONSTRAINT pathology_charts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: pathology_code_group_memberships pathology_code_group_memberships_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -13599,6 +13864,13 @@ CREATE INDEX idx_medication_prescriptions_type ON renalware.medication_prescript
 --
 
 CREATE INDEX idx_mp_patient_id_medication_route_id ON renalware.medication_prescriptions USING btree (patient_id, medication_route_id);
+
+
+--
+-- Name: idx_path_cst_obx; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_path_cst_obx ON renalware.pathology_chart_series USING btree (observation_description_id);
 
 
 --
@@ -15776,6 +16048,34 @@ CREATE INDEX index_modality_modalities_on_updated_by_id ON renalware.modality_mo
 --
 
 CREATE INDEX index_modality_reasons_on_id_and_type ON renalware.modality_reasons USING btree (id, type);
+
+
+--
+-- Name: index_pathology_chart_series_on_chart_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_chart_series_on_chart_id ON renalware.pathology_chart_series USING btree (chart_id);
+
+
+--
+-- Name: index_pathology_charts_on_enabled; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_charts_on_enabled ON renalware.pathology_charts USING btree (enabled);
+
+
+--
+-- Name: index_pathology_charts_on_owner_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_charts_on_owner_id ON renalware.pathology_charts USING btree (owner_id);
+
+
+--
+-- Name: index_pathology_charts_on_title; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pathology_charts_on_title ON renalware.pathology_charts USING btree (title);
 
 
 --
@@ -19454,6 +19754,14 @@ ALTER TABLE ONLY renalware.hd_diary_slots
 
 
 --
+-- Name: pathology_chart_series fk_rails_903a56989c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_chart_series
+    ADD CONSTRAINT fk_rails_903a56989c FOREIGN KEY (observation_description_id) REFERENCES renalware.pathology_observation_descriptions(id);
+
+
+--
 -- Name: clinic_appointments fk_rails_909dcaaf3d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -19755,6 +20063,14 @@ ALTER TABLE ONLY renalware.pathology_requests_requests
 
 ALTER TABLE ONLY renalware.hd_prescription_administrations
     ADD CONSTRAINT fk_rails_a9d677a6f8 FOREIGN KEY (reason_id) REFERENCES renalware.hd_prescription_administration_reasons(id);
+
+
+--
+-- Name: pathology_charts fk_rails_aa0712e9e6; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_charts
+    ADD CONSTRAINT fk_rails_aa0712e9e6 FOREIGN KEY (owner_id) REFERENCES renalware.users(id);
 
 
 --
@@ -20403,6 +20719,14 @@ ALTER TABLE ONLY renalware.hd_profiles
 
 ALTER TABLE ONLY renalware.problem_problems
     ADD CONSTRAINT fk_rails_edf3902cb0 FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
+-- Name: pathology_chart_series fk_rails_ef96d4fa3a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_chart_series
+    ADD CONSTRAINT fk_rails_ef96d4fa3a FOREIGN KEY (chart_id) REFERENCES renalware.pathology_charts(id);
 
 
 --
@@ -21452,6 +21776,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210419110721'),
 ('20210419111931'),
 ('20210419161507'),
-('20210531082528');
+('20210531082528'),
+('20210701161843'),
+('20210705082359');
 
 

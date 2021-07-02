@@ -1,3 +1,5 @@
+= render partial: "/renalware/pathology/charts/modal_dialog_placeholder"
+
 table#observations.column_hover
   / colgroups are required for js highlighting of column on hover - see table.js
   - (table.observation_descriptions.size + 1).times do
@@ -6,7 +8,8 @@ table#observations.column_hover
     tr
       th Date
       - table.observation_descriptions.each do |desc|
-        th(title=desc.name style="text-align: center")= desc.code
+        th(title=desc.name style="text-align: center")
+          = render(Renalware::Pathology::ChartLinkComponent.new(patient: patient, chartable: desc))
 
   tbody
     - table.rows.each do |row|

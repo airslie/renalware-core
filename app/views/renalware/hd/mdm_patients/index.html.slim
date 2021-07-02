@@ -17,4 +17,5 @@
   = render "table", presenter: presenter
   = paginate presenter.patients
 
-  #hd-session-form-batch-print-modal.reveal-modal.small(data-reveal)
+  #hd-session-form-batch-print-modal.reveal-modal.small(data-reveal
+    data-options="close_on_background_click:false")

@@ -1,0 +1,6 @@
+.modal
+  .modal__header
+    = render "renalware/shared/modal_close_link"
+  .modal__body
+    = render Renalware::Pathology::ChartComponent.new(patient: patient, chartable: chart)
+  .modal__footer
