@@ -53,7 +53,7 @@ Renalware.Problems = {
           201: function(problem) {
             self._onSuccess(problem);
           },
-          400: function(jqXHR) {
+          406: function(jqXHR) {
             var errors = jqXHR.responseJSON;
             self._onErrors(errors);
           }
@@ -121,7 +121,7 @@ Renalware.Problems = {
           201: function(problem) {
             self._onProblemAdded(problem);
           },
-          400: function(jqXHR) {
+          406: function(jqXHR) {
             var errors = jqXHR.responseJSON;
             self._onErrors(errors);
           }

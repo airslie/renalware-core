@@ -8,7 +8,7 @@
 
   .row
     .large-12.columns
-      - if NHSClient.new.api_enabled?
+      - if nhs_client.api_enabled?
         = f.input :description,
                   collection: [],
                   input_html: { \

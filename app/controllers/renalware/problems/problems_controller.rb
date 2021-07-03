@@ -17,9 +17,8 @@ module Renalware
       def search
         authorize Problem, :search?
 
-        client = NHSClient.new
-        client.query(params[:term], count: 5)
-        data = client.problems.each do |p|
+        nhs_client.query(params[:term], count: 5)
+        data = nhs_client.problems.each do |p|
           p[:id] = p["display"]
           p[:text] = p["display"]
         end
@@ -68,7 +67,7 @@ module Renalware
         if problem.save
           render partial: "current_problem", locals: { problem: problem }, status: :created
         else
-          render json: problem.errors.full_messages, status: :bad_request
+          render json: problem.errors.full_messages, status: :not_acceptable
         end
       end
 

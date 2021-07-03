@@ -47,7 +47,7 @@ class NHSClient
     return false unless response.code == 200
 
     response_body = JSON.parse(response.body)
-    @problems = response_body["expansion"]["contains"].map { |h| h.slice("code", "display") }
+    @problems = response_body["expansion"]["contains"]&.map { |h| h.slice("code", "display") } || []
 
     response_body
   end

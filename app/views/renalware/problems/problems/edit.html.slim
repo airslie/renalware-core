@@ -6,7 +6,7 @@
                     url: patient_problem_path(patient, problem),
                     html: { autocomplete: "off", class: "problem-form fn-form" } do |f|
 
-      - if NHSClient.new.api_enabled?
+      - if nhs_client.api_enabled?
         = f.input :description,
                   collection: [problem.description],
                   selected: problem.description,
