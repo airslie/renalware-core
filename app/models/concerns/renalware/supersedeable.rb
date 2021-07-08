@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Uses acts_as_paranod to implement a meanss of deactivating and old and activating a
+# Uses acts_as_paranoid to implement a means of deactivating an old and activating a
 # new object such that there can only be one active object
 # Enforcing only one active object requires an appropriate unique index to be created
 # See https://github.com/rubysherpas/paranoia#unique-indexes

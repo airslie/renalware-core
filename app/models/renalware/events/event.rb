@@ -17,7 +17,8 @@ module Renalware
       attr_accessor :disable_selection_of_event_type
 
       belongs_to :patient, touch: true
-      belongs_to :event_type, class_name: "Type"
+      belongs_to :event_type, class_name: "Type", counter_cache: true
+      belongs_to :subtype, class_name: "Events::Subtype"
 
       validates :patient, presence: true
       validates :date_time, presence: true
@@ -63,6 +64,10 @@ module Renalware
           partial_type,
           self.class.name.demodulize.underscore
         )
+      end
+
+      def self.subtypes?
+        false
       end
 
       private

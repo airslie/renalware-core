@@ -28,7 +28,9 @@ resources :patients, only: [] do
 end
 
 namespace :events do
-  resources :types, except: :show
+  resources :types, except: :show do
+    resources :subtypes
+  end
   constraints(named_filter: /all/) do
     get(
       "list/:named_filter",

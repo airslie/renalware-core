@@ -1,0 +1,6 @@
+= within_new_admin_layout( \
+  title: "Edit Subtype",
+  breadcrumbs: breadcrumb_for(subtype.event_type.name,
+    events_type_subtypes_path(subtype.event_type))) do
+
+  = render "form", layout: subtype

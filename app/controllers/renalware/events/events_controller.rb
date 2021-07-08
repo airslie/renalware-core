@@ -138,9 +138,11 @@ module Renalware
 
       def event_type_id
         @event_type_id ||= begin
-          return event_params[:event_type_id] if params[:events_event]
-
-          params[:event_type_id]
+          if params[:events_event]
+            event_params[:event_type_id]
+          else
+            params[:event_type_id]
+          end
         end
       end
 
@@ -157,6 +159,7 @@ module Renalware
             :description,
             :notes,
             :disable_selection_of_event_type,
+            :subtype_id,
             document: {}
           )
       end
@@ -173,25 +176,11 @@ module Renalware
         event
       end
 
-      def event_types
-        Renalware::Events::Type.visible.order(:name).map do |event_type|
-          [
-            event_type.name,
-            event_type.id,
-            {
-              data: {
-                source: new_patient_event_path(patient, event_type_id: event_type.id, format: :js)
-              }
-            }
-          ]
-        end
-      end
-
       # Returns an array of objects defininig each category, with that category's types within it.
       # rubocop:disable Metrics/MethodLength
-      def event_types_new
+      def event_types
         Events::Category.order(:position).map do |category|
-          types = category.types.order(:name).map do |event_type|
+          types = category.types.visible.order(:name).map do |event_type|
             [
               event_type.name,
               event_type.id,

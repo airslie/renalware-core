@@ -2,14 +2,25 @@ table
   thead
     tr
       th.col-width-small
+      th.col-width-medium Category
       th Name
+      th.col-with-date-time Updated
+      th.col-width-tiny Events
+
   tbody
-    - event_types.each do |t|
+    - event_types.each do |event_type|
       tr
         td.actions
-          = link_to t("btn.edit"), edit_events_type_path(t.id)
-          = link_to t("btn.delete"),
-                    events_type_path(t.id),
-                    method: :delete,
-                    data: { confirm: I18n.t("prompts.confirm_delete") }
-        td= t.name
+          - if policy(event_type).edit?
+            = link_to t("btn.edit"), edit_events_type_path(event_type.id)
+          - if policy(event_type).destroy?
+            = link_to t("btn.delete"),
+                      events_type_path(event_type.id),
+                      method: :delete,
+                      data: { confirm: t("prompts.confirm_delete") }
+          - if policy(event_type).subtypes?
+            = link_to "Subtypes", renalware.events_type_subtypes_path(event_type.id)
+        td= event_type.category&.name
+        td= event_type.name
+        td= l(event_type.updated_at)
+        td= event_type.events_count

@@ -16,8 +16,9 @@ The following useful numbers are valid:
 - 0123456789
 
 There are also some very helpful [online NHS Number generators](http://danielbayley.uk/nhs-number/).
-There is also a list of test numbers in spec/factories/patients/patients.rb or in the demo data patient
-seeds file.
+
+There are about 38000 valid test nhs_numbers in ./example_nhs_numbers.txt and also some test numbers
+in spec/factories/patients/patients.rb or in the demo data patient seeds file.
 
 ### References
 - [Wikipedia](https://en.wikipedia.org/wiki/NHS_number)
