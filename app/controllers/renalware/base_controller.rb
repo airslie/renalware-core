@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "application_controller"
+require "nhs_client"
 
 module Renalware
   class BaseController < ApplicationController
