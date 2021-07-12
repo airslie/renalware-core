@@ -79,7 +79,10 @@ module World
         visit patient_problems_path(patient)
         click_on t("btn.add")
         fill_in "Description", with: "major problem"
-        click_on t("btn.create")
+
+        within "#add-patient-problem-modal" do
+          click_on "Save"
+        end
       end
 
       def revise_problem_for(patient:, user:, description:)
@@ -91,7 +94,7 @@ module World
 
         within ".problem-form" do
           fill_in "Description", with: description
-          click_on t("btn.save")
+          click_on "Save"
         end
       end
 
