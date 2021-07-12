@@ -9,10 +9,14 @@
   .row
     .large-12.columns
       - if nhs_client.api_enabled?
+        p.js-snomed-id-hint class=('hidden' if problem.snomed_id.blank?)
+          ' Snomed ID:
+          strong = problem.snomed_id
+        = f.hidden_field :snomed_id, id: 'js-snomed-id-field'
         = f.input :description,
                   collection: [],
                   input_html: { \
-                    class: "patient-id-select2 patient-ajax-search",
+                    class: "patient-id-select2 problem-ajax-search",
                     data: { "ajax--url" => search_patient_problems_path(format: :json),
                             placeholder: "Search by problem name." } \
                   }

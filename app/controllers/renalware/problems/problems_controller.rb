@@ -100,7 +100,7 @@ module Renalware
 
       def problem_params
         params.require(:problems_problem)
-              .permit(:description)
+              .permit(:description, :snomed_id)
               .merge(by: current_user)
       end
     end

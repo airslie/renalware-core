@@ -137,7 +137,46 @@ Renalware.Problems = {
   }
 };
 
+Renalware.ProblemSearch = (function() {
+
+  var initProblemSearch = function(){
+    var dropDown = $(".problem-ajax-search");
+
+    $(dropDown).select2({
+      language: {
+        inputTooShort: function(args) {
+          return $(dropDown).data("hint");
+        }
+      },
+      ajax: {
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+          return {
+            term: params.term
+          };
+        },
+        processResults: function (data, params) {
+          return {
+            results: data
+          };
+        },
+        cache: true
+      },
+      minimumInputLength: 3
+    });
+  };
+
+  return {
+    init: function () {
+      initProblemSearch();
+    }
+  };
+}());
+
 $(document).ready(function() {
+  Renalware.ProblemSearch.init();
+
   var trigger = $("a[data-behaviour='add-new-problem']");
 
   if (trigger.length > 0) {
@@ -151,4 +190,18 @@ $(document).ready(function() {
        modal.open();
     })
   }
+});
+
+$(document).on('opened.fndtn.reveal', '[data-reveal]', function() {
+  Renalware.ProblemSearch.init();
+});
+
+$('.problem-ajax-search').on('select2:select', function(e) {
+  var snomedId = e.params.data.code,
+      $snomedIdHint = $('.js-snomed-id-hint');
+
+  $('#js-snomed-id-field').val(snomedId);
+
+  $snomedIdHint.find('strong').text(snomedId);
+  $snomedIdHint.show();
 });
