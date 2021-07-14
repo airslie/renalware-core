@@ -143,6 +143,7 @@ Renalware.ProblemSearch = (function() {
     var dropDown = $(".problem-ajax-search");
 
     $(dropDown).select2({
+      tags: true,
       language: {
         inputTooShort: function(args) {
           return $(dropDown).data("hint");
@@ -200,8 +201,9 @@ $('.problem-ajax-search').on('select2:select', function(e) {
   var snomedId = e.params.data.code,
       $snomedIdHint = $('.js-snomed-id-hint');
 
-  $('#js-snomed-id-field').val(snomedId);
-
-  $snomedIdHint.find('strong').text(snomedId);
-  $snomedIdHint.show();
+  if (snomedId) {
+    $('#js-snomed-id-field').val(snomedId);
+    $snomedIdHint.find('strong').text(snomedId);
+    $snomedIdHint.show();
+  }
 });
