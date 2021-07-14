@@ -7,7 +7,7 @@ module Renalware
     module Charts
       class ChartsController < Pathology::BaseController
         # GET html
-        # Render the data-defined charts all together under the Pathology Carts tab
+        # Render the data-defined charts all together under the Pathology Charts tab
         def index
           authorize patient
           charts = Chart.where(scope: "charts").order(:display_group, :display_order)

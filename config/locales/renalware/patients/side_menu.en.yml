@@ -30,6 +30,7 @@ en:
           messages: Messages
           proms: PROMS
           attachments: Linked Files (%{count})
+          perspectives: Perspectives
         modalities:
           heading: Modalities
           pd: PD

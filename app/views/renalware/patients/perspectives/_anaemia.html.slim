@@ -1,0 +1,50 @@
+ruby:
+  # TODO: refactor out of the view :)
+  relation = patient.prescriptions.having_drug_of_type("esa")
+  query = Renalware::Medications::PrescriptionsQuery.new(relation: relation).call
+    .with_created_by
+    .with_medication_route
+    .with_drugs
+    .with_classifications
+    .eager_load(drug: [:drug_types])
+  esa_current = query
+    .current
+    .map { |prescrip| Renalware::Medications::PrescriptionPresenter.new(prescrip) }
+
+  esa_terminated = query
+    .map { |prescrip| Renalware::Medications::PrescriptionPresenter.new(prescrip) }
+
+  relation = patient.prescriptions.having_drug_of_type("iron")
+  query = Renalware::Medications::PrescriptionsQuery.new(relation: relation).call
+    .with_created_by
+    .with_medication_route
+    .with_drugs
+    .with_classifications
+    .eager_load(drug: [:drug_types])
+  iron = query
+    .map { |prescrip| Renalware::Medications::PrescriptionPresenter.new(prescrip) }
+
+
+.flex.flex-row.md:flex-row.flex-wrap
+  - charts.each do |chart|
+      .md:w-full.lg:w-1/2.xl:w-1/3
+        = render(Renalware::Pathology::ChartComponent.new(chartable: chart, patient: patient))
+
+article
+  header.mb-4
+    h2 Prescriptions
+    .supplemental
+      span= link_to t("btn.view_all"),
+              patient_prescriptions_path(patient),
+              class: "button secondary"
+
+  = render Renalware::Medications::TabbedPrescriptionsListComponent.new([ \
+    { title: "EPO Current", show_administer_on_hd: true, prescriptions: esa_current, show_terminated_on: false },
+    { title: "EPO Historical", show_administer_on_hd: true, prescriptions: esa_terminated, show_terminated_on: true },
+    { title: "Intravenous iron on HD", show_administer_on_hd: true, prescriptions: iron, show_terminated_on: true }])
+
+= render Renalware::Events::EventListComponent.new(\
+    patient: patient,
+    event_class: nil,
+    event_type_slug: "iron_clinic",
+    title: "Iron Clinic Events")

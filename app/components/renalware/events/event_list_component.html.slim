@@ -3,10 +3,13 @@ article.events
     h2= title
     .supplemental
       span= "#{event_count} of #{total_event_count}"
+      span.noprint= warning
       span.noprint
-        = link_to t("btn.view_all"),
+        = link_to I18n.t("btn.view_all"),
                   renalware.patient_events_path(patient),
                   class: "button secondary"
+
+
 
   / NB: Perhaps this component should not lean on external partials?
   = render "renalware/events/events/table",
