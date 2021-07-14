@@ -17,7 +17,7 @@ module Renalware
       def search
         authorize Problem, :search?
 
-        nhs_client.query(params[:term], count: 5)
+        nhs_client.query(params[:term], count: 10)
         data = nhs_client.problems.each do |p|
           p[:id] = p["display"]
           p[:text] = p["display"]
