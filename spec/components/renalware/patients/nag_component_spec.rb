@@ -78,7 +78,8 @@ describe Renalware::Patients::NagComponent, type: :component, caching: true do
       { date: "2016-01-01", value: "x", severity: :low, render: true },
       { date: "2016-01-01", value: "x", severity: :info, render: true },
       { date: "2016-01-01", value: nil, severity: :info, render: true },
-      { date: "", value: "", severity: :high, render: false },
+      { date: nil, value: nil, severity: :high, render: true },
+      { date: "", value: "", severity: :high, render: true },
       { date: "2016-01-01", value: "x", severity: :none, render: false }
     ].each do |opts|
       msg = opts[:render] ? "renders" : "does not not render"

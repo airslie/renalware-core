@@ -59,7 +59,7 @@ module Renalware
         return false if severity.blank? || severity.to_sym == :none
         return false unless definition.enabled
 
-        date.present? || value.present?
+        true
       end
     end
   end
