@@ -154,12 +154,18 @@ Renalware.ProblemSearch = (function() {
         delay: 250,
         data: function (params) {
           return {
-            term: params.term
+            term: params.term,
+            page: params.page
           };
         },
         processResults: function (data, params) {
+          params.page = params.page || 1;
+
           return {
-            results: data
+            results: data.problems,
+            pagination: {
+              more: (params.page * 10) < data.problems_total
+            }
           };
         },
         cache: true

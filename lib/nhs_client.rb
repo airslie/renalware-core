@@ -18,17 +18,18 @@ class NHSClient
   CLIENT_SECRET = ENV["NHS_CLIENT_SECRET"]
   # rubocop:enable Rails/EnvironmentVariableAccess
 
-  attr_reader :problems
+  attr_reader :problems, :problems_total
 
   def initialize
     @problems = []
+    @problems_total = 0
   end
 
   def api_enabled?
     (CLIENT_ID && CLIENT_SECRET).present?
   end
 
-  def query(filter, count: 20, include_designations: false)
+  def query(filter, count: 20, offset: 0, include_designations: false)
     return false unless (token = bearer_token)
 
     response = HTTParty.get(
@@ -40,6 +41,7 @@ class NHSClient
         url: "http://snomed.info/sct?fhir_vs=ecl/<404684003",
         filter: filter,
         count: count,
+        offset: offset,
         includeDesignations: include_designations
       }
     )
@@ -48,6 +50,7 @@ class NHSClient
 
     response_body = JSON.parse(response.body)
     @problems = response_body["expansion"]["contains"]&.map { |h| h.slice("code", "display") } || []
+    @problems_total = response_body["expansion"]["total"]
 
     response_body
   end

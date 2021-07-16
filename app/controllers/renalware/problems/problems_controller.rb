@@ -17,13 +17,14 @@ module Renalware
       def search
         authorize Problem, :search?
 
-        nhs_client.query(params[:term], count: 10)
-        data = nhs_client.problems.each do |p|
+        nhs_client.query(params[:term], count: 10, offset: 10 * params[:page].to_i)
+        problems = nhs_client.problems.each do |p|
           p[:id] = p["display"]
           p[:text] = p["display"]
         end
+        problems_total = nhs_client.problems_total
 
-        render json: data
+        render json: { problems: problems, problems_total: problems_total }
       end
 
       def show
