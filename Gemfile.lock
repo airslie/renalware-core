@@ -30,7 +30,6 @@ PATH
       activerecord-postgres_enum (~> 1.6.0)
       ahoy_matey (~> 2.1)
       attr_extras (~> 6.2)
-      autoprefixer-rails (~> 9.6)
       chartkick (~> 3.3)
       client_side_validations (~> 17.0)
       client_side_validations-simple_form (~> 11.0)
@@ -87,7 +86,6 @@ PATH
       slim-rails (~> 3.2.0)
       sprockets-rails (>= 3.2.2)
       store_model (= 0.8.0)
-      uglifier (~> 4.2)
       validates_timeliness (~> 4.1.0)
       view_component (~> 2.19)
       virtus (~> 1.0.5)
@@ -95,7 +93,6 @@ PATH
       wicked_pdf
       wisper (~> 2.0.0)
       wisper-activejob (~> 1.0.0)
-      wkhtmltopdf-binary (= 0.12.3.1)
       yard (>= 0.9.20)
 
 GEM
@@ -737,6 +734,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autoprefixer-rails (~> 9.6)
   awesome_print
   aws-sdk-s3
   babel-transpiler
@@ -780,8 +778,10 @@ DEPENDENCIES
   simplecov (~> 0.17.1)
   test-prof
   turnip (~> 4.0)!
+  uglifier (~> 4.2)
   webmock (~> 3.7)
   wisper-rspec (~> 1.1.0)
+  wkhtmltopdf-binary (= 0.12.3.1)
   wkhtmltopdf-heroku (~> 2.12.3)
 
 RUBY VERSION

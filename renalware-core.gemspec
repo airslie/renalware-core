@@ -35,7 +35,6 @@ Gem::Specification.new do |s|
   s.add_dependency "active_type", "~> 0.7.1"
   s.add_dependency "ahoy_matey", "~> 2.1"
   s.add_dependency "attr_extras", "~> 6.2"
-  s.add_dependency "autoprefixer-rails", "~> 9.6"
   s.add_dependency "chartkick", "~> 3.3"
   s.add_dependency "client_side_validations", "~> 17.0"
   s.add_dependency "client_side_validations-simple_form", "~> 11.0"
@@ -92,7 +91,6 @@ Gem::Specification.new do |s|
   s.add_dependency "slim-rails", "~> 3.2.0"
   s.add_dependency "sprockets-rails", ">= 3.2.2"
   s.add_dependency "store_model", "0.8.0"
-  s.add_dependency "uglifier", "~> 4.2"
   s.add_dependency "validates_timeliness", "~> 4.1.0"
   s.add_dependency "view_component", "~> 2.19"
   s.add_dependency "virtus", "~> 1.0.5"
@@ -100,7 +98,6 @@ Gem::Specification.new do |s|
   s.add_dependency "wicked_pdf"
   s.add_dependency "wisper", "~> 2.0.0"
   s.add_dependency "wisper-activejob", "~> 1.0.0"
-  s.add_dependency "wkhtmltopdf-binary", "0.12.3.1"
   s.add_dependency "yard", ">= 0.9.20"
 end
 # rubocop:enable Style/ExpandPathArguments,Style/SpecialGlobalVars
