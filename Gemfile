@@ -10,7 +10,7 @@ gemspec
 # These are visible to dummy app only
 gem "autoprefixer-rails", "~> 9.6"
 gem "aws-sdk-s3", require: false # for active storage when using Heroku for test environments
-gem "babel-transpiler" # not sure this is need now that we user rollupjs + babel npmm packages?
+# gem "babel-transpiler" # not sure this is need now that we user rollupjs + babel npmm packages?
 gem "bootsnap", require: false # speeds up rspec and rails server boot time in development
 gem "daemons", require: false # to use cmds like `bin/delayed_job start`
 gem "faker"
