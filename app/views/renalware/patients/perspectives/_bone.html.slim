@@ -1,17 +1,12 @@
 ruby:
   # TODO: refactor out of the view :)
   relation = patient.prescriptions.having_drug_of_type("bone/Ca/PO4")
-  query = Renalware::Medications::PrescriptionsQuery.new(relation: relation).call
+  prescriptions = Renalware::Medications::PrescriptionsQuery.new(relation: relation).call
     .with_created_by
     .with_medication_route
     .with_drugs
     .with_classifications
     .eager_load(drug: [:drug_types])
-  current = query
-    .current
-    .map { |prescrip| Renalware::Medications::PrescriptionPresenter.new(prescrip) }
-
-  historical = query
     .map { |prescrip| Renalware::Medications::PrescriptionPresenter.new(prescrip) }
 
 
@@ -28,5 +23,7 @@ article
               patient_prescriptions_path(patient),
               class: "button secondary"
   = render Renalware::Medications::TabbedPrescriptionsListComponent.new([ \
-    { title: "Bone Current", show_administer_on_hd: true, prescriptions: current, show_terminated_on: false },
-    { title: "Bone Historical", show_administer_on_hd: true, prescriptions: historical, show_terminated_on: true }])
+    { title: "Bone",
+      show_administer_on_hd: true,
+      prescriptions: prescriptions,
+      show_terminated_on: true }])
