@@ -28,9 +28,11 @@ module Renalware
       class ObservationRequest < SimpleDelegator
         alias_attribute :date_time, :observation_date
 
+        # rubocop:disable Lint/UselessMethodDefinition
         def initialize(observation_request_segment)
           super(observation_request_segment)
         end
+        # rubocop:enable Lint/UselessMethodDefinition
 
         def identifier
           universal_service_id.split("^").first
@@ -135,6 +137,30 @@ module Renalware
           patient_id_list.split("^").first
         end
 
+        # Given the following PID segment
+        #   PID||123456789^^^NHS^ignoreme|D7006359^^^hosp1~X1234^^^hosp2|
+        # this will return a hash of assigning_authority => hospital number
+        # useful in the situation where we receive HL7 messages from > 1 PAS; elsewhere
+        # we will map the assigning authotity to the correct patient_identitifer
+        # e.g. lookup assigning_auth eg "RAJ01" in a map to discover whether we should copy this
+        # patient number into local_patient_id, local_patient_2 etc
+        # {
+        #   "hosp1" => "D7006359",
+        #   "hosp2" => "X1234"
+        # }
+        def hospital_identifiers
+          return [] if patient_id_list.blank?
+
+          patient_id_list
+            .split("~")
+            .each_with_object({}) do |field, hash|
+              parts = field.split("^")
+              hospno = parts.first
+              assigning_authority = parts[3]
+              hash[assigning_authority] = hospno
+            end
+        end
+
         def nhs_number
           return unless defined?(patient_id)
 
@@ -206,9 +232,11 @@ module Renalware
       end
 
       # Adding this so it is part of the interface and we can mock an HL7Message in tests
+      # rubocop:disable Lint/UselessMethodDefinition
       def to_hl7
         super
       end
+      # rubocop:enable Lint/UselessMethodDefinition
 
       def message_type
         type.split("^").first
