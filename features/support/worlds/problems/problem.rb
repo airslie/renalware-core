@@ -78,11 +78,14 @@ module World
 
         visit patient_problems_path(patient)
         click_on t("btn.add")
-        fill_in "Description", with: "major problem"
 
-        within "#add-patient-problem-modal" do
+        within "#add-patient-problem-modal .modal" do
+          select2 "major problem", from: "* Description", search: true
           click_on "Save"
         end
+
+        expect(page).not_to have_css("#add-patient-problem-modal .modal") # dialog dismissed
+        expect(page).to have_content("major problem") # problem added to page
       end
 
       def revise_problem_for(patient:, user:, description:)
@@ -92,10 +95,8 @@ module World
         click_on t("btn.edit")
         # actually now goes to #show
 
-        within ".problem-form" do
-          fill_in "Description", with: description
-          click_on "Save"
-        end
+        select2 description, from: "* Description", search: true
+        click_on "Save"
       end
 
       def view_problems_list(patient, clinician)
