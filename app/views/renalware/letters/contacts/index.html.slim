@@ -9,11 +9,13 @@
     = render "table", patient: patient, contacts: contacts
 
   / The add modal dialog
-  #add-patient-contact-modal.reveal-modal.medium(data-reveal)
+  #add-patient-contact-modal.reveal-modal.medium(data-reveal
+    data-options="close_on_background_click:false")
     = render "new",
              patient: patient,
              contact: contact,
              contact_descriptions: contact_descriptions
 
   / The edit modal dialog
-  #edit-patient-contact-modal.reveal-modal.medium(data-reveal)
+  #edit-patient-contact-modal.reveal-modal.medium(data-reveal
+    data-options="close_on_background_click:false")

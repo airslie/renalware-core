@@ -19,7 +19,9 @@ table#observations.column_hover
     - table.observation_descriptions.each do |desc|
       - code = desc.code
       tr
-        th(title=desc.name)= code
+        th(title=desc.name)
+          = render(Renalware::Pathology::ChartLinkComponent.new(patient: patient, chartable: desc))
+        observation
         - table.rows.each do |row|
           - if row.comment_for(code).present?
             td(class=code.downcase aria-label=row.comment_for(code) data-balloon-pos="up")

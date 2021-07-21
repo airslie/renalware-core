@@ -1,3 +1,5 @@
+= render partial: "/renalware/pathology/charts/modal_dialog_placeholder"
+
 = within_patient_layout title: "Current Pathology Results",
                         navigation_partial: "renalware/pathology/navigation" do
   - observation_set.each_display_group do |observations, group_number|
@@ -5,10 +7,12 @@
       tbody
         - observations.each do |observation|
           tr
-            th= observation.description
+            th
+              = render(Renalware::Pathology::ChartLinkComponent.new(patient: patient,
+                chartable: observation.description))
             - if current_user.wants_feature?(2)
               td
-                = render Renalware::Pathology::SparklineComponent.new(current_user: current_user,
+                /= render Renalware::Pathology::SparklineComponent.new(current_user: current_user,
                   patient: patient,
                   observation_description: observation.description)
 

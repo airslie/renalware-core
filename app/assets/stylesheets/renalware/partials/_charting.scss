@@ -15,3 +15,34 @@
     }
   }
 }
+
+.chart-periods {
+  position: relative;
+  background-color: $white;
+
+  nav {
+    position: absolute;
+    top: 8px;
+    z-index: 1;
+    right: 0;
+    padding-right: 2rem;
+
+    a {
+      background-color: $white; // $nhs-light-blue;
+      padding: .1rem .4rem;
+      color: $dark-grey;
+      border-radius: .2rem;
+      font-size: .9rem;
+
+      &.current-period {
+        background-color: $nhs-blue;
+        color: $white;
+      }
+    }
+  }
+}
+
+.path-chart-link {
+  color: $nhs-blue;
+  text-decoration: none;
+}

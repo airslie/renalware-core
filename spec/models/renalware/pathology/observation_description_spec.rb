@@ -11,6 +11,11 @@ module Renalware
       is_expected.to have_many(:code_groups).through(:code_group_memberships)
       is_expected.to validate_numericality_of(:lower_threshold)
       is_expected.to validate_numericality_of(:upper_threshold)
+      # Chartable 'interface'
+      is_expected.to respond_to(:chart_series_json)
+      is_expected.to respond_to(:axis_label)
+      is_expected.to respond_to(:axis_type)
+      is_expected.to respond_to(:title)
     end
 
     describe "#rr_type enum" do

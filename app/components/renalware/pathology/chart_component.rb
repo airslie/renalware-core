@@ -2,36 +2,13 @@
 
 module Renalware
   module Pathology
+    # Can render a predefined Chart or an individual Observation Description
     class ChartComponent < ApplicationComponent
-      pattr_initialize [:current_user!, :patient!, :observation_description!]
+      rattr_initialize [:chartable!, :patient!]
+      delegate :title, :axis_label, :axis_type, :to_param, :to_model, to: :chartable
 
-      def chart_data
-        @chart_data ||= Pathology.cast_patient(patient)
-          .observations
-          .where(description_id: observation_description.id)
-          .order(:observed_at)
-          .pluck([:observed_at, :result])
-      end
-
-      # TODO: cache key should expire when a new observation arrives of this type
-      def cache_key
-        "#{patient.cache_key}/chart/#{observation_description.id}"
-      end
-
-      # Because we cache the component html inside the view sidecar, we want to
-      # avoid implementing this method properly - ie checking if there anything
-      # to render - as that would involve querying the database, thus negating
-      # the befit of any caching.
-      def render?
-        true
-      end
-
-      def options
-        {}
-      end
-
-      def dom_id
-        @dom_id ||= ActionView::RecordIdentifier.dom_id(observation_description)
+      def chart_id
+        @chart_id ||= dom_id(chartable)
       end
     end
   end

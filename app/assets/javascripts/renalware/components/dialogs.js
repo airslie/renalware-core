@@ -2,7 +2,7 @@ $(document).foundation({
     reveal: {
         animation:  'none' ,
         animation_speed: 0,
-        close_on_background_click: false,
+        close_on_background_click: true,
         close_on_esc: true,
         dismiss_modal_class: "reveal-modal-close"
     }

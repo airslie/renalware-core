@@ -15,7 +15,7 @@ module Renalware
           page: page || 1,
           per_page: per_page || 100
         ).call
-        render :index, locals: { table: observations_table }
+        render :index, locals: { patient: patient, table: observations_table }
       end
     end
   end

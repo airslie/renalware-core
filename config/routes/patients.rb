@@ -24,6 +24,16 @@ resources :patients, except: [:destroy], controller: "patients/patients" do
     get :search
   end
 
+  get "perspectives/bone",
+      to: "patients/perspectives#show",
+      id: :bone,
+      as: :bone_perspective
+  get "perspectives/anaemia",
+      to: "patients/perspectives#show",
+      id: :anaemia,
+      as: :anaemia_perspective
+
+  # resources :perspectives, only: [:show],
   resource :clinical_summary, only: :show, controller: "patients/clinical_summaries"
   resource :death, only: [:edit, :update]
   resource :primary_care_physician,
