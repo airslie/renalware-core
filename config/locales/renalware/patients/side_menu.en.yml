@@ -30,7 +30,7 @@ en:
           messages: Messages
           proms: PROMS
           attachments: Linked Files (%{count})
-          perspectives: Perspectives
+          perspectives: Complex Charts
         modalities:
           heading: Modalities
           pd: PD

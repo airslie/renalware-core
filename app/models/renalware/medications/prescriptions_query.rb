@@ -5,10 +5,12 @@ require_dependency "renalware/medications"
 module Renalware
   module Medications
     class PrescriptionsQuery
-      def initialize(relation:, search_params: nil)
+      def initialize(relation:, search_params: nil, apply_default_search_order: true)
         @relation = relation
         @search_params = search_params || {}
-        @search_params.reverse_merge!(s: default_search_order)
+        if apply_default_search_order
+          @search_params.reverse_merge!(s: default_search_order)
+        end
       end
 
       def call
