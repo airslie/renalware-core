@@ -32,7 +32,9 @@ module Renalware
             :password,
             :password_confirmation,
             :asked_for_write_access,
-            :remember_me
+            :remember_me,
+            :professional_position,
+            :signature
           ]
         )
       end
