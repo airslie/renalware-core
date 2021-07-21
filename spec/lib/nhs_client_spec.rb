@@ -52,7 +52,7 @@ module Renalware
         it "returns array with problems" do
           stub_request(
             :get,
-            "#{query_uri}?count=10&filter=dis&includeDesignations=false&url=http://snomed.info/sct?fhir_vs=ecl/%3C404684003"
+            "#{query_uri}?count=10&filter=dis&includeDesignations=false&offset=0&url=http://snomed.info/sct?fhir_vs=ecl/%3C404684003"
           ).to_return(
             status: 200,
             body: File.read("spec/fixtures/files/nhs_client/query_response.json")
@@ -88,7 +88,7 @@ module Renalware
         it "returns an empty array" do
           stub_request(
             :get,
-            "#{query_uri}?count=20&filter=dis&includeDesignations=false&url=http://snomed.info/sct?fhir_vs=ecl/%3C404684003"
+            "#{query_uri}?count=20&filter=dis&includeDesignations=false&offset=0&url=http://snomed.info/sct?fhir_vs=ecl/%3C404684003"
           ).to_return(status: 500, body: "")
 
           nhs_client.query("dis")
