@@ -1,0 +1,8 @@
+/ Modal dialog to display a chart for a patient results for this test
+.modal
+  .modal__header.modal__header-no-decoration
+    = render "renalware/shared/modal_close_link"
+    br
+  .modal__body
+    = render Renalware::Pathology::ChartComponent.new(patient: patient, chartable: observation_description)
+  .modal__footer

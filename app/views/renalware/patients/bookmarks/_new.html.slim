@@ -4,7 +4,7 @@
   = link_text
 
 / The modal dialog
-#add-patient-bookmark-modal.reveal-modal.medium(data-reveal)
+#add-patient-bookmark-modal.reveal-modal.medium(data-reveal data-options="close_on_background_click:false")
   = simple_form_for patient.bookmarks.new,
                     html: { autocomplete: "off" },
                     url: patient_bookmarks_path(patient_id: patient) do |f|

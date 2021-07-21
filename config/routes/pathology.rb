@@ -2,7 +2,13 @@
 
 resources :patients, only: [] do
   namespace :pathology do
-    resources :charts, only: [:show]
+    resources :observation_descriptions, only: :show # for charts
+    namespace :charts do
+      resources :charts, only: [:show, :index] do
+        resources :series, only: :show
+      end
+    end
+
     get "observations/current",
         to: "current_observation_results#index",
         as: "current_observations"

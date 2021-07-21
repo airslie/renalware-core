@@ -5,7 +5,7 @@
   = t(".title")
 
 / The modal dialog
-#add-patient-worry-modal.reveal-modal.medium(data-reveal)
+#add-patient-worry-modal.reveal-modal.medium(data-reveal data-options="close_on_background_click:false")
   = simple_form_for Renalware::Patients::Worry.new,
                     html: { autocomplete: "off" },
                     url: patient_worry_path(patient) do |f|

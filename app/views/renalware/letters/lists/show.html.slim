@@ -75,7 +75,8 @@
       = f.input :page_count_in_array, as: :hidden
       = f.submit "Batch Print #{letters.total_count} letters", class: "button", disabled: letters.none?
 
-    #batch-print-modal.reveal-modal.small(data-reveal)
+    #batch-print-modal.reveal-modal.small(data-reveal
+      data-options="close_on_background_click:false")
 
 = within_admin_layout(title: "Letters") do
   = render "table", letters: letters, q: q
@@ -90,4 +91,6 @@
 / for the complete works. Using ujs for these sort of dialog -> -> post -> page refresh
 / cycles is a bit complex and we could move to using something like stimulus
 / to keep thing a bit simpler
-#letter-print-modal.reveal-modal.medium(data-reveal data-refresh-url=request.original_fullpath)
+#letter-print-modal.reveal-modal.medium(data-reveal
+  data-refresh-url=request.original_fullpath
+  data-options="close_on_background_click:false")

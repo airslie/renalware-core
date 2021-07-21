@@ -31,8 +31,12 @@ module Renalware
         :patient!,
         :event_class!,
         limit: 6,
-        hide_if_no_data: false # if true and there are no events, nothing will be rendered
+        hide_if_no_data: false, # if true and there are no events, nothing will be rendered
+        title: nil,
+        event_type_slug: nil
       ]
+
+      attr_reader :warning
 
       # This assumes the event class has a scope called #ordered
       def events
@@ -51,7 +55,7 @@ module Renalware
       end
 
       def title
-        t(:title)
+        @title || t(:title)
       end
 
       def description_column_title
@@ -68,11 +72,29 @@ module Renalware
 
       private
 
+      # rubocop:disable Metrics/MethodLength
       def relation
-        @relation ||= event_class.for_patient(patient)
+        @relation ||= begin
+          if event_type_slug.present?
+            event_type = Renalware::Events::Type.find_by(slug: event_type_slug)
+            if event_type.present?
+              event_type.events.for_patient(patient)
+            else
+              # We didn't find the event type! Do not error otherwise the rest of the page
+              # is unuseable. Think about outputing a message somewhere.
+              @warning = "No event type found with slug '#{event_type_slug}'!"
+              Renalware::Events::Event.none
+            end
+          else
+            event_class.for_patient(patient)
+          end
+        end
       end
+      # rubocop:enable Metrics/MethodLength
 
       def t(str)
+        return if event_class&.name.blank?
+
         I18n.t(str, scope: event_class.name.underscore, default: "Description")
       end
     end

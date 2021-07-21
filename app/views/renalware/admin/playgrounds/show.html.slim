@@ -20,39 +20,3 @@ css:
   }
 
 = within_new_admin_layout(title: "Admin Playground") do
-
-  = render(Renalware::ArticleComponent.new(title: "Pathology Charts")) do
-    p A testbed for trying out highchart linecharts
-
-    .chart-container(data-controller="charts"
-                    data-charts-url=pathology_chart_data_admin_playground_path)
-      .row
-        .columns.small-12.medium-6.large-4
-          = simple_form_for(form,
-                            remote: true,
-                            as: :chart,
-                            url: pathology_chart_data_admin_playground_path,
-                            wrapper: nil,
-                            method: :get,
-                            data: { "charts-target" => "form", action: "ajax:success->charts#redisplay" }) do |f|
-
-            = f.input :patient_id,
-                      collection: [[form.patient_id, form.patient_id]],
-                      selected: 1,
-                      input_html: { \
-                        class: "patient-id-select2 patient-ajax-search",
-                        data: { "ajax--url" => search_patients_path(format: :json),
-                                placeholder: "Search by patient name or hospital/NHS no." } \
-                      }
-            = f.input :obx_code,
-                      collection: Renalware::Pathology::ObservationDescription.order(:code).pluck(:code),
-                      input_html: {  class: "searchable_select" }
-            = f.input :period,
-                      collection: %w(all yr 6m 3m 1m wk),
-                      include_blank: false
-            = f.submit "Refresh", class: :button
-
-      #chart1 style="height: 300px; width: 500px" data-charts-target="chart"
-
-    / To test tailwindcss
-    .max-w-sm.rounded.overflow-hidden.shadow-lg &nbsp;

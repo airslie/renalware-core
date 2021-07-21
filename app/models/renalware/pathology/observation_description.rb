@@ -5,9 +5,10 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ObservationDescription < ApplicationRecord
+      include Charts::Chartable
+
       belongs_to :measurement_unit
       belongs_to :suggested_measurement_unit, class_name: "MeasurementUnit"
-
       has_many :observations,
                class_name: "Pathology::Observation",
                inverse_of: :description,

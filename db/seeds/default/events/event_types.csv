@@ -1,4 +1,4 @@
-"category","name","event_class_name","slug","category_id"
+"category","name","event_class_name","slug"
 "Biopsy","Renal Biopsy Native","Renalware::Events::Biopsy","native_biopsies"
 "Biopsy","Renal Biopsy Transplant","Renalware::Events::Biopsy","transplant_biopsies"
 "General","Swab","Renalware::Events::Swab","swabs"
@@ -9,3 +9,4 @@
 "General","Advanced Care Plan","Renalware::Events::AdvancedCarePlan","advanced_care_plans"
 "General","Clinical Frailty Score","Renalware::Events::ClinicalFrailtyScore","clinical_frailty_score"
 "General","Medication Review","Renalware::Medications::Review","medication_reviews"
+"General","Iron Clinic",,"iron_clinic"
