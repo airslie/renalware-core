@@ -53,7 +53,7 @@ FactoryBot.define do
 
     factory :clinical_frailty_score_event_type do
       name { "Clinical Frailty Score" }
-      slug { "clinical_frailty_scores" }
+      slug { "clinical_frailty_score" }
       event_class_name { "Renalware::Events::ClinicalFrailtyScore" }
     end
 

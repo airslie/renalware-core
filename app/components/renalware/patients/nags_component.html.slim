@@ -1,0 +1,3 @@
+.patient-nags
+  ul
+    = render(Renalware::Patients::NagComponent.with_collection(definitions, patient: patient))

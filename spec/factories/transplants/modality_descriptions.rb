@@ -13,5 +13,6 @@ FactoryBot.define do
     initialize_with do
       Renalware::Transplants::RecipientModalityDescription.find_or_create_by(name: "Transplant")
     end
+    code { "transplant" }
   end
 end

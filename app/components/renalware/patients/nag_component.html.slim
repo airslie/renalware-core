@@ -1,0 +1,17 @@
+- if sql_error.present?
+  / There was an error executing the SQL fn so output to the markup for a dev to inspect in devtools
+  li(style="display:none")= "#{title}: #{sql_error}"
+- else
+  - cache_if(cache?, self, expires_in: always_expire_cache_after_seconds) do
+    li.patient-alert.patient-nag.event(class="patient-nag-severity-#{severity}")
+      - if severity != :info
+        i.fas.fa-exclamation-triangle
+      span.title
+        - if formatted_relative_link.present?
+          = link_to title, formatted_relative_link, title: hint
+        - else
+          = title
+      - if value.present?
+        span.value= value
+      - if date.present?
+        span.date= l(date)

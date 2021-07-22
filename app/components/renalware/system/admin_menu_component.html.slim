@@ -17,6 +17,7 @@ ul.side-nav.side-nav--admin(data-controller="collapsible-DISABLED" data-collapsi
   /li= link_to "File Imports", renalware.admin_feeds_files_path
   = super_admin_menu_item "User Feedback", renalware.system_user_feedback_index_path, %r{system/user_feedback}
   = super_admin_menu_item "System Messages", renalware.system_messages_path, %r{system/messages}
+  = super_admin_menu_item "Nags (Missing Data)", renalware.system_nag_definitions_path, %r{system/nag_definitions}
 
   li= link_to "HD", "#", data: { action: "collapsible#open", collapsible_target: "link" }
   ul.collapsible(data-collapsible-target="section")
