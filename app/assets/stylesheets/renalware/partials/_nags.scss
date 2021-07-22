@@ -1,0 +1,101 @@
+.patient-nags ul {
+  margin: 0;
+  padding: 0 .3rem;
+}
+
+.patient-nag {
+  color: $white;
+  display: inline-block;
+  margin: 0.1rem 0.3rem 0 0;
+  padding: 0 .1rem;
+  line-height: 1.6rem;
+  border-radius: 0.3rem;
+  border: 0;
+
+  i {
+    margin-left: .3rem;
+  }
+
+  a,
+  span,
+  i {
+    color: inherit !important;
+    text-decoration: none;
+  }
+
+  span {
+    padding: 0 .4rem;
+  }
+
+  span.value {
+    padding: 0 .4rem;
+    font-weight: bold;
+  }
+
+  span.date {
+    font-style: italic;
+    white-space: nowrap;
+  }
+
+  i {
+    &::before {
+      color: inherit !important;
+      content: fa-content($fa-var-exclamation-triangle);
+    }
+  }
+}
+
+.patient-nag-severity-none {
+  background-color: $off-white !important;
+
+  i {
+    width: 0;
+
+    &::before {
+      content: "";
+    }
+  }
+}
+
+.patient-nag-severity-info {
+  background-color: $nhs-light-blue !important;
+
+  i::before {
+    content: fa-content($fa-var-info-circle);
+  }
+
+  span.date,
+  span.value {
+    border-left: 1px solid lighten($nhs-light-blue, 10);
+  }
+}
+
+.patient-nag-severity-low {
+  background-color: $nhs-yellow !important;
+  color: $muted-dark-grey !important;
+
+  span.date,
+  span.value {
+    border-left: 1px solid lighten($nhs-yellow, 10);
+  }
+}
+
+.patient-nag-severity-medium {
+  background-color: $nhs-orange !important;
+  color: $off-white !important;
+
+  span.date,
+  span.value {
+    border-left: 1px solid lighten($nhs-orange, 10);
+  }
+}
+
+.patient-nag-severity-high {
+  background-color: $nhs-red !important;
+  color: $off-white !important;
+
+  span.date,
+  span.value {
+    border-left: 1px solid lighten($nhs-red, 10);
+  }
+}

@@ -32,6 +32,15 @@ FactoryBot.define do
         }
       }
 
+      factory :clinical_frailty_score, class: "Renalware::Events::ClinicalFrailtyScore" do
+        event_type factory: :clinical_frailty_score_event_type
+        document {
+          {
+            score: 1
+          }
+        }
+      end
+
       trait :transplant_recipient do
         before :create do |investigation|
           investigation.document.modality = "transplant_recipient"
