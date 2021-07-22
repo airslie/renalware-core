@@ -1,6 +1,7 @@
 
 - [HD](./hd.md)
 - [HD Diary](./hd_diary.md)
+- [Nags](./nags.md)
 - [Asset compilation](./asset_compilation.md)
 - [ODS](./ods.md)
 - [UKRDC](./ukrdc.md)

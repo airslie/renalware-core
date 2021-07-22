@@ -157,6 +157,29 @@ CREATE TYPE renalware.pd_pet_type AS ENUM (
 
 
 --
+-- Name: system_nag_definition_scope; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.system_nag_definition_scope AS ENUM (
+    'patient',
+    'user'
+);
+
+
+--
+-- Name: system_nag_severity; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.system_nag_severity AS ENUM (
+    'none',
+    'info',
+    'low',
+    'medium',
+    'high'
+);
+
+
+--
 -- Name: system_view_category; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -264,6 +287,20 @@ BEGIN
 
     RETURN ROWS;
 END
+$$;
+
+
+--
+-- Name: days_between(timestamp without time zone, timestamp without time zone); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.days_between(t_start timestamp without time zone, t_end timestamp without time zone) RETURNS integer
+    LANGUAGE plpgsql IMMUTABLE STRICT
+    AS $$
+  begin
+    -- calculate the days between 2 timestamps
+    return (select (EXTRACT(epoch from age(t_end, t_start)) / 86400)::integer);
+  end
 $$;
 
 
@@ -522,6 +559,19 @@ $$;
 
 
 --
+-- Name: months_between(timestamp without time zone, timestamp without time zone); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.months_between(t_start timestamp without time zone, t_end timestamp without time zone) RETURNS integer
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$
+-- calculate the months between 2 timestamps
+select ((extract('years' from $2)::int -  extract('years' from $1)::int) * 12)
+    - extract('month' from $1)::int + extract('month' from $2)::int
+$_$;
+
+
+--
 -- Name: new_hl7_message(text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -635,6 +685,68 @@ CREATE FUNCTION renalware.pathology_chart_series_product_ca_phos(pat_id integer,
         and cal.result > 0
         and phos.observed_on >= start_date
     order by phos.observed_on asc;;
+$$;
+
+
+--
+-- Name: patient_nag_clinical_frailty_score(integer); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.patient_nag_clinical_frailty_score(p_id integer, OUT out_severity renalware.system_nag_severity, OUT out_value text, OUT out_date date) RETURNS record
+    LANGUAGE plpgsql STABLE
+    AS $$
+declare
+    event_age_in_days integer;
+    modality_code text;
+begin
+    /* A nag function which is used in the UI to display a nag on patient ages if a CFS score is
+     * missing or out of date. A CFS score is recorded in the UI by creating an event of type
+     * 'Clinical Frailty Score'.
+     *
+     * Returns:
+     * - out_severity eg 'high' - see the system_nag_severity type
+     * - out_value - the CFS score, or 'Missing' if no score recorded yet
+     * - out_date - the date of the most recent CFS event, if one found
+     *
+     * The logic is:
+     * - Patient modality not in HD PD Tx : out_severity = none, out_value = last CFS score, out_date = last CFS date*
+     * - No CFS : out_severity = high, out_value = 'Missing', out_date = null
+     * - CSF older than 180 days : out_severity = high, out_value = last CFS score, out_date = last CFS date
+     * - CSF age is >=90 <180 days : out_severity = medium, out_value = last CFS score, out_date = last CFS date
+     * - CSF recorded within 90 days : out_severity = none, out_value = last CFS score, out_date = last CFS date
+     */
+    select into
+        event_age_in_days
+        ,out_date
+        ,out_value
+        days_between(e.date_time, current_timestamp::timestamp)
+        ,date_time
+        ,document ->> 'score'
+    from events e
+    inner join event_types et on et.id = e.event_type_id
+    where e.patient_id  = p_id and et.slug = 'clinical_frailty_score'
+    order by e.date_time desc
+    limit 1;
+
+    select into modality_code pcm.modality_code
+    from patient_current_modalities pcm
+    where pcm.patient_id = p_id;
+
+    select into out_value coalesce(out_value, 'Missing');
+
+    select into out_severity
+        case
+            when modality_code is NULL then 'none'
+            when modality_code not in ('pd', 'hd', 'transplant') then 'none'
+            when event_age_in_days is NULL then 'high' -- missing CSF event
+            else
+                case
+                    when event_age_in_days > 180 then 'high'
+                    when event_age_in_days >= 90 then 'medium'
+                    else 'none'
+                end
+            end;
+ end
 $$;
 
 
@@ -9331,6 +9443,86 @@ ALTER SEQUENCE renalware.system_messages_id_seq OWNED BY renalware.system_messag
 
 
 --
+-- Name: system_nag_definitions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.system_nag_definitions (
+    id bigint NOT NULL,
+    scope renalware.system_nag_definition_scope NOT NULL,
+    importance integer DEFAULT 1 NOT NULL,
+    description text NOT NULL,
+    hint text,
+    sql_function_name text NOT NULL,
+    title text,
+    enabled boolean DEFAULT true NOT NULL,
+    relative_link text,
+    always_expire_cache_after_minutes integer DEFAULT 60 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE system_nag_definitions; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.system_nag_definitions IS 'Registers a ''missing data nag'' sql function and the text to display if the function evaluates to true';
+
+
+--
+-- Name: COLUMN system_nag_definitions.hint; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_nag_definitions.hint IS 'May be displayed when hovering over the nag';
+
+
+--
+-- Name: COLUMN system_nag_definitions.title; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_nag_definitions.title IS 'If present, text eg (''CFS:'') displayed to the left of the content in a nag';
+
+
+--
+-- Name: COLUMN system_nag_definitions.always_expire_cache_after_minutes; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_nag_definitions.always_expire_cache_after_minutes IS 'Number of minutes to cache this nag before the cache is automatically invalidated. The cache may be invalidated earlier if the nag_definition.updated_at or patient.updated_at timestamps change.';
+
+
+--
+-- Name: system_nag_definitions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.system_nag_definitions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_nag_definitions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.system_nag_definitions_id_seq OWNED BY renalware.system_nag_definitions.id;
+
+
+--
+-- Name: system_sql_functions; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.system_sql_functions AS
+ SELECT n.nspname AS schema,
+    p.proname AS sql_function_name
+   FROM (pg_proc p
+     LEFT JOIN pg_namespace n ON ((p.pronamespace = n.oid)))
+  WHERE ((n.nspname <> ALL (ARRAY['pg_catalog'::name, 'information_schema'::name])) AND (n.nspname ~~ 'renalware%'::text))
+  ORDER BY n.nspname, p.proname;
+
+
+--
 -- Name: system_templates; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -11809,6 +12001,13 @@ ALTER TABLE ONLY renalware.system_messages ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: system_nag_definitions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_nag_definitions ALTER COLUMN id SET DEFAULT nextval('renalware.system_nag_definitions_id_seq'::regclass);
+
+
+--
 -- Name: system_templates id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -13477,6 +13676,14 @@ ALTER TABLE ONLY renalware.system_events
 
 ALTER TABLE ONLY renalware.system_messages
     ADD CONSTRAINT system_messages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_nag_definitions system_nag_definitions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_nag_definitions
+    ADD CONSTRAINT system_nag_definitions_pkey PRIMARY KEY (id);
 
 
 --
@@ -17605,6 +17812,27 @@ CREATE INDEX index_system_events_on_user_id ON renalware.system_events USING btr
 --
 
 CREATE INDEX index_system_events_on_visit_id ON renalware.system_events USING btree (visit_id);
+
+
+--
+-- Name: index_system_nag_definitions_on_description; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_system_nag_definitions_on_description ON renalware.system_nag_definitions USING btree (description);
+
+
+--
+-- Name: index_system_nag_definitions_on_enabled; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_nag_definitions_on_enabled ON renalware.system_nag_definitions USING btree (enabled);
+
+
+--
+-- Name: index_system_nag_definitions_on_scope_and_importance; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_nag_definitions_on_scope_and_importance ON renalware.system_nag_definitions USING btree (scope, importance);
 
 
 --
@@ -21781,6 +22009,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210310154134'),
 ('20210315151618'),
 ('20210329090650'),
+('20210410111401'),
+('20210410111402'),
+('20210410111406'),
+('20210412120604'),
+('20210412171437'),
 ('20210413180237'),
 ('20210414103735'),
 ('20210419110721'),

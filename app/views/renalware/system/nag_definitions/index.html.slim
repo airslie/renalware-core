@@ -1,0 +1,29 @@
+= content_for(:actions) do
+  = link_to t("btn.add"), new_system_nag_definition_path, class: "button"
+
+= within_new_admin_layout(title: "Nag Definitions") do
+
+  / .panel
+  /    p
+  /     | Some info here to describe what this is all about
+
+  table
+    thead
+      tr
+        th.col-width-tiny Importance
+        th Scope
+        th Description
+        th Title
+        th Hint
+        th SQL function
+        th Links to
+    tbody
+      - definitions.each do |definition|
+        tr
+          td= definition.importance
+          td= definition.scope
+          td= definition.description
+          td= definition.title
+          td= definition.hint
+          td= definition.sql_function_name
+          td= definition.relative_link
