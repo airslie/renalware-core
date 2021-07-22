@@ -11,7 +11,7 @@ module Renalware
 
     included do
       class_eval do
-        devise(:expirable, :database_authenticatable, :registerable,
+        devise(:expirable, :database_authenticatable, :registerable, :lockable,
                :rememberable, :trackable, :validatable, :timeoutable, :recoverable)
       end
 
