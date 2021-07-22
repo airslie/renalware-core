@@ -2,22 +2,23 @@
 
 require "rails_helper"
 
-describe "Clinical Frailty Score nag", type: :model do
+# This is testing that the Clinical Frailty Score nag - a combination of a sql function and an entry
+# in the nag_definitions table - works as expected. We are testing both the functionality specific
+# to this nag as well as general conformance to the nag 'protocol'.
+describe "Clinical Frailty Score nag", type: :component, caching: true do
   include PatientsSpecHelper
+  include NagHelpers
 
-  subject(:component) do
-    Renalware::Patients::NagComponent.new(definition: definition, patient: patient)
-  end
+  subject(:component) { described_class.new(definition: definition, patient: patient) }
 
+  let(:described_class) { Renalware::Patients::NagComponent }
   let(:patient) { create(:patient) }
-  let(:definition) { create(:patient_nag_definition, :clinical_frailty_score) }
-
-  before do
-    create(:clinical_frailty_score_event_type)
+  let(:definition) do
+    create(:patient_nag_definition, :clinical_frailty_score)
   end
 
-  # if mode is HD PD Tx and frailty is blank or more than 180days old then red, if 90-180 then
-  # orangeelse blank
+  it_behaves_like "a nag"
+
   context "when the patient has a Clinical Frailty Score event" do
     {
       high: [
@@ -64,7 +65,7 @@ describe "Clinical Frailty Score nag", type: :model do
       none: %w(low_clearance)
     }.each do |severity, modalities|
       modalities.each do |modality|
-        it "returns a severity of '#{severity}' if modality is #{modality}" do
+        it "returns a severity of '#{severity}' if modality is #{modality} and a 'Missing' value" do
           set_modality(
             patient: patient,
             modality_description: FactoryBot.create(:"#{modality}_modality_description"),
@@ -74,7 +75,11 @@ describe "Clinical Frailty Score nag", type: :model do
 
           nag = definition.execute_sql_function_for(patient)
 
-          expect(nag.severity).to eq(severity)
+          expect(nag).to have_attributes(
+            severity: severity,
+            value: "Missing",
+            date: nil
+          )
         end
       end
     end
@@ -84,7 +89,32 @@ describe "Clinical Frailty Score nag", type: :model do
     it "returns a severity of none" do
       nag = definition.execute_sql_function_for(patient)
 
-      expect(nag.severity).to eq(:none)
+      expect(nag).to have_attributes(
+        severity: :none,
+        value: "Missing",
+        date: nil
+      )
+    end
+  end
+
+  describe "#formatted_relative_link" do
+    {
+      "patients/:id/events" => "/patients/123/events",
+      "/patients/:id/events" => "/patients/123/events",
+      "patients/:id/events/" => "/patients/123/events"
+    }.each do |relative_link, expected_interpolated_path|
+      it "replaces placeholders in relative_link" do
+        allow(patient).to receive(:to_param).and_return("123")
+        definition = create(
+          :patient_nag_definition,
+          :clinical_frailty_score,
+          relative_link: relative_link
+        )
+
+        component = described_class.new(definition: definition, patient: patient)
+
+        expect(component.formatted_relative_link).to eq(expected_interpolated_path)
+      end
     end
   end
 end

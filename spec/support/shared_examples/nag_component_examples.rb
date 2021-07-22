@@ -1,20 +1,8 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
-describe Renalware::Patients::NagComponent, type: :component, caching: true do
-  let(:patient) { create(:patient) }
-  let(:definition) { create(:patient_nag_definition, :clinical_frailty_score) }
-
-  def create_nag(severity: :high, date: "2020-01-01", value: "Xxx", nag_definition: definition)
-    Renalware::System::Nag.new(
-      date: date,
-      value: value,
-      definition: nag_definition,
-      severity: severity
-    )
-  end
-
+# Shared examples common to all nags where a nag defined in data in the nag_definitions table
+# and displayed in the UI using the NagComponent.
+shared_examples_for "a nag" do
   describe "#cache_key" do
     it "changes when patient or definition is touched" do
       component = described_class.new(definition: definition, patient: patient)
@@ -71,28 +59,6 @@ describe Renalware::Patients::NagComponent, type: :component, caching: true do
   end
 
   describe "#render?" do
-    [
-      { date: "", value: "x", severity: :high, render: true },
-      { date: "2016-01-01", value: "x", severity: :high, render: true },
-      { date: "2016-01-01", value: "x", severity: :medium, render: true },
-      { date: "2016-01-01", value: "x", severity: :low, render: true },
-      { date: "2016-01-01", value: "x", severity: :info, render: true },
-      { date: "2016-01-01", value: nil, severity: :info, render: true },
-      { date: nil, value: nil, severity: :high, render: true },
-      { date: "", value: "", severity: :high, render: true },
-      { date: "2016-01-01", value: "x", severity: :none, render: false }
-    ].each do |opts|
-      msg = opts[:render] ? "renders" : "does not not render"
-
-      it "#{msg} when nag#attributes = #{opts.except(:render)}" do
-        nag = create_nag(**opts.except(:render))
-        allow(definition).to receive(:execute_sql_function_for).with(patient).and_return(nag)
-        component = described_class.new(definition: definition, patient: patient)
-
-        expect(component.render?).to eq(opts[:render])
-      end
-    end
-
     it "does not render when definition#enabled is false" do
       nag = create_nag(severity: :high)
       allow(definition).to receive(:execute_sql_function_for).with(patient).and_return(nag)
@@ -110,26 +76,30 @@ describe Renalware::Patients::NagComponent, type: :component, caching: true do
         expect(component.sql_error).not_to be_nil
       end
     end
-  end
 
-  describe "#formatted_relative_link" do
-    {
-      "patients/:id/events" => "/patients/123/events",
-      "/patients/:id/events" => "/patients/123/events",
-      "patients/:id/events/" => "/patients/123/events"
-    }.each do |relative_link, expected_interpolated_path|
-      it "replaces placeholders in relative_link" do
-        allow(patient).to receive(:to_param).and_return("123")
-        definition = create(
-          :patient_nag_definition,
-          :clinical_frailty_score,
-          relative_link: relative_link
-        )
-        nag = create_nag(severity: :high, nag_definition: definition)
+    [
+      { date: "", value: "x", severity: :high, render: true, contains: "x" },
+      { date: "2016-01-01", value: "x", severity: :high, render: true, contains: "01-Jan-2016" },
+      { date: "2016-01-01", value: "x", severity: :medium, render: true, contains: "01-Jan-2016" },
+      { date: "2016-01-01", value: "x", severity: :low, render: true, contains: "01-Jan-2016" },
+      { date: "2016-01-01", value: "x", severity: :info, render: true, contains: "01-Jan-2016" },
+      { date: "2016-01-01", value: nil, severity: :info, render: true, contains: "01-Jan-2016" },
+      { date: nil, value: nil, severity: :high, render: true, contains: "" },
+      { date: "", value: "Missing", severity: :high, render: true, contains: "Missing" },
+      { date: "2016-01-01", value: "x", severity: :none, render: false, contains: "" }
+    ].each do |opts|
+      msg = opts[:render] ? "renders" : "does not not render"
+
+      it "#{msg} when nag#attributes = #{opts.except(:render)}" do
+        nag = create_nag(**opts.except(:render, :contains))
         allow(definition).to receive(:execute_sql_function_for).with(patient).and_return(nag)
         component = described_class.new(definition: definition, patient: patient)
 
-        expect(component.formatted_relative_link).to eq(expected_interpolated_path)
+        expect(component.render?).to eq(opts[:render])
+
+        render_inline(component)
+
+        expect(page).to have_content(opts[:contains])
       end
     end
   end
