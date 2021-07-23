@@ -2046,7 +2046,10 @@ CREATE TABLE renalware.users (
     hidden boolean DEFAULT false NOT NULL,
     feature_flags integer DEFAULT 0 NOT NULL,
     prescriber boolean DEFAULT false NOT NULL,
-    language character varying
+    language character varying,
+    failed_attempts integer DEFAULT 0 NOT NULL,
+    unlock_token character varying,
+    locked_at timestamp without time zone
 );
 
 
@@ -18352,6 +18355,13 @@ CREATE INDEX index_users_on_signature ON renalware.users USING btree (signature)
 
 
 --
+-- Name: index_users_on_unlock_token; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_on_unlock_token ON renalware.users USING btree (unlock_token);
+
+
+--
 -- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -22013,6 +22023,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210531082528'),
 ('20210701161843'),
 ('20210705082359'),
-('20210709132605');
-
+('20210709132605'),
+('20210722101902');
 

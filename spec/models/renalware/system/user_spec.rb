@@ -51,7 +51,7 @@ module Renalware
       it "includes Deviseable to authenticate using Devise" do
         expect(User.ancestors).to include(Deviseable)
         arr = %i(expirable database_authenticatable rememberable registerable
-                 validatable trackable timeoutable recoverable)
+                 validatable trackable timeoutable recoverable lockable)
         expect(User.devise_modules).to match_array(arr)
       end
     end
