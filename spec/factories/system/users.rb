@@ -30,6 +30,12 @@ FactoryBot.define do
       user.roles << create(:role, obj.role) if obj.role.present?
     end
 
+    trait :access_locked do
+      locked_at { Time.current }
+      failed_attempts { 20 }
+      unlock_token { SecureRandom.uuid }
+    end
+
     trait :consultant do
       consultant { true }
     end

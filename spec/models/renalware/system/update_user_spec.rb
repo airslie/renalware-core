@@ -147,6 +147,20 @@ module Renalware::System
           }.to change(adapter.enqueued_jobs, :size).by(0)
         end
       end
+
+      context "with a locked user" do
+        subject(:command) { UpdateUser.new(user) }
+
+        let(:user) { create(:user, :access_locked) }
+
+        it "unlocks access" do
+          expect(user.access_locked?).to be true
+
+          command.call(access_unlock: "true")
+
+          expect(user.access_locked?).to be false
+        end
+      end
     end
   end
 end
