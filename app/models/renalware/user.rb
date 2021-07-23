@@ -48,6 +48,9 @@ module Renalware
     # We need to refactor this by ising a form object for updating a user.
     attr_accessor :with_extended_validation
 
+    # Non-persistent attribute to signify we want to unlock access
+    attr_accessor :access_unlock
+
     def self.policy_class
       UserPolicy
     end

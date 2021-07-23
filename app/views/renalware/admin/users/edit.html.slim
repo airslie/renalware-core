@@ -53,6 +53,14 @@
               unchecked_value: "false",
               wrapper: :horizontal_small
 
+    - if user.access_locked? && (current_user.has_role?(:super_admin) || current_user.has_role?(:admin))
+      = f.input :access_unlock,
+                as: :boolean,
+                hint: "&nbsp;User will be able to sign in again".html_safe,
+                checked_value: "true",
+                unchecked_value: "false",
+                wrapper: :horizontal_small
+
     - if current_user.has_role?(:super_admin)
       = f.input :prescriber,
                 as: :boolean,
