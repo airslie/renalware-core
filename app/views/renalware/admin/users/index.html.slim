@@ -27,6 +27,7 @@
       th.col-width-date-time.show-for-large-up= sort_link(user_search, :last_activity_at, "Last activity")
       th.col-width-medium.show-for-xlarge-up Telephone #
       th.col-width-date-time.show-for-xlarge-up= sort_link(user_search, :created_at, "Added")
+      th.col-width-date-time= sort_link(user_search, :locked_at)
 
     tbody
       - users.each do |user|
@@ -70,5 +71,6 @@
           td.show-for-large-up= l(user.last_activity_at)
           td.show-for-xlarge-up= user.telephone
           td.show-for-xlarge-up= l(user.created_at)
+          td= l(user.locked_at)
 
   = paginate users
