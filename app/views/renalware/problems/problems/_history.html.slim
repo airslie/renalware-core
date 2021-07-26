@@ -1,7 +1,7 @@
 article
   header
     h2 History
-  - problem.versions.map(&:reify).compact.tap do |problems|
+  - problem.versions.map { |v| v.reify(dup: true) }.compact.tap do |problems|
     - if problems.empty?
       span There are no revisions for this problem.
     - else
