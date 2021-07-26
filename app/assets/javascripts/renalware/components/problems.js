@@ -108,7 +108,6 @@ Renalware.Problems = {
       event.preventDefault();
 
       var valuesToSubmit = this.form.serialize();
-      // console.log(valuesToSubmit);
       var self = this;
 
       self._clearErrors();
@@ -195,6 +194,8 @@ $(document).ready(function() {
     trigger.on("click", function(event) {
        event.preventDefault();
        modal.open();
+       $('#js-snomed-id-field').val('');
+       $('.problem-ajax-search').select2('open');
     })
   }
 });
@@ -205,11 +206,15 @@ $(document).on('opened.fndtn.reveal', '[data-reveal]', function() {
 
 $('.problem-ajax-search').on('select2:select', function(e) {
   var snomedId = e.params.data.code,
-      $snomedIdHint = $('.js-snomed-id-hint');
+      $snomedIdHint = $('.js-snomed-id-hint'),
+      $snomeIdField = $('#js-snomed-id-field');
 
   if (snomedId) {
-    $('#js-snomed-id-field').val(snomedId);
+    $snomeIdField.val(snomedId);
     $snomedIdHint.find('strong').text(snomedId);
     $snomedIdHint.show();
+  } else {
+    $snomeIdField.val('');
+    $snomedIdHint.hide();
   }
 });
