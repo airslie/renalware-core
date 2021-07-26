@@ -104,10 +104,15 @@ blocks:
           - bundle exec rake db:create
           - bundle exec rake db:migrate
 
+      epilogue:
+        always:
+          commands:
+            - test-results publish /tmp/junit.xml
+
       jobs:
       - name: RSpec tests
         commands:
-          - bundle exec rspec --format progress
+          - bundle exec rspec --format RspecJunitFormatter --out /tmp/junit.xml --format progress
           - ls ./coverage
           - ./cc-test-reporter format-coverage -t simplecov --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json"
           - ls ./coverage
@@ -115,8 +120,8 @@ blocks:
 
       - name: Cucumber tests
         commands:
-          - bundle exec cucumber --format progress
-          - TEST_DEPTH=web bundle exec cucumber -p rake_web --format progress
+          - bundle exec cucumber --format junit --out /tmp/junit.xml --format progress
+          - TEST_DEPTH=web bundle exec cucumber -p rake_web --format junit --out /tmp/junit.xml --format progress
           - ./cc-test-reporter format-coverage -t simplecov --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json"
           - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://renalware-ci-coverage/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
 
