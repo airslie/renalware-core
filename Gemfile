@@ -8,8 +8,9 @@ ruby ">= 2.5"
 gemspec
 
 # These are visible to dummy app only
+gem "autoprefixer-rails", "~> 9.6"
 gem "aws-sdk-s3", require: false # for active storage when using Heroku for test environments
-gem "babel-transpiler" # not sure this is need now that we user rollupjs + babel npmm packages?
+# gem "babel-transpiler" # not sure this is need now that we user rollupjs + babel npmm packages?
 gem "bootsnap", require: false # speeds up rspec and rails server boot time in development
 gem "daemons", require: false # to use cmds like `bin/delayed_job start`
 gem "faker"
@@ -21,6 +22,8 @@ gem "redis"
 gem "renalware-forms", "0.1.10"
 # gem "renalware-forms", path: "../renalware-forms"
 gem "ruby-prof", require: false
+gem "uglifier", "~> 4.2"
+gem "wkhtmltopdf-binary", "0.12.3.1"
 # gem "sprockets-rails", "~> 2.3.3" # in the dummy app, fix to this version to avoid manifest errors
 gem "httparty", require: false
 

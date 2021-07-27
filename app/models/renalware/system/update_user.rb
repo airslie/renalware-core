@@ -25,6 +25,7 @@ module Renalware
         User.transaction do
           approve if can_approve?(params)
           unexpire if can_unexpire?(params)
+          unlock_access if true?(params[:access_unlock])
           user.consultant = true?(params[:consultant])
           user.hidden = true?(params[:hidden])
           if params[:prescriber] # if not a supperadmin, may not be submitted
@@ -61,6 +62,12 @@ module Renalware
         notifications << notifier.unexpiry(user)
         user.expired_at = nil
         user.last_activity_at = Time.zone.now
+      end
+
+      def unlock_access
+        user.locked_at = nil
+        user.failed_attempts = 0
+        user.unlock_token = nil
       end
 
       def authorise(params)
