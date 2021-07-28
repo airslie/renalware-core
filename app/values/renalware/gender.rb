@@ -66,7 +66,7 @@ module Renalware
     # @section coercions
     #
     def to_s
-      code
+      code || ""
     end
 
     def to_str
