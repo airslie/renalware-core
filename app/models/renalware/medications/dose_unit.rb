@@ -15,12 +15,15 @@ module Renalware
           microgram
           milligram
           millilitre
+          millimole
           nanogram
           patch
           puff
           sachet
           tab
+          tablespoon
           tablet
+          teaspoon
           unit
         )
       end
