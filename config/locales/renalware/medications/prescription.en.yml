@@ -36,10 +36,13 @@ en:
             microgram: microgram
             milligram: mg
             millilitre: ml
+            millimole: mmol
             nanogram: ng
             patch: patch
             puff: puff
             sachet: sachet
             tab: tab
+            tablespoon: tbsp
             tablet: tablet
+            teaspoon: tsp
             unit: unit
