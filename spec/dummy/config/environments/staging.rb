@@ -3,6 +3,19 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # On staging if this is the demo site e.g.
+  #   HEROKU_APP_URL=renalware-demo.herokuapp.com
+  #   HEROKU_CUSTOM_DOMAIN=demo.renalware.app
+  # then redirect requests on renalware-demo.herokuapp.com to demo.renalware.app
+  # because even though we have added a custom domain to Heroku, the original herokuapp
+  # url remains available and this can be confusing. Also, mailgun email will probably
+  # only work on the custom domain.
+  if ENV["HEROKU_APP_URL"] && ENV["HEROKU_CUSTOM_DOMAIN"]
+    config.middleware.use Rack::HostRedirect, {
+      ENV["HEROKU_APP_URL"] => ENV["HEROKU_CUSTOM_DOMAIN"]
+    }
+  end
+
   # ActionMailer::Base.smtp_settings = {
   #   address: "smtp.sendgrid.net",
   #   port: "587",
@@ -17,7 +30,7 @@ Rails.application.configure do
     address: ENV["MAILGUN_SMTP_SERVER"],
     user_name: ENV["MAILGUN_SMTP_LOGIN"],
     password: ENV["MAILGUN_SMTP_PASSWORD"],
-    domain: ENV["HEROKU_APP_NAME"],
+    domain: ENV["HEROKU_CUSTOM_DOMAIN"],
     authentication: :plain
   }
   ActionMailer::Base.delivery_method = :smtp

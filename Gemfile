@@ -48,6 +48,8 @@ group :test do
 end
 
 group :staging do
+  # For redirecting renalware-demo.herokuapp.com => demo.renalware.app
+  gem "rack-host-redirect", github: "airslie/rack-host-redirect"
   gem "wkhtmltopdf-heroku", "~> 2.12.3"
 end
 
