@@ -1,4 +1,4 @@
-class CreateOldPasswords < ActiveRecord::Migration[6.0]
+class CreateOldPasswords < ActiveRecord::Migration[5.2]
   def change
     within_renalware_schema do
       create_table :old_passwords do |t|
