@@ -2049,7 +2049,8 @@ CREATE TABLE renalware.users (
     language character varying,
     failed_attempts integer DEFAULT 0 NOT NULL,
     unlock_token character varying,
-    locked_at timestamp without time zone
+    locked_at timestamp without time zone,
+    password_changed_at timestamp without time zone
 );
 
 
@@ -5493,6 +5494,38 @@ CREATE SEQUENCE renalware.modality_reasons_id_seq
 --
 
 ALTER SEQUENCE renalware.modality_reasons_id_seq OWNED BY renalware.modality_reasons.id;
+
+
+--
+-- Name: old_passwords; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.old_passwords (
+    id bigint NOT NULL,
+    encrypted_password character varying NOT NULL,
+    password_archivable_type character varying NOT NULL,
+    password_archivable_id integer NOT NULL,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: old_passwords_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.old_passwords_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: old_passwords_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.old_passwords_id_seq OWNED BY renalware.old_passwords.id;
 
 
 --
@@ -11434,6 +11467,13 @@ ALTER TABLE ONLY renalware.modality_reasons ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: old_passwords id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.old_passwords ALTER COLUMN id SET DEFAULT nextval('renalware.old_passwords_id_seq'::regclass);
+
+
+--
 -- Name: pathology_chart_series id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -13028,6 +13068,14 @@ ALTER TABLE ONLY renalware.modality_modalities
 
 ALTER TABLE ONLY renalware.modality_reasons
     ADD CONSTRAINT modality_reasons_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: old_passwords old_passwords_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.old_passwords
+    ADD CONSTRAINT old_passwords_pkey PRIMARY KEY (id);
 
 
 --
@@ -16261,6 +16309,13 @@ CREATE INDEX index_modality_reasons_on_id_and_type ON renalware.modality_reasons
 
 
 --
+-- Name: index_password_archivable; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_password_archivable ON renalware.old_passwords USING btree (password_archivable_type, password_archivable_id);
+
+
+--
 -- Name: index_pathology_chart_series_on_chart_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -18337,6 +18392,13 @@ CREATE UNIQUE INDEX index_users_on_lower_email ON renalware.users USING btree (l
 --
 
 CREATE UNIQUE INDEX index_users_on_lower_username ON renalware.users USING btree (lower((username)::text));
+
+
+--
+-- Name: index_users_on_password_changed_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_users_on_password_changed_at ON renalware.users USING btree (password_changed_at);
 
 
 --
@@ -22022,6 +22084,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210531082528'),
 ('20210701161843'),
 ('20210705082359'),
-('20210722101902');
+('20210722101902'),
+('20210812011726'),
+('20210812011910');
 
 
