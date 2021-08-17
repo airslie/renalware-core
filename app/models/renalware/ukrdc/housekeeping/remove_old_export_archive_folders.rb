@@ -80,7 +80,7 @@ module Renalware
         end
 
         def log(msg)
-          Rails.logger.info(" " + msg)
+          Rails.logger.info(" #{msg}")
         end
       end
     end
