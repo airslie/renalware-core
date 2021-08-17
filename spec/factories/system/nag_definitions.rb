@@ -15,6 +15,10 @@ FactoryBot.define do
       trait :clinical_frailty_score do
         sql_function_name { "patient_nag_clinical_frailty_score" }
       end
+
+      trait :hd_dna do
+        sql_function_name { "patient_nag_hd_dna" }
+      end
     end
 
     factory :user_nag_definition do
