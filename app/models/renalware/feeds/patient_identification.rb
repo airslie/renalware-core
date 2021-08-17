@@ -4,6 +4,7 @@ require_dependency "renalware/feeds"
 
 module Renalware
   module Feeds
+    # Note in the PID segment internal_id == NHS number
     class PatientIdentification < SimpleDelegator
       alias_attribute :external_id, :patient_id
       alias_attribute :dob, :patient_dob
@@ -28,16 +29,50 @@ module Renalware
       #   "hosp2" => "X1234"
       # }
       def hospital_identifiers
-        return [] if patient_id_list.blank?
+        @hospital_identifiers ||= begin
+          return [] if patient_id_list.blank?
 
-        patient_id_list
-          .split("~")
-          .each_with_object({}) do |field, hash|
-            parts = field.split("^")
-            hospno = parts.first
-            assigning_authority = parts[3]
-            hash[assigning_authority] = hospno
+          patient_id_list
+            .split("~")
+            .each_with_object({}) do |field, hash|
+              parts = field.split("^")
+              hospno = parts.first
+              assigning_authority = parts[3]&.to_sym
+              hash[assigning_authority] = hospno
+            end
+        end
+      end
+
+      # Given a PID segment like this
+      #   PID||123456789^^^NHS^|K123^^^HOSP1^~X123^^^HOSP3^|
+      # and a Renalware.config.patient_hospital_identifiers hash like this
+      #   {
+      #     HOSP1: :local_patient_id,
+      #     HOSP2: :local_patient_id_2,
+      #     HOSP3: :local_patient_id_3
+      # }
+      # it returns an array of patient numbers found in the HL7 PID segment, pointing
+      # for identification, in order of precendence (ie nhs_number has the highest precedence)
+      # for use when finding a patient
+      # e.g.
+      # {
+      #   nhs_number: "123456789",
+      #   local_patient_id: "K123",
+      #   local_patient_id_3: "X123"
+      # }
+      # Note at KCH there is only ever 1 hosp number and the assigning authority is "PAS Number"
+      # in this case identifiers will only every contain the nhs_number.
+      # However at KCH we do not use #identifiers (see PatientLocatorStrategies) so not a problem.
+      def identifiers
+        @identifiers_hash ||= begin
+          hash = {}
+          hash[:nhs_number] = nhs_number if nhs_number.present?
+          Renalware.config.patient_hospital_identifiers.each do |assigning_auth, column|
+            hosp_no = hospital_identifiers[assigning_auth]
+            hash[column] = hosp_no if hosp_no.present?
           end
+          hash
+        end
       end
 
       def nhs_number

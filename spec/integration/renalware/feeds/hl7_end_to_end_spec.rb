@@ -3,6 +3,10 @@
 require "rails_helper"
 
 describe "HL7 message handling end to end" do
+  before do
+    Renalware.config.hl7_patient_locator_strategy = :simple # as used at KCH
+  end
+
   context "when we have an incoming HL7 msg wth > 1 OBR segment, via delayed_job" do
     let(:raw_message) do
       <<-RAW.strip_heredoc

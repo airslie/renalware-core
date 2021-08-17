@@ -42,7 +42,8 @@ module Renalware
       end
 
       def renalware_patient?
-        Patient.exists?(local_patient_id: internal_id)
+        patient.present?
+        # Patient.exists?(local_patient_id: internal_id)
       end
 
       private
@@ -50,9 +51,9 @@ module Renalware
       attr_reader :hl7_message, :logger
 
       def build_patient_params
-        patient = find_patient(internal_id)
+        # patient = find_patient(internal_id)
         request_params.each do |request_param|
-          request_param[:patient_id] = patient.id
+          request_param[:patient_id] = patient&.id
         end
       end
 
@@ -161,9 +162,8 @@ module Renalware
         end
       end
 
-      # TODO: Support searching by other local patient ids?
-      def find_patient(local_patient_id)
-        Patient.find_by!(local_patient_id: local_patient_id)
+      def patient
+        @patient ||= Feeds::PatientLocator.call(hl7_message.patient_identification)
       end
 
       # Default to using today's date and time if no date_time passed in the message

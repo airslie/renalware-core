@@ -2,6 +2,7 @@
 
 require "rails_helper"
 
+# rubocop:disable RSpec/MultipleMemoizedHelpers
 describe "HL7 ADT~A31 message handling: 'Update person information'" do
   let(:local_patient_id) { "P123" }
   let(:family_name) { "SMITH" }
@@ -21,7 +22,7 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
     hl7 = <<-HL7
       MSH|^~\&|ADT|iSOFT Engine|eGate|Kings|20150122154918||ADT^A31|897847653|P|2.3
       EVN|A31|20150122154918
-      PID|1|#{nhs_number}|#{local_patient_id}||#{family_name}^#{given_name}^#{middle_name}^^#{title}||#{dob}|#{sex}||Not Specified|34 Florence Road^SOUTH CROYDON^Surrey^^CR2 0PP^ZZ993CZ^HOME^QAD||9999999999|5554443333|NSP||NSP|||||Not Specified|.|DNU||8||NSP|#{died_on}|Y
+      PID|1|#{nhs_number}^^^NHS|#{local_patient_id}^^^KCH||#{family_name}^#{given_name}^#{middle_name}^^#{title}||#{dob}|#{sex}||Not Specified|34 Florence Road^SOUTH CROYDON^Surrey^^CR2 0PP^ZZ993CZ^HOME^QAD||9999999999|5554443333|NSP||NSP|||||Not Specified|.|DNU||8||NSP|#{died_on}|Y
       PD1|||DR WHM SUMISU PRACTICE, Nowhere Surgery, 22 Raccoon Road, Erewhon, Erewhonshire^GPPRC^#{practice_code}|#{gp_code}^Deeley^DP^^^DR
       PV1|1|I|FISK^1^^LD^^^^^Fiske Ward|22||||#{gp_code}^Deeley^DP^^^DR|#{practice_code}^Hoskin^P^^^P^370|370||||19|||C2458519^Hoskin^P^^^P^370|01|877511|||||||||||||||||||||NORMC||||20110412095300
     HL7
@@ -38,7 +39,11 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
   context "when the patient exists in Renalware" do
     it "updates their information" do
       create_dependencies
-      patient = create(:patient, local_patient_id: local_patient_id)
+      patient = create(
+        :patient,
+        local_patient_id: local_patient_id,
+        born_on: Date.parse(dob)
+      )
 
       FeedJob.new(message).perform
 
@@ -48,7 +53,11 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
     context "when the incoming practice does not exist yet in Renalware" do
       context "when the patient has no current practice" do
         it "leaves practice as nil" do
-          patient = create(:patient, local_patient_id: local_patient_id)
+          patient = create(
+            :patient,
+            local_patient_id: local_patient_id,
+            born_on: Date.parse(dob)
+          )
 
           FeedJob.new(message).perform
 
@@ -65,7 +74,8 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
           patient = create(
             :patient,
             local_patient_id: local_patient_id,
-            practice_id: original_practice.id
+            practice_id: original_practice.id,
+            born_on: Date.parse(dob)
           )
 
           FeedJob.new(message).perform
@@ -81,7 +91,11 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
     context "when the incoming gp does not exist yet in Renalware" do
       context "when the patient has no current gp" do
         it "leaves gp as nil" do
-          patient = create(:patient, local_patient_id: local_patient_id)
+          patient = create(
+            :patient,
+            local_patient_id: local_patient_id,
+            born_on: Date.parse(dob)
+          )
 
           FeedJob.new(message).perform
 
@@ -97,8 +111,10 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
           original_gp = create(:primary_care_physician, code: "MYGP")
           patient = create(
             :patient,
+            nhs_number: nhs_number,
             local_patient_id: local_patient_id,
-            primary_care_physician: original_gp
+            primary_care_physician: original_gp,
+            born_on: Date.parse(dob)
           )
 
           FeedJob.new(message).perform
@@ -128,3 +144,4 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
   end
   # rubocop:enable Metrics/AbcSize
 end
+# rubocop:enable RSpec/MultipleMemoizedHelpers

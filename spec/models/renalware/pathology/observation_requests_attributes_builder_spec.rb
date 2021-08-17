@@ -2,19 +2,19 @@
 
 require "rails_helper"
 
+# rubocop:disable RSpec/VerifiedDoubles
 module Renalware::Pathology
   describe ObservationRequestsAttributesBuilder do
     describe "#parse" do
-      let(:patient) { create(:patient) }
+      let(:patient) { create(:patient, born_on: "2000-01-01") }
       let(:observation_description) { create(:pathology_observation_description) }
       let(:request_description) { create(:pathology_request_description) }
-
       # Message payload simulates the HL7 message mapped into a hash (and already
       # archived in feed_messages).
       let(:hl7_message) {
         double(
           :hl7_message,
-          patient_identification: double(internal_id: patient.local_patient_id),
+          patient_identification: pid(internal_id: patient.local_patient_id),
           observation_requests: [
             double(
               identifier: request_description.code,
@@ -37,6 +37,23 @@ module Renalware::Pathology
           ]
         )
       }
+
+      def pid(
+        born_on: "20000101",
+        nhs_number: nil,
+        internal_id: nil
+      )
+        instance_double(
+          Renalware::Feeds::PatientIdentification,
+          nhs_number: patient.local_patient_id,
+          internal_id: internal_id,
+          born_on: born_on,
+          identifiers: {
+            nhs_number: nhs_number,
+            local_patient_id: internal_id
+          }.reject { |_, value| value.blank? }
+        )
+      end
 
       it "transfers attributes from the message payload to the params" do
         parser = described_class.new(hl7_message)
@@ -72,7 +89,7 @@ module Renalware::Pathology
           non_existent_patient = "123123123"
           hl7_message = double(
             :hl7_message,
-            patient_identification: double(internal_id: non_existent_patient),
+            patient_identification: pid(internal_id: non_existent_patient),
             observation_request: double(
               identifier: request_description.code,
               name: request_description.name,
@@ -143,7 +160,7 @@ module Renalware::Pathology
         let(:raw_message) do
           <<-RAW.strip_heredoc
             MSH|^~\&|BLB|LIVE|SCM||1111111||ORU^R01|1111111|P|2.3.1|||AL
-            PID|||V1111111^^^PAS Number||SSS^SS^^^Mr||1111111|M|||s^s^^^x
+            PID|||V1111111^^^KCH||SSS^SS^^^Mr||20010101|M|||s^s^^^x
             PV1||Inpatient|DMU|||||xxx^xx, xxxx||||||||||NHS|V1111111^^^Visit Number
             ORC|RE|0031111111^PCS|18T1111111^LA||CM||||201801221418|||xxx^xx, xxxx
             OBR|1|0031111111^PCS|181111111^LA|GS^UNKNOWN G\T\S^BLB||201801221418|201801221418||||||haematology + 1 extra sample|201801221418|B^Blood|xxx^xx, xxxx||18T000000001||||201801251706||BLB|F
@@ -156,14 +173,13 @@ module Renalware::Pathology
           create(:pathology_request_description, code: "GS")
           included_description = create(:pathology_observation_description, code: "GRP")
           create(:pathology_observation_description, code: "WSUM")
-          create(:patient, local_patient_id: "V1111111")
+          create(:patient, local_patient_id: "V1111111", born_on: "2001-01-01")
           logger = instance_spy("Rails.logger")
           allow(logger).to receive(:warn).once
 
           message = Renalware::Feeds::MessageParser.parse(raw_message)
           parser = described_class.new(message, logger)
           results = parser.parse
-
           # Assert that WSUM was excluded
           expect(logger).to have_received(:warn)
           expect(results.length).to eq(1)
@@ -179,7 +195,9 @@ module Renalware::Pathology
         let(:hl7_message) {
           instance_double(
             Renalware::Feeds::HL7Message,
-            patient_identification: double(internal_id: patient.local_patient_id),
+            patient_identification: pid(
+              internal_id: patient.local_patient_id
+            ),
             observation_requests: [
               double(
                 identifier: request_description.code,
@@ -203,7 +221,7 @@ module Renalware::Pathology
         let(:hl7_message) {
           double(
             :hl7_message,
-            patient_identification: double(internal_id: patient.local_patient_id),
+            patient_identification: pid(internal_id: patient.local_patient_id),
             observation_requests: [
               double(
                 identifier: request_description.code,
@@ -230,7 +248,7 @@ module Renalware::Pathology
         let(:hl7_message) {
           double(
             :hl7_message,
-            patient_identification: double(internal_id: patient.local_patient_id),
+            patient_identification: pid(internal_id: patient.local_patient_id),
             observation_requests: [
               double(
                 identifier: "I_DO_NOT_EXIST_CODE",
@@ -261,7 +279,7 @@ module Renalware::Pathology
         let(:hl7_message) {
           double(
             :hl7_message,
-            patient_identification: double(internal_id: patient.local_patient_id),
+            patient_identification: pid(internal_id: patient.local_patient_id),
             observation_requests: [
               double(
                 identifier: request_description.code,
@@ -299,3 +317,4 @@ module Renalware::Pathology
     end
   end
 end
+# rubocop:enable RSpec/VerifiedDoubles
