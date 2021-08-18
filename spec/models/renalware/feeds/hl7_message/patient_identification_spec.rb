@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Feeds
-  describe HL7Message::PatientIdentification do
+  describe PatientIdentification do
     subject(:pi) { MessageParser.parse(raw_message).patient_identification }
 
     describe "patient numbers" do
@@ -21,7 +21,7 @@ module Renalware::Feeds
         it { expect(pi.internal_id).to eq("D7006359") }
       end
 
-      describe "#hospital_identifiers (allowing for > 1 hosp number" do
+      describe "#hospital_identifiers (allowing for > 1 hosp number)" do
         it do
           expect(pi.hospital_identifiers).to eq(
             {
