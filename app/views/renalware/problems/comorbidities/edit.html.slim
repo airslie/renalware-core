@@ -1,0 +1,39 @@
+= within_patient_layout(title: "Comorbidities") do
+  = simple_form_for(form,
+                    url: renalware.patient_comorbidities_path,
+                    method: :patch,
+                    as: :comorbidity_form,
+                    html: { autocomplete: "off", id: "comorbidities-form" }) do |f|
+
+    div(data-controller="radio-reset" data-radio-reset-match-value="no")
+      .rounded.bg-blue-100.py-2.px-4.mb-4.w-1/2.border
+        | Enter year diagnosed (if known) when Recognised is 'Yes'
+
+      table.comorbidities(style="width:auto")
+        thead
+          tr
+            td Name
+            td
+              | Recognised
+              a.ml-3.small-helper-button(href="#" data-action="radio-reset#reset_all") Set all to No
+            td Date
+        tbody
+          = f.simple_fields_for :comorbidities do |fc|
+            tr(id=dom_id(fc.object.description))
+              td
+                = fc.label :recognised, fc.object.description.name
+                = fc.input :description_id, as: :hidden
+                = fc.input :id, as: :hidden
+              td
+                = fc.input :recognised,
+                          as: :inline_radio_buttons,
+                          label: false,
+                          wrapper: "vertical_form",
+                          collection: [["Yes", "yes"] ,["No", "no"], ["Unknown", "unknown"]]
+              td
+                = fc.input :recognised_at,
+                          label: false,
+                          as: :date_picker2,
+                          wrapper: :bare
+      .pt-2
+        = save_or_cancel(form: f, back_path: patient_comorbidities_path(form.patient))

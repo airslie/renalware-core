@@ -23,6 +23,7 @@ if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "staging")
         "./app/**/*.html.erb",
         "./app/**/*.html.slim",
         "./app/helpers/**/*.rb",
+        "./app/inputs/**/*.rb",
         "./app/javascript/**/*.js",
         "./app/javascript/**/*.vue",
         "./app/javascript/**/*.jsx",

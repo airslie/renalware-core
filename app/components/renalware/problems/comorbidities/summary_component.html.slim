@@ -1,0 +1,23 @@
+table.toggleable.easy-read.comorbidities(style="width:auto" data-controller="toggle")
+  thead
+    tr
+      th.togglers.noprint
+      td Name
+      td Recognised
+      td Date
+  - rows.each do |row|
+    tbody
+      tr(id=dom_id(row))
+        td= row_toggler
+        td= row.name
+        td.col-width-small= row.recognised&.capitalize
+        td.col-width-date= l(row.recognised_at)
+      tr
+        td
+        td(colspan=3)
+          dl.dl-horizontal.large
+            - if row.updated_by.present?
+              dt Latest edit by
+              dd= "#{row.updated_by} at #{l(row.updated_at)}"
+            dt SNOMED code
+            dd= row.snomed_code
