@@ -28,9 +28,11 @@ module Renalware
       class ObservationRequest < SimpleDelegator
         alias_attribute :date_time, :observation_date
 
+        # rubocop:disable Lint/UselessMethodDefinition
         def initialize(observation_request_segment)
           super(observation_request_segment)
         end
+        # rubocop:enable Lint/UselessMethodDefinition
 
         def identifier
           universal_service_id.split("^").first
@@ -123,78 +125,8 @@ module Renalware
         Array(self[:OBR]).map { |obr| ObservationRequest.new(obr) }
       end
 
-      class PatientIdentification < SimpleDelegator
-        alias_attribute :external_id, :patient_id
-        alias_attribute :dob, :patient_dob
-        alias_attribute :born_on, :patient_dob
-        alias_attribute :died_at, :death_date
-
-        def internal_id
-          return unless defined?(patient_id_list)
-
-          patient_id_list.split("^").first
-        end
-
-        def nhs_number
-          return unless defined?(patient_id)
-
-          patient_id.split("^").first
-        end
-
-        def name
-          Name.new(patient_name)
-        end
-
-        def family_name
-          patient_name[0]
-        end
-
-        def given_name
-          patient_name[1]
-        end
-
-        def suffix
-          patient_name[3]
-        end
-
-        def title
-          patient_name[4]
-        end
-
-        def address
-          super.split("^")
-        end
-
-        # We don't use the HL7::Message#sex_admin method (from the ruby hl7 gem) because it
-        # raises an error during reading if the sex value in the PID is not in (F|M|O|U|A|N|C).
-        # I think that behaviour is a not quite right as a hospital might not use those values in
-        # their HL7 PID implementation, especially in the UK. KCH does not for instance.
-        # So instead we read the PID array directly, and map whatever is in there to its Renalware
-        # equivalent, then overwrite the existing #admin_sex method so the HL7::Message version
-        # cannot be called. If we can't map it we just return whatever is in there and its up to
-        # calling code to handle any coercion issues. The hl7_pid_sex_map hash can be configured
-        # by the host app to support whatever sex values it uses intenrally.
-        # I think some work needs to be done on Renalware sex and gender (which are slightly
-        # conflated in Renalware). For example:
-        # - the LOINC names for administrative sex: Male Female Unknown (https://loinc.org/72143-1/)
-        # - the LOINC names for sex at birth: Male Female Unknown (https://loinc.org/LL3324-2/)
-        # - HL7's definitions: F Female, M Male, O Other, U Unknown, A Ambiguous, N Not applicable
-        # - gender: 7 options https://loinc.org/76691-5/
-        def sex
-          pid_sex = self[8]&.upcase
-          Renalware.config.hl7_pid_sex_map.fetch(pid_sex, pid_sex)
-        end
-        alias admin_sex sex
-
-        private
-
-        def patient_name
-          super.split("^")
-        end
-      end
-
       def patient_identification
-        PatientIdentification.new(self[:PID])
+        Renalware::Feeds::PatientIdentification.new(self[:PID])
       end
 
       def type
@@ -206,9 +138,11 @@ module Renalware
       end
 
       # Adding this so it is part of the interface and we can mock an HL7Message in tests
+      # rubocop:disable Lint/UselessMethodDefinition
       def to_hl7
         super
       end
+      # rubocop:enable Lint/UselessMethodDefinition
 
       def message_type
         type.split("^").first
