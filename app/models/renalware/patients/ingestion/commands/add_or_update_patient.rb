@@ -60,9 +60,7 @@ module Renalware
           end
 
           def find_patient
-            Patient.find_by(
-              local_patient_id: message.patient_identification.internal_id
-            )
+            Feeds::PatientLocator.call(message.patient_identification)
           end
         end
       end

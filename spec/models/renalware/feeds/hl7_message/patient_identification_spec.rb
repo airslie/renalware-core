@@ -25,8 +25,8 @@ module Renalware::Feeds
         it do
           expect(pi.hospital_identifiers).to eq(
             {
-              "PAS1" => "D7006359",
-              "PAS2" => "X1234"
+              PAS1: "D7006359",
+              PAS2: "X1234"
             }
           )
         end
