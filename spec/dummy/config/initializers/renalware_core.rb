@@ -25,7 +25,7 @@ Renalware.configure do |config|
   config.disable_inputs_controlled_by_demographics_feed = false
   config.enforce_user_prescriber_flag = false
   config.allow_uploading_patient_attachments = true
-  config.hl7_patient_locator_strategy = :dob_and_any_nhs_or_assigning_auth_number_spec
+  config.hl7_patient_locator_strategy = :dob_and_any_nhs_or_assigning_auth_number
 end
 
 # Renalware::Patients.configure
