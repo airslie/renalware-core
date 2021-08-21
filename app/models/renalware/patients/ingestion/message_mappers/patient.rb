@@ -31,8 +31,6 @@ module Renalware
           # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           def map_attributes
             attrs = {
-              local_patient_id: patient_identification.internal_id,
-              nhs_number: patient_identification.nhs_number,
               given_name: patient_identification.given_name,
               family_name: patient_identification.family_name,
               suffix: patient_identification.suffix,
@@ -41,7 +39,8 @@ module Renalware
               died_on: Time.zone.parse(patient_identification.death_date)&.to_date,
               sex: patient_identification.sex,
               practice: find_practice(message.practice_code) || patient.practice,
-              primary_care_physician: find_primary_care_physician(message.gp_code)
+              primary_care_physician: find_primary_care_physician(message.gp_code),
+              **patient_identification.identifiers
             }
 
             # Don't overwrite existing patient data if the new data is blank?

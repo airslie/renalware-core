@@ -13,7 +13,7 @@ Renalware.configure do |config|
     GUYS: :local_patient_id_5
   }
 
-  # Wire up extra listener listener to handle letter events
+  # Wire up extra listener to handle letter events
   map = config.broadcast_subscription_map
   map["Renalware::Letters::ApproveLetter"] << "LetterListener"
   map["Renalware::Pathology::CreateObservationRequests"] << "PathologyListener"
