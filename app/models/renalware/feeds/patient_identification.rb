@@ -29,9 +29,9 @@ module Renalware
       #   "hosp2" => "X1234"
       # }
       def hospital_identifiers
-        @hospital_identifiers ||= begin
-          return [] if patient_id_list.blank?
+        return [] if patient_id_list.blank?
 
+        @hospital_identifiers ||= begin
           patient_id_list
             .split("~")
             .each_with_object({}) do |field, hash|
@@ -44,7 +44,10 @@ module Renalware
       end
 
       # Given a PID segment like this
-      #   PID||123456789^^^NHS^|K123^^^HOSP1^~X123^^^HOSP3^|
+      #   PID||123456789^^^NHS^|K123^^^HOSP1CODE^~X123^^^HOSP3CODE^|
+      # where HOSP1CODE is whatever the HL7 messages uses to identify the hospital
+      # (it could be e.g. "RJZ" (Kings hospital code), or e.g. "PAS Number" if there is only
+      # ever one item in the HL7 patient list
       # and a Renalware.config.patient_hospital_identifiers hash like this
       #   {
       #     HOSP1: :local_patient_id,
@@ -62,14 +65,20 @@ module Renalware
       # }
       # Note at KCH there is only ever 1 hosp number and the assigning authority is "PAS Number"
       # in this case identifiers will only every contain the nhs_number.
-      # However at KCH we do not use #identifiers (see PatientLocatorStrategies) so not a problem.
       def identifiers
-        @identifiers_hash ||= begin
+        @identifiers ||= begin
           hash = {}
           hash[:nhs_number] = nhs_number if nhs_number.present?
           Renalware.config.patient_hospital_identifiers.each do |assigning_auth, column|
             hosp_no = hospital_identifiers[assigning_auth]
             hash[column] = hosp_no if hosp_no.present?
+          end
+
+          # If the hospital uses the simple strategy like KCH, and there is just one
+          # hospital number in the PID patient id list (eg with an assigning authority of
+          # 'PAS Number') then make sure that value is copied into local_patient_id
+          if Renalware.config.hl7_patient_locator_strategy == :simple
+            hash[:local_patient_id] ||= internal_id
           end
           hash
         end
