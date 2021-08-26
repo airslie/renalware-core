@@ -53,6 +53,8 @@ class NHSClient
     @problems_total = response_body["expansion"]["total"]
 
     response_body
+  rescue JSON::ParserError, SocketError
+    false
   end
 
   private
@@ -73,5 +75,7 @@ class NHSClient
     return false unless response.code == 200
 
     JSON.parse(response.body)["access_token"]
+  rescue JSON::ParserError, SocketError
+    false
   end
 end
