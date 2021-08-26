@@ -131,6 +131,8 @@ Renalware.Problems = {
     this._onProblemAdded = function(problem) {
       this.el.foundation('reveal', 'close');
       $('#current_problems tbody').append(problem.responseText);
+      $('#js-snomed-id-field').val('');
+      $('.js-snomed-id-hint').hide();
       this.callback(problem);
     }
   }
@@ -195,6 +197,7 @@ $(document).ready(function() {
        event.preventDefault();
        modal.open();
        $('#js-snomed-id-field').val('');
+       $('.problem-ajax-search').val(null).trigger('change');
        $('.problem-ajax-search').select2('open');
     })
   }
