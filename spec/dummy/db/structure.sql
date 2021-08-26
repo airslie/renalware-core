@@ -199,6 +199,17 @@ CREATE TYPE renalware.system_view_display_type AS ENUM (
 
 
 --
+-- Name: tristate_type; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.tristate_type AS ENUM (
+    'unknown',
+    'no',
+    'yes'
+);
+
+
+--
 -- Name: audit_view_as_json(text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -746,6 +757,42 @@ begin
                     else 'none'
                 end
             end;
+ end
+$$;
+
+
+--
+-- Name: patient_nag_hd_dna(integer); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.patient_nag_hd_dna(p_id integer, OUT out_severity renalware.system_nag_severity, OUT out_value text, OUT out_date date) RETURNS record
+    LANGUAGE plpgsql STABLE
+    AS $$
+begin
+  /* A nag function which is used in the UI to display a nag on patient ages if a patient has had
+  * an HD DNA Session (DNA = did not attend) in the last 30 days.
+  *
+  * Returns:
+  * - out_severity - 'medium' if the patient DNA'd in the last 30 days, otherwise 'none'
+  * - out_value - a message
+  * - out_date - the HD DNA Session date
+  */
+  with dna as (
+    select distinct on (patient_id)
+      patient_id
+      ,'medium' as severity
+      ,null as value
+      ,performed_on
+      from hd_sessions hds
+      where type = 'Renalware::HD::Session::DNA'
+        and days_between(hds.performed_on, current_timestamp::timestamp) <= 31
+      order by patient_id, hds.performed_on desc
+  )
+  select
+    into out_severity, out_value, out_date
+    coalesce(dna.severity, 'none'), dna.value, dna.performed_on
+  from patients p left outer join dna on dna.patient_id = p.id
+  where p.id = p_id;
  end
 $$;
 
@@ -2049,7 +2096,8 @@ CREATE TABLE renalware.users (
     language character varying,
     failed_attempts integer DEFAULT 0 NOT NULL,
     unlock_token character varying,
-    locked_at timestamp without time zone
+    locked_at timestamp without time zone,
+    password_changed_at timestamp without time zone
 );
 
 
@@ -5496,6 +5544,38 @@ ALTER SEQUENCE renalware.modality_reasons_id_seq OWNED BY renalware.modality_rea
 
 
 --
+-- Name: old_passwords; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.old_passwords (
+    id bigint NOT NULL,
+    encrypted_password character varying NOT NULL,
+    password_archivable_type character varying NOT NULL,
+    password_archivable_id integer NOT NULL,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: old_passwords_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.old_passwords_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: old_passwords_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.old_passwords_id_seq OWNED BY renalware.old_passwords.id;
+
+
+--
 -- Name: pathology_chart_series; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -7830,6 +7910,111 @@ CREATE SEQUENCE renalware.pd_training_types_id_seq
 --
 
 ALTER SEQUENCE renalware.pd_training_types_id_seq OWNED BY renalware.pd_training_types.id;
+
+
+--
+-- Name: problem_comorbidities; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.problem_comorbidities (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    description_id bigint NOT NULL,
+    recognised renalware.tristate_type DEFAULT 'unknown'::renalware.tristate_type NOT NULL,
+    recognised_at date,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE problem_comorbidities; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.problem_comorbidities IS 'A single comobidity problem for a patient. A patient can only have one per description';
+
+
+--
+-- Name: COLUMN problem_comorbidities.recognised_at; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.problem_comorbidities.recognised_at IS 'Note often only year is known';
+
+
+--
+-- Name: problem_comorbidities_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.problem_comorbidities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: problem_comorbidities_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.problem_comorbidities_id_seq OWNED BY renalware.problem_comorbidities.id;
+
+
+--
+-- Name: problem_comorbidity_descriptions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.problem_comorbidity_descriptions (
+    id bigint NOT NULL,
+    name text NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
+    snomed_code character varying,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE problem_comorbidity_descriptions; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.problem_comorbidity_descriptions IS 'The supported list of cormbidities that can be recorded for a patient';
+
+
+--
+-- Name: COLUMN problem_comorbidity_descriptions."position"; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.problem_comorbidity_descriptions."position" IS 'Display order';
+
+
+--
+-- Name: COLUMN problem_comorbidity_descriptions.snomed_code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.problem_comorbidity_descriptions.snomed_code IS 'Used in UKRDC exports';
+
+
+--
+-- Name: problem_comorbidity_descriptions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.problem_comorbidity_descriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: problem_comorbidity_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.problem_comorbidity_descriptions_id_seq OWNED BY renalware.problem_comorbidity_descriptions.id;
 
 
 --
@@ -11435,6 +11620,13 @@ ALTER TABLE ONLY renalware.modality_reasons ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: old_passwords id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.old_passwords ALTER COLUMN id SET DEFAULT nextval('renalware.old_passwords_id_seq'::regclass);
+
+
+--
 -- Name: pathology_chart_series id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -11817,6 +12009,20 @@ ALTER TABLE ONLY renalware.pd_training_sites ALTER COLUMN id SET DEFAULT nextval
 --
 
 ALTER TABLE ONLY renalware.pd_training_types ALTER COLUMN id SET DEFAULT nextval('renalware.pd_training_types_id_seq'::regclass);
+
+
+--
+-- Name: problem_comorbidities id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_comorbidities ALTER COLUMN id SET DEFAULT nextval('renalware.problem_comorbidities_id_seq'::regclass);
+
+
+--
+-- Name: problem_comorbidity_descriptions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_comorbidity_descriptions ALTER COLUMN id SET DEFAULT nextval('renalware.problem_comorbidity_descriptions_id_seq'::regclass);
 
 
 --
@@ -13032,6 +13238,14 @@ ALTER TABLE ONLY renalware.modality_reasons
 
 
 --
+-- Name: old_passwords old_passwords_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.old_passwords
+    ADD CONSTRAINT old_passwords_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: pathology_chart_series pathology_chart_series_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -13469,6 +13683,22 @@ ALTER TABLE ONLY renalware.pd_training_sites
 
 ALTER TABLE ONLY renalware.pd_training_types
     ADD CONSTRAINT pd_training_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: problem_comorbidities problem_comorbidities_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_comorbidities
+    ADD CONSTRAINT problem_comorbidities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: problem_comorbidity_descriptions problem_comorbidity_descriptions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_comorbidity_descriptions
+    ADD CONSTRAINT problem_comorbidity_descriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -16262,6 +16492,13 @@ CREATE INDEX index_modality_reasons_on_id_and_type ON renalware.modality_reasons
 
 
 --
+-- Name: index_password_archivable; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_password_archivable ON renalware.old_passwords USING btree (password_archivable_type, password_archivable_id);
+
+
+--
 -- Name: index_pathology_chart_series_on_chart_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -17239,6 +17476,62 @@ CREATE INDEX index_pd_training_sessions_on_training_type_id ON renalware.pd_trai
 --
 
 CREATE INDEX index_pd_training_sessions_on_updated_by_id ON renalware.pd_training_sessions USING btree (updated_by_id);
+
+
+--
+-- Name: index_problem_comorbidities_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_problem_comorbidities_on_created_by_id ON renalware.problem_comorbidities USING btree (created_by_id);
+
+
+--
+-- Name: index_problem_comorbidities_on_description_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_problem_comorbidities_on_description_id ON renalware.problem_comorbidities USING btree (description_id);
+
+
+--
+-- Name: index_problem_comorbidities_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_problem_comorbidities_on_patient_id ON renalware.problem_comorbidities USING btree (patient_id);
+
+
+--
+-- Name: index_problem_comorbidities_on_patient_id_and_description_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_problem_comorbidities_on_patient_id_and_description_id ON renalware.problem_comorbidities USING btree (patient_id, description_id);
+
+
+--
+-- Name: INDEX index_problem_comorbidities_on_patient_id_and_description_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON INDEX renalware.index_problem_comorbidities_on_patient_id_and_description_id IS 'Only 1 unique description allowed per patient';
+
+
+--
+-- Name: index_problem_comorbidities_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_problem_comorbidities_on_updated_by_id ON renalware.problem_comorbidities USING btree (updated_by_id);
+
+
+--
+-- Name: index_problem_comorbidity_descriptions_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_problem_comorbidity_descriptions_on_deleted_at ON renalware.problem_comorbidity_descriptions USING btree (deleted_at);
+
+
+--
+-- Name: index_problem_comorbidity_descriptions_on_position; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_problem_comorbidity_descriptions_on_position ON renalware.problem_comorbidity_descriptions USING btree ("position");
 
 
 --
@@ -18341,6 +18634,13 @@ CREATE UNIQUE INDEX index_users_on_lower_username ON renalware.users USING btree
 
 
 --
+-- Name: index_users_on_password_changed_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_users_on_password_changed_at ON renalware.users USING btree (password_changed_at);
+
+
+--
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -18838,6 +19138,14 @@ ALTER TABLE ONLY renalware.renal_aki_alerts
 
 ALTER TABLE ONLY renalware.letter_electronic_receipts
     ADD CONSTRAINT fk_rails_0c14df6b87 FOREIGN KEY (letter_id) REFERENCES renalware.letter_letters(id);
+
+
+--
+-- Name: problem_comorbidities fk_rails_0cf23c6bfe; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_comorbidities
+    ADD CONSTRAINT fk_rails_0cf23c6bfe FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -20081,6 +20389,14 @@ ALTER TABLE ONLY renalware.system_dashboards
 
 
 --
+-- Name: problem_comorbidities fk_rails_95894c755d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_comorbidities
+    ADD CONSTRAINT fk_rails_95894c755d FOREIGN KEY (description_id) REFERENCES renalware.problem_comorbidity_descriptions(id);
+
+
+--
 -- Name: pd_exit_site_infections fk_rails_9702c22886; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -20625,6 +20941,14 @@ ALTER TABLE ONLY renalware.pd_regime_bags
 
 
 --
+-- Name: problem_comorbidities fk_rails_ca4adc8d18; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_comorbidities
+    ADD CONSTRAINT fk_rails_ca4adc8d18 FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
 -- Name: hd_sessions fk_rails_cb86dc6d45; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -20822,6 +21146,14 @@ ALTER TABLE ONLY renalware.patients
 
 ALTER TABLE ONLY renalware.letter_mailshot_items
     ADD CONSTRAINT fk_rails_df39443cf5 FOREIGN KEY (mailshot_id) REFERENCES renalware.letter_mailshot_mailshots(id);
+
+
+--
+-- Name: problem_comorbidities fk_rails_df4ed1cba1; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_comorbidities
+    ADD CONSTRAINT fk_rails_df4ed1cba1 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -22021,8 +22353,13 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210419111931'),
 ('20210419161507'),
 ('20210531082528'),
+('20210604070039'),
 ('20210701161843'),
 ('20210705082359'),
 ('20210709132605'),
-('20210722101902');
+('20210722101902'),
+('20210723131206'),
+('20210812011726'),
+('20210812011910');
+
 

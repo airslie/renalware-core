@@ -1,3 +1,22 @@
+a.small-helper-button {
+  margin-left: 4;
+  border-radius: .25rem;
+  background-color: $nhs-light-blue;
+  color: $white;
+  text-decoration: none;
+  font-weight: normal;
+  padding: .1rem .4rem;
+
+  &:visited,
+  &:active {
+    color: $white;
+  }
+
+  &:hover {
+    background-color: $nhs-blue;
+  }
+}
+
 input::placeholder,
 textarea::placeholder {
   color: $form-hint-colour

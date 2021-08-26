@@ -28,8 +28,8 @@ module Renalware
           hospital: "HOSP",
           home_delivery: "HOSP",
           gp: "GP",
-          "rubbish": nil,
-          "gp": "GP"
+          "rubbish" => nil,
+          "gp" => "GP"
         }
         # rubocop:enable Lint/DuplicateHashKey
 

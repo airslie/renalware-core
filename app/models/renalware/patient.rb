@@ -65,6 +65,7 @@ module Renalware
     has_many :peritonitis_episodes, class_name: "PD::PeritonitisEpisode"
     has_many :pd_regimes, class_name: "PD::Regime"
     has_many :problems, -> { ordered }, class_name: "Problems::Problem"
+    has_many :comorbidities, -> { ordered }, class_name: "Problems::Comorbidity"
     has_many :prescriptions, class_name: "Medications::Prescription"
     has_many :medication_reviews, class_name: "Medications::Review"
     has_many :drugs, through: :prescriptions

@@ -31,7 +31,7 @@ group :test do
   gem "capybara", "~> 3.32"
   gem "capybara-screenshot", "~> 1.0"
   gem "capybara-select-2"
-  gem "cucumber-rails", "~> 2.0", require: false # must be loaded in env.rb
+  gem "cucumber-rails", "2.3", require: false # must be loaded in env.rb
   gem "database_cleaner", require: false # for cucumber (now not needed for rspec)
   gem "factory_bot_rails", "~> 6.1"
   gem "fuubar", require: false
@@ -49,6 +49,8 @@ group :test do
 end
 
 group :staging do
+  # For redirecting renalware-demo.herokuapp.com => demo.renalware.app
+  gem "rack-host-redirect", github: "airslie/rack-host-redirect"
   gem "wkhtmltopdf-heroku", "~> 2.12.3"
 end
 

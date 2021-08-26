@@ -20,6 +20,7 @@ en:
           pathology: Pathology (%{count})
           virology: Virology
           problems: Problems (%{count})
+          comorbidities: Comorbidities
           modalities: Modalities (%{count})
           esrf: Renal Profile
           clinical_profile: Clinical Profile

@@ -14,10 +14,18 @@
                  models: { profile => attrs },
                  width: "xlarge"
 
-        = render "renalware/shared/documents/attributes_group",
-                 group: profile.document.comorbidities,
-                 legend: "Comorbidities",
-                 width: "xxlarge"
+        .columns.small-12.medium-6.large-6.xlarge-4
+          article
+            header
+              h2 Comorbidities at ESRF
+              ul
+                li=link_to "Edit", patient_comorbidities_path(patient), class: :button
+
+            / Only show comorbids recognised on or before the esrf_date
+            = render(Renalware::Problems::Comorbidities::SummaryComponent.new(patient: patient,
+                  current_user: current_user,
+                  at_date: profile.esrf_on))
+
 
         - profile.build_address_at_diagnosis if profile.address_at_diagnosis.blank?
         - attrs = %i(name street_1 street_2 street_3 town county postcode country)

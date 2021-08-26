@@ -13,7 +13,7 @@ module Renalware
         u.given_name = site
         u.family_name = "Superuser"
         u.email = "#{username}@#{site_code}.trust.uk"
-        u.password = "renalware"
+        u.password = Renalware.config.demo_password
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :super_admin)]
         u.signature = "#{site} Superuser"
@@ -29,7 +29,7 @@ module Renalware
         u.given_name = site
         u.family_name = "Admin"
         u.email = "#{username}@#{site_code}.trust.uk"
-        u.password = "renalware"
+        u.password = Renalware.config.demo_password
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :admin)]
         u.signature = "Dr #{site} Admin, MRCP"
@@ -44,7 +44,7 @@ module Renalware
         u.given_name = "Doctor"
         u.family_name = site
         u.email = "#{username}@#{site_code}.trust.uk"
-        u.password = "renalware"
+        u.password = Renalware.config.demo_password
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :clinical)]
         u.signature = "Dr #{site}"
@@ -60,7 +60,7 @@ module Renalware
         u.given_name = site
         u.family_name = "Nurse"
         u.email = "#{username}@#{site_code}.trust.uk"
-        u.password = "renalware"
+        u.password = Renalware.config.demo_password
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :clinical)]
         u.signature = "#{site} Nurse"
@@ -75,7 +75,7 @@ module Renalware
         u.given_name = site
         u.family_name = "Guest"
         u.email = "#{username}@#{site_code}.trust.uk"
-        u.password = "renalware"
+        u.password = Renalware.config.demo_password
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :read_only)]
         u.signature = "#{site} Guest"
@@ -90,7 +90,7 @@ module Renalware
       u.given_name = "Renalware"
       u.family_name = "Developer"
       u.email = "renalware@airslie.com"
-      u.password = "develop!"
+      u.password = Renalware.config.demo_password
       u.approved = true
       u.roles = [Renalware::Role.find_by!(name: :devops)]
       u.signature = "Renalware Developer"

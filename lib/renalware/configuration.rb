@@ -14,6 +14,7 @@
 # To access configuration settings use e.g.
 #   Renalware.config.x
 #
+# rubocop:disable Metrics/ClassLength
 module Renalware
   class Configuration
     include ActiveSupport::Configurable
@@ -157,6 +158,10 @@ module Renalware
       }.freeze
     end
     config_accessor(:max_file_upload_size) { ENV.fetch("MAX_FILE_UPLOAD_SIZE", "10_000_000").to_i }
+
+    # :simple or :dob_and_any_nhs_or_assigning_auth_number
+    config_accessor(:hl7_patient_locator_strategy) { :simple }
+    config_accessor(:demo_password) { "renalware" }
   end
 
   def self.config
@@ -167,3 +172,4 @@ module Renalware
     yield config
   end
 end
+# rubocop:enable Metrics/ClassLength

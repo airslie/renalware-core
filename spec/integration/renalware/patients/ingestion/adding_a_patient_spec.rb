@@ -5,6 +5,7 @@ require "rails_helper"
 #
 # See http://www.hl7.org.uk/repository/uploads/871/1/HL72UKA.3%20v2.pdf
 #
+# rubocop:disable RSpec/MultipleMemoizedHelpers
 describe "HL7 ADT~A28 message handling: 'Add person information'" do
   let(:local_patient_id) { "P123" }
   let(:family_name) { "SMITH" }
@@ -24,7 +25,7 @@ describe "HL7 ADT~A28 message handling: 'Add person information'" do
     hl7 = <<-HL7
       MSH|^~\&|iPM|iIE|TIE|TIE|20110415094635||ADT^A28|558267|P|2.4|||AL|NE
       EVN|A28|20110415094635
-      PID|1|#{nhs_number}|#{local_patient_id}||#{family_name}^#{given_name}^#{middle_name}^^#{title}||#{dob}|#{sex}||Not Specified|34 Florence Road^SOUTH CROYDON^Surrey^^CR2 0PP^ZZ993CZ^HOME^QAD||9999999999|5554443333|NSP||NSP|||||Not Specified|.|DNU||8||NSP|#{died_on}|Y
+      PID|1|#{nhs_number}^^^NHS|#{local_patient_id}^^^KCH||#{family_name}^#{given_name}^#{middle_name}^^#{title}||#{dob}|#{sex}||Not Specified|34 Florence Road^SOUTH CROYDON^Surrey^^CR2 0PP^ZZ993CZ^HOME^QAD||9999999999|5554443333|NSP||NSP|||||Not Specified|.|DNU||8||NSP|#{died_on}|Y
       PD1|||DR WHM SUMISU PRACTICE, Nowhere Surgery, 22 Raccoon Road, Erewhon, Erewhonshire^GPPRC^#{practice_code}|#{gp_code}^Deeley^DP^^^DR
       NK1|1|NOKONE^TESTING^^^MRS|NSP|EREWHON HOSPITAL N H S TR^LEWSEY ROAD^EREWHON^^ER9 0DZ^ZZ993CZ^HOME|01582 111111|01582 333333|NOK^Next of Kin|20110415|||||||F|19600406000000
       PV1|1|R
@@ -41,7 +42,7 @@ describe "HL7 ADT~A28 message handling: 'Add person information'" do
 
   context "when the patient exists in Renalware" do
     it "updates their information" do
-      patient = create(:patient, local_patient_id: local_patient_id)
+      patient = create(:patient, local_patient_id: local_patient_id, born_on: Date.parse(dob))
 
       expect {
         FeedJob.new(message).perform
@@ -74,19 +75,18 @@ describe "HL7 ADT~A28 message handling: 'Add person information'" do
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
   def verify_patient_properties(patient)
     expect(patient).to have_attributes(
       family_name: family_name,
       given_name: given_name,
       title: title,
-      born_on: Time.zone.parse(dob).to_date,
-      died_on: Time.zone.parse(died_on).to_date,
+      born_on: Date.parse(dob),
+      died_on: Date.parse(died_on),
       nhs_number: nhs_number,
       primary_care_physician: primary_care_physician,
       practice: practice
     )
     expect(patient.sex.code).to eq(sex)
   end
-  # rubocop:enable Metrics/AbcSize
 end
+# rubocop:enable RSpec/MultipleMemoizedHelpers

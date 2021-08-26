@@ -53,7 +53,7 @@ describe "Renal Profile", type: :system, js: true do
       expect(page).to have_content(updated_esrf_date)
 
       # Reaching into the saved object here as it is a more reliable means of testing
-      # we saved the comorbities than reading the screen
+      # we saved the comorbidities than reading the screen
       document = patient.reload.profile.document
       comorbidities = document.comorbidities
       expect(comorbidities.ischaemic_heart_dis).to have_attributes(
