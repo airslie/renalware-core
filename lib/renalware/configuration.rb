@@ -54,8 +54,7 @@ module Renalware
     config_accessor(:phone_number_on_letters) { ENV["PHONE_NUMBER_ON_LETTERS"] }
     config_accessor(:renal_unit_on_letters) { ENV["RENAL_UNIT_ON_LETTERS"] }
     # Unless an ALLOW_EXTERNAL_MAIL key is present in .env or .env.production, mail (other than
-    # password reset emails etc) will be redirected to last user to update the relevant record
-    # eg the use how approved the letter.
+    # password reset emails etc) will be redirected to e.g. the user who approved the letter.
     config_accessor(:allow_external_mail) { ENV.key?("ALLOW_EXTERNAL_MAIL") }
     config_accessor(:fallback_email_address_for_test_messages) do
       ENV["FALLBACK_EMAIL_ADDRESS_FOR_TEST_MESSAGES"]
