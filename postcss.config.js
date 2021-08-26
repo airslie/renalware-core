@@ -15,8 +15,9 @@ let environment = {
 }
 
 // Only run PurgeCSS in production (you can also add staging here)
-console.log("PURGECSS", process.env.NODE_ENV)
-if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "staging") {
+
+if (["production", "staging", "uat"].indexOf(process.env.NODE_ENV) > -1) {
+  console.log("PURGECSS", process.env.NODE_ENV)
   environment.plugins.push(
     require("@fullhuman/postcss-purgecss")({
       content: [
