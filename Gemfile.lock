@@ -755,6 +755,7 @@ DEPENDENCIES
   faker
   foreman
   fuubar
+  httparty
   i18n-tasks (~> 0.9.33)
   launchy
   nhs_api_client!

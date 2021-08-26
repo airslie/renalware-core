@@ -78,8 +78,18 @@ module World
 
         visit patient_problems_path(patient)
         click_on t("btn.add")
-        fill_in "Description", with: "major problem"
-        click_on t("btn.create")
+
+        within "#add-patient-problem-modal .modal" do
+          # Close the search input on the pre-focussed select2 so our #select2 helper will work as
+          # expected (it won't work if the select2 has focus, ie its search input is already open).
+          find(:css, ".select2-selection").click
+
+          select2 "major problem", from: "* Description", search: true
+          click_on "Save"
+        end
+
+        expect(page).not_to have_css("#add-patient-problem-modal .modal") # dialog dismissed
+        expect(page).to have_content("major problem") # problem added to page
       end
 
       def revise_problem_for(patient:, user:, description:)
@@ -89,10 +99,8 @@ module World
         click_on t("btn.edit")
         # actually now goes to #show
 
-        within ".problem-form" do
-          fill_in "Description", with: description
-          click_on t("btn.save")
-        end
+        select2 description, from: "* Description", search: true
+        click_on "Save"
       end
 
       def view_problems_list(patient, clinician)

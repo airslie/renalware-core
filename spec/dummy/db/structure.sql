@@ -6844,7 +6844,8 @@ CREATE TABLE renalware.problem_problems (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     created_by_id integer NOT NULL,
-    updated_by_id integer
+    updated_by_id integer,
+    snomed_id character varying
 );
 
 
@@ -22355,6 +22356,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210604070039'),
 ('20210701161843'),
 ('20210705082359'),
+('20210709132605'),
 ('20210722101902'),
 ('20210723131206'),
 ('20210812011726'),

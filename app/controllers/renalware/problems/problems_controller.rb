@@ -8,9 +8,23 @@ module Renalware
         authorize problems
         render locals: {
           patient: patient,
+          problem: patient.problems.build,
           current_problems: problems.current.with_updated_by.ordered,
           archived_problems: problems.archived.with_created_by.ordered
         }
+      end
+
+      def search
+        authorize Problem, :search?
+
+        nhs_client.query(params[:term], count: 10, offset: 10 * params[:page].to_i)
+        problems = nhs_client.problems.each do |p|
+          p[:id] = p["display"]
+          p[:text] = p["display"]
+        end
+        problems_total = nhs_client.problems_total
+
+        render json: { problems: problems, problems_total: problems_total }
       end
 
       def show
@@ -47,21 +61,14 @@ module Renalware
         end
       end
 
-      def new
-        problem = patient.problems.build
-        authorize problem
-        render locals: { patient: patient, problem: problem }
-      end
-
       def create
         problem = patient.problems.new(problem_params)
         authorize problem
 
         if problem.save
-          redirect_to patient_problems_url(patient), notice: success_msg_for("problem")
+          render partial: "current_problem", locals: { problem: problem }, status: :created
         else
-          flash.now[:error] = failed_msg_for("problem")
-          render :new, locals: { patient: patient, problem: problem }
+          render json: problem.errors.full_messages, status: :not_acceptable
         end
       end
 
@@ -94,7 +101,7 @@ module Renalware
 
       def problem_params
         params.require(:problems_problem)
-              .permit(:description)
+              .permit(:description, :snomed_id)
               .merge(by: current_user)
       end
     end

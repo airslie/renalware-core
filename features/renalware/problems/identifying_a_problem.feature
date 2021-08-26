@@ -10,7 +10,7 @@ Feature: Identifying a problem
     And records a note for the problem
     Then a problem is recorded for Patty
 
-  @web
+  @web @javascript
   Scenario: A clinician revised a problem
     Given Clyde recorded a problem for Patty
     Then Clyde can revise the problem

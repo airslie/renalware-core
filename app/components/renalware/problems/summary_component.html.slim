@@ -16,7 +16,14 @@
         h1
           = link_to "#{t('titles.problems')} (#{problems.length})", renalware.patient_problems_path(patient)
 
-        = link_to t("btn.add"), renalware.new_patient_problem_path(patient), class: "button"
+        = link_to t("btn.add"),
+            "#",
+            data: { behaviour: "add-new-problem" },
+            class: "button"
+
+      / The add modal dialog
+      #add-patient-problem-modal.reveal-modal.medium(data-reveal)
+        = render "renalware/problems/problems/new", patient: patient, problem: patient.problems.build
 
       table#problems.toggleable.toggleable--without-border-between-toggled-and-non-toggled-tr(data-controller="toggle")
         thead.toggleable--open

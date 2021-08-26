@@ -25,6 +25,7 @@ gem "ruby-prof", require: false
 gem "uglifier", "~> 4.2"
 gem "wkhtmltopdf-binary", "0.12.3.1"
 # gem "sprockets-rails", "~> 2.3.3" # in the dummy app, fix to this version to avoid manifest errors
+gem "httparty", require: false
 
 group :test do
   gem "capybara", "~> 3.32"

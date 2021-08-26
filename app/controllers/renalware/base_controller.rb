@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "application_controller"
+require "nhs_client"
 
 module Renalware
   class BaseController < ApplicationController
@@ -30,7 +31,7 @@ module Renalware
     # however, while not a fan of `helper_method`, exposing e.g. current_patient this (akin to
     # Devise's current_user) allows a layout to access e.g. the current patient easily,
     # and is more encapsulated and less bug-prone than accessing @patient directly
-    helper_method :current_patient
+    helper_method :current_patient, :nhs_client
     alias_attribute :current_patient, :patient
 
     def patient
@@ -39,6 +40,10 @@ module Renalware
           raise PatientNotFoundError unless patient_
         end
       end
+    end
+
+    def nhs_client
+      @nhs_client ||= ::NHSClient.new
     end
 
     protected

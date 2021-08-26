@@ -1,10 +1,18 @@
 = content_for(:actions) do
   = link_to t("btn.add"),
-          new_patient_problem_path(patient),
-          class: "button"
+            "#",
+            data: { behaviour: "add-new-problem" },
+            class: "button"
   = link_to "Comorbidities", patient_comorbidities_path(patient)
 
 = within_patient_layout(title: "Problems") do
+
+  / The add modal dialog
+  #add-patient-problem-modal.reveal-modal.medium(data-reveal)
+    = render "new", patient: patient, problem: problem
+
+  / The edit modal dialog
+  #edit-patient-problem-modal.reveal-modal.medium(data-reveal)
 
   article
     header
