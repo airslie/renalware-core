@@ -10,7 +10,8 @@ body {
   height: 100%;
 }
 
-body.staging {
+body.staging,
+body.uat {
   border-top: 3px solid $nhs-yellow;
 }
 
