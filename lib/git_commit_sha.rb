@@ -6,18 +6,19 @@ class GitCommitSha
   end
 
   def current
-    sha = development_sha || capistrano_sha || heroku_sha
-    sha.present? && sha[0...6]
+    return git_sha if Rails.env.development?
+
+    capistrano_sha || heroku_sha
   end
 
   private
 
-  def development_sha
-    Rails.env.development? && `git rev-parse HEAD`
+  def git_sha
+    `git rev-parse HEAD`[0...6]
   end
 
   def heroku_sha
-    ENV.fetch("SOURCE_VERSION", "N/A")
+    ENV["SOURCE_VERSION"]
   end
 
   def capistrano_sha
@@ -25,7 +26,7 @@ class GitCommitSha
   end
 
   def sha_from_file(filename)
-    file = Renalware::Engine.root.join(filename)
+    file = Rails.root.join(filename)
     File.exist?(file) && File.open(file, &:gets)
   end
 end
