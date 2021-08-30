@@ -13,6 +13,7 @@
                 autofocus: true,
                 hint: (t('devise.shared.minimum_password_length', count: @minimum_password_length) if @minimum_password_length),
                 input_html: { autocomplete: "new-password" } %>
+    <p><%= Renalware.config.password_policy_description %></p>
     <%= f.input :password_confirmation,
                 label: t(".confirm_new_password"),
                 required: true,
