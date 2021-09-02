@@ -15,6 +15,7 @@
               input_html: { autocomplete: "off" },
               hint: (t('devise.shared.minimum_password_length', count: @minimum_password_length) if @minimum_password_length),
               wrapper: :horizontal_small
+    p = Renalware.config.password_policy_description
     = f.input :password_confirmation,
               as: :password,
               input_html: { autocomplete: "off" },

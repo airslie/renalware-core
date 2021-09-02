@@ -23,6 +23,7 @@
         = f.label :password
         i = t("devise.registrations.edit.leave_blank_if_you_don_t_want_to_change_it")
         = f.password_field :password, autocomplete: "off"
+      p = Renalware.config.password_policy_description
 
       .field.large-8.small-6
         = f.label :password_confirmation
