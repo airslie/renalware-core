@@ -27,7 +27,7 @@ module Renalware
         def initialize(batch, user)
           @batch = batch
           @user = user
-          @dir = Pathname(Dir.pwd)
+          @dir = Pathname(Dir.pwd) # a tmp dir - see where we are called
           Rails.logger.info "Compiling letter PDFs for batch #{batch.id} in folder #{dir}"
         end
 
@@ -51,9 +51,7 @@ module Renalware
         attr_reader :batch, :dir, :user
 
         def append_files
-          folder = Rails.root.join("tmp/batched_letters")
-          FileUtils.mkdir_p folder
-          pdf_file = folder.join("#{batch.id}.pdf")
+          pdf_file = working_folder.join("#{batch.id}.pdf")
           glob = Dir.glob(dir.join("*.pdf"))
           combine_multiple_pdfs_into_file(filepath: pdf_file, glob: glob) if glob.any?
           Pathname(pdf_file).to_s
@@ -118,6 +116,14 @@ module Renalware
         def blank_page_filename
           @blank_page_filename ||= begin
             Renalware::Engine.root.join("app", "assets", "pdf", "blank_page.pdf").to_s
+          end
+        end
+
+        def working_folder
+          @working_folder ||= begin
+            Renalware.config.base_working_folder.join("batched_letters").tap do |folder|
+              FileUtils.mkdir_p folder
+            end
           end
         end
       end

@@ -91,9 +91,20 @@ module Renalware
     config_accessor(:ukrdc_send_rpv_patients) {
       ENV.fetch("UKRDC_SEND_RPV_PATIENTS", "true") == "true"
     }
+
     config_accessor(:ukrdc_send_rreg_patients) {
       ENV.fetch("UKRDC_SEND_RREG_PATIENTS", "true") == "true"
     }
+
+    # On Azure we use a mapped path otherwise we will use Rails.root.join("tmp")
+    # However Rails.root is not yet defined so we need we use a proc to load the config
+    # setting JIT when accessed, and rely on the code calling #base_working_folder
+    # instead.
+    config_accessor(:working_folder) { -> { ENV["WORKING_FOLDER"] || Rails.root.join("tmp") } }
+
+    def base_working_folder
+      @base_working_folder ||= working_folder.call
+    end
 
     # We override this in some tests as a means of getting wicked_pdf to generate an HTML version
     # of the PDF so we can examine its content
