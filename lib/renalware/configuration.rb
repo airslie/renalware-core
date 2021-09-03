@@ -172,6 +172,7 @@ module Renalware
     # :simple or :dob_and_any_nhs_or_assigning_auth_number
     config_accessor(:hl7_patient_locator_strategy) { :simple }
     config_accessor(:demo_password) { "renalware" }
+    config_accessor(:password_policy_description) { "" }
   end
 
   def self.config
