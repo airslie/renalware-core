@@ -40,7 +40,7 @@ module Renalware
         # Fetch each page of organisations from the API
         # Note that the api we are calling does not support a last_change_date > 185 days ago,
         # in which case the client will set it to null so that all records are returned.
-        client.fetch_pages(roles: roles, **client_options) do |page| # quit_after: ?
+        client.fetch_pages(roles: roles, options: client_options) do |page| # quit_after: ?
           # For each organisation in the page..
           page.items.each do |item|
             add_or_update_practice(item) if item.last_change_date.present?
