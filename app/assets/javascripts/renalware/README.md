@@ -22,12 +22,3 @@ You need to have run `yarn install` before running rollup.
 
 To keep rollup running (watching for changes), add the ` -w` switch to the rollup
 command.
-
-### rollup_compiled.css
-
-This is the css the tailwindcss npm package, compiled and purged
-(unused classes removed) by postcss -> purgecss. In development however this
-file will be the whole of tailwind (1.6Mb) but when deployed in a stgaing or
-production environment withh purged to a few hundred kb.
-The file is checked-in to git. The first time you run up the project you need
-to run `yarn install` and `rollup --config rollup.config.js` to generate this file.

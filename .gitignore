@@ -69,7 +69,6 @@ spec/dummy/storage/**/*
 /spec/dummy/public/renalware-core-packs
 log/.bash_history
 /*.pdf
-app/assets/javascripts/renalware/rollup_compiled.css
-*.csv#
+*.csv
 /*.pdf
 spec/dummy/yarn-error.log

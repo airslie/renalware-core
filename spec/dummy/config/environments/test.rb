@@ -11,6 +11,7 @@ Rails.application.configure do
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs. Don't rely on the data there!
   config.cache_classes = true
+  config.assets.css_compressor = nil
 
   config.log_level = :debug
 
