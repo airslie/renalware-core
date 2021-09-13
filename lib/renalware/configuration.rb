@@ -100,7 +100,9 @@ module Renalware
     # However Rails.root is not yet defined so we need we use a proc to load the config
     # setting JIT when accessed, and rely on the code calling #base_working_folder
     # instead.
-    config_accessor(:working_folder) { -> { ENV["WORKING_FOLDER"] || Rails.root.join("tmp") } }
+    config_accessor(:working_folder) { -> {
+      Pathname(ENV["WORKING_FOLDER"] || Rails.root.join("tmp")) }
+    }
 
     def base_working_folder
       @base_working_folder ||= working_folder.call
