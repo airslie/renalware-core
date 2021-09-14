@@ -41,6 +41,7 @@
 //= require print-js/dist/print
 //= require moment/moment
 //= require trix/dist/trix
+//= require raven-js/dist/raven
 //= require_directory ./components
 
 // This next file is compiled by rollup using files in app/javascripts.

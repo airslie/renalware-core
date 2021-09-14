@@ -49,4 +49,9 @@ html lang="en"
       = render "renalware/navigation/footer"
     = javascript_include_tag "renalware/core"
     = javascript_include_tag "application"
+
+    - if Renalware.config.sentry_dsn.present?
+      javascript:
+        Raven.config(#{Renalware.config.sentry_dsn}).install();
+
     = yield(:javascript)
