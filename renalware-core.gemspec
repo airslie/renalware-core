@@ -86,6 +86,8 @@ Gem::Specification.new do |s|
   s.add_dependency "ruby-hl7", "~> 1.2.0"
   s.add_dependency "sassc-rails", "~> 2.1.0"
   s.add_dependency "scenic", "~> 1.5"
+  s.add_dependency "sentry-rails", "~> 4.7.2"
+  s.add_dependency "sentry-ruby", "~> 4.7.2"
   s.add_dependency "simple_form", "~> 5.1"
   s.add_dependency "sinatra", "~> 2.0"
   s.add_dependency "slim-rails", "~> 3.2.0"
