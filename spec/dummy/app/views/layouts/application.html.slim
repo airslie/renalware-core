@@ -50,7 +50,7 @@ html lang="en"
     = javascript_include_tag "renalware/core"
     = javascript_include_tag "application"
 
-    - if Renalware.config.sentry_dsn.present?
+    - if Renalware.config.sentry_for_js_enabled
       javascript:
         Raven.config(#{Renalware.config.sentry_dsn}).install();
 

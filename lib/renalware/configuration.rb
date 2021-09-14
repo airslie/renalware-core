@@ -175,6 +175,7 @@ module Renalware
     # Sentry configuration
     config_accessor(:sentry_dsn) { ENV.fetch("SENTRY_DSN", "") }
     config_accessor(:sentry_sample_rate) { 1.0 }
+    config_accessor(:sentry_for_js_enabled) { false }
 
     # :simple or :dob_and_any_nhs_or_assigning_auth_number
     config_accessor(:hl7_patient_locator_strategy) { :simple }
