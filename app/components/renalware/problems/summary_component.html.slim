@@ -33,12 +33,12 @@
 
         - problems.each_with_index do |problem|
           tbody.toggleable--open(class=("toggleable--no-toggleable-content" if problem.notes.none?))
-            tr
+            tr class=('snomed-problem' if problem.snomed_id.present?)
               td.toggleable--toggler-container.noprint = row_toggler
               td
                 span= problem.full_description
               td= problem.created_at.to_date
-            tr
+            tr class=('snomed-problem' if problem.snomed_id.present?)
               td
               td
                 - if problem.notes.any?

@@ -3,6 +3,7 @@ table#archived_problems.manual-stripes.auto-layout
     tr
       th.options.col-width-small
       th= t("thead.description")
+      th SNOMED ID
       th.col-width-date Archived on
       th.nowrap Archived by
       th.col-width-date Updated on
@@ -10,7 +11,7 @@ table#archived_problems.manual-stripes.auto-layout
 
   = content_tag(:tbody, class: "sortables", data: { rel: sort_patient_problems_path(@patient) }) do
     - problems.each do |problem|
-      = content_tag_for(:tr, problem, class: "sortable") do
+      = content_tag_for(:tr, problem, class: "sortable #{'snomed-problem' if problem.snomed_id.present?}") do
         td
           = link_to t("btn.view"), patient_problem_path(@patient, problem)
         td
@@ -18,6 +19,7 @@ table#archived_problems.manual-stripes.auto-layout
           ol
             - problem.notes.with_archived.each do |note|
               li= note.description
+        td= problem.snomed_id
         td= l problem.updated_on
         td= problem.updated_by.full_name
         td= l problem.archived_on
