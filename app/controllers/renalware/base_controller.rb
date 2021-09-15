@@ -65,6 +65,7 @@ module Renalware
     end
 
     def track_action
+      1 / 0
       ahoy.track "action", request.path_parameters
     end
 
