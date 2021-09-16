@@ -75,9 +75,9 @@ PATH
       puma (>= 4.3)
       pundit (~> 2.1.0)
       rack (~> 2.0)
-      rack-attack (~> 6.5)
-      rails (> 5.2, < 6.2)
-      ransack (~> 2.4.0)
+      rack-attack
+      rails (> 5.2, <= 6.0.4)
+      ransack (~> 2.3.0)
       record_tag_helper (~> 1.0.0)
       renalware-forms (>= 0.1.5)
       ruby-hl7 (~> 1.2.0)
