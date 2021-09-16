@@ -33,7 +33,7 @@ inherit_from:
 AllCops:
   NewCops: enable
   UseCache: true
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.7
   # Just defining the Exclude or Include keys here overwrites the settings in default.yml
   # so we have to redefine the entire set
   Exclude:
@@ -80,4 +80,8 @@ RSpec/InstanceVariable:
 Gemspec/RequiredRubyVersion:
   Enabled: false
 Style/MultilineBlockChain:
+  Enabled: false
+Rails/EnvironmentVariableAccess:
+  Enabled: false
+Style/RedundantParentheses:
   Enabled: false

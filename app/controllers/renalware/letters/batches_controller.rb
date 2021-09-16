@@ -77,6 +77,7 @@ module Renalware
           .new(q: batch_params)
           .call
           .select(:id, :event_type, :event_id)
+          .take(Renalware.config.max_batch_print_size)
           .map(&:id)
       end
 
