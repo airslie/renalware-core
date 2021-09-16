@@ -53,6 +53,14 @@
           = link_to t("btn.reset"), renalware.letters_filtered_letters_list_path(named_filter: named_filter)
 
   - if named_filter == :batch_printable
+
+    ruby:
+      button_title = if letters.total_count > Renalware.config.max_batch_print_size
+                       "Batch print #{Renalware.config.max_batch_print_size} of #{letters.total_count} letters"
+                     else
+                       "Batch print all #{letters.total_count} letters"
+                     end
+
     / This form will all hidden fields and one button is otherwise a mirror of the above filter form.
     / It POSTs the form to create a batch and its items (which really just help us to keep track)
     / or what was printed and the user does not need to know about it) and once created
@@ -73,7 +81,8 @@
       = f.input :created_by_id_eq, as: :hidden
       = f.input :letterhead_id_eq, as: :hidden
       = f.input :page_count_in_array, as: :hidden
-      = f.submit "Batch Print #{letters.total_count} letters", class: "button", disabled: letters.none?
+      - if letters.total_count > 0
+        = f.submit button_title, class: "button", disabled: letters.none?
 
     #batch-print-modal.reveal-modal.small(data-reveal)
 
