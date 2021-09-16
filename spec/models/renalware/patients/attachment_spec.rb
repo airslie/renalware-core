@@ -9,7 +9,7 @@ module Renalware
       it_behaves_like "an Accountable model"
 
       it { is_expected.to validate_presence_of(:patient) }
-      it { is_expected.to validate_presence_of(:attachment_type_id) }
+      it { is_expected.to validate_presence_of(:attachment_type) }
       it { is_expected.to belong_to(:patient).touch(true) }
       it { is_expected.to belong_to(:attachment_type) }
 

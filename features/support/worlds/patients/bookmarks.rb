@@ -35,6 +35,7 @@ module World
           expect(user.patients.map(&:given_name)).to eq(patients.map(&:given_name))
         end
 
+        # rubocop:disable Metrics/AbcSize
         def expect_user_to_have_patient_in_bookmarks(user:,
                                                      patient_name:,
                                                      notes: nil,
@@ -47,6 +48,7 @@ module World
           expect(bookmark.notes).to eq(notes)
           expect(bookmark.urgent.to_s).to eq(urgent.to_s)
         end
+        # rubocop:enable Metrics/AbcSize
       end
 
       module Web
@@ -64,9 +66,6 @@ module World
             fill_in("Notes", with: notes)
             find("input.button").click
           end
-
-          # check toastr message
-          expect(page).to have_content(I18n.t("renalware.create.success", model_name: "Bookmark"))
         end
 
         def delete_bookmark(user:, patient_name:)
@@ -74,9 +73,6 @@ module World
           visit_patient(patient_name)
           find("a", text: "Remove bookmark").click
           page.driver.browser.switch_to.alert.accept
-
-          # check toastr message
-          expect(page).to have_content(I18n.t("renalware.destroy.success", model_name: "Bookmark"))
         end
 
         private
