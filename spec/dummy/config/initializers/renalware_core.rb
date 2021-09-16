@@ -25,6 +25,7 @@ Renalware.configure do |config|
   config.disable_inputs_controlled_by_demographics_feed = false
   config.enforce_user_prescriber_flag = false
   config.allow_uploading_patient_attachments = true
+  config.max_batch_print_size = 50
 end
 
 # Renalware::Patients.configure

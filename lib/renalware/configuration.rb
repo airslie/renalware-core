@@ -41,6 +41,7 @@ module Renalware
     config_accessor(:include_sunday_on_hd_diaries) { false }
     config_accessor(:clinical_summary_max_events_to_display) { 10 }
     config_accessor(:clinical_summary_max_letters_to_display) { 10 }
+    config_accessor(:max_batch_print_size) { (ENV.fetch("MAX_BATCH_PRINT_SIZE", 100)).to_i }
     # These settings are used in the construction of the IDENT metadata in letters
     config_accessor(:letter_system_name) { "Renalware" }
     config_accessor(:letter_default_care_group_name) { "RenalCareGroup" }
