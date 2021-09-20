@@ -1,6 +1,5 @@
 # https://dzone.com/articles/using-docker-for-rails-development
 # Developer docker image hosted on DockerHub.
-# Note there is a separate docker image in ./circleci for use on CircleCI
 
 # If you change this Dockerfile, then from the project root, bump the version e.g. 0.0.3
 # and build and push the image to DockerHub using user `woodpigeon` (password on request):
