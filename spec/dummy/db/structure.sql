@@ -362,6 +362,87 @@ $$;
 
 
 --
+-- Name: import_feed_gps(); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.import_feed_gps() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+  BEGIN
+
+  -- Upsert GPs
+  WITH
+   data AS (select * from feed_gps),
+   gp_changes AS (
+    INSERT INTO renalware.patient_primary_care_physicians (code, name, telephone, practitioner_type, created_at, updated_at)
+    SELECT code, name, telephone, 'GP', clock_timestamp(), clock_timestamp()
+    FROM data
+    ON CONFLICT (code) DO UPDATE
+      SET
+       telephone = excluded.telephone,
+       name = excluded.name,
+       updated_at = excluded.updated_at
+      where (patient_primary_care_physicians.telephone) is distinct from (excluded.telephone)
+      RETURNING code, id
+     )
+
+  -- Upsert GP addresses
+  INSERT INTO renalware.addresses (
+    addressable_type,
+    addressable_id,
+    street_1,
+    street_2,
+    street_3,
+    town,
+    county,
+    postcode,
+    created_at,
+    updated_at)
+  SELECT
+    'Renalware::Patients::PrimaryCarePhysician' as addressable_type,
+    gps.id as addressable_id,
+    street_1,
+    street_2,
+    street_3,
+    town,
+    county,
+    postcode,
+    CURRENT_TIMESTAMP as created_at,
+    CURRENT_TIMESTAMP as updated_at
+    FROM data join patient_primary_care_physicians gps using(code)
+  ON CONFLICT (addressable_type, addressable_id) DO UPDATE
+    SET
+    street_1 = excluded.street_1,
+    street_2 = excluded.street_2,
+    street_3 = excluded.street_3,
+    town = excluded.town,
+    county = excluded.county,
+    postcode = excluded.postcode,
+    updated_at = clock_timestamp()
+    where (addresses.street_1, addresses.street_2, addresses.street_3)
+    is distinct from (excluded.street_1, excluded.street_2, excluded.street_3);
+
+  --GET DIAGNOSTICS changed_count = ROW_COUNT;
+
+  -- Update the deleted_at column of any gps which do not have an Active status_code
+  UPDATE renalware.patient_primary_care_physicians AS p
+  SET deleted_at = CURRENT_TIMESTAMP
+  FROM feed_gps AS tp
+  WHERE p.code = tp.code AND tp.status IN ('C', 'P', 'B');
+
+  -- Un-delete any previously deleted GPs
+  UPDATE renalware.patient_primary_care_physicians AS gp
+  SET deleted_at = NULL
+  FROM feed_gps
+  WHERE gp.code = feed_gps.code AND feed_gps.status IN ('A') AND gp.code NOT IN ('A');
+
+  --GET DIAGNOSTICS deleted_count = ROW_COUNT;
+  --select changed_count, deleted_count;
+  END;
+ $$;
+
+
+--
 -- Name: import_gps_csv(text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -3177,6 +3258,44 @@ ALTER SEQUENCE renalware.feed_files_id_seq OWNED BY renalware.feed_files.id;
 
 
 --
+-- Name: feed_gps; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.feed_gps (
+    id bigint NOT NULL,
+    code text NOT NULL,
+    name text NOT NULL,
+    telephone text,
+    street_1 text,
+    street_2 text,
+    street_3 text,
+    town text,
+    county text,
+    postcode text,
+    status character varying
+);
+
+
+--
+-- Name: feed_gps_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.feed_gps_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_gps_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.feed_gps_id_seq OWNED BY renalware.feed_gps.id;
+
+
+--
 -- Name: feed_hl7_test_messages; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -4880,6 +4999,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -8360,7 +8489,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -8440,7 +8569,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -11249,6 +11378,13 @@ ALTER TABLE ONLY renalware.feed_files ALTER COLUMN id SET DEFAULT nextval('renal
 
 
 --
+-- Name: feed_gps id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_gps ALTER COLUMN id SET DEFAULT nextval('renalware.feed_gps_id_seq'::regclass);
+
+
+--
 -- Name: feed_hl7_test_messages id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -12811,6 +12947,14 @@ ALTER TABLE ONLY renalware.feed_file_types
 
 ALTER TABLE ONLY renalware.feed_files
     ADD CONSTRAINT feed_files_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feed_gps feed_gps_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_gps
+    ADD CONSTRAINT feed_gps_pkey PRIMARY KEY (id);
 
 
 --
@@ -15131,6 +15275,13 @@ CREATE INDEX index_feed_files_on_file_type_id ON renalware.feed_files USING btre
 --
 
 CREATE INDEX index_feed_files_on_updated_by_id ON renalware.feed_files USING btree (updated_by_id);
+
+
+--
+-- Name: index_feed_gps_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_feed_gps_on_code ON renalware.feed_gps USING btree (code);
 
 
 --
@@ -22361,6 +22512,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210723131206'),
 ('20210812011726'),
 ('20210812011910'),
-('20210903123803');
+('20210903123803'),
+('20210920153420'),
+('20210920162339');
 
 
