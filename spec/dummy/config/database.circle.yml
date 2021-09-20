@@ -1,7 +1,0 @@
-test:
-  adapter: postgresql
-  encoding: unicode
-  database: circleci_renalware_test
-  schema_search_path: "renalware,public"
-  username: postgres
-  host: localhost
