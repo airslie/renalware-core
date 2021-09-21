@@ -451,28 +451,19 @@ CREATE FUNCTION renalware.import_feed_practice_gps() RETURNS void
     AS $$
   BEGIN
 
-  -- 1. Update feed_practice_gps with the correct pcp and prac ids
-  UPDATE feed_practice_gps x
-  SET primary_care_physician_id = ppm.id
-  FROM patient_primary_care_physicians AS ppm WHERE ppm.code = x.gp_code;
-
-  UPDATE feed_practice_gps x
-  SET practice_id = pp.id
-  FROM patient_practices AS pp WHERE pp.code = x.practice_code;
-
-  -- Insert any new memberships, ignoring any conflicts where the
-  -- practice_id + primary_care_physician_id already exists
   INSERT INTO renalware.patient_practice_memberships
     (practice_id, primary_care_physician_id, joined_on, left_on, active, created_at, updated_at)
   SELECT
-    practice_id,
-    primary_care_physician_id,
+    patient_practices.id,
+    patient_primary_care_physicians.id,
     joined_on,
     left_on,
     case when left_on is null then true else false end,
     CURRENT_TIMESTAMP,
     CURRENT_TIMESTAMP
   FROM feed_practice_gps
+  INNER JOIN patient_practices on patient_practices.code = practice_code
+  INNER JOIN patient_primary_care_physicians on patient_primary_care_physicians.code = gp_code
   ON CONFLICT (practice_id, primary_care_physician_id) DO NOTHING;
 
   -- However we need to ensure the joined_on left_on and active columns are up to date as these
@@ -697,6 +688,8 @@ CREATE FUNCTION renalware.import_practice_memberships_csv(file text) RETURNS voi
     WHERE NOT EXISTS (select 1 FROM tmp_memberships tmem
     WHERE tmem.practice_id = mem.practice_id AND tmem.primary_care_physician_id = mem.primary_care_physician_id);
 
+  DROP TABLE IF EXISTS copied_memberships;
+  DROP TABLE IF EXISTS tmp_memberships;
 END;
 $$;
 
@@ -5084,6 +5077,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -22606,6 +22609,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210920153420'),
 ('20210920162339'),
 ('20210920164152'),
-('20210920164222');
+('20210920164222'),
+('20210921140641');
 
 
