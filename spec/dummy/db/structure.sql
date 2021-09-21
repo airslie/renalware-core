@@ -362,6 +362,140 @@ $$;
 
 
 --
+-- Name: import_feed_gps(); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.import_feed_gps() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+  BEGIN
+
+  -- Upsert GPs
+  WITH
+   data AS (select * from feed_gps),
+   gp_changes AS (
+    INSERT INTO renalware.patient_primary_care_physicians (code, name, telephone, practitioner_type, created_at, updated_at)
+    SELECT code, name, telephone, 'GP', clock_timestamp(), clock_timestamp()
+    FROM data
+    ON CONFLICT (code) DO UPDATE
+      SET
+       telephone = excluded.telephone,
+       name = excluded.name,
+       updated_at = excluded.updated_at
+      where (patient_primary_care_physicians.telephone) is distinct from (excluded.telephone)
+      RETURNING code, id
+     )
+
+  -- Upsert GP addresses
+  INSERT INTO renalware.addresses (
+    addressable_type,
+    addressable_id,
+    street_1,
+    street_2,
+    street_3,
+    town,
+    county,
+    postcode,
+    created_at,
+    updated_at)
+  SELECT
+    'Renalware::Patients::PrimaryCarePhysician' as addressable_type,
+    gps.id as addressable_id,
+    street_1,
+    street_2,
+    street_3,
+    town,
+    county,
+    postcode,
+    CURRENT_TIMESTAMP as created_at,
+    CURRENT_TIMESTAMP as updated_at
+    FROM data join patient_primary_care_physicians gps using(code)
+  ON CONFLICT (addressable_type, addressable_id) DO UPDATE
+    SET
+    street_1 = excluded.street_1,
+    street_2 = excluded.street_2,
+    street_3 = excluded.street_3,
+    town = excluded.town,
+    county = excluded.county,
+    postcode = excluded.postcode,
+    updated_at = clock_timestamp()
+    where (addresses.street_1, addresses.street_2, addresses.street_3)
+    is distinct from (excluded.street_1, excluded.street_2, excluded.street_3);
+
+  --GET DIAGNOSTICS changed_count = ROW_COUNT;
+
+  -- Update the deleted_at column of any gps which do not have an Active status_code
+  UPDATE renalware.patient_primary_care_physicians AS p
+  SET deleted_at = CURRENT_TIMESTAMP
+  FROM feed_gps AS tp
+  WHERE p.code = tp.code AND tp.status IN ('C', 'P', 'B');
+
+  -- Un-delete any previously deleted GPs
+  UPDATE renalware.patient_primary_care_physicians AS gp
+  SET deleted_at = NULL
+  FROM feed_gps
+  WHERE gp.code = feed_gps.code AND feed_gps.status IN ('A') AND gp.code NOT IN ('A');
+
+  --GET DIAGNOSTICS deleted_count = ROW_COUNT;
+  --select changed_count, deleted_count;
+  END;
+ $$;
+
+
+--
+-- Name: import_feed_practice_gps(); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.import_feed_practice_gps() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+  BEGIN
+
+  -- 1. Update feed_practice_gps with the correct pcp and prac ids
+  UPDATE feed_practice_gps x
+  SET primary_care_physician_id = ppm.id
+  FROM patient_primary_care_physicians AS ppm WHERE ppm.code = x.gp_code;
+
+  UPDATE feed_practice_gps x
+  SET practice_id = pp.id
+  FROM patient_practices AS pp WHERE pp.code = x.practice_code;
+
+  -- Insert any new memberships, ignoring any conflicts where the
+  -- practice_id + primary_care_physician_id already exists
+  INSERT INTO renalware.patient_practice_memberships
+    (practice_id, primary_care_physician_id, joined_on, left_on, active, created_at, updated_at)
+  SELECT
+    practice_id,
+    primary_care_physician_id,
+    joined_on,
+    left_on,
+    case when left_on is null then true else false end,
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP
+  FROM feed_practice_gps
+  ON CONFLICT (practice_id, primary_care_physician_id) DO NOTHING;
+
+  -- However we need to ensure the joined_on left_on and active columns are up to date as these
+  -- were recently added
+  UPDATE renalware.patient_practice_memberships AS M
+  SET
+    joined_on = T.joined_on,
+    left_on = T.left_on,
+    active = case when T.left_on is null then true else false end
+  FROM feed_practice_gps T
+  WHERE T.practice_id = M.practice_id  AND T.primary_care_physician_id = M.primary_care_physician_id;
+
+  -- Mark as deleted any memberships not in the latest uploaded data set - ie those gps have retired or moved on
+  UPDATE patient_practice_memberships mem
+    SET deleted_at = CURRENT_TIMESTAMP
+    WHERE NOT EXISTS (select 1 FROM feed_practice_gps tmem
+    WHERE tmem.practice_id = mem.practice_id AND tmem.primary_care_physician_id = mem.primary_care_physician_id);
+
+END;
+$$;
+
+
+--
 -- Name: import_gps_csv(text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -563,8 +697,6 @@ CREATE FUNCTION renalware.import_practice_memberships_csv(file text) RETURNS voi
     WHERE NOT EXISTS (select 1 FROM tmp_memberships tmem
     WHERE tmem.practice_id = mem.practice_id AND tmem.primary_care_physician_id = mem.primary_care_physician_id);
 
-  DROP TABLE IF EXISTS copied_memberships;
-  DROP TABLE IF EXISTS tmp_memberships;
 END;
 $$;
 
@@ -3177,6 +3309,44 @@ ALTER SEQUENCE renalware.feed_files_id_seq OWNED BY renalware.feed_files.id;
 
 
 --
+-- Name: feed_gps; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.feed_gps (
+    id bigint NOT NULL,
+    code text NOT NULL,
+    name text NOT NULL,
+    telephone text,
+    street_1 text,
+    street_2 text,
+    street_3 text,
+    town text,
+    county text,
+    postcode text,
+    status character varying
+);
+
+
+--
+-- Name: feed_gps_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.feed_gps_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_gps_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.feed_gps_id_seq OWNED BY renalware.feed_gps.id;
+
+
+--
 -- Name: feed_hl7_test_messages; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -3244,6 +3414,40 @@ CREATE SEQUENCE renalware.feed_messages_id_seq
 --
 
 ALTER SEQUENCE renalware.feed_messages_id_seq OWNED BY renalware.feed_messages.id;
+
+
+--
+-- Name: feed_practice_gps; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.feed_practice_gps (
+    id bigint NOT NULL,
+    gp_code text NOT NULL,
+    practice_code text NOT NULL,
+    joined_on date,
+    left_on date,
+    primary_care_physician_id integer,
+    practice_id integer
+);
+
+
+--
+-- Name: feed_practice_gps_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.feed_practice_gps_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_practice_gps_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.feed_practice_gps_id_seq OWNED BY renalware.feed_practice_gps.id;
 
 
 --
@@ -8360,7 +8564,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -8440,7 +8644,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -11249,6 +11453,13 @@ ALTER TABLE ONLY renalware.feed_files ALTER COLUMN id SET DEFAULT nextval('renal
 
 
 --
+-- Name: feed_gps id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_gps ALTER COLUMN id SET DEFAULT nextval('renalware.feed_gps_id_seq'::regclass);
+
+
+--
 -- Name: feed_hl7_test_messages id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -11260,6 +11471,13 @@ ALTER TABLE ONLY renalware.feed_hl7_test_messages ALTER COLUMN id SET DEFAULT ne
 --
 
 ALTER TABLE ONLY renalware.feed_messages ALTER COLUMN id SET DEFAULT nextval('renalware.feed_messages_id_seq'::regclass);
+
+
+--
+-- Name: feed_practice_gps id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_practice_gps ALTER COLUMN id SET DEFAULT nextval('renalware.feed_practice_gps_id_seq'::regclass);
 
 
 --
@@ -12814,6 +13032,14 @@ ALTER TABLE ONLY renalware.feed_files
 
 
 --
+-- Name: feed_gps feed_gps_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_gps
+    ADD CONSTRAINT feed_gps_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: feed_hl7_test_messages feed_hl7_test_messages_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -12827,6 +13053,14 @@ ALTER TABLE ONLY renalware.feed_hl7_test_messages
 
 ALTER TABLE ONLY renalware.feed_messages
     ADD CONSTRAINT feed_messages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feed_practice_gps feed_practice_gps_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_practice_gps
+    ADD CONSTRAINT feed_practice_gps_pkey PRIMARY KEY (id);
 
 
 --
@@ -15131,6 +15365,13 @@ CREATE INDEX index_feed_files_on_file_type_id ON renalware.feed_files USING btre
 --
 
 CREATE INDEX index_feed_files_on_updated_by_id ON renalware.feed_files USING btree (updated_by_id);
+
+
+--
+-- Name: index_feed_gps_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_feed_gps_on_code ON renalware.feed_gps USING btree (code);
 
 
 --
@@ -22361,6 +22602,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210723131206'),
 ('20210812011726'),
 ('20210812011910'),
-('20210903123803');
+('20210903123803'),
+('20210920153420'),
+('20210920162339'),
+('20210920164152'),
+('20210920164222');
 
 

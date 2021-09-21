@@ -22,8 +22,6 @@ module Renalware
           end
 
           it "imports the GP correctly creating one active and inactive GP" do
-            pending("PG COPY not avail on CI") if ENV.key?("CI")
-
             # Note JONES AA is active so deleted_at will be nil
             # SMITH BB is inactive so deleted_at will be set
             # code,name,f3,f4,street_1,street_2,street_3,town,county,postcode,f11,f12,status,f14,f15,f16,f17,telephone,f19,f20,f21,amended_record_indicator,f23,f24,f25,f26,f27
@@ -48,8 +46,6 @@ module Renalware
 
           context "when a GP was previously active but becomes inactive" do
             it "soft deletes it" do
-              pending("PG COPY not avail on CI") if ENV.key?("CI")
-
               previously_active_gp = create(
                 :primary_care_physician,
                 code: "G0102926",
@@ -74,8 +70,6 @@ module Renalware
 
           context "when a GP was previously inactive but becomes active" do
             it "removes the soft delete" do
-              pending("PG COPY not avail on CI") if ENV.key?("CI")
-
               previously_inactive_gp = create(
                 :primary_care_physician,
                 code: "G0102005",
@@ -102,8 +96,6 @@ module Renalware
 
           context "when GP exists but their properties have changed" do
             it "updates appropriate properties" do
-              pending("PG COPY not avail on CI") if ENV.key?("CI")
-
               gp = create(
                 :primary_care_physician,
                 code: "G0102005",
