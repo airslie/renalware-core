@@ -39,13 +39,13 @@ module Renalware
                 .to change { Patients::PracticeMembership.count }.by(2)
               end
 
-              expect(gp1.practice_memberships.first).to have_attributes(
+              expect(gp1.reload.practice_memberships.first).to have_attributes(
                 joined_on: Date.parse("1974-04-01"),
                 left_on: Date.parse("1991-04-01"),
                 active: false
               )
 
-              expect(gp2.practice_memberships.first).to have_attributes(
+              expect(gp2.reload.practice_memberships.first).to have_attributes(
                 joined_on: Date.parse("1994-04-01"),
                 left_on: nil,
                 active: true
@@ -55,7 +55,6 @@ module Renalware
 
           context "when a gp is no longer in a practice" do
             it "they are soft deleted" do
-
               practice = create(:practice, code: "PRAC1")
               gp1 = create(:primary_care_physician, code: "GP1")
               gp2 = create(:primary_care_physician, code: "GP2")
