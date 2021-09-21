@@ -107,46 +107,50 @@ blocks:
       epilogue:
         always:
           commands:
+            - ./cc-test-reporter format-coverage -t simplecov --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json"
+            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://renalware-ci-coverage/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
             - test-results publish /tmp/junit.xml
 
       jobs:
-      - name: RSpec tests
-        commands:
-          - bundle exec rspec --format RspecJunitFormatter --out /tmp/junit.xml --format progress
-          - ls ./coverage
-          - ./cc-test-reporter format-coverage -t simplecov --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json"
-          - ls ./coverage
-          - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://renalware-ci-coverage/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+        - name: RSpec non-integration tests
+          commands:
+            - bundle exec rspec --exclude-pattern "spec/{integration,acceptance,system}/**/*_spec.rb" --format RspecJunitFormatter --out /tmp/junit.xml --format progress
 
-      - name: Cucumber tests
-        commands:
-          - bundle exec cucumber --format junit --out /tmp/junit.xml --format progress
-          - TEST_DEPTH=web bundle exec cucumber -p rake_web --format junit --out /tmp/junit.xml --format progress
-          - ./cc-test-reporter format-coverage -t simplecov --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json"
-          - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://renalware-ci-coverage/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+        - name: RSpec integration tests
+          commands:
+            - bundle exec rspec --pattern "spec/{integration,acceptance,system}/**/*_spec.rb" --format RspecJunitFormatter --out /tmp/junit.xml --format progress
 
-  # - name: Merging test coverage and upload to codeclimate
-  #   task:
-  #     secrets:
-  #       - name: aws
-  #       - name: renalware-core-env
+        - name: Cucumber domain tests
+          commands:
+            - bundle exec cucumber --format junit --out /tmp/junit.xml --format progress
 
-  #     jobs:
-  #       - name: Merge and upload
-  #         commands:
-  #           # See the (flawed) codeclimate setup: see https://docs.semaphoreci.com/article/148-configuring-parallel-tests-with-code-climate
+        - name: Cucumber web tests
+          commands:
+            - TEST_DEPTH=web bundle exec cucumber -p rake_web --format junit --out /tmp/junit.xml --format progress
 
-  #           # 1. Download and install the code climate test reporter
-  #           - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  #           - chmod +x ./cc-test-reporter
+  - name: Merging test coverage and upload to codeclimate
+    task:
+      secrets:
+        - name: aws
+        - name: renalware-core-env
 
-  #           # 2. Pull down the code coverage json files generated during this build and put them into ./coverage
-  #           #    There will be 1 for each parallel build in the previous block - so eg one for rspec and one for cucumber spec.
-  #           - mkdir ./coverage
-  #           - aws s3 sync "s3://renalware-ci-coverage/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/" coverage/
+      jobs:
+        - name: Merge and upload
+          commands:
+            # See the (flawed) codeclimate setup: see https://docs.semaphoreci.com/article/148-configuring-parallel-tests-with-code-climate
 
-  #           # 3. Merge the coverage json files
-  #           - ./cc-test-reporter sum-coverage --parts $(ls -1 coverage/ | wc -l) coverage/codeclimate.*.json
+            # 1. Download and install the code climate test reporter
+            - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            - chmod +x ./cc-test-reporter
 
-  #           # 4. Send the merged report to Code Climate
-  #           - ./cc-test-reporter upload-coverage
+            # 2. Pull down the code coverage json files generated during this build and put them into ./coverage
+            #    There will be 1 for each parallel build in the previous block - so eg one for rspec and one for cucumber spec.
+            - mkdir ./coverage
+            - aws s3 sync "s3://renalware-ci-coverage/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/" coverage/
+
+            # 3. Merge the coverage json files
+            - ./cc-test-reporter sum-coverage --parts $(ls -1 coverage/ | wc -l) coverage/codeclimate.*.json
+
+            # 4. Send the merged report to Code Climate
+            # Note we no longer have a code climate account so I have disabled this
+            # - ./cc-test-reporter upload-coverage
