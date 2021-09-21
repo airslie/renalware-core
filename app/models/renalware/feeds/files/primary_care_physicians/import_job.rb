@@ -11,6 +11,7 @@ module Renalware
           include Feeds::Job
 
           FILE_TO_EXTRACT_FROM_ARCHIVE = /^egpcur.csv$/.freeze
+
           def perform(file)
             logging_to_stringio(strio = StringIO.new)
             log "PrimaryCarePhysician count before update: #{primary_care_physician_count}"

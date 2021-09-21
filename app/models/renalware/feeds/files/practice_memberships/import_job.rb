@@ -10,6 +10,7 @@ module Renalware
           include StringLogging
           include Feeds::Job
           FILE_TO_EXTRACT_FROM_ARCHIVE = /epracmem.csv/.freeze
+
           # TODO: refactor
           def perform(file)
             logging_to_stringio(strio = StringIO.new)

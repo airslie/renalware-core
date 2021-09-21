@@ -9,12 +9,11 @@ module Renalware
         primary_care_physicians: {
           url: "https://files.digital.nhs.uk/assets/ods/current/egpcur.zip",
           filename: "egpcur.zip"
+        },
+        practice_memberships: {
+          url: "https://files.digital.nhs.uk/assets/ods/current/epracmem.zip",
+          filename: "epracmem.zip"
         }
-        # ,
-        # practice_memberships: {
-        #   url: "https://files.digital.nhs.uk/assets/ods/current/epracmem.zip",
-        #   filename: "epracmem.zip"
-        # }
       }.freeze
 
       # Do not retry this job
