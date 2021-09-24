@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_dependency "attr_extras", "~> 6.2"
   s.add_dependency "autoprefixer-rails", "~> 9.6"
   s.add_dependency "chartkick", "~> 3.3"
-  s.add_dependency "client_side_validations", "~> 17.0"
+  s.add_dependency "client_side_validations"
   s.add_dependency "client_side_validations-simple_form"
   s.add_dependency "clipboard-rails", "~> 1.7.1"
   s.add_dependency "cocoon", "~> 1.2.11"
