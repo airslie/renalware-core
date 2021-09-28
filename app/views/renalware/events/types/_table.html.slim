@@ -4,12 +4,10 @@ table
       th.col-width-small
       th.col-width-medium Category
       th Name
-      th.col-with-date-time Updated
       th.col-width-tiny Events
-
-      th Category
       th Slug
       th Event class name
+      th.col-with-date-time Updated
   tbody
     - event_types.each do |event_type|
       tr
@@ -25,14 +23,12 @@ table
             = link_to "Subtypes", renalware.events_type_subtypes_path(event_type.id)
         td= event_type.category&.name
         td= event_type.name
-        td= l(event_type.updated_at)
         td= event_type.events_count
           = link_to t("btn.edit"), edit_events_type_path(t.id)
           = link_to t("btn.delete"),
                     events_type_path(t.id),
                     method: :delete,
                     data: { confirm: I18n.t("prompts.confirm_delete") }
-        td= t.name
-        td= t.category&.name
-        td= t.slug
-        td= t.event_class_name
+        td= event_type.slug
+        td= event_type.event_class_name
+        td= l(event_type.updated_at)
