@@ -36,7 +36,10 @@ module Renalware::Patients::Ingestion
     describe "#call" do
       context "when the patient has the death modality but no cause of death or died_on set" do
         it "can update the patient without triggering missing cause of death validations" do
-          patient = create_deceased_patient_with_incomplete_death_attributes(by: system_user)
+          patient = create_deceased_patient_with_incomplete_death_attributes(
+            by: system_user,
+            nhs_number: "9999999999"
+          )
           hl7_data = OpenStruct.new(
             hospital_number: "A123",
             nhs_number: "9999999999",
@@ -51,6 +54,46 @@ module Renalware::Patients::Ingestion
           described_class.new(hl7_message).call
 
           expect(patient.reload.nhs_number).to eq("9999999999")
+        end
+      end
+
+      describe "ethnicity" do
+        [
+          { possibles: %w(A B), current: "A", incoming: "B", expected: "B" },
+          { possibles: %w(A), current: "A", incoming: "B", expected: "A" }
+        ].each do |opts|
+          context "when configured ethnicities are #{opts[:possibles].join(', ')} "\
+                  "and the patient's current ethnicity is #{opts[:current]} "\
+                  "and incoming ethnicity is #{opts[:incoming]}" do
+            before do
+              Renalware.configure { |config| config.hl7_patient_locator_strategy = :simple }
+              opts[:possibles].each { |code| create(:ethnicity, name: code, rr18_code: code) }
+            end
+
+            it "expects patient ethnicity to be #{opts[:expected]} after saving" do
+              patient = create(
+                :patient,
+                ethnicity: Renalware::Patients::Ethnicity.find_by!(rr18_code: opts[:current]),
+                local_patient_id: "HA123",
+                by: system_user
+              )
+
+              msh = "MSH|^~\&|ADT||||20150122154918||ADT^A31|897847653|P|2.3"
+              pid = "PID||9999999999^^^NHS|HA123^^^HOSP_A~||Jones^John^^^MS||" \
+                    "20000101|M||||||||||||||" \
+                    "#{opts[:incoming]}||||||||"
+
+              hl7_message = Renalware::Feeds::HL7Message.new(::HL7::Message.new([msh, pid]))
+
+              # Sanity check of the data we are going to try and save
+              expect(hl7_message.patient_identification.ethnic_group).to eq(opts[:incoming])
+
+              # Persist the data
+              described_class.new(hl7_message).call
+
+              expect(patient.reload.ethnicity.rr18_code).to eq(opts[:expected])
+            end
+          end
         end
       end
 

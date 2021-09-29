@@ -38,6 +38,7 @@ module Renalware
               born_on: Time.zone.parse(patient_identification.dob)&.to_date,
               died_on: Time.zone.parse(patient_identification.death_date)&.to_date,
               sex: patient_identification.sex,
+              ethnicity: find_ethnicity,
               practice: find_practice(message.practice_code) || patient.practice,
               primary_care_physician: find_primary_care_physician(message.gp_code),
               **patient_identification.identifiers
@@ -69,6 +70,10 @@ module Renalware
           # then be sure to leave the patient's current gp unchanged.
           def find_primary_care_physician(code)
             Patients::PrimaryCarePhysician.find_by(code: code) || patient.primary_care_physician
+          end
+
+          def find_ethnicity
+            Patients::Ethnicity.find_by(rr18_code: patient_identification.ethnic_group)
           end
         end
       end

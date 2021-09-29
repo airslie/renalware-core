@@ -457,12 +457,12 @@ CREATE FUNCTION renalware.import_feed_practice_gps() RETURNS void
     I supopse we could do this in Rails.
   */
   UPDATE feed_practice_gps F
-  SET primary_care_physician_id = P.id
-  FROM patient_primary_care_physicians AS P WHERE P.code = F.gp_code;
+    SET primary_care_physician_id = P.id
+    FROM patient_primary_care_physicians AS P WHERE P.code = F.gp_code;
 
   UPDATE feed_practice_gps F
-  SET practice_id = P.id
-  FROM patient_practices AS P WHERE P.code = F.practice_code;
+    SET practice_id = P.id
+    FROM patient_practices AS P WHERE P.code = F.practice_code;
 
   /*
     2.

@@ -13,6 +13,8 @@ Rails.application.configure do
     Bullet.rails_logger = true
   end
 
+  config.hosts << "dev.test"
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
