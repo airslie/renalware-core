@@ -9,7 +9,7 @@ module Renalware
     describe ".active scope" do
       subject(:scope) { described_class.active }
 
-      it "asas" do
+      it do
         active_message = create(
           :system_message,
           display_from: 1.day.ago,
