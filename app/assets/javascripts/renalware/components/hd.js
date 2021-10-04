@@ -5,7 +5,7 @@ Renalware.HD = (function() {
   var pollBatchStatus = function(url) {
     var POLL_INTERVAL = 2000; // ms
     var batch = {};
-console.log("asas")
+
     // Check the current status of the TaskStatus object.
     var updateStatus = function() {
       $.ajax({

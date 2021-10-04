@@ -16,10 +16,6 @@ module Renalware
         def fetch
           raise NotImplementedError
         end
-
-        # def source
-        #   Message.for(message)
-        # end
       end
     end
   end

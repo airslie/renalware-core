@@ -80,5 +80,9 @@ FactoryBot.define do
         role { :read_only }
       end
     end
+
+    trait :system do
+      username { Renalware::SystemUser.username }
+    end
   end
 end
