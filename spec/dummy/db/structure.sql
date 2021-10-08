@@ -3858,7 +3858,8 @@ CREATE TABLE renalware.hd_profiles (
     deactivated_at timestamp without time zone,
     active boolean DEFAULT true,
     schedule_definition_id integer,
-    dialysate_id bigint
+    dialysate_id bigint,
+    scheduled_time time without time zone
 );
 
 
@@ -22613,6 +22614,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210920162339'),
 ('20210920164152'),
 ('20210920164222'),
-('20210921140641');
+('20210921140641'),
+('20211008163436');
 
 
