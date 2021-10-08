@@ -15,7 +15,7 @@ module Renalware
     # check_session_expired is defined on SessionTimeoutController
     # using this in the that controller
     #   skip_before_action :track_ahoy_visit, only: check_session_expired
-    # does not seem to work hence this global blacklist
+    # does not seem to work hence this global denylist
 
     # rubocop:disable Rails/LexicallyScopedActionFilter
     after_action :track_action, except: :status
