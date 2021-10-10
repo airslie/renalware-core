@@ -110,6 +110,12 @@ module Renalware
 
         [transport.has_transport&.text, transport.type&.text].compact.join(": ")
       end
+
+      # Although stored as a PG time data type, Rails adds a date internally when loaded from the db
+      # so make sure we display just a 24 hour time eg 08:30.
+      def scheduled_time
+        super&.strftime("%H:%M")
+      end
     end
   end
 end

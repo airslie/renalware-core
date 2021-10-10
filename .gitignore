@@ -72,3 +72,4 @@ log/.bash_history
 *.csv
 /*.pdf
 spec/dummy/yarn-error.log
+.env.development

@@ -80,7 +80,7 @@ module Renalware
       def attributes
         [
           :schedule_definition_id, :other_schedule, :hospital_unit_id, :dialysate_id,
-          :prescribed_time, :prescribed_on, :prescriber_id,
+          :scheduled_time, :prescribed_time, :prescribed_on, :prescriber_id,
           :named_nurse_id, :transport_decider_id,
           document: {}
         ]

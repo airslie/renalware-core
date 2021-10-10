@@ -13,6 +13,7 @@ en:
         hd_profile:
           title: HD Profile
           schedule: Sched
+          scheduled_time: Scheduled time
           prescribed_time: Prescribed time
           hd_type: HD Type
           named_nurse: Named nurse

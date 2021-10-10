@@ -24,6 +24,9 @@ ruby:
                 collection: profile.schedule_definitions,
                 wrapper: :horizontal_small,
                 hint: profile.schedule_hint
+      = f.input :scheduled_time,
+                as: :clock_picker,
+                wrapper: :horizontal_clockpicker
       = f.input :other_schedule,
                 wrapper: :horizontal_small
 

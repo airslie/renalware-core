@@ -9,6 +9,7 @@ module Renalware
     times = [180, 210, 240, 270]
     rates = [300, 400, 500]
     flows = [300, 400, 500]
+    scheduled_times = ["09:00", "10:00", "11:00", "12:00", "13:00", "15:00", "17:00"]
 
     Patient.transaction do
       patients = Patient.where("family_name != 'RABBIT'")
@@ -45,6 +46,7 @@ module Renalware
           by: kch_doc,
           hospital_unit: Hospitals::Unit.hd_sites.sample,
           schedule_definition: schedule_definitions.sample,
+          scheduled_time: scheduled_times.sample,
           prescribed_time: times.sample,
           prescribed_on: hd_started_on,
           prescriber: kch_doc,

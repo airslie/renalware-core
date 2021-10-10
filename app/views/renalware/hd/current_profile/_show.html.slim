@@ -23,7 +23,8 @@
           legend: "Admin", destination: "admin",
           models: { profile => [:hospital_centre,
                                 :hospital_unit,
-                                :current_schedule] }
+                                :current_schedule,
+                                :scheduled_time] }
 
       = render "renalware/shared/attributes_group",
           legend: "Transport", destination: "transport",

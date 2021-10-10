@@ -88,6 +88,7 @@ en:
         summary:
           title: "HD Profile"
           schedule: "Schedule:"
+          scheduled_time: "Scheduled time"
           hospital_unit: "Hospital unit:"
           prescribed_time: "Prescribed Time:"
           hd_type: "HD Type:"

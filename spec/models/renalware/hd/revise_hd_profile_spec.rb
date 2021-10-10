@@ -21,8 +21,15 @@ module Renalware::HD
 
       context "when updating the profile other_schedule with a valid value" do
         subject!(:revised_profile) do
-          ReviseHDProfile.new(original_profile)
-            .call(other_schedule: other_schedule, by: another_user)
+          ReviseHDProfile.new(original_profile).call(new_params)
+        end
+
+        let(:new_params) do
+          {
+            other_schedule: other_schedule,
+            scheduled_time: "12:30",
+            by: another_user
+          }
         end
 
         let(:another_user) { create(:user) }
@@ -39,7 +46,11 @@ module Renalware::HD
         end
 
         context "when nothing has changed" do
-          let(:other_schedule) { original_profile.other_schedule }
+          let(:new_params) do
+            {
+              by: another_user
+            }
+          end
 
           it "returns true" do
             expect(revised_profile).to be(true)
@@ -67,6 +78,7 @@ module Renalware::HD
           it "updates the value on the new profile" do
             active_profile = Profile.for_patient(patient).first
             expect(active_profile.other_schedule).to eq(other_schedule)
+            expect(active_profile.scheduled_time.strftime("%H:%M")).to eq("12:30")
           end
 
           it "marks the original profile as inactive" do
