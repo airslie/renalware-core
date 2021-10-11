@@ -25,7 +25,7 @@ module Renalware
         #    not need to maintain an abridgement for them, but for consistentency we do; it has
         #    advantages when trying to add a new patient in the Renalware UI - e.g. it can show you
         #    that that patient is already added because there is a patient_id on the abridgement.
-        class AddOrUpdatePatient < Command
+        class UpdatePatient < Command
           def initialize(message, mapper_factory: MessageMappers::Patient)
             @mapper_factory = mapper_factory
 
