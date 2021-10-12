@@ -38,17 +38,29 @@ module Renalware
           end
 
           it "creates the patient with an AKI modality" do
+            create(:pathology_lab, :uknown)
             create(:user, username: Renalware::SystemUser.username)
             create(:modality_description, :aki)
 
-            hl7_message = Renalware::Feeds::MessageParser.parse(raw_message)
-
             expect {
-              described_class.new.oru_message_arrived(hl7_message: hl7_message)
+              Renalware::Feeds.message_processor.call(raw_message)
             }.to change(Renalware::Patient, :count).by(1)
 
             patient = Renalware::Patient.last
             expect(patient.current_modality.description.code).to eq("aki")
+
+            # This is a bit messy as we are also tyesting the Pathology::Listener here,
+            # but we want to make sure the order of listeners is correct, so we are checking thath
+            # the Pathology::Listener fired after the AKIListener and it found the patient the
+            # AKIListener created, and saved the AKI result agains them.
+            pathology_patient = Renalware::Pathology.cast_patient(patient)
+            obrs = pathology_patient.observation_requests
+            expect(obrs.count).to eq(1)
+            obxs = obrs.first.observations
+            expect(obxs.count).to eq(1)
+            obx = obxs.first
+            expect(obx.description.code).to match(/aki/i)
+            expect(obx.result).to eq("2")
           end
         end
       end

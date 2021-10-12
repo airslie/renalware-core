@@ -41,7 +41,12 @@ Renalware.configure do |config|
     ],
     "Renalware::Pathology::CreateObservationRequests" => [],
     "Renalware::Events::CreateEvent" => [],
-    "Renalware::Events::UpdateEvent" => []
+    "Renalware::Events::UpdateEvent" => [],
+    "Renalware::Feeds::MessageProcessor" => [
+      "Renalware::Patients::Ingestion::MessageListener",
+      "Renalware::Pathology::AKIListener",
+      "Renalware::Pathology::MessageListener"
+    ]
   }
 end
 
