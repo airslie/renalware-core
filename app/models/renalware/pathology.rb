@@ -2,7 +2,6 @@
 
 require_dependency "renalware"
 require_dependency "renalware/feeds"
-require "subscription_registry"
 
 module Renalware
   module Pathology
@@ -16,13 +15,7 @@ module Renalware
       ActiveType.cast(patient, ::Renalware::Pathology::Patient)
     end
 
-    def configure
-      SubscriptionRegistry.instance.register(Feeds::MessageProcessor, MessageListener)
-      SubscriptionRegistry.instance.register(
-        Feeds::MessageProcessor,
-        Renalware::Pathology::AKIListener
-      )
-    end
+    def configure; end
 
     class MissingRequestDescriptionError < StandardError; end
 

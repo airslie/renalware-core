@@ -36,12 +36,12 @@ module Renalware
       private
 
       def assign_aki_modality_to(patient)
-        Modalities::ChangePatientModality
-          .new(patient: patient, user: SystemUser.find)
-          .call(
-            description: Modalities::Description.find_by!(code: "aki"),
-            started_on: Time.zone.now
-          )
+        cmd = Modalities::ChangePatientModality.new(patient: patient, user: SystemUser.find)
+        cmd.call(description: aki_modality_description, started_on: Time.zone.now)
+      end
+
+      def aki_modality_description
+        Renalware::Modalities::Description.find_by!("code ILIKE ?", "aki")
       end
     end
   end
