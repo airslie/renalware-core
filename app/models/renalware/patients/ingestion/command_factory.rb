@@ -12,7 +12,8 @@ module Renalware
         # rubocop:disable Metrics/CyclomaticComplexity
         # Note that for now most of these mapped methods will only try and
         # update the patient info and master patient index, and not actually
-        # try and create an admission/transfer etc
+        # try and create an admission/transfer etc. Patients only get added to RW in receipt of an
+        # HL7 pathology AKI score or HL7 ADT (or SIU) appointment message.
         def for(message)
           case message.action
           when :add_person_information    then make_add_patient(message)
@@ -33,11 +34,11 @@ module Renalware
         private
 
         def make_add_patient(message)
-          Commands::AddOrUpdatePatient.new(message)
+          Commands::UpdatePatient.new(message)
         end
 
         def make_update_patient(message)
-          Commands::AddOrUpdatePatient.new(message)
+          Commands::UpdatePatient.new(message)
         end
 
         def noop
@@ -45,37 +46,37 @@ module Renalware
         end
 
         def make_admit_patient(message)
-          Commands::AddOrUpdatePatient.new(message)
+          Commands::UpdatePatient.new(message)
           # Commands::AdmitPatient.new(message,
           #   patient_finder: make_patient_finder_with_add_if_missing)
         end
 
         def make_update_admission(message)
-          Commands::AddOrUpdatePatient.new(message)
+          Commands::UpdatePatient.new(message)
           # Commands::UpdateAdmission.new(message,
           #   admission_finder: make_admission_finder_with_logging_if_missing)
         end
 
         def make_cancel_admission(message)
-          Commands::AddOrUpdatePatient.new(message)
+          Commands::UpdatePatient.new(message)
           # Commands::CancelAdmission.new(message,
           #   admission_finder: make_admission_finder_with_logging_if_missing)
         end
 
         def make_transfer_patient(message)
-          Commands::AddOrUpdatePatient.new(message)
+          Commands::UpdatePatient.new(message)
           # Commands::TransferPatient.new(message,
           #   admission_finder: make_admission_finder_with_admit_if_missing)
         end
 
         def make_discharge_patient(message)
-          Commands::AddOrUpdatePatient.new(message)
+          Commands::UpdatePatient.new(message)
           # Commands::DischargePatient.new(message,
           #   admission_finder: make_admission_finder_with_logging_if_missing)
         end
 
         def make_cancel_discharge(message)
-          Commands::AddOrUpdatePatient.new(message)
+          Commands::UpdatePatient.new(message)
           # Commands::CancelDischarge.new(message)
         end
 

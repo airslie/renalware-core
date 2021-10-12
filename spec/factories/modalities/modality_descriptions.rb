@@ -46,5 +46,10 @@ FactoryBot.define do
       type { "Renalware::Transplants::DonorModalityDescription" }
       code { "live_donor" }
     end
+
+    trait :aki do
+      name { "AKI" }
+      code { "aki" }
+    end
   end
 end

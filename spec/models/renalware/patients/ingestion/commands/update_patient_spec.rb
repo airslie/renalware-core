@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Patients::Ingestion
-  describe Commands::AddOrUpdatePatient do
+  describe Commands::UpdatePatient do
     include HL7Helpers
     include PatientsSpecHelper
     subject(:service) { described_class }

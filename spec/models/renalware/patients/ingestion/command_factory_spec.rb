@@ -16,14 +16,14 @@ module Renalware
         # or update the master patient index.
         describe "#for" do
           {
-            update_person_information: Commands::AddOrUpdatePatient,
-            add_person_information: Commands::AddOrUpdatePatient,
-            discharge_patient: Commands::AddOrUpdatePatient,
-            admit_patient: Commands::AddOrUpdatePatient,
-            update_admission: Commands::AddOrUpdatePatient,
-            cancel_admission: Commands::AddOrUpdatePatient,
-            transfer_patient: Commands::AddOrUpdatePatient,
-            cancel_discharge: Commands::AddOrUpdatePatient
+            update_person_information: Commands::UpdatePatient,
+            add_person_information: Commands::UpdatePatient,
+            discharge_patient: Commands::UpdatePatient,
+            admit_patient: Commands::UpdatePatient,
+            update_admission: Commands::UpdatePatient,
+            cancel_admission: Commands::UpdatePatient,
+            transfer_patient: Commands::UpdatePatient,
+            cancel_discharge: Commands::UpdatePatient
           }.each do |message_type, command_class|
             context "when a #{message_type} message type" do
               subject { factory.for(message_returning_action(message_type)) }

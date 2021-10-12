@@ -11,8 +11,8 @@ module Renalware
 
         delegate :patient_identification, to: :hl7_message
 
-        def self.call(hl7_message)
-          new(hl7_message).call
+        def self.call(...)
+          new(...).call
         end
 
         def call
@@ -24,6 +24,7 @@ module Renalware
 
         private
 
+        # TODO: use locator strategy
         def find_patient_in_renalware
           ::Renalware::Patient.find_by(
             local_patient_id: patient_identification.internal_id
@@ -31,6 +32,7 @@ module Renalware
         end
 
         # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # TODO: do we need to store all the hosp numbers?
         def update_or_create_abridged_patient
           find_or_initialize_abridged_patient.update!(
             nhs_number: patient_identification.nhs_number,

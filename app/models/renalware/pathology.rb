@@ -18,6 +18,10 @@ module Renalware
 
     def configure
       SubscriptionRegistry.instance.register(Feeds::MessageProcessor, MessageListener)
+      SubscriptionRegistry.instance.register(
+        Feeds::MessageProcessor,
+        Renalware::Pathology::AKIListener
+      )
     end
 
     class MissingRequestDescriptionError < StandardError; end
