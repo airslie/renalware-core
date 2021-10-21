@@ -62,6 +62,8 @@
                     }
   / This is the one that actually gets posted
   = f.input :patient_id, as: :hidden, input_html: { id: "patient_id" }
+
+  = f.input :arrival_time, as: :clock_picker, wrapper: :horizontal_clockpicker
   = f.submit "Add for this week only", class: "button save weekly"
   | &nbsp;
   = f.submit "Add to this and all future weeks", class: "button secondary master", name: "master"

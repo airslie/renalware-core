@@ -148,6 +148,7 @@ module Renalware
           slot_params[:patient_id]
         end
 
+        # rubocop:disable Metrics/MethodLength
         def slot_params
           params
             .require(:slot)
@@ -159,9 +160,11 @@ module Renalware
               :target_diary_id,
               :change_type,
               :patient_id,
+              :arrival_time,
               patient_ids: []
             )
         end
+        # rubocop:enable Metrics/MethodLength
       end
     end
   end
