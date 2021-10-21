@@ -1,0 +1,32 @@
+= content_for(:actions) do
+  = link_to t("btn.add"),
+            new_clinic_path,
+            class: "button"
+
+= within_new_admin_layout(title: "Clinics") do
+  .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
+    i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+    ' Deleting a clinic sets the 'deleted at' date, preventing the clinic from
+    ' being used prospectively.
+
+  table
+    thead
+      tr
+        th.actions.col-width-small
+        th.col-width-medium Code
+        th Name
+        th Deleted at
+    tbody
+      - clinics.each do |clinic|
+        tr(id=dom_id(clinic) class="#{clinic.deleted? ? 'deleted' : ''}")
+          td.actions
+            - if policy(clinic).edit?
+              = link_to "Edit", edit_clinic_path(clinic)
+            - if policy(clinic).destroy?
+              = link_to "Delete",
+                        clinic_path(clinic),
+                        method: :delete,
+                        data: { confirm: "Are you sure?" }
+          td= clinic.code
+          td= clinic.name
+          td= l(clinic.deleted_at)

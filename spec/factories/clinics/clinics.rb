@@ -5,7 +5,9 @@ FactoryBot.define do
     sequence :code do |n|
       "C#{n}"
     end
-    name { "Access" }
-    association :consultant, factory: :user
+
+    sequence :name do |n|
+      "Access#{n}"
+    end
   end
 end

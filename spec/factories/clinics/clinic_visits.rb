@@ -12,6 +12,6 @@ FactoryBot.define do
     pulse { 100 }
     systolic_bp { 112 }
     diastolic_bp { 71 }
-    clinic { create(:clinic, consultant: accountable_actor) }
+    clinic { create(:clinic) }
   end
 end

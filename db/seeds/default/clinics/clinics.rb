@@ -5,9 +5,7 @@ module Renalware
     file_path = File.join(File.dirname(__FILE__), "clinics.csv")
 
     CSV.foreach(file_path, headers: true) do |row|
-      Clinics::Clinic.find_or_create_by!(name: row["name"], code: row["code"]) do |clinic|
-        clinic.consultant = SystemUser.find
-      end
+      Clinics::Clinic.find_or_create_by!(name: row["name"], code: row["code"])
     end
   end
 end

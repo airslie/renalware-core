@@ -19,7 +19,7 @@ describe "New Visit from existing Appointment", type: :system do
     context "with an appointment id passed" do
       it "pre-populates the form with the details copied from the appointment" do
         user = login_as_clinical
-        clinic = create(:clinic, consultant: user)
+        clinic = create(:clinic) # consultant: user)
         patient = Renalware::Clinics.cast_patient(create(:patient, by: user))
         appointment = create(:appointment,
                              patient: patient,

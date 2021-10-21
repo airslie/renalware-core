@@ -18,7 +18,7 @@ module Renalware
       extend Enumerize
 
       belongs_to :patient, touch: true
-      belongs_to :clinic
+      belongs_to :clinic, -> { with_deleted }
       has_many :clinic_letters # TODO: remove as possibly redundant
 
       validates :date, presence: true
@@ -35,7 +35,7 @@ module Renalware
 
       scope :ordered, -> { order(date: :desc, created_at: :desc) }
       scope :most_recent_for_patient, ->(patient) { for_patient(patient).ordered.limit(1) }
-      scope :most_recent, ->{ ordered.limit(1) }
+      scope :most_recent, -> { ordered.limit(1) }
       scope :where_weight_was_measured, -> { where("weight > 0") }
 
       before_save :calculate_body_surface_area
