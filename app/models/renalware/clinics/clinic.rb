@@ -6,6 +6,7 @@ module Renalware
   module Clinics
     class Clinic < ApplicationRecord
       validates :name, presence: true
+      validates :code, uniqueness: true
 
       scope :ordered, -> { order(name: :asc) }
 

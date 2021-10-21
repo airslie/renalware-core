@@ -2361,7 +2361,8 @@ CREATE TABLE renalware.clinic_clinics (
     name character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    user_id integer NOT NULL
+    user_id integer NOT NULL,
+    code character varying
 );
 
 
@@ -3627,6 +3628,7 @@ CREATE TABLE renalware.hd_diary_slots (
     updated_at timestamp without time zone NOT NULL,
     archived boolean DEFAULT false NOT NULL,
     archived_at timestamp without time zone,
+    arrival_time time without time zone,
     CONSTRAINT day_of_week_in_valid_range CHECK (((day_of_week >= 1) AND (day_of_week <= 7)))
 );
 
@@ -8571,7 +8573,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -8651,7 +8653,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
+  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -15008,6 +15010,13 @@ CREATE INDEX index_clinic_appointments_on_patient_id ON renalware.clinic_appoint
 --
 
 CREATE INDEX index_clinic_appointments_on_updated_by_id ON renalware.clinic_appointments USING btree (updated_by_id);
+
+
+--
+-- Name: index_clinic_clinics_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_clinic_clinics_on_code ON renalware.clinic_clinics USING btree (code);
 
 
 --
@@ -22615,6 +22624,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210920164152'),
 ('20210920164222'),
 ('20210921140641'),
-('20211008163436');
+('20211008163436'),
+('20211020092822'),
+('20211021125142');
 
 
