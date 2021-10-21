@@ -32,7 +32,7 @@ module Renalware
         # That should be transparent to us - we make the change and render
         # create.js.erb which, on the client, will cause an ajax js call to #show.
         # That secondary call is the one that refreshes the slot in the table with its latest state.
-        # We do this to avoid having to to a check (in each action in this controller) to see if we
+        # We do this to avoid having to do a check (in each action in this controller) to see if we
         # are on the master or weekly diary; if we always refresh the diary slot in the ui after any
         # action, then it will always update correctly.
         def create
@@ -80,9 +80,10 @@ module Renalware
 
         # PATCH js
         # See also comments in #create and #destroy.
+        # Here we only update the patient's arrival_time. We don't change the patient ot diary.
         def update
           authorize slot
-          slot.patient_id = slot_params[:patient_id]
+          slot.arrival_time = slot_params[:arrival_time]
           slot.save_by!(current_user)
           diary = slot.diary
           render locals: { diary: diary, slot: diary.decorate_slot(slot) }
