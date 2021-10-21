@@ -2,6 +2,9 @@
 
 FactoryBot.define do
   factory :clinic, class: "Renalware::Clinics::Clinic" do
+    sequence :code do |n|
+      "C#{n}"
+    end
     name { "Access" }
     association :consultant, factory: :user
   end
