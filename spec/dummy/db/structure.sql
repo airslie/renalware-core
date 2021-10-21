@@ -2361,7 +2361,8 @@ CREATE TABLE renalware.clinic_clinics (
     name character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    user_id integer NOT NULL
+    user_id integer NOT NULL,
+    code character varying
 );
 
 
@@ -15011,6 +15012,13 @@ CREATE INDEX index_clinic_appointments_on_updated_by_id ON renalware.clinic_appo
 
 
 --
+-- Name: index_clinic_clinics_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_clinic_clinics_on_code ON renalware.clinic_clinics USING btree (code);
+
+
+--
 -- Name: index_clinic_clinics_on_user_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -22615,6 +22623,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210920164152'),
 ('20210920164222'),
 ('20210921140641'),
-('20211008163436');
+('20211008163436'),
+('20211021125142');
 
 

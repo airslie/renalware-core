@@ -2,26 +2,10 @@
 
 module Renalware
   log "Adding Clinics" do
-    [
-      "Access",
-      "AKI",
-      "Anaemia",
-      "CAPD",
-      "CAPD Nurses",
-      "Dartford Outreach",
-      "Dietitians",
-      "Donor Clinic",
-      "Donor Screen",
-      "General Nephrology",
-      "Haemodialysis",
-      "Home Haemodialysis",
-      "Iron",
-      "Advanced Kidney Care",
-      "Transplant",
-      "Walk-in",
-      "Woolwich Outreach"
-    ].each do |name|
-      Clinics::Clinic.find_or_create_by!(name: name) do |clinic|
+    file_path = File.join(File.dirname(__FILE__), "clinics.csv")
+
+    CSV.foreach(file_path, headers: true) do |row|
+      Clinics::Clinic.find_or_create_by!(name: row["name"], code: row["code"]) do |clinic|
         clinic.consultant = SystemUser.find
       end
     end
