@@ -15,6 +15,7 @@ gem "bootsnap", require: false # speeds up rspec and rails server boot time in d
 gem "daemons", require: false # to use cmds like `bin/delayed_job start`
 gem "faker"
 gem "i18n-tasks", "~> 0.9.33"
+gem "jsbundling-rails"
 gem "nhs_api_client", github: "airslie/nhs_api_client", tag: "v0.1.2", require: false
 gem "paper_trail"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"

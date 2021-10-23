@@ -42,11 +42,7 @@
 //= require moment/moment
 //= require trix/dist/trix
 //= require_directory ./components
-
-// This next file is compiled by rollup using files in app/javascripts.
-// We need to ensure it is always up to date, perhaps using a precommit hook
-// and CI check
-//= require ./rollup_compiled
+//= require ./built
 
 // Define a console.log if one does not yet exist - e.g. we in IE11
 window.console = window.console || { log: function() {} };

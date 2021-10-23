@@ -16,10 +16,14 @@ While we could publish a js package for the host to reference in their package.j
 start to introduce new processes and checks (ie that they have the same version of both gem and
 npm package!). For the moment we are resisting this.
 
-Our basic approach is:
+Our basic is:
 
-- es6 javascript files livee in app/javascripts, including stimulus controllers
-- app/javascripts/index.js is the main file that rollupjs will process
+- es6 javascript files live in app/javascripts, including stimulus controllers
+- app/javascripts/application.js is the main file that rollupjs will process
+- rollup outputs a compiled file assets/builds/application.js. This is checked into git so that
+  a consuming app can add renalware/core to its manifest and the core.js in this project will pull
+  in the engine js assets
+- if you start the Rails app using bin/dev if will also run yarn to watch for changes.
 - if making changes to js files in this folder you'll need to run rollup using
 `rollup --config rollup.config.js -w` (the -w is for watch) or `yarn run build`.
 This will bundle the files, run them through babel so the output is IE11-compliant, run them through

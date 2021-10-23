@@ -1,5 +1,3 @@
-// import "../../assets/stylesheets/tailwind/tailwind.css"
-
 import "@stimulus/polyfills" // required for IE11 support
 import "promise-polyfill/src/polyfill"
 import "whatwg-fetch"
