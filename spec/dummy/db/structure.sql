@@ -2361,8 +2361,11 @@ CREATE TABLE renalware.clinic_clinics (
     name character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    user_id integer NOT NULL,
-    code character varying
+    user_id integer,
+    code character varying,
+    deleted_at timestamp without time zone,
+    updated_by_id bigint,
+    created_by_id bigint
 );
 
 
@@ -15019,6 +15022,27 @@ CREATE UNIQUE INDEX index_clinic_clinics_on_code ON renalware.clinic_clinics USI
 
 
 --
+-- Name: index_clinic_clinics_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_clinics_on_created_by_id ON renalware.clinic_clinics USING btree (created_by_id);
+
+
+--
+-- Name: index_clinic_clinics_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_clinics_on_deleted_at ON renalware.clinic_clinics USING btree (deleted_at);
+
+
+--
+-- Name: index_clinic_clinics_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_clinics_on_updated_by_id ON renalware.clinic_clinics USING btree (updated_by_id);
+
+
+--
 -- Name: index_clinic_clinics_on_user_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -20309,6 +20333,14 @@ ALTER TABLE ONLY renalware.patients
 
 
 --
+-- Name: clinic_clinics fk_rails_76f414c91a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinic_clinics
+    ADD CONSTRAINT fk_rails_76f414c91a FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: letter_letters fk_rails_774d7e4879; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -21509,6 +21541,14 @@ ALTER TABLE ONLY renalware.pathology_requests_global_rule_sets
 
 
 --
+-- Name: clinic_clinics fk_rails_e60b8ec1ee; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinic_clinics
+    ADD CONSTRAINT fk_rails_e60b8ec1ee FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: pathology_code_groups fk_rails_e70dca7225; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -22624,6 +22664,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210920164222'),
 ('20210921140641'),
 ('20211008163436'),
-('20211021125142');
+('20211021125142'),
+('20211021151707');
 
 

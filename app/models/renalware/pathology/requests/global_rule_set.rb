@@ -11,7 +11,7 @@ module Renalware
         has_many :rules, as: :rule_set, class_name: "GlobalRule"
 
         belongs_to :request_description
-        belongs_to :clinic, class_name: "Clinics::Clinic"
+        belongs_to :clinic, -> { with_deleted }, class_name: "Clinics::Clinic"
         validates :request_description, presence: true
         validates :clinic, presence: true
         validate :constrain_request_description
