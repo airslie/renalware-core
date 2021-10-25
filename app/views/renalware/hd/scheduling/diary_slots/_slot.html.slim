@@ -6,7 +6,7 @@ td*{ "data-slot-id" => slot.id.present? && slot.id,
      "style" => defined?(animate) && animate && "animation: highlight 1.5s" }
 
   - if slot.patient.present?
-    = link_to slot.patient.to_s,
+    = link_to slot,
               edit_hd_scheduling_diary_slot_path(diary_id: slot.diary_id, id: slot.id),
               class: "button diary__button diary__target",
               title: slot.patient,

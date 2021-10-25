@@ -3631,6 +3631,7 @@ CREATE TABLE renalware.hd_diary_slots (
     updated_at timestamp without time zone NOT NULL,
     archived boolean DEFAULT false NOT NULL,
     archived_at timestamp without time zone,
+    arrival_time time without time zone,
     CONSTRAINT day_of_week_in_valid_range CHECK (((day_of_week >= 1) AND (day_of_week <= 7)))
 );
 
@@ -22665,6 +22666,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210920164222'),
 ('20210921140641'),
 ('20211008163436'),
+('20211020092822'),
 ('20211021125142'),
 ('20211021151707');
 

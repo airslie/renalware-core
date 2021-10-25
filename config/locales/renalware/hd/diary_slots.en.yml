@@ -1,10 +1,9 @@
 ---
 en:
-  renalware:
-    hd:
-      scheduling:
-        diary_slot:
   activerecord:
+    attributes:
+      renalware/hd/scheduling/diary_slot:
+        arrival_time: Planned arrival time
     errors:
       models:
         renalware/hd/scheduling/diary_slot:
