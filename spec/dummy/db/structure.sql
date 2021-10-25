@@ -17364,35 +17364,35 @@ CREATE UNIQUE INDEX index_patients_on_legacy_patient_id ON renalware.patients US
 -- Name: index_patients_on_local_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id ON renalware.patients USING btree (local_patient_id);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id ON renalware.patients USING btree (local_patient_id);
 
 
 --
 -- Name: index_patients_on_local_patient_id_2; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id_2 ON renalware.patients USING btree (local_patient_id_2);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id_2 ON renalware.patients USING btree (local_patient_id_2);
 
 
 --
 -- Name: index_patients_on_local_patient_id_3; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id_3 ON renalware.patients USING btree (local_patient_id_3);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id_3 ON renalware.patients USING btree (local_patient_id_3);
 
 
 --
 -- Name: index_patients_on_local_patient_id_4; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id_4 ON renalware.patients USING btree (local_patient_id_4);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id_4 ON renalware.patients USING btree (local_patient_id_4);
 
 
 --
 -- Name: index_patients_on_local_patient_id_5; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id_5 ON renalware.patients USING btree (local_patient_id_5);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id_5 ON renalware.patients USING btree (local_patient_id_5);
 
 
 --
@@ -22658,6 +22658,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210723131206'),
 ('20210812011726'),
 ('20210812011910'),
+('20210818142811'),
 ('20210903123803'),
 ('20210920153420'),
 ('20210920162339'),

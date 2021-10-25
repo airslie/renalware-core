@@ -408,6 +408,8 @@ GEM
       character_set (~> 1.4)
       regexp_parser (~> 1.8, >= 1.8.2)
       regexp_property_values (~> 1.0)
+    jsbundling-rails (0.1.9)
+      railties (>= 6.0.0)
     json (2.5.1)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -770,6 +772,7 @@ DEPENDENCIES
   fuubar
   httparty
   i18n-tasks (~> 0.9.33)
+  jsbundling-rails
   launchy
   nhs_api_client!
   paper_trail
@@ -808,4 +811,4 @@ RUBY VERSION
    ruby 3.0.1p64
 
 BUNDLED WITH
-   2.2.25
+   2.2.29
