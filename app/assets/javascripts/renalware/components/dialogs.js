@@ -20,6 +20,7 @@ $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
   };
   // Refresh layout of foundation widgets
   $(document).foundation('reflow');
+  initClockpickersIn("body");
 
   var resizeSelect2DropDownsToFitModal = function(){
     $('.select2', modal).css('width', "100%");

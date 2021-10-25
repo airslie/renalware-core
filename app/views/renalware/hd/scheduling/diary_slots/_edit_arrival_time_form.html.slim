@@ -1,0 +1,14 @@
+= simple_form_for(slot,
+                  url: hd_scheduling_diary_slot_path(slot.diary, slot),
+                  html: { id: "slot-arrival-time-form", autocomplete: "off" },
+                  as: :slot,
+                  remote: true,
+                  method: :patch,
+                  wrapper: :bare) do |f|
+  = f.input :patient_id, as: :hidden
+
+  .row
+    .columns.small-8
+      = f.input :arrival_time, as: :clock_picker, wrapper: :horizontal_clockpicker
+    .columns.small-4
+      = f.submit "Update", class: "button secondary", wrapper: :bare

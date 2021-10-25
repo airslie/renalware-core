@@ -82,6 +82,20 @@ module Renalware
         def cell_id
           "#{diurnal_period_code&.id}-#{station&.id}-#{day_of_week}"
         end
+
+        def to_s
+          return "" unless patient
+
+          "#{patient} #{formatted_arrival_time}".strip
+        end
+
+        private
+
+        def formatted_arrival_time
+          return unless arrival_time
+
+          "(#{arrival_time.strftime('%H:%M')})"
+        end
       end
     end
   end

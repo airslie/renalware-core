@@ -3631,6 +3631,7 @@ CREATE TABLE renalware.hd_diary_slots (
     updated_at timestamp without time zone NOT NULL,
     archived boolean DEFAULT false NOT NULL,
     archived_at timestamp without time zone,
+    arrival_time time without time zone,
     CONSTRAINT day_of_week_in_valid_range CHECK (((day_of_week >= 1) AND (day_of_week <= 7)))
 );
 
@@ -17371,35 +17372,35 @@ CREATE UNIQUE INDEX index_patients_on_legacy_patient_id ON renalware.patients US
 -- Name: index_patients_on_local_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id ON renalware.patients USING btree (local_patient_id);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id ON renalware.patients USING btree (local_patient_id);
 
 
 --
 -- Name: index_patients_on_local_patient_id_2; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id_2 ON renalware.patients USING btree (local_patient_id_2);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id_2 ON renalware.patients USING btree (local_patient_id_2);
 
 
 --
 -- Name: index_patients_on_local_patient_id_3; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id_3 ON renalware.patients USING btree (local_patient_id_3);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id_3 ON renalware.patients USING btree (local_patient_id_3);
 
 
 --
 -- Name: index_patients_on_local_patient_id_4; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id_4 ON renalware.patients USING btree (local_patient_id_4);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id_4 ON renalware.patients USING btree (local_patient_id_4);
 
 
 --
 -- Name: index_patients_on_local_patient_id_5; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_patients_on_local_patient_id_5 ON renalware.patients USING btree (local_patient_id_5);
+CREATE UNIQUE INDEX index_patients_on_local_patient_id_5 ON renalware.patients USING btree (local_patient_id_5);
 
 
 --
@@ -22665,6 +22666,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210723131206'),
 ('20210812011726'),
 ('20210812011910'),
+('20210818142811'),
 ('20210903123803'),
 ('20210920153420'),
 ('20210920162339'),
@@ -22672,6 +22674,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210920164222'),
 ('20210921140641'),
 ('20211008163436'),
+('20211020092822'),
 ('20211021125142'),
 ('20211021151707'),
 ('20211022063251');
