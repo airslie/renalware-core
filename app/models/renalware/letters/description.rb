@@ -5,11 +5,11 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class Description < ApplicationRecord
-      validates :text, presence: true
+      include Sortable
+      acts_as_paranoid
+      validates :text, presence: true, uniqueness: true
 
-      has_many :letters, dependent: :restrict_with_exception
-
-      scope :ordered, -> { order(position: :asc, text: :asc) }
+      scope :ordered, -> { order(deleted_at: :desc, position: :asc, text: :asc) }
     end
   end
 end

@@ -22,6 +22,9 @@ resources :patients, only: [] do
 end
 
 namespace :letters do
+  resources :descriptions do
+    post :sort, on: :collection
+  end
   resources :mailshots, only: [:create, :new, :index], controller: "mailshots/mailshots"
   namespace :mailshots do
     resources :patient_previews, only: :index

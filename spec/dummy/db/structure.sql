@@ -4834,7 +4834,8 @@ CREATE TABLE renalware.letter_descriptions (
     text character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    "position" integer DEFAULT 0 NOT NULL
+    "position" integer DEFAULT 0 NOT NULL,
+    deleted_at timestamp without time zone
 );
 
 
@@ -16206,6 +16207,13 @@ CREATE UNIQUE INDEX index_letter_contacts_on_person_id_and_patient_id ON renalwa
 
 
 --
+-- Name: index_letter_descriptions_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_descriptions_on_deleted_at ON renalware.letter_descriptions USING btree (deleted_at);
+
+
+--
 -- Name: index_letter_electronic_receipts_on_letter_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -22668,6 +22676,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211008163436'),
 ('20211020092822'),
 ('20211021125142'),
-('20211021151707');
+('20211021151707'),
+('20211022063251');
 
 
