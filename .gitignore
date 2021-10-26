@@ -69,7 +69,5 @@ spec/dummy/storage/**/*
 /spec/dummy/public/renalware-core-packs
 log/.bash_history
 /*.pdf
-*.csv
-/*.pdf
 spec/dummy/yarn-error.log
 .env.development
