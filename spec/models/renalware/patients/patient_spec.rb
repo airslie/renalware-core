@@ -14,17 +14,60 @@ module Renalware
       aggregate_failures do
         is_expected.to be_versioned
         is_expected.to have_db_index(:ukrdc_external_id)
+        is_expected.to have_db_index(:local_patient_id).unique(true)
+        is_expected.to have_db_index(:local_patient_id_2).unique(true)
+        is_expected.to have_db_index(:local_patient_id_3).unique(true)
+        is_expected.to have_db_index(:local_patient_id_4).unique(true)
+        is_expected.to have_db_index(:local_patient_id_5).unique(true)
       end
     end
 
     it_behaves_like "Personable"
     it_behaves_like "an Accountable model"
 
+    describe "handing blank local_patient_id* attributes" do
+      it "local_patient_id" do
+        expect(
+          create(:patient, local_patient_id: "", local_patient_id_2: "A123")
+        ).to have_attributes(local_patient_id: nil)
+      end
+
+      it "ids 2 to 5" do
+        expect(
+          create(
+            :patient,
+            by: user,
+            local_patient_id_2: "",
+            local_patient_id_3: "",
+            local_patient_id_4: "",
+            local_patient_id_5: ""
+          )).to have_attributes(
+            local_patient_id_2: nil,
+            local_patient_id_3: nil,
+            local_patient_id_4: nil,
+            local_patient_id_5: nil
+          )
+      end
+
+      it "does not accidentally clear ids that have a value (belt and braces)" do
+        ids = {
+          local_patient_id: "1",
+          local_patient_id_2: "2",
+          local_patient_id_3: "3",
+          local_patient_id_4: "4",
+          local_patient_id_5: "5"
+        }
+        patient = create(:patient, by: user, **ids)
+        expect(patient).to have_attributes(ids)
+      end
+    end
+
     describe "uniqueness of patient identifiers" do
       subject(:patient) {
         build(
           :patient,
           nhs_number: "9999999999",
+          by: user,
           local_patient_id: "1",
           local_patient_id_2: "2",
           local_patient_id_3: "3",
@@ -139,8 +182,8 @@ module Renalware
         end
 
         let(:error_message) {
-          "The patient must have at least one of these numbers: "\
-          "HOSP1, HOSP2, HOSP3, HOSP4, HOSP5, Other Hospital Number"
+          "The patient must have at least one of these numbers: " \
+            "HOSP1, HOSP2, HOSP3, HOSP4, HOSP5, Other Hospital Number"
         }
 
         context "when the patient has no local_patient_id" do
