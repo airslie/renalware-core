@@ -18,6 +18,7 @@ module Renalware
     # is a default new uuid value on the secure_id column
     before_create { self.secure_id ||= SecureRandom.uuid }
     before_save :upcase_local_patient_ids
+    before_save :nullify_unused_patient_ids
     # before_validation :strip_spaces_from_nhs_number
     friendly_id :secure_id, use: [:finders]
 
@@ -195,6 +196,14 @@ module Renalware
       attr_name = :"local_patient_id_#{index}"
       id_value = send(attr_name)
       send("#{attr_name}=", id_value.upcase) if id_value.present?
+    end
+
+    def nullify_unused_patient_ids
+      self.local_patient_id   = nil if local_patient_id.blank?
+      self.local_patient_id_2 = nil if local_patient_id_2.blank?
+      self.local_patient_id_3 = nil if local_patient_id_3.blank?
+      self.local_patient_id_4 = nil if local_patient_id_4.blank?
+      self.local_patient_id_5 = nil if local_patient_id_5.blank?
     end
 
     def has_title?
