@@ -7,6 +7,7 @@ resources :patients, only: [] do
 end
 
 namespace :renal do
+  resources :consultants
   resources :aki_alerts, only: [:edit, :update, :index]
   resources :registry_preflight_checks, only: [] do
     collection do

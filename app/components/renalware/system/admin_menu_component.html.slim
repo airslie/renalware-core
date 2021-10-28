@@ -8,6 +8,7 @@ ul.side-nav.side-nav--admin(data-controller="collapsible-DISABLED" data-collapsi
   = admin_menu_item "Users", renalware.admin_users_path, %r{renalware/admin/users}
   = super_admin_menu_item "Event Types", renalware.events_types_path, %r{events/types}
   = super_admin_menu_item "Clinics", renalware.clinics_path, %r{clinics}
+  = super_admin_menu_item "Consultants", renalware.renal_consultants_path, %r{renal/consultant}
   = super_admin_menu_item "Drugs", renalware.drugs_drugs_path, %r{drugs/drugs}
   = super_admin_menu_item "Modalities", renalware.modalities_descriptions_path, %r{modalities/descriptions}
   li= link_to "PD", "#", data: { action: "collapsible#open", collapsible_target: "link" }

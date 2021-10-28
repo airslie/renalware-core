@@ -1,0 +1,45 @@
+= content_for(:actions) do
+  = link_to t("btn.add"),
+            new_renal_consultant_path,
+            class: "button"
+
+= within_new_admin_layout(title: "Consultants") do
+  .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
+    i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+    ' These consultants are referenced with creating a clinic appointment, but are
+    ' not neccessarily Renalware users.
+    br
+    ' When an HL7 clinic appointment messages (ADT^A05) arrives, the consultant code found in the
+    ' message is used to look up a consult from this list.
+    '
+    br
+    ' Deleting a consultant sets the 'deleted at' date, preventing the consultant from
+    ' being used prospectively.
+
+  table
+    thead
+      tr
+        th.actions.col-width-small
+        th.col-width-medium Code
+        th Name
+        th Telephone
+        th Clinic appointments
+        th Latest clinic appointment
+        th Deleted at
+    tbody
+      - consultants.each do |consultant|
+        tr(id=dom_id(consultant) class="#{consultant.deleted? ? 'deleted' : ''}")
+          td.actions
+            - if policy(consultant).edit?
+              = link_to "Edit", edit_renal_consultant_path(consultant)
+            - if policy(consultant).destroy?
+              = link_to "Delete",
+                        renal_consultant_path(consultant),
+                        method: :delete,
+                        data: { confirm: "Are you sure?" }
+          td= consultant.code
+          td= consultant.name
+          td= consultant.telephone
+          td= Renalware::Clinics::Appointment.where(consultant_id: consultant.id).count
+          td= l(Renalware::Clinics::Appointment.where(consultant_id: consultant.id).maximum(:starts_at))
+          td= l(consultant.deleted_at)

@@ -8,7 +8,7 @@ module Renalware
       include Accountable
       belongs_to :patient, touch: true
       belongs_to :clinic, -> { with_deleted }
-      belongs_to :consultant
+      belongs_to :consultant, -> { with_deleted }
 
       validates :starts_at, presence: true
       validates :patient_id, presence: true
