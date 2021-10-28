@@ -7,7 +7,13 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       def index
-        clinics = Clinic.with_deleted.ordered
+        clinics = Clinic
+          .with_deleted
+          .ordered
+          .select("clinic_clinics.*")
+          .with_last_clinic_visit_date
+          .with_last_appointment_time
+
         authorize clinics
         render locals: { clinics: clinics }
       end

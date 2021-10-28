@@ -15,6 +15,8 @@
         th.actions.col-width-small
         th.col-width-medium Code
         th Name
+        th Last Clinic Appointment
+        th Last Clinic Visit
         th Deleted at
     tbody
       - clinics.each do |clinic|
@@ -29,4 +31,6 @@
                         data: { confirm: "Are you sure?" }
           td= clinic.code
           td= clinic.name
+          td= l(clinic.last_clinic_appointment)
+          td= l(clinic.last_clinic_visit)
           td= l(clinic.deleted_at)
