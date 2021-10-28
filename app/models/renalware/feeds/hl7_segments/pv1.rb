@@ -5,7 +5,7 @@ require_dependency "renalware/feeds"
 module Renalware
   module Feeds
     module HL7Segments
-      # PatientVisit1 segment eg witrh
+      # PatientVisit1 segment
       class PV1 < SimpleDelegator
         class Clinic
           def initialize(field)

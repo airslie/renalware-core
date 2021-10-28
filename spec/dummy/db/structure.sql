@@ -2328,7 +2328,8 @@ CREATE TABLE renalware.clinic_appointments (
     consultant_id bigint,
     clinic_description text,
     updated_by_id bigint,
-    created_by_id bigint
+    created_by_id bigint,
+    visit_number text
 );
 
 
@@ -15017,6 +15018,13 @@ CREATE INDEX index_clinic_appointments_on_updated_by_id ON renalware.clinic_appo
 
 
 --
+-- Name: index_clinic_appointments_on_visit_number; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_appointments_on_visit_number ON renalware.clinic_appointments USING btree (visit_number);
+
+
+--
 -- Name: index_clinic_clinics_on_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -22679,6 +22687,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211021125142'),
 ('20211021151707'),
 ('20211022063251'),
+('20211028142853'),
 ('20211029105908');
 
 

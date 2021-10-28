@@ -133,6 +133,10 @@ module Renalware
         Renalware::Feeds::HL7Segments::PV1.new(self[:PV1])
       end
 
+      def pv2
+        Renalware::Feeds::HL7Segments::PV2.new(self[:PV2])
+      end
+
       def type
         self[:MSH].message_type
       end
