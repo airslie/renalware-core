@@ -129,6 +129,10 @@ module Renalware
         Renalware::Feeds::PatientIdentification.new(self[:PID])
       end
 
+      def pv1
+        Renalware::Feeds::HL7Segments::PV1.new(self[:PV1])
+      end
+
       def type
         self[:MSH].message_type
       end
