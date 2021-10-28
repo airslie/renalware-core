@@ -7,8 +7,8 @@ module Renalware
     class Appointment < ApplicationRecord
       include Accountable
       belongs_to :patient, touch: true
-      belongs_to :clinic, -> { with_deleted }
       belongs_to :consultant, -> { with_deleted }
+      belongs_to :clinic, -> { with_deleted }, counter_cache: true
 
       validates :starts_at, presence: true
       validates :patient_id, presence: true

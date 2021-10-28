@@ -1,7 +1,8 @@
 = content_for(:actions) do
-  = link_to t("btn.add"),
-            new_renal_consultant_path,
-            class: "button"
+  - if policy(consultants).create?
+    = link_to t("btn.add"),
+              new_renal_consultant_path,
+              class: "button"
 
 = within_new_admin_layout(title: "Consultants") do
   .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5

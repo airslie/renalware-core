@@ -6,11 +6,14 @@ module Renalware
   module Clinics
     class ClinicPolicy < BasePolicy
       def index?
-        user_is_super_admin?
+        user_is_admin?
       end
       alias show? index?
-      alias update? index?
-      alias new? index?
+
+      def new?
+        user_is_super_admin?
+      end
+      alias create? new?
 
       def edit?
         return false unless record.persisted?
@@ -18,6 +21,7 @@ module Renalware
 
         user_is_super_admin?
       end
+      alias update? edit?
       alias destroy? edit?
     end
   end

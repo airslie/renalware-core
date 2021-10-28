@@ -2366,7 +2366,9 @@ CREATE TABLE renalware.clinic_clinics (
     code character varying,
     deleted_at timestamp without time zone,
     updated_by_id bigint,
-    created_by_id bigint
+    created_by_id bigint,
+    appointments_count integer DEFAULT 0,
+    clinic_visits_count integer DEFAULT 0
 );
 
 
@@ -15032,7 +15034,7 @@ CREATE INDEX index_clinic_appointments_on_visit_number ON renalware.clinic_appoi
 -- Name: index_clinic_clinics_on_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE UNIQUE INDEX index_clinic_clinics_on_code ON renalware.clinic_clinics USING btree (code);
+CREATE UNIQUE INDEX index_clinic_clinics_on_code ON renalware.clinic_clinics USING btree (code) WHERE (deleted_at IS NULL);
 
 
 --
@@ -22744,6 +22746,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211022063251'),
 ('20211028142853'),
 ('20211028160832'),
+('20211028165711'),
+('20211028185908'),
+('20211028195511'),
 ('20211029105908');
 
 

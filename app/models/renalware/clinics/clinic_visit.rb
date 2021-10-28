@@ -18,7 +18,7 @@ module Renalware
       extend Enumerize
 
       belongs_to :patient, touch: true
-      belongs_to :clinic, -> { with_deleted }
+      belongs_to :clinic, -> { with_deleted }, counter_cache: true
       has_many :clinic_letters # TODO: remove as possibly redundant
 
       validates :date, presence: true
