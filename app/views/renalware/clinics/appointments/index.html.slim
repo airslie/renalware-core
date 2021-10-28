@@ -15,6 +15,8 @@
                     label: "Consultant")
         .medium-3.large-3.columns.actions.end
           = f.submit t("btn.filter"), class: "button"
+          '  or
+          = link_to t("btn.reset"), renalware.appointments_path
 
 = content_for(:actions) do
   = link_to t("btn.add"),
