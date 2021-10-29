@@ -28,7 +28,8 @@ module Renalware::Feeds::HL7Segments
         family_name: "Smith",
         given_name: "Francis",
         title: "MR",
-        type: "SDSID"
+        type: "SDSID",
+        name: "MR Francis Smith"
       )
     end
 

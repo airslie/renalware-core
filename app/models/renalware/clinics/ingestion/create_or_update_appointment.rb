@@ -39,7 +39,9 @@ module Renalware
         end
 
         def rwconsultant
-          @rwconsultant ||= Consultant.find_by(code: consulting_doctor.code)
+          @rwconsultant ||= Consultant.find_or_create_by!(code: consulting_doctor.code) do |cons|
+            cons.name = consulting_doctor.name
+          end
         end
       end
     end

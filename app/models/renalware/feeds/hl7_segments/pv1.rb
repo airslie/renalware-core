@@ -38,6 +38,10 @@ module Renalware
             fields.first
           end
 
+          def name
+            [title, given_name, family_name].reject(&:blank?).join(" ")
+          end
+
           def family_name
             fields[1]
           end
