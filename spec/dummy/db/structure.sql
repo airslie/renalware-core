@@ -2390,6 +2390,37 @@ ALTER SEQUENCE renalware.clinic_clinics_id_seq OWNED BY renalware.clinic_clinics
 
 
 --
+-- Name: clinic_consultants; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.clinic_consultants (
+    id bigint NOT NULL,
+    code character varying,
+    name character varying,
+    telephone character varying
+);
+
+
+--
+-- Name: clinic_consultants_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.clinic_consultants_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clinic_consultants_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.clinic_consultants_id_seq OWNED BY renalware.clinic_consultants.id;
+
+
+--
 -- Name: clinic_versions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8401,37 +8432,6 @@ ALTER SEQUENCE renalware.renal_aki_alerts_id_seq OWNED BY renalware.renal_aki_al
 
 
 --
--- Name: renal_consultants; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.renal_consultants (
-    id bigint NOT NULL,
-    code character varying,
-    name character varying,
-    telephone character varying
-);
-
-
---
--- Name: renal_consultants_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE renalware.renal_consultants_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: renal_consultants_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE renalware.renal_consultants_id_seq OWNED BY renalware.renal_consultants.id;
-
-
---
 -- Name: renal_prd_descriptions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -11305,6 +11305,13 @@ ALTER TABLE ONLY renalware.clinic_clinics ALTER COLUMN id SET DEFAULT nextval('r
 
 
 --
+-- Name: clinic_consultants id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinic_consultants ALTER COLUMN id SET DEFAULT nextval('renalware.clinic_consultants_id_seq'::regclass);
+
+
+--
 -- Name: clinic_versions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -12292,13 +12299,6 @@ ALTER TABLE ONLY renalware.renal_aki_alerts ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- Name: renal_consultants id; Type: DEFAULT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.renal_consultants ALTER COLUMN id SET DEFAULT nextval('renalware.renal_consultants_id_seq'::regclass);
-
-
---
 -- Name: renal_prd_descriptions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -12850,6 +12850,14 @@ ALTER TABLE ONLY renalware.clinic_appointments
 
 ALTER TABLE ONLY renalware.clinic_clinics
     ADD CONSTRAINT clinic_clinics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: clinic_consultants clinic_consultants_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinic_consultants
+    ADD CONSTRAINT clinic_consultants_pkey PRIMARY KEY (id);
 
 
 --
@@ -13989,14 +13997,6 @@ ALTER TABLE ONLY renalware.renal_aki_alerts
 
 
 --
--- Name: renal_consultants renal_consultants_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.renal_consultants
-    ADD CONSTRAINT renal_consultants_pkey PRIMARY KEY (id);
-
-
---
 -- Name: renal_prd_descriptions renal_prd_descriptions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -15049,6 +15049,13 @@ CREATE INDEX index_clinic_clinics_on_updated_by_id ON renalware.clinic_clinics U
 --
 
 CREATE INDEX index_clinic_clinics_on_user_id ON renalware.clinic_clinics USING btree (user_id);
+
+
+--
+-- Name: index_clinic_consultants_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_clinic_consultants_on_name ON renalware.clinic_consultants USING btree (name);
 
 
 --
@@ -17950,13 +17957,6 @@ CREATE INDEX index_renal_aki_alerts_on_updated_by_id ON renalware.renal_aki_aler
 
 
 --
--- Name: index_renal_consultants_on_name; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_renal_consultants_on_name ON renalware.renal_consultants USING btree (name);
-
-
---
 -- Name: index_renal_profiles_on_document; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -20186,7 +20186,7 @@ ALTER TABLE ONLY renalware.letter_signatures
 --
 
 ALTER TABLE ONLY renalware.pathology_requests_requests
-    ADD CONSTRAINT fk_rails_617c726b94 FOREIGN KEY (consultant_id) REFERENCES renalware.renal_consultants(id);
+    ADD CONSTRAINT fk_rails_617c726b94 FOREIGN KEY (consultant_id) REFERENCES renalware.clinic_consultants(id);
 
 
 --
@@ -21658,7 +21658,7 @@ ALTER TABLE ONLY renalware.pd_peritonitis_episodes
 --
 
 ALTER TABLE ONLY renalware.clinic_appointments
-    ADD CONSTRAINT fk_rails_f37cb95f48 FOREIGN KEY (consultant_id) REFERENCES renalware.renal_consultants(id);
+    ADD CONSTRAINT fk_rails_f37cb95f48 FOREIGN KEY (consultant_id) REFERENCES renalware.clinic_consultants(id);
 
 
 --
@@ -22678,6 +22678,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211020092822'),
 ('20211021125142'),
 ('20211021151707'),
-('20211022063251');
+('20211022063251'),
+('20211029105908');
 
 

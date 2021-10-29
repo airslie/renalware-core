@@ -12,7 +12,7 @@ end
 
 Given("the following consultants:") do |table|
   table.raw.flatten.each do |name|
-    FactoryBot.create(:renal_consultant, name: name, code: SecureRandom.uuid)
+    FactoryBot.create(:consultant, name: name, code: SecureRandom.uuid)
   end
 end
 

@@ -3,7 +3,7 @@
 module Renalware
   log "Adding Appointments" do
     file_path = File.join(File.dirname(__FILE__), "appointments.csv")
-    consultants = Renal::Consultant.all
+    consultants = Clinics::Consultant.all
     user = User.first
     count = 0
     CSV.foreach(file_path, headers: true) do |row|

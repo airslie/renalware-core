@@ -41,7 +41,7 @@ module Renalware
             :new,
             locals: local_vars.merge(
               all_clinics: Renalware::Pathology::Clinic.for_algorithm,
-              all_consultants: Renalware::Renal::Consultant.ordered,
+              all_consultants: Renalware::Clinics::Consultant.ordered,
               all_templates: Renalware::Pathology::Requests::Request::TEMPLATES
             )
           )

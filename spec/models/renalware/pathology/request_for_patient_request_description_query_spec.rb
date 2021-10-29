@@ -5,7 +5,7 @@ require "rails_helper"
 describe Renalware::Pathology::RequestForPatientRequestDescriptionQuery do
   let(:clinic) { create(:clinic) }
   let(:patient) { create(:pathology_patient) }
-  let(:consultant) { create(:renal_consultant) }
+  let(:consultant) { create(:consultant) }
   let(:request_description) { create(:pathology_request_description, code: "XYZ") }
   let(:request_description_unrelated) { create(:pathology_request_description, code: "ABC") }
 

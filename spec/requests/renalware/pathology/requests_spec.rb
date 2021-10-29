@@ -9,13 +9,13 @@ describe "Configuring Requests" do
         :pathology_requests_request,
         clinic: create(:clinic),
         patient: create(:pathology_patient),
-        consultant: create(:renal_consultant)
+        consultant: create(:consultant)
       )
       create(
         :pathology_requests_request,
         clinic: create(:clinic),
         patient: create(:pathology_patient),
-        consultant: create(:renal_consultant)
+        consultant: create(:consultant)
       )
 
       get pathology_requests_requests_path
@@ -30,7 +30,7 @@ describe "Configuring Requests" do
         :pathology_requests_request,
         clinic: create(:clinic),
         patient: create(:pathology_patient),
-        consultant: create(:renal_consultant)
+        consultant: create(:consultant)
       )
 
       get pathology_requests_request_path(id: request.id, format: "pdf")
