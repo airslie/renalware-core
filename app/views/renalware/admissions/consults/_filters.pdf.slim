@@ -1,5 +1,5 @@
 // Compile a summary of filters applied. Leave out anything not set.
-- filters = params.fetch(:q, {}).reject{ |key, value| value.blank? }
+- filters = params.fetch(:q, {}).reject { |key, value| value.blank? }
 
 .filter-summary
   table

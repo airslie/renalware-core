@@ -106,7 +106,9 @@ module World
         def expect_patient_summary_to_match_table(request_forms, patient, expected_values)
           request_form = find_request_form_for_patient(request_forms, patient)
 
-          expected_values.each do |key, expected_value|
+          expected_values
+            .except("consultant_code")
+            .each do |key, expected_value|
             expected_value = nil if expected_value.blank?
 
             expect(request_form.send(key.to_sym).to_s).to eq(expected_value.to_s)
@@ -277,7 +279,7 @@ module World
         #
         def expect_patient_summary_to_match_table(_request_forms, patient, expected_values)
           expected_values
-            .reject{ |key, val| key == "consultant_code" }
+            .except("consultant_code")
             .each do |key, expected_value|
 
             xpath = <<-ELEMENT.squish
