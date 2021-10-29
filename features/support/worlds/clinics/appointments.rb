@@ -12,7 +12,10 @@ module World
             table_row["starts_at_date"],
             table_row["starts_at_time"]
           )
-          consultant = find_or_create_consultant_for_appointment(table_row["consultant"])
+          consultant = find_or_create_consultant_for_appointment(
+            table_row["consultant"],
+            table_row["consultant_code"]
+          )
           clinic = find_or_create_clinic_for_appointment(table_row["clinic"])
           patient = find_or_create_patient_by_name(table_row["patient"])
 
@@ -54,8 +57,8 @@ module World
           Renalware::Clinics::Clinic.find_or_create_by!(name: clinic_name)
         end
 
-        def find_or_create_consultant_for_appointment(name)
-          FactoryBot.create(:consultant, name: name)
+        def find_or_create_consultant_for_appointment(name, code)
+          FactoryBot.create(:consultant, name: name, code: code)
         end
       end
 

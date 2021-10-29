@@ -17,10 +17,11 @@ Feature: Printing a request form
       | test_description | Test for HepB |
       | frequency_type   | Always        |
     And Patty has a request form generated with parameters:
-      | clinic     | Transplant |
-      | consultant | Dr Hibbert |
-      | telephone  | 0161932263 |
-      | template   | manual     |
+      | clinic          | Transplant |
+      | consultant      | Dr Hibbert |
+      | consultant_code | 999        |
+      | telephone       | 0161932263 |
+      | template        | manual     |
 
   @web
   Scenario: A clinician prints a request form
@@ -28,6 +29,7 @@ Feature: Printing a request form
     Then Patty has the request recorded and printed:
       | clinic               | Transplant    |
       | consultant           | Dr Hibbert    |
+      | consultant_code      | 999           |
       | telephone            | 0161932263    |
       | template             | manual        |
       | request_descriptions | BFF, MAL      |
@@ -42,6 +44,7 @@ Feature: Printing a request form
     Then Patty has the request recorded and printed:
       | clinic               | Transplant    |
       | consultant           | Dr Hibbert    |
+      | consultant_code      | 999           |
       | telephone            | 0161932263    |
       | template             | manual        |
       | request_descriptions | BFF, MAL      |

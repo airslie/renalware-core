@@ -128,7 +128,7 @@ describe "manage appointments via HL7 ADT messages" do
         msg = hl7_message_from_file("clinics/ADT_A05_create_appointment", data)
         create(:patient, nhs_number: nhs_number, local_patient_id: local_patient_id)
         create(:clinic, code: clinic_code)
-        create(:renal_consultant, code: consultant_code)
+        create(:consultant, code: consultant_code)
 
         expect {
           Renalware::Clinics::Ingestion::CreateOrUpdateAppointment.call(msg)

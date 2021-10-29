@@ -3,7 +3,7 @@
 require_dependency "renalware/clinics"
 
 module Renalware
-  module Renal
+  module Clinics
     class ConsultantPolicy < BasePolicy
       def index?
         user_is_any_admin?

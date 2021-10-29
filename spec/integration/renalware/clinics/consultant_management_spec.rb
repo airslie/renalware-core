@@ -9,11 +9,11 @@ describe "Consultant management", type: :system do
     login_as_super_admin
 
     consultants = [
-      create(:renal_consultant, code: "C1", name: "Consultant1", by: user),
-      create(:renal_consultant, code: "C2", name: "Consultant2", by: user)
+      create(:consultant, code: "C1", name: "Consultant1", by: user),
+      create(:consultant, code: "C2", name: "Consultant2", by: user)
     ]
 
-    visit renal_consultants_path
+    visit consultants_path
 
     expect(page).to have_content("Consultants")
 
@@ -26,7 +26,7 @@ describe "Consultant management", type: :system do
   it "enables me to add a consultant" do
     login_as_super_admin
 
-    visit renal_consultants_path
+    visit consultants_path
 
     within(".page-heading") do
       click_on "Add"
@@ -37,8 +37,8 @@ describe "Consultant management", type: :system do
     fill_in "Telephone", with: "000"
     click_on "Create"
 
-    expect(Renalware::Renal::Consultant.count).to eq(1)
-    expect(Renalware::Renal::Consultant.first).to have_attributes(
+    expect(Renalware::Clinics::Consultant.count).to eq(1)
+    expect(Renalware::Clinics::Consultant.first).to have_attributes(
       name: "Consultant1",
       code: "C1",
       telephone: "000"
@@ -48,11 +48,11 @@ describe "Consultant management", type: :system do
   it "enables me to edit a consultant" do
     login_as_super_admin
 
-    consultant = create(:renal_consultant, name: "Name1", code: "Code1", telephone: "00")
+    consultant = create(:consultant, name: "Name1", code: "Code1", telephone: "00")
 
-    visit renal_consultants_path
+    visit consultants_path
 
-    within("#renal_consultant_#{consultant.id}") do
+    within("#clinics_consultant_#{consultant.id}") do
       click_on "Edit"
     end
 
@@ -71,15 +71,15 @@ describe "Consultant management", type: :system do
   it "enables me to soft delete a consultant" do
     login_as_super_admin
 
-    consultant = create(:renal_consultant, name: "Name1", code: "Code1")
+    consultant = create(:consultant, name: "Name1", code: "Code1")
 
-    visit renal_consultants_path
+    visit consultants_path
 
-    within("#renal_consultant_#{consultant.id}") do
+    within("#clinics_consultant_#{consultant.id}") do
       click_on "Delete"
     end
 
-    deleted_consultant = Renalware::Renal::Consultant.with_deleted.find(consultant.id)
+    deleted_consultant = Renalware::Clinics::Consultant.with_deleted.find(consultant.id)
     expect(deleted_consultant.deleted_at).not_to be_nil
   end
 end

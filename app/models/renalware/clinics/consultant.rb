@@ -13,19 +13,19 @@ module Renalware
 
       scope :ordered, -> { order(deleted_at: :desc, name: :asc) }
       scope :with_appointment_fields, lambda {
-        select("renal_consultants.*")
+        select("clinic_consultants.*")
         .select(<<-SQL.squish)
           (
             SELECT max(clinic_appointments.starts_at)
             FROM clinic_appointments
-            WHERE clinic_appointments.consultant_id = renal_consultants.id
+            WHERE clinic_appointments.consultant_id = clinic_consultants.id
           ) AS last_clinic_appointment
         SQL
         .select(<<-SQL.squish)
           (
             SELECT count(clinic_appointments.id)
             FROM clinic_appointments
-            WHERE clinic_appointments.consultant_id = renal_consultants.id
+            WHERE clinic_appointments.consultant_id = clinic_consultants.id
           ) AS appointments_count
         SQL
       }

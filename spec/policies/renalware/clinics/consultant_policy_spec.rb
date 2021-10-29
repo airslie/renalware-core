@@ -2,8 +2,9 @@
 
 require "rails_helper"
 
+# rubocop:disable RSpec/RepeatedDescription
 module Renalware
-  module Renal
+  module Clinics
     describe ConsultantPolicy, type: :policy do
       include PolicySpecHelper
       subject { described_class }
@@ -50,3 +51,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable RSpec/RepeatedDescription

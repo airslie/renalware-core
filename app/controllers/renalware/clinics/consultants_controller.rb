@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_dependency("renalware/renal")
+require_dependency("renalware/clinics")
 
 module Renalware
-  module Renal
+  module Clinics
     class ConsultantsController < BaseController
       def index
         consultants = Consultant
@@ -24,7 +24,7 @@ module Renalware
         consultant = Consultant.new(consultant_params.merge(by: current_user))
         authorize consultant
         if consultant.save
-          redirect_to renal_consultants_path
+          redirect_to consultants_path
         else
           render "new", locals: { consultant: consultant }
         end
@@ -37,7 +37,7 @@ module Renalware
       def update
         consultant = find_and_authorise_consultant
         if consultant.update(consultant_params.merge(by: current_user))
-          redirect_to renal_consultants_path
+          redirect_to consultants_path
         else
           render "edit", locals: { consultant: consultant }
         end
@@ -47,7 +47,7 @@ module Renalware
         consultant = find_and_authorise_consultant
         consultant.update!(by: current_user)
         consultant.destroy
-        redirect_to renal_consultants_path, notice: success_msg_for("consultant")
+        redirect_to consultants_path, notice: success_msg_for("consultant")
       end
 
       private

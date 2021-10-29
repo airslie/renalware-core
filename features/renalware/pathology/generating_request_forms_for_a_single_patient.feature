@@ -35,18 +35,19 @@ Feature: Generating request forms for a single patient
   @web
   Scenario: A clinician generated the forms for a single patient and requests a specific doctor, clinic and telephone number
     When Clyde generates the request form for Patty with the following parameters:
-     | param      | value         |
-     | consultant | Zoe Zimmerman |
-     | clinic     | Transplant    |
-     | telephone  | 7983123123    |
-     | template   | manual        |
+     | param            | value         |
+     | consultant       | Zoe Zimmerman |
+     | consultant_code  | 678           |
+     | clinic           | Transplant    |
+     | telephone        | 7983123123    |
+     | template         | manual        |
     Then Clyde sees these details at the top of Patty's form
       | patient_name    | PATTY THEPATIENT |
       | date            | 12-Oct-2016       |
       | date_of_birth   | 25-Dec-1961       |
       | consultant      | Zoe Zimmerman    |
+      | consultant_code | 678    |
       | telephone       | 7983123123       |
     And Clyde sees the following pathology requirements for Patty:
       | global_pathology  | BFF           |
       | patient_pathology | Test for HepB |
-

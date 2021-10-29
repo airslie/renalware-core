@@ -8,6 +8,7 @@ Given("Patty has a request form generated with parameters:") do |table|
     @clyde,
     clinic: params[:clinic],
     consultant: params[:consultant],
+    consultant_code: params[:consultant_code],
     telephone: params[:telephone],
     template: params[:template],
     patients: [pathology_patient]

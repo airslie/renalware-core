@@ -1,7 +1,7 @@
 = content_for(:actions) do
   - if policy(consultants).create?
     = link_to t("btn.add"),
-              new_renal_consultant_path,
+              new_consultant_path,
               class: "button"
 
 = within_new_admin_layout(title: "Consultants") do
@@ -41,10 +41,10 @@
           td.actions
             = link_to_if_allowed policy(consultant).edit?,
                                   "Edit",
-                                  edit_renal_consultant_path(consultant)
+                                  edit_consultant_path(consultant)
             = link_to_if_allowed policy(consultant).destroy?,
                                   "Delete",
-                                  renal_consultant_path(consultant),
+                                  consultant_path(consultant),
                                   method: :delete,
                                   data: { confirm: "Are you sure?" }
           td= consultant.code

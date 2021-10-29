@@ -39,7 +39,7 @@ module Renalware
         end
 
         def rwconsultant
-          @rwconsultant ||= Renal::Consultant.find_by(code: consulting_doctor.code)
+          @rwconsultant ||= Consultant.find_by(code: consulting_doctor.code)
         end
       end
     end
