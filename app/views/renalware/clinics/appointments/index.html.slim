@@ -11,7 +11,7 @@
           = f.input :clinic_id_eq, collection: clinics, label: "Clinic"
         .medium-3.large-3.columns
           = f.input(:consultant_id_eq,
-                    collection: Renalware::Renal::Consultant.pluck(:name, :id),
+                    collection: Renalware::Clinics::Consultant.pluck(:name, :id),
                     label: "Consultant")
         .medium-3.large-3.columns.actions.end
           = f.submit t("btn.filter"), class: "button"

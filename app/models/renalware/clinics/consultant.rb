@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/renal"
+require_dependency "renalware/clinics"
 
 module Renalware
-  module Renal
+  module Clinics
     class Consultant < ApplicationRecord
       validates :name, presence: true
       scope :ordered, -> { order(name: :asc) }

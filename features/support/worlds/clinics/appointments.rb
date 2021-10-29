@@ -55,7 +55,7 @@ module World
         end
 
         def find_or_create_consultant_for_appointment(name)
-          FactoryBot.create(:renal_consultant, name: name)
+          FactoryBot.create(:consultant, name: name)
         end
       end
 

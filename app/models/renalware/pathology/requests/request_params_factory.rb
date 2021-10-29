@@ -49,11 +49,11 @@ module Renalware
         def requested_consultant
           return if params[:consultant_id].blank?
 
-          Renalware::Renal::Consultant.find(params[:consultant_id])
+          Renalware::Clinics::Consultant.find(params[:consultant_id])
         end
 
         def default_consultant
-          Renalware::Renal::Consultant.ordered.first
+          Renalware::Clinics::Consultant.ordered.first
         end
 
         def requested_telephone

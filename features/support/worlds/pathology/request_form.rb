@@ -60,7 +60,7 @@ module World
           Renalware::Pathology::Requests::Request.create!(
             patient: Renalware::Pathology.cast_patient(patient),
             clinic: Renalware::Clinics::Clinic.first,
-            consultant: FactoryBot.create(:renal_consultant),
+            consultant: FactoryBot.create(:consultant),
             telephone: "123",
             by: Renalware::SystemUser.find,
             patient_rules: patient_rules,
@@ -83,7 +83,7 @@ module World
           Renalware::Pathology::Requests::Request.create!(
             patient: Renalware::Pathology.cast_patient(params[:patient]),
             clinic: Renalware::Clinics::Clinic.first,
-            consultant: FactoryBot.create(:renal_consultant),
+            consultant: FactoryBot.create(:consultant),
             telephone: "123",
             template: Renalware::Pathology::Requests::Request::TEMPLATES.first,
             by: Renalware::SystemUser.find,
@@ -214,7 +214,7 @@ module World
         def find_or_create_requested_consultant(name)
           return if name.blank?
 
-          Renalware::Renal::Consultant.find_or_create_by(
+          Renalware::Clinics::Consultant.find_or_create_by(
             name: name
           )
         end
