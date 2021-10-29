@@ -6,12 +6,18 @@ module Renalware
   module Clinics
     class ConsultantsController < BaseController
       def index
-        consultants = Consultant
+        query = params.fetch(:q, {})
+        query[:s] ||= "name"
+
+        search = Consultant
           .with_deleted
           .ordered
           .with_appointment_fields
+          .ransack(query)
+
+        consultants = search.result
         authorize consultants
-        render locals: { consultants: consultants }
+        render locals: { consultants: consultants, search: search }
       end
 
       def new

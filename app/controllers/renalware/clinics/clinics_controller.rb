@@ -7,15 +7,20 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       def index
-        clinics = Clinic
+        query = params.fetch(:q, {})
+        query[:s] ||= "name"
+
+        search = Clinic
           .with_deleted
           .ordered
           .select("clinic_clinics.*")
           .with_last_clinic_visit_date
           .with_last_appointment_time
+          .ransack(query)
 
+        clinics = search.result
         authorize clinics
-        render locals: { clinics: clinics }
+        render locals: { clinics: clinics, search: search }
       end
 
       def new
