@@ -12,7 +12,8 @@ module Renalware
         search = Consultant
           .with_deleted
           .ordered
-          .with_appointment_fields
+          .select("clinic_consultants.*")
+          .with_last_appointment_date
           .ransack(query)
 
         consultants = search.result

@@ -32,7 +32,7 @@
         th= sort_link(search, :name)
         th Telephone
         th.col-width-date-time= sort_link(search, :deleted_at)
-        th.bg-pink-100 Count
+        th.bg-pink-100= sort_link(search, :appointments_count, "Count")
         th.bg-pink-100.col-width-date-time Latest
 
     tbody
@@ -52,4 +52,4 @@
           td= consultant.telephone
           td= l(consultant.deleted_at)
           td.bg-pink-100= consultant.appointments_count
-          td.bg-pink-100= l(consultant.last_clinic_appointment)
+          td.bg-pink-100= l(consultant.last_appointment_date)
