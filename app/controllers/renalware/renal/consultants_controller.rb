@@ -6,7 +6,10 @@ module Renalware
   module Renal
     class ConsultantsController < BaseController
       def index
-        consultants = Consultant.with_deleted.ordered
+        consultants = Consultant
+          .with_deleted
+          .ordered
+          .with_appointment_fields
         authorize consultants
         render locals: { consultants: consultants }
       end
