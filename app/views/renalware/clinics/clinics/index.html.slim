@@ -32,13 +32,12 @@
       - clinics.each do |clinic|
         tr(id=dom_id(clinic) class="#{clinic.deleted? ? 'deleted' : ''}")
           td.actions
-            - if policy(clinic).edit?
-              = link_to "Edit", edit_clinic_path(clinic)
-            - if policy(clinic).destroy?
-              = link_to "Delete",
-                        clinic_path(clinic),
-                        method: :delete,
-                        data: { confirm: "Are you sure?" }
+            = link_to_if_allowed policy(clinic).edit?, "Edit", edit_clinic_path(clinic)
+            = link_to_if_allowed policy(clinic).destroy?,
+                                 "Delete",
+                                 clinic_path(clinic),
+                                 method: :delete,
+                                 data: { confirm: "Are you sure?" }
           td= clinic.code
           td= clinic.name
           td= l(clinic.deleted_at)

@@ -20,27 +20,36 @@
   table
     thead
       tr
+        th
+        th
+        th
+        th
+        th
+        th.text-center.bg-pink-100(colspan=2) Appointments
+      tr
         th.actions.col-width-small
         th.col-width-medium Code
         th Name
         th Telephone
-        th Clinic appointments
-        th Latest clinic appointment
-        th Deleted at
+        th.col-width-date-time Deleted at
+        th.bg-pink-100 Count
+        th.bg-pink-100.col-width-date-time Latest
+
     tbody
       - consultants.each do |consultant|
         tr(id=dom_id(consultant) class="#{consultant.deleted? ? 'deleted' : ''}")
           td.actions
-            - if policy(consultant).edit?
-              = link_to "Edit", edit_renal_consultant_path(consultant)
-            - if policy(consultant).destroy?
-              = link_to "Delete",
-                        renal_consultant_path(consultant),
-                        method: :delete,
-                        data: { confirm: "Are you sure?" }
+            = link_to_if_allowed policy(consultant).edit?,
+                                  "Edit",
+                                  edit_renal_consultant_path(consultant)
+            = link_to_if_allowed policy(consultant).destroy?,
+                                  "Delete",
+                                  renal_consultant_path(consultant),
+                                  method: :delete,
+                                  data: { confirm: "Are you sure?" }
           td= consultant.code
           td= consultant.name
           td= consultant.telephone
-          td= Renalware::Clinics::Appointment.where(consultant_id: consultant.id).count
-          td= l(Renalware::Clinics::Appointment.where(consultant_id: consultant.id).maximum(:starts_at))
           td= l(consultant.deleted_at)
+          td.bg-pink-100= consultant.appointments_count
+          td.bg-pink-100= l(consultant.last_clinic_appointment)
