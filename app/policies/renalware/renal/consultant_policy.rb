@@ -6,7 +6,7 @@ module Renalware
   module Renal
     class ConsultantPolicy < BasePolicy
       def index?
-        user_is_admin?
+        user_is_any_admin?
       end
       alias show? index?
 
