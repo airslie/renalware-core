@@ -1,7 +1,8 @@
 = content_for(:actions) do
-  = link_to t("btn.add"),
-            new_letters_description_path,
-            class: "button"
+  - if policy(descriptions).new?
+    = link_to t("btn.add"),
+              new_letters_description_path,
+              class: "button"
 
 = within_new_admin_layout(title: "Letter Descriptions") do
   .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
@@ -16,23 +17,26 @@
       tr
         th.col-width-small
         th.col-width-xlarge Name
-        th.col-width-small.text-center Sort order
+        - if policy(descriptions).sort?
+          th.col-width-small.text-center Sort order
         th.col-width-date-time Created at
         th Deleted at
     tbody.sortables(data-rel=sort_letters_descriptions_path)
       - descriptions.each do |description|
         tr(id=dom_id(description) class="sortable #{description.deleted? ? 'deleted' : ''}")
           td.actions
-            - if policy(description).edit?
-               = link_to t("btn.edit"), edit_letters_description_path(description)
-            - if policy(description).destroy?
-              = link_to t("btn.delete"),
-                        letters_description_path(description),
-                        method: :delete,
-                        data: { confirm: "Are you sure?" }
+            = link_to_if_allowed policy(description).edit?,
+                                 t("btn.edit"),
+                                 edit_letters_description_path(description)
+            = link_to_if_allowed policy(description).destroy?,
+                                 t("btn.delete"),
+                                 letters_description_path(description),
+                                 method: :delete,
+                                 data: { confirm: "Are you sure?" }
           td= description.text
-          td.handle
-            - unless description.deleted?
-              i.fas.fa-bars
+          - if policy(description).sort?
+            td.handle
+              - unless description.deleted?
+                i.fas.fa-bars
           td= l(description.created_at)
           td= l(description.deleted_at)

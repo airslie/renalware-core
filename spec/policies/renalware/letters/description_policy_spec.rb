@@ -13,6 +13,16 @@ module Renalware
       let(:super_admin) { user_double_with_role(:super_admin) }
       let(:description) { instance_double(Description, deleted?: false) }
 
+      [:show?, :index?].each do |permission|
+        permissions permission do
+          it "applies permission correctly", :aggregate_failures do
+            is_expected.not_to permit(clinician, description)
+            is_expected.to permit(admin, description)
+            is_expected.to permit(super_admin, description)
+          end
+        end
+      end
+
       context "when the description is not deleted" do
         [:new?, :create?, :edit?, :update?, :destroy?].each do |permission|
           permissions permission do
