@@ -18,3 +18,28 @@ table#archived_problems {
     background-color: #ccfeff;
   }
 }
+
+/* Problem lists lookup */
+strong.snomed_id {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.select2-container--default {
+  .problem-option {
+    font-family: 'Courier New', Courier, monospace;
+    margin-left: 1rem;
+  }
+
+  .problem-freetext-option {
+    font-style: italic;
+    color: $mid-grey;
+    margin-left: 1rem;
+  }
+
+  .select2-results__option--highlighted[aria-selected] {
+    .problem-option,
+    .problem-freetext-option {
+      color: $off-white;
+    }
+  }
+}

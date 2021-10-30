@@ -140,6 +140,14 @@ Renalware.Problems = {
 
 Renalware.ProblemSearch = (function() {
 
+  var template = function (d) {
+    if (typeof d.code !== 'undefined') {
+      return d.text + " <span class='problem-option'>" + d.code + "</span>";
+    } else {
+      return d.text + " <span class='problem-freetext-option'>free text</span>";
+    }
+  }
+
   var initProblemSearch = function(){
     var dropDown = $(".problem-ajax-search");
 
@@ -171,6 +179,8 @@ Renalware.ProblemSearch = (function() {
         },
         cache: true
       },
+      templateResult: template,
+      escapeMarkup: function(markup) { return markup; },
       minimumInputLength: 3
     });
   };
