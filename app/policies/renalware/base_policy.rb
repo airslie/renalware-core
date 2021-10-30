@@ -61,6 +61,10 @@ module Renalware
       end
     end
 
+    def user_is_any_admin?
+      user_is_super_admin? || user_is_admin? || user_is_devops?
+    end
+
     private
 
     attr_reader :permission_configuration

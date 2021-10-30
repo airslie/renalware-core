@@ -1,0 +1,52 @@
+# frozen_string_literal: true
+
+require_dependency "renalware/clinics"
+
+module Renalware
+  module Clinics
+    module Ingestion
+      module Commands
+        class CreateOrUpdateAppointment
+          pattr_initialize :message
+          delegate :patient_identification, :pv1, :pv2, to: :message
+          delegate :clinic, :visit_number, :consulting_doctor, to: :pv1
+          delegate :expected_admit_date, to: :pv2
+
+          def self.call(message)
+            new(message).call
+          end
+
+          # If we match incomining clinic code then we create an appointment. This might mean
+          # creating the patient and consultant JIT if they do not yet exist in Renalware.
+          def call
+            return if rwclinic.blank?
+
+            Appointment.create!(
+              patient: Clinics.cast_patient(find_or_create_patient),
+              starts_at: expected_admit_date,
+              clinic: rwclinic,
+              consultant: rwconsultant,
+              visit_number: visit_number
+            )
+          end
+
+          def find_or_create_patient
+            # This is the standard A28/31 add/update command which will find or add the patient
+            # using the contents of the PID segment
+            Patients::Ingestion::Commands::AddPatient.call(message)
+          end
+
+          def rwclinic
+            @rwclinic ||= Clinic.find_by(code: clinic.code)
+          end
+
+          def rwconsultant
+            @rwconsultant ||= Consultant.find_or_create_by!(code: consulting_doctor.code) do |cons|
+              cons.name = consulting_doctor.name
+            end
+          end
+        end
+      end
+    end
+  end
+end

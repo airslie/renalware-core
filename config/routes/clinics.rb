@@ -7,3 +7,4 @@ end
 resources :appointments, controller: "clinics/appointments", only: [:new, :create, :index]
 resources :clinic_visits, only: :index, controller: "clinics/visits"
 resources :clinics, controller: "clinics/clinics"
+resources :consultants, controller: "clinics/consultants"

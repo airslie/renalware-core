@@ -44,8 +44,9 @@ Renalware.configure do |config|
     "Renalware::Events::UpdateEvent" => [],
     "Renalware::Feeds::MessageProcessor" => [
       "Renalware::Patients::Ingestion::MessageListener",
-      "Renalware::Pathology::AKIListener",
-      "Renalware::Pathology::MessageListener"
+      "Renalware::Pathology::Ingestion::AKIListener",
+      "Renalware::Pathology::Ingestion::MessageListener",
+      "Renalware::Clinics::Ingestion::MessageListener"
     ]
   }
 end

@@ -8,7 +8,10 @@ module World
         #
         def extract_request_form_params(form_params)
           clinic = find_requested_clinic(form_params[:clinic])
-          consultant = find_or_create_requested_consultant(form_params[:consultant])
+          consultant = find_or_create_requested_consultant(
+            form_params[:consultant],
+            form_params[:consultant_code]
+          )
           patients = find_requested_patients(form_params[:patients])
           telephone = form_params[:telephone]
 
@@ -103,7 +106,9 @@ module World
         def expect_patient_summary_to_match_table(request_forms, patient, expected_values)
           request_form = find_request_form_for_patient(request_forms, patient)
 
-          expected_values.each do |key, expected_value|
+          expected_values
+            .except("consultant_code")
+            .each do |key, expected_value|
             expected_value = nil if expected_value.blank?
 
             expect(request_form.send(key.to_sym).to_s).to eq(expected_value.to_s)
@@ -169,7 +174,10 @@ module World
         def expect_request_form_recorded(patient, params)
           patient = Renalware::Pathology.cast_patient(patient)
           clinic = find_requested_clinic(params[:clinic])
-          consultant = find_or_create_requested_consultant(params[:consultant])
+          consultant = find_or_create_requested_consultant(
+            params[:consultant],
+            params[:consultant_code]
+          )
           request_descriptions =
             params[:request_descriptions].split(", ").map do |request_description_code|
               Renalware::Pathology::RequestDescription.find_or_create_by(
@@ -211,12 +219,10 @@ module World
           Renalware::Clinics::Clinic.find_by!(name: clinic_name)
         end
 
-        def find_or_create_requested_consultant(name)
-          return if name.blank?
+        def find_or_create_requested_consultant(name, code)
+          return if name.blank? || code.blank?
 
-          Renalware::Clinics::Consultant.find_or_create_by(
-            name: name
-          )
+          Renalware::Clinics::Consultant.find_or_create_by!(name: name, code: code)
         end
 
         def find_requested_patients(patients)
@@ -239,7 +245,10 @@ module World
         def generate_request_forms_for_single_patient(clinician, params)
           patients = find_requested_patients(params[:patients])
           clinic = find_requested_clinic(params[:clinic])
-          consultant = find_or_create_requested_consultant(params[:consultant])
+          consultant = find_or_create_requested_consultant(
+            params[:consultant],
+            params[:consultant_code]
+          )
           telephone = params[:telephone]
 
           login_as clinician
@@ -269,7 +278,10 @@ module World
         # @section expectations
         #
         def expect_patient_summary_to_match_table(_request_forms, patient, expected_values)
-          expected_values.each do |key, expected_value|
+          expected_values
+            .except("consultant_code")
+            .each do |key, expected_value|
+
             xpath = <<-ELEMENT.squish
               //div[data-patient-id='#{patient.id}']
               [data-role='form_summary']

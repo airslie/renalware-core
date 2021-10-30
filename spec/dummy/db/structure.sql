@@ -2328,7 +2328,8 @@ CREATE TABLE renalware.clinic_appointments (
     consultant_id bigint,
     clinic_description text,
     updated_by_id bigint,
-    created_by_id bigint
+    created_by_id bigint,
+    visit_number text
 );
 
 
@@ -2365,7 +2366,9 @@ CREATE TABLE renalware.clinic_clinics (
     code character varying,
     deleted_at timestamp without time zone,
     updated_by_id bigint,
-    created_by_id bigint
+    created_by_id bigint,
+    appointments_count integer DEFAULT 0,
+    clinic_visits_count integer DEFAULT 0
 );
 
 
@@ -2397,7 +2400,11 @@ CREATE TABLE renalware.clinic_consultants (
     id bigint NOT NULL,
     code character varying,
     name character varying,
-    telephone character varying
+    telephone character varying,
+    deleted_at timestamp without time zone,
+    updated_by_id bigint,
+    created_by_id bigint,
+    appointments_count integer DEFAULT 0
 );
 
 
@@ -15017,10 +15024,17 @@ CREATE INDEX index_clinic_appointments_on_updated_by_id ON renalware.clinic_appo
 
 
 --
+-- Name: index_clinic_appointments_on_visit_number; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_appointments_on_visit_number ON renalware.clinic_appointments USING btree (visit_number);
+
+
+--
 -- Name: index_clinic_clinics_on_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE UNIQUE INDEX index_clinic_clinics_on_code ON renalware.clinic_clinics USING btree (code);
+CREATE UNIQUE INDEX index_clinic_clinics_on_code ON renalware.clinic_clinics USING btree (code) WHERE (deleted_at IS NULL);
 
 
 --
@@ -15052,10 +15066,38 @@ CREATE INDEX index_clinic_clinics_on_user_id ON renalware.clinic_clinics USING b
 
 
 --
+-- Name: index_clinic_consultants_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_clinic_consultants_on_code ON renalware.clinic_consultants USING btree (code) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: index_clinic_consultants_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_consultants_on_created_by_id ON renalware.clinic_consultants USING btree (created_by_id);
+
+
+--
+-- Name: index_clinic_consultants_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_consultants_on_deleted_at ON renalware.clinic_consultants USING btree (deleted_at);
+
+
+--
 -- Name: index_clinic_consultants_on_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE UNIQUE INDEX index_clinic_consultants_on_name ON renalware.clinic_consultants USING btree (name);
+CREATE UNIQUE INDEX index_clinic_consultants_on_name ON renalware.clinic_consultants USING btree (name) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: index_clinic_consultants_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_consultants_on_updated_by_id ON renalware.clinic_consultants USING btree (updated_by_id);
 
 
 --
@@ -20046,6 +20088,14 @@ ALTER TABLE ONLY renalware.admission_requests
 
 
 --
+-- Name: clinic_consultants fk_rails_553d00e0f9; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinic_consultants
+    ADD CONSTRAINT fk_rails_553d00e0f9 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: hd_sessions fk_rails_563fedb262; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -21227,6 +21277,14 @@ ALTER TABLE ONLY renalware.pathology_code_group_memberships
 
 ALTER TABLE ONLY renalware.hd_profiles
     ADD CONSTRAINT fk_rails_c89b2174e9 FOREIGN KEY (hospital_unit_id) REFERENCES renalware.hospital_units(id);
+
+
+--
+-- Name: clinic_consultants fk_rails_ca15ceb91b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinic_consultants
+    ADD CONSTRAINT fk_rails_ca15ceb91b FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -22679,6 +22737,13 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211021125142'),
 ('20211021151707'),
 ('20211022063251'),
-('20211029105908');
+('20211028142853'),
+('20211028160832'),
+('20211028165711'),
+('20211028185908'),
+('20211028195511'),
+('20211029105908'),
+('20211029134250'),
+('20211029134446');
 
 

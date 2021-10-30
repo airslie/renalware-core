@@ -19,6 +19,8 @@ module Renalware
         "ADT^A02" => :transfer_patient,
         "ADT^A03" => :discharge_patient,
         "ADT^A11" => :cancel_admission,
+        "ADT^A05" => :schedule_new_appointmment,
+        "ADT^A38" => :cancel_appointment,
         "MFN^M02" => :add_consultant, # no
         "ADT^A34" => :merge_patient, # no
         "ADT^A13" => :cancel_discharge,
@@ -127,6 +129,14 @@ module Renalware
 
       def patient_identification
         Renalware::Feeds::PatientIdentification.new(self[:PID])
+      end
+
+      def pv1
+        Renalware::Feeds::HL7Segments::PV1.new(self[:PV1])
+      end
+
+      def pv2
+        Renalware::Feeds::HL7Segments::PV2.new(self[:PV2])
       end
 
       def type

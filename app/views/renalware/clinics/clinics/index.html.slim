@@ -1,7 +1,8 @@
 = content_for(:actions) do
-  = link_to t("btn.add"),
-            new_clinic_path,
-            class: "button"
+  - if policy(clinics).create?
+    = link_to t("btn.add"),
+              new_clinic_path,
+              class: "button"
 
 = within_new_admin_layout(title: "Clinics") do
   .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
@@ -12,21 +13,35 @@
   table
     thead
       tr
+        th
+        th
+        th
+        th
+        th.text-center.bg-pink-100(colspan=2) Appointments
+        th.text-center.bg-green-100(colspan=2) Clinic Visits
+      tr
         th.actions.col-width-small
-        th.col-width-medium Code
-        th Name
-        th Deleted at
+        th.col-width-medium= sort_link(search, :code)
+        th= sort_link(search, :name)
+        th.col-width-date-time= sort_link(search, :deleted_at)
+        th.bg-pink-100= sort_link(search, :appointments_count, "Count")
+        th.col-width-date-time.bg-pink-100 Last
+        th.bg-green-100= sort_link(search, :clinic_visits_count, "Count")
+        th.bg-green-100.col-width-date-time Last
     tbody
       - clinics.each do |clinic|
         tr(id=dom_id(clinic) class="#{clinic.deleted? ? 'deleted' : ''}")
           td.actions
-            - if policy(clinic).edit?
-              = link_to "Edit", edit_clinic_path(clinic)
-            - if policy(clinic).destroy?
-              = link_to "Delete",
-                        clinic_path(clinic),
-                        method: :delete,
-                        data: { confirm: "Are you sure?" }
+            = link_to_if_allowed policy(clinic).edit?, "Edit", edit_clinic_path(clinic)
+            = link_to_if_allowed policy(clinic).destroy?,
+                                 "Delete",
+                                 clinic_path(clinic),
+                                 method: :delete,
+                                 data: { confirm: "Are you sure?" }
           td= clinic.code
           td= clinic.name
           td= l(clinic.deleted_at)
+          td.bg-pink-100= clinic.appointments_count
+          td.bg-pink-100= l(clinic.last_clinic_appointment)
+          td.bg-green-100= clinic.clinic_visits_count
+          td.bg-green-100= l(clinic.last_clinic_visit)

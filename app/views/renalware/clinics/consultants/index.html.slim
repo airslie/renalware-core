@@ -1,0 +1,55 @@
+= content_for(:actions) do
+  - if policy(consultants).create?
+    = link_to t("btn.add"),
+              new_consultant_path,
+              class: "button"
+
+= within_new_admin_layout(title: "Consultants") do
+  .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
+    i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+    ' These consultants are referenced with creating a clinic appointment, but are
+    ' not neccessarily Renalware users.
+    br
+    ' When an HL7 clinic appointment messages (ADT^A05) arrives, the consultant code found in the
+    ' message is used to look up a consult from this list.
+    '
+    br
+    ' Deleting a consultant sets the 'deleted at' date, preventing the consultant from
+    ' being used prospectively.
+
+  table
+    thead
+      tr
+        th
+        th
+        th
+        th
+        th
+        th.text-center.bg-pink-100(colspan=2) Appointments
+      tr
+        th.actions.col-width-small
+        th.col-width-medium= sort_link(search, :code)
+        th= sort_link(search, :name)
+        th Telephone
+        th.col-width-date-time= sort_link(search, :deleted_at)
+        th.bg-pink-100= sort_link(search, :appointments_count, "Count")
+        th.bg-pink-100.col-width-date-time Latest
+
+    tbody
+      - consultants.each do |consultant|
+        tr(id=dom_id(consultant) class="#{consultant.deleted? ? 'deleted' : ''}")
+          td.actions
+            = link_to_if_allowed policy(consultant).edit?,
+                                  "Edit",
+                                  edit_consultant_path(consultant)
+            = link_to_if_allowed policy(consultant).destroy?,
+                                  "Delete",
+                                  consultant_path(consultant),
+                                  method: :delete,
+                                  data: { confirm: "Are you sure?" }
+          td= consultant.code
+          td= consultant.name
+          td= consultant.telephone
+          td= l(consultant.deleted_at)
+          td.bg-pink-100= consultant.appointments_count
+          td.bg-pink-100= l(consultant.last_appointment_date)
