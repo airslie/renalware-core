@@ -19,6 +19,8 @@ module Renalware
         "ADT^A02" => :transfer_patient,
         "ADT^A03" => :discharge_patient,
         "ADT^A11" => :cancel_admission,
+        "ADT^A05" => :schedule_new_appointmment,
+        "ADT^A38" => :cancel_appointment,
         "MFN^M02" => :add_consultant, # no
         "ADT^A34" => :merge_patient, # no
         "ADT^A13" => :cancel_discharge,

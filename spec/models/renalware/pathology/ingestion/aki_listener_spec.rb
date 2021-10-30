@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Pathology
-    describe AKIListener do
+    describe Ingestion::AKIListener do
       subject(:listener) { described_class.new }
 
       describe "#oru_message_arrived" do

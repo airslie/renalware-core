@@ -42,9 +42,9 @@ module Renalware
         private
 
         def born_on
-          return if @patient_identification.born_on.blank?
+          return if patient_identification.born_on.blank?
 
-          Date.parse(@patient_identification.born_on)
+          Date.parse(patient_identification.born_on)
         end
       end
     end

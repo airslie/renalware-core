@@ -27,7 +27,7 @@ module Renalware
             return if ENV.key?("ADT_SKIP_UPDATE_PATIENT")
 
             patient = find_patient
-            return if patient.present?
+            return patient if patient.present?
 
             patient = mapper_factory.new(message, patient).fetch
             patient.by = SystemUser.find
