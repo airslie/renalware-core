@@ -66,6 +66,10 @@ module Renalware
         )
       end
 
+      def decorator_class_when_rendering_to_a_document
+        EventPdfPresenter
+      end
+
       def self.subtypes?
         false
       end

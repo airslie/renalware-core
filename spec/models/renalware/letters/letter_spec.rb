@@ -35,6 +35,34 @@ module Renalware
         end
       end
 
+      describe "#external_id" do
+        it "pads the letter id with zeros and prefixes RW" do
+          letter = Letters::Letter.new(id: 123)
+
+          expect(letter.external_id).to eq("RW0000000123")
+        end
+      end
+
+      describe "#external_document_type" do
+        {
+          true => {
+            code: "CL",
+            name: "Clinic Letter"
+          },
+          false => {
+            code: "AL",
+            name: "Adhoc Letter"
+          }
+        }.each do |clinical_bool, doctype_hash|
+          it "is #{doctype_hash[:code]}, #{doctype_hash[:name]} if clinical is #{clinical_bool}" do
+            letter = Letters::Letter.new(clinical: clinical_bool)
+
+            expect(letter.external_document_type_code).to eq(doctype_hash[:code])
+            expect(letter.external_document_type_description).to eq(doctype_hash[:name])
+          end
+        end
+      end
+
       describe "#date" do
         context "when #approved_at is present" do
           it "returns #approved_at" do

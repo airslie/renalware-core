@@ -2,7 +2,7 @@
 
 # Example pathology listener.
 #
-# This listener had been wired to receive the letter_approved broadcast events in the
+# This listener had been wired to receive broadcast events in the
 # broadcast_subscription_map. See config/initializers/renalware.rb
 #
 class PathologyListener

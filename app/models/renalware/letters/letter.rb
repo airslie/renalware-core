@@ -142,6 +142,26 @@ module Renalware
       def datetime
         approved_at || submitted_for_approval_at || created_at
       end
+
+      class ExternalDocumentType
+        rattr_initialize :code, :name
+      end
+
+      def external_document_type_code
+        clinical? ? "CL" : "AL"
+      end
+
+      def external_document_type_description
+        clinical? ? "Clinic Letter" : "Adhoc Letter"
+      end
+
+      # Can be used when exported to external sytems eg via HL7/Mirth.
+      # id e.g. 123 => "RW0000000123"
+      def external_id
+        return if id.blank?
+
+        ["RW", id.to_s.rjust(10, "0")].join
+      end
     end
   end
 end

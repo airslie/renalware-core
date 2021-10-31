@@ -10,6 +10,8 @@ module Renalware
         event_type.event_class_name = row["event_class_name"]
         event_type.save_pdf_to_electronic_public_register =
           row["save_pdf_to_electronic_public_register"]
+        event_type.external_document_type_code = row["external_document_type_code"]
+        event_type.external_document_type_description = row["external_document_type_description"]
       end
     end
   end
