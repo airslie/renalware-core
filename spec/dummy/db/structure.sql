@@ -2368,7 +2368,8 @@ CREATE TABLE renalware.clinic_clinics (
     updated_by_id bigint,
     created_by_id bigint,
     appointments_count integer DEFAULT 0,
-    clinic_visits_count integer DEFAULT 0
+    clinic_visits_count integer DEFAULT 0,
+    default_modality_description_id bigint
 );
 
 
@@ -15045,6 +15046,13 @@ CREATE INDEX index_clinic_clinics_on_created_by_id ON renalware.clinic_clinics U
 
 
 --
+-- Name: index_clinic_clinics_on_default_modality_description_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_clinics_on_default_modality_description_id ON renalware.clinic_clinics USING btree (default_modality_description_id);
+
+
+--
 -- Name: index_clinic_clinics_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -21392,6 +21400,14 @@ ALTER TABLE ONLY renalware.access_plans
 
 
 --
+-- Name: clinic_clinics fk_rails_d7ca5ef0af; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinic_clinics
+    ADD CONSTRAINT fk_rails_d7ca5ef0af FOREIGN KEY (default_modality_description_id) REFERENCES renalware.modality_descriptions(id);
+
+
+--
 -- Name: addresses fk_rails_d873e14e27; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -22744,6 +22760,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211028195511'),
 ('20211029105908'),
 ('20211029134250'),
-('20211029134446');
+('20211029134446'),
+('20211103075628');
 
 

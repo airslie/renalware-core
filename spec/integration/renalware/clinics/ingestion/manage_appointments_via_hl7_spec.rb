@@ -5,6 +5,7 @@ require "rails_helper"
 # rubocop:disable RSpec/MultipleMemoizedHelpers
 describe "manage appointments via HL7 ADT messages" do
   include HL7Helpers
+  include PatientsSpecHelper
 
   let(:nhs_number) { "1092192328" }
   let(:local_patient_id) { "123" }
@@ -81,7 +82,7 @@ describe "manage appointments via HL7 ADT messages" do
     end
 
     context "when the clinic is found but no matching patient or consultant" do
-      it "creates the patient, conultant and appointment" do
+      it "creates the patient, consultant and appointment" do
         msg = hl7_message_from_file("clinics/ADT_A05_create_appointment", data)
         clinic = create(:clinic, code: clinic_code)
 
@@ -93,8 +94,23 @@ describe "manage appointments via HL7 ADT messages" do
 
         appointment = Renalware::Clinics::Appointment.last
         expect(appointment).to have_attributes(clinic: clinic, visit_number: visit_number)
-        expect(appointment.patient).to have_attributes(nhs_number: nhs_number)
         expect(appointment.consultant).to have_attributes(code: consultant_code)
+        patient = appointment.patient
+        expect(patient).to have_attributes(nhs_number: nhs_number)
+        expect(patient.reload.current_modality).to be_nil
+      end
+
+      context "when the default_modality_description is set on the clinic" do
+        it "assigns this to new patients" do
+          msg = hl7_message_from_file("clinics/ADT_A05_create_appointment", data)
+          nephrology = create(:modality_description, :nephrology)
+          create(:clinic, code: clinic_code, default_modality_description: nephrology)
+
+          Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
+
+          appointment = Renalware::Clinics::Appointment.last
+          expect(appointment.patient.current_modality.description_id).to eq(nephrology.id)
+        end
       end
     end
 
@@ -145,6 +161,26 @@ describe "manage appointments via HL7 ADT messages" do
           starts_at: Time.zone.parse(starts_at),
           visit_number: visit_number
         )
+      end
+
+      context "when patient has a modality and the default modality desctipion is set on clinic" do
+        it "does not change the patient's modality" do
+          msg = hl7_message_from_file("clinics/ADT_A05_create_appointment", data)
+          nephrology = create(:modality_description, :nephrology)
+          create(:clinic, code: clinic_code, default_modality_description: nephrology)
+          create(:consultant, code: consultant_code)
+          patient = create_matching_patient
+          set_modality(
+            patient: patient,
+            modality_description: FactoryBot.create(:modality_description, :hd),
+            by: patient.created_by
+          )
+
+          expect {
+            Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
+          }.to change(Renalware::Clinics::Appointment, :count).by(1)
+          .and change(Renalware::Modalities::Modality, :count).by(0)
+        end
       end
     end
   end

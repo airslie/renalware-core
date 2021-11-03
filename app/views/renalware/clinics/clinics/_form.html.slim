@@ -1,4 +1,8 @@
 = simple_form_for(clinic, as: :clinic, url: url) do |f|
   = f.input :code
   = f.input :name
+  = f.association :default_modality_description,
+                  collection: Renalware::Modalities::Description.order(:name),
+                  label: "Default modality for new patients assigned to this clinic"
+
   = f.submit class: :button

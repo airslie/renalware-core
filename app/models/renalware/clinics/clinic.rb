@@ -10,6 +10,7 @@ module Renalware
 
       has_many :clinic_visits, dependent: :restrict_with_exception
       has_many :appointments, dependent: :restrict_with_exception
+      belongs_to :default_modality_description, class_name: "Modalities::Description"
 
       validates :name, presence: true, uniqueness: true
       validates :code, uniqueness: true

@@ -62,7 +62,7 @@ module Renalware
       private
 
       def clinic_params
-        params.require(:clinic).permit(:name, :code)
+        params.require(:clinic).permit(:name, :code, :default_modality_description_id)
       end
 
       def find_and_authorise_clinic

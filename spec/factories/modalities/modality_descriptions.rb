@@ -51,5 +51,10 @@ FactoryBot.define do
       name { "AKI" }
       code { "aki" }
     end
+
+    trait :nephrology do
+      name { "Nephrology" }
+      code { "nephrology" }
+    end
   end
 end
