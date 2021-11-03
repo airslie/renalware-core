@@ -1,10 +1,10 @@
 --- !ruby/struct:FeedJob
 raw_message: |
-  MSH|^~\&|MEDWAY|RAJ01|Renalware|MSE|20210813115648||ADT^A05|RAJ_1461Z93518|P|2.4|||AL|NE|||
+  MSH|^~\&|MEDWAY|RAJ01|Renalware|MSE|20210813115648||ADT^A05|RAJ_5461593518|P|2.4|||AL|NE|||
   EVN|A31|20210813115647||||20210813115647|
-  PID||9999999999^NSTS03^^NHS^NHS|Z100001^^^KCH^HOSP||Testrenalware^Testdemone^^^Mr||19440922|M|||Thames Estuary Yacht Club^Western Esplanade^Westcliff-on-Sea^Essex^SS0 7QB|||||||||||F||||||||N||NSTS03
+  PID||2023869048^NSTS03^^NHS^NHS|CCC400002^^^KCH^HOSP||Testrenalware^Testdemone^^^Mr||19440922|M|||Thames Estuary Yacht Club^Western Esplanade^Westcliff-on-Sea^Essex^SS0 7QB|||||||||||F||||||||N||NSTS03
   PD1|||Rivermead Gate Med.Ctr.^^F81071|G8333795^Singh^SK^^^Dr^^^^^^^GP|||||||||||
-  PV1||O|BAS-BA-RG D1^Ad hoc, Ortho, Miss R Grewal, CONS RG D1^BAFRA^RDDH0|||||G8333795^Singh^SK^""^^Dr^^^^^^^GP|C3430343^Grewal^Rupi^""^^Ms^^^^^^^CONS|110|||||||||BAS-OP2107006022AP|||||||||||||||||||||||||||||||||
+  PV1||O|C2^Ad hoc, Ortho, Miss R Grewal, CONS RG D1^BAFRA^RDDH0|||||G8333795^Singh^SK^""^^Dr^^^^^^^GP|C3430343^Grewal^Rupi^""^^Ms^^^^^^^CONS|110|||||||||BAS-OP2107006022AP|||||||||||||||||||||||||||||||||
   PV2||||||||20210810090000|||||||||||||||||01||||||||||||||||||||||
   ZU1|||||||16||||||03A|1||||||||||||||
   ZU3|||NS|NOOUT||||||||01|^^^NS^Reason Not Set|

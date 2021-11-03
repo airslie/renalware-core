@@ -33,7 +33,25 @@ module Renalware
           def find_or_create_patient
             # This is the standard A28/31 add/update command which will find or add the patient
             # using the contents of the PID segment
-            Patients::Ingestion::Commands::AddPatient.call(message)
+            Patients::Ingestion::Commands::AddPatient.call(message).tap do |patient|
+              assign_the_clinic_default_modality_to_new_patients(patient)
+            end
+          end
+
+          # If the clinic has a default modality description against it, assign that to the patient
+          # if they have no modality yet.
+          def assign_the_clinic_default_modality_to_new_patients(patient)
+            return if patient.current_modality.present? ||
+                      rwclinic.default_modality_description.blank?
+
+            result = Modalities::ChangePatientModality.new(
+              patient: patient,
+              user: Renalware::SystemUser.find
+            ).call(
+              description_id: rwclinic.default_modality_description.id,
+              started_on: Time.zone.now
+            )
+            raise(ActiveModel::ValidationError, result.object) if result.failure?
           end
 
           def rwclinic

@@ -22,6 +22,7 @@ describe "Clinic management", type: :system do
 
   it "enables me to add a clinic" do
     login_as_super_admin
+    md = create(:modality_description, :nephrology)
 
     visit clinics_path
 
@@ -31,12 +32,14 @@ describe "Clinic management", type: :system do
 
     fill_in "Name", with: "My Clinic"
     fill_in "Code", with: "C1"
+    select md.name, from: "Default modality for new patients assigned to this clinic"
     click_on "Create"
 
     expect(Renalware::Clinics::Clinic.count).to eq(1)
     expect(Renalware::Clinics::Clinic.first).to have_attributes(
       name: "My Clinic",
-      code: "C1"
+      code: "C1",
+      default_modality_description_id: md.id
     )
   end
 
