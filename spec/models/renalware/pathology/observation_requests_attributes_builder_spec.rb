@@ -14,6 +14,8 @@ module Renalware::Pathology
       let(:hl7_message) {
         double(
           :hl7_message,
+          sending_facility: "Fac",
+          sending_app: "App",
           patient_identification: pid(internal_id: patient.local_patient_id),
           observation_requests: [
             double(
@@ -91,6 +93,8 @@ module Renalware::Pathology
           non_existent_patient = "123123123"
           hl7_message = double(
             :hl7_message,
+            sending_facility: "Fac",
+            sending_app: "App",
             patient_identification: pid(internal_id: non_existent_patient),
             observation_request: double(
               identifier: request_description.code,
@@ -198,6 +202,8 @@ module Renalware::Pathology
         let(:hl7_message) {
           instance_double(
             Renalware::Feeds::HL7Message,
+            sending_facility: "Fac",
+            sending_app: "App",
             patient_identification: pid(
               internal_id: patient.local_patient_id
             ),
@@ -225,6 +231,8 @@ module Renalware::Pathology
         let(:hl7_message) {
           double(
             :hl7_message,
+            sending_facility: "Fac",
+            sending_app: "App",
             patient_identification: pid(internal_id: patient.local_patient_id),
             observation_requests: [
               double(
@@ -253,6 +261,8 @@ module Renalware::Pathology
         let(:hl7_message) {
           double(
             :hl7_message,
+            sending_facility: "Fac",
+            sending_app: "App",
             patient_identification: pid(internal_id: patient.local_patient_id),
             observation_requests: [
               double(
@@ -285,6 +295,8 @@ module Renalware::Pathology
         let(:hl7_message) {
           double(
             :hl7_message,
+            sending_facility: "Fac",
+            sending_app: "App",
             patient_identification: pid(internal_id: patient.local_patient_id),
             observation_requests: [
               double(
@@ -313,10 +325,13 @@ module Renalware::Pathology
         it "creates the OBX code dynamcically" do
           described_class.new(hl7_message).parse
 
+          sender = create(:pathology_sender, sending_facility: "Fac", sending_application: "*")
+
           expect(
             ObservationDescription.exists?(
               code: "I_DO_NOT_EXIST_CODE",
-              name: "I_DO_NOT_EXIST_NAME"
+              name: "I_DO_NOT_EXIST_NAME",
+              created_by_sender: sender
             )
           ).to eq(true)
         end

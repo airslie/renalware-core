@@ -9,12 +9,14 @@ module Renalware
 
       belongs_to :measurement_unit
       belongs_to :suggested_measurement_unit, class_name: "MeasurementUnit"
+      belongs_to :created_by_sender, class_name: "Sender"
       has_many :observations,
                class_name: "Pathology::Observation",
                inverse_of: :description,
                dependent: :restrict_with_exception
       has_many :code_group_memberships, dependent: :destroy
       has_many :code_groups, through: :code_group_memberships
+      has_many :obx_mappings, dependent: :destroy
 
       scope :in_display_order, lambda {
         where("display_group is not null and display_order is not null")

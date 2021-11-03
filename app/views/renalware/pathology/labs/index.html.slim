@@ -1,0 +1,18 @@
+= content_for(:actions) do
+  - if policy(labs).create?
+    = link_to t("btn.add"),
+              new_pathology_lab_path,
+              class: "button"
+
+= within_new_admin_layout(title: "Pathology Labs") do
+  table
+    thead
+      tr
+        th.col-width-tiny
+        th Name
+    tbody
+      - labs.each do |lab|
+        tr(id=dom_id(lab))
+          td.actions
+            = link_to_if(policy(lab).edit?, "Edit", [:edit, lab])
+          td= lab.name

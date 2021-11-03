@@ -7,6 +7,7 @@ module Renalware
     it :aggregate_failures do
       is_expected.to belong_to(:measurement_unit)
       is_expected.to have_db_index(:code).unique(true)
+      is_expected.to have_many(:obx_mappings)
       is_expected.to have_many(:code_group_memberships)
       is_expected.to have_many(:code_groups).through(:code_group_memberships)
       is_expected.to validate_numericality_of(:lower_threshold)

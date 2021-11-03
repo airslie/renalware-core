@@ -6183,7 +6183,10 @@ CREATE TABLE renalware.pathology_observation_descriptions (
     virtual boolean DEFAULT false NOT NULL,
     chart_colour character varying,
     chart_logarithmic boolean DEFAULT false NOT NULL,
-    chart_sql_function_name character varying
+    chart_sql_function_name character varying,
+    created_by_sender_id bigint,
+    observations_count integer DEFAULT 0,
+    last_observed_at timestamp without time zone
 );
 
 
@@ -6206,6 +6209,13 @@ COMMENT ON COLUMN renalware.pathology_observation_descriptions.upper_threshold I
 --
 
 COMMENT ON COLUMN renalware.pathology_observation_descriptions.chart_sql_function_name IS 'A custom json-returning SQL function returning a calculated/derived series. Must accept an integer (patient id) and date (start date to search from)';
+
+
+--
+-- Name: COLUMN pathology_observation_descriptions.created_by_sender_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_observation_descriptions.created_by_sender_id IS 'The feed source that dynmically created this OBX';
 
 
 --
@@ -6404,6 +6414,77 @@ CREATE SEQUENCE renalware.pathology_observations_id_seq
 --
 
 ALTER SEQUENCE renalware.pathology_observations_id_seq OWNED BY renalware.pathology_observations.id;
+
+
+--
+-- Name: pathology_obx_mappings; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pathology_obx_mappings (
+    id bigint NOT NULL,
+    code_alias character varying NOT NULL,
+    comment text,
+    sender_id bigint NOT NULL,
+    observation_description_id bigint NOT NULL,
+    updated_by_id bigint,
+    created_by_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE pathology_obx_mappings; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.pathology_obx_mappings IS 'In a multi-site installation, one hospital might use a different OBX code (eg HB or HBN) from the one Renalware expects (in this case HGB). This table enables that mapping so that incoming OBX results from different sites are mapped to a single observation_description. This table defines the expected MSH sending facility/app to match against.';
+
+
+--
+-- Name: COLUMN pathology_obx_mappings.code_alias; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_obx_mappings.code_alias IS 'The hosp-specific code eg ''HB''';
+
+
+--
+-- Name: COLUMN pathology_obx_mappings.comment; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_obx_mappings.comment IS 'Optional text to help understand mapping issues';
+
+
+--
+-- Name: COLUMN pathology_obx_mappings.sender_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_obx_mappings.sender_id IS 'A definition of the sending facility (eg RAJ01) and sending app (eg WinPath)';
+
+
+--
+-- Name: COLUMN pathology_obx_mappings.observation_description_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_obx_mappings.observation_description_id IS 'The Renalware standarised OBX we are mapping to';
+
+
+--
+-- Name: pathology_obx_mappings_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.pathology_obx_mappings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_obx_mappings_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.pathology_obx_mappings_id_seq OWNED BY renalware.pathology_obx_mappings.id;
 
 
 --
@@ -6739,6 +6820,59 @@ CREATE SEQUENCE renalware.pathology_requests_sample_types_id_seq
 --
 
 ALTER SEQUENCE renalware.pathology_requests_sample_types_id_seq OWNED BY renalware.pathology_requests_sample_types.id;
+
+
+--
+-- Name: pathology_senders; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pathology_senders (
+    id bigint NOT NULL,
+    sending_facility character varying NOT NULL,
+    sending_application character varying DEFAULT '*'::character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE pathology_senders; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.pathology_senders IS 'The HL7 MSH segment defines a sending application and sending facility e.g. at MSE Basildon ''MSH|^~&|WinPath|RAJ01|RenalWare|MSE|202110261045||ORU^R01|116182217|P|2.3|1||AL'' has application ''WinPath'' and facility ''RAJ01'' (in this case fcaility is the hospital code but that is not guaranteed), and at Kings e.g. ''MSH|^~&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||'' contains application ''HM'' and facility ''LBE''. Defining in this table the expected HL7 sending facilities (and optional applications) allows us to use these definitions when creating OBX mappings - for instance we can delcare that the OBX code ''HB'' from sending facility ''RAJ32'' should map to the observation description with code ''HGB''.';
+
+
+--
+-- Name: COLUMN pathology_senders.sending_facility; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_senders.sending_facility IS 'From MSH segment';
+
+
+--
+-- Name: COLUMN pathology_senders.sending_application; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_senders.sending_application IS 'From MSH segment';
+
+
+--
+-- Name: pathology_senders_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.pathology_senders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_senders_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.pathology_senders_id_seq OWNED BY renalware.pathology_senders.id;
 
 
 --
@@ -12039,6 +12173,13 @@ ALTER TABLE ONLY renalware.pathology_observations ALTER COLUMN id SET DEFAULT ne
 
 
 --
+-- Name: pathology_obx_mappings id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_obx_mappings ALTER COLUMN id SET DEFAULT nextval('renalware.pathology_obx_mappings_id_seq'::regclass);
+
+
+--
 -- Name: pathology_request_descriptions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -12106,6 +12247,13 @@ ALTER TABLE ONLY renalware.pathology_requests_requests ALTER COLUMN id SET DEFAU
 --
 
 ALTER TABLE ONLY renalware.pathology_requests_sample_types ALTER COLUMN id SET DEFAULT nextval('renalware.pathology_requests_sample_types_id_seq'::regclass);
+
+
+--
+-- Name: pathology_senders id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_senders ALTER COLUMN id SET DEFAULT nextval('renalware.pathology_senders_id_seq'::regclass);
 
 
 --
@@ -13693,6 +13841,14 @@ ALTER TABLE ONLY renalware.pathology_observations
 
 
 --
+-- Name: pathology_obx_mappings pathology_obx_mappings_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_obx_mappings
+    ADD CONSTRAINT pathology_obx_mappings_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: pathology_request_descriptions pathology_request_descriptions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -13770,6 +13926,14 @@ ALTER TABLE ONLY renalware.pathology_requests_requests
 
 ALTER TABLE ONLY renalware.pathology_requests_sample_types
     ADD CONSTRAINT pathology_requests_sample_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_senders pathology_senders_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_senders
+    ADD CONSTRAINT pathology_senders_pkey PRIMARY KEY (id);
 
 
 --
@@ -17145,6 +17309,41 @@ CREATE INDEX index_pathology_observations_on_request_id ON renalware.pathology_o
 
 
 --
+-- Name: index_pathology_obx_mappings_on_code_alias; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_obx_mappings_on_code_alias ON renalware.pathology_obx_mappings USING btree (code_alias);
+
+
+--
+-- Name: index_pathology_obx_mappings_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_obx_mappings_on_created_by_id ON renalware.pathology_obx_mappings USING btree (created_by_id);
+
+
+--
+-- Name: index_pathology_obx_mappings_on_observation_description_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_obx_mappings_on_observation_description_id ON renalware.pathology_obx_mappings USING btree (observation_description_id);
+
+
+--
+-- Name: index_pathology_obx_mappings_on_sender_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_obx_mappings_on_sender_id ON renalware.pathology_obx_mappings USING btree (sender_id);
+
+
+--
+-- Name: index_pathology_obx_mappings_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_obx_mappings_on_updated_by_id ON renalware.pathology_obx_mappings USING btree (updated_by_id);
+
+
+--
 -- Name: index_pathology_request_descriptions_on_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -19224,6 +19423,34 @@ CREATE INDEX pathology_code_group_membership_obx ON renalware.pathology_code_gro
 
 
 --
+-- Name: pathology_observation_descriptions_sender; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX pathology_observation_descriptions_sender ON renalware.pathology_observation_descriptions USING btree (created_by_sender_id);
+
+
+--
+-- Name: pathology_obx_mappings_uniqueness; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX pathology_obx_mappings_uniqueness ON renalware.pathology_obx_mappings USING btree (code_alias, sender_id);
+
+
+--
+-- Name: INDEX pathology_obx_mappings_uniqueness; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON INDEX renalware.pathology_obx_mappings_uniqueness IS 'Ensures only one mapping row per sender + code_alias.';
+
+
+--
+-- Name: pathology_senders_idx; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX pathology_senders_idx ON renalware.pathology_senders USING btree (sending_facility, sending_application);
+
+
+--
 -- Name: patient_bookmarks_uniqueness; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -19644,6 +19871,14 @@ ALTER TABLE ONLY renalware.access_procedures
 
 
 --
+-- Name: pathology_obx_mappings fk_rails_1240cbc05a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_obx_mappings
+    ADD CONSTRAINT fk_rails_1240cbc05a FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: transplant_donor_stages fk_rails_15abd8aa8d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -19740,6 +19975,14 @@ ALTER TABLE ONLY renalware.hd_sessions
 
 
 --
+-- Name: pathology_obx_mappings fk_rails_244dcc392f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_obx_mappings
+    ADD CONSTRAINT fk_rails_244dcc392f FOREIGN KEY (observation_description_id) REFERENCES renalware.pathology_observation_descriptions(id);
+
+
+--
 -- Name: pathology_requests_drugs_drug_categories fk_rails_24de49b694; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -19801,6 +20044,14 @@ ALTER TABLE ONLY renalware.hd_session_form_batch_items
 
 ALTER TABLE ONLY renalware.pd_pet_results
     ADD CONSTRAINT fk_rails_2929069647 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: pathology_obx_mappings fk_rails_2971fdcb21; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_obx_mappings
+    ADD CONSTRAINT fk_rails_2971fdcb21 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -20401,6 +20652,14 @@ ALTER TABLE ONLY renalware.letter_letters
 
 ALTER TABLE ONLY renalware.pd_pet_results
     ADD CONSTRAINT fk_rails_6233b2801e FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
+-- Name: pathology_obx_mappings fk_rails_62ce548f09; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_obx_mappings
+    ADD CONSTRAINT fk_rails_62ce548f09 FOREIGN KEY (sender_id) REFERENCES renalware.pathology_senders(id);
 
 
 --
@@ -21748,6 +22007,14 @@ ALTER TABLE ONLY renalware.medication_delivery_event_prescriptions
 
 
 --
+-- Name: pathology_observation_descriptions fk_rails_e3a215e8ee; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_observation_descriptions
+    ADD CONSTRAINT fk_rails_e3a215e8ee FOREIGN KEY (created_by_sender_id) REFERENCES renalware.pathology_senders(id);
+
+
+--
 -- Name: hd_session_form_batches fk_rails_e3cb548b22; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -22913,6 +23180,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211107184117'),
 ('20211108142747'),
 ('20211110125711'),
-('20211111141233');
+('20211111141233'),
+('20211118105354'),
+('20211118173235'),
+('20211119132257'),
+('20211121142636'),
+('20211121144203');
 
 
