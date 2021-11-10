@@ -2,17 +2,18 @@
 
 require "rails_helper"
 
+# rubocop:disable RSpec/MultipleMemoizedHelpers
 module Renalware
   module Clinics
     describe ClinicVisitPolicy, type: :policy do
       subject(:policy) { described_class }
 
-      let(:user) { User.new(id: 1) }
-      let(:other_user) { User.new(id: 2) }
-      let(:super_admin) { User.new(id: 99) }
+      let(:user)          { User.new(id: 1) }
+      let(:other_user)    { User.new(id: 2) }
+      let(:super_admin)   { User.new(id: 99) }
       let(:created_by_id) { nil }
-      let(:created_at) { nil }
-      let(:persisted) { false }
+      let(:created_at)    { nil }
+      let(:persisted)     { false }
       let(:clinic_visit) do
         instance_double(
           Renalware::Clinics::ClinicVisit,
@@ -41,7 +42,7 @@ module Renalware
           context "when the creation date is outside the deletion window" do
             let(:created_at) { Time.zone.now - 25.hours }
 
-            it :aggregate_failures do
+            it do
               is_expected.not_to permit(user, clinic_visit)
               is_expected.not_to permit(other_user, clinic_visit)
             end
@@ -50,7 +51,7 @@ module Renalware
           context "when the creation date is within the deletion window" do
             let(:created_at) { Time.zone.now - 23.hours }
 
-            it :aggregate_failures do
+            it do
               is_expected.to permit(user, clinic_visit)
               is_expected.to permit(super_admin, clinic_visit)
               is_expected.not_to permit(other_user, clinic_visit)
@@ -61,7 +62,7 @@ module Renalware
 
       permissions :edit? do
         context "with an unsaved clinic visit" do
-          it :aggregate_failures do
+          it do
             is_expected.not_to permit(user, clinic_visit)
             is_expected.not_to permit(other_user, clinic_visit)
           end
@@ -73,7 +74,7 @@ module Renalware
           context "when the visit was created within 7 days" do
             let(:created_at) { Time.zone.now - 7.days + 1.hour }
 
-            it :aggregate_failures do
+            it do
               is_expected.to permit(user, clinic_visit)
               is_expected.not_to permit(other_user, clinic_visit)
             end
@@ -82,7 +83,7 @@ module Renalware
           context "when the visit was created more than 7 days ago" do
             let(:created_at) { Time.zone.now - 7.days - 1.hour }
 
-            it :aggregate_failures do
+            it do
               is_expected.not_to permit(user, clinic_visit)
               is_expected.not_to permit(other_user, clinic_visit)
             end
@@ -92,3 +93,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable RSpec/MultipleMemoizedHelpers

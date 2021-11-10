@@ -62,7 +62,7 @@ module Renalware
       end
 
       def modality_description_params
-        params.require(:modalities_description).permit(:name, :code, :site)
+        params.require(:modalities_description).permit(:name, :code, :site, :hidden)
       end
 
       def find_and_authorize_modality_description

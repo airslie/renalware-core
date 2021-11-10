@@ -59,7 +59,10 @@ describe "Configuring Modality Descriptions", type: :request do
   describe "PATCH update" do
     context "with valid attributes" do
       it "updates a record" do
-        attributes = { name: "My Edited Modality Description" }
+        attributes = {
+          name: "My Edited Modality Description",
+          hidden: true
+        }
 
         patch modalities_description_path(modality_description),
               params: { modalities_description: attributes }

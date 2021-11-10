@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :modality_description, class: "Renalware::Modalities::Description" do
     name { "unspecific modality description not set in factory" }
+    hidden { false }
 
     initialize_with { Renalware::Modalities::Description.find_or_create_by(name: name) }
 
