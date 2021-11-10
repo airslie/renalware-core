@@ -21,6 +21,7 @@ module Renalware::Pathology
               name: request_description.code,
               ordering_provider_name: "::name::",
               placer_order_number: "::pcs code::",
+              filler_order_number: "::fillernum::",
               date_time: "200911111841",
               observations: [
                 double(
@@ -69,6 +70,7 @@ module Renalware::Pathology
                 description_id: request_description.id,
                 requestor_name: "::name::",
                 requestor_order_number: "::pcs code::",
+                filler_order_number: "::fillernum::",
                 requested_at: "2009-11-11 18:41:00 +0000",
                 observations_attributes: [
                   description_id: observation_description.id,
@@ -95,6 +97,7 @@ module Renalware::Pathology
               name: request_description.name,
               ordering_provider_name: "::name::",
               placer_order_number: "::pcs code::",
+              filler_order_number: "::fillernum::",
               date_time: "200911111841",
               observations: [
                 double(
@@ -204,6 +207,7 @@ module Renalware::Pathology
                 name: request_description.name,
                 ordering_provider_name: nil,
                 placer_order_number: "::pcs code::",
+                filler_order_number: "::fillernum::",
                 date_time: "200911111841",
                 observations: []
               )
@@ -228,6 +232,7 @@ module Renalware::Pathology
                 name: request_description.name,
                 ordering_provider_name: "aasas",
                 placer_order_number: "::pcs code::",
+                filler_order_number: "::fillernum::",
                 date_time: nil,
                 observations: []
               )
@@ -255,6 +260,7 @@ module Renalware::Pathology
                 name: "I_DO_NOT_EXIST_NAME",
                 ordering_provider_name: "aasas",
                 placer_order_number: "::pcs code::",
+                filler_order_number: "::fillernum::",
                 date_time: nil,
                 observations: []
               )
@@ -286,6 +292,7 @@ module Renalware::Pathology
                 name: request_description.name,
                 ordering_provider_name: "aasas",
                 placer_order_number: "::pcs code::",
+                filler_order_number: "::fillernum::",
                 date_time: nil,
                 observations: [
                   double(

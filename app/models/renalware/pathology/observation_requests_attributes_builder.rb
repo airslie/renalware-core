@@ -77,6 +77,7 @@ module Renalware
               description_id: request_description.id,
               requestor_name: request.ordering_provider_name || DEFAULT_REQUESTOR_NAME,
               requestor_order_number: request.placer_order_number,
+              filler_order_number: request.filler_order_number,
               requested_at: parse_time(request.date_time),
               observations_attributes: build_observations_params(request)
             }
@@ -133,10 +134,10 @@ module Renalware
       # value should be.
       def find_observation_description(code:, name:, measurement_unit:)
         created_jit = false
-        desc = ObservationDescription.find_or_create_by!(code: code) do |desc|
-          desc.name = name || code
-          desc.measurement_unit = measurement_unit
-          desc.suggested_measurement_unit = measurement_unit
+        desc = ObservationDescription.find_or_create_by!(code: code) do |dsc|
+          dsc.name = name || code
+          dsc.measurement_unit = measurement_unit
+          dsc.suggested_measurement_unit = measurement_unit
           created_jit = true
         end
 

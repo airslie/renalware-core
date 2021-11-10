@@ -62,6 +62,10 @@ module Renalware
           super.split("^").first
         end
 
+        def filler_order_number
+          super.split("^").first
+        end
+
         private
 
         def ordering_provider

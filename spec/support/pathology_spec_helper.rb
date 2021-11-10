@@ -20,7 +20,9 @@ module PathologySpecHelper
   end
 
   # rubocop:disable Metrics/ParameterLists, Metrics/MethodLength
-  def create_request_with_observations(patient:, requestor_order_number: "123",
+  def create_request_with_observations(patient:,
+                                       requestor_order_number: "123",
+                                       filler_order_number: "F456",
                                        obr_code: "OBR1",
                                        obx_codes: ["OBX1"],
                                        requested_at: 1.year.ago,
@@ -32,6 +34,7 @@ module PathologySpecHelper
       :pathology_observation_request,
       patient: patient,
       requestor_order_number: requestor_order_number,
+      filler_order_number: filler_order_number,
       requested_at: requested_at,
       description: request_desc,
       created_at: created_at
