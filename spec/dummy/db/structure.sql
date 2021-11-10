@@ -6132,7 +6132,8 @@ CREATE TABLE renalware.pathology_observation_requests (
     patient_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    description_id integer NOT NULL
+    description_id integer NOT NULL,
+    filler_order_number character varying
 );
 
 
@@ -22761,6 +22762,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211029105908'),
 ('20211029134250'),
 ('20211029134446'),
-('20211103075628');
+('20211103075628'),
+('20211110125711');
 
 
