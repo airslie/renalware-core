@@ -2329,7 +2329,9 @@ CREATE TABLE renalware.clinic_appointments (
     clinic_description text,
     updated_by_id bigint,
     created_by_id bigint,
-    visit_number text
+    visit_number text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -22763,6 +22765,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211029134250'),
 ('20211029134446'),
 ('20211103075628'),
-('20211110125711');
+('20211110125711'),
+('20211111141233');
 
 
