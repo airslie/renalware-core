@@ -6,7 +6,7 @@ require_dependency "renalware/events"
 module Renalware
   module Events
     # We have used wicked_pdf (which shells out to wkhtmltopdf) up to know, but using prawn here
-    # as it Event PDFs are somewhat simpler, and there is no extant html equivalent we can render.
+    # as Event PDFs are somewhat simpler, and there is no extant html equivalent we can render.
     # Its also a useful test to see if this is a better approach all round. It is certainly much
     # quicker and less resource intensive to create the PDFs.
     class EventPdf
@@ -14,6 +14,10 @@ module Renalware
       attr_reader :event
 
       delegate :patient, :event_type, to: :event
+
+      def self.call(...)
+        new(...).render
+      end
 
       def initialize(event)
         @event = event

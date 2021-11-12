@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/MethodLength, Metrics/ParameterLists
 module LettersSpecHelper
   def build_letter(to:, patient:, state: :draft, **args)
+    args = args.compact # remove nil values eg if author is nil
     trait = "#{state}_letter".to_sym
     letter = build(trait, **args)
     letter.patient = patient
@@ -46,7 +47,10 @@ module LettersSpecHelper
     user: nil,
     body: "test",
     page_count: 1,
-    practice_email: nil
+    practice_email: nil,
+    patient: nil,
+    clinical: false,
+    author: nil
   )
     user ||= create(:user)
 
@@ -59,7 +63,7 @@ module LettersSpecHelper
       address: build(:address, street_1: "::gp_address::")
     )
 
-    patient = create(
+    patient ||= create(
       :letter_patient,
       primary_care_physician: primary_care_physician,
       practice: practice,
@@ -103,7 +107,9 @@ module LettersSpecHelper
       patient: patient,
       state: :pending_review,
       page_count: page_count,
-      body: body
+      body: body,
+      clinical: clinical,
+      author: author
     )
 
     create(
@@ -117,4 +123,4 @@ module LettersSpecHelper
     Renalware::Letters::Letter.find(letter.id)
   end
 end
-# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/MethodLength, Metrics/ParameterLists

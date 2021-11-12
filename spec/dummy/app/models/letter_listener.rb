@@ -10,5 +10,6 @@ class LetterListener
     # has an email address.
     # EmailLetterToPractice uses deliver_later so email delivery effectively asynchronous
     Renalware::Letters::Delivery::EmailLetterToPractice.call(letter)
+    Renalware::Feeds::OutgoingDocument.create!(renderable: letter, by: letter.approved_by)
   end
 end

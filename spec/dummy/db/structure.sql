@@ -137,6 +137,17 @@ CREATE TYPE renalware.duration AS ENUM (
 
 
 --
+-- Name: feed_outgoing_document_state; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.feed_outgoing_document_state AS ENUM (
+    'queued',
+    'errored',
+    'processed'
+);
+
+
+--
 -- Name: pathology_chart_axis; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -3175,7 +3186,9 @@ CREATE TABLE renalware.event_types (
     save_pdf_to_electronic_public_register boolean DEFAULT false NOT NULL,
     title character varying,
     hidden boolean DEFAULT false NOT NULL,
-    events_count integer DEFAULT 0 NOT NULL
+    events_count integer DEFAULT 0 NOT NULL,
+    external_document_type_code character varying,
+    external_document_type_description character varying
 );
 
 
@@ -3184,6 +3197,20 @@ CREATE TABLE renalware.event_types (
 --
 
 COMMENT ON COLUMN renalware.event_types.events_count IS 'Counter cache column which Rails will update and which stores the count of events created with this type';
+
+
+--
+-- Name: COLUMN event_types.external_document_type_code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.event_types.external_document_type_code IS 'A code eg ''MDT'' used as metadata when renderimg the event to a PDF';
+
+
+--
+-- Name: COLUMN event_types.external_document_type_description; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.event_types.external_document_type_description IS 'See comment for external_document_type_code';
 
 
 --
@@ -3465,6 +3492,65 @@ CREATE SEQUENCE renalware.feed_messages_id_seq
 --
 
 ALTER SEQUENCE renalware.feed_messages_id_seq OWNED BY renalware.feed_messages.id;
+
+
+--
+-- Name: feed_outgoing_documents; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.feed_outgoing_documents (
+    id bigint NOT NULL,
+    renderable_type character varying NOT NULL,
+    renderable_id bigint NOT NULL,
+    state renalware.feed_outgoing_document_state DEFAULT 'queued'::renalware.feed_outgoing_document_state NOT NULL,
+    printing_options json DEFAULT '{}'::json,
+    external_uuid uuid,
+    error text,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE feed_outgoing_documents; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.feed_outgoing_documents IS 'A queue of documents (letters, events) that require processing by an external system e.g. Mirth. For example when a letter is approved, a hospital''s Renalware host app may listener for that event and write a row to this table, including the (polymorphic) details of the document (in this case the class name and id of the letter). When Mirth or the external system queries the Renalware API for for waiting queued documents, it will return documents referenced here that have a state of ''queued''. The renderable relation must implement the expected methods required to render to the requested format e.g. HL7 (and in the future FHIR).';
+
+
+--
+-- Name: COLUMN feed_outgoing_documents.renderable_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.feed_outgoing_documents.renderable_id IS 'The letter/event/etc to be processed';
+
+
+--
+-- Name: COLUMN feed_outgoing_documents.external_uuid; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.feed_outgoing_documents.external_uuid IS 'E.g. the Mirth message id';
+
+
+--
+-- Name: feed_outgoing_documents_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.feed_outgoing_documents_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_outgoing_documents_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.feed_outgoing_documents_id_seq OWNED BY renalware.feed_outgoing_documents.id;
 
 
 --
@@ -11505,6 +11591,13 @@ ALTER TABLE ONLY renalware.feed_messages ALTER COLUMN id SET DEFAULT nextval('re
 
 
 --
+-- Name: feed_outgoing_documents id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_outgoing_documents ALTER COLUMN id SET DEFAULT nextval('renalware.feed_outgoing_documents_id_seq'::regclass);
+
+
+--
 -- Name: feed_practice_gps id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -13085,6 +13178,14 @@ ALTER TABLE ONLY renalware.feed_hl7_test_messages
 
 ALTER TABLE ONLY renalware.feed_messages
     ADD CONSTRAINT feed_messages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feed_outgoing_documents feed_outgoing_documents_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_outgoing_documents
+    ADD CONSTRAINT feed_outgoing_documents_pkey PRIMARY KEY (id);
 
 
 --
@@ -15494,6 +15595,34 @@ CREATE UNIQUE INDEX index_feed_messages_on_body_hash ON renalware.feed_messages 
 --
 
 CREATE INDEX index_feed_messages_on_patient_identifier ON renalware.feed_messages USING btree (patient_identifier);
+
+
+--
+-- Name: index_feed_outgoing_documents_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_outgoing_documents_on_created_by_id ON renalware.feed_outgoing_documents USING btree (created_by_id);
+
+
+--
+-- Name: index_feed_outgoing_documents_on_external_uuid; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_feed_outgoing_documents_on_external_uuid ON renalware.feed_outgoing_documents USING btree (external_uuid);
+
+
+--
+-- Name: index_feed_outgoing_documents_on_renderable; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_outgoing_documents_on_renderable ON renalware.feed_outgoing_documents USING btree (renderable_type, renderable_id);
+
+
+--
+-- Name: index_feed_outgoing_documents_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_outgoing_documents_on_updated_by_id ON renalware.feed_outgoing_documents USING btree (updated_by_id);
 
 
 --
@@ -20019,6 +20148,14 @@ ALTER TABLE ONLY renalware.pd_pet_results
 
 
 --
+-- Name: feed_outgoing_documents fk_rails_4a1ec98ea7; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_outgoing_documents
+    ADD CONSTRAINT fk_rails_4a1ec98ea7 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: system_user_feedback fk_rails_4cc9cf2dca; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -20880,6 +21017,14 @@ ALTER TABLE ONLY renalware.pathology_request_descriptions
 
 ALTER TABLE ONLY renalware.letter_contacts
     ADD CONSTRAINT fk_rails_a0d87208a0 FOREIGN KEY (description_id) REFERENCES renalware.letter_contact_descriptions(id);
+
+
+--
+-- Name: feed_outgoing_documents fk_rails_a13bc8d2e9; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_outgoing_documents
+    ADD CONSTRAINT fk_rails_a13bc8d2e9 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -22765,6 +22910,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211029134250'),
 ('20211029134446'),
 ('20211103075628'),
+('20211107184117'),
+('20211108142747'),
 ('20211110125711'),
 ('20211111141233');
 

@@ -13,6 +13,18 @@ module Renalware
                :trust_caption,
                to: :hospital_centre, prefix: true, allow_nil: true
 
+      delegate :external_document_type_code,
+               :external_document_type_description,
+               to: :event_type
+
+      def approved_at
+        created_at
+      end
+
+      def author
+        created_by
+      end
+
       private
 
       def hospital_centre
