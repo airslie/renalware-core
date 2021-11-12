@@ -71,7 +71,7 @@
                         [:consultant_name, "starts_at asc"],
                         "Consultant",
                         default_order: :asc)
-          th.col-width-small Visit Number
+          th.col-width-medium Visit Number
           th.show-for-xlarge-up.col-width-datetime Created
           th.show-for-xlarge-up Outcome notes
           th.show-for-xlarge-up DNA notes
@@ -95,7 +95,6 @@
                   '  Create
 
             td= I18n.l appointment.starts_at
-            /td= appointment.start_time
             td= default_patient_link(appointment.patient)
             td.show-for-large-up= appointment.patient.sex.code
             td.show-for-large-up= appointment.patient.age
@@ -106,7 +105,6 @@
             td.show-for-xlarge-up= l(appointment.created_at)
             td.show-for-xlarge-up.col-width-medium-with-ellipsis= appointment.outcome_notes
             td.show-for-xlarge-up.col-width-medium-with-ellipsis= appointment.dna_notes
-          /= content_tag(:tr, id: "appointment-quick-preview-#{appointment.id}", style: "display: none")
           tr
             td(colspan=13)
               .quick-preview
