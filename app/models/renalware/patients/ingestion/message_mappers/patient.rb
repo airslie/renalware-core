@@ -36,13 +36,16 @@ module Renalware
               suffix: patient_identification.suffix,
               title: patient_identification.title,
               born_on: Time.zone.parse(patient_identification.dob)&.to_date,
-              died_on: Time.zone.parse(patient_identification.death_date)&.to_date,
               sex: patient_identification.sex,
               ethnicity: find_ethnicity,
               practice: find_practice(message.practice_code) || patient.practice,
               primary_care_physician: find_primary_care_physician(message.gp_code),
               **patient_identification.identifiers
             }
+
+            if patient_identification.death_date.present?
+              attrs[:died_on] = Time.zone.parse(patient_identification.death_date)&.to_date
+            end
 
             # Don't overwrite existing patient data if the new data is blank?
             attrs.reject! { |_key, value| value.blank? }

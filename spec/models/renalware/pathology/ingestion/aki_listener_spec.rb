@@ -28,10 +28,12 @@ module Renalware
           let(:raw_message) do
             hl7 = <<-HL7
               MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
-              PID|||Z999990^^^KCH||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
+              PID|||Z999990^^^KCH||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR||||||||||||||||||201010102359|
               ORC|RE|0031111111^PCS|18T1111111^LA||CM||||201801221418|||xxx^xx, xxxx
               ORC|RE|^PCS|09B0099478^LA||CM||||200911111841|||MID^KINGS MIDWIVES|||||||
-              OBR|1|^PCS|09B0099478^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
+              OBR|1|^PCS|09B0099478^LA|XBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
+              OBX|1|TX|PLT^PLT^HM||2||||||F|||201801251249||BHISVC01^BHI Authchecker
+              OBR|1|^PCS|09B0099478^LA|AKI^AKI^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
               OBX|1|TX|AKI^AKI^HM||2||||||F|||201801251249||BHISVC01^BHI Authchecker
             HL7
             hl7.gsub(/^ */, "")
@@ -55,8 +57,8 @@ module Renalware
             # AKIListener created, and saved the AKI result agains them.
             pathology_patient = Renalware::Pathology.cast_patient(patient)
             obrs = pathology_patient.observation_requests
-            expect(obrs.count).to eq(1)
-            obxs = obrs.first.observations
+            expect(obrs.count).to eq(2)
+            obxs = obrs.last.observations
             expect(obxs.count).to eq(1)
             obx = obxs.first
             expect(obx.description.code).to match(/aki/i)
