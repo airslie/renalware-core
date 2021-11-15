@@ -15,9 +15,11 @@ module Renalware
 
           # Return the first AKI score found in any OBR in the message
           def aki_score
-            hl7_message.observation_requests.map do |req|
-              req.observations.detect { |ob| ob.identifier == AKI_CODE }
-            end.first&.value.to_f || 0
+            hl7_message
+              .observation_requests
+              .flat_map(&:observations)
+              .detect { |obx| obx.identifier == AKI_CODE }
+              &.value.to_f
           end
         end
 
