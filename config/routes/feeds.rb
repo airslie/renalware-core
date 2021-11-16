@@ -2,5 +2,6 @@
 
 namespace :feeds do
   resources :hl7_test_messages
-  resources :outgoing_documents, constraints: { format: :json }, defaults: { format: :json }
+  resources :queued_outgoing_documents, constraints: { format: :json }, defaults: { format: :json }
+  resources :outgoing_documents, only: :index
 end

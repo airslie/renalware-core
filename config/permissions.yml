@@ -9,6 +9,7 @@ super_admin:
   - Renalware::System::Download
   - Renalware::Pathology::ObservationDescription
   - Renalware::Virology::VaccinationType
+  - Renalware::Feeds::OutgoingDocument
 admin:
   - Renalware::User
   - Renalware::BagType

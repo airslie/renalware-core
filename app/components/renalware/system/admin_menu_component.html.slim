@@ -44,3 +44,5 @@ ul.side-nav.side-nav--admin(data-controller="collapsible-DISABLED" data-collapsi
 
   - unless Rails.env.production?
     = super_admin_menu_item "Email Templates", renalware.system_email_templates_path, %r{system/email_templates}
+
+  = super_admin_menu_item "Outgoing Documents", renalware.feeds_outgoing_documents_path, %r{outgoing_documents}
