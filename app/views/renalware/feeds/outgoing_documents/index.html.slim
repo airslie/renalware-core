@@ -1,0 +1,79 @@
+ruby:
+  state_class_map = {
+    "queued" => "bg-white",
+    "errored" => "bg-red-100",
+    "processed" => "bg-green-100"
+  }
+  stats = {
+    "Last 24 hours" => Renalware::Feeds::OutgoingDocument.where("created_at >= ?", 1.day.ago).group(:state).count(),
+    "Last 7 days" => Renalware::Feeds::OutgoingDocument.where("created_at >= ?", 7.days.ago).group(:state).count()
+  }
+
+= content_for(:filters) do
+  .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
+    i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+    ' Mirth polls for 'queued' documents to process.
+    ' Mirth last processed a document at
+    ' #{l(Renalware::Feeds::OutgoingDocument.where.not(state: 'queued').maximum(:updated_at))}
+
+  .bg-gray-100.p-4.rounded-lg.mb-5
+    - stats.each do |heading, hash|
+      dl.mb-5.mt-5.grid.grid-cols-1.gap-5.sm:grid-cols-4(style="display: grid; margin-bottom: 1rem")
+        dt.text-md.font-medium.text-gray-800.truncate= heading
+
+        - hash.each do |state, value|
+          = render "stat", state: state, value: value, css_class: state_class_map[state]
+
+  .search-form.filters
+    = simple_form_for query,
+        as: :q,
+        url: feeds_outgoing_documents_path,
+        method: :get do |f|
+      .row
+        .medium-3.large-2.columns
+          = f.input :state_eq,
+                    label: "State",
+                    collection: Renalware::Feeds::OutgoingDocument.states.values
+        .medium-3.large-3.columns.actions.end
+          = f.submit t("btn.filter"), class: "button"
+          '  or
+          = link_to t("btn.reset"), renalware.feeds_outgoing_documents_path
+
+= within_new_admin_layout(title: "Outgoing Documents") do
+
+  table
+    thead
+      tr
+        th
+        th
+        th
+        th
+        th
+        th.text-center.bg-pink-100(colspan=3) Renderable
+
+      tr
+        th.col-width-tiny= sort_link(query, :id, "Id")
+        th.col-width-small State
+        th.col-width-date-time= sort_link(query, :created_at, "Created")
+        th.col-width-date-time= sort_link(query, :updated_at, "Updated")
+        th Creator
+        th.bg-pink-100.text-center.col-width-small Type
+        th.bg-pink-100.text-center.col-width-tiny Id
+        th.bg-pink-100.text-center.col-width-tiny
+
+    - documents.each do |doc|
+      tbody(class=state_class_map[doc.state])
+        tr
+          td= doc.id
+          td= doc.state
+          td= l(doc.created_at)
+          td= l(doc.updated_at)
+          td= doc.created_by
+          td.bg-pink-100= doc.renderable_type
+          td.bg-pink-100= doc.renderable_id
+          td.bg-pink-100
+            = link_to "JSON/HL7",
+                      renalware.feeds_queued_outgoing_document_path(doc),
+                      target: "_blank"
+
+  == pagy_foundation_nav pagy

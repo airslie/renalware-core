@@ -14,7 +14,7 @@ describe "Outgoing Documents API", type: :system do
   describe "authorisation" do
     context "when no credentials supplied" do
       it "redirects to the login page" do
-        get feeds_outgoing_documents_path
+        get feeds_queued_outgoing_documents_path
 
         expect(response).to be_unauthorized
       end
@@ -22,7 +22,7 @@ describe "Outgoing Documents API", type: :system do
 
     context "when invalid credentials supplied" do
       it "redirects to login page when provided username does not exist" do
-        get feeds_outgoing_documents_path(
+        get feeds_queued_outgoing_documents_path(
           username: "nothing",
           token: "doing"
         )
@@ -31,7 +31,7 @@ describe "Outgoing Documents API", type: :system do
       end
 
       it "returns unathorised when provided token in valid does not exist" do
-        get feeds_outgoing_documents_path(
+        get feeds_queued_outgoing_documents_path(
           username: api_user.username,
           token: "bla"
         )
@@ -42,7 +42,7 @@ describe "Outgoing Documents API", type: :system do
 
     context "when valid credentials supplied" do
       it do
-        get feeds_outgoing_documents_path(
+        get feeds_queued_outgoing_documents_path(
           username: api_user.username,
           token: api_user.authentication_token
         )
@@ -52,6 +52,7 @@ describe "Outgoing Documents API", type: :system do
     end
   end
 
+  # rubocop:disable RSpec/ExampleLength
   describe "index.json" do
     it "responds successfully with a paginated list of queued documents" do
       user = create(:user)
@@ -67,7 +68,7 @@ describe "Outgoing Documents API", type: :system do
         created_at: 10.days.ago
       )
 
-      get feeds_outgoing_documents_path(
+      get feeds_queued_outgoing_documents_path(
         username: api_user.username,
         token: api_user.authentication_token
       )
@@ -80,7 +81,7 @@ describe "Outgoing Documents API", type: :system do
             {
               id: queued_ev2.id,
               state: queued_ev2.state,
-              url: feeds_outgoing_document_url(
+              url: feeds_queued_outgoing_document_url(
                 queued_ev2,
                 protocol: :http,
                 host: "www.example.com"
@@ -89,7 +90,7 @@ describe "Outgoing Documents API", type: :system do
             {
               id: queued_ev1.id,
               state: queued_ev1.state,
-              url: feeds_outgoing_document_url(
+              url: feeds_queued_outgoing_document_url(
                 queued_ev1,
                 protocol: :http,
                 host: "www.example.com"
@@ -99,6 +100,7 @@ describe "Outgoing Documents API", type: :system do
         }.with_indifferent_access
       )
     end
+    # rubocop:enable RSpec/ExampleLength
 
     describe "show.json" do
       it "responds successfully with json containing an HL7 doc" do
@@ -114,7 +116,7 @@ describe "Outgoing Documents API", type: :system do
           state: :queued
         )
 
-        get feeds_outgoing_document_path(
+        get feeds_queued_outgoing_document_path(
           id: queued_doc.id,
           username: api_user.username,
           token: api_user.authentication_token
@@ -143,7 +145,7 @@ describe "Outgoing Documents API", type: :system do
           state: :queued
         )
 
-        patch feeds_outgoing_document_path(
+        patch feeds_queued_outgoing_document_path(
           id: queued_doc.id,
           username: api_user.username,
           token: api_user.authentication_token
