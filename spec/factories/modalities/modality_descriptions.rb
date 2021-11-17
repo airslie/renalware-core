@@ -24,6 +24,12 @@ FactoryBot.define do
       code { "hd" }
     end
 
+    trait :hd do
+      name { "HD" }
+      type { "Renalware::HD::ModalityDescription" }
+      code { "hd" }
+    end
+
     trait :transplant do
       name { "Transplant" }
       type { "Renalware::Transplants::RecipientModalityDescription" }
@@ -31,6 +37,12 @@ FactoryBot.define do
     end
 
     trait :low_clearance do
+      name { "Advanced Kidney Care" }
+      type { "Renalware::LowClearance::ModalityDescription" }
+      code { "low_clearance" }
+    end
+
+    trait :akcc do
       name { "Advanced Kidney Care" }
       type { "Renalware::LowClearance::ModalityDescription" }
       code { "low_clearance" }
