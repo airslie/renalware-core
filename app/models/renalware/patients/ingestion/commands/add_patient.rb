@@ -24,10 +24,9 @@ module Renalware
           attr_reader :mapper_factory
 
           def add_patient_if_not_exists
-            return if ENV.key?("ADT_SKIP_UPDATE_PATIENT")
-
             patient = find_patient
             return patient if patient.present?
+            return patient if ENV.key?("ADT_SKIP_UPDATE_PATIENT")
 
             patient = mapper_factory.new(message, patient).fetch
             patient.by = SystemUser.find
