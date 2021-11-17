@@ -51,7 +51,6 @@ module Renalware
 
       def renderable(document)
         renderable = document.renderable
-        # render_format = params.fetch(:document_format, :hl7)
 
         if renderable.class.name.at("Events::")
           renderable = Events::EventPdfPresenter.new(renderable)
