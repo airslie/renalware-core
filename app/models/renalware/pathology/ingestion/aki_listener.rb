@@ -35,12 +35,13 @@ module Renalware
           patient = add_patient_if_not_exists(hl7_message)
           assign_aki_modality_to(patient) if patient.current_modality.blank?
 
-          current_modality = patient.current_modality
-          return if current_modality && %w(hd pd).include?(current_modality.description.code)
+          current_modality_code = patient.current_modality&.description&.code
+          excluded_modalities = %w(hd pd low_clearance akcc)
+          return if excluded_modalities.include?(current_modality_code)
 
           has_recent_aki_alert = Renal::AKIAlert
             .where(patient_id: patient.id)
-            .where("created_at >= ?", 2.days.ago)
+            .where("created_at >= ?", 2.weeks.ago)
             .exists?
 
           unless has_recent_aki_alert

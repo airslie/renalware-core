@@ -79,6 +79,10 @@ module Renalware
         seg.sending_app = "Renalware"
         seg.sending_facility = "MSE"
         seg.processing_id = external_id
+        seg.message_type = "MDM^T02"
+        seg.time = Time.zone.now
+        seg.version_id = Rails.env.production? ? "P" : "U"
+        seg.seq = Renalware::VersionNumber::VERSION
         seg
       end
 

@@ -70,7 +70,6 @@ module World
         expect_rows_to_match(observation_request.observations, rows)
       end
 
-      # rubocop:disable Rails/TimeZone
       def expect_current_observations_to_be(patient:, rows:)
         patient = Renalware::Pathology.cast_patient(patient)
         observation_set = patient.current_observation_set
@@ -80,12 +79,11 @@ module World
 
           expect(obs_set[:result]).to eq(row["result"])
           # Some fancy footwork to get dates to compare
-          expected_observed_at = l(Time.parse(row["observed_at"]))
-          actual_observed_at = l(Time.parse(obs_set[:observed_at]))
+          expected_observed_at = l(Time.zone.parse(row["observed_at"]))
+          actual_observed_at = l(Time.zone.parse(obs_set[:observed_at]))
           expect(actual_observed_at).to eq(expected_observed_at)
         end
       end
-      # rubocop:enable Rails/TimeZone
 
       def expect_rows_to_match(observations, rows)
         rows.each do |attrs|
@@ -117,7 +115,9 @@ module World
         year_row = table.rows.map(&:observed_on).map(&:year).map(&:to_s).prepend("year")
         expect(expected_rows[0]).to eq(year_row)
 
-        day_row = table.rows.map(&:observed_on).map { |date| date.strftime("%d/%m") }.prepend("date")
+        day_row = table.rows.map(&:observed_on).map do |date|
+          date.strftime("%d/%m")
+        end.prepend("date")
         expect(expected_rows[1]).to eq(day_row)
 
         expected_rows[2..-1].each_with_index do |_expected_row, idx|

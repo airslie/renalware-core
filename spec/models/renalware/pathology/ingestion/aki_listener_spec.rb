@@ -97,7 +97,7 @@ module Renalware
           end
 
           describe "creation of aki_alert" do
-            %i(hd pd).each do |mod|
+            %i(hd pd low_clearance).each do |mod|
               it "no aki alert created when modality is #{mod}" do
                 create(:pathology_lab, :uknown)
                 create(:user, username: Renalware::SystemUser.username)
@@ -135,7 +135,7 @@ module Renalware
               end
             end
 
-            it "does not create an alert if one created in last 2 days" do
+            it "does not create an alert if one created in last 2 weeks" do
               create(:pathology_lab, :uknown)
               create(:user, username: Renalware::SystemUser.username)
               create(:modality_description, :aki)
@@ -147,7 +147,7 @@ module Renalware
                 description: create(:modality_description, :transplant)
               )
 
-              create(:aki_alert, patient_id: patient.id, created_at: 23.hours.ago)
+              create(:aki_alert, patient_id: patient.id, created_at: 13.days.ago)
 
               expect {
                 Renalware::Feeds.message_processor.call(raw_message)
