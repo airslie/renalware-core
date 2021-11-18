@@ -16,11 +16,20 @@ module Renalware
 
           # Return the first AKI score found in any OBR in the message
           def aki_score
-            hl7_message
+            aki_observation&.value.to_f
+          end
+
+          def aki_date
+            aki_observation&.observation_date
+          end
+
+          private
+
+          def aki_observation
+            @aki_observation ||= hl7_message
               .observation_requests
               .flat_map(&:observations)
               .detect { |obx| obx.identifier == AKI_CODE }
-              &.value.to_f
           end
         end
 
@@ -29,8 +38,8 @@ module Renalware
         # NOTE: We are already inside a transaction here
         def oru_message_arrived(args)
           hl7_message = args[:hl7_message]
-          aki_score = MessageDecorator.new(hl7_message).aki_score
-          return unless aki_score > 0
+          aki = MessageDecorator.new(hl7_message)
+          return unless aki.aki_score > 0
 
           patient = add_patient_if_not_exists(hl7_message)
           assign_aki_modality_to(patient) if patient.current_modality.blank?
@@ -44,10 +53,15 @@ module Renalware
             .where("created_at >= ?", 2.weeks.ago)
             .exists?
 
+          pathset = ObservationSetPresenter.new(patient.current_observation_set)
+
           unless has_recent_aki_alert
             Renal::AKIAlert.create!(
               patient_id: patient.id,
-              max_aki: aki_score
+              max_aki: aki.aki_score,
+              aki_date: aki.aki_date,
+              max_cre: pathset.cre_result,
+              cre_date: pathset.cre_observed_at
             )
           end
         end
