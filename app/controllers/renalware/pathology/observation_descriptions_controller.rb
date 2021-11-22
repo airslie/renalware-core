@@ -13,7 +13,7 @@ module Renalware
           .includes(obx_mappings: :sender)
           .order(:code)
           .ransack(params[:q] || {})
-        pagy, descriptions = pagy(query.result)
+        pagy, descriptions = pagy(query.result, items: 50)
         authorize descriptions
         render locals: { descriptions: descriptions, pagy: pagy, query: query }
       end

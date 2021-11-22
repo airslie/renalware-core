@@ -1,14 +1,25 @@
-.search-form.filters.w-full.max-w-lg
+.search-form.filters
   = simple_form_for query,
                     url: url,
                     method: :get,
                     html: { autocomplete: "off" } do |f|
 
     .flex.flex-wrap.-mx-3.mb-6
-      .w-full.md:w-1/2.px-3.mb-6.md:mb-0
-        = f.input :code_cont, label: "Code contains"
-        /= f.input :obx_mappings_code_cont, label: "Mapping contains" # this returnes duplicates
-      .w-full.md:w-1/2.px-3.mb-6.md:mb-0
+      .w-full.md:w-1/5.px-3.mb-6.md:mb-0
+        = f.input :code_or_name_cont, label: "Code or name contains"
+      .w-full.md:w-1/5.px-3.mb-6.md:mb-0
+        = f.input :obx_mappings_code_alias_eq,
+            collection: Renalware::Pathology::OBXMapping.pluck(:code_alias).uniq,
+            label: "Mapping code alias"
+      .w-full.md:w-1/5.px-3.mb-6.md:mb-0
+        = f.input :obx_mappings_sender_id_eq,
+            collection: Renalware::Pathology::Sender.all.map { |snd| [snd.to_s, snd.id] },
+            label: "Mapping sender"
+      .w-full.md:w-1/5.px-3.mb-6.md:mb-0
+        = f.input :created_by_sender_id_eq,
+            collection: Renalware::Pathology::Sender.all.map { |snd| [snd.to_s, snd.id] },
+            label: "Dynamically created by sender"
+      .w-full.md:w-1/5.px-3.mb-6.md:mb-0
 
         = f.submit t("btn.filter"), class: "button", name: nil
         '  or
