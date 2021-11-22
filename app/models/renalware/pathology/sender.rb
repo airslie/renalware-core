@@ -24,6 +24,13 @@ module Renalware
 
         sender || create!(sending_facility: sending_facility) # application defauilts to *
       end
+
+      def to_s
+        [
+          sending_facility,
+          sending_application
+        ].join("/")
+      end
     end
   end
 end
