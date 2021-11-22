@@ -33,6 +33,7 @@ resources :patients, only: [] do
 end
 
 namespace :pathology do
+  resources :labs
   resources :code_groups
   resources :observation_descriptions, except: :destroy
   namespace :requests do

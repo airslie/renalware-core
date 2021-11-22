@@ -1,38 +1,83 @@
 = content_for :filters do
   = render "filters", query: query, url: renalware.pathology_observation_descriptions_path
 
-= within_admin_layout(title: "Observation descriptions (OBX)") do
+= within_new_admin_layout(title: "Observation descriptions (OBX)") do
   table
     thead
       tr
-        th(colspan=5)
-        th.text-center.bg-gray-100(colspan=3) Measurement unit
+        /th(colspan=3)
+        th.col-width-tiny(rowspan=2)
+        th.col-width-small(rowspan=2)= sort_link(query, :code, "Code")
+        th.col-width-large(rowspan=2)= sort_link(query, :name, "Name")
+
+        th.text-center.bg-green-200(colspan=3) Mappings
+        th.text-center.bg-blue-200(colspan=2) Observations
+        th.text-center.bg-pink-200(colspan=2) Renal Registry
+        th.text-center.bg-gray-200(colspan=3) Measurement unit
+        th.text-center.bg-yellow-200(colspan=2) Creation
       tr
-        th.col-width-tiny
-        th.col-width-small= sort_link(query, :code, "Code")
-        th.col-width-large= sort_link(query, :name, "Name")
-        th.col-width-small RR Type
-        th.col-width-medium RR Coding Standard
-        th.bg-gray-100.text-center= sort_link(query, :measurement_unit_name, "Current")
-        th.bg-gray-100.text-center= sort_link(query, :suggested_measurement_unit, "Suggested")
-        th.bg-gray-100.text-center UKRDC unit
+        / Mappings
+        th.bg-green-200 Alias
+        th.bg-green-200 Sending facility
+        th.bg-green-200 Sending application
+        / Usage
+        th.bg-blue-200= sort_link(query, :observations_count, "Count")
+        th.bg-blue-200= sort_link(query, :last_observed_at, "Latest")
+        / UKRDC
+        th.col-width-small.bg-pink-200 Type
+        th.col-width-small.bg-pink-200 Coding Standard
+        / Units
+        th.bg-gray-200.text-center= sort_link(query, :measurement_unit_name, "Current")
+        th.bg-gray-200.text-center= sort_link(query, :suggested_measurement_unit, "Suggested")
+        th.bg-gray-200.text-center UKRDC unit
+        / Creation
+        th.bg-yellow-200.col-width-date-time= sort_link(query, :created_at, "Date")
+        th.bg-yellow-200 HL7 Facility
+
     tbody
       - descriptions.each do |description|
-        tr
-          td.actions= link_to_if(policy(description).edit?, "Edit", [:edit, description])
-          td= description.code
-          td= description.name
-          td= description.rr_type
-          td
-            = description.rr_coding_standard
-          td
-            - unit = description.measurement_unit
-            = unit&.title
-          td
-            - unit = description.suggested_measurement_unit
-            = unit&.title
-          td
-            - unit = description.measurement_unit&.ukrdc_measurement_unit
-            = unit&.title
+
+        - mappings_count = description.obx_mappings.size
+        - mappings_count = 1 if mappings_count == 0
+
+        - mappings_count.times do |index|
+          tr
+            - if index == 0
+
+              td.actions(rowspan=mappings_count)
+                = link_to_if(policy(description).edit?, "Edit", [:edit, description])
+
+              td(rowspan=mappings_count title="Id=#{description.code}")
+                b= description.code
+              td(rowspan=mappings_count)= description.name
+
+              = render "mapping_columns", obx_mapping: description.obx_mappings[index]
+
+              / td.bg-green-100(rowspan=mappings_count)
+              /   - if policy(description).edit?
+              /     = link_to [:edit, description] do
+              /       ' Add
+
+              td.bg-blue-100.hover:bg-blue-200(rowspan=mappings_count)= description.observations_count
+              td.bg-blue-100.hover:bg-blue-200.col-width-date-time(rowspan=mappings_count)= l(description.last_observed_at)
+
+              td.bg-pink-100.hover:bg-pink-200(rowspan=mappings_count)= description.rr_type
+              td.bg-pink-100.hover:bg-pink-200(rowspan=mappings_count)= description.rr_coding_standard
+              td.bg-gray-100.hover:bg-gray-200(rowspan=mappings_count)
+                - unit = description.measurement_unit
+                = unit&.title
+              td.bg-gray-100.hover:bg-gray-200(rowspan=mappings_count)
+                - unit = description.suggested_measurement_unit
+                = unit&.title
+              td.bg-gray-100.hover:bg-gray-200(rowspan=mappings_count)
+                - unit = description.measurement_unit&.ukrdc_measurement_unit
+                = unit&.title
+              td.bg-yellow-100.hover:bg-yellow-200.col-width-date-time(rowspan=mappings_count)= l(description.created_at)
+              td.bg-yellow-100.hover:bg-yellow-200(rowspan=mappings_count)
+                - sender = description.created_by_sender
+                = [sender&.sending_facility, sender&.sending_application].compact.join("/")
+
+            - else
+              = render "mapping_columns", obx_mapping: description.obx_mappings[index]
 
   == pagy_foundation_nav pagy

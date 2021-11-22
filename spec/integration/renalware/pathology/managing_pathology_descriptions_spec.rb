@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Pathology
-  describe "Managing pathology observeration descriptions (OBX)", type: :request do
+  describe "Managing pathology observation descriptions (OBX)", type: :request do
     # Index HTML GET
     it "responds with a list" do
       create(:pathology_observation_description, code: "ABCD", name: "1234")

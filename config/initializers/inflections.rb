@@ -47,6 +47,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "NHS"
   inflect.acronym "NHS"
   inflect.acronym "ODS"
+  inflect.acronym "OBX"
   inflect.acronym "PD"
   inflect.acronym "PET"
   inflect.acronym "PRD"

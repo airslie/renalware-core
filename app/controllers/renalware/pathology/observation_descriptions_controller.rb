@@ -9,7 +9,8 @@ module Renalware
 
       def index
         query = ObservationDescription
-          .includes(:measurement_unit)
+          .includes(:measurement_unit, :suggested_measurement_unit, :created_by_sender)
+          .includes(obx_mappings: :sender)
           .order(:code)
           .ransack(params[:q] || {})
         pagy, descriptions = pagy(query.result)

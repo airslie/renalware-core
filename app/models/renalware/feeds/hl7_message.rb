@@ -162,6 +162,14 @@ module Renalware
         type.split("^").first
       end
 
+      def sending_app
+        self[:MSH].sending_app
+      end
+
+      def sending_facility
+        self[:MSH].sending_facility
+      end
+
       def event_type
         parts = type.split("^")
         parts.length == 2 && parts.last
