@@ -17,6 +17,7 @@ module Renalware
     #
     # Note this class could be removed and a Builder class used to create the database models
     # directly - this would remove the extra level of indirection that this class introduces.
+    # rubocop:disable Metrics/ClassLength
     class ObservationRequestsAttributesBuilder
       DEFAULT_REQUESTOR_NAME = "UNKNOWN"
       delegate :patient_identification, :observation_requests, to: :hl7_message
@@ -26,7 +27,6 @@ module Renalware
       # hl7_message is an HL7Message (a decorator around an ::HL7::Message)
       def initialize(hl7_message, logger = Delayed::Worker.logger)
         @hl7_message = hl7_message
-        @sender = find_or_create_sender
         @logger = logger
       end
 
@@ -49,10 +49,10 @@ module Renalware
 
       private
 
-      attr_reader :hl7_message, :logger, :sender
+      attr_reader :hl7_message, :logger
 
-      def find_or_create_sender
-        Sender.resolve!(
+      def sender
+        @sender ||= Sender.resolve!(
           sending_facility: hl7_message.sending_facility,
           sending_application: hl7_message.sending_app
         )
@@ -105,11 +105,21 @@ module Renalware
             observation: observation,
             sender: sender
           ).call
-          next unless validate_observation(observation, observation_description)
+
+          # Note that OBX.14 observation date could be be missing in which case
+          # use OBR.7 results_status_change_date
+          observed_at = observation.date_time.presence || request.observation_date
+
+          next unless validate_observation(
+            request,
+            observed_at,
+            observation,
+            observation_description
+          )
 
           {
             description_id: observation_description.id,
-            observed_at: parse_time(observation.date_time),
+            observed_at: parse_time(observed_at),
             result: observation.value,
             comment: observation.comment,
             cancelled: observation.cancelled
@@ -127,13 +137,24 @@ module Renalware
         raise MissingRequestDescriptionError, code
       end
 
-      def validate_observation(observation, observation_description)
-        if observation.date_time.blank?
-          logger.warn(
-            "Skipped observation with blank `observed_at` (date_time) "\
-            "in OBX with code #{observation_description.code}"
-          )
+      def validate_observation(request, observed_at, observation, observation_description)
+        if observed_at.blank?
+          System::Log.warning(<<-MSG.squish)
+            Skipping OBX missing observation date: OBX.14 and OBR.7 dates are blank.
+            MSH=#{hl7_message.header_id}
+            OBR=#{request.placer_order_number}
+            OBX=#{observation_description.code}
+            Sender=#{sender}
+          MSG
           false
+        elsif observation.value.blank?
+          System::Log.warning(<<-MSG.squish)
+            Skipping OBX missing value
+            MSH=#{hl7_message.header_id}
+            OBR=#{request.placer_order_number}
+            OBX=#{observation_description.code}
+            Sender=#{sender}
+          MSG
         else
           true
         end
@@ -143,12 +164,10 @@ module Renalware
         @patient ||= Feeds::PatientLocator.call(hl7_message.patient_identification)
       end
 
-      # Default to using today's date and time if no date_time passed in the message
       def parse_time(string)
-        return Time.zone.now.to_s if string.blank?
-
         Time.zone.parse(string).to_s
       end
     end
+    # rubocop:enable Metrics/ClassLength
   end
 end

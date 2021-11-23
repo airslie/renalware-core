@@ -176,25 +176,21 @@ module Renalware::Pathology
           RAW
         end
 
-        it "excludes those OBX segments and logs a warning" do
+        # TODO: Needs cleaning and tightening up!
+        it "creates the OBX using the OBR obserrved_at date" do
           create(:pathology_request_description, code: "GS")
           included_description = create(:pathology_observation_description, code: "GRP")
           create(:pathology_observation_description, code: "WSUM")
           create(:patient, local_patient_id: "V1111111", born_on: "2001-01-01")
           logger = instance_spy("Rails.logger")
-          allow(logger).to receive(:warn).once
 
           message = Renalware::Feeds::MessageParser.parse(raw_message)
           parser = described_class.new(message, logger)
           results = parser.parse
-          # Assert that WSUM was excluded
-          expect(logger).to have_received(:warn)
-          expect(results.length).to eq(1)
+          expect(results.length).to eq(1) # OBR
+
           observations_to_create = results[0].dig(:observation_request, :observations_attributes)
-          expect(observations_to_create.length).to eq(1)
-          expect(
-            observations_to_create.pluck(:description_id)
-          ).to eq([included_description.id])
+          expect(observations_to_create.length).to eq(2) # OBX
         end
       end
 
@@ -227,37 +223,7 @@ module Renalware::Pathology
         end
       end
 
-      context "when requested_at not present in the HL7 message" do
-        let(:hl7_message) {
-          double(
-            :hl7_message,
-            sending_facility: "Fac",
-            sending_app: "App",
-            patient_identification: pid(internal_id: patient.local_patient_id),
-            observation_requests: [
-              double(
-                identifier: request_description.code,
-                name: request_description.name,
-                ordering_provider_name: "aasas",
-                placer_order_number: "::pcs code::",
-                filler_order_number: "::fillernum::",
-                date_time: nil,
-                observations: []
-              )
-            ]
-          )
-        }
-
-        it "uses the current data and time" do
-          travel_to Time.zone.local(2018, 01, 01, 01, 01, 01) do
-            requests = described_class.new(hl7_message).parse
-            expect(requests.first[:observation_request][:requested_at])
-              .to eq("2018-01-01 01:01:01 +0000")
-          end
-        end
-      end
-
-      context "when the OBR code is no found" do
+      context "when the OBR code is not found" do
         let(:hl7_message) {
           double(
             :hl7_message,
@@ -271,7 +237,7 @@ module Renalware::Pathology
                 ordering_provider_name: "aasas",
                 placer_order_number: "::pcs code::",
                 filler_order_number: "::fillernum::",
-                date_time: nil,
+                date_time: "200911111841",
                 observations: []
               )
             ]
@@ -305,7 +271,7 @@ module Renalware::Pathology
                 ordering_provider_name: "aasas",
                 placer_order_number: "::pcs code::",
                 filler_order_number: "::fillernum::",
-                date_time: nil,
+                date_time: "200911111841",
                 observations: [
                   double(
                     identifier: "I_DO_NOT_EXIST_CODE",
