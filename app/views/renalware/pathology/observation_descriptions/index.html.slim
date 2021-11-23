@@ -87,8 +87,9 @@
 
             - else
               td.bg-green-100.hover:bg-green-200
-              b= description.obx_mappings[index]&.code_alias
-              td.bg-green-100.hover:bg-green-200= sender_abbrev
+                b= description.obx_mappings[index]&.code_alias
+              td.bg-green-100.hover:bg-green-200
+                = description.obx_mappings[index]&.sender
 
 
   == pagy_foundation_nav pagy
