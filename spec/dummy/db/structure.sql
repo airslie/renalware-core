@@ -168,6 +168,29 @@ CREATE TYPE renalware.pd_pet_type AS ENUM (
 
 
 --
+-- Name: system_log_group; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.system_log_group AS ENUM (
+    'users',
+    'admin',
+    'superadmin',
+    'developer'
+);
+
+
+--
+-- Name: system_log_severity; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.system_log_severity AS ENUM (
+    'info',
+    'warning',
+    'error'
+);
+
+
+--
 -- Name: system_nag_definition_scope; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -8808,7 +8831,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -8888,7 +8911,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
+  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -10038,6 +10061,47 @@ CREATE SEQUENCE renalware.system_events_id_seq
 --
 
 ALTER SEQUENCE renalware.system_events_id_seq OWNED BY renalware.system_events.id;
+
+
+--
+-- Name: system_logs; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.system_logs (
+    id bigint NOT NULL,
+    severity renalware.system_log_severity DEFAULT 'info'::renalware.system_log_severity NOT NULL,
+    "group" renalware.system_log_group DEFAULT 'users'::renalware.system_log_group NOT NULL,
+    owner_id bigint,
+    message text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: COLUMN system_logs.owner_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_logs.owner_id IS 'Optional - if targetted at a specific user';
+
+
+--
+-- Name: system_logs_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.system_logs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.system_logs_id_seq OWNED BY renalware.system_logs.id;
 
 
 --
@@ -12684,6 +12748,13 @@ ALTER TABLE ONLY renalware.system_events ALTER COLUMN id SET DEFAULT nextval('re
 
 
 --
+-- Name: system_logs id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_logs ALTER COLUMN id SET DEFAULT nextval('renalware.system_logs_id_seq'::regclass);
+
+
+--
 -- Name: system_messages id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -14422,6 +14493,14 @@ ALTER TABLE ONLY renalware.system_downloads
 
 ALTER TABLE ONLY renalware.system_events
     ADD CONSTRAINT system_events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_logs system_logs_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_logs
+    ADD CONSTRAINT system_logs_pkey PRIMARY KEY (id);
 
 
 --
@@ -18779,6 +18858,20 @@ CREATE INDEX index_system_events_on_visit_id ON renalware.system_events USING bt
 
 
 --
+-- Name: index_system_logs_on_group; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_logs_on_group ON renalware.system_logs USING btree ("group");
+
+
+--
+-- Name: index_system_logs_on_owner_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_logs_on_owner_id ON renalware.system_logs USING btree (owner_id);
+
+
+--
 -- Name: index_system_nag_definitions_on_description; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -20556,6 +20649,14 @@ ALTER TABLE ONLY renalware.hd_diary_slots
 
 ALTER TABLE ONLY renalware.patients
     ADD CONSTRAINT fk_rails_5b44e541da FOREIGN KEY (ethnicity_id) REFERENCES renalware.patient_ethnicities(id);
+
+
+--
+-- Name: system_logs fk_rails_5b48840751; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_logs
+    ADD CONSTRAINT fk_rails_5b48840751 FOREIGN KEY (owner_id) REFERENCES renalware.users(id);
 
 
 --
@@ -23185,6 +23286,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211118173235'),
 ('20211119132257'),
 ('20211121142636'),
-('20211121144203');
+('20211121144203'),
+('20211123105422');
 
 

@@ -1,10 +1,23 @@
 --- !ruby/struct:FeedJob
 raw_message: |
-  MSH|^~\&|MEDWAY|RAJ01|Renalware|MSE|20210813115648||ADT^A05|RAJ_5461593518|P|2.4|||AL|NE|||
-  EVN|A31|20210813115647||||20210813115647|
-  PID||2023869048^NSTS03^^NHS^NHS|CCC400002^^^KCH^HOSP||Testrenalware^Testdemone^^^Mr||19440922|M|||Thames Estuary Yacht Club^Western Esplanade^Westcliff-on-Sea^Essex^SS0 7QB|||||||||||F||||||||N||NSTS03
-  PD1|||Rivermead Gate Med.Ctr.^^F81071|G8333795^Singh^SK^^^Dr^^^^^^^GP|||||||||||
-  PV1||O|C2^Ad hoc, Ortho, Miss R Grewal, CONS RG D1^BAFRA^RDDH0|||||G8333795^Singh^SK^""^^Dr^^^^^^^GP|C3430343^Grewal^Rupi^""^^Ms^^^^^^^CONS|110|||||||||BAS-OP2107006022AP|||||||||||||||||||||||||||||||||
-  PV2||||||||20210810090000|||||||||||||||||01||||||||||||||||||||||
-  ZU1|||||||16||||||03A|1||||||||||||||
-  ZU3|||NS|NOOUT||||||||01|^^^NS^Reason Not Set|
+  MSH|^~\&|WinPath|RAJ32|Renalware|MSE|202111111309||ORU^R01|7146403|P|2.3.1|||AL
+  PID||7114008236|Z100002^^^KCH^HOSP||RABBIT^LYNDA^^^        NE||19480922|F|||174^X ROAD^Xxx^^VM1 1NX
+  PV1|||XXX^A\T\E Xxxx||||EMD^A\T\E Consultant||EMD^A\T\E Consultant
+  ORC|RE|BRM-21B846500|BRM-0021B846500||CM||||202111111309
+  OBR|1|BRM-21B846500|BRM-0021B846500|AKI^AKI ALERT^WinPath||202111111228|202111111221||||||copd excetrbation ? sob||B^Blood|EMD^A\T\E Consultant||||||202111111309||BLS|F
+  OBX|1|NM|AKI^AKI Alert^WinPath||1\.br\Results suggest AKI stage 1; Commence AKI care\.br\bundle. For more information please refer to -\.br\http://meht-intranet/clinical-pages/acute-kidney-\.br\injury-aki/||||||F
+  OBR|2|BRM-21B846500|BRM-0021B846500|FBC^FULL BLOOD COUNT^WinPath||202111111228|202111111221||||||copd excetrbation ? sob||B^Blood|EMD^A\T\E Consultant||||||202111111240||BLS|F
+  OBX|1|NM|HBN^Haemoglobin^WinPath||143|g/L|120 - 150||||F
+  OBX|2|NM|WBC^White Blood Cell Count^WinPath||12.8\.br\This result could indicate your patient might have\.br\sepsis.|x 10^9/l|4 - 10|H|||F
+  OBX|3|NM|PLT^Platelets^WinPath||382|x 10^9/l|150 - 450||||F
+  OBX|4|NM|HCT^HCT^WinPath||0.429|l/l|0.36 - 0.46||||F
+  OBX|5|NM|MCV^MCV^WinPath||88.6|fl|83 - 101||||F
+  OBX|6|NM|MCH^MCH^WinPath||29.5|pg|27 - 32||||F
+  OBX|7|NM|MCCN^MCHC^WinPath||333|g/L|315 - 345||||F
+  OBX|8|NM|RDW^RDW^WinPath||17.4|%|11.6 - 14|H|||F
+  OBX|9|NM|RBC^Red Blood Cell Count^WinPath||4.84|x 10^12/l|3.8 - 4.8|H|||F
+  OBX|10|NM|NEUT^  Neutrophils^WinPath||7.3|x 10^9/l|2 - 7|H|||F
+  OBX|11|NM|LYMP^  Lymphocytes^WinPath||4.0|x 10^9/l|1.1 - 3.5|H|||F
+  OBX|12|NM|MONO^  Monocytes^WinPath||1.4|x 10^9/l|0.2 - 1|H|||F
+  OBX|13|NM|EOS^  Eosinophils^WinPath||0.0|x 10^9/l|0 - 0.5||||F
+  OBX|14|NM|BAS^  Basophils^WinPath||0.1|x 10^9/l|0 - 0.1||||F

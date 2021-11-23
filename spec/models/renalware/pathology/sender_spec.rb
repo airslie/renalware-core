@@ -66,6 +66,24 @@ module Renalware::Pathology
 
           expect(found).to eq(original)
         end
+
+        it "can match using a regex as the sending_facility" do
+          sender1 = described_class.create!(
+            sending_facility: "(Fac1|Fac2|other)",
+            sending_application: "*"
+          )
+          described_class.create!(
+            sending_facility: "Fac3",
+            sending_application: "*"
+          )
+
+          sender = described_class.resolve!(
+            sending_facility: "Fac2",
+            sending_application: "MyApp"
+          )
+
+          expect(sender).to eq(sender1)
+        end
       end
     end
   end

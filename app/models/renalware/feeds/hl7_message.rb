@@ -28,7 +28,7 @@ module Renalware
       }.freeze
 
       class ObservationRequest < SimpleDelegator
-        alias_attribute :date_time, :observation_date
+        alias_attribute :date_time, :requested_date
 
         # rubocop:disable Lint/UselessMethodDefinition
         def initialize(observation_request_segment)
