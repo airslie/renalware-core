@@ -180,7 +180,7 @@ module Renalware
     # :simple or :dob_and_any_nhs_or_assigning_auth_number
     config_accessor(:hl7_patient_locator_strategy) { :simple }
     config_accessor(:demo_password) { "renalware" }
-    config_accessor(:password_policy_description) { "" }
+    config_accessor(:password_policy_description) { "Passwords must be at least 8 characters" }
 
     # The warning to display to IE users, because we want to disuade users from
     # using IE11. If you set this to nil the warning will not be shown
