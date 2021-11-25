@@ -872,6 +872,34 @@ $$;
 
 
 --
+-- Name: pathology_resolve_observation_description(character varying, character varying); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.pathology_resolve_observation_description(obx_code character varying, site character varying) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+  begin
+    RETURN (
+        select distinct on (pod.id) pod.id
+        from pathology_observation_descriptions pod
+        left outer join pathology_obx_mappings pom on pom.observation_description_id = pod.id
+        left outer join pathology_senders ps on ps.id = pom.sender_id
+        where
+        (
+            pom.code_alias = obx_code and site similar to ps.sending_facility
+        )
+        OR
+        (
+            pod.code = obx_code
+        )
+        order by pod.id asc, pom.observation_description_id
+        limit 1
+    );
+end
+  $$;
+
+
+--
 -- Name: patient_nag_clinical_frailty_score(integer); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -23287,6 +23315,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211119132257'),
 ('20211121142636'),
 ('20211121144203'),
-('20211123105422');
+('20211123105422'),
+('20211125104700');
 
 
