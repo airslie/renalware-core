@@ -900,6 +900,33 @@ end
 
 
 --
+-- Name: pathology_resolve_observation_description_from_code(character varying, character varying); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.pathology_resolve_observation_description_from_code(obx_code character varying, site character varying) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+  begin
+    RETURN (
+        select distinct on (pod.id) pod.id
+        from pathology_observation_descriptions pod 
+        left outer join pathology_obx_mappings pom on pom.observation_description_id = pod.id 
+        left outer join pathology_senders ps on ps.id = pom.sender_id 
+        where
+        (
+            pom.code_alias = obx_code and site similar to ps.sending_facility 
+        )
+        OR
+        (
+            pod.code = obx_code
+        )
+        order by pod.id asc, pom.observation_description_id
+    );
+end
+  $$;
+
+
+--
 -- Name: patient_nag_clinical_frailty_score(integer); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -5278,6 +5305,16 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
+
+
+--
 -- Name: letter_recipients; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -6359,6 +6396,37 @@ CREATE SEQUENCE renalware.pathology_labs_id_seq
 --
 
 ALTER SEQUENCE renalware.pathology_labs_id_seq OWNED BY renalware.pathology_labs.id;
+
+
+--
+-- Name: pathology_mashup; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pathology_mashup (
+    id bigint NOT NULL,
+    rwcode character varying NOT NULL,
+    mid_code character varying,
+    soh_code character varying
+);
+
+
+--
+-- Name: pathology_mashup_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.pathology_mashup_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_mashup_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.pathology_mashup_id_seq OWNED BY renalware.pathology_mashup.id;
 
 
 --
@@ -8859,7 +8927,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -8939,7 +9007,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -12237,6 +12305,13 @@ ALTER TABLE ONLY renalware.pathology_labs ALTER COLUMN id SET DEFAULT nextval('r
 
 
 --
+-- Name: pathology_mashup id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_mashup ALTER COLUMN id SET DEFAULT nextval('renalware.pathology_mashup_id_seq'::regclass);
+
+
+--
 -- Name: pathology_measurement_units id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -13185,6 +13260,14 @@ ALTER TABLE ONLY renalware.admission_requests
 
 ALTER TABLE ONLY renalware.admission_specialties
     ADD CONSTRAINT admission_specialties_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_mashup ahhhh; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_mashup
+    ADD CONSTRAINT ahhhh PRIMARY KEY (id);
 
 
 --
