@@ -2,13 +2,14 @@
   - display_termination_date = !current_scope || local_assigns.fetch(:display_termination_date, false)
   .row
     .large-12.columns
-      table[class="auto-layout" id="#{id}"]
+      table.toggleable(class="auto-layout" id="#{id}" data-controller="toggle")
         thead
           tr
+            th.togglers.noprint= rows_toggler
             - if current_scope
-              th
+              th(style="width: 1rem")
               th.col-width-small
-            th.col-width-medium
+            th.col-width-large
               = sort_link_if(treatable.sortable?, search, :drug_name, "Drug name")
             th Drug Type
             th.col-width-small Dose
@@ -17,18 +18,20 @@
             - if current_scope
               th Give on HD
             th.col-width-tiny Provider
-            th Notes
+            th.col-width-tiny Notes
             th.col-width-date.wide
               = sort_link_if(treatable.sortable?, search, :prescribed_on, "Prescribed on")
             th Recorded By
             - if display_termination_date
               th.col-width-date Terminated On
               th Terminated By
-        tbody
-          - prescriptions.each do |prescription|
-            tr class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
+
+        - prescriptions.each do |prescription|
+          tbody
+            tr(class="drug-#{drug_types_colour_tag(prescription.drug_types)}")
+              td= row_toggler
               - if current_scope
-                td
+                td.pr-2
                   input.discardable-checkbox-used-when-reviewing-drugs-with-patient(type="checkbox")
                 td.actions= render partial: "renalware/medications/prescriptions/options",
                               locals: { patient: patient, prescription: prescription }
@@ -40,11 +43,18 @@
               - if current_scope
                 td= prescription.administer_on_hd?
               td= prescription.provider
-              td= prescription.notes
+              td.text-center
+                - if prescription.notes.present?
+                  i.fas.fa-comment.text-yellow-500.hover:text-yellow-600(title="Toggle to see notes")
               td= I18n.l prescription.prescribed_on
               td= prescription.created_by.full_name
               - if display_termination_date
                 td= I18n.l prescription.terminated_on
                 td= prescription.terminated_by&.full_name
+            tr
+              td(colspan=13)
+                .quick-preview
+                  = definition_list_for(prescription, size: :large) do |list|
+                    = list.definition(:notes){ |value| simple_format(value) }
 - else
   p There are no prescriptions in this list.

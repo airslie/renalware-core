@@ -324,8 +324,13 @@ module World
 
         visit patient_prescriptions_path(patient)
 
-        current_prescriptions = html_table_to_array("current-prescriptions").drop(1)
-        historical_prescriptions = html_table_to_array("historical-prescriptions").drop(1)
+        # Be sure to omit the toggled Notes row
+        current_prescriptions = html_table_to_array("current-prescriptions")
+          .drop(1)
+          .select.each_with_index { |_, idx| idx.even? }
+        historical_prescriptions = html_table_to_array("historical-prescriptions")
+          .drop(1)
+          .select.each_with_index { |_, idx| idx.even? }
 
         [current_prescriptions, historical_prescriptions]
       end
