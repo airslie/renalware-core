@@ -9,6 +9,52 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.0
+### Added
+- Allow mapping OBX codes based on HL7 sending facility/application #3661
+- Create AKI Alerts #3678
+- Allow a superadmin to view a paged list of outgoing documents #3673
+- Support sending an approved letter as an HL7 message to Mirth #3659
+- Allow hiding modality descriptions in the superadmin UI #3668
+- Capture OBR filler_order_number #3667
+- Display a deprecation message to IE users #3619
+- Allow administration of letter descriptions by a super admin #3606
+- Allow administration of letter descriptions by a super admin #3606
+- Add support for a superadmin to add/edit/(soft) delete clinics #3650
+- User list - add username to display #3625
+- Persist HL7 PID patient ethnicity #3626
+- Implement choosing problems from snomed list #3531
+- Display SNOMED ID in problems list #3602
+- Add missing devise views and customise them #3587
+- Display password policy description #3586
+- Add rolling comorbidities #3457
+- Map hospital numbers in HL7 PID segment to correct local patient id using assigning authority #3546
+- Display Nags on patient screens #3460
+- Add HD DNA Nag #3542
+- Add position and signature fields to sign up form #3549
+- Bone/Anemia graphs #3456
+### Changed
+- Toggle open notes in prescriptions table #3685
+- Use OBR observation date/time if OBX one is missing #3680
+- Add HL7 visit_number to appointments table #3670
+- Add smomed ID after description in search list #3655
+- Assign a clinic default modality description to new patients when importing appointments #3660
+- Allow read-only admin access to letter descriptions #3658
+- Handle ADT Clinic messages #3632
+- Move Consultant model from Renal to Clinics module #3657
+- Enforce unique local_patient_id[2,3,4,5] #3578
+- Add support for a superadmin to add/edit/(soft) delete clinics #3650
+- Set a maximum batch print size for letters #3608
+- Add new dose units millimole:mmol tablespoon:tbsp teaspoon:tsp #3564
+- Handle max failed login attempts for users #3551
+### Fixed
+- Fix broken styling on password reset form #3682
+- Fix ODS sync ruby keywords error #3669
+- Prevent empty string being saved to local_patient_id* columns #3653
+- Do not retry letter batch printing jobs #3600
+- Fix day calculation in patient_nag_clinical_frailty_score fn #3589
+
+### Added
 ## 2.1.2
 ### Added
 - Add named nurse and named consultant to dynamic MDM views #3503
