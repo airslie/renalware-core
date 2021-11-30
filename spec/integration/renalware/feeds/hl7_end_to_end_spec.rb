@@ -186,16 +186,43 @@ describe "HL7 message handling end to end" do
       RAW
     end
 
-    it "still saves it" do
+    it "rejects them" do
       create(:pathology_lab, name: "Lab: Unknown")
       patient = create(:pathology_patient, local_patient_id: "Z999990")
       allow(Renalware::System::Log).to receive(:warning)
 
       FeedJob.new(raw_message).perform
 
-      # Even WBC is saved
-      expect(patient.observations.size).to eq(4)
-      # expect(Renalware::System::Log).to have_received(:warning).exactly(:twice)
+      # WBC and TRLB not saved as nil
+      expect(patient.observations.size).to eq(2)
+      expect(patient.observation_requests.size).to eq(1)
+    end
+  end
+
+  context "when OBX value is missing 2" do
+    let(:raw_message) do
+      <<-RAW.strip_heredoc
+        MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
+        PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
+        OBR|4||BAS-21B20218246|FCS^FULL CLOTTING SCREEN^WinPath||202111300827|202111300605|||||||202111300827|B&Blood|CINS^Insufficient clinician details||||||202111300841||BLS|A
+        OBX|1|ST|HEC1^Routine Coagulation^WinPath||||||||F
+        OBX|2|ST|PT^  PT^WinPath||||||||P
+        OBX|3|ST|INR^  INR^WinPath||||||||P
+        OBX|4|ST|DF^  Derived Fibrinogen^WinPath||||||||P
+        OBX|5|ST|APTT^  APTT^WinPath||||||||P
+        OBX|6|ST|APTR^  APTT Ratio^WinPath||||||||P
+      RAW
+    end
+
+    it "does not save the obx" do
+      create(:pathology_lab, name: "Lab: Unknown")
+      patient = create(:pathology_patient, local_patient_id: "Z999990")
+      allow(Renalware::System::Log).to receive(:warning)
+
+      FeedJob.new(raw_message).perform
+
+      expect(patient.reload.observations.size).to eq(0)
+      expect(patient.reload.observation_requests.size).to eq(1)
     end
   end
 
