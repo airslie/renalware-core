@@ -16,7 +16,7 @@ module Renalware
                  touch: :last_observed_at
 
       validates :description, presence: true
-      validates :result, presence: true, unless: ->(obs) { obs.cancelled? }
+      # validates :result, presence: true, unless: ->(obs) { obs.cancelled? }
       validates :observed_at, presence: true
 
       scope :ordered, -> { order(observed_at: :desc) }
