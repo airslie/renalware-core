@@ -49,12 +49,18 @@ module Renalware
           )
         SQL
 
+        # The order here is significant. We want the most relevant result to float to the top,
+        # that being the obx_mapping's observation_description_id if there is one, hence
+        # being explicit about NULLS LAST just in case the default ordering is NULLS first.
+        # So if there are two rows returned
+        # 1 the obx_mapping onto 'CODE'
+        # 2 the observation_description with code 'CODE' (which should not exist as it is unused but
+        #   might as afterall we create missing OBX codes automatically..) then
+        # Then 1 should always float to the top and be returned.
         ObservationDescription
           .left_outer_joins(:obx_mappings)
           .where(where, code, sender.id, code)
-          .order(
-            "pathology_observation_descriptions.id ASC, "\
-            "pathology_obx_mappings.observation_description_id")
+          .order("pathology_obx_mappings.observation_description_id ASC NULLS LAST")
           .limit(1)
           .first
       end

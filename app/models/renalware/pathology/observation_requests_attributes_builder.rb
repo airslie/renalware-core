@@ -98,7 +98,7 @@ module Renalware
       # Returns an array of hashes where each has the attributes used to create a new
       # pathology_observation in the datbase when passed inside the observation_request hash]
       # built in build_observation_request_params { observations_attributes: [..] }
-      # rubocop:disable Metrics/MethodLength, Performance/MapCompact
+      # rubocop:disable Metrics/MethodLength, Performance/MapCompact, Style/EmptyElse
       def build_observations_params(request)
         request.observations.map do |observation|
           observation_description = FindOrCreateObservationDescription.new(
@@ -110,23 +110,25 @@ module Renalware
           # use OBR.7 results_status_change_date
           observed_at = observation.date_time.presence || request.observation_date
 
-          next unless validate_observation(
+          if observation_valid(
             request,
             observed_at,
             observation,
             observation_description
           )
-
-          {
-            description_id: observation_description.id,
-            observed_at: parse_time(observed_at),
-            result: observation.value,
-            comment: observation.comment,
-            cancelled: observation.cancelled
-          }
+            {
+              description_id: observation_description.id,
+              observed_at: parse_time(observed_at),
+              result: observation.value,
+              comment: observation.comment,
+              cancelled: observation.cancelled
+            }
+          else
+            nil # will be removed by compact
+          end
         end.compact
       end
-      # rubocop:enable Metrics/MethodLength, Performance/MapCompact
+      # rubocop:enable Metrics/MethodLength, Performance/MapCompact, Style/EmptyElse
 
       def find_request_description(code:, name:)
         RequestDescription.find_or_create_by!(code: code) do |desc|
@@ -137,27 +139,21 @@ module Renalware
         raise MissingRequestDescriptionError, code
       end
 
-      def validate_observation(request, observed_at, _observation, observation_description)
+      def observation_valid(request, observed_at, observation, observation_description)
+        return false if observation.value.blank? && observation.comment.blank?
+
         if observed_at.blank?
           System::Log.warning(<<-MSG.squish)
             Skipping OBX missing observation date: OBX.14 and OBR.7 dates are blank.
             MSH=#{hl7_message.header_id}
-            OBR=#{request.placer_order_number}
+            OBR=#{request.placer_order_number || request.filler_order_number}
             OBX=#{observation_description.code}
             Sender=#{sender}
           MSG
-          false
-        # elsif observation.value.blank?
-        #   System::Log.warning(<<-MSG.squish)
-        #     Skipping OBX missing value
-        #     MSH=#{hl7_message.header_id}
-        #     OBR=#{request.placer_order_number}
-        #     OBX=#{observation_description.code}
-        #     Sender=#{sender}
-        #   MSG
-        else
-          true
+          return false
         end
+
+        true
       end
 
       def patient
