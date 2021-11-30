@@ -111,7 +111,7 @@ module Renalware
       end
 
       def address
-        super.split("^")
+        (super || "").split("^")
       end
 
       # We don't use the HL7::Message#sex_admin method (from the ruby hl7 gem) because it
