@@ -43,6 +43,16 @@ module Renalware::Feeds
       end
 
       it { is_expected.to eq(["18 RABBITHOLE ROAD", "LONDON", "", "", "SE8 8JR"]) }
+
+      context "when address is nil" do
+        let(:raw_message) do
+          <<-RAW.strip_heredoc
+            PID||123456789^^^NHS|Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F
+          RAW
+        end
+
+        it { is_expected.to eq([]) }
+      end
     end
 
     describe "#sex (mapping PID sex to Renalware sex)" do
