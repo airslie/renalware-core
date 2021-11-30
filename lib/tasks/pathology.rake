@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "benchmark"
 
 namespace :pathology do
@@ -46,5 +48,28 @@ namespace :pathology do
         "select renalware.new_hl7_message('#{raw_message}'::text);"
       )
     end
+  end
+
+  desc "Reprocess feed_messages from a point in time - for testing and assumes pathology " \
+       "request/observation tables have been cleared back to that point as data will be " \
+       "duplicated otherwise"
+  task reprocess_feed_messages: :environment do
+    reprocess_from = Time.zone.parse(ENV.fetch("reprocess_from"))
+    event_code = ENV.fetch("event_code", "ORU^R01")
+
+    unless reprocess_from
+      raise ArgumentError, "pass a valid datetime string eg '2029-01-01 12:01:01'"
+    end
+
+    puts "Reprocessing from #{reprocess_from}"
+
+    Renalware::Feeds::Message
+      .where(event_code: event_code)
+      .where("created_at >= ?", reprocess_from)
+      .order(created_at: :asc)
+      .select(:id)
+      .find_each(batch_size: 1000) do |msg|
+        Renalware::Pathology::ReprocessFeedMessageJob.perform_later(message: msg)
+      end
   end
 end
