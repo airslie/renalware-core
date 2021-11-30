@@ -181,7 +181,7 @@ describe "HL7 message handling end to end" do
         OBR|1|PLACER_ORDER_NO_1^PCS|FILLER_ORDER_NO_1^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
         OBX|1|TX|WBC^WBC^MB|||10\\S\\12/L|||||F|||200911112026||BBKA^Donald DUCK|
         OBX|2|TX|RBC^RBC^MB||9.99||||||F|||201911112026||BBKA^Donald DUCK|
-        OBX|3|NM|TACR^Tacrolimus (Royal London)^WinPath||3.2|ug/L|(1.0 - 12.0)||||F|||202111291452||DFOKC^Danielle Fokchak
+        OBX|3|NM|TACR^Tacrolimus^WinPath||## TEST CANCELLED ##|ug/L|(1.0 - 12.0)||||F|||202111291452||DFOKC^Danielle Fokchak
         OBX|4|ST|TRLB^Referral lab: Royal London \T\ Barts^WinPath||||||||F
       RAW
     end
@@ -193,7 +193,8 @@ describe "HL7 message handling end to end" do
 
       FeedJob.new(raw_message).perform
 
-      # WBC and TRLB not saved as nil
+      # WBC and TRLB not saved as nil.
+      # TACR will be created with comment "## TEST CANCELLED ##"" and value = ""
       expect(patient.observations.size).to eq(2)
       expect(patient.observation_requests.size).to eq(1)
     end

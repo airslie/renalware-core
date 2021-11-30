@@ -140,7 +140,7 @@ module Renalware
       end
 
       def observation_valid(request, observed_at, observation, observation_description)
-        return false if observation.value.blank?
+        return false if observation.value.blank? && observation.comment.blank?
 
         if observed_at.blank?
           System::Log.warning(<<-MSG.squish)
