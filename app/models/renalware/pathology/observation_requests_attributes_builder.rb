@@ -137,7 +137,7 @@ module Renalware
         raise MissingRequestDescriptionError, code
       end
 
-      def validate_observation(request, observed_at, observation, observation_description)
+      def validate_observation(request, observed_at, _observation, observation_description)
         if observed_at.blank?
           System::Log.warning(<<-MSG.squish)
             Skipping OBX missing observation date: OBX.14 and OBR.7 dates are blank.
@@ -147,14 +147,14 @@ module Renalware
             Sender=#{sender}
           MSG
           false
-        elsif observation.value.blank?
-          System::Log.warning(<<-MSG.squish)
-            Skipping OBX missing value
-            MSH=#{hl7_message.header_id}
-            OBR=#{request.placer_order_number}
-            OBX=#{observation_description.code}
-            Sender=#{sender}
-          MSG
+        # elsif observation.value.blank?
+        #   System::Log.warning(<<-MSG.squish)
+        #     Skipping OBX missing value
+        #     MSH=#{hl7_message.header_id}
+        #     OBR=#{request.placer_order_number}
+        #     OBX=#{observation_description.code}
+        #     Sender=#{sender}
+        #   MSG
         else
           true
         end
