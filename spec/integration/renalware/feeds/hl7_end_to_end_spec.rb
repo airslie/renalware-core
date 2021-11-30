@@ -180,6 +180,7 @@ describe "HL7 message handling end to end" do
         PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
         OBR|1|PLACER_ORDER_NO_1^PCS|FILLER_ORDER_NO_1^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
         OBX|1|TX|WBC^WBC^MB|||10\\S\\12/L|||||F|||200911112026||BBKA^Donald DUCK|
+        OBX|2|TX|RBC^RBC^MB||9.99||||||F|||201911112026||BBKA^Donald DUCK|
       RAW
     end
 
@@ -190,7 +191,8 @@ describe "HL7 message handling end to end" do
 
       FeedJob.new(raw_message).perform
 
-      expect(patient.observations.size).to eq(0)
+      # WBC is ignored as no value
+      expect(patient.observations.size).to eq(1)
       expect(Renalware::System::Log).to have_received(:warning)
     end
   end
