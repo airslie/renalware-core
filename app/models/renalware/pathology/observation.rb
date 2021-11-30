@@ -11,9 +11,9 @@ module Renalware
                  inverse_of: :observations
       belongs_to :description,
                  class_name: "ObservationDescription",
-                 inverse_of: :observations,
-                 counter_cache: true,
-                 touch: :last_observed_at
+                 inverse_of: :observations
+      # ,counter_cache: true,
+      # touch: :last_observed_at
 
       validates :description, presence: true
       # validates :result, presence: true, unless: ->(obs) { obs.cancelled? }
