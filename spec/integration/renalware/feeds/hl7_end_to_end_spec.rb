@@ -200,7 +200,7 @@ describe "HL7 message handling end to end" do
     end
   end
 
-  context "when OBX value is missing 2" do
+  context "when all OBX values are missing" do
     let(:raw_message) do
       <<-RAW.strip_heredoc
         MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
@@ -215,7 +215,7 @@ describe "HL7 message handling end to end" do
       RAW
     end
 
-    it "does not save the obx" do
+    it "does not save the OBR" do
       create(:pathology_lab, name: "Lab: Unknown")
       patient = create(:pathology_patient, local_patient_id: "Z999990")
       allow(Renalware::System::Log).to receive(:warning)
@@ -223,7 +223,7 @@ describe "HL7 message handling end to end" do
       FeedJob.new(raw_message).perform
 
       expect(patient.reload.observations.size).to eq(0)
-      expect(patient.reload.observation_requests.size).to eq(1)
+      expect(patient.reload.observation_requests.size).to eq(0)
     end
   end
 
