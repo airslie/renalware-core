@@ -179,7 +179,7 @@ module Renalware::Pathology
         # TODO: Needs cleaning and tightening up!
         it "creates the OBX using the OBR obserrved_at date" do
           create(:pathology_request_description, code: "GS")
-          included_description = create(:pathology_observation_description, code: "GRP")
+          create(:pathology_observation_description, code: "GRP")
           create(:pathology_observation_description, code: "WSUM")
           create(:patient, local_patient_id: "V1111111", born_on: "2001-01-01")
           logger = instance_spy("Rails.logger")
@@ -211,7 +211,17 @@ module Renalware::Pathology
                 placer_order_number: "::pcs code::",
                 filler_order_number: "::fillernum::",
                 date_time: "200911111841",
-                observations: []
+                observations: [
+                  double(
+                    identifier: observation_description.code,
+                    name: observation_description.name,
+                    date_time: "200911112026",
+                    value: "::value::",
+                    comment: "::comment::",
+                    cancelled: nil,
+                    units: "mg"
+                  )
+                ]
               )
             ]
           )
@@ -300,6 +310,102 @@ module Renalware::Pathology
               created_by_sender: sender
             )
           ).to eq(true)
+        end
+      end
+
+      context "when all OBXs in a an OBR are empty" do
+        let(:hl7_message) {
+          double(
+            :hl7_message,
+            sending_facility: "Fac",
+            sending_app: "App",
+            patient_identification: pid(internal_id: patient.local_patient_id),
+            observation_requests: [
+              double(
+                identifier: request_description.code,
+                name: request_description.code,
+                ordering_provider_name: "::name::",
+                placer_order_number: "::pcs code::",
+                filler_order_number: "::fillernum::",
+                date_time: "200911111841",
+                observations: [
+                  double(
+                    identifier: observation_description.code,
+                    name: observation_description.name,
+                    date_time: "200911112026",
+                    value: "",
+                    comment: "",
+                    cancelled: nil,
+                    units: "mg"
+                  ),
+                  double(
+                    identifier: "I_DO_NOT_EXIST_CODE",
+                    name: "I_DO_NOT_EXIST_NAME",
+                    date_time: "200911112026",
+                    value: "",
+                    comment: "",
+                    cancelled: nil,
+                    units: "mg"
+                  )
+                ]
+              )
+            ]
+          )
+        }
+
+        it "does not return the OBR, so it will not be saved" do
+          requests = described_class.new(hl7_message).parse
+
+          expect(requests).to be_empty
+        end
+      end
+
+      context "when ones OBXs in a an OBR is empty" do
+        let(:hl7_message) {
+          double(
+            :hl7_message,
+            sending_facility: "Fac",
+            sending_app: "App",
+            patient_identification: pid(internal_id: patient.local_patient_id),
+            observation_requests: [
+              double(
+                identifier: request_description.code,
+                name: request_description.code,
+                ordering_provider_name: "::name::",
+                placer_order_number: "::pcs code::",
+                filler_order_number: "::fillernum::",
+                date_time: "200911111841",
+                observations: [
+                  double(
+                    identifier: observation_description.code,
+                    name: observation_description.name,
+                    date_time: "200911112026",
+                    value: "123",
+                    comment: "",
+                    cancelled: nil,
+                    units: "mg"
+                  ),
+                  double(
+                    identifier: "I_DO_NOT_EXIST_CODE",
+                    name: "I_DO_NOT_EXIST_NAME",
+                    date_time: "200911112026",
+                    value: "",
+                    comment: "",
+                    cancelled: nil,
+                    units: "mg"
+                  )
+                ]
+              )
+            ]
+          )
+        }
+
+        it "includes the OBR and the one good OBX" do
+          results = described_class.new(hl7_message).parse
+
+          expect(results.length).to eq(1)
+          observations = results[0].dig(:observation_request, :observations_attributes)
+          expect(observations.length).to eq(1)
         end
       end
     end

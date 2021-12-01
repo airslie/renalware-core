@@ -72,7 +72,8 @@ module Renalware
       # Returns an array of hashes each containing an observation_request entry
       # that wil be used to create associated database rows
       # e.g. [ { observation_request: {..} }, {...} ]
-      #
+      # Omits OBXs that have not value and not comment, and OBRs where all its OBXs have
+      # been omitted.
       # rubocop:disable Metrics/MethodLength
       def build_observation_request_params
         requests.each_with_object([]) do |request, arr|
@@ -80,17 +81,21 @@ module Renalware
             code: request.identifier,
             name: request.name
           )
-          hash = {
+
+          observations = build_observations_params(request)
+
+          next if observations.empty?
+
+          arr << {
             observation_request: {
               description_id: request_description.id,
               requestor_name: request.ordering_provider_name || DEFAULT_REQUESTOR_NAME,
               requestor_order_number: request.placer_order_number,
               filler_order_number: request.filler_order_number,
               requested_at: parse_time(request.date_time),
-              observations_attributes: build_observations_params(request)
+              observations_attributes: observations
             }
           }
-          arr << hash
         end
       end
       # rubocop:enable Metrics/MethodLength
