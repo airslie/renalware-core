@@ -84,7 +84,16 @@ module Renalware
       def search_params
         params
           .require(:q) {}
-          .permit(:date, :term, :on_hotlist, :action, :hospital_unit_id, :hospital_ward_id, :s)
+          .permit(
+            :date,
+            :term,
+            :on_hotlist,
+            :action,
+            :hospital_unit_id,
+            :hospital_ward_id,
+            :max_aki,
+            :s
+          )
       end
 
       def path_params
