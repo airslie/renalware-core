@@ -14,6 +14,7 @@ module Renalware
       attribute :term, String
       attribute :on_hotlist, String
       attribute :s, String
+      attribute :max_aki, String
 
       def query
         @query ||= begin
@@ -23,6 +24,7 @@ module Renalware
             hospital_ward_id_eq: hospital_ward_id,
             action_id_eq: action,
             hotlist_eq: on_hotlist,
+            max_aki_eq: max_aki,
             s: s
           }
           AKIAlertQuery.new(options)

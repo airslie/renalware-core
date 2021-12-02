@@ -12,14 +12,6 @@ scss:
     padding-right: .2rem;
   }
 
-/h2.print-only= filters[path_params[:named_filter].to_sym]
-
-/ dl.sub-nav
-/   - Renalware::Renal::AKI_ALERT_FILTERS.each do |key|
-/     - options = path_params.merge(named_filter: key).to_h.symbolize_keys
-/     - path = Renalware::Engine.routes.url_for(options.merge!(only_path: true))
-/     = sub_nav_item(key.to_s.humanize, path)
-
 .search-form.filters
   = simple_form_for form,
       as: :q,
@@ -27,8 +19,8 @@ scss:
       method: :get do |f|
 
     .row
-      .columns.medium-3.large-2
-        = f.input :term, label: "Hosp/NHS No. or name"
+      .columns.medium-2.large-2
+        = f.input :term, label: "Hosp/NHS No/name"
       .columns.medium-2.large-2
         = f.input :date, as: :date_picker
         .link_to_right_of_input_label
@@ -39,6 +31,10 @@ scss:
         = f.input :on_hotlist,
                   collection: [["Yes", true], ["No", false]],
                   label: "Hotlist"
+      .columns.medium-1.large-1
+        = f.input :max_aki,
+                  collection: Renalware::Renal::AKIAlert.distinct(:max_aki).pluck(:max_aki),
+                  label: "Level"
       .columns.medium-2.large-2
         = f.input :action,
                   collection: Renalware::Renal::AKIAlertAction.pluck(:name, :id)
