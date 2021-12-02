@@ -6300,7 +6300,8 @@ CREATE TABLE renalware.pathology_observations (
     description_id integer NOT NULL,
     request_id integer NOT NULL,
     cancelled boolean,
-    nresult double precision
+    nresult double precision,
+    legacy_comment text
 );
 
 
@@ -23316,6 +23317,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211121142636'),
 ('20211121144203'),
 ('20211123105422'),
-('20211125104700');
+('20211125104700'),
+('20211202085557');
 
 
