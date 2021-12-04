@@ -79,7 +79,6 @@ module Renalware
     config_accessor(:ukrdc_remove_stale_outgoing_files) do
       ENV.fetch("UKRDC_REMOVE_STALE_OUTGOING_FILES", "true") == "true"
     end
-
     # To use a date other that the default changes_since date when
     # compiling pathology to send to UKRDC, you can set an ENV var as follows:
     #   UKRDC_PATHOLOGY_START_DATE=01-01-2011
@@ -187,6 +186,8 @@ module Renalware
     config_accessor(:ie_deprecation_warning) {
       "Internet Explorer is no longer fully supported. Please use Edge, Chrome or Firefox"
     }
+
+    config_accessor(:patients_must_have_at_least_one_hosp_number) { true }
   end
 
   def self.config
