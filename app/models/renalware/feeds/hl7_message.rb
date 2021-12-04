@@ -95,12 +95,19 @@ module Renalware
         # Some messages may come through with result text like
         #   ##TEST CANCELLED## Insufficient specimen received
         # in which case replace with something more concise.
-        # We could save the actual message somewhere
+        # We could save the actual message somewhere.
+        # If the value containes eg
+        #   "12.8\.br\This result bla bla"
+        # then we
         def observation_value
           if super.upcase.at("CANCELLED")
             @comment = super
             @cancelled = true
             ""
+          elsif super.at(".br")
+            parts = super.split(".br")
+            @comment = parts[1..]&.join("")
+            parts[0]
           else
             super
           end
