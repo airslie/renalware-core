@@ -109,7 +109,7 @@ module Renalware
     validates :given_name, presence: true
     validates :born_on, presence: true
     validate :validate_sex
-    validate :must_have_at_least_one_identifier
+    validate :must_have_at_least_one_hosp_number
     validates :born_on, timeliness: { type: :date }
     validates :email, email: true, allow_blank: true
 
@@ -220,14 +220,26 @@ module Renalware
       end
     end
 
-    def must_have_at_least_one_identifier
-      if hospital_identifiers.all.empty? && external_patient_id.blank?
-        errors.add(
-          :base,
-          "The patient must have at least one of these numbers: "\
-          "#{Renalware.config.patient_hospital_identifiers.keys.join(', ')}, "\
-          "Other Hospital Number"
-        )
+    def must_have_at_least_one_hosp_number
+      if Renalware.config.patients_must_have_at_least_one_hosp_number
+        if hospital_identifiers.all.empty? && external_patient_id.blank?
+          errors.add(
+            :base,
+            "The patient must have at least one of these numbers: "\
+            "#{Renalware.config.patient_hospital_identifiers.keys.join(', ')}, "\
+            "Other Hospital Number"
+          )
+        end
+      else
+        # If we allow blank hosp numbers then we must require an nhs_number
+        if nhs_number.blank? && hospital_identifiers.all.empty? && external_patient_id.blank?
+          errors.add(
+            :base,
+            "The patient must have at least one of these numbers: NHS, "\
+            "#{Renalware.config.patient_hospital_identifiers.keys.join(', ')}, "\
+            "Other Hospital Number"
+          )
+        end
       end
     end
   end

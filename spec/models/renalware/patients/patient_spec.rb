@@ -10,6 +10,12 @@ module Renalware
 
     let(:user) { create(:user) }
 
+    before do
+      allow(Renalware.config)
+        .to receive(:patients_must_have_at_least_one_hosp_number)
+        .and_return(true)
+    end
+
     it do
       aggregate_failures do
         is_expected.to be_versioned
@@ -179,11 +185,19 @@ module Renalware
               HOSP5: :local_patient_id_5
             }
           end
+
+          allow(Renalware.config)
+            .to receive(:patients_must_have_at_least_one_hosp_number)
+            .and_return(true)
         end
 
         let(:error_message) {
           "The patient must have at least one of these numbers: " \
             "HOSP1, HOSP2, HOSP3, HOSP4, HOSP5, Other Hospital Number"
+        }
+        let(:error_message2) {
+          "The patient must have at least one of these numbers: NHS, HOSP1, HOSP2, HOSP3, "\
+            "HOSP4, HOSP5, Other Hospital Number"
         }
 
         context "when the patient has no local_patient_id" do
@@ -192,6 +206,31 @@ module Renalware
 
             expect(patient).to be_invalid
             expect(patient.errors[:base]).to include(error_message)
+          end
+        end
+
+        context "when config does not enforce the 'at least one hosp num' validation" do
+          before do
+            allow(Renalware.config)
+              .to receive(:patients_must_have_at_least_one_hosp_number)
+              .and_return(false)
+          end
+
+          it "is invalid when no nhs_number supplied" do
+            patient = Patient.new
+
+            expect(patient).to be_invalid
+
+            expect(patient.errors[:base]).to include(error_message2)
+          end
+
+          it "is valid when an nhs_number is present" do
+            patient = Patient.new
+            patient.nhs_number = "9999999999"
+
+            expect(patient).to be_invalid
+
+            expect(patient.errors[:base]).not_to include(error_message2)
           end
         end
 

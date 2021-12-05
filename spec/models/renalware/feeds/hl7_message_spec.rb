@@ -151,5 +151,27 @@ module Renalware::Feeds
         end
       end
     end
+
+    describe HL7Message::Observation do
+      let(:raw_message) do
+        <<-RAW.strip_heredoc
+          MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
+          PID||123456789^^^NHS|Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|#{sex}|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
+          OBR|2|BRM-21B846500|BRM-0021B846500|FBC^FULL BLOOD COUNT^WinPath||202111111228|202111111221||||||copd excetrbation ? sob||B^Blood|EMD^A\T\E Consultant||||||202111111240||BLS|F
+          OBX|2|NM|WBC^White Blood Cell Count^WinPath||12.8\.br\This result could indicate your patient might have\.br\sepsis.|x 10^9/l|4 - 10|H|||F
+        RAW
+      end
+
+      describe "comment" do
+        it "strips anything after \.br as the comment - unfort the escaping may mean lost chars " \
+           "e.g. \sepsis => epsis - I can't think of a safe way around this atm" do
+          obs = decorator.observation_requests.first.observations.first
+          expect(obs).to have_attributes(
+            value: "12.8",
+            comment: "This result could indicate your patient might have epsis."
+          )
+        end
+      end
+    end
   end
 end

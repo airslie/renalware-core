@@ -7,6 +7,15 @@ module Renalware::Feeds
     describe "#call" do
       [
         {
+          patient_args: {
+            born_on: "2000-01-01", nhs_number: "8016037658", local_patient_id: "123"
+          },
+          locator_args: {
+            born_on: "2000-01-01", nhs_number: "8016037658", local_patient_id: "123"
+          },
+          found: true
+        },
+        {
           patient_args: { born_on: "2000-01-01", nhs_number: "8016037658" },
           locator_args: { born_on: "2000-01-01", nhs_number: "8016037658", local_patient_id: "X" },
           found: true
