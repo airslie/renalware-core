@@ -32,7 +32,7 @@ module Renalware
           patients = patients.where(born_on: born_on) if born_on.present?
 
           if patients.length > 1 # avoid a count query
-            raise ArgumentError("More than one patient matches! #{identifiers}")
+            raise ArgumentError, "More than one patient matches! #{identifiers}"
             # Will go back in the queue
           else
             patients.first # may be null if no match
