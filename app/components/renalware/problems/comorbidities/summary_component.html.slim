@@ -16,8 +16,8 @@ table.toggleable.easy-read.comorbidities(style="width:auto" data-controller="tog
         td
         td(colspan=3)
           dl.dl-horizontal.large
-            - if row.updated_by.present?
-              dt Latest edit by
-              dd= "#{row.updated_by} at #{l(row.updated_at)}"
-            dt SNOMED code
+            dt Latest edit by:
+            dd
+              = "#{row.updated_by} at #{l(row.updated_at)}" if row.updated_by.present?
+            dt SNOMED code:
             dd= row.snomed_code
