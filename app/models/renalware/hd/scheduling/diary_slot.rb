@@ -14,7 +14,7 @@ module Renalware
         #
         # Yielding a slot from DiaryPresenter to the view seems to want to call #to_ary on it, (have
         # not looked into why) and as the slot is wrapped in a decorator using SimpleDelegator,
-        # SimpleDelegatr complains it can't delegate to a private method.
+        # SimpleDelegator complains it can't delegate to a private method.
         # An alternative is to define the following in each Slot decorator
         #
         #    def respond_to?(method, include_private = false)
@@ -32,6 +32,9 @@ module Renalware
         attr_accessor :patient_ids
 
         include Accountable
+
+        DAYS = %i(monday tuesday wednesday thursday friday saturday sunday).freeze
+
         belongs_to :diary, class_name: "Renalware::HD::Scheduling::Diary", touch: true
         belongs_to :patient, touch: true
         belongs_to :station, class_name: "Renalware::HD::Station"
@@ -76,7 +79,7 @@ module Renalware
         end
 
         def day_of_week_name
-          Time::DAYS_INTO_WEEK.keys[day_of_week - 1].capitalize
+          DAYS[day_of_week - 1].capitalize
         end
 
         def cell_id

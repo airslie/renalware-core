@@ -11,6 +11,8 @@ module Renalware
 
         delegate :id, :hospital_unit_id, :to_s, :week, :created_at, to: :weekly_diary
 
+        DAYS = %i(monday tuesday wednesday thursday friday saturday sunday).freeze
+
         # https://github.com/avdi/naught
         NullDiary = Naught.build do |config|
           config.black_hole
@@ -58,8 +60,7 @@ module Renalware
         # rubocop:enable Layout/LineLength
 
         def day_names
-          all_day_names = Time::DAYS_INTO_WEEK.keys
-          all_day_names.take(last_day_of_week)
+          DAYS.take(last_day_of_week)
         end
 
         def stations
