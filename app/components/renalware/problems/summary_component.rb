@@ -17,8 +17,12 @@ module Renalware
         [patient.cache_key, patient.problems.cache_key].join("~")
       end
 
+      # Removing caching for now as on production on Azure the patient.cache_key was not
+      # rendering (returning just an id and not an updated timestamp) resultsing in stale
+      # cache for this component being displayed.
+      # TODO: investigate
       def cache?
-        cache_key.present?
+        false # cache_key.present?
       end
 
       # Always render the component chrome even if there are no problems to display
