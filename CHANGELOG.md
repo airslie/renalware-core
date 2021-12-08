@@ -9,6 +9,20 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.1
+### Added
+- Add hospital centre to patient
+- Add 'host_site' option to hospital_centres
+- Add AKI Alert level filter to AKI Alerts page #3701
+### Changed
+- Changes to reduce impact of NHS Terminology Server being unavailable #3712
+- Avoid caching 'problems' #3710
+- Make hosp number presence validation optional #3703
+- Add legacy_comment to pathology_observations #3698
+- Do not save an OBR when all its OBXs are empty #3697
+### Fixed
+- Fix error raising ArgumentError #3704
+
 ## 2.2.0
 ### Added
 - Allow mapping OBX codes based on HL7 sending facility/application #3661

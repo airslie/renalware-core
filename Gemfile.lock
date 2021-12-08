@@ -32,7 +32,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.2.0)
+    renalware-core (2.2.2)
       active_type (~> 0.7.1)
       activerecord-import (~> 1.0)
       activerecord-postgres_enum (~> 1.6.0)
@@ -234,7 +234,7 @@ GEM
       capybara (>= 1.0, < 4)
       launchy
     capybara-select-2 (0.5.1)
-    character_set (1.4.1)
+    character_set (1.5.0)
       sorted_set (~> 1.0)
     chartkick (3.4.2)
     childprocess (3.0.0)
@@ -376,7 +376,7 @@ GEM
     geocoder (1.7.0)
     globalid (0.5.2)
       activesupport (>= 5.0)
-    groupdate (5.2.2)
+    groupdate (5.2.3)
       activesupport (>= 5)
     hashdiff (1.0.1)
     hashery (2.1.2)
@@ -564,7 +564,7 @@ GEM
     redis (4.5.1)
     referer-parser (0.3.0)
     regexp_parser (1.8.2)
-    regexp_property_values (1.0.0)
+    regexp_property_values (1.1.0)
     renalware-forms (0.1.10)
       activemodel
       attr_extras (~> 6.2)
@@ -723,7 +723,7 @@ GEM
     user_agent_parser (2.8.0)
     validates_timeliness (4.1.1)
       timeliness (>= 0.3.10, < 1)
-    view_component (2.45.0)
+    view_component (2.46.0)
       activesupport (>= 5.0.0, < 8.0)
       method_source (~> 1.0)
     virtus (1.0.5)
@@ -737,6 +737,7 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
+    webrick (1.7.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -753,7 +754,8 @@ GEM
     wkhtmltopdf-heroku (2.12.5.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    yard (0.9.26)
+    yard (0.9.27)
+      webrick (~> 1.7.0)
     zeitwerk (2.5.1)
 
 PLATFORMS

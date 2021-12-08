@@ -5,6 +5,6 @@ module Renalware
   # to creat that class even though its not used. If we don't do this zeitwerk
   # complains that version.rb does export a constant called Version.
   class VersionNumber
-    VERSION = "2.2.0"
+    VERSION = "2.2.2"
   end
 end

@@ -22,9 +22,11 @@ describe "Viewing clinical profile", type: :request do
 
   describe "PUT update" do
     it "responds successfully" do
+      hospital_centre = create(:hospital_centre)
       url = patient_clinical_profile_path(patient_id: patient.to_param)
       params = {
         clinical_profile: {
+          hospital_centre_id: hospital_centre.id,
           document: {
             history: { smoking: "ex", alcohol: "rarely" },
             diabetes: { diagnosis: "true", diagnosed_on: "12-12-2017" }
@@ -43,6 +45,7 @@ describe "Viewing clinical profile", type: :request do
       expect(history.smoking).to eq("ex")
 
       expect(patient.document.diabetes.diagnosis).to eq(true)
+      expect(patient.hospital_centre).to eq(hospital_centre)
       expect(patient.document.diabetes.diagnosed_on).to eq(Date.parse("12-12-2017"))
     end
   end
