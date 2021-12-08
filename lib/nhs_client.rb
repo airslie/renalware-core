@@ -9,9 +9,18 @@ require "httparty"
 #   client.problems
 #
 class NHSClient
-  NHS_BASE_URL = "https://ontology.nhs.uk"
-  TOKEN_REQUEST_PATH = "authorisation/auth/realms/nhs-digital-terminology/protocol/openid-connect/token"
-  QUERY_PATH = "production1/fhir/ValueSet/$expand"
+  NHS_BASE_URL = ENV.fetch(
+    "NHS_TERMINOLOGY_SERVER_BASE_URL",
+    "https://ontology.nhs.uk"
+  )
+  TOKEN_REQUEST_PATH = ENV.fetch(
+    "NHS_TERMINOLOGY_SERVER_TOKEN_REQUEST_PATH",
+    "authorisation/auth/realms/nhs-digital-terminology/protocol/openid-connect/token"
+  )
+  QUERY_PATH = ENV.fetch(
+    "NHS_TERMINOLOGY_SERVER_QUERY_PATH",
+    "production2/fhir/ValueSet/$expand"
+  )
 
   # rubocop:disable Rails/EnvironmentVariableAccess
   CLIENT_ID = ENV["NHS_CLIENT_ID"]
@@ -43,7 +52,8 @@ class NHSClient
         count: count,
         offset: offset,
         includeDesignations: include_designations
-      }
+      },
+      timeout: 8
     )
 
     return false unless response.code == 200
@@ -69,7 +79,8 @@ class NHSClient
         client_id: CLIENT_ID,
         client_secret: CLIENT_SECRET,
         grant_type: "client_credentials"
-      }
+      },
+      timeout: 8
     )
 
     return false unless response.code == 200
