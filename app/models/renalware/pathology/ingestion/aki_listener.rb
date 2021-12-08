@@ -23,6 +23,11 @@ module Renalware
             aki_observation&.observation_date
           end
 
+          def hospital_centre_id
+            sending_facility = hl7_message[:MSH].sending_facility # eg RAJ01
+            Hospitals::Centre.find_by(code: sending_facility)&.id
+          end
+
           private
 
           def aki_observation
@@ -61,7 +66,8 @@ module Renalware
               max_aki: aki.aki_score,
               aki_date: aki.aki_date,
               max_cre: pathset.cre_result,
-              cre_date: pathset.cre_observed_at
+              cre_date: pathset.cre_observed_at,
+              hospital_centre_id: aki.hospital_centre_id
             )
           end
         end

@@ -5286,6 +5286,16 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
+
+
+--
 -- Name: letter_recipients; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8701,7 +8711,8 @@ CREATE TABLE renalware.renal_aki_alerts (
     max_cre integer,
     cre_date date,
     max_aki integer,
-    aki_date date
+    aki_date date,
+    hospital_centre_id bigint
 );
 
 
@@ -8870,7 +8881,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -8950,7 +8961,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -18453,6 +18464,13 @@ CREATE INDEX index_renal_aki_alerts_on_created_by_id ON renalware.renal_aki_aler
 
 
 --
+-- Name: index_renal_aki_alerts_on_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_renal_aki_alerts_on_hospital_centre_id ON renalware.renal_aki_alerts USING btree (hospital_centre_id);
+
+
+--
 -- Name: index_renal_aki_alerts_on_hospital_ward_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -19944,6 +19962,14 @@ ALTER TABLE ONLY renalware.hd_diaries
 
 ALTER TABLE ONLY renalware.hd_schedule_definitions
     ADD CONSTRAINT fk_rails_083e4d9774 FOREIGN KEY (diurnal_period_id) REFERENCES renalware.hd_diurnal_period_codes(id);
+
+
+--
+-- Name: renal_aki_alerts fk_rails_088cb68322; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.renal_aki_alerts
+    ADD CONSTRAINT fk_rails_088cb68322 FOREIGN KEY (hospital_centre_id) REFERENCES renalware.hospital_centres(id);
 
 
 --
@@ -23385,6 +23411,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211208110337'),
 ('20211208111353'),
 ('20211208114210'),
-('20211208115229');
+('20211208115229'),
+('20211208132638');
 
 
