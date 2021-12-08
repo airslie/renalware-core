@@ -52,6 +52,7 @@ module Renalware
     belongs_to :language, class_name: "Patients::Language"
     belongs_to :named_consultant, class_name: "User"
     belongs_to :named_nurse, class_name: "User"
+    belongs_to :hospital_centre, class_name: "Hospitals::Centre"
     has_many :bookmarks, class_name: "Patients::Bookmark"
     has_many :alerts, class_name: "Patients::Alert"
     has_one :worry, class_name: "Patients::Worry"

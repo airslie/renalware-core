@@ -2136,6 +2136,7 @@ CREATE TABLE renalware.patients (
     secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     sent_to_ukrdc_at timestamp without time zone,
     checked_for_ukrdc_changes_at timestamp without time zone,
+    hospital_centre_id bigint,
     named_consultant_id bigint,
     next_of_kin text,
     named_nurse_id bigint
@@ -2288,6 +2289,7 @@ CREATE TABLE renalware.users (
     updated_at timestamp without time zone,
     telephone character varying,
     authentication_token character varying,
+    hospital_centre_id bigint,
     asked_for_write_access boolean DEFAULT false NOT NULL,
     consultant boolean DEFAULT false NOT NULL,
     hidden boolean DEFAULT false NOT NULL,
@@ -3336,6 +3338,7 @@ CREATE TABLE renalware.events (
     updated_by_id integer NOT NULL,
     type character varying NOT NULL,
     document jsonb,
+    deleted_at timestamp without time zone,
     subtype_id bigint
 );
 
@@ -4751,7 +4754,8 @@ CREATE TABLE renalware.hospital_centres (
     updated_at timestamp without time zone NOT NULL,
     info text,
     trust_name character varying,
-    trust_caption character varying
+    trust_caption character varying,
+    host_site boolean DEFAULT false NOT NULL
 );
 
 
@@ -15779,6 +15783,13 @@ CREATE INDEX index_events_on_created_by_id ON renalware.events USING btree (crea
 
 
 --
+-- Name: index_events_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_events_on_deleted_at ON renalware.events USING btree (deleted_at);
+
+
+--
 -- Name: index_events_on_event_type_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -16532,6 +16543,13 @@ CREATE INDEX index_hd_transmission_logs_on_session_id ON renalware.hd_transmissi
 --
 
 CREATE INDEX index_hospital_centres_on_code ON renalware.hospital_centres USING btree (code);
+
+
+--
+-- Name: index_hospital_centres_on_host_site; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hospital_centres_on_host_site ON renalware.hospital_centres USING btree (host_site);
 
 
 --
@@ -17848,6 +17866,13 @@ CREATE INDEX index_patients_on_external_patient_id ON renalware.patients USING b
 --
 
 CREATE INDEX index_patients_on_first_cause_id ON renalware.patients USING btree (first_cause_id);
+
+
+--
+-- Name: index_patients_on_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patients_on_hospital_centre_id ON renalware.patients USING btree (hospital_centre_id);
 
 
 --
@@ -19405,6 +19430,13 @@ CREATE INDEX index_users_on_hidden ON renalware.users USING btree (hidden);
 
 
 --
+-- Name: index_users_on_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_users_on_hospital_centre_id ON renalware.users USING btree (hospital_centre_id);
+
+
+--
 -- Name: index_users_on_last_activity_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -20182,6 +20214,14 @@ ALTER TABLE ONLY renalware.pathology_obx_mappings
 
 ALTER TABLE ONLY renalware.ukrdc_treatments
     ADD CONSTRAINT fk_rails_2a03129a59 FOREIGN KEY (modality_code_id) REFERENCES renalware.ukrdc_modality_codes(id);
+
+
+--
+-- Name: patients fk_rails_2a3ebeae72; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patients
+    ADD CONSTRAINT fk_rails_2a3ebeae72 FOREIGN KEY (hospital_centre_id) REFERENCES renalware.hospital_centres(id);
 
 
 --
@@ -22209,6 +22249,14 @@ ALTER TABLE ONLY renalware.hd_profiles
 
 
 --
+-- Name: users fk_rails_ec9881f9c2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.users
+    ADD CONSTRAINT fk_rails_ec9881f9c2 FOREIGN KEY (hospital_centre_id) REFERENCES renalware.hospital_centres(id);
+
+
+--
 -- Name: problem_problems fk_rails_edf3902cb0; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -23122,8 +23170,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190109122032'),
 ('20190110100057'),
 ('20190131152758'),
+('20190201151346'),
+('20190209135334'),
+('20190210143717'),
 ('20190218142207'),
 ('20190225103005'),
+('20190226162607'),
 ('20190315125638'),
 ('20190322120025'),
 ('20190325134823'),

@@ -34,6 +34,7 @@ module Renalware
       def update_patient
         patient.named_consultant_id = profile_params[:named_consultant_id]
         patient.named_nurse_id = profile_params[:named_nurse_id]
+        patient.hospital_centre_id = profile_params[:hospital_centre_id]
         document = patient.document
 
         %i(diabetes history).each do |document_attribute|
@@ -49,7 +50,7 @@ module Renalware
         params
           .require(:clinical_profile)
           .permit(
-            :named_consultant_id, :named_nurse_id,
+            :named_consultant_id, :named_nurse_id, :hospital_centre_id,
             document: {
               diabetes: %i(diagnosis diagnosed_on),
               history: %i(alcohol smoking)

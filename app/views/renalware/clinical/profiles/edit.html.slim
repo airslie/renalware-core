@@ -21,6 +21,10 @@
                       as: :user_picker,
                       collection: Renalware::User.ordered,
                       wrapper: :horizontal_medium
+          = f.association :hospital_centre,
+                      collection: Renalware::Hospitals::Centre.where(host_site: true).ordered,
+                      wrapper: :horizontal_medium,
+                      input_html: { class: "searchable_select" }
 
       = f.simple_fields_for :document, patient.document do |fdoc|
         .columns.large-12
