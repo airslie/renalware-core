@@ -2030,6 +2030,26 @@ COMMENT ON COLUMN renalware.clinic_visits.bmi IS 'Body Mass Index calculated usi
 
 
 --
+-- Name: hospital_centres; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.hospital_centres (
+    id integer NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    location character varying,
+    active boolean,
+    is_transplant_site boolean DEFAULT false,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    info text,
+    trust_name character varying,
+    trust_caption character varying,
+    host_site boolean DEFAULT false NOT NULL
+);
+
+
+--
 -- Name: modality_descriptions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -2363,8 +2383,9 @@ CREATE VIEW renalware.akcc_mdm_patients AS
             ELSE NULL::text
         END AS urea_range,
     (((named_nurses.family_name)::text || ', '::text) || (named_nurses.given_name)::text) AS named_nurse,
-    (((named_consultants.family_name)::text || ', '::text) || (named_consultants.given_name)::text) AS named_consultant
-   FROM (((((((((renalware.patients p
+    (((named_consultants.family_name)::text || ', '::text) || (named_consultants.given_name)::text) AS named_consultant,
+    h.name AS hospital_centre
+   FROM ((((((((((renalware.patients p
      LEFT JOIN renalware.patient_worries pw ON ((pw.patient_id = p.id)))
      LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
      LEFT JOIN renalware.renal_profiles rprof ON ((rprof.patient_id = p.id)))
@@ -2373,6 +2394,7 @@ CREATE VIEW renalware.akcc_mdm_patients AS
      LEFT JOIN renalware.transplant_registration_status_descriptions txrsd ON ((txrsd.id = txrs.description_id)))
      LEFT JOIN renalware.users named_nurses ON ((named_nurses.id = p.named_nurse_id)))
      LEFT JOIN renalware.users named_consultants ON ((named_consultants.id = p.named_consultant_id)))
+     LEFT JOIN renalware.hospital_centres h ON ((h.id = p.hospital_centre_id)))
      JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'low_clearance'::text))));
 
 
@@ -4121,6 +4143,7 @@ CREATE VIEW renalware.hd_mdm_patients AS
     unit.unit_code AS dialysing_at,
     (((named_nurses.family_name)::text || ', '::text) || (named_nurses.given_name)::text) AS named_nurse,
     (((named_consultants.family_name)::text || ', '::text) || (named_consultants.given_name)::text) AS named_consultant,
+    h.name AS hospital_centre,
     ((((hdp.document -> 'transport'::text) ->> 'has_transport'::text) || ': '::text) || ((hdp.document -> 'transport'::text) ->> 'type'::text)) AS transport,
     ((sched.days_text || ' '::text) || upper((diurnal.code)::text)) AS schedule,
     ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
@@ -4133,7 +4156,7 @@ CREATE VIEW renalware.hd_mdm_patients AS
     (((pa."values" -> 'PTHI'::text) ->> 'observed_at'::text))::date AS pthi_date,
     ((pa."values" -> 'URR'::text) ->> 'result'::text) AS urr,
     (((pa."values" -> 'URR'::text) ->> 'observed_at'::text))::date AS urr_date
-   FROM ((((((((((((((((((renalware.patients p
+   FROM (((((((((((((((((((renalware.patients p
      JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'hd'::text))))
      LEFT JOIN renalware.hd_profiles hdp ON (((hdp.patient_id = p.id) AND (hdp.deactivated_at IS NULL))))
      LEFT JOIN renalware.hospital_units unit ON ((unit.id = hdp.hospital_unit_id)))
@@ -4143,6 +4166,7 @@ CREATE VIEW renalware.hd_mdm_patients AS
      LEFT JOIN renalware.hd_schedule_definitions sched ON ((sched.id = hdp.schedule_definition_id)))
      LEFT JOIN renalware.hd_diurnal_period_codes diurnal ON ((diurnal.id = sched.diurnal_period_id)))
      LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
+     LEFT JOIN renalware.hospital_centres h ON ((h.id = p.hospital_centre_id)))
      LEFT JOIN ( SELECT DISTINCT ON (access_profiles.patient_id) access_profiles.id,
             access_profiles.patient_id,
             access_profiles.formed_on,
@@ -4737,26 +4761,6 @@ CREATE SEQUENCE renalware.hd_versions_id_seq
 --
 
 ALTER SEQUENCE renalware.hd_versions_id_seq OWNED BY renalware.hd_versions.id;
-
-
---
--- Name: hospital_centres; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.hospital_centres (
-    id integer NOT NULL,
-    code character varying NOT NULL,
-    name character varying NOT NULL,
-    location character varying,
-    active boolean,
-    is_transplant_site boolean DEFAULT false,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    info text,
-    trust_name character varying,
-    trust_caption character varying,
-    host_site boolean DEFAULT false NOT NULL
-);
 
 
 --
@@ -7869,8 +7873,9 @@ CREATE VIEW renalware.pd_mdm_patients AS
     (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
     ((pa."values" -> 'EGFR'::text) ->> 'result'::text) AS egfr,
     (((named_nurses.family_name)::text || ', '::text) || (named_nurses.given_name)::text) AS named_nurse,
-    (((named_consultants.family_name)::text || ', '::text) || (named_consultants.given_name)::text) AS named_consultant
-   FROM ((((((((((((renalware.patients p
+    (((named_consultants.family_name)::text || ', '::text) || (named_consultants.given_name)::text) AS named_consultant,
+    h.name AS hospital_centre
+   FROM (((((((((((((renalware.patients p
      LEFT JOIN renalware.patient_worries pw ON ((pw.patient_id = p.id)))
      LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
      LEFT JOIN renalware.renal_profiles rprof ON ((rprof.patient_id = p.id)))
@@ -7882,6 +7887,7 @@ CREATE VIEW renalware.pd_mdm_patients AS
      LEFT JOIN renalware.pd_peritonitis_episodes ppe ON ((ppe.patient_id = p.id)))
      LEFT JOIN renalware.users named_nurses ON ((named_nurses.id = p.named_nurse_id)))
      LEFT JOIN renalware.users named_consultants ON ((named_consultants.id = p.named_consultant_id)))
+     LEFT JOIN renalware.hospital_centres h ON ((h.id = p.hospital_centre_id)))
      JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'pd'::text))))
   ORDER BY p.id, pr.start_date DESC, pr.created_at DESC, pesi.diagnosis_date DESC, ppe.diagnosis_date DESC;
 
@@ -8864,7 +8870,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -8944,7 +8950,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
+  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -9481,8 +9487,9 @@ CREATE VIEW renalware.supportive_care_mdm_patients AS
     (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
     ((pa."values" -> 'EGFR'::text) ->> 'result'::text) AS egfr,
     (((named_nurses.family_name)::text || ', '::text) || (named_nurses.given_name)::text) AS named_nurse,
-    (((named_consultants.family_name)::text || ', '::text) || (named_consultants.given_name)::text) AS named_consultant
-   FROM (((((((((renalware.patients p
+    (((named_consultants.family_name)::text || ', '::text) || (named_consultants.given_name)::text) AS named_consultant,
+    h.name AS hospital_centre
+   FROM ((((((((((renalware.patients p
      LEFT JOIN renalware.patient_worries pw ON ((pw.patient_id = p.id)))
      LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
      LEFT JOIN renalware.renal_profiles rprof ON ((rprof.patient_id = p.id)))
@@ -9491,6 +9498,7 @@ CREATE VIEW renalware.supportive_care_mdm_patients AS
      LEFT JOIN renalware.transplant_registration_status_descriptions txrsd ON ((txrsd.id = txrs.description_id)))
      LEFT JOIN renalware.users named_nurses ON ((named_nurses.id = p.named_nurse_id)))
      LEFT JOIN renalware.users named_consultants ON ((named_consultants.id = p.named_consultant_id)))
+     LEFT JOIN renalware.hospital_centres h ON ((h.id = p.hospital_centre_id)))
      JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'supportive_care'::text))));
 
 
@@ -10866,8 +10874,9 @@ CREATE VIEW renalware.transplant_mdm_patients AS
     (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
     ((pa."values" -> 'EGFR'::text) ->> 'result'::text) AS egfr_on,
     (((named_nurses.family_name)::text || ', '::text) || (named_nurses.given_name)::text) AS named_nurse,
-    (((named_consultants.family_name)::text || ', '::text) || (named_consultants.given_name)::text) AS named_consultant
-   FROM ((((((((((renalware.patients p
+    (((named_consultants.family_name)::text || ', '::text) || (named_consultants.given_name)::text) AS named_consultant,
+    h.name AS hospital_centre
+   FROM (((((((((((renalware.patients p
      JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'transplant'::text))))
      LEFT JOIN renalware.pathology_current_observation_sets pa ON ((pa.patient_id = p.id)))
      LEFT JOIN renalware.patient_worries pw ON ((pw.patient_id = p.id)))
@@ -10877,6 +10886,7 @@ CREATE VIEW renalware.transplant_mdm_patients AS
      LEFT JOIN renalware.renal_profiles rprof ON ((rprof.patient_id = p.id)))
      LEFT JOIN renalware.users named_nurses ON ((named_nurses.id = p.named_nurse_id)))
      LEFT JOIN renalware.users named_consultants ON ((named_consultants.id = p.named_consultant_id)))
+     LEFT JOIN renalware.hospital_centres h ON ((h.id = p.hospital_centre_id)))
      LEFT JOIN ( SELECT DISTINCT ON (transplant_recipient_operations.patient_id) transplant_recipient_operations.id,
             transplant_recipient_operations.patient_id,
             transplant_recipient_operations.performed_on,
@@ -23370,6 +23380,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211121144203'),
 ('20211123105422'),
 ('20211125104700'),
-('20211202085557');
+('20211202085557'),
+('20211208104601'),
+('20211208110337'),
+('20211208111353'),
+('20211208114210'),
+('20211208115229');
 
 
