@@ -19,6 +19,15 @@ scss:
       method: :get do |f|
 
     .row
+      .columns.medium-2.large-2.actions
+        = f.submit t("btn.filter"), class: "button"
+        '  or
+        = link_to t("btn.reset"), renal_aki_alerts_path
+    .row
+      .columns.medium-2.large-2
+        = f.input :hospital_centre_id,
+                  collection: Renalware::Hospitals::Centre.where(host_site: true),
+                  label: "Site"
       .columns.medium-2.large-2
         = f.input :term, label: "Hosp/NHS No/name"
       .columns.medium-2.large-2
@@ -48,8 +57,4 @@ scss:
         /           input_html: { class: "searchable_select" },
         /           label: "Ward"
 
-        a.link_to_right_of_input_label(href="javascript:$('#q_hospital_ward_id').val(null).trigger('change');") Clear
-      .columns.medium-2.large-2.actions.end
-        = f.submit t("btn.filter"), class: "button"
-        '  or
-        = link_to t("btn.reset"), renal_aki_alerts_path
+        a.link_to_right_of_input_label(href="javascript:$('#q_hospital_ward_id').val(null).trigger('change');javascript:void(0); ") Clear

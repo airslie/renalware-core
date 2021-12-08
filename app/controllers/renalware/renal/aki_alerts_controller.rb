@@ -76,7 +76,7 @@ module Renalware
         params
           .require(:renal_aki_alert)
           .permit(
-            :notes, :action_id, :hotlist, :hospital_ward_id,
+            :notes, :action_id, :hotlist, :hospital_ward_id, :hospital_centre_id,
             :max_cre, :cre_date, :max_aki, :aki_date
           )
       end
@@ -91,6 +91,7 @@ module Renalware
             :action,
             :hospital_unit_id,
             :hospital_ward_id,
+            :hospital_centre_id,
             :max_aki,
             :s
           )

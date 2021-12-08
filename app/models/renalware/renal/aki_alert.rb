@@ -11,6 +11,7 @@ module Renalware
       belongs_to :patient, class_name: "Renal::Patient", touch: true
       belongs_to :action, class_name: "Renal::AKIAlertAction"
       belongs_to :hospital_ward, class_name: "Hospitals::Ward"
+      belongs_to :hospital_centre, class_name: "Hospitals::Centre"
       validates :patient, presence: true
       validates :max_aki, inclusion: 1..3, allow_nil: true
       alias_attribute :decided_by, :updated_by

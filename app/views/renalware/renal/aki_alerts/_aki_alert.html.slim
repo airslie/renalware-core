@@ -4,6 +4,7 @@ tr(class="#{'aki_alert--hotlist' if aki_alert.hotlist?}")
   td= link_to(t("btn.edit"), edit_renal_aki_alert_path(aki_alert))
   td= default_patient_link(aki_alert.patient)
   td= aki_alert.patient.hospital_identifiers
+  td= aki_alert.hospital_centre&.code
   td.show-for-large-up.col-width-medium-with-ellipsis= aki_alert.patient.current_modality
   td= aki_alert.patient.sex
   td= aki_alert.patient.age
@@ -13,9 +14,10 @@ tr(class="#{'aki_alert--hotlist' if aki_alert.hotlist?}")
   td= aki_alert.max_aki
   td= l(aki_alert.aki_date)
   td= aki_alert.decided_by
+  td.show-for-large-up= l(aki_alert.created_at)
 = content_tag(:tr, id: "#{toggleable_id}", style: "display: none")
-  td
-  td.notes Notes
-  td(colspan=10)
+  td(colspan=14)
     .quick-preview
-      =aki_alert.notes
+       dl.dl-horizontal.xlarge
+        dt Notes
+        dd= aki_alert.notes

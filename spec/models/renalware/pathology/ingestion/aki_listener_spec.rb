@@ -50,7 +50,7 @@ module Renalware
         context "when the messages contains an AKI test score result" do
           let(:raw_message) do
             hl7 = <<-HL7
-              MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
+              MSH|^~\&|HM|RAJ01|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
               PID|||Z999990^^^KCH||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR||||||||||||||||||201010102359|
               ORC|RE|0031111111^PCS|18T1111111^LA||CM||||201801221418|||xxx^xx, xxxx
               ORC|RE|^PCS|09B0099478^LA||CM||||200911111841|||MID^KINGS MIDWIVES|||||||
@@ -183,6 +183,46 @@ module Renalware
               expect {
                 Renalware::Feeds.message_processor.call(raw_message)
               }.to change(Renalware::Renal::AKIAlert, :count).by(0)
+            end
+
+            it "assigns the hospital centre found by code in the the MSH" do
+              patient = create(:patient, local_patient_id: "Z999990", born_on: "19880924")
+              create(
+                :modality,
+                started_on: Date.parse("2015-04-01"),
+                patient: patient,
+                description: create(:modality_description, :aki)
+              )
+              hospital_centre = create(:hospital_centre, code: "RAJ01")
+
+              expect {
+                Renalware::Feeds.message_processor.call(raw_message)
+              }.to change(Renalware::Renal::AKIAlert, :count).by(1)
+
+              aki_alert = Renalware::Renal::AKIAlert.last
+              expect(aki_alert).to have_attributes(
+                hospital_centre_id: hospital_centre.id
+              )
+            end
+
+            it "assigns nil to hospital centre when sending_facility in MSH is not a valid hosp" do
+              patient = create(:patient, local_patient_id: "Z999990", born_on: "19880924")
+              create(
+                :modality,
+                started_on: Date.parse("2015-04-01"),
+                patient: patient,
+                description: create(:modality_description, :aki)
+              )
+              create(:hospital_centre, code: "SOMETOTHER") # so RAJ01 not found
+
+              expect {
+                Renalware::Feeds.message_processor.call(raw_message)
+              }.to change(Renalware::Renal::AKIAlert, :count).by(1)
+
+              aki_alert = Renalware::Renal::AKIAlert.last
+              expect(aki_alert).to have_attributes(
+                hospital_centre_id: nil
+              )
             end
           end
         end
