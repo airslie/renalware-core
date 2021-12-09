@@ -99,14 +99,21 @@ module Renalware
         # If the value containes eg
         #   "12.8\.br\This result bla bla"
         # then we
+        # However the best way to handle this is to use Mirth preprocessor script to
+        # map \.br\ to eg '¬' and then we can handle that more easily as as / is a escape char
+        # and breaks all sorrs of things
         def observation_value
           if super.upcase.at("CANCELLED")
             @comment = super
             @cancelled = true
             ""
-          elsif super.at(".br")
-            parts = super.split(".br")
-            @comment = parts[1..]&.join("")
+          elsif super.at("\\.br\\")
+            parts = super.split("\\.br\\")
+            @comment = parts[1..]&.join(" ")
+            parts[0]
+          elsif super.at("¬")
+            parts = super.split("¬")
+            @comment = parts[1..]&.join(" ")
             parts[0]
           else
             super
