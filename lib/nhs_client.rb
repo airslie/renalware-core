@@ -19,7 +19,7 @@ class NHSClient
   )
   QUERY_PATH = ENV.fetch(
     "NHS_TERMINOLOGY_SERVER_QUERY_PATH",
-    "production2/fhir/ValueSet/$expand"
+    "production1/fhir/ValueSet/$expand"
   )
 
   # rubocop:disable Rails/EnvironmentVariableAccess
@@ -53,7 +53,7 @@ class NHSClient
         offset: offset,
         includeDesignations: include_designations
       },
-      timeout: 8
+      timeout: 10
     )
     return false unless response.code == 200
 
@@ -79,7 +79,7 @@ class NHSClient
         client_secret: CLIENT_SECRET,
         grant_type: "client_credentials"
       },
-      timeout: 8
+      timeout: 20
     )
 
     return false unless response.code == 200
