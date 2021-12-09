@@ -68,7 +68,7 @@ describe "HD MDM Patients", type: :system do
       expect(page).to have_content(patient2.family_name)
 
       # Show only those patients dialysing in unit1
-      select unit1.name, from: "Hosp. Unit"
+      select unit1.name, from: "Dialysing at"
       click_on t("btn.filter")
 
       expect(page).to have_content(patient1.family_name)
@@ -135,7 +135,7 @@ describe "HD MDM Patients", type: :system do
         )
 
         # Show only those patients dialysing in unit1
-        select unit1.name, from: "Hosp. Unit"
+        select unit1.name, from: "Dialysing at"
         click_on t("btn.filter")
 
         # Ensure we are still at the on worryboard path

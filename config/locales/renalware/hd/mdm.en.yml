@@ -6,7 +6,7 @@ en:
         index:
           page_title: HD MDM Patients
         filters:
-          hospital_unit: Hosp. Unit
+          hospital_unit: Dialysing at
           schedule: Schedule
       mdm:
         en:

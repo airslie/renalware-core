@@ -55,7 +55,6 @@ class NHSClient
       },
       timeout: 8
     )
-
     return false unless response.code == 200
 
     response_body = JSON.parse(response.body)

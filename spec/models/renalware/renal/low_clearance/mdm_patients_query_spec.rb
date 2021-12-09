@@ -43,7 +43,7 @@ module Renalware
             "Renalware::LowClearance::ModalityDescription"
           )
 
-          patients = described_class.new(named_filter: nil, query: {}).call
+          patients = described_class.new(named_filter: nil, params: {}).call
 
           expect(patients.map(&:id)).to eq [lcc_patient.id]
         end

@@ -7,12 +7,12 @@ module Renalware
     class MDMPatientsQuery
       include ModalityScopes
       DEFAULT_SEARCH_PREDICATE = "hgb_date DESC"
-      attr_reader :query, :relation, :named_filter
+      attr_reader :params, :relation, :named_filter
 
-      def initialize(relation: LowClearance::Patient.all, query: nil, named_filter: nil)
-        @query = query || {}
+      def initialize(relation: LowClearance::Patient.all, params: nil, named_filter: nil)
+        @params = params || {}
         @named_filter = named_filter || :none
-        @query[:s] = DEFAULT_SEARCH_PREDICATE if @query[:s].blank?
+        @params[:s] = DEFAULT_SEARCH_PREDICATE if @params[:s].blank?
         @relation = relation
       end
 
@@ -33,7 +33,7 @@ module Renalware
             .left_outer_joins(:current_observation_set)
             .with_current_modality_of_class(LowClearance::ModalityDescription)
             .public_send(named_filter.to_s)
-            .ransack(query)
+            .ransack(params)
         end
       end
       # rubocop:enable Metrics/MethodLength

@@ -10,11 +10,11 @@ module Renalware
       include ModalityScopes
       include PatientPathologyScopes
       DEFAULT_SEARCH_PREDICATE = "cre_date DESC"
-      attr_reader :q, :relation, :named_filter
+      attr_reader :params, :relation, :named_filter
 
-      def initialize(relation: Transplants::Patient.all, named_filter: nil, q: nil)
-        @q = q || {}
-        @q[:s] = DEFAULT_SEARCH_PREDICATE if @q[:s].blank?
+      def initialize(relation: Transplants::Patient.all, named_filter: nil, params: nil)
+        @params = params || {}
+        @params[:s] = DEFAULT_SEARCH_PREDICATE if @params[:s].blank?
         @relation = relation
         @named_filter = named_filter || :none
       end
@@ -34,7 +34,7 @@ module Renalware
             .with_current_pathology
             .left_outer_joins(:current_observation_set)
             .public_send(named_filter.to_s)
-            .ransack(q)
+            .ransack(params)
         end
       end
 
