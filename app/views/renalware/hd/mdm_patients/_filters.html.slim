@@ -16,11 +16,10 @@
           as: :grouped_select, group_method: :hd_sites,
           label: t(".hospital_unit")
 
-    - assigned_consultants = Renalware::User.where(id: Renalware::Patient.distinct(:named_consultant_id).compact.pluck(:named_consultant_id)).ordered.select(:id, :given_name, :family_name)
     .w-full.sm:max-w-xs.pr-2
       = f.input :named_consultant_id,
                 as: :user_picker,
-                collection: assigned_consultants
+                collection: Renalware::User.ordered.select(:id, :given_name, :family_name)
 
     .w-full.sm:max-w-xs.pr-2
       = f.input :named_nurse_id,

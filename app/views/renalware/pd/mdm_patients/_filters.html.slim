@@ -11,12 +11,12 @@
           label: "Site"
 
     .w-full.sm:max-w-xs.pr-2
-      = f.input :named_nurse_id,
+      = f.input :named_consultant_id,
                 as: :user_picker,
                 collection: Renalware::User.ordered.select(:id, :given_name, :family_name)
 
     .w-full.sm:max-w-xs.pr-2
-      = f.input :named_consultant_id,
+      = f.input :named_nurse_id,
                 as: :user_picker,
                 collection: Renalware::User.ordered.select(:id, :given_name, :family_name)
 
