@@ -18,6 +18,7 @@ module Renalware
       scope :with_hd_sites, -> { where(id: Unit.hd_sites.pluck(:hospital_centre_id)) }
 
       validates :code, presence: true, uniqueness: true
+      validates :abbrev, uniqueness: true, allow_blank: true
       validates :name, presence: true
 
       def hd_sites

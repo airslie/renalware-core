@@ -8,6 +8,7 @@ module Renalware
       CSV.foreach(file_path, headers: true) do |row|
         Hospitals::Centre.find_or_create_by!(code: row["code"]) do |hospital|
           hospital.name = row["name"]
+          hospital.abbrev = row["abbrev"]
           hospital.host_site = row["host_site"] == "true"
           hospital.location = row["location"]
           hospital.active = true

@@ -2045,7 +2045,8 @@ CREATE TABLE renalware.hospital_centres (
     info text,
     trust_name character varying,
     trust_caption character varying,
-    host_site boolean DEFAULT false NOT NULL
+    host_site boolean DEFAULT false NOT NULL,
+    abbrev character varying
 );
 
 
@@ -16560,6 +16561,13 @@ CREATE INDEX index_hd_transmission_logs_on_session_id ON renalware.hd_transmissi
 
 
 --
+-- Name: index_hospital_centres_on_abbrev; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hospital_centres_on_abbrev ON renalware.hospital_centres USING btree (abbrev);
+
+
+--
 -- Name: index_hospital_centres_on_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -23412,6 +23420,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211208111353'),
 ('20211208114210'),
 ('20211208115229'),
-('20211208132638');
+('20211208132638'),
+('20211209123828');
 
 
