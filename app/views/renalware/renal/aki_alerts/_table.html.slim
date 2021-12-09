@@ -15,6 +15,6 @@ table.aki-alerts
     th= sort_link(search, :max_aki, "Max AKI")
     th.col-width-date= sort_link(search, :aki_date, "AKI Date")
     th Decided by
-    th.col-width-date-time.show-for-large-up Created at
+    th.col-width-date-time.show-for-large-up= sort_link(search, :created_at, "Created at")
   tbody
     = render alerts
