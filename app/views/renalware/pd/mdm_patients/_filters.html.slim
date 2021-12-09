@@ -1,0 +1,26 @@
+= simple_form_for local_assigns[:filter_form],
+                  as: :filter,
+                  url: filter_form.url,
+                  method: :get,
+                  html: { autocomplete: "off" } do |f|
+
+  .flex.flex-col.sm:flex-row.items-end.pb-4
+    .w-full.sm:max-w-xs.pr-2
+      = f.input :hospital_centre_id,
+          collection: Renalware::Hospitals::Centre.where(host_site: true).ordered,
+          label: "Site"
+
+    .w-full.sm:max-w-xs.pr-2
+      = f.input :named_nurse_id,
+                as: :user_picker,
+                collection: Renalware::User.ordered.select(:id, :given_name, :family_name)
+
+    .w-full.sm:max-w-xs.pr-2
+      = f.input :named_consultant_id,
+                as: :user_picker,
+                collection: Renalware::User.ordered.select(:id, :given_name, :family_name)
+
+    .w-full.sm:max-w-xs.pr-2
+      = f.submit t("btn.filter"), class: "button", name: nil, style: "margin-bottom: 10px"
+      '  or
+      = link_to t("btn.reset"), filter_form.url

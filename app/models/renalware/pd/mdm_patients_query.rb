@@ -6,11 +6,11 @@ module Renalware
       include ModalityScopes
       include PatientPathologyScopes
       DEFAULT_SEARCH_PREDICATE = "hgb_date desc"
-      attr_reader :q, :relation, :named_filter
+      attr_reader :params, :relation, :named_filter
 
-      def initialize(q:, relation: PD::Patient.all, named_filter: nil)
-        @q = q || {}
-        @q[:s] = DEFAULT_SEARCH_PREDICATE if @q[:s].blank?
+      def initialize(params:, relation: PD::Patient.all, named_filter: nil)
+        @params = params || {}
+        @params[:s] = DEFAULT_SEARCH_PREDICATE if @params[:s].blank?
         @relation = relation
         @named_filter = named_filter || :none
       end
@@ -32,7 +32,7 @@ module Renalware
             .with_registration_statuses
             .left_outer_joins(:current_observation_set)
             .public_send(named_filter.to_s)
-            .ransack(q)
+            .ransack(params)
         end
       end
       # rubocop:enable Metrics/MethodLength
