@@ -10,6 +10,7 @@ en:
           prescribed_time: "Prescribed time:"
           hd_type: "HD Type:"
           substitution_percent: "Substitution %:"
+          blood_flow: Blood Flow
           named_nurse: "Named nurse:"
           needle_size: "Needle size:"
           single_needle: "Single needle:"
