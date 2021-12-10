@@ -130,7 +130,8 @@ module Renalware
       # - HL7's definitions: F Female, M Male, O Other, U Unknown, A Ambiguous, N Not applicable
       # - gender: 7 options https://loinc.org/76691-5/
       def sex
-        pid_sex = self[8]&.upcase
+        pid_sex = (self[8] || "").split("^")&.first&.upcase
+        pid_sex ||= ""
         Renalware.config.hl7_pid_sex_map.fetch(pid_sex, pid_sex)
       end
       alias admin_sex sex
