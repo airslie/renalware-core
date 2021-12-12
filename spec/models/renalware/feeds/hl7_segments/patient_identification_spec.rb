@@ -88,6 +88,18 @@ module Renalware::Feeds
 
           it { is_expected.to eq(mapped) }
         end
+
+        context "when PID sex is #{original} and has a desription in the message" do
+          let(:raw_message) do
+            <<-RAW.strip_heredoc
+              PID||123456789^^^NHS|Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|#{sex}^SEXDESC|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
+            RAW
+          end
+
+          let(:sex) { original }
+
+          it { is_expected.to eq(mapped) }
+        end
       end
     end
   end
