@@ -29,8 +29,8 @@ gem "wkhtmltopdf-binary", "0.12.3.1"
 gem "httparty", require: false
 gem "tailwindcss-rails", "~> 0.4"
 # For sentry error reporting and metrics
-gem "sentry-rails", "~> 4.7.2"
-gem "sentry-ruby", "~> 4.7.2"
+gem "sentry-rails", "~> 4.7"
+gem "sentry-ruby", "~> 4.7"
 
 group :test do
   gem "capybara", "~> 3.32"
