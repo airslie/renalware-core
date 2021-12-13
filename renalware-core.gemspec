@@ -8,6 +8,7 @@ require "renalware/version_number"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
+  s.metadata["rubygems_mfa_required"] = "true"
   s.name        = "renalware-core"
   s.version     = Renalware::VersionNumber::VERSION
   s.authors     = ["Airslie"]
@@ -72,7 +73,7 @@ Gem::Specification.new do |s|
   s.add_dependency "pandoc-ruby", "~> 2.1.4"
   s.add_dependency "paper_trail"
   s.add_dependency "paranoia", "~> 2.4.0"
-  s.add_dependency "pdf-reader", "~> 2.4.0"
+  s.add_dependency "pdf-reader", "~> 2.6.0"
   s.add_dependency "pg", "~> 1.1"
   s.add_dependency "prawn", "~> 2.2"
   s.add_dependency "puma", ">= 4.3"
