@@ -16,8 +16,6 @@ module Renalware
           # The nested Diagnosis is correct.
           def dialysis_session_element
             create_node("DialysisSession") do |session_elem|
-              session_elem["start"] = session.performed_on_date
-              session_elem["stop"] = session.performed_on_date
               session_elem << procedure_type_element
               session_elem << clinician_element
               session_elem << procedure_time_element
@@ -70,7 +68,7 @@ module Renalware
               elem << create_node("QHD30", coerce_to_integer(session.blood_flow))
               elem << create_node("QHD31", coerce_to_integer(session.duration_in_minutes))
               elem << create_node("QHD32", session.sodium_content) # Sodium in Dialysate
-              elem << create_node("QHD33") # TODO: Needling Method
+              elem << create_node("QHD33", "U") # TODO: Lookup needling Method
             end
           end
           # rubocop:enable Metrics/AbcSize

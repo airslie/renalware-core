@@ -2837,8 +2837,16 @@ CREATE TABLE renalware.hd_cannulation_types (
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    qhd33_code character varying
 );
+
+
+--
+-- Name: COLUMN hd_cannulation_types.qhd33_code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_cannulation_types.qhd33_code IS 'Needling Method (RR50)';
 
 
 --
@@ -20935,6 +20943,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210305105830'),
 ('20210305181345'),
 ('20210305191214'),
-('20210310154134');
+('20210310154134'),
+('20210611152736');
 
 
