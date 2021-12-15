@@ -14,7 +14,7 @@ table#observations.column_hover
   tbody
     - table.rows.each do |row|
       tr
-        th.date= l(row.observed_on)
+        th.date= l(row.observed_at)
         - table.observation_descriptions.each do |desc|
           - code = desc.code
           - if row.comment_for(code).present?

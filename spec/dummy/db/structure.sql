@@ -5287,16 +5287,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_recipients; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -6465,6 +6455,24 @@ CREATE SEQUENCE renalware.pathology_observation_requests_id_seq
 --
 
 ALTER SEQUENCE renalware.pathology_observation_requests_id_seq OWNED BY renalware.pathology_observation_requests.id;
+
+
+--
+-- Name: pathology_observations_grouped_by_date; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.pathology_observations_grouped_by_date AS
+ SELECT obr.patient_id,
+    obs.observed_at,
+    jsonb_object_agg(pod.code, ARRAY[obs.result, (obs.comment)::character varying] ORDER BY obs.observed_at) AS results,
+    pcg2.name AS "group"
+   FROM ((((renalware.pathology_observations obs
+     JOIN renalware.pathology_observation_requests obr ON ((obs.request_id = obr.id)))
+     JOIN renalware.pathology_observation_descriptions pod ON ((obs.description_id = pod.id)))
+     JOIN renalware.pathology_code_group_memberships pcgm2 ON ((pcgm2.observation_description_id = pod.id)))
+     JOIN renalware.pathology_code_groups pcg2 ON ((pcg2.id = pcgm2.code_group_id)))
+  GROUP BY pcg2.name, obr.patient_id, obs.observed_at
+  ORDER BY obr.patient_id, pcg2.name, obs.observed_at DESC;
 
 
 --
@@ -23421,6 +23429,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211208114210'),
 ('20211208115229'),
 ('20211208132638'),
-('20211209123828');
+('20211209123828'),
+('20211215111646');
 
 
