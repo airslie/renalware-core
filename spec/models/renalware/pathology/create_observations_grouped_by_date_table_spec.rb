@@ -117,7 +117,8 @@ module Renalware
           request = create(
             :pathology_observation_request,
             patient: patient,
-            requested_at: 100.years.ago
+            requested_at: 100.years.ago,
+            filler_order_number: "A"
           )
           hgb = create(:pathology_observation_description, :hgb)
 

@@ -9,5 +9,10 @@ FactoryBot.define do
     trait :hd_session_form_recent do
       name { "hd_session_form_recent" }
     end
+
+    trait :default do
+      name { "default" }
+      #association :member, factory: :pathology_code_group_membership, code: "FBC"
+    end
   end
 end

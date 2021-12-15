@@ -50,6 +50,24 @@ module Renalware
       def rolling_audit
         @rolling_audit ||= audits.find_by(rolling: true)
       end
+
+      def pathology_for_codes(codes = nil, per_page: 25, page: 1)
+        if ENV["SINGLE_ROW_PATH"].present?
+          Pathology::CreateObservationsGroupedByDateTable.new(
+            patient: patient,
+            observation_descriptions: pathology_descriptions_for_codes(codes),
+            page: page,
+            per_page: per_page
+          ).call
+        else
+          Pathology::CreateObservationsGroupedByDateTable2.new(
+            patient: patient,
+            code_group_name: "default",
+            page: page,
+            per_page: per_page
+          ).call
+        end
+      end
     end
   end
 end

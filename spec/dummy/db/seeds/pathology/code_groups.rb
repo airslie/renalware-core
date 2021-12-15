@@ -36,11 +36,9 @@ module Renalware
       default: {
         description: "Default codes used for example in historical, recent and current pathology",
         subgroups: [
-          [
-            %w(FOL ESR CRP FER HGB B12 MCV MCH HYPO WBC LYM NEUT PLT RETA),
-            %w(URAT ALB TP GLO URE CRE EGFR NA POT BIC CCA PHOS PTHI ACR),
-            %w(BIL ALT AST ALP GGT BGLU HBA HBAI CHOL HDL LDL TRIG TSH CK URR CRCL UREP AL)
-          ]
+          %w(FOL ESR CRP FER HGB B12 MCV MCH HYPO WBC LYM NEUT PLT RETA),
+          %w(URAT ALB TP GLO URE CRE EGFR NA POT BIC CCA PHOS PTHI ACR),
+          %w(BIL ALT AST ALP GGT BGLU HBA HBAI CHOL HDL LDL TRIG TSH CK URR CRCL UREP AL)
         ]
       }
     }
