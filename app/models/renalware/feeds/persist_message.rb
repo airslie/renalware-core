@@ -11,12 +11,13 @@ module Renalware
       # rubocop:disable Metrics/MethodLength
       def call(hl7_message)
         body_hash = Digest::MD5.hexdigest(hl7_message.to_hl7)
+
         Message.create!(
           event_code: hl7_message.type,
           header_id: hl7_message.header_id,
           body: hl7_message.to_s,
           body_hash: body_hash,
-          patient_identifier: hl7_message.patient_identification&.internal_id,
+          patient_identifier: hl7_message.patient_identification&.nhs_number,
           patient_identifiers: hl7_message.patient_identification&.hospital_identifiers
         )
       rescue ActiveRecord::RecordNotUnique

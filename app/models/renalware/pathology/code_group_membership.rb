@@ -19,6 +19,7 @@ module Renalware
       validates :subgroup, presence: true
       belongs_to :code_group
       belongs_to :observation_description
+      scope :ordered, -> { order(:subgroup, :position_within_subgroup) }
     end
   end
 end

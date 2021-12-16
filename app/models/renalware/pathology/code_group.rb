@@ -40,13 +40,11 @@ module Renalware
       validates :description, presence: true
       has_many(
         :memberships,
+        -> { ordered },
         class_name: "CodeGroupMembership",
         dependent: :destroy
       )
-      has_many(
-        :observation_descriptions,
-        through: :memberships
-      )
+      has_many :observation_descriptions, through: :memberships
 
       def self.descriptions_for_group(name)
         group = CodeGroup.find_by(name: name)
