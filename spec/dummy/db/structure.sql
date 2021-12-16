@@ -3547,7 +3547,8 @@ CREATE TABLE renalware.feed_messages (
     updated_at timestamp without time zone NOT NULL,
     body_hash text,
     patient_identifier character varying,
-    processed boolean DEFAULT false
+    processed boolean DEFAULT false,
+    patient_identifiers jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -5284,6 +5285,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -15911,6 +15922,13 @@ CREATE INDEX index_feed_messages_on_patient_identifier ON renalware.feed_message
 
 
 --
+-- Name: index_feed_messages_on_patient_identifiers; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_messages_on_patient_identifiers ON renalware.feed_messages USING gin (patient_identifiers);
+
+
+--
 -- Name: index_feed_outgoing_documents_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -23430,6 +23448,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211208115229'),
 ('20211208132638'),
 ('20211209123828'),
-('20211215111646');
+('20211215111646'),
+('20211216145755');
 
 
