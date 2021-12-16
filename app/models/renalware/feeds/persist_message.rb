@@ -11,16 +11,14 @@ module Renalware
       # rubocop:disable Metrics/MethodLength
       def call(hl7_message)
         body_hash = Digest::MD5.hexdigest(hl7_message.to_hl7)
-        nhs_number = hl7_message.patient_identification&.nhs_number
-        identifiers_hash = hl7_message.patient_identification&.hospital_identifiers || {}
-        identifiers_hash[:NHS] = nhs_number if nhs_number.present?
+
         Message.create!(
           event_code: hl7_message.type,
           header_id: hl7_message.header_id,
           body: hl7_message.to_s,
           body_hash: body_hash,
-          patient_identifier: nhs_number,
-          patient_identifiers: identifiers_hash
+          patient_identifier: hl7_message.patient_identification&.nhs_number,
+          patient_identifiers: hl7_message.patient_identification&.hospital_identifiers
         )
       rescue ActiveRecord::RecordNotUnique
         # If a duplicate messages comes in (we have calculated the body_hash for the message and it

@@ -13,7 +13,11 @@ module Renalware::Feeds
           type: "::message type code::",
           header_id: "::header id::",
           to_hl7: "::message body::",
-          patient_identification: double(internal_id: "123", hospital_identifiers: {})
+          patient_identification: double(
+            internal_id: "123",
+            hospital_identifiers: {},
+            nhs_number: "1"
+          )
         )
       }
 
