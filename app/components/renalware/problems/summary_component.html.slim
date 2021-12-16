@@ -17,9 +17,8 @@
           = link_to "#{t('titles.problems')} (#{problems.length})", renalware.patient_problems_path(patient)
 
         = link_to t("btn.add"),
-            "#",
-            data: { behaviour: "add-new-problem" },
-            class: "button"
+                  renalware.patient_problems_path(patient),
+                  class: "button"
 
       / The add modal dialog
       #add-patient-problem-modal.reveal-modal.medium(data-reveal)
