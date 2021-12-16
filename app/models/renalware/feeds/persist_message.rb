@@ -16,7 +16,8 @@ module Renalware
           header_id: hl7_message.header_id,
           body: hl7_message.to_s,
           body_hash: body_hash,
-          patient_identifier: hl7_message.patient_identification&.internal_id
+          patient_identifier: hl7_message.patient_identification&.internal_id,
+          patient_identifiers: hl7_message.patient_identification&.hospital_identifiers
         )
       rescue ActiveRecord::RecordNotUnique
         # If a duplicate messages comes in (we have calculated the body_hash for the message and it

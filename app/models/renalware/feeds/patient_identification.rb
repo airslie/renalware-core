@@ -29,6 +29,7 @@ module Renalware
       #   "hosp2" => "X1234"
       # }
       def hospital_identifiers
+        return [] unless defined?(patient_id_list)
         return [] if patient_id_list.blank?
 
         @hospital_identifiers ||= begin
