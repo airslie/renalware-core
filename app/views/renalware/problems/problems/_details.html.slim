@@ -7,5 +7,9 @@ article
   dl.dl-horizontal
     dt Description:
     dd= problem.description
+    dt SNOMED code:
+    dd= problem.snomed_id
     dt Recorded On:
     dd= l(problem.updated_at)
+    dt Last updated by:
+    dd= problem.updated_by
