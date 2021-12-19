@@ -3,6 +3,8 @@
 module Renalware
   module Problems
     class ProblemsController < BaseController
+      skip_before_action :track_ahoy_visit, only: :search
+
       def index
         problems = patient.problems.with_notes
         authorize problems
