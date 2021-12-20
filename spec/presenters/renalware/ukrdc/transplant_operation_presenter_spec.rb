@@ -126,13 +126,13 @@ module Renalware
       context "when donor type is live_related" do
         let(:donor_type) { :live_related }
 
-        it { is_expected.to eq "Live" }
+        it { is_expected.to eq "LIVE" }
       end
 
       context "when donor type is live_unrelated" do
         let(:donor_type) { :live_unrelated }
 
-        it { is_expected.to eq "Live" }
+        it { is_expected.to eq "LIVE" }
       end
 
       context "when donor type is cadaver" do

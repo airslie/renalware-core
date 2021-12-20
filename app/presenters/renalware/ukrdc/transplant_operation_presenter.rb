@@ -35,8 +35,8 @@ module Renalware
 
       NHSBT_TYPE_MAP = {
         cadaver: "DBD",
-        live_unrelated: "Live",
-        live_related: "Live",
+        live_unrelated: "LIVE",
+        live_related: "LIVE",
         non_heart_beating: "DCD"
       }.freeze
 

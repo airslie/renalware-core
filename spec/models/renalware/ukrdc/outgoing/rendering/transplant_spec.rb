@@ -31,7 +31,7 @@ module Renalware
                 <Description>Y</Description>
               </EnteredAt>
               <Attributes>
-                <TRA77>Live</TRA77>
+                <TRA77>LIVE</TRA77>
               </Attributes>
             </Transplant>
           XML
