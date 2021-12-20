@@ -67,7 +67,9 @@ module Renalware
               elem << create_node("QHD22", "N") # Access in two sites simultaneously
               elem << create_node("QHD30", coerce_to_integer(session.blood_flow))
               elem << create_node("QHD31", coerce_to_integer(session.duration_in_minutes))
-              elem << create_node("QHD32", session.sodium_content) # Sodium in Dialysate
+              if session.sodium_content.present?
+                elem << create_node("QHD32", session.sodium_content) # Sodium in Dialysate
+              end
               elem << create_node("QHD33", "U") # TODO: Lookup needling Method
             end
           end
