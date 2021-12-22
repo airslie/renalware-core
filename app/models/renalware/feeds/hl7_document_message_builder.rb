@@ -152,7 +152,7 @@ module Renalware
       end
 
       def base64_encoded_pdf_content
-        Base64.encode64(pdf_renderer_class.call(renderable))
+        Base64.strict_encode64(pdf_renderer_class.call(renderable))
       end
 
       def pdf_renderer_class
