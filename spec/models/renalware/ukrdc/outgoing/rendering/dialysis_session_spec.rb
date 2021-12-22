@@ -9,6 +9,39 @@ module Renalware
       describe Rendering::DialysisSession do
         include XmlSpecHelper
 
+        describe "coerce_to_integer" do
+          [
+            ["1", 1],
+            ["asd", nil],
+            [0, nil],
+            ["23 mins", 23],
+            ["", nil]
+          ].each do |input, expected|
+            it "returns #{expected} when input is #{input}" do
+              expect(
+                described_class.new(session: nil).coerce_to_integer(input)
+              ).to eq(expected)
+            end
+          end
+        end
+
+        describe "coerce_to_float" do
+          [
+            ["1", 1.0],
+            ["asd", nil],
+            [0, nil],
+            [0.0, nil],
+            ["23 mins", 23.0],
+            ["", nil]
+          ].each do |input, expected|
+            it "returns #{expected} when input is #{input}" do
+              expect(
+                described_class.new(session: nil).coerce_to_float(input)
+              ).to eq(expected)
+            end
+          end
+        end
+
         context "when the blood_flow is not a number" do
           it "leaves unset it '' or null" do
             session = Renalware::HD::Session::Closed.new(performed_on: "2018-11-01")
@@ -17,7 +50,7 @@ module Renalware
 
             actual_xml = format_xml(described_class.new(session: presenter).xml)
 
-            expect(actual_xml).to match("<QHD30/>")
+            expect(actual_xml).not_to match("QHD30")
           end
 
           it "coerces it into an integer if possible" do
@@ -37,7 +70,7 @@ module Renalware
 
             actual_xml = format_xml(described_class.new(session: presenter).xml)
 
-            expect(actual_xml).to match("<QHD30/>")
+            expect(actual_xml).not_to match("QHD30")
           end
         end
 

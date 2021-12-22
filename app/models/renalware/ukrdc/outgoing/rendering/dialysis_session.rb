@@ -62,11 +62,19 @@ module Renalware
           def attributes_element
             create_node("Attributes") do |elem|
               elem << create_node("QHD19", session.had_intradialytic_hypotension?)
-              elem << create_node("QHD20", session.access_rr02_code)
-              elem << create_node("QHD21", session.access_rr41_code)
+              if session.access_rr02_code.present?
+                elem << create_node("QHD20", session.access_rr02_code)
+              end
+              if session.access_rr41_code.present?
+                elem << create_node("QHD21", session.access_rr41_code)
+              end
               elem << create_node("QHD22", "N") # Access in two sites simultaneously
-              elem << create_node("QHD30", coerce_to_integer(session.blood_flow))
-              elem << create_node("QHD31", coerce_to_integer(session.duration_in_minutes))
+              if coerce_to_integer(session.blood_flow).present?
+                elem << create_node("QHD30", coerce_to_integer(session.blood_flow))
+              end
+              if session.duration_in_minutes.present?
+                elem << create_node("QHD31", coerce_to_integer(session.duration_in_minutes))
+              end
               if session.sodium_content.present?
                 elem << create_node("QHD32", session.sodium_content) # Sodium in Dialysate
               end
