@@ -27,7 +27,7 @@ module Renalware
                 patient_elem << primary_language_element # test
                 patient_elem << death_element
                 patient_elem << create_node("UpdatedOn", patient.updated_at&.to_datetime)
-                patient_elem << create_node("ActionCode", "A")
+                # patient_elem << create_node("ActionCode", "A")
                 patient_elem << create_node("ExternalId", patient.ukrdc_external_id)
               end
               ukrdc_patient_elem << lab_orders_element

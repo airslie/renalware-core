@@ -21,10 +21,13 @@ module Renalware
           end
 
           def dialysis_session_elements_inside(elem)
-            patient.finished_hd_sessions.each do |session|
-              session_presenter = Renalware::HD::SessionPresenter.new(session)
-              elem << Rendering::DialysisSession.new(session: session_presenter).xml
+            sessions = patient.finished_hd_sessions.map do |session|
+              Renalware::HD::SessionPresenter.new(session)
             end
+            elem << Rendering::DialysisSessions.new(
+              patient: patient,
+              sessions: sessions
+            ).xml
           end
 
           def transplant_operation_elements_inside(elem)
