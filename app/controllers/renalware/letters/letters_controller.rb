@@ -10,6 +10,14 @@ module Renalware
       include Concerns::Pageable
       before_action :load_patient, except: [:author]
 
+      # The turbo-rails gem mixes in a concern that will access request.headers on each request
+      # to determine if a layout shold be rendered. However when we render a PDF using the
+      # render_to_string_with_wicked_pdf helper method that WickedPDF adds to ActionController,
+      # then there is no request. So here we create a null object request if there is none.
+      def request
+        super || NullObject.instance
+      end
+
       def index
         render :index, locals: { letters: present_letters(find_letters), patient: patient }
       end

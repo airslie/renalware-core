@@ -2,6 +2,10 @@ import "@stimulus/polyfills" // required for IE11 support
 import "promise-polyfill/src/polyfill"
 import "whatwg-fetch"
 import { Application } from "stimulus"
+import { Turbo } from "@hotwired/turbo-rails"
+
+// By default disable Turbo on all pages
+Turbo.session.drive = false
 
 // Manually import stimulusjs controllers for now as we had problems with the stimulus-controllers
 // package on CI ('file.isDirectory is not a function')

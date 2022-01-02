@@ -11,11 +11,19 @@ module Renalware
     include Pagy::Frontend
 
     def default_patient_link(patient)
-      link_to(patient.to_s(:default), patient_clinical_summary_path(patient))
+      link_to(
+        patient.to_s(:default),
+        patient_clinical_summary_path(patient),
+        data: { turbo: { frame: "_top"} }
+      )
     end
 
     def default_patient_link_with_nhs_number(patient)
-      link_to(patient&.to_s(:long), patient_clinical_summary_path(patient))
+      link_to(
+        patient&.to_s(:long),
+        patient_clinical_summary_path(patient),
+        data: { turbo: { frame: "_top"} }
+      )
     end
 
     def patient_search

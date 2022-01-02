@@ -6,14 +6,14 @@ module Renalware
       link_to link_title,
               "#{row_selector} .css-toggle-container",
               class: "button compact low-key",
-              data: { behaviour: "css-toggler" }
+              data: { behaviour: "css-toggler", turbo: "false" }
     end
 
     # Non-stimulus implemention for adding a link to toggle open all an adjacent row
     def toggler(row_selector, link_title: "Toggle")
       link_to(
         row_selector,
-        data: { behaviour: "toggler" },
+        data: { behaviour: "toggler", turbo: "false" },
         class: "toggler",
         title: link_title
       ) do
@@ -25,7 +25,7 @@ module Renalware
     def table_toggler(link_title: "Toggle all rows")
       link_to(
         "#",
-        data: { behaviour: "table-toggler" },
+        data: { behaviour: "table-toggler", turbo: "false" },
         class: "toggler",
         title: link_title
       ) do
@@ -53,7 +53,7 @@ module Renalware
     def rows_toggler(link_title: "Toggle all rows")
       link_to(
         "#",
-        data: { action: "toggle#table" },
+        data: { action: "toggle#table", turbo: "false" },
         class: "toggler",
         title: link_title
       ) do
@@ -69,7 +69,7 @@ module Renalware
     def row_toggler(link_title: "Toggle")
       link_to(
         "#",
-        data: { action: "click->toggle#row" },
+        data: { action: "click->toggle#row", turbo: "false" },
         class: "toggler",
         title: link_title
       ) do
