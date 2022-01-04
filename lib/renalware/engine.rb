@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "rubygems"
-require "view_component/engine"
+require "view_component"
 require "active_type"
 require "activerecord-import"
 require "ahoy"

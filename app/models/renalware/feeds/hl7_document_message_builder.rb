@@ -62,7 +62,7 @@ module Renalware
         @msg = HL7::Message.new
         msg << msh
         msg << pid
-        # # include PV1 if there is an associated clinic visit
+        msg << pv1
         msg << txa
         msg << obx
         msg
@@ -83,6 +83,17 @@ module Renalware
         seg.time = Time.zone.now
         seg.version_id = Rails.env.production? ? "P" : "U"
         seg.seq = Renalware::VersionNumber::VERSION
+        seg
+      end
+
+      def pv1
+        seg = HL7::Message::Segment::PV1.new
+        if renderable.respond_to?(:visit_number)
+          seg.visit_number = renderable.visit_number
+        end
+        if renderable.respond_to?(:clinic_code)
+          seg.assigned_location = renderable.clinic_code
+        end
         seg
       end
 
