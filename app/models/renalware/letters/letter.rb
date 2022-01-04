@@ -69,6 +69,7 @@ module Renalware
       }
 
       delegate :primary_care_physician, to: :patient
+      delegate :visit_number, :clinic_code, to: :event, allow_nil: true
 
       def self.policy_class
         LetterPolicy

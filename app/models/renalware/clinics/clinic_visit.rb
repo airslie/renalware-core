@@ -42,6 +42,9 @@ module Renalware
       before_save :calculate_total_body_water
       before_save :calculate_bmi
 
+      delegate :code, to: :clinic, prefix: true, allow_nil: true
+      delegate :visit_number, to: :originating_appointment, allow_nil: true
+
       def bp
         return unless systolic_bp.present? && diastolic_bp.present?
 
@@ -70,6 +73,11 @@ module Renalware
       end
 
       private
+
+      # The originating appointment from which the VC was generated - created e.g. by HL7 A05
+      def originating_appointment
+        Appointment.find_by(becomes_visit_id: id)
+      end
 
       def datetime_from_date_and_time
         DateTime.new(date.year, date.month, date.day, time.hour, time.min, 0, time.zone)

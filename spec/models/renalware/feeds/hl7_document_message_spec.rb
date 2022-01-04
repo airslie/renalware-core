@@ -33,6 +33,10 @@ module Renalware
         )
       end
 
+      let(:user) do
+        create(:user, family_name: "Smith", given_name: "Jo")
+      end
+
       describe "MSH, PID, TXA, OBX segment" do
         context "when rendering a letter" do
           it do
@@ -44,7 +48,7 @@ module Renalware
               letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
                 patient: patient,
                 clinical: true,
-                author: create(:user, family_name: "Smith", given_name: "Jo")
+                author: user
               )
               msg = described_class.call(renderable: letter, message_id: 123)
               expected_filename = "HOSP1_111_HOSP2_222_HOSP3_333_JONES_19700101_CL_#{letter.id}"
@@ -55,6 +59,8 @@ module Renalware
               expect(msg[:PID].to_s).to eq(
                 "PID||9999999999^^^NHS|111^^^HOSP1~222^^^HOSP2~333^^^HOSP3||Jones^^Patricia^^Ms||19700101|F"
               )
+              expect(msg[:PV1].to_s).to eq("PV1|||||||||||||||||||")
+
               expect(msg[:TXA].to_s).to eq(
                 "TXA||CL^Clinic Letter|ED^Electronic Document|" \
                 "#{letter.approved_at.strftime('%Y%m%d%H%M')}|Smith^Jo|" \
@@ -66,12 +72,40 @@ module Renalware
             end
           end
 
-          # context "when the letter has an associated clinic visit" do
-          #   it "includes a PV1 segment" do
-          #     create(:clinic_visit, patient: patient, datetime: "2021-12-01 09:01:01")
-          #     # Letters::Event::ClinicVisit
-          #   end
-          # end
+          context "when the letter has an associated clinic visit" do
+            it "includes a PV1 segment with clinic cod and visit number from the A05 HL7 message" do
+              allow(Renalware::Letters::PdfRenderer).to receive(:call).and_return("A") # base64='QQ==\r'
+              clin = create(
+                :clinic,
+                code: "C1"
+              )
+              cv = create(
+                :clinic_visit,
+                clinic: clin,
+                patient_id: patient.id,
+                date: "2021-12-01",
+                time: "09:01:01"
+              )
+              create(
+                :appointment,
+                clinic: clin,
+                patient_id: patient.id,
+                becomes_visit_id: cv.id,
+                visit_number: "V1"
+              )
+              letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
+                patient: patient,
+                clinical: true,
+                author: create(:user, family_name: "Smith", given_name: "Jo")
+              )
+              letter.event = cv
+              letter.save_by!(user)
+
+              msg = described_class.call(renderable: letter, message_id: 123)
+
+              expect(msg[:PV1].to_s).to eq("PV1|||C1||||||||||||||||V1")
+            end
+          end
         end
 
         context "when rendering an event" do
