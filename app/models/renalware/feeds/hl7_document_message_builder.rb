@@ -107,7 +107,7 @@ module Renalware
         end.join("~")
         seg.patient_name = "#{patient.family_name}^^#{patient.given_name}^^#{patient.title}"
         seg.patient_dob = patient.born_on&.strftime("%Y%m%d")
-        seg.admin_sex = patient.sex
+        # seg.admin_sex = patient.sex
         seg
       end
 
