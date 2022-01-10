@@ -16,6 +16,12 @@ module Renalware
                  class_name: "Renalware::Patient",
                  touch: true
 
+      belongs_to :worry_category,
+                 -> { with_deleted },
+                 class_name: "Renalware::Patients::WorryCategory",
+                 touch: true,
+                 counter_cache: true
+
       validates :patient, presence: true, uniqueness: true
     end
   end

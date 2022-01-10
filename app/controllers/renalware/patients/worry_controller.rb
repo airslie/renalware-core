@@ -10,7 +10,7 @@ module Renalware
         worry = Worry.find_or_create_by!(patient: patient) do |wor|
           wor.by = user
         end
-        update_worry_notes_if_supplied(worry)
+        worry.update(worry_params.merge!(by: current_user))
         redirect_back(fallback_location: patient_path(patient),
                       notice: t(".success", patient: patient))
       end
@@ -29,18 +29,12 @@ module Renalware
 
       private
 
-      def update_worry_notes_if_supplied(worry)
-        if worry_params[:notes].present?
-          worry.update(worry_params.merge!(by: current_user))
-        end
-      end
-
       def user
         @user ||= Renalware::Patients.cast_user(current_user)
       end
 
       def worry_params
-        params.require(:patients_worry).permit(:notes)
+        params.require(:patients_worry).permit(:notes, :worry_category_id)
       end
     end
   end

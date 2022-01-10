@@ -1,0 +1,34 @@
+= content_for(:actions) do
+  = link_to t("btn.add"), renalware.new_worry_category_path, class: "button"
+
+
+= within_new_admin_layout(title: "Worry Categories") do
+  .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
+    i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+    ' Deleting a category sets the 'deleted at' date, preventing the category from
+    ' being used prospectively.
+
+  table#worry_categories
+    thead
+      tr
+        td
+        td Name
+        td Worry count
+        td.col-width-date-time Deleted at
+        td.col-width-large Updated by
+        td.col-width-date-time Updated at
+    tbody
+      - categories.each do |category|
+        tr(id=dom_id(category) class="#{category.deleted? ? 'deleted' : ''}")
+          td.actions
+            = link_to_if_allowed policy(category).edit?, "Edit", renalware.edit_worry_category_path(category)
+            = link_to_if_allowed policy(category).destroy?,
+                                 "Delete",
+                                 renalware.worry_category_path(category),
+                                 method: :delete,
+                                 data: { confirm: "Are you sure?" }
+          td= category.name
+          td= category.worries_count
+          td= l(category.deleted_at)
+          td= category.updated_by
+          td= l(category.updated_at)

@@ -5,13 +5,15 @@ require "rails_helper"
 describe "Managing the patient worryboard", type: :request do
   let(:user) { @current_user }
   let(:patient) { create(:patient, by: user) }
+  let(:worry_category) { create(:worry_category, name: "CategoryA") }
 
   describe "POST create" do
     context "when the patient has no worry (!)" do
       it "creates a new patient worry (aka adding them to the Worryboard)" do
         params = {
           patients_worry: {
-            notes: "Abc"
+            notes: "Abc",
+            worry_category_id: worry_category.id
           }
         }
         post(patient_worry_path(patient), params: params)
@@ -21,6 +23,7 @@ describe "Managing the patient worryboard", type: :request do
 
         worry = Renalware::Patients::Worry.find_by(patient_id: patient.id)
         expect(worry.notes).to eq("Abc")
+        expect(worry.worry_category).to eq(worry_category)
       end
     end
 

@@ -1,0 +1,10 @@
+= within_new_admin_layout(title: "New Worry Category") do
+
+  = simple_form_for(category,
+                    url: renalware.worry_categories_path(category),
+                    as: :category,
+                    wrapper: :horizontal_form) do |f|
+    = f.input :name, wrapper: :horizontal_large
+    = f.submit class: "button"
+    '  or
+    = link_to t("btn.cancel"), renalware.worry_categories_path

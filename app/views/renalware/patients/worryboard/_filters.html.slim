@@ -6,6 +6,10 @@
 
     .flex.flex-col.sm:flex-row.items-end.pb-4
       .w-full.sm:max-w-xs.pr-2
+        = f.input :worry_category_id_eq,
+                  collection: categories,
+                  label: "Category"
+      .w-full.sm:max-w-xs.pr-2
         = f.input :patient_current_modality_description_id_eq,
                   collection: modalities,
                   label: "Modality"
