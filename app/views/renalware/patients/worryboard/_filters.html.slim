@@ -6,6 +6,10 @@
 
     .flex.flex-col.sm:flex-row.items-end.pb-4
       .w-full.sm:max-w-xs.pr-2
+        = f.input :patient_hospital_centre_id_eq,
+                  collection: Renalware::Hospitals::Centre.order(:name),
+                  label: "Site"
+      .w-full.sm:max-w-xs.pr-2
         = f.input :worry_category_id_eq,
                   collection: categories,
                   label: "Category"
