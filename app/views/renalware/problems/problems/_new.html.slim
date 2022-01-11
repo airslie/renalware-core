@@ -5,4 +5,8 @@
 
   .modal__body
     section.new-problem
-      = render "renalware/problems/problems/new_problem", patient: patient, problem: problem
+      = render "renalware/problems/problems/form",
+               patient: patient,
+               problem: problem,
+               url: patient_problems_path(patient),
+               modal: true

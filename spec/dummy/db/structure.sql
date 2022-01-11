@@ -168,6 +168,17 @@ CREATE TYPE renalware.pd_pet_type AS ENUM (
 
 
 --
+-- Name: problem_date_display_style_enum; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.problem_date_display_style_enum AS ENUM (
+    'y',
+    'my',
+    'dmy'
+);
+
+
+--
 -- Name: system_log_group; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -7416,7 +7427,8 @@ CREATE TABLE renalware.problem_problems (
     updated_at timestamp without time zone NOT NULL,
     created_by_id integer NOT NULL,
     updated_by_id integer,
-    snomed_id character varying
+    snomed_id character varying,
+    date_display_style renalware.problem_date_display_style_enum
 );
 
 
@@ -23604,6 +23616,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211215111646'),
 ('20211216145755'),
 ('20220107182152'),
+('20220110135105'),
 ('20220113132731'),
 ('20220114171857'),
 ('20220116183123');

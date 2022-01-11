@@ -10,6 +10,7 @@
     ol
       - problem.notes.each do |note|
         li= note.description
+  td= problem.date
   td= problem.snomed_id
   td= l problem.updated_on
   td= problem.updated_by.full_name

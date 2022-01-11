@@ -2,25 +2,4 @@
                         breadcrumbs: [problems_breadcrumb(patient),
                                       problem_breadcrumb(patient, problem)])
 
-  = simple_form_for problem,
-                    url: patient_problem_path(patient, problem),
-                    html: { autocomplete: "off", class: "problem-form fn-form" } do |f|
-
-      - if nhs_client.api_enabled?
-        p.js-snomed-id-hint class=('hidden' if problem.snomed_id.blank?)
-          ' Snomed ID:
-          strong.snomed_id = problem.snomed_id
-        = f.hidden_field :snomed_id, id: 'js-snomed-id-field'
-        = f.input :description,
-                  collection: [problem.description],
-                  selected: problem.description,
-                  input_html: { \
-                    class: "patient-id-select2 problem-ajax-search",
-                    data: { "ajax--url" => search_patient_problems_path(patient, format: :json) } \
-                  }
-      - else
-        = f.input :description, as: :text, autofocus: true
-
-      = f.button :button, "Save"
-      '  or
-      = link_to t("btn.cancel"), patient_problems_path(patient)
+  = render "form", problem: problem, patient: patient, url: patient_problem_path(patient, problem)
