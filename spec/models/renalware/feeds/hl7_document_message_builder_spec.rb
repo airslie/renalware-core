@@ -16,6 +16,9 @@ module Renalware
             HOSP3: :local_patient_id_3
           }
         end
+        Hospitals::Centre.create!(code: "HOSP1", abbrev: "ABBREV1", name: "HOSP1")
+        Hospitals::Centre.create!(code: "HOSP2", abbrev: "ABBREV2", name: "HOSP2")
+        Hospitals::Centre.create!(code: "HOSP3", abbrev: "ABBREV3", name: "HOSP3")
       end
 
       let(:patient) do
@@ -43,7 +46,7 @@ module Renalware
             stub_const("Renalware::VersionNumber::VERSION", "9.9.9")
 
             travel_to Time.zone.parse("20211117152417") do
-              allow(Renalware::Letters::PdfRenderer).to receive(:call).and_return("A") # base64='QQ==\r'
+              allow(Renalware::Letters::PdfRenderer).to receive(:call).and_return("A") # base64='QQ=='
 
               letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
                 patient: patient,
@@ -57,7 +60,7 @@ module Renalware
                 "MSH|^~\&|Renalware|MSE|||20211117152417||MDM^T02||RW0000000123|U|9.9.9"
               )
               expect(msg[:PID].to_s).to eq(
-                "PID||9999999999^^^NHS|111^^^HOSP1~222^^^HOSP2~333^^^HOSP3||Jones^^Patricia^^Ms||19700101"
+                "PID||9999999999^^^NHS|111^^^ABBREV1~222^^^ABBREV2~333^^^ABBREV3||Jones^^Patricia^^Ms||19700101"
               )
               expect(msg[:PV1].to_s).to eq("PV1|||||||||||||||||||")
 
@@ -67,14 +70,14 @@ module Renalware
                 "#{letter.approved_at.strftime('%Y%m%d%H%M')}||||||#{letter.id}||||#{expected_filename}|AU"
               )
               expect(msg[:OBX].to_s).to eq(
-                "OBX|1|ED|||^TEXT^PDF^Base64^QQ==\r"
+                "OBX|1|ED|||^TEXT^PDF^Base64^QQ=="
               )
             end
           end
 
           context "when the letter has an associated clinic visit" do
             it "includes a PV1 segment with clinic cod and visit number from the A05 HL7 message" do
-              allow(Renalware::Letters::PdfRenderer).to receive(:call).and_return("A") # base64='QQ==\r'
+              allow(Renalware::Letters::PdfRenderer).to receive(:call).and_return("A") # base64='QQ=='
               clin = create(
                 :clinic,
                 code: "C1"
@@ -112,7 +115,7 @@ module Renalware
           it do
             travel_to Time.zone.parse("20211117152417") do
               stub_const("Renalware::VersionNumber::VERSION", "9.9.9")
-              allow(Renalware::Events::EventPdf).to receive(:call).and_return("A") # base64='QQ==\r'
+              allow(Renalware::Events::EventPdf).to receive(:call).and_return("A") # base64='QQ=='
 
               create(
                 :swab_event_type,
@@ -137,7 +140,7 @@ module Renalware
                 "MSH|^~\&|Renalware|MSE|||20211117152417||MDM^T02||RW0000000123|U|9.9.9"
               )
               expect(msg[:PID].to_s).to eq(
-                "PID||9999999999^^^NHS|111^^^HOSP1~222^^^HOSP2~333^^^HOSP3||Jones^^Patricia^^Ms||19700101"
+                "PID||9999999999^^^NHS|111^^^ABBREV1~222^^^ABBREV2~333^^^ABBREV3||Jones^^Patricia^^Ms||19700101"
               )
               expect(msg[:TXA].to_s).to eq(
                 "TXA||XX^YY|ED^Electronic Document|" \
@@ -145,7 +148,7 @@ module Renalware
                 "#{event.approved_at.strftime('%Y%m%d%H%M')}||||||#{event.id}||||#{expected_filename}|AU"
               )
               expect(msg[:OBX].to_s).to eq(
-                "OBX|1|ED|||^TEXT^PDF^Base64^QQ==\r"
+                "OBX|1|ED|||^TEXT^PDF^Base64^QQ=="
               )
             end
           end

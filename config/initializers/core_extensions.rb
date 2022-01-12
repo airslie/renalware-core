@@ -10,6 +10,7 @@ require "core_extensions/scenic"
 require "core_extensions/hash"
 require "core_extensions/active_record/migration_helpers"
 require "core_extensions/ox/element_additions"
+require "core_extensions/hl7/message_additions"
 
 I18n.extend CoreExtensions::I18n::HandleBlankValue
 I18n::Backend::Simple.include(I18n::Backend::Cascade)

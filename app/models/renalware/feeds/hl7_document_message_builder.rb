@@ -32,7 +32,7 @@ class HL7::Message::Segment::TXA < HL7::Message::Segment
   add_field :distributed_copies
 end
 
-# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/AbcSize, Metrics/ClassLength
 module Renalware
   module Feeds
     # Given a Letters:::Letter, generates an HL7 MDMT T02 message
@@ -103,7 +103,11 @@ module Renalware
         seg.patient_id = "#{patient.nhs_number}^^^NHS"
 
         seg.patient_id_list = patient.hospital_identifiers.all.map do |assigning_auth, id|
-          "#{id}^^^#{assigning_auth}"
+          # At MSE the hosp identifier assigning_auth will be eg BAS but we need to map to
+          # eg RAJ01. Could so this in Mirth but doing here for now but looking up the abbrev for
+          # the hospital_centre
+          hospital_abbrv = Hospitals::Centre.find_by(code: assigning_auth)&.abbrev || assigning_auth
+          "#{id}^^^#{hospital_abbrv}"
         end.join("~")
         seg.patient_name = "#{patient.family_name}^^#{patient.given_name}^^#{patient.title}"
         seg.patient_dob = patient.born_on&.strftime("%Y%m%d")
@@ -163,7 +167,7 @@ module Renalware
       end
 
       def base64_encoded_pdf_content
-        Base64.encode64(pdf_renderer_class.call(renderable))&.gsub(/\n/, "\r")
+        Base64.strict_encode64(pdf_renderer_class.call(renderable))
       end
 
       def pdf_renderer_class
@@ -190,4 +194,4 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/AbcSize, Metrics/ClassLength
