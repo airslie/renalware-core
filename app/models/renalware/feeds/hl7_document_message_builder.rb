@@ -103,11 +103,12 @@ module Renalware
         seg.patient_id = "#{patient.nhs_number}^^^NHS"
 
         seg.patient_id_list = patient.hospital_identifiers.all.map do |assigning_auth, id|
-          # At MSE the hosp identifier assigning_auth will be eg BAS but we need to map to
-          # eg RAJ01. Could so this in Mirth but doing here for now but looking up the abbrev for
-          # the hospital_centre
-          hospital_abbrv = Hospitals::Centre.find_by(code: assigning_auth)&.abbrev || assigning_auth
-          "#{id}^^^#{hospital_abbrv}"
+          # At MSE the hosp identifier key will be eg BAS (hospital_centre.abbrev) but we need
+          # to map to eg RAJ01 (hospital_centre.code) and use that when building the PID.
+          # We could so this in Mirth but doing here for now by looking at the hospital_centres
+          # table.
+          auth = Hospitals::Centre.find_by(abbrev: assigning_auth)&.code || assigning_auth
+          "#{id}^^^#{auth}"
         end.join("~")
         seg.patient_name = "#{patient.family_name}^^#{patient.given_name}^^#{patient.title}"
         seg.patient_dob = patient.born_on&.strftime("%Y%m%d")
