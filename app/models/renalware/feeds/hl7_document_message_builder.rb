@@ -75,7 +75,7 @@ module Renalware
       # E.g. MSH|^~\&|Renalware|MSE|||20210920180000||MDM^T02|RW0000000001|P|2.3.1
       def msh
         seg = HL7::Message::Segment::MSH.new
-        seg.enc_chars = "^~\&"
+        seg.enc_chars = "^~\\&"
         seg.sending_app = "Renalware"
         seg.sending_facility = "MSE"
         seg.processing_id = external_id
