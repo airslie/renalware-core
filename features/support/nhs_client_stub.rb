@@ -21,14 +21,14 @@ Before do
   %w(major%20problem something%20else).each do |filter|
     stub_request(
       :get,
-      "#{query_uri}?count=10&filter=#{filter}&includeDesignations=false&offset=0&url=http://snomed.info/sct?fhir_vs=ecl/%3C404684003"
+      "#{query_uri}?count=10&filter=#{filter}&includeDesignations=false&offset=0&url=http://snomed.info/sct?fhir_vs=ecl/%3C404684003%20OR%20%3C71388002"
     ).to_return(
       status: 200,
       body: File.read("spec/fixtures/files/nhs_client/query_response.json")
     )
     stub_request(
       :get,
-      "#{query_uri}?count=10&filter=#{filter}&includeDesignations=false&offset=20&url=http://snomed.info/sct?fhir_vs=ecl/%3C404684003"
+      "#{query_uri}?count=10&filter=#{filter}&includeDesignations=false&offset=20&url=http://snomed.info/sct?fhir_vs=ecl/%3C404684003%20OR%20%3C71388002"
     ).to_return(
       status: 200,
       body: File.read("spec/fixtures/files/nhs_client/query_response.json")

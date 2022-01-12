@@ -22,10 +22,13 @@ class NHSClient
     "production1/fhir/ValueSet/$expand"
   )
 
-  # rubocop:disable Rails/EnvironmentVariableAccess
+  # Expression Constraint Language (ECL) to scope the $expand call.
+  # This quetry (see https://ontoserver.csiro.au/shrimp/ecl_help.html) will search descendants of
+  # the prodecure concept (71388002) and descendants of the clinical findings concept (404684003)
+  ECL = ENV.fetch("NHS_TERMINOLOGY_SERVER_ECL", "<404684003 OR <71388002")
+
   CLIENT_ID = ENV["NHS_CLIENT_ID"]
   CLIENT_SECRET = ENV["NHS_CLIENT_SECRET"]
-  # rubocop:enable Rails/EnvironmentVariableAccess
 
   attr_reader :problems, :problems_total
 
@@ -47,7 +50,7 @@ class NHSClient
         "Authorization" => "Bearer #{token}"
       },
       query: {
-        url: "http://snomed.info/sct?fhir_vs=ecl/<404684003",
+        url: "http://snomed.info/sct?fhir_vs=ecl/#{ECL}",
         filter: filter,
         count: count,
         offset: offset,
