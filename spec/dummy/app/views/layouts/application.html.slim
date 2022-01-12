@@ -15,7 +15,10 @@ html lang="en"
     = yield :css
 
     = javascript_include_tag "renalware/modernizr"
-    = javascript_include_tag "renalware/charting"
+    = javascript_include_tag "renalware/charting", defer: true
+    = javascript_include_tag "renalware/core", defer: true
+    = javascript_include_tag "application", defer: true
+    = yield(:javascript)
 
     = csrf_meta_tag
     link(rel="apple-touch-icon" sizes="180x180" href="#{image_path('renalware/favicon/apple-touch-icon.png')}")
@@ -49,7 +52,3 @@ html lang="en"
 
     - unless user_signed_in?
       = render "renalware/navigation/footer"
-    = javascript_include_tag "renalware/core"
-    = javascript_include_tag "application"
-
-    = yield(:javascript)

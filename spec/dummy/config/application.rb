@@ -5,7 +5,6 @@ require "rails/all"
 
 Bundler.require(*Rails.groups)
 require "renalware"
-require "view_component/engine"
 
 module Dummy
   class Application < Rails::Application

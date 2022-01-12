@@ -1,17 +1,17 @@
 - content_for(:body_class) { "audits-show" }
 
 - content_for(:javascript) do
-  javascript:
-    var userConfiguredColumns = eval(#{raw(audit.display_configuration)})['columnDefs'];
-
-    $("body").ready(function() {
+  javascript(defer="defer"):
+    window.onload = function() {
+      var userConfiguredColumns = eval(#{raw(audit.display_configuration)})['columnDefs'];
       $("body.audits-show table#audit").DataTable(
         {
           ajax: "#{reporting_audit_path(audit, format: :json)}",
           columns: userConfiguredColumns
         }
       );
-    });
+    };
+
 
 = within_admin_layout(title: audit.name, breadcrumbs: audits_breadcrumb) do
 
