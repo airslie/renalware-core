@@ -16,9 +16,9 @@ module Renalware
             HOSP3: :local_patient_id_3
           }
         end
-        Hospitals::Centre.create!(code: "HOSP1", abbrev: "ABBREV1", name: "HOSP1")
-        Hospitals::Centre.create!(code: "HOSP2", abbrev: "ABBREV2", name: "HOSP2")
-        Hospitals::Centre.create!(code: "HOSP3", abbrev: "ABBREV3", name: "HOSP3")
+        Hospitals::Centre.create!(code: "CODE1", abbrev: "HOSP1", name: "HOSP1")
+        Hospitals::Centre.create!(code: "CODE2", abbrev: "HOSP2", name: "HOSP2")
+        Hospitals::Centre.create!(code: "CODE3", abbrev: "HOSP3", name: "HOSP3")
       end
 
       let(:patient) do
@@ -60,7 +60,7 @@ module Renalware
                 "MSH|^~\&|Renalware|MSE|||20211117152417||MDM^T02||RW0000000123|U|9.9.9"
               )
               expect(msg[:PID].to_s).to eq(
-                "PID||9999999999^^^NHS|111^^^ABBREV1~222^^^ABBREV2~333^^^ABBREV3||Jones^^Patricia^^Ms||19700101"
+                "PID||9999999999^^^NHS|111^^^CODE1~222^^^CODE2~333^^^CODE3||Jones^^Patricia^^Ms||19700101"
               )
               expect(msg[:PV1].to_s).to eq("PV1|||||||||||||||||||")
 
@@ -140,7 +140,7 @@ module Renalware
                 "MSH|^~\&|Renalware|MSE|||20211117152417||MDM^T02||RW0000000123|U|9.9.9"
               )
               expect(msg[:PID].to_s).to eq(
-                "PID||9999999999^^^NHS|111^^^ABBREV1~222^^^ABBREV2~333^^^ABBREV3||Jones^^Patricia^^Ms||19700101"
+                "PID||9999999999^^^NHS|111^^^CODE1~222^^^CODE2~333^^^CODE3||Jones^^Patricia^^Ms||19700101"
               )
               expect(msg[:TXA].to_s).to eq(
                 "TXA||XX^YY|ED^Electronic Document|" \
