@@ -33,6 +33,8 @@ module Renalware
           end
           authorise(params)
           user.telephone = params[:telephone]
+          user.banned = params.fetch(:banned, false)
+          user.notes = params[:notes]
           user.save!
         end
       rescue ActiveRecord::RecordInvalid
@@ -46,7 +48,7 @@ module Renalware
       end
 
       def can_approve?(params)
-        true?(params[:approved]) && !user.approved?
+        params.key?(:approved) && true?(params[:approved]) && !user.approved?
       end
 
       def approve

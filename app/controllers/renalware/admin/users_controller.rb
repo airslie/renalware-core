@@ -52,6 +52,8 @@ module Renalware
           :consultant,
           :hidden,
           :prescriber,
+          :banned,
+          :notes,
           :access_unlock,
           role_ids: []
         )

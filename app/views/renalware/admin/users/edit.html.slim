@@ -1,75 +1,99 @@
 = within_new_admin_layout(title: "Edit",
                       breadcrumbs: breadcrumb_for("Users", admin_users_path)) do
 
+  css:
+    .simple_form .hint { margin: .2rem; padding-left: 1rem;}
+
   h2= user
 
-  = simple_form_for user,
-                    html: { autocomplete: "off" },
-                    url: admin_user_path(user) do |f|
-    = f.input :approved, as: :hidden, input_html: { value: true }
+  .w-full.md:w-1/2
+    = simple_form_for user,
+                      html: { autocomplete: "off", class: "" },
+                      url: admin_user_path(user) do |f|
+      = f.input :approved, as: :hidden, input_html: { value: true }
 
-    - if user.errors.any?
-      ul.error-messages
-        - user.errors.full_messages.each do |msg|
-          li= msg
+      - if user.errors.any?
+        ul.error-messages
+          - user.errors.full_messages.each do |msg|
+            li= msg
 
-    - if user.expired?
-      .row
-        = check_box_tag "user[unexpire]", true, false, class: "inline"
-        = label_tag :user_unexpire, "Reactivate account"
+      - if user.expired?
+        .row
+          = check_box_tag "user[unexpire]", true, false, class: "inline"
+          = label_tag :user_unexpire, "Reactivate account"
 
-    span
-      | Requested write access: &nbsp;
-      = yes_no(user.asked_for_write_access)
+      span
+        | Requested write access: &nbsp;
+        = yes_no(user.asked_for_write_access)
 
-    br
-    br
-    - Renalware::Role.all.order(id: :asc).each_with_index do |role, index|
-      - element_id = "user_role_ids_#{index}"
-      - policy = Pundit.policy(current_user, user)
-      = check_box_tag "user[role_ids][]",
-                      role.id,
-                      user.has_role?(role.name),
-                      disabled: !(policy.assign_role?(role)),
-                      id: element_id,
-                      class: "inline"
-      = label_tag element_id, role.name.humanize
-    br
+      .my-2
+        - Renalware::Role.all.order(id: :asc).each_with_index do |role, index|
+          - element_id = "user_role_ids_#{index}"
+          - policy = Pundit.policy(current_user, user)
+          = check_box_tag "user[role_ids][]",
+                          role.id,
+                          user.has_role?(role.name),
+                          disabled: !(policy.assign_role?(role)),
+                          id: element_id,
+                          class: "m-0 p-0"
+          = label_tag element_id, role.name.humanize, class: "p-0 ml-2 mr-4"
+      br
 
-    = f.input :telephone,
-              input_html: { class: "input small" },
-              wrapper: :horizontal_small
+      div
+        = f.input :telephone,
+                  input_html: { class: "rounded w-full h-8 border-gray-300 mb-1" },
+                  wrapper: :horizontal_small
+      div
+        = f.input :consultant,
+                  as: :boolean,
+                  checked_value: "true",
+                  unchecked_value: "false",
+                  label_html: { class: "mt-1" },
+                  hint_html: { class: "bg-red-500" },
+                  wrapper: :horizontal_small
 
-    = f.input :consultant,
-              as: :boolean,
-              checked_value: "true",
-              unchecked_value: "false",
-              wrapper: :horizontal_small
-
-    = f.input :hidden,
-              as: :boolean,
-              hint: "&nbsp;User will not be visible for selection in dropdowns".html_safe,
-              checked_value: "true",
-              unchecked_value: "false",
-              wrapper: :horizontal_small
-
-    - if user.access_locked? && (current_user.has_role?(:super_admin) || current_user.has_role?(:admin))
-      = f.input :access_unlock,
+      = f.input :hidden,
                 as: :boolean,
-                hint: "&nbsp;User will be able to sign in again".html_safe,
+                hint: "&nbsp;User will not be visible for selection in dropdowns".html_safe,
                 checked_value: "true",
                 unchecked_value: "false",
+                label_html: { class: "mt-1" },
                 wrapper: :horizontal_small
 
-    - if current_user.has_role?(:super_admin)
-      = f.input :prescriber,
-                as: :boolean,
-                hint: "&nbsp;User will able to add/edit/terminate prescriptions".html_safe,
-                checked_value: "true",
-                unchecked_value: "false",
+      - if user.access_locked? && (current_user.has_role?(:super_admin) || current_user.has_role?(:admin))
+        = f.input :access_unlock,
+                  as: :boolean,
+                  hint: "&nbsp;User will be able to sign in again".html_safe,
+                  checked_value: "true",
+                  unchecked_value: "false",
+                  label_html: { class: "mt-1" },
+                  wrapper: :horizontal_small
+
+      - if current_user.has_role?(:super_admin)
+        = f.input :prescriber,
+                  as: :boolean,
+                  hint: "&nbsp;User will able to add/edit/terminate prescriptions".html_safe,
+                  checked_value: "true",
+                  unchecked_value: "false",
+                  label_html: { class: "mt-1" },
+                  wrapper: :horizontal_small
+
+      - if current_user.has_role?(:super_admin)
+        .rounded.bg-red-100.pt-2.px-2.mb-6
+          = f.input :banned,
+                    as: :boolean,
+                    hint: "&nbsp;If checked, user will not be able to login".html_safe,
+                    checked_value: "true",
+                    unchecked_value: "false",
+                    label_html: { class: "mt-1" },
+                    wrapper: :horizontal_small
+
+      = f.input :notes,
+                as: :text,
+                input_html: { class: "rounded w-full border-gray-300 mb-2" },
                 wrapper: :horizontal_small
 
-    - msg = user.approved? ? "Update" : "Approve"
-    = f.submit msg, class: "button"
-    '  or
-    = link_to t("btn.cancel"), admin_users_path
+      - msg = user.approved? ? "Update" : "Approve"
+      = f.submit msg, class: "button"
+      '  or
+      = link_to t("btn.cancel"), admin_users_path
