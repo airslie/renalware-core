@@ -57,7 +57,7 @@ module Renalware
               expected_filename = "HOSP1_111_HOSP2_222_HOSP3_333_JONES_19700101_CL_#{letter.id}"
 
               expect(msg[:MSH].to_s).to eq(
-                "MSH|^~\&|Renalware|MSE|||20211117152417||MDM^T02||RW0000000123|U|9.9.9"
+                "MSH|^~\\&|Renalware|MSE|||20211117152417||MDM^T02||RW0000000123|U|9.9.9"
               )
               expect(msg[:PID].to_s).to eq(
                 "PID||9999999999^^^NHS|111^^^CODE1~222^^^CODE2~333^^^CODE3||Jones^^Patricia^^Ms||19700101"
@@ -137,7 +137,7 @@ module Renalware
               expected_filename = "HOSP1_111_HOSP2_222_HOSP3_333_JONES_19700101_XX_#{event.id}"
 
               expect(msg[:MSH].to_s).to eq(
-                "MSH|^~\&|Renalware|MSE|||20211117152417||MDM^T02||RW0000000123|U|9.9.9"
+                "MSH|^~\\&|Renalware|MSE|||20211117152417||MDM^T02||RW0000000123|U|9.9.9"
               )
               expect(msg[:PID].to_s).to eq(
                 "PID||9999999999^^^NHS|111^^^CODE1~222^^^CODE2~333^^^CODE3||Jones^^Patricia^^Ms||19700101"

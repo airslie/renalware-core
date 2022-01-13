@@ -1,4 +1,4 @@
-MSH|^~&|ADT|iSOFT Engine|eGate|Kings|20150211095540||ADT^A03|908584157|P|2.3|||AL|AL
+MSH|^~\&|ADT|iSOFT Engine|eGate|Kings|20150211095540||ADT^A03|908584157|P|2.3|||AL|AL
 EVN|A03|20150211095540
 PID||<%= patient.nhs_number %>^^^NHS|<%= patient.hospital_number %>^^^PAS Number||<%= patient.family_name %>^<%= patient.given_name %>^^^MS||<%= patient.born_on&.strftime('%Y%m%d') %>|<%= patient.sex.to_s %>|||address1^address2^address3^address4^postcode||||||||||||||||||<%= patient.died_at&.strftime('%Y%m%d') %>|
 PD1|||DR WHM SUMISU PRACTICE, Nowhere Surgery, 22 Raccoon Road, Erewhon, Erewhonshire^GPPRC^<%= patient.practice_code %>|<%= patient.gp_code %>^Deeley^DP^^^DR
