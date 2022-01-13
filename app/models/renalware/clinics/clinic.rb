@@ -8,8 +8,12 @@ module Renalware
       include Accountable
       acts_as_paranoid
 
-      has_many :clinic_visits, dependent: :restrict_with_exception
-      has_many :appointments, dependent: :restrict_with_exception
+      # The dependent option is not really compatible with acts_as_paranoid
+      # rubocop:disable Rails/HasManyOrHasOneDependent
+      has_many :clinic_visits
+      has_many :appointments
+      # rubocop:enable Rails/HasManyOrHasOneDependent
+
       belongs_to :default_modality_description, class_name: "Modalities::Description"
 
       validates :name, presence: true, uniqueness: true
