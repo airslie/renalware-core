@@ -16,8 +16,8 @@
           tr
             td= l(log.sent_at)
             td= log.status
-            td= default_patient_link(log.patient)
-            td= log.patient.nhs_number
+            td= default_patient_link(log.patient) if log.patient.present?
+            td= log&.patient&.nhs_number
             td= log.error
 
     == pagy_foundation_nav pagy

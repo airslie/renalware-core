@@ -5296,6 +5296,16 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
+
+
+--
 -- Name: letter_recipients; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -7412,7 +7422,8 @@ CREATE TABLE renalware.problem_problems (
     updated_at timestamp without time zone NOT NULL,
     created_by_id integer NOT NULL,
     updated_by_id integer,
-    snomed_id character varying
+    snomed_id character varying,
+    onset_on date
 );
 
 
@@ -11228,6 +11239,54 @@ ALTER SEQUENCE renalware.ukrdc_batches_id_seq OWNED BY renalware.ukrdc_batches.i
 
 
 --
+-- Name: ukrdc_transmission_logs; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.ukrdc_transmission_logs (
+    id bigint NOT NULL,
+    patient_id bigint,
+    sent_at timestamp without time zone NOT NULL,
+    status integer NOT NULL,
+    request_uuid uuid,
+    payload_hash text,
+    payload xml,
+    error text[] DEFAULT '{}'::text[],
+    file_path character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    direction integer DEFAULT 0 NOT NULL,
+    batch_id bigint
+);
+
+
+--
+-- Name: ukrdc_daily_summaries; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.ukrdc_daily_summaries AS
+ SELECT (utl.created_at)::date AS date,
+    count(*) AS total,
+    count(
+        CASE
+            WHEN (utl.status = 3) THEN 1
+            ELSE NULL::integer
+        END) AS sent,
+    count(
+        CASE
+            WHEN (utl.status = 2) THEN 1
+            ELSE NULL::integer
+        END) AS unsent_no_change,
+    count(
+        CASE
+            WHEN (utl.status = 1) THEN 1
+            ELSE NULL::integer
+        END) AS error
+   FROM renalware.ukrdc_transmission_logs utl
+  GROUP BY ((utl.created_at)::date)
+  ORDER BY ((utl.created_at)::date);
+
+
+--
 -- Name: ukrdc_measurement_units; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -11290,27 +11349,6 @@ CREATE SEQUENCE renalware.ukrdc_modality_codes_id_seq
 --
 
 ALTER SEQUENCE renalware.ukrdc_modality_codes_id_seq OWNED BY renalware.ukrdc_modality_codes.id;
-
-
---
--- Name: ukrdc_transmission_logs; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.ukrdc_transmission_logs (
-    id bigint NOT NULL,
-    patient_id bigint,
-    sent_at timestamp without time zone NOT NULL,
-    status integer NOT NULL,
-    request_uuid uuid,
-    payload_hash text,
-    payload xml,
-    error text[] DEFAULT '{}'::text[],
-    file_path character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    direction integer DEFAULT 0 NOT NULL,
-    batch_id bigint
-);
 
 
 --
@@ -23448,6 +23486,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211208132638'),
 ('20211209123828'),
 ('20211215111646'),
-('20211216145755');
+('20211216145755'),
+('20220110135105'),
+('20220114171857');
 
 

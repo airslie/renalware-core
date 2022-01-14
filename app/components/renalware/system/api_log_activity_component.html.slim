@@ -1,0 +1,27 @@
+.columns.medium-12.large-6
+  article.api-log-activity
+    header
+      h2= t(".title")
+
+    table
+      thead
+        th.col-width-date-time Date
+        th Identifier
+        th Status
+        th Added
+        th Updated
+        th Error
+      tbody
+        - logs.each do |log|
+          tr
+            td= l(log.created_at)
+            td= log.identifier
+            td= log.status
+            td= log.records_added
+            td= log.records_updated
+            td.col-width-small-with-ellipsis(title=log.error)= log.error
+
+            / td= summary.total
+            / td= summary.sent
+            / td= summary.error
+            / td= summary.unsent_no_change

@@ -69,9 +69,9 @@ ruby:
           td= l(doc.created_at)
           td= l(doc.updated_at)
           td= doc.created_by
-          td.bg-pink-100= doc.renderable_type
-          td.bg-pink-100= doc.renderable_id
-          td.bg-pink-100
+          td.bg-pink-50= doc.renderable_type
+          td.bg-pink-50= doc.renderable_id
+          td.bg-pink-50
             = link_to "JSON/HL7",
                       renalware.feeds_queued_outgoing_document_path(doc),
                       target: "_blank"

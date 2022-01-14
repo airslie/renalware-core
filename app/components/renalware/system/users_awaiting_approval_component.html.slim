@@ -1,6 +1,5 @@
-.row
-  .columns.small-12.medium-6.large-4
-    article.admin--users
-      header
-        h2= t(".title")
-      = link_to t(".waiting_for_approval", count: users_needing_approval_count), renalware.admin_users_path(q: { unapproved: true })
+.columns.medium-12.large-6
+  article.admin--users
+    header
+      h2= t(".title")
+    = link_to t(".waiting_for_approval", count: users_needing_approval_count), renalware.admin_users_path(q: { unapproved: true })
