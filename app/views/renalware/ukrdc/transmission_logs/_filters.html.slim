@@ -1,0 +1,13 @@
+
+.search-form.filters.filters--flex.max-w-screen-md
+  = simple_form_for query, as: :q, url: renalware.ukrdc_transmission_logs_path, method: :get do |f|
+    .flex.flex-col.sm:flex-row.items-end.pb-4
+      .w-full.sm:max-w-xs.pr-2
+        = f.input :status_eq,
+                  collection: Renalware::UKRDC::TransmissionLog.statuses,
+                  label: "Status"
+
+      .flex-shrink-0.pt-4.filters--actions
+        = f.submit t("btn.filter"), class: "button", style: "margin: 0"
+        '  or
+        = link_to t("btn.reset"), renalware.ukrdc_transmission_logs_path

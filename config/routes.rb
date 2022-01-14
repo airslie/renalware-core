@@ -30,6 +30,7 @@ Renalware::Engine.routes.draw do
   draw :system
   draw :transplants
   draw :users
+  draw :ukrdc
   draw :virology
 
   # Last
