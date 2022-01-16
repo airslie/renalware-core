@@ -1,0 +1,23 @@
+= content_for(:filters) do
+  = render "filters", query: query
+
+= within_new_admin_layout(title: "UKRDC Transmission Logs") do
+  .ukrdc_transmission_logs
+    table.stripeless.mb-6
+      thead
+        tr
+          th.col-width-date-time= sort_link(query, :sent_at, "Sent at")
+          th.col-width-small Status
+          th.col-width-large Patient
+          th.col-width-small NHS
+          th Error
+      tbody
+        - logs.each do |log|
+          tr
+            td= l(log.sent_at)
+            td= log.status
+            td= default_patient_link(log.patient) if log.patient.present?
+            td= log&.patient&.nhs_number
+            td= log.error
+
+    == pagy_foundation_nav pagy

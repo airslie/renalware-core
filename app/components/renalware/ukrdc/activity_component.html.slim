@@ -1,0 +1,22 @@
+.columns.medium-12.large-6
+  article
+    header
+      h2= t(".title")
+      ul
+        li= link_to t("btn.view_all"), renalware.ukrdc_transmission_logs_path, class: "button"
+
+    table.ukrdc-summaries
+      thead
+        th Date
+        th Total
+        td Sent
+        td Error
+        td Unsent (no change)
+      tbody
+        - summaries.each do |summary|
+          tr
+            td= l(summary.date)
+            td= summary.total
+            td= summary.sent
+            td= summary.error
+            td= summary.unsent_no_change

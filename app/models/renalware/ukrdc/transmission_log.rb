@@ -40,6 +40,10 @@ module Renalware
           error.backtrace.drop(1).map { |line| "\t#{line}" }
         ].join("\n")
       end
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end
