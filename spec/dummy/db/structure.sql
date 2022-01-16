@@ -2322,7 +2322,8 @@ CREATE TABLE renalware.users (
     locked_at timestamp without time zone,
     password_changed_at timestamp without time zone,
     banned boolean DEFAULT false NOT NULL,
-    notes text
+    notes text,
+    gmc_code character varying
 );
 
 
@@ -23479,6 +23480,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211215111646'),
 ('20211216145755'),
 ('20220113132731'),
-('20220114171857');
+('20220114171857'),
+('20220116183123');
 
 

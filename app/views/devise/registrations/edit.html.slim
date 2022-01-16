@@ -43,6 +43,10 @@
         <i>(appears in letters, e.g. "Dr Jane Smith, MRCP")</i>
         = f.text_field :signature
 
+      .field.large-8.small-6
+        = f.label :gmc_code
+        = f.text_field :gmc_code
+
       / For now, disallow Portuguese as an option. While there are some Portuguese translations
       / in the app, added as a proof-of-concept, these have not been sanity-checked!
       / ["Portuguese", "pt"]

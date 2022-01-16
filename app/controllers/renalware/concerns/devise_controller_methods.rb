@@ -34,7 +34,8 @@ module Renalware
             :asked_for_write_access,
             :remember_me,
             :professional_position,
-            :signature
+            :signature,
+            :gmc_code
           ]
         )
       end
@@ -59,6 +60,7 @@ module Renalware
             :professional_position,
             :language,
             :signature,
+            :gmc_code,
             :with_extended_validation
           ]
         )
