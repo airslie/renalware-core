@@ -1,0 +1,44 @@
+- modal = local_assigns.fetch(:modal, false)
+
+= simple_form_for problem,
+                  url: url,
+                  html: { autocomplete: "off" } do |f|
+
+  .row.errors-container.hidden
+    .large-12.columns
+      ul.error-messages
+
+  .row
+    .large-12.columns
+      - if nhs_client.api_enabled?
+        .mb-2.js-snomed-id-hint class=('hidden' if problem.snomed_id.blank?)
+          ' Snomed ID:
+          strong.snomed_id = problem.snomed_id
+        = f.hidden_field :snomed_id, id: 'js-snomed-id-field'
+        = f.input(:date,
+                  label: "Problem date",
+                  include_blank: false,
+                  prompt: { day: "Day", month: "Month", year: "Year" },
+                  order: [:day, :month, :year],
+                  start_year: Date.today.year,
+                  end_year: Date.today.year - 80,
+                  hint: "If necessary, only <b>Year</b> or <b>Month and Year</b> can be chosen".html_safe)
+        = f.input :description,
+                  collection: [problem.description],
+                  selected: problem.description,
+                  input_html: { \
+                    class: "patient-id-select2 problem-ajax-search",
+                    data: { "ajax--url" => search_patient_problems_path(patient, format: :json),
+                            placeholder: "Search by problem name." } \
+                  }
+      - else
+        = f.input :description, as: :text, autofocus: true
+
+      br
+      br
+      = f.submit "Save", class: "button", data: { disable_with: false }
+      '  or
+      = link_to "cancel",
+             url_for(:back),
+             "aria-label" => "Close",
+             class: modal && "reveal-modal-close"

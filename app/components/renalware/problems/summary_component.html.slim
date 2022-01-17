@@ -29,6 +29,7 @@
           th.togglers.noprint =rows_toggler
           th= t("thead.description")
           th.col-width-date= t("thead.date_")
+          th.col-width-date Added
 
         - problems.each_with_index do |problem|
           tbody.toggleable--open(class=("toggleable--no-toggleable-content" if problem.notes.none?))
@@ -36,7 +37,8 @@
               td.toggleable--toggler-container.noprint = row_toggler
               td
                 span= problem.full_description
-              td= problem.created_at.to_date
+              td= problem.date
+              td= l(problem.created_at.to_date)
             tr class=('snomed-problem' if problem.snomed_id.present?)
               td
               td

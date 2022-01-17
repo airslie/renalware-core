@@ -10,7 +10,7 @@ module Renalware
       rattr_initialize [:patient!, :current_user!]
 
       def problems
-        @problems ||= patient.problems.with_notes
+        @problems ||= CollectionPresenter.new(patient.problems.with_notes, ProblemPresenter)
       end
 
       def cache_key
