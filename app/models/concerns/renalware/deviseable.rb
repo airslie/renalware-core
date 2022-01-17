@@ -18,11 +18,13 @@ module Renalware
       # Makes the User 'approvable'
       # See https://github.com/plataformatec/devise/wiki/How-To:-Require-admin-to-activate-account-before-sign_in
       def active_for_authentication?
-        super && approved?
+        super && approved? && !banned
       end
 
       def inactive_message
-        if approved?
+        if banned?
+          :banned
+        elsif approved?
           super
         else
           :not_approved

@@ -2320,7 +2320,9 @@ CREATE TABLE renalware.users (
     failed_attempts integer DEFAULT 0 NOT NULL,
     unlock_token character varying,
     locked_at timestamp without time zone,
-    password_changed_at timestamp without time zone
+    password_changed_at timestamp without time zone,
+    banned boolean DEFAULT false NOT NULL,
+    notes text
 );
 
 
@@ -5296,16 +5298,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_recipients; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -7422,8 +7414,7 @@ CREATE TABLE renalware.problem_problems (
     updated_at timestamp without time zone NOT NULL,
     created_by_id integer NOT NULL,
     updated_by_id integer,
-    snomed_id character varying,
-    onset_on date
+    snomed_id character varying
 );
 
 
@@ -23487,7 +23478,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211209123828'),
 ('20211215111646'),
 ('20211216145755'),
-('20220110135105'),
+('20220113132731'),
 ('20220114171857');
 
 

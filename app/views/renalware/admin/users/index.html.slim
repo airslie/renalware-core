@@ -19,6 +19,7 @@
       th.col-width-medium Role
       th.col-width-tiny= sort_link(user_search, :approved, "Approved")
       th.col-width-tiny= sort_link(user_search, :hidden, "Hidden")
+      th.col-width-tiny= sort_link(user_search, :banned, "Banned")
       th.col-width-tiny= sort_link(user_search, :consultant, "Consultant")
       th.col-width-tiny= sort_link(user_search, :prescriber, "Prescriber")
       th.col-width-date= sort_link(user_search, :expired_at, "Expired On")
@@ -53,6 +54,11 @@
           td
             - if user.hidden?
               i.far.fa-check-square
+            - else
+              i.muted.unapproved.far.fa-square
+          td
+            - if user.banned?
+              i.far.fa-check-square.text-red-700
             - else
               i.muted.unapproved.far.fa-square
           td
