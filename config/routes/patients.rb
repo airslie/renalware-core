@@ -17,6 +17,7 @@ end
 resources :bookmarks, controller: "patients/bookmarks", only: [:destroy, :index]
 resource :dashboard, only: :show, controller: "dashboard/dashboards"
 resource :worryboard, only: :show, controller: "patients/worryboard"
+resources :worry_categories, controller: "patients/worry_categories"
 resources :deaths, only: :index, as: :patient_deaths
 
 resources :patients, except: [:destroy], controller: "patients/patients" do

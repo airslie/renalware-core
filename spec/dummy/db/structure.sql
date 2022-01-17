@@ -2207,7 +2207,8 @@ CREATE TABLE renalware.patient_worries (
     created_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    notes text
+    notes text,
+    worry_category_id bigint
 );
 
 
@@ -7519,6 +7520,48 @@ ALTER SEQUENCE renalware.patient_worries_id_seq OWNED BY renalware.patient_worri
 
 
 --
+-- Name: patient_worry_categories; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.patient_worry_categories (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    worries_count integer DEFAULT 0 NOT NULL,
+    deleted_at timestamp without time zone,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: COLUMN patient_worry_categories.worries_count; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.patient_worry_categories.worries_count IS 'Counter cache for the number of worries with this category';
+
+
+--
+-- Name: patient_worry_categories_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.patient_worry_categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_worry_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.patient_worry_categories_id_seq OWNED BY renalware.patient_worry_categories.id;
+
+
+--
 -- Name: patients_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -12521,6 +12564,13 @@ ALTER TABLE ONLY renalware.patient_worries ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: patient_worry_categories id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_worry_categories ALTER COLUMN id SET DEFAULT nextval('renalware.patient_worry_categories_id_seq'::regclass);
+
+
+--
 -- Name: patients id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -14219,6 +14269,14 @@ ALTER TABLE ONLY renalware.patient_versions
 
 ALTER TABLE ONLY renalware.patient_worries
     ADD CONSTRAINT patient_worries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_worry_categories patient_worry_categories_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_worry_categories
+    ADD CONSTRAINT patient_worry_categories_pkey PRIMARY KEY (id);
 
 
 --
@@ -17910,6 +17968,48 @@ CREATE INDEX index_patient_worries_on_updated_by_id ON renalware.patient_worries
 
 
 --
+-- Name: index_patient_worries_on_worry_category_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_worries_on_worry_category_id ON renalware.patient_worries USING btree (worry_category_id);
+
+
+--
+-- Name: index_patient_worry_categories_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_worry_categories_on_created_by_id ON renalware.patient_worry_categories USING btree (created_by_id);
+
+
+--
+-- Name: index_patient_worry_categories_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_worry_categories_on_deleted_at ON renalware.patient_worry_categories USING btree (deleted_at);
+
+
+--
+-- Name: index_patient_worry_categories_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patient_worry_categories_on_name ON renalware.patient_worry_categories USING btree (name) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: INDEX index_patient_worry_categories_on_name; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON INDEX renalware.index_patient_worry_categories_on_name IS 'Disallow duplicate undeleted names';
+
+
+--
+-- Name: index_patient_worry_categories_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patient_worry_categories_on_updated_by_id ON renalware.patient_worry_categories USING btree (updated_by_id);
+
+
+--
 -- Name: index_patients_on_country_of_birth_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -20211,6 +20311,14 @@ ALTER TABLE ONLY renalware.system_dashboard_components
 
 
 --
+-- Name: patient_worry_categories fk_rails_22a4887738; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_worry_categories
+    ADD CONSTRAINT fk_rails_22a4887738 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: pd_assessments fk_rails_22dc579c4a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -20528,6 +20636,14 @@ ALTER TABLE ONLY renalware.transplant_donor_stages
 
 ALTER TABLE ONLY renalware.transplant_recipient_operations
     ADD CONSTRAINT fk_rails_3a852d1667 FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
+-- Name: patient_worries fk_rails_3abd39ab04; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_worries
+    ADD CONSTRAINT fk_rails_3abd39ab04 FOREIGN KEY (worry_category_id) REFERENCES renalware.patient_worry_categories(id);
 
 
 --
@@ -22307,6 +22423,14 @@ ALTER TABLE ONLY renalware.pathology_requests_global_rule_sets
 
 
 --
+-- Name: patient_worry_categories fk_rails_e56eb26d75; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_worry_categories
+    ADD CONSTRAINT fk_rails_e56eb26d75 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: clinic_clinics fk_rails_e60b8ec1ee; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -23479,6 +23603,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211209123828'),
 ('20211215111646'),
 ('20211216145755'),
+('20220107182152'),
 ('20220113132731'),
 ('20220114171857'),
 ('20220116183123');

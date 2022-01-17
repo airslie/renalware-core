@@ -14,7 +14,8 @@ module Renalware
         render locals: {
           query: query.search,
           worries: worries,
-          modalities: Modalities::Description.order(:name)
+          modalities: Modalities::Description.order(:name),
+          categories: WorryCategory.order(:name)
         }
       end
 
