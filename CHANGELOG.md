@@ -9,6 +9,26 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.2
+### Added
+- Add a UKRDC activity component to the superadmin dashboard #3783
+- Allow a user to be 'banned' #3781
+- Add category to worryboard #3763
+- Add GMC code to users table #3771
+- Search SNOMED procedures (in addition to clinical findings) when looking up problems #3756
+### Changed
+- Changes to outgoing MDM T02 HL7 document messages #3779,  #3778
+- Allow adding a date to a problem #3774
+- Omit sex from PID when outputting MDM^T02 docs #3770
+- Include a PV1 segment in Outgoing document HL7 MDM^T02 message #3769
+- Increase PD dwell time to 240 minutes #3762
+- Wrap UKRDC DialysisSession elements inside DialysisSessions (UKRDC export XML) #3759
+### Fixed
+- Fix issues with UKRDC export
+- Use \r not \n in base64 encoded PDFs in MDM^T02 messages #3764
+- Error soft-deleting a clinic in use #3750
+- Fix pathology code group sorting on HD MDM page #3749
+
 ## 2.2.1
 ### Added
 - Add hospital centre to patient
