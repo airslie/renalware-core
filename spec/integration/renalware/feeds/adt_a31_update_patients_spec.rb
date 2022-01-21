@@ -17,7 +17,6 @@ describe "Importing an ADT A31 'Update patient information' HL7 message" do
       title: "new_title",
       ethnicity: create(:ethnicity, :black_caribbean),
       born_on: Time.zone.parse("2002-02-01").to_date,
-      died_on: Time.zone.parse("2003-03-02").to_date,
       gp_code: "G123",
       practice_code: "P456"
     )

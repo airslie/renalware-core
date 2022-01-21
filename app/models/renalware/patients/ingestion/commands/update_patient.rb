@@ -47,15 +47,40 @@ module Renalware
             patient = find_patient
             return if patient.blank?
 
+            initial_died_on = patient.died_on
+
             patient = mapper_factory.new(message, patient).fetch
             patient.by = SystemUser.find
 
             patient.save!
+
+            if patient.died_on.present? && initial_died_on.blank?
+              change_patient_modality_to_death(patient)
+            end
+
             patient
           end
 
           def find_patient
             Feeds::PatientLocator.call(message.patient_identification)
+          end
+
+          # Change patient modality to Death and make sure we call
+          # wire up broadcasting to subscribers so that when ChangePatientModality
+          # broadcasts a #patient_modality_changed_to_death message, configured listeners (see the
+          # broadcast_map config) will take relevant action to tidy up the patient's data
+          # (search for patient_modality_changed_to_death).
+          def change_patient_modality_to_death(patient)
+            result = Modalities::ChangePatientModality.new(
+              patient: patient,
+              user: Renalware::SystemUser.find
+            )
+            .broadcasting_to_configured_subscribers
+            .call(
+              description: Deaths::ModalityDescription.first!,
+              started_on: Time.zone.now
+            )
+            raise(ActiveModel::ValidationError, result.object) if result.failure?
           end
         end
       end

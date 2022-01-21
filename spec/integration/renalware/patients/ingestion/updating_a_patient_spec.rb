@@ -10,7 +10,7 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
   let(:middle_name) { "Middling" }
   let(:title) { "Sir" }
   let(:dob) { "19720822000000" }
-  let(:died_on) { "20150122154801" }
+  let(:died_on) { "" }
   let(:sex) { "F" }
   let(:nhs_number) { "9999999999" }
   let(:gp_code) { "G1234567" }
@@ -48,6 +48,58 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
       FeedJob.new(message).perform
 
       verify_patient_properties(patient.reload)
+    end
+
+    context "when the patient has died" do
+      let(:died_on) { "202101012359" }
+
+      def create_living_patient
+        create(
+          :patient,
+          local_patient_id: local_patient_id,
+          born_on: Date.parse(dob),
+          died_on: nil
+        )
+      end
+
+      def wire_up_listeners
+        Renalware.configure do |config|
+          config.broadcast_subscription_map = {
+            "Renalware::Feeds::MessageProcessor" => [
+              "Renalware::Patients::Ingestion::MessageListener"
+            ],
+            "Renalware::Modalities::ChangePatientModality" => [
+              "Renalware::Medications::PatientListener"
+            ]
+          }
+        end
+      end
+
+      it "sets the patient's modality to death (if needed)" do
+        death_md = create(:death_modality_description)
+        patient = create_living_patient
+
+        FeedJob.new(message).perform
+
+        patient.reload
+        expect(patient.died_on).to eq(Date.parse(died_on))
+        expect(patient.current_modality).to be_present
+        expect(patient.current_modality.description).to eq(death_md)
+        expect(patient.current_modality.started_on).to eq(Time.zone.today)
+      end
+
+      it "setting death modality broadcasts a msg to trigger e.g. termination of prescriptions" do
+        wire_up_listeners
+        create(:death_modality_description)
+        patient = create_living_patient
+
+        allow(Renalware::Medications::TerminateAllPatientPrescriptions).to receive(:call)
+
+        FeedJob.new(message).perform
+
+        expect(Renalware::Medications::TerminateAllPatientPrescriptions).to have_received(:call)
+        expect(patient.reload.died_on).to eq(Date.parse(died_on)) # sanity check
+      end
     end
 
     context "when the incoming practice does not exist yet in Renalware" do
@@ -135,7 +187,7 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
       given_name: given_name,
       title: title,
       born_on: Time.zone.parse(dob).to_date,
-      died_on: Time.zone.parse(died_on).to_date,
+      died_on: died_on.presence && Time.zone.parse(died_on).to_date,
       nhs_number: nhs_number,
       primary_care_physician: primary_care_physician,
       practice: practice
