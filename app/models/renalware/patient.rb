@@ -114,7 +114,7 @@ module Renalware
     validates :born_on, timeliness: { type: :date }
     validates :email, email: true, allow_blank: true
 
-    attr_accessor :skip_death_validations
+    attr_accessor :do_death_validations
 
     with_options if: :validate_death_attributes?, on: :update do
       validates :died_on, presence: true
@@ -161,7 +161,7 @@ module Renalware
     end
 
     def validate_death_attributes?
-      current_modality_death? && !skip_death_validations
+      current_modality_death? && do_death_validations
     end
 
     def current_modality_death?

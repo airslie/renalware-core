@@ -144,17 +144,17 @@ module Renalware
       context "when the current modality is death" do
         before { allow(patient).to receive(:current_modality_death?).and_return(true) }
 
-        it :aggregate_failures do
-          expect(patient).to validate_presence_of(:died_on)
-          expect(patient).to validate_presence_of(:first_cause_id)
+        it "doesn't validate death attributes by default", :aggregate_failures do
+          expect(patient).not_to validate_presence_of(:died_on)
+          expect(patient).not_to validate_presence_of(:first_cause_id)
         end
 
-        context "when #skip_death_validations is true (for updating non-interactively)" do
-          before { patient.skip_death_validations = true }
+        context "when #do_death_validations is true" do
+          before { patient.do_death_validations = true }
 
           it :aggregate_failures do
-            expect(patient).not_to validate_presence_of(:died_on)
-            expect(patient).not_to validate_presence_of(:first_cause_id)
+            expect(patient).to validate_presence_of(:died_on)
+            expect(patient).to validate_presence_of(:first_cause_id)
           end
         end
       end

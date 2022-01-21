@@ -23,6 +23,7 @@ module Renalware
 
     def update
       authorize patient
+      patient.do_death_validations = true
       if patient.update(death_params)
         redirect_to patient_clinical_profile_path(patient),
                     notice: success_msg_for("patient")
