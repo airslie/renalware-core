@@ -7,36 +7,63 @@
       = f.input :name, label: "Event Type"
       = f.association :category
 
-      .font-bold.text-lg.my-2 Document output options
+      .mb-6.mt-4.rounded.bg-pink-50.px-2.py-1.border.border-gray-200
+        .mb-2
+          .font-bold.inline
+            ' Permissions
+          ' for events of this type
 
-      .rounded.mb-4.bg-blue-50.px-3.py-2
-        i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
-        ' Checking
-        i Save PDF to EPR&nbsp;
-        ' has the following effects:
-        ul.list-disc
-          li
-            ' events of this type will be rendered to a PDF after creation and sent to EPR.
-            ' If the sending mechanism is HL7 then the external document type fields are included
-            ' in the message.
-          li
-            ' disables the event's edit/delete window - i.e. once saved, the event is immediately
-            ' immutable because it has been sent to EPR and cannot be recalled.
+        .flex
+          = f.label :superadmin_can_always_change, "Superadmins can always edit and delete events"
+          .mt-1.ml-2
+            = f.check_box :superadmin_can_always_change
+        .mb-1
+          - windows = [["Never", "0"], ["Forever", "-1"], ["6 hours", "6"], ["24 hours", "24"], ["1 week", "168"], ["1 month", "720"], ["6 months", "4380"], ["1 year","8760"]]
+          = f.input :admin_change_window_hours,
+                    collection: windows,
+                    include_blank: false,
+                    label: "ADMIN window - period within which an admin can edit or delete an event "
 
-      .mb-2
-        = f.input :save_pdf_to_electronic_public_register,
-                  label_html: { class: "pt-1" },
-                  label: "Save PDF to EPR",
-                  wrapper: :horizontal_large
+          = f.input :author_change_window_hours,
+                    collection: windows,
+                    include_blank: false,
+                    label: "AUTHOR window - period within which the event creator can edit or delete an event"
 
-      .rounded.bg-yellow-50.px-4.py-2.mb-6
+      .mb-6.mt-4.rounded.bg-yellow-50.px-2.py-1.border.border-gray-200
+        .mb-2
+          .font-bold.inline
+            ' Document output options
+        /.font-bold.text-lg.my-2 Document output options
+
+        .rounded.mb-4.bg-white.px-3.py-2.border.border-gray-200
+          i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+          ' Checking
+          i Save PDF to EPR&nbsp;
+          ' has the following effects:
+          ul.list-disc
+            li
+              ' events of this type will be rendered to a PDF after creation and sent to EPR.
+              ' If the sending mechanism is HL7 then the external document type fields are included
+              ' in the message.
+            li
+              ' disables the event's edit/delete window - i.e. once saved, the event is immediately
+              ' immutable because it has been sent to EPR and cannot be recalled.
+
+        .mb-2
+          = f.input :save_pdf_to_electronic_public_register,
+                    label_html: { class: "pt-1" },
+                    label: "Save PDF to EPR",
+                    wrapper: :horizontal_large
+
         .mb-2 HL7 external document type
-        = f.input :external_document_type_code,
-                  label: "Code",
-                  hint: "Must be one of AL CL or MDT. May determine how the PDF is processed by external systems."
-        = f.input :external_document_type_description,
-                  label: "Description",
-                  hint: "Can be anything helpful. Included in HL7 mesasges but not used by external systems."
+        .grid.sm:grid-cols-1.grid-cols-2.gap-5
+          = f.input :external_document_type_code,
+                    label: "Code",
+                    hint: "Must be one of AL CL or MDT. May determine how the PDF is processed by external systems."
+          = f.input :external_document_type_description,
+                    label: "Description",
+                    hint: "Can be anything helpful. Included in HL7 mesasges but not used by external systems."
+
 
       = f.button :submit
       '  or

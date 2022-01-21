@@ -8,4 +8,4 @@
   = render "table", event_types: event_types
   br
   h2 Deleted
-  = render "table", event_types: event_types.with_deleted.where.not(deleted_at: nil)
+  = render "table", event_types: deleted_event_types
