@@ -21,9 +21,11 @@ module Renalware
         "renalware/letters/summary_part"
       end
 
-      def cache_key
-        [letters_patient.cache_key, letters_patient.letters.cache_key].join("~")
-      end
+      # Disabling cache until we can work out why caching works in AZ MSE UAT but not prod
+      # where updating the patient or their letters does not invalidate the cache key
+      # def cache_key
+      #   [letters_patient.cache_key, letters_patient.letters.cache_key].join("~")
+      # end
 
       private
 
