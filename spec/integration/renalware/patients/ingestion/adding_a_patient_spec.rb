@@ -13,7 +13,7 @@ describe "HL7 ADT~A28 message handling: 'Add person information'" do
   let(:middle_name) { "Middling" }
   let(:title) { "Sir" }
   let(:dob) { "19720822000000" }
-  let(:died_on) { "20150122154801" }
+  let(:died_on) { "" }
   let(:sex) { "F" }
   let(:nhs_number) { "9999999999" }
   let(:gp_code) { "G1234567" }
@@ -81,7 +81,6 @@ describe "HL7 ADT~A28 message handling: 'Add person information'" do
       given_name: given_name,
       title: title,
       born_on: Date.parse(dob),
-      died_on: Date.parse(died_on),
       nhs_number: nhs_number,
       primary_care_physician: primary_care_physician,
       practice: practice
