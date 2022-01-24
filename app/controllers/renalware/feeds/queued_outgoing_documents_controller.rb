@@ -60,7 +60,7 @@ module Renalware
           renderable = Events::EventPdfPresenter.new(renderable)
         end
 
-        HL7DocumentMessageBuilder.call(renderable: renderable, message_id: document.id).to_s
+        HL7DocumentMessageBuilder.call(renderable: renderable, message_id: document.id).to_s + "\r"
       end
     end
   end
