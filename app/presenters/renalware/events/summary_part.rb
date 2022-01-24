@@ -30,9 +30,12 @@ module Renalware
       # inconsistent results.
       # We need to include the patient.cache_key otherwise if there are no events, the key will
       # be the same for other patients with no events.
-      def cache_key
-        [patient.cache_key, Events::Event.for_patient(patient).cache_key].join("~")
-      end
+      #
+      # Disabling cache until we can work out why caching works in AZ MSE UAT but not prod
+      # where updating the patient or their events does not invalidate the cache key
+      # def cache_key
+      #   [patient.cache_key, Events::Event.for_patient(patient).cache_key].join("~")
+      # end
 
       def to_partial_path
         "renalware/events/events/summary_part"
