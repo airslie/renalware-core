@@ -40,7 +40,7 @@ blocks:
           # Read about caching: https://docs.semaphoreci.com/article/54-toolbox-reference#cache
           - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
           # Set Ruby version:
-          - sem-version ruby 3.0.1
+          - sem-version ruby 3.0.3
           - sem-version node 10.19.0
           - bundle install --deployment -j 4 --path vendor/bundle
           # Store the latest version of dependencies in cache,
@@ -86,7 +86,7 @@ blocks:
           # Start Postgres database service.
           # See https://docs.semaphoreci.com/article/54-toolbox-reference#sem-service
           - sem-service start postgres 12.1
-          - sem-version ruby 3.0.1
+          - sem-version ruby 3.0.3
           - sem-version node 10.13.0
 
           # postgres client update so pg_dump resolves to 12.x

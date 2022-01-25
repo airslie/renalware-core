@@ -9,6 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.3
+### Added
+-  Decease patients when HL7 death date arrives #3675
+### Changed
+-  Disable events and letters caching on clinical summary #3790
+-  Add CR at end of MDM^T02 doc out msg #3789
+### Fixed
+
 ## 2.2.2
 ### Added
 - Add a UKRDC activity component to the superadmin dashboard #3783
