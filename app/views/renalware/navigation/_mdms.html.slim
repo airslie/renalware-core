@@ -6,7 +6,7 @@ li.has-dropdown
     li= link_to t(".transplants"), transplants_mdm_patients_path
     li= link_to t(".low_clearance"), low_clearance_mdm_patients_path
 
-    - if current_user_is_super_admin?
+    - if Renalware.config.enable_new_mdms
       li.info Beta MDMs
       - Renalware::Patients::MDMMenu.items.each do |item|
         li= link_to item.humanize, patients_mdms_path(scope: item)

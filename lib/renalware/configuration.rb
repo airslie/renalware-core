@@ -111,6 +111,7 @@ module Renalware
     # We override this in some tests as a means of getting wicked_pdf to generate an HTML version
     # of the PDF so we can examine its content
     config_accessor(:render_pdf_as_html_for_debugging) { false }
+    config_accessor(:enable_new_mdms) { true }
 
     config_accessor(:hd_session_prescriptions_require_signoff) { true }
     config_accessor(:batch_printing_enabled) { true }
