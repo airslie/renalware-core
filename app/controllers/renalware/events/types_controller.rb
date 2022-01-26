@@ -52,7 +52,16 @@ module Renalware
       private
 
       def event_params
-        params.require(:events_type).permit(:name, :category_id, :deleted_at)
+        params
+          .require(:events_type)
+          .permit(
+            :name,
+            :category_id,
+            :deleted_at,
+            :save_pdf_to_electronic_public_register,
+            :external_document_type_code,
+            :external_document_type_description
+          )
       end
 
       def load_and_authorize_event_type
