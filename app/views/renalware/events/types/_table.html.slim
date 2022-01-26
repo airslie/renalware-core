@@ -1,11 +1,17 @@
 table
   thead
     tr
+      th(colspan=5)
+      th.bg-yellow-100.text-center(colspan=3) Document output
+    tr
       th.col-width-small
       th.col-width-medium Category
       th Name
-      th.col-with-date-time Updated
+      th.col-width-date-time Updated
       th.col-width-tiny Events
+      th.bg-yellow-100 Send to EPR
+      th.bg-yellow-100 Doc type code
+      th.bg-yellow-100 Doc type desc
 
   tbody
     - event_types.each do |event_type|
@@ -24,3 +30,8 @@ table
         td= event_type.name
         td= l(event_type.updated_at)
         td= event_type.events_count
+        td.text-center.bg-yellow-50
+          - if event_type.save_pdf_to_electronic_public_register?
+            i.fa.fa-check-circle
+        td.bg-yellow-50= event_type.external_document_type_code
+        td.bg-yellow-50= event_type.external_document_type_description

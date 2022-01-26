@@ -6,6 +6,38 @@
     = simple_form_for event_type, html: { autocomplete: "off" } do |f|
       = f.input :name, label: "Event Type"
       = f.association :category
+
+      .font-bold.text-lg.my-2 Document output options
+
+      .rounded.mb-4.bg-blue-50.px-3.py-2
+        i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+        ' Checking
+        i Save PDF to EPR&nbsp;
+        ' has the following effects:
+        ul.list-disc
+          li
+            ' events of this type will be rendered to a PDF after creation and sent to EPR.
+            ' If the sending mechanism is HL7 then the external document type fields are included
+            ' in the message.
+          li
+            ' disables the event's edit/delete window - i.e. once saved, the event is immediately
+            ' immutable because it has been sent to EPR and cannot be recalled.
+
+      .mb-2
+        = f.input :save_pdf_to_electronic_public_register,
+                  label_html: { class: "pt-1" },
+                  label: "Save PDF to EPR",
+                  wrapper: :horizontal_large
+
+      .rounded.bg-yellow-50.px-4.py-2.mb-6
+        .mb-2 HL7 external document type
+        = f.input :external_document_type_code,
+                  label: "Code",
+                  hint: "Must be one of AL CL or MDT. May determine how the PDF is processed by external systems."
+        = f.input :external_document_type_description,
+                  label: "Description",
+                  hint: "Can be anything helpful. Included in HL7 mesasges but not used by external systems."
+
       = f.button :submit
       '  or
       = link_to t("btn.cancel"), events_types_path
