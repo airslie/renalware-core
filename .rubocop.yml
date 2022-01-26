@@ -85,3 +85,5 @@ Style/RedundantBegin:
   Enabled: false
 Rails/RakeEnvironment:
   Enabled: false
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: false

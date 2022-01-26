@@ -25,7 +25,11 @@ module Renalware
       def index
         event_types = Type.includes(:category).order(:name).all
         authorize event_types
-        render locals: { event_types: event_types }
+        deleted_event_types = event_types.with_deleted.where.not(deleted_at: nil)
+        render locals: {
+          event_types: CollectionPresenter.new(event_types, TypePresenter),
+          deleted_event_types: CollectionPresenter.new(deleted_event_types, TypePresenter)
+        }
       end
 
       def edit
@@ -60,7 +64,10 @@ module Renalware
             :deleted_at,
             :save_pdf_to_electronic_public_register,
             :external_document_type_code,
-            :external_document_type_description
+            :external_document_type_description,
+            :superadmin_can_always_change,
+            :author_change_window_hours,
+            :admin_change_window_hours
           )
       end
 

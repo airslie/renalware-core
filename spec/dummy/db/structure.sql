@@ -3279,7 +3279,10 @@ CREATE TABLE renalware.event_types (
     hidden boolean DEFAULT false NOT NULL,
     events_count integer DEFAULT 0 NOT NULL,
     external_document_type_code character varying,
-    external_document_type_description character varying
+    external_document_type_description character varying,
+    superadmin_can_always_change boolean DEFAULT true NOT NULL,
+    author_change_window_hours integer DEFAULT 0 NOT NULL,
+    admin_change_window_hours integer DEFAULT 0 NOT NULL
 );
 
 
@@ -3302,6 +3305,20 @@ COMMENT ON COLUMN renalware.event_types.external_document_type_code IS 'A code e
 --
 
 COMMENT ON COLUMN renalware.event_types.external_document_type_description IS 'See comment for external_document_type_code';
+
+
+--
+-- Name: COLUMN event_types.author_change_window_hours; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.event_types.author_change_window_hours IS 'Period post-creation within which an event of this type can be edited by the author';
+
+
+--
+-- Name: COLUMN event_types.admin_change_window_hours; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.event_types.admin_change_window_hours IS 'Period post-creation within which an event of this type can be edited by an admin (or superadmin if superadmin_can_always_change is false';
 
 
 --
@@ -23619,6 +23636,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220110135105'),
 ('20220113132731'),
 ('20220114171857'),
-('20220116183123');
+('20220116183123'),
+('20220120172755');
 
 

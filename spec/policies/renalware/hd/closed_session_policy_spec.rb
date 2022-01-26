@@ -12,7 +12,7 @@ module Renalware
 
       %i(edit? destroy?).each do |permission|
         permissions permission do
-          it "not permitted if the session is ye saved" do
+          it "not permitted if the session is yet saved" do
             allow(session).to receive(:persisted?).and_return(false)
 
             expect(policy).not_to permit(user, session)

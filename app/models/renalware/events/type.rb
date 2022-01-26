@@ -43,6 +43,12 @@ module Renalware
 
       scope :visible, -> { where(hidden: false) }
 
+      enum editable_by_actor: {
+        superadmins: "superadmins",
+        all_admins: "all_admins",
+        author_and_all_admins: "author_and_all_admins"
+      }
+
       def to_s
         name
       end
