@@ -37,6 +37,7 @@ import PatientAttachmentsController from "./controllers/patients/attachments_con
 import SortableController from "./controllers/sortable_controller"
 import SelectController from "./controllers/select_controller"
 import RadioResetController from "./controllers/radio_reset_controller"
+import ConditionalDisplayController from "./controllers/conditional_display_controller"
 
 const application = Application.start()
 application.register("toggle", ToggleController)
@@ -57,5 +58,29 @@ application.register("patient-attachments", PatientAttachmentsController)
 application.register("sortable", SortableController)
 application.register("select", SelectController)
 application.register("radio-reset", RadioResetController)
+application.register("conditional-display", ConditionalDisplayController)
 
 window.Chartkick.use(window.Highcharts)
+
+/*
+select2 does not raise native events, so in order to use e.g. select2:select
+without jQuery, declaritively in stimulusjs, we need to wrap them in this
+delegate function, and then we can use the event in stimulus like so:
+  <.. data-controller: "select", data-action: "jquery:select2:select->select#refresh" }
+*/
+const delegate = function (eventName, parameters) {
+  const handler = (...args) => {
+    const data = {}
+    parameters.forEach((name, i) => data[name] = args[i])
+    const delegatedEvent = new CustomEvent("jquery:" + eventName, {
+        bubbles: true,
+        cancelable: true,
+        detail: data
+      }
+    )
+    data.event.target.dispatchEvent(delegatedEvent)
+  }
+  $(document).on(eventName, handler)
+}
+
+delegate("select2:select", ["event"])

@@ -10584,13 +10584,13 @@ function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
-var $$4 = window.$;
+var $$5 = window.$;
 // to see e.g. notes or extended details) and each master row and its toggleable sibling are
 // nested in a tbody (this is valid HTML) - ie there are probably two trs per tbody, and the last
 // one is toggleable. If you need anyting more complex you'll need to clone or adapt this
 // controller
 
-var _default$h = /*#__PURE__*/function (_Controller) {
+var _default$i = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -10611,7 +10611,7 @@ var _default$h = /*#__PURE__*/function (_Controller) {
       var tbody = event.target.closest("tbody");
       tbody.classList.toggle("toggleable--open"); // Update masonry - TODO: move to a module
 
-      $$4(".mgrid > .row").masonry("layout");
+      $$5(".mgrid > .row").masonry("layout");
     } // Toggle the last tr in each tbody in the current table.
     // The link that triggers this event will most likelt be a double chevron icon
     // sitting in a thead.
@@ -10630,16 +10630,16 @@ var _default$h = /*#__PURE__*/function (_Controller) {
         tbody.classList.toggle("toggleable--open", !hide);
       }); // Update masonry - TODO: move to a module
 
-      $$4(".mgrid > .row").masonry("layout");
+      $$5(".mgrid > .row").masonry("layout");
     }
   }]);
 
   return _default;
 }(Controller);
 
-var $$3 = window.$;
+var $$4 = window.$;
 
-var _default$g = /*#__PURE__*/function (_Controller) {
+var _default$h = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -10663,22 +10663,22 @@ var _default$g = /*#__PURE__*/function (_Controller) {
       this.containerTarget.classList.toggle("not-administered", !checked);
       this.containerTarget.classList.remove("undecided"); // The rest of this actions are using jQuery for now.
 
-      $$3(".authentication", this.containerTarget).toggle(checked);
-      $$3(".authentication", this.containerTarget).toggleClass("disabled-with-faded-overlay", !checked);
-      $$3(".reason-why-not-administered", this.containerTarget).toggle(!checked);
-      $$3("#btn_save_and_witness_later").toggle(checked);
+      $$4(".authentication", this.containerTarget).toggle(checked);
+      $$4(".authentication", this.containerTarget).toggleClass("disabled-with-faded-overlay", !checked);
+      $$4(".reason-why-not-administered", this.containerTarget).toggle(!checked);
+      $$4("#btn_save_and_witness_later").toggle(checked);
     }
   }]);
 
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$g, "targets", ["container", "radio"]);
+_defineProperty$1(_default$h, "targets", ["container", "radio"]);
 
 var Rails$2 = window.Rails;
 // the user. Used on the prescrptions page.
 
-var _default$f = /*#__PURE__*/function (_Controller) {
+var _default$g = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -10712,7 +10712,35 @@ var _default$f = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$f, "targets", ["form", "printOptions", "printFeedback"]);
+_defineProperty$1(_default$g, "targets", ["form", "printOptions", "printFeedback"]);
+
+var $$3 = window.$;
+
+var _default$f = /*#__PURE__*/function (_Controller) {
+  _inherits(_default, _Controller);
+
+  var _super = _createSuper(_default);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(_default, [{
+    key: "insert",
+    value: function insert(event) {
+      // TODO: set up the trix editor in each page as data-target="snippets.trix"
+      var modal = $$3("#snippets-modal");
+      var snippetBody = $$3(event.target).parent().closest("tr").find(".body").html();
+      var trix = document.querySelector("trix-editor");
+      trix.editor.insertHTML(snippetBody);
+      $$3(modal).foundation("reveal", "close");
+    }
+  }]);
+
+  return _default;
+}(Controller);
 
 var $$2 = window.$;
 
@@ -10728,38 +10756,10 @@ var _default$e = /*#__PURE__*/function (_Controller) {
   }
 
   _createClass(_default, [{
-    key: "insert",
-    value: function insert(event) {
-      // TODO: set up the trix editor in each page as data-target="snippets.trix"
-      var modal = $$2("#snippets-modal");
-      var snippetBody = $$2(event.target).parent().closest("tr").find(".body").html();
-      var trix = document.querySelector("trix-editor");
-      trix.editor.insertHTML(snippetBody);
-      $$2(modal).foundation("reveal", "close");
-    }
-  }]);
-
-  return _default;
-}(Controller);
-
-var $$1 = window.$;
-
-var _default$d = /*#__PURE__*/function (_Controller) {
-  _inherits(_default, _Controller);
-
-  var _super = _createSuper(_default);
-
-  function _default() {
-    _classCallCheck(this, _default);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(_default, [{
     key: "initInsertEventNotesIntoTrixEditor",
     value: function initInsertEventNotesIntoTrixEditor(event) {
       event.preventDefault();
-      var notes = $$1(event.target).data("notes");
+      var notes = $$2(event.target).data("notes");
 
       if (notes && this.trix) {
         this.trix.insertHTML(notes);
@@ -10777,11 +10777,11 @@ var _default$d = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$d, "targets", ["trix"]);
+_defineProperty$1(_default$e, "targets", ["trix"]);
 
 // the user. Used on the prescrptions page.
 
-var _default$c = /*#__PURE__*/function (_Controller) {
+var _default$d = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -10817,7 +10817,7 @@ var _default$c = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$c, "targets", ["homeDeliveryDates", "providers"]);
+_defineProperty$1(_default$d, "targets", ["homeDeliveryDates", "providers"]);
 
 /*! (c) Andrea Giammarchi - ISC */
 var self$1 = {};
@@ -11198,7 +11198,7 @@ var URLSearchParams$1 = self$1.URLSearchParams;
 
 var Highcharts$2 = window.Highcharts;
 
-var _default$b = /*#__PURE__*/function (_Controller) {
+var _default$c = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -11329,11 +11329,11 @@ var _default$b = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$b, "targets", ["chart", // chart container
+_defineProperty$1(_default$c, "targets", ["chart", // chart container
 "period" // array of period (10y, 3y..) links
 ]);
 
-_defineProperty$1(_default$b, "values", {
+_defineProperty$1(_default$c, "values", {
   url: String,
   // API endpoint for chart json
   title: String,
@@ -11346,7 +11346,7 @@ _defineProperty$1(_default$b, "values", {
 
 });
 
-_defineProperty$1(_default$b, "classes", ["currentPeriod" // Maps to a CSS class name via data attribute on controller element
+_defineProperty$1(_default$c, "classes", ["currentPeriod" // Maps to a CSS class name via data attribute on controller element
 ]);
 
 var Rails$1 = window.Rails;
@@ -11403,7 +11403,7 @@ var _ = window._;
 // - Not quite sure if putting the data attribute config settings in the body
 //   tag is the right thing to do - perhaps should be in a config .js.erb
 
-var _default$a = /*#__PURE__*/function (_Controller) {
+var _default$b = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -11615,7 +11615,7 @@ var _default$a = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$9 = /*#__PURE__*/function (_Controller) {
+var _default$a = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -11646,9 +11646,9 @@ var _default$9 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$9, "targets", ["toggleable"]);
+_defineProperty$1(_default$a, "targets", ["toggleable"]);
 
-var _default$8 = /*#__PURE__*/function (_Controller) {
+var _default$9 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -11711,7 +11711,7 @@ var _default$8 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$8, "targets", ["tab", "panel"]);
+_defineProperty$1(_default$9, "targets", ["tab", "panel"]);
 
 var highchartsMore = createCommonjsModule(function (module) {
 /*
@@ -15091,10 +15091,10 @@ var highchartsMore = createCommonjsModule(function (module) {
 // NB Chartkick and Highcharts are defined as global in rollup
 var Highcharts$1 = window.Highcharts; // Highcharts is defined as global in rollup
 
-var $ = window.$;
+var $$1 = window.$;
 highchartsMore(Highcharts$1);
 
-var _default$7 = /*#__PURE__*/function (_Controller) {
+var _default$8 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -15110,7 +15110,7 @@ var _default$7 = /*#__PURE__*/function (_Controller) {
     value: function connect() {
       var _this = this;
 
-      $.getJSON(this.data.get("url"), function (data) {
+      $$1.getJSON(this.data.get("url"), function (data) {
         Highcharts$1.chart(_this.element, {
           chart: {
             scrollablePlotArea: {
@@ -15252,7 +15252,7 @@ var _default$7 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$6 = /*#__PURE__*/function (_Controller) {
+var _default$7 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -15460,7 +15460,7 @@ var hasRenderToArg = typeof a === 'string' || a.nodeName,
  */
 
 
-_defineProperty$1(_default$6, "targets", ["chart"]);
+_defineProperty$1(_default$7, "targets", ["chart"]);
 
 // allow a more dense menu that can simplifies by hiding/collapsing sections.
 //
@@ -15474,7 +15474,7 @@ _defineProperty$1(_default$6, "targets", ["chart"]);
 //   div.collapsible(data-collapsible-target="section")
 //     p YYY
 
-var _default$5 = /*#__PURE__*/function (_Controller) {
+var _default$6 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -15511,11 +15511,11 @@ var _default$5 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$5, "targets", ["section", "link"]);
+_defineProperty$1(_default$6, "targets", ["section", "link"]);
 
-_defineProperty$1(_default$5, "classes", ["open"]);
+_defineProperty$1(_default$6, "classes", ["open"]);
 
-var _default$4 = /*#__PURE__*/function (_Controller) {
+var _default$5 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -15560,9 +15560,9 @@ var _default$4 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$4, "targets", ["source", "target"]);
+_defineProperty$1(_default$5, "targets", ["source", "target"]);
 
-var _default$3 = /*#__PURE__*/function (_Controller) {
+var _default$4 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -15589,7 +15589,7 @@ var _default$3 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$3, "targets", ["fileBrowser", "externalLocation"]);
+_defineProperty$1(_default$4, "targets", ["fileBrowser", "externalLocation"]);
 
 /**!
  * Sortable 1.13.0
@@ -18555,7 +18555,7 @@ Sortable.mount(Remove, Revert);
 // - default containerTarget to the ul that the controller is added to
 // - support posting to the server to sort results.
 
-var _default$2 = /*#__PURE__*/function (_Controller) {
+var _default$3 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -18579,11 +18579,11 @@ var _default$2 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$2, "targets", ["container"]);
+_defineProperty$1(_default$3, "targets", ["container"]);
 
 var Rails = window.Rails;
 
-var _default$1 = /*#__PURE__*/function (_Controller) {
+var _default$2 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -18619,7 +18619,7 @@ var _default$1 = /*#__PURE__*/function (_Controller) {
 //   input(type="radio" value="no" ..)
 //   ...
 
-var _default = /*#__PURE__*/function (_Controller) {
+var _default$1 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -18646,31 +18646,103 @@ var _default = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default, "values", {
+_defineProperty$1(_default$1, "values", {
   match: String
+});
+
+var _default = /*#__PURE__*/function (_Controller) {
+  _inherits(_default, _Controller);
+
+  var _super = _createSuper(_default);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(_default, [{
+    key: "showhide",
+    // element we are going to show/hide
+    // attributeToTest: Name of the boolean data attribute on the selected option that determines if
+    //                  the displayable target shoule be visible or not
+
+    /*
+    For a SELECT, find the chosen option, and the data atribute we need (a boolean eg "true" whose
+    name is in the attributeToTest value).  Hide or show the target element according to the boolean
+    'test' attribute.
+    */
+    value: function showhide(event) {
+      event.preventDefault();
+
+      if (event.target.tagName.toUpperCase() == "SELECT") {
+        var selectedOption = event.target.options[event.target.selectedIndex];
+        var display = selectedOption.dataset[this.attributeToTestValue] == "true" ? "block" : "none";
+        this.displayableTarget.style.display = display;
+      }
+    }
+  }]);
+
+  return _default;
+}(Controller);
+
+_defineProperty$1(_default, "targets", ["displayable"]);
+
+_defineProperty$1(_default, "values", {
+  attributeToTest: String
 });
 
 session.drive = false; // Manually import stimulusjs controllers for now as we had problems with the stimulus-controllers
 var application = Application.start();
-application.register("toggle", _default$h);
-application.register("hd-prescription-administration", _default$g);
-application.register("home-delivery-modal", _default$f);
-application.register("snippets", _default$e);
-application.register("letters-form", _default$d);
-application.register("prescriptions", _default$c);
-application.register("charts", _default$b);
-application.register("session", _default$a);
-application.register("simple-toggle", _default$9);
-application.register("tabs", _default$8);
-application.register("pd-pet-chart", _default$7);
-application.register("pathology-sparklines", _default$6);
-application.register("collapsible", _default$5);
-application.register("dependent-select", _default$4);
-application.register("patient-attachments", _default$3);
-application.register("sortable", _default$2);
-application.register("select", _default$1);
-application.register("radio-reset", _default);
+application.register("toggle", _default$i);
+application.register("hd-prescription-administration", _default$h);
+application.register("home-delivery-modal", _default$g);
+application.register("snippets", _default$f);
+application.register("letters-form", _default$e);
+application.register("prescriptions", _default$d);
+application.register("charts", _default$c);
+application.register("session", _default$b);
+application.register("simple-toggle", _default$a);
+application.register("tabs", _default$9);
+application.register("pd-pet-chart", _default$8);
+application.register("pathology-sparklines", _default$7);
+application.register("collapsible", _default$6);
+application.register("dependent-select", _default$5);
+application.register("patient-attachments", _default$4);
+application.register("sortable", _default$3);
+application.register("select", _default$2);
+application.register("radio-reset", _default$1);
+application.register("conditional-display", _default);
 window.Chartkick.use(window.Highcharts);
+/*
+select2 does not raise native events, so in order to use e.g. select2:select
+without jQuery, declaritively in stimulusjs, we need to wrap them in this
+delegate function, and then we can use the event in stimulus like so:
+  <.. data-controller: "select", data-action: "jquery:select2:select->select#refresh" }
+*/
+
+var delegate = function delegate(eventName, parameters) {
+  var handler = function handler() {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    var data = {};
+    parameters.forEach(function (name, i) {
+      return data[name] = args[i];
+    });
+    var delegatedEvent = new CustomEvent("jquery:" + eventName, {
+      bubbles: true,
+      cancelable: true,
+      detail: data
+    });
+    data.event.target.dispatchEvent(delegatedEvent);
+  };
+
+  $(document).on(eventName, handler);
+};
+
+delegate("select2:select", ["event"]);
 
 var adapters = {
   logger: self.console,

@@ -177,7 +177,7 @@ module Renalware
       end
 
       # Returns an array of objects defininig each category, with that category's types within it.
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable Metrics/MethodLength, Layout/LineLength, Style/OpenStructUse
       def event_types
         Events::Category.order(:position).map do |category|
           types = category.types.visible.order(:name).map do |event_type|
@@ -186,7 +186,8 @@ module Renalware
               event_type.id,
               {
                 data: {
-                  source: new_patient_event_path(patient, event_type_id: event_type.id, format: :js)
+                  source: new_patient_event_path(patient, event_type_id: event_type.id, format: :js),
+                  save_pdf_to_epr: event_type.save_pdf_to_electronic_public_register?
                 }
               }
             ]
@@ -194,7 +195,7 @@ module Renalware
           OpenStruct.new(name: category.name, id: category.id, types: types)
         end
       end
-      # rubocop:enable Metrics/MethodLength
+      # rubocop:enable Metrics/MethodLength, Layout/LineLength, Style/OpenStructUse
 
       def query_params
         params.fetch(:q, {})

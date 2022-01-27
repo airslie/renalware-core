@@ -1,43 +1,55 @@
-= simple_form_for event,
-    url: url,
-    as: :events_event,
-    html: { autocomplete: "off" },
-    wrapper: "horizontal_form" do |f|
+div(data-controller="conditional-display" data-conditional-display-attribute-to-test-value="savePdfToEpr")
 
-  = f.input :date_time,
-            as: :datetime_picker,
-            wrapper: :horizontal_datepicker
+  = simple_form_for event,
+      url: url,
+      as: :events_event,
+      html: { autocomplete: "off" },
+      wrapper: "horizontal_form" do |f|
 
-  = f.input :disable_selection_of_event_type, as: :hidden
+    = f.input :date_time,
+              as: :datetime_picker,
+              wrapper: :horizontal_datepicker
 
-  - if event.disable_selection_of_event_type
-    = f.input :event_type_id, as: :hidden
-  - else
-    #event-type-dropdown-container
-      = f.input :event_type_id,
-                as: :grouped_select,
-                group_method: :types,
-                group_label_method: :name,
-                collection: event_types,
-                wrapper: :horizontal_medium,
-                input_html: { \
-                  id: "event-type-dropdown",
-                  class: "searchable_select",
-                  required: :required,
-                  tabindex: 2001 \
-                }
+    = f.input :disable_selection_of_event_type, as: :hidden
 
-  / The contents of this div will get replaced if a user selects an alternative
-  / event type in the drop-down above. See events.js.
-  #event-type-specific-inputs
-    = render partial: event.to_input_partial_path, locals: { event: event, f: f }
+    - if event.disable_selection_of_event_type
+      = f.input :event_type_id, as: :hidden
+    - else
+      #event-type-dropdown-container
+        = f.input :event_type_id,
+                  as: :grouped_select,
+                  group_method: :types,
+                  group_label_method: :name,
+                  collection: event_types,
+                  wrapper: :horizontal_medium,
+                  input_html: { \
+                    id: "event-type-dropdown",
+                    class: "searchable_select",
+                    required: :required,
+                    tabindex: 2001,
+                    data: { \
+                        controller: "select", \
+                        action: "jquery:select2:select->select#refresh jquery:select2:select->conditional-display#showhide" \
+                    } \
+                  }
 
-  = f.label :notes
-  = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: ".event-notes")
-  = f.input :notes, as: :trix_editor, class: "event-notes", wrapper: :zilch
-  = f.error :notes
-  br
+    / The contents of this div will get replaced if a user selects an alternative
+    / event type in the drop-down above. See events.js.
+    #event-type-specific-inputs
+      = render partial: event.to_input_partial_path, locals: { event: event, f: f }
 
-  = submit_tag "Save", class: "button"
-  '  or
-  = link_to t("btn.cancel"), return_url
+    = f.label :notes
+    = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: ".event-notes")
+    = f.input :notes, as: :trix_editor, class: "event-notes", wrapper: :zilch
+    = f.error :notes
+    br
+
+    div.hidden(data-conditional-display-target="displayable")
+      .rounded.border.border-gray-100.bg-yellow-100.mb-6.px-2.py-1.w-auto.flex.items-start.shadow
+        i.fas.fa-exclamation-circle.mr-2.mt-1.text-gray-600.text-l
+        span
+          ' After saving, a PDF copy of this event will be sent to the EPR document store/s.
+
+    = submit_tag "Save", class: "button"
+    '  or
+    = link_to t("btn.cancel"), return_url
