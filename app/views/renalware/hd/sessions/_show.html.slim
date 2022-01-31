@@ -3,16 +3,16 @@
     .row
       = render "renalware/shared/attributes_group",
           legend: "Sign-In", destination: "signin",
-          models: { session => [:performed_on,
+          models: { session => [:started_at,
                                 :modality_description,
-                                :hospital_unit,
                                 :station,
                                 :start_time,
+                                :hospital_unit,,
                                 :signed_on_by] }
 
       = render "renalware/shared/attributes_group",
           legend: "Sign-Off", destination: "signoff",
-          models: { session => [:end_time,
+          models: { session => [:stopped_at,
                                 :duration,
                                 :signed_off_by,
                                 :dialysate] }

@@ -8,7 +8,7 @@ module Renalware
       describe Session::Closed, type: :model do
         it :aggregate_failures do
           is_expected.to validate_presence_of(:signed_off_by)
-          is_expected.to validate_presence_of(:end_time)
+          is_expected.to validate_presence_of(:stopped_at)
           is_expected.to validate_presence_of(:signed_off_at)
           is_expected.to validate_presence_of(:dialysate)
           is_expected.to belong_to(:profile)

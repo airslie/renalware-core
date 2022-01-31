@@ -15,7 +15,7 @@ module Renalware
               }).or(
                 where(hd_sessions: {
                         type: Session::DNA.sti_name,
-                        performed_on: range
+                        started_at: range
                       }))
       end
 

@@ -62,6 +62,7 @@ describe "API request for a single UKRDC patient XML document", type: :request d
 
       expect(response).to be_successful
       validate(response.body).each do |error|
+        p response.body
         raise error.message
       end
     end

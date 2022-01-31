@@ -11,7 +11,7 @@ module Renalware
 
         context "when the blood_flow is not a number" do
           it "leaves unset it '' or null" do
-            session = Renalware::HD::Session::Closed.new(performed_on: "2018-11-01")
+            session = Renalware::HD::Session::Closed.new(started_at: "2018-11-01 12:00:00")
             session.document.dialysis.blood_flow = ""
             presenter = Renalware::HD::SessionPresenter.new(session)
 
@@ -21,7 +21,7 @@ module Renalware
           end
 
           it "coerces it into an integer if possible" do
-            session = Renalware::HD::Session::Closed.new(performed_on: "2018-11-01")
+            session = Renalware::HD::Session::Closed.new(started_at: "2018-11-01 12:00:00")
             session.document.dialysis.blood_flow = "101 approx"
             presenter = Renalware::HD::SessionPresenter.new(session)
 
@@ -31,7 +31,7 @@ module Renalware
           end
 
           it "otherwise leaves it as empty" do
-            session = Renalware::HD::Session::Closed.new(performed_on: "2018-11-01")
+            session = Renalware::HD::Session::Closed.new(started_at: "2018-11-01 12:00:00")
             session.document.dialysis.blood_flow = "n/a"
             presenter = Renalware::HD::SessionPresenter.new(session)
 
@@ -45,10 +45,9 @@ module Renalware
         it "renders a DialysisSession element" do
           dialysate = build_stubbed(:hd_dialysate, sodium_content: 100)
           session = Renalware::HD::Session::Closed.new(
-            performed_on: "2018-11-01",
-            start_time: "11:00",
-            end_time: "13:00",
-            duration: 123,
+            started_at: "2018-11-01 11:00",
+            stopped_at: "2018-11-01 13:00",
+            duration: 120,
             dialysate: dialysate,
             updated_by: build_stubbed(:user, family_name: "F", given_name: "G", username: "U"),
             hospital_unit: build_stubbed(:hospital_unit, unit_code: "U")
@@ -87,7 +86,7 @@ module Renalware
                 <QHD21>UA</QHD21>
                 <QHD22>N</QHD22>
                 <QHD30>99</QHD30>
-                <QHD31>123</QHD31>
+                <QHD31>120</QHD31>
                 <QHD32>100</QHD32>
                 <QHD33>U</QHD33>
               </Attributes>

@@ -11,9 +11,8 @@ module Renalware
     class Session::Closed < Session
       include Document::Base
 
-      validates :start_time, presence: true
       validates :signed_off_by, presence: true
-      validates :end_time, presence: true
+      validates :stopped_at, presence: true
       validates :signed_off_at, presence: true
       validates :dialysate, presence: true
 

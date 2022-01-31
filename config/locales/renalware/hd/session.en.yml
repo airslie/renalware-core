@@ -3,12 +3,13 @@ en:
   activerecord:
     attributes:
       renalware/hd/session:
-        performed_on: Session Date
+        performed_on: Start date
         hospital_unit: Hospital Unit
         hospital_centre: Hospital Centre
         signed_on_by: Put On By
         signed_off_by: Taken Off By
         start_time: Session Start Time
+        vstart_time: Session Start Time
         end_time: Session End Time
         hd_type: HD Type
         modality_description: Modality
@@ -249,6 +250,8 @@ en:
           machine_urr: URR
           hd_drugs_administered: Drugs given?
           notes: "Notes"
+          started_at: Started
+          stopped_at: Stopped
           start_time: "On"
           end_time: "Off"
           pre: Pre

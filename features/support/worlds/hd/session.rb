@@ -21,7 +21,7 @@ module World
         {
           patient: patient,
           hospital_unit: Renalware::Hospitals::Unit.hd_sites.first,
-          start_time: Time.zone.parse("6pm"),
+          started_at: Time.zone.now,
           document: {
           }
         }
@@ -57,7 +57,8 @@ module World
 
         # "23:59"
         valid_open_session_attributes(patient).merge(
-          end_time: Time.zone.parse("10pm"),
+          started_at: Time.zone.now,
+          stopped_at: Time.zone.now + 3.hours,
           dialysate_id: Renalware::HD::Dialysate.first,
           document: JSON.parse(json)
         )
@@ -65,20 +66,20 @@ module World
 
       # @section seeding
       #
-      def seed_open_session_for(patient, user:, performed_on: Time.zone.today)
+      def seed_open_session_for(patient, user:, started_at: Time.zone.now)
         patient = hd_patient(patient)
         attrs = valid_open_session_attributes(patient).merge(
           signed_on_by: user,
-          by: user
+          by: user,
+          started_at: started_at
         )
-        attrs[:performed_on] = performed_on
         Renalware::HD::Session::Open.create(attrs)
       end
 
-      def seed_closed_session_for(patient, user:, signed_off_by:, performed_on: Time.zone.today)
+      def seed_closed_session_for(patient, user:, signed_off_by:, started_at: Time.zone.now)
         patient = hd_patient(patient)
         attrs = valid_closed_session_attributes(patient)
-        attrs[:performed_on] = performed_on
+        attrs[:started_at] = started_at
 
         Renalware::HD::Session::Closed.create!(
           attrs.merge(
@@ -87,7 +88,8 @@ module World
             signed_off_by: signed_off_by,
             signed_off_at: Time.zone.now,
             dialysate: FactoryBot.create(:hd_dialysate),
-            end_time: attrs[:start_time] + 1.hour
+            started_at: started_at,
+            stopped_at: started_at + 3.hours
           )
         )
       end
@@ -136,22 +138,21 @@ module World
 
       # @section commands
       #
-      def create_hd_session(patient:, user:, performed_on:)
+      def create_hd_session(patient:, user:, started_at:)
         patient = hd_patient(patient)
-        seed_open_session_for(patient, user: user, performed_on: performed_on)
+        seed_open_session_for(patient, user: user, started_at: started_at)
       end
 
       def update_hd_session(patient:, user:)
         travel_to 1.hour.from_now
 
-        profile = hd_session_for(patient)
-        profile.update!(
+        session = hd_session_for(patient)
+        session.update!(
           updated_at: Time.zone.now,
-          end_time: profile.start_time + 1.minute,
+          stopped_at: session.started_at + 1.minute,
           signed_off_by: user,
           by: user,
-          document: {
-          }
+          document: {}
         )
       end
 
@@ -219,7 +220,7 @@ module World
         expect(patient.hd_sessions.first).to be_closed
       end
 
-      def create_hd_session(user:, patient:, performed_on:)
+      def create_hd_session(user:, patient:, started_at:)
         expect(hd_patient(patient).hd_sessions.count).to eq(0)
         Renalware::HD::Station.create!(name: "Station1", hospital_unit_id: hd_unit.id, by: user)
         login_as user
@@ -230,10 +231,10 @@ module World
           click_on "HD Session"
         end
 
-        fill_in "Session Start Time", with: "13:00"
+        fill_in "Start time", with: "13:00"
         select hd_unit.to_s, from: "Hospital Unit"
         select "Station1", from: "Station"
-        fill_in "Session Date", with: l(performed_on)
+        fill_in "Start date", with: l(started_at&.to_date)
 
         within ".top" do
           click_on t("btn.save")
@@ -248,7 +249,7 @@ module World
           click_on label
         end
 
-        fill_in "Session End Time", with: "23:59"
+        fill_in "End time", with: "23:59"
 
         within ".top" do
           click_on t("btn.save")
@@ -268,7 +269,7 @@ module World
           click_on label
         end
 
-        fill_in "Session End Time", with: "23:59"
+        fill_in "End time", with: "23:59"
         select user.to_s, from: "Taken Off By"
 
         within_fieldset "Session Info" do

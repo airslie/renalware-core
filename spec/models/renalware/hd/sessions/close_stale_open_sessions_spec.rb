@@ -17,7 +17,8 @@ module Renalware
           by: system_user,
           signed_on_by: system_user,
           hospital_unit: hospital_unit,
-          performed_on: 1.day.ago
+          started_at: 25.hours.ago,
+          stopped_at: 23.hours.ago
         }
       end
 
@@ -44,7 +45,8 @@ module Renalware
             :hd_open_session,
             **options.merge(
               signed_off_by: system_user,
-              performed_on: 1.day.ago
+              started_at: 24.hours.ago,
+              stopped_at: nil
             )
           )
 
@@ -62,8 +64,8 @@ module Renalware
                 :hd_open_session,
                 **options.merge(
                   signed_off_by: system_user,
-                  performed_on: 4.days.ago,
-                  end_time: "23:59",
+                  started_at: 4.days.ago,
+                  stopped_at: nil,
                   document: nil
                 )
               )
@@ -88,8 +90,7 @@ module Renalware
                 :hd_open_session,
                 **options.merge(
                   signed_off_by: system_user,
-                  performed_on: 4.days.ago,
-                  end_time: "23:59",
+                  started_at: 4.days.ago,
                   document: nil
                 )
               )

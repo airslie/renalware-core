@@ -993,15 +993,15 @@ begin
       patient_id
       ,'medium' as severity
       ,null as value
-      ,performed_on
+      ,started_at
       from hd_sessions hds
       where type = 'Renalware::HD::Session::DNA'
-        and days_between(hds.performed_on, current_timestamp::timestamp) <= 31
-      order by patient_id, hds.performed_on desc
+        and days_between(hds.started_at, current_timestamp::timestamp) <= 31
+      order by patient_id, hds.started_at desc
   )
   select
     into out_severity, out_value, out_date
-    coalesce(dna.severity, 'none'), dna.value, dna.performed_on
+    coalesce(dna.severity, 'none'), dna.value, dna.started_at::date
   from patients p left outer join dna on dna.patient_id = p.id
   where p.id = p_id;
  end
@@ -4648,9 +4648,9 @@ CREATE TABLE renalware.hd_sessions (
     patient_id integer,
     hospital_unit_id integer,
     modality_description_id integer,
-    performed_on date NOT NULL,
-    start_time time without time zone,
-    end_time time without time zone,
+    performed_on_legacy date,
+    start_time_legacy time without time zone,
+    end_time_legacy time without time zone,
     duration integer,
     notes text,
     created_by_id integer NOT NULL,
@@ -4668,6 +4668,8 @@ CREATE TABLE renalware.hd_sessions (
     uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     external_id bigint,
     deleted_at timestamp without time zone,
+    started_at timestamp without time zone,
+    stopped_at timestamp without time zone,
     provider_id bigint,
     machine_ip_address character varying,
     hd_station_id bigint
@@ -16583,10 +16585,10 @@ CREATE INDEX index_hd_sessions_on_patient_id ON renalware.hd_sessions USING btre
 
 
 --
--- Name: index_hd_sessions_on_performed_on; Type: INDEX; Schema: renalware; Owner: -
+-- Name: index_hd_sessions_on_performed_on_legacy; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_hd_sessions_on_performed_on ON renalware.hd_sessions USING btree (performed_on);
+CREATE INDEX index_hd_sessions_on_performed_on_legacy ON renalware.hd_sessions USING btree (performed_on_legacy);
 
 
 --
@@ -16622,6 +16624,13 @@ CREATE INDEX index_hd_sessions_on_signed_off_by_id ON renalware.hd_sessions USIN
 --
 
 CREATE INDEX index_hd_sessions_on_signed_on_by_id ON renalware.hd_sessions USING btree (signed_on_by_id);
+
+
+--
+-- Name: index_hd_sessions_on_started_at_and_stopped_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_started_at_and_stopped_at ON renalware.hd_sessions USING btree (started_at, stopped_at);
 
 
 --
@@ -23566,6 +23575,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210305105830'),
 ('20210305181345'),
 ('20210305191214'),
+('20210308153253'),
 ('20210310154134'),
 ('20210315151618'),
 ('20210329090650'),

@@ -1,7 +1,7 @@
 tbody(class=[session.state, stripe_class])
   tr
     td.noprint= row_toggler
-    td= session.performed_on
+    td= l(session.started_at)
     td= session.hospital_unit_unit_code
     td(colspan=6) Did not attend
   tr

@@ -6,8 +6,8 @@ module Renalware
   units = Hospitals::Unit.hd_sites.limit(3).to_a
   users = User.limit(3).to_a
   patients = Patient.limit(10).to_a
-  start_times = ["13:00", "13:15", "13:30"]
-  end_times = ["15:30", "15:45", "16:00"]
+  # start_times = ["13:00", "13:15", "13:30"]
+  # end_times = ["15:30", "15:45", "16:00"]
   dates = (1..30).to_a
   dialysate_id = HD::Dialysate.first.id
 
@@ -17,8 +17,7 @@ module Renalware
       HD::Session.create!(
         patient: HD.cast_patient(patients.sample),
         hospital_unit: units.sample,
-        performed_on: dates.sample.days.ago,
-        start_time: start_times.sample,
+        started_at: dates.sample.days.ago,
         signed_on_by: users.sample,
         by: users.sample
       )
@@ -80,12 +79,12 @@ module Renalware
 
     # Closed (signed-off) sessions
     50.times do
+      started_at = dates.sample.days.ago
       HD::Session::Closed.create!(
         patient: HD.cast_patient(patients.sample),
         hospital_unit: units.sample,
-        performed_on: dates.sample.days.ago,
-        start_time: start_times.sample,
-        end_time: end_times.sample,
+        started_at: started_at,
+        stopped_at: started_at + 4.hours,
         signed_on_by: users.sample,
         signed_off_by: users.sample,
         by: users.sample,

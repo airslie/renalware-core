@@ -15,14 +15,12 @@ module Renalware
       it :aggregate_failures do
         is_expected.to validate_presence_of(:patient)
         is_expected.to validate_presence_of(:signed_on_by)
-        is_expected.to validate_presence_of(:performed_on)
+        is_expected.to validate_presence_of(:started_at)
         is_expected.to validate_presence_of(:hospital_unit)
-        is_expected.to validate_presence_of(:start_time)
         is_expected.not_to validate_presence_of(:signed_off_by)
-        is_expected.not_to validate_presence_of(:end_time)
-        is_expected.to validate_timeliness_of(:performed_on)
-        is_expected.to validate_timeliness_of(:start_time)
-        is_expected.to validate_timeliness_of(:end_time)
+        is_expected.not_to validate_presence_of(:stopped_at)
+        is_expected.to validate_timeliness_of(:started_at)
+        is_expected.to validate_timeliness_of(:stopped_at)
       end
 
       it "is not immutable" do
@@ -43,16 +41,6 @@ module Renalware
         end
       end
 
-      describe "#valid?" do
-        context "when end_time is prior to start_time" do
-          it "is not valid" do
-            session.start_time = Time.zone.parse("2016-04-28 12:00")
-            session.end_time = Time.zone.parse("2016-04-28 11:00")
-            expect(session).not_to be_valid
-          end
-        end
-      end
-
       context "with a patient in a modality" do
         let!(:modality) { create(:modality, patient: patient) }
 
@@ -65,20 +53,20 @@ module Renalware
       end
 
       context "with duration" do
-        context "when changing end_time" do
+        context "when changing stopped_at" do
           it "computes the duration in minutes" do
-            session.end_time = session.start_time + 30.minutes
+            session.stopped_at = session.started_at + 30.minutes
             session.save!
             expect(session.duration).to eq(30)
           end
         end
 
-        context "when changing start_time" do
+        context "when changing started_at" do
           it "computes the duration in minutes" do
-            session.end_time = session.start_time + 1.hour
+            session.stopped_at = session.started_at + 1.hour
             session.save!
 
-            session.start_time = session.end_time - 30.minutes
+            session.started_at = session.stopped_at - 30.minutes
             session.save!
 
             expect(session.duration).to eq(30)

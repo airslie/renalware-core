@@ -36,6 +36,7 @@ module Renalware
 
         it "broadcasts an event on success" do
           obj = SaveSession.new(patient: patient, current_user: user)
+
           expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
           expect {
             obj.call(params: { type: "Renalware::HD::Session::Open" })
@@ -44,6 +45,7 @@ module Renalware
 
         it "broadcasts an event on failure" do
           obj = SaveSession.new(patient: patient, current_user: user)
+
           expect_any_instance_of(HD::Session).to receive(:save).and_return(false)
           expect {
             obj.call(params: { type: "Renalware::HD::Session::Open" })
@@ -52,24 +54,27 @@ module Renalware
 
         it "doesn't enqueue a request to update rolling session stats if its an open session" do
           obj = SaveSession.new(patient: patient, current_user: user)
+
           expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
 
           obj.call(params: { type: "Renalware::HD::Session::Open" })
-          # expect(enqueued_jobs.size).to eq(0)
+
           expect(Delayed::Job.count).to eq 0
         end
 
         it "enqueues a request to update rolling session stats if its an closed session" do
           obj = SaveSession.new(patient: patient, current_user: user)
+
           expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
 
           obj.call(params: { type: "Renalware::HD::Session::Closed" })
-          # expect(enqueued_jobs.size).to eq(1)
+
           expect(Delayed::Job.count).to eq 1
         end
 
         it "enqueues a request to update rolling session stats if its an dna session" do
           obj = SaveSession.new(patient: patient, current_user: user)
+
           expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
 
           obj.call(params: { type: "Renalware::HD::Session::DNA" })
@@ -105,11 +110,20 @@ module Renalware
 
           # Do the save
           obj.call(
-            params: session_attributes.update(type: "Renalware::HD::Session::Open"),
+            params: session_attributes.update(
+              type: "Renalware::HD::Session::Open",
+              duration_form: {
+                start_date: "2021-01-02",
+                start_time: "11:00",
+                end_time: "13:00"
+              }
+            ),
             signing_off: true
           )
 
+          expect(listener.saved_session.errors).to be_blank
           expect(listener.success).to eq(true)
+          expect(listener.saved_session).to be_valid
           expect(listener.saved_session.dry_weight).to eq(latest_dw)
         end
       end

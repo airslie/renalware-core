@@ -6,7 +6,7 @@ module Renalware
       class PatientQuery
         def initialize(patient:, q: nil)
           @patient = patient
-          @q = q || { s: "performed_on desc" }
+          @q = q || { s: "started_at desc" }
         end
 
         def call

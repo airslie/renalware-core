@@ -29,7 +29,7 @@ Given("Patty has a recorded DNA session") do
   @session = seed_dna_session(patient: @patty,
                               user: @nathalie,
                               notes: "",
-                              performed_on: Time.zone.today)
+                              started_at: Time.zone.now)
 end
 
 Given("the session was created less than {int} hours ago") do |hours|
@@ -95,7 +95,7 @@ When("Clyde submits an erroneous HD profile") do
 end
 
 When("Nathalie records the pre-session observations for Patty") do
-  create_hd_session(patient: @patty, user: @nathalie, performed_on: Time.zone.today)
+  create_hd_session(patient: @patty, user: @nathalie, started_at: Time.zone.now)
 end
 
 When("Clyde records the dry weight for Patty") do
@@ -103,7 +103,7 @@ When("Clyde records the dry weight for Patty") do
 end
 
 When("Nathalie submits an erroneous HD session") do
-  create_hd_session(patient: @patty, user: @nathalie, performed_on: nil)
+  create_hd_session(patient: @patty, user: @nathalie, started_at: nil)
 end
 
 When("Clyde submits an erroneous dry weight") do

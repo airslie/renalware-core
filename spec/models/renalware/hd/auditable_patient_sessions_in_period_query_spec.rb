@@ -23,17 +23,17 @@ module Renalware
           # These Dec ones are OK...
           travel_to Time.zone.parse("2016-12-01 00:00:00") do
             create(:hd_closed_session, patient: patient, signed_off_at: Time.zone.now)
-            create(:hd_dna_session, patient: patient, performed_on: Time.zone.now)
+            create(:hd_dna_session, patient: patient, started_at: Time.zone.now)
             # .. except this one as its not signed off yet
-            create(:hd_open_session, patient: patient, performed_on: Time.zone.now)
+            create(:hd_open_session, patient: patient, started_at: Time.zone.now)
             # .. and this one as it belongs to another patient
-            create(:hd_open_session, patient: another_patient, performed_on: Time.zone.now)
+            create(:hd_open_session, patient: another_patient, started_at: Time.zone.now)
           end
 
           # ..so are these Dec ones
           travel_to Time.zone.parse("2016-12-31 22:00:00") do
             create(:hd_closed_session, patient: patient, signed_off_at: Time.zone.now)
-            create(:hd_dna_session, patient: patient, performed_on: Time.zone.now)
+            create(:hd_dna_session, patient: patient, started_at: Time.zone.now)
           end
 
           # ..but this Jan one is too late

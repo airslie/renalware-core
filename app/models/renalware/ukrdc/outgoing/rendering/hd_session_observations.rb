@@ -22,10 +22,9 @@ module Renalware
 
           def observation_times
             @observation_times ||= begin
-              performed_on = session.performed_on.to_datetime
               {
-                pre: performed_on + session.start_time.seconds_since_midnight.seconds,
-                post: performed_on + session.end_time.seconds_since_midnight.seconds
+                pre: session.started_at,
+                post: session.stopped_at
               }
             end
           end

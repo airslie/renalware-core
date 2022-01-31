@@ -96,19 +96,19 @@ describe "V1 HD Session API", type: :system do
         patient: patient,
         provider: provider,
         hospital_unit: hospital_unit,
-        performed_on: Date.parse(valid_session_json[:started_at]),
+        started_at: Time.zone.parse(valid_session_json[:started_at]),
         machine_ip_address: valid_session_json[:machine_ip_address],
-        signed_on_by: system_user,
-        created_by: system_user
+        signed_on_by_id: system_user.id,
+        created_by_id: system_user.id
       )
 
       # NOTE: performed_on + start_time + end_time is moving to
       # started_at and stopped_at in a pending PR
-      expect(session.start_time.strftime("%H:%M")).to eq(
+      expect(session.start_time).to eq(
         Time.zone.parse(valid_session_json[:started_at]).strftime("%H:%M")
       )
 
-      expect(session.end_time.strftime("%H:%M")).to eq(
+      expect(session.end_time).to eq(
         Time.zone.parse(valid_session_json[:ended_at]).strftime("%H:%M")
       )
 
@@ -226,7 +226,7 @@ describe "V1 HD Session API", type: :system do
 
   describe "when the session already exists for the current mrn and date" do
     it "updates the existing session" do
-      session = create(:hd_session, patient: patient, performed_on: adate, start_time: "01:00")
+      session = create(:hd_session, patient: patient, started_at: adate)
 
       put url_with_credentials,
           params: { session: valid_session_json.update(dialysate_flow_rate: 165) }
