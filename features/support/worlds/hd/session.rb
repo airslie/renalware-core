@@ -231,10 +231,10 @@ module World
           click_on "HD Session"
         end
 
-        fill_in "Session Start Time", with: "13:00"
+        fill_in "Start time", with: "13:00"
         select hd_unit.to_s, from: "Hospital Unit"
         select "Station1", from: "Station"
-        fill_in "Session Date", with: l(performed_on)
+        fill_in "Start date", with: l(started_at&.to_date)
 
         within ".top" do
           click_on t("btn.save")
@@ -249,7 +249,7 @@ module World
           click_on label
         end
 
-        fill_in "Session End Time", with: "23:59"
+        fill_in "End time", with: "23:59"
 
         within ".top" do
           click_on t("btn.save")
@@ -269,7 +269,7 @@ module World
           click_on label
         end
 
-        fill_in "Session End Time", with: "23:59"
+        fill_in "End time", with: "23:59"
         select user.to_s, from: "Taken Off By"
 
         within_fieldset "Session Info" do

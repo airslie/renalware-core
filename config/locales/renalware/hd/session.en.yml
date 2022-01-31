@@ -3,7 +3,7 @@ en:
   activerecord:
     attributes:
       renalware/hd/session:
-        performed_on: Session Date
+        performed_on: Start date
         hospital_unit: Hospital Unit
         hospital_centre: Hospital Centre
         signed_on_by: Put On By
