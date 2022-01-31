@@ -86,7 +86,7 @@ module Renalware
       end
 
       def prescribed_times
-        (60..360).step(15).map { |mins| [Duration.from_minutes(mins).to_s, mins] }
+        (60..720).step(15).map { |mins| [Duration.from_minutes(mins).to_s, mins] }
       end
 
       def formatted_prescribed_time
