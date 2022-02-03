@@ -6,6 +6,7 @@ require_dependency "renalware/renal"
 describe "Renal Profile", type: :system, js: true do
   describe "GET #show" do
     it "updating the renal profile" do
+      Renalware.config.use_rolling_comorbidities = false
       user = login_as_clinical
       prd = create(:prd_description, term: "PRD1")
 

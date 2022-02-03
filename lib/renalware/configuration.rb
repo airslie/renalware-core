@@ -108,6 +108,10 @@ module Renalware
       @base_working_folder ||= working_folder.call
     end
 
+    config_accessor(:use_rolling_comorbidities) {
+      ENV.fetch("USE_ROLLING_COMORBIDITIES", "true") == "true"
+    }
+
     # We override this in some tests as a means of getting wicked_pdf to generate an HTML version
     # of the PDF so we can examine its content
     config_accessor(:render_pdf_as_html_for_debugging) { false }

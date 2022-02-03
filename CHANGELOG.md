@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.4
+### Added
+### Changed
+- Conditionally enable rolling comorbidities
+### Fixed
+- Error in HD Session show page caused by duplicate comma
+
 ## 2.2.3
 ### Added
 - Decease patients when HL7 death date arrives #3675

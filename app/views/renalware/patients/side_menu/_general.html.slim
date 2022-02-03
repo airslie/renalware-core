@@ -30,9 +30,10 @@ li.heading= t(".heading")
                     path: patient_problems_path(patient),
                     active_when_controller_matches: %r{renalware/problems/problems}
 
-= patient_menu_item title: t(".comorbidities"),
-                    path: patient_comorbidities_path(patient),
-                    active_when_controller_matches: %r{renalware/problems/comorbidities}
+- if Renalware.config.use_rolling_comorbidities
+  = patient_menu_item title: t(".comorbidities"),
+                      path: patient_comorbidities_path(patient),
+                      active_when_controller_matches: %r{renalware/problems/comorbidities}
 
 = patient_menu_item title: t(".pathology", count: summary.observation_requests_count),
                     path: patient_pathology_historical_observations_path(patient),
