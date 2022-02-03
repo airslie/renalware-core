@@ -15,6 +15,7 @@ This project adheres to Semantic Versioning.
 - Conditionally enable rolling comorbidities
 ### Fixed
 - Error in HD Session show page caused by duplicate comma
+- Kwarg error invoking SavePdfLetterToFileJob
 
 ## 2.2.3
 ### Added

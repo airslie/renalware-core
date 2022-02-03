@@ -7,7 +7,8 @@
 class RefreshMaterializedViewJob < ApplicationJob
   queue_with_priority 6
 
-  def perform(view_name: nil)
+  def perform(args)
+    view_name = args[:view_name]
     conn = ActiveRecord::Base.connection
     if view_name.present?
       Rails.logger.info("Refreshing materialized view #{view_name}...")

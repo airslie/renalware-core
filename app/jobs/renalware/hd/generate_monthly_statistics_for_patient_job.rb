@@ -9,7 +9,10 @@ module Renalware
       queue_as :hd_patient_statistics
 
       # :reek:UtilityFunction
-      def perform(patient:, month:, year:)
+      def perform(args)
+        patient = args[:patient]
+        month = args[:month]
+        year = args[:year]
         period = MonthPeriod.new(month: month, year: year)
         GenerateMonthlyStatisticsForPatient.new(patient: patient, period: period).call
       end
