@@ -10,7 +10,9 @@ module Renalware
       # Note PracticeMailer not the best name as we use this mailer to send a letter to any
       # recipient (practices, hospital secretaries etc)
       class PracticeMailer < ApplicationMailer
-        def patient_letter(letter:, to:)
+        def patient_letter(args)
+          letter = args[:letter]
+          to = args[:to]
           validate_letter(letter)
           letter_presenter = LetterPresenterFactory.new(letter)
           attachments["letter.pdf"] = Letters::PdfRenderer.call(letter_presenter)
