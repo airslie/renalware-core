@@ -11,7 +11,10 @@ This project adheres to Semantic Versioning.
 
 ## 2.2.3
 ### Added
--  Decease patients when HL7 death date arrives #3675
+- Decease patients when HL7 death date arrives #3675
+- Add ability to have an overnight HD session #2267
+- Use EventTypes table to drive Event edit/delete policies #3787
+- Allow admin to configure which event types are sent to EPR #3793
 ### Changed
 -  Disable events and letters caching on clinical summary #3790
 -  Add CR at end of MDM^T02 doc out msg #3789
