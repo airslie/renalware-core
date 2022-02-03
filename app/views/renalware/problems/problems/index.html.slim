@@ -3,7 +3,8 @@
             "#",
             data: { behaviour: "add-new-problem" },
             class: "button"
-  = link_to "Comorbidities", patient_comorbidities_path(patient)
+  - if Renalware.config.use_rolling_comorbidities
+    = link_to "Comorbidities", patient_comorbidities_path(patient)
 
 = within_patient_layout(title: "Problems") do
 
