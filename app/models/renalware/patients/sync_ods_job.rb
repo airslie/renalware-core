@@ -21,7 +21,8 @@ module Renalware
       # end
 
       # If dry_run: true when we should not save any changes.
-      def perform(dry_run: false)
+      def perform(args)
+        dry_run = args[:dry_run]
         sync_practices(dry_run)
         sync_gps_and_memberships(dry_run)
       end
