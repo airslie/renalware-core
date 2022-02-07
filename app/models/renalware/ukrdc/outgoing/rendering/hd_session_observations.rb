@@ -11,7 +11,7 @@ module Renalware
             pre_and_post_observations.each do |pre_or_post, observations|
               measurements_for(observations).each do |i18n_key, value|
                 parent_element << Rendering::Observation.new(
-                  observed_at: observation_times[pre_or_post].iso8601,
+                  observed_at: observation_times[pre_or_post]&.iso8601,
                   measurement: value.to_s[0, 19].strip,
                   i18n_key: i18n_key,
                   pre_post: pre_or_post.to_s.upcase # eg PRE or POST

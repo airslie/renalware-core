@@ -16,11 +16,13 @@
           = f.association :named_consultant,
                           as: :user_picker,
                           collection: Renalware::User.consultants,
-                          wrapper: :horizontal_medium
+                          wrapper: :horizontal_medium,
+                          include_blank: "None"
           = f.association :named_nurse,
                       as: :user_picker,
                       collection: Renalware::User.ordered,
-                      wrapper: :horizontal_medium
+                      wrapper: :horizontal_medium,
+                      include_blank: "None"
           = f.association :hospital_centre,
                       collection: Renalware::Hospitals::Centre.where(host_site: true).ordered,
                       wrapper: :horizontal_medium,
