@@ -22,24 +22,27 @@ class AddStartedAtToHDSessions < ActiveRecord::Migration[6.0]
       # and when a session is a DNA with not start_time we will use
       # "2021-12-12 00:00:00"
       connection.execute(<<-SQL.squish)
-        UPDATE hd_sessions
+        UPDATE renalware.hd_sessions
         set started_at = (performed_on + coalesce(start_time, '00:00'::time))
         where performed_on is not null;
       SQL
 
       connection.execute(<<-SQL.squish)
-        UPDATE hd_sessions
+        UPDATE renalware.hd_sessions
         set stopped_at = (performed_on + coalesce(end_time, '00:00'::time))
         where performed_on is not null and end_time is not null;
       SQL
 
-      # Rename the 3 old columns as 'legacy'
-      rename_column :hd_sessions, :performed_on, :performed_on_legacy
-      rename_column :hd_sessions, :start_time, :start_time_legacy
-      rename_column :hd_sessions, :end_time, :end_time_legacy
+      # Keep the now unused performed_on, start_time, end_time columns for now
+      # but allow nulls in performed_on. In a separate release we will rename these cols
+      # to *_legacy;
+      change_column_null :hd_sessions, :performed_on, true
 
-      # Allow nulls
-      change_column_null :hd_sessions, :performed_on_legacy, true
+      # TODO: do column renaming in another release for safety
+      # Rename the 3 old columns as 'legacy'
+      # rename_column :hd_sessions, :performed_on, :performed_on_legacy
+      # rename_column :hd_sessions, :start_time, :start_time_legacy
+      # rename_column :hd_sessions, :end_time, :end_time_legacy
     end
   end
 end
