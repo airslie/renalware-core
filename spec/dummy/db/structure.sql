@@ -883,6 +883,83 @@ $$;
 
 
 --
+-- Name: pathology_missing_urrs(integer, integer, character varying, character varying, character varying); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.pathology_missing_urrs(look_behind_hours integer DEFAULT 12, look_ahead_hours integer DEFAULT 4, post_ure_code character varying DEFAULT 'P_URE'::character varying, ure_code character varying DEFAULT 'URE'::character varying, urr_code character varying DEFAULT 'URR'::character varying) RETURNS TABLE(suggested_urr numeric, post_urea_observed_at timestamp without time zone, post_urea_result double precision, post_urea_distance_in_hours_from_pre integer, pre_urea_observed_at timestamp without time zone, pre_urea_result double precision, post_urea_request_id integer, post_urea_observation_id integer, post_urea_code character varying, pre_urea_request_id integer, pre_urea_observation_id integer, pre_urea_code character varying, patient_id integer)
+    LANGUAGE sql
+    AS $_$
+
+with obrs_with_either_one_urr_or_one_post_urea as (
+    select
+        patient_id,
+        request_id, -- same for urr and p_ure so helps us find urr if exists
+        count(*) as urr_p_ure_count -- number of p_ure and urr OBX in this OBR - unlikely to be anything other than 0,1,2 (2 == URR alrready generated)
+    from renalware.pathology_observations po
+    inner join renalware.pathology_observation_descriptions pod on pod.id = po.description_id
+    inner join renalware.pathology_observation_requests por on por.id = po.request_id
+    where pod.code in ('P_URE', 'URR')
+    group by patient_id, request_id --observed_at::date
+    having count(*) = 1 -- select only rows with either just a P_URE or just a URR. Really only the former will be found but you never know
+),
+post_urea_with_no_urr_sibling as (
+    select
+        x.*,
+        po.id as observation_id,
+        code,
+        nresult,
+        observed_at
+    from renalware.pathology_observations po
+    inner join renalware.pathology_observation_descriptions pod on pod.id = po.description_id
+    inner join obrs_with_either_one_urr_or_one_post_urea x on x.request_id = po.request_id
+    where pod.code = 'P_URE' and nresult > 0
+),
+per_and_post_urea_pairs as (
+    select
+        post.observed_at       as post_urea_observed_at
+        ,post.nresult           as post_urea_result
+        ,abs((EXTRACT(epoch from AGE(post.observed_at, pre.observed_at)) / 60 / 60 )::int) as post_urea_distance_in_hours_from_pre
+        ,pre.observed_at        as pre_urea_observed_at
+        ,pre.nresult            as pre_urea_result
+        ,post.request_id        as post_urea_request_id
+        ,post.observation_id    as post_urea_observation_id
+        ,post.code              as post_urea_code
+        ,pre.request_id         as pre_urea_request_id
+        ,pre.id                 as pre_urea_observation_id
+        ,pre.code               as pre_urea_code
+        ,post.patient_id
+
+    from post_urea_with_no_urr_sibling post
+    left outer join (
+        select
+            po.id,
+            po.nresult,
+            po.observed_at,
+            pod.code,
+            por.patient_id,
+            por.id as request_id
+        from renalware.pathology_observations po
+        inner join renalware.pathology_observation_descriptions pod on pod.id = po.description_id
+        inner join renalware.pathology_observation_requests por on por.id = po.request_id
+        where
+            pod.code = 'URE'
+            and nresult > 0
+    ) pre on pre.patient_id = post.patient_id
+    and tsrange(
+        post.observed_at - '1 hour'::interval * $1,
+        post.observed_at + '1 hour'::interval * $2
+        ) @> pre.observed_at
+)
+select
+    distinct on (x.patient_id, x.post_urea_observation_id)
+    round(((x.pre_urea_result - x.post_urea_result) / x.pre_urea_result * 100)::numeric, 2) as suggested_urr,
+    x.*
+    from per_and_post_urea_pairs x
+    order by x.patient_id, x.post_urea_observation_id, x.post_urea_distance_in_hours_from_pre asc;
+$_$;
+
+
+--
 -- Name: pathology_resolve_observation_description(character varying, character varying); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -4648,9 +4725,9 @@ CREATE TABLE renalware.hd_sessions (
     patient_id integer,
     hospital_unit_id integer,
     modality_description_id integer,
-    performed_on_legacy date,
-    start_time_legacy time without time zone,
-    end_time_legacy time without time zone,
+    performed_on date,
+    start_time time without time zone,
+    end_time time without time zone,
     duration integer,
     notes text,
     created_by_id integer NOT NULL,
@@ -16585,10 +16662,10 @@ CREATE INDEX index_hd_sessions_on_patient_id ON renalware.hd_sessions USING btre
 
 
 --
--- Name: index_hd_sessions_on_performed_on_legacy; Type: INDEX; Schema: renalware; Owner: -
+-- Name: index_hd_sessions_on_performed_on; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_hd_sessions_on_performed_on_legacy ON renalware.hd_sessions USING btree (performed_on_legacy);
+CREATE INDEX index_hd_sessions_on_performed_on ON renalware.hd_sessions USING btree (performed_on);
 
 
 --
@@ -23647,6 +23724,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220113132731'),
 ('20220114171857'),
 ('20220116183123'),
-('20220120172755');
+('20220120172755'),
+('20220210152018');
 
 

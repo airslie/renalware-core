@@ -77,4 +77,9 @@ namespace :pathology do
         Renalware::Pathology::ReprocessFeedMessageJob.perform_later(message: msg)
       end
   end
+
+  desc "Derive and store missing URR pathology"
+  task generate_missing_urr: :environment do
+    Renalware::Pathology::Generators::UrrGenerator.call
+  end
 end
