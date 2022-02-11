@@ -706,6 +706,8 @@ GEM
       sprockets (>= 3.0.0)
     store_model (0.8.0)
       activerecord (>= 5.2)
+    strong_migrations (0.8.0)
+      activerecord (>= 5.2)
     sys-uname (1.2.2)
       ffi (~> 1.1)
     tailwindcss-rails (0.5.1)
@@ -817,6 +819,7 @@ DEPENDENCIES
   sentry-ruby (~> 4.7)
   shoulda-matchers (~> 4.1)
   simplecov (~> 0.17.1)
+  strong_migrations
   tailwindcss-rails (~> 0.4)
   test-prof
   turnip (~> 4.0)!

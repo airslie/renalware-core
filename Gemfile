@@ -69,6 +69,7 @@ group :development do
   gem "rubocop-performance"
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
+  gem "strong_migrations"
   gem "turnip", "~> 4.0", github: "airslie/turnip", require: false
 end
 
