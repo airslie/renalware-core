@@ -98,13 +98,28 @@ module Renalware
       is_expected.to validate_length_of(:nhs_number).is_equal_to(10)
       is_expected.to validate_presence_of :family_name
       is_expected.to validate_presence_of :given_name
-      is_expected.to validate_presence_of :born_on
-      is_expected.to validate_timeliness_of(:born_on)
       is_expected.to validate_timeliness_of(:died_on)
       is_expected.to have_many(:alerts)
       is_expected.to belong_to(:country_of_birth)
       is_expected.to belong_to(:named_consultant)
       is_expected.to respond_to(:patient_at?)
+    end
+
+    describe "#born_on" do
+      it :aggregate_failures do
+        is_expected.to validate_presence_of(:born_on)
+        is_expected.to validate_timeliness_of(:born_on)
+      end
+
+      it "is invalid if before 01-Jan-1880" do
+        patient = described_class.new(born_on: "1880-01-01").tap(&:valid?)
+        expect(patient.errors[:born_on]).to include("must be after 01-Jan-1880")
+      end
+
+      it "is valid if after 01-Jan-1880" do
+        patient = described_class.new(born_on: "1880-01-02").tap(&:valid?)
+        expect(patient.errors[:born_on]).not_to include("must be after 01-Jan-1880")
+      end
     end
 
     describe "#nhs_number_formatted" do

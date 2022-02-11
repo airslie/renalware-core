@@ -21,7 +21,7 @@ module Renalware::Feeds
           found: true
         },
         {
-          patient_args: { born_on: "1800-01-01", nhs_number: "5928173695" },
+          patient_args: { born_on: "1900-01-01", nhs_number: "5928173695" },
           locator_args: { born_on: "2000-01-01", nhs_number: "5928173695" },
           found: false
         },
