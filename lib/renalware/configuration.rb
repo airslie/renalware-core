@@ -193,6 +193,14 @@ module Renalware
     }
 
     config_accessor(:patients_must_have_at_least_one_hosp_number) { true }
+
+    config_accessor(:pathology_post_hd_urea_code) { "P_URE" }
+    config_accessor(:pathology_hours_to_search_behind_for_pre_ure_result) {
+      ENV.fetch("PATHOLOGY_HOURS_TO_SEARCH_BEHIND_FOR_PRE_URE_RESULT", "6").to_i
+    }
+    config_accessor(:pathology_hours_to_search_ahead_for_pre_ure_result) {
+      ENV.fetch("PATHOLOGY_HOURS_TO_SEARCH_AHEAD_FOR_PRE_URE_RESULT", "4").to_i
+    }
   end
 
   def self.config
