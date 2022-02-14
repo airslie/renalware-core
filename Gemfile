@@ -79,4 +79,5 @@ group :development, :test do
   gem "pry-byebug", require: false
   gem "pry-rails", require: false
   gem "rubocop", require: false
+  gem "strong_migrations"
 end
