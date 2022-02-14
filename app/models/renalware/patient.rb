@@ -111,7 +111,14 @@ module Renalware
     validates :born_on, presence: true
     validate :validate_sex
     validate :must_have_at_least_one_hosp_number
-    validates :born_on, timeliness: { type: :date }
+    validates(
+      :born_on,
+      timeliness: {
+        type: :date,
+        after: Date.parse("1880-01-01"),
+        after_message: "must be after 01-Jan-1880"
+      }
+    )
     validates :email, email: true, allow_blank: true
 
     attr_accessor :do_death_validations
