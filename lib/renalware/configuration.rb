@@ -67,7 +67,7 @@ module Renalware
     config_accessor(:ukrdc_gpg_recipient) { ENV.fetch("UKRDC_GPG_RECIPIENT", "renalware_test") }
     config_accessor(:ukrdc_gpg_homedir) { ENV["UKRDC_GPG_HOMEDIR"] }
     config_accessor(:ukrdc_gpg_keyring) do
-      ENV.fetch("UKRDC_GPG_KEYRING", Engine.root.join("config", "gpg", "renalware_test.gpg"))
+      ENV.fetch("UKRDC_GPG_KEYRING", Engine.root.join("config", "gpg", "ukrdc_public.key"))
     end
     config_accessor(:ukrdc_working_path) do
       ENV.fetch("UKRDC_WORKING_PATH", File.join("/var", "ukrdc"))
