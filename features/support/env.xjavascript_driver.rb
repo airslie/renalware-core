@@ -16,6 +16,7 @@ Capybara.register_driver(:rw_headless_chrome) do |app|
   options.add_argument("window-size=1366,1768")
   options.add_argument("headless")
   options.add_argument("disable-gpu")
+
   options.add_argument("disable-extensions")
   # options.add_argument("disable-dev-shm-usage") # causes a chrome unreachable error on CI
   options.add_argument("no-sandbox")

@@ -31,6 +31,7 @@ gem "tailwindcss-rails", "~> 0.4"
 # For sentry error reporting and metrics
 gem "sentry-rails", "~> 4.7"
 gem "sentry-ruby", "~> 4.7"
+gem "strong_migrations"
 
 group :test do
   gem "capybara", "~> 3.32"
@@ -79,5 +80,4 @@ group :development, :test do
   gem "pry-byebug", require: false
   gem "pry-rails", require: false
   gem "rubocop", require: false
-  gem "strong_migrations"
 end

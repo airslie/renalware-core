@@ -43,10 +43,13 @@ div(data-controller="conditional-display" data-conditional-display-attribute-to-
     br
 
     div.hidden(data-conditional-display-target="displayable")
-      .rounded.border.border-gray-100.bg-yellow-100.mb-6.px-2.py-1.w-auto.flex.items-start.shadow
-        i.fas.fa-exclamation-circle.mr-2.mt-1.text-gray-600.text-l
-        span
-          ' After saving, a PDF copy of this event will be sent to the EPR document store/s.
+      .mb-6.px-2.py-1.sm:w-auto.md:w-2/3.lg:w-1/2.rounded.border.border-gray-100.bg-yellow-100.shadow
+        .flex.items-start
+          i.fas.fa-exclamation-circle.mr-2.mt-1.text-gray-600.text-l
+          span This event cannot be changed once saved.
+        .flex.items-start(class="pl-0.5")
+          i.fas.fa-file-pdf.mr-2.mt-1.text-gray-600.text-l.pr-1
+          span A PDF copy is automatically sent to the EPR document store/s.
 
     = submit_tag "Save", class: "button"
     '  or
