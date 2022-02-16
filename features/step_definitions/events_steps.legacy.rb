@@ -13,15 +13,19 @@ When("records Patty's event") do
     fill_in_date_time "Date time", with: fake_date_time
     find("#events_event_date_time").send_keys(:escape) # dismiss the datepicker which has popped up
 
-    select "Email", from: "Event type"
+    slim_select "Email", from: "Event type"
     wait_for_ajax
     fill_in "Description", with: "Discussed meeting to be set up with family."
     fill_trix_editor with: "Patty to speak to family before meeting set up."
-    click_on t("btn.save")
+
+    expect {
+      click_on t("btn.save")
+    }.to change(Renalware::Events::Event, :count).by(1)
   end
 end
 
-Then("Clyde should see Patty's new event on the clinical summary") do
+Then("Clyde should see Patty's new event on the events page") do
+  expect(page).to have_current_path(patient_events_path(@patty))
   expect(page).to have_content(l(fake_date))
   expect(page).to have_content(fake_time)
   expect(page).to have_content("Email")

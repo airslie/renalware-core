@@ -6,16 +6,13 @@ div(data-controller="conditional-display" data-conditional-display-attribute-to-
       html: { autocomplete: "off" },
       wrapper: "horizontal_form" do |f|
 
-    = f.input :date_time,
-              as: :datetime_picker,
-              wrapper: :horizontal_datepicker
-
-    = f.input :disable_selection_of_event_type, as: :hidden
+    - if event.persisted?
+      .mb-3.font-bold.text-lg= event.event_type.name
 
     - if event.disable_selection_of_event_type
       = f.input :event_type_id, as: :hidden
     - else
-      #event-type-dropdown-container
+      #event-type-dropdown-container.pb-6
         = f.input :event_type_id,
                   as: :grouped_select,
                   group_method: :types,
@@ -24,15 +21,16 @@ div(data-controller="conditional-display" data-conditional-display-attribute-to-
                   wrapper: :horizontal_medium,
                   input_html: { \
                     id: "event-type-dropdown",
-                    class: "searchable_select",
                     required: :required,
                     tabindex: 2001,
-                    data: { \
-                        controller: "select", \
-                        action: "jquery:select2:select->select#refresh jquery:select2:select->conditional-display#showhide" \
-                    } \
+                    data: { controller: "slimselect select", action: "change->select#refresh change->conditional-display#showhide"} \
                   }
 
+    = f.input :date_time,
+              as: :datetime_picker,
+              wrapper: :horizontal_datepicker
+
+    = f.input :disable_selection_of_event_type, as: :hidden
     / The contents of this div will get replaced if a user selects an alternative
     / event type in the drop-down above. See events.js.
     #event-type-specific-inputs

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Creating an event", type: :system, js: true do
-  include AjaxHelpers
+  include SlimSelectHelper
 
   context "when adding a simple event" do
     it "works" do
@@ -13,8 +13,8 @@ describe "Creating an event", type: :system, js: true do
       event_type = create(:access_clinic_event_type, name: "Access--Clinic")
       visit new_patient_event_path(patient)
 
-      select "Access--Clinic", from: "Event type"
-      wait_for_ajax
+      slim_select "Access--Clinic", from: "Event type"
+
       expect(page).to have_content("Description")
 
       fill_in "Description", with: "Test"

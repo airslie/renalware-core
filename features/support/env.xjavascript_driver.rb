@@ -29,7 +29,7 @@ Capybara.register_driver(:rw_headless_chrome) do |app|
   )
 end
 
-if RUBY_PLATFORM.match?(/darwin/)
+unless ENV.key?("SEMAPHORECI")
   Capybara::Screenshot.register_driver(:rw_headless_chrome) do |driver, path|
     driver.browser.save_screenshot(path)
   end

@@ -3,6 +3,8 @@
 require "rails_helper"
 
 describe "Creating an clinical frailty score event", type: :system, js: true do
+  include SlimSelectHelper
+
   context "when adding the event" do
     it "allows a user to also select the score from an event-specific dropdown" do
       user = login_as_clinical
@@ -12,7 +14,7 @@ describe "Creating an clinical frailty score event", type: :system, js: true do
 
       visit new_patient_event_path(patient)
 
-      select "Clinical Frailty Score", from: "Event type"
+      slim_select "Clinical Frailty Score", from: "Event type"
       select "9", from: "Score"
 
       click_on t("btn.save")

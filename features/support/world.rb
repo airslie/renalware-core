@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/GlobalVars
-Dir[Renalware::Engine.root.join("features/support/worlds/*.rb")].sort.each { |f| require f }
+Dir[Renalware::Engine.root.join("features/support/worlds/*.rb")].each { |f| require f }
 
 $world_methods = []
 
@@ -35,6 +35,9 @@ add_class_to_world("World")
 
 require_relative "../../spec/support/ajax_helpers"
 World(AjaxHelpers)
+
+require_relative "../../spec/support/slim_select_helper"
+World(SlimSelectHelper)
 
 require_relative "../../spec/support/text_editor_helpers"
 World(TextEditorHelpers)
