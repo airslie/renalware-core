@@ -1,6 +1,7 @@
-table#patients
+table#patients.toggleable(data-controller="toggle")
   thead
     tr
+      th.togglers.noprint= rows_toggler
       th.at-least.col-width-large
         = sort_link(query,
                    :patient_family_name,
@@ -10,17 +11,16 @@ table#patients
       th.col-width-reference-no= t("thead.hospital_number")
       th.col-width-tiny Sex
       th.col-width-date Date of Birth
-      th.col-width-tiny.show-for-large-up Age
-      th.col-width-small= sort_link(query, :created_at, "Date Added")
-      th.col-width-medium Added By
+      th.col-with-tiny Age
+      th.col-width-date= sort_link(query, :created_at, "Date Added")
+      th.col-width-tiny Notes
       th.col-width-medium Category
-      th Notes
+      th.col-width-medium Added By
       th.col-width-medium
         = sort_link(query,
                    :patient_current_modality_description_name,
                    "Modality")
 
-  tbody
-    = render partial: "worry", collection: worries
+  = render partial: "worry", collection: worries
 
 = paginate worries

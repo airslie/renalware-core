@@ -1,13 +1,30 @@
 - patient = Renalware::PatientPresenter.new(worry.patient)
-tr
-  td.full-name= default_patient_link(patient)
-  td= patient.nhs_number
-  td= patient.hospital_identifier
-  td= patient.sex.code
-  td= patient.born_on
-  td.show-for-large-up= patient.age
-  td= l(worry.created_at.to_date)
-  td= worry.created_by.to_s
-  td= worry.worry_category&.name
-  td= worry.notes
-  td= patient.current_modality
+- toggle = worry.notes.present?
+tbody
+  tr
+    td
+      = row_toggler if toggle
+    td.full-name= default_patient_link(patient)
+    td= patient.nhs_number
+    td= patient.hospital_identifier
+    td= patient.sex.code
+    td= patient.born_on
+    td= patient.age
+    td= l(worry.created_at.to_date)
+    td.text-center
+      - if toggle
+        i.fas.fa-comment.text-yellow-300.hover:text-yellow-400(title=worry.notes)
+    td= worry.worry_category&.name
+    td= worry.created_by.to_s
+    td= patient.current_modality
+  - if toggle
+    tr
+      td
+      td(colspan=11)
+
+          .py-2
+            i.fas.fa-comment.text-yellow-300.hover:text-yellow-400(title=worry.notes)
+            b.px-2 Notes:
+            = worry.notes
+  - else
+    tr
