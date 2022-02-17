@@ -10,8 +10,8 @@ html
 
     span.logo= wicked_pdf_image_tag "renalware/NHS-Black.jpg", width: 50
 
-  main
-    h1 Medication List
+  main.medications-list
+    h1= title
     = "As at #{l(Time.zone.now)}"
 
     - with_format(:html) do
@@ -27,6 +27,9 @@ html
       - else
         p None
 
+    section.review
+      = render Renalware::Medications::LatestReviewComponent.new(patient: patient)
+
     section.prescriptions
       - with_format(:html) do
         = render "current",
@@ -38,4 +41,13 @@ html
         = render "recently_stopped",
                 prescriptions: recently_stopped_prescriptions
 
-  = render Renalware::Medications::LatestReviewComponent.new(patient: patient)
+    section.sign-off
+      div
+        .sign-off_title Signature
+        .sign-off_space
+      div
+        .sign-off_title Professional reg number
+        .sign-off_space
+      div
+        .sign-off_title Date
+        .sign-off_space

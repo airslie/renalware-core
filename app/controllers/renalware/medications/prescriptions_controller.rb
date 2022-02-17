@@ -15,7 +15,9 @@ module Renalware
         respond_to do |format|
           format.html { render_index }
           format.js { render_index }
-          format.pdf { render_prescriptions_list_to_hand_to_patient }
+          format.pdf do
+            render_prescriptions_list_to_hand_to_patient(hd_only: params[:hd_only] == "true")
+          end
         end
       end
 
@@ -78,13 +80,22 @@ module Renalware
       end
 
       # rubocop:disable Layout/LineLength, Metrics/MethodLength
-      def render_prescriptions_list_to_hand_to_patient
+      def render_prescriptions_list_to_hand_to_patient(hd_only:)
+        title = "Medication List"
+
+        if hd_only
+          title = "Medications to be given on HD"
+          params[:q] ||= {}
+          params[:q][:administer_on_hd_eq] = true
+        end
+
         render_with_wicked_pdf(
           pdf_options.merge(
             pdf: pdf_filename,
             disposition: "inline",
             print_media_type: true,
             locals: {
+              title: title,
               patient: patient,
               current_prescriptions: present(current_prescriptions, PrescriptionPresenter),
               recently_stopped_prescriptions: present(recently_stopped_prescriptions, PrescriptionPresenter),
