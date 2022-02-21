@@ -38,15 +38,24 @@ module Renalware
           end
         end
 
-        # If the ORU messages has an AKI score then add the patient to RW is they are not already,
+        # If the ORU messages has an AKI score then add the patient to RW if they are not already,
         # and give them the AKI modality.
         # NOTE: We are already inside a transaction here
+        #
+        # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength
+        # rubocop:disable Metrics/PerceivedComplexity,Rails/WhereExists
         def oru_message_arrived(args)
           hl7_message = args[:hl7_message]
           aki = MessageDecorator.new(hl7_message)
           return unless aki.aki_score > 0
 
-          patient = add_patient_if_not_exists(hl7_message)
+          patient = Feeds::PatientLocator.call(hl7_message.patient_identification)
+          if patient
+            return if patient.born_on > 17.years.ago
+          else
+            patient = add_patient_if_not_exists(hl7_message)
+          end
+
           assign_aki_modality_to(patient) if patient.current_modality.blank?
 
           current_modality_code = patient.current_modality&.description&.code
@@ -71,6 +80,8 @@ module Renalware
             )
           end
         end
+        # rubocop:enable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength
+        # rubocop:enable Metrics/PerceivedComplexity,Rails/WhereExists
 
         private
 
