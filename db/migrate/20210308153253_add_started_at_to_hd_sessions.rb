@@ -3,7 +3,7 @@ class AddStartedAtToHDSessions < ActiveRecord::Migration[6.0]
     within_renalware_schema do
       add_column :hd_sessions, :started_at, :datetime
       add_column :hd_sessions, :stopped_at, :datetime
-      add_index :hd_sessions, [:started_at, :stopped_at]
+      # add_index :hd_sessions, [:started_at, :stopped_at]
 
       # In order to support overnight sessions, we are deprecating these 3 columns
       # - performed_on date
@@ -21,17 +21,17 @@ class AddStartedAtToHDSessions < ActiveRecord::Migration[6.0]
       # - stopped_at "2021-12-13 13:00:00"
       # and when a session is a DNA with not start_time we will use
       # "2021-12-12 00:00:00"
-      connection.execute(<<-SQL.squish)
-        UPDATE renalware.hd_sessions
-        set started_at = (performed_on + coalesce(start_time, '00:00'::time))
-        where performed_on is not null;
-      SQL
+      # connection.execute(<<-SQL.squish)
+      #   UPDATE renalware.hd_sessions
+      #   set started_at = (performed_on + coalesce(start_time, '00:00'::time))
+      #   where performed_on is not null;
+      # SQL
 
-      connection.execute(<<-SQL.squish)
-        UPDATE renalware.hd_sessions
-        set stopped_at = (performed_on + coalesce(end_time, '00:00'::time))
-        where performed_on is not null and end_time is not null;
-      SQL
+      # connection.execute(<<-SQL.squish)
+      #   UPDATE renalware.hd_sessions
+      #   set stopped_at = (performed_on + coalesce(end_time, '00:00'::time))
+      #   where performed_on is not null and end_time is not null;
+      # SQL
 
       # Keep the now unused performed_on, start_time, end_time columns for now
       # but allow nulls in performed_on. In a separate release we will rename these cols
