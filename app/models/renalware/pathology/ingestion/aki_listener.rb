@@ -59,7 +59,7 @@ module Renalware
           assign_aki_modality_to(patient) if patient.current_modality.blank?
 
           current_modality_code = patient.current_modality&.description&.code
-          excluded_modalities = %w(hd pd low_clearance akcc)
+          excluded_modalities = %w(hd pd death)
           return if excluded_modalities.include?(current_modality_code)
 
           has_recent_aki_alert = Renal::AKIAlert
