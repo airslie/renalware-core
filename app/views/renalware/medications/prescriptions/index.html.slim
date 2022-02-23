@@ -12,10 +12,10 @@
                        aria-controls="prescription-print-options"
                        aria-expanded="false")
     i.fas.fa-print
-    = t("btn.print")
+    = "#{t('btn.print')}&hellip;".html_safe
 
   ul.f-dropdown#prescription-print-options(data-dropdown-content aria-hidden="true")
-    - [{ hd_only: false, title: "All Prescriptions" }, { hd_only: true, title: "HD Prescriptions" }].each do |opts|
+    - [{ hd_only: false, title: "All Drugs" }, { hd_only: true, title: "HD Drugs" }].each do |opts|
       li
         = link_to(opts[:title],
                   patient_prescriptions_path(@patient,
@@ -24,12 +24,11 @@
                                              format: :pdf),
                   target: :blank)
 
-  / link to open the modal
-  = link_to new_patient_medications_home_delivery_event_path(patient, format: :html),
-            class: "button secondary with-icon",
-            data: { "reveal-id" => "print-home-delivery-drugs-modal", "reveal-ajax" => "true" } do
-    i.fa.fa-print
-    | Print home delivery drugs
+    li
+      / link to open the modal
+      = link_to "Home Delivery Drugs",
+                new_patient_medications_home_delivery_event_path(patient, format: :html),
+                data: { "reveal-id" => "print-home-delivery-drugs-modal", "reveal-ajax" => "true" }
 
   / modal placeholder
   #print-home-delivery-drugs-modal.reveal-modal.small(data-reveal
