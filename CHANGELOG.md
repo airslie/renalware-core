@@ -9,10 +9,24 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.5
+### Added
+-  Allow printing HD-only drugs from a patient's prescriptions page #3806
+### Changed
+- Add author's GMC code as a TXA.5 subfield in MDM^T02 HL7 messages #3820
+- Exclude death but not low_clearance modalities from AKI alerts #3823
+- Do not create AKI alerts for patients < 17 years old #3816
+### Fixed
+- Disable datepicker autocomplete in filters on clinic visits page #3818
+
 ## 2.2.4
 ### Added
 ### Changed
 - Conditionally enable rolling comorbidities
+- Toggle worryboard notes #3805
+- Don't allow a patient DOB < 01-01-1880 #3810
+- Add option for a hosp to derive and store missing URR pathology #3809
+- Allow clearing named_nurse and named_consultant in clinical profile #3802
 ### Fixed
 - Error in HD Session show page caused by duplicate comma
 - Kwarg error invoking SavePdfLetterToFileJob
