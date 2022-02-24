@@ -125,7 +125,7 @@ module Renalware
           end
 
           describe "creation of aki_alert" do
-            %i(hd pd low_clearance).each do |mod|
+            %i(hd pd death).each do |mod|
               it "no aki alert created when modality is #{mod}" do
                 patient = create(:patient, local_patient_id: "Z999990", born_on: "19880924")
                 create(
@@ -141,7 +141,7 @@ module Renalware
               end
             end
 
-            %i(transplant aki).each do |mod|
+            %i(transplant aki low_clearance).each do |mod|
               it "creates an aki alert created when modality is e.g. #{mod}" do
                 patient = create(:patient, local_patient_id: "Z999990", born_on: "19880924")
                 create(
