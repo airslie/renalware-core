@@ -8,6 +8,7 @@
 
     = simple_form_for(request,
                       remote: true,
+                      html: { autocomplete: "off" },
                       wrapper: :horizontal_form) do |f|
 
       .row.admissions-request-patient
