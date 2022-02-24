@@ -3,6 +3,7 @@
 require "rails_helper"
 
 describe "Creating an vaccination", type: :system, js: true do
+  include SlimSelectHelper
   include AjaxHelpers
   let(:event_date_time) { "08-Feb-2018 07:00" }
 
@@ -19,9 +20,8 @@ describe "Creating an vaccination", type: :system, js: true do
 
       visit new_patient_event_path(patient)
 
+      slim_select "Vaccination", from: "Event type"
       fill_in "Date time", with: event_date_time
-      select "Vaccination", from: "Event type"
-      wait_for_ajax
       select "Vac Type A", from: "Type"
       select "ABC", from: "Drug"
 
@@ -36,7 +36,7 @@ describe "Creating an vaccination", type: :system, js: true do
     end
   end
 
-  context "when adding a vaccination through via the virology/vaccinations " do
+  context "when adding a vaccination through via the virology/vaccinations" do
     it "captures extra data" do
       user = login_as_clinical
       patient = create(:patient, by: user)

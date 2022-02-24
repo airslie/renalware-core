@@ -38,6 +38,7 @@
     "rollup-plugin-babel": "^4.3.3",
     "select2": "^4.0.5",
     "serialize-javascript": "^3.0.0",
+    "slim-select": "^1.27.1",
     "sortablejs": "^1.13.0",
     "stimulus": "^2.0.0",
     "trix": "^1.2.2",

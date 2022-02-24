@@ -37,6 +37,8 @@ import PatientAttachmentsController from "./controllers/patients/attachments_con
 import SortableController from "./controllers/sortable_controller"
 import SelectController from "./controllers/select_controller"
 import RadioResetController from "./controllers/radio_reset_controller"
+import ConditionalDisplayController from "./controllers/conditional_display_controller"
+import SlimselectController from "./controllers/slimselect_controller"
 
 const application = Application.start()
 application.register("toggle", ToggleController)
@@ -57,5 +59,7 @@ application.register("patient-attachments", PatientAttachmentsController)
 application.register("sortable", SortableController)
 application.register("select", SelectController)
 application.register("radio-reset", RadioResetController)
+application.register("conditional-display", ConditionalDisplayController)
+application.register("slimselect", SlimselectController)
 
 window.Chartkick.use(window.Highcharts)

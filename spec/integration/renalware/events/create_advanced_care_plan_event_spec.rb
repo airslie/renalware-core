@@ -3,6 +3,8 @@
 require "rails_helper"
 
 describe "Creating an Advanced Care Plan event", type: :system, js: true do
+  include SlimSelectHelper
+
   context "when adding the event" do
     it "allows a user to also select the state from an event-specfic dropdown" do
       user = login_as_clinical
@@ -12,7 +14,8 @@ describe "Creating an Advanced Care Plan event", type: :system, js: true do
 
       visit new_patient_event_path(patient)
 
-      select event_type.name, from: "Event type"
+      slim_select event_type.name, from: "* Event type"
+
       select "ACP required but not started", from: "State"
 
       click_on t("btn.save")

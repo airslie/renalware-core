@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Creating an biopsy", type: :system, js: true do
-  include AjaxHelpers
+  include SlimSelectHelper
 
   context "when adding a biopsy event" do
     it "captures extra data" do
@@ -14,7 +14,7 @@ describe "Creating an biopsy", type: :system, js: true do
 
       visit new_patient_event_path(patient)
 
-      select "Renal biopsy", from: "Event type"
+      slim_select "Renal biopsy", from: "Event type"
       select "De Novo GN", from: "Rejection"
       select "26-50%", from: "IFTA"
 

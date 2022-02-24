@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Creating a investigation event", type: :system, js: true do
-  include AjaxHelpers
+  include SlimSelectHelper
 
   context "when adding a investigation event through the Events screen" do
     it "captures extra data" do
@@ -13,8 +13,7 @@ describe "Creating a investigation event", type: :system, js: true do
 
       visit new_patient_event_path(patient)
 
-      select "Investigation", from: "Event type"
-      wait_for_ajax
+      slim_select "Investigation", from: "Event type"
       choose "Transplant recipient"
       select "Dental Check", from: "Type"
       fill_in "Result", with: "result"
@@ -40,7 +39,6 @@ describe "Creating a investigation event", type: :system, js: true do
 
       visit new_patient_investigation_path(patient)
 
-      wait_for_ajax
       choose "Transplant recipient"
       select "Dental Check", from: "Type"
       fill_in "Result", with: "result"
