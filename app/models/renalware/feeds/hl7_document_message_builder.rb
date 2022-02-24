@@ -127,7 +127,7 @@ module Renalware
         seg.activity_datetime = approved_at
         # primary_activity_provider_code is the author
         seg.primary_activity_provider_code = <<-AUTHOR.squish
-          #{author.family_name}^#{author.given_name}
+          #{author.family_name}^#{author.given_name}^#{author.gmc_code}
         AUTHOR
 
         # TXA.6 Origination timestamp - the date the letter was Approved ie became effectively

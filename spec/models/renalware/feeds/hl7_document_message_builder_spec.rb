@@ -37,7 +37,7 @@ module Renalware
       end
 
       let(:user) do
-        create(:user, family_name: "Smith", given_name: "Jo")
+        create(:user, family_name: "Smith", given_name: "Jo", gmc_code: "MyGmcCode")
       end
 
       describe "MSH, PID, TXA, OBX segment" do
@@ -66,7 +66,7 @@ module Renalware
 
               expect(msg[:TXA].to_s).to eq(
                 "TXA||CL^Clinic Letter|ED^Electronic Document|" \
-                "#{letter.approved_at.strftime('%Y%m%d%H%M')}|Smith^Jo|" \
+                "#{letter.approved_at.strftime('%Y%m%d%H%M')}|Smith^Jo^MyGmcCode|" \
                 "#{letter.approved_at.strftime('%Y%m%d%H%M')}||||||#{letter.id}||||#{expected_filename}|AU"
               )
               expect(msg[:OBX].to_s).to eq(
