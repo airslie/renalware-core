@@ -2,6 +2,7 @@
   = simple_form_for query,
       as: :q,
       url: admissions_consults_path,
+      html: { autocomplete: "off" },
       method: :get do |f|
     .row
       .columns.medium-2.large-2

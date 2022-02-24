@@ -2,6 +2,7 @@
   = simple_form_for form,
       as: :query,
       url: admissions_admissions_path,
+      html: { autocomplete: "off" },
       method: :get do |f|
 
     .flex.flex-col.sm:flex-row.items-end.pb-4

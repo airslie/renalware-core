@@ -3,6 +3,7 @@
     = simple_form_for query,
         as: :q,
         url: clinic_visits_path,
+        html: { autocomplete: "off" },
         method: :get do |f|
 
         .small-6.medium-2.large-2.columns

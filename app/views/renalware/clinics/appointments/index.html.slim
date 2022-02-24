@@ -3,6 +3,7 @@
     = simple_form_for query,
         as: :q,
         url: appointments_path,
+        html: { autocomplete: "off" },
         method: :get do |f|
       .row
         .medium-3.large-2.columns
