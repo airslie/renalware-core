@@ -10,14 +10,15 @@ This project adheres to Semantic Versioning.
 ### Fixed
 
 ## 2.2.5
-### Added
--  Allow printing HD-only drugs from a patient's prescriptions page #3806
 ### Changed
 - Add author's GMC code as a TXA.5 subfield in MDM^T02 HL7 messages #3820
 - Exclude death but not low_clearance modalities from AKI alerts #3823
 - Do not create AKI alerts for patients < 17 years old #3816
+- Add a trigger to maintain the legacy performed_on date #3829 
+- Add a msg on the new event form to indicate that the event will generate a PDF #3794 
 ### Fixed
 - Disable datepicker autocomplete in filters on clinic visits page #3818
+- Fixed bug where station not saving in HD session form #3830 
 
 ## 2.2.4
 ### Added
