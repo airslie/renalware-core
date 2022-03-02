@@ -734,7 +734,7 @@ GEM
     user_agent_parser (2.9.0)
     validates_timeliness (4.1.1)
       timeliness (>= 0.3.10, < 1)
-    view_component (2.49.0)
+    view_component (2.49.1)
       activesupport (>= 5.0.0, < 8.0)
       method_source (~> 1.0)
     virtus (1.0.5)
