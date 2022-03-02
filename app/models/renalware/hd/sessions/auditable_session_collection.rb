@@ -107,7 +107,10 @@ module Renalware
 
         def mean_weight_loss
           selector = ->(session) { session.weight_loss }
-          MeanValueStrategy.new(sessions: closed_sessions, selector: selector).call
+          MeanValueStrategy.new(
+            sessions: closed_sessions.reject{ |sess| sess.weight_loss.nil? }, 
+            selector: selector
+          ).call
         end
 
         def mean_weight_loss_as_percentage_of_body_weight

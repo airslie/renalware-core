@@ -164,6 +164,27 @@ module Renalware
             # effective weight loss = [3, 2, 1] so the mean = 1.99999 rounded to 2 places
             expect(audit.mean_weight_loss).to eq(2.0)
           end
+
+          it "excludes sessions where either pre or post is missing a value" do
+            # Here the last 2 session weights shold be ignored.
+            # In session 2 the pre weight has been declared as unmeasureable.
+            # In session 3 the post weight has been declared as unmeasureable.
+            pre_obs_weights = [100, 1000, nil]
+            post_obs_weights = [99, nil, 10]
+
+            @sessions = (0..2).map do |idx|
+              Session::Closed.new.tap do |session|
+                session.document.observations_before.weight = pre_obs_weights[idx]
+                session.document.observations_after.weight = post_obs_weights[idx]
+              end
+            end
+
+            # Only 1 session has a weight_loss - the others will have returned
+            # nil for weight_loss as either pre or post was nil, and so they
+            # are not included in the mean calculation.
+            # So mean calc = just one valie (100-99 = 1)
+            expect(audit.mean_weight_loss).to eq(1.0)
+          end
         end
 
         describe "#mean_machine_ktv" do
@@ -331,16 +352,22 @@ module Renalware
             session_with_dry_weight2.document.observations_before.weight = 200.0
             session_with_dry_weight2.document.observations_after.weight = 190.0
 
+            session_with_dry_weight3 = Session::Closed.new(dry_weight: dry_weight1)
+            session_with_dry_weight3.document.observations_before.weight = nil
+            session_with_dry_weight3.document.observations_after.weight = 99.0
+
             @sessions = [
               session_with_no_dry_weight,
               session_with_dry_weight1,
-              session_with_dry_weight2
+              session_with_dry_weight2,
+              session_with_dry_weight3
             ]
 
             # dryweight | weight loss | weight loss as % of body weight
             # nil       | 1           | 0
             # 100       | 1           | 1
             # 200       | 10          | 5
+            # 100       | nil (unmeasured) | nil so excluded from mean
             # ===========================
             #                           % Mean = (0 + 1 + 5) / 2 = 3%
 
