@@ -115,7 +115,7 @@ module Renalware
       def attributes
         [
           :hospital_unit_id, :notes, :dialysate_id,
-          :signed_on_by_id, :signed_off_by_id, :type,
+          :signed_on_by_id, :signed_off_by_id, :type, :hd_station_id,
           duration_form: [:start_date, :start_time, :end_time, :overnight_dialysis],
           document: []
         ]
