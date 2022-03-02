@@ -20,7 +20,7 @@ describe "HD DNA nag", type: :component, caching: true do
   context "when the patient has an HD DNA Session in the last 30 days" do
     it "has severity: medium and date: session date" do
       sessions = [
-        create(:hd_dna_session, patient: patient, started_at: 30.days.ago),
+        create(:hd_dna_session, patient: patient, started_at: 29.days.ago),
         create(:hd_dna_session, patient: patient, started_at: 31.days.ago),
         create(:hd_session, patient: patient, started_at: 2.days.ago)
       ]

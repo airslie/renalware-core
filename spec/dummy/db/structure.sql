@@ -69,7 +69,7 @@ CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA renalware;
 -- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
 --
 
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
+COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statistics of all SQL statements executed';
 
 
 --
@@ -1315,6 +1315,31 @@ BEGIN
   END IF;
   RETURN NULL ;
 END $$;
+
+
+--
+-- Name: update_hd_sessions_from_trigger(); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.update_hd_sessions_from_trigger() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+begin
+  IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') then
+    NEW.performed_on = NEW.started_at::date;
+  END IF;
+  RETURN NEW ;
+END $$;
+
+
+--
+-- Name: FUNCTION update_hd_sessions_from_trigger(); Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON FUNCTION renalware.update_hd_sessions_from_trigger() IS 'For backward-compatibility with any SQL written to query hd_sessions.performed_on,
+when the replacement started_at column is changed, write the data part
+to the legacy performed_on column';
 
 
 --
@@ -5404,6 +5429,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -16704,13 +16739,6 @@ CREATE INDEX index_hd_sessions_on_signed_on_by_id ON renalware.hd_sessions USING
 
 
 --
--- Name: index_hd_sessions_on_started_at_and_stopped_at; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_hd_sessions_on_started_at_and_stopped_at ON renalware.hd_sessions USING btree (started_at, stopped_at);
-
-
---
 -- Name: index_hd_sessions_on_type; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -20033,6 +20061,13 @@ CREATE TRIGGER feed_messages_preprocessing_trigger BEFORE INSERT ON renalware.de
 --
 
 CREATE TRIGGER update_current_observation_set_trigger AFTER INSERT OR UPDATE ON renalware.pathology_observations FOR EACH ROW EXECUTE FUNCTION renalware.update_current_observation_set_from_trigger();
+
+
+--
+-- Name: hd_sessions update_hd_sessions_trigger; Type: TRIGGER; Schema: renalware; Owner: -
+--
+
+CREATE TRIGGER update_hd_sessions_trigger BEFORE INSERT OR UPDATE ON renalware.hd_sessions FOR EACH ROW EXECUTE FUNCTION renalware.update_hd_sessions_from_trigger();
 
 
 --
@@ -23725,6 +23760,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220114171857'),
 ('20220116183123'),
 ('20220120172755'),
-('20220210152018');
+('20220210152018'),
+('20220301162239');
 
 
