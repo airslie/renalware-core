@@ -13,10 +13,12 @@ module Renalware
   module HD
     module Sessions
       class AuditableSession < SimpleDelegator
+        delegate :observations_before, :observations_after, to: :document
+
         def blood_pressure_measurements
           [
-            document.observations_before.blood_pressure,
-            document.observations_after.blood_pressure
+            observations_before.blood_pressure,
+            observations_after.blood_pressure
           ]
         end
 
@@ -52,11 +54,16 @@ module Renalware
         end
 
         def weight_loss
-          document.observations_before.weight.to_f - document.observations_after.weight.to_f
+          pre_weight = observations_before.weight.to_f
+          post_weight = observations_after.weight.to_f
+
+          return if pre_weight.zero? || post_weight.zero?
+            
+          observations_before.weight.to_f - observations_after.weight.to_f
         end
 
         def weight_loss_as_percentage_of_body_weight
-          return unless measured_dry_weight > 0
+          return if measured_dry_weight.zero? || weight_loss.to_f.zero?
 
           (weight_loss / measured_dry_weight) * 100.0
         end
