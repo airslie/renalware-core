@@ -1,6 +1,3 @@
-// NB Chartkick and Highcharts are defined as global in rollup
-// const Chartkick = window.Chartkick
-
 import { Controller } from "stimulus"
 
 export default class extends Controller {

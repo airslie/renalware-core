@@ -1,7 +1,6 @@
-const Highcharts = window.Highcharts
-
 import { Controller } from "stimulus"
 import URLSearchParams from "@ungap/url-search-params"
+import Highcharts from "highcharts"
 
 export default class extends Controller {
   static targets = [
