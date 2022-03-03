@@ -42,5 +42,9 @@ module Dummy
         Rails.root.glob("../../app/javascript/**/*.js")
       ].flatten.uniq
     )
+
+    console do
+      ARGV.push "-r", Renalware::Engine.root.join("config/initializers/console_prompt.rb")
+    end
   end
 end
