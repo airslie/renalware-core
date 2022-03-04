@@ -110,15 +110,29 @@ module Renalware
             end
           end
 
-          context "when the patient exists and has no modality" do
-            it "changes their modality" do
-              create(:patient, local_patient_id: "Z999990", born_on: "19880924")
+          context "when the patient exists but is < 17 yo" do
+            let(:dob) { 16.years.ago.to_date }
+
+            it "does not create an AKI alert" do
+              create(:patient, local_patient_id: "Z999990", born_on: dob)
 
               expect {
                 Renalware::Feeds.message_processor.call(raw_message)
               }.to change(Renalware::Patient, :count).by(0)
               .and change(Renalware::Modalities::Modality, :count).by(1)
               .and change(Renalware::Renal::AKIAlert, :count).by(1)
+            end
+          end
+
+          context "when the patient exists but is > 17 yo" do
+            let(:dob) { 18.years.ago.to_date }
+
+            it "creates an AKI alert" do
+              create(:patient, local_patient_id: "Z999990", born_on: dob)
+
+              expect {
+                Renalware::Feeds.message_processor.call(raw_message)
+              }.to change(Renalware::Renal::AKIAlert, :count).by(1)
             end
           end
 
