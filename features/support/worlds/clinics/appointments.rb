@@ -30,7 +30,7 @@ module World
         def view_appointments(_clinician, params = {})
           query_params = params.fetch(:q, {})
 
-          Renalware::Clinics::AppointmentQuery.new(query_params).call
+          Renalware::Clinics::AppointmentSearchForm.new(query_params).query.call
         end
 
         # @section expectations

@@ -89,3 +89,5 @@ Rails/RedundantPresenceValidationOnBelongsTo:
   Enabled: false
 Rails/DurationArithmetic:
   Enabled: false
+Style/OpenStructUse:
+  Enabled: false

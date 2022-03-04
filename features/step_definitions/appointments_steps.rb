@@ -19,7 +19,7 @@ When("Clyde sorts the list by clinic") do
 end
 
 When("Clyde filters the list by date to {date}") do |date|
-  @appointments = view_appointments(@clyde, q: { starts_at_eq: date })
+  @appointments = view_appointments(@clyde, q: { from_date: date, from_date_only: true })
 end
 
 Then("Clyde should see these appointments:") do |table|
