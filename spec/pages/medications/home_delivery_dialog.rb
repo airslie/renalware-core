@@ -21,7 +21,8 @@ module Pages
       def open
         visit path
         within ".page-actions" do
-          click_on "Print home delivery drugs"
+          click_on "Print…"
+          click_on "Home Delivery Drugs"
         end
       end
 

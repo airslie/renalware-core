@@ -211,7 +211,6 @@ main {
   }
 }
 
-
 .order-number {
   table {
     width: 100%;
@@ -224,5 +223,32 @@ table {
 
   thead, th {
     text-align: left;
+  }
+}
+
+.medications-list {
+  section.prescriptions {
+    .subtitle {
+      font-size: 1.2rem;
+    }
+  }
+
+  section.sign-off {
+    width: 300px;
+    margin-top: 30px;
+
+    > div {
+      margin: 10px 0;
+      display: flex;
+
+      > .sign-off_title {
+        margin-right: 5px;
+      }
+
+      > .sign-off_space {
+        border-bottom: 1px solid #333;
+        flex-grow: 3;
+      }
+    }
   }
 }
