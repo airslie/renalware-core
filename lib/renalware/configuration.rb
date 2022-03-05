@@ -137,6 +137,10 @@ module Renalware
     config_accessor(:user_dashboard_display_named_patients) { true }
     config_accessor(:medication_review_max_age_in_months) { 24 }
 
+    config_accessor(:aki_alerts_daily_period_start_time) {
+      ENV.fetch("AKI_ALERTS_DAILY_PERIOD_START_TIME", "09:45")
+    }
+
     # A host app can override this to add/remove/re-order the clinical summary display
     # Note these have to be strings - they mapped to constants in ClinicalSummaryPresenter.
     # At some point we might make page layouts and dashboards data-driven.

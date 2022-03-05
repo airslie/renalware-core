@@ -18640,6 +18640,25 @@ var _default$3 = /*#__PURE__*/function (_Controller) {
         dataType: "application/js"
       });
     }
+    /*
+    When each option in a select has data-show and/or data-hide attributes
+    specifying the ids (currently only one id supported) of elements to show or
+    hide. Used for example when selecting an option should show a certain UI element
+    and other options should hide it. Used e.g. on the AKI alerts filter form for the
+    specific data option.
+    */
+
+  }, {
+    key: "showhide",
+    value: function showhide(event) {
+      var _document$querySelect, _document$querySelect2;
+
+      var selectedOption = this.element.options[this.element.selectedIndex];
+      var idsToShow = selectedOption.dataset.show;
+      var idsToHide = selectedOption.dataset.hide;
+      (_document$querySelect = document.querySelector("#" + idsToShow)) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.classList.remove("hidden");
+      (_document$querySelect2 = document.querySelector("#" + idsToHide)) === null || _document$querySelect2 === void 0 ? void 0 : _document$querySelect2.classList.add("hidden");
+    }
   }]);
 
   return _default;

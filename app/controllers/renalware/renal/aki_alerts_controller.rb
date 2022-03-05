@@ -81,9 +81,10 @@ module Renalware
           )
       end
 
+      # rubocop:disable Metrics/MethodLength
       def search_params
         params
-          .require(:q) {}
+          .require(:q)
           .permit(
             :date,
             :term,
@@ -93,9 +94,11 @@ module Renalware
             :hospital_ward_id,
             :hospital_centre_id,
             :max_aki,
+            :date_range,
             :s
           )
       end
+      # rubocop:enable Metrics/MethodLength
 
       def path_params
         params.permit([:controller, :action])

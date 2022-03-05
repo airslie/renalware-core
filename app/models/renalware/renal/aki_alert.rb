@@ -24,7 +24,7 @@ module Renalware
         on: [:create, :update, :destroy]
       )
 
-      ransacker :created_at_casted do |_parent|
+      ransacker :created_at_as_date do |_parent|
         Arel.sql("date(renal_aki_alerts.created_at)")
       end
     end

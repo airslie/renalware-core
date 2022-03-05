@@ -4,7 +4,7 @@
 # Could be improved by extracting to css class, but currently a proof of concept.
 class DatePicker2Input < SimpleForm::Inputs::StringInput
   def input(_wrapper_options)
-    template.tag.div(class: "mt-1 relative rounded-md shadow-sm") do
+    template.tag.div(class: "relative rounded-md shadow-sm") do
       template.concat prefix_column
       template.concat input_column
     end
