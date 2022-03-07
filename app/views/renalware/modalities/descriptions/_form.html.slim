@@ -8,7 +8,13 @@
                   wrapper: :horizontal_form do |f|
 
   = f.input :name, wrapper: :horizontal_small
-  = f.input :hidden, wrapper: :horizontal_small
+  = f.input(:hidden,
+            wrapper: :horizontal_small,
+            hint: "Prevent this modality from being assigned to patients prospectively")
+
+  = f.input(:ignore_for_aki_alerts,
+             wrapper: :horizontal_small,
+             hint: "Prevent AKI alert creation for patients with this current modality")
 
   = f.button :submit
   '  or

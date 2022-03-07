@@ -9,8 +9,7 @@ module Renalware
 
       def create_cre_observation(patient, cre_date, cre_result)
         cre = create(:pathology_observation_description, :cre)
-        # cre_date = Date.parse("20180101")
-        # cre_result = 50
+
         request = create(
           :pathology_observation_request,
           patient: Renalware::Pathology.cast_patient(patient)
@@ -125,14 +124,14 @@ module Renalware
           end
 
           describe "creation of aki_alert" do
-            %i(hd pd death).each do |mod|
-              it "no aki alert created when modality is #{mod}" do
+            context "when patient's curr modality description is marked 'ignore_for_aki_alerts'" do
+              it "does not create the alert" do
                 patient = create(:patient, local_patient_id: "Z999990", born_on: "19880924")
                 create(
                   :modality,
                   started_on: Date.parse("2015-04-01"),
                   patient: patient,
-                  description: create(:modality_description, mod)
+                  description: create(:hd_modality_description, ignore_for_aki_alerts: true)
                 )
 
                 expect {
@@ -141,14 +140,14 @@ module Renalware
               end
             end
 
-            %i(transplant aki low_clearance).each do |mod|
-              it "creates an aki alert created when modality is e.g. #{mod}" do
+            context "when patient's curr modality is not marked 'ignore_for_aki_alerts'" do
+              it "creates the alert" do
                 patient = create(:patient, local_patient_id: "Z999990", born_on: "19880924")
                 create(
                   :modality,
                   started_on: Date.parse("2015-04-01"),
                   patient: patient,
-                  description: create(:modality_description, mod)
+                  description: create(:hd_modality_description, ignore_for_aki_alerts: false)
                 )
 
                 expect {
@@ -184,7 +183,7 @@ module Renalware
               )
             end
 
-            it "does not create an alert if one created in last 2 weeks" do
+            it "does not create an alert if one created in 7 days" do
               patient = create(:patient, local_patient_id: "Z999990", born_on: "19880924")
               create(
                 :modality,
@@ -193,7 +192,7 @@ module Renalware
                 description: create(:modality_description, :transplant)
               )
 
-              create(:aki_alert, patient_id: patient.id, created_at: 13.days.ago)
+              create(:aki_alert, patient_id: patient.id, created_at: 6.days.ago)
 
               expect {
                 Renalware::Feeds.message_processor.call(raw_message)

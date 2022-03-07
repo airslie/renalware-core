@@ -59,12 +59,13 @@ module Renalware
           assign_aki_modality_to(patient) if patient.current_modality.blank?
 
           current_modality_code = patient.current_modality&.description&.code
-          excluded_modalities = %w(hd pd death)
+          excluded_modalities = Modalities::Description.ignoreable_for_aki_alerts.pluck(:code)
+
           return if excluded_modalities.include?(current_modality_code)
 
           has_recent_aki_alert = Renal::AKIAlert
             .where(patient_id: patient.id)
-            .where("created_at >= ?", 2.weeks.ago)
+            .where("created_at >= ?", 7.days.ago)
             .exists?
 
           pathset = ObservationSetPresenter.new(patient.current_observation_set)
