@@ -80,7 +80,8 @@ module Renalware
             :name,
             :measurement_unit_id,
             :lower_threshold,
-            :upper_threshold
+            :upper_threshold,
+            :loinc_code
           )
       end
     end
