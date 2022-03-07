@@ -3,6 +3,7 @@
     .w-full.max-w-lg
       = f.input :code, input_html: { disabled: :disabled }
       = f.input :name
+      = f.input :loinc_code, label: "LOINC code (lowercase)", placeholder: "Required if including in UKRDC export"
 
       h5 Measurement units
       .border.rounded.px-4.py-2.mb-2
