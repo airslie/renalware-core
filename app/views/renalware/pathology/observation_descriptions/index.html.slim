@@ -10,7 +10,7 @@
         th.col-width-tiny(rowspan=3)= sort_link(query, :id, "Id")
         th.col-width-small(rowspan=2)= sort_link(query, :code, "Code")
         th.col-width-large(rowspan=2)= sort_link(query, :name, "Name")
-        th(rowspan=2 title="Required is sending including in UKRDC export")= sort_link(query, :loinc_code, "LOINC/UKRDC")
+        th(rowspan=2 title="Required if including in UKRDC export")= sort_link(query, :loinc_code, "LOINC/UKRDC")
 
         th.text-center.bg-green-200(colspan=2) Mappings
         th.text-center.bg-blue-200(colspan=2) Observations
