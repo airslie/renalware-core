@@ -86,6 +86,30 @@ module Renalware
             end
           end
 
+          [
+            { current_date: "2016-11-01", born_on: "2001-01-01", created: false, expected_age: 16 },
+            { current_date: "2018-02-01", born_on: "2001-01-01", created: true, expected_age: 17 },
+            { current_date: "2001-03-01", born_on: "2001-01-01", created: false, expected_age: nil }
+          ].each do |opts|
+            current_date = opts[:current_date]
+            born_on = opts[:born_on]
+
+            context "when date is #{current_date} and born_on is #{born_on}" do
+              let(:dob) { born_on }
+
+              it do
+                travel_to Date.parse(current_date) do
+                  expected_count = opts[:created] ? 1 : 0
+                  expect {
+                    Renalware::Feeds.message_processor.call(raw_message)
+                  }.to change(Renalware::Patient, :count).by(expected_count)
+                  .and change(Renalware::Modalities::Modality, :count).by(expected_count)
+                  .and change(Renalware::Renal::AKIAlert, :count).by(expected_count)
+                end
+              end
+            end
+          end
+
           context "when the patient exists and has no modality" do
             it "does not change their modality" do
               create(:patient, local_patient_id: "Z999990", born_on: "19880924")
@@ -94,20 +118,6 @@ module Renalware
                 Renalware::Feeds.message_processor.call(raw_message)
               }.to change(Renalware::Patient, :count).by(0)
               .and change(Renalware::Modalities::Modality, :count).by(1)
-            end
-          end
-
-          context "when the patient exists but is < 17 yo" do
-            let(:dob) { 17.years.ago + 1.day }
-
-            it "does not create an AKI alert" do
-              create(:patient, local_patient_id: "Z999990", born_on: dob)
-
-              expect {
-                Renalware::Feeds.message_processor.call(raw_message)
-              }.to change(Renalware::Patient, :count).by(0)
-              .and change(Renalware::Modalities::Modality, :count).by(0)
-              .and change(Renalware::Renal::AKIAlert, :count).by(0)
             end
           end
 

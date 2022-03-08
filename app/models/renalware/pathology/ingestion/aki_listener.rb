@@ -48,13 +48,10 @@ module Renalware
           hl7_message = args[:hl7_message]
           aki = MessageDecorator.new(hl7_message)
           return unless aki.aki_score > 0
+          return if hl7_message.patient_identification.younger_than?(17)
 
           patient = Feeds::PatientLocator.call(hl7_message.patient_identification)
-          if patient
-            return if patient.born_on > 17.years.ago
-          else
-            patient = add_patient_if_not_exists(hl7_message)
-          end
+          patient ||= add_patient_if_not_exists(hl7_message)
 
           assign_aki_modality_to(patient) if patient.current_modality.blank?
 
