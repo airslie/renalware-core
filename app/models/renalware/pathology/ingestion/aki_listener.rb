@@ -12,6 +12,8 @@ module Renalware
       class AKIListener
         class MessageDecorator
           pattr_initialize :hl7_message
+          delegate_missing_to :hl7_message
+
           AKI_CODE = "AKI"
 
           # Return the first AKI score found in any OBR in the message
@@ -25,7 +27,7 @@ module Renalware
 
           def hospital_centre_id
             sending_facility = hl7_message[:MSH].sending_facility # eg RAJ01
-            Hospitals::Centre.find_by(code: sending_facility)&.id
+            Renalware::Hospitals::Centre.find_by(code: sending_facility)&.id
           end
 
           private
@@ -42,50 +44,73 @@ module Renalware
         # and give them the AKI modality.
         # NOTE: We are already inside a transaction here
         #
-        # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength
-        # rubocop:disable Metrics/PerceivedComplexity,Rails/WhereExists
+        # Logic:
+        #
+        # skip if age < 17
+        # skip if curr modality is in hd, pd, death
+        #
+        # when score is 1
+        #   alert unless no alert within 14 days with any score (1,2,3)
+        #
+        # when score is 2 or 3
+        #  alert if no alert in past 14 days
+        #  alert if only score in previous 14 days was for a score of 1
+        #  do not alert if alert in past 14 days was for a score of either 2 or 3
+        #
         def oru_message_arrived(args)
-          hl7_message = args[:hl7_message]
-          aki = MessageDecorator.new(hl7_message)
-          return unless aki.aki_score > 0
-          return if hl7_message.patient_identification.younger_than?(17)
+          aki_msg = MessageDecorator.new(args[:hl7_message])
+          return unless aki_msg.aki_score > 0
+          return if aki_msg.patient_identification.younger_than?(17)
 
-          patient = Feeds::PatientLocator.call(hl7_message.patient_identification)
-          patient ||= add_patient_if_not_exists(hl7_message)
+          patient = find_or_create_patient(aki_msg)
+          return unless current_modality_supports_aki_alerts?(patient)
+          return if recent_aki_alert?(patient)
 
-          assign_aki_modality_to(patient) if patient.current_modality.blank?
-
-          current_modality_code = patient.current_modality&.description&.code
-          excluded_modalities = Modalities::Description.ignoreable_for_aki_alerts.pluck(:code)
-
-          return if excluded_modalities.include?(current_modality_code)
-
-          has_recent_aki_alert = Renal::AKIAlert
-            .where(patient_id: patient.id)
-            .where("created_at >= ?", 7.days.ago)
-            .exists?
-
-          pathset = ObservationSetPresenter.new(patient.current_observation_set)
-
-          unless has_recent_aki_alert
-            Renal::AKIAlert.create!(
-              patient_id: patient.id,
-              max_aki: aki.aki_score,
-              aki_date: aki.aki_date,
-              max_cre: pathset.cre_result,
-              cre_date: pathset.cre_observed_at,
-              hospital_centre_id: aki.hospital_centre_id
-            )
-          end
+          create_aki_alert(patient, aki_msg)
         end
-        # rubocop:enable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength
-        # rubocop:enable Metrics/PerceivedComplexity,Rails/WhereExists
 
         private
+
+        def find_or_create_patient(hl7_message)
+          patient = Feeds::PatientLocator.call(hl7_message.patient_identification)
+          patient ||= add_patient_if_not_exists(hl7_message)
+          assign_aki_modality_to(patient) if patient.current_modality.blank?
+          patient
+        end
+
+        def current_modality_supports_aki_alerts?(patient)
+          current_modality_code = patient.current_modality&.description&.code
+          Modalities::Description
+            .ignorable_for_aki_alerts
+            .pluck(:code)
+            .compact
+            .exclude?(current_modality_code)
+        end
+
+        def recent_aki_alert?(patient)
+          Renal::AKIAlert
+            .where(patient_id: patient.id)
+            .where("created_at >= ?", 14.days.ago)
+            .where("max_aki > 1")
+            .exists?
+        end
 
         def assign_aki_modality_to(patient)
           cmd = Modalities::ChangePatientModality.new(patient: patient, user: SystemUser.find)
           cmd.call(description: aki_modality_description, started_on: Time.zone.now)
+        end
+
+        def create_aki_alert(patient, aki_message)
+          pathset = ObservationSetPresenter.new(patient.current_observation_set)
+
+          Renal::AKIAlert.create!(
+            patient_id: patient.id,
+            max_aki: aki_message.aki_score,
+            aki_date: aki_message.aki_date,
+            max_cre: pathset.cre_result,
+            cre_date: pathset.cre_observed_at,
+            hospital_centre_id: aki_message.hospital_centre_id
+          )
         end
 
         def aki_modality_description

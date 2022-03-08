@@ -111,13 +111,14 @@ module Renalware
           end
 
           context "when the patient exists and has no modality" do
-            it "does not change their modality" do
+            it "changes their modality" do
               create(:patient, local_patient_id: "Z999990", born_on: "19880924")
 
               expect {
                 Renalware::Feeds.message_processor.call(raw_message)
               }.to change(Renalware::Patient, :count).by(0)
               .and change(Renalware::Modalities::Modality, :count).by(1)
+              .and change(Renalware::Renal::AKIAlert, :count).by(1)
             end
           end
 
@@ -193,7 +194,7 @@ module Renalware
               )
             end
 
-            it "does not create an alert if one created in 7 days" do
+            it "does not create an alert if one was created within 14 days with a score > 1" do
               patient = create(:patient, local_patient_id: "Z999990", born_on: "19880924")
               create(
                 :modality,
@@ -202,11 +203,27 @@ module Renalware
                 description: create(:modality_description, :transplant)
               )
 
-              create(:aki_alert, patient_id: patient.id, created_at: 6.days.ago)
+              create(:aki_alert, patient_id: patient.id, created_at: 6.days.ago, max_aki: 2)
 
               expect {
                 Renalware::Feeds.message_processor.call(raw_message)
               }.to change(Renalware::Renal::AKIAlert, :count).by(0)
+            end
+
+            it "create an alert if one was created within 14 days with a score == 1" do
+              patient = create(:patient, local_patient_id: "Z999990", born_on: "19880924")
+              create(
+                :modality,
+                started_on: Date.parse("2015-04-01"),
+                patient: patient,
+                description: create(:modality_description, :transplant)
+              )
+
+              create(:aki_alert, patient_id: patient.id, created_at: 6.days.ago, max_aki: 1)
+
+              expect {
+                Renalware::Feeds.message_processor.call(raw_message)
+              }.to change(Renalware::Renal::AKIAlert, :count).by(1)
             end
 
             it "assigns the hospital centre found by code in the the MSH" do
