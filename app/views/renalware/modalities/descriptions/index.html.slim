@@ -14,6 +14,7 @@
       tr
         th.col-width-small
         th.col-width-tiny Hidden
+        th.col-width-tiny AKI Alerts
         th Name
     tbody
       - modality_descriptions.each do |description|
@@ -29,4 +30,7 @@
           td
             - if description.hidden
               i.fas.fa-check-circle(title="Hidden")
+          td
+            - unless description.ignore_for_aki_alerts
+              i.fas.fa-check-circle.text-green-500(title="Allow AKI Alert to be created for patient with this current modality")
           td= description.name

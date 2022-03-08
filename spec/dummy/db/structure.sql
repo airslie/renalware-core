@@ -69,7 +69,7 @@ CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA renalware;
 -- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
 --
 
-COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statistics of all SQL statements executed';
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
 
 
 --
@@ -2176,8 +2176,16 @@ CREATE TABLE renalware.modality_descriptions (
     updated_at timestamp without time zone NOT NULL,
     hidden boolean DEFAULT false NOT NULL,
     ukrdc_modality_code_id bigint,
-    code character varying
+    code character varying,
+    ignore_for_aki_alerts boolean DEFAULT false NOT NULL
 );
+
+
+--
+-- Name: COLUMN modality_descriptions.ignore_for_aki_alerts; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.modality_descriptions.ignore_for_aki_alerts IS 'If true HL7 AKI scores are ignored if the patient has this current modality';
 
 
 --
@@ -5429,16 +5437,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -23761,6 +23759,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220116183123'),
 ('20220120172755'),
 ('20220210152018'),
-('20220301162239');
+('20220301162239'),
+('20220307174658');
 
 

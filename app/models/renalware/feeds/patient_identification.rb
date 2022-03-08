@@ -137,6 +137,17 @@ module Renalware
       end
       alias admin_sex sex
 
+      def younger_than?(years)
+        return false if born_on.blank?
+
+        age_in_years = AgeCalculator.new.compute(
+          Time.zone.parse(born_on).to_date,
+          Time.zone.today
+        )[:years]
+
+        age_in_years < years
+      end
+
       private
 
       def patient_name

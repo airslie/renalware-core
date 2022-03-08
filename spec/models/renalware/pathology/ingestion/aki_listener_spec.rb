@@ -9,8 +9,7 @@ module Renalware
 
       def create_cre_observation(patient, cre_date, cre_result)
         cre = create(:pathology_observation_description, :cre)
-        # cre_date = Date.parse("20180101")
-        # cre_result = 50
+
         request = create(
           :pathology_observation_request,
           patient: Renalware::Pathology.cast_patient(patient)
@@ -87,28 +86,39 @@ module Renalware
             end
           end
 
+          [
+            { current_date: "2016-11-01", born_on: "2001-01-01", created: false, expected_age: 16 },
+            { current_date: "2018-02-01", born_on: "2001-01-01", created: true, expected_age: 17 },
+            { current_date: "2001-03-01", born_on: "2001-01-01", created: false, expected_age: nil }
+          ].each do |opts|
+            current_date = opts[:current_date]
+            born_on = opts[:born_on]
+
+            context "when date is #{current_date} and born_on is #{born_on}" do
+              let(:dob) { born_on }
+
+              it do
+                travel_to Date.parse(current_date) do
+                  expected_count = opts[:created] ? 1 : 0
+                  expect {
+                    Renalware::Feeds.message_processor.call(raw_message)
+                  }.to change(Renalware::Patient, :count).by(expected_count)
+                  .and change(Renalware::Modalities::Modality, :count).by(expected_count)
+                  .and change(Renalware::Renal::AKIAlert, :count).by(expected_count)
+                end
+              end
+            end
+          end
+
           context "when the patient exists and has no modality" do
-            it "does not change their modality" do
+            it "changes their modality" do
               create(:patient, local_patient_id: "Z999990", born_on: "19880924")
 
               expect {
                 Renalware::Feeds.message_processor.call(raw_message)
               }.to change(Renalware::Patient, :count).by(0)
               .and change(Renalware::Modalities::Modality, :count).by(1)
-            end
-          end
-
-          context "when the patient exists but is < 17 yo" do
-            let(:dob) { 17.years.ago + 1.day }
-
-            it "does not create an AKI alert" do
-              create(:patient, local_patient_id: "Z999990", born_on: dob)
-
-              expect {
-                Renalware::Feeds.message_processor.call(raw_message)
-              }.to change(Renalware::Patient, :count).by(0)
-              .and change(Renalware::Modalities::Modality, :count).by(0)
-              .and change(Renalware::Renal::AKIAlert, :count).by(0)
+              .and change(Renalware::Renal::AKIAlert, :count).by(1)
             end
           end
 
@@ -125,14 +135,14 @@ module Renalware
           end
 
           describe "creation of aki_alert" do
-            %i(hd pd death).each do |mod|
-              it "no aki alert created when modality is #{mod}" do
+            context "when patient's curr modality description is marked 'ignore_for_aki_alerts'" do
+              it "does not create the alert" do
                 patient = create(:patient, local_patient_id: "Z999990", born_on: "19880924")
                 create(
                   :modality,
                   started_on: Date.parse("2015-04-01"),
                   patient: patient,
-                  description: create(:modality_description, mod)
+                  description: create(:hd_modality_description, ignore_for_aki_alerts: true)
                 )
 
                 expect {
@@ -141,14 +151,14 @@ module Renalware
               end
             end
 
-            %i(transplant aki low_clearance).each do |mod|
-              it "creates an aki alert created when modality is e.g. #{mod}" do
+            context "when patient's curr modality is not marked 'ignore_for_aki_alerts'" do
+              it "creates the alert" do
                 patient = create(:patient, local_patient_id: "Z999990", born_on: "19880924")
                 create(
                   :modality,
                   started_on: Date.parse("2015-04-01"),
                   patient: patient,
-                  description: create(:modality_description, mod)
+                  description: create(:hd_modality_description, ignore_for_aki_alerts: false)
                 )
 
                 expect {
@@ -184,7 +194,7 @@ module Renalware
               )
             end
 
-            it "does not create an alert if one created in last 2 weeks" do
+            it "does not create an alert if one was created within 14 days with a score > 1" do
               patient = create(:patient, local_patient_id: "Z999990", born_on: "19880924")
               create(
                 :modality,
@@ -193,11 +203,27 @@ module Renalware
                 description: create(:modality_description, :transplant)
               )
 
-              create(:aki_alert, patient_id: patient.id, created_at: 13.days.ago)
+              create(:aki_alert, patient_id: patient.id, created_at: 6.days.ago, max_aki: 2)
 
               expect {
                 Renalware::Feeds.message_processor.call(raw_message)
               }.to change(Renalware::Renal::AKIAlert, :count).by(0)
+            end
+
+            it "create an alert if one was created within 14 days with a score == 1" do
+              patient = create(:patient, local_patient_id: "Z999990", born_on: "19880924")
+              create(
+                :modality,
+                started_on: Date.parse("2015-04-01"),
+                patient: patient,
+                description: create(:modality_description, :transplant)
+              )
+
+              create(:aki_alert, patient_id: patient.id, created_at: 6.days.ago, max_aki: 1)
+
+              expect {
+                Renalware::Feeds.message_processor.call(raw_message)
+              }.to change(Renalware::Renal::AKIAlert, :count).by(1)
             end
 
             it "assigns the hospital centre found by code in the the MSH" do

@@ -68,7 +68,7 @@ SimpleForm.setup do |config|
     b.wrapper :right_input_wrapper, tag: :div, class: "small-12 medium-8 large-9 columns" do |ba|
       ba.use :input, class: "small-input"
       ba.use :error, wrap_with: { tag: :small, class: %w(error small-input) }
-      ba.use :hint,  wrap_with: { tag: :span, class: %w(hint small-input) }
+      ba.use :hint,  wrap_with: { tag: :span, class: %w(mx-5 hint small-input) }
     end
   end
 
