@@ -15,7 +15,7 @@ module Renalware
         when :simple
           Renalware::Feeds::PatientLocatorStrategies::Simple
         when :dob_and_any_nhs_or_assigning_auth_number
-          Renalware::Feeds::PatientLocatorStrategies::DobAndAnyNhsOrAssigningAuthNumber
+          Renalware::Feeds::PatientLocatorStrategies::DobAndAnyNHSOrAssigningAuthNumber
         else
           raise "Invalid Renaware.config.hl7_patient_locator_strategy: #{configured_strategy}"
         end

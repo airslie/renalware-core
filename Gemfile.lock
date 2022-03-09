@@ -571,14 +571,13 @@ GEM
     referer-parser (0.3.0)
     regexp_parser (1.8.2)
     regexp_property_values (1.2.0)
-    renalware-forms (0.1.10)
+    renalware-forms (0.1.15)
       activemodel
       attr_extras (~> 6.2)
       prawn (~> 2.2)
       prawn-table (~> 0.2)
       rake
-      virtus (~> 1.0)
-      zeitwerk
+      virtus
     request_store (1.5.1)
       rack (>= 1.4)
     responders (3.0.1)
@@ -804,7 +803,7 @@ DEPENDENCIES
   rails-controller-testing (~> 1.0.4)
   redis
   renalware-core!
-  renalware-forms (= 0.1.10)
+  renalware-forms
   rspec-html-matchers (~> 0.9.1)
   rspec-rails
   rspec-retry

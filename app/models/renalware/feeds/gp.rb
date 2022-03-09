@@ -2,7 +2,7 @@
 
 module Renalware
   module Feeds
-    class Gp < ApplicationRecord
+    class GP < ApplicationRecord
     end
   end
 end

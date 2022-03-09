@@ -82,7 +82,7 @@ module Renalware
         seg.message_type = "MDM^T02"
         seg.time = Time.zone.now
         seg.version_id = Rails.env.production? ? "P" : "U"
-        seg.seq = Renalware::VersionNumber::VERSION
+        seg.seq = Renalware::VERSION
         seg
       end
 

@@ -4,13 +4,13 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "renalware/version_number"
+require_relative "lib/renalware/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.metadata["rubygems_mfa_required"] = "true"
   s.name        = "renalware-core"
-  s.version     = Renalware::VersionNumber::VERSION
+  s.version     = Renalware::VERSION
   s.authors     = ["Airslie"]
   s.email       = ["dev@airslie.com"]
   s.homepage    = "https://github.com/airslie/renalware-core"

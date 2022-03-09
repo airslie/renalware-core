@@ -2,7 +2,7 @@
 
 module Renalware
   module Feeds
-    class PracticeGp < ApplicationRecord
+    class PracticeGP < ApplicationRecord
     end
   end
 end

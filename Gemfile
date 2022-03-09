@@ -20,8 +20,7 @@ gem "nhs_api_client", github: "airslie/nhs_api_client", tag: "v0.1.2", require: 
 gem "paper_trail"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
 gem "redis"
-gem "renalware-forms", "0.1.10"
-# gem "renalware-forms", path: "../renalware-forms"
+gem "renalware-forms"
 gem "ruby-prof", require: false
 gem "uglifier", "~> 4.2"
 gem "wkhtmltopdf-binary", "0.12.3.1"
