@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/pathology"
-require "sql/indexed_case_stmt"
+require "sql_indexed_case_stmt"
 
 module Renalware
   module Pathology
@@ -19,7 +19,7 @@ module Renalware
       private
 
       def ids_index
-        ::Sql::IndexedCaseStmt.new("patients.id", @patient_ids).generate
+        ::SqlIndexedCaseStmt.new("patients.id", @patient_ids).generate
       end
     end
   end

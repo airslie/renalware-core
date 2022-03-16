@@ -14,7 +14,7 @@ module Renalware
 
         it "returns the correct strategy class" do
           expect(described_class.strategy)
-            .to eq(Renalware::Feeds::PatientLocatorStrategies::DobAndAnyNhsOrAssigningAuthNumber)
+            .to eq(Renalware::Feeds::PatientLocatorStrategies::DobAndAnyNHSOrAssigningAuthNumber)
         end
       end
 

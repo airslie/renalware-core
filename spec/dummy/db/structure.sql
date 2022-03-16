@@ -2185,7 +2185,7 @@ CREATE TABLE renalware.modality_descriptions (
 -- Name: COLUMN modality_descriptions.ignore_for_aki_alerts; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.modality_descriptions.ignore_for_aki_alerts IS 'If true HL7 AKI scores are ignored if the patient has this current modality';
+COMMENT ON COLUMN renalware.modality_descriptions.ignore_for_aki_alerts IS 'If true, HL7 AKI scores are ignored when the patient has this current modality';
 
 
 --

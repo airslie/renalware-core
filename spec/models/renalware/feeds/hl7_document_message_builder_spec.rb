@@ -43,7 +43,7 @@ module Renalware
       describe "MSH, PID, TXA, OBX segment" do
         context "when rendering a letter" do
           it do
-            stub_const("Renalware::VersionNumber::VERSION", "9.9.9")
+            stub_const("Renalware::VERSION", "9.9.9")
 
             travel_to Time.zone.parse("20211117152417") do
               allow(Renalware::Letters::PdfRenderer).to receive(:call).and_return("A") # base64='QQ=='
@@ -114,7 +114,7 @@ module Renalware
         context "when rendering an event" do
           it do
             travel_to Time.zone.parse("20211117152417") do
-              stub_const("Renalware::VersionNumber::VERSION", "9.9.9")
+              stub_const("Renalware::VERSION", "9.9.9")
               allow(Renalware::Events::EventPdf).to receive(:call).and_return("A") # base64='QQ=='
 
               create(

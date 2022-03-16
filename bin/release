@@ -18,7 +18,7 @@ fi
 git pull
 
 # Get the version we are going to deploy into a variable
-VERSION=$(cat lib/renalware/version_number.rb | egrep -o '[[:digit:]]{1}.[[:digit:]]{1}.[[:digit:]]{2}')
+VERSION=$(cat lib/renalware/version.rb | egrep -o '[[:digit:]]{1}.[[:digit:]]{1}.[[:digit:]]{2}')
 echo "Version $VERSION"
 
 # Check the gem version we are going to build does not exist already

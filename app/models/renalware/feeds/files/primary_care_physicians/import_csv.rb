@@ -18,10 +18,10 @@ module Renalware
             town: 7,
             county: 8,
             postcode: 9,
-            status:12, # A = Active B = Retired C = Closed P = Proposed
-            telephone:17,
-            amended_record_indicator:21
-          }
+            status: 12, # A = Active B = Retired C = Closed P = Proposed
+            telephone: 17,
+            amended_record_indicator: 21
+          }.freeze
 
           # 1. Import in batches into a new tmp table - what would the fn have used?
           def call
@@ -32,15 +32,16 @@ module Renalware
           private
 
           # There are about 100,000 GPs in the UK
+          # rubocop:disable Lint/AssignmentInCondition
           def batch_import_csv_rows_into_feed_gp_table
-            Feeds::Gp.delete_all
+            Feeds::GP.delete_all
 
-            ::File.open(csv_path.realpath.to_s, 'r') do |file|
+            ::File.open(csv_path.realpath.to_s, "r") do |file|
               csv = CSV.new(file, headers: false)
               gps = []
               map = CSV_HEADER_MAP
               while row = csv.shift
-                gps << Feeds::Gp.new(
+                gps << Feeds::GP.new(
                   code: row[map[:code]],
                   name: row[map[:name]],
                   street_1: row[map[:street_1]],
@@ -55,9 +56,10 @@ module Renalware
               end
 
               # Make about 100 insert queries each with 1000 records
-              Feeds::Gp.import!(gps, batch_size: 1000)
+              Feeds::GP.import!(gps, batch_size: 1000)
             end
           end
+          # rubocop:enable Lint/AssignmentInCondition
 
           # See migration for SQL function definition
           def import_feed_gps_using_sql_function

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Sql::IndexedCaseStmt do
+describe SqlIndexedCaseStmt do
   describe "#generate" do
     subject { described_class.new(:column, [:HGB, "PLT", "cre"]).generate }
 

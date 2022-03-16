@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/pathology"
-require "sql/indexed_case_stmt"
+require "sql_indexed_case_stmt"
 
 module Renalware
   module Pathology
@@ -28,7 +28,7 @@ module Renalware
       #     ...
       #   ]
       def call
-        stmt = Sql::IndexedCaseStmt.new(:code, @codes) # Generate a CASE statement for ordering
+        stmt = SqlIndexedCaseStmt.new(:code, @codes) # Generate a CASE statement for ordering
         records = @relation.where(code: @codes).order(stmt.generate)
         verify_all_records_found(records)
         records

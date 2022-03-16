@@ -9,7 +9,7 @@ module Renalware
       # This finds a patient by matching their DOB (if present) plus an nhs_number or any
       # one of their hospital numbers, where each number on the PID patient_id_list has been mapped
       # to a local_patient_id* column in PatientIdentification#identifiers
-      class DobAndAnyNhsOrAssigningAuthNumber
+      class DobAndAnyNHSOrAssigningAuthNumber
         pattr_initialize [:patient_identification!]
         delegate :identifiers, to: :patient_identification
 

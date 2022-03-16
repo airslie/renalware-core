@@ -13,6 +13,7 @@ module Dummy
     config.active_storage.service = :local
     config.autoloader = :classic
     # config.autoloader = :zeitwerk
+    # config.load_defaults Rails::VERSION::STRING.to_f
 
     # Important!!
     # Unless set to :all, pg extensions are not put into structure.sql so certain

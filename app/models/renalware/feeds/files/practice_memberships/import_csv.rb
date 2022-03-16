@@ -27,7 +27,7 @@ module Renalware
 
           # rubocop:disable Lint/AssignmentInCondition, Metrics/AbcSize, Metrics/MethodLength
           def batch_import_csv_rows_into_feed_practice_memberships_table
-            Feeds::PracticeGp.delete_all
+            Feeds::PracticeGP.delete_all
 
             ::File.open(csv_path.realpath.to_s, "r") do |file|
               csv = CSV.new(file, headers: false)
@@ -45,7 +45,7 @@ module Renalware
                   left_on = nil
                 end
 
-                rows << Feeds::PracticeGp.new(
+                rows << Feeds::PracticeGP.new(
                   gp_code: row[map[:gp_code]],
                   practice_code: row[map[:practice_code]],
                   joined_on: joined_on.presence && Date.parse(joined_on),
@@ -54,7 +54,7 @@ module Renalware
               end
 
               # Make about 100 insert queries each with 1000 records
-              Feeds::PracticeGp.import!(rows, batch_size: 1000)
+              Feeds::PracticeGP.import!(rows, batch_size: 1000)
             end
           end
           # rubocop:enable Lint/AssignmentInCondition, Metrics/AbcSize, Metrics/MethodLength

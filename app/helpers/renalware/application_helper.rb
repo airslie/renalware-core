@@ -3,7 +3,6 @@
 require "inline_image"
 require "git_commit_sha"
 require "breadcrumb"
-require "renalware/version_number"
 
 module Renalware
   module ApplicationHelper
@@ -14,7 +13,7 @@ module Renalware
       link_to(
         patient.to_s(:default),
         patient_clinical_summary_path(patient),
-        data: { turbo: { frame: "_top"} }
+        data: { turbo: { frame: "_top" } }
       )
     end
 
@@ -22,7 +21,7 @@ module Renalware
       link_to(
         patient&.to_s(:long),
         patient_clinical_summary_path(patient),
-        data: { turbo: { frame: "_top"} }
+        data: { turbo: { frame: "_top" } }
       )
     end
 
@@ -122,7 +121,7 @@ module Renalware
     end
 
     def semantic_app_version
-      "#{Renalware::VersionNumber::VERSION} build #{GitCommitSha.current}"
+      "#{Renalware::VERSION} build #{GitCommitSha.current}"
     end
   end
 end

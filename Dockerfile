@@ -12,7 +12,6 @@
 # Version 0.0.2 Updated Ruby 2.4.1 => 2.4.2
 # Version 0.0.3 Updated Postgres 9.6 => 10.1
 FROM ruby:2.4.2
-MAINTAINER Tim Crowe <tim@woodpigeon.com>
 
 # Install apt based dependencies required to run Rails as
 # well as RubyGems. As the Ruby image itself is based on a
@@ -51,10 +50,10 @@ WORKDIR /app
 # the RubyGems. This is a separate step so the dependencies
 # will be cached unless changes to one of those two files
 # are made.
-# NB This does not work as .gemspec requires lib/version_number.rb etc
+# NB This does not work as .gemspec requires lib/renalware/version.rb etc
 COPY Gemfile renalware-core.gemspec Gemfile.lock /app/
 RUN mkdir -p /app/lib/renalware
-COPY ./lib/renalware/version_number.rb /app/lib/renalware/version_number.rb
+COPY ./lib/renalware/version.rb /app/lib/renalware/number.rb
 RUN gem install bundler && bundle install --jobs 20 --retry 5
 
 # Copy the main application.
