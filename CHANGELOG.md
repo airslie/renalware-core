@@ -9,16 +9,37 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.6
+### Added
+### Changed
+- Correct mean weight loss calculation (was not excluding missing values) #3831
+- Add HD and PD to AKCC plan #3834
+- Allow editing OBX loinc_code in superadmin UI #3843
+- Allow printing HD-only drugs from a patient's prescriptions page #3806
+- AKI logic changes #3846
+  - skip AKI alerts if patient's curr modality is marked as #ignore_for_aki (can change in admin UI)
+  - skip if age < 17
+  - skip if curr modality is in hd, pd, death
+  - when score is 1
+    - alert unless no alert within 14 days with any score (1,2,3)
+  - when score is 2 or 3
+    - alert if no alert in past 14 days
+    - alert if only score in previous 14 days was for a score of 1
+    - do not alert if alert in past 14 days was for a score of either 2 or 3
+### Fixed
+- Fix truncation of column values on patient MDM list #3849
+
+
 ## 2.2.5
 ### Changed
 - Add author's GMC code as a TXA.5 subfield in MDM^T02 HL7 messages #3820
 - Exclude death but not low_clearance modalities from AKI alerts #3823
 - Do not create AKI alerts for patients < 17 years old #3816
-- Add a trigger to maintain the legacy performed_on date #3829 
-- Add a msg on the new event form to indicate that the event will generate a PDF #3794 
+- Add a trigger to maintain the legacy performed_on date #3829
+- Add a msg on the new event form to indicate that the event will generate a PDF #3794
 ### Fixed
 - Disable datepicker autocomplete in filters on clinic visits page #3818
-- Fixed bug where station not saving in HD session form #3830 
+- Fixed bug where station not saving in HD session form #3830
 
 ## 2.2.4
 ### Added
