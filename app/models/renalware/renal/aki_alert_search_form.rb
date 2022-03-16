@@ -23,6 +23,8 @@ module Renalware
       DATE_RANGE_SPECIFIC_DATE = "specific_date"
 
       def date_query
+        self.date_range ||= DATE_RANGE_TODAY
+
         case date_range
         when DATE_RANGE_TODAY then configured_daily_period
         when DATE_RANGE_SPECIFIC_DATE then { created_at_as_date_eq: date }

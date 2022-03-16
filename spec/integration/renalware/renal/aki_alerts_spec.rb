@@ -4,97 +4,111 @@ require "rails_helper"
 
 describe "AKI alert management", type: :request do
   let(:user) { @current_user }
-  let(:patient) { create(:renal_patient, by: user) }
   let(:hospital_ward) { create(:hospital_ward) }
+  let(:default_action) { create(:aki_alert_action, name: SecureRandom.uuid) }
+
+  def aki_alert(at:, hotlist: false, action: nil)
+    create(
+      :aki_alert,
+      notes: SecureRandom.uuid,
+      patient: create(:renal_patient, by: user),
+      hospital_ward: hospital_ward,
+      max_aki: 2,
+      aki_date: at,
+      action: action || default_action,
+      by: user,
+      created_at: at,
+      hotlist: hotlist
+    )
+  end
 
   describe "GET index" do
-    before do
-      create(
-        :aki_alert,
-        notes: "abc",
-        patient: patient,
-        hospital_ward: hospital_ward,
-        max_aki: 1,
-        aki_date: Time.zone.today,
-        action: create(:aki_alert_action, name: "today"),
-        by: create(:user, family_name: "Patient1"),
-        created_at: Time.zone.now
-      )
-      create(
-        :aki_alert,
-        notes: "abc",
-        patient: patient,
-        hospital_ward: hospital_ward,
-        max_aki: 2,
-        aki_date: Time.zone.today - 1.day,
-        action: create(:aki_alert_action, name: "yesterday"),
-        by: create(:user, family_name: "Patient2"),
-        created_at: Time.zone.now - 1.day
-      )
-    end
-
-    describe "with no filters" do
+    # rubocop:disable RSpec/MultipleExpectations
+    describe "with no filters and date_range 'all'" do
       it "renders a list of AKI Alerts" do
-        get renal_aki_alerts_path
+        a1 = aki_alert(at: Time.zone.now)
+        a2 = aki_alert(at: Time.zone.now - 1.day)
+        a3 = aki_alert(at: Time.zone.now + 1.day)
+
+        get renal_aki_alerts_path(
+          q: {
+            date_range: Renalware::Renal::AKIAlertSearchForm::DATE_RANGE_ALL
+          }
+        )
 
         expect(response).to be_successful
-        expect(response.body).to match("today")
-        expect(response.body).to match("Patient1")
+        expect(response.body).to match(a1.notes)
         expect(response.body).to match(l(Time.zone.today))
 
-        expect(response.body).to match("yesterday")
-        expect(response.body).to match("Patient1")
+        expect(response.body).to match(a2.notes)
         expect(response.body).to match(l(Time.zone.today - 1.day))
+
+        expect(response.body).to match(a3.notes)
+        expect(response.body).to match(l(Time.zone.today + 1.day))
+
         expect(response.body).to match(hospital_ward.name)
+      end
+      # rubocop:enable RSpec/MultipleExpectations
+    end
+
+    describe "filtering by created_at_within_configured_today_period" do
+      it "renders a list of AKI Alerts created in the 24 hours preceding 09:45 today" do
+        today = Time.zone.today
+        # too early yesterday
+        a1 = aki_alert(
+          at: today - 1.day + Time.zone.parse("09:44").seconds_since_midnight.seconds
+        )
+        # just in time to make it in today
+        a2 = aki_alert(at: today + Time.zone.parse("09:44").seconds_since_midnight.seconds)
+        # too late today
+        a3 = aki_alert(at: today + Time.zone.parse("09:46").seconds_since_midnight.seconds)
+
+        get renal_aki_alerts_path(
+          q: {
+            date_range: Renalware::Renal::AKIAlertSearchForm::DATE_RANGE_TODAY
+          }
+        )
+
+        expect(response).to be_successful
+        expect(response.body).not_to match(a1.notes)
+        expect(response.body).to match(a2.notes)
+        expect(response.body).not_to match(a3.notes)
       end
     end
 
     describe "filtering by date" do
       it "renders a list of just today's AKI Alerts" do
-        get renal_aki_alerts_path(q: { date: l(Time.zone.today) })
+        a1 = aki_alert(at: Time.zone.now)
+        a2 = aki_alert(at: Time.zone.now - 1.day)
+
+        get renal_aki_alerts_path(
+          q: {
+            date_range: Renalware::Renal::AKIAlertSearchForm::DATE_RANGE_SPECIFIC_DATE,
+            date: l(Time.zone.today)
+          }
+        )
 
         expect(response).to be_successful
-        expect(response.body).to match("Patient1")
-        expect(response.body).not_to match("Patient2")
+        expect(response.body).to match(a1.notes)
+        expect(response.body).not_to match(a2.notes)
       end
     end
 
     describe "filtered by hotlist" do
       it "renders a list of all AKI Alerts with hotlist=true" do
-        action1 = create(:aki_alert_action, name: "action1")
-        action2 = create(:aki_alert_action, name: "action2")
-        create(
-          :aki_alert,
-          notes: "abc",
-          patient: create(:renal_patient, family_name: "NOTHOT", by: user),
-          hotlist: false,
-          action: action1,
-          max_cre: 100,
-          cre_date: "2018-01-01",
-          max_aki: 2,
-          aki_date: "2018-02-01",
-          hospital_ward: nil,
-          by: user
-        )
+        a1 = aki_alert(at: Time.zone.now, hotlist: true)
+        a2 = aki_alert(at: Time.zone.now, hotlist: false)
 
-        create(
-          :aki_alert,
-          notes: "abc",
-          patient: create(:renal_patient, family_name: "HOT", by: user),
-          hotlist: true,
-          max_cre: 100,
-          action: action2,
-          cre_date: "2018-01-01",
-          max_aki: 2,
-          aki_date: "2018-02-01",
-          hospital_ward: nil,
-          by: user
+        get renal_aki_alerts_path(
+          q: {
+            date_range: Renalware::Renal::AKIAlertSearchForm::DATE_RANGE_ALL,
+            on_hotlist: true
+          }
         )
-        get renal_aki_alerts_path(q: { on_hotlist: true })
 
         expect(response).to be_successful
-        expect(response.body).to match("HOT")
-        expect(response.body).not_to match("NOTHOT")
+        expect(response.body).to match(a1.notes)
+        expect(response.body).not_to match(a2.notes)
       end
 
       context "when a Print version requested" do
@@ -113,8 +127,12 @@ describe "AKI alert management", type: :request do
 
   describe "GET edit" do
     it "renders the edit form" do
+      patient = create(:renal_patient)
       alert = create(:aki_alert, notes: "abc", patient: patient, by: user)
+
       get edit_renal_aki_alert_path(alert, format: :html)
+
+      expect(response).to be_successful
     end
   end
 
@@ -123,24 +141,16 @@ describe "AKI alert management", type: :request do
       it "update the alert" do
         action1 = create(:aki_alert_action, name: "action1")
         action2 = create(:aki_alert_action, name: "action2")
-        alert = create(
-          :aki_alert,
-          notes: "abc",
-          patient: patient,
-          action: action1,
-          hotlist: false,
-          max_cre: 100,
-          cre_date: "2018-01-01",
-          max_aki: 2,
-          aki_date: "2018-02-01",
-          hospital_ward: nil,
-          by: user
-        )
+        alert = aki_alert(at: Time.zone.now, action: action1)
+
         attributes = {
           notes: "xyz",
           action_id: action2.id,
           hotlist: true,
-          hospital_ward_id: hospital_ward.id
+          max_cre: 100,
+          max_aki: 2,
+          cre_date: Date.parse("01-Jan-2018"),
+          aki_date: Date.parse("01-Feb-2018")
         }
 
         patch renal_aki_alert_path(alert), params: { renal_aki_alert: attributes }
@@ -148,17 +158,15 @@ describe "AKI alert management", type: :request do
         follow_redirect!
 
         expect(response).to be_successful
-        alert.reload
-        expect(alert.notes).to eq("xyz")
-        expect(alert.action_id).to eq(action2.id)
-        expect(alert).to be_hotlist
-        expect(alert).to have_attributes(
+        expect(alert.reload).to have_attributes(
+          action_id: action2.id,
+          hotlist: true,
+          notes: "xyz",
           max_cre: 100,
           cre_date: Date.parse("01-Jan-2018"),
           max_aki: 2,
           aki_date: Date.parse("01-Feb-2018")
         )
-        expect(alert.hospital_ward).to eq(hospital_ward)
       end
     end
   end
