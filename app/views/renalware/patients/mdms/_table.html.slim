@@ -44,7 +44,7 @@ table
             | MDM
         - columns.each do |col|
           - next if col.hidden
-          - klass = "col-width-#{col.width}-with-ellipsis" if col.truncate
+          - klass = "col-width-#{col.width} with-ellipsis" if col.truncate
           - code = col.code
           - value = patient.attributes[code]
           - if code == "patient_name"
@@ -68,5 +68,4 @@ table
         td
           / empty to allow table to expand to the right
 
-/= paginate options.patients
 == pagy_foundation_nav options.pagination
