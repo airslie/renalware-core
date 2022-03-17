@@ -23,11 +23,13 @@ module Renalware
 
         it "ignores these" do
           _old_request = create_request_with_observations(
-            requested_at: 3.days.ago,
+            requested_at: 4.days.ago,
+            created_at: 3.days.ago,
             patient: patient
           )
           recent_request = create_request_with_observations(
             requested_at: 1.day.ago,
+            created_at: 1.day.ago,
             patient: patient
           )
 
@@ -39,7 +41,7 @@ module Renalware
         let(:changes_since) { 1.day.ago }
 
         it "ignores these" do
-          create_request_with_observations(requested_at: 2.days.ago, patient: patient)
+          create_request_with_observations(created_at: 2.days.ago, patient: patient)
           expect(query.call).to eq []
         end
       end
@@ -66,15 +68,15 @@ module Renalware
             .and_return("01-01-2011")
 
           recent_request = create_request_with_observations(
-            requested_at: 1.day.ago,
+            created_at: 1.day.ago,
             patient: patient
           )
           old_request = create_request_with_observations(
-            requested_at: 3.days.ago,
+            created_at: 3.days.ago,
             patient: patient
           )
           _ancient_request = create_request_with_observations(
-            requested_at: 200.years.ago,
+            created_at: 200.years.ago,
             patient: patient
           )
 
