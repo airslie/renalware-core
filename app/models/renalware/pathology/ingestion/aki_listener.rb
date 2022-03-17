@@ -17,7 +17,7 @@ module Renalware
           AKI_CODE = "AKI"
 
           # Return the first AKI score found in any OBR in the message
-          def aki_score
+          def score
             aki_observation&.value.to_f
           end
 
@@ -50,24 +50,31 @@ module Renalware
         # skip if curr modality is in hd, pd, death
         #
         # when score is 1
-        #   alert unless no alert within 14 days with any score (1,2,3)
+        #   alert if no alert within 14 days with any score (1,2,3)
         #
         # when score is 2 or 3
         #  alert if no alert in past 14 days
         #  alert if only score in previous 14 days was for a score of 1
         #  do not alert if alert in past 14 days was for a score of either 2 or 3
         #
+        # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def oru_message_arrived(args)
           aki_msg = MessageDecorator.new(args[:hl7_message])
-          return unless aki_msg.aki_score > 0
+          return unless aki_msg.score > 0
           return if aki_msg.patient_identification.younger_than?(17)
 
           patient = find_or_create_patient(aki_msg)
           return unless current_modality_supports_aki_alerts?(patient)
-          return if recent_aki_alert?(patient)
+
+          if aki_msg.score == 1
+            return if any_recent_score_for?(patient)
+          elsif aki_msg.score >= 2
+            return if recent_score_is_2_or_3?(patient)
+          end
 
           create_aki_alert(patient, aki_msg)
         end
+        # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         private
 
@@ -87,11 +94,21 @@ module Renalware
             .exclude?(current_modality_code)
         end
 
-        def recent_aki_alert?(patient)
+        def any_recent_score_for?(patient)
           Renal::AKIAlert
             .where(patient_id: patient.id)
             .where("created_at >= ?", 14.days.ago)
-            .where("max_aki > 1")
+            .where("max_aki >= ?", 1)
+            .order(created_at: :desc)
+            .exists?
+        end
+
+        def recent_score_is_2_or_3?(patient)
+          Renal::AKIAlert
+            .where(patient_id: patient.id)
+            .where("created_at >= ?", 14.days.ago)
+            .group(:patient_id)
+            .having("max(max_aki) >= ?", 2)
             .exists?
         end
 
@@ -105,7 +122,7 @@ module Renalware
 
           Renal::AKIAlert.create!(
             patient_id: patient.id,
-            max_aki: aki_message.aki_score,
+            max_aki: aki_message.score,
             aki_date: aki_message.aki_date,
             max_cre: pathset.cre_result,
             cre_date: pathset.cre_observed_at,
