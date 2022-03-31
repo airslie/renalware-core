@@ -95,9 +95,8 @@ blocks:
           - sudo apt update
           - sudo apt-get install -qq -y postgresql-client-12
 
-          - bundle install --deployment --path vendor/bundle
-          # - bundle exec rails app:yarn:install
-          - yarn install --checkfiles
+          - bundle install --deployment --path vendor/bundle -j 8
+          - bundle exec rake assets:precompile
 
           # Use CI's database.yml
           - cp ./.semaphore/database.yml ./spec/dummy/config/database.yml

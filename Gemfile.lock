@@ -709,8 +709,8 @@ GEM
       activerecord (>= 5.2)
     sys-uname (1.2.2)
       ffi (~> 1.1)
-    tailwindcss-rails (0.5.1)
-      rails (>= 6.0.0)
+    tailwindcss-rails (2.0.8)
+      railties (>= 6.0.0)
     temple (0.8.2)
     terminal-table (3.0.1)
       unicode-display_width (>= 1.1.1, < 3)
@@ -819,7 +819,7 @@ DEPENDENCIES
   shoulda-matchers (~> 4.1)
   simplecov (~> 0.17.1)
   strong_migrations
-  tailwindcss-rails (~> 0.4)
+  tailwindcss-rails (~> 2.0.8)
   test-prof
   turnip (~> 4.0)!
   uglifier (~> 4.2)
