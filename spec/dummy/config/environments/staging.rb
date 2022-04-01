@@ -19,6 +19,13 @@ Rails.application.configure do
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = Uglifier.new(harmony: true)
 
+  # Added this to prevent sassc-rails error in tailwindcss-generated css
+  # 'Error: Function rgb is missing argument $green'
+  # >>   border-color: rgb(229 231 235 / var(--tw-border-opacity));
+  # The sassc-rails gem is automatically used for CSS compression if included in
+  # the Gemfile and no config.assets.css_compressor option is set.
+  config.assets.css_compressor = nil
+
   # ActionMailer::Base.smtp_settings = {
   #   address: "smtp.sendgrid.net",
   #   port: "587",

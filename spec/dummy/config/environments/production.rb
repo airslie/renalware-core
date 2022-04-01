@@ -23,6 +23,11 @@ Rails.application.configure do
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = Uglifier.new(harmony: true)
 
+  # Added this to prevent sass error in tailwindcss-generated css
+  # 'Error: Function rgb is missing argument $green'
+  # >>   border-color: rgb(229 231 235 / var(--tw-border-opacity));
+  config.assets.css_compressor = nil
+
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
