@@ -34,16 +34,6 @@ module Dummy
       config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*.{rb,yml}")]
     end
 
-    config.assets.css_compressor = Tailwindcss::Compressor.new(
-      files_with_class_names:
-      [
-        Rails.root.glob("../../app/**/*.slim"),
-        Rails.root.glob("../../app/**/*.erb"),
-        Rails.root.glob("../../app/**/*.rb"),
-        Rails.root.glob("../../app/javascript/**/*.js")
-      ].flatten.uniq
-    )
-
     console do
       ARGV.push "-r", Renalware::Engine.root.join("config/initializers/console_prompt.rb")
     end

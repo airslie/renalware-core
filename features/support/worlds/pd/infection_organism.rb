@@ -43,17 +43,19 @@ module World
         end
       end
 
+      # This is a flakey test!
       def revise_organism_for(infectable:, sensitivity:, resistance:)
         within "#infection-organisms" do
           click_on t("btn.edit")
-          sleep 0.5
-          expect(page).to have_selector("#infection-organisms form", count: 1)
+          sleep 1
+          wait_for_ajax
+          expect(page).to have_css("#infection-organisms form")
           fill_in "Sensitivity", with: sensitivity
           fill_in "Resistance", with: resistance
 
           click_on t("btn.save")
 
-          expect(page).to have_selector("#infection-organisms tbody tr", count: 1)
+          expect(page).to have_css("#infection-organisms tbody tr")
           expect(find("tbody")).to have_content(sensitivity)
           expect(find("tbody")).to have_content(resistance)
         end

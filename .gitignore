@@ -71,3 +71,5 @@ log/.bash_history
 /*.pdf
 spec/dummy/yarn-error.log
 .env.development
+spec/dummy/config/tailwind.config.js
+spec/dummy/app/assets/builds/tailwind.css

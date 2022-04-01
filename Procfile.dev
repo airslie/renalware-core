@@ -7,3 +7,4 @@
 web: bin/web -p 3000
 worker: bundle exec rake app:jobs:work
 js: yarn build --watch
+css: bin/rails app:tailwindcss:watch

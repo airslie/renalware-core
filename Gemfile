@@ -26,7 +26,7 @@ gem "uglifier", "~> 4.2"
 gem "wkhtmltopdf-binary", "0.12.3.1"
 # gem "sprockets-rails", "~> 2.3.3" # in the dummy app, fix to this version to avoid manifest errors
 gem "httparty", require: false
-gem "tailwindcss-rails", "~> 0.4"
+gem "tailwindcss-rails", "~> 2.0.8"
 # For sentry error reporting and metrics
 gem "sentry-rails", "~> 4.7"
 gem "sentry-ruby", "~> 4.7"
