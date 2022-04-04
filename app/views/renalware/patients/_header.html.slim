@@ -25,11 +25,11 @@
     - else
       dt= patient.hospital_identifier.name
       dd.selectable.clipboardable= patient.hospital_identifier.id
-    dt= t(".thead.nhs_number")
+    dt= t("thead.nhs_number")
     dd.selectable.clipboardable= formatted_nhs_number(patient)
-    dt= t(".thead.sex")
+    dt= t("thead.sex")
     dd= patient.sex
-    dt= t(".thead.born_on")
+    dt= t("thead.born_on")
     dd= "#{l(patient.born_on)} (#{patient.age}y)"
-    dt= t(".thead.modality")
+    dt= t("thead.modality")
     dd= patient.current_modality_description

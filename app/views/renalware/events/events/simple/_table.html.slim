@@ -4,10 +4,10 @@ table.has_togglable_rows
   thead
     tr
       th.col-width-tiny
-      th.created_at.col-width-date-time= t(".thead.date_time")
+      th.created_at.col-width-date-time= t("thead.date_time")
       - unless local_assigns.fetch(:exclude_type_column, false)
-        th.col-width-large= t(".thead.type")
-      th.created_by.col-width-medium= t(".thead.created_by")
+        th.col-width-large= t("thead.type")
+      th.created_by.col-width-medium= t("thead.created_by")
   tbody
     = render partial: "renalware/events/events/simple/event",
              collection: events,

@@ -3,12 +3,12 @@ table#patients.mdm-patients.columns
   thead
     tr
       th.col-width-tiny
-      th.col-width-large= sort_link(path, :family_name, t(".thead.patient_name"))
-      th.col-width-nhs-no= sort_link(path, :nhs_number, t(".thead.nhs_number"))
-      th.col-width-reference-no= t(".thead.hospital_number")
-      th.col-width-tiny= t(".thead.sex")
-      th.col-width-tiny= t(".thead.age")
-      th.col-width-medium= t(".thead.modality")
+      th.col-width-large= sort_link(path, :family_name, t("thead.patient_name"))
+      th.col-width-nhs-no= sort_link(path, :nhs_number, t("thead.nhs_number"))
+      th.col-width-reference-no= t("thead.hospital_number")
+      th.col-width-tiny= t("thead.sex")
+      th.col-width-tiny= t("thead.age")
+      th.col-width-medium= t("thead.modality")
       th.col-width-date= t(".last_operation_on")
       - %i(hgb ure cre).each do |code|
         th.col-width-tiny= sort_link(path, code, t(".#{code}"))

@@ -6,7 +6,7 @@ div
         th.col-width-medium= sort_link([:renalware, search], "patient_family_name", t(".patient_name"))
         th.patient_age= sort_link([:renalware, search], "patient_born_on", t(".patient_age"))
         th.patient_sex= t(".patient_sex")
-        th.col-width-medium= sort_link([:renalware, search], "patient_current_modality_description_name", t(".thead.modality"))
+        th.col-width-medium= sort_link([:renalware, search], "patient_current_modality_description_name", t("thead.modality"))
         th.col-width-date= sort_link([:renalware, search], "prescribed_on", t(".prescribed_on"))
         th.col-width-date.hide-for-small-only
           = sort_link([:renalware, search], "terminated_on", t(".terminated_on"))

@@ -24,7 +24,7 @@ module Renalware
         authorize allergy
         DeleteAllergy.new(allergy, current_user).call
         redirect_back fallback_location: patient_clinical_profile_path(patient),
-                      notice: t(".success_with_name", name: allergy.description)
+                      notice: t("destroy.success_with_name", name: allergy.description)
       end
 
       private

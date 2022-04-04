@@ -34,7 +34,7 @@ ruby:
 
 .row.top
   .large-12.columns.form_actions
-      = f.button :submit, value: t(".save")
+      = f.button :submit, value: t("btn.save")
       - if policy(session).destroy?
         | &nbsp;
         = link_to(t("btn.delete"), patient_hd_session_path(patient, session),
