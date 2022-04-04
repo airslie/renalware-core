@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.7
+### Added
+- Add a date range to AKI Alerts which defaults to 'last 24 hours up to 0945' #3841
+### Changed
+- Use created_at rather than test timestamp when exporting UKRDC LabOrders #3851
+### Fixed
+
 ## 2.2.6
 ### Added
 ### Changed
@@ -28,7 +35,6 @@ This project adheres to Semantic Versioning.
     - do not alert if alert in past 14 days was for a score of either 2 or 3
 ### Fixed
 - Fix truncation of column values on patient MDM list #3849
-
 
 ## 2.2.5
 ### Changed
