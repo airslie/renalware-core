@@ -10624,7 +10624,7 @@ var $$4 = window.$;
 // one is toggleable. If you need anyting more complex you'll need to clone or adapt this
 // controller
 
-var _default$j = /*#__PURE__*/function (_Controller) {
+var _default$k = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -10673,7 +10673,7 @@ var _default$j = /*#__PURE__*/function (_Controller) {
 
 var $$3 = window.$;
 
-var _default$i = /*#__PURE__*/function (_Controller) {
+var _default$j = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -10707,12 +10707,12 @@ var _default$i = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$i, "targets", ["container", "radio"]);
+_defineProperty$1(_default$j, "targets", ["container", "radio"]);
 
 var Rails$2 = window.Rails;
 // the user. Used on the prescrptions page.
 
-var _default$h = /*#__PURE__*/function (_Controller) {
+var _default$i = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -10746,11 +10746,11 @@ var _default$h = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$h, "targets", ["form", "printOptions", "printFeedback"]);
+_defineProperty$1(_default$i, "targets", ["form", "printOptions", "printFeedback"]);
 
 var $$2 = window.$;
 
-var _default$g = /*#__PURE__*/function (_Controller) {
+var _default$h = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -10778,7 +10778,7 @@ var _default$g = /*#__PURE__*/function (_Controller) {
 
 var $$1 = window.$;
 
-var _default$f = /*#__PURE__*/function (_Controller) {
+var _default$g = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -10811,11 +10811,11 @@ var _default$f = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$f, "targets", ["trix"]);
+_defineProperty$1(_default$g, "targets", ["trix"]);
 
 // the user. Used on the prescrptions page.
 
-var _default$e = /*#__PURE__*/function (_Controller) {
+var _default$f = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -10851,7 +10851,7 @@ var _default$e = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$e, "targets", ["homeDeliveryDates", "providers"]);
+_defineProperty$1(_default$f, "targets", ["homeDeliveryDates", "providers"]);
 
 /*! (c) Andrea Giammarchi - ISC */
 var self$1 = {};
@@ -11232,7 +11232,7 @@ var URLSearchParams$1 = self$1.URLSearchParams;
 
 var Highcharts$2 = window.Highcharts;
 
-var _default$d = /*#__PURE__*/function (_Controller) {
+var _default$e = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -11363,11 +11363,11 @@ var _default$d = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$d, "targets", ["chart", // chart container
+_defineProperty$1(_default$e, "targets", ["chart", // chart container
 "period" // array of period (10y, 3y..) links
 ]);
 
-_defineProperty$1(_default$d, "values", {
+_defineProperty$1(_default$e, "values", {
   url: String,
   // API endpoint for chart json
   title: String,
@@ -11380,7 +11380,7 @@ _defineProperty$1(_default$d, "values", {
 
 });
 
-_defineProperty$1(_default$d, "classes", ["currentPeriod" // Maps to a CSS class name via data attribute on controller element
+_defineProperty$1(_default$e, "classes", ["currentPeriod" // Maps to a CSS class name via data attribute on controller element
 ]);
 
 var Rails$1 = window.Rails;
@@ -11437,7 +11437,7 @@ var _ = window._;
 // - Not quite sure if putting the data attribute config settings in the body
 //   tag is the right thing to do - perhaps should be in a config .js.erb
 
-var _default$c = /*#__PURE__*/function (_Controller) {
+var _default$d = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -11649,7 +11649,7 @@ var _default$c = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$b = /*#__PURE__*/function (_Controller) {
+var _default$c = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -11680,9 +11680,9 @@ var _default$b = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$b, "targets", ["toggleable"]);
+_defineProperty$1(_default$c, "targets", ["toggleable"]);
 
-var _default$a = /*#__PURE__*/function (_Controller) {
+var _default$b = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -11745,7 +11745,7 @@ var _default$a = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$a, "targets", ["tab", "panel"]);
+_defineProperty$1(_default$b, "targets", ["tab", "panel"]);
 
 var highchartsMore = createCommonjsModule(function (module) {
 /*
@@ -15128,7 +15128,7 @@ var Highcharts$1 = window.Highcharts; // Highcharts is defined as global in roll
 var $ = window.$;
 highchartsMore(Highcharts$1);
 
-var _default$9 = /*#__PURE__*/function (_Controller) {
+var _default$a = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -15286,7 +15286,7 @@ var _default$9 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$8 = /*#__PURE__*/function (_Controller) {
+var _default$9 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -15494,7 +15494,7 @@ var hasRenderToArg = typeof a === 'string' || a.nodeName,
  */
 
 
-_defineProperty$1(_default$8, "targets", ["chart"]);
+_defineProperty$1(_default$9, "targets", ["chart"]);
 
 // allow a more dense menu that can simplifies by hiding/collapsing sections.
 //
@@ -15508,7 +15508,7 @@ _defineProperty$1(_default$8, "targets", ["chart"]);
 //   div.collapsible(data-collapsible-target="section")
 //     p YYY
 
-var _default$7 = /*#__PURE__*/function (_Controller) {
+var _default$8 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -15545,11 +15545,11 @@ var _default$7 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$7, "targets", ["section", "link"]);
+_defineProperty$1(_default$8, "targets", ["section", "link"]);
 
-_defineProperty$1(_default$7, "classes", ["open"]);
+_defineProperty$1(_default$8, "classes", ["open"]);
 
-var _default$6 = /*#__PURE__*/function (_Controller) {
+var _default$7 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -15594,9 +15594,9 @@ var _default$6 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$6, "targets", ["source", "target"]);
+_defineProperty$1(_default$7, "targets", ["source", "target"]);
 
-var _default$5 = /*#__PURE__*/function (_Controller) {
+var _default$6 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -15623,7 +15623,7 @@ var _default$5 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$5, "targets", ["fileBrowser", "externalLocation"]);
+_defineProperty$1(_default$6, "targets", ["fileBrowser", "externalLocation"]);
 
 /**!
  * Sortable 1.13.0
@@ -18589,7 +18589,7 @@ Sortable.mount(Remove, Revert);
 // - default containerTarget to the ul that the controller is added to
 // - support posting to the server to sort results.
 
-var _default$4 = /*#__PURE__*/function (_Controller) {
+var _default$5 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -18613,11 +18613,11 @@ var _default$4 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$4, "targets", ["container"]);
+_defineProperty$1(_default$5, "targets", ["container"]);
 
 var Rails = window.Rails;
 
-var _default$3 = /*#__PURE__*/function (_Controller) {
+var _default$4 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -18640,6 +18640,25 @@ var _default$3 = /*#__PURE__*/function (_Controller) {
         dataType: "application/js"
       });
     }
+    /*
+    When each option in a select has data-show and/or data-hide attributes
+    specifying the ids (currently only one id supported) of elements to show or
+    hide. Used for example when selecting an option should show a certain UI element
+    and other options should hide it. Used e.g. on the AKI alerts filter form for the
+    specific data option.
+    */
+
+  }, {
+    key: "showhide",
+    value: function showhide(event) {
+      var _document$querySelect, _document$querySelect2;
+
+      var selectedOption = this.element.options[this.element.selectedIndex];
+      var idsToShow = selectedOption.dataset.show;
+      var idsToHide = selectedOption.dataset.hide;
+      (_document$querySelect = document.querySelector("#" + idsToShow)) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.classList.remove("hidden");
+      (_document$querySelect2 = document.querySelector("#" + idsToHide)) === null || _document$querySelect2 === void 0 ? void 0 : _document$querySelect2.classList.add("hidden");
+    }
   }]);
 
   return _default;
@@ -18653,7 +18672,7 @@ var _default$3 = /*#__PURE__*/function (_Controller) {
 //   input(type="radio" value="no" ..)
 //   ...
 
-var _default$2 = /*#__PURE__*/function (_Controller) {
+var _default$3 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -18680,11 +18699,11 @@ var _default$2 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$2, "values", {
+_defineProperty$1(_default$3, "values", {
   match: String
 });
 
-var _default$1 = /*#__PURE__*/function (_Controller) {
+var _default$2 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -18720,9 +18739,9 @@ var _default$1 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default$1, "targets", ["displayable"]);
+_defineProperty$1(_default$2, "targets", ["displayable"]);
 
-_defineProperty$1(_default$1, "values", {
+_defineProperty$1(_default$2, "values", {
   attributeToTest: String
 });
 
@@ -19504,7 +19523,7 @@ var exports = {};
 });
 var SlimSelect = exports.SlimSelect;
 
-var _default = /*#__PURE__*/function (_Controller) {
+var _default$1 = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
 
   var _super = _createSuper(_default);
@@ -19532,32 +19551,90 @@ var _default = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-_defineProperty$1(_default, "values", {
+_defineProperty$1(_default$1, "values", {
   options: Object
 });
 
+var _default = /*#__PURE__*/function (_Controller) {
+  _inherits(_default, _Controller);
+
+  var _super = _createSuper(_default);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(_default, [{
+    key: "hideModal",
+    // hide modal
+    // action: "turbo-modal#hideModal"
+    value: function hideModal() {
+      this.element.parentElement.removeAttribute("src"); // Remove src reference from parent frame element
+      // Without this, turbo won't re-open the modal on subsequent click
+
+      this.modalTarget.remove();
+    } // hide modal on successful form submission
+    // action: "turbo:submit-end->turbo-modal#submitEnd"
+
+  }, {
+    key: "submitEnd",
+    value: function submitEnd(e) {
+      if (e.detail.success) {
+        this.hideModal();
+      }
+    } // hide modal when clicking ESC
+    // action: "keyup@window->turbo-modal#closeWithKeyboard"
+
+  }, {
+    key: "closeWithKeyboard",
+    value: function closeWithKeyboard(e) {
+      if (e.code == "Escape") {
+        this.hideModal();
+      }
+    } // hide modal when clicking outside of modal
+    // action: "click@window->turbo-modal#closeBackground"
+
+  }, {
+    key: "closeBackground",
+    value: function closeBackground(e) {
+      if (e && this.modalTarget.contains(e.target)) {
+        return;
+      }
+
+      this.hideModal();
+    }
+  }]);
+
+  return _default;
+}(Controller);
+
+_defineProperty$1(_default, "targets", ["modal"]);
+
 session.drive = false; // Manually import stimulusjs controllers for now as we had problems with the stimulus-controllers
 var application = Application.start();
-application.register("toggle", _default$j);
-application.register("hd-prescription-administration", _default$i);
-application.register("home-delivery-modal", _default$h);
-application.register("snippets", _default$g);
-application.register("letters-form", _default$f);
-application.register("prescriptions", _default$e);
-application.register("charts", _default$d);
-application.register("session", _default$c);
-application.register("simple-toggle", _default$b);
-application.register("tabs", _default$a);
-application.register("pd-pet-chart", _default$9);
-application.register("pathology-sparklines", _default$8);
-application.register("collapsible", _default$7);
-application.register("dependent-select", _default$6);
-application.register("patient-attachments", _default$5);
-application.register("sortable", _default$4);
-application.register("select", _default$3);
-application.register("radio-reset", _default$2);
-application.register("conditional-display", _default$1);
-application.register("slimselect", _default);
+application.register("toggle", _default$k);
+application.register("hd-prescription-administration", _default$j);
+application.register("home-delivery-modal", _default$i);
+application.register("snippets", _default$h);
+application.register("letters-form", _default$g);
+application.register("prescriptions", _default$f);
+application.register("charts", _default$e);
+application.register("session", _default$d);
+application.register("simple-toggle", _default$c);
+application.register("tabs", _default$b);
+application.register("pd-pet-chart", _default$a);
+application.register("pathology-sparklines", _default$9);
+application.register("collapsible", _default$8);
+application.register("dependent-select", _default$7);
+application.register("patient-attachments", _default$6);
+application.register("sortable", _default$5);
+application.register("select", _default$4);
+application.register("radio-reset", _default$3);
+application.register("conditional-display", _default$2);
+application.register("slimselect", _default$1);
+application.register("turbo-modal", _default);
 window.Chartkick.use(window.Highcharts);
 
 var adapters = {

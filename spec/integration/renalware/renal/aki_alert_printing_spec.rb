@@ -25,7 +25,9 @@ module Renalware
           max_cre: 101,
           cre_date: "2018-01-01",
           hospital_ward: hospital_ward1,
-          by: user
+          by: user,
+          aki_date: Time.zone.today,
+          created_at: Time.zone.today + Time.zone.parse("09:00").seconds_since_midnight.seconds
         )
 
         aki_akert_at_ward2 = create(
@@ -37,11 +39,16 @@ module Renalware
           max_cre: 102,
           cre_date: "2018-01-03",
           hospital_ward: hospital_ward2,
-          by: user
+          by: user,
+          aki_date: Time.zone.today,
+          created_at: Time.zone.today + Time.zone.parse("12:00").seconds_since_midnight.seconds
         )
 
         # # Simulate going to AKI Alerts, filtering and clicking Print
         visit renal_aki_alerts_path
+        # by default the '24 hours before 0945 today' date range filter is selected, so only
+        # aki_akert_at_ward1 will be selected as aki_akert_at_ward2 is pas 0945 today
+
         select "Ward1", from: "Ward"
         click_on t("btn.filter")
         click_on "Print (PDF)"

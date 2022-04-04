@@ -39,6 +39,7 @@ import SelectController from "./controllers/select_controller"
 import RadioResetController from "./controllers/radio_reset_controller"
 import ConditionalDisplayController from "./controllers/conditional_display_controller"
 import SlimselectController from "./controllers/slimselect_controller"
+import TurboModalController from "./controllers/turbo_modal_controller"
 
 const application = Application.start()
 application.register("toggle", ToggleController)
@@ -61,5 +62,6 @@ application.register("select", SelectController)
 application.register("radio-reset", RadioResetController)
 application.register("conditional-display", ConditionalDisplayController)
 application.register("slimselect", SlimselectController)
+application.register("turbo-modal", TurboModalController)
 
 window.Chartkick.use(window.Highcharts)

@@ -87,3 +87,5 @@ Rails/RakeEnvironment:
   Enabled: false
 Rails/RedundantPresenceValidationOnBelongsTo:
   Enabled: false
+Rails/DurationArithmetic:
+  Enabled: false

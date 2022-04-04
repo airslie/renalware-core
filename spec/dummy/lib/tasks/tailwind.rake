@@ -23,6 +23,7 @@ namespace :tailwind do
     paths = roots.map do |root|
       [
         "'#{root}/app/helpers/**/*.rb'",
+        "'#{root}/app/inputs/**/*.rb'",
         "'#{root}/app/views/**/*.{erb,haml,html,slim}'",
         "'#{root}/app/components/**/*.{erb,haml,html,slim}'",
         "'#{root}/app/assets/javascripts/**/*'",

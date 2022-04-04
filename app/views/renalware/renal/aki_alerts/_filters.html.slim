@@ -24,18 +24,32 @@ scss:
         '  or
         = link_to t("btn.reset"), renal_aki_alerts_path
     .row
-      .columns.medium-2.large-2
+      .columns
+        .flex
+          .w-60.pr-2
+            = f.input :date_range,
+                      collection: form.date_range_options,
+                      label: "Date range",
+                      include_blank: false,
+                      input_html: { data: { controller:"select", action: "change->select#showhide"}}
+
+          // This div shows the datpicker when the user has selected the Specific Date option
+          // in the date range select above
+          #specific-date.w-auto.relative(class="#{form.show_specific_date_input? ? '' : 'hidden'}")
+            = f.input :date, as: :date_picker2
+            div.link_to_right_of_input_label
+              a.set_filter_date_to_today(href="") Today
+              | &nbsp;|&nbsp;
+              a.set_filter_date_to_any_date(href="") Clear
+
+    .row
+      .columns.medium-2
         = f.input :hospital_centre_id,
                   collection: Renalware::Hospitals::Centre.where(host_site: true),
                   label: "Site"
-      .columns.medium-2.large-2
+      .columns.medium-3
         = f.input :term, label: "Hosp/NHS No/name"
-      .columns.medium-2.large-2
-        = f.input :date, as: :date_picker
-        .link_to_right_of_input_label
-          a.set_filter_date_to_today(href="") Today
-          | &nbsp;|&nbsp;
-          a.set_filter_date_to_any_date(href="") Clear
+
       .columns.medium-1.large-1
         = f.input :on_hotlist,
                   collection: [["Yes", true], ["No", false]],
@@ -44,10 +58,10 @@ scss:
         = f.input :max_aki,
                   collection: Renalware::Renal::AKIAlert.distinct(:max_aki).pluck(:max_aki),
                   label: "Level"
-      .columns.medium-2.large-2
+      .columns.medium-2
         = f.input :action,
                   collection: Renalware::Renal::AKIAlertAction.pluck(:name, :id)
-      .columns.medium-2.large-2
+      .columns.medium-3
         = ward_dropdown_grouped_by_hospital_unit(f, :hospital_ward_id, label: "Ward", wrapper: nil)
         / = f.input :hospital_ward_id,
         /           as: :grouped_select,

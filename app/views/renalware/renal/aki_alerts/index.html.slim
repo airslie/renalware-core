@@ -15,3 +15,17 @@
   = render "table", alerts: alerts, search: search
 
   = paginate alerts
+
+  - if current_user_is_admin?
+    .rounded.bg-blue-50.px-3.py-2.mt-20.text-gray-600
+      .flex
+        i.fas.fa-info-circle.mr-2.pt-1.text-blue-500
+        div
+          .block.mb-4 AKI Alerts are generated when an AKI score (1, 2 or 3) is received from the lab. The logic for creating AKI alerts is:
+          .block.mt-4 if patient age > 16 and current modality is not HD, PD or Death
+          .block.pl-4 when AKI score = 1
+          .block.pl-8 alert if no alert within 14 days with any score (1,2,3)
+          .block.pl-4 when score is 2 or 3
+          .block.pl-8 alert if no alert in past 14 days
+          .block.pl-8 alert if only score in previous 14 days was for a score of 1
+          .block.pl-8 do not alert if alert in past 14 days was for a score of either 2 or 3
