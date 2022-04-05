@@ -8,6 +8,8 @@ article
     dd= l(patient.renalreg_decision_on)
     dt Recorded by:
     dd= patient.renalreg_recorded_by
+    dt Recorded by:
+    dd= patient.renalreg_recorded_by
 
 article
   header
@@ -19,3 +21,13 @@ article
     dd= l(patient.rpv_decision_on)
     dt Recorded by:
     dd= patient.rpv_recorded_by
+
+- if current_user_is_admin?
+  article
+    header
+      h2 UKRDC Export
+    dl.dl-horizontal
+      dt Sent at:
+      dd= l(patient.sent_to_ukrdc_at)
+      dt Checked for changes at:
+      dd= l(patient.checked_for_ukrdc_changes_at)
