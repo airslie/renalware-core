@@ -11,6 +11,7 @@ module Renalware
       validates :patient, presence: true
       belongs_to :patient, touch: true
       belongs_to :referrer
+      belongs_to :dialysis_plan, optional: true
       has_document class_name: "Renalware::LowClearance::ProfileDocument"
 
       has_paper_trail(

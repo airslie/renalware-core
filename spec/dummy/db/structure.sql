@@ -5512,6 +5512,46 @@ ALTER SEQUENCE renalware.letter_signatures_id_seq OWNED BY renalware.letter_sign
 
 
 --
+-- Name: low_clearance_dialysis_plans; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.low_clearance_dialysis_plans (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: COLUMN low_clearance_dialysis_plans.code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.low_clearance_dialysis_plans.code IS 'Required only for migration from the code-based enumeration';
+
+
+--
+-- Name: low_clearance_dialysis_plans_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.low_clearance_dialysis_plans_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: low_clearance_dialysis_plans_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.low_clearance_dialysis_plans_id_seq OWNED BY renalware.low_clearance_dialysis_plans.id;
+
+
+--
 -- Name: low_clearance_mdm_patients; Type: VIEW; Schema: renalware; Owner: -
 --
 
@@ -5578,7 +5618,8 @@ CREATE TABLE renalware.low_clearance_profiles (
     created_by_id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    referrer_id bigint
+    referrer_id bigint,
+    dialysis_plan_id bigint
 );
 
 
@@ -12348,6 +12389,13 @@ ALTER TABLE ONLY renalware.letter_signatures ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: low_clearance_dialysis_plans id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.low_clearance_dialysis_plans ALTER COLUMN id SET DEFAULT nextval('renalware.low_clearance_dialysis_plans_id_seq'::regclass);
+
+
+--
 -- Name: low_clearance_profiles id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -14002,6 +14050,14 @@ ALTER TABLE ONLY renalware.letter_recipients
 
 ALTER TABLE ONLY renalware.letter_signatures
     ADD CONSTRAINT letter_signatures_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: low_clearance_dialysis_plans low_clearance_dialysis_plans_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.low_clearance_dialysis_plans
+    ADD CONSTRAINT low_clearance_dialysis_plans_pkey PRIMARY KEY (id);
 
 
 --
@@ -17206,10 +17262,38 @@ CREATE INDEX index_letter_signatures_on_user_id ON renalware.letter_signatures U
 
 
 --
+-- Name: index_low_clearance_dialysis_plans_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_low_clearance_dialysis_plans_on_code ON renalware.low_clearance_dialysis_plans USING btree (code);
+
+
+--
+-- Name: index_low_clearance_dialysis_plans_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_low_clearance_dialysis_plans_on_deleted_at ON renalware.low_clearance_dialysis_plans USING btree (deleted_at);
+
+
+--
+-- Name: index_low_clearance_dialysis_plans_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_low_clearance_dialysis_plans_on_name ON renalware.low_clearance_dialysis_plans USING btree (name);
+
+
+--
 -- Name: index_low_clearance_profiles_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_low_clearance_profiles_on_created_by_id ON renalware.low_clearance_profiles USING btree (created_by_id);
+
+
+--
+-- Name: index_low_clearance_profiles_on_dialysis_plan_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_low_clearance_profiles_on_dialysis_plan_id ON renalware.low_clearance_profiles USING btree (dialysis_plan_id);
 
 
 --
@@ -23760,6 +23844,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220120172755'),
 ('20220210152018'),
 ('20220301162239'),
-('20220307174658');
+('20220307174658'),
+('20220405114521');
 
 
