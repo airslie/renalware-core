@@ -25,7 +25,7 @@ module Renalware
       end
 
       def index
-        modality_descriptions = Description.all
+        modality_descriptions = Description.all.order(code: :asc)
         authorize modality_descriptions
         render locals: { modality_descriptions: modality_descriptions }
       end
@@ -62,8 +62,16 @@ module Renalware
       end
 
       def modality_description_params
-        params.require(:modalities_description)
-              .permit(:name, :code, :site, :hidden, :ignore_for_aki_alerts)
+        params
+          .require(:modalities_description)
+          .permit(
+            :name,
+            :code,
+            :site,
+            :hidden,
+            :ignore_for_aki_alerts,
+            :ignore_for_kfre
+          )
       end
 
       def find_and_authorize_modality_description

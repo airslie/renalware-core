@@ -22,6 +22,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   #   abspath == app_version ? "VERSION" : basename.camelize
   # end
 
+  inflect.acronym "ACR"
   inflect.acronym "AKI"
   inflect.acronym "AKCC"
   inflect.acronym "APD"

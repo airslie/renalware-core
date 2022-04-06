@@ -10,6 +10,7 @@ module Renalware
       validates :name, presence: true, uniqueness: true
 
       scope :ignorable_for_aki_alerts, -> { where(ignore_for_aki_alerts: true) }
+      scope :ignorable_for_kfre, -> { where(ignore_for_kfre: true) }
 
       def to_s
         name

@@ -13,8 +13,12 @@
             hint: "Prevent this modality from being assigned to patients prospectively")
 
   = f.input(:ignore_for_aki_alerts,
-             wrapper: :horizontal_small,
-             hint: "Prevent AKI alert creation for patients with this current modality")
+            wrapper: :horizontal_small,
+            hint: "Prevent AKI alert creation for patients with this current modality")
+
+  = f.input(:ignore_for_kfre,
+            wrapper: :horizontal_small,
+            hint: "Do not calculate KFRE for patients with this current modality")
 
   = f.button :submit
   '  or

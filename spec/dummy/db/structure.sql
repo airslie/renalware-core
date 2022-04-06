@@ -2177,7 +2177,8 @@ CREATE TABLE renalware.modality_descriptions (
     hidden boolean DEFAULT false NOT NULL,
     ukrdc_modality_code_id bigint,
     code character varying,
-    ignore_for_aki_alerts boolean DEFAULT false NOT NULL
+    ignore_for_aki_alerts boolean DEFAULT false NOT NULL,
+    ignore_for_kfre boolean DEFAULT false NOT NULL
 );
 
 
@@ -2186,6 +2187,13 @@ CREATE TABLE renalware.modality_descriptions (
 --
 
 COMMENT ON COLUMN renalware.modality_descriptions.ignore_for_aki_alerts IS 'If true, HL7 AKI scores are ignored when the patient has this current modality';
+
+
+--
+-- Name: COLUMN modality_descriptions.ignore_for_kfre; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.modality_descriptions.ignore_for_kfre IS 'If true, we will attempt to generate a KFRE on receipt of ACR/PCR result when the patient has this current modality';
 
 
 --
@@ -17542,6 +17550,13 @@ CREATE INDEX index_modality_descriptions_on_id_and_type ON renalware.modality_de
 
 
 --
+-- Name: index_modality_descriptions_on_ignore_for_kfre; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_modality_descriptions_on_ignore_for_kfre ON renalware.modality_descriptions USING btree (ignore_for_kfre);
+
+
+--
 -- Name: index_modality_descriptions_on_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -23845,6 +23860,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220210152018'),
 ('20220301162239'),
 ('20220307174658'),
-('20220405114521');
+('20220405114521'),
+('20220407084109');
 
 

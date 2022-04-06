@@ -207,6 +207,10 @@ module Renalware
     config_accessor(:pathology_hours_to_search_ahead_for_pre_ure_result) {
       ENV.fetch("PATHOLOGY_HOURS_TO_SEARCH_AHEAD_FOR_PRE_URE_RESULT", "4").to_i
     }
+    config_accessor(:pathology_acr_obx_code_for_kfre_calculation) { "ACR" }
+    config_accessor(:pathology_kfre_2y_obx_code) { "KFRE2" }
+    config_accessor(:pathology_kfre_5y_obx_code) { "KFRE5" }
+    config_accessor(:pathology_kfre_obr_code) { "KFRE" }
   end
 
   def self.config

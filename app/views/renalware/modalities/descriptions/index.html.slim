@@ -15,6 +15,7 @@
         th.col-width-small
         th.col-width-tiny Hidden
         th.col-width-tiny AKI Alerts
+        th.col-width-tiny KFRE
         th Name
     tbody
       - modality_descriptions.each do |description|
@@ -33,4 +34,7 @@
           td
             - unless description.ignore_for_aki_alerts
               i.fas.fa-check-circle.text-green-500(title="Allow AKI Alert to be created for patient with this current modality")
+          td
+            - unless description.ignore_for_kfre
+              i.fas.fa-check-circle.text-green-500(title="Allow KFRE to be calculated on receipt of ACR/PCR for patient with this current modality")
           td= description.name
