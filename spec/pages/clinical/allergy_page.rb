@@ -18,7 +18,7 @@ module Pages
         end
         within "#add-allergy-modal.open" do
           fill_in "clinical_allergy_description", with: description
-          click_on modal_t(".save")
+          click_on modal_t("btn.save")
         end
       end
 

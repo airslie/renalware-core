@@ -12,9 +12,9 @@
     = f.input :urgent, as: :boolean, boolean_style: :inline
     = f.input :tags, label: "Tags", placeholder: "Optional comma-delimited list"
     = f.input :notes, as: :text, input_html: { autofocus: :autofocus }
-    = f.submit t(".save"), class: :button
+    = f.submit t("btn.save"), class: :button
     '  or
-    = link_to t(".cancel"),
+    = link_to t("btn.cancel"),
              "#",
              "aria-label" => "Close",
              class: "reveal-modal-close"

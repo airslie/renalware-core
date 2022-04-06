@@ -7,14 +7,14 @@ table.auto-layout.letters.has-togglable-rows
       th.noprint.col-width-11
       th.col-width-tiny Notes
       th.col-width-tiny Enc.
-      th.col-width-tiny= t(".thead.state")
-      th.col-width-date-time= t(".thead.date_")
+      th.col-width-tiny= t("thead.state")
+      th.col-width-date-time= t("thead.date_")
       - if columns.include?(:author)
-        th.col-width-medium = t(".thead.author")
+        th.col-width-medium = t("thead.author")
       - if columns.include?(:patient)
-        th.col-width-medium = t(".thead.patient")
-      th.at-least.col-width-medium= t(".thead.recipient")
-      th.col-width-medium= t(".thead.description")
+        th.col-width-medium = t("thead.patient")
+      th.at-least.col-width-medium= t("thead.recipient")
+      th.col-width-medium= t("thead.description")
 
   tbody
     = render partial: "renalware/letters/letters/letter",

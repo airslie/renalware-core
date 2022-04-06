@@ -16,7 +16,7 @@
           th.col-width-medium.last_used_on
             = sort_link([:renalware, search], :last_used_on, t(".last_used_on"))
           th.col-width-date-time.updated_at
-            = sort_link([:renalware, search], :updated_at, t(".thead.updated_at"))
+            = sort_link([:renalware, search], :updated_at, t("thead.updated_at"))
           th.col-width-medium
     tbody
       = render partial: "row",
