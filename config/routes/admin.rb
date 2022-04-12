@@ -12,4 +12,5 @@ namespace :admin do
     resources :files, only: [:index, :show, :new, :create]
   end
   resource :cache, only: [:show, :destroy]
+  resource :config, only: [:show, :destroy], controller: "config"
 end

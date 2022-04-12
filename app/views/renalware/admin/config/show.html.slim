@@ -1,0 +1,9 @@
+= within_new_admin_layout(title: "Config Settings") do
+  table.w-auto
+    tbody
+      - settings.each do |setting|
+        - value = Renalware.config.public_send(setting)
+        - value = value.respond_to?(:call) ? value.call : value
+        tr
+          th.w-1/3= setting.to_s.humanize
+          td= value
