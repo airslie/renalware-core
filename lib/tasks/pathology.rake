@@ -78,7 +78,8 @@ namespace :pathology do
       end
   end
 
-  desc "Derive and store missing URR pathology"
+  desc "Derive and store missing URR pathology. At some sites the URR arrives via the lab, "\
+       "at others we need to generate it"
   task generate_missing_urr: :environment do
     Renalware::Pathology::Generators::UrrGenerator.call
   end
