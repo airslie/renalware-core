@@ -11,6 +11,7 @@ module Renalware
       let(:obx_desc_pre_urea) { create(:pathology_observation_description, code: "URE") }
       let(:obx_desc_post_urea) { create(:pathology_observation_description, code: "P_URE") }
       let(:obx_desc_urr) { create(:pathology_observation_description, code: "URR") }
+      let(:obx_desc_ktv) { create(:pathology_observation_description, code: "Kt/V") }
       let(:datetime) { DateTime.parse("2001-01-01 14:00:00") }
 
       def create_pre_urea(observed_at, value)
@@ -63,8 +64,9 @@ module Renalware
                 value: 30
               }
             ],
-            expected_urr_count: 1,
-            expected_urr: 50 # post: 10 pre: 20
+            expected_observation_count: 2, # URR and Kt/V
+            expected_urr: 50, # post: 10 pre: 20
+            expected_ktv: 0.69
           },
           {
             post_urea: {
@@ -77,7 +79,7 @@ module Renalware
                 value: 10
               }
             ],
-            expected_urr_count: 0,
+            expected_observation_count: 0,
             expected_urr: 0
           },
           {
@@ -96,7 +98,7 @@ module Renalware
                 value: 30
               }
             ],
-            expected_urr_count: 0,
+            expected_observation_count: 0,
             expected_urr: 0
           }
         ].each do |test|
@@ -117,11 +119,18 @@ module Renalware
 
             expect {
               described_class.call
-            }.to change(Observation, :count).by(test[:expected_urr_count])
+            }.to change(Observation, :count).by(test[:expected_observation_count])
 
-            if test[:expected_urr_count] > 0
+            if test[:expected_observation_count] > 0
               urr = patient.observations.where(description: obx_desc_urr).last
               expect(urr.nresult).to eq(test[:expected_urr])
+              expect(urr.reload.calculation_sources.count).to eq(2)
+
+              ktv = patient.observations.where(description: obx_desc_ktv).last
+              expect(ktv.nresult).to eq(test[:expected_ktv])
+              expect(ktv.calculation_sources.count).to eq(2)
+            else
+              expect(Pathology::CalculationSource.count).to eq(0)
             end
 
             # Check that once the URR is created, it does not re-create it.

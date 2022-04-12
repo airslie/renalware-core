@@ -10,6 +10,10 @@ module Renalware
       belongs_to :description,
                  class_name: "ObservationDescription",
                  inverse_of: :observations
+      has_many :calculation_sources,
+               dependent: :destroy,
+               foreign_key: :calculated_observation_id
+      has_many :calculated_observations, through: :calculation_sources
       # ,counter_cache: true,
       # touch: :last_observed_at
 

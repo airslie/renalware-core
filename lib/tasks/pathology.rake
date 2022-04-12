@@ -37,7 +37,7 @@ namespace :pathology do
       raw_message = File.read(path)
 
       # Make sure line endings are \r and not \n or as that is how the HL7 looks
-      raw_message = raw_message.gsub /\n/, "\r"
+      raw_message = raw_message.tr "\n", "\r"
 
       # To do this in a loop be sure to add .L ms when gsubbing the msg
       # 10000.times do
@@ -78,7 +78,7 @@ namespace :pathology do
       end
   end
 
-  desc "Derive and store missing URR pathology. At some sites the URR arrives via the lab, "\
+  desc "Derive and store missing URR pathology. At some sites the URR arrives via the lab, " \
        "at others we need to generate it"
   task generate_missing_urr: :environment do
     Renalware::Pathology::Generators::UrrGenerator.call
