@@ -61,10 +61,14 @@ module Renalware
         # They could use this for message processing but we'd rather it was used for post-processing
         # e.g. forwarding, logging etc.
         # Its is recommended here to use an async listener - see example in renalware-diaverum
-        # - so that any error in the listener has its own try mechansim and does not cause the
+        # - so that any error in the listener has its own retry mechansim and does not cause the
         # current job to retry.
         message_to_broadcast = "#{hl7_message.message_type.downcase}_message_processed"
-        broadcast(message_to_broadcast.to_sym, feed_message: feed_message)
+        broadcast(
+          message_to_broadcast.to_sym,
+          hl7_message: hl7_message,
+          feed_message: feed_message
+        )
       end
 
       def parse_raw_message_into_hl7_object
