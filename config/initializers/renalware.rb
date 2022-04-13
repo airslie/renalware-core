@@ -46,7 +46,8 @@ Renalware.configure do |config|
       "Renalware::Patients::Ingestion::MessageListener",
       "Renalware::Pathology::Ingestion::AKIListener",
       "Renalware::Pathology::Ingestion::MessageListener",
-      "Renalware::Clinics::Ingestion::MessageListener"
+      "Renalware::Clinics::Ingestion::MessageListener",
+      "Renalware::Pathology::KFRE::Listener"
     ]
   }
 end
