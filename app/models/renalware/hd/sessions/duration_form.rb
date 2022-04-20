@@ -58,7 +58,7 @@ module Renalware
           start = start_date.to_time
 
           if start_time.present?
-            start += start_time.seconds_since_midnight
+            start += start_time.in_time_zone.seconds_since_midnight
           end
           start
         end
@@ -69,7 +69,7 @@ module Renalware
           return unless start_date.present? && end_time.present?
 
           date = overnight_dialysis ? start_date + 1.day : start_date
-          date.to_time + end_time.seconds_since_midnight
+          date.to_time + end_time.in_time_zone.seconds_since_midnight
         end
 
         # Factory method that builds a duration form object so we can use it behind
