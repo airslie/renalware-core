@@ -1,5 +1,33 @@
 = within_admin_layout(title: "HL7 Test Messages") do
 
+
+  .rounded-md.bg-yellow-100.px-3.py-2.flex.items-start.shadow.mb-5
+    i.fas.fa-exclamation.mr-2.mt-1.text-red-600
+    .text-red-600.font-bold Please be aware this may update live data
+
+
+  .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
+    i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+    div
+      ' You can submit an HL7 message here manually, to replicate its arrival from the lab/PAS.
+
+      .my-1
+        ' If doing testing, we recommend you replace the patient details in the PID segment with
+        ' a test patient. Note that the patient numbers and DOB in the message must match those in the
+        ' database for it to find and update the patient.
+        ' This page is not yet sophisticated enough
+        ' to tell you whether or not a patient was updated.
+      .my-1.font-bold Things to note
+      .my-1
+        ' The same exact message will not be porocessed twice, so if resubmitting a message,
+        ' either change the Message Control ID in the MSH segment (MSH.10), eg
+        code ..|ORU^R01|changeme123|P|2.3.1|..
+        '  or in MSH.10 use the string
+        code "{{message_id}}"
+        '  eg
+        code ..|ORU^R01|{{message_id}}|P|2.3.1|..
+        '  and then the Message Control ID will be randomised for you
+
   .row.hl7-file-browser
     .columns.small-3
       - test_messages.each do |msg|
