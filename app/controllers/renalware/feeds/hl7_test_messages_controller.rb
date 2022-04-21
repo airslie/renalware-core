@@ -11,31 +11,16 @@ module Renalware
         render locals: { form: HL7TestForm.new, test_messages: test_messages }
       end
 
-      # rubocop:disable Metrics/MethodLength
       def create
         authorize [:renalware, :admin, :devops], :create?
         body = replace_placeholders_in_hl7_message(form_params[:body])
-        job = FeedJob.new(body)
-        job.perform
-        test_patient
-        version = test_patient.reload.versions.order(created_at: :desc).last&.object_changes
-        json_version = version && JSON.pretty_generate(version)
+        FeedJob.new(body).perform
+
         respond_to do |format|
           format.js do
-            render locals: {
-              a: "asas",
-              test_patient: test_patient,
-              version: json_version
-            }
+            render locals: { result: "Processed #{Time.zone.now}" }
           end
         end
-        # rubocop:enable Metrics/MethodLength
-
-        # # Delayed::Job.enqueue job
-        # redirect_to(
-        #   renalware.new_feeds_hl7_test_message_path,
-        #   notice: "Hl7 message queued"
-        # )
       end
 
       private
@@ -44,14 +29,9 @@ module Renalware
         params.require(:feeds_hl7_test_form).permit(:body)
       end
 
-      def test_patient
-        @test_patient ||= Patient.find_by!(local_patient_id: "Z100001")
-      end
-
       def replace_placeholders_in_hl7_message(message)
         message
           .gsub("{{message_id}}", SecureRandom.hex(12))
-          .gsub("{{local_patient_id}}", test_patient.local_patient_id)
           .gsub("\r\n", "\r")
       end
     end
