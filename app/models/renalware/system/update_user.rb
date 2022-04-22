@@ -20,7 +20,7 @@ module Renalware
 
       private
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def update!(params)
         User.transaction do
           approve if can_approve?(params)
@@ -33,6 +33,7 @@ module Renalware
           end
           authorise(params)
           user.telephone = params[:telephone]
+          user.hospital_centre_id = params[:hospital_centre_id]
           user.banned = params.fetch(:banned, false)
           user.notes = params[:notes]
           user.save!
@@ -40,7 +41,7 @@ module Renalware
       rescue ActiveRecord::RecordInvalid
         false
       end
-      # rubocop:enable Metrics/MethodLength
+      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
       def notify!
         notifications.each { |n| n.public_send(delivery_method) } if notifications.any?

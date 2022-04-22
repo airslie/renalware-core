@@ -93,6 +93,12 @@
                 input_html: { class: "rounded w-full border-gray-300 mb-2" },
                 wrapper: :horizontal_small
 
+      = f.association :hospital_centre,
+                      collection: Renalware::Hospitals::Centre.ordered.pluck(:name, :id),
+                      wrapper: :horizontal_medium,
+                      include_blank: "None",
+                      input_html: { class: "searchable_select" }
+
       - msg = user.approved? ? "Update" : "Approve"
       = f.submit msg, class: "button"
       '  or
