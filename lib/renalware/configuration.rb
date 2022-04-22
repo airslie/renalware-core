@@ -175,6 +175,7 @@ module Renalware
         "OTHER" => "NS",
         "UNKNOWN" => "NK",
         "NOTKNOWN" => "NK",
+        "INDETERMINATE" => "NK",
         "AMBIGUOUS" => "NS",
         "NOT APPLICABLE" => "NS",
         "BOTH" => "NS"
