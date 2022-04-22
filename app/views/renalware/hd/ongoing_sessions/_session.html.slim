@@ -8,9 +8,8 @@ tr
   td= session.patient.age
   td= session.patient.sex.code
   td= session.patient.current_modality
-
   td= session.hospital_unit
-  td= l session.performed_on
+  td= l session.started_at&.to_date
   td= session.start_time
   td= session.end_time
   td= session.signed_on_by
