@@ -15,7 +15,7 @@ gem "bootsnap", require: false # speeds up rspec and rails server boot time in d
 gem "daemons", require: false # to use cmds like `bin/delayed_job start`
 gem "faker"
 gem "i18n-tasks", "~> 0.9.33"
-gem "jsbundling-rails"
+gem "jsbundling-rails", "0.1.9"
 gem "nhs_api_client", github: "airslie/nhs_api_client", tag: "v0.1.2", require: false
 gem "paper_trail"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
@@ -28,15 +28,15 @@ gem "wkhtmltopdf-binary", "0.12.3.1"
 gem "httparty", require: false
 gem "tailwindcss-rails", "~> 2.0.8"
 # For sentry error reporting and metrics
-gem "sentry-rails", "~> 4.7"
-gem "sentry-ruby", "~> 4.7"
+gem "sentry-rails"
+gem "sentry-ruby"
 gem "strong_migrations"
 
 group :test do
   gem "capybara", "~> 3.32"
   gem "capybara-screenshot", "~> 1.0"
   gem "capybara-select-2"
-  gem "cucumber-rails", "2.3", require: false # must be loaded in env.rb
+  gem "cucumber-rails", "~> 2.5.1", require: false # must be loaded in env.rb
   gem "database_cleaner", require: false # for cucumber (now not needed for rspec)
   gem "factory_bot_rails", "~> 6.1"
   gem "fuubar", require: false
