@@ -8,7 +8,7 @@ import inject from "@rollup/plugin-inject" // allow referencing jquery in stimul
 // Had to add context window to avoid rollup converting self to undefined in stimulus
 export default {
   context: "window",
-  input: "app/javascript/renalware/index.js",
+  input: "app/javascript/renalware/application.js",
   output: {
     file: "app/assets/javascripts/renalware/built.js",
     format: "esm",
