@@ -16,7 +16,7 @@ We use rollupjs to compile js and css assets.
 ### rollup_compiled.js
 
 This is the js output from ruinning `rollup --config rollup.config.js`
-and is the compiled output from app/javascripts/renalware/index.js.
+and is the compiled output from app/javascripts/renalware/application.js.
 
 You need to have run `yarn install` before running rollup.
 
