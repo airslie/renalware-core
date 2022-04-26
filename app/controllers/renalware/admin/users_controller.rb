@@ -46,15 +46,10 @@ module Renalware
       params
         .require(:user)
         .permit(
-          :approved,
-          :unexpire,
-          :telephone,
-          :consultant,
-          :hidden,
-          :prescriber,
-          :banned,
-          :notes,
-          :access_unlock,
+          :approved, :unexpire, :telephone,
+          :consultant, :hidden, :prescriber,
+          :banned, :notes, :access_unlock,
+          :hospital_centre_id,
           role_ids: []
         )
     end
