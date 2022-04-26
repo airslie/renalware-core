@@ -6,11 +6,11 @@ name: renalwarev2
 # It is a combination of one of available machine types and operating
 # system images.
 # See https://docs.semaphoreci.com/article/20-machine-types
-# and https://docs.semaphoreci.com/article/32-ubuntu-1804-image
+# and https://docs.semaphoreci.com/article/32-ubuntu-2004-image
 agent:
   machine:
     type: e1-standard-2
-    os_image: ubuntu1804
+    os_image: ubuntu2004
 
 fail_fast:
   stop:
