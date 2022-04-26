@@ -6,11 +6,11 @@ name: renalwarev2
 # It is a combination of one of available machine types and operating
 # system images.
 # See https://docs.semaphoreci.com/article/20-machine-types
-# and https://docs.semaphoreci.com/article/32-ubuntu-2004-image
+# and https://docs.semaphoreci.com/article/32-ubuntu-1804-image
 agent:
   machine:
     type: e1-standard-2
-    os_image: ubuntu2004
+    os_image: ubuntu1804
 
 fail_fast:
   stop:
@@ -41,7 +41,7 @@ blocks:
           - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
           # Set Ruby version:
           - sem-version ruby 3.0.4
-          - sem-version node 10.19.0
+          - sem-version node 16.14.2
           - bundle install --deployment -j 4 --path vendor/bundle
           # Store the latest version of dependencies in cache,
           # to be used in next blocks and future workflows:
@@ -87,7 +87,7 @@ blocks:
           # See https://docs.semaphoreci.com/article/54-toolbox-reference#sem-service
           - sem-service start postgres 12.1
           - sem-version ruby 3.0.4
-          - sem-version node 10.13.0
+          - sem-version node 16.14.2
 
           # postgres client update so pg_dump resolves to 12.x
           - wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
