@@ -1,4 +1,4 @@
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 const Rails = window.Rails
 
 export default class extends Controller {
@@ -22,8 +22,8 @@ export default class extends Controller {
   */
   showhide(event) {
     let selectedOption = this.element.options[this.element.selectedIndex]
-    let idsToShow = selectedOption.dataset.show;
-    let idsToHide = selectedOption.dataset.hide;
+    let idsToShow = selectedOption.dataset.show
+    let idsToHide = selectedOption.dataset.hide
     document.querySelector("#" + idsToShow)?.classList.remove("hidden")
     document.querySelector("#" + idsToHide)?.classList.add("hidden")
   }

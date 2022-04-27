@@ -1,4 +1,4 @@
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 import URLSearchParams from "@ungap/url-search-params"
 import Highcharts from "highcharts"
 

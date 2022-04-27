@@ -1,5 +1,5 @@
 const $ = window.$
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 
 // Used when a table has toggleable rows (initially hidden rows that can be toggled open
 // to see e.g. notes or extended details) and each master row and its toggleable sibling are

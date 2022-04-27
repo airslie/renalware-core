@@ -1,7 +1,7 @@
 
 const Rails = window.Rails
 const _ = window._
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 
 // This controller has 3 related functions
 // - Keep a users session alive

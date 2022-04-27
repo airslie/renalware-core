@@ -1,4 +1,4 @@
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 import { Sortable } from "sortablejs"
 
 // Simple controller to add sorting using drag and drop voa the sortablsjs library.
