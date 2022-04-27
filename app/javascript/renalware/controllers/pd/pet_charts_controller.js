@@ -1,7 +1,7 @@
 // NB: importing Highcharts rather than the Chart module as could not quite get
 // highcharts-more working using Chart or when both Chart + Highcharts loaded.
 const $ = window.$
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 import Highcharts from "highcharts"
 import More from "highcharts/highcharts-more"
 More(Highcharts)

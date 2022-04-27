@@ -1,5 +1,5 @@
 const Rails = window.Rails
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 
 // Handles the modal dialog used for presenting Home Delivery print options to
 // the user. Used on the prescrptions page.

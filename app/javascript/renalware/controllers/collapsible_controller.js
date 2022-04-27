@@ -1,4 +1,4 @@
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 
 // Controller to enable collapsing elements of a nav/menu to for example
 // allow a more dense menu that can simplifies by hiding/collapsing sections.

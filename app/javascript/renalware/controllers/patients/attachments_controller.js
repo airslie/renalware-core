@@ -1,4 +1,4 @@
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 
 // Used with patient attachments aka linked files.
 export default class extends Controller {

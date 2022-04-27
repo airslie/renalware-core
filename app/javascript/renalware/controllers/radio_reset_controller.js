@@ -1,4 +1,4 @@
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 
 // Set all radio inputs within the controller's element to checked if their
 // value = matchValue (eg "no" in the case of tristate Yes No Uknown radio

@@ -2,7 +2,7 @@
 // Src: https://github.com/excid3/stimulus-slimselect
 //
 
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 import SlimSelect from "slim-select"
 
 export default class extends Controller {
