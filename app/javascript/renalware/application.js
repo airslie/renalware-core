@@ -9,5 +9,3 @@ import "./controllers"
 import { Turbo } from "@hotwired/turbo-rails"
 
 Turbo.session.drive = false // By default disable Turbo on all pages
-
-window.Chartkick.use(window.Highcharts)

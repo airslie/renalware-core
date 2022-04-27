@@ -16,6 +16,7 @@ module Renalware
       def initialize(patient:, current_user:)
         @patient = PD.cast_patient(patient)
         @current_user = current_user
+        super
       end
 
       def results
@@ -45,7 +46,6 @@ module Renalware
       # in codepen outside of the app so we can experiment - at the moment
       # the x axis is built from the data series (pcr), which is not linear.
       # So we need to specify the x axis and the series data separately.
-      # Best to use highcharts natively perhaps and skip the chartkick wrapper.
       # rubocop:disable Metrics/MethodLength
       def graph_options
         {

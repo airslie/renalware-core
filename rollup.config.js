@@ -15,9 +15,7 @@ export default {
     //format: "es",
     inlineDynamicImports: true,
     globals: {
-      "jquery": "jQuery",
-      "chartkick": "Chartkick",
-      "highcharts": "Highcharts"
+      "jquery": "jQuery"
     },
     name: "renalware-core",
     sourcemap: false,
@@ -30,5 +28,5 @@ export default {
       jQuery: "jquery"
     })
   ],
-  external: [ "chartkick", "highcharts" ]
+  external: []
 }

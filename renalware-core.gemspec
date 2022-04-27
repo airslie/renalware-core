@@ -36,7 +36,6 @@ Gem::Specification.new do |s|
   s.add_dependency "active_type", "~> 0.7.1"
   s.add_dependency "ahoy_matey", "~> 2.1"
   s.add_dependency "attr_extras", "~> 6.2"
-  s.add_dependency "chartkick", "~> 3.3"
   s.add_dependency "client_side_validations", "~> 17.0"
   s.add_dependency "client_side_validations-simple_form", "~> 11.0"
   s.add_dependency "clipboard-rails", "~> 1.7.1"

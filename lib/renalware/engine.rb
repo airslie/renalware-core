@@ -5,9 +5,7 @@ require "view_component"
 require "active_type"
 require "activerecord-import"
 require "ahoy"
-# require "autoprefixer-rails"
 require "simple_form"
-require "chartkick"
 require "client_side_validations"
 require "client_side_validations/simple_form"
 require "clipboard/rails"
@@ -59,7 +57,7 @@ require "virtus"
 require "wicked_pdf"
 require "wisper"
 require "wisper/activejob"
-require "byebug" if ENV["RAILS_ENV"] == "development"
+require "byebug" if ENV.fetch("RAILS_ENV", nil) == "development"
 
 module Renalware
   # Don't have prefix method return anything.
