@@ -6,7 +6,7 @@ require "nhs_client"
 module Renalware
   class BaseController < ApplicationController
     include Concerns::DeviseControllerMethods
-    include Pundit
+    include Pundit::Authorization
 
     before_action :set_paper_trail_whodunnit
     after_action :verify_authorized

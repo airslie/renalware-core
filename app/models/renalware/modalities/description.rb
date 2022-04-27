@@ -21,7 +21,7 @@ module Renalware
       end
 
       def self.policy_class
-        Modalities::DescriptionPolicy
+        DescriptionPolicy
       end
 
       # Modalities::Description subclasses can override this to for instance add
