@@ -1,0 +1,21 @@
+.columns.medium-12.large-6
+  article
+    header
+      h2
+        - if include_chrome
+          = t(".full_title", period_in_days: period_in_days)
+        - else
+          = t(".subtitle", period_in_days: period_in_days)
+
+      - if include_chrome
+        ul
+          li= link_to t("btn.view_all"), renalware.feeds_outgoing_documents_path, class: "button"
+
+    dl.clear-both.mt-4.grid.rounded-lg.bg-white.overflow-hidden.divide-gray-200.grid-cols-3.divide-y-0.divide-x(style="display: grid")
+      - stats.each do |state, count, latest, text_klass|
+        div.px-4.py-3
+          dt.text-base.font-normal.text-gray-900= t(".#{state}")
+          dd.mt-1.flex.justify-between.items-baseline.block.flex
+            div.flex.items-baseline.text-2xl.font-semibold(class=text_klass)
+              = count
+              .ml-2.text-sm.font-medium.text-gray-500= t(".latest", latest: latest)

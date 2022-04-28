@@ -4,10 +4,6 @@ ruby:
     "errored" => "bg-red-100",
     "processed" => "bg-green-100"
   }
-  stats = {
-    "Last 24 hours" => Renalware::Feeds::OutgoingDocument.where("created_at >= ?", 1.day.ago).group(:state).count(),
-    "Last 7 days" => Renalware::Feeds::OutgoingDocument.where("created_at >= ?", 7.days.ago).group(:state).count()
-  }
 
 = content_for(:filters) do
   .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
@@ -15,14 +11,6 @@ ruby:
     ' Mirth polls for 'queued' documents to process.
     ' Mirth last processed a document at
     ' #{l(Renalware::Feeds::OutgoingDocument.where.not(state: 'queued').maximum(:updated_at))}
-
-  .bg-gray-100.p-4.rounded-lg.mb-5
-    - stats.each do |heading, hash|
-      dl.mb-5.mt-5.grid.grid-cols-1.gap-5.sm:grid-cols-4(style="display: grid; margin-bottom: 1rem")
-        dt.text-md.font-medium.text-gray-800.truncate= heading
-
-        - hash.each do |state, value|
-          = render "stat", state: state, value: value, css_class: state_class_map[state]
 
   .search-form.filters
     = simple_form_for query,
@@ -40,6 +28,8 @@ ruby:
           = link_to t("btn.reset"), renalware.feeds_outgoing_documents_path
 
 = within_new_admin_layout(title: "Outgoing Documents") do
+  = render Renalware::Feeds::OutgoingDocumentsStatusComponent.new(current_user: current_user, period_in_days: 30, include_chrome: false)
+  = render Renalware::Feeds::OutgoingDocumentsStatusComponent.new(current_user: current_user, period_in_days: 7, include_chrome: false)
 
   table
     thead
