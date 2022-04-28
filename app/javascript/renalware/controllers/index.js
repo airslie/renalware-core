@@ -21,6 +21,7 @@ import RadioResetController from "./radio_reset_controller"
 import ConditionalDisplayController from "./conditional_display_controller"
 import SlimselectController from "./slimselect_controller"
 import TurboModalController from "./turbo_modal_controller"
+import FormController from "./form_controller"
 
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
@@ -43,3 +44,4 @@ application.register("radio-reset", RadioResetController)
 application.register("conditional-display", ConditionalDisplayController)
 application.register("slimselect", SlimselectController)
 application.register("turbo-modal", TurboModalController)
+application.register("form", FormController)
