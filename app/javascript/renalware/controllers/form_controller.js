@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import debounce from "lodash"
+import debounce from "debounce"
 
 /*  Adds auto-submit to a form using @hotwired turbo
     Debounces changes to prevent chatter when typing into a textfield.
@@ -21,7 +21,7 @@ import debounce from "lodash"
 */
 export default class extends Controller {
   initialize() {
-    this.submit = debounce(this.submit.bind(this), 400)
+    this.submit = debounce(this.submit.bind(this), 300)
   }
 
   submit() {
