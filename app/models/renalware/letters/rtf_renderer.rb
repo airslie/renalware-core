@@ -7,7 +7,7 @@ module Renalware
     # Use pandoc to convert the html letter to RTF
     class RTFRenderer
       pattr_initialize :letter
-      REGEX_TO_STRIP_IMAGES = %r{(?m)<img\s*.*?"\s*\/>}.freeze
+      REGEX_TO_STRIP_IMAGES = %r{(?m)<img\s*.*?"\s*\/>}
 
       def render
         using_temp_html_file do |temp_file|

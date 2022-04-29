@@ -18,8 +18,8 @@ module Renalware
 
           def to_s
             "#{observation_description_code} " \
-            " #{param_comparison_operator} " \
-            "#{param_comparison_value}"
+              " #{param_comparison_operator} " \
+              "#{param_comparison_value}"
           end
 
           # def observation_description
@@ -28,7 +28,7 @@ module Renalware
 
           def observation_description_code
             @observation_description_code ||= begin
-              ObservationDescription.where(id: param_id).pluck(:code).first
+              ObservationDescription.where(id: param_id).pick(:code)
             end
           end
 

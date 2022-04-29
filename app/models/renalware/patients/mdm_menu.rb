@@ -31,7 +31,7 @@ module Renalware
       # Only accept MDM scopes names that are simple lower case underscored
       # strings eg "my_view_name".
       def self.remove_invalid_scope_names_that_could_break_menu_rendering(scopes)
-        scopes.select { |scope| scope.match?(/^[a-z0-9_]*$/) }
+        scopes.grep(/^[a-z0-9_]*$/)
       end
 
       private_class_method :array_of_distinct_scopes_for_all_mdm_list_views

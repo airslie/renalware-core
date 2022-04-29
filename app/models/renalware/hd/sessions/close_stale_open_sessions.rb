@@ -29,7 +29,7 @@ module Renalware
           def close
             self.profile = patient.hd_profile
             self.signed_off_at = Time.zone.now
-            self.stopped_at ||= self.started_at + 3.hours # assumed default if no stopped_at present
+            self.stopped_at ||= started_at + 3.hours # assumed default if no stopped_at present
             self.dry_weight = Renalware::Clinical::DryWeight.for_patient(patient).first
             valid? && document.valid? && save_by(Renalware::SystemUser.find)
           end

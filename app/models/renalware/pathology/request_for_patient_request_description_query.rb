@@ -21,8 +21,7 @@ module Renalware
           )
           .order(created_at: :desc)
           .limit(1)
-          .pluck(:created_at)
-          .first
+          .pick(:created_at)
       end
     end
   end

@@ -108,7 +108,7 @@ module Renalware
         def mean_weight_loss
           selector = ->(session) { session.weight_loss }
           MeanValueStrategy.new(
-            sessions: closed_sessions.reject{ |sess| sess.weight_loss.nil? }, 
+            sessions: closed_sessions.reject { |sess| sess.weight_loss.nil? },
             selector: selector
           ).call
         end
