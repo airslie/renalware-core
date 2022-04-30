@@ -101,9 +101,7 @@ module Renalware
 
         def write_letter_to_pdf_file(letter)
           filename = "original_letter_#{letter.id}.pdf"
-          File.open(filename, "wb") do |file|
-            file.write(PdfRenderer.call(letter))
-          end
+          File.binwrite(filename, PdfRenderer.call(letter))
           filename
         end
 

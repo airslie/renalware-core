@@ -38,7 +38,7 @@ module Renalware
       end
 
       class << self
-        RegimeBag.role.values.each do |role|
+        RegimeBag.role.each_value do |role|
           define_method role.to_sym do
             having_role(role.to_s)
           end

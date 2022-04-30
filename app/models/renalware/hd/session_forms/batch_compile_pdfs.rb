@@ -41,9 +41,7 @@ module Renalware
 
         def process_batch_items
           filename = "batch_#{batch.id}.pdf"
-          File.open(filename, "wb") do |file|
-            file.write(PdfRenderer.new(patients: patients).call)
-          end
+          File.binwrite(filename, PdfRenderer.new(patients: patients).call)
           batch.items.each { |item| item.update(status: :compiled) }
         end
 
@@ -53,9 +51,7 @@ module Renalware
 
         def render_session_form_pdf_to_file_for(patient)
           filename = "session_form_#{patient.id}.pdf"
-          File.open(filename, "wb") do |file|
-            file.write(PdfRenderer.new(patient: patient).call)
-          end
+          File.binwrite(filename, PdfRenderer.new(patient: patient).call)
           filename
         end
 

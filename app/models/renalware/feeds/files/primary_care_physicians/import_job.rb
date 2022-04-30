@@ -10,7 +10,7 @@ module Renalware
           include StringLogging
           include Feeds::Job
 
-          FILE_TO_EXTRACT_FROM_ARCHIVE = /^egpcur.csv$/.freeze
+          FILE_TO_EXTRACT_FROM_ARCHIVE = /^egpcur.csv$/
 
           def perform(file)
             logging_to_stringio(strio = StringIO.new)

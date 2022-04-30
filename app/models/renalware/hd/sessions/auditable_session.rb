@@ -58,7 +58,7 @@ module Renalware
           post_weight = observations_after.weight.to_f
 
           return if pre_weight.zero? || post_weight.zero?
-            
+
           observations_before.weight.to_f - observations_after.weight.to_f
         end
 
