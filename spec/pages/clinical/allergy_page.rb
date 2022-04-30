@@ -14,7 +14,7 @@ module Pages
 
       def add_allergy(description)
         within ".clinical-allergies" do
-          click_on t_allergies(".add")
+          click_on t("btn.add")
         end
         within "#add-allergy-modal.open" do
           fill_in "clinical_allergy_description", with: description
@@ -47,7 +47,7 @@ module Pages
       def mark_patient_as_having_no_known_allergies
         within ".clinical-allergies" do
           check(t_allergy_status(".no_known_allergies"))
-          click_on t_allergy_status(".save")
+          click_on t("btn.save")
         end
       end
 
@@ -58,7 +58,7 @@ module Pages
       end
 
       def t_allergies(key, scope: "renalware.clinical.allergies.list", required: false)
-        translation = t(key, scope: scope)
+        translation = I18n.t(key, scope: scope)
         required ? "* #{translation}" : translation
       end
 

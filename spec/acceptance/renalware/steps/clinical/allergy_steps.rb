@@ -33,18 +33,21 @@ module Renalware
       def assert_allergies(_patient_name, table)
         expected_allergies = table.hashes.map { |allergy| allergy["description"] }
         actual_allergies = clinical_patient.allergies.pluck(:description)
+
         expect(actual_allergies && expected_allergies).to eq(expected_allergies)
       end
 
       def assert_archived_allergies(_patient_name, table)
         expected_allergies = table.hashes.map { |allergy| allergy["description"] }
         actual_allergies = clinical_patient.allergies.only_deleted.pluck(:description)
+
         expect(actual_allergies).to eq(expected_allergies)
       end
 
       def mark_patient_as_having_no_known_allergies(*)
         status = :no_known_allergies
         patient.update_by(user, allergy_status: status)
+
         expect(patient.reload.allergy_status).to eq(status.to_s)
       end
 
@@ -68,12 +71,12 @@ module Renalware
 
           po.remove_allergy(allergy)
 
-          expect(po.exists?(allergy)).to eq(false)
+          expect(po.exists?(allergy)).to be(false)
         end
 
         def mark_patient_as_having_no_known_allergies(*)
           po = Pages::Clinical::AllergyPage.new(patient)
-          expect(po.status_form_disabled?).to eq(true)
+          expect(po.status_form_disabled?).to be(true)
 
           po.mark_patient_as_having_no_known_allergies
 
