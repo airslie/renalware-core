@@ -1,10 +1,26 @@
 # Development procfile. Run with eg
-#   $ bin/dev
-# or
-#  $ foreman start -f Procfile.dev
-# or
-#   $ hivemind Procfile.dev
+# $ bin/dev
+
+#
+# Web server (puma)
+#
 web: bin/web -p 3000
+
+#
+# Background jobs
+#
 worker: bundle exec rake app:jobs:work
+
+#
+# Javascript transpile and bundling
+#
 js: yarn build --watch
-css: bin/rails app:tailwindcss:watch
+
+#
+# TailwindCSS
+# We could use `bundle exec app:tailwindcss:watch` rather than use yarn build:css
+# but as yarn is used for the js watch, it makes sense to use it for css also.
+# Note too that the build:css script in the root package json delegates to the
+# build:css script in spec/dummy/package.json to mimic behaviour in site rails apps.
+#
+css: yarn build:css --watch

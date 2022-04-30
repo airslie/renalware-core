@@ -55,5 +55,9 @@ namespace :tailwind do
   end
 end
 
-Rake::Task["app:tailwindcss:build"].enhance(["app:tailwind:generate_config"])
-Rake::Task["app:tailwindcss:watch"].enhance(["app:tailwind:generate_config"])
+# This enhance only works when using `yarn build:css` as it runs in the scope of the dummy app.
+# It does however syntactically match the host site rails app tailwind.rake file
+# Note that for watching for css changes, if were not using `yarn build:css` but
+# rather `rake app:tailwindcss:watch`` then we would need to add
+#   Rake::Task["app:tailwindcss:watch"].enhance(["app:tailwind:generate_config"])
+Rake::Task["tailwindcss:build"].enhance(["app:tailwind:generate_config"])

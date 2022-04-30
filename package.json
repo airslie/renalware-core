@@ -48,6 +48,7 @@
   },
   "scripts": {
     "build": "rollup --config rollup.config.js",
+    "build:css": "./spec/dummy/bin/yarn build:css",
     "lint": "eslint app/javascript"
   }
 }
