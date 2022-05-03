@@ -9,6 +9,25 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.8
+### Added
+- 5 and 2 year KFRE calculations #3866
+- Display outgoing document stats on superadmin dashboard #3896
+- Allow an admin to change the hospital site a user works at #3884
+- Map HL7 sex INDETERMINATE to Not Known #3882
+- Add superadmin page to allow submission of test/adhoc HL7 messages #3881
+- Add a superadmin screen for viewing config settings #3869
+- Display in demographics the last time the patient was sent to the ukrdc #3862
+- Add low_clearance dialysis_plans table (part 1) for migration away from hard-coded values #3865
+### Changed
+- Add as-you-type filtering to the admin drugs list #3897
+- Bump Ruby version to 3.0.4 #3880
+### Fixed
+- Hd sessions table columns out of order #3874
+- Correct HD Session start/stop time timezones #3875
+- Update UKRDC gpg keyring #3867
+
+
 ## 2.2.7
 ### Added
 - Add a date range to AKI Alerts which defaults to 'last 24 hours up to 0945' #3841
