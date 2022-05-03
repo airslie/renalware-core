@@ -42,9 +42,9 @@ module Renalware
         def call
           return if insufficient_data?
 
-          sum = (-0.2201 * ((age / 10) - 7.036)) +
+          sum = (-0.2201 * ((age / 10.0) - 7.036)) +
                 (0.2467 * (male - 0.5642)) -
-                (0.5567 * ((egfr / 5) - 7.222)) +
+                (0.5567 * ((egfr / 5.0) - 7.222)) +
                 (0.4510 * (Math.log(acr / 0.113) - 5.137))
 
           KFRE::Result.new(
