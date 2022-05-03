@@ -2,6 +2,7 @@
 
 require "rails_helper"
 
+# rubocop:disable Metrics/ParameterLists, Layout/SpaceInsideArrayLiteralBrackets
 module Renalware
   module Pathology
     module KFRE
@@ -56,62 +57,31 @@ module Renalware
           end
         end
 
-        describe "male 80y" do
-          let(:sex) { "F" }
-          let(:age) { 80 }
-          let(:acr) { 40.1 }
-          let(:egfr) { "10.2" }
+        #  Sex    Age   ACR     EGFR    KFRE2   KFRE5
+        [
+          ["F",   85,   40.1,   "10.2", 17.5,   49.9 ],
+          ["M",   80,   40.1,   21.2,   7.8,    25.2 ],
+          ["F",   80,   40.1,   21.2,   6.1,    20.3 ],
+          ["F",   73,   40.1,   21.2,   7.1,    23.2 ],
+          ["M",   73,   40,     40,     1.2,    4.1  ],
+          ["F",   73,   "50.0", "21",   8.0,    25.8 ],
+          ["M",   50,   30,     40,     1.7,    5.9  ],
+          ["F",   50,   30.9,   30.9,   3.6,    12.4 ],
+          ["F",   80,   140.2,  20.1,   11.8,   36.3 ]
+        ].each do |sex, age, acr, egfr, yr2, yr5|
+          describe "#{sex} age #{age} ACR #{acr} EGFR #{egfr}" do
+            subject { svc.call }
 
-          it do
-            expect(svc.call).to have_attributes(
-              yr2: 19.4,
-              yr5: 53.8
-            )
-          end
-        end
+            let(:sex) { sex }
+            let(:age) { age }
+            let(:acr) { acr }
+            let(:egfr) { egfr }
 
-        describe "female 80y" do
-          let(:sex) { "M" }
-          let(:age) { 80 }
-          let(:acr) { 40.1 }
-          let(:egfr) { 10.2 }
-
-          it do
-            expect(svc.call).to have_attributes(
-              yr2: 24.1,
-              yr5: 62.7
-            )
-          end
-        end
-
-        describe "male 50y" do
-          let(:sex) { "M" }
-          let(:age) { 50 }
-          let(:acr) { "30.5" }
-          let(:egfr) { "30.5" }
-
-          it do
-            expect(svc.call).to have_attributes(
-              yr2: 4.8,
-              yr5: 16.2
-            )
-          end
-        end
-
-        describe "female 50y" do
-          let(:sex) { "F" }
-          let(:age) { 50 }
-          let(:acr) { 30.9 }
-          let(:egfr) { 30.9 }
-
-          it do
-            expect(svc.call).to have_attributes(
-              yr2: 3.6,
-              yr5: 12.4
-            )
+            it { is_expected.to have_attributes(yr2: yr2, yr5: yr5) }
           end
         end
       end
     end
   end
 end
+# rubocop:enable Metrics/ParameterLists, Layout/SpaceInsideArrayLiteralBrackets
