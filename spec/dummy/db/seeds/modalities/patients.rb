@@ -8,20 +8,20 @@ module Renalware
     modality_description_ids = Modalities::Description.pluck(:id)
     months = (1..36).to_a
 
-    modalities = []
-
     # Remove any current modalities
     Modalities::Modality.where(patient_id: patient_ids).delete_all
 
-    patient_ids.each do |patient_id|
-      modalities << Modalities::Modality.new(
+    modalities = patient_ids.each.map do |patient_id|
+      {
         patient_id: patient_id,
         description_id: modality_description_ids.sample,
         started_on: months.sample.months.ago,
         created_by_id: user_id,
-        updated_by_id: user_id
-      )
+        updated_by_id: user_id,
+        created_at: Time.zone.now,
+        updated_at: Time.zone.now
+      }
     end
-    Modalities::Modality.import! modalities
+    Modalities::Modality.insert_all(modalities)
   end
 end

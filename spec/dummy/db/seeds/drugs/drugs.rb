@@ -3,17 +3,14 @@
 module Renalware
   log "Adding Drugs" do
     file_path = File.join(File.dirname(__FILE__), "drugs.csv")
-
-    if Drugs::Drug.count == 0
-      drugs = CSV.read(file_path, headers: false)
-      columns = drugs[0]
-      Drugs::Drug.import! columns, drugs[1..-1], validate: true
-    else
-      # There are already drugs so use an idempotent approach
-      CSV.foreach(file_path, headers: true) do |row|
-        Drugs::Drug.find_or_create_by!(name: row["name"])
-      end
+    drugs = CSV.foreach(file_path, headers: true).map do |row|
+      {
+        name: row["name"],
+        created_at: Time.zone.now,
+        updated_at: Time.zone.now
+      }
     end
+    Drugs::Drug.insert_all(drugs)
   end
 
   log "Adding Vaccination drugs" do

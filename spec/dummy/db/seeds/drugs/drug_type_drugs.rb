@@ -11,13 +11,14 @@ module Renalware
     # SQL
 
     file_path = File.join(File.dirname(__FILE__), "drug_drug_types.csv")
-    classifications = []
-    CSV.foreach(file_path, headers: true) do |row|
-      classifications << Drugs::Classification.new(
+    classifications = CSV.foreach(file_path, headers: true).map do |row|
+      {
         drug_id: row["drug_id"],
-        drug_type_id: row["drug_type_id"]
-      )
+        drug_type_id: row["drug_type_id"],
+        created_at: Time.zone.now,
+        updated_at: Time.zone.now
+      }
     end
-    Drugs::Classification.import! classifications
+    Drugs::Classification.upsert_all(classifications, unique_by: [:drug_id, :drug_type_id])
   end
 end

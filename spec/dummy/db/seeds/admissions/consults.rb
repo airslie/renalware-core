@@ -11,11 +11,11 @@ module Renalware
       started_on = (rand * 100).days.ago
       ended_on = [started_on, nil]
 
-      Admissions::Consult.new(
+      {
         patient_id: patient_id,
         consult_site_id: consult_site_ids.sample,
         hospital_ward_id: hospital_ward_ids.sample,
-        seen_by: users.sample,
+        seen_by_id: users.sample.id,
         started_on: started_on,
         ended_on: ended_on.sample,
         decided_on: started_on,
@@ -26,11 +26,13 @@ module Renalware
         contact_number: "-",
         requires_aki_nurse: [true, false].sample,
         description: "Some notes",
-        updated_by: users.sample,
-        created_by: users.sample
-      )
+        updated_by_id: users.sample.id,
+        created_by_id: users.sample.id,
+        created_at: Time.zone.now,
+        updated_at: Time.zone.now
+      }
     end
 
-    Admissions::Consult.import! consults
+    Admissions::Consult.insert_all(consults)
   end
 end
