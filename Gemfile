@@ -28,8 +28,8 @@ gem "wkhtmltopdf-binary", "0.12.3.1"
 gem "httparty", require: false
 gem "tailwindcss-rails", "~> 2.0.8"
 # For sentry error reporting and metrics
-gem "sentry-rails"
-gem "sentry-ruby"
+# gem "sentry-rails"
+# gem "sentry-ruby"
 gem "strong_migrations"
 
 group :test do

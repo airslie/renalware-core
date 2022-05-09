@@ -11,8 +11,9 @@ class DatePicker2Input < SimpleForm::Inputs::StringInput
   end
 
   # The calendar icon
+  # rubocop:disable Metrics/MethodLength, Layout/LineLength, Rails/OutputSafety
   def prefix_column(_wrapper_options = {})
-    "<div class='absolute inset-y-0 left-0 pl-2 flex items-center text-gray-600'>
+    "<div class='absolute inset-y-0 left-0 pl-2 flex items-center text-gray-600 pointer-events-none'>
       <svg xmlns='http://www.w3.org/2000/svg'
            class='h-6 w-6'
            fill='none'
@@ -27,13 +28,16 @@ class DatePicker2Input < SimpleForm::Inputs::StringInput
       </svg>
     </div>".html_safe
   end
+  # rubocop:enable Metrics/MethodLength, Layout/LineLength, Rails/OutputSafety
 
+  # a hack for now to override foundation css
   def input_column(_wrapper_options = {})
     html_options = input_html_options
     html_options[:class] ||= []
     html_options[:class] << class_name
-    html_options[:class] << "block w-full pl-10 sm:text-sm rounded-md"
-    html_options[:style] = "padding-left: 2.5rem; margin: 0; width: 10rem" # a hack for now
+    html_options[:class] << "block pl-10 rounded-sm border-gray-300 h-9 w-full pl-10 m-0"
+    html_options[:style] = "padding-left: 2.5rem; margin: 0; width: 10rem; line-height: 1.25rem;"
+    html_options[:autocomplete] = "off"
     datestamp = @builder.object.public_send(attribute_name)
     value = format_date(datestamp)
     @builder.text_field(attribute_name, html_options.merge(value: value))

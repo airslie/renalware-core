@@ -5,8 +5,6 @@ require_dependency "renalware/clinics"
 module Renalware
   module Clinics
     class AppointmentQuery
-      attr_reader :appointments, :query
-
       def initialize(q = {})
         @q = q
         @q[:s] = "starts_at ASC" if @q[:s].blank?
@@ -24,6 +22,9 @@ module Renalware
         @search ||= QueryableAppointment.ransack(@q)
       end
 
+      # Note there is a known ransacker issue where if there was an appointment at 00:00 in 5-Apr
+      # created in BST then it will be stored in UTC as 23:00 4-Apr and this ransacker
+      # does not apply the timezone so will not find this appointment if starts_at is 5-Apr.
       class QueryableAppointment < ActiveType::Record[Appointment]
         ransacker :starts_on, type: :date do
           Arel.sql("DATE(starts_at)")

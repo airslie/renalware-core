@@ -8,13 +8,14 @@ module Renalware
       include Renalware::Concerns::Pageable
 
       def index
-        appointments_query = AppointmentQuery.new(query_params)
-        appointments = appointments_query.call.page(page).per(per_page)
+        query = search_form.query
+        appointments = query.call.page(page).per(per_page)
         authorize appointments
 
         render :index, locals: {
           appointments: appointments,
-          query: appointments_query.search,
+          form: search_form,
+          search: query.search,
           clinics: Clinic.ordered,
           users: User.ordered,
           request_html_form_params: build_params_for_html_form(appointments)
@@ -37,6 +38,13 @@ module Renalware
 
       private
 
+      def search_form
+        @search_form ||= begin
+          options = params.key?(:q) ? search_params : {}
+          AppointmentSearchForm.new(options)
+        end
+      end
+
       def render_new(appointment)
         authorize appointment
         render :new, locals: { appointment: appointment }
@@ -52,16 +60,24 @@ module Renalware
         params.fetch(:q, {})
       end
 
+      def search_params
+        params
+          .require(:q)
+          .permit(
+            :from_date, :from_date_only, :clinic_id, :consultant_id,
+            :s, # handles a ransack sort_link having a single sort arg
+            s: [] # handles a ransack sort_link where 3rd is array of sorts
+          )
+      end
+
       def appointment_params
         params
           .require(:clinics_appointment)
           .permit(
-            :patient_id,
-            :clinic_id,
-            :starts_at,
-            :outcome_notes,
-            :dna_notes,
-            :consultant_id)
+            :patient_id, :clinic_id,
+            :outcome_notes, :starts_at,
+            :dna_notes, :consultant_id
+          )
       end
     end
   end

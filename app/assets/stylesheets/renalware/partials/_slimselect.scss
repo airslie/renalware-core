@@ -1,6 +1,12 @@
-.ss-content .ss-list .ss-optgroup .ss-option {
+.ss-content .ss-list .ss-optgroup .ss-option,
+.ss-content .ss-list .ss-option {
   padding-top: 2px;
   padding-bottom: 2px;
+
+  &.ss-option-selected {
+    color: $darkish-grey;
+    background-color: $off-white;
+  }
 }
 
 .ss-main {

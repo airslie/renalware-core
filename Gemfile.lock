@@ -653,14 +653,6 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    sentry-rails (5.2.1)
-      railties (>= 5.0)
-      sentry-ruby-core (~> 5.2.1)
-    sentry-ruby (5.2.1)
-      concurrent-ruby (~> 1.0, >= 1.0.2)
-      sentry-ruby-core (= 5.2.1)
-    sentry-ruby-core (5.2.1)
-      concurrent-ruby
     set (1.0.2)
     shoulda-matchers (4.5.1)
       activesupport (>= 4.2.0)
@@ -805,8 +797,6 @@ DEPENDENCIES
   rubocop-rspec
   ruby-prof
   selenium-webdriver (~> 3.142.0)
-  sentry-rails
-  sentry-ruby
   shoulda-matchers (~> 4.1)
   simplecov (~> 0.17.1)
   strong_migrations
