@@ -28,19 +28,20 @@ module Renalware
     def seed_pathology_observations_for(patient:)
       log "Adding Pathology Observations (OBX) for #{patient}" do
         file_path = file_path_for(patient: patient, file_name: "pathology_obx.csv")
-        observations = []
 
-        CSV.foreach(file_path, headers: true) do |row|
+        observations = CSV.foreach(file_path, headers: true).map do |row|
           request = Pathology::ObservationRequest.find(row["request_id"])
-          observations << Pathology::Observation.new(
-            request: request,
-            description: Pathology::ObservationDescription.find_by!(code: row["description"]),
+          {
+            request_id: request.id,
+            description_id: Pathology::ObservationDescription.find_by!(code: row["description"]).id,
             result: row["result"],
             observed_at: request.requested_at + 24.hours,
-            comment: row["comment"]
-          )
+            comment: row["comment"],
+            created_at: Time.zone.now,
+            updated_at: Time.zone.now
+          }
         end
-        Pathology::Observation.import! observations
+        Pathology::Observation.insert_all(observations)
       end
     end
     # rubocop:enable Metrics/MethodLength

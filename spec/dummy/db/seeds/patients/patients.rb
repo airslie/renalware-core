@@ -25,8 +25,6 @@ module Renalware
             patient.send_to_rpv = row["send_to_rpv"]
             patient.created_by_id = system_user.id
             patient.updated_by_id = system_user.id
-            # These 2 uuids are normally set in before_save callbacks
-            # which are not available to us if using .import! (see below)
             patient.ukrdc_external_id = SecureRandom.uuid
             patient.secure_id = SecureRandom.uuid
           end

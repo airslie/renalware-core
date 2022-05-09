@@ -2,17 +2,16 @@
 
 module Renalware
   log "Adding comorbidity descriptions" do
-    return if Problems::Comorbidities::Description.count > 0
-
     file_path = File.join(File.dirname(__FILE__), "comorbidity_descriptions.csv")
-    descriptions = []
-    CSV.foreach(file_path, headers: true) do |row|
-      descriptions << Problems::Comorbidities::Description.new(
+    descriptions = CSV.foreach(file_path, headers: true).map do |row|
+      {
         name: row["name"],
         position: row["position"],
-        snomed_code: row["snomed_code"]
-      )
+        snomed_code: row["snomed_code"],
+        created_at: Time.zone.now,
+        updated_at: Time.zone.now
+      }
     end
-    Problems::Comorbidities::Description.import! descriptions
+    Problems::Comorbidities::Description.upsert_all(descriptions, unique_by: :name)
   end
 end

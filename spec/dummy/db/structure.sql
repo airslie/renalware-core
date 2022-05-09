@@ -15947,6 +15947,13 @@ CREATE INDEX index_clinical_versions_on_item_type_and_item_id ON renalware.clini
 
 
 --
+-- Name: index_death_causes_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_death_causes_on_code ON renalware.death_causes USING btree (code);
+
+
+--
 -- Name: index_directory_people_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -18761,6 +18768,13 @@ CREATE INDEX index_problem_comorbidity_descriptions_on_deleted_at ON renalware.p
 
 
 --
+-- Name: index_problem_comorbidity_descriptions_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_problem_comorbidity_descriptions_on_name ON renalware.problem_comorbidity_descriptions USING btree (name) WHERE (deleted_at IS NULL);
+
+
+--
 -- Name: index_problem_comorbidity_descriptions_on_position; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -18898,6 +18912,13 @@ CREATE INDEX index_renal_aki_alerts_on_patient_id ON renalware.renal_aki_alerts 
 --
 
 CREATE INDEX index_renal_aki_alerts_on_updated_by_id ON renalware.renal_aki_alerts USING btree (updated_by_id);
+
+
+--
+-- Name: index_renal_prd_descriptions_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_renal_prd_descriptions_on_code ON renalware.renal_prd_descriptions USING btree (code);
 
 
 --
@@ -19160,6 +19181,13 @@ CREATE INDEX index_survey_questions_on_survey_id ON renalware.survey_questions U
 
 
 --
+-- Name: index_survey_questions_on_survey_id_and_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_survey_questions_on_survey_id_and_code ON renalware.survey_questions USING btree (survey_id, code) WHERE (deleted_at IS NULL);
+
+
+--
 -- Name: index_survey_responses_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -19247,7 +19275,7 @@ CREATE INDEX index_system_countries_on_alpha3 ON renalware.system_countries USIN
 -- Name: index_system_countries_on_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_system_countries_on_name ON renalware.system_countries USING btree (name);
+CREATE UNIQUE INDEX index_system_countries_on_name ON renalware.system_countries USING btree (name);
 
 
 --
@@ -23861,6 +23889,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220301162239'),
 ('20220307174658'),
 ('20220405114521'),
-('20220407084109');
+('20220407084109'),
+('20220507073059');
 
 
