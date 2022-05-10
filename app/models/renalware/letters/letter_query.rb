@@ -7,10 +7,6 @@ module Renalware
     module QueryableLetter
       extend ActiveSupport::Concern
       included do
-        ransacker :effective_date, type: :date do
-          Arel.sql(Letter.effective_date_sort)
-        end
-
         def self.state_eq(state = :draft)
           where(type: Letter.state_class_name(state))
         end

@@ -12,7 +12,7 @@ describe "Changing a patient's GP (primary care physician)", type: :request do
         get search_patients_practices_path(params: { q: "wood" }, format: :json)
 
         expect(response).to be_successful
-        expect(response.media_type).to eq("application/json")
+        expect(response.media_type).to include("application/json")
         expect(JSON.parse(response.body)).to eq(
           [
             {
@@ -32,7 +32,7 @@ describe "Changing a patient's GP (primary care physician)", type: :request do
         get search_patients_practices_path(params: { q: "NW1 1AA" }, format: :json)
 
         expect(response).to be_successful
-        expect(response.media_type).to eq("application/json")
+        expect(response.media_type).to include("application/json")
         expect(JSON.parse(response.body)).to eq(
           [
             {
@@ -50,7 +50,7 @@ describe "Changing a patient's GP (primary care physician)", type: :request do
         get search_patients_practices_path(params: { q: "wood" }, format: :json)
 
         expect(response).to be_successful
-        expect(response.media_type).to eq("application/json")
+        expect(response.media_type).to include("application/json")
         expect(JSON.parse(response.body)).to eq([])
       end
     end

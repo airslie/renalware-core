@@ -23,7 +23,7 @@ module Renalware
         arr = Renalware::Feeds::OutgoingDocument
           .where("created_at >= ?", period_in_days.days.ago)
           .group(:state)
-          .pluck("state, count(*), max(updated_at)")
+          .pluck(Arel.sql("state, count(*), max(updated_at)"))
         arr.map do |state, count, latest|
           [
             state,
