@@ -3,7 +3,15 @@
     .w-full.max-w-lg
       = f.input :code, input_html: { disabled: :disabled }
       = f.input :name
-      = f.input :loinc_code, label: "LOINC/UKRDC code", placeholder: "Required if including in UKRDC export"
+
+      h5 UKRDC
+      .border.rounded.px-4.py-2.mb-2
+        = f.input :loinc_code, label: "LOINC code", placeholder: "Required if including in UKRDC export"
+        = f.input :rr_coding_standard,
+                  collection: Renalware::Pathology::ObservationDescription.rr_coding_standards.keys,
+                  label: "Coding standard",
+                  include_blank: false
+
 
       h5 Measurement units
       .border.rounded.px-4.py-2.mb-2

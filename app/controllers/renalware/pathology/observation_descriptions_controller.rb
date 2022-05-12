@@ -81,7 +81,8 @@ module Renalware
             :measurement_unit_id,
             :lower_threshold,
             :upper_threshold,
-            :loinc_code
+            :loinc_code,
+            :rr_coding_standard
           )
       end
     end
