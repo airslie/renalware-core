@@ -1,13 +1,4 @@
 .row
-  .columns.small-12.medium-4
-    = render "pathology_extra", mdm: mdm
-
-  .columns.small-12.medium-4
-    = render "pathology_cmvdna", mdm: mdm
-
-  .columns.small-12.medium-4
-    = render "measurements", mdm: mdm
-
   .columns.medium-12.large-4
     = render Renalware::Events::EventListComponent.new(\
         patient: current_patient,
