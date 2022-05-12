@@ -9,10 +9,11 @@ class RefreshMaterializedViewJob < ApplicationJob
 
   def perform(args)
     view_name = args[:view_name]
+    concurrently = args[:concurrently] ? "CONCURRENTLY" : ""
     conn = ActiveRecord::Base.connection
     if view_name.present?
       Rails.logger.info("Refreshing materialized view #{view_name}...")
-      conn.execute("REFRESH MATERIALIZED VIEW #{view_name};")
+      conn.execute("REFRESH MATERIALIZED VIEW #{concurrently} #{view_name};")
     else
       Rails.logger.info("Refreshing all materialized views...")
       conn.execute("SELECT refresh_all_matierialized_views();")
