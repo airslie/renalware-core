@@ -65,11 +65,10 @@ module Renalware
       Date.parse(ENV.fetch("UKRDC_DEFAULT_CHANGES_SINCE_DATE", "2018-01-01"))
     }
     config_accessor(:ukrdc_gpg_recipient) do
-      ENV.fetch("UKRDC_GPG_RECIPIENT", "UKRDC")
+      ENV.fetch("UKRDC_GPG_RECIPIENT", "Patient View (Renal)") # or "UKRDC"
     end
-    config_accessor(:ukrdc_gpg_homedir) { ENV["UKRDC_GPG_HOMEDIR"] }
-    config_accessor(:ukrdc_gpg_keyring) do
-      ENV.fetch("UKRDC_GPG_KEYRING", Engine.root.join("config", "gpg", "ukrdc_keyring.gpg"))
+    config_accessor(:ukrdc_public_key_name) do
+      ENV.fetch("UKRDC_PUBLIC_KEY_NAME", "patientview.asc") # migfhtr become ukrdc.asc
     end
     config_accessor(:ukrdc_working_path) do
       ENV.fetch("UKRDC_WORKING_PATH", File.join("/var", "ukrdc"))

@@ -190,8 +190,7 @@ module Renalware
       def gpg_options
         GpgOptions.new(
           recipient: config.ukrdc_gpg_recipient,
-          keyring: config.ukrdc_gpg_keyring,
-          homedir: config.ukrdc_gpg_homedir,
+          public_key_name: config.ukrdc_public_key_name,
           destination_folder: paths.timestamped_encrypted_folder
         )
       end
