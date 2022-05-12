@@ -9,6 +9,11 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.9
+### Added
+### Changed
+### Fixed
+
 ## 2.2.8
 ### Added
 - 5 and 2 year KFRE calculations #3866
