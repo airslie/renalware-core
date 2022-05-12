@@ -6,16 +6,15 @@
     thead
       tr
         /th(colspan=3)
-        th.col-width-tiny(rowspan=3)
-        th.col-width-tiny(rowspan=3)= sort_link(query, :id, "Id")
+        th.col-width-tiny(rowspan=2)
+        th.col-width-tiny(rowspan=2)= sort_link(query, :id, "Id")
         th.col-width-small(rowspan=2)= sort_link(query, :code, "Code")
         th.col-width-large(rowspan=2)= sort_link(query, :name, "Name")
-        th(rowspan=2 title="Required if including in UKRDC export")= sort_link(query, :loinc_code, "LOINC/UKRDC")
 
         th.text-center.bg-green-200(colspan=2) Mappings
         th.text-center.bg-blue-200(colspan=2) Observations
         th.text-center.bg-yellow-200(colspan=2) Creation
-        th.text-center.bg-pink-200(colspan=2) Renal Registry
+        th.text-center.bg-pink-200(colspan=3) Renal Registry
         th.text-center.bg-gray-200(colspan=3 title="Hover for description") Measurement unit
 
       tr
@@ -29,6 +28,7 @@
         th.bg-yellow-200.col-width-date-time= sort_link(query, :created_at, "Date")
         th.bg-yellow-200 HL7 Sender
         / UKRDC
+        th.bg-pink-200(rowspan=2 title="Required if including in UKRDC export")= sort_link(query, :loinc_code, "LOINC")
         th.col-width-small.bg-pink-200 Type
         th.col-width-small.bg-pink-200 Coding Standard
         / Units
@@ -56,8 +56,6 @@
               td(rowspan=mappings_count)
                 b= description.code
               td(rowspan=mappings_count)= description.name
-              td(rowspan=mappings_count)= description.loinc_code
-
               td.bg-green-100.hover:bg-green-200
                 b= description.obx_mappings[index]&.code_alias
               td.bg-green-100.hover:bg-green-200
@@ -74,6 +72,7 @@
               td.bg-yellow-100.hover:bg-yellow-200.col-width-date-time(rowspan=mappings_count)= l(description.created_at)
               td.bg-yellow-100.hover:bg-yellow-200(rowspan=mappings_count)= description.created_by_sender
 
+              td.bg-pink-100.hover:bg-pink-200(rowspan=mappings_count)= description.loinc_code
               td.bg-pink-100.hover:bg-pink-200(rowspan=mappings_count)= description.rr_type
               td.bg-pink-100.hover:bg-pink-200(rowspan=mappings_count)= description.rr_coding_standard
               - unit = description.measurement_unit || Renalware::NullObject.instance
