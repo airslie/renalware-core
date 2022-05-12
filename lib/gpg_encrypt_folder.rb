@@ -25,9 +25,8 @@ end
 class GpgOptions
   attr_reader_initialize [
     :recipient,
-    :keyring,
-    :homedir,
-    :destination_folder
+    :destination_folder,
+    :public_key_name
   ]
 end
 
@@ -49,29 +48,32 @@ class GpgEncryptFile
 end
 
 class GpgCommand
-  pattr_initialize [:file!, :options!]
+  attr_reader :file, :options
+
+  delegate :public_key_name, :recipient, to: :options
+
+  def initialize(file:, options:)
+    @file = file
+    @options = options
+    create_keyring unless keyring_path.exist?
+  end
 
   # Note we skip using a random seed file (normally created at var/ukrdc/gpgkey/random_seed)
   # because we had problems at KCH where the file would become corrupt, breaking the export, and
   # fixable only by deleting the random_seed file and letting gpg re-create one.
   # Using the --no-random-seed-file option the file is not used so we avoid that problem.
   def to_s
-    "gpg --armor --no-default-keyring --trust-model always --no-random-seed-file "\
-      "#{keyring} #{homedir} #{recipient} "\
+    [
+      "gpg",
+      "--armor",
+      "--no-default-keyring",
+      "--trust-model always",
+      "--no-random-seed-file",
+      "--keyring \"#{keyring_path}\"",
+      "--recipient \"#{recipient}\"",
       "-o \"#{encrypted_filename}\" "\
       "--encrypt \"#{file}\""
-  end
-
-  def recipient
-    options.recipient && "--recipient \"#{options.recipient}\""
-  end
-
-  def homedir
-    options.homedir && "--homedir \"#{options.homedir}\""
-  end
-
-  def keyring
-    "--keyring \"#{options.keyring}\""
+    ].join(" ")
   end
 
   def filename_without_extension
@@ -84,5 +86,21 @@ class GpgCommand
 
   def encrypted_filename
     options.destination_folder.join(output_filename)
+  end
+
+  def create_keyring
+    `gpg --import --no-default-keyring --keyring #{keyring_path} #{public_key_path}`
+  end
+
+  def public_key_path
+    gpg_config_folder.join("public_keys", public_key_name)
+  end
+
+  def keyring_path
+    gpg_config_folder.join("ukrdc_keyring.gpg")
+  end
+
+  def gpg_config_folder
+    Renalware::Engine.root.join("config/gpg")
   end
 end
