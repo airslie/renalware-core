@@ -9,6 +9,18 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.9
+### Added
+### Changed
+- Allow setting OBX RR coding standard in admin UI #3910
+- Use PV GPG key for UKRDC encryption and create the GPG keyring just-in-time
+- Appointment filtering changes #3840
+  - by default use today's date in the date filter. Will show appointments from today onwards onto into the future
+  - add a checkbox to allow showing just results for the specified day
+### Fixed
+- Make pathology columns sort correctly in beta MDMs #3909
+- Fix rounding error in KFRE calculations #3902
+
 ## 2.2.8
 ### Added
 - 5 and 2 year KFRE calculations #3866
