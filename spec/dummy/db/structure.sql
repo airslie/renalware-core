@@ -2496,13 +2496,13 @@ CREATE VIEW renalware.akcc_mdm_patients AS
           ORDER BY clinic_visits.date DESC
          LIMIT 1) AS bmi,
     txrsd.name AS tx_status,
-    ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
+    renalware.convert_to_float(((pa."values" -> 'HGB'::text) ->> 'result'::text), NULL::double precision) AS hgb,
     (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
-    ((pa."values" -> 'URE'::text) ->> 'result'::text) AS ure,
+    renalware.convert_to_float(((pa."values" -> 'URE'::text) ->> 'result'::text), NULL::double precision) AS ure,
     (((pa."values" -> 'URE'::text) ->> 'observed_at'::text))::date AS ure_date,
-    ((pa."values" -> 'CRE'::text) ->> 'result'::text) AS cre,
+    renalware.convert_to_float(((pa."values" -> 'CRE'::text) ->> 'result'::text), NULL::double precision) AS cre,
     (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
-    ((pa."values" -> 'EGFR'::text) ->> 'result'::text) AS egfr,
+    renalware.convert_to_float(((pa."values" -> 'EGFR'::text) ->> 'result'::text), NULL::double precision) AS egfr,
         CASE
             WHEN ((txrsd.code)::text !~~* '%permanent'::text) THEN true
             ELSE false
@@ -4306,15 +4306,15 @@ CREATE VIEW renalware.hd_mdm_patients AS
     h.name AS hospital_centre,
     ((((hdp.document -> 'transport'::text) ->> 'has_transport'::text) || ': '::text) || ((hdp.document -> 'transport'::text) ->> 'type'::text)) AS transport,
     ((sched.days_text || ' '::text) || upper((diurnal.code)::text)) AS schedule,
-    ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
+    renalware.convert_to_float(((pa."values" -> 'HGB'::text) ->> 'result'::text), NULL::double precision) AS hgb,
     (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
-    ((pa."values" -> 'PHOS'::text) ->> 'result'::text) AS phos,
+    renalware.convert_to_float(((pa."values" -> 'PHOS'::text) ->> 'result'::text), NULL::double precision) AS phos,
     (((pa."values" -> 'PHOS'::text) ->> 'observed_at'::text))::date AS phos_date,
-    ((pa."values" -> 'POT'::text) ->> 'result'::text) AS pot,
+    renalware.convert_to_float(((pa."values" -> 'POT'::text) ->> 'result'::text), NULL::double precision) AS pot,
     (((pa."values" -> 'POT'::text) ->> 'observed_at'::text))::date AS pot_date,
-    ((pa."values" -> 'PTHI'::text) ->> 'result'::text) AS pthi,
+    renalware.convert_to_float(((pa."values" -> 'PTHI'::text) ->> 'result'::text), NULL::double precision) AS pthi,
     (((pa."values" -> 'PTHI'::text) ->> 'observed_at'::text))::date AS pthi_date,
-    ((pa."values" -> 'URR'::text) ->> 'result'::text) AS urr,
+    renalware.convert_to_float(((pa."values" -> 'URR'::text) ->> 'result'::text), NULL::double precision) AS urr,
     (((pa."values" -> 'URR'::text) ->> 'observed_at'::text))::date AS urr_date
    FROM (((((((((((((((((((renalware.patients p
      JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'hd'::text))))
@@ -5445,6 +5445,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -6660,10 +6670,10 @@ ALTER SEQUENCE renalware.pathology_observation_requests_id_seq OWNED BY renalwar
 
 
 --
--- Name: pathology_observations_grouped_by_date; Type: VIEW; Schema: renalware; Owner: -
+-- Name: pathology_observations_grouped_by_date; Type: MATERIALIZED VIEW; Schema: renalware; Owner: -
 --
 
-CREATE VIEW renalware.pathology_observations_grouped_by_date AS
+CREATE MATERIALIZED VIEW renalware.pathology_observations_grouped_by_date AS
  SELECT obr.patient_id,
     obs.observed_at,
     jsonb_object_agg(pod.code, ARRAY[obs.result, (obs.comment)::character varying] ORDER BY obs.observed_at) AS results,
@@ -6674,7 +6684,27 @@ CREATE VIEW renalware.pathology_observations_grouped_by_date AS
      JOIN renalware.pathology_code_group_memberships pcgm2 ON ((pcgm2.observation_description_id = pod.id)))
      JOIN renalware.pathology_code_groups pcg2 ON ((pcg2.id = pcgm2.code_group_id)))
   GROUP BY pcg2.name, obr.patient_id, obs.observed_at
-  ORDER BY obr.patient_id, pcg2.name, obs.observed_at DESC;
+  ORDER BY obr.patient_id, pcg2.name, obs.observed_at DESC
+  WITH NO DATA;
+
+
+--
+-- Name: pathology_observations_grouped_by_date_non_materialized; Type: MATERIALIZED VIEW; Schema: renalware; Owner: -
+--
+
+CREATE MATERIALIZED VIEW renalware.pathology_observations_grouped_by_date_non_materialized AS
+ SELECT obr.patient_id,
+    obs.observed_at,
+    jsonb_object_agg(pod.code, ARRAY[obs.result, (obs.comment)::character varying] ORDER BY obs.observed_at) AS results,
+    pcg2.name AS "group"
+   FROM ((((renalware.pathology_observations obs
+     JOIN renalware.pathology_observation_requests obr ON ((obs.request_id = obr.id)))
+     JOIN renalware.pathology_observation_descriptions pod ON ((obs.description_id = pod.id)))
+     JOIN renalware.pathology_code_group_memberships pcgm2 ON ((pcgm2.observation_description_id = pod.id)))
+     JOIN renalware.pathology_code_groups pcg2 ON ((pcg2.id = pcgm2.code_group_id)))
+  GROUP BY pcg2.name, obr.patient_id, obs.observed_at
+  ORDER BY obr.patient_id, pcg2.name, obs.observed_at DESC
+  WITH NO DATA;
 
 
 --
@@ -8129,13 +8159,13 @@ CREATE VIEW renalware.pd_mdm_patients AS
           WHERE ((cv2.patient_id = p.id) AND (cv2.bmi > (0)::numeric))
           ORDER BY cv2.date DESC
          LIMIT 1) AS bmi,
-    ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
+    renalware.convert_to_float(((pa."values" -> 'HGB'::text) ->> 'result'::text), NULL::double precision) AS hgb,
     (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
-    ((pa."values" -> 'URE'::text) ->> 'result'::text) AS ure,
+    renalware.convert_to_float(((pa."values" -> 'URE'::text) ->> 'result'::text), NULL::double precision) AS ure,
     (((pa."values" -> 'URE'::text) ->> 'observed_at'::text))::date AS ure_date,
-    ((pa."values" -> 'CRE'::text) ->> 'result'::text) AS cre,
+    renalware.convert_to_float(((pa."values" -> 'CRE'::text) ->> 'result'::text), NULL::double precision) AS cre,
     (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
-    ((pa."values" -> 'EGFR'::text) ->> 'result'::text) AS egfr,
+    renalware.convert_to_float(((pa."values" -> 'EGFR'::text) ->> 'result'::text), NULL::double precision) AS egfr,
     (((named_nurses.family_name)::text || ', '::text) || (named_nurses.given_name)::text) AS named_nurse,
     (((named_consultants.family_name)::text || ', '::text) || (named_consultants.given_name)::text) AS named_consultant,
     h.name AS hospital_centre
@@ -9744,13 +9774,13 @@ CREATE VIEW renalware.supportive_care_mdm_patients AS
           ORDER BY cv2.date DESC
          LIMIT 1) AS bmi,
     txrsd.name AS tx_status,
-    ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
+    renalware.convert_to_float(((pa."values" -> 'HGB'::text) ->> 'result'::text), NULL::double precision) AS hgb,
     (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
-    ((pa."values" -> 'URE'::text) ->> 'result'::text) AS ure,
+    renalware.convert_to_float(((pa."values" -> 'URE'::text) ->> 'result'::text), NULL::double precision) AS ure,
     (((pa."values" -> 'URE'::text) ->> 'observed_at'::text))::date AS ure_date,
-    ((pa."values" -> 'CRE'::text) ->> 'result'::text) AS cre,
+    renalware.convert_to_float(((pa."values" -> 'CRE'::text) ->> 'result'::text), NULL::double precision) AS cre,
     (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
-    ((pa."values" -> 'EGFR'::text) ->> 'result'::text) AS egfr,
+    renalware.convert_to_float(((pa."values" -> 'EGFR'::text) ->> 'result'::text), NULL::double precision) AS egfr,
     (((named_nurses.family_name)::text || ', '::text) || (named_nurses.given_name)::text) AS named_nurse,
     (((named_consultants.family_name)::text || ', '::text) || (named_consultants.given_name)::text) AS named_consultant,
     h.name AS hospital_centre
@@ -11131,13 +11161,13 @@ CREATE VIEW renalware.transplant_mdm_patients AS
             ELSE false
         END AS tx_in_past_12m,
     txrsd.name AS tx_status,
-    ((pa."values" -> 'HGB'::text) ->> 'result'::text) AS hgb,
+    renalware.convert_to_float(((pa."values" -> 'HGB'::text) ->> 'result'::text), NULL::double precision) AS hgb,
     (((pa."values" -> 'HGB'::text) ->> 'observed_at'::text))::date AS hgb_date,
-    ((pa."values" -> 'URE'::text) ->> 'result'::text) AS ure,
+    renalware.convert_to_float(((pa."values" -> 'URE'::text) ->> 'result'::text), NULL::double precision) AS ure,
     (((pa."values" -> 'URE'::text) ->> 'observed_at'::text))::date AS ure_date,
-    ((pa."values" -> 'CRE'::text) ->> 'result'::text) AS cre,
+    renalware.convert_to_float(((pa."values" -> 'CRE'::text) ->> 'result'::text), NULL::double precision) AS cre,
     (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
-    ((pa."values" -> 'EGFR'::text) ->> 'result'::text) AS egfr_on,
+    renalware.convert_to_float(((pa."values" -> 'EGFR'::text) ->> 'result'::text), NULL::double precision) AS egfr_on,
     (((named_nurses.family_name)::text || ', '::text) || (named_nurses.given_name)::text) AS named_nurse,
     (((named_consultants.family_name)::text || ', '::text) || (named_consultants.given_name)::text) AS named_consultant,
     h.name AS hospital_centre
@@ -20042,6 +20072,20 @@ CREATE INDEX pathology_observation_descriptions_sender ON renalware.pathology_ob
 
 
 --
+-- Name: pathology_observations_grouped_by_date_group_idx; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX pathology_observations_grouped_by_date_group_idx ON renalware.pathology_observations_grouped_by_date_non_materialized USING btree ("group");
+
+
+--
+-- Name: pathology_observations_grouped_by_date_patient_id_idx; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX pathology_observations_grouped_by_date_patient_id_idx ON renalware.pathology_observations_grouped_by_date USING btree (patient_id, observed_at, "group");
+
+
+--
 -- Name: pathology_obx_mappings_uniqueness; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -23890,6 +23934,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220307174658'),
 ('20220405114521'),
 ('20220407084109'),
-('20220507073059');
+('20220507073059'),
+('20220512142640');
 
 
