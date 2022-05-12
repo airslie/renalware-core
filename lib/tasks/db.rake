@@ -29,5 +29,14 @@ namespace :db do
       end
     end
   end
+
+  desc "Refresh a materialized view (optionally concurrently)"
+  task refresh_materialized_view: :environment do
+    RefreshMaterializedViewJob.perform_now(
+      view_name: ENV.fetch("view_name"),
+      concurrently: ENV.fetch("concurrently", nil)
+    )
+  end
 end
+
 task("db:drop").enhance ["db:drop_check"]
