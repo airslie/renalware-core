@@ -20,7 +20,7 @@ module Renalware
       end
 
       describe "#latest" do
-        it "returns the last recorded record" do
+        it "returns the last added record" do
           patient = create(:accesses_patient)
           {
             "2022-05-01" => :easy,
@@ -28,7 +28,7 @@ module Renalware
             "2022-02-01" => :hard
           }.each do |date, difficulty|
             create(
-              :access_needling_difficilty,
+              :access_needling_difficulty,
               patient: patient,
               difficulty: difficulty,
               created_at: Time.zone.parse(date)

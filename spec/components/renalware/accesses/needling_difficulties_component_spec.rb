@@ -15,7 +15,7 @@ describe Renalware::Accesses::NeedlingDifficultiesComponent, type: :component do
       "31-Mar-2022" => :moderate
     }.each do |date, difficulty|
       create(
-        :access_needling_difficilty,
+        :access_needling_difficulty,
         patient: patient,
         difficulty: difficulty,
         created_at: Time.zone.parse(date),

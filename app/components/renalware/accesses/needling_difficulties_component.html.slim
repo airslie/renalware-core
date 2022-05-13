@@ -1,12 +1,11 @@
-article.events
+article#access-needling-difficulties
   header
     h2= t(".title")
     .supplemental
       span= "#{difficulties_count} of #{total_difficulties_count}"
-      /span.noprint= warning
-      /span.noprint
-        = link_to I18n.t("btn.view_all"),
-                  renalware.patient_events_path(patient),
+      span.noprint
+        = link_to I18n.t("btn.add"),
+                  renalware.new_patient_accesses_needling_difficulty_path(patient),
                   class: "button secondary"
   table
     thead

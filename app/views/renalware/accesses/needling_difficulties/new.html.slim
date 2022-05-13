@@ -1,0 +1,17 @@
+= within_patient_layout(title: "New Needling Difficulty",
+                        breadcrumbs: access_summary_breadrumb(difficulty.patient)) do
+
+  = simple_form_for difficulty,
+                    url: patient_accesses_needling_difficulties_path(difficulty.patient),
+                    as: :needling_difficulty,
+                    html: { autocomplete: "off" },
+                    wrapper: "horizontal_form" do |f|
+
+    = f.input :difficulty,
+              collection: Renalware::Accesses::NeedlingDifficulty.difficulty_types.keys,
+              wrapper: :horizontal_medium,
+              autofocus: true
+
+    = f.submit t("btn.save"), class: "button"
+    '  or
+    = link_to t("btn.cancel"), patient_accesses_dashboard_path(difficulty.patient)

@@ -7,5 +7,6 @@ resources :patients, only: [] do
     resources :procedures, except: [:index, :destroy]
     resources :profiles, except: [:index, :destroy]
     resources :plans, except: [:index, :destroy]
+    resources :needling_difficulties, except: [:index, :destroy]
   end
 end
