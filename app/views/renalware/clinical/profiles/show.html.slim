@@ -72,6 +72,9 @@
                  patient: patient,
                  limit: true
 
+      .columns.medium-12.large-6
+        = render Renalware::Accesses::NeedlingDifficultiesComponent.new(current_user: current_user, patient: patient)
+
       .columns.small-12.large-6
         = render Renalware::Events::EventListComponent.new(\
             patient: patient,

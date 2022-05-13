@@ -1,0 +1,23 @@
+article.events
+  header
+    h2= t(".title")
+    .supplemental
+      span= "#{difficulties_count} of #{total_difficulties_count}"
+      /span.noprint= warning
+      /span.noprint
+        = link_to I18n.t("btn.view_all"),
+                  renalware.patient_events_path(patient),
+                  class: "button secondary"
+  table
+    thead
+      tr
+        th Date
+        th Ease
+        th Recorded by
+    tbody
+      - difficulties.each do |diff|
+        tr
+          td.col-width-date= l(diff.created_at.to_date)
+          td
+            span.px-2.m-0.rounded-md.text-center(class=css_class_for_difficulty(diff))= diff.difficulty.capitalize
+          td= diff.created_by
