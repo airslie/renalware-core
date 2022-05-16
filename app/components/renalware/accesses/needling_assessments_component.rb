@@ -2,7 +2,7 @@
 
 module Renalware
   module Accesses
-    class NeedlingDifficultiesComponent < ApplicationComponent
+    class NeedlingAssessmentsComponent < ApplicationComponent
       CSS_COLOURS = {
         easy: "bg-green-600 text-white",
         moderate: "bg-yellow-400 text-black",
@@ -16,16 +16,16 @@ module Renalware
         super
       end
 
-      def difficulties
-        @difficulties ||= patient.needling_difficulties.limit(display_count)
+      def assessments
+        @assessments ||= patient.needling_assessments.limit(display_count)
       end
 
-      def total_difficulties_count
-        @total_difficulties_count ||= patient.needling_difficulties.count
+      def total_assessments_count
+        @total_assessments_count ||= patient.needling_assessments.count
       end
 
-      def difficulties_count
-        difficulties.size
+      def assessments_count
+        assessments.size
       end
 
       def css_class_for_difficulty(diff)

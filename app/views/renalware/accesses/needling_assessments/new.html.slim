@@ -1,14 +1,14 @@
-= within_patient_layout(title: "New Needling Difficulty",
+= within_patient_layout(title: "New Needling Assessment",
                         breadcrumbs: access_summary_breadrumb(difficulty.patient)) do
 
   = simple_form_for difficulty,
-                    url: patient_accesses_needling_difficulties_path(difficulty.patient),
-                    as: :needling_difficulty,
+                    url: patient_accesses_needling_assessments_path(difficulty.patient),
+                    as: :needling_assessment,
                     html: { autocomplete: "off" },
                     wrapper: "horizontal_form" do |f|
 
     = f.input :difficulty,
-              collection: Renalware::Accesses::NeedlingDifficulty.difficulty_types.keys,
+              collection: Renalware::Accesses::NeedlingAssessment.difficulty_types.keys,
               wrapper: :horizontal_medium,
               autofocus: true
 

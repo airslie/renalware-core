@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Accesses
-    describe NeedlingDifficulty do
+    describe NeedlingAssessment do
       it_behaves_like "an Accountable model"
       it { is_expected.to have_db_index([:patient_id, :created_at]) }
       it { is_expected.to belong_to(:patient) }
@@ -28,14 +28,14 @@ module Renalware
             "2022-02-01" => :hard
           }.each do |date, difficulty|
             create(
-              :access_needling_difficulty,
+              :access_needling_assessment,
               patient: patient,
               difficulty: difficulty,
               created_at: Time.zone.parse(date)
             )
           end
 
-          expect(patient.needling_difficulties.latest).to have_attributes(
+          expect(patient.needling_assessments.latest).to have_attributes(
             difficulty: "moderate",
             created_at: Time.zone.parse("2022-06-01")
           )

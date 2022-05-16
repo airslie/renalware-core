@@ -4,7 +4,7 @@ require_dependency "renalware/accesses"
 
 module Renalware
   module Accesses
-    class NeedlingDifficulty < ApplicationRecord
+    class NeedlingAssessment < ApplicationRecord
       include Accountable
       belongs_to :patient, class_name: "Renalware::Accesses::Patient"
       validates :difficulty, presence: true

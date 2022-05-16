@@ -9,7 +9,7 @@ module Renalware
       has_many :plans, dependent: :destroy
       has_many :procedures, dependent: :destroy
       has_many :assessments, dependent: :destroy
-      has_many :needling_difficulties, -> { ordered }, dependent: :destroy
+      has_many :needling_assessments, -> { ordered }, dependent: :destroy
 
       def current_profile
         profiles.current.first

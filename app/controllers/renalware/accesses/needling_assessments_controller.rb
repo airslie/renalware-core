@@ -4,15 +4,15 @@ require "collection_presenter"
 
 module Renalware
   module Accesses
-    class NeedlingDifficultiesController < Accesses::BaseController
+    class NeedlingAssessmentsController < Accesses::BaseController
       def new
-        difficulty = patient.needling_difficulties.new
+        difficulty = patient.needling_assessments.new
         authorize difficulty
         render locals: { difficulty: difficulty }
       end
 
       def create
-        difficulty = patient.needling_difficulties.new(needling_difficulty_params)
+        difficulty = patient.needling_assessments.new(needling_assessment_params)
         authorize difficulty
         if difficulty.save_by(current_user)
           redirect_to patient_accesses_dashboard_path(patient)
@@ -23,9 +23,9 @@ module Renalware
 
       private
 
-      def needling_difficulty_params
+      def needling_assessment_params
         params
-          .require(:needling_difficulty)
+          .require(:needling_assessment)
           .permit(:difficulty)
       end
     end

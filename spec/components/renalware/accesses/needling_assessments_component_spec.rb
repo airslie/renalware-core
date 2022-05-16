@@ -3,11 +3,11 @@
 require "rails_helper"
 
 # rubocop:disable RSpec/MultipleExpectations
-describe Renalware::Accesses::NeedlingDifficultiesComponent, type: :component do
+describe Renalware::Accesses::NeedlingAssessmentsComponent, type: :component do
   let(:user) { create(:user) }
   let(:patient) { create(:accesses_patient, by: user) }
 
-  it "displays the last 3 needling difficulties" do
+  it "displays the last 3 needling assessments" do
     {
       "01-May-2022" => :easy,
       "01-Jun-2022" => :moderate,
@@ -15,7 +15,7 @@ describe Renalware::Accesses::NeedlingDifficultiesComponent, type: :component do
       "31-Mar-2022" => :moderate
     }.each do |date, difficulty|
       create(
-        :access_needling_difficulty,
+        :access_needling_assessment,
         patient: patient,
         difficulty: difficulty,
         created_at: Time.zone.parse(date),

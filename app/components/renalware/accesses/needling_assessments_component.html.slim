@@ -1,11 +1,11 @@
-article#access-needling-difficulties
+article#access-needling-assessments
   header
     h2= t(".title")
     .supplemental
-      span= "#{difficulties_count} of #{total_difficulties_count}"
+      span= "#{assessments_count} of #{total_assessments_count}"
       span.noprint
         = link_to I18n.t("btn.add"),
-                  renalware.new_patient_accesses_needling_difficulty_path(patient),
+                  renalware.new_patient_accesses_needling_assessment_path(patient),
                   class: "button secondary"
   table
     thead
@@ -14,7 +14,7 @@ article#access-needling-difficulties
         th Ease
         th Recorded by
     tbody
-      - difficulties.each do |diff|
+      - assessments.each do |diff|
         tr
           td.col-width-date= l(diff.created_at.to_date)
           td
