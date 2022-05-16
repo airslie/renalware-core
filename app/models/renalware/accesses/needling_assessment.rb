@@ -28,6 +28,10 @@ module Renalware
           [DIFFICULTY_DESCRIPTONS[key.to_sym], key, { class: key }]
         }
       end
+
+      def difficulty_description
+        DIFFICULTY_DESCRIPTONS[difficulty.to_sym]
+      end
     end
   end
 end
