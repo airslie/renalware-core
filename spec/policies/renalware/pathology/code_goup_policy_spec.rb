@@ -27,7 +27,7 @@ module Renalware
         end
       end
 
-      [:create?, :edit?, :update?, :destroy?].each do |permission|
+      %i(create? edit? update? destroy?).each do |permission|
         permissions permission do
           it "applies correctly", :aggregate_failures do
             is_expected.not_to permit(clinician, code_group)

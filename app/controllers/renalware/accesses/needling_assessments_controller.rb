@@ -21,6 +21,16 @@ module Renalware
         end
       end
 
+      def destroy
+        assessment = patient.needling_assessments.find(params[:id])
+        authorize assessment
+        assessment.destroy!
+        redirect_back(
+          fallback_location: patient_accesses_dashboard_path(patient),
+          notice: success_msg_for("needling assessment")
+        )
+      end
+
       private
 
       def needling_assessment_params

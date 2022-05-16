@@ -7,7 +7,7 @@ module Renalware::PD
     include PolicySpecHelper
     subject(:policy) { described_class }
 
-    [:edit?, :destroy?].each do |permission|
+    %i(edit? destroy?).each do |permission|
       permissions permission do
         it "grants access if user super_admin" do
           expect(policy).to permit(user_double_with_role(:super_admin))

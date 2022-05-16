@@ -11,14 +11,22 @@ module Renalware
       validates :patient, presence: true
       enum difficulty_type: { easy: "easy", moderate: "moderate", hard: "hard" }
 
+      DIFFICULTY_DESCRIPTONS = {
+        easy: "Easy (green)",
+        moderate: "Moderate (amber)",
+        hard: "Hard (red)"
+      }.freeze
+
       scope :ordered, -> { order(created_at: :desc) }
 
       def self.latest
         ordered.first
       end
 
-      def self.policy_class
-        BasePolicy
+      def self.difficulty_type_collection_options
+        difficulty_types.keys.map { |key|
+          [DIFFICULTY_DESCRIPTONS[key.to_sym], key, { class: key }]
+        }
       end
     end
   end

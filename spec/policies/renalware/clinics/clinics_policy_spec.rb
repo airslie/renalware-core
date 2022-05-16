@@ -14,7 +14,7 @@ module Renalware
       let(:description) { instance_double(Clinic, persisted?: true, deleted?: false) }
 
       context "when the clinic is not deleted" do
-        [:new?, :create?, :edit?, :update?, :destroy?].each do |permission|
+        %i(new? create? edit? update? destroy?).each do |permission|
           permissions permission do
             it do
               is_expected.not_to permit(clinician, description)
@@ -23,7 +23,8 @@ module Renalware
             end
           end
         end
-        [:show?, :index?].each do |permission|
+
+        %i(show? index?).each do |permission|
           permissions permission do
             it do
               is_expected.not_to permit(clinician, description)
@@ -37,7 +38,7 @@ module Renalware
       context "when the clinic is deleted" do
         let(:description) { instance_double(Clinic, persisted?: true, deleted?: true) }
 
-        [:edit?, :destroy?, :update?].each do |permission|
+        %i(edit? destroy? update?).each do |permission|
           permissions permission do
             it do
               is_expected.not_to permit(clinician, description)

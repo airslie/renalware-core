@@ -15,7 +15,7 @@ module Renalware
         let(:super_admin) { user_double_with_role(:super_admin) }
         let(:mailshot)    { Mailshot.new }
 
-        [:new?, :create?].each do |permission|
+        %i(new? create?).each do |permission|
           permissions permission do
             it do
               is_expected.not_to permit(clinician, mailshot)
@@ -25,7 +25,7 @@ module Renalware
           end
         end
 
-        [:index?].each do |permission|
+        %i(index?).each do |permission|
           permissions permission do
             it do
               is_expected.not_to permit(clinician, mailshot)
