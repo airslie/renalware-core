@@ -11,9 +11,12 @@ describe "Managing needling assessments", type: :system do
     user = login_as_clinical
     patient = create(:accesses_patient, by: user)
     visit patient_accesses_dashboard_path(patient)
-    within "#access-needling-assessments" do
-      click_on "Add"
+
+    within ".page-actions" do
+      click_on t("btn.add")
+      click_on t("renalware.accesses.dashboards.page_actions.needling_assessment")
     end
+
     expect(page).to have_current_path new_patient_accesses_needling_assessment_path(patient)
     expect(page).to have_content "New Needling Assessment"
 

@@ -23,6 +23,6 @@
       = render "renalware/accesses/assessments/list",
                patient: dashboard.patient,
                assessments: dashboard.assessments
-    .columns.medium-12.large-6
+    .medium-12.large-6
       = render Renalware::Accesses::NeedlingAssessmentsComponent.new(current_user: current_user, patient: dashboard.patient)
 

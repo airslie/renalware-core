@@ -32,6 +32,10 @@ module Renalware
         CSS_COLOURS.fetch(diff&.difficulty&.to_sym, nil)
       end
 
+      def render?
+        total_assessments_count > 0
+      end
+
       private
 
       attr_reader :patient, :current_user, :display_count

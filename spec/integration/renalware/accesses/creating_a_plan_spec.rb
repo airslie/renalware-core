@@ -21,7 +21,7 @@ describe "Creating an Access Plan", type: :system do
 
     within ".page-actions" do
       click_on t("btn.add")
-      click_on "Access Plan"
+      click_on t("renalware.accesses.dashboards.page_actions.access_plan")
     end
 
     within "#new_accesses_plan" do
