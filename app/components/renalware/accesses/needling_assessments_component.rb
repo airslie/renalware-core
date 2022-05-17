@@ -3,10 +3,11 @@
 module Renalware
   module Accesses
     class NeedlingAssessmentsComponent < ApplicationComponent
-      def initialize(current_user:, patient:, display_count: 3)
+      def initialize(current_user:, patient:, display_count: 3, controls: false)
         @current_user = current_user
         @patient = Accesses.cast_patient(patient)
         @display_count = display_count
+        @controls = controls
         super
       end
 
@@ -28,7 +29,7 @@ module Renalware
 
       private
 
-      attr_reader :patient, :current_user, :display_count
+      attr_reader :patient, :current_user, :display_count, :controls
     end
   end
 end

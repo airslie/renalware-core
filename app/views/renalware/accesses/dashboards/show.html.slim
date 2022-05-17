@@ -24,5 +24,4 @@
                patient: dashboard.patient,
                assessments: dashboard.assessments
     .medium-12.large-6
-      = render Renalware::Accesses::NeedlingAssessmentsComponent.new(current_user: current_user, patient: dashboard.patient)
-
+      = render Renalware::Accesses::NeedlingAssessmentsComponent.new(current_user: current_user, patient: dashboard.patient, controls: true)
