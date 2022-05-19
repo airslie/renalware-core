@@ -95,8 +95,8 @@ module Renalware::Patients
                           local_patient_id_5: "")
 
           identifiers = PatientHospitalIdentifiers.new(patient)
-          expect(identifiers.id).to eq(nil)
-          expect(identifiers.name).to eq(nil)
+          expect(identifiers.id).to be_nil
+          expect(identifiers.name).to be_nil
         end
       end
     end
@@ -108,7 +108,7 @@ module Renalware::Patients
         let(:hospital_code) { "KCH" }
         let(:patient) { build_stubbed(:patient, local_patient_id: "111") }
 
-        it { is_expected.to eq(true) }
+        it { is_expected.to be(true) }
       end
 
       context "when the patient does not have local_patient_id for the requested hospital" do

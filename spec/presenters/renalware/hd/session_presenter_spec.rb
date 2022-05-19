@@ -7,7 +7,7 @@ module Renalware
     describe SessionPresenter do
       subject(:presenter) { SessionPresenter.new(session) }
 
-      let(:session) { instance_double("Session", document: Renalware::HD::SessionDocument.new) }
+      let(:session) { instance_double(Session, document: Renalware::HD::SessionDocument.new) }
 
       it { is_expected.to respond_to(:hospital_unit_unit_code) }
 
@@ -92,7 +92,7 @@ module Renalware
           expect(presenter.access_side_rr40_code).to eq("R")
         end
 
-        it "maps anything else (ie unknown) to U " do
+        it "maps anything else (ie unknown) to U" do
           [nil, "", "xyz"].each do |side|
             session.document.info.access_side = side
 

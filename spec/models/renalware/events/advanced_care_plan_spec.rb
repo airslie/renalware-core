@@ -19,6 +19,6 @@ describe Renalware::Events::AdvancedCarePlan, type: :model do
       by: create(:user)
     )
 
-    expect(plan.save).to eq(true)
+    expect(plan.save).to be(true)
   end
 end

@@ -122,7 +122,7 @@ module Renalware
           )
 
           expect(listener.saved_session.errors).to be_blank
-          expect(listener.success).to eq(true)
+          expect(listener.success).to be(true)
           expect(listener.saved_session).to be_valid
           expect(listener.saved_session.dry_weight).to eq(latest_dw)
         end

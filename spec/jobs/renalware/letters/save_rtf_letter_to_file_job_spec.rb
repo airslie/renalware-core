@@ -33,7 +33,7 @@ describe Renalware::Letters::SaveRTFLetterToFileJob do
 
       job.perform(letter: letter, file_path: file_path)
 
-      expect(File.exist?(file_path)).to eq(true)
+      expect(File.exist?(file_path)).to be(true)
     end
   end
   # rubocop:enable RSpec/AnyInstance

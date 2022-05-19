@@ -53,13 +53,13 @@ describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugType do
     let(:other_drug) { create(:drug, name: "other drug") }
 
     context "when then the patient has no drugs" do
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
 
     context "when then the patient has a drug not of the required type" do
       before { create(:prescription, drug: other_drug, patient: patient) }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
 
     context "when then the patient has a drug of the required type" do
@@ -68,7 +68,7 @@ describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugType do
         create(:prescription, drug: required_drug, patient: patient)
       }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context "when then the patient has the required drug but it has been terminated" do
@@ -79,7 +79,7 @@ describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugType do
         end
       end
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
   end
 end

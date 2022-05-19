@@ -61,7 +61,7 @@ module Renalware::Pathology
       it "transfers attributes from the message payload to the params" do
         parser = described_class.new(hl7_message)
 
-        expect(parser.renalware_patient?).to eq(true)
+        expect(parser.renalware_patient?).to be(true)
         params = parser.parse
 
         expect(params).to eq(
@@ -156,7 +156,7 @@ module Renalware::Pathology
 
         it "creates a params hash with multiple observation_requests" do
           parser = described_class.new(hl7_message)
-          expect(parser.renalware_patient?).to eq(true)
+          expect(parser.renalware_patient?).to be(true)
           params = parser.parse
 
           expect(params).to be_a(Array)
@@ -263,7 +263,7 @@ module Renalware::Pathology
               code: "I_DO_NOT_EXIST_CODE",
               name: "I_DO_NOT_EXIST_NAME"
             )
-          ).to eq(true)
+          ).to be(true)
         end
       end
 
@@ -309,7 +309,7 @@ module Renalware::Pathology
               name: "I_DO_NOT_EXIST_NAME",
               created_by_sender: sender
             )
-          ).to eq(true)
+          ).to be(true)
         end
       end
 

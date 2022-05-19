@@ -273,7 +273,7 @@ module Renalware
           patient = create(:patient)
           expect {
             patient.update(died_on: "2015-02-25", by: user)
-          }.to change(Patient, :count).by(0)
+          }.not_to change(Patient, :count)
         end
       end
     end
@@ -404,7 +404,7 @@ module Renalware
         patient = create(:patient)
         expect {
           patient.touch
-        }.to change(Patients::Version, :count).by(0)
+        }.not_to change(Patients::Version, :count)
       end
 
       it "#destroy" do

@@ -21,7 +21,7 @@ describe Renalware::Pathology::Requests::GlobalRule::LatestCRFOlderThanWeeks do
 
         required = rule.observation_required_for_patient?(patient, Date.current)
 
-        expect(required).to eq(false)
+        expect(required).to be(false)
       end
     end
 
@@ -33,7 +33,7 @@ describe Renalware::Pathology::Requests::GlobalRule::LatestCRFOlderThanWeeks do
         required = rule.observation_required_for_patient?(registration.patient, Date.current)
 
         expect(registration.document.crf.latest.recorded_on).to be_nil
-        expect(required).to eq(false)
+        expect(required).to be(false)
       end
     end
 
@@ -44,7 +44,7 @@ describe Renalware::Pathology::Requests::GlobalRule::LatestCRFOlderThanWeeks do
 
         required = rule.observation_required_for_patient?(registration.patient, Date.current)
 
-        expect(required).to eq(false)
+        expect(required).to be(false)
       end
     end
 
@@ -55,7 +55,7 @@ describe Renalware::Pathology::Requests::GlobalRule::LatestCRFOlderThanWeeks do
 
         required = rule.observation_required_for_patient?(registration.patient, Date.current)
 
-        expect(required).to eq(true)
+        expect(required).to be(true)
       end
     end
   end

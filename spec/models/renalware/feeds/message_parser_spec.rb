@@ -131,7 +131,7 @@ module Renalware::Feeds
           obx = message.observation_requests.first.observations.first
 
           expect(obx.value).to eq("")
-          expect(obx.cancelled).to eq(true)
+          expect(obx.cancelled).to be(true)
           expect(obx.comment).to eq("##TEST CANCELLED## Insufficient specimen received")
         end
       end

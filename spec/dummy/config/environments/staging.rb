@@ -10,9 +10,9 @@ Rails.application.configure do
   # because even though we have added a custom domain to Heroku, the original herokuapp
   # url remains available and this can be confusing. Also, mailgun email will probably
   # only work on the custom domain.
-  if ENV["HEROKU_APP_URL"] && ENV["HEROKU_CUSTOM_DOMAIN"]
+  if ENV.fetch("HEROKU_APP_URL", nil) && ENV.fetch("HEROKU_CUSTOM_DOMAIN", nil)
     config.middleware.use Rack::HostRedirect, {
-      ENV["HEROKU_APP_URL"] => ENV["HEROKU_CUSTOM_DOMAIN"]
+      ENV.fetch("HEROKU_APP_URL", nil) => ENV.fetch("HEROKU_CUSTOM_DOMAIN", nil)
     }
   end
 
@@ -36,18 +36,18 @@ Rails.application.configure do
   #   enable_starttls_auto: true
   # }
   ActionMailer::Base.smtp_settings = {
-    port: ENV["MAILGUN_SMTP_PORT"],
-    address: ENV["MAILGUN_SMTP_SERVER"],
-    user_name: ENV["MAILGUN_SMTP_LOGIN"],
-    password: ENV["MAILGUN_SMTP_PASSWORD"],
-    domain: ENV["HEROKU_CUSTOM_DOMAIN"],
+    port: ENV.fetch("MAILGUN_SMTP_PORT", nil),
+    address: ENV.fetch("MAILGUN_SMTP_SERVER", nil),
+    user_name: ENV.fetch("MAILGUN_SMTP_LOGIN", nil),
+    password: ENV.fetch("MAILGUN_SMTP_PASSWORD", nil),
+    domain: ENV.fetch("HEROKU_CUSTOM_DOMAIN", nil),
     authentication: :plain
   }
   ActionMailer::Base.delivery_method = :smtp
 
   # .
   # Important for Devise redirects to and from login page.
-  config.relative_url_root = ENV["RAILS_RELATIVE_URL_ROOT"] || "/"
+  config.relative_url_root = ENV.fetch("RAILS_RELATIVE_URL_ROOT", "/")
 
   # Code is not reloaded between requests.
   config.cache_classes = true

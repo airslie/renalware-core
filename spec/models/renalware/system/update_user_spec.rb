@@ -61,7 +61,7 @@ module Renalware::System
         it "does not send an email" do
           expect {
             command.call(approved: "true")
-          }.to change(adapter.enqueued_jobs, :size).by(0)
+          }.not_to change(adapter.enqueued_jobs, :size)
         end
 
         it "authorises the user" do
@@ -109,7 +109,7 @@ module Renalware::System
         it "does not send an email" do
           expect {
             command.call(unexpire: "true")
-          }.to change(adapter.enqueued_jobs, :size).by(0)
+          }.not_to change(adapter.enqueued_jobs, :size)
         end
       end
 
@@ -119,14 +119,14 @@ module Renalware::System
 
           UpdateUser.new(user).call(consultant: "true")
 
-          expect(user.reload.consultant).to eq(true)
+          expect(user.reload.consultant).to be(true)
         end
 
         it "does not send an email" do
           user = build(:user, consultant: false)
           expect {
             UpdateUser.new(user).call(consultant: "true")
-          }.to change(adapter.enqueued_jobs, :size).by(0)
+          }.not_to change(adapter.enqueued_jobs, :size)
         end
       end
 
@@ -136,7 +136,7 @@ module Renalware::System
 
           UpdateUser.new(user).call(consultant: "bla")
 
-          expect(user.reload.consultant).to eq(false)
+          expect(user.reload.consultant).to be(false)
         end
 
         it "does not send an email" do
@@ -144,7 +144,7 @@ module Renalware::System
 
           expect {
             UpdateUser.new(user).call(consultant: "bla")
-          }.to change(adapter.enqueued_jobs, :size).by(0)
+          }.not_to change(adapter.enqueued_jobs, :size)
         end
       end
 

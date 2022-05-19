@@ -6,8 +6,7 @@ describe "Perspectives", type: :system do
   let(:patient) { create(:patient) }
 
   describe "Viewing patient perspectives", system: true do
-    it "Bone" do 
-
+    it "Bone" do
       login_as_clinical
 
       visit patient_bone_perspective_path(patient)

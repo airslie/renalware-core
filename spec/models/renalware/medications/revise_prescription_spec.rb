@@ -22,7 +22,7 @@ module Renalware::Medications
         let(:revised_dose_amount) { "200" }
 
         it "returns true" do
-          expect(prescription_revision).to eq(true)
+          expect(prescription_revision).to be(true)
         end
 
         it "terminates the original prescription and creates a new one" do

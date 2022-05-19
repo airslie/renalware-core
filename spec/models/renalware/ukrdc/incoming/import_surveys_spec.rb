@@ -68,7 +68,7 @@ module Renalware
               file_path: paths.incoming.join("survey_0.xml").to_s,
               direction: "in"
             )
-            expect(log.payload).not_to be(nil)
+            expect(log.payload).not_to be_nil
           end
         end
 
@@ -79,7 +79,7 @@ module Renalware
 
               expect {
                 service.call
-              }.to change(Surveys::Response, :count).by(0)
+              }.not_to change(Surveys::Response, :count)
 
               expect(paths.incoming.glob("*.xml").length).to eq(0)
               expect(paths.archive.glob("*.xml").length).to eq(1)
@@ -104,7 +104,7 @@ module Renalware
 
               expect {
                 service.call
-              }.to change(Surveys::Response, :count).by(0)
+              }.not_to change(Surveys::Response, :count)
 
               expect(paths.incoming.glob("*.xml").length).to eq(0)
               expect(paths.archive.glob("*.xml").length).to eq(1)
@@ -131,7 +131,7 @@ module Renalware
 
               expect {
                 service.call
-              }.to change(Surveys::Response, :count).by(0)
+              }.not_to change(Surveys::Response, :count)
 
               expect(paths.incoming.glob("*.xml").length).to eq(0)
               expect(paths.archive.glob("*.xml").length).to eq(1)

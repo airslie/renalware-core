@@ -14,7 +14,7 @@ module Renalware
             described_class.call(patient: patient, by: user)
 
             patient.reload
-            expect(patient.send_to_rpv).to eq(false)
+            expect(patient.send_to_rpv).to be(false)
             expect(patient.rpv_decision_on).to eq(Time.zone.today)
             expect(patient.rpv_recorded_by).to eq(user.to_s)
           end
@@ -38,7 +38,7 @@ module Renalware
             }.not_to raise_error
 
             patient.reload
-            expect(patient.send_to_rpv).to eq(false)
+            expect(patient.send_to_rpv).to be(false)
             expect(patient.rpv_decision_on).to eq(Time.zone.today)
             expect(patient.rpv_recorded_by).to eq(user.to_s)
           end

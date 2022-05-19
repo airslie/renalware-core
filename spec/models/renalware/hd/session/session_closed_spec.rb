@@ -24,21 +24,21 @@ module Renalware
             session = described_class.new(signed_off_at: Time.zone.now - 10.days)
             allow(session).to receive(:persisted?).and_return(true)
 
-            expect(session.immutable?).to eq(true)
+            expect(session.immutable?).to be(true)
           end
 
           it "returns false if the appropriate window has not yet elapsed" do
             session = described_class.new(signed_off_at: Time.zone.now - 1.minute)
             allow(session).to receive(:persisted?).and_return(true)
 
-            expect(session.immutable?).to eq(false)
+            expect(session.immutable?).to be(false)
           end
 
           it "returns true if not yet persisted" do
             session = described_class.new(signed_off_at: Time.zone.now - 1.minute)
             allow(session).to receive(:persisted?).and_return(false)
 
-            expect(session.immutable?).to eq(true)
+            expect(session.immutable?).to be(true)
           end
         end
       end

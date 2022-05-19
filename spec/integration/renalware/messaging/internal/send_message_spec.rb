@@ -26,7 +26,7 @@ describe "Sending a private message", type: :system do
 
     # Message should be marked as public= true by default
     message = Renalware::Messaging::Internal::Message.find_by(body: "Test")
-    expect(message.public).to eq(true)
+    expect(message.public).to be(true)
   end
 
   # scenario "A clinician replies to a message", js: true do

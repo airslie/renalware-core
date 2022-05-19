@@ -44,7 +44,7 @@ describe "Viewing clinical profile", type: :request do
       expect(history.alcohol).to eq("rarely")
       expect(history.smoking).to eq("ex")
 
-      expect(patient.document.diabetes.diagnosis).to eq(true)
+      expect(patient.document.diabetes.diagnosis).to be(true)
       expect(patient.hospital_centre).to eq(hospital_centre)
       expect(patient.document.diabetes.diagnosed_on).to eq(Date.parse("12-12-2017"))
     end

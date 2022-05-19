@@ -22,7 +22,7 @@ describe "Managing bookmarks", type: :request do
         bookmark = Renalware::Patients::Bookmark.find_by(patient_id: patient.id)
 
         expect(bookmark).not_to be_nil
-        expect(bookmark.urgent).to eq(true)
+        expect(bookmark.urgent).to be(true)
         expect(bookmark.notes).to eq("Abc")
         follow_redirect!
         expect(response).to be_successful

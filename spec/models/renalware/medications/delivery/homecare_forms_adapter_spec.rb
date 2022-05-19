@@ -211,7 +211,7 @@ module Renalware
 
               args = adapter.build_args
 
-              expect(args.no_known_allergies).to eq(true)
+              expect(args.no_known_allergies).to be(true)
             end
           end
         end

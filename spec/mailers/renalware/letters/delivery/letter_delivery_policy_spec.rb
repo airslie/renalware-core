@@ -56,7 +56,7 @@ module Renalware
             let(:practice) { build_stubbed(:practice, email: "practice@example.com") }
             let(:patient) { build_stubbed(:letter_patient, practice: practice) }
 
-            it { is_expected.to eq(true) }
+            it { is_expected.to be(true) }
 
             context "when the email has already been sent" do
               before do

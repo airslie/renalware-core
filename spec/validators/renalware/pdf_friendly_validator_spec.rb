@@ -32,7 +32,7 @@ module Renalware
 
         it :aggregate_failures do
           is_expected.to be_valid
-          expect(model.errors.key?(:content)).to eq(false)
+          expect(model.errors.key?(:content)).to be(false)
         end
       end
     end

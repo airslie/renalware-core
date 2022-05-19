@@ -19,13 +19,13 @@ describe Renalware::Pathology::Requests::GlobalRule::PatientIsDiabetic do
 
       %w(true True TRUE).each do |boolean_string|
         it do
-          expect(rule_for(boolean_string, patient)).to eq(true)
+          expect(rule_for(boolean_string, patient)).to be(true)
         end
       end
 
       %w(false AnyString).each do |boolean_string|
         it do
-          expect(rule_for(boolean_string, patient)).to eq(false)
+          expect(rule_for(boolean_string, patient)).to be(false)
         end
       end
     end
@@ -37,13 +37,13 @@ describe Renalware::Pathology::Requests::GlobalRule::PatientIsDiabetic do
 
       %w(true True TRUE).each do |boolean_string|
         it do
-          expect(rule_for(boolean_string, patient)).to eq(false)
+          expect(rule_for(boolean_string, patient)).to be(false)
         end
       end
 
       %w(false AnyString).each do |boolean_string|
         it do
-          expect(rule_for(boolean_string, patient)).to eq(true)
+          expect(rule_for(boolean_string, patient)).to be(true)
         end
       end
     end

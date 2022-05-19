@@ -7,7 +7,7 @@ module Renalware
     # This is an attempt to explore the two ways we have of determining if the practice will
     # get emailed - we can converge into one once the behaviour understood.
     describe "Check parity of letter displaying as emailed to GP vs the (GP) recipient "\
-                  "being marked having an updated emailed_at once approved." do
+             "being marked having an updated emailed_at once approved." do
       include LettersSpecHelper
 
       around do |example|
@@ -56,7 +56,7 @@ module Renalware
         it "DeliveryPolicy#email_letter_to_practice? returns true" do
           policy = Delivery::DeliveryPolicy.new(letter)
 
-          expect(policy.email_letter_to_practice?).to eq(true)
+          expect(policy.email_letter_to_practice?).to be(true)
         end
       end
 
@@ -88,7 +88,7 @@ module Renalware
         it "DeliveryPolicy#email_letter_to_practice? returns true" do
           policy = Delivery::DeliveryPolicy.new(letter)
 
-          expect(policy.email_letter_to_practice?).to eq(true)
+          expect(policy.email_letter_to_practice?).to be(true)
         end
       end
 
@@ -113,7 +113,7 @@ module Renalware
         it "DeliveryPolicy#email_letter_to_practice? returns true" do
           policy = Delivery::DeliveryPolicy.new(letter)
 
-          expect(policy.email_letter_to_practice?).to eq(true)
+          expect(policy.email_letter_to_practice?).to be(true)
         end
       end
 
@@ -145,7 +145,7 @@ module Renalware
           it "DeliveryPolicy#email_letter_to_practice? returns true" do
             policy = Delivery::DeliveryPolicy.new(letter)
 
-            expect(policy.email_letter_to_practice?).to eq(false)
+            expect(policy.email_letter_to_practice?).to be(false)
           end
         end
       end

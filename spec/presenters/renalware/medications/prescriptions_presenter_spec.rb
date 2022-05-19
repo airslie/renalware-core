@@ -23,7 +23,6 @@ module Renalware
       end
 
       describe "#provider_suffix" do
-        # rubocop:disable Lint/DuplicateHashKey
         map = {
           hospital: "HOSP",
           home_delivery: "HOSP",
@@ -31,8 +30,6 @@ module Renalware
           "rubbish" => nil,
           "gp" => "GP"
         }
-        # rubocop:enable Lint/DuplicateHashKey
-
         map.each do |provider, suffix|
           it "return #{suffix} when provider is #{provider}" do
             prescription = instance_double(Prescription, provider: provider)

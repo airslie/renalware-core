@@ -73,7 +73,7 @@ module Renalware
         end
 
         # No new row should be created..
-        expect { command.call }.to change(PatientStatistics, :count).by(0)
+        expect { command.call }.not_to change(PatientStatistics, :count)
 
         # ..and it should update the stats based on there being another session
         expect(PatientStatistics.first.session_count).to eq(2)

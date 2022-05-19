@@ -58,7 +58,7 @@ module Renalware
                   year: 2019,
                   hospital_unit_id: unit.id
                 )
-              ).to eq(true)
+              ).to be(true)
             end
           end
 

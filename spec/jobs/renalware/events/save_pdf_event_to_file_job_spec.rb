@@ -29,7 +29,7 @@ describe Renalware::Events::SavePdfEventToFileJob do
 
       job.perform(event: event, file_path: file_path)
 
-      expect(File.exist?(file_path)).to eq(true)
+      expect(File.exist?(file_path)).to be(true)
     end
   end
 end

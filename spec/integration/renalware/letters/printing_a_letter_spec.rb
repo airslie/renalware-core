@@ -77,9 +77,7 @@ describe "Printing a letter",
       # NOTE: don't change this to have_current_path - we need to use match here
       expect(page.current_path).to match(letters_list_path)
       within(".modal") do
-        # rubocop:disable RSpec/Capybara/CurrentPathExpectation
         expect(page).to have_content("Was printing successful?")
-        # rubocop:enable RSpec/Capybara/CurrentPathExpectation
         click_on "Yes - remove from the Print Queue"
       end
 

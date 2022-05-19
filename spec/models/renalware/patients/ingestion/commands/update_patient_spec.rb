@@ -153,7 +153,7 @@ module Renalware::Patients::Ingestion
         end
       end
 
-      context "when updating a patient found by nhs_number with the 'simple' strategy " do
+      context "when updating a patient found by nhs_number with the 'simple' strategy" do
         it "does not change the local_patient_id" do
           Renalware.configure do |config|
             config.patient_hospital_identifiers = {
