@@ -47,7 +47,7 @@ group :test do
   gem "rspec-retry"
   gem "selenium-webdriver", "~> 3.142.0"
   gem "shoulda-matchers", "~> 4.1"
-  gem "simplecov", "~> 0.17.1", require: false # only loaded if required
+  gem "simplecov", "~> 0.17", require: false # only loaded if required
   gem "test-prof"
   gem "webmock", "~> 3.7", require: false
   gem "wisper-rspec", "~> 1.1.0"

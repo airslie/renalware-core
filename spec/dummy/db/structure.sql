@@ -69,7 +69,7 @@ CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA renalware;
 -- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
 --
 
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
+COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statistics of all SQL statements executed';
 
 
 --
@@ -4052,8 +4052,8 @@ CREATE TABLE renalware.hospital_units (
 
 CREATE VIEW renalware.hd_diary_matrix AS
  WITH hd_empty_diary_matrix AS (
-         SELECT date_part('year'::text, the_date.the_date) AS year,
-            date_part('week'::text, the_date.the_date) AS week_number,
+         SELECT EXTRACT(year FROM the_date.the_date) AS year,
+            EXTRACT(week FROM the_date.the_date) AS week_number,
             h.id AS hospital_unit_id,
             s.id AS station_id,
             a.day_of_week,
@@ -4064,7 +4064,7 @@ CREATE VIEW renalware.hd_diary_matrix AS
              CROSS JOIN ( SELECT generate_series(1, 7) AS day_of_week) a)
              CROSS JOIN renalware.hd_diurnal_period_codes period)
           WHERE (h.is_hd_site = true)
-          ORDER BY (date_part('year'::text, the_date.the_date)), (date_part('week'::text, the_date.the_date)), h.id, s.id, a.day_of_week, period.id
+          ORDER BY (EXTRACT(year FROM the_date.the_date)), (EXTRACT(week FROM the_date.the_date)), h.id, s.id, a.day_of_week, period.id
         )
  SELECT m.year,
     m.week_number,
@@ -4084,7 +4084,7 @@ CREATE VIEW renalware.hd_diary_matrix AS
     (ms.updated_at)::date AS master_slot_updated_at,
     to_date((((((wd.year)::text || '-'::text) || (wd.week_number)::text) || '-'::text) || (ms.day_of_week)::text), 'iyyy-iw-ID'::text) AS slot_date
    FROM ((((hd_empty_diary_matrix m
-     LEFT JOIN renalware.hd_diaries wd ON (((wd.hospital_unit_id = m.hospital_unit_id) AND ((wd.year)::double precision = m.year) AND ((wd.week_number)::double precision = m.week_number) AND (wd.master = false))))
+     LEFT JOIN renalware.hd_diaries wd ON (((wd.hospital_unit_id = m.hospital_unit_id) AND ((wd.year)::numeric = m.year) AND ((wd.week_number)::numeric = m.week_number) AND (wd.master = false))))
      LEFT JOIN renalware.hd_diaries md ON (((md.hospital_unit_id = m.hospital_unit_id) AND (md.master = true))))
      LEFT JOIN renalware.hd_diary_slots ws ON (((ws.diary_id = wd.id) AND (ws.station_id = m.station_id) AND (ws.day_of_week = m.day_of_week) AND (ws.diurnal_period_code_id = m.diurnal_period_code_id))))
      LEFT JOIN renalware.hd_diary_slots ms ON (((ms.diary_id = md.id) AND (ms.station_id = m.station_id) AND (ms.day_of_week = m.day_of_week) AND (ms.diurnal_period_code_id = m.diurnal_period_code_id))));
@@ -5448,16 +5448,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_recipients; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -6670,10 +6660,10 @@ ALTER SEQUENCE renalware.pathology_observation_requests_id_seq OWNED BY renalwar
 
 
 --
--- Name: pathology_observations_grouped_by_date; Type: MATERIALIZED VIEW; Schema: renalware; Owner: -
+-- Name: pathology_observations_grouped_by_date; Type: VIEW; Schema: renalware; Owner: -
 --
 
-CREATE MATERIALIZED VIEW renalware.pathology_observations_grouped_by_date AS
+CREATE VIEW renalware.pathology_observations_grouped_by_date AS
  SELECT obr.patient_id,
     obs.observed_at,
     jsonb_object_agg(pod.code, ARRAY[obs.result, (obs.comment)::character varying] ORDER BY obs.observed_at) AS results,
@@ -6684,27 +6674,7 @@ CREATE MATERIALIZED VIEW renalware.pathology_observations_grouped_by_date AS
      JOIN renalware.pathology_code_group_memberships pcgm2 ON ((pcgm2.observation_description_id = pod.id)))
      JOIN renalware.pathology_code_groups pcg2 ON ((pcg2.id = pcgm2.code_group_id)))
   GROUP BY pcg2.name, obr.patient_id, obs.observed_at
-  ORDER BY obr.patient_id, pcg2.name, obs.observed_at DESC
-  WITH NO DATA;
-
-
---
--- Name: pathology_observations_grouped_by_date_non_materialized; Type: MATERIALIZED VIEW; Schema: renalware; Owner: -
---
-
-CREATE MATERIALIZED VIEW renalware.pathology_observations_grouped_by_date_non_materialized AS
- SELECT obr.patient_id,
-    obs.observed_at,
-    jsonb_object_agg(pod.code, ARRAY[obs.result, (obs.comment)::character varying] ORDER BY obs.observed_at) AS results,
-    pcg2.name AS "group"
-   FROM ((((renalware.pathology_observations obs
-     JOIN renalware.pathology_observation_requests obr ON ((obs.request_id = obr.id)))
-     JOIN renalware.pathology_observation_descriptions pod ON ((obs.description_id = pod.id)))
-     JOIN renalware.pathology_code_group_memberships pcgm2 ON ((pcgm2.observation_description_id = pod.id)))
-     JOIN renalware.pathology_code_groups pcg2 ON ((pcg2.id = pcgm2.code_group_id)))
-  GROUP BY pcg2.name, obr.patient_id, obs.observed_at
-  ORDER BY obr.patient_id, pcg2.name, obs.observed_at DESC
-  WITH NO DATA;
+  ORDER BY obr.patient_id, pcg2.name, obs.observed_at DESC;
 
 
 --
@@ -20069,20 +20039,6 @@ CREATE INDEX pathology_code_group_membership_obx ON renalware.pathology_code_gro
 --
 
 CREATE INDEX pathology_observation_descriptions_sender ON renalware.pathology_observation_descriptions USING btree (created_by_sender_id);
-
-
---
--- Name: pathology_observations_grouped_by_date_group_idx; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX pathology_observations_grouped_by_date_group_idx ON renalware.pathology_observations_grouped_by_date_non_materialized USING btree ("group");
-
-
---
--- Name: pathology_observations_grouped_by_date_patient_id_idx; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX pathology_observations_grouped_by_date_patient_id_idx ON renalware.pathology_observations_grouped_by_date USING btree (patient_id, observed_at, "group");
 
 
 --
