@@ -10,6 +10,8 @@
             = list.definition(:named_consultant)
             = list.definition(:named_nurse)
             = list.definition(:hospital_centre)
+            = list.definition(:preferred_death_location)
+            = list.definition(:preferred_death_location_notes)
 
       .columns.medium-6
         article
@@ -55,6 +57,9 @@
 
               dt 2nd Death cause:
               dd= default_for_associated(patient.second_cause, :description, "N/A")
+
+              dt Location:
+              dd= patient.actual_death_location&.name
 
       .columns.medium-12.large-6
         = render "renalware/clinical/allergies/list",

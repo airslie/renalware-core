@@ -9,6 +9,7 @@ Renalware::Engine.routes.draw do
   draw :clinical
   draw :clinics
   draw :dietetics
+  draw :deaths
   draw :directory
   draw :drugs
   draw :events
