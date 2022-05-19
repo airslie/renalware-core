@@ -3737,7 +3737,10 @@ CREATE TABLE renalware.feed_outgoing_documents (
     created_by_id bigint NOT NULL,
     updated_by_id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    error_code character varying,
+    errored_at timestamp without time zone,
+    retried_at timestamp without time zone
 );
 
 
@@ -23891,6 +23894,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220405114521'),
 ('20220407084109'),
 ('20220507073059'),
-('20220512142640');
+('20220512142640'),
+('20220519120540');
 
 
