@@ -299,8 +299,7 @@ module Renalware
           end
 
           describe "#dialysis_minutes_shortfall" do
-            it "returns the number of HD minutes missed across the sessions "\
-               " which is to say total prescribed time - total actual time on HD" do
+            it "returns the number of HD minutes missed across the sessions which is to say total prescribed time - total actual time on HD" do
               # expected shortfall = 69 - see above
               expect(audit.dialysis_minutes_shortfall).to eq(69)
             end
@@ -409,8 +408,8 @@ module Renalware
           end
 
           it "returns just one session UFR if another other session has a fluid_removed "\
-            "which is not a number (i.e. 0) i.e. we do not include the 'bad' session when "\
-            "generating the mean value" do
+             "which is not a number (i.e. 0) i.e. we do not include the 'bad' session when "\
+             "generating the mean value" do
             clinical_patient = Clinical.cast_patient(patient)
             dry_weight1 = build_stubbed(:dry_weight, patient: clinical_patient, weight: 100.0)
 

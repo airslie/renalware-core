@@ -46,7 +46,7 @@ module Renalware
       context "with no errors" do
         it "does not apply highlight" do
           valid_patient_med.save
-          expect(highlight_validation_fail(valid_patient_med, :drug)).to eq(nil)
+          expect(highlight_validation_fail(valid_patient_med, :drug)).to be_nil
         end
       end
     end
@@ -79,7 +79,7 @@ module Renalware
 
       context "when not gp" do
         it "returns nil" do
-          expect(default_provider(hospital)).to eq(nil)
+          expect(default_provider(hospital)).to be_nil
         end
       end
     end

@@ -44,7 +44,7 @@ module Renalware::Events
 
       describe ".subtypes?" do
         it "defaults to false" do
-          expect(described_class.new.subtypes?).to eq(false)
+          expect(described_class.new.subtypes?).to be(false)
         end
       end
     end

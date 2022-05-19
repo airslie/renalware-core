@@ -75,7 +75,7 @@ module Renalware
           expect(regime.bags.count).to eq(1)
 
           bag = regime.bags.first
-          expect(bag.role.additional_manual_exchange?).to eq(true)
+          expect(bag.role.additional_manual_exchange?).to be(true)
         end
       end
 
@@ -94,7 +94,7 @@ module Renalware
                      treatment: nil
                    }
                  }
-          }.to change(PD::Regime, :count).by(0)
+          }.not_to change(PD::Regime, :count)
 
           expect(response).to render_template(:new)
         end
@@ -115,7 +115,7 @@ module Renalware
                      treatment: "CAPD 3 exchanges per day"
                    }
                  }
-          }.to change(PD::Regime, :count).by(0)
+          }.not_to change(PD::Regime, :count)
           expect(PD::RegimeBag.count).to eq(1)
         end
       end

@@ -88,8 +88,7 @@ module Renalware
       end
     end
 
-    context "when the patient has previously been sent to the UKRDC but now something about "\
-            " has cause the XML content to differ" do
+    context "when the patient has previously been sent to the UKRDC but now something about has cause the XML content to differ" do
       let(:prevous_transmission_log) {
         UKRDC::TransmissionLog.create!(
           patient: patient,
@@ -128,8 +127,7 @@ module Renalware
       end
     end
 
-    context "when the patient has previously been sent to the UKRDC but *nothing* about has "\
-            " changes so the payload_hash is the same" do
+    context "when the patient has previously been sent to the UKRDC but *nothing* about has changes so the payload_hash is the same" do
       let(:prevous_transmission_log) {
         UKRDC::TransmissionLog.create!(
           batch: UKRDC::Batch.next,

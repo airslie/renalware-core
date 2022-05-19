@@ -47,8 +47,8 @@ module Renalware
             # Note this bit is peeking into the letter compilation process...
             # In a tmp folder eg tmp/d20210307-88904-1iul2n7/ there will be 2 PDF letters
             # created.
-            expect(File.exist?(letter1_filename)).to eq(true)
-            expect(File.exist?(letter2_filename)).to eq(true)
+            expect(File.exist?(letter1_filename)).to be(true)
+            expect(File.exist?(letter2_filename)).to be(true)
 
             # In each letter each recipient will have each 4 pages:
             # - the cover sheet (2 pages, front and pack)

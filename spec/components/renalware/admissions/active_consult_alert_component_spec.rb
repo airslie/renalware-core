@@ -14,7 +14,7 @@ describe Renalware::Admissions::ActiveConsultAlertComponent, type: :component do
       )
 
       component = described_class.new(patient: patient)
-      expect(component.render?).to eq(false)
+      expect(component.render?).to be(false)
     end
   end
 
@@ -37,7 +37,7 @@ describe Renalware::Admissions::ActiveConsultAlertComponent, type: :component do
       component = described_class.new(patient: patient)
       render_inline(described_class.new(patient: patient))
 
-      expect(component.render?).to eq(true)
+      expect(component.render?).to be(true)
       expect(page).to have_content("Active Consult")
       expect(page).to have_link(nil, href: edit_admissions_consult_path(id: admission.id))
     end

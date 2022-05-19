@@ -47,7 +47,7 @@ module Renalware::Events
                      event_type: nil
                    }
                  }
-          end.to change(Event, :count).by(0)
+          end.not_to change(Event, :count)
           expect(response).to render_template(:new)
         end
       end

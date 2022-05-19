@@ -27,7 +27,7 @@ module Renalware
       describe "#destroy_failed_jobs?" do
         subject { job.destroy_failed_jobs? }
 
-        it { is_expected.to eq(true) }
+        it { is_expected.to be(true) }
       end
 
       describe "#def reschedule_at?" do

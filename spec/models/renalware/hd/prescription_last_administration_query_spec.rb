@@ -47,7 +47,7 @@ describe Renalware::HD::PrescriptionLastAdministrationQuery do
       it "does not return the record" do
         create_prescription_administration_for(prescription, administered: false)
 
-        is_expected.to eq(nil)
+        is_expected.to be_nil
       end
     end
 

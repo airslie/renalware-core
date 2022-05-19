@@ -12,7 +12,7 @@ FactoryBot.define do
 
     trait :default do
       name { "default" }
-      #association :member, factory: :pathology_code_group_membership, code: "FBC"
+      # association :member, factory: :pathology_code_group_membership, code: "FBC"
     end
   end
 end

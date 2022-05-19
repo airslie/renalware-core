@@ -28,14 +28,14 @@ module Renalware
 
       context "when there are no sessions" do
         it "does nothing" do
-          expect { service.call }.to change(Session::Closed, :count).by(0)
+          expect { service.call }.not_to change(Session::Closed, :count)
         end
       end
 
       context "when there are no open sessions" do
         it "does nothing" do
           create(:hd_closed_session, **options)
-          expect { service.call }.to change(Session::Closed, :count).by(0)
+          expect { service.call }.not_to change(Session::Closed, :count)
         end
       end
 
@@ -52,7 +52,7 @@ module Renalware
 
           expect {
             service.call(performed_before: performed_before)
-          }.to change(Session::Closed, :count).by(0)
+          }.not_to change(Session::Closed, :count)
         end
       end
 
@@ -78,7 +78,7 @@ module Renalware
               }.to change(Session::Closed, :count).by(1)
                .and change(Session::Open, :count).by(-1)
 
-              expect(Session::Closed.exists?(id: session.id)).to eq(true)
+              expect(Session::Closed.exists?(id: session.id)).to be(true)
               expect(results.closed_ids).to eq([session.id])
               expect(results.unclosed_ids).to be_empty
             end
@@ -98,7 +98,7 @@ module Renalware
               results = nil
               expect {
                 results = service.call(performed_before: performed_before)
-              }.to change(Session::Closed, :count).by(0)
+              }.not_to change(Session::Closed, :count)
 
               expect(results.closed_ids).to be_empty
               expect(results.unclosed_ids).to eq [session.id]

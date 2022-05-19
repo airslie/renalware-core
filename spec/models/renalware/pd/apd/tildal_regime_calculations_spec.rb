@@ -25,17 +25,17 @@ module Renalware
 
             it "returns 0 if cycles is nil" do
               regime.cycles = nil
-              expect(TidalRegimeCalculations.new(regime).calculated_overnight_volume).to eq(nil)
+              expect(TidalRegimeCalculations.new(regime).calculated_overnight_volume).to be_nil
             end
 
             it "returns 0 if fill volume is zero" do
               regime.fill_volume = 0
-              expect(TidalRegimeCalculations.new(regime).calculated_overnight_volume).to eq(nil)
+              expect(TidalRegimeCalculations.new(regime).calculated_overnight_volume).to be_nil
             end
 
             it "returns 0 if tidal percentage is 0" do
               regime.tidal_percentage = 0
-              expect(TidalRegimeCalculations.new(regime).calculated_overnight_volume).to eq(nil)
+              expect(TidalRegimeCalculations.new(regime).calculated_overnight_volume).to be_nil
             end
 
             context "when draining every 3 cycles" do
@@ -55,7 +55,7 @@ module Renalware
 
             context "when not doing a full drain every 3 cycles" do
               it "uses the full fill volume on cycle 1 and the tidal_percentage "\
-                  "volume of the remaining cycles" do
+                 "volume of the remaining cycles" do
                 regime.tidal_full_drain_every_three_cycles = false
 
                 overnight_volume = TidalRegimeCalculations.new(regime).calculated_overnight_volume

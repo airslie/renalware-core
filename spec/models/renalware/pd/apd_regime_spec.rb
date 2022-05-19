@@ -103,54 +103,54 @@ module Renalware
           expect(
             has_numeric_validation(:tidal_percentage,
                                    APDRegime::VALID_RANGES.tidal_percentages)
-          ).to eq(true)
+          ).to be(true)
         end
 
         it "no_cycles_per_apd validates numeric_inclusion" do
           expect(
             has_numeric_validation(:no_cycles_per_apd,
                                    APDRegime::VALID_RANGES.cycles_per_apd)
-          ).to eq(true)
+          ).to be(true)
         end
 
         it "overnight_volume validates numeric_inclusion" do
           expect(
             has_numeric_validation(:overnight_volume, APDRegime::VALID_RANGES.overnight_volumes)
-          ).to eq(true)
+          ).to be(true)
         end
 
         it "dwell_time validates numeric_inclusion" do
           expect(
             has_numeric_validation(:dwell_time, APDRegime::VALID_RANGES.dwell_times)
-          ).to eq(true)
+          ).to be(true)
         end
 
         it "fill_volume validates numeric_inclusion" do
           expect(
             has_numeric_validation(:fill_volume,
                                    APDRegime::VALID_RANGES.fill_volumes)
-          ).to eq(true)
+          ).to be(true)
         end
 
         it "therapy_time validates numeric_inclusion" do
           expect(
             has_numeric_validation(:therapy_time,
                                    APDRegime::VALID_RANGES.therapy_times)
-          ).to eq(true)
+          ).to be(true)
         end
 
         it "last_fill_volume validates numeric_inclusion" do
           expect(
             has_numeric_validation(:last_fill_volume,
                                    APDRegime::VALID_RANGES.last_fill_volumes)
-          ).to eq(true)
+          ).to be(true)
         end
 
         it "additional_manual_exchange_volume validates numeric_inclusion" do
           expect(
             has_numeric_validation(:additional_manual_exchange_volume,
                                    APDRegime::VALID_RANGES.additional_manual_exchange_volumes)
-          ).to eq(true)
+          ).to be(true)
         end
       end
 

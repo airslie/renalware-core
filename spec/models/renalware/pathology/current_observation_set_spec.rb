@@ -87,7 +87,7 @@ module Renalware
               new_time = time + 1.hour
               expect {
                 obs = create_hgb_observation(patient: patient, observed_at: new_time, result: 222.2)
-              }.to change(CurrentObservationSet, :count).by(0)
+              }.not_to change(CurrentObservationSet, :count)
               # trigger has now updated the current_observation_set
 
               new_hgb = obs_set.reload.values[:HGB]
@@ -113,7 +113,7 @@ module Renalware
                   observed_at: time - 1.hour, # an older date,
                   result: 222.2
                 )
-              }.to change(CurrentObservationSet, :count).by(0)
+              }.not_to change(CurrentObservationSet, :count)
 
               expect(obs_set.reload.values[:HGB]).to eq(hgb)
             end

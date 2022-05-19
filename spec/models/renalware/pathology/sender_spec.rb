@@ -40,7 +40,7 @@ module Renalware::Pathology
               sending_facility: "Fac1",
               sending_application: "App1"
             )
-          }.to change(described_class, :count).by(0)
+          }.not_to change(described_class, :count)
 
           expect(found).to eq(original)
         end
@@ -62,7 +62,7 @@ module Renalware::Pathology
               sending_facility: "Fac1",
               sending_application: "MyApp"
             )
-          }.to change(described_class, :count).by(0)
+          }.not_to change(described_class, :count)
 
           expect(found).to eq(original)
         end

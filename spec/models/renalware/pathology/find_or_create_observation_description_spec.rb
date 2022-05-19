@@ -51,7 +51,7 @@ module Renalware
 
             expect {
               found = svc.call
-            }.to change(ObservationDescription, :count).by(0)
+            }.not_to change(ObservationDescription, :count)
 
             expect(found).to eq(original)
           end
@@ -78,7 +78,7 @@ module Renalware
 
               expect {
                 found_obs_desc = svc.call
-              }.to change(ObservationDescription, :count).by(0)
+              }.not_to change(ObservationDescription, :count)
 
               expect(found_obs_desc).to eq(target_obs_desc)
             end

@@ -13,7 +13,7 @@ if defined? PartyFoul
     ]
 
     # The OAuth token for the account that is opening the issues on GitHub
-    config.oauth_token            = ENV["GITHUB_OAUTH_TOKEN"]
+    config.oauth_token            = ENV.fetch("GITHUB_OAUTH_TOKEN", nil)
 
     # The API api_endpoint for GitHub. Unless you are hosting a private
     # instance of Enterprise GitHub you do not need to include this
@@ -27,7 +27,7 @@ if defined? PartyFoul
     config.owner                  = "airslie"
 
     # The repository for this application
-    config.repo                   = ENV["REPO_NAME"]
+    config.repo                   = ENV.fetch("REPO_NAME", nil)
 
     # The branch for your deployed code
     # config.branch               = 'master'

@@ -10,7 +10,7 @@ describe Renalware::Surveys::POSSComponent, type: :component do
       it "returns false" do
         component = described_class.new(patient: patient)
 
-        expect(component.render?).to eq(false)
+        expect(component.render?).to be(false)
       end
     end
 
@@ -19,7 +19,7 @@ describe Renalware::Surveys::POSSComponent, type: :component do
         create(:pos_s_survey)
         component = described_class.new(patient: patient)
 
-        expect(component.render?).to eq(true)
+        expect(component.render?).to be(true)
       end
     end
   end

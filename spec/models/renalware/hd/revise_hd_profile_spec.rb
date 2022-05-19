@@ -66,7 +66,7 @@ module Renalware::HD
             expect(Profile.for_patient(patient).count).to eq(1)
             active_profile = Profile.for_patient(patient).first
             expect(active_profile.id).not_to eq(original_profile.id)
-            expect(active_profile.active).to eq(true)
+            expect(active_profile.active).to be(true)
             expect(active_profile.deactivated_at).to be_nil
             expect(active_profile.patient_id).to eq(patient.id)
           end
@@ -84,13 +84,13 @@ module Renalware::HD
           it "marks the original profile as inactive" do
             expect(Profile.with_deactivated.count).to eq(2)
             original_profile.reload
-            expect(original_profile.active).to eq(nil)
+            expect(original_profile.active).to be_nil
             expect(original_profile.deactivated_at).not_to be_nil
             expect(original_profile.patient_id).to eq(patient.id)
           end
 
           it "retains the old value on the original profile" do
-            expect(original_profile.reload.other_schedule).to eq(nil)
+            expect(original_profile.reload.other_schedule).to be_nil
           end
         end
       end
@@ -104,7 +104,7 @@ module Renalware::HD
         let(:revised_prescriber) { nil }
 
         it "returns false" do
-          expect(revised_profile).to eq(false)
+          expect(revised_profile).to be(false)
         end
 
         it "populates the original profile's errors" do

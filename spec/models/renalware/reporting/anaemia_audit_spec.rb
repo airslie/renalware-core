@@ -51,7 +51,7 @@ module Renalware
       end
     end
 
-    describe "json from reporting_aneamia_audit view " do
+    describe "json from reporting_aneamia_audit view" do
       describe ":data" do
         context "when there are no rows in the audit" do
           it "is nil" do

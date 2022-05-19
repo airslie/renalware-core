@@ -30,7 +30,7 @@ describe Renalware::HD::PrescriptionLastAdministrationComponent, type: :componen
 
       render_inline(component)
 
-      expect(component.render?).to eq(false)
+      expect(component.render?).to be(false)
       expect(rendered_component).to eq("")
     end
   end

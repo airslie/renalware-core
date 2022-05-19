@@ -189,7 +189,7 @@ module Renalware
 
                   expect {
                     Renalware::Feeds.message_processor.call(raw_message)
-                  }.to change(Renalware::Renal::AKIAlert, :count).by(0)
+                  }.not_to change(Renalware::Renal::AKIAlert, :count)
                 end
               end
 
@@ -228,7 +228,7 @@ module Renalware
 
                       expect {
                         Renalware::Feeds.message_processor.call(raw_message)
-                      }.to change(Renalware::Renal::AKIAlert, :count).by(0)
+                      }.not_to change(Renalware::Renal::AKIAlert, :count)
                     end
 
                     it "creates alert if the last alert with a score of #{recent_score} is older than 14 days" do

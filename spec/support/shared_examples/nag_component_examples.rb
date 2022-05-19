@@ -65,7 +65,7 @@ shared_examples_for "a nag" do
       allow(definition).to receive(:enabled).and_return(false)
       component = described_class.new(definition: definition, patient: patient)
 
-      expect(component.render?).to eq(false)
+      expect(component.render?).to be(false)
     end
 
     context "when there was an error rendering the sql function" do

@@ -18,12 +18,12 @@ module Renalware
         describe "#calculated_overnight_volume" do
           it "returns 0 if fill_volume is zero" do
             regime.fill_volume = 0
-            expect(NonTidalRegimeCalculations.new(regime).calculated_overnight_volume).to eq(nil)
+            expect(NonTidalRegimeCalculations.new(regime).calculated_overnight_volume).to be_nil
           end
 
           it "returns 0 if no_cycles_per_apd is nil" do
             regime.cycles = nil
-            expect(NonTidalRegimeCalculations.new(regime).calculated_overnight_volume).to eq(nil)
+            expect(NonTidalRegimeCalculations.new(regime).calculated_overnight_volume).to be_nil
           end
 
           it "returns the number of exchanges (cycles) * volume of each exchange (fill_volume)" do

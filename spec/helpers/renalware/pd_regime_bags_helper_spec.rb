@@ -46,7 +46,7 @@ module Renalware
       context "when valid" do
         it 'does not apply class "show-form"' do
           valid_pd_regime_bag.save
-          expect(highlight_days_invalid(invalid_pd_regime_bag)).to eq(nil)
+          expect(highlight_days_invalid(invalid_pd_regime_bag)).to be_nil
         end
       end
     end

@@ -24,7 +24,7 @@ module Renalware
           build_stubbed(:letter_letterhead, include_pathology_in_letter_body: true)
         end
 
-        it { is_expected.to eq(true) }
+        it { is_expected.to be(true) }
       end
 
       describe "self.effective_date_sort" do

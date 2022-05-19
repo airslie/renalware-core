@@ -376,7 +376,7 @@ module Renalware
             allow(calcs).to receive(:renal_ktv).and_return(nil)
             allow(calcs).to receive(:pertitoneal_ktv).and_return(2.2)
 
-            expect(calcs.total_ktv).to eq(nil)
+            expect(calcs.total_ktv).to be_nil
           end
         end
 
@@ -386,7 +386,7 @@ module Renalware
             allow(calcs).to receive(:renal_ktv).and_return(1.1)
             allow(calcs).to receive(:pertitoneal_ktv).and_return(nil)
 
-            expect(calcs.total_ktv).to eq(nil)
+            expect(calcs.total_ktv).to be_nil
           end
         end
       end

@@ -80,7 +80,6 @@ module Renalware::Medications
               .to receive(:medication_review_max_age_in_months)
               .and_return(opts[:max_months])
 
-
             latest = patient.medication_reviews.latest
 
             expect(latest.present?).to eq(opts[:result])

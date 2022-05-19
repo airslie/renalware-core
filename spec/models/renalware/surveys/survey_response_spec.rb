@@ -37,7 +37,7 @@ module Renalware
           it { is_expected.to be_valid }
         end
 
-        context "when the question has a validation_regex " do
+        context "when the question has a validation_regex" do
           context "when the value is within range" do
             let(:validation_regex) { "[1-5]" }
             let(:value) { 1 }

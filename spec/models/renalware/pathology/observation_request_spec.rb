@@ -14,8 +14,7 @@ module Renalware
     end
 
     describe "distinct_for_patient_id" do
-      it "returns the most recently processed OBR for a given "\
-          "requestor_order_number + requested_at + description_id " do
+      it "returns the most recently processed OBR for a given requestor_order_number + requested_at + description_id" do
         patient = create(:pathology_patient)
         requested_at = "2019-01-01"
         updated_request = create_request_with_observations(

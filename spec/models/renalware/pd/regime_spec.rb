@@ -22,7 +22,7 @@ module Renalware
         it "end_date must be after start_date" do
           regime = described_class.new(start_date: "2015-12-01", end_date: "2014-01-01")
 
-          expect(regime.valid?).to eq(false)
+          expect(regime.valid?).to be(false)
           expect(regime.errors[:end_date].first).to match(/must be on or after/)
         end
       end

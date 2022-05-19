@@ -37,7 +37,7 @@ module Renalware
 
       describe "immutable?" do
         it "always returns false" do
-          expect(session.immutable?).to eq(false)
+          expect(session.immutable?).to be(false)
         end
       end
 

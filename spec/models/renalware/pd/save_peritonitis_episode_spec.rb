@@ -24,7 +24,7 @@ module Renalware
 
           it "saves a new episode and returns true" do
             params = { diagnosis_date: Time.zone.today }
-            expect(service.call(params: params)).to eq(true)
+            expect(service.call(params: params)).to be(true)
           end
 
           it "saves a new episode and broadcasts success" do
@@ -38,7 +38,7 @@ module Renalware
 
           it "returns false" do
             params = { diagnosis_date: nil }
-            expect(service.call(params: params)).to eq(false)
+            expect(service.call(params: params)).to be(false)
           end
 
           it "broadcasts failure" do
@@ -55,7 +55,7 @@ module Renalware
 
             success = service.call(params: params)
 
-            expect(success).to eq(true)
+            expect(success).to be(true)
             expect(patient.peritonitis_episodes.count).to eq(1)
             expect(patient.peritonitis_episodes.first.diagnosis_date).to eq(date)
           end
@@ -66,7 +66,7 @@ module Renalware
 
             success = service.call(params: params)
 
-            expect(success).to eq(true)
+            expect(success).to be(true)
             episode = patient.peritonitis_episodes.first
             description_ids = episode.episode_types.map(&:peritonitis_episode_type_description_id)
             expect(description_ids.sort).to eq(expected_description_ids.sort)
@@ -81,7 +81,7 @@ module Renalware
 
             success = service.call(params: params)
 
-            expect(success).to eq(true)
+            expect(success).to be(true)
             episodes = patient.peritonitis_episodes
             expect(episodes.count).to eq(1)
             episode = episodes.first

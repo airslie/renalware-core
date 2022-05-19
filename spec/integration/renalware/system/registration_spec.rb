@@ -70,7 +70,7 @@ module Renalware
       # TODO: There should be a message explaining that admin approval is required before login.
 
       user = Renalware::User.find_by(username: "bevana")
-      expect(user.asked_for_write_access).to eq(true)
+      expect(user.asked_for_write_access).to be(true)
     end
   end
 end

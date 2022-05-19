@@ -22,7 +22,7 @@ module Renalware
             context "when a generator exists for that code e.g. 'hd'" do
               let(:description) { build_stubbed(:hd_modality_description, code: "hd") }
 
-              it "maps the code to a corresponding generator " do
+              it "maps the code to a corresponding generator" do
                 is_expected.to be_a(Renalware::UKRDC::TreatmentTimeline::HD::Generator)
               end
             end

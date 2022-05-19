@@ -21,7 +21,7 @@ module Renalware
                 "and the patient's practice has no email address so we snail mail the GP" do
           context "when the letter is only 1 page long" do
             it "renders a PDF containing an address cover sheet + letter for each recipient "\
-              "including blank pages where necessary" do
+               "including blank pages where necessary" do
               # practice_email: "x@y.com"
               letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
                 page_count: 1,
@@ -30,7 +30,7 @@ module Renalware
               pdf_file = Tempfile.new("merged_pdf", Rails.root.join("tmp"))
 
               ms = Benchmark.ms do
-                File.open(pdf_file, "wb") { |file| file.write(described_class.call(letter)) }
+                File.binwrite(pdf_file, described_class.call(letter))
               end
               puts "Rendering the letter/s took #{ms}"
 
@@ -107,7 +107,7 @@ module Renalware
 
           context "when the letter spans 2 pages" do
             it "renders a PDF containing an address cover sheet + letter for each recipient "\
-              "including blank pages where necessary" do
+               "including blank pages where necessary" do
               # update body to tip the page across 2 pages
               letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
                 body: "xxxxxxxx " * 1100,
@@ -116,7 +116,7 @@ module Renalware
               pdf_file = Tempfile.new("merged_pdf", Rails.root.join("tmp"))
 
               ms = Benchmark.ms do
-                File.open(pdf_file, "wb") { |file| file.write(described_class.call(letter)) }
+                File.binwrite(pdf_file, described_class.call(letter))
               end
               puts "Rendering the letter/s took #{ms}"
 
@@ -191,7 +191,7 @@ module Renalware
                 "and the patient's practice has an email address so the GP will not be printed" do
           context "when the letter is only 1 page long" do
             it "renders a PDF containing an address cover sheet + letter for each recipient "\
-              "including blank pages where necessary" do
+               "including blank pages where necessary" do
               # practice_email: "x@y.com"
               letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
                 page_count: 1,
@@ -200,7 +200,7 @@ module Renalware
 
               pdf_file = Tempfile.new("merged_pdf", Rails.root.join("tmp"))
 
-              File.open(pdf_file, "wb") { |file| file.write(described_class.call(letter)) }
+              File.binwrite(pdf_file, described_class.call(letter))
 
               open_pdf_in_preview(pdf_file)
 

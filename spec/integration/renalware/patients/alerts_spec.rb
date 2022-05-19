@@ -21,8 +21,8 @@ describe "Managing alerts", type: :request do
         alert = Renalware::Patients::Alert.find_by(patient_id: patient.id)
 
         expect(alert).not_to be_nil
-        expect(alert.urgent).to eq(false)
-        expect(alert.covid_19).to eq(false)
+        expect(alert.urgent).to be(false)
+        expect(alert.covid_19).to be(false)
         expect(alert.notes).to eq("An alert")
       end
     end
@@ -45,8 +45,8 @@ describe "Managing alerts", type: :request do
 
         alert = Renalware::Patients::Alert.find_by(patient_id: patient.id)
 
-        expect(alert.covid_19).to eq(false)
-        expect(alert.urgent).to eq(true)
+        expect(alert.covid_19).to be(false)
+        expect(alert.urgent).to be(true)
       end
     end
 
@@ -68,8 +68,8 @@ describe "Managing alerts", type: :request do
 
         alert = Renalware::Patients::Alert.find_by(patient_id: patient.id)
 
-        expect(alert.covid_19).to eq(true)
-        expect(alert.urgent).to eq(false)
+        expect(alert.covid_19).to be(true)
+        expect(alert.urgent).to be(false)
       end
     end
 

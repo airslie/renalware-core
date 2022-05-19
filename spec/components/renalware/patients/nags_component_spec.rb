@@ -9,7 +9,7 @@ describe Renalware::Patients::NagsComponent, type: :component do
   it "renders nothing when no nag_definitions are defined" do
     component = described_class.new(patient: patient, current_user: user)
 
-    expect(component.render?).to eq(false)
+    expect(component.render?).to be(false)
   end
 
   describe "#definitions" do

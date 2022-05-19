@@ -30,27 +30,27 @@ module Renalware
       %i(admin super_admin devops clinician).each do |role|
         it "does not allow a clinician to assign the #{role} role" do
           policy = described_class.new(clinician, other_clinician)
-          expect(policy.assign_role?(Role.new(name: role))).to eq(false)
+          expect(policy.assign_role?(Role.new(name: role))).to be(false)
         end
       end
 
       %i(admin super_admin devops).each do |role|
         it "does not allow an admin to assign the #{role} role" do
           policy = described_class.new(admin, clinician)
-          expect(policy.assign_role?(Role.new(name: role))).to eq(false)
+          expect(policy.assign_role?(Role.new(name: role))).to be(false)
         end
       end
 
       %i(super_admin devops).each do |role|
         it "does not allow a super admin to assign the #{role} role" do
           policy = described_class.new(super_admin, clinician)
-          expect(policy.assign_role?(Role.new(name: role))).to eq(false)
+          expect(policy.assign_role?(Role.new(name: role))).to be(false)
         end
       end
 
       it "allows a superadmin to assign the admin role" do
         policy = described_class.new(super_admin, clinician)
-        expect(policy.assign_role?(Role.new(name: :admin))).to eq(true)
+        expect(policy.assign_role?(Role.new(name: :admin))).to be(true)
       end
     end
   end

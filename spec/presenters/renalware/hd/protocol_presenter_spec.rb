@@ -30,7 +30,7 @@ describe Renalware::HD::ProtocolPresenter do
 
       presenter.prescriptions
       expect(presenter.prescriptions.length).to eq(1)
-      expect(presenter.prescriptions.first.administer_on_hd).to eq(true)
+      expect(presenter.prescriptions.first.administer_on_hd).to be(true)
     end
   end
 
@@ -104,12 +104,12 @@ describe Renalware::HD::ProtocolPresenter do
       presenter = described_class.new(patient, nil)
 
       recent_path = presenter.recent_pathology
-      expect(recent_path.hgb_result).to eq(nil)
-      expect(recent_path.hgb_observed_at).to eq(nil)
-      expect(recent_path.plt_result).to eq(nil)
-      expect(recent_path.plt_observed_at).to eq(nil)
-      expect(recent_path.crp_result).to eq(nil)
-      expect(recent_path.crp_observed_at).to eq(nil)
+      expect(recent_path.hgb_result).to be_nil
+      expect(recent_path.hgb_observed_at).to be_nil
+      expect(recent_path.plt_result).to be_nil
+      expect(recent_path.plt_observed_at).to be_nil
+      expect(recent_path.crp_result).to be_nil
+      expect(recent_path.crp_observed_at).to be_nil
     end
   end
 end

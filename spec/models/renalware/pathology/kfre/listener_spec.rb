@@ -57,7 +57,7 @@ module Renalware
 
               expect {
                 described_class.new.oru_message_arrived(hl7_message: hl7_message)
-              }.to change(Renalware::Pathology::Observation, :count).by(0)
+              }.not_to change(Renalware::Pathology::Observation, :count)
             end
           end
 
@@ -94,7 +94,7 @@ module Renalware
 
                 expect {
                   described_class.new.oru_message_arrived(hl7_message: hl7_message)
-                }.to change(Renalware::Pathology::Observation, :count).by(0)
+                }.not_to change(Renalware::Pathology::Observation, :count)
               end
             end
 

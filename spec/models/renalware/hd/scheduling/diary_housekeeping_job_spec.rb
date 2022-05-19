@@ -110,7 +110,6 @@ module Renalware::HD::Scheduling
 
       context "when past master slots are being inherited by weekly diaries" do
         it "copies the master slot to the weekly diaries" do
-
           pending "TODO: get to the bottom of this intermittently failing spec"
           fail
           # day_of_week = Time.zone.today.cwday

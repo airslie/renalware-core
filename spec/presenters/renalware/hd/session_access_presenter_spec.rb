@@ -28,7 +28,7 @@ describe Renalware::HD::SessionAccessPresenter do
     end
 
     it "handles a nil session.document" do
-      session = instance_double("Session", document: nil)
+      session = instance_double(Renalware::HD::Session, document: nil)
 
       expect(presenter.new(session).to_s).to eq("")
     end
@@ -56,7 +56,7 @@ describe Renalware::HD::SessionAccessPresenter do
     end
 
     it "handles a nil session.document" do
-      session = instance_double("Session", document: nil)
+      session = instance_double(Renalware::HD::Session, document: nil)
 
       expect(presenter.new(session).to_html).to eq("")
     end

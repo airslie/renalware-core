@@ -23,9 +23,11 @@ class ApplicationController < ActionController::Base
   # - the standard Rails I18n.default_locale setting
   def set_locale
     if user_signed_in?
-      I18n.locale = current_user.language.presence || ENV["DEFAULT_LANG"] || I18n.default_locale
+      I18n.locale = current_user.language.presence || ENV.fetch("DEFAULT_LANG") {
+        I18n.default_locale
+      }
     else
-      I18n.locale = ENV["DEFAULT_LANG"] || I18n.default_locale
+      I18n.locale = ENV.fetch("DEFAULT_LANG") { I18n.default_locale }
     end
   end
   # rubocop:enable Style/ConditionalAssignment

@@ -7,7 +7,7 @@ module Renalware
     describe RememberedLetterPreferences, type: :model do
       describe "#persist" do
         it "saves certain model attributes to the session" do
-          letter = instance_double("Letter",
+          letter = instance_double(Letter,
                                    letterhead_id: 1,
                                    description: "1",
                                    author_id: 1)

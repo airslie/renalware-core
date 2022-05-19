@@ -76,7 +76,7 @@ module Renalware
 
         context "when they have an HD Profile created within 100yrs of the modality start date" do
           it "finds this initial profile, regardless of how far in the future it is, and "\
-              "uses its type etc when creating the Treatment" do
+             "uses its type etc when creating the Treatment" do
             create_profile(start_date: Time.zone.now + 99.years, end_date: nil, hd_type: :hdf_pre)
 
             expect {
@@ -91,7 +91,7 @@ module Renalware
 
         context "when 2 HD profiles (HDF then HD) created after the modality start date" do
           it "uses the first for the initial Treatment and creates "\
-              "a futher Treatment to register the change from HDF to HD" do
+             "a futher Treatment to register the change from HDF to HD" do
             # The first profile - this will be associated with the modality when creating
             # the first treatment record - is the treatment record will use its HD type etc
             unit = create(:hospital_unit)
