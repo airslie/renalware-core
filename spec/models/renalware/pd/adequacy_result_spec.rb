@@ -24,9 +24,9 @@ module Renalware
           end
         end
 
-        context "when weight is zero" do
+        context "when weight is missing" do
           it "does not update the calculated columns" do
-            result = create(:pd_adequacy_result, patient: patient, weight: 0)
+            result = create(:pd_adequacy_result, patient: patient, weight: nil)
 
             expect(result.dietry_protein_intake).to be_nil
           end
@@ -59,8 +59,8 @@ module Renalware
               total_ktv: 1,
               pertitoneal_ktv: 1,
               renal_ktv: 1,
-              weight: 1.23,
-              height: 100.99
+              weight: 100.23,
+              height: 1.99
             )
 
             expect(result).to be_complete
@@ -80,8 +80,8 @@ module Renalware
               renal_ktv: nil,                  # no urine so cannot be calced
               total_ktv: nil,                  # no renal_ktv so calc not poss
               total_creatinine_clearance: nil, # no renal_creatinine_clearance so calc not poss
-              weight: 1.23,
-              height: 100.99
+              weight: 100.23,
+              height: 1.99
             )
 
             expect(result).to be_complete
@@ -101,8 +101,8 @@ module Renalware
               renal_ktv: 1,
               total_ktv: nil,                  # no pertitoneal_ktv so calc not poss
               total_creatinine_clearance: nil, # no pertitoneal_creatinine_clearance so calc no poss
-              weight: 1.23,
-              height: 100.99
+              weight: 100.23,
+              height: 1.99
             )
 
             expect(result).to be_complete

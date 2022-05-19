@@ -24,8 +24,8 @@ module Renalware
       validates :urine_24_vol,
                 numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 6000 },
                 allow_nil: true
-      validates :height, numericality: { allow_blank: true }
-      validates :weight, numericality: { allow_blank: true }
+      validates :height, "renalware/patients/height" => true, numericality: true, allow_blank: true
+      validates :weight, "renalware/patients/weight" => true, numericality: true, allow_blank: true
 
       before_save :derive_calculated_attributes
       before_save :update_completed

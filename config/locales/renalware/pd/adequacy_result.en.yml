@@ -8,3 +8,13 @@ en:
         urine_24_vol: Urine 24 vol (ml)
         height: Height (m)
         weight: Weight (kg)
+    errors:
+      models:
+        renalware/pd/adequacy_result:
+          attributes:
+            height:
+              out_of_range: Must be between 0.05 and 2.5
+              invalid_number: Please enter a number with up to 2 decimal place
+            weight:
+              out_of_range: Must be between 5.0 and 300.0
+              invalid_number: Please enter a number with up to 2 decimal places, for example 100 or 100.11
