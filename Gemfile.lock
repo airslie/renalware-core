@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/airslie/activesupport-cache-database.git
+  revision: 15094428f7c805a796f16be7c20a2934ee3deaf7
+  specs:
+    activesupport_cache_database (0.2.1)
+      activerecord (>= 5.0)
+      activesupport (>= 5.0)
+
+GIT
   remote: https://github.com/airslie/nhs_api_client.git
   revision: 0a265d4488efaf536ca055aed5c898ba3c429e87
   tag: v0.1.2
@@ -755,6 +763,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport_cache_database!
   autoprefixer-rails (~> 9.6)
   awesome_print
   aws-sdk-s3
