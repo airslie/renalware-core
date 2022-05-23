@@ -17,7 +17,7 @@ en:
     accesses:
       dashboards:
         page_actions:
-          needling_assessment: Needling Assessment (MAGIC)
+          needling_assessment: Ease of Needling (MAGIC)
           access_assessment: Access Assessment
           access_procedure: Access Procedure
           access_plan: Access Plan

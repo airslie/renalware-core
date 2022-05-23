@@ -1,12 +1,5 @@
 - assessment = Renalware::Accesses::cast_patient(patient).needling_assessments.latest
 
-table.latest_dry_weight
-  thead
-    tr
-      th(colspan=2) Ease of Needling
-  tbody
-    - if assessment.present?
-      tr
-        td= assessment.difficulty_description
-    - else
-      td(colspan=1) Unknown
+dt.new_line
+  | **Ease of Needling**:
+dd.font-bold= assessment&.difficulty_description&.upcase || "Unknown"
