@@ -13,7 +13,7 @@ module Renalware
       let(:super_admin) { user_double_with_role(:super_admin) }
       let(:description) { instance_double(Description, type: nil) }
 
-      [:show?, :index?].each do |permission|
+      %i(show? index?).each do |permission|
         permissions permission do
           it do
             is_expected.not_to permit(clinician, description)
@@ -23,7 +23,7 @@ module Renalware
         end
       end
 
-      [:new?, :create?].each do |permission|
+      %i(new? create?).each do |permission|
         permissions permission do
           it do
             is_expected.not_to permit(clinician, description)
@@ -36,7 +36,7 @@ module Renalware
       context "when the Description has no STI type" do
         let(:description) { instance_double(Description, type: nil) }
 
-        [:edit?, :update?].each do |permission|
+        %i(edit? update?).each do |permission|
           permissions permission do
             it do
               is_expected.not_to permit(clinician, description)
@@ -50,7 +50,7 @@ module Renalware
       context "when the Description an STI type" do
         let(:description) { instance_double(Description, type: "MyType") }
 
-        [:edit?, :update?].each do |permission|
+        %i(edit? update?).each do |permission|
           permissions permission do
             it do
               is_expected.not_to permit(clinician, description)

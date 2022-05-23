@@ -1,0 +1,34 @@
+article#access-needling-assessments
+  header
+    h2= t(".title")
+    span.supplemental.float-left
+      span= "#{assessments_count} of #{total_assessments_count}"
+    ul
+      li
+        span
+          = link_to I18n.t("btn.add"),
+                    renalware.new_patient_accesses_needling_assessment_path(patient),
+                    class: "button"
+  table
+    thead
+      tr
+        - if controls
+          th.col-width-tiny
+        th.col-width-small Ease
+        th.col-width-date Date
+        th Assessor
+    tbody
+      - assessments.each do |assessment|
+        tr(id=dom_id(assessment))
+        - if controls
+          td
+            - if policy(assessment).destroy?
+              = link_to(t("btn.delete"),
+                  renalware.patient_accesses_needling_assessment_path(patient, assessment),
+                  method: :delete,
+                  data: { confirm: I18n.t("prompts.confirm_delete") })
+
+        td.needling-assessment-difficulty
+          span.px-2.m-0.rounded-md.text-center(class=assessment.difficulty)= assessment.difficulty.capitalize
+        td= l(assessment.created_at.to_date)
+        td= assessment.created_by

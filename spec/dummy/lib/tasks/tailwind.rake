@@ -25,7 +25,7 @@ namespace :tailwind do
         "'#{root}/app/helpers/**/*.rb'",
         "'#{root}/app/inputs/**/*.rb'",
         "'#{root}/app/views/**/*.{erb,haml,html,slim}'",
-        "'#{root}/app/components/**/*.{erb,haml,html,slim}'",
+        "'#{root}/app/components/**/*.{erb,haml,html,slim,rb}'",
         "'#{root}/app/assets/javascripts/**/*'",
         "'#{root}/app/javascript/**/*'"
       ]

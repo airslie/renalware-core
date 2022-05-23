@@ -101,6 +101,17 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 
 
 --
+-- Name: access_needling_assessment_difficulties; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.access_needling_assessment_difficulties AS ENUM (
+    'easy',
+    'moderate',
+    'hard'
+);
+
+
+--
 -- Name: background_job_status; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -1492,6 +1503,47 @@ CREATE SEQUENCE renalware.access_catheter_insertion_techniques_id_seq
 --
 
 ALTER SEQUENCE renalware.access_catheter_insertion_techniques_id_seq OWNED BY renalware.access_catheter_insertion_techniques.id;
+
+
+--
+-- Name: access_needling_assessments; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.access_needling_assessments (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    difficulty renalware.access_needling_assessment_difficulties NOT NULL,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE access_needling_assessments; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.access_needling_assessments IS 'Stores ''Ease of Needling Vascular Access'' aka MAGIC score - see enum';
+
+
+--
+-- Name: access_needling_assessments_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.access_needling_assessments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: access_needling_assessments_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.access_needling_assessments_id_seq OWNED BY renalware.access_needling_assessments.id;
 
 
 --
@@ -11812,6 +11864,13 @@ ALTER TABLE ONLY renalware.access_catheter_insertion_techniques ALTER COLUMN id 
 
 
 --
+-- Name: access_needling_assessments id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.access_needling_assessments ALTER COLUMN id SET DEFAULT nextval('renalware.access_needling_assessments_id_seq'::regclass);
+
+
+--
 -- Name: access_plan_types id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -13381,6 +13440,14 @@ ALTER TABLE ONLY renalware.access_assessments
 
 ALTER TABLE ONLY renalware.access_catheter_insertion_techniques
     ADD CONSTRAINT access_catheter_insertion_techniques_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: access_needling_assessments access_needling_assessments_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.access_needling_assessments
+    ADD CONSTRAINT access_needling_assessments_pkey PRIMARY KEY (id);
 
 
 --
@@ -15338,6 +15405,34 @@ CREATE INDEX index_access_assessments_on_type_id ON renalware.access_assessments
 --
 
 CREATE INDEX index_access_assessments_on_updated_by_id ON renalware.access_assessments USING btree (updated_by_id);
+
+
+--
+-- Name: index_access_needling_assessments_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_access_needling_assessments_on_created_by_id ON renalware.access_needling_assessments USING btree (created_by_id);
+
+
+--
+-- Name: index_access_needling_assessments_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_access_needling_assessments_on_patient_id ON renalware.access_needling_assessments USING btree (patient_id);
+
+
+--
+-- Name: index_access_needling_assessments_on_patient_id_and_created_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_access_needling_assessments_on_patient_id_and_created_at ON renalware.access_needling_assessments USING btree (patient_id, created_at);
+
+
+--
+-- Name: index_access_needling_assessments_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_access_needling_assessments_on_updated_by_id ON renalware.access_needling_assessments USING btree (updated_by_id);
 
 
 --
@@ -20941,6 +21036,14 @@ ALTER TABLE ONLY renalware.drug_types_drugs
 
 
 --
+-- Name: access_needling_assessments fk_rails_3c9303db18; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.access_needling_assessments
+    ADD CONSTRAINT fk_rails_3c9303db18 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: clinical_body_compositions fk_rails_3cab0126da; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -21306,6 +21409,14 @@ ALTER TABLE ONLY renalware.pathology_requests_requests
 
 ALTER TABLE ONLY renalware.letter_letters
     ADD CONSTRAINT fk_rails_6191e75b3b FOREIGN KEY (author_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: access_needling_assessments fk_rails_61daace4f3; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.access_needling_assessments
+    ADD CONSTRAINT fk_rails_61daace4f3 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -22749,6 +22860,14 @@ ALTER TABLE ONLY renalware.hd_profiles
 
 
 --
+-- Name: access_needling_assessments fk_rails_ec033d247d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.access_needling_assessments
+    ADD CONSTRAINT fk_rails_ec033d247d FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
 -- Name: users fk_rails_ec9881f9c2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -23895,6 +24014,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220407084109'),
 ('20220507073059'),
 ('20220512142640'),
+('20220512161700'),
 ('20220519120540');
 
 

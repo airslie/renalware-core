@@ -1,5 +1,7 @@
 dl
-  dt= t(".site")
+  = render "latest_access_needling_assessment", patient: profile.patient, formats: :html
+
+  dt.new_line= t(".site")
   dd= profile.hospital_unit_unit_code
   dt= t(".schedule")
   dd= profile.current_schedule

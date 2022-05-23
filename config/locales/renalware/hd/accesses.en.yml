@@ -14,3 +14,11 @@ en:
           plan: "Plan:"
           plan_date: "Plan date:"
           notes: "Notes:"
+    accesses:
+      dashboards:
+        page_actions:
+          needling_assessment: Ease of Needling (MAGIC)
+          access_assessment: Access Assessment
+          access_procedure: Access Procedure
+          access_plan: Access Plan
+          access_profile: Access Profile

@@ -20,5 +20,8 @@
   = render "summary", mdm: mdm
 = render "worryboard", mdm: mdm
 
+.columns.small-12.medium-6.large-6
+  = render Renalware::Accesses::NeedlingAssessmentsComponent.new(patient: mdm.patient, current_user: current_user)
+
 .columns.medium-12.large-6
   = render "prescriptions", mdm: mdm, with_esa: true

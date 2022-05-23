@@ -13,7 +13,7 @@ module Renalware
       let(:super_admin)   { user_double_with_role(:super_admin) }
       let(:description)   { instance_double(Description, deleted?: false) }
 
-      [:show?, :index?].each do |permission|
+      %i(show? index?).each do |permission|
         permissions permission do
           it do
             is_expected.not_to permit(clinician, description)
@@ -24,7 +24,7 @@ module Renalware
       end
 
       context "when the description is not deleted" do
-        [:new?, :create?, :edit?, :update?, :destroy?].each do |permission|
+        %i(new? create? edit? update? destroy?).each do |permission|
           permissions permission do
             it do
               is_expected.not_to permit(clinician, description)
@@ -38,7 +38,7 @@ module Renalware
       context "when the description is deleted" do
         let(:description) { instance_double(Description, deleted?: true) }
 
-        [:edit?, :destroy?].each do |permission|
+        %i(edit? destroy?).each do |permission|
           permissions permission do
             it do
               is_expected.not_to permit(clinician, description)
