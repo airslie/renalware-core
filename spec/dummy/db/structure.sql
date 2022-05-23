@@ -1877,6 +1877,19 @@ ALTER SEQUENCE renalware.active_storage_blobs_id_seq OWNED BY renalware.active_s
 
 
 --
+-- Name: activesupport_cache_entries; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.activesupport_cache_entries (
+    key bytea NOT NULL,
+    value bytea NOT NULL,
+    version character varying,
+    created_at timestamp without time zone NOT NULL,
+    expires_at timestamp without time zone
+);
+
+
+--
 -- Name: addresses; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -13523,6 +13536,14 @@ ALTER TABLE ONLY renalware.active_storage_blobs
 
 
 --
+-- Name: activesupport_cache_entries activesupport_cache_entries_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.activesupport_cache_entries
+    ADD CONSTRAINT activesupport_cache_entries_pkey PRIMARY KEY (key);
+
+
+--
 -- Name: addresses addresses_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -15587,6 +15608,27 @@ CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON renalware.act
 --
 
 CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON renalware.active_storage_blobs USING btree (key);
+
+
+--
+-- Name: index_activesupport_cache_entries_on_created_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_activesupport_cache_entries_on_created_at ON renalware.activesupport_cache_entries USING btree (created_at);
+
+
+--
+-- Name: index_activesupport_cache_entries_on_expires_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_activesupport_cache_entries_on_expires_at ON renalware.activesupport_cache_entries USING btree (expires_at);
+
+
+--
+-- Name: index_activesupport_cache_entries_on_version; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_activesupport_cache_entries_on_version ON renalware.activesupport_cache_entries USING btree (version);
 
 
 --
@@ -24015,6 +24057,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220507073059'),
 ('20220512142640'),
 ('20220512161700'),
-('20220519120540');
+('20220519120540'),
+('20220520100619');
 
 

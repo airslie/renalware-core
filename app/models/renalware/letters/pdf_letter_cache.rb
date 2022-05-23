@@ -39,8 +39,29 @@ module Renalware
       class << self
         delegate :clear, to: :store
 
-        def fetch(letter, **options)
-          store.fetch(cache_key_for(letter, **options), expires_in: 4.weeks) { yield }
+        def fetch(letter, **options, &block)
+          store.fetch(
+            cache_key_for(letter),
+            version: cache_version_for(letter, **options),
+            expires_in: 4.weeks,
+            &block
+          )
+        end
+
+        private
+
+        def store
+          @store ||= begin
+            if ActiveSupport::Cache.const_defined?(:DatabaseStore)
+              ActiveSupport::Cache::DatabaseStore.new namespace: "letter_pdf"
+            else
+              ActiveSupport::Cache::FileStore.new(file_store_cache_path)
+            end
+          end
+        end
+
+        def file_store_cache_path
+          Rails.root.join("tmp/pdf_letter_cache")
         end
 
         # Note the letter must be a LetterPresenter which has a #to_html method
@@ -48,19 +69,21 @@ module Renalware
         # html including surrounding layout with inline css and images. This way if the
         # layout changes or the image is changed for example, the cache for the pdf is no longer
         # valid and a new key and cache entry will be created.
-        def cache_key_for(letter, **options)
-          timestamp = letter&.updated_at&.strftime("%Y%m%d%H%M%S")
-          pat_id = letter.patient.id
-          "letter-pdf-#{letter.id}-#{pat_id}-#{timestamp}-" \
-          "#{Digest::MD5.hexdigest(letter.to_html(**options))}"
+        def cache_key_for(letter)
+          [
+            "patient",
+            letter.patient.id,
+            "letter",
+            letter.id,
+            "pdf"
+          ].join("-")
         end
 
-        def cache_path
-          Rails.root.join("tmp/pdf_letter_cache")
-        end
-
-        def store
-          @store ||= ActiveSupport::Cache::FileStore.new(cache_path)
+        def cache_version_for(letter, **options)
+          [
+            letter&.updated_at&.strftime("%Y%m%d%H%M%S"),
+            Digest::MD5.hexdigest(letter.to_html(**options))
+          ].join("-")
         end
       end
     end
