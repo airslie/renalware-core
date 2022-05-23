@@ -37,7 +37,7 @@ module Renalware
   module Letters
     class PdfLetterCache
       class << self
-        delegate :clear, to: :store
+        delegate :clear, :cleanup, to: :store
 
         def fetch(letter, **options, &block)
           store.fetch(
