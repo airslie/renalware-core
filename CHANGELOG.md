@@ -9,6 +9,18 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.10
+### Added
+- Allow adding an 'Ease of Assessment (MAGIC)' needling assessments (green, amber, yellow) from
+Access Summary, and display the last 5 on the HD Summary and the latest on the HD Session printout #3914
+- Add range validation to height and weight in PD Adequacy #3919
+### Changed
+- Allow PDFs generated from letters to be cached temporarily in the database rather than in a
+folder, to improve scalability #3925
+- Prevent non alphnumeric characters from being entered into patient Postcode fields #392
+- Change layout of Transplant MDM - move special pathology above standard pathology #3912
+### Fixed
+
 ## 2.2.9
 ### Added
 ### Changed

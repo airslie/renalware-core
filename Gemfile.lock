@@ -40,7 +40,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.2.9)
+    renalware-core (2.2.10)
       active_type (~> 0.7.1)
       activerecord-import (~> 1.0)
       activerecord-postgres_enum (~> 1.6.0)
@@ -385,7 +385,7 @@ GEM
     fuubar (2.5.1)
       rspec-core (~> 3.0)
       ruby-progressbar (~> 1.4)
-    geocoder (1.7.5)
+    geocoder (1.8.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
     groupdate (5.2.4)
@@ -711,8 +711,9 @@ GEM
     tilt (2.0.10)
     timeliness (0.4.4)
     ttfunk (1.7.0)
-    turbo-rails (1.0.1)
+    turbo-rails (1.1.1)
       actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
       railties (>= 6.0.0)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
