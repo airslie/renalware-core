@@ -56,7 +56,9 @@ AllCops:
 Layout/LineLength:
   Exclude:
     - "spec/acceptance/renalware/steps/**/*"
-
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - "spec/dummy/db/migrate/**/*"
 Metrics/AbcSize:
   Exclude:
     - "spec/acceptance/renalware/steps/**/*"
