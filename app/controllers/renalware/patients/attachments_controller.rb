@@ -28,7 +28,7 @@ module Renalware
         discard_uploaded_file_if_attachment_type_suggests_external_storage(attachment)
 
         authorize attachment
-        if attachment.save
+        if attachment.save_by(current_user)
           redirect_to patient_attachments_path(patient)
         else
           render_new(attachment)
