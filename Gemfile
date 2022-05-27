@@ -72,6 +72,7 @@ group :development do
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
   gem "turnip", "~> 4.0", github: "airslie/turnip", require: false
+  # gem 'sql_tracker'
 end
 
 group :development, :test do
