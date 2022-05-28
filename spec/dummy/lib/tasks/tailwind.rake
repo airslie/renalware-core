@@ -34,6 +34,10 @@ namespace :tailwind do
     File.write(Rails.root.join("config/tailwind.config.js"), <<~JS)
       const defaultTheme = require('tailwindcss/defaultTheme')
 
+      /*
+      See here for some tint nhs colours
+      https://github.com/NHS-digital-website/design-system/blob/main/src/nhsd/scss-core/tokens/_colours.scss
+      */
       module.exports = {
         content: [
           #{paths.join(",\n    ")},
@@ -42,6 +46,41 @@ namespace :tailwind do
           extend: {
             fontFamily: {
               sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+              'nhs-blue': {
+                light: '#41B6E6',
+                DEFAULT: '#005EB8',
+                dark: '#003087',
+                bright: '#0072CE',
+                aqua: '#00A9CE',
+              },
+              'nhs-black': '#231f20',
+              'nhs-grey': {
+                dark: '#425563',
+                DEFAULT: '#768692',
+                mid: '#768692',
+                pale: '#E8EDEE'
+              },
+              'nhs-green': {
+                light: '#78BE20',
+                DEFAULT: '#009639',
+                dark: '#006747',
+                aqua: '#00A499'
+              },
+              'nhs-pink': {
+                DEFAULT: '#AE2573',
+                dark: '#7C2855'
+              },
+              'nhs-yellow': {
+                DEFAULT: '#FAE100',
+                warm: '#FFB81C'
+              },
+              'nhs-orange': '#ED8B00',
+              'nhs-red': {
+                emergency: '#DA291C',
+                dark: '#8A1538'
+              },
             },
           },
         },
@@ -54,6 +93,18 @@ namespace :tailwind do
     JS
   end
 end
+
+# fontSize: {
+#   'sm': '.75rem',
+#   'base': '.875rem',
+#   'lg': '1rem',
+#   'xl': '1.125rem',
+#   '2xl': '1.25rem',
+#   '3xl': '1.5rem',
+#   '4xl': '1.875rem',
+#   '5xl': '2.25rem',
+#   '6xl': '3rem'
+# },
 
 # This enhance only works when using `yarn build:css` as it runs in the scope of the dummy app.
 # It does however syntactically match the host site rails app tailwind.rake file
