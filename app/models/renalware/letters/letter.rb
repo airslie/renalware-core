@@ -33,7 +33,7 @@ module Renalware
       has_many :electronic_receipts, dependent: :destroy
       has_many :electronic_cc_recipients,
                through: :electronic_receipts,
-               source: :recipient
+               source: :recipient # recipient here is class User not Letters:Recipient
       has_one :signature, dependent: :destroy
       has_one :archive, inverse_of: :letter
       serialize :pathology_snapshot, Pathology::ObservationsJsonbSerializer

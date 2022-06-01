@@ -5285,8 +5285,16 @@ CREATE TABLE renalware.letter_electronic_receipts (
     recipient_id bigint NOT NULL,
     read_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    user_group_id bigint
 );
+
+
+--
+-- Name: COLUMN letter_electronic_receipts.user_group_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_electronic_receipts.user_group_id IS 'If the user chose a user group as a the eCC recipient (rather than a user) then we split up the group and store each member as a row, but assign the letter_group_id for reference';
 
 
 --
@@ -11708,6 +11716,103 @@ ALTER SEQUENCE renalware.ukrdc_treatments_id_seq OWNED BY renalware.ukrdc_treatm
 
 
 --
+-- Name: user_group_memberships; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.user_group_memberships (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    user_group_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: user_group_memberships_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.user_group_memberships_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_group_memberships_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.user_group_memberships_id_seq OWNED BY renalware.user_group_memberships.id;
+
+
+--
+-- Name: user_groups; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.user_groups (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description character varying,
+    active boolean DEFAULT true NOT NULL,
+    memberships_count integer DEFAULT 0 NOT NULL,
+    letter_electronic_ccs boolean DEFAULT false NOT NULL,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: COLUMN user_groups.name; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.user_groups.name IS 'e.g. ''Transplant Cordinators''';
+
+
+--
+-- Name: COLUMN user_groups.active; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.user_groups.active IS 'If false, the group will not be displayed anywhere prospectively';
+
+
+--
+-- Name: COLUMN user_groups.memberships_count; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.user_groups.memberships_count IS 'Counter cache for the number of memberships in this group';
+
+
+--
+-- Name: COLUMN user_groups.letter_electronic_ccs; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.user_groups.letter_electronic_ccs IS 'If true, the group can be chosen from the electronic CCs recipients dropdown in letters';
+
+
+--
+-- Name: user_groups_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.user_groups_id_seq OWNED BY renalware.user_groups.id;
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -13386,6 +13491,20 @@ ALTER TABLE ONLY renalware.ukrdc_transmission_logs ALTER COLUMN id SET DEFAULT n
 --
 
 ALTER TABLE ONLY renalware.ukrdc_treatments ALTER COLUMN id SET DEFAULT nextval('renalware.ukrdc_treatments_id_seq'::regclass);
+
+
+--
+-- Name: user_group_memberships id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.user_group_memberships ALTER COLUMN id SET DEFAULT nextval('renalware.user_group_memberships_id_seq'::regclass);
+
+
+--
+-- Name: user_groups id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.user_groups ALTER COLUMN id SET DEFAULT nextval('renalware.user_groups_id_seq'::regclass);
 
 
 --
@@ -15197,6 +15316,22 @@ ALTER TABLE ONLY renalware.ukrdc_transmission_logs
 
 ALTER TABLE ONLY renalware.ukrdc_treatments
     ADD CONSTRAINT ukrdc_treatments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_group_memberships user_group_memberships_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.user_group_memberships
+    ADD CONSTRAINT user_group_memberships_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_groups user_groups_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.user_groups
+    ADD CONSTRAINT user_groups_pkey PRIMARY KEY (id);
 
 
 --
@@ -17204,6 +17339,13 @@ CREATE INDEX index_letter_electronic_receipts_on_read_at ON renalware.letter_ele
 --
 
 CREATE INDEX index_letter_electronic_receipts_on_recipient_id ON renalware.letter_electronic_receipts USING btree (recipient_id);
+
+
+--
+-- Name: index_letter_electronic_receipts_on_user_group_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_electronic_receipts_on_user_group_id ON renalware.letter_electronic_receipts USING btree (user_group_id);
 
 
 --
@@ -19993,6 +20135,55 @@ CREATE INDEX index_ukrdc_treatments_on_pd_regime_id ON renalware.ukrdc_treatment
 
 
 --
+-- Name: index_user_group_memberships_on_user_group_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_user_group_memberships_on_user_group_id ON renalware.user_group_memberships USING btree (user_group_id);
+
+
+--
+-- Name: index_user_group_memberships_on_user_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_user_group_memberships_on_user_id ON renalware.user_group_memberships USING btree (user_id);
+
+
+--
+-- Name: index_user_group_memberships_on_user_id_and_user_group_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_group_memberships_on_user_id_and_user_group_id ON renalware.user_group_memberships USING btree (user_id, user_group_id);
+
+
+--
+-- Name: index_user_groups_on_active; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_user_groups_on_active ON renalware.user_groups USING btree (active);
+
+
+--
+-- Name: index_user_groups_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_user_groups_on_created_by_id ON renalware.user_groups USING btree (created_by_id);
+
+
+--
+-- Name: index_user_groups_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_groups_on_name ON renalware.user_groups USING btree (name);
+
+
+--
+-- Name: index_user_groups_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_user_groups_on_updated_by_id ON renalware.user_groups USING btree (updated_by_id);
+
+
+--
 -- Name: index_users_on_approved; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -21182,6 +21373,14 @@ ALTER TABLE ONLY renalware.admission_admissions
 
 
 --
+-- Name: user_group_memberships fk_rails_42022c51df; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.user_group_memberships
+    ADD CONSTRAINT fk_rails_42022c51df FOREIGN KEY (user_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: system_downloads fk_rails_42cdf8956b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -21211,6 +21410,14 @@ ALTER TABLE ONLY renalware.feed_outgoing_documents
 
 ALTER TABLE ONLY renalware.system_user_feedback
     ADD CONSTRAINT fk_rails_4cc9cf2dca FOREIGN KEY (author_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: user_groups fk_rails_4d818c23e5; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.user_groups
+    ADD CONSTRAINT fk_rails_4d818c23e5 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -22238,6 +22445,14 @@ ALTER TABLE ONLY renalware.pd_peritonitis_episodes
 
 
 --
+-- Name: user_group_memberships fk_rails_aece7151f8; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.user_group_memberships
+    ADD CONSTRAINT fk_rails_aece7151f8 FOREIGN KEY (user_group_id) REFERENCES renalware.user_groups(id);
+
+
+--
 -- Name: virology_profiles fk_rails_af15bfebc8; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -22427,6 +22642,14 @@ ALTER TABLE ONLY renalware.patient_bookmarks
 
 ALTER TABLE ONLY renalware.medication_delivery_events
     ADD CONSTRAINT fk_rails_c12f333218 FOREIGN KEY (drug_type_id) REFERENCES renalware.drug_types(id);
+
+
+--
+-- Name: letter_electronic_receipts fk_rails_c2013b0f76; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_electronic_receipts
+    ADD CONSTRAINT fk_rails_c2013b0f76 FOREIGN KEY (user_group_id) REFERENCES renalware.user_groups(id) NOT VALID;
 
 
 --
@@ -22875,6 +23098,14 @@ ALTER TABLE ONLY renalware.clinic_clinics
 
 ALTER TABLE ONLY renalware.pathology_code_groups
     ADD CONSTRAINT fk_rails_e70dca7225 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: user_groups fk_rails_e74921894f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.user_groups
+    ADD CONSTRAINT fk_rails_e74921894f FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -24058,6 +24289,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220512142640'),
 ('20220512161700'),
 ('20220519120540'),
-('20220520100619');
+('20220520100619'),
+('20220601162848'),
+('20220606105217');
 
 

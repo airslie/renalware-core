@@ -6,6 +6,7 @@ ul.side-nav.side-nav--admin(data-controller="collapsible-DISABLED" data-collapsi
 
   = admin_menu_item "Dashboard", renalware.admin_dashboard_path, %r{admin/dashboard}
   = admin_menu_item "Users", renalware.admin_users_path, %r{renalware/admin/users}
+  = super_admin_menu_item "User Groups", renalware.user_groups_path, %r{users/groups}
   = super_admin_menu_item "Event Types", renalware.events_types_path, %r{events/types}
   = admin_menu_item "Clinics", renalware.clinics_path, %r{clinics/clinics}
   = admin_menu_item "Consultants", renalware.consultants_path, %r{clinics/consultants}

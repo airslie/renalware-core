@@ -59,6 +59,7 @@ Layout/LineLength:
 Style/FrozenStringLiteralComment:
   Exclude:
     - "spec/dummy/db/migrate/**/*"
+    - "db/migrate/**/*"
 Metrics/AbcSize:
   Exclude:
     - "spec/acceptance/renalware/steps/**/*"
