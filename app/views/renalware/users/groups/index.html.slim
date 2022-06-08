@@ -1,0 +1,36 @@
+= content_for(:actions) do
+  - if policy(groups).create?
+    = link_to t("btn.add"),
+              new_user_group_path,
+              class: "button"
+
+= within_new_admin_layout(title: "User Groups") do
+  table
+    thead
+      tr
+        th.col-width-tiny
+        th Name
+        th Members
+        th.text-center.bg-green-100 Capabilities
+        th.bg-neutral-100.text-center(colspan=2) Last updated
+    tbody
+      - groups.each do |group|
+        tr(id=dom_id(group))
+          td= link_to "Edit", renalware.edit_user_group_path(group)
+          th= group.name
+          td
+            ul.ml-0
+              - group.users.each do |user|
+               li
+                 i.far.fa-user.text-gray-400.mr-2
+                 = user
+          td.bg-green-50.text-center
+            ul.ml-0
+              li
+                - if group.letter_electronic_ccs
+                  i.fa.fa-check-circle.text-green-600
+                - else
+                  i.far.fa-circle.text-gray-500
+                span.ml-2 eCCs on letters
+          td.bg-neutral-50.col-width-date-time= l(group.updated_at)
+          td.bg-neutral-50= group.updated_by
