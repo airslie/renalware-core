@@ -8,14 +8,13 @@
 
 - return if options.current_view.filters.empty?
 
-/ - url = patients_mdms_path(scope: params[:scope], filter: params[:filter])
-- url = reporting_report_path(options.current_view)
-
 = simple_form_for options.search,
-                  url: url,
+                  url: options.report_path_without_params,
+                  remote: false,
+                  data: { controller: "form", action: "input->form#submit" },
                   method: :get do |f|
 
-  .flex.flex-col.sm:flex-row.items-end.pb-4
+  .flex.flex-col.sm:flex-row.items-start.pb-4
     - options.current_view.filters.each do |filter|
       - column = filter.code
       - type = filter.type
@@ -34,7 +33,15 @@
         .w-full.sm:max-w-xs.pr-2
           = f.input "#{column}_cont", label: column.humanize
 
-    .w-full.sm:max-w-xs.pr-2
-      = f.submit "Filter", class: "button secondary", style: "margin-bottom: 10px"
-      | &nbsp;
-      = link_to "Clear", url
+    .w-full.sm:max-w-sm.pr-2.pt-5
+      .flex.items-center
+        noscript
+          = f.submit("Filter", class: "button") do
+            | Filter
+        = link_to "Reset", options.report_path_without_params, class: "mx-3 mb-5"
+        = link_to(options.report_csv_download_path_with_params,
+                  class: "button secondary",
+                  style: "margin-left: 2rem",
+                  data: { confirm: "IMPORTANT! (Warning here about data protection)"}) do
+          i.fa.fa-download
+          | CSV

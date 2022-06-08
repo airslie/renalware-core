@@ -5,7 +5,8 @@
         th.col-width-tiny
         th Title
         th View name
-
+        th Type
+        th.col-width-date-time Updated
 
     tbody
       - reports.each do |report|
@@ -13,3 +14,16 @@
           td= link_to "View", reporting_report_path(report)
           td= report.title
           td.code= [report.schema_name, report.view_name].compact.join(".")
+          td= report.display_type&.humanize
+          td= l(report.updated_at)
+
+  - if current_user_is_super_admin?
+    p.border.rounded.px-3.py-2.mb-10.shadow.bg-blue-50.mt-10.flex.items-center
+      i.fa.fa-info-circle.text-blue-400.mr-4
+      ' To create a new report, work out the SQL you need (and the columns to return) and create
+      ' a SQL view (ideally in the hospital's own schema eg
+      ' renalware_mse
+      ' so its clear it is not part of core Renalware)
+      ' and then add an entry for it into the
+      ' renalware.system_view_metadata
+      ' table using the category of 'report'

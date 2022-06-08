@@ -17,6 +17,14 @@ module Renalware
           self.table_name = underlying_view_name
           define_method(:to_s, ->(_x) { patient_name })
           define_method(:to_param, -> { secure_id })
+          define_singleton_method(:to_csv) do |relation|
+            CSV.generate do |csv|
+              csv << column_names
+              relation.each do |row|
+                csv << row.attributes.values_at(*column_names)
+              end
+            end
+          end
         end.tap do |klass|
           Renalware.const_set(class_name, klass)
           # klass.connection # not sure this is required.
