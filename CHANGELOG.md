@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.11
+### Added
+- Add user group model and support for editing by a superadmin #3835
+### Changed
+### Fixed
+- Keep uploaded files on disk when 'patient attachments' or 'downloads' are soft-deleted #3934
+
 ## 2.2.10
 ### Added
 - Allow adding an 'Ease of Assessment (MAGIC)' needling assessments (green, amber, yellow) from
