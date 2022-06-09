@@ -7,7 +7,7 @@ section.top-bar-section
     = render "renalware/navigation/renal"
     = render "renalware/navigation/pd"
     = render "renalware/navigation/mdms"
-    - if current_user_is_super_admin?
+    - if current_user.wants_feature?(Renalware::FeatureFlags::SHOW_REPORTING_MENU)
       = render "renalware/navigation/reports"
     = render "renalware/navigation/patients_admin"
     = render "renalware/navigation/directory"
