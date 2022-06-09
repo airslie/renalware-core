@@ -9619,6 +9619,56 @@ UNION ALL
 
 
 --
+-- Name: reporting_unit_patients; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.reporting_unit_patients AS
+ WITH date_range AS (
+         SELECT date_trunc('year'::text, (CURRENT_TIMESTAMP - '10 years'::interval)) AS start,
+            CURRENT_TIMESTAMP AS stop
+        ), month_range AS (
+         SELECT 0 AS current_month,
+            ((EXTRACT(year FROM age(date_range.start)) * (12)::numeric) + EXTRACT(month FROM age(date_range.start))) AS months_to_go_back
+           FROM date_range
+        ), months AS (
+         SELECT generate_series(month_range.current_month, (month_range.months_to_go_back)::integer) AS month
+           FROM month_range
+        ), profile_history AS (
+         SELECT hp.patient_id,
+            hp.hospital_unit_id,
+            ((EXTRACT(year FROM age(hp.created_at)) * (12)::numeric) + EXTRACT(month FROM age(hp.created_at))) AS start_month,
+            COALESCE(((EXTRACT(year FROM age(hp.deactivated_at)) * (12)::numeric) + EXTRACT(month FROM age(hp.deactivated_at))), (0)::numeric) AS end_month
+           FROM renalware.hd_profiles hp
+          ORDER BY hp.patient_id
+        ), deduplicated_profile_history AS (
+         SELECT DISTINCT ON (profile_history.patient_id, profile_history.hospital_unit_id, profile_history.start_month, profile_history.end_month) profile_history.patient_id,
+            profile_history.hospital_unit_id,
+            profile_history.start_month,
+            profile_history.end_month
+           FROM profile_history
+          ORDER BY profile_history.patient_id, profile_history.hospital_unit_id, profile_history.start_month, profile_history.end_month
+        ), patient_counts AS (
+         SELECT ph.hospital_unit_id,
+            m_1.month,
+            count(*) AS patients
+           FROM (deduplicated_profile_history ph
+             JOIN months m_1 ON ((((m_1.month)::numeric <= ph.start_month) AND ((m_1.month)::numeric >= ph.end_month))))
+          GROUP BY ph.hospital_unit_id, m_1.month
+          ORDER BY ph.hospital_unit_id, m_1.month
+        )
+ SELECT hc.name AS hospital,
+    hu.name AS unit,
+    (EXTRACT(year FROM (CURRENT_DATE - (((m.month)::text || ' month'::text))::interval)))::text AS year,
+    to_char((CURRENT_DATE - (((m.month)::text || ' month'::text))::interval), 'Mon'::text) AS month,
+    pc.patients
+   FROM (((renalware.hospital_units hu
+     JOIN renalware.hospital_centres hc ON ((hc.id = hu.hospital_centre_id)))
+     JOIN months m ON ((1 = 1)))
+     LEFT JOIN patient_counts pc ON (((pc.month = m.month) AND (pc.hospital_unit_id = hu.id))))
+  ORDER BY hu.name, m.month;
+
+
+--
 -- Name: research_studies; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -24195,6 +24245,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201021154809'),
 ('20201023092859'),
 ('20201105153422'),
+('20201110164344'),
 ('20201112152752'),
 ('20201217154345'),
 ('20201217155107'),

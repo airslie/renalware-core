@@ -17,7 +17,7 @@ module Renalware
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :super_admin)]
         u.signature = "#{site} Superuser"
-        u.feature_flags = 2
+        u.feature_flags = 4
         u.professional_position = Faker::Job.position
       end
 
