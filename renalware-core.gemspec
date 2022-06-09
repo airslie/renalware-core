@@ -91,7 +91,7 @@ Gem::Specification.new do |s|
   s.add_dependency "slim-rails", "~> 3.5"
   s.add_dependency "sprockets-rails", ">= 3.2.2"
   s.add_dependency "store_model", "0.8.0"
-  s.add_dependency "turbo-rails", "1.0.0" # matches "@hotwired/turbo-rails" => "7.1.0"
+  s.add_dependency "turbo-rails", "~> 1.0" # matches "@hotwired/turbo-rails" => "7.1.0"
   s.add_dependency "validates_timeliness", "~> 4.1.0"
   s.add_dependency "view_component", "~> 2.19"
   s.add_dependency "virtus", "~> 1.0.5"
