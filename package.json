@@ -12,6 +12,7 @@
   "dependencies": {
     "@babel/core": "^7.8.4",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.17.12",
     "@babel/preset-env": "^7.8.4",
     "@hotwired/stimulus": "^3.0.1",
     "@hotwired/turbo-rails": "7.1.0",
