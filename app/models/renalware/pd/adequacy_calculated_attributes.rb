@@ -27,7 +27,7 @@ module Renalware
         {
           total_creatinine_clearance: total_creatinine_clearance,
           pertitoneal_creatinine_clearance: pertitoneal_creatinine_clearance,
-          renal_creatinine_clearance: renal_creatinine_clearance,
+          renal_creatinine_clearance: residual_renal_function,
           total_ktv: total_ktv,
           pertitoneal_ktv: pertitoneal_ktv,
           renal_ktv: renal_ktv,
