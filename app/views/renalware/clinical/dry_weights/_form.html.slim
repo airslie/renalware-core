@@ -4,6 +4,13 @@
       = f.input :weight,
                 autofocus: true,
                 wrapper: :horizontal_small
+      .bg-gray-100.rounded.px-4.pt-3.mb-2
+        = f.input :minimum_weight,
+                  autofocus: true,
+                  wrapper: :horizontal_small
+        = f.input :maximum_weight,
+                  autofocus: true,
+                  wrapper: :horizontal_small
       = f.input :assessed_on,
                 as: :date_picker,
                 wrapper: :horizontal_datepicker

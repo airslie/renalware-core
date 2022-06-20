@@ -2895,8 +2895,24 @@ CREATE TABLE renalware.clinical_dry_weights (
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    assessor_id integer NOT NULL
+    assessor_id integer NOT NULL,
+    minimum_weight double precision,
+    maximum_weight double precision
 );
+
+
+--
+-- Name: COLUMN clinical_dry_weights.minimum_weight; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.clinical_dry_weights.minimum_weight IS 'Set by the clinicial, if the patient''s weight drops below this value then the clinican may decide change drugs etc';
+
+
+--
+-- Name: COLUMN clinical_dry_weights.maximum_weight; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.clinical_dry_weights.maximum_weight IS 'Set by the clinicial, if the patient''s weight rises above this value then the clinican may decide change drugs etc';
 
 
 --
@@ -24860,6 +24876,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220520100619'),
 ('20220601162848'),
 ('20220606105217'),
+('20220620141323'),
 ('20220812154454'),
 ('20220813081749'),
 ('20220824154208'),
