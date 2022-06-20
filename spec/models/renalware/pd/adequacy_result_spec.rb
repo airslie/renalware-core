@@ -88,8 +88,7 @@ module Renalware
           end
         end
 
-        context "when urine 24 vol == 0 indicating anuric so that renal (but not peritoneal) "\
-                "calcs can't be done" do
+        context "when urine 24 vol == 0 indicating anuric so that renal (but not peritoneal)" do
           it "is complete" do
             result = create(
               :pd_adequacy_result,
@@ -99,10 +98,10 @@ module Renalware
               pertitoneal_ktv: 1,
               urine_24_missing: false,
               urine_24_vol: 0,                 # !!
-              renal_creatinine_clearance: nil, # no urine so cannot be calced
-              renal_ktv: nil,                  # no urine so cannot be calced
-              total_ktv: nil,                  # no renal_ktv so calc not poss
-              total_creatinine_clearance: nil, # no renal_creatinine_clearance so calc not poss
+              renal_creatinine_clearance: 0, # no urine so cannot be calced
+              renal_ktv: 0,                  # no urine so cannot be calced
+              total_ktv: 1,                  # no renal_ktv so calc not poss
+              total_creatinine_clearance: 1, # no renal_creatinine_clearance so calc not poss
               weight: 100.23,
               height: 1.99
             )
