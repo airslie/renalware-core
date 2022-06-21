@@ -1,0 +1,24 @@
+<!-- Static sidebar for desktop -->
+<div style="top: 5rem" class="hidden md:flex md:w-56 md:flex-col md:fixed md:inset-y-0 text-sm shadow-inner text-white">
+  <!-- Sidebar component, swap this element with another sidebar if you like -->
+  <div class="flex flex-col flex-grow bg-nhs-blue overflow-y-auto">
+    <div class="flex-1 flex flex-col">
+      <nav class="flex-1 ">
+        <ul class="pt-1.5 pl-2">
+          <li class="mt-1 py-0.5 pl-1.5 bg-neutral-200 rounded-l shadow text-neutral-800"> <!-- active -->
+            <%= link_to("Clinical Summary", "#") %>
+          </li>
+          <li class="mt-1 py-0.5 pl-1.5">
+            <%= link_to("Demographics", "#") %>
+          </li>
+          <li class="mt-1 py-0.5 pl-1.5">
+            <%= link_to("Contacts", "#") %>
+          </li>
+          <li class="mt-1 py-0.5 pl-1.5">
+            <%= link_to("Clinical Profile", "#") %>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
