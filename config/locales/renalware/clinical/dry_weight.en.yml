@@ -24,4 +24,7 @@ en:
         table:
           thead:
             assessor: Assessor
+            maximum_weight: Max
+            minimum_weight: Min
+            range: Range
             weight: Weight (kg)
