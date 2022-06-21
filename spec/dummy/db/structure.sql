@@ -173,6 +173,19 @@ CREATE TYPE renalware.feed_outgoing_document_state AS ENUM (
 
 
 --
+-- Name: nursing_experience_level_enum; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.nursing_experience_level_enum AS ENUM (
+    'very_low',
+    'low',
+    'medium',
+    'high',
+    'very_high'
+);
+
+
+--
 -- Name: pathology_chart_axis; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -2540,7 +2553,8 @@ CREATE TABLE renalware.users (
     password_changed_at timestamp without time zone,
     banned boolean DEFAULT false NOT NULL,
     notes text,
-    gmc_code character varying
+    gmc_code character varying,
+    nursing_experience_level renalware.nursing_experience_level_enum
 );
 
 
@@ -25002,6 +25016,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220601162848'),
 ('20220606105217'),
 ('20220620141323'),
+('20220621084947'),
 ('20220812154454'),
 ('20220813081749'),
 ('20220824154208'),

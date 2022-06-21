@@ -49,7 +49,7 @@ module Renalware
           :approved, :unexpire, :telephone,
           :consultant, :hidden, :prescriber,
           :banned, :notes, :access_unlock,
-          :hospital_centre_id,
+          :hospital_centre_id, :nursing_experience_level,
           role_ids: []
         )
     end

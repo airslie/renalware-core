@@ -22,6 +22,7 @@
       th.col-width-tiny= sort_link(user_search, :banned, "Banned")
       th.col-width-tiny= sort_link(user_search, :consultant, "Consultant")
       th.col-width-tiny= sort_link(user_search, :prescriber, "Prescriber")
+      th.col-width-small= sort_link(user_search, :nursing_experience_level)
       th.col-width-date= sort_link(user_search, :expired_at, "Expired On")
       th.col-width-date-time.show-for-large-up= sort_link(user_search, :current_sign_in_at, "Current sign in")
       th.col-width-date-time.show-for-large-up= sort_link(user_search, :last_sign_in_at, "Last sign in")
@@ -71,6 +72,7 @@
               i.far.fa-check-square
             - else
               i.muted.unapproved.far.fa-square
+          td= user.nursing_experience_level&.titleize
           td.expired= l(user.expired_at&.to_date)
           td.show-for-large-up= l(user.current_sign_in_at)
           td.show-for-large-up= l(user.last_sign_in_at)

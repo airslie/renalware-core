@@ -24,6 +24,15 @@ module Renalware
       if: ->(user) { user.with_extended_validation }
     }
 
+    # This maps to a PG enum
+    enum nursing_experience_level: {
+      very_low: "very_low",
+      low: "low",
+      medium: "medium",
+      high: "high",
+      very_high: "very_high"
+    }
+
     scope :unapproved, -> { where(approved: [nil, false]) }
     scope :expired, -> { where.not(expired_at: nil) }
     scope :inactive, lambda {
