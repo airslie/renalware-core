@@ -74,3 +74,4 @@ spec/dummy/yarn-error.log
 spec/dummy/config/tailwind.config.js
 spec/dummy/app/assets/builds/tailwind.css
 ukrdc_keyring.*
+config/master.key
