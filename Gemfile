@@ -43,7 +43,7 @@ group :test do
   gem "factory_bot_rails", "~> 6.1"
   gem "fuubar", require: false
   gem "rails-controller-testing", "~> 1.0.4"
-  gem "rspec-html-matchers", "~> 0.9.1", require: false
+  gem "rspec-html-matchers", require: false
   gem "rspec_junit_formatter", "~> 0.4"
   gem "rspec-rails"
   gem "rspec-retry"
@@ -53,6 +53,7 @@ group :test do
   gem "test-prof"
   gem "webmock", "~> 3.7", require: false
   gem "wisper-rspec", "~> 1.1.0"
+  gem "execjs", "2.7.0" # 2.8.1 raises an error
 end
 
 group :staging do

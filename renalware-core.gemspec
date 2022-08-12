@@ -71,7 +71,7 @@ Gem::Specification.new do |s|
   s.add_dependency "pagy", "~> 4.8"
   s.add_dependency "pandoc-ruby", "~> 2.1.4"
   s.add_dependency "paper_trail"
-  s.add_dependency "paranoia", "~> 2.4.0"
+  s.add_dependency "paranoia", "~> 2.6.0"
   s.add_dependency "pdf-reader", "~> 2.9"
   s.add_dependency "pg", "~> 1.1"
   s.add_dependency "prawn", "~> 2.2"
