@@ -10,10 +10,10 @@ describe "Batch printing HD Session form PDFs from the HD MDM list", type: :syst
   let(:hd_modality_description) { create(:hd_modality_description) }
   let(:adapter) { ActiveJob::Base.queue_adapter }
 
-  before do
-    ActiveJob::Base.queue_adapter = :test
-    ActiveJob::Base.queue_adapter.enqueued_jobs.clear
-  end
+  # before do
+  #   ActiveJob::Base.queue_adapter = :test
+  #   ActiveJob::Base.queue_adapter.enqueued_jobs.clear
+  # end
 
   def create_hd_patient(family_name, user)
     create(:hd_patient, family_name: family_name, by: user).tap do |pat|
@@ -25,6 +25,11 @@ describe "Batch printing HD Session form PDFs from the HD MDM list", type: :syst
     end
   end
 
+  # before do
+  #   Rails.application.configure do
+  #     config.good_job.execution_mode = :external
+  #   end
+  # end
   context "when a user clicks Print HD Session Forms" do
     it "prints all patients in the currently filtered list" do
       user = login_as_clinical
@@ -36,31 +41,23 @@ describe "Batch printing HD Session form PDFs from the HD MDM list", type: :syst
 
       click_on "Batch Print 2 HD Session Forms"
 
-      # it brings up a 'working...' dialog
-      expect(page).to have_css("#hd-session-form-batch-print-modal")
+      # wait for the 'working...' dialog to appear
+      expect(page).to have_css("#hd-session-form-batch-print-modal", wait: 10)
 
-      # it has created a batch and 2 batch_items
+      # at this point it will have created a batch and 2 batch_items
       expect(Renalware::HD::SessionForms::Batch.count).to eq(1)
       batch = Renalware::HD::SessionForms::Batch.first
       patient_ids = batch.items.pluck(:printable_id)
       expect(patient_ids).to match_array(patients.map(&:id))
 
-      # it has enqueued a job to compile the PDFs
-      expect(Delayed::Job.count).to eq 1
+      # We are using an inline activejob eg good_job, so the processing will happen in-process
+      # so we don't need to check enqueued jobs etc.
+      # # Wait for the Print link to appear signifying the PDF is ready to print.
+      expect(page).to have_css("#hd-session-form-batch-print-modal .print-batch-letter", wait: 10)
 
-      # Simulate a background job marking the batch as successful and assigning the
-      # generated filename.
-      batch.update_by(
-        user,
-        status: :awaiting_printing,
-        filepath: "X123.pdf"
-      )
-      # have_css will for batch status polling to find changes and display a link to the compiled
-      # PDF in the modal.
-      # pending "This fails in CI!"
-      # CI error: expected to find visible css "a.print-batch-letter" but there were no matches.
-      # Also found "Open PDF in a new tab", which matched the selector but not all filters.
-      # expect(page).to have_css("a.print-batch-letter")
+      batch.reload
+      expect(batch.status).to eq("awaiting_printing")
+      expect(batch.filepath).to match(/#{batch.id}/)
     end
   end
 end

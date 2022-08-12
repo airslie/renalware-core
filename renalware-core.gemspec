@@ -44,7 +44,6 @@ Gem::Specification.new do |s|
   s.add_dependency "cronex", "~> 0.6.1"
   s.add_dependency "delayed_job", "~> 4.1.4"
   s.add_dependency "delayed_job_active_record", "~> 4.1.2"
-  s.add_dependency "delayed_job_web", "~> 1.4.3"
   s.add_dependency "devise", "~> 4.8"
   s.add_dependency "devise-security", "~> 0.14.3"
   s.add_dependency "dotenv-rails", "~> 2.5"

@@ -37,6 +37,8 @@ gem "tailwindcss-rails", "~> 2.0.8"
 # gem "sentry-ruby"
 gem "strong_migrations"
 
+gem "good_job"
+
 group :test do
   gem "capybara", "~> 3.32"
   gem "capybara-screenshot", "~> 1.0"

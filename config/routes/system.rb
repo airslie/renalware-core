@@ -37,10 +37,6 @@ super_admin_constraint = lambda do |request|
   current_user.has_role?(:super_admin)
 end
 
-constraints super_admin_constraint do
-  match "/delayed_job" => DelayedJobWeb, :anchor => false, via: [:get, :post]
-end
-
 # enable mail previews in all environments
 get "/rails/mailers" => "rails/mailers#index"
 get "/rails/mailers/*path" => "rails/mailers#preview"

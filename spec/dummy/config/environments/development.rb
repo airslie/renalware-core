@@ -94,4 +94,6 @@ Rails.application.configure do
   #   Send mail through smtp://localhost:1025
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
+
+  config.active_job.queue_adapter = :good_job
 end

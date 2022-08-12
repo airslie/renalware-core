@@ -9,7 +9,7 @@ module Renalware
         def create
           batch = create_unprocessed_batch_and_batch_items
           authorize batch
-          Delayed::Job.enqueue BatchPrintJob.new(batch.id, current_user.id)
+          BatchPrintJob.perform_later(batch.id, current_user.id)
 
           respond_to do |format|
             format.js {
