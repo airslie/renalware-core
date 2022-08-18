@@ -9,6 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.12
+### Added
+- Return a 404 on eg /robots123.txt requests to prevent logging an error on Azure healthchecks #3966 
+- Add reports menu (superadmin only currently) and a sample report HD patients/unit/time #3359 
+### Changed
+### Fixed
+- PD PET Adequacy: Add missing column for T4 sample #3948 
+
 ## 2.2.11
 ### Added
 - Add user group model and support for editing by a superadmin #3835
