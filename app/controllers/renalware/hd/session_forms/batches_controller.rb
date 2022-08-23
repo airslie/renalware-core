@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/hd/base_controller"
+require_dependency "renalware/hd"
 
 module Renalware
   module HD
@@ -35,7 +35,6 @@ module Renalware
           end
         end
         # rubocop:enable Metrics/MethodLength
-        #
 
         # rubocop:disable Metrics/MethodLength
         def show

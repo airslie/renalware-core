@@ -3,21 +3,21 @@
 module Renalware
   module Accesses
     class ProceduresController < Accesses::BaseController
-      before_action :load_patient
-
       def show
-        procedure = patient.procedures.find(params[:id])
+        procedure = find_procedure
         presenter = ProcedurePresenter.new(procedure)
         render locals: { patient: patient, procedure: presenter }
       end
 
       def new
         procedure = patient.procedures.new(by: current_user)
+        authorize procedure
         render locals: { patient: patient, procedure: procedure }
       end
 
       def create
         procedure = patient.procedures.new(procedure_params)
+        authorize procedure
 
         if procedure.save
           redirect_to patient_accesses_dashboard_path(patient),
@@ -48,7 +48,7 @@ module Renalware
       protected
 
       def find_procedure
-        patient.procedures.find(params[:id])
+        patient.procedures.find(params[:id]).tap { |pro| authorize pro }
       end
 
       def procedure_params

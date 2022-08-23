@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/hd/base_controller"
+require_dependency "renalware/hd"
 
 # The route to the edit route for this controller takes /:year/:week_number segments
 # rather than an id. THat is because when we load the diary, and when we navigate back and forth

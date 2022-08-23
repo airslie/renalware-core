@@ -3,21 +3,21 @@
 module Renalware
   module Accesses
     class ProfilesController < Accesses::BaseController
-      before_action :load_patient
-
       def show
-        profile = patient.profiles.find(params[:id])
+        profile = find_profile
         presenter = ProfilePresenter.new(profile)
         render locals: { patient: patient, profile: presenter }
       end
 
       def new
         profile = patient.profiles.new(by: current_user)
+        authorize profile
         render locals: { patient: patient, profile: profile }
       end
 
       def create
         profile = patient.profiles.new(profile_params)
+        authorize profile
 
         if profile.save
           redirect_to patient_accesses_dashboard_path(patient),
@@ -29,12 +29,12 @@ module Renalware
       end
 
       def edit
-        profile = patient.profiles.find(params[:id])
+        profile = find_profile
         render locals: { patient: patient, profile: profile }
       end
 
       def update
-        profile = patient.profiles.find(params[:id])
+        profile = find_profile
 
         if profile.update(profile_params)
           redirect_to patient_accesses_dashboard_path(patient),
@@ -46,6 +46,10 @@ module Renalware
       end
 
       protected
+
+      def find_profile
+        patient.profiles.find(params[:id]).tap { |prof| authorize(prof) }
+      end
 
       def profile_params
         params

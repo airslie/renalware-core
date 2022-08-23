@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/hd/base_controller"
+require_dependency "renalware/hd"
 
 module Renalware
   module HD
     class DashboardsController < BaseController
-      before_action :load_patient
+      include Renalware::Concerns::HD::Casts
 
       def show
+        authorize hd_patient
         render locals: {
-          dashboard: DashboardPresenter.new(patient, view_context, current_user)
+          dashboard: DashboardPresenter.new(hd_patient, view_context, current_user)
         }
       end
     end

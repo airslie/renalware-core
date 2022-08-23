@@ -211,6 +211,8 @@ module Renalware
     config_accessor(:pathology_kfre_2y_obx_code) { "KFRE2" }
     config_accessor(:pathology_kfre_5y_obx_code) { "KFRE5" }
     config_accessor(:pathology_kfre_obr_code) { "KFRE" }
+
+    config_accessor(:restrict_patient_access_by_user_site) { false }
   end
 
   def self.config

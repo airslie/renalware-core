@@ -41,7 +41,7 @@ module Renalware
         end
       end
     end
-
+    
     def nhs_client
       @nhs_client ||= ::NHSClient.new
     end
@@ -49,7 +49,15 @@ module Renalware
     protected
 
     def patient_search
-      @patient_search ||= Patients::PatientSearch.call(params)
+      @patient_search ||= Patients::PatientSearch.call(params, patient_scope)
+    end
+
+    def patient_scope
+      scope_patients_by_policy? ? policy_scope(Renalware::Patient) : Renalware::Patient
+    end
+
+    def scope_patients_by_policy?
+      !!Renalware.config.restrict_patient_access_by_user_site
     end
 
     def success_msg_for(model_name)
@@ -79,6 +87,14 @@ module Renalware
     def load_patient
       authorize patient
       patient
+    end
+
+    def patient
+      @patient ||= begin
+        patient_scope.find_by(secure_id: params[:patient_id]).tap do |pat|
+          raise PatientNotFoundError unless pat
+        end
+      end
     end
 
     def user_not_authorized

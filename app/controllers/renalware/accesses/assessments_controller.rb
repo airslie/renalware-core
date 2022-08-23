@@ -3,8 +3,6 @@
 module Renalware
   module Accesses
     class AssessmentsController < Accesses::BaseController
-      before_action :load_patient
-
       def show
         render locals: {
           patient: patient,
@@ -14,11 +12,13 @@ module Renalware
 
       def new
         assessment = AssessmentFactory.new(patient: patient).build
+        authorize assessment
         render_new(assessment)
       end
 
       def create
         assessment = patient.assessments.new(assessment_params)
+        authorize assessment
 
         if assessment.save_by(current_user)
           redirect_to patient_accesses_dashboard_path(patient),
@@ -48,7 +48,7 @@ module Renalware
       protected
 
       def find_assessement
-        patient.assessments.find(params[:id])
+        patient.assessments.find(params[:id]).tap { |ass| authorize ass }
       end
 
       def render_new(assessment)
