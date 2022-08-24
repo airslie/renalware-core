@@ -21,7 +21,10 @@ module Renalware
 
       def index
         authorize Audit, :index?
-        render locals: { reports: reports }
+        render locals: { 
+          reports: reports_search.result, 
+          search: reports_search 
+        }
       end
 
       def show
@@ -84,8 +87,11 @@ module Renalware
         @build_sql_view_klass ||= SqlView.new(view_name).klass.tap(&:reset_column_information)
       end
 
-      def reports
-        System::ViewMetadata.where(category: :report).order(:title)
+      def reports_search
+        @reports_search ||= System::ViewMetadata
+          .where(category: :report)
+          .order(:title)
+          .ransack(params.fetch(:q, {}))
       end
 
       def find_and_authorize_report
