@@ -10,11 +10,6 @@ describe "Batch printing HD Session form PDFs from the HD MDM list", type: :syst
   let(:hd_modality_description) { create(:hd_modality_description) }
   let(:adapter) { ActiveJob::Base.queue_adapter }
 
-  # before do
-  #   ActiveJob::Base.queue_adapter = :test
-  #   ActiveJob::Base.queue_adapter.enqueued_jobs.clear
-  # end
-
   def create_hd_patient(family_name, user)
     create(:hd_patient, family_name: family_name, by: user).tap do |pat|
       set_modality(
@@ -25,11 +20,6 @@ describe "Batch printing HD Session form PDFs from the HD MDM list", type: :syst
     end
   end
 
-  # before do
-  #   Rails.application.configure do
-  #     config.good_job.execution_mode = :external
-  #   end
-  # end
   context "when a user clicks Print HD Session Forms" do
     it "prints all patients in the currently filtered list" do
       user = login_as_clinical

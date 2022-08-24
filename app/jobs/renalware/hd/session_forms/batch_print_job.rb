@@ -19,9 +19,7 @@ module Renalware
           end
         end
 
-        def max_attempts
-          1
-        end
+        discard_on StandardError
 
         def queue_name
           "hd_session_forms"
