@@ -58,7 +58,7 @@ module Renalware
 
         send_data(
           sql_view_klass.to_csv(search.result.load),
-          filename: "rw-report-#{current_view.id}-#{Time.zone.now.strftime('%d%m%Y%H%M')}.csv"
+          filename: csv_filename_for(current_view)
         )
       end
 
@@ -68,6 +68,12 @@ module Renalware
           format: :csv,
           params: request.params.slice("q")
         )
+      end
+
+      # E.g. "My Report - 24-Aug-2022 16-34.csv"
+      def csv_filename_for(view)
+        unsanitized_filename = "#{(current_view.title || current_view.view_name)} - #{I18n.l(Time.zone.now)}.csv"
+        ActiveStorage::Filename.new(unsanitized_filename).sanitized 
       end
 
       def view_name
