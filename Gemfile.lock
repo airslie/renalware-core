@@ -40,7 +40,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.2.12)
+    renalware-core (2.2.13)
       active_type (~> 0.7.1)
       activerecord-import (~> 1.0)
       activerecord-postgres_enum (~> 1.6.0)
@@ -514,7 +514,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.7)
-    puma (5.6.4)
+    puma (5.6.5)
       nio4r (~> 2.0)
     pundit (2.2.0)
       activesupport (>= 3.0.0)

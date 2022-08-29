@@ -25,8 +25,11 @@ gem "redis"
 gem "renalware-forms"
 gem "ruby-prof", require: false
 gem "uglifier", "~> 4.2"
-gem "wkhtmltopdf-binary", "0.12.3.1"
-# gem "sprockets-rails", "~> 2.3.3" # in the dummy app, fix to this version to avoid manifest errors
+# Re wkhtmltopdf binary for letter generation
+# a host app could include the wkhtmltopdf-binary gem, or use the apt package. 
+# Bear in mind the gem contains several platform-specific binaries so is pretty large,
+# so in a docker image the apt package is a better choice
+gem "wkhtmltopdf-binary", "0.12.3.1" 
 gem "httparty", require: false
 gem "tailwindcss-rails", "~> 2.0.8"
 # For sentry error reporting and metrics
@@ -56,7 +59,7 @@ group :test do
   gem "execjs", "2.7.0" # 2.8.1 raises an error
 end
 
-group :staging do
+group :pr do
   # For redirecting renalware-demo.herokuapp.com => demo.renalware.app
   gem "rack-host-redirect", github: "airslie/rack-host-redirect"
   gem "wkhtmltopdf-heroku", "~> 2.12.3"

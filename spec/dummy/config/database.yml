@@ -30,7 +30,7 @@ test:
   database: renalware_test
   pool: 100
 
-staging:
+uat:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
 

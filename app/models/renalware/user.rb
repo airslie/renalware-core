@@ -91,7 +91,7 @@ module Renalware
     # The idea is that we can check the token belongs to the user buy regenerating the token at any
     # time and checking it still matches. Unlike Devise.friendly_token, we can always regenerate
     # the same token here for any user as it is salted with the same secret. This secret is not
-    # stored git for staging and production environments.
+    # stored git for uat and production environments.
     def auth_token
       digest = OpenSSL::Digest.new("sha256")
       key = Rails.application.secrets.secret_key_base
