@@ -9,6 +9,13 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.2.13
+### Added
+### Changed
+- Renamed the internal 'staging' environment to 'uat' (no client testing required) #3976 
+- Add filtering by subcategory to reports page and improve UI #3975 
+### Fixed
+
 ## 2.2.12
 ### Added
 - Return a 404 on eg /robots123.txt requests to prevent logging an error on Azure healthchecks #3966 
