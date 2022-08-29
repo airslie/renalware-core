@@ -73,6 +73,20 @@ COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statist
 
 
 --
+-- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA renalware;
+
+
+--
+-- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
+
+
+--
 -- Name: tablefunc; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -3881,6 +3895,54 @@ CREATE SEQUENCE renalware.feed_practice_gps_id_seq
 --
 
 ALTER SEQUENCE renalware.feed_practice_gps_id_seq OWNED BY renalware.feed_practice_gps.id;
+
+
+--
+-- Name: good_job_processes; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.good_job_processes (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    state jsonb
+);
+
+
+--
+-- Name: good_job_settings; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.good_job_settings (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    key text,
+    value jsonb
+);
+
+
+--
+-- Name: good_jobs; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.good_jobs (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    queue_name text,
+    priority integer,
+    serialized_params jsonb,
+    scheduled_at timestamp without time zone,
+    performed_at timestamp without time zone,
+    finished_at timestamp without time zone,
+    error text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    active_job_id uuid,
+    concurrency_key text,
+    cron_key text,
+    retried_good_job_id uuid,
+    cron_at timestamp without time zone
+);
 
 
 --
@@ -9322,44 +9384,6 @@ CREATE VIEW renalware.reporting_daily_letters AS
 
 
 --
--- Name: reporting_daily_pathology; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.reporting_daily_pathology AS
- SELECT ( SELECT count(*) AS count
-           FROM renalware.delayed_jobs) AS delayed_jobs_total,
-    ( SELECT count(*) AS count
-           FROM renalware.delayed_jobs
-          WHERE (delayed_jobs.attempts = 0)) AS delayed_jobs_unprocessed,
-    ( SELECT count(*) AS count
-           FROM renalware.delayed_jobs
-          WHERE ((delayed_jobs.last_error IS NOT NULL) AND (delayed_jobs.failed_at IS NULL))) AS delayed_jobs_retrying,
-    ( SELECT count(*) AS count
-           FROM renalware.delayed_jobs
-          WHERE ((delayed_jobs.last_error IS NOT NULL) AND (delayed_jobs.failed_at IS NOT NULL))) AS delayed_jobs_failed,
-    ( SELECT max(delayed_jobs.created_at) AS max
-           FROM renalware.delayed_jobs) AS delayed_jobs_latest_entry,
-    ( SELECT count(*) AS count
-           FROM renalware.delayed_jobs
-          WHERE (delayed_jobs.created_at >= (now())::date)) AS delayed_jobs_added_today,
-    ( SELECT json_object_agg(query.priority, query.count) AS json_object_agg
-           FROM ( SELECT delayed_jobs.priority,
-                    count(*) AS count
-                   FROM renalware.delayed_jobs
-                  GROUP BY delayed_jobs.priority) query) AS delayed_jobs_priority_counts,
-    ( SELECT json_object_agg(COALESCE(query.queue, 'unset'::character varying), query.count) AS json_object_agg
-           FROM ( SELECT delayed_jobs.queue,
-                    count(*) AS count
-                   FROM renalware.delayed_jobs
-                  GROUP BY delayed_jobs.queue) query) AS delayed_jobs_queue_counts,
-    ( SELECT json_object_agg(query.attempts, query.count) AS json_object_agg
-           FROM ( SELECT delayed_jobs.attempts,
-                    count(*) AS count
-                   FROM renalware.delayed_jobs
-                  GROUP BY delayed_jobs.attempts) query) AS delayed_jobs_attempts_counts;
-
-
---
 -- Name: reporting_daily_ukrdc; Type: VIEW; Schema: renalware; Owner: -
 --
 
@@ -9386,7 +9410,7 @@ CREATE MATERIALIZED VIEW renalware.reporting_hd_blood_pressures_audit AS
              JOIN renalware.patients ON ((patients.id = hd_sessions.patient_id)))
           WHERE ((hd_sessions.signed_off_at IS NOT NULL) AND (hd_sessions.deleted_at IS NULL))
         ), some_other_derived_table_variable AS (
-         SELECT 1
+         SELECT 1 AS "?column?"
            FROM blood_pressures blood_pressures_1
         )
  SELECT hu.name AS hospital_unit_name,
@@ -10785,7 +10809,8 @@ CREATE TABLE renalware.system_view_metadata (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     display_type renalware.system_view_display_type DEFAULT 'tabular'::renalware.system_view_display_type NOT NULL,
-    category renalware.system_view_category DEFAULT 'mdm'::renalware.system_view_category NOT NULL
+    category renalware.system_view_category DEFAULT 'mdm'::renalware.system_view_category NOT NULL,
+    sub_category character varying
 );
 
 
@@ -14035,6 +14060,30 @@ ALTER TABLE ONLY renalware.feed_practice_gps
 
 
 --
+-- Name: good_job_processes good_job_processes_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.good_job_processes
+    ADD CONSTRAINT good_job_processes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: good_job_settings good_job_settings_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.good_job_settings
+    ADD CONSTRAINT good_job_settings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: good_jobs good_jobs_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.good_jobs
+    ADD CONSTRAINT good_jobs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: hd_cannulation_types hd_cannulation_types_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16587,6 +16636,69 @@ CREATE INDEX index_feed_outgoing_documents_on_renderable ON renalware.feed_outgo
 --
 
 CREATE INDEX index_feed_outgoing_documents_on_updated_by_id ON renalware.feed_outgoing_documents USING btree (updated_by_id);
+
+
+--
+-- Name: index_good_job_settings_on_key; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_good_job_settings_on_key ON renalware.good_job_settings USING btree (key);
+
+
+--
+-- Name: index_good_jobs_jobs_on_finished_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_jobs_jobs_on_finished_at ON renalware.good_jobs USING btree (finished_at) WHERE ((retried_good_job_id IS NULL) AND (finished_at IS NOT NULL));
+
+
+--
+-- Name: index_good_jobs_on_active_job_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_jobs_on_active_job_id ON renalware.good_jobs USING btree (active_job_id);
+
+
+--
+-- Name: index_good_jobs_on_active_job_id_and_created_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_jobs_on_active_job_id_and_created_at ON renalware.good_jobs USING btree (active_job_id, created_at);
+
+
+--
+-- Name: index_good_jobs_on_concurrency_key_when_unfinished; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_jobs_on_concurrency_key_when_unfinished ON renalware.good_jobs USING btree (concurrency_key) WHERE (finished_at IS NULL);
+
+
+--
+-- Name: index_good_jobs_on_cron_key_and_created_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_jobs_on_cron_key_and_created_at ON renalware.good_jobs USING btree (cron_key, created_at);
+
+
+--
+-- Name: index_good_jobs_on_cron_key_and_cron_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_good_jobs_on_cron_key_and_cron_at ON renalware.good_jobs USING btree (cron_key, cron_at);
+
+
+--
+-- Name: index_good_jobs_on_queue_name_and_scheduled_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_jobs_on_queue_name_and_scheduled_at ON renalware.good_jobs USING btree (queue_name, scheduled_at) WHERE (finished_at IS NULL);
+
+
+--
+-- Name: index_good_jobs_on_scheduled_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_jobs_on_scheduled_at ON renalware.good_jobs USING btree (scheduled_at) WHERE (finished_at IS NULL);
 
 
 --
@@ -24352,6 +24464,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220519120540'),
 ('20220520100619'),
 ('20220601162848'),
-('20220606105217');
+('20220606105217'),
+('20220812154454'),
+('20220813081749'),
+('20220824154208');
 
 

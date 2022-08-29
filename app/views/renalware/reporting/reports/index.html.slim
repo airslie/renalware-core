@@ -1,3 +1,16 @@
+= content_for(:filters) do
+  = simple_form_for search,
+                  url: reporting_reports_path,
+                  remote: false,
+                  data: { controller: "form", action: "input->form#submit" },
+                  method: :get do |f|
+
+    .flex.flex-col.sm:flex-row.items-start.pb-4
+      = f.input :sub_category_eq,
+                include_blank: "Any",
+                collection: Renalware::System::ViewMetadata.where(category: "report").order(:sub_category).pluck(:sub_category).uniq,
+                label: "Category"
+
 = within_admin_layout(title: "Reports") do
   table
     thead

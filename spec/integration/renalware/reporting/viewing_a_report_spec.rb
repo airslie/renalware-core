@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-describe "Viewing a reports", type: :system, js: true do
-  it "displays a reports" do
+describe "Viewing a report", type: :system, js: true do
+  it "displays a report" do
     report = create(
       :view_metadata,
       view_name: "transplant_mdm_patients",

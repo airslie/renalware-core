@@ -21,7 +21,10 @@ module Renalware
 
       def index
         authorize Audit, :index?
-        render locals: { reports: reports }
+        render locals: { 
+          reports: reports_search.result, 
+          search: reports_search 
+        }
       end
 
       def show
@@ -58,7 +61,7 @@ module Renalware
 
         send_data(
           sql_view_klass.to_csv(search.result.load),
-          filename: "rw-report-#{current_view.id}-#{Time.zone.now.strftime('%d%m%Y%H%M')}.csv"
+          filename: csv_filename_for(current_view)
         )
       end
 
@@ -70,6 +73,12 @@ module Renalware
         )
       end
 
+      # E.g. "My Report - 24-Aug-2022 16-34.csv"
+      def csv_filename_for(view)
+        unsanitized_filename = "#{(current_view.title || current_view.view_name)} - #{I18n.l(Time.zone.now)}.csv"
+        ActiveStorage::Filename.new(unsanitized_filename).sanitized 
+      end
+
       def view_name
         "#{current_view.schema_name}.#{current_view.view_name}"
       end
@@ -78,8 +87,11 @@ module Renalware
         @build_sql_view_klass ||= SqlView.new(view_name).klass.tap(&:reset_column_information)
       end
 
-      def reports
-        System::ViewMetadata.where(category: :report).order(:title)
+      def reports_search
+        @reports_search ||= System::ViewMetadata
+          .where(category: :report)
+          .order(:title)
+          .ransack(params.fetch(:q, {}))
       end
 
       def find_and_authorize_report
