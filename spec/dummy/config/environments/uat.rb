@@ -3,7 +3,7 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # On staging if this is the demo site e.g.
+  # On uat if this is the demo site e.g.
   #   HEROKU_APP_URL=renalware-demo.herokuapp.com
   #   HEROKU_CUSTOM_DOMAIN=demo.renalware.app
   # then redirect requests on renalware-demo.herokuapp.com to demo.renalware.app
