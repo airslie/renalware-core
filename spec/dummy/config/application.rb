@@ -28,7 +28,6 @@ module Dummy
     end
 
     config.action_mailer.default_url_options = { host: ENV.fetch("HOST", "localhost") }
-    config.active_job.queue_adapter = :delayed_job
     config.time_zone = "London"
     config.active_record.schema_format = :sql
     config.active_support.escape_html_entities_in_json = false

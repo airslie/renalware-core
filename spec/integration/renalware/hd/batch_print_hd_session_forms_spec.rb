@@ -40,9 +40,15 @@ describe "Batch printing HD Session form PDFs from the HD MDM list", type: :syst
       patient_ids = batch.items.pluck(:printable_id)
       expect(patient_ids).to match_array(patients.map(&:id))
 
-      # We are using an inline activejob eg good_job, so the processing will happen in-process
-      # so we don't need to check enqueued jobs etc.
-      # # Wait for the Print link to appear signifying the PDF is ready to print.
+      # Simulate a background job marking the batch as successful and assigning the
+      # generated filename.
+      batch.update_by(
+        user,
+        status: :awaiting_printing,
+        filepath: "#{batch.id}.pdf"
+      )
+
+      # Wait for the Print link to appear signifying the PDF is ready to print.
       expect(page).to have_css("#hd-session-form-batch-print-modal .print-batch-letter", wait: 10)
 
       batch.reload
