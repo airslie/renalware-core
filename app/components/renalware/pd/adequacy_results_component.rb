@@ -32,7 +32,7 @@ module Renalware
       private
 
       def scope
-        AdequacyResult.for_patient(patient).ordered
+        AdequacyResult.includes([:patient]).for_patient(patient).ordered
       end
     end
   end

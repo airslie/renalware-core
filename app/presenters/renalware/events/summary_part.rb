@@ -7,7 +7,7 @@ module Renalware
     class SummaryPart < Renalware::SummaryPart
       def recent_events
         @recent_events ||= begin
-          Events::Event.includes([:created_by, :event_type])
+          Events::Event.includes([:created_by, :event_type, :patient])
                        .for_patient(patient)
                        .limit(Renalware.config.clinical_summary_max_events_to_display)
                        .ordered

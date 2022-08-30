@@ -64,7 +64,7 @@ module Renalware
 
       def find_contacts
         CollectionPresenter.new(
-          @patient.contacts.includes(:description).ordered,
+          @patient.contacts.includes(:description, person: { address: :country }).ordered,
           ContactPresenter
         )
       end
