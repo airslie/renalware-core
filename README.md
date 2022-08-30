@@ -74,10 +74,10 @@ bundle exec rake db:setup
 ### Run the server
 
 ```
-$ bin/web
+$ bin/dev
 ```
 
-> Note `bin/web` starts a sever in the spec/dummy directory. Just executing `rails server` will not work.
+> Note `bin/dev` starts a sever in the spec/dummy directory. Just executing `rails server` will not work.
 
 Visit [http://localhost:3000](http://localhost:3000)
 
@@ -88,26 +88,6 @@ Login in one of the demo users (in order of role permissiveness):
 - kchguest
 
 They all share the password `renalware`
-
-> Alternatively you can use foreman to start to the web server and the background workers all together
-(see the Procfile) and tail the development log to see the output:
-
-    bundle exec foreman start
-    tail -f spec/dummy/log/developments.log
-
-## Running background jobs
-
-Some work goes on in the background, for example the processing of HL7 messages.
-
-To start background job processing in development:
-
-    bin/delayed_job run
-
-Run `bin/delayed_job` for other options.
-
-delayed_job logs to its own log. To see the output:
-
-    tail -f spec/dummy/log/delayed_job.log
 
 ## Running tests
 
