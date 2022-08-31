@@ -6,6 +6,8 @@ module Renalware
   module Clinical
     # Note that there is no concrete Clinical::Profile, most data here is persisted in the patient
     class ProfilesController < Clinical::BaseController
+      include Renalware::Concerns::PatientVisibility
+      
       def show
         authorize patient
         render locals: {

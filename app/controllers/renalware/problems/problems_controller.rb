@@ -4,6 +4,7 @@
 module Renalware
   module Problems
     class ProblemsController < BaseController
+      include Renalware::Concerns::PatientVisibility
       after_action :track_action, except: [:search]
 
       PRB_PARAMS_DAY = "date(3i)"

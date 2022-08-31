@@ -6,24 +6,24 @@ require_dependency "renalware/renal/base_controller"
 module Renalware
   module Renal
     class ProfilesController < BaseController
-      before_action :load_patient
+      include Renalware::Concerns::PatientVisibility
 
       def show
         render locals: {
           patient: patient,
-          profile: find_profile
+          profile: find_and_authorize_profile
         }
       end
 
       def edit
         render locals: {
           patient: patient,
-          profile: find_profile
+          profile: find_and_authorize_profile
         }
       end
 
       def update
-        profile = find_profile
+        profile = find_and_authorize_profile
 
         if profile.update(profile_params)
           redirect_to patient_renal_profile_path(patient),
@@ -31,7 +31,7 @@ module Renalware
         else
           render :edit, locals: {
             patient: patient,
-            profile: find_profile
+            profile: find_and_authorize_profile
           }
         end
       end
@@ -55,8 +55,8 @@ module Renalware
         ]
       end
 
-      def find_profile
-        patient.profile || patient.build_profile
+      def find_and_authorize_profile
+        (patient.profile || patient.build_profile).tap { |profile| authorize profile }
       end
     end
   end

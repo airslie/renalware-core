@@ -36,7 +36,7 @@ module Renalware
 
     def patient
       @patient ||= begin
-        Renalware::Patient.find_by(secure_id: params[:patient_id]).tap do |patient_|
+        patient_scope.find_by(secure_id: params[:patient_id]).tap do |patient_|
           raise PatientNotFoundError unless patient_
         end
       end
@@ -52,12 +52,9 @@ module Renalware
       @patient_search ||= Patients::PatientSearch.call(params, patient_scope)
     end
 
-    def patient_scope
-      scope_patients_by_policy? ? policy_scope(Renalware::Patient) : Renalware::Patient
-    end
-
-    def scope_patients_by_policy?
-      !!Renalware.config.restrict_patient_access_by_user_site
+    # Will be overriden if a controller includes PatientVisiblity 
+    def patient_scope(default_scope = Renalware::Patient)
+      default_scope
     end
 
     def success_msg_for(model_name)

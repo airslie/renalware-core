@@ -7,7 +7,7 @@ require "collection_presenter"
 module Renalware
   module HD
     class SessionsController < BaseController
-      include Renalware::Concerns::HD::Casts
+      include Renalware::Concerns::PatientCasting
       include Renalware::Concerns::Pageable
       include PresenterHelper
 

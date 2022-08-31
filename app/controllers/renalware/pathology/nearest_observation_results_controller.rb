@@ -4,7 +4,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class NearestObservationResultsController < Pathology::BaseController
+    class NearestObservationResultsController < BaseController
       def index
         near_date
         authorize Patient, :index?

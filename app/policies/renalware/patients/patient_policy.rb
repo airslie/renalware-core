@@ -73,7 +73,7 @@ module Renalware
           return if scope.nil?
           return scope.all if user_is_super_admin?
 
-          #  If the user is based at the host site e.g. Royal London they can see any patient
+          # If the user is based at the host site e.g. Royal London they can see any patient
           # at that site including those in private studies
           # If the user is not at the host site e.g. they are at Royal Free.
           #  They can see any patients at the same site who are not in a private study
@@ -88,20 +88,42 @@ module Renalware
           #   .where("(patients.hospital_centre_id = ? and rs.private is not true) "\
           #   "or (ri.user_id is not null)", user.hospital_centre_id)
           user_is_based_at_host_hospital = user.hospital_centre&.host_site?
+          
+          s = @scope.dup
+          if Renalware.config.restrict_patient_visibility_by_user_site? 
+            @scope = @scope.where(
+              default_where_sql,
+              user.hospital_centre_id,
+              user_is_based_at_host_hospital
+            )
+          end
 
-          scope.where(
-            where_sql,
-            user.hospital_centre_id,
-            user_is_based_at_host_hospital,
-            user.hospital_centre_id, user.id
-          )
+          if Renalware.config.restrict_patient_visibility_by_research_study? 
+            @scope = @scope.or(
+              s.where(
+                research_participation_membership_where_sql,
+                user.hospital_centre_id   
+              )
+            )
+            @scope = @scope.or(
+              s.where(
+                research_user_is_investigator_where_sql,
+                user.id
+              )
+            )
+          end
+          @scope
         end
         # rubocop:enable Metrics/AbcSize
 
-        def where_sql
+        def default_where_sql
           <<-SQL.squish
-          (patients.hospital_centre_id = ? and ?)
-            or
+            (patients.hospital_centre_id = ? and ?)
+          SQL
+        end
+
+        def research_participation_membership_where_sql
+          <<-SQL.squish
             (
               (patients.hospital_centre_id = ?)
               and not exists(
@@ -114,19 +136,23 @@ module Renalware
                     and rp.left_on is null
               )
             )
-            or
-              exists (
-                select from research_participations rp
-                  inner join research_studies rs on rs.id = rp.study_id
-                  inner join research_investigatorships ri on rs.id = ri.study_id
-                  where
-                    patients.id = rp.patient_id
-                    and ri.user_id = ?
-                    and rs.deleted_at is null
-                    and ri.deleted_at is null
-                    and rp.deleted_at is null
-                    and rp.left_on is null
-              )
+          SQL
+        end
+
+        def research_user_is_investigator_where_sql
+          <<-SQL.squish
+            exists (
+              select from research_participations rp
+                inner join research_studies rs on rs.id = rp.study_id
+                inner join research_investigatorships ri on rs.id = ri.study_id
+                where
+                  patients.id = rp.patient_id
+                  and ri.user_id = ?
+                  and rs.deleted_at is null
+                  and ri.deleted_at is null
+                  and rp.deleted_at is null
+                  and rp.left_on is null
+            )
           SQL
         end
       end

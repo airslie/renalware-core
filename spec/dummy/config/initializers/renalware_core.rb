@@ -28,6 +28,7 @@ Renalware.configure do |config|
   config.allow_uploading_patient_attachments = true
   config.hl7_patient_locator_strategy = :dob_and_any_nhs_or_assigning_auth_number
   config.max_batch_print_size = 50
+  config.patient_visibility_restrictions = :by_site # by_site_and_research_study
 end
 
 # Renalware::Patients.configure

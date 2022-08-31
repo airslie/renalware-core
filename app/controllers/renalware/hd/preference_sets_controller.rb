@@ -5,7 +5,7 @@ require_dependency "renalware/hd"
 module Renalware
   module HD
     class PreferenceSetsController < BaseController
-      include Renalware::Concerns::HD::Casts
+      include Renalware::Concerns::PatientCasting
 
       def edit
         preference_set = find_preference_set

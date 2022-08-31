@@ -4,7 +4,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class CodeGroupsController < Pathology::BaseController
+    class CodeGroupsController < BaseController
       def index
         groups = CodeGroup.order(:name)
         authorize groups, :index?

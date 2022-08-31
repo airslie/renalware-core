@@ -5,7 +5,7 @@ require_dependency "renalware/hd"
 module Renalware
   module HD
     class DashboardsController < BaseController
-      include Renalware::Concerns::HD::Casts
+      include Renalware::Concerns::PatientCasting
 
       def show
         authorize hd_patient
