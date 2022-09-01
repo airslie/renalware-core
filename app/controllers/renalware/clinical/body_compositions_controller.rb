@@ -5,7 +5,9 @@ require_dependency "renalware/clinical"
 
 module Renalware
   module Clinical
-    class BodyCompositionsController < Clinical::BaseController
+    class BodyCompositionsController < BaseController
+      include Renalware::Concerns::PatientCasting
+      include Renalware::Concerns::PatientVisibility
       include Renalware::Concerns::Pageable
       
       def index
