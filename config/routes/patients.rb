@@ -35,7 +35,7 @@ resources :patients, except: [:destroy], controller: "patients/patients" do
       as: :anaemia_perspective
 
   resource :clinical_summary, only: :show, controller: "patients/clinical_summaries"
-  resource :death, only: [:edit, :update]
+  resource :death, only: [:edit, :update], controller: "patients/deaths"
   resource :primary_care_physician,
            controller: "patients/primary_care_physician",
            only: [:edit, :update, :destroy]

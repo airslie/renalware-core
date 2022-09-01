@@ -6,6 +6,7 @@ module Renalware
   module Transplants
     class DonorStagesController < BaseController
       include Renalware::Concerns::PatientCasting
+      include Renalware::Concerns::PatientVisibility
 
       def new
         stage = DonorStage.new(patient: transplants_patient)

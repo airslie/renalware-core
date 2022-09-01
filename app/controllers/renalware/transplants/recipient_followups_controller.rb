@@ -7,6 +7,7 @@ module Renalware
   module Transplants
     class RecipientFollowupsController < BaseController
       include Renalware::Concerns::PatientCasting
+      include Renalware::Concerns::PatientVisibility
 
       def show
         followup = operation.followup

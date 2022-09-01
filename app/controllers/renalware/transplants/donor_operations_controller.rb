@@ -6,6 +6,7 @@ module Renalware
   module Transplants
     class DonorOperationsController < BaseController
       include Renalware::Concerns::PatientCasting
+      include Renalware::Concerns::PatientVisibility
 
       def show
         operation = find_and_authorize_operation

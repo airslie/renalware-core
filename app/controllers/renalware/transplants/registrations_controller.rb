@@ -6,6 +6,7 @@ module Renalware
   module Transplants
     class RegistrationsController < BaseController
       include Renalware::Concerns::PatientCasting
+      include Renalware::Concerns::PatientVisibility
 
       def show
         if registration.new_record?

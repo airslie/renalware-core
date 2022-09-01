@@ -6,6 +6,7 @@ module Renalware
   module Transplants
     class RegistrationStatusesController < BaseController
       include Renalware::Concerns::PatientCasting
+      include Renalware::Concerns::PatientVisibility
 
       def new
         status = registration.statuses.build

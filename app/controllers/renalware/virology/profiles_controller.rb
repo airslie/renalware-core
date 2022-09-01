@@ -6,6 +6,7 @@ module Renalware
   module Virology
     class ProfilesController < BaseController
       include Renalware::Concerns::PatientCasting
+      include Renalware::Concerns::PatientVisibility
 
       def edit
         render_edit(profile: find_profile_and_authorize_profile)

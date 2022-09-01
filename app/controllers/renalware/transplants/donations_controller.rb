@@ -6,6 +6,7 @@ module Renalware
   module Transplants
     class DonationsController < BaseController
       include Renalware::Concerns::PatientCasting
+      include Renalware::Concerns::PatientVisibility
 
       def show
         donation = Donation.for_patient(transplants_patient).find(params[:id])

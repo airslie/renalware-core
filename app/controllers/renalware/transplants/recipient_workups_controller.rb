@@ -6,6 +6,7 @@ module Renalware
   module Transplants
     class RecipientWorkupsController < BaseController
       include Renalware::Concerns::PatientCasting
+      include Renalware::Concerns::PatientVisibility
 
       def show
         workup = RecipientWorkup.for_patient(transplants_patient).first_or_initialize

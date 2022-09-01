@@ -6,6 +6,7 @@ module Renalware
   module Transplants
     class DonorFollowupsController < BaseController
       include Renalware::Concerns::PatientCasting
+      include Renalware::Concerns::PatientVisibility
 
       def show
         authorize operation.followup

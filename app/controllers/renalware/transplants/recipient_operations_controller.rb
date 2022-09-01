@@ -6,6 +6,7 @@ module Renalware
   module Transplants
     class RecipientOperationsController < BaseController
       include Renalware::Concerns::PatientCasting
+      include Renalware::Concerns::PatientVisibility
 
       def show
         render locals: {
