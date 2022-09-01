@@ -1,42 +1,40 @@
 # frozen_string_literal: true
 
 require_dependency "renalware/renal"
-require_dependency "renalware/renal/base_controller"
 
 module Renalware
   module Renal
     class ProfilesController < BaseController
       include Renalware::Concerns::PatientVisibility
+      include Renalware::Concerns::PatientCasting
 
       def show
         render locals: {
-          patient: patient,
+          patient: renal_patient,
           profile: find_and_authorize_profile
         }
       end
 
       def edit
-        render locals: {
-          patient: patient,
-          profile: find_and_authorize_profile
-        }
+        render_edit(find_and_authorize_profile)
       end
 
       def update
         profile = find_and_authorize_profile
 
         if profile.update(profile_params)
-          redirect_to patient_renal_profile_path(patient),
+          redirect_to patient_renal_profile_path(renal_patient),
                       notice: success_msg_for("profile")
         else
-          render :edit, locals: {
-            patient: patient,
-            profile: find_and_authorize_profile
-          }
+          render_edit(profile)
         end
       end
 
       private
+
+      def render_edit(profile)
+        render :edit, locals: { patient: renal_patient, profile: profile }
+      end
 
       def profile_params
         params
@@ -56,7 +54,7 @@ module Renalware
       end
 
       def find_and_authorize_profile
-        (patient.profile || patient.build_profile).tap { |profile| authorize profile }
+        (renal_patient.profile || renal_patient.build_profile).tap { |profile| authorize profile }
       end
     end
   end

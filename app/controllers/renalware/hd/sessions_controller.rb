@@ -25,7 +25,9 @@ module Renalware
       end
 
       def show
-        presenter = SessionPresenter.new(find_and_authorize_session, view_context)
+        session = find_session
+        authorize session
+        presenter = SessionPresenter.new(session, view_context)
         render :show, locals: { session: presenter, patient: hd_patient }
       end
 
@@ -45,13 +47,14 @@ module Renalware
       end
 
       def edit
-        session = find_and_authorize_session
+        session = find_session
+        authorize session
         session.duration_form = Sessions::DurationForm.duration_form_for(session)
         authorize session
         render :edit, locals: locals(session)
       rescue Pundit::NotAuthorizedError
         flash[:warning] = t(".session_is_immutable")
-        redirect_to patient_hd_session_path(find_and_authorize_session, patient_id: hd_patient)
+        redirect_to patient_hd_session_path(session, patient_id: hd_patient)
       end
 
       def update
@@ -59,7 +62,9 @@ module Renalware
       end
 
       def destroy
-        find_and_authorize_session.destroy!
+        session = find_session
+        authorize session
+        session.destroy!
         regenerate_rolling_hd_statistics
         message = success_msg_for("HD session")
         redirect_to patient_hd_dashboard_path(hd_patient), notice: message
@@ -88,8 +93,8 @@ module Renalware
 
       protected
 
-      def find_and_authorize_session
-        Session.for_patient(hd_patient).find(params[:id]).tap { |sess| authorize sess }
+      def find_session
+        Session.for_patient(hd_patient).find(params[:id])
       end
 
       def locals(session)
