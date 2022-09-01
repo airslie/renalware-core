@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/transplants/base_controller"
+require_dependency "renalware/transplants"
 
 module Renalware
   module Transplants

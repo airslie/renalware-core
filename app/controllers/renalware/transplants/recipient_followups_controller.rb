@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/transplants/base_controller"
+require_dependency "renalware/transplants"
 
 # rubocop:disable Metrics/ClassLength
 module Renalware
   module Transplants
     class RecipientFollowupsController < BaseController
-      # before_action :load_patient
+      include Renalware::Concerns::PatientCasting
 
       def show
         followup = operation.followup
         authorize followup
-        render locals: { patient: patient, recipient_followup: followup }
+        render locals: { patient: transplants_patient, recipient_followup: followup }
       end
 
       def new
@@ -22,7 +22,7 @@ module Renalware
         followup = copy_attributes_onto_followup(operation.build_followup)
         authorize followup
         if followup.save
-          redirect_to patient_transplants_recipient_dashboard_path(patient),
+          redirect_to patient_transplants_recipient_dashboard_path(transplants_patient),
                       notice: success_msg_for("recipient follow up")
         else
           flash.now[:error] = failed_msg_for("recipient follow up")
@@ -38,7 +38,7 @@ module Renalware
         followup = copy_attributes_onto_followup(operation.followup)
         authorize followup
         if followup.save
-          redirect_to patient_transplants_recipient_dashboard_path(patient),
+          redirect_to patient_transplants_recipient_dashboard_path(transplants_patient),
                       notice: success_msg_for("recipient follow up")
         else
           flash.now[:error] = failed_msg_for("recipient follow up")
@@ -61,7 +61,7 @@ module Renalware
         render(
           :new,
           locals: {
-            patient: patient,
+            patient: transplants_patient,
             recipient_followup: followup
           }
         )
@@ -72,7 +72,7 @@ module Renalware
         render(
           :edit,
           locals: {
-            patient: patient,
+            patient: transplants_patient,
             recipient_followup: followup
           }
         )
