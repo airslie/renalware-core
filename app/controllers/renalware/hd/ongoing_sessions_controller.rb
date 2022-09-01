@@ -5,6 +5,7 @@ require_dependency "renalware/hd"
 module Renalware
   module HD
     class OngoingSessionsController < BaseController
+      # TODO: PatientVisibility
       include Renalware::Concerns::Pageable
 
       def show

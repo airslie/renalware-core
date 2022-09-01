@@ -5,6 +5,7 @@ require_dependency "renalware/hd"
 module Renalware
   module HD
     class CurrentProfileController < BaseController
+      include Renalware::Concerns::PatientVisibility
       include Renalware::Concerns::PatientCasting
       before_action :load_profile
 

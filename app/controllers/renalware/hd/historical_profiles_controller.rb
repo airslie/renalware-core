@@ -6,6 +6,7 @@ require "collection_presenter"
 module Renalware
   module HD
     class HistoricalProfilesController < BaseController
+      include Renalware::Concerns::PatientVisibility
       include Renalware::Concerns::PatientCasting
       include PresenterHelper
 

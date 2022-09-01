@@ -8,6 +8,7 @@ module Renalware
   module HD
     class SessionsController < BaseController
       include Renalware::Concerns::PatientCasting
+      include Renalware::Concerns::PatientVisibility
       include Renalware::Concerns::Pageable
       include PresenterHelper
 
