@@ -19,7 +19,7 @@ module Renalware
         def self.create_activetype_casted_patient_getter
           namespace_name = self.to_s.deconstantize          # e.g. "Renalware::HD"
           module_name = namespace_name.split("::")[1]       # e.g. "HD"
-          method_name = :"#{module_name.downcase}_patient"  # e.g. hd_patient
+          method_name = :"#{module_name.underscore}_patient"  # e.g. hd_patient
           var_name = "@#{method_name}"                      # e.g. @hd_patient
 
           define_method(method_name) do 
