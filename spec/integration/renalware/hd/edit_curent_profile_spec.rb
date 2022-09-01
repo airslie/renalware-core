@@ -6,7 +6,7 @@ describe "Editing a patient's current HD profile", type: :system, js: false do
   include PatientsSpecHelper
 
   let(:nurse) { create(:user) }
-  let(:centre) { create(:hospital_centre, name: "Centre1") }
+  let(:centre) { create(:hospital_centre) }
   let(:dialysate) { create(:hd_dialysate, name: "Dialysate1") }
   let(:dialyser) { create(:hd_dialyser, name: "FX80") }
   let(:cannulation_type) { create(:hd_cannulation_type, name: "Buttonhole") }
