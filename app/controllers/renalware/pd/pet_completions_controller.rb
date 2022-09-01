@@ -4,7 +4,7 @@ require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class PETCompletionsController < BaseController
+    class PETCompletionsController < Renalware::BaseController
       include Pagy::Backend
 
       def index
