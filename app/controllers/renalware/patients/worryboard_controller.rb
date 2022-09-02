@@ -5,11 +5,15 @@ require_dependency "renalware/patients"
 module Renalware
   module Patients
     class WorryboardController < BaseController
+      include Renalware::Concerns::PatientVisibility
       include Renalware::Concerns::Pageable
 
       def show
         authorize Worry, :index?
-        query = WorryQuery.new(query_params)
+        query = WorryQuery.new(
+          query_params: query_params, 
+          patient_scope: patient_scope 
+        )
         worries = query.call.page(page).per(per_page)
         render locals: {
           query: query.search,
