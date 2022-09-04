@@ -6,7 +6,7 @@ module Renalware
   module Research
     class StudiesController < BaseController
       include Renalware::Concerns::Pageable
-
+      
       def index
         query = Study.ordered.ransack(params[:q])
         studies = query.result.page(page).per(per_page)
@@ -71,10 +71,10 @@ module Renalware
 
       def study_params
         params
-          .require(:research_study)
+          .require(:study)
           .permit(
             :code, :description, :leader, :notes, :started_on, :terminated_on,
-            :application_url
+            :application_url, :private, document: {}
           )
       end
     end
