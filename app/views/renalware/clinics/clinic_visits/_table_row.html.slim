@@ -44,6 +44,7 @@ tr(class="#{'dna' if clinic_visit.did_not_attend?}")
   td.created-by= clinic_visit.created_by
   td= l(clinic_visit.effective_updated_at_date)
   td= clinic_visit.effective_updated_by
+  
 = content_tag(:tr, id: "clinic_visit-quick-preview-#{clinic_visit.id}", style: "display: none")
   td(colspan=16)
     .quick-preview

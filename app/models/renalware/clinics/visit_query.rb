@@ -5,9 +5,10 @@ require_dependency "renalware/clinics"
 module Renalware
   module Clinics
     class VisitQuery
-      attr_reader :visits, :query
+      attr_reader :visits, :query, :scope
 
-      def initialize(q = {})
+      def initialize(q = {}, scope: ClinicVisit)
+        @scope = scope
         @q = q
         @q[:s] = "date DESC" if @q[:s].blank?
       end
@@ -22,7 +23,7 @@ module Renalware
       end
 
       def search
-        @search ||= ClinicVisit.extending(RansackScopes).ransack(@q)
+        @search ||= scope.extending(RansackScopes).ransack(@q)
       end
 
       module RansackScopes

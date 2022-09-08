@@ -6,6 +6,8 @@ require_dependency "collection_presenter"
 module Renalware
   module Clinics
     class ClinicVisitPresenter < DumbDelegator
+      include AccountablePresentation
+      
       def sanitized_notes
         ::Rails::Html::WhiteListSanitizer.new.sanitize(notes, tags: %w(p br ol li ul span div))
       end

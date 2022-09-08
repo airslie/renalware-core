@@ -8,13 +8,12 @@ module Renalware
       include Renalware::Concerns::PatientVisibility
 
       def index
-        query = VisitQuery.new(query_params)
-        visits = query.call.where(clinics_patient_id: clinics_patient.id)
-        authorize visits
+        query = VisitQuery.new(query_params, scope: clinics_patient.clinic_visits)
+        visits = query.call.where(patient_id: clinics_patient.id)
         authorize visits
         render locals: {
           patient: clinics_patient,
-          clinic_visits: CollectionPresenter.new(visits, VisitPresenter),
+          clinic_visits: CollectionPresenter.new(visits, ClinicVisitPresenter),
           query: query.search
         }
       end
@@ -29,10 +28,9 @@ module Renalware
       # rubocop:disable Metrics/AbcSize
       def create
         authorize ClinicVisit, :create?
-        result = CreateClinicVisit.call(clinics_clinics_patient, visit_params)
+        result = CreateClinicVisit.call(clinics_patient, visit_params)
         visit = result.object.clinic_visit
         appointment = result.object.appointment_to_build_from
-        authorize visit
 
         if result.success?
           RememberedClinicVisitPreferences.new(session).persist(visit)
@@ -50,7 +48,7 @@ module Renalware
       end
 
       def update
-        clinic_visit = find_and_authorize_clinic_visit
+        clinic_visit = find_and_authorize_visit
         if clinic_visit.update(visit_params)
           redirect_to patient_clinic_visits_path(clinics_patient),
                       notice: success_msg_for("clinic visit")
@@ -61,7 +59,7 @@ module Renalware
       end
 
       def destroy
-        find_and_authorize_clinic_visit.destroy
+        find_and_authorize_visit.destroy
         redirect_to patient_clinic_visits_path(clinics_patient),
                     notice: success_msg_for("clinic visit")
       end
@@ -131,7 +129,7 @@ module Renalware
       def appointment_to_build_from
         @appointment_to_build_from ||= begin
           appointment_id = params[:appointment_id]
-          clinics_clinics_patient.appointments.find(appointment_id) if appointment_id.present?
+          clinics_patient.appointments.find(appointment_id) if appointment_id.present?
         end
       end
 
