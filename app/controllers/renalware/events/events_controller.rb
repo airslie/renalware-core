@@ -6,6 +6,7 @@ require_dependency "renalware/events"
 module Renalware
   module Events
     class EventsController < BaseController
+      include Renalware::Concerns::PatientVisibility
       include Renalware::Concerns::Pageable
       include Renalware::Concerns::PdfRenderable
 

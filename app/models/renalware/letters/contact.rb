@@ -38,6 +38,10 @@ module Renalware
       def unspecified_description?
         description.try(:unspecified?)
       end
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end

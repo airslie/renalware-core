@@ -36,6 +36,10 @@ module Renalware
         state == "terminated"
       end
 
+      def self.policy_class
+        BasePolicy
+      end
+
       private
 
       def validate_modality_starts_later_than_previous

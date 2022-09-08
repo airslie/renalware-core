@@ -36,12 +36,12 @@ module Renalware
 
     def patient
       @patient ||= begin
-        Renalware::Patient.find_by(secure_id: params[:patient_id]).tap do |patient_|
+        patient_scope.find_by(secure_id: params[:patient_id]).tap do |patient_|
           raise PatientNotFoundError unless patient_
         end
       end
     end
-
+    
     def nhs_client
       @nhs_client ||= ::NHSClient.new
     end
@@ -49,7 +49,12 @@ module Renalware
     protected
 
     def patient_search
-      @patient_search ||= Patients::PatientSearch.call(params)
+      @patient_search ||= Patients::PatientSearch.call(params, patient_scope)
+    end
+
+    # Will be overriden if a controller includes PatientVisiblity 
+    def patient_scope(default_scope = Renalware::Patient)
+      default_scope
     end
 
     def success_msg_for(model_name)
@@ -79,6 +84,14 @@ module Renalware
     def load_patient
       authorize patient
       patient
+    end
+
+    def patient
+      @patient ||= begin
+        patient_scope.find_by(secure_id: params[:patient_id]).tap do |pat|
+          raise PatientNotFoundError unless pat
+        end
+      end
     end
 
     def user_not_authorized

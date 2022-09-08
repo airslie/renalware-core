@@ -17,6 +17,12 @@ describe "Create new appointment manually (not via HL7 message)", type: :system,
 
       expect(page).to have_current_path(new_appointment_path)
       expect(page).to have_content("Clinic Appointments / New")
+      
+      # Patient visibility testing...
+      # Use and patient should have a hospital centre set, and the hosp must be a host site
+      # otherwise.. nada
+      expect(patient.hospital_centre).to eq(user.hospital_centre)
+      expect(patient.hospital_centre.host_site).to eq(true)
 
       within(".new_clinics_appointment") do
         select2(

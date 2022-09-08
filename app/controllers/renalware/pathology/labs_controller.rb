@@ -4,7 +4,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class LabsController < Pathology::BaseController
+    class LabsController < BaseController
       def index
         labs = Lab.order(:name)
         authorize labs, :index?

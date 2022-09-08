@@ -5,7 +5,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     module Requests
-      class RequestsController < Pathology::BaseController
+      class RequestsController < BaseController
         include Renalware::Concerns::Pageable
 
         before_action :load_patients, only: [:new, :create]

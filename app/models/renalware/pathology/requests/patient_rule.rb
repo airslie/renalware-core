@@ -38,6 +38,10 @@ module Renalware
           last_request.created_at
         end
 
+        def self.policy_class
+          BasePolicy
+        end
+
         private
 
         def today_within_range?(today)

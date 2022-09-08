@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
-require_dependency "renalware/hd/base_controller"
+require_dependency "renalware/hd"
 
+# rubocop:disable Metrics/ClassLength
 module Renalware
   module HD
     module Scheduling

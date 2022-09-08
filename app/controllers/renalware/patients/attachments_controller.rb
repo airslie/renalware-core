@@ -6,6 +6,7 @@ module Renalware
   module Patients
     class AttachmentsController < BaseController
       include Concerns::Pageable
+      include Renalware::Concerns::PatientVisibility
 
       def index
         authorize attachments

@@ -77,7 +77,7 @@ module Renalware
       private
 
       def scope
-        patient.pet_results.ordered
+        patient.pet_results.includes([:overnight_dextrose_concentration]).ordered
       end
     end
   end
