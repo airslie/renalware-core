@@ -64,7 +64,6 @@ module World
             fill_in("Notes", with: notes)
             find("input.button").click
           end
-          expect(page).to have_css("div.success")
         end
 
         def delete_bookmark(user:, patient_name:)
@@ -72,8 +71,6 @@ module World
           visit_patient(patient_name)
           find("a", text: "Remove bookmark").click
           page.driver.browser.switch_to.alert.accept
-
-          expect(page).to have_css("div.success")
         end
 
         private

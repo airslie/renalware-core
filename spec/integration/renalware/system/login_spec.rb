@@ -17,7 +17,7 @@ module Renalware
       click_on "Log in"
 
       expect(page).to have_current_path(new_user_session_path)
-      expect(page).to have_css(".alert", text: /Invalid username or password/i)
+      expect(page).to have_text(/Invalid username or password/i)
     end
 
     it "An unapproved user authenticates with valid credentials" do
@@ -30,10 +30,7 @@ module Renalware
       click_on "Log in"
 
       expect(page).to have_current_path(new_user_session_path)
-      expect(page).to have_css(
-        ".alert",
-        text: /Your account needs approval before you can access the system/
-      )
+      expect(page).to have_text(/Your account needs approval before you can access the system/)
     end
 
     context "when the user has a complete 'profile' eg signature, professional_position etc "\
@@ -102,9 +99,8 @@ module Renalware
       click_on "Log in"
 
       expect(page).to have_current_path(new_user_session_path)
-      expect(page).to have_css(
-        ".alert",
-        text: /Your account has expired due to inactivity\. Please contact the site administrator/
+      expect(page).to have_text(
+        /Your account has expired due to inactivity\. Please contact the site administrator/
       )
     end
 
