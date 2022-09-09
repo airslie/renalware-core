@@ -5,6 +5,8 @@ require_dependency "renalware/hd"
 module Renalware
   module HD
     class MDMPatientsController < Renalware::MDMPatientsController
+      include Concerns::PatientVisibility
+
       def index
         render_index(
           filter_form: filter_form,
@@ -20,6 +22,7 @@ module Renalware
       def query
         @query ||= begin
           MDMPatientsQuery.new(
+            relation: patient_scope(HD::Patient),
             params: filter_form.ransacked_parameters.merge(query_params).with_indifferent_access,
             named_filter: named_filter
           )
