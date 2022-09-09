@@ -19,6 +19,8 @@ module Renalware
 
       def call
         search.result.for_patient(patient)
+                     .includes(:patient)
+                     .eager_load(:patient)
                      .includes(:event_type)
                      .eager_load(:event_type)
                      .includes(:created_by)
