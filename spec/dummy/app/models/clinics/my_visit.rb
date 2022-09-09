@@ -11,7 +11,11 @@ module Clinics
     end
 
     def to_form_partial_path
-      "/clinics/my_visit/visit_specific_form_fields"
+      "/clinics/my_visits/visit_specific_form_fields"
+    end
+
+    def superclass_to_partial_path
+      becomes(Renalware::Clinics::ClinicVisit).to_partial_path
     end
 
     class Document < MyBaseDocument
