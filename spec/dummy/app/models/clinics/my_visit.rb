@@ -14,13 +14,16 @@ module Clinics
       "/clinics/my_visits/visit_specific_form_fields"
     end
 
+    def to_toggled_row_partial_path
+      "/clinics/my_visits/toggled_row"
+    end
+
     def superclass_to_partial_path
       becomes(Renalware::Clinics::ClinicVisit).to_partial_path
     end
 
     class Document < MyBaseDocument
       attribute :visit_number, Integer
-      attribute :cuff_size, ::Document::Enum
       attribute :physical_activity, ::Document::Enum
 
       validates :visit_number,

@@ -10,6 +10,10 @@
     ' and demonstrate how a visit can be extended with custom fields which are stored in the 
     ' stored clinic_visits.document
 
+
+= f.fields_for(:document, document) do |fdoc|
+  = fdoc.input :visit_number, wrapper: :horizontal_small
+
 article
   header
     h2 Activity

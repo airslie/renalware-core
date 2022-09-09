@@ -79,6 +79,10 @@ module Renalware
         "/renalware/clinics/clinic_visits/visit_specific_form_fields"
       end
 
+      def to_toggled_row_partial_path
+        "/renalware/clinics/clinic_visits/toggled_row"
+      end
+
       private
 
       # The originating appointment from which the VC was generated - created e.g. by HL7 A05

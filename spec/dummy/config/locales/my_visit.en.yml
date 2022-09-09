@@ -1,10 +1,6 @@
 en:
   enumerize:
     clinics/my_visit/document:
-      cuff_size:
-        1_small: Small
-        2_medium: Medium
-        3_large: Large
       physical_activity:
         1_gt_3_times_a_wk: ">3 times a week"
         2_twice_a_week: "Twice a week"

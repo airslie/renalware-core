@@ -54,7 +54,7 @@ module Renalware
                       notice: success_msg_for("clinic visit")
         else
           flash.now[:error] = failed_msg_for("clinic visit")
-          render_edit(visit)
+          render_edit(clinic_visit)
         end
       end
 

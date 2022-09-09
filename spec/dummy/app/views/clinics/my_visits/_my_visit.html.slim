@@ -7,23 +7,17 @@
   article
     header
       h2 My Visit
-  
-    dl.dl-horizontal
-      dt= attr_name(clinic_visit.document, :visit_number)
-      dd= clinic_visit.document.visit_number&.text
-      dt= attr_name(clinic_visit.document, :cuff_size)
-      dd= clinic_visit.document.cuff_size&.text
-      dt= attr_name(clinic_visit.document, :physical_activity)
-      dd= clinic_visit.document.physical_activity&.text
+    
+    = definition_list_for(clinic_visit.document, size: :large) do |list|
+      = list.definition(:visit_number)
+      = list.definition(:physical_activity) { |value| value&.text }
       
     h3 = attr_name(clinic_visit.document, :smoking)
-    dl.dl-horizontal
-      dt= attr_name(clinic_visit.document.smoking, :history)
-      dd= clinic_visit.document.smoking.history&.text
-      dt= attr_name(clinic_visit.document.smoking, :number)
-      dd= clinic_visit.document.smoking.number
-      dt= attr_name(clinic_visit.document.smoking, :ecigarettes)
-      dd= clinic_visit.document.smoking.ecigarettes&.text
-      
+
+    = definition_list_for(clinic_visit.document.smoking, size: :large) do |list|
+      = list.definition(:history){ |value| value&.text }
+      = list.definition(:number)
+      = list.definition(:ecigarettes){ |value| value&.text }
+
 / Render the common superclass clinic visit fields
 = render(partial: event.superclass_to_partial_path, locals:{ event: clinic_visit }) 
