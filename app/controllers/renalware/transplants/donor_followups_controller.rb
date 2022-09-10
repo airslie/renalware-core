@@ -10,9 +10,9 @@ module Renalware
 
       def show
         authorize operation.followup
-        render locals: { 
-          patient: transplants_patient, 
-          donor_followup: operation.followup 
+        render locals: {
+          patient: transplants_patient,
+          donor_followup: operation.followup
         }
       end
 

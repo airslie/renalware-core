@@ -44,9 +44,9 @@ module Renalware
       @clinic_visits_having_measurements ||= begin
         Clinics::ClinicVisit
           .for_patient(patient)
-          .where("height is not null "\
-                 "or weight is not null "\
-                 "or systolic_bp is not null "\
+          .where("height is not null " \
+                 "or weight is not null " \
+                 "or systolic_bp is not null " \
                  "or diastolic_bp is not null")
           .ordered
           .limit(limit)

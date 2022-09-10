@@ -87,7 +87,7 @@ describe "API request for a single patient JSON document", type: :system do
 
   describe "GET JSON #index" do
     context "when last_patient_id is not passed" do
-      it "renders an empty list of patients because we only support requests with a "\
+      it "renders an empty list of patients because we only support requests with a " \
          "last_patient_id param" do
         visit api_v1_patients_path(
           username: user.username,

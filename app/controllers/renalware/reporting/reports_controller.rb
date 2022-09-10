@@ -21,9 +21,9 @@ module Renalware
 
       def index
         authorize Audit, :index?
-        render locals: { 
-          reports: reports_search.result, 
-          search: reports_search 
+        render locals: {
+          reports: reports_search.result,
+          search: reports_search
         }
       end
 
@@ -76,7 +76,7 @@ module Renalware
       # E.g. "My Report - 24-Aug-2022 16-34.csv"
       def csv_filename_for(view)
         unsanitized_filename = "#{(current_view.title || current_view.view_name)} - #{I18n.l(Time.zone.now)}.csv"
-        ActiveStorage::Filename.new(unsanitized_filename).sanitized 
+        ActiveStorage::Filename.new(unsanitized_filename).sanitized
       end
 
       def view_name

@@ -17,7 +17,7 @@ module Renalware
           result = ClinicVisit
                     .most_recent_for_patient(patient)
                     .where.not(weight: nil)
-                    .pluck(:date, :weight).first || []
+                    .pick(:date, :weight) || []
 
           Observation.new(result.first, result.last)
         end
@@ -29,7 +29,7 @@ module Renalware
           result = ClinicVisit
                     .most_recent_for_patient(patient)
                     .where.not(height: nil)
-                    .pluck(:date, :height).first || []
+                    .pick(:date, :height) || []
 
           Observation.new(result.first, result.last)
         end
@@ -41,7 +41,7 @@ module Renalware
           result = ClinicVisit
                     .most_recent_for_patient(patient)
                     .where("systolic_bp is not null and diastolic_bp is not null")
-                    .pluck(:date, :systolic_bp, :diastolic_bp).first || [nil, nil, nil]
+                    .pick(:date, :systolic_bp, :diastolic_bp) || [nil, nil, nil]
 
           Observation.new(result[0], [result[1], result[2]])
         end

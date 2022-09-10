@@ -15,7 +15,7 @@ module Renalware
       end
 
       def new
-        donation = Donation.new 
+        donation = Donation.new
         authorize donation
         render_new(donation)
       end
@@ -54,10 +54,10 @@ module Renalware
       private
 
       def find_and_authorise_donation
-        Donation  
+        Donation
           .for_patient(transplants_patient)
           .find(params[:id])
-          .tap { | donation | authorize donation }
+          .tap { |donation| authorize donation }
       end
 
       def render_new(donation)

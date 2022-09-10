@@ -9,7 +9,7 @@ describe "HL7 message handling end to end" do
 
   context "when we have an incoming HL7 msg wth > 1 OBR segment, via delayed_job" do
     let(:raw_message) do
-      <<-RAW.strip_heredoc
+      <<~RAW
         MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
         PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
         PV1||Inpatient|NIBC^^^^^^^^|||||MID^KINGS MIDWIVES||||||||||NHS|HXF888888^^^Visit Number|||||||||
@@ -110,7 +110,7 @@ describe "HL7 message handling end to end" do
 
   context "when the HL7 message is not specific to a patient eg MFN^M02" do
     let(:raw_message) do
-      <<-RAW.strip_heredoc
+      <<~RAW
         MSH|^~\&|ADT|iSOFT Engine|eGate|Kings|20191030155640||MFN^M02|1861609776|P|2.3|||AL|AL
         MFI|STF|PIMS|UPD|20191030155640|20191030155640|NE
         MFE|MAD|1861609776|20191030155640|193814
@@ -132,7 +132,7 @@ describe "HL7 message handling end to end" do
 
   context "when OBX.14 observation date is missing" do
     let(:raw_message) do
-      <<-RAW.strip_heredoc
+      <<~RAW
         MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
         PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
         OBR|1|PLACER_ORDER_NO_1^PCS|FILLER_ORDER_NO_1^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200901010101||HM|F||||||||||||||||||
@@ -153,7 +153,7 @@ describe "HL7 message handling end to end" do
 
   context "when OBX.14 and OBR.7 dates is missing" do
     let(:raw_message) do
-      <<-RAW.strip_heredoc
+      <<~RAW
         MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
         PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
         OBR|1|PLACER_ORDER_NO_1^PCS|FILLER_ORDER_NO_1^LA|FBC^FULL BLOOD COUNT^MB||200911111841||||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||||HM|F||||||||||||||||||
@@ -175,7 +175,7 @@ describe "HL7 message handling end to end" do
 
   context "when OBX value is missing" do
     let(:raw_message) do
-      <<-RAW.strip_heredoc
+      <<~RAW
         MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
         PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
         OBR|1|PLACER_ORDER_NO_1^PCS|FILLER_ORDER_NO_1^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
@@ -202,7 +202,7 @@ describe "HL7 message handling end to end" do
 
   context "when all OBX values are missing" do
     let(:raw_message) do
-      <<-RAW.strip_heredoc
+      <<~RAW
         MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
         PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
         OBR|4||BAS-21B20218246|FCS^FULL CLOTTING SCREEN^WinPath||202111300827|202111300605|||||||202111300827|B&Blood|CINS^Insufficient clinician details||||||202111300841||BLS|A
@@ -228,7 +228,7 @@ describe "HL7 message handling end to end" do
   end
 
   def simple_raw_message_w_sodium(unit: "mmol/L")
-    <<-RAW.strip_heredoc
+    <<~RAW
     MSH|^~\&|BLB|LIVE|SCM||1111111||ORU^R01|1111111|P|2.3.1|||AL
     PID|||V1111111^^^PAS Number||SSS^SS^^^Mr||1111111|M|||s^s^^^x
     PV1||Inpatient|DMU|||||xxx^xx, xxxx||||||||||NHS|V1111111^^^Visit Number
@@ -249,7 +249,7 @@ describe "HL7 message handling end to end" do
     )
   end
 
-  context "when an observation_description has no measurement_unit but the new HL7 message "\
+  context "when an observation_description has no measurement_unit but the new HL7 message " \
           "specifies one" do
     it "creates a measurement_unit (if neccessary) and assigns it to the description" do
       create(:patient, local_patient_id: "V1111111")

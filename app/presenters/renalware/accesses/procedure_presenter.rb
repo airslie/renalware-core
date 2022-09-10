@@ -7,9 +7,9 @@ module Renalware
     # - not sure how successful as requires adding 2 lines plus a :to_param workaround
     class ProcedurePresenter
       pattr_initialize :procedure
-      
-      # to_param delegation explicitly required here, presumably because the caller checks if the 
-      # receiver responds_to :to_param - and in the case of our use of delegate_missing_to, 
+
+      # to_param delegation explicitly required here, presumably because the caller checks if the
+      # receiver responds_to :to_param - and in the case of our use of delegate_missing_to,
       # it doesn't, so we need to tell it to.
       delegate :to_param, to: :procedure
       class << self

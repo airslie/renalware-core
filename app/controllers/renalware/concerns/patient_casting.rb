@@ -10,7 +10,7 @@ module Renalware
       included do
         # Create a method in the controller to cast the patient to its ActiveType version
         # if there is one eg if we are in the HD module and there is an HD::Patient class
-        # defined then create a memoised getter 
+        # defined then create a memoised getter
         # equivalent to:
         #   def hd_patient
         #     @hd_patient ||= HD.cast_patient(patient)
@@ -22,9 +22,9 @@ module Renalware
           method_name = :"#{module_name.underscore}_patient"  # e.g. hd_patient
           var_name = "@#{method_name}"                      # e.g. @hd_patient
 
-          define_method(method_name) do 
+          define_method(method_name) do
             return instance_variable_get(var_name) if instance_variable_defined?(var_name)
-            
+
             namespace_name.constantize.cast_patient(patient).tap do |_patient|
               instance_variable_set var_name, _patient
             end

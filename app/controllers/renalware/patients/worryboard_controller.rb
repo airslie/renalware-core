@@ -11,8 +11,8 @@ module Renalware
       def show
         authorize Worry, :index?
         query = WorryQuery.new(
-          query_params: query_params, 
-          patient_scope: patient_scope 
+          query_params: query_params,
+          patient_scope: patient_scope
         )
         worries = query.call.page(page).per(per_page)
         render locals: {

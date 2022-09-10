@@ -413,7 +413,7 @@ module World
         click_on "Mark as printed"
       end
 
-      def view_letters(q: nil, user:)
+      def view_letters(user:, q: nil)
         login_as user
         visit letters_list_path(q: q)
       end

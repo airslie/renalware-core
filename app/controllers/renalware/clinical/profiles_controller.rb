@@ -8,7 +8,7 @@ module Renalware
     class ProfilesController < BaseController
       include Renalware::Concerns::PatientVisibility
       include Renalware::Concerns::PatientCasting
-      
+
       def show
         authorize clinical_patient
         render locals: {

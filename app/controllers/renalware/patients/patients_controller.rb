@@ -66,7 +66,7 @@ module Renalware
         render locals: { patient: patient }
       end
 
-      # This differs from the base controller implementation becuase we are looking 
+      # This differs from the base controller implementation becuase we are looking
       # up by id not patient_id
       def patient
         @patient ||= begin

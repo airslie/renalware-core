@@ -79,12 +79,12 @@ module Renalware
       end
 
       def self.created_between(from:, to:)
-        where("medication_prescriptions.created_at >= ? and "\
+        where("medication_prescriptions.created_at >= ? and " \
               "medication_prescriptions.created_at <= ?", from, to)
       end
 
       def self.prescribed_between(from:, to:)
-        where("medication_prescriptions.prescribed_on >= ? and "\
+        where("medication_prescriptions.prescribed_on >= ? and " \
               "medication_prescriptions.prescribed_on <= ?", from, to)
       end
 

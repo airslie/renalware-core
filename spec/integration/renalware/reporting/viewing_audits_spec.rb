@@ -38,7 +38,7 @@ describe "Viewing audits", type: :system, js: true do
   def create_an_example_materialized_view
     view_name = "reporting_#{Time.zone.now.to_i}"
     ActiveRecord::Base.connection.execute(
-      "CREATE MATERIALIZED VIEW #{view_name} AS "\
+      "CREATE MATERIALIZED VIEW #{view_name} AS " \
       "SELECT 'aaa'::text as col1, 'bbb'::text as col2 WITH DATA;"
     )
     view_name

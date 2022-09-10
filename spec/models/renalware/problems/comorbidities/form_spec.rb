@@ -21,7 +21,7 @@ module Renalware::Problems
     end
 
     describe "#comorbidities" do
-      it "returns an array of possible comorbs, one for each description in the database, "\
+      it "returns an array of possible comorbs, one for each description in the database, " \
          "using either the stored record if found or a new one if none exists" do
         # Create 2 descriptions
         # Create an existing comorb for desc1

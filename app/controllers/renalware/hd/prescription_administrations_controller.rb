@@ -64,8 +64,8 @@ module Renalware
         )
       end
 
-      # Becuase for actions other than index we have no params[:patient_id] (secure_id guid) in 
-      # the url, here we set @patient (normally set in BaseController) based on the 
+      # Becuase for actions other than index we have no params[:patient_id] (secure_id guid) in
+      # the url, here we set @patient (normally set in BaseController) based on the
       # prescription.patient_id. We need @patient set before calling hd_patient which is defined
       # dynamically in the PatientCasting concern (and will memoise on first call).
       def find_and_load_patient_from_prescrption

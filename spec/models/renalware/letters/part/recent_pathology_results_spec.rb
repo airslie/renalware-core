@@ -77,17 +77,17 @@ module Renalware::Letters
         end
 
         # See comments in letters/part/recent_pathology_results.rb for an understanding here.
-        it "returns a string of observations grouped by OBR date "\
+        it "returns a string of observations grouped by OBR date " \
            "and ordered correctly" do
           create_all_letter_observation_descriptions
 
           expect(results).to eq(
-            "<span>12-Dec-2016</span>: HGB 122, WBC 15.32, PLT 329; "\
-            "<span>12-Dec-2016</span>: URE 2.52; <span>11-Nov-2017</span>: CRE 782, (EGFR 782); "\
+            "<span>12-Dec-2016</span>: HGB 122, WBC 15.32, PLT 329; " \
+            "<span>12-Dec-2016</span>: URE 2.52; <span>11-Nov-2017</span>: CRE 782, (EGFR 782); " \
             "<span>11-Nov-2017</span>: NA 134, POT 6.0; <span>12-Dec-2016</span>: BIC 2.52; " \
-            "<span>11-Oct-2017</span>: CCA 2.29, PHOS 2.52; "\
-            "<span>12-Dec-2016</span>: PTHI 2.52; <span>11-Oct-2017</span>: ALB 41; "\
-            "<span>12-Dec-2017</span>: BIL 2.52, AST 2.52, ALP 2.52, GGT 2.52; "\
+            "<span>11-Oct-2017</span>: CCA 2.29, PHOS 2.52; " \
+            "<span>12-Dec-2016</span>: PTHI 2.52; <span>11-Oct-2017</span>: ALB 41; " \
+            "<span>12-Dec-2017</span>: BIL 2.52, AST 2.52, ALP 2.52, GGT 2.52; " \
             "<span>12-Dec-2016</span>: HBA 2.52; <span>12-Dec-2016</span>: CHOL 2.52;"
           )
         end

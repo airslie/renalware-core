@@ -19,8 +19,8 @@ describe "Rendering a letter for printing in an envelope stuffer", type: :reques
 
       expect(response).to be_successful
       expect(response["Content-Type"]).to eq("application/pdf")
-      filename = "#{letter.patient.family_name.upcase}-"\
-                 "#{letter.patient.local_patient_id.upcase}-"\
+      filename = "#{letter.patient.family_name.upcase}-" \
+                 "#{letter.patient.local_patient_id.upcase}-" \
                  "#{letter.id}-APPROVED.pdf"
       expect(response["Content-Disposition"]).to include("inline")
       expect(response["Content-Disposition"]).to include(filename)

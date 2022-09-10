@@ -211,7 +211,7 @@ module Renalware
             "HOSP1, HOSP2, HOSP3, HOSP4, HOSP5, Other Hospital Number"
         }
         let(:error_message2) {
-          "The patient must have at least one of these numbers: NHS, HOSP1, HOSP2, HOSP3, "\
+          "The patient must have at least one of these numbers: NHS, HOSP1, HOSP2, HOSP3, " \
             "HOSP4, HOSP5, Other Hospital Number"
         }
 

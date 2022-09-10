@@ -7,7 +7,7 @@ module Renalware
     class DashboardsController < BaseController
       include Renalware::Concerns::PatientVisibility
       include Renalware::Concerns::PatientCasting
-      
+
       def show
         virology_patient
         authorize [:renalware, :virology, :dashboard], :show?

@@ -7,7 +7,7 @@ module Renalware
     class AllergiesController < BaseController
       include Renalware::Concerns::PatientCasting
       include Renalware::Concerns::PatientVisibility
-      
+
       def create
         result = CreateAllergy.new(clinical_patient, current_user).call(allergy_params) do |allergy|
           authorize allergy

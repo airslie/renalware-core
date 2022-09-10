@@ -33,7 +33,7 @@ module Renalware
       expect(page).to have_text(/Your account needs approval before you can access the system/)
     end
 
-    context "when the user has a complete 'profile' eg signature, professional_position etc "\
+    context "when the user has a complete 'profile' eg signature, professional_position etc " \
             "meaning user.valid? is true" do
       let(:user) { create(:user, :clinical) } # will be valid? once created
 
@@ -57,7 +57,7 @@ module Renalware
       end
     end
 
-    context "when the user has an incomplete 'profile' eg signature, professional_position etc "\
+    context "when the user has an incomplete 'profile' eg signature, professional_position etc " \
             "meaning user.valid? is false" do
       let(:user) { create(:user, :clinical, signature: nil) } # will not be valid? once created
 

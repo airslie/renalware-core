@@ -233,8 +233,8 @@ module Renalware
         if hospital_identifiers.all.empty? && external_patient_id.blank?
           errors.add(
             :base,
-            "The patient must have at least one of these numbers: "\
-            "#{Renalware.config.patient_hospital_identifiers.keys.join(', ')}, "\
+            "The patient must have at least one of these numbers: " \
+            "#{Renalware.config.patient_hospital_identifiers.keys.join(', ')}, " \
             "Other Hospital Number"
           )
         end
@@ -243,8 +243,8 @@ module Renalware
         if nhs_number.blank? && hospital_identifiers.all.empty? && external_patient_id.blank?
           errors.add(
             :base,
-            "The patient must have at least one of these numbers: NHS, "\
-            "#{Renalware.config.patient_hospital_identifiers.keys.join(', ')}, "\
+            "The patient must have at least one of these numbers: NHS, " \
+            "#{Renalware.config.patient_hospital_identifiers.keys.join(', ')}, " \
             "Other Hospital Number"
           )
         end

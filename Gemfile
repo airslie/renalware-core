@@ -26,10 +26,10 @@ gem "renalware-forms"
 gem "ruby-prof", require: false
 gem "uglifier", "~> 4.2"
 # Re wkhtmltopdf binary for letter generation
-# a host app could include the wkhtmltopdf-binary gem, or use the apt package. 
+# a host app could include the wkhtmltopdf-binary gem, or use the apt package.
 # Bear in mind the gem contains several platform-specific binaries so is pretty large,
 # so in a docker image the apt package is a better choice
-gem "wkhtmltopdf-binary", "0.12.3.1" 
+gem "wkhtmltopdf-binary", "0.12.3.1"
 gem "httparty", require: false
 gem "tailwindcss-rails", "~> 2.0.8"
 # For sentry error reporting and metrics
