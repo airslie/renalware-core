@@ -95,7 +95,7 @@ Gem::Specification.new do |s|
   s.add_dependency "view_component", "~> 2.19"
   s.add_dependency "virtus", "~> 1.0.5"
   s.add_dependency "whenever" # For managing/deploying cron jobs see config/schedule.rb
-  s.add_dependency "wicked_pdf", "~> 2.6"
+  s.add_dependency "wicked_pdf", "~> 2.1.0"
   s.add_dependency "wisper", "~> 2.0.0"
   s.add_dependency "wisper-activejob", "~> 1.0.0"
   s.add_dependency "yard", ">= 0.9.20"
