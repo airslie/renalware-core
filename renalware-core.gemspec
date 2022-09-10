@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   ]
 
   s.add_dependency "activerecord-import", "~> 1.0"
-  s.add_dependency "activerecord-postgres_enum", "~> 1.6.0"
+  s.add_dependency "activerecord-postgres_enum", "~> 2.0"
   s.add_dependency "active_type", "~> 0.7.1"
   s.add_dependency "ahoy_matey", "~> 2.1"
   s.add_dependency "attr_extras", "~> 6.2"
@@ -67,7 +67,7 @@ Gem::Specification.new do |s|
   s.add_dependency "nested_form", "~> 0.3.2"
   s.add_dependency "nokogiri", "~> 1.9"
   s.add_dependency "ox", "~> 2.13"
-  s.add_dependency "pagy", "~> 4.8"
+  s.add_dependency "pagy", "~> 5.10"
   s.add_dependency "pandoc-ruby", "~> 2.1.4"
   s.add_dependency "paper_trail"
   s.add_dependency "paranoia", "~> 2.6.0"
@@ -79,7 +79,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rack", "~> 2.0"
   s.add_dependency "rack-attack", "~> 6.5"
   s.add_dependency "rails", "> 5.2", "< 6.2"
-  s.add_dependency "ransack", "~> 2.4.0"
+  s.add_dependency "ransack", "~> 3.1.0"
   s.add_dependency "record_tag_helper", "~> 1.0.0"
   s.add_dependency "renalware-forms", ">= 0.1.5"
   s.add_dependency "ruby-hl7", "~> 1.2.0"
