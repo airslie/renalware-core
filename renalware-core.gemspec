@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   ]
 
   s.add_dependency "activerecord-import", "~> 1.0"
-  s.add_dependency "activerecord-postgres_enum", "~> 1.6.0"
+  s.add_dependency "activerecord-postgres_enum", "~> 2.0"
   s.add_dependency "active_type", "~> 0.7.1"
   s.add_dependency "ahoy_matey", "~> 2.1"
   s.add_dependency "attr_extras", "~> 6.2"
@@ -67,7 +67,7 @@ Gem::Specification.new do |s|
   s.add_dependency "nested_form", "~> 0.3.2"
   s.add_dependency "nokogiri", "~> 1.9"
   s.add_dependency "ox", "~> 2.13"
-  s.add_dependency "pagy", "~> 4.8"
+  s.add_dependency "pagy", "~> 5.10"
   s.add_dependency "pandoc-ruby", "~> 2.1.4"
   s.add_dependency "paper_trail"
   s.add_dependency "paranoia", "~> 2.6.0"
@@ -95,7 +95,7 @@ Gem::Specification.new do |s|
   s.add_dependency "view_component", "~> 2.19"
   s.add_dependency "virtus", "~> 1.0.5"
   s.add_dependency "whenever" # For managing/deploying cron jobs see config/schedule.rb
-  s.add_dependency "wicked_pdf", "~> 2.1.0"
+  s.add_dependency "wicked_pdf", "~> 2.6"
   s.add_dependency "wisper", "~> 2.0.0"
   s.add_dependency "wisper-activejob", "~> 1.0.0"
   s.add_dependency "yard", ">= 0.9.20"
