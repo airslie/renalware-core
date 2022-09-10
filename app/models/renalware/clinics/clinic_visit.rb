@@ -6,12 +6,17 @@ require_dependency "renalware/clinics"
 module Renalware
   module Clinics
     class ClinicVisit < ApplicationRecord
-      include Document::Base
-      self.table_name = :clinic_visits
-      has_paper_trail class_name: "Renalware::Clinics::Version", on: [:create, :update, :destroy]
       include Accountable
       include PatientScope
       extend Enumerize
+      include Document::Base
+
+      self.table_name = :clinic_visits
+      
+      has_paper_trail(
+        versions: { class_name: "Renalware::Clinics::Version" }, 
+        on: [:create, :update, :destroy]
+      )
 
       belongs_to :patient, touch: true
       belongs_to :clinic, -> { with_deleted }, counter_cache: true
