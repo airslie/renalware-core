@@ -23,13 +23,13 @@ describe "Importing an ADT A31 'Update patient information' HL7 message" do
   end
   let(:raw_message) do
     msh = "MSH|^~\&|ADT|iSOFT Engine|eGate|Kings|20150122154918||ADT^A31|897847653|P|2.3"
-    pid = "PID||#{patient_data.nhs_number}^^^NHS|#{patient_data.hospital_number}^^^PAS||"\
-          "#{patient_data.family_name}^#{patient_data.given_name}^^^#{patient_data.title}||"\
-          "#{patient_data.born_on&.strftime('%Y%m%d')}|#{patient_data.sex}|||"\
-          "address1^address2^address3^address4^postcode^other^HOME|||||||||||"\
-          "#{patient_data.ethnicity.rr18_code || 'A'}|||||||"\
+    pid = "PID||#{patient_data.nhs_number}^^^NHS|#{patient_data.hospital_number}^^^PAS||" \
+          "#{patient_data.family_name}^#{patient_data.given_name}^^^#{patient_data.title}||" \
+          "#{patient_data.born_on&.strftime('%Y%m%d')}|#{patient_data.sex}|||" \
+          "address1^address2^address3^address4^postcode^other^HOME|||||||||||" \
+          "#{patient_data.ethnicity.rr18_code || 'A'}|||||||" \
           "#{patient_data.died_on&.strftime('%Y%m%d')}|"
-    pd1 = "PD1|||DR X, X Surgery, X Road^GPPRC^"\
+    pd1 = "PD1|||DR X, X Surgery, X Road^GPPRC^" \
           "#{patient_data.practice_code}|#{patient_data.gp_code}^Deeley^DP^^^DR"
     [msh, pid, pd1].join("\n")
   end

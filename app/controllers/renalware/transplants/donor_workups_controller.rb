@@ -7,7 +7,7 @@ module Renalware
     class DonorWorkupsController < BaseController
       include Renalware::Concerns::PatientCasting
       include Renalware::Concerns::PatientVisibility
-      
+
       def show
         workup = find_and_authorize_workup
         if workup.new_record?

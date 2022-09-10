@@ -7,7 +7,7 @@ module Renalware
     class RequiredObservationsController < BaseController
       include Renalware::Concerns::PatientVisibility
       include Renalware::Concerns::PatientCasting
-    
+
       def index
         authorize pathology_patient
         request_params = Requests::RequestParamsFactory.new(raw_request_params).build

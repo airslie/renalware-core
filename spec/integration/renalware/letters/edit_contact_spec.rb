@@ -6,7 +6,7 @@ describe "Managing an existing letter contact", type: :system, js: true do
   include AjaxHelpers
 
   context "with valid parameters" do
-    it "A user changes an existing patient's contact to for example remove their default cc "\
+    it "A user changes an existing patient's contact to for example remove their default cc " \
        "or change their description", js: true do
       user = @current_user
       patient = create(:letter_patient)

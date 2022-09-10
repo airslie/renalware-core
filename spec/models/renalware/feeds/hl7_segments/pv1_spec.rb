@@ -7,7 +7,7 @@ module Renalware::Feeds::HL7Segments
     subject(:pv1) { Renalware::Feeds::MessageParser.parse(raw_message).pv1 }
 
     let(:raw_message) do
-      <<-RAW.strip_heredoc
+      <<~RAW
       PV1||O|Clinic1^Name^Desc^RQ8|||||G123456^ROBINSON^BA^^^DR^^^^^^^NATGP|GMC123123^Smith^Francis^^^MR^^^^^^^SDSID|300|||||||||VisitNumber123|||||||||||||||||||||||||||||||||
       RAW
     end

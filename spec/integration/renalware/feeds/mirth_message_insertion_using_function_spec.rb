@@ -6,7 +6,7 @@ describe "Simulation of Mirth inserting an HL7 message using our helper function
   include DatabaseFunctionsSpecHelper
 
   let(:hl7_with_uom_caret_encoded_as_slash_s_slash) do
-    <<-RAW.strip_heredoc
+    <<~RAW
      MSH| the folowing OBX line is required in this test
      OBX|1|TX|WBC^WBC^MB||6.09|10\\S\\12/L|||||F|||200911112026||BBKA^Donald DUCK|
     RAW

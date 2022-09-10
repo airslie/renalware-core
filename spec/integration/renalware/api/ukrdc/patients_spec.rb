@@ -135,10 +135,10 @@ describe "API request for a single UKRDC patient XML document", type: :request d
       xml = response.body
       expect(xml).to match("<Document>")
       expect(xml).to match(
-        "<FileName>"\
-        "#{patient.family_name.upcase}-"\
-        "#{patient.local_patient_id}-"\
-        "#{letter.id}.pdf"\
+        "<FileName>" \
+        "#{patient.family_name.upcase}-" \
+        "#{patient.local_patient_id}-" \
+        "#{letter.id}.pdf" \
         "</FileName>"
       )
       expect(xml).to match("<FileType>application/pdf</FileType>")

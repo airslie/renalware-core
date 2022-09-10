@@ -11,8 +11,7 @@ module Renalware
           .for_patient(__getobj__)
           .order(performed_on: :desc)
           .limit(1)
-          .pluck(:performed_on)
-          .first
+          .pick(:performed_on)
       end
     end
   end

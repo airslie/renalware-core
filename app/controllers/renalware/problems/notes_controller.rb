@@ -4,7 +4,7 @@ module Renalware
   module Problems
     class NotesController < BaseController
       include Renalware::Concerns::PatientVisibility
-      
+
       def index
         render_index
       end

@@ -41,7 +41,7 @@ module Renalware
         end
       end
     end
-    
+
     def nhs_client
       @nhs_client ||= ::NHSClient.new
     end
@@ -52,7 +52,7 @@ module Renalware
       @patient_search ||= Patients::PatientSearch.call(params, patient_scope)
     end
 
-    # Will be overriden if a controller includes PatientVisiblity 
+    # Will be overriden if a controller includes PatientVisiblity
     def patient_scope(default_scope = Renalware::Patient)
       default_scope
     end

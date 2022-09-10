@@ -99,7 +99,7 @@ module Renalware
           .where(practice_id: practice_id)
           .where("#{PrimaryCarePhysician.table_name}.deleted_at is NULL")
           .order(
-            "#{PracticeMembership.table_name}.left_on desc,"\
+            "#{PracticeMembership.table_name}.left_on desc," \
             "#{PrimaryCarePhysician.table_name}.name asc"
           )
       end

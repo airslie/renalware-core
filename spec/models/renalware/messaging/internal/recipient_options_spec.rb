@@ -93,8 +93,8 @@ module Renalware::Messaging::Internal
       end
       # rubocop:enable RSpec/MultipleExpectations
 
-      context "when a user as become unapproved, expired or inactive then they should "\
-              "not appear in recipient options, even if they are a previous recipient for "\
+      context "when a user as become unapproved, expired or inactive then they should " \
+              "not appear in recipient options, even if they are a previous recipient for " \
               "messages about the current patient or from the current author" do
         it "returns a hash of 3 recipient groups with expired/unapproved/inactive users removed" do
           # Unapproved our users so they are excluded from returned results

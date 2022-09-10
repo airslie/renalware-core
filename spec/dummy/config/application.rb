@@ -14,7 +14,7 @@ module Dummy
     config.autoloader = :classic
     # config.autoloader = :zeitwerk
     # config.load_defaults Rails::VERSION::STRING.to_f
-  
+
     config.good_job.execution_mode = :external # :async = executes jobs in separate threads within the Rails web server process
     config.good_job.poll_interval = 30 # number of seconds between polls for jobs when execution_mode is set to :async
 

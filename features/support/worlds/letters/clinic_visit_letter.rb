@@ -80,7 +80,7 @@ module World
         draft_letter(patient, letter_attributes)
       end
 
-      def revise_clinic_visit_letter(patient: nil, user:)
+      def revise_clinic_visit_letter(user:, patient: nil)
         patient = letters_patient(patient)
         visit = clinic_visit_for(patient)
         letter = clinic_visit_letter_for(visit)

@@ -15,7 +15,7 @@ module Renalware
           .with_bags
           .ordered
           .page(page).per(per_page)
-        
+
         authorize regimes
 
         render locals: {

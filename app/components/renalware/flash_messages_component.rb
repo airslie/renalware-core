@@ -13,7 +13,7 @@ module Renalware
     def render?
       flash_messages&.any?
     end
-    
+
     def css_class_for_flash(flash_key)
       case flash_key.to_sym
       when :error

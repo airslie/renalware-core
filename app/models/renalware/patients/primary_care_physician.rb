@@ -60,9 +60,9 @@ module Renalware
 
       def current_address
         raise PrimaryCarePhysicianAddressAccessError,
-              "primary_care_physician#current_address should not be called: "\
-              "we always use the patient.practice.address when contacting the GP. "\
-              "In a sense the practice is more important that the GP, as the GP may have "\
+              "primary_care_physician#current_address should not be called: " \
+              "we always use the patient.practice.address when contacting the GP. " \
+              "In a sense the practice is more important that the GP, as the GP may have " \
               "moved on"
         # address || practice_address
       end

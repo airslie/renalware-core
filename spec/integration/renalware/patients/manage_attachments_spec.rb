@@ -27,7 +27,7 @@ describe "Manage a patient's attachments (linked files)", type: :system do
   end
 
   describe "viewing an attachment" do
-    it "clicking on the attachment name views the attachment in a new window using "\
+    it "clicking on the attachment name views the attachment in a new window using " \
        "ActiveStorage::BlobsController#show" do
       user = login_as_clinical
       attachment = create(:patient_attachment, :with_file, patient: patient, by: user)

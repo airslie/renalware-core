@@ -21,7 +21,7 @@ module Renalware
         end
 
         context "when the patient has data that would cause a validation error" do
-          it "saves anyway, skipping validations, because a bad email address for example "\
+          it "saves anyway, skipping validations, because a bad email address for example " \
              "should not prevent this action" do
             user = create(:user)
             patient = build(:patient, send_to_rpv: true, email: "invalid-email-address", by: user)

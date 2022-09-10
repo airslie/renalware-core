@@ -88,9 +88,9 @@ module Renalware
           #   .where("(patients.hospital_centre_id = ? and rs.private is not true) "\
           #   "or (ri.user_id is not null)", user.hospital_centre_id)
           user_is_based_at_host_hospital = user.hospital_centre&.host_site?
-          
+
           s = @scope.dup
-          if Renalware.config.restrict_patient_visibility_by_user_site? 
+          if Renalware.config.restrict_patient_visibility_by_user_site?
             @scope = @scope.where(
               default_where_sql,
               user.hospital_centre_id,
@@ -98,11 +98,11 @@ module Renalware
             )
           end
 
-          if Renalware.config.restrict_patient_visibility_by_research_study? 
+          if Renalware.config.restrict_patient_visibility_by_research_study?
             @scope = @scope.or(
               s.where(
                 research_participation_membership_where_sql,
-                user.hospital_centre_id   
+                user.hospital_centre_id
               )
             )
             @scope = @scope.or(
