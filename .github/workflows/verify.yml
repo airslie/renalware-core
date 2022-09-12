@@ -1,0 +1,138 @@
+name: Verify
+
+# Do not run when a tag pushed, or when merging to main
+# Do not run if updating docs
+on: 
+  push:
+    tags-ignore: 
+      - '*'
+    branches-ignore:
+      - main
+    paths-ignore:
+      - 'docs/**'
+
+env:
+  BUNDLE_GITHUB__COM: ${{ secrets.CR_PAT }}
+  RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  RAILS_ENV: test
+  PGHOST: localhost
+
+jobs:
+  linters:
+    name: Linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup node and yarn with caching
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16  
+          cache: 'yarn'
+
+      - name: Install js packages with yarn
+        run: yarn install --frozen-lockfile # optional, --immutable
+
+      - name: Asset cache
+        uses: actions/cache@v2.1.5
+        with:
+          path: |
+            spec/dummy/public/assets
+            spec/dummy/tmp/cache/assets/sprockets
+          key: asset-cache-${{ runner.os }}-${{ github.ref }}-${{ github.sha }}
+          restore-keys: |
+            asset-cache-${{ runner.os }}-${{ github.ref }}-${{ github.sha }}
+            asset-cache-${{ runner.os }}-${{ github.ref }}-
+            asset-cache-${{ runner.os }}-
+
+      - name: Assets precompile
+        run: bin/rails assets:precompile --trace
+
+      - name: Run security checks
+        run: |
+          bundle exec bundle audit --update
+
+  tests:
+    needs: linters
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        command: 
+          - bin/gh/rspec/unit
+          - bin/gh/rspec/integration
+          - bin/gh/cucumber/domain
+          - bin/gh/cucumber/web
+      
+    name: ${{ matrix.command }}
+
+    services:
+      postgres:
+        image: postgres:13.4
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup node and yarn with caching
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16  
+          cache: 'yarn'
+
+      - name: Install js packages with yarn
+        run: yarn install --frozen-lockfile # optional, --immutable
+
+      - name: Restore asset cache
+        uses: actions/cache@v2.1.5
+        with:
+          path: |
+            spec/dummy/public/assets
+            spec/dummy/tmp/cache/assets/sprockets
+          key: asset-cache-${{ runner.os }}-${{ github.ref }}-${{ github.sha }}
+
+      - name: Setup test database
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          RAILS_ENV: test
+          PGHOST: localhost
+        run: bin/rails db:create db:migrate
+
+      - name: Install dependencies
+        run: sudo apt-get install -y ghostscript pandoc
+
+      - name: Run tests
+        env:
+          PGHOST: localhost
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          RAILS_ENV: test 
+        run: ${{ matrix.command }}
