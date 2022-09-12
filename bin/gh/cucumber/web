@@ -1,0 +1,2 @@
+#!/bin/sh
+TEST_DEPTH=web bundle exec cucumber -p rake_web --format progress
