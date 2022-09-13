@@ -9,6 +9,18 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.3.0
+### Added
+- Nascent support (disabled by default) for restricting access to patients by hospital, so that, if 
+  enabled, a user at hospital X can only see patients at hospital X and not patients at hospital Y.
+  Used at BLT.
+### Changed
+- Introduced clinical study 'investigators' who are users involved in the running of a study. 
+  This to support the Heroic study at BLT where investigator users can see patients in their study 
+  even if the patient is at a different hospital to the user.
+### Fixed
+- Fix badly formatted 'Reactivate account' checkbox in admin/users form #3988 
+
 ## 2.2.13
 ### Added
 ### Changed
