@@ -1,6 +1,22 @@
 tr(class="#{'dna' if clinic_visit.did_not_attend?}")
   td.noprint= toggler("#clinic_visit-quick-preview-#{clinic_visit.id}")
   td.noprint.actions
+    / - uid = "visit-#{clinic_visit.id}-options"
+    / a.button.actions.dropdown.with-icon(href="#"
+    /                             data-dropdown=uid
+    /                             aria-controls=uid
+    /                             aria-expanded="false")
+
+    / ul.actions-dropdown.f-dropdown.f-dropdown-no-arrow(id="#{uid}" data-dropdown-content aria-hidden="true")
+    /   li= link_to_if_allowed policy(clinic_visit).edit?,
+    /                t("btn.edit"),
+    /               edit_patient_clinic_visit_path(patient, clinic_visit)
+    /   li= link_to_if_allowed policy(clinic_visit).destroy?,
+    /             t("btn.delete"),
+    /             patient_clinic_visit_path(patient, clinic_visit),
+    /             method: :delete,
+    /             data: { confirm: I18n.t("prompts.confirm_delete") }
+    
     - if policy(clinic_visit).edit?
       = link_to t("btn.edit"),
                 edit_patient_clinic_visit_path(patient, clinic_visit)
@@ -9,6 +25,7 @@ tr(class="#{'dna' if clinic_visit.did_not_attend?}")
                 patient_clinic_visit_path(patient, clinic_visit),
                 method: :delete,
                 data: { confirm: I18n.t("prompts.confirm_delete") }
+
     = link_to_clinic_visit_letter(patient, clinic_visit)
   td.date-time= l(clinic_visit.date)
   td= yes_no(clinic_visit.did_not_attend)
@@ -25,9 +42,11 @@ tr(class="#{'dna' if clinic_visit.did_not_attend?}")
   td= clinic_visit.body_surface_area
   td= clinic_visit.total_body_water
   td.created-by= clinic_visit.created_by
+  td= l(clinic_visit.effective_updated_at_date)
+  td= clinic_visit.effective_updated_by
+  
 = content_tag(:tr, id: "clinic_visit-quick-preview-#{clinic_visit.id}", style: "display: none")
-  td(colspan=15)
+  td(colspan=16)
     .quick-preview
-      = definition_list_for(clinic_visit, size: :large) do |list|
-        = list.definition(:notes){ |value| simple_format(value) }
-        = list.definition(:admin_notes){ |value| simple_format(value) }
+      = render(partial: clinic_visit.to_toggled_row_partial_path, locals: { clinic_visit: clinic_visit })
+

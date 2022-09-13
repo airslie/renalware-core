@@ -68,7 +68,8 @@ module Renalware
 
       def destroy
         load_and_authorize_event_for_edit_or_update.destroy!
-        redirect_to patient_events_path
+        flash[:notice] = "Event deleted"
+        redirect_to return_url
       end
 
       protected

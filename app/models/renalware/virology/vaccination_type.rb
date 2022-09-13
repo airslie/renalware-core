@@ -11,7 +11,7 @@ module Renalware
         def validate_each(record, attribute, value)
           return unless record.send(:"#{attribute}_changed?")
 
-          if record.class.with_deleted.exists?(attribute => value)
+          if record.class.default_scoped.with_deleted.exists?(attribute => value)
             record.errors.add attribute, (options[:message] || "already used")
           end
         end

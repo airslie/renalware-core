@@ -105,7 +105,7 @@ module Renalware
       # 'clinical letter' which is a simple letter with the added clinical parts, but which is
       # unrelated to a clinic_visit for instance.
       def letter_event
-        EVENTS_MAP.fetch(event.class).new(event, clinical: clinical?)
+        EVENTS_MAP.fetch(event.class, Event::ClinicVisit).new(event, clinical: clinical?)
       end
 
       def subject?(other_patient)

@@ -3,7 +3,6 @@
 module Renalware
   module Patients
     class DeathsController < BaseController
-      include Renalware::Concerns::PatientVisibility
       include PresenterHelper
       include Pagy::Backend
 

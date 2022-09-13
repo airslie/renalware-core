@@ -26,7 +26,7 @@ describe "Editing an investigation", type: :system, js: true do
     tx_dashboard_path = patient_transplants_recipient_dashboard_path(patient)
     edit_path = edit_patient_investigation_path(patient, investigation)
 
-    visit tx_dashboard_path
+    visit tx_dashboard_path 
 
     # On Tx Recip Dashboard, check we can see the investigation we just created
     within("article.investigations") do
@@ -49,7 +49,8 @@ describe "Editing an investigation", type: :system, js: true do
     #   expect(page).to have_selector("tbody tr", count: 1)
     #   expect(page).to have_content("edited_result")
     # end
-    expect(page).to have_current_path(patient_events_path(patient))
+    expect(page).to have_current_path(tx_dashboard_path)
+
     within("table.events-table") do
       expect(page).to have_selector("tbody tr", count: 1)
       expect(page).to have_content("edited_result")

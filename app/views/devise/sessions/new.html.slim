@@ -5,7 +5,9 @@
 / (toast) implementation from appearing when there are flash messages (see application.html.slim)
 / and later on in this file render our own instance of FlashMessagesComponent, asking it not to
 / use toast.
-= content_for(:flash_messages) {}  
+= content_for(:flash_messages) do
+  / some content so that content_for?(:flash_messages) returns true in application html
+  span.hidden
 
 .main-content
   .row.small-8.large-12

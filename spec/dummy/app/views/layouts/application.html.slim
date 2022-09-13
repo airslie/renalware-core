@@ -43,7 +43,8 @@ html lang="en"
         = render "renalware/navigation/main"
       = yield(:header)
       .flash-message
-        = yield(:flash_messages).presence || render(Renalware::FlashMessagesComponent.new(flash_messages: flash_messages, toast: true))
+        = yield(:flash_messages)
+        = render(Renalware::FlashMessagesComponent.new(flash_messages: flash_messages, toast: true)) unless content_for?(:flash_messages)
 
     main
       = yield

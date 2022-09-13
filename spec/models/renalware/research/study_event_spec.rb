@@ -31,7 +31,7 @@ module Renalware
 
     describe "class method .subtypes?" do
       it "is true" do
-        expect(described_class.subtypes?).to be(true)
+        expect(described_class.subtypes?).to eq(true)
       end
     end
   end
