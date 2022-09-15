@@ -10,6 +10,7 @@ on:
       - main
     paths-ignore:
       - 'docs/**'
+      - 'README.md'
 
 env:
   BUNDLE_GITHUB__COM: ${{ secrets.CR_PAT }}
