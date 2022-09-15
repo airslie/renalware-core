@@ -71,6 +71,11 @@ module Renalware
       delegate :primary_care_physician, to: :patient
       delegate :visit_number, :clinic_code, to: :event, allow_nil: true
 
+      EVENTS_MAP = {
+        Clinics::ClinicVisit => Event::ClinicVisit,
+        NilClass => Event::Unknown
+      }.freeze
+
       def self.policy_class
         LetterPolicy
       end
@@ -88,11 +93,6 @@ module Renalware
       def self.effective_date_sort
         Arel.sql("coalesce(completed_at, approved_at, submitted_for_approval_at, created_at)")
       end
-
-      EVENTS_MAP = {
-        Clinics::ClinicVisit => Event::ClinicVisit,
-        NilClass => Event::Unknown
-      }.freeze
 
       # A Letter Event is unrelated to Events::Event. Instead it is an un-persisted decorator
       # around the polymorphic event relationship (determined by event_class and event_id);

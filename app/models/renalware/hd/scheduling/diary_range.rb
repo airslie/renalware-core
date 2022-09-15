@@ -26,9 +26,9 @@ module Renalware
         end
 
         def log_weekly_diary_creation(period)
-          Rails.logger.debug { 
+          Rails.logger.debug {
             "DEBUG: Creating weekly diary for unit #{unit.id} period " \
-            "#{period.week_number}/#{period.year}" 
+            "#{period.week_number}/#{period.year}"
           }
         end
 

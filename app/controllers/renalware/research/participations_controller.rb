@@ -6,7 +6,7 @@ module Renalware
   module Research
     class ParticipationsController < BaseController
       include Renalware::Concerns::Pageable
-      
+
       def index
         authorize Participation, :index?
         query = ParticipationQuery.new(study: study, options: params[:q])

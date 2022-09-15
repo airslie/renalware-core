@@ -6,7 +6,7 @@ module Renalware
   module Research
     class InvestigatorshipsController < BaseController
       include Renalware::Concerns::Pageable
-      
+
       def index
         query = InvestigatorshipQuery.new(study: study, options: params[:q])
         investigatorships = query.call.page(page).per(per_page)

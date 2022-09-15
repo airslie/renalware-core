@@ -6,7 +6,7 @@ module Renalware
   module Research
     class StudiesController < BaseController
       include Renalware::Concerns::Pageable
-      
+
       def index
         query = Study.ordered.ransack(params[:q])
         studies = query.result.page(page).per(per_page)
