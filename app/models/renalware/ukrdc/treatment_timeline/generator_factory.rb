@@ -14,7 +14,7 @@ module Renalware
         def self.call(modality)
           type = modality.description.code&.to_s&.camelize
           klass = (klass_for(type) || klass_for(DEFAULT_TYPE)).new(modality)
-          Rails.logger.debug "GeneratorFactory type = #{type} class = #{klass}"
+          Rails.logger.debug { "GeneratorFactory type = #{type} class = #{klass}" }
           klass
         end
 
