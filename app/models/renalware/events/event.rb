@@ -8,6 +8,7 @@ module Renalware
     class Event < ApplicationRecord
       include Accountable
       include PatientScope
+      acts_as_paranoid
       
       has_paper_trail(
         versions: { class_name: "Renalware::Events::Version" },
