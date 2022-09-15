@@ -11,7 +11,7 @@ module Renalware
       include Document::Base
       acts_as_paranoid
       has_paper_trail(
-        versions: { class_name: "Renalware::Research::Version"}, 
+        versions: { class_name: "Renalware::Research::Version" },
         on: [:create, :update, :destroy]
       )
 

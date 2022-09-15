@@ -26,7 +26,7 @@ describe "Editing an investigation", type: :system, js: true do
     tx_dashboard_path = patient_transplants_recipient_dashboard_path(patient)
     edit_path = edit_patient_investigation_path(patient, investigation)
 
-    visit tx_dashboard_path 
+    visit tx_dashboard_path
 
     # On Tx Recip Dashboard, check we can see the investigation we just created
     within("article.investigations") do

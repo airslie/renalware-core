@@ -150,8 +150,7 @@ module Renalware
           def values
             @values ||= begin
               sessions
-                .map { |session| selector.call(session) }
-                .compact
+                .filter_map { |session| selector.call(session) }
                 .select { |val| number?(val) }
             end
           end

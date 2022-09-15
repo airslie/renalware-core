@@ -6,7 +6,7 @@ module Renalware
   module Transplants
     class MDMPatientsController < Renalware::MDMPatientsController
       include Concerns::PatientVisibility
-      
+
       def index
         render_index(
           filter_form: filter_form,

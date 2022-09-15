@@ -66,7 +66,7 @@ module Renalware
       end
 
       def create_xml_file(payload, log)
-        File.open(xml_filepath, "w") { |file| file.write(payload) }
+        File.write(xml_filepath, payload)
         log.file_path = xml_filepath
         log.sent!
       end

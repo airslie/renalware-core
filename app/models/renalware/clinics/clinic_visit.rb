@@ -12,9 +12,9 @@ module Renalware
       include Document::Base
 
       self.table_name = :clinic_visits
-      
+
       has_paper_trail(
-        versions: { class_name: "Renalware::Clinics::Version" }, 
+        versions: { class_name: "Renalware::Clinics::Version" },
         on: [:create, :update, :destroy]
       )
 
@@ -94,7 +94,7 @@ module Renalware
       def originating_appointment
         Appointment.find_by(becomes_visit_id: id)
       end
-      
+
       def datetime_from_date_and_time
         DateTime.new(date.year, date.month, date.day, time.hour, time.min, 0, time.zone)
       end
