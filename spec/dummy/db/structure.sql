@@ -1048,7 +1048,9 @@ begin
         ,document ->> 'score'
     from events e
     inner join event_types et on et.id = e.event_type_id
-    where e.patient_id  = p_id and et.slug = 'clinical_frailty_score'
+    where e.patient_id = p_id 
+      and e.deleted_at is null
+      and et.slug = 'clinical_frailty_score'
     order by e.date_time desc
     limit 1;
 
@@ -7769,7 +7771,7 @@ CREATE VIEW renalware.patient_summaries AS
  SELECT patients.id AS patient_id,
     ( SELECT count(*) AS count
            FROM renalware.events
-          WHERE (events.patient_id = patients.id)) AS events_count,
+          WHERE ((events.patient_id = patients.id) AND (events.deleted_at IS NULL))) AS events_count,
     ( SELECT count(*) AS count
            FROM renalware.clinic_visits
           WHERE (clinic_visits.patient_id = patients.id)) AS clinic_visits_count,
@@ -16662,6 +16664,20 @@ CREATE INDEX index_events_on_patient_id ON renalware.events USING btree (patient
 
 
 --
+-- Name: index_events_on_patient_id_not_deleted; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_events_on_patient_id_not_deleted ON renalware.events USING btree (patient_id, deleted_at) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: INDEX index_events_on_patient_id_not_deleted; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON INDEX renalware.index_events_on_patient_id_not_deleted IS 'conditional index to help count()ing a patient''s undeleted events';
+
+
+--
 -- Name: index_events_on_subtype_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -24733,6 +24749,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220606105217'),
 ('20220812154454'),
 ('20220813081749'),
-('20220824154208');
+('20220824154208'),
+('20220915144534'),
+('20220915145956'),
+('20220915150710'),
+('20220915151614');
 
 
