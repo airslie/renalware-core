@@ -23,6 +23,7 @@ import SlimselectController from "./slimselect_controller"
 import TurboModalController from "./turbo_modal_controller"
 import FormController from "./form_controller"
 import FlashController from "./flash_controller"
+import FlatpickrController from "./flatpickr_controller"
 
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
@@ -47,3 +48,4 @@ application.register("slimselect", SlimselectController)
 application.register("turbo-modal", TurboModalController)
 application.register("form", FormController)
 application.register("flash", FlashController)
+application.register("flatpickr", FlatpickrController)

@@ -37,7 +37,7 @@ ruby:
 
 
       = f.fields_for :duration_form, f.object.duration_form do |fdur|
-        = fdur.input :start_date, as: :date_picker, wrapper: :horizontal_datepicker
+        = fdur.input :start_date, as: :flatpickr, wrapper: :horizontal_datepicker
 
         = render Renalware::HD::Sessions::PreviousSessionDatesComponent.new(patient: patient)
 
