@@ -16,6 +16,8 @@ export default class extends Controller {
             // Because we can't directly change `tokenRegex`, add the numbers to the
             // month shorthand locale, so they'll end up in the regexp string
             // See https://github.com/flatpickr/flatpickr/blob/614568f20daff9fdef906e8451876d8918c68d3c/src/index.ts#L2160
+            // Alternative and cleaner approach would be to set our own `config.parseDate()` function
+            // which has custom tokenRegex that fit our needs best.
             "01",
             "02",
             "03",
