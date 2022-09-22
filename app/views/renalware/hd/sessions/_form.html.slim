@@ -38,6 +38,9 @@ ruby:
 
       = f.fields_for :duration_form, f.object.duration_form do |fdur|
         = fdur.input :start_date, as: :date_picker, wrapper: :horizontal_datepicker
+
+        = render Renalware::HD::Sessions::PreviousSessionDatesComponent.new(patient: patient)
+
         = fdur.input :start_time, as: :clock_picker, wrapper: :horizontal_clockpicker
 
       = f.association :signed_on_by,
