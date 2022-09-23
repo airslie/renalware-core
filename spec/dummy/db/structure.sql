@@ -2210,11 +2210,11 @@ CREATE TABLE renalware.clinic_visits (
     temperature numeric(3,1),
     standing_systolic_bp integer,
     standing_diastolic_bp integer,
+    document jsonb DEFAULT '{}'::jsonb NOT NULL,
+    type character varying,
     body_surface_area numeric(8,2),
     total_body_water numeric(8,2),
-    bmi numeric(10,1),
-    document jsonb DEFAULT '{}'::jsonb NOT NULL,
-    type character varying
+    bmi numeric(10,1)
 );
 
 
@@ -2668,14 +2668,14 @@ CREATE TABLE renalware.clinic_clinics (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     user_id integer,
+    visit_class_name character varying,
     code character varying,
     deleted_at timestamp without time zone,
     updated_by_id bigint,
     created_by_id bigint,
     appointments_count integer DEFAULT 0,
     clinic_visits_count integer DEFAULT 0,
-    default_modality_description_id bigint,
-    visit_class_name character varying
+    default_modality_description_id bigint
 );
 
 
@@ -8272,7 +8272,7 @@ CREATE VIEW renalware.pd_mdm_patients AS
     ( SELECT date(e.date_time) AS date
            FROM (renalware.events e
              JOIN renalware.event_types et ON ((et.id = e.event_type_id)))
-          WHERE (((et.slug)::text = 'pd_line_changes'::text) AND (e.patient_id = p.id))
+          WHERE (((et.slug)::text = 'pd_line_changes'::text) AND (e.patient_id = p.id) AND (e.deleted_at IS NULL))
           ORDER BY e.date_time DESC
          LIMIT 1) AS last_line_change_date,
     pesi.diagnosis_date AS last_esi_date,
@@ -16674,7 +16674,7 @@ CREATE INDEX index_events_on_patient_id_not_deleted ON renalware.events USING bt
 -- Name: INDEX index_events_on_patient_id_not_deleted; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON INDEX renalware.index_events_on_patient_id_not_deleted IS 'conditional index to help count()ing a patient''s undeleted events';
+COMMENT ON INDEX renalware.index_events_on_patient_id_not_deleted IS 'conditional index to speed up count()ing a patient''s undeleted events';
 
 
 --
@@ -20906,13 +20906,6 @@ CREATE UNIQUE INDEX unique_study_participants ON renalware.research_participatio
 
 
 --
--- Name: yay; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX yay ON renalware.pathology_observation_descriptions USING btree (id, code);
-
-
---
 -- Name: delayed_jobs feed_messages_preprocessing_trigger; Type: TRIGGER; Schema: renalware; Owner: -
 --
 
@@ -24079,7 +24072,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware,public;
+SET search_path TO renalware,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20141004150240'),
