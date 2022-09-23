@@ -15,8 +15,8 @@ describe Renalware::HD::PrescriptionLastAdministrationComponent, type: :componen
       recorded_on: Date.parse("01-01-2020"),
       notes: "abc"
     )
-    allow(Renalware::HD::PrescriptionLastAdministrationQuery)
-      .to receive(:call).and_return(administration)
+    allow(Renalware::HD::PrescriptionAdministrationsQuery)
+      .to receive(:call).and_return([administration])
 
     render_inline(described_class.new(prescription: prescription))
 

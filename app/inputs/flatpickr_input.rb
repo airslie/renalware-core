@@ -2,7 +2,7 @@
 
 class FlatpickrInput < SimpleForm::Inputs::StringInput
   def input(_wrapper_options)
-    template.tag.div(class: "row collapse") do
+    template.tag.div(class: "row collapse datepicker-wrapper") do
       template.concat prefix_column
       template.concat input_column
     end
