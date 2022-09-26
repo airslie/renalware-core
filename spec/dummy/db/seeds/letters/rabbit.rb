@@ -22,7 +22,7 @@ module Renalware
     Letters::Letter::Draft.create!(
       patient: patient,
       created_at: 2.days.ago,
-      description: Renalware::Letters::Description.first.text,
+      topic: Renalware::Letters::Topic.first,
       salutation: "Dear Dr Runner",
       main_recipient_attributes: {
         person_role: "primary_care_physician"
@@ -43,7 +43,7 @@ module Renalware
       event: clinics_patient.clinic_visits.first,
       clinical: true,
       created_at: 1.day.ago,
-      description: Renalware::Letters::Description.first.text,
+      topic: Renalware::Letters::Topic.first,
       salutation: "Dear Mr Rabbit",
       main_recipient_attributes: {
         person_role: "patient"
@@ -61,7 +61,7 @@ module Renalware
       created_at: 3.days.ago,
       submitted_for_approval_at: 1.day.ago,
       pathology_timestamp: 1.day.ago,
-      description: Renalware::Letters::Description.last.text,
+      topic: Renalware::Letters::Topic.last,
       main_recipient_attributes: {
         person_role: "contact",
         addressee: contact
@@ -80,7 +80,7 @@ module Renalware
       pathology_timestamp: 1.day.ago,
       event: clinics_patient.clinic_visits.first,
       clinical: true,
-      description: Renalware::Letters::Description.last.text,
+      topic: Renalware::Letters::Topic.last,
       main_recipient_attributes: {
         person_role: "patient"
       },

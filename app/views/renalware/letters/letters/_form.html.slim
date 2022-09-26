@@ -9,7 +9,7 @@ ruby:
     = link_to t("btn.cancel"), back_path
 
 .form-content data-controller="letters-form"
-  / Using this syntax rather than 'render event' becuase that syntax seems to want to 
+  / Using this syntax rather than 'render event' becuase that syntax seems to want to
   / prepend renalware/letters to event.to_partial_path (even if the latter is an absolute path)
   = render(partial: event.to_partial_path, locals: { event: event }) if event.present?
 
@@ -19,7 +19,7 @@ ruby:
 
     = f.association :letterhead, autofocus: true
     = f.input :description,
-              collection: Renalware::Letters::Description.ordered.pluck(:text).uniq,
+              collection: Renalware::Letters::Topic.ordered.pluck(:text).uniq,
               input_html: { class: "searchable_select" }
     = hidden_field_tag "description_id"
     = f.input :clinical, as: :hidden

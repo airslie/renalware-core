@@ -2,7 +2,7 @@
 
 module Renalware
   module Letters
-    class DescriptionPolicy < BasePolicy
+    class TopicPolicy < BasePolicy
       def index?
         user_is_any_admin?
       end

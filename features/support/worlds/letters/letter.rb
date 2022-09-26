@@ -314,7 +314,7 @@ module World
 
       def draft_simple_letter(patient:, user:, created_at:, recipient:, ccs: nil)
         login_as user
-        FactoryBot.create(:letter_description, text: "Foo bar")
+        FactoryBot.create(:letter_topic, text: "Foo bar")
         visit patient_letters_letters_path(patient)
         click_on t("btn.create_")
         click_on "Simple Letter"
@@ -322,7 +322,7 @@ module World
         attributes = valid_simple_letter_attributes(patient)
         select attributes[:letterhead].name, from: "Letterhead"
         select user.to_s, from: "Author"
-        select2 attributes[:description], css: ".letter_description"
+        select2 attributes[:description], css: ".letter_topic"
         fill_recipient(recipient)
         fill_ccs(ccs)
 

@@ -20,7 +20,7 @@ describe "Assign a person as a main recipient", type: :system do
     before do
       create(:letter_letterhead)
       create(:letter_contact, patient: patient, person: create(:directory_person, by: user))
-      create(:letter_description, text: "::description::")
+      create(:letter_topic, text: "::description::")
     end
 
     context "with valid attributes" do
@@ -66,7 +66,7 @@ describe "Assign a person as a main recipient", type: :system do
 
     def fill_out_letter
       within "#letter-form" do
-        select2 "::description::", css: ".letter_description"
+        select2 "::description::", css: ".letter_topic"
         select Renalware::Letters::Letterhead.first.name, from: "Letterhead"
         select Renalware::User.first.to_s, from: "Author"
         choose("Patient's Contact")

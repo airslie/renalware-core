@@ -135,14 +135,14 @@ module World
 
       def draft_clinic_visit_letter(patient:, user:, created_at:)
         login_as user
-        FactoryBot.create(:letter_description, text: "Foo bar")
+        FactoryBot.create(:letter_topic, text: "Foo bar")
         visit patient_clinic_visits_path(patient)
         click_on "Draft Letter"
 
         attributes = valid_simple_letter_attributes(patient)
         select attributes[:letterhead].name, from: "Letterhead"
         select user.to_s, from: "Author"
-        select2 attributes[:description], css: ".letter_description"
+        select2 attributes[:description], css: ".letter_topic"
 
         within ".bottom" do
           click_on t("btn.create")

@@ -2,7 +2,10 @@
 
 module Renalware
   module Letters
-    class Description < ApplicationRecord
+    class Topic < ApplicationRecord
+      # TODO: Rename table to `letter_topics`
+      self.table_name = "letter_descriptions"
+
       include Sortable
       acts_as_paranoid
       validates :text, presence: true, uniqueness: true
