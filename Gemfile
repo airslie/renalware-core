@@ -29,9 +29,9 @@ gem "uglifier", "~> 4.2"
 # a host app could include the wkhtmltopdf-binary gem, or use the apt package.
 # Bear in mind the gem contains several platform-specific binaries so is pretty large,
 # so in a docker image the apt package is a better choice
-gem "wkhtmltopdf-binary", "0.12.3.1"
 gem "httparty", require: false
 gem "tailwindcss-rails", "~> 2.0.8"
+gem "wkhtmltopdf-binary", "0.12.3.1"
 # For sentry error reporting and metrics
 # gem "sentry-rails"
 # gem "sentry-ruby"
@@ -45,6 +45,7 @@ group :test do
   gem "capybara-select-2"
   gem "cucumber-rails", "~> 2.5.1", require: false # must be loaded in env.rb
   gem "database_cleaner", require: false # for cucumber (now not needed for rspec)
+  gem "execjs", "2.7.0" # 2.8.1 raises an error
   gem "factory_bot_rails", "~> 6.1"
   gem "fuubar", require: false
   gem "rails-controller-testing", "~> 1.0.4"
@@ -58,7 +59,6 @@ group :test do
   gem "test-prof"
   gem "webmock", "~> 3.7", require: false
   gem "wisper-rspec", "~> 1.1.0"
-  gem "execjs", "2.7.0" # 2.8.1 raises an error
 end
 
 group :pr do
@@ -79,6 +79,7 @@ group :development do
   gem "rubocop-rspec", require: false
   gem "turnip", "~> 4.0", github: "airslie/turnip", require: false
   # gem 'sql_tracker'
+  gem "web-console"
 end
 
 group :development, :test do
