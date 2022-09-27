@@ -10,15 +10,15 @@ describe Renalware::HD::Sessions::PreviousSessionDatesComponent, type: :componen
     let(:second_patient) { create(:hd_patient) }
 
     context "when sessions exist" do
-      let!(:another_patient_session) {
+      let!(:another_patient_session) do
         create(:hd_session, patient: second_patient, started_at: 1.day.ago)
-      }
-      let!(:older_session) {
+      end
+      let!(:older_session) do
         create(:hd_session, patient: patient, started_at: 2.weeks.ago)
-      }
-      let!(:newer_session) {
+      end
+      let!(:newer_session) do
         create(:hd_session, patient: patient, started_at: 1.week.ago)
-      }
+      end
 
       it "returns last sessions in started at order" do
         expect(instance.previous_sessions).to eq \
@@ -52,6 +52,27 @@ describe Renalware::HD::Sessions::PreviousSessionDatesComponent, type: :componen
       it "renders nothing" do
         render_inline(instance)
         expect(page.text).to eq ""
+      end
+    end
+  end
+
+  describe "#not_recommended_values" do
+    let(:current_session) { build_stubbed(:hd_session, started_at: Date.parse("2022-09-09")) }
+    let(:valid_session) { build_stubbed(:hd_session, started_at: Date.parse("2022-09-10")) }
+
+    before do
+      allow(instance).to receive(:previous_sessions).and_return([current_session, valid_session])
+    end
+
+    it "returns a list of dates that need to be warned for" do
+      expect(instance.not_recommended_values(current_session)).to eq ["10-Sep-2022"]
+    end
+
+    context "when started at is nil for current session (ex: new session)" do
+      let(:current_session) { build_stubbed(:hd_session, started_at: nil) }
+
+      it "still works as expected" do
+        expect(instance.not_recommended_values(current_session)).to eq ["10-Sep-2022"]
       end
     end
   end

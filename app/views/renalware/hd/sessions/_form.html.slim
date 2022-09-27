@@ -38,10 +38,9 @@ ruby:
 
       = f.fields_for :duration_form, f.object.duration_form do |fdur|
         - previous_sessions_component = Renalware::HD::Sessions::PreviousSessionDatesComponent.new(patient: patient)
-        - not_recommended_values = previous_sessions_component.previous_sessions.map {|s| l(s.started_at.to_date) }
 
         = render Renalware::InputValueAlerterComponent.new( \
-          not_recommended_values: not_recommended_values, \
+          not_recommended_values: previous_sessions_component.not_recommended_values(session), \
           message: "A session for this date already exists") do |component|
           - component.with_input do
             = fdur.input :start_date, as: :flatpickr, wrapper: :horizontal_datepicker, \
