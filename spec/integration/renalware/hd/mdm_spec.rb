@@ -8,7 +8,7 @@ describe "Patient HD MDM", type: :request do
   describe "GET show" do
     it "responds successfully" do
       create(:pathology_observation_description, code: "HGB")
-      default_cg = create(:pathology_code_group, :default)
+      create(:pathology_code_group, :default)
       get patient_hd_mdm_path(patient)
 
       expect(response).to be_successful
