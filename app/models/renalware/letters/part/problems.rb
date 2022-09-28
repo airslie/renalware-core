@@ -4,11 +4,11 @@ require "renalware/letters/part"
 
 module Renalware
   module Letters
-    class Part::Problems < DumbDelegator
-      def initialize(patient, _letter, _event = Event::Unknown.new)
-        @patient = patient
-        super(patient.problems.includes(:notes))
+    class Part::Problems < Part
+      def problems
+        @problems ||= patient.problems.includes(:notes)
       end
+      delegate_missing_to :problems
 
       # If you are wondering why #to_partial_path is not getting called when doing 'render part'
       # in a view, note this object is array-like so Rails' render only looks for #to_partial_path

@@ -56,19 +56,24 @@ module Renalware
         "Preview"
       end
 
+      # A letter has many sections, which could be dynamically set from:
+      # 1. A Letter Event
+      # 3. A Letter Topic
       def parts
+        sections = (letter_event.part_classes + (topic&.sections || [])).sort_by(&:position)
         filtered_part_classes = PartClassFilter.new(
-          part_classes: letter_event.part_classes,
+          sections: sections,
           include_pathology_in_letter_body: letterhead.include_pathology_in_letter_body?
         )
-        filtered_part_classes.to_h.values.map do |part_class|
+        filtered_part_classes.filter.map do |part_class|
           part_class.new(patient, self, letter_event)
         end
       end
 
-      def part_for(part_name)
-        letter_event.part_classes[part_name].new(patient, self, letter_event)
-      end
+      # It's actually not used. Could probably be deleted
+      # def part_for(part_name)
+      #   letter_event.part_classes[part_name].new(patient, self, letter_event)
+      # end
 
       # rubocop:disable Rails/OutputSafety
       def to_html(adhoc_printing: false)
