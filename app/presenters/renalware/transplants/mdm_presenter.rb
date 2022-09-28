@@ -5,6 +5,10 @@ require_dependency "renalware/transplants"
 module Renalware
   module Transplants
     class MDMPresenter < Renalware::MDMPresenter
+      def pathology_code_group_name
+        :transplant_mdm
+      end
+
       def recipient_operations
         RecipientOperation.for_patient(patient).reversed
       end

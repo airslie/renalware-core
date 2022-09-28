@@ -19,17 +19,33 @@ module Renalware
       @view_context = view_context
     end
 
+    def pathology_code_group_name
+      :default
+    end
+
     def pathology
       @pathology ||= pathology_for_codes
     end
 
     def pathology_for_codes(codes = nil, per_page: 25, page: 1)
-      Pathology::CreateObservationsGroupedByDateTable.new(
-        patient: patient,
-        observation_descriptions: pathology_descriptions_for_codes(codes),
-        page: page,
-        per_page: per_page
-      ).call
+      # KCH use SINGLE_ROW_PATH i.e. one row per day (showing the last observation on
+      # that day if there were > 1) rather than a row for each result, which can lead to > 1 row
+      # per day if there was a test was done twice that day.
+      if ENV["SINGLE_ROW_PATH"].present? || Array(codes).any?
+        Pathology::CreateObservationsGroupedByDateTable.new(
+          patient: patient,
+          observation_descriptions: pathology_descriptions_for_codes(codes),
+          page: page,
+          per_page: per_page
+        ).call
+      else
+        Pathology::CreateObservationsGroupedByDateTable2.new(
+          patient: patient,
+          code_group_name: pathology_code_group_name,
+          page: page,
+          per_page: per_page
+        ).call
+      end
     end
 
     def clinic_visits(limit: 6)

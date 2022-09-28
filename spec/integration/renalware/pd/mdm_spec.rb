@@ -8,6 +8,7 @@ describe "Patient PD MDM", type: :request do
   describe "GET show" do
     it "responds successfully" do
       create(:pathology_observation_description, code: "HGB")
+      create(:pathology_code_group, :default)
 
       get patient_pd_mdm_path(patient)
 
