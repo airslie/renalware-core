@@ -24,28 +24,12 @@ module Renalware
     end
 
     def pathology
-      @pathology ||= pathology_for_codes
-    end
-
-    def pathology_for_codes(codes = nil, per_page: 25, page: 1)
-      # KCH use SINGLE_ROW_PATH i.e. one row per day (showing the last observation on
-      # that day if there were > 1) rather than a row for each result, which can lead to > 1 row
-      # per day if there was a test was done twice that day.
-      if ENV["SINGLE_ROW_PATH"].present? || Array(codes).any?
-        Pathology::CreateObservationsGroupedByDateTable.new(
-          patient: patient,
-          observation_descriptions: pathology_descriptions_for_codes(codes),
-          page: page,
-          per_page: per_page
-        ).call
-      else
-        Pathology::CreateObservationsGroupedByDateTable2.new(
-          patient: patient,
-          code_group_name: pathology_code_group_name,
-          page: page,
-          per_page: per_page
-        ).call
-      end
+      Pathology::CreateObservationsGroupedByDateTable2.new(
+        patient: patient,
+        code_group_name: pathology_code_group_name,
+        page: 1,
+        per_page: 25
+      ).call
     end
 
     def clinic_visits(limit: 6)
@@ -181,17 +165,6 @@ module Renalware
     end
 
     private
-
-    def pathology_descriptions_for_codes(codes)
-      if codes.nil?
-        Pathology::RelevantObservationDescription.all
-      else
-        codes = Array(codes)
-        descriptions = Pathology::ObservationDescription.for(Array(codes))
-        warn("No OBX(es) found for codes #{codes}") if descriptions.empty?
-        descriptions
-      end
-    end
 
     def pathology_patient
       Renalware::Pathology.cast_patient(patient)
