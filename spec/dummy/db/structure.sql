@@ -69,7 +69,7 @@ CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA renalware;
 -- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
 --
 
-COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statistics of all SQL statements executed';
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
 
 
 --
@@ -1048,7 +1048,7 @@ begin
         ,document ->> 'score'
     from events e
     inner join event_types et on et.id = e.event_type_id
-    where e.patient_id = p_id 
+    where e.patient_id = p_id
       and e.deleted_at is null
       and et.slug = 'clinical_frailty_score'
     order by e.date_time desc
@@ -3907,7 +3907,7 @@ ALTER SEQUENCE renalware.feed_practice_gps_id_seq OWNED BY renalware.feed_practi
 --
 
 CREATE TABLE renalware.good_job_processes (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT renalware.gen_random_uuid() NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     state jsonb
@@ -3919,7 +3919,7 @@ CREATE TABLE renalware.good_job_processes (
 --
 
 CREATE TABLE renalware.good_job_settings (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT renalware.gen_random_uuid() NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     key text,
@@ -3932,7 +3932,7 @@ CREATE TABLE renalware.good_job_settings (
 --
 
 CREATE TABLE renalware.good_jobs (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT renalware.gen_random_uuid() NOT NULL,
     queue_name text,
     priority integer,
     serialized_params jsonb,
@@ -4187,8 +4187,8 @@ CREATE TABLE renalware.hospital_units (
 
 CREATE VIEW renalware.hd_diary_matrix AS
  WITH hd_empty_diary_matrix AS (
-         SELECT EXTRACT(year FROM the_date.the_date) AS year,
-            EXTRACT(week FROM the_date.the_date) AS week_number,
+         SELECT date_part('year'::text, the_date.the_date) AS year,
+            date_part('week'::text, the_date.the_date) AS week_number,
             h.id AS hospital_unit_id,
             s.id AS station_id,
             a.day_of_week,
@@ -4199,7 +4199,7 @@ CREATE VIEW renalware.hd_diary_matrix AS
              CROSS JOIN ( SELECT generate_series(1, 7) AS day_of_week) a)
              CROSS JOIN renalware.hd_diurnal_period_codes period)
           WHERE (h.is_hd_site = true)
-          ORDER BY (EXTRACT(year FROM the_date.the_date)), (EXTRACT(week FROM the_date.the_date)), h.id, s.id, a.day_of_week, period.id
+          ORDER BY (date_part('year'::text, the_date.the_date)), (date_part('week'::text, the_date.the_date)), h.id, s.id, a.day_of_week, period.id
         )
  SELECT m.year,
     m.week_number,
@@ -4219,7 +4219,7 @@ CREATE VIEW renalware.hd_diary_matrix AS
     (ms.updated_at)::date AS master_slot_updated_at,
     to_date((((((wd.year)::text || '-'::text) || (wd.week_number)::text) || '-'::text) || (ms.day_of_week)::text), 'iyyy-iw-ID'::text) AS slot_date
    FROM ((((hd_empty_diary_matrix m
-     LEFT JOIN renalware.hd_diaries wd ON (((wd.hospital_unit_id = m.hospital_unit_id) AND ((wd.year)::numeric = m.year) AND ((wd.week_number)::numeric = m.week_number) AND (wd.master = false))))
+     LEFT JOIN renalware.hd_diaries wd ON (((wd.hospital_unit_id = m.hospital_unit_id) AND ((wd.year)::double precision = m.year) AND ((wd.week_number)::double precision = m.week_number) AND (wd.master = false))))
      LEFT JOIN renalware.hd_diaries md ON (((md.hospital_unit_id = m.hospital_unit_id) AND (md.master = true))))
      LEFT JOIN renalware.hd_diary_slots ws ON (((ws.diary_id = wd.id) AND (ws.station_id = m.station_id) AND (ws.day_of_week = m.day_of_week) AND (ws.diurnal_period_code_id = m.diurnal_period_code_id))))
      LEFT JOIN renalware.hd_diary_slots ms ON (((ms.diary_id = md.id) AND (ms.station_id = m.station_id) AND (ms.day_of_week = m.day_of_week) AND (ms.diurnal_period_code_id = m.diurnal_period_code_id))));
@@ -5454,7 +5454,8 @@ CREATE TABLE renalware.letter_letters (
     approved_by_id bigint,
     completed_at timestamp without time zone,
     completed_by_id bigint,
-    page_count integer
+    page_count integer,
+    topic_id bigint
 );
 
 
@@ -5588,16 +5589,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -9288,7 +9279,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -9368,7 +9359,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -9667,7 +9658,7 @@ CREATE VIEW renalware.reporting_unit_patients AS
             CURRENT_TIMESTAMP AS stop
         ), month_range AS (
          SELECT 0 AS current_month,
-            ((EXTRACT(year FROM age(date_range.start)) * (12)::numeric) + EXTRACT(month FROM age(date_range.start))) AS months_to_go_back
+            ((date_part('year'::text, age(date_range.start)) * (12)::double precision) + date_part('month'::text, age(date_range.start))) AS months_to_go_back
            FROM date_range
         ), months AS (
          SELECT generate_series(month_range.current_month, (month_range.months_to_go_back)::integer) AS month
@@ -9675,8 +9666,8 @@ CREATE VIEW renalware.reporting_unit_patients AS
         ), profile_history AS (
          SELECT hp.patient_id,
             hp.hospital_unit_id,
-            ((EXTRACT(year FROM age(hp.created_at)) * (12)::numeric) + EXTRACT(month FROM age(hp.created_at))) AS start_month,
-            COALESCE(((EXTRACT(year FROM age(hp.deactivated_at)) * (12)::numeric) + EXTRACT(month FROM age(hp.deactivated_at))), (0)::numeric) AS end_month
+            ((date_part('year'::text, age(hp.created_at)) * (12)::double precision) + date_part('month'::text, age(hp.created_at))) AS start_month,
+            COALESCE(((date_part('year'::text, age(hp.deactivated_at)) * (12)::double precision) + date_part('month'::text, age(hp.deactivated_at))), (0)::double precision) AS end_month
            FROM renalware.hd_profiles hp
           ORDER BY hp.patient_id
         ), deduplicated_profile_history AS (
@@ -9691,13 +9682,13 @@ CREATE VIEW renalware.reporting_unit_patients AS
             m_1.month,
             count(*) AS patients
            FROM (deduplicated_profile_history ph
-             JOIN months m_1 ON ((((m_1.month)::numeric <= ph.start_month) AND ((m_1.month)::numeric >= ph.end_month))))
+             JOIN months m_1 ON ((((m_1.month)::double precision <= ph.start_month) AND ((m_1.month)::double precision >= ph.end_month))))
           GROUP BY ph.hospital_unit_id, m_1.month
           ORDER BY ph.hospital_unit_id, m_1.month
         )
  SELECT hc.name AS hospital,
     hu.name AS unit,
-    (EXTRACT(year FROM (CURRENT_DATE - (((m.month)::text || ' month'::text))::interval)))::text AS year,
+    (date_part('year'::text, (CURRENT_DATE - (((m.month)::text || ' month'::text))::interval)))::text AS year,
     to_char((CURRENT_DATE - (((m.month)::text || ' month'::text))::interval), 'Mon'::text) AS month,
     pc.patients
    FROM (((renalware.hospital_units hu
@@ -17763,6 +17754,13 @@ CREATE INDEX index_letter_letters_on_submitted_for_approval_by_id ON renalware.l
 
 
 --
+-- Name: index_letter_letters_on_topic_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_topic_id ON renalware.letter_letters USING btree (topic_id);
+
+
+--
 -- Name: index_letter_letters_on_type; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -24747,6 +24745,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220915145956'),
 ('20220915150710'),
 ('20220915151614'),
+('20220926171513'),
 ('20220928115421');
 
 

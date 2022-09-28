@@ -18,8 +18,9 @@ ruby:
       h2 Header
 
     = f.association :letterhead, autofocus: true
-    = f.input :description,
-              collection: Renalware::Letters::Topic.ordered.pluck(:text).uniq,
+    = f.association :topic,
+              label_method: :text,
+              required: true,
               input_html: { class: "searchable_select" }
     = hidden_field_tag "description_id"
     = f.input :clinical, as: :hidden

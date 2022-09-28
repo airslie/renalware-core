@@ -23,6 +23,7 @@ module Renalware
       patient: patient,
       created_at: 2.days.ago,
       topic: Renalware::Letters::Topic.first,
+      description: Renalware::Letters::Topic.first.text,
       salutation: "Dear Dr Runner",
       main_recipient_attributes: {
         person_role: "primary_care_physician"
@@ -44,6 +45,7 @@ module Renalware
       clinical: true,
       created_at: 1.day.ago,
       topic: Renalware::Letters::Topic.first,
+      description: Renalware::Letters::Topic.first.text,
       salutation: "Dear Mr Rabbit",
       main_recipient_attributes: {
         person_role: "patient"
@@ -62,6 +64,7 @@ module Renalware
       submitted_for_approval_at: 1.day.ago,
       pathology_timestamp: 1.day.ago,
       topic: Renalware::Letters::Topic.last,
+      description: Renalware::Letters::Topic.last.text,
       main_recipient_attributes: {
         person_role: "contact",
         addressee: contact
@@ -81,6 +84,7 @@ module Renalware
       event: clinics_patient.clinic_visits.first,
       clinical: true,
       topic: Renalware::Letters::Topic.last,
+      description: Renalware::Letters::Topic.last.text,
       main_recipient_attributes: {
         person_role: "patient"
       },
