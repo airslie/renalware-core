@@ -6,6 +6,7 @@ describe "Advanced Kidney Care MDM", type: :system do
   it "view an MDM" do
     patient = create(:patient, family_name: "Rabbit", local_patient_id: "KCH12345")
     create(:pathology_observation_description, code: "HGB")
+    create(:pathology_code_group, :default)
 
     login_as_clinical
 

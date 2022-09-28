@@ -104,13 +104,8 @@ RSpec.configure do |config|
     Capybara.reset! if ex.metadata[:js]
   end
 
-  # run retry only on features
   config.around :each, :js do |ex|
-    if ENV.key?("SEMAPHORECI")
-      ex.run_with_retry retry: 2
-    else
-      ex.run
-    end
+    ex.run_with_retry retry: 2
   end
 
   config.around(:each, :caching) do |example|
