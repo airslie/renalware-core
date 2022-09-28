@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Renalware::HD::PrescriptionLastAdministrationQuery do
+describe Renalware::HD::PrescriptionAdministrationsQuery do
   let(:administrator) { create(:user, password: "password") }
   let(:witness) { create(:user, password: "password") }
 
@@ -23,21 +23,21 @@ describe Renalware::HD::PrescriptionLastAdministrationQuery do
   end
 
   describe "#call" do
-    subject { described_class.new(prescription: prescription).call }
+    subject { described_class.new(prescription: prescription).call(limit: 10) }
 
     context "when the prescription has never been administered on HD" do
       let(:prescription) { create(:prescription) }
 
-      it { is_expected.to be_nil }
+      it { is_expected.to be_empty }
     end
 
-    context "when the prescription has given once" do
+    context "when the prescription has been given once" do
       let(:prescription) { create(:prescription) }
 
       it "returns the record" do
         administration = create_prescription_administration_for(prescription)
 
-        is_expected.to eq(administration)
+        is_expected.to eq([administration])
       end
     end
 
@@ -47,14 +47,14 @@ describe Renalware::HD::PrescriptionLastAdministrationQuery do
       it "does not return the record" do
         create_prescription_administration_for(prescription, administered: false)
 
-        is_expected.to be_nil
+        is_expected.to be_empty
       end
     end
 
     context "when the prescription was given multiple times" do
       let(:prescription) { create(:prescription) }
 
-      it "returns most recently recorded one, using created_at if > 1 row with same recorded_on" do
+      it "returns most recently recorded ones first, using created_at if > 1 row with same recorded_on" do
         administrations = [
           create_prescription_administration_for(prescription, recorded_on: 1.year.ago),
           create_prescription_administration_for(prescription, recorded_on: 1.day.ago),
@@ -62,7 +62,13 @@ describe Renalware::HD::PrescriptionLastAdministrationQuery do
           create_prescription_administration_for(prescription, recorded_on: 1.month.ago)
         ]
 
-        is_expected.to eq(administrations[2])
+        is_expected.to eq \
+          [
+            administrations[2],
+            administrations[1],
+            administrations[3],
+            administrations[0]
+          ]
       end
     end
 
@@ -78,7 +84,7 @@ describe Renalware::HD::PrescriptionLastAdministrationQuery do
           skip_witness_validation: true
         )
 
-        is_expected.to eq(administration)
+        is_expected.to eq([administration])
       end
     end
   end
