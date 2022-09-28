@@ -54,25 +54,6 @@ module Renalware
       def rolling_audit
         @rolling_audit ||= audits.find_by(rolling: true)
       end
-
-      # def pathology_for_codes(codes = nil, **options)
-      #   # KCH use SINGLE_ROW_PATH i.e. one row per day (showing the last observation on
-      #   # that day if there were > 1) rather than a row for each result, which can lead to > 1 row
-      #   # per day if there was a test was done twice that day.
-      #   if ENV["SINGLE_ROW_PATH"].present?
-      #     Pathology::CreateObservationsGroupedByDateTable.new(
-      #       patient: patient,
-      #       observation_descriptions: pathology_descriptions_for_codes(codes),
-      #       **options
-      #     ).call
-      #   else
-      #     Pathology::CreateObservationsGroupedByDateTable2.new(
-      #       patient: patient,
-      #       code_group_name: pathology_code_group_name,
-      #       **options
-      #     ).call
-      #   end
-      # end
     end
   end
 end

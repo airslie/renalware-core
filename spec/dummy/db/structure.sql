@@ -2210,11 +2210,11 @@ CREATE TABLE renalware.clinic_visits (
     temperature numeric(3,1),
     standing_systolic_bp integer,
     standing_diastolic_bp integer,
-    document jsonb DEFAULT '{}'::jsonb NOT NULL,
-    type character varying,
     body_surface_area numeric(8,2),
     total_body_water numeric(8,2),
-    bmi numeric(10,1)
+    bmi numeric(10,1),
+    document jsonb DEFAULT '{}'::jsonb NOT NULL,
+    type character varying
 );
 
 
@@ -2668,14 +2668,14 @@ CREATE TABLE renalware.clinic_clinics (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     user_id integer,
-    visit_class_name character varying,
     code character varying,
     deleted_at timestamp without time zone,
     updated_by_id bigint,
     created_by_id bigint,
     appointments_count integer DEFAULT 0,
     clinic_visits_count integer DEFAULT 0,
-    default_modality_description_id bigint
+    default_modality_description_id bigint,
+    visit_class_name character varying
 );
 
 
@@ -6818,7 +6818,7 @@ ALTER SEQUENCE renalware.pathology_observation_requests_id_seq OWNED BY renalwar
 
 CREATE VIEW renalware.pathology_observations_grouped_by_date AS
  SELECT obr.patient_id,
-    obs.observed_at,
+    (obs.observed_at)::date AS observed_at,
     jsonb_object_agg(pod.code, ARRAY[obs.result, (obs.comment)::character varying] ORDER BY obs.observed_at) AS results,
     pcg2.name AS "group"
    FROM ((((renalware.pathology_observations obs
@@ -6826,8 +6826,8 @@ CREATE VIEW renalware.pathology_observations_grouped_by_date AS
      JOIN renalware.pathology_observation_descriptions pod ON ((obs.description_id = pod.id)))
      JOIN renalware.pathology_code_group_memberships pcgm2 ON ((pcgm2.observation_description_id = pod.id)))
      JOIN renalware.pathology_code_groups pcg2 ON ((pcg2.id = pcgm2.code_group_id)))
-  GROUP BY pcg2.name, obr.patient_id, obs.observed_at
-  ORDER BY obr.patient_id, pcg2.name, obs.observed_at DESC;
+  GROUP BY pcg2.name, obr.patient_id, ((obs.observed_at)::date)
+  ORDER BY obr.patient_id, pcg2.name, ((obs.observed_at)::date) DESC;
 
 
 --
@@ -24746,6 +24746,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220915144534'),
 ('20220915145956'),
 ('20220915150710'),
-('20220915151614');
+('20220915151614'),
+('20220928115421');
 
 
