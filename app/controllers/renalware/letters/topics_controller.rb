@@ -65,7 +65,13 @@ module Renalware
       end
 
       def topic_params
-        params.require(:topic).permit(:text, :position)
+        permitted_params = params.require(:topic).permit(:text, :position, section_identifiers: [])
+        remove_blank_section_identifiers(permitted_params)
+      end
+
+      def remove_blank_section_identifiers(params)
+        params[:section_identifiers].reject!(&:blank?)
+        params
       end
 
       def find_and_authorise_topic

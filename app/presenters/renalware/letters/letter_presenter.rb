@@ -56,6 +56,7 @@ module Renalware
         "Preview"
       end
 
+      # 'Section' is the new name for 'Part'.
       # A letter has many sections, which could be dynamically set from:
       # 1. A Letter Event
       # 3. A Letter Topic
@@ -69,11 +70,6 @@ module Renalware
           part_class.new(patient, self, letter_event)
         end
       end
-
-      # It's actually not used. Could probably be deleted
-      # def part_for(part_name)
-      #   letter_event.part_classes[part_name].new(patient, self, letter_event)
-      # end
 
       # rubocop:disable Rails/OutputSafety
       def to_html(adhoc_printing: false)
