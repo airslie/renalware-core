@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware"
-
 # New subscription registry - previous implementation does not work across threads.
 # Each key in the map (hash) is the name of a class that broadacasts/publishes messages.
 # Entries in the array (value) for that key are classes which subscribe to events in the

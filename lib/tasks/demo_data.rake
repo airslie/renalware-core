@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# require_dependency "renalware/letters"
+#  
 
 require_relative '../../app/models/concerns/renalware/broadcasting.rb'
 

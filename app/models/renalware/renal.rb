@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware"
-
 module Renalware
   module Renal
     def self.table_name_prefix

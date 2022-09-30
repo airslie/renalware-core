@@ -14,8 +14,6 @@
 # Note that resolution is to integer not float i.e. pre_mean_systolic_blood_pressure will
 # return 100 if the only measurement is 100.11.
 
-require_dependency "renalware/hd"
-
 module Renalware
   module HD
     module Sessions

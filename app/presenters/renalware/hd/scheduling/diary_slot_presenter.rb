@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/hd"
-require_dependency "collection_presenter"
-
 # TODO: mixing query and presenter here..
 module Renalware
   module HD

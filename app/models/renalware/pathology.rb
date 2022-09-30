@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware"
-require_dependency "renalware/feeds"
-
 module Renalware
   module Pathology
     module_function

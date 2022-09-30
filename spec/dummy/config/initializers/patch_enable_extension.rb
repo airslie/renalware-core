@@ -5,7 +5,7 @@ require 'active_record/connection_adapters/postgresql_adapter'
 # NOTE: Patch for https://devcenter.heroku.com/changelog-items/2446
 # If we are on Heroku (there is a heroku_ext schema in the database)
 # then ensure all extensions are created in that schema.
-# See also 
+# See also
 # https://stackoverflow.com/questions/73214844/error-extension-btree-\
 # gist-must-be-installed-in-schema-heroku-ext
 module EnableExtensionHerokuPatch

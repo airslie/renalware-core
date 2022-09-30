@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/patients"
-
 module Renalware
   module Patients
     # Fetches pratice changes and additions from the NHS ODS API.

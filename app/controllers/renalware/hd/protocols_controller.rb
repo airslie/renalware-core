@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/hd"
-
 module Renalware
   module HD
     # Responsible for rendering an HD Session Form PDF (aka Protocol) which has the patients

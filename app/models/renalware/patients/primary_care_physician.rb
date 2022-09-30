@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/patients"
-
 module Renalware
   module Patients
     # Represents a Primary Care Physician (PCP). The PCP could either be:

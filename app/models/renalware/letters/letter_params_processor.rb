@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/letters"
-
 # This class is responsible for transforming the attributes
 # of a letter.  The resulting attributes can then
 # be mass assigned to an ActiveRecord letter object.

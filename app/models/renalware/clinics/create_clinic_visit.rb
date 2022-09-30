@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/clinics"
 require "success"
 require "failure"
 
