@@ -8,7 +8,7 @@ describe "Managing an existing letter contact", type: :system, js: true do
   context "with valid parameters" do
     it "A user changes an existing patient's contact to for example remove their default cc " \
        "or change their description", js: true do
-      user = @current_user
+      user = login_as_clinical
       patient = create(:letter_patient)
       description1 = create(:letter_contact_description, name: "Parent")
       description2 = create(:letter_contact_description, name: "Child")
@@ -21,7 +21,6 @@ describe "Managing an existing letter contact", type: :system, js: true do
         default_cc: true
       )
 
-      login_as_clinical
       visit patient_letters_contacts_path(patient)
 
       within "#letters_contact_#{contact.id}" do
