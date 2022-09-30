@@ -11,8 +11,7 @@ module Dummy
     config.cache_store = :file_store, Rails.root.join("tmp/cache") # capistrano symmlinked
     config.active_record.time_zone_aware_types = [:datetime]
     config.active_storage.service = :local
-    config.autoloader = :classic
-    # config.autoloader = :zeitwerk
+    config.autoloader = :zeitwerk
     # config.load_defaults Rails::VERSION::STRING.to_f
 
     config.good_job.execution_mode = :external # :async = executes jobs in separate threads within the Rails web server process
