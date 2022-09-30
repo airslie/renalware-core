@@ -2,15 +2,15 @@ name: Verify
 
 # Do not run when a tag pushed, or when merging to main
 # Do not run if updating docs
-on: 
+on:
   push:
-    tags-ignore: 
-      - '*'
+    tags-ignore:
+      - "*"
     branches-ignore:
       - main
     paths-ignore:
-      - 'docs/**'
-      - 'README.md'
+      - "docs/**"
+      - "README.md"
 
 env:
   BUNDLE_GITHUB__COM: ${{ secrets.CR_PAT }}
@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -37,8 +37,8 @@ jobs:
       - name: Setup node and yarn with caching
         uses: actions/setup-node@v3
         with:
-          node-version: 16  
-          cache: 'yarn'
+          node-version: 16
+          cache: "yarn"
 
       - name: Install js packages with yarn
         run: yarn install --frozen-lockfile # optional, --immutable
@@ -68,12 +68,12 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        command: 
+        command:
           - bin/gh/rspec/unit
           - bin/gh/rspec/integration
           - bin/gh/cucumber/domain
           - bin/gh/cucumber/web
-      
+
     name: ${{ matrix.command }}
 
     services:
@@ -94,7 +94,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          submodules: 'true'
+          submodules: "true"
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -104,8 +104,8 @@ jobs:
       - name: Setup node and yarn with caching
         uses: actions/setup-node@v3
         with:
-          node-version: 16  
-          cache: 'yarn'
+          node-version: 16
+          cache: "yarn"
 
       - name: Install js packages with yarn
         run: yarn install --frozen-lockfile # optional, --immutable
@@ -128,12 +128,14 @@ jobs:
         run: bin/rails db:create db:migrate
 
       - name: Install dependencies
-        run: sudo apt-get install -y ghostscript pandoc
+        run: |
+          sudo apt update
+          sudo apt install -y ghostscript pandoc
 
       - name: Run tests
         env:
           PGHOST: localhost
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          RAILS_ENV: test 
+          RAILS_ENV: test
         run: ${{ matrix.command }}
