@@ -53,7 +53,7 @@ group :test do
   gem "rspec_junit_formatter", "~> 0.4"
   gem "rspec-rails"
   gem "rspec-retry"
-  gem "selenium-webdriver", "~> 3.142.0"
+  gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 5.1"
   gem "simplecov", "~> 0.17", require: false # only loaded if required
   gem "test-prof"
@@ -74,7 +74,7 @@ group :development do
   gem "binding_of_caller"
   gem "bullet"
   gem "foreman", require: false
-  gem "rubocop-performance"
+  gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
   gem "turnip", "~> 4.0", github: "airslie/turnip", require: false
