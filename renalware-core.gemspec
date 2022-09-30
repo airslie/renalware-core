@@ -15,8 +15,8 @@ Gem::Specification.new do |s|
   s.email       = ["dev@airslie.com"]
   s.homepage    = "https://github.com/airslie/renalware-core"
   s.summary     = "Renalware core functionality as a mountable engine."
-  s.description = "Renalware uses demographic, clinical, pathology, and nephrology datasets to "\
-                  "improve patient care, undertake clinical and administrative audits and share "\
+  s.description = "Renalware uses demographic, clinical, pathology, and nephrology datasets to " \
+                  "improve patient care, undertake clinical and administrative audits and share " \
                   "data with external systems."
   s.license     = "MIT"
 
@@ -81,7 +81,6 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "> 5.2", "< 6.2"
   s.add_dependency "ransack", "~> 3.1.0"
   s.add_dependency "record_tag_helper", "~> 1.0.0"
-  s.add_dependency "renalware-forms", ">= 0.1.5"
   s.add_dependency "ruby-hl7", "~> 1.2.0"
   s.add_dependency "sassc-rails", "~> 2.1.0"
   s.add_dependency "scenic", "~> 1.5"
