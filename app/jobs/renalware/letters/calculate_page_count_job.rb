@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/letters"
 require "pdf/reader"
 
 module Renalware

@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/patients"
-require_dependency "renalware/reporting"
-
 module Renalware
   module Patients
     class MDMsController < BaseController

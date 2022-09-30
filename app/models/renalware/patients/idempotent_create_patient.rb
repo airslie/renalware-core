@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/patient"
-
 # TODO: unused class
 module Renalware
   module Patients

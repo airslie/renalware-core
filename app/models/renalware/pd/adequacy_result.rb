@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/pd"
-
 module Renalware
   module PD
     # Important to understand is that urine measurements related to renal calculations and

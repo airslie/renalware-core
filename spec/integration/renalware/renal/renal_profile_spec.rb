@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require_dependency "renalware/renal"
 
 describe "Renal Profile", type: :system, js: true do
   describe "GET #show" do

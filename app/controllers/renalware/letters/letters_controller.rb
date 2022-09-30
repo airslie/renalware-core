@@ -2,7 +2,6 @@
 
 # TODO: Remove this disable
 # rubocop:disable Metrics/ClassLength
-require_dependency "renalware/letters"
 
 module Renalware
   module Letters

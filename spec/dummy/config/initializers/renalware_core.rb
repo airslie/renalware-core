@@ -2,8 +2,6 @@
 
 # Here is where we configure the settings for the Renalware::Core engine.
 
-require_dependency "renalware"
-
 Renalware.configure do |config|
   config.patient_hospital_identifiers = {
     KCH: :local_patient_id,

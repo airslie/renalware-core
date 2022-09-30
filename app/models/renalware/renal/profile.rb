@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/renal"
 require "document/base"
 
 module Renalware

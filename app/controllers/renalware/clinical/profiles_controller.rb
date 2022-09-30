@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/clinical"
-
 module Renalware
   module Clinical
     # Note that there is no concrete Clinical::Profile, most data here is persisted in the patient

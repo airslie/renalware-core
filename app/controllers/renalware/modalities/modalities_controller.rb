@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware/deaths"
-
 module Renalware
   module Modalities
     class ModalitiesController < BaseController

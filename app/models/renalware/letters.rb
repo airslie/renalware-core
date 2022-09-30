@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "renalware"
-require_dependency "renalware/letters/author"
-
 module Renalware
   module Letters
     def self.table_name_prefix
