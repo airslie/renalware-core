@@ -6,9 +6,10 @@ describe "Managing an existing letter contact", type: :system, js: true do
   include AjaxHelpers
 
   context "with valid parameters" do
+    let(:user) { create(:user, :clinical) }
+
     it "A user changes an existing patient's contact to for example remove their default cc " \
        "or change their description", js: true do
-      user = login_as_clinical
       patient = create(:letter_patient)
       description1 = create(:letter_contact_description, name: "Parent")
       description2 = create(:letter_contact_description, name: "Child")
@@ -21,6 +22,7 @@ describe "Managing an existing letter contact", type: :system, js: true do
         default_cc: true
       )
 
+      login_as user
       visit patient_letters_contacts_path(patient)
 
       within "#letters_contact_#{contact.id}" do
@@ -44,7 +46,8 @@ describe "Managing an existing letter contact", type: :system, js: true do
 
       click_on t("btn.save")
 
-      expect(page).to have_no_css("#add-patient-contact-as-cc-modal")
+      # Wait for modal to close
+      expect(page).to have_no_css("#edit-patient-contact-modal")
 
       contact.reload
 
