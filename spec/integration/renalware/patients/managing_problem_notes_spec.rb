@@ -37,7 +37,7 @@ describe "Problem notes management", type: :system, js: true do
       click_on t("btn.edit")
       fill_in "Text", with: "ACB321"
       click_on t("btn.save")
-      expect(page).to have_content(note.description)
+      expect(page).to have_content("ACB321")
       expect(note.reload.description).to eq("ACB321")
     end
   end
