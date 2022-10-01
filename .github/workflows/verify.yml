@@ -12,6 +12,12 @@ on:
       - "docs/**"
       - "README.md"
 
+# Cancel any running actions triggered on the same branch.
+# NB: github.ref is the branch or tag that triggered the workflow run.
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   BUNDLE_GITHUB__COM: ${{ secrets.CR_PAT }}
   RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
