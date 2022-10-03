@@ -7,6 +7,8 @@ module Renalware
       include Renalware::Concerns::PatientVisibility
       after_action :track_action, except: [:search]
 
+      skip_verify_policy_scoped only: :search
+
       PRB_PARAMS_DAY = "date(3i)"
       PRB_PARAMS_MONTH = "date(2i)"
       PRB_PARAMS_YEAR = "date(1i)"
