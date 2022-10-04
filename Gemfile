@@ -77,6 +77,8 @@ group :development do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
+  gem "spring"
+  gem "spring-commands-rspec"
   gem "turnip", "~> 4.0", github: "airslie/turnip", require: false
   # gem 'sql_tracker'
   gem "web-console"
