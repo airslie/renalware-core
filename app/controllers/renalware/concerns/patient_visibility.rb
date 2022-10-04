@@ -11,6 +11,21 @@ module Renalware
       extend ActiveSupport::Concern
       include Pundit::Authorization
 
+      class_methods do
+        # Add a skip_verify_policy_scoped macro to allow excluding an action from
+        # verify_policy_scoped. Only delegate to skip_after_action if
+        # patient_visibility_restrictions are configured, otherwise will raise an
+        # exception as the verify_policy_scoped is not defined
+        # Example usage:
+        #   skip_verify_policy_scoped only: :search
+        #
+        def skip_verify_policy_scoped(**options)
+          return if Renalware.config.patient_visibility_restrictions == :none
+
+          skip_after_action :verify_policy_scoped, **options
+        end
+      end
+
       if Renalware.config.patient_visibility_restrictions != :none
         included do
           # Adding this after_action callback is just a helper to ensure that a developer
