@@ -55,7 +55,7 @@ describe("Persisting the correct recipients when a letter is saved", type: :syst
         it "create recipients rows main:#{main_person_role} cc:#{cc_person_role}" do
           user = login_as_clinical
           create(:letter_letterhead)
-          create(:letter_description, text: "::description::")
+          create(:letter_topic, text: "::description::")
 
           draft_new_letter(user, main_recipient_person_role: main_person_role)
           letter = approve_letter
@@ -75,7 +75,7 @@ describe("Persisting the correct recipients when a letter is saved", type: :syst
     it "create recipient rows main: contact cc: [patient primary_care_physician]" do
       user = login_as_clinical
       create(:letter_letterhead)
-      create(:letter_description, text: "::description::")
+      create(:letter_topic, text: "::description::")
       create(
         :letter_contact,
         patient: patient,

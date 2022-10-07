@@ -25,7 +25,7 @@ module Pages
       end
 
       def description=(value)
-        select2 value, css: ".letter_description"
+        select2 value, css: ".letter_topic"
       end
 
       def main_recipient=(main_recipient_role)

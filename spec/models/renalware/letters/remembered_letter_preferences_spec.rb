@@ -9,7 +9,7 @@ module Renalware
         it "saves certain model attributes to the session" do
           letter = instance_double(Letter,
                                    letterhead_id: 1,
-                                   description: "1",
+                                   topic_id: "1",
                                    author_id: 1)
           session = {}
 
@@ -26,7 +26,7 @@ module Renalware
           session = {
             letter_preferences: {
               letterhead_id: 1,
-              description: "1",
+              topic_id: "1",
               author_id: 1
             }
           }

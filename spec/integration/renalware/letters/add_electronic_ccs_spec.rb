@@ -18,7 +18,7 @@ describe "Assign electronic CCs" do
   describe "assigning a new person as a CC recipient", js: true, type: :system do
     before do
       create(:letter_letterhead)
-      create(:letter_description, text: "::description::")
+      create(:letter_topic, text: "::description::")
     end
 
     context "with valid attributes" do
@@ -48,7 +48,7 @@ describe "Assign electronic CCs" do
       within "#letter-form" do
         select Renalware::Letters::Letterhead.first.name, from: "Letterhead"
         select Renalware::User.first.to_s, from: "Author"
-        select2 "::description::", css: ".letter_description"
+        select2 "::description::", css: ".letter_topic"
         choose("Primary Care Physician")
       end
       wait_for_ajax

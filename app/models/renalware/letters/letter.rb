@@ -18,6 +18,7 @@ module Renalware
       belongs_to :completed_by, class_name: "User"
       belongs_to :patient, touch: true
       belongs_to :letterhead
+      belongs_to :topic, class_name: "Letters::Topic", optional: true
       has_one :main_recipient,
               -> { where(role: "main") },
               class_name: "Recipient",
@@ -42,7 +43,8 @@ module Renalware
       validates :letterhead, presence: true
       validates :author, presence: true
       validates :patient, presence: true
-      validates :description, presence: true
+      validates :topic, presence: true, if: ->(letter) { letter.description.nil? }
+
       validates :main_recipient, presence: true
 
       include ExplicitStateModel

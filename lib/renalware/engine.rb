@@ -85,7 +85,7 @@ module Renalware
 
     config.generators do |gens|
       gens.test_framework :rspec
-      gens.fixture_replacement :factory_girl, dir: "../../spec/factories"
+      gens.fixture_replacement :factory_bot, dir: "../../spec/factories"
     end
 
     initializer :add_locales do |app|
