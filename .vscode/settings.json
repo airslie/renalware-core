@@ -1,0 +1,8 @@
+{
+  "[ruby]": {
+    "editor.defaultFormatter": "castwide.solargraph"
+  },
+  "solargraph.autoformat": true,
+  "solargraph.diagnostics": true,
+  "solargraph.formatting": true
+}
