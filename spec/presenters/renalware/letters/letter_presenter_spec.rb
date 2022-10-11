@@ -21,6 +21,58 @@ module Renalware
           expect(presenter.pdf_stateless_filename).to eq("JONES-A123-111.pdf")
         end
       end
+
+      describe "#parts" do
+        let(:letter) {
+          Letter.new \
+            patient: Patient.new,
+            topic: topic,
+            letterhead: Letterhead.new,
+            clinical: clinical
+        }
+        let(:topic) { nil }
+        let(:clinical) { false }
+        let(:sections) { [] }
+
+        context "with clinical letter event" do
+          let(:clinical) { true }
+
+          it "returns clinical event sections" do
+            expect(presenter.parts.size).to eq 4
+            expect(presenter.parts[0]).to be_kind_of Part::Problems
+            expect(presenter.parts[1]).to be_kind_of Part::Prescriptions
+            expect(presenter.parts[2]).to be_kind_of Part::RecentPathologyResults
+            expect(presenter.parts[3]).to be_kind_of Part::Allergies
+          end
+        end
+
+        context "with an non-clinical letter event" do
+          context "when topic is not present" do
+            it "returns no sections" do
+              expect(presenter.parts.size).to eq 0
+            end
+          end
+
+          context "when topic is present" do
+            let(:topic) { Topic.new(section_identifiers: sections) }
+
+            context "when sections are present" do
+              let(:sections) { [:hd_section] }
+
+              it "returns a list of sections sorted by position" do
+                expect(presenter.parts.size).to eq 1
+                expect(presenter.parts[0]).to be_kind_of HD::LetterExtensions::HDSection
+              end
+            end
+
+            context "when sections are not present" do
+              it "returns no sections" do
+                expect(presenter.parts.size).to eq 0
+              end
+            end
+          end
+        end
+      end
     end
   end
 end

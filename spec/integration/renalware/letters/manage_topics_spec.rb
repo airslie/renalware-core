@@ -39,9 +39,12 @@ describe "Manage letter topics", type: :system do
     end
 
     fill_in "Text", with: "LD2"
+    check "HD Section"
     click_on "Save"
 
-    expect(Renalware::Letters::Topic.first).to have_attributes(text: "LD2")
+    topic = Renalware::Letters::Topic.first
+    expect(topic).to have_attributes(text: "LD2")
+    expect(topic.section_identifiers).to eq ["hd_section"]
   end
 
   it "enables a superadmin to soft-delete a letter topic" do

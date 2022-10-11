@@ -5318,7 +5318,8 @@ CREATE TABLE renalware.letter_descriptions (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     "position" integer DEFAULT 0 NOT NULL,
-    deleted_at timestamp without time zone
+    deleted_at timestamp without time zone,
+    section_identifiers character varying[] DEFAULT '{}'::character varying[]
 );
 
 
@@ -24746,6 +24747,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220915150710'),
 ('20220915151614'),
 ('20220926171513'),
+('20220926211723'),
 ('20220928115421');
 
 

@@ -5,30 +5,28 @@ require "ostruct"
 
 module Renalware
   module Letters
-    class Part::Prescriptions < DumbDelegator
+    class Part::Prescriptions < Part
       include ::PresenterHelper
-
-      def initialize(patient, _letter, _event = Event::Unknown.new)
-        @patient = patient
-        super(prescriptions)
-      end
 
       def to_partial_path
         "renalware/letters/parts/prescriptions"
       end
 
-      private
-
       def prescriptions
-        presenter_klass = ::Renalware::Medications::PrescriptionPresenter
-        ::OpenStruct.new(
-          current: present(current_non_hd, presenter_klass),
-          recently_changed: present(recently_changed_current_prescriptions, presenter_klass),
-          recently_stopped: present(recently_stopped_prescriptions, presenter_klass),
-          current_hd: present(current_hd, presenter_klass),
-          patient: @patient
-        )
+        @prescriptions ||= begin
+          presenter_klass = ::Renalware::Medications::PrescriptionPresenter
+          ::OpenStruct.new(
+            current: present(current_non_hd, presenter_klass),
+            recently_changed: present(recently_changed_current_prescriptions, presenter_klass),
+            recently_stopped: present(recently_stopped_prescriptions, presenter_klass),
+            current_hd: present(current_hd, presenter_klass),
+            patient: @patient
+          )
+        end
       end
+      delegate_missing_to :prescriptions
+
+      private
 
       def current_non_hd
         @current_non_hd ||= current_prescriptions.where.not(administer_on_hd: true)

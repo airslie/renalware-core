@@ -6,12 +6,12 @@ module Renalware
   module Letters
     describe PartClassFilter do
       describe "#to_h" do
-        subject(:to_h) { filter.to_h.keys }
+        subject(:filter) { instance.filter }
 
-        let(:part_classes) { { recent_pathology_results: :foo, problems: :bar } }
-        let(:filter) do
+        let(:sections) { [Part::RecentPathologyResults, Part::Problems] }
+        let(:instance) do
           described_class.new(
-            part_classes: part_classes,
+            sections: sections,
             include_pathology_in_letter_body: include_pathology_in_letter_body
           )
         end
@@ -19,13 +19,13 @@ module Renalware
         context "when include_pathology_in_letter_body is true" do
           let(:include_pathology_in_letter_body) { true }
 
-          it { is_expected.to eq(%i(recent_pathology_results problems)) }
+          it { is_expected.to eq([Part::RecentPathologyResults, Part::Problems]) }
         end
 
         context "when include_pathology_in_letter_body is false" do
           let(:include_pathology_in_letter_body) { false }
 
-          it { is_expected.to eq([:problems]) }
+          it { is_expected.to eq([Part::Problems]) }
         end
       end
     end
