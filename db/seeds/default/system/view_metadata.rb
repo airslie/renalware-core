@@ -4,7 +4,7 @@ module Renalware
   log "Adding View Metadata" do
     Renalware::System::ViewMetadata.find_or_create_by!(
       view_name: "transplant_mdm_patients",
-      scope: "transplant",
+      scope: "transplants",
       category: "mdm",
       schema_name: "renalware"
     ) do |view|
@@ -85,6 +85,23 @@ module Renalware
         { code: :tx_candidate, type: :list },
         { code: :hgb_range, type: :list },
         { code: :urea_range, type: :list }
+      ]
+      view.columns = [].to_json
+    end
+
+    Renalware::System::ViewMetadata.find_or_create_by!(
+      view_name: "dietetic_mdm_patients",
+      scope: "dietetics",
+      category: "mdm",
+      slug: "all",
+      schema_name: "renalware"
+    ) do |view|
+      view.title = "All"
+      view.position = 1
+      view.filters = [
+        { code: :weight_management_clinic, type: :list },
+        { code: :sga_score, type: :list },
+        { code: :modality_name, type: :list }
       ]
       view.columns = [].to_json
     end

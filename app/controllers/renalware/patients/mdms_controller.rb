@@ -44,7 +44,7 @@ module Renalware
       def scope_name
         default_scope = "low_clearance"
         case current_view.scope
-        when "akcc", "supportive_care", "dietetic" then default_scope
+        when "akcc", "supportive_care" then default_scope
         else current_view.scope
         end
       end
@@ -71,44 +71,6 @@ module Renalware
           end
         end
       end
-
-      # class SqlView
-      #   pattr_initialize :view_name
-
-      #   # Create a class under Renalware:: for this SQL name
-      #   # Note that Ransack search_form_for requires our otherwise anonymous class to have a name.
-      #   def klass
-      #     return Renalware.const_get(class_name) if class_exists?
-
-      #     underlying_view_name = view_name
-      #     Class.new(ApplicationRecord) do
-      #       self.table_name = underlying_view_name
-      #       define_method(:to_s, ->(_x) { patient_name })
-      #       define_method(:to_param, -> { secure_id })
-      #     end.tap do |klass|
-      #       Renalware.const_set(class_name, klass)
-      #       # klass.connection # not sure this is required.
-      #     end
-      #   end
-
-      #   private
-
-      #   def class_name
-      #     @class_name ||= begin
-      #       unless view_name.match?(/^[.a-z_0-9]*$/)
-      #         raise ArgumentError, "Invalid view name '#{view_name}'"
-      #       end
-
-      #       "AnonymousView#{view_name.split('.').last.camelcase}"
-      #     end
-      #   end
-
-      #   def class_exists?
-      #     Renalware.const_get(class_name)
-      #   rescue NameError
-      #     false
-      #   end
-      # end
     end
   end
 end
