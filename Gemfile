@@ -21,7 +21,7 @@ gem "jsbundling-rails", "~> 1.0"
 gem "nhs_api_client", github: "airslie/nhs_api_client", tag: "v0.1.2", require: false
 gem "paper_trail"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
-gem "redis"
+gem "redis", "~> 4.8"
 gem "renalware-forms", ">=0.1.16", github: "airslie/renalware-forms", branch: "main"
 gem "ruby-prof", require: false
 gem "uglifier", "~> 4.2"
