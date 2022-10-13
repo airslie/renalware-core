@@ -69,7 +69,7 @@ describe "Managing clinical study investigatorships", type: :request do
         expect(response).to be_successful
         expect(response).to render_template(:index)
         investigatorship = study.reload.investigatorships.first
-        expect(investigatorship.manager).to eq(true)
+        expect(investigatorship.manager).to be(true)
         expect(investigatorship.user).to eq(user)
       end
     end

@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   end
 
   constraints super_admin_constraint do
-    mount GoodJob::Engine => 'good_job'
+    mount GoodJob::Engine => "good_job"
   end
 end
