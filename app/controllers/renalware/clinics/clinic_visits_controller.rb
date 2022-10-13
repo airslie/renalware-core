@@ -150,7 +150,7 @@ module Renalware
       def clinic_options_for(template)
         Renalware::Clinics::Clinic.order(:name).map do |clinic|
           [
-            clinic.name,
+            clinic.description,
             clinic.id,
             {
               data: {

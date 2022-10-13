@@ -10,14 +10,14 @@
         header
           h2 Summary
 
-        #clinic-visit-clinic-container
+        #clinic-visit-clinic-container.pb-3
           = f.association :clinic,
                           collection: clinic_options,
-                          wrapper: :horizontal_small,
+                          wrapper: :horizontal_medium,
                           include_blank: t(".clinic_prompt"),
                           input_html: { \
                             id: "clinic-visit-clinic-dropdown",
-                            class: "searchable_select" \
+                            data: { controller: "slimselect" } \
                           }
         = f.input :date, as: :date_picker, wrapper: :horizontal_datepicker
         = f.input :time, as: :clock_picker, wrapper: :horizontal_clockpicker

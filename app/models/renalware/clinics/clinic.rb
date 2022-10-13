@@ -39,6 +39,10 @@ module Renalware
       def to_s
         name
       end
+
+      def description
+        [name, code].reject(&:blank?).uniq.join(" / ")
+      end
     end
   end
 end

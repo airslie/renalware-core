@@ -10,7 +10,7 @@ module Renalware
       end
 
       def description
-        "(Clinic Date #{::I18n.l(date.to_date, format: :long)})"
+        "Clinic #{clinic&.description} #{::I18n.l(date.to_date, format: :long)}"
       end
 
       def part_classes
