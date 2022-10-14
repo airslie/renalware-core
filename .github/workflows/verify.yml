@@ -145,3 +145,12 @@ jobs:
           POSTGRES_PASSWORD: postgres
           RAILS_ENV: test
         run: ${{ matrix.command }}
+
+
+      - name: Store test failure screenshots
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-failure-screenshots
+          path: tmp/capybara
+          if-no-files-found: ignore
