@@ -46,12 +46,10 @@ group :test do
   gem "cucumber-rails", "~> 2.5.1", require: false # must be loaded in env.rb
   gem "database_cleaner", require: false # for cucumber (now not needed for rspec)
   gem "execjs", "2.7.0" # 2.8.1 raises an error
-  gem "factory_bot_rails", "~> 6.1"
   gem "fuubar", require: false
   gem "rails-controller-testing", "~> 1.0.4"
   gem "rspec-html-matchers", require: false
   gem "rspec_junit_formatter", "~> 0.4"
-  gem "rspec-rails"
   gem "rspec-retry"
   gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 5.1"
@@ -88,8 +86,10 @@ end
 group :development, :test do
   gem "bundler-audit", require: false
   gem "byebug"
+  gem "factory_bot_rails", "~> 6.1"
   gem "launchy", require: false
   gem "pry-byebug", require: false
   gem "pry-rails", require: false
+  gem "rspec-rails"
   gem "rubocop", require: false
 end
