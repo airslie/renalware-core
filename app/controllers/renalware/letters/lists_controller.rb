@@ -73,6 +73,7 @@ module Renalware
             :created_by_id_eq,
             :letterhead_id_eq,
             :page_count_in_array,
+            :clinic_visit_clinic_id_eq,
             :s
           )
       end

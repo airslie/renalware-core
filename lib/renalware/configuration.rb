@@ -46,6 +46,7 @@ module Renalware
     # These settings are used in the construction of the IDENT metadata in letters
     config_accessor(:letter_system_name) { "Renalware" }
     config_accessor(:letter_default_care_group_name) { "RenalCareGroup" }
+    config_accessor(:clinic_name_code_separator) { ENV.fetch("CLINIC_NAME_CODE_SEPARATOR", " ") }
     config_accessor(:default_from_email) { "dev@airslie.com" }
     config_accessor(:display_feedback_banner) { ENV.key?("DISPLAY_FEEDBACK_BANNER") }
     config_accessor(:display_feedback_button_in_navbar) do

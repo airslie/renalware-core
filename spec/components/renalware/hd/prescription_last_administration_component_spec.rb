@@ -20,7 +20,7 @@ describe Renalware::HD::PrescriptionLastAdministrationComponent, type: :componen
 
     render_inline(described_class.new(prescription: prescription))
 
-    expect(page).to have_content("Last given on Wed 01 Jan 2020 by #{user}")
+    expect(page).to have_content("Last given on Wed 01-Jan-2020 by #{user}")
     expect(page).to have_content("Notes: abc")
   end
 

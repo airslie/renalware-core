@@ -35,7 +35,10 @@ module Renalware::Letters
           visit = instance_double(Renalware::Clinics::ClinicVisit, date: "2022-02-02",
                                                                    clinic: clinic)
           event = described_class.new(visit, clinical: true)
-          expect(event.description).to eq("Clinic X Y Wed 02 Feb 2022")
+          expect(event.description).to eq(
+            "<span><span>Clinic: X Y</span><span style=\"white-space: nowrap;\"> " \
+            "on Wed 02-Feb-2022</span></span>"
+          )
         end
       end
 
