@@ -12,8 +12,6 @@ module Renalware
       ActiveType.cast(patient, ::Renalware::Pathology::Patient)
     end
 
-    def configure; end
-
     class MissingRequestDescriptionError < StandardError; end
 
     class MissingObservationDescriptionError < StandardError; end

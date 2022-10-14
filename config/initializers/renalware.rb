@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Don't rely on auto-loading in an initializer
+require "renalware/broadcasting"
+
 # New subscription registry - previous implementation does not work across threads.
 # Each key in the map (hash) is the name of a class that broadacasts/publishes messages.
 # Entries in the array (value) for that key are classes which subscribe to events in the
@@ -48,10 +51,4 @@ Renalware.configure do |config|
       "Renalware::Pathology::KFRE::Listener"
     ]
   }
-end
-
-Renalware::Patients.configure
-Renalware::Pathology.configure
-Renalware::PD.configure do |config|
-  # ...
 end

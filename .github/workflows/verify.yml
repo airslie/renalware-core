@@ -152,5 +152,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: test-failure-screenshots
-          path: tmp/capybara
+          path: spec/dummy/tmp/capybara
           if-no-files-found: ignore

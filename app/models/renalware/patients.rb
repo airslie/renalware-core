@@ -8,8 +8,6 @@ module Renalware
       "patient_"
     end
 
-    def configure; end
-
     def self.cast_user(user)
       ActiveType.cast(user, ::Renalware::Patients::User)
     end
