@@ -8,7 +8,7 @@ module Renalware::Problems
     let(:patient) { create(:patient, by: user) }
 
     def build_params(description_id:, recognised:, recognised_at:, id: nil)
-      HashWithIndifferentAccess.new(
+      ActiveSupport::HashWithIndifferentAccess.new(
         "comorbidities_attributes" => {
           "0" => {
             "description_id" => description_id,

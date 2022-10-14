@@ -145,7 +145,7 @@ module World
       end
 
       def t_contact_description_unspecified
-        t(:other, scope: :"renalware.letters.contacts.form.description")
+        t("renalware.letters.contacts.form.description.other")
       end
     end
   end

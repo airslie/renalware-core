@@ -22,7 +22,7 @@ describe "Create new appointment manually (not via HL7 message)", type: :system,
       # Use and patient should have a hospital centre set, and the hosp must be a host site
       # otherwise.. nada
       expect(patient.hospital_centre).to eq(user.hospital_centre)
-      expect(patient.hospital_centre.host_site).to eq(true)
+      expect(patient.hospital_centre.host_site).to be(true)
 
       within(".new_clinics_appointment") do
         select2(
