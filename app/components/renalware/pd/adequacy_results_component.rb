@@ -27,6 +27,10 @@ module Renalware
         end
       end
 
+      def render?
+        results.any?
+      end
+
       private
 
       def scope
