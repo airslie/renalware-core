@@ -39,6 +39,10 @@ module Renalware
       def to_s
         name
       end
+
+      def description
+        [name, code].reject(&:blank?).uniq.join(Renalware.config.clinic_name_code_separator)
+      end
     end
   end
 end

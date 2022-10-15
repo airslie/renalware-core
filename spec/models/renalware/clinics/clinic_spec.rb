@@ -15,4 +15,18 @@ describe Renalware::Clinics::Clinic, type: :model do
 
     it { is_expected.to validate_uniqueness_of :code }
   end
+
+  describe "#description" do
+    it "appends name and code if both present" do
+      expect(described_class.new(name: "A", code: "B").description).to eq("A B")
+    end
+
+    it "uses just name if no code present" do
+      expect(described_class.new(name: "A", code: "").description).to eq("A")
+    end
+
+    it "uses just name if code and name are the same" do
+      expect(described_class.new(name: "A", code: "A").description).to eq("A")
+    end
+  end
 end
