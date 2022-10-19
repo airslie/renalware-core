@@ -3,8 +3,6 @@
 require "rails_helper"
 
 describe "A superadmin lists groups", type: :system, js: true do
-  include SlimSelectHelper
-
   it "lists all user groups in the system" do
     user = login_as_super_admin
     create(

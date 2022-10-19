@@ -152,6 +152,7 @@ RSpec.configure do |config|
   config.include Shoulda::Matchers::ActiveRecord, type: :model
   config.include ViewComponent::TestHelpers, type: :component
   config.include ActionView::RecordIdentifier, type: :system
+  config.include SlimSelectHelper, type: :system
 
   config.fuubar_progress_bar_options = { progress_mark: "≈" }
 

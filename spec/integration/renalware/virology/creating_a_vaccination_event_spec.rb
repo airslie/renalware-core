@@ -3,7 +3,6 @@
 require "rails_helper"
 
 describe "Creating an vaccination", type: :system, js: true do
-  include SlimSelectHelper
   include AjaxHelpers
   let(:event_date_time) { "08-Feb-2018 07:00" }
 

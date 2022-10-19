@@ -3,8 +3,6 @@
 require "rails_helper"
 
 describe "Creating a investigation event", type: :system, js: true do
-  include SlimSelectHelper
-
   context "when adding a investigation event through the Events screen" do
     it "captures extra data" do
       user = login_as_clinical
