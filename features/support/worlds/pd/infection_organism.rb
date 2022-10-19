@@ -49,7 +49,7 @@ module World
           click_link "Edit"
 
           wait_for_ajax
-          expect(page).to have_field("Sensitivity")
+          expect(page).to have_field("Sensitivity", wait: 10)
 
           fill_in "Sensitivity", with: sensitivity
           fill_in "Resistance", with: resistance
