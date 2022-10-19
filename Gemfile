@@ -86,6 +86,8 @@ end
 group :development, :test do
   gem "bundler-audit", require: false
   gem "byebug"
+  # Start debugger with binding.b [https://github.com/ruby/debug]
+  gem "debug", ">= 1.0.0", platforms: %i(mri mingw x64_mingw)
   gem "factory_bot_rails", "~> 6.1"
   gem "launchy", require: false
   gem "pry-byebug", require: false

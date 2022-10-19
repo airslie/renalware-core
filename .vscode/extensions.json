@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "kaiwood.endwise",
-    "castwide.solargraph"
+    "castwide.solargraph",
+    "KoichiSasada.vscode-rdbg"
   ]
 }
