@@ -772,6 +772,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webdrivers (5.2.0)
+      nokogiri (~> 1.6)
+      rubyzip (>= 1.3.0)
+      selenium-webdriver (~> 4.0)
     webmock (3.17.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -859,6 +863,7 @@ DEPENDENCIES
   turnip (~> 4.0)!
   uglifier (~> 4.2)
   web-console
+  webdrivers (~> 5.0)
   webmock (~> 3.7)
   wisper-rspec (~> 1.1.0)
   wkhtmltopdf-binary (= 0.12.3.1)
