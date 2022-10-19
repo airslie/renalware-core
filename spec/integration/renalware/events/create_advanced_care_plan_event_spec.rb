@@ -3,8 +3,6 @@
 require "rails_helper"
 
 describe "Creating an Advanced Care Plan event", type: :system, js: true do
-  include SlimSelectHelper
-
   context "when adding the event" do
     it "allows a user to also select the state from an event-specfic dropdown" do
       user = login_as_clinical

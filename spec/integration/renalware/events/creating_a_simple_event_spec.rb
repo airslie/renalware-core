@@ -3,8 +3,6 @@
 require "rails_helper"
 
 describe "Creating an event", type: :system, js: true do
-  include SlimSelectHelper
-
   context "when adding a simple event" do
     it "works" do
       user = login_as_clinical

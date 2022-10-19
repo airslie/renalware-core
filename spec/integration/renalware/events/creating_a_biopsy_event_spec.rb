@@ -3,8 +3,6 @@
 require "rails_helper"
 
 describe "Creating an biopsy", type: :system, js: true do
-  include SlimSelectHelper
-
   context "when adding a biopsy event" do
     it "captures extra data" do
       user = login_as_clinical
