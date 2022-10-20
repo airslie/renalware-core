@@ -54,8 +54,6 @@ module Renalware
         sql_view_klass = build_sql_view_klass
         search = sql_view_klass.ransack(params[:q])
         response.headers["Content-Type"] = "text/csv"
-        # response.headers["Content-Disposition"] =
-        #   "attachment; filename=report_#{current_view.id}_#{Time.zone.now}.csv"
 
         send_data(
           sql_view_klass.to_csv(search.result.load),
@@ -72,8 +70,8 @@ module Renalware
       end
 
       # E.g. "My Report - 24-Aug-2022 16-34.csv"
-      def csv_filename_for(view)
-        unsanitized_filename = "#{(current_view.title || current_view.view_name)} - #{I18n.l(Time.zone.now)}.csv"
+      def csv_filename_for(_view)
+        unsanitized_filename = "#{current_view.title || current_view.view_name} - #{I18n.l(Time.zone.now)}.csv"
         ActiveStorage::Filename.new(unsanitized_filename).sanitized
       end
 
