@@ -8,6 +8,7 @@ describe "Viewing a list of reports", type: :system, js: true do
     report = create(
       :view_metadata,
       view_name: "transplant_mdm_patients",
+      sub_category: "XYZ",
       title: "Report1",
       category: :report
     )
@@ -18,6 +19,6 @@ describe "Viewing a list of reports", type: :system, js: true do
 
     expect(page).to have_content("Reports")
     expect(page).to have_content(report.title)
-    expect(page).to have_content(report.view_name)
+    expect(page).to have_content(report.sub_category)
   end
 end
