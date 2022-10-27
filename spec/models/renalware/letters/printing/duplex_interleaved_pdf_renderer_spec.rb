@@ -32,7 +32,6 @@ module Renalware
               ms = Benchmark.ms do
                 File.binwrite(pdf_file, described_class.call(letter))
               end
-              puts "Rendering the letter/s took #{ms}"
 
               open_pdf_in_preview(pdf_file)
 
@@ -118,7 +117,6 @@ module Renalware
               ms = Benchmark.ms do
                 File.binwrite(pdf_file, described_class.call(letter))
               end
-              puts "Rendering the letter/s took #{ms}"
 
               open_pdf_in_preview(pdf_file)
 
