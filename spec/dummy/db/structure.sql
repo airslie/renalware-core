@@ -1048,7 +1048,7 @@ begin
         ,document ->> 'score'
     from events e
     inner join event_types et on et.id = e.event_type_id
-    where e.patient_id = p_id 
+    where e.patient_id = p_id
       and e.deleted_at is null
       and et.slug = 'clinical_frailty_score'
     order by e.date_time desc
@@ -2242,7 +2242,8 @@ CREATE TABLE renalware.hospital_centres (
     trust_name character varying,
     trust_caption character varying,
     host_site boolean DEFAULT false NOT NULL,
-    abbrev character varying
+    abbrev character varying,
+    default_site boolean DEFAULT false
 );
 
 
@@ -24753,6 +24754,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220926171513'),
 ('20220926211723'),
 ('20220928115421'),
-('20221013094654');
+('20221013094654'),
+('20221027100532');
 
 
