@@ -6,6 +6,17 @@
   "configurations": [
     {
       "type": "rdbg",
+      "name": "RSpec - run current test",
+      "request": "launch",
+      "command": "./bin/rspec",
+      "script": "${relativeFile}:${lineNumber}",
+      "askParameters": false,
+      "env": {
+        "DISABLE_SPRING": true
+      }
+    },
+    {
+      "type": "rdbg",
       "name": "Attach with rdbg",
       "request": "attach"
     },
