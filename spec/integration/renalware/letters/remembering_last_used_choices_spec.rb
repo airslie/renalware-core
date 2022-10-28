@@ -36,7 +36,7 @@ describe "Remembering last used letter choices in the user's session", type: :sy
     # should be remembered the next time we create a letter
     select letterheads[1].name, from: "Letterhead"
     select "Jones, Jane", from: "Author"
-    select2 descriptions[1].text, css: ".letter_topic"
+    slim_select descriptions[1].text, from: "Topic"
     choose("Primary Care Physician")
 
     within ".top" do
@@ -47,8 +47,7 @@ describe "Remembering last used letter choices in the user's session", type: :sy
     visit new_patient_letters_letter_path(patient)
 
     expect(page.find("#letter_letterhead_id").value).to eq(letterheads[1].id.to_s)
-    expect(page.find("#letter_topic_id option[selected='selected']").value)
-      .to eq(descriptions[1].id.to_s)
+    expect(page).to have_field "Topic", with: descriptions[1].id.to_s, visible: false
     expect(page.find("#letter_author_id option[selected='selected']").value)
       .to eq(users[1].id.to_s)
   end

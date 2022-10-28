@@ -147,9 +147,7 @@ module Renalware
     end
 
     def current_transplant_status
-      @current_transplant_status ||= begin
-        Renalware::Transplants::Registration.for_patient(patient).first&.current_status
-      end
+      @current_transplant_status ||= Transplants.current_transplant_status_for_patient(patient)
     end
 
     def access

@@ -31,8 +31,9 @@ namespace :tailwind do
       ]
     end.flatten
 
-    File.write(Rails.root.join("config/tailwind.config.js"), <<~JS)
+    Rails.root.join("config/tailwind.config.js").write(<<~JS)
       const defaultTheme = require('tailwindcss/defaultTheme')
+      const plugin = require('tailwindcss/plugin')
 
       /*
       See here for some tint nhs colours
@@ -88,6 +89,11 @@ namespace :tailwind do
           require('@tailwindcss/forms'),
           require('@tailwindcss/aspect-ratio'),
           require('@tailwindcss/typography'),
+          plugin(function({ addVariant }) {
+            // Usage: style elements which are down to an immediate right sibling of a checkbox or radio button
+            // e.g. <input type='radio'/><label><div class="next-to-checked-down:border-red-500"></div></label>
+            addVariant('next-to-checked-down', ':checked + * &')
+          })
         ]
       }
     JS

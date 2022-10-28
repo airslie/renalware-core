@@ -202,7 +202,8 @@ module Renalware
           :salutation, :body, :notes, :pathology_timestamp,
           main_recipient_attributes: main_recipient_attributes,
           cc_recipients_attributes: cc_recipients_attributes,
-          electronic_cc_recipient_ids: []
+          electronic_cc_recipient_ids: [],
+          update_sections: {}
         ]
       end
 

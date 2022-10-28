@@ -35,6 +35,8 @@ module Renalware
         order(:rolling, year: :desc, month: :desc)
       }
 
+      scope :rolling, -> { where(rolling: true) }
+
       def to_s
         return "Last #{session_count} sessions" if rolling?
 

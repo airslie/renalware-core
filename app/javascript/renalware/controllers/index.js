@@ -25,6 +25,7 @@ import FormController from "./form_controller"
 import FlashController from "./flash_controller"
 import FlatpickrController from "./flatpickr_controller"
 import InputValueAlerterController from "./input_value_alerter_controller"
+import SelectUpdateFrameController from "./select_update_frame_controller"
 
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
@@ -54,3 +55,4 @@ application.register("form", FormController)
 application.register("flash", FlashController)
 application.register("flatpickr", FlatpickrController)
 application.register("input-value-alerter", InputValueAlerterController)
+application.register("select-update-frame", SelectUpdateFrameController)

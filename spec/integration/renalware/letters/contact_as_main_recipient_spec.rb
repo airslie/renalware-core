@@ -66,7 +66,7 @@ describe "Assign a person as a main recipient", type: :system do
 
     def fill_out_letter
       within "#letter-form" do
-        select2 "::description::", css: ".letter_topic"
+        slim_select "::description::", from: "Topic"
         select Renalware::Letters::Letterhead.first.name, from: "Letterhead"
         select Renalware::User.first.to_s, from: "Author"
         choose("Patient's Contact")

@@ -27,9 +27,7 @@ module Renalware
 
         class_methods do
           def sections_by_identifier
-            letter_extension_sections.index_by { |section|
-              section.identifier
-            }
+            letter_extension_sections.index_by(&:identifier)
           end
         end
       end

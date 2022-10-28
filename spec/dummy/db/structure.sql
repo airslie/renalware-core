@@ -69,7 +69,7 @@ CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA renalware;
 -- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
 --
 
-COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statistics of all SQL statements executed';
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
 
 
 --
@@ -3912,7 +3912,7 @@ ALTER SEQUENCE renalware.feed_practice_gps_id_seq OWNED BY renalware.feed_practi
 --
 
 CREATE TABLE renalware.good_job_processes (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT renalware.gen_random_uuid() NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     state jsonb
@@ -3924,7 +3924,7 @@ CREATE TABLE renalware.good_job_processes (
 --
 
 CREATE TABLE renalware.good_job_settings (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT renalware.gen_random_uuid() NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     key text,
@@ -3937,7 +3937,7 @@ CREATE TABLE renalware.good_job_settings (
 --
 
 CREATE TABLE renalware.good_jobs (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT renalware.gen_random_uuid() NOT NULL,
     queue_name text,
     priority integer,
     serialized_params jsonb,
@@ -4192,8 +4192,8 @@ CREATE TABLE renalware.hospital_units (
 
 CREATE VIEW renalware.hd_diary_matrix AS
  WITH hd_empty_diary_matrix AS (
-         SELECT EXTRACT(year FROM the_date.the_date) AS year,
-            EXTRACT(week FROM the_date.the_date) AS week_number,
+         SELECT date_part('year'::text, the_date.the_date) AS year,
+            date_part('week'::text, the_date.the_date) AS week_number,
             h.id AS hospital_unit_id,
             s.id AS station_id,
             a.day_of_week,
@@ -4204,7 +4204,7 @@ CREATE VIEW renalware.hd_diary_matrix AS
              CROSS JOIN ( SELECT generate_series(1, 7) AS day_of_week) a)
              CROSS JOIN renalware.hd_diurnal_period_codes period)
           WHERE (h.is_hd_site = true)
-          ORDER BY (EXTRACT(year FROM the_date.the_date)), (EXTRACT(week FROM the_date.the_date)), h.id, s.id, a.day_of_week, period.id
+          ORDER BY (date_part('year'::text, the_date.the_date)), (date_part('week'::text, the_date.the_date)), h.id, s.id, a.day_of_week, period.id
         )
  SELECT m.year,
     m.week_number,
@@ -4224,7 +4224,7 @@ CREATE VIEW renalware.hd_diary_matrix AS
     (ms.updated_at)::date AS master_slot_updated_at,
     to_date((((((wd.year)::text || '-'::text) || (wd.week_number)::text) || '-'::text) || (ms.day_of_week)::text), 'iyyy-iw-ID'::text) AS slot_date
    FROM ((((hd_empty_diary_matrix m
-     LEFT JOIN renalware.hd_diaries wd ON (((wd.hospital_unit_id = m.hospital_unit_id) AND ((wd.year)::numeric = m.year) AND ((wd.week_number)::numeric = m.week_number) AND (wd.master = false))))
+     LEFT JOIN renalware.hd_diaries wd ON (((wd.hospital_unit_id = m.hospital_unit_id) AND ((wd.year)::double precision = m.year) AND ((wd.week_number)::double precision = m.week_number) AND (wd.master = false))))
      LEFT JOIN renalware.hd_diaries md ON (((md.hospital_unit_id = m.hospital_unit_id) AND (md.master = true))))
      LEFT JOIN renalware.hd_diary_slots ws ON (((ws.diary_id = wd.id) AND (ws.station_id = m.station_id) AND (ws.day_of_week = m.day_of_week) AND (ws.diurnal_period_code_id = m.diurnal_period_code_id))))
      LEFT JOIN renalware.hd_diary_slots ms ON (((ms.diary_id = md.id) AND (ms.station_id = m.station_id) AND (ms.day_of_week = m.day_of_week) AND (ms.diurnal_period_code_id = m.diurnal_period_code_id))));
@@ -5633,6 +5633,39 @@ CREATE SEQUENCE renalware.letter_recipients_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_recipients_id_seq OWNED BY renalware.letter_recipients.id;
+
+
+--
+-- Name: letter_section_snapshots; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.letter_section_snapshots (
+    id bigint NOT NULL,
+    letter_id bigint NOT NULL,
+    section_identifier character varying,
+    content character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: letter_section_snapshots_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.letter_section_snapshots_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_section_snapshots_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.letter_section_snapshots_id_seq OWNED BY renalware.letter_section_snapshots.id;
 
 
 --
@@ -9664,7 +9697,7 @@ CREATE VIEW renalware.reporting_unit_patients AS
             CURRENT_TIMESTAMP AS stop
         ), month_range AS (
          SELECT 0 AS current_month,
-            ((EXTRACT(year FROM age(date_range.start)) * (12)::numeric) + EXTRACT(month FROM age(date_range.start))) AS months_to_go_back
+            ((date_part('year'::text, age(date_range.start)) * (12)::double precision) + date_part('month'::text, age(date_range.start))) AS months_to_go_back
            FROM date_range
         ), months AS (
          SELECT generate_series(month_range.current_month, (month_range.months_to_go_back)::integer) AS month
@@ -9672,8 +9705,8 @@ CREATE VIEW renalware.reporting_unit_patients AS
         ), profile_history AS (
          SELECT hp.patient_id,
             hp.hospital_unit_id,
-            ((EXTRACT(year FROM age(hp.created_at)) * (12)::numeric) + EXTRACT(month FROM age(hp.created_at))) AS start_month,
-            COALESCE(((EXTRACT(year FROM age(hp.deactivated_at)) * (12)::numeric) + EXTRACT(month FROM age(hp.deactivated_at))), (0)::numeric) AS end_month
+            ((date_part('year'::text, age(hp.created_at)) * (12)::double precision) + date_part('month'::text, age(hp.created_at))) AS start_month,
+            COALESCE(((date_part('year'::text, age(hp.deactivated_at)) * (12)::double precision) + date_part('month'::text, age(hp.deactivated_at))), (0)::double precision) AS end_month
            FROM renalware.hd_profiles hp
           ORDER BY hp.patient_id
         ), deduplicated_profile_history AS (
@@ -9688,13 +9721,13 @@ CREATE VIEW renalware.reporting_unit_patients AS
             m_1.month,
             count(*) AS patients
            FROM (deduplicated_profile_history ph
-             JOIN months m_1 ON ((((m_1.month)::numeric <= ph.start_month) AND ((m_1.month)::numeric >= ph.end_month))))
+             JOIN months m_1 ON ((((m_1.month)::double precision <= ph.start_month) AND ((m_1.month)::double precision >= ph.end_month))))
           GROUP BY ph.hospital_unit_id, m_1.month
           ORDER BY ph.hospital_unit_id, m_1.month
         )
  SELECT hc.name AS hospital,
     hu.name AS unit,
-    (EXTRACT(year FROM (CURRENT_DATE - (((m.month)::text || ' month'::text))::interval)))::text AS year,
+    (date_part('year'::text, (CURRENT_DATE - (((m.month)::text || ' month'::text))::interval)))::text AS year,
     to_char((CURRENT_DATE - (((m.month)::text || ' month'::text))::interval), 'Mon'::text) AS month,
     pc.patients
    FROM (((renalware.hospital_units hu
@@ -12738,6 +12771,13 @@ ALTER TABLE ONLY renalware.letter_recipients ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: letter_section_snapshots id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_section_snapshots ALTER COLUMN id SET DEFAULT nextval('renalware.letter_section_snapshots_id_seq'::regclass);
+
+
+--
 -- Name: letter_signatures id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -14466,6 +14506,14 @@ ALTER TABLE ONLY renalware.letter_mailshot_mailshots
 
 ALTER TABLE ONLY renalware.letter_recipients
     ADD CONSTRAINT letter_recipients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: letter_section_snapshots letter_section_snapshots_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_section_snapshots
+    ADD CONSTRAINT letter_section_snapshots_pkey PRIMARY KEY (id);
 
 
 --
@@ -17869,6 +17917,13 @@ CREATE INDEX index_letter_recipients_on_printed_at ON renalware.letter_recipient
 --
 
 CREATE INDEX index_letter_recipients_on_role ON renalware.letter_recipients USING btree (role);
+
+
+--
+-- Name: index_letter_section_snapshots_on_letter_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_section_snapshots_on_letter_id ON renalware.letter_section_snapshots USING btree (letter_id);
 
 
 --
@@ -22921,6 +22976,14 @@ ALTER TABLE ONLY renalware.hd_patient_statistics
 
 
 --
+-- Name: letter_section_snapshots fk_rails_b3fba09669; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_section_snapshots
+    ADD CONSTRAINT fk_rails_b3fba09669 FOREIGN KEY (letter_id) REFERENCES renalware.letter_letters(id);
+
+
+--
 -- Name: clinical_body_compositions fk_rails_b4786e77de; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -24755,6 +24818,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220926211723'),
 ('20220928115421'),
 ('20221013094654'),
-('20221027100532');
+('20221027100532'),
+('20221006200436');
 
 

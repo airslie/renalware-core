@@ -33,6 +33,7 @@ module Renalware
       has_many :electronic_cc_recipients,
                through: :electronic_receipts,
                source: :recipient # recipient here is class User not Letters:Recipient
+      has_many :section_snapshots, dependent: :destroy
       has_one :signature, dependent: :destroy
       has_one :archive, inverse_of: :letter
       serialize :pathology_snapshot, Pathology::ObservationsJsonbSerializer
@@ -70,6 +71,7 @@ module Renalware
 
       delegate :primary_care_physician, to: :patient
       delegate :visit_number, :clinic_code, to: :event, allow_nil: true
+      delegate :sections, to: :topic, allow_nil: true
 
       EVENTS_MAP = {
         Clinics::ClinicVisit => Event::ClinicVisit,

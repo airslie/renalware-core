@@ -142,7 +142,7 @@ module World
         attributes = valid_simple_letter_attributes(patient)
         select attributes[:letterhead].name, from: "Letterhead"
         select user.to_s, from: "Author"
-        select2 attributes[:description], css: ".letter_topic"
+        slim_select attributes[:description], from: "Topic"
 
         within ".bottom" do
           click_on t("btn.create")

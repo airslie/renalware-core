@@ -78,7 +78,7 @@ describe "Assign a person as a CC recipient", type: :system, js: true do
       within "#letter-form" do
         select Renalware::Letters::Letterhead.first.name, from: "Letterhead"
         select Renalware::User.first.to_s, from: "Author"
-        select2 "::description::", css: ".letter_topic"
+        slim_select "::description::", from: "Topic"
         choose("Primary Care Physician")
       end
       wait_for_ajax

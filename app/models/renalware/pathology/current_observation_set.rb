@@ -46,15 +46,5 @@ module Renalware
         ActiveSupport::HashWithIndifferentAccess.new.extend(ObservationSetMethods)
       end
     end
-
-    class NullObservationSet
-      def values
-        ObservationsJsonbSerializer.load(ActiveSupport::HashWithIndifferentAccess.new)
-      end
-
-      def values_for_codes(_codes)
-        CurrentObservationSet.null_values_hash
-      end
-    end
   end
 end

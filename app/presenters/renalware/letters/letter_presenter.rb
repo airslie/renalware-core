@@ -56,19 +56,8 @@ module Renalware
         "Preview"
       end
 
-      # 'Section' is the new name for 'Part'.
-      # A letter has many sections, which could be dynamically set from:
-      # 1. A Letter Event
-      # 3. A Letter Topic
-      def parts
-        sections = (letter_event.part_classes + (topic&.sections || [])).sort_by(&:position)
-        filtered_part_classes = PartClassFilter.new(
-          sections: sections,
-          include_pathology_in_letter_body: letterhead.include_pathology_in_letter_body?
-        )
-        filtered_part_classes.filter.map do |part_class|
-          part_class.new(patient, self, letter_event)
-        end
+      def sections
+        SectionManager.new(__getobj__).sections
       end
 
       # rubocop:disable Rails/OutputSafety

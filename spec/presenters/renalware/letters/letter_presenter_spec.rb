@@ -38,18 +38,18 @@ module Renalware
           let(:clinical) { true }
 
           it "returns clinical event sections" do
-            expect(presenter.parts.size).to eq 4
-            expect(presenter.parts[0]).to be_kind_of Part::Problems
-            expect(presenter.parts[1]).to be_kind_of Part::Prescriptions
-            expect(presenter.parts[2]).to be_kind_of Part::RecentPathologyResults
-            expect(presenter.parts[3]).to be_kind_of Part::Allergies
+            expect(presenter.sections.size).to eq 4
+            expect(presenter.sections[0]).to be_kind_of Part::Problems
+            expect(presenter.sections[1]).to be_kind_of Part::Prescriptions
+            expect(presenter.sections[2]).to be_kind_of Part::RecentPathologyResults
+            expect(presenter.sections[3]).to be_kind_of Part::Allergies
           end
         end
 
         context "with an non-clinical letter event" do
           context "when topic is not present" do
             it "returns no sections" do
-              expect(presenter.parts.size).to eq 0
+              expect(presenter.sections.size).to eq 0
             end
           end
 
@@ -60,14 +60,14 @@ module Renalware
               let(:sections) { [:hd_section] }
 
               it "returns a list of sections sorted by position" do
-                expect(presenter.parts.size).to eq 1
-                expect(presenter.parts[0]).to be_kind_of HD::LetterExtensions::HDSection
+                expect(presenter.sections.size).to eq 1
+                expect(presenter.sections[0]).to be_kind_of HD::LetterExtensions::HDSection
               end
             end
 
             context "when sections are not present" do
               it "returns no sections" do
-                expect(presenter.parts.size).to eq 0
+                expect(presenter.sections.size).to eq 0
               end
             end
           end
