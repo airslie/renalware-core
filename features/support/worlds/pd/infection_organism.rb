@@ -39,8 +39,11 @@ module World
         within "#new_pd_infection_organism" do
           select(organism_name, from: "Organism")
           click_on t("btn.save")
-          wait_for_ajax
         end
+
+        # wait for the save to complete, and the link to
+        # "Add Infection Organism" to come back again.
+        expect(page).to have_link "Add Infection Organism"
       end
 
       def revise_organism_for(infectable:, sensitivity:, resistance:)
