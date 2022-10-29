@@ -131,7 +131,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           RAILS_ENV: test
           PGHOST: localhost
-        run: bin/rails db:create db:migrate
+        run: bin/rails db:create app:db:structure:load
 
       - name: Install dependencies
         run: |
