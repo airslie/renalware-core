@@ -50,7 +50,7 @@ jobs:
         run: yarn install --frozen-lockfile # optional, --immutable
 
       - name: Asset cache
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v3
         with:
           path: |
             spec/dummy/public/assets
@@ -117,7 +117,7 @@ jobs:
         run: yarn install --frozen-lockfile # optional, --immutable
 
       - name: Restore asset cache
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v3
         with:
           path: |
             spec/dummy/public/assets
