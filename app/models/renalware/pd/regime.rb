@@ -27,7 +27,6 @@ module Renalware
       has_many :bag_types, through: :bags
       has_one :termination,
               class_name: "RegimeTermination",
-              dependent: :delete,
               inverse_of: :regime,
               dependent: :restrict_with_exception
 
