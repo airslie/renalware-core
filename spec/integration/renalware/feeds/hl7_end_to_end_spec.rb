@@ -293,9 +293,7 @@ describe "HL7 message handling end to end" do
       sodium.reload
 
       # The observation_description should not have been changed
-      # NB this fails as we now touch observation_description when an observation arrives
-      pending
-      expect(sodium.updated_at).to eq(last_year)
+      expect(sodium.updated_at).to be_within(1.second).of(last_year)
     end
   end
 end
