@@ -23,7 +23,6 @@ RSpec.describe I18n do
   end
 
   it "files are normalized" do
-    pending
     non_normalized = i18n.non_normalized_paths
     error_message = "The following files need to be normalized:\n" \
                     "#{non_normalized.map { |path| "  #{path}" }.join("\n")}\n" \
