@@ -134,9 +134,7 @@ jobs:
         run: bin/rails db:create app:db:structure:load
 
       - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y ghostscript pandoc
+        run: sudo apt install -y ghostscript pandoc
 
       - name: Run tests
         env:
