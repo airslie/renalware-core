@@ -96,12 +96,13 @@ describe("Persisting the correct recipients when a letter is saved", type: :syst
         # Alert: Are you sure? You will not be able to modify the letter afterwards.
         click_on "Approve and archive"
       end
+      # wait to get back to the Clinical Summary page
+      expect(page).to have_content "Clinical Summary"
 
       # Sanity checks
       expect(patient.letters.count).to eq(1)
       letter = patient.letters.first
 
-      pending "Work out why letter is not approved"
       expect(letter).to be_approved
 
       expect(letter.recipients.count).to eq(3) # 1 main, 2 cc
@@ -110,7 +111,7 @@ describe("Persisting the correct recipients when a letter is saved", type: :syst
 
       expect(ccs.count).to eq(2)
       expect(main.person_role).to eq("contact")
-      expect(cc.map(&:person_role)).to eq(%(patient primary_care_physician))
+      expect(ccs.map(&:person_role)).to eq(%w(patient primary_care_physician))
     end
   end
 end
