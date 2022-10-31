@@ -1,8 +1,9 @@
+---
 en:
   activerecord:
     attributes:
       renalware/research/investigatorship:
-        user_id: "User"
+        user_id: User
     errors:
       models:
         renalware/research/investigatorship:
