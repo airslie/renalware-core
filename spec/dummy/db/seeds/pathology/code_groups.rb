@@ -7,7 +7,7 @@ module Renalware
     groups = {
       pd_pet_serum_pathology: {
         description: "Pathology relating to serum taken during a PD PET test." \
-                     "position_within_subgroup determines the order inputs are "\
+                     "position_within_subgroup determines the order inputs are " \
                      "populated in the PET pathology form.",
         subgroups: %w(URE CRE PGLU NA POT)
       },
@@ -32,6 +32,10 @@ module Renalware
           %w(HBA),
           %w(CHOL)
         ]
+      },
+      dietetics_mdm: {
+        description: "Pathology shown on dietetic mdm",
+        subgroups: [%w(POT PHOS)]
       },
       default: {
         description: "Default codes used for example in historical, recent and current pathology",
