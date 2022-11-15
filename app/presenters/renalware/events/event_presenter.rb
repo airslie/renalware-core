@@ -3,7 +3,6 @@
 module Renalware
   module Events
     class EventPresenter < DumbDelegator
-      include ::Renalware::AccountablePresentation
     end
   end
 end
