@@ -45,7 +45,6 @@ en:
         schedule: Schedule
         transport_decider: Transport Decider
   enumerize:
-    renalware/hd/profile: 
     renalware/hd/profile_document/anticoagulant:
       type:
         none: None
