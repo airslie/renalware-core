@@ -259,6 +259,7 @@ en:
           site: Site
           start_time: 'On'
           started_at: Started
+          station: Station
           stopped_at: Stopped
           taken_off_by: Taking off
           temperature: Temp
