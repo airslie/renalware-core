@@ -19,14 +19,15 @@ ruby:
 
     = f.association :letterhead, autofocus: true
 
+    - frame_url = renalware.url_for(request.params.merge(preview_topic_id: "REPLACE_ID"))
+
     .mb-3
       = f.association :topic,
-                label_method: :text,
                 required: true,
+                collection: Renalware::Letters::TopicsPresenter.list_for_dropdown(frame_url),
                 input_html: { \
                   data: { \
                     controller: "slimselect select-update-frame",
-                    "select-update-frame-url-value": renalware.url_for(request.params.merge(preview_topic_id: "OPTION_VALUE")),
                     "select-update-frame-frame-id-value": "letter_sections",
                     "action": "change->select-update-frame#change" \
                   },
