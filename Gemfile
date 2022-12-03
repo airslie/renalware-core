@@ -62,7 +62,7 @@ group :test do
   gem "wisper-rspec", "~> 1.1.0"
 end
 
-group :pr do
+group :uat, :pr do
   # For redirecting renalware-demo.herokuapp.com => demo.renalware.app
   gem "rack-host-redirect", github: "airslie/rack-host-redirect"
   gem "wkhtmltopdf-heroku", "~> 2.12.3"
