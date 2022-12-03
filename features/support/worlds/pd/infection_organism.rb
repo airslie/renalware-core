@@ -48,11 +48,9 @@ module World
 
       def revise_organism_for(infectable:, sensitivity:, resistance:)
         within "#infection-organisms" do
-          expect(page).to have_link "Edit"
           click_link "Edit"
 
-          wait_for_ajax
-          expect(page).to have_field("Sensitivity", wait: 10)
+          expect(page).to have_field("Sensitivity")
 
           fill_in "Sensitivity", with: sensitivity
           fill_in "Resistance", with: resistance
