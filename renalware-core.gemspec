@@ -85,7 +85,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sassc-rails", "~> 2.1.0"
   s.add_dependency "scenic", "~> 1.5"
   s.add_dependency "simple_form", "~> 5.1"
-  s.add_dependency "sinatra", "~> 2.0"
+  s.add_dependency "sinatra", ">= 2", "< 4"
   s.add_dependency "slim-rails", "~> 3.5"
   s.add_dependency "sprockets-rails", ">= 3.2.2"
   s.add_dependency "store_model", "0.8.0"
