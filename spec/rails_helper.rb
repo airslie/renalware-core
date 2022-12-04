@@ -104,8 +104,10 @@ RSpec.configure do |config|
     Capybara.reset! if ex.metadata[:js]
   end
 
-  config.around :each, :js do |ex|
-    ex.run_with_retry retry: 2
+  if ENV["CI"]
+    config.around :each, :js do |ex|
+      ex.run_with_retry retry: 2
+    end
   end
 
   config.around(:each, :caching) do |example|
