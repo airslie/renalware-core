@@ -6,7 +6,7 @@
   "stack": "heroku-20",
   "addons": [
     {
-      "plan": "heroku-postgresql:hobby-dev",
+      "plan": "heroku-postgresql:mini",
       "options": {
         "version": "13"
       }
@@ -15,7 +15,7 @@
       "plan": "mailgun:starter"
     },
     {
-      "plan": "heroku-redis:hobby-dev"
+      "plan": "heroku-redis:mini"
     }
   ],
   "env": {
@@ -32,8 +32,8 @@
       "generator": "secret"
     },
     "SETUP_BY": {
-            "description": "Who initiated this setup",
-            "value": "Airslie"
+      "description": "Who initiated this setup",
+      "value": "Airslie"
     }
   },
   "buildpacks": [
