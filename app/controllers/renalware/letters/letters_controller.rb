@@ -202,6 +202,7 @@ module Renalware
           main_recipient_attributes: main_recipient_attributes,
           cc_recipients_attributes: cc_recipients_attributes,
           electronic_cc_recipient_ids: [],
+          online_reference_link_ids: [],
           update_sections: {}
         ]
       end

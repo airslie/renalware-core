@@ -73,6 +73,14 @@ ruby:
 
   article
     header
+      h2 Online References / QR Codes
+
+    = f.association :online_reference_links,
+                    label: false,
+                    wrapper: :zilch,
+                    input_html: { data: { controller: "slimselect" }}
+  article
+    header
       h2 Admin
     = f.input :notes, as: :text, input_html: { rows: 4 }
     = f.input :enclosures

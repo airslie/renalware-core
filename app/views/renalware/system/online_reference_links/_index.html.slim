@@ -1,0 +1,49 @@
+
+.filters
+  .filters__form
+    = search_form_for search,
+                      html: { class: "fn-form",
+                              autocomplete: "off" },
+                      data: { turbo_frame: "online_reference_links",
+                              turbo: true,
+                              turbo_advance: true,
+                              controller: "form",
+                              action: "input->form#submit" } do |f|
+      .row
+        .small-9.large-4.columns
+          = f.label "Search title or description"
+          = f.search_field :title_or_description_cont, autofocus: true
+        .small-3.large-4.columns.actions.end
+          noscript
+            = f.submit t("btn.filter"), class: "button"
+            '  or
+            = link_to t("btn.reset"), drugs_drugs_path
+
+= turbo_frame_tag("online_reference_links") do
+  table
+    thead
+      tr
+        th.col-width-tiny
+        th= sort_link(search, :title, "Title", data: { turbo: true, turbo_advance: false })
+        th Displayed URL and description
+        th.col-width-tiny= sort_link(search, :usage_count, "Times used", data: { turbo: true, turbo_advance: false })
+        th.col-width-date-time= sort_link(search, :last_used_at, "Last used", data: { turbo: true, turbo_advance: false })
+        th Last edited by
+    tbody
+      - references.each do |reference|
+        tr(id=dom_id(reference))
+          td.actions
+            /= link_to "Use", "#"
+            = link_to "Edit", renalware.edit_system_online_reference_link_path(reference)
+          td= reference.title
+          td
+            = link_to reference.url, target: :_blank, rel: "noopener", class: "block mb-1" do
+              i.fa.fa-external-link-square-alt
+              | &nbsp;&nbsp;
+              = reference.url
+            = reference.description
+          td= reference.usage_count
+          td= l(reference.last_used_at)
+          td= reference.updated_by
+
+  == pagy_foundation_nav pagy

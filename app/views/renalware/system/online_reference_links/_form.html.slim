@@ -1,0 +1,38 @@
+
+ruby:
+  qr_url = params[:qr_url] || reference.url
+  svg = qr_url.present? && Renalware::Letters::GenerateQRCodeFromUrl.new(qr_url).call
+
+- url = reference.persisted? ? renalware.edit_system_online_reference_link_url(reference) : renalware.new_system_online_reference_link_url
+
+= within_new_admin_layout(title: "New",
+  breadcrumbs: breadcrumb_for("Online References / QR Codes", system_online_reference_links_path)) do
+
+  = simple_form_for reference,
+                    data: { controller: "preview",
+                            "preview-src-value" => url,
+                            "preview-query_param-value" => "qr_url" } do |f|
+    = f.input :url,
+              as: :string,
+              placeholder: "e.g. https://www.nhs.uk/conditions/...",
+              input_html: { "data-action" => "keyup->preview#change" }
+    = f.input :title,
+              as: :string,
+              placeholder: "e.g. NHS Renal diagnosis help"
+    = f.input :description,
+              as: :text,
+              hint: "A description of the resource that will be displayed next to the link or QR code."
+
+    = turbo_frame_tag("qr_code_preview", "data-preview-target" => "turboframe") do
+      - if svg.present?
+        h5.mt-3= "QR code preview for #{qr_url}"
+        .w-1/2.lg:w-1/4
+          .mt-4.mb-6= svg&.html_safe
+          .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-6
+            i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+            ' Please be sure to test your QR code before saving, for example by pointing your phone's camera at it
+
+    br
+    = f.submit t("btn.save"), class: "button"
+    '  or
+    = link_to t("btn.cancel"), system_online_reference_links_path

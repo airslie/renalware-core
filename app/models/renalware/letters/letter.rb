@@ -36,6 +36,8 @@ module Renalware
       has_many :section_snapshots, dependent: :destroy
       has_one :signature, dependent: :destroy
       has_one :archive, inverse_of: :letter
+      has_many :qr_encoded_online_reference_links, dependent: :destroy
+      has_many :online_reference_links, through: :qr_encoded_online_reference_links
       serialize :pathology_snapshot, Pathology::ObservationsJsonbSerializer
 
       accepts_nested_attributes_for :main_recipient

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 namespace :system do
+  resources :online_reference_links do
+    get :search, on: :collection
+  end
   resources :email_templates, only: :index
   resources :user_feedback, except: :destroy, controller: "user_feedback"
   resources :messages
