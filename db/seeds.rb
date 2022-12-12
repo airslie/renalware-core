@@ -3,23 +3,6 @@
 require "csv"
 require_relative "./seeds/seeds_helper"
 
-def log(msg, type: :full, &block)
-  case type
-  when :full
-    print "-----> #{msg}"
-    if block
-      ms = Benchmark.ms(&block)
-      milliseconds = "#{ms.to_i}ms"
-      print "\r-----> #{milliseconds.ljust(8, ' ')} #{msg}"
-    end
-    print "\n"
-  when :sub
-    puts "                #{msg}"
-  else
-    raise "Unknown type #{type}"
-  end
-end
-
 PaperTrail.enabled = false
 
 # Seed the database with data common to all installations.
