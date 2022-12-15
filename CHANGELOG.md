@@ -5,36 +5,79 @@ this [changelog](http://keepachangelog.com/en/0.3.0/).
 This project adheres to Semantic Versioning.
 
 ## Unreleased
+
 ### Added
+- Introduce Topic dependent dynamic letter sections #4030
+- Use a toast for flash notices #3980
+- Support event versioning and soft-delete #3994
+- Support per-MDM pathology code groups #4006
+- Add warning to prescription administration & new HD session screens #4002
+- Add access plan and plan date to AKCC MDM #4036
+- Display other recipients in messages tables #3996
+- Add `bin/setup` script #4084
+- MDM: Add optional optional inclusion of  _bottom partial #4028
+- Display clinic name and code on clinic visit letters #4038
+- Add Station column to HD Sessions table #4082
+- Add basic version of Dietetic MDM list and page #4035
+
 ### Changed
+- Rename `Letters::Description` to `Letters::Topic` #4007
+- Integrate BLT research study changes for Heroic #3981
+- Activejob agnosticism - Part 1 #3970
+- Show links to previous 2 weeks of sessions - #3997
+- Update pathology_observations_grouped_by_date SQL view to group by date not datetime #4009
+- Switch autoloader to Zeitwerk #4018
+- Allow for a pre-existing event_versions table #4025
+- Move from content_areas to slots in ArticleComponent #4021
+- Skip address validation when syncing ODS data #4052
+- Allow clinicians to Edit Adequacy and Pet results #4105
+- Include rack-host-redirect and wkhtmltopdf-heroku gems in Heroku demo app #4095
+- ❇️ Improve Letter topics dropdown #4093
+- 🐛 Fix multiple loading of rake tasks in InvokeRakeTaskJob #4090
+- Refactor FlatpickrController to allow for time input #4087
+- Limit Pathology Observations to 8 instead of 25 #4088
+- Convert Whenever schedule to GoodJob-style background jobs #4061
+- Create a UKRDC Treatment entry for every regime change #4081
+- I18n improvements #4075
+- Add Hospital Centre dropdown when creating a new Patient #4071
+- Allow for time zone when deriving HD Session start and stop times #4060
+- Correct the logic around patient visibility #4058
+
 ### Fixed
+- Fix seed issue with Super User missing a role #4023
+- Fix incorrect beta MDM paths #4034
+- Replace deprecated rendered_component usage #4040
+- Fix invalid authenticity token errors #4083
+- Fix missing table column heading in global events table #4051
+- Fix i18n-tasks issue with space after empty keys #4085
+
 
 ## 2.3.0
 ### Added
-- Nascent support (disabled by default) for restricting access to patients by hospital, so that, if 
+- Nascent support (disabled by default) for restricting access to patients by hospital, so that, if
   enabled, a user at hospital X can only see patients at hospital X and not patients at hospital Y.
   Used at BLT.
 ### Changed
-- Introduced clinical study 'investigators' who are users involved in the running of a study. 
-  This to support the Heroic study at BLT where investigator users can see patients in their study 
+- Introduced clinical study 'investigators' who are users involved in the running of a study.
+  This to support the Heroic study at BLT where investigator users can see patients in their study
   even if the patient is at a different hospital to the user.
 ### Fixed
-- Fix badly formatted 'Reactivate account' checkbox in admin/users form #3988 
+- Fix badly formatted 'Reactivate account' checkbox in admin/users form #3988
 
 ## 2.2.13
 ### Added
 ### Changed
-- Renamed the internal 'staging' environment to 'uat' (no client testing required) #3976 
-- Add filtering by subcategory to reports page and improve UI #3975 
+- Renamed the internal 'staging' environment to 'uat' (no client testing required) #3976
+- Add filtering by subcategory to reports page and improve UI #3975
 ### Fixed
 
 ## 2.2.12
 ### Added
-- Return a 404 on eg /robots123.txt requests to prevent logging an error on Azure healthchecks #3966 
-- Add reports menu (superadmin only currently) and a sample report HD patients/unit/time #3359 
+- Return a 404 on eg /robots123.txt requests to prevent logging an error on Azure healthchecks #3966
+- Add reports menu (superadmin only currently) and a sample report HD patients/unit/time #3359
 ### Changed
 ### Fixed
-- PD PET Adequacy: Add missing column for T4 sample #3948 
+- PD PET Adequacy: Add missing column for T4 sample #3948
 
 ## 2.2.11
 ### Added
