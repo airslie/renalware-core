@@ -16,14 +16,16 @@ module Renalware
       end
 
       def call
-        search.result.for_patient(patient)
-                     .includes(:patient)
-                     .eager_load(:patient)
-                     .includes(:event_type)
-                     .eager_load(:event_type)
-                     .includes(:created_by)
-                     .eager_load(:created_by)
-                     .ordered
+        search
+          .result
+          .for_patient(patient)
+          .includes(:patient)
+          .eager_load(:patient)
+          .includes(:event_type)
+          .eager_load(:event_type)
+          .includes(:created_by)
+          .eager_load(:created_by)
+          .ordered
       end
 
       def search

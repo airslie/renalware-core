@@ -12,10 +12,11 @@ module Renalware
       def call(limit: 1)
         return [] if event_type.nil?
 
-        Event.for_patient(patient)
-             .where(event_type_id: event_type.id)
-             .order(date_time: :desc)
-             .limit(limit)
+        Event
+          .for_patient(patient)
+          .where(event_type_id: event_type.id)
+          .order(date_time: :desc)
+          .limit(limit)
       end
 
       def event_type

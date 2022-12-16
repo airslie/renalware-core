@@ -54,7 +54,8 @@ module Renalware
       def self.type_check(hash)
         if hash.nil? then {}
         elsif hash.is_a?(Hash) then hash
-        else JSON.parse(hash)
+        else
+          JSON.parse(hash)
         end
       end
     end
