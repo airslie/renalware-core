@@ -43,7 +43,7 @@ module Renalware
 
         def supportive_care
           joins(:profile)
-          .where("low_clearance_profiles.document ->> 'dialysis_plan' LIKE 'not_for_dial%'")
+            .where("low_clearance_profiles.document ->> 'dialysis_plan' LIKE 'not_for_dial%'")
         end
 
         def on_worryboard

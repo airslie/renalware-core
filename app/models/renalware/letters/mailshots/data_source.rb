@@ -10,7 +10,7 @@ module Renalware
 
         default_scope lambda {
           where(Arel.sql("schemaname like 'renalware%'"))
-          .where(Arel.sql("viewname like 'letter_mailshot_%'"))
+            .where(Arel.sql("viewname like 'letter_mailshot_%'"))
         }
       end
     end

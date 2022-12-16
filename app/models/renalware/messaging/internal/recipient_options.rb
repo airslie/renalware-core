@@ -9,6 +9,8 @@
 #
 # The author is excluded from all lists so they cannot send to themselves
 #
+
+# rubocop:disable Rails/AttributeDefaultBlockValue
 module Renalware
   module Messaging
     module Internal
@@ -95,3 +97,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Rails/AttributeDefaultBlockValue

@@ -22,7 +22,8 @@ module Renalware
           patient: patient,
           sent_at: Time.zone.now,
           batch: batch,
-          **options)
+          **options
+        )
         yield log if block_given?
         log.save!
       rescue StandardError => e
