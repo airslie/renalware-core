@@ -73,7 +73,7 @@ describe "Outgoing Documents API", type: :system do
         token: api_user.authentication_token
       )
 
-      expect(response.content_type).to include("application/json")
+      expect(response.media_type).to eq("application/json")
       docs = JSON.parse(response.body).with_indifferent_access
       expect(docs).to eq(
         {
@@ -122,7 +122,7 @@ describe "Outgoing Documents API", type: :system do
           token: api_user.authentication_token
         )
 
-        expect(response.content_type).to include("application/json")
+        expect(response.media_type).to eq("application/json")
         doc = JSON.parse(response.body).with_indifferent_access
 
         expect(doc[:id]).to eq(queued_doc.id)
@@ -151,7 +151,7 @@ describe "Outgoing Documents API", type: :system do
           token: api_user.authentication_token
         )
 
-        expect(response.content_type).to include("application/json")
+        expect(response.media_type).to eq("application/json")
         JSON.parse(response.body).with_indifferent_access
 
         expect(queued_doc.reload.state).to eq("processed")
