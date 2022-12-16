@@ -4,18 +4,31 @@ require "rails_helper"
 
 describe "Updating a Event triggers an event_updated broadcast", type: :request do
   context "when updating a simple event" do
-    it "broadcasts a Wisper 'event_updated' message" do
-      Object.send(:remove_const, "MyEventListener") if Object.constants.include?("MyEventListener")
-      Object.const_set(:MyEventListener, Class.new { def event_updated(event) end })
+    class TestEventListener
+      def event_updated(event); end
+    end
 
-      map = Renalware.config.broadcast_subscription_map
-      map["Renalware::Events::UpdateEvent"] << "MyEventListener"
+    let!(:original_map) {
+      Renalware.config.broadcast_subscription_map["Renalware::Events::UpdateEvent"].dup
+    }
+
+    before do
+      Renalware.config.broadcast_subscription_map["Renalware::Events::UpdateEvent"] << "TestEventListener"
+    end
+
+    after do
+      Renalware.config.broadcast_subscription_map["Renalware::Events::UpdateEvent"] =
+        original_map
+    end
+
+    it "broadcasts a Wisper 'event_updated' message" do
+      skip "This is waiting for feature/heroic to be merged which supports event editing"
 
       patient = create(:patient)
       event_type = create(:event_type, name: "Simple")
       event = create(:simple_event, event_type: event_type, patient: patient)
-      listener = MyEventListener.new
-      allow(MyEventListener).to receive(:new).and_return(listener)
+      listener = TestEventListener.new
+      allow(TestEventListener).to receive(:new).and_return(listener)
       allow(listener).to receive(:event_updated)
 
       params = {
@@ -25,7 +38,6 @@ describe "Updating a Event triggers an event_updated broadcast", type: :request 
           event_type_id: event_type.id
         }
       }
-      pending "This is waiting for feature/heroic to be merged which supports event editing"
       post patient_event_path(patient, event, params: params)
 
       expect(response).to be_redirect # ie success
