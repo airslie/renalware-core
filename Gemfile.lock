@@ -203,8 +203,8 @@ GEM
       user_agent_parser
     ast (2.4.2)
     attr_extras (6.2.5)
-    autoprefixer-rails (9.8.6.5)
-      execjs
+    autoprefixer-rails (10.4.7.0)
+      execjs (~> 2)
     awesome_print (1.9.2)
     aws-eventstream (1.1.0)
     aws-partitions (1.296.0)
@@ -808,7 +808,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport_cache_database!
-  autoprefixer-rails (~> 9.6)
+  autoprefixer-rails
   awesome_print
   aws-sdk-s3
   binding_of_caller
