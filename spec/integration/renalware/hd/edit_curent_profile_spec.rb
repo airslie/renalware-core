@@ -46,7 +46,7 @@ describe "Editing a patient's current HD profile", type: :system, js: false do
       select user.to_s, from: "Prescriber"
       select "Mon Wed Fri AM", from: "Schedule definition"
       select "2:00", from: "Prescribed Time on HD"
-      select nurse, from: "Named nurse"
+      select nurse.to_s, from: "Named nurse"
       fill_in "Prescription Date", with: "01 Feb 2018"
 
       # Dialysis
