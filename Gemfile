@@ -10,7 +10,7 @@ gemspec
 gem "activesupport_cache_database", github: "airslie/activesupport-cache-database"
 
 # These are visible to dummy app only
-gem "autoprefixer-rails", "~> 9.6"
+gem "autoprefixer-rails"
 gem "aws-sdk-s3", require: false # for active storage when using Heroku for test environments
 # gem "babel-transpiler" # not sure this is need now that we user rollupjs + babel npmm packages?
 gem "bootsnap", require: false # speeds up rspec and rails server boot time in development
@@ -45,7 +45,7 @@ group :test do
   gem "capybara", "~> 3.32"
   gem "capybara-screenshot", "~> 1.0"
   gem "capybara-select-2"
-  gem "cucumber-rails", "~> 2.5.1", require: false # must be loaded in env.rb
+  gem "cucumber-rails", "~> 2.6.1", require: false # must be loaded in env.rb
   gem "database_cleaner", require: false # for cucumber (now not needed for rspec)
   gem "execjs", "2.7.0" # 2.8.1 raises an error
   gem "fuubar", require: false
