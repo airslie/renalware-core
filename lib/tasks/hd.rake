@@ -13,6 +13,11 @@ namespace :hd do
     )
   end
 
+  task housekeeping: :environment do
+    Rails.logger = Logger.new(STDOUT)
+    Renalware::HD::Housekeeping::RemoveStaleFiles.call
+  end
+
   namespace :diary do
     task housekeeping: :environment do
       Rails.logger = Logger.new(STDOUT)
