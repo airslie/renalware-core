@@ -44,7 +44,7 @@ module Renalware
         end
 
         it "updates last_used_on to the current time" do
-          travel_to Time.zone.now do
+          freeze_time do
             snippet = create(:snippet, author: create(:snippets_user), title: "X")
             expect(snippet.last_used_on).to be_nil
 
