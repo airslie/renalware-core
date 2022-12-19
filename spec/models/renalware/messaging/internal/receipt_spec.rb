@@ -10,7 +10,7 @@ module Renalware::Messaging::Internal
       is_expected.to have_db_index(:recipient_id)
       is_expected.to have_db_index(:message_id)
       is_expected.to belong_to(:message).class_name("Renalware::Messaging::Internal::Message")
-      is_expected.to belong_to(:recipient)
+      is_expected.to belong_to(:recipient).touch(true)
     end
 
     describe "#read?" do

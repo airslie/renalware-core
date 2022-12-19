@@ -15845,6 +15845,13 @@ CREATE UNIQUE INDEX idx_unique_diaryslot_patients ON renalware.hd_diary_slots US
 
 
 --
+-- Name: idx_unread_messaging_receipts; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_unread_messaging_receipts ON renalware.messaging_receipts USING btree (recipient_id) WHERE (read_at IS NULL);
+
+
+--
 -- Name: index_access_assessments_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -24856,6 +24863,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220812154454'),
 ('20220813081749'),
 ('20220824154208'),
+('20220907174253'),
 ('20220915144534'),
 ('20220915145956'),
 ('20220915150710'),
