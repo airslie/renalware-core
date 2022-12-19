@@ -2,7 +2,6 @@
                         breadcrumbs: clinical_profile_breadcrumb(patient)) do
 
   = simple_form_for dry_weight,
-      builder: SimpleForm::Tailwind::FormBuilder,
       url: patient_clinical_dry_weights_path(patient),
       html: { autocomplete: "off", class: "w-3/4" } do |f|
     = render "form", f: f
