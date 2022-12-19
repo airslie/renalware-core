@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Snippets
-    describe Snippet, type: :model do
+    describe Snippet do
       describe "validation" do
         it :aggregate_failures do
           is_expected.to belong_to(:author)

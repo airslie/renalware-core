@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::HD
-  describe MDMPatientsForm, type: :model do
+  describe MDMPatientsForm do
     describe "#options" do
       describe "hospital_unit_id" do
         it "maps to a ransack predicate" do

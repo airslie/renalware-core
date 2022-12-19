@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    describe LetterQuery, type: :model do
+    describe LetterQuery do
       include LettersSpecHelper
       subject(:query) { LetterQuery.new }
 

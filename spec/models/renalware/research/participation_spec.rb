@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  describe Research::Participation, type: :model do
+  describe Research::Participation do
     it_behaves_like "an Accountable model"
     it_behaves_like "a Paranoid model"
     it { is_expected.to be_versioned }

@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module System
-    describe Role, type: :model do
+    describe Role do
       it { is_expected.to validate_uniqueness_of(:name) }
 
       describe ".fetch" do

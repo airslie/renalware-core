@@ -4,7 +4,7 @@ require "rails_helper"
 require_relative "../concerns/personable"
 
 module Renalware
-  describe User, type: :model do
+  describe User do
     it_behaves_like "Personable"
 
     it :aggregate_failures do

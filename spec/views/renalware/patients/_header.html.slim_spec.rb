@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "renalware/patients/_header", type: :view do
+describe "renalware/patients/_header" do
   helper(Renalware::ApplicationHelper, Renalware::PatientHelper)
 
   it "includes the correctly formatted NHS number" do

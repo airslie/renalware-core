@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Renalware::Clinics::Clinic, type: :model do
+describe Renalware::Clinics::Clinic do
   it_behaves_like "an Accountable model"
   it_behaves_like "a Paranoid model"
 

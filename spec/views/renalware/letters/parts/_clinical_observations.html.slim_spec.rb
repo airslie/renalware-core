@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  describe "renalware/letters/parts/_clinical_observations", type: :view do
+  describe "renalware/letters/parts/_clinical_observations" do
     helper(Renalware::LettersHelper)
     helper(Renalware::AttributeNameHelper)
 

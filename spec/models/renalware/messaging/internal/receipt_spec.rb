@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Messaging::Internal
-  describe Receipt, type: :model do
+  describe Receipt do
     it :aggregate_failures do
       is_expected.to validate_presence_of(:recipient)
       is_expected.to validate_presence_of(:message)

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Renalware::Clinics::BuildVisitFromAppointment, type: :model do
+describe Renalware::Clinics::BuildVisitFromAppointment do
   describe "#call" do
     it "creates a new clinic visit based on the appointment" do
       patient = Renalware::Clinics.cast_patient(build(:patient))

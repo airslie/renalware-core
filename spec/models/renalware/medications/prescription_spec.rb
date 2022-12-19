@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Medications
-    describe Prescription, type: :model do
+    describe Prescription do
       subject(:prescription) { described_class.new }
 
       it_behaves_like "an Accountable model"

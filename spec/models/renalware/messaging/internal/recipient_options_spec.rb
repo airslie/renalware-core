@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Messaging::Internal
-  describe RecipientOptions, type: :model do
+  describe RecipientOptions do
     let(:author) { create(:internal_author) }
     let(:another_user) { Renalware::Messaging::Internal.cast_recipient(create(:user)) }
     let(:patient_a) { create(:messaging_patient) }

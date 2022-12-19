@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    describe LetterFactory, type: :model do
+    describe LetterFactory do
       let(:instance) { LetterFactory.new(patient) }
 
       let(:patient) { create(:letter_patient) }

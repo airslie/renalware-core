@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    describe DraftLetter, type: :model do
+    describe DraftLetter do
       let(:patient) { create(:patient) }
       let(:instance) { described_class.new }
       let(:topic) { nil }

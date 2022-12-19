@@ -6,7 +6,7 @@ require "pdf/reader"
 module Renalware
   module Letters
     module Printing
-      describe DuplexInterleavedPdfRenderer, type: :model do
+      describe DuplexInterleavedPdfRenderer do
         include LettersSpecHelper
 
         def open_pdf_in_preview(pdf_file)
