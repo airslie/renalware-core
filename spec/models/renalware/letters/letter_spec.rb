@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    describe Letter, type: :model do
+    describe Letter do
       it :aggregate_failures do
         is_expected.to validate_presence_of(:letterhead)
         is_expected.to validate_presence_of(:patient)

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Problems
-  describe Comorbidities::Form, type: :model do
+  describe Comorbidities::Form do
     let(:user) { create(:user) }
     let(:patient) { create(:patient, by: user) }
 

@@ -4,7 +4,7 @@ require "rails_helper"
 require_relative "../concerns/personable"
 
 module Renalware
-  describe Patient, type: :model do
+  describe Patient do
     include PatientsSpecHelper
     subject(:patient) { create(:patient, nhs_number: "9999999999") }
 

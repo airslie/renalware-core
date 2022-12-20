@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  describe InvokeCommandJob, type: :job do
+  describe InvokeCommandJob do
     describe "#perform" do
       context "when command succeeds" do
         it "calls a command" do

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware::Events
-  describe Event, type: :model do
+  describe Event do
     subject(:event) { described_class.new }
 
     it_behaves_like "an Accountable model"

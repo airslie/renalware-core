@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module HD
-    describe GenerateMonthlyStatisticsAndRefreshMaterializedViewJob, type: :job do
+    describe GenerateMonthlyStatisticsAndRefreshMaterializedViewJob do
       let(:monthly_statistics) { instance_double(GenerateMonthlyStatistics, call: nil) }
 
       before do

@@ -139,7 +139,7 @@ module Renalware
                   ]
                 )
 
-                travel_to Time.zone.now do
+                freeze_time do
                   allow(KFRE::CalculateKFRE)
                     .to receive(:call)
                     .and_return(KFRE::Result.new(yr2: 10.1, yr5: 20.2))

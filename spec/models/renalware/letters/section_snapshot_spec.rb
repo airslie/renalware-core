@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe Letters::SectionSnapshot, type: :model do
+  RSpec.describe Letters::SectionSnapshot do
     let(:user) { create(:user) }
     let(:letter) {
       create(:draft_letter,

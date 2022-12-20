@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  describe Address, type: :model do
+  describe Address do
     describe ".uk?" do
       it "responds with true if the country is in the UK" do
         expect(Address.new(country: build(:united_kingdom))).to be_uk

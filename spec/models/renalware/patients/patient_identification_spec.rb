@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  describe Patient, type: :model do
+  describe Patient do
     def configure_patient_hospital_identifiers
       Renalware.configure do |config|
         config.patient_hospital_identifiers = {
