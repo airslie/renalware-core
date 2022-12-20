@@ -84,7 +84,7 @@ module Renalware
       end
 
       def attributes
-        [:assessed_on, :weight, :assessor_id]
+        %i(assessed_on weight minimum_weight maximum_weight assessor_id)
       end
     end
   end
