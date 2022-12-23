@@ -97,6 +97,7 @@ PATH
       pdf-reader (~> 2.9)
       pg (~> 1.1)
       prawn (~> 2.2)
+      psych (< 4)
       puma (>= 4.3)
       pundit (~> 2.2.0)
       rack (~> 2.0)
@@ -343,6 +344,7 @@ GEM
       rails (>= 4.2.0, < 7.0)
     diff-lcs (1.5.0)
     diffy (3.4.2)
+    digest (3.1.0)
     docile (1.4.0)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
@@ -434,6 +436,7 @@ GEM
       terminal-table (>= 1.5.1)
     ice_nine (0.11.2)
     io-console (0.5.11)
+    io-wait (0.2.1)
     irb (1.4.2)
       reline (>= 0.3.0)
     jbuilder (2.11.5)
@@ -500,6 +503,13 @@ GEM
       ruby2_keywords (~> 0.0.1)
     naught (1.1.0)
     nested_form (0.3.2)
+    net-protocol (0.1.2)
+      io-wait
+      timeout
+    net-smtp (0.3.1)
+      digest
+      net-protocol
+      timeout
     nio4r (2.5.8)
     nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
@@ -541,6 +551,7 @@ GEM
       pry (~> 0.13.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
+    psych (3.3.4)
     public_suffix (5.0.1)
     puma (5.6.5)
       nio4r (~> 2.0)
@@ -743,6 +754,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.11)
     timeliness (0.4.4)
+    timeout (0.2.0)
     ttfunk (1.7.0)
     turbo-rails (1.0.0)
       actionpack (>= 6.0.0)
@@ -835,6 +847,7 @@ DEPENDENCIES
   i18n-tasks (~> 0.9.33)
   jsbundling-rails (~> 1.0)
   launchy
+  net-smtp
   nhs_api_client!
   paper_trail
   party_foul (~> 1.5.5)!
@@ -873,7 +886,7 @@ DEPENDENCIES
   wkhtmltopdf-heroku (~> 2.12.3)
 
 RUBY VERSION
-   ruby 3.0.4p208
+   ruby 3.1.3p185
 
 BUNDLED WITH
-   2.2.33
+   2.3.26

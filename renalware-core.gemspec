@@ -74,6 +74,7 @@ Gem::Specification.new do |s|
   s.add_dependency "pdf-reader", "~> 2.9"
   s.add_dependency "pg", "~> 1.1"
   s.add_dependency "prawn", "~> 2.2"
+  s.add_dependency "psych", "< 4" # required for ruby 3.1.3 to avoid invalid database.yml error
   s.add_dependency "puma", ">= 4.3"
   s.add_dependency "pundit", "~> 2.2.0"
   s.add_dependency "rack", "~> 2.0"
