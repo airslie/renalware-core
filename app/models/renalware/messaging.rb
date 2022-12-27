@@ -4,9 +4,7 @@ module Renalware
   module Messaging
     module_function
 
-    def table_name_prefix
-      "messaging_"
-    end
+    def table_name_prefix = "messaging_"
 
     def cast_patient(patient)
       ActiveType.cast(patient, ::Renalware::Messaging::Patient)
