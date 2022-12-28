@@ -4,9 +4,7 @@ module Renalware
   module Feeds
     module_function
 
-    def table_name_prefix
-      "feed_"
-    end
+    def table_name_prefix = "feed_"
 
     class DuplicateMessageError < StandardError; end
 

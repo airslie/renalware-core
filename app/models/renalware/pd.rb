@@ -2,9 +2,7 @@
 
 module Renalware
   module PD
-    def self.table_name_prefix
-      "pd_"
-    end
+    def self.table_name_prefix = "pd_"
 
     def self.cast_patient(patient)
       return patient if patient.is_a?(::Renalware::PD::Patient)

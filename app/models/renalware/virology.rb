@@ -2,9 +2,7 @@
 
 module Renalware
   module Virology
-    def self.table_name_prefix
-      "virology_"
-    end
+    def self.table_name_prefix = "virology_"
 
     def self.cast_patient(patient)
       ActiveType.cast(patient, ::Renalware::Virology::Patient)
