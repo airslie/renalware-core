@@ -72,7 +72,7 @@ describe "RecipientFollowup", js: true do
       followup = create(
         :transplant_recipient_followup,
         operation: operation,
-        stent_removed_on: "20119-01-01"
+        stent_removed_on: "2019-01-01"
       )
       rejection_episodes = [
         create(

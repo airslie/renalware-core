@@ -17,11 +17,11 @@
                   label: "Created by"
       .small-6.medium-2.large-2.columns
         = f.input :created_at_gteq,
-                  as: :date_picker,
+                  as: :flatpickr,
                   label: "From"
       .small-6.medium-2.large-2.columns
         = f.input :created_at_lteq,
-                  as: :date_picker,
+                  as: :flatpickr,
                   label: "To"
       .small-12.medium-2.large-2.columns.actions.end
         .mt-px= filter_or_reset(form: f, reset_path: renalware.events_filtered_list_path(named_filter: :all))

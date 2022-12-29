@@ -2,7 +2,7 @@
 .rejection-episode.nested-fields(data={rejection_episode_id: f.object.id} )
   - if policy(f.object).destroy?
     = link_to_remove_association "Remove", f
-  = f.input :recorded_on, as: :date_picker, wrapper: :horizontal_datepicker
+  = f.input :recorded_on, as: :flatpickr, wrapper: :horizontal_datepicker
   = f.association :treatment, wrapper: :horizontal_medium
   = f.input :notes, as: :text, input_html: { rows: 3 }, wrapper: :horizontal_large
   = f.input :updated_by_id, as: :hidden

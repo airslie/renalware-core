@@ -21,7 +21,7 @@ ruby:
         locals: { legend: "HLA", name: "hla" } do
       = fd.simple_fields_for :hla, fd.object.hla do |fcm|
         = fcm.input :type, wrapper: :horizontal_large, input_html: { "data-controlled-by-tissue-typing-feed": true }
-        = fcm.input :recorded_on, as: :date_picker, wrapper: :horizontal_datepicker, input_html: { "data-controlled-by-tissue-typing-feed": true }
+        = fcm.input :recorded_on, as: :flatpickr, wrapper: :horizontal_datepicker, input_html: { "data-controlled-by-tissue-typing-feed": true }
         table
           tbody
             = render_input fcm, :a, html_options: { "data-controlled-by-tissue-typing-feed": true }
@@ -54,7 +54,7 @@ ruby:
                       hint: "To be updated by feed",
                       input_html: { "data-controlled-by-tissue-typing-feed": true }
           = fcm.input :status_updated_on,
-                      as: :date_picker,
+                      as: :flatpickr,
                       wrapper: :horizontal_datepicker,
                       hint: "To be updated by feed",
                       input_html: { "data-controlled-by-tissue-typing-feed": true }
@@ -80,9 +80,9 @@ ruby:
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Admin", name: "admin" } do
-      = f.input :referred_on, as: :date_picker, wrapper: :horizontal_datepicker
-      = f.input :assessed_on, as: :date_picker, wrapper: :horizontal_datepicker
-      = f.input :entered_on, as: :date_picker, wrapper: :horizontal_datepicker, input_html: { "data-controlled-by-tissue-typing-feed": true }
+      = f.input :referred_on, as: :flatpickr, wrapper: :horizontal_datepicker
+      = f.input :assessed_on, as: :flatpickr, wrapper: :horizontal_datepicker
+      = f.input :entered_on, as: :flatpickr, wrapper: :horizontal_datepicker, input_html: { "data-controlled-by-tissue-typing-feed": true }
       = f.input :contact, as: :text, wrapper: :horizontal_large, input_html: { rows: 5, "data-controlled-by-tissue-typing-feed": true }
       = f.input :notes, as: :text, wrapper: :horizontal_large, input_html: { rows: 5, "data-controlled-by-tissue-typing-feed": true }
 

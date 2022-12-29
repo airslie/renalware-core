@@ -4,7 +4,7 @@ ruby:
 .form-content
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Operation", name: "operation" } do
-    = f.input :performed_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :performed_on, as: :flatpickr, wrapper: :horizontal_datepicker
     = f.input :kidney_side, wrapper: :horizontal_small
     = f.input :operating_surgeon, wrapper: :horizontal_small
     = f.input :anaesthetist, wrapper: :horizontal_small

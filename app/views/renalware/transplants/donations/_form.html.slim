@@ -36,10 +36,10 @@ ruby:
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Admin", name: "admin" } do
     = f.input :state, wrapper: :horizontal_small
-    = f.input :volunteered_on, as: :date_picker, wrapper: :horizontal_datepicker
-    = f.input :first_seen_on, as: :date_picker, wrapper: :horizontal_datepicker
-    = f.input :workup_completed_on, as: :date_picker, wrapper: :horizontal_datepicker
-    = f.input :donated_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :volunteered_on, as: :flatpickr, wrapper: :horizontal_datepicker
+    = f.input :first_seen_on, as: :flatpickr, wrapper: :horizontal_datepicker
+    = f.input :workup_completed_on, as: :flatpickr, wrapper: :horizontal_datepicker
+    = f.input :donated_on, as: :flatpickr, wrapper: :horizontal_datepicker
     = f.input :notes, input_html: { rows: 5 }, wrapper: :horizontal_large
 
 = save_or_cancel(form: f, back_path: back_path)

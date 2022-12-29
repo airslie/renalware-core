@@ -17,7 +17,7 @@ ruby:
 = simple_form_for(attachment,
                   url: url,
                   html: { autocomplete: "off" }) do |f|
-  = f.input :document_date, as: :date_picker, wrapper: :horizontal_datepicker
+  = f.input :document_date, as: :flatpickr, wrapper: :horizontal_datepicker
   = f.input :name, wrapper: :horizontal_medium
   = f.input :description, wrapper: :horizontal_large
 

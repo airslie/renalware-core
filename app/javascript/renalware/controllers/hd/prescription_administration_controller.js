@@ -2,11 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 const $ = window.$
 
 export default class extends Controller {
-  static targets = ["container","radio"]
-
-  connect() {
-    window.initDatepickersIn(".hd-drug-administration")
-  }
+  static targets = ["container", "radio"]
 
   toggleAdministered() {
     var checked = event.target.value == "true"
@@ -15,7 +11,10 @@ export default class extends Controller {
     this.containerTarget.classList.remove("undecided")
     // The rest of this actions are using jQuery for now.
     $(".authentication", this.containerTarget).toggle(checked)
-    $(".authentication", this.containerTarget).toggleClass("disabled-with-faded-overlay", !checked)
+    $(".authentication", this.containerTarget).toggleClass(
+      "disabled-with-faded-overlay",
+      !checked
+    )
     $(".reason-why-not-administered", this.containerTarget).toggle(!checked)
     $("#btn_save_and_witness_later").toggle(checked)
   }

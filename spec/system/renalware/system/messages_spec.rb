@@ -38,8 +38,8 @@ describe "Managing system messages that are displayed on the login page" do
 
     fill_in "Title", with: "Test title"
     fill_trix_editor with: "Test body"
-    fill_in "Display from", with: "2018-01-01 01:01:01"
-    fill_in "Display until", with: "2018-02-02 02:02:02"
+    fill_in "Display from", with: "2018-01-01 01:01"
+    fill_in "Display until", with: "2018-02-02 02:02"
     select "Warning", from: "Severity"
     click_on t("btn.create")
 

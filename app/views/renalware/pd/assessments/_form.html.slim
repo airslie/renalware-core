@@ -9,10 +9,10 @@
   = f.input :ignore_me, as: :hidden
 
   = f.simple_fields_for :document, assessment.document  do |fdoc|
-    = fdoc.input :assessed_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = fdoc.input :assessed_on, as: :flatpickr, wrapper: :horizontal_datepicker
     = fdoc.input :assessor, wrapper: :horizontal_medium
     = fdoc.input :had_home_visit, as: :inline_radio_buttons, wrapper: :horizontal_medium
-    = fdoc.input :home_visit_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = fdoc.input :home_visit_on, as: :flatpickr, wrapper: :horizontal_datepicker
     = fdoc.input :housing_type, as: :inline_radio_buttons, wrapper: :horizontal_medium
     = fdoc.input :occupant_notes, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
     = fdoc.input :exchange_area, wrapper: :horizontal_medium
@@ -39,7 +39,7 @@
     = fdoc.input :insertion_discussed, as: :inline_radio_buttons, wrapper: :horizontal_medium
     = fdoc.input :method_chosen, as: :inline_radio_buttons, wrapper: :horizontal_medium
     = fdoc.input :access_clinic_referral, as: :inline_radio_buttons, wrapper: :horizontal_medium
-    = fdoc.input :access_clinic_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = fdoc.input :access_clinic_on, as: :flatpickr, wrapper: :horizontal_datepicker
     = fdoc.input :abdo_assessor, wrapper: :horizontal_medium
     = fdoc.input :bowel_disease, as: :inline_radio_buttons, wrapper: :horizontal_medium
     = fdoc.input :bowel_disease_notes,

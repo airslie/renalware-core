@@ -11,9 +11,9 @@ ruby:
                     label_method: :to_s,
                     autofocus: true
     = f.input :side, wrapper: :horizontal_small
-    = f.input :formed_on, as: :date_picker, wrapper: :horizontal_datepicker
-    = f.input :started_on, as: :date_picker, wrapper: :horizontal_datepicker
-    = f.input :terminated_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :formed_on, as: :flatpickr, wrapper: :horizontal_datepicker
+    = f.input :started_on, as: :flatpickr, wrapper: :horizontal_datepicker
+    = f.input :terminated_on, as: :flatpickr, wrapper: :horizontal_datepicker
 
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Admin", name: "notes" } do

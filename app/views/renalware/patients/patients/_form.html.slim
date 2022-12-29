@@ -30,7 +30,7 @@
     = f.input :given_name, wrapper: :horizontal_small, input_html: controlled_by_demographics_feed
     /= f.input :suffix, wrapper: :horizontal_small
     = f.input :born_on,
-              as: :date_picker,
+              as: :flatpickr,
               label: "DoB",
               wrapper: :horizontal_datepicker,
               input_html: controlled_by_demographics_feed
@@ -91,17 +91,17 @@
     legend Letter Preferences
 
     = f.input :cc_on_all_letters,  as: :inline_radio_buttons, wrapper: :horizontal_small
-    = f.input :cc_decision_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :cc_decision_on, as: :flatpickr, wrapper: :horizontal_datepicker
 
 .columns.large-12
   = field_set_tag do
     legend UKRDC Preferences
 
     = f.input :send_to_renalreg, as: :inline_radio_buttons, wrapper: :horizontal_small
-    = f.input :renalreg_decision_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :renalreg_decision_on, as: :flatpickr, wrapper: :horizontal_datepicker
     = f.input :renalreg_recorded_by, wrapper: :horizontal_medium
     = f.input :send_to_rpv, as: :inline_radio_buttons, wrapper: :horizontal_small
-    = f.input :rpv_decision_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :rpv_decision_on, as: :flatpickr, wrapper: :horizontal_datepicker
     = f.input :rpv_recorded_by, wrapper: :horizontal_medium
 
 .columns.large-12
@@ -136,7 +136,7 @@
     = f.simple_fields_for :document, patient.document do |patient_doc|
       = patient_doc.simple_fields_for :referral, patient.document.referral do |referral_doc|
         = referral_doc.input :referring_physician_name, wrapper: :horizontal_medium
-        = referral_doc.input :referral_date, as: :date_picker, wrapper: :horizontal_datepicker
+        = referral_doc.input :referral_date, as: :flatpickr, wrapper: :horizontal_datepicker
         = referral_doc.input :referral_type, wrapper: :horizontal_medium
         = referral_doc.input :referral_notes,
                              as: :text,
@@ -154,4 +154,4 @@
         = psychosocial.input :other, as: :text,
                              wrapper: :horizontal_large,
                              input_html: { rows: 3 }
-        = psychosocial.input :updated_at, as: :date_picker, wrapper: :horizontal_datepicker
+        = psychosocial.input :updated_at, as: :flatpickr, wrapper: :horizontal_datepicker

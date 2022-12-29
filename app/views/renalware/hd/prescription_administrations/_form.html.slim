@@ -54,7 +54,7 @@
             message: "Drug already recorded as administered on this date") do |component|
             - component.with_input do
               = fpa.input :recorded_on, as: :flatpickr, wrapper: :horizontal_datepicker, \
-                input_html: { data: component.input_date_attributes, autocomplete: "new-password" }
+                input_html: { data: component.input_date_attributes, autocomplete: "off" }
 
         .notes(style="display: block")
           = fpa.label :notes

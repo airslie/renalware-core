@@ -2,5 +2,4 @@ var el = "<%= "#" + dom_id(peritonitis_episode) %>";
 $(el).html("<%= escape_javascript(
   render "form", local_assigns
 ) %>");
-initDatepickersIn(el);
 $("#peritonitis_episode_types .searchable_select").select2();

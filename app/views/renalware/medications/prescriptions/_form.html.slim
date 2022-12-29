@@ -29,12 +29,12 @@ ruby:
       = f.input :frequency, wrapper: :horizontal_small
       = f.input :administer_on_hd, wrapper: :horizontal_small
       = f.input :notes, wrapper: :horizontal_medium
-      = f.input :prescribed_on, as: :date_picker, wrapper: :horizontal_datepicker
+      = f.input :prescribed_on, as: :flatpickr, wrapper: :horizontal_datepicker
 
       - if f.object.new_record?
         = f.simple_fields_for(:termination) do |tf|
           = tf.input :terminated_on,
-                     as: :date_picker,
+                     as: :flatpickr,
                      required: false,
                      wrapper: :horizontal_datepicker
 

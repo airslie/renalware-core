@@ -5,7 +5,7 @@
             collection: Renalware::Pathology::Requests::SampleType.ordered.pluck(:name, :code),
             input_html: { class: "small-input" }
   = f.input :frequency_type, collection: frequencies, input_html: { class: "small-input" }
-  = f.input :start_date, as: :date_picker, input_html: { class: "small-input" }
-  = f.input :end_date, as: :date_picker, input_html: { class: "small-input" }
+  = f.input :start_date, as: :flatpickr, input_html: { class: "small-input" }
+  = f.input :end_date, as: :flatpickr, input_html: { class: "small-input" }
 
   = save_or_cancel(form: f, back_path: patient_pathology_required_observations_path(@patient))

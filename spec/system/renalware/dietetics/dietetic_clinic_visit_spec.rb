@@ -41,7 +41,7 @@ module Renalware
         expect(page).to have_content "must be greater than or equal to 30" # Weist
         expect(page).to have_content "must be greater than or equal to 500" # Estimated energy requirement
 
-        fill_in "Date", with: "20-07-2015 10:45"
+        fill_in "Date", with: "20-07-2015"
         fill_in "Weight", with: "82.5"
         fill_in "Height", with: "1.78"
 

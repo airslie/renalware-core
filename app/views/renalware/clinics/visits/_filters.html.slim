@@ -7,9 +7,9 @@
         method: :get do |f|
 
         .small-6.medium-2.large-2.columns
-          = f.input :date_gteq, as: :date_picker, label: "From"
+          = f.input :date_gteq, as: :flatpickr, label: "From"
         .small-6.medium-2.large-2.columns
-          = f.input :date_lteq, as: :date_picker, label: "To"
+          = f.input :date_lteq, as: :flatpickr, label: "To"
         .medium-3.large-2.columns
           = f.input :clinic_id_eq, collection: clinics, label: "Clinic"
         .medium-3.large-2.columns
