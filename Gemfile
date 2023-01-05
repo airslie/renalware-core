@@ -83,6 +83,7 @@ group :development do
   gem "spring-commands-rspec"
   gem "turnip", "~> 4.0", github: "airslie/turnip", require: false
   # gem 'sql_tracker'
+  gem "solargraph"
   gem "web-console"
 end
 
