@@ -7,4 +7,10 @@ module Renalware
       cli.visit_class_name = "Clinics::MyVisit"
     end
   end
+
+  log "Adding Visit Class Name to Dietetic clinic" do
+    dietetic_clinic = Renalware::Clinics::Clinic.where(name: "Dietitians").first
+    dietetic_clinic.visit_class_name = "Renalware::Dietetics::ClinicVisit"
+    dietetic_clinic.save!
+  end
 end

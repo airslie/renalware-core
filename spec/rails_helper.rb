@@ -145,8 +145,8 @@ RSpec.configure do |config|
 
   config.include Renalware::Engine.routes.url_helpers
   config.include Wisper::RSpec::BroadcastMatcher
-  config.include CapybaraHelper, type: %i(system feature)
-  config.include SelectDateSpecHelper, type: %i(system feature)
+  config.include CapybaraHelper, type: %i[system feature]
+  config.include SelectDateSpecHelper, type: %i[system feature]
   config.include TextEditorHelpers, type: :system
   config.include CapybaraSelect2, type: :system
   config.include ActiveSupport::Testing::TimeHelpers
@@ -155,6 +155,7 @@ RSpec.configure do |config|
   config.include ViewComponent::TestHelpers, type: :component
   config.include ActionView::RecordIdentifier, type: :system
   config.include SlimSelectHelper, type: :system
+  config.include CapybaraAccessibleSelectors::Session, type: :system
 
   config.fuubar_progress_bar_options = { progress_mark: "≈" }
 

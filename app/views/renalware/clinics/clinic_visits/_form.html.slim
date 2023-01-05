@@ -16,8 +16,11 @@
                           wrapper: :horizontal_medium,
                           include_blank: t(".clinic_prompt"),
                           input_html: { \
-                            id: "clinic-visit-clinic-dropdown",
-                            data: { controller: "slimselect" } \
+                            data: { \
+                              controller: "slimselect select-update-frame",
+                              "select-update-frame-frame-id-value": "clinic-visit-specific-inputs",
+                              "action": "change->select-update-frame#change" \
+                            },
                           }
         = f.input :date, as: :date_picker, wrapper: :horizontal_datepicker
         = f.input :time, as: :clock_picker, wrapper: :horizontal_clockpicker
@@ -31,12 +34,17 @@
       article.observations
         header
           h2 Observations
-        = f.input :height, wrapper: :horizontal_small
-        = f.input :weight, wrapper: :horizontal_small
+        = f.input :height, wrapper: :horizontal_small,
+          input_html: { step: 0.01 }
+
+        = f.input :weight, wrapper: :horizontal_small,
+          input_html: { step: 1, min: 15, max: 300 }
+
         = f.input :bp,
                   label: "Blood Pressure",
                   placeholder: "e.g. 110/70",
                   wrapper: :horizontal_small
+
         = f.input :standing_bp,
                   label: "Standing BP",
                   placeholder: "e.g. 110/70",
@@ -48,7 +56,7 @@
 
       / The contents of this div will get replaced if a user selects an alternative
       / clinic in the drop-down above. See clinics.js.
-      #clinic-visit-specific-inputs
+      = turbo_frame_tag "clinic-visit-specific-inputs" do
         = render partial: clinic_visit.to_form_partial_path,
                  locals: { clinic_visit: clinic_visit, f: f }
 

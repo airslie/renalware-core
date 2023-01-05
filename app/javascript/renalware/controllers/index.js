@@ -1,6 +1,9 @@
 import { application } from "./application"
 
 import ToggleController from "./toggle_controller"
+import ClinicsBmiCalculatorController from "./clinics/bmi_calculator_controller"
+import WeightChangeCalculatorController from "./clinics/weight_change_calculator_controller"
+import DietaryProteinCalculatorController from "./clinics/dietary_protein_calculator_controller"
 import HDPrescriptionController from "./hd/prescription_administration_controller"
 import MedicationsHomeDeliveryModalController from "./medications/home_delivery_modal_controller"
 import SnippetsController from "./snippets_controller"
@@ -56,3 +59,12 @@ application.register("flash", FlashController)
 application.register("flatpickr", FlatpickrController)
 application.register("input-value-alerter", InputValueAlerterController)
 application.register("select-update-frame", SelectUpdateFrameController)
+application.register("clinics--bmi-calculator", ClinicsBmiCalculatorController)
+application.register(
+  "clinics--weight-change-calculator",
+  WeightChangeCalculatorController
+)
+application.register(
+  "clinics--dietary-protein-calculator",
+  DietaryProteinCalculatorController
+)

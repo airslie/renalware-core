@@ -6876,7 +6876,7 @@ var $$4 = window.$;
 // nested in a tbody (this is valid HTML) - ie there are probably two trs per tbody, and the last
 // one is toggleable. If you need anyting more complex you'll need to clone or adapt this
 // controller
-var _default$q = /*#__PURE__*/function (_Controller) {
+var _default$t = /*#__PURE__*/function (_Controller) {
   _inherits(_default, _Controller);
   var _super = _createSuper(_default);
   function _default() {
@@ -6919,6 +6919,136 @@ var _default$q = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
+
+/*  Single use controller only for the Dietetic Clinic Visit */
+var _default$s = /*#__PURE__*/function (_Controller) {
+  _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass(_default, [{
+    key: "initialize",
+    value: function initialize() {
+      this.calculate = this.calculate.bind(this);
+    }
+  }, {
+    key: "connect",
+    value: function connect() {
+      // As the weight and the height are outside the scope of the controller
+      // -> grab them directly
+      this.weightElement = document.querySelector(this.weightSelectorValue);
+      this.heightElement = document.querySelector(this.heightSelectorValue);
+      this.heightElement.addEventListener("input", this.calculate);
+      this.weightElement.addEventListener("input", this.calculate);
+      this.calculate();
+    }
+  }, {
+    key: "disconnect",
+    value: function disconnect() {
+      this.heightElement.removeEventListener("input", this.calculate);
+      this.weightElement.removeEventListener("input", this.calculate);
+    }
+  }, {
+    key: "calculate",
+    value: function calculate() {
+      var weight = this.weightElement.value;
+      var height = this.heightElement.value;
+      var value = weight && height ? (Math.round(weight / height / height * 10) / 10).toFixed(1) : "";
+      this.outputTarget.innerText = value;
+    }
+  }]);
+  return _default;
+}(Controller);
+_defineProperty$1(_default$s, "targets", ["output"]);
+_defineProperty$1(_default$s, "values", {
+  weightSelector: String,
+  heightSelector: String
+});
+
+/*  Single use controller only for the Dietetic Clinic Visit */
+var _default$r = /*#__PURE__*/function (_Controller) {
+  _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass(_default, [{
+    key: "initialize",
+    value: function initialize() {
+      this.calculate = this.calculate.bind(this);
+    }
+  }, {
+    key: "connect",
+    value: function connect() {
+      // As weight is outside the scope of the controller
+      // -> grab directly
+      this.weightElement = document.querySelector(this.weightSelectorValue);
+      this.weightElement.addEventListener("input", this.calculate);
+      this.calculate();
+    }
+  }, {
+    key: "disconnect",
+    value: function disconnect() {
+      this.weightElement.removeEventListener("input", this.calculate);
+    }
+  }, {
+    key: "calculate",
+    value: function calculate() {
+      var weight = this.weightElement.value;
+      var previousWeight = this.previousWeightTarget.value;
+      var value = weight && previousWeight ? Math.round((weight - previousWeight) / previousWeight * 100 * 10) / 10 + "%" : "";
+      this.outputTarget.innerText = value;
+    }
+  }]);
+  return _default;
+}(Controller);
+_defineProperty$1(_default$r, "targets", ["previousWeight", "output"]);
+_defineProperty$1(_default$r, "values", {
+  weightSelector: String
+});
+
+/*  Single use controller only for the Dietetic Clinic Visit */
+var _default$q = /*#__PURE__*/function (_Controller) {
+  _inherits(_default, _Controller);
+  var _super = _createSuper(_default);
+  function _default() {
+    _classCallCheck(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass(_default, [{
+    key: "initialize",
+    value: function initialize() {
+      this.calculate = this.calculate.bind(this);
+    }
+  }, {
+    key: "connect",
+    value: function connect() {
+      // As weight is outside the scope of the controller
+      // -> grab directly
+      this.idealBodyWeightElement = document.querySelector("#clinic_visit_document_ideal_body_weight");
+      this.idealBodyWeightElement.addEventListener("input", this.calculate);
+      this.calculate();
+    }
+  }, {
+    key: "disconnect",
+    value: function disconnect() {
+      this.idealBodyWeightElement.removeEventListener("input", this.calculate);
+    }
+  }, {
+    key: "calculate",
+    value: function calculate() {
+      var weight = this.idealBodyWeightElement.value;
+      var proteinIntake = this.proteinIntakeTarget.value;
+      var value = weight && proteinIntake ? Math.round(proteinIntake / weight * 10) / 10 + " g/day/kg" : "";
+      this.outputTarget.innerText = value;
+    }
+  }]);
+  return _default;
+}(Controller);
+_defineProperty$1(_default$q, "targets", ["proteinIntake", "output"]);
 
 var $$3 = window.$;
 var _default$p = /*#__PURE__*/function (_Controller) {
@@ -30438,7 +30568,9 @@ var _default$2 = /*#__PURE__*/function (_Controller) {
     key: "connect",
     value: function connect() {
       var config = this.timeOnlyValue ? timeConfig : dateConfig;
-      this.fp = flatpickr(this.element, _objectSpread2$1({}, config));
+      config["maxDate"] = this.element.dataset.flatpickrMaxDate;
+      config["minDate"] = this.element.dataset.flatpickrMinDate;
+      this.fp = flatpickr(this.element, config);
     }
   }, {
     key: "disconnect",
@@ -30510,7 +30642,7 @@ _defineProperty$1(_default, "values", {
   frameId: String
 });
 
-application.register("toggle", _default$q);
+application.register("toggle", _default$t);
 application.register("hd-prescription-administration", _default$p);
 application.register("home-delivery-modal", _default$o);
 application.register("snippets", _default$n);
@@ -30536,6 +30668,9 @@ application.register("flash", _default$4);
 application.register("flatpickr", _default$2);
 application.register("input-value-alerter", _default$1);
 application.register("select-update-frame", _default);
+application.register("clinics--bmi-calculator", _default$s);
+application.register("clinics--weight-change-calculator", _default$r);
+application.register("clinics--dietary-protein-calculator", _default$q);
 
 /*
 Turbo 7.1.0

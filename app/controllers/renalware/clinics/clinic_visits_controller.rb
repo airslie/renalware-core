@@ -111,7 +111,10 @@ module Renalware
         @clinic_id ||= begin
           return visit_params[:clinic_id] if params[:clinic_visit]
 
-          params[:clinic_id]
+          temp_clinic_visit = ClinicVisit.new
+          RememberedClinicVisitPreferences.new(session).apply_to(temp_clinic_visit)
+
+          params[:clinic_id] || temp_clinic_visit.clinic_id
         end
       end
 
@@ -154,8 +157,7 @@ module Renalware
             clinic.id,
             {
               data: {
-                refresh_url: new_or_edit_url_for_visit(template, clinic),
-                visit_class_name: clinic.visit_class_name
+                frame_url: new_or_edit_url_for_visit(template, clinic)
               }
             }
           ]

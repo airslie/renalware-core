@@ -48,10 +48,10 @@ export default class extends Controller {
 
   connect() {
     const config = this.timeOnlyValue ? timeConfig : dateConfig
+    config["maxDate"] = this.element.dataset.flatpickrMaxDate
+    config["minDate"] = this.element.dataset.flatpickrMinDate
 
-    this.fp = flatpickr(this.element, {
-      ...config,
-    })
+    this.fp = flatpickr(this.element, config)
   }
 
   disconnect() {

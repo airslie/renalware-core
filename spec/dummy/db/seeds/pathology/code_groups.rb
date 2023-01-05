@@ -33,10 +33,6 @@ module Renalware
           %w(CHOL)
         ]
       },
-      dietetics_mdm: {
-        description: "Pathology shown on dietetic mdm",
-        subgroups: [%w(POT PHOS)]
-      },
       default: {
         description: "Default codes used for example in historical, recent and current pathology",
         subgroups: [

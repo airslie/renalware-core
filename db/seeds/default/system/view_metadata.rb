@@ -99,9 +99,12 @@ module Renalware
       view.title = "All"
       view.position = 1
       view.filters = [
-        { code: :weight_management_clinic, type: :list },
-        { code: :sga_score, type: :list },
-        { code: :modality_name, type: :list }
+        { code: :on_worryboard, type: :list },
+        { code: :dietician_name, type: :list },
+        { code: :hospital_centre, type: :list },
+        { code: :modality_name, type: :list },
+        { code: :consultant_name, type: :list },
+        { code: :outstanding_dietetic_visit, type: :list }
       ]
       view.columns = [].to_json
     end

@@ -17,6 +17,9 @@ en:
               out_of_range: Please enter a number between 0.05 and 2.5m
             pulse:
               out_of_range: must be between 20 and 200
+            temperature:
+              invalid_number: Please enter a number with up to 1 decimal place, for example 37 or 37.1
+              out_of_range: Please enter a temperature between 28.0 and 45.0°C
   enumerize:
     renalware/clinics/clinic_visit:
       urine_blood:
