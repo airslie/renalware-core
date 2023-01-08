@@ -8,12 +8,11 @@ GIT
 
 GIT
   remote: https://github.com/airslie/nhs_api_client.git
-  revision: 0a265d4488efaf536ca055aed5c898ba3c429e87
-  tag: v0.1.2
+  revision: 11418931f921e60e4a5dcd1f9dabf08a8c7d1e12
   specs:
-    nhs_api_client (0.1.2)
-      httparty (~> 0.16)
-      rails (> 5.2.4, < 6.1)
+    nhs_api_client (0.1.5)
+      httparty
+      rails
 
 GIT
   remote: https://github.com/airslie/party_foul.git
@@ -362,7 +361,7 @@ GEM
       activesupport (>= 3.2)
     equalizer (0.0.11)
     errbase (0.2.2)
-    erubi (1.11.0)
+    erubi (1.12.0)
     et-orbi (1.2.7)
       tzinfo
     execjs (2.7.0)
@@ -466,7 +465,7 @@ GEM
       regexp_property_values (~> 1.0)
     jsbundling-rails (1.0.3)
       railties (>= 6.0.0)
-    json (2.6.2)
+    json (2.6.3)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -503,8 +502,8 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2022.0105)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.0)
-    minitest (5.16.3)
+    mini_portile2 (2.8.1)
+    minitest (5.17.0)
     msgpack (1.5.4)
     multi_test (0.1.2)
     multi_xml (0.6.0)
@@ -538,7 +537,7 @@ GEM
     parallel (1.22.1)
     paranoia (2.6.0)
       activerecord (>= 5.1, < 7.1)
-    parser (3.1.2.1)
+    parser (3.2.0.0)
       ast (~> 2.4.1)
     pdf-core (0.9.0)
     pdf-reader (2.11.0)
@@ -568,8 +567,8 @@ GEM
     pundit (2.2.0)
       activesupport (>= 3.0.0)
     raabro (1.4.0)
-    racc (1.6.1)
-    rack (2.2.4)
+    racc (1.6.2)
+    rack (2.2.5)
     rack-attack (6.6.1)
       rack (>= 1.0, < 3)
     rack-protection (3.0.4)
@@ -638,13 +637,13 @@ GEM
       rspec-mocks (~> 3.12.0)
     rspec-core (3.12.0)
       rspec-support (~> 3.12.0)
-    rspec-expectations (3.12.1)
+    rspec-expectations (3.12.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
     rspec-html-matchers (0.10.0)
       nokogiri (~> 1)
       rspec (>= 3.0.0.a)
-    rspec-mocks (3.12.1)
+    rspec-mocks (3.12.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
     rspec-rails (5.1.2)
@@ -660,22 +659,22 @@ GEM
     rspec-support (3.12.0)
     rspec_junit_formatter (0.5.1)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (1.41.1)
+    rubocop (1.42.0)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.1.2.1)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.23.0, < 2.0)
+      rubocop-ast (>= 1.24.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.24.0)
+    rubocop-ast (1.24.1)
       parser (>= 3.1.1.0)
-    rubocop-performance (1.15.1)
+    rubocop-performance (1.15.2)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rails (2.17.3)
+    rubocop-rails (2.17.4)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
@@ -791,7 +790,7 @@ GEM
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unicode (0.4.4.4)
-    unicode-display_width (2.2.0)
+    unicode-display_width (2.4.2)
     uniform_notifier (1.16.0)
     user_agent_parser (2.11.0)
     validates_timeliness (4.1.1)
@@ -840,7 +839,7 @@ GEM
       nokogiri (~> 1.8)
     yard (0.9.28)
       webrick (~> 1.7.0)
-    zeitwerk (2.6.0)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby
