@@ -46,6 +46,8 @@ Gem::Specification.new do |s|
   s.add_dependency "delayed_job_active_record", "~> 4.1.2"
   s.add_dependency "devise", "~> 4.8"
   s.add_dependency "devise-security", "~> 0.14.3"
+  s.add_dependency "diff-lcs"
+  s.add_dependency "diffy"
   s.add_dependency "dotenv-rails", "~> 2.5"
   s.add_dependency "dumb_delegator", "~> 0.8.0"
   s.add_dependency "email_validator", "> 1.6.0"

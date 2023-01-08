@@ -38,8 +38,6 @@ gem "wkhtmltopdf-binary", "0.12.3.1"
 # gem "sentry-ruby"
 gem "strong_migrations"
 
-gem "diff-lcs"
-gem "diffy"
 gem "good_job"
 
 group :test do

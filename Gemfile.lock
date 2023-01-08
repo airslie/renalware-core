@@ -69,6 +69,8 @@ PATH
       delayed_job_active_record (~> 4.1.2)
       devise (~> 4.8)
       devise-security (~> 0.14.3)
+      diff-lcs
+      diffy
       dotenv-rails (~> 2.5)
       dumb_delegator (~> 0.8.0)
       email_validator (> 1.6.0)
@@ -860,8 +862,6 @@ DEPENDENCIES
   daemons
   database_cleaner
   debug (>= 1.0.0)
-  diff-lcs
-  diffy
   execjs (= 2.7.0)
   factory_bot_rails (~> 6.1)
   faker
