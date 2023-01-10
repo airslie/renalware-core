@@ -880,6 +880,7 @@ DEPENDENCIES
   i18n-tasks (~> 0.9.33)
   jsbundling-rails (~> 1.0)
   launchy
+  matrix
   net-smtp
   nhs_api_client!
   paper_trail
