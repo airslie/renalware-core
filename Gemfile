@@ -40,6 +40,7 @@ gem "wkhtmltopdf-binary", "0.12.3.1"
 gem "strong_migrations"
 
 gem "good_job"
+gem "matrix"
 
 group :test do
   gem "capybara", "~> 3.32"
