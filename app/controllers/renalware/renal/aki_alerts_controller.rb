@@ -57,7 +57,11 @@ module Renalware
 
       def search_form
         @search_form ||= begin
-          options = params.key?(:q) ? search_params : {}
+          options = if params.key?(:q)
+                      search_params
+                    else
+                      { hospital_centre_id: current_user.hospital_centre_id }
+                    end
           AKIAlertSearchForm.new(options)
         end
       end
