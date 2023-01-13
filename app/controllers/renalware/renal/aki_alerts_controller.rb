@@ -25,7 +25,7 @@ module Renalware
       def update
         authorize alert
         if alert.update(aki_alert_params.merge(by: current_user))
-          redirect_to renal_aki_alerts_path
+          redirect_to return_to_param || renal_aki_alerts_path
         else
           render_edit(alert)
         end
