@@ -9,6 +9,7 @@
                       wrapper: "horizontal_form",
                       html: { autocomplete: "off" } do |f|
 
+
       .columns.large-12
         article
           header
@@ -27,6 +28,12 @@
                       collection: Renalware::Hospitals::Centre.where(host_site: true).ordered,
                       wrapper: :horizontal_medium,
                       input_html: { class: "searchable_select" }
+
+          = f.association :preferred_death_location,
+                          collection: Renalware::Deaths::Location.ordered,
+                          wrapper: :horizontal_medium
+
+          = f.input :preferred_death_location_notes, wrapper: :horizontal_medium
 
       = f.simple_fields_for :document, patient.document do |fdoc|
         .columns.large-12

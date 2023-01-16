@@ -100,7 +100,7 @@ describe "API request for a single UKRDC patient XML document" do
   context "when the patient has pathology" do
     it "includes laborder/resultitems" do
       descriptions = create_descriptions(%w(HGB WBC))
-      create_observations(::Renalware::Pathology.cast_patient(patient), descriptions)
+      create_observations(Renalware::Pathology.cast_patient(patient), descriptions)
 
       get api_ukrdc_patient_path(patient)
 

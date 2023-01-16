@@ -33,11 +33,9 @@ module Renalware
       private
 
       def update_patient
-        clinical_patient.named_consultant_id = profile_params[:named_consultant_id]
-        clinical_patient.named_nurse_id = profile_params[:named_nurse_id]
-        clinical_patient.hospital_centre_id = profile_params[:hospital_centre_id]
-        document = clinical_patient.document
+        clinical_patient.assign_attributes(profile_params.without(:document))
 
+        document = clinical_patient.document
         %i(diabetes history).each do |document_attribute|
           document.send(
             :"#{document_attribute}=",
@@ -51,7 +49,11 @@ module Renalware
         params
           .require(:clinical_profile)
           .permit(
-            :named_consultant_id, :named_nurse_id, :hospital_centre_id,
+            :named_consultant_id,
+            :named_nurse_id,
+            :hospital_centre_id,
+            :preferred_death_location_id,
+            :preferred_death_location_notes,
             document: {
               diabetes: %i(diagnosis diagnosed_on),
               history: %i(alcohol smoking)

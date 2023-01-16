@@ -1,0 +1,41 @@
+= content_for(:actions) do
+  /- if policy(locations).create?
+  = link_to t("btn.add"),
+             renalware.new_deaths_location_path,
+             class: "button"
+
+= within_new_admin_layout(title: "Death Locations") do
+  .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
+    i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+    div
+      ' Deleting a location sets the 'deleted at' date, preventing the location from
+      ' being used prospectively.
+      div
+        span.italic.pr-2 Preferred:
+        | the number of patients stating they would prefer to here
+      div
+        span.italic.pr-2 Actual:
+        | the number of patients recorded as dying here
+
+
+  table
+    thead
+      tr
+        th.col-width-tiny
+        th.col-width-large Name
+        th.col-width-tiny Preferred
+        th.col-width-tiny Actual
+        th.col-width-date-time Created
+        th Deleted
+    tbody
+      - locations.each do |location|
+        tr(class=(location.deleted? ? "deleted" : ""))
+          td= link_to "Delete",
+                      deaths_location_path(location),
+                      method: :delete,
+                      data: { confirm: "Are you sure?" }
+          td= location.name
+          td= location.patients_preferred_count
+          td= location.patients_actual_count
+          td= l(location.created_at)
+          td= l(location.deleted_at)

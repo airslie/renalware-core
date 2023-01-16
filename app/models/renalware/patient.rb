@@ -57,6 +57,14 @@ module Renalware
 
     belongs_to :first_cause, class_name: "Deaths::Cause"
     belongs_to :second_cause, class_name: "Deaths::Cause"
+    belongs_to :preferred_death_location,
+               -> { with_deleted },
+               class_name: "Deaths::Location",
+               counter_cache: :patients_preferred_count
+    belongs_to :actual_death_location,
+               -> { with_deleted },
+               class_name: "Deaths::Location",
+               counter_cache: :patients_actual_count
 
     belongs_to :primary_care_physician, class_name: "Patients::PrimaryCarePhysician"
     belongs_to :practice, class_name: "Patients::Practice"

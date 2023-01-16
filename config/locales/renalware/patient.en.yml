@@ -7,6 +7,7 @@ en:
   activerecord:
     attributes:
       renalware/patient:
+        actual_death_location: Place of death
         age: Age
         born_on: Date of Birth
         cc_decision_on: CC decision date
@@ -14,6 +15,8 @@ en:
         external_patient_id: Other Hospital No.
         language: Main Language
         nhs_number: NHS Number
+        preferred_death_location: Preferred place of death
+        preferred_death_location_notes: Preferred place of death notes
         renalreg_decision_on: Renal Reg decision date
         renalreg_recorded_by: Renal Reg decision recorded by
         rpv_decision_on: RPV decision date

@@ -43,8 +43,10 @@ module Renalware
       def death_params
         params
           .require(:patient)
-          .permit(:died_on, :first_cause_id, :second_cause_id, :death_notes)
-          .merge(by: current_user)
+          .permit(
+            :died_on, :first_cause_id, :second_cause_id,
+            :death_notes, :actual_death_location_id
+          ).merge(by: current_user)
       end
     end
   end

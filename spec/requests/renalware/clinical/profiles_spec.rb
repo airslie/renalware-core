@@ -24,9 +24,12 @@ describe "Viewing clinical profile" do
     it "responds successfully" do
       hospital_centre = create(:hospital_centre)
       url = patient_clinical_profile_path(patient_id: patient.to_param)
+      death_location = Renalware::Deaths::Location.create!(name: "X")
       params = {
         clinical_profile: {
           hospital_centre_id: hospital_centre.id,
+          preferred_death_location_id: death_location.id,
+          preferred_death_location_notes: "ABC",
           document: {
             history: { smoking: "ex", alcohol: "rarely" },
             diabetes: { diagnosis: "true", diagnosed_on: "12-12-2017" }
@@ -40,13 +43,19 @@ describe "Viewing clinical profile" do
       follow_redirect!
       expect(response).to be_successful
 
-      history = patient.reload.document.history
-      expect(history.alcohol).to eq("rarely")
-      expect(history.smoking).to eq("ex")
-
-      expect(patient.document.diabetes.diagnosis).to be(true)
-      expect(patient.hospital_centre).to eq(hospital_centre)
-      expect(patient.document.diabetes.diagnosed_on).to eq(Date.parse("12-12-2017"))
+      expect(patient.reload.document.history).to have_attributes(
+        alcohol: "rarely",
+        smoking: "ex"
+      )
+      expect(patient.document.diabetes).to have_attributes(
+        diagnosis: true,
+        diagnosed_on: Date.parse("12-12-2017")
+      )
+      expect(patient).to have_attributes(
+        hospital_centre: hospital_centre,
+        preferred_death_location: death_location,
+        preferred_death_location_notes: "ABC"
+      )
     end
   end
 end

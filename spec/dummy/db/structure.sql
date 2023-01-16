@@ -2373,7 +2373,10 @@ CREATE TABLE renalware.patients (
     hospital_centre_id bigint,
     named_consultant_id bigint,
     next_of_kin text,
-    named_nurse_id bigint
+    named_nurse_id bigint,
+    preferred_death_location_id bigint,
+    preferred_death_location_notes text,
+    actual_death_location_id bigint
 );
 
 
@@ -3003,6 +3006,54 @@ CREATE SEQUENCE renalware.death_causes_id_seq
 --
 
 ALTER SEQUENCE renalware.death_causes_id_seq OWNED BY renalware.death_causes.id;
+
+
+--
+-- Name: death_locations; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.death_locations (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    deleted_at timestamp without time zone,
+    patients_preferred_count integer DEFAULT 0 NOT NULL,
+    patients_actual_count integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: COLUMN death_locations.patients_preferred_count; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.death_locations.patients_preferred_count IS 'Counter cache for the number of patients preferring this location';
+
+
+--
+-- Name: COLUMN death_locations.patients_actual_count; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.death_locations.patients_actual_count IS 'Counter cache for the number of patients who died at this location';
+
+
+--
+-- Name: death_locations_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.death_locations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: death_locations_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.death_locations_id_seq OWNED BY renalware.death_locations.id;
 
 
 --
@@ -12448,6 +12499,13 @@ ALTER TABLE ONLY renalware.death_causes ALTER COLUMN id SET DEFAULT nextval('ren
 
 
 --
+-- Name: death_locations id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.death_locations ALTER COLUMN id SET DEFAULT nextval('renalware.death_locations_id_seq'::regclass);
+
+
+--
 -- Name: delayed_jobs id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -14102,6 +14160,14 @@ ALTER TABLE ONLY renalware.hd_schedule_definitions
 
 ALTER TABLE ONLY renalware.death_causes
     ADD CONSTRAINT death_causes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: death_locations death_locations_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.death_locations
+    ADD CONSTRAINT death_locations_pkey PRIMARY KEY (id);
 
 
 --
@@ -15805,6 +15871,13 @@ COMMENT ON INDEX renalware.idx_dashboard_component_useage_unique IS 'Allow only 
 
 
 --
+-- Name: idx_death_locations_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_death_locations_name ON renalware.death_locations USING btree (TRIM(BOTH FROM lower((name)::text))) WHERE (deleted_at IS NULL);
+
+
+--
 -- Name: idx_drugs_vmpid; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -16600,6 +16673,13 @@ CREATE INDEX index_clinical_versions_on_item_type_and_item_id ON renalware.clini
 --
 
 CREATE UNIQUE INDEX index_death_causes_on_code ON renalware.death_causes USING btree (code);
+
+
+--
+-- Name: index_death_locations_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_death_locations_on_deleted_at ON renalware.death_locations USING btree (deleted_at);
 
 
 --
@@ -19004,6 +19084,13 @@ CREATE INDEX index_patient_worry_categories_on_updated_by_id ON renalware.patien
 
 
 --
+-- Name: index_patients_on_actual_death_location_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patients_on_actual_death_location_id ON renalware.patients USING btree (actual_death_location_id);
+
+
+--
 -- Name: index_patients_on_country_of_birth_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -19120,6 +19207,13 @@ CREATE INDEX index_patients_on_named_nurse_id ON renalware.patients USING btree 
 --
 
 CREATE INDEX index_patients_on_practice_id ON renalware.patients USING btree (practice_id);
+
+
+--
+-- Name: index_patients_on_preferred_death_location_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patients_on_preferred_death_location_id ON renalware.patients USING btree (preferred_death_location_id);
 
 
 --
@@ -21779,6 +21873,14 @@ ALTER TABLE ONLY renalware.pathology_request_descriptions
 
 
 --
+-- Name: patients fk_rails_39e5ee7d7e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patients
+    ADD CONSTRAINT fk_rails_39e5ee7d7e FOREIGN KEY (preferred_death_location_id) REFERENCES renalware.death_locations(id);
+
+
+--
 -- Name: transplant_donor_stages fk_rails_3a0cb37b2f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -22240,6 +22342,14 @@ ALTER TABLE ONLY renalware.pathology_obx_mappings
 
 ALTER TABLE ONLY renalware.ukrdc_treatments
     ADD CONSTRAINT fk_rails_63f35ffdfe FOREIGN KEY (pd_regime_id) REFERENCES renalware.pd_regimes(id);
+
+
+--
+-- Name: patients fk_rails_6573b513a4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patients
+    ADD CONSTRAINT fk_rails_6573b513a4 FOREIGN KEY (actual_death_location_id) REFERENCES renalware.death_locations(id);
 
 
 --
@@ -24886,6 +24996,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220507073059'),
 ('20220512142640'),
 ('20220512161700'),
+('20220518182012'),
 ('20220519120540'),
 ('20220520100619'),
 ('20220601162848'),

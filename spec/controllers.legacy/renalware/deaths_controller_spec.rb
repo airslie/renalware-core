@@ -38,19 +38,30 @@ module Renalware
       context "with valid attributes" do
         it "updates death details" do
           cause = create(:cause_of_death)
+          time = Date.parse(Time.zone.now.to_s)
+          location_of_death = create(:death_location, :hospital)
 
           put(
             :update,
             params: {
               patient_id: patient.to_param,
               patient: {
-                died_on: Date.parse(Time.zone.now.to_s),
-                first_cause_id: cause.id
+                died_on: time,
+                actual_death_location_id: location_of_death.id,
+                first_cause_id: cause.id,
+                death_notes: "abc"
               }
             }
           )
 
           expect(response).to redirect_to(patient_clinical_profile_path(patient))
+
+          expect(patient.reload).to have_attributes(
+            died_on: time,
+            actual_death_location: location_of_death,
+            death_notes: "abc",
+            first_cause_id: cause.id
+          )
         end
       end
 

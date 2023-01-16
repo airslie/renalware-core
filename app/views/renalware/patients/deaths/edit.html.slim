@@ -25,6 +25,10 @@
                     include_blank: "Select 2nd cause of death",
                     wrapper: :horizontal_medium
 
+    = f.association :actual_death_location,
+                    collection: Renalware::Deaths::Location.ordered,
+                    wrapper: :horizontal_medium
+
     = f.input :death_notes,
               label: "Notes",
               as: :text, input_html: { rows: 5 },
