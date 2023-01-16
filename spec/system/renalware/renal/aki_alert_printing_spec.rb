@@ -15,6 +15,8 @@ module Renalware
         allow(Renalware.config).to receive(:render_pdf_as_html_for_debugging).and_return(true)
 
         user = login_as_clinical
+        # prevent hospital centre dropdown defaulting user's centre
+        user.update!(hospital_centre_id: nil)
 
         aki_akert_at_ward1 = create(
           :aki_alert,
