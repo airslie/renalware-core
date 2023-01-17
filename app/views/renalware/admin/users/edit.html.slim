@@ -8,7 +8,7 @@
 
   .w-full.md:w-1/2
     = simple_form_for user,
-                      html: { autocomplete: "off", class: "" },
+                      html: { autocomplete: "off", classs: "s" },
                       url: admin_user_path(user) do |f|
       = f.input :approved, as: :hidden, input_html: { value: true }
 
@@ -90,10 +90,14 @@
                     label_html: { class: "mt-1" },
                     wrapper: :horizontal_small
 
+      = f.input :nursing_experience_level,
+                collection: Renalware::User::nursing_experience_levels.collect{ |c| [c[0].titleize, c[0]] },
+                wrapper: :horizontal_tiny
+
       = f.input :notes,
                 as: :text,
                 input_html: { class: "rounded w-full border-gray-300 mb-2" },
-                wrapper: :horizontal_small
+                wrapper: :horizontal_large
 
       = f.association :hospital_centre,
                       collection: Renalware::Hospitals::Centre.ordered.pluck(:name, :id),
