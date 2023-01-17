@@ -6,6 +6,7 @@ module Renalware
   class BaseController < ApplicationController
     include Concerns::DeviseControllerMethods
     include Pundit::Authorization
+    include Concerns::ReturnTo
 
     before_action :set_paper_trail_whodunnit
     after_action :verify_authorized

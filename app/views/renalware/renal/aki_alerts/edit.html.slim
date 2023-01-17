@@ -13,4 +13,5 @@
     = f.input :notes, wrapper: :horizontal_large, input_html: { rows: 5 }
     = f.submit class: "button"
     '  or
-    = link_to t("btn.cancel"), renal_aki_alerts_path
+    = link_to t("btn.cancel"), return_to_param || back_url(renal_aki_alerts_path)
+    = hidden_field_tag :return_to, return_to_param || request.referrer
