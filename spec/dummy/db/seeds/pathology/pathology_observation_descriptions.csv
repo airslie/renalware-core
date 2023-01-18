@@ -1,5 +1,4 @@
 "code","name","unit_of_measurement","loinc_code","display_group","display_order","letter_group","letter_order"
-"KFRE","5yr Kidney Failure Risk Equation",,"",,,,
 "1019","CD10+CD19",,"",,,,
 "10HY","10-Hydroxycarbazepine",,"",,,,
 "11DO","11-Deoxycortisol",,"",,,,
@@ -1278,7 +1277,7 @@
 "PORG","Porphyrin Genetics",,"",,,,
 "PORP","Porphyrin Request",,"",,,,
 "POSM","Osmolality (Plas)",,"",,,,
-"POT","Potassium",,"potassium",2,5,4,2
+"POT","Potassium",,"potassium",2,10,4,2
 "POX","Plasma Oxalate",,"",,,,
 "PP","PP",,"",,,,
 "PPCE","24hr Ur. Cu post penicillamine",,"",,,,
@@ -1739,3 +1738,9 @@
 "ZNCR","Urine Zinc/Creatinine Ratio",,"",,,,
 "ZNCU","Copper & Zinc",,"",,,,
 "ZONI","Zonisamide",,"",,,,
+"KFRE2","2 year kidney risk equation",,,2,4,,
+"KFRE5","5 year kidney risk equation",,,2,5,,
+"Kt/V","Simple Kt/V based on pre & post urea, ie '-ln(post_hd_urea/pre_hd_urea)'",,,2,6,,
+"spKt/V","Single-pool Kt/V using Daugirdas, allowing for ultrafiltration ie '-ln[(post_hd_urea/pre_hd_urea)-(t/7500)] + [(UF/TW)*(4-(3.5*(post_hd_urea/pre_hd_urea))]'",,,2,7,,
+"eKt/V","Equilibrated Kt/V allowing for post-hd urea rebound, uising Tattersall adjustment ie '(spKt/V*t)/(t+35)'",,,2,8,,
+"ceKt/V","Combined eKt/V adjusted for residual kidney function ie 'eKt/V_dialysis + eKt/V_kidney'",,,2,9,,

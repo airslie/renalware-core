@@ -6506,6 +6506,50 @@ ALTER SEQUENCE renalware.old_passwords_id_seq OWNED BY renalware.old_passwords.i
 
 
 --
+-- Name: pathology_calculation_sources; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pathology_calculation_sources (
+    id bigint NOT NULL,
+    calculated_observation_id bigint NOT NULL,
+    source_observation_id bigint NOT NULL
+);
+
+
+--
+-- Name: COLUMN pathology_calculation_sources.calculated_observation_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_calculation_sources.calculated_observation_id IS 'Id of the calculated observation e.g. URR derived from pre and post UREA';
+
+
+--
+-- Name: COLUMN pathology_calculation_sources.source_observation_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_calculation_sources.source_observation_id IS 'Id of an observation used in the calculation e.g. a UREA observation';
+
+
+--
+-- Name: pathology_calculation_sources_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.pathology_calculation_sources_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_calculation_sources_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.pathology_calculation_sources_id_seq OWNED BY renalware.pathology_calculation_sources.id;
+
+
+--
 -- Name: pathology_chart_series; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -13045,6 +13089,13 @@ ALTER TABLE ONLY renalware.old_passwords ALTER COLUMN id SET DEFAULT nextval('re
 
 
 --
+-- Name: pathology_calculation_sources id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_calculation_sources ALTER COLUMN id SET DEFAULT nextval('renalware.pathology_calculation_sources_id_seq'::regclass);
+
+
+--
 -- Name: pathology_chart_series id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -14806,6 +14857,14 @@ ALTER TABLE ONLY renalware.modality_reasons
 
 ALTER TABLE ONLY renalware.old_passwords
     ADD CONSTRAINT old_passwords_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_calculation_sources pathology_calculation_sources_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_calculation_sources
+    ADD CONSTRAINT pathology_calculation_sources_pkey PRIMARY KEY (id);
 
 
 --
@@ -21009,6 +21068,13 @@ CREATE INDEX obx_unique_letter_grouping ON renalware.pathology_observation_descr
 
 
 --
+-- Name: pathology_calculation_sources_idx; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX pathology_calculation_sources_idx ON renalware.pathology_calculation_sources USING btree (calculated_observation_id, source_observation_id);
+
+
+--
 -- Name: pathology_code_group_membership_obx; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -21759,6 +21825,14 @@ ALTER TABLE ONLY renalware.hd_transmission_logs
 
 
 --
+-- Name: pathology_calculation_sources fk_rails_3131e61ddd; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_calculation_sources
+    ADD CONSTRAINT fk_rails_3131e61ddd FOREIGN KEY (calculated_observation_id) REFERENCES renalware.pathology_observations(id);
+
+
+--
 -- Name: clinical_dry_weights fk_rails_31546389ab; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -22388,6 +22462,14 @@ ALTER TABLE ONLY renalware.messaging_messages
 
 ALTER TABLE ONLY renalware.admission_consults
     ADD CONSTRAINT fk_rails_66c44c0949 FOREIGN KEY (hospital_ward_id) REFERENCES renalware.hospital_wards(id);
+
+
+--
+-- Name: pathology_calculation_sources fk_rails_6725b36566; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pathology_calculation_sources
+    ADD CONSTRAINT fk_rails_6725b36566 FOREIGN KEY (source_observation_id) REFERENCES renalware.pathology_observations(id);
 
 
 --
@@ -25017,6 +25099,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220606105217'),
 ('20220620141323'),
 ('20220621084947'),
+('20220701153541'),
 ('20220812154454'),
 ('20220813081749'),
 ('20220824154208'),

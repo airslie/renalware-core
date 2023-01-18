@@ -3,7 +3,7 @@
   "description": "Renalware uses demographic, clinical, pathology, and nephrology datasets to improve patient care, undertake clinical and administrative audits and share data with external systems.",
   "website": "http://www.airslie.com/renalware.html",
   "success_url": "/",
-  "stack": "heroku-20",
+  "stack": "heroku-22",
   "addons": [
     {
       "plan": "heroku-postgresql:basic",
