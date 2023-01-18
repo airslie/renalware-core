@@ -5,12 +5,23 @@ this [changelog](http://keepachangelog.com/en/0.3.0/).
 This project adheres to Semantic Versioning.
 
 ## Unreleased
+### Added
+### Changed
+### Fixed
+
+## 2.3.2
 
 ### Added
-
+- Add Nursing Experience Level to Admin => Users page #3951
+- Create a job to SFTP waiting files to UKRDC from Azure #4134
+- Add a turbo-frame spinner component #4140
 ### Changed
-
+- Generate simple Kt/V along with URR #4151
+- Capture where patient would like to die and where they actually died #3918
+- Default Site dropdown to current_user.hospital_centre_id on AKI Alerts page #4148
+- Letter sections: Use DL/DT/DD #4146
 ### Fixed
+- AKI Alerts filters not persisted if you cancel from the edit screen #4147
 
 ## 2.3.1
 
