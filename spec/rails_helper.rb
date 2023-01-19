@@ -80,9 +80,17 @@ RSpec.configure do |config|
     options.add_argument("no-sandbox")
     options.add_argument("enable-features=NetworkService,NetworkServiceInProcess")
 
+    # If using `binding.b` or `binding.pry` in Capybara tests,
+    # it's a good idea to increase the timeout to avoid cut-outs
+    client = Selenium::WebDriver::Remote::Http::Default.new
+    unless ENV["CI"]
+      client.open_timeout = 30.minutes.to_i
+    end
+
     Capybara::Selenium::Driver.new(
       app,
       browser: :chrome,
+      http_client: client,
       capabilities: capabilities,
       options: options
     )
@@ -119,10 +127,10 @@ RSpec.configure do |config|
     ActionController::Base.perform_caching = caching
   end
 
-  config.example_status_persistence_file_path = "#{::Rails.root}/tmp/examples.txt"
+  config.example_status_persistence_file_path = "#{Rails.root}/tmp/examples.txt"
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.fixture_path = "#{Rails.root}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -146,8 +154,8 @@ RSpec.configure do |config|
 
   config.include Renalware::Engine.routes.url_helpers
   config.include Wisper::RSpec::BroadcastMatcher
-  config.include CapybaraHelper, type: %i[system feature]
-  config.include SelectDateSpecHelper, type: %i[system feature]
+  config.include CapybaraHelper, type: %i(system feature)
+  config.include SelectDateSpecHelper, type: %i(system feature)
   config.include TextEditorHelpers, type: :system
   config.include CapybaraSelect2, type: :system
   config.include ActiveSupport::Testing::TimeHelpers
