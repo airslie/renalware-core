@@ -15,6 +15,4 @@
       = render_input fd, :hepatitis_c
       = render_input fd, :htlv
 
-    = f.submit t("btn.save"), class: "button"
-    '  or
-    = link_to t("btn.cancel"), patient_virology_dashboard_path(patient)
+    = save_or_cancel(form: f, back_path: patient_virology_dashboard_path(patient))

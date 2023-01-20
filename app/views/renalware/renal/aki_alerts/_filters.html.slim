@@ -20,9 +20,8 @@ scss:
 
     .row
       .columns.medium-2.large-2.actions
-        = f.submit t("btn.filter"), class: "button"
-        '  or
-        = link_to t("btn.reset"), renal_aki_alerts_path
+        .mb-2= filter_or_reset(form: f, reset_path: renalware.renal_aki_alerts_path)
+
     .row
       .columns
         .flex

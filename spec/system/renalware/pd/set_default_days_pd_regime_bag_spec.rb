@@ -18,7 +18,7 @@ module Renalware
       uncheck "Tue"
       uncheck "Thu"
       within ".patient-content" do
-        click_on t("btn.save")
+        click_on t("btn.create")
       end
 
       within ".current-regime" do

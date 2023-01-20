@@ -33,13 +33,13 @@ ruby:
                     wrapper: :horizontal_medium
 
 .row.top
-  .large-12.columns.form_actions
-      = f.button :submit, value: t("btn.save")
+  .large-12.columns.form-actions
+      = f.submit class: "btn btn-primary"
       - if policy(session).destroy?
         | &nbsp;
         = link_to(t("btn.delete"), patient_hd_session_path(patient, session),
                   data: { confirm: t(".delete_confirmation") },
                   method: :delete,
                   class: "button alert")
-      | &nbsp;
-      = link_to t("btn.cancel"), back_path
+      | &nbsp;or&nbsp;
+      = link_to t("btn.cancel")&.downcase, back_path

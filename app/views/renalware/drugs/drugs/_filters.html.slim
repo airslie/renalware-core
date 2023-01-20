@@ -14,6 +14,5 @@
           = f.search_field :name_or_drug_types_name_cont, autofocus: true
         .small-3.large-4.columns.actions.end
           noscript
-            = f.submit t("btn.filter"), class: "button"
-            '  or
-            = link_to t("btn.reset"), drugs_drugs_path
+            .mt-px= filter_or_reset(form: f, reset_path: renalware.drugs_drugs_path)
+            

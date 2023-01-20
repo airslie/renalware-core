@@ -66,7 +66,7 @@ module World
 
         fill_in "Diagnosed on", with: diagnosed_on
 
-        click_on t("btn.save")
+        click_on t("btn.create")
       end
 
       def revise_peritonitis_episode_for(patient:, user:, diagnosed_on:)

@@ -17,6 +17,4 @@
         = f.label :patient_worry_id_not_null, "On Worryboard"
 
       .columns.small-12.medium-2.actions.end
-        = f.submit t("btn.filter"), class: "button secondary", name: nil
-        '  or
-        = link_to t("btn.reset"), research_study_participations_path(study)
+        = filter_or_reset(form: f, reset_path: renalware.research_study_participations_path(study))

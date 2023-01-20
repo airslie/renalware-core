@@ -102,7 +102,7 @@ module Renalware
         uncheck "Sat"
       end
 
-      click_on t("btn.save")
+      click_on t("btn.create")
 
       expect(page).to have_content("Low strength\n857 ml")
       expect(page).to have_content("Med. strength\n1428 ml")

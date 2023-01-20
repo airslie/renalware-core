@@ -24,14 +24,5 @@
           html: { autocomplete: "off" },
           wrapper: "horizontal_form" do |f|
 
-        .form-actions
-          = submit_tag "Save", class: "button"
-          '  or
-          = link_to t("btn.cancel"), patient_clinical_summary_path(patient)
-
         = render "form", f: f, patient: patient
-
-        .form-actions
-          = submit_tag "Save", class: "button"
-          '  or
-          = link_to t("btn.cancel"), patient_clinical_summary_path(patient)
+        = save_or_cancel(form: f, back_path: patient_clinical_summary_path(patient))

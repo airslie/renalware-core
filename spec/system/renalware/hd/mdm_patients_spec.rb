@@ -75,7 +75,7 @@ describe "HD MDM Patients" do
       expect(page).to have_no_content(patient2.family_name)
 
       # Reset filters to see all
-      click_on t("btn.reset")
+      click_on t("btn.reset").downcase
       expect(page).to have_content(patient1.family_name)
       expect(page).to have_content(patient2.family_name)
 

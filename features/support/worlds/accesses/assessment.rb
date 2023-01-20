@@ -78,8 +78,8 @@ module World
       include Domain
 
       def create_access_assessment(user:,
-                                  patient:,
-                                  access_type: Renalware::Accesses::Type.first)
+                                   patient:,
+                                   access_type: Renalware::Accesses::Type.first)
         login_as user
         visit patient_accesses_dashboard_path(patient)
         within ".page-actions" do
@@ -91,7 +91,7 @@ module World
         select(access_type.to_s, from: "Access Type") if access_type.present?
         select "Right", from: "Access Side"
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.create")
         end
       end
@@ -105,7 +105,7 @@ module World
 
         select "Left", from: "Access Side"
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.save")
         end
       end

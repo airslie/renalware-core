@@ -105,7 +105,7 @@ module World
             fill_in t_contact(:other_description), with: description_name
           end
 
-          click_on t("btn.save")
+        submit_form
         end
 
         wait_for_ajax
@@ -132,7 +132,7 @@ module World
             fill_in t_contact(:other_description), with: description_name
           end
 
-          click_on t("btn.save")
+          submit_form
         end
 
         wait_for_ajax

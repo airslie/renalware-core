@@ -4,6 +4,4 @@
       .small-8.medium-6.large-4.columns
         = f.input :name_cont, label: "Name contains"
       .small-4.end.columns.actions
-        = f.submit t("btn.filter"), class: "button"
-        '  or
-        = link_to t("btn.reset"), directory_people_path
+        .mt-px= filter_or_reset(form: f, reset_path: renalware.directory_people_path)

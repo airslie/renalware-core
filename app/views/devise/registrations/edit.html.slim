@@ -54,7 +54,5 @@
       /   = f.label :language
       /   = f.collection_select(:language, [["English", "en-GB"]], :last, :first, prompt: true)
 
-      .actions
-        = f.submit t("devise.registrations.edit.update"), class: "button save"
+      = save_or_cancel(form: f, back_path: :back)
 
-      = link_to t("devise.shared.links.back"), :back

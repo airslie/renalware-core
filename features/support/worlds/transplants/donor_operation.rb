@@ -84,8 +84,8 @@ module World
 
         fill_in "Operation Date", with: performed_on
 
-        within ".top" do
-          click_on t("btn.save")
+        within ".form-actions", match: :first do
+          click_on t("btn.create")
         end
       end
 
@@ -98,7 +98,7 @@ module World
 
         select "Both", from: "Kidney Side"
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.save")
         end
       end

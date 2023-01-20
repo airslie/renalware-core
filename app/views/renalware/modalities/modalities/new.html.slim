@@ -48,6 +48,4 @@
                           input_html: { rows: 5 },
                           wrapper: :horizontal_large
 
-              = m.submit t("btn.save"), class: "button"
-              '  or
-              = link_to t("btn.cancel"), patient_modalities_path(patient)
+              = save_or_cancel(form: m, back_path: patient_modalities_path(patient))

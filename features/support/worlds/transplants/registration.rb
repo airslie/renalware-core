@@ -141,8 +141,8 @@ module World
           select "Active", from: "Description"
         end
 
-        within ".top" do
-          click_on t("btn.save")
+        within ".form-actions", match: :first do
+          click_on t("btn.create")
         end
       end
 
@@ -155,7 +155,7 @@ module World
 
         select "Pancreas only", from: "Transplant Type"
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.save")
         end
 

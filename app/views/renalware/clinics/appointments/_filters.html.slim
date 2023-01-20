@@ -25,8 +25,5 @@
                   input_html: { data: { controller: "slimselect select" } },
                   include_blank: "Any"
 
-      div.w-1/4.pt-5.pl-2
-        div.pt-1
-          = f.submit t("btn.filter"), class: "button"
-          '  or
-          = link_to t("btn.reset"), renalware.appointments_path
+      div.w-1/4.pt-6.pl-2
+        = filter_or_reset(form: f, reset_path: renalware.appointments_path)

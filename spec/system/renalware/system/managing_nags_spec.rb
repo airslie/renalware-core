@@ -43,7 +43,7 @@ module Renalware
         fill_in "Hint", with: "Hey"
         fill_in "Relative link", with: "/path"
 
-        click_on "Save"
+        click_on "Create"
 
         expect(page).to have_current_path(system_nag_definitions_path)
 

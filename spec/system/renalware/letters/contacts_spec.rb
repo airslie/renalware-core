@@ -44,7 +44,7 @@ describe "Assign a contact to a patient", js: true do
           search: true
         )
         select contact_description.to_s, from: "Description"
-        click_on t("btn.save")
+        submit_form
       end
 
       wait_for_ajax
@@ -54,7 +54,7 @@ describe "Assign a contact to a patient", js: true do
       click_on t("btn.add")
 
       within("#add-patient-contact-modal") do
-        click_on t("btn.save")
+        submit_form
       end
     end
 

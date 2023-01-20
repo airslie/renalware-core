@@ -6,6 +6,6 @@
 
     .row
       .large-offset-3.large-7.columns
-        = f.button :submit, "Save", class: :tiny
+        = f.submit class: "btn btn-sm btn-primary"
         '  or
         = link_to t("btn.cancel"), patient_problem_notes_path(problem.patient, problem), remote: true

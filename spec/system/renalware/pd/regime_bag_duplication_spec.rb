@@ -51,7 +51,7 @@ module Renalware
         select "5000", from: "Volume (ml)"
       end
 
-      click_button "Save"
+      click_button "Create"
 
       expect(page).to have_current_path(patient_pd_dashboard_path(patient))
 

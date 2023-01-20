@@ -21,7 +21,7 @@ When("I select death modality") do
     end
 
     fill_in "Started on", with: l(Time.zone.today)
-    click_on t("btn.save")
+    click_on t("btn.create")
   end
 end
 

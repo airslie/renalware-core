@@ -46,9 +46,7 @@ module Renalware
               choose "Yes"
             end
 
-            within ".row.top" do
-              click_on t("btn.save")
-            end
+            submit_form
 
             letter.reload
             expect(letter.pathology_timestamp).to eq(date)

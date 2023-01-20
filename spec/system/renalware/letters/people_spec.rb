@@ -46,7 +46,7 @@ describe "Add person to directory and assign as a contact for a patient",
         fill_in "Line 1", with: person.address.street_1
         select contact_description.name, from: "Description"
         fill_in "Notes", with: "some contact notes"
-        click_on t("btn.save")
+        submit_form
       end
     end
 
@@ -55,7 +55,7 @@ describe "Add person to directory and assign as a contact for a patient",
 
       within("#add-patient-contact-modal") do
         click_on "Person not found in directory"
-        click_on t("btn.save")
+        submit_form
       end
     end
 

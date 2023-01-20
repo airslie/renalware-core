@@ -1,12 +1,6 @@
 ruby:
   back_path = patient_accesses_dashboard_path(patient)
 
-.row.top
-  .medium-6.columns
-    = f.button :submit
-    '  or
-    = link_to t("btn.cancel"), back_path
-
 .form-content
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Access Procedure", name: "procedure" } do
@@ -38,8 +32,4 @@ ruby:
     = f.input :first_used_on, as: :date_picker, wrapper: :horizontal_datepicker
     = f.input :failed_on, as: :date_picker, wrapper: :horizontal_datepicker
 
-.row
-  .large-12.columns
-    = f.button :submit
-    '  or
-    = link_to t("btn.cancel"), back_path
+= save_or_cancel(form: f, back_path: back_path)

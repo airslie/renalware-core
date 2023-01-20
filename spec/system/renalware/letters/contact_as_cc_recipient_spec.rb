@@ -39,9 +39,10 @@ describe "Assign a person as a CC recipient", js: true do
 
         try_adding_person_as_cc_recipient
 
-        within ".top" do
-          click_on t("btn.create")
-        end
+        submit_form
+        # within ".form-actions",  do
+        #   find("input[name='commit']").click
+        # end
 
         letter = patient.letters.last
 
@@ -64,14 +65,15 @@ describe "Assign a person as a CC recipient", js: true do
         )
         select contact_description.name, from: "Description"
         fill_in "Notes", with: "some contact notes"
-        click_on t("btn.save")
+      
+        submit_form
       end
 
       wait_for_ajax
 
       expect(page).to have_text(person.family_name)
 
-      expect(page).to have_no_text("is already a contact for the patient")
+      expect(page).not_to have_text("is already a contact for the patient")
     end
 
     def fill_out_letter

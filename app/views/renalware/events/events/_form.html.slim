@@ -51,6 +51,4 @@ div(data-controller="conditional-display" data-conditional-display-attribute-to-
           i.fas.fa-file-pdf.mr-2.mt-1.text-gray-600.text-l.pr-1
           span A PDF copy is automatically sent to the EPR document store/s.
 
-    = submit_tag "Save", class: "button"
-    '  or
-    = link_to t("btn.cancel"), return_url
+    = save_or_cancel(form: f, back_path: return_url)

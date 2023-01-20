@@ -27,6 +27,7 @@ namespace :tailwind do
         "'#{root}/app/views/**/*.{erb,haml,html,slim}'",
         "'#{root}/app/components/**/*.{erb,haml,html,slim,rb}'",
         "'#{root}/app/assets/javascripts/**/*'",
+        "'#{root}/app/assets/stylesheets/**/*.{css,scss}'",
         "'#{root}/app/javascript/**/*'"
       ]
     end.flatten

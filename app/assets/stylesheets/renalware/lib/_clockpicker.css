@@ -13,7 +13,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
-/* Picked from bootstrap: .popover, .btn, .text-primary */
+/* Picked from bootstrap: .popover, .btn-clk, .text-primary */
 
 .popover {
   position: absolute;
@@ -149,7 +149,7 @@
   border-right-width: 0;
   border-left-color: #fff;
 }
-.btn {
+.btn-clk {
   cursor: pointer;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -159,45 +159,45 @@
   border: 1px solid transparent;
 
 }
-.btn:focus,
-.btn:active:focus,
-.btn.active:focus {
+.btn-clk:focus,
+.btn-clk:active:focus,
+.btn-clk.active:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-.btn:hover,
-.btn:focus {
+.btn-clk:hover,
+.btn-clk:focus {
   color: #333;
   text-decoration: none;
 }
-.btn:active,
-.btn.active {
+.btn-clk:active,
+.btn-clk.active {
   background-image: none;
   outline: 0;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
           box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
 }
-.btn-default {
+.btn-clk-default {
   color: #333;
   background-color: #fff;
   border-color: #ccc;
 }
-.btn-default:hover,
-.btn-default:focus,
-.btn-default:active,
-.btn-default.active,
-.open .dropdown-toggle.btn-default {
+.btn-clk-default:hover,
+.btn-clk-default:focus,
+.btn-clk-default:active,
+.btn-clk-default.active,
+.open .dropdown-toggle.btn-clk-default {
   color: #333;
   background-color: #ebebeb;
   border-color: #adadad;
 }
-.btn-default:active,
-.btn-default.active,
-.open .dropdown-toggle.btn-default {
+.btn-clk-default:active,
+.btn-clk-default.active,
+.open .dropdown-toggle.btn-clk-default {
   background-image: none;
 }
-.btn-block {
+.btn-clk-block {
   display: block;
   width: 100%;
 }

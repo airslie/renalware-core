@@ -20,6 +20,5 @@
             wrapper: :horizontal_small,
             hint: "Do not calculate KFRE for patients with this current modality")
 
-  = f.button :submit
-  '  or
-  = link_to t("btn.cancel"), modalities_descriptions_path
+  = save_or_cancel(form: f, back_path: modalities_descriptions_path)
+  

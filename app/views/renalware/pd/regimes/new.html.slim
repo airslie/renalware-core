@@ -9,6 +9,4 @@
                            wrapper: :horizontal_form,
                            html: { class: "fn-form pd-form" } do |f|
     = render partial: "renalware/pd/regimes/form", locals: local_assigns.merge!(f: f)
-    = submit_tag "Save", class: "button"
-    '  or
-    = link_to t("btn.cancel"), patient_pd_dashboard_path(patient)
+    = save_or_cancel(form: f, back_path: renalware.patient_pd_dashboard_path(patient))

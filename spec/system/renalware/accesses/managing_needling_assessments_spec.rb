@@ -20,7 +20,7 @@ describe "Managing needling assessments" do
 
     within("#new_needling_assessment") do
       select "Moderate", from: "Difficulty"
-      click_on "Save"
+      click_on "Create"
     end
 
     expect(page).to have_current_path patient_accesses_dashboard_path(patient)

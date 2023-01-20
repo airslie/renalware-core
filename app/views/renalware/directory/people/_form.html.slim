@@ -9,6 +9,5 @@
   = field_set_tag "Postal Address" do
     = render "address_form", f: f
 
-  = f.button :submit
-  '  or
-  = link_to t("btn.cancel"), directory_people_path
+  = save_or_cancel(form: f, back_path: directory_people_path)
+  

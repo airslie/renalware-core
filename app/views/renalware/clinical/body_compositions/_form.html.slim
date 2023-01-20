@@ -41,8 +41,4 @@
             wrapper: :horizontal_large,
             input_html: { rows: 5 }
 
-.row
-  .large-12.columns
-    = f.button :submit
-    '  or
-    = link_to t("btn.cancel"), patient_clinical_profile_path(patient)
+  = save_or_cancel(form: f, back_path:  patient_clinical_profile_path(patient))

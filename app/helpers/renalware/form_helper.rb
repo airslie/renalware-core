@@ -38,13 +38,28 @@ module Renalware
     def save_or_cancel(
       form:,
       back_path:,
-      submit_title: I18n.t("btn.save"),
-      cancel_title: I18n.t("btn.cancel")&.downcase
+      submit_title: nil,
+      cancel_title: I18n.t("btn.cancel"),
+      **cancel_link_options # e.g. remote: true
     )
-      capture do
-        concat(form.submit(submit_title, class: "button"))
+      tag.div(class: "form-actions") do
+        concat(
+          link_to(cancel_title, back_path, class: "btn btn-secondary mr-3", **cancel_link_options)
+        )
+        concat(form.submit(submit_title, class: "btn btn-primary"))
+      end
+    end
+
+    def filter_or_reset(
+      form:,
+      reset_path:,
+      filter_title: I18n.t("btn.filter"),
+      reset_title: I18n.t("btn.reset")&.downcase
+    )
+      tag.div(class: "filter-actions") do
+        concat(form.submit(filter_title, class: "btn btn-sm btn-secondary"))
         concat(tag.span { " #{I18n.t('btn.or')} " })
-        concat(link_to(cancel_title, back_path))
+        concat(link_to(reset_title, reset_path))
       end
     end
   end

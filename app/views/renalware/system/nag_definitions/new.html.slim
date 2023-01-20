@@ -12,6 +12,6 @@
     = f.input :relative_link,
               as: :string,
               hint: "Use the :patient_id placholder in lieu of patient id"
-    = f.submit t("btn.save"), class: "button"
-    '  or
-    = link_to t("btn.cancel"), system_nag_definitions_path
+
+    = save_or_cancel(form: f, back_path: system_nag_definitions_path)
+ 

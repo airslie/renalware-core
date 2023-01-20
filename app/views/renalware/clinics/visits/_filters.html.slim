@@ -15,9 +15,7 @@
         .medium-3.large-2.columns
           = f.input :created_by_id_eq, as: :user_picker, collection: users, label: "Clinician"
         .medium-2.large-3.columns.actions.end
-          = f.submit t("btn.filter"), class: "button"
-          '  or
-          = link_to t("btn.reset"), clinic_visits_path
+          .pt-1= filter_or_reset(form: f, reset_path: renalware.clinic_visits_path)
 
   .filters__output
 

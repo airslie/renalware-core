@@ -12,9 +12,7 @@
                       method: :get do |f|
       .row
         .small-12.columns
-          = f.submit t("btn.filter"), class: "button secondary"
-          '  or
-          = link_to t("btn.reset"), renalware.letters_filtered_letters_list_path(named_filter: named_filter)
+          .mb-2= filter_or_reset(form: f, reset_path: renalware.letters_filtered_letters_list_path(named_filter: named_filter))
       .row
         .small-6.medium-1.large-1.columns
             = f.input :enclosures_present,

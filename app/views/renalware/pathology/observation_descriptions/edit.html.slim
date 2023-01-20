@@ -25,6 +25,6 @@
 
       = f.input :lower_threshold, hint: "Value below which a result can be deemed abnormal"
       = f.input :upper_threshold, hint: "Value above which a result can be deemed abnormal"
-      = f.submit class: :button
-      '  or
-      = link_to t("btn.cancel"), pathology_observation_descriptions_path
+
+      = save_or_cancel(form: f, back_path: pathology_observation_descriptions_path)
+  

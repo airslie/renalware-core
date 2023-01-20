@@ -8,12 +8,12 @@
   = f.input :title, placeholder: "An optional title"
   = f.label :body
   = f.input :body, as: :trix_editor, wrapper: :zilch
-  br
-  = f.input :severity,
-            collection: severities,
-            input_html: { style: "width:100px" },
-            include_blank: nil
+  
+  .mt-2 
+    = f.input :severity,
+              collection: severities,
+              input_html: { style: "width:100px" },
+              include_blank: nil
   = f.input :display_from, as: :datetime_picker
   = f.input :display_until, as: :datetime_picker
-  br
-  = f.submit t("btn.save"), class: :button
+  = save_or_cancel(form: f, back_path: system_messages_path)

@@ -5,12 +5,6 @@ ruby:
                 patient_transplants_donor_workup_path(patient)
               end
 
-.row.top
-  .medium-6.columns
-    = f.submit t("btn.save"), class: "button"
-    '  or
-    = link_to t("btn.cancel"), back_path
-
 .form-content
   = f.simple_fields_for :document, f.object.document do |fd|
 
@@ -97,9 +91,4 @@ ruby:
           = render_input fcm, :haemoglobinopathy
           = render_input fcm, :oral_gtt
 
-.row
-  .large-12.columns
-    = f.submit t("btn.save"), class: "button"
-
-    '  or
-    = link_to t("btn.cancel"), back_path
+= save_or_cancel(form: f, back_path: back_path)

@@ -78,8 +78,8 @@ module World
         fill_in "Date of last Dialysis Post-Transplant", with: "2018-12-01"
         fill_in "Date of Return to Regular Dialysis", with: "2019-02-01"
 
-        within ".top" do
-          click_on t("btn.save")
+        within ".form-actions", match: :first do
+          click_on t("btn.create")
         end
       end
 
@@ -94,7 +94,7 @@ module World
           choose "No"
         end
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.save")
         end
       end

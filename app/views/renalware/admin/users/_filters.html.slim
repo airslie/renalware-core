@@ -13,6 +13,4 @@
                      { include_blank: "Any" },
                      { class: "searchable_select" })
         .small-3.large-4.columns.actions.end
-          = f.submit t("btn.filter"), class: "button"
-          '  or
-          = link_to t("btn.reset"), admin_users_path
+          = filter_or_reset(form: f, reset_path: admin_users_path)

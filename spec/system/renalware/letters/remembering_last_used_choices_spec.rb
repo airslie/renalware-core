@@ -3,6 +3,7 @@
 require "rails_helper"
 
 describe "Remembering last used letter choices in the user's session", js: true do
+  
   it "once a letter is created, subsequent new letters remember letterhead, author, " \
      "date and description" do
     patient = create(
@@ -39,9 +40,7 @@ describe "Remembering last used letter choices in the user's session", js: true 
     slim_select descriptions[1].text, from: "Topic"
     choose("Primary Care Physician")
 
-    within ".top" do
-      click_on t("btn.create")
-    end
+    submit_form
 
     # Now create another letter to test it has remebered our previous choices
     visit new_patient_letters_letter_path(patient)

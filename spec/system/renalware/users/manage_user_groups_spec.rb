@@ -41,7 +41,7 @@ describe "A superadmin lists groups", js: true do
     fill_in "Name", with: "Group1"
     fill_in "Description", with: "abc"
     slim_select another_user.to_s, from: "Users"
-    click_on "Save"
+    click_on "Create"
 
     expect(page).to have_current_path(renalware.user_groups_path)
     expect(page).to have_content("Group1")

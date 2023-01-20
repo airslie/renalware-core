@@ -22,7 +22,7 @@ module Renalware
 
       select "CAPD 3 exchanges per day", from: "Treatment"
 
-      click_on t("btn.save")
+      click_on t("btn.create")
 
       expect(page).to have_content("Regime must be assigned at least one bag")
     end

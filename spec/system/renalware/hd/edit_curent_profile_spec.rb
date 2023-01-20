@@ -99,9 +99,7 @@ describe "Editing a patient's current HD profile", js: false do
         fill_in "Assessment Date", with: "01-04-2018"
       end
 
-      within ".form-actions" do
-        click_on t("btn.create")
-      end
+      submit_form
 
       expect(page).to have_current_path(patient_hd_dashboard_path(patient))
 
@@ -179,9 +177,7 @@ describe "Editing a patient's current HD profile", js: false do
 
       select "17", from: "Needle Size"
 
-      within ".form-actions" do
-        click_on t("btn.save")
-      end
+      submit_form
 
       expect(page).to have_current_path(patient_hd_dashboard_path(patient))
 

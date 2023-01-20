@@ -26,7 +26,7 @@ module Renalware
       fill_in input_called(:trainer), with: "Flo Nightengale RN"
       fill_in input_called(:started_on), with: started_on
 
-      click_on t("btn.save")
+      click_on t("btn.create")
 
       expect(page).to have_current_path(patient_pd_dashboard_path(patient))
 

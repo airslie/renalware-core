@@ -10,12 +10,13 @@
                   class: "button secondary",
                   data: { behaviour: "toggle-section" }
       .right
-        = f.submit t("btn.save"), class: "button", data: { disable_with: false }
-        '  or
-        = link_to t("btn.cancel"),
-               "#",
-               "aria-label" => "Close",
-               class: "reveal-modal-close"
+        .form-actions
+          = f.submit class: "btn btn-primary", data: { disable_with: false }
+          '  or
+          = link_to t("btn.cancel"),
+                "#",
+                "aria-label" => "Close",
+                class: "reveal-modal-close"
   .row.errors-container
     .large-12.columns
       ul.error-messages

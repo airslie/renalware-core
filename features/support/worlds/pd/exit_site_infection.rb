@@ -81,7 +81,7 @@ module World
           check label
         end
 
-        click_on t("btn.save")
+        submit_form
       end
 
       def revise_exit_site_infection_for(patient:, user:, diagnosed_on:)

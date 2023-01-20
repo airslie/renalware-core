@@ -21,8 +21,6 @@
         = f.input :created_by_id_eq,
                   collection: Renalware::User.where("id in (select distinct created_by_id from patient_worries)"),
                   label: "Added by"
-
-      .flex-shrink-0.pt-4.filters--actions
-        = f.submit t("btn.filter"), class: "button", style: "margin: 0"
-        '  or
-        = link_to t("btn.reset"), worryboard_path
+      .flex-shrink-0.pt-4
+        .mb-px= filter_or_reset(form: f, reset_path: renalware.worryboard_path)
+    

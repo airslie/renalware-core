@@ -5,6 +5,5 @@
                     as: :category,
                     wrapper: :horizontal_form) do |f|
     = f.input :name, wrapper: :horizontal_large
-    = f.submit class: "button"
-    '  or
-    = link_to t("btn.cancel"), renalware.worry_categories_path
+
+    = save_or_cancel(form: f, back_path: renalware.worry_categories_path)

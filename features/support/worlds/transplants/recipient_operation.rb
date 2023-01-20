@@ -125,8 +125,8 @@ module World
         find("#transplants_recipient_operation_document_donor_age_amount").set(age)
         select "years", from: "transplants_recipient_operation_document_donor_age_unit"
 
-        within ".top" do
-          click_on t("btn.save")
+        within ".form-actions", match: :first do
+          click_on t("btn.create")
         end
       end
 
@@ -141,7 +141,7 @@ module World
         find("#transplants_recipient_operation_document_donor_age_amount").set(age)
         select "years", from: "transplants_recipient_operation_document_donor_age_unit"
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.save")
         end
       end

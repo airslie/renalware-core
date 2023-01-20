@@ -60,7 +60,7 @@ module World
 
         select "Mon Wed Fri AM", from: "Schedule"
 
-        click_on t("btn.create")
+        submit_form
       end
 
       def update_hd_preferences(patient:, user:)

@@ -33,6 +33,5 @@
           = f.input "#{column}_cont", label: column.humanize
 
     .w-full.sm:max-w-xs.pr-2
-      = f.submit t("btn.filter"), class: "button secondary", style: "margin-bottom: 10px"
-      | &nbsp;
-      = link_to t("btn.clear"), url
+      .mb-4= filter_or_reset(form: f, reset_path: url)
+ 

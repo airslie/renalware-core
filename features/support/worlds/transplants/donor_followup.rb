@@ -69,8 +69,8 @@ module World
 
         fill_in "Last Seen Date", with: valid_donor_followup_attributes[:last_seen_on]
 
-        within ".top" do
-          click_on t("btn.save")
+        within ".form-actions", match: :first do
+          click_on t("btn.create")
         end
       end
 
@@ -85,9 +85,7 @@ module World
           choose "No"
         end
 
-        within ".top" do
-          click_on t("btn.save")
-        end
+        submit_form
       end
     end
   end

@@ -87,7 +87,7 @@ module World
         fill_in "Dry Weight", with: 98
         fill_in "Assessment Date", with: assessed_on || ""
 
-        click_on t("btn.create")
+        submit_form
       end
 
       def expect_dry_weight_to_exist(patient)

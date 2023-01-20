@@ -25,7 +25,7 @@ describe "Add a patient to a study (creating a participation)" do
       select2(patient.to_s(:long), css: "#patient-select2", search: true)
 
       fill_in "Joined on", with: "2019-01-01"
-      click_on "Save"
+      click_on "Create"
 
       expect(page).to have_current_path(research_study_participations_path(study))
       expect(page).to have_content(patient.to_s)

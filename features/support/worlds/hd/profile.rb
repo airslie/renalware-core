@@ -93,7 +93,7 @@ module World
         select prescriber.to_s, from: "Prescriber" if prescriber
         select "300", from: "Flow Rate"
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.create")
         end
       end
@@ -109,7 +109,7 @@ module World
         select "Mon Wed Fri PM", from: "Schedule"
         select "400", from: "Flow Rate"
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.save")
         end
       end
