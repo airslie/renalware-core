@@ -74,7 +74,7 @@ RSpec.configure do |config|
     options.add_preference(:download, prompt_for_download: false)
     options.add_preference(:download, default_directory: Rails.root.join("tmp"))
     options.add_argument("window-size=1366,1768")
-    options.add_argument("headless")
+    options.add_argument("headless") unless ENV["HEADFULL"]
     options.add_argument("disable-gpu")
     options.add_argument("disable-extensions")
     options.add_argument("no-sandbox")
