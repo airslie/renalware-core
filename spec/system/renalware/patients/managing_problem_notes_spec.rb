@@ -15,7 +15,7 @@ describe "Problem notes management", js: true do
 
     within "#new-note-area" do
       fill_in "Text", with: "Z123"
-      click_on t("btn.save")
+      click_on t("btn.create")
     end
 
     within "#problem-notes" do

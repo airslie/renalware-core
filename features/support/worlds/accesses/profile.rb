@@ -79,7 +79,7 @@ module World
         select "Tunnelled subcl", from: "Access Type"
         select(side.to_s.camelcase, from: "Access Side") if side.present?
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.create")
         end
       end
@@ -98,9 +98,7 @@ module World
 
         select "Left", from: "Access Side"
 
-        within ".top" do
-          click_on t("btn.save")
-        end
+        submit_form
       end
     end
   end

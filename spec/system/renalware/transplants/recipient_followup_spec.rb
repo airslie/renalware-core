@@ -41,8 +41,8 @@ describe "RecipientFollowup", js: true do
         select "Treatment A", from: "Treatment given"
       end
 
-      within "form.new_transplants_recipient_followup" do
-        page.all(".save-button").first.click
+      within ".form-actions", match: :first do
+        click_on t("btn.create")
       end
 
       expect(page).to have_current_path(patient_transplants_recipient_dashboard_path(patient))
@@ -114,8 +114,8 @@ describe "RecipientFollowup", js: true do
         end
       end
 
-      within "form.edit_transplants_recipient_followup" do
-        page.all(".save-button").first.click
+      within ".form-actions", match: :first do
+        click_on t("btn.save")
       end
 
       expect(page).to have_current_path(patient_transplants_recipient_dashboard_path(patient))

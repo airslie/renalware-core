@@ -34,10 +34,8 @@ describe "Assign electronic CCs" do
         # Add ourself as an Electronic CC.
         select2 user.given_name, css: "article.electonic_ccs"
 
-        within ".top" do
-          click_on t("btn.create")
-        end
-
+        submit_form
+        
         letter = patient.letters.last
 
         expect(letter.electronic_cc_recipients).to eq([user])

@@ -3,6 +3,4 @@
 
   = simple_form_for(adequacy, url: renalware.patient_pd_adequacy_results_path(adequacy.patient), wrapper: :horizontal_form) do |f|
     = render "form_fields", form: f
-    = f.submit t("btn.save"), class: :button
-    '  or
-    = link_to t("btn.cancel"), patient_pd_dashboard_path(adequacy.patient)
+    = save_or_cancel(form: f, back_path: renalware.patient_pd_dashboard_path(adequacy.patient))

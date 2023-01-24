@@ -74,8 +74,8 @@ module World
 
         fill_in "Oral GTT", with: "66"
 
-        within ".top" do
-          click_on t("btn.save")
+        within ".form-actions", match: :first do
+          click_on t("btn.create")
         end
       end
 
@@ -86,7 +86,7 @@ module World
 
         fill_in "Calculated Clearance", with: "193"
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.save")
         end
       end

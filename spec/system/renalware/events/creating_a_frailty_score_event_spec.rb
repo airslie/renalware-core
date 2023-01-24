@@ -15,7 +15,7 @@ describe "Creating an clinical frailty score event", js: true do
       slim_select "Clinical Frailty Score", from: "Event type"
       select "9", from: "Score"
 
-      click_on t("btn.save")
+      click_on t("btn.create")
 
       events = Renalware::Events::Event.for_patient(patient)
       expect(events.length).to eq(1)

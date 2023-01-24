@@ -34,7 +34,7 @@ describe "New Visit from existing Appointment" do
         expect(find_field("Clinic").value).to eq(appointment.clinic.id.to_s)
 
         within ".document" do
-          click_on t("btn.save")
+          click_on t("btn.create")
         end
 
         expect(patient.clinic_visits.length).to eq(1)

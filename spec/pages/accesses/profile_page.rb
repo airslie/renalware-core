@@ -6,6 +6,7 @@ module Pages
   module Accesses
     class ProfilePage < PageObject
       include CapybaraHelper
+      
       pattr_initialize :patient
 
       def visit_add
@@ -36,9 +37,7 @@ module Pages
       end
 
       def save
-        within ".top" do
-          find('input[name="commit"]').click
-        end
+        submit_form
       end
     end
   end

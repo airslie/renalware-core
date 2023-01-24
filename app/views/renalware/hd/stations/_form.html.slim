@@ -7,7 +7,4 @@
   = f.input :location_id,
             collection: Renalware::HD::StationLocation.pluck(:name, :id),
             wrapper: :horizontal_medium
-
-  = f.submit t("btn.save"), class: "button"
-  '  or
-  = link_to t("btn.cancel"), hd_unit_stations_path(station.hospital_unit_id)
+  = save_or_cancel(form: f, back_path: hd_unit_stations_path(station.hospital_unit_id))

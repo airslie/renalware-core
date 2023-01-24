@@ -156,6 +156,7 @@ RSpec.configure do |config|
   config.include ActionView::RecordIdentifier, type: :system
   config.include SlimSelectHelper, type: :system
   config.include CapybaraAccessibleSelectors::Session, type: :system
+  config.include FormHelpers, type: :system
 
   config.fuubar_progress_bar_options = { progress_mark: "≈" }
 

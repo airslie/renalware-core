@@ -30,7 +30,7 @@ module Renalware
       fill_in input_called(:fluid_storage), with: "bag_warming"
       select "2 weeks", from: input_called(:delivery_interval)
 
-      click_on t("btn.save")
+      click_on t("btn.create")
 
       expect(page).to have_current_path(patient_pd_dashboard_path(patient))
 

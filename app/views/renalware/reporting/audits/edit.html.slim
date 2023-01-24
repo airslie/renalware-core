@@ -19,6 +19,7 @@
               wrapper: :horizontal_large,
               input_html: { rows: 20, class: "monospace" }
     = f.input :refresh_schedule, wrapper: :horizontal_small
+
     = f.submit class: :button
     '  or
     = link_to t("btn.cancel"), reporting_audits_path

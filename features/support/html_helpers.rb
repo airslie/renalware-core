@@ -10,7 +10,7 @@ module HTMLHelpers
   end
 
   def html_list_to_array(dom_id)
-    find_by(id: dom_id).all("li").map { |cell| cell.text.strip }
+    find_by_id(dom_id).all("li").map { |cell| cell.text.strip }
   end
 end
 

@@ -82,8 +82,7 @@ module World
             select params[:frequency_type], from: "Frequency"
             fill_in "Start date", with: l(params[:start_date])
             fill_in "End date", with: l(params[:end_date])
-
-            click_on t("btn.save")
+            submit_form
           end
         end
 

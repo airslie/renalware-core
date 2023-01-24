@@ -2,12 +2,6 @@ ruby:
   back_path = patient_letters_letters_path(patient)
   event = letter.event
 
-.row.top
-  .medium-6.columns
-    = f.button :submit
-    '  or
-    = link_to t("btn.cancel"), back_path
-
 .form-content data-controller="letters-form"
   / Using this syntax rather than 'render event' becuase that syntax seems to want to
   / prepend renalware/letters to event.to_partial_path (even if the latter is an absolute path)
@@ -85,6 +79,4 @@ ruby:
 
 .row.bottom
   .large-12.columns
-    = f.button :submit
-    '  or
-    = link_to t("btn.cancel"), back_path
+    = save_or_cancel(form: f, back_path: back_path)

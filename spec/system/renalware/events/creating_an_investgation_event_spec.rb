@@ -16,7 +16,7 @@ describe "Creating a investigation event", js: true do
       select "Dental Check", from: "Type"
       fill_in "Result", with: "result"
       fill_trix_editor with: "some notes"
-      click_on t("btn.save")
+      click_on t("btn.create")
 
       events = Renalware::Events::Event.for_patient(patient)
       expect(events.length).to eq(1)
@@ -41,7 +41,7 @@ describe "Creating a investigation event", js: true do
       select "Dental Check", from: "Type"
       fill_in "Result", with: "result"
       fill_trix_editor with: "some notes"
-      click_on t("btn.save")
+      click_on t("btn.create")
 
       events = Renalware::Events::Event.for_patient(patient)
       expect(events.length).to eq(1)

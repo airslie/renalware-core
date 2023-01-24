@@ -5,12 +5,6 @@ ruby:
                 patient_transplants_donation_path(patient, f.object)
               end
 
-.row.top
-  .medium-6.columns
-    = f.submit t("btn.save"), class: "button"
-    '  or
-    = link_to t("btn.cancel"), back_path
-
 .form-content2
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Recipient", name: "recipient" } do
@@ -48,9 +42,4 @@ ruby:
     = f.input :donated_on, as: :date_picker, wrapper: :horizontal_datepicker
     = f.input :notes, input_html: { rows: 5 }, wrapper: :horizontal_large
 
-.row
-  .large-12.columns
-    = f.submit t("btn.save"), class: "button"
-
-    '  or
-    = link_to t("btn.cancel"), back_path
+= save_or_cancel(form: f, back_path: back_path)

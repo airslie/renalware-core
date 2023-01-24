@@ -55,10 +55,8 @@ module World
         uncheck "Tue"
         uncheck "Sat"
 
-        within ".patient-content" do
-          click_on t("btn.save")
-        end
-
+        submit_form
+        
         expect(page).to have_current_path(dashboard_path)
 
         # return the regime

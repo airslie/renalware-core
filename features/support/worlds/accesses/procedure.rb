@@ -87,7 +87,7 @@ module World
         select "Right", from: "Access Side"
         select "Laparoscopic", from: "PD Catheter Insertion Technique"
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.create")
         end
       end
@@ -101,7 +101,7 @@ module World
 
         select "Left", from: "Access Side"
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.save")
         end
       end

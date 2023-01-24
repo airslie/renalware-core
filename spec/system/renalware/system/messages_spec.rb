@@ -41,7 +41,7 @@ describe "Managing system messages that are displayed on the login page" do
     fill_in "Display from", with: "2018-01-01 01:01:01"
     fill_in "Display until", with: "2018-02-02 02:02:02"
     select "Warning", from: "Severity"
-    click_on t("btn.save")
+    click_on t("btn.create")
 
     expect(page).to have_current_path(system_messages_path)
 

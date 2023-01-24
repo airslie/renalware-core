@@ -127,9 +127,9 @@
     if (options.twelvehour) {
 
       var  amPmButtonsTemplate = ['<div class="clockpicker-am-pm-block">',
-        '<button type="button" class="btn btn-sm btn-default clockpicker-button clockpicker-am-button">',
+        '<button type="button" class="btn-clk btn-clk-sm btn-clk-default clockpicker-button clockpicker-am-button">',
         'AM</button>',
-        '<button type="button" class="btn btn-sm btn-default clockpicker-button clockpicker-pm-button">',
+        '<button type="button" class="btn-clk btn-clk-sm btn-clk-default clockpicker-button clockpicker-pm-button">',
         'PM</button>',
         '</div>'].join('');
 
@@ -149,14 +149,14 @@
       //        $('.clockpicker-span-am-pm').empty().append('PM');
       //    });
 
-      $('<button type="button" class="btn btn-sm btn-default clockpicker-button am-button">' + "AM" + '</button>')
+      $('<button type="button" class="btn-clk btn-clk-sm btn-clk-default clockpicker-button am-button">' + "AM" + '</button>')
         .on("click", function() {
           self.amOrPm = "AM";
           $('.clockpicker-span-am-pm').empty().append('AM');
         }).appendTo(this.amPmBlock);
 
 
-      $('<button type="button" class="btn btn-sm btn-default clockpicker-button pm-button">' + "PM" + '</button>')
+      $('<button type="button" class="btn-clk btn-clk-sm btn-clk-default clockpicker-button pm-button">' + "PM" + '</button>')
         .on("click", function() {
           self.amOrPm = 'PM';
           $('.clockpicker-span-am-pm').empty().append('PM');
@@ -166,7 +166,7 @@
 
     if (! options.autoclose) {
       // If autoclose is not setted, append a button
-      $('<button type="button" class="btn btn-sm btn-default btn-block clockpicker-button">' + options.donetext + '</button>')
+      $('<button type="button" class="btn-clk btn-clk-sm btn-clk-default btn-clk-block clockpicker-button">' + options.donetext + '</button>')
         .click($.proxy(this.done, this))
         .appendTo(popover);
     }

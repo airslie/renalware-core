@@ -20,7 +20,5 @@
             collection: Renalware::Pathology::Sender.all.map { |snd| [snd.to_s, snd.id] },
             label: "Dynamically created by sender"
       .w-full.md:w-1/5.px-3.mb-6.md:mb-0
+        .mt-6= filter_or_reset(form: f, reset_path: url)
 
-        = f.submit t("btn.filter"), class: "button", name: nil
-        '  or
-        = link_to t("btn.reset"), url

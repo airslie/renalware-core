@@ -6,8 +6,4 @@
 
       = render "inputs", f: f
 
-.row
-  .large-12.columns
-    = f.submit t("btn.save"), class: "button"
-    '  or
-    = link_to t("btn.cancel"), patient_transplants_recipient_dashboard_path(patient)
+= save_or_cancel(form: f, back_path: patient_transplants_recipient_dashboard_path(patient))

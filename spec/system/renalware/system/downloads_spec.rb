@@ -10,7 +10,7 @@ describe "Managing downloads - files uploaded by super admins which can be acces
     fill_in "Description", with: "A description"
     attach_file "File", file_fixture("dog.jpg")
 
-    click_on t("btn.save")
+    click_on t("btn.create")
 
     download = Renalware::System::Download.last
     expect(download).to have_attributes(
@@ -63,7 +63,7 @@ describe "Managing downloads - files uploaded by super admins which can be acces
 
     within ".filters" do
       fill_in "q_name_or_description_cont", with: "Name2"
-      click_on "Search"
+      click_on "Filter"
     end
 
     expect(page).to have_css(".download", count: 1)

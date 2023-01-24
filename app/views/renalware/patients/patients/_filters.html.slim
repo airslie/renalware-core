@@ -12,6 +12,4 @@
               { class: "searchable_select" } )
 
         .small-6.large-4.columns.end
-          = f.submit t("btn.filter"), class: "button secondary"
-          '  or
-          = link_to t("btn.reset"), renalware.patients_path
+          = filter_or_reset(form: f, reset_path: renalware.patients_path)

@@ -3,7 +3,4 @@
 .large-6.columns
   = simple_form_for cannulation_type, html: { autocomplete: "off" } do |f|
     = f.input :name, autofocus: true
-
-    = f.button :submit
-    '  or
-    = link_to t("btn.cancel"), hd_cannulation_types_path
+    = save_or_cancel(form: f, back_path: hd_cannulation_types_path)

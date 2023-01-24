@@ -85,7 +85,7 @@ module World
 
         fill_in t_person(:title), with: "Monsieur"
 
-        click_on t("btn.save")
+        submit_form
       end
 
       def t_person(key)

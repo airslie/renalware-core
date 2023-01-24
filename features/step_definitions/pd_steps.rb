@@ -214,9 +214,7 @@ When(/^I complete the form for a CAPD regime$/) do
   uncheck "Tue"
   uncheck "Sat"
 
-  within ".patient-content" do
-    click_on t("btn.save")
-  end
+  submit_form
 end
 
 When(/^I complete the form for a APD regime$/) do
@@ -265,9 +263,7 @@ When(/^I complete the form for a APD regime$/) do
 
   fill_in "Machine PAC", with: "123-4567-890"
 
-  within ".patient-content" do
-    click_on t("btn.save")
-  end
+  submit_form
 end
 
 When(/^I choose to edit and update the form for a CAPD regime$/) do
@@ -279,7 +275,7 @@ When(/^I choose to edit and update the form for a CAPD regime$/) do
 
   fill_in "End date", with: "03/05/2015"
 
-  click_on t("btn.update")
+  submit_form
 
   expect(page).to have_current_path(patient_pd_dashboard_path(@patient_1))
 end
@@ -296,7 +292,7 @@ When(/^I choose to edit and update the form for a APD regime$/) do
 
   # choose "Additional manual exchange"
 
-  click_on t("btn.update")
+  submit_form
 end
 
 When(/^I choose to view a CAPD regime$/) do

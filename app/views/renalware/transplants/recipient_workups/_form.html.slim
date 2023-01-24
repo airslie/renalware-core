@@ -5,12 +5,6 @@ ruby:
                 patient_transplants_recipient_workup_path(patient)
               end
 
-.row.top
-  .medium-6.columns
-    = f.submit t("btn.save"), class: "button"
-    '  or
-    = link_to t("btn.cancel"), back_path
-
 .form-content
   = f.simple_fields_for :document, f.object.document do |fd|
 
@@ -91,9 +85,4 @@ ruby:
       = fd.input :hla_data, as: :text, input_html: { rows: 10 },
         label: false, wrapper: "vertical_form"
 
-.row
-  .large-12.columns
-    = f.submit t("btn.save"), class: "button"
-
-    '  or
-    = link_to t("btn.cancel"), back_path
+= save_or_cancel(form: f, back_path: back_path)

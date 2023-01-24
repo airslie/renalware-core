@@ -23,7 +23,5 @@
                     include_blank: "Any",
                     label: "Give on HD"
 
-        .flex-shrink-0.pt-4.filters--actions
-          = f.submit t("btn.filter"), class: "button secondary"
-          '  or
-          = link_to t("btn.reset"), patient_prescriptions_path(@patient)
+        .flex-shrink-0.pt-4
+          .mb-px= filter_or_reset(form: f, reset_path: patient_prescriptions_path(@patient))

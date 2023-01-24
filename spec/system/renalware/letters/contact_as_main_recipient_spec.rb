@@ -35,9 +35,7 @@ describe "Assign a person as a main recipient" do
 
         select person.to_s, from: "letter_main_recipient_attributes_addressee_id"
 
-        within ".top" do
-          click_on t("btn.create")
-        end
+        submit_form
 
         visit patient_letters_letters_path(patient)
 
@@ -56,12 +54,12 @@ describe "Assign a person as a main recipient" do
         )
         select contact_description.name, from: "Description"
 
-        click_on t("btn.save")
+        click_on "Create"
       end
 
       wait_for_ajax
 
-      expect(page).to have_no_text("is already a contact for the patient")
+      expect(page).not_to have_text("is already a contact for the patient")
     end
 
     def fill_out_letter

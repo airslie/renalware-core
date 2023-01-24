@@ -11,9 +11,7 @@
             label: "Now choose a GP",
             input_html: { class: "searchable_select", required: :required, tabindex: 2001 }
   br
-  = f.submit t("btn.save"),
-              class: "button",
-              data: { disable_with: "Saving.." }
+  = f.submit class: "btn btn-primary", data: { disable_with: "Saving.." }
   | &nbsp;
   = link_to t("btn.cancel"),
             "#",

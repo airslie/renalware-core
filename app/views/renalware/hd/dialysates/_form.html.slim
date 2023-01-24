@@ -7,6 +7,4 @@
     = f.input :"#{element}_content", wrapper: :horizontal_small
     = f.input :"#{element}_content_uom", wrapper: :horizontal_small
 
-  = f.button :submit
-  '  or
-  = link_to t("btn.cancel"), hd_dialysates_path
+  = save_or_cancel(form: f, back_path: hd_dialysates_path)

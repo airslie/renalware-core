@@ -19,6 +19,4 @@
                   label: "Test type"
 
       .columns.medium-2.large-2.actions.end
-        = f.submit t("btn.filter"), class: "button"
-        '  or
-        = link_to t("btn.reset"), pd_pet_completions_path
+        .mt-px= filter_or_reset(form: f, reset_path: renalware.pd_pet_completions_path)

@@ -65,6 +65,4 @@
                     hint: "Can be anything helpful. Included in HL7 mesasges but not used by external systems."
 
 
-      = f.button :submit
-      '  or
-      = link_to t("btn.cancel"), events_types_path
+      = save_or_cancel(form: f, back_path: events_types_path)

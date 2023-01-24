@@ -40,7 +40,7 @@
     / If the user wants to overwrite or copy in the patient's current address, we use js to
     / clone the hidden current address form fields in edit.slim and replace the visible
     / address form fields below with them.
-    #visible-address-form
+    #visible-address-form.mt-4
       = f.simple_fields_for :address_at_diagnosis_attributes, f.object.address_at_diagnosis do |a|
         article#address_at_diagnosis
           header

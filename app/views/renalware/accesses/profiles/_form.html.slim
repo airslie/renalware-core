@@ -1,12 +1,6 @@
 ruby:
   back_path = patient_accesses_dashboard_path(patient)
 
-.row.top
-  .medium-6.columns
-    = f.button :submit
-    '  or
-    = link_to t("btn.cancel"), back_path
-
 .form-content
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Access Profile", name: "profile" } do
@@ -28,8 +22,4 @@ ruby:
               input_html: { rows: 5 },
               wrapper: :horizontal_large
 
-.row
-  .large-12.columns
-    = f.button :submit
-    '  or
-    = link_to t("btn.cancel"), back_path
+  = save_or_cancel(form: f, back_path: back_path)

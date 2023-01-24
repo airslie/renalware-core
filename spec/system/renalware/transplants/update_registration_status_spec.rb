@@ -33,7 +33,7 @@ describe "Update wait list registration status" do
         select "Active", from: "Description"
         fill_in "Started on", with: "28-Apr-2017"
         fill_in "Notes", with: "My notes"
-        click_on t("btn.save")
+        click_on t("btn.create")
       end
 
       expect(page).to have_current_path(patient_transplants_recipient_dashboard_path(patient))

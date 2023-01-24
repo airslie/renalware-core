@@ -76,8 +76,8 @@ module World
           all("input").last.set(Time.zone.today.to_s)
         end
 
-        within ".top" do
-          click_on t("btn.save")
+        within ".form-actions", match: :first do
+          click_on t("btn.create")
         end
 
         expect(page).to have_current_path(patient_transplants_recipient_workup_path(patient))
@@ -89,7 +89,7 @@ module World
         click_on t("btn.edit")
         fill_in "Cervical smear result", with: "193"
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.save")
         end
       end

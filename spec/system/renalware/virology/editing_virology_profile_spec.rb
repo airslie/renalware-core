@@ -40,7 +40,7 @@ describe "Editing the virology profile" do
     end
 
     within ".patient-content" do
-      click_on t("btn.save")
+      click_on t("btn.create")
     end
 
     expect(page).to have_current_path(patient_virology_dashboard_path(patient))

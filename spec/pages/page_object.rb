@@ -7,5 +7,6 @@ module Pages
     include Capybara::DSL
     include Renalware::Engine.routes.url_helpers
     include ActionView::Helpers::TranslationHelper
+    include FormHelpers
   end
 end

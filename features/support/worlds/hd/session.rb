@@ -236,8 +236,8 @@ module World
         select "Station1", from: "Station"
         fill_in "Start date", with: l(started_at&.to_date)
 
-        within ".top" do
-          click_on t("btn.save")
+        within ".form-actions", match: :first do
+          click_on t("btn.create")
         end
       end
 
@@ -251,7 +251,7 @@ module World
 
         fill_in "End time", with: "23:59"
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.save")
         end
 
@@ -385,7 +385,8 @@ module World
       def delete_session(session, user:)
         login_as user
         visit edit_patient_hd_session_path(session.patient, session)
-        within ".top" do
+        
+        within ".form-actions", match: :first do
           click_on t("btn.delete")
         end
       end

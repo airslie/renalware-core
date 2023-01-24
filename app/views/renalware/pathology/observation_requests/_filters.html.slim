@@ -12,6 +12,5 @@
                   input_html: { class: "searchable_select" }
 
       .columns.medium-2.large-2.actions.end
-        = f.submit t("btn.filter"), class: "button"
-        '  or
-        = link_to t("btn.reset"), renalware.patient_pathology_observation_requests_path(patient)
+        .mt-px= filter_or_reset(form: f, reset_path: renalware.patient_pathology_observation_requests_path(patient))
+

@@ -98,8 +98,8 @@ module World
         rescue Capybara::ElementNotFound
         end
 
-        within ".top" do
-          click_on t("btn.save")
+        within ".form-actions", match: :first do
+          click_on t("btn.create")
         end
       end
 
@@ -112,7 +112,7 @@ module World
 
         select "Seen in Clinic", from: "State"
 
-        within ".top" do
+        within ".form-actions", match: :first do
           click_on t("btn.save")
         end
       end
@@ -132,9 +132,10 @@ module World
         )
         wait_for_ajax
 
-        within ".top" do
-          click_on t("btn.save")
-        end
+        # within ".form-actions", match: :first do
+        #   click_on t("btn.update")
+        # end
+        submit_form
         expect(page).to have_current_path(patient_transplants_donor_dashboard_path(patient))
       end
     end

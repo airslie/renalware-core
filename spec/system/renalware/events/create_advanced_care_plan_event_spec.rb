@@ -16,7 +16,7 @@ describe "Creating an Advanced Care Plan event", js: true do
 
       select "ACP required but not started", from: "State"
 
-      click_on t("btn.save")
+      click_on t("btn.create")
 
       events = Renalware::Events::Event.for_patient(patient)
       expect(events.length).to eq(1)

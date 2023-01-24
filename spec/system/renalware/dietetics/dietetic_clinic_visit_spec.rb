@@ -35,7 +35,7 @@ module Renalware
         fill_in "Waist circumference", with: "1"
         fill_in "Estimated energy requirement", with: "1"
 
-        click_button "Save"
+        click_button "Create"
         expect(page).to have_content "Date can't be blank"
         expect(page).to have_content "must be greater than or equal to 15" # Previous weight
         expect(page).to have_content "must be greater than or equal to 30" # Weist
@@ -92,7 +92,7 @@ module Renalware
           choose "12 months"
         end
 
-        click_on "Save"
+        click_on "Create"
 
         # Get to index page
         within "h1" do

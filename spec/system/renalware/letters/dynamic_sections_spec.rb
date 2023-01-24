@@ -5,6 +5,7 @@ require "rails_helper"
 module Renalware
   describe "Manage dynamic sections - HDSection,..", js: true do
     include LettersSpecHelper
+
     let(:user) { create(:user, :clinical) }
     let(:patient) { create(:patient) }
     let(:topic_with_section) {
@@ -41,9 +42,7 @@ module Renalware
           expect(page).to have_content "HD Unit\nU_CODE\nTime\n5:00"
         end
 
-        within ".top" do
-          click_button t("btn.create")
-        end
+        submit_form
 
         preview_letter_page = current_path.dup
         visit "#{current_path}/formatted"
@@ -70,9 +69,7 @@ module Renalware
         end
 
         # Save, and check that the data hasn't changed
-        within ".top" do
-          click_button "Save"
-        end
+        submit_form
 
         click_link "Edit"
 
@@ -86,9 +83,7 @@ module Renalware
           find("label", text: "Use updates below").click
         end
 
-        within ".top" do
-          click_button "Save"
-        end
+        submit_form
 
         click_link "Edit"
 

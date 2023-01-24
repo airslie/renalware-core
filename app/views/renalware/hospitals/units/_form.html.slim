@@ -12,6 +12,4 @@
   = f.input :unit_type, wrapper: :horizontal_small
   = f.input :is_hd_site, wrapper: :horizontal_small
 
-  = f.button :submit
-  '  or
-  = link_to t("btn.cancel"), hospitals_units_path
+  = save_or_cancel(form: f, back_path: hospitals_units_path)

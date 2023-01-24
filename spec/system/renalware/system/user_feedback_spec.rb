@@ -45,7 +45,7 @@ describe "Beta banner and capturing user feedback" do
 
         choose "Missing feature"
         fill_in "Comment", with: "My commment"
-        click_on t("btn.save")
+        click_on t("btn.create")
 
         expect(page.status_code).to eq(200)
         expect(page).to have_content("Feedback registered, thank you")

@@ -6,7 +6,4 @@
   = f.input :name, wrapper: :horizontal_small
   = f.input :membrane_surface_area, wrapper: :horizontal_small
   = f.input :membrane_surface_area_coefficient_k0a, wrapper: :horizontal_small
-
-  = f.button :submit
-  '  or
-  = link_to t("btn.cancel"), hd_dialysers_path
+  = save_or_cancel(form: f, back_path: hd_dialysers_path)

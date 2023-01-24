@@ -62,7 +62,7 @@ describe "Managing a patient's comorbidities" do
       end
 
       within "#comorbidities-form" do
-        click_on "Save"
+        click_on "Create"
       end
     end
   end

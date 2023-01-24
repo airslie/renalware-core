@@ -30,6 +30,5 @@
 
     = render "pathology_results", form: f
 
-    = f.submit t("btn.save"), class: :button
-    '  or
-    = link_to t("btn.cancel"), patient_pd_dashboard_path(pet.patient)
+    = save_or_cancel(form: f, back_path: renalware.patient_pd_dashboard_path(pet.patient))
+ 

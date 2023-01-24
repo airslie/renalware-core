@@ -1,12 +1,6 @@
 ruby:
   back_path = patient_transplants_recipient_dashboard_path(patient)
 
-.row.top
-  .medium-6.columns
-    = f.submit t("btn.save"), class: "button"
-    '  or
-    = link_to t("btn.cancel"), back_path
-
 .form-content
   = render layout: "renalware/shared/fieldset",
            locals: { legend: "Operation", name: "operation" } do
@@ -86,9 +80,4 @@ ruby:
         = fcm.input :results, wrapper: :horizontal_large
         = fcm.input :notes, as: :text, input_html: { rows: 2 }, wrapper: :horizontal_large
 
-.row
-  .large-12.columns
-    = f.submit t("btn.save"), class: "button"
-
-    '  or
-    = link_to t("btn.cancel"), back_path
+= save_or_cancel(form: f, back_path: back_path)

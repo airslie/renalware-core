@@ -17,7 +17,7 @@ describe "A user adds a patient" do
       expect(page).to have_field "Hospital centre", with: ""
 
       # Test for validation errors
-      click_button "Save", match: :first
+      click_button "Create", match: :first
 
       expect(page).to have_content("Family name can't be blank")
       expect(page).to have_content("Given name can't be blank")
@@ -34,7 +34,7 @@ describe "A user adds a patient" do
       select "King's", from: "Hospital centre"
 
       # The save successfully, and go to the patient demographics page
-      click_button "Save", match: :first
+      click_button "Create", match: :first
 
       expect(page).to have_content("Last Name:FamilyName")
       expect(page).to have_content("First Name:GivenName")

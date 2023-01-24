@@ -44,6 +44,4 @@
     = f.label :discharge_summary
     = f.input :discharge_summary, as: :trix_editor, class: "discharge-summary", wrapper: :zilch
 
-  = f.submit class: :button
-  '  or
-  = link_to t("btn.cancel"), admissions_admissions_path
+  = save_or_cancel(form: f, back_path: admissions_admissions_path)

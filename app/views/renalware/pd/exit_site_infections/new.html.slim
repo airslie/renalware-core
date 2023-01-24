@@ -5,7 +5,4 @@
 
   = simple_form_for [patient, exit_site_infection] do |f|
     = render "renalware/pd/exit_site_infections/fields", f: f
-
-    = submit_tag "Save", class: "button"
-    '  or
-    = link_to t("btn.cancel"), patient_pd_dashboard_path(patient)
+    = save_or_cancel(form: f, back_path: renalware.patient_pd_dashboard_path(patient))

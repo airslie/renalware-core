@@ -13,7 +13,7 @@ module Renalware
       fill_in "Professional position", with: "Renal Nurse"
       fill_in "Signature", with: "Dr. X, Y Z"
       fill_in "Current password", with: @clinician.password
-      click_on t("btn.update")
+      click_on t("btn.save")
 
       expect(page).to have_current_path(root_path)
       expect(page).to have_content("You updated your account successfully")
@@ -25,7 +25,7 @@ module Renalware
       fill_in "Signature", with: ""
       fill_in "Professional position", with: ""
       fill_in "Current password", with: @clinician.password
-      click_on t("btn.update")
+      click_on t("btn.save")
 
       expect(page).to have_content("Professional position can't be blank")
       expect(page).to have_content("Signature can't be blank")

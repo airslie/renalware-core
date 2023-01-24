@@ -9,6 +9,5 @@
                   label: "Search by any part of the code, description or leader's name"
 
       .columns.medium-4.actions.end
-        = f.submit t("btn.filter"), class: "button", name: nil
-        '  or
-        = link_to t("btn.reset"), research_studies_path
+        .mt-px= filter_or_reset(form: f, reset_path: renalware.research_studies_path)
+   

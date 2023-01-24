@@ -21,6 +21,5 @@
                 collection: Renalware::User.ordered.select(:id, :given_name, :family_name)
 
     .w-full.sm:max-w-xs.pr-2
-      = f.submit t("btn.filter"), class: "button", name: nil, style: "margin-bottom: 10px"
-      '  or
-      = link_to t("btn.reset"), filter_form.url
+      .mb-3= filter_or_reset(form: f, reset_path: filter_form.url)
+   

@@ -21,6 +21,5 @@
                       html: { autocomplete: "off" },
                       wrapper: "horizontal_form" do |f|
 
-      .columns= save_or_cancel(form: f, back_path: patients_path)
       = render "form", f: f, patient: patient, editing: false
       .columns= save_or_cancel(form: f, back_path: patients_path)

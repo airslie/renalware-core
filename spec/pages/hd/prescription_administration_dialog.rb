@@ -112,7 +112,7 @@ module Pages
       end
 
       # def submit
-      #   within ".top" do
+      #   within".form-actions:last" do
       #     click_on t("btn.create")
       #   end
       # end

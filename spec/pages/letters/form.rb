@@ -3,6 +3,7 @@
 require "rails_helper"
 require_relative "../page_object"
 require "capybara-select-2"
+
 module Pages
   module Letters
     class Form < PageObject
@@ -43,9 +44,7 @@ module Pages
       end
 
       def submit
-        within ".top" do
-          click_on t("btn.create")
-        end
+        submit_form
       end
 
       private

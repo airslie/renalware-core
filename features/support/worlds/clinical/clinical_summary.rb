@@ -17,6 +17,7 @@ module World
         visit patient_clinical_summary_path(patient)
 
         current_prescriptions = html_table_to_array("current-prescriptions").drop(1)
+        byebug
         current_problems = html_list_to_array("current-problems")
 
         OpenStruct.new(

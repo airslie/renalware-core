@@ -12,8 +12,4 @@
           include_blank: "All stages")
 
     .columns.small-6.medium-4.end
-      = f.button class: "button", name: nil do
-        i.fas.fa-search
-        |  Filter
-      '  or
-      = link_to t("btn.reset"), transplants_live_donors_path
+      .mb-px= filter_or_reset(form: f, reset_path: transplants_live_donors_path)

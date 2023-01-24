@@ -120,7 +120,7 @@ module World
         fill_in "Started on", with: started_on
         select status, from: "Description"
         within ".document" do
-          click_on t("btn.save")
+          click_on t("btn.create")
         end
       end
 
@@ -133,7 +133,7 @@ module World
 
         fill_in "transplants_registration_status[started_on]", with: started_on
         within ".document" do
-          click_on t("btn.save")
+          click_on t("btn.create")
         end
       end
 

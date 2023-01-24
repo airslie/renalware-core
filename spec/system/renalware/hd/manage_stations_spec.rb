@@ -35,7 +35,7 @@ describe "Managing HD Stations for a Hospital Unit" do
 
     fill_in "Name", with: "Station-X"
     select "Side room", from: "Location"
-    click_on t("btn.save")
+    click_on t("btn.create")
 
     expect(page).to have_current_path(hd_unit_stations_path(unit))
     expect(page).to have_content("Station-X")

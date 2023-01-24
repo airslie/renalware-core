@@ -10,16 +10,16 @@ end
 
 When("records Patty's event") do
   within "#new_events_event" do
+    slim_select "Email", from: "Event type"
     fill_in_date_time "Date time", with: fake_date_time
     find("#events_event_date_time").send_keys(:escape) # dismiss the datepicker which has popped up
-
-    slim_select "Email", from: "Event type"
     wait_for_ajax
     fill_in "Description", with: "Discussed meeting to be set up with family."
     fill_trix_editor with: "Patty to speak to family before meeting set up."
 
     expect {
-      click_on t("btn.save")
+      # click_on t("btn.create")
+      submit_form
     }.to change(Renalware::Events::Event, :count).by(1)
   end
 end

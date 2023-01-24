@@ -14,6 +14,4 @@
             :last,
             include_blank: true
         .small-3.large-3.columns.actions.end
-          = f.submit t("helpers.submit.filter"), class: "button secondary"
-          span= " or "
-          = link_to t("btn.reset"), url
+          .mt-px= filter_or_reset(form: f, reset_path: url)

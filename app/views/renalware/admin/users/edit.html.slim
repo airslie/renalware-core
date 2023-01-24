@@ -106,6 +106,4 @@
                       input_html: { class: "searchable_select" }
 
       - msg = user.approved? ? "Update" : "Approve"
-      = f.submit msg, class: "button"
-      '  or
-      = link_to t("btn.cancel"), admin_users_path
+      = save_or_cancel(form: f, submit_title: msg, back_path: admin_users_path)

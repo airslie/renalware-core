@@ -22,6 +22,4 @@
             = a.input :id, as: :hidden
             = render "renalware/addresses/form", a: a
 
-    = f.button :submit
-    '  or
-    = link_to t("btn.cancel"), patients_primary_care_physicians_path
+    = save_or_cancel(form: f, back_path: patients_primary_care_physicians_path)

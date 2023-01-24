@@ -15,9 +15,10 @@
              input_html: { autofocus: :autofocus },
              label: "Optional notes"
     = f.input :worry_category_id, collection: Renalware::Patients::WorryCategory.order(:name).pluck(:name, :id)
-    = f.submit t("btn.save"), class: :button
-    '  or
-    = link_to t("btn.cancel"),
-             "#",
-             "aria-label" => "Close",
-             class: "reveal-modal-close"
+    .form-ations.mb-4
+      = f.submit t("btn.add"), class: "btn btn-primary"
+      '  or
+      = link_to t("btn.cancel"),
+              "#",
+              "aria-label" => "Close",
+              class: "reveal-modal-close"

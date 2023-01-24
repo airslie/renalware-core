@@ -16,6 +16,4 @@
                 collection: Renalware::User.ordered,
                 wrapper_html: { class: "w-1/2 mb-4" }
 
-= f.button :submit
-'  or
-= link_to t("btn.cancel"), return_url
+= save_or_cancel(form: f, back_path: return_url)

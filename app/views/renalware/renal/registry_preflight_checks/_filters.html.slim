@@ -21,6 +21,4 @@
                     label: "HD Site"
 
       .medium-3.columns.actions.end
-        = f.submit t("btn.filter"), class: "button", name: nil
-        '  or
-        = link_to t("btn.reset"), url
+        .mt-px= filter_or_reset(form: f, reset_path: url)

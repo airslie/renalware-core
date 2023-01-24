@@ -26,6 +26,4 @@
                     label: "or preferring schedule"
 
         .medium-3.large-3.columns.actions.end
-          = f.submit t("btn.filter"), class: "button"
-          '  or
-          = link_to t("btn.reset"), hd_unmet_preferences_path
+          .mt-px= filter_or_reset(form: f, reset_path: hd_unmet_preferences_path)

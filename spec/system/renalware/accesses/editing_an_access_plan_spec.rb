@@ -28,7 +28,7 @@ describe "Editing an Access Plan" do
     within "#new_accesses_plan" do
       fill_in "Notes", with: "Changed notes"
       # Other data should be pre-populated as per the plan we are cloning
-      click_on t("btn.save")
+      click_on t("btn.create")
     end
 
     expect(page).to have_current_path(patient_accesses_dashboard_path(patient))
@@ -62,7 +62,7 @@ describe "Editing an Access Plan" do
     end
 
     within "#new_accesses_plan" do
-      click_on t("btn.save")
+      click_on t("btn.create")
     end
 
     expect(page).to have_current_path(patient_accesses_dashboard_path(patient))
