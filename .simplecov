@@ -4,7 +4,7 @@ SimpleCov.start "rails" do
   # This adds a group (tab) to Simplecov's report that only shows coverage for
   # files changes in the current branch. Useful for code reviews.
   add_group 'Changed' do |source_file|
-    `git log --oneline --pretty="format:" --name-only master.. | awk 'NF' | sort -u`
+    `git log --oneline --pretty="format:" --name-only main.. | awk 'NF' | sort -u`
       .split("\n").detect do |filename|
         source_file.filename.ends_with?(filename)
       end
