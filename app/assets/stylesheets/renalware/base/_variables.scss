@@ -95,9 +95,9 @@ $priority-low: $nhs-green;
 // Modals
 $max-modal-height: 600px;
 
-$mini-profile-backgound-colour: #def0f6;
-$mini-profile-renal-backgound-colour: #def0f6;
-$mini-profile-allergies-backgound-colour: $nhs-yellow;
+$mini-profile-backgound-colour: #dbeafe;
+$mini-profile-renal-backgound-colour: #dbeafe;
+$mini-profile-allergies-backgound-colour: #fef08a;
 
 $letter-preview-background-colour: #ddd;
 
@@ -105,7 +105,7 @@ $letter-preview-background-colour: #ddd;
 $table-even-row-colour: #fcfcfc;
 $table-border-colour: #ddd;
 $table-toggled-content-colour: #fefff1;
-$table-urgent-colour: $nhs-yellow;
+$table-urgent-colour: #fef9c3;
 $table-row-hover-colour: #f9f9f9;
 
 $patient-menu-background-colour: #eee;
@@ -137,3 +137,10 @@ $patient-side-nav-width: 14.5rem;
 
 // Select2
 $select2-input-height: 2.2rem;
+
+
+// Alert
+$alert-urgent-colour: #dc2626; // red-600
+$alert-urgent-hover-colour: #b91c1c; // red-700
+$alert-covid19-colour: #fef08a; // yellow-200
+$alert-covid19-hover-colour: #fde047; // yellow-300

@@ -1,4 +1,3 @@
 .patient-summary
   = render "renalware/renal/profiles/mini", patient: patient
   = render "renalware/clinical/allergies/mini", patient: patient
-= render Renalware::Patients::NagsComponent.new(current_user: current_user, patient: patient)
