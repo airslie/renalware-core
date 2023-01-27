@@ -36,7 +36,7 @@ ruby:
                       wrapper: :horizontal_tiny
           = fcm.simple_fields_for :cervical_smear, fcm.object.cervical_smear do |fsmear|
             = fsmear.input :result, wrapper: :horizontal_small
-            = fsmear.input :recorded_on, as: :date_picker, wrapper: :horizontal_datepicker
+            = fsmear.input :recorded_on, as: :flatpickr, wrapper: :horizontal_datepicker
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Examination", name: "examination" } do
@@ -67,17 +67,17 @@ ruby:
         locals: { legend: "Consent", name: "consent" } do
       = fd.simple_fields_for :consent, fd.object.consent do |fcm|
         = fcm.input :value, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :consented_on, as: :date_picker, wrapper: :horizontal_datepicker
+        = fcm.input :consented_on, as: :flatpickr, wrapper: :horizontal_datepicker
         = fcm.input :full_name, wrapper: :horizontal_medium
         hr
       = fd.simple_fields_for :marginal_consent, fd.object.marginal_consent do |fcm|
         = fcm.input :value, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :consented_on, as: :date_picker, wrapper: :horizontal_datepicker
+        = fcm.input :consented_on, as: :flatpickr, wrapper: :horizontal_datepicker
         = fcm.input :full_name, wrapper: :horizontal_medium
       hr
       = fd.simple_fields_for :nhb_consent, fd.object.nhb_consent do |fcm|
         = fcm.input :value, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :consented_on, as: :date_picker, wrapper: :horizontal_datepicker
+        = fcm.input :consented_on, as: :flatpickr, wrapper: :horizontal_datepicker
         = fcm.input :full_name, wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",

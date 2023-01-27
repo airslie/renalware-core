@@ -6,13 +6,13 @@
       locals: { legend: "Diagnosis & ESRF Info", name: "diagnosis" } do
 
     = f.input :esrf_on,
-              as: :date_picker,
+              as: :flatpickr,
               wrapper: :horizontal_datepicker
     = f.input :weight_at_esrf, wrapper: :horizontal_small
     = f.input :modality_at_esrf,
               include_blank: "Select modality",
               wrapper: :horizontal_small
-    = f.input :first_seen_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :first_seen_on, as: :flatpickr, wrapper: :horizontal_datepicker
     = f.association :prd_description,
                     collection: Renalware::Renal::PRDDescription.all.order(:term),
                     input_html: { \
@@ -21,7 +21,7 @@
                         placeholder: "",
                         "allow-clear" => "true" }}
 
-    = f.input :comorbidities_updated_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :comorbidities_updated_on, as: :flatpickr, wrapper: :horizontal_datepicker
 
     = f.simple_fields_for :document, f.object.document do |fd|
 

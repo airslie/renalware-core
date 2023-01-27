@@ -6,7 +6,7 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Results & Observations", name: "results" } do
 
-      = f.input :performed_on, as: :date_picker
+      = f.input :performed_on, as: :flatpickr
       = f.association :type,
           collection: Renalware::Accesses::Type.ordered,
           label_method: :to_s,

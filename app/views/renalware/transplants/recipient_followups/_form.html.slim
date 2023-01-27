@@ -8,9 +8,9 @@ ruby:
                   name: "transplant_failure",
                   legend_note: "Bold items required for NHSBT" } do
       = f.input :graft_function_onset, wrapper: :horizontal_small, label_html: { class: "label-emphasis" }
-      = f.input :last_post_transplant_dialysis_on, as: :date_picker, wrapper: :horizontal_datepicker, label_html: { class: "label-emphasis" }
-      = f.input :stent_removed_on, as: :date_picker, wrapper: :horizontal_datepicker
-      = f.input :return_to_regular_dialysis_on, as: :date_picker, wrapper: :horizontal_datepicker, label_html: { class: "label-emphasis" }
+      = f.input :last_post_transplant_dialysis_on, as: :flatpickr, wrapper: :horizontal_datepicker, label_html: { class: "label-emphasis" }
+      = f.input :stent_removed_on, as: :flatpickr, wrapper: :horizontal_datepicker
+      = f.input :return_to_regular_dialysis_on, as: :flatpickr, wrapper: :horizontal_datepicker, label_html: { class: "label-emphasis" }
       / readonly: nil here is required to prevent the No option being created with readonly=readonly
       / which causes Capybara to fail because it cannot change the value of read-only element
       = f.input :transplant_failed,
@@ -19,7 +19,7 @@ ruby:
                 readonly: nil,
                 label_html: { class: "label-emphasis" }
       = f.input :transplant_failed_on,
-                as: :date_picker,
+                as: :flatpickr,
                 wrapper: :horizontal_datepicker,
                 label_html: { class: "label-emphasis" }
       = f.input :transplant_failure_cause_description_id,
@@ -36,7 +36,7 @@ ruby:
                 input_html: { rows: 5 },
                 wrapper: :horizontal_large
       = f.input :graft_nephrectomy_on,
-                as: :date_picker,
+                as: :flatpickr,
                 wrapper: :horizontal_datepicker,
                 label_html: { class: "label-emphasis" }
 

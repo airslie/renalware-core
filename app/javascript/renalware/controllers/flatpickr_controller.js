@@ -2,8 +2,24 @@
 import { Controller } from "@hotwired/stimulus"
 import flatpickr from "flatpickr"
 import { english } from "flatpickr/dist/l10n/default"
+import { parse, isMatch } from "date-fns"
 
 const dateConfig = {
+  parseDate: (datestr, _format) => {
+    let pattern
+    if (isMatch(datestr, "dd-MM-yyyy")) {
+      pattern = "dd-MM-yyyy"
+    } else if (isMatch(datestr, "dd/MM/yyyy")) {
+      pattern = "dd/MM/yyyy"
+    } else if (isMatch(datestr, "dd MMM yyyy")) {
+      pattern = "dd MMM yyyy"
+    } else if (isMatch(datestr, "yyyy-MM-dd")) {
+      pattern = "yyyy-MM-dd"
+    } else {
+      pattern = "dd-MMM-yyyy"
+    }
+    return parse(datestr, pattern, new Date())
+  },
   locale: {
     firstDayOfWeek: 1,
     months: {
@@ -32,7 +48,6 @@ const dateConfig = {
     },
   },
   dateFormat: "d-M-Y",
-  allowInput: true,
 }
 
 const timeConfig = {
@@ -41,15 +56,46 @@ const timeConfig = {
   dateFormat: "H:i",
 }
 
+const dateWithTimeConfig = {
+  parseDate: (datestr, _format) => {
+    let pattern
+    if (isMatch(datestr, "dd-MM-yyyy H:m")) {
+      pattern = "dd-MM-yyyy H:m"
+    } else if (isMatch(datestr, "dd/MM/yyyy H:m")) {
+      pattern = "dd/MM/yyyy H:m"
+    } else if (isMatch(datestr, "dd MMM yyyy H:m")) {
+      pattern = "dd MMM yyyy H:m"
+    } else if (isMatch(datestr, "yyyy-MM-dd H:m")) {
+      pattern = "yyyy-MM-dd H:m"
+    } else {
+      pattern = "dd-MMM-yyyy H:m"
+    }
+    return parse(datestr, pattern, new Date())
+  },
+  enableTime: true,
+  dateFormat: "d-M-Y H:i",
+}
+
 export default class extends Controller {
   static values = {
     timeOnly: Boolean,
+    dateWithTime: Boolean,
   }
 
   connect() {
-    const config = this.timeOnlyValue ? timeConfig : dateConfig
+    let config
+
+    if (this.dateWithTimeValue) {
+      config = dateWithTimeConfig
+    } else if (this.timeOnlyValue) {
+      config = timeOnly
+    } else {
+      config = dateConfig
+    }
+
     config["maxDate"] = this.element.dataset.flatpickrMaxDate
     config["minDate"] = this.element.dataset.flatpickrMinDate
+    config["allowInput"] = true
 
     this.fp = flatpickr(this.element, config)
   }

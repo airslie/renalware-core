@@ -3,4 +3,4 @@
   tr(class=partial_type_for(renderable))
     td= fd.label :result, f.object.class.human_attribute_name(attribute)
     td= fd.input :result, label: false, wrapper: "vertical_form"
-    td= fd.input :recorded_on, as: :date_picker, label: false, wrapper: "vertical_form"
+    td= fd.input :recorded_on, as: :flatpickr, label: false, wrapper: "vertical_form"

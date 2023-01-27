@@ -17,8 +17,7 @@ class FlatpickrInput < SimpleForm::Inputs::StringInput
   def input_column(_wrapper_options = {})
     html_options = input_html_options
     html_options[:data] ||= {}
-    html_options[:data][:controller] ||= ""
-    html_options[:data][:controller] += " flatpickr"
+    html_options[:data].merge!(data_attributes)
     template.tag.div(class: "small-10 columns") do
       datestamp = @builder.object.public_send(attribute_name)
       value = format_date(datestamp)
@@ -32,6 +31,12 @@ class FlatpickrInput < SimpleForm::Inputs::StringInput
 
   def input_type
     :string
+  end
+
+  def data_attributes
+    {
+      controller: "flatpickr"
+    }
   end
 
   private

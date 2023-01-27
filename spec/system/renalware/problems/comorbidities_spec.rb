@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Managing a patient's comorbidities" do
+describe "Managing a patient's comorbidities", js: true do
   include ActionView::RecordIdentifier
 
   # rubocop:disable RSpec/MultipleExpectations
@@ -54,7 +54,7 @@ describe "Managing a patient's comorbidities" do
 
       within("##{dom_id(desc1)}") do
         choose "Yes"
-        find(:css, ".datepicker2").set("2010-01-01")
+        find(:css, ".flatpickr-input").set("01-01-2001")
       end
 
       within("##{dom_id(desc2)}") do
@@ -64,6 +64,13 @@ describe "Managing a patient's comorbidities" do
       within "#comorbidities-form" do
         click_on "Create"
       end
+      
+      expect(
+        patient.reload.comorbidities.find_by(description_id: desc1.id)
+      ).to have_attributes(
+        recognised_at: Date.parse("01-01-2001"),
+        recognised: "yes"
+      )
     end
   end
 end

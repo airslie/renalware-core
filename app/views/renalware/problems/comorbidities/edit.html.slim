@@ -33,7 +33,7 @@
               td
                 = fc.input :recognised_at,
                           label: false,
-                          as: :date_picker2,
+                          as: :flatpickr,
                           wrapper: :bare
       .w-3/4
         = save_or_cancel(form: f, back_path: patient_comorbidities_path(form.patient))

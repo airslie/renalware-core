@@ -71,7 +71,7 @@ ruby:
 
       / TODO: could make a number field smaller
       - if field.include?("date")
-        = fd.input field.to_sym, as: :date_picker, wrapper: :horizontal_datepicker, label: label
+        = fd.input field.to_sym, as: :flatpickr, wrapper: :horizontal_datepicker, label: label
       - elsif field.include?("number")
         = fd.input field.to_sym, wrapper: :horizontal_small, label: label, hint: "A number eg 1.2"
       - else

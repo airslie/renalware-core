@@ -5,7 +5,7 @@ ruby:
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Access Procedure", name: "procedure" } do
 
-    = f.input :performed_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :performed_on, as: :flatpickr, wrapper: :horizontal_datepicker
     = f.input :performed_by, wrapper: :horizontal_medium
     = f.association :type,
         collection: Renalware::Accesses::Type.ordered,
@@ -29,7 +29,7 @@ ruby:
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Follow-up", name: "followup" } do
     = f.input :outcome, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
-    = f.input :first_used_on, as: :date_picker, wrapper: :horizontal_datepicker
-    = f.input :failed_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :first_used_on, as: :flatpickr, wrapper: :horizontal_datepicker
+    = f.input :failed_on, as: :flatpickr, wrapper: :horizontal_datepicker
 
 = save_or_cancel(form: f, back_path: back_path)

@@ -14,6 +14,6 @@
               collection: severities,
               input_html: { style: "width:100px" },
               include_blank: nil
-  = f.input :display_from, as: :datetime_picker
-  = f.input :display_until, as: :datetime_picker
+  = f.input :display_from, as: :flatpickr_with_time
+  = f.input :display_until, as: :flatpickr_with_time
   = save_or_cancel(form: f, back_path: system_messages_path)

@@ -17,8 +17,8 @@
             user_to_promote_to_top: current_user \
           )
 
-  = f.input :started_on, as: :date_picker
-  = f.input :left_on, as: :date_picker
+  = f.input :started_on, as: :flatpickr
+  = f.input :left_on, as: :flatpickr
   = f.input :manager, as: :boolean
 
   - if investigatorship.study.type.present?

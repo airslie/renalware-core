@@ -38,7 +38,7 @@ ruby:
                 collection: profile.prescribed_times,
                 wrapper: :horizontal_tiny
       = f.input :prescribed_on,
-                as: :date_picker,
+                as: :flatpickr,
                 wrapper: :horizontal_datepicker
       = f.association :prescriber,
                       as: :user_picker,
@@ -118,7 +118,7 @@ ruby:
         = fd.simple_fields_for :transport, profile.document.transport do |fcm|
           = fcm.input :has_transport, as: :inline_radio_buttons, wrapper: :horizontal_medium
           = fcm.input :type, wrapper: :horizontal_small
-          = fcm.input :decided_on, as: :date_picker, wrapper: :horizontal_datepicker
+          = fcm.input :decided_on, as: :flatpickr, wrapper: :horizontal_datepicker
         = f.association :transport_decider,
                         as: :user_picker,
                         collection: Renalware::User.ordered,
@@ -130,6 +130,6 @@ ruby:
         = fd.simple_fields_for :care_level, profile.document.care_level do |fcm|
           table
             = fcm.input :level, wrapper: :horizontal_medium
-            = fcm.input :assessed_on, as: :date_picker, wrapper: :horizontal_datepicker
+            = fcm.input :assessed_on, as: :flatpickr, wrapper: :horizontal_datepicker
 
 = save_or_cancel(form: f, back_path: back_path)

@@ -26,6 +26,7 @@
     "babel-preset-env": "^1.6.0",
     "balloon-css": "^1.0.3",
     "classlist.js": "^1.1.20150312",
+    "date-fns": "^2.29.3",
     "debounce": "^1.2.1",
     "eslint": "^8.0",
     "eslint-plugin-import": "^2.7.0",

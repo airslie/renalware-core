@@ -2,14 +2,18 @@
   = simple_form_for form,
       as: :q,
       url: appointments_path,
-      html: { autocomplete: "off", class:  "" },
+      html: { autocomplete: "off" },
       method: :get do |f|
 
     .flex.flex-row
       .space-y-1
-        = f.input :from_date, as: :date_picker2, label: "From date"
-        .pt-1
-          = f.input :from_date_only, as: :boolean_tw, label: "This day only"
+        = f.input :from_date, as: :flatpickr, label: "From date"
+        = f.input :from_date_only, 
+                  as: :boolean, 
+                  wrapper: :tw_bool,
+                  boolean_style: :inline,
+                  include_hidden: false,
+                  label: "This day only"
 
       div.w-1/4.pl-2
         = f.input :clinic_id,

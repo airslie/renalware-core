@@ -19,8 +19,8 @@
                               placeholder: "Search by patient name or hospital/NHS no." } \
                     }
 
-  = f.input :joined_on, as: :date_picker
-  = f.input :left_on, as: :date_picker
+  = f.input :joined_on, as: :flatpickr
+  = f.input :left_on, as: :flatpickr
 
   - if participation.study.type.present?
     = render path_to_research_document_form_partial(participation.study.type, :participations), f: f

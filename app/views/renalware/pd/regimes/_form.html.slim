@@ -18,8 +18,8 @@
   = f.input :delivery_interval,
             collection: Renalware::PD::DeliveryIntervalPresenter.dropdown_options,
             wrapper: :horizontal_small
-  = f.input :start_date, as: :date_picker, wrapper: :horizontal_datepicker
-  = f.input :end_date, as: :date_picker, wrapper: :horizontal_datepicker
+  = f.input :start_date, as: :flatpickr, wrapper: :horizontal_datepicker
+  = f.input :end_date, as: :flatpickr, wrapper: :horizontal_datepicker
   = f.input :exchanges_done_by, wrapper: :horizontal_small
   = f.input :exchanges_done_by_if_other, wrapper: :horizontal_small
   = f.input :exchanges_done_by_notes, as: :string, wrapper: :horizontal_medium

@@ -6,7 +6,7 @@
     .row
       - if local_assigns.fetch(:display_esrf_date_filter, true)
         .medium-2.columns
-          = f.input :profile_esrf_on_gteq, as: :date_picker, label: "ESRF after"
+          = f.input :profile_esrf_on_gteq, as: :flatpickr, label: "ESRF after"
 
       -if local_assigns.fetch(:display_modality_filter, true)
         .medium-3.columns

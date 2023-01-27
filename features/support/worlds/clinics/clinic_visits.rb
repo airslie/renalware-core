@@ -86,7 +86,7 @@ module World
           visit new_patient_clinic_visit_path(patient_id: patient)
 
           within ".document" do
-            fill_in "Date", with: "20-07-2015 10:45"
+            fill_in "Date", with: "20-07-2015"
             slim_select "Access", from: "Clinic"
             fill_in "Height", with: "1.78"
             fill_in "Weight", with: "82.5"
