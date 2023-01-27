@@ -39,7 +39,9 @@ module Renalware
         single_needle: "no",
         lines_reversed: "no",
         fistula_plus_line: "no",
-        is_access_first_use: "no"
+        is_access_first_use: "no",
+        cannulation_type: "Buttonhole",
+        needle_size: "17"
       },
       dialysis: {
         flow_rate: 200,

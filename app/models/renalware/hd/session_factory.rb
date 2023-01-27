@@ -51,6 +51,8 @@ module Renalware
           unless dna_session?
             session.document.info.hd_type = profile.document.dialysis.hd_type
             session.dialysate_id = profile.dialysate_id
+            session.document.info.needle_size = profile.document.dialysis.needle_size
+            session.document.info.cannulation_type = profile.document.dialysis.cannulation_type
           end
         end
       end

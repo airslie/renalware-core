@@ -23,6 +23,8 @@ module Renalware
         attribute :single_needle, Document::Enum, enums: %i(yes no), default: :no
         attribute :lines_reversed, Document::Enum, enums: %i(yes no), default: :no
         attribute :machine_no
+        attribute :cannulation_type
+        attribute :needle_size
       end
       attribute :info, Info
 

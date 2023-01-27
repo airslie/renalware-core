@@ -43,10 +43,12 @@ en:
         access_confirmed: Confirm this access was used
         access_side: Access Side Used
         access_type: Access Type Used
+        cannulation_type: Cannulation Type
         fistula_plus_line: 1 + 1?
         is_access_first_use: Is access first use?
         lines_reversed: Lines Reversed?
         machine_no: Machine No
+        needle_size: Needle Size
         single_needle: Single Needle?
       renalware/hd/session_document/observations:
         blood_pressure: Blood Pressure

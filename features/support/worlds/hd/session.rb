@@ -39,7 +39,7 @@ module World
             "access_side": "right", "access_type": "Tunnelled subclav",
             "access_type_abbreviation": "TLN LS",
             "single_needle": "no", "lines_reversed": "no", "fistula_plus_line": "no",
-            "is_access_first_use": "no"},
+            "is_access_first_use": "no", "cannulation_type": "Buttonhole", "needle_size": "17"},
              "dialysis": {"flow_rate": 200, "blood_flow": 150,
              "machine_ktv": 1.0, "machine_urr": 1, "fluid_removed": 1.0, "venous_pressure": 1,
              "litres_processed": 1.0, "arterial_pressure": 1},
@@ -260,6 +260,7 @@ module World
 
       def sign_off_hd_session_for(patient, user:)
         FactoryBot.create(:hd_dialysate, name: "Dialysate1")
+        FactoryBot.create(:hd_cannulation_type, name: "Buttonhole")
 
         visit patient_hd_dashboard_path(patient)
 
@@ -280,6 +281,8 @@ module World
             check "Confirm this access was used"
             select "Clean and Dry", from: "Access Site Status"
             select "1", from: "MR VICTOR (line exit site assessment)"
+            select "Buttonhole", from: "Cannulation Type"
+            select "17", from: "Needle Size"
           end
         end
 
@@ -352,6 +355,12 @@ module World
         expect(avf_avg_assessment.thrill).to eq("A")
         expect(avf_avg_assessment.feel).to eq("H")
         expect(avf_avg_assessment.safe_to_use).to eq("N")
+
+        info = new_session.document.info
+        expect(info).to have_attributes(
+          needle_size: "17",
+          cannulation_type: "Buttonhole"
+        )
 
         pre_observations = new_session.document.observations_before
         expect(pre_observations.respiratory_rate).to eq(11)
