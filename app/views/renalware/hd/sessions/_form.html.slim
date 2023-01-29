@@ -83,6 +83,15 @@ ruby:
           = fcm.input :fistula_plus_line, as: :inline_radio_buttons, wrapper: :horizontal_medium
           = fcm.input :single_needle, as: :inline_radio_buttons, wrapper: :horizontal_medium
           = fcm.input :lines_reversed, as: :inline_radio_buttons, wrapper: :horizontal_medium
+          = fcm.input :cannulation_type, 
+                      as: :select, 
+                      value_method: :name, 
+                      wrapper: :horizontal_small,
+                      collection: Renalware::HD::CannulationType.order(:name)
+          = fcm.input :needle_size,
+                      as: :select, 
+                      wrapper: :horizontal_small,
+                      collection: Renalware::HD::ProfileDocument::Dialysis.needle_sizes.map(&:to_s)
 
           = fd.simple_fields_for :complications, fd.object.complications do |fcm|
             = fcm.input :access_site_status, wrapper: :horizontal_small

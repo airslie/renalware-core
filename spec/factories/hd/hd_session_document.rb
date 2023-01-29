@@ -32,6 +32,8 @@ FactoryBot.define do
     lines_reversed { "no" }
     fistula_plus_line { "no" }
     is_access_first_use { "no" }
+    needle_size { "17" }
+    cannulation_type { "Buttonhole" }
   end
 
   factory :hd_session_document_avf_avg_assessment, class: "OpenStruct" do
