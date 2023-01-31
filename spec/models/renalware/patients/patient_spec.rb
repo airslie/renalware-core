@@ -295,6 +295,19 @@ module Renalware
       end
     end
 
+    describe "local patient ids" do
+      it "trims and upcases them when saved" do
+        patient = build(:patient, local_patient_id: "  k123 ", local_patient_id_2: " x456")
+
+        patient.save!
+
+        expect(patient.reload).to have_attributes(
+          local_patient_id: "K123",
+          local_patient_id_2: "X456"
+        )
+      end
+    end
+
     describe "#current_modality" do
       it "returns the most recent non-deleted modality" do
         create(:modality, patient: patient, started_on: "2015-04-19", ended_on: "2015-04-20")
