@@ -202,14 +202,16 @@ module Renalware
     # Before saving, convert all the local patient ids to upper case
     # TODO: Use a constant for the max number of local patient ids
     def upcase_local_patient_ids
-      self.local_patient_id = local_patient_id.upcase if local_patient_id.present?
+      self.local_patient_id = local_patient_id.strip.upcase if local_patient_id.present?
       (2..5).each { |index| upcase_local_patient_id(index) }
     end
 
     def upcase_local_patient_id(index)
       attr_name = :"local_patient_id_#{index}"
       id_value = send(attr_name)
-      send("#{attr_name}=", id_value.upcase) if id_value.present?
+      if id_value.present?
+        send("#{attr_name}=", id_value.strip.upcase)
+      end
     end
 
     def nullify_unused_patient_ids
