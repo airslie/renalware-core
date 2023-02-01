@@ -120,7 +120,7 @@ module World
         end.prepend("date")
         expect(expected_rows[1]).to eq(day_row)
 
-        expected_rows[2..-1].each_with_index do |_expected_row, idx|
+        expected_rows[2..].each_with_index do |_expected_row, idx|
           # TODO: Complete the test
           # map our table rows into e.g. ["HGB", "", "5.09", "6.09"]
         end
@@ -130,7 +130,7 @@ module World
       def expect_pathology_historical_observations(user:, patient:, rows:)
         expected_rows = rows
         patient = Renalware::Pathology.cast_patient(patient)
-        codes = expected_rows.first[1..-1]
+        codes = expected_rows.first[1..]
         descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
         table = Renalware::Pathology::CreateObservationsGroupedByDateTable.new(
@@ -144,7 +144,7 @@ module World
         expect(expected_rows.first).to eq(header_row)
 
         # Now construct rows to match the cucumber table row and check they match
-        expected_rows[1..-1].each_with_index do |expected_row, idx|
+        expected_rows[1..].each_with_index do |expected_row, idx|
           actual_row = table.rows[idx]
           actual_row_formatted = codes.map { |code| actual_row.row_hash[code]&.first || "" }
           actual_row_formatted.prepend(l(actual_row.observed_on))
@@ -156,7 +156,7 @@ module World
         patient = Renalware::Pathology.cast_patient(patient)
         curr_obs_set = patient.fetch_current_observation_set
         rows.reject! { |row| row[1].blank? } # reject observations with no value
-        codes = rows.map(&:first)[1..-1]
+        codes = rows.map(&:first)[1..]
 
         expect(codes - curr_obs_set.values.keys).to eq([])
       end
@@ -221,6 +221,5 @@ module World
   end
 end
 
-Dir[Renalware::Engine.root.join("features/support/worlds/pathology/*.rb")]
-  .sort.each { |f| require f }
+Dir[Renalware::Engine.root.join("features/support/worlds/pathology/*.rb")].each { |f| require f }
 # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

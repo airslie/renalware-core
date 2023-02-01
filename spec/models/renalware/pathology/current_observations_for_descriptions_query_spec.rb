@@ -15,7 +15,8 @@ module Renalware
           target_descriptions = filter_targeted_descriptions(descriptions)
 
           query = CurrentObservationsForDescriptionsQuery.new(
-            patient: patient, descriptions: target_descriptions)
+            patient: patient, descriptions: target_descriptions
+          )
           results = query.call
 
           expect(results.map(&:description_name)).to match_array(%w(target-1 target-2))
@@ -25,7 +26,8 @@ module Renalware
           missing_descriptions = add_descriptions_not_observed_for_patient("missing-1", "missing-2")
 
           query = CurrentObservationsForDescriptionsQuery.new(
-            patient: patient, descriptions: missing_descriptions)
+            patient: patient, descriptions: missing_descriptions
+          )
           results = query.call
 
           expect(results.map(&:description_name)).to match_array(%w(missing-1 missing-2))
@@ -37,7 +39,8 @@ module Renalware
           create_observations(patient, descriptions)
 
           query = CurrentObservationsForDescriptionsQuery.new(
-            patient: patient, descriptions: descriptions)
+            patient: patient, descriptions: descriptions
+          )
           results = query.call
 
           expect(results.map(&:description_name)).to match_array(%w(target-1))

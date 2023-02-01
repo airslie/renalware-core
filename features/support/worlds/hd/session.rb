@@ -198,9 +198,9 @@ module World
       def expect_all_patient_hd_sessions_to_be_present(patient:, **)
         expected_ids = Renalware::HD::Session.where(patient: patient).all.pluck(:id).sort
         actual_ids = Renalware::HD::Sessions::PatientQuery.new(patient: patient)
-                                                           .call
-                                                           .pluck(:id)
-                                                           .sort
+          .call
+          .pluck(:id)
+          .sort
         expect(expected_ids).to eq(actual_ids)
       end
 
@@ -394,7 +394,7 @@ module World
       def delete_session(session, user:)
         login_as user
         visit edit_patient_hd_session_path(session.patient, session)
-        
+
         within ".form-actions", match: :first do
           click_on t("btn.delete")
         end

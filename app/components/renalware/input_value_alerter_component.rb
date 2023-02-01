@@ -9,6 +9,7 @@ module Renalware
     def initialize(not_recommended_values:, message:)
       @not_recommended_values = not_recommended_values.to_json
       @message = message
+      super
     end
 
     def input_date_attributes

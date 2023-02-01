@@ -8,5 +8,4 @@ module World
   end
 end
 
-Dir[Renalware::Engine.root.join("features/support/worlds/snippets/*.rb")]
-  .sort.each { |f| require f }
+Dir[Renalware::Engine.root.join("features/support/worlds/snippets/*.rb")].each { |f| require f }

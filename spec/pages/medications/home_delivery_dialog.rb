@@ -28,13 +28,13 @@ module Pages
 
       def drug_type
         within("#print-home-delivery-drugs-modal") do
-          find("#event_drug_type_id").find("option[selected]").text
+          find_by_id("event_drug_type_id").find("option[selected]").text
         end
       end
 
       def prescription_duration
         within("#print-home-delivery-drugs-modal") do
-          find("#event_prescription_duration").find("option[selected]").text
+          find_by_id("event_prescription_duration").find("option[selected]").text
         end
       end
 

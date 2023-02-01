@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe Renalware::Messaging::UnreadMessageCountComponent, type: :component do
   let(:internal_author) { create(:internal_author) }
-  let(:messaging_patient) {  create(:messaging_patient) }
+  let(:messaging_patient) { create(:messaging_patient) }
 
   def send_message_to(user)
     form = Renalware::Messaging::Internal::MessageForm.new(
@@ -24,8 +24,8 @@ describe Renalware::Messaging::UnreadMessageCountComponent, type: :component do
   context "when a user has unread messages" do
     it "displays number of messages in a 'badge' style" do
       user = create(:user)
-      message = send_message_to(user)
-      message = send_message_to(user)
+      send_message_to(user)
+      send_message_to(user)
 
       render_inline(described_class.new(current_user: user))
 

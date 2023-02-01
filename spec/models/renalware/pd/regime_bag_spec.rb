@@ -15,8 +15,7 @@ module Renalware
                                wednesday: false,
                                thursday: false,
                                friday: true,
-                               saturday: false
-                              )
+                               saturday: false)
     end
 
     it :aggregate_failures do

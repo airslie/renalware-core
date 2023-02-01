@@ -65,7 +65,6 @@ module Renalware
         def initialize(output, options = {})
           @output = output
           @state  = :init
-          options ||= {}
 
           @styles = {
             ins: "background: #9f9",
@@ -114,7 +113,6 @@ module Renalware
         def initialize(output, options = {})
           @output = output
           @state  = :init
-          options ||= {}
 
           @styles = {
             ins: "background: #9f9",

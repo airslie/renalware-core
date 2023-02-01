@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Managing vaccination types" do
-  it "displays a list of vaccination types"  do
+  it "displays a list of vaccination types" do
     create(:vaccination_type, code: "aaa", name: "Bbb")
     login_as_super_admin
     visit virology_vaccination_types_path

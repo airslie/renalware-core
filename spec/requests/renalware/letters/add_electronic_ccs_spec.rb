@@ -35,7 +35,7 @@ describe "Assign electronic CCs" do
         select2 user.given_name, css: "article.electonic_ccs"
 
         submit_form
-        
+
         letter = patient.letters.last
 
         expect(letter.electronic_cc_recipients).to eq([user])

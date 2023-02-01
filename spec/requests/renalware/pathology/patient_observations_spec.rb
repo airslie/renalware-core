@@ -16,7 +16,8 @@ describe "Patient's Observations" do
 
     it "responds with a list" do
       get patient_pathology_observations_path(
-        patient_id: patient, description_id: observation_description.id)
+        patient_id: patient, description_id: observation_description.id
+      )
 
       expect(response).to be_successful
     end

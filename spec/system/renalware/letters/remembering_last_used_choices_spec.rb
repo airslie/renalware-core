@@ -3,7 +3,6 @@
 require "rails_helper"
 
 describe "Remembering last used letter choices in the user's session", js: true do
-  
   it "once a letter is created, subsequent new letters remember letterhead, author, " \
      "date and description" do
     patient = create(
@@ -30,7 +29,7 @@ describe "Remembering last used letter choices in the user's session", js: true 
     # which will default to current user
     expect(page.find("#letter_author_id option[selected='selected']").value)
       .to eq(users[0].id.to_s)
-    expect(page.find("#letter_letterhead_id").value).to eq("")
+    expect(page.find_by_id("letter_letterhead_id").value).to eq("")
     expect(page).not_to have_selector :css, "#letter_topic option[selected='selected']"
 
     # Now fill in some fields. These fields are in RememberedPreferences (saved to a cookie) so
@@ -45,7 +44,7 @@ describe "Remembering last used letter choices in the user's session", js: true 
     # Now create another letter to test it has remebered our previous choices
     visit new_patient_letters_letter_path(patient)
 
-    expect(page.find("#letter_letterhead_id").value).to eq(letterheads[1].id.to_s)
+    expect(page.find_by_id("letter_letterhead_id").value).to eq(letterheads[1].id.to_s)
     expect(page).to have_field "Topic", with: descriptions[1].id.to_s, visible: false
     expect(page.find("#letter_author_id option[selected='selected']").value)
       .to eq(users[1].id.to_s)

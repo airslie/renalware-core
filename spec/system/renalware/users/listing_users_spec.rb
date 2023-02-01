@@ -3,7 +3,6 @@
 require "rails_helper"
 
 describe "A user views a list of users" do
-  # rubocop:disable RSpec/MultipleExpectations
   it "lists all users in the system" do
     login_as_clinical
     create(
@@ -32,5 +31,4 @@ describe "A user views a list of users" do
     expect(page).to have_content("CEO")
     expect(page).to have_content("Prev") # pagination present
   end
-  # rubocop:enable RSpec/MultipleExpectations
 end

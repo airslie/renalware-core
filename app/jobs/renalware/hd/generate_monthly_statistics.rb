@@ -20,6 +20,7 @@ module Renalware
           month: (month || default_month).to_i,
           year: (year || default_year).to_i
         )
+        super
       end
 
       # :reek:UtilityFunction

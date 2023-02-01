@@ -54,7 +54,7 @@ module World
 
         def bookmark_patient(user:, patient_name:, notes: "", urgent: false)
           login_as user
-          patient = visit_patient(patient_name)
+          visit_patient(patient_name)
 
           find("a", text: "Bookmark").click
 

@@ -29,7 +29,7 @@ module Renalware
               )
               pdf_file = Tempfile.new("merged_pdf", Rails.root.join("tmp"))
 
-              ms = Benchmark.ms do
+              Benchmark.ms do
                 File.binwrite(pdf_file, described_class.call(letter))
               end
 
@@ -114,7 +114,7 @@ module Renalware
               )
               pdf_file = Tempfile.new("merged_pdf", Rails.root.join("tmp"))
 
-              ms = Benchmark.ms do
+              Benchmark.ms do
                 File.binwrite(pdf_file, described_class.call(letter))
               end
 

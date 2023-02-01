@@ -2,7 +2,6 @@
 
 require "rails_helper"
 
-# rubocop:disable RSpec/MultipleExpectations
 describe "PD Dashboard" do
   it "displays the top 5 CAPD and links through to display all of them" do
     user = login_as_clinical
@@ -61,4 +60,3 @@ describe "PD Dashboard" do
     expect(page).to have_css("table.apd-regimes tbody tr", count: 6)
   end
 end
-# rubocop:enable RSpec/MultipleExpectations

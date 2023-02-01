@@ -2,7 +2,6 @@
 
 require "rails_helper"
 
-# rubcop:disable RSpec/MultipleExpectations
 describe "View a list of home delivery prescriptions filtered by delivery dates" do
   let(:esa_drug_type) { create(:drug_type, :esa) }
   let(:esa_drug) do
@@ -46,7 +45,8 @@ describe "View a list of home delivery prescriptions filtered by delivery dates"
         user,
         esa_drug,
         last_delivery_date: now - 1.month,
-        next_delivery_date: now)
+        next_delivery_date: now
+      )
 
       visit medications_home_delivery_prescriptions_path(named_filter: :esa)
 
@@ -71,7 +71,8 @@ describe "View a list of home delivery prescriptions filtered by delivery dates"
         user,
         immuno_drug,
         last_delivery_date: now - 1.month,
-        next_delivery_date: now)
+        next_delivery_date: now
+      )
 
       visit medications_home_delivery_prescriptions_path(named_filter: :immunosuppressant)
 
@@ -86,4 +87,3 @@ describe "View a list of home delivery prescriptions filtered by delivery dates"
     end
   end
 end
-# rubcop:enable RSpec/MultipleExpectations

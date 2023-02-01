@@ -61,15 +61,15 @@ SimpleForm.setup do |config|
     end
   end
 
-  # This is a move towards tailwindcss (with layout based on tailwind-ui) for checkboxes. 
-  # It is not the default wrapper for them but if you have a tailwind form you can specify 
+  # This is a move towards tailwindcss (with layout based on tailwind-ui) for checkboxes.
+  # It is not the default wrapper for them but if you have a tailwind form you can specify
   # e.g. in a filter form
-  # = f.input :my_bool, 
-  #           as: :boolean, 
+  # = f.input :my_bool,
+  #           as: :boolean,
   #           wrapper: :tw_bool,
   #           boolean_style: :inline
   # Note because foundation forms have something odd going on with checkbox and label margins
-  # (causing the label to appear lower than the input) we manually set the style and margin 
+  # (causing the label to appear lower than the input) we manually set the style and margin
   # on the checkbox to override this (using !mb-0 did not work in this case).
   config.wrappers(:tw_bool, tag: :div, class: "relative flex items-start") do |b|
     b.use :html5

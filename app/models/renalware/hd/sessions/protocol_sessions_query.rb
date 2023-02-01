@@ -9,7 +9,7 @@ module Renalware
           @limit = limit
         end
 
-        def call(starting_on: 4.weeks.ago, ending_on: Time.zone.today, max_sessions: 12)
+        def call(*)
           Session
             .includes(:hospital_unit, :signed_off_by)
             .extending(Scopes)

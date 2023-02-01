@@ -56,7 +56,7 @@ module World
         uncheck "Sat"
 
         submit_form
-        
+
         expect(page).to have_current_path(dashboard_path)
 
         # return the regime

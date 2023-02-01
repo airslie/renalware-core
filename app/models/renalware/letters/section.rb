@@ -21,7 +21,7 @@ module Renalware
 
       def lcs_diff_left
         output = []
-        result = Diff::LCS.traverse_balanced(
+        Diff::LCS.traverse_balanced(
           snapshotted, build_snapshot,
           Renalware::Letters::SectionManager::LCSDiffLeftCallbacks.new(output))
         output.join.html_safe
@@ -29,7 +29,7 @@ module Renalware
 
       def lcs_diff_right
         output = []
-        result = Diff::LCS.traverse_balanced(
+        Diff::LCS.traverse_balanced(
           snapshotted, build_snapshot,
           Renalware::Letters::SectionManager::LCSDiffRightCallbacks.new(output))
         output.join.html_safe

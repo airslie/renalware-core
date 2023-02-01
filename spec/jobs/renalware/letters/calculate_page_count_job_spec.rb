@@ -13,7 +13,8 @@ module Renalware
         to: :patient,
         patient: patient,
         state: :completed,
-        body: "a line of text<br/>" * lines_of_body_text)
+        body: "a line of text<br/>" * lines_of_body_text
+      )
     end
 
     describe "#letter_approved" do

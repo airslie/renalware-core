@@ -79,7 +79,7 @@ describe "Creating an Access Plan" do
     patient = create(:accesses_patient, by: user)
     visit new_patient_accesses_plan_path(patient)
 
-    expect(page).to have_no_css(".error")
+    expect(page).not_to have_css(".error")
 
     within "#new_accesses_plan" do
       click_on t("btn.create")

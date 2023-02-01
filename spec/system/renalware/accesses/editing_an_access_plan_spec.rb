@@ -19,7 +19,7 @@ describe "Editing an Access Plan" do
     visit patient_accesses_dashboard_path(patient)
 
     expect(page).to have_css(".access-plans .current-access-plan")
-    expect(page).to have_no_css(".historical-access-plans")
+    expect(page).not_to have_css(".historical-access-plans")
 
     within ".access-plans header" do
       click_on t("btn.edit")
@@ -55,7 +55,7 @@ describe "Editing an Access Plan" do
 
     visit patient_accesses_dashboard_path(patient)
 
-    expect(page).to have_no_css(".historical-access-plans")
+    expect(page).not_to have_css(".historical-access-plans")
 
     within ".access-plans header" do
       click_on t("btn.edit")
@@ -66,6 +66,6 @@ describe "Editing an Access Plan" do
     end
 
     expect(page).to have_current_path(patient_accesses_dashboard_path(patient))
-    expect(page).to have_no_css(".historical-access-plans")
+    expect(page).not_to have_css(".historical-access-plans")
   end
 end

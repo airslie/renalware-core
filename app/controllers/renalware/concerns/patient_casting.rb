@@ -25,8 +25,8 @@ module Renalware
           define_method(method_name) do
             return instance_variable_get(var_name) if instance_variable_defined?(var_name)
 
-            namespace_name.constantize.cast_patient(patient).tap do |_patient|
-              instance_variable_set var_name, _patient
+            namespace_name.constantize.cast_patient(patient).tap do |a_patient|
+              instance_variable_set var_name, a_patient
             end
           end
         end
