@@ -13,6 +13,8 @@ dl
   dd= profile.substitution_percent
   dt= t(".blood_flow")
   dd= profile.blood_flow
+  dt= t(".flow_rate")
+  dd= profile.flow_rate
 
   dt.new_line= t(".named_nurse")
   dd= profile.patient.named_nurse
@@ -53,4 +55,4 @@ dl
   dt.new_line= t(".transport.decided_on")
   dd= profile.transport_decided_on
   dt= t(".on_worryboard")
-  dd= yes_no(profile.patient.worry.present?)
+  dd= Renalware::Patients::WorryPresenter.new(profile.patient.worry).summary

@@ -99,6 +99,10 @@ module Renalware
         "#{dialysis.blood_flow} ml/min" if dialysis.blood_flow.present?
       end
 
+      def flow_rate
+        "#{dialysis.flow_rate} ml/min" if dialysis.flow_rate.present?
+      end
+
       def anticoagulant_stop_time
         return if anticoagulant.stop_time.blank?
 

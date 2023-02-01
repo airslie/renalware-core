@@ -13,6 +13,7 @@ en:
           cannulation_type: 'Cannulation type:'
           dialysate: 'Dialysate:'
           dialyser: 'Dialyser:'
+          flow_rate: Sln Flow Rate
           has_sodium_profiling: 'Sodium profiling:'
           hd_type: 'HD Type:'
           last_update: 'Updated:'
