@@ -39,7 +39,7 @@ if ENV.key?("TURNIP_WEB")
   Capybara::Screenshot.register_driver(:rw_headless_chrome) do |driver, path|
     driver.browser.save_screenshot(path)
   end
-  if RUBY_PLATFORM =~ /darwin/
+  if RUBY_PLATFORM.include?("darwin")
     require "capybara-screenshot/rspec"
   end
 end

@@ -213,7 +213,7 @@ describe Renalware::HD::Sessions::DurationForm do
             end_time: "13:31"
           ).stopped_at
         end
-  
+
         it { is_expected.to eq(Time.zone.parse("Sun, 12 Dec 2021 13:31:00 -0800")) }
       end
     end

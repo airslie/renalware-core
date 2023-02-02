@@ -11,7 +11,8 @@ module Renalware
         Hospitals::Ward,
         name: name,
         code: code,
-        hospital_unit: instance_double(Hospitals::Unit, unit_code: "UNITX", name: "Unit X"))
+        hospital_unit: instance_double(Hospitals::Unit, unit_code: "UNITX", name: "Unit X")
+      )
     end
     let(:name) { "Ward 1" }
     let(:code) { "W123" }

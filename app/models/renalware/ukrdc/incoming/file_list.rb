@@ -8,7 +8,7 @@ module Renalware
 
         # Helper which yields each file in the incoming folder.
         def each_file
-          Dir.glob(paths.incoming.join(pattern)).sort.each do |filepath|
+          Dir.glob(paths.incoming.join(pattern)).each do |filepath|
             filename = File.basename(filepath)
             yield(Pathname(filepath), filename) if block_given?
           end

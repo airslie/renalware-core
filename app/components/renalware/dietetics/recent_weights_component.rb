@@ -40,6 +40,7 @@ module Renalware
           patient: patient,
           limit: display_count
         )
+        super
       end
 
       attr_reader :patient

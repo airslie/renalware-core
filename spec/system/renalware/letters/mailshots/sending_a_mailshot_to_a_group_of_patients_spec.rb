@@ -2,7 +2,6 @@
 
 require "rails_helper"
 
-# rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
 describe "Creating a mailshot", js: true do
   include ActiveJob::TestHelper
 
@@ -85,4 +84,3 @@ describe "Creating a mailshot", js: true do
     expect(Renalware::Letters::Mailshots::Item.count).to eq(1)
   end
 end
-# rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations

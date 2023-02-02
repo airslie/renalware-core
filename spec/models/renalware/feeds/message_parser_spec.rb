@@ -50,7 +50,8 @@ module Renalware::Feeds
               family_name: "RABBIT",
               given_name: "JESSICA",
               sex: "F",
-              dob: "19880924")
+              dob: "19880924"
+            )
           end
         end
 

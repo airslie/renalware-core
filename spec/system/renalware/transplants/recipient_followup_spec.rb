@@ -8,7 +8,6 @@ describe "RecipientFollowup", js: true do
   let(:operation) { create(:transplant_recipient_operation, patient: patient) }
 
   describe "creating a new followup for an operation" do
-    # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
     it "a new one will be be created" do
       user = login_as_clinical
       operation
@@ -61,7 +60,6 @@ describe "RecipientFollowup", js: true do
         created_by: user
       )
     end
-    # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
   end
 
   describe "editing an existing followup" do

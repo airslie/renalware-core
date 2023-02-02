@@ -21,7 +21,7 @@ describe "Add a prescription using drug chosen from a category", js: true do
     end
 
     # prescribed_on defaults to today
-    expect(page.find("#medications_prescription_prescribed_on").value).to eq(l(Date.current))
+    expect(page.find_by_id("medications_prescription_prescribed_on").value).to eq(l(Date.current))
 
     form.drug_type = "ESA"
     form.drug = "Blue Pill"

@@ -6,7 +6,7 @@ module Pages
   module Accesses
     class ProfilePage < PageObject
       include CapybaraHelper
-      
+
       pattr_initialize :patient
 
       def visit_add

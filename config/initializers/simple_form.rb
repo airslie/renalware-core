@@ -14,7 +14,7 @@ SimpleForm.setup do |config|
   # stack. The options given below are used to wrap the
   # whole input.
 
-  config.wrappers :tw_default, tag: 'div', class: '', error_class: '', valid_class: '' do |b|
+  config.wrappers :tw_default, tag: "div", class: "", error_class: "", valid_class: "" do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -25,13 +25,13 @@ SimpleForm.setup do |config|
 
     b.use :label, class: "block font-medium text-gray-700"
     b.use :input,
-      class: 'appearance-none block w-full px-3 py-2 border border-gray-300 rounded shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm',
-      error_class: 'block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded'
-    b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-sm text-red-600' }
-    b.use :hint,  wrap_with: { tag: :p, class: "mt-2 text-sm text-gray-500" }
+      class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm",
+      error_class: "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded"
+    b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-red-600" }
+    b.use :hint, wrap_with: { tag: :p, class: "mt-2 text-sm text-gray-500" }
   end
 
-  config.wrappers :tw_prepend_string, tag: 'div', class: '', error_class: '', valid_class: '' do |b|
+  config.wrappers :tw_prepend_string, tag: "div", class: "", error_class: "", valid_class: "" do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -42,17 +42,17 @@ SimpleForm.setup do |config|
 
     b.use :label, class: "block text-sm font-medium text-gray-700"
 
-    b.wrapper tag: 'div', class: 'mt-1 flex rounded shadow-sm' do |d|
+    b.wrapper tag: "div", class: "mt-1 flex rounded shadow-sm" do |d|
       d.use :prepend
       d.use :input,
         class: "flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300",
         error_class: "flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-red-500 focus:border-red-500 sm:text-sm border-red-300 text-red-900 placeholder-red-300"
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-red-600" }
-    b.use :hint,  wrap_with: { tag: :p, class: "mt-2 text-sm text-gray-500" }
+    b.use :hint, wrap_with: { tag: :p, class: "mt-2 text-sm text-gray-500" }
   end
 
-  config.wrappers :tw_append_string, tag: 'div', class: '', error_class: '', valid_class: '' do |b|
+  config.wrappers :tw_append_string, tag: "div", class: "", error_class: "", valid_class: "" do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -63,14 +63,14 @@ SimpleForm.setup do |config|
 
     b.use :label, class: "block text-sm font-medium text-gray-700"
 
-    b.wrapper tag: 'div', class: 'mt-1 flex rounded shadow-sm' do |d|
+    b.wrapper tag: "div", class: "mt-1 flex rounded shadow-sm" do |d|
       d.use :input,
         class: "flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-l-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300",
         error_class: "flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-l-md focus:ring-red-500 focus:border-red-500 sm:text-sm border-red-300 text-red-900 placeholder-red-300"
       d.use :append
     end
     b.use :full_error, wrap_with: { tag: "p", class: "mt-2 text-sm text-red-600" }
-    b.use :hint,  wrap_with: { tag: :p, class: "mt-2 text-sm text-gray-500" }
+    b.use :hint, wrap_with: { tag: :p, class: "mt-2 text-sm text-gray-500" }
   end
 
   config.wrappers :tw_corner_hint, tag: :div do |b|

@@ -15,7 +15,9 @@ FactoryBot.define do
     clinic { create(:clinic) }
   end
 
-  factory :dietetic_clinic_visit, class: "Renalware::Dietetics::ClinicVisit",
-                                  parent: :clinic_visit do
-  end
+  factory(
+    :dietetic_clinic_visit,
+    class: "Renalware::Dietetics::ClinicVisit",
+    parent: :clinic_visit
+  )
 end

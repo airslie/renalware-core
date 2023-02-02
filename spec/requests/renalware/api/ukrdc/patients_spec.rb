@@ -61,8 +61,8 @@ describe "API request for a single UKRDC patient XML document" do
       get api_ukrdc_patient_path(patient)
 
       expect(response).to be_successful
-      validate(response.body).each do |error|
-        p response.body
+
+      validate(response.body) do |error|
         raise error.message
       end
     end
@@ -89,8 +89,7 @@ describe "API request for a single UKRDC patient XML document" do
         matches = response.body.scan(/<CauseOfDeath>/)
         expect(matches.length).to eq(1)
 
-        validate(response.body).each do |error|
-          p response.body
+        validate(response.body) do |error|
           raise error.message
         end
       end
@@ -144,7 +143,7 @@ describe "API request for a single UKRDC patient XML document" do
       expect(xml).to match("<FileType>application/pdf</FileType>")
       expect(xml).to match("<Stream>")
 
-      validate(response.body).each do |error|
+      validate(response.body) do |error|
         raise error.message
       end
     end

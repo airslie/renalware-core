@@ -50,10 +50,10 @@ describe "Creating an vaccination", js: true do
       fill_in "Date time", with: event_date_time
       select "HBV Booster", from: "Type"
       select "ABC", from: "Drug"
-      within(".form-actions", match: :first) do 
+      within(".form-actions", match: :first) do
         click_on t("btn.create")
       end
-      
+
       events = Renalware::Virology::Vaccination.for_patient(patient)
       expect(events.length).to eq(1)
       event = events.first

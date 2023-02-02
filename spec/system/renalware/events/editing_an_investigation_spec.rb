@@ -19,7 +19,8 @@ describe "Editing an investigation", js: true do
       :investigation,
       :transplant_recipient,
       patient: patient,
-      by: user)
+      by: user
+    )
     investigation.document.result = "initial_result"
     investigation.save!
 

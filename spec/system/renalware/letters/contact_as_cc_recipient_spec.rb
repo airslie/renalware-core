@@ -65,7 +65,7 @@ describe "Assign a person as a CC recipient", js: true do
         )
         select contact_description.name, from: "Description"
         fill_in "Notes", with: "some contact notes"
-      
+
         submit_form
       end
 

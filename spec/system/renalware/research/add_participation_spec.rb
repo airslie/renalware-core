@@ -5,7 +5,7 @@ require "rails_helper"
 describe "Add a patient to a study (creating a participation)" do
   include AjaxHelpers
 
-  context "if the user is an investigator in the study", js: true do
+  context "when the user is an investigator in the study", js: true do
     it "they can add patient to a research study" do
       user = login_as_clinical
       patient = create(:patient, family_name: "XXX", given_name: "Jon", by: user)
@@ -32,7 +32,7 @@ describe "Add a patient to a study (creating a participation)" do
     end
   end
 
-  context "if the user is an not investigator in the study" do
+  context "when the user is not investigator in the study" do
     it "they cannot see the Add option" do
       user = login_as_clinical
       study = create_study(by: user)

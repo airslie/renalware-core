@@ -17,7 +17,8 @@ module Renalware
           listener.patient_modality_changed_to_death(
             patient: patient,
             modality: Object.new,
-            actor: user)
+            actor: user
+          )
 
           expect(TerminateAllPatientPrescriptions)
             .to have_received(:call)

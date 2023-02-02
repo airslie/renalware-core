@@ -20,6 +20,7 @@ module Renalware
         )
 
         @dietetic_clinic_visits_count = dietetic_clinic_visits_counter.call(patient: patient)
+        super
       end
 
       attr_reader :patient, :dietetic_clinic_visits, :dietetic_clinic_visits_count

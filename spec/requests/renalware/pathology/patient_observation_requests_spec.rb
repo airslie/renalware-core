@@ -22,7 +22,8 @@ describe "Patient's Observation Requests" do
 
     it "responds with details" do
       get patient_pathology_observation_request_path(
-        patient_id: patient, id: observation_request.id)
+        patient_id: patient, id: observation_request.id
+      )
 
       expect(response).to be_successful
     end

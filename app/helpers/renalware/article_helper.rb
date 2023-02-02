@@ -27,7 +27,7 @@ module Renalware
     # if the collection has been paginated, otherwise
     # <span>5<div>
     def collection_count(collection)
-      return unless collection&.respond_to?(:length)
+      return unless collection.respond_to?(:length)
 
       parts = ["("]
       parts.append(collection.length)

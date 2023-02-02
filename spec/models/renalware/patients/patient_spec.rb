@@ -50,12 +50,13 @@ module Renalware
             local_patient_id_3: "",
             local_patient_id_4: "",
             local_patient_id_5: ""
-          )).to have_attributes(
-            local_patient_id_2: nil,
-            local_patient_id_3: nil,
-            local_patient_id_4: nil,
-            local_patient_id_5: nil
           )
+        ).to have_attributes(
+          local_patient_id_2: nil,
+          local_patient_id_3: nil,
+          local_patient_id_4: nil,
+          local_patient_id_5: nil
+        )
       end
 
       it "does not accidentally clear ids that have a value (belt and braces)" do

@@ -11,6 +11,7 @@ module Renalware
         @patient = patient
         @drug_type_names = Array(drug_type_names)
         @options = options
+        super
       end
 
       def tab_data

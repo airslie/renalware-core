@@ -10,7 +10,7 @@ module Renalware
       let(:patient2) { create(:patient, by: user) }
 
       describe "#call" do
-        context "using default sort and no search argument" do
+        context "when using default sort and no search argument" do
           it "returns a sorted collection of attachments for a patient" do
             att1 = create(:patient_attachment, :with_file, patient: patient1, by: user)
             att2 = create(:patient_attachment, :with_file, patient: patient1, by: user)

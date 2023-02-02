@@ -47,7 +47,7 @@ module Renalware
             let(:topic) { create(:letter_topic, section_identifiers: [:hd_section]) }
             let(:new_topic) { create(:letter_topic, section_identifiers: [:hd_section]) }
 
-            context "and new topic has sections associated with it" do
+            context "when also new topic has sections associated with it" do
               it "generates snapshots for those letter sections" do
                 expect(letter.section_snapshots.count).to eq 0
 
@@ -88,13 +88,13 @@ module Renalware
                                           content: "old content")
               }
 
-              context "and a true value has been passed in" do
+              context "when also a true value has been passed in" do
                 it "updates the snapshot content" do
                   subject.call(patient, letter.id, by: user, update_sections: { hd_section: "1" })
                   expect(section_snapshot.reload.content).to include "<dl></dl>"
                 end
 
-                context "and a false value has been passed in" do
+                context "when also a false value has been passed in" do
                   it "doesn't update" do
                     subject.call(patient, letter.id, by: user, update_sections: { hd_section: "0" })
                     expect(section_snapshot.reload.content).to eq "old content"
@@ -104,7 +104,7 @@ module Renalware
             end
 
             context "when section snapshots have not existed for this letter" do
-              context "and a true value has been passed in" do
+              context "when also a true value has been passed in" do
                 it "creates the snapshot content" do
                   subject.call(patient, letter.id, by: user, update_sections: { hd_section: "1" })
 

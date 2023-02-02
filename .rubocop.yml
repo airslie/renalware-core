@@ -65,10 +65,14 @@ Metrics/AbcSize:
   Max: 21
 RSpec/ExampleLength:
   Max: 40
+  Exclude:
+    - "spec/system/**/*"
 RSpec/NestedGroups:
   Max: 4
 RSpec/MultipleExpectations:
   Max: 6
+  Exclude:
+    - "spec/system/**/*"
 RSpec/DescribeClass:
   Enabled: false
 RSpec/ImplicitSubject:
@@ -95,3 +99,19 @@ Rails/DurationArithmetic:
   Enabled: false
 Style/OpenStructUse:
   Enabled: false
+
+# HL7 messages contain strings which seem to be escaped and aren't so its safest to disable this
+# cop on all specs
+Style/RedundantStringEscape:
+  Enabled: true
+  Exclude:
+    - "spec/**/*"
+
+# This is Ruby >=3.1 so we have to wait for Kings to upgrade
+Naming/BlockForwarding:
+  Enabled: false
+
+Lint/MissingSuper:
+  Enabled: true
+  Exclude:
+    - "**/*_drop.rb"

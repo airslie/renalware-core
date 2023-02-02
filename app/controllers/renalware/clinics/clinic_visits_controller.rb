@@ -108,12 +108,11 @@ module Renalware
 
       # Passed in as an arg when refreshing inputs after clinic dropdown changed
       def clinic_id
-        @clinic_id ||= begin
-          return visit_params[:clinic_id] if params[:clinic_visit]
+        return visit_params[:clinic_id] if params[:clinic_visit]
 
+        @clinic_id ||= begin
           temp_clinic_visit = ClinicVisit.new
           RememberedClinicVisitPreferences.new(session).apply_to(temp_clinic_visit)
-
           params[:clinic_id] || temp_clinic_visit.clinic_id
         end
       end

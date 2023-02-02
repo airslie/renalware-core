@@ -5,7 +5,6 @@ require "rails_helper"
 describe "Managing a patient's comorbidities", js: true do
   include ActionView::RecordIdentifier
 
-  # rubocop:disable RSpec/MultipleExpectations
   describe "viewing comorbidities" do
     it "displays date + Yes/No/Unknown for any comorbids the patient has, and Unknown for others" do
       user = login_as_clinical
@@ -37,7 +36,6 @@ describe "Managing a patient's comorbidities", js: true do
       end
     end
   end
-  # rubocop:enable RSpec/MultipleExpectations
 
   describe "editing comorbidities" do
     it do
@@ -64,7 +62,7 @@ describe "Managing a patient's comorbidities", js: true do
       within "#comorbidities-form" do
         click_on "Create"
       end
-      
+
       expect(
         patient.reload.comorbidities.find_by(description_id: desc1.id)
       ).to have_attributes(

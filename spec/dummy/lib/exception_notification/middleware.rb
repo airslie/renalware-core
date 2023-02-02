@@ -9,6 +9,7 @@ module ExceptionNotification
   class Middleware < PartyFoul::Middleware
     def initialize(app)
       @app = app
+      super
     end
 
     # rubocop:disable Lint/RescueException
