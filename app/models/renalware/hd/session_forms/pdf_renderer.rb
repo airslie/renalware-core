@@ -23,7 +23,7 @@ module Renalware
         def pdf_html
           @pdf_html ||= begin
             # Note we don't actually hit the ProtocolController#index action here.
-            controller.render_to_string_with_wicked_pdf(
+            controller.render_to_string(
               template: "renalware/hd/protocols/index",
               layout: "renalware/layouts/pdf",
               locals: {

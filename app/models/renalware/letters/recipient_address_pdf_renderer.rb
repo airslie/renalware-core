@@ -13,7 +13,7 @@ module Renalware
           recipient = RecipientPresenter::WithCurrentAddress.new(recipient)
         end
         WickedPdf.new.pdf_from_string(
-          LettersController.new.render_to_string_with_wicked_pdf(
+          LettersController.new.render_to_string(
             partial: "/renalware/letters/formatted_letters/recipient_address_cover_sheet",
             locals: { recipient: recipient },
             encoding: "UTF-8"

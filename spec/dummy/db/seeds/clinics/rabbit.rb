@@ -8,7 +8,7 @@ module Renalware
       5.times do |n|
         user = User.first
         Clinics::ClinicVisit.find_or_create_by!(
-          patient: Clinics.cast_patient(rabbit),
+          patient_id: rabbit.id,
           clinic: Clinics::Clinic.order("RANDOM()").first,
           height: 1.25,
           weight: 55 + n,
