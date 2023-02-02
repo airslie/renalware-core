@@ -7,8 +7,7 @@ module Renalware
     # another or absolute path
     class HtmlRenderer
       def call(letter)
-        context = LettersController.new
-        context.render_to_string_with_wicked_pdf(
+        LettersController.new.render_to_string(
           partial: "/renalware/letters/formatted_letters/letter",
           locals: { letter: letter },
           encoding: "UTF-8"

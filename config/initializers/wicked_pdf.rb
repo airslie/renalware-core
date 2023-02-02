@@ -26,9 +26,9 @@ WickedPdf.config = {
 # Basically in Rails 5.x, both gems monkey patch ActionView render_to_string
 # and we can get an infinite loop when rendering PDFs.
 # Once we move to Rails 6 I think think this can be removed
-class WickedPdf
-  module PdfHelper
-    remove_method(:render_to_string)
-    remove_method(:render)
-  end
-end
+# class WickedPdf
+#   module PdfHelper
+#     remove_method(:render_to_string)
+#     remove_method(:render)
+#   end
+# end

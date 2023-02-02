@@ -163,7 +163,7 @@ module Renalware
 
     # Make the most recent session ongoing
     HD::Session::Open.create!(
-      patient: patient,
+      patient_id: patient.id,
       hospital_unit: units.sample,
       started_at: Time.zone.today,
       signed_on_by: users.sample,
@@ -177,7 +177,7 @@ module Renalware
       # She misses every 5th session
       if i % 5 == 0
         HD::Session::DNA.create!(
-          patient: patient,
+          patient_id: patient.id,
           hospital_unit: units.sample,
           started_at: date,
           signed_on_by: users.sample,
@@ -190,7 +190,7 @@ module Renalware
       else
         # TODO: call SaveSession here?
         HD::Session::Closed.create!(
-          patient: HD.cast_patient(patient),
+          patient_id: patient.id,
           hospital_unit: units.sample,
           started_at: date,
           stopped_at: date + 3.hours,
