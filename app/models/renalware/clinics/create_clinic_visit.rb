@@ -17,15 +17,13 @@ module Renalware
       end
 
       def call
-        ClinicVisit.transaction do
+        objects = nil
+        result = ClinicVisit.transaction do
           visit = build_clinic_visit
           objects = OpenStruct.new(clinic_visit: visit, appointment: appointment)
-          if visit.save && update_appointment_with(visit.id)
-            return ::Success.new(objects)
-          else
-            return ::Failure.new(objects)
-          end
+          visit.save && update_appointment_with(visit.id)
         end
+        result ? ::Success.new(objects) : ::Failure.new(objects)
       end
 
       private

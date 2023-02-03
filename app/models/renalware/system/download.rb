@@ -13,7 +13,7 @@ module Renalware
       private
 
       def validate_presence_of_file_attachment
-        errors[:file] << "Please specify a file to upload" unless file.attached?
+        errors.add(:file, "Please specify a file to upload") unless file.attached?
       end
     end
   end

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "fileutils"
+
 module Renalware
   module Feeds
     module Files
@@ -33,8 +35,8 @@ module Renalware
 
         def uploads_dir
           Rails.root.join("tmp/uploads").tap do |uploads_path|
-            warn "using upload path #{uploads_path}"
-            Dir.mkdir(uploads_path) unless Dir.exist?(uploads_path)
+            warn "using upload path #{uploads_path}" if Rails.env.development?
+            FileUtils.mkdir_p(uploads_path)
           end
         end
 

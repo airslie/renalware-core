@@ -20,7 +20,6 @@ module Renalware
             patient: pat,
             description: create(:modality_description, :aki)
           )
-          pat.fetch_current_observation_set.save!
         end
       end
 

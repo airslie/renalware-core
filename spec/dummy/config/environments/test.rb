@@ -12,7 +12,7 @@ Rails.application.configure do
   # and recreated between test runs. Don't rely on the data there!
   config.cache_classes = false
   config.assets.css_compressor = nil
-
+  config.i18n.raise_on_missing_translations = true
   config.log_level = :debug
 
   # To test log formatting and lograge in the Test env uncomment these lines
@@ -54,12 +54,13 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
 
   # Print deprecation notices to the stderr.
-  config.active_support.deprecation = :stderr
+  config.active_support.deprecation = :log
+  ActiveSupport::Deprecation.disallowed_warnings = :all
 
   # Raises error for missing translations
-  config.action_view.raise_on_missing_translations = true
+  config.i18n.raise_on_missing_translations = true
 
-  Renalware::Engine.routes.default_url_options[:host] = "localhost"
+  Rails.application.default_url_options = { host: "localhost", port: 3000 }
 
   config.active_job.queue_adapter = :good_job
 end

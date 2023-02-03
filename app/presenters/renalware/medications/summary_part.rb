@@ -45,9 +45,9 @@ module Renalware
         # - count(drugs) across all prescriptions (same as prescriptions.count so not really
         #   required, but comes for free with AR::Relation.cache_key)
         [
-          patient.cache_key,
-          prescriptions.cache_key,
-          Drugs::Drug.where(id: prescriptions.pluck(:drug_id)).cache_key
+          patient.cache_key_with_version,
+          prescriptions.cache_key_with_version,
+          Drugs::Drug.where(id: prescriptions.pluck(:drug_id)).cache_key_with_version
         ].join("$")
       end
     end

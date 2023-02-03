@@ -89,13 +89,7 @@ module Renalware
       end
 
       def raw_active_storage_url_for(file)
-        Rails.application.routes.url_for(
-          controller: "active_storage/blobs",
-          action: :show,
-          signed_id: file.signed_id,
-          filename: file.filename,
-          only_path: true
-        )
+        Rails.application.routes.url_helpers.rails_blob_url(file.attachment, only_path: true)
       end
     end
   end

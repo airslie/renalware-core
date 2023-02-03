@@ -2,7 +2,7 @@
 
 module Renalware
   class Address < ApplicationRecord
-    belongs_to :country, class_name: "System::Country"
+    belongs_to :country, class_name: "System::Country", optional: true
     validates :email, email: true, allow_blank: true
     delegate :uk?, to: :country, allow_nil: true
 

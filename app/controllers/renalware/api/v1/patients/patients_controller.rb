@@ -7,13 +7,13 @@ module Renalware
         class PatientsController < TokenAuthenticatedAPIController
           include Concerns::Pageable
 
+          def index
+            render locals: { patients: patients }
+          end
+
           def show
             patient = Patient.find_by!(local_patient_id: params[:id])
             render locals: { patient: patient }
-          end
-
-          def index
-            render locals: { patients: patients }
           end
 
           private

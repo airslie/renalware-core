@@ -76,7 +76,6 @@ module Renalware
           # If the result is 10 then the NHS NUMBER is invalid and not used.
           # Step 5 Check the remainder matches the check digit. Otherwise the NHS NUMBER is invalid.
           if checkdigit == 10 || number[9].to_i != checkdigit
-            # record.errors[attribute] << "Invalid NHS number (checkdigit mismatch)"
             record.errors.add(attribute, :nhs_number_invalid_checkdigit)
           end
         end

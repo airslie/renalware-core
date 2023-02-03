@@ -14,7 +14,10 @@ module Renalware
       end
 
       def cache_key
-        [patient.cache_key, patient.problems.cache_key].join("~")
+        [
+          patient.cache_key_with_version,
+          patient.problems.cache_key_with_version
+        ].join("~")
       end
 
       # Removing caching for now as on production on Azure the patient.cache_key was not

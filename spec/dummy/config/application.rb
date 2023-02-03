@@ -9,18 +9,22 @@ require "renalware"
 
 module Dummy
   class Application < Rails::Application
-    config.cache_store = :file_store, Rails.root.join("tmp/cache") # capistrano symmlinked
+    config.load_defaults 7.0
+
+    config.cache_store = :file_store, Rails.root.join("tmp/cache")
     config.active_record.time_zone_aware_types = [:datetime]
     config.active_storage.service = :local
     config.autoloader = :zeitwerk
-    # config.load_defaults Rails::VERSION::STRING.to_f
+    config.active_record.belongs_to_required_by_default = false
+    config.active_record.collection_cache_versioning = false
 
+    #
+    # Good job
+    #
     # :async = executes jobs in separate threads within the Rails web server process
     config.good_job.execution_mode = :external
-
     # number of seconds between polls for jobs when execution_mode is set to :async
     config.good_job.poll_interval = 30
-
     config.good_job.cron = Renalware::Engine.scheduled_jobs_config
     config.good_job.enable_cron = false # Switch to true to enable cron jobs
 

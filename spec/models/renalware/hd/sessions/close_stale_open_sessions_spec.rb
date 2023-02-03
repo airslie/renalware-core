@@ -9,7 +9,7 @@ module Renalware
 
       let(:patient) { create(:hd_patient) }
       let(:performed_before) { 3.days.ago }
-      let(:system_user) { create(:user, username: SystemUser.username) }
+      let(:system_user) { create(:user, :system) }
       let(:hospital_unit) { create(:hospital_unit) }
       let(:options) do
         {
@@ -20,10 +20,6 @@ module Renalware
           started_at: 25.hours.ago,
           stopped_at: 23.hours.ago
         }
-      end
-
-      before do
-        system_user # creates system user
       end
 
       context "when there are no sessions" do

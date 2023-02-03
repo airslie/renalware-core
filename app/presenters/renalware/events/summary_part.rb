@@ -32,7 +32,10 @@ module Renalware
       # Disabling cache until we can work out why caching works in AZ MSE UAT but not prod
       # where updating the patient or their events does not invalidate the cache key
       # def cache_key
-      #   [patient.cache_key, Events::Event.for_patient(patient).cache_key].join("~")
+      #   [
+      #     patient.cache_key_with_version,
+      #     Events::Event.for_patient(patient).cache_key_with_version
+      #   ].join("~")
       # end
 
       def to_partial_path

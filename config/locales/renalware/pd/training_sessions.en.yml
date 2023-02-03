@@ -20,7 +20,7 @@ en:
     pd:
       training_sessions:
         edit:
-          title: Edit
+          page_title: Edit
         list:
           date_time: Date recorded
           outcome: Outcome
@@ -31,6 +31,6 @@ en:
           training_site: Site
           training_type: Type
         new:
-          title: New PD Training Session
+          page_title: New PD Training Session
         show:
-          title: PD Training Session
+          page_title: PD Training Session

@@ -7,11 +7,25 @@ require "rails_helper"
 # to patients/new and this test will need updating.
 describe "A user adds a patient" do
   describe "add patient flow" do
-    let(:user) { create(:user, :clinical) }
-
     it "adds a patient successfully" do
-      login_as user
-      visit new_patient_path
+      allow(Renalware.config)
+        .to receive(:patient_hospital_identifiers)
+        .and_return(
+          {
+            KCH: :local_patient_id,
+            QEH: :local_patient_id_2,
+            DVH: :local_patient_id_3,
+            PRUH: :local_patient_id_4,
+            GUYS: :local_patient_id_5
+          }
+        )
+
+      login_as_clinical
+      visit patients_path
+
+      within ".page-actions" do
+        click_link "Add"
+      end
 
       expect(page).to have_field "Hospital centre", with: ""
 

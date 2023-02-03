@@ -109,7 +109,7 @@ module Renalware
       end
 
       def cache_key
-        "#{patient.cache_key}/sparkline/#{observation_description.id}"
+        "#{patient.cache_key_with_version}/sparkline/#{observation_description.id}"
       end
 
       # Because we cache the component html inside the view sidecar, we want to

@@ -40,8 +40,8 @@ module Renalware
           )
 
           expect(attachment).not_to be_valid
-          expect(attachment.errors.first).to eq(
-            [:file, "Sorry, the file is too large. The maximum is #{max_bytes} bytes."]
+          expect(attachment.errors[:file]&.first).to eq(
+            "Sorry, the file is too large. The maximum is #{max_bytes} bytes."
           )
         end
 

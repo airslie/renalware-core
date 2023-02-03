@@ -1892,7 +1892,8 @@ CREATE TABLE renalware.active_storage_blobs (
     metadata text,
     byte_size bigint NOT NULL,
     checksum character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    service_name character varying NOT NULL
 );
 
 
@@ -1913,6 +1914,36 @@ CREATE SEQUENCE renalware.active_storage_blobs_id_seq
 --
 
 ALTER SEQUENCE renalware.active_storage_blobs_id_seq OWNED BY renalware.active_storage_blobs.id;
+
+
+--
+-- Name: active_storage_variant_records; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.active_storage_variant_records (
+    id bigint NOT NULL,
+    blob_id bigint NOT NULL,
+    variation_digest character varying NOT NULL
+);
+
+
+--
+-- Name: active_storage_variant_records_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.active_storage_variant_records_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: active_storage_variant_records_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.active_storage_variant_records_id_seq OWNED BY renalware.active_storage_variant_records.id;
 
 
 --
@@ -4078,6 +4109,27 @@ ALTER SEQUENCE renalware.feed_practice_gps_id_seq OWNED BY renalware.feed_practi
 
 
 --
+-- Name: good_job_batches; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.good_job_batches (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    description text,
+    serialized_properties jsonb,
+    on_finish text,
+    on_success text,
+    on_discard text,
+    callback_queue_name text,
+    callback_priority integer,
+    enqueued_at timestamp(6) without time zone,
+    discarded_at timestamp(6) without time zone,
+    finished_at timestamp(6) without time zone
+);
+
+
+--
 -- Name: good_job_processes; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -4121,7 +4173,9 @@ CREATE TABLE renalware.good_jobs (
     concurrency_key text,
     cron_key text,
     retried_good_job_id uuid,
-    cron_at timestamp without time zone
+    cron_at timestamp without time zone,
+    batch_id uuid,
+    batch_callback_id uuid
 );
 
 
@@ -12506,6 +12560,13 @@ ALTER TABLE ONLY renalware.active_storage_blobs ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: active_storage_variant_records id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.active_storage_variant_records ALTER COLUMN id SET DEFAULT nextval('renalware.active_storage_variant_records_id_seq'::regclass);
+
+
+--
 -- Name: addresses id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -14151,6 +14212,14 @@ ALTER TABLE ONLY renalware.active_storage_blobs
 
 
 --
+-- Name: active_storage_variant_records active_storage_variant_records_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.active_storage_variant_records
+    ADD CONSTRAINT active_storage_variant_records_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: activesupport_cache_entries activesupport_cache_entries_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -14476,6 +14545,14 @@ ALTER TABLE ONLY renalware.feed_outgoing_documents
 
 ALTER TABLE ONLY renalware.feed_practice_gps
     ADD CONSTRAINT feed_practice_gps_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: good_job_batches good_job_batches_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.good_job_batches
+    ADD CONSTRAINT good_job_batches_pkey PRIMARY KEY (id);
 
 
 --
@@ -16328,6 +16405,13 @@ CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON renalware.active_storag
 
 
 --
+-- Name: index_active_storage_variant_records_uniqueness; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON renalware.active_storage_variant_records USING btree (blob_id, variation_digest);
+
+
+--
 -- Name: index_activesupport_cache_entries_on_created_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -17168,6 +17252,13 @@ CREATE INDEX index_good_jobs_jobs_on_finished_at ON renalware.good_jobs USING bt
 
 
 --
+-- Name: index_good_jobs_jobs_on_priority_created_at_when_unfinished; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_jobs_jobs_on_priority_created_at_when_unfinished ON renalware.good_jobs USING btree (priority DESC NULLS LAST, created_at) WHERE (finished_at IS NULL);
+
+
+--
 -- Name: index_good_jobs_on_active_job_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -17179,6 +17270,20 @@ CREATE INDEX index_good_jobs_on_active_job_id ON renalware.good_jobs USING btree
 --
 
 CREATE INDEX index_good_jobs_on_active_job_id_and_created_at ON renalware.good_jobs USING btree (active_job_id, created_at);
+
+
+--
+-- Name: index_good_jobs_on_batch_callback_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_jobs_on_batch_callback_id ON renalware.good_jobs USING btree (batch_callback_id) WHERE (batch_callback_id IS NOT NULL);
+
+
+--
+-- Name: index_good_jobs_on_batch_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_jobs_on_batch_id ON renalware.good_jobs USING btree (batch_id) WHERE (batch_id IS NOT NULL);
 
 
 --
@@ -23067,6 +23172,14 @@ ALTER TABLE ONLY renalware.transplant_rejection_episodes
 
 
 --
+-- Name: active_storage_variant_records fk_rails_993965df05; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.active_storage_variant_records
+    ADD CONSTRAINT fk_rails_993965df05 FOREIGN KEY (blob_id) REFERENCES renalware.active_storage_blobs(id);
+
+
+--
 -- Name: event_subtypes fk_rails_9a3dea7f8e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -25206,6 +25319,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221013094654'),
 ('20221027100532'),
 ('20230112115053'),
+('20230203174406'),
+('20230203174407'),
+('20230206192010'),
+('20230206192011'),
+('20230206192012'),
 ('20230213103715'),
 ('20230215105027'),
 ('20230221110514'),

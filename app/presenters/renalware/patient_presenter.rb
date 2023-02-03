@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware
-  class PatientPresenter < SimpleDelegator
+  class PatientPresenter < DumbDelegator
     def address
       AddressPresenter::SingleLine.new(current_address)
     end
@@ -14,19 +14,21 @@ module Renalware
       return super unless super.present? && super.length >= 10
       return if super.index(" ")
 
-      "#{super[0..2]} #{super[3..5]} #{super[6..-1]}"
+      # "#{super[0..2]} #{super[3..5]} #{super[6..-1]}"
+      # Rubocop prefers:
+      "#{super[0..2]} #{super[3..5]} #{super[6..]}"
     end
 
     def rpv_decision
       [
-        I18n.l(rpv_decision_on),
+        ::I18n.l(rpv_decision_on),
         rpv_recorded_by
       ].compact.join(" by ")
     end
 
     def renalreg_decision
       [
-        I18n.l(renalreg_decision_on),
+        ::I18n.l(renalreg_decision_on),
         renalreg_recorded_by
       ].compact.join(" by ")
     end

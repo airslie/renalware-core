@@ -2,7 +2,7 @@
 
 module Renalware
   module HD
-    class StationPresenter < SimpleDelegator
+    class StationPresenter < DumbDelegator
       def name
         super.presence || "Unnamed Station"
       end

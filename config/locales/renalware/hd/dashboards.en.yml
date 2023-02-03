@@ -8,4 +8,5 @@ en:
           protocol: Print HD Session Form
           record_hd_drugs: Record HD Drugs
         show:
+          page_title: HD Summary
           title: HD Summary

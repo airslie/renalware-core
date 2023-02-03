@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :medication_delivery_event, class: "Renalware::Medications::Delivery::Event" do
     homecare_form factory: :homecare_form
-    patient
+    # patient
     accountable
     printed { false }
     reference_number { Time.zone.now.to_i }
