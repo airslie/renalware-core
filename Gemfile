@@ -16,7 +16,7 @@ gem "aws-sdk-s3", require: false # for active storage when using Heroku for test
 gem "bootsnap", require: false # speeds up rspec and rails server boot time in development
 gem "daemons", require: false # to use cmds like `bin/delayed_job start`
 gem "faker"
-gem "i18n-tasks", "~> 0.9.33"
+gem "i18n-tasks", "~> 1.0.12"
 gem "jsbundling-rails", "~> 1.0"
 gem "net-smtp", require: false # remove in Rails 7
 gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
@@ -54,7 +54,7 @@ group :test do
   gem "rspec-html-matchers", require: false
   gem "rspec_junit_formatter", "~> 0.4"
   gem "rspec-retry"
-  gem "selenium-webdriver"
+  gem "selenium-webdriver", "~> 4.5.0"
   gem "shoulda-matchers", "~> 5.1"
   gem "simplecov", "~> 0.17", require: false # only loaded if required
   gem "test-prof"

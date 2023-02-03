@@ -103,11 +103,7 @@ module Renalware
               to: modality.ended_on
             ).call
 
-            # p profiles.to_sql
-
-            profiles -= Array(hd_profile_at_start_of_modality)
-            # p "found #{profiles.size} profiles #{profiles.map(&:id)} between "\
-            #    "#{modality.started_on} and #{modality.ended_on}"
+            profiles -= [hd_profile_at_start_of_modality]
             profiles
           end
 

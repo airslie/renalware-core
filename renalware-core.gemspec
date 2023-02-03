@@ -53,7 +53,7 @@ Gem::Specification.new do |s|
   s.add_dependency "dumb_delegator", "~> 0.8.0"
   s.add_dependency "ed25519"
   s.add_dependency "email_validator", "> 1.6.0"
-  s.add_dependency "enumerize", "~> 2.4.0"
+  s.add_dependency "enumerize", "~> 2.5.0"
   s.add_dependency "font-awesome-sass", "~> 5.6" # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
   s.add_dependency "friendly_id", "~> 5.3"
   s.add_dependency "groupdate", ">= 4.2", "< 6"
@@ -82,7 +82,7 @@ Gem::Specification.new do |s|
   s.add_dependency "prawn", "~> 2.2"
   s.add_dependency "psych", "< 4" # required for ruby 3.1.3 to avoid invalid database.yml error
   s.add_dependency "puma", ">= 4.3"
-  s.add_dependency "pundit", "~> 2.2.0"
+  s.add_dependency "pundit", "~> 2.3.0"
   s.add_dependency "rack", ">= 2", "< 4"
   s.add_dependency "rack-attack", "~> 6.5"
   s.add_dependency "rails", "> 5.2", "< 6.1"
