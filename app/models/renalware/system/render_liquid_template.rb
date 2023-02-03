@@ -5,8 +5,8 @@ require "liquid" # See https://github.com/Shopify/liquid
 module Renalware
   module System
     class RenderLiquidTemplate
-      def self.call(**args)
-        new.call(**args)
+      def self.call(...)
+        new.call(...)
       end
 
       # Takes the #body of a database-stored Template model, parses it with the Liquid gem to insert

@@ -5,8 +5,8 @@ module Renalware
     class AdmissionQuery
       pattr_initialize :query
 
-      def self.call(query)
-        new(query).call
+      def self.call(...)
+        new(...).call
       end
 
       def call

@@ -11,8 +11,8 @@ module Renalware
         attribute :file_type, Renalware::Feeds::FileType
         attribute :user, Renalware::User
 
-        def self.call(*args)
-          new(*args).call
+        def self.call(...)
+          new(...).call
         end
 
         def call

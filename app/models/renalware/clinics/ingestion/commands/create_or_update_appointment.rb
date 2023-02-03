@@ -10,8 +10,8 @@ module Renalware
           delegate :clinic, :visit_number, :consulting_doctor, to: :pv1
           delegate :expected_admit_date, to: :pv2
 
-          def self.call(message)
-            new(message).call
+          def self.call(...)
+            new(...).call
           end
 
           # If we match incomining clinic code then we create an appointment. This might mean

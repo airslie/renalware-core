@@ -6,8 +6,8 @@ module Renalware
   module Feeds
     module Files
       class EnqueueFileForBackgroundProcessing
-        def self.call(file)
-          new.call(file)
+        def self.call(...)
+          new.call(...)
         end
 
         def call(file)

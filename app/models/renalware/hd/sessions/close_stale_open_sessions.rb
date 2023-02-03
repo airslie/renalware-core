@@ -50,11 +50,11 @@ module Renalware
           end
         end
 
-        def self.call(performed_before: 3.days.ago)
-          new(performed_before: performed_before).call
+        def self.call(...)
+          new(...).call
         end
 
-        def initialize(performed_before:)
+        def initialize(performed_before: 3.days.ago)
           @performed_before = performed_before
           @closed_session_ids = []
           @unclosed_session_ids = []

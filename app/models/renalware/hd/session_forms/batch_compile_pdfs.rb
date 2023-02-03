@@ -12,8 +12,8 @@ module Renalware
       class BatchCompilePdfs
         include PdfCompilation
 
-        def self.call(batch, user)
-          new(batch, user).call
+        def self.call(...)
+          new(...).call
         end
 
         def initialize(batch, user)

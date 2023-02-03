@@ -18,8 +18,8 @@ module Renalware
         include PdfCombining
         PAGE_COUNTS = %w(2 3 4 5 6 7 8 9 10).freeze
 
-        def self.call(batch, user)
-          new(batch, user).call
+        def self.call(...)
+          new(...).call
         end
 
         def initialize(batch, user)
