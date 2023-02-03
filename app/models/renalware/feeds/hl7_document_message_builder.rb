@@ -2,36 +2,6 @@
 
 require "renalware/letters"
 
-# TODO: move
-# For some reason the hl7_ruby gem does not implement a TXA segment so implementing here based on
-# https://hl7-definition.caristix.com/v2/HL7v2.8/Segments/TXA
-class HL7::Message::Segment::TXA < HL7::Message::Segment
-  weight 2
-  add_field :set_id
-  add_field :document_type
-  add_field :document_content_presentation
-  add_field :activity_datetime
-  add_field :primary_activity_provider_code
-  add_field :origination_datetime
-  add_field :transcription_datetime
-  add_field :edit_datetime
-  add_field :originator_codename
-  add_field :assigned_document_authenticator
-  add_field :transcriptionist_codename
-  add_field :unique_document_number
-  add_field :parent_document_number
-  add_field :placer_order_number
-  add_field :filler_order_number
-  add_field :unique_document_file_name
-  add_field :document_completion_status
-  add_field :document_confidentiality_status
-  add_field :document_availability_status
-  add_field :document_storage_status
-  add_field :document_change_reason
-  add_field :authentication_person
-  add_field :distributed_copies
-end
-
 # rubocop:disable Metrics/AbcSize, Metrics/ClassLength
 module Renalware
   module Feeds
@@ -124,7 +94,7 @@ module Renalware
         seg = HL7::Message::Segment::TXA.new
         seg.document_type = "#{external_document_type_code}^#{external_document_type_description}"
         seg.document_content_presentation = "ED^Electronic Document"
-        seg.activity_datetime = approved_at
+        seg.activity_date_time = approved_at
         # primary_activity_provider_code is the author
         seg.primary_activity_provider_code = <<-AUTHOR.squish
           #{author.family_name}^#{author.given_name}^#{author.gmc_code}
@@ -132,7 +102,7 @@ module Renalware
 
         # TXA.6 Origination timestamp - the date the letter was Approved ie became effectively
         # 'sent' and therefore immutable
-        seg.origination_datetime = approved_at
+        seg.origination_date_time = approved_at
         seg.unique_document_number = renderable.id
         seg.unique_document_file_name = filename
         seg.document_completion_status = "AU"
