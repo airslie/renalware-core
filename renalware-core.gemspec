@@ -50,7 +50,7 @@ Gem::Specification.new do |s|
   s.add_dependency "diff-lcs"
   s.add_dependency "diffy"
   s.add_dependency "dotenv-rails", "~> 2.5"
-  s.add_dependency "dumb_delegator", "~> 1.0"
+  s.add_dependency "dumb_delegator", "~> 0.8.0"
   s.add_dependency "ed25519"
   s.add_dependency "email_validator", "> 1.6.0"
   s.add_dependency "enumerize", "~> 2.5.0"

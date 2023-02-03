@@ -2,6 +2,7 @@
 
 require "core_extensions/i18n/handle_blank_value"
 require "core_extensions/i18n/always_cascade"
+require "core_extensions/dumb_delegator"
 require "core_extensions/date"
 require "core_extensions/active_support/duration_additions"
 require "core_extensions/resolve_scenic_views_in_engine_only"
