@@ -5,8 +5,8 @@ module Renalware
     class ClearPatientUKRDCData
       pattr_initialize [:patient!, :by!]
 
-      def self.call(**args)
-        new(**args).call
+      def self.call(...)
+        new(...).call
       end
 
       # Note that we want to avoid any patient validation errors (email is invalid etc)

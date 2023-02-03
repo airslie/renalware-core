@@ -4,12 +4,12 @@ module Renalware
   module HD
     module Housekeeping
       class RemoveStaleFiles
-        def initialize(created_before: nil)
-          @created_before = created_before || 2.days.ago
-        end
-
         def self.call(...)
           new(...).call
+        end
+
+        def initialize(created_before: nil)
+          @created_before = created_before || 2.days.ago
         end
 
         def call

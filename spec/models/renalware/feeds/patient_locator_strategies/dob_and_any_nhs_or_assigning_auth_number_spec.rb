@@ -86,12 +86,13 @@ module Renalware::Feeds
             born_on: born_on,
             identifiers: locator_args
           )
-          locator = described_class.new(patient_identification: patient_identification)
+
+          result = described_class.call(patient_identification: patient_identification)
 
           if hash[:found]
-            expect(locator.call).to eq(patient)
+            expect(result).to eq(patient)
           else
-            expect(locator.call).to be_nil
+            expect(result).to be_nil
           end
         end
       end

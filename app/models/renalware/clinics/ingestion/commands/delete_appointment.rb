@@ -9,8 +9,8 @@ module Renalware
           delegate :patient_identification, :pv1, to: :message
           delegate :clinic, :visit_number, to: :pv1
 
-          def self.call(message)
-            new(message).call
+          def self.call(...)
+            new(...).call
           end
 
           def call

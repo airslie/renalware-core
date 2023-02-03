@@ -6,7 +6,7 @@ module Renalware
   module Messaging
     module Internal
       describe SendMessage do
-        subject(:service) { described_class.new }
+        subject(:service) { described_class }
 
         let(:patient)    { create(:messaging_patient) }
         let(:author)     { create(:internal_author) }
