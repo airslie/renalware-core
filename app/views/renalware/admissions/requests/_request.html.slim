@@ -2,9 +2,8 @@ ruby:
   patient = request.patient
   editing_history = "Created #{l(request.created_at)} by #{request.created_by}\n"\
                     "Updated #{l(request.updated_at)} by #{request.updated_by}"
-= content_tag_for(:tr,
-                  request,
-                  class: "sortable priority-#{request.priority}") do
+
+tr.admissions_request(id=dom_id(request) class="sortable priority-#{request.priority}")
   td(class="sortable-position-for-model-id-#{request.id}")= request.position
   td.priority
     span= request.priority.text

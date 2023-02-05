@@ -24,7 +24,7 @@
         th.col-width-date-time Deleted at
     tbody.sortables(data-rel=sort_virology_vaccination_types_path)
       - types.each do |type|
-        = content_tag_for(:tr, type, class: "sortable #{type.deleted? ? 'deleted' : ''}") do
+        tr.virology_vaccination_type(id=dom_id(type) class="sortable #{type.deleted? ? 'deleted' : ''}")
           td.actions
             - unless type.deleted?
               =link_to "Edit", edit_virology_vaccination_type_path(type)
