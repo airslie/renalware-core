@@ -1,16 +1,8 @@
-.mdm-page .embedded-scroll {
-  margin-bottom: 10px;
-
-  article {
-    margin-bottom: 0;
-  }
-}
-
 .mdm-page .obs-result {
   :first-child {
     display: inline-block;
     font-weight: bold;
-    margin-right: .5rem;
+    margin-right: 0.5rem;
     min-width: 2.75rem;
     white-space: nowrap;
   }
@@ -30,6 +22,6 @@
   &.expanded {
     height: auto;
     opacity: 1;
-    transition: all .2s; // ease .15s;
+    transition: all 0.2s; // ease .15s;
   }
 }

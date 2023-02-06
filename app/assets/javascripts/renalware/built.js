@@ -6876,7 +6876,7 @@ var $$4 = window.$;
 // nested in a tbody (this is valid HTML) - ie there are probably two trs per tbody, and the last
 // one is toggleable. If you need anyting more complex you'll need to clone or adapt this
 // controller
-var _default$t = /*#__PURE__*/function (_Controller) {
+var _default$u = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -6921,7 +6921,7 @@ var _default$t = /*#__PURE__*/function (_Controller) {
 }(Controller);
 
 /*  Single use controller only for the Dietetic Clinic Visit */
-var _default$s = /*#__PURE__*/function (_Controller) {
+var _default$t = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -6961,14 +6961,14 @@ var _default$s = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$s, "targets", ["output"]);
-_defineProperty$x(_default$s, "values", {
+_defineProperty$x(_default$t, "targets", ["output"]);
+_defineProperty$x(_default$t, "values", {
   weightSelector: String,
   heightSelector: String
 });
 
 /*  Single use controller only for the Dietetic Clinic Visit */
-var _default$r = /*#__PURE__*/function (_Controller) {
+var _default$s = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -7005,13 +7005,13 @@ var _default$r = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$r, "targets", ["previousWeight", "output"]);
-_defineProperty$x(_default$r, "values", {
+_defineProperty$x(_default$s, "targets", ["previousWeight", "output"]);
+_defineProperty$x(_default$s, "values", {
   weightSelector: String
 });
 
 /*  Single use controller only for the Dietetic Clinic Visit */
-var _default$q = /*#__PURE__*/function (_Controller) {
+var _default$r = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -7048,10 +7048,10 @@ var _default$q = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$q, "targets", ["proteinIntake", "output"]);
+_defineProperty$x(_default$r, "targets", ["proteinIntake", "output"]);
 
 var $$3 = window.$;
-var _default$p = /*#__PURE__*/function (_Controller) {
+var _default$q = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -7074,13 +7074,13 @@ var _default$p = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$p, "targets", ["container", "radio"]);
+_defineProperty$x(_default$q, "targets", ["container", "radio"]);
 
 var Rails$2 = window.Rails;
 
 // Handles the modal dialog used for presenting Home Delivery print options to
 // the user. Used on the prescrptions page.
-var _default$o = /*#__PURE__*/function (_Controller) {
+var _default$p = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -7110,10 +7110,10 @@ var _default$o = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$o, "targets", ["form", "printOptions", "printFeedback"]);
+_defineProperty$x(_default$p, "targets", ["form", "printOptions", "printFeedback"]);
 
 var $$2 = window.$;
-var _default$n = /*#__PURE__*/function (_Controller) {
+var _default$o = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -7135,7 +7135,7 @@ var _default$n = /*#__PURE__*/function (_Controller) {
 }(Controller);
 
 var $$1 = window.$;
-var _default$m = /*#__PURE__*/function (_Controller) {
+var _default$n = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -7161,11 +7161,11 @@ var _default$m = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$m, "targets", ["trix"]);
+_defineProperty$x(_default$n, "targets", ["trix"]);
 
 // Handles the modal dialog used for presenting Home Delivery print options to
 // the user. Used on the prescrptions page.
-var _default$l = /*#__PURE__*/function (_Controller) {
+var _default$m = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -7195,7 +7195,7 @@ var _default$l = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$l, "targets", ["homeDeliveryDates", "providers"]);
+_defineProperty$x(_default$m, "targets", ["homeDeliveryDates", "providers"]);
 
 /*! (c) Andrea Giammarchi - ISC */
 var self$1 = {};
@@ -19719,7 +19719,7 @@ var highcharts = {exports: {}};
 
 var Highcharts$1 = highcharts.exports;
 
-var _default$k = /*#__PURE__*/function (_Controller) {
+var _default$l = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -19843,11 +19843,11 @@ var _default$k = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$k, "targets", ["chart",
+_defineProperty$x(_default$l, "targets", ["chart",
 // chart container
 "period" // array of period (10y, 3y..) links
 ]);
-_defineProperty$x(_default$k, "values", {
+_defineProperty$x(_default$l, "values", {
   url: String,
   // API endpoint for chart json
   title: String,
@@ -19858,7 +19858,7 @@ _defineProperty$x(_default$k, "values", {
   // eg Kg
   yAxisType: String // linear or logarithmic
 });
-_defineProperty$x(_default$k, "classes", ["currentPeriod" // Maps to a CSS class name via data attribute on controller element
+_defineProperty$x(_default$l, "classes", ["currentPeriod" // Maps to a CSS class name via data attribute on controller element
 ]);
 
 var Rails$1 = window.Rails;
@@ -19916,7 +19916,7 @@ var _ = window._;
 //   active
 // - Not quite sure if putting the data attribute config settings in the body
 //   tag is the right thing to do - perhaps should be in a config .js.erb
-var _default$j = /*#__PURE__*/function (_Controller) {
+var _default$k = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -20115,7 +20115,7 @@ var _default$j = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$i = /*#__PURE__*/function (_Controller) {
+var _default$j = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -20139,9 +20139,9 @@ var _default$i = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$i, "targets", ["toggleable"]);
+_defineProperty$x(_default$j, "targets", ["toggleable"]);
 
-var _default$h = /*#__PURE__*/function (_Controller) {
+var _default$i = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -20192,7 +20192,7 @@ var _default$h = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$h, "targets", ["tab", "panel"]);
+_defineProperty$x(_default$i, "targets", ["tab", "panel"]);
 
 var highchartsMore = {exports: {}};
 
@@ -24241,7 +24241,7 @@ var More = highchartsMore.exports;
 // highcharts-more working using Chart or when both Chart + Highcharts loaded.
 var $ = window.$;
 More(Highcharts$1);
-var _default$g = /*#__PURE__*/function (_Controller) {
+var _default$h = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -24393,7 +24393,7 @@ var _default$g = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$f = /*#__PURE__*/function (_Controller) {
+var _default$g = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -24596,7 +24596,7 @@ var hasRenderToArg = typeof a === 'string' || a.nodeName,
     new Highcharts.Chart(options, b)
 }
  */
-_defineProperty$x(_default$f, "targets", ["chart"]);
+_defineProperty$x(_default$g, "targets", ["chart"]);
 
 // Controller to enable collapsing elements of a nav/menu to for example
 // allow a more dense menu that can simplifies by hiding/collapsing sections.
@@ -24610,7 +24610,7 @@ _defineProperty$x(_default$f, "targets", ["chart"]);
 //   a(data-action="collapsible#open" data-collapsible-target="link" href="#") Y
 //   div.collapsible(data-collapsible-target="section")
 //     p YYY
-var _default$e = /*#__PURE__*/function (_Controller) {
+var _default$f = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -24641,10 +24641,10 @@ var _default$e = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$e, "targets", ["section", "link"]);
-_defineProperty$x(_default$e, "classes", ["open"]);
+_defineProperty$x(_default$f, "targets", ["section", "link"]);
+_defineProperty$x(_default$f, "classes", ["open"]);
 
-var _default$d = /*#__PURE__*/function (_Controller) {
+var _default$e = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -24681,10 +24681,10 @@ var _default$d = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$d, "targets", ["source", "target"]);
+_defineProperty$x(_default$e, "targets", ["source", "target"]);
 
 // Used with patient attachments aka linked files.
-var _default$c = /*#__PURE__*/function (_Controller) {
+var _default$d = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -24706,7 +24706,7 @@ var _default$c = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$c, "targets", ["fileBrowser", "externalLocation"]);
+_defineProperty$x(_default$d, "targets", ["fileBrowser", "externalLocation"]);
 
 /**!
  * Sortable 1.15.0
@@ -27299,7 +27299,7 @@ Sortable.mount(Remove, Revert);
 // - specify class for handle, defaulting to .handle
 // - default containerTarget to the ul that the controller is added to
 // - support posting to the server to sort results.
-var _default$b = /*#__PURE__*/function (_Controller) {
+var _default$c = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -27317,10 +27317,10 @@ var _default$b = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$b, "targets", ["container"]);
+_defineProperty$x(_default$c, "targets", ["container"]);
 
 var Rails = window.Rails;
-var _default$a = /*#__PURE__*/function (_Controller) {
+var _default$b = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -27369,7 +27369,7 @@ var _default$a = /*#__PURE__*/function (_Controller) {
 //   input(type="radio" value="yes" ..)
 //   input(type="radio" value="no" ..)
 //   ...
-var _default$9 = /*#__PURE__*/function (_Controller) {
+var _default$a = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -27390,11 +27390,11 @@ var _default$9 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$9, "values", {
+_defineProperty$x(_default$a, "values", {
   match: String
 });
 
-var _default$8 = /*#__PURE__*/function (_Controller) {
+var _default$9 = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -27424,8 +27424,8 @@ var _default$8 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$8, "targets", ["displayable"]);
-_defineProperty$x(_default$8, "values", {
+_defineProperty$x(_default$9, "targets", ["displayable"]);
+_defineProperty$x(_default$9, "values", {
   attributeToTest: String
 });
 
@@ -28141,7 +28141,7 @@ var exports = {};
 });
 var SlimSelect = exports.SlimSelect;
 
-var _default$7 = /*#__PURE__*/function (_Controller) {
+var _default$8 = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -28163,11 +28163,11 @@ var _default$7 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$7, "values", {
+_defineProperty$x(_default$8, "values", {
   options: Object
 });
 
-var _default$6 = /*#__PURE__*/function (_Controller) {
+var _default$7 = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -28219,7 +28219,7 @@ var _default$6 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$6, "targets", ["modal"]);
+_defineProperty$x(_default$7, "targets", ["modal"]);
 
 /**
  * Returns a function, that, as long as it continues to be invoked, will not
@@ -28302,7 +28302,7 @@ var debounce_1 = debounce$1;
     - action: "input->form#submit" will need to change depending on input type eg
       select, radio, but will cause the form to submit
 */
-var _default$5 = /*#__PURE__*/function (_Controller) {
+var _default$6 = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -28324,7 +28324,7 @@ var _default$5 = /*#__PURE__*/function (_Controller) {
 }(Controller);
 
 // Inspired by https://www.youtube.com/watch?v=gk_qDsKMIrM&t=528s
-var _default$4 = /*#__PURE__*/function (_Controller) {
+var _default$5 = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -30479,7 +30479,7 @@ if (typeof window !== "undefined") {
   window.flatpickr = flatpickr;
 }
 
-var _default$3 = {exports: {}};
+var _default$4 = {exports: {}};
 
 (function (module, exports) {
 	(function (global, factory) {
@@ -30528,7 +30528,7 @@ var _default$3 = {exports: {}};
 	    value: true
 	  });
 	});
-} (_default$3, _default$3.exports));
+} (_default$4, _default$4.exports));
 
 function toInteger(dirtyNumber) {
   if (dirtyNumber === null || dirtyNumber === true || dirtyNumber === false) {
@@ -38071,8 +38071,8 @@ var dateConfig = {
   },
   locale: {
     firstDayOfWeek: 1,
-    months: _objectSpread2$1(_objectSpread2$1({}, _default$3.exports.english.months), {}, {
-      shorthand: [].concat(_toConsumableArray(_default$3.exports.english.months.shorthand), [
+    months: _objectSpread2$1(_objectSpread2$1({}, _default$4.exports.english.months), {}, {
+      shorthand: [].concat(_toConsumableArray(_default$4.exports.english.months.shorthand), [
       // Allow users to input numbers in date field instead of Jan, Feb
       // Because we can't directly change `tokenRegex`, add the numbers to the
       // month shorthand locale, so they'll end up in the regexp string
@@ -38103,7 +38103,7 @@ var dateWithTimeConfig = {
   enableTime: true,
   dateFormat: "d-M-Y H:i"
 };
-var _default$2 = /*#__PURE__*/function (_Controller) {
+var _default$3 = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -38134,7 +38134,7 @@ var _default$2 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$2, "values", {
+_defineProperty$x(_default$3, "values", {
   timeOnly: Boolean,
   dateWithTime: Boolean
 });
@@ -38142,7 +38142,7 @@ _defineProperty$x(_default$2, "values", {
 /*
   Adds a warning if selected value is not allowed
 */
-var _default$1 = /*#__PURE__*/function (_Controller) {
+var _default$2 = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -38171,12 +38171,12 @@ var _default$1 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$1, "values", {
+_defineProperty$x(_default$2, "values", {
   notRecommended: Array
 });
-_defineProperty$x(_default$1, "targets", ["input", "message"]);
+_defineProperty$x(_default$2, "targets", ["input", "message"]);
 
-var _default = /*#__PURE__*/function (_Controller) {
+var _default$1 = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -38193,39 +38193,89 @@ var _default = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default, "values", {
+_defineProperty$x(_default$1, "values", {
   frameId: String
 });
 
-application.register("toggle", _default$t);
-application.register("hd-prescription-administration", _default$p);
-application.register("home-delivery-modal", _default$o);
-application.register("snippets", _default$n);
-application.register("letters-form", _default$m);
-application.register("prescriptions", _default$l);
-application.register("charts", _default$k);
-application.register("session", _default$j);
-application.register("simple-toggle", _default$i);
-application.register("tabs", _default$h);
-application.register("pd-pet-chart", _default$g);
-application.register("pathology-sparklines", _default$f);
-application.register("collapsible", _default$e);
-application.register("dependent-select", _default$d);
-application.register("patient-attachments", _default$c);
-application.register("sortable", _default$b);
-application.register("select", _default$a);
-application.register("radio-reset", _default$9);
-application.register("conditional-display", _default$8);
-application.register("slimselect", _default$7);
-application.register("turbo-modal", _default$6);
-application.register("form", _default$5);
-application.register("flash", _default$4);
-application.register("flatpickr", _default$2);
-application.register("input-value-alerter", _default$1);
-application.register("select-update-frame", _default);
-application.register("clinics--bmi-calculator", _default$s);
-application.register("clinics--weight-change-calculator", _default$r);
-application.register("clinics--dietary-protein-calculator", _default$q);
+// Inspired by https://stackoverflow.com/a/56952952/4405214
+var _default = /*#__PURE__*/function (_Controller) {
+  _inherits$w(_default, _Controller);
+  var _super = _createSuper$w(_default);
+  function _default() {
+    _classCallCheck$x(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass$x(_default, [{
+    key: "connect",
+    value: function connect() {
+      this.doubleScroll(this.element);
+    }
+  }, {
+    key: "doubleScroll",
+    value: function doubleScroll(element) {
+      var scrollbar = document.createElement("div");
+      scrollbar.appendChild(document.createElement("div"));
+      scrollbar.style.overflow = "auto";
+      scrollbar.style.overflowY = "hidden";
+      scrollbar.firstChild.style.width = element.scrollWidth + "px";
+      scrollbar.firstChild.style.paddingTop = "1px";
+      var running = false;
+      // Keep scrollbar in sync when element size changes
+      new ResizeObserver(function () {
+        scrollbar.firstChild.style.width = element.scrollWidth + "px";
+      }).observe(element);
+      scrollbar.onscroll = function () {
+        if (running) {
+          running = false;
+          return;
+        }
+        running = true;
+        element.scrollLeft = scrollbar.scrollLeft;
+      };
+      element.onscroll = function () {
+        if (running) {
+          running = false;
+          return;
+        }
+        running = true;
+        scrollbar.scrollLeft = element.scrollLeft;
+      };
+      element.parentNode.insertBefore(scrollbar, element);
+    }
+  }]);
+  return _default;
+}(Controller);
+
+application.register("toggle", _default$u);
+application.register("hd-prescription-administration", _default$q);
+application.register("home-delivery-modal", _default$p);
+application.register("snippets", _default$o);
+application.register("letters-form", _default$n);
+application.register("prescriptions", _default$m);
+application.register("charts", _default$l);
+application.register("session", _default$k);
+application.register("simple-toggle", _default$j);
+application.register("tabs", _default$i);
+application.register("pd-pet-chart", _default$h);
+application.register("pathology-sparklines", _default$g);
+application.register("collapsible", _default$f);
+application.register("dependent-select", _default$e);
+application.register("patient-attachments", _default$d);
+application.register("sortable", _default$c);
+application.register("select", _default$b);
+application.register("radio-reset", _default$a);
+application.register("conditional-display", _default$9);
+application.register("slimselect", _default$8);
+application.register("turbo-modal", _default$7);
+application.register("form", _default$6);
+application.register("flash", _default$5);
+application.register("flatpickr", _default$3);
+application.register("input-value-alerter", _default$2);
+application.register("select-update-frame", _default$1);
+application.register("clinics--bmi-calculator", _default$t);
+application.register("clinics--weight-change-calculator", _default$s);
+application.register("clinics--dietary-protein-calculator", _default$r);
+application.register("add-top-horizontal-scrollbar", _default);
 
 /*
 Turbo 7.1.0

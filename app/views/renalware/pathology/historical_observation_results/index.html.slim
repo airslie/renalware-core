@@ -4,7 +4,7 @@
     p No results available for this patient.
   - else
     p.hint Hover over table then scroll horizontally to view more results.
-    .double-scroll.embedded-scroll.pathology
+    .overflow-auto.pathology data-controller="add-top-horizontal-scrollbar"
       = render "table", table: table, patient: patient
 
     = paginate(table)
