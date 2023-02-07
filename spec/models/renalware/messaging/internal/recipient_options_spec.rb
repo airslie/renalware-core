@@ -30,19 +30,27 @@ module Renalware::Messaging::Internal
     end
 
     def unapprove_user(user)
-      ActiveType.cast(user, ::Renalware::User).update!(approved: false)
+      vanilla_user(user).update!(approved: false)
     end
 
     def expire_user(user)
-      ActiveType.cast(user, ::Renalware::User).update_column(:expired_at, 1.day.ago)
+      vanilla_user(user).update_column(:expired_at, 1.day.ago)
     end
 
     def make_user_inactive(user)
-      ActiveType.cast(user, ::Renalware::User).update_column(:last_activity_at, 10.years.ago)
+      vanilla_user(user).update_column(:last_activity_at, 10.years.ago)
     end
 
     def hide_user(user)
-      ActiveType.cast(user, ::Renalware::User).update_column(:hidden, true)
+      vanilla_user(user).update_column(:hidden, true)
+    end
+
+    def vanilla_user(user)
+      ActiveType.cast(
+        user,
+        ::Renalware::User,
+        force: Renalware.config.force_cast_active_types
+      )
     end
 
     describe "#to_h" do

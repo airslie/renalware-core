@@ -7,7 +7,11 @@ module Renalware
     def table_name_prefix = "pathology_"
 
     def cast_patient(patient)
-      ActiveType.cast(patient, ::Renalware::Pathology::Patient)
+      ActiveType.cast(
+        patient,
+        ::Renalware::Pathology::Patient,
+        force: Renalware.config.force_cast_active_types
+      )
     end
 
     class MissingRequestDescriptionError < StandardError; end

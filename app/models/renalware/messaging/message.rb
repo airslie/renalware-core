@@ -14,7 +14,7 @@ module Renalware
       validates :sent_at, presence: true
 
       belongs_to :patient # no touch required
-      belongs_to :author
+      belongs_to :author, class_name: "Renalware::User"
     end
   end
 end

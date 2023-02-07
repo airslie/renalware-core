@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "activerecord-import", "~> 1.0"
   s.add_dependency "activerecord-postgres_enum", "~> 2.0"
-  s.add_dependency "active_type", "~> 0.7.1"
+  s.add_dependency "active_type", "~> 2.3.2"
   s.add_dependency "ahoy_matey", "~> 4.1.0"
   s.add_dependency "attr_extras", ">= 6.2"
   s.add_dependency "bcrypt_pbkdf"

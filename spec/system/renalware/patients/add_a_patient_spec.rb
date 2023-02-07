@@ -11,8 +11,7 @@ describe "A user adds a patient" do
 
     it "adds a patient successfully" do
       login_as user
-      visit patients_path
-      click_link "Add"
+      visit new_patient_path
 
       expect(page).to have_field "Hospital centre", with: ""
 
