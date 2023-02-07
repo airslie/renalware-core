@@ -7,7 +7,11 @@ module Renalware
     def self.cast_patient(patient)
       return patient if patient.is_a?(::Renalware::PD::Patient)
 
-      ActiveType.cast(patient, ::Renalware::PD::Patient)
+      ActiveType.cast(
+        patient,
+        ::Renalware::PD::Patient,
+        force: Renalware.config.force_cast_active_types
+      )
     end
 
     # PD-specific configuration

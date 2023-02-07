@@ -8,7 +8,7 @@ module Renalware
         validates :message, presence: true
 
         belongs_to :message
-        belongs_to :recipient, touch: true
+        belongs_to :recipient, touch: true, class_name: "Recipient"
 
         scope :unread, -> { where(read_at: nil) }
         scope :read, -> { where.not(read_at: nil) }

@@ -14,7 +14,11 @@ module Renalware
     def self.table_name_prefix = "transplant_"
 
     def self.cast_patient(patient)
-      ActiveType.cast(patient, ::Renalware::Transplants::Patient)
+      ActiveType.cast(
+        patient,
+        ::Renalware::Transplants::Patient,
+        force: Renalware.config.force_cast_active_types
+      )
     end
 
     concerning :Queries do
