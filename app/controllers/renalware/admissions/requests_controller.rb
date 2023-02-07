@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "renalware/admissions"
-
 module Renalware
   module Admissions
     class RequestsController < BaseController
