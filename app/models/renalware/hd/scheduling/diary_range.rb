@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "renalware/hd"
 require "week_period"
 
 module Renalware

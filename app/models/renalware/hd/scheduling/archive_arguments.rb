@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "renalware/hd"
-
 module Renalware
   module HD
     module Scheduling

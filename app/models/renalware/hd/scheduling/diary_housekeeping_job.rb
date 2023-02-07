@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "renalware/hd"
-
 # A cron job creates this delayed job, which does the following:
 # For all Weekly Diaries in the past, plus this week
 # for each day that is in the past

@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "renalware"
-require "renalware/accesses"
-
 module Renalware
   module Accesses
     class PatientPresenter < SimpleDelegator

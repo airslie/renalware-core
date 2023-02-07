@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "renalware/letters"
-
 module Renalware
   module Letters
     module Delivery
