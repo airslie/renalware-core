@@ -13,6 +13,6 @@ end
 
 namespace :virology do
   resources :vaccination_types do
-    post :sort, on: :collection
+    patch :move, on: :member
   end
 end
