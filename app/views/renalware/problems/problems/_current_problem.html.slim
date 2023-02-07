@@ -1,4 +1,4 @@
-= content_tag_for(:tr, problem, class: "sortable #{'snomed-problem' if problem.snomed_id.present?}") do
+tr(id=dom_id(problem) class="problems_problem sortable #{'snomed-problem' if problem.snomed_id.present?}")
   td.actions
     = link_to t("btn.edit"), patient_problem_path(@patient, problem)
     = link_to t("btn.archive"),

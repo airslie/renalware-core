@@ -12,7 +12,7 @@ table#archived_problems.manual-stripes.auto-layout
 
   = content_tag(:tbody, class: "sortables", data: { rel: sort_patient_problems_path(@patient) }) do
     - problems.each do |problem|
-      = content_tag_for(:tr, problem, class: "sortable #{'snomed-problem' if problem.snomed_id.present?}") do
+      tr(id=dom_id(problem) class="problems_problem sortable #{'snomed-problem' if problem.snomed_id.present?}")
         td
           = link_to t("btn.view"), patient_problem_path(@patient, problem)
         td
