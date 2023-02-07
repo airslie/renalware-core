@@ -30,7 +30,6 @@
 //= require select2/dist/js/select2
 //= require jquery_nested_form
 //= require foundation-datepicker/js/foundation-datepicker
-//= require renalware/double_scroll
 //= require cocoon
 //= require mousetrap/mousetrap
 //= require renalware/iframeResizer

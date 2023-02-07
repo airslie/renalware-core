@@ -29,6 +29,7 @@ import FlashController from "./flash_controller"
 import FlatpickrController from "./flatpickr_controller"
 import InputValueAlerterController from "./input_value_alerter_controller"
 import SelectUpdateFrameController from "./select_update_frame_controller"
+import AddTopHorizontalScrollbarController from "./add_top_horizontal_scrollbar_controller"
 
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
@@ -67,4 +68,8 @@ application.register(
 application.register(
   "clinics--dietary-protein-calculator",
   DietaryProteinCalculatorController
+)
+application.register(
+  "add-top-horizontal-scrollbar",
+  AddTopHorizontalScrollbarController
 )
