@@ -7076,7 +7076,7 @@ var _default$q = /*#__PURE__*/function (_Controller) {
 }(Controller);
 _defineProperty$x(_default$q, "targets", ["container", "radio"]);
 
-var Rails$2 = window.Rails;
+var Rails$3 = window.Rails;
 
 // Handles the modal dialog used for presenting Home Delivery print options to
 // the user. Used on the prescrptions page.
@@ -7093,7 +7093,7 @@ var _default$p = /*#__PURE__*/function (_Controller) {
     // Submit and re-display the form when 'drug type' or 'prescription duration'
     // dropdowns are changed
     function refreshForm() {
-      Rails$2.fire(this.formTarget, "submit");
+      Rails$3.fire(this.formTarget, "submit");
     }
 
     // When the user has clicked Print (launching the PDF in a new tab), hide
@@ -19861,7 +19861,7 @@ _defineProperty$x(_default$l, "values", {
 _defineProperty$x(_default$l, "classes", ["currentPeriod" // Maps to a CSS class name via data attribute on controller element
 ]);
 
-var Rails$1 = window.Rails;
+var Rails$2 = window.Rails;
 var _ = window._;
 
 // This controller has 3 related functions
@@ -20032,7 +20032,7 @@ var _default$k = /*#__PURE__*/function (_Controller) {
   }, {
     key: "ajaxGet",
     value: function ajaxGet(path) {
-      Rails$1.ajax({
+      Rails$2.ajax({
         type: "GET",
         url: path,
         dataType: "text",
@@ -27293,12 +27293,16 @@ _extends(Remove, {
 Sortable.mount(new AutoScrollPlugin());
 Sortable.mount(Remove, Revert);
 
-// Simple controller to add sorting using drag and drop voa the sortablsjs library.
-// Currently just sorts the doam and does not post to the server.
-// Next:
-// - specify class for handle, defaulting to .handle
-// - default containerTarget to the ul that the controller is added to
-// - support posting to the server to sort results.
+//
+// Inspired by https://gorails.com/episodes/rails-drag-and-drop-sortable
+//
+// Annotate html as follows:
+//
+// <div data-controller="sortable" data-sortable-url=move_some_resource_path(id: ":id")>
+//   <% items.each do |item| %>
+//     <div data-id=item.id>...</div>
+//   <% end %>
+// </div>
 var _default$c = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
@@ -27309,17 +27313,33 @@ var _default$c = /*#__PURE__*/function (_Controller) {
   _createClass$x(_default, [{
     key: "connect",
     value: function connect() {
-      Sortable.create(this.containerTarget, {
+      this.sortable = Sortable.create(this.element, {
         handle: ".handle",
-        animation: 150
+        animation: 150,
+        onEnd: this.end.bind(this)
+      });
+    }
+  }, {
+    key: "end",
+    value: function end(event) {
+      var url = this.data.get("url");
+
+      // No direct server persistance
+      if (!url) return;
+      var id = event.item.dataset.id;
+      var data = new FormData();
+      data.append("position", event.newIndex + 1);
+      Rails.ajax({
+        url: url.replace(":id", id),
+        type: "PATCH",
+        data: data
       });
     }
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$c, "targets", ["container"]);
 
-var Rails = window.Rails;
+var Rails$1 = window.Rails;
 var _default$b = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
@@ -27333,7 +27353,7 @@ var _default$b = /*#__PURE__*/function (_Controller) {
       event.preventDefault();
       var selectedOption = this.element.options[this.element.selectedIndex];
       var url = selectedOption.dataset.source;
-      Rails.ajax({
+      Rails$1.ajax({
         type: "GET",
         url: url,
         dataType: "application/js"

@@ -1,20 +1,40 @@
 import { Controller } from "@hotwired/stimulus"
 import { Sortable } from "sortablejs"
 
-// Simple controller to add sorting using drag and drop voa the sortablsjs library.
-// Currently just sorts the doam and does not post to the server.
-// Next:
-// - specify class for handle, defaulting to .handle
-// - default containerTarget to the ul that the controller is added to
-// - support posting to the server to sort results.
+//
+// Inspired by https://gorails.com/episodes/rails-drag-and-drop-sortable
+//
+// Annotate html as follows:
+//
+// <div data-controller="sortable" data-sortable-url=move_some_resource_path(id: ":id")>
+//   <% items.each do |item| %>
+//     <div data-id=item.id>...</div>
+//   <% end %>
+// </div>
 
 export default class extends Controller {
-  static targets = ["container"]
-
   connect() {
-    Sortable.create(this.containerTarget, {
+    this.sortable = Sortable.create(this.element, {
       handle: ".handle",
-      animation: 150
+      animation: 150,
+      onEnd: this.end.bind(this),
+    })
+  }
+
+  end(event) {
+    const url = this.data.get("url")
+
+    // No direct server persistance
+    if (!url) return
+
+    let id = event.item.dataset.id
+    let data = new FormData()
+    data.append("position", event.newIndex + 1)
+
+    Rails.ajax({
+      url: url.replace(":id", id),
+      type: "PATCH",
+      data: data,
     })
   }
 }

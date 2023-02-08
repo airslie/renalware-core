@@ -12,6 +12,7 @@ module Renalware
     # 2. Add ability to sort rows based on an array of ids.
 
     included do
+      acts_as_list
       before_create :set_position
     end
 

@@ -44,11 +44,10 @@ module Renalware
         redirect_to virology_vaccination_types_path
       end
 
-      def sort
-        authorize VaccinationType, :sort?
-        ids = params[:virology_vaccination_type]
-        VaccinationType.sort(ids)
-        render json: ids
+      def move
+        find_and_authorise_type.insert_at(params[:position].to_i)
+
+        head :ok
       end
 
       private
