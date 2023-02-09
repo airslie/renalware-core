@@ -1,77 +1,3 @@
-.ui-tabs-simple {
-  .ui-tabs {
-    border: 0;
-  }
-
-  .ui-tabs-nav {
-    border-bottom: 1px solid #ccc;
-  }
-
-  .ui-widget-header {
-    background: none;
-    border-width: 0;
-    padding: 0;
-  }
-
-  .ui-tabs-tab.ui-tabs-active,
-  .ui-tabs-tab.ui-state-active {
-    background-color: $white;
-    border-color: $disabled-colour;
-  }
-
-  .ui-tabs-anchor {
-    outline: none;
-  }
-
-  .ui-state-active a,
-  .ui-state-active a:link,
-  .ui-state-active a:visited {
-    color: $dark-grey;
-  }
-}
-
-.ui-tabs-simple  .ui-tabs-nav {
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  background: transparent;
-  border-radius: 0;
-  border-width: 0 0 1px 0;
-  padding-left: 0;
-}
-
-.ui-tabs-simple  .ui-tabs-panel {
-  border-width: 0 1px 1px 1px;
-}
-
-.tab-strip {
-  list-style-type: none;
-  margin: 0 0 2px 0;
-  padding: 0;
-
-  li {
-    background-color: $white;
-    border-radius: 4px 5px 0 0;
-    display: inline;
-    padding: 4px 20px 6px 15px;
-
-    a {
-      outline-style: none;
-    }
-
-    .fa,
-    .fas,
-    .far {
-      margin-right: 7px;
-    }
-
-    &.active {
-      background-color: $smoke;
-      border: solid 1px $disabled-colour;
-      border-bottom: solid 1px $smoke;
-    }
-  }
-}
-
 .mdm-page {
   .tabs-content {
     margin-bottom: 0;
@@ -81,7 +7,6 @@
     }
   }
 }
-
 
 .sub-nav {
   &.with-tabs {
