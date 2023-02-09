@@ -15,8 +15,7 @@ table.toggleable(data-controller="toggle")
       - if local_assigns.fetch(:display_patient, false)
         th.col-width-medium= t("thead.patient")
       th.col-width-date Date
-      th.col-width-tiny
-        i.far.fa-check-circle(title="Complete")
+      th.col-width-tiny.text-center Complete
       th.bg-gray-100 Total
       th.bg-gray-100 Perit
       th.bg-gray-100 Renal
@@ -51,12 +50,9 @@ table.toggleable(data-controller="toggle")
         - if local_assigns.fetch(:display_patient, false)
           td= result.patient
         td.col-width-date= l(result.performed_on)
-        -if result.complete?
-          td.text-green-500
-            i.fas.fa-check-circle(title="Complete")
-        - else
-          td.text-red-600
-            i.far.fa-circle
+        td.text-center
+          = inline_check_icon(result.complete?)
+
         th.bg-gray-100= result.total_creatinine_clearance&.to_i
         td.bg-gray-100= result.pertitoneal_creatinine_clearance&.to_i
         td.bg-gray-100= result.renal_creatinine_clearance&.to_i

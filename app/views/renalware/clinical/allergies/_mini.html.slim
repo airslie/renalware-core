@@ -1,10 +1,9 @@
-- 
 - patient = Renalware::Clinical.cast_patient(patient)
 
 .allergies
   dl
     dt
-      span.fas.fa-exclamation-triangle
+      = inline_icon(:exclamation, class: "mb-1 inline-block")
       span.allergy_status
         = link_to "Allergies:", patient_clinical_profile_path(patient)
     dd

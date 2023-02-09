@@ -6,14 +6,6 @@ tr
   td= patient.sex.code
   td= patient.born_on
   td= patient.age
-  - if patient.send_to_rpv?
-    td(title="#{patient.rpv_decision}")
-      i.fas.fa-check
-  -else
-    td
-  - if(patient.send_to_renalreg?)
-    td(title="#{patient.renalreg_decision}")
-      i.fas.fa-check
-  -else
-    td
+  td(title="#{patient.rpv_decision}")= inline_check_icon(patient.send_to_rpv?)
+  td(title="#{patient.renalreg_decision}")= inline_check_icon(patient.send_to_renalreg?)
   td= patient.current_modality

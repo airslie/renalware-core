@@ -12,7 +12,7 @@
           = link_to hd_session_forms_batch_path(batch, format: :pdf),
                     target: "_blank",
                     class: "print-batch-letter" do
-            i.far.fa-check-circle
+            = inline_checked_icon(class: "fill-green-500 w-8 w-8 mb-2")
             | Open PDF in a new tab
 
   .modal__footer

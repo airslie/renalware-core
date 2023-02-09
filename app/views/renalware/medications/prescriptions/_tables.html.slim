@@ -11,7 +11,7 @@ article
               remote: true,
               class: %i(button add_prescription),
               data: { confirm: "Create a new Medication Review event?" } do
-            i.fas.fa-check
+            = icon(:check, class: "h-4 w-4 inline stroke-white mb-1 mr-1")
             | Medication Review
 
         - if policy(Renalware::Medications::Prescription).new?

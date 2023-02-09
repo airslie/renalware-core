@@ -29,12 +29,12 @@
                         method: :delete,
                         data: { confirm: "Are you sure you want to delete this modal?" }
           td
-            - if description.hidden
-              i.fas.fa-check-circle(title="Hidden")
+            = inline_check_icon(description.hidden)
           td
-            - unless description.ignore_for_aki_alerts
-              i.fas.fa-check-circle.text-green-500(title="Allow AKI Alert to be created for patient with this current modality")
+            = inline_check_icon(description.ignore_for_aki_alerts,
+                         title: "Allow AKI Alert to be created for patient with this current modality")
           td
-            - unless description.ignore_for_kfre
-              i.fas.fa-check-circle.text-green-500(title="Allow KFRE to be calculated on receipt of ACR/PCR for patient with this current modality")
+            = inline_check_icon(description.ignore_for_kfre,
+                         title: "Allow KFRE to be calculated on receipt of ACR/PCR for patient with this current modality")
+
           td= description.name
