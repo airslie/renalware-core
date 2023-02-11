@@ -71,11 +71,12 @@ RSpec.configure do |config|
     )
 
     options = Selenium::WebDriver::Chrome::Options.new
+    options.add_preference(:download, prompt_for_download: false)
+    options.add_preference(:download, default_directory: Rails.root.join("tmp"))
     options.add_argument("window-size=1366,1768")
     options.add_argument("headless")
     options.add_argument("disable-gpu")
     options.add_argument("disable-extensions")
-    # options.add_argument("disable-dev-shm-usage") # causes a chrome unreachable error on CI
     options.add_argument("no-sandbox")
     options.add_argument("enable-features=NetworkService,NetworkServiceInProcess")
 
@@ -87,7 +88,7 @@ RSpec.configure do |config|
     )
   end
 
-  config.before(:each, type: :system, js: true) do
+  config.before(:each, js: true, type: :system) do
     driven_by :rw_headless_chrome
   end
 
@@ -168,7 +169,7 @@ RSpec.configure do |config|
   #   end
   # See https://github.com/airblade/paper_trail#7b-rspec for more information.
 
-  config.after(:each, type: :system, js: true) do
+  config.after(:each, js: true, type: :system) do
     errors = page.driver.browser.logs.get(:browser)
     if errors.present?
       aggregate_failures "javascript errrors" do
