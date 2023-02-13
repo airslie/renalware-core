@@ -8,5 +8,5 @@ li.has-dropdown
 
     - if Renalware.config.enable_new_mdms
       li.info Beta MDMs
-      - Renalware::Patients::MDMMenu.items.each do |item|
-        li= link_to item.humanize, patients_mdms_path(scope: item)
+      - Renalware::Patients::MDMMenu.items.each do |scope, title|
+        li= link_to title, patients_mdms_path(scope: scope)
