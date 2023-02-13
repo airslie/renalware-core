@@ -33,7 +33,7 @@ article.clinical-allergies {
 }
 
 .lozenge {
-  padding: 0 .3rem;
+  padding: 0 4px;
 
   ul {
     li {
@@ -43,7 +43,7 @@ article.clinical-allergies {
       display: inline-block;
       // margin: 0.1rem 0.3rem 0.2rem 0;
       margin: 0.1rem .6rem .2rem 0;
-      padding: 0.3rem 0.3rem 0 .2rem;
+      // padding: 0.3rem 0.3rem 0 .2rem;
       padding: 0;
       //padding: .2em .3rem 0 .3rem;
     }
@@ -51,7 +51,7 @@ article.clinical-allergies {
 }
 
 .clinical-header {
-  background-color: $disabled-colour;
+  // background-color: $disabled-colour;
   padding: 0 .2em .2em .6em;
 
   @media print {
@@ -59,16 +59,15 @@ article.clinical-allergies {
   }
 
   &.lozenge {
-    background-color: $white;
-    padding: 0 .3rem .2em .3rem;
+    padding: 1px 4px 1px 4px;
 
     ul {
       li {
         background-color: $light-grey;
         border: 0;
         border-radius: 0.3rem;
-        margin: 0.1rem 0.3rem 0.2rem 0;
-        padding: 0.3rem 0.3rem;
+        padding: 0.3rem 0.4rem;
+        margin: 2px 3px 0 0;
       }
     }
 
@@ -150,8 +149,6 @@ article.clinical-allergies {
   &.lozenge {
     ul {
       margin: 0;
-      //margin-top: 1px;
-      //font-size: 0.9rem;
 
       li {
         background-color: $nhs-orange;
@@ -167,19 +164,19 @@ article.clinical-allergies {
         }
 
         &.urgent {
-          background-color: $nhs-red;
+          background-color: $alert-urgent-colour;
 
           &:hover {
-            background-color: darken($nhs-red, 7);
+            background-color: $alert-urgent-hover-colour;
           }
         }
 
         &.covid_19 {
-          background-color: $nhs-yellow;
+          background-color: $alert-covid19-colour;
           color: $dark-grey;
 
           &:hover {
-            background-color: darken($nhs-yellow, 7);
+            background-color: $alert-covid19-hover-colour;
           }
 
           .actions i:before {

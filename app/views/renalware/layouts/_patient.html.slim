@@ -13,12 +13,14 @@ nav.patient-side-nav.full-screenable
     = render "renalware/patients/mini_profile", patient: current_patient
     / adding .patient-alerts--sticky will stick the alerts under the patient header on scroll
     /.patient-alerts.patient-alerts--sticky.lozenge
+    = render "renalware/clinical/header", patient: current_patient
+    = render Renalware::Patients::NagsComponent.new(current_user: current_user, patient: current_patient)
     .patient-alerts.lozenge
       ul
         = render "renalware/patients/alerts/list", patient: current_patient
         = render "renalware/research/alerts", patient: current_patient
         = render "renalware/events/events/alerts", patient: current_patient
-    = render "renalware/clinical/header", patient: current_patient
+
     .row.collapse
       - if local_assigns[:title].present?
         ul.page-heading.columns.small-12

@@ -4,18 +4,15 @@
     display: none;
   }
 
-  background-color: $mini-profile-backgound-colour;
-  display: table;
+  display: flex;
   font-size: 0.9rem;
-  margin: 0;
+  margin: 3px 4px 0 4px;
   padding: 0;
-  position: relative;
-  width: 100%;
 
   > div {
-    display: table-cell;
-    margin: 0;
-    padding: 0.3em 0.2em 0.2em 0.6em; // ensures both divs are equal height
+    margin: 0 3px 0 0 ;
+    padding: .1em 0.2em .1rem 0.5em; // ensures both divs are equal height
+    border-radius: 0.3rem;
 
     @media #{$small-only} {
       display: block; // at small widths make allergies and renal profile full width
@@ -23,7 +20,6 @@
 
     a {
       color: $dark-grey;
-      text-decoration: underline;
 
       &:hover {
         color: $black;
@@ -49,7 +45,6 @@
 
   .renal-profile {
     background-color: $mini-profile-renal-backgound-colour;
-    width: 60%;
 
     @media #{$small-only} {
       width: 100%;
@@ -58,7 +53,6 @@
 
   .allergies {
     background-color: $mini-profile-allergies-backgound-colour;
-    width: 40%;
 
     @media #{$small-only} {
       width: 100%;
