@@ -39,6 +39,7 @@ module Renalware
       before_save :calculate_body_surface_area
       before_save :calculate_total_body_water
       before_save :calculate_bmi
+      before_destroy :nullify_visit_id_in_source_appointment
 
       delegate :code, to: :clinic, prefix: true, allow_nil: true
       delegate :visit_number, to: :originating_appointment, allow_nil: true
@@ -114,6 +115,10 @@ module Renalware
 
       def calculate_bmi
         self.bmi = BMI.new(weight: weight, height: height).to_f
+      end
+
+      def nullify_visit_id_in_source_appointment
+        Appointment.find_by(becomes_visit_id: id)&.update_column(:becomes_visit_id, nil)
       end
     end
   end

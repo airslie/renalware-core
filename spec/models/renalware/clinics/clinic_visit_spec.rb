@@ -71,4 +71,31 @@ describe Renalware::Clinics::ClinicVisit do
       expect(visit.reload.total_body_water).to satisfy("be greater than 0") { |val| val.to_i > 0 }
     end
   end
+
+  describe "deleting a clinic visit" do
+    context "when the visit was not created from an appointment" do
+      it "is deleted" do
+        patient = Renalware::Clinics.cast_patient(create(:patient))
+        visit = create(:clinic_visit, patient: patient)
+
+        expect {
+          visit.destroy
+        }.to change(Renalware::Clinics::ClinicVisit, :count).by(-1)
+      end
+    end
+
+    context "when the visit as created from an appointment" do
+      it "is deleted and the appointment updated" do
+        patient = Renalware::Clinics.cast_patient(create(:patient))
+        visit = create(:clinic_visit, patient: patient)
+        appointment = create(:appointment, patient: patient, becomes_visit_id: visit.id)
+
+        expect {
+          visit.destroy
+        }.to change(Renalware::Clinics::ClinicVisit, :count).by(-1)
+
+        expect(appointment.reload.becomes_visit_id).to be_nil
+      end
+    end
+  end
 end
