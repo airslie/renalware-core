@@ -9,5 +9,10 @@ FactoryBot.define do
     sequence :name do |n|
       "Access#{n}"
     end
+
+    trait :dietetic do
+      name { "Dietetic" }
+      visit_class_name { "Renalware::Dietetics::ClinicVisit" }
+    end
   end
 end
