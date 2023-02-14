@@ -4,12 +4,12 @@ module Renalware
   log "Adding View Metadata" do
     Renalware::System::ViewMetadata.find_or_create_by!(
       view_name: "transplant_mdm_patients",
-      scope: "transplants",
+      scope: "transplants", # code namespace
       category: "mdm",
       schema_name: "renalware"
     ) do |view|
       view.slug = "all"
-      view.title = "All"
+      view.title = "Transplant" # displayed in the menu
       view.position = 1
       view.filters = [
         { code: "sex", type: "list" },
@@ -29,7 +29,7 @@ module Renalware
       slug: "all",
       schema_name: "renalware"
     ) do |view|
-      view.title = "All"
+      view.title = "HD"
       view.position = 1
       view.filters = [
         { code: :schedule, type: :list },
@@ -52,7 +52,7 @@ module Renalware
       slug: "all",
       schema_name: "renalware"
     ) do |view|
-      view.title = "All"
+      view.title = "Supportive Care"
       view.position = 1
       view.filters = [{ code: :on_worryboard, type: :list }].to_json
       view.columns = [].to_json
@@ -65,7 +65,7 @@ module Renalware
       slug: "all",
       schema_name: "renalware"
     ) do |view|
-      view.title = "All"
+      view.title = "PD"
       view.position = 1
       view.filters = [{ code: :on_worryboard, type: :list }]
       view.columns = [].to_json
@@ -73,12 +73,12 @@ module Renalware
 
     Renalware::System::ViewMetadata.find_or_create_by!(
       view_name: "akcc_mdm_patients",
-      scope: "akcc",
+      scope: "low_clearance",
       category: "mdm",
       slug: "all",
       schema_name: "renalware"
     ) do |view|
-      view.title = "All"
+      view.title = "AKCC" # aka low clearance
       view.position = 1
       view.filters = [
         { code: :on_worryboard, type: :list },
@@ -96,7 +96,7 @@ module Renalware
       slug: "all",
       schema_name: "renalware"
     ) do |view|
-      view.title = "All"
+      view.title = "Dietetic"
       view.position = 1
       view.filters = [
         { code: :on_worryboard, type: :list },
