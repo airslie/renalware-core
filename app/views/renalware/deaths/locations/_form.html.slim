@@ -1,0 +1,14 @@
+= simple_form_for location,
+    as: :location,
+    html: { autocomplete: "off" } do |f|
+
+  .w-1/2.md:w-1/3
+    = f.input :name, autofocus: true
+
+    h5 UKRDC
+    .border.rounded.px-4.py-2.mb-2
+      = f.input :rr_outcome_code
+      = f.input :rr_outcome_text
+
+    .mt-5
+      = save_or_cancel(form: f, back_path:  renalware.deaths_locations_path)

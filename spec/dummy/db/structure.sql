@@ -3040,7 +3040,9 @@ CREATE TABLE renalware.death_locations (
     patients_preferred_count integer DEFAULT 0 NOT NULL,
     patients_actual_count integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    rr_outcome_code integer,
+    rr_outcome_text character varying
 );
 
 
@@ -25139,6 +25141,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221013094654'),
 ('20221027100532'),
 ('20230112115053'),
-('20230213103715');
+('20230213103715'),
+('20230215105027');
 
 

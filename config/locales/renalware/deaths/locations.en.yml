@@ -1,0 +1,7 @@
+---
+en:
+  activerecord:
+    attributes:
+      renalware/deaths/location:
+        rr_outcome_code: Renal Registry Outcome Code
+        rr_outcome_text: Renal Registry Outcome Text

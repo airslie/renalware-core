@@ -29,45 +29,58 @@ describe "Death location management", type: :system do
     end
 
     fill_in "Name", with: "New Location"
+    fill_in "Renal Registry Outcome Code", with: "123"
+    fill_in "Renal Registry Outcome Text", with: "Current Home1"
     click_on "Create"
 
     expect(Renalware::Deaths::Location.count).to eq(1)
-    expect(Renalware::Deaths::Location.first.name).to eq("New Location")
+    expect(Renalware::Deaths::Location.first).to have_attributes(
+      name: "New Location",
+      rr_outcome_code: 123,
+      rr_outcome_text: "Current Home1"
+    )
   end
 
-  # it "enables me to edit a clinic" do
-  #   login_as_super_admin
+  it "enables me to edit a location" do
+    login_as_super_admin
 
-  #   clinic = create(:clinic, name: "Name1", code: "Code1")
+    location = create(:death_location, :home)
 
-  #   visit clinics_path
+    visit deaths_locations_path
 
-  #   within("#clinics_clinic_#{clinic.id}") do
-  #     click_on "Edit"
-  #   end
+    within("#death-locations tbody") do
+      click_on "Edit"
+    end
 
-  #   fill_in "Name", with: "Name2"
-  #   fill_in "Code", with: "Code2"
-  #   click_on "Save"
+    fill_in "Name", with: "Home1"
+    fill_in "Renal Registry Outcome Code", with: "123"
+    fill_in "Renal Registry Outcome Text", with: "Current Home1"
+    click_on "Save"
 
-  #   expect(clinic.reload).to have_attributes(
-  #     name: "Name2",
-  #     code: "Code2"
-  #   )
-  # end
+    expect(location.reload).to have_attributes(
+      name: "Home1",
+      rr_outcome_code: 123,
+      rr_outcome_text: "Current Home1"
+    )
+  end
 
-  # it "enables me to soft delete a clinic" do
-  #   login_as_super_admin
+  it "enables me to soft delete a location" do
+    login_as_super_admin
 
-  #   clinic = create(:clinic, name: "Name1", code: "Code1")
+    location = create(:death_location, :home)
 
-  #   visit clinics_path
+    visit deaths_locations_path
 
-  #   within("#clinics_clinic_#{clinic.id}") do
-  #     click_on "Delete"
-  #   end
+    within("#death-locations tbody") do
+      click_on "Delete"
+    end
 
-  #   deleted_clinic = Renalware::Clinics::Clinic.with_deleted.find(clinic.id)
-  #   expect(deleted_clinic.deleted_at).not_to be_nil
-  # end
+    expect(location.reload.deleted_at).not_to be_nil
+
+    visit deaths_locations_path
+
+    within("#death-locations tbody") do
+      expect(page).not_to have_content("Delete")
+    end
+  end
 end
