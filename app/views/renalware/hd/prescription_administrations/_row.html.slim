@@ -12,7 +12,7 @@ tbody(class=(administration.authorised? ? "authorised" : "unauthorised"))
     td.no-wrap.g-center
       - if administration.administered?
         - if administration.witnessed?
-          i.fa.fa-check-circle
+          = inline_checked_icon
         - else
           = link_to "Sign-off",
                     edit_hd_prescription_administration_witness_path(administration, format: :html),

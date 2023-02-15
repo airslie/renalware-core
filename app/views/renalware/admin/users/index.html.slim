@@ -39,39 +39,15 @@
           td= user.to_s
           td= user.username
           td= user.email
-          td
-            - if user.asked_for_write_access?
-              i.far.fa-check-square
-            - else
-              i.muted.far.fa-square
+          td= inline_check_icon(user.asked_for_write_access?)
           td
             - user.roles.each do |role|
               span.tag(class=role.name)= role.name.humanize
-          td
-            - if user.approved?
-              i.far.fa-check-square
-            - else
-              i.muted.unapproved.far.fa-square
-          td
-            - if user.hidden?
-              i.far.fa-check-square
-            - else
-              i.muted.unapproved.far.fa-square
-          td
-            - if user.banned?
-              i.far.fa-check-square.text-red-700
-            - else
-              i.muted.unapproved.far.fa-square
-          td
-            - if user.consultant?
-              i.far.fa-check-square
-            - else
-              i.muted.unapproved.far.fa-square
-          td
-            - if user.prescriber?
-              i.far.fa-check-square
-            - else
-              i.muted.unapproved.far.fa-square
+          td.text-center= inline_check_icon(user.approved?)
+          td.text-center= inline_check_icon(user.hidden?)
+          td.text-center= inline_check_icon(user.banned?)
+          td.text-center= inline_check_icon(user.consultant?)
+          td.text-center= inline_check_icon(user.prescriber?)
           td= user.nursing_experience_level&.titleize
           td.expired= l(user.expired_at&.to_date)
           td.show-for-large-up= l(user.current_sign_in_at)

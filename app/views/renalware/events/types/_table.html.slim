@@ -3,12 +3,12 @@ table
     tr
       th(colspan=5)
       th.bg-yellow-100.text-center(colspan=3) Document output
-      th.text-center.bg-pink-100(colspan=3) Permissions
+      th.text-center.bg-blue-100(colspan=3) Permissions
     tr
       th(colspan=5)
       th.bg-yellow-100(colspan=3)
-      th.bg-pink-100.text-center
-      th.text-center.bg-pink-100(colspan=2) Change window hours
+      th.bg-blue-100.text-center
+      th.text-center.bg-blue-100(colspan=2) Change window hours
     tr
       th.col-width-small
       th.col-width-medium Category
@@ -18,9 +18,9 @@ table
       th.bg-yellow-100 Send to EPR
       th.bg-yellow-100 Doc type code
       th.bg-yellow-100 Doc type desc
-      th.bg-pink-100 Super admin always change
-      th.bg-pink-100 Admins
-      th.bg-pink-100 Author
+      th.bg-blue-100 Super admin always change
+      th.bg-blue-100 Admins
+      th.bg-blue-100 Author
 
   tbody
     - event_types.each do |event_type|
@@ -40,16 +40,10 @@ table
         td= l(event_type.updated_at)
         td= event_type.events_count
         td.text-center.bg-yellow-50.text-gray-500
-          - if event_type.save_pdf_to_electronic_public_register?
-            i.fa.fa-check-circle
-          - else
-            i.far.fa-circle
+          = inline_check_icon(event_type.save_pdf_to_electronic_public_register?)
         td.bg-yellow-50= event_type.external_document_type_code
         td.bg-yellow-50= event_type.external_document_type_description
-        td.bg-pink-50.text-center.text-gray-500
-          - if event_type.superadmin_can_always_change
-            i.fas.fa-check-circle
-          - else
-            i.far.fa-circle
-        td.bg-pink-50= event_type.admin_change_window_hours
-        td.bg-pink-50= event_type.author_change_window_hours
+        td.bg-blue-50.text-center.text-gray-500
+          = inline_check_icon(event_type.superadmin_can_always_change)
+        td.bg-blue-50= event_type.admin_change_window_hours
+        td.bg-blue-50= event_type.author_change_window_hours

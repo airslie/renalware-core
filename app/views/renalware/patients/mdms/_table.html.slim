@@ -61,9 +61,9 @@ table#mdm-patients-table
             / Boolean values we will show as a tick icon
             td(class=klass title=title)
               - if value == true || value == "Y"
-                i.far.fa-check-circle.text-green-700
+                = inline_checked_icon
               - elsif value == false || value == "N"
-                i.far.fa-circle.text-gray-400
+                = inline_unchecked_icon
               - else
                 = value
         td
