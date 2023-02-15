@@ -1,8 +1,8 @@
 = content_for(:actions) do
-  /- if policy(locations).create?
-  = link_to t("btn.add"),
-             renalware.new_deaths_location_path,
-             class: "button"
+  - if policy(locations).create?
+    = link_to t("btn.add"),
+                renalware.new_deaths_location_path,
+                class: "button"
 
 = within_new_admin_layout(title: "Death Locations") do
   .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
@@ -12,30 +12,43 @@
       ' being used prospectively.
       div
         span.italic.pr-2 Preferred:
-        | the number of patients stating they would prefer to here
+        | the number of patients stating they would prefer to die at this location
       div
         span.italic.pr-2 Actual:
-        | the number of patients recorded as dying here
+        | the number of patients recorded as dying at this location
 
 
-  table
+  table#death-locations
     thead
       tr
-        th.col-width-tiny
+        th(colspan=6)
+        th.text-center.bg-pink-100(colspan=2) Renal Registry
+      tr
+        th.actions.col-width-small
         th.col-width-large Name
         th.col-width-tiny Preferred
         th.col-width-tiny Actual
         th.col-width-date-time Created
         th Deleted
+        th.bg-pink-100 Outcome Code
+        th.bg-pink-100 Outcome Text
     tbody
       - locations.each do |location|
         tr(class=(location.deleted? ? "deleted" : ""))
-          td= link_to "Delete",
-                      deaths_location_path(location),
-                      method: :delete,
-                      data: { confirm: "Are you sure?" }
+          td.actions
+            - if location.deleted_at.blank?
+              - if policy(location).edit?
+                = link_to t("btn.edit"),
+                          edit_deaths_location_path(location)
+              - if policy(location).destroy?
+                = link_to "Delete",
+                          deaths_location_path(location),
+                          method: :delete,
+                          data: { confirm: "Are you sure?" }
           td= location.name
           td= location.patients_preferred_count
           td= location.patients_actual_count
           td= l(location.created_at)
           td= l(location.deleted_at)
+          td.bg-pink-50= location.rr_outcome_code
+          td.bg-pink-50= location.rr_outcome_text
