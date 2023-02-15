@@ -9,10 +9,11 @@ module Renalware
   module Messaging
     module Internal
       class MessageFormBuilder
-        attr_reader :patient, :params
+        attr_reader :patient, :current_user, :params
 
-        def initialize(patient:, params:)
+        def initialize(patient:, current_user:, params:)
           @patient = patient
+          @current_user = current_user
           @params = params
         end
 
@@ -32,7 +33,10 @@ module Renalware
         end
 
         def build_recipient_ids
-          replying? ? Array(replying_to_message.author_id) : []
+          return [] unless replying?
+
+          recips = Array(replying_to_message.author_id) + replying_to_message.recipients.map(&:id)
+          recips.reject { |user_id| user_id == current_user.id }
         end
 
         def replying_to_message
