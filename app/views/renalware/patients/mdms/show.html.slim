@@ -4,7 +4,12 @@
 = content_for(:filters) do
   = render "filters", options: options
 
-= within_admin_layout(title: "#{options.current_view.scope.humanize} MDMS") do
+ruby:
+  scope = options.current_view.scope&.humanize
+  title = options.current_view.title
+  page_title = (title.present? && title != "All") ? title : scope
+
+= within_admin_layout(title: "#{page_title} MDMS") do
   - if options.rows.size.zero?
     p No matching data
   - else
