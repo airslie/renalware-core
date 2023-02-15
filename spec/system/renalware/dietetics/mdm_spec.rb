@@ -6,20 +6,44 @@ describe "Patient Dietetics MDM" do
   include PatientsSpecHelper
   include PathologySpecHelper
 
+  let(:user) { create(:user, :clinical, family_name: "Dietician", given_name: "Doris") }
+
   let(:patient) {
-    create(:patient, named_consultant: consultant, given_name: "Jack", family_name: "Jones")
+    create(
+      :patient,
+      named_consultant: consultant,
+      given_name: "Jack",
+      family_name: "Jones",
+      by: user
+    ).tap do |pat|
+      set_modality(
+        patient: pat,
+        modality_description: create(:modality_description, :hd),
+        by: user
+      )
+    end
   }
-  let(:user) { create(:user, :clinical) }
-  let(:consultant) { nil }
-  let(:clinic) {
-    create(:clinic, name: "Dietetic", code: "D1",
-                    visit_class_name: "Renalware::Dietetics::ClinicVisit")
+
+  let(:other_patient) {
+    create(
+      :patient,
+      named_consultant: consultant,
+      family_name: "Smith",
+      by: user
+    ).tap do |pat|
+      set_modality(
+        patient: pat,
+        modality_description: create(:modality_description, :hd),
+        by: user
+      )
+    end
   }
+
   let(:dietetic_clinic_visit) do
     create(:dietetic_clinic_visit,
            patient: Renalware::Clinics.cast_patient(patient),
            by: user,
-           clinic: clinic,
+           clinic: create(:clinic, :dietetic, code: "D1"),
            height: 1.90,
            weight: 80,
            date: Date.parse("2022-09-09"),
@@ -37,12 +61,23 @@ describe "Patient Dietetics MDM" do
                        sga_assessment: "well_nourished" })
   end
 
-  let(:consultant) { create(:user, :consultant, family_name: "Consultant", given_name: "Family") }
+  let(:other_clinic_visit) do
+    create(:clinic_visit,
+           patient: Renalware::Clinics.cast_patient(other_patient),
+           by: user,
+           clinic: create(:clinic, visit_class_name: nil),
+           height: 1.90,
+           weight: 80,
+           date: Date.parse("2023-09-09"))
+  end
+
+  let(:consultant) { create(:user, :consultant, family_name: "Consultant", given_name: "Clive") }
   let(:phos) { create(:pathology_observation_description, :phos) }
 
   describe "GET index" do
     before do
       dietetic_clinic_visit
+      other_clinic_visit
       create_observations(
         Renalware::Pathology.cast_patient(patient),
         [phos],
@@ -67,18 +102,14 @@ describe "Patient Dietetics MDM" do
                { code: :outstanding_dietetic_visit, type: :list }
              ])
 
-      set_modality(
-        patient: patient,
-        modality_description: FactoryBot.create(:modality_description, :hd),
-        by: patient.created_by
-      )
-
       login_as user
 
       visit patients_mdms_path("dietetics")
 
+      expect(page).to have_css("#mdm-patients-table tbody tr", count: 1)
       expect(page).to have_content("Dietetics MDMS")
-      expect(page).to have_content("CONSULTANT, Family")
+      expect(page).to have_content("Consultant, Clive")
+      expect(page).to have_content("Dietician, Doris")
       expect(page).to have_content("JONES, Jack")
       expect(page).to have_content("01-Jan-1988")
       expect(page).to have_content("HD")
