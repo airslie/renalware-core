@@ -87,6 +87,7 @@ module Renalware
 
     # Scheduled jobs; Compatible with GoodJob
     class << self
+      # rubocop:disable Metrics/MethodLength
       def scheduled_jobs_config
         {
           ods_sync: {
@@ -138,9 +139,22 @@ module Renalware
             cron: "every day at 2am",
             class: "Renalware::HD::TerminateAdministeredUnwitnessedStatPrescriptionsJob",
             description: "Does what it says on the tin :)"
+          },
+
+          transfer_of_care_handshake: {
+            cron: "every day at 2am",
+            class: "Renalware::Letters::Delivery::TransferOfCare::Jobs::HandshakeJob",
+            description: "Lets ToC know to keep the inbox connection alive"
+          },
+
+          transfer_of_care_check_inbox_for_outstanding_responses: {
+            cron: "*/15 * * * *",
+            class: "Renalware::Letters::Delivery::TransferOfCare::Jobs::CheckInboxJob",
+            description: "Check our MESH inbox for incoming ToC messages"
           }
         }.merge(good_job_config_to_enable_feed_import_via_raw_hl7_messages_table)
       end
+      # rubocop:enable Metrics/MethodLength
     end
 
     def good_job_config_to_enable_feed_import_via_raw_hl7_messages_table

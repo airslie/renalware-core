@@ -1,0 +1,32 @@
+= content_for(:tabs) do
+  = render "renalware/letters/delivery/transfer_of_care/tabs"
+
+= content_for(:actions) do
+  = link_to "Process All",
+          renalware.check_inbox_letters_delivery_transfer_of_care_operations_path,
+          class: "btn btn-secondary",
+          remote: true
+
+
+= within_new_admin_layout(title: "Transfer Of Care / Inbox") do
+  .mt-2
+  - if message_ids.blank?
+    .flex.flex-col.justify-center.text-gray-400.mt-12.items-center
+      = inline_icon(:inbox, size: "", class: "h-12 w-12")
+      div.ml-4.mt-2.text-xl Empty :(
+  - else
+    table
+      thead
+        tr
+          th.col-width-large MESH Message ID
+          th
+          th
+      tbody
+        - message_ids.each do |message_id|
+          tr
+            td= message_id
+            td.actions
+              = link_to("Peek", letters_delivery_transfer_of_care_inbox_message_path(message_id))
+              = link_to("Process", letters_delivery_transfer_of_care_inbox_message_path(message_id), method: :patch)
+            td
+

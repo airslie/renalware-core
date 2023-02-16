@@ -17,6 +17,7 @@ module Demo
     config.autoloader = :zeitwerk
     config.active_record.belongs_to_required_by_default = false
     config.active_record.collection_cache_versioning = false
+    config.view_component.preview_paths << Renalware::Engine.root.join("spec/components/previews")
 
     # Important!!
     # Unless set to :all, pg extensions are not put into structure.sql so certain

@@ -1,0 +1,21 @@
+= content_for(:tabs) do
+  = render "renalware/letters/delivery/transfer_of_care/tabs"
+
+= within_new_admin_layout(title: "Transfer Of Care / Help") do
+  .mt-4
+
+
+  .flex.items-center
+    = link_to "Send a test handshake",
+              handshake_letters_delivery_transfer_of_care_operations_path,
+              class: "btn btn-secondary",
+              remote: true
+    .ml-4 then check All Operations for an HTTP 200 OK
+
+  p.my-3 Look at the GoodJob admin cron schedule to see how often the handshake job runs
+
+
+  = link_to "Run test cases",
+            renalware.letters_delivery_transfer_of_care_testcase_invocations_path,
+            class: "btn btn-secondary",
+            method: :post

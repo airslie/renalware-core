@@ -184,6 +184,11 @@ module Renalware
 
         ["RW", id.to_s.rjust(10, "0")].join
       end
+
+      # Helper method to coerce a Letters::Letter instance into its STI type
+      def to_typed_instance
+        is_a?(type.constantize) ? self : becomes(type.constantize)
+      end
     end
   end
 end

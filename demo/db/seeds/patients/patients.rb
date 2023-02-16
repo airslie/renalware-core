@@ -16,15 +16,15 @@ module Renalware
 
       Patient.transaction do
         CSV.foreach(file_path, headers: true) do |row|
-          local_patient_id = row["local_patient_id"]
-          break if local_patient_id.blank?
+          nhs_number = row["nhs_number"]
+          break if nhs_number.blank?
 
-          pat = Patient.find_or_initialize_by(local_patient_id: local_patient_id) do |patient|
+          pat = Patient.find_or_initialize_by(nhs_number: nhs_number) do |patient|
+            patient.local_patient_id = row["local_patient_id"]
             patient.family_name = row["family_name"]
             patient.given_name = row["given_name"]
             patient.sex = row["sex"]
             patient.born_on = row["born_on"]
-            patient.nhs_number = row["nhs_number"]
             patient.created_at = row["created_at"]
             patient.send_to_rpv = row["send_to_rpv"]
             patient.created_by_id = system_user.id

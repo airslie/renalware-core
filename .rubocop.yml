@@ -116,6 +116,17 @@ RSpec/SpecFilePathFormat:
   Exclude:
     - "spec/components/renalware/letters/unread_electronic_ccs_component_spec.rb"
 
+Metrics/MethodLength:
+  Exclude:
+    - app/models/renalware/letters/delivery/transfer_of_care/resources/*.rb
+    - app/models/renalware/letters/delivery/transfer_of_care/lists/*.rb
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: true
+  Exclude:
+    - "lib/renalware/engine.rb"
 Layout/LineLength:
   Exclude:
     - "spec/acceptance/renalware/steps/**/*"

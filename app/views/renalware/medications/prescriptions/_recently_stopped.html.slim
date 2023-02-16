@@ -5,7 +5,7 @@ b.subtitle Recently Stopped Medications
 - else
   ul
     - prescriptions.each do |prescription|
-      = render "renalware/medications/prescriptions/prescription",
+      li= render "renalware/medications/prescriptions/prescription",
                  prescription: prescription,
                  date_changed: prescription.terminated_on,
                  recently_changed: false

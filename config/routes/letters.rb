@@ -22,6 +22,26 @@ resources :patients, only: [] do
 end
 
 namespace :letters do
+  namespace :delivery do
+    namespace :transfer_of_care do
+      resources :testcase_invocations
+      get "help", to: "help#show"
+      resource :settings
+      resources :transmissions
+      resources :operations do
+        collection do
+          get :check_inbox
+          get :handshake
+        end
+        member do
+          get :preview_reconstituted_letter
+        end
+      end
+      resources :inbox_messages
+      resources :jobs, only: :index
+    end
+  end
+
   resources :topics do
     post :sort, on: :collection
   end

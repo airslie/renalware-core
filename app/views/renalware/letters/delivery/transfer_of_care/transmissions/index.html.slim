@@ -1,0 +1,42 @@
+= content_for(:tabs) do
+  = render "renalware/letters/delivery/transfer_of_care/tabs"
+
+= content_for(:actions) do
+  = render "renalware/letters/delivery/transfer_of_care/actions"
+
+= content_for(:filters) do
+  = render "filters", search: search
+
+= within_new_admin_layout(title: "Transfer Of Care / Transactions") do
+  table.mt-4.stripeless
+    thead.text-sm= render "renalware/letters/delivery/transfer_of_care/thead"
+    tbody
+      - transmissions.each do |trans|
+        tr(class="border-t-2 border-amber-500")
+          td= link_to "View Txn", letters_delivery_transfer_of_care_transmission_path(trans)
+          td= link_to trans.letter_id, renalware.patient_letters_letter_path(trans.letter.patient, trans.letter_id)
+          td= l(trans.created_at)
+          td
+            ruby:
+              bg = case trans.status.to_sym
+                  when :pending then "bg-orange-300"
+                  when :failure then "bg-red-500 text-gray-50"
+                  when :success then "bg-green-400"
+                  end
+            .rounded.py-0.px-1(class=bg)
+              .flex.items-center.justify-center
+                = trans.status.humanize
+          td.bg-neutral-50(colspan=9)
+
+            /.italic= trans.comment
+            span.rounded.bg-slate-200.py-0.px-2
+              = link_to(trans.letter.patient.to_s(:long), renalware.patient_path(trans.letter.patient), class: "text-slate-600")
+            - if trans.comment.present?
+              span.italic.rounded.bg-green-200.py-0.px-2.ml-2.text-green-600=trans.comment
+          / td.bg-neutral-50(colspan=3)
+          / td.bg-neutral-100(colspan=5)
+          /   .italic= trans.comment
+
+        = render trans.operations
+
+  == pagy_foundation_nav pagy

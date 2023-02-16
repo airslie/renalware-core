@@ -19,6 +19,15 @@ require "wisper/rspec/matchers"
 require "view_component/test_helpers"
 require "capybara/rspec"
 require "capybara-screenshot/rspec"
+require "vcr"
+
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
+  config.hook_into :webmock
+  config.ignore_request do |request|
+    request.uri.include?("__identify__") || request.uri.include?("session")
+  end
+end
 
 # Add additional requires below this line. Rails is not loaded until this point!
 

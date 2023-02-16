@@ -83,7 +83,7 @@ module Renalware
       ENV.fetch("UKRDC_GPG_RECIPIENT", "Patient View (Renal)") # or "UKRDC"
     end
     config_accessor(:ukrdc_public_key_name) do
-      ENV.fetch("UKRDC_PUBLIC_KEY_NAME", "patientview.asc") # migfhtr become ukrdc.asc
+      ENV.fetch("UKRDC_PUBLIC_KEY_NAME", "patientview.asc") # might become ukrdc.asc
     end
     config_accessor(:ukrdc_working_path) do
       ENV.fetch("UKRDC_WORKING_PATH", File.join("/var", "ukrdc"))
@@ -121,6 +121,25 @@ module Renalware
     config_accessor(:nhs_client_id) { ENV.fetch("NHS_CLIENT_ID", nil) }
     config_accessor(:nhs_client_secret) { ENV.fetch("NHS_CLIENT_SECRET", nil) }
     config_accessor(:nhs_trud_api_key) { ENV.fetch("NHS_TRUD_API_KEY", nil) }
+    # MESHAPI / Transfer Of Care
+    config_accessor(:mesh_mailbox_id) { ENV.fetch("MESH_MAILBOX_ID", "?") }
+    config_accessor(:mesh_mailbox_password) { ENV.fetch("MESH_MAILBOX_PASSWORD", "?") }
+    config_accessor(:mesh_api_base_url) {
+      # This default is the Integration environment
+      ENV.fetch("MESH_API_BASE_URL", "https://msg.intspineservices.nhs.uk/messageexchange")
+    }
+    config_accessor(:mesh_api_secret) { ENV.fetch("MESH_API_SECRET", "?") }
+    config_accessor(:mesh_transfer_of_care_mailbox_id) {
+      ENV.fetch("MESH_TOC_RECIPIENT_MAILBOX", "X26OT112") # X26OT112 is in the NHS INT env
+    }
+    config_accessor(:mesh_transfer_of_care_workflow_id) {
+      ENV.fetch("MESH_TOC_WORKFLOW_ID", "TOC_FHIR_OP_ATTEN")
+    }
+    config_accessor(:mesh_path_to_nhs_ca_file) { ENV.fetch("MESH_PATH_TO_NHS_CA_FILE", "??") }
+    config_accessor(:mesh_path_to_client_cert) { ENV.fetch("MESH_PATH_TO_CLIENT_CERT", "??") }
+    config_accessor(:mesh_path_to_client_key) { ENV.fetch("MESH_PATH_TO_CLIENT_KEY", "??") }
+    config_accessor(:toc_organisation_uuid) { ENV.fetch("TOC_ORGANISATION_UUID", "??") }
+    config_accessor(:toc_organisation_ods_code) { ENV.fetch("TOC_ORGANISATION_ODS_CODE", "??") }
 
     # On Azure we use a mapped path otherwise we will use Rails.root.join("tmp")
     # However Rails.root is not yet defined so we need we use a proc to load the config

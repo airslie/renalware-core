@@ -1,0 +1,9 @@
+---
+en:
+  renalware:
+    letters:
+      delivery:
+        transfer_of_care:
+          warnings_component:
+            title: Transfer Of Care - Transmission failures
+            # (%{displayed} of %{count})

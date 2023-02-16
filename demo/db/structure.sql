@@ -960,6 +960,52 @@ CREATE TYPE renalware.system_view_display_type AS ENUM (
 
 
 --
+-- Name: toc_api_action; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.toc_api_action AS ENUM (
+    'endpointlookup',
+    'handshake',
+    'check_inbox',
+    'download_message',
+    'acknowledge_message',
+    'send_message'
+);
+
+
+--
+-- Name: toc_itk3_response_type; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.toc_itk3_response_type AS ENUM (
+    'inf',
+    'bus',
+    'unknown'
+);
+
+
+--
+-- Name: toc_mesh_message_direction; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.toc_mesh_message_direction AS ENUM (
+    'outbound',
+    'inbound'
+);
+
+
+--
+-- Name: toc_transmission_status; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.toc_transmission_status AS ENUM (
+    'pending',
+    'success',
+    'failure'
+);
+
+
+--
 -- Name: tristate_type; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -3782,6 +3828,7 @@ CREATE TABLE renalware.clinic_visits (
     body_surface_area numeric(8,2),
     total_body_water numeric(8,2),
     bmi numeric(10,1),
+    uuid uuid DEFAULT public.uuid_generate_v4(),
     location_id bigint,
     urine_glucose character varying
 );
@@ -3815,6 +3862,7 @@ CREATE TABLE renalware.hospital_centres (
     default_site boolean DEFAULT false,
     departments_count integer DEFAULT 0 NOT NULL,
     units_count integer DEFAULT 0 NOT NULL,
+    uuid uuid DEFAULT public.uuid_generate_v4(),
     "position" integer DEFAULT 10 NOT NULL
 );
 
@@ -4015,7 +4063,8 @@ CREATE TABLE renalware.users (
     banned boolean DEFAULT false NOT NULL,
     notes text,
     gmc_code character varying,
-    nursing_experience_level renalware.nursing_experience_level_enum
+    nursing_experience_level renalware.nursing_experience_level_enum,
+    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL
 );
 
 
@@ -8110,6 +8159,270 @@ ALTER SEQUENCE renalware.letter_contacts_id_seq OWNED BY renalware.letter_contac
 
 
 --
+-- Name: letter_delivery_toc_operations; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.letter_delivery_toc_operations (
+    id bigint NOT NULL,
+    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    direction renalware.toc_mesh_message_direction DEFAULT 'outbound'::renalware.toc_mesh_message_direction NOT NULL,
+    action renalware.toc_api_action NOT NULL,
+    transmission_id bigint,
+    parent_id bigint,
+    mesh_message_id text,
+    request_headers jsonb,
+    response_headers jsonb,
+    payload text,
+    response_body text,
+    unhandled_error text,
+    http_response_code text,
+    http_response_description text,
+    http_error boolean,
+    mesh_response_error_code text,
+    mesh_response_error_description text,
+    mesh_response_error_event text,
+    mesh_error boolean,
+    itk3_response_type renalware.toc_itk3_response_type,
+    itk3_response_code text,
+    itk3_operation_outcome_type text,
+    itk3_operation_outcome_severity text,
+    itk3_operation_outcome_code text,
+    itk3_operation_outcome_description text,
+    itk3_error boolean,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE letter_delivery_toc_operations; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.letter_delivery_toc_operations IS 'Each row represents a MESH API message. There are two types of message - outbound XML FHIR messages containing the letter content and supporting metadata - inbound XML FHIR messages containing a business or infrastructure response. The direction column specifies the direction.';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.direction; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.direction IS 'See enum for options';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.transmission_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.transmission_id IS 'A reference to the transmission ''transaction''';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.parent_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.parent_id IS 'Parent operation - if if we are a download_message operation which needs to be associated with the earlier, parent send_message operation';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.mesh_message_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.mesh_message_id IS 'The MESH message id for this message';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.request_headers; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.request_headers IS 'Optional, useful for testing';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.response_headers; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.response_headers IS 'Optional, useful for testing';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.payload; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.payload IS 'The XML message body';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.response_body; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.response_body IS 'The response body (eg JSON) if the message is outbound';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.unhandled_error; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.unhandled_error IS 'Stores an unexpected exception';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.http_response_code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.http_response_code IS 'eg 200, 401';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.http_response_description; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.http_response_description IS 'e.g. OK, Unauthorised';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.http_error; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.http_error IS 'true is eg response status > 299';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.mesh_response_error_code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.mesh_response_error_code IS 'MESH EPLmailbo/NHS number error code eg EPL-153';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.mesh_response_error_description; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.mesh_response_error_description IS 'e.g. for EPL-153, ''NHS Number not found''';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.mesh_response_error_event; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.mesh_response_error_event IS 'eg SEND';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.mesh_error; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.mesh_error IS 'true if a MESH error was returned from a API call';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.itk3_response_type; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.itk3_response_type IS 'Incoming messages, where they are an async response to a previously sent message will be of type ''infratstructure'' or ''business''';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.itk3_response_code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.itk3_response_code IS 'from MessageHeader/response/code, e.g. fatal-error';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.itk3_operation_outcome_type; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.itk3_operation_outcome_type IS 'from OperationOutcome/issue/code, eg processing, security etc';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.itk3_operation_outcome_severity; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.itk3_operation_outcome_severity IS 'from MessageHeader/response/severity, e.g. fatal, success';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.itk3_operation_outcome_code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.itk3_operation_outcome_code IS 'from OperationOutcome/issues/details/coding/code - a numeric code e.g. 20001';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.itk3_operation_outcome_description; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.itk3_operation_outcome_description IS 'from OperationOutcome/issues/details/coding/display - code description eg ''Handling Specification Error''';
+
+
+--
+-- Name: COLUMN letter_delivery_toc_operations.itk3_error; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_operations.itk3_error IS 'true if an ITK3 error was returned in a business or infrastructre reply';
+
+
+--
+-- Name: letter_delivery_toc_operations_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.letter_delivery_toc_operations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_delivery_toc_operations_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.letter_delivery_toc_operations_id_seq OWNED BY renalware.letter_delivery_toc_operations.id;
+
+
+--
+-- Name: letter_delivery_toc_transmissions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.letter_delivery_toc_transmissions (
+    id bigint NOT NULL,
+    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    letter_id bigint NOT NULL,
+    status renalware.toc_transmission_status DEFAULT 'pending'::renalware.toc_transmission_status NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    comment text
+);
+
+
+--
+-- Name: COLUMN letter_delivery_toc_transmissions.letter_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_delivery_toc_transmissions.letter_id IS 'A reference to the letter being sent';
+
+
+--
+-- Name: letter_delivery_toc_transmissions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.letter_delivery_toc_transmissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_delivery_toc_transmissions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.letter_delivery_toc_transmissions_id_seq OWNED BY renalware.letter_delivery_toc_transmissions.id;
+
+
+--
 -- Name: letter_descriptions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -10481,8 +10794,28 @@ CREATE TABLE renalware.patient_practices (
     updated_at timestamp without time zone NOT NULL,
     telephone character varying,
     last_change_date date,
-    active boolean DEFAULT true
+    active boolean DEFAULT true,
+    toc_mesh_mailbox_id character varying,
+    toc_mesh_mailbox_description character varying
 );
+
+
+--
+-- Name: COLUMN patient_practices.toc_mesh_mailbox_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.patient_practices.toc_mesh_mailbox_id IS 'e.g. YGM24GPXXX. Populated by a call to MESHAPI endpointlookup.
+Used when sending letters using TransferOfCare via MESH.
+';
+
+
+--
+-- Name: COLUMN patient_practices.toc_mesh_mailbox_description; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.patient_practices.toc_mesh_mailbox_description IS 'Mailbox description eg Transfer of Care TPP Mailbox One.
+Populated by a call to MESHAPI endpointlookup.
+';
 
 
 --
@@ -15934,6 +16267,20 @@ ALTER TABLE ONLY renalware.letter_contacts ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: letter_delivery_toc_operations id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_delivery_toc_operations ALTER COLUMN id SET DEFAULT nextval('renalware.letter_delivery_toc_operations_id_seq'::regclass);
+
+
+--
+-- Name: letter_delivery_toc_transmissions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_delivery_toc_transmissions ALTER COLUMN id SET DEFAULT nextval('renalware.letter_delivery_toc_transmissions_id_seq'::regclass);
+
+
+--
 -- Name: letter_descriptions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -17986,6 +18333,22 @@ ALTER TABLE ONLY renalware.letter_contact_descriptions
 
 ALTER TABLE ONLY renalware.letter_contacts
     ADD CONSTRAINT letter_contacts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: letter_delivery_toc_operations letter_delivery_toc_operations_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_delivery_toc_operations
+    ADD CONSTRAINT letter_delivery_toc_operations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: letter_delivery_toc_transmissions letter_delivery_toc_transmissions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_delivery_toc_transmissions
+    ADD CONSTRAINT letter_delivery_toc_transmissions_pkey PRIMARY KEY (id);
 
 
 --
@@ -22014,6 +22377,69 @@ CREATE UNIQUE INDEX index_letter_contacts_on_person_id_and_patient_id ON renalwa
 
 
 --
+-- Name: index_letter_delivery_toc_operations_on_created_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_delivery_toc_operations_on_created_at ON renalware.letter_delivery_toc_operations USING btree (created_at);
+
+
+--
+-- Name: index_letter_delivery_toc_operations_on_direction; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_delivery_toc_operations_on_direction ON renalware.letter_delivery_toc_operations USING btree (direction);
+
+
+--
+-- Name: index_letter_delivery_toc_operations_on_itk3_response_type; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_delivery_toc_operations_on_itk3_response_type ON renalware.letter_delivery_toc_operations USING btree (itk3_response_type);
+
+
+--
+-- Name: index_letter_delivery_toc_operations_on_parent_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_delivery_toc_operations_on_parent_id ON renalware.letter_delivery_toc_operations USING btree (parent_id);
+
+
+--
+-- Name: index_letter_delivery_toc_operations_on_transmission_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_delivery_toc_operations_on_transmission_id ON renalware.letter_delivery_toc_operations USING btree (transmission_id);
+
+
+--
+-- Name: index_letter_delivery_toc_operations_on_updated_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_delivery_toc_operations_on_updated_at ON renalware.letter_delivery_toc_operations USING btree (updated_at);
+
+
+--
+-- Name: index_letter_delivery_toc_transmissions_on_created_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_delivery_toc_transmissions_on_created_at ON renalware.letter_delivery_toc_transmissions USING btree (created_at);
+
+
+--
+-- Name: index_letter_delivery_toc_transmissions_on_letter_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_delivery_toc_transmissions_on_letter_id ON renalware.letter_delivery_toc_transmissions USING btree (letter_id);
+
+
+--
+-- Name: index_letter_delivery_toc_transmissions_on_updated_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_delivery_toc_transmissions_on_updated_at ON renalware.letter_delivery_toc_transmissions USING btree (updated_at);
+
+
+--
 -- Name: index_letter_descriptions_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -25760,6 +26186,14 @@ ALTER TABLE ONLY renalware.patients
 
 
 --
+-- Name: letter_delivery_toc_transmissions fk_rails_02bf942a7a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_delivery_toc_transmissions
+    ADD CONSTRAINT fk_rails_02bf942a7a FOREIGN KEY (letter_id) REFERENCES renalware.letter_letters(id);
+
+
+--
 -- Name: clinical_igan_risks fk_rails_0341ed8b89; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -25949,6 +26383,14 @@ ALTER TABLE ONLY renalware.clinical_allergies
 
 ALTER TABLE ONLY renalware.medication_delivery_events
     ADD CONSTRAINT fk_rails_0e10e5038b FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: letter_delivery_toc_operations fk_rails_1033a53c01; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_delivery_toc_operations
+    ADD CONSTRAINT fk_rails_1033a53c01 FOREIGN KEY (parent_id) REFERENCES renalware.letter_delivery_toc_operations(id);
 
 
 --
@@ -28416,6 +28858,14 @@ ALTER TABLE ONLY renalware.messaging_messages
 
 
 --
+-- Name: letter_delivery_toc_operations fk_rails_dd02fb7af5; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_delivery_toc_operations
+    ADD CONSTRAINT fk_rails_dd02fb7af5 FOREIGN KEY (transmission_id) REFERENCES renalware.letter_delivery_toc_transmissions(id);
+
+
+--
 -- Name: pd_pet_adequacy_results fk_rails_dd74a1d162; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -29323,6 +29773,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230704072649'),
 ('20230703164605'),
 ('20230621103930'),
+('20230609133900'),
+('20230609133416'),
 ('20230608171855'),
 ('20230608154421'),
 ('20230608110737'),
@@ -29331,12 +29783,14 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230602083513'),
 ('20230531155854'),
 ('20230531112529'),
+('20230525112511'),
 ('20230523121919'),
 ('20230511151434'),
 ('20230510144745'),
 ('20230503185921'),
 ('20230503161542'),
 ('20230503143211'),
+('20230429094954'),
 ('20230427073423'),
 ('20230424121332'),
 ('20230416132329'),
@@ -29352,6 +29806,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230302134826'),
 ('20230223102724'),
 ('20230221110514'),
+('20230217163005'),
+('20230217162648'),
+('20230217155112'),
+('20230217154430'),
+('20230216115437'),
+('20230216115337'),
 ('20230215105027'),
 ('20230213103715'),
 ('20230206192012'),

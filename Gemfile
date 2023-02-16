@@ -58,6 +58,8 @@ gem "sentry-rails"
 gem "strong_migrations"
 
 gem "good_job", "~> 4.0"
+gem "fhir_stu3_models", github: "airslie/fhir_stu3_models"
+
 gem "matrix"
 
 group :test do
@@ -77,6 +79,7 @@ group :test do
   gem "shoulda-matchers", "~> 6.1"
   gem "simplecov", "~> 0.17", require: false # only loaded if required
   gem "test-prof"
+  gem "vcr", require: false
   gem "webmock", "~> 3.7", require: false
   gem "wisper-rspec", "~> 1.1.0"
 end

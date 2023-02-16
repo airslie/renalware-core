@@ -31,4 +31,6 @@ Renalware.configure do |config|
   config.allow_qr_codes_in_letters = true
   config.process_hl7_via_raw_messages_table = true
   config.allow_modality_history_amendments = true
+  config.toc_organisation_ods_code = "RAJ01"
+  config.toc_organisation_uuid = "36944886-8c9b-4ada-b15d-500bff58e018"
 end

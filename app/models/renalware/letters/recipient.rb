@@ -124,7 +124,7 @@ module Renalware
       end
 
       # Make sure we have a 'name' set in the address record set as this is used in the letter
-      # e.g. Roger Robar <- address.name
+      # e.g. Roger Robbit <- address.name
       #      123 Toon Town
       #      ...
       # Note address.name is a redundant field not consistently populated in the app
