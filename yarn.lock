@@ -3196,10 +3196,10 @@ side-channel@^1.0.4:
     get-intrinsic "^1.0.2"
     object-inspect "^1.9.0"
 
-slim-select@^1.27.1:
-  version "1.27.1"
-  resolved "https://registry.yarnpkg.com/slim-select/-/slim-select-1.27.1.tgz#aab08c1f0428fc2c32b0376857f3da9b1fbdcb2f"
-  integrity sha512-LvJ02cKKk6/jSHIcQv7dZwkQSXHLCVQR3v3lo8RJUssUUcmKPkpBmTpQ8au8KSMkxwca9+yeg+dO0iHAaVr5Aw==
+slim-select@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/slim-select/-/slim-select-2.4.2.tgz#a75324079324c0148fd629e10cdf8c0a406a10ad"
+  integrity sha512-nqyiOGv1T36XvR4D5ogGzgojnoTUrRY9CgzzxfqJkECQqklVbLNpyPszqR5QDZpxwmtP3kym2dTVdN7mxalGUQ==
 
 sortablejs@^1.13.0:
   version "1.15.0"
