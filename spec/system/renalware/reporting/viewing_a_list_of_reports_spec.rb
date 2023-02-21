@@ -2,9 +2,10 @@
 
 require "rails_helper"
 
-describe "Viewing a list of reports", js: true do
+describe "Viewing a list of reports" do
+  let(:user) { create(:user, :clinical) }
+
   it "displays a list of reports" do
-    #  = create(:audit, name: "XX", refresh_schedule: "1 0 * * 1-6")
     report = create(
       :view_metadata,
       view_name: "transplant_mdm_patients",
@@ -13,7 +14,7 @@ describe "Viewing a list of reports", js: true do
       category: :report
     )
 
-    login_as_clinical
+    login_as user
 
     visit reporting_reports_path
 

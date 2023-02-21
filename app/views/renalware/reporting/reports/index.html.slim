@@ -24,7 +24,8 @@
           th View name
           th Type
         th.col-width-date-time Updated
-
+        th Last refreshed
+        th
     tbody
       - reports.each do |report|
         tr
@@ -35,6 +36,14 @@
             td.code= [report.schema_name, report.view_name].compact.join(".")
             td= report.display_type&.humanize
           td= l(report.updated_at)
+          td = l(report.materialized_view_refreshed_at)
+          td.text-right
+            - if report.materialized?
+              = button_to("Refresh Data",
+                          reporting_view_metadata_refreshments_path(view_metadata_id: report.id),
+                          class: "button compact warning")
+
+
 
   - if current_user_is_super_admin?
     p.border.rounded.px-3.py-2.mb-10.shadow.bg-blue-50.mt-10.flex.items-center

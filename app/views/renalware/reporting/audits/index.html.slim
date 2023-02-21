@@ -25,9 +25,3 @@
           td= l(audit.updated_at)
           td= l(audit.refreshed_at)
           td
-            - if audit.materialized? && policy(audit).refresh?
-              = link_to("Refresh Data",
-                        reporting_audit_refreshments_path(audit_id: audit.id),
-                        remote: true,
-                        method: :post,
-                        class: "button compact warning")
