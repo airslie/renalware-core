@@ -17,8 +17,6 @@
 //= require jquery-ui/core
 //= require jquery-ui/widgets/sortable
 //= require jquery-ui/effects/effect-highlight
-//= require dataTables/jquery.dataTables
-//= require dataTables/jquery.dataTables.foundation
 //= require foundation/foundation
 //= require foundation/foundation.alert
 //= require foundation/foundation.dropdown
@@ -44,6 +42,6 @@
 //= require ./built
 
 // Define a console.log if one does not yet exist - e.g. we in IE11
-window.console = window.console || { log: function() {} };
+window.console = window.console || { log: function () {} }
 
-$.fn.select2.defaults.set( "width", "100%" );
+$.fn.select2.defaults.set("width", "100%")
