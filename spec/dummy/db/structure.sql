@@ -10,13 +10,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
--- *not* creating schema, since initdb creates it
-
-
---
 -- Name: renalware; Type: SCHEMA; Schema: -; Owner: -
 --
 
@@ -11136,7 +11129,9 @@ CREATE TABLE renalware.system_view_metadata (
     updated_at timestamp without time zone NOT NULL,
     display_type renalware.system_view_display_type DEFAULT 'tabular'::renalware.system_view_display_type NOT NULL,
     category renalware.system_view_category DEFAULT 'mdm'::renalware.system_view_category NOT NULL,
-    sub_category character varying
+    sub_category character varying,
+    materialized boolean DEFAULT false,
+    materialized_view_refreshed_at timestamp without time zone
 );
 
 
@@ -25142,6 +25137,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221027100532'),
 ('20230112115053'),
 ('20230213103715'),
-('20230215105027');
+('20230215105027'),
+('20230221110514');
 
 

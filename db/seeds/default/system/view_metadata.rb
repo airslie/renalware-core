@@ -139,6 +139,7 @@ module Renalware::Seeds
         schema_name: "renalware"
       ) do |view|
         view.title = "Main Authors"
+        view.materialized = true
         view.position = 2
         view.filters = []
         view.columns = [
@@ -159,6 +160,7 @@ module Renalware::Seeds
       ) do |view|
         view.title = "HD Blood Pressures"
         view.position = 3
+        view.materialized = true
         view.filters = []
         view.columns = [
           { code: "hospital_unit_name", name: "Unit" },
@@ -178,6 +180,7 @@ module Renalware::Seeds
         schema_name: "renalware"
       ) do |view|
         view.title = "HD Overall"
+        view.materialized = true
         view.position = 4
         view.filters = []
         view.columns = [
