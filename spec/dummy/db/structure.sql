@@ -298,10 +298,10 @@ CREATE TYPE renalware.tristate_type AS ENUM (
 
 CREATE FUNCTION renalware.audit_view_as_json(view_name text) RETURNS json
     LANGUAGE plpgsql
-    AS $$
-  DECLARE result json;
-  BEGIN
-  EXECUTE format('
+    AS $$ DECLARE result json;
+
+BEGIN EXECUTE format(
+  '
   select row_to_json(t)
     from (
       select
@@ -309,10 +309,13 @@ CREATE FUNCTION renalware.audit_view_as_json(view_name text) RETURNS json
         (select array_to_json(array_agg(row_to_json(d))
       )
     from (select * from %s) d) as data) t;
-    ', quote_ident(view_name)) into result;
-  return result;
-END
-$$;
+    ',
+  quote_ident(view_name)
+) into result;
+
+return result;
+
+END $$;
 
 
 --

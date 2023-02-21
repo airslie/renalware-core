@@ -18,7 +18,7 @@ module Renalware
       end
 
       def index
-        authorize Audit, :index?
+        authorize System::ViewMetadata, :index?
         render locals: {
           reports: reports_search.result,
           search: reports_search
