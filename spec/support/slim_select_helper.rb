@@ -1,34 +1,28 @@
 # frozen_string_literal: true
 
 module SlimSelectHelper
-  # Capybara helper for selecting an option in a sliem-select dropdown.
+  # Capybara helper for selecting an option in a slim-select dropdown.
   # Assumption is that you have a label who's parent also contains the select list you
   # are choosing from.
-  # Usage:
-  #   js_select 'Item name', from: 'Label text
+  # Uses a trick to unhide the actual select box, and work with it,
+  # instead of the slim_select instance, as that would both:
+  # 1. Speed up tests, eliminating waits for animations
+  # 2. Increase robustness, as no sleep(x), etc.
   #
-  # src: https://gist.github.com/rickychilcott/caa06e2f1653f06cb3316875e6c60dc8
-  # rubocop:disable Metrics/MethodLength
+  # Usage:
+  #   slim_select 'Item name', from: 'Label text
+  #
   def slim_select(item_text, options)
-    from = options.fetch(:from)
+    expect(page).to have_field(options[:from], visible: :all)
+    select_box = find_field(options[:from], visible: :all)
 
-    if from.exclude?("#")
-      label = find("label", text: from)
-      from = "##{label['for']}"
+    if Capybara.current_driver != :rack_test
+      page.execute_script(
+        "arguments[0].style.display = 'block'",
+        select_box
+      )
     end
 
-    select_field = find(from, visible: false, wait: 2)
-    slim_select_id = select_field["data-ssid"]
-    slim_select_container = find("div.#{slim_select_id}")
-
-    within(slim_select_container) do
-      find(".ss-arrow, .ss-add").click
-      sleep(0.5)
-      input = find(".ss-search input").native
-      input.send_keys(item_text)
-      # find("div.ss-list").click => this did not work in cucumber specs
-      find("div.ss-option").click
-    end
+    select item_text, from: options[:from]
   end
-  # rubocop:enable Metrics/MethodLength
 end

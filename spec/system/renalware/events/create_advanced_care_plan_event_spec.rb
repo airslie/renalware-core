@@ -14,6 +14,8 @@ describe "Creating an Advanced Care Plan event", js: true do
 
       slim_select event_type.name, from: "* Event type"
 
+      # something funky is happeining with the ajax, so wait a bit
+      sleep 0.1
       select "ACP required but not started", from: "State"
 
       click_on t("btn.create")

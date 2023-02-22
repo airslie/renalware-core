@@ -12,11 +12,18 @@ describe "Creating a investigation event", js: true do
       visit new_patient_event_path(patient)
 
       slim_select "Investigation", from: "Event type"
+
       choose "Transplant recipient"
       select "Dental Check", from: "Type"
       fill_in "Result", with: "result"
       fill_trix_editor with: "some notes"
-      click_on t("btn.create")
+      choose "Transplant recipient"
+
+      click_button "Create"
+
+      within "h1" do
+        expect(page).to have_content("Events", exact: true)
+      end
 
       events = Renalware::Events::Event.for_patient(patient)
       expect(events.length).to eq(1)
