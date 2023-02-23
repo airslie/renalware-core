@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+--
 -- Name: renalware; Type: SCHEMA; Schema: -; Owner: -
 --
 
@@ -9212,6 +9219,43 @@ ALTER SEQUENCE renalware.problem_comorbidity_descriptions_id_seq OWNED BY renalw
 
 
 --
+-- Name: problem_malignancy_sites; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.problem_malignancy_sites (
+    id bigint NOT NULL,
+    description text NOT NULL,
+    rr_19_code character varying
+);
+
+
+--
+-- Name: COLUMN problem_malignancy_sites.rr_19_code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.problem_malignancy_sites.rr_19_code IS 'Renal Registry dataset v5 RR19 code';
+
+
+--
+-- Name: problem_malignancy_sites_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.problem_malignancy_sites_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: problem_malignancy_sites_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.problem_malignancy_sites_id_seq OWNED BY renalware.problem_malignancy_sites.id;
+
+
+--
 -- Name: problem_notes; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -13539,6 +13583,13 @@ ALTER TABLE ONLY renalware.problem_comorbidity_descriptions ALTER COLUMN id SET 
 
 
 --
+-- Name: problem_malignancy_sites id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_malignancy_sites ALTER COLUMN id SET DEFAULT nextval('renalware.problem_malignancy_sites_id_seq'::regclass);
+
+
+--
 -- Name: problem_notes id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -15368,6 +15419,14 @@ ALTER TABLE ONLY renalware.problem_comorbidities
 
 ALTER TABLE ONLY renalware.problem_comorbidity_descriptions
     ADD CONSTRAINT problem_comorbidity_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: problem_malignancy_sites problem_malignancy_sites_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_malignancy_sites
+    ADD CONSTRAINT problem_malignancy_sites_pkey PRIMARY KEY (id);
 
 
 --
@@ -19716,6 +19775,13 @@ CREATE UNIQUE INDEX index_problem_comorbidity_descriptions_on_name ON renalware.
 --
 
 CREATE INDEX index_problem_comorbidity_descriptions_on_position ON renalware.problem_comorbidity_descriptions USING btree ("position");
+
+
+--
+-- Name: index_problem_malignancy_sites_on_description; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_problem_malignancy_sites_on_description ON renalware.problem_malignancy_sites USING btree (description);
 
 
 --
@@ -25141,6 +25207,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230112115053'),
 ('20230213103715'),
 ('20230215105027'),
-('20230221110514');
+('20230221110514'),
+('20230223102724');
 
 

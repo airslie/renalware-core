@@ -1,3 +1,4 @@
 # frozen_string_literal: true
 
 require_relative "./comorbidity_descriptions"
+require_relative "./malignancy_sites"
