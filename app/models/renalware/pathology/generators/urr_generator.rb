@@ -116,7 +116,10 @@ module Renalware
         end
 
         def ktv_description
-          @ktv_description ||= ObservationDescription.find_or_create_by(code: "Kt/V")
+          @ktv_description ||= ObservationDescription.find_or_create_by(
+            code: "Kt/V",
+            name: "Simple non-dialysis Kt/V"
+          )
         end
       end
     end
