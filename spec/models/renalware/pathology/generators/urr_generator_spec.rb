@@ -11,7 +11,6 @@ module Renalware
       let(:obx_desc_pre_urea) { create(:pathology_observation_description, code: "URE") }
       let(:obx_desc_post_urea) { create(:pathology_observation_description, code: "P_URE") }
       let(:obx_desc_urr) { create(:pathology_observation_description, code: "URR") }
-      let(:obx_desc_ktv) { create(:pathology_observation_description, code: "Kt/V") }
       let(:datetime) { DateTime.parse("2001-01-01 14:00:00") }
 
       def create_pre_urea(observed_at, value)
@@ -125,6 +124,10 @@ module Renalware
               urr = patient.observations.where(description: obx_desc_urr).last
               expect(urr.nresult).to eq(test[:expected_urr])
               expect(urr.reload.calculation_sources.count).to eq(2)
+
+              # The Kt/V OBX will have been created for us as it it not exists before
+              obx_desc_ktv = Renalware::Pathology::ObservationDescription.find_by(code: "Kt/V")
+              expect(obx_desc_ktv.name).to eq("Simple non-dialysis Kt/V")
 
               ktv = patient.observations.where(description: obx_desc_ktv).last
               expect(ktv.nresult).to eq(test[:expected_ktv])
