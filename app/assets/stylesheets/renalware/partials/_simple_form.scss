@@ -30,7 +30,7 @@
       font-size: 1.2rem;
       font-weight: bold;
       margin: 0;
-      padding: .5rem 0 1rem 0;
+      padding: 0.5rem 0 1rem 0;
       width: 100%;
     }
   }
@@ -78,15 +78,6 @@
     padding: 0.2rem 0;
   }
 
-  .radio.inline {
-    display: table-cell;
-    padding-right: 0.75rem;
-
-    input {
-      margin-right: 0.25rem;
-    }
-  }
-
   td {
     input[type="radio"] {
       margin: auto;
@@ -94,7 +85,8 @@
   }
 
   .wrapper.wrapper_style_horizontal {
-    @include grid-row($behavior: nest);
+    margin-left: -($column-gutter/2);
+    margin-right: -($column-gutter/2);
 
     > .wrapper__label {
       @media #{$small-only} {

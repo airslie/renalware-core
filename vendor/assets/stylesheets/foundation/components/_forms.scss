@@ -88,20 +88,29 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
 
 // We use this mixin to give us form styles for rows inside of forms
 @mixin form-row-base {
-  .row { margin: 0 ((-$form-spacing) / 2);
+  .row {
+    margin-left: (-$form-spacing) / 2;
+    margin-right: (-$form-spacing) / 2;
 
     .column,
-    .columns { padding: 0 ($form-spacing / 2); }
+    .columns {
+      padding-left: $form-spacing / 2;
+      padding-right: $form-spacing / 2;
+    }
 
     // Use this to collapse the margins of a form row
-    &.collapse { margin: 0;
+    &.collapse {
+      margin-left: 0;
+      margin-right: 0;
 
       .column,
-      .columns { padding: 0; }
+      .columns {
+        padding-left: 0;
+        padding-right: 0;
+      }
       input {
         @include side-radius($opposite-direction, 0);
       }
-
     }
   }
   input.column,
@@ -389,7 +398,9 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
 
     .fn-form {
       /* Label Styles */
-      label { @include form-label;
+      label { 
+        display: block;
+        cursor: pointer;
         &.right { @include form-label(right, false); }
         &.inline { @include form-label(inline, false); }
         /* Styles for required inputs */
@@ -516,13 +527,11 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
       /* Adjust margin for form elements below */
       input[type="file"],
       input[type="checkbox"],
-      input[type="radio"],
       select {
         margin: 0 0 $form-spacing 0;
       }
 
-      input[type="checkbox"] + label,
-      input[type="radio"] + label {
+      input[type="checkbox"] + label {
         display: inline-block;
         margin-#{$default-float}: $form-spacing * .5;
         margin-#{$opposite-direction}: $form-spacing;
