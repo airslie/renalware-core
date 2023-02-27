@@ -23,7 +23,7 @@ import SelectController from "./select_controller"
 import RadioResetController from "./radio_reset_controller"
 import ConditionalDisplayController from "./conditional_display_controller"
 import SlimselectController from "./slimselect_controller"
-import TurboModalController from "./turbo_modal_controller"
+import ModalController from "./modal_controller"
 import FormController from "./form_controller"
 import FlashController from "./flash_controller"
 import FlatpickrController from "./flatpickr_controller"
@@ -54,7 +54,7 @@ application.register("select", SelectController)
 application.register("radio-reset", RadioResetController)
 application.register("conditional-display", ConditionalDisplayController)
 application.register("slimselect", SlimselectController)
-application.register("turbo-modal", TurboModalController)
+application.register("modal", ModalController)
 application.register("form", FormController)
 application.register("flash", FlashController)
 application.register("flatpickr", FlatpickrController)
