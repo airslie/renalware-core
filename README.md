@@ -31,7 +31,7 @@ and have the following installed:
 * Git
 * Postgres 12+
 * a ruby version manager (e.g. [rbenv](https://github.com/rbenv/rbenv) or [RVM](https://rvm.io/))
-* NodeJS required by the [uglifier gem](https://github.com/lautis/uglifier#installation)
+* NodeJS
 
 ### Postgres setup
 

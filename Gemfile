@@ -26,7 +26,7 @@ gem "rails", "~> 6.0.6"
 gem "redis", "~> 4.8"
 gem "renalware-forms", ">=0.1.16", github: "airslie/renalware-forms", branch: "main"
 gem "ruby-prof", require: false
-gem "uglifier", "~> 4.2"
+gem "terser"
 # Re wkhtmltopdf binary for letter generation
 # a host app could include the wkhtmltopdf-binary gem, or use the apt package.
 # Bear in mind the gem contains several platform-specific binaries so is pretty large,

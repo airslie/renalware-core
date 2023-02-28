@@ -27,7 +27,7 @@ Our basic is:
 - if making changes to js files in this folder you'll need to run rollup using
 `rollup --config rollup.config.js -w` (the -w is for watch) or `yarn run build`.
 This will bundle the files, run them through babel so the output is IE11-compliant, run them through
-uglifier to beautify them, and drop the output file into `app/assets/javascripts/`.
+uglifier (Terser) to beautify them, and drop the output file into `app/assets/javascripts/`.
 From here the bundled file will get pulled into the main renalware/core.js when assets
 are precompiled at deployment. So unlike asset precompilation, the generation of the rolluped
 js file in app/assets/javascripts happens at development time.
