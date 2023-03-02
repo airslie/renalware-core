@@ -73,3 +73,16 @@ spec/dummy/config/tailwind.config.js
 spec/dummy/app/assets/builds/tailwind.css
 ukrdc_keyring.*
 config/master.key
+
+# certs/keys/pems etc
+*.crt
+*.cer
+*.der
+*.csr
+*.key
+*.pem
+*.pfx
+*.srl*
+*.csr.cfg
+*id_rsa*
+*.keystore
