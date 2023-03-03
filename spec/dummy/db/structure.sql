@@ -3170,6 +3170,7 @@ CREATE VIEW renalware.dietetic_mdm_patients AS
     latest_dietetic_clinic_visits.date AS clinic_visit_date,
     ((latest_dietetic_clinic_visits.document ->> 'next_review_on'::text))::date AS next_review_on,
     translate(initcap((latest_dietetic_clinic_visits.document ->> 'assessment_type'::text)), '_'::text, ' '::text) AS assessment_type,
+    translate(initcap((latest_dietetic_clinic_visits.document ->> 'visit_type'::text)), '_'::text, ' '::text) AS visit_type,
     ((latest_dietetic_clinic_visits.document ->> 'weight_change'::text) || '%'::text) AS weight_change,
     latest_dietetic_clinic_visits.weight AS current_weight,
     latest_dry_weights.weight AS dry_weight,
@@ -25208,6 +25209,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230213103715'),
 ('20230215105027'),
 ('20230221110514'),
-('20230223102724');
+('20230223102724'),
+('20230302134826');
 
 
