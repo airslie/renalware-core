@@ -22,6 +22,7 @@ module Renalware
     Dotenv::Railtie.load
 
     config_accessor(:force_cast_active_types) { true }
+    config_accessor(:allow_qr_codes_in_letters) { false }
     config_accessor(:site_name) { "Renalware" }
     config_accessor(:hospital_name) { ENV.fetch("HOSPITAL_NAME", "KINGS COLLEGE HOSPITAL") }
     config_accessor(:hospital_address) { ENV.fetch("HOSPITAL_ADDRESS", "") } # comma-delimited

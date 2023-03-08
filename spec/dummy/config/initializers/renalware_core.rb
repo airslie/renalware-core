@@ -27,4 +27,5 @@ Renalware.configure do |config|
   config.hl7_patient_locator_strategy = :dob_and_any_nhs_or_assigning_auth_number
   config.max_batch_print_size = 50
   config.patient_visibility_restrictions = :by_site # or :by_site_and_research_study or :none
+  config.allow_qr_codes_in_letters = true
 end
