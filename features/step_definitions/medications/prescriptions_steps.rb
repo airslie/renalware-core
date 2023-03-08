@@ -8,7 +8,7 @@ end
 
 Given(/^Patty has the following prescriptions:$/) do |table|
   table.hashes.each_with_index do |row, index|
-    dose_amount, dose_unit = row[:dose].split(" ")
+    dose_amount, dose_unit = row[:dose].split
     prescribed_on_default = Time.current.beginning_of_day - 1.month + index.days
 
     seed_prescription_for(
@@ -28,7 +28,7 @@ end
 
 Given(/^Patty has a prescription:$/) do |table|
   row = table.hashes.first
-  dose_amount, dose_unit = row[:dose].split(" ")
+  dose_amount, dose_unit = row[:dose].split
 
   @prescription = seed_prescription_for(
     patient: @patty,

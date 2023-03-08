@@ -8,7 +8,7 @@ module World
       end
 
       def find_or_create_patient_by_name(patient_full_name)
-        given_name, family_name = patient_full_name.split(" ")
+        given_name, family_name = patient_full_name.split
 
         Renalware::Clinics::Patient.find_or_create_by!(
           given_name: given_name,

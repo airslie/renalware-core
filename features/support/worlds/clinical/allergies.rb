@@ -26,14 +26,14 @@ module World
 
         def expect_allergies_to_be(expected_allergies:, patient:)
           patient = clinical_patient(patient)
-          expected_allergies = expected_allergies.map { |allergy| allergy["description"] }
+          expected_allergies = expected_allergies.pluck("description")
           actual_allergies = patient.allergies.map(&:description)
           expect(actual_allergies && expected_allergies).to eq(expected_allergies)
         end
 
         def expect_archived_allergies_to_be(expected_allergies:, patient:)
           patient = clinical_patient(patient)
-          expected_allergies = expected_allergies.map { |allergy| allergy["description"] }
+          expected_allergies = expected_allergies.pluck("description")
           actual_allergies = patient.allergies.only_deleted.map(&:description)
           expect(actual_allergies).to eq(expected_allergies)
         end

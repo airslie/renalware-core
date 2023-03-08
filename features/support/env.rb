@@ -4,13 +4,13 @@ ENV["RAILS_ENV"] ||= "test"
 
 if ENV.key?("CC_TEST_REPORTER_ID") || ENV.key?("SIMPLECOV")
   require "simplecov"
-  SimpleCov.command_name "Cucumber-" + (ENV["TEST_DEPTH"] || "domain")
+  SimpleCov.command_name "Cucumber-#{ENV['TEST_DEPTH'] || 'domain'}"
 end
 
 require File.expand_path("../../spec/dummy/config/environment.rb", __dir__)
 
 # Tell cucumber-rails where rails lives
-ENV["RAILS_ROOT"] ||= File.dirname(__FILE__) + "../../../spec/dummy"
+ENV["RAILS_ROOT"] ||= "#{File.dirname(__FILE__)}../../../spec/dummy"
 
 include Renalware::Engine.routes.url_helpers
 

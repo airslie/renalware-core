@@ -33,8 +33,7 @@ module World
             Renalware::Pathology::Requests::RequestParamsFactory.new(options).build
 
           requests =
-            Renalware::Pathology::Requests::RequestsFactory
-            .new(patients, request_params).build
+            Renalware::Pathology::Requests::RequestsFactory.new(patients, request_params).build
 
           Renalware::Pathology::Requests::RequestPresenter.present(requests)
         end
@@ -193,15 +192,15 @@ module World
 
           request =
             Renalware::Pathology::Requests::Request
-            .includes(:request_descriptions, :patient_rules)
-            .where(
-              patient: patient,
-              clinic: clinic,
-              consultant: consultant,
-              template: params[:template],
-              pathology_request_descriptions: { id: request_descriptions.map(&:id) },
-              pathology_requests_patient_rules: { id: patient_rules.map(&:id) }
-            )
+              .includes(:request_descriptions, :patient_rules)
+              .where(
+                patient: patient,
+                clinic: clinic,
+                consultant: consultant,
+                template: params[:template],
+                pathology_request_descriptions: { id: request_descriptions.map(&:id) },
+                pathology_requests_patient_rules: { id: patient_rules.map(&:id) }
+              )
           expect(request).to be_exist
         end
 

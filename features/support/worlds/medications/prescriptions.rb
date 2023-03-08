@@ -50,15 +50,15 @@ module World
       def view_prescriptions_for(_clinician, patient)
         current_prescriptions =
           ::Renalware::Medications::PrescriptionsQuery
-          .new(relation: patient.prescriptions.current)
-          .call
-          .includes(:drug)
+            .new(relation: patient.prescriptions.current)
+            .call
+            .includes(:drug)
 
         historical_prescriptions =
           ::Renalware::Medications::PrescriptionsQuery
-          .new(relation: patient.prescriptions)
-          .call
-          .includes(:drug)
+            .new(relation: patient.prescriptions)
+            .call
+            .includes(:drug)
 
         [current_prescriptions, historical_prescriptions]
       end
@@ -84,7 +84,7 @@ module World
             drug = Renalware::Drugs::Drug.find_by!(name: value)
             update_params.merge!(drug: drug)
           when :dose
-            dose_amount, dose_unit = value.split(" ")
+            dose_amount, dose_unit = value.split
             update_params.merge!(dose_amount: dose_amount, dose_unit: dose_unit)
           when :route_code
             route = Renalware::Medications::MedicationRoute.find_by!(code: value)
@@ -146,7 +146,7 @@ module World
             code: prescription_attributes[:route_code]
           )
 
-          dose_amount, dose_unit = prescription_attributes[:dose].split(" ")
+          dose_amount, dose_unit = prescription_attributes[:dose].split
 
           prescription_exists = Renalware::Medications::Prescription.exists?(
             patient: patient,
@@ -281,7 +281,7 @@ module World
             when :drug_name
               drug_selector.call(value)
             when :dose
-              dose_amount, dose_unit = value.split(" ")
+              dose_amount, dose_unit = value.split
               fill_in_dose(dose_amount, dose_unit)
             when :dose_amount
               fill_in "Dose amount", with: dose_amount.to_s

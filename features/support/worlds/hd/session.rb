@@ -22,8 +22,7 @@ module World
           patient: patient,
           hospital_unit: Renalware::Hospitals::Unit.hd_sites.first,
           started_at: Time.zone.now,
-          document: {
-          }
+          document: {}
         }
       end
 

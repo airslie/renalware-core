@@ -75,7 +75,7 @@ module World
         episode = episode_for(patient)
         visit patient_pd_peritonitis_episode_path(patient, episode)
 
-        within "#" + dom_id(episode) do
+        within "##{dom_id(episode)}" do
           click_on t("btn.edit")
 
           expect(page).to have_css(".select2-container")
