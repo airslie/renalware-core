@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # In development the number of SELECT queries usually takes a lot of space
 # of the total request output. Unless you’re specifically optimising those,
 # it’s much cleaner to remove them from standard output.

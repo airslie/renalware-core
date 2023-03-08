@@ -61,12 +61,13 @@ module Renalware
 
       def patient_prescriptions
         @patient_prescriptions ||= begin
-          patient.prescriptions
-                  .with_created_by
-                  .with_medication_route
-                  .with_drugs
-                  .with_termination
-                  .ordered
+          patient
+            .prescriptions
+            .with_created_by
+            .with_medication_route
+            .with_drugs
+            .with_termination
+            .ordered
         end
       end
     end

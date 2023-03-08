@@ -56,7 +56,7 @@ describe "Configuring Drugs" do
 
       expect(response).to be_successful
 
-      parsed_json = JSON.parse(response.body)
+      parsed_json = response.parsed_body
 
       expect(parsed_json.size).to eq(1)
       expect(parsed_json.first["name"]).to eq("::drug name::")

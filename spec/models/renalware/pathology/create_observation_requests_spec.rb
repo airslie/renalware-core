@@ -37,7 +37,7 @@ module Renalware::Pathology
         expect {
           service.call(params)
         }.to broadcast(:before_observation_request_persisted)
-         .and broadcast(:after_observation_request_persisted)
+          .and broadcast(:after_observation_request_persisted)
       end
 
       # Return an array of param hashes (in this case just one elements as there is

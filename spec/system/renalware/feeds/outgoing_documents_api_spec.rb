@@ -52,7 +52,6 @@ describe "Outgoing Documents API" do
     end
   end
 
-  # rubocop:disable RSpec/ExampleLength
   describe "index.json" do
     it "responds successfully with a paginated list of queued documents" do
       user = create(:user)
@@ -100,7 +99,6 @@ describe "Outgoing Documents API" do
         }.with_indifferent_access
       )
     end
-    # rubocop:enable RSpec/ExampleLength
 
     describe "show.json" do
       it "responds successfully with json containing an HL7 doc" do

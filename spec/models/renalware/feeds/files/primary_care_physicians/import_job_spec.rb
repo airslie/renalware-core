@@ -16,7 +16,7 @@ module Renalware
 
             expect {
               described_class.new.perform(file)
-            }.to change { Patients::PrimaryCarePhysician.count }.by(2)
+            }.to change(Patients::PrimaryCarePhysician, :count).by(2)
           end
         end
       end

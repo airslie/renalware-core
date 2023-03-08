@@ -34,7 +34,7 @@ module Renalware
 
           it "returns true with the new regime" do
             expect(service).to be_success
-            expect(service.object).to be_kind_of(Regime)
+            expect(service.object).to be_a(Regime)
             expect(service.object).to be_persisted
           end
 
@@ -56,7 +56,7 @@ module Renalware
 
           it "returns failure with the unsaved regime" do
             expect(service).to be_failure
-            expect(service.object).to be_kind_of(Regime)
+            expect(service.object).to be_a(Regime)
             expect(service.object).not_to be_persisted
           end
         end

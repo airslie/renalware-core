@@ -47,8 +47,7 @@ module World
 
         operation = donor_operation_for(patient)
         operation.update!(
-          document: {
-          },
+          document: {},
           updated_at: Time.zone.now
         )
       end

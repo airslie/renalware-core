@@ -8,7 +8,7 @@ module Renalware::Patients::PrimaryCarePhysicians
       it "validates an address is present on the Primary Care Physician" do
         doc = build_stubbed(:primary_care_physician)
         AddressValidator.new.validate(doc)
-        expect(doc.errors[:address]).to match_array(["or practice must be present"])
+        expect(doc.errors[:address]).to contain_exactly("or practice must be present")
       end
 
       it "does nothing when the Primary Care Physician has an address" do

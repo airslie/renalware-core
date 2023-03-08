@@ -15,7 +15,7 @@ describe Renalware::Clinical::HeaderPresenter do
       value = "1.11"
       date = Time.zone.now.to_date
       descriptions = create_descriptions(%w(HGB PLT))
-      create_observations(::Renalware::Pathology.cast_patient(patient), descriptions, result: value)
+      create_observations(Renalware::Pathology.cast_patient(patient), descriptions, result: value)
 
       current_path = presenter.current_pathology
       expect(current_path.hgb_result).to eq(value)

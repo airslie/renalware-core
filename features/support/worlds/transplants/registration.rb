@@ -93,8 +93,7 @@ module World
 
         registration = transplant_registration_for(patient)
         registration.update!(
-          document: {
-          },
+          document: {},
           updated_at: Time.zone.now
         )
         expect(registration).to be_modified

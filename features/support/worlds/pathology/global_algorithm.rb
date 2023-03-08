@@ -78,7 +78,7 @@ module World
         # @section expectations
         #
         def expect_observations_from_global(required_global_observations,
-observations_table)
+                                            observations_table)
           observations_table.rows.each do |row|
             request_description = Renalware::Pathology::RequestDescription.find_by!(code: row.first)
             expect(required_global_observations).to include(request_description)

@@ -51,9 +51,9 @@ module Renalware
             desc.valid?
 
             if expect_valid
-              expect(desc.errors).not_to match_array([message])
+              expect(desc.errors).not_to contain_exactly(message)
             else
-              expect(desc.errors).to match_array([message])
+              expect(desc.errors).to contain_exactly(message)
             end
           end
         end

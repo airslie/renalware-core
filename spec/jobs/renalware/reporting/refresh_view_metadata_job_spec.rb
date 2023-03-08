@@ -30,7 +30,8 @@ module Renalware
               "test",
               cascade: false,
               concurrently: false
-          expect(view_metadata.materialized_view_refreshed_at).to be_within(3.seconds).of(Time.now)
+          expect(view_metadata.materialized_view_refreshed_at)
+            .to be_within(3.seconds).of(Time.zone.now)
         end
       end
 

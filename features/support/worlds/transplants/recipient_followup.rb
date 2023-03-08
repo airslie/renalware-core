@@ -44,8 +44,7 @@ module World
 
         operation = recipient_followup_for(operation)
         operation.update!(
-          document: {
-          },
+          document: {},
           updated_at: Time.zone.now
         )
       end

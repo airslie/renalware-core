@@ -34,7 +34,7 @@ module Renalware
           relation: relation.having_drug_of_type(drug_type),
           apply_default_search_order: false # otherwise sorts by name first
         ).call
-        .map { |prescrip| Renalware::Medications::PrescriptionPresenter.new(prescrip) }
+          .map { |prescrip| Renalware::Medications::PrescriptionPresenter.new(prescrip) }
       end
 
       def relation

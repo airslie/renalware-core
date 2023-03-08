@@ -166,13 +166,14 @@ module World
         expect(letter.salutation).to eq(recipient.salutation)
 
         main_recipient = Renalware::Letters::LetterPresenterFactory.new(letter).main_recipient
-        if recipient.is_a? Renalware::Patient
+        case recipient
+        when Renalware::Patient
           expect(main_recipient.person_role).to eq("patient")
           expect(main_recipient.address.town).to eq(recipient.current_address.town)
-        elsif recipient.is_a? Renalware::Patients::PrimaryCarePhysician
+        when Renalware::Patients::PrimaryCarePhysician
           expect(main_recipient.person_role).to eq("primary_care_physician")
           expect(main_recipient.address.town).to eq(patient.practice.address.town)
-        elsif recipient.is_a? Renalware::Letters::Contact
+        when Renalware::Letters::Contact
           expect(main_recipient.person_role).to eq("contact")
           expect(main_recipient.addressee).to eq(recipient)
         end
@@ -201,9 +202,10 @@ module World
         expect(letter.cc_recipients.size).to eq(ccs.size)
 
         ccs_map = ccs.map do |cc|
-          if cc.is_a? Renalware::Patient
+          case cc
+          when Renalware::Patient
             ["patient", cc.current_address.town]
-          elsif cc.is_a? Renalware::Patients::PrimaryCarePhysician
+          when Renalware::Patients::PrimaryCarePhysician
             ["primary_care_physician", patient.practice.address.town]
           else
             ["contact", cc.address.town]
@@ -375,7 +377,7 @@ module World
           click_on t("btn.save")
         end
 
-        visit current_path + "/formatted"
+        visit "#{current_path}/formatted"
         expect(page).to have_content "(MRH) Another topic"
       end
 
@@ -434,7 +436,7 @@ module World
 
       def expect_letters_to_be(table)
         table.hashes.each do |row|
-          given_name, family_name = row[:patient].split(" ").map(&:strip)
+          given_name, family_name = row[:patient].split.map(&:strip)
           expect(page.body).to have_content("#{family_name}, #{given_name}")
         end
       end

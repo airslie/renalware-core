@@ -15,8 +15,9 @@ module Renalware::Medications
 
       context "when updating the prescription's dose_amount with a valid value" do
         subject!(:prescription_revision) do
-          RevisePrescription.new(original_prescription)
-                            .call(dose_amount: revised_dose_amount, by: user)
+          RevisePrescription
+            .new(original_prescription)
+            .call(dose_amount: revised_dose_amount, by: user)
         end
 
         let(:revised_dose_amount) { "200" }
@@ -40,8 +41,9 @@ module Renalware::Medications
 
       context "when updating the prescription's dose_amount with an invalid value" do
         subject!(:prescription_revision) do
-          RevisePrescription.new(original_prescription)
-                            .call(dose_amount: revised_dose_amount, by: user)
+          RevisePrescription
+            .new(original_prescription)
+            .call(dose_amount: revised_dose_amount, by: user)
         end
 
         let(:revised_dose_amount) { nil }

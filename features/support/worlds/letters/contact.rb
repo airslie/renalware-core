@@ -105,7 +105,7 @@ module World
             fill_in t_contact(:other_description), with: description_name
           end
 
-        submit_form
+          submit_form
         end
 
         wait_for_ajax

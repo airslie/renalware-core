@@ -18,7 +18,7 @@ describe "Managing Hospital Units" do
     context "with valid attributes" do
       it "creates a new record" do
         attributes = attributes_for(:hd_hospital_unit)
-                      .merge(hospital_centre_id: hospital_centre.id)
+          .merge(hospital_centre_id: hospital_centre.id)
         post hospitals_units_path, params: { hospitals_unit: attributes }
 
         expect(response).to have_http_status(:redirect)
