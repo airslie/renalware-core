@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Used in app/models/renalware/ukrdc/outgoing/rendering/clinic_visit_observation.rb:11
-class DumbDelegator < ::BasicObject
+class DumbDelegator < BasicObject
   # Handle public_send correctly when ActionView calls this method
   # Reference: https://github.com/stevenharman/dumb_delegator/issues/9
   #
