@@ -24,10 +24,10 @@ module Renalware
 
           it "returns clinical event sections" do
             expect(instance.sections.size).to eq 4
-            expect(instance.sections[0]).to be_kind_of Part::Problems
-            expect(instance.sections[1]).to be_kind_of Part::Prescriptions
-            expect(instance.sections[2]).to be_kind_of Part::RecentPathologyResults
-            expect(instance.sections[3]).to be_kind_of Part::Allergies
+            expect(instance.sections[0]).to be_a Part::Problems
+            expect(instance.sections[1]).to be_a Part::Prescriptions
+            expect(instance.sections[2]).to be_a Part::RecentPathologyResults
+            expect(instance.sections[3]).to be_a Part::Allergies
           end
         end
 
@@ -46,7 +46,7 @@ module Renalware
 
               it "returns a list of sections sorted by position" do
                 expect(instance.sections.size).to eq 1
-                expect(instance.sections[0]).to be_kind_of HD::LetterExtensions::HDSection
+                expect(instance.sections[0]).to be_a HD::LetterExtensions::HDSection
               end
             end
 
@@ -69,7 +69,7 @@ module Renalware
           it "returns a list of section classes" do
             edit_topics = instance.edit_sections_for_topic(topic: topic)
             expect(edit_topics.size).to eq 1
-            expect(edit_topics.first).to be_kind_of Renalware::HD::LetterExtensions::HDSection
+            expect(edit_topics.first).to be_a Renalware::HD::LetterExtensions::HDSection
           end
         end
 

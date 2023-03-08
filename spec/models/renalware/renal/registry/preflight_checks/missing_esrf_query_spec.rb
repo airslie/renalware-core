@@ -13,8 +13,8 @@ module Renalware
 
         def change_patient_modality(patient, modality_description, user)
           result = Modalities::ChangePatientModality
-                    .new(patient: patient, user: user)
-                    .call(description: modality_description, started_on: Time.zone.now)
+            .new(patient: patient, user: user)
+            .call(description: modality_description, started_on: Time.zone.now)
           expect(result).to be_success
         end
 
@@ -56,13 +56,7 @@ module Renalware
 
             patients = described_class.new.call
 
-            expect(patients.to_a.sort).to match_array(
-              [
-                hd_patient,
-                pd_patient,
-                tx_patient
-              ]
-            )
+            expect(patients.to_a.sort).to contain_exactly(hd_patient, pd_patient, tx_patient)
           end
         end
       end

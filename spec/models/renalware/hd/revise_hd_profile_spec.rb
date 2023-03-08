@@ -97,8 +97,9 @@ module Renalware::HD
 
       context "when updating with an invalid value" do
         subject!(:revised_profile) do
-          ReviseHDProfile.new(original_profile)
-                         .call(prescriber: revised_prescriber, by: user)
+          ReviseHDProfile
+            .new(original_profile)
+            .call(prescriber: revised_prescriber, by: user)
         end
 
         let(:revised_prescriber) { nil }

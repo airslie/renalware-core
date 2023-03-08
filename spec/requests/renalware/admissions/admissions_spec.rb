@@ -171,8 +171,8 @@ module Renalware
         expect {
           delete admissions_admission_path(admission)
         }
-        .to change { Admissions::Admission.count }.by(-1)
-        .and change { Admissions::Admission.deleted.count }.by(1)
+          .to change(Admissions::Admission, :count).by(-1)
+          .and change(Admissions::Admission.deleted, :count).by(1)
       end
     end
   end

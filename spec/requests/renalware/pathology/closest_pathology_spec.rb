@@ -44,7 +44,7 @@ describe "Patient's closest pathology to a date, filtered by code group" do
       )
 
       expect(response).to be_successful
-      expect(JSON.parse(response.body)).to eq [
+      expect(response.parsed_body).to eq [
         { "code" => "WBC", "observed_on" => "2019-01-01", "result" => "6.0" },
         { "code" => "HGB", "observed_on" => "2019-01-01", "result" => "6.0" },
         { "code" => "PLT", "observed_on" => "2019-01-01", "result" => "6.0" }

@@ -89,8 +89,8 @@ describe "manage appointments via HL7 ADT messages" do
         expect {
           Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
         }.to change(Renalware::Clinics::Appointment, :count).by(1)
-        .and change(Renalware::Patient, :count).by(1)
-        .and change(Renalware::Clinics::Consultant, :count).by(1)
+          .and change(Renalware::Patient, :count).by(1)
+          .and change(Renalware::Clinics::Consultant, :count).by(1)
 
         appointment = Renalware::Clinics::Appointment.last
         expect(appointment).to have_attributes(clinic: clinic, visit_number: visit_number)
@@ -123,7 +123,7 @@ describe "manage appointments via HL7 ADT messages" do
         expect {
           Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
         }.to change(Renalware::Clinics::Appointment, :count).by(1)
-        .and change(Renalware::Clinics::Consultant, :count).by(1)
+          .and change(Renalware::Clinics::Consultant, :count).by(1)
 
         appointment = Renalware::Clinics::Appointment.last
 
@@ -172,14 +172,14 @@ describe "manage appointments via HL7 ADT messages" do
           patient = create_matching_patient
           set_modality(
             patient: patient,
-            modality_description: FactoryBot.create(:modality_description, :hd),
+            modality_description: create(:modality_description, :hd),
             by: patient.created_by
           )
 
           expect {
             Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
           }.to change(Renalware::Clinics::Appointment, :count).by(1)
-          .and change(Renalware::Modalities::Modality, :count).by(0)
+            .and change(Renalware::Modalities::Modality, :count).by(0)
         end
       end
     end

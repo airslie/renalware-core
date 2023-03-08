@@ -36,7 +36,7 @@ module Renalware
                 expect {
                   described_class.new(tmpfile).call
                 }
-                .to change { Patients::PracticeMembership.count }.by(2)
+                  .to change(Patients::PracticeMembership, :count).by(2)
               end
 
               expect(gp1.reload.practice_memberships.first).to have_attributes(
@@ -80,8 +80,8 @@ module Renalware
                 expect {
                   described_class.new(tmpfile).call
                 }
-                .to change { Patients::PracticeMembership.count }.by(-1)
-                .and change { Patients::PracticeMembership.deleted.count }.by(1)
+                  .to change(Patients::PracticeMembership, :count).by(-1)
+                  .and change(Patients::PracticeMembership.deleted, :count).by(1)
               end
 
               expect(membership1.reload).not_to be_deleted

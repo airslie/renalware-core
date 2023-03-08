@@ -76,7 +76,7 @@ module Renalware
               expect {
                 results = service.call(performed_before: performed_before)
               }.to change(Session::Closed, :count).by(1)
-               .and change(Session::Open, :count).by(-1)
+                .and change(Session::Open, :count).by(-1)
 
               expect(Session::Closed.exists?(id: session.id)).to be(true)
               expect(results.closed_ids).to eq([session.id])

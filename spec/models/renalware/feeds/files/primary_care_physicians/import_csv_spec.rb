@@ -34,8 +34,8 @@ module Renalware
               expect {
                 described_class.new(tmpfile).call
               }
-              .to change { Patients::PrimaryCarePhysician.count }.by(1)
-              .and change { Patients::PrimaryCarePhysician.deleted.count }.by(1)
+                .to change(Patients::PrimaryCarePhysician, :count).by(1)
+                .and change(Patients::PrimaryCarePhysician.deleted, :count).by(1)
             end
 
             gp = Patients::PrimaryCarePhysician.first
@@ -60,8 +60,8 @@ module Renalware
                 expect {
                   described_class.new(tmpfile).call
                 }
-                .to change { Patients::PrimaryCarePhysician.count }.by(-1)
-                .and change { Patients::PrimaryCarePhysician.deleted.count }.by(1)
+                  .to change(Patients::PrimaryCarePhysician, :count).by(-1)
+                  .and change(Patients::PrimaryCarePhysician.deleted, :count).by(1)
               end
 
               expect(previously_active_gp.reload.deleted_at).to be_present
@@ -86,8 +86,8 @@ module Renalware
                 expect {
                   described_class.new(tmpfile).call
                 }
-                .to change { Patients::PrimaryCarePhysician.count }.by(1)
-                .and change { Patients::PrimaryCarePhysician.deleted.count }.by(-1)
+                  .to change(Patients::PrimaryCarePhysician, :count).by(1)
+                  .and change(Patients::PrimaryCarePhysician.deleted, :count).by(-1)
               end
 
               expect(previously_inactive_gp.reload.deleted_at).to be_nil
@@ -114,8 +114,8 @@ module Renalware
                 expect {
                   described_class.new(tmpfile).call
                 }
-                .to change { Patients::PrimaryCarePhysician.count }.by(0)
-                .and change { Patients::PrimaryCarePhysician.deleted.count }.by(0)
+                  .to change(Patients::PrimaryCarePhysician, :count).by(0)
+                  .and change(Patients::PrimaryCarePhysician.deleted, :count).by(0)
               end
 
               gp.reload

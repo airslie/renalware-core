@@ -59,11 +59,11 @@ module Renalware
           episode.prescriptions << prescription_two
 
           mrsa_sensitivity = episode.infection_organisms
-                                 .build(organism_code: mrsa,
-                                        sensitivity: "Sensitive to MRSA.")
+            .build(organism_code: mrsa,
+                   sensitivity: "Sensitive to MRSA.")
           @ecoli_sensitivity = episode.infection_organisms
-                                   .build(organism_code: ecoli,
-                                          sensitivity: "Sensitive to E.Coli.")
+            .build(organism_code: ecoli,
+                   sensitivity: "Sensitive to E.Coli.")
 
           episode.save!
           episode.reload
@@ -71,8 +71,9 @@ module Renalware
           expect(episode.prescriptions.size).to eq(2)
           expect(episode.infection_organisms.size).to eq(2)
 
-          expect(episode.prescriptions).to match_array([prescription_two, prescription_one])
-          expect(episode.infection_organisms).to match_array([@ecoli_sensitivity, mrsa_sensitivity])
+          expect(episode.prescriptions).to contain_exactly(prescription_two, prescription_one)
+          expect(episode.infection_organisms).to contain_exactly(@ecoli_sensitivity,
+                                                                 mrsa_sensitivity)
 
           expect(episode).to be_valid
         end

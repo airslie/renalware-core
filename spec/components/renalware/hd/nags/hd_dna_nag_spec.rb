@@ -5,7 +5,7 @@ require "rails_helper"
 # This is testing that the HD DNA nag - a combination of a sql function and an entry
 # in the nag_definitions table - works as expected. We are testing both the functionality specific
 # to this nag as well as general conformance to the nag 'protocol'.
-describe "HD DNA nag", type: :component, caching: true do
+describe "HD DNA nag", caching: true, type: :component do
   include PatientsSpecHelper
   include NagHelpers
 

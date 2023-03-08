@@ -55,11 +55,11 @@ module Renalware
           )
 
           @lymphocytes_sensitivity = esi.infection_organisms
-                                        .build(organism_code: lymphocytes,
-                                               sensitivity: "Sensitive to Lymphocytes.")
+            .build(organism_code: lymphocytes,
+                   sensitivity: "Sensitive to Lymphocytes.")
           @proteus_sensitivity = esi.infection_organisms
-                                    .build(organism_code: proteus,
-                                           sensitivity: "Sensitive to Proteus.")
+            .build(organism_code: proteus,
+                   sensitivity: "Sensitive to Proteus.")
 
           esi.prescriptions << prescription_one
           esi.prescriptions << prescription_two
@@ -69,13 +69,9 @@ module Renalware
 
           expect(esi.prescriptions.size).to eq(2)
           expect(esi.infection_organisms.size).to eq(2)
-          expect(esi.prescriptions).to match_array([prescription_two, prescription_one])
-          expect(esi.infection_organisms).to match_array(
-            [
-              @proteus_sensitivity,
-              @lymphocytes_sensitivity
-            ]
-          )
+          expect(esi.prescriptions).to contain_exactly(prescription_two, prescription_one)
+          expect(esi.infection_organisms).to contain_exactly(@proteus_sensitivity,
+                                                             @lymphocytes_sensitivity)
           expect(esi).to be_valid
         end
       end

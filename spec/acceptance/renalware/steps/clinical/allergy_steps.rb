@@ -31,14 +31,14 @@ module Renalware
       end
 
       def assert_allergies(_patient_name, table)
-        expected_allergies = table.hashes.map { |allergy| allergy["description"] }
+        expected_allergies = table.hashes.pluck("description")
         actual_allergies = clinical_patient.allergies.pluck(:description)
 
         expect(actual_allergies && expected_allergies).to eq(expected_allergies)
       end
 
       def assert_archived_allergies(_patient_name, table)
-        expected_allergies = table.hashes.map { |allergy| allergy["description"] }
+        expected_allergies = table.hashes.pluck("description")
         actual_allergies = clinical_patient.allergies.only_deleted.pluck(:description)
 
         expect(actual_allergies).to eq(expected_allergies)

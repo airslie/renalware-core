@@ -108,7 +108,7 @@ module Renalware
         it "has a pdf letter attachment" do
           expect(mail.attachments.count).to eq(1)
           attachment = mail.attachments.first
-          expect(attachment).to be_a_kind_of(Mail::Part)
+          expect(attachment).to be_a(Mail::Part)
           expect(attachment.content_type).to match("application/pdf")
           expect(attachment.filename).to eq("letter.pdf")
         end

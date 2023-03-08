@@ -39,10 +39,10 @@ module Renalware
 
           it "returns clinical event sections" do
             expect(presenter.sections.size).to eq 4
-            expect(presenter.sections[0]).to be_kind_of Part::Problems
-            expect(presenter.sections[1]).to be_kind_of Part::Prescriptions
-            expect(presenter.sections[2]).to be_kind_of Part::RecentPathologyResults
-            expect(presenter.sections[3]).to be_kind_of Part::Allergies
+            expect(presenter.sections[0]).to be_a Part::Problems
+            expect(presenter.sections[1]).to be_a Part::Prescriptions
+            expect(presenter.sections[2]).to be_a Part::RecentPathologyResults
+            expect(presenter.sections[3]).to be_a Part::Allergies
           end
         end
 
@@ -61,7 +61,7 @@ module Renalware
 
               it "returns a list of sections sorted by position" do
                 expect(presenter.sections.size).to eq 1
-                expect(presenter.sections[0]).to be_kind_of HD::LetterExtensions::HDSection
+                expect(presenter.sections[0]).to be_a HD::LetterExtensions::HDSection
               end
             end
 

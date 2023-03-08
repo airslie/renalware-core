@@ -33,7 +33,7 @@ describe "API request for a single patient JSON document" do
         expect(page.status_code).to eq(200)
 
         address = json["current_address"]
-        expect(address).to be_kind_of(Hash)
+        expect(address).to be_a(Hash)
         expect(address.values.compact).to eq([])
       end
     end

@@ -26,10 +26,10 @@ module Renalware
 
       def create_regime(start_date:, end_date: nil, type: :apd_regime)
         regime = build(type,
-          add_hd: false,
-          patient: patient,
-          start_date: start_date,
-          end_date: end_date)
+                       add_hd: false,
+                       patient: patient,
+                       start_date: start_date,
+                       end_date: end_date)
         regime.bags << build(:pd_regime_bag, :everyday)
         regime.save!
         regime
@@ -111,7 +111,8 @@ module Renalware
           before { apd_ukrdc_modality_code }
 
           it "creates a treatment for each" do
-            create_regime(start_date: Date.today, end_date: Date.parse("2049-01-04"), type: :apd_regime)
+            create_regime(start_date: Date.today, end_date: Date.parse("2049-01-04"),
+                          type: :apd_regime)
             create_regime(start_date: Date.parse("2049-01-04"), end_date: nil, type: :apd_regime)
 
             expect {

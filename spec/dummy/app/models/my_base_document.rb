@@ -6,7 +6,7 @@ require "document/enum"
 
 # We define an Document::Embedded subclass so we can re-include Virtus model
 # and ensure nullify_blank: true
-class MyBaseDocument < ::Document::Embedded
+class MyBaseDocument < Document::Embedded
   include Virtus.model(nullify_blank: true)
 
   class << self

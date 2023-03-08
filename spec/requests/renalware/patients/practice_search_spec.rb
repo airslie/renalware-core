@@ -13,7 +13,7 @@ describe "Changing a patient's GP (primary care physician)" do
 
         expect(response).to be_successful
         expect(response.media_type).to include("application/json")
-        expect(JSON.parse(response.body)).to eq(
+        expect(response.parsed_body).to eq(
           [
             {
               "id" => practice.id,
@@ -33,7 +33,7 @@ describe "Changing a patient's GP (primary care physician)" do
 
         expect(response).to be_successful
         expect(response.media_type).to include("application/json")
-        expect(JSON.parse(response.body)).to eq(
+        expect(response.parsed_body).to eq(
           [
             {
               "id" => practice.id,
@@ -51,7 +51,7 @@ describe "Changing a patient's GP (primary care physician)" do
 
         expect(response).to be_successful
         expect(response.media_type).to include("application/json")
-        expect(JSON.parse(response.body)).to eq([])
+        expect(response.parsed_body).to eq([])
       end
     end
   end

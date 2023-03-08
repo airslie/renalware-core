@@ -16,8 +16,8 @@ module Renalware
               )
               create(:united_kingdom)
               expect_any_instance_of(PracticeMemberships::ImportCSV)
-               .to receive(:call)
-               .exactly(:once)
+                .to receive(:call)
+                .exactly(:once)
 
               described_class.new.perform(file)
             end

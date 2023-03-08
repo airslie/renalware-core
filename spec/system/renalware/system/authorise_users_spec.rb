@@ -30,7 +30,7 @@ module Renalware
       expect(page).to have_current_path(admin_users_path)
       expect(page).to have_content("You have successfully updated this user.")
       expect(@unapproved.reload).to be_approved
-      expect(@unapproved.roles).to match_array([@clinician_role])
+      expect(@unapproved.roles).to contain_exactly(@clinician_role)
     end
 
     it "An admin approves a user without assigning a role" do

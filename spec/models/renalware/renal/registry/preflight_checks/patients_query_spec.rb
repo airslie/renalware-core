@@ -10,8 +10,8 @@ module Renalware
 
         def change_patient_modality(patient, modality_description, user)
           result = Modalities::ChangePatientModality
-                    .new(patient: patient, user: user)
-                    .call(description: modality_description, started_on: Time.zone.now)
+            .new(patient: patient, user: user)
+            .call(description: modality_description, started_on: Time.zone.now)
           expect(result).to be_success
         end
 
