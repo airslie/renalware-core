@@ -10,7 +10,11 @@ module Renalware
 
         def new
           authorize Messaging::Internal::Message, :new?
-          form = MessageFormBuilder.new(patient: patient, params: params).call
+          form = MessageFormBuilder.new(
+            patient: patient,
+            current_user: current_user,
+            params: params
+          ).call
           render_new(form)
         end
 
