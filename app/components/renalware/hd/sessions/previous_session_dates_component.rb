@@ -13,7 +13,7 @@ module Renalware
 
         def previous_sessions
           @previous_sessions ||= Session.where(patient: patient)
-                                        .limit(3).order(started_at: :desc)
+            .limit(3).order(started_at: :desc)
         end
 
         def not_recommended_values(current_session)

@@ -31,7 +31,8 @@ module Renalware
             descriptions.map do |desc|
               ComorbidityPresenter.new(
                 description: desc,
-                comorbidity: comorbidities.detect { |cm| cm.description_id == desc.id })
+                comorbidity: comorbidities.detect { |cm| cm.description_id == desc.id }
+              )
             end.reject { |row| row.comorbidity.blank? && !display_blank }
           end
         end
