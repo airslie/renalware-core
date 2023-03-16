@@ -56,7 +56,8 @@ module World
         letter = clinical_letter_for(patient)
 
         letter = Renalware::Letters::LetterPresenterFactory.new(letter)
-        expect(letter.letter_event.part_classes).to include Renalware::Letters::Part::RecentPathologyResults
+        expect(letter.letter_event.part_classes)
+          .to include Renalware::Letters::Part::RecentPathologyResults
       end
 
       def expect_clinical_letter_to_list_allergies(patient:)

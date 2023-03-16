@@ -36,7 +36,8 @@ module Renalware
       # #select with the ObservationSetMethods so a user can call eg {..}.hgb_date
       # or {..}.plt etc without error
       def values_for_codes(codes)
-        hash = Array(codes).each_with_object(ActiveSupport::HashWithIndifferentAccess.new) do |code, hash|
+        hash = Array(codes)
+          .each_with_object(ActiveSupport::HashWithIndifferentAccess.new) do |code, hash|
           hash[code] = values[code] || CurrentObservationSet.null_values_hash
         end
         hash.extend(ObservationSetMethods)

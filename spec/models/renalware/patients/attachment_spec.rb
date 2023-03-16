@@ -52,7 +52,8 @@ module Renalware
             attachment = build(:patient_attachment, attachment_type: attachment_type, file: nil)
 
             expect(attachment).not_to be_valid
-            expect(attachment.errors.full_messages).to include("File Please specify a file to upload")
+            expect(attachment.errors.full_messages)
+              .to include("File Please specify a file to upload")
           end
         end
 

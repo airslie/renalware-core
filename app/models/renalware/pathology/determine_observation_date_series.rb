@@ -20,7 +20,8 @@ module Renalware
       def call
         @relation
           .order("DATE(observed_at) DESC")
-          .reselect("DISTINCT ON (DATE(observed_at)) DATE(observed_at) as date_observed_at").map(&:date_observed_at)
+          .reselect("DISTINCT ON (DATE(observed_at)) DATE(observed_at) as date_observed_at")
+          .map(&:date_observed_at)
       end
     end
   end

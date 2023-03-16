@@ -3,6 +3,7 @@
 require "rails_helper"
 require "renalware/hd/letter_extensions/hd_section"
 
+# rubocop:disable Layout/LineLength
 module Renalware
   module HD
     module LetterExtensions
@@ -202,9 +203,12 @@ module Renalware
 
         describe "#call" do
           before do
-            allow(HD).to receive(:cast_patient).with(patient).and_return(hd_patient)
-            allow(Clinical).to receive(:cast_patient).with(patient).and_return(clinical_patient)
-            allow(Clinics::CurrentObservations).to receive(:new).with(patient).and_return(current_observation)
+            allow(HD)
+              .to receive(:cast_patient).with(patient).and_return(hd_patient)
+            allow(Clinical)
+              .to receive(:cast_patient).with(patient).and_return(clinical_patient)
+            allow(Clinics::CurrentObservations)
+              .to receive(:new).with(patient).and_return(current_observation)
           end
 
           context "when all data is present" do
@@ -344,3 +348,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Layout/LineLength

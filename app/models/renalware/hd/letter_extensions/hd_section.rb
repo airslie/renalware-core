@@ -48,6 +48,7 @@ module Renalware
           @patient = patient
         end
 
+        # rubocop:disable Layout/LineLength
         def call
           output1 = []
           output1 << "<dt>HD Access</dt>"
@@ -64,6 +65,7 @@ module Renalware
 
           "<dl>#{[output1.join(' '), output2.join(' ')].compact.join}</dl>".html_safe
         end
+        # rubocop:enable Layout/LineLength
 
         def render?
           access_profile.present?
@@ -108,6 +110,7 @@ module Renalware
           @height ||= Clinics::CurrentObservations.new(@patient).height.measurement
         end
 
+        # rubocop:disable Layout/LineLength
         def mean_pre_hd_bp
           return nil unless patient_statistics
           return nil unless patient_statistics.pre_mean_systolic_blood_pressure
@@ -115,7 +118,9 @@ module Renalware
 
           "#{patient_statistics.pre_mean_systolic_blood_pressure.round} / #{patient_statistics.pre_mean_diastolic_blood_pressure.round}"
         end
+        # rubocop:enable Layout/LineLength
 
+        # rubocop:disable Layout/LineLength
         def mean_post_hd_bp
           return nil unless patient_statistics
           return nil unless patient_statistics.post_mean_systolic_blood_pressure
@@ -123,6 +128,7 @@ module Renalware
 
           "#{patient_statistics.post_mean_systolic_blood_pressure.round} / #{patient_statistics.post_mean_diastolic_blood_pressure.round}"
         end
+        # rubocop:enable Layout/LineLength
 
         def patient_statistics
           @patient_statistics ||= HD.cast_patient(@patient).rolling_patient_statistics
@@ -134,18 +140,20 @@ module Renalware
       end
 
       class URRAndTransplantStatusComponent < ViewComponent::Base
-        # http://localhost:3000/patients/5a99a85ead8f4b6c9a1e8251e4f7ce77/transplants/recipient/registration/edit
+        # http://localhost:3000/patients/xxx/transplants/recipient/registration/edit
 
         def initialize(patient:)
           @patient = patient
         end
 
+        # rubocop:disable Layout/LineLength
         def call
           output = []
           output << "<dt>Mean URR</dt><dd>#{urr_value}</dd><dd>#{urr_date}</dd>" if urr_value
           output << "<dt>Transplant status</dt><dd>#{transplant_status&.description}</dd><dd>#{::I18n.l(transplant_status&.started_on)}</dd>" if transplant_status
           "<dl>#{output.join}</dl>".html_safe
         end
+        # rubocop:enable Layout/LineLength
 
         def render?
           true
@@ -167,7 +175,8 @@ module Renalware
 
         def current_observation_values
           # alternatively define a method somewhere to do the OR condition there
-          @current_observation_values ||= (@patient.current_observation_set || Pathology::NullObservationSet.new).values
+          @current_observation_values ||=
+            (@patient.current_observation_set || Pathology::NullObservationSet.new).values
         end
       end
 

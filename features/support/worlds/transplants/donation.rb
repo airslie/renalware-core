@@ -117,6 +117,7 @@ module World
         end
       end
 
+      # rubocop:disable Layout/LineLength
       def assign_recipient_to_donation(patient:, recipient:, user:)
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
@@ -138,6 +139,7 @@ module World
         submit_form
         expect(page).to have_current_path(patient_transplants_donor_dashboard_path(patient))
       end
+      # rubocop:enable Layout/LineLength
     end
   end
 end

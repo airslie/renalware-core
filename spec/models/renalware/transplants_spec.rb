@@ -9,10 +9,13 @@ module Renalware
       let(:patient) { instance_double(Patient) }
 
       before do
-        allow(Transplants::Registration).to receive(:for_patient).with(patient).and_return([transplant_registration])
+        allow(Transplants::Registration)
+          .to receive(:for_patient)
+          .with(patient)
+          .and_return([transplant_registration])
       end
 
-      context "when registration is available" do
+      context "when registration is not available" do
         it "returns nil" do
           expect(Transplants.current_transplant_status_for_patient(patient)).to be_nil
         end

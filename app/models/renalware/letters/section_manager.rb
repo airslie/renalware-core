@@ -32,8 +32,8 @@ module Renalware
       end
 
       # Given a hash of letter section classes (i.e. the class names for each Part that should be
-      # included in the letter, where each Part is responsible for rendering a section of the letter)
-      # and other options, this class filters out certain sections based on conditions,
+      # included in the letter, where each Part is responsible for rendering a section of the
+      # letter) and other options, this class filters out certain sections based on conditions,
       # for example if a site does not want pathology, the recent_pathology_results key is
       # removed from the hash.
       class SectionClassFilter

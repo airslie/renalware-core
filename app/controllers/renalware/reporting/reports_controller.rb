@@ -71,7 +71,8 @@ module Renalware
 
       # E.g. "My Report - 24-Aug-2022 16-34.csv"
       def csv_filename_for(_view)
-        unsanitized_filename = "#{current_view.title || current_view.view_name} - #{I18n.l(Time.zone.now)}.csv"
+        unsanitized_filename =
+          "#{current_view.title || current_view.view_name} - #{I18n.l(Time.zone.now)}.csv"
         ActiveStorage::Filename.new(unsanitized_filename).sanitized
       end
 

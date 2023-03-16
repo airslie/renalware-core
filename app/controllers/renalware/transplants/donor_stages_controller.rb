@@ -17,7 +17,10 @@ module Renalware
 
       def create
         authorize donor_stage
-        result = CreateDonorStage.new(patient: transplants_patient, options: donor_stage_params).call
+        result = CreateDonorStage.new(
+          patient: transplants_patient,
+          options: donor_stage_params
+        ).call
         if result.success?
           redirect_to patient_transplants_donor_dashboard_path(transplants_patient),
                       notice: success_msg_for("donor stage")
