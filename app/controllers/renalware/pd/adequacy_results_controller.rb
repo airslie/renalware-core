@@ -17,7 +17,10 @@ module Renalware
         authorize adequacy
 
         if adequacy.save_by(current_user)
-          redirect_to patient_pd_dashboard_path(pd_patient), notice: success_msg_for("Adequacy result")
+          redirect_to(
+            patient_pd_dashboard_path(pd_patient),
+            notice: success_msg_for("Adequacy result"
+          )
         else
           render :new, locals: { adequacy: adequacy }
         end

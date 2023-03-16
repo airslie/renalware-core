@@ -16,7 +16,9 @@ module Renalware
       end
 
       def show_use_updates_toggle?(preview_topic_id)
-        letter.persisted? && diffy_diff.to_a.any? && (preview_topic_id.blank? || preview_topic_id == letter.topic_id.to_s)
+        letter.persisted? &&
+          diffy_diff.to_a.any? &&
+          (preview_topic_id.blank? || preview_topic_id == letter.topic_id.to_s)
       end
 
       def lcs_diff_left

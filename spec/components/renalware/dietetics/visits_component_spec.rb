@@ -21,7 +21,11 @@ module Renalware
     # app/views/renalware/clinics/clinic_visits/_table_row.html.slim
 
     # context "with one dietetic clinic visit" do
-    #   let(:instance) { described_class.new(patient: patient, dietetic_clinic_visits_loader: proc { [dietetic_clinic] }) }
+    #   let(:instance) {
+    #     described_class.new(
+    #       patient: patient,
+    #       dietetic_clinic_visits_loader: proc { [dietetic_clinic] })
+    #   }
     #   let(:user) { User.new }
 
     #   before do

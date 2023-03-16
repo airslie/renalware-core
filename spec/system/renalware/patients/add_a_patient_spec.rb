@@ -23,7 +23,8 @@ describe "A user adds a patient" do
       expect(page).to have_content("Date of Birth can't be blank")
       expect(page).to have_content("Date of Birth is not a valid date")
       expect(page).to have_content("Sex is required")
-      expect(page).to have_content("The patient must have at least one of these numbers: KCH, QEH, DVH, PRUH, GUYS, Other Hospital Number")
+      expect(page).to have_content("The patient must have at least one of these numbers: " \
+                                   "KCH, QEH, DVH, PRUH, GUYS, Other Hospital Number")
 
       fill_in "KCH No", with: "12345"
       fill_in "Family name", with: "FamilyName"

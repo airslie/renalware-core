@@ -38,8 +38,8 @@ module Renalware
         click_button "Create"
         expect(page).to have_content "Date can't be blank"
         expect(page).to have_content "must be greater than or equal to 15" # Previous weight
-        expect(page).to have_content "must be greater than or equal to 30" # Weist
-        expect(page).to have_content "must be greater than or equal to 500" # Estimated energy requirement
+        expect(page).to have_content "must be greater than or equal to 30" # Waist
+        expect(page).to have_content "must be greater than or equal to 500" # Est energy requirement
 
         fill_in "Date", with: "20-07-2015"
         fill_in "Weight", with: "82.5"

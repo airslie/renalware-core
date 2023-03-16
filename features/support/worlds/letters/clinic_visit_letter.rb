@@ -110,7 +110,8 @@ module World
         letter = clinic_visit_letter_for(visit)
 
         letter = Renalware::Letters::LetterPresenterFactory.new(letter)
-        expect(letter.letter_event.part_classes).to include Renalware::Letters::Part::ClinicalObservations
+        expect(letter.letter_event.part_classes)
+          .to include Renalware::Letters::Part::ClinicalObservations
       end
 
       def expect_letter_to_list_problems(patient:)
@@ -126,7 +127,8 @@ module World
         letter = clinic_visit_letter_for(visit)
 
         letter = Renalware::Letters::LetterPresenterFactory.new(letter)
-        expect(letter.letter_event.part_classes).to include Renalware::Letters::Part::RecentPathologyResults
+        expect(letter.letter_event.part_classes)
+          .to include Renalware::Letters::Part::RecentPathologyResults
       end
     end
 

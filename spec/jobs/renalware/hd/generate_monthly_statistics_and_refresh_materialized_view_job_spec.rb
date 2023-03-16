@@ -8,9 +8,11 @@ module Renalware
       let(:monthly_statistics) { instance_double(GenerateMonthlyStatistics, call: nil) }
 
       before do
-        allow(GenerateMonthlyStatistics).to receive(:new).with(month: nil,
-                                                               year: nil).and_return monthly_statistics
-        allow(RefreshMaterializedViewJob).to receive(:perform_later)
+        allow(GenerateMonthlyStatistics)
+          .to receive(:new).with(month: nil,year: nil)
+          .and_return monthly_statistics
+        allow(RefreshMaterializedViewJob)
+          .to receive(:perform_later)
       end
 
       describe "#perform" do

@@ -13,7 +13,8 @@ describe "Updating a Event triggers an event_updated broadcast" do
     }
 
     before do
-      Renalware.config.broadcast_subscription_map["Renalware::Events::UpdateEvent"] << "TestEventListener"
+      Renalware.config.broadcast_subscription_map["Renalware::Events::UpdateEvent"] <<
+        "TestEventListener"
     end
 
     after do

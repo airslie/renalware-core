@@ -299,7 +299,8 @@ module Renalware
           end
 
           describe "#dialysis_minutes_shortfall" do
-            it "returns the number of HD minutes missed across the sessions which is to say total prescribed time - total actual time on HD" do
+            it "returns the number of HD minutes missed across the sessions which is to say " \
+               "total prescribed time - total actual time on HD" do
               # expected shortfall = 69 - see above
               expect(audit.dialysis_minutes_shortfall).to eq(69)
             end

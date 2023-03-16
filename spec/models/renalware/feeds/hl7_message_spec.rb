@@ -164,7 +164,8 @@ module Renalware::Feeds
       end
 
       describe "comment" do
-        it "strips anything after .br as the comment - unfort the escaping may mean lost chars e.g. epsis => epsis - I can't think of a safe way around this atm" do
+        it "strips anything after .br as the comment - unfort the escaping may mean lost chars " \
+           "e.g. epsis => epsis - I can't think of a safe way around this atm" do
           obs = decorator.observation_requests.first.observations.first
           expect(obs).to have_attributes(
             value: "12.8",
@@ -172,7 +173,8 @@ module Renalware::Feeds
           )
         end
 
-        it "strips anything after .br as the comment - unfort the escaping may mean lost chars e.g. epsis => epsis - I can't think of a safe way around this atm" do
+        it "strips anything after .br as the comment - unfort the escaping may mean lost chars " \
+           "e.g. epsis => epsis - I can't think of a safe way around this atm" do
           obs = decorator.observation_requests.first.observations.last
           expect(obs).to have_attributes(
             value: "54",

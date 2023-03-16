@@ -17,7 +17,8 @@ module Renalware
           .for_patient(patient)
           .joins(event_type: :alert_triggers)
           .select("DISTINCT ON (events.patient_id, event_type_alert_triggers.id) events.*")
-          .where("(events.document::text ilike '%' || when_event_document_contains || '%') or (events.description ilike '%' || when_event_description_contains || '%')")
+          .where("(events.document::text ilike '%' || when_event_document_contains || '%') or " \
+                 "(events.description ilike '%' || when_event_description_contains || '%')")
           .order("events.patient_id, event_type_alert_triggers.id, events.created_at desc")
       end
     end

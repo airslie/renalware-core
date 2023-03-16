@@ -55,6 +55,9 @@ AllCops:
 Layout/LineLength:
   Exclude:
     - "spec/acceptance/renalware/steps/**/*"
+    - "features/step_definitions/**/*"
+    - "config/initializers/**/*"
+    - "app/inputs/**.*"
 Style/FrozenStringLiteralComment:
   Exclude:
     - "spec/dummy/db/migrate/**/*"
