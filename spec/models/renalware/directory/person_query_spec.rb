@@ -9,7 +9,8 @@ module Renalware
         before do
           nurse = create(:user)
           create(:directory_person, given_name: "Yosemite", family_name: "Sam", by: nurse)
-          create(:directory_person, family_name: "::another patient::", by: nurse)
+          create(:directory_person, given_name: "Test", family_name: "::another patient::",
+                                    by: nurse)
         end
 
         context "with no filters" do
