@@ -31,12 +31,12 @@ $alert-border-color: scale-color($primary-color, $lightness: $alert-function-fac
 $alert-bottom-margin: rem-calc(20) !default;
 
 // We use these to style the close buttons
-$alert-close-color: $oil !default;
+$alert-close-color: inherit !default;
 $alert-close-top: 50% !default;
 $alert-close-position: rem-calc(4) !default;
 $alert-close-font-size: rem-calc(22) !default;
-$alert-close-opacity: .3 !default;
-$alert-close-opacity-hover: .5 !default;
+$alert-close-opacity: 0.6 !default;
+$alert-close-opacity-hover: 1 !default;
 $alert-close-padding: 0 6px 4px !default;
 $alert-close-background: inherit !default;
 
