@@ -53,6 +53,7 @@ const dateConfig = {
 const timeConfig = {
   enableTime: true,
   noCalendar: true,
+  time_24hr: true,
   dateFormat: "H:i",
 }
 
@@ -88,7 +89,7 @@ export default class extends Controller {
     if (this.dateWithTimeValue) {
       config = dateWithTimeConfig
     } else if (this.timeOnlyValue) {
-      config = timeOnly
+      config = timeConfig
     } else {
       config = dateConfig
     }

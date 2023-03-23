@@ -39323,6 +39323,12 @@ var dateConfig = {
   },
   dateFormat: "d-M-Y"
 };
+var timeConfig = {
+  enableTime: true,
+  noCalendar: true,
+  time_24hr: true,
+  dateFormat: "H:i"
+};
 var dateWithTimeConfig = {
   parseDate: function parseDate(datestr, _format) {
     var pattern;
@@ -39356,7 +39362,7 @@ var _default$3 = /*#__PURE__*/function (_Controller) {
       if (this.dateWithTimeValue) {
         config = dateWithTimeConfig;
       } else if (this.timeOnlyValue) {
-        config = timeOnly;
+        config = timeConfig;
       } else {
         config = dateConfig;
       }
