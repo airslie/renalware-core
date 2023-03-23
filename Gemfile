@@ -32,7 +32,6 @@ gem "terser"
 # Bear in mind the gem contains several platform-specific binaries so is pretty large,
 # so in a docker image the apt package is a better choice
 gem "httparty", require: false
-gem "tailwindcss-rails", "~> 2.0.25"
 gem "wkhtmltopdf-binary", "0.12.3.1"
 # For sentry error reporting and metrics
 # gem "sentry-rails"

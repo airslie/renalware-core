@@ -4,7 +4,7 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center rounded border border-transparent px-4 py-2 font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply inline-flex items-center rounded border border-transparent px-4 py-2 font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer;
   }
 
   .btn-sm {
@@ -16,12 +16,12 @@
   }
 
   .btn-primary {
-    @apply bg-sky-600 text-white focus:ring-blue-500; 
+    @apply bg-sky-600 text-white focus:ring-blue-500;
   }
 
   .btn-primary:hover,
   .btn-primary:focus {
-    @apply text-white bg-sky-700
+    @apply text-white bg-sky-700;
   }
 
   .btn-secondary {
@@ -33,4 +33,3 @@
     @apply bg-gray-100 text-gray-700;
   }
 }
-

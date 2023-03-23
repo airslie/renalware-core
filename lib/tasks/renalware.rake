@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-# rubocop:disable Rails/RakeEnvironment
 namespace :renalware do
-  desc "Install package.json dependencies with yarn for the renalware-core engine - "\
-       "without this <path to installed gem>/renalware-core/node_modules is not populated "\
+  desc "Install package.json dependencies with yarn for the renalware-core engine - " \
+       "without this <path to installed gem>/renalware-core/node_modules is not populated " \
        "and assets:precompile in the host app will not work."
   task :yarn_install do
     puts "Installing renalware-core/package.json dependencies with yarn"
@@ -23,3 +22,27 @@ else
   Rake::Task.define_task("yarn:install" => "renalware:yarn_install")
 end
 # rubocop:enable Rails/RakeEnvironment
+
+Rake::Task["tailwindcss:build"].clear
+
+# Based on the original at tailwindcss-rails/lib/tasks/build.rake
+# but using `Renalware::Engine.root` instead of `Rails.root`
+namespace :tailwindcss do
+  desc "Build your Tailwind CSS"
+  task build: :environment do |_, args|
+    debug = args.extras.include?("debug")
+
+    command = [
+      Tailwindcss::Commands.executable,
+      "-i", Renalware::Engine.root.join("app/assets/stylesheets/application.tailwind.css").to_s,
+      "-o", Rails.root.join("app/assets/builds/tailwind.css").to_s,
+      "-c", Renalware::Engine.root.join("config/tailwind.config.js").to_s
+    ].tap do |command|
+      command << "--minify" unless debug
+    end
+
+    puts command.inspect if args.extras.include?("verbose")
+
+    system(*command, exception: true)
+  end
+end

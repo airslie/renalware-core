@@ -9,9 +9,8 @@
     "defaults",
     "IE 11"
   ],
-  "dependencies": {
-  },
+  "dependencies": {},
   "scripts": {
-    "build:css": "bundle exec rake tailwind:generate_config && tailwindcss -c ./config/tailwind.config.js -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/tailwind.css --minify"
+    "build:css": "tailwindcss -c `bundle show renalware-core`/config/tailwind.config.js -i `bundle show renalware-core`/app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/tailwind.css --minify"
   }
 }
