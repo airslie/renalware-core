@@ -123,7 +123,6 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
 //
 // We use this mixin to give all basic form elements their style
 @mixin form-element {
-  background-color: $input-bg-color;
   border: {
     style: $input-border-style;
     width: $input-border-width;
@@ -334,12 +333,7 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
 }
 
 // We use this mixin to style select elements
-@mixin form-select  {
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  background-color: $select-bg-color;
-  border-radius: 0;
-
+@mixin form-select {
   // Hide the dropdown arrow shown in newer IE versions
   &::-ms-expand {
     display: none;
@@ -366,7 +360,6 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
   @include radius(0);
   &.radius { @include radius($global-radius); }
   &:focus {
-    background-color: $select-hover-bg-color;
     border-color: $input-focus-border-color;
   }
   // Disabled Styles

@@ -94,10 +94,10 @@ span.select2.select2-container.select2-container--default {
 }
 
 .select2-results__options {
-    background-color: #fafafa;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  background-color: #fff;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .select2-results__option {
@@ -124,9 +124,9 @@ span.select2.select2-container.select2-container--default {
 }
 
 .select2-search--dropdown {
-    background-color: #fafafa;
-    display: block;
-    padding: 4px;
+  background-color: #fff;
+  display: block;
+  padding: 4px;
 }
 
 .select2-search--dropdown .select2-search__field {
@@ -618,5 +618,5 @@ span.select2.select2-container.select2-container--default {
 }
 
 .select2-container--default .select2-selection--single {
-    background-color: #fafafa;
+  background-color: #fff;
 }

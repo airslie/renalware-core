@@ -1,6 +1,6 @@
 @layer components {
   .btn {
-    @apply inline-flex items-center rounded border border-transparent px-4 py-2 font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer;
+    @apply inline-flex justify-center rounded border border-transparent px-4 py-2 font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer;
   }
 
   .btn-sm {
