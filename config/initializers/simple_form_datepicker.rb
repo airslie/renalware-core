@@ -18,12 +18,9 @@ SimpleForm.setup do |config|
     end
 
     b.wrapper :right_input_wrapper, tag: :div, class: "small-12 medium-8 large-9 columns" do |ba|
-      ba.wrapper :x, tag: :div, class: "row collapse datepicker-wrapper" do |bc|
-        bc.use :prefix_column
-        bc.use :input_column
-        bc.use :error, wrap_with: { tag: :small, class: [:error, :datepicker_error] }
-        bc.use :hint,  wrap_with: { tag: :span, class: :hint }
-      end
+      ba.use :input
+      ba.use :error, wrap_with: { tag: :small, class: [:error, :datepicker_error] }
+      ba.use :hint,  wrap_with: { tag: :span, class: :hint }
     end
   end
 
