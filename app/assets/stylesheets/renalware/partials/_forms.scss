@@ -25,12 +25,6 @@ a.small-helper-button {
     background-color: $nhs-blue;
   }
 }
-
-input::placeholder,
-textarea::placeholder {
-  color: $form-hint-colour
-}
-
 .panel {
   p {
     padding-left: 0;

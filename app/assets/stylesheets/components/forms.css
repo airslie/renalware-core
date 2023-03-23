@@ -1,0 +1,6 @@
+@layer base {
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-gray-400;
+  }
+}
