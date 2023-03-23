@@ -12,7 +12,7 @@
                 = label_tag :identity_match, t(".accessible_label_title") do
                   = f.search_field :identity_match,
                                    placeholder: t(".verbose_search_placeholder"),
-                                   class: "radius"
+                                   class: "radius rounded-r-none"
               .small-2.columns
                 = f.button class: "button tiny postfix radius radius-right" do
                   i.fas.fa-search

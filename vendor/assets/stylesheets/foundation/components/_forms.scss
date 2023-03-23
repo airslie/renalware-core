@@ -108,9 +108,6 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
         padding-left: 0;
         padding-right: 0;
       }
-      input {
-        @include side-radius($opposite-direction, 0);
-      }
     }
   }
   input.column,
@@ -135,9 +132,7 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
   display: block;
   font-family: $input-font-family;
   font-size: $input-font-size;
-  height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1));
   margin: 0 0 $form-spacing 0;
-  padding: $form-spacing / 2;
   width: 100%;
   @include box-sizing(border-box);
   @if $input-include-glowing-effect {
@@ -375,12 +370,6 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
   color: $input-font-color;
   font-family: $input-font-family;
   font-size: $input-font-size;
-  line-height: normal;
-  padding: ($form-spacing / 2);
-  @include radius(0);
-  &.radius {
-    @include radius($global-radius);
-  }
   &:focus {
     border-color: $input-focus-border-color;
   }
@@ -479,45 +468,7 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
       /* We use this to get basic styling on all basic form elements */
       input:not([type]),
       #{text-inputs(all, 'input')} {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        border-radius: 0;
         @include form-element;
-        @if $input-include-glowing-effect == false {
-          -webkit-transition: border-color
-              $input-transition-fade-time
-              $input-transition-fade-timing-function,
-            background
-              $input-transition-fade-time
-              $input-transition-fade-timing-function;
-          -moz-transition: border-color
-              $input-transition-fade-time
-              $input-transition-fade-timing-function,
-            background
-              $input-transition-fade-time
-              $input-transition-fade-timing-function;
-          -ms-transition: border-color
-              $input-transition-fade-time
-              $input-transition-fade-timing-function,
-            background
-              $input-transition-fade-time
-              $input-transition-fade-timing-function;
-          -o-transition: border-color
-              $input-transition-fade-time
-              $input-transition-fade-timing-function,
-            background
-              $input-transition-fade-time
-              $input-transition-fade-timing-function;
-          transition: border-color
-              $input-transition-fade-time
-              $input-transition-fade-timing-function,
-            background
-              $input-transition-fade-time
-              $input-transition-fade-timing-function;
-        }
-        &.radius {
-          @include radius($input-border-radius);
-        }
       }
     }
 
@@ -579,12 +530,6 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
     }
 
     .fn-form {
-      input[type="submit"] {
-        // -webkit-appearance: none;
-        // -moz-appearance: none;
-        // border-radius: 0;
-      }
-
       /* Respect enforced amount of rows for textarea */
       textarea[rows] {
         height: auto;
@@ -598,7 +543,6 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
       /* Add height value for select elements to match text input height */
       select {
         @include form-select;
-        height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1));
         &[multiple] {
           height: auto;
         }
