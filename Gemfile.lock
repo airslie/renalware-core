@@ -773,7 +773,7 @@ GEM
       activerecord (>= 5.2)
     sys-uname (1.2.2)
       ffi (~> 1.1)
-    tailwindcss-rails (2.0.21)
+    tailwindcss-rails (2.0.25)
       railties (>= 6.0.0)
     temple (0.8.2)
     terminal-table (3.0.2)
@@ -905,7 +905,7 @@ DEPENDENCIES
   spring-commands-cucumber
   spring-commands-rspec
   strong_migrations
-  tailwindcss-rails (~> 2.0)
+  tailwindcss-rails (~> 2.0.25)
   terser
   test-prof
   turnip (~> 4.0)!
