@@ -74,6 +74,8 @@ spec/dummy/app/assets/builds/tailwind.css
 ukrdc_keyring.*
 config/master.key
 
+/app/assets/javascripts/renalware/built.js.map
+
 # certs/keys/pems etc
 *.crt
 *.cer
