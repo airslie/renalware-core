@@ -7,7 +7,7 @@ module Renalware
         return if letter.death_notification?
 
         if letter.author&.signature.blank?
-          errors[:signature] << "Author must have a signature"
+          errors.add(:signature, "Author must have a signature")
         end
       end
     end

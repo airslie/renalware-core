@@ -36,7 +36,7 @@ module Renalware
         max = Renalware.config.max_file_upload_size
         if file.attached? && file.blob.byte_size > max
           file.purge if file.persisted?
-          errors[:file] << "Sorry, the file is too large. The maximum is #{max} bytes."
+          errors.add(:file, "Sorry, the file is too large. The maximum is #{max} bytes.")
         end
       end
 
@@ -44,7 +44,7 @@ module Renalware
         return if attachment_type.blank?
 
         if !file.attached? && attachment_type.store_file_internally?
-          errors[:file] << "Please specify a file to upload"
+          errors.add(:file, "Please specify a file to upload")
         end
       end
     end

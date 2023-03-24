@@ -23,14 +23,14 @@ en:
     clinical:
       body_compositions:
         index:
-          title: Body Composition Measurements
+          page_title: Body Composition Measurements
         list:
           add_dry_weight: Add a Body Composition Measurements
           recent:
             title: Recent Body Composition Measurements
           title: Body Composition Measurements
         show:
-          title: Body Composition Measurements
+          page_title: Body Composition Measurements
         table:
           adipose_tissue_mass: ATM
           assessed_on: Date

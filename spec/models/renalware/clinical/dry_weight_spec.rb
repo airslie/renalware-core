@@ -21,8 +21,8 @@ module Renalware
           it "validates minimum_weight is <= maximum_weight" do
             dw = described_class.new(minimum_weight: 80, maximum_weight: 90).tap(&:valid?)
 
-            expect(dw.errors.keys).not_to include(:minimum_weight)
-            expect(dw.errors.keys).not_to include(:maximum_weight)
+            expect(dw.errors.attribute_names).not_to include(:minimum_weight)
+            expect(dw.errors.attribute_names).not_to include(:maximum_weight)
           end
         end
 

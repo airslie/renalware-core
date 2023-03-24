@@ -22,9 +22,9 @@ gem "net-smtp", require: false # remove in Rails 7
 gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 gem "paper_trail"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
-gem "rails", "~> 6.0.6"
+gem "rails", "~> 7.0.4.2"
 gem "redis", "~> 4.8"
-gem "renalware-forms", ">=0.1.16", github: "airslie/renalware-forms", branch: "main"
+gem "renalware-forms", ">=0.1", github: "airslie/renalware-forms", branch: "main"
 gem "ruby-prof", require: false
 gem "terser"
 # Re wkhtmltopdf binary for letter generation
@@ -32,7 +32,7 @@ gem "terser"
 # Bear in mind the gem contains several platform-specific binaries so is pretty large,
 # so in a docker image the apt package is a better choice
 gem "httparty", require: false
-gem "tailwindcss-rails", "~> 2.0.8"
+gem "tailwindcss-rails", "~> 2.0"
 gem "wkhtmltopdf-binary", "0.12.3.1"
 # For sentry error reporting and metrics
 # gem "sentry-rails"
@@ -43,10 +43,10 @@ gem "good_job"
 gem "matrix"
 
 group :test do
-  gem "capybara", "~> 3.32"
-  gem "capybara-screenshot", "~> 1.0"
+  gem "capybara" #, "~> 3.32"
+  gem "capybara-screenshot" #, "~> 1.0"
   gem "capybara-select-2"
-  gem "cucumber-rails", "~> 2.6.1", require: false # must be loaded in env.rb
+  gem "cucumber-rails", require: false #, "~> 2.6.1", require: false # must be loaded in env.rb
   gem "database_cleaner", require: false # for cucumber (now not needed for rspec)
   gem "execjs", "2.7.0" # 2.8.1 raises an error
   gem "fuubar", require: false

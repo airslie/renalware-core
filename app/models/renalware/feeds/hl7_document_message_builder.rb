@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "renalware/letters"
-
 # rubocop:disable Metrics/AbcSize, Metrics/ClassLength
 module Renalware
   module Feeds

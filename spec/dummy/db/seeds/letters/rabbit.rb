@@ -2,8 +2,7 @@
 
 module Renalware
   log "Assign Letters to Roger RABBIT" do
-    patient = Letters.cast_patient(Patient.find_by(local_patient_id: "Z100001"))
-    clinics_patient = Renalware::Clinics.cast_patient(patient)
+    patient = Letters::Patient.find_by(local_patient_id: "Z100001")
     patient.letters.each { |letter| letter.archive&.destroy! }
     patient.letters.destroy_all
     users = User.limit(3).to_a
@@ -38,6 +37,8 @@ module Renalware
       author: users.sample,
       by: users.sample
     )
+
+    clinics_patient = Renalware::Clinics::Patient.find(patient.id)
 
     Letters::Letter::Draft.create!(
       patient: patient,

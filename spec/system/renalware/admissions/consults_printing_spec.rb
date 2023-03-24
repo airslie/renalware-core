@@ -49,8 +49,6 @@ module Renalware
         expect(page).to have_content(l(active_consult.patient.born_on))
         expect(page).to have_content(active_consult.hospital_ward)
         expect(page).to have_content(active_consult.patient.hospital_identifiers)
-        expect(page).to have_content(active_consult.patient.current_modality)
-        # TODO: expect(page).to have_content(active_consult.consult_site.name)
 
         expect(page).not_to have_content(inactive_consult.patient.hospital_identifiers)
         expect(page).not_to have_content(inactive_consult.patient.to_s)

@@ -8,6 +8,7 @@ shared_examples_for "a nag" do
       component = described_class.new(definition: definition, patient: patient)
 
       expect(component.cache_key).not_to be_nil
+
       expect { patient.touch }.to change(component, :cache_key)
       expect { definition.touch }.to change(component, :cache_key)
     end

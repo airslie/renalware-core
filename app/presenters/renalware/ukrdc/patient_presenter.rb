@@ -37,6 +37,10 @@ module Renalware
         super
       end
 
+      def modalities
+        __getobj__.modalities.order(started_on: :asc, updated_at: :desc)
+      end
+
       def dead?
         current_modality_death?
       end

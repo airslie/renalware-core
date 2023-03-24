@@ -49,7 +49,10 @@ module Renalware
       # clear the application cache, or a developer can bump the updated_at date on the nag
       # definition (or touch the patient record in some way).
       def cache_key
-        [patient.cache_key, definition.cache_key].join("-")
+        [
+          patient.cache_key_with_version,
+          definition.cache_key_with_version
+        ].join("-")
       end
 
       # Note that nag could be nil if there was a SQL error executing the function.

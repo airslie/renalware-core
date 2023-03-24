@@ -23,7 +23,7 @@ module Renalware
         download.file.attach(
           io: File.open(file_fixture("dog.jpg")),
           filename: "dog.jpg",
-          content_type: "image/jpg"
+          content_type: "image/jpeg"
         )
         download.save_by!(user)
 

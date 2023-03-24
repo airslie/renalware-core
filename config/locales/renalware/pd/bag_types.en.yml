@@ -25,8 +25,8 @@ en:
     pd:
       bag_types:
         edit:
-          title: Edit
+          page_title: Edit
         index:
-          title: PD Bag Types
+          page_title: PD Bag Types
         new:
-          title: New
+          page_title: New

@@ -27,6 +27,8 @@ class CollectionPresenter
     end
   end
 
+  delegate :_reflect_on_association, to: :presenter_class
+
   def to_ary
     @decorated_collection.to_a
   end
@@ -47,6 +49,10 @@ class CollectionPresenter
     else
       @original_collection.public_send(method, *args, &block)
     end
+  end
+
+  def respond_to_missing?(method, _unused = nil)
+    @decorated_collection.respond_to?(method)
   end
 
   def respond_to?(method, _unused = nil)
