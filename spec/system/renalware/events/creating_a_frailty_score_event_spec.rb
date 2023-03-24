@@ -13,6 +13,10 @@ describe "Creating an clinical frailty score event", js: true do
       visit new_patient_event_path(patient)
 
       slim_select "Clinical Frailty Score", from: "Event type"
+
+      # something funky is happeining with the ajax, so wait a bit
+      sleep 0.2
+
       select "9", from: "Score"
 
       click_on t("btn.create")

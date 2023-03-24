@@ -13,6 +13,8 @@ describe "Creating an biopsy", js: true do
       visit new_patient_event_path(patient)
 
       slim_select "Renal biopsy", from: "Event type"
+
+      # something funky is happeining with the ajax, so wait a bit
       sleep 0.1
       select "De Novo GN", from: "Rejection"
       select "26-50%", from: "IFTA"
